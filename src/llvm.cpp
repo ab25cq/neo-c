@@ -311,7 +311,11 @@ void create_internal_functions()
     Type* lvtable_type = get_lvtable_type();
 
     gLVTableValue = new GlobalVariable(*TheModule, lvtable_type, false, GlobalValue::InternalLinkage, 0, "gLVTable");
+#if LLVM_VERSION_MAJOR >= 11
+    gLVTableValue->setAlignment(MaybeAlign(8));
+#else
     gLVTableValue->setAlignment(8);
+#endif
 
     ConstantAggregateZero* initializer = ConstantAggregateZero::get(lvtable_type);
 
@@ -1888,7 +1892,11 @@ Value* llvm_create_string(char* str)
     Constant* str_constant = ConstantDataArray::getString(TheModule->getContext(), str, true);
 
     GlobalVariable* gvar = new GlobalVariable(*TheModule, ArrayType::get(IntegerType::get(TheContext, 8), strlen(str)+1), true, GlobalValue::PrivateLinkage, 0, "global_string");
+#if LLVM_VERSION_MAJOR >= 11
+    gvar->setAlignment(MaybeAlign(1));
+#else
     gvar->setAlignment(1);
+#endif
 
     gvar->setInitializer(str_constant);
 

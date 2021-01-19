@@ -2431,7 +2431,11 @@ static BOOL compile_define_variable(unsigned int node, sCompileInfo* info)
             {
                 GlobalVariable* address = new GlobalVariable(*TheModule, llvm_var_type, false, GlobalValue::ExternalLinkage, 0, var_name, nullptr, GlobalValue::NotThreadLocal, 0, true);
 
+#if LLVM_VERSION_MAJOR >= 11
+                address->setAlignment(MaybeAlign(alignment));
+#else
                 address->setAlignment(alignment);
+#endif
                 var->mLLVMValue = address;
 
                 BOOL parent = FALSE;
@@ -2448,7 +2452,11 @@ static BOOL compile_define_variable(unsigned int node, sCompileInfo* info)
             
             GlobalVariable* address = new GlobalVariable(*TheModule, llvm_var_type, false, GlobalValue::ExternalLinkage, 0, var_name, nullptr, GlobalValue::NotThreadLocal, 0, false);
 
+#if LLVM_VERSION_MAJOR >= 11
+            address->setAlignment(MaybeAlign(alignment));
+#else
             address->setAlignment(alignment);
+#endif
 
             ConstantAggregateZero* initializer = ConstantAggregateZero::get(llvm_var_type);
 
@@ -2665,7 +2673,11 @@ static BOOL compile_store_variable(unsigned int node, sCompileInfo* info)
                     if(var->mLLVMValue == NULL && TheModule->getNamedGlobal(static_var_name) == nullptr)
                     {
                         GlobalVariable* address = new GlobalVariable(*TheModule, llvm_var_type, var->mConstant, GlobalValue::ExternalLinkage, 0, static_var_name);
+#if LLVM_VERSION_MAJOR >= 11
+                        address->setAlignment(MaybeAlign(alignment));
+#else
                         address->setAlignment(alignment);
+#endif
 
                         Value* rvalue2 = rvalue.value;
 
@@ -2703,7 +2715,11 @@ static BOOL compile_store_variable(unsigned int node, sCompileInfo* info)
                         }
             
                         GlobalVariable* address = new GlobalVariable(*TheModule, llvm_var_type, var->mConstant, GlobalValue::ExternalLinkage, 0, var_name);
+#if LLVM_VERSION_MAJOR >= 11
+                        address->setAlignment(MaybeAlign(alignment));
+#else
                         address->setAlignment(alignment);
+#endif
 
                         Value* rvalue2 = rvalue.value;
 
@@ -9996,7 +10012,11 @@ BOOL compile_array_with_initialization(unsigned int node, sCompileInfo* info)
                         }
 
                         Constant* constant_array = ConstantArray::get(ArrayType::get(var_llvm_element_type, len), init_data);
+#if LLVM_VERSION_MAJOR >= 11
+                        address->setAlignment(MaybeAlign(alignment));
+#else
                         address->setAlignment(alignment);
+#endif
 
                         ConstantAggregateZero* initializer = ConstantAggregateZero::get(llvm_var_type);
 
@@ -10074,7 +10094,11 @@ BOOL compile_array_with_initialization(unsigned int node, sCompileInfo* info)
                         }
 
                         Constant* constant_array = ConstantArray::get(ArrayType::get(var_llvm_element_type, num_initialize_array_value), init_data);
+#if LLVM_VERSION_MAJOR >= 11
+                        address->setAlignment(MaybeAlign(alignment));
+#else
                         address->setAlignment(alignment);
+#endif
 
                         ConstantAggregateZero* initializer = ConstantAggregateZero::get(llvm_var_type);
 
@@ -10447,7 +10471,11 @@ BOOL compile_struct_with_initialization(unsigned int node, sCompileInfo* info)
                     }
 
                     Constant* constant_struct = ConstantStruct::get((StructType*)llvm_var_type, init_data);
+#if LLVM_VERSION_MAJOR >= 11
+                    address->setAlignment(MaybeAlign(alignment));
+#else
                     address->setAlignment(alignment);
+#endif
 
                     ConstantAggregateZero* initializer = ConstantAggregateZero::get(llvm_var_type);
 

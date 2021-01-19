@@ -4061,7 +4061,7 @@ $as_echo "$ac_cv_lib_pcre_main" >&6; }
 if test "x$ac_cv_lib_pcre_main" = xyes; then :
    LIBS="$LIBS -lpcre";
 else
-   eixt
+   exit
 fi
 ac_cv_lib_pcre=ac_cv_lib_pcre_main
 
