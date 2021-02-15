@@ -1,3 +1,7 @@
+char** argv
+
+argv[0][0]
+
 
 static local variable
 
