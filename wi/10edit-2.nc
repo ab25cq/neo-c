@@ -91,7 +91,7 @@ initialize() {
             case 'w':
             case 'e':
                 self.activeWin.deleteWord(self);
-                self.enterInsertMode();
+                self.enterInsertMode2();
                 self.activeWin.writed = true;
                 break;
                 

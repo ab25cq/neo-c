@@ -1,0 +1,57 @@
+
+completion
+
+objects managed its type.
+
+command error output
+
+inherit
+
+super
+
+--------------
+vm return false message
+!exp
+inheritance
+object equal
+object type_name
+string.libraries
+string.set_value オブジェクトを持つオブジェクトにstringを変更
+macro
+normal block
+
+classの保存
+generics
+map, tuple
+
+load fundamental classes
+vim("src/node.nc で実行
+C-c
+if(true) { 1.to[TAB]
+while(true) { 1.[TAB]
+if(1.[TAB]
+while(1.[TAB]
+if(true) { l[TAB]
+readline
+C-z, jobs, fg
+
+sevenstars.ssとクラスファイルの検索パス
+
+リフレクション。
+cd
+コマンド名間違っていたとき
+ファイルの書き込み。stringクラスにwrite,append
+string.scan, string.split
+shell mode $variavle 
+getenv
+system class object omitted object name for run method.
+
+ls().to_st[TAB]
+
+all_methods()
+
+all_fields()
+check except the string class
+
+clover3 > var a = 1+1
+clover3 > a.[TAB]

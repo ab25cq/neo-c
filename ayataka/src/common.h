@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <sys/ioctl.h>
 #include "config.h"
-#include "../sevenstars/src/common.h"
+#include "../clover3/src/common.h"
 
 struct Filer;
 

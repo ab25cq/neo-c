@@ -4,7 +4,7 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 #include "config.h"
-#include "../sevenstars/src/common.h"
+#include "../clover3/src/common.h"
 
 #define SAVE_INPUT_KEY_MAX 256
 
@@ -74,6 +74,7 @@ impl ViWin version 2
     void modifyOverCursorYValue(ViWin* self);
     void modifyUnderCursorYValue(ViWin* self);
     void modifyOverCursorXValue(ViWin* self);
+    void modifyOverCursorXValue2(ViWin* self);
     void modifyUnderCursorXValue(ViWin* self);
 
     void forward(ViWin* self);
@@ -159,6 +160,7 @@ impl Vi version 3
     initialize();
 
     void enterInsertMode(Vi* self);
+    void enterInsertMode2(Vi* self);
     void exitFromInsertMode(Vi* self);
     int main_loop(Vi* self);
 }

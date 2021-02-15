@@ -7,9 +7,9 @@ bindir=@bindir@
 datadir=@datadir@
 mandir=@mandir@
 sharedstatedir=@sharedstatedir@
-sysconfdir=@sysconfdir@/sevenstars
-includedir=@includedir@/sevenstars
-datarootdir=@datarootdir@/sevenstars
+sysconfdir=@sysconfdir@/clover3
+includedir=@includedir@/clover3
+datarootdir=@datarootdir@/clover3
 docdir=@datadir@/doc
 libdir=@libdir@
 
@@ -34,7 +34,7 @@ all: ayataka
 #	if which ctags > /dev/null; then if test $(OS) = DARWIN; then ctags src/*.c > /dev/null 2>&1; else ctags -R; fi; fi
 
 ayataka: config.h src/*.h Makefile configure src/main.nc src/filer.o
-	$(CC) -o ayataka src/main.nc src/filer.o $(CFLAGS) $(NCFLAGS) $(LIBS) -L/opt/local/lib ../sevenstars/src/compiler.o ../sevenstars/src/interpreter.o ../sevenstars/src/parser.o ../sevenstars/src/node.o ../sevenstars/src/type.o ../sevenstars/src/class.o ../sevenstars/src/native.o ../sevenstars/src/native2.o ../sevenstars/src/native3.o ../sevenstars/src/native4.o ../sevenstars/src/native5.o ../sevenstars/src/native6.o ../sevenstars/src/vm.o ../sevenstars/src/vtable.o ../sevenstars/src/heap.o ../sevenstars/src/object.o ../sevenstars/src/block.o ../sevenstars/src/macro.o $(CFLAGS) $(NCFLAGS) $(LIBS)
+	$(CC) -o ayataka src/main.nc src/filer.o $(CFLAGS) $(NCFLAGS) $(LIBS) -L/opt/local/lib ../clover3/src/compiler.o ../clover3/src/interpreter.o ../clover3/src/parser.o ../clover3/src/node.o ../clover3/src/type.o ../clover3/src/class.o ../clover3/src/native.o ../clover3/src/native2.o ../clover3/src/native3.o ../clover3/src/native4.o ../clover3/src/native5.o ../clover3/src/native6.o ../clover3/src/native7.o ../clover3/src/vm.o ../clover3/src/vtable.o ../clover3/src/heap.o ../clover3/src/object.o ../clover3/src/block.o ../clover3/src/macro.o $(CFLAGS) $(NCFLAGS) $(LIBS)
 
 ##########################################################
 # objects

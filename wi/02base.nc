@@ -166,6 +166,28 @@ void modifyOverCursorXValue(ViWin* self){
     }
 }
 
+void modifyOverCursorXValue2(ViWin* self){
+    if(self.texts.length() == 0) {
+        self.scroll = 0;
+        self.cursorY = 0;
+        self.cursorX = 0;
+    }
+    else {
+        var cursor_line = self.texts.item(self.scroll+self.cursorY, null);
+
+        if(cursor_line) {
+            if(self.cursorX >= cursor_line.length())
+            {
+                self.cursorX = cursor_line.length()+1;
+
+                if(self.cursorX < 0) {
+                    self.cursorX = 0;
+                }
+            }
+        }
+    }
+}
+
 void modifyUnderCursorXValue(ViWin* self){
     if(self.cursorX < 0) {
         self.cursorX = 0;

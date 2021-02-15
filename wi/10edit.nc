@@ -12,7 +12,7 @@ initialize(int y, int x, int width, int height, Vi* vi)
 
 void modifyCursorOnDeleting(ViWin* self) {
     self.modifyOverCursorYValue();
-    self.modifyOverCursorXValue();
+    self.modifyOverCursorXValue2();
 }
 
 void deleteOneLine(ViWin* self, Vi* nvi) {
@@ -540,8 +540,9 @@ void incrementNumber(ViWin* self) {
 void replaceCursorCharactor(ViWin* self) {
     self.pushUndo();
     
-    var key = self.getKey(true);
+    var key = self.getKey(false);
     
+/*
     if(self.digitInput > 0) {
         int num = self.digitInput + 1;
         
@@ -554,9 +555,10 @@ void replaceCursorCharactor(ViWin* self) {
         self.digitInput = 0;
     }
     else {
+*/
         var line = self.texts.item(self.scroll+self.cursorY, null);
         line.replace(self.cursorX, (wchar_t)key);
-    }
+//    }
 }
 
 void deleteUntilTail(ViWin* self) {
