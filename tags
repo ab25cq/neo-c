@@ -2290,8 +2290,10 @@ macro	wi/common.h	/^    map<int, vector<vector<int>*%>*%>*% macro;$/;"	m	struct:
 main	a.c	/^int main(int argc, char** argv)$/;"	f
 main	self-host/src/compiler.c	/^int main(int argc, char** argv)$/;"	f
 main	self-host/src/preprocessor.c	/^int main(int argc, char* argv[])$/;"	f
+main	self-host/wi/a.c	/^int main()$/;"	f
 main	src/compiler.c	/^int main(int argc, char** argv)$/;"	f
 main	src/preprocessor.c	/^int main(int argc, char* argv[])$/;"	f
+main	wi/a.c	/^int main()$/;"	f
 make_clone_for_recursive_field_type	self-host/src/llvm.cpp	/^BOOL make_clone_for_recursive_field_type(sNodeType* node_type, sCompileInfo* info) $/;"	f
 make_clone_for_recursive_field_type	src/llvm.cpp	/^BOOL make_clone_for_recursive_field_type(sNodeType* node_type, sCompileInfo* info) $/;"	f
 make_finalize_for_recursive_field_type	self-host/src/llvm.cpp	/^BOOL make_finalize_for_recursive_field_type(sNodeType* node_type, sCompileInfo* info) $/;"	f

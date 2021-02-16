@@ -13,7 +13,6 @@ C-F
 C-t, ]]
 blink paren
 color
-line number
 C-i include
 :make
 save /tmp tmp texts
@@ -124,3 +123,4 @@ g5
 external command
 commnad mode
 command mode ---> run sevenstar shell
+line number
