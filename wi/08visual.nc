@@ -340,6 +340,7 @@ void deleteOnVisualMode(ViWin* self, Vi* nvi) {
     
 }
 
+/*
 void runShell(ViWin* self, Vi* nvi) {
     self.pushUndo();
     
@@ -411,6 +412,7 @@ void runShell(ViWin* self, Vi* nvi) {
     
     nvi.init_curses();
 }
+*/
 
 void makeInputedKeyGVIndent(ViWin* self, Vi* nvi) {
 }
@@ -529,9 +531,11 @@ void inputVisualMode(ViWin* self, Vi* nvi){
             self.rewriteVisualMode(nvi);
             break;
             
+/*
         case ':':
             self.runShell(nvi);
             break;
+*/
 
         case 27:
             nvi.exitFromVisualMode();

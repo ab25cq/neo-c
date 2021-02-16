@@ -31,7 +31,7 @@ DESTDIR=@DESTDIR@
 all: wi
 
 wi: configure Makefile config.h main.nc 01init.o 02base.o 03insert_mode.o 04word.o 05undo.o 06file.o 06-2file.o 06-3file.o 07yank.o 08visual.o 09search.o 10edit.o 10edit-2.o 11move.o 12command.o 13completion.o 14dot.o 15filer.o 16mark.o 17hvisual.o 18vvisual.o 19rewrite_mode.o 01init.nc 02base.nc 03insert_mode.nc 04word.nc 05undo.nc 06file.nc 06-2file.o 06-3file.o 07yank.nc 08visual.nc 09search.nc 10edit.nc 11move.nc 12command.nc 13completion.nc 14dot.nc 15filer.nc 16mark.nc 17hvisual.nc 18vvisual.nc 19rewrite_mode.nc
-	neo-c -o wi main.nc 01init.o 02base.o 03insert_mode.o 04word.o 05undo.o 06file.o 06-2file.o 06-3file.o 07yank.o 08visual.o 09search.o 10edit.o 10edit-2.o 11move.o 12command.o 13completion.o 14dot.o 15filer.o 16mark.o 17hvisual.o 18vvisual.o 19rewrite_mode.o -L/opt/local/lib $(CFLAGS) $(LIBS) $(NCFLAGS) ../clover3/src/interpreter.o ../clover3/src/compiler.o ../clover3/src/parser.o ../clover3/src/node.o ../clover3/src/type.o ../clover3/src/class.o ../clover3/src/native.o ../clover3/src/native2.o ../clover3/src/native3.o ../clover3/src/native4.o ../clover3/src/native5.o  ../clover3/src/native6.o ../clover3/src/native7.o ../clover3/src/vm.o ../clover3/src/vtable.o ../clover3/src/heap.o ../clover3/src/object.o ../clover3/src/block.o ../clover3/src/macro.o
+	neo-c -o wi main.nc 01init.o 02base.o 03insert_mode.o 04word.o 05undo.o 06file.o 06-2file.o 06-3file.o 07yank.o 08visual.o 09search.o 10edit.o 10edit-2.o 11move.o 12command.o 13completion.o 14dot.o 15filer.o 16mark.o 17hvisual.o 18vvisual.o 19rewrite_mode.o -L/opt/local/lib $(CFLAGS) $(LIBS) $(NCFLAGS) 
 
 01init.o: configure Makefile config.h 01init.nc common.h
 	neo-c -c 01init.nc $(CFLAGS) $(NCFLAGS)
