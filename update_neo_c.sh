@@ -12,9 +12,9 @@ if [ -e tiny/Makefile ]
 then
     (cd tiny; make distclean)
 fi
-if [ -e sevenstars/Makefile ]
+if [ -e clover3/Makefile ]
 then
-    (cd sevenstars; make distclean)
+    (cd clover3; make distclean)
 fi
 if [ -e ayataka/Makefile ]
 then
@@ -25,6 +25,14 @@ if [ -e self-host/Makefile ]
 then
     (cd self-host; make distclean)
 fi
+
+rm -rf clover3
+cp -a ../clover3 .
+rm -rf clover3/.git
+
+rm -rf wi
+cp -a ../wi .
+rm -rf wi/.git
 
 if [ ! -e Makefile ]
 then

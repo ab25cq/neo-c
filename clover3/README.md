@@ -2,7 +2,7 @@
 
 interpreter implemented by neo-c
 
-version 1.0.1
+version 1.0.2
 
 * 特徴
 

@@ -1,6 +1,6 @@
 # neo-c compiler language
 
-version 1.4.0
+version 1.5.0(Finally version. I'm continued to fix bugs, but will not change the system)
 
 ```
 #include <stdio.h>
@@ -65,6 +65,8 @@ This program is tested in LLVM-3.8, LLVM-7 and LLVM-10, and x86_64, aarch64 on D
 From version 1.4.0 I success to self-host compile.$ ulimit -s 132656; bash; cd self-host; bash all_build.sh;
 
 # CHANGELOG
+
+1.4.1 fixed the bug of loading element.
 
 1.4.0 Success to compile with self-host.
 

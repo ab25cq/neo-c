@@ -611,6 +611,8 @@ codes	clover3/src/common.h	/^    int* codes;$/;"	m	struct:sCLBlock
 codes_len	clover3/src/common.h	/^    int codes_len;$/;"	m	struct:sCLBlock
 cols	ayataka/src/common.h	/^    int cols;$/;"	m	struct:Filer
 cols	self-host/ayataka/src/common.h	/^    int cols;$/;"	m	struct:Filer
+commandString	self-host/wi/common.h	/^    string commandString;$/;"	m	struct:version
+commandString	wi/common.h	/^    string commandString;$/;"	m	struct:version
 compile	self-host/src/node.cpp	/^BOOL compile(unsigned int node, sCompileInfo* info)$/;"	f
 compile	src/node.cpp	/^BOOL compile(unsigned int node, sCompileInfo* info)$/;"	f
 compile_add	self-host/src/node.cpp	/^static BOOL compile_add(unsigned int node, sCompileInfo* info)$/;"	f	file:
@@ -1143,8 +1145,8 @@ gUsedNodes	self-host/src/node_alloc.c	/^int gUsedNodes = 0;$/;"	v
 gUsedNodes	src/node_alloc.c	/^int gUsedNodes = 0;$/;"	v
 gUsedPageNodeTypes	self-host/src/node_type.c	/^static int gUsedPageNodeTypes = 0;$/;"	v	file:
 gUsedPageNodeTypes	src/node_type.c	/^static int gUsedPageNodeTypes = 0;$/;"	v	file:
-gVersion	self-host/src/compiler.c	/^char* gVersion = "1.4.0";$/;"	v
-gVersion	src/compiler.c	/^char* gVersion = "1.4.0";$/;"	v
+gVersion	self-host/src/compiler.c	/^char* gVersion = "1.5.0";$/;"	v
+gVersion	src/compiler.c	/^char* gVersion = "1.5.0";$/;"	v
 generics_type	self-host/src/common.h	/^    sNodeType* generics_type;$/;"	m	struct:sCompileInfoStruct
 generics_type	src/common.h	/^    sNodeType* generics_type;$/;"	m	struct:sCompileInfoStruct
 generics_type_names	clover3/src/common.h	/^    vector<string>* generics_type_names;$/;"	m	struct:sParserInfo
@@ -2285,6 +2287,7 @@ mWhileNodeBlock	self-host/src/common.h	/^            MANAGED struct sNodeBlockSt
 mWhileNodeBlock	src/common.h	/^            MANAGED struct sNodeBlockStruct* mWhileNodeBlock;$/;"	m	struct:sNodeTreeStruct::__anon39::__anon52	typeref:struct:sNodeTreeStruct::__anon39::__anon52::sNodeBlockStruct
 macro	self-host/wi/common.h	/^    map<int, vector<vector<int>*%>*%>*% macro;$/;"	m	struct:version
 macro	wi/common.h	/^    map<int, vector<vector<int>*%>*%>*% macro;$/;"	m	struct:version
+main	a.c	/^int main(int argc, char** argv)$/;"	f
 main	self-host/src/compiler.c	/^int main(int argc, char** argv)$/;"	f
 main	self-host/src/preprocessor.c	/^int main(int argc, char* argv[])$/;"	f
 main	src/compiler.c	/^int main(int argc, char** argv)$/;"	f
@@ -3332,11 +3335,15 @@ version	code/HelloWorld6.h	/^impl StructData1 version 2$/;"	s
 version	code/HelloWorld6.h	/^struct StructData1 version 2$/;"	s
 version	self-host/code/HelloWorld6.h	/^impl StructData1 version 2$/;"	s
 version	self-host/code/HelloWorld6.h	/^struct StructData1 version 2$/;"	s
+version	self-host/wi/common.h	/^impl Vi version 12$/;"	s
 version	self-host/wi/common.h	/^impl Vi version 2 $/;"	s
 version	self-host/wi/common.h	/^impl Vi version 6$/;"	s
 version	self-host/wi/common.h	/^impl Vi version 7 $/;"	s
+version	self-host/wi/common.h	/^impl ViWin version 12$/;"	s
+version	self-host/wi/common.h	/^impl ViWin version 13 $/;"	s
 version	self-host/wi/common.h	/^impl ViWin version 2$/;"	s
 version	self-host/wi/common.h	/^impl ViWin version 7$/;"	s
+version	self-host/wi/common.h	/^struct Vi version 12$/;"	s
 version	self-host/wi/common.h	/^struct Vi version 15$/;"	s
 version	self-host/wi/common.h	/^struct Vi version 2 $/;"	s
 version	self-host/wi/common.h	/^struct Vi version 3 $/;"	s
@@ -3352,11 +3359,15 @@ version	self-host/wi/common.h	/^struct ViWin version 2 $/;"	s
 version	self-host/wi/common.h	/^struct ViWin version 5$/;"	s
 version	self-host/wi/common.h	/^struct ViWin version 6$/;"	s
 version	self-host/wi/common.h	/^struct ViWin version 8$/;"	s
+version	wi/common.h	/^impl Vi version 12$/;"	s
 version	wi/common.h	/^impl Vi version 2 $/;"	s
 version	wi/common.h	/^impl Vi version 6$/;"	s
 version	wi/common.h	/^impl Vi version 7 $/;"	s
+version	wi/common.h	/^impl ViWin version 12$/;"	s
+version	wi/common.h	/^impl ViWin version 13 $/;"	s
 version	wi/common.h	/^impl ViWin version 2$/;"	s
 version	wi/common.h	/^impl ViWin version 7$/;"	s
+version	wi/common.h	/^struct Vi version 12$/;"	s
 version	wi/common.h	/^struct Vi version 15$/;"	s
 version	wi/common.h	/^struct Vi version 2 $/;"	s
 version	wi/common.h	/^struct Vi version 3 $/;"	s

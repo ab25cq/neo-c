@@ -2699,7 +2699,7 @@ void free_right_value_objects(sCompileInfo* info)
 void free_object(sNodeType* node_type, void* address, BOOL force_delete, sCompileInfo* info)
 {
     if(!info->no_output) {
-        Value* obj = Builder.CreateAlignedLoad((Value*)address, 8);
+        Value* obj = Builder.CreateAlignedLoad((Value*)address, 8, "free_object_load");
 #ifdef MDEBUG
     printf("free object %p type %s at %s %d\n", obj, CLASS_NAME(node_type->mClass), info->sname, info->sline);
 #endif
