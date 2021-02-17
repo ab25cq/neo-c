@@ -8,10 +8,6 @@ if [ -e wi/Makefile ]
 then
     (cd wi; make distclean)
 fi
-if [ -e tiny/Makefile ]
-then
-    (cd tiny; make distclean)
-fi
 if [ -e clover3/Makefile ]
 then
     (cd clover3; make distclean)
@@ -27,11 +23,11 @@ then
 fi
 
 rm -rf clover3
-cp -a ../clover3 .
+git clone https://github.com/ab25cq/clover3
 rm -rf clover3/.git
 
 rm -rf wi
-cp -a ../wi .
+git clone https://github.com/ab25cq/wi
 rm -rf wi/.git
 
 if [ ! -e Makefile ]

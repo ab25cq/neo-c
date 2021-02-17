@@ -1,3 +1,5 @@
+command mode
+more compatibility for vim
 visual mode drawing will use 15filer.nc's.
 C-x
 [{

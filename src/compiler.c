@@ -142,7 +142,7 @@ static BOOL compiler(char* fname, BOOL optimize, sVarTable* module_var_table, BO
 
 int gARGC;
 char** gARGV;
-char* gVersion = "1.5.0";
+char* gVersion = "1.5.1";
 
 char gMainModulePath[PATH_MAX];
 
@@ -346,17 +346,6 @@ int main(int argc, char** argv)
         }
         else {
             snprintf(path, PATH_MAX, "./neo-c.a ");
-            xstrncat(command, path, 4096*2*2*2);
-        }
-
-        snprintf(path, PATH_MAX, "%s/lib/memalloc-stdc.o", PREFIX);
-
-        if(access(path, R_OK) == 0) {
-            xstrncat(command, path, 4096*2*2*2);
-            xstrncat(command, " ", 4096*2*2*2);
-        }
-        else {
-            snprintf(path, PATH_MAX, "./memalloc-stdc.o ");
             xstrncat(command, path, 4096*2*2*2);
         }
 

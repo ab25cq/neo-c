@@ -35,18 +35,15 @@ COMMON_OBJS=@COMMON_OBJS@
 all: neo-c neo-c.a
 	if which ctags > /dev/null; then if test $(OS) = DARWIN; then ctags src/*.c > /dev/null 2>&1; else ctags -R; fi; fi
 
-neo-c: config.h src/compiler.o $(COMMON_OBJS) $(OBJS) memalloc.o memalloc-stdc.o
+neo-c: config.h src/compiler.o $(COMMON_OBJS) $(OBJS)
 	$(CXX) -o neo-c src/compiler.o $(COMMON_OBJS) $(OBJS) $(CFLAGS) $(LIBS) $(CXXFLAGS)
 
-neo-c.a: neo-c.nc neo-c-string.nc neo-c-string2.nc neo-c-wstring.nc
+neo-c.a: neo-c.nc neo-c-string.nc neo-c-string2.nc neo-c-wstring.nc memalloc-stdc.o
 	PWD=`pwd` ./neo-c -c neo-c.nc 
 	PWD=`pwd` ./neo-c -c neo-c-string.nc
 	PWD=`pwd` ./neo-c -c neo-c-string2.nc
 	PWD=`pwd` ./neo-c -c neo-c-wstring.nc
-	ar r neo-c.a neo-c.o neo-c-string.o neo-c-string2.o neo-c-wstring.o
-
-memalloc.o: src/memalloc.c
-	$(CC) -c -o memalloc.o src/memalloc.c $(CFLAGS)
+	ar r neo-c.a neo-c.o neo-c-string.o neo-c-string2.o neo-c-wstring.o memalloc-stdc.o
 
 memalloc-stdc.o: src/memalloc-stdc.c
 	$(CC) -c -o memalloc-stdc.o src/memalloc-stdc.c $(CFLAGS)
@@ -65,7 +62,6 @@ $(RUNTIME_OBJS): src/*.h Makefile configure
 #########################################
 install:
 	mkdir -p $(DESTDIR)/lib
-	$(INSTALL) -m 644 ./memalloc-stdc.o $(DESTDIR)/lib
 	$(INSTALL) -m 644 ./neo-c.a $(DESTDIR)/lib
 
 	mkdir -p $(DESTDIR)/include
@@ -138,7 +134,7 @@ test:
 	./code/HelloWorld10-6
 	PWD=`pwd` ./neo-c code/HelloWorld10-6-2.nc
 	./code/HelloWorld10-6-2
-	PWD=`pwd` ./neo-c code/HelloWorld10-7.nc || clang -o code/HelloWorld10-7 code/HelloWorld10-7.ll ./neo-c.a -lpcre ./memalloc-stdc.o
+	PWD=`pwd` ./neo-c code/HelloWorld10-7.nc || clang -o code/HelloWorld10-7 code/HelloWorld10-7.ll ./neo-c.a -lpcre
 	./code/HelloWorld10-7
 
 neo-vi: neo-vi/neo-vi
@@ -168,5 +164,4 @@ uninstall:
 	rm -f "$(DESTDIR)"/include/neo-c.h
 	rm -f "$(DESTDIR)"/include/pre-neo-c.h
 	rm -f "$(DESTDIR)"/share/man/man1/neo-c.1.gz
-	rm -f "$(DESTDIR)/lib/memalloc-stdc.o"
 	rm -f "$(DESTDIR)/lib/neo-c.a"
