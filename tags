@@ -1145,8 +1145,8 @@ gUsedNodes	self-host/src/node_alloc.c	/^int gUsedNodes = 0;$/;"	v
 gUsedNodes	src/node_alloc.c	/^int gUsedNodes = 0;$/;"	v
 gUsedPageNodeTypes	self-host/src/node_type.c	/^static int gUsedPageNodeTypes = 0;$/;"	v	file:
 gUsedPageNodeTypes	src/node_type.c	/^static int gUsedPageNodeTypes = 0;$/;"	v	file:
-gVersion	self-host/src/compiler.c	/^char* gVersion = "1.5.0";$/;"	v
-gVersion	src/compiler.c	/^char* gVersion = "1.5.0";$/;"	v
+gVersion	self-host/src/compiler.c	/^char* gVersion = "1.5.1";$/;"	v
+gVersion	src/compiler.c	/^char* gVersion = "1.5.1";$/;"	v
 generics_type	self-host/src/common.h	/^    sNodeType* generics_type;$/;"	m	struct:sCompileInfoStruct
 generics_type	src/common.h	/^    sNodeType* generics_type;$/;"	m	struct:sCompileInfoStruct
 generics_type_names	clover3/src/common.h	/^    vector<string>* generics_type_names;$/;"	m	struct:sParserInfo
@@ -2287,7 +2287,6 @@ mWhileNodeBlock	self-host/src/common.h	/^            MANAGED struct sNodeBlockSt
 mWhileNodeBlock	src/common.h	/^            MANAGED struct sNodeBlockStruct* mWhileNodeBlock;$/;"	m	struct:sNodeTreeStruct::__anon39::__anon52	typeref:struct:sNodeTreeStruct::__anon39::__anon52::sNodeBlockStruct
 macro	self-host/wi/common.h	/^    map<int, vector<vector<int>*%>*%>*% macro;$/;"	m	struct:version
 macro	wi/common.h	/^    map<int, vector<vector<int>*%>*%>*% macro;$/;"	m	struct:version
-main	a.c	/^int main(int argc, char** argv)$/;"	f
 main	self-host/src/compiler.c	/^int main(int argc, char** argv)$/;"	f
 main	self-host/src/preprocessor.c	/^int main(int argc, char* argv[])$/;"	f
 main	self-host/wi/a.c	/^int main()$/;"	f

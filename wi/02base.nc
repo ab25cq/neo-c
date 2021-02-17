@@ -367,12 +367,7 @@ initialize() {
 
     var win = new ViWin.initialize(0,0, maxx-1, maxy, self);
 
-    win.texts.push_back(wstring("abc"));
-    win.texts.push_back(wstring("def"));
-    win.texts.push_back(wstring("ghi"));
-    win.texts.push_back(wstring("123"));
-    win.texts.push_back(wstring("456"));
-    win.texts.push_back(wstring("789"));
+    win.texts.push_back(wstring(""));
 
     self.activeWin = win;
 

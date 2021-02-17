@@ -43,6 +43,26 @@ void openFile(Vi* self, char* file_name, int line_num)
             
             self.repositionWindows();
         }
+        else {
+            char cmd[PATH_MAX+128];
+            
+            snprintf(cmd, PATH_MAX+128, "echo \"\" > %s", file_name);
+
+            int rc = system(cmd);
+            
+            if(rc != 0) {
+                endwin();
+                fprintf(stderr, "can't open file %s\n", file_name);
+                exit(2);
+            }
+
+            self.activeWin.fileName = string(file_name);
+            //self.fileName = "a.txt";
+            
+            self.activeWin.cursorY = 0;
+            self.activeWin.cursorX = 0;
+            self.activeWin.scroll = 0;
+        }
     }
 }
 }
