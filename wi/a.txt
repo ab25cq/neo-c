@@ -5,19 +5,16 @@ ii
 int main()
 {
 }
-int main()
-{
-}
-
+XXXint main()
+XXX{
+XXX}
+XXX
+XXXbbbbbbbbbbbbbbbaaaaadd
+XXXYYYaaaaad
+XXXYYYaaaaad
+XXXYYYaaaaa
 d
-d
-d
-dd
-d
-d
-
-d
-int main() 
-{
-}
+XXXYYYint main() 
+XXXYYY{
+XXXYYYbbbbb}
 

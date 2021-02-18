@@ -377,6 +377,7 @@ void inputVerticalVisualMode(ViWin* self, Vi* nvi){
         
         }
     }
+    self.saveInputedKey();
 }
 
 void input(ViWin* self, Vi* nvi) {
@@ -415,6 +416,7 @@ initialize() {
     self.events.replace('V'-'A'+1, lambda(Vi* self, int key) 
     {
         self.enterVerticalVisualMode();
+        self.activeWin.saveInputedKey();
     });
 }
 }

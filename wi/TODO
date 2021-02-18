@@ -1,6 +1,6 @@
 macro
-    search mode
-    visual mode
+
+sp TAB すべてのファイルを表示
 
 
 command mode
@@ -131,3 +131,6 @@ external command
 commnad mode
 command mode ---> run sevenstar shell
 line number
+macro
+    search mode
+    visual mode

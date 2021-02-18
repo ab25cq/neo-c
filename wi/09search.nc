@@ -222,7 +222,7 @@ void searchWordOnCursorReverse(ViWin* self, Vi* nvi)
 void inputSearchlMode(ViWin* self, Vi* nvi)
 {
     var key = self.getKey(false);
-
+    
     switch(key) {
         case 27:
             nvi.exitFromSearchMode();
@@ -270,6 +270,7 @@ void inputSearchlMode(ViWin* self, Vi* nvi)
             nvi.searchString = nvi.searchString + wstring(xasprintf("%c", key));
             break;
     }
+    self.saveInputedKey();
 }
 
 void input(ViWin* self, Vi* nvi) {
@@ -366,11 +367,13 @@ initialize() {
     self.events.replace('/', lambda(Vi* self, int key) 
     {
         self.enterSearchMode(false, false);
+        self.activeWin.saveInputedKey();
     });
 
     self.events.replace('?', lambda(Vi* self, int key) 
     {
         self.enterSearchMode(false, true);
+        self.activeWin.saveInputedKey();
     });
 
     self.events.replace('n', lambda(Vi* self, int key) 
@@ -382,6 +385,7 @@ initialize() {
             self.activeWin.search(self);
         }
         self.activeWin.saveInputedKeyOnTheMovingCursor();
+        self.activeWin.saveInputedKey();
     });
     self.events.replace('N', lambda(Vi* self, int key) 
     {
@@ -392,6 +396,7 @@ initialize() {
             self.activeWin.searchReverse(self);
         }
         self.activeWin.saveInputedKeyOnTheMovingCursor();
+        self.activeWin.saveInputedKey();
     });
     self.events.replace('*', lambda(Vi* self, int key) 
     {
@@ -402,6 +407,7 @@ initialize() {
     {
         self.activeWin.searchWordOnCursorReverse(self);
         self.activeWin.saveInputedKeyOnTheMovingCursor();
+        self.activeWin.saveInputedKey();
     });
 }
     

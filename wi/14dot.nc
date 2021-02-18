@@ -127,7 +127,8 @@ bool loadDotFromFile(ViWin* self, Vi* nvi)
     return true;
 }
 
-int getKey(ViWin* self, bool head) {
+int getKey(ViWin* self, bool head) 
+{
     if(self.runningMacro) {
         if(self.runningMacroIndex1 >= self.runningMacro.length())
         {

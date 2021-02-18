@@ -541,6 +541,7 @@ void inputVisualMode(ViWin* self, Vi* nvi){
             nvi.exitFromVisualMode();
             break;
     }
+    self.saveInputedKey();
 }
 
 void input(ViWin* self, Vi* nvi) {
@@ -590,6 +591,7 @@ initialize() {
     self.events.replace('V', lambda(Vi* self, int key) 
     {
         self.enterVisualMode();
+        self.activeWin.saveInputedKey();
     });
 }
 }

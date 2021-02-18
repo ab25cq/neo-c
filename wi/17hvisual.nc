@@ -586,6 +586,7 @@ void inputHorizonVisualMode(ViWin* self, Vi* nvi){
             nvi.exitFromVisualMode();
             break;
     }
+    self.saveInputedKey();
 }
 
 void input(ViWin* self, Vi* nvi) {
@@ -613,6 +614,7 @@ initialize() {
     self.events.replace('v', lambda(Vi* self, int key) 
     {
         self.enterHorizonVisualMode();
+        self.activeWin.saveInputedKey();
     });
 }
 }
