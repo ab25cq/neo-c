@@ -478,11 +478,17 @@ void enterInsertMode(Vi* self) {
     self.mode = kInsertMode;
     self.activeWin.writedFlagOn();
     self.activeWin.modifyOverCursorXValue();
+    clear();
+    self.activeWin.view(self);
+    refresh();
 }
 void enterInsertMode2(Vi* self) {
     self.mode = kInsertMode;
     self.activeWin.writedFlagOn();
     self.activeWin.modifyOverCursorXValue2();
+    clear();
+    self.activeWin.view(self);
+    refresh();
 }
 void exitFromInsertMode(Vi* self) {
     self.mode = kEditMode;

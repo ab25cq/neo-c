@@ -1,19 +1,8 @@
-char** argv
+配列の初期化
 
-argv[0][0]
-
-
-static local variable
 
 machine stack automatically free
-
-alloc initialize
-alloc destructor
-machine stack structor called destructor when deleting
-rm neo-c.h.out
 Pointer minus Pointer valid size
-Array casts Pointer
-if error line number bug
 error number bug in if, impl
 ----------------------
 , 演算子
@@ -31,3 +20,14 @@ int a = true; => a == -1
 LLVM3.8 OPTIMIZE
 LLVM7.0 -g
 -g ivalid line number
+char** argv
+
+argv[0][0]
+
+
+static local variable
+alloc initialize
+alloc destructor
+rm neo-c.h.out
+Array casts Pointer
+if error line number bug

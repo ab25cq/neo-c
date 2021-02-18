@@ -168,14 +168,27 @@ void statusBarView(ViWin* self, Vi* nvi)
     else {
         search_mode = string("/");
     }
-    mvwprintw(self.win, maxy-1, 0
-        , "%s x %d line %d (y %d scroll %d) changed %d search %s%ls"
-        , xbasename(self.fileName)
-        , self.cursorX, self.cursorY + self.scroll + 1
-        , self.cursorY, self.scroll
-        , self.writed
-        , search_mode
-        , nvi.searchString);
+    if(self.recordingMacroKey == -1) {
+        mvwprintw(self.win, maxy-1, 0
+            , "%s x %d line %d (y %d scroll %d) changed %d search %s%ls"
+            , xbasename(self.fileName)
+            , self.cursorX, self.cursorY + self.scroll + 1
+            , self.cursorY, self.scroll
+            , self.writed
+            , search_mode
+            , nvi.searchString);
+    }
+    else {
+        mvwprintw(self.win, maxy-1, 0
+            , "%s x %d line %d (y %d scroll %d) changed %d recording macro %c search %s%ls"
+            , xbasename(self.fileName)
+            , self.cursorX, self.cursorY + self.scroll + 1
+            , self.cursorY, self.scroll
+            , self.writed
+            , self.recordingMacroKey
+            , search_mode
+            , nvi.searchString);
+    }
     wattroff(self.win, A_REVERSE);
 
     wrefresh(self.win);

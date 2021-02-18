@@ -1,1 +1,23 @@
+iiii
+iiii
+ii
+
+int main()
+{
+}
+int main()
+{
+}
+
+d
+d
+d
+dd
+d
+d
+
+d
+int main() 
+{
+}
 
