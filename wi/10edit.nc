@@ -450,23 +450,33 @@ void getCursorNumber(ViWin* self, int* head, int* tail) {
     var line = self.texts.item(self.scroll+self.cursorY, null);
     
     var c = line.item(self.cursorX, null); 
-    
+
     if(xiswdigit(c)) {
         /// back ///
         *head = self.cursorX;
+
+        if(*head > 0) {
+            while(true) {
+                if(*head < 0) {
+                    break;
+                }
+
+                var c = line.item(*head, null);
+                
+                if(xiswdigit(c)) {
+                    (*head)--;
+                }
+                else {
+                    (*head)++;
+                    break;
+                }
+            }
+        }
         
-        while(true) {
-            var c = line.item(*head, null);
-            
-            if(xiswdigit(c)) {
-                (*head)--;
-            }
-            else {
-                (*head)++;
-                break;
-            }
+        if(*head < 0) {
+            *head = 0;
         };
-        
+
         *tail = self.cursorX;
         
         while(true) {
