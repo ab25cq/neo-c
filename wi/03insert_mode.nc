@@ -140,7 +140,7 @@ void blinkBraceFoward(ViWin* self, wchar_t head, wchar_t tail, Vi* nvi) {
     while(p < line + line.length()) {
         if(*p == tail) {
             if(nest == 0) {
-                cursor_x = (p - line) / sizeof(wchar_t);
+                cursor_x = (p - line);
                 break;
             }
 
@@ -166,7 +166,7 @@ void blinkBraceFoward(ViWin* self, wchar_t head, wchar_t tail, Vi* nvi) {
             while(p < it + it.length()) {
                 if(*p == tail) {
                     if(nest == 0) {
-                        cursor_x = (p - it) / sizeof(wchar_t);
+                        cursor_x = (p - it);
                         *it3 = true;
                         return;
                     }
@@ -243,7 +243,7 @@ void blinkBraceEnd(ViWin* self, wchar_t head, wchar_t tail, Vi* nvi) {
     while(p >= line) {
         if(*p == head) {
             if(nest == 0) {
-                cursor_x = (p - line) / sizeof(wchar_t);
+                cursor_x = (p - line);
                 break;
             }
 
@@ -269,7 +269,7 @@ void blinkBraceEnd(ViWin* self, wchar_t head, wchar_t tail, Vi* nvi) {
             while(p >= it) {
                 if(*p == head) {
                     if(nest == 0) {
-                        cursor_x = (p - it) / sizeof(wchar_t);
+                        cursor_x = (p - it);
                         *it3 = true;
                         return;
                     }

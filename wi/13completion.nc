@@ -132,7 +132,7 @@ void completion(ViWin* self, Vi* nvi) {
     }
     p++;
     
-    int len = (line + self.cursorX - p) / sizeof(wchar_t);
+    int len = (line + self.cursorX - p);
 
     var word = line.substring(self.cursorX-len, self.cursorX);
 

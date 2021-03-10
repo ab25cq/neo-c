@@ -1,22 +1,12 @@
-glibcへの非依存
-
-neo-c.hのインライン化
-
 uniq extern callocとfreeの数を数えてメモリーリークの有無を調べる。
 
 function call list, memory leakの場所を特定する。-gオプション
-
-ポインタとポインタの減算をC互換にする。 wiのポインタとポインタの減算を修正。
 
 const char*をまともにする。
 
 配列の初期化
 
-if(a) printf("AAA");
-
-
 machine stack automatically free
-Pointer minus Pointer valid size
 error number bug in if, impl
 ----------------------
 , 演算子
@@ -45,3 +35,9 @@ alloc destructor
 rm neo-c.h.out
 Array casts Pointer
 if error line number bug
+
+neo-c.hのインライン化
+glibcへの非依存
+Pointer minus Pointer valid size
+if(a) printf("AAA");
+ポインタとポインタの減算をC互換にする。 wiのポインタとポインタの減算を修正。

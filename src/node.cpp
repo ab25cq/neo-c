@@ -1378,8 +1378,22 @@ static BOOL compile_sub(unsigned int node, sCompileInfo* info)
 
             return TRUE;
         }
+
+        sNodeType* element_type = clone_node_type(left_type);
+        element_type->mPointerNum = 0;
+        element_type->mArrayDimentionNum = 0;
+
+        uint64_t element_size = 0;
+        if(!get_size_from_node_type(&element_size, element_type, element_type, info))
+        {
+            return FALSE;
+        }
+
+        Value* elemet_size_value = ConstantInt::get(Type::getInt64Ty(TheContext), element_size);
+
         LVALUE llvm_value;
         llvm_value.value = Builder.CreateSub(left_value, right_value, "subtmp", false, true);
+        llvm_value.value = Builder.CreateSDiv(llvm_value.value, elemet_size_value, "divtmp");
         llvm_value.value = Builder.CreateCast(Instruction::BitCast, llvm_value.value, llvm_var_type);
         llvm_value.type = clone_node_type(node_type);
         llvm_value.address = nullptr;
@@ -5479,7 +5493,7 @@ static BOOL compile_load_variable(unsigned int node, sCompileInfo* info)
 
     BOOL constant = var->mConstant;
 
-    if(constant) {
+    if(constant && var_type->mPointerNum == 0) {
         LVALUE llvm_value;
         if(!info->no_output) {
             llvm_value.value = (Value*)var->mLLVMValue;

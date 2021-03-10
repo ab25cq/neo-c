@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void compile_err_msg(char* msg, ...)
+void compile_err_msg(const char* msg, ...)
 {
     char msg2[1024];
 

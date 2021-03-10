@@ -24,7 +24,7 @@ void toggleBraceForward(ViWin* self, wchar_t head, wchar_t tail) {
             if(nest == 0) {
                 self.saveReturnPoint();
 
-                cursor_x = (p - line) / sizeof(wchar_t);
+                cursor_x = (p - line);
                 self.cursorX = cursor_x;
                 break;
             }
@@ -53,7 +53,7 @@ void toggleBraceForward(ViWin* self, wchar_t head, wchar_t tail) {
                     if(nest == 0) {
                         self.saveReturnPoint();
 
-                        cursor_x = (p - it) / sizeof(wchar_t);
+                        cursor_x = (p - it);
                         self.cursorY += it2 + 1;
                         self.modifyOverCursorYValue();
                         self.cursorX = cursor_x;
@@ -92,7 +92,7 @@ void toggleBraceBack(ViWin* self, wchar_t head, wchar_t tail) {
         if(*p == head) {
             if(nest == 0) {
                 self.saveReturnPoint();
-                cursor_x = (p - line) / sizeof(wchar_t);
+                cursor_x = (p - line);
                 self.cursorX = cursor_x;
                 break;
             }
@@ -121,7 +121,7 @@ void toggleBraceBack(ViWin* self, wchar_t head, wchar_t tail) {
                     if(nest == 0) {
                         self.saveReturnPoint();
 
-                        cursor_x = (p - it) / sizeof(wchar_t);
+                        cursor_x = (p - it);
                         self.cursorY = self.cursorY - it2 -1;
                         self.modifyUnderCursorYValue();
                         self.cursorX = cursor_x;

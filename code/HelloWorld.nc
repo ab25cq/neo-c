@@ -1877,6 +1877,13 @@ label1:
 
     xassert("array test2", *dataagg.a == 123 && dataagg.b[0] == 123 && dataagg.c[0][0][0] == 234);
 
+    int gxwgho[128];
+
+    int* pxxxxxxxxxxxxxxxxxxxxxxxxxxxx = gxwgho;
+    pxxxxxxxxxxxxxxxxxxxxxxxxxxxx++;
+
+    xassert("pointer testX", (pxxxxxxxxxxxxxxxxxxxxxxxxxxxx - gxwgho) == 1);
+
     return 0
 }
 
