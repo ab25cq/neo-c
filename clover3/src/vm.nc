@@ -53,7 +53,7 @@ void print_stack(CLVALUE* stack, CLVALUE* stack_ptr, int var_num)
     CLVALUE* p = stack;
     
     while(p < stack_ptr) {
-        int index = (p-stack) / sizeof(CLVALUE);
+        int index = (p-stack);
         
         if(index < var_num) {
             fprintf(stderr, "v[%d] %d ", index, p.mObjectValue);
