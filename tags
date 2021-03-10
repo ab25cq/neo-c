@@ -123,9 +123,9 @@ MACRO_MAX	src/common.h	40;"	d
 MANAGED	self-host/src/xfunc.h	5;"	d
 MANAGED	src/xfunc.h	5;"	d
 MAP_TABLE_DEFAULT_SIZE	code/neo-c.h	1317;"	d
-MAP_TABLE_DEFAULT_SIZE	neo-c.h	2011;"	d
+MAP_TABLE_DEFAULT_SIZE	neo-c.h	2445;"	d
 MAP_TABLE_DEFAULT_SIZE	self-host/code/neo-c.h	1317;"	d
-MAP_TABLE_DEFAULT_SIZE	self-host/neo-c.h	2011;"	d
+MAP_TABLE_DEFAULT_SIZE	self-host/neo-c.h	2445;"	d
 METHOD_DEFAULT_PARAM_MAX	self-host/src/common.h	29;"	d
 METHOD_DEFAULT_PARAM_MAX	src/common.h	29;"	d
 MyModulePass	self-host/src/llvm.cpp	/^    MyModulePass(char id) : ModulePass(id) {$/;"	f	struct:MyModulePass
@@ -246,39 +246,31 @@ ViWin	self-host/wi/common.h	/^struct ViWin $/;"	s
 ViWin	wi/common.h	/^struct ViWin $/;"	s
 XFUNC_H	self-host/src/xfunc.h	2;"	d
 XFUNC_H	src/xfunc.h	2;"	d
+_GNU_SOURCE	b.c	1;"	d	file:
 _GNU_SOURCE	code/neo-c.h	4;"	d
 _GNU_SOURCE	neo-c.h	4;"	d
 _GNU_SOURCE	self-host/code/neo-c.h	4;"	d
 _GNU_SOURCE	self-host/neo-c.h	4;"	d
 _USE_MISC	clover3/src/common.h	23;"	d
 _USE_MISC	code/neo-c.h	11;"	d
-_USE_MISC	neo-c.h	11;"	d
 _USE_MISC	self-host/code/neo-c.h	11;"	d
-_USE_MISC	self-host/neo-c.h	11;"	d
 __64BIT_CPU__	config.h	19;"	d
-__GNUC__	neo-c.h	17;"	d
-__GNUC__	self-host/neo-c.h	17;"	d
 __LINUX__	config.h	16;"	d
 __STDC_CONSTANT_MACROS	code/neo-c.h	27;"	d
-__STDC_CONSTANT_MACROS	neo-c.h	32;"	d
+__STDC_CONSTANT_MACROS	neo-c.h	21;"	d
 __STDC_CONSTANT_MACROS	self-host/code/neo-c.h	27;"	d
-__STDC_CONSTANT_MACROS	self-host/neo-c.h	32;"	d
+__STDC_CONSTANT_MACROS	self-host/neo-c.h	21;"	d
 __STDC_LIMIT_MACROS	code/neo-c.h	26;"	d
-__STDC_LIMIT_MACROS	neo-c.h	31;"	d
+__STDC_LIMIT_MACROS	neo-c.h	20;"	d
 __STDC_LIMIT_MACROS	self-host/code/neo-c.h	26;"	d
-__STDC_LIMIT_MACROS	self-host/neo-c.h	31;"	d
+__STDC_LIMIT_MACROS	self-host/neo-c.h	20;"	d
 __USE_BSD	clover3/src/common.h	26;"	d
 __USE_BSD	code/neo-c.h	14;"	d
-__USE_BSD	neo-c.h	14;"	d
 __USE_BSD	self-host/code/neo-c.h	14;"	d
-__USE_BSD	self-host/neo-c.h	14;"	d
 __USE_XOPEN	clover3/src/common.h	20;"	d
 __USE_XOPEN	code/neo-c.h	8;"	d
-__USE_XOPEN	neo-c.h	8;"	d
 __USE_XOPEN	self-host/code/neo-c.h	8;"	d
-__USE_XOPEN	self-host/neo-c.h	8;"	d
-__clang__	neo-c.h	18;"	d
-__clang__	self-host/neo-c.h	18;"	d
+__X86_64_CPU__	config.h	22;"	d
 __sbrk	self-host/src/sbrk.c	/^void * __sbrk (intptr_t increment)$/;"	f
 __sbrk	src/sbrk.c	/^void * __sbrk (intptr_t increment)$/;"	f
 a	code/HelloWorld5.h	/^    int a;$/;"	m	struct:StructData1
@@ -376,8 +368,7 @@ appEnd	self-host/wi/common.h	/^    bool appEnd;$/;"	m	struct:version
 appEnd	wi/common.h	/^    bool appEnd;$/;"	m	struct:version
 app_end	ayataka/src/common.h	/^    bool app_end;$/;"	m	struct:Ayataka
 app_end	self-host/ayataka/src/common.h	/^    bool app_end;$/;"	m	struct:Ayataka
-append_debug_heap_memory	self-host/src/memalloc-stdc.c	/^static void append_debug_heap_memory(void* mem, char* type_name, char* sname, int sline, int calloc_num, long long calloc_size, char* fun_name, char* real_fun_name)$/;"	f	file:
-append_debug_heap_memory	src/memalloc-stdc.c	/^static void append_debug_heap_memory(void* mem, char* type_name, char* sname, int sline, int calloc_num, long long calloc_size, char* fun_name, char* real_fun_name)$/;"	f	file:
+append_debug_heap_memory	memalloc-stdc.c	/^static void append_debug_heap_memory(void* mem, char* type_name, char* sname, int sline, int calloc_num, long long calloc_size, char* fun_name, char* real_fun_name)$/;"	f	file:
 append_double_value_to_constant_pool	self-host/src/constant.c	/^unsigned int append_double_value_to_constant_pool(sConst* constant, double n, BOOL no_output)$/;"	f
 append_double_value_to_constant_pool	src/constant.c	/^unsigned int append_double_value_to_constant_pool(sConst* constant, double n, BOOL no_output)$/;"	f
 append_float_value_to_constant_pool	self-host/src/constant.c	/^unsigned int append_float_value_to_constant_pool(sConst* constant, float n, BOOL no_output)$/;"	f
@@ -400,7 +391,6 @@ arrange_stack	self-host/src/llvm.cpp	/^void arrange_stack(sCompileInfo* info, in
 arrange_stack	src/llvm.cpp	/^void arrange_stack(sCompileInfo* info, int top)$/;"	f
 as_fn_append	ayataka/configure	/^  as_fn_append ()$/;"	f
 as_fn_append	clover3/configure	/^  as_fn_append ()$/;"	f
-as_fn_append	config.status	/^  as_fn_append ()$/;"	f
 as_fn_append	configure	/^  as_fn_append ()$/;"	f
 as_fn_append	self-host/ayataka/configure	/^  as_fn_append ()$/;"	f
 as_fn_append	self-host/configure	/^  as_fn_append ()$/;"	f
@@ -410,7 +400,6 @@ as_fn_append	wi/config.status	/^  as_fn_append ()$/;"	f
 as_fn_append	wi/configure	/^  as_fn_append ()$/;"	f
 as_fn_arith	ayataka/configure	/^  as_fn_arith ()$/;"	f
 as_fn_arith	clover3/configure	/^  as_fn_arith ()$/;"	f
-as_fn_arith	config.status	/^  as_fn_arith ()$/;"	f
 as_fn_arith	configure	/^  as_fn_arith ()$/;"	f
 as_fn_arith	self-host/ayataka/configure	/^  as_fn_arith ()$/;"	f
 as_fn_arith	self-host/configure	/^  as_fn_arith ()$/;"	f
@@ -420,7 +409,6 @@ as_fn_arith	wi/config.status	/^  as_fn_arith ()$/;"	f
 as_fn_arith	wi/configure	/^  as_fn_arith ()$/;"	f
 as_fn_error	ayataka/configure	/^as_fn_error ()$/;"	f
 as_fn_error	clover3/configure	/^as_fn_error ()$/;"	f
-as_fn_error	config.status	/^as_fn_error ()$/;"	f
 as_fn_error	configure	/^as_fn_error ()$/;"	f
 as_fn_error	self-host/ayataka/configure	/^as_fn_error ()$/;"	f
 as_fn_error	self-host/configure	/^as_fn_error ()$/;"	f
@@ -430,7 +418,6 @@ as_fn_error	wi/config.status	/^as_fn_error ()$/;"	f
 as_fn_error	wi/configure	/^as_fn_error ()$/;"	f
 as_fn_executable_p	ayataka/configure	/^as_fn_executable_p ()$/;"	f
 as_fn_executable_p	clover3/configure	/^as_fn_executable_p ()$/;"	f
-as_fn_executable_p	config.status	/^as_fn_executable_p ()$/;"	f
 as_fn_executable_p	configure	/^as_fn_executable_p ()$/;"	f
 as_fn_executable_p	self-host/ayataka/configure	/^as_fn_executable_p ()$/;"	f
 as_fn_executable_p	self-host/configure	/^as_fn_executable_p ()$/;"	f
@@ -440,7 +427,6 @@ as_fn_executable_p	wi/config.status	/^as_fn_executable_p ()$/;"	f
 as_fn_executable_p	wi/configure	/^as_fn_executable_p ()$/;"	f
 as_fn_exit	ayataka/configure	/^as_fn_exit ()$/;"	f
 as_fn_exit	clover3/configure	/^as_fn_exit ()$/;"	f
-as_fn_exit	config.status	/^as_fn_exit ()$/;"	f
 as_fn_exit	configure	/^as_fn_exit ()$/;"	f
 as_fn_exit	self-host/ayataka/configure	/^as_fn_exit ()$/;"	f
 as_fn_exit	self-host/configure	/^as_fn_exit ()$/;"	f
@@ -457,7 +443,6 @@ as_fn_failure	self-host/wi/configure	/^as_fn_failure () { as_fn_return 1; }$/;"	
 as_fn_failure	wi/configure	/^as_fn_failure () { as_fn_return 1; }$/;"	f
 as_fn_mkdir_p	ayataka/configure	/^as_fn_mkdir_p ()$/;"	f
 as_fn_mkdir_p	clover3/configure	/^as_fn_mkdir_p ()$/;"	f
-as_fn_mkdir_p	config.status	/^as_fn_mkdir_p ()$/;"	f
 as_fn_mkdir_p	configure	/^as_fn_mkdir_p ()$/;"	f
 as_fn_mkdir_p	self-host/ayataka/configure	/^as_fn_mkdir_p ()$/;"	f
 as_fn_mkdir_p	self-host/configure	/^as_fn_mkdir_p ()$/;"	f
@@ -481,7 +466,6 @@ as_fn_ret_success	self-host/wi/configure	/^as_fn_ret_success () { return 0; }$/;
 as_fn_ret_success	wi/configure	/^as_fn_ret_success () { return 0; }$/;"	f
 as_fn_set_status	ayataka/configure	/^as_fn_set_status ()$/;"	f
 as_fn_set_status	clover3/configure	/^as_fn_set_status ()$/;"	f
-as_fn_set_status	config.status	/^as_fn_set_status ()$/;"	f
 as_fn_set_status	configure	/^as_fn_set_status ()$/;"	f
 as_fn_set_status	self-host/ayataka/configure	/^as_fn_set_status ()$/;"	f
 as_fn_set_status	self-host/configure	/^as_fn_set_status ()$/;"	f
@@ -498,7 +482,6 @@ as_fn_success	self-host/wi/configure	/^as_fn_success () { as_fn_return 0; }$/;"	
 as_fn_success	wi/configure	/^as_fn_success () { as_fn_return 0; }$/;"	f
 as_fn_unset	ayataka/configure	/^as_fn_unset ()$/;"	f
 as_fn_unset	clover3/configure	/^as_fn_unset ()$/;"	f
-as_fn_unset	config.status	/^as_fn_unset ()$/;"	f
 as_fn_unset	configure	/^as_fn_unset ()$/;"	f
 as_fn_unset	self-host/ayataka/configure	/^as_fn_unset ()$/;"	f
 as_fn_unset	self-host/configure	/^as_fn_unset ()$/;"	f
@@ -562,10 +545,8 @@ call_macro	self-host/src/macro.c	/^BOOL call_macro(unsigned * node, char* name, 
 call_macro	src/macro.c	/^BOOL call_macro(unsigned * node, char* name, char* params, sParserInfo* info)$/;"	f
 call_preprocessor	self-host/src/preprocessor.c	/^static BOOL call_preprocessor(sBuf* command, sBuf* output)$/;"	f	file:
 call_preprocessor	src/preprocessor.c	/^static BOOL call_preprocessor(sBuf* command, sBuf* output)$/;"	f	file:
-calloc_num	self-host/src/memalloc-stdc.c	/^    int calloc_num;$/;"	m	struct:sHeapDebug	file:
-calloc_num	src/memalloc-stdc.c	/^    int calloc_num;$/;"	m	struct:sHeapDebug	file:
-calloc_size	self-host/src/memalloc-stdc.c	/^    long long calloc_size;$/;"	m	struct:sHeapDebug	file:
-calloc_size	src/memalloc-stdc.c	/^    long long calloc_size;$/;"	m	struct:sHeapDebug	file:
+calloc_num	memalloc-stdc.c	/^    int calloc_num;$/;"	m	struct:sHeapDebug	file:
+calloc_size	memalloc-stdc.c	/^    long long calloc_size;$/;"	m	struct:sHeapDebug	file:
 case_after_return	self-host/src/common.h	/^    BOOL case_after_return;$/;"	m	struct:sParserInfoStruct
 case_after_return	src/common.h	/^    BOOL case_after_return;$/;"	m	struct:sParserInfoStruct
 case_else_block	self-host/src/common.h	/^    void* case_else_block;$/;"	m	struct:sCompileInfoStruct
@@ -691,6 +672,7 @@ compile_equal_xor	self-host/src/node.cpp	/^static BOOL compile_equal_xor(unsigne
 compile_equal_xor	src/node.cpp	/^static BOOL compile_equal_xor(unsigned int node, sCompileInfo* info)$/;"	f	file:
 compile_equals	self-host/src/node.cpp	/^static BOOL compile_equals(unsigned int node, sCompileInfo* info)$/;"	f	file:
 compile_equals	src/node.cpp	/^static BOOL compile_equals(unsigned int node, sCompileInfo* info)$/;"	f	file:
+compile_err_msg	b.c	/^void compile_err_msg(char* msg, ...)$/;"	f
 compile_err_msg	self-host/src/node.cpp	/^void compile_err_msg(sCompileInfo* info, const char* msg, ...)$/;"	f
 compile_err_msg	src/node.cpp	/^void compile_err_msg(sCompileInfo* info, const char* msg, ...)$/;"	f
 compile_external_function	self-host/src/node.cpp	/^static BOOL compile_external_function(unsigned int node, sCompileInfo* info)$/;"	f	file:
@@ -885,18 +867,15 @@ cursorY	self-host/wi/common.h	/^    int cursorY;$/;"	m	struct:version
 cursorY	wi/common.h	/^    int cursorY;$/;"	m	struct:version
 datadir	Makefile	/^datadir=${datarootdir}$/;"	m
 datarootdir	Makefile	/^datarootdir=${prefix}\/share\/neo-c$/;"	m
-debug_show_none_freed_heap_memory	self-host/src/memalloc-stdc.c	/^void debug_show_none_freed_heap_memory() $/;"	f
-debug_show_none_freed_heap_memory	src/memalloc-stdc.c	/^void debug_show_none_freed_heap_memory() $/;"	f
-debug_xcalloc	self-host/src/memalloc-stdc.c	/^void *debug_xcalloc(long long int num, long long int nsize, char* type_name, char* sname, int sline, char* fun_name, char* real_fun_name)$/;"	f
-debug_xcalloc	src/memalloc-stdc.c	/^void *debug_xcalloc(long long int num, long long int nsize, char* type_name, char* sname, int sline, char* fun_name, char* real_fun_name)$/;"	f
+debug_show_none_freed_heap_memory	memalloc-stdc.c	/^void debug_show_none_freed_heap_memory() $/;"	f
+debug_xcalloc	memalloc-stdc.c	/^void *debug_xcalloc(long long int num, long long int nsize, char* type_name, char* sname, int sline, char* fun_name, char* real_fun_name)$/;"	f
 dec_stack_ptr	self-host/src/llvm.cpp	/^void dec_stack_ptr(int value, sCompileInfo* info)$/;"	f
 dec_stack_ptr	src/llvm.cpp	/^void dec_stack_ptr(int value, sCompileInfo* info)$/;"	f
 declare_builtin_functions	self-host/src/llvm.cpp	/^void declare_builtin_functions()$/;"	f
 declare_builtin_functions	src/llvm.cpp	/^void declare_builtin_functions()$/;"	f
 delete_comment	self-host/src/source_compiler.c	/^BOOL delete_comment(sBuf* source, sBuf* source2)$/;"	f
 delete_comment	src/source_compiler.c	/^BOOL delete_comment(sBuf* source, sBuf* source2)$/;"	f
-delete_debug_heap_memory	self-host/src/memalloc-stdc.c	/^static void delete_debug_heap_memory(void* mem)$/;"	f	file:
-delete_debug_heap_memory	src/memalloc-stdc.c	/^static void delete_debug_heap_memory(void* mem)$/;"	f	file:
+delete_debug_heap_memory	memalloc-stdc.c	/^static void delete_debug_heap_memory(void* mem)$/;"	f	file:
 digitInput	self-host/wi/common.h	/^    int digitInput;$/;"	m	struct:version
 digitInput	wi/common.h	/^    int digitInput;$/;"	m	struct:version
 docdir	Makefile	/^docdir=${datarootdir}\/doc$/;"	m
@@ -1037,6 +1016,8 @@ finalize	self-host/code/neo-c.h	/^    finalize() {$/;"	f	struct:map
 finalize	self-host/neo-c.h	/^    finalize() {$/;"	f	struct:map
 finalize_macro	self-host/src/macro.c	/^void finalize_macro()$/;"	f
 finalize_macro	src/macro.c	/^void finalize_macro()$/;"	f
+finalize_main	neo-c.h	/^inline void finalize_main()$/;"	f
+finalize_main	self-host/neo-c.h	/^inline void finalize_main()$/;"	f
 find	code/neo-c.h	/^    bool find(map<T, T2>* self, T& key) {$/;"	f	struct:map
 find	neo-c.h	/^    bool find(map<T, T2>* self, T& key) {$/;"	f	struct:map
 find	self-host/code/neo-c.h	/^    bool find(map<T, T2>* self, T& key) {$/;"	f	struct:map
@@ -1063,14 +1044,13 @@ free_right_value_object	self-host/src/llvm.cpp	/^static void free_right_value_ob
 free_right_value_object	src/llvm.cpp	/^static void free_right_value_object(sNodeType* node_type, void* obj, BOOL force_delete, sCompileInfo* info)$/;"	f	file:
 free_right_value_objects	self-host/src/llvm.cpp	/^void free_right_value_objects(sCompileInfo* info)$/;"	f
 free_right_value_objects	src/llvm.cpp	/^void free_right_value_objects(sCompileInfo* info)$/;"	f
-freed	self-host/src/memalloc-stdc.c	/^    int freed;$/;"	m	struct:sHeapDebug	file:
-freed	src/memalloc-stdc.c	/^    int freed;$/;"	m	struct:sHeapDebug	file:
+freed	memalloc-stdc.c	/^    int freed;$/;"	m	struct:sHeapDebug	file:
+fun	a.c	/^inline int fun()$/;"	f
+fun_name	memalloc-stdc.c	/^    char fun_name[128];$/;"	m	struct:sHeapDebug	file:
 fun_name	self-host/src/common.h	/^    char fun_name[VAR_NAME_MAX];$/;"	m	struct:sCompileInfoStruct
 fun_name	self-host/src/common.h	/^    char fun_name[VAR_NAME_MAX];$/;"	m	struct:sParserInfoStruct
-fun_name	self-host/src/memalloc-stdc.c	/^    char fun_name[128];$/;"	m	struct:sHeapDebug	file:
 fun_name	src/common.h	/^    char fun_name[VAR_NAME_MAX];$/;"	m	struct:sCompileInfoStruct
 fun_name	src/common.h	/^    char fun_name[VAR_NAME_MAX];$/;"	m	struct:sParserInfoStruct
-fun_name	src/memalloc-stdc.c	/^    char fun_name[128];$/;"	m	struct:sHeapDebug	file:
 function_lvtable	self-host/src/common.h	/^    void* function_lvtable;$/;"	m	struct:sCompileInfoStruct
 function_lvtable	src/common.h	/^    void* function_lvtable;$/;"	m	struct:sCompileInfoStruct
 function_node_block	self-host/src/common.h	/^    struct sNodeBlockStruct* function_node_block;$/;"	m	struct:sCompileInfoStruct	typeref:struct:sCompileInfoStruct::sNodeBlockStruct
@@ -1093,8 +1073,7 @@ gHeadClassTable	self-host/src/klass.c	/^sClassTable* gHeadClassTable = NULL;$/;"
 gHeadClassTable	src/klass.c	/^sClassTable* gHeadClassTable = NULL;$/;"	v
 gHeadVTable	self-host/src/vtable.c	/^sVarTable* gHeadVTable;$/;"	v
 gHeadVTable	src/vtable.c	/^sVarTable* gHeadVTable;$/;"	v
-gHeapDebugs	self-host/src/memalloc-stdc.c	/^struct sHeapDebug* gHeapDebugs = NULL;$/;"	v	typeref:struct:sHeapDebug
-gHeapDebugs	src/memalloc-stdc.c	/^struct sHeapDebug* gHeapDebugs = NULL;$/;"	v	typeref:struct:sHeapDebug
+gHeapDebugs	memalloc-stdc.c	/^struct sHeapDebug* gHeapDebugs = NULL;$/;"	v	typeref:struct:sHeapDebug
 gLLVMStack	self-host/src/llvm.cpp	/^LVALUE* gLLVMStack;$/;"	v
 gLLVMStack	src/llvm.cpp	/^LVALUE* gLLVMStack;$/;"	v
 gLLVMStackHead	self-host/src/llvm.cpp	/^LVALUE* gLLVMStackHead;$/;"	v
@@ -1107,14 +1086,14 @@ gLabels	self-host/src/node.cpp	/^std::map<std::string, BasicBlock*> gLabels;$/;"
 gLabels	src/node.cpp	/^std::map<std::string, BasicBlock*> gLabels;$/;"	v
 gMacros	self-host/src/macro.c	/^struct sMacro gMacros[MACRO_MAX];$/;"	v	typeref:struct:sMacro
 gMacros	src/macro.c	/^struct sMacro gMacros[MACRO_MAX];$/;"	v	typeref:struct:sMacro
+gMainFunctionExistance	self-host/src/parser.c	/^BOOL gMainFunctionExistance = FALSE;$/;"	v
+gMainFunctionExistance	src/parser.c	/^BOOL gMainFunctionExistance = FALSE;$/;"	v
 gMainModulePath	self-host/src/compiler.c	/^char gMainModulePath[PATH_MAX];$/;"	v
 gMainModulePath	src/compiler.c	/^char gMainModulePath[PATH_MAX];$/;"	v
-gMaxMemAlloc	self-host/src/memalloc-stdc.c	/^int gMaxMemAlloc = 0;$/;"	v
-gMaxMemAlloc	src/memalloc-stdc.c	/^int gMaxMemAlloc = 0;$/;"	v
+gMaxMemAlloc	memalloc-stdc.c	/^int gMaxMemAlloc = 0;$/;"	v
 gNCDebug	self-host/src/compiler.c	/^BOOL gNCDebug = FALSE;$/;"	v
 gNCDebug	src/compiler.c	/^BOOL gNCDebug = FALSE;$/;"	v
-gNCDebugHeap	self-host/src/memalloc-stdc.c	/^int gNCDebugHeap = 1;$/;"	v
-gNCDebugHeap	src/memalloc-stdc.c	/^int gNCDebugHeap = 1;$/;"	v
+gNCDebugHeap	memalloc-stdc.c	/^int gNCDebugHeap = 1;$/;"	v
 gNCDebugHeapCompiler	self-host/src/compiler.c	/^BOOL gNCDebugHeapCompiler = FALSE;$/;"	v
 gNCDebugHeapCompiler	src/compiler.c	/^BOOL gNCDebugHeapCompiler = FALSE;$/;"	v
 gNCDebugHeapValue	self-host/src/llvm.cpp	/^GlobalVariable* gNCDebugHeapValue;$/;"	v
@@ -1123,16 +1102,12 @@ gNodeTypes	self-host/src/node_type.c	/^static sNodeType** gNodeTypes = NULL;$/;"
 gNodeTypes	src/node_type.c	/^static sNodeType** gNodeTypes = NULL;$/;"	v	file:
 gNodes	self-host/src/node_alloc.c	/^sNodeTree* gNodes;$/;"	v
 gNodes	src/node_alloc.c	/^sNodeTree* gNodes;$/;"	v
-gNumHeapDebugs	self-host/src/memalloc-stdc.c	/^int gNumHeapDebugs = 0;$/;"	v
-gNumHeapDebugs	src/memalloc-stdc.c	/^int gNumHeapDebugs = 0;$/;"	v
+gNumHeapDebugs	memalloc-stdc.c	/^int gNumHeapDebugs = 0;$/;"	v
 gNumLambdaName	self-host/src/parser.c	/^int gNumLambdaName = 0;$/;"	v
 gNumLambdaName	src/parser.c	/^int gNumLambdaName = 0;$/;"	v
-gNumMemAlloc	self-host/src/memalloc-stdc.c	/^int gNumMemAlloc = 0;$/;"	v
-gNumMemAlloc	src/memalloc-stdc.c	/^int gNumMemAlloc = 0;$/;"	v
 gPreprocessorFunctions	self-host/src/preprocessor.c	/^sPreprocessorFunction gPreprocessorFunctions[PREPROCESSOR_FUN_MAX];$/;"	v
 gPreprocessorFunctions	src/preprocessor.c	/^sPreprocessorFunction gPreprocessorFunctions[PREPROCESSOR_FUN_MAX];$/;"	v
-gSizeHeapDebugs	self-host/src/memalloc-stdc.c	/^int gSizeHeapDebugs = 0;$/;"	v
-gSizeHeapDebugs	src/memalloc-stdc.c	/^int gSizeHeapDebugs = 0;$/;"	v
+gSizeHeapDebugs	memalloc-stdc.c	/^int gSizeHeapDebugs = 0;$/;"	v
 gSizeNodes	self-host/src/node_alloc.c	/^int gSizeNodes = 0;$/;"	v
 gSizeNodes	src/node_alloc.c	/^int gSizeNodes = 0;$/;"	v
 gSizePageNodeTypes	self-host/src/node_type.c	/^static int gSizePageNodeTypes = 0;$/;"	v	file:
@@ -1277,6 +1252,8 @@ initialize	self-host/neo-c.h	/^    initialize() {$/;"	f	struct:tuple1
 initialize	self-host/neo-c.h	/^    initialize() {$/;"	f	struct:tuple2
 initialize	self-host/neo-c.h	/^    initialize() {$/;"	f	struct:tuple3
 initialize	self-host/neo-c.h	/^    initialize() {$/;"	f	struct:tuple4
+initialize_main	neo-c.h	/^inline void initialize_main()$/;"	f
+initialize_main	self-host/neo-c.h	/^inline void initialize_main()$/;"	f
 inline_func_end	self-host/src/common.h	/^    void* inline_func_end;$/;"	m	struct:sCompileInfoStruct
 inline_func_end	src/common.h	/^    void* inline_func_end;$/;"	m	struct:sCompileInfoStruct
 inputedKeys	self-host/wi/common.h	/^    vector<int>*% inputedKeys;$/;"	m	struct:version
@@ -2244,6 +2221,8 @@ mULongValue	self-host/src/common.h	/^        unsigned long long int mULongValue;
 mULongValue	src/common.h	/^        unsigned long long int mULongValue;$/;"	m	union:sNodeTreeStruct::__anon39
 mUndefinedStructType	self-host/src/common.h	/^    void* mUndefinedStructType;$/;"	m	struct:sCLClassStruct
 mUndefinedStructType	src/common.h	/^    void* mUndefinedStructType;$/;"	m	struct:sCLClassStruct
+mUniq	self-host/src/common.h	/^    BOOL mUniq;$/;"	m	struct:sNodeTypeStruct
+mUniq	src/common.h	/^    BOOL mUniq;$/;"	m	struct:sNodeTypeStruct
 mUnsigned	self-host/src/common.h	/^    BOOL mUnsigned;$/;"	m	struct:sNodeTypeStruct
 mUnsigned	src/common.h	/^    BOOL mUnsigned;$/;"	m	struct:sNodeTypeStruct
 mValue	clover3/src/common.h	/^    CLVALUE mValue;$/;"	m	struct:sCLField
@@ -2287,6 +2266,8 @@ mWhileNodeBlock	self-host/src/common.h	/^            MANAGED struct sNodeBlockSt
 mWhileNodeBlock	src/common.h	/^            MANAGED struct sNodeBlockStruct* mWhileNodeBlock;$/;"	m	struct:sNodeTreeStruct::__anon39::__anon52	typeref:struct:sNodeTreeStruct::__anon39::__anon52::sNodeBlockStruct
 macro	self-host/wi/common.h	/^    map<int, vector<vector<int>*%>*%>*% macro;$/;"	m	struct:version
 macro	wi/common.h	/^    map<int, vector<vector<int>*%>*%>*% macro;$/;"	m	struct:version
+main	a.c	/^int main()$/;"	f
+main	b.c	/^int main()$/;"	f
 main	self-host/src/compiler.c	/^int main(int argc, char** argv)$/;"	f
 main	self-host/src/preprocessor.c	/^int main(int argc, char* argv[])$/;"	f
 main	self-host/wi/a.c	/^int main()$/;"	f
@@ -2313,8 +2294,7 @@ map	self-host/neo-c.h	/^struct map<T, T2>$/;"	s
 mark	self-host/wi/common.h	/^    map<wchar_t, tuple3<int,int, int>*%>*% mark;$/;"	m	struct:version
 mark	wi/common.h	/^    map<wchar_t, tuple3<int,int, int>*%>*% mark;$/;"	m	struct:version
 max_var_num	clover3/src/common.h	/^    int max_var_num;$/;"	m	struct:sParserInfo
-mem	self-host/src/memalloc-stdc.c	/^    void* mem;$/;"	m	struct:sHeapDebug	file:
-mem	src/memalloc-stdc.c	/^    void* mem;$/;"	m	struct:sHeapDebug	file:
+mem	memalloc-stdc.c	/^    void* mem;$/;"	m	struct:sHeapDebug	file:
 middle	clover3/src/common.h	/^    struct sCLNode* middle;$/;"	m	struct:sCLNode	typeref:struct:sCLNode::sCLNode
 mode	self-host/wi/common.h	/^    int mode;$/;"	m	struct:version
 mode	wi/common.h	/^    int mode;$/;"	m	struct:version
@@ -2324,8 +2304,7 @@ multiline	code/neo-c.h	/^    bool multiline;$/;"	m	struct:regex_struct
 multiline	neo-c.h	/^    bool multiline;$/;"	m	struct:regex_struct
 multiline	self-host/code/neo-c.h	/^    bool multiline;$/;"	m	struct:regex_struct
 multiline	self-host/neo-c.h	/^    bool multiline;$/;"	m	struct:regex_struct
-mystrncpy	self-host/src/memalloc-stdc.c	/^char* mystrncpy(char* des, char* src, int size)$/;"	f
-mystrncpy	src/memalloc-stdc.c	/^char* mystrncpy(char* des, char* src, int size)$/;"	f
+mystrncpy	memalloc-stdc.c	/^char* mystrncpy(char* des, char* src, int size)$/;"	f
 n	code/neo-c.h	/^            n = n + 1;$/;"	m	struct:map
 n	code/neo-c.h	/^            n = n + 1;$/;"	m	struct:tuple
 n	code/neo-c.h	/^        n = n + 1;$/;"	m	struct:map
@@ -2350,20 +2329,13 @@ n	self-host/neo-c.h	/^        n = n + 1;$/;"	m	struct:map
 n	self-host/neo-c.h	/^        n = n + 1;$/;"	m	struct:tuple
 n	self-host/neo-c.h	/^    n = 0;$/;"	m	struct:map
 n	self-host/neo-c.h	/^    n = 0;$/;"	m	struct:tuple
-nccalloc	self-host/src/memalloc-stdc.c	/^void *nccalloc(long long num, long long nsize)$/;"	f
-nccalloc	src/memalloc-stdc.c	/^void *nccalloc(long long num, long long nsize)$/;"	f
-ncfree	self-host/src/memalloc-stdc.c	/^void ncfree(void *block)$/;"	f
-ncfree	src/memalloc-stdc.c	/^void ncfree(void *block)$/;"	f
-ncmalloc	self-host/src/memalloc-stdc.c	/^void *ncmalloc(long long size)$/;"	f
-ncmalloc	src/memalloc-stdc.c	/^void *ncmalloc(long long size)$/;"	f
-ncmalloc_usable_size	self-host/src/memalloc-stdc.c	/^long long ncmalloc_usable_size(void* block)$/;"	f
-ncmalloc_usable_size	src/memalloc-stdc.c	/^long long ncmalloc_usable_size(void* block)$/;"	f
-ncmemcpy	self-host/src/memalloc-stdc.c	/^void* ncmemcpy(void* mem, void* mem2, long long int size)$/;"	f
-ncmemcpy	src/memalloc-stdc.c	/^void* ncmemcpy(void* mem, void* mem2, long long int size)$/;"	f
-ncmemdup	self-host/src/memalloc-stdc.c	/^void *ncmemdup(void *block)$/;"	f
-ncmemdup	src/memalloc-stdc.c	/^void *ncmemdup(void *block)$/;"	f
-ncrealloc	self-host/src/memalloc-stdc.c	/^void *ncrealloc(void *block, long long int size)$/;"	f
-ncrealloc	src/memalloc-stdc.c	/^void *ncrealloc(void *block, long long int size)$/;"	f
+nccalloc	memalloc-stdc.c	/^void *nccalloc(long long num, long long nsize)$/;"	f
+ncfree	memalloc-stdc.c	/^void ncfree(void *block)$/;"	f
+ncmalloc	memalloc-stdc.c	/^void *ncmalloc(long long size)$/;"	f
+ncmalloc_usable_size	memalloc-stdc.c	/^long long ncmalloc_usable_size(void* block)$/;"	f
+ncmemcpy	memalloc-stdc.c	/^void* ncmemcpy(void* mem, void* mem2, long long int size)$/;"	f
+ncmemdup	memalloc-stdc.c	/^void *ncmemdup(void *block)$/;"	f
+ncrealloc	memalloc-stdc.c	/^void *ncrealloc(void *block, long long int size)$/;"	f
 new_right_value_objects_container	self-host/src/llvm.cpp	/^void* new_right_value_objects_container(sCompileInfo* info)$/;"	f
 new_right_value_objects_container	src/llvm.cpp	/^void* new_right_value_objects_container(sCompileInfo* info)$/;"	f
 next	code/neo-c.h	/^    struct list_item<T>*? next;$/;"	m	struct:list_item	typeref:struct:list_item::list_item
@@ -2385,6 +2357,22 @@ num_loop	self-host/src/common.h	/^    int num_loop;$/;"	m	struct:sCompileInfoStr
 num_loop	src/common.h	/^    int num_loop;$/;"	m	struct:sCompileInfoStruct
 num_loop2	self-host/src/common.h	/^    int num_loop2;$/;"	m	struct:sCompileInfoStruct
 num_loop2	src/common.h	/^    int num_loop2;$/;"	m	struct:sCompileInfoStruct
+operator *	neo-c.h	/^inline string operator*(char* left, int num)$/;"	f
+operator *	neo-c.h	/^inline string operator*(string& left, int num)$/;"	f
+operator *	neo-c.h	/^inline wstring operator*(wchar_t* left, int num)$/;"	f
+operator *	neo-c.h	/^inline wstring operator*(wstring& left, int num)$/;"	f
+operator *	self-host/neo-c.h	/^inline string operator*(char* left, int num)$/;"	f
+operator *	self-host/neo-c.h	/^inline string operator*(string& left, int num)$/;"	f
+operator *	self-host/neo-c.h	/^inline wstring operator*(wchar_t* left, int num)$/;"	f
+operator *	self-host/neo-c.h	/^inline wstring operator*(wstring& left, int num)$/;"	f
+operator +	neo-c.h	/^inline string operator+(char* left, char* right)$/;"	f
+operator +	neo-c.h	/^inline string operator+(string& left, string& right)$/;"	f
+operator +	neo-c.h	/^inline wstring operator+(wchar_t* left, wchar_t* right)$/;"	f
+operator +	neo-c.h	/^inline wstring operator+(wstring& left, wstring& right)$/;"	f
+operator +	self-host/neo-c.h	/^inline string operator+(char* left, char* right)$/;"	f
+operator +	self-host/neo-c.h	/^inline string operator+(string& left, string& right)$/;"	f
+operator +	self-host/neo-c.h	/^inline wstring operator+(wchar_t* left, wchar_t* right)$/;"	f
+operator +	self-host/neo-c.h	/^inline wstring operator+(wstring& left, wstring& right)$/;"	f
 options	neo-c.h	/^    int options;$/;"	m	struct:regex_struct
 options	self-host/neo-c.h	/^    int options;$/;"	m	struct:regex_struct
 oror_result_var	self-host/src/common.h	/^    void* oror_result_var;$/;"	m	struct:sCompileInfoStruct
@@ -2392,6 +2380,8 @@ oror_result_var	src/common.h	/^    void* oror_result_var;$/;"	m	struct:sCompileI
 output_native_code	self-host/src/llvm.cpp	/^void output_native_code(char* sname, BOOL optimize, char* throw_to_cflag)$/;"	f
 output_native_code	src/llvm.cpp	/^void output_native_code(char* sname, BOOL optimize, char* throw_to_cflag)$/;"	f
 p	clover3/src/common.h	/^    char* p;$/;"	m	struct:sParserInfo
+p	neo-c.h	/^inline void p(char* str)$/;"	f
+p	self-host/neo-c.h	/^inline void p(char* str)$/;"	f
 p	self-host/src/common.h	/^    char* p;$/;"	m	struct:sParserInfoStruct
 p	src/common.h	/^    char* p;$/;"	m	struct:sParserInfoStruct
 page	ayataka/src/common.h	/^    int page;$/;"	m	struct:Filer
@@ -2456,14 +2446,14 @@ parse_clone	self-host/src/parser.c	/^BOOL parse_clone(unsigned int* node, sParse
 parse_clone	src/parser.c	/^BOOL parse_clone(unsigned int* node, sParserInfo* info)$/;"	f
 parse_cmp	self-host/src/parser.c	/^int parse_cmp(char* p, char* str)$/;"	f
 parse_cmp	src/parser.c	/^int parse_cmp(char* p, char* str)$/;"	f
-parse_constructor	self-host/src/parser.c	/^static BOOL parse_constructor(unsigned int* node, char* struct_name, sParserInfo* info) $/;"	f	file:
-parse_constructor	src/parser.c	/^static BOOL parse_constructor(unsigned int* node, char* struct_name, sParserInfo* info) $/;"	f	file:
+parse_constructor	self-host/src/parser.c	/^static BOOL parse_constructor(unsigned int* node, char* struct_name, sParserInfo* info, BOOL inline_) $/;"	f	file:
+parse_constructor	src/parser.c	/^static BOOL parse_constructor(unsigned int* node, char* struct_name, sParserInfo* info, BOOL inline_) $/;"	f	file:
 parse_default	self-host/src/parser.c	/^static BOOL parse_default(unsigned int* node, sParserInfo* info)$/;"	f	file:
 parse_default	src/parser.c	/^static BOOL parse_default(unsigned int* node, sParserInfo* info)$/;"	f	file:
 parse_delete	self-host/src/parser.c	/^BOOL parse_delete(unsigned int* node, sParserInfo* info)$/;"	f
 parse_delete	src/parser.c	/^BOOL parse_delete(unsigned int* node, sParserInfo* info)$/;"	f
-parse_destructor	self-host/src/parser.c	/^BOOL parse_destructor(unsigned int* node, char* struct_name, sParserInfo* info, BOOL recursive) $/;"	f
-parse_destructor	src/parser.c	/^BOOL parse_destructor(unsigned int* node, char* struct_name, sParserInfo* info, BOOL recursive) $/;"	f
+parse_destructor	self-host/src/parser.c	/^BOOL parse_destructor(unsigned int* node, char* struct_name, sParserInfo* info, BOOL recursive, BOOL inline_) $/;"	f
+parse_destructor	src/parser.c	/^BOOL parse_destructor(unsigned int* node, char* struct_name, sParserInfo* info, BOOL recursive, BOOL inline_) $/;"	f
 parse_do	self-host/src/parser.c	/^static BOOL parse_do(unsigned int* node, sParserInfo* info)$/;"	f	file:
 parse_do	src/parser.c	/^static BOOL parse_do(unsigned int* node, sParserInfo* info)$/;"	f	file:
 parse_dummy_heap	self-host/src/parser.c	/^BOOL parse_dummy_heap(unsigned int* node, sParserInfo* info)$/;"	f
@@ -2616,10 +2606,9 @@ read_long_from_file	self-host/src/klass.c	/^void read_long_from_file(char** p, c
 read_long_from_file	src/klass.c	/^void read_long_from_file(char** p, clint64* n)$/;"	f
 read_source	self-host/src/source_compiler.c	/^BOOL read_source(char* fname, sBuf* source)$/;"	f
 read_source	src/source_compiler.c	/^BOOL read_source(char* fname, sBuf* source)$/;"	f
+real_fun_name	memalloc-stdc.c	/^    char real_fun_name[128];$/;"	m	struct:sHeapDebug	file:
 real_fun_name	self-host/src/common.h	/^    char real_fun_name[VAR_NAME_MAX];$/;"	m	struct:sCompileInfoStruct
-real_fun_name	self-host/src/memalloc-stdc.c	/^    char real_fun_name[128];$/;"	m	struct:sHeapDebug	file:
 real_fun_name	src/common.h	/^    char real_fun_name[VAR_NAME_MAX];$/;"	m	struct:sCompileInfoStruct
-real_fun_name	src/memalloc-stdc.c	/^    char real_fun_name[128];$/;"	m	struct:sHeapDebug	file:
 recordingMacro	self-host/wi/common.h	/^    vector<vector<int>*%>*% recordingMacro;$/;"	m	struct:version
 recordingMacro	wi/common.h	/^    vector<vector<int>*%>*% recordingMacro;$/;"	m	struct:version
 recordingMacroKey	self-host/wi/common.h	/^    int recordingMacroKey;$/;"	m	struct:version
@@ -2627,9 +2616,11 @@ recordingMacroKey	wi/common.h	/^    int recordingMacroKey;$/;"	m	struct:version
 regex	code/neo-c.h	/^    pcre* regex;$/;"	m	struct:regex_struct
 regex	code/neo-c.h	/^typedef regex_struct*% regex;$/;"	t
 regex	neo-c.h	/^    pcre* regex;$/;"	m	struct:regex_struct
+regex	neo-c.h	/^inline nregex regex(char* str, bool ignore_case, bool multiline, bool global, bool extended, bool dotall, bool anchored, bool dollar_endonly, bool ungreedy)$/;"	f
 regex	self-host/code/neo-c.h	/^    pcre* regex;$/;"	m	struct:regex_struct
 regex	self-host/code/neo-c.h	/^typedef regex_struct*% regex;$/;"	t
 regex	self-host/neo-c.h	/^    pcre* regex;$/;"	m	struct:regex_struct
+regex	self-host/neo-c.h	/^inline nregex regex(char* str, bool ignore_case, bool multiline, bool global, bool extended, bool dotall, bool anchored, bool dollar_endonly, bool ungreedy)$/;"	f
 regexSearch	self-host/wi/common.h	/^    bool regexSearch;$/;"	m	struct:version
 regexSearch	wi/common.h	/^    bool regexSearch;$/;"	m	struct:version
 regex_struct	code/neo-c.h	/^struct regex_struct {$/;"	s
@@ -2759,8 +2750,7 @@ sFunctionStruct	self-host/src/llvm_common.hpp	/^struct sFunctionStruct {$/;"	s
 sFunctionStruct	src/llvm_common.hpp	/^struct sFunctionStruct {$/;"	s
 sGoto	self-host/src/common.h	/^        } sGoto;$/;"	m	union:sNodeTreeStruct::__anon3	typeref:struct:sNodeTreeStruct::__anon3::__anon34
 sGoto	src/common.h	/^        } sGoto;$/;"	m	union:sNodeTreeStruct::__anon39	typeref:struct:sNodeTreeStruct::__anon39::__anon70
-sHeapDebug	self-host/src/memalloc-stdc.c	/^struct sHeapDebug {$/;"	s	file:
-sHeapDebug	src/memalloc-stdc.c	/^struct sHeapDebug {$/;"	s	file:
+sHeapDebug	memalloc-stdc.c	/^struct sHeapDebug {$/;"	s	file:
 sIf	self-host/src/common.h	/^        } sIf;$/;"	m	union:sNodeTreeStruct::__anon3	typeref:struct:sNodeTreeStruct::__anon3::__anon15
 sIf	src/common.h	/^        } sIf;$/;"	m	union:sNodeTreeStruct::__anon39	typeref:struct:sNodeTreeStruct::__anon39::__anon51
 sImpl	self-host/src/common.h	/^        } sImpl;$/;"	m	union:sNodeTreeStruct::__anon3	typeref:struct:sNodeTreeStruct::__anon3::__anon23
@@ -3110,26 +3100,24 @@ sline	clover3/src/common.h	/^    int sline;$/;"	m	struct:sCLNode
 sline	clover3/src/common.h	/^    int sline;$/;"	m	struct:sCompileInfo
 sline	clover3/src/common.h	/^    int sline;$/;"	m	struct:sParserInfo
 sline	clover3/src/common.h	/^    int sline;$/;"	m	struct:sVMInfo
+sline	memalloc-stdc.c	/^    int sline;$/;"	m	struct:sHeapDebug	file:
 sline	self-host/src/common.h	/^    int sline;$/;"	m	struct:sCompileInfoStruct
 sline	self-host/src/common.h	/^    int sline;$/;"	m	struct:sParserInfoStruct
-sline	self-host/src/memalloc-stdc.c	/^    int sline;$/;"	m	struct:sHeapDebug	file:
 sline	src/common.h	/^    int sline;$/;"	m	struct:sCompileInfoStruct
 sline	src/common.h	/^    int sline;$/;"	m	struct:sParserInfoStruct
-sline	src/memalloc-stdc.c	/^    int sline;$/;"	m	struct:sHeapDebug	file:
 sline_top	self-host/src/common.h	/^    int sline_top;$/;"	m	struct:sParserInfoStruct
 sline_top	src/common.h	/^    int sline_top;$/;"	m	struct:sParserInfoStruct
 sname	clover3/src/common.h	/^    char sname[PATH_MAX];$/;"	m	struct:sCLNode
 sname	clover3/src/common.h	/^    char sname[PATH_MAX];$/;"	m	struct:sCompileInfo
 sname	clover3/src/common.h	/^    char sname[PATH_MAX];$/;"	m	struct:sParserInfo
 sname	clover3/src/common.h	/^    char sname[PATH_MAX];$/;"	m	struct:sVMInfo
+sname	memalloc-stdc.c	/^    char sname[128];$/;"	m	struct:sHeapDebug	file:
 sname	self-host/src/common.h	/^    char sname[PATH_MAX];$/;"	m	struct:sCompileInfoStruct
 sname	self-host/src/common.h	/^    char sname[PATH_MAX];$/;"	m	struct:sParserInfoStruct
-sname	self-host/src/memalloc-stdc.c	/^    char sname[128];$/;"	m	struct:sHeapDebug	file:
 sname	src/common.h	/^    char sname[PATH_MAX];$/;"	m	struct:sCompileInfoStruct
 sname	src/common.h	/^    char sname[PATH_MAX];$/;"	m	struct:sParserInfoStruct
-sname	src/memalloc-stdc.c	/^    char sname[128];$/;"	m	struct:sHeapDebug	file:
-snprintf	pre-neo-c.h	1;"	d
-snprintf	self-host/pre-neo-c.h	1;"	d
+snprintf	neo-c.h	1;"	d
+snprintf	self-host/neo-c.h	1;"	d
 solve_generics	self-host/src/node_type.c	/^BOOL solve_generics(sNodeType** node_type, sNodeType* generics_type, BOOL* success_volve)$/;"	f
 solve_generics	src/node_type.c	/^BOOL solve_generics(sNodeType** node_type, sNodeType* generics_type, BOOL* success_volve)$/;"	f
 solve_method_generics	self-host/src/node_type.c	/^BOOL solve_method_generics(sNodeType** node_type, int num_method_generics_types, sNodeType* method_generics_types[GENERICS_TYPES_MAX])$/;"	f
@@ -3176,12 +3164,16 @@ str	code/neo-c.h	/^    string str;$/;"	m	struct:regex_struct
 str	neo-c.h	/^    string str;$/;"	m	struct:regex_struct
 str	self-host/code/neo-c.h	/^    string str;$/;"	m	struct:regex_struct
 str	self-host/neo-c.h	/^    string str;$/;"	m	struct:regex_struct
-strcpy	pre-neo-c.h	2;"	d
-strcpy	self-host/pre-neo-c.h	2;"	d
+strcpy	neo-c.h	2;"	d
+strcpy	self-host/neo-c.h	2;"	d
 string	code/neo-c.h	/^typedef char*% string;$/;"	t
+string	neo-c.h	/^inline string string(char* str)$/;"	f
 string	neo-c.h	/^typedef char*% string;$/;"	t
 string	self-host/code/neo-c.h	/^typedef char*% string;$/;"	t
+string	self-host/neo-c.h	/^inline string string(char* str)$/;"	f
 string	self-host/neo-c.h	/^typedef char*% string;$/;"	t
+string_from_wchar_t	neo-c.h	/^inline string string_from_wchar_t(wchar_t* wstr, char* default_value)$/;"	f
+string_from_wchar_t	self-host/neo-c.h	/^inline string string_from_wchar_t(wchar_t* wstr, char* default_value)$/;"	f
 substitution_posibility	self-host/src/node_type.c	/^BOOL substitution_posibility(sNodeType* left_type, sNodeType* right_type, sCompileInfo* info)$/;"	f
 substitution_posibility	src/node_type.c	/^BOOL substitution_posibility(sNodeType* left_type, sNodeType* right_type, sCompileInfo* info)$/;"	f
 switch_expression	self-host/src/common.h	/^    void* switch_expression;$/;"	m	struct:sCompileInfoStruct
@@ -3248,8 +3240,7 @@ type_identify	self-host/src/node_type.c	/^BOOL type_identify(sNodeType* left, sN
 type_identify	src/node_type.c	/^BOOL type_identify(sNodeType* left, sNodeType* right)$/;"	f
 type_identify_with_class_name	self-host/src/node_type.c	/^BOOL type_identify_with_class_name(sNodeType* left, char* right_class_name)$/;"	f
 type_identify_with_class_name	src/node_type.c	/^BOOL type_identify_with_class_name(sNodeType* left, char* right_class_name)$/;"	f
-type_name	self-host/src/memalloc-stdc.c	/^    char type_name[128];$/;"	m	struct:sHeapDebug	file:
-type_name	src/memalloc-stdc.c	/^    char type_name[128];$/;"	m	struct:sHeapDebug	file:
+type_name	memalloc-stdc.c	/^    char type_name[128];$/;"	m	struct:sHeapDebug	file:
 types	ayataka/src/common.h	/^    vector<sCLType*%>*% types;$/;"	m	struct:Ayataka
 types	clover3/src/common.h	/^    vector<sCLType*%>* types;$/;"	m	struct:sParserInfo
 types	clover3/src/common.h	/^    vector<sCLType*%>*% types;$/;"	m	struct:sCLClass
@@ -3440,13 +3431,20 @@ write_to_automatically_header	src/parser.c	/^static BOOL write_to_automatically_
 writed	self-host/wi/common.h	/^    bool writed;$/;"	m	struct:version
 writed	wi/common.h	/^    bool writed;$/;"	m	struct:version
 wstring	code/neo-c.h	/^typedef wchar_t*% wstring;$/;"	t
+wstring	neo-c.h	/^inline wstring wstring(char* str)$/;"	f
 wstring	neo-c.h	/^typedef wchar_t*% wstring;$/;"	t
 wstring	self-host/code/neo-c.h	/^typedef wchar_t*% wstring;$/;"	t
+wstring	self-host/neo-c.h	/^inline wstring wstring(char* str)$/;"	f
 wstring	self-host/neo-c.h	/^typedef wchar_t*% wstring;$/;"	t
+wstring_from_wchar_t	neo-c.h	/^inline wstring wstring_from_wchar_t(wchar_t* str)$/;"	f
+wstring_from_wchar_t	self-host/neo-c.h	/^inline wstring wstring_from_wchar_t(wchar_t* str)$/;"	f
 x	self-host/wi/common.h	/^    int x;$/;"	m	struct:ViWin
 x	wi/common.h	/^    int x;$/;"	m	struct:ViWin
-xasprintf	self-host/src/memalloc-stdc.c	/^void *xasprintf(char* msg, ...)$/;"	f
-xasprintf	src/memalloc-stdc.c	/^void *xasprintf(char* msg, ...)$/;"	f
+xasprintf	memalloc-stdc.c	/^void *xasprintf(char* msg, ...)$/;"	f
+xassert	neo-c.h	/^inline void xassert(char* msg, bool exp) $/;"	f
+xassert	self-host/neo-c.h	/^inline void xassert(char* msg, bool exp) $/;"	f
+xbasename	neo-c.h	/^inline string xbasename(char* path)$/;"	f
+xbasename	self-host/neo-c.h	/^inline string xbasename(char* path)$/;"	f
 xcalloc	self-host/src/memalloc.c	/^void *xcalloc(size_t num, size_t nsize)$/;"	f
 xcalloc	self-host/src/xfunc.c	/^ALLOC void* xcalloc(size_t count, size_t size)$/;"	f
 xcalloc	src/memalloc.c	/^void *xcalloc(size_t num, size_t nsize)$/;"	f
@@ -3465,12 +3463,19 @@ xrealloc	self-host/src/memalloc.c	/^void *xrealloc(char *block, size_t size)$/;"
 xrealloc	self-host/src/xfunc.c	/^ALLOC void* xrealloc(void* ptr, size_t size)$/;"	f
 xrealloc	src/memalloc.c	/^void *xrealloc(char *block, size_t size)$/;"	f
 xrealloc	src/xfunc.c	/^ALLOC void* xrealloc(void* ptr, size_t size)$/;"	f
-xsprintf	self-host/src/memalloc-stdc.c	/^void *xsprintf(char* msg, ...)$/;"	f
-xsprintf	src/memalloc-stdc.c	/^void *xsprintf(char* msg, ...)$/;"	f
+xrealpath	neo-c.h	/^inline string xrealpath(char* path)$/;"	f
+xrealpath	self-host/neo-c.h	/^inline string xrealpath(char* path)$/;"	f
+xsprintf	b.c	/^inline char*% xsprintf(char* msg, ...)$/;"	f
+xsprintf	neo-c.h	/^inline string xsprintf(char* msg, ...)$/;"	f
+xsprintf	self-host/neo-c.h	/^inline string xsprintf(char* msg, ...)$/;"	f
 xstrdup	self-host/src/xfunc.c	/^ALLOC char* xstrdup(char* str)$/;"	f
 xstrdup	src/xfunc.c	/^ALLOC char* xstrdup(char* str)$/;"	f
+xstrncat	neo-c.h	/^inline char* xstrncat(char* des, char* str, int size)$/;"	f
+xstrncat	self-host/neo-c.h	/^inline char* xstrncat(char* des, char* str, int size)$/;"	f
 xstrncat	self-host/src/xfunc.c	/^char* xstrncat(char* des, char* str, int size)$/;"	f
 xstrncat	src/xfunc.c	/^char* xstrncat(char* des, char* str, int size)$/;"	f
+xstrncpy	neo-c.h	/^inline char* xstrncpy(char* des, char* src, int size)$/;"	f
+xstrncpy	self-host/neo-c.h	/^inline char* xstrncpy(char* des, char* src, int size)$/;"	f
 xstrncpy	self-host/src/xfunc.c	/^char* xstrncpy(char* des, char* src, int size)$/;"	f
 xstrncpy	src/xfunc.c	/^char* xstrncpy(char* des, char* src, int size)$/;"	f
 y	self-host/wi/common.h	/^    int y;$/;"	m	struct:ViWin

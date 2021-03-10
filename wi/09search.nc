@@ -267,7 +267,7 @@ void inputSearchlMode(ViWin* self, Vi* nvi)
             break;
 
         default:
-            nvi.searchString = nvi.searchString + wstring(xasprintf("%c", key));
+            nvi.searchString = nvi.searchString + wstring(xsprintf("%c", key));
             break;
     }
     self.saveInputedKey();

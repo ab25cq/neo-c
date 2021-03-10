@@ -86,31 +86,31 @@ void inputRewritetMode(ViWin* self, Vi* nvi)
     }
     else if(key == '(') {
         self.blinkBraceFoward('(', ')', nvi);
-        self.insertText2(wstring(xasprintf("%c", key)));
+        self.insertText2(wstring(xsprintf("%c", key)));
     }
     else if(key == '{') {
         self.blinkBraceFoward('{', '}', nvi);
-        self.insertText2(wstring(xasprintf("%c", key)));
+        self.insertText2(wstring(xsprintf("%c", key)));
     }
     else if(key == '[') {
         self.blinkBraceFoward('<', '>', nvi);
-        self.insertText2(wstring(xasprintf("%c", key)));
+        self.insertText2(wstring(xsprintf("%c", key)));
     }
     else if(key == ')') {
         self.blinkBraceEnd('(', ')', nvi);
-        self.insertText2(wstring(xasprintf("%c", key)));
+        self.insertText2(wstring(xsprintf("%c", key)));
     }
     else if(key == '}') {
         self.blinkBraceEnd('{', '}', nvi);
-        self.insertText2(wstring(xasprintf("%c", key)));
+        self.insertText2(wstring(xsprintf("%c", key)));
     }
     else if(key == ']') {
         self.blinkBraceEnd('[', ']', nvi);
-        self.insertText2(wstring(xasprintf("%c", key)));
+        self.insertText2(wstring(xsprintf("%c", key)));
     }
     else if(key == '>') {
         self.blinkBraceEnd('<', '>', nvi);
-        self.insertText2(wstring(xasprintf("%c", key)));
+        self.insertText2(wstring(xsprintf("%c", key)));
     }
     else if(key == 'W'-'A'+1) {
         int cursor_x = self.cursorX;
@@ -149,7 +149,7 @@ void inputRewritetMode(ViWin* self, Vi* nvi)
         self.insertText2(wstring(str));
     }
     else {
-        self.insertText2(wstring(xasprintf("%c", key)));
+        self.insertText2(wstring(xsprintf("%c", key)));
     }
 }
 

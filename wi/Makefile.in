@@ -125,7 +125,7 @@ permission:
 # clean
 #########################################
 clean:
-	rm -fR memleak_debug.txt *.ll *.bc *.nc.tmp *.out *.o valgrind.txt memleack_debug.txt
+	rm -fR memleak_debug.txt *.ll *.bc *.nc.tmp *.out *.o valgrind.txt memleack_debug.txt *.i
 	rm -fR wi
 
 distclean: clean

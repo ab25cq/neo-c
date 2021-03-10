@@ -1,12 +1,6 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdarg.h>
 #include "config.h"
 
 int gNCDebugHeap = 1;
-
-int gNumMemAlloc = 0;
 
 int gMaxMemAlloc = 0;
 
@@ -214,57 +208,6 @@ void *ncrealloc(void *block, long long int size)
     return result;
 #endif
 }
-
-void *xasprintf(char* msg, ...)
-{
-    if(gNCDebugHeap){
-        gNumMemAlloc++;
-        if(gNumMemAlloc >= gMaxMemAlloc) gMaxMemAlloc = gNumMemAlloc;
-    }
-    else {
-        gNumMemAlloc++;
-    }
-
-    va_list args;
-    va_start(args, msg);
-    char* tmp;
-    int len = vasprintf(&tmp, msg, args);
-    va_end(args);
-
-    if(len < 0) {
-        fprintf(stderr, "can't get heap memory. Heap memory number is %d. xasprintf len %d\n", gNumMemAlloc, len);
-
-        exit(2);
-    }
-
-    return tmp;
-}
-
-void *xsprintf(char* msg, ...)
-{
-    if(gNCDebugHeap){
-        gNumMemAlloc++;
-        if(gNumMemAlloc >= gMaxMemAlloc) gMaxMemAlloc = gNumMemAlloc;
-    }
-    else {
-        gNumMemAlloc++;
-    }
-
-    va_list args;
-    va_start(args, msg);
-    char* tmp;
-    int len = vasprintf(&tmp, msg, args);
-    va_end(args);
-
-    if(len < 0) {
-        fprintf(stderr, "can't get heap memory. Heap memory number is %d. xsprintf len %d\n", gNumMemAlloc, len);
-
-        exit(2);
-    }
-
-    return tmp;
-}
-
 
 void* ncmemcpy(void* mem, void* mem2, long long int size)
 {

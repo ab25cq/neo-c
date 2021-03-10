@@ -560,7 +560,7 @@ void input(ViFiler* self, Vi* nvi) {
             var cursor_file = self.files.item(self.scroll+self.cursor, null);
                     
             var command = nvi.commandBox(
-                    xasprintf(" ./%s", cursor_file), null);
+                    xsprintf(" ./%s", cursor_file), null);
             
             if(command != null) {
                 endwin();
@@ -576,7 +576,7 @@ void input(ViFiler* self, Vi* nvi) {
             break;
             
         case '\n': {
-            var path = xasprintf("%s/%s", self.path, file_name);
+            var path = xsprintf("%s/%s", self.path, file_name);
             
             stat stat_;
             
@@ -617,7 +617,7 @@ void input(ViFiler* self, Vi* nvi) {
         case 8:
         case 127:
         case KEY_BACKSPACE: {
-            var path = xasprintf("%s/..", self.path);
+            var path = xsprintf("%s/..", self.path);
 
             var cwd_before = xbasename(self.path) + string("/");
                     
@@ -874,7 +874,7 @@ string commandBox(Vi* self, string command, string default_value) {
                 return default_value;
                 
             default:
-                command = xasprintf("%s%s%s"
+                command = xsprintf("%s%s%s"
                         , command.substring(0, cursor)
                         , key.to_string().printable()
                         , command.substring(cursor, -1));
@@ -1053,7 +1053,7 @@ string inputBox(Vi* self, string default_value) {
                 return default_value;
                 
             default:
-                command = xasprintf("%s%s%s"
+                command = xsprintf("%s%s%s"
                         , command.substring(0, cursor)
                         , key.to_string().printable()
                         , command.substring(cursor, -1));

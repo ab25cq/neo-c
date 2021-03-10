@@ -1,4 +1,8 @@
 #include "common.h"
+#include <limits.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 impl ViWin version 6
 {

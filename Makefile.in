@@ -32,21 +32,17 @@ COMMON_OBJS=@COMMON_OBJS@
 #########################################
 # main
 #########################################
-all: neo-c neo-c.a
-	if which ctags > /dev/null; then if test $(OS) = DARWIN; then ctags src/*.c > /dev/null 2>&1; else ctags -R; fi; fi
+all: neo-c libneo-c.a
 
 neo-c: config.h src/compiler.o $(COMMON_OBJS) $(OBJS)
 	$(CXX) -o neo-c src/compiler.o $(COMMON_OBJS) $(OBJS) $(CFLAGS) $(LIBS) $(CXXFLAGS)
 
-neo-c.a: neo-c.nc neo-c-string.nc neo-c-string2.nc neo-c-wstring.nc memalloc-stdc.o
+libneo-c.a: neo-c.nc neo-c-string.nc neo-c-string2.nc neo-c-wstring.nc
 	PWD=`pwd` ./neo-c -c neo-c.nc 
 	PWD=`pwd` ./neo-c -c neo-c-string.nc
 	PWD=`pwd` ./neo-c -c neo-c-string2.nc
 	PWD=`pwd` ./neo-c -c neo-c-wstring.nc
-	ar r neo-c.a neo-c.o neo-c-string.o neo-c-string2.o neo-c-wstring.o memalloc-stdc.o
-
-memalloc-stdc.o: src/memalloc-stdc.c
-	$(CC) -c -o memalloc-stdc.o src/memalloc-stdc.c $(CFLAGS)
+	ar r libneo-c.a neo-c.o neo-c-string.o neo-c-string2.o neo-c-wstring.o 
 
 #########################################
 # Object files
@@ -61,12 +57,11 @@ $(RUNTIME_OBJS): src/*.h Makefile configure
 # install
 #########################################
 install:
-	mkdir -p $(DESTDIR)/lib
-	$(INSTALL) -m 644 ./neo-c.a $(DESTDIR)/lib
-
 	mkdir -p $(DESTDIR)/include
 	$(INSTALL) -m 644 ./neo-c.h $(DESTDIR)/include
-	$(INSTALL) -m 644 ./pre-neo-c.h $(DESTDIR)/include
+
+	mkdir -p $(DESTDIR)/lib
+	$(INSTALL) -m 644 ./libneo-c.a $(DESTDIR)/lib
 
 #	mkdir -p $(DESTDIR)/share/man/man1
 #	$(INSTALL) ./man/neo-c.1.gz $(DESTDIR)/share/man/man1
@@ -74,8 +69,8 @@ install:
 	mkdir -p "$(DESTDIR)/bin"
 	$(INSTALL) -m 755 ./neo-c "$(DESTDIR)/bin"
 
-#	mkdir -p $(DESTDIR)/share/doc/neo-c
-#	$(INSTALL) -m 644 ./manual/*.md "$(DESTDIR)/share/doc/neo-c"
+	mkdir -p $(DESTDIR)/share/doc/neo-c
+	$(INSTALL) -m 644 ./README.md "$(DESTDIR)/share/doc/neo-c"
 
 #########################################
 # permission
@@ -91,7 +86,7 @@ permission:
 # clean
 #########################################
 clean:
-	rm -fR neo-c.a memleak_debug.txt code/HelloWorld code/HelloWorld2 code/HelloWorld3 code/HelloWorld4 code/HelloWorld7 code/HelloWorld8 code/HelloWorld9 code/HelloWorld9-2 code/HelloWorld10 code/HelloWorld6 code/HelloWorld10-5 code/HelloWorld10-6 code/HelloWorld10-6-2 code/HelloWorld10-7 code/HelloWorld9-5 neo-c neo-c.dSYM src/*.o config.log config.status *.stackdump autom3te.cache .DS_Store core.* core a.out *.bc *.s *.o code/*.o *.ll *.so.1.0.0 *.so src/config.h moveVarDecls.hi moveVarDecls.o moveVarDecls *.so.1 src/*.dwo code/*.out code/*.nc.tmp *.nc.tmp *.out memalloc-stdc.o memalloc.o src/*.out
+	rm -fR libneo-c.a memleak_debug.txt code/HelloWorld code/HelloWorld2 code/HelloWorld3 code/HelloWorld4 code/HelloWorld7 code/HelloWorld8 code/HelloWorld9 code/HelloWorld9-2 code/HelloWorld10 code/HelloWorld6 code/HelloWorld10-5 code/HelloWorld10-6 code/HelloWorld10-6-2 code/HelloWorld10-7 code/HelloWorld9-5 neo-c neo-c.dSYM src/*.o config.log config.status *.stackdump autom3te.cache .DS_Store core.* core a.out *.bc *.s *.o code/*.o *.ll *.so.1.0.0 *.so src/config.h moveVarDecls.hi moveVarDecls.o moveVarDecls *.so.1 src/*.dwo code/*.out code/*.nc.tmp *.nc.tmp *.out memalloc-stdc.o memalloc.o src/*.out code/*.i *.i
 	rm -fR code/*.ll code/*.bc code/*.s
 	(if test -e neo-vi/Makefile; then cd neo-vi && make distclean; fi)
 
@@ -134,25 +129,8 @@ test:
 	./code/HelloWorld10-6
 	PWD=`pwd` ./neo-c code/HelloWorld10-6-2.nc
 	./code/HelloWorld10-6-2
-	PWD=`pwd` ./neo-c code/HelloWorld10-7.nc || clang -o code/HelloWorld10-7 code/HelloWorld10-7.ll ./neo-c.a -lpcre
+	PWD=`pwd` ./neo-c code/HelloWorld10-7.nc || clang -o code/HelloWorld10-7 code/HelloWorld10-7.ll -lneo-c -lpcre
 	./code/HelloWorld10-7
-
-neo-vi: neo-vi/neo-vi
-
-neo-vi/neo-vi: neo-vi/configure neo-vi/Makefile
-	(cd neo-vi; make)
-
-neo-vi-clean: neo-vi/Makefile
-	(cd neo-vi; make clean)
-
-neo-vi-test: neo-vi/Makefile
-	(cd neo-vi; make test)
-
-neo-vi-install: neo-vi/Makefile
-	(cd neo-vi; make install)
-
-neo-vi/Makefile: neo-vi/Makefile.in
-	(cd neo-vi; ./configure --prefix=$(HOME))
 
 #########################################
 # uninstall
@@ -164,4 +142,4 @@ uninstall:
 	rm -f "$(DESTDIR)"/include/neo-c.h
 	rm -f "$(DESTDIR)"/include/pre-neo-c.h
 	rm -f "$(DESTDIR)"/share/man/man1/neo-c.1.gz
-	rm -f "$(DESTDIR)/lib/neo-c.a"
+	rm -f "$(DESTDIR)/lib/libneo-c.a"

@@ -158,6 +158,7 @@ struct sNodeTypeStruct {
     BOOL mRegister;
     BOOL mVolatile;
     BOOL mStatic;
+    BOOL mUniq;
     int mSizeNum;
 
     struct sNodeTypeStruct* mParamTypes[PARAMS_MAX];
@@ -283,6 +284,8 @@ void free_block_variables_on_break(struct sNodeBlockStruct* current_node_block, 
 //////////////////////////////
 /// parser.c
 //////////////////////////////
+extern BOOL gMainFunctionExistance;
+
 struct sParserInfoStruct
 {
     sBuf mConst;
@@ -318,6 +321,7 @@ struct sParserInfoStruct
     BOOL in_clang;
 
     BOOL parse_struct_phase;
+
 
     char fun_name[VAR_NAME_MAX];
 
@@ -359,7 +363,7 @@ void create_lambda_name(char* lambda_name, size_t size_lambda_name, char* module
 void expect_next_character_with_one_forward(char* characters, sParserInfo* info);
 void skip_spaces(sParserInfo* info);
 void create_lambda_name(char* lambda_name, size_t size_lambda_name, char* module_name);
-BOOL parse_destructor(unsigned int* node, char* struct_name, sParserInfo* info, BOOL recursive);
+BOOL parse_destructor(unsigned int* node, char* struct_name, sParserInfo* info, BOOL recursive, BOOL inline_);
 
 extern int gNumLambdaName;
 

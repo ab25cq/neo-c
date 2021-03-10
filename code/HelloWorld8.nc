@@ -1,3 +1,4 @@
+#include <neo-c.h>
 #include <stdio.h>
 
 macro hello {

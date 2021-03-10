@@ -1,3 +1,4 @@
+#include <neo-c.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -964,7 +965,7 @@ int main()
 
     int nx = 123;
 
-    string str = xasprintf("abc %d", nx);
+    string str = xsprintf("abc %d", nx);
 
     puts(str);
 

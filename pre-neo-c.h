@@ -1,2 +1,0 @@
-#undef snprintf
-#undef strcpy

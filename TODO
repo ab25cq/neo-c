@@ -1,4 +1,18 @@
+glibcへの非依存
+
+neo-c.hのインライン化
+
+uniq extern callocとfreeの数を数えてメモリーリークの有無を調べる。
+
+function call list, memory leakの場所を特定する。-gオプション
+
+ポインタとポインタの減算をC互換にする。 wiのポインタとポインタの減算を修正。
+
+const char*をまともにする。
+
 配列の初期化
+
+if(a) printf("AAA");
 
 
 machine stack automatically free

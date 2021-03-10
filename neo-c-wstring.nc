@@ -1,5 +1,4 @@
-//#include <wctype.h>
-//#include <wchar.h>
+#include <neo-c.h>
 #include <limits.h>
 #include <pcre.h>
 
@@ -92,6 +91,60 @@ wstring operator*(wstring& left, int num)
 
 impl wchar_t
 {
+    bool equals(wchar_t left, wchar_t right)
+    {
+        return left == right;
+    }
+    int get_hash_key(wchar_t value)
+    {
+        return value;
+    }
+    string to_string(wchar_t value) {
+        return xsprintf("%lc", value);
+    }
+    int compare(wchar_t left, wchar_t right) {
+        if(left < right) {
+            return -1;
+        }
+        else if(left > right) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    }
+}
+
+impl wchar_t*
+{
+    bool equals(wchar_t* left, wchar_t* right)
+    {
+        return wcscmp(left, right) == 0;
+    }
+    int length(wchar_t* str)
+    {
+        return wcslen(str);
+    }
+    int get_hash_key(wchar_t* value)
+    {
+        int result = 0;
+        wchar_t* p = value;
+        while(*p) {
+            result += (*p);
+            p++;
+        }
+        return result;
+    }
+    string to_string(wchar_t* str, char* default_value) {
+        return string_from_wchar_t(str, default_value);
+    }
+    wstring to_wstring(wchar_t* str) {
+        return wstring_from_wchar_t(str);
+    }
+    int compare(wstring& left, wstring& right) {
+        return wcscmp(left, right);
+    }
+
     wstring substring(wchar_t* str, int head, int tail)
     {
         if(str == null) {
@@ -139,6 +192,9 @@ impl wchar_t
 
 impl wstring
 {
+    int compare(wstring& left, wstring& right) {
+        return wcscmp(left, right);
+    }
     bool equals(wstring& left, wstring& right)
     {
         return wcscmp(left, right) == 0;
@@ -380,26 +436,6 @@ impl wstring
         
         return self[index];
     }
-}
-
-char* xstrncpy(char* des, char* src, int size)
-{
-    char* result;
-
-    result = strncpy(des, src, size-1);
-    des[size-1] = 0;
-
-    return result;
-}
-
-char* xstrncat(char* des, char* str, int size)
-{
-    char* result;
-
-    result = strncat(des, str, size-1);
-    des[size-1] = 0;
-
-    return result;
 }
 
 nregex regex(char* str, bool ignore_case, bool multiline, bool global, bool extended, bool dotall, bool anchored, bool dollar_endonly, bool ungreedy)

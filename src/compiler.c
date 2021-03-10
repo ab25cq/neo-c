@@ -41,75 +41,40 @@ static BOOL compiler(char* fname, BOOL optimize, sVarTable* module_var_table, BO
 
     char* cflags = getenv("CFLAGS");
 
-    if(neo_c_header) {
-        char* base_fname = basename(fname);
-        xstrncpy(fname2, base_fname, PATH_MAX);
-        xstrncat(fname2, ".out", PATH_MAX);
+    xstrncpy(fname2, fname, PATH_MAX);
+    xstrncat(fname2, ".i", PATH_MAX);
 
-        char cmd[1024];
+    char cmd[1024];
 #ifdef __DARWIN__
-        if(cflags) {
-            snprintf(cmd, 1024, "clang -E %s -I/opt/local/include %s > %s", cflags, fname, fname2);
-        }
-        else {
-            snprintf(cmd, 1024, "clang -E %s -I/opt/local/include > %s", fname, fname2);
-        }
-#else
-        if(cflags) {
-            snprintf(cmd, 1024, "cpp %s -C %s > %s", cflags, fname, fname2);
-        }
-        else {
-            snprintf(cmd, 1024, "cpp -C %s > %s", fname, fname2);
-        }
-#endif
-
-        int rc = system(cmd);
-
-        if(rc != 0) {
-            fprintf(stderr, "failed to cpp(1)\n");
-            exit(2);
-        }
+    if(cflags) {
+        snprintf(cmd, 1024, "clang -E %s -U__GNUC__ -I/opt/local/include %s > %s", cflags, fname, fname2);
     }
     else {
-        xstrncpy(fname2, fname, PATH_MAX);
-        xstrncat(fname2, ".out", PATH_MAX);
-
-        char cmd[1024];
-#ifdef __DARWIN__
-        if(cflags) {
-            snprintf(cmd, 1024, "cp %s %s.c; clang -E %s -U__GNUC__ -I/opt/local/include %s.c > %s; rm -f %s.c", fname, fname, cflags, fname, fname2, fname);
-        }
-        else {
-            snprintf(cmd, 1024, "cp %s %s.c; clang -U__GNUC__ -I/opt/local/include -E %s.c > %s; rm -f %s.c", fname, fname, fname, fname2, fname);
-        }
+        snprintf(cmd, 1024, "clang -U__GNUC__ -I/opt/local/include -E %s.c > %s", fname, fname2);
+    }
 #else
-        if(cflags) {
-            snprintf(cmd, 1024, "cpp %s -C %s > %s", cflags, fname, fname2);
-        }
-        else {
-            snprintf(cmd, 1024, "cpp -C %s > %s", fname, fname2);
-        }
+    if(cflags) {
+        snprintf(cmd, 1024, "cpp %s -U__GNUC__ -C %s > %s", cflags, fname, fname2);
+    }
+    else {
+        snprintf(cmd, 1024, "cpp -U__GNUC__ -C %s > %s", fname, fname2);
+    }
 #endif
 
-        int rc = system(cmd);
+    int rc = system(cmd);
+    if(rc != 0) {
+        char cmd[1024];
+        if(cflags) {
+            snprintf(cmd, 1024, "cpp %s -C %s > %s", cflags, fname, fname2);
+        } else {
+            snprintf(cmd, 1024, "cpp -C %s > %s", fname, fname2);
+        }
+
+        rc = system(cmd);
+
         if(rc != 0) {
-            char* base_fname = basename(fname);
-            xstrncpy(fname2, base_fname, PATH_MAX);
-            xstrncat(fname2, ".out", PATH_MAX);
-
-            char cmd[1024];
-            if(cflags) {
-                snprintf(cmd, 1024, "cpp %s -C %s > %s", cflags, fname, fname2);
-            } else {
-                snprintf(cmd, 1024, "cpp -C %s > %s", fname, fname2);
-            }
-
-            rc = system(cmd);
-
-            if(rc != 0) {
-                fprintf(stderr, "failed to cpp(2)\n");
-                exit(2);
-            }
+            fprintf(stderr, "failed to cpp(2)\n");
+            exit(2);
         }
     }
 
@@ -142,7 +107,7 @@ static BOOL compiler(char* fname, BOOL optimize, sVarTable* module_var_table, BO
 
 int gARGC;
 char** gARGV;
-char* gVersion = "1.5.1";
+char* gVersion = "2.0.0";
 
 char gMainModulePath[PATH_MAX];
 
@@ -289,26 +254,9 @@ int main(int argc, char** argv)
 
     compiler_init();
 
-    char neo_c_header_path[PATH_MAX];
-
-    snprintf(neo_c_header_path, PATH_MAX, "./neo-c.h");
-
-    if(access(neo_c_header_path, R_OK) != 0)
-    {
-        snprintf(neo_c_header_path, PATH_MAX, "%s/include/neo-c.h", PREFIX);
-    }
-
     sVarTable* module_var_table = init_var_table();
 
     start_to_make_native_code(sname);
-
-    if(!compiler(neo_c_header_path, optimize, module_var_table, TRUE)) 
-    {
-        fprintf(stderr, "neo-c can't compile(1) %s\n", neo_c_header_path);
-
-        compiler_final();
-        return 1;
-    }
 
     if(!compiler(sname, optimize, module_var_table, FALSE))
     {
@@ -319,37 +267,12 @@ int main(int argc, char** argv)
 
     output_native_code(sname, optimize, throw_to_cflags);
 
-    compiler_final();
-
     int result = 0;
+    if(output_object_file) {
+        char command[4096*2];
 
-    if(!output_object_file) {
-        char command[4096*2*2*2];
-
-        if(gNCDebug) {
-            snprintf(command, 4096*2*2*2, "clang -g -o %s %s.o $CFLAGS ", program_name, main_module_name);
-        }
-        else {
-            snprintf(command, 4096*2*2*2, "clang -o %s %s.o $CFLAGS ", program_name, main_module_name);
-        }
-
-        xstrncat(command, throw_to_cflags, 4096*2*2*2);
-
-        char path[PATH_MAX]; 
-
-        snprintf(path, PATH_MAX, "%s/lib/neo-c.a", PREFIX);
-
-
-        if(access(path, R_OK) == 0) {
-            xstrncat(command, path, 4096*2*2*2);
-            xstrncat(command, " ", 4096*2*2*2);
-        }
-        else {
-            snprintf(path, PATH_MAX, "./neo-c.a ");
-            xstrncat(command, path, 4096*2*2*2);
-        }
-
-        xstrncat(command, " -lpcre", 4096*2*2*2);
+        snprintf(command, 4096*2, "clang -o %s.o -c %s.ll %s", program_name, sname, throw_to_cflags);
+        puts(command);
 
         int rc = system(command);
         if(rc != 0) {
@@ -359,6 +282,22 @@ int main(int argc, char** argv)
 
         result = WEXITSTATUS(rc);
     }
+    else {
+        char command[4096*2];
+
+        snprintf(command, 4096*2, "clang %s -o %s %s.ll -lpcre -lneo-c", throw_to_cflags, program_name, sname);
+        puts(command);
+
+        int rc = system(command);
+        if(rc != 0) {
+            fprintf(stderr, "failed to compile(3)\n");
+            exit(2);
+        }
+
+        result = WEXITSTATUS(rc);
+    }
+
+    compiler_final();
 
     return result;
 }

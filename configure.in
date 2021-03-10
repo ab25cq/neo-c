@@ -31,6 +31,7 @@ if test `uname -m` = x86_64
 then
     echo x86_64
 
+    AC_DEFINE(__X86_64_CPU__, 1)
     AC_DEFINE(__64BIT_CPU__, 1)
 elif test `uname -m` = i386 || test `uname -m` = i686
 then
@@ -71,6 +72,12 @@ then
     echo armv7l
 
     AC_DEFINE(__32BIT_CPU__, 1)
+elif test `uname -m` = aarch64
+then
+    echo aarch64
+
+    AC_DEFINE(__AARCH64_CPU__, 1)
+    AC_DEFINE(__64BIT_CPU__, 1)
 else
     echo other
 

@@ -1,21 +1,16 @@
-#include <limits.h>
+#undef snprintf
+#undef strcpy
 
-#ifndef _GNU_SOURCE
 #define _GNU_SOURCE
-#endif
-
-#ifndef __USE_XOPEN
+#define _XOPEN_SOURCE
 #define __USE_XOPEN
-#endif
-#ifndef _USE_MISC
 #define _USE_MISC
-#endif
-#ifndef __USE_BSD
 #define __USE_BSD
-#endif
 
 #undef __GNUC__
 #undef __clang__
+
+#include <limits.h>
 
 #ifndef __DARWIN__
 #include <wchar.h>
@@ -27,207 +22,100 @@
 #include <stdlib.h>
 #include <string.h>
 #include <pcre.h>
+#include <stdarg.h>
+#include <stdint.h>
+#include <malloc.h>
 
 #define __STDC_LIMIT_MACROS 1
 #define __STDC_CONSTANT_MACROS 1
 
-#include <stdint.h>
+/// heap system ///
+void*% nccalloc(long num, long nsize);
+void*% ncmalloc(long size);
+void*% ncmemdup(void*% block);
 
-void*% nccalloc(long long int num, long long int size);
-void*% ncmalloc(long long int size);
-void*% ncmemdup(void* mem);
-void*% ncrealloc(void* mem, long long int size);
-void ncfree(void*% mem);
-size_t ncmalloc_usable_size(void* block);
+void*% ncrealloc(void *block, long size);
+long ncmalloc_usable_size(void* block);
+void ncfree(void *block);
+void* ncmemcpy(void* mem, void* mem2, long size);
+void initialize_main();
+void finalize_main();
 
-char* xstrncpy(char* des, char* src, int size);
-char* xstrncat(char* des, char* str, int size);
-char* ncmemcpy(void* mem, void* mem2, long long int size);
-
+/// string ///
 typedef char*% string;
 typedef wchar_t*% wstring;
 
-string xasprintf(char* str, ...);
-string xsprintf(char* str, ...);
+string string(char* str);
+
+string xsprintf(char* msg, ...);
+
+char* xstrncpy(char* des, char* src, int size);
+char* xstrncat(char* des, char* str, int size);
+
 string xbasename(char* path);
 string xrealpath(char* path);
 
-extern string string(char* str);
-extern string string_from_wchar_t(wchar_t* wstr, char* default_value);
-extern wstring wstring(char* str);
-extern wstring wstring_from_wchar_t(wchar_t* str);
+string string_from_wchar_t(wchar_t* wstr, char* default_value);
 
-void *% debug_xcalloc(long long int num, long long int nsize, char* type_name, char* sname, int sline, char* fun_name, char* real_fun_name);
-void debug_show_none_freed_heap_memory();
+wstring wstring(char* str);
+
+wstring wstring_from_wchar_t(wchar_t* str);
+wstring operator+(wchar_t* left, wchar_t* right);
+wstring operator*(wchar_t* left, int num);
+wstring operator+(wstring& left, wstring& right);
+wstring operator*(wstring& left, int num);
 
 void p(char* str);
 
 /// int ///
 impl int
 {
-    inline bool equals(int left, int right) 
-    {
-        return left == right;
-    }
-
-    inline int get_hash_key(int value)
-    {
-        return value;
-    }
-
-    inline string to_string(int value) {
-        return xasprintf("%c", value);
-    }
-
-    inline int compare(int left, int right) {
-        if(left < right) {
-            return -1;
-        }
-        else if(left > right) {
-            return 1;
-        }
-        else {
-            return 0;
-        }
-    }
+    bool equals(int left, int right);
+    int get_hash_key(int value);
+    string to_string(int value);
+    int compare(int left, int right);
 }
 
 /// char* ///
-extern string operator+(char* left, char* right);
-extern string operator*(char* left, int num);
+string operator+(char* left, char* right);
+string operator*(char* left, int num);
 
 impl char
 {
-    inline bool equals(char left, char right)
-    {
-        return left == right;
-    }
-
-    inline int get_hash_key(char value)
-    {
-        return value;
-    }
-
-    inline string to_string(char value) {
-        return xasprintf("%c", value);
-    }
-
-    inline int compare(char left, char right) {
-        if(left < right) {
-            return -1;
-        }
-        else if(left > right) {
-            return 1;
-        }
-        else {
-            return 0;
-        }
-    }
+    bool equals(char left, char right);
+    int get_hash_key(char value);
+    string to_string(char value);
+    int compare(char left, char right);
 }
 
 impl char*
 {
-    inline bool equals(char* left, char* right)
-    {
-        return strcmp(left, right) == 0;
-    }
-
-    inline int length(char* str)
-    {
-        return strlen(str);
-    }
-
-    inline int get_hash_key(char* value)
-    {
-        int result = 0;
-        char* p = value;
-        while(*p) {
-            result += (*p);
-            p++;
-        }
-        return result;
-    }
-
-    inline string to_string(char* value) {
-        return string(value);
-    }
-
-    inline int compare(char* left, char* right) {
-        return strcmp(left, right);
-    }
-    
-    inline wstring to_wstring(char* value) {
-        return wstring(value);
-    }
+    bool equals(char* left, char* right);
+    int length(char* str);
+    int get_hash_key(char* value);
+    string to_string(char* value);
+    int compare(char* left, char* right);
+    wstring to_wstring(char* value);
 }
 
 /// wchar_t ///
-extern wstring operator+(wchar_t* left, wchar_t* right);
-extern wstring operator*(wchar_t* left, int num);
-
 impl wchar_t
 {
-    inline bool equals(wchar_t left, wchar_t right)
-    {
-        return left == right;
-    }
-
-    inline int get_hash_key(wchar_t value)
-    {
-        return value;
-    }
-
-    inline string to_string(wchar_t value) {
-        return xasprintf("%lc", value);
-    }
-
-    inline int compare(wchar_t left, wchar_t right) {
-        if(left < right) {
-            return -1;
-        }
-        else if(left > right) {
-            return 1;
-        }
-        else {
-            return 0;
-        }
-    }
+    bool equals(wchar_t left, wchar_t right);
+    int get_hash_key(wchar_t value);
+    string to_string(wchar_t value);
+    int compare(wchar_t left, wchar_t right);
 }
 
 impl wchar_t*
 {
-    inline bool equals(wchar_t* left, wchar_t* right)
-    {
-        return wcscmp(left, right) == 0;
-    }
+    bool equals(wchar_t* left, wchar_t* right);
+    int length(wchar_t* str);
+    int get_hash_key(wchar_t* value);
 
-    inline int length(wchar_t* str)
-    {
-        return wcslen(str);
-    }
-
-    inline int get_hash_key(wchar_t* value)
-    {
-        int result = 0;
-        wchar_t* p = value;
-        while(*p) {
-            result += (*p);
-            p++;
-        }
-        return result;
-    }
-
-    inline string to_string(wchar_t* str, char* default_value) {
-        return string_from_wchar_t(str, default_value);
-    }
-
-    inline wstring to_wstring(wchar_t* str) {
-        return wstring_from_wchar_t(str);
-    }
-
-    inline int compare(wstring& left, wstring& right) {
-        return wcscmp(left, right);
-    }
+    string to_string(wchar_t* str, char* default_value);
+    wstring to_wstring(wchar_t* str);
+    int compare(wstring& left, wstring& right);
 }
 
 /// buffer ///
@@ -240,37 +128,21 @@ struct buffer {
 impl buffer 
 {
     initialize();
-    finalize();
 
+    finalize();
+    int length(buffer* self);
     void append(buffer* self, char* mem, size_t size);
+
     void append_char(buffer* self, char c);
+
     void append_str(buffer* self, char* str);
     void append_nullterminated_str(buffer* self, char* str);
-    inline void append_int(buffer* self, int value) {
-        self.append((char*)&value, sizeof(int));
-    }
-    inline void append_long(buffer* self, long long int value) {
-        self.append((char*)&value, sizeof(long long int));
-    }
-    inline void append_short(buffer* self, short value) {
-        self.append((char*)&value, sizeof(short));
-    }
-    inline void alignment(buffer* self) {
-        int len = self.len;
-        len = (len + 3) & ~3;
-
-        for(int i=self.len; i<len; i++) {
-            self.append_char('\0');
-        }
-    }
-
     string to_string(buffer* self);
-
-    int length(buffer* self);
-
-    inline int compare(buffer* left, buffer* right) {
-        return strcmp(left.buf, right.buf);
-    }
+    void append_int(buffer* self, int value);
+    void append_long(buffer* self, long value);
+    void append_short(buffer* self, short value);
+    void alignment(buffer* self);
+    int compare(buffer* left, buffer* right);
 }
 
 /// regex ///
@@ -292,7 +164,7 @@ struct regex_struct {
 
 typedef regex_struct*% nregex;
 
-extern nregex regex(char* str, bool ignore_case, bool multiline, bool global, bool extended, bool dotall, bool anchored, bool dollar_endonly, bool ungreedy);
+nregex regex(char* str, bool ignore_case, bool multiline, bool global, bool extended, bool dotall, bool anchored, bool dollar_endonly, bool ungreedy);
 
 ruby_macro regex {
     param_line = ENV['PARAMS'];
@@ -381,67 +253,22 @@ struct list<T>
 }
 
 /// string ///
-extern string operator+(string& left, string& right);
-extern string operator*(string& left, int num);
+string operator+(string& left, string& right);
+string operator*(string& left, int num);
 
 impl string
 {
-    extern bool equals(string& left, string& right);
-    extern int length(string& str);
-    extern int get_hash_key(string& value);
-    extern string substring(string& str, int head, int tail);
-    extern int index(string& str, char* search_str, int default_value);
-    extern int rindex(string& str, char* search_str, int default_value);
-    extern int index_regex(string& str, nregex reg, int default_value);
-    extern int rindex_regex(string& str, nregex reg, int default_value);
-    extern string&delete(string& str, int position);
-    extern string& delete_range(string& str, int head, int tail);
-    extern string printable(string& str);
-    extern string sub(string& self, nregex reg, char* replace, list<string>?* group_strings);
-    extern bool match(string& self, nregex reg, list<string>?* group_strings);
-    list<string>*% scan(string& self, nregex reg);
-    extern wstring to_wstring(string& self);
+    int compare(string& left, string& right);
+    bool equals(string& left, string& right);
+    int length(string& str);
+    int get_hash_key(string& value);
+
     string reverse(string& str);
-    list<string>*% split_char(string& self, char c);
-    list<string>*% split(string& self, nregex reg);
-
-    inline int compare(string& left, string& right) {
-        return strcmp(left, right);
-    }
-    
-    extern void replace(string& self, int index, char c);
-    extern char item(string& self, int index, char default_value);
-    extern string reverse(string& self);
-    
-    extern nregex to_regex(string& self);
-    buffer*% to_buffer(string& self);
-}
-
-/// wstring ///
-extern wstring operator+(wstring& left, wstring& right);
-extern wstring operator*(wstring& left, int num);
-
-impl wstring
-{
-    extern bool equals(wstring& left, wstring& right);
-    extern int length(wstring& str);
-    extern int get_hash_key(wstring& value);
-    wstring reverse(wstring& str);
-    extern wstring substring(wstring& str, int head, int tail);
-    extern int index(wstring& str, wchar_t* search_str, int default_value);
-    extern int rindex(wstring& str, wchar_t* search_str, int default_value);
-    extern wstring& delete(wstring& str, int position);
-    extern wstring& delete_range(wstring& str, int head, int tail);
-
-    extern string to_string(wstring& self, char* default_value);
-    extern wstring printable(wstring& str);
-
-    inline int compare(wstring& left, wstring& right) {
-        return wcscmp(left, right);
-    }
-    
-    extern void replace(wstring& self, int index, wchar_t c);
-    extern wchar_t item(wstring& self, int index, wchar_t default_value);
+    string substring(string& str, int head, int tail);
+    int index(string& str, char* search_str, int default_value);
+    int rindex(string& str, char* search_str, int default_value);
+    int index_regex(string& self, nregex reg, int default_value);
+    int rindex_regex(string& self, nregex reg, int default_value);
 }
 
 /// vector ///
@@ -2373,4 +2200,48 @@ ruby_macro map {
 }
 
 /// others ///
-extern void xassert(char* msg, bool exp);
+void xassert(char* msg, bool exp);
+
+impl string
+{
+    string& delete(string& str, int position);
+    string& delete_range(string& str, int head, int tail);
+    string printable(string& str);
+    string sub(string& self, nregex reg, char* replace, list<string>?* group_strings);
+    bool match(string& self, nregex reg, list<string>?* group_strings);
+    list<string>*% scan(string& self, nregex reg);
+    list<string>*% split(string& self, nregex reg);
+    list<string>*% split_char(string& self, char c);
+    wstring to_wstring(string& self);
+    void replace(string& self, int index, char c);
+    char item(string& self, int index, char default_value);
+    nregex to_regex(string& self);
+    buffer*% to_buffer(string& self);
+}
+
+/// wstring ///
+
+impl wchar_t
+{
+    wstring substring(wchar_t* str, int head, int tail);
+}
+
+impl wstring
+{
+    int compare(wstring& left, wstring& right);
+    bool equals(wstring& left, wstring& right);
+    int length(wstring& str);
+    int get_hash_key(wstring& value);
+    string to_string(wstring& self, char* default_value);
+
+    wstring reverse(wstring& str);
+    wstring substring(wstring& str, int head, int tail);
+    int index(wstring& str, wchar_t* search_str, int default_value);
+    int rindex(wstring& str, wchar_t* search_str, int default_value);
+    wstring& delete(wstring& str, int position);
+    wstring& delete_range(wstring& str, int head, int tail);
+    wstring printable(wstring& str);
+    void replace(wstring& self, int index, wchar_t c);
+    wchar_t item(wstring& self, int index, wchar_t default_value);
+}
+

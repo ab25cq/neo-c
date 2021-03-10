@@ -1,4 +1,7 @@
 #include "common.h"
+#include <limits.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 impl Vi version 6
 {

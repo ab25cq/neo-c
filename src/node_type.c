@@ -88,6 +88,7 @@ sNodeType* clone_node_type(sNodeType* node_type)
     node_type2->mRegister = node_type->mRegister;
     node_type2->mVolatile = node_type->mVolatile;
     node_type2->mStatic = node_type->mStatic;
+    node_type2->mUniq = node_type->mUniq;
     node_type2->mDummyHeap = node_type->mDummyHeap;
     node_type2->mDynamicArrayNum = node_type->mDynamicArrayNum;
     node_type2->mArrayInitializeNum = node_type->mArrayInitializeNum;

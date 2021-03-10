@@ -1,3 +1,4 @@
+#include <neo-c.h>
 #include <limits.h>
 #include <pcre.h>
 
@@ -85,6 +86,10 @@ string operator*(string& left, int num)
 
 impl string
 {
+    int compare(string& left, string& right) {
+        return strcmp(left, right);
+    }
+
     bool equals(string& left, string& right)
     {
         return strcmp(left, right) == 0;

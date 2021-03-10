@@ -1,10 +1,10 @@
+#include <neo-c.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <ncurses.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
 #include "config.h"
-#include "../clover3/src/common.h"
 
 #define SAVE_INPUT_KEY_MAX 256
 
