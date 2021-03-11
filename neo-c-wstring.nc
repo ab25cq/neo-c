@@ -1,4 +1,4 @@
-#include <neo-c.h>
+#include "neo-c.h"
 #include <limits.h>
 #include <pcre.h>
 
