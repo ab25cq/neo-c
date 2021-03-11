@@ -294,7 +294,7 @@ impl wstring
             return default_value;
         }
 
-        return ((head - str) / sizeof(wchar_t));
+        return head - str;
     }
     int rindex(wstring& str, wchar_t* search_str, int default_value)
     {
@@ -304,7 +304,7 @@ impl wstring
 
         while(p >= str) {
             if(wcsncmp(p, search_str, len) == 0) {
-                return ((p - str) / sizeof(wchar_t));
+                return (p - str);
             }
 
             p--;

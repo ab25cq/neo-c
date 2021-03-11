@@ -1,6 +1,6 @@
 # neo-c compiler language
 
-version 2.0.1
+version 2.0.2
 
 ```
 #include <neo-c.h>
@@ -67,6 +67,8 @@ This program is tested in LLVM-3.8, LLVM-7 and LLVM-10, and x86_64, aarch64 on D
 From version 1.4.0 I success to self-host compile.$ ulimit -s 132656; bash; cd self-host; bash all_build.sh;
 
 # CHANGELOG
+
+2.0.2 wstring bug was fixed
 
 2.0.1 int a[128]; int* p = a; p++; xassert("pointer test", p -a == 1); before version xassert("pointer test", p - a == 4); . correspond to const char*. 
 
