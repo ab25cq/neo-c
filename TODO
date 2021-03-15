@@ -1,6 +1,6 @@
 const char*をまともにする。
 
-init_main のinherit
+エラー行番号がおかしい
 
 配列の初期化
 
@@ -45,3 +45,5 @@ glibcへの非依存
 Pointer minus Pointer valid size
 if(a) printf("AAA");
 ポインタとポインタの減算をC互換にする。 wiのポインタとポインタの減算を修正。
+
+init_main のinherit
