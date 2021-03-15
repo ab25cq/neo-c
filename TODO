@@ -1,14 +1,18 @@
-uniq extern callocとfreeの数を数えてメモリーリークの有無を調べる。
-
-function call list, memory leakの場所を特定する。-gオプション
-
 const char*をまともにする。
+
+init_main のinherit
 
 配列の初期化
 
 machine stack automatically free
 error number bug in if, impl
 ----------------------
+uniq extern callocとfreeの数を数えてメモリーリークの有無を調べる。
+
+debug info
+
+function call list, memory leakの場所を特定する。-gオプション
+
 , 演算子
 __extention__ (exp)
 

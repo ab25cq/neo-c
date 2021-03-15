@@ -1,12 +1,16 @@
-inline int fun()
-{
-    return 1 + 1;
-}
+#include <neo-c.h>
 
-extern __uniq__ int gCount;
+void fun()
+{
+    vector<int>*% v = new vector<int>.initialize();
+
+    v.push_back(1);
+    v.push_back(2);
+}
 
 int main()
 {
-    int a = fun();
+    char* str = borrow string("AAA");
+    fun();
     return 0;
 }

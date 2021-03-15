@@ -4739,7 +4739,7 @@ BOOL compile_function(unsigned int node, sCompileInfo* info)
     Function* function_before = gFunction;
     gFunction = fun;
 
-    if(gNCDebug) {
+    if(gNCDebug && !generics_function) {
         int sline = gNodes[node].mLine;
         createDebugFunctionInfo(sline, fun_name, neo_c_fun, fun, gMainModulePath);
     }
@@ -4749,12 +4749,6 @@ BOOL compile_function(unsigned int node, sCompileInfo* info)
     llvm_change_block(current_block, &current_block_before, info, FALSE);
 
     if(strcmp(real_fun_name, "main") == 0) {
-        if(gNCDebugHeapCompiler) {
-            Value* value = ConstantInt::get(Type::getInt32Ty(TheContext), (uint32_t)gNCDebugHeapCompiler);
-
-            Builder.CreateAlignedStore(value, gNCDebugHeapValue, 4);
-        }
-
         Function* fun2 = TheModule->getFunction("initialize_main");
 
         if(fun2) {
@@ -5173,7 +5167,7 @@ BOOL compile_function(unsigned int node, sCompileInfo* info)
     xstrncpy(info->compiling_struct_name, compiling_struct_name_before, VAR_NAME_MAX);
     xstrncpy(info->compiling_fun_name, compiling_fun_name_before, VAR_NAME_MAX);
 
-    if(gNCDebug) {
+    if(gNCDebug && !generics_function) {
         finishDebugFunctionInfo();
     }
 
@@ -6004,49 +5998,6 @@ static BOOL compile_object(unsigned int node, sCompileInfo* info)
         return TRUE;
     }
 
-#ifdef MDEBUG
-    Function* fun = TheModule->getFunction("debug_xcalloc");
-
-    if(fun == nullptr) {
-        fprintf(stderr, "require debug_xcalloc\n");
-        exit(2);
-    }
-
-    std::vector<Value*> params2;
-
-    Value* param = object_num;
-    params2.push_back(param);
-
-    Value* param2;
-    //if(sizeof(size_t) == 4) {
-    //    param2 = ConstantInt::get(Type::getInt32Ty(TheContext), (uint32_t)size);
-    //}
-    //else {
-        param2 = ConstantInt::get(Type::getInt64Ty(TheContext), (uint64_t)size);
-    //}
-    params2.push_back(param2);
-
-    char type_name[128];
-    type_name[0] = '\0';
-    create_type_name_from_node_type(type_name, 128, node_type2, FALSE);
-
-    Value* param3 = llvm_create_string(type_name);
-    params2.push_back(param3);
-
-    Value* param4 = llvm_create_string(info->sname);
-    params2.push_back(param4);
-
-    Value* param5 = ConstantInt::get(Type::getInt32Ty(TheContext), (uint32_t)info->sline);
-    params2.push_back(param5);
-
-    Value* param6 = llvm_create_string(info->fun_name);
-    params2.push_back(param6);
-
-    Value* param7 = llvm_create_string(info->real_fun_name);
-    params2.push_back(param7);
-
-    Value* address = Builder.CreateCall(fun, params2);
-#else
     Function* fun = TheModule->getFunction("nccalloc");
 
     if(fun == nullptr) {
@@ -6063,7 +6014,6 @@ static BOOL compile_object(unsigned int node, sCompileInfo* info)
     params2.push_back(param2);
 
     Value* address = Builder.CreateCall(fun, params2);
-#endif
 
     node_type2->mPointerNum++;
 

@@ -2,7 +2,6 @@
 #include <libgen.h>
 
 BOOL gNCDebug = FALSE;
-BOOL gNCDebugHeapCompiler = FALSE;
 
 static void compiler_init()
 {
@@ -107,7 +106,7 @@ static BOOL compiler(char* fname, BOOL optimize, sVarTable* module_var_table, BO
 
 int gARGC;
 char** gARGV;
-char* gVersion = "2.0.2";
+char* gVersion = "2.0.3";
 
 char gMainModulePath[PATH_MAX];
 
@@ -172,10 +171,6 @@ int main(int argc, char** argv)
                 }
             }
             xstrncat(throw_to_cpp_flags, " ", 1024);
-        }
-        else if(strcmp(argv[i], "-gm") == 0)
-        {
-            gNCDebugHeapCompiler = TRUE;
         }
         else if(strstr(argv[i], "-I") == argv[i])
         {

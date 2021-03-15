@@ -881,7 +881,6 @@ unsigned int sNodeTree_create_equal_or(unsigned int left_node, unsigned int righ
 unsigned int sNodeTree_create_comma(unsigned int left_node, unsigned int right_node, sParserInfo* info);
 
 extern BOOL gNCDebug;
-extern BOOL gNCDebugHeapCompiler;
 
 unsigned int sNodeTree_create_func_name(sParserInfo* info);
 

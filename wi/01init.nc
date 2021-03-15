@@ -11,7 +11,6 @@ bool xiswblank(wchar_t* c)
     return c == ' ' || c == '\t';
 }
 
-
 bool xiswalnum(wchar_t* c)
 {
     return xiswalpha(c) || xiswdigit(c);
