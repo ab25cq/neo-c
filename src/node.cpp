@@ -240,50 +240,6 @@ BOOL add_function(char* name, char* real_fun_name, char* asm_fun_name, char** pa
             *llvm_fun = nullptr;
         }
     }
-/*
-    else if(fun->mVersion == 0) {
-        if(funcs.size() == 1) {
-            *llvm_fun = funcs[funcs.size()-1]->mLLVMFunction;
-        }
-        else if(funcs.size() == 0) {
-            Type* llvm_result_type;
-
-            if(!create_llvm_type_from_node_type(&llvm_result_type, clone_node_type(result_type), result_type, info))
-            {
-                compile_err_msg(info, "Can't llvm type(1)");
-                show_node_type(result_type);
-                info->err_num++;
-
-                return FALSE;
-            }
-
-            std::vector<Type *> llvm_param_types;
-
-            for(i=0; i<num_params; i++) 
-            {
-                sNodeType* param_type = param_types[i];
-
-                Type* llvm_param_type;
-                if(!create_llvm_type_from_node_type(&llvm_param_type, param_type, param_type, info))
-                {
-                    compile_err_msg(info, "Can't llvm type(2)");
-                    show_node_type(param_type);
-                    info->err_num++;
-
-                    return FALSE;
-                }
-                llvm_param_types.push_back(llvm_param_type);
-            }
-
-            FunctionType* function_type = FunctionType::get(llvm_result_type, llvm_param_types, var_arg);
-            *llvm_fun = Function::Create(function_type, Function::ExternalLinkage, real_fun_name, TheModule);
-
-            fun->mLLVMFunction = *llvm_fun;
-
-            funcs.push_back(fun);
-        }
-    }
-*/
     else {
         if(funcs.size() == 0) {
             Type* llvm_result_type;

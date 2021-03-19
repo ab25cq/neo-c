@@ -706,6 +706,7 @@ void declare_builtin_functions()
         add_function("llvm.memcpy.p0i8.p0i8.i64", "llvm.memcpy.p0i8.p0i8.i64", "", param_names2, param_types, num_params, result_type, 0, method_generics_type_names2, TRUE, var_arg, NULL, 0, generics_type_names2, FALSE, FALSE, NULL, 0, TRUE, TRUE, 0, &llvm_fun, NULL, FALSE, NULL, -1, "llvm.memcpy.p0i8.p0i8.i64", &neo_c_fun);
     }
 
+/*
     /// memset ///
     params.clear();
 
@@ -757,6 +758,7 @@ void declare_builtin_functions()
         add_function("__builtin_memset", "__builtin_memset", "", param_names2, param_types, num_params, result_type, 0, method_generics_type_names2, TRUE, var_arg, NULL, 0, generics_type_names2, FALSE, FALSE, NULL, 0, TRUE, TRUE, 0, &llvm_fun, NULL, FALSE, NULL, -1, "__builtin_memset", &neo_c_fun);
         add_function("llvm.memset.p0i8.i64", "llvm.memset.p0i8.i64", "", param_names2, param_types, num_params, result_type, 0, method_generics_type_names2, TRUE, var_arg, NULL, 0, generics_type_names2, FALSE, FALSE, NULL, 0, TRUE, TRUE, 0, &llvm_fun, NULL, FALSE, NULL, -1, "llvm.memset.p0i8.i64", &neo_c_fun);
     }
+*/
 
     /// memmove ///
     params.clear();
