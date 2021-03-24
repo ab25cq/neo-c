@@ -399,7 +399,7 @@ initialize() {
                 self.activeWin.saveInputedKeyOnTheMovingCursor();
                 break;
 
-            case ']':
+            case 'm':
                 self.activeWin.gotoMethodBottom(self);
                 self.activeWin.centeringCursor();
                 self.activeWin.saveInputedKeyOnTheMovingCursor();
