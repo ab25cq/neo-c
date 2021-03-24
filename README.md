@@ -1,6 +1,6 @@
 # neo-c compiler language
 
-version 2.0.6
+version 2.0.7
 
 ```
 #include <neo-c.h>
@@ -67,6 +67,8 @@ This program is tested in LLVM-3.8, LLVM-7, LLVM-10 and LLVM-11, and x86_64, aar
 From version 1.4.0 I success to self-host compile.$ ulimit -s 132656; bash; cd self-host; bash all_build.sh;
 
 # CHANGELOG
+
+2.0.7 if(true) { } *a = 0; is not compile error.
 
 2.0.6 correspoded to LLVM-11 and termux
 
@@ -1917,8 +1919,8 @@ main関数を含むmain.ncは以下のように定義すればいいでしょう
 
 * 含まれるアプリケーションと使ってみた感想
 
-このアプリケーションにはサンプルとしてclover3というインタプリタとwiというエディッタとayatakaというコンソールファイラが含まれます。wiは本格的なアプリケーションなので参考にしてみてください。アプリケーションを作ってみた感想としては、ヒープシステムはGCよりは便利ではないです。あくまで右辺値が自動的に開放されるところが便利でしょう。string str = xsprintf("%d...", i) + string("aaa")などのコードでヒープの寿命を考えなくて良い点が便利です。その他の場合はヒープの管理を自分でしないといけないと思います。メモリを自己管理したい場合はnewしたメモリをborrowしてポインタに代入すればいいです。開放はdelete dummy_heap ポインタとすれば開放できます。もしくは%をつけたポインタのメモリを保持するリストを作っておくとそのリストのメモリが開放される場合に保持したメモリも開放されるので便利でしょう。あと落とし穴としては、if() {} *v = aaa;などの式でif() {}の乗算としてパースされる点です。if(){}; *v = aaa;としなければなりません。あとは結構頻繁にセグメンテーションフォルトします。あくまで、Cに精通したユーザーでないと使いこなせないでしょう。valgrindはメモリーリークの検出などに役に立ちます。neo-c -gとしてコンパイルしてみてください。valgrindでメモリーリークの場所が特定できるはずです。あとはコメントアウトデバッグやprintfデバッグなど泥臭い方法でデバッグしていくしかないと思います。かなりCに詳しい人しかつかえないと思います。一応弁護しておくと右辺値が自動的に開放される点やコレクションライブラリがある点は素晴らしいと思います。かなりアプリケーションを作る手間が省けます。まあ、C++よりはシンプルに仕上がっているため使う価値はあると思います。
+このアプリケーションにはサンプルとしてclover3というインタプリタとwiというエディッタとayatakaというコンソールファイラが含まれます。wiは本格的なアプリケーションなので参考にしてみてください。アプリケーションを作ってみた感想としては、ヒープシステムはGCよりは便利ではないです。あくまで右辺値が自動的に開放されるところが便利でしょう。string str = xsprintf("%d...", i) + string("aaa")などのコードでヒープの寿命を考えなくて良い点が便利です。その他の場合はヒープの管理を自分でしないといけないと思います。メモリを自己管理したい場合はnewしたメモリをborrowしてポインタに代入すればいいです。開放はdelete dummy_heap ポインタとすれば開放できます。もしくは%をつけたポインタのメモリを保持するリストを作っておくとそのリストのメモリが開放される場合に保持したメモリも開放されるので便利でしょう。あとは結構頻繁にセグメンテーションフォルトします。あくまで、Cに精通したユーザーでないと使いこなせないでしょう。valgrindはメモリーリークの検出などに役に立ちます。neo-c -gとしてコンパイルしてみてください。valgrindでメモリーリークの場所が特定できるはずです。あとはコメントアウトデバッグやprintfデバッグなど泥臭い方法でデバッグしていくしかないと思います。かなりCに詳しい人しかつかえないと思います。一応弁護しておくと右辺値が自動的に開放される点やコレクションライブラリがある点は素晴らしいと思います。かなりアプリケーションを作る手間が省けます。まあ、C++よりはシンプルに仕上がっているため使う価値はあると思います。
 
 * Impressions of using,  and included application 
 
-This application includes an interpreter called clover3, an editor called wi, and a console filer called ayataka as samples. Since wi is a full-fledged application, please refer to it. As for the impression that I made an application, the heap system is less convenient than GC. It would be convenient if the rvalue is automatically released. The convenience is that you don't have to worry about heap life in code like string str = xs printf ("% d ...", i) + string ("aaa"). In other cases, you'll have to manage the heap> yourself. If you want to manage the memory yourself, you can borrow the new memory and assign it to the pointer. You can release it with the delete dummy_heap pointer. Alternatively, it is convenient to create a list that holds the memory of the pointer with%, because when the memory of that list is released, the memory held will also be released. Another pitfall is that it is parsed as a multiplication of if () {} in expressions such as if () {} * v = aaa ;. You must set if () {}; * v = aaa ;. After that, segmentation faults occur quite often> frequently. Only users who are familiar with C will be able to use it. Valgrind is useful for things like detecting memory leaks. Try compiling as neo-c -g. You should be able to locate the memory leak with valgrind. After that, I think that there is no choice but to debug with a muddy method such as comment out debugging and printf debugging. Kana> I think that only people who are familiar with C can use it. I think it's great that the rvalues ​​are automatically released and that there is a collection library if you defend it. It saves you a lot of time and effort to create an application. Well, it's simpler than C ++, so I think it's worth using.
+This application includes an interpreter called clover3, an editor called wi, and a console filer called ayataka as samples. Since wi is a full-fledged application, please refer to it. As for the impression that I made an application, the heap system is less convenient than GC. It would be convenient if the rvalue is automatically released. The convenience is that you don't have to worry about heap life in code like string str = xs printf ("% d ...", i) + string ("aaa"). In other cases, you'll have to manage the heap> yourself. If you want to manage the memory yourself, you can borrow the new memory and assign it to the pointer. You can release it with the delete dummy_heap pointer. Alternatively, it is convenient to create a list that holds the memory of the pointer with%, because when the memory of that list is released, the memory held will also be released. After that, segmentation faults occur quite often> frequently. Only users who are familiar with C will be able to use it. Valgrind is useful for things like detecting memory leaks. Try compiling as neo-c -g. You should be able to locate the memory leak with valgrind. After that, I think that there is no choice but to debug with a muddy method such as comment out debugging and printf debugging. Kana> I think that only people who are familiar with C can use it. I think it's great that the rvalues ​​are automatically released and that there is a collection library if you defend it. It saves you a lot of time and effort to create an application. Well, it's simpler than C ++, so I think it's worth using.

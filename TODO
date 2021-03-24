@@ -1,12 +1,13 @@
-const char*をまともにする。
 
 エラー行番号がおかしい
 
 配列の初期化
 
 machine stack automatically free
-error number bug in if, impl
 ----------------------
+error number bug in if, impl
+const char*をまともにする。
+
 uniq extern callocとfreeの数を数えてメモリーリークの有無を調べる。
 
 debug info

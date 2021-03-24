@@ -35,7 +35,7 @@ COMMON_OBJS=@COMMON_OBJS@
 all: neo-c libneo-c.a
 
 neo-c: config.h src/compiler.o $(COMMON_OBJS) $(OBJS)
-	$(CXX) -o neo-c src/compiler.o $(COMMON_OBJS) $(OBJS) $(CFLAGS) $(LIBS) $(CXXFLAGS) -D$(
+	$(CXX) -o neo-c src/compiler.o $(COMMON_OBJS) $(OBJS) $(CFLAGS) $(LIBS) $(CXXFLAGS)
 
 libneo-c.a: neo-c.nc neo-c-string.nc neo-c-string2.nc neo-c-wstring.nc
 	PWD=`pwd` ./neo-c -c neo-c.nc 

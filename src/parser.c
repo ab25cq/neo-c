@@ -7363,11 +7363,6 @@ static BOOL expression_node(unsigned int* node, BOOL enable_assginment, sParserI
                 return FALSE;
             }
         }
-        else if(strcmp(buf, "switch") == 0) {
-            if(!parse_switch(node, info)) {
-                return FALSE;
-            }
-        }
         else if(strcmp(buf, "case") == 0) {
             if(!parse_case(node, info)) {
                 return FALSE;
@@ -7380,6 +7375,11 @@ static BOOL expression_node(unsigned int* node, BOOL enable_assginment, sParserI
         }
         else if(strcmp(buf, "if") == 0) {
             if(!parse_if(node, info)) {
+                return FALSE;
+            }
+        }
+        else if(strcmp(buf, "switch") == 0) {
+            if(!parse_switch(node, info)) {
                 return FALSE;
             }
         }
@@ -8119,6 +8119,11 @@ static BOOL expression_mult_div(unsigned int* node, sParserInfo* info)
     if(*node == 0) {
         return TRUE;
     }
+
+    if(gNodes[*node].mNodeType == kNodeTypeIf || gNodes[*node].mNodeType == kNodeTypeSwitch || gNodes[*node].mNodeType == kNodeTypeFor || gNodes[*node].mNodeType == kNodeTypeWhile || gNodes[*node].mNodeType == kNodeTypeDoWhile) {
+        return TRUE;
+    }
+
 
     while(*info->p) {
         if(*info->p == '*' && *(info->p+1) != '=') {
