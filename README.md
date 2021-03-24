@@ -1,6 +1,6 @@
 # neo-c compiler language
 
-version 2.0.4
+version 2.0.5
 
 ```
 #include <neo-c.h>
@@ -67,6 +67,8 @@ This program is tested in LLVM-3.8, LLVM-7 and LLVM-10, and x86_64, aarch64 on D
 From version 1.4.0 I success to self-host compile.$ ulimit -s 132656; bash; cd self-host; bash all_build.sh;
 
 # CHANGELOG
+
+2.0.5 int.expect was implemented
 
 2.0.4 Correspond to raspbery pi os
 

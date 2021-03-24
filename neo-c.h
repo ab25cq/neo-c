@@ -74,6 +74,8 @@ impl int
     int get_hash_key(int value);
     string to_string(int value);
     int compare(int left, int right);
+
+    int expect(int self, void (*block_)());
 }
 
 /// char* ///

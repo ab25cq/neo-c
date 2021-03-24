@@ -1,22 +1,19 @@
-void fun()
-{
-    static int n = 0;
-    n++;
-    printf("%d\n", n);
-}
+#include <neo-c.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 int main()
 {
-    int a[10];
-    int *b = a;
-    
-    a[0] = 123;
-    a[1] = 234;
-    
-    printf("%d\n", *b);
-    printf("%d\n", *(b+1));
-    fun();
-    fun();
+    int fd = open("AAA", O_RDONLY).expect {
+        fprintf(stderr, "open error\n");
+        exit(1);
+    }
+
+    printf("%d\n", fd);
+
+    close(fd);
     
     exit(0);
 }

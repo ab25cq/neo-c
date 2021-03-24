@@ -236,6 +236,13 @@ impl int
             return 0;
         }
     }
+    int expect(int self, void (*block_)()) {
+        if(self < 0) {
+            block_();
+        }
+
+        return self;
+    }
 }
 
 
