@@ -106,7 +106,7 @@ static BOOL compiler(char* fname, BOOL optimize, sVarTable* module_var_table, BO
 
 int gARGC;
 char** gARGV;
-char* gVersion = "2.0.5";
+char* gVersion = "2.0.6";
 
 char gMainModulePath[PATH_MAX];
 
@@ -280,7 +280,7 @@ int main(int argc, char** argv)
     else {
         char command[4096*2];
 
-        snprintf(command, 4096*2, "clang %s -o %s %s.ll -lpcre -lneo-c", throw_to_cflags, program_name, sname);
+        snprintf(command, 4096*2, "clang %s -o %s %s.ll -lpcre -lneo-c -L%s/lib", throw_to_cflags, program_name, sname, PREFIX);
         puts(command);
 
         int rc = system(command);

@@ -8009,13 +8009,97 @@ BOOL compile_lambda_call(unsigned int node, sCompileInfo* info)
 
     if(type_identify_with_class_name(lambda_type->mResultType, "void"))
     {
+#if LLVM_VERSION_MAJOR >= 11
+        sNodeType* result_type = lambda_type->mResultType;;
+
+        Type* llvm_result_type;
+        if(!create_llvm_type_from_node_type(&llvm_result_type, result_type, result_type, info))
+        {
+            compile_err_msg(info, "Can't llvm type(2)");
+            show_node_type(result_type);
+            info->err_num++;
+
+            return FALSE;
+        }
+
+        std::vector<Type *> llvm_param_types;
+
+        for(i=0; i<num_params; i++) {
+            sNodeType* param_type = lambda_type->mParamTypes[i];
+
+            Type* llvm_param_type;
+            if(!create_llvm_type_from_node_type(&llvm_param_type, param_type, param_type, info))
+            {
+                compile_err_msg(info, "Can't llvm type(2)");
+                show_node_type(param_type);
+                info->err_num++;
+
+                return FALSE;
+            }
+
+            if(type_identify_with_class_name(param_type, "__builtin_va_list")) {
+                llvm_param_type = PointerType::get(llvm_param_type, 0);
+            }
+
+            llvm_param_types.push_back(llvm_param_type);
+        }
+
+        bool var_arg = false;
+        FunctionType* function_type = FunctionType::get(llvm_result_type, llvm_param_types, var_arg);
+        FunctionCallee fcalee = FunctionCallee(function_type, lambda_value.value);
+
+        Builder.CreateCall(fcalee, llvm_params);
+#else
         Builder.CreateCall(lambda_value.value, llvm_params);
+#endif
 
         info->type = lambda_type->mResultType;
     }
     else {
         LVALUE llvm_value;
+#if LLVM_VERSION_MAJOR >= 11
+        sNodeType* result_type = lambda_type->mResultType;;
+
+        Type* llvm_result_type;
+        if(!create_llvm_type_from_node_type(&llvm_result_type, result_type, result_type, info))
+        {
+            compile_err_msg(info, "Can't llvm type(2)");
+            show_node_type(result_type);
+            info->err_num++;
+
+            return FALSE;
+        }
+
+        std::vector<Type *> llvm_param_types;
+
+        for(i=0; i<num_params; i++) {
+            sNodeType* param_type = lambda_type->mParamTypes[i];
+
+            Type* llvm_param_type;
+            if(!create_llvm_type_from_node_type(&llvm_param_type, param_type, param_type, info))
+            {
+                compile_err_msg(info, "Can't llvm type(2)");
+                show_node_type(param_type);
+                info->err_num++;
+
+                return FALSE;
+            }
+
+            if(type_identify_with_class_name(param_type, "__builtin_va_list")) {
+                llvm_param_type = PointerType::get(llvm_param_type, 0);
+            }
+
+            llvm_param_types.push_back(llvm_param_type);
+        }
+
+        bool var_arg = false;
+        FunctionType* function_type = FunctionType::get(llvm_result_type, llvm_param_types, var_arg);
+        FunctionCallee fcalee = FunctionCallee(function_type, lambda_value.value);
+
+        llvm_value.value = Builder.CreateCall(fcalee, llvm_params);
+#else
         llvm_value.value = Builder.CreateCall(lambda_value.value, llvm_params);
+#endif
         llvm_value.type = lambda_type->mResultType;
         llvm_value.address = nullptr;
         llvm_value.var = nullptr;

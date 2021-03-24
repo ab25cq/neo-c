@@ -1,6 +1,6 @@
 # neo-c compiler language
 
-version 2.0.5
+version 2.0.6
 
 ```
 #include <neo-c.h>
@@ -62,11 +62,13 @@ make
 sudo make install
 ```
 
-This program is tested in LLVM-3.8, LLVM-7 and LLVM-10, and x86_64, aarch64 on Debian, Raspberry PI 3B+(ARM64), iPhone(iSH, Apline Linux), Android(termux), ppc64le(Debian), s390x(Alpline Linux). 
+This program is tested in LLVM-3.8, LLVM-7, LLVM-10 and LLVM-11, and x86_64, aarch64 on Debian, Raspberry PI 3B+(ARM64), Android(termux, userLAnd), ppc64le(Debian), s390x(Alpline Linux). 
 
 From version 1.4.0 I success to self-host compile.$ ulimit -s 132656; bash; cd self-host; bash all_build.sh;
 
 # CHANGELOG
+
+2.0.6 correspoded to LLVM-11 and termux
 
 2.0.5 int.expect was implemented
 
