@@ -1,13 +1,15 @@
-#include <neo-c.h>
+//#include <neo-c.h>
 
 int main()
 {
     int a;
-    int* b = &a;
+    int* b = 0;
 
-    if(true) {
-        puts("AAA");
+    if(1) {
+        1+1;
     }
+
+    *b = 0;
 
     *b = 111;
 

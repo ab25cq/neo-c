@@ -174,8 +174,25 @@ void createDebugFunctionInfo(int sline, char* fname, sFunction* function, Functi
         = createDebugFunctionType(function, unit);
 
 //    DITemplateParameterArray retained_nodes = subrouting_type->getTemplateParams();
+#if LLVM_VERSION_MAJOR >= 11
+    DIScope* scope = unit;
+    unsigned scope_line = sline;
 
-#if LLVM_VERSION_MAJOR >= 9
+    DISubprogram* sp = DBuilder->createFunction(
+        scope, fname2, "", unit, sline, subrouting_type, scope_line
+        , llvm::DINode::DIFlags::FlagZero, DISubprogram::SPFlagDefinition);
+
+    /*
+    createFunction(DIScope *Scope, StringRef Name, StringRef LinkageName,
+                   DIFile *File, unsigned LineNo, DISubroutineType *Ty,
+                   unsigned ScopeLine, DINode::DIFlags Flags = DINode::FlagZero,
+                   DISubprogram::DISPFlags SPFlags = DISubprogram::SPFlagZero,
+                   DITemplateParameterArray TParams = nullptr,
+                   DISubprogram *Decl = nullptr,
+                   DITypeArray ThrownTypes = nullptr);
+*/
+
+#elif LLVM_VERSION_MAJOR >= 9
     DISubprogram* sp = DBuilder->createFunction(
         unit, fname2, linkage_name, unit, sline
         , subrouting_type, sline);
@@ -1222,12 +1239,8 @@ void start_to_make_native_code(char* sname)
 
     char module_name[PATH_MAX + 128];
     snprintf(module_name, PATH_MAX, "Module %s", sname4);
-    TheModule = new Module(module_name, TheContext);
 
-    if(gNCDebug) {
-        TheModule->addModuleFlag(Module::Warning, "Debug Info Version", DEBUG_METADATA_VERSION);
-        TheModule->addModuleFlag(llvm::Module::Warning, "Dwarf Version", 2);
-    }
+    TheModule = new Module(module_name, TheContext);
 
     DBuilder = new DIBuilder(*TheModule);
 
@@ -1237,13 +1250,30 @@ void start_to_make_native_code(char* sname)
         cwd = ".";
     }
 
-#if LLVM_VERSION_MAJOR >= 5
+#if LLVM_VERSION_MAJOR >= 11
+    KSDbgInfo.TheCU = DBuilder->createCompileUnit(
+        dwarf::DW_LANG_C99, DBuilder->createFile(sname, cwd), "neo-c", false, "", 0, "", DICompileUnit::DebugEmissionKind::FullDebug, 0, false, false, DICompileUnit::DebugNameTableKind::None);
+#elif LLVM_VERSION_MAJOR >= 5
     KSDbgInfo.TheCU = DBuilder->createCompileUnit(
         dwarf::DW_LANG_C, DBuilder->createFile(sname, cwd), "neo-c", 0, "", 0);
 #else
     KSDbgInfo.TheCU = DBuilder->createCompileUnit(
-        dwarf::DW_LANG_C, sname, cwd, "neo-c", false, "", 0);
+        dwarf::DW_LANG_C99, sname, cwd, "neo-c", false, "", 0);
 #endif
+
+    if(gNCDebug) {
+//        TheModule->addModuleFlag(Module::Warning, "Debug Info Version", DEBUG_METADATA_VERSION);
+//        TheModule->addModuleFlag(llvm::Module::Warning, "Dwarf Version", 2);
+
+
+        TheModule->addModuleFlag(Module::Max, "Dwarf Version", 4);
+        TheModule->addModuleFlag(Module::Warning, "Debug Info Version",
+                           DEBUG_METADATA_VERSION);
+
+#ifdef __DARWIN__
+        TheModule->addModuleFlag(llvm::Module::Warning, "Dwarf Version", 2);
+#endif
+    }     
 
 #if LLVM_VERSION_MAJOR <= 9
     TheFPM = llvm::make_unique<FunctionPassManager>(TheModule);
