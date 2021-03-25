@@ -625,3 +625,5 @@ BOOL skip_block(sParserInfo* info)
 }
 
 }
+
+#pragma GCC diagnostic pop

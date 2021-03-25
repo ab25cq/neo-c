@@ -1,6 +1,9 @@
 #ifndef LLVM_COMMON_H
 #define LLVM_COMMON_H 1
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wwrite-strings"
+
 extern "C"
 {
 #include "common.h"

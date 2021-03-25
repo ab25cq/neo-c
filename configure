@@ -3770,9 +3770,9 @@ if uname -v|grep iSH > /dev/null; then
 
 
     if test $myprefix = /usr/local; then
-        CFLAGS="-Isrc/ -I. -L . $CFLAGS"
+        CFLAGS="-Isrc/ -I. $CFLAGS"
     else
-        CFLAGS="-Isrc/ -I. -L . -I$myprefix/include -L$myprefix/lib $CFLAGS"
+        CFLAGS="-Isrc/ -I.  -I$myprefix/include $CFLAGS"
     fi
 
     { $as_echo "$as_me:${as_lineno-$LINENO}: checking for main in -lutil" >&5
@@ -3819,9 +3819,9 @@ elif test `uname -s` = "Darwin"; then
 
 
     if test $myprefix = /usr/local; then
-        CFLAGS="-Isrc/ -I. -L . -I `xcrun --show-sdk-path`/usr/include $CFLAGS"
+        CFLAGS="-Isrc/ -I.  -I `xcrun --show-sdk-path`/usr/include $CFLAGS"
     else
-        CFLAGS="-Isrc/ -I. -L . -I$myprefix/include -L$myprefix/lib -I `xcrun --show-sdk-path`/usr/include $CFLAGS"
+        CFLAGS="-Isrc/ -I. -I$myprefix/include -I `xcrun --show-sdk-path`/usr/include $CFLAGS"
     fi
 elif test `uname -s` = "FreeBSD"; then
     echo "FreeBSD"
@@ -3831,7 +3831,7 @@ elif test `uname -s` = "FreeBSD"; then
     $as_echo "#define __FREEBSD__ 1" >>confdefs.h
 
 
-    CFLAGS="-Isrc/ -I. -L . -I$myprefix/include -L$myprefix/lib $CFLAGS"
+    CFLAGS="-Isrc/ -I. -I$myprefix/include $CFLAGS"
 else
     echo "Linux"
 
@@ -3841,9 +3841,9 @@ else
 
 
     if test $myprefix = /usr/local; then
-        CFLAGS="-Isrc/ -I. -L . $CFLAGS"
+        CFLAGS="-Isrc/ -I. $CFLAGS"
     else
-        CFLAGS="-Isrc/ -I. -L . -I$myprefix/include -L$myprefix/lib $CFLAGS"
+        CFLAGS="-Isrc/ -I. -I$myprefix/include $CFLAGS"
     fi
 
     { $as_echo "$as_me:${as_lineno-$LINENO}: checking for main in -lutil" >&5
@@ -3891,29 +3891,14 @@ then
     CFLAGS="$CFLAGS -I/usr/local/include"
 fi
 
-if test -d /usr/local/lib
-then
-    CFLAGS="$CFLAGS -L /usr/local/lib"
-fi
-
 if test -d /opt/local/include
 then
     CFLAGS="$CFLAGS -I/opt/local/include"
 fi
 
-#if test -d /opt/local/lib
-#then
-#    CFLAGS="$CFLAGS -L /opt/local/lib"
-#fi
-
 if test -d /usr/include/i386-linux-gnu/
 then
     CFLAGS="$CFLAGS -I /usr/include/i386-linux-gnu//"
-fi
-
-if test -d /usr/lib/i386-linux-gnu/
-then
-    CFLAGS="$CFLAGS -L /usr/lib/i386-linux-gnu/"
 fi
 
 if test $ENABLE_OPTIMIZE = 1

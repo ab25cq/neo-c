@@ -125,7 +125,7 @@ void show_type_core(sNodeType* type)
         printf("[%d]", type->mArrayNum[i]);
     }
     if(type->mHeap) {
-        printf("%");
+        printf("%%");
     }
     if(type->mNumGenericsTypes > 0) {
         printf("<");

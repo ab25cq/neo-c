@@ -3567,3 +3567,5 @@ void restore_right_value_objects_container(void* right_value_objects, sCompileIn
 }
 
 }
+
+#pragma GCC diagnostic pop

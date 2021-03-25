@@ -14816,3 +14816,5 @@ int create_generics_finalize_method(sNodeType* node_type2, Function** llvm_fun, 
 
     return generics_fun_num;
 }
+
+#pragma GCC diagnostic pop
