@@ -375,7 +375,7 @@ enum eMode { kCommandMode = kSearchMode + 1 };
 
 struct Vi version 12
 {
-    string commandString;
+    char commandString[128];
 }
 
 impl ViWin version 12

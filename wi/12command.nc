@@ -276,11 +276,14 @@ void fileCompetion(ViWin* self, Vi* nvi) {
     
     var file_name = self.selector(words2).substring(strlen(word), -1);
     
-    nvi.commandString = nvi.commandString + file_name;
+    xstrncat(nvi.commandString, file_name, 128);
 }
 
 void commandModeInput(ViWin* self, Vi* nvi) {
     var key = self.getKey(false);
+
+    char a[128];
+    snprintf(a, 128, "%c", key);
 
     switch(key) {
         case '\n':
@@ -298,12 +301,17 @@ void commandModeInput(ViWin* self, Vi* nvi) {
 
         case 8:
         case 127:
-        case KEY_BACKSPACE:
-            nvi.commandString.delete(-1);
+        case KEY_BACKSPACE: {
+            int len = strlen(nvi.commandString);
+            if(len > 0) {
+                nvi.commandString[len-1] = '\0';
+            }
+            }
             break;
 
-        default:
-            nvi.commandString = nvi.commandString + key.to_string();
+        default: {
+            xstrncat(nvi.commandString, a, 128);
+            }
             break;
     }
 }
@@ -326,7 +334,7 @@ void input(ViWin* self, Vi* nvi) {
 }
 void subAllTextsFromCommandMode(ViWin* self, Vi* nvi) {
     /// parse command ///
-    var command = nvi.commandString
+    var command = string(nvi.commandString)
            .scan(regex!("%s\/\(.+\)\/\(.*\)\/*?"));
                
     var str = command.item(1, null);
@@ -348,28 +356,28 @@ impl Vi version 12
 {
 void enterComandMode(Vi* self) {
     self.mode = kCommandMode;
-    self.commandString = string("");
+    xstrncpy(self.commandString, "", 128);
 }
 void exitFromComandMode(Vi* self) {
-    if(self.commandString.index("sp", -1) == 0) {
-        var file_name = self.commandString.scan(regex!("sp \(.+\)")).clone_item(1, null);
+    if(string(self.commandString).index("sp", -1) == 0) {
+        var file_name = string(self.commandString).scan(regex!("sp \(.+\)")).clone_item(1, null);
 
         if(file_name != null) {
             self.openNewFile(file_name);
         }
     }
     else {
-        if(self.commandString.index("%", -1) != -1) {
+        if(string(self.commandString).index("%", -1) != -1) {
             self.activeWin.subAllTextsFromCommandMode(self);
             self.mode = kEditMode;
         }
-        if(self.commandString.index("w", -1) != -1) {
+        if(string(self.commandString).index("w", -1) != -1) {
             self.activeWin.writeFile();
         }
-        if(self.commandString.index("q", -1) != -1) {
+        if(string(self.commandString).index("q", -1) != -1) {
             bool writed = self.activeWin.writed;
 
-            if(!writed || self.commandString.index("!", -1) != -1) {
+            if(!writed || string(self.commandString).index("!", -1) != -1) {
                 if(self.wins.length() == 1) {
                     self.appEnd = true;
                 }
@@ -378,7 +386,7 @@ void exitFromComandMode(Vi* self) {
                 }
             }
         }
-        if(self.commandString.index("shell", -1) != -1) {
+        if(string(self.commandString).index("shell", -1) != -1) {
             endwin();
             
             (void)system("bash");
@@ -392,7 +400,7 @@ void exitFromComandMode(Vi* self) {
 initialize() {
     inherit(self);
 
-    self.commandString = string("");
+    xstrncpy(self.commandString, "", 128);
 
     self.events.replace(':', lambda(Vi* self, int key) {
         self.enterComandMode();
