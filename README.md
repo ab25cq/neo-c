@@ -21,7 +21,7 @@ int main()
 
 3. Generics. method Generics, inline function, method block with type infference.
 
-4. Mixin-layers system. You can create apllication with overlaying layers. See wi or tiny application sample included in this source code. 
+4. Mixin-layers system. You can create apllication with overlaying layers. See wi application sample included in this source code. 
 
 5. Can be self-hosted. Try ulimit -s 132656; bash; cd self-host; bash all_build.sh. Home directory> ulimit -s 132656; bash; cd self-host; bash home_all_build.sh to install in the directory.
 
@@ -44,7 +44,7 @@ int main()
 
 3. ジェネリクス、メソッドジェネリクス、inline関数、型推論を行うメソッドブロックがあります。
 
-4. Mixin-layersシステムを備えます。アプリケーションを実装する場合レイヤーを重ねるように簡単なアプリケーションから実装し始めて、レイヤーを重ねてアプリケーションを拡張していけます。wiとtinyというアプリケーションがソースコードに含まれているので、見てみてください。
+4. Mixin-layersシステムを備えます。アプリケーションを実装する場合レイヤーを重ねるように簡単なアプリケーションから実装し始めて、レイヤーを重ねてアプリケーションを拡張していけます。wiというアプリケーションがソースコードに含まれているので、見てみてください。
 
 5. セルフホストできます。ulimit -s 132656; bash; cd self-host; bash all_build.shしてみてください。ホームディレクトリにインストールする場合はulimit -s 132656; bash; cd self-host; bash home_all_build.shです。
 
@@ -60,6 +60,10 @@ cd neo-c
 ./configure --with-optimize
 make
 sudo make install
+
+or 
+
+bash all_build.sh
 ```
 
 This program is tested in LLVM-3.8, LLVM-7, LLVM-10 and LLVM-11, and x86_64, aarch64 on Debian, Raspberry PI 3B+(ARM64), Android(termux, userLAnd), ppc64le(Debian), s390x(Alpline Linux). 
@@ -1008,7 +1012,9 @@ AAA\nBBB\nCCC\nが出力されます。
 
 * Heap system
 
-Different from Rust. It may be a bit more powerful and easier to handle, but it is a rather dangerous system. Basically the first time there will be a segmentation fault. As a debugging method, there are printf debugging, comment out debugging, or a method of adding heap generation log to memleak_debug.txt with the -gm option. printf debugging is quite useful. At this time, as a debugging method, even if it is in the middle of the function, debug it as printf (... etc. at the beginning of the line, and when debugging is completed, detect the position of the debug code as egrep ^p * .nc and erase it Good, it's a good way to use it in C and other free-indented languages, or if you have a segmentation fault, gdb, oh yeah, valgrind is also a good way to debug dynamic memory. All illegal memory accesses can be detected.I feel a little nervous, but I'm writing about the heap.The object is created by new.
+
+It's different from Rust.  It may be a little easier to handle and powerful, but it is a dangerous system.  Basically, a segmentation fault will occur for the first time.  For the bagging method, use the printf debugging or the comment out debugging.  The printf debug is effective.  At this time, even if the debugging method is in the middle of the relationship. Place the debugging code at the beginning of the line, such as printf (... and so on, and then egrep ^ p * .nc when the debugging is finished.  I think there is a way to detect and delete it. C and others. It is a method that can be used in the free language.  Or if a segmentation fault occurs, you can use gdb.  Ah, that's right.  As a debugging method for dynamic memory
+    Valgrind is also effective.  Detects all incorrect memory access.  valgrind also finds memory leaks $
 
 ```
     var a = new char[128];
@@ -1391,7 +1397,7 @@ If you set new vector.initialize_with_values (5, 128), a vector with 5 elements 
 
 * ヒープシステム
 
-Rustとは違います。もう少し楽に扱えて強力かもしれませんが、かなり危険なシステムとなっております。基本的に最初のころはsegmentation faultが起こるでしょう。デバッグ方法としてはprintfデバッグや、コメントアウトデバッグ、または-gmオプションをつけてmemleak_debug.txtにヒープの生成のログをとらせる方法があります。printfデバッグがかなり有効です。この時デバッグ方法としては関数の途中であっても行頭にprintf(...などとしてデバッグしてデバッグが終わったらegrep ^p *.ncなどとしてデバッグコードの位置を検出して消してしまう方法がいいと思います。Cやその他フリーインデントの言語でもよく使う方法です。もしくはsegmentation faultが起こったらgdbを使うのもいいでしょう。ああ、そうそう。動的メモリーのデバッグ方法としてはvalgrindも有効です。不正なメモリアクセスすべてを検出できます。
+Rustとは違います。もう少し楽に扱えて強力かもしれませんが、かなり危険なシステムとなっております。基本的に最初のころはsegmentation faultが起こるでしょう。デバッグ方法としてはprintfデバッグや、コメントアウトデバッグを使ってください。printfデバッグがかなり有効です。この時デバッグ方法としては関数の途中であっても行頭にprintf(...などとしてデバッグしてデバッグが終わったらegrep ^p *.ncなどとしてデバッグコードの位置を検出して消してしまう方法がいいと思います。Cやその他フリーインデントの言語でもよく使う方法です。もしくはsegmentation faultが起こったらgdbを使うのもいいでしょう。ああ、そうそう。動的メモリーのデバッグ方法としてはvalgrindも有効です。不正なメモリアクセスすべてを検出できます。valgrindはメモリーリークも検出してくれます
 
 と、ちょっと気分が萎えたと思いますが、ヒープについて書いています。
 
