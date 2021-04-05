@@ -163,6 +163,7 @@ struct sNodeTypeStruct {
 
     struct sNodeTypeStruct* mParamTypes[PARAMS_MAX];
     struct sNodeTypeStruct* mResultType;
+    BOOL mVarArgs;
     int mNumParams;
 
     BOOL mHeap;

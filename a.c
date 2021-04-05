@@ -1,16 +1,7 @@
-#include <neo-c.h>
-
-void fun()
-{
-    vector<int>*% v = new vector<int>.initialize();
-
-    v.push_back(1);
-    v.push_back(2);
-}
+#include <malloc/malloc.h>
 
 int main()
 {
-    char* str = borrow string("AAA");
-    fun();
+    malloc_zone_t a;
     return 0;
 }

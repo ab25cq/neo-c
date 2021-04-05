@@ -45,11 +45,19 @@ static BOOL compiler(char* fname, BOOL optimize, sVarTable* module_var_table, BO
 
     char cmd[1024];
 #ifdef __DARWIN__
+/*
     if(cflags) {
-        snprintf(cmd, 1024, "clang -E %s -U__GNUC__ -I/opt/local/include %s > %s", cflags, fname, fname2);
+        snprintf(cmd, 1024, "clnag-cpp %s -U__GNUC__ -C %s > %s", cflags, fname, fname2);
     }
     else {
-        snprintf(cmd, 1024, "clang -U__GNUC__ -I/opt/local/include -E %s.c > %s", fname, fname2);
+        snprintf(cmd, 1024, "clang-cpp -U__GNUC__ -C %s > %s", fname, fname2);
+    }
+*/
+    if(cflags) {
+        snprintf(cmd, 1024, "/usr/local/opt/llvm/bin/clnag-cpp %s -U__GNUC__ -C %s > %s", cflags, fname, fname2);
+    }
+    else {
+        snprintf(cmd, 1024, "/usr/local/opt/llvm/bin/clang-cpp -U__GNUC__ -C %s > %s", fname, fname2);
     }
 #else
     if(cflags) {
@@ -60,6 +68,7 @@ static BOOL compiler(char* fname, BOOL optimize, sVarTable* module_var_table, BO
     }
 #endif
 
+    puts(cmd);
     int rc = system(cmd);
     if(rc != 0) {
         char cmd[1024];
@@ -69,6 +78,7 @@ static BOOL compiler(char* fname, BOOL optimize, sVarTable* module_var_table, BO
             snprintf(cmd, 1024, "cpp -C %s > %s", fname, fname2);
         }
 
+        puts(cmd);
         rc = system(cmd);
 
         if(rc != 0) {
@@ -106,7 +116,7 @@ static BOOL compiler(char* fname, BOOL optimize, sVarTable* module_var_table, BO
 
 int gARGC;
 char** gARGV;
-char* gVersion = "2.0.9";
+char* gVersion = "2.1.0";
 
 char gMainModulePath[PATH_MAX];
 
@@ -266,9 +276,15 @@ int main(int argc, char** argv)
     if(output_object_file) {
         char command[4096*2];
 
-        snprintf(command, 4096*2, "clang -o %s.o -c %s.ll %s", program_name, sname, throw_to_cflags);
+#ifdef __DARWIN__
+        //snprintf(command, 4096*2, "clang -Xlinker -L/usr/local/lib -o %s.o -c %s.ll %s", program_name, sname, throw_to_cflags);
+        snprintf(command, 4096*2, "/usr/local/opt/llvm/bin/clang -Xlinker -L/usr/local/lib -o %s.o -c %s.ll %s", program_name, sname, throw_to_cflags);
+#else
+        snprintf(command, 4096*2, "clang -Xlinker -L/usr/local/lib -o %s.o -c %s.ll %s", program_name, sname, throw_to_cflags);
+#endif
         puts(command);
 
+        puts(command);
         int rc = system(command);
         if(rc != 0) {
             fprintf(stderr, "failed to compile(3)\n");
@@ -280,7 +296,12 @@ int main(int argc, char** argv)
     else {
         char command[4096*2];
 
-        snprintf(command, 4096*2, "clang %s -o %s %s.ll -lpcre -lneo-c -L%s/lib", throw_to_cflags, program_name, sname, PREFIX);
+#ifdef __DARWIN__
+        //snprintf(command, 4096*2, "clang -Xlinker -L/usr/local/lib %s -o %s %s.ll -lpcre -lneo-c -L%s/lib", throw_to_cflags, program_name, sname, PREFIX);
+        snprintf(command, 4096*2, "/usr/local/opt/llvm/bin/clang -Xlinker -L/usr/local/lib %s -o %s %s.ll -lpcre -lneo-c -L%s/lib", throw_to_cflags, program_name, sname, PREFIX);
+#else
+        snprintf(command, 4096*2, "clang -Xlinker -L/usr/local/lib %s -o %s %s.ll -lpcre -lneo-c -L%s/lib", throw_to_cflags, program_name, sname, PREFIX);
+#endif
         puts(command);
 
         int rc = system(command);

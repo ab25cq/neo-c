@@ -1,21 +1,7 @@
-#include <curses.h>
-#include <stdlib.h>
-#include <dirent.h>
-#include <curses.h>
-#include <locale.h>
+#include <neo-c.h>
 
 int main()
 {
-    setlocale(LC_ALL, "");
-    initscr();
-
-    clear();
-    printw("%ls", "いいいいいいいいいい");
-    refresh();
-
-    getch();
-
-    endwin();
-
-    exit(0);
+    printf("%d\n", string("ABC").index_regex(regex!("B"), -1));
+    return 0;
 }

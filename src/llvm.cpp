@@ -1407,8 +1407,10 @@ void output_native_code(char* sname, BOOL optimize, char* throw_to_cflag)
 
     verifyModule(*TheModule);
 
+/*
     llvm::WriteBitcodeToFile(*TheModule, output_stream, true);
     output_stream.flush();
+*/
 #elif LLVM_VERSION_MAJOR >= 4
     char path[PATH_MAX]; snprintf(path, PATH_MAX, "%s.bc", sname2);
 
@@ -2060,8 +2062,10 @@ BOOL create_llvm_type_from_node_type(Type** result_type, sNodeType* node_type, s
             llvm_param_types.push_back(llvm_param_type);
         }
     
-        *result_type = FunctionType::get(llvm_result_type, llvm_param_types, false);
-
+        *result_type = FunctionType::get(llvm_result_type, llvm_param_types, node_type->mVarArgs);
+        if(node_type->mPointerNum == 0) {
+            *result_type = PointerType::get(*result_type, 0);
+        }
     }
 
     int i;

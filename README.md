@@ -1,6 +1,6 @@
 # neo-c compiler language
 
-version 2.0.9
+version 2.1.0
 
 ```
 #include <neo-c.h>
@@ -66,11 +66,13 @@ or
 bash all_build.sh
 ```
 
-This program is tested in LLVM-3.8, LLVM-7, LLVM-10 and LLVM-11, and x86_64, aarch64 on Debian, Raspberry PI 3B+(ARM64), Android(termux, userLAnd), ppc64le(Debian), s390x(Alpline Linux). 
+This program is tested in LLVM-3.8, LLVM-7, LLVM-10 and LLVM-11, and x86_64, aarch64 on Debian, Raspberry PI 3B+(ARM64), Android(termux, userLAnd), ppc64le(Debian), s390x(Alpline Linux). OSX(Intell, Homebrew-LLVM11)
 
 From version 1.4.0 I success to self-host compile.$ ulimit -s 132656; bash; cd self-host; bash all_build.sh;
 
 # CHANGELOG
+
+2.1.0 more compatibility for C-Lang. Corresponded to OSX(Intell, Homebrew)
 
 2.0.9 corresponded to DWARF Debug Info on termux(LLVM11)
 

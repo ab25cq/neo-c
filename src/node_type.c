@@ -105,6 +105,7 @@ sNodeType* clone_node_type(sNodeType* node_type)
     for(i=0; i<node_type->mNumParams; i++) {
         node_type2->mParamTypes[i] = clone_node_type(node_type->mParamTypes[i]);
     }
+    node_type2->mVarArgs = node_type->mVarArgs;
 
     node_type2->mNumFields = node_type->mNumFields;
 

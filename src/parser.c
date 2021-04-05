@@ -1903,13 +1903,14 @@ static BOOL parse_type(sNodeType** result_type, sParserInfo* info, char* func_po
         }
     }
 
+    BOOL define_struct = FALSE;
     if(only_signed_unsigned) {
         *result_type = create_node_type_with_class_name("int");
     }
     else {
-        BOOL define_struct = FALSE;
         BOOL define_union = FALSE;
         BOOL undefined_struct = FALSE;
+        BOOL define_enum = FALSE;
 
         if(strcmp(type_name, "long") == 0) {
             if(parse_cmp(info->p, "unsigned") == 0)
@@ -2034,6 +2035,7 @@ static BOOL parse_type(sNodeType** result_type, sParserInfo* info, char* func_po
                 int sline = info->sline;
 
                 char buf2[VAR_NAME_MAX];
+
                 parse_word(buf2, VAR_NAME_MAX, info, FALSE, FALSE);
 
                 info->p = p_before;
@@ -2069,6 +2071,10 @@ static BOOL parse_type(sNodeType** result_type, sParserInfo* info, char* func_po
             if(!parse_word(type_name, VAR_NAME_MAX, info, TRUE, FALSE)) 
             {
                 return FALSE;
+            }
+
+            if(*info->p == '{') {
+                define_enum = TRUE;
             }
         }
 
@@ -2122,6 +2128,17 @@ static BOOL parse_type(sNodeType** result_type, sParserInfo* info, char* func_po
             unsigned int node = 0;
 
             if(!parse_union(&node, type_name, VAR_NAME_MAX, info)) {
+                return FALSE;
+            }
+        }
+        else if(define_enum) {
+            char enum_name[VAR_NAME_MAX];
+
+            xstrncpy(enum_name, type_name, VAR_NAME_MAX);
+
+            unsigned int node = 0;
+
+            if(!parse_enum(&node, enum_name, info)) {
                 return FALSE;
             }
         }
@@ -2246,7 +2263,7 @@ static BOOL parse_type(sNodeType** result_type, sParserInfo* info, char* func_po
     if(*result_type == NULL || (*result_type)->mClass == NULL) {
         if(!parse_only) {
             char msg[1024];
-            snprintf(msg, 1024, "%s is not defined class(2)", type_name);
+            snprintf(msg, 1024, "%s is not defined class(2) aaa", type_name);
             parser_err_msg(info, msg);
             info->err_num++;
             return FALSE;
@@ -2413,10 +2430,20 @@ static BOOL parse_type(sNodeType** result_type, sParserInfo* info, char* func_po
                             else if(*info->p == ',') {
                                 info->p++;
                                 skip_spaces_and_lf(info);
+
+                                if(*info->p == '.' && *(info->p+1) == '.' && *(info->p+2) == '.') {
+                                    info->p += 3;
+                                    skip_spaces_and_lf(info);
+
+                                    expect_next_character_with_one_forward(")", info);
+
+                                    (*result_type)->mVarArgs = TRUE;
+                                    break;
+                                }
                             }
                             else {
                                 char msg[1024];
-                                snprintf(msg, 1024, "invalid character in lambda type name(%c)", *info->p);
+                                snprintf(msg, 1024, "invalid character in lambda type name(%c) aaa", *info->p);
                                 parser_err_msg(info, msg);
                                 break;
                             }
@@ -2514,7 +2541,7 @@ static BOOL parse_type(sNodeType** result_type, sParserInfo* info, char* func_po
                                     }
                                     else {
                                         char msg[1024];
-                                        snprintf(msg, 1024, "invalid character in lambda type name(%c)", *info->p);
+                                        snprintf(msg, 1024, "invalid character in lambda type name(%c) bbb", *info->p);
                                         parser_err_msg(info, msg);
                                         break;
                                     }
@@ -2778,7 +2805,8 @@ static BOOL parse_type(sNodeType** result_type, sParserInfo* info, char* func_po
                 while(1) {
                     sNodeType* node_type = NULL;
                     BOOL define_struct_only = FALSE;
-                    if(!parse_type(&node_type, info, NULL, FALSE, FALSE, parse_only, &define_struct_only)) {
+                    char buf[VAR_NAME_MAX];
+                    if(!parse_type(&node_type, info, buf, FALSE, FALSE, parse_only, &define_struct_only)) {
                         return FALSE;
                     }
 
@@ -2808,11 +2836,15 @@ static BOOL parse_type(sNodeType** result_type, sParserInfo* info, char* func_po
                     }
                     else {
                         char msg[1024];
-                        snprintf(msg, 1024, "invalid character in lambda type name(%c)", *info->p);
+                        snprintf(msg, 1024, "invalid character in lambda type name(%c) ccc", *info->p);
                         parser_err_msg(info, msg);
                         break;
                     }
                 }
+            }
+            char asm_fname[VAR_NAME_MAX];
+            if(!parse_attribute(info, asm_fname)) {
+                return FALSE;
             }
         }
 
@@ -5916,9 +5948,21 @@ BOOL parse_typedef(unsigned int* node, sParserInfo* info)
     }
 
     unsigned int anonymous_enum_node = 0;
+    unsigned int enum_node = 0;
 
     if(strcmp(buf, "enum") == 0) {
-        if(*info->p == '{') {
+        if(isalpha(*info->p) || *info->p == '_') {
+            char name[VAR_NAME_MAX];
+            if(!parse_word(name, VAR_NAME_MAX, info, TRUE, FALSE)) 
+            {
+                return FALSE;
+            }
+
+            if(!parse_enum(&enum_node, name, info)) {
+                return FALSE;
+            }
+        }
+        else if(*info->p == '{') {
             if(!parse_anonymous_enum(&anonymous_enum_node, info)) {
                 return FALSE;
             }
@@ -5931,6 +5975,11 @@ BOOL parse_typedef(unsigned int* node, sParserInfo* info)
     if(anonymous_enum_node != 0)
     {
         nodes[0] = anonymous_enum_node;
+        num_nodes++;
+    }
+
+    if(enum_node != 0) {
+        nodes[0] = enum_node;
         num_nodes++;
     }
 
@@ -7114,6 +7163,11 @@ static BOOL expression_node(unsigned int* node, BOOL enable_assginment, sParserI
                         }
                     }
 
+                    char asm_fname[VAR_NAME_MAX];
+                    if(!parse_attribute(info, asm_fname)) {
+                        return FALSE;
+                    }
+
                     if(*info->p == ';') {
                         info->p++;
                         skip_spaces_and_lf(info);
@@ -7249,7 +7303,7 @@ static BOOL expression_node(unsigned int* node, BOOL enable_assginment, sParserI
                 return FALSE;
             }
 
-            if(strcmp(buf, "inline") == 0 || strcmp(buf, "__inline") == 0 || strcmp(buf, "__inline__") == 0)
+            if(strcmp(buf, "inline") == 0 || strcmp(buf, "__inline") == 0 || strcmp(buf, "__inline__") == 0 || strcmp(buf, "__DARWIN_OS_INLINE") == 0)
             {
                 static_inline = TRUE;
             }
@@ -7622,7 +7676,7 @@ static BOOL expression_node(unsigned int* node, BOOL enable_assginment, sParserI
                 }
             }
         }
-        else if(static_inline || strcmp(buf, "inline") == 0 || strcmp(buf, "__inline") == 0 || strcmp(buf, "__inline__") == 0) 
+        else if(static_inline || strcmp(buf, "inline") == 0 || strcmp(buf, "__inline") == 0 || strcmp(buf, "__inline__") == 0|| strcmp(buf, "__DARWIN_OS_INLINE") == 0) 
         {
             if(strcmp(info->impl_struct_name, "") == 0)
             {

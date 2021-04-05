@@ -1,4 +1,4 @@
-AC_INIT(main.nc)
+AC_INIT(main.c)
 
 AC_CONFIG_HEADER(config.h)
 

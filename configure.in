@@ -89,7 +89,7 @@ fi
 ##################################################
 AC_MSG_CHECKING(Operating System)
 
-CFLAGS='-DPREFIX="\"${DESTDIR}/\"" -fPIC'
+CFLAGS='-DPREFIX="\"${DESTDIR}/\"" -fPIC -L/usr/local/lib'
 #CFLAGS="-fPIC -rdynamic $CFLAGS"
 
 AR_LIB=
@@ -116,10 +116,11 @@ elif test `uname -s` = "Darwin"; then
     AC_DEFINE(__DARWIN__, 1)
 
     if test $myprefix = /usr/local; then
-        CFLAGS="-Isrc/ -I.  -I `xcrun --show-sdk-path`/usr/include $CFLAGS"
+        CFLAGS="-Isrc/ -I.  -I `xcrun --show-sdk-path`/usr/include $CFLAGS -L/usr/local/opt/llvm/lib -I/usr/local/opt/llvm/include "
     else 
-        CFLAGS="-Isrc/ -I. -I$myprefix/include -I `xcrun --show-sdk-path`/usr/include $CFLAGS"
+        CFLAGS="-Isrc/ -I. -I$myprefix/include -I `xcrun --show-sdk-path`/usr/include $CFLAGS -L/usr/local/opt/llvm/lib -I/usr/local/opt/llvm/include "
     fi
+
 elif test `uname -s` = "FreeBSD"; then
     echo "FreeBSD"
 
@@ -231,7 +232,7 @@ DESTDIR=$myprefix
 
 AC_SUBST(DESTDIR)
 
-CXXFLAGS='-DPREFIX="\"${DESTDIR}/\""'
+CXXFLAGS='-DPREFIX="\"${DESTDIR}/\" -L/usr/local/lib"'
 CXXFLAGS="-I . -I src $CXXFLAGS"
 #CXXFLAGS="-fPIC -rdynamic $CXXFLAGS"
 

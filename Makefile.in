@@ -37,11 +37,11 @@ all: neo-c libneo-c.a
 neo-c: config.h src/compiler.o $(COMMON_OBJS) $(OBJS)
 	$(CXX) -o neo-c src/compiler.o $(COMMON_OBJS) $(OBJS) $(CFLAGS) $(LIBS) $(CXXFLAGS)
 
-libneo-c.a: neo-c.nc neo-c-string.nc neo-c-string2.nc neo-c-wstring.nc
-	PWD=`pwd` ./neo-c -c neo-c.nc 
-	PWD=`pwd` ./neo-c -c neo-c-string.nc
-	PWD=`pwd` ./neo-c -c neo-c-string2.nc
-	PWD=`pwd` ./neo-c -c neo-c-wstring.nc
+libneo-c.a: neo-c.c neo-c-string.c neo-c-string2.c neo-c-wstring.c
+	PWD=`pwd` ./neo-c -c neo-c.c 
+	PWD=`pwd` ./neo-c -c neo-c-string.c
+	PWD=`pwd` ./neo-c -c neo-c-string2.c
+	PWD=`pwd` ./neo-c -c neo-c-wstring.c
 	ar r libneo-c.a neo-c.o neo-c-string.o neo-c-string2.o neo-c-wstring.o 
 
 #########################################
@@ -56,6 +56,23 @@ $(RUNTIME_OBJS): src/*.h Makefile configure
 #########################################
 # install
 #########################################
+ifeq  ($(shell uname),Darwin)
+install:
+	mkdir -p $(DESTDIR)/include
+	cp ./neo-c.h.osx $(DESTDIR)/include/neo-c.h
+
+	mkdir -p $(DESTDIR)/lib
+	ranlib $(DESTDIR)/lib/libneo-c.a
+
+#	mkdir -p $(DESTDIR)/share/man/man1
+#	$(INSTALL) ./man/neo-c.1.gz $(DESTDIR)/share/man/man1
+
+	mkdir -p "$(DESTDIR)/bin"
+	$(INSTALL) -m 755 ./neo-c "$(DESTDIR)/bin"
+
+	mkdir -p $(DESTDIR)/share/doc/neo-c
+	$(INSTALL) -m 644 ./README.md "$(DESTDIR)/share/doc/neo-c"
+else
 install:
 	mkdir -p $(DESTDIR)/include
 	$(INSTALL) -m 644 ./neo-c.h $(DESTDIR)/include
@@ -71,6 +88,7 @@ install:
 
 	mkdir -p $(DESTDIR)/share/doc/neo-c
 	$(INSTALL) -m 644 ./README.md "$(DESTDIR)/share/doc/neo-c"
+endif
 
 #########################################
 # permission
@@ -86,7 +104,7 @@ permission:
 # clean
 #########################################
 clean:
-	rm -fR libneo-c.a memleak_debug.txt code/HelloWorld code/HelloWorld2 code/HelloWorld3 code/HelloWorld4 code/HelloWorld7 code/HelloWorld8 code/HelloWorld9 code/HelloWorld9-2 code/HelloWorld10 code/HelloWorld6 code/HelloWorld10-5 code/HelloWorld10-6 code/HelloWorld10-6-2 code/HelloWorld10-7 code/HelloWorld9-5 neo-c neo-c.dSYM src/*.o config.log config.status *.stackdump autom3te.cache .DS_Store core.* core a.out *.bc *.s *.o code/*.o *.ll *.so.1.0.0 *.so src/config.h moveVarDecls.hi moveVarDecls.o moveVarDecls *.so.1 src/*.dwo code/*.out code/*.nc.tmp *.nc.tmp *.out memalloc-stdc.o memalloc.o src/*.out code/*.i *.i
+	rm -fR libneo-c.a memleak_debug.txt code/HelloWorld code/HelloWorld2 code/HelloWorld3 code/HelloWorld4 code/HelloWorld7 code/HelloWorld8 code/HelloWorld9 code/HelloWorld9-2 code/HelloWorld10 code/HelloWorld6 code/HelloWorld10-5 code/HelloWorld10-6 code/HelloWorld10-6-2 code/HelloWorld10-7 code/HelloWorld9-5 neo-c neo-c.dSYM src/*.o config.log config.status *.stackdump autom3te.cache .DS_Store core.* core a.out *.bc *.s *.o code/*.o *.ll *.so.1.0.0 *.so src/config.h moveVarDecls.hi moveVarDecls.o moveVarDecls *.so.1 src/*.dwo code/*.out code/*.c.tmp *.c.tmp *.out memalloc-stdc.o memalloc.o src/*.out code/*.i *.i
 	rm -fR code/*.ll code/*.bc code/*.s
 	(if test -e neo-vi/Makefile; then cd neo-vi && make distclean; fi)
 
@@ -100,36 +118,36 @@ distclean: clean
 #########################################
 test: 
 	@echo "Compile to test code..."
-	PWD=`pwd` ./neo-c -c code/External.nc
-	PWD=`pwd` ./neo-c code/HelloWorld.nc code/External.o
+	PWD=`pwd` ./neo-c -c code/External.c
+	PWD=`pwd` ./neo-c code/HelloWorld.c code/External.o
 	./code/HelloWorld
-	if test `uname -s` = "Darwin"; then PWD=`pwd` ./neo-c code/HelloWorld2.nc -lncurses; else PWD=`pwd` ./neo-c code/HelloWorld2.nc -lncursesw; fi
+	if test `uname -s` = "Darwin"; then PWD=`pwd` ./neo-c code/HelloWorld2.c -lncurses; else PWD=`pwd` ./neo-c code/HelloWorld2.c -lncursesw; fi
 	./code/HelloWorld2
-	PWD=`pwd` ./neo-c code/HelloWorld3.nc
+	PWD=`pwd` ./neo-c code/HelloWorld3.c
 	./code/HelloWorld3
-	PWD=`pwd` ./neo-c code/HelloWorld4.nc
+	PWD=`pwd` ./neo-c code/HelloWorld4.c
 	./code/HelloWorld4
-	PWD=`pwd` ./neo-c -c code/HelloWorld5.nc
-	PWD=`pwd` ./neo-c -c code/HelloWorld6.nc
-	PWD=`pwd` ./neo-c code/HelloWorld7.nc code/HelloWorld5.o code/HelloWorld6.o
+	PWD=`pwd` ./neo-c -c code/HelloWorld5.c
+	PWD=`pwd` ./neo-c -c code/HelloWorld6.c
+	PWD=`pwd` ./neo-c code/HelloWorld7.c code/HelloWorld5.o code/HelloWorld6.o
 	./code/HelloWorld7
-	PWD=`pwd` ./neo-c code/HelloWorld8.nc
+	PWD=`pwd` ./neo-c code/HelloWorld8.c
 	./code/HelloWorld8
-	PWD=`pwd` ./neo-c code/HelloWorld9.nc
+	PWD=`pwd` ./neo-c code/HelloWorld9.c
 	./code/HelloWorld9
-	PWD=`pwd` ./neo-c code/HelloWorld9-2.nc
+	PWD=`pwd` ./neo-c code/HelloWorld9-2.c
 	./code/HelloWorld9-2
-	PWD=`pwd` ./neo-c code/HelloWorld9-5.nc
+	PWD=`pwd` ./neo-c code/HelloWorld9-5.c
 	./code/HelloWorld9-5
-	PWD=`pwd` ./neo-c code/HelloWorld10.nc
+	PWD=`pwd` ./neo-c code/HelloWorld10.c
 	./code/HelloWorld10
-	PWD=`pwd` ./neo-c code/HelloWorld10-5.nc
+	PWD=`pwd` ./neo-c code/HelloWorld10-5.c
 	./code/HelloWorld10-5
-	PWD=`pwd` ./neo-c code/HelloWorld10-6.nc
+	PWD=`pwd` ./neo-c code/HelloWorld10-6.c
 	./code/HelloWorld10-6
-	PWD=`pwd` ./neo-c code/HelloWorld10-6-2.nc
+	PWD=`pwd` ./neo-c code/HelloWorld10-6-2.c
 	./code/HelloWorld10-6-2
-	PWD=`pwd` ./neo-c code/HelloWorld10-7.nc || clang -o code/HelloWorld10-7 code/HelloWorld10-7.ll -lneo-c -lpcre
+	PWD=`pwd` ./neo-c code/HelloWorld10-7.c || clang -o code/HelloWorld10-7 code/HelloWorld10-7.ll -lneo-c -lpcre
 	./code/HelloWorld10-7
 
 #########################################

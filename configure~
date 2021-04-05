@@ -612,7 +612,7 @@ PACKAGE_STRING=''
 PACKAGE_BUGREPORT=''
 PACKAGE_URL=''
 
-ac_unique_file="main.c"
+ac_unique_file="src/compiler.c"
 # Factoring default headers for most tests.
 ac_includes_default="\
 #include <stddef.h>
@@ -647,9 +647,13 @@ ac_includes_default="\
 ac_header_c_list=
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
+RUNTIME_OBJS
+COMMON_OBJS
+OBJS
+CXXFLAGS
+CXX
 DESTDIR
-NCC
-NCFLAGS
+CFFI
 OS
 INSTALL_DATA
 INSTALL_SCRIPT
@@ -704,7 +708,6 @@ ac_subst_files=''
 ac_user_opts='
 enable_option_checking
 with_debug
-with_memleak_debug
 with_optimize
 '
       ac_precious_vars='build_alias
@@ -1331,7 +1334,6 @@ Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
   --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
   --with-debug              include debug info
-  --with-meak-debug              include memleak debug info
   --with-optimize           with optimize(-O in CFLAGS)
 
 Some influential environment variables:
@@ -3796,11 +3798,10 @@ else
     myprefix=$prefix
 fi
 
-#########################################
+#################################################
 # configure arguments
-#########################################
+#################################################
 DEBUGGING=0
-MEMDEBUGGING=0
 LOGGING=0
 
 
@@ -3808,13 +3809,6 @@ LOGGING=0
 if test ${with_debug+y}
 then :
   withval=$with_debug;  DEBUGGING=1;
-fi
-
-
-# Check whether --with-memleak-debug was given.
-if test ${with_memleak_debug+y}
-then :
-  withval=$with_memleak_debug;  MEMDEBUGGING=1;
 fi
 
 
@@ -3827,9 +3821,9 @@ else $as_nop
 fi
 
 
-#########################################
+#################################################
 # check cpu type
-#########################################
+#################################################
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking CPU type" >&5
 printf %s "checking CPU type... " >&6; }
 
@@ -3837,9 +3831,9 @@ if test `uname -m` = x86_64
 then
     echo x86_64
 
-    printf "%s\n" "#define __64BIT_CPU__ 1" >>confdefs.h
+    printf "%s\n" "#define __X86_64_CPU__ 1" >>confdefs.h
 
-    printf "%s\n" "#define __X86_64__ 1" >>confdefs.h
+    printf "%s\n" "#define __64BIT_CPU__ 1" >>confdefs.h
 
 elif test `uname -m` = i386 || test `uname -m` = i686
 then
@@ -3891,6 +3885,14 @@ then
 
     printf "%s\n" "#define __32BIT_CPU__ 1" >>confdefs.h
 
+elif test `uname -m` = aarch64
+then
+    echo aarch64
+
+    printf "%s\n" "#define __AARCH64_CPU__ 1" >>confdefs.h
+
+    printf "%s\n" "#define __64BIT_CPU__ 1" >>confdefs.h
+
 else
     echo other
 
@@ -3898,39 +3900,181 @@ else
 
 fi
 
-#########################################
+##################################################
 # check operating systems
-#########################################
+##################################################
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking Operating System" >&5
 printf %s "checking Operating System... " >&6; }
 
-#########################################
+CFLAGS='-DPREFIX="\"${DESTDIR}/\"" -fPIC'
+#CFLAGS="-fPIC -rdynamic $CFLAGS"
+
+AR_LIB=
+
+if uname -v|grep iSH > /dev/null; then
+    echo "iSH"
+
+    OS=iSH
+
+    printf "%s\n" "#define __ISH__ 1" >>confdefs.h
+
+
+    if test $myprefix = /usr/local; then
+        CFLAGS="-Isrc/ -I. $CFLAGS"
+    else
+        CFLAGS="-Isrc/ -I.  -I$myprefix/include $CFLAGS"
+    fi
+
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for main in -lutil" >&5
+printf %s "checking for main in -lutil... " >&6; }
+if test ${ac_cv_lib_util_main+y}
+then :
+  printf %s "(cached) " >&6
+else $as_nop
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lutil  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+
+int
+main (void)
+{
+return main ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"
+then :
+  ac_cv_lib_util_main=yes
+else $as_nop
+  ac_cv_lib_util_main=no
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.beam \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_util_main" >&5
+printf "%s\n" "$ac_cv_lib_util_main" >&6; }
+if test "x$ac_cv_lib_util_main" = xyes
+then :
+   LIBS="$LIBS -lutil"
+fi
+ac_cv_lib_util=ac_cv_lib_util_main
+
+elif test `uname -s` = "Darwin"; then
+    echo "Darwin"
+
+    OS=DARWIN
+
+    printf "%s\n" "#define __DARWIN__ 1" >>confdefs.h
+
+
+    if test $myprefix = /usr/local; then
+        CFLAGS="-Isrc/ -I.  -I `xcrun --show-sdk-path`/usr/include $CFLAGS -L/usr/local/opt/llvm/lib -I/usr/local/opt/llvm/include "
+    else
+        CFLAGS="-Isrc/ -I. -I$myprefix/include -I `xcrun --show-sdk-path`/usr/include $CFLAGS -L/usr/local/opt/llvm/lib -I/usr/local/opt/llvm/include "
+    fi
+
+elif test `uname -s` = "FreeBSD"; then
+    echo "FreeBSD"
+
+    OS=FREEBSD
+
+    printf "%s\n" "#define __FREEBSD__ 1" >>confdefs.h
+
+
+    CFLAGS="-Isrc/ -I. -I$myprefix/include $CFLAGS"
+else
+    echo "Linux"
+
+    OS=LINUX
+
+    printf "%s\n" "#define __LINUX__ 1" >>confdefs.h
+
+
+    if test $myprefix = /usr/local; then
+        CFLAGS="-Isrc/ -I. $CFLAGS"
+    else
+        CFLAGS="-Isrc/ -I. -I$myprefix/include $CFLAGS"
+    fi
+
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for main in -lutil" >&5
+printf %s "checking for main in -lutil... " >&6; }
+if test ${ac_cv_lib_util_main+y}
+then :
+  printf %s "(cached) " >&6
+else $as_nop
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lutil  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+
+int
+main (void)
+{
+return main ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"
+then :
+  ac_cv_lib_util_main=yes
+else $as_nop
+  ac_cv_lib_util_main=no
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.beam \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_util_main" >&5
+printf "%s\n" "$ac_cv_lib_util_main" >&6; }
+if test "x$ac_cv_lib_util_main" = xyes
+then :
+   LIBS="$LIBS -lutil"
+fi
+ac_cv_lib_util=ac_cv_lib_util_main
+
+fi
+
+###################################################
 # CFLAGS settings
-#########################################
-CFLAGS="-I."
-NCFLAGS=""
+###################################################
+if test -d /usr/local/include
+then
+    CFLAGS="$CFLAGS -I/usr/local/include"
+fi
+
+if test -d /opt/local/include
+then
+    CFLAGS="$CFLAGS -I/opt/local/include"
+fi
+
+if test -d /usr/include/i386-linux-gnu/
+then
+    CFLAGS="$CFLAGS -I /usr/include/i386-linux-gnu//"
+fi
+
+if test $ENABLE_OPTIMIZE = 1
+then
+    CFLAGS="$CFLAGS -O3"
+fi
+
 if test $DEBUGGING = 1
 then
     CFLAGS="$CFLAGS -g -DMDEBUG"
 fi
-if test $MEMDEBUGGING = 1
-then
-    NCFLAGS="$NCFLAGS -gm"
-fi
-if test $ENABLE_OPTIMIZE = 1
-then
-    CFLAGS="$CFLAGS -O2"
-fi
-
 
 
 
 export CFLAGS
-export NCFLAGS
 
-##########################################
+##################################################
 # Libs
-#########################################
+##################################################
 CC=gcc
 
 INSTALL="$(which install) -c"
@@ -3972,8 +4116,6 @@ printf "%s\n" "$ac_cv_lib_dl_main" >&6; }
 if test "x$ac_cv_lib_dl_main" = xyes
 then :
    LIBS="$LIBS -ldl";
-else $as_nop
-  exit
 fi
 ac_cv_lib_dl=ac_cv_lib_dl_main
 
@@ -4032,6 +4174,11 @@ then :
 fi
 
 
+if test "$OS" = CYGWIN || test "$OS" = DARWIN || test "$OS" = FREEBSD
+then
+    LIBS="$LIBS -liconv"
+fi
+
 ac_fn_c_check_header_compile "$LINENO" "pcre.h" "ac_cv_header_pcre_h" "$ac_includes_default"
 if test "x$ac_cv_header_pcre_h" = xyes
 then :
@@ -4075,187 +4222,9 @@ if test "x$ac_cv_lib_pcre_main" = xyes
 then :
    LIBS="$LIBS -lpcre";
 else $as_nop
-   eixt
+   exit
 fi
 ac_cv_lib_pcre=ac_cv_lib_pcre_main
-
-
-if test `uname -s` = "Darwin"; then
-    ac_fn_c_check_header_compile "$LINENO" "ncurses.h" "ac_cv_header_ncurses_h" "$ac_includes_default"
-if test "x$ac_cv_header_ncurses_h" = xyes
-then :
-  printf "%s\n" "#define HAVE_NCURSESW_H 1" >>confdefs.h
-
-fi
-
-    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for main in -lncurses" >&5
-printf %s "checking for main in -lncurses... " >&6; }
-if test ${ac_cv_lib_ncurses_main+y}
-then :
-  printf %s "(cached) " >&6
-else $as_nop
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lncurses  $LIBS"
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-
-int
-main (void)
-{
-return main ();
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_link "$LINENO"
-then :
-  ac_cv_lib_ncurses_main=yes
-else $as_nop
-  ac_cv_lib_ncurses_main=no
-fi
-rm -f core conftest.err conftest.$ac_objext conftest.beam \
-    conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_ncurses_main" >&5
-printf "%s\n" "$ac_cv_lib_ncurses_main" >&6; }
-if test "x$ac_cv_lib_ncurses_main" = xyes
-then :
-   LIBS="$LIBS -lncurses";
-fi
-ac_cv_lib_ncurses=ac_cv_lib_ncurses_main
-
-else
-    ac_fn_c_check_header_compile "$LINENO" "ncurses.h" "ac_cv_header_ncurses_h" "$ac_includes_default"
-if test "x$ac_cv_header_ncurses_h" = xyes
-then :
-  printf "%s\n" "#define HAVE_NCURSESW_H 1" >>confdefs.h
-
-fi
-
-    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for main in -lncursesw" >&5
-printf %s "checking for main in -lncursesw... " >&6; }
-if test ${ac_cv_lib_ncursesw_main+y}
-then :
-  printf %s "(cached) " >&6
-else $as_nop
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lncursesw  $LIBS"
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-
-int
-main (void)
-{
-return main ();
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_link "$LINENO"
-then :
-  ac_cv_lib_ncursesw_main=yes
-else $as_nop
-  ac_cv_lib_ncursesw_main=no
-fi
-rm -f core conftest.err conftest.$ac_objext conftest.beam \
-    conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_ncursesw_main" >&5
-printf "%s\n" "$ac_cv_lib_ncursesw_main" >&6; }
-if test "x$ac_cv_lib_ncursesw_main" = xyes
-then :
-   LIBS="$LIBS -lncursesw";
-fi
-ac_cv_lib_ncursesw=ac_cv_lib_ncursesw_main
-
-fi
-ac_fn_c_check_header_compile "$LINENO" "readline/readline.h" "ac_cv_header_readline_readline_h" "$ac_includes_default"
-if test "x$ac_cv_header_readline_readline_h" = xyes
-then :
-  printf "%s\n" "#define HAVE_READLINE_H 1" >>confdefs.h
-
-fi
-
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for main in -lreadline" >&5
-printf %s "checking for main in -lreadline... " >&6; }
-if test ${ac_cv_lib_readline_main+y}
-then :
-  printf %s "(cached) " >&6
-else $as_nop
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lreadline  $LIBS"
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-
-int
-main (void)
-{
-return main ();
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_link "$LINENO"
-then :
-  ac_cv_lib_readline_main=yes
-else $as_nop
-  ac_cv_lib_readline_main=no
-fi
-rm -f core conftest.err conftest.$ac_objext conftest.beam \
-    conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_readline_main" >&5
-printf "%s\n" "$ac_cv_lib_readline_main" >&6; }
-if test "x$ac_cv_lib_readline_main" = xyes
-then :
-   LIBS="$LIBS -lreadline";
-fi
-ac_cv_lib_readline=ac_cv_lib_readline_main
-
-
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for main in -lrt" >&5
-printf %s "checking for main in -lrt... " >&6; }
-if test ${ac_cv_lib_rt_main+y}
-then :
-  printf %s "(cached) " >&6
-else $as_nop
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lrt  $LIBS"
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-
-int
-main (void)
-{
-return main ();
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_link "$LINENO"
-then :
-  ac_cv_lib_rt_main=yes
-else $as_nop
-  ac_cv_lib_rt_main=no
-fi
-rm -f core conftest.err conftest.$ac_objext conftest.beam \
-    conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_rt_main" >&5
-printf "%s\n" "$ac_cv_lib_rt_main" >&6; }
-if test "x$ac_cv_lib_rt_main" = xyes
-then :
-   LIBS="$LIBS -lrt";
-fi
-ac_cv_lib_rt=ac_cv_lib_rt_main
 
 
 ac_fn_c_check_header_compile "$LINENO" "pthread.h" "ac_cv_header_pthread_h" "$ac_includes_default"
@@ -4304,16 +4273,64 @@ fi
 ac_cv_lib_pthread=ac_cv_lib_pthread_main
 
 
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for main in -lrt" >&5
+printf %s "checking for main in -lrt... " >&6; }
+if test ${ac_cv_lib_rt_main+y}
+then :
+  printf %s "(cached) " >&6
+else $as_nop
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lrt  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
 
 
-if which neo-c > /dev/null
-then
-    NCC=neo-c
-else
-    echo "require neo-c"
-    exit
+int
+main (void)
+{
+return main ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"
+then :
+  ac_cv_lib_rt_main=yes
+else $as_nop
+  ac_cv_lib_rt_main=no
 fi
+rm -f core conftest.err conftest.$ac_objext conftest.beam \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_rt_main" >&5
+printf "%s\n" "$ac_cv_lib_rt_main" >&6; }
+if test "x$ac_cv_lib_rt_main" = xyes
+then :
+   LIBS="$LIBS -lrt";
+fi
+ac_cv_lib_rt=ac_cv_lib_rt_main
 
+
+
+
+
+
+if which clang > /dev/null
+then
+    CC=clang
+    if which ccache > /dev/null
+    then
+        CC="ccache clang"
+    fi
+else
+    CC=gcc
+
+    if which ccache > /dev/null
+    then
+        CC="ccache gcc"
+    fi
+fi
 
 
 
@@ -4321,7 +4338,45 @@ DESTDIR=$myprefix
 
 
 
+CXXFLAGS='-DPREFIX="\"${DESTDIR}/\" -L/usr/local/lib"'
+CXXFLAGS="-I . -I src $CXXFLAGS"
+#CXXFLAGS="-fPIC -rdynamic $CXXFLAGS"
+
+if which clang++ > /dev/null
+then
+    CXX=g++
+else
+    echo "Require g++"
+    exit 2
+fi
+
+if test $DEBUGGING = 1
+then
+    CXXFLAGS='`llvm-config --cxxflags --ldflags --system-libs --libs all`  -DMDEBUG -g'" $CXXFLAGS"
+else
+    CXXFLAGS='`llvm-config --cxxflags --ldflags --system-libs --libs all`  -O3'" $CXXFLAGS"
+fi
+
+CLANG=clang
+
+LLVM_DIS=llvm-dis
+
+LLC=llc
+
+CLANGPLUSPLUS=clang++
+
 LIBS="$LIBS"
+
+
+
+#CFLAGS="$CFLAGS -Qunused-arguments"
+#CFLAGS="$CFLAGS -Qunused-arguments -Wunused-variable"
+
+COMMON_OBJS="src/buffer.o src/xfunc.o src/alignment.o"
+
+OBJS="src/source_compiler.o src/parser.o src/node.o src/klass.o src/node_type.o src/typedef.o src/constant.o src/llvm.o src/vtable.o src/node_block.o src/node_alloc.o src/macro.o"
+
+RUNTIME_OBJS=""
 
 ac_fn_c_check_func "$LINENO" "lchmod" "ac_cv_func_lchmod"
 if test "x$ac_cv_func_lchmod" = xyes
@@ -4330,12 +4385,20 @@ then :
 
 fi
 
+
+#CXXFLAGS="$CXXFLAGS -Qunused-arguments"
+
+
+
+
 ac_fn_c_check_func "$LINENO" "execvpe" "ac_cv_func_execvpe"
 if test "x$ac_cv_func_execvpe" = xyes
 then :
   printf "%s\n" "#define HAVE_EXECVPE 1" >>confdefs.h
 
 fi
+
+
 
 
 

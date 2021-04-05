@@ -1,4 +1,9 @@
+#include "config.h"
+#ifdef __DARWIN__
+#include "neo-c.h.osx"
+#else
 #include "neo-c.h"
+#endif
 #include <pcre.h>
 
 impl string
