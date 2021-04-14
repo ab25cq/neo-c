@@ -439,7 +439,9 @@ void inputInsertMode(ViWin* self, Vi* nvi)
         self.insertText(wstring(str));
     }
     else {
-        self.insertText(wstring(xsprintf("%c", key)));
+        char buf[128];
+        snprintf(buf, 128, "%c", key);
+        self.insertText(wstring(buf));
     }
 }
 

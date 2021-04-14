@@ -3,13 +3,16 @@ iiii
 ii
 1011
 int main()
-{
+tttt{
 }
-XXXint main()
+iiiiffffffggggggazziilLLLLXXttttttttXint main()
+oooo
+ccccc
+llllllcccccciiiii
 XXX{
 XXX}
 XXX
-XXXbbbbbbbbbbbbbbbaaaaadd
+ttttttttXXXbbbbbbbbbbbbbbbaaaaadd
 XXXYYYaaaaad
 XXXYYYaaaaad
 XXXYYYaaaaa

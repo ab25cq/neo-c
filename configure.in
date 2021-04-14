@@ -276,6 +276,16 @@ AC_CHECK_FUNCS(lchmod)
 
 #CXXFLAGS="$CXXFLAGS -Qunused-arguments"
 
+echo -n checking for ruby...
+
+if which ruby 1> /dev/null 2>/dev/null
+then
+    echo ok
+else
+    echo no
+    exit 1
+fi
+
 AC_SUBST(CXXFLAGS)
 AC_SUBST(CFLAGS)
 
