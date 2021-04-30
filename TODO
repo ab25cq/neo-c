@@ -1,5 +1,5 @@
-LLVM11 -g option
-ARM -g option
+a.c -g option
+
 
 エラー行番号がおかしい
 
@@ -7,6 +7,9 @@ ARM -g option
 
 machine stack automatically free
 ----------------------
+LLVM11 -g option
+ARM -g option
+
 error number bug in if, impl
 const char*をまともにする。
 
