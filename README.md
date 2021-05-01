@@ -1,6 +1,6 @@
 # neo-c compiler language
 
-version 2.1.0
+version 2.1.1
 
 ```
 #include <neo-c.h>
@@ -71,6 +71,8 @@ This program is tested in LLVM-3.8, LLVM-7, LLVM-10 and LLVM-11, and x86_64, aar
 From version 1.4.0 I success to self-host compile.$ ulimit -s 132656; bash; cd self-host; bash all_build.sh;
 
 # CHANGELOG
+
+2.1.1 Fixed bugs of -g option.
 
 2.1.0 more compatibility for C-Lang. Corresponded to OSX(Intell, Homebrew)
 

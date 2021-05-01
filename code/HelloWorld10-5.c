@@ -34,7 +34,6 @@ template <R> void method_generics_test(R& a)
 
 int main()
 {
-/*
     var li6 = list!("aaa", "bbb", "ccc");
 
     li6.delete_range(0,1);
@@ -79,7 +78,7 @@ int main()
 
     xassert("list test9", li12.equals(list!(1,2,3)));
 
-    var win = new VigWin.initialize();
+    //var win = new VigWin.initialize();
 
     xassert("string index test", string("ABC").index("B", -1) == 1);
     xassert("wstring index test", wstring("ABC").index(wstring("C"), -1) == 2);
@@ -172,7 +171,6 @@ int main()
 
         xassert("sublist", li14.sublist(1, 2).equals(list!(wstring("bbb"))));
     }
-*/
 
     var li15 = new list<string>.initialize();
 

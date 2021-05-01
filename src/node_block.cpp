@@ -374,7 +374,12 @@ BOOL compile_block(sNodeBlock* block, sCompileInfo* info, sNodeType* result_type
             unsigned int node = block->mNodes[i];
 
             xstrncpy(info->sname, gNodes[node].mSName, PATH_MAX);
-            info->sline = gNodes[node].mLine;
+            if(info->compiling_generics_function) {
+                info->sline = info->compiling_generics_function_sline;
+            }
+            else {
+                info->sline = gNodes[node].mLine;
+            }
 
             if(gNCDebug) {
                 setCurrentDebugLocation(info->sline);

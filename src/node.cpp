@@ -4553,6 +4553,9 @@ BOOL compile_function(unsigned int node, sCompileInfo* info)
     /// get result type ///
     sNodeType* result_type = gNodes[node].uValue.sFunction.mResultType;
     BOOL generics_function = gNodes[node].uValue.sFunction.mGenericsFunction;
+    BOOL compiling_generics_function = info->compiling_generics_function;;
+    info->compiling_generics_function = generics_function;
+    info->compiling_generics_function_sline = info->sline;
     char fun_name[VAR_NAME_MAX];
     xstrncpy(fun_name, gNodes[node].uValue.sFunction.mName, VAR_NAME_MAX);
     char asm_fun_name[VAR_NAME_MAX];
@@ -4625,6 +4628,7 @@ BOOL compile_function(unsigned int node, sCompileInfo* info)
 
             xstrncpy(info->compiling_struct_name, compiling_struct_name_before, VAR_NAME_MAX);
             xstrncpy(info->compiling_fun_name, compiling_fun_name_before, VAR_NAME_MAX);
+            info->compiling_generics_function = compiling_generics_function;
             return TRUE;
         }
         llvm_param_types.push_back(llvm_param_type);
@@ -4677,6 +4681,7 @@ BOOL compile_function(unsigned int node, sCompileInfo* info)
         info->function_node_block = function_node_block;
         xstrncpy(info->compiling_struct_name, compiling_struct_name_before, VAR_NAME_MAX);
         xstrncpy(info->compiling_fun_name, compiling_fun_name_before, VAR_NAME_MAX);
+        info->compiling_generics_function = compiling_generics_function;
         return TRUE;
     }
 
@@ -4748,6 +4753,7 @@ BOOL compile_function(unsigned int node, sCompileInfo* info)
             info->function_node_block = function_node_block;
             xstrncpy(info->compiling_struct_name, compiling_struct_name_before, VAR_NAME_MAX);
             xstrncpy(info->compiling_fun_name, compiling_fun_name_before, VAR_NAME_MAX);
+            info->compiling_generics_function = compiling_generics_function;
             return TRUE;
         }
 
@@ -4798,6 +4804,7 @@ BOOL compile_function(unsigned int node, sCompileInfo* info)
         info->function_node_block = function_node_block;
         xstrncpy(info->compiling_struct_name, compiling_struct_name_before, VAR_NAME_MAX);
         xstrncpy(info->compiling_fun_name, compiling_fun_name_before, VAR_NAME_MAX);
+        info->compiling_generics_function = compiling_generics_function;
         return FALSE;
     }
 
@@ -4848,6 +4855,7 @@ BOOL compile_function(unsigned int node, sCompileInfo* info)
                     info->err_num++;
 
                     info->type = create_node_type_with_class_name("int"); // dummy
+                    info->compiling_generics_function = compiling_generics_function;
                     return TRUE;
                 }
 
@@ -4929,6 +4937,7 @@ BOOL compile_function(unsigned int node, sCompileInfo* info)
             info->function_node_block = function_node_block;
             xstrncpy(info->compiling_struct_name, compiling_struct_name_before, VAR_NAME_MAX);
             xstrncpy(info->compiling_fun_name, compiling_fun_name_before, VAR_NAME_MAX);
+            info->compiling_generics_function = compiling_generics_function;
             return TRUE;
         }
 
@@ -4985,6 +4994,7 @@ BOOL compile_function(unsigned int node, sCompileInfo* info)
                 info->function_node_block = function_node_block;
                 xstrncpy(info->compiling_struct_name, compiling_struct_name_before, VAR_NAME_MAX);
                 xstrncpy(info->compiling_fun_name, compiling_fun_name_before, VAR_NAME_MAX);
+                info->compiling_generics_function = compiling_generics_function;
                 return TRUE;
             }
 
@@ -5025,6 +5035,7 @@ BOOL compile_function(unsigned int node, sCompileInfo* info)
             info->function_node_block = function_node_block;
             xstrncpy(info->compiling_struct_name, compiling_struct_name_before, VAR_NAME_MAX);
             xstrncpy(info->compiling_fun_name, compiling_fun_name_before, VAR_NAME_MAX);
+            info->compiling_generics_function = compiling_generics_function;
             return FALSE;
         }
 
@@ -5071,6 +5082,7 @@ BOOL compile_function(unsigned int node, sCompileInfo* info)
                         info->err_num++;
 
                         info->type = create_node_type_with_class_name("int"); // dummy
+                        info->compiling_generics_function = compiling_generics_function;
                         return TRUE;
                     }
 
@@ -5126,6 +5138,7 @@ BOOL compile_function(unsigned int node, sCompileInfo* info)
     if(gNCDebug && !generics_function) {
         finishDebugFunctionInfo();
     }
+    info->compiling_generics_function = compiling_generics_function;
 
     return TRUE;
 }

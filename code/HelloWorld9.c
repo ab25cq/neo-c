@@ -53,7 +53,6 @@ int main()
 
     puts(str);
 
-/*
     var v = vec!(1,2,3);
 
     v.each {
@@ -71,7 +70,6 @@ int main()
     v3.each {
         printf("%s\n", it);
     }
-*/
     
     var li = new list<int>.initialize();
 

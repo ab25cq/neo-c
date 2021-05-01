@@ -9,9 +9,16 @@ int main()
     li.push_back(string("BBB"));
     li.push_back(string("CCC"));
 
-    li.sublist(0,1).each {
+/*
+    li.each {
         puts(it);
     }
+*/
+    li.sublist(0,1);
+
+    int a = 0;
+    int b = 1;
+    int c = b/a;
 
     return 0;
 }

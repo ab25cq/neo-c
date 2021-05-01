@@ -150,6 +150,40 @@ test:
 	PWD=`pwd` ./neo-c code/HelloWorld10-7.c || clang -o code/HelloWorld10-7 code/HelloWorld10-7.ll -lneo-c -lpcre
 	./code/HelloWorld10-7
 
+debug-test: 
+	@echo "Compile to test code..."
+	PWD=`pwd` ./neo-c -g -c code/External.c
+	PWD=`pwd` ./neo-c -g code/HelloWorld.c code/External.o
+	./code/HelloWorld
+	if test `uname -s` = "Darwin"; then PWD=`pwd` ./neo-c -g code/HelloWorld2.c -lncurses; else PWD=`pwd` ./neo-c -g code/HelloWorld2.c -lncursesw; fi
+	./code/HelloWorld2
+	PWD=`pwd` ./neo-c -g code/HelloWorld3.c
+	./code/HelloWorld3
+	PWD=`pwd` ./neo-c -g code/HelloWorld4.c
+	./code/HelloWorld4
+	PWD=`pwd` ./neo-c -g -c code/HelloWorld5.c
+	PWD=`pwd` ./neo-c -g -c code/HelloWorld6.c
+	PWD=`pwd` ./neo-c -g code/HelloWorld7.c code/HelloWorld5.o code/HelloWorld6.o
+	./code/HelloWorld7
+	PWD=`pwd` ./neo-c -g code/HelloWorld8.c
+	./code/HelloWorld8
+	PWD=`pwd` ./neo-c -g code/HelloWorld9.c
+	./code/HelloWorld9
+	PWD=`pwd` ./neo-c -g code/HelloWorld9-2.c
+	./code/HelloWorld9-2
+	PWD=`pwd` ./neo-c -g code/HelloWorld9-5.c
+	./code/HelloWorld9-5
+	PWD=`pwd` ./neo-c -g code/HelloWorld10.c
+	./code/HelloWorld10
+	PWD=`pwd` ./neo-c -g code/HelloWorld10-5.c
+	./code/HelloWorld10-5
+	PWD=`pwd` ./neo-c -g code/HelloWorld10-6.c
+	./code/HelloWorld10-6
+	PWD=`pwd` ./neo-c -g code/HelloWorld10-6-2.c
+	./code/HelloWorld10-6-2
+	PWD=`pwd` ./neo-c -g code/HelloWorld10-7.c || clang -o code/HelloWorld10-7 code/HelloWorld10-7.ll -lneo-c -lpcre
+	./code/HelloWorld10-7
+
 #########################################
 # uninstall
 #########################################

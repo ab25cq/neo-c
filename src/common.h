@@ -445,6 +445,8 @@ struct sCompileInfoStruct
 
     void* andand_result_var;
     void* oror_result_var;
+    BOOL compiling_generics_function;
+    int compiling_generics_function_sline;
 };
 
 typedef struct sCompileInfoStruct sCompileInfo;

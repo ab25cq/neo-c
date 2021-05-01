@@ -62,7 +62,6 @@ int main()
 
     xassert("clone test11", li7.equals(list!("aaa", "bbb")));
 
-/*
     var li8 = list!(1, 2);
 
     var li9 = clone li8;
@@ -101,6 +100,7 @@ int main()
 
     var map5 = map!(string("aaa"):string("a"), string("bbb"):string("b"));
 
+/*
     var map6 = clone map5;
 
     xassert("clone test6", map6.equals(map!(string("aaa"):string("a"), string("bbb"):string("b"))));
@@ -110,13 +110,13 @@ int main()
     var map8 = clone map7;
 
     xassert("clone test7", map8.equals(map!("aaa":string("a"), "bbb":string("b"))));
+*/
 
     var map9 = map!("aaa":1, "bbb":2);
 
     var map10 = clone map9;
 
     xassert("clone test8", map10.equals(map!("aaa":1, "bbb":2)));
-*/
 
     0
 }

@@ -3167,18 +3167,6 @@ static BOOL call_clone_method(sNodeType* node_type, Value** address, sCompileInf
     std::vector<sFunction*>& funcs = gFuncs[real_fun_name];
 
     if(funcs.size() > 0 && node_type->mPointerNum == 1) {
-        Value* obj2 = Builder.CreateCast(Instruction::PtrToInt, obj, IntegerType::get(TheContext, 64));
-        Value* cmp_right_value = ConstantInt::get(Type::getInt64Ty(TheContext), (uint64_t)0);
-        Value* conditional = Builder.CreateICmpNE(obj2, cmp_right_value);
-
-        BasicBlock* cond_then_block = BasicBlock::Create(TheContext, "cond_then_block", gFunction);
-        BasicBlock* cond_end_block = BasicBlock::Create(TheContext, "cond_end", gFunction);
-
-        Builder.CreateCondBr(conditional, cond_then_block, cond_end_block);
-
-        Builder.SetInsertPoint(cond_then_block);
-        info->current_block = cond_then_block;
-
         Value* params[PARAMS_MAX];
 
         params[0] = obj;
@@ -3197,6 +3185,19 @@ static BOOL call_clone_method(sNodeType* node_type, Value** address, sCompileInf
                 exit(2);
             }
         }
+
+        Value* obj2 = Builder.CreateCast(Instruction::PtrToInt, obj, IntegerType::get(TheContext, 64));
+        Value* cmp_right_value = ConstantInt::get(Type::getInt64Ty(TheContext), (uint64_t)0);
+        Value* conditional = Builder.CreateICmpNE(obj2, cmp_right_value);
+
+        BasicBlock* cond_then_block = BasicBlock::Create(TheContext, "cond_then_block", gFunction);
+        BasicBlock* cond_end_block = BasicBlock::Create(TheContext, "cond_end", gFunction);
+
+        Builder.CreateCondBr(conditional, cond_then_block, cond_end_block);
+
+        Builder.SetInsertPoint(cond_then_block);
+        info->current_block = cond_then_block;
+
 
         LVALUE llvm_value = *get_value_from_stack(-1);
 
@@ -3283,6 +3284,9 @@ static BOOL call_clone_method(sNodeType* node_type, Value** address, sCompileInf
 
 BOOL make_clone_for_recursive_field_type(sNodeType* node_type, sCompileInfo* info) 
 {
+    fprintf(stderr, "neo-c can't recursive clone\n");
+    return FALSE;
+    
     sCLClass* klass = node_type->mClass;
     char* class_name = CLASS_NAME(klass);
 
@@ -3425,18 +3429,6 @@ Value* clone_object(sNodeType* node_type, Value* address, sCompileInfo* info)
 
     Value* obj = Builder.CreateAlignedLoad(address, 8);
     if(node_type->mPointerNum > 0) {
-        Value* obj2 = Builder.CreateCast(Instruction::PtrToInt, obj, IntegerType::get(TheContext, 64));
-        Value* cmp_right_value = ConstantInt::get(Type::getInt64Ty(TheContext), (uint64_t)0);
-        Value* conditional = Builder.CreateICmpNE(obj2, cmp_right_value);
-
-        BasicBlock* cond_then_block = BasicBlock::Create(TheContext, "cond_then_block", gFunction);
-        BasicBlock* cond_end_block = BasicBlock::Create(TheContext, "cond_end", gFunction);
-
-        Builder.CreateCondBr(conditional, cond_then_block, cond_end_block);
-
-        Builder.SetInsertPoint(cond_then_block);
-        info->current_block = cond_then_block;
-
         sCLClass* klass = node_type->mClass;
 
         Value* src_obj = Builder.CreateAlignedLoad(address, 8);
@@ -3472,6 +3464,10 @@ Value* clone_object(sNodeType* node_type, Value* address, sCompileInfo* info)
 
         Value* address2 = Builder.CreateCall(fun, params2);
 
+        Value* obj2 = Builder.CreateCast(Instruction::PtrToInt, obj, IntegerType::get(TheContext, 64));
+        Value* cmp_right_value = ConstantInt::get(Type::getInt64Ty(TheContext), (uint64_t)0);
+        Value* conditional = Builder.CreateICmpNE(obj2, cmp_right_value);
+
         sNodeType* left_type2 = clone_node_type(node_type);
         sNodeType* right_type2 = create_node_type_with_class_name("char*");
 
@@ -3488,6 +3484,14 @@ Value* clone_object(sNodeType* node_type, Value* address, sCompileInfo* info)
             compile_err_msg(info, "can't clone this value");
             exit(2);
         }
+
+        BasicBlock* cond_then_block = BasicBlock::Create(TheContext, "cond_then_block", gFunction);
+        BasicBlock* cond_end_block = BasicBlock::Create(TheContext, "cond_end", gFunction);
+
+        Builder.CreateCondBr(conditional, cond_then_block, cond_end_block);
+
+        Builder.SetInsertPoint(cond_then_block);
+        info->current_block = cond_then_block;
 
         Value* address3 = rvalue2.value;
 
