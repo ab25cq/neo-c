@@ -52,7 +52,11 @@ static void emitLocaltion(DebugInfo* info, int sline)
         scope = info->LexicalBlock.back();
     }
 
+#if LLVM_VERSION_MAJOR >= 12
+    Builder.SetCurrentDebugLocation(DILocation::get(scope->getContext(), sline, 0, scope));
+#else
     Builder.SetCurrentDebugLocation(DebugLoc::get(sline, 0, scope));
+#endif
 }
 
 
@@ -1655,7 +1659,11 @@ BOOL create_llvm_struct_type(sNodeType* node_type, sNodeType* generics_type, BOO
     }
     else if(gLLVMStructType[real_struct_name].first == nullptr || (info->pinfo && info->pinfo->parse_struct_phase && (node_type->mClass->mNumFields != gLLVMStructType[real_struct_name].second->mNumFields)))
     {
+#if LLVM_VERSION_MAJOR >= 12
+        if(StructType::getTypeByName(TheContext, real_struct_name) == nullptr || (info->pinfo && info->pinfo->parse_struct_phase && (node_type->mClass->mNumFields != gLLVMStructType[real_struct_name].second->mNumFields)))
+#else
         if(TheModule->getTypeByName(real_struct_name) == nullptr || (info->pinfo && info->pinfo->parse_struct_phase && (node_type->mClass->mNumFields != gLLVMStructType[real_struct_name].second->mNumFields)))
+#endif
         {
             StructType* struct_type = StructType::create(TheContext, real_struct_name);
             std::vector<Type*> fields;
