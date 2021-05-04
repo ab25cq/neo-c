@@ -335,13 +335,14 @@ void readSearchString(Vi* self, char* file_name) {
     
     char line[4096];
 
-    if(fread(line, 1, 4096, f) <= 0) {
+    int len = fread(line, 1, 4096, f);
+    if(len <= 0) {
         fclose(f);
         self.searchString = wstring("");
         return;
     }
     
-    line[strlen(line)-1] = '\0';
+    line[len] = '\0';
 
     fclose(f);
     
