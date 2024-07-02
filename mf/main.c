@@ -295,6 +295,9 @@ void search_file(sInfo* info)
 
 void search_next_file(sInfo* info)
 {
+    if(info.searching_str == null) {
+        return;
+    }
     int n = info.cursor+1;
     foreach(it, info.files.sublist(n, -1)) {
         if(strcasestr(it, info.searching_str)) {
@@ -307,6 +310,9 @@ void search_next_file(sInfo* info)
 
 void search_prev_file(sInfo* info)
 {
+    if(info.searching_str == null) {
+        return;
+    }
     int n = info.cursor-1;
     foreach(it, info.files.sublist(0, n+1).reverse()) {
         if(strcasestr(it, info.searching_str)) {
@@ -358,7 +364,37 @@ void manual(sInfo* info)
     getch();
 }
 
-void handmade_delete_file(char* path)
+void recursive_unlink(string path)
+{
+    struct stat stat_;
+    (void)stat(path, &stat_);
+
+    bool is_dir = S_ISDIR(stat_.st_mode);
+
+    if(is_dir) {
+        DIR* dir = opendir(path);
+    
+        if(dir == null) {
+            return;
+        }
+        
+        struct dirent* entry;
+        while(entry = readdir(dir)) {
+            if(entry->d_name !== "." && entry->d_name !== "..") {
+                recursive_unlink(path + string("/") + string(entry->d_name));
+            }
+        }
+    
+        closedir(dir);
+        
+        remove(path);
+    }
+    else {
+        unlink(path);
+    }
+}
+
+void handmade_delete_file(char* path, sInfo* info=info)
 {
     erase();
     mvprintw(0, 0, "Is %s delete OK? (y,Y,ENTER/other", path);
@@ -368,7 +404,8 @@ void handmade_delete_file(char* path)
         var key = getch();
         
         if(key == 'y' || key == 'Y' || key == 10) {
-            unlink(path);
+            string path = info.path + string("/") + cursor_file(info);
+            recursive_unlink(path);
             break;
         }
         else {
