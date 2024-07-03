@@ -912,6 +912,8 @@ sNode*% parse_function_call(char* fun_name, sInfo* info)
     
     sNode*% node = new sFunCallNode(fun_name, params, guard_break, method_generics_types, info) implements sNode;
     
+    node = post_position_operator(node, info);
+    
     return node;
 }
 
@@ -1083,8 +1085,6 @@ sNode*% expression_node(sInfo* info=info) version 97
         else if((buf === "string" || buf === "wstring") && *info->p == '(') {
             sNode*% node = parse_function_call(buf, info);
             
-            node = post_position_operator(node, info);
-            
             return node;
         }
         else if(buf === "__func__") {
@@ -1107,8 +1107,6 @@ sNode*% expression_node(sInfo* info=info) version 97
         }
         else if((buf === "sizeof" || buf === "_Alignof" || buf === "_Alignas" || buf === "__alignof__") && *info->p == '(') {
             sNode*% node = string_node(buf, head, head_sline, info)
-            
-            node = post_position_operator(node, info);
             
             return node;
         }
@@ -1151,8 +1149,6 @@ sNode*% expression_node(sInfo* info=info) version 97
             
             sNode*% node = parse_function_call(fun_name.to_string(), info);
             
-            node = post_position_operator(node, info);
-            
             return node;
         }
         else if(*info->p == ':' && *(info->p+1) == ':') {
@@ -1171,14 +1167,10 @@ sNode*% expression_node(sInfo* info=info) version 97
             
             sNode*% node = parse_function_call(fun_name.to_string(), info);
             
-            node = post_position_operator(node, info);
-            
             return node;
         }
         else if(call_method_generics_fun_call) {
             sNode*% node = parse_function_call(buf, info);
-            
-            node = post_position_operator(node, info);
             
             return node;
         }
@@ -1186,22 +1178,16 @@ sNode*% expression_node(sInfo* info=info) version 97
         {
             sNode*% node = parse_function_call(buf, info);
             
-            node = post_position_operator(node, info);
-            
             return node;
         }
         else {
             sNode*% node = string_node(buf, head, head_sline, info);
-            
-            node = post_position_operator(node, info);
             
             return node;
         }
     }
     else {
         sNode*% node = inherit(info);
-        
-        node = post_position_operator(node, info);
         
         return node;
     }

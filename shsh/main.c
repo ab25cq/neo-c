@@ -1266,6 +1266,9 @@ int main(int argc, char** argv)
         
         rl_startup_hook = readline_init_text;
         
+        string history_file_name = getenv("HOME") + ".shsh_history";
+        read_history(history_file_name);
+        
         while(true) {
             gSigInt = false;
             
@@ -1290,6 +1293,8 @@ int main(int argc, char** argv)
             
             add_history(line);
             
+            write_history(history_file_name);
+            
             free(line);
             
             if(run_once) {
@@ -1300,7 +1305,15 @@ int main(int argc, char** argv)
     else {
         string? command_str = null;
         if(command) {
+            
+            string history_file_name = getenv("HOME") + ".shsh_history";
+            read_history(history_file_name);
+            
             command_str = file_name;
+            
+            add_history(command_str);
+            
+            write_history(history_file_name);
         }
         else {
             command_str = string(file_name).read();

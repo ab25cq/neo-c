@@ -1004,6 +1004,8 @@ sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info) version 20
     
     sNode*% node = new sMethodCallNode(fun_name, clone obj, params, method_block, method_block_sline, method_generics_types, info) implements sNode;
     
+    node = post_position_operator(node, info);
+    
     return node;
 }
 

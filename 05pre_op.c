@@ -675,7 +675,7 @@ sNode*% craete_logical_denial(sNode*% node, sInfo* info)
     return new sLogicalDenial(clone node, info) implements sNode;
 }
 
-sNode*% expression_node(sInfo* info=info) version 98
+sNode*% pre_postion_operator(sInfo* info=info)
 {
     skip_spaces_and_lf();
     
@@ -728,7 +728,7 @@ sNode*% expression_node(sInfo* info=info) version 98
 
         return new sMinusMinusNode2(node, info) implements sNode;
     }
-    else if(*info->p == '-') {
+    else if(*info->p == '-' && !xisdigit(*(info->p+1))) {
         info->p++;
         skip_spaces_and_lf();
 
@@ -751,43 +751,6 @@ sNode*% expression_node(sInfo* info=info) version 98
         sNode*% node = expression_node();
 
         return new sComplement(node, info) implements sNode;
-    }
-    
-    /// hex number ///
-    else if(*info->p == '0' && (*(info->p+1) == 'x' || *(info->p+1) == 'X')) {
-        info->p += 2;
-
-        sNode*% node = get_hex_number(false@minus, info);
-        
-        node = post_position_operator(node, info);
-        
-        return node;
-    }
-    /// oct number ///
-    else if(*info->p == '0' && xisdigit(*(info->p+1))) {
-        info->p++;
-
-        sNode*% node = get_oct_number(info);
-        
-        node = post_position_operator(node, info);
-        
-        return node;
-    }
-    else if(xisdigit(*info->p)) {
-        sNode*% node = get_number(false@minus, info);
-        
-        node = post_position_operator(node, info);
-        
-        return node;
-    }
-    else if(*info->p == '-' && xisdigit(*(info->p+1))) {
-        info->p++;
-        
-        sNode*% node = get_number(true@minus, info);
-        
-        node = post_position_operator(node, info);
-        
-        return node;
     }
     else if((*info->p == '\\' && *(info->p+1) == '*') || *info->p == '*') {
         bool quote;
@@ -862,7 +825,7 @@ sNode*% expression_node(sInfo* info=info) version 98
             info.no_output_come_code = true;
             
             sNode*% node = expression();
-            sNode*% node2 = post_position_operator(node, info);
+            sNode*% node2 = node;
             
             info.no_comma = no_comma;
             info.no_output_err = no_output_err;
@@ -878,8 +841,6 @@ sNode*% expression_node(sInfo* info=info) version 98
         
         if(!gComeC && tuple_expression_flag) {
             sNode*% node = parse_tuple(info);
-            
-            node = post_position_operator(node, info);
             
             return node;
         }
@@ -897,8 +858,6 @@ sNode*% expression_node(sInfo* info=info) version 98
             
             sNode*% node = expression_node();
             
-            node = post_position_operator(node, info);
-            
             return new sCastNode(type, node, info) implements sNode;
         }
         else {
@@ -911,22 +870,23 @@ sNode*% expression_node(sInfo* info=info) version 98
             
             node = new sParenNode(node, info) implements sNode;
             
-            node = post_position_operator(node, info);
-            
             return node;
         }
     }
     else {
-        sNode*% node = inherit(info);
-        
-        node = post_position_operator(node, info);
-        
+        return (sNode*%)null;
+    }
+}
+
+sNode*% expression_node(sInfo* info=info) version 98
+{
+    sNode*% node = pre_postion_operator();
+    
+    if(node == null) {
+        return inherit(info);
+    }
+    else {
         return node;
     }
-    
-    err_msg(info, "unexpected operator(%c)\n", *info->p);
-    exit(2);
-    
-    return (sNode*%)null;
 }
 
