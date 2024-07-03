@@ -37,6 +37,7 @@ if [ ! -e Makefile ]
 then
     git add .
     git commit 
+    git remote set-url origin git@github.com:ab25cq/neo-c.git
     git push -f -u origin main
 fi
 
