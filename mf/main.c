@@ -640,12 +640,14 @@ void input(sInfo* info)
             endwin();
             system("shsh");
             read_dir(info);
+            /*
             puts("HIT ANY KEY");
             initscr();
             keypad(stdscr, true);
             raw();
             noecho();
             getchar();
+            */
 
             }
             break;
