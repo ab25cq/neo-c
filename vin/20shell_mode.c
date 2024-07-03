@@ -27,7 +27,6 @@ void ViWin*::view(ViWin* self, Vi* nvi) version 20
 void ViWin*::runCommand(ViWin* self)
 {
     auto command_line = self.texts.item(self.scroll+self.cursorY, wstring("")).to_string();
-    command_line = xsprintf("shsh -c '%s'", command_line);
     
     var output = new buffer();
     
@@ -58,6 +57,7 @@ void ViWin*::inputShellMode(ViWin* self, Vi* nvi)
     }
     else if(key == 10) {
         self.runCommand();
+        nvi.view();
     }
     else if(key == 8 || key == 127 || key == KEY_BACKSPACE) {
         self.backSpace();

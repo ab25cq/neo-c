@@ -300,7 +300,7 @@ void Vi*::saveSearchString(Vi* self, char* file_name)
     
     if(wcscmp(self.searchString, wstring("")) != 0) 
     {
-        fprintf(f, "%ls", self.searchString);
+        fprintf(f, "%ls\n", self.searchString);
     }
     
     fclose(f);
@@ -324,20 +324,17 @@ void Vi*::readSearchString(Vi* self, char* file_name)
         return;
     }
     
-    char line[4096];
+    wchar_t line[4096];
 
-    int len = fread(line, 1, 4096, f);
-    if(len <= 0) {
-        fclose(f);
-        wcsncpy(self.searchString, wstring(""), 128);
-        return;
-    }
+    wchar_t* result = fgetws(line, 4096, f);
     
-    line[len-1] = '\0';
+    if(result) {
+        int len = wcslen(line);
+        line[len-1] = 0;
+        wcsncpy(self.searchString, line, 128);
+    }
 
     fclose(f);
-    
-    wcsncpy(self.searchString, wstring(line), 128);
 }
 
 void Vi*::enterSearchMode(Vi* self, bool regex_search, bool reverse) version 9
