@@ -1,7 +1,7 @@
 
 if ! test -e Makefile
 then
-    bash install_pkg.sh
+    sh install_pkg.sh
     
     if uname -a | grep Android
     then

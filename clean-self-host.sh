@@ -1,2 +1,2 @@
 make distclean
-bash self-host.sh
+sh self-host.sh
