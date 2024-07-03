@@ -921,7 +921,6 @@ bool run_command(int n, sInfo* info)
 
 int, bool run(char* source)
 {
-    (void)system("reset");
     sInfo info;
     
     info.commands = new list<sCommand*%>();
