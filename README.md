@@ -5,7 +5,7 @@ Another modern Object Oriented C compiler. It has a heap system that is a cross 
 
 もう一つのモダンなオブジェクト指向Cコンパイラ。automatically-free-systemとリファレンスカウントGCの間をとったようなヒープシステムがありコレクションライブラリ、文字列ライブラリを備えてます。
 
-version 1.0.1.0.0
+version 1.0.1.0.1
 
 ``` C
 #include <neo-c.h>
@@ -290,7 +290,7 @@ int main()
 
 Requires clang, make, autoconf, valgrind, gdb, lldb, musl-dev (alpine linux), and pcre-dev.
 
-bash fast_build.sh will automatically install the necessary packages.
+sh fast_build.sh will automatically install the necessary packages.
 
 Supports Linux, MacOS (Darwin), iSH (iPhone), termux (Android) userland (Android), and raspberry pi.
 
@@ -298,7 +298,7 @@ This is a quick build.
 
 clangとmake, autoconf, valgrind, gdb, lldb, musl-dev(alpine linux), pcre-devが必要です。
 
-bash fast_build.shとすると自動的に必要なパッケージがインストールされます。
+sh fast_build.shとすると自動的に必要なパッケージがインストールされます。
 
 LinuxとMacOS(Darwin), iSH(iPhone), termux(Android) userland(Android), raspberry piをサポートしています。
 
@@ -307,7 +307,7 @@ LinuxとMacOS(Darwin), iSH(iPhone), termux(Android) userland(Android), raspberry
 ```
 git clone https://github.com/ab25cq/neo-c
 cd neo-c
-bash fast_build.sh
+sh fast_build.sh
 ```
 
 セルフホストする場合はこちらです。
@@ -317,9 +317,9 @@ Click here if you want to self-host.
 ```
 git clone https://github.com/ab25cq/neo-c
 cd neo-c
-bash fast_build.sh
-bash clean-self-host.sh
-bash fast_build.sh (getting with -O2 neo-c)
+sh fast_build.sh
+sh clean-self-host.sh
+sh fast_build.sh (getting with -O2 neo-c)
 ```
 
 To install a vi clone called vin, a string processing interpreter called zed, a console filer called mf, and an original shell called shsh, do the following:
@@ -327,7 +327,7 @@ To install a vi clone called vin, a string processing interpreter called zed, a 
 vinというviクローン、zedという文字列処理インタプリタ、mfというコンソールファイラ、shshというオリジナルのシェルをインストールするには以下のようにします。
 
 ```
-bash all_build.sh
+sh all_build.sh
 ```
 
 # Histories
