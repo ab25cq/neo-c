@@ -257,9 +257,11 @@ bool parse_statment(sInfo* info)
             info->p++;
             zed_command = true;
         }
+/*
         else if(*info->p == '.' && xisalpha(*(info->p+1))) {
             zed_command = true;
         }
+*/
         
         if(*info->p == '(') {
             info->p++;
@@ -334,9 +336,11 @@ bool parse_statment(sInfo* info)
                         info->p++;
                         zed_command = true;
                     }
+/*
                     else if(*info->p == '.' && xisalpha(*(info->p+1))) {
                         zed_command = true;
                     }
+*/
                     
                     if(zed_command) {
                         int brace_nest = 0;

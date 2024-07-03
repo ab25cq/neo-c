@@ -426,7 +426,7 @@ Copyright (C) 2021 Free Software Foundation, Inc.
 This config.status script is free software; the Free Software Foundation
 gives unlimited permission to copy, distribute and modify it."
 
-ac_pwd='/root/neo-c'
+ac_pwd='/root/neo-c-dev'
 srcdir='.'
 INSTALL='/usr/bin/install -c'
 test -n "$AWK" || AWK=awk
@@ -614,7 +614,7 @@ S["EXEEXT"]=""
 S["ac_ct_CC"]="gcc"
 S["CPPFLAGS"]=""
 S["LDFLAGS"]=""
-S["CFLAGS"]="-DPREFIX=\"\\\"${DESTDIR}/\\\"\"  -O2 -gdwarf-4"
+S["CFLAGS"]="-DPREFIX=\"\\\"${DESTDIR}/\\\"\"  -I/usr/local/include -O2 -gdwarf-4"
 S["CC"]="clang"
 S["target_alias"]=""
 S["host_alias"]=""

@@ -17,7 +17,7 @@ For more information on zed, please see the README for zed.
 zedについてはzedの方のREADMEを見てください。
 
 ```
-> echo aaa | .scan(/./).join("+") | less
+> echo aaa | !.scan(/./).join("+") | less
 a+a+a
 
 > !1+1

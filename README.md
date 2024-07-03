@@ -5,7 +5,7 @@ Another modern Object Oriented C compiler. It has a heap system that is a cross 
 
 もう一つのモダンなオブジェクト指向Cコンパイラ。automatically-free-systemとリファレンスカウントGCの間をとったようなヒープシステムがありコレクションライブラリ、文字列ライブラリを備えてます。
 
-version 1.0.1.0.1
+version 1.0.1.0.2
 
 ``` C
 #include <neo-c.h>
@@ -332,6 +332,7 @@ sh all_build.sh
 
 # Histories
 
+1.0.1.0.2 remove bash. changed zed bug.
 1.0.1.0.0 Fixed wide-character value bug.
 1.0.0.9.5 Refactoring.
 1.0.0.9.4 Refactoring.
