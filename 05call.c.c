@@ -9624,7 +9624,7 @@ memset(&node_290, 0, sizeof(struct sNode*));
     else {
         # 1195 "05call.c"
         # 956 "05call.c"
-        if(_if_conditional334=(xisalpha(*info->p)||*info->p==95)&&!(*info->p==76&&*(info->p+1)==34||(*info->p==115||*info->p==83)&&*(info->p+1)==34),        _if_conditional334) {
+        if(_if_conditional334=(xisalpha(*info->p)||*info->p==95)&&!(*info->p==76&&*(info->p+1)==34||(*info->p==115||*info->p==83)&&*(info->p+1)==34||(*info->p==76&&*(info->p+1)==39)),        _if_conditional334) {
             # 957 "05call.c"
             head_249=info->p;
             # 958 "05call.c"

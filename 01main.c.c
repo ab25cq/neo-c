@@ -634,6 +634,33 @@ struct tuple2$2sFunpcharph
     struct sFun* v1;
     char* v2;
 };
+struct lconv
+{
+    char* decimal_point;
+    char* thousands_sep;
+    char* grouping;
+    char* int_curr_symbol;
+    char* currency_symbol;
+    char* mon_decimal_point;
+    char* mon_thousands_sep;
+    char* mon_grouping;
+    char* positive_sign;
+    char* negative_sign;
+    char int_frac_digits;
+    char frac_digits;
+    char p_cs_precedes;
+    char p_sep_by_space;
+    char n_cs_precedes;
+    char n_sep_by_space;
+    char p_sign_posn;
+    char n_sign_posn;
+    char int_p_cs_precedes;
+    char int_p_sep_by_space;
+    char int_n_cs_precedes;
+    char int_n_sep_by_space;
+    char int_p_sign_posn;
+    char int_n_sign_posn;
+};
 
 // header function
 void come_heap_init(int come_malloc, int come_debug, int come_gc);
@@ -1817,6 +1844,18 @@ struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo*
 struct sNode* top_level_v92(char* buf, char* head, int head_sline, struct sInfo* info);
 
 struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo* info);
+
+char* setlocale(int anonymous_var_nameX597, const char* anonymous_var_nameX598);
+
+struct lconv* localeconv();
+
+struct __locale_struct* duplocale(struct __locale_struct* anonymous_var_nameX599);
+
+void freelocale(struct __locale_struct* anonymous_var_nameX600);
+
+struct __locale_struct* newlocale(int anonymous_var_nameX601, const char* anonymous_var_nameX602, struct __locale_struct* anonymous_var_nameX603);
+
+struct __locale_struct* uselocale(struct __locale_struct* anonymous_var_nameX604);
 
 int come_main_v1(int argc, char** argv);
 
@@ -3376,9 +3415,9 @@ int come_main_v1(int argc, char** argv){
 void* __result_obj__;
 int __result52__;
 memset(&__result_obj__, 0, sizeof(void*));
-    # 5 "01main.c"
+    # 6 "01main.c"
     puts("HELLO COMELANG");
-    # 7 "01main.c"
+    # 8 "01main.c"
     __result52__ = 0;
     return __result52__;
 }
@@ -3388,7 +3427,9 @@ void* __result_obj__;
 int __result53__;
 memset(&__result_obj__, 0, sizeof(void*));
 come_heap_init(0, 0, 0);
-    # 12 "01main.c"
+    # 13 "01main.c"
+    setlocale(6,"");
+    # 14 "01main.c"
     __result53__ = come_main_v2(argc,argv);
     come_heap_final();
     return __result53__;

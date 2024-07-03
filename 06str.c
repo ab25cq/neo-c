@@ -173,10 +173,12 @@ class sCharNode extends sNodeBase
 class sWCharNode extends sNodeBase
 {
     wchar_t value;
+    bool quote;
     
-    new(wchar_t value, sInfo* info)
+    new(wchar_t value, bool quote, sInfo* info)
     {
         self.value = value;
+        self.quote = quote;
         
         self.sline = info->sline;
         self.sname = string(info->sname);
@@ -196,8 +198,13 @@ class sWCharNode extends sNodeBase
     {
         CVALUE*% come_value = new CVALUE;
         
-        come_value.c_value = xsprintf("L'%lc'", self.value);
-        come_value.type = new sType("wchar_t");
+        if(self.quote) {
+            come_value.c_value = xsprintf("L'\\%o'", self.value);
+        }
+        else {
+            come_value.c_value = xsprintf("L'%lc'", self.value);
+        }
+        come_value.type = new sType("int");
         come_value.var = null;
         
         info.stack.push_back(come_value);
@@ -234,8 +241,8 @@ class sWStringNode extends sNodeBase
     {
         CVALUE*% come_value = new CVALUE;
         
-        come_value.c_value = xsprintf("L'%ls'", self.value);
-        come_value.type = new sType("wchar_t*");
+        come_value.c_value = xsprintf("L\"%ls\"", self.value);
+        come_value.type = new sType("int*");
         come_value.var = null;
         
         info.stack.push_back(come_value);
@@ -1248,8 +1255,10 @@ sNode*% expression_node(sInfo* info) version 96
         info->p+=2;
 
         wchar_t c;
+        bool quote;
 
         if(*info->p == '\\') {
+            quote = true;
             info->p++;
             
             if(xisdigit(*info->p)) {
@@ -1333,6 +1342,7 @@ sNode*% expression_node(sInfo* info) version 96
             }
         }
         else {
+            quote = false;
             unsigned char p2 = *(unsigned char*)info->p;
 
             /// utf-8 character ///
@@ -1354,10 +1364,10 @@ sNode*% expression_node(sInfo* info) version 96
                         perror("mbtowc");
                         err_msg(info, "invalid utf-8 character. mbtowc");
                         info->err_num++;
-                        c = 0;
                     }
-
-                    info->p += size;
+                    else {
+                        info->p += size;
+                    }
                 }
             }
             /// ASCII character ///
@@ -1366,7 +1376,7 @@ sNode*% expression_node(sInfo* info) version 96
                 info->p++;
             }
         }
-
+        
         if(*info->p != '\'') {
             err_msg(info, "close \' to make character value");
             info->err_num++;
@@ -1376,7 +1386,7 @@ sNode*% expression_node(sInfo* info) version 96
 
             skip_spaces_and_lf();
 
-            return new sWCharNode(c, info) implements sNode;
+            return new sWCharNode(c, quote, info) implements sNode;
         }
     }
     /// wstring ///
@@ -1517,8 +1527,8 @@ sNode*% expression_node(sInfo* info) version 96
             exit(1);
         }
         
-        wstr[len] = '\0';
-
+        wstr[len] = 0;
+        
         return new sWStringNode(wstr, sline, info) implements sNode;
     }
     /// heap string ///

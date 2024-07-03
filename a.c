@@ -1,41 +1,14 @@
 #include <neo-c.h>
-
-module MModule
-{
-    int a;
-    int b;
-    
-    new(int a, int b, int c) {
-        self.a = a;
-        self.b = b;
-        self.c = c;
-    }
-}
-
-class sData
-{
-    include MModule
-    
-    int c;
-    
-    void show() {
-         printf("%d %d %d\n", self.a, self.b, self.c);
-    }
-}
+#include <neo-c-str.h>
+#include <locale.h>
 
 int main(int argc, char** argv)
 {
-    int a[3] = {
-        1,
-        2,
-        3
-    };
+    setlocale(LC_ALL, "");
     
-    var data = new sData(111, 222, 333);
+    wchar_t a = L'\0';
     
-    data.show();
-    
-    puts("Hello World");
+    printf("%lc\n", a);
     
     return 0;
 }
