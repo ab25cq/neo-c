@@ -304,6 +304,10 @@ LinuxとMacOS(Darwin), iSH(iPhone), termux(Android) userland(Android), raspberry
 
 早いビルドはこれです。
 
+sudoとgitは事前にインストールしてください。
+
+Please install sudo and git before the build.
+
 ```
 git clone https://github.com/ab25cq/neo-c
 cd neo-c
