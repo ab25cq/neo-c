@@ -85,11 +85,18 @@ void read_dir(sInfo* info)
 
 void vd(sInfo* info)
 {
+    string history_fname = getenv("HOME") + "/mf_history";
+    
+    read_history(history_fname);
+    
     char* line = readline(getenv("PWD") + " > ");
     
     if(line == null) {
         return;
     }
+    
+    add_history(line);
+    write_history(history_fname);
 
     string cmdline = string(line);
     
