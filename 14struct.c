@@ -508,7 +508,7 @@ sNode*% parse_struct(string type_name, sInfo* info)
                 var type2, name2 = parse_variable_name(base_type, false@first, info);
                 
                 if(!info.no_output_err) {
-                    klass.mFields.push_back(new tuple2<string, sType*%>(name2, type2));
+                    klass.mFields.push_back((name2, type2));
                 }
             }
         }
@@ -521,7 +521,7 @@ sNode*% parse_struct(string type_name, sInfo* info)
             }
             
             if(!info.no_output_err) {
-                klass.mFields.push_back(new tuple2<string, sType*%>(name, type2));
+                klass.mFields.push_back((name, type2));
             }
         }
         expected_next_character(';') ;
