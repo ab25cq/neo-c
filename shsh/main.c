@@ -249,19 +249,23 @@ bool parse_statment(sInfo* info)
 {
     info->commands.add(new sCommand());
     
+    bool command_name = true;
+    
     while(true) {
         bool sub_shell = false;
         
+        while(*info->p == ' ' || *info->p == '\t') {
+            info->p++;
+        }
+        
         bool zed_command = false;
-        if(*info->p == '!') {
+        if(command_name && *info->p == '!') {
             info->p++;
             zed_command = true;
         }
-/*
-        else if(*info->p == '.' && xisalpha(*(info->p+1))) {
+        else if(command_name && *info->p == '.' && xisalpha(*(info->p+1))) {
             zed_command = true;
         }
-*/
         
         if(*info->p == '(') {
             info->p++;
@@ -319,6 +323,7 @@ bool parse_statment(sInfo* info)
         else if(sub_shell) {
             info->p = p;
             
+            bool command_name = true;
             buffer*% arg = new buffer();
             while(*info->p) {
                 if(*info->p == '|') {
@@ -331,16 +336,14 @@ bool parse_statment(sInfo* info)
                     }
                     
                     bool zed_command = false;
-                    if(*info->p == '!') {
+                    if(command_name && *info->p == '!') {
                         arg.append_char(*info->p);
                         info->p++;
                         zed_command = true;
                     }
-/*
-                    else if(*info->p == '.' && xisalpha(*(info->p+1))) {
+                    else if(command_name && *info->p == '.' && xisalpha(*(info->p+1))) {
                         zed_command = true;
                     }
-*/
                     
                     if(zed_command) {
                         int brace_nest = 0;
@@ -394,6 +397,8 @@ bool parse_statment(sInfo* info)
                     arg.append_char(*info->p);
                     info->p++;
                 }
+                
+                command_name = false;
             }
             
             if(arg.to_string() === "") {
@@ -757,17 +762,6 @@ bool parse_statment(sInfo* info)
                 }
             }
         }
-        else if(line.match(/^cd /)) {
-            var str = line.scan(/^cd +(.+)/).item(1, null);
-            
-            if(str) {
-                char path[PATH_MAX];
-                realpath(str, path);
-                chdir(path);
-                
-                setenv("PWD", path, 1);
-            }
-        }
         else if(line.match(/^export /)) {
             var li = line.scan(/^export +(.+)=(.+)/);
             
@@ -796,6 +790,8 @@ bool parse_statment(sInfo* info)
                 info->commands[-1].args.push_back(string(it));
             }
         }
+        
+        command_name = false;
     }
 }
 
