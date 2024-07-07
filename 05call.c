@@ -885,7 +885,7 @@ sNode*% parse_function_call(char* fun_name, sInfo* info)
         
         info.no_comma = no_comma;
         
-        params.push_back(new tuple2<string,sNode*%>(label, node));
+        params.push_back((label, node));
         
         parse_sharp();
         

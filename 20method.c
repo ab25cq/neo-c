@@ -858,7 +858,7 @@ class sMethodCallNode extends sNodeBase
 sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info) version 20
 {
     list<tuple2<string,sNode*%>*%>*% params = new list<tuple2<string,sNode*%>*%>();
-    params.push_back(new tuple2<string,sNode*%>(null,clone obj));
+    params.push_back(((string)null,clone obj));
     
     if(*info->p == '-' && *(info->p+1) == '>') {
         info->p +=2;
@@ -960,7 +960,7 @@ sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info) version 20
             
             info.no_comma = no_comma;
             
-            params.push_back(new tuple2<string,sNode*%>(label, node));
+            params.push_back((label, node));
             
             if(*info->p == ',') {
                 info->p++;

@@ -11791,9 +11791,9 @@ right_value360 = (void*)0;
     come_call_finalizer3(right_value329,list$1tuple2$2charphsNodephphp_finalize, 0, 1, 0, 0, __result_obj__);
     come_call_finalizer3(right_value330,list$1tuple2$2charphsNodephphp_finalize, 0, 1, 0, 0, __result_obj__);
     # 861 "20method.c"
-    list$1tuple2$2charphsNodephph_push_back(params_362,(struct tuple2$2charphsNodeph*)come_increment_ref_count(((struct tuple2$2charphsNodeph*)(right_value333=tuple2$2charphsNodeph_initialize((struct tuple2$2charphsNodeph*)come_increment_ref_count(((struct tuple2$2charphsNodeph*)(right_value331=(struct tuple2$2charphsNodeph*)come_calloc(1, sizeof(struct tuple2$2charphsNodeph)*(1), "20method.c", 861, "tuple2$2charphsNodeph")))),((void*)0),(struct sNode*)come_increment_ref_count(((struct sNode*)(right_value332=sNode_clone(obj)))))))));
-    come_call_finalizer3(right_value331,tuple2$2charphsNodephp_finalize, 0, 1, 0, 0, __result_obj__);
-    if(right_value332) { right_value332 = come_decrement_ref_count2(right_value332, ((struct sNode*)right_value332)->finalize, ((struct sNode*)right_value332)->_protocol_obj, 1, 0, 0, __result_obj__); } 
+    list$1tuple2$2charphsNodephph_push_back(params_362,(struct tuple2$2charphsNodeph*)come_increment_ref_count(((struct tuple2$2charphsNodeph*)(right_value333=tuple2$2charphsNodeph_initialize((struct tuple2$2charphsNodeph*)come_increment_ref_count(((struct tuple2$2charphsNodeph*)(right_value332=(struct tuple2$2charphsNodeph*)come_calloc(1, sizeof(struct tuple2$2charphsNodeph)*(1), "20method.c", 861, "struct tuple2$2charphsNodeph")))),(char*)come_increment_ref_count((char*)((void*)0)),(struct sNode*)come_increment_ref_count(((struct sNode*)(right_value331=sNode_clone(obj)))))))));
+    if(right_value331) { right_value331 = come_decrement_ref_count2(right_value331, ((struct sNode*)right_value331)->finalize, ((struct sNode*)right_value331)->_protocol_obj, 1, 0, 0, __result_obj__); } 
+    come_call_finalizer3(right_value332,tuple2$2charphsNodeph_finalize, 0, 1, 0, 0, __result_obj__);
     come_call_finalizer3(right_value333,tuple2$2charphsNodephp_finalize, 0, 1, 0, 0, __result_obj__);
     # 869 "20method.c"
     # 863 "20method.c"
@@ -11974,8 +11974,8 @@ right_value360 = (void*)0;
             # 961 "20method.c"
             info->no_comma=no_comma_375;
             # 963 "20method.c"
-            list$1tuple2$2charphsNodephph_push_back(params_362,(struct tuple2$2charphsNodeph*)come_increment_ref_count(((struct tuple2$2charphsNodeph*)(right_value344=tuple2$2charphsNodeph_initialize((struct tuple2$2charphsNodeph*)come_increment_ref_count(((struct tuple2$2charphsNodeph*)(right_value343=(struct tuple2$2charphsNodeph*)come_calloc(1, sizeof(struct tuple2$2charphsNodeph)*(1), "20method.c", 963, "tuple2$2charphsNodeph")))),(char*)come_increment_ref_count(label_374),(struct sNode*)come_increment_ref_count(node_376))))));
-            come_call_finalizer3(right_value343,tuple2$2charphsNodephp_finalize, 0, 1, 0, 0, __result_obj__);
+            list$1tuple2$2charphsNodephph_push_back(params_362,(struct tuple2$2charphsNodeph*)come_increment_ref_count(((struct tuple2$2charphsNodeph*)(right_value344=tuple2$2charphsNodeph_initialize((struct tuple2$2charphsNodeph*)come_increment_ref_count(((struct tuple2$2charphsNodeph*)(right_value343=(struct tuple2$2charphsNodeph*)come_calloc(1, sizeof(struct tuple2$2charphsNodeph)*(1), "20method.c", 963, "struct tuple2$2charphsNodeph")))),(char*)come_increment_ref_count(label_374),(struct sNode*)come_increment_ref_count(node_376))))));
+            come_call_finalizer3(right_value343,tuple2$2charphsNodeph_finalize, 0, 1, 0, 0, __result_obj__);
             come_call_finalizer3(right_value344,tuple2$2charphsNodephp_finalize, 0, 1, 0, 0, __result_obj__);
             # 974 "20method.c"
             # 965 "20method.c"

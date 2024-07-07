@@ -94,7 +94,7 @@ sNode*% parse_union(string type_name, sInfo* info)
         expected_next_character(';');
         
         if(!info.no_output_err) {
-            type.mClass.mFields.push_back(new tuple2<string, sType*%>(name, type2));
+            type.mClass.mFields.push_back((name, type2));
         }
         
         if(*info->p == '}') {
@@ -139,7 +139,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 97
             }
             expected_next_character(';');
             
-            type.mClass.mFields.push_back(new tuple2<string, sType*%>(name, type2));
+            type.mClass.mFields.push_back((name, type2));
             
             if(*info->p == '}') {
                 info->p++;

@@ -143,12 +143,12 @@ sNode*% parse_enum(string type_name, sInfo* info)
             info.no_comma = no_comma;
             
             if(!info.no_output_err) {
-                elements.push_back(new tuple2<string,sNode*%>(element_name, element_value));
+                elements.push_back((element_name, element_value));
             }
         }
         else {
             if(!info.no_output_err) {
-                elements.push_back(new tuple2<string,sNode*%>(element_name, null));
+                elements.push_back((element_name, null));
             }
         }
 
@@ -213,10 +213,10 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 96
                 
                 info.no_comma = no_comma;
                 
-                elements.push_back(new tuple2<string,sNode*%>(element_name, element_value));
+                elements.push_back((element_name, element_value));
             }
             else {
-                elements.push_back(new tuple2<string,sNode*%>(element_name, null));
+                elements.push_back((element_name, null));
             }
             parse_sharp();
 

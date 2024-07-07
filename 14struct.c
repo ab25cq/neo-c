@@ -498,7 +498,7 @@ sNode*% parse_struct(string type_name, sInfo* info)
             var type2, name2 = parse_variable_name(base_type, true@first, info);
             
             if(!info.no_output_err) {
-                klass.mFields.push_back(new tuple2<string, sType*%>(name2, type2));
+                klass.mFields.push_back((name2, type2));
             }
             
             while(*info->p == ',') {
@@ -625,7 +625,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                     }
                     
                     if(*info->p == ',') {
-                        generics_class.mFields.push_back(new tuple2<string, sType*%>(name, type2));
+                        generics_class.mFields.push_back((name, type2));
                         
                         while(*info->p == ',') {
                             info->p++;
@@ -647,11 +647,11 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                                 type3->mSizeNum = node;
                             }
                             
-                            generics_class.mFields.push_back(new tuple2<string, sType*%>(name2, type3));
+                            generics_class.mFields.push_back((name2, type3));
                         }
                     }
                     else {
-                        generics_class.mFields.push_back(new tuple2<string, sType*%>(name, type2));
+                        generics_class.mFields.push_back((name, type2));
                     }
                     
                     expected_next_character(';') ;
@@ -731,7 +731,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                         
                         var type2,name2 = parse_variable_name(base_type, true@first, info);
                         
-                        struct_class.mFields.push_back(new tuple2<string, sType*%>(name2, type2));
+                        struct_class.mFields.push_back((name2, type2));
                         
                         while(*info->p == ',') {
                             info->p++;
@@ -739,7 +739,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                             
                             var type2, name2 = parse_variable_name(base_type, false@first, info);
                             
-                            struct_class.mFields.push_back(new tuple2<string, sType*%>(name2, type2));
+                            struct_class.mFields.push_back((name2, type2));
                         }
                     }
                     else {
@@ -749,7 +749,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                             exit(2);
                         }
                         
-                        struct_class.mFields.push_back(new tuple2<string, sType*%>(name, type2));
+                        struct_class.mFields.push_back((name, type2));
                     }
                     
                     expected_next_character(';') ;
@@ -987,7 +987,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                 
                 var type2,name2 = parse_variable_name(base_type, true@first, info);
                 
-                struct_class.mFields.push_back(new tuple2<string, sType*%>(name2, type2));
+                struct_class.mFields.push_back((name2, type2));
                 
                 while(*info->p == ',') {
                     info->p++;
@@ -995,7 +995,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                     
                     var type2, name2 = parse_variable_name(base_type, false@first, info);
                     
-                    struct_class.mFields.push_back(new tuple2<string, sType*%>(name2, type2));
+                    struct_class.mFields.push_back((name2, type2));
                 }
                 expected_next_character(';') ;
             }
@@ -1073,7 +1073,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                     exit(2);
                 }
                 
-                struct_class.mFields.push_back(new tuple2<string, sType*%>(name, type2));
+                struct_class.mFields.push_back((name, type2));
                 expected_next_character(';') ;
             }
             

@@ -79,7 +79,7 @@ sType*%, string parse_interface_function(sInfo* info)
     type->mVarArgs = var_args;
     type->mResultType = new tuple1<sType*%>(clone result_type);
     
-    return new tuple2<sType*%,string>(type, fun_name);
+    return (type, fun_name);
 }
 
 sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 92
@@ -108,7 +108,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 92
         sType*% voidp = new sType("void");
         voidp->mPointerNum++;
         
-        klass.mFields.push_back(new tuple2<string, sType*%>(string("_protocol_obj"), voidp));
+        klass.mFields.push_back((string("_protocol_obj"), voidp));
         
         sType*% finalizer = new sType("lambda");
     
@@ -117,7 +117,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 92
         finalizer->mVarArgs = false;
         finalizer->mResultType = new tuple1<sType*%>(new sType("void"));
         
-        klass.mFields.push_back(new tuple2<string, sType*%>(string("finalize"), finalizer));
+        klass.mFields.push_back((string("finalize"), finalizer));
         
         sType*% cloner = new sType("lambda");
     
@@ -126,14 +126,14 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 92
         cloner->mVarArgs = false;
         cloner->mResultType = new tuple1<sType*%>(clone voidp);
         
-        klass.mFields.push_back(new tuple2<string, sType*%>(string("clone"), cloner));
+        klass.mFields.push_back((string("clone"), cloner));
         
         while(true) {
             parse_sharp();
             var type2, name = parse_interface_function(info);
             expected_next_character(';');
             
-            klass.mFields.push_back(new tuple2<string, sType*%>(name, type2));
+            klass.mFields.push_back((name, type2));
             
             parse_sharp();
             
