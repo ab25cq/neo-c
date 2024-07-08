@@ -102,6 +102,15 @@ static void clear_tmp_file_without_object_file(sInfo* info)
     }
 }
 
+static void clear_tmp_file_without_object_file_and_ccfile(sInfo* info)
+{
+    string input_file_name = info.sname;
+    
+    if(input_file_name != null && input_file_name !== "") {
+        system(s"rm -f \{input_file_name}.i* \{input_file_name}.c.out");
+    }
+}
+
 static bool cpp(sInfo* info)
 {
     string input_file_name = info.sname;
@@ -842,7 +851,12 @@ int come_main(int argc, char** argv) version 2
     
             }
             
-            if(!output_cpp_file && !output_source_file_flag) {
+            if(output_cpp_file){
+            }
+            else if(output_source_file_flag) {
+                clear_tmp_file_without_object_file_and_ccfile(&info);
+            }
+            else {
                 clear_tmp_file_without_object_file(&info);
             }
         }
