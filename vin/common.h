@@ -11,13 +11,13 @@
 
 #define SAVE_INPUT_KEY_MAX 256
 
-enum eMode { kEditMode, kInsertMode, kVisualMode, kCommandMode, kSearchMode, kHorizonVisualMode, kVerticalVisualMode, kRewriteMode, kShellMode };
+enum eMode { kEditMode, kInsertMode, kVisualMode, kCommandMode, kSearchMode, kHorizonVisualMode, kVerticalVisualMode, kRewriteMode, kShellMode, kBinaryMode };
 
 struct ViWin
 {
-
     WINDOW* win;
     list<wstring>*% texts;
+    list<int>*% texts_length;
     int y;
     int x;
     int width;
@@ -125,6 +125,8 @@ struct Vi
     char commandString[128];
 };
 
+extern int gBinaryMode;
+
 
 ViWin*% ViWin*::initialize(ViWin*% self, int y, int x, int width, int height, Vi* vi) version 1;
 void ViWin*::finalize(ViWin* self) version 1;
@@ -166,7 +168,7 @@ void ViWin*::moveTop(ViWin* self);
 void ViWin*::restoreVisualMode(ViWin* self, Vi* nvi) version 2;
 void ViWin*::keyG(ViWin* self, Vi* nvi);
 void ViWin*::moveBottom(ViWin* self);
-void ViWin*::openFile(ViWin* self, char* file_name, int line_num) version 2;
+void ViWin*::openFile(ViWin* self, char* file_name, int line_num, bool binary_mode=false) version 2;
 void ViWin*::saveReturnPoint(ViWin* self);
 void ViWin*::saveInputedKeyOnTheMovingCursor(ViWin* self) version 2;
 void ViWin*::joinLines2(ViWin* self) version 2;
@@ -176,7 +178,7 @@ void Vi*::exitFromApp(Vi* self) version 2;
 void Vi*::view(Vi* self);
 void Vi*::clearView(Vi* self);
 int Vi*::main_loop(Vi* self) version 2;
-void Vi*::openFile(Vi* self, char* file_name, int line_num) version 2;
+void Vi*::openFile(Vi* self, char* file_name, int line_num, bool binary_mode=false) version 2;
 void Vi*::repositionWindows(Vi* self) version 2;
 void Vi*::enterSearchMode(Vi* self, bool regex_search, bool search_reverse) version 2;
 
@@ -233,10 +235,10 @@ ViWin*% ViWin*::initialize(ViWin*% self, int y, int x, int width, int height, Vi
 void ViWin*::statusBarView(ViWin* self, Vi* nvi) version 6;
 void ViWin*::saveCursorPosition(ViWin* self, char* file_name);
 void ViWin*::readCursorPosition(ViWin* self, char* file_name);
-void ViWin*::openFile(ViWin* self, char* file_name, int line_num) version 6;
+void ViWin*::openFile(ViWin* self, char* file_name, int line_num, bool binary_mode=false) version 6;
 void ViWin*::makeTmpFile(ViWin* self);
 void ViWin*::deleteTmpFile(ViWin* self);
-void ViWin*::writeFile(ViWin* self);
+void ViWin*::writeFile(ViWin* self, bool binary_mode=false);
 void ViWin*::writedFlagOn(ViWin* self) version 6;
 bool ViWin*::saveDotToFile(ViWin* self, Vi* nvi) version 6;
 void Vi*::openNewFile(Vi* self, char* file_name);
@@ -249,7 +251,7 @@ Vi*% Vi*::initialize(Vi*% self) version 6;
 void Vi*::repositionWindows(Vi* self) version 6;
 void Vi*::saveLastOpenFile(Vi* self, char* file_name);
 string Vi*::readLastOpenFile(Vi* self);
-void Vi*::openFile(Vi* self, char* file_name, int line_num) version 6;
+void Vi*::openFile(Vi* self, char* file_name, int line_num, bool binary_mode=false) version 6;
 
 ////////////////////////////
 // src/07yank.c
@@ -457,6 +459,16 @@ Vi*% Vi*::initialize(Vi*% self) version 20;
 void Vi*::exitFromShellMode(Vi* self);
 void ViWin*::input(ViWin* self, Vi* nvi) version 20;
 void ViWin*::view(ViWin* self, Vi* nvi) version 20;
+
+////////////////////////////
+// src/21binary.c
+////////////////////////////
+void Vi*::exitFromBinaryMode(Vi* self);
+Vi*% Vi*::initialize(Vi*% self) version 21;
+void Vi*::enterBinaryMode(Vi* self);
+void ViWin*::input(ViWin* self, Vi* nvi) version 21;
+void ViWin*::view(ViWin* self, Vi* nvi) version 21;
+void ViWin*::binaryModeView(ViWin* self, Vi* nvi);
 
 ////////////////////////////
 // src/main.c

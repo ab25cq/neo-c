@@ -24,6 +24,7 @@ void ViWin*::insertText2(ViWin* self, wstring text)
 {
     if(self.texts.length() == 0) {
         self.texts.push_back(clone text);
+        self.texts_length.push_back(wcslen(text));
         self.cursorX += text.length();
     }
     else {
@@ -35,6 +36,7 @@ void ViWin*::insertText2(ViWin* self, wstring text)
                 ,old_line.substring(self.cursorX+text.length(), -1)).to_wstring();
 
         self.texts.replace(self.scroll+self.cursorY, clone new_line);
+        self.texts_length.replace(self.scroll+self.cursorY, wcslen(new_line));
         self.cursorX += text.length();
     }
 }
@@ -121,6 +123,7 @@ void ViWin*::inputRewritetMode(ViWin* self, Vi* nvi)
             line.delete(self.cursorX, cursor_x+1);
          
             self.texts.replace(self.scroll+self.cursorY, clone line);
+            self.texts_length.replace(self.scroll+self.cursorY, wcslen(line));
             self.modifyOverCursorXValue();
             self.cursorX++;
         }
@@ -131,6 +134,7 @@ void ViWin*::inputRewritetMode(ViWin* self, Vi* nvi)
             line.delete(0, cursor_x+1);
             
             self.texts.replace(self.scroll+self.cursorY, clone line);
+            self.texts_length.replace(self.scroll+self.cursorY, wcslen(line));
                             
             self.cursorX = 0;
             self.cursorY = cursor_y;

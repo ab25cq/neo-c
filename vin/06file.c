@@ -112,55 +112,119 @@ void ViWin*::readCursorPosition(ViWin* self, char* file_name)
     self.modifyOverCursorYValue();
 }
 
-void ViWin*::openFile(ViWin* self, char* file_name, int line_num) version 6
+void ViWin*::openFile(ViWin* self, char* file_name, int line_num, bool binary_mode=false) version 6
 {
-    FILE* f = fopen(file_name, "r");
+    if(binary_mode) {
+        FILE* f = fopen(file_name, "rb");
+        
+        if(f == null) {
+            string cmd = xsprintf("echo \"\" > %s", file_name);
     
-    if(f == null) {
-        string cmd = xsprintf("echo \"\" > %s", file_name);
-
-        self.texts.push_back(wstring(""));
-        
-        int rc = system(cmd);
-        
-        if(rc != 0) {
-            endwin();
-            printf("can't open file %s\n", file_name);
-            exit(2);
-        }
-
-        self.fileName = string(file_name);
-        
-        self.cursorY = 0;
-        self.cursorX = 0;
-        self.scroll = 0;
-    }
-    else {
-        char line[4096];
-
-        while(fgets(line, 4096, f) != NULL)
-        {
-            line[strlen(line)-1] = '\0';
-            self.texts.push_back(wstring(line))
-        }
-
-        fclose(f);
-
-        if(self.texts.length() == 0) {
-            self.texts.push_back(wstring(""))
-        }
-
-        self.fileName = string(file_name);
-
-        if(line_num == -1) {
-            self.readCursorPosition(file_name);
+            self.texts.push_back(wstring(""));
+            self.texts_length.push_back(0);
+            
+            int rc = system(cmd);
+            
+            if(rc != 0) {
+                endwin();
+                printf("can't open file %s\n", file_name);
+                exit(2);
+            }
+    
+            self.fileName = string(file_name);
+            
+            self.cursorY = 0;
+            self.cursorX = 0;
+            self.scroll = 0;
         }
         else {
-            self.cursorY = line_num;
+            char line[16];
+            int len = 0;
+    
+            while((len = fread(line, 1, 16, f)) > 0)
+            {
+                wchar_t*% new_line = new wchar_t[16+1];
+                for(int i=0; i<len; i++) {
+                    new_line[i] = line[i];
+                }
+                new_line[len] = L'\0';
+                self.texts.push_back(new_line);
+                self.texts_length.push_back(len);
+            }
+    
+            fclose(f);
+    
+            if(self.texts.length() == 0) {
+                self.texts.push_back(wstring(""))
+                self.texts_length.push_back(0);
+            }
+    
+            self.fileName = string(file_name);
+    
+            if(line_num == -1) {
+                self.readCursorPosition(file_name);
+            }
+            else {
+                self.cursorY = line_num;
+                
+                self.modifyUnderCursorYValue();
+                self.modifyOverCursorYValue();
+                self.centeringCursor();
+            }
+        }
+    }
+    else {
+        FILE* f = fopen(file_name, "r");
+        
+        if(f == null) {
+            string cmd = xsprintf("echo \"\" > %s", file_name);
+    
+            self.texts.push_back(wstring(""));
+            self.texts_length.push_back(0);
             
-            self.modifyUnderCursorYValue();
-            self.modifyOverCursorYValue();
-            self.centeringCursor();
+            int rc = system(cmd);
+            
+            if(rc != 0) {
+                endwin();
+                printf("can't open file %s\n", file_name);
+                exit(2);
+            }
+    
+            self.fileName = string(file_name);
+            
+            self.cursorY = 0;
+            self.cursorX = 0;
+            self.scroll = 0;
+        }
+        else {
+            char line[4096];
+    
+            while(fgets(line, 4096, f) != NULL)
+            {
+                line[strlen(line)-1] = '\0';
+                self.texts.push_back(wstring(line))
+                self.texts_length.push_back(strlen(line));
+            }
+    
+            fclose(f);
+    
+            if(self.texts.length() == 0) {
+                self.texts.push_back(wstring(""))
+                self.texts_length.push_back(0);
+            }
+    
+            self.fileName = string(file_name);
+    
+            if(line_num == -1) {
+                self.readCursorPosition(file_name);
+            }
+            else {
+                self.cursorY = line_num;
+                
+                self.modifyUnderCursorYValue();
+                self.modifyOverCursorYValue();
+                self.centeringCursor();
+            }
         }
     }
 }
@@ -183,7 +247,7 @@ void ViWin*::deleteTmpFile(ViWin* self)
     unlink(self.fileName + ".tmp");
 }
 
-void ViWin*::writeFile(ViWin* self) 
+void ViWin*::writeFile(ViWin* self, bool binary_mode=false) 
 {
     /// back up /// 
     char* home = getenv("HOME");
@@ -207,20 +271,48 @@ void ViWin*::writeFile(ViWin* self)
     (void)system(cmd);
     
     /// write ///
-    FILE* f = fopen(self.fileName, "w");
-
-    if(f != null) {
-        foreach(it, self.texts) {
-            fprintf(f, "%ls\n", it);
+    if(binary_mode) {
+        FILE* f = fopen(self.fileName, "wb");
+    
+        if(f != null) {
+            int i = 0;
+            foreach(it, self.texts) {
+                int len = self.texts_length[i]??;
+                
+                char*% buf = new char[len+1];
+                
+                char* p = buf;
+                wchar_t* p2 = it;
+                
+                for(int j=0; j<len; j++) {
+                    *p = *p2;
+                    p++;
+                    p2++;
+                }
+                
+                fwrite(buf, sizeof(char), len, f);
+                
+                i++;
+            }
+            
+            fclose(f);
         }
-
-        fclose(f);
-
-        self.writed = false;
-        self.saveCursorPosition(self.fileName);
-        self.saveDotToFile(self.vi);
-        //self.deleteTmpFile();
     }
+    else {
+        FILE* f = fopen(self.fileName, "w");
+    
+        if(f != null) {
+            foreach(it, self.texts) {
+                fprintf(f, "%ls\n", it);
+            }
+        }
+        
+        fclose(f);
+    }
+
+    self.writed = false;
+    self.saveCursorPosition(self.fileName);
+    self.saveDotToFile(self.vi);
 }
 
 void ViWin*::writedFlagOn(ViWin* self) version 6
@@ -275,6 +367,7 @@ void Vi*::exitFromApp(Vi* self) version 6
 {
     foreach(it, self.wins) {
         it.writeFile();
+        it.saveCursorPosition(it.fileName);
     }
     self.appEnd = true;
 }
@@ -411,7 +504,7 @@ string Vi*::readLastOpenFile(Vi* self)
     return string(file_name);
 }
 
-void Vi*::openFile(Vi* self, char* file_name, int line_num) version 6
+void Vi*::openFile(Vi* self, char* file_name, int line_num, bool binary_mode=false) version 6
 {
     if(file_name == null) {
         auto file_name = self.readLastOpenFile();
@@ -428,7 +521,7 @@ void Vi*::openFile(Vi* self, char* file_name, int line_num) version 6
             self.wins.push_back(win);
             self.activeWin = self.wins[-1];
             
-            self.activeWin.openFile(file_name, -1);
+            self.activeWin.openFile(file_name, -1, binary_mode);
             
             self.repositionWindows();
         }
@@ -446,7 +539,7 @@ void Vi*::openFile(Vi* self, char* file_name, int line_num) version 6
             self.wins.push_back(win);
             self.activeWin = self.wins[-1];
             
-            self.activeWin.openFile(file_name, line_num);
+            self.activeWin.openFile(file_name, line_num, binary_mode);
             self.saveLastOpenFile(file_name);
             
             self.repositionWindows();

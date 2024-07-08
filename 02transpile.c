@@ -88,7 +88,18 @@ static void clear_tmp_file(sInfo* info)
 {
     string input_file_name = info.sname;
     
-    system(s"rm -f \{input_file_name}.*");
+    if(input_file_name != null && input_file_name !== "") {
+        system(s"rm -f \{input_file_name}.*");
+    }
+}
+
+static void clear_tmp_file_without_object_file(sInfo* info)
+{
+    string input_file_name = info.sname;
+    
+    if(input_file_name != null && input_file_name !== "") {
+        system(s"rm -f \{input_file_name}.i* \{input_file_name}.c*");
+    }
 }
 
 static bool cpp(sInfo* info)
@@ -526,6 +537,7 @@ int come_main(int argc, char** argv) version 2
             }
             else if(argv[i] === "-s" || argv[i] === "-S") {
                 output_source_file_flag = true;
+                gComeOriginalSourcePosition = false;
             }
             else if(argv[i] === "-c") {
                 output_object_file = true;
@@ -728,6 +740,7 @@ int come_main(int argc, char** argv) version 2
             }
             else if(argv[i] === "-s" || argv[i] === "-S") {
                 output_source_file_flag = true;
+                gComeOriginalSourcePosition = false;
             }
             else if(argv[i] === "-c") {
                 output_object_file = true;
@@ -828,6 +841,10 @@ int come_main(int argc, char** argv) version 2
                 }
     
             }
+            
+            if(!output_cpp_file && !output_source_file_flag) {
+                clear_tmp_file_without_object_file(&info);
+            }
         }
         
         if(!output_object_file && !output_cpp_file && (files.length() > 0 || object_files.length() > 0)) {
@@ -849,6 +866,10 @@ int come_main(int argc, char** argv) version 2
             linker(&info, object_files).expect {
                 printf("%s %d: linker faield\n", info.sname, info.sline);
                 exit(13);
+            }
+            
+            if(!output_cpp_file && !output_source_file_flag) {
+                clear_tmp_file(&info);
             }
         }
     }

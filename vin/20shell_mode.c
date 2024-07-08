@@ -50,7 +50,7 @@ void ViWin*::inputShellMode(ViWin* self, Vi* nvi)
     auto key = self.getKey(false);
     
     if(key == 3 || key == 27) {
-        nvi.exitFromInsertMode();
+        nvi.exitFromShellMode();
     }
     else if(key == 4) {
         self.backIndent();
@@ -137,6 +137,7 @@ void ViWin*::inputShellMode(ViWin* self, Vi* nvi)
             line.delete(self.cursorX, cursor_x+1);
          
             self.texts.replace(self.scroll+self.cursorY, clone line);
+            self.texts_length.replace(self.scroll+self.cursorY, wcslen(line));
             self.modifyOverCursorXValue();
             self.cursorX++;
         }
@@ -147,6 +148,7 @@ void ViWin*::inputShellMode(ViWin* self, Vi* nvi)
             line.delete(0, cursor_x+1);
             
             self.texts.replace(self.scroll+self.cursorY, clone line);
+            self.texts_length.replace(self.scroll+self.cursorY, wcslen(line));
                             
             self.cursorX = 0;
             self.cursorY = cursor_y;

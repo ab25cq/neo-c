@@ -233,6 +233,18 @@ void ViWin*::modifyOverCursorXValue(ViWin* self)
         self.cursorY = 0;
         self.cursorX = 0;
     }
+    else if(gBinaryMode) {
+        int len = self.texts_length.item(self.scroll+self.cursorY, -1);
+        
+        if(len != -1 && self.cursorX >= len)
+        {
+            self.cursorX = len-1;
+
+            if(self.cursorX < 0) {
+                self.cursorX = 0;
+            }
+        }
+    }
     else {
         auto cursor_line = self.texts.item(self.scroll+self.cursorY, null);
 
@@ -255,6 +267,20 @@ void ViWin*::modifyOverCursorXValue2(ViWin* self)
         self.scroll = 0;
         self.cursorY = 0;
         self.cursorX = 0;
+    }
+    else if(gBinaryMode) {
+        int len = self.texts_length.item(self.scroll+self.cursorY, -1);
+        if(len == -1) {
+            self.cursorX = 0;
+        }
+        else if(self.cursorX >= len)
+        {
+            self.cursorX = len+1;
+
+            if(self.cursorX < 0) {
+                self.cursorX = 0;
+            }
+        }
     }
     else {
         auto cursor_line = self.texts.item(self.scroll+self.cursorY, null);
@@ -431,7 +457,7 @@ void ViWin*::moveBottom(ViWin* self)
     self.centeringCursor();
 }
 
-void ViWin*::openFile(ViWin* self, char* file_name, int line_num) version 2
+void ViWin*::openFile(ViWin* self, char* file_name, int line_num, bool binary_mode=false) version 2
 {
 }
 
@@ -472,6 +498,7 @@ Vi*% Vi*::initialize(Vi*% self) version 2
     auto win = new ViWin.initialize(0,0, maxx-1, maxy, self);
 
     win.texts.push_back(wstring(""));
+    win.texts_length.push_back(0);
 
     self.wins.push_back(win);
 
@@ -654,7 +681,7 @@ int Vi*::main_loop(Vi* self) version 2
     0
 }
 
-void Vi*::openFile(Vi* self, char* file_name, int line_num) version 2
+void Vi*::openFile(Vi* self, char* file_name, int line_num, bool binary_mode=false) version 2
 {
     /// implemented by the after layer
 }

@@ -43,12 +43,15 @@ int xgetmaxy()
 */
 }
 
+int gBinaryMode = 0;
+
 int main(int argc, char** argv)
 {
     int line_num = -1;
     char* file_names[128];
     int num_file_names = 0;
     
+    bool binary_mode = false;
     for(int i=1; i<argc; i++) {
         if(argv[i][0] == '+') {
             char* p = argv[i];
@@ -63,6 +66,9 @@ int main(int argc, char** argv)
             if(line_num < 0) {
                 line_num = 0;
             }
+        }
+        else if(argv[i] === "-b") {
+            binary_mode = true;
         }
         else if(strcmp(argv[i], "-v") == 0 || strcmp(argv[i], "-V") == 0 || strcmp(argv[i], "--version") == 0) {
             puts("vin version 1.0.4");
@@ -79,13 +85,15 @@ int main(int argc, char** argv)
         }
     }
     
+    gBinaryMode = binary_mode;
+    
     auto vi = new Vi.initialize();
     
     if(num_file_names > 0) {
-        vi.openFile(file_names[0], line_num);
+        vi.openFile(file_names[0], line_num, binary_mode);
     }
     else {
-        vi.openFile(null, -1);
+        vi.openFile(null, -1, binary_mode);
     }
     
     int result = vi.main_loop();

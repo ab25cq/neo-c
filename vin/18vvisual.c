@@ -167,6 +167,7 @@ void ViWin*::changeCaseVerticalVisualMode(ViWin* self, Vi* nvi)
         wstring new_line = xsprintf("%ls%ls%ls", head_line, middle_line, tail_line).to_wstring();
         
         self.texts.replace(i, clone new_line);
+        self.texts_length.replace(i, wcslen(new_line));
     }
     
     self.cursorY = self.visualModeVerticalStartY;
@@ -200,6 +201,7 @@ void ViWin*::rewriteOnVerticalVisualMode(ViWin* self, Vi* nvi)
         auto new_line = xsprintf("%ls%ls%ls", head_new_line, middle_new_line, tail_new_line).to_wstring();
         
         self.texts.replace(i, clone new_line);
+        self.texts_length.replace(i, wcslen(new_line));
     }
     
     self.cursorY = self.visualModeVerticalStartY;
@@ -241,6 +243,7 @@ void ViWin*::insertOnVerticalVisualMode(ViWin* self, Vi* nvi)
                         , it.substring(self.visualModeVerticalHeadX, -1)).to_wstring();
                 
                 self.texts.replace(i, clone new_line);
+                self.texts_length.replace(i, wcslen(new_line));
             }
         }
         
@@ -269,6 +272,7 @@ void ViWin*::insertOnVerticalVisualMode(ViWin* self, Vi* nvi)
                     , it.substring(self.visualModeVerticalHeadX, -1)).to_wstring();
             
             self.texts.replace(i, clone new_line);
+            self.texts_length.replace(i, wcslen(new_line));
         }
         
         self.visualModeVerticalHeadX++;

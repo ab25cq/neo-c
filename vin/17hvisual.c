@@ -274,8 +274,10 @@ void ViWin*::deleteOnHorizonVisualMode(ViWin* self, Vi* nvi)
         self.texts.item(hv_y, null).delete(0, self.visualModeHorizonHeadX+1);
         auto new_line = xsprintf("%ls%ls", self.texts.item(y, null), self.texts.item(hv_y, null)).to_wstring();
         self.texts.replace(y, clone new_line);
+        self.texts_length.replace(y, wcslen(new_line));
 
         self.texts.delete(y+1, hv_y+1);
+        self.texts_length.delete(y+1, hv_y+1);
 
     }
     else if(y == hv_y) {
@@ -300,8 +302,10 @@ void ViWin*::deleteOnHorizonVisualMode(ViWin* self, Vi* nvi)
 
         auto new_line = xsprintf("%ls%ls", self.texts.item(hv_y, null), self.texts.item(y, null)).to_wstring();
         self.texts.replace(hv_y, clone new_line);
+        self.texts_length.replace(hv_y, wcslen(new_line));
 
         self.texts.delete(hv_y+1, y+1);
+        self.texts_length.delete(hv_y+1, y+1);
 
         self.cursorX = self.visualModeHorizonHeadX;
         self.cursorY = self.visualModeHorizonHeadY;
@@ -346,6 +350,7 @@ void ViWin*::changeCaseHorizonVisualMode(ViWin* self, Vi* nvi)
         auto new_line = xsprintf("%ls%ls", head_first_line, tail_first_line).to_wstring();
         
         self.texts.replace(y, clone new_line);
+        self.texts_length.replace(y, wcslen(new_line));
         
         int it2 = 0;
         foreach(it, self.texts.sublist(y+1, hv_y)) {
@@ -365,6 +370,7 @@ void ViWin*::changeCaseHorizonVisualMode(ViWin* self, Vi* nvi)
             }
             
             self.texts.replace(y+1+it2, clone new_line);
+            self.texts_length.replace(y+1+it2, wcslen(new_line));
             it2++;
         }
         auto last_line = self.texts.item(hv_y, null);
@@ -387,6 +393,7 @@ void ViWin*::changeCaseHorizonVisualMode(ViWin* self, Vi* nvi)
         auto new_last_line = xsprintf("%ls%ls", head_last_line, tail_last_line).to_wstring();
         
         self.texts.replace(hv_y, clone new_last_line);
+        self.texts_length.replace(hv_y, wcslen(new_last_line));
     }
     else if(y == hv_y) {
         int head = self.visualModeHorizonHeadX;
@@ -418,6 +425,7 @@ void ViWin*::changeCaseHorizonVisualMode(ViWin* self, Vi* nvi)
         auto new_line = xsprintf("%ls%ls%ls", head_line, middle_line, tail_line).to_wstring();
         
         self.texts.replace(y, clone new_line);
+        self.texts_length.replace(y, wcslen(new_line));
     }
 }
 
@@ -448,12 +456,14 @@ void ViWin*::rewriteOnHorizonVisualMode(ViWin* self, Vi* nvi)
         auto new_line = xsprintf("%ls%ls", head_first_line, tail_first_line).to_wstring();
         
         self.texts.replace(y, clone new_line);
+        self.texts_length.replace(y, wcslen(new_line));
         
         int it2 = 0;
         foreach(it, self.texts.sublist(y+1, hv_y)) {
             auto new_line = xsprintf("%lc", key).multiply(it.length()).to_wstring();
             
             self.texts.replace(y+1+it2, clone new_line);
+            self.texts_length.replace(y+1+it2, wcslen(new_line));
             it2++;
         }
         auto last_line = self.texts.item(hv_y, null);
@@ -464,6 +474,7 @@ void ViWin*::rewriteOnHorizonVisualMode(ViWin* self, Vi* nvi)
         auto new_last_line = xsprintf("%ls%ls", head_last_line, tail_last_line).to_wstring();
         
         self.texts.replace(hv_y, clone new_last_line);
+        self.texts_length.replace(hv_y, wcslen(new_last_line));
     }
     else if(y == hv_y) {
         int head = self.visualModeHorizonHeadX;
@@ -483,6 +494,7 @@ void ViWin*::rewriteOnHorizonVisualMode(ViWin* self, Vi* nvi)
         auto new_line = xsprintf("%ls%ls%ls", head_line, middle_line, tail_line).to_wstring();
         
         self.texts.replace(y, clone new_line);
+        self.texts_length.replace(y, wcslen(new_line));
     }
 }
 

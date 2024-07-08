@@ -124,6 +124,7 @@ void ViWin*::indentVisualMode(ViWin* self, Vi* nvi)
                     , it).to_wstring();
 
         self.texts.replace(it2+head, new_line);
+        self.texts_length.replace(it2+head, wcslen(new_line));
         it2++;
     }
 
@@ -153,6 +154,7 @@ void ViWin*::backIndentVisualMode(ViWin* self, Vi* nvi)
             }
 
             self.texts.replace(it2+head, new_line);
+            self.texts_length.replace(it2+head, wcslen(new_line));
         }
 
         it2++;
@@ -192,6 +194,7 @@ void ViWin*::changeCaseVisualMode(ViWin* self, Vi* nvi)
         }
         
         self.texts.replace(it2+head, new_line);
+        self.texts_length.replace(it2+head, wcslen(new_line));
 
         it2++;
     }
@@ -236,8 +239,10 @@ void ViWin*::joinVisualMode(ViWin* self, Vi* nvi)
     }
 
     self.texts.delete(head, tail+1);
+    self.texts_length.delete(head, tail+1);
     
     self.texts.insert(head, new_line);
+    self.texts_length.insert(head, wcslen(new_line));
 
     if(self.scroll+self.cursorY >= self.visualModeHead) {
         self.cursorY -= tail - head;
@@ -316,6 +321,7 @@ void ViWin*::equalVisualMode(ViWin* self, Vi* nvi)
                     , new_line).to_wstring();
         
         self.texts.replace(it2+head, new_line2);
+        self.texts_length.replace(it2+head, wcslen(new_line2));
 
         it2++;
     }
@@ -365,6 +371,7 @@ void ViWin*::rewriteVisualMode(ViWin* self, Vi* nvi)
         auto new_line = buf.to_string().to_wstring();
 
         self.texts.replace(it2+head, new_line);
+        self.texts_length.replace(it2+head, wcslen(new_line));
         it2++;
     }
 
@@ -398,10 +405,13 @@ void ViWin*::deleteOnVisualMode(ViWin* self, Vi* nvi)
 
     if(tail+1 >= self.texts.length()) {
         self.texts.delete(head, -1);
+        self.texts_length.delete(head, -1);
         self.texts.push_back(wstring(""));
+        self.texts_length.push_back(0);
     }
     else {
         self.texts.delete(head, tail+1);
+        self.texts_length.delete(head, tail+1);
     }
 
     if(self.scroll+self.cursorY >= self.visualModeHead) {

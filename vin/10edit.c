@@ -18,7 +18,7 @@ void ViWin*::modifyCursorOnDeleting(ViWin* self)
 
 void ViWin*::deleteOneLine(ViWin* self, Vi* nvi) version 10
 {
-    if(self.digitInput > 0) {
+    if(self.digitInput > 0 && !gBinaryMode) {
         self.pushUndo();
         
         nvi.yank.reset();
@@ -31,6 +31,7 @@ void ViWin*::deleteOneLine(ViWin* self, Vi* nvi) version 10
                 nvi.yank.push_back(clone line);
                 
                 self.texts.delete(self.scroll+self.cursorY, self.scroll+self.cursorY+1);
+                self.texts_length.delete(self.scroll+self.cursorY, self.scroll+self.cursorY+1);
         
                 self.modifyCursorOnDeleting();
             }
@@ -48,6 +49,7 @@ void ViWin*::deleteOneLine(ViWin* self, Vi* nvi) version 10
             nvi.yankKind = kYankKindLine;
             self.saveYankToFile(nvi);
             self.texts.delete(self.scroll+self.cursorY, self.scroll+self.cursorY+1);
+            self.texts_length.delete(self.scroll+self.cursorY, self.scroll+self.cursorY+1);
     
             self.modifyCursorOnDeleting();
         }
@@ -69,6 +71,7 @@ void ViWin*::deleteOneLine2(ViWin* self, Vi* nvi)
                 nvi.yank.push_back(clone line);
                 
                 self.texts.delete(self.scroll+self.cursorY, self.scroll+self.cursorY+1);
+                self.texts_length.delete(self.scroll+self.cursorY, self.scroll+self.cursorY+1);
         
                 self.modifyCursorOnDeleting();
             }
@@ -82,7 +85,9 @@ void ViWin*::deleteOneLine2(ViWin* self, Vi* nvi)
         if(line != null) {
             self.pushUndo();
             self.texts.delete(self.scroll+self.cursorY, self.scroll+self.cursorY+1);
+            self.texts_length.delete(self.scroll+self.cursorY, self.scroll+self.cursorY+1);
             self.texts.insert(self.scroll+self.cursorY, wstring(""));
+            self.texts_length.insert(self.scroll+self.cursorY, 0);
     
             self.modifyCursorOnDeleting();
         }
@@ -375,7 +380,7 @@ void ViWin*::deleteCursorCharactor(ViWin* self)
 {
     self.pushUndo();
     
-    if(self.digitInput > 0) {
+    if(self.digitInput > 0 && !gBinaryMode) {
         int num = self.digitInput + 1;
         
         auto line = self.texts.item(self.scroll+self.cursorY, null);
@@ -389,10 +394,33 @@ void ViWin*::deleteCursorCharactor(ViWin* self)
         self.digitInput = 0;
     }
     else {
-        auto line = self.texts.item(self.scroll+self.cursorY, null);
-        line.delete(self.cursorX, self.cursorX+1);
-    
-        self.modifyOverCursorXValue();
+        if(gBinaryMode) {
+            auto line = self.texts.item(self.scroll+self.cursorY, null);
+            
+            int len = self.texts_length.item(self.scroll+self.cursorY, -1);
+            len--;
+            self.texts_length.replace(self.scroll+self.cursorY, len);
+            
+            if(len >= 1) {
+                wchar_t*% new_line = new wchar_t[len+1];
+                
+                memcpy(new_line, line, sizeof(wchar_t)*self.cursorX);
+                memcpy(new_line + self.cursorX, line + self.cursorX+1, sizeof(wchar_t)*(len - self.cursorX));
+                self.texts.replace(self.scroll+self.cursorY, new_line);
+            
+                self.modifyOverCursorXValue();
+            }
+        }
+        else {
+            auto line = self.texts.item(self.scroll+self.cursorY, null);
+            line.delete(self.cursorX, self.cursorX+1);
+            
+            int len = self.texts_length.item(self.scroll+self.cursorY, -1);
+            len--;
+            self.texts_length.replace(self.scroll+self.cursorY, len);
+        
+            self.modifyOverCursorXValue();
+        }
     }
 }
 
@@ -502,6 +530,7 @@ void ViWin*::incrementNumber(ViWin* self)
             auto new_line = xsprintf("%ls%d%ls", line.substring(0, head), n, line.substring(tail, -1)).to_wstring();
             
             self.texts.replace(self.scroll+self.cursorY, new_line);
+            self.texts_length.replace(self.scroll+self.cursorY, wcslen(new_line));
         }
     
         self.modifyOverCursorXValue();
@@ -525,6 +554,7 @@ void ViWin*::incrementNumber(ViWin* self)
             auto new_line = xsprintf("%ls%d%ls", line.substring(0, head), n, line.substring(tail, -1)).to_wstring();
             
             self.texts.replace(self.scroll+self.cursorY, new_line);
+            self.texts_length.replace(self.scroll+self.cursorY, wcslen(new_line));
         }
 
         self.modifyOverCursorXValue();
@@ -572,6 +602,7 @@ void ViWin*::deleteUntilTail(ViWin* self)
             
             if(line != null) {
                 self.texts.delete(self.scroll+self.cursorY+1, self.scroll+self.cursorY+1+1);
+                self.texts_length.delete(self.scroll+self.cursorY+1, self.scroll+self.cursorY+1+1);
         
                 self.modifyCursorOnDeleting();
             }
@@ -600,7 +631,10 @@ void ViWin*::joinLines(ViWin* self)
         auto line2 = xsprintf("%ls %ls", line, next_line).to_wstring();
 
         self.texts.replace(self.scroll+self.cursorY, line2);
+        self.texts_length.replace(self.scroll+self.cursorY, wcslen(line2));
         self.texts.delete(self.scroll+self.cursorY+1, self.scroll+self.cursorY+1+1);
+        self.texts_length.delete(self.scroll+self.cursorY+1, self.scroll+self.cursorY+1+1);
+        self.texts_length.delete(self.scroll+self.cursorY+1, self.scroll+self.cursorY+1+1);
     }
 
     self.modifyOverCursorXValue();
@@ -647,7 +681,9 @@ void ViWin*::joinLines2(ViWin* self) version 10
         auto next_line = clone self.texts.item(self.scroll+self.cursorY+1, null);
 
         self.texts.replace(self.scroll+self.cursorY, xsprintf("%ls%ls", line, next_line).to_wstring());
+        self.texts_length.replace(self.scroll+self.cursorY, wcslen(xsprintf("%ls%ls", line, next_line).to_wstring()));
         self.texts.delete(self.scroll+self.cursorY+1, self.scroll+self.cursorY+1+1);
+        self.texts_length.delete(self.scroll+self.cursorY+1, self.scroll+self.cursorY+1+1);
     }
 
     self.modifyOverCursorXValue();

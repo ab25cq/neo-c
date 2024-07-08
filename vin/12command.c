@@ -363,6 +363,7 @@ void ViWin*::subAllTextsFromCommandMode(ViWin* self, Vi* nvi)
             auto new_line = it.to_string().sub(reg, replace).to_wstring();
             
             self.texts.replace(it2, new_line);
+            self.texts_length.replace(it2, wcslen(new_line));
 
             it2++;
         }
@@ -392,7 +393,7 @@ void Vi*::exitFromComandMode(Vi* self)
             self.mode = kEditMode;
         }
         if(string(self.commandString).index("w", -1) != -1) {
-            self.activeWin.writeFile();
+            self.activeWin.writeFile(gBinaryMode);
         }
         if(string(self.commandString).index("q", -1) != -1) {
             bool writed = self.activeWin.writed;

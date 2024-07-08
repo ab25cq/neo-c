@@ -4,6 +4,7 @@
 ViWin*% ViWin*::initialize(ViWin*% self, int y, int x, int width, int height, Vi* vi) version 1
 {
     self.texts = new list<wstring>();
+    self.texts_length = new list<int>();
 
     self.y = y;
     self.x = x;
@@ -31,6 +32,7 @@ ViWin*% ViWin*::initialize(ViWin*% self, int y, int x, int width, int height, Vi
 void ViWin*::finalize(ViWin* self) version 1
 {
     delete borrow self.texts;
+    delete borrow self.texts_length;
     delwin(self.win);
 }
 
@@ -64,8 +66,11 @@ Vi*% Vi*::initialize(Vi*% self) version 1
     ViWin*% win = new ViWin(0, 0, maxx-1, maxy, self);
 
     win.texts.push_back(wstring("aaa"));
+    win.texts_length.push_back(3);
     win.texts.push_back(wstring("bbb"));
+    win.texts_length.push_back(3);
     win.texts.push_back(wstring("ccc"));
+    win.texts_length.push_back(3);
 
     self.wins.push_back(win);
 

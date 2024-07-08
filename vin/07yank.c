@@ -117,6 +117,7 @@ void ViWin*::pasteAfterCursor(ViWin* self, Vi* nvi)
         int it2 = 0;
         foreach(it, nvi.yank) {
             self.texts.insert(self.scroll+self.cursorY+it2+1, clone it);
+            self.texts_length.insert(self.scroll+self.cursorY+it2+1, wcslen(it));
             it2++;
         }
     }
@@ -134,6 +135,7 @@ void ViWin*::pasteAfterCursor(ViWin* self, Vi* nvi)
                             , line.substring(self.cursorX+1, -1)).to_wstring();
     
             self.texts.replace(self.scroll+self.cursorY, new_line);
+            self.texts_length.replace(self.scroll+self.cursorY, wcslen(new_line));
         }
         else if(nvi.yank.length() == 2) {
             auto yank_first_line = nvi.yank.item(0, null);
@@ -145,6 +147,7 @@ void ViWin*::pasteAfterCursor(ViWin* self, Vi* nvi)
             auto after_line = line.substring(self.cursorX+1, -1);
     
             self.texts.replace(self.scroll+self.cursorY, new_line);
+            self.texts_length.replace(self.scroll+self.cursorY, wcslen(new_line));
             
             auto yank_last_line = nvi.yank.item(-1, null);
             
@@ -152,6 +155,7 @@ void ViWin*::pasteAfterCursor(ViWin* self, Vi* nvi)
                                 , yank_last_line
                                 , after_line).to_wstring();
             self.texts.insert(self.scroll+self.cursorY+1, new_line2);
+            self.texts_length.insert(self.scroll+self.cursorY+1, wcslen(new_line2));
         }
         else if(nvi.yank.length() > 2) {
             auto yank_first_line = nvi.yank.item(0, null);
@@ -162,10 +166,12 @@ void ViWin*::pasteAfterCursor(ViWin* self, Vi* nvi)
             auto after_line = line.substring(self.cursorX+1, -1);
     
             self.texts.replace(self.scroll+self.cursorY, new_line);
+            self.texts_length.replace(self.scroll+self.cursorY, wcslen(new_line));
 
             int it2 = 0;
             foreach(it, nvi.yank.sublist(1,-2)) {
                 self.texts.insert(self.scroll+self.cursorY+it2+1, clone it);
+                self.texts_length.insert(self.scroll+self.cursorY+it2+1, wcslen(it));
                 it2++;
             }
             
@@ -175,6 +181,7 @@ void ViWin*::pasteAfterCursor(ViWin* self, Vi* nvi)
                                         , yank_last_line
                                         , after_line).to_wstring();
             self.texts.insert(self.scroll+self.cursorY+nvi.yank.length()-1, new_line2);
+            self.texts_length.insert(self.scroll+self.cursorY+nvi.yank.length()-1, wcslen(new_line2));
         }
     }
 }
@@ -187,6 +194,7 @@ void ViWin*::pasteBeforeCursor(ViWin* self, Vi* nvi)
         int it2 = 0;
         foreach(it, nvi.yank) {
             self.texts.insert(self.scroll+self.cursorY+it2, clone it);
+            self.texts_length.insert(self.scroll+self.cursorY+it2, wcslen(it));
             it2++;
         }
     }
@@ -204,6 +212,7 @@ void ViWin*::pasteBeforeCursor(ViWin* self, Vi* nvi)
                                 , line.substring(self.cursorX, -1)).to_wstring();
     
             self.texts.replace(self.scroll+self.cursorY, new_line);
+            self.texts_length.replace(self.scroll+self.cursorY, wcslen(new_line));
         }
         else if(nvi.yank.length() == 2) {
             auto yank_first_line = nvi.yank.item(0, null);
@@ -215,6 +224,7 @@ void ViWin*::pasteBeforeCursor(ViWin* self, Vi* nvi)
             auto after_line = line.substring(self.cursorX, -1);
     
             self.texts.replace(self.scroll+self.cursorY, new_line);
+            self.texts_length.replace(self.scroll+self.cursorY, wcslen(new_line));
             
             auto yank_last_line = nvi.yank.item(-1, null);
             
@@ -222,6 +232,7 @@ void ViWin*::pasteBeforeCursor(ViWin* self, Vi* nvi)
                                 , yank_last_line
                                 , after_line).to_wstring();
             self.texts.insert(self.scroll+self.cursorY+1, new_line2);
+            self.texts_length.insert(self.scroll+self.cursorY+1, wcslen(new_line2));
         }
         else if(nvi.yank.length() > 2) {
             auto yank_first_line = nvi.yank.item(0, null);
@@ -232,9 +243,11 @@ void ViWin*::pasteBeforeCursor(ViWin* self, Vi* nvi)
             auto after_line = line.substring(self.cursorX, -1);
     
             self.texts.replace(self.scroll+self.cursorY, new_line);
+            self.texts_length.replace(self.scroll+self.cursorY, wcslen(new_line));
             int it2 = 0;
             foreach(it, nvi.yank.sublist(1,-2)) {
                 self.texts.insert(self.scroll+self.cursorY+it2+1, clone it);
+                self.texts_length.insert(self.scroll+self.cursorY+it2+1, wcslen(it));
                 it2++;
             }
             
@@ -244,6 +257,7 @@ void ViWin*::pasteBeforeCursor(ViWin* self, Vi* nvi)
                                         ,yank_last_line
                                         , after_line).to_wstring();
             self.texts.insert(self.scroll+self.cursorY+nvi.yank.length()-1, new_line2);
+            self.texts_length.insert(self.scroll+self.cursorY+nvi.yank.length()-1, wcslen(new_line2));
         }
     }
 }
@@ -257,6 +271,7 @@ void ViWin*::filePasteAfterCursor(ViWin* self, Vi* nvi)
         int it2 = 0;
         foreach(it, nvi.fileYank) {
             self.texts.insert(self.scroll+self.cursorY+it2+1, clone it);
+            self.texts_length.insert(self.scroll+self.cursorY+it2+1, wcslen(it));
             it2++;
         }
     }
@@ -274,6 +289,7 @@ void ViWin*::filePasteAfterCursor(ViWin* self, Vi* nvi)
                             , line.substring(self.cursorX+1, -1)).to_wstring();
     
             self.texts.replace(self.scroll+self.cursorY, new_line);
+            self.texts_length.replace(self.scroll+self.cursorY, wcslen(new_line));
         }
         else if(nvi.fileYank.length() == 2) {
             auto yank_first_line = nvi.yank.item(0, null);
@@ -285,6 +301,7 @@ void ViWin*::filePasteAfterCursor(ViWin* self, Vi* nvi)
             auto after_line = line.substring(self.cursorX+1, -1);
     
             self.texts.replace(self.scroll+self.cursorY, new_line);
+            self.texts_length.replace(self.scroll+self.cursorY, wcslen(new_line));
             
             auto yank_last_line = nvi.fileYank.item(-1, null);
             
@@ -292,6 +309,7 @@ void ViWin*::filePasteAfterCursor(ViWin* self, Vi* nvi)
                                 , yank_last_line
                                 , after_line).to_wstring();
             self.texts.insert(self.scroll+self.cursorY+1, new_line2);
+            self.texts_length.insert(self.scroll+self.cursorY+1, wcslen(new_line2));
         }
         else if(nvi.fileYank.length() > 2) {
             auto yank_first_line = nvi.fileYank.item(0, null);
@@ -302,10 +320,12 @@ void ViWin*::filePasteAfterCursor(ViWin* self, Vi* nvi)
             auto after_line = line.substring(self.cursorX+1, -1);
     
             self.texts.replace(self.scroll+self.cursorY, new_line);
+            self.texts_length.replace(self.scroll+self.cursorY, wcslen(new_line));
 
             int it2 = 0;
             foreach(it, nvi.fileYank.sublist(1,-2)) {
                 self.texts.insert(self.scroll+self.cursorY+it2+1, clone it);
+                self.texts_length.insert(self.scroll+self.cursorY+it2+1, wcslen(it));
                 it2++;
             }
             
@@ -315,6 +335,7 @@ void ViWin*::filePasteAfterCursor(ViWin* self, Vi* nvi)
                                         , yank_last_line
                                         , after_line).to_wstring();
             self.texts.insert(self.scroll+self.cursorY+nvi.yank.length()-1, new_line2);
+            self.texts_length.insert(self.scroll+self.cursorY+nvi.yank.length()-1, wcslen(new_line2));
         }
     }
 }

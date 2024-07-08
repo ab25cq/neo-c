@@ -27,6 +27,7 @@ void ViWin*::view(ViWin* self, Vi* nvi) version 3
 void ViWin*::insertText(ViWin* self, wstring text) {
     if(self.texts.length() == 0) {
         self.texts.push_back(clone text);
+        self.texts_length.push_back(wcslen(text));
         self.cursorX += text.length();
     }
     else {
@@ -35,6 +36,7 @@ void ViWin*::insertText(ViWin* self, wstring text) {
         auto new_line = wstring(xsprintf("%ls%ls%ls", old_line.substring(0, self.cursorX), text, old_line.substring(self.cursorX, -1)));
 
         self.texts.replace(self.scroll+self.cursorY, new_line);
+        self.texts_length.replace(self.scroll+self.cursorY, wcslen(new_line));
         self.cursorX += text.length();
     }
 }
@@ -66,7 +68,9 @@ void ViWin*::enterNewLine(ViWin* self)
     auto new_line2 = wstring(xsprintf("%ls%ls", head_new_line, old_line.substring(self.cursorX, -1)));
 
     self.texts.replace(self.scroll+self.cursorY, new_line1);
+    self.texts_length.replace(self.scroll+self.cursorY, wcslen(new_line1));
     self.texts.insert(self.scroll+self.cursorY+1, new_line2);
+    self.texts_length.insert(self.scroll+self.cursorY+1, wcslen(new_line2));
     self.cursorY++;
     self.cursorX = num_spaces;
 
@@ -96,6 +100,7 @@ void ViWin*::enterNewLine2(ViWin* self)
     }
 
     self.texts.insert(self.scroll+self.cursorY+1, new_line);
+    self.texts_length.insert(self.scroll+self.cursorY+1, wcslen(new_line));
     self.cursorY++;
     self.cursorX = num_spaces;
 
@@ -231,6 +236,7 @@ void ViWin*::inputInsertMode(ViWin* self, Vi* nvi)
             line.delete(self.cursorX, cursor_x+1);
          
             self.texts.replace(self.scroll+self.cursorY, clone line);
+            self.texts_length.replace(self.scroll+self.cursorY, wcslen(line));
             self.modifyOverCursorXValue();
             self.cursorX++;
         }
@@ -241,6 +247,7 @@ void ViWin*::inputInsertMode(ViWin* self, Vi* nvi)
             line.delete(0, cursor_x+1);
             
             self.texts.replace(self.scroll+self.cursorY, clone line);
+            self.texts_length.replace(self.scroll+self.cursorY, wcslen(line));
                             
             self.cursorX = 0;
             self.cursorY = cursor_y;
