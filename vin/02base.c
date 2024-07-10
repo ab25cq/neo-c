@@ -10,12 +10,6 @@ ViWin*% ViWin*::initialize(ViWin*% self, int y, int x, int width, int height, Vi
     return result;
 }
 
-void ViWin*::finalize(ViWin* self) version 2
-{
-    inherit(self);
-    delete borrow self.returnPointStack;
-}
-
 void ViWin*::textsView(ViWin* self, Vi* nvi)
 {
     int maxy = getmaxy(self.win);

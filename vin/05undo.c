@@ -13,16 +13,6 @@ ViWin*% ViWin*::initialize(ViWin*% self, int y, int x, int width, int height, Vi
     return result;
 }
 
-void ViWin*::finalize(ViWin* self) version 5
-{
-    inherit(self);
-
-    delete borrow self.undo;
-    delete borrow self.undoScroll;
-    delete borrow self.undoCursorX;
-    delete borrow self.undoCursorY;
-}
-
 void ViWin*::pushUndo(ViWin* self) version 5
 {
     self.undo.delete(self.undoIndex, -1);

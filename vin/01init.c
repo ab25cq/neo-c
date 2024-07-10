@@ -29,10 +29,8 @@ ViWin*% ViWin*::initialize(ViWin*% self, int y, int x, int width, int height, Vi
     return self;
 }
 
-void ViWin*::finalize(ViWin* self) version 1
+void ViWin*::user_finalize(ViWin* self)
 {
-    delete borrow self.texts;
-    delete borrow self.texts_length;
     delwin(self.win);
 }
 

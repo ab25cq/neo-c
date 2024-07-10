@@ -31,17 +31,6 @@ ViWin*% ViWin*::initialize(ViWin*% self, int y, int x, int width, int height, Vi
     return result;
 }
 
-void ViWin*::finalize(ViWin* self) version 14
-{
-    inherit(self);
-
-    delete borrow self.inputedKeys;
-    if(self.savedInputedKeys) {
-        delete borrow self.savedInputedKeys;
-    }
-    delete borrow self.macro;
-}
-
 bool ViWin*::saveDotToFile(ViWin* self, Vi* nvi) version 14
 {
     char* home = getenv("HOME");

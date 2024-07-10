@@ -129,7 +129,7 @@ extern int gBinaryMode;
 
 
 ViWin*% ViWin*::initialize(ViWin*% self, int y, int x, int width, int height, Vi* vi) version 1;
-void ViWin*::finalize(ViWin* self) version 1;
+void ViWin*::user_finalize(ViWin* self);
 void ViWin*::view(ViWin* self, Vi* nvi) version 1;
 void ViWin*::input(ViWin* self, Vi* nvi) version 1;
 Vi*% Vi*::initialize(Vi*% self) version 1;
@@ -142,7 +142,6 @@ void Vi*::init_curses(Vi* self);
 ////////////////////////////
 void ViWin*::shellMode(ViWin* self, Vi* nvi) version 2;
 ViWin*% ViWin*::initialize(ViWin*% self, int y, int x, int width, int height, Vi* vi) version 2;
-void ViWin*::finalize(ViWin* self) version 2;
 void ViWin*::textsView(ViWin* self, Vi* nvi);
 void ViWin*::statusBarView(ViWin* self, Vi* nvi) version 2;
 void ViWin*::view(ViWin* self, Vi* nvi) version 2;
@@ -219,7 +218,6 @@ Vi*% Vi*::initialize(Vi*% self) version 4;
 // src/05undo.c
 ////////////////////////////
 ViWin*% ViWin*::initialize(ViWin*% self, int y, int x, int width, int height, Vi* vi) version 5;
-void ViWin*::finalize(ViWin* self) version 5;
 void ViWin*::pushUndo(ViWin* self) version 5;
 void ViWin*::redo(ViWin* self);
 void ViWin*::undo(ViWin* self);
@@ -380,7 +378,6 @@ void ViWin*::completion(ViWin* self, Vi* nvi) version 13;
 ////////////////////////////
 void mreset_tty();
 ViWin*% ViWin*::initialize(ViWin*% self, int y, int x, int width, int height, Vi* vi) version 14;
-void ViWin*::finalize(ViWin* self) version 14;
 bool ViWin*::saveDotToFile(ViWin* self, Vi* nvi) version 14;
 bool ViWin*::loadDotFromFile(ViWin* self, Vi* nvi);
 int ViWin*::getKey(ViWin* self, bool head) version 14;
@@ -397,7 +394,6 @@ Vi*% Vi*::initialize(Vi*% self) version 14;
 // src/16mark.c
 ////////////////////////////
 ViWin*% ViWin*::initialize(ViWin*% self, int y, int x, int width, int height, Vi* vi) version 16;
-void ViWin*::finalize(ViWin* self) version 16;
 void ViWin*::markAtCurrentPoint(ViWin* self, wchar_t c);
 void ViWin*::returnAtMarkedPoint(ViWin* self, wchar_t c);
 void ViWin*::returnBack(ViWin* self);

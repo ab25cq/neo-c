@@ -9,17 +9,6 @@ ViWin*% ViWin*::initialize(ViWin*% self, int y, int x, int width, int height, Vi
     return result;
 }
 
-void ViWin*::finalize(ViWin* self) version 16
-{
-    inherit(self);
-
-    delete borrow self.mark;
-
-    if(self.returnPoint) {
-        delete borrow self.returnPoint;
-    }
-}
-
 void ViWin*::markAtCurrentPoint(ViWin* self, wchar_t c) 
 {
     auto point = new tuple3<int, int, int>;
