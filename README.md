@@ -336,6 +336,7 @@ sh all_build.sh
 
 # Histories
 
+1.0.3.0.0 user finalize
 1.0.2.0.1 bug fiexed.
 1.0.2.0.0 remove tmp files.
 1.0.1.0.2 remove bash. changed zed bug.
@@ -3340,6 +3341,34 @@ int main(int argc, char** argv)
     return 0;
 }
 ```
+
+# User finalize
+
+```
+#include <neo-c.h>
+
+class sData
+{
+    string data;
+    new() {
+        self.data = string("A");
+        initscr();
+    }
+    
+    void user_finalize() {
+        endwin();
+    }
+}
+
+int main(int argc, char** argv)
+{
+    var data = new sData();
+    
+    return 0;
+}
+```
+
+This is no memory leak
 
 # afterword
 

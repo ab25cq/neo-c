@@ -381,7 +381,6 @@ void decrement_ref_count_object(sType* type, char* obj, sInfo* info, bool force_
         if(type->mGenericsTypes.length() > 0) {
             finalizer = info->funcs[fun_name2]??;
             
-            
             if(finalizer == NULL) {
                 string none_generics_name = get_none_generics_name(type2.mClass.mName);
                 

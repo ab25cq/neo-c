@@ -1929,6 +1929,9 @@ sFun*,string create_finalizer_automatically(sType* type, char* fun_name, sInfo* 
     
     string real_fun_name = create_method_name(type, false@no_pointer_name, fun_name, info);
     
+    string user_real_fun_name = create_method_name(type, false@no_pointer_name, "user_finalize", info);
+    sFun* user_finalizer = info->funcs[user_real_fun_name]??
+    
     sType*% type2 = solve_generics(type, type, info);
     
     type = borrow type2;
@@ -1939,6 +1942,13 @@ sFun*,string create_finalizer_automatically(sType* type, char* fun_name, sInfo* 
         var source = new buffer();
         
         source.append_char('{');
+        
+        if(user_finalizer) {
+            char source2[1024];
+            snprintf(source2, 1024, "if(self != ((void*)0)) { %s(self); }\n", user_real_fun_name);
+            
+            source.append_str(source2);
+        }
         
         klass = info.classes[klass->mName]??;
         foreach(it, klass->mFields) {
