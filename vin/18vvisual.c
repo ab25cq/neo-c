@@ -29,39 +29,39 @@ void ViWin*::verticalVisualModeView(ViWin* self, Vi* nvi)
         {
             auto line1 = it.substring(0
                         , self.visualModeVerticalHeadX);
-	    mvwprintw(self.win, it2, 0, "%ls", line1);
-	    
-	    using c {wattron(self.win, A_REVERSE); }
+            mvwprintw(self.win, it2, 0, "%ls", line1);
+            
+            wattron(self.win, A_REVERSE);
             auto line2 = it.substring(
                     self.visualModeVerticalHeadX
                     , self.visualModeVerticalHeadX
                       + self.visualModeVerticalLen);
-		    mvwprintw(self.win, it2
+            mvwprintw(self.win, it2
                             , self.visualModeVerticalHeadX
                             , "%ls", line2);
-		    using c { wattroff(self.win, A_REVERSE); }
+            wattroff(self.win, A_REVERSE);
             
             auto line3 = it.substring(
                     self.visualModeVerticalHeadX
                         +self.visualModeVerticalLen
                     , -1);
-		    mvwprintw(self.win, it2
+            mvwprintw(self.win, it2
                     , self.visualModeVerticalHeadX
                         + self.visualModeVerticalLen
                     , "%ls", line3);
         }
         else {
-	    mvwprintw(self.win, it2, 0, "%s", line.to_string());
+            mvwprintw(self.win, it2, 0, "%s", line.to_string());
         }
 
         it2++;
     }
 
-	    using c { wattron(self.win, A_REVERSE); }
-	    mvwprintw(self.win, self.height-1, 0, "VISUAL MODE x %d y %d", self.cursorX, self.cursorY);
-	    using c { wattroff(self.win, A_REVERSE); }
+    wattron(self.win, A_REVERSE);
+    mvwprintw(self.win, self.height-1, 0, "VISUAL MODE x %d y %d", self.cursorX, self.cursorY);
+    wattroff(self.win, A_REVERSE);
 
-	    using c { wrefresh(self.win); }
+    wrefresh(self.win);
 }
 
 void ViWin*::view(ViWin* self, Vi* nvi) version 18

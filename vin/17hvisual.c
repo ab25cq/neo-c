@@ -45,9 +45,9 @@ void ViWin*::horizonVisualModeView(ViWin* self, Vi* nvi)
                         
                         auto line2 = line.substring(self.cursorX
                                 , self.visualModeHorizonHeadX+1);
-			using c { wattron(self.win, A_REVERSE); }
-			mvwprintw(self.win, it2, x, "%ls", line2);
-			using c { wattroff(self.win, A_REVERSE); }
+                        wattron(self.win, A_REVERSE);
+                        mvwprintw(self.win, it2, x, "%ls", line2);
+                        wattroff(self.win, A_REVERSE);
                         
                         x += line2.length();
                         
@@ -60,22 +60,22 @@ void ViWin*::horizonVisualModeView(ViWin* self, Vi* nvi)
                         
                         auto line1 = line.substring(0
                                 , self.visualModeHorizonHeadX);
-			mvwprintw(self.win, it2, x, "%ls", line1);
+                        mvwprintw(self.win, it2, x, "%ls", line1);
                         
                         x += line1.length();
                         
                         auto line2 = line.substring(
                                 self.visualModeHorizonHeadX
                                 , self.cursorX+1);
-			using c { wattron(self.win, A_REVERSE); }
-			mvwprintw(self.win, it2, x, "%ls", line2);
-			using c { wattroff(self.win, A_REVERSE); }
+                        wattron(self.win, A_REVERSE);
+                        mvwprintw(self.win, it2, x, "%ls", line2);
+                        wattroff(self.win, A_REVERSE);
                         
                         x += line2.length();
                         
                         auto line3 = line.substring(
                                     self.cursorX+1, -1);
-			mvwprintw(self.win, it2, x, "%ls", line3);
+                        mvwprintw(self.win, it2, x, "%ls", line3);
                     }
                 }
                 else {
@@ -83,16 +83,16 @@ void ViWin*::horizonVisualModeView(ViWin* self, Vi* nvi)
                     
                     auto line1 = line.substring(0
                             , self.visualModeHorizonHeadX);
-		    mvwprintw(self.win, it2, x, "%ls", line1);
+                    mvwprintw(self.win, it2, x, "%ls", line1);
                     
                     x += line1.length();
                     
                     auto line2 = line.substring(
                             self.visualModeHorizonHeadX
                             , -1);
-		    using c { wattron(self.win, A_REVERSE); }
-		    mvwprintw(self.win, it2, x, "%ls", line2);
-		    using c { wattroff(self.win, A_REVERSE); }
+                    wattron(self.win, A_REVERSE);
+                    mvwprintw(self.win, it2, x, "%ls", line2);
+                    wattroff(self.win, A_REVERSE);
                 }
             }
             else if(y == (self.cursorY + self.scroll))
@@ -100,26 +100,26 @@ void ViWin*::horizonVisualModeView(ViWin* self, Vi* nvi)
                 auto x = 0;
                 
                 auto line1 = line.substring(0, self.cursorX+1);
-		using c { wattron(self.win, A_REVERSE); }
-		mvwprintw(self.win, it2, x, "%ls", line1);
-		using c { wattroff(self.win, A_REVERSE); }
+                wattron(self.win, A_REVERSE);
+                mvwprintw(self.win, it2, x, "%ls", line1);
+                wattroff(self.win, A_REVERSE);
                 
                 x += line1.length();
                 
                 auto line2 = line.substring(self.cursorX+1
                         , -1);
-		mvwprintw(self.win, it2, x, "%ls", line2);
+                mvwprintw(self.win, it2, x, "%ls", line2);
             }
             else if(y > (self.visualModeHorizonHeadScroll 
                             +self.visualModeHorizonHeadY)
                     && y < self.scroll+self.cursorY) 
             {
-		using c { wattron(self.win, A_REVERSE); }
-		mvwprintw(self.win, it2, 0, "%s", line.to_string());
-		using c { wattroff(self.win, A_REVERSE); }
+                wattron(self.win, A_REVERSE);
+                mvwprintw(self.win, it2, 0, "%s", line.to_string());
+                wattroff(self.win, A_REVERSE);
             }
             else {
-		mvwprintw(self.win, it2, 0, "%s", line.to_string());
+                mvwprintw(self.win, it2, 0, "%s", line.to_string());
             }
 
             it2++;
@@ -140,9 +140,9 @@ void ViWin*::horizonVisualModeView(ViWin* self, Vi* nvi)
                 
                 auto line1 = line.substring(0
                         , self.visualModeHorizonHeadX+1);
-		using c { wattron(self.win, A_REVERSE); }
-		mvwprintw(self.win, it2, x, "%ls", line1);
-		using c { wattroff(self.win, A_REVERSE); }
+                wattron(self.win, A_REVERSE);
+                mvwprintw(self.win, it2, x, "%ls", line1);
+                wattroff(self.win, A_REVERSE); 
                 
                 x += line1.length();
                 
@@ -156,38 +156,38 @@ void ViWin*::horizonVisualModeView(ViWin* self, Vi* nvi)
                 auto x = 0;
                 
                 auto line1 = line.substring(0, self.cursorX+1);
-		mvwprintw(self.win, it2, x, "%ls", line1);
+                mvwprintw(self.win, it2, x, "%ls", line1);
                 
                 x += line1.length();
                 
                 auto line2 = line.substring(self.cursorX+1
                         , -1);
 
-		using c { wattron(self.win, A_REVERSE); }
-		mvwprintw(self.win, it2, x, "%ls", line2);
-		using c { wattroff(self.win, A_REVERSE); }
+                wattron(self.win, A_REVERSE);
+                mvwprintw(self.win, it2, x, "%ls", line2);
+                wattroff(self.win, A_REVERSE);
             }
             else if(y < (self.visualModeHorizonHeadScroll 
                             +self.visualModeHorizonHeadY)
                     && y > self.scroll+self.cursorY) 
             {
-		using c { wattron(self.win, A_REVERSE); }
-		mvwprintw(self.win, it2, 0, "%s", line.to_string());
-		using c { wattroff(self.win, A_REVERSE); }
+                wattron(self.win, A_REVERSE);
+                mvwprintw(self.win, it2, 0, "%s", line.to_string());
+                wattroff(self.win, A_REVERSE);
             }
             else {
-		mvwprintw(self.win, it2, 0, "%s", line.to_string());
+                mvwprintw(self.win, it2, 0, "%s", line.to_string());
             }
 
             it2++;
         }
     }
 
-	    using c { wattron(self.win, A_REVERSE); }
-	    mvwprintw(self.win, self.height-1, 0, "VISUAL MODE x %d y %d", self.cursorX, self.cursorY);
-	    using c { wattroff(self.win, A_REVERSE); }
+    wattron(self.win, A_REVERSE);
+    mvwprintw(self.win, self.height-1, 0, "VISUAL MODE x %d y %d", self.cursorX, self.cursorY);
+    wattroff(self.win, A_REVERSE);
 
-	    using c { wrefresh(self.win); }
+    wrefresh(self.win);
 }
 
 void ViWin*::view(ViWin* self, Vi* nvi) version 17

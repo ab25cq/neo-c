@@ -28,17 +28,17 @@ void ViWin*::visualModeView(ViWin* self, Vi* nvi)
         if(it2 >= (self.visualModeHead-self.scroll) 
             && it2 <= self.cursorY) 
         {
-            using c  { wattron(self.win, A_REVERSE); }
+            wattron(self.win, A_REVERSE);
             mvwprintw(self.win, it2, 0, "%ls", line);
-            using c { wattroff(self.win, A_REVERSE); }
+            wattroff(self.win, A_REVERSE);
         }
         else if(it2 <= 
             (self.visualModeHead-self.scroll) 
             && it2 >= self.cursorY) 
         {
-            using c { wattron(self.win, A_REVERSE); }
+            wattron(self.win, A_REVERSE);
             mvwprintw(self.win, it2, 0, "%ls", line);
-            using c { wattroff(self.win, A_REVERSE); }
+            wattroff(self.win, A_REVERSE);
         }
         else {
             mvwprintw(self.win, it2, 0, "%ls", line);
@@ -47,9 +47,9 @@ void ViWin*::visualModeView(ViWin* self, Vi* nvi)
         it2++;
     }
 
-    using c { wattron(self.win, A_REVERSE); }
+    wattron(self.win, A_REVERSE);
     mvwprintw(self.win, self.height-1, 0, "VISUAL MODE x %d y %d", self.cursorX, self.cursorY);
-    using c { wattroff(self.win, A_REVERSE); }
+    wattroff(self.win, A_REVERSE);
 
     wrefresh(self.win);
 }

@@ -50,9 +50,9 @@ string ViWin*::selector(ViWin* self, list<string>* lines)
             auto line = it.substring(0, maxx-1);
 
             if(cursor == y) {
-                using c { attron(A_REVERSE); }
+                attron(A_REVERSE);
                 mvprintw(y, 0, "%s", line);
-                using c { attroff(A_REVERSE); }
+                attroff(A_REVERSE);
             }
             else {
                 mvprintw(y, 0, "%s", line);
