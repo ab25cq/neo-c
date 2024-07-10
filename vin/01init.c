@@ -84,13 +84,6 @@ bool ViWin*::equals(ViWin* left, ViWin* right)
     return left.id == right.id;
 }
 
-void Vi*::finalize(Vi* self) version 1
-{
-    delete borrow self.wins;
-
-//    endwin();
-}
-
 int Vi::main_loop(Vi* self) version 1
 {
     foreach(it, self.wins) {

@@ -134,7 +134,6 @@ void ViWin*::view(ViWin* self, Vi* nvi) version 1;
 void ViWin*::input(ViWin* self, Vi* nvi) version 1;
 Vi*% Vi*::initialize(Vi*% self) version 1;
 bool ViWin*::equals(ViWin* left, ViWin* right);
-void Vi*::finalize(Vi* self) version 1;
 int Vi::main_loop(Vi* self) version 1;
 void Vi*::init_curses(Vi* self);
 
@@ -173,7 +172,6 @@ void ViWin*::saveReturnPoint(ViWin* self);
 void ViWin*::saveInputedKeyOnTheMovingCursor(ViWin* self) version 2;
 void ViWin*::joinLines2(ViWin* self) version 2;
 Vi*% Vi*::initialize(Vi*% self) version 2;
-void Vi*::finalize(Vi* self) version 2;
 void Vi*::exitFromApp(Vi* self) version 2;
 void Vi*::view(Vi* self);
 void Vi*::clearView(Vi* self);
@@ -268,7 +266,6 @@ void ViWin*::pasteAfterCursor(ViWin* self, Vi* nvi);
 void ViWin*::pasteBeforeCursor(ViWin* self, Vi* nvi);
 void ViWin*::filePasteAfterCursor(ViWin* self, Vi* nvi);
 Vi*% Vi*::initialize(Vi*% self) version 7;
-void Vi*::finalize(Vi* self) version 7;
 
 ////////////////////////////
 // src/08visual.c
@@ -317,7 +314,6 @@ void Vi*::readSearchString(Vi* self, char* file_name);
 void Vi*::enterSearchMode(Vi* self, bool regex_search, bool reverse) version 9;
 void Vi*::exitFromSearchMode(Vi* self);
 Vi*% Vi*::initialize(Vi*% self) version 9;
-void Vi*::finalize(Vi* self) version 9;
 
 ////////////////////////////
 // src/10edit.c

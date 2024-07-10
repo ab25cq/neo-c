@@ -634,13 +634,6 @@ Vi*% Vi*::initialize(Vi*% self) version 2
     return self;
 }
 
-void Vi*::finalize(Vi* self) version 2
-{
-    inherit(self);
-    
-    delete borrow self.events;
-}
-
 void Vi*::exitFromApp(Vi* self) version 2
 {
     self.appEnd = true;

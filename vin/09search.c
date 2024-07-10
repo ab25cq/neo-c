@@ -404,9 +404,4 @@ Vi*% Vi*::initialize(Vi*% self) version 9
 
     return result;
 }
-    
-void Vi*::finalize(Vi* self) version 9
-{
-    inherit(self);
-}
 
