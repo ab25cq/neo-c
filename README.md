@@ -1,7 +1,7 @@
 
 # neo-c
 
-Another modern Object Oriented C compiler. It has a heap system that is a cross between an automatically-free-system and a reference-counted GC, and includes a collection library and a string library. 
+Another modern Object Oriented C traspiler. It has a heap system that is a cross between an automatically-free-system and a reference-counted GC, and includes a collection library and a string library. 
 
 もう一つのモダンなオブジェクト指向Cコンパイラ。automatically-free-systemとリファレンスカウントGCの間をとったようなヒープシステムがありコレクションライブラリ、文字列ライブラリを備えてます。
 
