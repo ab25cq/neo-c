@@ -1076,7 +1076,11 @@ sNode*% expression_node(sInfo* info=info) version 97
             info.sline = head_sline;
         }
         
+        parse_sharp();
+        
         buf = parse_word();
+        
+        parse_sharp();
         
         if(lambda_flag) {
             info.p = head;
