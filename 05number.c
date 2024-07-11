@@ -413,7 +413,7 @@ sNode*% get_number(bool minus, sInfo* info)
             }
         }
         else {
-            unsigned long lont int value = strtoll(buf, NULL, 0);
+            long lont int value = strtoll(buf, NULL, 0);
             return new sIntNode(value, info) implements sNode;
         }
     }
@@ -539,7 +539,7 @@ sNode*% get_hex_number(bool minus, sInfo* info)
         }
     }
     else {
-        unsigned long long int value = strtoll(buf, NULL, 0);
+        long long int value = strtoll(buf, NULL, 0);
         if(minus) {
             return new sIntNode(-value, info) implements sNode;
         }

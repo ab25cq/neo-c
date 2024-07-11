@@ -2,7 +2,8 @@
 
 int main(int argc, char** argv)
 {
-    unsigned long long int a;
+    char* buf = "ABC";
+    long long int value = strtoll(buf, NULL, 0);
     
     return 0;
 }
