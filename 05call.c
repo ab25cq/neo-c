@@ -842,6 +842,8 @@ sNode*% parse_function_call(char* fun_name, sInfo* info)
             }
         }
     }
+    
+    parse_sharp();
     expected_next_character('(');
     
     parse_sharp();
