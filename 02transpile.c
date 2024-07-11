@@ -443,6 +443,7 @@ static void init_classes(sInfo* info)
     info.classes.insert(string("double"), new sClass("double", float_:true));
     info.classes.insert(string("lambda"), new sClass("lambda"));
     info.classes.insert(string("__uint128_t"), new sClass("__uint128_t", number:true));
+    info.classes.insert(string("__int128"), new sClass("__int128", number:true));
     for(int i=0; i<GENERICS_TYPE_MAX; i++) {
         string generics_type = xsprintf("generics_type%d", i);
         info.classes.insert(generics_type, new sClass(generics_type, generics:true, generics_num:i));

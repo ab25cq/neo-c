@@ -684,7 +684,7 @@ sNode*% pre_postion_operator(sInfo* info=info)
         char* p = info.p;
         int sline = info.sline;
         
-        if(*info->p == '&') {
+        if(*info->p == '&' && *(info->p+1) != '&') {
             info->p++;
             skip_spaces_and_lf();
             
@@ -878,7 +878,7 @@ sNode*% pre_postion_operator(sInfo* info=info)
     }
 }
 
-sNode*% expression_node(sInfo* info=info) version 98
+record sNode*% expression_node(sInfo* info=info) version 98
 {
     sNode*% node = pre_postion_operator();
     

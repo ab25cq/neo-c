@@ -2,8 +2,11 @@
 
 int main(int argc, char** argv)
 {
-    char* buf = "ABC";
-    long long int value = strtoll(buf, NULL, 0);
+    int status;
+    
+                                          (((signed char) (((
+                                          status
+                                          ) & 0x7f) + 1) >> 1) > 0);
     
     return 0;
 }

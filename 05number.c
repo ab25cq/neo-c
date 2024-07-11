@@ -640,7 +640,7 @@ sNode*% get_oct_number(sInfo* info)
     return (sNode*%)null;
 }
 
-sNode*% expression_node(sInfo* info=info) version 99
+record sNode*% expression_node(sInfo* info=info) version 99
 {
     skip_spaces_and_lf();
     

@@ -919,7 +919,7 @@ sNode*% parse_function_call(char* fun_name, sInfo* info)
     return node;
 }
 
-sNode*% expression_node(sInfo* info=info) version 1
+record sNode*% expression_node(sInfo* info=info) version 1
 {
     skip_spaces_and_lf();
     parse_sharp();
@@ -930,7 +930,7 @@ sNode*% expression_node(sInfo* info=info) version 1
     return (sNode*%)null;
 }
 
-sNode*% expression_node(sInfo* info=info) version 97
+record sNode*% expression_node(sInfo* info=info) version 97
 {
     skip_spaces_and_lf();
     parse_sharp();
@@ -1233,7 +1233,7 @@ static sNode*% post_position_operator_of_statment(sNode*% node, sInfo* info)
 
 sNode*% statment(sInfo* info=info)
 {
-    sNode*% node = expression_node(info);
+    sNode*% node = expression(info);
     
     node = post_position_operator_of_statment(node, info);
     
