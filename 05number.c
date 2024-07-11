@@ -488,7 +488,7 @@ sNode*% get_hex_number(bool minus, sInfo* info)
             }
         }
         else {
-            unsigned int value = strtoull(buf, NULL, 0);
+            unsigned long long int value = strtoull(buf, NULL, 0);
 
             if(minus) {
                 return new sUIntNode(-value, info) implements sNode;
