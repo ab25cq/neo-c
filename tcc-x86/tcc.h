@@ -28,6 +28,8 @@
 
 #else
 
+using c
+{
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
@@ -38,6 +40,7 @@
 #include <fcntl.h>
 #include <setjmp.h>
 #include <time.h>
+}
 
 #ifdef _WIN32
 #include <windows.h>
@@ -49,10 +52,13 @@
 #endif
 
 #ifndef _WIN32
+using c
+{
 #include <unistd.h>
 #include <sys/time.h>
 #include <sys/ucontext.h>
 #include <sys/mman.h>
+}
 #endif
 
 #endif /* !CONFIG_TCCBOOT */
