@@ -165,19 +165,22 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 97
 sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 15
 {
     /// backtrace ///
-    bool define_struct = false;
+    bool define_union = false;
     {
         char* p = info.p;
         int sline = info.sline;
         
         if(buf === "union") {
-            string type_name = parse_word();
-            
-            if(*info->p == '{') {
-                skip_block();
+            string type_name;
+            if(*info->p == '_' || xisalpha(*info->p)) {
+                type_name = parse_word();
                 
-                if(*info->p == ';') {
-                    define_struct = true;
+                if(*info->p == '{') {
+                    skip_block();
+                    
+                    if(*info->p == ';') {
+                        define_union = true;
+                    }
                 }
             }
         }
@@ -186,7 +189,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         info.sline = sline;
     }
     
-    if(define_struct) {
+    if(define_union) {
         string type_name = parse_word();
         
         return parse_union(type_name, info);

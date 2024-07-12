@@ -1017,7 +1017,7 @@ class sLoadArrayNode extends sNodeBase
         CVALUE*% left_value = get_value_from_stack(-1, info);
         dec_stack_ptr(1, info);
         
-        if(gComeDebug && left_value.type.mPointerNum > 0) {
+        if(gComeDebug && left_value.type.mPointerNum > 0 && !self.mBreakGuard) {
             left_value.c_value = xsprintf("((%s)come_null_check(%s, \"%s\", %d, %d))", make_type_name_string(left_value.type)!, left_value.c_value, info->sname, info->sline, gComeDebugStackFrameID++);
         }
         

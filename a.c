@@ -7,13 +7,10 @@ static __inline unsigned long long __DOUBLE_BITS(double __f)
     return __u.__i;
 }
 
+
 int main(int argc, char** argv)
 {
-    int status;
-    
-                                          (((signed char) (((
-                                          status
-                                          ) & 0x7f) + 1) >> 1) > 0);
+    union { int a; int b; } data;
     
     return 0;
 }

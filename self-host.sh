@@ -18,7 +18,7 @@ then
         #./configure --with-debug --with-optimize --with-original-position --with-gc
         #./configure --with-debug --with-original-position
         #./configure --with-debug --with-original-position --with-optimize --with-leak
-       ./configure --with-debug #--with-come-debug #--with-original-position #--with-come-debug
+       ./configure --with-debug #--with-come-debug #--with-come-debug #--with-original-position #--with-come-debug
     fi
 fi
 

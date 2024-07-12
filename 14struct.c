@@ -811,7 +811,12 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
         sClass* parent_class2 = parent_class;
         while(parent_class2) {
             parent_classes.add(parent_class2);
-            parent_class2 = info.classes[parent_class->mParentClassName]??;
+            if(parent_class->mParentClassName) {
+                parent_class2 = info.classes[parent_class->mParentClassName]??;
+            }
+            else {
+                parent_class2 = null;
+            }
         }
         
         bool output = true;

@@ -6008,16 +6008,18 @@ right_value190 = (void*)0;
 
 struct sNode* string_node_v15(char* buf, char* head, int head_sline, struct sInfo* info){
 void* __result_obj__;
-_Bool define_struct_186;
+_Bool define_union_186;
 char* p_187;
 int sline_188;
 _Bool _if_conditional255;
-void* right_value193;
 char* type_name_189;
 _Bool _if_conditional256;
-void* right_value194;
+void* right_value193;
+char* __dec_obj57;
 _Bool _if_conditional257;
+void* right_value194;
 _Bool _if_conditional258;
+_Bool _if_conditional259;
 void* right_value195;
 char* type_name_190;
 void* right_value196;
@@ -6025,28 +6027,32 @@ struct sNode* __result137__;
 void* right_value197;
 struct sNode* __result138__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&define_struct_186, 0, sizeof(_Bool));
+memset(&define_union_186, 0, sizeof(_Bool));
 memset(&p_187, 0, sizeof(char*));
 memset(&sline_188, 0, sizeof(int));
-right_value193 = (void*)0;
 memset(&type_name_189, 0, sizeof(char*));
+right_value193 = (void*)0;
 right_value194 = (void*)0;
 right_value195 = (void*)0;
 memset(&type_name_190, 0, sizeof(char*));
 right_value196 = (void*)0;
 right_value197 = (void*)0;
-    define_struct_186=(_Bool)0;
+    define_union_186=(_Bool)0;
     {
         p_187=info->p;
         sline_188=info->sline;
         if(_if_conditional255=charp_operator_equals(buf,"union"),        _if_conditional255) {
-            type_name_189=(char*)come_increment_ref_count(((char*)(right_value193=parse_word(info))));
-            right_value193 = come_decrement_ref_count2(right_value193, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
-            if(_if_conditional256=*info->p==123,            _if_conditional256) {
-                ((char*)(right_value194=skip_block(info)));
-                right_value194 = come_decrement_ref_count2(right_value194, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
-                if(_if_conditional257=*info->p==59,                _if_conditional257) {
-                    define_struct_186=(_Bool)1;
+            if(_if_conditional256=*info->p==95||xisalpha(*info->p),            _if_conditional256) {
+                __dec_obj57=type_name_189;
+                type_name_189=(char*)come_increment_ref_count(((char*)(right_value193=parse_word(info))));
+                __dec_obj57 = come_decrement_ref_count2(__dec_obj57, (void*)0, (void*)0, 0,0,0, (void*)0);
+                right_value193 = come_decrement_ref_count2(right_value193, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+                if(_if_conditional257=*info->p==123,                _if_conditional257) {
+                    ((char*)(right_value194=skip_block(info)));
+                    right_value194 = come_decrement_ref_count2(right_value194, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+                    if(_if_conditional258=*info->p==59,                    _if_conditional258) {
+                        define_union_186=(_Bool)1;
+                    }
                 }
             }
             type_name_189 = come_decrement_ref_count2(type_name_189, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -6054,7 +6060,7 @@ right_value197 = (void*)0;
         info->p=p_187;
         info->sline=sline_188;
     }
-    if(define_struct_186) {
+    if(define_union_186) {
         type_name_190=(char*)come_increment_ref_count(((char*)(right_value195=parse_word(info))));
         right_value195 = come_decrement_ref_count2(right_value195, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
         __result137__ = __result_obj__ = ((struct sNode*)(right_value196=parse_union((char*)come_increment_ref_count(type_name_190),info)));
