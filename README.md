@@ -3370,7 +3370,9 @@ int main(int argc, char** argv)
 }
 ```
 
-This is no memory leak
+user_finalize is for use to non-memory management routine at finalize.
+
+This is no memory leak.
 
 # afterword
 
