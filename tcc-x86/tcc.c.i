@@ -14,6 +14,12 @@
 # 31 "tcc.h"
 using c
 {
+# 1 "/usr/include/fortify/stdlib.h" 1 3 4
+# 21 "/usr/include/fortify/stdlib.h" 3 4
+
+# 21 "/usr/include/fortify/stdlib.h" 3 4
+__extension__
+
 # 1 "/usr/include/stdlib.h" 1 3 4
 
 
@@ -26,11 +32,9 @@ using c
 # 9 "/usr/include/stdlib.h" 2 3 4
 # 21 "/usr/include/stdlib.h" 3 4
 # 1 "/usr/include/bits/alltypes.h" 1 3 4
-# 10 "/usr/include/bits/alltypes.h" 3 4
-
-# 10 "/usr/include/bits/alltypes.h" 3 4
-typedef int wchar_t;
-# 50 "/usr/include/bits/alltypes.h" 3 4
+# 15 "/usr/include/bits/alltypes.h" 3 4
+typedef unsigned wchar_t;
+# 58 "/usr/include/bits/alltypes.h" 3 4
 typedef unsigned long size_t;
 # 22 "/usr/include/stdlib.h" 2 3 4
 
@@ -163,15 +167,20 @@ struct __locale_struct;
 float strtof_l(const char *restrict, char **restrict, struct __locale_struct *);
 double strtod_l(const char *restrict, char **restrict, struct __locale_struct *);
 long double strtold_l(const char *restrict, char **restrict, struct __locale_struct *);
+# 24 "/usr/include/fortify/stdlib.h" 2 3 4
 # 34 "tcc.h" 2
+# 1 "/usr/include/fortify/stdio.h" 1 3 4
+# 21 "/usr/include/fortify/stdio.h" 3 4
+__extension__
+
 # 1 "/usr/include/stdio.h" 1 3 4
 # 26 "/usr/include/stdio.h" 3 4
 # 1 "/usr/include/bits/alltypes.h" 1 3 4
-# 65 "/usr/include/bits/alltypes.h" 3 4
+# 73 "/usr/include/bits/alltypes.h" 3 4
 typedef long ssize_t;
-# 162 "/usr/include/bits/alltypes.h" 3 4
+# 170 "/usr/include/bits/alltypes.h" 3 4
 typedef long off_t;
-# 320 "/usr/include/bits/alltypes.h" 3 4
+# 328 "/usr/include/bits/alltypes.h" 3 4
 typedef struct _IO_FILE FILE;
 
 
@@ -336,16 +345,21 @@ typedef struct _IO_cookie_io_functions_t {
 } cookie_io_functions_t;
 
 FILE *fopencookie(void *, const char *, cookie_io_functions_t);
+# 24 "/usr/include/fortify/stdio.h" 2 3 4
 # 35 "tcc.h" 2
 # 1 "/usr/include/stdarg.h" 1 3 4
 # 10 "/usr/include/stdarg.h" 3 4
 # 1 "/usr/include/bits/alltypes.h" 1 3 4
 # 11 "/usr/include/stdarg.h" 2 3 4
 # 36 "tcc.h" 2
+# 1 "/usr/include/fortify/string.h" 1 3 4
+# 21 "/usr/include/fortify/string.h" 3 4
+__extension__
+
 # 1 "/usr/include/string.h" 1 3 4
 # 25 "/usr/include/string.h" 3 4
 # 1 "/usr/include/bits/alltypes.h" 1 3 4
-# 343 "/usr/include/bits/alltypes.h" 3 4
+# 351 "/usr/include/bits/alltypes.h" 3 4
 typedef struct __locale_struct * locale_t;
 # 26 "/usr/include/string.h" 2 3 4
 
@@ -381,10 +395,12 @@ size_t strlen (const char *);
 char *strerror (int);
 
 
+# 1 "/usr/include/fortify/strings.h" 1 3 4
+# 20 "/usr/include/fortify/strings.h" 3 4
 # 1 "/usr/include/strings.h" 1 3 4
-# 11 "/usr/include/strings.h" 3 4
+# 12 "/usr/include/strings.h" 3 4
 # 1 "/usr/include/bits/alltypes.h" 1 3 4
-# 12 "/usr/include/strings.h" 2 3 4
+# 13 "/usr/include/strings.h" 2 3 4
 
 
 
@@ -407,6 +423,7 @@ int strncasecmp (const char *, const char *, size_t);
 
 int strcasecmp_l (const char *, const char *, locale_t);
 int strncasecmp_l (const char *, const char *, size_t, locale_t);
+# 21 "/usr/include/fortify/strings.h" 2 3 4
 # 60 "/usr/include/string.h" 2 3 4
 
 
@@ -424,6 +441,7 @@ char *strsignal(int);
 char *strerror_l (int, locale_t);
 int strcoll_l (const char *, const char *, locale_t);
 size_t strxfrm_l (char *restrict, const char *restrict, size_t, locale_t);
+void *memmem(const void *, size_t, const void *, size_t);
 
 
 
@@ -443,11 +461,11 @@ void explicit_bzero (void *, size_t);
 int strverscmp (const char *, const char *);
 char *strchrnul(const char *, int);
 char *strcasestr(const char *, const char *);
-void *memmem(const void *, size_t, const void *, size_t);
 void *memrchr(const void *, int, size_t);
 void *mempcpy(void *, const void *, size_t);
 
 char *basename();
+# 24 "/usr/include/fortify/string.h" 2 3 4
 # 37 "tcc.h" 2
 # 1 "/usr/include/errno.h" 1 3 4
 # 10 "/usr/include/errno.h" 3 4
@@ -466,7 +484,7 @@ extern char *program_invocation_short_name, *program_invocation_name;
 # 1 "/usr/include/math.h" 1 3 4
 # 12 "/usr/include/math.h" 3 4
 # 1 "/usr/include/bits/alltypes.h" 1 3 4
-# 29 "/usr/include/bits/alltypes.h" 3 4
+# 38 "/usr/include/bits/alltypes.h" 3 4
 typedef float float_t;
 
 
@@ -796,11 +814,11 @@ long double pow10l(long double);
 # 1 "/usr/include/signal.h" 1 3 4
 # 28 "/usr/include/signal.h" 3 4
 # 1 "/usr/include/bits/alltypes.h" 1 3 4
-# 85 "/usr/include/bits/alltypes.h" 3 4
+# 93 "/usr/include/bits/alltypes.h" 3 4
 typedef long time_t;
-# 219 "/usr/include/bits/alltypes.h" 3 4
+# 227 "/usr/include/bits/alltypes.h" 3 4
 typedef long clock_t;
-# 229 "/usr/include/bits/alltypes.h" 3 4
+# 237 "/usr/include/bits/alltypes.h" 3 4
 struct timespec { time_t tv_sec; int :8*(sizeof(time_t)-sizeof(long))*(1234==4321); long tv_nsec; int :8*(sizeof(time_t)-sizeof(long))*(1234!=4321); };
 
 
@@ -808,13 +826,13 @@ struct timespec { time_t tv_sec; int :8*(sizeof(time_t)-sizeof(long))*(1234==432
 
 
 typedef int pid_t;
-# 245 "/usr/include/bits/alltypes.h" 3 4
+# 253 "/usr/include/bits/alltypes.h" 3 4
 typedef unsigned uid_t;
-# 273 "/usr/include/bits/alltypes.h" 3 4
+# 281 "/usr/include/bits/alltypes.h" 3 4
 typedef struct __pthread * pthread_t;
-# 349 "/usr/include/bits/alltypes.h" 3 4
+# 357 "/usr/include/bits/alltypes.h" 3 4
 typedef struct __sigset_t { unsigned long __bits[128/sizeof(long)]; } sigset_t;
-# 378 "/usr/include/bits/alltypes.h" 3 4
+# 386 "/usr/include/bits/alltypes.h" 3 4
 typedef struct { union { int __i[sizeof(long)==8?14:9]; volatile int __vi[sizeof(long)==8?14:9]; unsigned long __s[sizeof(long)==8?7:9]; } __u; } pthread_attr_t;
 # 29 "/usr/include/signal.h" 2 3 4
 # 44 "/usr/include/signal.h" 3 4
@@ -824,87 +842,51 @@ typedef struct sigaltstack stack_t;
 
 # 1 "/usr/include/bits/signal.h" 1 3 4
 # 10 "/usr/include/bits/signal.h" 3 4
-enum { REG_R8 = 0 };
+typedef unsigned long greg_t;
+typedef unsigned long gregset_t[34];
 
-enum { REG_R9 = 1 };
-
-enum { REG_R10 = 2 };
-
-enum { REG_R11 = 3 };
-
-enum { REG_R12 = 4 };
-
-enum { REG_R13 = 5 };
-
-enum { REG_R14 = 6 };
-
-enum { REG_R15 = 7 };
-
-enum { REG_RDI = 8 };
-
-enum { REG_RSI = 9 };
-
-enum { REG_RBP = 10 };
-
-enum { REG_RBX = 11 };
-
-enum { REG_RDX = 12 };
-
-enum { REG_RAX = 13 };
-
-enum { REG_RCX = 14 };
-
-enum { REG_RSP = 15 };
-
-enum { REG_RIP = 16 };
-
-enum { REG_EFL = 17 };
-
-enum { REG_CSGSFS = 18 };
-
-enum { REG_ERR = 19 };
-
-enum { REG_TRAPNO = 20 };
-
-enum { REG_OLDMASK = 21 };
-
-enum { REG_CR2 = 22 };
-
-
-
-
-typedef long long greg_t, gregset_t[23];
-typedef struct _fpstate {
- unsigned short cwd, swd, ftw, fop;
- unsigned long long rip, rdp;
- unsigned mxcsr, mxcr_mask;
- struct {
-  unsigned short significand[4], exponent, padding[3];
- } _st[8];
- struct {
-  unsigned element[4];
- } _xmm[16];
- unsigned padding[24];
-} *fpregset_t;
-struct sigcontext {
- unsigned long r8, r9, r10, r11, r12, r13, r14, r15;
- unsigned long rdi, rsi, rbp, rbx, rdx, rax, rcx, rsp, rip, eflags;
- unsigned short cs, gs, fs, __pad0;
- unsigned long err, trapno, oldmask, cr2;
- struct _fpstate *fpstate;
- unsigned long __reserved1[8];
-};
 typedef struct {
- gregset_t gregs;
- fpregset_t fpregs;
- unsigned long long __reserved1[8];
+ __uint128_t vregs[32];
+ unsigned int fpsr;
+ unsigned int fpcr;
+} fpregset_t;
+typedef struct sigcontext {
+ unsigned long fault_address;
+ unsigned long regs[31];
+ unsigned long sp, pc, pstate;
+ long double __reserved[256];
 } mcontext_t;
 
 
 
 
 
-
+struct _aarch64_ctx {
+ unsigned int magic;
+ unsigned int size;
+};
+struct fpsimd_context {
+ struct _aarch64_ctx head;
+ unsigned int fpsr;
+ unsigned int fpcr;
+ __uint128_t vregs[32];
+};
+struct esr_context {
+ struct _aarch64_ctx head;
+ unsigned long esr;
+};
+struct extra_context {
+ struct _aarch64_ctx head;
+ unsigned long datap;
+ unsigned int size;
+ unsigned int __reserved[3];
+};
+struct sve_context {
+ struct _aarch64_ctx head;
+ unsigned short vl;
+ unsigned short __reserved[3];
+};
+# 93 "/usr/include/bits/signal.h" 3 4
 struct sigaltstack {
  void *ss_sp;
  int ss_flags;
@@ -915,9 +897,8 @@ typedef struct ucontext {
  unsigned long uc_flags;
  struct ucontext *uc_link;
  stack_t uc_stack;
- mcontext_t uc_mcontext;
  sigset_t uc_sigmask;
- unsigned long __fpregs_mem[64];
+ mcontext_t uc_mcontext;
 } ucontext_t;
 # 49 "/usr/include/signal.h" 2 3 4
 # 94 "/usr/include/signal.h" 3 4
@@ -1067,9 +1048,9 @@ int raise(int);
 # 1 "/usr/include/fcntl.h" 1 3 4
 # 20 "/usr/include/fcntl.h" 3 4
 # 1 "/usr/include/bits/alltypes.h" 1 3 4
-# 152 "/usr/include/bits/alltypes.h" 3 4
+# 160 "/usr/include/bits/alltypes.h" 3 4
 typedef unsigned mode_t;
-# 355 "/usr/include/bits/alltypes.h" 3 4
+# 363 "/usr/include/bits/alltypes.h" 3 4
 struct iovec { void *iov_base; size_t iov_len; };
 # 21 "/usr/include/fcntl.h" 2 3 4
 
@@ -1110,7 +1091,6 @@ struct f_owner_ex {
 };
 # 186 "/usr/include/fcntl.h" 3 4
 int fallocate(int, int, off_t, off_t);
-
 int name_to_handle_at(int, const char *, struct file_handle *, int *, int);
 int open_by_handle_at(int, struct file_handle *, int);
 ssize_t readahead(int, off_t, size_t);
@@ -1122,7 +1102,7 @@ ssize_t tee(int, int, size_t, unsigned);
 # 1 "/usr/include/setjmp.h" 1 3 4
 # 10 "/usr/include/setjmp.h" 3 4
 # 1 "/usr/include/bits/setjmp.h" 1 3 4
-typedef unsigned long __jmp_buf[8];
+typedef unsigned long __jmp_buf[22];
 # 11 "/usr/include/setjmp.h" 2 3 4
 
 typedef struct __jmp_buf_tag {
@@ -1148,7 +1128,7 @@ _Noreturn void longjmp (jmp_buf, int);
 # 1 "/usr/include/time.h" 1 3 4
 # 33 "/usr/include/time.h" 3 4
 # 1 "/usr/include/bits/alltypes.h" 1 3 4
-# 209 "/usr/include/bits/alltypes.h" 3 4
+# 217 "/usr/include/bits/alltypes.h" 3 4
 typedef void * timer_t;
 
 
@@ -1239,16 +1219,20 @@ time_t timegm(struct tm *);
 # 55 "tcc.h"
 using c
 {
+# 1 "/usr/include/fortify/unistd.h" 1 3 4
+# 21 "/usr/include/fortify/unistd.h" 3 4
+
+# 21 "/usr/include/fortify/unistd.h" 3 4
+__extension__
+
 # 1 "/usr/include/unistd.h" 1 3 4
 # 37 "/usr/include/unistd.h" 3 4
 # 1 "/usr/include/bits/alltypes.h" 1 3 4
-# 70 "/usr/include/bits/alltypes.h" 3 4
-
-# 70 "/usr/include/bits/alltypes.h" 3 4
+# 78 "/usr/include/bits/alltypes.h" 3 4
 typedef long intptr_t;
-# 250 "/usr/include/bits/alltypes.h" 3 4
+# 258 "/usr/include/bits/alltypes.h" 3 4
 typedef unsigned gid_t;
-# 260 "/usr/include/bits/alltypes.h" 3 4
+# 268 "/usr/include/bits/alltypes.h" 3 4
 typedef unsigned useconds_t;
 # 38 "/usr/include/unistd.h" 2 3 4
 
@@ -1415,15 +1399,20 @@ pid_t gettid(void);
 # 260 "/usr/include/unistd.h" 3 4
 # 1 "/usr/include/bits/posix.h" 1 3 4
 # 261 "/usr/include/unistd.h" 2 3 4
+# 24 "/usr/include/fortify/unistd.h" 2 3 4
 # 58 "tcc.h" 2
 # 1 "/usr/include/sys/time.h" 1 3 4
 # 9 "/usr/include/sys/time.h" 3 4
+# 1 "/usr/include/fortify/sys/select.h" 1 3 4
+# 21 "/usr/include/fortify/sys/select.h" 3 4
+__extension__
+
 # 1 "/usr/include/sys/select.h" 1 3 4
 # 16 "/usr/include/sys/select.h" 3 4
 # 1 "/usr/include/bits/alltypes.h" 1 3 4
-# 90 "/usr/include/bits/alltypes.h" 3 4
+# 98 "/usr/include/bits/alltypes.h" 3 4
 typedef long suseconds_t;
-# 224 "/usr/include/bits/alltypes.h" 3 4
+# 232 "/usr/include/bits/alltypes.h" 3 4
 struct timeval { time_t tv_sec; suseconds_t tv_usec; };
 # 17 "/usr/include/sys/select.h" 2 3 4
 
@@ -1442,6 +1431,7 @@ typedef struct {
 
 int select (int, fd_set *restrict, fd_set *restrict, fd_set *restrict, struct timeval *restrict);
 int pselect (int, fd_set *restrict, fd_set *restrict, fd_set *restrict, const struct timespec *restrict, const sigset_t *restrict);
+# 24 "/usr/include/fortify/sys/select.h" 2 3 4
 # 10 "/usr/include/sys/time.h" 2 3 4
 
 int gettimeofday (struct timeval *restrict, void *restrict);
@@ -1528,11 +1518,11 @@ int shm_unlink (const char *);
 # 1 "/usr/include/stdint.h" 1 3 4
 # 20 "/usr/include/stdint.h" 3 4
 # 1 "/usr/include/bits/alltypes.h" 1 3 4
-# 55 "/usr/include/bits/alltypes.h" 3 4
+# 63 "/usr/include/bits/alltypes.h" 3 4
 
-# 55 "/usr/include/bits/alltypes.h" 3 4
+# 63 "/usr/include/bits/alltypes.h" 3 4
 typedef unsigned long uintptr_t;
-# 96 "/usr/include/bits/alltypes.h" 3 4
+# 104 "/usr/include/bits/alltypes.h" 3 4
 typedef signed char int8_t;
 
 
@@ -1574,7 +1564,7 @@ typedef unsigned int uint32_t;
 
 
 typedef unsigned long uint64_t;
-# 146 "/usr/include/bits/alltypes.h" 3 4
+# 154 "/usr/include/bits/alltypes.h" 3 4
 typedef unsigned long uintmax_t;
 # 21 "/usr/include/stdint.h" 2 3 4
 
@@ -8739,8 +8729,8 @@ int gv(int rc)
 
 
 
-            if (size == 16)
-                vtop->c.tab[2] &= 0xffff;
+
+
 
             ptr = section_ptr_add(data_section, size);
             size = size >> 2;
@@ -16007,38 +15997,15 @@ static void rt_printline(unsigned long wanted_pc)
 # 1458 "libtcc.c"
                  , "\n");
 }
-# 1504 "libtcc.c"
+# 1528 "libtcc.c"
 static int rt_get_caller_pc(unsigned long *paddr,
                             ucontext_t *uc, int level)
 {
-    unsigned long fp;
-    int i;
-
-    if (level == 0) {
-
-        *paddr = uc->uc_mcontext.gregs[
-# 1512 "libtcc.c" 3 4
-                                      REG_RIP
-# 1512 "libtcc.c"
-                                             ];
-        return 0;
-    } else {
-        fp = uc->uc_mcontext.gregs[
-# 1515 "libtcc.c" 3 4
-                                  REG_RBP
-# 1515 "libtcc.c"
-                                         ];
-        for(i=1;i<level;i++) {
-
-            if (fp <= 0x1000)
-                return -1;
-            fp = ((unsigned long *)fp)[0];
-        }
-        *paddr = ((unsigned long *)fp)[1];
-        return 0;
-    }
+    return -1;
 }
-# 1536 "libtcc.c"
+
+
+
 void rt_error(ucontext_t *uc, const char *fmt, ...)
 {
     va_list ap;
