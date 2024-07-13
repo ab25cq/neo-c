@@ -1,24 +1,8 @@
 #include <neo-c.h>
 
-#define __ISREL_DEF(rel, op, type) \
-static __inline int __is##rel(type __x, type __y) \
-{ return !isunordered(__x,__y) && __x op __y; }
-
-__ISREL_DEF(lessf, <, float_t)
-__ISREL_DEF(less, <, double_t)
-__ISREL_DEF(lessl, <, long double)
-__ISREL_DEF(lessequalf, <=, float_t)
-__ISREL_DEF(lessequal, <=, double_t)
-__ISREL_DEF(lessequall, <=, long double)
-__ISREL_DEF(lessgreaterf, !=, float_t)
-__ISREL_DEF(lessgreater, !=, double_t)
-__ISREL_DEF(lessgreaterl, !=, long double)
-__ISREL_DEF(greaterf, >, float_t)
-__ISREL_DEF(greater, >, double_t)
-__ISREL_DEF(greaterl, >, long double)
-__ISREL_DEF(greaterequalf, >=, float_t)
-__ISREL_DEF(greaterequal, >=, double_t)
-__ISREL_DEF(greaterequall, >=, long double)
+static inline int __islessf(float __x, float __y) 
+{
+    return !(( sizeof((__x)) == sizeof(float) ? (__FLOAT_BITS((__x)) & 0x7fffffff) > 0x7f800000 : sizeof((__x)) == sizeof(double) ? (__DOUBLE_BITS((__x)) & -1ULL>>1) > 0x7ffULL<<52 : __fpclassifyl((__x)) == 0) ? ((void)(__y),1) : ( sizeof((__y)) == sizeof(float) ? (__FLOAT_BITS((__y)) & 0x7fffffff) > 0x7f800000 : sizeof((__y)) == sizeof(double) ? (__DOUBLE_BITS((__y)) & -1ULL>>1) > 0x7ffULL<<52 : __fpclassifyl((__y)) == 0)) && __x < __y; }
 
 int main(int argc, char** argv)
 {
