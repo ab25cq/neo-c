@@ -813,6 +813,7 @@ sNode*% pre_postion_operator(sInfo* info=info)
         
         /// backtrace ///
         bool tuple_expression_flag = false;
+        if(!gComeC)
         {
             char* p = info.p;
             int sline = info.sline;

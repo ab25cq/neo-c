@@ -55,7 +55,28 @@ record void err_msg(sInfo* info, char* msg, ...)
         vasprintf(&msg2,msg,args);
         va_end(args);
         
-        printf("%s %d: %s\n", info.sname, info.sline, msg2);
+        char* p = info.p;
+        
+        char* last_lf = null;
+        while(p >= info.head) {
+            if(*p == '\n') {
+                last_lf = p;
+                break;
+            }
+            p--;
+        }
+        
+        if(last_lf) {
+            int col = info.p - last_lf;
+        
+            printf("%s %d %d: %s\n", info.sname, info.sline, col, msg2);
+        }
+        else {
+            int col = info.p - info.head;
+        
+            printf("%s %d %d: %s\n", info.sname, info.sline, col, msg2);
+        }
+        
         info.err_num++;
         stackframe();
         

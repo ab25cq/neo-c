@@ -12052,13 +12052,13 @@ right_value716 = (void*)0;
             }
             else {
                 __dec_obj293=value1_375;
-                value1_375=(struct sNode*)come_increment_ref_count(((struct sNode*)(right_value707=comma_exp(info))));
+                value1_375=(struct sNode*)come_increment_ref_count(((struct sNode*)(right_value707=conditional_exp(info))));
                 if(__dec_obj293) { __dec_obj293 = come_decrement_ref_count2(__dec_obj293, ((struct sNode*)__dec_obj293)->finalize, ((struct sNode*)__dec_obj293)->_protocol_obj, 0,0,0, (void*)0); }
                 if(right_value707) { right_value707 = come_decrement_ref_count2(right_value707, ((struct sNode*)right_value707)->finalize, ((struct sNode*)right_value707)->_protocol_obj, 1, 0, 0, __result_obj__); } 
             }
             parse_sharp_v5(info);
             (come_push_stackframe("13op.c", 2364, 9),__exception_result_var_b4=expected_next_character(58,info), come_pop_stackframe(), __exception_result_var_b4);
-            value2_377=(struct sNode*)come_increment_ref_count(((struct sNode*)(right_value708=comma_exp(info))));
+            value2_377=(struct sNode*)come_increment_ref_count(((struct sNode*)(right_value708=conditional_exp(info))));
             if(right_value708) { right_value708 = come_decrement_ref_count2(right_value708, ((struct sNode*)right_value708)->finalize, ((struct sNode*)right_value708)->_protocol_obj, 1, 0, 0, __result_obj__); } 
             parse_sharp_v5(info);
             _inf_value43=(struct sNode*)come_calloc(1, sizeof(struct sNode), "13op.c", 2370, "struct sNode");

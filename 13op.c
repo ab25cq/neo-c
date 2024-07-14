@@ -2356,14 +2356,14 @@ sNode*% conditional_exp(sInfo* info)
                 value1 = new sNullNode(info) implements sNode;
             }
             else {
-                value1 = comma_exp(info);
+                value1 = conditional_exp(info);
             }
 
             parse_sharp();
 
             expected_next_character(':');
 
-            sNode*% value2 = comma_exp(info);
+            sNode*% value2 = conditional_exp(info);
 
             parse_sharp();
 
