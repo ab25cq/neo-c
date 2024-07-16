@@ -2464,16 +2464,16 @@ static int macro_subst_tok(TokenString *tok_str,
         goto add_cstr;
     } else if (tok == TOK___DATE__ || tok == TOK___TIME__) {
         time_t ti;
-        struct tm *tm;
+        struct tm *tm2;
 
         time(&ti);
-        tm = localtime(&ti);
+        tm2 = localtime(&ti);
         if (tok == TOK___DATE__) {
             snprintf(buf, sizeof(buf), "%s %2d %d", 
-                     ab_month_name[tm->tm_mon], tm->tm_mday, tm->tm_year + 1900);
+                     ab_month_name[tm2->tm_mon], tm2->tm_mday, tm2->tm_year + 1900);
         } else {
             snprintf(buf, sizeof(buf), "%02d:%02d:%02d", 
-                     tm->tm_hour, tm->tm_min, tm->tm_sec);
+                     tm2->tm_hour, tm2->tm_min, tm2->tm_sec);
         }
         cstrval = buf;
     add_cstr:

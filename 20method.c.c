@@ -586,6 +586,7 @@ struct sInfo
     struct sVarTable* gv_table;
     _Bool no_comma;
     _Bool no_assign;
+    _Bool no_label;
     _Bool last_statment_is_return;
     struct list$1charph* generics_type_names;
     struct list$1charph* method_generics_type_names;
@@ -1822,6 +1823,8 @@ struct sNode* parse_enum(char* type_name, struct sInfo* info);
 struct sNode* top_level_v96(char* buf, char* head, int head_sline, struct sInfo* info);
 
 struct sNode* top_level_v95(char* buf, char* head, int head_sline, struct sInfo* info);
+
+struct sNode* string_node_v17(char* buf, char* head, int head_sline, struct sInfo* info);
 
 _Bool compiletime_get_exception_value(struct sInfo* info);
 
@@ -5798,6 +5801,7 @@ struct list$1sTypeph* __dec_obj59;
 _Bool _if_conditional252;
 _Bool __result135__;
 void* right_value174;
+struct CVALUE* __exception_result_var_b1;
 struct CVALUE* obj_value_184;
 _Bool _if_conditional253;
 void* right_value175;
@@ -5830,6 +5834,7 @@ _Bool _if_conditional264;
 _Bool _if_conditional265;
 _Bool __result151__;
 void* right_value181;
+struct CVALUE* __exception_result_var_b2;
 struct CVALUE* come_value_210;
 void* right_value182;
 void* right_value183;
@@ -5927,6 +5932,7 @@ _Bool _if_conditional327;
 _Bool _if_conditional328;
 _Bool __result190__;
 void* right_value221;
+struct CVALUE* __exception_result_var_b3;
 struct CVALUE* come_value_262;
 int n_263;
 struct list$1charph* o2_saved_264;
@@ -5953,6 +5959,7 @@ _Bool _if_conditional344;
 _Bool _if_conditional345;
 _Bool __result202__;
 void* right_value228;
+struct CVALUE* __exception_result_var_b4;
 struct CVALUE* come_value_280;
 _Bool _while_condtional40;
 _Bool _if_conditional348;
@@ -5977,6 +5984,7 @@ struct list$1sNodeph* o2_saved_288;
 struct sNode* it_291;
 _Bool _if_conditional359;
 void* right_value235;
+struct CVALUE* __exception_result_var_b5;
 struct CVALUE* come_value_294;
 void* right_value236;
 _Bool _if_conditional360;
@@ -5999,6 +6007,7 @@ struct list$1sNodeph* o2_saved_301;
 struct sNode* it_302;
 _Bool _if_conditional365;
 void* right_value249;
+struct CVALUE* __exception_result_var_b6;
 struct CVALUE* come_value_303;
 void* right_value250;
 _Bool _if_conditional366;
@@ -6021,6 +6030,7 @@ struct list$1sNodeph* o2_saved_307;
 struct sNode* it_308;
 _Bool _if_conditional368;
 void* right_value260;
+struct CVALUE* __exception_result_var_b7;
 struct CVALUE* come_value_309;
 void* right_value261;
 _Bool _if_conditional369;
@@ -6043,6 +6053,7 @@ struct list$1sNodeph* o2_saved_313;
 struct sNode* it_314;
 _Bool _if_conditional371;
 void* right_value271;
+struct CVALUE* __exception_result_var_b8;
 struct CVALUE* come_value_315;
 void* right_value272;
 _Bool _if_conditional372;
@@ -6073,6 +6084,7 @@ _Bool _if_conditional376;
 _Bool __result216__;
 struct buffer* __dec_obj90;
 void* right_value283;
+struct CVALUE* __exception_result_var_b9;
 struct CVALUE* come_value_324;
 _Bool _if_conditional377;
 void* right_value284;
@@ -6091,6 +6103,7 @@ struct sNode* current_stack_frame_node_326;
 _Bool _if_conditional385;
 _Bool __result220__;
 void* right_value292;
+struct CVALUE* __exception_result_var_b10;
 struct CVALUE* come_value_327;
 void* right_value293;
 void* right_value294;
@@ -6485,7 +6498,7 @@ memset(&result_type3_361, 0, sizeof(struct sType*));
         come_call_finalizer3(method_generics_types_183,list$1sTypephp_finalize, 0, 0, 0, 0, (void*)0);
         return __result135__;
     }
-    obj_value_184=(struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(right_value174=get_value_from_stack(-1,info))));
+    obj_value_184=(struct CVALUE*)come_increment_ref_count((come_push_stackframe("20method.c", 216, 2),__exception_result_var_b1=((struct CVALUE*)(right_value174=get_value_from_stack(-1,info))), come_pop_stackframe(), __exception_result_var_b1));
     come_call_finalizer3(right_value174,CVALUE_finalize, 0, 1, 0, 0, __result_obj__);
     dec_stack_ptr(1,info);
     if(_if_conditional253=gComeDebug&&obj_value_184->type->mPointerNum>0,    _if_conditional253) {
@@ -6543,14 +6556,14 @@ memset(&result_type3_361, 0, sizeof(struct sType*));
                     come_call_finalizer3(obj_type_185,sType_finalize, 0, 0, 0, 0, (void*)0);
                     return __result151__;
                 }
-                come_value_210=(struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(right_value181=get_value_from_stack(-1,info))));
+                come_value_210=(struct CVALUE*)come_increment_ref_count((come_push_stackframe("20method.c", 261, 3),__exception_result_var_b2=((struct CVALUE*)(right_value181=get_value_from_stack(-1,info))), come_pop_stackframe(), __exception_result_var_b2));
                 come_call_finalizer3(right_value181,CVALUE_finalize, 0, 1, 0, 0, __result_obj__);
-                check_assign_type(((char*)(right_value184=xsprintf("\%s param num \%s is assinged to",((char*)(right_value182=charp_to_string(fun_name_178))),((char*)(right_value183=int_to_string(i_201)))))),((struct sType*)come_null_check(list$1sTypephp_operator_load_element(lambda_type_188->mParamTypes,i_201-1), "20method.c", 263, 2)),come_value_210->type,come_value_210,(_Bool)0,(_Bool)1,info);
+                check_assign_type(((char*)(right_value184=xsprintf("\%s param num \%s is assinged to",((char*)(right_value182=charp_to_string(fun_name_178))),((char*)(right_value183=int_to_string(i_201)))))),((struct sType*)come_null_check(list$1sTypephp_operator_load_element(lambda_type_188->mParamTypes,i_201-1), "20method.c", 263, 4)),come_value_210->type,come_value_210,(_Bool)0,(_Bool)1,info);
                 right_value182 = come_decrement_ref_count2(right_value182, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                 right_value183 = come_decrement_ref_count2(right_value183, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                 right_value184 = come_decrement_ref_count2(right_value184, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
-                if(_if_conditional268=((struct sType*)come_null_check(list$1sTypephp_operator_load_element(lambda_type_188->mParamTypes,i_201-1), "20method.c", 264, 3))->mHeap&&come_value_210->type->mHeap,                _if_conditional268) {
-                    std_move(((struct sType*)come_null_check(list$1sTypephp_operator_load_element(lambda_type_188->mParamTypes,i_201-1), "20method.c", 266, 4)),come_value_210->type,come_value_210,info);
+                if(_if_conditional268=((struct sType*)come_null_check(list$1sTypephp_operator_load_element(lambda_type_188->mParamTypes,i_201-1), "20method.c", 264, 5))->mHeap&&come_value_210->type->mHeap,                _if_conditional268) {
+                    std_move(((struct sType*)come_null_check(list$1sTypephp_operator_load_element(lambda_type_188->mParamTypes,i_201-1), "20method.c", 266, 6)),come_value_210->type,come_value_210,info);
                 }
                 list$1CVALUEph_push_back(come_params_200,(struct CVALUE*)come_increment_ref_count(come_value_210));
                 i_201++;
@@ -6770,7 +6783,7 @@ memset(&result_type3_361, 0, sizeof(struct sType*));
                         come_call_finalizer3(obj_type_185,sType_finalize, 0, 0, 0, 0, (void*)0);
                         return __result190__;
                     }
-                    come_value_262=(struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(right_value221=get_value_from_stack(-1,info))));
+                    come_value_262=(struct CVALUE*)come_increment_ref_count((come_push_stackframe("20method.c", 428, 7),__exception_result_var_b3=((struct CVALUE*)(right_value221=get_value_from_stack(-1,info))), come_pop_stackframe(), __exception_result_var_b3));
                     come_call_finalizer3(right_value221,CVALUE_finalize, 0, 1, 0, 0, __result_obj__);
                     dec_stack_ptr(1,info);
                     n_263=0;
@@ -6782,13 +6795,13 @@ memset(&result_type3_361, 0, sizeof(struct sType*));
                     }
                     come_call_finalizer3(o2_saved_264,list$1charphp_finalize, 0, 0, 0, 0, (void*)0);
                     if(_if_conditional334=list$1sTypephp_operator_load_element(param_types_241,n_263),                    _if_conditional334) {
-                        check_assign_type(((char*)(right_value224=xsprintf("\%s param num \%s is assinged to",((char*)(right_value222=charp_to_string(fun_name_178))),((char*)(right_value223=int_to_string(n_263)))))),((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,n_263), "20method.c", 441, 5)),come_value_262->type,come_value_262,(_Bool)0,(_Bool)1,info);
+                        check_assign_type(((char*)(right_value224=xsprintf("\%s param num \%s is assinged to",((char*)(right_value222=charp_to_string(fun_name_178))),((char*)(right_value223=int_to_string(n_263)))))),((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,n_263), "20method.c", 441, 8)),come_value_262->type,come_value_262,(_Bool)0,(_Bool)1,info);
                         right_value222 = come_decrement_ref_count2(right_value222, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                         right_value223 = come_decrement_ref_count2(right_value223, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                         right_value224 = come_decrement_ref_count2(right_value224, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                     }
-                    if(_if_conditional335=list$1sTypephp_operator_load_element(param_types_241,n_263)&&((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,n_263), "20method.c", 443, 6))->mHeap&&come_value_262->type->mHeap,                    _if_conditional335) {
-                        std_move(((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,n_263), "20method.c", 444, 7)),come_value_262->type,come_value_262,info);
+                    if(_if_conditional335=list$1sTypephp_operator_load_element(param_types_241,n_263)&&((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,n_263), "20method.c", 443, 9))->mHeap&&come_value_262->type->mHeap,                    _if_conditional335) {
+                        std_move(((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,n_263), "20method.c", 444, 10)),come_value_262->type,come_value_262,info);
                     }
                     list$1CVALUEph_replace(come_params_252,n_263,(struct CVALUE*)come_increment_ref_count(come_value_262));
                     come_call_finalizer3(come_value_262,CVALUE_finalize, 0, 0, 0, 0, (void*)0);
@@ -6803,16 +6816,16 @@ memset(&result_type3_361, 0, sizeof(struct sType*));
             label_275=(char*)come_increment_ref_count(multiple_assign_var4->v1);
             node_276=(struct sNode*)come_increment_ref_count(multiple_assign_var4->v2);
             if(_if_conditional339=i_272==0,            _if_conditional339) {
-                check_assign_type(((char*)(right_value227=xsprintf("\%s param num \%s is assinged to",((char*)(right_value225=charp_to_string(fun_name_178))),((char*)(right_value226=int_to_string(i_272)))))),((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,i_272), "20method.c", 456, 8)),obj_value_184->type,obj_value_184,(_Bool)0,(_Bool)1,info);
+                check_assign_type(((char*)(right_value227=xsprintf("\%s param num \%s is assinged to",((char*)(right_value225=charp_to_string(fun_name_178))),((char*)(right_value226=int_to_string(i_272)))))),((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,i_272), "20method.c", 456, 11)),obj_value_184->type,obj_value_184,(_Bool)0,(_Bool)1,info);
                 right_value225 = come_decrement_ref_count2(right_value225, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                 right_value226 = come_decrement_ref_count2(right_value226, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                 right_value227 = come_decrement_ref_count2(right_value227, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
-                if(_if_conditional340=((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,i_272), "20method.c", 457, 9))->mHeap&&obj_value_184->type->mHeap,                _if_conditional340) {
-                    std_move(((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,i_272), "20method.c", 458, 10)),obj_value_184->type,obj_value_184,info);
+                if(_if_conditional340=((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,i_272), "20method.c", 457, 12))->mHeap&&obj_value_184->type->mHeap,                _if_conditional340) {
+                    std_move(((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,i_272), "20method.c", 458, 13)),obj_value_184->type,obj_value_184,info);
                 }
                 else {
-                    if(_if_conditional341=((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,i_272), "20method.c", 460, 11))->mHeap&&!obj_value_184->type->mHeap&&!gComeGC,                    _if_conditional341) {
-                        err_msg(info,"require heap parametor(%s)",((char*)come_null_check(list$1charphp_operator_load_element(fun_225->mParamNames,i_272), "20method.c", 461, 12)));
+                    if(_if_conditional341=((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,i_272), "20method.c", 460, 14))->mHeap&&!obj_value_184->type->mHeap&&!gComeGC,                    _if_conditional341) {
+                        err_msg(info,"require heap parametor(%s)",((char*)come_null_check(list$1charphp_operator_load_element(fun_225->mParamNames,i_272), "20method.c", 461, 15)));
                         exit(2);
                     }
                 }
@@ -6837,7 +6850,7 @@ memset(&result_type3_361, 0, sizeof(struct sType*));
                         come_call_finalizer3(obj_type_185,sType_finalize, 0, 0, 0, 0, (void*)0);
                         return __result202__;
                     }
-                    come_value_280=(struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(right_value228=get_value_from_stack(-1,info))));
+                    come_value_280=(struct CVALUE*)come_increment_ref_count((come_push_stackframe("20method.c", 475, 16),__exception_result_var_b4=((struct CVALUE*)(right_value228=get_value_from_stack(-1,info))), come_pop_stackframe(), __exception_result_var_b4));
                     come_call_finalizer3(right_value228,CVALUE_finalize, 0, 1, 0, 0, __result_obj__);
                     dec_stack_ptr(1,info);
                     while(_while_condtional40=(_Bool)1,                    _while_condtional40) {
@@ -6848,14 +6861,14 @@ memset(&result_type3_361, 0, sizeof(struct sType*));
                             i_272++;
                         }
                     }
-                    if(_if_conditional349=((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,i_272), "20method.c", 487, 13)),                    _if_conditional349) {
-                        check_assign_type(((char*)(right_value231=xsprintf("\%s param num \%s is assinged to",((char*)(right_value229=charp_to_string(fun_name_178))),((char*)(right_value230=int_to_string(i_272)))))),((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,i_272), "20method.c", 488, 14)),come_value_280->type,come_value_280,(_Bool)0,(_Bool)1,info);
+                    if(_if_conditional349=((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,i_272), "20method.c", 487, 17)),                    _if_conditional349) {
+                        check_assign_type(((char*)(right_value231=xsprintf("\%s param num \%s is assinged to",((char*)(right_value229=charp_to_string(fun_name_178))),((char*)(right_value230=int_to_string(i_272)))))),((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,i_272), "20method.c", 488, 18)),come_value_280->type,come_value_280,(_Bool)0,(_Bool)1,info);
                         right_value229 = come_decrement_ref_count2(right_value229, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                         right_value230 = come_decrement_ref_count2(right_value230, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                         right_value231 = come_decrement_ref_count2(right_value231, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                     }
-                    if(_if_conditional350=((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,i_272), "20method.c", 490, 15))&&((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,i_272), "20method.c", 490, 16))->mHeap&&come_value_280->type->mHeap,                    _if_conditional350) {
-                        std_move(((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,i_272), "20method.c", 491, 17)),come_value_280->type,come_value_280,info);
+                    if(_if_conditional350=((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,i_272), "20method.c", 490, 19))&&((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,i_272), "20method.c", 490, 20))->mHeap&&come_value_280->type->mHeap,                    _if_conditional350) {
+                        std_move(((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,i_272), "20method.c", 491, 21)),come_value_280->type,come_value_280,info);
                     }
                     list$1CVALUEph_replace(come_params_252,i_272,(struct CVALUE*)come_increment_ref_count(come_value_280));
                     i_272++;
@@ -6888,7 +6901,7 @@ memset(&result_type3_361, 0, sizeof(struct sType*));
                             err_msg(info,"invalid array num");
                             exit(1);
                         }
-                        come_value_294=(struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(right_value235=get_value_from_stack(-1,info))));
+                        come_value_294=(struct CVALUE*)come_increment_ref_count((come_push_stackframe("20method.c", 522, 22),__exception_result_var_b5=((struct CVALUE*)(right_value235=get_value_from_stack(-1,info))), come_pop_stackframe(), __exception_result_var_b5));
                         come_call_finalizer3(right_value235,CVALUE_finalize, 0, 1, 0, 0, __result_obj__);
                         dec_stack_ptr(1,info);
                         buffer_append_str(buf_286,((char*)(right_value236=xsprintf("%s",come_value_294->c_value))));
@@ -6931,7 +6944,7 @@ memset(&result_type3_361, 0, sizeof(struct sType*));
                                 err_msg(info,"invalid array num");
                                 exit(1);
                             }
-                            come_value_303=(struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(right_value249=get_value_from_stack(-1,info))));
+                            come_value_303=(struct CVALUE*)come_increment_ref_count((come_push_stackframe("20method.c", 551, 23),__exception_result_var_b6=((struct CVALUE*)(right_value249=get_value_from_stack(-1,info))), come_pop_stackframe(), __exception_result_var_b6));
                             come_call_finalizer3(right_value249,CVALUE_finalize, 0, 1, 0, 0, __result_obj__);
                             dec_stack_ptr(1,info);
                             buffer_append_str(buf_299,((char*)(right_value250=xsprintf("%s",come_value_303->c_value))));
@@ -6974,7 +6987,7 @@ memset(&result_type3_361, 0, sizeof(struct sType*));
                                     err_msg(info,"invalid array num");
                                     exit(1);
                                 }
-                                come_value_309=(struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(right_value260=get_value_from_stack(-1,info))));
+                                come_value_309=(struct CVALUE*)come_increment_ref_count((come_push_stackframe("20method.c", 580, 24),__exception_result_var_b7=((struct CVALUE*)(right_value260=get_value_from_stack(-1,info))), come_pop_stackframe(), __exception_result_var_b7));
                                 come_call_finalizer3(right_value260,CVALUE_finalize, 0, 1, 0, 0, __result_obj__);
                                 dec_stack_ptr(1,info);
                                 buffer_append_str(buf_305,((char*)(right_value261=xsprintf("%s",come_value_309->c_value))));
@@ -7017,7 +7030,7 @@ memset(&result_type3_361, 0, sizeof(struct sType*));
                                         err_msg(info,"invalid array num");
                                         exit(1);
                                     }
-                                    come_value_315=(struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(right_value271=get_value_from_stack(-1,info))));
+                                    come_value_315=(struct CVALUE*)come_increment_ref_count((come_push_stackframe("20method.c", 609, 25),__exception_result_var_b8=((struct CVALUE*)(right_value271=get_value_from_stack(-1,info))), come_pop_stackframe(), __exception_result_var_b8));
                                     come_call_finalizer3(right_value271,CVALUE_finalize, 0, 1, 0, 0, __result_obj__);
                                     dec_stack_ptr(1,info);
                                     buffer_append_str(buf_311,((char*)(right_value272=xsprintf("%s",come_value_315->c_value))));
@@ -7059,7 +7072,7 @@ memset(&result_type3_361, 0, sizeof(struct sType*));
             for(            ;            i_272<list$1sTypeph_length(fun_225->mParamTypes)+(method_block_181?-2:0);            i_272++            ){
                 default_param_317=(char*)come_increment_ref_count(((char*)(right_value280=string_clone(list$1charphp_operator_load_element(fun_225->mParamDefaultParametors,i_272)))));
                 right_value280 = come_decrement_ref_count2(right_value280, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
-                param_name_318=((char*)come_null_check(list$1charphp_operator_load_element(fun_225->mParamNames,i_272), "20method.c", 635, 18));
+                param_name_318=((char*)come_null_check(list$1charphp_operator_load_element(fun_225->mParamNames,i_272), "20method.c", 635, 26));
                 if(_if_conditional375=default_param_317&&string_operator_not_equals(default_param_317,"")&&list$1CVALUEphp_operator_load_element(come_params_252,i_272)==((void*)0),                _if_conditional375) {
                     source_319=(struct buffer*)come_increment_ref_count(info->source);
                     p_320=info->p;
@@ -7094,16 +7107,16 @@ memset(&result_type3_361, 0, sizeof(struct sType*));
                     info->p=p_320;
                     info->head=head_321;
                     info->sline=sline_322;
-                    come_value_324=(struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(right_value283=get_value_from_stack(-1,info))));
+                    come_value_324=(struct CVALUE*)come_increment_ref_count((come_push_stackframe("20method.c", 658, 27),__exception_result_var_b9=((struct CVALUE*)(right_value283=get_value_from_stack(-1,info))), come_pop_stackframe(), __exception_result_var_b9));
                     come_call_finalizer3(right_value283,CVALUE_finalize, 0, 1, 0, 0, __result_obj__);
-                    if(_if_conditional377=((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,i_272), "20method.c", 659, 19)),                    _if_conditional377) {
-                        check_assign_type(((char*)(right_value286=xsprintf("\%s param num \%s is assinged to",((char*)(right_value284=charp_to_string(fun_name_178))),((char*)(right_value285=int_to_string(i_272)))))),((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,i_272), "20method.c", 660, 20)),come_value_324->type,come_value_324,(_Bool)0,(_Bool)1,info);
+                    if(_if_conditional377=((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,i_272), "20method.c", 659, 28)),                    _if_conditional377) {
+                        check_assign_type(((char*)(right_value286=xsprintf("\%s param num \%s is assinged to",((char*)(right_value284=charp_to_string(fun_name_178))),((char*)(right_value285=int_to_string(i_272)))))),((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,i_272), "20method.c", 660, 29)),come_value_324->type,come_value_324,(_Bool)0,(_Bool)1,info);
                         right_value284 = come_decrement_ref_count2(right_value284, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                         right_value285 = come_decrement_ref_count2(right_value285, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                         right_value286 = come_decrement_ref_count2(right_value286, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                     }
-                    if(_if_conditional378=((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,i_272), "20method.c", 662, 21))&&((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,i_272), "20method.c", 662, 22))->mHeap&&come_value_324->type->mHeap,                    _if_conditional378) {
-                        std_move(((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,i_272), "20method.c", 663, 23)),come_value_324->type,come_value_324,info);
+                    if(_if_conditional378=((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,i_272), "20method.c", 662, 30))&&((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,i_272), "20method.c", 662, 31))->mHeap&&come_value_324->type->mHeap,                    _if_conditional378) {
+                        std_move(((struct sType*)come_null_check(list$1sTypephp_operator_load_element(param_types_241,i_272), "20method.c", 663, 32)),come_value_324->type,come_value_324,info);
                     }
                     list$1CVALUEph_replace(come_params_252,i_272,(struct CVALUE*)come_increment_ref_count(come_value_324));
                     dec_stack_ptr(1,info);
@@ -7158,18 +7171,18 @@ memset(&result_type3_361, 0, sizeof(struct sType*));
                 come_call_finalizer3(obj_type_185,sType_finalize, 0, 0, 0, 0, (void*)0);
                 return __result220__;
             }
-            come_value_327=(struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(right_value292=get_value_from_stack(-1,info))));
+            come_value_327=(struct CVALUE*)come_increment_ref_count((come_push_stackframe("20method.c", 684, 33),__exception_result_var_b10=((struct CVALUE*)(right_value292=get_value_from_stack(-1,info))), come_pop_stackframe(), __exception_result_var_b10));
             come_call_finalizer3(right_value292,CVALUE_finalize, 0, 1, 0, 0, __result_obj__);
             list$1CVALUEph_push_back(come_params_252,(struct CVALUE*)come_increment_ref_count(come_value_327));
             dec_stack_ptr(1,info);
             method_block2_328=(struct buffer*)come_increment_ref_count(((struct buffer*)(right_value294=buffer_initialize((struct buffer*)come_increment_ref_count(((struct buffer*)(right_value293=(struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "20method.c", 688, "buffer"))))))));
             come_call_finalizer3(right_value293,buffer_finalize, 0, 1, 0, 0, __result_obj__);
             come_call_finalizer3(right_value294,buffer_finalize, 0, 1, 0, 0, __result_obj__);
-            method_block_type_329=(struct sType*)come_increment_ref_count(((struct sType*)(right_value295=sType_clone(((struct sType*)come_null_check(list$1sTypephp_operator_load_element(fun_225->mParamTypes,-1), "20method.c", 689, 24))))));
+            method_block_type_329=(struct sType*)come_increment_ref_count(((struct sType*)(right_value295=sType_clone(((struct sType*)come_null_check(list$1sTypephp_operator_load_element(fun_225->mParamTypes,-1), "20method.c", 689, 34))))));
             come_call_finalizer3(right_value295,sType_finalize, 0, 1, 0, 0, __result_obj__);
             class_name_330=(char*)come_increment_ref_count(((char*)(right_value296=xsprintf("__current_stack%d__",info->current_stack_num))));
             right_value296 = come_decrement_ref_count2(right_value296, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
-            ((struct sType*)come_null_check(list$1sTypephp_operator_load_element(method_block_type_329->mParamTypes,0), "20method.c", 693, 25))->mClass=map$2charphsClassphp_operator_load_element(info->classes,class_name_330);
+            ((struct sType*)come_null_check(list$1sTypephp_operator_load_element(method_block_type_329->mParamTypes,0), "20method.c", 693, 35))->mClass=map$2charphsClassphp_operator_load_element(info->classes,class_name_330);
             current_stack_frame_struct_331=info->current_stack_frame_struct;
             info->current_stack_frame_struct=map$2charphsClassphp_operator_load_element(info->classes,class_name_330);
             info->num_method_block++;
@@ -8701,7 +8714,7 @@ _Bool err_370;
 _Bool _if_conditional407;
 void* right_value338;
 _Bool _if_conditional408;
-int __exception_result_var_b1;
+int __exception_result_var_b11;
 _Bool _while_condtional45;
 _Bool _if_conditional409;
 char* p_371;
@@ -8869,7 +8882,7 @@ right_value360 = (void*)0;
         }
     }
     if(_if_conditional408=*info->p!=123,    _if_conditional408) {
-        (come_push_stackframe("20method.c", 924, 26),__exception_result_var_b1=expected_next_character(40,info), come_pop_stackframe(), __exception_result_var_b1);
+        (come_push_stackframe("20method.c", 924, 36),__exception_result_var_b11=expected_next_character(40,info), come_pop_stackframe(), __exception_result_var_b11);
         while(_while_condtional45=(_Bool)1,        _while_condtional45) {
             if(_if_conditional409=*info->p==41,            _if_conditional409) {
                 info->p++;
@@ -9176,7 +9189,7 @@ right_value366 = (void*)0;
         if(right_value365) { right_value365 = come_decrement_ref_count2(right_value365, ((struct sNode*)right_value365)->finalize, ((struct sNode*)right_value365)->_protocol_obj, 1, 0, 0, __result_obj__); } 
         return __result231__;
     }
-    __result232__ = __result_obj__ = ((struct sNode*)(right_value366=string_node_v15(buf,head,head_sline,info)));
+    __result232__ = __result_obj__ = ((struct sNode*)(right_value366=string_node_v17(buf,head,head_sline,info)));
     if(right_value366) { right_value366 = come_decrement_ref_count2(right_value366, ((struct sNode*)right_value366)->finalize, ((struct sNode*)right_value366)->_protocol_obj, 1, 0, 0, __result_obj__); } 
     return __result232__;
 }

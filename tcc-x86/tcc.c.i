@@ -2946,15 +2946,18 @@ static void asm_global_instr(void);
 # 251 "libtcc.c"
 # 1 "x86_64-gen.c" 1
 # 23 "x86_64-gen.c"
+using c
+{
+
 # 1 "/usr/include/assert.h" 1 3 4
 # 19 "/usr/include/assert.h" 3 4
 
 # 19 "/usr/include/assert.h" 3 4
 _Noreturn void __assert_fail (const char *, const char *, int, const char *);
-# 24 "x86_64-gen.c" 2
-# 43 "x86_64-gen.c"
+# 27 "x86_64-gen.c" 2
+# 46 "x86_64-gen.c"
 
-# 43 "x86_64-gen.c"
+# 46 "x86_64-gen.c"
 enum {
     TREG_RAX = 0,
     TREG_RCX = 1,
@@ -2982,7 +2985,7 @@ int reg_classes[5] = {
                0x0002 | 0x0020,
               0x0040,
 };
-# 103 "x86_64-gen.c"
+# 106 "x86_64-gen.c"
 static unsigned long func_sub_sp_offset;
 static int func_ret_sub;
 
@@ -3228,17 +3231,17 @@ void load(int r, SValue *sv)
         if (v == 0x00f0) {
             if ((ft & 0x000f) == 12) {
                 
-# 347 "x86_64-gen.c" 3 4
+# 350 "x86_64-gen.c" 3 4
                ((void)((
-# 347 "x86_64-gen.c"
+# 350 "x86_64-gen.c"
                !(fr & 0x0200)
-# 347 "x86_64-gen.c" 3 4
+# 350 "x86_64-gen.c" 3 4
                ) || (__assert_fail(
-# 347 "x86_64-gen.c"
+# 350 "x86_64-gen.c"
                "!(fr & VT_SYM)"
-# 347 "x86_64-gen.c" 3 4
-               , "x86_64-gen.c", 347, __func__),0)))
-# 347 "x86_64-gen.c"
+# 350 "x86_64-gen.c" 3 4
+               , "x86_64-gen.c", 350, __func__),0)))
+# 350 "x86_64-gen.c"
                                      ;
                 o(0x48);
                 o(0xb8 + ((r) & 7));
@@ -3277,17 +3280,17 @@ void load(int r, SValue *sv)
         } else if (v != r) {
             if (r == TREG_XMM0) {
                 
-# 384 "x86_64-gen.c" 3 4
+# 387 "x86_64-gen.c" 3 4
                ((void)((
-# 384 "x86_64-gen.c"
+# 387 "x86_64-gen.c"
                v == TREG_ST0
-# 384 "x86_64-gen.c" 3 4
+# 387 "x86_64-gen.c" 3 4
                ) || (__assert_fail(
-# 384 "x86_64-gen.c"
+# 387 "x86_64-gen.c"
                "v == TREG_ST0"
-# 384 "x86_64-gen.c" 3 4
-               , "x86_64-gen.c", 384, __func__),0)))
-# 384 "x86_64-gen.c"
+# 387 "x86_64-gen.c" 3 4
+               , "x86_64-gen.c", 387, __func__),0)))
+# 387 "x86_64-gen.c"
                                     ;
 
                 o(0xf0245cdd);
@@ -3296,17 +3299,17 @@ void load(int r, SValue *sv)
                 o(0xf024);
             } else if (r == TREG_ST0) {
                 
-# 391 "x86_64-gen.c" 3 4
+# 394 "x86_64-gen.c" 3 4
                ((void)((
-# 391 "x86_64-gen.c"
+# 394 "x86_64-gen.c"
                v == TREG_XMM0
-# 391 "x86_64-gen.c" 3 4
+# 394 "x86_64-gen.c" 3 4
                ) || (__assert_fail(
-# 391 "x86_64-gen.c"
+# 394 "x86_64-gen.c"
                "v == TREG_XMM0"
-# 391 "x86_64-gen.c" 3 4
-               , "x86_64-gen.c", 391, __func__),0)))
-# 391 "x86_64-gen.c"
+# 394 "x86_64-gen.c" 3 4
+               , "x86_64-gen.c", 394, __func__),0)))
+# 394 "x86_64-gen.c"
                                      ;
 
 
@@ -3587,13 +3590,13 @@ void gfunc_call(int nb_args)
         gadd_sp(args_size);
     vtop--;
 }
-# 680 "x86_64-gen.c"
+# 683 "x86_64-gen.c"
 static void push_arg_reg(int i) {
     loc -= 8;
     gen_modrm64(0x89, arg_regs[i], 0x00f2, 
-# 682 "x86_64-gen.c" 3 4
+# 685 "x86_64-gen.c" 3 4
                                             ((void*)0)
-# 682 "x86_64-gen.c"
+# 685 "x86_64-gen.c"
                                                 , loc);
 }
 
@@ -3622,9 +3625,9 @@ void gfunc_prolog(CType *func_type)
 
         sym = func_type->ref;
         while ((sym = sym->next) != 
-# 709 "x86_64-gen.c" 3 4
+# 712 "x86_64-gen.c" 3 4
                                    ((void*)0)
-# 709 "x86_64-gen.c"
+# 712 "x86_64-gen.c"
                                        ) {
             type = &sym->type;
             if (is_sse_float(type->t)) {
@@ -3664,9 +3667,9 @@ void gfunc_prolog(CType *func_type)
             loc -= 16;
             o(0xd60f66);
             gen_modrm(7 - i, 0x00f2, 
-# 747 "x86_64-gen.c" 3 4
+# 750 "x86_64-gen.c" 3 4
                                       ((void*)0)
-# 747 "x86_64-gen.c"
+# 750 "x86_64-gen.c"
                                           , loc);
 
             o(0x85c748);
@@ -3696,9 +3699,9 @@ void gfunc_prolog(CType *func_type)
     }
 
     while ((sym = sym->next) != 
-# 775 "x86_64-gen.c" 3 4
+# 778 "x86_64-gen.c" 3 4
                                ((void*)0)
-# 775 "x86_64-gen.c"
+# 778 "x86_64-gen.c"
                                    ) {
         type = &sym->type;
         size = type_size(type, &align);
@@ -3709,9 +3712,9 @@ void gfunc_prolog(CType *func_type)
                 loc -= 8;
                 o(0xd60f66);
                 gen_modrm(sse_param_index, 0x00f2, 
-# 784 "x86_64-gen.c" 3 4
+# 787 "x86_64-gen.c" 3 4
                                                     ((void*)0)
-# 784 "x86_64-gen.c"
+# 787 "x86_64-gen.c"
                                                         , loc);
                 param_addr = loc;
             } else {
@@ -3757,7 +3760,7 @@ void gfunc_epilog(void)
     v = (-loc + 15) & -16;
     saved_ind = ind;
     ind = func_sub_sp_offset - 11;
-# 837 "x86_64-gen.c"
+# 840 "x86_64-gen.c"
     {
         o(0xe5894855);
         o(0xec8148);
@@ -4323,17 +4326,17 @@ void gen_cvt_ftoi(int t)
         o(0xf2);
     } else {
         
-# 1401 "x86_64-gen.c" 3 4
+# 1404 "x86_64-gen.c" 3 4
        ((void)((
-# 1401 "x86_64-gen.c"
+# 1404 "x86_64-gen.c"
        0
-# 1401 "x86_64-gen.c" 3 4
+# 1404 "x86_64-gen.c" 3 4
        ) || (__assert_fail(
-# 1401 "x86_64-gen.c"
+# 1404 "x86_64-gen.c"
        "0"
-# 1401 "x86_64-gen.c" 3 4
-       , "x86_64-gen.c", 1401, __func__),0)))
-# 1401 "x86_64-gen.c"
+# 1404 "x86_64-gen.c" 3 4
+       , "x86_64-gen.c", 1404, __func__),0)))
+# 1404 "x86_64-gen.c"
                 ;
     }
     if (size == 8) {
@@ -4349,6 +4352,10 @@ void ggoto(void)
 {
     gcall_or_jmp(1);
     vtop--;
+}
+
+
+
 }
 # 252 "libtcc.c" 2
 # 308 "libtcc.c"
@@ -7853,16 +7860,16 @@ static int macro_subst_tok(TokenString *tok_str,
         goto add_cstr;
     } else if (tok == TOK___DATE__ || tok == TOK___TIME__) {
         time_t ti;
-        struct tm *tm;
+        struct tm *tm2;
 
         time(&ti);
-        tm = localtime(&ti);
+        tm2 = localtime(&ti);
         if (tok == TOK___DATE__) {
             snprintf(buf, sizeof(buf), "%s %2d %d",
-                     ab_month_name[tm->tm_mon], tm->tm_mday, tm->tm_year + 1900);
+                     ab_month_name[tm2->tm_mon], tm2->tm_mday, tm2->tm_year + 1900);
         } else {
             snprintf(buf, sizeof(buf), "%02d:%02d:%02d",
-                     tm->tm_hour, tm->tm_min, tm->tm_sec);
+                     tm2->tm_hour, tm2->tm_min, tm2->tm_sec);
         }
         cstrval = buf;
     add_cstr:

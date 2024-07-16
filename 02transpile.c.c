@@ -586,6 +586,7 @@ struct sInfo
     struct sVarTable* gv_table;
     _Bool no_comma;
     _Bool no_assign;
+    _Bool no_label;
     _Bool last_statment_is_return;
     struct list$1charph* generics_type_names;
     struct list$1charph* method_generics_type_names;
@@ -1977,6 +1978,8 @@ struct sNode* parse_enum(char* type_name, struct sInfo* info);
 struct sNode* top_level_v96(char* buf, char* head, int head_sline, struct sInfo* info);
 
 struct sNode* top_level_v95(char* buf, char* head, int head_sline, struct sInfo* info);
+
+struct sNode* string_node_v17(char* buf, char* head, int head_sline, struct sInfo* info);
 
 _Bool compiletime_get_exception_value(struct sInfo* info);
 
@@ -7699,17 +7702,18 @@ _Bool _if_conditional459;
 _Bool _if_conditional460;
 _Bool _if_conditional461;
 _Bool _if_conditional462;
+_Bool _if_conditional463;
 struct sInfo info_304;
 void* right_value481;
 char* __dec_obj108;
 void* right_value482;
 char* __dec_obj109;
-_Bool _if_conditional465;
+_Bool _if_conditional466;
 void* right_value483;
 char* __dec_obj110;
 char* __dec_obj111;
 struct __current_stack2__ __current_stack2__;
-_Bool _if_conditional466;
+_Bool _if_conditional467;
 int __result170__;
 memset(&__result_obj__, 0, sizeof(void*));
 right_value330 = (void*)0;
@@ -8512,18 +8516,22 @@ memset(&__current_stack2__, 0, sizeof(struct __current_stack2__));
                                         if(output_cpp_file_292) {
                                         }
                                         else {
-                                            if(output_source_file_flag_293) {
-                                                clear_tmp_file_without_object_file_and_ccfile(&info_302);
+                                            if(_if_conditional461=info_302.err_num>0,                                            _if_conditional461) {
                                             }
                                             else {
-                                                clear_tmp_file_without_object_file(&info_302);
+                                                if(output_source_file_flag_293) {
+                                                    clear_tmp_file_without_object_file_and_ccfile(&info_302);
+                                                }
+                                                else {
+                                                    clear_tmp_file_without_object_file(&info_302);
+                                                }
                                             }
                                         }
                                         come_call_finalizer3((&info_302),sInfo_finalize, 1, 0, 0, 0, (void*)0);
                                         come_call_finalizer3(lv_table_303,sVarTable_finalize, 0, 0, 0, 0, (void*)0);
                                     }
                                     come_call_finalizer3(o2_saved_300,list$1charphp_finalize, 0, 0, 0, 0, (void*)0);
-                                    if(_if_conditional462=!output_object_file_291&&!output_cpp_file_292&&(list$1charph_length(files_289)>0||list$1charph_length(object_files_290)>0),                                    _if_conditional462) {
+                                    if(_if_conditional463=!output_object_file_291&&!output_cpp_file_292&&(list$1charph_length(files_289)>0||list$1charph_length(object_files_290)>0),                                    _if_conditional463) {
                                         memset(&info_304,0,sizeof(struct sInfo));
                                         __dec_obj108=info_304.sname;
                                         info_304.sname=(char*)come_increment_ref_count(((char*)(right_value481=string_clone(list$1charphp_operator_load_element(files_289,0)))));
@@ -8561,7 +8569,7 @@ memset(&__current_stack2__, 0, sizeof(struct __current_stack2__));
                                         __current_stack2__.argc = &argc;
                                         __current_stack2__.argv = &argv;
                                         bool_expect(linker(&info_304,object_files_290),&__current_stack2__,(void*)method_block2_02transpilec);
-                                        if(_if_conditional466=!output_cpp_file_292&&!output_source_file_flag_293,                                        _if_conditional466) {
+                                        if(_if_conditional467=!output_cpp_file_292&&!output_source_file_flag_293,                                        _if_conditional467) {
                                             clear_tmp_file(&info_304);
                                         }
                                         come_call_finalizer3((&info_304),sInfo_finalize, 1, 0, 0, 0, (void*)0);
@@ -9575,11 +9583,11 @@ memset(&i_286, 0, sizeof(int));
 
 static char* list$1charphp_operator_load_element(struct list$1charph* self, int position){
 void* __result_obj__;
-_Bool _if_conditional463;
+_Bool _if_conditional464;
 struct list_item$1charph* it_305;
 int i_306;
 _Bool _while_condtional38;
-_Bool _if_conditional464;
+_Bool _if_conditional465;
 char* __result168__;
 char* default_value_307;
 char* __result169__;
@@ -9587,13 +9595,13 @@ memset(&__result_obj__, 0, sizeof(void*));
 memset(&it_305, 0, sizeof(struct list_item$1charph*));
 memset(&i_306, 0, sizeof(int));
 memset(&default_value_307, 0, sizeof(char*));
-                                            if(_if_conditional463=position<0,                                            _if_conditional463) {
+                                            if(_if_conditional464=position<0,                                            _if_conditional464) {
                                                 position+=self->len;
                                             }
                                             it_305=self->head;
                                             i_306=0;
                                             while(_while_condtional38=it_305!=((void*)0),                                            _while_condtional38) {
-                                                if(_if_conditional464=position==i_306,                                                _if_conditional464) {
+                                                if(_if_conditional465=position==i_306,                                                _if_conditional465) {
                                                     __result168__ = __result_obj__ = it_305->item;
                                                     return __result168__;
                                                 }

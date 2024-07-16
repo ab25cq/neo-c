@@ -675,7 +675,7 @@ sNode*% craete_logical_denial(sNode*% node, sInfo* info)
     return new sLogicalDenial(clone node, info) implements sNode;
 }
 
-sNode*% pre_postion_operator(sInfo* info=info)
+sNode*% pre_position_operator(sInfo* info=info)
 {
     skip_spaces_and_lf();
     
@@ -691,8 +691,8 @@ sNode*% pre_postion_operator(sInfo* info=info)
             if(xisalpha(*info->p) || *info->p == '_') {
                 refference = true;
             }
-            else if(*info->p == '(') {
-                while(*info->p == '(') {
+            else if(*info->p == '(' || *info->p == '*') {
+                while(*info->p == '(' || *info->p == '*') {
                     info->p++
                     skip_spaces_and_lf();
                 }
@@ -881,7 +881,7 @@ sNode*% pre_postion_operator(sInfo* info=info)
 
 record sNode*% expression_node(sInfo* info=info) version 98
 {
-    sNode*% node = pre_postion_operator();
+    sNode*% node = pre_position_operator();
     
     if(node == null) {
         return inherit(info);

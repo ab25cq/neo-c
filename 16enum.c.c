@@ -586,6 +586,7 @@ struct sInfo
     struct sVarTable* gv_table;
     _Bool no_comma;
     _Bool no_assign;
+    _Bool no_label;
     _Bool last_statment_is_return;
     struct list$1charph* generics_type_names;
     struct list$1charph* method_generics_type_names;
@@ -1811,6 +1812,8 @@ struct sNode* parse_union(char* type_name, struct sInfo* info);
 struct sNode* top_level_v97(char* buf, char* head, int head_sline, struct sInfo* info);
 
 struct sNode* top_level_v95(char* buf, char* head, int head_sline, struct sInfo* info);
+
+struct sNode* string_node_v17(char* buf, char* head, int head_sline, struct sInfo* info);
 
 _Bool compiletime_get_exception_value(struct sInfo* info);
 
@@ -3260,6 +3263,7 @@ void* right_value101;
 _Bool _if_conditional83;
 _Bool __result77__;
 void* right_value102;
+struct CVALUE* __exception_result_var_b1;
 struct CVALUE* right_value_80;
 void* right_value103;
 void* right_value104;
@@ -3343,7 +3347,7 @@ right_value107 = (void*)0;
                 come_call_finalizer3(buf_60,buffer_finalize, 0, 0, 0, 0, (void*)0);
                 return __result77__;
             }
-            right_value_80=(struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(right_value102=get_value_from_stack(-1,info))));
+            right_value_80=(struct CVALUE*)come_increment_ref_count((come_push_stackframe("16enum.c", 77, 0),__exception_result_var_b1=((struct CVALUE*)(right_value102=get_value_from_stack(-1,info))), come_pop_stackframe(), __exception_result_var_b1));
             come_call_finalizer3(right_value102,CVALUE_finalize, 0, 1, 0, 0, __result_obj__);
             dec_stack_ptr(1,info);
             add_variable_to_global_table_with_int_value(name_69,(struct sType*)come_increment_ref_count(((struct sType*)(right_value104=sType_initialize((struct sType*)come_increment_ref_count(((struct sType*)(right_value103=(struct sType*)come_calloc(1, sizeof(struct sType)*(1), "16enum.c", 80, "sType")))),"int",(_Bool)0,info)))),right_value_80->c_value,info);
@@ -3966,7 +3970,7 @@ void* right_value109;
 struct sClass* __dec_obj21;
 void* right_value168;
 struct sClass* __dec_obj56;
-int __exception_result_var_b1;
+int __exception_result_var_b2;
 void* right_value169;
 void* right_value170;
 struct list$1tuple2$2charphsNodephph* elements_163;
@@ -4028,7 +4032,7 @@ right_value187 = (void*)0;
         come_call_finalizer3(__dec_obj56,sClass_finalize, 0, 0, 0, 0, (void*)0);
         come_call_finalizer3(right_value168,sClass_finalize, 0, 1, 0, 0, __result_obj__);
     }
-    (come_push_stackframe("16enum.c", 124, 0),__exception_result_var_b1=expected_next_character(123,info), come_pop_stackframe(), __exception_result_var_b1);
+    (come_push_stackframe("16enum.c", 124, 1),__exception_result_var_b2=expected_next_character(123,info), come_pop_stackframe(), __exception_result_var_b2);
     elements_163=(struct list$1tuple2$2charphsNodephph*)come_increment_ref_count(((struct list$1tuple2$2charphsNodephph*)(right_value170=list$1tuple2$2charphsNodephph_initialize((struct list$1tuple2$2charphsNodephph*)come_increment_ref_count(((struct list$1tuple2$2charphsNodephph*)(right_value169=(struct list$1tuple2$2charphsNodephph*)come_calloc(1, sizeof(struct list$1tuple2$2charphsNodephph)*(1), "16enum.c", 126, "list$1tuple2$2charphsNodephph"))))))));
     come_call_finalizer3(right_value169,list$1tuple2$2charphsNodephphp_finalize, 0, 1, 0, 0, __result_obj__);
     come_call_finalizer3(right_value170,list$1tuple2$2charphsNodephphp_finalize, 0, 1, 0, 0, __result_obj__);
@@ -5922,7 +5926,7 @@ void* right_value189;
 char* __dec_obj68;
 void* right_value190;
 void* right_value191;
-int __exception_result_var_b2;
+int __exception_result_var_b3;
 void* right_value192;
 void* right_value193;
 struct list$1tuple2$2charphsNodephph* elements_174;
@@ -6005,7 +6009,7 @@ right_value211 = (void*)0;
             come_call_finalizer3(right_value190,sClass_finalize, 0, 1, 0, 0, __result_obj__);
             come_call_finalizer3(right_value191,sClass_finalize, 0, 1, 0, 0, __result_obj__);
         }
-        (come_push_stackframe("16enum.c", 197, 1),__exception_result_var_b2=expected_next_character(123,info), come_pop_stackframe(), __exception_result_var_b2);
+        (come_push_stackframe("16enum.c", 197, 2),__exception_result_var_b3=expected_next_character(123,info), come_pop_stackframe(), __exception_result_var_b3);
         elements_174=(struct list$1tuple2$2charphsNodephph*)come_increment_ref_count(((struct list$1tuple2$2charphsNodephph*)(right_value193=list$1tuple2$2charphsNodephph_initialize((struct list$1tuple2$2charphsNodephph*)come_increment_ref_count(((struct list$1tuple2$2charphsNodephph*)(right_value192=(struct list$1tuple2$2charphsNodephph*)come_calloc(1, sizeof(struct list$1tuple2$2charphsNodephph)*(1), "16enum.c", 199, "list$1tuple2$2charphsNodephph"))))))));
         come_call_finalizer3(right_value192,list$1tuple2$2charphsNodephphp_finalize, 0, 1, 0, 0, __result_obj__);
         come_call_finalizer3(right_value193,list$1tuple2$2charphsNodephphp_finalize, 0, 1, 0, 0, __result_obj__);

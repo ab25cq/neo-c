@@ -64,7 +64,7 @@ class sCaseNode extends sNodeBase
     
     bool terminated()
     {
-        return false;
+        return true;
     }
     
     string kind()
@@ -101,7 +101,7 @@ class sDefaultNode extends sNodeBase
     
     bool terminated()
     {
-        return false;
+        return true;
     }
     
     string kind()
@@ -112,6 +112,70 @@ class sDefaultNode extends sNodeBase
     bool compile(sInfo* info)
     {
         add_come_code(info, "default:\n");
+        
+        transpiler_clear_last_code(info);
+    
+        return true;
+    }
+};
+
+class sLabelNode extends sNodeBase
+{
+    string label;
+    
+    new(string label, sInfo* info)
+    {
+        self.label = label;
+        
+        self.sline = info.sline;
+        self.sname = string(info.sname);
+    }
+    
+    bool terminated()
+    {
+        return true;
+    }
+    
+    string kind()
+    {
+        return string("sLabelNode");
+    }
+    
+    bool compile(sInfo* info)
+    {
+        add_come_code(info, s"\{self.label}:\n");
+        
+        transpiler_clear_last_code(info);
+    
+        return true;
+    }
+};
+
+class sGotoNode extends sNodeBase
+{
+    string label;
+    
+    new(string label, sInfo* info)
+    {
+        self.label = label;
+        
+        self.sline = info.sline;
+        self.sname = string(info.sname);
+    }
+    
+    bool terminated()
+    {
+        return false;
+    }
+    
+    string kind()
+    {
+        return string("sGotoNode");
+    }
+    
+    bool compile(sInfo* info)
+    {
+        add_come_code(info, s"goto \{self.label};\n");
         
         transpiler_clear_last_code(info);
     
@@ -182,7 +246,10 @@ class sContinueNode extends sNodeBase
 sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 12
 {
     if(buf === "case") {
+        bool no_label = info.no_label;
+        info.no_label = true;
         sNode*% node = expression();
+        info.no_label = no_label;
         expected_next_character(':');
         
         return new sCaseNode(node, info) implements sNode;
@@ -197,6 +264,17 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
     }
     else if(buf === "continue") {
         return new sContinueNode(info) implements sNode;
+    }
+    else if(!info->no_label && *info->p == ':') {
+        info->p++;
+        skip_spaces_and_lf();
+        
+        return new sLabelNode(buf, info) implements sNode;
+    }
+    else if(buf === "goto") {
+        string buf = parse_word();
+        
+        return new sGotoNode(buf, info) implements sNode;
     }
     else if(buf === "switch") {
         expected_next_character('(');

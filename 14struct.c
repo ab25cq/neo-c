@@ -461,7 +461,7 @@ sNode*% parse_struct(string type_name, sInfo* info)
     klass.mFields.reset();
     
     sClass* parent_class = null;
-    if(strmemcmp(info->p, "extends")) {
+    if(parsecmp("extends")) {
         parse_word();
         
         string parent_class_name = parse_word();
@@ -693,7 +693,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                 }
                 
                 sClass* parent_class = null;
-                if(strmemcmp(info->p, "extends")) {
+                if(parsecmp("extends")) {
                     parse_word();
                     
                     string parent_class_name = parse_word();
@@ -793,7 +793,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
         string type_name = parse_word();
         
         sClass* parent_class = null;
-        if(strmemcmp(info->p, "extends")) {
+        if(parsecmp("extends")) {
             parse_word();
             
             string parent_class_name = parse_word();
@@ -887,7 +887,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
             
             parse_sharp();
             
-            bool include_ = strmemcmp(info->p, "include");
+            bool include_ = parsecmp("include");
                 
             bool multiple_declare = false;
             if(include_ == false)
@@ -1004,7 +1004,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                 }
                 expected_next_character(';') ;
             }
-            else if(strmemcmp(info->p, "include")) {
+            else if(parsecmp("include")) {
                 parse_word();
                 
                 string module_name = parse_word();
@@ -1122,7 +1122,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         if(buf === "struct") {
             string type_name = parse_word();
             
-            if(strmemcmp(info->p, "extends")) {
+            if(parsecmp("extends")) {
                 parse_word();
                 parse_word();
             }

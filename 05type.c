@@ -134,7 +134,7 @@ void parse_sharp(sInfo* info=info) version 5
 */
 }
 
-bool parsecmp(char* str, sInfo* info) 
+bool parsecmp(char* str, sInfo* info=info) 
 {
     char c = *(info->p+strlen(str));
     return strmemcmp(info.p, str) && (c == ';' || c == ' ' || c == '\t' || c == '\n' || c == '\n');
@@ -404,7 +404,9 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
     }
     
     if(left_no_solved_generics_type && right_no_solved_generics_type) {
-        if(left_type->mClass->mName === right_type2->mClass->mName && left_type->mPointerNum == right_type2->mPointerNum) {
+        if(right_type->mPointerNum == 0 && left_type->mPointerNum > 0) {
+        }
+        else if(left_type->mClass->mName === right_type2->mClass->mName && left_type->mPointerNum == right_type2->mPointerNum) {
         }
         else if(left_type->mClass->mName === right_type2->mClass->mName && (left_type->mPointerNum != right_type2->mPointerNum || left_type->mHeap != right_type2->mHeap)) {
             err_msg(info, "poinetr num err");
@@ -460,6 +462,8 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
                     }
                     return false;
                 }
+            }
+            else if(right_type->mPointerNum == 0) {
             }
             else {
                 if(print_err_msg) {
@@ -528,7 +532,7 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
         }
         else if(right_type2->mClass->mName === "lambda") {
             if(print_err_msg) {
-                err_msg(info, "type error6");
+                err_msg(info, "type error7");
                 printf("left type is %s pointer num %d\n", left_type->mClass->mName, left_type->mPointerNum);
                 printf("right type is %s pointer num %d\n", right_type2->mClass->mName, right_type2->mPointerNum);
                 exit(2);
@@ -539,7 +543,7 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
         }
         else if(right_type2->mClass->mName === "void") {
             if(print_err_msg) {
-                err_msg(info, "type error6");
+                err_msg(info, "type error8");
                 printf("left type is %s pointer num %d\n", left_type->mClass->mName, left_type->mPointerNum);
                 printf("right type is %s pointer num %d\n", right_type2->mClass->mName, right_type2->mPointerNum);
                 exit(2);
@@ -550,7 +554,7 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
         }
         else if(right_type2->mPointerNum > 0) {
             if(print_err_msg) {
-                err_msg(info, "type error10");
+                err_msg(info, "type error9");
                 printf("left type is %s pointer num %d\n", left_type->mClass->mName, left_type->mPointerNum);
                 printf("right type is %s pointer num %d\n", right_type2->mClass->mName, right_type2->mPointerNum);
                 exit(2);
@@ -635,7 +639,7 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
         }
         else if(right_type2->mClass->mName === "lambda") {
             if(print_err_msg) {
-                err_msg(info, "type error6");
+                err_msg(info, "type error10");
                 printf("left type is %s pointer num %d\n", left_type->mClass->mName, left_type->mPointerNum);
                 printf("right type is %s pointer num %d\n", right_type2->mClass->mName, right_type2->mPointerNum);
                 exit(2);
@@ -647,7 +651,7 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
         }
         else if(right_type2->mClass->mName === "void") {
             if(print_err_msg) {
-                err_msg(info, "type error6");
+                err_msg(info, "type error11");
                 printf("left type is %s pointer num %d\n", left_type->mClass->mName, left_type->mPointerNum);
                 printf("right type is %s pointer num %d\n", right_type2->mClass->mName, right_type2->mPointerNum);
                 exit(2);
@@ -656,7 +660,7 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
         }
         else if(left_type->mClass->mName !== right_type2->mClass->mName) {
             if(print_err_msg) {
-                err_msg(info, "type error5");
+                err_msg(info, "type error12");
                 printf("left type is %s pointer num %d\n", left_type->mClass->mName, left_type->mPointerNum);
                 printf("right type is %s pointer num %d\n", right_type2->mClass->mName, right_type2->mPointerNum);
                 exit(2);
@@ -677,7 +681,7 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
         }
         else if(right_type2->mClass->mName === "void") {
             if(print_err_msg) {
-                err_msg(info, "type error6");
+                err_msg(info, "type error13");
                 printf("left type is %s pointer num %d\n", left_type->mClass->mName, left_type->mPointerNum);
                 printf("right type is %s pointer num %d\n", right_type2->mClass->mName, right_type2->mPointerNum);
                 exit(2);
@@ -701,7 +705,7 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
             }
             else if(left_type->mClass->mName !== right_type2->mClass->mName) {
                 if(print_err_msg) {
-                    err_msg(info, "type error5");
+                    err_msg(info, "type error14");
                     printf("left type is %s pointer num %d\n", left_type->mClass->mName, left_type->mPointerNum);
                     printf("right type is %s pointer num %d\n", right_type2->mClass->mName, right_type2->mPointerNum);
                     exit(2);
@@ -729,7 +733,7 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
         }
         else if(left_type->mPointerNum > 0 && right_type2->mPointerNum == 0 && right_type2->mClass->mName === "lambda" && left_type->mClass->mName === "lambda") {
             if(print_err_msg) {
-                err_msg(info, "type error10");
+                err_msg(info, "type error15");
                 printf("left type is %s pointer num %d\n", left_type->mClass->mName, left_type->mPointerNum);
                 printf("right type is %s pointer num %d\n", right_type2->mClass->mName, right_type2->mPointerNum);
                 exit(2);
@@ -738,13 +742,19 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
             return false;
         }
         else if(!(right_type2->mClass->mName === "lambda" && left_type->mClass->mName === "lambda") && right_type2->mPointerNum == 0) {
+/*
             if(print_err_msg) {
-                err_msg(info, "type error6");
+                err_msg(info, "type error16");
                 printf("left type is %s pointer num %d\n", left_type->mClass->mName, left_type->mPointerNum);
                 printf("right type is %s pointer num %d\n", right_type2->mClass->mName, right_type2->mPointerNum);
                 exit(2);
             }
             return false;
+*/
+            string tmp = xsprintf("(void*)%s", come_value.c_value);
+            come_value.c_value = clone tmp;
+            come_value.type = clone left_type;
+            return true;
         }
         
         if(left_type->mGenericsTypes.length() > 0) {

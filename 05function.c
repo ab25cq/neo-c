@@ -850,6 +850,36 @@ int transpile(sInfo* info) version 5
         
         info.funcs.insert(string(name), main_fun);
     }
+    {
+        var name = string("__builtin_va_start");
+        var result_type = new sType("void");
+        var param_types = new list<sType*%>();
+        var param_names = new list<string>();
+        var param_default_parametors = new list<string>();
+        var fun = new sFun(name, result_type, param_types, param_names
+            , param_default_parametors, true@external, true@var_args
+            , null@block, false@static_
+            , string("void __builtin_va_start()")
+            , string("")
+            , info);
+        
+        info.funcs.insert(string(name), fun);
+    }
+    {
+        var name = string("__builtin_va_end");
+        var result_type = new sType("void");
+        var param_types = new list<sType*%>();
+        var param_names = new list<string>();
+        var param_default_parametors = new list<string>();
+        var fun = new sFun(name, result_type, param_types, param_names
+            , param_default_parametors, true@external, true@var_args
+            , null@block, false@static_
+            , string("void __builtin_va_end()")
+            , string("")
+            , info);
+        
+        info.funcs.insert(string(name), fun);
+    }
     
     transpile_toplevel();
     
@@ -1650,7 +1680,7 @@ sNode*% parse_function(sInfo* info)
     header_buf.append_char('\0');
     
     int version = 0;
-    if(strmemcmp(info->p, "version")) {
+    if(parsecmp("version")) {
         info->p += strlen("version");
         skip_spaces_and_lf();
         

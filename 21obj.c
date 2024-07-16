@@ -1535,7 +1535,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         return new sIsPointer(type2, info) implements sNode;
     }
     else if(buf === "using") {
-        if(strmemcmp(info->p, "neo-c")) {
+        if(parsecmp("neo-c")) {
             info->p += strlen("neo-c");
             skip_spaces_and_lf();
             
@@ -1543,7 +1543,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         
             return new sNothingNode(info) implements sNode;
         }
-        else if(strmemcmp(info->p, "c") || strmemcmp(info->p, "C")) {
+        else if(parsecmp("c") || parsecmp("C")) {
             info->p += strlen("c");
             skip_spaces_and_lf();
             
@@ -1560,26 +1560,26 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
                 return new sNothingNode(info) implements sNode;
             }
         }
-        else if(strmemcmp(info->p, "gc")) {
+        else if(parsecmp("gc")) {
             info->p += strlen("gc");
             skip_spaces_and_lf();
         
             return new sNothingNode(info) implements sNode;
         }
-        else if(strmemcmp(info->p, "no-gc")) {
+        else if(parsecmp("no-gc")) {
             info->p += strlen("no-gc");
             skip_spaces_and_lf();
             
         
             return new sNothingNode(info) implements sNode;
         }
-        else if(strmemcmp(info->p, "unsafe")) {
+        else if(parsecmp("unsafe")) {
             info->p += strlen("unsafe");
             skip_spaces_and_lf();
         
             return new sNothingNode(info) implements sNode;
         }
-        else if(strmemcmp(info->p, "no-null-check")) {
+        else if(parsecmp("no-null-check")) {
             info->p += strlen("no-null-check");
             skip_spaces_and_lf();
         
@@ -1591,7 +1591,11 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         }
     }
     else if(buf === "sizeof") {
-        expected_next_character('(');
+        if(*info->p == '(') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+        //expected_next_character('(');
         
         /// backtrace ///
         bool is_type_name_flag = false;
@@ -1618,20 +1622,35 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
                 exit(2);
             }
             
-            expected_next_character(')');
+            if(*info->p == ')') {
+                info->p++;
+                skip_spaces_and_lf();
+            }
+            
+            //expected_next_character(')');
             
             return new sSizeOfNode(type, info) implements sNode;
         }
         else {
             var exp = expression();
             
-            expected_next_character(')');
+            if(*info->p == ')') {
+                info->p++;
+                skip_spaces_and_lf();
+            }
+            
+            //expected_next_character(')');
             
             return new sSizeOfExpNode(exp, info) implements sNode;
         }
     }
     else if(buf === "typeof") {
-        expected_next_character('(');
+        //expected_next_character('(');
+        
+        if(*info->p == '(') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
         
         /// backtrace ///
         bool is_type_name_flag = false;
@@ -1658,14 +1677,24 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
                 exit(2);
             }
             
-            expected_next_character(')');
+            //expected_next_character(')');
+            
+            if(*info->p == ')') {
+                info->p++;
+                skip_spaces_and_lf();
+            }
             
             return new sTypeOfNode(type, info) implements sNode;
         }
         else {
             var exp = expression();
             
-            expected_next_character(')');
+            //expected_next_character(')');
+            
+            if(*info->p == ')') {
+                info->p++;
+                skip_spaces_and_lf();
+            }
             
             return new sTypeOfExpNode(exp, info) implements sNode;
         }
@@ -1808,13 +1837,13 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
 sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 94
 {
    if(buf === "using") {
-        if(strmemcmp(info->p, "neo-c")) {
+        if(parsecmp("neo-c")) {
             info->p += strlen("neo-c");
             skip_spaces_and_lf();
             
             gComeC = false;
         }
-        else if(strmemcmp(info->p, "c") || strmemcmp(info->p, "C")) {
+        else if(parsecmp("c") || parsecmp("C")) {
             info->p += strlen("c");
             skip_spaces_and_lf();
             
@@ -1832,15 +1861,15 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 94
                 gComeC = true;
             }
         }
-        else if(strmemcmp(info->p, "gc")) {
+        else if(parsecmp("gc")) {
             info->p += strlen("gc");
             skip_spaces_and_lf();
         }
-        else if(strmemcmp(info->p, "no-gc")) {
+        else if(parsecmp("no-gc")) {
             info->p += strlen("no-gc");
             skip_spaces_and_lf();
         }
-        else if(strmemcmp(info->p, "unsafe")) {
+        else if(parsecmp("unsafe")) {
             info->p += strlen("unsafe");
             skip_spaces_and_lf();
         }
@@ -1857,7 +1886,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 94
 
 sNode*% post_position_operator(sNode*% node, sInfo* info) version 21
 {
-    if(strmemcmp(info->p, "implements")) {
+    if(parsecmp("implements")) {
         info->p += strlen("implements");
         skip_spaces_and_lf();
         

@@ -586,6 +586,7 @@ struct sInfo
     struct sVarTable* gv_table;
     _Bool no_comma;
     _Bool no_assign;
+    _Bool no_label;
     _Bool last_statment_is_return;
     struct list$1charph* generics_type_names;
     struct list$1charph* method_generics_type_names;
@@ -1811,6 +1812,8 @@ struct sNode* parse_enum(char* type_name, struct sInfo* info);
 struct sNode* top_level_v96(char* buf, char* head, int head_sline, struct sInfo* info);
 
 struct sNode* top_level_v95(char* buf, char* head, int head_sline, struct sInfo* info);
+
+struct sNode* string_node_v17(char* buf, char* head, int head_sline, struct sInfo* info);
 
 _Bool compiletime_get_exception_value(struct sInfo* info);
 
@@ -6899,7 +6902,7 @@ right_value239 = (void*)0;
     }
     list$1tuple2$2charphsTypephph_reset(klass_232->mFields);
     parent_class_236=((void*)0);
-    if(_if_conditional290=strmemcmp(info->p,"extends"),    _if_conditional290) {
+    if(_if_conditional290=parsecmp("extends",info),    _if_conditional290) {
         ((char*)(right_value217=parse_word(info)));
         right_value217 = come_decrement_ref_count2(right_value217, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
         parent_class_name_237=(char*)come_increment_ref_count(((char*)(right_value218=parse_word(info))));
@@ -7862,7 +7865,7 @@ right_value387 = (void*)0;
                     }
                 }
                 parent_class_280=((void*)0);
-                if(_if_conditional341=strmemcmp(info->p,"extends"),                _if_conditional341) {
+                if(_if_conditional341=parsecmp("extends",info),                _if_conditional341) {
                     ((char*)(right_value282=parse_word(info)));
                     right_value282 = come_decrement_ref_count2(right_value282, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                     parent_class_name_281=(char*)come_increment_ref_count(((char*)(right_value283=parse_word(info))));
@@ -8007,7 +8010,7 @@ right_value387 = (void*)0;
             type_name_303=(char*)come_increment_ref_count(((char*)(right_value309=parse_word(info))));
             right_value309 = come_decrement_ref_count2(right_value309, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
             parent_class_304=((void*)0);
-            if(_if_conditional360=strmemcmp(info->p,"extends"),            _if_conditional360) {
+            if(_if_conditional360=parsecmp("extends",info),            _if_conditional360) {
                 ((char*)(right_value310=parse_word(info)));
                 right_value310 = come_decrement_ref_count2(right_value310, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                 parent_class_name_305=(char*)come_increment_ref_count(((char*)(right_value311=parse_word(info))));
@@ -8126,7 +8129,7 @@ right_value387 = (void*)0;
                     }
                 }
                 parse_sharp_v5(info);
-                include__344=strmemcmp(info->p,"include");
+                include__344=parsecmp("include",info);
                 multiple_declare_345=(_Bool)0;
                 if(_if_conditional383=include__344==(_Bool)0,                _if_conditional383) {
                     p_346=info->p;
@@ -8271,7 +8274,7 @@ right_value387 = (void*)0;
                         name2_369 = come_decrement_ref_count2(name2_369, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                     }
                     else {
-                        if(_if_conditional402=strmemcmp(info->p,"include"),                        _if_conditional402) {
+                        if(_if_conditional402=parsecmp("include",info),                        _if_conditional402) {
                             ((char*)(right_value355=parse_word(info)));
                             right_value355 = come_decrement_ref_count2(right_value355, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                             module_name_372=(char*)come_increment_ref_count(((char*)(right_value356=parse_word(info))));
@@ -9750,7 +9753,7 @@ right_value394 = (void*)0;
         if(_if_conditional466=charp_operator_equals(buf,"struct"),        _if_conditional466) {
             type_name_420=(char*)come_increment_ref_count(((char*)(right_value388=parse_word(info))));
             right_value388 = come_decrement_ref_count2(right_value388, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
-            if(_if_conditional467=strmemcmp(info->p,"extends"),            _if_conditional467) {
+            if(_if_conditional467=parsecmp("extends",info),            _if_conditional467) {
                 ((char*)(right_value389=parse_word(info)));
                 right_value389 = come_decrement_ref_count2(right_value389, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                 ((char*)(right_value390=parse_word(info)));

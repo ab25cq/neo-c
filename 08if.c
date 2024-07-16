@@ -320,6 +320,11 @@ sNode*% parse_if_method_call(sNode*% expression_node, sInfo* info)
         char* saved_p = info->p;
         int saved_sline = info->sline;
         parse_sharp();
+        
+        if(*info->p == ';') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
 
         /// else ///
         if(!xisalpha(*info->p)) {
@@ -393,6 +398,11 @@ sNode*% parse_elif_method_call(sNode*% expression_node, sInfo* info)
         char* saved_p = info->p;
         int saved_sline = info->sline;
         parse_sharp();
+        
+        if(*info->p == ';') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
 
         /// else ///
         if(!xisalpha(*info->p)) {
@@ -473,6 +483,11 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             char* saved_p = info->p;
             int saved_sline = info->sline;
             parse_sharp();
+            
+            if(*info->p == ';') {
+                info->p++;
+                skip_spaces_and_lf();
+            }
     
             /// else ///
             if(!xisalpha(*info->p)) {

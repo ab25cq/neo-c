@@ -319,6 +319,7 @@ struct sInfo
     
     bool no_comma;
     bool no_assign;
+    bool no_label;
     bool last_statment_is_return;
     
     list<string>*% generics_type_names;
@@ -399,7 +400,7 @@ void add_come_last_code2(sInfo* info, const char* msg, ...);
 void add_come_last_code3(sInfo* info, const char* msg, ...);
 void add_last_code_to_source_with_comma(sInfo* info);
 void dec_stack_ptr(int value, sInfo* info);
-CVALUE*% get_value_from_stack(int offset, sInfo* info);
+record CVALUE*% get_value_from_stack(int offset, sInfo* info);
 string make_define_var(sType* type, char* name, bool in_header=false, sInfo* info=info);
 void transpiler_clear_last_code(sInfo* info);
 bool output_header_file(sInfo* info);
@@ -459,7 +460,7 @@ sFun*,string create_operator_not_equals_automatically(sType* type, char* fun_nam
 string skip_block(sInfo* info=info);
 bool is_contained_generics_class(sType* type, sInfo* info);
 bool is_type_name(char* buf, sInfo* info=info);
-bool parsecmp(char* str, sInfo* info);
+bool parsecmp(char* str, sInfo* info=info);
 string parse_word(sInfo* info=info);
 string backtrace_parse_word(sInfo* info=info);
 void skip_spaces_and_lf(sInfo* info=info);
@@ -569,6 +570,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 96
 /// 17typedef.c
 /////////////////////////////////////////////////////////////////////
 sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 95;
+sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 17;
 
 /////////////////////////////////////////////////////////////////////
 /// 18field.c

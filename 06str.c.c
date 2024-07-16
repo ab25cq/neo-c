@@ -586,6 +586,7 @@ struct sInfo
     struct sVarTable* gv_table;
     _Bool no_comma;
     _Bool no_assign;
+    _Bool no_label;
     _Bool last_statment_is_return;
     struct list$1charph* generics_type_names;
     struct list$1charph* method_generics_type_names;
@@ -1838,6 +1839,8 @@ struct sNode* parse_enum(char* type_name, struct sInfo* info);
 struct sNode* top_level_v96(char* buf, char* head, int head_sline, struct sInfo* info);
 
 struct sNode* top_level_v95(char* buf, char* head, int head_sline, struct sInfo* info);
+
+struct sNode* string_node_v17(char* buf, char* head, int head_sline, struct sInfo* info);
 
 _Bool compiletime_get_exception_value(struct sInfo* info);
 
@@ -3630,6 +3633,7 @@ struct sNode* it_70;
 _Bool _if_conditional64;
 _Bool __result75__;
 void* right_value103;
+struct CVALUE* __exception_result_var_b1;
 struct CVALUE* come_value_73;
 void* right_value104;
 char* method_name_74;
@@ -3707,7 +3711,7 @@ right_value145 = (void*)0;
                 come_call_finalizer3(buf_66,buffer_finalize, 0, 0, 0, 0, (void*)0);
                 return __result75__;
             }
-            come_value_73=(struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(right_value103=get_value_from_stack(-1,info))));
+            come_value_73=(struct CVALUE*)come_increment_ref_count((come_push_stackframe("06str.c", 83, 0),__exception_result_var_b1=((struct CVALUE*)(right_value103=get_value_from_stack(-1,info))), come_pop_stackframe(), __exception_result_var_b1));
             come_call_finalizer3(right_value103,CVALUE_finalize, 0, 1, 0, 0, __result_obj__);
             dec_stack_ptr(1,info);
             method_name_74=(char*)come_increment_ref_count(((char*)(right_value104=create_method_name(come_value_73->type,(_Bool)0,"to_string",info,(_Bool)1))));
@@ -5177,6 +5181,7 @@ struct sNode* it_109;
 _Bool _if_conditional158;
 _Bool __result115__;
 void* right_value181;
+struct CVALUE* __exception_result_var_b2;
 struct CVALUE* come_value_110;
 _Bool _if_conditional159;
 void* right_value182;
@@ -5368,7 +5373,7 @@ right_value233 = (void*)0;
             come_call_finalizer3(list_element_type_107,sType_finalize, 0, 0, 0, 0, (void*)0);
             return __result115__;
         }
-        come_value_110=(struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(right_value181=get_value_from_stack(-1,info))));
+        come_value_110=(struct CVALUE*)come_increment_ref_count((come_push_stackframe("06str.c", 336, 1),__exception_result_var_b2=((struct CVALUE*)(right_value181=get_value_from_stack(-1,info))), come_pop_stackframe(), __exception_result_var_b2));
         come_call_finalizer3(right_value181,CVALUE_finalize, 0, 1, 0, 0, __result_obj__);
         dec_stack_ptr(1,info);
         if(list_element_type_107) {
@@ -5401,11 +5406,11 @@ right_value233 = (void*)0;
     i_119=0;
     for(    o2_saved_120=(struct list$1CVALUEph*)come_increment_ref_count((params_106)),it_123=list$1CVALUEph_begin((o2_saved_120));    !list$1CVALUEph_end((o2_saved_120));    it_123=list$1CVALUEph_next((o2_saved_120))    ){
         if(list_element_type_107->mHeap) {
-            buffer_append_str(source_118,((char*)(right_value194=xsprintf("%s[%d]=come_increment_ref_count(%s);\n",var__117->mCValueName,i_119,((struct CVALUE*)come_null_check(list$1CVALUEphp_operator_load_element(params_106,i_119), "06str.c", 368, 0))->c_value))));
+            buffer_append_str(source_118,((char*)(right_value194=xsprintf("%s[%d]=come_increment_ref_count(%s);\n",var__117->mCValueName,i_119,((struct CVALUE*)come_null_check(list$1CVALUEphp_operator_load_element(params_106,i_119), "06str.c", 368, 2))->c_value))));
             right_value194 = come_decrement_ref_count2(right_value194, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
         }
         else {
-            buffer_append_str(source_118,((char*)(right_value195=xsprintf("%s[%d]=%s;\n",var__117->mCValueName,i_119,((struct CVALUE*)come_null_check(list$1CVALUEphp_operator_load_element(params_106,i_119), "06str.c", 371, 1))->c_value))));
+            buffer_append_str(source_118,((char*)(right_value195=xsprintf("%s[%d]=%s;\n",var__117->mCValueName,i_119,((struct CVALUE*)come_null_check(list$1CVALUEphp_operator_load_element(params_106,i_119), "06str.c", 371, 3))->c_value))));
             right_value195 = come_decrement_ref_count2(right_value195, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
         }
         i_119++;
@@ -5485,8 +5490,8 @@ right_value233 = (void*)0;
     come_params_144=(struct list$1CVALUEph*)come_increment_ref_count(((struct list$1CVALUEph*)(right_value221=list$1CVALUEph_initialize((struct list$1CVALUEph*)come_increment_ref_count(((struct list$1CVALUEph*)(right_value220=(struct list$1CVALUEph*)come_calloc(1, sizeof(struct list$1CVALUEph)*(1), "06str.c", 427, "list$1CVALUEph"))))))));
     come_call_finalizer3(right_value220,list$1CVALUEphp_finalize, 0, 1, 0, 0, __result_obj__);
     come_call_finalizer3(right_value221,list$1CVALUEphp_finalize, 0, 1, 0, 0, __result_obj__);
-    if(_if_conditional176=((struct sType*)come_null_check(list$1sTypephp_operator_load_element(fun_136->mParamTypes,0), "06str.c", 429, 2))->mHeap&&obj_value_139->type->mHeap,    _if_conditional176) {
-        std_move(((struct sType*)come_null_check(list$1sTypephp_operator_load_element(fun_136->mParamTypes,0), "06str.c", 430, 3)),obj_value_139->type,obj_value_139,info);
+    if(_if_conditional176=((struct sType*)come_null_check(list$1sTypephp_operator_load_element(fun_136->mParamTypes,0), "06str.c", 429, 4))->mHeap&&obj_value_139->type->mHeap,    _if_conditional176) {
+        std_move(((struct sType*)come_null_check(list$1sTypephp_operator_load_element(fun_136->mParamTypes,0), "06str.c", 430, 5)),obj_value_139->type,obj_value_139,info);
     }
     list$1CVALUEph_push_back(come_params_144,(struct CVALUE*)come_increment_ref_count(obj_value_139));
     come_value2_148=(struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(right_value222=(struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), "06str.c", 434, "CVALUE"))));
@@ -5946,6 +5951,7 @@ struct sNode* it_159;
 _Bool _if_conditional181;
 _Bool __result136__;
 void* right_value240;
+struct CVALUE* __exception_result_var_b3;
 struct CVALUE* come_value_160;
 void* right_value244;
 void* right_value245;
@@ -6102,7 +6108,7 @@ right_value277 = (void*)0;
             come_call_finalizer3(tuple_values_157,list$1CVALUEphp_finalize, 0, 0, 0, 0, (void*)0);
             return __result136__;
         }
-        come_value_160=(struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(right_value240=get_value_from_stack(-1,info))));
+        come_value_160=(struct CVALUE*)come_increment_ref_count((come_push_stackframe("06str.c", 520, 6),__exception_result_var_b3=((struct CVALUE*)(right_value240=get_value_from_stack(-1,info))), come_pop_stackframe(), __exception_result_var_b3));
         come_call_finalizer3(right_value240,CVALUE_finalize, 0, 1, 0, 0, __result_obj__);
         dec_stack_ptr(1,info);
         list$1CVALUEph_push_back(tuple_values_157,(struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(right_value244=CVALUE_clone(come_value_160)))));
@@ -6187,16 +6193,16 @@ right_value277 = (void*)0;
     come_params_179=(struct list$1CVALUEph*)come_increment_ref_count(((struct list$1CVALUEph*)(right_value268=list$1CVALUEph_initialize((struct list$1CVALUEph*)come_increment_ref_count(((struct list$1CVALUEph*)(right_value267=(struct list$1CVALUEph*)come_calloc(1, sizeof(struct list$1CVALUEph)*(1), "06str.c", 575, "list$1CVALUEph"))))))));
     come_call_finalizer3(right_value267,list$1CVALUEphp_finalize, 0, 1, 0, 0, __result_obj__);
     come_call_finalizer3(right_value268,list$1CVALUEphp_finalize, 0, 1, 0, 0, __result_obj__);
-    if(_if_conditional192=((struct sType*)come_null_check(list$1sTypephp_operator_load_element(fun_177->mParamTypes,0), "06str.c", 577, 4))->mHeap&&obj_value_169->type->mHeap,    _if_conditional192) {
-        std_move(((struct sType*)come_null_check(list$1sTypephp_operator_load_element(fun_177->mParamTypes,0), "06str.c", 578, 5)),obj_value_169->type,obj_value_169,info);
+    if(_if_conditional192=((struct sType*)come_null_check(list$1sTypephp_operator_load_element(fun_177->mParamTypes,0), "06str.c", 577, 7))->mHeap&&obj_value_169->type->mHeap,    _if_conditional192) {
+        std_move(((struct sType*)come_null_check(list$1sTypephp_operator_load_element(fun_177->mParamTypes,0), "06str.c", 578, 8)),obj_value_169->type,obj_value_169,info);
     }
     list$1CVALUEph_push_back(come_params_179,(struct CVALUE*)come_increment_ref_count(obj_value_169));
     i_180=1;
     for(    o2_saved_181=(struct list$1CVALUEph*)come_increment_ref_count((tuple_values_157)),it_182=list$1CVALUEph_begin((o2_saved_181));    !list$1CVALUEph_end((o2_saved_181));    it_182=list$1CVALUEph_next((o2_saved_181))    ){
         come_value_183=(struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(right_value269=CVALUE_clone(it_182))));
         come_call_finalizer3(right_value269,CVALUE_finalize, 0, 1, 0, 0, __result_obj__);
-        if(_if_conditional193=((struct sType*)come_null_check(list$1sTypephp_operator_load_element(fun_177->mParamTypes,i_180), "06str.c", 586, 6))&&((struct sType*)come_null_check(list$1sTypephp_operator_load_element(fun_177->mParamTypes,i_180), "06str.c", 586, 7))->mHeap&&come_value_183->type->mHeap,        _if_conditional193) {
-            std_move(((struct sType*)come_null_check(list$1sTypephp_operator_load_element(fun_177->mParamTypes,i_180), "06str.c", 587, 8)),come_value_183->type,come_value_183,info);
+        if(_if_conditional193=((struct sType*)come_null_check(list$1sTypephp_operator_load_element(fun_177->mParamTypes,i_180), "06str.c", 586, 9))&&((struct sType*)come_null_check(list$1sTypephp_operator_load_element(fun_177->mParamTypes,i_180), "06str.c", 586, 10))->mHeap&&come_value_183->type->mHeap,        _if_conditional193) {
+            std_move(((struct sType*)come_null_check(list$1sTypephp_operator_load_element(fun_177->mParamTypes,i_180), "06str.c", 587, 11)),come_value_183->type,come_value_183,info);
         }
         list$1CVALUEph_push_back(come_params_179,(struct CVALUE*)come_increment_ref_count(come_value_183));
         i_180++;
@@ -6447,12 +6453,14 @@ struct sNode* elements_200;
 _Bool _if_conditional201;
 _Bool __result153__;
 void* right_value284;
+struct CVALUE* __exception_result_var_b4;
 struct CVALUE* come_value_201;
 _Bool _if_conditional202;
 void* right_value285;
 _Bool _if_conditional203;
 _Bool __result154__;
 void* right_value286;
+struct CVALUE* __exception_result_var_b5;
 struct CVALUE* come_value2_202;
 _Bool _if_conditional204;
 void* right_value287;
@@ -6686,8 +6694,8 @@ right_value343 = (void*)0;
     map_key_type_193=((void*)0);
     map_element_type_194=((void*)0);
     for(    i_195=0;    i_195<list$1sNodeph_length(map_key_elements_189);    i_195++    ){
-        key_elements_199=((struct sNode*)come_null_check(list$1sNodephp_operator_load_element(map_key_elements_189,i_195), "06str.c", 666, 9));
-        elements_200=((struct sNode*)come_null_check(list$1sNodephp_operator_load_element(map_elements_190,i_195), "06str.c", 667, 10));
+        key_elements_199=((struct sNode*)come_null_check(list$1sNodephp_operator_load_element(map_key_elements_189,i_195), "06str.c", 666, 12));
+        elements_200=((struct sNode*)come_null_check(list$1sNodephp_operator_load_element(map_elements_190,i_195), "06str.c", 667, 13));
         if(_if_conditional201=!node_compile(key_elements_199,info),        _if_conditional201) {
             __result153__ = (_Bool)0;
             come_call_finalizer3(key_params_191,list$1CVALUEphp_finalize, 0, 0, 0, 0, (void*)0);
@@ -6696,7 +6704,7 @@ right_value343 = (void*)0;
             come_call_finalizer3(map_element_type_194,sType_finalize, 0, 0, 0, 0, (void*)0);
             return __result153__;
         }
-        come_value_201=(struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(right_value284=get_value_from_stack(-1,info))));
+        come_value_201=(struct CVALUE*)come_increment_ref_count((come_push_stackframe("06str.c", 673, 14),__exception_result_var_b4=((struct CVALUE*)(right_value284=get_value_from_stack(-1,info))), come_pop_stackframe(), __exception_result_var_b4));
         come_call_finalizer3(right_value284,CVALUE_finalize, 0, 1, 0, 0, __result_obj__);
         dec_stack_ptr(1,info);
         if(map_key_type_193) {
@@ -6713,7 +6721,7 @@ right_value343 = (void*)0;
             come_call_finalizer3(map_element_type_194,sType_finalize, 0, 0, 0, 0, (void*)0);
             return __result154__;
         }
-        come_value2_202=(struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(right_value286=get_value_from_stack(-1,info))));
+        come_value2_202=(struct CVALUE*)come_increment_ref_count((come_push_stackframe("06str.c", 686, 15),__exception_result_var_b5=((struct CVALUE*)(right_value286=get_value_from_stack(-1,info))), come_pop_stackframe(), __exception_result_var_b5));
         come_call_finalizer3(right_value286,CVALUE_finalize, 0, 1, 0, 0, __result_obj__);
         dec_stack_ptr(1,info);
         if(map_element_type_194) {
@@ -6761,8 +6769,8 @@ right_value343 = (void*)0;
     come_call_finalizer3(right_value301,buffer_finalize, 0, 1, 0, 0, __result_obj__);
     buffer_append_str(source_210,"{");
     for(    i_211=0;    i_211<list$1CVALUEph_length(key_params_191);    i_211++    ){
-        key_param_212=((struct CVALUE*)come_null_check(list$1CVALUEphp_operator_load_element(key_params_191,i_211), "06str.c", 730, 11));
-        element_param_213=((struct CVALUE*)come_null_check(list$1CVALUEphp_operator_load_element(element_params_192,i_211), "06str.c", 731, 12));
+        key_param_212=((struct CVALUE*)come_null_check(list$1CVALUEphp_operator_load_element(key_params_191,i_211), "06str.c", 730, 16));
+        element_param_213=((struct CVALUE*)come_null_check(list$1CVALUEphp_operator_load_element(element_params_192,i_211), "06str.c", 731, 17));
         if(map_key_type_193->mHeap) {
             buffer_append_str(source_210,((char*)(right_value302=xsprintf("%s[%d]=come_increment_ref_count(%s);\n",var__206->mCValueName,i_211,key_param_212->c_value))));
             right_value302 = come_decrement_ref_count2(right_value302, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
@@ -6860,8 +6868,8 @@ right_value343 = (void*)0;
     come_params_226=(struct list$1CVALUEph*)come_increment_ref_count(((struct list$1CVALUEph*)(right_value329=list$1CVALUEph_initialize((struct list$1CVALUEph*)come_increment_ref_count(((struct list$1CVALUEph*)(right_value328=(struct list$1CVALUEph*)come_calloc(1, sizeof(struct list$1CVALUEph)*(1), "06str.c", 800, "list$1CVALUEph"))))))));
     come_call_finalizer3(right_value328,list$1CVALUEphp_finalize, 0, 1, 0, 0, __result_obj__);
     come_call_finalizer3(right_value329,list$1CVALUEphp_finalize, 0, 1, 0, 0, __result_obj__);
-    if(_if_conditional209=((struct sType*)come_null_check(list$1sTypephp_operator_load_element(fun_218->mParamTypes,0), "06str.c", 802, 13))->mHeap&&obj_value_221->type->mHeap,    _if_conditional209) {
-        std_move(((struct sType*)come_null_check(list$1sTypephp_operator_load_element(fun_218->mParamTypes,0), "06str.c", 803, 14)),obj_value_221->type,obj_value_221,info);
+    if(_if_conditional209=((struct sType*)come_null_check(list$1sTypephp_operator_load_element(fun_218->mParamTypes,0), "06str.c", 802, 18))->mHeap&&obj_value_221->type->mHeap,    _if_conditional209) {
+        std_move(((struct sType*)come_null_check(list$1sTypephp_operator_load_element(fun_218->mParamTypes,0), "06str.c", 803, 19)),obj_value_221->type,obj_value_221,info);
     }
     list$1CVALUEph_push_back(come_params_226,(struct CVALUE*)come_increment_ref_count(obj_value_221));
     come_value2_227=(struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(right_value330=(struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), "06str.c", 807, "CVALUE"))));
@@ -7242,12 +7250,12 @@ struct sNode* _inf_value8;
 struct sMapNode* _inf_obj_value8;
 void* right_value424;
 struct sNode* __result180__;
-int __exception_result_var_b1;
+int __exception_result_var_b6;
 _Bool _while_condtional40;
 _Bool no_comma_309;
 void* right_value425;
 struct sNode* node2_310;
-int __exception_result_var_b2;
+int __exception_result_var_b7;
 void* right_value426;
 struct sNode* node3_311;
 _Bool _if_conditional329;
@@ -7276,7 +7284,7 @@ struct sListNode* _inf_obj_value10;
 void* right_value440;
 struct sNode* __result186__;
 void* right_value441;
-struct sNode* __exception_result_var_b3;
+struct sNode* __exception_result_var_b8;
 struct sNode* __result187__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&sline_235, 0, sizeof(int));
@@ -8322,7 +8330,7 @@ right_value441 = (void*)0;
                                             return __result180__;
                                         }
                                         else {
-                                            (come_push_stackframe("06str.c", 1736, 15),__exception_result_var_b1=expected_next_character(44,info), come_pop_stackframe(), __exception_result_var_b1);
+                                            (come_push_stackframe("06str.c", 1736, 20),__exception_result_var_b6=expected_next_character(44,info), come_pop_stackframe(), __exception_result_var_b6);
                                             while(_while_condtional40=(_Bool)1,                                            _while_condtional40) {
                                                 no_comma_309=info->no_comma;
                                                 info->no_comma=(_Bool)1;
@@ -8330,7 +8338,7 @@ right_value441 = (void*)0;
                                                 if(right_value425) { right_value425 = come_decrement_ref_count2(right_value425, ((struct sNode*)right_value425)->finalize, ((struct sNode*)right_value425)->_protocol_obj, 1, 0, 0, __result_obj__); } 
                                                 info->no_comma=no_comma_309;
                                                 list$1sNodeph_push_back(map_keys_304,(struct sNode*)come_increment_ref_count(node2_310));
-                                                (come_push_stackframe("06str.c", 1748, 16),__exception_result_var_b2=expected_next_character(58,info), come_pop_stackframe(), __exception_result_var_b2);
+                                                (come_push_stackframe("06str.c", 1748, 21),__exception_result_var_b7=expected_next_character(58,info), come_pop_stackframe(), __exception_result_var_b7);
                                                 no_comma_309=info->no_comma;
                                                 info->no_comma=(_Bool)1;
                                                 node3_311=(struct sNode*)come_increment_ref_count(((struct sNode*)(right_value426=expression_v13(info))));
@@ -8467,7 +8475,7 @@ right_value441 = (void*)0;
                                     come_call_finalizer3(map_elements_305,list$1sNodephp_finalize, 0, 0, 0, 0, (void*)0);
                                 }
                                 else {
-                                    (come_push_stackframe("06str.c", 1835, 17),__exception_result_var_b3=((struct sNode*)(right_value441=expression_node_v1(info))), come_pop_stackframe(), __exception_result_var_b3);
+                                    (come_push_stackframe("06str.c", 1835, 22),__exception_result_var_b8=((struct sNode*)(right_value441=expression_node_v1(info))), come_pop_stackframe(), __exception_result_var_b8);
                                     if(right_value441) { right_value441 = come_decrement_ref_count2(right_value441, ((struct sNode*)right_value441)->finalize, ((struct sNode*)right_value441)->_protocol_obj, 1, 0, 0, __result_obj__); } 
                                 }
                             }

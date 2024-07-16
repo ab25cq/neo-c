@@ -875,6 +875,8 @@ int come_main(int argc, char** argv) version 2
             
             if(output_cpp_file){
             }
+            else if(info.err_num > 0) {
+            }
             else if(output_source_file_flag) {
                 clear_tmp_file_without_object_file_and_ccfile(&info);
             }

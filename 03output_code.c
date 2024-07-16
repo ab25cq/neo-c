@@ -993,12 +993,12 @@ void dec_stack_ptr(int value, sInfo* info)
     info.stack.delete(-value, -1);
 }
 
-CVALUE*% get_value_from_stack(int offset, sInfo* info)
+record CVALUE*% get_value_from_stack(int offset, sInfo* info)
 {
     info.module.mLastCode = null;
 //    info.module.mLastCode2 = null;
 //    info.module.mLastCode3 = null;
-    CVALUE*% result = clone info.stack[offset];
+    CVALUE*% result = clone info.stack[offset]??;
     
     if(result == null) {
         err_msg(info, "invalid stack value");

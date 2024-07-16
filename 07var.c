@@ -94,6 +94,7 @@ class sStoreNode extends sNodeBase
             var type = solve_generics(self.type, info->generics_type, info);
             type->mFunctionParam = false;
             
+            
             if(self.multiple_declare) {
                 foreach(it, self.multiple_declare) {
                     var type, var_name, right_value = it;
@@ -818,7 +819,48 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         
         parse_sharp();
         
-        if(err && *info->p == '=') {
+        if(err && *info->p == ',') {
+            info->p++;
+            skip_spaces_and_lf();
+            
+            parse_sharp();
+            
+            while(true) {
+                parse_sharp();
+                while(*info->p == '*') {
+                    info->p++;
+                    skip_spaces_and_lf();
+                }
+                parse_sharp();
+                
+                if(xisalpha(*info->p) || *info->p == '_') {
+                    parse_sharp();
+                    string word = parse_word();
+                    parse_sharp();
+                    
+                    if(*info->p == '=') {
+                        info->p++
+                        skip_spaces_and_lf();
+                        
+                        multiple_declare2 = true;
+                        break;
+                    }
+                    else if(*info->p == ',') {
+                        info->p++;
+                        skip_spaces_and_lf();
+                        
+                        parse_sharp();
+                    }
+                    else {
+                        break;
+                    }
+                }
+                else {
+                    break;
+                }
+            }
+        }
+        else if(err && *info->p == '=') {
             info->p++;
             skip_spaces_and_lf();
             
@@ -899,33 +941,6 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             exit(1);
         }
     }
-    else if(multiple_declare) {
-        info.p = head;
-        info.sline = head_sline;
-
-        list<tuple3<sType*%, string,sNode*%>*%>*% multiple_declare = new list<tuple3<sType*%, string, sNode*%>*%>();
-        
-        var base_type, name, err = parse_type();
-        
-        tuple2<sType*%, string>*% variable_name = parse_variable_name(base_type, true@first, info);
-        
-        tuple3<sType*%, string, sNode*%>*% variable_name2 = (variable_name.v1, variable_name.v2, null);
-        
-        multiple_declare.push_back(variable_name2);
-        
-        while(*info->p == ',') {
-            info->p++;
-            skip_spaces_and_lf();
-            
-            tuple2<sType*%, string>*% variable_name = parse_variable_name(base_type, false@first, info);
-        
-            tuple3<sType*%, string, sNode*%>*% variable_name2 = (variable_name.v1, variable_name.v2, null);
-            
-            multiple_declare.push_back(variable_name2);
-        }
-        
-        return new sStoreNode(string(buf)@name, null@multiple_assign, multiple_declare, base_type@type, true@alloc, null@right_value, null@array_initializer, info) implements sNode;
-    }
     else if(multiple_declare2) {
         info.p = head;
         info.sline = head_sline;
@@ -953,6 +968,11 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             
             multiple_declare.push_back(variable_name2);
         }
+        else {
+            tuple3<sType*%, string, sNode*%>*% variable_name2 = (variable_name.v1, variable_name.v2, null);
+            
+            multiple_declare.push_back(variable_name2);
+        }
         
         while(*info->p == ',') {
             info->p++;
@@ -977,9 +997,41 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
                 
                 multiple_declare.push_back(variable_name2);
             }
+            else if(*info->p == ',') {
+                tuple3<sType*%, string, sNode*%>*% variable_name2 = (variable_name.v1, variable_name.v2, null);
+                
+                multiple_declare.push_back(variable_name2);
+            }
             else {
                 break;
             }
+        }
+        
+        return new sStoreNode(string(buf)@name, null@multiple_assign, multiple_declare, base_type@type, true@alloc, null@right_value, null@array_initializer, info) implements sNode;
+    }
+    else if(multiple_declare) {
+        info.p = head;
+        info.sline = head_sline;
+
+        list<tuple3<sType*%, string,sNode*%>*%>*% multiple_declare = new list<tuple3<sType*%, string, sNode*%>*%>();
+        
+        var base_type, name, err = parse_type();
+        
+        tuple2<sType*%, string>*% variable_name = parse_variable_name(base_type, true@first, info);
+        
+        tuple3<sType*%, string, sNode*%>*% variable_name2 = (variable_name.v1, variable_name.v2, null);
+        
+        multiple_declare.push_back(variable_name2);
+        
+        while(*info->p == ',') {
+            info->p++;
+            skip_spaces_and_lf();
+            
+            tuple2<sType*%, string>*% variable_name = parse_variable_name(base_type, false@first, info);
+        
+            tuple3<sType*%, string, sNode*%>*% variable_name2 = (variable_name.v1, variable_name.v2, null);
+            
+            multiple_declare.push_back(variable_name2);
         }
         
         return new sStoreNode(string(buf)@name, null@multiple_assign, multiple_declare, base_type@type, true@alloc, null@right_value, null@array_initializer, info) implements sNode;

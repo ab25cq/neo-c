@@ -46,6 +46,9 @@ class sGlobalVariable extends sNodeBase
         if(self.multiple_declare) {
             foreach(it, self.multiple_declare) {
                 var type, name = it;
+                
+                add_variable_to_global_table(name, clone type, info);
+                
                 if(info.output_header_file && self.mDeclareSName !== info->base_sname) {
                 }
                 else {

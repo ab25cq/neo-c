@@ -2143,7 +2143,7 @@ sNode*% and_exp(sInfo* info)
     parse_sharp();
 
     while(*info->p) {
-        if(*info->p == '&' && *(info->p+1) != '&' && *(info->p+1) != '=') {
+        if(!node->terminated() && *info->p == '&' && *(info->p+1) != '&' && *(info->p+1) != '=') {
             info->p++;
             skip_spaces_and_lf();
 
@@ -2151,7 +2151,7 @@ sNode*% and_exp(sInfo* info)
 
             return new sAndNode(node, right, false@quote, info) implements sNode;
         }
-        else if(*info->p == '\\' && *(info->p+1) == '&' && *(info->p+2) != '&' && *(info->p+2) != '=') {
+        else if(!node->terminated() && *info->p == '\\' && *(info->p+1) == '&' && *(info->p+2) != '&' && *(info->p+2) != '=') {
             info->p+=2;
             skip_spaces_and_lf();
 
@@ -2356,7 +2356,10 @@ sNode*% conditional_exp(sInfo* info)
                 value1 = new sNullNode(info) implements sNode;
             }
             else {
+                bool no_label = info->no_label;
+                info->no_label = true;
                 value1 = conditional_exp(info);
+                info->no_label = no_label;
             }
 
             parse_sharp();
