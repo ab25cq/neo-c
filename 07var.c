@@ -1003,6 +1003,9 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
                 multiple_declare.push_back(variable_name2);
             }
             else {
+                tuple3<sType*%, string, sNode*%>*% variable_name2 = (variable_name.v1, variable_name.v2, null);
+                
+                multiple_declare.push_back(variable_name2);
                 break;
             }
         }

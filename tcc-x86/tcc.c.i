@@ -16227,6 +16227,8 @@ int tcc_relocate(TCCState *s1, void *ptr)
 }
 
 
+using c
+{
 int tcc_run(TCCState *s1, int argc, char **argv)
 {
     int (*prog_main)(int, char **);
@@ -16234,9 +16236,9 @@ int tcc_run(TCCState *s1, int argc, char **argv)
     int ret;
 
     ret = tcc_relocate(s1, 
-# 1684 "libtcc.c" 3 4
+# 1686 "libtcc.c" 3 4
                           ((void*)0)
-# 1684 "libtcc.c"
+# 1686 "libtcc.c"
                               );
     if (ret < 0)
         return -1;
@@ -16251,73 +16253,74 @@ int tcc_run(TCCState *s1, int argc, char **argv)
 
 
         sigact.sa_flags = 
-# 1697 "libtcc.c" 3 4
+# 1699 "libtcc.c" 3 4
                          4 
-# 1697 "libtcc.c"
+# 1699 "libtcc.c"
                                     | 
-# 1697 "libtcc.c" 3 4
+# 1699 "libtcc.c" 3 4
                                       0x80000000
-# 1697 "libtcc.c"
+# 1699 "libtcc.c"
                                                   ;
         sigact.
-# 1698 "libtcc.c" 3 4
+# 1700 "libtcc.c" 3 4
               __sa_handler.sa_sigaction 
-# 1698 "libtcc.c"
+# 1700 "libtcc.c"
                            = sig_error;
         sigemptyset(&sigact.sa_mask);
         sigaction(
-# 1700 "libtcc.c" 3 4
+# 1702 "libtcc.c" 3 4
                  8
-# 1700 "libtcc.c"
+# 1702 "libtcc.c"
                        , &sigact, 
-# 1700 "libtcc.c" 3 4
+# 1702 "libtcc.c" 3 4
                                   ((void*)0)
-# 1700 "libtcc.c"
+# 1702 "libtcc.c"
                                       );
         sigaction(
-# 1701 "libtcc.c" 3 4
+# 1703 "libtcc.c" 3 4
                  4
-# 1701 "libtcc.c"
+# 1703 "libtcc.c"
                        , &sigact, 
-# 1701 "libtcc.c" 3 4
+# 1703 "libtcc.c" 3 4
                                   ((void*)0)
-# 1701 "libtcc.c"
+# 1703 "libtcc.c"
                                       );
         sigaction(
-# 1702 "libtcc.c" 3 4
+# 1704 "libtcc.c" 3 4
                  11
-# 1702 "libtcc.c"
+# 1704 "libtcc.c"
                         , &sigact, 
-# 1702 "libtcc.c" 3 4
+# 1704 "libtcc.c" 3 4
                                    ((void*)0)
-# 1702 "libtcc.c"
+# 1704 "libtcc.c"
                                        );
         sigaction(
-# 1703 "libtcc.c" 3 4
+# 1705 "libtcc.c" 3 4
                  7
-# 1703 "libtcc.c"
+# 1705 "libtcc.c"
                        , &sigact, 
-# 1703 "libtcc.c" 3 4
+# 1705 "libtcc.c" 3 4
                                   ((void*)0)
-# 1703 "libtcc.c"
+# 1705 "libtcc.c"
                                       );
         sigaction(
-# 1704 "libtcc.c" 3 4
+# 1706 "libtcc.c" 3 4
                  6
-# 1704 "libtcc.c"
+# 1706 "libtcc.c"
                         , &sigact, 
-# 1704 "libtcc.c" 3 4
+# 1706 "libtcc.c" 3 4
                                    ((void*)0)
-# 1704 "libtcc.c"
+# 1706 "libtcc.c"
                                        );
 
 
 
     }
-# 1722 "libtcc.c"
+# 1724 "libtcc.c"
     ret = (*prog_main)(argc, argv);
     tcc_free(ptr);
     return ret;
+}
 }
 
 void tcc_memstats(void)
@@ -16332,22 +16335,22 @@ static void tcc_cleanup(void)
     int i, n;
 
     if (
-# 1738 "libtcc.c" 3 4
+# 1741 "libtcc.c" 3 4
        ((void*)0) 
-# 1738 "libtcc.c"
+# 1741 "libtcc.c"
             == tcc_state)
         return;
     tcc_state = 
-# 1740 "libtcc.c" 3 4
+# 1743 "libtcc.c" 3 4
                ((void*)0)
-# 1740 "libtcc.c"
+# 1743 "libtcc.c"
                    ;
 
 
     free_defines(
-# 1743 "libtcc.c" 3 4
+# 1746 "libtcc.c" 3 4
                 ((void*)0)
-# 1743 "libtcc.c"
+# 1746 "libtcc.c"
                     );
 
 
@@ -16362,15 +16365,15 @@ static void tcc_cleanup(void)
     cstr_free(&tokcstr);
 
     sym_free_first = 
-# 1756 "libtcc.c" 3 4
+# 1759 "libtcc.c" 3 4
                     ((void*)0)
-# 1756 "libtcc.c"
+# 1759 "libtcc.c"
                         ;
 
     macro_ptr = 
-# 1758 "libtcc.c" 3 4
+# 1761 "libtcc.c" 3 4
                ((void*)0)
-# 1758 "libtcc.c"
+# 1761 "libtcc.c"
                    ;
 }
 
@@ -16383,9 +16386,9 @@ TCCState *tcc_new(void)
     s = tcc_mallocz(sizeof(TCCState));
     if (!s)
         return 
-# 1769 "libtcc.c" 3 4
+# 1772 "libtcc.c" 3 4
               ((void*)0)
-# 1769 "libtcc.c"
+# 1772 "libtcc.c"
                   ;
     tcc_state = s;
     s->output_type = 0;
@@ -16396,47 +16399,47 @@ TCCState *tcc_new(void)
 
 
     define_push(TOK___LINE__, 0, 
-# 1778 "libtcc.c" 3 4
+# 1781 "libtcc.c" 3 4
                                         ((void*)0)
-# 1778 "libtcc.c"
+# 1781 "libtcc.c"
                                             , 
-# 1778 "libtcc.c" 3 4
+# 1781 "libtcc.c" 3 4
                                               ((void*)0)
-# 1778 "libtcc.c"
+# 1781 "libtcc.c"
                                                   );
     define_push(TOK___FILE__, 0, 
-# 1779 "libtcc.c" 3 4
+# 1782 "libtcc.c" 3 4
                                         ((void*)0)
-# 1779 "libtcc.c"
+# 1782 "libtcc.c"
                                             , 
-# 1779 "libtcc.c" 3 4
+# 1782 "libtcc.c" 3 4
                                               ((void*)0)
-# 1779 "libtcc.c"
+# 1782 "libtcc.c"
                                                   );
     define_push(TOK___DATE__, 0, 
-# 1780 "libtcc.c" 3 4
+# 1783 "libtcc.c" 3 4
                                         ((void*)0)
-# 1780 "libtcc.c"
+# 1783 "libtcc.c"
                                             , 
-# 1780 "libtcc.c" 3 4
+# 1783 "libtcc.c" 3 4
                                               ((void*)0)
-# 1780 "libtcc.c"
+# 1783 "libtcc.c"
                                                   );
     define_push(TOK___TIME__, 0, 
-# 1781 "libtcc.c" 3 4
+# 1784 "libtcc.c" 3 4
                                         ((void*)0)
-# 1781 "libtcc.c"
+# 1784 "libtcc.c"
                                             , 
-# 1781 "libtcc.c" 3 4
+# 1784 "libtcc.c" 3 4
                                               ((void*)0)
-# 1781 "libtcc.c"
+# 1784 "libtcc.c"
                                                   );
 
 
     tcc_define_symbol(s, "__STDC__", 
-# 1784 "libtcc.c" 3 4
+# 1787 "libtcc.c" 3 4
                                     ((void*)0)
-# 1784 "libtcc.c"
+# 1787 "libtcc.c"
                                         );
     tcc_define_symbol(s, "__STDC_VERSION__", "199901L");
 
@@ -16444,39 +16447,39 @@ TCCState *tcc_new(void)
 
 
     tcc_define_symbol(s, "__x86_64__", 
-# 1790 "libtcc.c" 3 4
+# 1793 "libtcc.c" 3 4
                                       ((void*)0)
-# 1790 "libtcc.c"
+# 1793 "libtcc.c"
                                           );
-# 1805 "libtcc.c"
+# 1808 "libtcc.c"
     tcc_define_symbol(s, "__unix__", 
-# 1805 "libtcc.c" 3 4
+# 1808 "libtcc.c" 3 4
                                     ((void*)0)
-# 1805 "libtcc.c"
+# 1808 "libtcc.c"
                                         );
     tcc_define_symbol(s, "__unix", 
-# 1806 "libtcc.c" 3 4
+# 1809 "libtcc.c" 3 4
                                   ((void*)0)
-# 1806 "libtcc.c"
+# 1809 "libtcc.c"
                                       );
 
     tcc_define_symbol(s, "__linux__", 
-# 1808 "libtcc.c" 3 4
+# 1811 "libtcc.c" 3 4
                                      ((void*)0)
-# 1808 "libtcc.c"
+# 1811 "libtcc.c"
                                          );
     tcc_define_symbol(s, "__linux", 
-# 1809 "libtcc.c" 3 4
+# 1812 "libtcc.c" 3 4
                                    ((void*)0)
-# 1809 "libtcc.c"
+# 1812 "libtcc.c"
                                        );
 
 
 
     tcc_define_symbol(s, "__TINYC__", 
-# 1813 "libtcc.c" 3 4
+# 1816 "libtcc.c" 3 4
                                      ((void*)0)
-# 1813 "libtcc.c"
+# 1816 "libtcc.c"
                                          );
 
 
@@ -16497,9 +16500,9 @@ TCCState *tcc_new(void)
 
 
     dynarray_add((void ***)&s->sections, &s->nb_sections, 
-# 1832 "libtcc.c" 3 4
+# 1835 "libtcc.c" 3 4
                                                          ((void*)0)
-# 1832 "libtcc.c"
+# 1835 "libtcc.c"
                                                              );
 
 
@@ -16518,7 +16521,7 @@ TCCState *tcc_new(void)
                                       ".dynstrtab",
                                       ".dynhashtab", 0x80000000);
     s->alacarte_link = 1;
-# 1858 "libtcc.c"
+# 1861 "libtcc.c"
     return s;
 }
 
@@ -16605,15 +16608,15 @@ static int tcc_add_file_internal(TCCState *s1, const char *filename, int flags)
 
         ret = tcc_compile(s1);
     } else
-# 1958 "libtcc.c"
+# 1961 "libtcc.c"
     {
         fd = file->fd;
 
         ret = read(fd, &ehdr, sizeof(ehdr));
         lseek(fd, 0, 
-# 1962 "libtcc.c" 3 4
+# 1965 "libtcc.c" 3 4
                     0
-# 1962 "libtcc.c"
+# 1965 "libtcc.c"
                             );
         if (ret <= 0) {
             error_noabort("could not read header");
@@ -16636,13 +16639,13 @@ static int tcc_add_file_internal(TCCState *s1, const char *filename, int flags)
 
                     void *h;
                     h = dlopen(filename, 
-# 1983 "libtcc.c" 3 4
+# 1986 "libtcc.c" 3 4
                                         256 
-# 1983 "libtcc.c"
+# 1986 "libtcc.c"
                                                     | 
-# 1983 "libtcc.c" 3 4
+# 1986 "libtcc.c" 3 4
                                                       1
-# 1983 "libtcc.c"
+# 1986 "libtcc.c"
                                                                );
                     if (h)
                         ret = 0;
@@ -16661,7 +16664,7 @@ static int tcc_add_file_internal(TCCState *s1, const char *filename, int flags)
             file->line_num = 0;
             ret = tcc_load_archive(s1, fd);
         } else
-# 2011 "libtcc.c"
+# 2014 "libtcc.c"
         {
 
         try_load_script:
@@ -16770,12 +16773,12 @@ int tcc_set_output_type(TCCState *s, int output_type)
 
 
     }
-# 2133 "libtcc.c"
+# 2136 "libtcc.c"
     if (s->char_is_unsigned) {
         tcc_define_symbol(s, "__CHAR_UNSIGNED__", 
-# 2134 "libtcc.c" 3 4
+# 2137 "libtcc.c" 3 4
                                                  ((void*)0)
-# 2134 "libtcc.c"
+# 2137 "libtcc.c"
                                                      );
     }
 

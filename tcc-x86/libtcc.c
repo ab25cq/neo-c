@@ -1675,6 +1675,8 @@ int tcc_relocate(TCCState *s1, void *ptr)
 }
 
 /* launch the compiled program with the given arguments */
+using c
+{
 int tcc_run(TCCState *s1, int argc, char **argv)
 {
     int (*prog_main)(int, char **);
@@ -1722,6 +1724,7 @@ int tcc_run(TCCState *s1, int argc, char **argv)
     ret = (*prog_main)(argc, argv);
     tcc_free(ptr);
     return ret;
+}
 }
 
 void tcc_memstats(void)

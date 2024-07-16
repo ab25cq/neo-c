@@ -5678,7 +5678,7 @@ memset(&i_155, 0, sizeof(int));
                                                         return __result122__;
                                                     }
                                                     else {
-                                                        if(_if_conditional252=string_operator_not_equals(left_type->mClass->mName,right_type2_120->mClass->mName),                                                        _if_conditional252) {
+                                                        if(_if_conditional252=string_operator_not_equals(left_type->mClass->mName,right_type2_120->mClass->mName)&&!(left_type->mPointerNum>0&&right_type2_120->mPointerNum==0),                                                        _if_conditional252) {
                                                             if(print_err_msg) {
                                                                 err_msg(info,"type error12");
                                                                 printf("left type is %s pointer num %d\n",left_type->mClass->mName,left_type->mPointerNum);

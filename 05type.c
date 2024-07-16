@@ -658,7 +658,7 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
             }
             return false;
         }
-        else if(left_type->mClass->mName !== right_type2->mClass->mName) {
+        else if(left_type->mClass->mName !== right_type2->mClass->mName && !(left_type->mPointerNum > 0 && right_type2->mPointerNum == 0)) {
             if(print_err_msg) {
                 err_msg(info, "type error12");
                 printf("left type is %s pointer num %d\n", left_type->mClass->mName, left_type->mPointerNum);
