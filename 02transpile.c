@@ -9,6 +9,7 @@ using c
 }
 
 bool gComeGC = false;
+bool gComeLink = true;
 bool gComeC = false;
 char* gProgramName = NULL;
 bool gCommonHeader = false;
@@ -272,8 +273,11 @@ static bool linker(sInfo* info, list<string>* object_files)
     if(gComeGC) {
         command.append_str("-L/usr/local/lib -lneo-c-gc ");
     }
-    else {
+    else if(gComeLink) {
         command.append_str("-L/usr/local/lib -lneo-c ");
+    }
+    else {
+        command.append_str("-L/usr/local/lib ");
     }
     string cmd = xsprintf("which /opt/homebrew/opt/llvm/bin/clang-cpp 1> /dev/null 2>/dev/null"); // Is Mac?
 
@@ -535,6 +539,9 @@ int come_main(int argc, char** argv) version 2
             else if(argv[i] === "-gc") {
                 gComeGC = true;
             }
+            else if(argv[i] === "-alone") {
+                gComeLink = false;
+            }
             else if(argv[i] === "-g") {
                 clang_option.append_str("-g ");
             }
@@ -737,6 +744,9 @@ int come_main(int argc, char** argv) version 2
             }
             else if(argv[i] === "-gc") {
                 gComeGC = true;
+            }
+            else if(argv[i] === "-alone") {
+                gComeLink = false;
             }
             else if(argv[i] === "-cg") {
                 come_debug = true;

@@ -103,6 +103,7 @@ struct sType
     bool mRegister;
     bool mVolatile;
     bool mStatic;
+    bool mUniq;
     bool mRecord;
     bool mExtern;
     bool mRestrict;
@@ -225,6 +226,7 @@ struct sGenericsFun
 struct sModule
 {
     buffer*% mSourceHead;
+    buffer*% mSourceHead2;
     buffer*% mSource;
     string mLastCode;
     string mLastCode2;
@@ -394,6 +396,7 @@ void add_come_code_at_function_head(sInfo* info, char* code, ...);
 void add_come_code_at_come_header(sInfo* info, const char* msg, ...);
 void add_come_code_at_function_head2(sInfo* info, char* code, ...);
 void add_come_code_at_source_head(sInfo* info, const char* msg, ...);
+void add_come_code_at_source_head2(sInfo* info, const char* msg, ...);
 void add_come_code(sInfo* info, const char* msg, ...);
 void add_come_last_code(sInfo* info, const char* msg, ...);
 void add_come_last_code2(sInfo* info, const char* msg, ...);

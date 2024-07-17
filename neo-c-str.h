@@ -1,5 +1,5 @@
-#ifndef COMELANG2_STR_H
-#define COMELANG2_STR_H
+#ifndef NOE_C_STR_H
+#define NEO_C_STR_H
 
 #include <pcre.h>
 

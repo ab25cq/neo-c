@@ -5,7 +5,7 @@ Another modern Object Oriented C traspiler. It has a heap system that is a cross
 
 もう一つのモダンなオブジェクト指向Cコンパイラ。automatically-free-systemとリファレンスカウントGCの間をとったようなヒープシステムがありコレクションライブラリ、文字列ライブラリを備えてます。
 
-version 1.0.6.0
+version 1.0.7.0
 
 ``` C
 #include <neo-c.h>
@@ -336,6 +336,7 @@ sh all_build.sh
 
 # Histories
 
+1.0.7.0 uniq attribute for function and global variable
 1.0.6.0 More Compatibility to C
 1.0.5.2 More Compatibility to C
 1.0.5.1 More Compatibility to C
@@ -3370,6 +3371,53 @@ int main(int argc, char** argv)
     
     return 0;
 }
+```
+
+# uniq
+
+```
+> vin a.h
+using c
+{
+#include <stdio.h>
+}
+
+extern int gGlobalVar;
+
+uniq int gGlobalVar = 777;
+
+uniq void fun()
+{
+    printf("%d\n", gGlobalVar);
+}
+> vin a.c
+#include "a.h"
+
+int main(int argc, char** argv)
+{
+    fun();
+    
+    return 0;
+}
+> vin b.c
+#include "a.h"
+
+void fun2()
+{
+    fun();
+}
+> neo-c -c b.c
+> neo-c a.c b.c.o
+> ./a
+777
+```
+
+uniq function and global variable added to main module.
+In other module, not defined contents.
+
+e
+
+
 ```
 
 user_finalize is for use to non-memory management routine at finalize.

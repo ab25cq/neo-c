@@ -3,6 +3,7 @@
 sModule*% sModule*::initialize(sModule*% self)
 {
     self.mSourceHead = new buffer();
+    self.mSourceHead2 = new buffer();
     self.mSource = new buffer();
     self.mLastCode = null;
     self.mLastCode2 = null;

@@ -710,6 +710,23 @@ void add_come_code_at_source_head(sInfo* info, const char* msg, ...)
     
     free(msg2);
 }
+    
+void add_come_code_at_source_head2(sInfo* info, const char* msg, ...)
+{
+    if(info->no_output_come_code) {
+        return;
+    }
+    char* msg2;
+
+    va_list args;
+    va_start(args, msg);
+    int len = vasprintf(&msg2, msg, args);
+    va_end(args);
+    
+    info.module.mSourceHead2.append_str(xsprintf("%s", msg2));
+    
+    free(msg2);
+}
 
 void add_come_code_at_come_header(sInfo* info, const char* msg, ...)
 {
@@ -732,6 +749,7 @@ void add_come_code_at_come_header(sInfo* info, const char* msg, ...)
 
 int transpile(sInfo* info) version 3
 {
+/*
     var name = string("main");
     var result_type = new sType("int");
     var param_types = [new sType("int"), new sType("char**")];
@@ -754,12 +772,15 @@ int transpile(sInfo* info) version 3
     add_come_code(info, "puts(\"HELLO COMELANG\");\n\n");
     add_come_code(info, "return 0;\n");
     info.block_level--;
+*/
     
     return 0;
 }
 
 bool output_source_file(sInfo* info) version 3
 {
+    bool main_module = info->funcs[s"main"]?? != null;
+    
     /// go ///
     string output_file_name = xsprintf("%s.c", info.sname);
     
@@ -768,13 +789,21 @@ bool output_source_file(sInfo* info) version 3
     fprintf(f, "// source head\n");
     fprintf(f, "%s\n", info.module.mSourceHead.to_string());
     
+    fprintf(f, "// uniq global variable\n");
+    if(main_module) {
+        fprintf(f, "%s\n", info.module.mSourceHead2.to_string());
+    }
+    
     fprintf(f, "// header function\n");
     foreach(it, info.funcs) {
         sFun* it2 = info.funcs[string(it)]??;
         
         string header = header_function(it2, info);
         
-        if(it2->mStatic && it2->mResultType->mInline) {
+        if(it2->mResultType->mUniq) {
+            fprintf(f, "%s", header);
+        }
+        else if(it2->mStatic && it2->mResultType->mInline) {
         }
         else if(it2->mStatic) {
             fprintf(f, "static %s", header);
@@ -821,6 +850,8 @@ bool output_source_file(sInfo* info) version 3
                 fprintf(f, "static %s", output);
             }
             else if(it2->mResultType->mInline) {
+            }
+            else if(!main_module && it2->mResultType->mUniq) {
             }
             else {
                 fprintf(f, "%s", output);

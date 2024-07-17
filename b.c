@@ -1,4 +1,4 @@
-
+#include "a.h"
 
 int fun(int x, int y)
 {

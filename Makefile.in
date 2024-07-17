@@ -33,7 +33,7 @@ SELF_HOST_OBJS=@SELF_HOST_OBJS@
 all: neo-c-sh
 
 neo-c: 01main.c.o 02transpile.c.o 02constructors.c.o 03output_code.c.o 04heap.c.o 05pre_op.c.o 05call.c.o 05function.c.o 05number.c.o 05type.c.o 06str.c.o 07var.c.o 07gvar.c.o 08if.c.o 09while.c.o 10do_while.c.o 11for.c.o 12switch.c.o 13op.c.o 14struct.c.o 15union.c.o 16enum.c.o 17typedef.c.o 18field.c.o 19eq.c.o 20method.c.o 21obj.c.o 22impl.c.o 23interface.c.o 24module.c.o libneo-c.a libneo-c-gc.a libneo-c-str.a libneo-c-str-gc.a
-	neo-c -o neo-c  01main.c.o 02transpile.c.o 02constructors.c.o 03output_code.c.o 04heap.c.o 05pre_op.c.o 05call.c.o 05function.c.o 05number.c.o 05type.c.o 06str.c.o 07var.c.o 07gvar.c.o 08if.c.o 09while.c.o 10do_while.c.o 11for.c.o 12switch.c.o 13op.c.o 14struct.c.o 15union.c.o 16enum.c.o 17typedef.c.o 18field.c.o 19eq.c.o 20method.c.o 21obj.c.o 22impl.c.o 23interface.c.o 24module.c.o $(CFLAGS) $(COME_CFLAGS)
+	neo-c -o neo-c 01main.c.o 02transpile.c.o 02constructors.c.o 03output_code.c.o 04heap.c.o 05pre_op.c.o 05call.c.o 05function.c.o 05number.c.o 05type.c.o 06str.c.o 07var.c.o 07gvar.c.o 08if.c.o 09while.c.o 10do_while.c.o 11for.c.o 12switch.c.o 13op.c.o 14struct.c.o 15union.c.o 16enum.c.o 17typedef.c.o 18field.c.o 19eq.c.o 20method.c.o 21obj.c.o 22impl.c.o 23interface.c.o 24module.c.o $(CFLAGS) $(COME_CFLAGS)
 
 01main.c.o: 01main.c
 	neo-c -S -o 01main.c.o -c 01main.c $(CFLAGS) $(COME_CFLAGS)
@@ -259,6 +259,7 @@ install:
 	$(INSTALL) -m 755 ./neo-c "$(DESTDIR)/bin"
 	mkdir -p "$(DESTDIR)/include"
 	$(INSTALL) -m 644 ./neo-c.h "$(DESTDIR)/include"
+	$(INSTALL) -m 644 ./neo-c-alone.h "$(DESTDIR)/include"
 	$(INSTALL) -m 644 ./neo-c-str.h "$(DESTDIR)/include"
 	mkdir -p "$(DESTDIR)/lib"
 	$(INSTALL) -m 644 ./libneo-c.a "$(DESTDIR)/lib"
@@ -283,6 +284,7 @@ distclean: clean
 uninstall:
 	rm -f "$(DESTDIR)"/bin/neo-c
 	rm -f "$(DESTDIR)"/include/neo-c.h
+	rm -f "$(DESTDIR)"/include/neo-c-alone.h
 	rm -f "$(DESTDIR)"/include/neo-c-str.h
 	rm -f "$(DESTDIR)"/lib/libneo-c.a
 	rm -f "$(DESTDIR)"/lib/libneo-c-str.a

@@ -1079,6 +1079,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
     bool extern_ = false;
     bool inline_ = false;
     bool come_mem_core_ = false;
+    bool uniq_ = false;
     
     sNode*% alignas_ = null;;
     
@@ -1295,6 +1296,11 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         }
         else if(type_name === "static") {
             static_ = true;
+            
+            type_name = parse_word();
+        }
+        else if(type_name === "uniq") {
+            uniq_ = true;
             
             type_name = parse_word();
         }
@@ -1771,6 +1777,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         result_type->mUnsigned = result_type->mUnsigned || unsigned_;
         result_type->mVolatile = volatile_;
         result_type->mRecord = result_type->mStatic || static_;
+        result_type->mUniq = result_type->mUniq || uniq_;
         result_type->mStatic = result_type->mRecord || record_;
         result_type->mExtern = result_type->mExtern || extern_;
         result_type->mInline = result_type->mInline || inline_;
@@ -1837,6 +1844,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         result_type->mUnsigned = result_type->mUnsigned || unsigned_;
         result_type->mVolatile = volatile_;
         result_type->mStatic = result_type->mStatic || static_;
+        result_type->mUniq = result_type->mUniq || uniq_;
         result_type->mRecord = result_type->mRecord || record_;
         result_type->mExtern = result_type->mExtern || extern_;
         result_type->mInline = result_type->mInline || inline_;
@@ -1945,6 +1953,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             type->mUnsigned = type->mUnsigned || unsigned_;
             type->mVolatile = volatile_;
             type->mStatic = type->mStatic || static_;
+            type->mUniq = type->mUniq || uniq_;
             type->mRecord = type->mRecord || record_;
             type->mExtern = type->mExtern || extern_;
             type->mInline = type->mInline || inline_;
@@ -1969,6 +1978,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             type->mUnsigned = type->mUnsigned || unsigned_;
             type->mVolatile = volatile_;
             type->mStatic = type->mStatic || static_;
+            type->mUniq = type->mUniq || uniq_;
             type->mRecord = type->mRecord || record_;
             type->mExtern = type->mExtern || extern_;
             type->mInline = type->mInline || inline_;
@@ -1993,6 +2003,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             type->mUnsigned = type->mUnsigned || unsigned_;
             type->mVolatile = volatile_;
             type->mStatic = type->mStatic || static_;
+            type->mUniq = type->mUniq || uniq_;
             type->mRecord = type->mRecord || record_;
             type->mExtern = type->mExtern || extern_;
             type->mInline = type->mInline || inline_;
@@ -2058,6 +2069,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             type->mUnsigned = type->mUnsigned || unsigned_;
             type->mVolatile = volatile_;
             type->mStatic = type->mStatic || static_;
+            type->mUniq = type->mUniq || uniq_;
             type->mRecord = type->mRecord || record_;
             type->mExtern = type->mExtern || extern_;
             type->mInline = type->mInline || inline_;
@@ -2086,6 +2098,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             type->mUnsigned = type->mUnsigned || unsigned_;
             type->mVolatile = volatile_;
             type->mStatic = type->mStatic || static_;
+            type->mUniq = type->mUniq || uniq_;
             type->mRecord = type->mRecord || record_;
             type->mExtern = type->mExtern || extern_;
             type->mInline = type->mInline || inline_;
