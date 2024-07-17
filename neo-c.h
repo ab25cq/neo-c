@@ -1,6 +1,10 @@
 #ifndef NEO_C_H
 #define NEO_C_H
 
+#ifdef NEO_C_STDC
+#include <neo-c-stdc.h>
+#else
+
 #define _GNU_SOURCE
 
 using C
@@ -2446,5 +2450,7 @@ integer*% integer::operator_xor(integer* left, integer* right);
 integer*% integer::operator_or(integer* left, integer* right);
 integer*% integer::operator_andand(integer* left, integer* right);
 integer*% integer::operator_oror(integer* left, integer* right);
+
+#endif
 
 #endif

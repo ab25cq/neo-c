@@ -5,7 +5,7 @@ Another modern Object Oriented C traspiler. It has a heap system that is a cross
 
 もう一つのモダンなオブジェクト指向Cコンパイラ。automatically-free-systemとリファレンスカウントGCの間をとったようなヒープシステムがありコレクションライブラリ、文字列ライブラリを備えてます。
 
-version 1.0.7.0
+version 1.1.0.0
 
 ``` C
 #include <neo-c.h>
@@ -258,6 +258,8 @@ int main()
 
 14. class and inheritance system supported.
 
+15. neo-c can output to the source code depended on std-c library only
+
 1. C言語と互換性があります。Cプリプロセッサーも動きます。
 
 2. RustやVやNimのようなautomatically-free-systemがあります。
@@ -285,6 +287,8 @@ int main()
 13. 配列の範囲外アクセスをチェックします。
 
 14. クラスと継承システムをサポートします。
+
+15. neo-c can output to the source code depended on std-c library only
 
 # インストール
 
@@ -336,6 +340,7 @@ sh all_build.sh
 
 # Histories
 
+1.1.0.0 neo-c can have targeted stdc environment
 1.0.7.0 uniq attribute for function and global variable
 1.0.6.0 More Compatibility to C
 1.0.5.2 More Compatibility to C
@@ -3415,7 +3420,32 @@ void fun2()
 uniq function and global variable added to main module.
 In other module, not defined contents.
 
-e
+# Output of stdc targeted C Source
+
+```
+> vin a.c
+#include <neo-c.h>
+
+int fun(int x, int y);
+
+int main(int argc, char** argv)
+{
+    fun(1,2).to_string().puts();
+    
+    return 0;
+}
+> vin b.c
+#include <neo-c.h>
+
+int fun(int x, int y) {
+    return x + y;
+}
+> neo-c -stdc -c b.c
+> neo-c -stdc a.c b.c.o
+> ./a
+3
+```
+neo-c outputs a.c.c and b.c.c files, and a.c.c and b.c.c may be worked on all stdc enviroment. 
 
 
 ```

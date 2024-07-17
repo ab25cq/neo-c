@@ -9,7 +9,7 @@ using C
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
-#include <libgen.h>
+//#include <libgen.h>
 }
 
 typedef void* any;
@@ -615,7 +615,7 @@ struct sHeapPage
     int mSizeFreeMem[HEAP_POOL_PAGE_SIZE];
 };
 
-struct sHeapPage gHeapPages;
+uniq struct sHeapPage gHeapPages;
 
 uniq void come_heap_init(int come_malloc, int come_debug, int come_gc)
 {
@@ -4149,6 +4149,7 @@ uniq string int::xsprintf(int self, char* msg, ...)
     return xsprintf(msg, self);
 }
 
+/*
 //////////////////////////////
 /// base library(path library)
 //////////////////////////////
@@ -4253,6 +4254,7 @@ uniq string xrealpath(char* path)
 
     return result2;
 }
+*/
 
 //////////////////////////////
 /// base library(to_string)

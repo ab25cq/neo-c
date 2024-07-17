@@ -1,4 +1,4 @@
-#include "a.h"
+#include <neo-c.h>
 
 int fun(int x, int y)
 {
