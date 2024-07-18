@@ -361,11 +361,13 @@ Vi*% Vi*::initialize(Vi*% self) version 7
         self.activeWin.saveInputedKeyOnTheMovingCursor();
     });
 
+/*
     result.events.replace('P'-'A'+1, void lambda(Vi* self, int key) 
     {
         self.activeWin.filePasteAfterCursor(self);
         self.activeWin.saveInputedKeyOnTheMovingCursor();
     });
+*/
 
     return result;
 }

@@ -516,7 +516,17 @@ Vi*% Vi*::initialize(Vi*% self) version 2
         self.activeWin.forward();
         self.activeWin.saveInputedKeyOnTheMovingCursor();
     });
+    self.events.replace('F'-'A'+1, void lambda(Vi* self, int key) 
+    {
+        self.activeWin.forward();
+        self.activeWin.saveInputedKeyOnTheMovingCursor();
+    });
     self.events.replace('h', void lambda(Vi* self, int key) 
+    {
+        self.activeWin.backward();
+        self.activeWin.saveInputedKeyOnTheMovingCursor();
+    });
+    self.events.replace('B'-'A'+1, void lambda(Vi* self, int key) 
     {
         self.activeWin.backward();
         self.activeWin.saveInputedKeyOnTheMovingCursor();
@@ -536,12 +546,22 @@ Vi*% Vi*::initialize(Vi*% self) version 2
         self.activeWin.nextLine();
         self.activeWin.saveInputedKeyOnTheMovingCursor();
     });
+    self.events.replace('N'-'A'+1, void lambda(Vi* self, int key) 
+    {
+        self.activeWin.nextLine();
+        self.activeWin.saveInputedKeyOnTheMovingCursor();
+    });
     self.events.replace('k', void lambda(Vi* self, int key) 
     {
         self.activeWin.prevLine();
         self.activeWin.saveInputedKeyOnTheMovingCursor();
     });
     self.events.replace(KEY_UP, void lambda(Vi* self, int key) 
+    {
+        self.activeWin.prevLine();
+        self.activeWin.saveInputedKeyOnTheMovingCursor();
+    });
+    self.events.replace('P'-'A'+1, void lambda(Vi* self, int key) 
     {
         self.activeWin.prevLine();
         self.activeWin.saveInputedKeyOnTheMovingCursor();
