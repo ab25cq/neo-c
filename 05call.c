@@ -18,11 +18,6 @@ class sReturnNode extends sNodeBase
         return string("sReturnNode");
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     bool compile(sInfo* info)
     {
         if(self.value) {
@@ -114,11 +109,6 @@ class sLineNode extends sNodeBase
         self.super();
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sLineNode");
@@ -148,11 +138,6 @@ class sSNameNode extends sNodeBase
     new(sInfo* info)
     {
         self.super();
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -186,11 +171,6 @@ class sFuncNode extends sNodeBase
         self.super();
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sFuncNode");
@@ -221,11 +201,6 @@ class sCallerFuncNode extends sNodeBase
     new(sInfo* info)
     {
         self.super();
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -265,11 +240,6 @@ class sCallerLineNode extends sNodeBase
         self.super();
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     bool compile(sInfo* info)
     {
         CVALUE*% come_value = new CVALUE;
@@ -299,11 +269,6 @@ class sCallerSNameNode extends sNodeBase
     new(sInfo* info)
     {
         self.super();
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     bool compile(sInfo* info)
@@ -364,11 +329,6 @@ class sFunCallNode extends sNodeBase
         self.params = clone params;
         self.guard_break = guard_break;
         self.method_generics_types = method_generics_types;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()

@@ -1448,6 +1448,8 @@ const struct TCCOption* tcc_options={
           },
 };
 
+// uniq global variable
+
 // header function
 void* come_calloc(int count, int size, char* sname, int sline, char* class_name);
 

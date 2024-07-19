@@ -121,11 +121,6 @@ class sRefferenceNode extends sNodeBase
         self.value = value;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sRefferenceNode");
@@ -168,11 +163,6 @@ class sDerefferenceNode extends sNodeBase
         
         self.value = value;
         self.mQuote = quote;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -265,11 +255,6 @@ class sLogicalDenial extends sNodeBase
         self.value = value;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sLogicalDenial");
@@ -307,11 +292,6 @@ class sReverseNode extends sNodeBase
         self.super();
         
         self.value = value;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -356,11 +336,6 @@ class sMinusNode2 extends sNodeBase
         self.value = value;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sMinusNode2");
@@ -400,11 +375,6 @@ class sPlusPlusNode2 extends sNodeBase
         self.value = value;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sPlusPlusNode2");
@@ -442,11 +412,6 @@ class sMinusMinusNode2 extends sNodeBase
         self.super();
         
         self.value = value;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -525,11 +490,6 @@ class sComplement extends sNodeBase
         self.value = value;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sComplement");
@@ -567,11 +527,6 @@ class sParenNode extends sNodeBase
         self.super();
         
         self.mLeft = clone left;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -615,11 +570,6 @@ class sCastNode extends sNodeBase
         
         self.mType = clone type;
         self.mLeft = clone left;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()

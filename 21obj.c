@@ -7,11 +7,6 @@ class sNothingNode extends sNodeBase
         self.super();
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sNothingNode");
@@ -32,11 +27,6 @@ class sNewNode extends sNodeBase
         self.super();
         
         self.type = clone type;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -111,11 +101,6 @@ class sImplementsNode extends sNodeBase
         
         self.obj_exp = clone obj_exp;
         self.inf_type = clone inf_type;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -219,11 +204,6 @@ class sTrueNode extends sNodeBase
         self.super();
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sTrueNode");
@@ -250,11 +230,6 @@ class sFalseNode extends sNodeBase
     new(sInfo* info)
     {
         self.super();
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -287,11 +262,6 @@ class sSizeOfNode extends sNodeBase
         self.super();
         
         self.type = clone type;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -333,11 +303,6 @@ class sSizeOfExpNode extends sNodeBase
         self.exp = clone exp;
         
         return self;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -382,11 +347,6 @@ class sTypeOfNode extends sNodeBase
         self.type = clone type;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sTypeOfNode");
@@ -423,11 +383,6 @@ class sTypeOfExpNode extends sNodeBase
         self.super();
         
         self.exp = clone exp;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -473,11 +428,6 @@ class sDynamicTypeOfNode extends sNodeBase
         self.super();
         
         self.exp = clone exp;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -542,11 +492,6 @@ class sAlignOfNode extends sNodeBase
         return self;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sAlignOfNode");
@@ -584,11 +529,6 @@ class sAlignOfExpNode extends sNodeBase
         self.super();
         
         self.exp = clone exp;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -633,11 +573,6 @@ class sAlignOfNode2 extends sNodeBase
         self.type = clone type;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sAlignOfNode2");
@@ -675,11 +610,6 @@ class sAlignOfExpNode2 extends sNodeBase
         self.super();
         
         self.exp = clone exp;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -724,11 +654,6 @@ class sAlignAsNode extends sNodeBase
         self.type = clone type;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sAlignAsNode");
@@ -766,11 +691,6 @@ class sAlignAsExpNode extends sNodeBase
         self.super();
         
         self.exp = clone exp;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -815,11 +735,6 @@ class sDeleteNode extends sNodeBase
         self.node = clone node;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sDeleteNode");
@@ -851,11 +766,6 @@ class sForceDeleteNode extends sNodeBase
         self.super();
         
         self.node = clone node;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -891,11 +801,6 @@ class sDelegateNode extends sNodeBase
         self.node = clone node;
         
         return self;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -943,11 +848,6 @@ class sShareNode extends sNodeBase
         self.node = clone node;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sShareNode");
@@ -989,11 +889,6 @@ class sBorrowNode extends sNodeBase
         return self;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sBorrowNode");
@@ -1033,11 +928,6 @@ class sCloneNode extends sNodeBase
         self.super();
         
         self.node = clone node;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -1096,11 +986,6 @@ class sDupeNode extends sNodeBase
         self.node = clone node;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sDupeNode");
@@ -1154,11 +1039,6 @@ class sDummyHeapNode extends sNodeBase
         self.node = clone node;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sDummyHeapNode");
@@ -1192,11 +1072,6 @@ class sGCIncNode extends sNodeBase
         self.super();
         
         self.node = clone node;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -1239,11 +1114,6 @@ class sGCDecNode extends sNodeBase
         self.node = clone node;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sGCDecNode");
@@ -1279,11 +1149,6 @@ class sIsHeap extends sNodeBase
         self.super();
         
         self.type = clone type;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -1331,11 +1196,6 @@ class sIsPointer extends sNodeBase
         self.super();
         
         self.type = clone type;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()

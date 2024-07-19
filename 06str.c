@@ -12,11 +12,6 @@ class sStrNode extends sNodeBase
         self.value = string(value);
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sStrNode");
@@ -50,11 +45,6 @@ class sSStringNode extends sNodeBase
         
         self.value = string(value);
         self.exps = clone exps;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -141,11 +131,6 @@ class sCharNode extends sNodeBase
         self.value = value;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sCharNode");
@@ -178,11 +163,6 @@ class sWCharNode extends sNodeBase
         
         self.value = value;
         self.quote = quote;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -222,11 +202,6 @@ class sWStringNode extends sNodeBase
         self.value = value;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sWStringNode");
@@ -263,11 +238,6 @@ class sRegexNode extends sNodeBase
         self.ignore_case = ignore_case;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sRegexNode");
@@ -302,11 +272,6 @@ class sListNode extends sNodeBase
         self.super();
         
         self.list_elements = list_elements;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -488,11 +453,6 @@ class sTupleNode extends sNodeBase
         self.tuple_elements = tuple_elements;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sTupleNode");
@@ -631,11 +591,6 @@ class sMapNode extends sNodeBase
         
         self.map_key_elements = map_key_elements;
         self.map_elements = map_elements;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()

@@ -5,7 +5,7 @@ Another modern Object Oriented C traspiler. It has a heap system that is a cross
 
 もう一つのモダンなオブジェクト指向Cコンパイラ。automatically-free-systemとリファレンスカウントGCの間をとったようなヒープシステムがありコレクションライブラリ、文字列ライブラリを備えてます。
 
-version 1.1.1.0
+version 1.1.1.1
 
 ``` C
 #include <neo-c.h>
@@ -340,6 +340,7 @@ sh all_build.sh
 
 # Histories
 
+1.1.1.1 Refactoring.
 1.1.1.0 super method call was added.
 1.1.0.0 neo-c can have targeted stdc environment
 1.0.7.0 uniq attribute for function and global variable

@@ -158,11 +158,6 @@ class sGotoNode extends sNodeBase
         self.label = label;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sGotoNode");
@@ -183,11 +178,6 @@ class sBreakNode extends sNodeBase
     new(sInfo* info)
     {
         self.super();
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -212,11 +202,6 @@ class sContinueNode extends sNodeBase
     new(sInfo* info)
     {
         self.super();
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()

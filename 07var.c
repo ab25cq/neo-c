@@ -39,11 +39,6 @@ class sStoreNode extends sNodeBase
         self.array_initializer = array_initializer;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sStoreNode");
@@ -586,11 +581,6 @@ class sLoadNode extends sNodeBase
         self.name = string(name);
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sLoadNode");
@@ -677,11 +667,6 @@ class sFunLoadNode extends sNodeBase
         self.super();
         
         self.name = string(name);
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()

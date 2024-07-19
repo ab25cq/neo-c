@@ -131,11 +131,6 @@ class sStoreFieldNode extends sNodeBase
         self.mName = string(name);
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sStoreFieldNode");
@@ -369,11 +364,6 @@ class sNullCheckNode extends sNodeBase
         return self;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sNullCheckNode");
@@ -459,11 +449,6 @@ class sNullableNode extends sNodeBase
         self.mLeft = clone left;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sNullableNode");
@@ -510,11 +495,6 @@ class sRangeCheckNode extends sNodeBase
         self.mLeft = clone left;
         self.mBegin = clone begin;
         self.mEnd = clone end;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -597,11 +577,6 @@ class sLoadFieldNode extends sNodeBase
     
         self.mLeft = clone left;
         self.mName = string(name);
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -741,11 +716,6 @@ class sStoreArrayNode extends sNodeBase
         self.mRight = clone right;
         self.mArrayNum = clone array_num;
         self.mQuote = quote;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -988,11 +958,6 @@ class sLoadArrayNode extends sNodeBase
         self.mQuote = quote;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sLoadArrayNode");
@@ -1211,11 +1176,6 @@ class sLoadRangeArrayNode extends sNodeBase
     
         self.mLeft = clone left;
         self.mQuote = quote;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()

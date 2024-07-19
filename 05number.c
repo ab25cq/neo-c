@@ -30,11 +30,6 @@ class sIntNode extends sNodeBase
         
         return true;
     }
-    
-    bool terminated()
-    {
-        return false;
-    }
 };
 
 class sUIntNode extends sNodeBase
@@ -46,11 +41,6 @@ class sUIntNode extends sNodeBase
         self.super();
         
         self.value = value;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -104,11 +94,6 @@ class sLongNode extends sNodeBase
         
         return true;
     }
-    
-    bool terminated()
-    {
-        return false;
-    }
 };
 
 class sULongNode extends sNodeBase
@@ -140,11 +125,6 @@ class sULongNode extends sNodeBase
         add_come_last_code(info, "%s;\n", come_value.c_value);
         
         return true;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
 };
 
@@ -178,11 +158,6 @@ class sFloatNode extends sNodeBase
         
         return true;
     }
-    
-    bool terminated()
-    {
-        return false;
-    }
 };
 
 class sDoubleNode extends sNodeBase
@@ -214,11 +189,6 @@ class sDoubleNode extends sNodeBase
         add_come_last_code(info, "%s;\n", come_value.c_value);
         
         return true;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
 };
 

@@ -16,11 +16,6 @@ class sInterfaceNode extends sNodeBase
         self.mOutput = output;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sInterfaceNode");

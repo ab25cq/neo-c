@@ -1,52 +1,28 @@
 
 #include "common.h"
 
-struct sModuleNode {
+class sModuleNode extends sNodeBase {
     string name;
     sClassModule*% module;
     
-    int sline;
-    string sname;
+    new(string name, sClassModule*% module, sInfo* info) {
+        self.name = string(name);
+        self.module = clone module;
+    }
+
+    string kind()
+    {
+        return string("sModuleNode");
+    }
+    
+    bool compile(sInfo* info)
+    {
+        string name = string(self.name);
+        sClassModule* module = self.module;
+        
+        return true;
+    }
 };
-
-sModuleNode*% sModuleNode*::initialize(sModuleNode*% self, string name, sClassModule*% module, sInfo* info)
-{
-    self.name = string(name);
-    self.module = clone module;
-    
-    self.sline = info.sline;
-    self.sname = string(info.sname);
-    
-    return self;
-}
-
-int sModuleNode*::sline(sModuleNode* self, sInfo* info)
-{
-    return self.sline;
-}
-
-string sModuleNode*::sname(sModuleNode* self, sInfo* info)
-{
-    return string(self.sname);
-}
-
-bool sModuleNode*::terminated()
-{
-    return false;
-}
-
-string sModuleNode*::kind()
-{
-    return string("sModuleNode");
-}
-
-bool sModuleNode*::compile(sModuleNode* self, sInfo* info)
-{
-    string name = string(self.name);
-    sClassModule* module = self.module;
-    
-    return true;
-}
 
 sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
 {

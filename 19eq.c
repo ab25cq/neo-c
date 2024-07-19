@@ -14,11 +14,6 @@ class sPlusPlusNode extends sNodeBase
         self.mQuote = quote;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sPlusPlusNode");
@@ -74,11 +69,6 @@ class sMinusMinusNode extends sNodeBase
     
         self.mLeft = clone left;
         self.mQuote = quote;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -138,11 +128,6 @@ class sPlusEqualNode extends sNodeBase
         self.mLeft = clone left;
         self.mRight = clone right;
         self.mQuote = quote;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -213,11 +198,6 @@ class sMinusEqualNode extends sNodeBase
         self.mRight = clone right;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sPlusEqualNode");
@@ -284,11 +264,6 @@ class sMultEqualNode extends sNodeBase
     
         self.mLeft = clone left;
         self.mRight = clone right;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -359,11 +334,6 @@ class sDivEqualNode extends sNodeBase
         self.mRight = clone right;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sDivEqualNode");
@@ -430,11 +400,6 @@ class sModEqualNode extends sNodeBase
     
         self.mLeft = clone left;
         self.mRight = clone right;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -505,11 +470,6 @@ class sLShifEqualNode extends sNodeBase
         self.mRight = clone right;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sLShifEqualNode");
@@ -576,11 +536,6 @@ class sRShiftEqualNode extends sNodeBase
     
         self.mLeft = clone left;
         self.mRight = clone right;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -651,11 +606,6 @@ class sXorEqualNode extends sNodeBase
         self.mRight = clone right;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sXorEqualNode");
@@ -722,11 +672,6 @@ class sOrEqualNode extends sNodeBase
     
         self.mLeft = clone left;
         self.mRight = clone right;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -797,11 +742,6 @@ class sAndEqualNode extends sNodeBase
         self.mRight = clone right;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sAndEqualNode");
@@ -868,11 +808,6 @@ class sExpEqualNode extends sNodeBase
     
         self.mLeft = clone left;
         self.mRight = clone right;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()

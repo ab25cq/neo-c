@@ -17,11 +17,6 @@ class sCurrentNode extends sNodeBase
         return string(self.sname);
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sCurrentNode");

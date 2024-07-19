@@ -191,6 +191,11 @@ int sNodeBase*::sline(sNodeBase* self, sInfo* info)
     return self.sline;
 }
 
+bool sNodeBase*::terminated(sNodeBase* self)
+{
+    return false;
+}
+
 string sNodeBase*::sname(sNodeBase* self, sInfo* info)
 {
     return string(self.sname);

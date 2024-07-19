@@ -247,8 +247,8 @@ tccpp.c:2172:13: error: call to undeclared function 'come_call_finalizer3'; ISO 
  2172 |             come_call_finalizer3((&str_254),CString_finalize, 1, 0, 0, 0, (void*)0);
       |             ^
 tccpp.c:2172:13: note: did you mean 'come_call_finalizer'?
-tcc.c:160:6: note: 'come_call_finalizer' declared here
-  160 | void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* protocol_obj, int call_finalizer_only, int no_decrement, int no_free);
+tcc.c:162:6: note: 'come_call_finalizer' declared here
+  162 | void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* protocol_obj, int call_finalizer_only, int no_decrement, int no_free);
       |      ^
 tccpp.c:1156:7: warning: unused variable '_if_conditional350' [-Wunused-variable]
  1156 | _Bool _if_conditional350;

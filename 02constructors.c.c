@@ -1904,6 +1904,8 @@ struct sNodeBase* sNodeBase_initialize(struct sNodeBase* self, struct sInfo* inf
 static void sNodeBase_finalize(struct sNodeBase* self);
 int sNodeBase_sline(struct sNodeBase* self, struct sInfo* info);
 
+_Bool sNodeBase_terminated(struct sNodeBase* self);
+
 char* sNodeBase_sname(struct sNodeBase* self, struct sInfo* info);
 
 // inline function
@@ -6344,14 +6346,22 @@ memset(&__result_obj__, 0, sizeof(void*));
     return __result143__;
 }
 
+_Bool sNodeBase_terminated(struct sNodeBase* self){
+void* __result_obj__;
+_Bool __result144__;
+memset(&__result_obj__, 0, sizeof(void*));
+    __result144__ = (_Bool)0;
+    return __result144__;
+}
+
 char* sNodeBase_sname(struct sNodeBase* self, struct sInfo* info){
 void* __result_obj__;
 void* right_value201;
-char* __result144__;
+char* __result145__;
 memset(&__result_obj__, 0, sizeof(void*));
 right_value201 = (void*)0;
-    __result144__ = __result_obj__ = ((char*)(right_value201=__builtin_string(self->sname)));
+    __result145__ = __result_obj__ = ((char*)(right_value201=__builtin_string(self->sname)));
     right_value201 = come_decrement_ref_count2(right_value201, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
-    return __result144__;
+    return __result145__;
 }
 

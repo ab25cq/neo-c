@@ -11,11 +11,6 @@ class sLambdaNode extends sNodeBase
         self.mFun = fun;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sLambdaNode");
@@ -60,11 +55,6 @@ class sFunNode extends sNodeBase
         self.super();
         
         self.mFun = fun;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -177,7 +167,7 @@ info->sline = node.sline();
             
             parse_sharp();
             
-            if(node.terminated->()) {
+            if(node.terminated()) {
                 skip_spaces_and_lf();
             }
             

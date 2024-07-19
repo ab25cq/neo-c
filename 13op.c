@@ -130,11 +130,6 @@ class sNullNode extends sNodeBase
         self.super();
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sNullNode");
@@ -161,11 +156,6 @@ class sNilNode extends sNodeBase
     new(sInfo* info)
     {
         self.super();
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -203,11 +193,6 @@ class sAddNode extends sNodeBase
         self.mLeft = clone left;
         self.mRight = clone right;
         self.mQuote = quote;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -279,11 +264,6 @@ class sSubNode extends sNodeBase
         self.mQuote = quote;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sSubNode");
@@ -351,11 +331,6 @@ class sMultNode extends sNodeBase
         self.mQuote = quote;
         self.mLeft = clone left;
         self.mRight = clone right;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -427,11 +402,6 @@ class sDivNode extends sNodeBase
         self.mRight = clone right;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sDivNode");
@@ -499,11 +469,6 @@ class sModNode extends sNodeBase
         self.mQuote = quote;
         self.mLeft = clone left;
         self.mRight = clone right;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -576,11 +541,6 @@ class sLShiftNode extends sNodeBase
         self.mRight = clone right;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sLShiftNode");
@@ -648,11 +608,6 @@ class sRShiftNode extends sNodeBase
         self.mQuote = quote;
         self.mLeft = clone left;
         self.mRight = clone right;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -724,11 +679,6 @@ class sGtEqNode extends sNodeBase
         self.mRight = clone right;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sGtEqNode");
@@ -796,11 +746,6 @@ class sLtEqNode extends sNodeBase
         self.mQuote = quote;
         self.mLeft = clone left;
         self.mRight = clone right;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -872,11 +817,6 @@ class sLtNode extends sNodeBase
         self.mRight = clone right;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sLtNode");
@@ -944,11 +884,6 @@ class sGtNode extends sNodeBase
         self.mQuote = quote;
         self.mLeft = clone left;
         self.mRight = clone right;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -1021,11 +956,6 @@ class sEqNode extends sNodeBase
         self.mRight = clone right;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sEqNode");
@@ -1082,11 +1012,6 @@ class sNotEqNode extends sNodeBase
         self.mRight = clone right;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sNotEqNode");
@@ -1141,11 +1066,6 @@ class sEq2Node extends sNodeBase
         self.mQuote = quote;
         self.mLeft = clone left;
         self.mRight = clone right;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -1217,11 +1137,6 @@ class sNotEq2Node extends sNodeBase
         self.mRight = clone right;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sNotEq2Node");
@@ -1289,11 +1204,6 @@ class sAndNode extends sNodeBase
         self.mQuote = quote;
         self.mLeft = clone left;
         self.mRight = clone right;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -1366,11 +1276,6 @@ class sXOrNode extends sNodeBase
         self.mRight = clone right;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sXOrNode");
@@ -1438,11 +1343,6 @@ class sOrNode extends sNodeBase
         self.mQuote = quote;
         self.mLeft = clone left;
         self.mRight = clone right;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -1515,11 +1415,6 @@ class sAndAndNode extends sNodeBase
         self.mRight = clone right;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sAndAndNode");
@@ -1590,11 +1485,6 @@ class sOrOrNode extends sNodeBase
         self.mRight = clone right;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sOrOrNode");
@@ -1662,11 +1552,6 @@ class sCommaNode extends sNodeBase
         self.mRight = clone right;
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sCommaNode");
@@ -1720,11 +1605,6 @@ class sConditionalNode extends sNodeBase
         self.mValue1 = clone value1;
         self.mValue2 = clone value2;
         self.mValue3 = clone value3;
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()
@@ -1783,7 +1663,7 @@ sNode*% mult_exp(sInfo* info)
     parse_sharp()
 
     while(*info->p) {
-        if(!node.terminated->() && *info->p == '*' && *(info->p+1) != '=') {
+        if(!node.terminated() && *info->p == '*' && *(info->p+1) != '=') {
             info->p++;
             skip_spaces_and_lf();
 
@@ -1807,7 +1687,7 @@ sNode*% mult_exp(sInfo* info)
             
             return new sModNode(node, right, false@quote, info) implements sNode;
         }
-        else if(!node.terminated->() && *info->p == '\\' && *(info->p+1) == '*' && *(info->p+2) != '=') {
+        else if(!node.terminated() && *info->p == '\\' && *(info->p+1) == '*' && *(info->p+2) != '=') {
             info->p+=2;
             skip_spaces_and_lf();
 

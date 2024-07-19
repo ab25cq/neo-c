@@ -25,11 +25,6 @@ class sGlobalVariable extends sNodeBase
         self.mDeclareSName = string(info->sname);
     }
     
-    bool terminated()
-    {
-        return false;
-    }
-    
     string kind()
     {
         return string("sGlobalVariable");
@@ -123,11 +118,6 @@ class sExternalGlobalVariable extends sNodeBase
         self.multiple_declare = clone multiple_declare;
         
         self.mDeclareSName = string(info->sname);
-    }
-    
-    bool terminated()
-    {
-        return false;
     }
     
     string kind()

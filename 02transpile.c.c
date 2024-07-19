@@ -1709,6 +1709,8 @@ int come_main_v1(int argc, char** argv);
 
 struct sNodeBase* sNodeBase_initialize(struct sNodeBase* self, struct sInfo* info);
 
+_Bool sNodeBase_terminated(struct sNodeBase* self);
+
 struct sModule* sModule_initialize(struct sModule* self);
 
 struct sType* sType_initialize(struct sType* self, char* name, _Bool heap, struct sInfo* info);
