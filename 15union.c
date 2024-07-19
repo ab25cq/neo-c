@@ -8,8 +8,7 @@ class sUnionNode extends sNodeBase
     
     new(sType*% type, bool output, sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     
         self.mType = clone type;
         

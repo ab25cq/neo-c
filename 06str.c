@@ -7,10 +7,9 @@ class sStrNode extends sNodeBase
     
     new(string value, int sline, sInfo* info)
     {
-        self.value = string(value);
+        self.super();
         
-        self.sline = sline;
-        self.sname = string(info->sname);
+        self.value = string(value);
     }
     
     bool terminated()
@@ -47,11 +46,10 @@ class sSStringNode extends sNodeBase
     
     new(string value, list<sNode*%>*% exps, int sline, sInfo* info)
     {
+        self.super();
+        
         self.value = string(value);
         self.exps = clone exps;
-        
-        self.sline = sline;
-        self.sname = string(info->sname);
     }
     
     bool terminated()
@@ -138,10 +136,9 @@ class sCharNode extends sNodeBase
     
     new(int value, sInfo* info)
     {
-        self.value = value;
+        self.super();
         
-        self.sline = info->sline;
-        self.sname = string(info->sname);
+        self.value = value;
     }
     
     bool terminated()
@@ -177,11 +174,10 @@ class sWCharNode extends sNodeBase
     
     new(wchar_t value, bool quote, sInfo* info)
     {
+        self.super();
+        
         self.value = value;
         self.quote = quote;
-        
-        self.sline = info->sline;
-        self.sname = string(info->sname);
     }
     
     bool terminated()
@@ -221,10 +217,9 @@ class sWStringNode extends sNodeBase
     
     new(wchar_t*% value, int sline, sInfo* info)
     {
-        self.value = value;
+        self.super();
         
-        self.sline = sline;
-        self.sname = string(info->sname);
+        self.value = value;
     }
     
     bool terminated()
@@ -261,12 +256,11 @@ class sRegexNode extends sNodeBase
     
     new(string str, bool global, bool ignore_case, int sline, sInfo* info)
     {
+        self.super();
+        
         self.str = string(str);
         self.global = global;
         self.ignore_case = ignore_case;
-        
-        self.sline = sline;
-        self.sname = string(info->sname);
     }
     
     bool terminated()
@@ -305,10 +299,9 @@ class sListNode extends sNodeBase
     
     new(list<sNode*%>*% list_elements, sInfo* info)
     {
-        self.list_elements = list_elements;
+        self.super();
         
-        self.sline = info.sline;
-        self.sname = string(info->sname);
+        self.list_elements = list_elements;
     }
     
     bool terminated()
@@ -490,10 +483,9 @@ class sTupleNode extends sNodeBase
     
     new(list<sNode*%>*% tuple_elements, sInfo* info)
     {
-        self.tuple_elements = tuple_elements;
+        self.super();
         
-        self.sline = info.sline;
-        self.sname = string(info->sname);
+        self.tuple_elements = tuple_elements;
     }
     
     bool terminated()
@@ -635,11 +627,10 @@ class sMapNode extends sNodeBase
     
     new(list<sNode*%>*% map_key_elements, list<sNode*%>*% map_elements, sInfo* info)
     {
+        self.super();
+        
         self.map_key_elements = map_key_elements;
         self.map_elements = map_elements;
-        
-        self.sline = info.sline;
-        self.sname = string(info->sname);
     }
     
     bool terminated()

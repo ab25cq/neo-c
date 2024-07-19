@@ -9,8 +9,7 @@ class sForNode extends sNodeBase
     
     new(sNode*% expression_node, sNode*% expression_node2, sNode*% expression_node3, sBlock* block, sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     
         if(expression_node) {
             self.mExpressionNode = clone expression_node;

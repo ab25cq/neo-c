@@ -11,8 +11,7 @@ class sTypedefNode extends sNodeBase
     
     new(string type_name, sType*% type, list<tuple2<sType*%, string>*%>*% multiple_declare, sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     
         self.mTypeName = string(type_name);
         self.mType = clone type;
@@ -92,8 +91,7 @@ class sTypedefNullNode extends sNodeBase
 {
     new(sInfo* info=info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     }
     
     bool terminated()

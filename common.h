@@ -366,6 +366,7 @@ int come_main(int argc, char** argv) version 1;
 /////////////////////////////////////////////////////////////////////
 /// 02transpile.c ///
 /////////////////////////////////////////////////////////////////////
+sNodeBase*% sNodeBase*::initialize(sNodeBase*% self, sInfo* info=info);
 bool node_compile(sNode* node, sInfo* info=info);
 int come_main(int argc, char** argv) version 2;
 void err_msg(sInfo* info, char* msg, ...);

@@ -12,6 +12,8 @@ class sStoreNode extends sNodeBase
 
     new(string name, list<string>*% multiple_assign, list<tuple3<sType*%, string, sNode*%>*%>*% multiple_declare, sType*% type, bool alloc, sNode*% right_value, string array_initializer, sInfo* info)
     {
+        self.super();
+        
         self.name = string(name);
         self.alloc = alloc;
         if(type) {
@@ -35,9 +37,6 @@ class sStoreNode extends sNodeBase
         }
         
         self.array_initializer = array_initializer;
-        
-        self.sline = info->sline;
-        self.sname = string(info->sname);
     }
     
     bool terminated()
@@ -582,10 +581,9 @@ class sLoadNode extends sNodeBase
     
     new(string name, sInfo* info)
     {
-        self.name = string(name);
+        self.super();
         
-        self.sline = info->sline;
-        self.sname = string(info->sname);
+        self.name = string(name);
     }
     
     bool terminated()
@@ -676,10 +674,9 @@ class sFunLoadNode extends sNodeBase
     
     new(string name, sInfo* info)
     {
-        self.name = string(name);
+        self.super();
         
-        self.sline = info->sline;
-        self.sname = string(info->sname);
+        self.name = string(name);
     }
     
     bool terminated()

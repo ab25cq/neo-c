@@ -124,8 +124,7 @@ class sStoreFieldNode extends sNodeBase
     
     new(sNode* left, sNode*% right, string name, sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     
         self.mLeft = clone left;
         self.mRight = clone right;
@@ -362,8 +361,7 @@ class sNullCheckNode extends sNodeBase
     
     new(sNode* left, bool only_null_checker, sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     
         self.mLeft = clone left;
         self.mOnlyNullCecker = only_null_checker;
@@ -456,8 +454,7 @@ class sNullableNode extends sNodeBase
     
     new(sNode* left, sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     
         self.mLeft = clone left;
     }
@@ -508,8 +505,7 @@ class sRangeCheckNode extends sNodeBase
     
     new(sNode* left, sNode* begin, sNode* end, sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     
         self.mLeft = clone left;
         self.mBegin = clone begin;
@@ -597,8 +593,7 @@ class sLoadFieldNode extends sNodeBase
     
     new(sNode* left, string name, sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     
         self.mLeft = clone left;
         self.mName = string(name);
@@ -740,8 +735,7 @@ class sStoreArrayNode extends sNodeBase
     
     new(sNode* left, sNode*% right, list<sNode*%>*% array_num, bool quote, sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     
         self.mLeft = clone left;
         self.mRight = clone right;
@@ -985,8 +979,7 @@ class sLoadArrayNode extends sNodeBase
     
     new(sNode* left, list<sNode*%>*% array_num, bool quote, bool break_guard, sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
         
         self.mArrayNum = clone array_num;
         self.mBreakGuard = break_guard;
@@ -1212,8 +1205,7 @@ class sLoadRangeArrayNode extends sNodeBase
     
     new(sNode* left, list<sNode*%>*% array_num, bool quote, sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
         
         self.mArrayNum = clone array_num;
     

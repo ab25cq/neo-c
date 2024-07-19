@@ -178,6 +178,14 @@ sFun*% sFun*::initialize(sFun*% self, string name, sType*% result_type, list<sTy
     return self;
 }
 
+sNodeBase*% sNodeBase*::initialize(sNodeBase*% self, sInfo* info=info)
+{
+    self.sline = info.sline;
+    self.sname = string(info.sname);
+    
+    return self;
+}
+
 int sNodeBase*::sline(sNodeBase* self, sInfo* info)
 {
     return self.sline;

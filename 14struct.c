@@ -265,8 +265,7 @@ class sStructNode extends sNodeBase
     
     new(string name, sClass*% klass, bool output, sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     
         self.mName = string(name);
         self.mClass = clone klass;
@@ -315,8 +314,7 @@ class sStructNobodyNode extends sNodeBase
     
     new(string name, sClass*% klass, sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     
         self.mName = string(name);
         self.mClass = clone klass;
@@ -359,8 +357,7 @@ class sGenericsStructNode extends sNodeBase
 {
     new(sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     }
     
     bool terminated()
@@ -391,8 +388,7 @@ class sClassNode extends sNodeBase
     
     new(string name, sClass*% klass, list<sNode*%>*% methods, bool output, sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     
         self.mName = string(name);
         self.mClass = clone klass;

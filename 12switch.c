@@ -7,8 +7,7 @@ class sSwitchNode extends sNodeBase
     
     new(sNode*% expression_node, sBlock* block, sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     
         self.mExpressionNode = clone expression_node;
         self.mBlock = clone block;
@@ -56,8 +55,7 @@ class sCaseNode extends sNodeBase
 
     new(sNode*% node, sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     
         self.mNode = clone node;
     }
@@ -95,8 +93,7 @@ class sDefaultNode extends sNodeBase
 {
     new(sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     }
     
     bool terminated()
@@ -125,10 +122,9 @@ class sLabelNode extends sNodeBase
     
     new(string label, sInfo* info)
     {
-        self.label = label;
+        self.super();
         
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.label = label;
     }
     
     bool terminated()
@@ -157,10 +153,9 @@ class sGotoNode extends sNodeBase
     
     new(string label, sInfo* info)
     {
-        self.label = label;
+        self.super();
         
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.label = label;
     }
     
     bool terminated()
@@ -187,8 +182,7 @@ class sBreakNode extends sNodeBase
 {
     new(sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     }
     
     bool terminated()
@@ -217,8 +211,7 @@ class sContinueNode extends sNodeBase
 {
     new(sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     }
     
     bool terminated()

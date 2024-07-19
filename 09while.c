@@ -7,8 +7,7 @@ class sWhileNode extends sNodeBase
     
     new(sNode*% expression_node, sBlock* block, sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     
         self.mExpressionNode = clone expression_node;
         self.mBlock = clone block;

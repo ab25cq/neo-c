@@ -4,8 +4,7 @@ class sNothingNode extends sNodeBase
 {
     new(sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     }
     
     bool terminated()
@@ -30,10 +29,9 @@ class sNewNode extends sNodeBase
     
     new(sType*% type, sInfo* info)
     {
-        self.type = clone type;
+        self.super();
         
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.type = clone type;
     }
     
     bool terminated()
@@ -109,11 +107,10 @@ class sImplementsNode extends sNodeBase
     
     new(sNode*% obj_exp, sType*% inf_type, sInfo* info)
     {
+        self.super();
+        
         self.obj_exp = clone obj_exp;
         self.inf_type = clone inf_type;
-        
-        self.sline = info.sline;
-        self.sname = string(info.sname);
     }
     
     bool terminated()
@@ -219,8 +216,7 @@ class sTrueNode extends sNodeBase
 {
     new(sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     }
     
     bool terminated()
@@ -253,8 +249,7 @@ class sFalseNode extends sNodeBase
 {
     new(sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     }
     
     bool terminated()
@@ -289,10 +284,9 @@ class sSizeOfNode extends sNodeBase
     
     new(sType*% type, sInfo* info)
     {
-        self.type = clone type;
+        self.super();
         
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.type = clone type;
     }
     
     bool terminated()
@@ -334,10 +328,9 @@ class sSizeOfExpNode extends sNodeBase
     
     new(sNode*% exp, sInfo* info)
     {
-        self.exp = clone exp;
+        self.super();
         
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.exp = clone exp;
         
         return self;
     }
@@ -384,10 +377,9 @@ class sTypeOfNode extends sNodeBase
     
     new(sType*% type, sInfo* info)
     {
-        self.type = clone type;
+        self.super();
         
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.type = clone type;
     }
     
     bool terminated()
@@ -428,10 +420,9 @@ class sTypeOfExpNode extends sNodeBase
     
     new(sNode*% exp, sInfo* info)
     {
-        self.exp = clone exp;
+        self.super();
         
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.exp = clone exp;
     }
     
     bool terminated()
@@ -479,10 +470,9 @@ class sDynamicTypeOfNode extends sNodeBase
     
     new(sNode*% exp, sInfo* info)
     {
-        self.exp = clone exp;
+        self.super();
         
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.exp = clone exp;
     }
     
     bool terminated()
@@ -545,10 +535,9 @@ class sAlignOfNode extends sNodeBase
     
     new(sType*% type, sInfo* info)
     {
-        self.type = clone type;
+        self.super();
         
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.type = clone type;
         
         return self;
     }
@@ -592,10 +581,9 @@ class sAlignOfExpNode extends sNodeBase
     
     new(sNode*% exp, sInfo* info)
     {
-        self.exp = clone exp;
+        self.super();
         
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.exp = clone exp;
     }
     
     bool terminated()
@@ -640,10 +628,9 @@ class sAlignOfNode2 extends sNodeBase
     
     new(sType*% type, sInfo* info)
     {
-        self.type = clone type;
+        self.super();
         
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.type = clone type;
     }
     
     bool terminated()
@@ -685,10 +672,9 @@ class sAlignOfExpNode2 extends sNodeBase
     
     new(sNode*% exp, sInfo* info)
     {
-        self.exp = clone exp;
+        self.super();
         
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.exp = clone exp;
     }
     
     bool terminated()
@@ -733,10 +719,9 @@ class sAlignAsNode extends sNodeBase
     
     new(sType*% type, sInfo* info)
     {
-        self.type = clone type;
+        self.super();
         
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.type = clone type;
     }
     
     bool terminated()
@@ -778,10 +763,9 @@ class sAlignAsExpNode extends sNodeBase
     
     new(sNode*% exp, sInfo* info)
     {
-        self.exp = clone exp;
+        self.super();
         
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.exp = clone exp;
     }
     
     bool terminated()
@@ -826,10 +810,9 @@ class sDeleteNode extends sNodeBase
     
     new(sNode*% node, sInfo* info)
     {
-        self.node = clone node;
+        self.super();
         
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.node = clone node;
     }
     
     bool terminated()
@@ -865,10 +848,9 @@ class sForceDeleteNode extends sNodeBase
     
     new(sNode*% node, sInfo* info)
     {
-        self.node = clone node;
+        self.super();
         
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.node = clone node;
     }
     
     bool terminated()
@@ -904,10 +886,9 @@ class sDelegateNode extends sNodeBase
     
     new(sNode*% node, sInfo* info)
     {
-        self.node = clone node;
+        self.super();
         
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.node = clone node;
         
         return self;
     }
@@ -957,10 +938,9 @@ class sShareNode extends sNodeBase
     
     new(sNode*% node, sInfo* info)
     {
-        self.node = clone node;
+        self.super();
         
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.node = clone node;
     }
     
     bool terminated()
@@ -1002,10 +982,9 @@ class sBorrowNode extends sNodeBase
     
     new(sNode*% node, sInfo* info)
     {
-        self.node = clone node;
+        self.super();
         
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.node = clone node;
         
         return self;
     }
@@ -1051,10 +1030,9 @@ class sCloneNode extends sNodeBase
     
     new(sNode*% node, sInfo* info)
     {
-        self.node = clone node;
+        self.super();
         
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.node = clone node;
     }
     
     bool terminated()
@@ -1113,10 +1091,9 @@ class sDupeNode extends sNodeBase
     
     new(sNode*% node, sInfo* info)
     {
-        self.node = clone node;
+        self.super();
         
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.node = clone node;
     }
     
     bool terminated()
@@ -1172,10 +1149,9 @@ class sDummyHeapNode extends sNodeBase
     
     new(sNode*% node, sInfo* info)
     {
-        self.node = clone node;
+        self.super();
         
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.node = clone node;
     }
     
     bool terminated()
@@ -1213,10 +1189,9 @@ class sGCIncNode extends sNodeBase
     
     new(sNode*% node, sInfo* info)
     {
-        self.node = clone node;
+        self.super();
         
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.node = clone node;
     }
     
     bool terminated()
@@ -1259,10 +1234,9 @@ class sGCDecNode extends sNodeBase
     
     new(sNode*% node, sInfo* info)
     {
-        self.node = clone node;
+        self.super();
         
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.node = clone node;
     }
     
     bool terminated()
@@ -1302,10 +1276,9 @@ class sIsHeap extends sNodeBase
     
     new(sType*% type, sInfo* info)
     {
-        self.type = clone type;
+        self.super();
         
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.type = clone type;
     }
     
     bool terminated()
@@ -1355,10 +1328,9 @@ class sIsPointer extends sNodeBase
     
     new(sType*% type, sInfo* info)
     {
-        self.type = clone type;
+        self.super();
         
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.type = clone type;
     }
     
     bool terminated()

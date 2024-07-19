@@ -116,9 +116,9 @@ class sRefferenceNode extends sNodeBase
     
     new(sNode*% value, sInfo* info)
     {
+        self.super();
+        
         self.value = value;
-        self.sline = info.sline;
-        self.sname = string(info.sname);
     }
     
     bool terminated()
@@ -164,9 +164,9 @@ class sDerefferenceNode extends sNodeBase
     
     new(sNode*% value, bool quote, sInfo* info)
     {
+        self.super();
+        
         self.value = value;
-        self.sline = info.sline;
-        self.sname = string(info.sname);
         self.mQuote = quote;
     }
     
@@ -260,10 +260,9 @@ class sLogicalDenial extends sNodeBase
     
     new(sNode*% value, sInfo* info)
     {
-        self.value = value;
+        self.super();
         
-        self.sline = info->sline;
-        self.sname = string(info->sname);
+        self.value = value;
     }
     
     bool terminated()
@@ -305,9 +304,9 @@ class sReverseNode extends sNodeBase
     
     new(sNode*% value, sInfo* info)
     {
+        self.super();
+        
         self.value = value;
-        self.sline = info.sline;
-        self.sname = string(info.sname);
     }
     
     bool terminated()
@@ -352,10 +351,9 @@ class sMinusNode2 extends sNodeBase
     
     new(sNode*% value, sInfo* info)
     {
-        self.value = value;
+        self.super();
         
-        self.sline = info->sline;
-        self.sname = string(info->sname);
+        self.value = value;
     }
     
     bool terminated()
@@ -397,10 +395,9 @@ class sPlusPlusNode2 extends sNodeBase
     
     new(sNode*% value, sInfo* info)
     {
-        self.value = value;
+        self.super();
         
-        self.sline = info->sline;
-        self.sname = string(info->sname);
+        self.value = value;
     }
     
     bool terminated()
@@ -442,10 +439,9 @@ class sMinusMinusNode2 extends sNodeBase
     
     new(sNode*% value, sInfo* info)
     {
-        self.value = value;
+        self.super();
         
-        self.sline = info->sline;
-        self.sname = string(info->sname);
+        self.value = value;
     }
     
     bool terminated()
@@ -487,9 +483,8 @@ class sNormalBlock extends sNodeBase
     
     new(sBlock* block, sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
-    
+        self.super();
+        
         self.mBlock = clone block;
     }
     
@@ -525,10 +520,9 @@ class sComplement extends sNodeBase
     
     new(sNode*% value, sInfo* info)
     {
-        self.value = value;
+        self.super();
         
-        self.sline = info->sline;
-        self.sname = string(info->sname);
+        self.value = value;
     }
     
     bool terminated()
@@ -570,9 +564,9 @@ class sParenNode extends sNodeBase
     
     new(sNode* left, sInfo* info)
     {
+        self.super();
+        
         self.mLeft = clone left;
-        self.sline = info.sline;
-        self.sname = string(info.sname);
     }
     
     bool terminated()
@@ -617,10 +611,10 @@ class sCastNode extends sNodeBase
     
     new(sType* type, sNode* left, sInfo* info)
     {
+        self.super();
+        
         self.mType = clone type;
         self.mLeft = clone left;
-        self.sline = info.sline;
-        self.sname = string(info.sname);
     }
     
     bool terminated()

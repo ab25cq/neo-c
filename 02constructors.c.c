@@ -1899,6 +1899,9 @@ static struct sVar* map$2charphsVarph_at(struct map$2charphsVarph* self, char* k
 static struct map$2charphsVarph* map$2charphsVarph_insert2(struct map$2charphsVarph* self, char* key, struct sVar* item);
 static void map$2charphsVarph_rehash(struct map$2charphsVarph* self);
 static void sFun_finalize(struct sFun* self);
+struct sNodeBase* sNodeBase_initialize(struct sNodeBase* self, struct sInfo* info);
+
+static void sNodeBase_finalize(struct sNodeBase* self);
 int sNodeBase_sline(struct sNodeBase* self, struct sInfo* info);
 
 char* sNodeBase_sname(struct sNodeBase* self, struct sInfo* info);
@@ -6306,22 +6309,49 @@ memset(&__result_obj__, 0, sizeof(void*));
         }
 }
 
+struct sNodeBase* sNodeBase_initialize(struct sNodeBase* self, struct sInfo* info){
+void* __result_obj__;
+void* right_value200;
+char* __dec_obj87;
+struct sNodeBase* __result142__;
+memset(&__result_obj__, 0, sizeof(void*));
+right_value200 = (void*)0;
+    self->sline=info->sline;
+    __dec_obj87=self->sname;
+    self->sname=(char*)come_increment_ref_count(((char*)(right_value200=__builtin_string(info->sname))));
+    __dec_obj87 = come_decrement_ref_count2(__dec_obj87, (void*)0, (void*)0, 0,0,0, (void*)0);
+    right_value200 = come_decrement_ref_count2(right_value200, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+    __result142__ = __result_obj__ = self;
+    come_call_finalizer3(self,sNodeBase_finalize, 0, 0, 1, 0, (void*)0);
+    return __result142__;
+    come_call_finalizer3(self,sNodeBase_finalize, 0, 0, 1, 0, (void*)0);
+}
+
+static void sNodeBase_finalize(struct sNodeBase* self){
+void* __result_obj__;
+_Bool _if_conditional256;
+memset(&__result_obj__, 0, sizeof(void*));
+        if(_if_conditional256=self!=((void*)0)&&self->sname!=((void*)0),        _if_conditional256) {
+            self->sname = come_decrement_ref_count2(self->sname, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+        }
+}
+
 int sNodeBase_sline(struct sNodeBase* self, struct sInfo* info){
 void* __result_obj__;
-int __result142__;
+int __result143__;
 memset(&__result_obj__, 0, sizeof(void*));
-    __result142__ = self->sline;
-    return __result142__;
+    __result143__ = self->sline;
+    return __result143__;
 }
 
 char* sNodeBase_sname(struct sNodeBase* self, struct sInfo* info){
 void* __result_obj__;
-void* right_value200;
-char* __result143__;
+void* right_value201;
+char* __result144__;
 memset(&__result_obj__, 0, sizeof(void*));
-right_value200 = (void*)0;
-    __result143__ = __result_obj__ = ((char*)(right_value200=__builtin_string(self->sname)));
-    right_value200 = come_decrement_ref_count2(right_value200, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
-    return __result143__;
+right_value201 = (void*)0;
+    __result144__ = __result_obj__ = ((char*)(right_value201=__builtin_string(self->sname)));
+    right_value201 = come_decrement_ref_count2(right_value201, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+    return __result144__;
 }
 

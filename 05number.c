@@ -6,10 +6,9 @@ class sIntNode extends sNodeBase
     
     new(int value, sInfo* info)
     {
-        self.value = value;
+        self.super();
         
-        self.sline = info->sline;
-        self.sname = string(info->sname);
+        self.value = value;
     }
     
     string kind()
@@ -44,10 +43,9 @@ class sUIntNode extends sNodeBase
     
     new(unsigned int value, sInfo* info)
     {
-        self.value = value;
+        self.super();
         
-        self.sline = info->sline;
-        self.sname = string(info->sname);
+        self.value = value;
     }
     
     bool terminated()
@@ -82,10 +80,9 @@ class sLongNode extends sNodeBase
     
     new(unsigned long value, sInfo* info)
     {
-        self.value = value;
+        self.super();
         
-        self.sline = info->sline;
-        self.sname = string(info->sname);
+        self.value = value;
     }
     
     string kind()
@@ -120,10 +117,9 @@ class sULongNode extends sNodeBase
     
     new(unsigned long value, sInfo* info)
     {
-        self.value = value;
+        self.super();
         
-        self.sline = info->sline;
-        self.sname = string(info->sname);
+        self.value = value;
     }
     
     string kind()
@@ -158,10 +154,9 @@ class sFloatNode extends sNodeBase
     
     new(float value, sInfo* info)
     {
-        self.value = value;
+        self.super();
         
-        self.sline = info->sline;
-        self.sname = string(info->sname);
+        self.value = value;
     }
     
     string kind()
@@ -196,10 +191,9 @@ class sDoubleNode extends sNodeBase
     
     new(double value, sInfo* info)
     {
-        self.value = value;
+        self.super();
         
-        self.sline = info->sline;
-        self.sname = string(info->sname);
+        self.value = value;
     }
     
     string kind()

@@ -14,8 +14,7 @@ class sGlobalVariable extends sNodeBase
     
     new(list<tuple2<sType*%,string>*%>*% multiple_declare, sType* type, string name, sNode*% right_node, string array_initializer, sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = info.sname;
+        self.super();
         
         self.type = clone type;
         self.name = string(name);
@@ -116,11 +115,10 @@ class sExternalGlobalVariable extends sNodeBase
     
     new(list<tuple2<sType*%, string>*%>*% multiple_declare, sType* type, string name, sInfo* info)
     {
+        self.super();
+        
         self.type = clone type;
         self.name = string(name);
-    
-        self.sline = info.sline;
-        self.sname = info.sname;
         
         self.multiple_declare = clone multiple_declare;
         

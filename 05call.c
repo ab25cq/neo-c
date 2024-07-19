@@ -7,11 +7,10 @@ class sReturnNode extends sNodeBase
     
     new(sNode*% value, string value_source, sInfo* info)
     {
+        self.super();
+        
         self.value = value;
         self.value_source = clone value_source;
-        
-        self.sline = info.sline;
-        self.sname = string(info.sname);
     }
     
     string kind()
@@ -112,8 +111,7 @@ class sLineNode extends sNodeBase
     
     new(sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     }
     
     bool terminated()
@@ -149,8 +147,7 @@ class sSNameNode extends sNodeBase
     
     new(sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     }
     
     bool terminated()
@@ -186,8 +183,7 @@ class sFuncNode extends sNodeBase
     
     new(sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     }
     
     bool terminated()
@@ -224,8 +220,7 @@ class sCallerFuncNode extends sNodeBase
     
     new(sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     }
     
     bool terminated()
@@ -267,8 +262,7 @@ class sCallerLineNode extends sNodeBase
     
     new(sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     }
     
     bool terminated()
@@ -304,8 +298,7 @@ class sCallerSNameNode extends sNodeBase
     
     new(sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     }
     
     bool terminated()
@@ -365,11 +358,11 @@ class sFunCallNode extends sNodeBase
     
     new(char* fun_name, list<tuple2<string,sNode*%>*%>* params, bool guard_break, list<sType*%>*% method_generics_types, sInfo* info)
     {
+        self.super();
+        
         self.fun_name = string(fun_name);
         self.params = clone params;
         self.guard_break = guard_break;
-        self.sline = info.sline;
-        self.sname = string(info.sname);
         self.method_generics_types = method_generics_types;
     }
     

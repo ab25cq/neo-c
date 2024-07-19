@@ -6,9 +6,9 @@ class sLambdaNode extends sNodeBase
 
     new(sFun* fun, sInfo* info)
     {
+        self.super();
+        
         self.mFun = fun;
-        self.sline = info.sline;
-        self.sname = info.sname;
     }
     
     bool terminated()
@@ -57,9 +57,9 @@ class sFunNode extends sNodeBase
     
     new(sFun*% fun, sInfo* info)
     {
+        self.super();
+        
         self.mFun = fun;
-        self.sline = info.sline;
-        self.sname = info.sname;
     }
     
     bool terminated()

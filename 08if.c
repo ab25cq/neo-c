@@ -12,8 +12,7 @@ class sIfNode extends sNodeBase
     
     new(sNode*% expression_node, sBlock* if_block, list<sNode*%>* elif_expression_nodes, list<sBlock*%>* elif_blocks, int elif_num, sBlock* else_block, bool guard_, sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     
         self.mExpressionNode = clone expression_node;
         self.mIfBlock = clone if_block;
@@ -180,8 +179,7 @@ class sOrStatmentNode extends sNodeBase
     
     new(sNode*% expression_node, sBlock* if_block, sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     
         self.mExpressionNode = clone expression_node;
         self.mIfBlock = clone if_block;
@@ -243,8 +241,7 @@ class sAndStatmentNode extends sNodeBase
     
     new(sNode*% expression_node, sBlock* if_block, sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     
         self.mExpressionNode = clone expression_node;
         self.mIfBlock = clone if_block;

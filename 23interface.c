@@ -8,11 +8,10 @@ class sInterfaceNode extends sNodeBase
     
     new(string name, sClass*% klass, bool output, sInfo* info)
     {
+        self.super();
+        
         self.name = string(name);
         self.klass = clone klass;
-        
-        self.sline = info.sline;
-        self.sname = string(info.sname);
         
         self.mOutput = output;
     }

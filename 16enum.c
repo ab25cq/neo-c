@@ -11,8 +11,7 @@ class sEnumNode extends sNodeBase
     
     new(string type_name, list<tuple2<string,sNode*%>*%>* elements, bool output, sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     
         self.mTypeName = string(type_name);
         self.mElements = clone elements;

@@ -4,8 +4,7 @@ class sCurrentNode extends sNodeBase
 {
     new(sInfo* info)
     {
-        self.sline = info.sline;
-        self.sname = string(info.sname);
+        self.super();
     }
     
     int sline(sInfo* info)
@@ -172,12 +171,12 @@ class sMethodCallNode extends sNodeBase
     
     new(char* fun_name,sNode*% obj, list<tuple2<string,sNode*%>*%>*% params, buffer* method_block, int method_block_sline, list<sType*%>* method_generics_types , sInfo* info)
     {
+        self.super();
+        
         self.obj = clone obj;
         self.fun_name = string(fun_name);
         self.params = clone params;
         self.method_block = clone method_block;
-        self.sline = info.sline;
-        self.sname = string(info.sname);
         self.method_block_sline = method_block_sline;
         self.method_generics_types = clone method_generics_types;
     }
