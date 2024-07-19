@@ -312,70 +312,88 @@ class sMethodCallNode extends sNodeBase
             info.stack.push_back(come_value2);
         }
         else {
-            string generics_fun_name = make_generics_function(obj_type, string(fun_name), info).to_string();
-            
+            string generics_fun_name;
             sFun* fun = null;
-            
-            for(int i=FUN_VERSION_MAX; i>=1; i--) {
-                string new_fun_name = xsprintf("%s_v%d", generics_fun_name, i);
-            
-                fun = info.funcs[new_fun_name]??;
+            if(fun_name === "super") {
+                fun_name = create_non_method_name(obj_type, false@no_pointer_name, info.come_fun.mName, info);
                 
-                if(fun != null) {
-                    generics_fun_name = string(new_fun_name);
-                    break;
-                }
-            }
-            
-            if(fun == null) {
-                sType* obj_array_type = obj_type->mOriginalLoadVarType.v1;
-                
-                if(obj_array_type && obj_array_type.mArrayNum.length() > 0) {
-                    string array_method_name = create_method_name(obj_array_type, false@no_pointer_name, fun_name, info, false@array_equal_pointer);
+                sClass* klass = obj_type->mClass;
+                while(info.classes[klass->mParentClassName]??) {
+                    klass = info.classes[klass->mParentClassName]??;
+                    generics_fun_name = create_method_name_using_class(klass, false@no_pointer_name, fun_name, info);
                     
-                    fun = info.funcs.at(array_method_name, null);
+                    fun = info.funcs.at(generics_fun_name, null);
                     
                     if(fun) {
-                        generics_fun_name = string(array_method_name);
-                    }
-                    else {
-                        fun = info.funcs.at(generics_fun_name, null);
-                        
-                        if(fun == null) {
-                            generics_fun_name = create_method_name(obj_type, false@no_pointer_name, string(fun_name), info);
-                            fun = info.funcs.at(generics_fun_name, null);
-                            if(fun == null) {
-                                err_msg(info, "function not found(%s) at method(%s)(Z1)\n", generics_fun_name, info.come_fun.mName);
-                                return true;
-                            }
-                        }
+                        break;
                     }
                 }
-                else {
-                    fun = info.funcs.at(generics_fun_name, null);
                 
-                    if(fun == null) {
-                        generics_fun_name = create_method_name(obj_type, false@no_pointer_name, string(fun_name), info);
+            }
+            else {
+                generics_fun_name = make_generics_function(obj_type, string(fun_name), info).to_string();
+                
+                for(int i=FUN_VERSION_MAX; i>=1; i--) {
+                    string new_fun_name = xsprintf("%s_v%d", generics_fun_name, i);
+                
+                    fun = info.funcs[new_fun_name]??;
+                    
+                    if(fun != null) {
+                        generics_fun_name = string(new_fun_name);
+                        break;
+                    }
+                }
+                
+                if(fun == null) {
+                    sType* obj_array_type = obj_type->mOriginalLoadVarType.v1;
+                    
+                    if(obj_array_type && obj_array_type.mArrayNum.length() > 0) {
+                        string array_method_name = create_method_name(obj_array_type, false@no_pointer_name, fun_name, info, false@array_equal_pointer);
                         
-                        fun = info.funcs.at(generics_fun_name, null);
+                        fun = info.funcs.at(array_method_name, null);
                         
-                        if(fun == null) {
-                            sClass* klass = obj_type->mClass;
-                            while(info.classes[klass->mParentClassName]??) {
-                                klass = info.classes[klass->mParentClassName]??;
-                                generics_fun_name = create_method_name_using_class(klass, false@no_pointer_name, fun_name, info);
-                                
+                        if(fun) {
+                            generics_fun_name = string(array_method_name);
+                        }
+                        else {
+                            fun = info.funcs.at(generics_fun_name, null);
+                            
+                            if(fun == null) {
+                                generics_fun_name = create_method_name(obj_type, false@no_pointer_name, string(fun_name), info);
                                 fun = info.funcs.at(generics_fun_name, null);
-                                
-                                if(fun) {
-                                    break;
+                                if(fun == null) {
+                                    err_msg(info, "function not found(%s) at method(%s)(Z1)\n", generics_fun_name, info.come_fun.mName);
+                                    return true;
                                 }
                             }
                         }
-                        
+                    }
+                    else {
+                        fun = info.funcs.at(generics_fun_name, null);
+                    
                         if(fun == null) {
-                            err_msg(info, "function not found(%s) at method(%s)(Z2n)\n", generics_fun_name, info.come_fun.mName);
-                            return true;
+                            generics_fun_name = create_method_name(obj_type, false@no_pointer_name, string(fun_name), info);
+                            
+                            fun = info.funcs.at(generics_fun_name, null);
+                            
+                            if(fun == null) {
+                                sClass* klass = obj_type->mClass;
+                                while(info.classes[klass->mParentClassName]??) {
+                                    klass = info.classes[klass->mParentClassName]??;
+                                    generics_fun_name = create_method_name_using_class(klass, false@no_pointer_name, fun_name, info);
+                                    
+                                    fun = info.funcs.at(generics_fun_name, null);
+                                    
+                                    if(fun) {
+                                        break;
+                                    }
+                                }
+                            }
+                            
+                            if(fun == null) {
+                                err_msg(info, "function not found(%s) at method(%s)(Z2n)\n", generics_fun_name, info.come_fun.mName);
+                                return true;
+                            }
                         }
                     }
                 }

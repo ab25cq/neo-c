@@ -1275,6 +1275,47 @@ string create_method_name(sType* obj_type, bool no_pointer_name, char* fun_name,
     return xsprintf("%s%s_%s", struct_name, buf.to_string(), fun_name);
 }
 
+string create_non_method_name(sType* obj_type, bool no_pointer_name, char* fun_name, sInfo* info, bool array_equal_pointer=true)
+{
+    string struct_name;
+    buffer*% buf = new buffer();
+    if(obj_type->mOriginalTypeName !== "") {
+        struct_name = string(obj_type->mOriginalTypeName);
+        if(!obj_type->mClass->mStruct) {
+            for(int i=0; i<obj_type->mOriginalTypeNamePointerNum; i++)
+            {
+                buf.append_str("p");
+            }
+        }
+    }
+    else if(obj_type->mClass->mStruct) {
+        struct_name = string(obj_type->mClass->mName);
+    }
+    else {
+        struct_name = create_generics_name(obj_type, info);
+        for(int i=0; i<obj_type->mPointerNum; i++)
+        {
+            buf.append_str("p");
+        }
+    }
+    
+    if(obj_type->mArrayPointerType) {
+        buf.append_str("a");
+    }
+    
+    if(!array_equal_pointer && obj_type->mArrayNum.length() > 0) {
+        buf.append_str("pa");
+    }
+    
+    char none_method_name[fun_name.length()+1];
+    
+    int len = struct_name.length() + buf.to_string().length();
+    memcpy(none_method_name, fun_name + len + 1, fun_name.length() - len -1);
+    none_method_name[fun_name.length() - len-1] = '\0';
+    
+    return string(none_method_name);
+}
+
 string create_method_name_using_class(sClass* obj_class, bool no_pointer_name, char* fun_name, sInfo* info, bool array_equal_pointer=true)
 {
     string struct_name = string(obj_class->mName);

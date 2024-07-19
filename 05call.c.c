@@ -2062,6 +2062,8 @@ struct sNode* statment(struct sInfo* info);
 char* create_method_name(struct sType* obj_type, _Bool no_pointer_name, char* fun_name, struct sInfo* info, _Bool array_equal_pointer);
 
 static int list$1sNodeph_length(struct list$1sNodeph* self);
+char* create_non_method_name(struct sType* obj_type, _Bool no_pointer_name, char* fun_name, struct sInfo* info, _Bool array_equal_pointer);
+
 char* create_method_name_using_class(struct sClass* obj_class, _Bool no_pointer_name, char* fun_name, struct sInfo* info, _Bool array_equal_pointer);
 
 struct sNode* top_level_v1(char* buf, char* head, int head_sline, struct sInfo* info);
@@ -9173,32 +9175,121 @@ memset(&__result_obj__, 0, sizeof(void*));
         return __result239__;
 }
 
-char* create_method_name_using_class(struct sClass* obj_class, _Bool no_pointer_name, char* fun_name, struct sInfo* info, _Bool array_equal_pointer){
+char* create_non_method_name(struct sType* obj_type, _Bool no_pointer_name, char* fun_name, struct sInfo* info, _Bool array_equal_pointer){
 void* __result_obj__;
-void* right_value387;
 char* struct_name_296;
+void* right_value387;
 void* right_value388;
+struct buffer* buf_297;
+_Bool _if_conditional447;
+void* right_value389;
+char* __dec_obj148;
+_Bool _if_conditional448;
+int i_298;
+_Bool _if_conditional449;
+void* right_value390;
+char* __dec_obj149;
+void* right_value391;
+char* __dec_obj150;
+int i_299;
+_Bool _if_conditional450;
+_Bool _if_conditional451;
+void* right_value392;
+int len_301;
+void* right_value393;
 char* __result241__;
 memset(&__result_obj__, 0, sizeof(void*));
-right_value387 = (void*)0;
 memset(&struct_name_296, 0, sizeof(char*));
+right_value387 = (void*)0;
 right_value388 = (void*)0;
-    struct_name_296=(char*)come_increment_ref_count(((char*)(right_value387=__builtin_string(obj_class->mName))));
-    right_value387 = come_decrement_ref_count2(right_value387, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
-    __result241__ = __result_obj__ = ((char*)(right_value388=xsprintf("%s_%s",struct_name_296,fun_name)));
+memset(&buf_297, 0, sizeof(struct buffer*));
+right_value389 = (void*)0;
+memset(&i_298, 0, sizeof(int));
+right_value390 = (void*)0;
+right_value391 = (void*)0;
+memset(&i_299, 0, sizeof(int));
+right_value392 = (void*)0;
+memset(&len_301, 0, sizeof(int));
+right_value393 = (void*)0;
+    buf_297=(struct buffer*)come_increment_ref_count(((struct buffer*)(right_value388=buffer_initialize((struct buffer*)come_increment_ref_count(((struct buffer*)(right_value387=(struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "05call.c", 1281, "buffer"))))))));
+    come_call_finalizer3(right_value387,buffer_finalize, 0, 1, 0, 0, __result_obj__);
+    come_call_finalizer3(right_value388,buffer_finalize, 0, 1, 0, 0, __result_obj__);
+    if(_if_conditional447=string_operator_not_equals(obj_type->mOriginalTypeName,""),    _if_conditional447) {
+        __dec_obj148=struct_name_296;
+        struct_name_296=(char*)come_increment_ref_count(((char*)(right_value389=__builtin_string(obj_type->mOriginalTypeName))));
+        __dec_obj148 = come_decrement_ref_count2(__dec_obj148, (void*)0, (void*)0, 0,0,0, (void*)0);
+        right_value389 = come_decrement_ref_count2(right_value389, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+        if(_if_conditional448=!obj_type->mClass->mStruct,        _if_conditional448) {
+            for(            i_298=0;            i_298<obj_type->mOriginalTypeNamePointerNum;            i_298++            ){
+                buffer_append_str(buf_297,"p");
+            }
+        }
+    }
+    else {
+        if(obj_type->mClass->mStruct) {
+            __dec_obj149=struct_name_296;
+            struct_name_296=(char*)come_increment_ref_count(((char*)(right_value390=__builtin_string(obj_type->mClass->mName))));
+            __dec_obj149 = come_decrement_ref_count2(__dec_obj149, (void*)0, (void*)0, 0,0,0, (void*)0);
+            right_value390 = come_decrement_ref_count2(right_value390, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+        }
+        else {
+            __dec_obj150=struct_name_296;
+            struct_name_296=(char*)come_increment_ref_count(((char*)(right_value391=create_generics_name(obj_type,info))));
+            __dec_obj150 = come_decrement_ref_count2(__dec_obj150, (void*)0, (void*)0, 0,0,0, (void*)0);
+            right_value391 = come_decrement_ref_count2(right_value391, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+            for(            i_299=0;            i_299<obj_type->mPointerNum;            i_299++            ){
+                buffer_append_str(buf_297,"p");
+            }
+        }
+    }
+    if(obj_type->mArrayPointerType) {
+        buffer_append_str(buf_297,"a");
+    }
+    if(_if_conditional451=!array_equal_pointer&&list$1sNodeph_length(obj_type->mArrayNum)>0,    _if_conditional451) {
+        buffer_append_str(buf_297,"pa");
+    }
+    char none_method_name_300[charp_length(fun_name)+1];
+    memset(&none_method_name_300, 0, sizeof(char)    *(charp_length(fun_name)+1)    );
+    len_301=string_length(struct_name_296)+string_length(((char*)(right_value392=buffer_to_string(buf_297))));
+    right_value392 = come_decrement_ref_count2(right_value392, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+    memcpy(none_method_name_300,fun_name+len_301+1,charp_length(fun_name)-len_301-1);
+    none_method_name_300[charp_length(fun_name)-len_301-1]=0;
+    puts(none_method_name_300);
+    __result241__ = __result_obj__ = ((char*)(right_value393=__builtin_string(none_method_name_300)));
     struct_name_296 = come_decrement_ref_count2(struct_name_296, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-    right_value388 = come_decrement_ref_count2(right_value388, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+    come_call_finalizer3(buf_297,buffer_finalize, 0, 0, 0, 0, (void*)0);
+    right_value393 = come_decrement_ref_count2(right_value393, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
     return __result241__;
     struct_name_296 = come_decrement_ref_count2(struct_name_296, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    come_call_finalizer3(buf_297,buffer_finalize, 0, 0, 0, 0, (void*)0);
+}
+
+char* create_method_name_using_class(struct sClass* obj_class, _Bool no_pointer_name, char* fun_name, struct sInfo* info, _Bool array_equal_pointer){
+void* __result_obj__;
+void* right_value394;
+char* struct_name_302;
+void* right_value395;
+char* __result242__;
+memset(&__result_obj__, 0, sizeof(void*));
+right_value394 = (void*)0;
+memset(&struct_name_302, 0, sizeof(char*));
+right_value395 = (void*)0;
+    struct_name_302=(char*)come_increment_ref_count(((char*)(right_value394=__builtin_string(obj_class->mName))));
+    right_value394 = come_decrement_ref_count2(right_value394, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+    __result242__ = __result_obj__ = ((char*)(right_value395=xsprintf("%s_%s",struct_name_302,fun_name)));
+    struct_name_302 = come_decrement_ref_count2(struct_name_302, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    right_value395 = come_decrement_ref_count2(right_value395, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+    return __result242__;
+    struct_name_302 = come_decrement_ref_count2(struct_name_302, (void*)0, (void*)0, 0, 0, 0, (void*)0);
 }
 
 struct sNode* top_level_v1(char* buf, char* head, int head_sline, struct sInfo* info){
 void* __result_obj__;
-struct sNode* __result242__;
+struct sNode* __result243__;
 memset(&__result_obj__, 0, sizeof(void*));
     err_msg(info,"unexpected word(%s)(2)\n",buf);
     exit(2);
-    __result242__ = __result_obj__ = (struct sNode*)((void*)0);
-    return __result242__;
+    __result243__ = __result_obj__ = (struct sNode*)((void*)0);
+    return __result243__;
 }
 

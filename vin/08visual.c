@@ -441,21 +441,25 @@ void ViWin*::inputVisualMode(ViWin* self, Vi* nvi)
     switch(key) {
         case KEY_RIGHT:
         case 'l':
+        case 'F'-'A'+1:
             self.forward();
             break;
         
         case KEY_LEFT:
         case 'h':
+        case 'B'-'A'+1:
             self.backward();
             break;
 
         case KEY_DOWN:
         case 'j':
+        case 'N'-'A'+1:
             self.nextLine();
             break;
     
         case KEY_UP:
         case 'k':
+        case 'P'-'A'+1:
             self.prevLine();
             break;
 
