@@ -9254,7 +9254,6 @@ right_value393 = (void*)0;
     right_value392 = come_decrement_ref_count2(right_value392, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
     memcpy(none_method_name_300,fun_name+len_301+1,charp_length(fun_name)-len_301-1);
     none_method_name_300[charp_length(fun_name)-len_301-1]=0;
-    puts(none_method_name_300);
     __result241__ = __result_obj__ = ((char*)(right_value393=__builtin_string(none_method_name_300)));
     struct_name_296 = come_decrement_ref_count2(struct_name_296, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer3(buf_297,buffer_finalize, 0, 0, 0, 0, (void*)0);
