@@ -2,13 +2,11 @@
 
 class sLambdaNode extends sNodeBase
 {
-    sFun* mFun;
-
     new(sFun* fun, sInfo* info)
     {
         self.super();
         
-        self.mFun = fun;
+        sFun* self.mFun = fun;
     }
     
     string kind()
@@ -48,13 +46,11 @@ class sLambdaNode extends sNodeBase
 
 class sFunNode extends sNodeBase
 {
-    sFun*% mFun;
-    
     new(sFun*% fun, sInfo* info)
     {
         self.super();
         
-        self.mFun = fun;
+        sFun*% self.mFun = fun;
     }
     
     string kind()
@@ -1574,6 +1570,8 @@ sNode*% parse_function(sInfo* info)
         result_type.mHeap = true;
 //        result_type.mExtern = true;
         constructor_ = true;
+        
+        info.constructor_ = true;
     }
     else {
         var result_type2, var_name2, err = parse_type();
@@ -1927,6 +1925,8 @@ sNode*% parse_function(sInfo* info)
         err_msg(info, "invalid character(%c)(2)\n", *info->p);
         exit(2);
     }
+    
+    info.constructor_ = false;
     
     delete base_fun_name;
     return (sNode*%)null;

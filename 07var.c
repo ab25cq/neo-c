@@ -2,33 +2,28 @@
 
 class sStoreNode extends sNodeBase
 {
-    string name;
-    list<string>*% multiple_assign;
-    list<tuple3<sType*%,string,sNode*%>*%>*% multiple_declare;
-    sNode*% right_value;
-    sType*% type;
-    string array_initializer;
-    bool alloc;
-
     new(string name, list<string>*% multiple_assign, list<tuple3<sType*%, string, sNode*%>*%>*% multiple_declare, sType*% type, bool alloc, sNode*% right_value, string array_initializer, sInfo* info)
     {
         self.super();
         
-        self.name = string(name);
-        self.alloc = alloc;
+        string self.name = string(name);
+        bool self.alloc = alloc;
+        sType*% self.type;
         if(type) {
             self.type = clone type;
         }
         else {
             self.type = null;
         }
-        self.right_value = right_value;
+        sNode*% self.right_value = right_value;
+        list<string>*% self.multiple_assign;
         if(multiple_assign) {
             self.multiple_assign = clone multiple_assign;
         }
         else {
             self.multiple_assign = null;
         }
+        list<tuple3<sType*%,string,sNode*%>*%>*% self.multiple_declare;
         if(multiple_declare) {
             self.multiple_declare = clone multiple_declare;
         }
@@ -36,7 +31,7 @@ class sStoreNode extends sNodeBase
             self.multiple_declare = null;
         }
         
-        self.array_initializer = array_initializer;
+        string self.array_initializer = array_initializer;
     }
     
     string kind()
@@ -572,13 +567,11 @@ class sStoreNode extends sNodeBase
 
 class sLoadNode extends sNodeBase
 {
-    string name;
-    
     new(string name, sInfo* info)
     {
         self.super();
         
-        self.name = string(name);
+        string self.name = string(name);
     }
     
     string kind()
@@ -660,13 +653,11 @@ class sLoadNode extends sNodeBase
 
 class sFunLoadNode extends sNodeBase
 {
-    string name;
-    
     new(string name, sInfo* info)
     {
         self.super();
         
-        self.name = string(name);
+        string self.name = string(name);
     }
     
     string kind()
@@ -781,6 +772,23 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         
         if(err && *info->p == ',') {
             multiple_declare = true;
+        }
+        
+        info.p = p;
+        info.sline = sline;
+    }
+    bool attr_define = false;
+    if(is_type_name_flag && info->defining_class) {
+        char* p = info.p;
+        int sline = info.sline;
+        
+        info.p = head;
+        info.sline = head_sline;
+        
+        var type, name, err = parse_type(parse_variable_name:false);
+        
+        if(err && strmemcmp(info->p, "self")) {
+            attr_define = true;
         }
         
         info.p = p;
@@ -1020,6 +1028,42 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         }
         
         return new sStoreNode(string(buf)@name, null@multiple_assign, multiple_declare, base_type@type, true@alloc, null@right_value, null@array_initializer, info) implements sNode;
+    }
+    else if(attr_define) {
+        /// backtrace ///
+        info.p = head;
+        info.sline = head_sline;
+        
+        parse_sharp();
+        var type, name, err = parse_type(parse_variable_name:false);
+        
+        if(!err) {
+            printf("%s %d: parse_type failed\n", info->sname, info->sline);
+            exit(2);
+        }
+        
+        info->p += strlen("self.");
+        
+        name = parse_word();
+        
+        parse_sharp();
+        info.defining_class->mFields.add((name, type));
+        
+        if(*info->p == '=' && *(info->p+1) != '=') {
+            info->p++;
+            skip_spaces_and_lf();
+            
+            parse_sharp();
+            
+            sNode*% self_node = new sLoadNode(string("self"), info) implements sNode;
+            
+            sNode*% right_node = expression();
+            
+            return store_field(self_node, right_node, name, info);
+        }
+        else {
+            return create_null_node();
+        }
     }
     else if(!is_type_name_flag && *info->p == '=' && *(info->p+1) != '=' && !info->no_assign) {
         info.p++;

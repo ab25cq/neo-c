@@ -2,25 +2,18 @@
 
 class sIfNode extends sNodeBase
 {
-    sNode*% mExpressionNode;
-    sBlock*% mIfBlock;
-    list<sNode*%>*% mElifExpressionNodes;
-    list<sBlock*%>*% mElifBlocks;
-    int mElifNum;
-    sBlock*% mElseBlock;
-    bool mGuard;
-    
     new(sNode*% expression_node, sBlock* if_block, list<sNode*%>* elif_expression_nodes, list<sBlock*%>* elif_blocks, int elif_num, sBlock* else_block, bool guard_, sInfo* info)
     {
         self.super();
     
-        self.mExpressionNode = clone expression_node;
-        self.mIfBlock = clone if_block;
-        self.mElifExpressionNodes = clone elif_expression_nodes;
-        self.mElifBlocks = clone elif_blocks;
-        self.mElifNum = elif_num;
-        self.mGuard = guard_;
+        sNode*% self.mExpressionNode = clone expression_node;
+        sBlock*% self.mIfBlock = clone if_block;
+        list<sNode*%>*% self.mElifExpressionNodes = clone elif_expression_nodes;
+        list<sBlock*%>*% self.mElifBlocks = clone elif_blocks;
+        int self.mElifNum = elif_num;
+        bool self.mGuard = guard_;
         
+        sBlock*% self.mElseBlock;
         if(else_block) {
             self.mElseBlock = clone else_block;
         }
@@ -174,15 +167,12 @@ class sIfNode extends sNodeBase
 
 class sOrStatmentNode extends sNodeBase
 {
-    sNode*% mExpressionNode;
-    sBlock*% mIfBlock;
-    
     new(sNode*% expression_node, sBlock* if_block, sInfo* info)
     {
         self.super();
     
-        self.mExpressionNode = clone expression_node;
-        self.mIfBlock = clone if_block;
+        sNode*% self.mExpressionNode = clone expression_node;
+        sBlock*% self.mIfBlock = clone if_block;
     }
     
     bool terminated()
@@ -236,15 +226,12 @@ class sOrStatmentNode extends sNodeBase
 
 class sAndStatmentNode extends sNodeBase
 {
-    sNode*% mExpressionNode;
-    sBlock*% mIfBlock;
-    
     new(sNode*% expression_node, sBlock* if_block, sInfo* info)
     {
         self.super();
     
-        self.mExpressionNode = clone expression_node;
-        self.mIfBlock = clone if_block;
+        sNode*% self.mExpressionNode = clone expression_node;
+        sBlock*% self.mIfBlock = clone if_block;
     }
     
     bool terminated()

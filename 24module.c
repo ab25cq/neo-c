@@ -2,12 +2,9 @@
 #include "common.h"
 
 class sModuleNode extends sNodeBase {
-    string name;
-    sClassModule*% module;
-    
     new(string name, sClassModule*% module, sInfo* info) {
-        self.name = string(name);
-        self.module = clone module;
+        string self.name = string(name);
+        sClassModule*% self.module = clone module;
     }
 
     string kind()

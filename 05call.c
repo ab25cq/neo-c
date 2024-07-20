@@ -2,15 +2,12 @@
 
 class sReturnNode extends sNodeBase
 {
-    sNode*% value;
-    string value_source;
-    
     new(sNode*% value, string value_source, sInfo* info)
     {
         self.super();
         
-        self.value = value;
-        self.value_source = clone value_source;
+        sNode*% self.value = value;
+        string self.value_source = clone value_source;
     }
     
     string kind()
@@ -101,9 +98,6 @@ class sReturnNode extends sNodeBase
 
 class sLineNode extends sNodeBase
 {
-    sNode*% value;
-    string value_source;
-    
     new(sInfo* info)
     {
         self.super();
@@ -132,9 +126,6 @@ class sLineNode extends sNodeBase
 
 class sSNameNode extends sNodeBase
 {
-    sNode*% value;
-    string value_source;
-    
     new(sInfo* info)
     {
         self.super();
@@ -163,9 +154,6 @@ class sSNameNode extends sNodeBase
 
 class sFuncNode extends sNodeBase
 {
-    sNode*% value;
-    string value_source;
-    
     new(sInfo* info)
     {
         self.super();
@@ -195,9 +183,6 @@ class sFuncNode extends sNodeBase
 
 class sCallerFuncNode extends sNodeBase
 {
-    sNode*% value;
-    string value_source;
-    
     new(sInfo* info)
     {
         self.super();
@@ -232,9 +217,6 @@ class sCallerFuncNode extends sNodeBase
 
 class sCallerLineNode extends sNodeBase
 {
-    sNode*% value;
-    string value_source;
-    
     new(sInfo* info)
     {
         self.super();
@@ -263,9 +245,6 @@ class sCallerLineNode extends sNodeBase
 
 class sCallerSNameNode extends sNodeBase
 {
-    sNode*% value;
-    string value_source;
-    
     new(sInfo* info)
     {
         self.super();
@@ -316,19 +295,14 @@ string make_method_generics_function(string fun_name, list<sType*%>*% method_gen
 
 class sFunCallNode extends sNodeBase
 {
-    string fun_name;
-    list<tuple2<string,sNode*%>*%>*% params;
-    bool guard_break;
-    list<sType*%>*% method_generics_types;
-    
     new(char* fun_name, list<tuple2<string,sNode*%>*%>* params, bool guard_break, list<sType*%>*% method_generics_types, sInfo* info)
     {
         self.super();
         
-        self.fun_name = string(fun_name);
-        self.params = clone params;
-        self.guard_break = guard_break;
-        self.method_generics_types = method_generics_types;
+        string self.fun_name = string(fun_name);
+        list<tuple2<string,sNode*%>*%>*% self.params = clone params;
+        bool self.guard_break = guard_break;
+        list<sType*%>*% self.method_generics_types = method_generics_types;
     }
     
     string kind()

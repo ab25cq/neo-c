@@ -118,17 +118,13 @@ bool operator_overload_fun2(sType* type, char* fun_name, CVALUE* left_value, CVA
 
 class sStoreFieldNode extends sNodeBase
 {
-    sNode*% mLeft;
-    sNode*% mRight;
-    string mName;
-    
     new(sNode* left, sNode*% right, string name, sInfo* info)
     {
         self.super();
     
-        self.mLeft = clone left;
-        self.mRight = clone right;
-        self.mName = string(name);
+        sNode*% self.mLeft = clone left;
+        sNode*% self.mRight = clone right;
+        string self.mName = string(name);
     }
     
     string kind()
@@ -350,16 +346,12 @@ class sStoreFieldNode extends sNodeBase
 
 class sNullCheckNode extends sNodeBase
 {
-    sNode*% mLeft;
-    
-    bool mOnlyNullCecker;
-    
     new(sNode* left, bool only_null_checker, sInfo* info)
     {
         self.super();
     
-        self.mLeft = clone left;
-        self.mOnlyNullCecker = only_null_checker;
+        sNode*% self.mLeft = clone left;
+        bool self.mOnlyNullCecker = only_null_checker;
         
         return self;
     }
@@ -438,15 +430,11 @@ class sNullCheckNode extends sNodeBase
 
 class sNullableNode extends sNodeBase
 {
-    sNode*% mLeft;
-    
-    bool mOnlyNullCecker;
-    
     new(sNode* left, sInfo* info)
     {
         self.super();
     
-        self.mLeft = clone left;
+        sNode*% self.mLeft = clone left;
     }
     
     string kind()
@@ -484,17 +472,13 @@ class sNullableNode extends sNodeBase
 
 class sRangeCheckNode extends sNodeBase
 {
-    sNode*% mLeft;
-    sNode*% mBegin;
-    sNode*% mEnd;
-    
     new(sNode* left, sNode* begin, sNode* end, sInfo* info)
     {
         self.super();
     
-        self.mLeft = clone left;
-        self.mBegin = clone begin;
-        self.mEnd = clone end;
+        sNode*% self.mLeft = clone left;
+        sNode*% self.mBegin = clone begin;
+        sNode*% self.mEnd = clone end;
     }
     
     string kind()
@@ -568,15 +552,12 @@ class sRangeCheckNode extends sNodeBase
 
 class sLoadFieldNode extends sNodeBase
 {
-    sNode*% mLeft;
-    string mName;
-    
     new(sNode* left, string name, sInfo* info)
     {
         self.super();
     
-        self.mLeft = clone left;
-        self.mName = string(name);
+        sNode*% self.mLeft = clone left;
+        string self.mName = string(name);
     }
     
     string kind()
@@ -703,19 +684,14 @@ class sLoadFieldNode extends sNodeBase
 
 class sStoreArrayNode extends sNodeBase
 {
-    sNode*% mLeft;
-    sNode*% mRight;
-    list<sNode*%>*% mArrayNum;
-    bool mQuote;
-    
     new(sNode* left, sNode*% right, list<sNode*%>*% array_num, bool quote, sInfo* info)
     {
         self.super();
     
-        self.mLeft = clone left;
-        self.mRight = clone right;
-        self.mArrayNum = clone array_num;
-        self.mQuote = quote;
+        sNode*% self.mLeft = clone left;
+        sNode*% self.mRight = clone right;
+        list<sNode*%>*% self.mArrayNum = clone array_num;
+        bool self.mQuote = quote;
     }
     
     string kind()
@@ -942,20 +918,15 @@ class sStoreArrayNode extends sNodeBase
 
 class sLoadArrayNode extends sNodeBase
 {
-    sNode*% mLeft;
-    list<sNode*%>*% mArrayNum;
-    bool mQuote;
-    bool mBreakGuard;
-    
     new(sNode* left, list<sNode*%>*% array_num, bool quote, bool break_guard, sInfo* info)
     {
         self.super();
         
-        self.mArrayNum = clone array_num;
-        self.mBreakGuard = break_guard;
+        list<sNode*%>*% self.mArrayNum = clone array_num;
+        bool self.mBreakGuard = break_guard;
     
-        self.mLeft = clone left;
-        self.mQuote = quote;
+        sNode*% self.mLeft = clone left;
+        bool self.mQuote = quote;
     }
     
     string kind()
@@ -1164,18 +1135,14 @@ class sLoadArrayNode extends sNodeBase
 
 class sLoadRangeArrayNode extends sNodeBase
 {
-    sNode*% mLeft;
-    list<sNode*%>*% mArrayNum;
-    bool mQuote;
-    
     new(sNode* left, list<sNode*%>*% array_num, bool quote, sInfo* info)
     {
         self.super();
         
-        self.mArrayNum = clone array_num;
+        list<sNode*%>*% self.mArrayNum = clone array_num;
     
-        self.mLeft = clone left;
-        self.mQuote = quote;
+        sNode*% self.mLeft = clone left;
+        bool self.mQuote = quote;
     }
     
     string kind()
@@ -1294,6 +1261,11 @@ sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info) version 18
     exit(2);
     
     return (sNode*%)null;
+}
+
+sNode*% store_field(sNode* left, sNode*% right, string name, sInfo* info)
+{
+    return new sStoreFieldNode(left, right, name, info) implements sNode;
 }
 
 sNode*% post_position_operator(sNode*% node, sInfo* info) version 99

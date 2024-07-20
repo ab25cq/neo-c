@@ -2,13 +2,11 @@
 
 class sIntNode extends sNodeBase
 {
-    int value;
-    
     new(int value, sInfo* info)
     {
         self.super();
         
-        self.value = value;
+        int self.value = value;
     }
     
     string kind()
@@ -34,13 +32,11 @@ class sIntNode extends sNodeBase
 
 class sUIntNode extends sNodeBase
 {
-    unsigned int value;
-    
     new(unsigned int value, sInfo* info)
     {
         self.super();
         
-        self.value = value;
+        unsigned int self.value = value;
     }
     
     string kind()
@@ -66,13 +62,11 @@ class sUIntNode extends sNodeBase
 
 class sLongNode extends sNodeBase
 {
-    long value;
-    
     new(unsigned long value, sInfo* info)
     {
         self.super();
         
-        self.value = value;
+        long self.value = value;
     }
     
     string kind()
@@ -98,13 +92,11 @@ class sLongNode extends sNodeBase
 
 class sULongNode extends sNodeBase
 {
-    unsigned long value;
-    
     new(unsigned long value, sInfo* info)
     {
         self.super();
         
-        self.value = value;
+        unsigned long self.value = value;
     }
     
     string kind()
@@ -130,13 +122,11 @@ class sULongNode extends sNodeBase
 
 class sFloatNode extends sNodeBase
 {
-    float value;
-    
     new(float value, sInfo* info)
     {
         self.super();
         
-        self.value = value;
+        float self.value = value;
     }
     
     string kind()
@@ -162,13 +152,11 @@ class sFloatNode extends sNodeBase
 
 class sDoubleNode extends sNodeBase
 {
-    double value;
-    
     new(double value, sInfo* info)
     {
         self.super();
         
-        self.value = value;
+        double self.value = value;
     }
     
     string kind()

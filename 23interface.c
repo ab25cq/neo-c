@@ -2,18 +2,14 @@
 
 class sInterfaceNode extends sNodeBase
 {
-    string name;
-    sClass*% klass;
-    bool mOutput;
-    
     new(string name, sClass*% klass, bool output, sInfo* info)
     {
         self.super();
         
-        self.name = string(name);
-        self.klass = clone klass;
+        string self.name = string(name);
+        sClass*% self.klass = clone klass;
         
-        self.mOutput = output;
+        bool self.mOutput = output;
     }
     
     string kind()

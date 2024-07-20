@@ -151,6 +151,11 @@ class sNullNode extends sNodeBase
     }
 };
 
+sNode*% create_null_node(sInfo* info=info)
+{
+    return new sNullNode(info) implements sNode;
+}
+
 class sNilNode extends sNodeBase
 {
     new(sInfo* info)
@@ -182,17 +187,13 @@ class sNilNode extends sNodeBase
 
 class sAddNode extends sNodeBase
 {
-    sNode*% mLeft;
-    sNode*% mRight;
-    bool mQuote;
-      
     new(sNode*% left, sNode*% right, bool quote, sInfo* info)
     {
         self.super();
     
-        self.mLeft = clone left;
-        self.mRight = clone right;
-        self.mQuote = quote;
+        sNode*% self.mLeft = clone left;
+        sNode*% self.mRight = clone right;
+        bool self.mQuote = quote;
     }
     
     string kind()
@@ -251,17 +252,13 @@ class sAddNode extends sNodeBase
 
 class sSubNode extends sNodeBase
 {
-    sNode*% mLeft;
-    sNode*% mRight;
-    bool mQuote;
-    
     new(sNode*% left, sNode*% right, bool quote, sInfo* info)
     {
         self.super();
     
-        self.mLeft = clone left;
-        self.mRight = clone right;
-        self.mQuote = quote;
+        sNode*% self.mLeft = clone left;
+        sNode*% self.mRight = clone right;
+        bool self.mQuote = quote;
     }
     
     string kind()
@@ -320,17 +317,13 @@ class sSubNode extends sNodeBase
 
 class sMultNode extends sNodeBase
 {
-    sNode*% mLeft;
-    sNode*% mRight;
-    bool mQuote;
-    
     new(sNode*% left, sNode*% right, bool quote, sInfo* info)
     {
         self.super();
     
-        self.mQuote = quote;
-        self.mLeft = clone left;
-        self.mRight = clone right;
+        bool self.mQuote = quote;
+        sNode*% self.mLeft = clone left;
+        sNode*% self.mRight = clone right;
     }
     
     string kind()
@@ -389,17 +382,13 @@ class sMultNode extends sNodeBase
 
 class sDivNode extends sNodeBase
 {
-    sNode*% mLeft;
-    sNode*% mRight;
-    bool mQuote;
-    
     new(sNode*% left, sNode*% right, bool quote, sInfo* info)
     {
         self.super();
     
-        self.mQuote = quote;
-        self.mLeft = clone left;
-        self.mRight = clone right;
+        bool self.mQuote = quote;
+        sNode*% self.mLeft = clone left;
+        sNode*% self.mRight = clone right;
     }
     
     string kind()
@@ -458,17 +447,13 @@ class sDivNode extends sNodeBase
 
 class sModNode extends sNodeBase
 {
-    sNode*% mLeft;
-    sNode*% mRight;
-    bool mQuote;
-    
     new(sNode*% left, sNode*% right, bool quote, sInfo* info)
     {
         self.super();
     
-        self.mQuote = quote;
-        self.mLeft = clone left;
-        self.mRight = clone right;
+        bool self.mQuote = quote;
+        sNode*% self.mLeft = clone left;
+        sNode*% self.mRight = clone right;
     }
     
     string kind()
@@ -527,18 +512,14 @@ class sModNode extends sNodeBase
 
 class sLShiftNode extends sNodeBase
 {
-    sNode*% mLeft;
-    sNode*% mRight;
-    bool mQuote;
-    
     new(sNode*% left, sNode*% right, bool quote, sInfo* info)
     {
         self.super();
         
-        self.mQuote = quote;
+        bool self.mQuote = quote;
     
-        self.mLeft = clone left;
-        self.mRight = clone right;
+        sNode*% self.mLeft = clone left;
+        sNode*% self.mRight = clone right;
     }
     
     string kind()
@@ -597,17 +578,13 @@ class sLShiftNode extends sNodeBase
 
 class sRShiftNode extends sNodeBase
 {
-    sNode*% mLeft;
-    sNode*% mRight;
-    bool mQuote;
-    
     new(sNode*% left, sNode*% right, bool quote, sInfo* info)
     {
         self.super();
     
-        self.mQuote = quote;
-        self.mLeft = clone left;
-        self.mRight = clone right;
+        bool self.mQuote = quote;
+        sNode*% self.mLeft = clone left;
+        sNode*% self.mRight = clone right;
     }
     
     string kind()
@@ -666,17 +643,13 @@ class sRShiftNode extends sNodeBase
 
 class sGtEqNode extends sNodeBase
 {
-    sNode*% mLeft;
-    sNode*% mRight;
-    bool mQuote;
-    
     new(sNode*% left, sNode*% right, bool quote, sInfo* info)
     {
         self.super();
     
-        self.mQuote = quote;
-        self.mLeft = clone left;
-        self.mRight = clone right;
+        bool self.mQuote = quote;
+        sNode*% self.mLeft = clone left;
+        sNode*% self.mRight = clone right;
     }
     
     string kind()
@@ -735,17 +708,13 @@ class sGtEqNode extends sNodeBase
 
 class sLtEqNode extends sNodeBase
 {
-    sNode*% mLeft;
-    sNode*% mRight;
-    bool mQuote;
-    
     new(sNode*% left, sNode*% right, bool quote, sInfo* info)
     {
         self.super();
     
-        self.mQuote = quote;
-        self.mLeft = clone left;
-        self.mRight = clone right;
+        bool self.mQuote = quote;
+        sNode*% self.mLeft = clone left;
+        sNode*% self.mRight = clone right;
     }
     
     string kind()
@@ -804,17 +773,13 @@ class sLtEqNode extends sNodeBase
 
 class sLtNode extends sNodeBase
 {
-    sNode*% mLeft;
-    sNode*% mRight;
-    bool mQuote;
-    
     new(sNode*% left, sNode*% right, bool quote, sInfo* info)
     {
         self.super();
     
-        self.mQuote = quote;
-        self.mLeft = clone left;
-        self.mRight = clone right;
+        bool self.mQuote = quote;
+        sNode*% self.mLeft = clone left;
+        sNode*% self.mRight = clone right;
     }
     
     string kind()
@@ -873,17 +838,13 @@ class sLtNode extends sNodeBase
 
 class sGtNode extends sNodeBase
 {
-    sNode*% mLeft;
-    sNode*% mRight;
-    bool mQuote;
-    
     new(sNode*% left, sNode*% right, bool quote, sInfo* info)
     {
         self.super();
     
-        self.mQuote = quote;
-        self.mLeft = clone left;
-        self.mRight = clone right;
+        bool self.mQuote = quote;
+        sNode*% self.mLeft = clone left;
+        sNode*% self.mRight = clone right;
     }
     
     string kind()
@@ -942,18 +903,13 @@ class sGtNode extends sNodeBase
 
 class sEqNode extends sNodeBase
 {
-    sNode*% mLeft;
-    sNode*% mRight;
-    bool mQuote;
-    
-    
     new(sNode*% left, sNode*% right, bool quote, sInfo* info)
     {
         self.super();
     
-        self.mQuote = quote;
-        self.mLeft = clone left;
-        self.mRight = clone right;
+        bool self.mQuote = quote;
+        sNode*% self.mLeft = clone left;
+        sNode*% self.mRight = clone right;
     }
     
     string kind()
@@ -999,17 +955,13 @@ class sEqNode extends sNodeBase
 
 class sNotEqNode extends sNodeBase
 {
-    sNode*% mLeft;
-    sNode*% mRight;
-    bool mQuote;
-    
     new(sNode*% left, sNode*% right, bool quote, sInfo* info)
     {
         self.super();
     
-        self.mQuote = quote;
-        self.mLeft = clone left;
-        self.mRight = clone right;
+        bool self.mQuote = quote;
+        sNode*% self.mLeft = clone left;
+        sNode*% self.mRight = clone right;
     }
     
     string kind()
@@ -1055,17 +1007,13 @@ class sNotEqNode extends sNodeBase
 
 class sEq2Node extends sNodeBase
 {
-    sNode*% mLeft;
-    sNode*% mRight;
-    bool mQuote;
-    
     new(sNode*% left, sNode*% right, bool quote, sInfo* info)
     {
         self.super();
     
-        self.mQuote = quote;
-        self.mLeft = clone left;
-        self.mRight = clone right;
+        bool self.mQuote = quote;
+        sNode*% self.mLeft = clone left;
+        sNode*% self.mRight = clone right;
     }
     
     string kind()
@@ -1124,17 +1072,13 @@ class sEq2Node extends sNodeBase
 
 class sNotEq2Node extends sNodeBase
 {
-    sNode*% mLeft;
-    sNode*% mRight;
-    bool mQuote;
-    
     new(sNode*% left, sNode*% right, bool quote, sInfo* info)
     {
         self.super();
     
-        self.mQuote = quote;
-        self.mLeft = clone left;
-        self.mRight = clone right;
+        bool self.mQuote = quote;
+        sNode*% self.mLeft = clone left;
+        sNode*% self.mRight = clone right;
     }
     
     string kind()
@@ -1193,17 +1137,13 @@ class sNotEq2Node extends sNodeBase
 
 class sAndNode extends sNodeBase
 {
-    sNode*% mLeft;
-    sNode*% mRight;
-    bool mQuote;
-    
     new(sNode*% left, sNode*% right, bool quote, sInfo* info)
     {
         self.super();
     
-        self.mQuote = quote;
-        self.mLeft = clone left;
-        self.mRight = clone right;
+        bool self.mQuote = quote;
+        sNode*% self.mLeft = clone left;
+        sNode*% self.mRight = clone right;
     }
     
     string kind()
@@ -1263,17 +1203,13 @@ class sAndNode extends sNodeBase
 
 class sXOrNode extends sNodeBase
 {
-    sNode*% mLeft;
-    sNode*% mRight;
-    bool mQuote;
-    
     new(sNode*% left, sNode*% right, bool quote, sInfo* info)
     {
         self.super();
     
-        self.mQuote = quote;
-        self.mLeft = clone left;
-        self.mRight = clone right;
+        bool self.mQuote = quote;
+        sNode*% self.mLeft = clone left;
+        sNode*% self.mRight = clone right;
     }
     
     string kind()
@@ -1332,17 +1268,13 @@ class sXOrNode extends sNodeBase
 
 class sOrNode extends sNodeBase
 {
-    sNode*% mLeft;
-    sNode*% mRight;
-    bool mQuote;
-    
     new(sNode*% left, sNode*% right, bool quote, sInfo* info)
     {
         self.super();
     
-        self.mQuote = quote;
-        self.mLeft = clone left;
-        self.mRight = clone right;
+        bool self.mQuote = quote;
+        sNode*% self.mLeft = clone left;
+        sNode*% self.mRight = clone right;
     }
     
     string kind()
@@ -1402,17 +1334,13 @@ class sOrNode extends sNodeBase
 
 class sAndAndNode extends sNodeBase
 {
-    sNode*% mLeft;
-    sNode*% mRight;
-    bool mQuote;
-    
     new(sNode*% left, sNode*% right, bool quote, sInfo* info)
     {
         self.super();
     
-        self.mQuote = quote;
-        self.mLeft = clone left;
-        self.mRight = clone right;
+        bool self.mQuote = quote;
+        sNode*% self.mLeft = clone left;
+        sNode*% self.mRight = clone right;
     }
     
     string kind()
@@ -1472,17 +1400,13 @@ class sAndAndNode extends sNodeBase
 
 class sOrOrNode extends sNodeBase
 {
-    sNode*% mLeft;
-    sNode*% mRight;
-    bool mQuote;
-    
     new(sNode*% left, sNode*% right, bool quote, sInfo* info)
     {
         self.super();
     
-        self.mQuote = quote;
-        self.mLeft = clone left;
-        self.mRight = clone right;
+        bool self.mQuote = quote;
+        sNode*% self.mLeft = clone left;
+        sNode*% self.mRight = clone right;
     }
     
     string kind()
@@ -1541,15 +1465,12 @@ class sOrOrNode extends sNodeBase
 
 class sCommaNode extends sNodeBase
 {
-    sNode*% mLeft;
-    sNode*% mRight;
-    
     new(sNode*% left, sNode*% right, sInfo* info)
     {
         self.super();
     
-        self.mLeft = clone left;
-        self.mRight = clone right;
+        sNode*% self.mLeft = clone left;
+        sNode*% self.mRight = clone right;
     }
     
     string kind()
@@ -1594,17 +1515,13 @@ class sCommaNode extends sNodeBase
 
 class sConditionalNode extends sNodeBase
 {
-    sNode*% mValue1;
-    sNode*% mValue2;
-    sNode*% mValue3;
-    
     new(sNode*% value1, sNode*% value2, sNode*% value3, sInfo* info)
     {
         self.super();
     
-        self.mValue1 = clone value1;
-        self.mValue2 = clone value2;
-        self.mValue3 = clone value3;
+        sNode*% self.mValue1 = clone value1;
+        sNode*% self.mValue2 = clone value2;
+        sNode*% self.mValue3 = clone value3;
     }
     
     string kind()

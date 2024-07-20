@@ -356,6 +356,9 @@ struct sInfo
     bool in_class;
     
     map<string,string>*% module_params;
+    
+    bool constructor_;
+    sClass* defining_class;
 };
 
 /////////////////////////////////////////////////////////////////////
@@ -544,9 +547,10 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
 /////////////////////////////////////////////////////////////////////
 /// 13op.c
 /////////////////////////////////////////////////////////////////////
+sNode*% create_null_node(sInfo* info=info);
 bool operator_overload_fun(sType* type, char* fun_name, CVALUE* left_value, CVALUE* right_value, bool break_guard, sInfo* info);
- sNode*% expression(sInfo* info=info) version 13;
- sNode*% post_op(sNode*% node, sInfo* info) version 13;
+sNode*% expression(sInfo* info=info) version 13;
+sNode*% post_op(sNode*% node, sInfo* info) version 13;
 sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 13;
 
 /////////////////////////////////////////////////////////////////////

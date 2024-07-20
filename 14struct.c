@@ -258,19 +258,14 @@ bool output_generics_struct(sType* type, sType* generics_type, sInfo* info)
 
 class sStructNode extends sNodeBase
 {
-    string mName;
-    sClass*% mClass;
-    
-    bool mOutput;
-    
     new(string name, sClass*% klass, bool output, sInfo* info)
     {
         self.super();
     
-        self.mName = string(name);
-        self.mClass = clone klass;
+        string self.mName = string(name);
+        sClass*% self.mClass = clone klass;
         
-        self.mOutput = output;
+        bool self.mOutput = output;
     }
     
     bool terminated()
@@ -309,15 +304,12 @@ class sStructNode extends sNodeBase
 
 class sStructNobodyNode extends sNodeBase
 {
-    string mName;
-    sClass*% mClass;
-    
     new(string name, sClass*% klass, sInfo* info)
     {
         self.super();
     
-        self.mName = string(name);
-        self.mClass = clone klass;
+        string self.mName = string(name);
+        sClass*% self.mClass = clone klass;
     }
     
     bool terminated()
@@ -379,23 +371,16 @@ class sGenericsStructNode extends sNodeBase
 
 class sClassNode extends sNodeBase
 {
-    string mName;
-    sClass*% mClass;
-    
-    list<sNode*%>*% mMethods;
-    
-    bool mOutput;
-    
     new(string name, sClass*% klass, list<sNode*%>*% methods, bool output, sInfo* info)
     {
         self.super();
     
-        self.mName = string(name);
-        self.mClass = clone klass;
+        string self.mName = string(name);
+        sClass*% self.mClass = clone klass;
         
-        self.mMethods = methods;
+        list<sNode*%>*% self.mMethods = methods;
         
-        self.mOutput = output;
+        bool self.mOutput = output;
     }
     
     bool terminated()
@@ -828,6 +813,9 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
             }
         }
         
+        sClass* defining_class = info.defining_class;
+        info.defining_class = struct_class;
+        
         if(info.classes.at(type_name, null) == null) {
             if(parent_class) {
                 struct_class->mParentClassName = clone parent_class->mName;
@@ -1100,6 +1088,8 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
         }
         
         info.generics_type_names.reset();
+        
+        info.defining_class = defining_class;
         
         return new sClassNode(string(type_name), clone struct_class, methods, output, info) implements sNode;
     }

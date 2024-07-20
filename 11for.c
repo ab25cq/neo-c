@@ -2,34 +2,33 @@
 
 class sForNode extends sNodeBase
 {
-    sNode*% mExpressionNode;
-    sNode*% mExpressionNode2;
-    sNode*% mExpressionNode3;
-    sBlock*% mBlock;
-    
     new(sNode*% expression_node, sNode*% expression_node2, sNode*% expression_node3, sBlock* block, sInfo* info)
     {
         self.super();
     
+        sNode*% self.mExpressionNode;
         if(expression_node) {
             self.mExpressionNode = clone expression_node;
         }
         else {
             self.mExpressionNode = null;
         }
+        sNode*% self.mExpressionNode2;
         if(expression_node2) {
             self.mExpressionNode2 = clone expression_node2;
         }
         else {
             self.mExpressionNode2 = null;
         }
+        sNode*% self.mExpressionNode3;
         if(expression_node3) {
             self.mExpressionNode3 = clone expression_node3;
         }
         else {
             self.mExpressionNode3 = null;
         }
-        self.mBlock = clone block;
+    
+        sBlock*% self.mBlock = clone block;
     }
     
     bool terminated()

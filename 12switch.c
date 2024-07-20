@@ -2,15 +2,12 @@
 
 class sSwitchNode extends sNodeBase
 {
-    sNode*% mExpressionNode;
-    sBlock*% mBlock;
-    
     new(sNode*% expression_node, sBlock* block, sInfo* info)
     {
         self.super();
     
-        self.mExpressionNode = clone expression_node;
-        self.mBlock = clone block;
+        sNode*% self.mExpressionNode = clone expression_node;
+        sBlock*% self.mBlock = clone block;
     }
     
     bool terminated()
@@ -51,13 +48,11 @@ class sSwitchNode extends sNodeBase
 
 class sCaseNode extends sNodeBase
 {
-    sNode*% mNode;
-
     new(sNode*% node, sInfo* info)
     {
         self.super();
     
-        self.mNode = clone node;
+        sNode*% self.mNode = clone node;
     }
     
     bool terminated()
@@ -118,13 +113,11 @@ class sDefaultNode extends sNodeBase
 
 class sLabelNode extends sNodeBase
 {
-    string label;
-    
     new(string label, sInfo* info)
     {
         self.super();
         
-        self.label = label;
+        string self.label = label;
     }
     
     bool terminated()
@@ -149,13 +142,11 @@ class sLabelNode extends sNodeBase
 
 class sGotoNode extends sNodeBase
 {
-    string label;
-    
     new(string label, sInfo* info)
     {
         self.super();
         
-        self.label = label;
+        string self.label = label;
     }
     
     string kind()

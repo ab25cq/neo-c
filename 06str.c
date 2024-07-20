@@ -3,13 +3,11 @@
 
 class sStrNode extends sNodeBase
 {
-    string value;
-    
     new(string value, int sline, sInfo* info)
     {
         self.super();
         
-        self.value = string(value);
+        string self.value = string(value);
     }
     
     string kind()
@@ -36,15 +34,12 @@ class sStrNode extends sNodeBase
 
 class sSStringNode extends sNodeBase
 {
-    string value;
-    list<sNode*%>*% exps;
-    
     new(string value, list<sNode*%>*% exps, int sline, sInfo* info)
     {
         self.super();
         
-        self.value = string(value);
-        self.exps = clone exps;
+        string self.value = string(value);
+        list<sNode*%>*% self.exps = clone exps;
     }
     
     string kind()
@@ -122,13 +117,11 @@ class sSStringNode extends sNodeBase
 
 class sCharNode extends sNodeBase
 {
-    int value;
-    
     new(int value, sInfo* info)
     {
         self.super();
         
-        self.value = value;
+        int self.value = value;
     }
     
     string kind()
@@ -154,15 +147,12 @@ class sCharNode extends sNodeBase
 
 class sWCharNode extends sNodeBase
 {
-    wchar_t value;
-    bool quote;
-    
     new(wchar_t value, bool quote, sInfo* info)
     {
         self.super();
         
-        self.value = value;
-        self.quote = quote;
+        wchar_t self.value = value;
+        bool self.quote = quote;
     }
     
     string kind()
@@ -193,13 +183,11 @@ class sWCharNode extends sNodeBase
 
 class sWStringNode extends sNodeBase
 {
-    wchar_t*% value;
-    
     new(wchar_t*% value, int sline, sInfo* info)
     {
         self.super();
         
-        self.value = value;
+        wchar_t*% self.value = value;
     }
     
     string kind()
@@ -225,17 +213,13 @@ class sWStringNode extends sNodeBase
 
 class sRegexNode extends sNodeBase
 {
-    string str;
-    bool global;
-    bool ignore_case;
-    
     new(string str, bool global, bool ignore_case, int sline, sInfo* info)
     {
         self.super();
         
-        self.str = string(str);
-        self.global = global;
-        self.ignore_case = ignore_case;
+        string self.str = string(str);
+        bool self.global = global;
+        bool self.ignore_case = ignore_case;
     }
     
     string kind()
@@ -265,13 +249,11 @@ class sRegexNode extends sNodeBase
 
 class sListNode extends sNodeBase
 {
-    list<sNode*%>*% list_elements;
-    
     new(list<sNode*%>*% list_elements, sInfo* info)
     {
         self.super();
         
-        self.list_elements = list_elements;
+        list<sNode*%>*% self.list_elements = list_elements;
     }
     
     string kind()
@@ -444,13 +426,11 @@ class sListNode extends sNodeBase
 
 class sTupleNode extends sNodeBase
 {
-    list<sNode*%>*% tuple_elements;
-    
     new(list<sNode*%>*% tuple_elements, sInfo* info)
     {
         self.super();
         
-        self.tuple_elements = tuple_elements;
+        list<sNode*%>*% self.tuple_elements = tuple_elements;
     }
     
     string kind()
@@ -582,15 +562,12 @@ class sTupleNode extends sNodeBase
 
 class sMapNode extends sNodeBase
 {
-    list<sNode*%>*% map_key_elements;
-    list<sNode*%>*% map_elements;
-    
     new(list<sNode*%>*% map_key_elements, list<sNode*%>*% map_elements, sInfo* info)
     {
         self.super();
         
-        self.map_key_elements = map_key_elements;
-        self.map_elements = map_elements;
+        list<sNode*%>*% self.map_key_elements = map_key_elements;
+        list<sNode*%>*% self.map_elements = map_elements;
     }
     
     string kind()

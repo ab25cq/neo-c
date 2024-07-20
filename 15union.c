@@ -2,19 +2,15 @@
 
 class sUnionNode extends sNodeBase
 {
-    sType*% mType;
-    
-    bool mOutput;
-    
     new(sType*% type, bool output, sInfo* info)
     {
         self.super();
     
-        self.mType = clone type;
+        sType*% self.mType = clone type;
         
         info.types.insert(string(type.mClass.mName), clone type);
         
-        self.mOutput = output;
+        bool self.mOutput = output;
     }
     
     bool terminated()

@@ -340,6 +340,7 @@ sh all_build.sh
 
 # Histories
 
+1.1.2.0 attribute definition in method definition.
 1.1.1.1 Refactoring.
 1.1.1.0 super method call was added.
 1.1.0.0 neo-c can have targeted stdc environment
@@ -3356,6 +3357,33 @@ class sData2 extends sData
         printf("z %d\n", self.z);
     }
 };
+```
+
+```C
+#include <neo-c.h>
+
+class sData
+{
+    new(int x, int y)
+    {
+        int self.x = x;
+        int self.y = y;
+    }
+    
+    void show()
+    {
+        printf("x %d y %d\n", self.x, self.y);
+    }
+};
+
+int main(int argc, char** argv)
+{
+    sData*% data = new sData(111, 222);
+    
+    data.show();
+    
+    return 0;
+}
 ```
 
 # Module

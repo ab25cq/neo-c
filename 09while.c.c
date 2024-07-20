@@ -613,6 +613,8 @@ struct sInfo
     struct sType* function_result_type;
     _Bool in_class;
     struct map$2charphcharph* module_params;
+    _Bool constructor_;
+    struct sClass* defining_class;
 };
 struct tuple2$2sTypephcharph
 {
@@ -1768,6 +1770,8 @@ struct sNode* string_node_v10(char* buf, char* head, int head_sline, struct sInf
 struct sNode* string_node_v11(char* buf, char* head, int head_sline, struct sInfo* info);
 
 struct sNode* string_node_v12(char* buf, char* head, int head_sline, struct sInfo* info);
+
+struct sNode* create_null_node(struct sInfo* info);
 
 _Bool operator_overload_fun(struct sType* type, char* fun_name, struct CVALUE* left_value, struct CVALUE* right_value, _Bool break_guard, struct sInfo* info);
 
@@ -3222,14 +3226,14 @@ memset(&num_while_conditional_stack_125, 0, sizeof(int));
         normal_if_121=(_Bool)0;
     }
     if(normal_if_121) {
-        conditional_value_122=(struct CVALUE*)come_increment_ref_count((come_push_stackframe("09while.c", 51, 0),__exception_result_var_b1=((struct CVALUE*)(right_value110=get_value_from_stack(-1,info))), come_pop_stackframe(), __exception_result_var_b1));
+        conditional_value_122=(struct CVALUE*)come_increment_ref_count((come_push_stackframe("09while.c", 48, 0),__exception_result_var_b1=((struct CVALUE*)(right_value110=get_value_from_stack(-1,info))), come_pop_stackframe(), __exception_result_var_b1));
         come_call_finalizer3(right_value110,CVALUE_finalize, 0, 1, 0, 0, __result_obj__);
         dec_stack_ptr(1,info);
         add_come_code(info,"while(%s) {\n",conditional_value_122->c_value);
         come_call_finalizer3(conditional_value_122,CVALUE_finalize, 0, 0, 0, 0, (void*)0);
     }
     else {
-        conditional_value_123=(struct CVALUE*)come_increment_ref_count((come_push_stackframe("09while.c", 56, 1),__exception_result_var_b2=((struct CVALUE*)(right_value111=get_value_from_stack(-1,info))), come_pop_stackframe(), __exception_result_var_b2));
+        conditional_value_123=(struct CVALUE*)come_increment_ref_count((come_push_stackframe("09while.c", 53, 1),__exception_result_var_b2=((struct CVALUE*)(right_value111=get_value_from_stack(-1,info))), come_pop_stackframe(), __exception_result_var_b2));
         come_call_finalizer3(right_value111,CVALUE_finalize, 0, 1, 0, 0, __result_obj__);
         dec_stack_ptr(1,info);
         add_come_code_at_function_head(info,"_Bool _while_condtional%d;\n",++num_while_condtional_124);
@@ -4538,14 +4542,14 @@ right_value122 = (void*)0;
         sname_126=(char*)come_increment_ref_count(((char*)(right_value112=string_clone(info->sname))));
         right_value112 = come_decrement_ref_count2(right_value112, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
         sline_127=info->sline;
-        (come_push_stackframe("09while.c", 87, 2),__exception_result_var_b3=expected_next_character(40,info), come_pop_stackframe(), __exception_result_var_b3);
+        (come_push_stackframe("09while.c", 84, 2),__exception_result_var_b3=expected_next_character(40,info), come_pop_stackframe(), __exception_result_var_b3);
         expression_node_128=(struct sNode*)come_increment_ref_count(((struct sNode*)(right_value113=expression_v13(info))));
         if(right_value113) { right_value113 = come_decrement_ref_count2(right_value113, ((struct sNode*)right_value113)->finalize, ((struct sNode*)right_value113)->_protocol_obj, 1, 0, 0, __result_obj__); } 
-        (come_push_stackframe("09while.c", 92, 3),__exception_result_var_b4=expected_next_character(41,info), come_pop_stackframe(), __exception_result_var_b4);
+        (come_push_stackframe("09while.c", 89, 3),__exception_result_var_b4=expected_next_character(41,info), come_pop_stackframe(), __exception_result_var_b4);
         block_129=(struct sBlock*)come_increment_ref_count(((struct sBlock*)(right_value114=parse_block(info,(_Bool)0,(_Bool)0))));
         come_call_finalizer3(right_value114,sBlock_finalize, 0, 1, 0, 0, __result_obj__);
-        _inf_value1=(struct sNode*)come_calloc(1, sizeof(struct sNode), "09while.c", 96, "struct sNode");
-        _inf_obj_value1=come_increment_ref_count(((struct sWhileNode*)(right_value116=sWhileNode_initialize((struct sWhileNode*)come_increment_ref_count(((struct sWhileNode*)(right_value115=(struct sWhileNode*)come_calloc(1, sizeof(struct sWhileNode)*(1), "09while.c", 96, "sWhileNode")))),(struct sNode*)come_increment_ref_count(expression_node_128),block_129,info))));
+        _inf_value1=(struct sNode*)come_calloc(1, sizeof(struct sNode), "09while.c", 93, "struct sNode");
+        _inf_obj_value1=come_increment_ref_count(((struct sWhileNode*)(right_value116=sWhileNode_initialize((struct sWhileNode*)come_increment_ref_count(((struct sWhileNode*)(right_value115=(struct sWhileNode*)come_calloc(1, sizeof(struct sWhileNode)*(1), "09while.c", 93, "sWhileNode")))),(struct sNode*)come_increment_ref_count(expression_node_128),block_129,info))));
         _inf_value1->_protocol_obj=_inf_obj_value1;
         _inf_value1->finalize=(void*)sWhileNode_finalize;
         _inf_value1->clone=(void*)sWhileNode_clone;

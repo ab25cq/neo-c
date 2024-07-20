@@ -20,13 +20,11 @@ class sNothingNode extends sNodeBase
 
 class sNewNode extends sNodeBase
 {
-    sType*% type;
-    
     new(sType*% type, sInfo* info)
     {
         self.super();
         
-        self.type = clone type;
+        sType*% self.type = clone type;
     }
     
     string kind()
@@ -92,15 +90,12 @@ class sNewNode extends sNodeBase
 
 class sImplementsNode extends sNodeBase
 {
-    sNode*% obj_exp;
-    sType*% inf_type;
-    
     new(sNode*% obj_exp, sType*% inf_type, sInfo* info)
     {
         self.super();
         
-        self.obj_exp = clone obj_exp;
-        self.inf_type = clone inf_type;
+        sNode*% self.obj_exp = clone obj_exp;
+        sType*% self.inf_type = clone inf_type;
     }
     
     string kind()
@@ -255,13 +250,11 @@ class sFalseNode extends sNodeBase
 
 class sSizeOfNode extends sNodeBase
 {
-    sType*% type;
-    
     new(sType*% type, sInfo* info)
     {
         self.super();
         
-        self.type = clone type;
+        sType*% self.type = clone type;
     }
     
     string kind()
@@ -294,13 +287,11 @@ class sSizeOfNode extends sNodeBase
 
 class sSizeOfExpNode extends sNodeBase
 {
-    sNode*% exp;
-    
     new(sNode*% exp, sInfo* info)
     {
         self.super();
         
-        self.exp = clone exp;
+        sNode*% self.exp = clone exp;
         
         return self;
     }
@@ -338,13 +329,11 @@ class sSizeOfExpNode extends sNodeBase
 
 class sTypeOfNode extends sNodeBase
 {
-    sType*% type;
-    
     new(sType*% type, sInfo* info)
     {
         self.super();
         
-        self.type = clone type;
+        sType*% self.type = clone type;
     }
     
     string kind()
@@ -376,13 +365,11 @@ class sTypeOfNode extends sNodeBase
 
 class sTypeOfExpNode extends sNodeBase
 {
-    sNode*% exp;
-    
     new(sNode*% exp, sInfo* info)
     {
         self.super();
         
-        self.exp = clone exp;
+        sNode*% self.exp = clone exp;
     }
     
     string kind()
@@ -421,13 +408,11 @@ class sTypeOfExpNode extends sNodeBase
 
 class sDynamicTypeOfNode extends sNodeBase
 {
-    sNode*% exp;
-    
     new(sNode*% exp, sInfo* info)
     {
         self.super();
         
-        self.exp = clone exp;
+        sNode*% self.exp = clone exp;
     }
     
     string kind()
@@ -481,13 +466,11 @@ class sDynamicTypeOfNode extends sNodeBase
 
 class sAlignOfNode extends sNodeBase
 {
-    sType*% type;
-    
     new(sType*% type, sInfo* info)
     {
         self.super();
         
-        self.type = clone type;
+        sType*% self.type = clone type;
         
         return self;
     }
@@ -522,13 +505,11 @@ class sAlignOfNode extends sNodeBase
 
 class sAlignOfExpNode extends sNodeBase
 {
-    sNode*% exp;
-    
     new(sNode*% exp, sInfo* info)
     {
         self.super();
         
-        self.exp = clone exp;
+        sNode*% self.exp = clone exp;
     }
     
     string kind()
@@ -564,13 +545,11 @@ class sAlignOfExpNode extends sNodeBase
 
 class sAlignOfNode2 extends sNodeBase
 {
-    sType*% type;
-    
     new(sType*% type, sInfo* info)
     {
         self.super();
         
-        self.type = clone type;
+        sType*% self.type = clone type;
     }
     
     string kind()
@@ -603,13 +582,11 @@ class sAlignOfNode2 extends sNodeBase
 
 class sAlignOfExpNode2 extends sNodeBase
 {
-    sNode*% exp;
-    
     new(sNode*% exp, sInfo* info)
     {
         self.super();
         
-        self.exp = clone exp;
+        sNode*% self.exp = clone exp;
     }
     
     string kind()
@@ -645,13 +622,11 @@ class sAlignOfExpNode2 extends sNodeBase
 
 class sAlignAsNode extends sNodeBase
 {
-    sType*% type;
-    
     new(sType*% type, sInfo* info)
     {
         self.super();
         
-        self.type = clone type;
+        sType*% self.type = clone type;
     }
     
     string kind()
@@ -684,13 +659,11 @@ class sAlignAsNode extends sNodeBase
 
 class sAlignAsExpNode extends sNodeBase
 {
-    sNode*% exp;
-    
     new(sNode*% exp, sInfo* info)
     {
         self.super();
         
-        self.exp = clone exp;
+        sNode*% self.exp = clone exp;
     }
     
     string kind()
@@ -726,13 +699,11 @@ class sAlignAsExpNode extends sNodeBase
 
 class sDeleteNode extends sNodeBase
 {
-    sNode*% node;
-    
     new(sNode*% node, sInfo* info)
     {
         self.super();
         
-        self.node = clone node;
+        sNode*% self.node = clone node;
     }
     
     string kind()
@@ -759,13 +730,11 @@ class sDeleteNode extends sNodeBase
 
 class sForceDeleteNode extends sNodeBase
 {
-    sNode*% node;
-    
     new(sNode*% node, sInfo* info)
     {
         self.super();
         
-        self.node = clone node;
+        sNode*% self.node = clone node;
     }
     
     string kind()
@@ -792,13 +761,11 @@ class sForceDeleteNode extends sNodeBase
 
 class sDelegateNode extends sNodeBase
 {
-    sNode*% node;
-    
     new(sNode*% node, sInfo* info)
     {
         self.super();
         
-        self.node = clone node;
+        sNode*% self.node = clone node;
         
         return self;
     }
@@ -839,13 +806,11 @@ class sDelegateNode extends sNodeBase
 
 class sShareNode extends sNodeBase
 {
-    sNode*% node;
-    
     new(sNode*% node, sInfo* info)
     {
         self.super();
         
-        self.node = clone node;
+        sNode*% self.node = clone node;
     }
     
     string kind()
@@ -878,13 +843,11 @@ class sShareNode extends sNodeBase
 
 class sBorrowNode extends sNodeBase
 {
-    sNode*% node;
-    
     new(sNode*% node, sInfo* info)
     {
         self.super();
         
-        self.node = clone node;
+        sNode*% self.node = clone node;
         
         return self;
     }
@@ -921,13 +884,11 @@ class sBorrowNode extends sNodeBase
 
 class sCloneNode extends sNodeBase
 {
-    sNode*% node;
-    
     new(sNode*% node, sInfo* info)
     {
         self.super();
         
-        self.node = clone node;
+        sNode*% self.node = clone node;
     }
     
     string kind()
@@ -977,13 +938,11 @@ class sCloneNode extends sNodeBase
 
 class sDupeNode extends sNodeBase
 {
-    sNode*% node;
-    
     new(sNode*% node, sInfo* info)
     {
         self.super();
         
-        self.node = clone node;
+        sNode*% self.node = clone node;
     }
     
     string kind()
@@ -1030,13 +989,11 @@ class sDupeNode extends sNodeBase
 
 class sDummyHeapNode extends sNodeBase
 {
-    sNode*% node;
-    
     new(sNode*% node, sInfo* info)
     {
         self.super();
         
-        self.node = clone node;
+        sNode*% self.node = clone node;
     }
     
     string kind()
@@ -1065,13 +1022,11 @@ class sDummyHeapNode extends sNodeBase
 
 class sGCIncNode extends sNodeBase
 {
-    sNode*% node;
-    
     new(sNode*% node, sInfo* info)
     {
         self.super();
         
-        self.node = clone node;
+        sNode*% self.node = clone node;
     }
     
     string kind()
@@ -1105,13 +1060,11 @@ class sGCIncNode extends sNodeBase
 
 class sGCDecNode extends sNodeBase
 {
-    sNode*% node;
-    
     new(sNode*% node, sInfo* info)
     {
         self.super();
         
-        self.node = clone node;
+        sNode*% self.node = clone node;
     }
     
     string kind()
@@ -1142,13 +1095,11 @@ class sGCDecNode extends sNodeBase
 
 class sIsHeap extends sNodeBase
 {
-    sType*% type;
-    
     new(sType*% type, sInfo* info)
     {
         self.super();
         
-        self.type = clone type;
+        sType*% self.type = clone type;
     }
     
     string kind()
@@ -1189,13 +1140,11 @@ class sIsHeap extends sNodeBase
 
 class sIsPointer extends sNodeBase
 {
-    sType*% type;
-    
     new(sType*% type, sInfo* info)
     {
         self.super();
         
-        self.type = clone type;
+        sType*% self.type = clone type;
     }
     
     string kind()

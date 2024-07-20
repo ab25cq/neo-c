@@ -2,23 +2,16 @@
 
 class sTypedefNode extends sNodeBase
 {
-    string mTypeName;
-    sType*% mType;
-    
-    list<tuple2<sType*%, string>*%>*% multiple_declare;
-    
-    string mDeclareSName;
-    
     new(string type_name, sType*% type, list<tuple2<sType*%, string>*%>*% multiple_declare, sInfo* info)
     {
         self.super();
     
-        self.mTypeName = string(type_name);
-        self.mType = clone type;
+        string self.mTypeName = string(type_name);
+        sType*% self.mType = clone type;
         
-        self.mDeclareSName = string(info->sname);
+        string self.mDeclareSName = string(info->sname);
         
-        self.multiple_declare = clone multiple_declare;
+        list<tuple2<sType*%, string>*%>*% self.multiple_declare = clone multiple_declare;
     }
     
     bool terminated()

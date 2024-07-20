@@ -112,13 +112,11 @@ bool operator_overload_fun_self(sType* type, char* fun_name, CVALUE* left_value,
 
 class sRefferenceNode extends sNodeBase
 {
-    sNode*% value;
-    
     new(sNode*% value, sInfo* info)
     {
         self.super();
         
-        self.value = value;
+        sNode*% self.value = value;
     }
     
     string kind()
@@ -154,15 +152,12 @@ class sRefferenceNode extends sNodeBase
 
 class sDerefferenceNode extends sNodeBase
 {
-    sNode*% value;
-    bool mQuote;
-    
     new(sNode*% value, bool quote, sInfo* info)
     {
         self.super();
         
-        self.value = value;
-        self.mQuote = quote;
+        sNode*% self.value = value;
+        bool self.mQuote = quote;
     }
     
     string kind()
@@ -246,13 +241,11 @@ class sDerefferenceNode extends sNodeBase
 
 class sLogicalDenial extends sNodeBase
 {
-    sNode*% value;
-    
     new(sNode*% value, sInfo* info)
     {
         self.super();
         
-        self.value = value;
+        sNode*% self.value = value;
     }
     
     string kind()
@@ -285,13 +278,11 @@ class sLogicalDenial extends sNodeBase
 
 class sReverseNode extends sNodeBase
 {
-    sNode*% value;
-    
     new(sNode*% value, sInfo* info)
     {
         self.super();
         
-        self.value = value;
+        sNode*% self.value = value;
     }
     
     string kind()
@@ -327,13 +318,11 @@ class sReverseNode extends sNodeBase
 
 class sMinusNode2 extends sNodeBase
 {
-    sNode*% value;
-    
     new(sNode*% value, sInfo* info)
     {
         self.super();
         
-        self.value = value;
+        sNode*% self.value = value;
     }
     
     string kind()
@@ -366,13 +355,11 @@ class sMinusNode2 extends sNodeBase
 
 class sPlusPlusNode2 extends sNodeBase
 {
-    sNode*% value;
-    
     new(sNode*% value, sInfo* info)
     {
         self.super();
         
-        self.value = value;
+        sNode*% self.value = value;
     }
     
     string kind()
@@ -405,13 +392,11 @@ class sPlusPlusNode2 extends sNodeBase
 
 class sMinusMinusNode2 extends sNodeBase
 {
-    sNode*% value;
-    
     new(sNode*% value, sInfo* info)
     {
         self.super();
         
-        self.value = value;
+        sNode*% self.value = value;
     }
     
     string kind()
@@ -444,13 +429,11 @@ class sMinusMinusNode2 extends sNodeBase
 
 class sNormalBlock extends sNodeBase
 {
-    sBlock*% mBlock;
-    
     new(sBlock* block, sInfo* info)
     {
         self.super();
         
-        self.mBlock = clone block;
+        sBlock*% self.mBlock = clone block;
     }
     
     bool terminated()
@@ -481,13 +464,11 @@ class sNormalBlock extends sNodeBase
 
 class sComplement extends sNodeBase
 {
-    sNode*% value;
-    
     new(sNode*% value, sInfo* info)
     {
         self.super();
         
-        self.value = value;
+        sNode*% self.value = value;
     }
     
     string kind()
@@ -520,13 +501,11 @@ class sComplement extends sNodeBase
 
 class sParenNode extends sNodeBase
 {
-    sNode*% mLeft;
-    
     new(sNode* left, sInfo* info)
     {
         self.super();
         
-        self.mLeft = clone left;
+        sNode*% self.mLeft = clone left;
     }
     
     string kind()
@@ -561,15 +540,12 @@ class sParenNode extends sNodeBase
 
 class sCastNode extends sNodeBase
 {
-    sType*% mType;
-    sNode*% mLeft;
-    
     new(sType* type, sNode* left, sInfo* info)
     {
         self.super();
         
-        self.mType = clone type;
-        self.mLeft = clone left;
+        sType*% self.mType = clone type;
+        sNode*% self.mLeft = clone left;
     }
     
     string kind()

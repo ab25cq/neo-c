@@ -157,23 +157,16 @@ string make_generics_function(sType* type, string fun_name, sInfo* info, bool ar
 
 class sMethodCallNode extends sNodeBase
 {
-    sNode*% obj;
-    string fun_name;
-    list<tuple2<string,sNode*%>*%>*% params;
-    buffer*% method_block;
-    int method_block_sline;
-    list<sType*%>*% method_generics_types;
-    
     new(char* fun_name,sNode*% obj, list<tuple2<string,sNode*%>*%>*% params, buffer* method_block, int method_block_sline, list<sType*%>* method_generics_types , sInfo* info)
     {
         self.super();
         
-        self.obj = clone obj;
-        self.fun_name = string(fun_name);
-        self.params = clone params;
-        self.method_block = clone method_block;
-        self.method_block_sline = method_block_sline;
-        self.method_generics_types = clone method_generics_types;
+        sNode*% self.obj = clone obj;
+        string self.fun_name = string(fun_name);
+        list<tuple2<string,sNode*%>*%>*% self.params = clone params;
+        buffer*% self.method_block = clone method_block;
+        int self.method_block_sline = method_block_sline;
+        list<sType*%>*% self.method_generics_types = clone method_generics_types;
     }
     
     bool terminated()

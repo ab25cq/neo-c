@@ -2,15 +2,12 @@
 
 class sDoWhileNode extends sNodeBase
 {
-    sNode*% mExpressionNode;
-    sBlock*% mBlock;
-    
     new(sNode*% expression_node, sBlock* block, sInfo* info)
     {
         self.super();
     
-        self.mExpressionNode = clone expression_node;
-        self.mBlock = clone block;
+        sNode*% self.mExpressionNode = clone expression_node;
+        sBlock*% self.mBlock = clone block;
     }
     
     bool terminated()
