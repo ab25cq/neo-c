@@ -1316,7 +1316,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         buffer*% header = new buffer();
         header.append(source_head, source_tail - source_head);
         
-        add_come_code_at_come_header(info, "%s %s;\n", buf, header.to_string());
+        //add_come_code_at_come_header(info, "%s %s;\n", buf, header.to_string());
         
         return node;
     }
