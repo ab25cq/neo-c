@@ -5,7 +5,7 @@ Another modern Object Oriented C traspiler. It has a heap system that is a cross
 
 もう一つのモダンなオブジェクト指向Cコンパイラ。automatically-free-systemとリファレンスカウントGCの間をとったようなヒープシステムがありコレクションライブラリ、文字列ライブラリを備えてます。
 
-version 1.1.3
+version 1.1.5
 
 ``` C
 #include <neo-c.h>
@@ -340,6 +340,7 @@ sh all_build.sh
 
 # Histories
 
+1.1.5 uniq attribute bug was fixed.
 1.1.3 attribute definition in method definition.
 1.1.1.1 Refactoring.
 1.1.1.0 super method call was added.
@@ -3447,6 +3448,10 @@ int main(int argc, char** argv)
 }
 ```
 
+user_finalize is for use to non-memory management routine at finalize.
+
+This is no memory leak.
+
 # uniq
 
 ```
@@ -3516,13 +3521,6 @@ int fun(int x, int y) {
 ```
 neo-c outputs a.c.c and b.c.c files, and a.c.c and b.c.c may be worked on all stdc enviroment. 
 
-
-```
-
-user_finalize is for use to non-memory management routine at finalize.
-
-This is no memory leak.
-
 # afterword
 
 親友DIO、僕はついに天の国を見てきたよ。
@@ -3531,13 +3529,9 @@ version 1.0.0でようやく完成です。
 
 LLVM-C++, LLVM-C, Cトランスパイラと、このコンパイラは実は３作目なんですが、ようやく満足のいくヒープシステムが作れました。
 
-適当に書いてもメモリリークはあまりないでしょう。Cコンパイラは動的エラーが不安ですが、valgrindを使ってください。メモリリークも検出してくれます。
-
 この言語のライブラリにはRubyっぽい文字列ライブラリもあります。
 
 結局僕はRubyが好きだったのでしょう。好きすぎてRubyっぽいシェル、RubyっぽいJava、Rubyっぽいコンパイラと３作もRubyっぽいものを作ってしまいました。
-
-余生はRubyクローンを作って過ごしたいと思います。Rubyクローンを作って、Rubyの作者のまつもとゆきひろさんにお会いできればなと思います。それで今までやってきたことも肯定されるかもしれません。 
 
 まあ、プログラミングを楽しんでください。社会生活も楽しんでください。社会生活を犠牲にするほどはプログラミングはしないでください。
 
@@ -3552,15 +3546,9 @@ It is finally completed with version 1.0.0.
 
 This is actually my third compiler, including LLVM-C++, LLVM-C, and the C transpiler, but I was finally able to create a heap system that I was satisfied with.
 
-Even if you write it properly, there will not be many memory leaks. If you are concerned about dynamic errors with the C compiler, please use valgrind. It also detects memory leaks.
-
 This language also has a Ruby-like string library.
 
 I guess I liked Ruby after all. I love it so much that I've created three Ruby-like products: a Ruby-like shell, a Ruby-like Java, and a Ruby-like compiler.
-
-I would like to spend the rest of my life creating Ruby clones. I would like to create a Ruby clone and meet Yukihiro Matsumoto, the creator of Ruby.
-
-So what we have been doing up until now may be confirmed.
 
 Well, have fun programming. Enjoy your social life too. Don't program so much that you sacrifice your social life.
 

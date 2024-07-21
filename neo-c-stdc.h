@@ -563,8 +563,6 @@ uniq record bool die(char* msg)
 //////////////////////////////
 /// heap
 //////////////////////////////
-extern bool gComeGCLib;
-
 uniq bool gComeMallocLib = false;
 uniq bool gComeDebugLib = false;
 uniq bool gComeGCLib = false;

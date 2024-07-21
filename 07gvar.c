@@ -36,6 +36,10 @@ class sGlobalVariable extends sNodeBase
                 if(info.output_header_file) {
                     add_come_code_at_come_header(info, "extern %s;\n", make_define_var(type, name));
                 }
+                else if(type.mUniq) {
+                    add_come_code_at_source_head(info, "extern %s;\n", make_define_var(type, name));
+                    add_come_code_at_source_head2(info, "%s;\n", make_define_var(type, name));
+                }
                 else {
                     add_come_code_at_source_head(info, "%s;\n", make_define_var(type, name));
                 }
@@ -47,6 +51,10 @@ class sGlobalVariable extends sNodeBase
             if(array_initializer) {
                 if(info.output_header_file) {
                     add_come_code_at_come_header(info, "extern %s;\n", make_define_var(type, name));
+                }
+                else if(type.mUniq) {
+                    add_come_code_at_source_head(info, "extern %s;\n", make_define_var(type, name));
+                    add_come_code_at_source_head2(info, "%s=%s;\n", make_define_var(type, name), array_initializer);
                 }
                 else {
                     add_come_code_at_source_head(info, "%s=%s;\n", make_define_var(type, name), array_initializer);
@@ -63,6 +71,10 @@ class sGlobalVariable extends sNodeBase
                 if(info.output_header_file) {
                     add_come_code_at_come_header(info, "extern %s;\n", make_define_var(type, name));
                 }
+                else if(type.mUniq) {
+                    add_come_code_at_source_head(info, "extern %s;\n", make_define_var(type, name));
+                    add_come_code_at_source_head2(info, "%s=%s;\n", make_define_var(type, name), come_value.c_value);
+                }
                 else {
                     add_come_code_at_source_head(info, "%s=%s;\n", make_define_var(type, name), come_value.c_value);
                 }
@@ -70,6 +82,10 @@ class sGlobalVariable extends sNodeBase
             else {
                 if(info.output_header_file) {
                     add_come_code_at_come_header(info, "extern %s;\n", make_define_var(type, name));
+                }
+                else if(type.mUniq) {
+                    add_come_code_at_source_head(info, "extern %s;\n", make_define_var(type, name));
+                    add_come_code_at_source_head2(info, "%s;\n", make_define_var(type, name));
                 }
                 else {
                     add_come_code_at_source_head(info, "%s;\n", make_define_var(type, name));
