@@ -9327,7 +9327,7 @@ right_value408 = (void*)0;
 right_value409 = (void*)0;
 right_value414 = (void*)0;
     parse_sharp_v5(info);
-    if(_if_conditional428=*info->p==40,    _if_conditional428) {
+    if(_if_conditional428=!node->terminated(node->_protocol_obj)&&*info->p==40,    _if_conditional428) {
         info->p++;
         skip_spaces_and_lf(info);
         parse_sharp_v5(info);

@@ -1364,7 +1364,7 @@ sNode*% post_position_operator(sNode*% node, sInfo* info)
 {
     parse_sharp();
     
-    if(*info->p == '(') {
+    if(!node->terminated() && *info->p == '(') {
         info->p++;
         skip_spaces_and_lf(info);
         

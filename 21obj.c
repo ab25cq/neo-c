@@ -1372,9 +1372,11 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         }
     }
     else if(buf === "sizeof") {
+        bool paren = false;
         if(*info->p == '(') {
             info->p++;
             skip_spaces_and_lf();
+            paren = true;
         }
         //expected_next_character('(');
         
@@ -1403,7 +1405,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
                 exit(2);
             }
             
-            if(*info->p == ')') {
+            if(paren && *info->p == ')') {
                 info->p++;
                 skip_spaces_and_lf();
             }
@@ -1415,7 +1417,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         else {
             var exp = expression();
             
-            if(*info->p == ')') {
+            if(paren && *info->p == ')') {
                 info->p++;
                 skip_spaces_and_lf();
             }
@@ -1428,9 +1430,11 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
     else if(buf === "typeof") {
         //expected_next_character('(');
         
+        bool paren = false;
         if(*info->p == '(') {
             info->p++;
             skip_spaces_and_lf();
+            paren = true;
         }
         
         /// backtrace ///
@@ -1460,7 +1464,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             
             //expected_next_character(')');
             
-            if(*info->p == ')') {
+            if(paren && *info->p == ')') {
                 info->p++;
                 skip_spaces_and_lf();
             }
@@ -1472,7 +1476,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             
             //expected_next_character(')');
             
-            if(*info->p == ')') {
+            if(paren && *info->p == ')') {
                 info->p++;
                 skip_spaces_and_lf();
             }
