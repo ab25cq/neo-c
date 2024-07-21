@@ -2844,3 +2844,4 @@ sFun*,string create_cloner_automatically(sType* type, char* fun_name, sInfo* inf
     
     return (cloner, real_fun_name);
 }
+

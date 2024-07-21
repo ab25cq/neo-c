@@ -343,6 +343,7 @@ struct sType
     _Bool mGuardValue;
     char* mAsmName;
     _Bool mArrayPointerType;
+    _Bool mLambdaArray;
 };
 struct sVar;
 struct CVALUE
@@ -1663,6 +1664,8 @@ void remove_object_from_right_values(int right_value_num, struct sInfo* info);
 char* increment_ref_count_object(struct sType* type, char* obj, struct sInfo* info);
 
 void decrement_ref_count_object(struct sType* type, char* obj, struct sInfo* info, _Bool force_delete_);
+
+struct sNode* post_position_operator(struct sNode* node, struct sInfo* info);
 
 _Bool create_method_generics_fun(char* fun_name, struct sGenericsFun* generics_fun, struct sInfo* info);
 

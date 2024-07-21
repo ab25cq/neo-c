@@ -1040,5 +1040,5 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 19
          return new sExpEqualNode(node, right_node, quote, info) implements sNode;
     }
     
-    return (sNode*%)null;
+    return inherit(node, info);
 }

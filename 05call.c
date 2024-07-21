@@ -735,6 +735,107 @@ class sFunCallNode extends sNodeBase
     }
 };
 
+class sLambdaCall extends sNodeBase
+{
+    new(sNode*% node, list<tuple2<string,sNode*%>*%>* params, sInfo* info)
+    {
+        self.super();
+        
+        sNode*% self.node = node;
+        list<tuple2<string,sNode*%>*%>*% self.params = clone params;
+    }
+    
+    string kind()
+    {
+        return string("sLambdaCall");
+    }
+    
+    bool compile(sInfo* info)
+    {
+        sNode*% node = self.node;
+        list<tuple2<string,sNode*%>*%>* params = self.params;
+        
+        if(!node_compile(node, info)) {
+            return false;
+        }
+        
+        CVALUE*% come_value = get_value_from_stack(-1, info);
+        dec_stack_ptr(1, info);
+        
+        sType* lambda_type = come_value.type;
+        
+        sType*% result_type = clone lambda_type->mResultType.v1;
+        result_type->mStatic = false;
+        
+        list<CVALUE*%>*% come_params = new list<CVALUE*%>();
+        
+        if(lambda_type.mParamTypes.length() != params.length() && !lambda_type.mVarArgs) {
+            err_msg(info, "invalid param number. function param number is %d. caller param number is %d", lambda_type.mParamTypes.length(), params.length());
+            return false;
+        }
+        
+        int i = 0;
+        foreach(it, params) {
+            var label, node = it;
+            
+            if(!node_compile(node)) {
+                return false;
+            }
+            
+            CVALUE*% come_value = get_value_from_stack(-1, info);
+            if(lambda_type.mVarArgs && lambda_type.mParamTypes[i] == null) {
+            }
+            else {
+                check_assign_type(s"calling param #\{i}", lambda_type.mParamTypes[i], come_value.type, come_value);
+                if(lambda_type.mParamTypes[i].mHeap && come_value.type.mHeap) {
+                    std_move(lambda_type.mParamTypes[i], come_value.type, come_value);
+                }
+            }
+            
+            come_params.push_back(come_value);
+            dec_stack_ptr(1, info);
+            
+            i++;
+        }
+        
+        buffer*% buf = new buffer();
+        
+        buf.append_str("(");
+        buf.append_str(come_value.c_value);
+        buf.append_str(")");
+        buf.append_str("(");
+        
+        int j = 0;
+        foreach(it, come_params) {
+            buf.append_str(it.c_value);
+            
+            if(j != come_params.length()-1) {
+                buf.append_str(",");
+            }
+            
+            j++;
+        }
+        buf.append_str(")");
+        
+        CVALUE*% come_value2 = new CVALUE;
+        come_value2.c_value = buf.to_string();
+        
+        if(lambda_type->mResultType.v1.mHeap) {
+            come_value2.c_value = append_object_to_right_values(come_value2.c_value, lambda_type->mResultType.v1, info);
+        }
+        
+        come_value2.type = clone result_type;
+        come_value2.type->mStatic = false;
+        come_value2.var = null;
+        
+        add_come_last_code(info, "%s;\n", come_value2.c_value);
+        
+        info.stack.push_back(come_value2);
+        
+        return true;
+    }
+};
+
 sNode*% parse_function_call(char* fun_name, sInfo* info)
 {
     list<sType*%>*% method_generics_types = new list<sType*%>();
@@ -933,7 +1034,7 @@ record sNode*% expression_node(sInfo* info=info) version 97
         
         /// backtrace ///
         bool fun_name_with_type_name = false;
-        if(buf !== "if" && buf !== "while" && buf !== "for" && buf !== "switch" && buf !== "return" && buf !== "sizeof" && buf !== "_Alignof" && buf !== "__alignof__" && buf !== "_Alignas" && buf !== "isheap" && buf !== "guard" && buf !== "ispointer" && buf !== "dynamic_typeof" && buf !== "__typeof__" && buf !== "typeof" && buf !== "gc_inc" && buf !== "gc_dec"&& buf !== "case" )
+        if(buf !== "if" && buf !== "while" && buf !== "for" && buf !== "switch" && buf !== "return" && buf !== "sizeof" && buf !== "_Alignof" && buf !== "__alignof__" && buf !== "_Alignas" && buf !== "isheap" && buf !== "guard" && buf !== "ispointer" && buf !== "dynamic_typeof" && buf !== "__typeof__" && buf !== "typeof" && buf !== "gc_inc" && buf !== "gc_dec"&& buf !== "case")
         {
             info.p = head;
             info.sline = head_sline;
@@ -1256,5 +1357,80 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 1
     exit(2);
     
     return (sNode*%)null;
+}
+
+
+sNode*% post_position_operator(sNode*% node, sInfo* info)
+{
+    parse_sharp();
+    
+    if(*info->p == '(') {
+        info->p++;
+        skip_spaces_and_lf(info);
+        
+        parse_sharp();
+        
+        list<tuple2<string,sNode*%>*%>*% params = new list<tuple2<string,sNode*%>*%>();
+        
+        while(true) {
+            if(*info->p == ')') {
+                info->p++;
+                skip_spaces_and_lf();
+                break;
+            }
+            
+            char* p = info.p;
+            int sline = info.sline;
+            
+            bool err_flag = false;
+            string label = string("");
+            if(xisalpha(*info->p) || *info->p == '_') {
+                label = parse_word();
+                err_flag = true;
+            }
+            
+            if(err_flag == true && *info->p == ':') {
+                info->p++;
+                skip_spaces_and_lf();
+            }
+            else {
+                label = null;
+                
+                info->p = p;
+                info->sline = sline;
+            }
+            
+            bool no_comma = info.no_comma;
+            info.no_comma = true;
+            
+            sNode*% node = expression();
+            
+            node = post_position_operator(node, info);
+            
+            info.no_comma = no_comma;
+            
+            params.push_back((label, node));
+            
+            parse_sharp();
+            
+            if(*info->p == ',') {
+                info->p++;
+                skip_spaces_and_lf();
+            }
+            else if(*info->p == ')') {
+                info->p++;
+                skip_spaces_and_lf();
+                
+                break;
+            }
+        }
+        
+        parse_sharp();
+        
+        return new sLambdaCall(node, params, info) implements sNode;
+    }
+    else {
+        return (sNode*%)null;
+    }
 }
 

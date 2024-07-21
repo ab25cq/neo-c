@@ -1866,6 +1866,16 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             num_anonymous_var_name++;
             var_name = xsprintf("anonymous_lambda_var_nameZ%d", num_anonymous_var_name);
         }
+        bool function_pointer_array = false;
+        if(*info->p == '[') {
+            info->p++;
+            skip_spaces_and_lf();
+            if(*info->p == ']') {
+                info->p++;
+                skip_spaces_and_lf();
+                function_pointer_array = true;
+            }
+        }
         expected_next_character(')');
         
         var param_types, param_names, param_default_parametors, var_args = parse_params(info);
@@ -1877,6 +1887,9 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         type->mParamNames = param_names;
         type->mVarArgs = var_args;
         type->mExtern = extern_;
+        if(function_pointer_array) {
+            type->mLambdaArray = true;
+        }
     }
     else if(type_name === "__typeof__" && *info->p == '(') {
         info->p++;

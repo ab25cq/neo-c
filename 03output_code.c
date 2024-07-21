@@ -206,7 +206,12 @@ static string make_lambda_type_name_string(sType* type, char* var_name, sInfo* i
         return make_lambda_type_name_string(type->mResultType.v1, buf.to_string(), info);
     }
     else {
-        buf.append_str(xsprintf("%s (*%s)(", make_type_name_string(type->mResultType.v1), var_name));
+        if(type->mLambdaArray) {
+            buf.append_str(xsprintf("%s (*%s[])(", make_type_name_string(type->mResultType.v1), var_name));
+        }
+        else {
+            buf.append_str(xsprintf("%s (*%s)(", make_type_name_string(type->mResultType.v1), var_name));
+        }
         
         int i = 0;
         foreach(it, type->mParamTypes) {

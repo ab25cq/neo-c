@@ -141,6 +141,7 @@ struct sType
     
     string mAsmName;
     bool mArrayPointerType;
+    bool mLambdaArray;
 };
 
 struct sVar;
@@ -441,6 +442,7 @@ void decrement_ref_count_object(sType* type, char* obj, sInfo* info, bool force_
 /////////////////////////////////////////////////////////////////////
 /// 05function.c ///
 /////////////////////////////////////////////////////////////////////
+sNode*% post_position_operator(sNode*% node, sInfo* info);
 bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sInfo* info);
 bool operator_overload_fun_self(sType* type, char* fun_name, CVALUE* left_value, sInfo* info);
 bool strmemcmp(char* p, char* p2);
