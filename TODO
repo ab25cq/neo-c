@@ -1,3 +1,5 @@
 foreach no macro
 
 compile a.c
+
+array_initializer
