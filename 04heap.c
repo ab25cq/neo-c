@@ -2,7 +2,7 @@
 
 void std_move(sType* left_type, sType* right_type, CVALUE* right_value, sInfo* info=info)
 {
-    if(gComeGC) {
+    if(gComeGC || gComeC) {
         return;
     }
     if(right_value.var) {
@@ -287,7 +287,7 @@ int get_right_value_id_from_obj(string obj)
 
 string append_object_to_right_values(char* obj, sType*% type, sInfo* info)
 {
-    if(gComeGC) {
+    if(gComeGC || gComeC) {
         return string(obj);
     }
     if(info->no_output_come_code) {
@@ -312,7 +312,7 @@ string append_object_to_right_values(char* obj, sType*% type, sInfo* info)
 
 void remove_object_from_right_values(int right_value_num, sInfo* info)
 {
-    if(gComeGC) {
+    if(gComeGC || gComeC) {
         return;
     }
     int i = 0;
@@ -328,7 +328,7 @@ void remove_object_from_right_values(int right_value_num, sInfo* info)
 
 string increment_ref_count_object(sType* type, char* obj, sInfo* info)
 {
-    if(gComeGC) {
+    if(gComeGC || gComeC) {
         return string(obj);
     }
     sClass* klass = type->mClass;
@@ -340,7 +340,7 @@ string increment_ref_count_object(sType* type, char* obj, sInfo* info)
 
 void decrement_ref_count_object(sType* type, char* obj, sInfo* info, bool force_delete_=false)
 {
-    if(gComeGC) {
+    if(gComeGC || gComeC) {
         return;
     }
     var stack_saved = info.stack;
@@ -453,7 +453,7 @@ void decrement_ref_count_object(sType* type, char* obj, sInfo* info, bool force_
 
 void free_object(sType* type, char* obj, bool no_decrement, bool no_free, sInfo* info, bool comma=false, bool ret_value=false, bool force_delete_=false)
 {
-    if(gComeGC) {
+    if(gComeGC || gComeC) {
         return;
     }
     var stack_saved = info.stack;
@@ -1128,7 +1128,7 @@ bool create_operator_not_equals_method(sType* type, sInfo* info)
 
 bool existance_free_right_value_objects(sInfo* info)
 {
-    if(gComeGC) {
+    if(gComeGC || gComeC) {
         return false;
     }
     list<sRightValueObject*%>* right_value_objects = info.right_value_objects;
@@ -1146,7 +1146,7 @@ bool existance_free_right_value_objects(sInfo* info)
 
 void free_right_value_objects(sInfo* info, bool comma=false)
 {
-    if(gComeGC) {
+    if(gComeGC || gComeC) {
         return;
     }
     bool free_right_value = false;
@@ -1175,7 +1175,7 @@ void free_right_value_objects(sInfo* info, bool comma=false)
 
 bool is_right_values(int right_value_num, sInfo* info)
 {
-    if(gComeGC) {
+    if(gComeGC || gComeC) {
         return false;
     }
     foreach(it, info->right_value_objects) {
@@ -1206,7 +1206,7 @@ sVar* get_variable_from_table(sVarTable* table, char* name)
 
 void free_objects(sVarTable* table, sVar* ret_value, sInfo* info)
 {
-    if(gComeGC) {
+    if(gComeGC || gComeC) {
         return;
     }
     foreach(it, table->mVars) {
@@ -1237,7 +1237,7 @@ void free_objects(sVarTable* table, sVar* ret_value, sInfo* info)
 
 void free_objects_on_return(sBlock* current_block, sInfo* info, sVar* ret_value, bool top_block)
 {
-    if(gComeGC) {
+    if(gComeGC || gComeC) {
         return;
     }
     sVarTable* it = info->lv_table;
@@ -1257,7 +1257,7 @@ void free_objects_on_return(sBlock* current_block, sInfo* info, sVar* ret_value,
 
 void free_objects_on_break(sInfo* info)
 {
-    if(gComeGC) {
+    if(gComeGC || gComeC) {
         return;
     }
     sVar* ret_value = null;

@@ -328,6 +328,7 @@ struct sType
     int mPointerNum;
     int mOriginalTypeNamePointerNum;
     int mNoArrayPointerNum;
+    int mTypedefOriginalPointerNum;
     struct sNode* mSizeNum;
     unsigned int mDynamicArrayNum;
     unsigned int mTypeOfExpression;
@@ -344,6 +345,7 @@ struct sType
     char* mAsmName;
     _Bool mArrayPointerType;
     _Bool mLambdaArray;
+    _Bool mNoNumberArray;
 };
 struct sVar;
 struct CVALUE
@@ -1591,83 +1593,83 @@ struct sNode* top_level_v92(char* buf, char* head, int head_sline, struct sInfo*
 
 struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo* info);
 
-char* dirname(char* anonymous_var_nameX525);
+char* dirname(char* anonymous_var_nameX510);
 
-char* basename(char* anonymous_var_nameX526);
+char* basename(char* anonymous_var_nameX511);
 
 unsigned int GC_get_version();
 
 unsigned long int GC_get_gc_no();
 
-void GC_set_oom_fn(void* (*anonymous_var_nameX528)(unsigned long int));
+void GC_set_oom_fn(void* (*anonymous_var_nameX513)(unsigned long int));
 
 void* (*GC_get_oom_fn())(unsigned long int);
 
-void GC_set_on_heap_resize(void (*anonymous_var_nameX530)(unsigned long int));
+void GC_set_on_heap_resize(void (*anonymous_var_nameX515)(unsigned long int));
 
 void (*GC_get_on_heap_resize())(unsigned long int);
 
-void GC_set_on_collection_event(void (*anonymous_var_nameX532)(enum anonymous_typeY5));
+void GC_set_on_collection_event(void (*anonymous_var_nameX517)(enum anonymous_typeY5));
 
 void (*GC_get_on_collection_event())(enum anonymous_typeY5);
 
-void GC_set_find_leak(int anonymous_var_nameX533);
+void GC_set_find_leak(int anonymous_var_nameX518);
 
 int GC_get_find_leak();
 
-void GC_set_all_interior_pointers(int anonymous_var_nameX534);
+void GC_set_all_interior_pointers(int anonymous_var_nameX519);
 
 int GC_get_all_interior_pointers();
 
-void GC_set_finalize_on_demand(int anonymous_var_nameX535);
+void GC_set_finalize_on_demand(int anonymous_var_nameX520);
 
 int GC_get_finalize_on_demand();
 
-void GC_set_java_finalization(int anonymous_var_nameX536);
+void GC_set_java_finalization(int anonymous_var_nameX521);
 
 int GC_get_java_finalization();
 
-void GC_set_finalizer_notifier(void (*anonymous_var_nameX537)());
+void GC_set_finalizer_notifier(void (*anonymous_var_nameX522)());
 
 void (*GC_get_finalizer_notifier())();
 
-void GC_set_dont_expand(int anonymous_var_nameX538);
+void GC_set_dont_expand(int anonymous_var_nameX523);
 
 int GC_get_dont_expand();
 
-void GC_set_full_freq(int anonymous_var_nameX539);
+void GC_set_full_freq(int anonymous_var_nameX524);
 
 int GC_get_full_freq();
 
-void GC_set_non_gc_bytes(unsigned long int anonymous_var_nameX540);
+void GC_set_non_gc_bytes(unsigned long int anonymous_var_nameX525);
 
 unsigned long int GC_get_non_gc_bytes();
 
-void GC_set_no_dls(int anonymous_var_nameX541);
+void GC_set_no_dls(int anonymous_var_nameX526);
 
 int GC_get_no_dls();
 
-void GC_set_free_space_divisor(unsigned long int anonymous_var_nameX542);
+void GC_set_free_space_divisor(unsigned long int anonymous_var_nameX527);
 
 unsigned long int GC_get_free_space_divisor();
 
-void GC_set_max_retries(unsigned long int anonymous_var_nameX543);
+void GC_set_max_retries(unsigned long int anonymous_var_nameX528);
 
 unsigned long int GC_get_max_retries();
 
-void GC_set_dont_precollect(int anonymous_var_nameX544);
+void GC_set_dont_precollect(int anonymous_var_nameX529);
 
 int GC_get_dont_precollect();
 
-void GC_set_time_limit(unsigned long int anonymous_var_nameX545);
+void GC_set_time_limit(unsigned long int anonymous_var_nameX530);
 
 unsigned long int GC_get_time_limit();
 
-void GC_set_time_limit_tv(struct GC_timeval_s anonymous_var_nameX546);
+void GC_set_time_limit_tv(struct GC_timeval_s anonymous_var_nameX531);
 
 struct GC_timeval_s GC_get_time_limit_tv();
 
-void GC_set_allocd_bytes_per_finalizer(unsigned long int anonymous_var_nameX547);
+void GC_set_allocd_bytes_per_finalizer(unsigned long int anonymous_var_nameX532);
 
 unsigned long int GC_get_allocd_bytes_per_finalizer();
 
@@ -1675,27 +1677,27 @@ void GC_start_performance_measurement();
 
 unsigned long int GC_get_full_gc_total_time();
 
-void GC_set_pages_executable(int anonymous_var_nameX548);
+void GC_set_pages_executable(int anonymous_var_nameX533);
 
 int GC_get_pages_executable();
 
-void GC_set_min_bytes_allocd(unsigned long int anonymous_var_nameX549);
+void GC_set_min_bytes_allocd(unsigned long int anonymous_var_nameX534);
 
 unsigned long int GC_get_min_bytes_allocd();
 
-void GC_set_rate(int anonymous_var_nameX550);
+void GC_set_rate(int anonymous_var_nameX535);
 
 int GC_get_rate();
 
-void GC_set_max_prior_attempts(int anonymous_var_nameX551);
+void GC_set_max_prior_attempts(int anonymous_var_nameX536);
 
 int GC_get_max_prior_attempts();
 
-void GC_set_disable_automatic_collection(int anonymous_var_nameX552);
+void GC_set_disable_automatic_collection(int anonymous_var_nameX537);
 
 int GC_get_disable_automatic_collection();
 
-void GC_set_handle_fork(int anonymous_var_nameX553);
+void GC_set_handle_fork(int anonymous_var_nameX538);
 
 void GC_atfork_prepare();
 
@@ -1709,61 +1711,61 @@ int GC_is_init_called();
 
 void GC_deinit();
 
-void* GC_malloc(unsigned long int anonymous_var_nameX554);
+void* GC_malloc(unsigned long int anonymous_var_nameX539);
 
-void* GC_malloc_atomic(unsigned long int anonymous_var_nameX555);
+void* GC_malloc_atomic(unsigned long int anonymous_var_nameX540);
 
-char* GC_strdup(const char* anonymous_var_nameX556);
+char* GC_strdup(const char* anonymous_var_nameX541);
 
-char* GC_strndup(const char* anonymous_var_nameX557, unsigned long int anonymous_var_nameX558);
+char* GC_strndup(const char* anonymous_var_nameX542, unsigned long int anonymous_var_nameX543);
 
-void* GC_malloc_uncollectable(unsigned long int anonymous_var_nameX559);
+void* GC_malloc_uncollectable(unsigned long int anonymous_var_nameX544);
 
-void* GC_malloc_stubborn(unsigned long int anonymous_var_nameX560);
+void* GC_malloc_stubborn(unsigned long int anonymous_var_nameX545);
 
-void* GC_memalign(unsigned long int anonymous_var_nameX561, unsigned long int anonymous_var_nameX562);
+void* GC_memalign(unsigned long int anonymous_var_nameX546, unsigned long int anonymous_var_nameX547);
 
-int GC_posix_memalign(void** anonymous_var_nameX563, unsigned long int anonymous_var_nameX564, unsigned long int anonymous_var_nameX565);
+int GC_posix_memalign(void** anonymous_var_nameX548, unsigned long int anonymous_var_nameX549, unsigned long int anonymous_var_nameX550);
 
-void GC_free(void* anonymous_var_nameX566);
+void GC_free(void* anonymous_var_nameX551);
 
-void GC_change_stubborn(const void* anonymous_var_nameX567);
+void GC_change_stubborn(const void* anonymous_var_nameX552);
 
-void GC_end_stubborn_change(const void* anonymous_var_nameX568);
+void GC_end_stubborn_change(const void* anonymous_var_nameX553);
 
-void* GC_base(void* anonymous_var_nameX569);
+void* GC_base(void* anonymous_var_nameX554);
 
-int GC_is_heap_ptr(const void* anonymous_var_nameX570);
+int GC_is_heap_ptr(const void* anonymous_var_nameX555);
 
-unsigned long int GC_size(const void* anonymous_var_nameX571);
+unsigned long int GC_size(const void* anonymous_var_nameX556);
 
-void* GC_realloc(void* anonymous_var_nameX572, unsigned long int anonymous_var_nameX573);
+void* GC_realloc(void* anonymous_var_nameX557, unsigned long int anonymous_var_nameX558);
 
-int GC_expand_hp(unsigned long int anonymous_var_nameX574);
+int GC_expand_hp(unsigned long int anonymous_var_nameX559);
 
-void GC_set_max_heap_size(unsigned long int anonymous_var_nameX575);
+void GC_set_max_heap_size(unsigned long int anonymous_var_nameX560);
 
-void GC_exclude_static_roots(void* anonymous_var_nameX576, void* anonymous_var_nameX577);
+void GC_exclude_static_roots(void* anonymous_var_nameX561, void* anonymous_var_nameX562);
 
 void GC_clear_exclusion_table();
 
 void GC_clear_roots();
 
-void GC_add_roots(void* anonymous_var_nameX578, void* anonymous_var_nameX579);
+void GC_add_roots(void* anonymous_var_nameX563, void* anonymous_var_nameX564);
 
-void GC_remove_roots(void* anonymous_var_nameX580, void* anonymous_var_nameX581);
+void GC_remove_roots(void* anonymous_var_nameX565, void* anonymous_var_nameX566);
 
-void GC_register_displacement(unsigned long int anonymous_var_nameX582);
+void GC_register_displacement(unsigned long int anonymous_var_nameX567);
 
-void GC_debug_register_displacement(unsigned long int anonymous_var_nameX583);
+void GC_debug_register_displacement(unsigned long int anonymous_var_nameX568);
 
 void GC_gcollect();
 
 void GC_gcollect_and_unmap();
 
-int GC_try_to_collect(int (*anonymous_var_nameX584)());
+int GC_try_to_collect(int (*anonymous_var_nameX569)());
 
-void GC_set_stop_func(int (*anonymous_var_nameX585)());
+void GC_set_stop_func(int (*anonymous_var_nameX570)());
 
 int (*GC_get_stop_func())();
 
@@ -1781,9 +1783,9 @@ unsigned long int GC_get_total_bytes();
 
 unsigned long int GC_get_obtained_from_os_bytes();
 
-void GC_get_heap_usage_safe(unsigned long int* anonymous_var_nameX586, unsigned long int* anonymous_var_nameX587, unsigned long int* anonymous_var_nameX588, unsigned long int* anonymous_var_nameX589, unsigned long int* anonymous_var_nameX590);
+void GC_get_heap_usage_safe(unsigned long int* anonymous_var_nameX571, unsigned long int* anonymous_var_nameX572, unsigned long int* anonymous_var_nameX573, unsigned long int* anonymous_var_nameX574, unsigned long int* anonymous_var_nameX575);
 
-unsigned long int GC_get_prof_stats(struct GC_prof_stats_s* anonymous_var_nameX591, unsigned long int anonymous_var_nameX592);
+unsigned long int GC_get_prof_stats(struct GC_prof_stats_s* anonymous_var_nameX576, unsigned long int anonymous_var_nameX577);
 
 unsigned long int GC_get_size_map_at(int i);
 
@@ -1795,7 +1797,7 @@ int GC_is_disabled();
 
 void GC_enable();
 
-void GC_set_manual_vdb_allowed(int anonymous_var_nameX593);
+void GC_set_manual_vdb_allowed(int anonymous_var_nameX578);
 
 int GC_get_manual_vdb_allowed();
 
@@ -1809,79 +1811,79 @@ void GC_start_incremental_collection();
 
 int GC_collect_a_little();
 
-void* GC_malloc_ignore_off_page(unsigned long int anonymous_var_nameX594);
+void* GC_malloc_ignore_off_page(unsigned long int anonymous_var_nameX579);
 
-void* GC_malloc_atomic_ignore_off_page(unsigned long int anonymous_var_nameX595);
+void* GC_malloc_atomic_ignore_off_page(unsigned long int anonymous_var_nameX580);
 
-void* GC_malloc_atomic_uncollectable(unsigned long int anonymous_var_nameX596);
+void* GC_malloc_atomic_uncollectable(unsigned long int anonymous_var_nameX581);
 
-void* GC_debug_malloc_atomic_uncollectable(unsigned long int anonymous_var_nameX597, unsigned long int ra, const char* s, int i);
+void* GC_debug_malloc_atomic_uncollectable(unsigned long int anonymous_var_nameX582, unsigned long int ra, const char* s, int i);
 
-void* GC_debug_malloc(unsigned long int anonymous_var_nameX598, unsigned long int ra, const char* s, int i);
+void* GC_debug_malloc(unsigned long int anonymous_var_nameX583, unsigned long int ra, const char* s, int i);
 
-void* GC_debug_malloc_atomic(unsigned long int anonymous_var_nameX599, unsigned long int ra, const char* s, int i);
+void* GC_debug_malloc_atomic(unsigned long int anonymous_var_nameX584, unsigned long int ra, const char* s, int i);
 
-char* GC_debug_strdup(const char* anonymous_var_nameX600, unsigned long int ra, const char* s, int i);
+char* GC_debug_strdup(const char* anonymous_var_nameX585, unsigned long int ra, const char* s, int i);
 
-char* GC_debug_strndup(const char* anonymous_var_nameX601, unsigned long int anonymous_var_nameX602, unsigned long int ra, const char* s, int i);
+char* GC_debug_strndup(const char* anonymous_var_nameX586, unsigned long int anonymous_var_nameX587, unsigned long int ra, const char* s, int i);
 
-void* GC_debug_malloc_uncollectable(unsigned long int anonymous_var_nameX603, unsigned long int ra, const char* s, int i);
+void* GC_debug_malloc_uncollectable(unsigned long int anonymous_var_nameX588, unsigned long int ra, const char* s, int i);
 
-void* GC_debug_malloc_stubborn(unsigned long int anonymous_var_nameX604, unsigned long int ra, const char* s, int i);
+void* GC_debug_malloc_stubborn(unsigned long int anonymous_var_nameX589, unsigned long int ra, const char* s, int i);
 
-void* GC_debug_malloc_ignore_off_page(unsigned long int anonymous_var_nameX605, unsigned long int ra, const char* s, int i);
+void* GC_debug_malloc_ignore_off_page(unsigned long int anonymous_var_nameX590, unsigned long int ra, const char* s, int i);
 
-void* GC_debug_malloc_atomic_ignore_off_page(unsigned long int anonymous_var_nameX606, unsigned long int ra, const char* s, int i);
+void* GC_debug_malloc_atomic_ignore_off_page(unsigned long int anonymous_var_nameX591, unsigned long int ra, const char* s, int i);
 
-void GC_debug_free(void* anonymous_var_nameX607);
+void GC_debug_free(void* anonymous_var_nameX592);
 
-void* GC_debug_realloc(void* anonymous_var_nameX608, unsigned long int anonymous_var_nameX609, unsigned long int ra, const char* s, int i);
+void* GC_debug_realloc(void* anonymous_var_nameX593, unsigned long int anonymous_var_nameX594, unsigned long int ra, const char* s, int i);
 
-void GC_debug_change_stubborn(const void* anonymous_var_nameX610);
+void GC_debug_change_stubborn(const void* anonymous_var_nameX595);
 
-void GC_debug_end_stubborn_change(const void* anonymous_var_nameX611);
+void GC_debug_end_stubborn_change(const void* anonymous_var_nameX596);
 
-void* GC_debug_malloc_replacement(unsigned long int anonymous_var_nameX612);
+void* GC_debug_malloc_replacement(unsigned long int anonymous_var_nameX597);
 
-void* GC_debug_realloc_replacement(void* anonymous_var_nameX613, unsigned long int anonymous_var_nameX614);
+void* GC_debug_realloc_replacement(void* anonymous_var_nameX598, unsigned long int anonymous_var_nameX599);
 
-void GC_register_finalizer(void* anonymous_var_nameX617, void (*anonymous_var_nameX618)(void*,void*), void* anonymous_var_nameX619, void (*anonymous_var_nameX620)(void*,void*), void** anonymous_var_nameX621);
+void GC_register_finalizer(void* anonymous_var_nameX602, void (*anonymous_var_nameX603)(void*,void*), void* anonymous_var_nameX604, void (*anonymous_var_nameX605)(void*,void*), void** anonymous_var_nameX606);
 
-void GC_debug_register_finalizer(void* anonymous_var_nameX622, void (*anonymous_var_nameX623)(void*,void*), void* anonymous_var_nameX624, void (*anonymous_var_nameX625)(void*,void*), void** anonymous_var_nameX626);
+void GC_debug_register_finalizer(void* anonymous_var_nameX607, void (*anonymous_var_nameX608)(void*,void*), void* anonymous_var_nameX609, void (*anonymous_var_nameX610)(void*,void*), void** anonymous_var_nameX611);
 
-void GC_register_finalizer_ignore_self(void* anonymous_var_nameX627, void (*anonymous_var_nameX628)(void*,void*), void* anonymous_var_nameX629, void (*anonymous_var_nameX630)(void*,void*), void** anonymous_var_nameX631);
+void GC_register_finalizer_ignore_self(void* anonymous_var_nameX612, void (*anonymous_var_nameX613)(void*,void*), void* anonymous_var_nameX614, void (*anonymous_var_nameX615)(void*,void*), void** anonymous_var_nameX616);
 
-void GC_debug_register_finalizer_ignore_self(void* anonymous_var_nameX632, void (*anonymous_var_nameX633)(void*,void*), void* anonymous_var_nameX634, void (*anonymous_var_nameX635)(void*,void*), void** anonymous_var_nameX636);
+void GC_debug_register_finalizer_ignore_self(void* anonymous_var_nameX617, void (*anonymous_var_nameX618)(void*,void*), void* anonymous_var_nameX619, void (*anonymous_var_nameX620)(void*,void*), void** anonymous_var_nameX621);
 
-void GC_register_finalizer_no_order(void* anonymous_var_nameX637, void (*anonymous_var_nameX638)(void*,void*), void* anonymous_var_nameX639, void (*anonymous_var_nameX640)(void*,void*), void** anonymous_var_nameX641);
+void GC_register_finalizer_no_order(void* anonymous_var_nameX622, void (*anonymous_var_nameX623)(void*,void*), void* anonymous_var_nameX624, void (*anonymous_var_nameX625)(void*,void*), void** anonymous_var_nameX626);
 
-void GC_debug_register_finalizer_no_order(void* anonymous_var_nameX642, void (*anonymous_var_nameX643)(void*,void*), void* anonymous_var_nameX644, void (*anonymous_var_nameX645)(void*,void*), void** anonymous_var_nameX646);
+void GC_debug_register_finalizer_no_order(void* anonymous_var_nameX627, void (*anonymous_var_nameX628)(void*,void*), void* anonymous_var_nameX629, void (*anonymous_var_nameX630)(void*,void*), void** anonymous_var_nameX631);
 
-void GC_register_finalizer_unreachable(void* anonymous_var_nameX647, void (*anonymous_var_nameX648)(void*,void*), void* anonymous_var_nameX649, void (*anonymous_var_nameX650)(void*,void*), void** anonymous_var_nameX651);
+void GC_register_finalizer_unreachable(void* anonymous_var_nameX632, void (*anonymous_var_nameX633)(void*,void*), void* anonymous_var_nameX634, void (*anonymous_var_nameX635)(void*,void*), void** anonymous_var_nameX636);
 
-void GC_debug_register_finalizer_unreachable(void* anonymous_var_nameX652, void (*anonymous_var_nameX653)(void*,void*), void* anonymous_var_nameX654, void (*anonymous_var_nameX655)(void*,void*), void** anonymous_var_nameX656);
+void GC_debug_register_finalizer_unreachable(void* anonymous_var_nameX637, void (*anonymous_var_nameX638)(void*,void*), void* anonymous_var_nameX639, void (*anonymous_var_nameX640)(void*,void*), void** anonymous_var_nameX641);
 
-int GC_register_disappearing_link(void** anonymous_var_nameX657);
+int GC_register_disappearing_link(void** anonymous_var_nameX642);
 
-int GC_general_register_disappearing_link(void** anonymous_var_nameX658, const void* anonymous_var_nameX659);
+int GC_general_register_disappearing_link(void** anonymous_var_nameX643, const void* anonymous_var_nameX644);
 
-int GC_move_disappearing_link(void** anonymous_var_nameX660, void** anonymous_var_nameX661);
+int GC_move_disappearing_link(void** anonymous_var_nameX645, void** anonymous_var_nameX646);
 
-int GC_unregister_disappearing_link(void** anonymous_var_nameX662);
+int GC_unregister_disappearing_link(void** anonymous_var_nameX647);
 
-int GC_register_long_link(void** anonymous_var_nameX663, const void* anonymous_var_nameX664);
+int GC_register_long_link(void** anonymous_var_nameX648, const void* anonymous_var_nameX649);
 
-int GC_move_long_link(void** anonymous_var_nameX665, void** anonymous_var_nameX666);
+int GC_move_long_link(void** anonymous_var_nameX650, void** anonymous_var_nameX651);
 
-int GC_unregister_long_link(void** anonymous_var_nameX667);
+int GC_unregister_long_link(void** anonymous_var_nameX652);
 
-void GC_set_toggleref_func(enum anonymous_typeY6 (*anonymous_var_nameX669)(void*));
+void GC_set_toggleref_func(enum anonymous_typeY6 (*anonymous_var_nameX654)(void*));
 
 enum anonymous_typeY6 (*GC_get_toggleref_func())(void*);
 
-int GC_toggleref_add(void* anonymous_var_nameX670, int anonymous_var_nameX671);
+int GC_toggleref_add(void* anonymous_var_nameX655, int anonymous_var_nameX656);
 
-void GC_set_await_finalize_proc(void (*anonymous_var_nameX673)(void*));
+void GC_set_await_finalize_proc(void (*anonymous_var_nameX658)(void*));
 
 void (*GC_get_await_finalize_proc())(void*);
 
@@ -1889,65 +1891,65 @@ int GC_should_invoke_finalizers();
 
 int GC_invoke_finalizers();
 
-void GC_noop1(unsigned long int anonymous_var_nameX674);
+void GC_noop1(unsigned long int anonymous_var_nameX659);
 
-void GC_set_warn_proc(void (*anonymous_var_nameX677)(char*,unsigned long int));
+void GC_set_warn_proc(void (*anonymous_var_nameX662)(char*,unsigned long int));
 
 void (*GC_get_warn_proc())(char*,unsigned long int);
 
-void GC_ignore_warn_proc(char* anonymous_var_nameX678, unsigned long int anonymous_var_nameX679);
+void GC_ignore_warn_proc(char* anonymous_var_nameX663, unsigned long int anonymous_var_nameX664);
 
-void GC_set_log_fd(int anonymous_var_nameX680);
+void GC_set_log_fd(int anonymous_var_nameX665);
 
-void GC_set_abort_func(void (*anonymous_var_nameX682)(const char*));
+void GC_set_abort_func(void (*anonymous_var_nameX667)(const char*));
 
 void (*GC_get_abort_func())(const char*);
 
 void GC_abort_on_oom();
 
-void* GC_call_with_alloc_lock(void* (*anonymous_var_nameX684)(void*), void* anonymous_var_nameX685);
+void* GC_call_with_alloc_lock(void* (*anonymous_var_nameX669)(void*), void* anonymous_var_nameX670);
 
-void* GC_call_with_stack_base(void* (*anonymous_var_nameX688)(struct GC_stack_base*,void*), void* anonymous_var_nameX689);
+void* GC_call_with_stack_base(void* (*anonymous_var_nameX673)(struct GC_stack_base*,void*), void* anonymous_var_nameX674);
 
 void GC_start_mark_threads();
 
-void* GC_do_blocking(void* (*anonymous_var_nameX690)(void*), void* anonymous_var_nameX691);
+void* GC_do_blocking(void* (*anonymous_var_nameX675)(void*), void* anonymous_var_nameX676);
 
-void* GC_call_with_gc_active(void* (*anonymous_var_nameX692)(void*), void* anonymous_var_nameX693);
+void* GC_call_with_gc_active(void* (*anonymous_var_nameX677)(void*), void* anonymous_var_nameX678);
 
-int GC_get_stack_base(struct GC_stack_base* anonymous_var_nameX694);
+int GC_get_stack_base(struct GC_stack_base* anonymous_var_nameX679);
 
-void* GC_get_my_stackbottom(struct GC_stack_base* anonymous_var_nameX695);
+void* GC_get_my_stackbottom(struct GC_stack_base* anonymous_var_nameX680);
 
-void GC_set_stackbottom(void* anonymous_var_nameX696, const struct GC_stack_base* anonymous_var_nameX697);
+void GC_set_stackbottom(void* anonymous_var_nameX681, const struct GC_stack_base* anonymous_var_nameX682);
 
-void* GC_same_obj(void* anonymous_var_nameX698, void* anonymous_var_nameX699);
+void* GC_same_obj(void* anonymous_var_nameX683, void* anonymous_var_nameX684);
 
-void* GC_pre_incr(void** anonymous_var_nameX700, long anonymous_var_nameX701);
+void* GC_pre_incr(void** anonymous_var_nameX685, long anonymous_var_nameX686);
 
-void* GC_post_incr(void** anonymous_var_nameX702, long anonymous_var_nameX703);
+void* GC_post_incr(void** anonymous_var_nameX687, long anonymous_var_nameX688);
 
-void* GC_is_visible(void* anonymous_var_nameX704);
+void* GC_is_visible(void* anonymous_var_nameX689);
 
-void* GC_is_valid_displacement(void* anonymous_var_nameX705);
+void* GC_is_valid_displacement(void* anonymous_var_nameX690);
 
 void GC_dump();
 
-void GC_dump_named(const char* anonymous_var_nameX706);
+void GC_dump_named(const char* anonymous_var_nameX691);
 
 void GC_dump_regions();
 
 void GC_dump_finalization();
 
-void GC_ptr_store_and_dirty(void* anonymous_var_nameX707, const void* anonymous_var_nameX708);
+void GC_ptr_store_and_dirty(void* anonymous_var_nameX692, const void* anonymous_var_nameX693);
 
-void GC_debug_ptr_store_and_dirty(void* anonymous_var_nameX709, const void* anonymous_var_nameX710);
+void GC_debug_ptr_store_and_dirty(void* anonymous_var_nameX694, const void* anonymous_var_nameX695);
 
-void* GC_malloc_many(unsigned long int anonymous_var_nameX731);
+void* GC_malloc_many(unsigned long int anonymous_var_nameX716);
 
-void GC_register_has_static_roots_callback(int (*anonymous_var_nameX735)(const char*,void*,unsigned long int));
+void GC_register_has_static_roots_callback(int (*anonymous_var_nameX720)(const char*,void*,unsigned long int));
 
-void GC_set_force_unmap_on_gcollect(int anonymous_var_nameX736);
+void GC_set_force_unmap_on_gcollect(int anonymous_var_nameX721);
 
 int GC_get_force_unmap_on_gcollect();
 

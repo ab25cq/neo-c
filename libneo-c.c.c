@@ -328,6 +328,7 @@ struct sType
     int mPointerNum;
     int mOriginalTypeNamePointerNum;
     int mNoArrayPointerNum;
+    int mTypedefOriginalPointerNum;
     struct sNode* mSizeNum;
     unsigned int mDynamicArrayNum;
     unsigned int mTypeOfExpression;
@@ -344,6 +345,7 @@ struct sType
     char* mAsmName;
     _Bool mArrayPointerType;
     _Bool mLambdaArray;
+    _Bool mNoNumberArray;
 };
 struct sVar;
 struct CVALUE
@@ -1526,9 +1528,9 @@ struct sNode* top_level_v92(char* buf, char* head, int head_sline, struct sInfo*
 
 struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo* info);
 
-char* dirname(char* anonymous_var_nameX597);
+char* dirname(char* anonymous_var_nameX558);
 
-char* basename(char* anonymous_var_nameX598);
+char* basename(char* anonymous_var_nameX559);
 
 void come_push_stackframe(char* sname, int sline, int id);
 

@@ -1,4 +1,6 @@
 #include "c.h"
+using c
+{
 
 static char rcsid[] = "$Id$";
 
@@ -737,4 +739,4 @@ static void typestab(Symbol p, void *cl) {
 	else if ((p->sclass == TYPEDEF || p->sclass == 0) && IR->stabtype)
 		(*IR->stabtype)(p);
 }
-
+}

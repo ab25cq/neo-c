@@ -328,6 +328,7 @@ struct sType
     int mPointerNum;
     int mOriginalTypeNamePointerNum;
     int mNoArrayPointerNum;
+    int mTypedefOriginalPointerNum;
     struct sNode* mSizeNum;
     unsigned int mDynamicArrayNum;
     unsigned int mTypeOfExpression;
@@ -344,6 +345,7 @@ struct sType
     char* mAsmName;
     _Bool mArrayPointerType;
     _Bool mLambdaArray;
+    _Bool mNoNumberArray;
 };
 struct sVar;
 struct CVALUE
@@ -1867,17 +1869,17 @@ struct sNode* top_level_v92(char* buf, char* head, int head_sline, struct sInfo*
 
 struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo* info);
 
-char* setlocale(int anonymous_var_nameX597, const char* anonymous_var_nameX598);
+char* setlocale(int anonymous_var_nameX558, const char* anonymous_var_nameX559);
 
 struct lconv* localeconv();
 
-struct __locale_struct* duplocale(struct __locale_struct* anonymous_var_nameX599);
+struct __locale_struct* duplocale(struct __locale_struct* anonymous_var_nameX560);
 
-void freelocale(struct __locale_struct* anonymous_var_nameX600);
+void freelocale(struct __locale_struct* anonymous_var_nameX561);
 
-struct __locale_struct* newlocale(int anonymous_var_nameX601, const char* anonymous_var_nameX602, struct __locale_struct* anonymous_var_nameX603);
+struct __locale_struct* newlocale(int anonymous_var_nameX562, const char* anonymous_var_nameX563, struct __locale_struct* anonymous_var_nameX564);
 
-struct __locale_struct* uselocale(struct __locale_struct* anonymous_var_nameX604);
+struct __locale_struct* uselocale(struct __locale_struct* anonymous_var_nameX565);
 
 int come_main_v1(int argc, char** argv);
 

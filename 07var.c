@@ -2,7 +2,7 @@
 
 class sStoreNode extends sNodeBase
 {
-    new(string name, list<string>*% multiple_assign, list<tuple3<sType*%, string, sNode*%>*%>*% multiple_declare, sType*% type, bool alloc, sNode*% right_value, string array_initializer, sInfo* info)
+    new(string name, list<string>*% multiple_assign, list<tuple4<sType*%, string, sNode*%,string>*%>*% multiple_declare, sType*% type, bool alloc, sNode*% right_value, string array_initializer, sInfo* info)
     {
         self.super();
         
@@ -23,7 +23,7 @@ class sStoreNode extends sNodeBase
         else {
             self.multiple_assign = null;
         }
-        list<tuple3<sType*%,string,sNode*%>*%>*% self.multiple_declare;
+        list<tuple4<sType*%,string,sNode*%,string>*%>*% self.multiple_declare;
         if(multiple_declare) {
             self.multiple_declare = clone multiple_declare;
         }
@@ -86,7 +86,7 @@ class sStoreNode extends sNodeBase
             
             if(self.multiple_declare) {
                 foreach(it, self.multiple_declare) {
-                    var type, var_name, right_value = it;
+                    var type, var_name, right_value,initializer = it;
                     add_variable_to_table(var_name, clone type, info);
                     
                     var_ = get_variable_from_table(info.lv_table, var_name);
@@ -98,8 +98,6 @@ class sStoreNode extends sNodeBase
                     
                     sType*% left_type = clone var_->mType;
                     
-                    add_come_code_at_function_head(info, "%s;\n", make_define_var(left_type, var_->mCValueName));
-                    
                     if(right_value) {
                         if(!node_compile(right_value)) {
                             return false;
@@ -107,30 +105,13 @@ class sStoreNode extends sNodeBase
                         CVALUE*% come_value = get_value_from_stack(-1, info);
                         dec_stack_ptr(1, info);
                         
-                        add_come_code(info, "%s=%s;\n", var_->mCValueName, come_value.c_value);
+                        add_come_code(info, "%s=%s;\n", make_define_var(left_type, var_->mCValueName), come_value.c_value);
                     }
-                    
-                    sType*% left_type2 = clone left_type;
-                    left_type2->mStatic = false;
-                    
-                    if(!var_->mType->mConstant && !var_->mType->mStatic) {
-                        if(left_type2->mArrayNum.length() > 0) {
-                            add_come_code(info, "memset(&%s, 0, sizeof(%s)", var_->mCValueName, make_type_name_string(left_type2));
-                            foreach(it, left_type2->mArrayNum) {
-                                if(!node_compile(it)) {
-                                    err_msg(info, "invalid array num");
-                                    exit(1);
-                                }
-                                
-                                CVALUE*% come_value = get_value_from_stack(-1, info);
-                                dec_stack_ptr(1, info);
-                                add_come_code(info, "*(%s)", come_value.c_value);
-                            }
-                            add_come_code(info, ");\n");
-                        }
-                        else {
-                            add_come_code_at_function_head2(info, "memset(&%s, 0, sizeof(%s));\n", var_->mCValueName, make_type_name_string(left_type2));
-                        }
+                    else if(initializer) {
+                        add_come_code(info, "%s=%s;\n", make_define_var(left_type, var_->mCValueName), initializer);
+                    }
+                    else {
+                        add_come_code_at_function_head(info, "%s;\n", make_define_var(left_type, var_->mCValueName));
                     }
                 }
             }
@@ -463,7 +444,12 @@ class sStoreNode extends sNodeBase
                 
                 if(var_->mType->mStatic && !var_->mGlobal) {
                     check_assign_type(s"\{self.name} is assining to", left_type, right_type, right_value);
-                    add_come_code_at_function_head(info, "%s=%s;\n", make_define_var(left_type, var_->mCValueName), right_value.c_value);
+                    if(self.alloc) {
+                        add_come_code_at_function_head(info, "%s=%s;\n", make_define_var(left_type, var_->mCValueName), right_value.c_value);
+                    }
+                    else {
+                        add_come_code(info, "%s=%s;\n", var_->mCValueName, right_value.c_value);
+                    }
                     come_value.c_value = string("");
                     
                     info.stack.push_back(come_value);
@@ -768,15 +754,47 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         info.p = head;
         info.sline = head_sline;
         
-        var type, name, err = parse_type(parse_variable_name:true);
-        
-        if(err && *info->p == ',') {
-            multiple_declare = true;
+        if(xisalpha(*info->p) || *info->p == '_') {
+            var type, name, err = parse_type();
+            
+            if(err) {
+                var type,name = parse_variable_name(type@base_type_name, true@first, info);
+                
+                if(*info->p == '=') {
+                    info->p++;
+                    skip_spaces_and_lf();
+                    
+                    if(*info->p == '{') {
+                        skip_block();
+                    }
+                    else {
+                        bool no_output_err = info->no_output_err;
+                        bool no_comma = info->no_comma;
+                        bool no_output_come_code = info->no_output_come_code;
+                        
+                        info->no_output_err = true;
+                        info->no_comma = true;
+                        info->no_output_come_code = true;
+                        
+                        sNode*% exp = expression();
+                        
+                        info->no_comma = no_comma;
+                        info->no_output_err = no_output_err;
+                        info->no_output_come_code = no_output_come_code;
+                    }
+                    
+                }
+                
+                if(!is_type_name(name) && *info->p == ',') {
+                    multiple_declare = true;
+                }
+            }
         }
         
         info.p = p;
         info.sline = sline;
     }
+    
     bool attr_define = false;
     if(is_type_name_flag && info->defining_class) {
         char* p = info.p;
@@ -931,11 +949,12 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             exit(1);
         }
     }
+/*
     else if(multiple_declare2) {
         info.p = head;
         info.sline = head_sline;
 
-        list<tuple3<sType*%, string,sNode*%>*%>*% multiple_declare = new list<tuple3<sType*%, string, sNode*%>*%>();
+        list<tuple4<sType*%, string,sNode*%,string>*%>*% multiple_declare = new list<tuple4<sType*%, string, sNode*%,string>*%>();
         
         var base_type, name, err = parse_type();
         
@@ -954,12 +973,12 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             sNode*% exp = expression();
             info->no_comma = no_comma;
             
-            tuple3<sType*%, string, sNode*%>*% variable_name2 = (variable_name.v1, variable_name.v2, exp);
+            tuple4<sType*%, string, sNode*%,string>*% variable_name2 = (variable_name.v1, variable_name.v2, exp, null);
             
             multiple_declare.push_back(variable_name2);
         }
         else {
-            tuple3<sType*%, string, sNode*%>*% variable_name2 = (variable_name.v1, variable_name.v2, null);
+            tuple4<sType*%, string, sNode*%,string>*% variable_name2 = (variable_name.v1, variable_name.v2, null,null);
             
             multiple_declare.push_back(variable_name2);
         }
@@ -983,17 +1002,17 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
                 sNode*% exp = expression();
                 info->no_comma = no_comma;
             
-                tuple3<sType*%, string, sNode*%>*% variable_name2 = (variable_name.v1, variable_name.v2, exp);
+                tuple4<sType*%, string, sNode*%,string>*% variable_name2 = (variable_name.v1, variable_name.v2, exp,null);
                 
                 multiple_declare.push_back(variable_name2);
             }
             else if(*info->p == ',') {
-                tuple3<sType*%, string, sNode*%>*% variable_name2 = (variable_name.v1, variable_name.v2, null);
+                tuple4<sType*%, string, sNode*%,string>*% variable_name2 = (variable_name.v1, variable_name.v2, null,null);
                 
                 multiple_declare.push_back(variable_name2);
             }
             else {
-                tuple3<sType*%, string, sNode*%>*% variable_name2 = (variable_name.v1, variable_name.v2, null);
+                tuple4<sType*%, string, sNode*%,string>*% variable_name2 = (variable_name.v1, variable_name.v2, null, null);
                 
                 multiple_declare.push_back(variable_name2);
                 break;
@@ -1002,30 +1021,103 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         
         return new sStoreNode(string(buf)@name, null@multiple_assign, multiple_declare, base_type@type, true@alloc, null@right_value, null@array_initializer, info) implements sNode;
     }
+*/
     else if(multiple_declare) {
         info.p = head;
         info.sline = head_sline;
 
-        list<tuple3<sType*%, string,sNode*%>*%>*% multiple_declare = new list<tuple3<sType*%, string, sNode*%>*%>();
+        list<tuple4<sType*%, string,sNode*%,string>*%>*% multiple_declare = new list<tuple4<sType*%, string, sNode*%,string>*%>();
         
         var base_type, name, err = parse_type();
         
-        tuple2<sType*%, string>*% variable_name = parse_variable_name(base_type, true@first, info);
+        if(!err) {
+            printf("%s %d: parse_type failed\n", info->sname, info->sline);
+            exit(2);
+        }
         
-        tuple3<sType*%, string, sNode*%>*% variable_name2 = (variable_name.v1, variable_name.v2, null);
+        parse_sharp();
+        var type2,var_name = parse_variable_name(base_type, true@first, info);
+        parse_sharp();
         
-        multiple_declare.push_back(variable_name2);
+        
+        if(*info->p == '=') {
+            info->p++;
+            skip_spaces_and_lf();
+            
+            if(*info->p == '{') {
+                char* head = info.p;
+                
+                skip_block();
+                
+                char* tail = info.p;
+                
+                var buf = new buffer();
+                
+                buf.append(head, tail - head);
+                
+                string initializer = buf.to_string();
+                
+                multiple_declare.push_back((type2, var_name, null, initializer));
+            }
+            else {
+                bool no_comma = info->no_comma;
+                info->no_comma = true;
+                sNode*% exp = expression();
+                info->no_comma = no_comma;
+                
+                multiple_declare.push_back((type2, var_name, exp, null));
+            }
+        }
+        else {
+            multiple_declare.push_back((type2, var_name, null,null));
+        }
         
         while(*info->p == ',') {
             info->p++;
             skip_spaces_and_lf();
             
-            tuple2<sType*%, string>*% variable_name = parse_variable_name(base_type, false@first, info);
-        
-            tuple3<sType*%, string, sNode*%>*% variable_name2 = (variable_name.v1, variable_name.v2, null);
+            parse_sharp();
+            var type2, var_name = parse_variable_name(base_type, false@first, info);
+            parse_sharp();
             
-            multiple_declare.push_back(variable_name2);
+            if(*info->p == '=')  {
+                info->p++;
+                skip_spaces_and_lf();
+                
+                if(*info->p == '{') {
+                    char* head = info.p;
+                    
+                    skip_block();
+                    
+                    char* tail = info.p;
+                    
+                    var buf = new buffer();
+                    
+                    buf.append(head, tail - head);
+                    
+                    string initializer = buf.to_string();
+                    
+                    multiple_declare.push_back((type2, var_name, null, initializer));
+                }
+                else {
+                    bool no_comma = info->no_comma;
+                    info->no_comma = true;
+                    
+                    sNode*% exp = expression();
+                    
+                    info->no_comma = no_comma;
+                    
+                    multiple_declare.push_back((type2, var_name, exp, null));
+                }
+            }
+            else {
+                multiple_declare.push_back((type2, var_name, null, null));
+            }
         }
+        
+        sNode*% right_node = null;
+        string array_initializer = null;
+        string var_name2 = string("");
         
         return new sStoreNode(string(buf)@name, null@multiple_assign, multiple_declare, base_type@type, true@alloc, null@right_value, null@array_initializer, info) implements sNode;
     }

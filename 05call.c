@@ -69,7 +69,7 @@ class sReturnNode extends sNodeBase
             free_objects_on_return(come_fun.mBlock, info, come_value.var, false@top_block);
             free_right_value_objects(info);
             
-            if(info.come_fun.mName === "main") {
+            if(!gComeC && info.come_fun.mName === "main") {
                 free_objects(info->gv_table, null@ret_value, info);
                 add_come_code(info, xsprintf("come_heap_final();\n"));
             }
@@ -83,7 +83,7 @@ class sReturnNode extends sNodeBase
             free_objects_on_return(come_fun.mBlock, info, null, false@top_block);
             free_right_value_objects(info);
             
-            if(info.come_fun.mName === "main") {
+            if(!gComeC && info.come_fun.mName === "main") {
                 free_objects(info->gv_table, null@ret_value, info);
                 add_come_code(info, xsprintf("come_heap_final();\n"));
             }

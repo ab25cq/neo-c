@@ -21,6 +21,9 @@ static char *currentfile;       /* current file name */
 static int currentline;		/* current line number */
 static FILE *srcfp;		/* stream for current file, if non-NULL */
 static int srcpos;		/* position of srcfp, if srcfp is non-NULL */
+
+using c
+{
 int main(int argc, char *argv[]) {
 	int i, j;
 	for (i = argc - 1; i > 0; i--)
@@ -102,7 +105,10 @@ int main(int argc, char *argv[]) {
 	deallocate(PERM);
 	return errcnt > 0;
 }
+}
 /* main_init - process program arguments */
+using c
+{
 void main_init(int argc, char *argv[]) {
 	char *infile = NULL, *outfile = NULL;
 	int i;
@@ -182,6 +188,7 @@ void main_init(int argc, char *argv[]) {
 		fprint(stderr, "%s: can't write `%s'\n", argv[0], outfile);
 		exit(EXIT_FAILURE);
 	}
+}
 }
 /* typestab - emit stab entries for p */
 static void typestab(Symbol p, void *cl) {

@@ -286,23 +286,17 @@ x86_64-gen.c:301:79: error: incomplete definition of type 'struct Sym'
 tcc.c.c:867:12: note: forward declaration of 'struct Sym'
   867 |     struct Sym* sym_define;
       |            ^
-x86_64-gen.c:342:13: error: call to undeclared function 'come_call_finalizer3'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-  342 |             come_call_finalizer3((&v1_17),SValue_finalize, 1, 0, 0, 0, (void*)0);
-      |             ^
 x86_64-gen.c:356:49: error: incomplete definition of type 'struct Sym'
   356 |                     if(_if_conditional19=sv->sym->type.t&256,                    _if_conditional19) {
       |                                          ~~~~~~~^
 tcc.c.c:867:12: note: forward declaration of 'struct Sym'
   867 |     struct Sym* sym_define;
       |            ^
-x86_64-gen.c:407:5: error: call to undeclared function 'come_call_finalizer3'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-  407 |     come_call_finalizer3((&v1_17),SValue_finalize, 1, 0, 0, 0, (void*)0);
-      |     ^
-x86_64-gen.c:430:7: warning: unused variable '_if_conditional25' [-Wunused-variable]
-  430 | _Bool _if_conditional25;
+x86_64-gen.c:424:7: warning: unused variable '_if_conditional25' [-Wunused-variable]
+  424 | _Bool _if_conditional25;
       |       ^~~~~~~~~~~~~~~~~
-x86_64-gen.c:431:7: warning: unused variable '_if_conditional26' [-Wunused-variable]
-  431 | _Bool _if_conditional26;
+x86_64-gen.c:425:7: warning: unused variable '_if_conditional26' [-Wunused-variable]
+  425 | _Bool _if_conditional26;
       |       ^~~~~~~~~~~~~~~~~
 x86_64-gen.c:667:61: error: incomplete definition of type 'struct Sym'
   667 |     func_call_31=(((struct anonymous_typeX107*)&(func_sym_32->r))->func_call);
@@ -331,6 +325,18 @@ tcc.c.c:867:12: note: forward declaration of 'struct Sym'
 x86_64-gen.c:713:28: error: incomplete definition of type 'struct Sym'
   713 |             type_53=&sym_52->type;
       |                      ~~~~~~^
+tcc.c.c:867:12: note: forward declaration of 'struct Sym'
+  867 |     struct Sym* sym_define;
+      |            ^
+x86_64-gen.c:768:19: error: incomplete definition of type 'struct Sym'
+  768 |     func_vt=sym_52->type;
+      |             ~~~~~~^
+tcc.c.c:867:12: note: forward declaration of 'struct Sym'
+  867 |     struct Sym* sym_define;
+      |            ^
+x86_64-gen.c:813:44: error: incomplete definition of type 'struct Sym'
+  813 |     while(_while_condtional2=(sym_52=sym_52->next)!=((void*)0),    _while_condtional2) {
+      |                                      ~~~~~~^
 tcc.c.c:867:12: note: forward declaration of 'struct Sym'
   867 |     struct Sym* sym_define;
       |            ^

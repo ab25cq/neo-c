@@ -67,7 +67,7 @@ class sFunNode extends sNodeBase
         info.come_fun_name = string(info.come_fun.mName);
         
         if(self.mFun.mBlock) {
-            if(info.come_fun.mName === "main") {
+            if(!gComeC && info.come_fun.mName === "main") {
                 add_come_code(info, "come_heap_init(%d, %d, %d);\n", gComeMalloc, gComeDebug, gComeGC);
             }
             
@@ -77,7 +77,7 @@ class sFunNode extends sNodeBase
             add_come_code_at_function_head2(info, "memset(&__result_obj__, 0, sizeof(%s));\n", make_type_name_string(result_type));
             
             transpile_block(self.mFun.mBlock, self.mFun.mParamTypes, self.mFun.mParamNames, info);
-            if(info.come_fun.mName === "main") {
+            if(!gComeC && info.come_fun.mName === "main") {
                 free_objects(info->gv_table, null@ret_value, info);
                 add_come_code(info, xsprintf("come_heap_final();\n"));
             }

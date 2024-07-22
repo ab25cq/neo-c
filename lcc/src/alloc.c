@@ -18,6 +18,7 @@ union header {
 union header *arena[3];
 
 void *allocate(unsigned long n, unsigned a) {
+/*
 	union header *new = malloc(sizeof *new + n);
 
 	assert(a < NELEMS(arena));
@@ -28,8 +29,10 @@ void *allocate(unsigned long n, unsigned a) {
 	new->b.next = (void *)arena[a];
 	arena[a] = new;
 	return new + 1;
+*/
 }
 
+/*
 void deallocate(unsigned a) {
 	union header *p, *q;
 
@@ -44,7 +47,10 @@ void deallocate(unsigned a) {
 void *newarray(unsigned long m, unsigned long n, unsigned a) {
 	return allocate(m*n, a);
 }
+*/
 #else
+using c
+{
 static struct block
 	 first[] = {  { NULL },  { NULL },  { NULL } },
 	*arena[] = { &first[0], &first[1], &first[2] };
@@ -90,5 +96,6 @@ void deallocate(unsigned a) {
 	freeblocks = first[a].next;
 	first[a].next = NULL;
 	arena[a] = &first[a];
+}
 }
 #endif

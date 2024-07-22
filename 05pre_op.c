@@ -718,14 +718,20 @@ sNode*% pre_position_operator(sInfo* info=info)
             char* p = info.p;
             int sline = info.sline;
             
+            parse_sharp();
+            
             string word = string("");
             if(xisalpha(*info->p) || *info->p == '_') {
                 word = parse_word();
             }
             
+            parse_sharp();
+            
             if(is_type_name(word)) {
                 cast_expression_flag = true;
             }
+            
+            parse_sharp();
             
             info.p = p;
             info.sline = sline;
@@ -738,6 +744,8 @@ sNode*% pre_position_operator(sInfo* info=info)
             char* p = info.p;
             int sline = info.sline;
             
+            parse_sharp();
+            
             bool no_comma = info.no_comma;
             info.no_comma = true;
             bool no_output_err = info.no_output_err;
@@ -748,6 +756,8 @@ sNode*% pre_position_operator(sInfo* info=info)
             sNode*% node = expression();
             sNode*% node2 = node;
             
+            parse_sharp();
+            
             info.no_comma = no_comma;
             info.no_output_err = no_output_err;
             info.no_output_come_code = no_output_come_code;
@@ -756,12 +766,18 @@ sNode*% pre_position_operator(sInfo* info=info)
                 tuple_expression_flag = true;
             }
             
+            parse_sharp();
+            
             info.p = p;
             info.sline = sline;
         }
         
         if(!gComeC && tuple_expression_flag) {
+            parse_sharp();
+            
             sNode*% node = parse_tuple(info);
+            
+            parse_sharp();
             
             return node;
         }
@@ -776,6 +792,7 @@ sNode*% pre_position_operator(sInfo* info=info)
             
             parse_sharp();
             expected_next_character(')');
+            parse_sharp();
             
             sNode*% node = expression_node();
             

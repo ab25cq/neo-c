@@ -237,18 +237,23 @@ string make_define_var(sType* type, char* name, bool in_header=false, sInfo* inf
 {
     var buf = new buffer();
     
-    if(type->mClass->mName === "lambda" && type->mAsmName != null && type->mAsmName !== "") {
-        var str = header_lambda(type, type->mAsmName, info);
+    sType*% type2 = clone type;
+    if(type2->mNoNumberArray) {
+        type2->mPointerNum--;
+    }
+    
+    if(type2->mClass->mName === "lambda" && type2->mAsmName != null && type2->mAsmName !== "") {
+        var str = header_lambda(type2, type2->mAsmName, info);
         
         buf.append_str(str);
     }
-    else if(type->mClass->mName === "lambda") {
-        var str = make_lambda_type_name_string(type, name, info);
+    else if(type2->mClass->mName === "lambda") {
+        var str = make_lambda_type_name_string(type2, name, info);
         
         buf.append_str(str);
     }
-    else if(type->mSizeNum != null) {
-        if(!node_compile(type->mSizeNum)) {
+    else if(type2->mSizeNum != null) {
+        if(!node_compile(type2->mSizeNum)) {
             err_msg(info, "invalid bit field number");
             return string("");
         }
@@ -256,20 +261,20 @@ string make_define_var(sType* type, char* name, bool in_header=false, sInfo* inf
         CVALUE*% come_value = get_value_from_stack(-1, info);
         dec_stack_ptr(1, info);
     
-        var type_str = make_type_name_string(type, in_header);
+        var type_str = make_type_name_string(type2, in_header);
         buf.append_str(xsprintf("%s ", type_str));
         buf.append_str(xsprintf("%s:%s", name, come_value.c_value));
         
-        if(type->mAsmName != null && type->mAsmName !== "") {
-            buf.append_str(xsprintf(" __asm__(\"%s\")", type->mAsmName));
+        if(type2->mAsmName != null && type2->mAsmName !== "") {
+            buf.append_str(xsprintf(" __asm__(\"%s\")", type2->mAsmName));
         }
         
-        if(type->mAsmName != null && type->mAsmName !== "") {
-            buf.append_str(xsprintf(" __asm__(\"%s\")", type->mAsmName));
+        if(type2->mAsmName != null && type2->mAsmName !== "") {
+            buf.append_str(xsprintf(" __asm__(\"%s\")", type2->mAsmName));
         }
     }
-    else if(type->mOmitArrayNum) {
-        var type_str = make_type_name_string(type, in_header);
+    else if(type2->mOmitArrayNum) {
+        var type_str = make_type_name_string(type2, in_header);
         
         buf.append_str(type_str);
         
@@ -278,25 +283,25 @@ string make_define_var(sType* type, char* name, bool in_header=false, sInfo* inf
         
         buf.append_str("[]");
         
-        if(type->mAsmName != null && type->mAsmName !== "") {
-            buf.append_str(xsprintf(" __asm__(\"%s\")", type->mAsmName));
+        if(type2->mAsmName != null && type2->mAsmName !== "") {
+            buf.append_str(xsprintf(" __asm__(\"%s\")", type2->mAsmName));
         }
     }
-    else if(type->mArrayNum.length() > 0) {
-        var type_str = make_type_name_string(type, in_header);
+    else if(type2->mArrayNum.length() > 0) {
+        var type_str = make_type_name_string(type2, in_header);
         
         buf.append_str(type_str);
         
         buf.append_str(" ");
-        if(type->mNoArrayPointerNum > 0) {
+        if(type2->mNoArrayPointerNum > 0) {
             buf.append_str("(*");
         }
         buf.append_str(name);
-        if(type->mNoArrayPointerNum > 0) {
+        if(type2->mNoArrayPointerNum > 0) {
             buf.append_str(")");
         }
         
-        foreach(it, type->mArrayNum) {
+        foreach(it, type2->mArrayNum) {
             if(!node_compile(it)) {
                 err_msg(info, "invalid array number");
                 return string("");
@@ -307,12 +312,16 @@ string make_define_var(sType* type, char* name, bool in_header=false, sInfo* inf
             buf.append_str(xsprintf("[%s]", cvalue.c_value));
         }
         
-        if(type->mAsmName != null && type->mAsmName !== "") {
-            buf.append_str(xsprintf(" __asm__(\"%s\")", type->mAsmName));
+        if(type2->mNoNumberArray) {
+            buf.append_str("[]");
+        }
+        
+        if(type2->mAsmName != null && type2->mAsmName !== "") {
+            buf.append_str(xsprintf(" __asm__(\"%s\")", type2->mAsmName));
         }
     }
     else {
-        var type_str = make_type_name_string(type, in_header);
+        var type_str = make_type_name_string(type2, in_header);
         
         if(type_str === "") {
             return string("");
@@ -321,16 +330,20 @@ string make_define_var(sType* type, char* name, bool in_header=false, sInfo* inf
         buf.append_str(type_str);
         
         buf.append_str(" ");
-        if(type->mNoArrayPointerNum > 0) {
+        if(type2->mNoArrayPointerNum > 0) {
             buf.append_str("(*");
         }
         buf.append_str(name);
-        if(type->mNoArrayPointerNum > 0) {
+        if(type2->mNoArrayPointerNum > 0) {
             buf.append_str(")");
         }
         
-        if(type->mAsmName != null && type->mAsmName !== "") {
-            buf.append_str(xsprintf(" __asm__(\"%s\")", type->mAsmName));
+        if(type2->mNoNumberArray) {
+            buf.append_str("[]");
+        }
+        
+        if(type2->mAsmName != null && type2->mAsmName !== "") {
+            buf.append_str(xsprintf(" __asm__(\"%s\")", type2->mAsmName));
         }
     }
     

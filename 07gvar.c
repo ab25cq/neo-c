@@ -2,7 +2,7 @@
 
 class sGlobalVariable extends sNodeBase
 {
-    new(list<tuple2<sType*%,string>*%>*% multiple_declare, sType* type, string name, sNode*% right_node, string array_initializer, sInfo* info)
+    new(list<tuple3<sType*%,string,string>*%>*% multiple_declare, sType* type, string name, sNode*% right_node, string array_initializer, sInfo* info)
     {
         self.super();
         
@@ -11,7 +11,7 @@ class sGlobalVariable extends sNodeBase
         sNode*% self.right_node = right_node;
         string self.array_initializer = array_initializer;
         
-        list<tuple2<sType*%,string>*%>*% self.multiple_declare = clone multiple_declare;
+        list<tuple3<sType*%,string,string>*%>*% self.multiple_declare = clone multiple_declare;
         string self.mDeclareSName = string(info->sname);
     }
     
@@ -29,7 +29,7 @@ class sGlobalVariable extends sNodeBase
         
         if(self.multiple_declare) {
             foreach(it, self.multiple_declare) {
-                var type, name = it;
+                var type, name,initializer = it;
                 
                 add_variable_to_global_table(name, clone type, info);
                 
@@ -39,6 +39,9 @@ class sGlobalVariable extends sNodeBase
                 else if(type.mUniq) {
                     add_come_code_at_source_head(info, "extern %s;\n", make_define_var(type, name));
                     add_come_code_at_source_head2(info, "%s;\n", make_define_var(type, name));
+                }
+                else if(initializer) {
+                    add_come_code_at_source_head(info, "%s=%s;\n", make_define_var(type, name), initializer);
                 }
                 else {
                     add_come_code_at_source_head(info, "%s;\n", make_define_var(type, name));
@@ -99,14 +102,14 @@ class sGlobalVariable extends sNodeBase
 
 class sExternalGlobalVariable extends sNodeBase
 {
-    new(list<tuple2<sType*%, string>*%>*% multiple_declare, sType* type, string name, sInfo* info)
+    new(list<tuple3<sType*%, string,string>*%>*% multiple_declare, sType* type, string name, sInfo* info)
     {
         self.super();
         
         sType*% self.type = clone type;
         string self.name = string(name);
         
-        list<tuple2<sType*%,string>*%>*% self.multiple_declare = clone multiple_declare;
+        list<tuple3<sType*%,string,string>*%>*% self.multiple_declare = clone multiple_declare;
         
         string self.mDeclareSName = string(info->sname);
     }
@@ -123,7 +126,7 @@ class sExternalGlobalVariable extends sNodeBase
         
         if(self.multiple_declare) {
             foreach(it, self.multiple_declare) {
-                var type, name = it;
+                var type, name,initializer = it;
                 add_variable_to_global_table(name, clone type, info);
                 if(info.output_header_file) {
                     add_come_code_at_come_header(info, "extern %s;\n", make_define_var(type, name));
@@ -161,6 +164,31 @@ sNode*% parse_global_variable(sInfo* info)
             if(err) {
                 var type,name = parse_variable_name(type@base_type_name, true@first, info);
                 
+                if(*info->p == '=') {
+                    info->p++;
+                    skip_spaces_and_lf();
+                    
+                    if(*info->p == '{') {
+                        skip_block();
+                    }
+                    else {
+                        bool no_output_err = info->no_output_err;
+                        bool no_comma = info->no_comma;
+                        bool no_output_come_code = info->no_output_come_code;
+                        
+                        info->no_output_err = true;
+                        info->no_comma = true;
+                        info->no_output_come_code = true;
+                        
+                        sNode*% exp = expression();
+                        
+                        info->no_comma = no_comma;
+                        info->no_output_err = no_output_err;
+                        info->no_output_come_code = no_output_come_code;
+                    }
+                    
+                }
+                
                 if(!is_type_name(name) && *info->p == ',') {
                     multiple_declare = true;
                 }
@@ -172,7 +200,7 @@ sNode*% parse_global_variable(sInfo* info)
     }
     
     if(multiple_declare) {
-        list<tuple2<sType*%,string>*%>*% multiple_declare = new list<tuple2<sType*%,string>*%>();
+        list<tuple3<sType*%,string,string>*%>*% multiple_declare = new list<tuple3<sType*%,string,string>*%>();
         
         var base_type, name, err = parse_type();
         
@@ -185,7 +213,44 @@ sNode*% parse_global_variable(sInfo* info)
         var type2, var_name = parse_variable_name(base_type, true@first, info);
         parse_sharp();
         
-        multiple_declare.push_back((type2, var_name));
+        if(*info->p == '=') {
+            info->p++;
+            skip_spaces_and_lf();
+            
+            char* head = info.p;
+            
+            if(*info->p == '{') {
+                skip_block();
+            }
+            else {
+                bool no_output_err = info->no_output_err;
+                bool no_comma = info->no_comma;
+                bool no_output_come_code = info->no_output_come_code;
+                
+                info->no_output_err = true;
+                info->no_comma = true;
+                info->no_output_come_code = true;
+                
+                sNode*% exp = expression();
+                
+                info->no_comma = no_comma;
+                info->no_output_err = no_output_err;
+                info->no_output_come_code = no_output_come_code;
+            }
+            
+            char* tail = info.p;
+            
+            var buf = new buffer();
+            
+            buf.append(head, tail - head);
+            
+            string initializer = buf.to_string();
+            
+            multiple_declare.push_back((type2, var_name, initializer));
+        }
+        else {
+            multiple_declare.push_back((type2, var_name, null));
+        }
         
         while(*info->p == ',') {
             info->p++;
@@ -195,7 +260,44 @@ sNode*% parse_global_variable(sInfo* info)
             var type2, var_name = parse_variable_name(base_type, false@first, info);
             parse_sharp();
             
-            multiple_declare.push_back((type2, var_name));
+            if(*info->p == '=')  {
+                info->p++;
+                skip_spaces_and_lf();
+                
+                char* head = info.p;
+                
+                if(*info->p == '{') {
+                    skip_block();
+                }
+                else {
+                    bool no_output_err = info->no_output_err;
+                    bool no_comma = info->no_comma;
+                    bool no_output_come_code = info->no_output_come_code;
+                    
+                    info->no_output_err = true;
+                    info->no_comma = true;
+                    info->no_output_come_code = true;
+                    
+                    sNode*% exp = expression();
+                    
+                    info->no_comma = no_comma;
+                    info->no_output_err = no_output_err;
+                    info->no_output_come_code = no_output_come_code;
+                }
+                
+                char* tail = info.p;
+                
+                var buf = new buffer();
+                
+                buf.append(head, tail - head);
+                
+                string initializer = buf.to_string();
+                
+                multiple_declare.push_back((type2, var_name, initializer));
+            }
+            else {
+                multiple_declare.push_back((type2, var_name, null));
+            }
         }
         
         sNode*% right_node = null;

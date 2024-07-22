@@ -862,7 +862,7 @@ tuple2<sType*%, string>*% parse_variable_name(sType*% base_type_name, bool first
 {
     sType*% result_type = clone base_type_name;
     if(!first) {
-        result_type->mPointerNum = 0;
+        result_type->mPointerNum = result_type->mTypedefOriginalPointerNum;
     }
     string var_name = null;
     
@@ -1004,6 +1004,7 @@ tuple2<sType*%, string>*% parse_variable_name(sType*% base_type_name, bool first
             info->p++;
             skip_spaces_and_lf();
             
+            result_type->mNoNumberArray = true;
             result_type->mPointerNum++;
             break;
         }
@@ -1955,6 +1956,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
     else {
         if(info.types[type_name]??) {
             type = clone info.types[type_name]??;
+            type->mTypedefOriginalPointerNum = type->mPointerNum;
             type->mClass = info.classes[type->mClass->mName];
             type.mOriginalTypeName = string(type_name);
             type.mOriginalTypeNamePointerNum = pointer_num;
