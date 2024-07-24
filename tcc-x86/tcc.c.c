@@ -3744,6 +3744,7 @@ s_202=filename;
 _Bool _while_condtional20;
 int __result90__;
 memset(&__result_obj__, 0, sizeof(void*));
+memset(&s_202, 0, sizeof(const unsigned char*));
 memset(&h_203, 0, sizeof(unsigned int));
     # 1085 "tccpp.c"
     # 1086 "tccpp.c"
@@ -5149,7 +5150,9 @@ memset(&t_287, 0, sizeof(int));
 memset(&cval_290, 0, sizeof(union CValue));
 memset(&macro_str1_291, 0, sizeof(struct TokenString));
 memset(&cstr_292, 0, sizeof(struct CString));
+memset(&p_293, 0, sizeof(const char*));
 memset(&c_294, 0, sizeof(int));
+memset(&q_296, 0, sizeof(const unsigned char*));
     # 2601 "tccpp.c"
     # 2602 "tccpp.c"
     # 2603 "tccpp.c"
@@ -8506,6 +8509,7 @@ _Bool _if_conditional128;
 name_118=buf1_119;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&esym_117, 0, sizeof(struct anonymous_typeX66*));
+memset(&name_118, 0, sizeof(const char*));
     # 641 "libtcc.c"
     # 642 "libtcc.c"
     # 643 "libtcc.c"
@@ -9359,6 +9363,7 @@ _Bool _elif_conditional41;
 char* __result65__;
 char* __result66__;
 memset(&__result_obj__, 0, sizeof(void*));
+memset(&cstr_buf_156, 0, sizeof(struct CString));
 memset(&cstr_157, 0, sizeof(struct CString*));
 memset(&q_158, 0, sizeof(unsigned char*));
 memset(&p_159, 0, sizeof(char*));
@@ -11303,6 +11308,7 @@ memset(&s_217, 0, sizeof(struct Sym*));
 memset(&len_218, 0, sizeof(int));
 memset(&f_220, 0, sizeof(struct BufferedFile*));
 memset(&e_221, 0, sizeof(struct CachedInclude*));
+memset(&path_222, 0, sizeof(const char*));
 memset(&size_223, 0, sizeof(int));
     # 1192 "tccpp.c"
     s1_210=tcc_state;
@@ -11839,6 +11845,7 @@ _Bool _if_conditional303;
 _Bool _if_conditional304;
 _Bool _if_conditional305;
 memset(&__result_obj__, 0, sizeof(void*));
+memset(&p_226, 0, sizeof(const unsigned char*));
     # 1484 "tccpp.c"
     # 1485 "tccpp.c"
     # 1487 "tccpp.c"
@@ -13605,6 +13612,7 @@ _Bool _if_conditional458;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&s_297, 0, sizeof(struct Sym*));
 memset(&macro_str1_298, 0, sizeof(int*));
+memset(&ptr_299, 0, sizeof(const int*));
 memset(&cval_303, 0, sizeof(union CValue));
 memset(&ml_304, 0, sizeof(struct macro_level));
     # 2729 "tccpp.c"
@@ -16621,6 +16629,7 @@ _Bool _if_conditional601;
 _Bool _if_conditional602;
 _Bool _if_conditional603;
 memset(&__result_obj__, 0, sizeof(void*));
+memset(&tstr_434, 0, sizeof(const char*));
     # 1820 "tccgen.c"
     # 1821 "tccgen.c"
     # 1822 "tccgen.c"
@@ -23185,6 +23194,7 @@ int __result155__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&sym_673, 0, sizeof(struct anonymous_typeX66*));
 memset(&hs_674, 0, sizeof(struct Section*));
+memset(&name1_678, 0, sizeof(const char*));
     # 150 "tccelf.c"
     # 151 "tccelf.c"
     # 152 "tccelf.c"
@@ -23646,6 +23656,7 @@ _Bool _if_conditional982;
 _Bool _if_conditional983;
 _Bool _elif_conditional197;
 memset(&__result_obj__, 0, sizeof(void*));
+memset(&name_715, 0, sizeof(const char*));
 memset(&addr_716, 0, sizeof(unsigned long int));
     # 431 "tccelf.c"
     # 432 "tccelf.c"
@@ -24151,6 +24162,7 @@ int modrm_750;
 _Bool _if_conditional1001;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&index_743, 0, sizeof(int));
+memset(&name_744, 0, sizeof(const char*));
 memset(&sym_745, 0, sizeof(struct anonymous_typeX66*));
 memset(&offset_746, 0, sizeof(unsigned long int));
 memset(&ptr_747, 0, sizeof(int*));
@@ -24474,6 +24486,7 @@ _Bool _if_conditional1012;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&i_772, 0, sizeof(int));
 memset(&s_773, 0, sizeof(struct Section*));
+memset(&p_774, 0, sizeof(const char*));
 memset(&ch_775, 0, sizeof(int));
     # 1219 "tccelf.c"
     char buf_771[1024];
@@ -24710,6 +24723,7 @@ memset(&section_order_785, 0, sizeof(int*));
 memset(&addr_796, 0, sizeof(unsigned long int));
 memset(&saved_dynamic_data_offset_806, 0, sizeof(unsigned long int));
 memset(&sym_807, 0, sizeof(struct anonymous_typeX66*));
+memset(&name_812, 0, sizeof(const char*));
 memset(&ptr_817, 0, sizeof(char*));
 memset(&offset_818, 0, sizeof(unsigned long int));
 memset(&nb_syms_819, 0, sizeof(int));
@@ -26169,6 +26183,7 @@ _Bool _if_conditional1110;
 int __result171__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&data_866, 0, sizeof(unsigned char*));
+memset(&ar_index_869, 0, sizeof(const unsigned char*));
 memset(&sym_870, 0, sizeof(struct anonymous_typeX66*));
     # 2324 "tccelf.c"
     # 2325 "tccelf.c"
@@ -27754,6 +27769,7 @@ _Bool _elif_conditional215;
 _Bool _if_conditional1176;
 int __result199__;
 memset(&__result_obj__, 0, sizeof(void*));
+memset(&ext_943, 0, sizeof(const char*));
 memset(&ehdr_944, 0, sizeof(struct anonymous_typeX62));
 memset(&saved_file_947, 0, sizeof(struct BufferedFile*));
 memset(&h_948, 0, sizeof(void*));
@@ -28102,6 +28118,8 @@ _Bool _if_conditional1189;
 int __result211__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&i_955, 0, sizeof(int));
+memset(&p_956, 0, sizeof(const struct FlagDef*));
+memset(&r_957, 0, sizeof(const char*));
     # 2190 "libtcc.c"
     # 2191 "libtcc.c"
     # 2192 "libtcc.c"
@@ -28152,6 +28170,7 @@ int __result212__;
 int __result213__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&i_958, 0, sizeof(int));
+memset(&p_959, 0, sizeof(const struct FlagDef*));
     # 2215 "libtcc.c"
     # 2216 "libtcc.c"
     # 2228 "libtcc.c"
@@ -28300,6 +28319,7 @@ s1_964=str;
 _Bool _while_condtional91;
 int __result218__;
 memset(&__result_obj__, 0, sizeof(void*));
+memset(&s1_964, 0, sizeof(const char*));
     # 187 "tcc.c"
     # 188 "tcc.c"
     # 189 "tcc.c"
@@ -28374,7 +28394,6 @@ _Bool _if_conditional1206;
 char* sym_975;
 char* value_976;
 _Bool _if_conditional1207;
-outfile=optarg_971;
 int argc1_977;
 char** argv1_978;
 _Bool _if_conditional1208;
@@ -28391,9 +28410,11 @@ _Bool _if_conditional1214;
 int __result221__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&optind_969, 0, sizeof(int));
+memset(&popt_970, 0, sizeof(const struct TCCOption*));
 memset(&r_974, 0, sizeof(char*));
 memset(&argc1_977, 0, sizeof(int));
 memset(&argv1_978, 0, sizeof(char**));
+memset(&p_979, 0, sizeof(const char*));
     # 213 "tcc.c"
     # 214 "tcc.c"
     # 215 "tcc.c"
@@ -28596,6 +28617,7 @@ memset(&argv1_978, 0, sizeof(char**));
                 # 328 "tcc.c"
                 multiple_files=1;
                 # 329 "tcc.c"
+                outfile=optarg_971;
                 # 330 "tcc.c"
                 break;
                 # 333 "tcc.c"
@@ -28763,7 +28785,6 @@ int nb_objfiles_982;
 int ret_983;
 int optind_984;
 long start_time_986;
-outfile=((void*)0);
 _Bool _if_conditional1215;
 int __result222__;
 _Bool _if_conditional1216;
@@ -28782,7 +28803,6 @@ _Bool _if_conditional1225;
 char* ext_987;
 const char* name_988=strcmp(files[0],"-")==0?"a":tcc_basename(files[0]);
 _Bool _if_conditional1226;
-outfile=objfilename_985;
 _Bool _if_conditional1227;
 const char* filename_989;
 filename_989=files[i_980];
@@ -28802,6 +28822,7 @@ memset(&i_980, 0, sizeof(int));
 memset(&s_981, 0, sizeof(struct TCCState*));
 memset(&start_time_986, 0, sizeof(long));
 memset(&ext_987, 0, sizeof(char*));
+memset(&filename_989, 0, sizeof(const char*));
 come_heap_init(0, 0, 0);
     # 420 "tcc.c"
     # 421 "tcc.c"
@@ -28816,6 +28837,7 @@ come_heap_init(0, 0, 0);
     # 430 "tcc.c"
     output_type=1;
     # 431 "tcc.c"
+    outfile=((void*)0);
     # 432 "tcc.c"
     multiple_files=1;
     # 433 "tcc.c"
@@ -28926,6 +28948,7 @@ come_heap_init(0, 0, 0);
                 pstrcpy(objfilename_985,sizeof(objfilename_985),"a.out");
             }
             # 498 "tcc.c"
+            outfile=objfilename_985;
         }
     }
     # 506 "tcc.c"

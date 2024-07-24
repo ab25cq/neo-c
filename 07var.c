@@ -161,7 +161,7 @@ class sStoreNode extends sNodeBase
                 i++;
             }
         }
-        else if(self.right_value == null) {
+        else if(self.right_value == null) { // assert(self.alloc == true)
             sVar* var_ = info.lv_table.mVars[self.name]??;
             if(var_) {
                 err_msg(info, "Already appended this var name(%s)(1)", self.name);
@@ -191,26 +191,24 @@ class sStoreNode extends sNodeBase
             }
             
             sType*% left_type = clone var_->mType;
+            
             if(left_type->mArrayNum.length() > 0) {
                 add_come_code(info, "%s;\n", make_define_var(left_type, var_->mCValueName));
+                
                 if(!left_type->mStatic) {
-                    if(left_type->mArrayNum.length() > 0) {
-                        add_come_code(info, "memset(&%s, 0, sizeof(%s)", var_->mCValueName, make_type_name_string(left_type));
-                        foreach(it, left_type->mArrayNum) {
-                            if(!node_compile(it)) {
-                                err_msg(info, "invalid array num");
-                                exit(1);
-                            }
-                            
-                            CVALUE*% come_value = get_value_from_stack(-1, info);
-                            dec_stack_ptr(1, info);
-                            add_come_code(info, "*(%s)", come_value.c_value);
+                    add_come_code(info, "memset(&%s, 0, sizeof(%s)", var_->mCValueName, make_type_name_string(left_type));
+                    
+                    foreach(it, left_type->mArrayNum) {
+                        if(!node_compile(it)) {
+                            err_msg(info, "invalid array num");
+                            exit(1);
                         }
-                        add_come_code(info, ");\n");
+                        
+                        CVALUE*% come_value = get_value_from_stack(-1, info);
+                        dec_stack_ptr(1, info);
+                        add_come_code(info, "*(%s)", come_value.c_value);
                     }
-                    else {
-                        add_come_code(info, "memset(&%s, 0, sizeof(%s)); /* aaa */\n", var_->mCValueName, var_->mCValueName);
-                    }
+                    add_come_code(info, ");\n");
                 }
             }
             else {
@@ -219,25 +217,7 @@ class sStoreNode extends sNodeBase
                 sType*% left_type2 = clone left_type;
                 left_type2->mStatic = false;
                 
-                if(!var_->mType->mConstant && !var_->mType->mStatic) {
-                    if(left_type2->mArrayNum.length() > 0) {
-                        add_come_code(info, "memset(&%s, 0, sizeof(%s)", var_->mCValueName, make_type_name_string(left_type2));
-                        foreach(it, left_type2->mArrayNum) {
-                            if(!node_compile(it)) {
-                                err_msg(info, "invalid array num");
-                                exit(1);
-                            }
-                            
-                            CVALUE*% come_value = get_value_from_stack(-1, info);
-                            dec_stack_ptr(1, info);
-                            add_come_code(info, "*(%s)", come_value.c_value);
-                        }
-                        add_come_code(info, ");\n");
-                    }
-                    else {
-                        add_come_code_at_function_head2(info, "memset(&%s, 0, sizeof(%s));\n", var_->mCValueName, make_type_name_string(left_type2));
-                    }
-                }
+                add_come_code_at_function_head2(info, "memset(&%s, 0, sizeof(%s));\n", var_->mCValueName, make_type_name_string(left_type2));
             }
             
             CVALUE*% come_value = new CVALUE;
@@ -248,11 +228,11 @@ class sStoreNode extends sNodeBase
             
             info.stack.push_back(come_value);
             
-            if(self.alloc && !left_type->mClass->mNumber && left_type->mPointerNum == 0) {
+            if(!left_type->mClass->mNumber && left_type->mPointerNum == 0) {
                 var_->mType->mAllocaValue = true;
             }
         }
-        else {
+        else if(self.alloc) { // right_value != null
             if(!node_compile(self.right_value)) {
                 return false;
             }
@@ -263,51 +243,128 @@ class sStoreNode extends sNodeBase
             sType* right_type = right_value.type;
             dec_stack_ptr(1, info);
             
-            if(self.alloc) {
-                sVar* var_ = info.lv_table.mVars[self.name]??;
-                if(var_) {
-                    err_msg(info, "Already appended this var name(%s)(2)", self.name);
-                    return false;
-                }
+            sVar* var_ = info.lv_table.mVars[self.name]??;
+            if(var_) {
+                err_msg(info, "Already appended this var name(%s)(2)", self.name);
+                return false;
+            }
+            
+            if(self.type == null) {
+                right_type->mFunctionParam = false;
+                add_variable_to_table(self.name, clone right_type, info);
+            }
+            else {
+                var type = solve_generics(self.type, info->generics_type, info);
                 
-                if(self.type == null) {
-                    right_type->mFunctionParam = false;
-                    add_variable_to_table(self.name, clone right_type, info);
+                type->mFunctionParam = false;
+                add_variable_to_table(self.name, clone type, info);
+            }
+            
+            var_ = get_variable_from_table(info.lv_table, self.name);
+            
+            sType*% var_type = clone var_->mType;
+            var_type->mStatic = false;
+            
+            if(!array_initializer && !var_->mType->mStatic && !var_type->mConstant && var_type->mArrayNum.length() == 0) {
+                add_come_code_at_function_head2(info, "memset(&%s, 0, sizeof(%s));\n", var_->mCValueName, make_type_name_string(var_type));
+            }
+            
+            if(array_initializer) {
+                sVar* var_ = info.lv_table.mVars[self.name]??;
+                add_come_code(info, "%s=%s;\n", make_define_var(var_->mType, var_->mCValueName), right_value.c_value);
+            }
+            else {
+                sType*% left_type = clone var_->mType;
+                
+                CVALUE*% come_value = new CVALUE;
+                
+                if(var_->mType->mStatic) {
+                    check_assign_type(s"\{self.name} is assining to", left_type, right_type, right_value);
+                    add_come_code_at_function_head(info, "%s=%s;\n", make_define_var(left_type, var_->mCValueName), right_value.c_value);
+                    come_value.c_value = string("");
+                    
+                    info.stack.push_back(come_value);
+                    
+                    transpiler_clear_last_code(info);
+                }
+                else if(var_->mType->mConstant) {
+                    check_assign_type(s"\{self.name} is assining to", left_type, right_type, right_value);
+                    add_come_code_at_function_head(info, "%s=%s;\n", make_define_var(left_type, var_->mCValueName), right_value.c_value);
+                    come_value.c_value = string("");
+                    
+                    info.stack.push_back(come_value);
+                    
+                    transpiler_clear_last_code(info);
+                }
+                else if(right_type->mHeap && left_type->mHeap && left_type->mPointerNum > 0 && right_type->mPointerNum > 0)
+                {
+                    add_come_code_at_function_head(info, "%s;\n", make_define_var(left_type, var_->mCValueName));
+                    
+                    check_assign_type(s"\{self.name} is assining to", left_type, right_type, right_value);
+                    std_move(left_type, right_type, right_value);
+                    come_value.c_value = xsprintf("%s=%s", var_->mCValueName, right_value.c_value);
+                    
+                    int right_value_id = get_right_value_id_from_obj(right_value.c_value);
+                    
+                    if(right_value_id != -1) {
+                        remove_object_from_right_values(right_value_id, info);
+                    }
+                    come_value.type = clone left_type;
+                    come_value.var = var_;
+                    
+                    info.stack.push_back(come_value);
+                    
+                    add_come_last_code(info, "%s;\n", come_value.c_value);
+                }
+                else if(right_type->mClass->mName === "void" && left_type->mHeap && left_type->mPointerNum > 0 && right_type->mPointerNum > 0)
+                {
+                    add_come_code_at_function_head(info, "%s;\n", make_define_var(left_type, var_->mCValueName));
+                    
+                    check_assign_type(s"\{self.name} is assining to", left_type, right_type, right_value);
+                    come_value.c_value = xsprintf("%s=%s", var_->mCValueName, right_value.c_value);
+                    come_value.type = clone left_type;
+                    come_value.var = var_;
+                    
+                    info.stack.push_back(come_value);
+                    
+                    add_come_last_code(info, "%s;\n", come_value.c_value);
                 }
                 else {
-                    var type = solve_generics(self.type, info->generics_type, info);
+                    add_come_code_at_function_head(info, "%s;\n", make_define_var(left_type, var_->mCValueName));
                     
-                    type->mFunctionParam = false;
-                    add_variable_to_table(self.name, clone type, info);
-                }
-                
-                var_ = get_variable_from_table(info.lv_table, self.name);
-                
-                sType*% var_type = clone var_->mType;
-                var_type->mStatic = false;
-                
-                if(!var_->mType->mStatic && !var_type->mConstant && var_type->mArrayNum.length() == 0) {
-                    if(var_type->mArrayNum.length() > 0) {
-                        add_come_code(info, "memset(&%s, 0, sizeof(%s)", var_->mCValueName, make_type_name_string(var_type));
-                        foreach(it, var_type->mArrayNum) {
-                            if(!node_compile(it)) {
-                                err_msg(info, "invalid array num");
-                                exit(1);
-                            }
-                            
-                            CVALUE*% come_value = get_value_from_stack(-1, info);
-                            dec_stack_ptr(1, info);
-                            add_come_code(info, "*(%s)", come_value.c_value);
+                    check_assign_type(s"\{self.name} is assining to", left_type, right_type, right_value);
+                    
+                    if(left_type->mHeap && !right_value.type->mHeap) {
+                        if(right_value.type->mClass->mName === "void" && right_value.type->mPointerNum == 1)
+                        {
                         }
-                        add_come_code(info, ");\n");
+                        else {
+                            if(!right_value.type->mDelegate && !right_value.type->mShare && !gComeGC) {
+                                err_msg(info, "require right value as heap object(%s)", self.name);
+                                return false;
+                            }
+                        }
                     }
-                    else if(array_initializer) {
-                    }
-                    else {
-                        add_come_code_at_function_head2(info, "memset(&%s, 0, sizeof(%s));\n", var_->mCValueName, make_type_name_string(var_type));
-                    }
+                    
+                    
+                    come_value.c_value = xsprintf("%s=%s", var_->mCValueName, right_value.c_value);
+                    come_value.type = clone left_type;
+                    come_value.var = var_;
+                    
+                    info.stack.push_back(come_value);
+                    
+                    add_come_last_code(info, "%s;\n", come_value.c_value);
                 }
             }
+        }
+        else {
+            if(!node_compile(self.right_value)) {
+                return false;
+            }
+            
+            CVALUE*% right_value = get_value_from_stack(-1, info);
+            sType* right_type = right_value.type;
+            dec_stack_ptr(1, info);
             
             sClass* current_stack_frame_struct = info->current_stack_frame_struct;
             
@@ -358,131 +415,94 @@ class sStoreNode extends sNodeBase
                 }
             }
             
-            if(self.alloc && array_initializer) {
-                sVar* var_ = info.lv_table.mVars[self.name]??;
-                add_come_code(info, "%s=%s;\n", make_define_var(var_->mType, var_->mCValueName), right_value.c_value);
-            }
-            else {
-                sVar* var_ = get_variable_from_table(info.lv_table, self.name);
+            sVar* var_ = get_variable_from_table(info.lv_table, self.name);
+            
+            if(var_ == null) {
+                var_ = get_variable_from_table(info.gv_table, self.name);
                 
                 if(var_ == null) {
-                    var_ = get_variable_from_table(info.gv_table, self.name);
-                    
-                    if(var_ == null) {
-                        err_msg(info, "var not found(%s)(X) at storing variable\n", self.name);
-                        return true;
-                    }
+                    err_msg(info, "var not found(%s)(X) at storing variable\n", self.name);
+                    return true;
                 }
+            }
+            
+            if(var_->mType == null) {
+                var_->mType = clone right_type;
+            }
+            sType*% left_type = clone var_->mType;
+            
+            CVALUE*% come_value = new CVALUE;
+            
+            if(var_->mType->mStatic && !var_->mGlobal) {
+                check_assign_type(s"\{self.name} is assining to", left_type, right_type, right_value);
+                add_come_code(info, "%s=%s;\n", var_->mCValueName, right_value.c_value);
+                come_value.c_value = string("");
                 
-                if(var_->mType == NULL) {
-                    var_->mType = clone right_type;
-                }
-                sType*% left_type = clone var_->mType;
+                info.stack.push_back(come_value);
                 
-                CVALUE*% come_value = new CVALUE;
+                transpiler_clear_last_code(info);
+            }
+            else if(var_->mType->mConstant && !var_->mGlobal) {
+                check_assign_type(s"\{self.name} is assining to", left_type, right_type, right_value);
+                add_come_code_at_function_head(info, "%s=%s;\n", var_->mCValueName, right_value.c_value);
+                come_value.c_value = string("");
                 
-                if(var_->mType->mStatic && !var_->mGlobal) {
-                    check_assign_type(s"\{self.name} is assining to", left_type, right_type, right_value);
-                    if(self.alloc) {
-                        add_come_code_at_function_head(info, "%s=%s;\n", make_define_var(left_type, var_->mCValueName), right_value.c_value);
+                info.stack.push_back(come_value);
+                
+                transpiler_clear_last_code(info);
+            }
+            else if(right_type->mHeap && left_type->mHeap && left_type->mPointerNum > 0 && right_type->mPointerNum > 0)
+            {
+                check_assign_type(s"\{self.name} is assining to", left_type, right_type, right_value);
+                decrement_ref_count_object(left_type, var_->mCValueName, info);
+                std_move(left_type, right_type, right_value);
+                come_value.c_value = xsprintf("%s=%s", var_->mCValueName, right_value.c_value);
+                int right_value_id = get_right_value_id_from_obj(right_value.c_value);
+                
+                if(right_value_id != -1) {
+                    remove_object_from_right_values(right_value_id, info);
+                }
+                come_value.type = clone left_type;
+                come_value.var = var_;
+                
+                info.stack.push_back(come_value);
+                
+                add_come_last_code(info, "%s;\n", come_value.c_value);
+            }
+            else if(right_type->mClass->mName === "void" && left_type->mHeap && left_type->mPointerNum > 0 && right_type->mPointerNum > 0)
+            {
+                check_assign_type(s"\{self.name} is assining to", left_type, right_type, right_value);
+                decrement_ref_count_object(left_type, var_->mCValueName, info);
+                come_value.c_value = xsprintf("%s=%s", var_->mCValueName, right_value.c_value);
+                come_value.type = clone left_type;
+                come_value.var = var_;
+                
+                info.stack.push_back(come_value);
+                
+                add_come_last_code(info, "%s;\n", come_value.c_value);
+            }
+            else {
+                check_assign_type(s"\{self.name} is assining to", left_type, right_type, right_value);
+                
+                if(left_type->mHeap && !right_value.type->mHeap) {
+                    if(right_value.type->mClass->mName === "void" && right_value.type->mPointerNum == 1)
+                    {
                     }
                     else {
-                        add_come_code(info, "%s=%s;\n", var_->mCValueName, right_value.c_value);
-                    }
-                    come_value.c_value = string("");
-                    
-                    info.stack.push_back(come_value);
-                    
-                    transpiler_clear_last_code(info);
-                }
-                else if(var_->mType->mConstant) {
-                    check_assign_type(s"\{self.name} is assining to", left_type, right_type, right_value);
-                    if(self.alloc) {
-                        add_come_code_at_function_head(info, "%s=%s;\n", make_define_var(left_type, var_->mCValueName), right_value.c_value);
-                    }
-                    else {
-                        add_come_code_at_function_head(info, "%s=%s;\n", var_->mCValueName, right_value.c_value);
-                    }
-                    come_value.c_value = string("");
-                    
-                    info.stack.push_back(come_value);
-                    
-                    transpiler_clear_last_code(info);
-                }
-                else if(right_type->mHeap && left_type->mHeap && left_type->mPointerNum > 0 && right_type->mPointerNum > 0)
-                {
-                    check_assign_type(s"\{self.name} is assining to", left_type, right_type, right_value);
-                    if(self.alloc) {
-                        std_move(left_type, right_type, right_value);
-                        come_value.c_value = xsprintf("%s=%s", var_->mCValueName, right_value.c_value);
-                    }
-                    else {
-                        decrement_ref_count_object(left_type, var_->mCValueName, info);
-                        std_move(left_type, right_type, right_value);
-                        come_value.c_value = xsprintf("%s=%s", var_->mCValueName, right_value.c_value);
-                    }
-                    int right_value_id = get_right_value_id_from_obj(right_value.c_value);
-                    
-                    if(right_value_id != -1) {
-                        remove_object_from_right_values(right_value_id, info);
-                    }
-                    come_value.type = clone left_type;
-                    come_value.var = var_;
-                    
-                    info.stack.push_back(come_value);
-                    
-                    add_come_last_code(info, "%s;\n", come_value.c_value);
-                }
-                else if(right_type->mClass->mName === "void" && left_type->mHeap && left_type->mPointerNum > 0 && right_type->mPointerNum > 0)
-                {
-                    check_assign_type(s"\{self.name} is assining to", left_type, right_type, right_value);
-                    if(self.alloc) {
-                        come_value.c_value = xsprintf("%s=%s", var_->mCValueName, right_value.c_value);
-                    }
-                    else {
-                        decrement_ref_count_object(left_type, var_->mCValueName, info);
-                        come_value.c_value = xsprintf("%s=%s", var_->mCValueName, right_value.c_value);
-                    }
-                    come_value.type = clone left_type;
-                    come_value.var = var_;
-                    
-                    info.stack.push_back(come_value);
-                    
-                    add_come_last_code(info, "%s;\n", come_value.c_value);
-                }
-                else {
-                    check_assign_type(s"\{self.name} is assining to", left_type, right_type, right_value);
-                    
-                    if(left_type->mHeap && !right_value.type->mHeap) {
-                        if(right_value.type->mClass->mName === "void" && right_value.type->mPointerNum == 1)
-                        {
-                        }
-                        else {
-                            if(!right_value.type->mDelegate && !right_value.type->mShare && !gComeGC) {
-                                err_msg(info, "require right value as heap object(%s)", self.name);
-                                return false;
-                            }
+                        if(!right_value.type->mDelegate && !right_value.type->mShare && !gComeGC) {
+                            err_msg(info, "require right value as heap object(%s)", self.name);
+                            return false;
                         }
                     }
-                    
-                    
-                    come_value.c_value = xsprintf("%s=%s", var_->mCValueName, right_value.c_value);
-                    come_value.type = clone left_type;
-                    come_value.var = var_;
-                    
-                    info.stack.push_back(come_value);
-                    
-                    add_come_last_code(info, "%s;\n", come_value.c_value);
                 }
                 
-                if(self.alloc && !left_type->mConstant && !left_type->mStatic) {
-                    if(left_type->mArrayNum.length() > 0) {
-                        add_come_code(info, "%s;\n", make_define_var(left_type, var_->mCValueName));
-                    }
-                    else {
-                        add_come_code_at_function_head(info, "%s;\n", make_define_var(left_type, var_->mCValueName));
-                    }
-                }
+                come_value.c_value = xsprintf("%s=%s", var_->mCValueName, right_value.c_value);
+                come_value.type = clone left_type;
+                come_value.var = var_;
+                
+                info.stack.push_back(come_value);
+                
+                add_come_last_code(info, "%s;\n", come_value.c_value);
             }
         }
         
