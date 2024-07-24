@@ -6446,7 +6446,6 @@ _Bool _if_conditional310;
 void* right_value224;
 char* __exception_result_var_b7;
 char* __dec_obj76;
-static int num_anonymous_var_name_179=0;
 void* right_value225;
 char* __dec_obj77;
 _Bool _if_conditional311;
@@ -6589,6 +6588,7 @@ right_value233 = (void*)0;
         right_value224 = come_decrement_ref_count2(right_value224, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
     }
     else {
+        static int num_anonymous_var_name_179=0;
         num_anonymous_var_name_179++;
         __dec_obj77=var_name_168;
         var_name_168=(char*)come_increment_ref_count(((char*)(right_value225=xsprintf("anonymous_var_nameYYY%d",num_anonymous_var_name_179))));
@@ -7136,7 +7136,6 @@ _Bool _if_conditional392;
 _Bool _if_conditional393;
 _Bool _if_conditional394;
 _Bool _if_conditional395;
-static int anonymous_num_260=0;
 _Bool _if_conditional396;
 _Bool _if_conditional397;
 void* right_value300;
@@ -7190,14 +7189,12 @@ _Bool _if_conditional408;
 void* right_value320;
 char* __dec_obj134;
 _Bool _if_conditional409;
-static int num_anonymous_var_name_266=0;
 void* right_value321;
 char* __dec_obj135;
 _Bool _if_conditional410;
 void* right_value322;
 char* __exception_result_var_b43;
 char* __dec_obj136;
-static int num_anonymous_var_name_267=0;
 void* right_value323;
 char* __dec_obj137;
 _Bool _if_conditional411;
@@ -7278,7 +7275,6 @@ _Bool _if_conditional439;
 void* right_value350;
 void* right_value351;
 struct tuple3$3sTypephcharphbool* __result163__;
-static int num_anonymous_var_name_291=0;
 void* right_value352;
 char* __dec_obj156;
 _Bool function_pointer_array_292;
@@ -7319,14 +7315,12 @@ _Bool _if_conditional450;
 void* right_value363;
 char* __dec_obj163;
 _Bool _if_conditional451;
-static int num_anonymous_var_name_299=0;
 void* right_value364;
 char* __dec_obj164;
 _Bool _if_conditional452;
 void* right_value365;
 char* __exception_result_var_b49;
 char* __dec_obj165;
-static int num_anonymous_var_name_300=0;
 void* right_value366;
 char* __dec_obj166;
 _Bool _if_conditional453;
@@ -7445,14 +7439,12 @@ _Bool _if_conditional533;
 void* right_value410;
 char* __dec_obj182;
 _Bool _if_conditional534;
-static int num_anonymous_var_name_362=0;
 void* right_value411;
 char* __dec_obj183;
 _Bool _if_conditional535;
 void* right_value412;
 char* __exception_result_var_b50;
 char* __dec_obj184;
-static int num_anonymous_var_name_363=0;
 void* right_value413;
 char* __dec_obj185;
 _Bool _if_conditional536;
@@ -8450,6 +8442,7 @@ right_value418 = (void*)0;
         info->sline=sline_258;
     }
     if(_if_conditional395=anonymous_type_218&&*info->p==123,    _if_conditional395) {
+        static int anonymous_num_260=0;
         if(struct__209) {
             if(_if_conditional397=string_operator_equals(type_name_198,""),            _if_conditional397) {
                 __dec_obj128=type_name_198;
@@ -8579,6 +8572,7 @@ right_value418 = (void*)0;
             }
             else {
                 if(anonymous_name_219) {
+                    static int num_anonymous_var_name_266=0;
                     num_anonymous_var_name_266++;
                     __dec_obj135=var_name_251;
                     var_name_251=(char*)come_increment_ref_count(((char*)(right_value321=xsprintf("anonymous_var_nameXYZ%d",num_anonymous_var_name_266))));
@@ -8593,6 +8587,7 @@ right_value418 = (void*)0;
                         right_value322 = come_decrement_ref_count2(right_value322, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                     }
                     else {
+                        static int num_anonymous_var_name_267=0;
                         num_anonymous_var_name_267++;
                         __dec_obj137=var_name_251;
                         var_name_251=(char*)come_increment_ref_count(((char*)(right_value323=xsprintf("anonymous_var_nameY%d",num_anonymous_var_name_267))));
@@ -8805,6 +8800,7 @@ right_value418 = (void*)0;
                     }
                 }
                 else {
+                    static int num_anonymous_var_name_291=0;
                     num_anonymous_var_name_291++;
                     __dec_obj156=var_name_251;
                     var_name_251=(char*)come_increment_ref_count(((char*)(right_value352=xsprintf("anonymous_lambda_var_nameZ%d",num_anonymous_var_name_291))));
@@ -8894,6 +8890,7 @@ right_value418 = (void*)0;
                         }
                         else {
                             if(anonymous_name_219) {
+                                static int num_anonymous_var_name_299=0;
                                 num_anonymous_var_name_299++;
                                 __dec_obj164=var_name_251;
                                 var_name_251=(char*)come_increment_ref_count(((char*)(right_value364=xsprintf("anonymous_var_nameXYZL%d",num_anonymous_var_name_299))));
@@ -8908,6 +8905,7 @@ right_value418 = (void*)0;
                                     right_value365 = come_decrement_ref_count2(right_value365, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                                 }
                                 else {
+                                    static int num_anonymous_var_name_300=0;
                                     num_anonymous_var_name_300++;
                                     __dec_obj166=var_name_251;
                                     var_name_251=(char*)come_increment_ref_count(((char*)(right_value366=xsprintf("anonymous_var_nameX%d",num_anonymous_var_name_300))));
@@ -9310,6 +9308,7 @@ right_value418 = (void*)0;
                         }
                         else {
                             if(anonymous_name_219) {
+                                static int num_anonymous_var_name_362=0;
                                 num_anonymous_var_name_362++;
                                 __dec_obj183=var_name_251;
                                 var_name_251=(char*)come_increment_ref_count(((char*)(right_value411=xsprintf("anonymous_var_nameXYZLO%d",num_anonymous_var_name_362))));
@@ -9324,6 +9323,7 @@ right_value418 = (void*)0;
                                     right_value412 = come_decrement_ref_count2(right_value412, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                                 }
                                 else {
+                                    static int num_anonymous_var_name_363=0;
                                     num_anonymous_var_name_363++;
                                     __dec_obj185=var_name_251;
                                     var_name_251=(char*)come_increment_ref_count(((char*)(right_value413=xsprintf("anonymous_var_nameX%d",num_anonymous_var_name_363))));

@@ -3815,7 +3815,6 @@ right_value122 = (void*)0;
 
 struct sNode* get_number(_Bool minus, struct sInfo* info){
 void* __result_obj__;
-const int buf_size_63=128;
 char* p2_65;
 _Bool _if_conditional53;
 _Bool _if_conditional54;
@@ -3959,6 +3958,7 @@ memset(&value_85, 0, sizeof(int));
 right_value168 = (void*)0;
 right_value169 = (void*)0;
 right_value172 = (void*)0;
+    const int buf_size_63=128;
     char buf_64[128+1];
     memset(&buf_64, 0, sizeof(char)    *(128+1)    );
     p2_65=buf_64;

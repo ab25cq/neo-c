@@ -3327,7 +3327,6 @@ void* right_value127;
 struct tuple2$2charphsTypeph* item2_98;
 void* right_value134;
 void* right_value135;
-static int num_current_stack_151=0;
 struct map$2charphsVarph* o2_saved_152;
 char* it_153;
 char* key_154;
@@ -3452,6 +3451,7 @@ right_value148 = (void*)0;
     }
     output_struct(current_stack_48,info);
     map$2charphsClassph_insert(info->classes,(char*)come_increment_ref_count(class_name_47),(struct sClass*)come_increment_ref_count(current_stack_48));
+    static int num_current_stack_151=0;
     num_current_stack_151++;
     add_come_code_at_function_head(info,"struct %s __current_stack%d__;\n",class_name_47,num_current_stack_151);
     add_come_code_at_function_head2(info,"memset(&__current_stack%d__, 0, sizeof(struct %s));\n",num_current_stack_151,class_name_47);

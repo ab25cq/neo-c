@@ -8050,7 +8050,6 @@ struct sType* param_type_342;
 char* param_name_343;
 _Bool err_344;
 _Bool _if_conditional350;
-static int num_function_pointer_result_var_name_a_345=0;
 void* right_value492;
 _Bool _if_conditional351;
 _Bool _if_conditional352;
@@ -8070,7 +8069,6 @@ struct sType* param_type_348;
 char* param_name_349;
 _Bool err_350;
 _Bool _if_conditional355;
-static int num_function_pointer_result_var_name_b_351=0;
 void* right_value498;
 _Bool _if_conditional356;
 _Bool _if_conditional357;
@@ -8560,6 +8558,7 @@ right_value558 = (void*)0;
                                     exit(2);
                                 }
                                 list$1sTypeph_push_back(param_types_340,(struct sType*)come_increment_ref_count(param_type_342));
+                                static int num_function_pointer_result_var_name_a_345=0;
                                 list$1charph_push_back(param_names_341,(char*)come_increment_ref_count(((char*)(right_value492=xsprintf("_function_pointer_result_var_name_a%d",++num_function_pointer_result_var_name_a_345)))));
                                 right_value492 = come_decrement_ref_count2(right_value492, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                                 if(_if_conditional351=*info->p==44,                                _if_conditional351) {
@@ -8609,6 +8608,7 @@ right_value558 = (void*)0;
                                         exit(2);
                                     }
                                     list$1sTypeph_push_back(param_types2_346,(struct sType*)come_increment_ref_count(param_type_348));
+                                    static int num_function_pointer_result_var_name_b_351=0;
                                     list$1charph_push_back(param_names2_347,(char*)come_increment_ref_count(((char*)(right_value498=xsprintf("_function_pointer_result_var_name_b%d",++num_function_pointer_result_var_name_b_351)))));
                                     right_value498 = come_decrement_ref_count2(right_value498, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                                     if(_if_conditional356=*info->p==44,                                    _if_conditional356) {
@@ -10611,7 +10611,6 @@ _Bool _while_condtional56;
 _Bool _if_conditional483;
 void* right_value635;
 struct sBlock* block_504;
-static int lambda_num_505=0;
 void* right_value636;
 char* fun_name_506;
 void* right_value637;
@@ -11128,6 +11127,7 @@ right_value748 = (void*)0;
     if(_if_conditional483=charp_operator_equals(base_fun_name_492,"lambda"),    _if_conditional483) {
         block_504=(struct sBlock*)come_increment_ref_count(((struct sBlock*)(right_value635=parse_block(info,(_Bool)0,(_Bool)0))));
         come_call_finalizer3(right_value635,sBlock_finalize, 0, 1, 0, 0, __result_obj__);
+        static int lambda_num_505=0;
         lambda_num_505++;
         fun_name_506=(char*)come_increment_ref_count(((char*)(right_value636=xsprintf("lambda%d",lambda_num_505))));
         right_value636 = come_decrement_ref_count2(right_value636, (void*)0, (void*)0, 1, 0, 0, __result_obj__);

@@ -3269,7 +3269,6 @@ _Bool _if_conditional136;
 void* right_value116;
 struct CVALUE* __exception_result_var_b3;
 struct CVALUE* __dec_obj29;
-static int num_for_condtionalA_128=0;
 int num_for_conditionalA_stack_129;
 void* right_value117;
 struct CVALUE* __exception_result_var_b4;
@@ -3385,6 +3384,7 @@ memset(&conditional_value3_134, 0, sizeof(struct CVALUE*));
             add_come_code(info,"%s;",conditional_value2_126->c_value);
         }
         else {
+            static int num_for_condtionalA_128=0;
             add_come_code_at_function_head(info,"_Bool _for_condtionalA%d;\n",++num_for_condtionalA_128);
             num_for_conditionalA_stack_129=num_for_condtionalA_128;
             __dec_obj30=conditional_value2_126;

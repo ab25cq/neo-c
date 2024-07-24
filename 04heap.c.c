@@ -5354,7 +5354,6 @@ _Bool _if_conditional204;
 struct list$1CVALUEph* stack_saved_167;
 struct list$1sRightValueObjectph* right_value_objects_168;
 struct sClass* klass_169;
-static int dec_num_170=0;
 void* right_value155;
 char* name_171;
 void* right_value156;
@@ -5450,6 +5449,7 @@ right_value169 = (void*)0;
     stack_saved_167=(struct list$1CVALUEph*)come_increment_ref_count(info->stack);
     right_value_objects_168=info->right_value_objects;
     klass_169=type->mClass;
+    static int dec_num_170=0;
     name_171=(char*)come_increment_ref_count(((char*)(right_value155=xsprintf("__dec_obj%d",++dec_num_170))));
     right_value155 = come_decrement_ref_count2(right_value155, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
     add_come_code_at_function_head(info,"%s;\n",((char*)(right_value156=make_define_var(type,name_171,(_Bool)0,info))));
@@ -7922,7 +7922,6 @@ void* right_value268;
 void* right_value269;
 char* __result156__;
 _Bool _if_conditional402;
-static int n_371=0;
 void* right_value270;
 char* var_name_372;
 void* right_value271;
@@ -7966,6 +7965,7 @@ right_value279 = (void*)0;
     }
     else {
         if(_if_conditional402=gComeDebug||type->mRecord,        _if_conditional402) {
+            static int n_371=0;
             ++n_371;
             var_name_372=(char*)come_increment_ref_count(((char*)(right_value270=xsprintf("__exception_result_var_b%d",n_371))));
             right_value270 = come_decrement_ref_count2(right_value270, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
