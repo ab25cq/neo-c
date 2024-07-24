@@ -1,59 +1,26 @@
 clang: warning: -lm: 'linker' input unused [-Wunused-command-line-argument]
 clang: warning: -ldl: 'linker' input unused [-Wunused-command-line-argument]
-tcc.c.c:276:11: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
-  276 |     short short si_addr_lsb;
+tcc.c.c:266:11: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  266 |     short short si_addr_lsb;
       |           ^~~~~
-tcc.c.c:350:11: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
-  350 |     short short l_type;
+tcc.c.c:340:11: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  340 |     short short l_type;
       |           ^~~~~
-tcc.c.c:351:11: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
-  351 |     short short l_whence;
+tcc.c.c:341:11: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  341 |     short short l_whence;
       |           ^~~~~
-tcc.c.c:436:15: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
-  436 | typedef short short int16_t;
+tcc.c.c:426:15: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  426 | typedef short short int16_t;
       |               ^~~~~
-tcc.c.c:448:15: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
-  448 | typedef short short int_least16_t;
+tcc.c.c:438:15: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  438 | typedef short short int_least16_t;
       |               ^~~~~
-tcc.c.c:1349:5: warning: too many braces around scalar initializer [-Wmany-braces-around-scalar-init]
- 1349 |     { ((size_t) &((TCCState *)0)->warn_unsupported), 0, "unsupported" },
-      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-tcc.c.c:1349:7: error: incompatible integer to pointer conversion initializing 'const struct FlagDef *' with an expression of type 'size_t' (aka 'unsigned long') [-Wint-conversion]
- 1349 |     { ((size_t) &((TCCState *)0)->warn_unsupported), 0, "unsupported" },
-      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-tcc.c.c:1350:5: warning: excess elements in scalar initializer [-Wexcess-initializers]
- 1350 |     { ((size_t) &((TCCState *)0)->warn_write_strings), 0, "write-strings" },
-      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-tcc.c.c:1356:5: warning: too many braces around scalar initializer [-Wmany-braces-around-scalar-init]
- 1356 |     { ((size_t) &((TCCState *)0)->char_is_unsigned), 0, "unsigned-char" },
-      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-tcc.c.c:1356:7: error: incompatible integer to pointer conversion initializing 'const struct FlagDef *' with an expression of type 'size_t' (aka 'unsigned long') [-Wint-conversion]
- 1356 |     { ((size_t) &((TCCState *)0)->char_is_unsigned), 0, "unsigned-char" },
-      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-tcc.c.c:1357:5: warning: excess elements in scalar initializer [-Wexcess-initializers]
- 1357 |     { ((size_t) &((TCCState *)0)->char_is_unsigned), 0x0002, "signed-char" },
-      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-tcc.c.c:1410:5: warning: too many braces around scalar initializer [-Wmany-braces-around-scalar-init]
- 1410 |     { "h", TCC_OPTION_HELP, 0 },
-      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-tcc.c.c:1410:7: warning: incompatible pointer types initializing 'const struct TCCOption *' with an expression of type 'char[2]' [-Wincompatible-pointer-types]
- 1410 |     { "h", TCC_OPTION_HELP, 0 },
-      |       ^~~
-tcc.c.c:1411:5: warning: excess elements in scalar initializer [-Wexcess-initializers]
- 1411 |     { "?", TCC_OPTION_HELP, 0 },
-      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~
 /usr/include/math.h:108:147: warning: integer literal is too large to be represented in a signed integer type, interpreting as unsigned [-Wimplicitly-unsigned-literal]
   108 |     __result3__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x<__y;
       |                                                                                                                                                   ^
 /usr/include/math.h:108:348: warning: integer literal is too large to be represented in a signed integer type, interpreting as unsigned [-Wimplicitly-unsigned-literal]
   108 |     __result3__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x<__y;
       |                                                                                                                                                                                                                                                                                                                                                            ^
-/usr/include/math.h:108:176: warning: shift count >= width of type [-Wshift-count-overflow]
-  108 |     __result3__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x<__y;
-      |                                                                                                                                                                                ^ ~~
-/usr/include/math.h:108:377: warning: shift count >= width of type [-Wshift-count-overflow]
-  108 |     __result3__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x<__y;
-      |                                                                                                                                                                                                                                                                                                                                                                                         ^ ~~
 /usr/include/math.h:109:147: warning: integer literal is too large to be represented in a signed integer type, interpreting as unsigned [-Wimplicitly-unsigned-literal]
   109 |     __result4__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x<__y;
       |                                                                                                                                                   ^
@@ -72,24 +39,12 @@ tcc.c.c:1411:5: warning: excess elements in scalar initializer [-Wexcess-initial
 /usr/include/math.h:110:348: warning: integer literal is too large to be represented in a signed integer type, interpreting as unsigned [-Wimplicitly-unsigned-literal]
   110 |     __result5__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x<__y;
       |                                                                                                                                                                                                                                                                                                                                                            ^
-/usr/include/math.h:110:176: warning: shift count >= width of type [-Wshift-count-overflow]
-  110 |     __result5__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x<__y;
-      |                                                                                                                                                                                ^ ~~
-/usr/include/math.h:110:377: warning: shift count >= width of type [-Wshift-count-overflow]
-  110 |     __result5__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x<__y;
-      |                                                                                                                                                                                                                                                                                                                                                                                         ^ ~~
 /usr/include/math.h:111:147: warning: integer literal is too large to be represented in a signed integer type, interpreting as unsigned [-Wimplicitly-unsigned-literal]
   111 |     __result6__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x<=__y;
       |                                                                                                                                                   ^
 /usr/include/math.h:111:348: warning: integer literal is too large to be represented in a signed integer type, interpreting as unsigned [-Wimplicitly-unsigned-literal]
   111 |     __result6__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x<=__y;
       |                                                                                                                                                                                                                                                                                                                                                            ^
-/usr/include/math.h:111:176: warning: shift count >= width of type [-Wshift-count-overflow]
-  111 |     __result6__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x<=__y;
-      |                                                                                                                                                                                ^ ~~
-/usr/include/math.h:111:377: warning: shift count >= width of type [-Wshift-count-overflow]
-  111 |     __result6__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x<=__y;
-      |                                                                                                                                                                                                                                                                                                                                                                                         ^ ~~
 /usr/include/math.h:112:147: warning: integer literal is too large to be represented in a signed integer type, interpreting as unsigned [-Wimplicitly-unsigned-literal]
   112 |     __result7__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x<=__y;
       |                                                                                                                                                   ^
@@ -108,24 +63,12 @@ tcc.c.c:1411:5: warning: excess elements in scalar initializer [-Wexcess-initial
 /usr/include/math.h:113:348: warning: integer literal is too large to be represented in a signed integer type, interpreting as unsigned [-Wimplicitly-unsigned-literal]
   113 |     __result8__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x<=__y;
       |                                                                                                                                                                                                                                                                                                                                                            ^
-/usr/include/math.h:113:176: warning: shift count >= width of type [-Wshift-count-overflow]
-  113 |     __result8__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x<=__y;
-      |                                                                                                                                                                                ^ ~~
-/usr/include/math.h:113:377: warning: shift count >= width of type [-Wshift-count-overflow]
-  113 |     __result8__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x<=__y;
-      |                                                                                                                                                                                                                                                                                                                                                                                         ^ ~~
 /usr/include/math.h:114:147: warning: integer literal is too large to be represented in a signed integer type, interpreting as unsigned [-Wimplicitly-unsigned-literal]
   114 |     __result9__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x!=__y;
       |                                                                                                                                                   ^
 /usr/include/math.h:114:348: warning: integer literal is too large to be represented in a signed integer type, interpreting as unsigned [-Wimplicitly-unsigned-literal]
   114 |     __result9__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x!=__y;
       |                                                                                                                                                                                                                                                                                                                                                            ^
-/usr/include/math.h:114:176: warning: shift count >= width of type [-Wshift-count-overflow]
-  114 |     __result9__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x!=__y;
-      |                                                                                                                                                                                ^ ~~
-/usr/include/math.h:114:377: warning: shift count >= width of type [-Wshift-count-overflow]
-  114 |     __result9__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x!=__y;
-      |                                                                                                                                                                                                                                                                                                                                                                                         ^ ~~
 /usr/include/math.h:115:148: warning: integer literal is too large to be represented in a signed integer type, interpreting as unsigned [-Wimplicitly-unsigned-literal]
   115 |     __result10__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x!=__y;
       |                                                                                                                                                    ^
@@ -144,24 +87,12 @@ tcc.c.c:1411:5: warning: excess elements in scalar initializer [-Wexcess-initial
 /usr/include/math.h:116:349: warning: integer literal is too large to be represented in a signed integer type, interpreting as unsigned [-Wimplicitly-unsigned-literal]
   116 |     __result11__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x!=__y;
       |                                                                                                                                                                                                                                                                                                                                                             ^
-/usr/include/math.h:116:177: warning: shift count >= width of type [-Wshift-count-overflow]
-  116 |     __result11__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x!=__y;
-      |                                                                                                                                                                                 ^ ~~
-/usr/include/math.h:116:378: warning: shift count >= width of type [-Wshift-count-overflow]
-  116 |     __result11__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x!=__y;
-      |                                                                                                                                                                                                                                                                                                                                                                                          ^ ~~
 /usr/include/math.h:117:148: warning: integer literal is too large to be represented in a signed integer type, interpreting as unsigned [-Wimplicitly-unsigned-literal]
   117 |     __result12__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x>__y;
       |                                                                                                                                                    ^
 /usr/include/math.h:117:349: warning: integer literal is too large to be represented in a signed integer type, interpreting as unsigned [-Wimplicitly-unsigned-literal]
   117 |     __result12__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x>__y;
       |                                                                                                                                                                                                                                                                                                                                                             ^
-/usr/include/math.h:117:177: warning: shift count >= width of type [-Wshift-count-overflow]
-  117 |     __result12__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x>__y;
-      |                                                                                                                                                                                 ^ ~~
-/usr/include/math.h:117:378: warning: shift count >= width of type [-Wshift-count-overflow]
-  117 |     __result12__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x>__y;
-      |                                                                                                                                                                                                                                                                                                                                                                                          ^ ~~
 /usr/include/math.h:118:148: warning: integer literal is too large to be represented in a signed integer type, interpreting as unsigned [-Wimplicitly-unsigned-literal]
   118 |     __result13__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x>__y;
       |                                                                                                                                                    ^
@@ -180,24 +111,12 @@ tcc.c.c:1411:5: warning: excess elements in scalar initializer [-Wexcess-initial
 /usr/include/math.h:119:349: warning: integer literal is too large to be represented in a signed integer type, interpreting as unsigned [-Wimplicitly-unsigned-literal]
   119 |     __result14__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x>__y;
       |                                                                                                                                                                                                                                                                                                                                                             ^
-/usr/include/math.h:119:177: warning: shift count >= width of type [-Wshift-count-overflow]
-  119 |     __result14__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x>__y;
-      |                                                                                                                                                                                 ^ ~~
-/usr/include/math.h:119:378: warning: shift count >= width of type [-Wshift-count-overflow]
-  119 |     __result14__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x>__y;
-      |                                                                                                                                                                                                                                                                                                                                                                                          ^ ~~
 /usr/include/math.h:120:148: warning: integer literal is too large to be represented in a signed integer type, interpreting as unsigned [-Wimplicitly-unsigned-literal]
   120 |     __result15__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x>=__y;
       |                                                                                                                                                    ^
 /usr/include/math.h:120:349: warning: integer literal is too large to be represented in a signed integer type, interpreting as unsigned [-Wimplicitly-unsigned-literal]
   120 |     __result15__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x>=__y;
       |                                                                                                                                                                                                                                                                                                                                                             ^
-/usr/include/math.h:120:177: warning: shift count >= width of type [-Wshift-count-overflow]
-  120 |     __result15__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x>=__y;
-      |                                                                                                                                                                                 ^ ~~
-/usr/include/math.h:120:378: warning: shift count >= width of type [-Wshift-count-overflow]
-  120 |     __result15__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x>=__y;
-      |                                                                                                                                                                                                                                                                                                                                                                                          ^ ~~
 /usr/include/math.h:121:148: warning: integer literal is too large to be represented in a signed integer type, interpreting as unsigned [-Wimplicitly-unsigned-literal]
   121 |     __result16__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x>=__y;
       |                                                                                                                                                    ^
@@ -216,29 +135,23 @@ tcc.c.c:1411:5: warning: excess elements in scalar initializer [-Wexcess-initial
 /usr/include/math.h:122:349: warning: integer literal is too large to be represented in a signed integer type, interpreting as unsigned [-Wimplicitly-unsigned-literal]
   122 |     __result17__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x>=__y;
       |                                                                                                                                                                                                                                                                                                                                                             ^
-/usr/include/math.h:122:177: warning: shift count >= width of type [-Wshift-count-overflow]
-  122 |     __result17__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x>=__y;
-      |                                                                                                                                                                                 ^ ~~
-/usr/include/math.h:122:378: warning: shift count >= width of type [-Wshift-count-overflow]
-  122 |     __result17__ = !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x>=__y;
-      |                                                                                                                                                                                                                                                                                                                                                                                          ^ ~~
 libtcc.c:537:27: error: incomplete definition of type 'struct Sym'
   537 |     sym_free_first=sym_103->next;
       |                    ~~~~~~~^
-tcc.c.c:867:12: note: forward declaration of 'struct Sym'
-  867 |     struct Sym* sym_define;
+tcc.c.c:857:12: note: forward declaration of 'struct Sym'
+  857 |     struct Sym* sym_define;
       |            ^
 libtcc.c:543:8: error: incomplete definition of type 'struct Sym'
   543 |     sym->next=sym_free_first;
       |     ~~~^
-tcc.c.c:867:12: note: forward declaration of 'struct Sym'
-  867 |     struct Sym* sym_define;
+tcc.c.c:857:12: note: forward declaration of 'struct Sym'
+  857 |     struct Sym* sym_define;
       |            ^
 tccpp.c:864:10: error: incomplete definition of type 'struct Sym'
   864 |     s_181->next=first_arg;
       |     ~~~~~^
-tcc.c.c:867:12: note: forward declaration of 'struct Sym'
-  867 |     struct Sym* sym_define;
+tcc.c.c:857:12: note: forward declaration of 'struct Sym'
+  857 |     struct Sym* sym_define;
       |            ^
 tccpp.c:2051:9: warning: label at end of compound statement is a C2x extension [-Wc2x-extensions]
  2051 |         }
@@ -262,8 +175,8 @@ tccpp.c:2720:5: error: call to undeclared function 'come_call_finalizer3'; ISO C
 tccgen.c:1722:48: error: incomplete definition of type 'struct Sym'
  1722 |     __result124__ = __result_obj__ = &type->ref->type;
       |                                       ~~~~~~~~~^
-tcc.c.c:867:12: note: forward declaration of 'struct Sym'
-  867 |     struct Sym* sym_define;
+tcc.c.c:857:12: note: forward declaration of 'struct Sym'
+  857 |     struct Sym* sym_define;
       |            ^
 x86_64-gen.c:217:7: warning: unused variable '_if_conditional5' [-Wunused-variable]
   217 | _Bool _if_conditional5;
@@ -277,20 +190,20 @@ x86_64-gen.c:240:7: warning: unused variable '_if_conditional9' [-Wunused-variab
 x86_64-gen.c:284:33: error: incomplete definition of type 'struct Sym'
   284 |     is_got_10=(op_reg&16)&&!(sym->type.t&256);
       |                              ~~~^
-tcc.c.c:867:12: note: forward declaration of 'struct Sym'
-  867 |     struct Sym* sym_define;
+tcc.c.c:857:12: note: forward declaration of 'struct Sym'
+  857 |     struct Sym* sym_define;
       |            ^
 x86_64-gen.c:301:79: error: incomplete definition of type 'struct Sym'
   301 |     if(_if_conditional11=(fr_16&255)==240&&(fr_16&512)&&(fr_16&256)&&!(sv->sym->type.t&256),    _if_conditional11) {
       |                                                                        ~~~~~~~^
-tcc.c.c:867:12: note: forward declaration of 'struct Sym'
-  867 |     struct Sym* sym_define;
+tcc.c.c:857:12: note: forward declaration of 'struct Sym'
+  857 |     struct Sym* sym_define;
       |            ^
 x86_64-gen.c:356:49: error: incomplete definition of type 'struct Sym'
   356 |                     if(_if_conditional19=sv->sym->type.t&256,                    _if_conditional19) {
       |                                          ~~~~~~~^
-tcc.c.c:867:12: note: forward declaration of 'struct Sym'
-  867 |     struct Sym* sym_define;
+tcc.c.c:857:12: note: forward declaration of 'struct Sym'
+  857 |     struct Sym* sym_define;
       |            ^
 x86_64-gen.c:424:7: warning: unused variable '_if_conditional25' [-Wunused-variable]
   424 | _Bool _if_conditional25;
@@ -299,46 +212,73 @@ x86_64-gen.c:425:7: warning: unused variable '_if_conditional26' [-Wunused-varia
   425 | _Bool _if_conditional26;
       |       ^~~~~~~~~~~~~~~~~
 x86_64-gen.c:667:61: error: incomplete definition of type 'struct Sym'
-  667 |     func_call_31=(((struct anonymous_typeX107*)&(func_sym_32->r))->func_call);
+  667 |     func_call_31=(((struct anonymous_typeX105*)&(func_sym_32->r))->func_call);
       |                                                  ~~~~~~~~~~~^
-tcc.c.c:867:12: note: forward declaration of 'struct Sym'
-  867 |     struct Sym* sym_define;
+tcc.c.c:857:12: note: forward declaration of 'struct Sym'
+  857 |     struct Sym* sym_define;
       |            ^
 x86_64-gen.c:699:56: error: incomplete definition of type 'struct Sym'
-  699 |     func_call_47=(((struct anonymous_typeX107*)&(sym_52->r))->func_call);
+  699 |     func_call_47=(((struct anonymous_typeX105*)&(sym_52->r))->func_call);
       |                                                  ~~~~~~^
-tcc.c.c:867:12: note: forward declaration of 'struct Sym'
-  867 |     struct Sym* sym_define;
+tcc.c.c:857:12: note: forward declaration of 'struct Sym'
+  857 |     struct Sym* sym_define;
       |            ^
 x86_64-gen.c:705:40: error: incomplete definition of type 'struct Sym'
   705 |     if(_if_conditional46=func_type->ref->c==3,    _if_conditional46) {
       |                          ~~~~~~~~~~~~~~^
-tcc.c.c:867:12: note: forward declaration of 'struct Sym'
-  867 |     struct Sym* sym_define;
+tcc.c.c:857:12: note: forward declaration of 'struct Sym'
+  857 |     struct Sym* sym_define;
       |            ^
 x86_64-gen.c:735:48: error: incomplete definition of type 'struct Sym'
   735 |         while(_while_condtional1=(sym_52=sym_52->next)!=((void*)0),        _while_condtional1) {
       |                                          ~~~~~~^
-tcc.c.c:867:12: note: forward declaration of 'struct Sym'
-  867 |     struct Sym* sym_define;
+tcc.c.c:857:12: note: forward declaration of 'struct Sym'
+  857 |     struct Sym* sym_define;
       |            ^
 x86_64-gen.c:713:28: error: incomplete definition of type 'struct Sym'
   713 |             type_53=&sym_52->type;
       |                      ~~~~~~^
-tcc.c.c:867:12: note: forward declaration of 'struct Sym'
-  867 |     struct Sym* sym_define;
+tcc.c.c:857:12: note: forward declaration of 'struct Sym'
+  857 |     struct Sym* sym_define;
       |            ^
 x86_64-gen.c:768:19: error: incomplete definition of type 'struct Sym'
   768 |     func_vt=sym_52->type;
       |             ~~~~~~^
-tcc.c.c:867:12: note: forward declaration of 'struct Sym'
-  867 |     struct Sym* sym_define;
+tcc.c.c:857:12: note: forward declaration of 'struct Sym'
+  857 |     struct Sym* sym_define;
       |            ^
 x86_64-gen.c:813:44: error: incomplete definition of type 'struct Sym'
   813 |     while(_while_condtional2=(sym_52=sym_52->next)!=((void*)0),    _while_condtional2) {
       |                                      ~~~~~~^
-tcc.c.c:867:12: note: forward declaration of 'struct Sym'
-  867 |     struct Sym* sym_define;
+tcc.c.c:857:12: note: forward declaration of 'struct Sym'
+  857 |     struct Sym* sym_define;
       |            ^
+x86_64-gen.c:779:24: error: incomplete definition of type 'struct Sym'
+  779 |         type_53=&sym_52->type;
+      |                  ~~~~~~^
+tcc.c.c:857:12: note: forward declaration of 'struct Sym'
+  857 |     struct Sym* sym_define;
+      |            ^
+x86_64-gen.c:810:24: error: incomplete definition of type 'struct Sym'
+  810 |         sym_push(sym_52->v&~536870912,type_53,242|256,param_addr_49);
+      |                  ~~~~~~^
+tcc.c.c:857:12: note: forward declaration of 'struct Sym'
+  857 |     struct Sym* sym_define;
+      |            ^
+x86_64-gen.c:1096:7: warning: unused variable '_if_conditional81' [-Wunused-variable]
+ 1096 | _Bool _if_conditional81;
+      |       ^~~~~~~~~~~~~~~~~
+x86_64-gen.c:1100:7: warning: unused variable '_if_conditional83' [-Wunused-variable]
+ 1100 | _Bool _if_conditional83;
+      |       ^~~~~~~~~~~~~~~~~
+x86_64-gen.c:1101:7: warning: unused variable '_if_conditional84' [-Wunused-variable]
+ 1101 | _Bool _if_conditional84;
+      |       ^~~~~~~~~~~~~~~~~
+x86_64-gen.c:1108:7: warning: unused variable '_if_conditional90' [-Wunused-variable]
+ 1108 | _Bool _if_conditional90;
+      |       ^~~~~~~~~~~~~~~~~
+x86_64-gen.c:1115:7: warning: unused variable '_if_conditional96' [-Wunused-variable]
+ 1115 | _Bool _if_conditional96;
+      |       ^~~~~~~~~~~~~~~~~
 fatal error: too many errors emitted, stopping now [-ferror-limit=]
-79 warnings and 20 errors generated.
+57 warnings and 20 errors generated.

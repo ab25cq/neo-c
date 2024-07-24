@@ -618,6 +618,7 @@ struct sInfo
     struct map$2charphcharph* module_params;
     _Bool constructor_;
     struct sClass* defining_class;
+    _Bool array_initializer;
 };
 struct tuple2$2sTypephcharph
 {
@@ -1764,6 +1765,8 @@ char* create_method_name_using_class(struct sClass* obj_class, _Bool no_pointer_
 struct sNode* expression_node_v96(struct sInfo* info);
 
 struct sNode* parse_tuple(struct sInfo* info);
+
+struct sNode* parse_array_initializer(struct sInfo* info);
 
 struct sNode* parse_global_variable(struct sInfo* info);
 

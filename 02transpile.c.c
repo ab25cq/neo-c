@@ -618,6 +618,7 @@ struct sInfo
     struct map$2charphcharph* module_params;
     _Bool constructor_;
     struct sClass* defining_class;
+    _Bool array_initializer;
 };
 struct tuple2$2sTypephcharph
 {
@@ -1934,6 +1935,8 @@ struct sNode* expression_node_v96(struct sInfo* info);
 
 struct sNode* parse_tuple(struct sInfo* info);
 
+struct sNode* parse_array_initializer(struct sInfo* info);
+
 struct sNode* parse_global_variable(struct sInfo* info);
 
 struct sNode* store_var(char* name, struct list$1charph* multiple_assign, struct sType* type, _Bool alloc, struct sNode* right_node, struct sInfo* info);
@@ -2038,77 +2041,77 @@ struct sNode* top_level_v92(char* buf, char* head, int head_sline, struct sInfo*
 
 struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo* info);
 
-int pipe(int anonymous_var_nameX558[2]);
+int pipe(int anonymous_var_nameX519[2]);
 
-int pipe2(int anonymous_var_nameX559[2], int anonymous_var_nameX560);
+int pipe2(int anonymous_var_nameX520[2], int anonymous_var_nameX521);
 
-int close(int anonymous_var_nameX561);
+int close(int anonymous_var_nameX522);
 
-int posix_close(int anonymous_var_nameX562, int anonymous_var_nameX563);
+int posix_close(int anonymous_var_nameX523, int anonymous_var_nameX524);
 
-int dup(int anonymous_var_nameX564);
+int dup(int anonymous_var_nameX525);
 
-int dup2(int anonymous_var_nameX565, int anonymous_var_nameX566);
+int dup2(int anonymous_var_nameX526, int anonymous_var_nameX527);
 
-int dup3(int anonymous_var_nameX567, int anonymous_var_nameX568, int anonymous_var_nameX569);
+int dup3(int anonymous_var_nameX528, int anonymous_var_nameX529, int anonymous_var_nameX530);
 
-long lseek(int anonymous_var_nameX570, long anonymous_var_nameX571, int anonymous_var_nameX572);
+long lseek(int anonymous_var_nameX531, long anonymous_var_nameX532, int anonymous_var_nameX533);
 
-int fsync(int anonymous_var_nameX573);
+int fsync(int anonymous_var_nameX534);
 
-int fdatasync(int anonymous_var_nameX574);
+int fdatasync(int anonymous_var_nameX535);
 
-long read(int anonymous_var_nameX575, void* anonymous_var_nameX576, unsigned long int anonymous_var_nameX577);
+long read(int anonymous_var_nameX536, void* anonymous_var_nameX537, unsigned long int anonymous_var_nameX538);
 
-long write(int anonymous_var_nameX578, const void* anonymous_var_nameX579, unsigned long int anonymous_var_nameX580);
+long write(int anonymous_var_nameX539, const void* anonymous_var_nameX540, unsigned long int anonymous_var_nameX541);
 
-long pread(int anonymous_var_nameX581, void* anonymous_var_nameX582, unsigned long int anonymous_var_nameX583, long anonymous_var_nameX584);
+long pread(int anonymous_var_nameX542, void* anonymous_var_nameX543, unsigned long int anonymous_var_nameX544, long anonymous_var_nameX545);
 
-long pwrite(int anonymous_var_nameX585, const void* anonymous_var_nameX586, unsigned long int anonymous_var_nameX587, long anonymous_var_nameX588);
+long pwrite(int anonymous_var_nameX546, const void* anonymous_var_nameX547, unsigned long int anonymous_var_nameX548, long anonymous_var_nameX549);
 
-int chown(const char* anonymous_var_nameX589, unsigned int anonymous_var_nameX590, unsigned int anonymous_var_nameX591);
+int chown(const char* anonymous_var_nameX550, unsigned int anonymous_var_nameX551, unsigned int anonymous_var_nameX552);
 
-int fchown(int anonymous_var_nameX592, unsigned int anonymous_var_nameX593, unsigned int anonymous_var_nameX594);
+int fchown(int anonymous_var_nameX553, unsigned int anonymous_var_nameX554, unsigned int anonymous_var_nameX555);
 
-int lchown(const char* anonymous_var_nameX595, unsigned int anonymous_var_nameX596, unsigned int anonymous_var_nameX597);
+int lchown(const char* anonymous_var_nameX556, unsigned int anonymous_var_nameX557, unsigned int anonymous_var_nameX558);
 
-int fchownat(int anonymous_var_nameX598, const char* anonymous_var_nameX599, unsigned int anonymous_var_nameX600, unsigned int anonymous_var_nameX601, int anonymous_var_nameX602);
+int fchownat(int anonymous_var_nameX559, const char* anonymous_var_nameX560, unsigned int anonymous_var_nameX561, unsigned int anonymous_var_nameX562, int anonymous_var_nameX563);
 
-int link(const char* anonymous_var_nameX603, const char* anonymous_var_nameX604);
+int link(const char* anonymous_var_nameX564, const char* anonymous_var_nameX565);
 
-int linkat(int anonymous_var_nameX605, const char* anonymous_var_nameX606, int anonymous_var_nameX607, const char* anonymous_var_nameX608, int anonymous_var_nameX609);
+int linkat(int anonymous_var_nameX566, const char* anonymous_var_nameX567, int anonymous_var_nameX568, const char* anonymous_var_nameX569, int anonymous_var_nameX570);
 
-int symlink(const char* anonymous_var_nameX610, const char* anonymous_var_nameX611);
+int symlink(const char* anonymous_var_nameX571, const char* anonymous_var_nameX572);
 
-int symlinkat(const char* anonymous_var_nameX612, int anonymous_var_nameX613, const char* anonymous_var_nameX614);
+int symlinkat(const char* anonymous_var_nameX573, int anonymous_var_nameX574, const char* anonymous_var_nameX575);
 
-long readlink(const char* anonymous_var_nameX615, char* anonymous_var_nameX616, unsigned long int anonymous_var_nameX617);
+long readlink(const char* anonymous_var_nameX576, char* anonymous_var_nameX577, unsigned long int anonymous_var_nameX578);
 
-long readlinkat(int anonymous_var_nameX618, const char* anonymous_var_nameX619, char* anonymous_var_nameX620, unsigned long int anonymous_var_nameX621);
+long readlinkat(int anonymous_var_nameX579, const char* anonymous_var_nameX580, char* anonymous_var_nameX581, unsigned long int anonymous_var_nameX582);
 
-int unlink(const char* anonymous_var_nameX622);
+int unlink(const char* anonymous_var_nameX583);
 
-int unlinkat(int anonymous_var_nameX623, const char* anonymous_var_nameX624, int anonymous_var_nameX625);
+int unlinkat(int anonymous_var_nameX584, const char* anonymous_var_nameX585, int anonymous_var_nameX586);
 
-int rmdir(const char* anonymous_var_nameX626);
+int rmdir(const char* anonymous_var_nameX587);
 
-int truncate(const char* anonymous_var_nameX627, long anonymous_var_nameX628);
+int truncate(const char* anonymous_var_nameX588, long anonymous_var_nameX589);
 
-int ftruncate(int anonymous_var_nameX629, long anonymous_var_nameX630);
+int ftruncate(int anonymous_var_nameX590, long anonymous_var_nameX591);
 
-int access(const char* anonymous_var_nameX631, int anonymous_var_nameX632);
+int access(const char* anonymous_var_nameX592, int anonymous_var_nameX593);
 
-int faccessat(int anonymous_var_nameX633, const char* anonymous_var_nameX634, int anonymous_var_nameX635, int anonymous_var_nameX636);
+int faccessat(int anonymous_var_nameX594, const char* anonymous_var_nameX595, int anonymous_var_nameX596, int anonymous_var_nameX597);
 
-int chdir(const char* anonymous_var_nameX637);
+int chdir(const char* anonymous_var_nameX598);
 
-int fchdir(int anonymous_var_nameX638);
+int fchdir(int anonymous_var_nameX599);
 
-char* getcwd(char* anonymous_var_nameX639, unsigned long int anonymous_var_nameX640);
+char* getcwd(char* anonymous_var_nameX600, unsigned long int anonymous_var_nameX601);
 
-unsigned int alarm(unsigned int anonymous_var_nameX641);
+unsigned int alarm(unsigned int anonymous_var_nameX602);
 
-unsigned int sleep(unsigned int anonymous_var_nameX642);
+unsigned int sleep(unsigned int anonymous_var_nameX603);
 
 int pause();
 
@@ -2116,21 +2119,21 @@ int fork();
 
 int _Fork();
 
-int execve(const char* anonymous_var_nameX643, char** anonymous_var_nameX644, char** anonymous_var_nameX645);
+int execve(const char* anonymous_var_nameX604, char* anonymous_var_nameX605[], char* anonymous_var_nameX606[]);
 
-int execv(const char* anonymous_var_nameX646, char** anonymous_var_nameX647);
+int execv(const char* anonymous_var_nameX607, char* anonymous_var_nameX608[]);
 
-int execle(const char* anonymous_var_nameX648, const char* anonymous_var_nameX649, ...);
+int execle(const char* anonymous_var_nameX609, const char* anonymous_var_nameX610, ...);
 
-int execl(const char* anonymous_var_nameX650, const char* anonymous_var_nameX651, ...);
+int execl(const char* anonymous_var_nameX611, const char* anonymous_var_nameX612, ...);
 
-int execvp(const char* anonymous_var_nameX652, char** anonymous_var_nameX653);
+int execvp(const char* anonymous_var_nameX613, char* anonymous_var_nameX614[]);
 
-int execlp(const char* anonymous_var_nameX654, const char* anonymous_var_nameX655, ...);
+int execlp(const char* anonymous_var_nameX615, const char* anonymous_var_nameX616, ...);
 
-int fexecve(int anonymous_var_nameX656, char** anonymous_var_nameX657, char** anonymous_var_nameX658);
+int fexecve(int anonymous_var_nameX617, char* anonymous_var_nameX618[], char* anonymous_var_nameX619[]);
 
-void _exit(int anonymous_var_nameX659);
+void _exit(int anonymous_var_nameX620);
 
 int getpid();
 
@@ -2138,23 +2141,23 @@ int getppid();
 
 int getpgrp();
 
-int getpgid(int anonymous_var_nameX660);
+int getpgid(int anonymous_var_nameX621);
 
-int setpgid(int anonymous_var_nameX661, int anonymous_var_nameX662);
+int setpgid(int anonymous_var_nameX622, int anonymous_var_nameX623);
 
 int setsid();
 
-int getsid(int anonymous_var_nameX663);
+int getsid(int anonymous_var_nameX624);
 
-char* ttyname(int anonymous_var_nameX664);
+char* ttyname(int anonymous_var_nameX625);
 
-int ttyname_r(int anonymous_var_nameX665, char* anonymous_var_nameX666, unsigned long int anonymous_var_nameX667);
+int ttyname_r(int anonymous_var_nameX626, char* anonymous_var_nameX627, unsigned long int anonymous_var_nameX628);
 
-int isatty(int anonymous_var_nameX668);
+int isatty(int anonymous_var_nameX629);
 
-int tcgetpgrp(int anonymous_var_nameX669);
+int tcgetpgrp(int anonymous_var_nameX630);
 
-int tcsetpgrp(int anonymous_var_nameX670, int anonymous_var_nameX671);
+int tcsetpgrp(int anonymous_var_nameX631, int anonymous_var_nameX632);
 
 unsigned int getuid();
 
@@ -2164,83 +2167,83 @@ unsigned int getgid();
 
 unsigned int getegid();
 
-int getgroups(int anonymous_var_nameX672, unsigned int* anonymous_var_nameX673);
+int getgroups(int anonymous_var_nameX633, unsigned int anonymous_var_nameX634[]);
 
-int setuid(unsigned int anonymous_var_nameX674);
+int setuid(unsigned int anonymous_var_nameX635);
 
-int seteuid(unsigned int anonymous_var_nameX675);
+int seteuid(unsigned int anonymous_var_nameX636);
 
-int setgid(unsigned int anonymous_var_nameX676);
+int setgid(unsigned int anonymous_var_nameX637);
 
-int setegid(unsigned int anonymous_var_nameX677);
+int setegid(unsigned int anonymous_var_nameX638);
 
 char* getlogin();
 
-int getlogin_r(char* anonymous_var_nameX678, unsigned long int anonymous_var_nameX679);
+int getlogin_r(char* anonymous_var_nameX639, unsigned long int anonymous_var_nameX640);
 
-int gethostname(char* anonymous_var_nameX680, unsigned long int anonymous_var_nameX681);
+int gethostname(char* anonymous_var_nameX641, unsigned long int anonymous_var_nameX642);
 
-char* ctermid(char* anonymous_var_nameX682);
+char* ctermid(char* anonymous_var_nameX643);
 
-int getopt(int anonymous_var_nameX683, char** anonymous_var_nameX684, const char* anonymous_var_nameX685);
+int getopt(int anonymous_var_nameX644, char* anonymous_var_nameX645[], const char* anonymous_var_nameX646);
 
-long pathconf(const char* anonymous_var_nameX686, int anonymous_var_nameX687);
+long pathconf(const char* anonymous_var_nameX647, int anonymous_var_nameX648);
 
-long fpathconf(int anonymous_var_nameX688, int anonymous_var_nameX689);
+long fpathconf(int anonymous_var_nameX649, int anonymous_var_nameX650);
 
-long sysconf(int anonymous_var_nameX690);
+long sysconf(int anonymous_var_nameX651);
 
-unsigned long int confstr(int anonymous_var_nameX691, char* anonymous_var_nameX692, unsigned long int anonymous_var_nameX693);
+unsigned long int confstr(int anonymous_var_nameX652, char* anonymous_var_nameX653, unsigned long int anonymous_var_nameX654);
 
-int setreuid(unsigned int anonymous_var_nameX694, unsigned int anonymous_var_nameX695);
+int setreuid(unsigned int anonymous_var_nameX655, unsigned int anonymous_var_nameX656);
 
-int setregid(unsigned int anonymous_var_nameX696, unsigned int anonymous_var_nameX697);
+int setregid(unsigned int anonymous_var_nameX657, unsigned int anonymous_var_nameX658);
 
-int lockf(int anonymous_var_nameX698, int anonymous_var_nameX699, long anonymous_var_nameX700);
+int lockf(int anonymous_var_nameX659, int anonymous_var_nameX660, long anonymous_var_nameX661);
 
 long gethostid();
 
-int nice(int anonymous_var_nameX701);
+int nice(int anonymous_var_nameX662);
 
 void sync();
 
 int setpgrp();
 
-char* crypt(const char* anonymous_var_nameX702, const char* anonymous_var_nameX703);
+char* crypt(const char* anonymous_var_nameX663, const char* anonymous_var_nameX664);
 
-void encrypt(char* anonymous_var_nameX704, int anonymous_var_nameX705);
+void encrypt(char* anonymous_var_nameX665, int anonymous_var_nameX666);
 
-void swab(const void* anonymous_var_nameX706, void* anonymous_var_nameX707, long anonymous_var_nameX708);
+void swab(const void* anonymous_var_nameX667, void* anonymous_var_nameX668, long anonymous_var_nameX669);
 
-int usleep(unsigned int anonymous_var_nameX709);
+int usleep(unsigned int anonymous_var_nameX670);
 
-unsigned int ualarm(unsigned int anonymous_var_nameX710, unsigned int anonymous_var_nameX711);
+unsigned int ualarm(unsigned int anonymous_var_nameX671, unsigned int anonymous_var_nameX672);
 
-int brk(void* anonymous_var_nameX712);
+int brk(void* anonymous_var_nameX673);
 
-void* sbrk(long anonymous_var_nameX713);
+void* sbrk(long anonymous_var_nameX674);
 
 int vfork();
 
 int vhangup();
 
-int chroot(const char* anonymous_var_nameX714);
+int chroot(const char* anonymous_var_nameX675);
 
 int getpagesize();
 
 int getdtablesize();
 
-int sethostname(const char* anonymous_var_nameX715, unsigned long int anonymous_var_nameX716);
+int sethostname(const char* anonymous_var_nameX676, unsigned long int anonymous_var_nameX677);
 
-int getdomainname(char* anonymous_var_nameX717, unsigned long int anonymous_var_nameX718);
+int getdomainname(char* anonymous_var_nameX678, unsigned long int anonymous_var_nameX679);
 
-int setdomainname(const char* anonymous_var_nameX719, unsigned long int anonymous_var_nameX720);
+int setdomainname(const char* anonymous_var_nameX680, unsigned long int anonymous_var_nameX681);
 
-int setgroups(unsigned long int anonymous_var_nameX721, const unsigned int* anonymous_var_nameX722);
+int setgroups(unsigned long int anonymous_var_nameX682, const unsigned int* anonymous_var_nameX683);
 
-char* getpass(const char* anonymous_var_nameX723);
+char* getpass(const char* anonymous_var_nameX684);
 
-int daemon(int anonymous_var_nameX724, int anonymous_var_nameX725);
+int daemon(int anonymous_var_nameX685, int anonymous_var_nameX686);
 
 void setusershell();
 
@@ -2248,73 +2251,73 @@ void endusershell();
 
 char* getusershell();
 
-int acct(const char* anonymous_var_nameX726);
+int acct(const char* anonymous_var_nameX687);
 
-long syscall(long anonymous_var_nameX727, ...);
+long syscall(long anonymous_var_nameX688, ...);
 
-int execvpe(const char* anonymous_var_nameX728, char** anonymous_var_nameX729, char** anonymous_var_nameX730);
+int execvpe(const char* anonymous_var_nameX689, char* anonymous_var_nameX690[], char* anonymous_var_nameX691[]);
 
 int issetugid();
 
-int getentropy(void* anonymous_var_nameX731, unsigned long int anonymous_var_nameX732);
+int getentropy(void* anonymous_var_nameX692, unsigned long int anonymous_var_nameX693);
 
-int setresuid(unsigned int anonymous_var_nameX733, unsigned int anonymous_var_nameX734, unsigned int anonymous_var_nameX735);
+int setresuid(unsigned int anonymous_var_nameX694, unsigned int anonymous_var_nameX695, unsigned int anonymous_var_nameX696);
 
-int setresgid(unsigned int anonymous_var_nameX736, unsigned int anonymous_var_nameX737, unsigned int anonymous_var_nameX738);
+int setresgid(unsigned int anonymous_var_nameX697, unsigned int anonymous_var_nameX698, unsigned int anonymous_var_nameX699);
 
-int getresuid(unsigned int* anonymous_var_nameX739, unsigned int* anonymous_var_nameX740, unsigned int* anonymous_var_nameX741);
+int getresuid(unsigned int* anonymous_var_nameX700, unsigned int* anonymous_var_nameX701, unsigned int* anonymous_var_nameX702);
 
-int getresgid(unsigned int* anonymous_var_nameX742, unsigned int* anonymous_var_nameX743, unsigned int* anonymous_var_nameX744);
+int getresgid(unsigned int* anonymous_var_nameX703, unsigned int* anonymous_var_nameX704, unsigned int* anonymous_var_nameX705);
 
 char* get_current_dir_name();
 
-int syncfs(int anonymous_var_nameX745);
+int syncfs(int anonymous_var_nameX706);
 
-int euidaccess(const char* anonymous_var_nameX746, int anonymous_var_nameX747);
+int euidaccess(const char* anonymous_var_nameX707, int anonymous_var_nameX708);
 
-int eaccess(const char* anonymous_var_nameX748, int anonymous_var_nameX749);
+int eaccess(const char* anonymous_var_nameX709, int anonymous_var_nameX710);
 
-long copy_file_range(int anonymous_var_nameX750, long* anonymous_var_nameX751, int anonymous_var_nameX752, long* anonymous_var_nameX753, unsigned long int anonymous_var_nameX754, unsigned int anonymous_var_nameX755);
+long copy_file_range(int anonymous_var_nameX711, long* anonymous_var_nameX712, int anonymous_var_nameX713, long* anonymous_var_nameX714, unsigned long int anonymous_var_nameX715, unsigned int anonymous_var_nameX716);
 
 int gettid();
 
-int select(int anonymous_var_nameX756, struct anonymous_typeX23* anonymous_var_nameX757, struct anonymous_typeX23* anonymous_var_nameX758, struct anonymous_typeX23* anonymous_var_nameX759, struct timeval* anonymous_var_nameX760);
+int select(int anonymous_var_nameX717, struct anonymous_typeX23* anonymous_var_nameX718, struct anonymous_typeX23* anonymous_var_nameX719, struct anonymous_typeX23* anonymous_var_nameX720, struct timeval* anonymous_var_nameX721);
 
-int pselect(int anonymous_var_nameX761, struct anonymous_typeX23* anonymous_var_nameX762, struct anonymous_typeX23* anonymous_var_nameX763, struct anonymous_typeX23* anonymous_var_nameX764, const struct timespec* anonymous_var_nameX765, const struct __sigset_t* anonymous_var_nameX766);
+int pselect(int anonymous_var_nameX722, struct anonymous_typeX23* anonymous_var_nameX723, struct anonymous_typeX23* anonymous_var_nameX724, struct anonymous_typeX23* anonymous_var_nameX725, const struct timespec* anonymous_var_nameX726, const struct __sigset_t* anonymous_var_nameX727);
 
-int stat(const char* anonymous_var_nameX767, struct stat* anonymous_var_nameX768);
+int stat(const char* anonymous_var_nameX728, struct stat* anonymous_var_nameX729);
 
-int fstat(int anonymous_var_nameX769, struct stat* anonymous_var_nameX770);
+int fstat(int anonymous_var_nameX730, struct stat* anonymous_var_nameX731);
 
-int lstat(const char* anonymous_var_nameX771, struct stat* anonymous_var_nameX772);
+int lstat(const char* anonymous_var_nameX732, struct stat* anonymous_var_nameX733);
 
-int fstatat(int anonymous_var_nameX773, const char* anonymous_var_nameX774, struct stat* anonymous_var_nameX775, int anonymous_var_nameX776);
+int fstatat(int anonymous_var_nameX734, const char* anonymous_var_nameX735, struct stat* anonymous_var_nameX736, int anonymous_var_nameX737);
 
-int chmod(const char* anonymous_var_nameX777, unsigned int anonymous_var_nameX778);
+int chmod(const char* anonymous_var_nameX738, unsigned int anonymous_var_nameX739);
 
-int fchmod(int anonymous_var_nameX779, unsigned int anonymous_var_nameX780);
+int fchmod(int anonymous_var_nameX740, unsigned int anonymous_var_nameX741);
 
-int fchmodat(int anonymous_var_nameX781, const char* anonymous_var_nameX782, unsigned int anonymous_var_nameX783, int anonymous_var_nameX784);
+int fchmodat(int anonymous_var_nameX742, const char* anonymous_var_nameX743, unsigned int anonymous_var_nameX744, int anonymous_var_nameX745);
 
-unsigned int umask(unsigned int anonymous_var_nameX785);
+unsigned int umask(unsigned int anonymous_var_nameX746);
 
-int mkdir(const char* anonymous_var_nameX786, unsigned int anonymous_var_nameX787);
+int mkdir(const char* anonymous_var_nameX747, unsigned int anonymous_var_nameX748);
 
-int mkfifo(const char* anonymous_var_nameX788, unsigned int anonymous_var_nameX789);
+int mkfifo(const char* anonymous_var_nameX749, unsigned int anonymous_var_nameX750);
 
-int mkdirat(int anonymous_var_nameX790, const char* anonymous_var_nameX791, unsigned int anonymous_var_nameX792);
+int mkdirat(int anonymous_var_nameX751, const char* anonymous_var_nameX752, unsigned int anonymous_var_nameX753);
 
-int mkfifoat(int anonymous_var_nameX793, const char* anonymous_var_nameX794, unsigned int anonymous_var_nameX795);
+int mkfifoat(int anonymous_var_nameX754, const char* anonymous_var_nameX755, unsigned int anonymous_var_nameX756);
 
-int mknod(const char* anonymous_var_nameX796, unsigned int anonymous_var_nameX797, unsigned long int anonymous_var_nameX798);
+int mknod(const char* anonymous_var_nameX757, unsigned int anonymous_var_nameX758, unsigned long int anonymous_var_nameX759);
 
-int mknodat(int anonymous_var_nameX799, const char* anonymous_var_nameX800, unsigned int anonymous_var_nameX801, unsigned long int anonymous_var_nameX802);
+int mknodat(int anonymous_var_nameX760, const char* anonymous_var_nameX761, unsigned int anonymous_var_nameX762, unsigned long int anonymous_var_nameX763);
 
-int futimens(int anonymous_var_nameX803, const struct timespec anonymous_var_nameX804[2]);
+int futimens(int anonymous_var_nameX764, const struct timespec anonymous_var_nameX765[2]);
 
-int utimensat(int anonymous_var_nameX805, const char* anonymous_var_nameX806, const struct timespec anonymous_var_nameX807[2], int anonymous_var_nameX808);
+int utimensat(int anonymous_var_nameX766, const char* anonymous_var_nameX767, const struct timespec anonymous_var_nameX768[2], int anonymous_var_nameX769);
 
-int lchmod(const char* anonymous_var_nameX809, unsigned int anonymous_var_nameX810);
+int lchmod(const char* anonymous_var_nameX770, unsigned int anonymous_var_nameX771);
 
 int* __errno_location();
 

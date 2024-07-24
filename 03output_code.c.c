@@ -618,6 +618,7 @@ struct sInfo
     struct map$2charphcharph* module_params;
     _Bool constructor_;
     struct sClass* defining_class;
+    _Bool array_initializer;
 };
 struct tuple2$2sTypephcharph
 {
@@ -1690,6 +1691,8 @@ char* create_method_name_using_class(struct sClass* obj_class, _Bool no_pointer_
 struct sNode* expression_node_v96(struct sInfo* info);
 
 struct sNode* parse_tuple(struct sInfo* info);
+
+struct sNode* parse_array_initializer(struct sInfo* info);
 
 struct sNode* parse_global_variable(struct sInfo* info);
 
@@ -3947,7 +3950,7 @@ right_value164 = (void*)0;
     come_call_finalizer3(right_value108,buffer_finalize, 0, 1, 0, 0, __result_obj__);
     type2_107=(struct sType*)come_increment_ref_count(((struct sType*)(right_value144=sType_clone(type))));
     come_call_finalizer3(right_value144,sType_finalize, 0, 1, 0, 0, __result_obj__);
-    if(type2_107->mNoNumberArray) {
+    if(type2_107->mArrayPointerType) {
         type2_107->mPointerNum--;
     }
     if(_if_conditional164=string_operator_equals(type2_107->mClass->mName,"lambda")&&type2_107->mAsmName!=((void*)0)&&string_operator_not_equals(type2_107->mAsmName,""),    _if_conditional164) {
@@ -4039,7 +4042,7 @@ right_value164 = (void*)0;
                             come_call_finalizer3(cvalue_120,CVALUE_finalize, 0, 0, 0, 0, (void*)0);
                         }
                         come_call_finalizer3(o2_saved_114,list$1sNodephp_finalize, 0, 0, 0, 0, (void*)0);
-                        if(type2_107->mNoNumberArray) {
+                        if(type2_107->mArrayPointerType) {
                             buffer_append_str(buf_82,"[]");
                         }
                         if(_if_conditional181=type2_107->mAsmName!=((void*)0)&&string_operator_not_equals(type2_107->mAsmName,""),                        _if_conditional181) {
@@ -4068,7 +4071,7 @@ right_value164 = (void*)0;
                         if(_if_conditional184=type2_107->mNoArrayPointerNum>0,                        _if_conditional184) {
                             buffer_append_str(buf_82,")");
                         }
-                        if(type2_107->mNoNumberArray) {
+                        if(type2_107->mArrayPointerType) {
                             buffer_append_str(buf_82,"[]");
                         }
                         if(_if_conditional186=type2_107->mAsmName!=((void*)0)&&string_operator_not_equals(type2_107->mAsmName,""),                        _if_conditional186) {

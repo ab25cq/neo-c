@@ -618,6 +618,7 @@ struct sInfo
     struct map$2charphcharph* module_params;
     _Bool constructor_;
     struct sClass* defining_class;
+    _Bool array_initializer;
 };
 struct tuple2$2sTypephcharph
 {
@@ -1800,6 +1801,8 @@ char* create_method_name_using_class(struct sClass* obj_class, _Bool no_pointer_
 struct sNode* expression_node_v96(struct sInfo* info);
 
 struct sNode* parse_tuple(struct sInfo* info);
+
+struct sNode* parse_array_initializer(struct sInfo* info);
 
 struct sNode* parse_global_variable(struct sInfo* info);
 
@@ -5070,24 +5073,12 @@ memset(&index_121, 0, sizeof(int));
 memset(&child_field_name_122, 0, sizeof(char*));
 memset(&o2_saved_123, 0, sizeof(struct list$1tuple2$2charphsTypephph*));
 memset(&field_126, 0, sizeof(struct tuple2$2charphsTypeph*));
-memset(&field_name_129, 0, sizeof(char*));
-memset(&field_type2_130, 0, sizeof(struct sType*));
-memset(&field_name_129, 0, sizeof(char*));
-memset(&field_type2_130, 0, sizeof(struct sType*));
 right_value162 = (void*)0;
 memset(&o2_saved_131, 0, sizeof(struct list$1tuple2$2charphsTypephph*));
 memset(&field_132, 0, sizeof(struct tuple2$2charphsTypeph*));
-memset(&field_name_133, 0, sizeof(char*));
-memset(&field_type2_134, 0, sizeof(struct sType*));
-memset(&field_name_133, 0, sizeof(char*));
-memset(&field_type2_134, 0, sizeof(struct sType*));
 memset(&klass2_135, 0, sizeof(struct sClass*));
 memset(&o2_saved_136, 0, sizeof(struct list$1tuple2$2charphsTypephph*));
 memset(&field2_137, 0, sizeof(struct tuple2$2charphsTypeph*));
-memset(&field_name2_138, 0, sizeof(char*));
-memset(&field_type3_139, 0, sizeof(struct sType*));
-memset(&field_name2_138, 0, sizeof(char*));
-memset(&field_type3_139, 0, sizeof(struct sType*));
 right_value163 = (void*)0;
 right_value164 = (void*)0;
 right_value165 = (void*)0;
@@ -6345,24 +6336,12 @@ memset(&index_180, 0, sizeof(int));
 memset(&child_field_name_181, 0, sizeof(char*));
 memset(&o2_saved_182, 0, sizeof(struct list$1tuple2$2charphsTypephph*));
 memset(&field_183, 0, sizeof(struct tuple2$2charphsTypeph*));
-memset(&field_name_184, 0, sizeof(char*));
-memset(&field_type2_185, 0, sizeof(struct sType*));
-memset(&field_name_184, 0, sizeof(char*));
-memset(&field_type2_185, 0, sizeof(struct sType*));
 right_value240 = (void*)0;
 memset(&o2_saved_186, 0, sizeof(struct list$1tuple2$2charphsTypephph*));
 memset(&field_187, 0, sizeof(struct tuple2$2charphsTypeph*));
-memset(&field_name_188, 0, sizeof(char*));
-memset(&field_type2_189, 0, sizeof(struct sType*));
-memset(&field_name_188, 0, sizeof(char*));
-memset(&field_type2_189, 0, sizeof(struct sType*));
 memset(&klass2_190, 0, sizeof(struct sClass*));
 memset(&o2_saved_191, 0, sizeof(struct list$1tuple2$2charphsTypephph*));
 memset(&field2_192, 0, sizeof(struct tuple2$2charphsTypeph*));
-memset(&field_name2_193, 0, sizeof(char*));
-memset(&field_type3_194, 0, sizeof(struct sType*));
-memset(&field_name2_193, 0, sizeof(char*));
-memset(&field_type3_194, 0, sizeof(struct sType*));
 right_value241 = (void*)0;
 right_value242 = (void*)0;
 right_value243 = (void*)0;

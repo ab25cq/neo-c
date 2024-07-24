@@ -618,6 +618,7 @@ struct sInfo
     struct map$2charphcharph* module_params;
     _Bool constructor_;
     struct sClass* defining_class;
+    _Bool array_initializer;
 };
 struct tuple2$2sTypephcharph
 {
@@ -1777,6 +1778,8 @@ char* create_method_name_using_class(struct sClass* obj_class, _Bool no_pointer_
 struct sNode* expression_node_v96(struct sInfo* info);
 
 struct sNode* parse_tuple(struct sInfo* info);
+
+struct sNode* parse_array_initializer(struct sInfo* info);
 
 struct sNode* parse_global_variable(struct sInfo* info);
 
@@ -6255,10 +6258,6 @@ memset(&calling_dynamic_method_187, 0, sizeof(_Bool));
 memset(&lambda_type_188, 0, sizeof(struct sType*));
 memset(&o2_saved_189, 0, sizeof(struct list$1tuple2$2charphsTypephph*));
 memset(&it_192, 0, sizeof(struct tuple2$2charphsTypeph*));
-memset(&field_name_195, 0, sizeof(char*));
-memset(&field_type_196, 0, sizeof(struct sType*));
-memset(&field_name_195, 0, sizeof(char*));
-memset(&field_type_196, 0, sizeof(struct sType*));
 right_value178 = (void*)0;
 memset(&result_type_197, 0, sizeof(struct sType*));
 right_value179 = (void*)0;
@@ -6267,10 +6266,6 @@ memset(&come_params_200, 0, sizeof(struct list$1CVALUEph*));
 memset(&i_201, 0, sizeof(int));
 memset(&o2_saved_202, 0, sizeof(struct list$1tuple2$2charphsNodephph*));
 memset(&it_205, 0, sizeof(struct tuple2$2charphsNodeph*));
-memset(&label_208, 0, sizeof(char*));
-memset(&node_209, 0, sizeof(struct sNode*));
-memset(&label_208, 0, sizeof(char*));
-memset(&node_209, 0, sizeof(struct sNode*));
 right_value181 = (void*)0;
 memset(&come_value_210, 0, sizeof(struct CVALUE*));
 right_value182 = (void*)0;
@@ -6333,10 +6328,6 @@ memset(&i_254, 0, sizeof(int));
 memset(&first_param_258, 0, sizeof(_Bool));
 memset(&o2_saved_259, 0, sizeof(struct list$1tuple2$2charphsNodephph*));
 memset(&it_260, 0, sizeof(struct tuple2$2charphsNodeph*));
-memset(&label_261, 0, sizeof(char*));
-memset(&node_262, 0, sizeof(struct sNode*));
-memset(&label_261, 0, sizeof(char*));
-memset(&node_262, 0, sizeof(struct sNode*));
 right_value223 = (void*)0;
 memset(&come_value_263, 0, sizeof(struct CVALUE*));
 memset(&n_264, 0, sizeof(int));
@@ -6348,10 +6339,6 @@ right_value226 = (void*)0;
 memset(&i_273, 0, sizeof(int));
 memset(&o2_saved_274, 0, sizeof(struct list$1tuple2$2charphsNodephph*));
 memset(&it_275, 0, sizeof(struct tuple2$2charphsNodeph*));
-memset(&label_276, 0, sizeof(char*));
-memset(&node_277, 0, sizeof(struct sNode*));
-memset(&label_276, 0, sizeof(char*));
-memset(&node_277, 0, sizeof(struct sNode*));
 right_value227 = (void*)0;
 right_value228 = (void*)0;
 right_value229 = (void*)0;
@@ -8834,12 +8821,6 @@ right_value337 = (void*)0;
 right_value338 = (void*)0;
 memset(&method_generics_types_368, 0, sizeof(struct list$1sTypeph*));
 right_value339 = (void*)0;
-memset(&type_369, 0, sizeof(struct sType*));
-memset(&name_370, 0, sizeof(char*));
-memset(&err_371, 0, sizeof(_Bool));
-memset(&type_369, 0, sizeof(struct sType*));
-memset(&name_370, 0, sizeof(char*));
-memset(&err_371, 0, sizeof(_Bool));
 right_value340 = (void*)0;
 memset(&p_372, 0, sizeof(char*));
 memset(&sline_373, 0, sizeof(int));

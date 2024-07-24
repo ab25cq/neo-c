@@ -362,6 +362,7 @@ struct sInfo
     
     bool constructor_;
     sClass* defining_class;
+    bool array_initializer;
 };
 
 /////////////////////////////////////////////////////////////////////
@@ -511,6 +512,7 @@ sNode*% parse_tuple(sInfo* info);
 /////////////////////////////////////////////////////////////////////
 /// 07var.c
 /////////////////////////////////////////////////////////////////////
+sNode*% parse_array_initializer(sInfo* info=info);
 sNode*% parse_global_variable(sInfo* info);
 sNode*% store_var(string name, list<string>*% multiple_assign, sType*% type, bool alloc, sNode*% right_node, sInfo* info);
 sNode*% load_var(string name, sInfo* info);

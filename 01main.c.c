@@ -618,6 +618,7 @@ struct sInfo
     struct map$2charphcharph* module_params;
     _Bool constructor_;
     struct sClass* defining_class;
+    _Bool array_initializer;
 };
 struct tuple2$2sTypephcharph
 {
@@ -1765,6 +1766,8 @@ struct sNode* expression_node_v96(struct sInfo* info);
 
 struct sNode* parse_tuple(struct sInfo* info);
 
+struct sNode* parse_array_initializer(struct sInfo* info);
+
 struct sNode* parse_global_variable(struct sInfo* info);
 
 struct sNode* store_var(char* name, struct list$1charph* multiple_assign, struct sType* type, _Bool alloc, struct sNode* right_node, struct sInfo* info);
@@ -1869,17 +1872,17 @@ struct sNode* top_level_v92(char* buf, char* head, int head_sline, struct sInfo*
 
 struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo* info);
 
-char* setlocale(int anonymous_var_nameX558, const char* anonymous_var_nameX559);
+char* setlocale(int anonymous_var_nameX519, const char* anonymous_var_nameX520);
 
 struct lconv* localeconv();
 
-struct __locale_struct* duplocale(struct __locale_struct* anonymous_var_nameX560);
+struct __locale_struct* duplocale(struct __locale_struct* anonymous_var_nameX521);
 
-void freelocale(struct __locale_struct* anonymous_var_nameX561);
+void freelocale(struct __locale_struct* anonymous_var_nameX522);
 
-struct __locale_struct* newlocale(int anonymous_var_nameX562, const char* anonymous_var_nameX563, struct __locale_struct* anonymous_var_nameX564);
+struct __locale_struct* newlocale(int anonymous_var_nameX523, const char* anonymous_var_nameX524, struct __locale_struct* anonymous_var_nameX525);
 
-struct __locale_struct* uselocale(struct __locale_struct* anonymous_var_nameX565);
+struct __locale_struct* uselocale(struct __locale_struct* anonymous_var_nameX526);
 
 int come_main_v1(int argc, char** argv);
 

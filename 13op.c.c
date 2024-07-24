@@ -618,6 +618,7 @@ struct sInfo
     struct map$2charphcharph* module_params;
     _Bool constructor_;
     struct sClass* defining_class;
+    _Bool array_initializer;
 };
 struct tuple2$2sTypephcharph
 {
@@ -1923,6 +1924,8 @@ char* create_method_name_using_class(struct sClass* obj_class, _Bool no_pointer_
 struct sNode* expression_node_v96(struct sInfo* info);
 
 struct sNode* parse_tuple(struct sInfo* info);
+
+struct sNode* parse_array_initializer(struct sInfo* info);
 
 struct sNode* parse_global_variable(struct sInfo* info);
 
@@ -3625,25 +3628,9 @@ memset(&fun_name3_84, 0, sizeof(char*));
 memset(&generics_fun_87, 0, sizeof(struct sGenericsFun*));
 right_value119 = (void*)0;
 right_value120 = (void*)0;
-memset(&fun_91, 0, sizeof(struct sFun*));
-memset(&fun_name_92, 0, sizeof(char*));
-memset(&fun_91, 0, sizeof(struct sFun*));
-memset(&fun_name_92, 0, sizeof(char*));
 right_value121 = (void*)0;
-memset(&fun2_93, 0, sizeof(struct sFun*));
-memset(&fun_name2_94, 0, sizeof(char*));
-memset(&fun2_93, 0, sizeof(struct sFun*));
-memset(&fun_name2_94, 0, sizeof(char*));
 right_value122 = (void*)0;
-memset(&fun_95, 0, sizeof(struct sFun*));
-memset(&fun_name_96, 0, sizeof(char*));
-memset(&fun_95, 0, sizeof(struct sFun*));
-memset(&fun_name_96, 0, sizeof(char*));
 right_value123 = (void*)0;
-memset(&fun2_97, 0, sizeof(struct sFun*));
-memset(&fun_name2_98, 0, sizeof(char*));
-memset(&fun2_97, 0, sizeof(struct sFun*));
-memset(&fun_name2_98, 0, sizeof(char*));
 right_value124 = (void*)0;
 memset(&i_99, 0, sizeof(int));
 right_value125 = (void*)0;

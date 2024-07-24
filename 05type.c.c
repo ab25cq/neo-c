@@ -618,6 +618,7 @@ struct sInfo
     struct map$2charphcharph* module_params;
     _Bool constructor_;
     struct sClass* defining_class;
+    _Bool array_initializer;
 };
 struct tuple2$2sTypephcharph
 {
@@ -1725,6 +1726,8 @@ char* create_method_name_using_class(struct sClass* obj_class, _Bool no_pointer_
 struct sNode* expression_node_v96(struct sInfo* info);
 
 struct sNode* parse_tuple(struct sInfo* info);
+
+struct sNode* parse_array_initializer(struct sInfo* info);
 
 struct sNode* parse_global_variable(struct sInfo* info);
 
@@ -3822,12 +3825,6 @@ memset(&void_param_102, 0, sizeof(_Bool));
 memset(&p_103, 0, sizeof(char*));
 memset(&sline_104, 0, sizeof(int));
 right_value135 = (void*)0;
-memset(&param_type_105, 0, sizeof(struct sType*));
-memset(&param_name_106, 0, sizeof(char*));
-memset(&err_107, 0, sizeof(_Bool));
-memset(&param_type_105, 0, sizeof(struct sType*));
-memset(&param_name_106, 0, sizeof(char*));
-memset(&err_107, 0, sizeof(_Bool));
 right_value136 = (void*)0;
 right_value137 = (void*)0;
 right_value138 = (void*)0;
@@ -6641,7 +6638,7 @@ right_value233 = (void*)0;
         if(_if_conditional315=*info->p==93,        _if_conditional315) {
             info->p++;
             skip_spaces_and_lf(info);
-            result_type_167->mNoNumberArray=(_Bool)1;
+            result_type_167->mArrayPointerType=(_Bool)1;
             result_type_167->mPointerNum++;
             break;
         }
@@ -6810,12 +6807,6 @@ struct tuple3$3sTypephcharphbool* __result135__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&no_output_err_192, 0, sizeof(_Bool));
 right_value235 = (void*)0;
-memset(&type_193, 0, sizeof(struct sType*));
-memset(&name_194, 0, sizeof(char*));
-memset(&err_195, 0, sizeof(_Bool));
-memset(&type_193, 0, sizeof(struct sType*));
-memset(&name_194, 0, sizeof(char*));
-memset(&err_195, 0, sizeof(_Bool));
 right_value236 = (void*)0;
 right_value237 = (void*)0;
     no_output_err_192=info->no_output_err;
@@ -7654,14 +7645,6 @@ right_value332 = (void*)0;
 right_value333 = (void*)0;
 right_value334 = (void*)0;
 right_value335 = (void*)0;
-memset(&param_types_284, 0, sizeof(struct list$1sTypeph*));
-memset(&param_names_285, 0, sizeof(struct list$1charph*));
-memset(&param_default_parametors_286, 0, sizeof(struct list$1charph*));
-memset(&var_args_287, 0, sizeof(_Bool));
-memset(&param_types_284, 0, sizeof(struct list$1sTypeph*));
-memset(&param_names_285, 0, sizeof(struct list$1charph*));
-memset(&param_default_parametors_286, 0, sizeof(struct list$1charph*));
-memset(&var_args_287, 0, sizeof(_Bool));
 right_value336 = (void*)0;
 right_value337 = (void*)0;
 right_value338 = (void*)0;
@@ -7684,14 +7667,6 @@ right_value351 = (void*)0;
 right_value352 = (void*)0;
 memset(&function_pointer_array_292, 0, sizeof(_Bool));
 right_value353 = (void*)0;
-memset(&param_types_293, 0, sizeof(struct list$1sTypeph*));
-memset(&param_names_294, 0, sizeof(struct list$1charph*));
-memset(&param_default_parametors_295, 0, sizeof(struct list$1charph*));
-memset(&var_args_296, 0, sizeof(_Bool));
-memset(&param_types_293, 0, sizeof(struct list$1sTypeph*));
-memset(&param_names_294, 0, sizeof(struct list$1charph*));
-memset(&param_default_parametors_295, 0, sizeof(struct list$1charph*));
-memset(&var_args_296, 0, sizeof(_Bool));
 right_value354 = (void*)0;
 right_value355 = (void*)0;
 right_value356 = (void*)0;
@@ -7725,12 +7700,6 @@ right_value377 = (void*)0;
 right_value378 = (void*)0;
 right_value379 = (void*)0;
 right_value380 = (void*)0;
-memset(&generics_type_305, 0, sizeof(struct sType*));
-memset(&var_name_306, 0, sizeof(char*));
-memset(&err_307, 0, sizeof(_Bool));
-memset(&generics_type_305, 0, sizeof(struct sType*));
-memset(&var_name_306, 0, sizeof(char*));
-memset(&err_307, 0, sizeof(_Bool));
 right_value381 = (void*)0;
 right_value382 = (void*)0;
 right_value383 = (void*)0;
@@ -7748,12 +7717,6 @@ right_value398 = (void*)0;
 memset(&types_354, 0, sizeof(struct list$1sTypeph*));
 right_value399 = (void*)0;
 right_value400 = (void*)0;
-memset(&type2_355, 0, sizeof(struct sType*));
-memset(&name_356, 0, sizeof(char*));
-memset(&err_357, 0, sizeof(_Bool));
-memset(&type2_355, 0, sizeof(struct sType*));
-memset(&name_356, 0, sizeof(char*));
-memset(&err_357, 0, sizeof(_Bool));
 right_value401 = (void*)0;
 right_value402 = (void*)0;
 right_value403 = (void*)0;
@@ -9356,7 +9319,7 @@ right_value418 = (void*)0;
                             else {
                                 if(_if_conditional535=xisalnum(*info->p)||*info->p==95,                                _if_conditional535) {
                                     __dec_obj184=var_name_251;
-                                    var_name_251=(char*)come_increment_ref_count((come_push_stackframe("05type.c", 2265, 64),__exception_result_var_b50=((char*)(right_value412=parse_word(info))), come_pop_stackframe(), __exception_result_var_b50));
+                                    var_name_251=(char*)come_increment_ref_count((come_push_stackframe("05type.c", 2266, 64),__exception_result_var_b50=((char*)(right_value412=parse_word(info))), come_pop_stackframe(), __exception_result_var_b50));
                                     __dec_obj184 = come_decrement_ref_count2(__dec_obj184, (void*)0, (void*)0, 0,0,0, (void*)0);
                                     right_value412 = come_decrement_ref_count2(right_value412, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                                 }
@@ -9409,7 +9372,7 @@ right_value418 = (void*)0;
         if(right_value415) { right_value415 = come_decrement_ref_count2(right_value415, ((struct sNode*)right_value415)->finalize, ((struct sNode*)right_value415)->_protocol_obj, 1, 0, 0, __result_obj__); } 
         list$1sNodeph_push_back(type_250->mArrayNum,(struct sNode*)come_increment_ref_count(node_366));
         parse_sharp_v5(info);
-        (come_push_stackframe("05type.c", 2314, 65),__exception_result_var_b51=expected_next_character(93,info), come_pop_stackframe(), __exception_result_var_b51);
+        (come_push_stackframe("05type.c", 2315, 65),__exception_result_var_b51=expected_next_character(93,info), come_pop_stackframe(), __exception_result_var_b51);
         if(node_366) { node_366 = come_decrement_ref_count2(node_366, ((struct sNode*)node_366)->finalize, ((struct sNode*)node_366)->_protocol_obj, 0, 0, 0, (void*)0); } 
     }
     asm_name_367=(char*)come_increment_ref_count(((char*)(right_value416=parse_attribute(info))));
@@ -9418,7 +9381,7 @@ right_value418 = (void*)0;
     type_250->mAsmName=(char*)come_increment_ref_count(asm_name_367);
     __dec_obj187 = come_decrement_ref_count2(__dec_obj187, (void*)0, (void*)0, 0,0,0, (void*)0);
     parse_sharp_v5(info);
-    __result194__ = __result_obj__ = ((struct tuple3$3sTypephcharphbool*)(right_value418=tuple3$3sTypephcharphbool_initialize((struct tuple3$3sTypephcharphbool*)come_increment_ref_count(((struct tuple3$3sTypephcharphbool*)(right_value417=(struct tuple3$3sTypephcharphbool*)come_calloc(1, sizeof(struct tuple3$3sTypephcharphbool)*(1), "05type.c", 2322, "struct tuple3$3sTypephcharphbool")))),(struct sType*)come_increment_ref_count(type_250),(char*)come_increment_ref_count(var_name_251),(_Bool)1)));
+    __result194__ = __result_obj__ = ((struct tuple3$3sTypephcharphbool*)(right_value418=tuple3$3sTypephcharphbool_initialize((struct tuple3$3sTypephcharphbool*)come_increment_ref_count(((struct tuple3$3sTypephcharphbool*)(right_value417=(struct tuple3$3sTypephcharphbool*)come_calloc(1, sizeof(struct tuple3$3sTypephcharphbool)*(1), "05type.c", 2323, "struct tuple3$3sTypephcharphbool")))),(struct sType*)come_increment_ref_count(type_250),(char*)come_increment_ref_count(var_name_251),(_Bool)1)));
     type_name_198 = come_decrement_ref_count2(type_name_198, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     if(alignas__217) { alignas__217 = come_decrement_ref_count2(alignas__217, ((struct sNode*)alignas__217)->finalize, ((struct sNode*)alignas__217)->_protocol_obj, 0, 0, 0, (void*)0); } 
     come_call_finalizer3(type_250,sType_finalize, 0, 0, 0, 0, (void*)0);

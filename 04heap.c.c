@@ -618,6 +618,7 @@ struct sInfo
     struct map$2charphcharph* module_params;
     _Bool constructor_;
     struct sClass* defining_class;
+    _Bool array_initializer;
 };
 struct tuple2$2sTypephcharph
 {
@@ -1697,6 +1698,8 @@ char* create_method_name_using_class(struct sClass* obj_class, _Bool no_pointer_
 struct sNode* expression_node_v96(struct sInfo* info);
 
 struct sNode* parse_tuple(struct sInfo* info);
+
+struct sNode* parse_array_initializer(struct sInfo* info);
 
 struct sNode* parse_global_variable(struct sInfo* info);
 
@@ -5434,10 +5437,6 @@ right_value162 = (void*)0;
 memset(&new_fun_name_191, 0, sizeof(char*));
 right_value163 = (void*)0;
 right_value164 = (void*)0;
-memset(&fun_192, 0, sizeof(struct sFun*));
-memset(&new_fun_name_193, 0, sizeof(char*));
-memset(&fun_192, 0, sizeof(struct sFun*));
-memset(&new_fun_name_193, 0, sizeof(char*));
 right_value165 = (void*)0;
 memset(&type_name_194, 0, sizeof(char*));
 right_value166 = (void*)0;
@@ -6059,10 +6058,6 @@ right_value175 = (void*)0;
 memset(&new_fun_name_216, 0, sizeof(char*));
 right_value176 = (void*)0;
 right_value177 = (void*)0;
-memset(&fun_217, 0, sizeof(struct sFun*));
-memset(&new_fun_name_218, 0, sizeof(char*));
-memset(&fun_217, 0, sizeof(struct sFun*));
-memset(&new_fun_name_218, 0, sizeof(char*));
 right_value178 = (void*)0;
 memset(&type_name_219, 0, sizeof(char*));
 right_value179 = (void*)0;
@@ -6071,19 +6066,11 @@ right_value181 = (void*)0;
 right_value182 = (void*)0;
 memset(&o2_saved_220, 0, sizeof(struct list$1tuple2$2charphsTypephph*));
 memset(&it_223, 0, sizeof(struct tuple2$2charphsTypeph*));
-memset(&name_226, 0, sizeof(char*));
-memset(&field_type_227, 0, sizeof(struct sType*));
-memset(&name_226, 0, sizeof(char*));
-memset(&field_type_227, 0, sizeof(struct sType*));
 right_value183 = (void*)0;
 right_value184 = (void*)0;
 memset(&obj_228, 0, sizeof(char*));
 memset(&o2_saved_231, 0, sizeof(struct list$1tuple2$2charphsTypephph*));
 memset(&it_232, 0, sizeof(struct tuple2$2charphsTypeph*));
-memset(&name_233, 0, sizeof(char*));
-memset(&field_type_234, 0, sizeof(struct sType*));
-memset(&name_233, 0, sizeof(char*));
-memset(&field_type_234, 0, sizeof(struct sType*));
 right_value185 = (void*)0;
 right_value186 = (void*)0;
 memset(&obj_235, 0, sizeof(char*));
@@ -6109,10 +6096,6 @@ right_value193 = (void*)0;
 memset(&new_fun_name_248, 0, sizeof(char*));
 right_value194 = (void*)0;
 right_value195 = (void*)0;
-memset(&fun_249, 0, sizeof(struct sFun*));
-memset(&new_fun_name_250, 0, sizeof(char*));
-memset(&fun_249, 0, sizeof(struct sFun*));
-memset(&new_fun_name_250, 0, sizeof(char*));
 right_value196 = (void*)0;
 memset(&type_name_251, 0, sizeof(char*));
 right_value197 = (void*)0;
@@ -6121,19 +6104,11 @@ right_value199 = (void*)0;
 right_value200 = (void*)0;
 memset(&o2_saved_252, 0, sizeof(struct list$1tuple2$2charphsTypephph*));
 memset(&it_253, 0, sizeof(struct tuple2$2charphsTypeph*));
-memset(&name_254, 0, sizeof(char*));
-memset(&field_type_255, 0, sizeof(struct sType*));
-memset(&name_254, 0, sizeof(char*));
-memset(&field_type_255, 0, sizeof(struct sType*));
 right_value201 = (void*)0;
 right_value202 = (void*)0;
 memset(&obj_256, 0, sizeof(char*));
 memset(&o2_saved_257, 0, sizeof(struct list$1tuple2$2charphsTypephph*));
 memset(&it_258, 0, sizeof(struct tuple2$2charphsTypeph*));
-memset(&name_259, 0, sizeof(char*));
-memset(&field_type_260, 0, sizeof(struct sType*));
-memset(&name_259, 0, sizeof(char*));
-memset(&field_type_260, 0, sizeof(struct sType*));
 right_value203 = (void*)0;
 right_value204 = (void*)0;
 memset(&obj_261, 0, sizeof(char*));
@@ -6760,10 +6735,6 @@ right_value219 = (void*)0;
 memset(&new_fun_name_281, 0, sizeof(char*));
 right_value220 = (void*)0;
 right_value221 = (void*)0;
-memset(&fun_282, 0, sizeof(struct sFun*));
-memset(&new_fun_name_283, 0, sizeof(char*));
-memset(&fun_282, 0, sizeof(struct sFun*));
-memset(&new_fun_name_283, 0, sizeof(char*));
 right_value222 = (void*)0;
 right_value223 = (void*)0;
 right_value224 = (void*)0;
@@ -7079,10 +7050,6 @@ right_value238 = (void*)0;
 memset(&new_fun_name_299, 0, sizeof(char*));
 right_value239 = (void*)0;
 right_value240 = (void*)0;
-memset(&fun_300, 0, sizeof(struct sFun*));
-memset(&new_fun_name_301, 0, sizeof(char*));
-memset(&fun_300, 0, sizeof(struct sFun*));
-memset(&new_fun_name_301, 0, sizeof(char*));
     if(type->mNoSolvedGenericsType->v1) {
         type=type->mNoSolvedGenericsType->v1;
     }
@@ -7250,10 +7217,6 @@ right_value248 = (void*)0;
 memset(&new_fun_name_316, 0, sizeof(char*));
 right_value249 = (void*)0;
 right_value250 = (void*)0;
-memset(&fun_317, 0, sizeof(struct sFun*));
-memset(&new_fun_name_318, 0, sizeof(char*));
-memset(&fun_317, 0, sizeof(struct sFun*));
-memset(&new_fun_name_318, 0, sizeof(char*));
     if(type->mNoSolvedGenericsType->v1) {
         type=type->mNoSolvedGenericsType->v1;
     }
@@ -7421,10 +7384,6 @@ right_value258 = (void*)0;
 memset(&new_fun_name_333, 0, sizeof(char*));
 right_value259 = (void*)0;
 right_value260 = (void*)0;
-memset(&fun_334, 0, sizeof(struct sFun*));
-memset(&new_fun_name_335, 0, sizeof(char*));
-memset(&fun_334, 0, sizeof(struct sFun*));
-memset(&new_fun_name_335, 0, sizeof(char*));
     if(type->mNoSolvedGenericsType->v1) {
         type=type->mNoSolvedGenericsType->v1;
     }

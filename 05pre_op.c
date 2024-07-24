@@ -630,7 +630,12 @@ sNode*% pre_position_operator(sInfo* info=info)
     parse_sharp();
     
     if(*info->p == '{') {
-        return parse_normal_block();
+        if(info.array_initializer) {
+            return parse_array_initializer();
+        }
+        else {
+            return parse_normal_block();
+        }
     }
     else if(*info->p == '!') {
         info->p++;

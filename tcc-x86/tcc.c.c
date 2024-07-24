@@ -62,22 +62,12 @@ union anonymous_typeZ6
 float __f;
 unsigned int __i;
 };
-union anonymous_typeZ7
+union anonymous_typeZ8
 {
-float __f;
-unsigned int __i;
+double __f;
+unsigned long long __i;
 };
 union anonymous_typeZ9
-{
-double __f;
-unsigned long long __i;
-};
-union anonymous_typeZ10
-{
-double __f;
-unsigned long long __i;
-};
-union anonymous_typeZ11
 {
 double __f;
 unsigned long long __i;
@@ -100,27 +90,27 @@ struct __sigset_t
     unsigned long int __bits[128/sizeof(long)];
 };
 typedef struct __sigset_t sigset_t;
-union anonymous_typeZ14
+union anonymous_typeZ12
 {
 int __i[sizeof(long)==8?14:9];
 int __vi[sizeof(long)==8?14:9];
 unsigned long int __s[sizeof(long)==8?7:9];
 };
-struct anonymous_typeX12
+struct anonymous_typeX10
 {
-    union anonymous_typeZ14 __u;
+    union anonymous_typeZ12 __u;
 };
-typedef struct anonymous_typeX12 pthread_attr_t;
+typedef struct anonymous_typeX10 pthread_attr_t;
 typedef struct sigaltstack stack_t;
 typedef unsigned long int greg_t;
 typedef unsigned long int gregset_t[34];
-struct anonymous_typeX15
+struct anonymous_typeX13
 {
     __uint128_t vregs[32];
     unsigned int fpsr;
     unsigned int fpcr;
 };
-typedef struct anonymous_typeX15 fpregset_t;
+typedef struct anonymous_typeX13 fpregset_t;
 struct sigcontext
 {
     unsigned long int fault_address;
@@ -181,13 +171,16 @@ union sigval
 int sival_int;
 void* sival_ptr;
 };
-struct anonymous_typeX20
+struct anonymous_typeX18
+{
+};
+struct anonymous_typeX19
 {
 };
 struct anonymous_typeX21
 {
 };
-struct anonymous_typeX23
+struct anonymous_typeX22
 {
 };
 struct anonymous_typeX24
@@ -196,145 +189,142 @@ struct anonymous_typeX24
 struct anonymous_typeX26
 {
 };
-struct anonymous_typeX28
-{
-};
-struct anonymous_typeX18
-{
-};
-struct anonymous_typeX31
-{
-};
-struct anonymous_typeX33
+struct anonymous_typeX16
 {
 };
 struct anonymous_typeX29
 {
 };
-struct anonymous_typeX34
+struct anonymous_typeX31
 {
 };
-struct anonymous_typeX35
+struct anonymous_typeX27
 {
 };
-struct anonymous_typeX39
+struct anonymous_typeX32
+{
+};
+struct anonymous_typeX33
+{
+};
+struct anonymous_typeX37
+{
+};
+struct anonymous_typeX38
 {
 };
 struct anonymous_typeX40
 {
-};
-struct anonymous_typeX42
-{
     int si_pid;
     unsigned int si_uid;
 };
-struct anonymous_typeX43
+struct anonymous_typeX41
 {
     int si_timerid;
     int si_overrun;
 };
-union anonymous_typeZ41
+union anonymous_typeZ39
 {
-struct anonymous_typeX42 __piduid;
-struct anonymous_typeX43 __timer;
+struct anonymous_typeX40 __piduid;
+struct anonymous_typeX41 __timer;
+};
+struct anonymous_typeX43
+{
 };
 struct anonymous_typeX45
-{
-};
-struct anonymous_typeX47
 {
     int si_status;
     long si_utime;
     long si_stime;
 };
-union anonymous_typeZ46
+union anonymous_typeZ44
 {
 union sigval si_value;
-struct anonymous_typeX47 __sigchld;
+struct anonymous_typeX45 __sigchld;
 };
-struct anonymous_typeX37
+struct anonymous_typeX35
 {
-    union anonymous_typeZ41 __first;
-    union anonymous_typeZ46 __second;
+    union anonymous_typeZ39 __first;
+    union anonymous_typeZ44 __second;
+};
+struct anonymous_typeX48
+{
 };
 struct anonymous_typeX50
-{
-};
-struct anonymous_typeX52
 {
     void* si_lower;
     void* si_upper;
 };
-union anonymous_typeZ51
+union anonymous_typeZ49
 {
-struct anonymous_typeX52 __addr_bnd;
+struct anonymous_typeX50 __addr_bnd;
 unsigned int si_pkey;
 };
-struct anonymous_typeX48
+struct anonymous_typeX46
 {
     void* si_addr;
     short short si_addr_lsb;
-    union anonymous_typeZ51 __first;
+    union anonymous_typeZ49 __first;
 };
-struct anonymous_typeX53
+struct anonymous_typeX51
 {
     long si_band;
     int si_fd;
 };
-struct anonymous_typeX54
+struct anonymous_typeX52
 {
     void* si_call_addr;
     int si_syscall;
     unsigned int si_arch;
 };
-union anonymous_typeZ36
+union anonymous_typeZ34
 {
 char __pad[128-2*sizeof(int)-sizeof(long)];
-struct anonymous_typeX37 __si_common;
-struct anonymous_typeX48 __sigfault;
-struct anonymous_typeX53 __sigpoll;
-struct anonymous_typeX54 __sigsys;
+struct anonymous_typeX35 __si_common;
+struct anonymous_typeX46 __sigfault;
+struct anonymous_typeX51 __sigpoll;
+struct anonymous_typeX52 __sigsys;
 };
-struct anonymous_typeX16
+struct anonymous_typeX14
 {
     int si_signo;
     int si_errno;
     int si_code;
-    union anonymous_typeZ36 __si_fields;
+    union anonymous_typeZ34 __si_fields;
 };
-typedef struct anonymous_typeX16 siginfo_t;
-union anonymous_typeZ56
+typedef struct anonymous_typeX14 siginfo_t;
+union anonymous_typeZ54
 {
 void (*sa_handler)(int);
-void (*sa_sigaction)(int,struct anonymous_typeX16*,void*);
+void (*sa_sigaction)(int,struct anonymous_typeX14*,void*);
 };
 struct sigaction
 {
-    union anonymous_typeZ56 __sa_handler;
+    union anonymous_typeZ54 __sa_handler;
     struct __sigset_t sa_mask;
     int sa_flags;
     void (*sa_restorer)();
 };
+struct anonymous_typeX56
+{
+};
 struct anonymous_typeX58
 {
-};
-struct anonymous_typeX60
-{
     void (*sigev_notify_function)(union sigval);
-    struct anonymous_typeX12* sigev_notify_attributes;
+    struct anonymous_typeX10* sigev_notify_attributes;
 };
-union anonymous_typeZ59
+union anonymous_typeZ57
 {
 char __pad[64-2*sizeof(int)-sizeof(union sigval)];
 int sigev_notify_thread_id;
-struct anonymous_typeX60 __sev_thread;
+struct anonymous_typeX58 __sev_thread;
 };
 struct sigevent
 {
     union sigval sigev_value;
     int sigev_signo;
     int sigev_notify;
-    union anonymous_typeZ59 __sev_fields;
+    union anonymous_typeZ57 __sev_fields;
 };
 typedef void (*sig_t)(int);
 typedef void (*sighandler_t)(int);
@@ -357,7 +347,7 @@ struct file_handle
 {
     unsigned int handle_bytes;
     int handle_type;
-    unsigned char* f_handle;
+    unsigned char f_handle[];
 };
 struct f_owner_ex
 {
@@ -415,11 +405,11 @@ struct timeval
     long tv_usec;
 };
 typedef unsigned long int fd_mask;
-struct anonymous_typeX61
+struct anonymous_typeX59
 {
     unsigned long int fds_bits[1024/8/sizeof(long)];
 };
-typedef struct anonymous_typeX61 fd_set;
+typedef struct anonymous_typeX59 fd_set;
 struct itimerval
 {
     struct timeval it_interval;
@@ -458,12 +448,12 @@ typedef int int_fast16_t;
 typedef int int_fast32_t;
 typedef unsigned int uint_fast16_t;
 typedef unsigned int uint_fast32_t;
-struct anonymous_typeX62
+struct anonymous_typeX60
 {
     long quot;
     long rem;
 };
-typedef struct anonymous_typeX62 imaxdiv_t;
+typedef struct anonymous_typeX60 imaxdiv_t;
 typedef unsigned short int Elf32_Half;
 typedef unsigned short int Elf64_Half;
 typedef unsigned int Elf32_Word;
@@ -482,7 +472,7 @@ typedef unsigned short int Elf32_Section;
 typedef unsigned short int Elf64_Section;
 typedef unsigned int Elf32_Symndx;
 typedef unsigned long int Elf64_Symndx;
-struct anonymous_typeX63
+struct anonymous_typeX61
 {
     unsigned char e_ident[(16)];
     unsigned short int e_type;
@@ -499,8 +489,8 @@ struct anonymous_typeX63
     unsigned short int e_shnum;
     unsigned short int e_shstrndx;
 };
-typedef struct anonymous_typeX63 Elf32_Ehdr;
-struct anonymous_typeX64
+typedef struct anonymous_typeX61 Elf32_Ehdr;
+struct anonymous_typeX62
 {
     unsigned char e_ident[(16)];
     unsigned short int e_type;
@@ -517,8 +507,8 @@ struct anonymous_typeX64
     unsigned short int e_shnum;
     unsigned short int e_shstrndx;
 };
-typedef struct anonymous_typeX64 Elf64_Ehdr;
-struct anonymous_typeX65
+typedef struct anonymous_typeX62 Elf64_Ehdr;
+struct anonymous_typeX63
 {
     unsigned int sh_name;
     unsigned int sh_type;
@@ -531,8 +521,8 @@ struct anonymous_typeX65
     unsigned int sh_addralign;
     unsigned int sh_entsize;
 };
-typedef struct anonymous_typeX65 Elf32_Shdr;
-struct anonymous_typeX66
+typedef struct anonymous_typeX63 Elf32_Shdr;
+struct anonymous_typeX64
 {
     unsigned int sh_name;
     unsigned int sh_type;
@@ -545,8 +535,8 @@ struct anonymous_typeX66
     unsigned long int sh_addralign;
     unsigned long int sh_entsize;
 };
-typedef struct anonymous_typeX66 Elf64_Shdr;
-struct anonymous_typeX67
+typedef struct anonymous_typeX64 Elf64_Shdr;
+struct anonymous_typeX65
 {
     unsigned int st_name;
     unsigned int st_value;
@@ -555,8 +545,8 @@ struct anonymous_typeX67
     unsigned char st_other;
     unsigned short int st_shndx;
 };
-typedef struct anonymous_typeX67 Elf32_Sym;
-struct anonymous_typeX68
+typedef struct anonymous_typeX65 Elf32_Sym;
+struct anonymous_typeX66
 {
     unsigned int st_name;
     unsigned char st_info;
@@ -565,46 +555,46 @@ struct anonymous_typeX68
     unsigned long int st_value;
     unsigned long int st_size;
 };
-typedef struct anonymous_typeX68 Elf64_Sym;
+typedef struct anonymous_typeX66 Elf64_Sym;
+struct anonymous_typeX67
+{
+    unsigned short int si_boundto;
+    unsigned short int si_flags;
+};
+typedef struct anonymous_typeX67 Elf32_Syminfo;
+struct anonymous_typeX68
+{
+    unsigned short int si_boundto;
+    unsigned short int si_flags;
+};
+typedef struct anonymous_typeX68 Elf64_Syminfo;
 struct anonymous_typeX69
-{
-    unsigned short int si_boundto;
-    unsigned short int si_flags;
-};
-typedef struct anonymous_typeX69 Elf32_Syminfo;
-struct anonymous_typeX70
-{
-    unsigned short int si_boundto;
-    unsigned short int si_flags;
-};
-typedef struct anonymous_typeX70 Elf64_Syminfo;
-struct anonymous_typeX71
 {
     unsigned int r_offset;
     unsigned int r_info;
 };
-typedef struct anonymous_typeX71 Elf32_Rel;
-struct anonymous_typeX72
+typedef struct anonymous_typeX69 Elf32_Rel;
+struct anonymous_typeX70
 {
     unsigned long int r_offset;
     unsigned long int r_info;
 };
-typedef struct anonymous_typeX72 Elf64_Rel;
-struct anonymous_typeX73
+typedef struct anonymous_typeX70 Elf64_Rel;
+struct anonymous_typeX71
 {
     unsigned int r_offset;
     unsigned int r_info;
     int r_addend;
 };
-typedef struct anonymous_typeX73 Elf32_Rela;
-struct anonymous_typeX74
+typedef struct anonymous_typeX71 Elf32_Rela;
+struct anonymous_typeX72
 {
     unsigned long int r_offset;
     unsigned long int r_info;
     long r_addend;
 };
-typedef struct anonymous_typeX74 Elf64_Rela;
-struct anonymous_typeX75
+typedef struct anonymous_typeX72 Elf64_Rela;
+struct anonymous_typeX73
 {
     unsigned int p_type;
     unsigned int p_offset;
@@ -615,8 +605,8 @@ struct anonymous_typeX75
     unsigned int p_flags;
     unsigned int p_align;
 };
-typedef struct anonymous_typeX75 Elf32_Phdr;
-struct anonymous_typeX76
+typedef struct anonymous_typeX73 Elf32_Phdr;
+struct anonymous_typeX74
 {
     unsigned int p_type;
     unsigned int p_flags;
@@ -627,175 +617,175 @@ struct anonymous_typeX76
     unsigned long int p_memsz;
     unsigned long int p_align;
 };
-typedef struct anonymous_typeX76 Elf64_Phdr;
-union anonymous_typeZ79
+typedef struct anonymous_typeX74 Elf64_Phdr;
+union anonymous_typeZ77
 {
 unsigned int d_val;
 unsigned int d_ptr;
 };
-struct anonymous_typeX77
+struct anonymous_typeX75
 {
     int d_tag;
-    union anonymous_typeZ79 d_un;
+    union anonymous_typeZ77 d_un;
 };
-typedef struct anonymous_typeX77 Elf32_Dyn;
-union anonymous_typeZ82
+typedef struct anonymous_typeX75 Elf32_Dyn;
+union anonymous_typeZ80
 {
 unsigned long int d_val;
 unsigned long int d_ptr;
 };
-struct anonymous_typeX80
+struct anonymous_typeX78
 {
     long d_tag;
-    union anonymous_typeZ82 d_un;
+    union anonymous_typeZ80 d_un;
 };
-typedef struct anonymous_typeX80 Elf64_Dyn;
+typedef struct anonymous_typeX78 Elf64_Dyn;
+struct anonymous_typeX81
+{
+    unsigned short int vd_version;
+    unsigned short int vd_flags;
+    unsigned short int vd_ndx;
+    unsigned short int vd_cnt;
+    unsigned int vd_hash;
+    unsigned int vd_aux;
+    unsigned int vd_next;
+};
+typedef struct anonymous_typeX81 Elf32_Verdef;
+struct anonymous_typeX82
+{
+    unsigned short int vd_version;
+    unsigned short int vd_flags;
+    unsigned short int vd_ndx;
+    unsigned short int vd_cnt;
+    unsigned int vd_hash;
+    unsigned int vd_aux;
+    unsigned int vd_next;
+};
+typedef struct anonymous_typeX82 Elf64_Verdef;
 struct anonymous_typeX83
 {
-    unsigned short int vd_version;
-    unsigned short int vd_flags;
-    unsigned short int vd_ndx;
-    unsigned short int vd_cnt;
-    unsigned int vd_hash;
-    unsigned int vd_aux;
-    unsigned int vd_next;
+    unsigned int vda_name;
+    unsigned int vda_next;
 };
-typedef struct anonymous_typeX83 Elf32_Verdef;
+typedef struct anonymous_typeX83 Elf32_Verdaux;
 struct anonymous_typeX84
 {
-    unsigned short int vd_version;
-    unsigned short int vd_flags;
-    unsigned short int vd_ndx;
-    unsigned short int vd_cnt;
-    unsigned int vd_hash;
-    unsigned int vd_aux;
-    unsigned int vd_next;
+    unsigned int vda_name;
+    unsigned int vda_next;
 };
-typedef struct anonymous_typeX84 Elf64_Verdef;
+typedef struct anonymous_typeX84 Elf64_Verdaux;
 struct anonymous_typeX85
 {
-    unsigned int vda_name;
-    unsigned int vda_next;
+    unsigned short int vn_version;
+    unsigned short int vn_cnt;
+    unsigned int vn_file;
+    unsigned int vn_aux;
+    unsigned int vn_next;
 };
-typedef struct anonymous_typeX85 Elf32_Verdaux;
+typedef struct anonymous_typeX85 Elf32_Verneed;
 struct anonymous_typeX86
 {
-    unsigned int vda_name;
-    unsigned int vda_next;
+    unsigned short int vn_version;
+    unsigned short int vn_cnt;
+    unsigned int vn_file;
+    unsigned int vn_aux;
+    unsigned int vn_next;
 };
-typedef struct anonymous_typeX86 Elf64_Verdaux;
+typedef struct anonymous_typeX86 Elf64_Verneed;
 struct anonymous_typeX87
 {
-    unsigned short int vn_version;
-    unsigned short int vn_cnt;
-    unsigned int vn_file;
-    unsigned int vn_aux;
-    unsigned int vn_next;
+    unsigned int vna_hash;
+    unsigned short int vna_flags;
+    unsigned short int vna_other;
+    unsigned int vna_name;
+    unsigned int vna_next;
 };
-typedef struct anonymous_typeX87 Elf32_Verneed;
+typedef struct anonymous_typeX87 Elf32_Vernaux;
 struct anonymous_typeX88
 {
-    unsigned short int vn_version;
-    unsigned short int vn_cnt;
-    unsigned int vn_file;
-    unsigned int vn_aux;
-    unsigned int vn_next;
+    unsigned int vna_hash;
+    unsigned short int vna_flags;
+    unsigned short int vna_other;
+    unsigned int vna_name;
+    unsigned int vna_next;
 };
-typedef struct anonymous_typeX88 Elf64_Verneed;
+typedef struct anonymous_typeX88 Elf64_Vernaux;
+union anonymous_typeZ91
+{
+long int a_val;
+void* a_ptr;
+void (*a_fcn)();
+};
 struct anonymous_typeX89
 {
-    unsigned int vna_hash;
-    unsigned short int vna_flags;
-    unsigned short int vna_other;
-    unsigned int vna_name;
-    unsigned int vna_next;
-};
-typedef struct anonymous_typeX89 Elf32_Vernaux;
-struct anonymous_typeX90
-{
-    unsigned int vna_hash;
-    unsigned short int vna_flags;
-    unsigned short int vna_other;
-    unsigned int vna_name;
-    unsigned int vna_next;
-};
-typedef struct anonymous_typeX90 Elf64_Vernaux;
-union anonymous_typeZ93
-{
-long int a_val;
-void* a_ptr;
-void (*a_fcn)();
-};
-struct anonymous_typeX91
-{
     int a_type;
-    union anonymous_typeZ93 a_un;
+    union anonymous_typeZ91 a_un;
 };
-typedef struct anonymous_typeX91 Elf32_auxv_t;
-union anonymous_typeZ96
+typedef struct anonymous_typeX89 Elf32_auxv_t;
+union anonymous_typeZ94
 {
 long int a_val;
 void* a_ptr;
 void (*a_fcn)();
 };
-struct anonymous_typeX94
+struct anonymous_typeX92
 {
     long int a_type;
-    union anonymous_typeZ96 a_un;
+    union anonymous_typeZ94 a_un;
 };
-typedef struct anonymous_typeX94 Elf64_auxv_t;
-struct anonymous_typeX97
+typedef struct anonymous_typeX92 Elf64_auxv_t;
+struct anonymous_typeX95
 {
     unsigned int n_namesz;
     unsigned int n_descsz;
     unsigned int n_type;
 };
-typedef struct anonymous_typeX97 Elf32_Nhdr;
+typedef struct anonymous_typeX95 Elf32_Nhdr;
+struct anonymous_typeX96
+{
+    unsigned int n_namesz;
+    unsigned int n_descsz;
+    unsigned int n_type;
+};
+typedef struct anonymous_typeX96 Elf64_Nhdr;
 struct anonymous_typeX98
-{
-    unsigned int n_namesz;
-    unsigned int n_descsz;
-    unsigned int n_type;
-};
-typedef struct anonymous_typeX98 Elf64_Nhdr;
-struct anonymous_typeX100
 {
     unsigned int gt_current_g_value;
     unsigned int gt_unused;
 };
-struct anonymous_typeX101
+struct anonymous_typeX99
 {
     unsigned int gt_g_value;
     unsigned int gt_bytes;
 };
-union anonymous_typeZ99
+union anonymous_typeZ97
 {
-struct anonymous_typeX100 gt_header;
-struct anonymous_typeX101 gt_entry;
+struct anonymous_typeX98 gt_header;
+struct anonymous_typeX99 gt_entry;
 };
-typedef union anonymous_typeZ99 Elf32_gptab;
-struct anonymous_typeX102
+typedef union anonymous_typeZ97 Elf32_gptab;
+struct anonymous_typeX100
 {
     unsigned int ri_gprmask;
     unsigned int ri_cprmask[4];
     int ri_gp_value;
 };
-typedef struct anonymous_typeX102 Elf32_RegInfo;
-struct anonymous_typeX103
+typedef struct anonymous_typeX100 Elf32_RegInfo;
+struct anonymous_typeX101
 {
     unsigned char kind;
     unsigned char size;
     unsigned short int section;
     unsigned int info;
 };
-typedef struct anonymous_typeX103 Elf_Options;
-struct anonymous_typeX104
+typedef struct anonymous_typeX101 Elf_Options;
+struct anonymous_typeX102
 {
     unsigned int hwp_flags1;
     unsigned int hwp_flags2;
 };
-typedef struct anonymous_typeX104 Elf_Options_Hw;
-struct anonymous_typeX105
+typedef struct anonymous_typeX102 Elf_Options_Hw;
+struct anonymous_typeX103
 {
     unsigned int l_name;
     unsigned int l_time_stamp;
@@ -803,8 +793,8 @@ struct anonymous_typeX105
     unsigned int l_version;
     unsigned int l_flags;
 };
-typedef struct anonymous_typeX105 Elf32_Lib;
-struct anonymous_typeX106
+typedef struct anonymous_typeX103 Elf32_Lib;
+struct anonymous_typeX104
 {
     unsigned int l_name;
     unsigned int l_time_stamp;
@@ -812,7 +802,7 @@ struct anonymous_typeX106
     unsigned int l_version;
     unsigned int l_flags;
 };
-typedef struct anonymous_typeX106 Elf64_Lib;
+typedef struct anonymous_typeX104 Elf64_Lib;
 typedef unsigned int Elf32_Conflict;
 enum __stab_debug_code { N_GSYM=32,
 N_FNAME=34,
@@ -951,13 +941,13 @@ struct AttributeDef
     int func_attr;
 };
 typedef struct AttributeDef AttributeDef;
-struct anonymous_typeX107
+struct anonymous_typeX105
 {
     unsigned int func_call:8;
     unsigned int func_args:8;
     unsigned int func_export:1;
 };
-typedef struct anonymous_typeX107 func_attr_t;
+typedef struct anonymous_typeX105 func_attr_t;
 struct BufferedFile
 {
     unsigned char* buf_ptr;
@@ -1288,16 +1278,16 @@ static int func_ret_sub;
 static unsigned char arg_regs[6]={
     TREG_RDI, TREG_RSI, TREG_RDX, TREG_RCX, TREG_R8, TREG_R9
 };
-struct anonymous_typeX108
+struct anonymous_typeX106
 {
     const char* dli_fname;
     void* dli_fbase;
     const char* dli_sname;
     void* dli_saddr;
 };
-typedef struct anonymous_typeX108 Dl_info;
-static const char* tcc_keywords="int\0void\0char\0if\0else\0while\0break\0return\0for\0extern\0static\0unsigned\0goto\0do\0continue\0switch\0case\0const\0__const\0__const__\0volatile\0__volatile\0__volatile__\0long\0register\0signed\0__signed\0__signed__\0auto\0inline\0__inline\0__inline__\0restrict\0__restrict\0__restrict__\0__extension__\0float\0double\0_Bool\0short\0struct\0union\0typedef\0default\0enum\0sizeof\0__attribute\0__attribute__\0__alignof\0__alignof__\0typeof\0__typeof\0__typeof__\0__label__\0asm\0__asm\0__asm__\0define\0include\0include_next\0ifdef\0ifndef\0elif\0endif\0defined\0undef\0error\0warning\0line\0pragma\0__LINE__\0__FILE__\0__DATE__\0__TIME__\0__FUNCTION__\0__VA_ARGS__\0__func__\0section\0__section__\0aligned\0__aligned__\0packed\0__packed__\0unused\0__unused__\0cdecl\0__cdecl\0__cdecl__\0stdcall\0__stdcall\0__stdcall__\0fastcall\0__fastcall\0__fastcall__\0dllexport\0noreturn\0__noreturn__\0__builtin_types_compatible_p\0__builtin_constant_p\0__builtin_frame_address\0__builtin_malloc\0__builtin_free\0malloc\0free\0regparm\0__regparm__\0pack\0push\0pop\0memcpy\0memset\0__divdi3\0__moddi3\0__udivdi3\0__umoddi3\0__ashrdi3\0__lshrdi3\0__ashldi3\0__floatundisf\0__floatundidf\0__floatundixf\0__fixunsxfdi\0__fixunssfdi\0__fixunsdfdi\0byte\0align\0skip\0space\0string\0asciz\0ascii\0globl\0global\0text\0data\0bss\0previous\0fill\0org\0quad\0";
-static char* tok_two_chars="<=\236>=\235!=\225&&\240||\241++\244--\242==\224<<\1>>\2+=\253-=\255*=\252/=\257%=\245&=\246^=\336|=\374->\313..\250##\266";
+typedef struct anonymous_typeX106 Dl_info;
+static const char tcc_keywords[]="int\0void\0char\0if\0else\0while\0break\0return\0for\0extern\0static\0unsigned\0goto\0do\0continue\0switch\0case\0const\0__const\0__const__\0volatile\0__volatile\0__volatile__\0long\0register\0signed\0__signed\0__signed__\0auto\0inline\0__inline\0__inline__\0restrict\0__restrict\0__restrict__\0__extension__\0float\0double\0_Bool\0short\0struct\0union\0typedef\0default\0enum\0sizeof\0__attribute\0__attribute__\0__alignof\0__alignof__\0typeof\0__typeof\0__typeof__\0__label__\0asm\0__asm\0__asm__\0define\0include\0include_next\0ifdef\0ifndef\0elif\0endif\0defined\0undef\0error\0warning\0line\0pragma\0__LINE__\0__FILE__\0__DATE__\0__TIME__\0__FUNCTION__\0__VA_ARGS__\0__func__\0section\0__section__\0aligned\0__aligned__\0packed\0__packed__\0unused\0__unused__\0cdecl\0__cdecl\0__cdecl__\0stdcall\0__stdcall\0__stdcall__\0fastcall\0__fastcall\0__fastcall__\0dllexport\0noreturn\0__noreturn__\0__builtin_types_compatible_p\0__builtin_constant_p\0__builtin_frame_address\0__builtin_malloc\0__builtin_free\0malloc\0free\0regparm\0__regparm__\0pack\0push\0pop\0memcpy\0memset\0__divdi3\0__moddi3\0__udivdi3\0__umoddi3\0__ashrdi3\0__lshrdi3\0__ashldi3\0__floatundisf\0__floatundidf\0__floatundixf\0__fixunsxfdi\0__fixunssfdi\0__fixunsdfdi\0byte\0align\0skip\0space\0string\0asciz\0ascii\0globl\0global\0text\0data\0bss\0previous\0fill\0org\0quad\0";
+static char tok_two_chars[]="<=\236>=\235!=\225&&\240||\241++\244--\242==\224<<\1>>\2+=\253-=\255*=\252/=\257%=\245&=\246^=\336|=\374->\313..\250##\266";
 static unsigned char isidnum_table[256-(-1)];
 struct macro_level
 {
@@ -1309,7 +1299,7 @@ static char ab_month_name[12][4]={
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 };
 typedef unsigned long long U;
-struct anonymous_typeX109
+struct anonymous_typeX107
 {
     unsigned int n_strx;
     unsigned char n_type;
@@ -1317,8 +1307,8 @@ struct anonymous_typeX109
     unsigned short int n_desc;
     unsigned int n_value;
 };
-typedef struct anonymous_typeX109 Stab_Sym;
-static char* elf_interp="/lib/ld-linux-x86-64.so.2";
+typedef struct anonymous_typeX107 Stab_Sym;
+static char elf_interp[]="/lib/ld-linux-x86-64.so.2";
 struct SectionMergeInfo
 {
     struct Section* s;
@@ -1345,14 +1335,14 @@ struct FlagDef
     const char* name;
 };
 typedef struct FlagDef FlagDef;
-const struct FlagDef* warning_defs={
+const struct FlagDef warning_defs[]={
     { ((size_t) &((TCCState *)0)->warn_unsupported), 0, "unsupported" },
     { ((size_t) &((TCCState *)0)->warn_write_strings), 0, "write-strings" },
     { ((size_t) &((TCCState *)0)->warn_error), 0, "error" },
     { ((size_t) &((TCCState *)0)->warn_implicit_function_declaration), 0x0001,
       "implicit-function-declaration" },
 };
-const struct FlagDef* flag_defs={
+const struct FlagDef flag_defs[]={
     { ((size_t) &((TCCState *)0)->char_is_unsigned), 0, "unsigned-char" },
     { ((size_t) &((TCCState *)0)->char_is_unsigned), 0x0002, "signed-char" },
     { ((size_t) &((TCCState *)0)->nocommon), 0x0002, "common" },
@@ -1406,7 +1396,7 @@ enum { TCC_OPTION_HELP
 ,TCC_OPTION_pipe
 ,TCC_OPTION_E
 };
-const struct TCCOption* tcc_options={
+const struct TCCOption tcc_options[]={
     { "h", TCC_OPTION_HELP, 0 },
     { "?", TCC_OPTION_HELP, 0 },
     { "I", TCC_OPTION_I, 0x0001 },
@@ -2375,9 +2365,9 @@ int sigpending(struct __sigset_t* anonymous_var_nameX777);
 
 int sigwait(const struct __sigset_t* anonymous_var_nameX778, int* anonymous_var_nameX779);
 
-int sigwaitinfo(const struct __sigset_t* anonymous_var_nameX780, struct anonymous_typeX16* anonymous_var_nameX781);
+int sigwaitinfo(const struct __sigset_t* anonymous_var_nameX780, struct anonymous_typeX14* anonymous_var_nameX781);
 
-int sigtimedwait(const struct __sigset_t* anonymous_var_nameX782, struct anonymous_typeX16* anonymous_var_nameX783, const struct timespec* anonymous_var_nameX784);
+int sigtimedwait(const struct __sigset_t* anonymous_var_nameX782, struct anonymous_typeX14* anonymous_var_nameX783, const struct timespec* anonymous_var_nameX784);
 
 int sigqueue(int anonymous_var_nameX785, int anonymous_var_nameX786, union sigval anonymous_var_nameX787);
 
@@ -2385,7 +2375,7 @@ int pthread_sigmask(int anonymous_var_nameX788, const struct __sigset_t* anonymo
 
 int pthread_kill(struct __pthread* anonymous_var_nameX791, int anonymous_var_nameX792);
 
-void psiginfo(const struct anonymous_typeX16* anonymous_var_nameX793, const char* anonymous_var_nameX794);
+void psiginfo(const struct anonymous_typeX14* anonymous_var_nameX793, const char* anonymous_var_nameX794);
 
 void psignal(int anonymous_var_nameX795, const char* anonymous_var_nameX796);
 
@@ -2597,19 +2587,19 @@ int fork();
 
 int _Fork();
 
-int execve(const char* anonymous_var_nameX1025, char** anonymous_var_nameX1026, char** anonymous_var_nameX1027);
+int execve(const char* anonymous_var_nameX1025, char* anonymous_var_nameX1026[], char* anonymous_var_nameX1027[]);
 
-int execv(const char* anonymous_var_nameX1028, char** anonymous_var_nameX1029);
+int execv(const char* anonymous_var_nameX1028, char* anonymous_var_nameX1029[]);
 
 int execle(const char* anonymous_var_nameX1030, const char* anonymous_var_nameX1031, ...);
 
 int execl(const char* anonymous_var_nameX1032, const char* anonymous_var_nameX1033, ...);
 
-int execvp(const char* anonymous_var_nameX1034, char** anonymous_var_nameX1035);
+int execvp(const char* anonymous_var_nameX1034, char* anonymous_var_nameX1035[]);
 
 int execlp(const char* anonymous_var_nameX1036, const char* anonymous_var_nameX1037, ...);
 
-int fexecve(int anonymous_var_nameX1038, char** anonymous_var_nameX1039, char** anonymous_var_nameX1040);
+int fexecve(int anonymous_var_nameX1038, char* anonymous_var_nameX1039[], char* anonymous_var_nameX1040[]);
 
 void _exit(int anonymous_var_nameX1041);
 
@@ -2645,7 +2635,7 @@ unsigned int getgid();
 
 unsigned int getegid();
 
-int getgroups(int anonymous_var_nameX1054, unsigned int* anonymous_var_nameX1055);
+int getgroups(int anonymous_var_nameX1054, unsigned int anonymous_var_nameX1055[]);
 
 int setuid(unsigned int anonymous_var_nameX1056);
 
@@ -2663,7 +2653,7 @@ int gethostname(char* anonymous_var_nameX1062, unsigned long int anonymous_var_n
 
 char* ctermid(char* anonymous_var_nameX1064);
 
-int getopt(int anonymous_var_nameX1065, char** anonymous_var_nameX1066, const char* anonymous_var_nameX1067);
+int getopt(int anonymous_var_nameX1065, char* anonymous_var_nameX1066[], const char* anonymous_var_nameX1067);
 
 long pathconf(const char* anonymous_var_nameX1068, int anonymous_var_nameX1069);
 
@@ -2733,7 +2723,7 @@ int acct(const char* anonymous_var_nameX1108);
 
 long syscall(long anonymous_var_nameX1109, ...);
 
-int execvpe(const char* anonymous_var_nameX1110, char** anonymous_var_nameX1111, char** anonymous_var_nameX1112);
+int execvpe(const char* anonymous_var_nameX1110, char* anonymous_var_nameX1111[], char* anonymous_var_nameX1112[]);
 
 int issetugid();
 
@@ -2759,9 +2749,9 @@ long copy_file_range(int anonymous_var_nameX1132, long* anonymous_var_nameX1133,
 
 int gettid();
 
-int select(int anonymous_var_nameX1138, struct anonymous_typeX61* anonymous_var_nameX1139, struct anonymous_typeX61* anonymous_var_nameX1140, struct anonymous_typeX61* anonymous_var_nameX1141, struct timeval* anonymous_var_nameX1142);
+int select(int anonymous_var_nameX1138, struct anonymous_typeX59* anonymous_var_nameX1139, struct anonymous_typeX59* anonymous_var_nameX1140, struct anonymous_typeX59* anonymous_var_nameX1141, struct timeval* anonymous_var_nameX1142);
 
-int pselect(int anonymous_var_nameX1143, struct anonymous_typeX61* anonymous_var_nameX1144, struct anonymous_typeX61* anonymous_var_nameX1145, struct anonymous_typeX61* anonymous_var_nameX1146, const struct timespec* anonymous_var_nameX1147, const struct __sigset_t* anonymous_var_nameX1148);
+int pselect(int anonymous_var_nameX1143, struct anonymous_typeX59* anonymous_var_nameX1144, struct anonymous_typeX59* anonymous_var_nameX1145, struct anonymous_typeX59* anonymous_var_nameX1146, const struct timespec* anonymous_var_nameX1147, const struct __sigset_t* anonymous_var_nameX1148);
 
 int gettimeofday(struct timeval* anonymous_var_nameX1149, void* anonymous_var_nameX1150);
 
@@ -2825,7 +2815,7 @@ int shm_unlink(const char* anonymous_var_nameX1220);
 
 long imaxabs(long anonymous_var_nameX1221);
 
-struct anonymous_typeX62 imaxdiv(long anonymous_var_nameX1222, long anonymous_var_nameX1223);
+struct anonymous_typeX60 imaxdiv(long anonymous_var_nameX1222, long anonymous_var_nameX1223);
 
 long strtoimax(const char* anonymous_var_nameX1224, char** anonymous_var_nameX1225, int anonymous_var_nameX1226);
 
@@ -2925,7 +2915,7 @@ void* dlopen(const char* anonymous_var_nameX1241, int anonymous_var_nameX1242);
 
 void* dlsym(void* anonymous_var_nameX1243, const char* anonymous_var_nameX1244);
 
-int dladdr(const void* anonymous_var_nameX1245, struct anonymous_typeX108* anonymous_var_nameX1246);
+int dladdr(const void* anonymous_var_nameX1245, struct anonymous_typeX106* anonymous_var_nameX1246);
 
 int dlinfo(void* anonymous_var_nameX1247, int anonymous_var_nameX1248, void* anonymous_var_nameX1249);
 
@@ -3231,7 +3221,7 @@ static void tcc_add_linker_symbols(struct TCCState* s1);
 static void tcc_output_binary(struct TCCState* s1, struct _IO_FILE* f, const int* section_order);
 int elf_output_file(struct TCCState* s1, const char* filename);
 
-static void Elf64_Ehdr_finalize(struct anonymous_typeX64* self);
+static void Elf64_Ehdr_finalize(struct anonymous_typeX62* self);
 int tcc_output_file(struct TCCState* s, const char* filename);
 
 static void* load_data(int fd, unsigned long int file_offset, unsigned long int size);
@@ -3248,7 +3238,7 @@ static void rt_printline(unsigned long int wanted_pc);
 static int rt_get_caller_pc(unsigned long int* paddr, struct ucontext* uc, int level);
 void rt_error(struct ucontext* uc, const char* fmt, ...);
 
-static void sig_error(int signum, struct anonymous_typeX16* siginf, void* puc);
+static void sig_error(int signum, struct anonymous_typeX14* siginf, void* puc);
 int tcc_relocate(struct TCCState* s1, void* ptr);
 
 int tcc_run(struct TCCState* s1, int argc, char** argv);
@@ -3298,10 +3288,10 @@ int main(int argc, char** argv);
 // inline function
 static inline unsigned int __FLOAT_BITS(float __f){
 void* __result_obj__;
-union anonymous_typeZ7 __u_0;
+union anonymous_typeZ6 __u_0;
 unsigned int __result1__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&__u_0, 0, sizeof(union anonymous_typeZ7));
+memset(&__u_0, 0, sizeof(union anonymous_typeZ6));
     # 57 "/usr/include/math.h"
     # 58 "/usr/include/math.h"
     __u_0.__f=__f;
@@ -3311,10 +3301,10 @@ memset(&__u_0, 0, sizeof(union anonymous_typeZ7));
 }
 static inline unsigned long long __DOUBLE_BITS(double __f){
 void* __result_obj__;
-union anonymous_typeZ11 __u_1;
+union anonymous_typeZ9 __u_1;
 unsigned long long __result2__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&__u_1, 0, sizeof(union anonymous_typeZ11));
+memset(&__u_1, 0, sizeof(union anonymous_typeZ9));
     # 63 "/usr/include/math.h"
     # 64 "/usr/include/math.h"
     __u_1.__f=__f;
@@ -5766,11 +5756,11 @@ memset(&__result_obj__, 0, sizeof(void*));
 static void gen_gotpcrel(int r, struct Sym* sym, int c){
 void* __result_obj__;
 struct Section* sr_8;
-struct anonymous_typeX74* rel_9;
+struct anonymous_typeX72* rel_9;
 _Bool _if_conditional5;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&sr_8, 0, sizeof(struct Section*));
-memset(&rel_9, 0, sizeof(struct anonymous_typeX74*));
+memset(&rel_9, 0, sizeof(struct anonymous_typeX72*));
     # 216 "x86_64-gen.c"
     # 217 "x86_64-gen.c"
     # 218 "x86_64-gen.c"
@@ -5778,7 +5768,7 @@ memset(&rel_9, 0, sizeof(struct anonymous_typeX74*));
     # 219 "x86_64-gen.c"
     sr_8=cur_text_section->reloc;
     # 220 "x86_64-gen.c"
-    rel_9=(struct anonymous_typeX74*)(sr_8->data+sr_8->data_offset-sizeof(struct anonymous_typeX74));
+    rel_9=(struct anonymous_typeX72*)(sr_8->data+sr_8->data_offset-sizeof(struct anonymous_typeX72));
     # 221 "x86_64-gen.c"
     rel_9->r_addend=-4;
     # 222 "x86_64-gen.c"
@@ -6625,7 +6615,7 @@ memset(&j_42, 0, sizeof(int));
     # 666 "x86_64-gen.c"
     func_sym_32=vtop->type.ref;
     # 667 "x86_64-gen.c"
-    func_call_31=(((struct anonymous_typeX107*)&(func_sym_32->r))->func_call);
+    func_call_31=(((struct anonymous_typeX105*)&(func_sym_32->r))->func_call);
     # 668 "x86_64-gen.c"
     oad(184,nb_sse_args_35<8?nb_sse_args_35:8);
     # 669 "x86_64-gen.c"
@@ -6690,7 +6680,7 @@ memset(&type_53, 0, sizeof(struct CType*));
     # 698 "x86_64-gen.c"
     sym_52=func_type->ref;
     # 699 "x86_64-gen.c"
-    func_call_47=(((struct anonymous_typeX107*)&(sym_52->r))->func_call);
+    func_call_47=(((struct anonymous_typeX105*)&(sym_52->r))->func_call);
     # 700 "x86_64-gen.c"
     addr_44=8*2;
     # 701 "x86_64-gen.c"
@@ -8504,7 +8494,7 @@ int sh_num_113;
 int info_114;
 int other_115;
 int attr_116;
-struct anonymous_typeX68* esym_117;
+struct anonymous_typeX66* esym_117;
 const char* name_118;
 _Bool _if_conditional124;
 _Bool _elif_conditional39;
@@ -8515,7 +8505,7 @@ name_118=get_tok_str(sym->v,((void*)0));
 _Bool _if_conditional128;
 name_118=buf1_119;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&esym_117, 0, sizeof(struct anonymous_typeX68*));
+memset(&esym_117, 0, sizeof(struct anonymous_typeX66*));
     # 641 "libtcc.c"
     # 642 "libtcc.c"
     # 643 "libtcc.c"
@@ -8579,7 +8569,7 @@ memset(&esym_117, 0, sizeof(struct anonymous_typeX68*));
     }
     else {
         # 720 "libtcc.c"
-        esym_117=&((struct anonymous_typeX68*)symtab_section->data)[sym->c];
+        esym_117=&((struct anonymous_typeX66*)symtab_section->data)[sym->c];
         # 721 "libtcc.c"
         esym_117->st_value=value;
         # 722 "libtcc.c"
@@ -16463,7 +16453,7 @@ memset(&__result_obj__, 0, sizeof(void*));
     }
     # 1745 "tccgen.c"
     # 1744 "tccgen.c"
-    if(_if_conditional587=(((struct anonymous_typeX107*)&(s1_423->r))->func_call)!=(((struct anonymous_typeX107*)&(s2_424->r))->func_call),    _if_conditional587) {
+    if(_if_conditional587=(((struct anonymous_typeX105*)&(s1_423->r))->func_call)!=(((struct anonymous_typeX105*)&(s2_424->r))->func_call),    _if_conditional587) {
         # 1745 "tccgen.c"
         __result126__ = 0;
         return __result126__;
@@ -17324,7 +17314,7 @@ memset(&parenthesis_458, 0, sizeof(int));
                 # 2228 "tccgen.c"
                 case 344:
                 # 2228 "tccgen.c"
-                (((struct anonymous_typeX107*)&(ad->func_attr))->func_call)=0;
+                (((struct anonymous_typeX105*)&(ad->func_attr))->func_call)=0;
                 # 2229 "tccgen.c"
                 break;
                 # 2231 "tccgen.c"
@@ -17334,13 +17324,13 @@ memset(&parenthesis_458, 0, sizeof(int));
                 # 2233 "tccgen.c"
                 case 347:
                 # 2233 "tccgen.c"
-                (((struct anonymous_typeX107*)&(ad->func_attr))->func_call)=1;
+                (((struct anonymous_typeX105*)&(ad->func_attr))->func_call)=1;
                 # 2234 "tccgen.c"
                 break;
                 # 2255 "tccgen.c"
                 case 351:
                 # 2255 "tccgen.c"
-                (((struct anonymous_typeX107*)&(ad->func_attr))->func_export)=1;
+                (((struct anonymous_typeX105*)&(ad->func_attr))->func_export)=1;
                 # 2256 "tccgen.c"
                 break;
                 # 2258 "tccgen.c"
@@ -18294,7 +18284,7 @@ memset(&pt_495, 0, sizeof(struct CType));
         # 2738 "tccgen.c"
         post_type(type,ad);
         # 2740 "tccgen.c"
-        (((struct anonymous_typeX107*)&(ad->func_attr))->func_args)=arg_size_489;
+        (((struct anonymous_typeX105*)&(ad->func_attr))->func_args)=arg_size_489;
         # 2741 "tccgen.c"
         s_492=sym_push(536870912,type,ad->func_attr,l_487);
         # 2742 "tccgen.c"
@@ -21839,7 +21829,7 @@ _Bool _if_conditional903;
 _Bool _if_conditional904;
 _Bool _if_conditional905;
 _Bool _if_conditional906;
-struct anonymous_typeX68* esym_617;
+struct anonymous_typeX66* esym_617;
 union CValue cval_618;
 _Bool _if_conditional907;
 unsigned long int* bounds_ptr_619;
@@ -21851,7 +21841,7 @@ memset(&init_str_613, 0, sizeof(struct TokenString));
 memset(&sec_614, 0, sizeof(struct Section*));
 memset(&bounds_ptr_615, 0, sizeof(unsigned long int*));
 memset(&sym_616, 0, sizeof(struct Sym*));
-memset(&esym_617, 0, sizeof(struct anonymous_typeX68*));
+memset(&esym_617, 0, sizeof(struct anonymous_typeX66*));
 memset(&cval_618, 0, sizeof(union CValue));
 memset(&bounds_ptr_619, 0, sizeof(unsigned long int*));
     # 4583 "tccgen.c"
@@ -22112,7 +22102,7 @@ memset(&bounds_ptr_619, 0, sizeof(unsigned long int*));
                 # 4749 "tccgen.c"
                 put_extern_sym(sym_616,((void*)0),align_608,size_607);
                 # 4751 "tccgen.c"
-                esym_617=&((struct anonymous_typeX68*)symtab_section->data)[sym_616->c];
+                esym_617=&((struct anonymous_typeX66*)symtab_section->data)[sym_616->c];
                 # 4752 "tccgen.c"
                 esym_617->st_shndx=65522;
             }
@@ -22309,7 +22299,7 @@ memset(&saved_nocode_wanted_626, 0, sizeof(int));
     # 4874 "tccgen.c"
     sym_pop(&local_stack,((void*)0));
     # 4878 "tccgen.c"
-    ((struct anonymous_typeX68*)symtab_section->data)[sym->c].st_size=ind-func_ind;
+    ((struct anonymous_typeX66*)symtab_section->data)[sym->c].st_size=ind-func_ind;
     # 4883 "tccgen.c"
     # 4879 "tccgen.c"
     if(tcc_state->do_debug) {
@@ -22566,15 +22556,15 @@ memset(&t_640, 0, sizeof(int));
                     r_633=sym_636->type.ref->r;
                     # 5020 "tccgen.c"
                     # 5019 "tccgen.c"
-                    if(_if_conditional935=(((struct anonymous_typeX107*)&(r_633))->func_call)!=0&&(((struct anonymous_typeX107*)&(type_634.ref->r))->func_call)==0,                    _if_conditional935) {
+                    if(_if_conditional935=(((struct anonymous_typeX105*)&(r_633))->func_call)!=0&&(((struct anonymous_typeX105*)&(type_634.ref->r))->func_call)==0,                    _if_conditional935) {
                         # 5020 "tccgen.c"
-                        (((struct anonymous_typeX107*)&(type_634.ref->r))->func_call)=(((struct anonymous_typeX107*)&(r_633))->func_call);
+                        (((struct anonymous_typeX105*)&(type_634.ref->r))->func_call)=(((struct anonymous_typeX105*)&(r_633))->func_call);
                     }
                     # 5022 "tccgen.c"
                     # 5021 "tccgen.c"
-                    if(_if_conditional936=(((struct anonymous_typeX107*)&(r_633))->func_export),                    _if_conditional936) {
+                    if(_if_conditional936=(((struct anonymous_typeX105*)&(r_633))->func_export),                    _if_conditional936) {
                         # 5022 "tccgen.c"
-                        (((struct anonymous_typeX107*)&(type_634.ref->r))->func_export)=1;
+                        (((struct anonymous_typeX105*)&(type_634.ref->r))->func_export)=1;
                     }
                     # 5030 "tccgen.c"
                     # 5024 "tccgen.c"
@@ -23026,7 +23016,7 @@ memset(&__result_obj__, 0, sizeof(void*));
 
 static void rebuild_hash(struct Section* s, unsigned int nb_buckets){
 void* __result_obj__;
-struct anonymous_typeX68* sym_658;
+struct anonymous_typeX66* sym_658;
 int* ptr_659;
 int* hash_660;
 int nb_syms_661;
@@ -23035,7 +23025,7 @@ int h_663;
 char* strtab_664;
 _Bool _if_conditional958;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&sym_658, 0, sizeof(struct anonymous_typeX68*));
+memset(&sym_658, 0, sizeof(struct anonymous_typeX66*));
 memset(&strtab_664, 0, sizeof(char*));
     # 67 "tccelf.c"
     # 68 "tccelf.c"
@@ -23043,7 +23033,7 @@ memset(&strtab_664, 0, sizeof(char*));
     # 71 "tccelf.c"
     strtab_664=s->link->data;
     # 72 "tccelf.c"
-    nb_syms_661=s->data_offset/sizeof(struct anonymous_typeX68);
+    nb_syms_661=s->data_offset/sizeof(struct anonymous_typeX66);
     # 74 "tccelf.c"
     s->hash->data_offset=0;
     # 75 "tccelf.c"
@@ -23061,7 +23051,7 @@ memset(&strtab_664, 0, sizeof(char*));
     # 81 "tccelf.c"
     ptr_659+=nb_buckets+1;
     # 83 "tccelf.c"
-    sym_658=(struct anonymous_typeX68*)s->data+1;
+    sym_658=(struct anonymous_typeX66*)s->data+1;
     # 95 "tccelf.c"
     for(    sym_index_662=1;    sym_index_662<nb_syms_661;    sym_index_662++    ){
         # 92 "tccelf.c"
@@ -23091,7 +23081,7 @@ int name_offset_665;
 int sym_index_666;
 int nbuckets_667;
 int h_668;
-struct anonymous_typeX68* sym_669;
+struct anonymous_typeX66* sym_669;
 struct Section* hs_670;
 _Bool _if_conditional959;
 _Bool _if_conditional960;
@@ -23101,14 +23091,14 @@ _Bool _if_conditional961;
 _Bool _if_conditional962;
 int __result152__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&sym_669, 0, sizeof(struct anonymous_typeX68*));
+memset(&sym_669, 0, sizeof(struct anonymous_typeX66*));
 memset(&hs_670, 0, sizeof(struct Section*));
     # 102 "tccelf.c"
     # 103 "tccelf.c"
     # 104 "tccelf.c"
     # 105 "tccelf.c"
     # 107 "tccelf.c"
-    sym_669=section_ptr_add(s,sizeof(struct anonymous_typeX68));
+    sym_669=section_ptr_add(s,sizeof(struct anonymous_typeX66));
     # 111 "tccelf.c"
     # 108 "tccelf.c"
     if(name) {
@@ -23132,7 +23122,7 @@ memset(&hs_670, 0, sizeof(struct Section*));
     # 118 "tccelf.c"
     sym_669->st_shndx=shndx;
     # 119 "tccelf.c"
-    sym_index_666=sym_669-(struct anonymous_typeX68*)s->data;
+    sym_index_666=sym_669-(struct anonymous_typeX66*)s->data;
     # 120 "tccelf.c"
     hs_670=s->hash;
     # 143 "tccelf.c"
@@ -23179,7 +23169,7 @@ memset(&hs_670, 0, sizeof(struct Section*));
 
 static int find_elf_sym(struct Section* s, const char* name){
 void* __result_obj__;
-struct anonymous_typeX68* sym_673;
+struct anonymous_typeX66* sym_673;
 struct Section* hs_674;
 int nbuckets_675;
 int sym_index_676;
@@ -23193,7 +23183,7 @@ _Bool _if_conditional964;
 int __result154__;
 int __result155__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&sym_673, 0, sizeof(struct anonymous_typeX68*));
+memset(&sym_673, 0, sizeof(struct anonymous_typeX66*));
 memset(&hs_674, 0, sizeof(struct Section*));
     # 150 "tccelf.c"
     # 151 "tccelf.c"
@@ -23217,7 +23207,7 @@ memset(&hs_674, 0, sizeof(struct Section*));
     # 168 "tccelf.c"
     while(_while_condtional81=sym_index_676!=0,    _while_condtional81) {
         # 162 "tccelf.c"
-        sym_673=&((struct anonymous_typeX68*)s->data)[sym_index_676];
+        sym_673=&((struct anonymous_typeX66*)s->data)[sym_index_676];
         # 163 "tccelf.c"
         # 165 "tccelf.c"
         # 164 "tccelf.c"
@@ -23237,13 +23227,13 @@ memset(&hs_674, 0, sizeof(struct Section*));
 void* tcc_get_symbol(struct TCCState* s, const char* name){
 void* __result_obj__;
 int sym_index_679;
-struct anonymous_typeX68* sym_680;
+struct anonymous_typeX66* sym_680;
 _Bool _if_conditional965;
 void* __result156__;
 void* __result157__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&sym_index_679, 0, sizeof(int));
-memset(&sym_680, 0, sizeof(struct anonymous_typeX68*));
+memset(&sym_680, 0, sizeof(struct anonymous_typeX66*));
     # 174 "tccelf.c"
     # 175 "tccelf.c"
     # 176 "tccelf.c"
@@ -23256,7 +23246,7 @@ memset(&sym_680, 0, sizeof(struct anonymous_typeX68*));
         return __result156__;
     }
     # 179 "tccelf.c"
-    sym_680=&((struct anonymous_typeX68*)symtab_section->data)[sym_index_679];
+    sym_680=&((struct anonymous_typeX66*)symtab_section->data)[sym_index_679];
     # 180 "tccelf.c"
     __result157__ = __result_obj__ = (void*)(long)sym_680->st_value;
     return __result157__;
@@ -23285,7 +23275,7 @@ memset(&sym_681, 0, sizeof(void*));
 
 static int add_elf_sym(struct Section* s, unsigned long int value, unsigned long int size, int info, int other, int sh_num, const char* name){
 void* __result_obj__;
-struct anonymous_typeX68* esym_682;
+struct anonymous_typeX66* esym_682;
 int sym_bind_683;
 int sym_index_684;
 int sym_type_685;
@@ -23306,7 +23296,7 @@ _Bool _elif_conditional195;
 _Bool _elif_conditional196;
 int __result159__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&esym_682, 0, sizeof(struct anonymous_typeX68*));
+memset(&esym_682, 0, sizeof(struct anonymous_typeX66*));
     # 197 "tccelf.c"
     # 198 "tccelf.c"
     # 199 "tccelf.c"
@@ -23328,7 +23318,7 @@ memset(&esym_682, 0, sizeof(struct anonymous_typeX68*));
             goto do_def;
         }
         # 210 "tccelf.c"
-        esym_682=&((struct anonymous_typeX68*)s->data)[sym_index_684];
+        esym_682=&((struct anonymous_typeX66*)s->data)[sym_index_684];
         # 257 "tccelf.c"
         # 211 "tccelf.c"
         if(_if_conditional969=esym_682->st_shndx!=0,        _if_conditional969) {
@@ -23414,11 +23404,11 @@ memset(&esym_682, 0, sizeof(struct anonymous_typeX68*));
 static void put_elf_reloc(struct Section* symtab, struct Section* s, unsigned long int offset, int type, int symbol){
 void* __result_obj__;
 struct Section* sr_691;
-struct anonymous_typeX74* rel_692;
+struct anonymous_typeX72* rel_692;
 _Bool _if_conditional972;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&sr_691, 0, sizeof(struct Section*));
-memset(&rel_692, 0, sizeof(struct anonymous_typeX74*));
+memset(&rel_692, 0, sizeof(struct anonymous_typeX72*));
     # 270 "tccelf.c"
     char buf_690[256];
     memset(&buf_690, 0, sizeof(char)    *(256)    );
@@ -23434,7 +23424,7 @@ memset(&rel_692, 0, sizeof(struct anonymous_typeX74*));
         # 280 "tccelf.c"
         sr_691=new_section(tcc_state,buf_690,4,symtab->sh_flags);
         # 281 "tccelf.c"
-        sr_691->sh_entsize=sizeof(struct anonymous_typeX74);
+        sr_691->sh_entsize=sizeof(struct anonymous_typeX72);
         # 282 "tccelf.c"
         sr_691->link=symtab;
         # 283 "tccelf.c"
@@ -23443,7 +23433,7 @@ memset(&rel_692, 0, sizeof(struct anonymous_typeX74*));
         s->reloc=sr_691;
     }
     # 286 "tccelf.c"
-    rel_692=section_ptr_add(sr_691,sizeof(struct anonymous_typeX74));
+    rel_692=section_ptr_add(sr_691,sizeof(struct anonymous_typeX72));
     # 287 "tccelf.c"
     rel_692->r_offset=offset;
     # 288 "tccelf.c"
@@ -23454,13 +23444,13 @@ memset(&rel_692, 0, sizeof(struct anonymous_typeX74*));
 
 static void put_stabs(const char* str, int type, int other, int desc, unsigned long int value){
 void* __result_obj__;
-struct anonymous_typeX109* sym_693;
+struct anonymous_typeX107* sym_693;
 _Bool _if_conditional973;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&sym_693, 0, sizeof(struct anonymous_typeX109*));
+memset(&sym_693, 0, sizeof(struct anonymous_typeX107*));
     # 307 "tccelf.c"
     # 309 "tccelf.c"
-    sym_693=section_ptr_add(stab_section,sizeof(struct anonymous_typeX109));
+    sym_693=section_ptr_add(stab_section,sizeof(struct anonymous_typeX107));
     # 315 "tccelf.c"
     # 310 "tccelf.c"
     if(str) {
@@ -23507,13 +23497,13 @@ memset(&__result_obj__, 0, sizeof(void*));
 static void sort_syms(struct TCCState* s1, struct Section* s){
 void* __result_obj__;
 int* old_to_new_syms_694;
-struct anonymous_typeX68* new_syms_695;
+struct anonymous_typeX66* new_syms_695;
 int nb_syms_696;
 int i_697;
-struct anonymous_typeX68* p_698;
-struct anonymous_typeX68* q_699;
-struct anonymous_typeX74* rel_700;
-struct anonymous_typeX74* rel_end_701;
+struct anonymous_typeX66* p_698;
+struct anonymous_typeX66* q_699;
+struct anonymous_typeX72* rel_700;
+struct anonymous_typeX72* rel_end_701;
 struct Section* sr_702;
 int type_703;
 int sym_index_704;
@@ -23522,7 +23512,7 @@ _Bool _if_conditional975;
 _Bool _if_conditional976;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&old_to_new_syms_694, 0, sizeof(int*));
-memset(&new_syms_695, 0, sizeof(struct anonymous_typeX68*));
+memset(&new_syms_695, 0, sizeof(struct anonymous_typeX66*));
 memset(&sr_702, 0, sizeof(struct Section*));
     # 346 "tccelf.c"
     # 347 "tccelf.c"
@@ -23532,13 +23522,13 @@ memset(&sr_702, 0, sizeof(struct Section*));
     # 351 "tccelf.c"
     # 352 "tccelf.c"
     # 354 "tccelf.c"
-    nb_syms_696=s->data_offset/sizeof(struct anonymous_typeX68);
+    nb_syms_696=s->data_offset/sizeof(struct anonymous_typeX66);
     # 355 "tccelf.c"
-    new_syms_695=tcc_malloc(nb_syms_696*sizeof(struct anonymous_typeX68));
+    new_syms_695=tcc_malloc(nb_syms_696*sizeof(struct anonymous_typeX66));
     # 356 "tccelf.c"
     old_to_new_syms_694=tcc_malloc(nb_syms_696*sizeof(int));
     # 359 "tccelf.c"
-    p_698=(struct anonymous_typeX68*)s->data;
+    p_698=(struct anonymous_typeX66*)s->data;
     # 360 "tccelf.c"
     q_699=new_syms_695;
     # 369 "tccelf.c"
@@ -23557,7 +23547,7 @@ memset(&sr_702, 0, sizeof(struct Section*));
     # 369 "tccelf.c"
     s->sh_info=q_699-new_syms_695;
     # 372 "tccelf.c"
-    p_698=(struct anonymous_typeX68*)s->data;
+    p_698=(struct anonymous_typeX66*)s->data;
     # 382 "tccelf.c"
     for(    i_697=0;    i_697<nb_syms_696;    i_697++    ){
         # 378 "tccelf.c"
@@ -23572,7 +23562,7 @@ memset(&sr_702, 0, sizeof(struct Section*));
         p_698++;
     }
     # 382 "tccelf.c"
-    memcpy(s->data,new_syms_695,nb_syms_696*sizeof(struct anonymous_typeX68));
+    memcpy(s->data,new_syms_695,nb_syms_696*sizeof(struct anonymous_typeX66));
     # 383 "tccelf.c"
     tcc_free(new_syms_695);
     # 401 "tccelf.c"
@@ -23583,9 +23573,9 @@ memset(&sr_702, 0, sizeof(struct Section*));
         # 388 "tccelf.c"
         if(_if_conditional976=sr_702->sh_type==4&&sr_702->link==s,        _if_conditional976) {
             # 389 "tccelf.c"
-            rel_end_701=(struct anonymous_typeX74*)(sr_702->data+sr_702->data_offset);
+            rel_end_701=(struct anonymous_typeX72*)(sr_702->data+sr_702->data_offset);
             # 398 "tccelf.c"
-            for(            rel_700=(struct anonymous_typeX74*)sr_702->data;            rel_700<rel_end_701;            rel_700++            ){
+            for(            rel_700=(struct anonymous_typeX72*)sr_702->data;            rel_700<rel_end_701;            rel_700++            ){
                 # 393 "tccelf.c"
                 sym_index_704=((rel_700->r_info)>>32);
                 # 394 "tccelf.c"
@@ -23603,8 +23593,8 @@ memset(&sr_702, 0, sizeof(struct Section*));
 
 static void relocate_common_syms(){
 void* __result_obj__;
-struct anonymous_typeX68* sym_705;
-struct anonymous_typeX68* sym_end_706;
+struct anonymous_typeX66* sym_705;
+struct anonymous_typeX66* sym_end_706;
 unsigned long int offset_707;
 unsigned long int align_708;
 _Bool _if_conditional977;
@@ -23612,9 +23602,9 @@ memset(&__result_obj__, 0, sizeof(void*));
     # 407 "tccelf.c"
     # 408 "tccelf.c"
     # 410 "tccelf.c"
-    sym_end_706=(struct anonymous_typeX68*)(symtab_section->data+symtab_section->data_offset);
+    sym_end_706=(struct anonymous_typeX66*)(symtab_section->data+symtab_section->data_offset);
     # 425 "tccelf.c"
-    for(    sym_705=(struct anonymous_typeX68*)symtab_section->data+1;    sym_705<sym_end_706;    sym_705++    ){
+    for(    sym_705=(struct anonymous_typeX66*)symtab_section->data+1;    sym_705<sym_end_706;    sym_705++    ){
         # 424 "tccelf.c"
         # 414 "tccelf.c"
         if(_if_conditional977=sym_705->st_shndx==65522,        _if_conditional977) {
@@ -23638,9 +23628,9 @@ memset(&__result_obj__, 0, sizeof(void*));
 
 static void relocate_syms(struct TCCState* s1, int do_resolve){
 void* __result_obj__;
-struct anonymous_typeX68* sym_709;
-struct anonymous_typeX68* esym_710;
-struct anonymous_typeX68* sym_end_711;
+struct anonymous_typeX66* sym_709;
+struct anonymous_typeX66* esym_710;
+struct anonymous_typeX66* sym_end_711;
 int sym_bind_712;
 int sh_num_713;
 int sym_index_714;
@@ -23662,9 +23652,9 @@ memset(&addr_716, 0, sizeof(unsigned long int));
     # 433 "tccelf.c"
     # 434 "tccelf.c"
     # 436 "tccelf.c"
-    sym_end_711=(struct anonymous_typeX68*)(symtab_section->data+symtab_section->data_offset);
+    sym_end_711=(struct anonymous_typeX66*)(symtab_section->data+symtab_section->data_offset);
     # 477 "tccelf.c"
-    for(    sym_709=(struct anonymous_typeX68*)symtab_section->data+1;    sym_709<sym_end_711;    sym_709++    ){
+    for(    sym_709=(struct anonymous_typeX66*)symtab_section->data+1;    sym_709<sym_end_711;    sym_709++    ){
         # 440 "tccelf.c"
         sh_num_713=sym_709->st_shndx;
         # 475 "tccelf.c"
@@ -23694,7 +23684,7 @@ memset(&addr_716, 0, sizeof(unsigned long int));
                 # 453 "tccelf.c"
                 if(sym_index_714) {
                     # 454 "tccelf.c"
-                    esym_710=&((struct anonymous_typeX68*)s1->dynsym->data)[sym_index_714];
+                    esym_710=&((struct anonymous_typeX66*)s1->dynsym->data)[sym_index_714];
                     # 455 "tccelf.c"
                     sym_709->st_value=esym_710->st_value;
                     # 456 "tccelf.c"
@@ -23773,10 +23763,10 @@ memset(&p_718, 0, sizeof(unsigned long int*));
 static void relocate_section(struct TCCState* s1, struct Section* s){
 void* __result_obj__;
 struct Section* sr_719;
-struct anonymous_typeX74* rel_720;
-struct anonymous_typeX74* rel_end_721;
-struct anonymous_typeX74* qrel_722;
-struct anonymous_typeX68* sym_723;
+struct anonymous_typeX72* rel_720;
+struct anonymous_typeX72* rel_end_721;
+struct anonymous_typeX72* qrel_722;
+struct anonymous_typeX66* sym_723;
 int type_724;
 int sym_index_725;
 unsigned char* ptr_726;
@@ -23795,7 +23785,7 @@ _Bool _if_conditional991;
 _Bool _if_conditional992;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&sr_719, 0, sizeof(struct Section*));
-memset(&sym_723, 0, sizeof(struct anonymous_typeX68*));
+memset(&sym_723, 0, sizeof(struct anonymous_typeX66*));
 memset(&ptr_726, 0, sizeof(unsigned char*));
 memset(&esym_index_729, 0, sizeof(int));
 memset(&diff_730, 0, sizeof(long));
@@ -23809,9 +23799,9 @@ memset(&diff_730, 0, sizeof(long));
     # 516 "tccelf.c"
     sr_719=s->reloc;
     # 517 "tccelf.c"
-    rel_end_721=(struct anonymous_typeX74*)(sr_719->data+sr_719->data_offset);
+    rel_end_721=(struct anonymous_typeX72*)(sr_719->data+sr_719->data_offset);
     # 518 "tccelf.c"
-    qrel_722=(struct anonymous_typeX74*)sr_719->data;
+    qrel_722=(struct anonymous_typeX72*)sr_719->data;
     # 733 "tccelf.c"
     for(    rel_720=qrel_722;    rel_720<rel_end_721;    rel_720++    ){
         # 522 "tccelf.c"
@@ -23819,7 +23809,7 @@ memset(&diff_730, 0, sizeof(long));
         # 524 "tccelf.c"
         sym_index_725=((rel_720->r_info)>>32);
         # 525 "tccelf.c"
-        sym_723=&((struct anonymous_typeX68*)symtab_section->data)[sym_index_725];
+        sym_723=&((struct anonymous_typeX66*)symtab_section->data)[sym_index_725];
         # 526 "tccelf.c"
         val_727=sym_723->st_value;
         # 529 "tccelf.c"
@@ -23968,8 +23958,8 @@ memset(&diff_730, 0, sizeof(long));
 static void relocate_rel(struct TCCState* s1, struct Section* sr){
 void* __result_obj__;
 struct Section* s_731;
-struct anonymous_typeX74* rel_732;
-struct anonymous_typeX74* rel_end_733;
+struct anonymous_typeX72* rel_732;
+struct anonymous_typeX72* rel_end_733;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&s_731, 0, sizeof(struct Section*));
     # 740 "tccelf.c"
@@ -23977,9 +23967,9 @@ memset(&s_731, 0, sizeof(struct Section*));
     # 743 "tccelf.c"
     s_731=s1->sections[sr->sh_info];
     # 744 "tccelf.c"
-    rel_end_733=(struct anonymous_typeX74*)(sr->data+sr->data_offset);
+    rel_end_733=(struct anonymous_typeX72*)(sr->data+sr->data_offset);
     # 750 "tccelf.c"
-    for(    rel_732=(struct anonymous_typeX74*)sr->data;    rel_732<rel_end_733;    rel_732++    ){
+    for(    rel_732=(struct anonymous_typeX72*)sr->data;    rel_732<rel_end_733;    rel_732++    ){
         # 748 "tccelf.c"
         rel_732->r_offset+=s_731->sh_addr;
     }
@@ -23987,8 +23977,8 @@ memset(&s_731, 0, sizeof(struct Section*));
 
 static int prepare_dynamic_rel(struct TCCState* s1, struct Section* sr){
 void* __result_obj__;
-struct anonymous_typeX74* rel_734;
-struct anonymous_typeX74* rel_end_735;
+struct anonymous_typeX72* rel_734;
+struct anonymous_typeX72* rel_end_735;
 int sym_index_736;
 int esym_index_737;
 int type_738;
@@ -24002,9 +23992,9 @@ memset(&__result_obj__, 0, sizeof(void*));
     # 759 "tccelf.c"
     count_739=0;
     # 760 "tccelf.c"
-    rel_end_735=(struct anonymous_typeX74*)(sr->data+sr->data_offset);
+    rel_end_735=(struct anonymous_typeX72*)(sr->data+sr->data_offset);
     # 787 "tccelf.c"
-    for(    rel_734=(struct anonymous_typeX74*)sr->data;    rel_734<rel_end_735;    rel_734++    ){
+    for(    rel_734=(struct anonymous_typeX72*)sr->data;    rel_734<rel_end_735;    rel_734++    ){
         # 762 "tccelf.c"
         sym_index_736=((rel_734->r_info)>>32);
         # 763 "tccelf.c"
@@ -24045,7 +24035,7 @@ memset(&__result_obj__, 0, sizeof(void*));
         # 789 "tccelf.c"
         sr->sh_flags|=(1<<1);
         # 790 "tccelf.c"
-        sr->sh_size=count_739*sizeof(struct anonymous_typeX74);
+        sr->sh_size=count_739*sizeof(struct anonymous_typeX72);
     }
     # 792 "tccelf.c"
     __result162__ = count_739;
@@ -24147,7 +24137,7 @@ static void put_got_entry(struct TCCState* s1, int reloc_type, unsigned long int
 void* __result_obj__;
 int index_743;
 const char* name_744;
-struct anonymous_typeX68* sym_745;
+struct anonymous_typeX66* sym_745;
 unsigned long int offset_746;
 int* ptr_747;
 _Bool _if_conditional997;
@@ -24161,7 +24151,7 @@ int modrm_750;
 _Bool _if_conditional1001;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&index_743, 0, sizeof(int));
-memset(&sym_745, 0, sizeof(struct anonymous_typeX68*));
+memset(&sym_745, 0, sizeof(struct anonymous_typeX66*));
 memset(&offset_746, 0, sizeof(unsigned long int));
 memset(&ptr_747, 0, sizeof(int*));
 memset(&plt_748, 0, sizeof(struct Section*));
@@ -24190,7 +24180,7 @@ memset(&modrm_750, 0, sizeof(int));
     # 883 "tccelf.c"
     if(s1->dynsym) {
         # 884 "tccelf.c"
-        sym_745=&((struct anonymous_typeX68*)symtab_section->data)[sym_index];
+        sym_745=&((struct anonymous_typeX66*)symtab_section->data)[sym_index];
         # 885 "tccelf.c"
         # 886 "tccelf.c"
         offset_746=sym_745->st_value;
@@ -24256,9 +24246,9 @@ static void build_got_entries(struct TCCState* s1){
 void* __result_obj__;
 struct Section* s_751;
 struct Section* symtab_752;
-struct anonymous_typeX74* rel_753;
-struct anonymous_typeX74* rel_end_754;
-struct anonymous_typeX68* sym_755;
+struct anonymous_typeX72* rel_753;
+struct anonymous_typeX72* rel_end_754;
+struct anonymous_typeX66* sym_755;
 int i_756;
 int type_757;
 int reloc_type_758;
@@ -24269,7 +24259,7 @@ _Bool _if_conditional1004;
 _Bool _if_conditional1005;
 _Bool _if_conditional1006;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&sym_755, 0, sizeof(struct anonymous_typeX68*));
+memset(&sym_755, 0, sizeof(struct anonymous_typeX66*));
     # 952 "tccelf.c"
     # 953 "tccelf.c"
     # 954 "tccelf.c"
@@ -24293,9 +24283,9 @@ memset(&sym_755, 0, sizeof(struct anonymous_typeX68*));
         # 964 "tccelf.c"
         symtab_752=s_751->link;
         # 965 "tccelf.c"
-        rel_end_754=(struct anonymous_typeX74*)(s_751->data+s_751->data_offset);
+        rel_end_754=(struct anonymous_typeX72*)(s_751->data+s_751->data_offset);
         # 1091 "tccelf.c"
-        for(        rel_753=(struct anonymous_typeX74*)s_751->data;        rel_753<rel_end_754;        rel_753++        ){
+        for(        rel_753=(struct anonymous_typeX72*)s_751->data;        rel_753<rel_end_754;        rel_753++        ){
             # 969 "tccelf.c"
             type_757=((rel_753->r_info)&-1);
             # 1090 "tccelf.c"
@@ -24320,7 +24310,7 @@ memset(&sym_755, 0, sizeof(struct anonymous_typeX68*));
                     # 1073 "tccelf.c"
                     sym_index_759=((rel_753->r_info)>>32);
                     # 1074 "tccelf.c"
-                    sym_755=&((struct anonymous_typeX68*)symtab_section->data)[sym_index_759];
+                    sym_755=&((struct anonymous_typeX66*)symtab_section->data)[sym_index_759];
                     # 1079 "tccelf.c"
                     # 1076 "tccelf.c"
                     if(_if_conditional1006=type_757==3||type_757==9,                    _if_conditional1006) {
@@ -24359,7 +24349,7 @@ memset(&__result_obj__, 0, sizeof(void*));
     # 1102 "tccelf.c"
     symtab_760=new_section(s1,symtab_name,sh_type,sh_flags);
     # 1103 "tccelf.c"
-    symtab_760->sh_entsize=sizeof(struct anonymous_typeX68);
+    symtab_760->sh_entsize=sizeof(struct anonymous_typeX66);
     # 1104 "tccelf.c"
     strtab_761=new_section(s1,strtab_name,3,sh_flags);
     # 1105 "tccelf.c"
@@ -24393,12 +24383,12 @@ memset(&__result_obj__, 0, sizeof(void*));
 
 static void put_dt(struct Section* dynamic, int dt, unsigned long int val){
 void* __result_obj__;
-struct anonymous_typeX80* dyn_765;
+struct anonymous_typeX78* dyn_765;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&dyn_765, 0, sizeof(struct anonymous_typeX80*));
+memset(&dyn_765, 0, sizeof(struct anonymous_typeX78*));
     # 1126 "tccelf.c"
     # 1127 "tccelf.c"
-    dyn_765=section_ptr_add(dynamic,sizeof(struct anonymous_typeX80));
+    dyn_765=section_ptr_add(dynamic,sizeof(struct anonymous_typeX78));
     # 1128 "tccelf.c"
     dyn_765->d_tag=dt;
     # 1129 "tccelf.c"
@@ -24585,7 +24575,7 @@ memset(&s_776, 0, sizeof(struct Section*));
 
 int elf_output_file(struct TCCState* s1, const char* filename){
 void* __result_obj__;
-struct anonymous_typeX64 ehdr_780;
+struct anonymous_typeX62 ehdr_780;
 struct _IO_FILE* f_781;
 int fd_782;
 int mode_783;
@@ -24604,15 +24594,15 @@ int k_795;
 unsigned long int addr_796;
 struct Section* strsec_797;
 struct Section* s_798;
-struct anonymous_typeX66 shdr_799;
-struct anonymous_typeX66* sh_800;
-struct anonymous_typeX76* phdr_801;
-struct anonymous_typeX76* ph_802;
+struct anonymous_typeX64 shdr_799;
+struct anonymous_typeX64* sh_800;
+struct anonymous_typeX74* phdr_801;
+struct anonymous_typeX74* ph_802;
 struct Section* interp_803;
 struct Section* dynamic_804;
 struct Section* dynstr_805;
 unsigned long int saved_dynamic_data_offset_806;
-struct anonymous_typeX68* sym_807;
+struct anonymous_typeX66* sym_807;
 int type_808;
 int file_type_809;
 unsigned long int rel_addr_810;
@@ -24623,8 +24613,8 @@ _Bool _if_conditional1016;
 const char* name_812;
 int sym_index_813;
 int index_814;
-struct anonymous_typeX68* esym_815;
-struct anonymous_typeX68* sym_end_816;
+struct anonymous_typeX66* esym_815;
+struct anonymous_typeX66* sym_end_816;
 _Bool _if_conditional1017;
 char* ptr_817;
 _Bool _if_conditional1018;
@@ -24685,7 +24675,7 @@ _Bool _if_conditional1056;
 _Bool _if_conditional1057;
 _Bool _if_conditional1058;
 _Bool _if_conditional1059;
-struct anonymous_typeX68* sym_end_823;
+struct anonymous_typeX66* sym_end_823;
 _Bool _if_conditional1060;
 unsigned char* p_824;
 unsigned char* p_end_825;
@@ -24714,17 +24704,17 @@ _Bool _if_conditional1077;
 _Bool _if_conditional1078;
 int __result165__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&ehdr_780, 0, sizeof(struct anonymous_typeX64));
+memset(&ehdr_780, 0, sizeof(struct anonymous_typeX62));
 memset(&f_781, 0, sizeof(struct _IO_FILE*));
 memset(&section_order_785, 0, sizeof(int*));
 memset(&addr_796, 0, sizeof(unsigned long int));
 memset(&saved_dynamic_data_offset_806, 0, sizeof(unsigned long int));
-memset(&sym_807, 0, sizeof(struct anonymous_typeX68*));
+memset(&sym_807, 0, sizeof(struct anonymous_typeX66*));
 memset(&ptr_817, 0, sizeof(char*));
 memset(&offset_818, 0, sizeof(unsigned long int));
 memset(&nb_syms_819, 0, sizeof(int));
 memset(&dllref_820, 0, sizeof(struct DLLReference*));
-memset(&sym_end_823, 0, sizeof(struct anonymous_typeX68*));
+memset(&sym_end_823, 0, sizeof(struct anonymous_typeX66*));
 memset(&x_826, 0, sizeof(int));
     # 1313 "tccelf.c"
     # 1314 "tccelf.c"
@@ -24797,7 +24787,7 @@ memset(&x_826, 0, sizeof(int));
             # 1370 "tccelf.c"
             dynamic_804->link=dynstr_805;
             # 1371 "tccelf.c"
-            dynamic_804->sh_entsize=sizeof(struct anonymous_typeX80);
+            dynamic_804->sh_entsize=sizeof(struct anonymous_typeX78);
             # 1375 "tccelf.c"
             s1->plt=new_section(s1,".plt",1,(1<<1)|(1<<2));
             # 1376 "tccelf.c"
@@ -24805,12 +24795,12 @@ memset(&x_826, 0, sizeof(int));
             # 1378 "tccelf.c"
             build_got(s1);
             # 1385 "tccelf.c"
-            sym_end_816=(struct anonymous_typeX68*)(symtab_section->data+symtab_section->data_offset);
+            sym_end_816=(struct anonymous_typeX66*)(symtab_section->data+symtab_section->data_offset);
             # 1499 "tccelf.c"
             # 1386 "tccelf.c"
             if(_if_conditional1018=file_type_809==1,            _if_conditional1018) {
                 # 1434 "tccelf.c"
-                for(                sym_807=(struct anonymous_typeX68*)symtab_section->data+1;                sym_807<sym_end_816;                sym_807++                ){
+                for(                sym_807=(struct anonymous_typeX66*)symtab_section->data+1;                sym_807<sym_end_816;                sym_807++                ){
                     # 1432 "tccelf.c"
                     # 1390 "tccelf.c"
                     if(_if_conditional1019=sym_807->st_shndx==0,                    _if_conditional1019) {
@@ -24821,14 +24811,14 @@ memset(&x_826, 0, sizeof(int));
                         # 1393 "tccelf.c"
                         if(sym_index_813) {
                             # 1394 "tccelf.c"
-                            esym_815=&((struct anonymous_typeX68*)s1->dynsymtab_section->data)[sym_index_813];
+                            esym_815=&((struct anonymous_typeX66*)s1->dynsymtab_section->data)[sym_index_813];
                             # 1395 "tccelf.c"
                             type_808=((esym_815->st_info)&15);
                             # 1413 "tccelf.c"
                             # 1396 "tccelf.c"
                             if(_if_conditional1021=type_808==2,                            _if_conditional1021) {
                                 # 1399 "tccelf.c"
-                                put_got_entry(s1,7,esym_815->st_size,esym_815->st_info,sym_807-(struct anonymous_typeX68*)symtab_section->data);
+                                put_got_entry(s1,7,esym_815->st_size,esym_815->st_info,sym_807-(struct anonymous_typeX66*)symtab_section->data);
                             }
                             # 1400 "tccelf.c"
                             else if(_elif_conditional198=type_808==1,                            _elif_conditional198) {
@@ -24872,9 +24862,9 @@ memset(&x_826, 0, sizeof(int));
                     goto fail;
                 }
                 # 1440 "tccelf.c"
-                sym_end_816=(struct anonymous_typeX68*)(s1->dynsymtab_section->data+s1->dynsymtab_section->data_offset);
+                sym_end_816=(struct anonymous_typeX66*)(s1->dynsymtab_section->data+s1->dynsymtab_section->data_offset);
                 # 1463 "tccelf.c"
-                for(                esym_815=(struct anonymous_typeX68*)s1->dynsymtab_section->data+1;                esym_815<sym_end_816;                esym_815++                ){
+                for(                esym_815=(struct anonymous_typeX66*)s1->dynsymtab_section->data+1;                esym_815<sym_end_816;                esym_815++                ){
                     # 1462 "tccelf.c"
                     # 1444 "tccelf.c"
                     if(_if_conditional1024=esym_815->st_shndx==0,                    _if_conditional1024) {
@@ -24885,7 +24875,7 @@ memset(&x_826, 0, sizeof(int));
                         # 1447 "tccelf.c"
                         if(sym_index_813) {
                             # 1450 "tccelf.c"
-                            sym_807=&((struct anonymous_typeX68*)symtab_section->data)[sym_index_813];
+                            sym_807=&((struct anonymous_typeX66*)symtab_section->data)[sym_index_813];
                             # 1453 "tccelf.c"
                             put_elf_sym(s1->dynsym,sym_807->st_value,sym_807->st_size,sym_807->st_info,0,sym_807->st_shndx,name_812);
                         }
@@ -24905,11 +24895,11 @@ memset(&x_826, 0, sizeof(int));
             else {
                 # 1464 "tccelf.c"
                 # 1466 "tccelf.c"
-                nb_syms_819=symtab_section->data_offset/sizeof(struct anonymous_typeX68);
+                nb_syms_819=symtab_section->data_offset/sizeof(struct anonymous_typeX66);
                 # 1467 "tccelf.c"
                 s1->symtab_to_dynsym=tcc_mallocz(sizeof(int)*nb_syms_819);
                 # 1497 "tccelf.c"
-                for(                sym_807=(struct anonymous_typeX68*)symtab_section->data+1;                sym_807<sym_end_816;                sym_807++                ){
+                for(                sym_807=(struct anonymous_typeX66*)symtab_section->data+1;                sym_807<sym_end_816;                sym_807++                ){
                     # 1496 "tccelf.c"
                     # 1471 "tccelf.c"
                     if(_if_conditional1027=(((unsigned char)(sym_807->st_info))>>4)!=0,                    _if_conditional1027) {
@@ -24917,19 +24907,19 @@ memset(&x_826, 0, sizeof(int));
                         # 1474 "tccelf.c"
                         if(_if_conditional1028=((sym_807->st_info)&15)==2&&sym_807->st_shndx==0,                        _if_conditional1028) {
                             # 1477 "tccelf.c"
-                            put_got_entry(s1,7,sym_807->st_size,sym_807->st_info,sym_807-(struct anonymous_typeX68*)symtab_section->data);
+                            put_got_entry(s1,7,sym_807->st_size,sym_807->st_info,sym_807-(struct anonymous_typeX66*)symtab_section->data);
                         }
                         # 1479 "tccelf.c"
                         else if(_elif_conditional200=((sym_807->st_info)&15)==1,                        _elif_conditional200) {
                             # 1482 "tccelf.c"
-                            put_got_entry(s1,6,sym_807->st_size,sym_807->st_info,sym_807-(struct anonymous_typeX68*)symtab_section->data);
+                            put_got_entry(s1,6,sym_807->st_size,sym_807->st_info,sym_807-(struct anonymous_typeX66*)symtab_section->data);
                         }
                         else {
                             # 1487 "tccelf.c"
                             # 1490 "tccelf.c"
                             index_814=put_elf_sym(s1->dynsym,sym_807->st_value,sym_807->st_size,sym_807->st_info,0,sym_807->st_shndx,name_812);
                             # 1493 "tccelf.c"
-                            s1->symtab_to_dynsym[sym_807-(struct anonymous_typeX68*)symtab_section->data]=index_814;
+                            s1->symtab_to_dynsym[sym_807-(struct anonymous_typeX66*)symtab_section->data]=index_814;
                         }
                     }
                 }
@@ -24962,7 +24952,7 @@ memset(&x_826, 0, sizeof(int));
             # 1516 "tccelf.c"
             saved_dynamic_data_offset_806=dynamic_804->data_offset;
             # 1517 "tccelf.c"
-            dynamic_804->data_offset+=sizeof(struct anonymous_typeX80)*9;
+            dynamic_804->data_offset+=sizeof(struct anonymous_typeX78)*9;
         }
         else {
             # 1520 "tccelf.c"
@@ -25042,12 +25032,12 @@ memset(&x_826, 0, sizeof(int));
         }
     }
     # 1591 "tccelf.c"
-    phdr_801=tcc_mallocz(phnum_788*sizeof(struct anonymous_typeX76));
+    phdr_801=tcc_mallocz(phnum_788*sizeof(struct anonymous_typeX74));
     # 1598 "tccelf.c"
     # 1593 "tccelf.c"
     if(_if_conditional1035=s1->output_format==0,    _if_conditional1035) {
         # 1594 "tccelf.c"
-        file_offset_789=sizeof(struct anonymous_typeX64)+phnum_788*sizeof(struct anonymous_typeX76);
+        file_offset_789=sizeof(struct anonymous_typeX62)+phnum_788*sizeof(struct anonymous_typeX74);
     }
     else {
         # 1596 "tccelf.c"
@@ -25332,9 +25322,9 @@ memset(&x_826, 0, sizeof(int));
                 }
             }
             # 1778 "tccelf.c"
-            sym_end_823=(struct anonymous_typeX68*)(s1->dynsym->data+s1->dynsym->data_offset);
+            sym_end_823=(struct anonymous_typeX66*)(s1->dynsym->data+s1->dynsym->data_offset);
             # 1794 "tccelf.c"
-            for(            sym_807=(struct anonymous_typeX68*)s1->dynsym->data+1;            sym_807<sym_end_823;            sym_807++            ){
+            for(            sym_807=(struct anonymous_typeX66*)s1->dynsym->data+1;            sym_807<sym_end_823;            sym_807++            ){
                 # 1791 "tccelf.c"
                 # 1782 "tccelf.c"
                 if(_if_conditional1062=sym_807->st_shndx==0,                _if_conditional1062) {
@@ -25362,13 +25352,13 @@ memset(&x_826, 0, sizeof(int));
             # 1798 "tccelf.c"
             put_dt(dynamic_804,10,dynstr_805->data_offset);
             # 1799 "tccelf.c"
-            put_dt(dynamic_804,11,sizeof(struct anonymous_typeX68));
+            put_dt(dynamic_804,11,sizeof(struct anonymous_typeX66));
             # 1801 "tccelf.c"
             put_dt(dynamic_804,7,rel_addr_810);
             # 1802 "tccelf.c"
             put_dt(dynamic_804,8,rel_size_811);
             # 1803 "tccelf.c"
-            put_dt(dynamic_804,9,sizeof(struct anonymous_typeX74));
+            put_dt(dynamic_804,9,sizeof(struct anonymous_typeX72));
             # 1810 "tccelf.c"
             # 1809 "tccelf.c"
             if(s1->do_debug) {
@@ -25379,11 +25369,11 @@ memset(&x_826, 0, sizeof(int));
             put_dt(dynamic_804,0,0);
         }
         # 1814 "tccelf.c"
-        ehdr_780.e_phentsize=sizeof(struct anonymous_typeX76);
+        ehdr_780.e_phentsize=sizeof(struct anonymous_typeX74);
         # 1815 "tccelf.c"
         ehdr_780.e_phnum=phnum_788;
         # 1816 "tccelf.c"
-        ehdr_780.e_phoff=sizeof(struct anonymous_typeX64);
+        ehdr_780.e_phoff=sizeof(struct anonymous_typeX62);
     }
     # 1835 "tccelf.c"
     for(    i_787=1;    i_787<s1->nb_sections;    i_787++    ){
@@ -25535,19 +25525,19 @@ memset(&x_826, 0, sizeof(int));
         # 1940 "tccelf.c"
         ehdr_780.e_shoff=file_offset_789;
         # 1941 "tccelf.c"
-        ehdr_780.e_ehsize=sizeof(struct anonymous_typeX64);
+        ehdr_780.e_ehsize=sizeof(struct anonymous_typeX62);
         # 1942 "tccelf.c"
-        ehdr_780.e_shentsize=sizeof(struct anonymous_typeX66);
+        ehdr_780.e_shentsize=sizeof(struct anonymous_typeX64);
         # 1943 "tccelf.c"
         ehdr_780.e_shnum=shnum_786;
         # 1944 "tccelf.c"
         ehdr_780.e_shstrndx=shnum_786-1;
         # 1946 "tccelf.c"
-        fwrite(&ehdr_780,1,sizeof(struct anonymous_typeX64),f_781);
+        fwrite(&ehdr_780,1,sizeof(struct anonymous_typeX62),f_781);
         # 1947 "tccelf.c"
-        fwrite(phdr_801,1,phnum_788*sizeof(struct anonymous_typeX76),f_781);
+        fwrite(phdr_801,1,phnum_788*sizeof(struct anonymous_typeX74),f_781);
         # 1948 "tccelf.c"
-        offset_790=sizeof(struct anonymous_typeX64)+phnum_788*sizeof(struct anonymous_typeX76);
+        offset_790=sizeof(struct anonymous_typeX62)+phnum_788*sizeof(struct anonymous_typeX74);
         # 1964 "tccelf.c"
         for(        i_787=1;        i_787<s1->nb_sections;        i_787++        ){
             # 1951 "tccelf.c"
@@ -25582,7 +25572,7 @@ memset(&x_826, 0, sizeof(int));
             # 1970 "tccelf.c"
             sh_800=&shdr_799;
             # 1971 "tccelf.c"
-            memset(sh_800,0,sizeof(struct anonymous_typeX66));
+            memset(sh_800,0,sizeof(struct anonymous_typeX64));
             # 1972 "tccelf.c"
             s_798=s1->sections[i_787];
             # 1986 "tccelf.c"
@@ -25614,7 +25604,7 @@ memset(&x_826, 0, sizeof(int));
                 sh_800->sh_size=s_798->sh_size;
             }
             # 1986 "tccelf.c"
-            fwrite(sh_800,1,sizeof(struct anonymous_typeX66),f_781);
+            fwrite(sh_800,1,sizeof(struct anonymous_typeX64),f_781);
         }
     }
     else {
@@ -25642,7 +25632,7 @@ memset(&x_826, 0, sizeof(int));
     come_call_finalizer3((&ehdr_780),Elf64_Ehdr_finalize, 1, 0, 0, 0, (void*)0);
 }
 
-static void Elf64_Ehdr_finalize(struct anonymous_typeX64* self){
+static void Elf64_Ehdr_finalize(struct anonymous_typeX62* self){
 void* __result_obj__;
 memset(&__result_obj__, 0, sizeof(void*));
 }
@@ -25684,9 +25674,9 @@ memset(&data_828, 0, sizeof(void*));
 
 static int tcc_load_object_file(struct TCCState* s1, int fd, unsigned long int file_offset){
 void* __result_obj__;
-struct anonymous_typeX64 ehdr_829;
-struct anonymous_typeX66* shdr_830;
-struct anonymous_typeX66* sh_831;
+struct anonymous_typeX62 ehdr_829;
+struct anonymous_typeX64* shdr_830;
+struct anonymous_typeX64* sh_831;
 int size_832;
 int i_833;
 int j_834;
@@ -25702,10 +25692,10 @@ char* sh_name_843;
 char* name_844;
 struct SectionMergeInfo* sm_table_845;
 struct SectionMergeInfo* sm_846;
-struct anonymous_typeX68* sym_847;
-struct anonymous_typeX68* symtab_848;
-struct anonymous_typeX74* rel_849;
-struct anonymous_typeX74* rel_end_850;
+struct anonymous_typeX66* sym_847;
+struct anonymous_typeX66* symtab_848;
+struct anonymous_typeX72* rel_849;
+struct anonymous_typeX72* rel_end_850;
 struct Section* s_851;
 int stab_index_852;
 int stabstr_index_853;
@@ -25728,8 +25718,8 @@ _Bool _if_conditional1093;
 _Bool _if_conditional1094;
 unsigned char* ptr_854;
 _Bool _if_conditional1095;
-struct anonymous_typeX109* a_855;
-struct anonymous_typeX109* b_856;
+struct anonymous_typeX107* a_855;
+struct anonymous_typeX107* b_856;
 unsigned int o_857;
 _Bool _while_condtional87;
 _Bool _if_conditional1096;
@@ -25747,7 +25737,7 @@ _Bool _if_conditional1105;
 _Bool _if_conditional1106;
 int __result169__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&ehdr_829, 0, sizeof(struct anonymous_typeX64));
+memset(&ehdr_829, 0, sizeof(struct anonymous_typeX62));
 memset(&old_to_new_syms_842, 0, sizeof(int*));
 memset(&s_851, 0, sizeof(struct Section*));
 memset(&stab_index_852, 0, sizeof(int));
@@ -25801,7 +25791,7 @@ memset(&sym_index_859, 0, sizeof(unsigned int));
         return __result168__;
     }
     # 2073 "tccelf.c"
-    shdr_830=load_data(fd,file_offset+ehdr_829.e_shoff,sizeof(struct anonymous_typeX66)*ehdr_829.e_shnum);
+    shdr_830=load_data(fd,file_offset+ehdr_829.e_shoff,sizeof(struct anonymous_typeX64)*ehdr_829.e_shnum);
     # 2074 "tccelf.c"
     sm_table_845=tcc_mallocz(sizeof(struct SectionMergeInfo)*ehdr_829.e_shnum);
     # 2077 "tccelf.c"
@@ -25836,7 +25826,7 @@ memset(&sym_index_859, 0, sizeof(unsigned int));
                 goto the_end;
             }
             # 2094 "tccelf.c"
-            nb_syms_837=sh_831->sh_size/sizeof(struct anonymous_typeX68);
+            nb_syms_837=sh_831->sh_size/sizeof(struct anonymous_typeX66);
             # 2095 "tccelf.c"
             symtab_848=load_data(fd,file_offset+sh_831->sh_offset,sh_831->sh_size);
             # 2096 "tccelf.c"
@@ -25974,9 +25964,9 @@ memset(&sym_index_859, 0, sizeof(unsigned int));
         # 2191 "tccelf.c"
         s_851=sm_table_845[stab_index_852].s;
         # 2192 "tccelf.c"
-        a_855=(struct anonymous_typeX109*)(s_851->data+sm_table_845[stab_index_852].offset);
+        a_855=(struct anonymous_typeX107*)(s_851->data+sm_table_845[stab_index_852].offset);
         # 2193 "tccelf.c"
-        b_856=(struct anonymous_typeX109*)(s_851->data+s_851->data_offset);
+        b_856=(struct anonymous_typeX107*)(s_851->data+s_851->data_offset);
         # 2194 "tccelf.c"
         o_857=sm_table_845[stabstr_index_853].offset;
         # 2196 "tccelf.c"
@@ -26084,9 +26074,9 @@ memset(&sym_index_859, 0, sizeof(unsigned int));
             # 2262 "tccelf.c"
             offseti_836=sm_table_845[sh_831->sh_info].offset;
             # 2263 "tccelf.c"
-            rel_end_850=(struct anonymous_typeX74*)(s_851->data+s_851->data_offset);
+            rel_end_850=(struct anonymous_typeX72*)(s_851->data+s_851->data_offset);
             # 2287 "tccelf.c"
-            for(            rel_849=(struct anonymous_typeX74*)(s_851->data+offset_835);            rel_849<rel_end_850;            rel_849++            ){
+            for(            rel_849=(struct anonymous_typeX72*)(s_851->data+offset_835);            rel_849<rel_end_850;            rel_849++            ){
                 # 2267 "tccelf.c"
                 # 2268 "tccelf.c"
                 # 2270 "tccelf.c"
@@ -26168,7 +26158,7 @@ unsigned char* data_866;
 const char* ar_names_867;
 const char* p_868;
 const unsigned char* ar_index_869;
-struct anonymous_typeX68* sym_870;
+struct anonymous_typeX66* sym_870;
 _Bool _if_conditional1107;
 ar_index_869=data_866+4;
 ar_names_867=ar_index_869+nsyms_862*4;
@@ -26179,7 +26169,7 @@ _Bool _if_conditional1110;
 int __result171__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&data_866, 0, sizeof(unsigned char*));
-memset(&sym_870, 0, sizeof(struct anonymous_typeX68*));
+memset(&sym_870, 0, sizeof(struct anonymous_typeX66*));
     # 2324 "tccelf.c"
     # 2325 "tccelf.c"
     # 2326 "tccelf.c"
@@ -26209,7 +26199,7 @@ memset(&sym_870, 0, sizeof(struct anonymous_typeX68*));
             # 2341 "tccelf.c"
             if(sym_index_863) {
                 # 2342 "tccelf.c"
-                sym_870=&((struct anonymous_typeX68*)symtab_section->data)[sym_index_863];
+                sym_870=&((struct anonymous_typeX66*)symtab_section->data)[sym_index_863];
                 # 2356 "tccelf.c"
                 # 2343 "tccelf.c"
                 if(_if_conditional1109=sym_870->st_shndx==0,                _if_conditional1109) {
@@ -26365,20 +26355,20 @@ memset(&__result_obj__, 0, sizeof(void*));
 
 static int tcc_load_dll(struct TCCState* s1, int fd, const char* filename, int level){
 void* __result_obj__;
-struct anonymous_typeX64 ehdr_879;
-struct anonymous_typeX66* shdr_880;
-struct anonymous_typeX66* sh_881;
-struct anonymous_typeX66* sh1_882;
+struct anonymous_typeX62 ehdr_879;
+struct anonymous_typeX64* shdr_880;
+struct anonymous_typeX64* sh_881;
+struct anonymous_typeX64* sh1_882;
 int i_883;
 int j_884;
 int nb_syms_885;
 int nb_dts_886;
 int sym_bind_887;
 int ret_888;
-struct anonymous_typeX68* sym_889;
-struct anonymous_typeX68* dynsym_890;
-struct anonymous_typeX80* dt_891;
-struct anonymous_typeX80* dynamic_892;
+struct anonymous_typeX66* sym_889;
+struct anonymous_typeX66* dynsym_890;
+struct anonymous_typeX78* dt_891;
+struct anonymous_typeX78* dynamic_892;
 unsigned char* dynstr_893;
 const char* name_894;
 const char* soname_895;
@@ -26397,7 +26387,7 @@ _Bool _if_conditional1122;
 _Bool _if_conditional1123;
 int __result177__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&ehdr_879, 0, sizeof(struct anonymous_typeX64));
+memset(&ehdr_879, 0, sizeof(struct anonymous_typeX62));
 memset(&dynstr_893, 0, sizeof(unsigned char*));
 memset(&dllref_896, 0, sizeof(struct DLLReference*));
     # 2422 "tccelf.c"
@@ -26421,7 +26411,7 @@ memset(&dllref_896, 0, sizeof(struct DLLReference*));
         return __result176__;
     }
     # 2441 "tccelf.c"
-    shdr_880=load_data(fd,ehdr_879.e_shoff,sizeof(struct anonymous_typeX66)*ehdr_879.e_shnum);
+    shdr_880=load_data(fd,ehdr_879.e_shoff,sizeof(struct anonymous_typeX64)*ehdr_879.e_shnum);
     # 2444 "tccelf.c"
     nb_syms_885=0;
     # 2445 "tccelf.c"
@@ -26439,7 +26429,7 @@ memset(&dllref_896, 0, sizeof(struct DLLReference*));
             # 2452 "tccelf.c"
             case 6:
             # 2452 "tccelf.c"
-            nb_dts_886=sh_881->sh_size/sizeof(struct anonymous_typeX80);
+            nb_dts_886=sh_881->sh_size/sizeof(struct anonymous_typeX78);
             # 2453 "tccelf.c"
             dynamic_892=load_data(fd,sh_881->sh_offset,sh_881->sh_size);
             # 2454 "tccelf.c"
@@ -26447,7 +26437,7 @@ memset(&dllref_896, 0, sizeof(struct DLLReference*));
             # 2456 "tccelf.c"
             case 11:
             # 2456 "tccelf.c"
-            nb_syms_885=sh_881->sh_size/sizeof(struct anonymous_typeX68);
+            nb_syms_885=sh_881->sh_size/sizeof(struct anonymous_typeX66);
             # 2457 "tccelf.c"
             dynsym_890=load_data(fd,sh_881->sh_offset,sh_881->sh_size);
             # 2458 "tccelf.c"
@@ -26976,8 +26966,8 @@ memset(&__result_obj__, 0, sizeof(void*));
 
 static void rt_printline(unsigned long int wanted_pc){
 void* __result_obj__;
-struct anonymous_typeX109* sym_906;
-struct anonymous_typeX109* sym_end_907;
+struct anonymous_typeX107* sym_906;
+struct anonymous_typeX107* sym_end_907;
 char func_name_908[128];
 char last_func_name_909[128];
 unsigned long int func_addr_910;
@@ -27003,8 +26993,8 @@ _Bool _if_conditional1144;
 _Bool _if_conditional1145;
 str_918=stabstr_section->data+sym_906->n_strx;
 _Bool _if_conditional1146;
-struct anonymous_typeX68* sym_920;
-struct anonymous_typeX68* sym_end_921;
+struct anonymous_typeX66* sym_920;
+struct anonymous_typeX66* sym_end_921;
 int type_922;
 _Bool _if_conditional1147;
 _Bool _if_conditional1148;
@@ -27035,9 +27025,9 @@ memset(&type_922, 0, sizeof(int));
     # 1357 "libtcc.c"
     last_line_num_916=1;
     # 1358 "libtcc.c"
-    sym_906=(struct anonymous_typeX109*)stab_section->data+1;
+    sym_906=(struct anonymous_typeX107*)stab_section->data+1;
     # 1359 "libtcc.c"
-    sym_end_907=(struct anonymous_typeX109*)(stab_section->data+stab_section->data_offset);
+    sym_end_907=(struct anonymous_typeX107*)(stab_section->data+stab_section->data_offset);
     # 1424 "libtcc.c"
     while(_while_condtional88=sym_906<sym_end_907,    _while_condtional88) {
         # 1420 "libtcc.c"
@@ -27161,9 +27151,9 @@ memset(&type_922, 0, sizeof(int));
         # 1426 "libtcc.c"
         # 1427 "libtcc.c"
         # 1429 "libtcc.c"
-        sym_end_921=(struct anonymous_typeX68*)(symtab_section->data+symtab_section->data_offset);
+        sym_end_921=(struct anonymous_typeX66*)(symtab_section->data+symtab_section->data_offset);
         # 1443 "libtcc.c"
-        for(        sym_920=(struct anonymous_typeX68*)symtab_section->data+1;        sym_920<sym_end_921;        sym_920++        ){
+        for(        sym_920=(struct anonymous_typeX66*)symtab_section->data+1;        sym_920<sym_end_921;        sym_920++        ){
             # 1433 "libtcc.c"
             type_922=((sym_920->st_info)&15);
             # 1442 "libtcc.c"
@@ -27268,7 +27258,7 @@ memset(&i_925, 0, sizeof(int));
     come_call_finalizer3((&ap_923),va_list_finalize, 1, 0, 0, 0, (void*)0);
 }
 
-static void sig_error(int signum, struct anonymous_typeX16* siginf, void* puc){
+static void sig_error(int signum, struct anonymous_typeX14* siginf, void* puc){
 void* __result_obj__;
 struct ucontext* uc_926;
 _Bool _if_conditional1153;
@@ -27742,7 +27732,7 @@ memset(&pathname1_942, 0, sizeof(char*));
 static int tcc_add_file_internal(struct TCCState* s1, const char* filename, int flags){
 void* __result_obj__;
 const char* ext_943;
-struct anonymous_typeX64 ehdr_944;
+struct anonymous_typeX62 ehdr_944;
 int fd_945;
 int ret_946;
 struct BufferedFile* saved_file_947;
@@ -27764,7 +27754,7 @@ _Bool _elif_conditional215;
 _Bool _if_conditional1176;
 int __result199__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&ehdr_944, 0, sizeof(struct anonymous_typeX64));
+memset(&ehdr_944, 0, sizeof(struct anonymous_typeX62));
 memset(&saved_file_947, 0, sizeof(struct BufferedFile*));
 memset(&h_948, 0, sizeof(void*));
     # 1920 "libtcc.c"
@@ -28071,7 +28061,7 @@ memset(&__result_obj__, 0, sizeof(void*));
         # 2143 "libtcc.c"
         stab_section=new_section(s,".stab",1,0);
         # 2144 "libtcc.c"
-        stab_section->sh_entsize=sizeof(struct anonymous_typeX109);
+        stab_section->sh_entsize=sizeof(struct anonymous_typeX107);
         # 2145 "libtcc.c"
         stabstr_section=new_section(s,".stabstr",3,0);
         # 2146 "libtcc.c"

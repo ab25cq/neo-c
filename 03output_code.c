@@ -238,7 +238,7 @@ string make_define_var(sType* type, char* name, bool in_header=false, sInfo* inf
     var buf = new buffer();
     
     sType*% type2 = clone type;
-    if(type2->mNoNumberArray) {
+    if(type2->mArrayPointerType) {
         type2->mPointerNum--;
     }
     
@@ -312,7 +312,7 @@ string make_define_var(sType* type, char* name, bool in_header=false, sInfo* inf
             buf.append_str(xsprintf("[%s]", cvalue.c_value));
         }
         
-        if(type2->mNoNumberArray) {
+        if(type2->mArrayPointerType) {
             buf.append_str("[]");
         }
         
@@ -338,7 +338,7 @@ string make_define_var(sType* type, char* name, bool in_header=false, sInfo* inf
             buf.append_str(")");
         }
         
-        if(type2->mNoNumberArray) {
+        if(type2->mArrayPointerType) {
             buf.append_str("[]");
         }
         

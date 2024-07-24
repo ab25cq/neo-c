@@ -1004,7 +1004,7 @@ tuple2<sType*%, string>*% parse_variable_name(sType*% base_type_name, bool first
             info->p++;
             skip_spaces_and_lf();
             
-            result_type->mNoNumberArray = true;
+            result_type->mArrayPointerType = true;
             result_type->mPointerNum++;
             break;
         }
@@ -2245,54 +2245,6 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                 }
             }
         }
-/*
-        if(*info->p == '|' && in_function_parametor) {
-            list<sType*%>*% types = new list<sType*%>();
-            
-            types.push_back(clone type);
-            
-            while(*info->p == '|') {
-                info->p++;
-                skip_spaces_and_lf();
-                
-                var type2, name, err = parse_type(parse_multiple_type:false, parse_in_function_parametor:false);
-                
-                if(!err) {
-                    return ((sType*%)null, (string)null, false);
-                }
-                    
-                types.push_back(clone type2);
-            }
-            
-            bool heap = types[0].mHeap;
-            foreach(it, types) {
-                if(heap != it->mHeap) {
-                    return ((sType*%)null, (string)null, false);
-                }
-                heap = it->mHeap;
-            }
-            
-            sType*% type3 = new sType("void");
-            type3->mHeap = heap;
-            type3->mPointerNum = 1;
-            
-            type3.mMultipleTypes = clone types;
-            
-            if(is_contained_generics_class(type3, info)) {
-                type3 = solve_generics(type3, info.generics_type, info);
-            }
-            else {
-                if(!output_generics_struct(type3, type3, info))
-                {
-                    string new_name = create_generics_name(type, info);
-                    printf("output generics is failed(%s)\n", new_name);
-                    exit(9);
-                }
-            }
-            
-            type = clone type3;
-        }
-*/
 
         if(parse_variable_name) {
             parse_sharp();

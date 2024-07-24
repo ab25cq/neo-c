@@ -618,6 +618,7 @@ struct sInfo
     struct map$2charphcharph* module_params;
     _Bool constructor_;
     struct sClass* defining_class;
+    _Bool array_initializer;
 };
 struct tuple2$2sTypephcharph
 {
@@ -1746,6 +1747,8 @@ char* create_method_name_using_class(struct sClass* obj_class, _Bool no_pointer_
 struct sNode* expression_node_v96(struct sInfo* info);
 
 struct sNode* parse_tuple(struct sInfo* info);
+
+struct sNode* parse_array_initializer(struct sInfo* info);
 
 struct sNode* parse_global_variable(struct sInfo* info);
 
@@ -3239,10 +3242,6 @@ memset(&buf_92, 0, sizeof(struct buffer*));
 right_value139 = (void*)0;
 memset(&o2_saved_93, 0, sizeof(struct list$1tuple2$2charphsTypephph*));
 memset(&it_96, 0, sizeof(struct tuple2$2charphsTypeph*));
-memset(&name_99, 0, sizeof(char*));
-memset(&type_100, 0, sizeof(struct sType*));
-memset(&name_99, 0, sizeof(char*));
-memset(&type_100, 0, sizeof(struct sType*));
 right_value140 = (void*)0;
 right_value141 = (void*)0;
 right_value148 = (void*)0;
@@ -5302,23 +5301,9 @@ void* right_value182;
 struct tuple2$2sTypephcharph* __result128__;
 memset(&__result_obj__, 0, sizeof(void*));
 right_value150 = (void*)0;
-memset(&result_type_145, 0, sizeof(struct sType*));
-memset(&var_name_146, 0, sizeof(char*));
-memset(&err_147, 0, sizeof(_Bool));
-memset(&result_type_145, 0, sizeof(struct sType*));
-memset(&var_name_146, 0, sizeof(char*));
-memset(&err_147, 0, sizeof(_Bool));
 right_value151 = (void*)0;
 memset(&fun_name_148, 0, sizeof(char*));
 right_value152 = (void*)0;
-memset(&param_types_149, 0, sizeof(struct list$1sTypeph*));
-memset(&param_names_150, 0, sizeof(struct list$1charph*));
-memset(&param_default_parametors_151, 0, sizeof(struct list$1charph*));
-memset(&var_args_152, 0, sizeof(_Bool));
-memset(&param_types_149, 0, sizeof(struct list$1sTypeph*));
-memset(&param_names_150, 0, sizeof(struct list$1charph*));
-memset(&param_default_parametors_151, 0, sizeof(struct list$1charph*));
-memset(&var_args_152, 0, sizeof(_Bool));
 right_value159 = (void*)0;
 right_value160 = (void*)0;
 right_value167 = (void*)0;
@@ -5994,10 +5979,6 @@ right_value221 = (void*)0;
 right_value222 = (void*)0;
 right_value223 = (void*)0;
 right_value224 = (void*)0;
-memset(&type2_190, 0, sizeof(struct sType*));
-memset(&name_191, 0, sizeof(char*));
-memset(&type2_190, 0, sizeof(struct sType*));
-memset(&name_191, 0, sizeof(char*));
 right_value225 = (void*)0;
 right_value226 = (void*)0;
 memset(&source_tail_192, 0, sizeof(char*));

@@ -618,6 +618,7 @@ struct sInfo
     struct map$2charphcharph* module_params;
     _Bool constructor_;
     struct sClass* defining_class;
+    _Bool array_initializer;
 };
 struct tuple2$2sTypephcharph
 {
@@ -1770,6 +1771,8 @@ char* create_method_name_using_class(struct sClass* obj_class, _Bool no_pointer_
 struct sNode* expression_node_v96(struct sInfo* info);
 
 struct sNode* parse_tuple(struct sInfo* info);
+
+struct sNode* parse_array_initializer(struct sInfo* info);
 
 struct sNode* parse_global_variable(struct sInfo* info);
 
@@ -3303,10 +3306,6 @@ memset(&i_61, 0, sizeof(int));
 memset(&n_62, 0, sizeof(int));
 memset(&o2_saved_63, 0, sizeof(struct list$1tuple2$2charphsNodephph*));
 memset(&it_66, 0, sizeof(struct tuple2$2charphsNodeph*));
-memset(&name_69, 0, sizeof(char*));
-memset(&value_70, 0, sizeof(struct sNode*));
-memset(&name_69, 0, sizeof(char*));
-memset(&value_70, 0, sizeof(struct sNode*));
 right_value98 = (void*)0;
 right_value99 = (void*)0;
 memset(&c_value_79, 0, sizeof(char*));
