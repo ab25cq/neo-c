@@ -1,5 +1,5 @@
 foreach no macro
 
-compile a.c
+lcc compile
 
-array_initializer
+generics refactoring
