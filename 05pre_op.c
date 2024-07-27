@@ -608,7 +608,10 @@ sNode*% pre_position_operator(sInfo* info=info)
             info->p++;
             skip_spaces_and_lf();
             
-            if(xisalpha(*info->p) || *info->p == '_') {
+            if(*info->p == '"') {
+                refference = true;
+            }
+            else if(xisalpha(*info->p) || *info->p == '_') {
                 refference = true;
             }
             else if(*info->p == '(' || *info->p == '*') {

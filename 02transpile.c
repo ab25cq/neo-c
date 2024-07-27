@@ -10,7 +10,7 @@ using c
 
 bool gComeGC = false;
 bool gComeLink = true;
-bool gComeC = false;
+bool gComeC = true;
 char* gProgramName = NULL;
 bool gCommonHeader = false;
 bool gComeMalloc = false;

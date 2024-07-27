@@ -426,20 +426,21 @@ class sClassNode extends sNodeBase
 sNode*% parse_struct(string type_name, sInfo* info)
 {
     sClass*% klass;
-    bool output;
     if(info.classes.at(type_name, null) == null) {
-        output = true;
         klass = new sClass(name:string(type_name), struct_:true);
         info.classes.insert(string(type_name), klass);
     }
     else {
         klass = clone info.classes.at(type_name, null);
-        if(klass->mFields.length() > 0) {
-            output = false;
-        }
     }
     
-    klass.mFields.reset();
+    bool output;
+    if(klass->mFields.length() > 0) {
+        output = false;
+    }
+    else {
+        output = true;
+    }
     
     sClass* parent_class = null;
     if(parsecmp("extends")) {
@@ -478,7 +479,7 @@ sNode*% parse_struct(string type_name, sInfo* info)
             
             var type2, name2 = parse_variable_name(base_type, true@first, info);
             
-            if(!info.no_output_err) {
+            if(output) {
                 klass.mFields.push_back((name2, type2));
             }
             
@@ -488,7 +489,7 @@ sNode*% parse_struct(string type_name, sInfo* info)
                 
                 var type2, name2 = parse_variable_name(base_type, false@first, info);
                 
-                if(!info.no_output_err) {
+                if(output) {
                     klass.mFields.push_back((name2, type2));
                 }
             }
@@ -501,7 +502,7 @@ sNode*% parse_struct(string type_name, sInfo* info)
                 exit(2);
             }
             
-            if(!info.no_output_err) {
+            if(output) {
                 klass.mFields.push_back((name, type2));
             }
         }

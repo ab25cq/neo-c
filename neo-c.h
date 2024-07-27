@@ -1,6 +1,8 @@
 #ifndef NEO_C_H
 #define NEO_C_H
 
+using neo-c;
+
 #ifdef NEO_C_STDC
 #include <neo-c-stdc.h>
 #else

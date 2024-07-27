@@ -1,7 +1,9 @@
-
 int main(int argc, char** argv)
 {
-    static int a = 1, b = 2;
+    struct data {
+        int a;
+        int b;
+    } Data;
     
     return 0;
 }

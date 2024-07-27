@@ -1334,8 +1334,8 @@ static char rcsid[] = "$Id$";
 
 static Node forest;
 static struct dag {
- struct node node;
- struct dag *hlink;
+    struct node node;
+    struct dag *hlink;
 } *buckets[16];
 int nodecount;
 static Tree firstarg;
@@ -1363,1608 +1363,1608 @@ static Node undag(Node);
 static Node visit(Node, int);
 static void unlist(void);
 void walk(Tree tp, int tlab, int flab) {
- listnodes(tp, tlab, flab);
- if (forest) {
-  Node list = forest->link;
-  forest->link = 
+    listnodes(tp, tlab, flab);
+    if (forest) {
+        Node list = forest->link;
+        forest->link = 
 # 45 "src/dag.c" 3 4
-                ((void*)0)
+                      ((void*)0)
 # 45 "src/dag.c"
-                    ;
-  if (!IR->wants_dag && errcnt == 0)
-   list = undag(list);
-  code(Gen)->u.forest = list;
-  forest = 
+                          ;
+        if (!IR->wants_dag && errcnt == 0)
+            list = undag(list);
+        code(Gen)->u.forest = list;
+        forest = 
 # 49 "src/dag.c" 3 4
-          ((void*)0)
+                ((void*)0)
 # 49 "src/dag.c"
-              ;
- }
- reset();
- deallocate(STMT);
+                    ;
+    }
+    reset();
+    deallocate(STMT);
 }
 
 static Node node(int op, Node l, Node r, Symbol sym) {
- int i;
- struct dag *p;
+    int i;
+    struct dag *p;
 
- i = ((((op)>>4)&0x3F)^((unsigned long)sym>>2))&(((int)(sizeof (buckets)/sizeof ((buckets)[0])))-1);
- for (p = buckets[i]; p; p = p->hlink)
-  if (p->node.op == op && p->node.syms[0] == sym
-  && p->node.kids[0] == l && p->node.kids[1] == r)
-   return &p->node;
- p = dagnode(op, l, r, sym);
- p->hlink = buckets[i];
- buckets[i] = p;
- ++nodecount;
- return &p->node;
+    i = ((((op)>>4)&0x3F)^((unsigned long)sym>>2))&(((int)(sizeof (buckets)/sizeof ((buckets)[0])))-1);
+    for (p = buckets[i]; p; p = p->hlink)
+        if (p->node.op == op && p->node.syms[0] == sym
+        && p->node.kids[0] == l && p->node.kids[1] == r)
+            return &p->node;
+    p = dagnode(op, l, r, sym);
+    p->hlink = buckets[i];
+    buckets[i] = p;
+    ++nodecount;
+    return &p->node;
 }
 static struct dag *dagnode(int op, Node l, Node r, Symbol sym) {
- struct dag *p;
+    struct dag *p;
 
- memset((((p)) = allocate(sizeof *((p)), ((FUNC)))), 0, sizeof *(p));
- p->node.op = op;
- if ((p->node.kids[0] = l) != 
+    memset((((p)) = allocate(sizeof *((p)), ((FUNC)))), 0, sizeof *(p));
+    p->node.op = op;
+    if ((p->node.kids[0] = l) != 
 # 75 "src/dag.c" 3 4
-                             ((void*)0)
+                                ((void*)0)
 # 75 "src/dag.c"
-                                 )
-  ++l->count;
- if ((p->node.kids[1] = r) != 
+                                    )
+        ++l->count;
+    if ((p->node.kids[1] = r) != 
 # 77 "src/dag.c" 3 4
-                             ((void*)0)
+                                ((void*)0)
 # 77 "src/dag.c"
-                                 )
-  ++r->count;
- p->node.syms[0] = sym;
- return p;
+                                    )
+        ++r->count;
+    p->node.syms[0] = sym;
+    return p;
 }
 Node newnode(int op, Node l, Node r, Symbol sym) {
- return &dagnode(op, l, r, sym)->node;
+    return &dagnode(op, l, r, sym)->node;
 }
 static void killnodes(Symbol p) {
- int i;
- struct dag **q;
+    int i;
+    struct dag **q;
 
- for (i = 0; i < ((int)(sizeof (buckets)/sizeof ((buckets)[0]))); i++)
-  for (q = &buckets[i]; *q; )
-   if ((((*q)->node.op)&0x3F0) == INDIR &&
-       (!((((*q)->node.kids[0]->op)&0x3FF)==ADDRG+P || (((*q)->node.kids[0]->op)&0x3FF)==ADDRL+P || (((*q)->node.kids[0]->op)&0x3FF)==ADDRF+P)
-        || (*q)->node.kids[0]->syms[0] == p)) {
-    *q = (*q)->hlink;
-    --nodecount;
-   } else
-    q = &(*q)->hlink;
+    for (i = 0; i < ((int)(sizeof (buckets)/sizeof ((buckets)[0]))); i++)
+        for (q = &buckets[i]; *q; )
+            if ((((*q)->node.op)&0x3F0) == INDIR &&
+                (!((((*q)->node.kids[0]->op)&0x3FF)==ADDRG+P || (((*q)->node.kids[0]->op)&0x3FF)==ADDRL+P || (((*q)->node.kids[0]->op)&0x3FF)==ADDRF+P)
+                 || (*q)->node.kids[0]->syms[0] == p)) {
+                *q = (*q)->hlink;
+                --nodecount;
+            } else
+                q = &(*q)->hlink;
 }
 static void reset(void) {
- if (nodecount > 0)
-  memset(buckets, 0, sizeof buckets);
- nodecount = 0;
+    if (nodecount > 0)
+        memset(buckets, 0, sizeof buckets);
+    nodecount = 0;
 }
 Node listnodes(Tree tp, int tlab, int flab) {
- Node p = 
+    Node p = 
 # 105 "src/dag.c" 3 4
-         ((void*)0)
+            ((void*)0)
 # 105 "src/dag.c"
-             , l, r;
- int op;
+                , l, r;
+    int op;
 
- 
-# 108 "src/dag.c" 3 4
-((void)((
-# 108 "src/dag.c"
-tlab == 0 || flab == 0
-# 108 "src/dag.c" 3 4
-) || (__assert_fail(
-# 108 "src/dag.c"
-"tlab == 0 || flab == 0"
-# 108 "src/dag.c" 3 4
-, "src/dag.c", 108, __func__),0)))
-# 108 "src/dag.c"
-                              ;
- if (tp == 
-# 109 "src/dag.c" 3 4
-          ((void*)0)
-# 109 "src/dag.c"
-              )
-  return 
-# 110 "src/dag.c" 3 4
-        ((void*)0)
-# 110 "src/dag.c"
-            ;
- if (tp->node)
-  return tp->node;
- if (((((tp->type)->op >= CONST) ? (tp->type)->type : (tp->type))->op == ARRAY))
-  op = tp->op + ((voidptype->size)<<10);
- else
-  op = tp->op + ((tp->type->size)<<10);
- switch (((tp->op)&0x3F0)) {
- case AND: { if (depth++ == 0) reset();
-        if (flab) {
-         listnodes(tp->kids[0], 0, flab);
-         listnodes(tp->kids[1], 0, flab);
-        } else {
-         listnodes(tp->kids[0], 0, flab = genlabel(1));
-         listnodes(tp->kids[1], tlab, 0);
-         labelnode(flab);
-        }
-        depth--; } break;
- case OR: { if (depth++ == 0)
-         reset();
-        if (tlab) {
-         listnodes(tp->kids[0], tlab, 0);
-         listnodes(tp->kids[1], tlab, 0);
-        } else {
-         tlab = genlabel(1);
-         listnodes(tp->kids[0], tlab, 0);
-         listnodes(tp->kids[1], 0, flab);
-         labelnode(tlab);
-        }
-        depth--;
- } break;
- case NOT: { return listnodes(tp->kids[0], flab, tlab); }
- case COND: { Tree q = tp->kids[1];
-        
-# 143 "src/dag.c" 3 4
-       ((void)((
-# 143 "src/dag.c"
-       tlab == 0 && flab == 0
-# 143 "src/dag.c" 3 4
-       ) || (__assert_fail(
-# 143 "src/dag.c"
-       "tlab == 0 && flab == 0"
-# 143 "src/dag.c" 3 4
-       , "src/dag.c", 143, __func__),0)))
-# 143 "src/dag.c"
-                                     ;
-        if (tp->u.sym)
-         addlocal(tp->u.sym);
-        flab = genlabel(2);
-        listnodes(tp->kids[0], 0, flab);
-        
-# 148 "src/dag.c" 3 4
-       ((void)((
-# 148 "src/dag.c"
-       q && q->op == RIGHT
-# 148 "src/dag.c" 3 4
-       ) || (__assert_fail(
-# 148 "src/dag.c"
-       "q && q->op == RIGHT"
-# 148 "src/dag.c" 3 4
-       , "src/dag.c", 148, __func__),0)))
-# 148 "src/dag.c"
-                                  ;
-        reset();
-        listnodes(q->kids[0], 0, 0);
-        if (forest->op == LABEL+V) {
-         equatelab(forest->syms[0], findlabel(flab + 1));
-         unlist();
-        }
-        list(jump(flab + 1));
-        labelnode(flab);
-        listnodes(q->kids[1], 0, 0);
-        if (forest->op == LABEL+V) {
-         equatelab(forest->syms[0], findlabel(flab + 1));
-         unlist();
-        }
-        labelnode(flab + 1);
-
-        if (tp->u.sym)
-         p = listnodes(idtree(tp->u.sym), 0, 0); } break;
- case CNST: { Type ty = (((tp->type)->op >= CONST) ? (tp->type)->type : (tp->type));
-        
-# 167 "src/dag.c" 3 4
-       ((void)((
-# 167 "src/dag.c"
-       ty->u.sym
-# 167 "src/dag.c" 3 4
-       ) || (__assert_fail(
-# 167 "src/dag.c"
-       "ty->u.sym"
-# 167 "src/dag.c" 3 4
-       , "src/dag.c", 167, __func__),0)))
-# 167 "src/dag.c"
-                        ;
-        if (tlab || flab) {
-         
-# 169 "src/dag.c" 3 4
-        ((void)((
-# 169 "src/dag.c"
-        ty == inttype
-# 169 "src/dag.c" 3 4
-        ) || (__assert_fail(
-# 169 "src/dag.c"
-        "ty == inttype"
-# 169 "src/dag.c" 3 4
-        , "src/dag.c", 169, __func__),0)))
-# 169 "src/dag.c"
-                             ;
-         if (tlab && tp->u.v.i != 0)
-          list(jump(tlab));
-         else if (flab && tp->u.v.i == 0)
-          list(jump(flab));
-        }
-        else if (ty->u.sym->addressed)
-         p = listnodes(cvtconst(tp), 0, 0);
-        else
-         p = node(op, 
-# 178 "src/dag.c" 3 4
-                     ((void*)0)
-# 178 "src/dag.c"
-                         , 
-# 178 "src/dag.c" 3 4
-                           ((void*)0)
-# 178 "src/dag.c"
-                               , constant(ty, tp->u.v)); } break;
- case RIGHT: { if ( tp->kids[0] && tp->kids[1]
-     && ((tp->kids[1]->op)&0x3F0) == ASGN
-     && (((tp->kids[0]->op)&0x3F0) == INDIR
-     && tp->kids[0]->kids[0] == tp->kids[1]->kids[0]
-     || (tp->kids[0]->op == FIELD
-     && tp->kids[0] == tp->kids[1]->kids[0]))) {
-         
-# 185 "src/dag.c" 3 4
-        ((void)((
-# 185 "src/dag.c"
-        tlab == 0 && flab == 0
-# 185 "src/dag.c" 3 4
-        ) || (__assert_fail(
-# 185 "src/dag.c"
-        "tlab == 0 && flab == 0"
-# 185 "src/dag.c" 3 4
-        , "src/dag.c", 185, __func__),0)))
-# 185 "src/dag.c"
-                                      ;
-   if (((tp->kids[0]->op)&0x3F0) == INDIR) {
-    p = listnodes(tp->kids[0], 0, 0);
-    list(p);
-    listnodes(tp->kids[1], 0, 0);
-   }
-   else {
     
-# 192 "src/dag.c" 3 4
+# 108 "src/dag.c" 3 4
    ((void)((
-# 192 "src/dag.c"
-   ((tp->kids[0]->kids[0]->op)&0x3F0) == INDIR
-# 192 "src/dag.c" 3 4
+# 108 "src/dag.c"
+   tlab == 0 || flab == 0
+# 108 "src/dag.c" 3 4
    ) || (__assert_fail(
-# 192 "src/dag.c"
-   "generic(tp->kids[0]->kids[0]->op) == INDIR"
-# 192 "src/dag.c" 3 4
-   , "src/dag.c", 192, __func__),0)))
-# 192 "src/dag.c"
-                                                     ;
-    list(listnodes(tp->kids[0]->kids[0], 0, 0));
-    p = listnodes(tp->kids[0], 0, 0);
-    listnodes(tp->kids[1], 0, 0);
-   }
-        } else if (tp->kids[1]) {
-         listnodes(tp->kids[0], 0, 0);
-         p = listnodes(tp->kids[1], tlab, flab);
-        } else
-         p = listnodes(tp->kids[0], tlab, flab); } break;
- case JUMP: { 
-# 202 "src/dag.c" 3 4
-              ((void)((
-# 202 "src/dag.c"
-              tlab == 0 && flab == 0
-# 202 "src/dag.c" 3 4
-              ) || (__assert_fail(
-# 202 "src/dag.c"
-              "tlab == 0 && flab == 0"
-# 202 "src/dag.c" 3 4
-              , "src/dag.c", 202, __func__),0)))
-# 202 "src/dag.c"
-                                            ;
-        
-# 203 "src/dag.c" 3 4
-       ((void)((
-# 203 "src/dag.c"
-       tp->u.sym == 0
-# 203 "src/dag.c" 3 4
-       ) || (__assert_fail(
-# 203 "src/dag.c"
-       "tp->u.sym == 0"
-# 203 "src/dag.c" 3 4
-       , "src/dag.c", 203, __func__),0)))
-# 203 "src/dag.c"
-                             ;
-        
-# 204 "src/dag.c" 3 4
-       ((void)((
-# 204 "src/dag.c"
-       tp->kids[0]
-# 204 "src/dag.c" 3 4
-       ) || (__assert_fail(
-# 204 "src/dag.c"
-       "tp->kids[0]"
-# 204 "src/dag.c" 3 4
-       , "src/dag.c", 204, __func__),0)))
-# 204 "src/dag.c"
-                          ;
-        l = listnodes(tp->kids[0], 0, 0);
-        list(newnode(JUMP+V, l, 
-# 206 "src/dag.c" 3 4
-                               ((void*)0)
-# 206 "src/dag.c"
-                                   , 
-# 206 "src/dag.c" 3 4
-                                     ((void*)0)
-# 206 "src/dag.c"
-                                         ));
-        reset(); } break;
- case CALL: { Tree save = firstarg;
-        firstarg = 
-# 209 "src/dag.c" 3 4
-                  ((void*)0)
-# 209 "src/dag.c"
-                      ;
-        
-# 210 "src/dag.c" 3 4
-       ((void)((
-# 210 "src/dag.c"
-       tlab == 0 && flab == 0
-# 210 "src/dag.c" 3 4
-       ) || (__assert_fail(
-# 210 "src/dag.c"
-       "tlab == 0 && flab == 0"
-# 210 "src/dag.c" 3 4
-       , "src/dag.c", 210, __func__),0)))
-# 210 "src/dag.c"
-                                     ;
-        if (tp->op == CALL+B && !IR->wants_callb) {
-         Tree arg0 = tree(ARG+P, tp->kids[1]->type,
-    tp->kids[1], 
-# 213 "src/dag.c" 3 4
-                ((void*)0)
-# 213 "src/dag.c"
-                    );
-   if (IR->left_to_right)
-    firstarg = arg0;
-   l = listnodes(tp->kids[0], 0, 0);
-   if (!IR->left_to_right || firstarg) {
-    firstarg = 
-# 218 "src/dag.c" 3 4
+# 108 "src/dag.c"
+   "tlab == 0 || flab == 0"
+# 108 "src/dag.c" 3 4
+   , "src/dag.c", 108, __func__),0)))
+# 108 "src/dag.c"
+                                 ;
+    if (tp == 
+# 109 "src/dag.c" 3 4
+             ((void*)0)
+# 109 "src/dag.c"
+                 )
+        return 
+# 110 "src/dag.c" 3 4
               ((void*)0)
-# 218 "src/dag.c"
+# 110 "src/dag.c"
                   ;
-    listnodes(arg0, 0, 0);
-   }
-         p = newnode(CALL+V, l, 
-# 221 "src/dag.c" 3 4
-                               ((void*)0)
-# 221 "src/dag.c"
-                                   , 
-# 221 "src/dag.c" 3 4
-                                     ((void*)0)
-# 221 "src/dag.c"
-                                         );
-        } else {
-         l = listnodes(tp->kids[0], 0, 0);
-         r = listnodes(tp->kids[1], 0, 0);
-         p = newnode(tp->op == CALL+B ? tp->op : op, l, r, 
-# 225 "src/dag.c" 3 4
-                                                          ((void*)0)
-# 225 "src/dag.c"
-                                                              );
-        }
-        memset((((p->syms[0])) = allocate(sizeof *((p->syms[0])), ((FUNC)))), 0, sizeof *(p->syms[0]));
-        
-# 228 "src/dag.c" 3 4
-       ((void)((
-# 228 "src/dag.c"
-       ((((tp->kids[0]->type)->op >= CONST) ? (tp->kids[0]->type)->type : (tp->kids[0]->type))->op == POINTER)
-# 228 "src/dag.c" 3 4
-       ) || (__assert_fail(
-# 228 "src/dag.c"
-       "isptr(tp->kids[0]->type)"
-# 228 "src/dag.c" 3 4
-       , "src/dag.c", 228, __func__),0)))
-# 228 "src/dag.c"
-                                       ;
-        
-# 229 "src/dag.c" 3 4
-       ((void)((
-# 229 "src/dag.c"
-       ((((tp->kids[0]->type->type)->op >= CONST) ? (tp->kids[0]->type->type)->type : (tp->kids[0]->type->type))->op == FUNCTION)
-# 229 "src/dag.c" 3 4
-       ) || (__assert_fail(
-# 229 "src/dag.c"
-       "isfunc(tp->kids[0]->type->type)"
-# 229 "src/dag.c" 3 4
-       , "src/dag.c", 229, __func__),0)))
-# 229 "src/dag.c"
-                                              ;
-        p->syms[0]->type = tp->kids[0]->type->type;
-        list(p);
-        reset();
-        cfunc->u.f.ncalls++;
-        firstarg = save;
+    if (tp->node)
+        return tp->node;
+    if (((((tp->type)->op >= CONST) ? (tp->type)->type : (tp->type))->op == ARRAY))
+        op = tp->op + ((voidptype->size)<<10);
+    else
+        op = tp->op + ((tp->type->size)<<10);
+    switch (((tp->op)&0x3F0)) {
+    case AND: { if (depth++ == 0) reset();
+              if (flab) {
+                  listnodes(tp->kids[0], 0, flab);
+                  listnodes(tp->kids[1], 0, flab);
+              } else {
+                  listnodes(tp->kids[0], 0, flab = genlabel(1));
+                  listnodes(tp->kids[1], tlab, 0);
+                  labelnode(flab);
+              }
+              depth--; } break;
+    case OR: { if (depth++ == 0)
+                  reset();
+              if (tlab) {
+                  listnodes(tp->kids[0], tlab, 0);
+                  listnodes(tp->kids[1], tlab, 0);
+              } else {
+                  tlab = genlabel(1);
+                  listnodes(tp->kids[0], tlab, 0);
+                  listnodes(tp->kids[1], 0, flab);
+                  labelnode(tlab);
+              }
+              depth--;
  } break;
- case ARG: { 
+    case NOT: { return listnodes(tp->kids[0], flab, tlab); }
+    case COND: { Tree q = tp->kids[1];
+              
+# 143 "src/dag.c" 3 4
+             ((void)((
+# 143 "src/dag.c"
+             tlab == 0 && flab == 0
+# 143 "src/dag.c" 3 4
+             ) || (__assert_fail(
+# 143 "src/dag.c"
+             "tlab == 0 && flab == 0"
+# 143 "src/dag.c" 3 4
+             , "src/dag.c", 143, __func__),0)))
+# 143 "src/dag.c"
+                                           ;
+              if (tp->u.sym)
+                  addlocal(tp->u.sym);
+              flab = genlabel(2);
+              listnodes(tp->kids[0], 0, flab);
+              
+# 148 "src/dag.c" 3 4
+             ((void)((
+# 148 "src/dag.c"
+             q && q->op == RIGHT
+# 148 "src/dag.c" 3 4
+             ) || (__assert_fail(
+# 148 "src/dag.c"
+             "q && q->op == RIGHT"
+# 148 "src/dag.c" 3 4
+             , "src/dag.c", 148, __func__),0)))
+# 148 "src/dag.c"
+                                        ;
+              reset();
+              listnodes(q->kids[0], 0, 0);
+              if (forest->op == LABEL+V) {
+                  equatelab(forest->syms[0], findlabel(flab + 1));
+                  unlist();
+              }
+              list(jump(flab + 1));
+              labelnode(flab);
+              listnodes(q->kids[1], 0, 0);
+              if (forest->op == LABEL+V) {
+                  equatelab(forest->syms[0], findlabel(flab + 1));
+                  unlist();
+              }
+              labelnode(flab + 1);
+
+              if (tp->u.sym)
+                  p = listnodes(idtree(tp->u.sym), 0, 0); } break;
+    case CNST: { Type ty = (((tp->type)->op >= CONST) ? (tp->type)->type : (tp->type));
+              
+# 167 "src/dag.c" 3 4
+             ((void)((
+# 167 "src/dag.c"
+             ty->u.sym
+# 167 "src/dag.c" 3 4
+             ) || (__assert_fail(
+# 167 "src/dag.c"
+             "ty->u.sym"
+# 167 "src/dag.c" 3 4
+             , "src/dag.c", 167, __func__),0)))
+# 167 "src/dag.c"
+                              ;
+              if (tlab || flab) {
+                  
+# 169 "src/dag.c" 3 4
+                 ((void)((
+# 169 "src/dag.c"
+                 ty == inttype
+# 169 "src/dag.c" 3 4
+                 ) || (__assert_fail(
+# 169 "src/dag.c"
+                 "ty == inttype"
+# 169 "src/dag.c" 3 4
+                 , "src/dag.c", 169, __func__),0)))
+# 169 "src/dag.c"
+                                      ;
+                  if (tlab && tp->u.v.i != 0)
+                      list(jump(tlab));
+                  else if (flab && tp->u.v.i == 0)
+                      list(jump(flab));
+              }
+              else if (ty->u.sym->addressed)
+                  p = listnodes(cvtconst(tp), 0, 0);
+              else
+                  p = node(op, 
+# 178 "src/dag.c" 3 4
+                              ((void*)0)
+# 178 "src/dag.c"
+                                  , 
+# 178 "src/dag.c" 3 4
+                                    ((void*)0)
+# 178 "src/dag.c"
+                                        , constant(ty, tp->u.v)); } break;
+    case RIGHT: { if ( tp->kids[0] && tp->kids[1]
+              && ((tp->kids[1]->op)&0x3F0) == ASGN
+              && (((tp->kids[0]->op)&0x3F0) == INDIR
+              && tp->kids[0]->kids[0] == tp->kids[1]->kids[0]
+              || (tp->kids[0]->op == FIELD
+              && tp->kids[0] == tp->kids[1]->kids[0]))) {
+                  
+# 185 "src/dag.c" 3 4
+                 ((void)((
+# 185 "src/dag.c"
+                 tlab == 0 && flab == 0
+# 185 "src/dag.c" 3 4
+                 ) || (__assert_fail(
+# 185 "src/dag.c"
+                 "tlab == 0 && flab == 0"
+# 185 "src/dag.c" 3 4
+                 , "src/dag.c", 185, __func__),0)))
+# 185 "src/dag.c"
+                                               ;
+            if (((tp->kids[0]->op)&0x3F0) == INDIR) {
+                p = listnodes(tp->kids[0], 0, 0);
+                list(p);
+                listnodes(tp->kids[1], 0, 0);
+            }
+            else {
+                
+# 192 "src/dag.c" 3 4
+               ((void)((
+# 192 "src/dag.c"
+               ((tp->kids[0]->kids[0]->op)&0x3F0) == INDIR
+# 192 "src/dag.c" 3 4
+               ) || (__assert_fail(
+# 192 "src/dag.c"
+               "generic(tp->kids[0]->kids[0]->op) == INDIR"
+# 192 "src/dag.c" 3 4
+               , "src/dag.c", 192, __func__),0)))
+# 192 "src/dag.c"
+                                                                 ;
+                list(listnodes(tp->kids[0]->kids[0], 0, 0));
+                p = listnodes(tp->kids[0], 0, 0);
+                listnodes(tp->kids[1], 0, 0);
+            }
+              } else if (tp->kids[1]) {
+                  listnodes(tp->kids[0], 0, 0);
+                  p = listnodes(tp->kids[1], tlab, flab);
+              } else
+                  p = listnodes(tp->kids[0], tlab, flab); } break;
+    case JUMP: { 
+# 202 "src/dag.c" 3 4
+                 ((void)((
+# 202 "src/dag.c"
+                 tlab == 0 && flab == 0
+# 202 "src/dag.c" 3 4
+                 ) || (__assert_fail(
+# 202 "src/dag.c"
+                 "tlab == 0 && flab == 0"
+# 202 "src/dag.c" 3 4
+                 , "src/dag.c", 202, __func__),0)))
+# 202 "src/dag.c"
+                                               ;
+              
+# 203 "src/dag.c" 3 4
+             ((void)((
+# 203 "src/dag.c"
+             tp->u.sym == 0
+# 203 "src/dag.c" 3 4
+             ) || (__assert_fail(
+# 203 "src/dag.c"
+             "tp->u.sym == 0"
+# 203 "src/dag.c" 3 4
+             , "src/dag.c", 203, __func__),0)))
+# 203 "src/dag.c"
+                                   ;
+              
+# 204 "src/dag.c" 3 4
+             ((void)((
+# 204 "src/dag.c"
+             tp->kids[0]
+# 204 "src/dag.c" 3 4
+             ) || (__assert_fail(
+# 204 "src/dag.c"
+             "tp->kids[0]"
+# 204 "src/dag.c" 3 4
+             , "src/dag.c", 204, __func__),0)))
+# 204 "src/dag.c"
+                                ;
+              l = listnodes(tp->kids[0], 0, 0);
+              list(newnode(JUMP+V, l, 
+# 206 "src/dag.c" 3 4
+                                     ((void*)0)
+# 206 "src/dag.c"
+                                         , 
+# 206 "src/dag.c" 3 4
+                                           ((void*)0)
+# 206 "src/dag.c"
+                                               ));
+              reset(); } break;
+    case CALL: { Tree save = firstarg;
+              firstarg = 
+# 209 "src/dag.c" 3 4
+                        ((void*)0)
+# 209 "src/dag.c"
+                            ;
+              
+# 210 "src/dag.c" 3 4
+             ((void)((
+# 210 "src/dag.c"
+             tlab == 0 && flab == 0
+# 210 "src/dag.c" 3 4
+             ) || (__assert_fail(
+# 210 "src/dag.c"
+             "tlab == 0 && flab == 0"
+# 210 "src/dag.c" 3 4
+             , "src/dag.c", 210, __func__),0)))
+# 210 "src/dag.c"
+                                           ;
+              if (tp->op == CALL+B && !IR->wants_callb) {
+                  Tree arg0 = tree(ARG+P, tp->kids[1]->type,
+                tp->kids[1], 
+# 213 "src/dag.c" 3 4
+                            ((void*)0)
+# 213 "src/dag.c"
+                                );
+            if (IR->left_to_right)
+                firstarg = arg0;
+            l = listnodes(tp->kids[0], 0, 0);
+            if (!IR->left_to_right || firstarg) {
+                firstarg = 
+# 218 "src/dag.c" 3 4
+                          ((void*)0)
+# 218 "src/dag.c"
+                              ;
+                listnodes(arg0, 0, 0);
+            }
+                  p = newnode(CALL+V, l, 
+# 221 "src/dag.c" 3 4
+                                        ((void*)0)
+# 221 "src/dag.c"
+                                            , 
+# 221 "src/dag.c" 3 4
+                                              ((void*)0)
+# 221 "src/dag.c"
+                                                  );
+              } else {
+                  l = listnodes(tp->kids[0], 0, 0);
+                  r = listnodes(tp->kids[1], 0, 0);
+                  p = newnode(tp->op == CALL+B ? tp->op : op, l, r, 
+# 225 "src/dag.c" 3 4
+                                                                   ((void*)0)
+# 225 "src/dag.c"
+                                                                       );
+              }
+              memset((((p->syms[0])) = allocate(sizeof *((p->syms[0])), ((FUNC)))), 0, sizeof *(p->syms[0]));
+              
+# 228 "src/dag.c" 3 4
+             ((void)((
+# 228 "src/dag.c"
+             ((((tp->kids[0]->type)->op >= CONST) ? (tp->kids[0]->type)->type : (tp->kids[0]->type))->op == POINTER)
+# 228 "src/dag.c" 3 4
+             ) || (__assert_fail(
+# 228 "src/dag.c"
+             "isptr(tp->kids[0]->type)"
+# 228 "src/dag.c" 3 4
+             , "src/dag.c", 228, __func__),0)))
+# 228 "src/dag.c"
+                                             ;
+              
+# 229 "src/dag.c" 3 4
+             ((void)((
+# 229 "src/dag.c"
+             ((((tp->kids[0]->type->type)->op >= CONST) ? (tp->kids[0]->type->type)->type : (tp->kids[0]->type->type))->op == FUNCTION)
+# 229 "src/dag.c" 3 4
+             ) || (__assert_fail(
+# 229 "src/dag.c"
+             "isfunc(tp->kids[0]->type->type)"
+# 229 "src/dag.c" 3 4
+             , "src/dag.c", 229, __func__),0)))
+# 229 "src/dag.c"
+                                                    ;
+              p->syms[0]->type = tp->kids[0]->type->type;
+              list(p);
+              reset();
+              cfunc->u.f.ncalls++;
+              firstarg = save;
+ } break;
+    case ARG: { 
 # 236 "src/dag.c" 3 4
-              ((void)((
+                 ((void)((
 # 236 "src/dag.c"
-              tlab == 0 && flab == 0
+                 tlab == 0 && flab == 0
 # 236 "src/dag.c" 3 4
-              ) || (__assert_fail(
+                 ) || (__assert_fail(
 # 236 "src/dag.c"
-              "tlab == 0 && flab == 0"
+                 "tlab == 0 && flab == 0"
 # 236 "src/dag.c" 3 4
-              , "src/dag.c", 236, __func__),0)))
+                 , "src/dag.c", 236, __func__),0)))
 # 236 "src/dag.c"
-                                            ;
-        if (IR->left_to_right)
-         listnodes(tp->kids[1], 0, 0);
-        if (firstarg) {
-         Tree arg = firstarg;
-         firstarg = 
+                                               ;
+              if (IR->left_to_right)
+                  listnodes(tp->kids[1], 0, 0);
+              if (firstarg) {
+                  Tree arg = firstarg;
+                  firstarg = 
 # 241 "src/dag.c" 3 4
-                   ((void*)0)
+                            ((void*)0)
 # 241 "src/dag.c"
-                       ;
-         listnodes(arg, 0, 0);
-        }
-        l = listnodes(tp->kids[0], 0, 0);
-        list(newnode(tp->op == ARG+B ? tp->op : op, l, 
-# 245 "src/dag.c" 3 4
-                                                      ((void*)0)
-# 245 "src/dag.c"
-                                                          , 
+                                ;
+                  listnodes(arg, 0, 0);
+              }
+              l = listnodes(tp->kids[0], 0, 0);
+              list(newnode(tp->op == ARG+B ? tp->op : op, l, 
 # 245 "src/dag.c" 3 4
                                                             ((void*)0)
 # 245 "src/dag.c"
-                                                                ));
-        forest->syms[0] = intconst(tp->type->size);
-        forest->syms[1] = intconst(tp->type->align);
-        if (!IR->left_to_right)
-         listnodes(tp->kids[1], 0, 0); } break;
- case EQ: case NE: case GT: case GE: case LE:
- case LT: { 
+                                                                , 
+# 245 "src/dag.c" 3 4
+                                                                  ((void*)0)
+# 245 "src/dag.c"
+                                                                      ));
+              forest->syms[0] = intconst(tp->type->size);
+              forest->syms[1] = intconst(tp->type->align);
+              if (!IR->left_to_right)
+                  listnodes(tp->kids[1], 0, 0); } break;
+    case EQ: case NE: case GT: case GE: case LE:
+    case LT: { 
 # 251 "src/dag.c" 3 4
-              ((void)((
-# 251 "src/dag.c"
-              tp->u.sym == 0
-# 251 "src/dag.c" 3 4
-              ) || (__assert_fail(
-# 251 "src/dag.c"
-              "tp->u.sym == 0"
-# 251 "src/dag.c" 3 4
-              , "src/dag.c", 251, __func__),0)))
-# 251 "src/dag.c"
-                                    ;
-        
-# 252 "src/dag.c" 3 4
-       ((void)((
-# 252 "src/dag.c"
-       errcnt || tlab || flab
-# 252 "src/dag.c" 3 4
-       ) || (__assert_fail(
-# 252 "src/dag.c"
-       "errcnt || tlab || flab"
-# 252 "src/dag.c" 3 4
-       , "src/dag.c", 252, __func__),0)))
-# 252 "src/dag.c"
-                                     ;
-        l = listnodes(tp->kids[0], 0, 0);
-        r = listnodes(tp->kids[1], 0, 0);
-        
-# 255 "src/dag.c" 3 4
-       ((void)((
-# 255 "src/dag.c"
-       errcnt || ((l->op)&~0x3F0) == ((r->op)&~0x3F0)
-# 255 "src/dag.c" 3 4
-       ) || (__assert_fail(
-# 255 "src/dag.c"
-       "errcnt || opkind(l->op) == opkind(r->op)"
-# 255 "src/dag.c" 3 4
-       , "src/dag.c", 255, __func__),0)))
-# 255 "src/dag.c"
-                                                       ;
-        
-# 256 "src/dag.c" 3 4
-       ((void)((
-# 256 "src/dag.c"
-       errcnt || ((op)&0xF) == ((l->op)&0xF)
-# 256 "src/dag.c" 3 4
-       ) || (__assert_fail(
-# 256 "src/dag.c"
-       "errcnt || optype(op) == optype(l->op)"
-# 256 "src/dag.c" 3 4
-       , "src/dag.c", 256, __func__),0)))
-# 256 "src/dag.c"
-                                                    ;
-        if (tlab)
-         
-# 258 "src/dag.c" 3 4
-        ((void)((
-# 258 "src/dag.c"
-        flab == 0
-# 258 "src/dag.c" 3 4
-        ) || (__assert_fail(
-# 258 "src/dag.c"
-        "flab == 0"
-# 258 "src/dag.c" 3 4
-        , "src/dag.c", 258, __func__),0)))
-# 258 "src/dag.c"
-                         ,
-         list(newnode(((tp->op)&0x3F0) + ((l->op)&~0x3F0), l, r, findlabel(tlab)));
-        else if (flab) {
-         switch (((tp->op)&0x3F0)) {
-         case EQ: op = NE; break;
-         case NE: op = EQ; break;
-         case GT: op = LE; break;
-         case LT: op = GE; break;
-         case GE: op = LT; break;
-         case LE: op = GT; break;
-         default: 
-# 268 "src/dag.c" 3 4
                  ((void)((
-# 268 "src/dag.c"
-                 0
-# 268 "src/dag.c" 3 4
+# 251 "src/dag.c"
+                 tp->u.sym == 0
+# 251 "src/dag.c" 3 4
                  ) || (__assert_fail(
-# 268 "src/dag.c"
-                 "0"
+# 251 "src/dag.c"
+                 "tp->u.sym == 0"
+# 251 "src/dag.c" 3 4
+                 , "src/dag.c", 251, __func__),0)))
+# 251 "src/dag.c"
+                                       ;
+              
+# 252 "src/dag.c" 3 4
+             ((void)((
+# 252 "src/dag.c"
+             errcnt || tlab || flab
+# 252 "src/dag.c" 3 4
+             ) || (__assert_fail(
+# 252 "src/dag.c"
+             "errcnt || tlab || flab"
+# 252 "src/dag.c" 3 4
+             , "src/dag.c", 252, __func__),0)))
+# 252 "src/dag.c"
+                                           ;
+              l = listnodes(tp->kids[0], 0, 0);
+              r = listnodes(tp->kids[1], 0, 0);
+              
+# 255 "src/dag.c" 3 4
+             ((void)((
+# 255 "src/dag.c"
+             errcnt || ((l->op)&~0x3F0) == ((r->op)&~0x3F0)
+# 255 "src/dag.c" 3 4
+             ) || (__assert_fail(
+# 255 "src/dag.c"
+             "errcnt || opkind(l->op) == opkind(r->op)"
+# 255 "src/dag.c" 3 4
+             , "src/dag.c", 255, __func__),0)))
+# 255 "src/dag.c"
+                                                             ;
+              
+# 256 "src/dag.c" 3 4
+             ((void)((
+# 256 "src/dag.c"
+             errcnt || ((op)&0xF) == ((l->op)&0xF)
+# 256 "src/dag.c" 3 4
+             ) || (__assert_fail(
+# 256 "src/dag.c"
+             "errcnt || optype(op) == optype(l->op)"
+# 256 "src/dag.c" 3 4
+             , "src/dag.c", 256, __func__),0)))
+# 256 "src/dag.c"
+                                                          ;
+              if (tlab)
+                  
+# 258 "src/dag.c" 3 4
+                 ((void)((
+# 258 "src/dag.c"
+                 flab == 0
+# 258 "src/dag.c" 3 4
+                 ) || (__assert_fail(
+# 258 "src/dag.c"
+                 "flab == 0"
+# 258 "src/dag.c" 3 4
+                 , "src/dag.c", 258, __func__),0)))
+# 258 "src/dag.c"
+                                  ,
+                  list(newnode(((tp->op)&0x3F0) + ((l->op)&~0x3F0), l, r, findlabel(tlab)));
+              else if (flab) {
+                  switch (((tp->op)&0x3F0)) {
+                  case EQ: op = NE; break;
+                  case NE: op = EQ; break;
+                  case GT: op = LE; break;
+                  case LT: op = GE; break;
+                  case GE: op = LT; break;
+                  case LE: op = GT; break;
+                  default: 
 # 268 "src/dag.c" 3 4
-                 , "src/dag.c", 268, __func__),0)))
+                          ((void)((
 # 268 "src/dag.c"
-                          ;
-         }
-         list(newnode(op + ((l->op)&~0x3F0), l, r, findlabel(flab)));
-        }
-        if (forest && forest->syms[0])
-         forest->syms[0]->ref++; } break;
- case ASGN: { 
+                          0
+# 268 "src/dag.c" 3 4
+                          ) || (__assert_fail(
+# 268 "src/dag.c"
+                          "0"
+# 268 "src/dag.c" 3 4
+                          , "src/dag.c", 268, __func__),0)))
+# 268 "src/dag.c"
+                                   ;
+                  }
+                  list(newnode(op + ((l->op)&~0x3F0), l, r, findlabel(flab)));
+              }
+              if (forest && forest->syms[0])
+                  forest->syms[0]->ref++; } break;
+    case ASGN: { 
 # 274 "src/dag.c" 3 4
-              ((void)((
+                 ((void)((
 # 274 "src/dag.c"
-              tlab == 0 && flab == 0
+                 tlab == 0 && flab == 0
 # 274 "src/dag.c" 3 4
-              ) || (__assert_fail(
+                 ) || (__assert_fail(
 # 274 "src/dag.c"
-              "tlab == 0 && flab == 0"
+                 "tlab == 0 && flab == 0"
 # 274 "src/dag.c" 3 4
-              , "src/dag.c", 274, __func__),0)))
+                 , "src/dag.c", 274, __func__),0)))
 # 274 "src/dag.c"
-                                            ;
-        if (tp->kids[0]->op == FIELD) {
-         Tree x = tp->kids[0]->kids[0];
-   Field f = tp->kids[0]->u.field;
-   
+                                               ;
+              if (tp->kids[0]->op == FIELD) {
+                  Tree x = tp->kids[0]->kids[0];
+            Field f = tp->kids[0]->u.field;
+            
 # 278 "src/dag.c" 3 4
-  ((void)((
+           ((void)((
 # 278 "src/dag.c"
-  ((x->op)&0x3F0) == INDIR
+           ((x->op)&0x3F0) == INDIR
 # 278 "src/dag.c" 3 4
-  ) || (__assert_fail(
+           ) || (__assert_fail(
 # 278 "src/dag.c"
-  "generic(x->op) == INDIR"
+           "generic(x->op) == INDIR"
 # 278 "src/dag.c" 3 4
-  , "src/dag.c", 278, __func__),0)))
+           , "src/dag.c", 278, __func__),0)))
 # 278 "src/dag.c"
-                                 ;
-   reset();
-   l = listnodes(lvalue(x), 0, 0);
-   if ((f)->bitsize < 8*f->type->size) {
-    unsigned int fmask = (~((f)->bitsize < 8*unsignedtype->size ? ~0u<<(f)->bitsize : 0u));
-    unsigned int mask = fmask<<((f)->lsb - 1);
-    Tree q = tp->kids[1];
-    if (q->op == CNST+I && q->u.v.i == 0
-    || q->op == CNST+U && q->u.v.u == 0)
-     q = bittree(BAND, x, cnsttree(unsignedtype, (unsigned long)~mask));
-    else if (q->op == CNST+I && (q->u.v.i&fmask) == fmask
-    || q->op == CNST+U && (q->u.v.u&fmask) == fmask)
-     q = bittree(BOR, x, cnsttree(unsignedtype, (unsigned long)mask));
-    else {
-     listnodes(q, 0, 0);
-     q = bittree(BOR,
-      bittree(BAND, rvalue(lvalue(x)),
-       cnsttree(unsignedtype, (unsigned long)~mask)),
-      bittree(BAND, shtree(LSH, cast(q, unsignedtype),
-       cnsttree(unsignedtype, (unsigned long)((f)->lsb - 1))),
-       cnsttree(unsignedtype, (unsigned long)mask)));
-    }
-    r = listnodes(q, 0, 0);
-    op = ASGN + ttob(q->type);
-   } else {
-    r = listnodes(tp->kids[1], 0, 0);
-    op = ASGN + ttob(tp->kids[1]->type);
-   }
-        } else {
-         l = listnodes(tp->kids[0], 0, 0);
-         r = listnodes(tp->kids[1], 0, 0);
-        }
-        list(newnode(tp->op == ASGN+B ? tp->op : op, l, r, 
+                                          ;
+            reset();
+            l = listnodes(lvalue(x), 0, 0);
+            if ((f)->bitsize < 8*f->type->size) {
+                unsigned int fmask = (~((f)->bitsize < 8*unsignedtype->size ? ~0u<<(f)->bitsize : 0u));
+                unsigned int mask = fmask<<((f)->lsb - 1);
+                Tree q = tp->kids[1];
+                if (q->op == CNST+I && q->u.v.i == 0
+                || q->op == CNST+U && q->u.v.u == 0)
+                    q = bittree(BAND, x, cnsttree(unsignedtype, (unsigned long)~mask));
+                else if (q->op == CNST+I && (q->u.v.i&fmask) == fmask
+                || q->op == CNST+U && (q->u.v.u&fmask) == fmask)
+                    q = bittree(BOR, x, cnsttree(unsignedtype, (unsigned long)mask));
+                else {
+                    listnodes(q, 0, 0);
+                    q = bittree(BOR,
+                        bittree(BAND, rvalue(lvalue(x)),
+                            cnsttree(unsignedtype, (unsigned long)~mask)),
+                        bittree(BAND, shtree(LSH, cast(q, unsignedtype),
+                            cnsttree(unsignedtype, (unsigned long)((f)->lsb - 1))),
+                            cnsttree(unsignedtype, (unsigned long)mask)));
+                }
+                r = listnodes(q, 0, 0);
+                op = ASGN + ttob(q->type);
+            } else {
+                r = listnodes(tp->kids[1], 0, 0);
+                op = ASGN + ttob(tp->kids[1]->type);
+            }
+              } else {
+                  l = listnodes(tp->kids[0], 0, 0);
+                  r = listnodes(tp->kids[1], 0, 0);
+              }
+              list(newnode(tp->op == ASGN+B ? tp->op : op, l, r, 
 # 310 "src/dag.c" 3 4
-                                                          ((void*)0)
+                                                                ((void*)0)
 # 310 "src/dag.c"
-                                                              ));
-        forest->syms[0] = intconst(tp->kids[1]->type->size);
-        forest->syms[1] = intconst(tp->kids[1]->type->align);
-        if ((((tp->kids[0]->op)&0x3FF)==ADDRG+P || ((tp->kids[0]->op)&0x3FF)==ADDRL+P || ((tp->kids[0]->op)&0x3FF)==ADDRF+P)
-        && !tp->kids[0]->u.sym->computed)
-         killnodes(tp->kids[0]->u.sym);
-        else
-         reset();
-        p = listnodes(tp->kids[1], 0, 0); } break;
- case BOR: case BAND: case BXOR:
- case ADD: case SUB: case RSH:
- case LSH: { 
+                                                                    ));
+              forest->syms[0] = intconst(tp->kids[1]->type->size);
+              forest->syms[1] = intconst(tp->kids[1]->type->align);
+              if ((((tp->kids[0]->op)&0x3FF)==ADDRG+P || ((tp->kids[0]->op)&0x3FF)==ADDRL+P || ((tp->kids[0]->op)&0x3FF)==ADDRF+P)
+              && !tp->kids[0]->u.sym->computed)
+                  killnodes(tp->kids[0]->u.sym);
+              else
+                  reset();
+              p = listnodes(tp->kids[1], 0, 0); } break;
+    case BOR: case BAND: case BXOR:
+    case ADD: case SUB: case RSH:
+    case LSH: { 
 # 321 "src/dag.c" 3 4
-              ((void)((
+                 ((void)((
 # 321 "src/dag.c"
-              tlab == 0 && flab == 0
+                 tlab == 0 && flab == 0
 # 321 "src/dag.c" 3 4
-              ) || (__assert_fail(
+                 ) || (__assert_fail(
 # 321 "src/dag.c"
-              "tlab == 0 && flab == 0"
+                 "tlab == 0 && flab == 0"
 # 321 "src/dag.c" 3 4
-              , "src/dag.c", 321, __func__),0)))
+                 , "src/dag.c", 321, __func__),0)))
 # 321 "src/dag.c"
-                                            ;
-        l = listnodes(tp->kids[0], 0, 0);
-        r = listnodes(tp->kids[1], 0, 0);
-        p = node(op, l, r, 
+                                               ;
+              l = listnodes(tp->kids[0], 0, 0);
+              r = listnodes(tp->kids[1], 0, 0);
+              p = node(op, l, r, 
 # 324 "src/dag.c" 3 4
-                          ((void*)0)
+                                ((void*)0)
 # 324 "src/dag.c"
-                              ); } break;
- case DIV: case MUL:
- case MOD: { 
+                                    ); } break;
+    case DIV: case MUL:
+    case MOD: { 
 # 326 "src/dag.c" 3 4
-              ((void)((
+                 ((void)((
 # 326 "src/dag.c"
-              tlab == 0 && flab == 0
+                 tlab == 0 && flab == 0
 # 326 "src/dag.c" 3 4
-              ) || (__assert_fail(
+                 ) || (__assert_fail(
 # 326 "src/dag.c"
-              "tlab == 0 && flab == 0"
+                 "tlab == 0 && flab == 0"
 # 326 "src/dag.c" 3 4
-              , "src/dag.c", 326, __func__),0)))
+                 , "src/dag.c", 326, __func__),0)))
 # 326 "src/dag.c"
-                                            ;
-        l = listnodes(tp->kids[0], 0, 0);
-        r = listnodes(tp->kids[1], 0, 0);
-        p = node(op, l, r, 
+                                               ;
+              l = listnodes(tp->kids[0], 0, 0);
+              r = listnodes(tp->kids[1], 0, 0);
+              p = node(op, l, r, 
 # 329 "src/dag.c" 3 4
-                          ((void*)0)
+                                ((void*)0)
 # 329 "src/dag.c"
-                              );
-        if (IR->mulops_calls && ((((tp->type)->op >= CONST) ? (tp->type)->type : (tp->type))->op == INT || (((tp->type)->op >= CONST) ? (tp->type)->type : (tp->type))->op == UNSIGNED)) {
-         list(p);
-         cfunc->u.f.ncalls++;
-        } } break;
- case RET: { 
+                                    );
+              if (IR->mulops_calls && ((((tp->type)->op >= CONST) ? (tp->type)->type : (tp->type))->op == INT || (((tp->type)->op >= CONST) ? (tp->type)->type : (tp->type))->op == UNSIGNED)) {
+                  list(p);
+                  cfunc->u.f.ncalls++;
+              } } break;
+    case RET: { 
 # 334 "src/dag.c" 3 4
-              ((void)((
+                 ((void)((
 # 334 "src/dag.c"
-              tlab == 0 && flab == 0
+                 tlab == 0 && flab == 0
 # 334 "src/dag.c" 3 4
-              ) || (__assert_fail(
+                 ) || (__assert_fail(
 # 334 "src/dag.c"
-              "tlab == 0 && flab == 0"
+                 "tlab == 0 && flab == 0"
 # 334 "src/dag.c" 3 4
-              , "src/dag.c", 334, __func__),0)))
+                 , "src/dag.c", 334, __func__),0)))
 # 334 "src/dag.c"
-                                            ;
-        l = listnodes(tp->kids[0], 0, 0);
-        list(newnode(op, l, 
-# 336 "src/dag.c" 3 4
-                           ((void*)0)
-# 336 "src/dag.c"
-                               , 
+                                               ;
+              l = listnodes(tp->kids[0], 0, 0);
+              list(newnode(op, l, 
 # 336 "src/dag.c" 3 4
                                  ((void*)0)
 # 336 "src/dag.c"
-                                     )); } break;
- case CVF: case CVI: case CVP:
- case CVU: { 
+                                     , 
+# 336 "src/dag.c" 3 4
+                                       ((void*)0)
+# 336 "src/dag.c"
+                                           )); } break;
+    case CVF: case CVI: case CVP:
+    case CVU: { 
 # 338 "src/dag.c" 3 4
-              ((void)((
+                 ((void)((
 # 338 "src/dag.c"
-              tlab == 0 && flab == 0
+                 tlab == 0 && flab == 0
 # 338 "src/dag.c" 3 4
-              ) || (__assert_fail(
+                 ) || (__assert_fail(
 # 338 "src/dag.c"
-              "tlab == 0 && flab == 0"
+                 "tlab == 0 && flab == 0"
 # 338 "src/dag.c" 3 4
-              , "src/dag.c", 338, __func__),0)))
+                 , "src/dag.c", 338, __func__),0)))
 # 338 "src/dag.c"
-                                            ;
-        
+                                               ;
+              
 # 339 "src/dag.c" 3 4
-       ((void)((
+             ((void)((
 # 339 "src/dag.c"
-       ((tp->kids[0]->op)&0xF) != ((tp->op)&0xF) || tp->kids[0]->type->size != tp->type->size
+             ((tp->kids[0]->op)&0xF) != ((tp->op)&0xF) || tp->kids[0]->type->size != tp->type->size
 # 339 "src/dag.c" 3 4
-       ) || (__assert_fail(
+             ) || (__assert_fail(
 # 339 "src/dag.c"
-       "optype(tp->kids[0]->op) != optype(tp->op) || tp->kids[0]->type->size != tp->type->size"
+             "optype(tp->kids[0]->op) != optype(tp->op) || tp->kids[0]->type->size != tp->type->size"
 # 339 "src/dag.c" 3 4
-       , "src/dag.c", 339, __func__),0)))
+             , "src/dag.c", 339, __func__),0)))
 # 339 "src/dag.c"
-                                                                                                     ;
-        l = listnodes(tp->kids[0], 0, 0);
-        p = node(op, l, 
+                                                                                                           ;
+              l = listnodes(tp->kids[0], 0, 0);
+              p = node(op, l, 
 # 341 "src/dag.c" 3 4
-                       ((void*)0)
+                             ((void*)0)
 # 341 "src/dag.c"
-                           , intconst(tp->kids[0]->type->size));
+                                 , intconst(tp->kids[0]->type->size));
  } break;
- case BCOM:
- case NEG: { 
+    case BCOM:
+    case NEG: { 
 # 344 "src/dag.c" 3 4
-              ((void)((
+                 ((void)((
 # 344 "src/dag.c"
-              tlab == 0 && flab == 0
+                 tlab == 0 && flab == 0
 # 344 "src/dag.c" 3 4
-              ) || (__assert_fail(
+                 ) || (__assert_fail(
 # 344 "src/dag.c"
-              "tlab == 0 && flab == 0"
+                 "tlab == 0 && flab == 0"
 # 344 "src/dag.c" 3 4
-              , "src/dag.c", 344, __func__),0)))
+                 , "src/dag.c", 344, __func__),0)))
 # 344 "src/dag.c"
-                                            ;
-        l = listnodes(tp->kids[0], 0, 0);
-        p = node(op, l, 
-# 346 "src/dag.c" 3 4
-                       ((void*)0)
-# 346 "src/dag.c"
-                           , 
+                                               ;
+              l = listnodes(tp->kids[0], 0, 0);
+              p = node(op, l, 
 # 346 "src/dag.c" 3 4
                              ((void*)0)
 # 346 "src/dag.c"
-                                 ); } break;
- case INDIR: { Type ty = tp->kids[0]->type;
-        
+                                 , 
+# 346 "src/dag.c" 3 4
+                                   ((void*)0)
+# 346 "src/dag.c"
+                                       ); } break;
+    case INDIR: { Type ty = tp->kids[0]->type;
+              
 # 348 "src/dag.c" 3 4
-       ((void)((
+             ((void)((
 # 348 "src/dag.c"
-       tlab == 0 && flab == 0
+             tlab == 0 && flab == 0
 # 348 "src/dag.c" 3 4
-       ) || (__assert_fail(
+             ) || (__assert_fail(
 # 348 "src/dag.c"
-       "tlab == 0 && flab == 0"
+             "tlab == 0 && flab == 0"
 # 348 "src/dag.c" 3 4
-       , "src/dag.c", 348, __func__),0)))
+             , "src/dag.c", 348, __func__),0)))
 # 348 "src/dag.c"
-                                     ;
-        l = listnodes(tp->kids[0], 0, 0);
-        if (((((ty)->op >= CONST) ? (ty)->type : (ty))->op == POINTER))
-         ty = (((ty)->op >= CONST) ? (ty)->type : (ty))->type;
-        if (((ty)->op == VOLATILE || (ty)->op == CONST+VOLATILE)
-        || (((((ty)->op >= CONST) ? (ty)->type : (ty))->op == STRUCT || (((ty)->op >= CONST) ? (ty)->type : (ty))->op == UNION) && (((ty)->op >= CONST) ? (ty)->type : (ty))->u.sym->u.s.vfields))
-         p = newnode(tp->op == INDIR+B ? tp->op : op, l, 
+                                           ;
+              l = listnodes(tp->kids[0], 0, 0);
+              if (((((ty)->op >= CONST) ? (ty)->type : (ty))->op == POINTER))
+                  ty = (((ty)->op >= CONST) ? (ty)->type : (ty))->type;
+              if (((ty)->op == VOLATILE || (ty)->op == CONST+VOLATILE)
+              || (((((ty)->op >= CONST) ? (ty)->type : (ty))->op == STRUCT || (((ty)->op >= CONST) ? (ty)->type : (ty))->op == UNION) && (((ty)->op >= CONST) ? (ty)->type : (ty))->u.sym->u.s.vfields))
+                  p = newnode(tp->op == INDIR+B ? tp->op : op, l, 
 # 354 "src/dag.c" 3 4
-                                                        ((void*)0)
+                                                                 ((void*)0)
 # 354 "src/dag.c"
-                                                            , 
+                                                                     , 
 # 354 "src/dag.c" 3 4
+                                                                       ((void*)0)
+# 354 "src/dag.c"
+                                                                           );
+              else
+                  p = node(tp->op == INDIR+B ? tp->op : op, l, 
+# 356 "src/dag.c" 3 4
                                                               ((void*)0)
-# 354 "src/dag.c"
-                                                                  );
-        else
-         p = node(tp->op == INDIR+B ? tp->op : op, l, 
-# 356 "src/dag.c" 3 4
-                                                     ((void*)0)
 # 356 "src/dag.c"
-                                                         , 
+                                                                  , 
 # 356 "src/dag.c" 3 4
-                                                           ((void*)0)
+                                                                    ((void*)0)
 # 356 "src/dag.c"
-                                                               ); } break;
- case FIELD: { Tree q = tp->kids[0];
-        if (tp->type == inttype) {
-         long n = (8*(tp->u.field)->type->size - (tp->u.field)->bitsize - ((tp->u.field)->lsb - 1));
-         q = shtree(RSH,
-          shtree(LSH, q, cnsttree(inttype, n)),
-          cnsttree(inttype, n + ((tp->u.field)->lsb - 1)));
-        } else if ((tp->u.field)->bitsize < 8*tp->u.field->type->size)
-         q = bittree(BAND,
-          shtree(RSH, q, cnsttree(inttype, (long)((tp->u.field)->lsb - 1))),
-          cnsttree(unsignedtype, (unsigned long)(~((tp->u.field)->bitsize < 8*unsignedtype->size ? ~0u<<(tp->u.field)->bitsize : 0u))));
-        
+                                                                        ); } break;
+    case FIELD: { Tree q = tp->kids[0];
+              if (tp->type == inttype) {
+                  long n = (8*(tp->u.field)->type->size - (tp->u.field)->bitsize - ((tp->u.field)->lsb - 1));
+                  q = shtree(RSH,
+                      shtree(LSH, q, cnsttree(inttype, n)),
+                      cnsttree(inttype, n + ((tp->u.field)->lsb - 1)));
+              } else if ((tp->u.field)->bitsize < 8*tp->u.field->type->size)
+                  q = bittree(BAND,
+                      shtree(RSH, q, cnsttree(inttype, (long)((tp->u.field)->lsb - 1))),
+                      cnsttree(unsignedtype, (unsigned long)(~((tp->u.field)->bitsize < 8*unsignedtype->size ? ~0u<<(tp->u.field)->bitsize : 0u))));
+              
 # 367 "src/dag.c" 3 4
-       ((void)((
+             ((void)((
 # 367 "src/dag.c"
-       tlab == 0 && flab == 0
+             tlab == 0 && flab == 0
 # 367 "src/dag.c" 3 4
-       ) || (__assert_fail(
+             ) || (__assert_fail(
 # 367 "src/dag.c"
-       "tlab == 0 && flab == 0"
+             "tlab == 0 && flab == 0"
 # 367 "src/dag.c" 3 4
-       , "src/dag.c", 367, __func__),0)))
+             , "src/dag.c", 367, __func__),0)))
 # 367 "src/dag.c"
-                                     ;
-        p = listnodes(q, 0, 0); } break;
- case ADDRG:
- case ADDRF: { 
+                                           ;
+              p = listnodes(q, 0, 0); } break;
+    case ADDRG:
+    case ADDRF: { 
 # 370 "src/dag.c" 3 4
-              ((void)((
+                 ((void)((
 # 370 "src/dag.c"
-              tlab == 0 && flab == 0
+                 tlab == 0 && flab == 0
 # 370 "src/dag.c" 3 4
-              ) || (__assert_fail(
+                 ) || (__assert_fail(
 # 370 "src/dag.c"
-              "tlab == 0 && flab == 0"
+                 "tlab == 0 && flab == 0"
 # 370 "src/dag.c" 3 4
-              , "src/dag.c", 370, __func__),0)))
+                 , "src/dag.c", 370, __func__),0)))
 # 370 "src/dag.c"
-                                            ;
-        p = node(tp->op + ((voidptype->size)<<10), 
-# 371 "src/dag.c" 3 4
-                                                  ((void*)0)
-# 371 "src/dag.c"
-                                                      , 
+                                               ;
+              p = node(tp->op + ((voidptype->size)<<10), 
 # 371 "src/dag.c" 3 4
                                                         ((void*)0)
 # 371 "src/dag.c"
-                                                            , tp->u.sym);
+                                                            , 
+# 371 "src/dag.c" 3 4
+                                                              ((void*)0)
+# 371 "src/dag.c"
+                                                                  , tp->u.sym);
  } break;
- case ADDRL: { 
+    case ADDRL: { 
 # 373 "src/dag.c" 3 4
-              ((void)((
+                 ((void)((
 # 373 "src/dag.c"
-              tlab == 0 && flab == 0
+                 tlab == 0 && flab == 0
 # 373 "src/dag.c" 3 4
-              ) || (__assert_fail(
+                 ) || (__assert_fail(
 # 373 "src/dag.c"
-              "tlab == 0 && flab == 0"
+                 "tlab == 0 && flab == 0"
 # 373 "src/dag.c" 3 4
-              , "src/dag.c", 373, __func__),0)))
+                 , "src/dag.c", 373, __func__),0)))
 # 373 "src/dag.c"
-                                            ;
-        if (tp->u.sym->generated)
-         addlocal(tp->u.sym);
-        p = node(tp->op + ((voidptype->size)<<10), 
-# 376 "src/dag.c" 3 4
-                                                  ((void*)0)
-# 376 "src/dag.c"
-                                                      , 
+                                               ;
+              if (tp->u.sym->generated)
+                  addlocal(tp->u.sym);
+              p = node(tp->op + ((voidptype->size)<<10), 
 # 376 "src/dag.c" 3 4
                                                         ((void*)0)
 # 376 "src/dag.c"
-                                                            , tp->u.sym); } break;
- default:
+                                                            , 
+# 376 "src/dag.c" 3 4
+                                                              ((void*)0)
+# 376 "src/dag.c"
+                                                                  , tp->u.sym); } break;
+    default:
 # 377 "src/dag.c" 3 4
-        ((void)((
+           ((void)((
 # 377 "src/dag.c"
-        0
+           0
 # 377 "src/dag.c" 3 4
-        ) || (__assert_fail(
+           ) || (__assert_fail(
 # 377 "src/dag.c"
-        "0"
+           "0"
 # 377 "src/dag.c" 3 4
-        , "src/dag.c", 377, __func__),0)))
+           , "src/dag.c", 377, __func__),0)))
 # 377 "src/dag.c"
-                 ;
- }
- tp->node = p;
- return p;
+                    ;
+    }
+    tp->node = p;
+    return p;
 }
 static void list(Node p) {
- if (p && p->link == 
+    if (p && p->link == 
 # 383 "src/dag.c" 3 4
-                    ((void*)0)
+                       ((void*)0)
 # 383 "src/dag.c"
-                        ) {
-  if (forest) {
-   p->link = forest->link;
-   forest->link = p;
-  } else
-   p->link = p;
-  forest = p;
- }
+                           ) {
+        if (forest) {
+            p->link = forest->link;
+            forest->link = p;
+        } else
+            p->link = p;
+        forest = p;
+    }
 }
 static void labelnode(int lab) {
- 
+    
 # 393 "src/dag.c" 3 4
-((void)((
+   ((void)((
 # 393 "src/dag.c"
-lab
+   lab
 # 393 "src/dag.c" 3 4
-) || (__assert_fail(
+   ) || (__assert_fail(
 # 393 "src/dag.c"
-"lab"
+   "lab"
 # 393 "src/dag.c" 3 4
-, "src/dag.c", 393, __func__),0)))
+   , "src/dag.c", 393, __func__),0)))
 # 393 "src/dag.c"
-           ;
- if (forest && forest->op == LABEL+V)
-  equatelab(findlabel(lab), forest->syms[0]);
- else
-  list(newnode(LABEL+V, 
-# 397 "src/dag.c" 3 4
-                       ((void*)0)
-# 397 "src/dag.c"
-                           , 
+              ;
+    if (forest && forest->op == LABEL+V)
+        equatelab(findlabel(lab), forest->syms[0]);
+    else
+        list(newnode(LABEL+V, 
 # 397 "src/dag.c" 3 4
                              ((void*)0)
 # 397 "src/dag.c"
-                                 , findlabel(lab)));
- reset();
+                                 , 
+# 397 "src/dag.c" 3 4
+                                   ((void*)0)
+# 397 "src/dag.c"
+                                       , findlabel(lab)));
+    reset();
 }
 static void unlist(void) {
- Node p;
+    Node p;
 
- 
+    
 # 403 "src/dag.c" 3 4
-((void)((
+   ((void)((
 # 403 "src/dag.c"
-forest
+   forest
 # 403 "src/dag.c" 3 4
-) || (__assert_fail(
+   ) || (__assert_fail(
 # 403 "src/dag.c"
-"forest"
+   "forest"
 # 403 "src/dag.c" 3 4
-, "src/dag.c", 403, __func__),0)))
+   , "src/dag.c", 403, __func__),0)))
 # 403 "src/dag.c"
-              ;
- 
+                 ;
+    
 # 404 "src/dag.c" 3 4
-((void)((
+   ((void)((
 # 404 "src/dag.c"
-forest != forest->link
+   forest != forest->link
 # 404 "src/dag.c" 3 4
-) || (__assert_fail(
+   ) || (__assert_fail(
 # 404 "src/dag.c"
-"forest != forest->link"
+   "forest != forest->link"
 # 404 "src/dag.c" 3 4
-, "src/dag.c", 404, __func__),0)))
+   , "src/dag.c", 404, __func__),0)))
 # 404 "src/dag.c"
-                              ;
- p = forest->link;
- while (p->link != forest)
-  p = p->link;
- p->link = forest->link;
- forest = p;
+                                 ;
+    p = forest->link;
+    while (p->link != forest)
+        p = p->link;
+    p->link = forest->link;
+    forest = p;
 }
 Tree cvtconst(Tree p) {
- Symbol q = constant(p->type, p->u.v);
- Tree e;
+    Symbol q = constant(p->type, p->u.v);
+    Tree e;
 
- if (q->u.c.loc == 
+    if (q->u.c.loc == 
 # 415 "src/dag.c" 3 4
-                  ((void*)0)
+                     ((void*)0)
 # 415 "src/dag.c"
-                      )
-  q->u.c.loc = genident(STATIC, p->type, GLOBAL);
- if (((((p->type)->op >= CONST) ? (p->type)->type : (p->type))->op == ARRAY)) {
-  e = simplify(ADDRG, atop(p->type), 
-# 418 "src/dag.c" 3 4
-                                    ((void*)0)
-# 418 "src/dag.c"
-                                        , 
+                         )
+        q->u.c.loc = genident(STATIC, p->type, GLOBAL);
+    if (((((p->type)->op >= CONST) ? (p->type)->type : (p->type))->op == ARRAY)) {
+        e = simplify(ADDRG, atop(p->type), 
 # 418 "src/dag.c" 3 4
                                           ((void*)0)
 # 418 "src/dag.c"
-                                              );
-  e->u.sym = q->u.c.loc;
- } else
-  e = idtree(q->u.c.loc);
- return e;
+                                              , 
+# 418 "src/dag.c" 3 4
+                                                ((void*)0)
+# 418 "src/dag.c"
+                                                    );
+        e->u.sym = q->u.c.loc;
+    } else
+        e = idtree(q->u.c.loc);
+    return e;
 }
 void gencode(Symbol caller[], Symbol callee[]) {
- Code cp;
- Coordinate save;
+    Code cp;
+    Coordinate save;
 
- if (prunetemps == -1)
-  prunetemps = !IR->wants_dag;
- save = src;
- if (assignargs) {
-  int i;
-  Symbol p, q;
-  cp = codehead.next->next;
-  codelist = codehead.next;
-  for (i = 0; (p = callee[i]) != 
+    if (prunetemps == -1)
+        prunetemps = !IR->wants_dag;
+    save = src;
+    if (assignargs) {
+        int i;
+        Symbol p, q;
+        cp = codehead.next->next;
+        codelist = codehead.next;
+        for (i = 0; (p = callee[i]) != 
 # 436 "src/dag.c" 3 4
-                                ((void*)0)
-           
+                                      ((void*)0)
+                 
 # 437 "src/dag.c"
-          && (q = caller[i]) != 
+                && (q = caller[i]) != 
 # 437 "src/dag.c" 3 4
-                                ((void*)0)
+                                      ((void*)0)
 # 437 "src/dag.c"
-                                    ; i++)
-   if (p->sclass != q->sclass || p->type != q->type)
-    walk(asgn(p, idtree(q)), 0, 0);
-  codelist->next = cp;
-  cp->prev = codelist;
- }
- if (glevel && IR->stabsym) {
-  int i;
-  Symbol p, q;
-  for (i = 0; (p = callee[i]) != 
+                                          ; i++)
+            if (p->sclass != q->sclass || p->type != q->type)
+                walk(asgn(p, idtree(q)), 0, 0);
+        codelist->next = cp;
+        cp->prev = codelist;
+    }
+    if (glevel && IR->stabsym) {
+        int i;
+        Symbol p, q;
+        for (i = 0; (p = callee[i]) != 
 # 446 "src/dag.c" 3 4
-                                ((void*)0)
-           
+                                      ((void*)0)
+                 
 # 447 "src/dag.c"
-          && (q = caller[i]) != 
+                && (q = caller[i]) != 
 # 447 "src/dag.c" 3 4
-                                ((void*)0)
+                                      ((void*)0)
 # 447 "src/dag.c"
-                                    ; i++) {
-   (*IR->stabsym)(p);
-   if (p->sclass != q->sclass || p->type != q->type)
-    (*IR->stabsym)(q);
-  }
-  swtoseg(CODE);
- }
- cp = codehead.next;
- for ( ; errcnt <= 0 && cp; cp = cp->next)
-  switch (cp->kind) {
-  case Address: 
+                                          ; i++) {
+            (*IR->stabsym)(p);
+            if (p->sclass != q->sclass || p->type != q->type)
+                (*IR->stabsym)(q);
+        }
+        swtoseg(CODE);
+    }
+    cp = codehead.next;
+    for ( ; errcnt <= 0 && cp; cp = cp->next)
+        switch (cp->kind) {
+        case Address: 
 # 457 "src/dag.c" 3 4
-                ((void)((
+                      ((void)((
 # 457 "src/dag.c"
-                IR->address
+                      IR->address
 # 457 "src/dag.c" 3 4
-                ) || (__assert_fail(
+                      ) || (__assert_fail(
 # 457 "src/dag.c"
-                "IR->address"
+                      "IR->address"
 # 457 "src/dag.c" 3 4
-                , "src/dag.c", 457, __func__),0)))
+                      , "src/dag.c", 457, __func__),0)))
 # 457 "src/dag.c"
-                                   ;
-          (*IR->address)(cp->u.addr.sym, cp->u.addr.base,
-           cp->u.addr.offset); break;
-  case Blockbeg: {
-           Symbol *p = cp->u.block.locals;
-           (*IR->blockbeg)(&cp->u.block.x);
-           for ( ; *p; p++)
-            if ((*p)->ref != 0.0)
-             (*IR->local)(*p);
-            else if (glevel) (*IR->local)(*p);
-          }
+                                         ;
+                   (*IR->address)(cp->u.addr.sym, cp->u.addr.base,
+                       cp->u.addr.offset); break;
+        case Blockbeg: {
+                       Symbol *p = cp->u.block.locals;
+                       (*IR->blockbeg)(&cp->u.block.x);
+                       for ( ; *p; p++)
+                           if ((*p)->ref != 0.0)
+                               (*IR->local)(*p);
+                           else if (glevel) (*IR->local)(*p);
+                   }
  break;
-  case Blockend: (*IR->blockend)(&cp->u.begin->u.block.x); break;
-  case Defpoint: src = cp->u.point.src; break;
-  case Gen: case Jump:
-  case Label: if (prunetemps)
-           cp->u.forest = prune(cp->u.forest);
-          fixup(cp->u.forest);
-          cp->u.forest = (*IR->gen)(cp->u.forest); break;
-  case Local: (*IR->local)(cp->u.var); break;
-  case Switch: break;
-  default: 
+        case Blockend: (*IR->blockend)(&cp->u.begin->u.block.x); break;
+        case Defpoint: src = cp->u.point.src; break;
+        case Gen: case Jump:
+        case Label: if (prunetemps)
+                       cp->u.forest = prune(cp->u.forest);
+                   fixup(cp->u.forest);
+                   cp->u.forest = (*IR->gen)(cp->u.forest); break;
+        case Local: (*IR->local)(cp->u.var); break;
+        case Switch: break;
+        default: 
 # 478 "src/dag.c" 3 4
-          ((void)((
+                ((void)((
 # 478 "src/dag.c"
-          0
+                0
 # 478 "src/dag.c" 3 4
-          ) || (__assert_fail(
+                ) || (__assert_fail(
 # 478 "src/dag.c"
-          "0"
+                "0"
 # 478 "src/dag.c" 3 4
-          , "src/dag.c", 478, __func__),0)))
+                , "src/dag.c", 478, __func__),0)))
 # 478 "src/dag.c"
-                   ;
-  }
- src = save;
+                         ;
+        }
+    src = save;
 }
 static void fixup(Node p) {
- for ( ; p; p = p->link)
-  switch (((p->op)&0x3F0)) {
-  case JUMP:
-   if (((p->kids[0]->op)&0x3FF) == ADDRG+P)
-    p->kids[0]->syms[0] =
-     equated(p->kids[0]->syms[0]);
-   break;
-  case LABEL: 
+    for ( ; p; p = p->link)
+        switch (((p->op)&0x3F0)) {
+        case JUMP:
+            if (((p->kids[0]->op)&0x3FF) == ADDRG+P)
+                p->kids[0]->syms[0] =
+                    equated(p->kids[0]->syms[0]);
+            break;
+        case LABEL: 
 # 490 "src/dag.c" 3 4
-             ((void)((
+                   ((void)((
 # 490 "src/dag.c"
-             p->syms[0] == equated(p->syms[0])
+                   p->syms[0] == equated(p->syms[0])
 # 490 "src/dag.c" 3 4
-             ) || (__assert_fail(
+                   ) || (__assert_fail(
 # 490 "src/dag.c"
-             "p->syms[0] == equated(p->syms[0])"
+                   "p->syms[0] == equated(p->syms[0])"
 # 490 "src/dag.c" 3 4
-             , "src/dag.c", 490, __func__),0)))
+                   , "src/dag.c", 490, __func__),0)))
 # 490 "src/dag.c"
-                                                      ; break;
-  case EQ: case GE: case GT: case LE: case LT: case NE:
-   
+                                                            ; break;
+        case EQ: case GE: case GT: case LE: case LT: case NE:
+            
 # 492 "src/dag.c" 3 4
-  ((void)((
+           ((void)((
 # 492 "src/dag.c"
-  p->syms[0]
+           p->syms[0]
 # 492 "src/dag.c" 3 4
-  ) || (__assert_fail(
+           ) || (__assert_fail(
 # 492 "src/dag.c"
-  "p->syms[0]"
+           "p->syms[0]"
 # 492 "src/dag.c" 3 4
-  , "src/dag.c", 492, __func__),0)))
+           , "src/dag.c", 492, __func__),0)))
 # 492 "src/dag.c"
-                    ;
-   p->syms[0] = equated(p->syms[0]);
-  }
+                             ;
+            p->syms[0] = equated(p->syms[0]);
+        }
 }
 static Symbol equated(Symbol p) {
- { Symbol q; for (q = p->u.l.equatedto; q; q = q->u.l.equatedto) 
+    { Symbol q; for (q = p->u.l.equatedto; q; q = q->u.l.equatedto) 
 # 497 "src/dag.c" 3 4
-                                                                ((void)((
+                                                                   ((void)((
 # 497 "src/dag.c"
-                                                                p != q
+                                                                   p != q
 # 497 "src/dag.c" 3 4
-                                                                ) || (__assert_fail(
+                                                                   ) || (__assert_fail(
 # 497 "src/dag.c"
-                                                                "p != q"
+                                                                   "p != q"
 # 497 "src/dag.c" 3 4
-                                                                , "src/dag.c", 497, __func__),0)))
+                                                                   , "src/dag.c", 497, __func__),0)))
 # 497 "src/dag.c"
-                                                                              ; }
- while (p->u.l.equatedto)
-  p = p->u.l.equatedto;
- return p;
+                                                                                 ; }
+    while (p->u.l.equatedto)
+        p = p->u.l.equatedto;
+    return p;
 }
 void emitcode(void) {
- Code cp;
- Coordinate save;
+    Code cp;
+    Coordinate save;
 
- save = src;
- cp = codehead.next;
- for ( ; errcnt <= 0 && cp; cp = cp->next)
-  switch (cp->kind) {
-  case Address: break;
-  case Blockbeg: if (glevel && IR->stabblock) {
-           (*IR->stabblock)('{', cp->u.block.level - LOCAL, cp->u.block.locals);
-           swtoseg(CODE);
-          }
+    save = src;
+    cp = codehead.next;
+    for ( ; errcnt <= 0 && cp; cp = cp->next)
+        switch (cp->kind) {
+        case Address: break;
+        case Blockbeg: if (glevel && IR->stabblock) {
+                       (*IR->stabblock)('{', cp->u.block.level - LOCAL, cp->u.block.locals);
+                       swtoseg(CODE);
+                   }
  break;
-  case Blockend: if (glevel && IR->stabblock) {
-           Code bp = cp->u.begin;
-           foreach(bp->u.block.identifiers, bp->u.block.level, typestab, 
+        case Blockend: if (glevel && IR->stabblock) {
+                       Code bp = cp->u.begin;
+                       foreach(bp->u.block.identifiers, bp->u.block.level, typestab, 
 # 518 "src/dag.c" 3 4
-                                                                        ((void*)0)
+                                                                                    ((void*)0)
 # 518 "src/dag.c"
-                                                                            );
-           foreach(bp->u.block.types, bp->u.block.level, typestab, 
+                                                                                        );
+                       foreach(bp->u.block.types, bp->u.block.level, typestab, 
 # 519 "src/dag.c" 3 4
-                                                                        ((void*)0)
+                                                                                    ((void*)0)
 # 519 "src/dag.c"
-                                                                            );
-           (*IR->stabblock)('}', bp->u.block.level - LOCAL, bp->u.block.locals);
-           swtoseg(CODE);
-          }
+                                                                                        );
+                       (*IR->stabblock)('}', bp->u.block.level - LOCAL, bp->u.block.locals);
+                       swtoseg(CODE);
+                   }
  break;
-  case Defpoint: src = cp->u.point.src;
-          if (glevel > 0 && IR->stabline) {
-           (*IR->stabline)(&cp->u.point.src); swtoseg(CODE); } break;
-  case Gen: case Jump:
-  case Label: if (cp->u.forest)
-           (*IR->emit)(cp->u.forest); break;
-  case Local: if (glevel && IR->stabsym) {
-           (*IR->stabsym)(cp->u.var);
-           swtoseg(CODE);
-          } break;
-  case Switch: { int i;
-           defglobal(cp->u.swtch.table, LIT);
-           (*IR->defaddress)(equated(cp->u.swtch.labels[0]));
-           for (i = 1; i < cp->u.swtch.size; i++) {
-            long k = cp->u.swtch.values[i-1];
-            while (++k < cp->u.swtch.values[i])
-             
+        case Defpoint: src = cp->u.point.src;
+                   if (glevel > 0 && IR->stabline) {
+                       (*IR->stabline)(&cp->u.point.src); swtoseg(CODE); } break;
+        case Gen: case Jump:
+        case Label: if (cp->u.forest)
+                       (*IR->emit)(cp->u.forest); break;
+        case Local: if (glevel && IR->stabsym) {
+                       (*IR->stabsym)(cp->u.var);
+                       swtoseg(CODE);
+                   } break;
+        case Switch: { int i;
+                       defglobal(cp->u.swtch.table, LIT);
+                       (*IR->defaddress)(equated(cp->u.swtch.labels[0]));
+                       for (i = 1; i < cp->u.swtch.size; i++) {
+                           long k = cp->u.swtch.values[i-1];
+                           while (++k < cp->u.swtch.values[i])
+                               
 # 540 "src/dag.c" 3 4
-            ((void)((
+                              ((void)((
 # 540 "src/dag.c"
-            k < 
+                              k < 
 # 540 "src/dag.c" 3 4
-            0x7fffffffffffffffL) || (__assert_fail(
+                              0x7fffffffffffffffL) || (__assert_fail(
 # 540 "src/dag.c"
-            "k < LONG_MAX"
+                              "k < LONG_MAX"
 # 540 "src/dag.c" 3 4
-            , "src/dag.c", 540, __func__),0)))
+                              , "src/dag.c", 540, __func__),0)))
 # 540 "src/dag.c"
-                                ,
-             (*IR->defaddress)(equated(cp->u.swtch.deflab));
-            (*IR->defaddress)(equated(cp->u.swtch.labels[i]));
-           }
-           swtoseg(CODE);
-          } break;
-  default: 
+                                                  ,
+                               (*IR->defaddress)(equated(cp->u.swtch.deflab));
+                           (*IR->defaddress)(equated(cp->u.swtch.labels[i]));
+                       }
+                       swtoseg(CODE);
+                   } break;
+        default: 
 # 546 "src/dag.c" 3 4
-          ((void)((
+                ((void)((
 # 546 "src/dag.c"
-          0
+                0
 # 546 "src/dag.c" 3 4
-          ) || (__assert_fail(
+                ) || (__assert_fail(
 # 546 "src/dag.c"
-          "0"
+                "0"
 # 546 "src/dag.c" 3 4
-          , "src/dag.c", 546, __func__),0)))
+                , "src/dag.c", 546, __func__),0)))
 # 546 "src/dag.c"
-                   ;
-  }
- src = save;
+                         ;
+        }
+    src = save;
 }
 
 static Node undag(Node forest) {
- Node p;
+    Node p;
 
- tail = &forest;
- for (p = forest; p; p = p->link)
-  if (((p->op)&0x3F0) == INDIR) {
-   
+    tail = &forest;
+    for (p = forest; p; p = p->link)
+        if (((p->op)&0x3F0) == INDIR) {
+            
 # 557 "src/dag.c" 3 4
-  ((void)((
+           ((void)((
 # 557 "src/dag.c"
-  p->count >= 1
+           p->count >= 1
 # 557 "src/dag.c" 3 4
-  ) || (__assert_fail(
+           ) || (__assert_fail(
 # 557 "src/dag.c"
-  "p->count >= 1"
+           "p->count >= 1"
 # 557 "src/dag.c" 3 4
-  , "src/dag.c", 557, __func__),0)))
+           , "src/dag.c", 557, __func__),0)))
 # 557 "src/dag.c"
-                       ;
-   visit(p, 1);
-   if (p->syms[2]) {
-    
+                                ;
+            visit(p, 1);
+            if (p->syms[2]) {
+                
 # 560 "src/dag.c" 3 4
-   ((void)((
+               ((void)((
 # 560 "src/dag.c"
-   p->syms[2]->u.t.cse
+               p->syms[2]->u.t.cse
 # 560 "src/dag.c" 3 4
-   ) || (__assert_fail(
+               ) || (__assert_fail(
 # 560 "src/dag.c"
-   "p->syms[2]->u.t.cse"
+               "p->syms[2]->u.t.cse"
 # 560 "src/dag.c" 3 4
-   , "src/dag.c", 560, __func__),0)))
+               , "src/dag.c", 560, __func__),0)))
 # 560 "src/dag.c"
-                              ;
-    p->syms[2]->u.t.cse = 
+                                          ;
+                p->syms[2]->u.t.cse = 
 # 561 "src/dag.c" 3 4
-                         ((void*)0)
+                                     ((void*)0)
 # 561 "src/dag.c"
-                             ;
-    addlocal(p->syms[2]);
-   }
-  } else if ((((p->op)&0x3F0) == CALL || IR->mulops_calls && (((p->op)&0x3F0)==DIV||((p->op)&0x3F0)==MOD||((p->op)&0x3F0)==MUL) && ( ((p->op)&0xF)==U || ((p->op)&0xF)==I)) && p->count >= 1)
-   visit(p, 1);
-  else {
-   
+                                         ;
+                addlocal(p->syms[2]);
+            }
+        } else if ((((p->op)&0x3F0) == CALL || IR->mulops_calls && (((p->op)&0x3F0)==DIV||((p->op)&0x3F0)==MOD||((p->op)&0x3F0)==MUL) && ( ((p->op)&0xF)==U || ((p->op)&0xF)==I)) && p->count >= 1)
+            visit(p, 1);
+        else {
+            
 # 567 "src/dag.c" 3 4
-  ((void)((
+           ((void)((
 # 567 "src/dag.c"
-  p->count == 0
+           p->count == 0
 # 567 "src/dag.c" 3 4
-  ) || (__assert_fail(
+           ) || (__assert_fail(
 # 567 "src/dag.c"
-  "p->count == 0"
+           "p->count == 0"
 # 567 "src/dag.c" 3 4
-  , "src/dag.c", 567, __func__),0)))
+           , "src/dag.c", 567, __func__),0)))
 # 567 "src/dag.c"
-                       ,
-   visit(p, 1);
-   *tail = p;
-   tail = &p->link;
-  }
- *tail = 
+                                ,
+            visit(p, 1);
+            *tail = p;
+            tail = &p->link;
+        }
+    *tail = 
 # 572 "src/dag.c" 3 4
-        ((void*)0)
+           ((void*)0)
 # 572 "src/dag.c"
-            ;
- return forest;
+               ;
+    return forest;
 }
 static Node replace(Node p) {
- if (p && ( ((p->op)&0x3F0) == INDIR
-   && ((p->kids[0]->op)&0x3F0) == ADDRL
-   && p->kids[0]->syms[0]->temporary
-   && p->kids[0]->syms[0]->u.t.replace)) {
-  p = p->kids[0]->syms[0]->u.t.cse;
-  if (((p->op)&0x3F0) == INDIR && (((p->kids[0]->op)&0x3FF)==ADDRG+P || ((p->kids[0]->op)&0x3FF)==ADDRL+P || ((p->kids[0]->op)&0x3FF)==ADDRF+P))
-   p = newnode(p->op, newnode(p->kids[0]->op, 
+    if (p && ( ((p->op)&0x3F0) == INDIR
+         && ((p->kids[0]->op)&0x3F0) == ADDRL
+         && p->kids[0]->syms[0]->temporary
+         && p->kids[0]->syms[0]->u.t.replace)) {
+        p = p->kids[0]->syms[0]->u.t.cse;
+        if (((p->op)&0x3F0) == INDIR && (((p->kids[0]->op)&0x3FF)==ADDRG+P || ((p->kids[0]->op)&0x3FF)==ADDRL+P || ((p->kids[0]->op)&0x3FF)==ADDRF+P))
+            p = newnode(p->op, newnode(p->kids[0]->op, 
 # 582 "src/dag.c" 3 4
-                                             ((void*)0)
+                                                      ((void*)0)
 # 582 "src/dag.c"
-                                                 , 
+                                                          , 
 # 582 "src/dag.c" 3 4
-                                                   ((void*)0)
+                                                            ((void*)0)
 # 582 "src/dag.c"
-                                                       ,
-    p->kids[0]->syms[0]), 
+                                                                ,
+                p->kids[0]->syms[0]), 
 # 583 "src/dag.c" 3 4
-                         ((void*)0)
+                                     ((void*)0)
 # 583 "src/dag.c"
-                             , 
+                                         , 
 # 583 "src/dag.c" 3 4
-                               ((void*)0)
+                                           ((void*)0)
 # 583 "src/dag.c"
-                                   );
-  else if (((p->op)&0x3F0) == ADDRG)
-   p = newnode(p->op, 
+                                               );
+        else if (((p->op)&0x3F0) == ADDRG)
+            p = newnode(p->op, 
 # 585 "src/dag.c" 3 4
-                     ((void*)0)
+                              ((void*)0)
 # 585 "src/dag.c"
-                         , 
+                                  , 
 # 585 "src/dag.c" 3 4
-                           ((void*)0)
+                                    ((void*)0)
 # 585 "src/dag.c"
-                               , p->syms[0]);
-  else
-   
+                                        , p->syms[0]);
+        else
+            
 # 587 "src/dag.c" 3 4
-  ((void)((
+           ((void)((
 # 587 "src/dag.c"
-  0
+           0
 # 587 "src/dag.c" 3 4
-  ) || (__assert_fail(
+           ) || (__assert_fail(
 # 587 "src/dag.c"
-  "0"
+           "0"
 # 587 "src/dag.c" 3 4
-  , "src/dag.c", 587, __func__),0)))
+           , "src/dag.c", 587, __func__),0)))
 # 587 "src/dag.c"
-           ;
-  p->count = 1;
- } else if (p) {
-  p->kids[0] = replace(p->kids[0]);
-  p->kids[1] = replace(p->kids[1]);
- }
- return p;
+                    ;
+        p->count = 1;
+    } else if (p) {
+        p->kids[0] = replace(p->kids[0]);
+        p->kids[1] = replace(p->kids[1]);
+    }
+    return p;
 }
 static Node prune(Node forest) {
- Node p, *tail = &forest;
- int count = 0;
+    Node p, *tail = &forest;
+    int count = 0;
 
- for (p = forest; p; p = p->link) {
-  if (count > 0) {
-   p->kids[0] = replace(p->kids[0]);
-   p->kids[1] = replace(p->kids[1]);
-  }
-  if (( ((p->op)&0x3F0) == ASGN
-      && ((p->kids[0]->op)&0x3F0) == ADDRL
-      && p->kids[0]->syms[0]->temporary
-      && p->kids[0]->syms[0]->u.t.cse == p->kids[1])) {
-   Symbol tmp = p->kids[0]->syms[0];
-   if (!tmp->defined)
-    (*IR->local)(tmp);
-   tmp->defined = 1;
-   if (( ((p->kids[1]->op)&0x3F0) == INDIR
-       && (((p->kids[1]->kids[0]->op)&0x3FF)==ADDRG+P || ((p->kids[1]->kids[0]->op)&0x3FF)==ADDRL+P || ((p->kids[1]->kids[0]->op)&0x3FF)==ADDRF+P)
-       && p->kids[1]->kids[0]->syms[0]->sclass == REGISTER)
-   || (( ((p->kids[1]->op)&0x3F0) == INDIR
-       && (((p->kids[1]->kids[0]->op)&0x3FF)==ADDRG+P || ((p->kids[1]->kids[0]->op)&0x3FF)==ADDRL+P || ((p->kids[1]->kids[0]->op)&0x3FF)==ADDRF+P)) && tmp->sclass == AUTO)
-   || (((p->kids[1]->op)&0x3F0) == ADDRG && tmp->sclass == AUTO)) {
-    tmp->u.t.replace = 1;
-    count++;
-    continue;
-   }
-  }
+    for (p = forest; p; p = p->link) {
+        if (count > 0) {
+            p->kids[0] = replace(p->kids[0]);
+            p->kids[1] = replace(p->kids[1]);
+        }
+        if (( ((p->op)&0x3F0) == ASGN
+            && ((p->kids[0]->op)&0x3F0) == ADDRL
+            && p->kids[0]->syms[0]->temporary
+            && p->kids[0]->syms[0]->u.t.cse == p->kids[1])) {
+            Symbol tmp = p->kids[0]->syms[0];
+            if (!tmp->defined)
+                (*IR->local)(tmp);
+            tmp->defined = 1;
+            if (( ((p->kids[1]->op)&0x3F0) == INDIR
+                && (((p->kids[1]->kids[0]->op)&0x3FF)==ADDRG+P || ((p->kids[1]->kids[0]->op)&0x3FF)==ADDRL+P || ((p->kids[1]->kids[0]->op)&0x3FF)==ADDRF+P)
+                && p->kids[1]->kids[0]->syms[0]->sclass == REGISTER)
+            || (( ((p->kids[1]->op)&0x3F0) == INDIR
+                && (((p->kids[1]->kids[0]->op)&0x3FF)==ADDRG+P || ((p->kids[1]->kids[0]->op)&0x3FF)==ADDRL+P || ((p->kids[1]->kids[0]->op)&0x3FF)==ADDRF+P)) && tmp->sclass == AUTO)
+            || (((p->kids[1]->op)&0x3F0) == ADDRG && tmp->sclass == AUTO)) {
+                tmp->u.t.replace = 1;
+                count++;
+                continue;
+            }
+        }
 
-  *tail = p;
-  tail = &(*tail)->link;
- }
- 
+        *tail = p;
+        tail = &(*tail)->link;
+    }
+    
 # 627 "src/dag.c" 3 4
-((void)((
+   ((void)((
 # 627 "src/dag.c"
-*tail == 
+   *tail == 
 # 627 "src/dag.c" 3 4
-((void*)0)) || (__assert_fail(
+   ((void*)0)) || (__assert_fail(
 # 627 "src/dag.c"
-"*tail == NULL"
+   "*tail == NULL"
 # 627 "src/dag.c" 3 4
-, "src/dag.c", 627, __func__),0)))
+   , "src/dag.c", 627, __func__),0)))
 # 627 "src/dag.c"
-                     ;
- return forest;
+                        ;
+    return forest;
 }
 static Node visit(Node p, int listed) {
- if (p)
-  if (p->syms[2])
-   p = tmpnode(p);
-  else if (p->count <= 1 && !(((p->op)&0x3F0) == CALL || IR->mulops_calls && (((p->op)&0x3F0)==DIV||((p->op)&0x3F0)==MOD||((p->op)&0x3F0)==MUL) && ( ((p->op)&0xF)==U || ((p->op)&0xF)==I))
-  || p->count == 0 && (((p->op)&0x3F0) == CALL || IR->mulops_calls && (((p->op)&0x3F0)==DIV||((p->op)&0x3F0)==MOD||((p->op)&0x3F0)==MUL) && ( ((p->op)&0xF)==U || ((p->op)&0xF)==I))) {
-   p->kids[0] = visit(p->kids[0], 0);
-   p->kids[1] = visit(p->kids[1], 0);
-  }
+    if (p)
+        if (p->syms[2])
+            p = tmpnode(p);
+        else if (p->count <= 1 && !(((p->op)&0x3F0) == CALL || IR->mulops_calls && (((p->op)&0x3F0)==DIV||((p->op)&0x3F0)==MOD||((p->op)&0x3F0)==MUL) && ( ((p->op)&0xF)==U || ((p->op)&0xF)==I))
+        || p->count == 0 && (((p->op)&0x3F0) == CALL || IR->mulops_calls && (((p->op)&0x3F0)==DIV||((p->op)&0x3F0)==MOD||((p->op)&0x3F0)==MUL) && ( ((p->op)&0xF)==U || ((p->op)&0xF)==I))) {
+            p->kids[0] = visit(p->kids[0], 0);
+            p->kids[1] = visit(p->kids[1], 0);
+        }
 
-  else if (((p->op)&0x3FF) == ADDRL+P || ((p->op)&0x3FF) == ADDRF+P) {
-   
+        else if (((p->op)&0x3FF) == ADDRL+P || ((p->op)&0x3FF) == ADDRF+P) {
+            
 # 641 "src/dag.c" 3 4
-  ((void)((
+           ((void)((
 # 641 "src/dag.c"
-  !listed
+           !listed
 # 641 "src/dag.c" 3 4
-  ) || (__assert_fail(
+           ) || (__assert_fail(
 # 641 "src/dag.c"
-  "!listed"
+           "!listed"
 # 641 "src/dag.c" 3 4
-  , "src/dag.c", 641, __func__),0)))
+           , "src/dag.c", 641, __func__),0)))
 # 641 "src/dag.c"
-                 ;
-   p = newnode(p->op, 
+                          ;
+            p = newnode(p->op, 
 # 642 "src/dag.c" 3 4
-                     ((void*)0)
+                              ((void*)0)
 # 642 "src/dag.c"
-                         , 
+                                  , 
 # 642 "src/dag.c" 3 4
-                           ((void*)0)
+                                    ((void*)0)
 # 642 "src/dag.c"
-                               , p->syms[0]);
-   p->count = 1;
-  }
-  else if (p->op == INDIR+B) {
-   p = newnode(p->op, p->kids[0], 
+                                        , p->syms[0]);
+            p->count = 1;
+        }
+        else if (p->op == INDIR+B) {
+            p = newnode(p->op, p->kids[0], 
 # 646 "src/dag.c" 3 4
-                                 ((void*)0)
+                                          ((void*)0)
 # 646 "src/dag.c"
-                                     , 
+                                              , 
 # 646 "src/dag.c" 3 4
-                                       ((void*)0)
+                                                ((void*)0)
 # 646 "src/dag.c"
-                                           );
-   p->count = 1;
-   p->kids[0] = visit(p->kids[0], 0);
-   p->kids[1] = visit(p->kids[1], 0);
-  }
-  else {
-   p->kids[0] = visit(p->kids[0], 0);
-   p->kids[1] = visit(p->kids[1], 0);
-   p->syms[2] = temporary(REGISTER, btot(p->op, ((p->op)>>10)));
-   
+                                                    );
+            p->count = 1;
+            p->kids[0] = visit(p->kids[0], 0);
+            p->kids[1] = visit(p->kids[1], 0);
+        }
+        else {
+            p->kids[0] = visit(p->kids[0], 0);
+            p->kids[1] = visit(p->kids[1], 0);
+            p->syms[2] = temporary(REGISTER, btot(p->op, ((p->op)>>10)));
+            
 # 655 "src/dag.c" 3 4
-  ((void)((
+           ((void)((
 # 655 "src/dag.c"
-  !p->syms[2]->defined
+           !p->syms[2]->defined
 # 655 "src/dag.c" 3 4
-  ) || (__assert_fail(
+           ) || (__assert_fail(
 # 655 "src/dag.c"
-  "!p->syms[2]->defined"
+           "!p->syms[2]->defined"
 # 655 "src/dag.c" 3 4
-  , "src/dag.c", 655, __func__),0)))
+           , "src/dag.c", 655, __func__),0)))
 # 655 "src/dag.c"
-                              ;
-   p->syms[2]->ref = 1;
-   p->syms[2]->u.t.cse = p;
+                                       ;
+            p->syms[2]->ref = 1;
+            p->syms[2]->u.t.cse = p;
 
-   *tail = asgnnode(p->syms[2], p);
-   tail = &(*tail)->link;
-   if (!listed)
-    p = tmpnode(p);
-  };
- return p;
+            *tail = asgnnode(p->syms[2], p);
+            tail = &(*tail)->link;
+            if (!listed)
+                p = tmpnode(p);
+        };
+    return p;
 }
 static Node tmpnode(Node p) {
- Symbol tmp = p->syms[2];
+    Symbol tmp = p->syms[2];
 
- 
+    
 # 669 "src/dag.c" 3 4
-((void)((
+   ((void)((
 # 669 "src/dag.c"
-tmp
+   tmp
 # 669 "src/dag.c" 3 4
-) || (__assert_fail(
+   ) || (__assert_fail(
 # 669 "src/dag.c"
-"tmp"
+   "tmp"
 # 669 "src/dag.c" 3 4
-, "src/dag.c", 669, __func__),0)))
+   , "src/dag.c", 669, __func__),0)))
 # 669 "src/dag.c"
-           ;
- if (--p->count == 0)
-  p->syms[2] = 
+              ;
+    if (--p->count == 0)
+        p->syms[2] = 
 # 671 "src/dag.c" 3 4
-              ((void*)0)
+                    ((void*)0)
 # 671 "src/dag.c"
-                  ;
- p = newnode(INDIR + ttob(tmp->type),
-  newnode(ADDRL + ttob(voidptype), 
-# 673 "src/dag.c" 3 4
-                                  ((void*)0)
-# 673 "src/dag.c"
-                                      , 
+                        ;
+    p = newnode(INDIR + ttob(tmp->type),
+        newnode(ADDRL + ttob(voidptype), 
 # 673 "src/dag.c" 3 4
                                         ((void*)0)
 # 673 "src/dag.c"
-                                            , tmp), 
+                                            , 
 # 673 "src/dag.c" 3 4
-                                                    ((void*)0)
+                                              ((void*)0)
 # 673 "src/dag.c"
-                                                        , 
+                                                  , tmp), 
 # 673 "src/dag.c" 3 4
                                                           ((void*)0)
 # 673 "src/dag.c"
-                                                              );
- p->count = 1;
- return p;
+                                                              , 
+# 673 "src/dag.c" 3 4
+                                                                ((void*)0)
+# 673 "src/dag.c"
+                                                                    );
+    p->count = 1;
+    return p;
 }
 static Node asgnnode(Symbol tmp, Node p) {
- p = newnode(ASGN + ttob(tmp->type),
-  newnode(ADDRL + ttob(voidptype), 
-# 679 "src/dag.c" 3 4
-                                  ((void*)0)
-# 679 "src/dag.c"
-                                      , 
+    p = newnode(ASGN + ttob(tmp->type),
+        newnode(ADDRL + ttob(voidptype), 
 # 679 "src/dag.c" 3 4
                                         ((void*)0)
 # 679 "src/dag.c"
-                                            , tmp), p, 
+                                            , 
 # 679 "src/dag.c" 3 4
-                                                       ((void*)0)
+                                              ((void*)0)
 # 679 "src/dag.c"
-                                                           );
- p->syms[0] = intconst(tmp->type->size);
- p->syms[1] = intconst(tmp->type->align);
- return p;
+                                                  , tmp), p, 
+# 679 "src/dag.c" 3 4
+                                                             ((void*)0)
+# 679 "src/dag.c"
+                                                                 );
+    p->syms[0] = intconst(tmp->type->size);
+    p->syms[1] = intconst(tmp->type->align);
+    return p;
 }
 
 void printdag(Node p, int fd) {
- FILE *f = fd == 1 ? 
+    FILE *f = fd == 1 ? 
 # 686 "src/dag.c" 3 4
-                    (stdout) 
+                       (stdout) 
 # 686 "src/dag.c"
-                           : 
+                              : 
 # 686 "src/dag.c" 3 4
-                             (stderr)
+                                (stderr)
 # 686 "src/dag.c"
-                                   ;
+                                      ;
 
- printed(0);
- if (p == 0) {
-  if ((p = forest) != 
+    printed(0);
+    if (p == 0) {
+        if ((p = forest) != 
 # 690 "src/dag.c" 3 4
-                     ((void*)0)
+                           ((void*)0)
 # 690 "src/dag.c"
-                         )
-   do {
-    p = p->link;
-    printdag1(p, fd, 0);
-   } while (p != forest);
- } else if (*printed(nodeid((Tree)p)))
-  fprint(f, "node'%d printed above\n", nodeid((Tree)p));
- else
-  printdag1(p, fd, 0);
+                               )
+            do {
+                p = p->link;
+                printdag1(p, fd, 0);
+            } while (p != forest);
+    } else if (*printed(nodeid((Tree)p)))
+        fprint(f, "node'%d printed above\n", nodeid((Tree)p));
+    else
+        printdag1(p, fd, 0);
 }
 
 
 static void printdag1(Node p, int fd, int lev) {
- int id, i;
+    int id, i;
 
- if (p == 0 || *printed(id = nodeid((Tree)p)))
-  return;
- *printed(id) = 1;
- for (i = 0; i < ((int)(sizeof (p->kids)/sizeof ((p->kids)[0]))); i++)
-  printdag1(p->kids[i], fd, lev + 1);
- printnode(p, fd, lev);
+    if (p == 0 || *printed(id = nodeid((Tree)p)))
+        return;
+    *printed(id) = 1;
+    for (i = 0; i < ((int)(sizeof (p->kids)/sizeof ((p->kids)[0]))); i++)
+        printdag1(p->kids[i], fd, lev + 1);
+    printnode(p, fd, lev);
 }
 
 
 static void printnode(Node p, int fd, int lev) {
- if (p) {
-  FILE *f = fd == 1 ? 
+    if (p) {
+        FILE *f = fd == 1 ? 
 # 716 "src/dag.c" 3 4
-                     (stdout) 
+                           (stdout) 
 # 716 "src/dag.c"
-                            : 
+                                  : 
 # 716 "src/dag.c" 3 4
-                              (stderr)
+                                    (stderr)
 # 716 "src/dag.c"
-                                    ;
-  int i, id = nodeid((Tree)p);
-  fprint(f, "%c%d%s", lev == 0 ? '\'' : '#', id,
-   &"   "[id < 10 ? 0 : id < 100 ? 1 : 2]);
-  fprint(f, "%s count=%d", opname(p->op), p->count);
-  for (i = 0; i < ((int)(sizeof (p->kids)/sizeof ((p->kids)[0]))) && p->kids[i]; i++)
-   fprint(f, " #%d", nodeid((Tree)p->kids[i]));
-  if (((p->op)&0x3F0) == CALL && p->syms[0] && p->syms[0]->type)
-   fprint(f, " {%t}", p->syms[0]->type);
-  else
-   for (i = 0; i < ((int)(sizeof (p->syms)/sizeof ((p->syms)[0]))) && p->syms[i]; i++)
-    if (p->syms[i]->name)
-     fprint(f, " %s", p->syms[i]->name);
-    else
-     fprint(f, " %p", p->syms[i]);
-  fprint(f, "\n");
- }
+                                          ;
+        int i, id = nodeid((Tree)p);
+        fprint(f, "%c%d%s", lev == 0 ? '\'' : '#', id,
+            &"   "[id < 10 ? 0 : id < 100 ? 1 : 2]);
+        fprint(f, "%s count=%d", opname(p->op), p->count);
+        for (i = 0; i < ((int)(sizeof (p->kids)/sizeof ((p->kids)[0]))) && p->kids[i]; i++)
+            fprint(f, " #%d", nodeid((Tree)p->kids[i]));
+        if (((p->op)&0x3F0) == CALL && p->syms[0] && p->syms[0]->type)
+            fprint(f, " {%t}", p->syms[0]->type);
+        else
+            for (i = 0; i < ((int)(sizeof (p->syms)/sizeof ((p->syms)[0]))) && p->syms[i]; i++)
+                if (p->syms[i]->name)
+                    fprint(f, " %s", p->syms[i]->name);
+                else
+                    fprint(f, " %p", p->syms[i]);
+        fprint(f, "\n");
+    }
 }
 
 
 static void typestab(Symbol p, void *cl) {
- if (!((((p->type)->op >= CONST) ? (p->type)->type : (p->type))->op == FUNCTION) && (p->sclass == EXTERN || p->sclass == STATIC) && IR->stabsym)
-  (*IR->stabsym)(p);
- else if ((p->sclass == TYPEDEF || p->sclass == 0) && IR->stabtype)
-  (*IR->stabtype)(p);
+    if (!((((p->type)->op >= CONST) ? (p->type)->type : (p->type))->op == FUNCTION) && (p->sclass == EXTERN || p->sclass == STATIC) && IR->stabsym)
+        (*IR->stabsym)(p);
+    else if ((p->sclass == TYPEDEF || p->sclass == 0) && IR->stabtype)
+        (*IR->stabtype)(p);
 }
 }

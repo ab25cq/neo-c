@@ -1562,7 +1562,7 @@ class sConditionalNode extends sNodeBase
         CVALUE*% come_value = new CVALUE;
         
         come_value.c_value = xsprintf("%s?%s:%s", value1_value.c_value, value2_value.c_value, value3_value.c_value);
-        come_value.type = clone value1_value.type;
+        come_value.type = clone value2_value.type;
         come_value.var = null;
         
         add_come_last_code(info, "%s;\n", come_value.c_value);

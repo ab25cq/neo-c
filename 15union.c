@@ -64,20 +64,22 @@ sNode*% parse_union(string type_name, sInfo* info)
     sClass*% klass;
     bool output;
     if(info.classes.at(type_name, null) == null) {
-        output = true;
         klass = new sClass(name:string(type_name), union_:true);
         info.classes.insert(string(type_name), clone klass);
     }
     else {
-        output = false;
         klass = clone info.classes.at(type_name, null);
+    }
+    
+    if(klass->mFields.length() == 0) {
+        output = true;
     }
     
     sType*% type = new sType(type_name);
     
     expected_next_character('{');
     
-    type.mClass.mFields.reset();
+    //type.mClass.mFields.reset();
     
     while(true) {
         var type2, name, err = parse_type(parse_variable_name:true);
@@ -88,7 +90,7 @@ sNode*% parse_union(string type_name, sInfo* info)
         }
         expected_next_character(';');
         
-        if(!info.no_output_err) {
+        if(output) {
             type.mClass.mFields.push_back((name, type2));
         }
         
@@ -108,23 +110,21 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 97
         char* source_head = info.p;
         
         string type_name = parse_word();
-        bool output = true;
         
         if(info.classes.at(type_name, null) == null) {
             info.classes.insert(type_name, new sClass(name:string(type_name), union_:true));
         }
-        else {
-            output = false;
-            info.classes.insert(type_name, new sClass(name:string(type_name), union_:true));
-        }
         
-        info.classes.insert(type_name, new sClass(name:string(type_name), union_:true));
+        bool output = false;
+        if(info.classes.at(type_name, null).mFields.length() == 0) {
+            output = true;
+        }
         
         sType*% type = new sType(type_name);
         
         expected_next_character('{');
         
-        type.mClass.mFields.reset();
+        //type.mClass.mFields.reset();
         
         while(true) {
             var type2, name, err = parse_type(parse_variable_name:true);
@@ -134,7 +134,9 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 97
             }
             expected_next_character(';');
             
-            type.mClass.mFields.push_back((name, type2));
+            if(output) {
+                type.mClass.mFields.push_back((name, type2));
+            }
             
             if(*info->p == '}') {
                 info->p++;

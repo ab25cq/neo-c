@@ -1164,9 +1164,18 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                         return ((sType*%)null, (string)null, false);
                     }
                     else {
-                        anonymous_type = true;
                         info.p = p;
                         info.sline = sline;
+                        
+                        //info.p = head;
+                        //info.sline = head_sline;
+                        
+                        sNode*% node = parse_struct(type_name, info);
+                        
+                        if(!node_compile(node)) {
+                            return ((sType*%)null, (string)null, false);
+                        }
+                        //anonymous_type = true;
                         break;
                     }
                 }

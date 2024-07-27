@@ -802,7 +802,7 @@ bool output_source_file(sInfo* info) version 3
     /// go ///
     string output_file_name = xsprintf("%s.c", info.sname);
     
-    FILE* f = fopen(output_file_name, "w");
+    FILE* f = fopen(output_file_name, "w") and die("fopen");
     
     fprintf(f, "// source head\n");
     fprintf(f, "%s\n", info.module.mSourceHead.to_string());

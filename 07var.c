@@ -793,7 +793,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
 {
     bool is_type_name_flag = is_type_name(buf);
     
-    /// back trace ///
+    /// backtrace ///
     bool multiple_declare = false;
     if(is_type_name_flag)
     {
@@ -804,6 +804,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         info.sline = head_sline;
         
         if(xisalpha(*info->p) || *info->p == '_') {
+            
             var type, name, err = parse_type();
             
             if(err) {
@@ -838,6 +839,9 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
                 }
             }
         }
+        
+//        info.no_output_come_code = false;
+//        info.no_output_come_code = no_output_come_code;
         
         info.p = p;
         info.sline = sline;
