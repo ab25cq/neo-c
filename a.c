@@ -1,9 +1,6 @@
 int main(int argc, char** argv)
 {
-    struct data {
-        int a;
-        int b;
-    } Data;
+    for(int i=0; i<100; i++);
     
     return 0;
 }

@@ -1145,6 +1145,7 @@ record sNode*% expression_node(sInfo* info=info) version 97
             return node;
         }
         else if(fun_name_with_type_name) {
+puts("LLL3");
             buffer*% fun_name = new buffer();
             
             fun_name.append_str(buf);
@@ -1186,6 +1187,7 @@ record sNode*% expression_node(sInfo* info=info) version 97
             return node;
         }
         else if(*info->p == ':' && *(info->p+1) == ':') {
+puts("LLL2");
             info->p+=2;
             skip_spaces_and_lf();
             
@@ -1204,6 +1206,7 @@ record sNode*% expression_node(sInfo* info=info) version 97
             return node;
         }
         else if(call_method_generics_fun_call) {
+puts("LLL");
             sNode*% node = parse_function_call(buf, info);
             
             return node;

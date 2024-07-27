@@ -216,6 +216,21 @@ class sStoreNode extends sNodeBase
             }
         }
         else if(self.alloc) { // right_value != null
+            sVar* var_ = info.lv_table.mVars[self.name]??;
+            if(var_) {
+                err_msg(info, "Already appended this var name(%s)(2)", self.name);
+                return false;
+            }
+            
+            if(self.type == null) {
+            }
+            else {
+                var type = solve_generics(self.type, info->generics_type, info);
+                
+                type->mFunctionParam = false;
+                add_variable_to_table(self.name, clone type, info);
+            }
+            
             if(!node_compile(self.right_value)) {
                 return false;
             }
@@ -226,21 +241,11 @@ class sStoreNode extends sNodeBase
             sType* right_type = right_value.type;
             dec_stack_ptr(1, info);
             
-            sVar* var_ = info.lv_table.mVars[self.name]??;
-            if(var_) {
-                err_msg(info, "Already appended this var name(%s)(2)", self.name);
-                return false;
-            }
-            
             if(self.type == null) {
                 right_type->mFunctionParam = false;
                 add_variable_to_table(self.name, clone right_type, info);
             }
             else {
-                var type = solve_generics(self.type, info->generics_type, info);
-                
-                type->mFunctionParam = false;
-                add_variable_to_table(self.name, clone type, info);
             }
             
             var_ = get_variable_from_table(info.lv_table, self.name);

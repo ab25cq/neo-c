@@ -1,5 +1,25 @@
 #include "common.h"
 
+class sSemicolonNode extends sNodeBase
+{
+    new(sInfo* info=info)
+    {
+        self.super();
+    }
+    
+    string kind()
+    {
+        return string("sSemicolonNode");
+    }
+    
+    bool compile(sInfo* info)
+    {
+        add_come_code(info, ";\n");
+        
+        return true;
+    }
+};
+
 class sLambdaNode extends sNodeBase
 {
     new(sFun* fun, sInfo* info)
@@ -182,12 +202,24 @@ info->sline = node.sline();
     }
     else {
         parse_sharp();
-        sNode*% node = expression();
-        parse_sharp();
+        sNode*% node;
         
-        if(node == null) {
-            err_msg(info, "Invalid expression");
-            exit(1);
+        if(*info->p == ';') {
+            info->p++;
+            skip_spaces_and_lf();
+            
+            parse_sharp();
+            
+            node = new sSemicolonNode() implements sNode;
+        }
+        else {
+            node = expression();
+            parse_sharp();
+            
+            if(node == null) {
+                err_msg(info, "Invalid expression");
+                exit(1);
+            }
         }
         
         result.mNodes.push_back(node);
