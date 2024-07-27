@@ -619,6 +619,7 @@ struct sInfo
     _Bool constructor_;
     struct sClass* defining_class;
     _Bool array_initializer;
+    _Bool va_arg;
 };
 struct tuple2$2sTypephcharph
 {
@@ -4684,7 +4685,7 @@ _Bool* item_existance_93;
 int len_94;
 char* it_97;
 struct sClass* default_value_100;
-struct sClass* it2_103;
+struct sClass* it2_101;
 unsigned int hash_104;
 int n_105;
 _Bool _while_condtional21;
@@ -4703,7 +4704,7 @@ memset(&item_existance_93, 0, sizeof(_Bool*));
 memset(&len_94, 0, sizeof(int));
 memset(&it_97, 0, sizeof(char*));
 memset(&default_value_100, 0, sizeof(struct sClass*));
-memset(&it2_103, 0, sizeof(struct sClass*));
+memset(&it2_101, 0, sizeof(struct sClass*));
 memset(&hash_104, 0, sizeof(unsigned int));
 memset(&n_105, 0, sizeof(int));
 memset(&default_value_106, 0, sizeof(struct sClass*));
@@ -4717,7 +4718,7 @@ memset(&default_value_106, 0, sizeof(struct sClass*));
                     len_94=0;
                     for(                    it_97=map$2charphsClassph_begin(self);                    !map$2charphsClassph_end(self);                    it_97=map$2charphsClassph_next(self)                    ){
                         memset(&default_value_100,0,sizeof(struct sClass*));
-                        it2_103=map$2charphsClassph_at(self,it_97,default_value_100);
+                        it2_101=map$2charphsClassph_at(self,it_97,default_value_100);
                         hash_104=string_get_hash_key(it_97)%size_88;
                         n_105=hash_104;
                         while(_while_condtional21=(_Bool)1,                        _while_condtional21) {
@@ -4876,8 +4877,8 @@ memset(&result_99, 0, sizeof(char*));
 
 static struct sClass* map$2charphsClassph_at(struct map$2charphsClassph* self, char* key, struct sClass* default_value){
 void* __result_obj__;
-unsigned int hash_101;
-unsigned int it_102;
+unsigned int hash_102;
+unsigned int it_103;
 _Bool _while_condtional20;
 _Bool _if_conditional150;
 _Bool _if_conditional151;
@@ -4888,23 +4889,23 @@ struct sClass* __result87__;
 struct sClass* __result88__;
 struct sClass* __result89__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&hash_101, 0, sizeof(unsigned int));
-memset(&it_102, 0, sizeof(unsigned int));
-                            hash_101=string_get_hash_key(((char*)key))%self->size;
-                            it_102=hash_101;
+memset(&hash_102, 0, sizeof(unsigned int));
+memset(&it_103, 0, sizeof(unsigned int));
+                            hash_102=string_get_hash_key(((char*)key))%self->size;
+                            it_103=hash_102;
                             while(_while_condtional20=(_Bool)1,                            _while_condtional20) {
-                                if(_if_conditional150=self->item_existance[it_102],                                _if_conditional150) {
-                                    if(_if_conditional151=string_equals(self->keys[it_102],key),                                    _if_conditional151) {
-                                        __result86__ = __result_obj__ = self->items[it_102];
+                                if(_if_conditional150=self->item_existance[it_103],                                _if_conditional150) {
+                                    if(_if_conditional151=string_equals(self->keys[it_103],key),                                    _if_conditional151) {
+                                        __result86__ = __result_obj__ = self->items[it_103];
                                         come_call_finalizer3(default_value,sClass_finalize, 0, 0, 1, 0, (void*)0);
                                         return __result86__;
                                     }
-                                    it_102++;
-                                    if(_if_conditional152=it_102>=self->size,                                    _if_conditional152) {
-                                        it_102=0;
+                                    it_103++;
+                                    if(_if_conditional152=it_103>=self->size,                                    _if_conditional152) {
+                                        it_103=0;
                                     }
                                     else {
-                                        if(_if_conditional153=it_102==hash_101,                                        _if_conditional153) {
+                                        if(_if_conditional153=it_103==hash_102,                                        _if_conditional153) {
                                             __result87__ = __result_obj__ = default_value;
                                             come_call_finalizer3(default_value,sClass_finalize, 0, 0, 1, 0, (void*)0);
                                             return __result87__;
@@ -5355,7 +5356,7 @@ _Bool* item_existance_138;
 int len_139;
 char* it_142;
 struct sType* default_value_145;
-struct sType* it2_148;
+struct sType* it2_146;
 unsigned int hash_149;
 int n_150;
 _Bool _while_condtional29;
@@ -5374,7 +5375,7 @@ memset(&item_existance_138, 0, sizeof(_Bool*));
 memset(&len_139, 0, sizeof(int));
 memset(&it_142, 0, sizeof(char*));
 memset(&default_value_145, 0, sizeof(struct sType*));
-memset(&it2_148, 0, sizeof(struct sType*));
+memset(&it2_146, 0, sizeof(struct sType*));
 memset(&hash_149, 0, sizeof(unsigned int));
 memset(&n_150, 0, sizeof(int));
 memset(&default_value_151, 0, sizeof(struct sType*));
@@ -5388,7 +5389,7 @@ memset(&default_value_151, 0, sizeof(struct sType*));
                     len_139=0;
                     for(                    it_142=map$2charphsTypeph_begin(self);                    !map$2charphsTypeph_end(self);                    it_142=map$2charphsTypeph_next(self)                    ){
                         memset(&default_value_145,0,sizeof(struct sType*));
-                        it2_148=map$2charphsTypeph_at(self,it_142,default_value_145);
+                        it2_146=map$2charphsTypeph_at(self,it_142,default_value_145);
                         hash_149=string_get_hash_key(it_142)%size_135;
                         n_150=hash_149;
                         while(_while_condtional29=(_Bool)1,                        _while_condtional29) {
@@ -5488,8 +5489,8 @@ memset(&result_144, 0, sizeof(char*));
 
 static struct sType* map$2charphsTypeph_at(struct map$2charphsTypeph* self, char* key, struct sType* default_value){
 void* __result_obj__;
-unsigned int hash_146;
-unsigned int it_147;
+unsigned int hash_147;
+unsigned int it_148;
 _Bool _while_condtional28;
 _Bool _if_conditional197;
 _Bool _if_conditional198;
@@ -5500,23 +5501,23 @@ struct sType* __result111__;
 struct sType* __result112__;
 struct sType* __result113__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&hash_146, 0, sizeof(unsigned int));
-memset(&it_147, 0, sizeof(unsigned int));
-                            hash_146=string_get_hash_key(((char*)key))%self->size;
-                            it_147=hash_146;
+memset(&hash_147, 0, sizeof(unsigned int));
+memset(&it_148, 0, sizeof(unsigned int));
+                            hash_147=string_get_hash_key(((char*)key))%self->size;
+                            it_148=hash_147;
                             while(_while_condtional28=(_Bool)1,                            _while_condtional28) {
-                                if(_if_conditional197=self->item_existance[it_147],                                _if_conditional197) {
-                                    if(_if_conditional198=string_equals(self->keys[it_147],key),                                    _if_conditional198) {
-                                        __result110__ = __result_obj__ = self->items[it_147];
+                                if(_if_conditional197=self->item_existance[it_148],                                _if_conditional197) {
+                                    if(_if_conditional198=string_equals(self->keys[it_148],key),                                    _if_conditional198) {
+                                        __result110__ = __result_obj__ = self->items[it_148];
                                         come_call_finalizer3(default_value,sType_finalize, 0, 0, 1, 0, (void*)0);
                                         return __result110__;
                                     }
-                                    it_147++;
-                                    if(_if_conditional199=it_147>=self->size,                                    _if_conditional199) {
-                                        it_147=0;
+                                    it_148++;
+                                    if(_if_conditional199=it_148>=self->size,                                    _if_conditional199) {
+                                        it_148=0;
                                     }
                                     else {
-                                        if(_if_conditional200=it_147==hash_146,                                        _if_conditional200) {
+                                        if(_if_conditional200=it_148==hash_147,                                        _if_conditional200) {
                                             __result111__ = __result_obj__ = default_value;
                                             come_call_finalizer3(default_value,sType_finalize, 0, 0, 1, 0, (void*)0);
                                             return __result111__;

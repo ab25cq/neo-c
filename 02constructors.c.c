@@ -619,6 +619,7 @@ struct sInfo
     _Bool constructor_;
     struct sClass* defining_class;
     _Bool array_initializer;
+    _Bool va_arg;
 };
 struct tuple2$2sTypephcharph
 {
@@ -3575,7 +3576,7 @@ _Bool _while_condtional12;
 void* right_value94;
 void* right_value95;
 char* name2_63;
-struct sClass* klass_69;
+struct sClass* klass_64;
 struct sClass* generics_class_70;
 _Bool _if_conditional67;
 _Bool _if_conditional68;
@@ -3619,7 +3620,7 @@ memset(&p_62, 0, sizeof(char*));
 right_value94 = (void*)0;
 right_value95 = (void*)0;
 memset(&name2_63, 0, sizeof(char*));
-memset(&klass_69, 0, sizeof(struct sClass*));
+memset(&klass_64, 0, sizeof(struct sClass*));
 memset(&generics_class_70, 0, sizeof(struct sClass*));
 right_value96 = (void*)0;
 memset(&klass2_71, 0, sizeof(struct sClass*));
@@ -3659,13 +3660,13 @@ right_value121 = (void*)0;
     name2_63=(char*)come_increment_ref_count(((char*)(right_value95=string_substring(((char*)(right_value94=__builtin_string(name))),0,-pointer_num_61-1))));
     right_value94 = come_decrement_ref_count2(right_value94, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
     right_value95 = come_decrement_ref_count2(right_value95, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
-    klass_69=map$2charphsClassphp_operator_load_element(info->classes,name2_63);
+    klass_64=map$2charphsClassphp_operator_load_element(info->classes,name2_63);
     generics_class_70=map$2charphsClassphp_operator_load_element(info->generics_classes,name2_63);
-    if(_if_conditional67=klass_69==((void*)0)&&generics_class_70==((void*)0),    _if_conditional67) {
+    if(_if_conditional67=klass_64==((void*)0)&&generics_class_70==((void*)0),    _if_conditional67) {
         printf("%s %d: class not found(%s)(1)\n",info->sname,info->sline,name2_63);
     }
-    if(klass_69) {
-        self->mClass=klass_69;
+    if(klass_64) {
+        self->mClass=klass_64;
     }
     else {
         klass2_71=(struct sClass*)come_increment_ref_count(((struct sClass*)(right_value96=(struct sClass*)come_calloc(1, sizeof(struct sClass)*(1), "02constructors.c", 61, "sClass"))));
@@ -3759,9 +3760,9 @@ right_value121 = (void*)0;
 
 static struct sClass* map$2charphsClassphp_operator_load_element(struct map$2charphsClassph* self, char* key){
 void* __result_obj__;
-struct sClass* default_value_64;
-unsigned int hash_65;
-unsigned int it_66;
+struct sClass* default_value_65;
+unsigned int hash_66;
+unsigned int it_67;
 _Bool _while_condtional13;
 _Bool _if_conditional56;
 _Bool _if_conditional57;
@@ -3772,41 +3773,41 @@ struct sClass* __result57__;
 struct sClass* __result58__;
 struct sClass* __result59__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&default_value_64, 0, sizeof(struct sClass*));
-memset(&hash_65, 0, sizeof(unsigned int));
-memset(&it_66, 0, sizeof(unsigned int));
-        memset(&default_value_64,0,sizeof(struct sClass*));
-        hash_65=string_get_hash_key(((char*)key))%self->size;
-        it_66=hash_65;
+memset(&default_value_65, 0, sizeof(struct sClass*));
+memset(&hash_66, 0, sizeof(unsigned int));
+memset(&it_67, 0, sizeof(unsigned int));
+        memset(&default_value_65,0,sizeof(struct sClass*));
+        hash_66=string_get_hash_key(((char*)key))%self->size;
+        it_67=hash_66;
         while(_while_condtional13=(_Bool)1,        _while_condtional13) {
-            if(_if_conditional56=self->item_existance[it_66],            _if_conditional56) {
-                if(_if_conditional57=string_equals(self->keys[it_66],key),                _if_conditional57) {
-                    __result56__ = __result_obj__ = self->items[it_66];
-                    come_call_finalizer3(default_value_64,sClass_finalize, 0, 0, 0, 0, (void*)0);
+            if(_if_conditional56=self->item_existance[it_67],            _if_conditional56) {
+                if(_if_conditional57=string_equals(self->keys[it_67],key),                _if_conditional57) {
+                    __result56__ = __result_obj__ = self->items[it_67];
+                    come_call_finalizer3(default_value_65,sClass_finalize, 0, 0, 0, 0, (void*)0);
                     return __result56__;
                 }
-                it_66++;
-                if(_if_conditional65=it_66>=self->size,                _if_conditional65) {
-                    it_66=0;
+                it_67++;
+                if(_if_conditional65=it_67>=self->size,                _if_conditional65) {
+                    it_67=0;
                 }
                 else {
-                    if(_if_conditional66=it_66==hash_65,                    _if_conditional66) {
-                        __result57__ = __result_obj__ = default_value_64;
-                        come_call_finalizer3(default_value_64,sClass_finalize, 0, 0, 1, 0, (void*)0);
+                    if(_if_conditional66=it_67==hash_66,                    _if_conditional66) {
+                        __result57__ = __result_obj__ = default_value_65;
+                        come_call_finalizer3(default_value_65,sClass_finalize, 0, 0, 1, 0, (void*)0);
                         return __result57__;
                     }
                 }
             }
             else {
-                __result58__ = __result_obj__ = default_value_64;
-                come_call_finalizer3(default_value_64,sClass_finalize, 0, 0, 1, 0, (void*)0);
+                __result58__ = __result_obj__ = default_value_65;
+                come_call_finalizer3(default_value_65,sClass_finalize, 0, 0, 1, 0, (void*)0);
                 return __result58__;
             }
         }
-        __result59__ = __result_obj__ = default_value_64;
-        come_call_finalizer3(default_value_64,sClass_finalize, 0, 0, 1, 0, (void*)0);
+        __result59__ = __result_obj__ = default_value_65;
+        come_call_finalizer3(default_value_65,sClass_finalize, 0, 0, 1, 0, (void*)0);
         return __result59__;
-        come_call_finalizer3(default_value_64,sClass_finalize, 0, 0, 0, 0, (void*)0);
+        come_call_finalizer3(default_value_65,sClass_finalize, 0, 0, 0, 0, (void*)0);
 }
 
 static void sClass_finalize(struct sClass* self){
@@ -3832,17 +3833,17 @@ memset(&__result_obj__, 0, sizeof(void*));
 
 static void list$1tuple2$2charphsTypephphp_finalize(struct list$1tuple2$2charphsTypephph* self){
 void* __result_obj__;
-struct list_item$1tuple2$2charphsTypephph* it_67;
+struct list_item$1tuple2$2charphsTypephph* it_68;
 _Bool _while_condtional14;
-struct list_item$1tuple2$2charphsTypephph* prev_it_68;
+struct list_item$1tuple2$2charphsTypephph* prev_it_69;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&it_67, 0, sizeof(struct list_item$1tuple2$2charphsTypephph*));
-memset(&prev_it_68, 0, sizeof(struct list_item$1tuple2$2charphsTypephph*));
-                                it_67=self->head;
-                                while(_while_condtional14=it_67!=((void*)0),                                _while_condtional14) {
-                                    prev_it_68=it_67;
-                                    it_67=it_67->next;
-                                    come_call_finalizer3(prev_it_68,list_item$1tuple2$2charphsTypephphp_finalize, 0, 0, 0, 0, (void*)0);
+memset(&it_68, 0, sizeof(struct list_item$1tuple2$2charphsTypephph*));
+memset(&prev_it_69, 0, sizeof(struct list_item$1tuple2$2charphsTypephph*));
+                                it_68=self->head;
+                                while(_while_condtional14=it_68!=((void*)0),                                _while_condtional14) {
+                                    prev_it_69=it_68;
+                                    it_68=it_68->next;
+                                    come_call_finalizer3(prev_it_69,list_item$1tuple2$2charphsTypephphp_finalize, 0, 0, 0, 0, (void*)0);
                                 }
 }
 
@@ -3977,7 +3978,7 @@ _Bool* item_existance_75;
 int len_76;
 char* it_79;
 struct sClass* default_value_82;
-struct sClass* it2_85;
+struct sClass* it2_83;
 unsigned int hash_86;
 int n_87;
 _Bool _while_condtional16;
@@ -3996,7 +3997,7 @@ memset(&item_existance_75, 0, sizeof(_Bool*));
 memset(&len_76, 0, sizeof(int));
 memset(&it_79, 0, sizeof(char*));
 memset(&default_value_82, 0, sizeof(struct sClass*));
-memset(&it2_85, 0, sizeof(struct sClass*));
+memset(&it2_83, 0, sizeof(struct sClass*));
 memset(&hash_86, 0, sizeof(unsigned int));
 memset(&n_87, 0, sizeof(int));
 memset(&default_value_88, 0, sizeof(struct sClass*));
@@ -4010,7 +4011,7 @@ memset(&default_value_88, 0, sizeof(struct sClass*));
                     len_76=0;
                     for(                    it_79=map$2charphsClassph_begin(self);                    !map$2charphsClassph_end(self);                    it_79=map$2charphsClassph_next(self)                    ){
                         memset(&default_value_82,0,sizeof(struct sClass*));
-                        it2_85=map$2charphsClassph_at(self,it_79,default_value_82);
+                        it2_83=map$2charphsClassph_at(self,it_79,default_value_82);
                         hash_86=string_get_hash_key(it_79)%size_72;
                         n_87=hash_86;
                         while(_while_condtional16=(_Bool)1,                        _while_condtional16) {
@@ -4110,8 +4111,8 @@ memset(&result_81, 0, sizeof(char*));
 
 static struct sClass* map$2charphsClassph_at(struct map$2charphsClassph* self, char* key, struct sClass* default_value){
 void* __result_obj__;
-unsigned int hash_83;
-unsigned int it_84;
+unsigned int hash_84;
+unsigned int it_85;
 _Bool _while_condtional15;
 _Bool _if_conditional74;
 _Bool _if_conditional75;
@@ -4122,23 +4123,23 @@ struct sClass* __result68__;
 struct sClass* __result69__;
 struct sClass* __result70__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&hash_83, 0, sizeof(unsigned int));
-memset(&it_84, 0, sizeof(unsigned int));
-                            hash_83=string_get_hash_key(((char*)key))%self->size;
-                            it_84=hash_83;
+memset(&hash_84, 0, sizeof(unsigned int));
+memset(&it_85, 0, sizeof(unsigned int));
+                            hash_84=string_get_hash_key(((char*)key))%self->size;
+                            it_85=hash_84;
                             while(_while_condtional15=(_Bool)1,                            _while_condtional15) {
-                                if(_if_conditional74=self->item_existance[it_84],                                _if_conditional74) {
-                                    if(_if_conditional75=string_equals(self->keys[it_84],key),                                    _if_conditional75) {
-                                        __result67__ = __result_obj__ = self->items[it_84];
+                                if(_if_conditional74=self->item_existance[it_85],                                _if_conditional74) {
+                                    if(_if_conditional75=string_equals(self->keys[it_85],key),                                    _if_conditional75) {
+                                        __result67__ = __result_obj__ = self->items[it_85];
                                         come_call_finalizer3(default_value,sClass_finalize, 0, 0, 1, 0, (void*)0);
                                         return __result67__;
                                     }
-                                    it_84++;
-                                    if(_if_conditional76=it_84>=self->size,                                    _if_conditional76) {
-                                        it_84=0;
+                                    it_85++;
+                                    if(_if_conditional76=it_85>=self->size,                                    _if_conditional76) {
+                                        it_85=0;
                                     }
                                     else {
-                                        if(_if_conditional77=it_84==hash_83,                                        _if_conditional77) {
+                                        if(_if_conditional77=it_85==hash_84,                                        _if_conditional77) {
                                             __result68__ = __result_obj__ = default_value;
                                             come_call_finalizer3(default_value,sClass_finalize, 0, 0, 1, 0, (void*)0);
                                             return __result68__;

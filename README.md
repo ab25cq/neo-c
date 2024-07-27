@@ -5,7 +5,7 @@ Another modern Object Oriented C traspiler. It has a heap system that is a cross
 
 もう一つのモダンなオブジェクト指向Cコンパイラ。automatically-free-systemとリファレンスカウントGCの間をとったようなヒープシステムがありコレクションライブラリ、文字列ライブラリを備えてます。
 
-version 1.1.5g
+version 1.1.5h
 
 ``` C
 #include <neo-c.h>
@@ -340,7 +340,7 @@ sh all_build.sh
 
 # Histories
 
-1.1.5g More Compatibility to C
+1.1.5h More Compatibility to C
 1.1.5f Refactoring
 1.1.5d Refactoring
 1.1.5c More Compatibility to C

@@ -883,6 +883,23 @@ int transpile(sInfo* info) version 5
         
         info.funcs.insert(string(name), fun);
     }
+/*
+    {
+        var name = string("__builtin_va_arg");
+        var result_type = new sType("void");
+        var param_types = [new sType("char*")];
+        var param_names = [s"ap"];
+        var param_default_parametors = [null, null];
+        var fun = new sFun(name, result_type, param_types, param_names
+            , param_default_parametors, true@external, false@var_args
+            , null@block, false@static_
+            , string("void __builtin_va_va_arg(char* ap)")
+            , string("")
+            , info);
+        
+        info.funcs.insert(string(name), fun);
+    }
+*/
     {
         var name = string("__builtin_va_end");
         var result_type = new sType("void");

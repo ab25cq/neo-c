@@ -619,6 +619,7 @@ struct sInfo
     _Bool constructor_;
     struct sClass* defining_class;
     _Bool array_initializer;
+    _Bool va_arg;
 };
 struct tuple2$2sTypephcharph
 {
@@ -1531,9 +1532,9 @@ struct sNode* top_level_v92(char* buf, char* head, int head_sline, struct sInfo*
 
 struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo* info);
 
-char* dirname(char* anonymous_var_nameX519);
+char* dirname(char* anonymous_var_nameX517);
 
-char* basename(char* anonymous_var_nameX520);
+char* basename(char* anonymous_var_nameX518);
 
 void come_push_stackframe(char* sname, int sline, int id);
 

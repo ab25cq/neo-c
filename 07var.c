@@ -873,7 +873,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
     parse_sharp();
     sFun* fun = info.funcs[buf]??;
     
-    if(buf === "var" || buf === "auto") {
+    if((!gComeC && buf === "var") || buf === "auto") {
         parse_sharp();
         var buf2 = parse_word();
         parse_sharp();

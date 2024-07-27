@@ -1,0 +1,438 @@
+y.tab.c.c:100:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  100 | static const short short yylhs[]={ -1,
+      |                    ^~~~~
+y.tab.c.c:104:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  104 | static const short short yylen[]={ 2,
+      |                    ^~~~~
+y.tab.c.c:108:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  108 | static const short short yydefred[]={ 3,
+      |                    ^~~~~
+y.tab.c.c:114:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  114 | static const short short yydgoto[]={ 1,
+      |                    ^~~~~
+y.tab.c.c:117:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  117 | static const short short yysindex[]={ 0,
+      |                    ^~~~~
+y.tab.c.c:123:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  123 | static const short short yyrindex[]={ 0,
+      |                    ^~~~~
+y.tab.c.c:129:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  129 | static const short short yygindex[]={ 0,
+      |                    ^~~~~
+y.tab.c.c:132:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  132 | static const short short yytable[]={ 18,
+      |                    ^~~~~
+y.tab.c.c:160:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  160 | static const short short yycheck[]={ 10,
+      |                    ^~~~~
+y.tab.c.c:194:14: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  194 | static short short* yyss;
+      |              ^~~~~
+y.tab.c:229:7: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  229 | short short* new_yyss_3;
+      |       ^~~~~
+y.tab.c:241:37: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  241 | memset(&new_yyss_3, 0, sizeof(short short*));
+      |                                     ^~~~~
+y.tab.c:245:23: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  245 |     new_yyss_3=(short short*)yyrealloc((char*)yyss,yystacksize*sizeof(short short));
+      |                       ^~~~~
+y.tab.c:245:77: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  245 |     new_yyss_3=(short short*)yyrealloc((char*)yyss,yystacksize*sizeof(short short));
+      |                                                                             ^~~~~
+lburg/gram.y:210:7: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  210 | short short* yyssp_17;
+      |       ^~~~~
+lburg/gram.y:211:7: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  211 | short short* yysse_18;
+      |       ^~~~~
+lburg/gram.y:240:35: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  240 | memset(&yyssp_17, 0, sizeof(short short*));
+      |                                   ^~~~~
+lburg/gram.y:241:35: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  241 | memset(&yysse_18, 0, sizeof(short short*));
+      |                                   ^~~~~
+y.tab.c:439:21: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  439 |         yyss=(short short*)yymalloc(500*sizeof(short short));
+      |                     ^~~~~
+y.tab.c:439:54: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  439 |         yyss=(short short*)yymalloc(500*sizeof(short short));
+      |                                                      ^~~~~
+y.tab.c:466:18: warning: cast to 'void *' from smaller integer type 'int' [-Wint-to-void-pointer-cast]
+  466 |         yyssp_17=(void*)depth_19+yyss;
+      |                  ^~~~~~~~~~~~~~~
+y.tab.c:466:33: error: invalid operands to binary expression ('void *' and 'short *')
+  466 |         yyssp_17=(void*)depth_19+yyss;
+      |                  ~~~~~~~~~~~~~~~^~~~~
+y.tab.c:467:18: warning: cast to 'void *' from smaller integer type 'int' [-Wint-to-void-pointer-cast]
+  467 |         yyvsp_16=(void*)depth_19+yyvs;
+      |                  ^~~~~~~~~~~~~~~
+y.tab.c:467:33: error: invalid operands to binary expression ('void *' and 'union anonymous_typeZ5 *')
+  467 |         yyvsp_16=(void*)depth_19+yyvs;
+      |                  ~~~~~~~~~~~~~~~^~~~~
+22 warnings and 2 errors generated.
+y.tab.c.c:100:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  100 | static const short short yylhs[]={ -1,
+      |                    ^~~~~
+y.tab.c.c:104:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  104 | static const short short yylen[]={ 2,
+      |                    ^~~~~
+y.tab.c.c:108:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  108 | static const short short yydefred[]={ 3,
+      |                    ^~~~~
+y.tab.c.c:114:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  114 | static const short short yydgoto[]={ 1,
+      |                    ^~~~~
+y.tab.c.c:117:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  117 | static const short short yysindex[]={ 0,
+      |                    ^~~~~
+y.tab.c.c:123:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  123 | static const short short yyrindex[]={ 0,
+      |                    ^~~~~
+y.tab.c.c:129:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  129 | static const short short yygindex[]={ 0,
+      |                    ^~~~~
+y.tab.c.c:132:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  132 | static const short short yytable[]={ 18,
+      |                    ^~~~~
+y.tab.c.c:160:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  160 | static const short short yycheck[]={ 10,
+      |                    ^~~~~
+y.tab.c.c:194:14: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  194 | static short short* yyss;
+      |              ^~~~~
+y.tab.c.c:791:7: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  791 | short short* new_yyss_3;
+      |       ^~~~~
+y.tab.c.c:803:37: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  803 | memset(&new_yyss_3, 0, sizeof(short short*));
+      |                                     ^~~~~
+y.tab.c.c:814:23: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  814 |     new_yyss_3=(short short*)yyrealloc((char*)yyss,yystacksize*sizeof(short short));
+      |                       ^~~~~
+y.tab.c.c:814:77: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  814 |     new_yyss_3=(short short*)yyrealloc((char*)yyss,yystacksize*sizeof(short short));
+      |                                                                             ^~~~~
+y.tab.c.c:1060:7: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+ 1060 | short short* yyssp_17;
+      |       ^~~~~
+y.tab.c.c:1061:7: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+ 1061 | short short* yysse_18;
+      |       ^~~~~
+y.tab.c.c:1090:35: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+ 1090 | memset(&yyssp_17, 0, sizeof(short short*));
+      |                                   ^~~~~
+y.tab.c.c:1091:35: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+ 1091 | memset(&yysse_18, 0, sizeof(short short*));
+      |                                   ^~~~~
+y.tab.c.c:1097:21: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+ 1097 |         yyss=(short short*)yymalloc(500*sizeof(short short));
+      |                     ^~~~~
+y.tab.c.c:1097:54: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+ 1097 |         yyss=(short short*)yymalloc(500*sizeof(short short));
+      |                                                      ^~~~~
+y.tab.c.c:1123:18: warning: cast to 'void *' from smaller integer type 'int' [-Wint-to-void-pointer-cast]
+ 1123 |         yyssp_17=(void*)depth_19+yyss;
+      |                  ^~~~~~~~~~~~~~~
+y.tab.c.c:1123:33: error: invalid operands to binary expression ('void *' and 'short *')
+ 1123 |         yyssp_17=(void*)depth_19+yyss;
+      |                  ~~~~~~~~~~~~~~~^~~~~
+y.tab.c.c:1124:18: warning: cast to 'void *' from smaller integer type 'int' [-Wint-to-void-pointer-cast]
+ 1124 |         yyvsp_16=(void*)depth_19+yyvs;
+      |                  ^~~~~~~~~~~~~~~
+y.tab.c.c:1124:33: error: invalid operands to binary expression ('void *' and 'union anonymous_typeZ5 *')
+ 1124 |         yyvsp_16=(void*)depth_19+yyvs;
+      |                  ~~~~~~~~~~~~~~~^~~~~
+22 warnings and 2 errors generated.
+y.tab.c.c:100:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  100 | static const short short yylhs[]={ -1,
+      |                    ^~~~~
+y.tab.c.c:104:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  104 | static const short short yylen[]={ 2,
+      |                    ^~~~~
+y.tab.c.c:108:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  108 | static const short short yydefred[]={ 3,
+      |                    ^~~~~
+y.tab.c.c:114:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  114 | static const short short yydgoto[]={ 1,
+      |                    ^~~~~
+y.tab.c.c:117:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  117 | static const short short yysindex[]={ 0,
+      |                    ^~~~~
+y.tab.c.c:123:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  123 | static const short short yyrindex[]={ 0,
+      |                    ^~~~~
+y.tab.c.c:129:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  129 | static const short short yygindex[]={ 0,
+      |                    ^~~~~
+y.tab.c.c:132:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  132 | static const short short yytable[]={ 18,
+      |                    ^~~~~
+y.tab.c.c:160:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  160 | static const short short yycheck[]={ 10,
+      |                    ^~~~~
+y.tab.c.c:194:14: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  194 | static short short* yyss;
+      |              ^~~~~
+y.tab.c.c:791:7: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  791 | short short* new_yyss_3;
+      |       ^~~~~
+y.tab.c.c:803:37: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  803 | memset(&new_yyss_3, 0, sizeof(short short*));
+      |                                     ^~~~~
+y.tab.c.c:814:23: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  814 |     new_yyss_3=(short short*)yyrealloc((char*)yyss,yystacksize*sizeof(short short));
+      |                       ^~~~~
+y.tab.c.c:814:77: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  814 |     new_yyss_3=(short short*)yyrealloc((char*)yyss,yystacksize*sizeof(short short));
+      |                                                                             ^~~~~
+y.tab.c.c:1060:7: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+ 1060 | short short* yyssp_17;
+      |       ^~~~~
+y.tab.c.c:1061:7: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+ 1061 | short short* yysse_18;
+      |       ^~~~~
+y.tab.c.c:1090:35: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+ 1090 | memset(&yyssp_17, 0, sizeof(short short*));
+      |                                   ^~~~~
+y.tab.c.c:1091:35: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+ 1091 | memset(&yysse_18, 0, sizeof(short short*));
+      |                                   ^~~~~
+y.tab.c.c:1097:21: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+ 1097 |         yyss=(short short*)yymalloc(500*sizeof(short short));
+      |                     ^~~~~
+y.tab.c.c:1097:54: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+ 1097 |         yyss=(short short*)yymalloc(500*sizeof(short short));
+      |                                                      ^~~~~
+y.tab.c.c:1123:18: warning: cast to 'void *' from smaller integer type 'int' [-Wint-to-void-pointer-cast]
+ 1123 |         yyssp_17=(void*)depth_19+yyss;
+      |                  ^~~~~~~~~~~~~~~
+y.tab.c.c:1123:33: error: invalid operands to binary expression ('void *' and 'short *')
+ 1123 |         yyssp_17=(void*)depth_19+yyss;
+      |                  ~~~~~~~~~~~~~~~^~~~~
+y.tab.c.c:1124:18: warning: cast to 'void *' from smaller integer type 'int' [-Wint-to-void-pointer-cast]
+ 1124 |         yyvsp_16=(void*)depth_19+yyvs;
+      |                  ^~~~~~~~~~~~~~~
+y.tab.c.c:1124:33: error: invalid operands to binary expression ('void *' and 'union anonymous_typeZ5 *')
+ 1124 |         yyvsp_16=(void*)depth_19+yyvs;
+      |                  ~~~~~~~~~~~~~~~^~~~~
+22 warnings and 2 errors generated.
+y.tab.c.c:100:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  100 | static const short short yylhs[]={ -1,
+      |                    ^~~~~
+y.tab.c.c:104:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  104 | static const short short yylen[]={ 2,
+      |                    ^~~~~
+y.tab.c.c:108:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  108 | static const short short yydefred[]={ 3,
+      |                    ^~~~~
+y.tab.c.c:114:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  114 | static const short short yydgoto[]={ 1,
+      |                    ^~~~~
+y.tab.c.c:117:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  117 | static const short short yysindex[]={ 0,
+      |                    ^~~~~
+y.tab.c.c:123:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  123 | static const short short yyrindex[]={ 0,
+      |                    ^~~~~
+y.tab.c.c:129:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  129 | static const short short yygindex[]={ 0,
+      |                    ^~~~~
+y.tab.c.c:132:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  132 | static const short short yytable[]={ 18,
+      |                    ^~~~~
+y.tab.c.c:160:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  160 | static const short short yycheck[]={ 10,
+      |                    ^~~~~
+y.tab.c.c:194:14: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  194 | static short short* yyss;
+      |              ^~~~~
+y.tab.c:229:7: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  229 | short short* new_yyss_3;
+      |       ^~~~~
+y.tab.c:241:37: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  241 | memset(&new_yyss_3, 0, sizeof(short short*));
+      |                                     ^~~~~
+y.tab.c:245:23: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  245 |     new_yyss_3=(short short*)yyrealloc((char*)yyss,yystacksize*sizeof(short short));
+      |                       ^~~~~
+y.tab.c:245:77: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  245 |     new_yyss_3=(short short*)yyrealloc((char*)yyss,yystacksize*sizeof(short short));
+      |                                                                             ^~~~~
+lburg/gram.y:210:7: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  210 | short short* yyssp_17;
+      |       ^~~~~
+lburg/gram.y:211:7: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  211 | short short* yysse_18;
+      |       ^~~~~
+lburg/gram.y:240:35: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  240 | memset(&yyssp_17, 0, sizeof(short short*));
+      |                                   ^~~~~
+lburg/gram.y:241:35: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  241 | memset(&yysse_18, 0, sizeof(short short*));
+      |                                   ^~~~~
+y.tab.c:439:21: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  439 |         yyss=(short short*)yymalloc(500*sizeof(short short));
+      |                     ^~~~~
+y.tab.c:439:54: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  439 |         yyss=(short short*)yymalloc(500*sizeof(short short));
+      |                                                      ^~~~~
+y.tab.c:466:18: warning: cast to 'void *' from smaller integer type 'int' [-Wint-to-void-pointer-cast]
+  466 |         yyssp_17=(void*)depth_19+yyss;
+      |                  ^~~~~~~~~~~~~~~
+y.tab.c:466:33: error: invalid operands to binary expression ('void *' and 'short *')
+  466 |         yyssp_17=(void*)depth_19+yyss;
+      |                  ~~~~~~~~~~~~~~~^~~~~
+y.tab.c:467:18: warning: cast to 'void *' from smaller integer type 'int' [-Wint-to-void-pointer-cast]
+  467 |         yyvsp_16=(void*)depth_19+yyvs;
+      |                  ^~~~~~~~~~~~~~~
+y.tab.c:467:33: error: invalid operands to binary expression ('void *' and 'union anonymous_typeZ5 *')
+  467 |         yyvsp_16=(void*)depth_19+yyvs;
+      |                  ~~~~~~~~~~~~~~~^~~~~
+22 warnings and 2 errors generated.
+y.tab.c.c:100:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  100 | static const short short yylhs[]={ -1,
+      |                    ^~~~~
+y.tab.c.c:104:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  104 | static const short short yylen[]={ 2,
+      |                    ^~~~~
+y.tab.c.c:108:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  108 | static const short short yydefred[]={ 3,
+      |                    ^~~~~
+y.tab.c.c:114:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  114 | static const short short yydgoto[]={ 1,
+      |                    ^~~~~
+y.tab.c.c:117:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  117 | static const short short yysindex[]={ 0,
+      |                    ^~~~~
+y.tab.c.c:123:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  123 | static const short short yyrindex[]={ 0,
+      |                    ^~~~~
+y.tab.c.c:129:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  129 | static const short short yygindex[]={ 0,
+      |                    ^~~~~
+y.tab.c.c:132:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  132 | static const short short yytable[]={ 18,
+      |                    ^~~~~
+y.tab.c.c:160:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  160 | static const short short yycheck[]={ 10,
+      |                    ^~~~~
+y.tab.c.c:194:14: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  194 | static short short* yyss;
+      |              ^~~~~
+y.tab.c:229:7: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  229 | short short* new_yyss_3;
+      |       ^~~~~
+y.tab.c:241:37: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  241 | memset(&new_yyss_3, 0, sizeof(short short*));
+      |                                     ^~~~~
+y.tab.c:245:23: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  245 |     new_yyss_3=(short short*)yyrealloc((char*)yyss,yystacksize*sizeof(short short));
+      |                       ^~~~~
+y.tab.c:245:77: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  245 |     new_yyss_3=(short short*)yyrealloc((char*)yyss,yystacksize*sizeof(short short));
+      |                                                                             ^~~~~
+lburg/gram.y:210:7: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  210 | short short* yyssp_17;
+      |       ^~~~~
+lburg/gram.y:211:7: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  211 | short short* yysse_18;
+      |       ^~~~~
+lburg/gram.y:240:35: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  240 | memset(&yyssp_17, 0, sizeof(short short*));
+      |                                   ^~~~~
+lburg/gram.y:241:35: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  241 | memset(&yysse_18, 0, sizeof(short short*));
+      |                                   ^~~~~
+y.tab.c:439:21: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  439 |         yyss=(short short*)yymalloc(500*sizeof(short short));
+      |                     ^~~~~
+y.tab.c:439:54: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  439 |         yyss=(short short*)yymalloc(500*sizeof(short short));
+      |                                                      ^~~~~
+y.tab.c:466:18: warning: cast to 'void *' from smaller integer type 'int' [-Wint-to-void-pointer-cast]
+  466 |         yyssp_17=(void*)depth_19+yyss;
+      |                  ^~~~~~~~~~~~~~~
+y.tab.c:466:33: error: invalid operands to binary expression ('void *' and 'short *')
+  466 |         yyssp_17=(void*)depth_19+yyss;
+      |                  ~~~~~~~~~~~~~~~^~~~~
+y.tab.c:467:18: warning: cast to 'void *' from smaller integer type 'int' [-Wint-to-void-pointer-cast]
+  467 |         yyvsp_16=(void*)depth_19+yyvs;
+      |                  ^~~~~~~~~~~~~~~
+y.tab.c:467:33: error: invalid operands to binary expression ('void *' and 'union anonymous_typeZ5 *')
+  467 |         yyvsp_16=(void*)depth_19+yyvs;
+      |                  ~~~~~~~~~~~~~~~^~~~~
+22 warnings and 2 errors generated.
+y.tab.c.c:100:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  100 | static const short short yylhs[]={ -1,
+      |                    ^~~~~
+y.tab.c.c:104:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  104 | static const short short yylen[]={ 2,
+      |                    ^~~~~
+y.tab.c.c:108:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  108 | static const short short yydefred[]={ 3,
+      |                    ^~~~~
+y.tab.c.c:114:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  114 | static const short short yydgoto[]={ 1,
+      |                    ^~~~~
+y.tab.c.c:117:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  117 | static const short short yysindex[]={ 0,
+      |                    ^~~~~
+y.tab.c.c:123:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  123 | static const short short yyrindex[]={ 0,
+      |                    ^~~~~
+y.tab.c.c:129:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  129 | static const short short yygindex[]={ 0,
+      |                    ^~~~~
+y.tab.c.c:132:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  132 | static const short short yytable[]={ 18,
+      |                    ^~~~~
+y.tab.c.c:160:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  160 | static const short short yycheck[]={ 10,
+      |                    ^~~~~
+y.tab.c.c:194:14: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  194 | static short short* yyss;
+      |              ^~~~~
+y.tab.c.c:791:7: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  791 | short short* new_yyss_3;
+      |       ^~~~~
+y.tab.c.c:803:37: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  803 | memset(&new_yyss_3, 0, sizeof(short short*));
+      |                                     ^~~~~
+y.tab.c.c:814:23: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  814 |     new_yyss_3=(short short*)yyrealloc((char*)yyss,yystacksize*sizeof(short short));
+      |                       ^~~~~
+y.tab.c.c:814:77: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  814 |     new_yyss_3=(short short*)yyrealloc((char*)yyss,yystacksize*sizeof(short short));
+      |                                                                             ^~~~~
+y.tab.c.c:1060:7: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+ 1060 | short short* yyssp_17;
+      |       ^~~~~
+y.tab.c.c:1061:7: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+ 1061 | short short* yysse_18;
+      |       ^~~~~
+y.tab.c.c:1090:35: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+ 1090 | memset(&yyssp_17, 0, sizeof(short short*));
+      |                                   ^~~~~
+y.tab.c.c:1091:35: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+ 1091 | memset(&yysse_18, 0, sizeof(short short*));
+      |                                   ^~~~~
+y.tab.c.c:1097:21: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+ 1097 |         yyss=(short short*)yymalloc(500*sizeof(short short));
+      |                     ^~~~~
+y.tab.c.c:1097:54: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+ 1097 |         yyss=(short short*)yymalloc(500*sizeof(short short));
+      |                                                      ^~~~~
+y.tab.c.c:1123:18: warning: cast to 'void *' from smaller integer type 'int' [-Wint-to-void-pointer-cast]
+ 1123 |         yyssp_17=(void*)depth_19+yyss;
+      |                  ^~~~~~~~~~~~~~~
+y.tab.c.c:1123:33: error: invalid operands to binary expression ('void *' and 'short *')
+ 1123 |         yyssp_17=(void*)depth_19+yyss;
+      |                  ~~~~~~~~~~~~~~~^~~~~
+y.tab.c.c:1124:18: warning: cast to 'void *' from smaller integer type 'int' [-Wint-to-void-pointer-cast]
+ 1124 |         yyvsp_16=(void*)depth_19+yyvs;
+      |                  ^~~~~~~~~~~~~~~
+y.tab.c.c:1124:33: error: invalid operands to binary expression ('void *' and 'union anonymous_typeZ5 *')
+ 1124 |         yyvsp_16=(void*)depth_19+yyvs;
+      |                  ~~~~~~~~~~~~~~~^~~~~
+22 warnings and 2 errors generated.

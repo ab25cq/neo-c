@@ -20,8 +20,8 @@ using C
 typedef void* any;
 typedef char*% string;
 
-void __builtin_va_start(char*);
-void __builtin_va_end(char*);
+//void __builtin_va_start(char*);
+//void __builtin_va_end(char*);
 
 //////////////////////////////
 /// exception

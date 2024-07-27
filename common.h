@@ -363,6 +363,8 @@ struct sInfo
     bool constructor_;
     sClass* defining_class;
     bool array_initializer;
+    
+    bool va_arg;
 };
 
 /////////////////////////////////////////////////////////////////////

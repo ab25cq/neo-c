@@ -619,6 +619,7 @@ struct sInfo
     _Bool constructor_;
     struct sClass* defining_class;
     _Bool array_initializer;
+    _Bool va_arg;
 };
 struct tuple2$2sTypephcharph
 {
@@ -3812,7 +3813,7 @@ _Bool* item_existance_75;
 int len_76;
 char* it_79;
 struct sClassModule* default_value_82;
-struct sClassModule* it2_85;
+struct sClassModule* it2_83;
 unsigned int hash_86;
 int n_87;
 _Bool _while_condtional13;
@@ -3831,7 +3832,7 @@ memset(&item_existance_75, 0, sizeof(_Bool*));
 memset(&len_76, 0, sizeof(int));
 memset(&it_79, 0, sizeof(char*));
 memset(&default_value_82, 0, sizeof(struct sClassModule*));
-memset(&it2_85, 0, sizeof(struct sClassModule*));
+memset(&it2_83, 0, sizeof(struct sClassModule*));
 memset(&hash_86, 0, sizeof(unsigned int));
 memset(&n_87, 0, sizeof(int));
 memset(&default_value_88, 0, sizeof(struct sClassModule*));
@@ -3845,7 +3846,7 @@ memset(&default_value_88, 0, sizeof(struct sClassModule*));
                         len_76=0;
                         for(                        it_79=map$2charphsClassModuleph_begin(self);                        !map$2charphsClassModuleph_end(self);                        it_79=map$2charphsClassModuleph_next(self)                        ){
                             memset(&default_value_82,0,sizeof(struct sClassModule*));
-                            it2_85=map$2charphsClassModuleph_at(self,it_79,default_value_82);
+                            it2_83=map$2charphsClassModuleph_at(self,it_79,default_value_82);
                             hash_86=string_get_hash_key(it_79)%size_72;
                             n_87=hash_86;
                             while(_while_condtional13=(_Bool)1,                            _while_condtional13) {
@@ -3945,8 +3946,8 @@ memset(&result_81, 0, sizeof(char*));
 
 static struct sClassModule* map$2charphsClassModuleph_at(struct map$2charphsClassModuleph* self, char* key, struct sClassModule* default_value){
 void* __result_obj__;
-unsigned int hash_83;
-unsigned int it_84;
+unsigned int hash_84;
+unsigned int it_85;
 _Bool _while_condtional12;
 _Bool _if_conditional57;
 _Bool _if_conditional58;
@@ -3957,23 +3958,23 @@ struct sClassModule* __result69__;
 struct sClassModule* __result70__;
 struct sClassModule* __result71__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&hash_83, 0, sizeof(unsigned int));
-memset(&it_84, 0, sizeof(unsigned int));
-                                hash_83=string_get_hash_key(((char*)key))%self->size;
-                                it_84=hash_83;
+memset(&hash_84, 0, sizeof(unsigned int));
+memset(&it_85, 0, sizeof(unsigned int));
+                                hash_84=string_get_hash_key(((char*)key))%self->size;
+                                it_85=hash_84;
                                 while(_while_condtional12=(_Bool)1,                                _while_condtional12) {
-                                    if(_if_conditional57=self->item_existance[it_84],                                    _if_conditional57) {
-                                        if(_if_conditional58=string_equals(self->keys[it_84],key),                                        _if_conditional58) {
-                                            __result68__ = __result_obj__ = self->items[it_84];
+                                    if(_if_conditional57=self->item_existance[it_85],                                    _if_conditional57) {
+                                        if(_if_conditional58=string_equals(self->keys[it_85],key),                                        _if_conditional58) {
+                                            __result68__ = __result_obj__ = self->items[it_85];
                                             come_call_finalizer3(default_value,sClassModule_finalize, 0, 0, 1, 0, (void*)0);
                                             return __result68__;
                                         }
-                                        it_84++;
-                                        if(_if_conditional59=it_84>=self->size,                                        _if_conditional59) {
-                                            it_84=0;
+                                        it_85++;
+                                        if(_if_conditional59=it_85>=self->size,                                        _if_conditional59) {
+                                            it_85=0;
                                         }
                                         else {
-                                            if(_if_conditional60=it_84==hash_83,                                            _if_conditional60) {
+                                            if(_if_conditional60=it_85==hash_84,                                            _if_conditional60) {
                                                 __result69__ = __result_obj__ = default_value;
                                                 come_call_finalizer3(default_value,sClassModule_finalize, 0, 0, 1, 0, (void*)0);
                                                 return __result69__;

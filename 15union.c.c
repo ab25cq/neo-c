@@ -619,6 +619,7 @@ struct sInfo
     _Bool constructor_;
     struct sClass* defining_class;
     _Bool array_initializer;
+    _Bool va_arg;
 };
 struct tuple2$2sTypephcharph
 {
@@ -4344,7 +4345,7 @@ _Bool* item_existance_80;
 int len_81;
 char* it_84;
 struct sType* default_value_87;
-struct sType* it2_90;
+struct sType* it2_88;
 unsigned int hash_91;
 int n_92;
 _Bool _while_condtional17;
@@ -4363,7 +4364,7 @@ memset(&item_existance_80, 0, sizeof(_Bool*));
 memset(&len_81, 0, sizeof(int));
 memset(&it_84, 0, sizeof(char*));
 memset(&default_value_87, 0, sizeof(struct sType*));
-memset(&it2_90, 0, sizeof(struct sType*));
+memset(&it2_88, 0, sizeof(struct sType*));
 memset(&hash_91, 0, sizeof(unsigned int));
 memset(&n_92, 0, sizeof(int));
 memset(&default_value_93, 0, sizeof(struct sType*));
@@ -4377,7 +4378,7 @@ memset(&default_value_93, 0, sizeof(struct sType*));
                 len_81=0;
                 for(                it_84=map$2charphsTypeph_begin(self);                !map$2charphsTypeph_end(self);                it_84=map$2charphsTypeph_next(self)                ){
                     memset(&default_value_87,0,sizeof(struct sType*));
-                    it2_90=map$2charphsTypeph_at(self,it_84,default_value_87);
+                    it2_88=map$2charphsTypeph_at(self,it_84,default_value_87);
                     hash_91=string_get_hash_key(it_84)%size_77;
                     n_92=hash_91;
                     while(_while_condtional17=(_Bool)1,                    _while_condtional17) {
@@ -4477,8 +4478,8 @@ memset(&result_86, 0, sizeof(char*));
 
 static struct sType* map$2charphsTypeph_at(struct map$2charphsTypeph* self, char* key, struct sType* default_value){
 void* __result_obj__;
-unsigned int hash_88;
-unsigned int it_89;
+unsigned int hash_89;
+unsigned int it_90;
 _Bool _while_condtional16;
 _Bool _if_conditional120;
 _Bool _if_conditional121;
@@ -4489,23 +4490,23 @@ struct sType* __result78__;
 struct sType* __result79__;
 struct sType* __result80__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&hash_88, 0, sizeof(unsigned int));
-memset(&it_89, 0, sizeof(unsigned int));
-                        hash_88=string_get_hash_key(((char*)key))%self->size;
-                        it_89=hash_88;
+memset(&hash_89, 0, sizeof(unsigned int));
+memset(&it_90, 0, sizeof(unsigned int));
+                        hash_89=string_get_hash_key(((char*)key))%self->size;
+                        it_90=hash_89;
                         while(_while_condtional16=(_Bool)1,                        _while_condtional16) {
-                            if(_if_conditional120=self->item_existance[it_89],                            _if_conditional120) {
-                                if(_if_conditional121=string_equals(self->keys[it_89],key),                                _if_conditional121) {
-                                    __result77__ = __result_obj__ = self->items[it_89];
+                            if(_if_conditional120=self->item_existance[it_90],                            _if_conditional120) {
+                                if(_if_conditional121=string_equals(self->keys[it_90],key),                                _if_conditional121) {
+                                    __result77__ = __result_obj__ = self->items[it_90];
                                     come_call_finalizer3(default_value,sType_finalize, 0, 0, 1, 0, (void*)0);
                                     return __result77__;
                                 }
-                                it_89++;
-                                if(_if_conditional122=it_89>=self->size,                                _if_conditional122) {
-                                    it_89=0;
+                                it_90++;
+                                if(_if_conditional122=it_90>=self->size,                                _if_conditional122) {
+                                    it_90=0;
                                 }
                                 else {
-                                    if(_if_conditional123=it_89==hash_88,                                    _if_conditional123) {
+                                    if(_if_conditional123=it_90==hash_89,                                    _if_conditional123) {
                                         __result78__ = __result_obj__ = default_value;
                                         come_call_finalizer3(default_value,sType_finalize, 0, 0, 1, 0, (void*)0);
                                         return __result78__;

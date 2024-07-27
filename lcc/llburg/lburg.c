@@ -103,7 +103,7 @@ int main(int argc, char *argv[]) {
 
 /* alloc - allocate nbytes or issue fatal error */
 void *alloc(int nbytes) {
-	struct block *p = calloc(1, sizeof *p + nbytes);
+	struct block *p = calloc(1, sizeof(*p) + nbytes);
 
 	if (p == NULL) {
 		yyerror("out of memory\n");
@@ -133,7 +133,7 @@ struct entry {
 	} sym;
 	struct entry *link;
 } *table[211];
-#define HASHSIZE (sizeof table/sizeof table[0])
+#define HASHSIZE (sizeof(table)/sizeof(table[0]))
 
 /* hash - return hash number for str */
 static unsigned hash(char *str) {

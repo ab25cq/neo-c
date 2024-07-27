@@ -517,218 +517,265 @@ class sFunCallNode extends sNodeBase
             
             sFun* fun = info.funcs.at(fun_name, null);
             
-            if(fun == null) {
+            if(fun_name === "__builtin_va_arg") {
+                list<CVALUE*%>*% come_params = new list<CVALUE*%>();
+                
+                int i = 0;
+                sType*% result_type = null;
+                foreach(it, params) {
+                    var label, node = it;
+                    
+                    if(!node_compile(node)) {
+                        return false;
+                    }
+                    
+                    CVALUE*% come_value = get_value_from_stack(-1, info);
+                    dec_stack_ptr(1, info);
+                    
+                    come_params.add(come_value);
+                    
+                    result_type = come_value.type;
+                }
+                
+                buffer*% buf = new buffer();
+                
+                buf.append_str(fun_name);
+                buf.append_str("(");
+                
+                int j = 0;
+                foreach(it, come_params) {
+                    buf.append_str(it.c_value);
+                    
+                    if(j != come_params.length()-1) {
+                        buf.append_str(",");
+                    }
+                    
+                    j++;
+                }
+                buf.append_str(")");
+                
+                CVALUE*% come_value = new CVALUE;
+                come_value.c_value = buf.to_string();
+                come_value.type = result_type;
+                come_value.var = null;
+                
+                add_come_last_code(info, "%s;\n", come_value.c_value);
+                
+                info.stack.push_back(come_value);
+            }
+            else if(fun == null) {
                 err_msg(info, "function not found(%s) at normal function call(1)\n", fun_name);
                 return true;
             }
-            
-            sType*% result_type = clone fun.mResultType;
-            result_type->mStatic = false;
-            
-            list<sType*%>*% param_types = new list<sType*%>();
-            foreach(it, fun.mParamTypes) {
-                sType*% it2 = solve_generics(clone it, info.generics_type, info);
-                param_types.push_back(clone it2);
-            }
-            
-            result_type = solve_generics(result_type, info.generics_type, info);
-            
-            list<CVALUE*%>*% come_params = new list<CVALUE*%>();
-            
-            for(int i=0; i<fun.mParamTypes.length(); i++) {
-                come_params.add(null);
-            }
-            
-            foreach(it, params) {
-                var label, node = it;
+            else {
+                sType*% result_type = clone fun.mResultType;
+                result_type->mStatic = false;
                 
-                if(fun.mVarArgs || fun_name === "__builtin_va_start") {
+                list<sType*%>*% param_types = new list<sType*%>();
+                foreach(it, fun.mParamTypes) {
+                    sType*% it2 = solve_generics(clone it, info.generics_type, info);
+                    param_types.push_back(clone it2);
                 }
-                else if(label) {
-                    if(!node_compile(node)) {
-                        return false;
-                    }
-                    
-                    CVALUE*% come_value = get_value_from_stack(-1, info);
-                    dec_stack_ptr(1, info);
-                    
-                    int n = 0;
-                    foreach(it, fun.mParamNames) {
-                        if(label === it) {
-                            break;
-                        }
-                        
-                        n++;
-                    }
-                    
-                    if(param_types[n]??) {
-                        check_assign_type(s"\{fun_name} param num \{n} is assinged to", param_types[n], come_value.type, come_value);
-                    }
-                    if(param_types[n]?? && param_types[n].mHeap && come_value.type.mHeap) {
-                        std_move(param_types[n], come_value.type, come_value);
-                    }
-                    
-                    come_params.replace(n, come_value);
-                }
-            }
-            
-            int i = 0;
-            foreach(it, params) {
-                var label, node = it;
                 
-                if(fun.mVarArgs || fun_name === "__builtin_va_start") {
-                    if(!node_compile(node)) {
-                        return false;
-                    }
-                    
-                    CVALUE*% come_value = get_value_from_stack(-1, info);
-                    dec_stack_ptr(1, info);
-                    
-                    while(true) {
-                        if(come_params[i]?? == null) {
-                            break;
-                        }
-                        else {
-                            i++;
-                        }
-                    }
-                    
-                    come_params.replace(i, come_value);
-                    i++;
+                result_type = solve_generics(result_type, info.generics_type, info);
+                
+                list<CVALUE*%>*% come_params = new list<CVALUE*%>();
+                
+                for(int i=0; i<fun.mParamTypes.length(); i++) {
+                    come_params.add(null);
                 }
-                else if(label) {
-                }
-                else {
-                    if(!node_compile(node)) {
-                        return false;
+                
+                foreach(it, params) {
+                    var label, node = it;
+                    
+                    if(fun.mVarArgs || fun_name === "__builtin_va_start") {
                     }
-                    
-                    CVALUE*% come_value = get_value_from_stack(-1, info);
-                    dec_stack_ptr(1, info);
-                    
-                    while(true) {
-                        if(come_params[i]?? == null) {
-                            break;
-                        }
-                        else {
-                            i++;
-                        }
-                    }
-                    
-                    if(param_types[i]??) {
-                        check_assign_type(s"\{fun_name} param num \{i} is assinged to", param_types[i], come_value.type, come_value);
-                    }
-                    if(param_types[i]?? && param_types[i].mHeap && come_value.type.mHeap) {
-                        std_move(param_types[i], come_value.type, come_value);
-                    }
-                    
-                    come_params.replace(i, come_value);
-                    i++;
-                }
-            }
-            
-            while(true) {
-                if(come_params[i]?? == null) {
-                    break;
-                }
-                else {
-                    i++;
-                }
-            }
-            
-            if(params.length() < fun.mParamTypes.length())
-            {
-                for(; i<fun.mParamTypes.length(); i++) {
-                    string default_param = clone fun.mParamDefaultParametors[i]??;
-                    char* param_name = fun.mParamNames[i];
-                    
-                    if(default_param && default_param !== "" && come_params[i]?? == null) {
-                        buffer*% source = info.source;
-                        char* p = info.p;
-                        char* head = info.head;
-                        int sline = info.sline;
-                        
-                        info.source = default_param.to_buffer();
-                        info.p = info.source.buf;
-                        info.head = info.source.buf;
-                        
-                        sNode*% node = expression();
-                        
+                    else if(label) {
                         if(!node_compile(node)) {
                             return false;
                         }
                         
-                        info.source = source;
-                        info.p = p;
-                        info.head = head;
-                        info.sline = sline;
-                
                         CVALUE*% come_value = get_value_from_stack(-1, info);
-                        if(param_types[i]) {
-                            check_assign_type(s"\{fun_name} param num \{i} is assinged to", param_types[i], come_value.type, come_value);
-                        }
-                        if(param_types[i] && param_types[i].mHeap && come_value.type.mHeap) {
-                            std_move(param_types[i], come_value.type, come_value);
-                        }
-                        come_params.replace(i, come_value);
                         dec_stack_ptr(1, info);
+                        
+                        int n = 0;
+                        foreach(it, fun.mParamNames) {
+                            if(label === it) {
+                                break;
+                            }
+                            
+                            n++;
+                        }
+                        
+                        if(param_types[n]??) {
+                            check_assign_type(s"\{fun_name} param num \{n} is assinged to", param_types[n], come_value.type, come_value);
+                        }
+                        if(param_types[n]?? && param_types[n].mHeap && come_value.type.mHeap) {
+                            std_move(param_types[n], come_value.type, come_value);
+                        }
+                        
+                        come_params.replace(n, come_value);
                     }
-                    else {
-                        if(come_params[i]?? == null) {
-                            err_msg(info, "require parametor(%s) %d", fun.mName,i);
+                }
+                
+                int i = 0;
+                foreach(it, params) {
+                    var label, node = it;
+                    
+                    if(fun.mVarArgs || fun_name === "__builtin_va_start") {
+                        if(!node_compile(node)) {
                             return false;
                         }
+                        
+                        CVALUE*% come_value = get_value_from_stack(-1, info);
+                        dec_stack_ptr(1, info);
+                        
+                        while(true) {
+                            if(come_params[i]?? == null) {
+                                break;
+                            }
+                            else {
+                                i++;
+                            }
+                        }
+                        
+                        come_params.replace(i, come_value);
+                        i++;
+                    }
+                    else if(label) {
+                    }
+                    else {
+                        if(!node_compile(node)) {
+                            return false;
+                        }
+                        
+                        CVALUE*% come_value = get_value_from_stack(-1, info);
+                        dec_stack_ptr(1, info);
+                        
+                        while(true) {
+                            if(come_params[i]?? == null) {
+                                break;
+                            }
+                            else {
+                                i++;
+                            }
+                        }
+                        
+                        if(param_types[i]??) {
+                            check_assign_type(s"\{fun_name} param num \{i} is assinged to", param_types[i], come_value.type, come_value);
+                        }
+                        if(param_types[i]?? && param_types[i].mHeap && come_value.type.mHeap) {
+                            std_move(param_types[i], come_value.type, come_value);
+                        }
+                        
+                        come_params.replace(i, come_value);
+                        i++;
                     }
                 }
-            }
-            
-            if(fun.mParamTypes.length() != come_params.length() && !fun.mVarArgs && fun_name !== "__builtin_va_start" && fun_name !== "__builtin_va_end") 
-            {
-                err_msg(info, "invalid param number(%s). function param number is %d. caller param number is %d", fun_name, fun.mParamTypes.length(), params.length());
-                return false;
-            }
-            
-            buffer*% buf = new buffer();
-            
-            buf.append_str(fun_name);
-            buf.append_str("(");
-            
-            int j = 0;
-            foreach(it, come_params) {
-                buf.append_str(it.c_value);
                 
-                if(j != come_params.length()-1) {
-                    buf.append_str(",");
+                while(true) {
+                    if(come_params[i]?? == null) {
+                        break;
+                    }
+                    else {
+                        i++;
+                    }
                 }
                 
-                j++;
-            }
-            buf.append_str(")");
-            
-            CVALUE*% come_value = new CVALUE;
-            come_value.c_value = buf.to_string();
-            come_value.type = clone result_type;
-            come_value.type->mStatic = false;
-            come_value.var = null;
-            
-            if(fun.mResultType->mHeap) {
-                come_value.c_value = append_object_to_right_values(come_value.c_value, result_type, info);
-            }
-            
-            if(info.come_fun_name !== "come_alloc_mem_from_heap_pool" && info.come_fun_name !== "come_calloc" && info.come_fun_name !== "come_free_mem_of_heap_pool" && info.come_fun_name !== "come_free") 
-            {
-                if(fun_name !== "come_alloc_mem_from_heap_pool" && fun_name !== "null_check" && fun_name !== "come_push_stackframe" && fun_name !== "come_pop_stackframe") {
-                    come_value.c_value = append_stackframe(come_value.c_value, come_value.type, info);
+                if(params.length() < fun.mParamTypes.length())
+                {
+                    for(; i<fun.mParamTypes.length(); i++) {
+                        string default_param = clone fun.mParamDefaultParametors[i]??;
+                        char* param_name = fun.mParamNames[i];
+                        
+                        if(default_param && default_param !== "" && come_params[i]?? == null) {
+                            buffer*% source = info.source;
+                            char* p = info.p;
+                            char* head = info.head;
+                            int sline = info.sline;
+                            
+                            info.source = default_param.to_buffer();
+                            info.p = info.source.buf;
+                            info.head = info.source.buf;
+                            
+                            sNode*% node = expression();
+                            
+                            if(!node_compile(node)) {
+                                return false;
+                            }
+                            
+                            info.source = source;
+                            info.p = p;
+                            info.head = head;
+                            info.sline = sline;
+                    
+                            CVALUE*% come_value = get_value_from_stack(-1, info);
+                            if(param_types[i]) {
+                                check_assign_type(s"\{fun_name} param num \{i} is assinged to", param_types[i], come_value.type, come_value);
+                            }
+                            if(param_types[i] && param_types[i].mHeap && come_value.type.mHeap) {
+                                std_move(param_types[i], come_value.type, come_value);
+                            }
+                            come_params.replace(i, come_value);
+                            dec_stack_ptr(1, info);
+                        }
+                        else {
+                            if(come_params[i]?? == null) {
+                                err_msg(info, "require parametor(%s) %d", fun.mName,i);
+                                return false;
+                            }
+                        }
+                    }
                 }
+                
+                if(fun.mParamTypes.length() != come_params.length() && !fun.mVarArgs && fun_name !== "__builtin_va_start" && fun_name !== "__builtin_va_end") 
+                {
+                    err_msg(info, "invalid param number(%s). function param number is %d. caller param number is %d", fun_name, fun.mParamTypes.length(), params.length());
+                    return false;
+                }
+                
+                buffer*% buf = new buffer();
+                
+                buf.append_str(fun_name);
+                buf.append_str("(");
+                
+                int j = 0;
+                foreach(it, come_params) {
+                    buf.append_str(it.c_value);
+                    
+                    if(j != come_params.length()-1) {
+                        buf.append_str(",");
+                    }
+                    
+                    j++;
+                }
+                buf.append_str(")");
+                
+                CVALUE*% come_value = new CVALUE;
+                come_value.c_value = buf.to_string();
+                come_value.type = clone result_type;
+                come_value.type->mStatic = false;
+                come_value.var = null;
+                
+                if(fun.mResultType->mHeap) {
+                    come_value.c_value = append_object_to_right_values(come_value.c_value, result_type, info);
+                }
+                
+                if(info.come_fun_name !== "come_alloc_mem_from_heap_pool" && info.come_fun_name !== "come_calloc" && info.come_fun_name !== "come_free_mem_of_heap_pool" && info.come_fun_name !== "come_free") 
+                {
+                    if(fun_name !== "come_alloc_mem_from_heap_pool" && fun_name !== "null_check" && fun_name !== "come_push_stackframe" && fun_name !== "come_pop_stackframe") {
+                        come_value.c_value = append_stackframe(come_value.c_value, come_value.type, info);
+                    }
+                }
+                
+                if(!self.guard_break && result_type.mGuardValue && result_type->mPointerNum > 0) {
+                    come_value.c_value = xsprintf("((%s)come_null_check(%s, \"%s\", %d, %d))", make_type_name_string(result_type)!, come_value.c_value, info->sname, info->sline, gComeDebugStackFrameID++);
+                }
+                
+                add_come_last_code(info, "%s;\n", come_value.c_value);
+                
+                info.stack.push_back(come_value);
             }
-            
-            if(!self.guard_break && result_type.mGuardValue && result_type->mPointerNum > 0) {
-                come_value.c_value = xsprintf("((%s)come_null_check(%s, \"%s\", %d, %d))", make_type_name_string(result_type)!, come_value.c_value, info->sname, info->sline, gComeDebugStackFrameID++);
-            }
-            
-            add_come_last_code(info, "%s;\n", come_value.c_value);
-            
-            info.stack.push_back(come_value);
         }
         
         return true;
@@ -836,6 +883,36 @@ class sLambdaCall extends sNodeBase
     }
 };
 
+class sVarArgTypeName extends sNodeBase
+{
+    new(sType*% type, sInfo* info=info)
+    {
+        self.super();
+        
+        sType*% self.type = type;
+    }
+    
+    string kind()
+    {
+        return string("sVarArgTypeName");
+    }
+    
+    bool compile(sInfo* info)
+    {
+        sType*% type = self.type;
+        
+        CVALUE*% come_value = new CVALUE;
+        
+        come_value.c_value = make_type_name_string(type);
+        come_value.type = type;
+        come_value.var = null;
+        
+        info.stack.push_back(come_value);
+        
+        return true;
+    }
+};
+
 sNode*% parse_function_call(char* fun_name, sInfo* info)
 {
     list<sType*%>*% method_generics_types = new list<sType*%>();
@@ -877,6 +954,11 @@ sNode*% parse_function_call(char* fun_name, sInfo* info)
     parse_sharp();
     
     list<tuple2<string,sNode*%>*%>*% params = new list<tuple2<string,sNode*%>*%>();
+    
+    bool _va_arg = info->va_arg;
+    if(fun_name === "__builtin_va_arg") {
+        info->va_arg = true;
+    }
     
     while(true) {
         if(*info->p == ')') {
@@ -930,6 +1012,8 @@ sNode*% parse_function_call(char* fun_name, sInfo* info)
             break;
         }
     }
+    
+    info->va_arg = _va_arg;
     
     bool guard_break = false;
     if(*info->p == '?' && *(info->p+1) == '?') {
@@ -1139,13 +1223,20 @@ record sNode*% expression_node(sInfo* info=info) version 97
         else if(buf === "__caller_sname__") {
             return new sCallerSNameNode(info) implements sNode;
         }
+        else if(info->va_arg && is_type_name(buf)) {
+            info.p = head;
+            info.sline = head_sline;
+            
+            var type, name, err = parse_type(parse_variable_name:false, parse_multiple_type:false);
+            
+            return new sVarArgTypeName(type) implements sNode;
+        }
         else if((buf === "sizeof" || buf === "_Alignof" || buf === "_Alignas" || buf === "__alignof__") && *info->p == '(') {
             sNode*% node = string_node(buf, head, head_sline, info)
             
             return node;
         }
         else if(fun_name_with_type_name) {
-puts("LLL3");
             buffer*% fun_name = new buffer();
             
             fun_name.append_str(buf);
@@ -1187,7 +1278,6 @@ puts("LLL3");
             return node;
         }
         else if(*info->p == ':' && *(info->p+1) == ':') {
-puts("LLL2");
             info->p+=2;
             skip_spaces_and_lf();
             
@@ -1206,7 +1296,6 @@ puts("LLL2");
             return node;
         }
         else if(call_method_generics_fun_call) {
-puts("LLL");
             sNode*% node = parse_function_call(buf, info);
             
             return node;

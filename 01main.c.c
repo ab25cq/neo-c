@@ -619,6 +619,7 @@ struct sInfo
     _Bool constructor_;
     struct sClass* defining_class;
     _Bool array_initializer;
+    _Bool va_arg;
 };
 struct tuple2$2sTypephcharph
 {
@@ -1872,17 +1873,17 @@ struct sNode* top_level_v92(char* buf, char* head, int head_sline, struct sInfo*
 
 struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo* info);
 
-char* setlocale(int anonymous_var_nameX519, const char* anonymous_var_nameX520);
+char* setlocale(int anonymous_var_nameX517, const char* anonymous_var_nameX518);
 
 struct lconv* localeconv();
 
-struct __locale_struct* duplocale(struct __locale_struct* anonymous_var_nameX521);
+struct __locale_struct* duplocale(struct __locale_struct* anonymous_var_nameX519);
 
-void freelocale(struct __locale_struct* anonymous_var_nameX522);
+void freelocale(struct __locale_struct* anonymous_var_nameX520);
 
-struct __locale_struct* newlocale(int anonymous_var_nameX523, const char* anonymous_var_nameX524, struct __locale_struct* anonymous_var_nameX525);
+struct __locale_struct* newlocale(int anonymous_var_nameX521, const char* anonymous_var_nameX522, struct __locale_struct* anonymous_var_nameX523);
 
-struct __locale_struct* uselocale(struct __locale_struct* anonymous_var_nameX526);
+struct __locale_struct* uselocale(struct __locale_struct* anonymous_var_nameX524);
 
 int come_main_v1(int argc, char** argv);
 

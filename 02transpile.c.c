@@ -619,6 +619,7 @@ struct sInfo
     _Bool constructor_;
     struct sClass* defining_class;
     _Bool array_initializer;
+    _Bool va_arg;
 };
 struct tuple2$2sTypephcharph
 {
@@ -2071,77 +2072,77 @@ struct sNode* top_level_v92(char* buf, char* head, int head_sline, struct sInfo*
 
 struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo* info);
 
-int pipe(int anonymous_var_nameX519[2]);
+int pipe(int anonymous_var_nameX517[2]);
 
-int pipe2(int anonymous_var_nameX520[2], int anonymous_var_nameX521);
+int pipe2(int anonymous_var_nameX518[2], int anonymous_var_nameX519);
 
-int close(int anonymous_var_nameX522);
+int close(int anonymous_var_nameX520);
 
-int posix_close(int anonymous_var_nameX523, int anonymous_var_nameX524);
+int posix_close(int anonymous_var_nameX521, int anonymous_var_nameX522);
 
-int dup(int anonymous_var_nameX525);
+int dup(int anonymous_var_nameX523);
 
-int dup2(int anonymous_var_nameX526, int anonymous_var_nameX527);
+int dup2(int anonymous_var_nameX524, int anonymous_var_nameX525);
 
-int dup3(int anonymous_var_nameX528, int anonymous_var_nameX529, int anonymous_var_nameX530);
+int dup3(int anonymous_var_nameX526, int anonymous_var_nameX527, int anonymous_var_nameX528);
 
-long lseek(int anonymous_var_nameX531, long anonymous_var_nameX532, int anonymous_var_nameX533);
+long lseek(int anonymous_var_nameX529, long anonymous_var_nameX530, int anonymous_var_nameX531);
 
-int fsync(int anonymous_var_nameX534);
+int fsync(int anonymous_var_nameX532);
 
-int fdatasync(int anonymous_var_nameX535);
+int fdatasync(int anonymous_var_nameX533);
 
-long read(int anonymous_var_nameX536, void* anonymous_var_nameX537, unsigned long int anonymous_var_nameX538);
+long read(int anonymous_var_nameX534, void* anonymous_var_nameX535, unsigned long int anonymous_var_nameX536);
 
-long write(int anonymous_var_nameX539, const void* anonymous_var_nameX540, unsigned long int anonymous_var_nameX541);
+long write(int anonymous_var_nameX537, const void* anonymous_var_nameX538, unsigned long int anonymous_var_nameX539);
 
-long pread(int anonymous_var_nameX542, void* anonymous_var_nameX543, unsigned long int anonymous_var_nameX544, long anonymous_var_nameX545);
+long pread(int anonymous_var_nameX540, void* anonymous_var_nameX541, unsigned long int anonymous_var_nameX542, long anonymous_var_nameX543);
 
-long pwrite(int anonymous_var_nameX546, const void* anonymous_var_nameX547, unsigned long int anonymous_var_nameX548, long anonymous_var_nameX549);
+long pwrite(int anonymous_var_nameX544, const void* anonymous_var_nameX545, unsigned long int anonymous_var_nameX546, long anonymous_var_nameX547);
 
-int chown(const char* anonymous_var_nameX550, unsigned int anonymous_var_nameX551, unsigned int anonymous_var_nameX552);
+int chown(const char* anonymous_var_nameX548, unsigned int anonymous_var_nameX549, unsigned int anonymous_var_nameX550);
 
-int fchown(int anonymous_var_nameX553, unsigned int anonymous_var_nameX554, unsigned int anonymous_var_nameX555);
+int fchown(int anonymous_var_nameX551, unsigned int anonymous_var_nameX552, unsigned int anonymous_var_nameX553);
 
-int lchown(const char* anonymous_var_nameX556, unsigned int anonymous_var_nameX557, unsigned int anonymous_var_nameX558);
+int lchown(const char* anonymous_var_nameX554, unsigned int anonymous_var_nameX555, unsigned int anonymous_var_nameX556);
 
-int fchownat(int anonymous_var_nameX559, const char* anonymous_var_nameX560, unsigned int anonymous_var_nameX561, unsigned int anonymous_var_nameX562, int anonymous_var_nameX563);
+int fchownat(int anonymous_var_nameX557, const char* anonymous_var_nameX558, unsigned int anonymous_var_nameX559, unsigned int anonymous_var_nameX560, int anonymous_var_nameX561);
 
-int link(const char* anonymous_var_nameX564, const char* anonymous_var_nameX565);
+int link(const char* anonymous_var_nameX562, const char* anonymous_var_nameX563);
 
-int linkat(int anonymous_var_nameX566, const char* anonymous_var_nameX567, int anonymous_var_nameX568, const char* anonymous_var_nameX569, int anonymous_var_nameX570);
+int linkat(int anonymous_var_nameX564, const char* anonymous_var_nameX565, int anonymous_var_nameX566, const char* anonymous_var_nameX567, int anonymous_var_nameX568);
 
-int symlink(const char* anonymous_var_nameX571, const char* anonymous_var_nameX572);
+int symlink(const char* anonymous_var_nameX569, const char* anonymous_var_nameX570);
 
-int symlinkat(const char* anonymous_var_nameX573, int anonymous_var_nameX574, const char* anonymous_var_nameX575);
+int symlinkat(const char* anonymous_var_nameX571, int anonymous_var_nameX572, const char* anonymous_var_nameX573);
 
-long readlink(const char* anonymous_var_nameX576, char* anonymous_var_nameX577, unsigned long int anonymous_var_nameX578);
+long readlink(const char* anonymous_var_nameX574, char* anonymous_var_nameX575, unsigned long int anonymous_var_nameX576);
 
-long readlinkat(int anonymous_var_nameX579, const char* anonymous_var_nameX580, char* anonymous_var_nameX581, unsigned long int anonymous_var_nameX582);
+long readlinkat(int anonymous_var_nameX577, const char* anonymous_var_nameX578, char* anonymous_var_nameX579, unsigned long int anonymous_var_nameX580);
 
-int unlink(const char* anonymous_var_nameX583);
+int unlink(const char* anonymous_var_nameX581);
 
-int unlinkat(int anonymous_var_nameX584, const char* anonymous_var_nameX585, int anonymous_var_nameX586);
+int unlinkat(int anonymous_var_nameX582, const char* anonymous_var_nameX583, int anonymous_var_nameX584);
 
-int rmdir(const char* anonymous_var_nameX587);
+int rmdir(const char* anonymous_var_nameX585);
 
-int truncate(const char* anonymous_var_nameX588, long anonymous_var_nameX589);
+int truncate(const char* anonymous_var_nameX586, long anonymous_var_nameX587);
 
-int ftruncate(int anonymous_var_nameX590, long anonymous_var_nameX591);
+int ftruncate(int anonymous_var_nameX588, long anonymous_var_nameX589);
 
-int access(const char* anonymous_var_nameX592, int anonymous_var_nameX593);
+int access(const char* anonymous_var_nameX590, int anonymous_var_nameX591);
 
-int faccessat(int anonymous_var_nameX594, const char* anonymous_var_nameX595, int anonymous_var_nameX596, int anonymous_var_nameX597);
+int faccessat(int anonymous_var_nameX592, const char* anonymous_var_nameX593, int anonymous_var_nameX594, int anonymous_var_nameX595);
 
-int chdir(const char* anonymous_var_nameX598);
+int chdir(const char* anonymous_var_nameX596);
 
-int fchdir(int anonymous_var_nameX599);
+int fchdir(int anonymous_var_nameX597);
 
-char* getcwd(char* anonymous_var_nameX600, unsigned long int anonymous_var_nameX601);
+char* getcwd(char* anonymous_var_nameX598, unsigned long int anonymous_var_nameX599);
 
-unsigned int alarm(unsigned int anonymous_var_nameX602);
+unsigned int alarm(unsigned int anonymous_var_nameX600);
 
-unsigned int sleep(unsigned int anonymous_var_nameX603);
+unsigned int sleep(unsigned int anonymous_var_nameX601);
 
 int pause();
 
@@ -2149,21 +2150,21 @@ int fork();
 
 int _Fork();
 
-int execve(const char* anonymous_var_nameX604, char* anonymous_var_nameX605[], char* anonymous_var_nameX606[]);
+int execve(const char* anonymous_var_nameX602, char* anonymous_var_nameX603[], char* anonymous_var_nameX604[]);
 
-int execv(const char* anonymous_var_nameX607, char* anonymous_var_nameX608[]);
+int execv(const char* anonymous_var_nameX605, char* anonymous_var_nameX606[]);
 
-int execle(const char* anonymous_var_nameX609, const char* anonymous_var_nameX610, ...);
+int execle(const char* anonymous_var_nameX607, const char* anonymous_var_nameX608, ...);
 
-int execl(const char* anonymous_var_nameX611, const char* anonymous_var_nameX612, ...);
+int execl(const char* anonymous_var_nameX609, const char* anonymous_var_nameX610, ...);
 
-int execvp(const char* anonymous_var_nameX613, char* anonymous_var_nameX614[]);
+int execvp(const char* anonymous_var_nameX611, char* anonymous_var_nameX612[]);
 
-int execlp(const char* anonymous_var_nameX615, const char* anonymous_var_nameX616, ...);
+int execlp(const char* anonymous_var_nameX613, const char* anonymous_var_nameX614, ...);
 
-int fexecve(int anonymous_var_nameX617, char* anonymous_var_nameX618[], char* anonymous_var_nameX619[]);
+int fexecve(int anonymous_var_nameX615, char* anonymous_var_nameX616[], char* anonymous_var_nameX617[]);
 
-void _exit(int anonymous_var_nameX620);
+void _exit(int anonymous_var_nameX618);
 
 int getpid();
 
@@ -2171,23 +2172,23 @@ int getppid();
 
 int getpgrp();
 
-int getpgid(int anonymous_var_nameX621);
+int getpgid(int anonymous_var_nameX619);
 
-int setpgid(int anonymous_var_nameX622, int anonymous_var_nameX623);
+int setpgid(int anonymous_var_nameX620, int anonymous_var_nameX621);
 
 int setsid();
 
-int getsid(int anonymous_var_nameX624);
+int getsid(int anonymous_var_nameX622);
 
-char* ttyname(int anonymous_var_nameX625);
+char* ttyname(int anonymous_var_nameX623);
 
-int ttyname_r(int anonymous_var_nameX626, char* anonymous_var_nameX627, unsigned long int anonymous_var_nameX628);
+int ttyname_r(int anonymous_var_nameX624, char* anonymous_var_nameX625, unsigned long int anonymous_var_nameX626);
 
-int isatty(int anonymous_var_nameX629);
+int isatty(int anonymous_var_nameX627);
 
-int tcgetpgrp(int anonymous_var_nameX630);
+int tcgetpgrp(int anonymous_var_nameX628);
 
-int tcsetpgrp(int anonymous_var_nameX631, int anonymous_var_nameX632);
+int tcsetpgrp(int anonymous_var_nameX629, int anonymous_var_nameX630);
 
 unsigned int getuid();
 
@@ -2197,83 +2198,83 @@ unsigned int getgid();
 
 unsigned int getegid();
 
-int getgroups(int anonymous_var_nameX633, unsigned int anonymous_var_nameX634[]);
+int getgroups(int anonymous_var_nameX631, unsigned int anonymous_var_nameX632[]);
 
-int setuid(unsigned int anonymous_var_nameX635);
+int setuid(unsigned int anonymous_var_nameX633);
 
-int seteuid(unsigned int anonymous_var_nameX636);
+int seteuid(unsigned int anonymous_var_nameX634);
 
-int setgid(unsigned int anonymous_var_nameX637);
+int setgid(unsigned int anonymous_var_nameX635);
 
-int setegid(unsigned int anonymous_var_nameX638);
+int setegid(unsigned int anonymous_var_nameX636);
 
 char* getlogin();
 
-int getlogin_r(char* anonymous_var_nameX639, unsigned long int anonymous_var_nameX640);
+int getlogin_r(char* anonymous_var_nameX637, unsigned long int anonymous_var_nameX638);
 
-int gethostname(char* anonymous_var_nameX641, unsigned long int anonymous_var_nameX642);
+int gethostname(char* anonymous_var_nameX639, unsigned long int anonymous_var_nameX640);
 
-char* ctermid(char* anonymous_var_nameX643);
+char* ctermid(char* anonymous_var_nameX641);
 
-int getopt(int anonymous_var_nameX644, char* anonymous_var_nameX645[], const char* anonymous_var_nameX646);
+int getopt(int anonymous_var_nameX642, char* anonymous_var_nameX643[], const char* anonymous_var_nameX644);
 
-long pathconf(const char* anonymous_var_nameX647, int anonymous_var_nameX648);
+long pathconf(const char* anonymous_var_nameX645, int anonymous_var_nameX646);
 
-long fpathconf(int anonymous_var_nameX649, int anonymous_var_nameX650);
+long fpathconf(int anonymous_var_nameX647, int anonymous_var_nameX648);
 
-long sysconf(int anonymous_var_nameX651);
+long sysconf(int anonymous_var_nameX649);
 
-unsigned long int confstr(int anonymous_var_nameX652, char* anonymous_var_nameX653, unsigned long int anonymous_var_nameX654);
+unsigned long int confstr(int anonymous_var_nameX650, char* anonymous_var_nameX651, unsigned long int anonymous_var_nameX652);
 
-int setreuid(unsigned int anonymous_var_nameX655, unsigned int anonymous_var_nameX656);
+int setreuid(unsigned int anonymous_var_nameX653, unsigned int anonymous_var_nameX654);
 
-int setregid(unsigned int anonymous_var_nameX657, unsigned int anonymous_var_nameX658);
+int setregid(unsigned int anonymous_var_nameX655, unsigned int anonymous_var_nameX656);
 
-int lockf(int anonymous_var_nameX659, int anonymous_var_nameX660, long anonymous_var_nameX661);
+int lockf(int anonymous_var_nameX657, int anonymous_var_nameX658, long anonymous_var_nameX659);
 
 long gethostid();
 
-int nice(int anonymous_var_nameX662);
+int nice(int anonymous_var_nameX660);
 
 void sync();
 
 int setpgrp();
 
-char* crypt(const char* anonymous_var_nameX663, const char* anonymous_var_nameX664);
+char* crypt(const char* anonymous_var_nameX661, const char* anonymous_var_nameX662);
 
-void encrypt(char* anonymous_var_nameX665, int anonymous_var_nameX666);
+void encrypt(char* anonymous_var_nameX663, int anonymous_var_nameX664);
 
-void swab(const void* anonymous_var_nameX667, void* anonymous_var_nameX668, long anonymous_var_nameX669);
+void swab(const void* anonymous_var_nameX665, void* anonymous_var_nameX666, long anonymous_var_nameX667);
 
-int usleep(unsigned int anonymous_var_nameX670);
+int usleep(unsigned int anonymous_var_nameX668);
 
-unsigned int ualarm(unsigned int anonymous_var_nameX671, unsigned int anonymous_var_nameX672);
+unsigned int ualarm(unsigned int anonymous_var_nameX669, unsigned int anonymous_var_nameX670);
 
-int brk(void* anonymous_var_nameX673);
+int brk(void* anonymous_var_nameX671);
 
-void* sbrk(long anonymous_var_nameX674);
+void* sbrk(long anonymous_var_nameX672);
 
 int vfork();
 
 int vhangup();
 
-int chroot(const char* anonymous_var_nameX675);
+int chroot(const char* anonymous_var_nameX673);
 
 int getpagesize();
 
 int getdtablesize();
 
-int sethostname(const char* anonymous_var_nameX676, unsigned long int anonymous_var_nameX677);
+int sethostname(const char* anonymous_var_nameX674, unsigned long int anonymous_var_nameX675);
 
-int getdomainname(char* anonymous_var_nameX678, unsigned long int anonymous_var_nameX679);
+int getdomainname(char* anonymous_var_nameX676, unsigned long int anonymous_var_nameX677);
 
-int setdomainname(const char* anonymous_var_nameX680, unsigned long int anonymous_var_nameX681);
+int setdomainname(const char* anonymous_var_nameX678, unsigned long int anonymous_var_nameX679);
 
-int setgroups(unsigned long int anonymous_var_nameX682, const unsigned int* anonymous_var_nameX683);
+int setgroups(unsigned long int anonymous_var_nameX680, const unsigned int* anonymous_var_nameX681);
 
-char* getpass(const char* anonymous_var_nameX684);
+char* getpass(const char* anonymous_var_nameX682);
 
-int daemon(int anonymous_var_nameX685, int anonymous_var_nameX686);
+int daemon(int anonymous_var_nameX683, int anonymous_var_nameX684);
 
 void setusershell();
 
@@ -2281,73 +2282,73 @@ void endusershell();
 
 char* getusershell();
 
-int acct(const char* anonymous_var_nameX687);
+int acct(const char* anonymous_var_nameX685);
 
-long syscall(long anonymous_var_nameX688, ...);
+long syscall(long anonymous_var_nameX686, ...);
 
-int execvpe(const char* anonymous_var_nameX689, char* anonymous_var_nameX690[], char* anonymous_var_nameX691[]);
+int execvpe(const char* anonymous_var_nameX687, char* anonymous_var_nameX688[], char* anonymous_var_nameX689[]);
 
 int issetugid();
 
-int getentropy(void* anonymous_var_nameX692, unsigned long int anonymous_var_nameX693);
+int getentropy(void* anonymous_var_nameX690, unsigned long int anonymous_var_nameX691);
 
-int setresuid(unsigned int anonymous_var_nameX694, unsigned int anonymous_var_nameX695, unsigned int anonymous_var_nameX696);
+int setresuid(unsigned int anonymous_var_nameX692, unsigned int anonymous_var_nameX693, unsigned int anonymous_var_nameX694);
 
-int setresgid(unsigned int anonymous_var_nameX697, unsigned int anonymous_var_nameX698, unsigned int anonymous_var_nameX699);
+int setresgid(unsigned int anonymous_var_nameX695, unsigned int anonymous_var_nameX696, unsigned int anonymous_var_nameX697);
 
-int getresuid(unsigned int* anonymous_var_nameX700, unsigned int* anonymous_var_nameX701, unsigned int* anonymous_var_nameX702);
+int getresuid(unsigned int* anonymous_var_nameX698, unsigned int* anonymous_var_nameX699, unsigned int* anonymous_var_nameX700);
 
-int getresgid(unsigned int* anonymous_var_nameX703, unsigned int* anonymous_var_nameX704, unsigned int* anonymous_var_nameX705);
+int getresgid(unsigned int* anonymous_var_nameX701, unsigned int* anonymous_var_nameX702, unsigned int* anonymous_var_nameX703);
 
 char* get_current_dir_name();
 
-int syncfs(int anonymous_var_nameX706);
+int syncfs(int anonymous_var_nameX704);
 
-int euidaccess(const char* anonymous_var_nameX707, int anonymous_var_nameX708);
+int euidaccess(const char* anonymous_var_nameX705, int anonymous_var_nameX706);
 
-int eaccess(const char* anonymous_var_nameX709, int anonymous_var_nameX710);
+int eaccess(const char* anonymous_var_nameX707, int anonymous_var_nameX708);
 
-long copy_file_range(int anonymous_var_nameX711, long* anonymous_var_nameX712, int anonymous_var_nameX713, long* anonymous_var_nameX714, unsigned long int anonymous_var_nameX715, unsigned int anonymous_var_nameX716);
+long copy_file_range(int anonymous_var_nameX709, long* anonymous_var_nameX710, int anonymous_var_nameX711, long* anonymous_var_nameX712, unsigned long int anonymous_var_nameX713, unsigned int anonymous_var_nameX714);
 
 int gettid();
 
-int select(int anonymous_var_nameX717, struct anonymous_typeX23* anonymous_var_nameX718, struct anonymous_typeX23* anonymous_var_nameX719, struct anonymous_typeX23* anonymous_var_nameX720, struct timeval* anonymous_var_nameX721);
+int select(int anonymous_var_nameX715, struct anonymous_typeX23* anonymous_var_nameX716, struct anonymous_typeX23* anonymous_var_nameX717, struct anonymous_typeX23* anonymous_var_nameX718, struct timeval* anonymous_var_nameX719);
 
-int pselect(int anonymous_var_nameX722, struct anonymous_typeX23* anonymous_var_nameX723, struct anonymous_typeX23* anonymous_var_nameX724, struct anonymous_typeX23* anonymous_var_nameX725, const struct timespec* anonymous_var_nameX726, const struct __sigset_t* anonymous_var_nameX727);
+int pselect(int anonymous_var_nameX720, struct anonymous_typeX23* anonymous_var_nameX721, struct anonymous_typeX23* anonymous_var_nameX722, struct anonymous_typeX23* anonymous_var_nameX723, const struct timespec* anonymous_var_nameX724, const struct __sigset_t* anonymous_var_nameX725);
 
-int stat(const char* anonymous_var_nameX728, struct stat* anonymous_var_nameX729);
+int stat(const char* anonymous_var_nameX726, struct stat* anonymous_var_nameX727);
 
-int fstat(int anonymous_var_nameX730, struct stat* anonymous_var_nameX731);
+int fstat(int anonymous_var_nameX728, struct stat* anonymous_var_nameX729);
 
-int lstat(const char* anonymous_var_nameX732, struct stat* anonymous_var_nameX733);
+int lstat(const char* anonymous_var_nameX730, struct stat* anonymous_var_nameX731);
 
-int fstatat(int anonymous_var_nameX734, const char* anonymous_var_nameX735, struct stat* anonymous_var_nameX736, int anonymous_var_nameX737);
+int fstatat(int anonymous_var_nameX732, const char* anonymous_var_nameX733, struct stat* anonymous_var_nameX734, int anonymous_var_nameX735);
 
-int chmod(const char* anonymous_var_nameX738, unsigned int anonymous_var_nameX739);
+int chmod(const char* anonymous_var_nameX736, unsigned int anonymous_var_nameX737);
 
-int fchmod(int anonymous_var_nameX740, unsigned int anonymous_var_nameX741);
+int fchmod(int anonymous_var_nameX738, unsigned int anonymous_var_nameX739);
 
-int fchmodat(int anonymous_var_nameX742, const char* anonymous_var_nameX743, unsigned int anonymous_var_nameX744, int anonymous_var_nameX745);
+int fchmodat(int anonymous_var_nameX740, const char* anonymous_var_nameX741, unsigned int anonymous_var_nameX742, int anonymous_var_nameX743);
 
-unsigned int umask(unsigned int anonymous_var_nameX746);
+unsigned int umask(unsigned int anonymous_var_nameX744);
 
-int mkdir(const char* anonymous_var_nameX747, unsigned int anonymous_var_nameX748);
+int mkdir(const char* anonymous_var_nameX745, unsigned int anonymous_var_nameX746);
 
-int mkfifo(const char* anonymous_var_nameX749, unsigned int anonymous_var_nameX750);
+int mkfifo(const char* anonymous_var_nameX747, unsigned int anonymous_var_nameX748);
 
-int mkdirat(int anonymous_var_nameX751, const char* anonymous_var_nameX752, unsigned int anonymous_var_nameX753);
+int mkdirat(int anonymous_var_nameX749, const char* anonymous_var_nameX750, unsigned int anonymous_var_nameX751);
 
-int mkfifoat(int anonymous_var_nameX754, const char* anonymous_var_nameX755, unsigned int anonymous_var_nameX756);
+int mkfifoat(int anonymous_var_nameX752, const char* anonymous_var_nameX753, unsigned int anonymous_var_nameX754);
 
-int mknod(const char* anonymous_var_nameX757, unsigned int anonymous_var_nameX758, unsigned long int anonymous_var_nameX759);
+int mknod(const char* anonymous_var_nameX755, unsigned int anonymous_var_nameX756, unsigned long int anonymous_var_nameX757);
 
-int mknodat(int anonymous_var_nameX760, const char* anonymous_var_nameX761, unsigned int anonymous_var_nameX762, unsigned long int anonymous_var_nameX763);
+int mknodat(int anonymous_var_nameX758, const char* anonymous_var_nameX759, unsigned int anonymous_var_nameX760, unsigned long int anonymous_var_nameX761);
 
-int futimens(int anonymous_var_nameX764, const struct timespec anonymous_var_nameX765[2]);
+int futimens(int anonymous_var_nameX762, const struct timespec anonymous_var_nameX763[2]);
 
-int utimensat(int anonymous_var_nameX766, const char* anonymous_var_nameX767, const struct timespec anonymous_var_nameX768[2], int anonymous_var_nameX769);
+int utimensat(int anonymous_var_nameX764, const char* anonymous_var_nameX765, const struct timespec anonymous_var_nameX766[2], int anonymous_var_nameX767);
 
-int lchmod(const char* anonymous_var_nameX770, unsigned int anonymous_var_nameX771);
+int lchmod(const char* anonymous_var_nameX768, unsigned int anonymous_var_nameX769);
 
 int* __errno_location();
 
@@ -3895,7 +3896,7 @@ static struct list$1charph* list$1charph_sublist(struct list$1charph* self, int 
 void* __result_obj__;
 void* right_value88;
 void* right_value89;
-struct list$1charph* result_59;
+struct list$1charph* result_57;
 _Bool _if_conditional26;
 _Bool _if_conditional27;
 _Bool _if_conditional28;
@@ -3908,10 +3909,10 @@ struct list$1charph* __result58__;
 memset(&__result_obj__, 0, sizeof(void*));
 right_value88 = (void*)0;
 right_value89 = (void*)0;
-memset(&result_59, 0, sizeof(struct list$1charph*));
+memset(&result_57, 0, sizeof(struct list$1charph*));
 memset(&it_60, 0, sizeof(struct list_item$1charph*));
 memset(&i_61, 0, sizeof(int));
-                result_59=(struct list$1charph*)come_increment_ref_count(((struct list$1charph*)(right_value89=list$1charph_initialize((struct list$1charph*)come_increment_ref_count(((struct list$1charph*)(right_value88=(struct list$1charph*)come_calloc(1, sizeof(struct list$1charph)*(1), "./neo-c.h", 639, "list$1charph"))))))));
+                result_57=(struct list$1charph*)come_increment_ref_count(((struct list$1charph*)(right_value89=list$1charph_initialize((struct list$1charph*)come_increment_ref_count(((struct list$1charph*)(right_value88=(struct list$1charph*)come_calloc(1, sizeof(struct list$1charph)*(1), "./neo-c.h", 639, "list$1charph"))))))));
                 come_call_finalizer3(right_value88,list$1charphp_finalize, 0, 1, 0, 0, __result_obj__);
                 come_call_finalizer3(right_value89,list$1charphp_finalize, 0, 1, 0, 0, __result_obj__);
                 if(_if_conditional26=begin<0,                _if_conditional26) {
@@ -3930,15 +3931,15 @@ memset(&i_61, 0, sizeof(int));
                 i_61=0;
                 while(_while_condtional9=it_60!=((void*)0),                _while_condtional9) {
                     if(_if_conditional30=i_61>=begin&&i_61<tail,                    _if_conditional30) {
-                        list$1charph_push_back(result_59,(char*)come_increment_ref_count(it_60->item));
+                        list$1charph_push_back(result_57,(char*)come_increment_ref_count(it_60->item));
                     }
                     it_60=it_60->next;
                     i_61++;
                 }
-                __result58__ = __result_obj__ = result_59;
-                come_call_finalizer3(result_59,list$1charphp_finalize, 0, 0, 1, 0, (void*)0);
+                __result58__ = __result_obj__ = result_57;
+                come_call_finalizer3(result_57,list$1charphp_finalize, 0, 0, 1, 0, (void*)0);
                 return __result58__;
-                come_call_finalizer3(result_59,list$1charphp_finalize, 0, 0, 0, 0, (void*)0);
+                come_call_finalizer3(result_57,list$1charphp_finalize, 0, 0, 0, 0, (void*)0);
 }
 
 static struct list$1charph* list$1charph_initialize(struct list$1charph* self){
@@ -3956,17 +3957,17 @@ memset(&__result_obj__, 0, sizeof(void*));
 
 static void list$1charphp_finalize(struct list$1charph* self){
 void* __result_obj__;
-struct list_item$1charph* it_57;
+struct list_item$1charph* it_58;
 _Bool _while_condtional8;
-struct list_item$1charph* prev_it_58;
+struct list_item$1charph* prev_it_59;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&it_57, 0, sizeof(struct list_item$1charph*));
-memset(&prev_it_58, 0, sizeof(struct list_item$1charph*));
-                        it_57=self->head;
-                        while(_while_condtional8=it_57!=((void*)0),                        _while_condtional8) {
-                            prev_it_58=it_57;
-                            it_57=it_57->next;
-                            come_call_finalizer3(prev_it_58,list_item$1charphp_finalize, 0, 0, 0, 0, (void*)0);
+memset(&it_58, 0, sizeof(struct list_item$1charph*));
+memset(&prev_it_59, 0, sizeof(struct list_item$1charph*));
+                        it_58=self->head;
+                        while(_while_condtional8=it_58!=((void*)0),                        _while_condtional8) {
+                            prev_it_59=it_58;
+                            it_58=it_58->next;
+                            come_call_finalizer3(prev_it_59,list_item$1charphp_finalize, 0, 0, 0, 0, (void*)0);
                         }
 }
 
@@ -5359,7 +5360,7 @@ _Bool* item_existance_122;
 int len_123;
 char* it_126;
 struct sClass* default_value_129;
-struct sClass* it2_132;
+struct sClass* it2_130;
 unsigned int hash_133;
 int n_134;
 _Bool _while_condtional15;
@@ -5378,7 +5379,7 @@ memset(&item_existance_122, 0, sizeof(_Bool*));
 memset(&len_123, 0, sizeof(int));
 memset(&it_126, 0, sizeof(char*));
 memset(&default_value_129, 0, sizeof(struct sClass*));
-memset(&it2_132, 0, sizeof(struct sClass*));
+memset(&it2_130, 0, sizeof(struct sClass*));
 memset(&hash_133, 0, sizeof(unsigned int));
 memset(&n_134, 0, sizeof(int));
 memset(&default_value_135, 0, sizeof(struct sClass*));
@@ -5392,7 +5393,7 @@ memset(&default_value_135, 0, sizeof(struct sClass*));
                 len_123=0;
                 for(                it_126=map$2charphsClassph_begin(self);                !map$2charphsClassph_end(self);                it_126=map$2charphsClassph_next(self)                ){
                     memset(&default_value_129,0,sizeof(struct sClass*));
-                    it2_132=map$2charphsClassph_at(self,it_126,default_value_129);
+                    it2_130=map$2charphsClassph_at(self,it_126,default_value_129);
                     hash_133=string_get_hash_key(it_126)%size_113;
                     n_134=hash_133;
                     while(_while_condtional15=(_Bool)1,                    _while_condtional15) {
@@ -5654,8 +5655,8 @@ memset(&result_128, 0, sizeof(char*));
 
 static struct sClass* map$2charphsClassph_at(struct map$2charphsClassph* self, char* key, struct sClass* default_value){
 void* __result_obj__;
-unsigned int hash_130;
-unsigned int it_131;
+unsigned int hash_131;
+unsigned int it_132;
 _Bool _while_condtional14;
 _Bool _if_conditional97;
 _Bool _if_conditional98;
@@ -5666,23 +5667,23 @@ struct sClass* __result93__;
 struct sClass* __result94__;
 struct sClass* __result95__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&hash_130, 0, sizeof(unsigned int));
-memset(&it_131, 0, sizeof(unsigned int));
-                        hash_130=string_get_hash_key(((char*)key))%self->size;
-                        it_131=hash_130;
+memset(&hash_131, 0, sizeof(unsigned int));
+memset(&it_132, 0, sizeof(unsigned int));
+                        hash_131=string_get_hash_key(((char*)key))%self->size;
+                        it_132=hash_131;
                         while(_while_condtional14=(_Bool)1,                        _while_condtional14) {
-                            if(_if_conditional97=self->item_existance[it_131],                            _if_conditional97) {
-                                if(_if_conditional98=string_equals(self->keys[it_131],key),                                _if_conditional98) {
-                                    __result92__ = __result_obj__ = self->items[it_131];
+                            if(_if_conditional97=self->item_existance[it_132],                            _if_conditional97) {
+                                if(_if_conditional98=string_equals(self->keys[it_132],key),                                _if_conditional98) {
+                                    __result92__ = __result_obj__ = self->items[it_132];
                                     come_call_finalizer3(default_value,sClass_finalize, 0, 0, 1, 0, (void*)0);
                                     return __result92__;
                                 }
-                                it_131++;
-                                if(_if_conditional99=it_131>=self->size,                                _if_conditional99) {
-                                    it_131=0;
+                                it_132++;
+                                if(_if_conditional99=it_132>=self->size,                                _if_conditional99) {
+                                    it_132=0;
                                 }
                                 else {
-                                    if(_if_conditional100=it_131==hash_130,                                    _if_conditional100) {
+                                    if(_if_conditional100=it_132==hash_131,                                    _if_conditional100) {
                                         __result93__ = __result_obj__ = default_value;
                                         come_call_finalizer3(default_value,sClass_finalize, 0, 0, 1, 0, (void*)0);
                                         return __result93__;
@@ -6133,7 +6134,7 @@ _Bool* item_existance_174;
 int len_175;
 char* it_178;
 struct sType* default_value_181;
-struct sType* it2_184;
+struct sType* it2_182;
 unsigned int hash_185;
 int n_186;
 _Bool _while_condtional23;
@@ -6152,7 +6153,7 @@ memset(&item_existance_174, 0, sizeof(_Bool*));
 memset(&len_175, 0, sizeof(int));
 memset(&it_178, 0, sizeof(char*));
 memset(&default_value_181, 0, sizeof(struct sType*));
-memset(&it2_184, 0, sizeof(struct sType*));
+memset(&it2_182, 0, sizeof(struct sType*));
 memset(&hash_185, 0, sizeof(unsigned int));
 memset(&n_186, 0, sizeof(int));
 memset(&default_value_187, 0, sizeof(struct sType*));
@@ -6166,7 +6167,7 @@ memset(&default_value_187, 0, sizeof(struct sType*));
                     len_175=0;
                     for(                    it_178=map$2charphsTypeph_begin(self);                    !map$2charphsTypeph_end(self);                    it_178=map$2charphsTypeph_next(self)                    ){
                         memset(&default_value_181,0,sizeof(struct sType*));
-                        it2_184=map$2charphsTypeph_at(self,it_178,default_value_181);
+                        it2_182=map$2charphsTypeph_at(self,it_178,default_value_181);
                         hash_185=string_get_hash_key(it_178)%size_171;
                         n_186=hash_185;
                         while(_while_condtional23=(_Bool)1,                        _while_condtional23) {
@@ -6266,8 +6267,8 @@ memset(&result_180, 0, sizeof(char*));
 
 static struct sType* map$2charphsTypeph_at(struct map$2charphsTypeph* self, char* key, struct sType* default_value){
 void* __result_obj__;
-unsigned int hash_182;
-unsigned int it_183;
+unsigned int hash_183;
+unsigned int it_184;
 _Bool _while_condtional22;
 _Bool _if_conditional145;
 _Bool _if_conditional146;
@@ -6278,23 +6279,23 @@ struct sType* __result117__;
 struct sType* __result118__;
 struct sType* __result119__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&hash_182, 0, sizeof(unsigned int));
-memset(&it_183, 0, sizeof(unsigned int));
-                            hash_182=string_get_hash_key(((char*)key))%self->size;
-                            it_183=hash_182;
+memset(&hash_183, 0, sizeof(unsigned int));
+memset(&it_184, 0, sizeof(unsigned int));
+                            hash_183=string_get_hash_key(((char*)key))%self->size;
+                            it_184=hash_183;
                             while(_while_condtional22=(_Bool)1,                            _while_condtional22) {
-                                if(_if_conditional145=self->item_existance[it_183],                                _if_conditional145) {
-                                    if(_if_conditional146=string_equals(self->keys[it_183],key),                                    _if_conditional146) {
-                                        __result116__ = __result_obj__ = self->items[it_183];
+                                if(_if_conditional145=self->item_existance[it_184],                                _if_conditional145) {
+                                    if(_if_conditional146=string_equals(self->keys[it_184],key),                                    _if_conditional146) {
+                                        __result116__ = __result_obj__ = self->items[it_184];
                                         come_call_finalizer3(default_value,sType_finalize, 0, 0, 1, 0, (void*)0);
                                         return __result116__;
                                     }
-                                    it_183++;
-                                    if(_if_conditional147=it_183>=self->size,                                    _if_conditional147) {
-                                        it_183=0;
+                                    it_184++;
+                                    if(_if_conditional147=it_184>=self->size,                                    _if_conditional147) {
+                                        it_184=0;
                                     }
                                     else {
-                                        if(_if_conditional148=it_183==hash_182,                                        _if_conditional148) {
+                                        if(_if_conditional148=it_184==hash_183,                                        _if_conditional148) {
                                             __result117__ = __result_obj__ = default_value;
                                             come_call_finalizer3(default_value,sType_finalize, 0, 0, 1, 0, (void*)0);
                                             return __result117__;
