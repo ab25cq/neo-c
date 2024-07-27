@@ -2835,22 +2835,6 @@ int main(int argc, char** argv)
 }
 ```
 
-```
-#include <neo-c.h>
-
-int main(int argc, char** argv)
-{
-    while(true) {
-        3.times {
-            printf("%d\n", it);
-            break! 1;     /// parent loop is breaked
-        }
-    }
-    
-    return 0;
-}
-```
-
 # Package manager
 
 ```
