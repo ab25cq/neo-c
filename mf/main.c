@@ -332,13 +332,13 @@ void search_prev_file(sInfo* info)
 
 void select_files(sInfo* info)
 {
-    string cursor_file = cursor_file(info);
+    string cursor_file_ = cursor_file(info);
     
-    if(info.selected_files.contained(cursor_file)) {
-        info.selected_files.remove(cursor_file);
+    if(info.selected_files.contained(cursor_file_)) {
+        info.selected_files.remove(cursor_file_);
     }
     else {
-        info.selected_files.add(cursor_file);
+        info.selected_files.add(cursor_file_);
     }
 }
 

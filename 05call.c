@@ -324,6 +324,11 @@ class sFunCallNode extends sNodeBase
         if(var_) {
             sType* lambda_type = var_->mType;
             
+            if(lambda_type->mClass->mName !== "lambda") {
+                err_msg(info, "%s is not lambda, can't call", fun_name);
+                return false;
+            }
+            
             sType*% result_type = clone lambda_type->mResultType.v1;
             result_type->mStatic = false;
             
