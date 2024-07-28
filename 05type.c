@@ -689,7 +689,7 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
             return false;
         }
         else if(right_type2->mPointerNum == 0) {
-            string tmp = xsprintf("(void*)%s", come_value.c_value);
+            string tmp = xsprintf("/*a*/(void*)%s", come_value.c_value);
             come_value.c_value = clone tmp;
             come_value.type = clone left_type;
             come_value.var = null;
@@ -751,7 +751,7 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
             }
             return false;
 */
-            string tmp = xsprintf("(void*)%s", come_value.c_value);
+            string tmp = xsprintf("/*b*/(void*)%s", come_value.c_value);
             come_value.c_value = clone tmp;
             come_value.type = clone left_type;
             return true;

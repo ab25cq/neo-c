@@ -506,7 +506,10 @@ sNode*% parse_struct(string type_name, sInfo* info)
                 klass.mFields.push_back((name, type2));
             }
         }
-        expected_next_character(';') ;
+        if(*info->p == ';') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
         
         parse_sharp();
         
@@ -636,7 +639,11 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                         generics_class.mFields.push_back((name, type2));
                     }
                     
-                    expected_next_character(';') ;
+                    if(*info->p == ';') {
+                        info->p++;
+                        skip_spaces_and_lf();
+                    }
+                    //expected_next_character(';') ;
                     
                     parse_sharp();
                     
@@ -734,7 +741,11 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                         struct_class.mFields.push_back((name, type2));
                     }
                     
-                    expected_next_character(';') ;
+                    if(*info->p == ';') {
+                        info->p++;
+                        skip_spaces_and_lf();
+                    }
+                    //expected_next_character(';') ;
                     
                     parse_sharp();
                     
@@ -1064,7 +1075,11 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                 }
                 
                 struct_class.mFields.push_back((name, type2));
-                expected_next_character(';') ;
+                if(*info->p == ';') {
+                    info->p++;
+                    skip_spaces_and_lf();
+                }
+                //expected_next_character(';') ;
             }
             
             parse_sharp();
@@ -1107,18 +1122,20 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         int sline = info.sline;
         
         if(buf === "struct") {
-            string type_name = parse_word();
-            
-            if(parsecmp("extends")) {
-                parse_word();
-                parse_word();
-            }
-            
-            if(*info->p == '{') {
-                skip_block();
+            if(xisalpha(*info->p) || *info->p == '_') {
+                string type_name = parse_word();
                 
-                if(*info->p == ';') {
-                    define_struct = true;
+                if(parsecmp("extends")) {
+                    parse_word();
+                    parse_word();
+                }
+                
+                if(*info->p == '{') {
+                    skip_block();
+                    
+                    if(*info->p == ';') {
+                        define_struct = true;
+                    }
                 }
             }
         }

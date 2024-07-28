@@ -1041,6 +1041,7 @@ record sNode*% expression_node(sInfo* info=info) version 1
     skip_spaces_and_lf();
     parse_sharp();
     
+    info->no_output_err = false;
     err_msg(info, "invalid character(%c)(1)\n", *info->p);
     stackframe();
     exit(3);

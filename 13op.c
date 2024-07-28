@@ -234,10 +234,15 @@ class sAddNode extends sNodeBase
         }
         
         if(!calling_fun) {
+            sType*% result_type = clone left_value.type;
+            if(right_value.type->mPointerNum > 0) {
+                result_type = clone right_value.type;
+            }
+            
             CVALUE*% come_value = new CVALUE;
             
             come_value.c_value = xsprintf("%s+%s", left_value.c_value, right_value.c_value);
-            come_value.type = clone left_value.type;
+            come_value.type = clone result_type;
             come_value.type->mHeap = false;
             come_value.var = null;
             
@@ -299,10 +304,15 @@ class sSubNode extends sNodeBase
         }
         
         if(!calling_fun) {
+            sType*% result_type = clone left_value.type;
+            if(right_value.type->mPointerNum > 0) {
+                result_type = clone right_value.type;
+            }
+            
             CVALUE*% come_value = new CVALUE;
             
             come_value.c_value = xsprintf("%s-%s", left_value.c_value, right_value.c_value);
-            come_value.type = clone left_value.type;
+            come_value.type = clone result_type;
             come_value.type->mHeap = false;
             come_value.var = null;
             
