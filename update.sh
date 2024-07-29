@@ -4,6 +4,10 @@ export EDITOR=vin
 git config --global user.email ab25cq@icloud.com
 git config --global user.name ab25cq
 
+(cd tcc; make clean)
+(cd lcc; make clean)
+(cd 9cc; make clean)
+
 if [ -e Makefile ]
 then
     make distclean

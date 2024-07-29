@@ -2106,7 +2106,7 @@ sNode*% comma_exp(sInfo* info)
             info->p++;
             skip_spaces_and_lf();
 
-            sNode*% node2 = oror_exp(info);
+            sNode*% node2 = comma_exp(info);
             
             return new sCommaNode(node, node2, info) implements sNode;
         }

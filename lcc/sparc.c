@@ -4955,7 +4955,12 @@ static void defconst(int suffix, int size, Value v) {
                 print(".half 0x%x\n", (unsigned)((unsigned short)(suffix == I ? v.i : v.u)));
         else if (size == 4)
                 print(".word 0x%x\n", (unsigned)(suffix == I ? v.i : v.u));
-        else assert(0);
+        else {
+using c
+{
+            assert(0);
+}
+        }
 }
 
 static void defaddress(Symbol p) {
@@ -4973,7 +4978,9 @@ static void address(Symbol q, Symbol p, long n) {
         if (p->scope == GLOBAL || p->sclass == STATIC || p->sclass == EXTERN)
                 q->x.name = stringf("%s%s%D", p->x.name, n >= 0 ? "+" : "", n);
         else {
+                using c {
                 assert(n <= INT_MAX && n >= INT_MIN);
+                }
                 q->x.offset = p->x.offset + n;
                 q->x.name = stringd(q->x.offset);
         }
@@ -4985,9 +4992,12 @@ static void import(Symbol p) {}
 static void defsymbol(Symbol p) {
         if (p->scope >= LOCAL && p->sclass == STATIC)
                 p->x.name = stringf("%d", genlabel(1));
-        else
+        else {
+                using c {
                 assert(p->scope != CONSTANTS || isint(p->type) || isptr(p->type)),
                 p->x.name = p->name;
+                }
+        }
         if (p->scope >= LABELS)
                 p->x.name = stringf(p->generated ? "L%s" : "_%s",
                         p->x.name);
@@ -5007,7 +5017,9 @@ static void space(int n) {
 }
 static void global(Symbol p) {
         print(".align %d\n", p->type->align);
+        using c {
         assert(p->u.seg);
+        }
         if (p->u.seg == BSS
         && (p->sclass == STATIC || Aflag >= 2))
                 print(".reserve %s,%d\n", p->x.name, p->type->size);
@@ -5017,8 +5029,10 @@ static void global(Symbol p) {
                 print("%s:\n", p->x.name);
 }
 static void blkfetch(int k, int off, int reg, int tmp) {
+        using c {
         assert(k == 1 || k == 2 || k == 4);
         assert(salign >= k);
+        }
         if (k == 1)
                 print("ldub [%%r%d+%d],%%r%d\n", reg, off, tmp);
         else if (k == 2)
@@ -5027,8 +5041,10 @@ static void blkfetch(int k, int off, int reg, int tmp) {
                 print("ld [%%r%d+%d],%%r%d\n",   reg, off, tmp);
 }
 static void blkstore(int k, int off, int reg, int tmp) {
+        using c {
         assert(k == 1 || k == 2 || k == 4);
         assert(dalign >= k);
+        }
         if (k == 1)
                 print("stb %%r%d,[%%r%d+%d]\n", tmp, reg, off);
         else if (k == 2)
@@ -5055,9 +5071,12 @@ static void blkloop(int dreg, int doff, int sreg, int soff, int size, int tmps[]
 static void defsymbol2(Symbol p) {
         if (p->scope >= LOCAL && p->sclass == STATIC)
                 p->x.name = stringf(".%d", genlabel(1));
-        else
-                assert(p->scope != CONSTANTS || isint(p->type) || isptr(p->type)),
+        else {
+                using c {
+                    assert(p->scope != CONSTANTS || isint(p->type) || isptr(p->type)),
                 p->x.name = p->name;
+                }
+        }
         if (p->scope >= LABELS)
                 p->x.name = stringf(p->generated ? ".L%s" : "%s",
                         p->x.name);
@@ -5082,7 +5101,9 @@ static void progend2(void) {
 
 static void global2(Symbol p) {
         globalend();
+        using c {
         assert(p->u.seg);
+        }
         if (!p->generated) {
                 print(".type %s,#%s\n", p->x.name,
                         isfunc(p->type) ? "function" : "object");

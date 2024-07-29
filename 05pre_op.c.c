@@ -7486,7 +7486,7 @@ right_value333 = (void*)0;
                                                     if(node_244) { node_244 = come_decrement_ref_count2(node_244, ((struct sNode*)node_244)->finalize, ((struct sNode*)node_244)->_protocol_obj, 0, 0, 0, (void*)0); } 
                                                 }
                                                 else {
-                                                    if(_if_conditional371=gComeC&&info->in_fun_param,                                                    _if_conditional371) {
+                                                    if(_if_conditional371=gComeC&&!info->in_fun_param,                                                    _if_conditional371) {
                                                         no_comma_247=info->no_comma;
                                                         info->no_comma=(_Bool)0;
                                                         parse_sharp_v5(info);

@@ -1,4 +1,0 @@
-In file included from tcc.c:22:
-libtcc.c:1527:2: warning: #warning add arch specific rt_get_caller_pc() [-Wcpp]
- 1527 | #warning add arch specific rt_get_caller_pc()
-      |  ^~~~~~~

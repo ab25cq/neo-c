@@ -11647,7 +11647,7 @@ right_value710 = (void*)0;
         if(_if_conditional727=!info->no_comma&&*info->p==44,        _if_conditional727) {
             info->p++;
             skip_spaces_and_lf(info);
-            node2_375=(struct sNode*)come_increment_ref_count(((struct sNode*)(right_value703=oror_exp(info))));
+            node2_375=(struct sNode*)come_increment_ref_count(((struct sNode*)(right_value703=comma_exp(info))));
             if(right_value703) { right_value703 = come_decrement_ref_count2(right_value703, ((struct sNode*)right_value703)->finalize, ((struct sNode*)right_value703)->_protocol_obj, 1, 0, 0, __result_obj__); } 
             _inf_value42=(struct sNode*)come_calloc(1, sizeof(struct sNode), "13op.c", 2111, "struct sNode");
             _inf_obj_value42=come_increment_ref_count(((struct sCommaNode*)(right_value705=sCommaNode_initialize((struct sCommaNode*)come_increment_ref_count(((struct sCommaNode*)(right_value704=(struct sCommaNode*)come_calloc(1, sizeof(struct sCommaNode)*(1), "13op.c", 2111, "sCommaNode")))),(struct sNode*)come_increment_ref_count(node_374),(struct sNode*)come_increment_ref_count(node2_375),info))));
