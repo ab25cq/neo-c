@@ -305,8 +305,8 @@ class sSubNode extends sNodeBase
         
         if(!calling_fun) {
             sType*% result_type = clone left_value.type;
-            if(right_value.type->mPointerNum > 0) {
-                result_type = clone right_value.type;
+            if(left_value.type->mPointerNum > 0 && right_value.type->mPointerNum > 0) {
+                result_type = new sType("long");
             }
             
             CVALUE*% come_value = new CVALUE;

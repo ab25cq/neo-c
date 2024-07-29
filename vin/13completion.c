@@ -125,7 +125,7 @@ void ViWin*::completion(ViWin* self, Vi* nvi) version 13
     }
     p++;
     
-    int len = (line + self.cursorX - p);
+    int len = ((wchar_t*)(line + self.cursorX) - p);
 
     auto word = line.substring(self.cursorX-len, self.cursorX);
 
