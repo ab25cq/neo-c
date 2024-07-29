@@ -646,11 +646,11 @@ class sFunLoadNode extends sNodeBase
 
 class sArrayInitializer extends sNodeBase
 {
-    new(list<sNode*%>*% initializer, sInfo* info)
+    new(list<tuple2<sNode*%, sNode*%>*%>*% initializer, sInfo* info)
     {
         self.super();
        
-        list<sNode*%>*% self.initializer = clone initializer;
+        list<tuple2<sNode*%, sNode*%>*%>*% self.initializer = clone initializer;
     }
     
     string kind()
@@ -667,15 +667,31 @@ class sArrayInitializer extends sNodeBase
         int i = 0;
         sType*% element_type = null;
         foreach(it, initializer) {
-            if(!node_compile(it)) {
+            var index, value = it;
+            
+            CVALUE*% come_value = null;
+            if(index) {
+                if(!node_compile(index)) {
+                    return false;
+                }
+                come_value = get_value_from_stack(-1, info);
+                dec_stack_ptr(1, info);
+            }
+            
+            if(!node_compile(value)) {
                 return false;
             }
-            CVALUE*% come_value = get_value_from_stack(-1, info);
+            CVALUE*% come_value2 = get_value_from_stack(-1, info);
             dec_stack_ptr(1, info);
             
-            element_type = clone come_value.type;
+            element_type = clone come_value2.type;
             
-            buf.append_str(come_value.c_value);
+            if(come_value) {
+                buf.append_str(xsprintf("[%s] = %s", come_value.c_value, come_value2.c_value));
+            }
+            else {
+                buf.append_str(come_value2.c_value);
+            }
             
             i++;
             
@@ -703,14 +719,32 @@ sNode*% parse_array_initializer(sInfo* info=info)
 {
     expected_next_character('{');
     
-    list<sNode*%>*% initializer = new list<sNode*%>();
+    list<tuple2<sNode*%,sNode*%>*%>*% initializer = new list<tuple2<sNode*%,sNode*%>*%>();
     
-    bool no_comma = info->no_comma;
-    info->no_comma = true;
-    sNode*% exp = expression();
-    info->no_comma = no_comma;
-    
-    initializer.add(exp);
+    if(*info->p == '[') {
+        info->p++;
+        skip_spaces_and_lf();
+        
+        sNode*% index = expression();
+        
+        expected_next_character(']');
+        expected_next_character('=');
+        
+        bool no_comma = info->no_comma;
+        info->no_comma = true;
+        sNode*% exp = expression();
+        info->no_comma = no_comma;
+        
+        initializer.add((index, exp));
+    }
+    else {
+        bool no_comma = info->no_comma;
+        info->no_comma = true;
+        sNode*% exp = expression();
+        info->no_comma = no_comma;
+        
+        initializer.add((null, exp));
+    }
     
     while(*info->p == ',') {
         info->p++;
@@ -722,12 +756,30 @@ sNode*% parse_array_initializer(sInfo* info=info)
             break;
         }
         
-        bool no_comma = info->no_comma;
-        info->no_comma = true;
-        sNode*% exp = expression();
-        info->no_comma = no_comma;
-        
-        initializer.add(exp);
+        if(*info->p == '[') {
+            info->p++;
+            skip_spaces_and_lf();
+            
+            sNode*% index = expression();
+            
+            expected_next_character(']');
+            expected_next_character('=');
+            
+            bool no_comma = info->no_comma;
+            info->no_comma = true;
+            sNode*% exp = expression();
+            info->no_comma = no_comma;
+            
+            initializer.add((index, exp));
+        }
+        else {
+            bool no_comma = info->no_comma;
+            info->no_comma = true;
+            sNode*% exp = expression();
+            info->no_comma = no_comma;
+            
+            initializer.add((null,exp));
+        }
     }
     
     expected_next_character('}');

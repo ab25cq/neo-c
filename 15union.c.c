@@ -654,7 +654,6 @@ struct sUnionNode
     _Bool mOutput;
 };
 
-// uniq global variable
 // header function
 void come_heap_init(int come_malloc, int come_debug, int come_gc);
 
@@ -1930,6 +1929,9 @@ struct sNode* top_level_v97(char* buf, char* head, int head_sline, struct sInfo*
 static void sUnionNode_finalize(struct sUnionNode* self);
 static struct sUnionNode* sUnionNode_clone(struct sUnionNode* self);
 struct sNode* string_node_v15(char* buf, char* head, int head_sline, struct sInfo* info);
+
+// uniq global variable
+// source head3
 
 // inline function
 static inline _Bool die(char* msg){

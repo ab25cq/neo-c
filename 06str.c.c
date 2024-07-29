@@ -706,7 +706,6 @@ struct sMapNode
     struct list$1sNodeph* map_elements;
 };
 
-// uniq global variable
 // header function
 void come_heap_init(int come_malloc, int come_debug, int come_gc);
 
@@ -2033,6 +2032,9 @@ struct sNode* parse_tuple(struct sInfo* info);
 
 static void sTupleNode_finalize(struct sTupleNode* self);
 static struct sTupleNode* sTupleNode_clone(struct sTupleNode* self);
+// uniq global variable
+// source head3
+
 // inline function
 static inline _Bool die(char* msg){
 void* __result_obj__;

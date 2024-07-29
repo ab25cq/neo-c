@@ -749,7 +749,6 @@ struct sExpEqualNode
     struct sNode* mRight;
 };
 
-// uniq global variable
 // header function
 void come_heap_init(int come_malloc, int come_debug, int come_gc);
 
@@ -2085,6 +2084,9 @@ static void sOrEqualNode_finalize(struct sOrEqualNode* self);
 static struct sOrEqualNode* sOrEqualNode_clone(struct sOrEqualNode* self);
 static void sExpEqualNode_finalize(struct sExpEqualNode* self);
 static struct sExpEqualNode* sExpEqualNode_clone(struct sExpEqualNode* self);
+// uniq global variable
+// source head3
+
 // inline function
 static inline _Bool die(char* msg){
 void* __result_obj__;

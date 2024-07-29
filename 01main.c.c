@@ -674,8 +674,6 @@ struct lconv
     char int_n_sign_posn;
 };
 
-// uniq global variable
-
 // header function
 void come_heap_init(int come_malloc, int come_debug, int come_gc);
 
@@ -1892,6 +1890,10 @@ struct __locale_struct* uselocale(struct __locale_struct* anonymous_var_nameX524
 int come_main_v1(int argc, char** argv);
 
 int main(int argc, char** argv);
+
+// uniq global variable
+
+// source head3
 
 // inline function
 static inline _Bool die(char* msg){

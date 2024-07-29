@@ -686,7 +686,6 @@ struct sAndStatmentNode
     struct sBlock* mIfBlock;
 };
 
-// uniq global variable
 // header function
 void come_heap_init(int come_malloc, int come_debug, int come_gc);
 
@@ -1969,6 +1968,9 @@ struct sNode* parse_and_statment(struct sNode* expression_node, struct sInfo* in
 
 static void sAndStatmentNode_finalize(struct sAndStatmentNode* self);
 static struct sAndStatmentNode* sAndStatmentNode_clone(struct sAndStatmentNode* self);
+// uniq global variable
+// source head3
+
 // inline function
 static inline _Bool die(char* msg){
 void* __result_obj__;

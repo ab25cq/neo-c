@@ -647,7 +647,6 @@ struct tuple2$2sFunpcharph
     char* v2;
 };
 
-// uniq global variable
 // header function
 void come_heap_init(int come_malloc, int come_debug, int come_gc);
 
@@ -1924,6 +1923,9 @@ int sNodeBase_sline(struct sNodeBase* self, struct sInfo* info);
 _Bool sNodeBase_terminated(struct sNodeBase* self);
 
 char* sNodeBase_sname(struct sNodeBase* self, struct sInfo* info);
+
+// uniq global variable
+// source head3
 
 // inline function
 static inline _Bool die(char* msg){

@@ -654,7 +654,6 @@ struct sModuleNode
     struct sClassModule* module;
 };
 
-// uniq global variable
 // header function
 void come_heap_init(int come_malloc, int come_debug, int come_gc);
 
@@ -1889,6 +1888,9 @@ static char* list$1charp_next(struct list$1charp* self);
 static struct list$1charp* list$1charp_push_back(struct list$1charp* self, char* item);
 static void sModuleNode_finalize(struct sModuleNode* self);
 static struct sModuleNode* sModuleNode_clone(struct sModuleNode* self);
+// uniq global variable
+// source head3
+
 // inline function
 static inline _Bool die(char* msg){
 void* __result_obj__;

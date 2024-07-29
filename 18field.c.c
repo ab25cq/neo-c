@@ -709,7 +709,6 @@ struct sLoadRangeArrayNode
     _Bool mQuote;
 };
 
-// uniq global variable
 // header function
 void come_heap_init(int come_malloc, int come_debug, int come_gc);
 
@@ -2039,6 +2038,9 @@ static void sStoreFieldNode_finalize(struct sStoreFieldNode* self);
 static struct sStoreFieldNode* sStoreFieldNode_clone(struct sStoreFieldNode* self);
 static void sLoadFieldNode_finalize(struct sLoadFieldNode* self);
 static struct sLoadFieldNode* sLoadFieldNode_clone(struct sLoadFieldNode* self);
+// uniq global variable
+// source head3
+
 // inline function
 static inline _Bool die(char* msg){
 void* __result_obj__;

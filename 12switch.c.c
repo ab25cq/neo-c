@@ -687,7 +687,6 @@ struct sContinueNode
     char* sname;
 };
 
-// uniq global variable
 // header function
 void come_heap_init(int come_malloc, int come_debug, int come_gc);
 
@@ -1994,6 +1993,9 @@ static void sGotoNode_finalize(struct sGotoNode* self);
 static struct sGotoNode* sGotoNode_clone(struct sGotoNode* self);
 static void sSwitchNode_finalize(struct sSwitchNode* self);
 static struct sSwitchNode* sSwitchNode_clone(struct sSwitchNode* self);
+// uniq global variable
+// source head3
+
 // inline function
 static inline _Bool die(char* msg){
 void* __result_obj__;

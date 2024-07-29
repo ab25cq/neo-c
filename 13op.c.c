@@ -832,7 +832,6 @@ struct sConditionalNode
     struct sNode* mValue3;
 };
 
-// uniq global variable
 // header function
 void come_heap_init(int come_malloc, int come_debug, int come_gc);
 
@@ -2288,6 +2287,9 @@ static void sNullNode_finalize(struct sNullNode* self);
 static struct sNullNode* sNullNode_clone(struct sNullNode* self);
 static void sNilNode_finalize(struct sNilNode* self);
 static struct sNilNode* sNilNode_clone(struct sNilNode* self);
+// uniq global variable
+// source head3
+
 // inline function
 static inline _Bool die(char* msg){
 void* __result_obj__;

@@ -656,7 +656,6 @@ struct sForNode
     struct sBlock* mBlock;
 };
 
-// uniq global variable
 // header function
 void come_heap_init(int come_malloc, int come_debug, int come_gc);
 
@@ -1909,6 +1908,9 @@ struct sNode* string_node_v11(char* buf, char* head, int head_sline, struct sInf
 
 static void sForNode_finalize(struct sForNode* self);
 static struct sForNode* sForNode_clone(struct sForNode* self);
+// uniq global variable
+// source head3
+
 // inline function
 static inline _Bool die(char* msg){
 void* __result_obj__;

@@ -724,7 +724,6 @@ struct sVarArgTypeName
     struct sType* type;
 };
 
-// uniq global variable
 // header function
 void come_heap_init(int come_malloc, int come_debug, int come_gc);
 
@@ -2091,6 +2090,9 @@ struct sNode* post_position_operator(struct sNode* node, struct sInfo* info);
 
 static void sLambdaCall_finalize(struct sLambdaCall* self);
 static struct sLambdaCall* sLambdaCall_clone(struct sLambdaCall* self);
+// uniq global variable
+// source head3
+
 // inline function
 static inline _Bool die(char* msg){
 void* __result_obj__;

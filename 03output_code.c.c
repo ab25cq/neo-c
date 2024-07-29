@@ -647,7 +647,6 @@ struct tuple2$2sFunpcharph
     char* v2;
 };
 
-// uniq global variable
 // header function
 void come_heap_init(int come_malloc, int come_debug, int come_gc);
 
@@ -1911,6 +1910,9 @@ struct CVALUE* get_value_from_stack(int offset, struct sInfo* info);
 static struct CVALUE* list$1CVALUEphp_operator_load_element(struct list$1CVALUEph* self, int position);
 static struct CVALUE* CVALUE_clone(struct CVALUE* self);
 void transpiler_clear_last_code(struct sInfo* info);
+
+// uniq global variable
+// source head3
 
 // inline function
 static inline _Bool die(char* msg){
@@ -3237,7 +3239,7 @@ right_value87 = (void*)0;
         right_value83 = come_decrement_ref_count2(right_value83, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
         come_call_finalizer3(come_value_49,CVALUE_finalize, 0, 0, 0, 0, (void*)0);
     }
-    if(_if_conditional40=type->mStatic&&!type->mClass->mStruct&&!type->mClass->mUnion,    _if_conditional40) {
+    if(type->mStatic) {
         buffer_append_str(buf_47,"static ");
     }
     if(type->mConstant) {

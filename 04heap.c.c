@@ -646,9 +646,7 @@ struct tuple2$2sFunpcharph
     struct sFun* v1;
     char* v2;
 };
-int gRightValueNum=0;
 
-// uniq global variable
 // header function
 void come_heap_init(int come_malloc, int come_debug, int come_gc);
 
@@ -1923,6 +1921,10 @@ void free_objects_on_return(struct sBlock* current_block, struct sInfo* info, st
 void free_objects_on_break(struct sInfo* info);
 
 char* append_stackframe(char* c_value, struct sType* type, struct sInfo* info);
+
+// uniq global variable
+// source head3
+int gRightValueNum=0;
 
 // inline function
 static inline _Bool die(char* msg){

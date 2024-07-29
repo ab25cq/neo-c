@@ -692,7 +692,6 @@ struct tuple3$3sTypephcharphvoidp
     void* v3;
 };
 
-// uniq global variable
 // header function
 void come_heap_init(int come_malloc, int come_debug, int come_gc);
 
@@ -1956,6 +1955,9 @@ static void sExternalGlobalVariable_finalize(struct sExternalGlobalVariable* sel
 static struct sExternalGlobalVariable* sExternalGlobalVariable_clone(struct sExternalGlobalVariable* self);
 static void sGlobalVariable_finalize(struct sGlobalVariable* self);
 static struct sGlobalVariable* sGlobalVariable_clone(struct sGlobalVariable* self);
+// uniq global variable
+// source head3
+
 // inline function
 static inline _Bool die(char* msg){
 void* __result_obj__;
@@ -3365,7 +3367,7 @@ right_value152 = (void*)0;
                 if(type_97->mUniq) {
                     add_come_code_at_source_head(info,"extern %s;\n",((char*)(right_value135=make_define_var(type_97,name_98,(_Bool)0,info))));
                     right_value135 = come_decrement_ref_count2(right_value135, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
-                    add_come_code_at_source_head2(info,"%s;\n",((char*)(right_value136=make_define_var(type_97,name_98,(_Bool)0,info))));
+                    add_come_code_at_source_head3(info,"%s;\n",((char*)(right_value136=make_define_var(type_97,name_98,(_Bool)0,info))));
                     right_value136 = come_decrement_ref_count2(right_value136, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                 }
                 else {
@@ -3374,7 +3376,7 @@ right_value152 = (void*)0;
                         right_value137 = come_decrement_ref_count2(right_value137, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                     }
                     else {
-                        add_come_code_at_source_head(info,"%s;\n",((char*)(right_value138=make_define_var(type_97,name_98,(_Bool)0,info))));
+                        add_come_code_at_source_head3(info,"%s;\n",((char*)(right_value138=make_define_var(type_97,name_98,(_Bool)0,info))));
                         right_value138 = come_decrement_ref_count2(right_value138, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                     }
                 }
@@ -3449,7 +3451,7 @@ right_value152 = (void*)0;
                         right_value151 = come_decrement_ref_count2(right_value151, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                     }
                     else {
-                        add_come_code_at_source_head(info,"%s;\n",((char*)(right_value152=make_define_var(type_87,name_88,(_Bool)0,info))));
+                        add_come_code_at_source_head3(info,"%s;\n",((char*)(right_value152=make_define_var(type_87,name_88,(_Bool)0,info))));
                         right_value152 = come_decrement_ref_count2(right_value152, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                     }
                 }

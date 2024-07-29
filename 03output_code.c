@@ -18,7 +18,7 @@ string make_type_name_string(sType* type, bool in_header=false, bool array_cast_
         buf.append_str(xsprintf("_Alignas(%s) ", come_value.c_value));
     }
     
-    if(type->mStatic && !type->mClass->mStruct && !type->mClass->mUnion) {
+    if(type->mStatic) {// && !type->mClass->mStruct && !type->mClass->mUnion) {
         buf.append_str("static ");
     }
     

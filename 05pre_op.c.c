@@ -715,7 +715,6 @@ struct sCastNode
     struct sNode* mLeft;
 };
 
-// uniq global variable
 // header function
 void come_heap_init(int come_malloc, int come_debug, int come_gc);
 
@@ -2070,6 +2069,9 @@ static struct sCastNode* sCastNode_clone(struct sCastNode* self);
 static void sParenNode_finalize(struct sParenNode* self);
 static struct sParenNode* sParenNode_clone(struct sParenNode* self);
 struct sNode* expression_node_v98(struct sInfo* info);
+
+// uniq global variable
+// source head3
 
 // inline function
 static inline _Bool die(char* msg){

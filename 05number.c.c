@@ -683,7 +683,6 @@ struct sDoubleNode
     char* value;
 };
 
-// uniq global variable
 // header function
 void come_heap_init(int come_malloc, int come_debug, int come_gc);
 
@@ -1946,6 +1945,9 @@ static struct sLongNode* sLongNode_clone(struct sLongNode* self);
 static void sIntNode_finalize(struct sIntNode* self);
 static struct sIntNode* sIntNode_clone(struct sIntNode* self);
 struct sNode* expression_node_v99(struct sInfo* info);
+
+// uniq global variable
+// source head3
 
 // inline function
 static inline _Bool die(char* msg){

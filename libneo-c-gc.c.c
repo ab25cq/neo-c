@@ -738,12 +738,6 @@ typedef int (*GC_has_static_roots_func)(const char*,void*,unsigned long int);
 char* gComeStackFrameSName[16];
 int gComeStackFrameSLine[16];
 int gComeStackFrameID[1024];
-int gNumComeStackFrame=0;
-char* gComeStackFrameBuffer=((void*)0);
-void* gComeResultObject=((void*)0);
-static _Bool gComeMallocLib=(_Bool)0;
-static _Bool gComeDebugLib=(_Bool)0;
-_Bool gComeGCLib=(_Bool)0;
 struct sMemHeaderTiny
 {
     unsigned long int size;
@@ -767,7 +761,6 @@ struct sMemHeader
 };
 struct sMemHeader* gAllocMem;
 
-// uniq global variable
 // header function
 struct _IO_FILE* fopen(const char* anonymous_var_nameX1, const char* anonymous_var_nameX2);
 
@@ -2322,6 +2315,15 @@ struct integer* integer_operator_or(struct integer* left, struct integer* right)
 struct integer* integer_operator_andand(struct integer* left, struct integer* right);
 
 struct integer* integer_operator_oror(struct integer* left, struct integer* right);
+
+// uniq global variable
+// source head3
+int gNumComeStackFrame=0;
+char* gComeStackFrameBuffer=((void*)0);
+void* gComeResultObject=((void*)0);
+static _Bool gComeMallocLib=(_Bool)0;
+static _Bool gComeDebugLib=(_Bool)0;
+_Bool gComeGCLib=(_Bool)0;
 
 // inline function
 static inline _Bool die(char* msg){

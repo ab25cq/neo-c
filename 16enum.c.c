@@ -679,7 +679,6 @@ struct tuple2$2charphvoidp
     void* v2;
 };
 
-// uniq global variable
 // header function
 void come_heap_init(int come_malloc, int come_debug, int come_gc);
 
@@ -1963,6 +1962,9 @@ struct sNode* top_level_v96(char* buf, char* head, int head_sline, struct sInfo*
 
 static void sEnumNode_finalize(struct sEnumNode* self);
 static struct sEnumNode* sEnumNode_clone(struct sEnumNode* self);
+// uniq global variable
+// source head3
+
 // inline function
 static inline _Bool die(char* msg){
 void* __result_obj__;

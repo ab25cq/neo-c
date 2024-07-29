@@ -674,7 +674,6 @@ struct sTypedefNullNode
     char* sname;
 };
 
-// uniq global variable
 // header function
 void come_heap_init(int come_malloc, int come_debug, int come_gc);
 
@@ -1964,6 +1963,9 @@ struct sNode* string_node_v17(char* buf, char* head, int head_sline, struct sInf
 
 static void sTypedefNullNode_finalize(struct sTypedefNullNode* self);
 static struct sTypedefNullNode* sTypedefNullNode_clone(struct sTypedefNullNode* self);
+// uniq global variable
+// source head3
+
 // inline function
 static inline _Bool die(char* msg){
 void* __result_obj__;

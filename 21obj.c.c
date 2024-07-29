@@ -813,7 +813,6 @@ struct sIsPointer
     struct sType* type;
 };
 
-// uniq global variable
 // header function
 void come_heap_init(int come_malloc, int come_debug, int come_gc);
 
@@ -2285,6 +2284,9 @@ struct sNode* post_position_operator_v21(struct sNode* node, struct sInfo* info)
 
 static void sImplementsNode_finalize(struct sImplementsNode* self);
 static struct sImplementsNode* sImplementsNode_clone(struct sImplementsNode* self);
+// uniq global variable
+// source head3
+
 // inline function
 static inline _Bool die(char* msg){
 void* __result_obj__;

@@ -689,7 +689,6 @@ struct list$1sClassp
     struct list_item$1sClassp* it;
 };
 
-// uniq global variable
 // header function
 void come_heap_init(int come_malloc, int come_debug, int come_gc);
 
@@ -2041,6 +2040,9 @@ static char* map$2charphcharph_at(struct map$2charphcharph* self, char* key, cha
 static void sClassNode_finalize(struct sClassNode* self);
 static struct sClassNode* sClassNode_clone(struct sClassNode* self);
 struct sNode* string_node_v14(char* buf, char* head, int head_sline, struct sInfo* info);
+
+// uniq global variable
+// source head3
 
 // inline function
 static inline _Bool die(char* msg){

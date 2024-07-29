@@ -430,7 +430,6 @@ extern void (*GC_is_valid_displacement_print_proc)(void*);
 extern void (*GC_is_visible_print_proc)(void*);
 typedef int (*GC_has_static_roots_func)(const char*,void*,unsigned long int);
 
-// uniq global variable
 // header function
 void come_heap_init(int come_malloc, int come_debug, int come_gc);
 
@@ -2132,6 +2131,9 @@ _Bool wchar_t_equals(unsigned int left, unsigned int right);
 char* wchar_t_to_string(unsigned int wc);
 
 char* string_chomp(char* str);
+
+// uniq global variable
+// source head3
 
 // inline function
 static inline _Bool die(char* msg){

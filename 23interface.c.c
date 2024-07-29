@@ -655,7 +655,6 @@ struct sInterfaceNode
     _Bool mOutput;
 };
 
-// uniq global variable
 // header function
 void come_heap_init(int come_malloc, int come_debug, int come_gc);
 
@@ -1938,6 +1937,9 @@ static struct list$1sTypeph* list$1sTypeph_initialize_with_values(struct list$1s
 static struct list$1charph* list$1charph_initialize_with_values(struct list$1charph* self, int num_value, char** values);
 static void sInterfaceNode_finalize(struct sInterfaceNode* self);
 static struct sInterfaceNode* sInterfaceNode_clone(struct sInterfaceNode* self);
+// uniq global variable
+// source head3
+
 // inline function
 static inline _Bool die(char* msg){
 void* __result_obj__;

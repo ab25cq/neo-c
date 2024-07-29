@@ -654,7 +654,6 @@ struct sDoWhileNode
     struct sBlock* mBlock;
 };
 
-// uniq global variable
 // header function
 void come_heap_init(int come_malloc, int come_debug, int come_gc);
 
@@ -1907,6 +1906,9 @@ struct sNode* string_node_v10(char* buf, char* head, int head_sline, struct sInf
 
 static void sDoWhileNode_finalize(struct sDoWhileNode* self);
 static struct sDoWhileNode* sDoWhileNode_clone(struct sDoWhileNode* self);
+// uniq global variable
+// source head3
+
 // inline function
 static inline _Bool die(char* msg){
 void* __result_obj__;
