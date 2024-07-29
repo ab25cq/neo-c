@@ -408,6 +408,7 @@ struct sModule
 {
     struct buffer* mSourceHead;
     struct buffer* mSourceHead2;
+    struct buffer* mSourceHead3;
     struct buffer* mSource;
     char* mLastCode;
     char* mLastCode2;
@@ -620,6 +621,7 @@ struct sInfo
     struct sClass* defining_class;
     _Bool array_initializer;
     _Bool va_arg;
+    _Bool in_fun_param;
 };
 struct tuple2$2sTypephcharph
 {
@@ -1571,6 +1573,8 @@ void add_come_code_at_come_header(struct sInfo* info, const char* msg, ...);
 void add_come_code_at_function_head2(struct sInfo* info, char* code, ...);
 
 void add_come_code_at_source_head(struct sInfo* info, const char* msg, ...);
+
+void add_come_code_at_source_head3(struct sInfo* info, const char* msg, ...);
 
 void add_come_code_at_source_head2(struct sInfo* info, const char* msg, ...);
 
@@ -4966,7 +4970,6 @@ _Bool _if_conditional235;
 void* right_value154;
 void* right_value155;
 struct sType* type_166;
-int __exception_result_var_b1;
 _Bool _while_condtional30;
 void* right_value156;
 struct tuple3$3sTypephcharphbool* multiple_assign_var2;
@@ -4974,7 +4977,6 @@ struct sType* type2_167;
 char* name_168;
 _Bool err_169;
 _Bool _if_conditional238;
-int __exception_result_var_b2;
 _Bool _if_conditional239;
 void* right_value160;
 void* right_value161;
@@ -5026,7 +5028,7 @@ right_value167 = (void*)0;
     type_166=(struct sType*)come_increment_ref_count(((struct sType*)(right_value155=sType_initialize((struct sType*)come_increment_ref_count(((struct sType*)(right_value154=(struct sType*)come_calloc(1, sizeof(struct sType)*(1), "15union.c", 78, "sType")))),type_name,(_Bool)0,info))));
     come_call_finalizer3(right_value154,sType_finalize, 0, 1, 0, 0, __result_obj__);
     come_call_finalizer3(right_value155,sType_finalize, 0, 1, 0, 0, __result_obj__);
-    (come_push_stackframe("15union.c", 80, 0),__exception_result_var_b1=expected_next_character(123,info), come_pop_stackframe(), __exception_result_var_b1);
+    expected_next_character(123,info);
     while(_while_condtional30=(_Bool)1,    _while_condtional30) {
         multiple_assign_var2=((struct tuple3$3sTypephcharphbool*)(right_value156=parse_type(info,(_Bool)1,(_Bool)1,(_Bool)0)));
         type2_167=(struct sType*)come_increment_ref_count(multiple_assign_var2->v1);
@@ -5037,7 +5039,7 @@ right_value167 = (void*)0;
             printf("%s %d: parse_type failed\n",info->sname,info->sline);
             exit(2);
         }
-        (come_push_stackframe("15union.c", 91, 1),__exception_result_var_b2=expected_next_character(59,info), come_pop_stackframe(), __exception_result_var_b2);
+        expected_next_character(59,info);
         if(output_135) {
             list$1tuple2$2charphsTypephph_push_back(type_166->mClass->mFields,(struct tuple2$2charphsTypeph*)come_increment_ref_count(((struct tuple2$2charphsTypeph*)(right_value161=tuple2$2charphsTypeph_initialize((struct tuple2$2charphsTypeph*)come_increment_ref_count(((struct tuple2$2charphsTypeph*)(right_value160=(struct tuple2$2charphsTypeph*)come_calloc(1, sizeof(struct tuple2$2charphsTypeph)*(1), "15union.c", 94, "struct tuple2$2charphsTypeph")))),(char*)come_increment_ref_count(name_168),(struct sType*)come_increment_ref_count(type2_167))))));
             come_call_finalizer3(right_value160,tuple2$2charphsTypeph_finalize, 0, 1, 0, 0, __result_obj__);
@@ -5809,7 +5811,6 @@ _Bool _if_conditional252;
 void* right_value172;
 void* right_value173;
 struct sType* type_177;
-int __exception_result_var_b3;
 _Bool _while_condtional31;
 void* right_value174;
 struct tuple3$3sTypephcharphbool* multiple_assign_var3;
@@ -5817,7 +5818,6 @@ struct sType* type2_178;
 char* name_179;
 _Bool err_180;
 _Bool _if_conditional253;
-int __exception_result_var_b4;
 _Bool _if_conditional254;
 void* right_value175;
 void* right_value176;
@@ -5875,7 +5875,7 @@ right_value186 = (void*)0;
         type_177=(struct sType*)come_increment_ref_count(((struct sType*)(right_value173=sType_initialize((struct sType*)come_increment_ref_count(((struct sType*)(right_value172=(struct sType*)come_calloc(1, sizeof(struct sType)*(1), "15union.c", 123, "sType")))),type_name_175,(_Bool)0,info))));
         come_call_finalizer3(right_value172,sType_finalize, 0, 1, 0, 0, __result_obj__);
         come_call_finalizer3(right_value173,sType_finalize, 0, 1, 0, 0, __result_obj__);
-        (come_push_stackframe("15union.c", 125, 2),__exception_result_var_b3=expected_next_character(123,info), come_pop_stackframe(), __exception_result_var_b3);
+        expected_next_character(123,info);
         while(_while_condtional31=(_Bool)1,        _while_condtional31) {
             multiple_assign_var3=((struct tuple3$3sTypephcharphbool*)(right_value174=parse_type(info,(_Bool)1,(_Bool)1,(_Bool)0)));
             type2_178=(struct sType*)come_increment_ref_count(multiple_assign_var3->v1);
@@ -5886,7 +5886,7 @@ right_value186 = (void*)0;
                 printf("%s %d: parse_type failed\n",info->sname,info->sline);
                 exit(2);
             }
-            (come_push_stackframe("15union.c", 135, 3),__exception_result_var_b4=expected_next_character(59,info), come_pop_stackframe(), __exception_result_var_b4);
+            expected_next_character(59,info);
             if(output_176) {
                 list$1tuple2$2charphsTypephph_push_back(type_177->mClass->mFields,(struct tuple2$2charphsTypeph*)come_increment_ref_count(((struct tuple2$2charphsTypeph*)(right_value176=tuple2$2charphsTypeph_initialize((struct tuple2$2charphsTypeph*)come_increment_ref_count(((struct tuple2$2charphsTypeph*)(right_value175=(struct tuple2$2charphsTypeph*)come_calloc(1, sizeof(struct tuple2$2charphsTypeph)*(1), "15union.c", 138, "struct tuple2$2charphsTypeph")))),(char*)come_increment_ref_count(name_179),(struct sType*)come_increment_ref_count(type2_178))))));
                 come_call_finalizer3(right_value175,tuple2$2charphsTypeph_finalize, 0, 1, 0, 0, __result_obj__);

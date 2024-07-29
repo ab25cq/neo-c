@@ -745,6 +745,23 @@ void add_come_code_at_source_head2(sInfo* info, const char* msg, ...)
     
     free(msg2);
 }
+    
+void add_come_code_at_source_head3(sInfo* info, const char* msg, ...)
+{
+    if(info->no_output_come_code) {
+        return;
+    }
+    char* msg2;
+
+    va_list args;
+    va_start(args, msg);
+    int len = vasprintf(&msg2, msg, args);
+    va_end(args);
+    
+    info.module.mSourceHead3.append_str(xsprintf("%s", msg2));
+    
+    free(msg2);
+}
 
 void add_come_code_at_come_header(sInfo* info, const char* msg, ...)
 {
@@ -807,11 +824,6 @@ bool output_source_file(sInfo* info) version 3
     fprintf(f, "// source head\n");
     fprintf(f, "%s\n", info.module.mSourceHead.to_string());
     
-    fprintf(f, "// uniq global variable\n");
-    if(main_module) {
-        fprintf(f, "%s\n", info.module.mSourceHead2.to_string());
-    }
-    
     fprintf(f, "// header function\n");
     foreach(it, info.funcs) {
         sFun* it2 = info.funcs[string(it)]??;
@@ -832,6 +844,13 @@ bool output_source_file(sInfo* info) version 3
             fprintf(f, "%s\n", header, it);
         }
     }
+    
+    fprintf(f, "// uniq global variable\n");
+    if(main_module) {
+        fprintf(f, "%s\n", info.module.mSourceHead2.to_string());
+    }
+    fprintf(f, "// source head3\n");
+    fprintf(f, "%s\n", info.module.mSourceHead3.to_string());
     
     fprintf(f, "// inline function\n");
     foreach(it, info.funcs) {
@@ -1042,7 +1061,7 @@ void dec_stack_ptr(int value, sInfo* info)
     info.stack.delete(-value, -1);
 }
 
-record CVALUE*% get_value_from_stack(int offset, sInfo* info)
+CVALUE*% get_value_from_stack(int offset, sInfo* info)
 {
     info.module.mLastCode = null;
 //    info.module.mLastCode2 = null;

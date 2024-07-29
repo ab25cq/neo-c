@@ -408,6 +408,7 @@ struct sModule
 {
     struct buffer* mSourceHead;
     struct buffer* mSourceHead2;
+    struct buffer* mSourceHead3;
     struct buffer* mSource;
     char* mLastCode;
     char* mLastCode2;
@@ -620,6 +621,7 @@ struct sInfo
     struct sClass* defining_class;
     _Bool array_initializer;
     _Bool va_arg;
+    _Bool in_fun_param;
 };
 struct tuple2$2sTypephcharph
 {
@@ -1571,6 +1573,8 @@ void add_come_code_at_come_header(struct sInfo* info, const char* msg, ...);
 void add_come_code_at_function_head2(struct sInfo* info, char* code, ...);
 
 void add_come_code_at_source_head(struct sInfo* info, const char* msg, ...);
+
+void add_come_code_at_source_head3(struct sInfo* info, const char* msg, ...);
 
 void add_come_code_at_source_head2(struct sInfo* info, const char* msg, ...);
 
@@ -3199,10 +3203,8 @@ _Bool _if_conditional123;
 _Bool _if_conditional124;
 _Bool _if_conditional125;
 void* right_value110;
-struct CVALUE* __exception_result_var_b1;
 struct CVALUE* conditional_value_122;
 void* right_value111;
-struct CVALUE* __exception_result_var_b2;
 struct CVALUE* conditional_value_123;
 int num_while_conditional_stack_125;
 _Bool __result94__;
@@ -3234,14 +3236,14 @@ memset(&num_while_conditional_stack_125, 0, sizeof(int));
         normal_if_121=(_Bool)0;
     }
     if(normal_if_121) {
-        conditional_value_122=(struct CVALUE*)come_increment_ref_count((come_push_stackframe("09while.c", 48, 0),__exception_result_var_b1=((struct CVALUE*)(right_value110=get_value_from_stack(-1,info))), come_pop_stackframe(), __exception_result_var_b1));
+        conditional_value_122=(struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(right_value110=get_value_from_stack(-1,info))));
         come_call_finalizer3(right_value110,CVALUE_finalize, 0, 1, 0, 0, __result_obj__);
         dec_stack_ptr(1,info);
         add_come_code(info,"while(%s) {\n",conditional_value_122->c_value);
         come_call_finalizer3(conditional_value_122,CVALUE_finalize, 0, 0, 0, 0, (void*)0);
     }
     else {
-        conditional_value_123=(struct CVALUE*)come_increment_ref_count((come_push_stackframe("09while.c", 53, 1),__exception_result_var_b2=((struct CVALUE*)(right_value111=get_value_from_stack(-1,info))), come_pop_stackframe(), __exception_result_var_b2));
+        conditional_value_123=(struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(right_value111=get_value_from_stack(-1,info))));
         come_call_finalizer3(right_value111,CVALUE_finalize, 0, 1, 0, 0, __result_obj__);
         dec_stack_ptr(1,info);
         static int num_while_condtional_124=0;
@@ -4521,10 +4523,8 @@ _Bool _if_conditional128;
 void* right_value112;
 char* sname_126;
 int sline_127;
-int __exception_result_var_b3;
 void* right_value113;
 struct sNode* expression_node_128;
-int __exception_result_var_b4;
 void* right_value114;
 struct sBlock* block_129;
 void* right_value115;
@@ -4551,10 +4551,10 @@ right_value122 = (void*)0;
         sname_126=(char*)come_increment_ref_count(((char*)(right_value112=string_clone(info->sname))));
         right_value112 = come_decrement_ref_count2(right_value112, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
         sline_127=info->sline;
-        (come_push_stackframe("09while.c", 84, 2),__exception_result_var_b3=expected_next_character(40,info), come_pop_stackframe(), __exception_result_var_b3);
+        expected_next_character(40,info);
         expression_node_128=(struct sNode*)come_increment_ref_count(((struct sNode*)(right_value113=expression_v13(info))));
         if(right_value113) { right_value113 = come_decrement_ref_count2(right_value113, ((struct sNode*)right_value113)->finalize, ((struct sNode*)right_value113)->_protocol_obj, 1, 0, 0, __result_obj__); } 
-        (come_push_stackframe("09while.c", 89, 3),__exception_result_var_b4=expected_next_character(41,info), come_pop_stackframe(), __exception_result_var_b4);
+        expected_next_character(41,info);
         block_129=(struct sBlock*)come_increment_ref_count(((struct sBlock*)(right_value114=parse_block(info,(_Bool)0,(_Bool)0))));
         come_call_finalizer3(right_value114,sBlock_finalize, 0, 1, 0, 0, __result_obj__);
         _inf_value1=(struct sNode*)come_calloc(1, sizeof(struct sNode), "09while.c", 93, "struct sNode");

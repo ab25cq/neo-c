@@ -528,13 +528,13 @@ Tree cond(Tree p) {
 	p = pointer(p);
 	return (*optree[NEQ])(NE, p, consttree(0, inttype));
 }
-Tree cast(Tree p, Type type) {
+Tree cast(Tree p, Type type_) {
 	Type src, dst;
 
 	p = value(p);
-	if (p->type == type)
+	if (p->type == type_)
 		return p;
-	dst = unqual(type);
+	dst = unqual(type_);
 	src = unqual(p->type);
 	if (src->op != dst->op || src->size != dst->size) {
 		switch (src->op) {
@@ -553,7 +553,7 @@ Tree cast(Tree p, Type type) {
 			break;
 		case POINTER:
 			if (isint(dst) && src->size > dst->size)
-				warning("conversion from `%t' to `%t' is undefined\n", p->type, type);
+				warning("conversion from `%t' to `%t' is undefined\n", p->type, type_);
 			p = simplify(CVP, super(src), p, NULL);
 			break;
 		case FLOAT:
@@ -599,7 +599,7 @@ Tree cast(Tree p, Type type) {
 					break;
 				default: assert(0);
 				}
-			dst = unqual(type);
+			dst = unqual(type_);
 		}
 	}
 	src = unqual(p->type);
@@ -622,7 +622,7 @@ Tree cast(Tree p, Type type) {
 		else {
 			if (isfunc(src->type) && !isfunc(dst->type)
 			|| !isfunc(src->type) &&  isfunc(dst->type))
-				warning("conversion from `%t' to `%t' is compiler dependent\n", p->type, type);
+				warning("conversion from `%t' to `%t' is compiler dependent\n", p->type, type_);
 
 			if (src->size != dst->size)
 				p = simplify(CVP, dst, p, NULL);
@@ -630,7 +630,7 @@ Tree cast(Tree p, Type type) {
 		break;
 	default: assert(0);
 	}
-	return retype(p, type);
+	return retype(p, type_);
 }
 Tree field(Tree p, const char *name) {
 	Field q;

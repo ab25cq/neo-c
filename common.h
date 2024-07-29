@@ -230,6 +230,7 @@ struct sModule
 {
     buffer*% mSourceHead;
     buffer*% mSourceHead2;
+    buffer*% mSourceHead3;
     buffer*% mSource;
     string mLastCode;
     string mLastCode2;
@@ -365,6 +366,7 @@ struct sInfo
     bool array_initializer;
     
     bool va_arg;
+    bool in_fun_param;
 };
 
 /////////////////////////////////////////////////////////////////////
@@ -407,6 +409,7 @@ void add_come_code_at_function_head(sInfo* info, char* code, ...);
 void add_come_code_at_come_header(sInfo* info, const char* msg, ...);
 void add_come_code_at_function_head2(sInfo* info, char* code, ...);
 void add_come_code_at_source_head(sInfo* info, const char* msg, ...);
+void add_come_code_at_source_head3(sInfo* info, const char* msg, ...);
 void add_come_code_at_source_head2(sInfo* info, const char* msg, ...);
 void add_come_code(sInfo* info, const char* msg, ...);
 void add_come_last_code(sInfo* info, const char* msg, ...);
@@ -414,7 +417,7 @@ void add_come_last_code2(sInfo* info, const char* msg, ...);
 void add_come_last_code3(sInfo* info, const char* msg, ...);
 void add_last_code_to_source_with_comma(sInfo* info);
 void dec_stack_ptr(int value, sInfo* info);
-record CVALUE*% get_value_from_stack(int offset, sInfo* info);
+CVALUE*% get_value_from_stack(int offset, sInfo* info);
 string make_define_var(sType* type, char* name, bool in_header=false, sInfo* info=info);
 void transpiler_clear_last_code(sInfo* info);
 bool output_header_file(sInfo* info);
@@ -479,7 +482,7 @@ bool parsecmp(char* str, sInfo* info=info);
 string parse_word(sInfo* info=info);
 string backtrace_parse_word(sInfo* info=info);
 void skip_spaces_and_lf(sInfo* info=info);
-record int expected_next_character(char c, sInfo* info=info);
+int expected_next_character(char c, sInfo* info=info);
 sBlock*% sBlock*::initialize(sBlock*% self, sInfo* info);
 bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sType* generics_type, sInfo* info);
 
@@ -494,10 +497,10 @@ sNode*% expression(sInfo* info=info) version 5;
 sNode*% statment(sInfo* info=info);
 sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 1;
 sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99;
-record sNode*% expression_node(sInfo* info=info) version 1;
-record sNode*% expression_node(sInfo* info=info) version 99;
-record sNode*% expression_node(sInfo* info=info) version 98;
-record sNode*% expression_node(sInfo* info=info) version 97;
+sNode*% expression_node(sInfo* info=info) version 1;
+sNode*% expression_node(sInfo* info=info) version 99;
+sNode*% expression_node(sInfo* info=info) version 98;
+sNode*% expression_node(sInfo* info=info) version 97;
 
 int transpile(sInfo* info) version 5;
 void parse_sharp(sInfo* info=info) version 5;
@@ -508,7 +511,7 @@ string create_method_name_using_class(sClass* obj_class, bool no_pointer_name, c
 /////////////////////////////////////////////////////////////////////
 /// 06str.c ///
 /////////////////////////////////////////////////////////////////////
-record sNode*% expression_node(sInfo* info=info) version 96;
+sNode*% expression_node(sInfo* info=info) version 96;
 sNode*% parse_tuple(sInfo* info);
 
 /////////////////////////////////////////////////////////////////////

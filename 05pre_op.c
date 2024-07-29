@@ -807,9 +807,20 @@ sNode*% pre_position_operator(sInfo* info=info)
             return new sCastNode(type, node, info) implements sNode;
         }
         else {
-            parse_sharp();
-            sNode*% node = expression();
-            parse_sharp();
+            sNode*% node;
+            if(gComeC && info.in_fun_param) {
+                bool no_comma = info.no_comma;
+                info.no_comma = false;
+                parse_sharp();
+                node = expression();
+                parse_sharp();
+                info.no_comma = no_comma;
+            }
+            else {
+                parse_sharp();
+                node = expression();
+                parse_sharp();
+            }
             
             expected_next_character(')');
             parse_sharp();
@@ -824,7 +835,7 @@ sNode*% pre_position_operator(sInfo* info=info)
     }
 }
 
-record sNode*% expression_node(sInfo* info=info) version 98
+sNode*% expression_node(sInfo* info=info) version 98
 {
     sNode*% node = pre_position_operator();
     

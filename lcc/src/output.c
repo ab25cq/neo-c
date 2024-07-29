@@ -106,11 +106,15 @@ void vfprint(FILE *f, char *bp, const char *fmt, va_list ap) {
 #define yy(a,b,c,d,e,f,g) g,
 #include "token.h"
 				    };
+using c {
 				    assert(tokens[t&0177]);
+}
 				    bp = outs(tokens[t&0177], f, bp);
  } break;
 			case 't': { Type ty = va_arg(ap, Type);
+using c {
 				    assert(f);
+}
 				    outtype(ty ? ty : voidtype, f);
  } break;
 			case 'w': { Coordinate *p = va_arg(ap, Coordinate *);

@@ -408,6 +408,7 @@ struct sModule
 {
     struct buffer* mSourceHead;
     struct buffer* mSourceHead2;
+    struct buffer* mSourceHead3;
     struct buffer* mSource;
     char* mLastCode;
     char* mLastCode2;
@@ -620,6 +621,7 @@ struct sInfo
     struct sClass* defining_class;
     _Bool array_initializer;
     _Bool va_arg;
+    _Bool in_fun_param;
 };
 struct tuple2$2sTypephcharph
 {
@@ -1604,6 +1606,8 @@ void add_come_code_at_come_header(struct sInfo* info, const char* msg, ...);
 void add_come_code_at_function_head2(struct sInfo* info, char* code, ...);
 
 void add_come_code_at_source_head(struct sInfo* info, const char* msg, ...);
+
+void add_come_code_at_source_head3(struct sInfo* info, const char* msg, ...);
 
 void add_come_code_at_source_head2(struct sInfo* info, const char* msg, ...);
 
@@ -6785,7 +6789,6 @@ void* right_value218;
 char* parent_class_name_235;
 _Bool _if_conditional296;
 struct sNode* __result177__;
-int __exception_result_var_b1;
 _Bool _while_condtional35;
 _Bool multiple_declare_236;
 char* p_237;
@@ -6910,7 +6913,7 @@ right_value239 = (void*)0;
         }
         parent_class_name_235 = come_decrement_ref_count2(parent_class_name_235, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    (come_push_stackframe("14struct.c", 459, 3),__exception_result_var_b1=expected_next_character(123,info), come_pop_stackframe(), __exception_result_var_b1);
+    expected_next_character(123,info);
     while(_while_condtional35=(_Bool)1,    _while_condtional35) {
         multiple_declare_236=(_Bool)0;
         {
@@ -7089,7 +7092,6 @@ void* right_value259;
 void* right_value260;
 struct sClass* __dec_obj75;
 _Bool _if_conditional336;
-int __exception_result_var_b2;
 _Bool _while_condtional39;
 void* right_value261;
 struct tuple3$3sTypephcharphbool* multiple_assign_var10;
@@ -7143,7 +7145,6 @@ void* right_value283;
 char* parent_class_name_279;
 _Bool _if_conditional349;
 struct sNode* __result189__;
-int __exception_result_var_b3;
 _Bool _while_condtional41;
 _Bool multiple_declare_280;
 char* p_281;
@@ -7255,7 +7256,6 @@ void* right_value332;
 struct list$1tuple2$2charphsTypephph* o2_saved_332;
 struct tuple2$2charphsTypeph* it_333;
 void* right_value333;
-int __exception_result_var_b4;
 char* head_334;
 char* p_saved_335;
 int sline_saved_336;
@@ -7342,7 +7342,6 @@ struct sType* type2_369;
 char* name2_370;
 void* right_value353;
 void* right_value354;
-int __exception_result_var_b5;
 _Bool _if_conditional410;
 void* right_value355;
 void* right_value356;
@@ -7668,7 +7667,7 @@ right_value387 = (void*)0;
                 if(_if_conditional336=map$2charphsClassph_at(info->generics_classes,type_name_254,((void*)0))==((void*)0),                _if_conditional336) {
                     map$2charphsClassph_insert(info->generics_classes,(char*)come_increment_ref_count(type_name_254),(struct sClass*)come_increment_ref_count(generics_class_265));
                 }
-                (come_push_stackframe("14struct.c", 600, 4),__exception_result_var_b2=expected_next_character(123,info), come_pop_stackframe(), __exception_result_var_b2);
+                expected_next_character(123,info);
                 while(_while_condtional39=(_Bool)1,                _while_condtional39) {
                     parse_sharp_v5(info);
                     multiple_assign_var10=((struct tuple3$3sTypephcharphbool*)(right_value261=parse_type(info,(_Bool)1,(_Bool)1,(_Bool)0)));
@@ -7797,7 +7796,7 @@ right_value387 = (void*)0;
                     }
                     parent_class_name_279 = come_decrement_ref_count2(parent_class_name_279, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 }
-                (come_push_stackframe("14struct.c", 698, 5),__exception_result_var_b3=expected_next_character(123,info), come_pop_stackframe(), __exception_result_var_b3);
+                expected_next_character(123,info);
                 while(_while_condtional41=(_Bool)1,                _while_condtional41) {
                     parse_sharp_v5(info);
                     multiple_declare_280=(_Bool)0;
@@ -8022,7 +8021,7 @@ right_value387 = (void*)0;
                     come_call_finalizer3(o2_saved_332,list$1tuple2$2charphsTypephphp_finalize, 0, 0, 0, 0, (void*)0);
                 }
             }
-            (come_push_stackframe("14struct.c", 861, 6),__exception_result_var_b4=expected_next_character(123,info), come_pop_stackframe(), __exception_result_var_b4);
+            expected_next_character(123,info);
             head_334=info->p;
             p_saved_335=((void*)0);
             sline_saved_336=0;
@@ -8192,7 +8191,7 @@ right_value387 = (void*)0;
                             come_call_finalizer3(type2_369,sType_finalize, 0, 0, 0, 0, (void*)0);
                             name2_370 = come_decrement_ref_count2(name2_370, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                         }
-                        (come_push_stackframe("14struct.c", 1001, 7),__exception_result_var_b5=expected_next_character(59,info), come_pop_stackframe(), __exception_result_var_b5);
+                        expected_next_character(59,info);
                         come_call_finalizer3(base_type_364,sType_finalize, 0, 0, 0, 0, (void*)0);
                         name_365 = come_decrement_ref_count2(name_365, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                         come_call_finalizer3(type2_367,sType_finalize, 0, 0, 0, 0, (void*)0);
@@ -8261,7 +8260,7 @@ right_value387 = (void*)0;
                                 come_call_finalizer3(methods_338,list$1sNodephp_finalize, 0, 0, 0, 0, (void*)0);
                                 return __result210__;
                             }
-                            module_377=((struct sClassModule*)come_null_check(map$2charphsClassModulephp_operator_load_element(info->modules,module_name_371), "14struct.c", 1052, 8));
+                            module_377=((struct sClassModule*)come_null_check(map$2charphsClassModulephp_operator_load_element(info->modules,module_name_371), "14struct.c", 1052, 3));
                             if(_if_conditional426=list$1charph_length(module_377->mParams)!=list$1charph_length(params_372),                            _if_conditional426) {
                                 err_msg(info,"invalid parametor number");
                                 exit(1);
@@ -8273,7 +8272,7 @@ right_value387 = (void*)0;
                             come_call_finalizer3(right_value367,map$2charphcharphp_finalize, 0, 1, 0, 0, __result_obj__);
                             i_381=0;
                             for(                            o2_saved_382=(struct list$1charph*)come_increment_ref_count((module_377->mParams)),it_385=list$1charph_begin((o2_saved_382));                            !list$1charph_end((o2_saved_382));                            it_385=list$1charph_next((o2_saved_382))                            ){
-                                ((char*)(right_value371=map$2charphcharphp_operator_store_element(info->module_params,it_385,((char*)come_null_check(list$1charphp_operator_load_element(params_372,i_381), "14struct.c", 1063, 9)))));
+                                ((char*)(right_value371=map$2charphcharphp_operator_store_element(info->module_params,it_385,((char*)come_null_check(list$1charphp_operator_load_element(params_372,i_381), "14struct.c", 1063, 4)))));
                                 right_value371 = come_decrement_ref_count2(right_value371, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                             }
                             come_call_finalizer3(o2_saved_382,list$1charphp_finalize, 0, 0, 0, 0, (void*)0);

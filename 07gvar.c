@@ -41,7 +41,7 @@ class sGlobalVariable extends sNodeBase
                     add_come_code_at_source_head2(info, "%s;\n", make_define_var(type, name));
                 }
                 else if(initializer) {
-                    add_come_code_at_source_head(info, "%s=%s;\n", make_define_var(type, name), initializer);
+                    add_come_code_at_source_head3(info, "%s=%s;\n", make_define_var(type, name), initializer);
                 }
                 else {
                     add_come_code_at_source_head(info, "%s;\n", make_define_var(type, name));
@@ -57,10 +57,10 @@ class sGlobalVariable extends sNodeBase
                 }
                 else if(type.mUniq) {
                     add_come_code_at_source_head(info, "extern %s;\n", make_define_var(type, name));
-                    add_come_code_at_source_head2(info, "%s=%s;\n", make_define_var(type, name), array_initializer);
+                    add_come_code_at_source_head3(info, "%s=%s;\n", make_define_var(type, name), array_initializer);
                 }
                 else {
-                    add_come_code_at_source_head(info, "%s=%s;\n", make_define_var(type, name), array_initializer);
+                    add_come_code_at_source_head3(info, "%s=%s;\n", make_define_var(type, name), array_initializer);
                 }
             }
             else if(right_node) {
@@ -76,10 +76,10 @@ class sGlobalVariable extends sNodeBase
                 }
                 else if(type.mUniq) {
                     add_come_code_at_source_head(info, "extern %s;\n", make_define_var(type, name));
-                    add_come_code_at_source_head2(info, "%s=%s;\n", make_define_var(type, name), come_value.c_value);
+                    add_come_code_at_source_head3(info, "%s=%s;\n", make_define_var(type, name), come_value.c_value);
                 }
                 else {
-                    add_come_code_at_source_head(info, "%s=%s;\n", make_define_var(type, name), come_value.c_value);
+                    add_come_code_at_source_head3(info, "%s=%s;\n", make_define_var(type, name), come_value.c_value);
                 }
             }
             else {
@@ -88,7 +88,7 @@ class sGlobalVariable extends sNodeBase
                 }
                 else if(type.mUniq) {
                     add_come_code_at_source_head(info, "extern %s;\n", make_define_var(type, name));
-                    add_come_code_at_source_head2(info, "%s;\n", make_define_var(type, name));
+                    add_come_code_at_source_head3(info, "%s;\n", make_define_var(type, name));
                 }
                 else {
                     add_come_code_at_source_head(info, "%s;\n", make_define_var(type, name));

@@ -122,11 +122,11 @@ class sULongNode extends sNodeBase
 
 class sFloatNode extends sNodeBase
 {
-    new(float value, sInfo* info)
+    new(string value, sInfo* info)
     {
         self.super();
         
-        float self.value = value;
+        string self.value = value;
     }
     
     string kind()
@@ -138,7 +138,7 @@ class sFloatNode extends sNodeBase
     {
         CVALUE*% come_value = new CVALUE;
         
-        come_value.c_value = xsprintf("%f", self.value);
+        come_value.c_value = xsprintf("%s", self.value);
         come_value.type = new sType("float");
         come_value.var = null;
         
@@ -152,11 +152,11 @@ class sFloatNode extends sNodeBase
 
 class sDoubleNode extends sNodeBase
 {
-    new(double value, sInfo* info)
+    new(string value, sInfo* info)
     {
         self.super();
         
-        double self.value = value;
+        string self.value = value;
     }
     
     string kind()
@@ -168,7 +168,7 @@ class sDoubleNode extends sNodeBase
     {
         CVALUE*% come_value = new CVALUE;
         
-        come_value.c_value = xsprintf("%lf", self.value);
+        come_value.c_value = xsprintf("%s", self.value);
         come_value.type = new sType("double");
         come_value.var = null;
         
@@ -289,23 +289,29 @@ sNode*% get_number(bool minus, sInfo* info)
                     }
                 };
             }
-            *p2 = 0;
             skip_spaces_and_lf();
             
             if(*info->p == 'f' || *info->p == 'F') {
+                *p2++ = *info->p;
+                *p2 = 0;
+                
                 info->p++;
                 skip_spaces_and_lf();
                 
-                return new sFloatNode(strtof(buf, NULL), info) implements sNode;
+                return new sFloatNode(string(buf), info) implements sNode;
             }
             else if(*info->p == 'l' || *info->p == 'L') {
+                *p2++ = *info->p;
+                *p2 = 0;
+                
                 info->p++;
                 skip_spaces_and_lf();
                 
-                return new sDoubleNode(strtod(buf, NULL), info) implements sNode;
+                return new sDoubleNode(string(buf), info) implements sNode;
             }
             else {
-                return new sDoubleNode(strtod(buf, NULL), info) implements sNode;
+                *p2 = 0;
+                return new sDoubleNode(string(buf), info) implements sNode;
             }
         }
         else if(*info->p == 'u' || *info->p == 'U')
@@ -503,12 +509,15 @@ sNode*% get_hex_number(bool minus, sInfo* info)
     return (sNode*%)null;
 }
 
-sNode*% get_oct_number(sInfo* info)
+sNode*% get_oct_number(bool minus, sInfo* info)
 {
     int buf_size = 128;
     char buf[128+1];
     char* p = buf;
 
+    if(minus) {
+        *p++ = '-';
+    }
     *p++ = '0';
 
     while((*info->p >= '0' && *info->p <= '7') || *info->p == '_') {
@@ -592,7 +601,7 @@ sNode*% get_oct_number(sInfo* info)
     return (sNode*%)null;
 }
 
-record sNode*% expression_node(sInfo* info=info) version 99
+sNode*% expression_node(sInfo* info=info) version 99
 {
     skip_spaces_and_lf();
     
@@ -610,7 +619,7 @@ record sNode*% expression_node(sInfo* info=info) version 99
     else if(*info->p == '0' && xisdigit(*(info->p+1))) {
         info->p++;
 
-        sNode*% node = get_oct_number(info);
+        sNode*% node = get_oct_number(false@minus, info);
         
         node = post_position_operator(node, info);
         
@@ -623,12 +632,33 @@ record sNode*% expression_node(sInfo* info=info) version 99
         
         return node;
     }
-    else if(*info->p == '-' && xisdigit(*(info->p+1))) {
+    else if(*info->p == '-' && (xisdigit(*(info->p+1)) || (*info->p == '0' && *(info->p+1) == 'x' || *(info->p+1) == 'X') || (*info->p == '0' && xisdigit(*(info->p+1))))) {
         info->p++;
         
-        sNode*% node = get_number(true@minus, info);
-        
-        node = post_position_operator(node, info);
+        sNode*% node;
+        if(*info->p == '0' && (*(info->p+1) == 'x' || *(info->p+1) == 'X')) {
+            info->p += 2;
+    
+            node = get_hex_number(true@minus, info);
+            
+            node = post_position_operator(node, info);
+            
+            return node;
+        }
+        else if(*info->p == '0' && xisdigit(*(info->p+1))) {
+            info->p++;
+    
+            node = get_oct_number(true@minus, info);
+            
+            node = post_position_operator(node, info);
+            
+            return node;
+        }
+        else {
+            node = get_number(true@minus, info);
+            
+            node = post_position_operator(node, info);
+        }
         
         return node;
     }

@@ -788,7 +788,7 @@ class sMapNode extends sNodeBase
     }
 };
 
-record sNode*% expression_node(sInfo* info) version 96
+sNode*% expression_node(sInfo* info) version 96
 {
     /// here document ///
     if(*info->p == '"' && *(info->p+1) == '"' && *(info->p+2) == '"' && *(info->p+3) == '\n') {

@@ -57,7 +57,7 @@ class sEnumNode extends sNodeBase
                     buf.append_str(",");
                 }
                 
-                string c_value = xsprintf("%d", n);
+                string c_value = xsprintf("(%d)", n);
                 
                 add_variable_to_global_table_with_int_value(name, new sType("int"), c_value, info);
             }
@@ -69,9 +69,11 @@ class sEnumNode extends sNodeBase
                 CVALUE*% right_value = get_value_from_stack(-1, info);
                 dec_stack_ptr(1, info);
                 
-                add_variable_to_global_table_with_int_value(name, new sType("int"), right_value.c_value, info);
+                string c_value = xsprintf("(%s)", right_value.c_value);
                 
-                buf.append_str(xsprintf("%s=%s", name, right_value.c_value));
+                add_variable_to_global_table_with_int_value(name, new sType("int"), c_value, info);
+                
+                buf.append_str(xsprintf("%s=(%s)", name, right_value.c_value));
                 
                 if(i != elements.length()-1) {
                     buf.append_str(",");

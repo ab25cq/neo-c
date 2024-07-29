@@ -12,12 +12,12 @@ static struct nodeid {
 
 static void printtree1(Tree, int, int);
 
-Tree tree(int op, Type type, Tree left, Tree right) {
+Tree tree(int op, Type type_, Tree left, Tree right) {
 	Tree p;
 
 	NEW0(p, where);
 	p->op = op;
-	p->type = type;
+	p->type = type_;
 	p->kids[0] = left;
 	p->kids[1] = right;
 	return p;

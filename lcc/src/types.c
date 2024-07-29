@@ -517,14 +517,14 @@ Field fieldref(const char *name, Type ty) {
 Type ftype(Type rty, ...) {
 	va_list ap;
 	Type ty = NULL;
-	List list = NULL;
+	List list_ = NULL;
 
 	va_start(ap, rty);
 	ty = va_arg(ap, Type);
 	for ( ; ty != NULL; ty = va_arg(ap, Type))
-		list = append(ty, list);
+		list_ = append(ty, list_);
 	va_end(ap);
-	return func(rty, ltov(&list, PERM), 0);
+	return func(rty, ltov(&list_, PERM), 0);
 }
 
 /* isfield - if name is a field in flist, return pointer to the field structure */
@@ -616,13 +616,13 @@ void printproto(Symbol p, Symbol callee[]) {
 		printdecl(p, p->type);
 	else {
 		int i;
-		List list = 0;
+		List list_ = 0;
 		if (callee[0] == 0)
-			list = append(voidtype, list);
+			list_ = append(voidtype, list_);
 		else
 			for (i = 0; callee[i]; i++)
-				list = append(callee[i]->type, list);
-		printdecl(p, func(freturn(p->type), ltov(&list, PERM), 0));
+				list_ = append(callee[i]->type, list_);
+		printdecl(p, func(freturn(p->type), ltov(&list_, PERM), 0));
 	}
 }
 

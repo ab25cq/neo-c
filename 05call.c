@@ -51,30 +51,36 @@ class sReturnNode extends sNodeBase
             
             info->function_result_type = clone come_value.type;
             
-            static int num_result = 0;
-            string var_name = xsprintf("__result%d__", ++num_result);
-            int num_result_stack = num_result;
-            if(result_type2->mPointerNum > 0) {
-                check_assign_type("result type", result_type2, come_value.type, come_value);
-                
-                add_come_code_at_function_head(info, "%s;\n", make_define_var(result_type2, var_name));
-                add_come_code(info, "%s = __result_obj__ = %s;\n", var_name, come_value.c_value);
+            if(gComeC) {
+                add_come_code(info, "return %s;\n", come_value.c_value);
             }
             else {
-                add_come_code_at_function_head(info, "%s;\n", make_define_var(result_type2, var_name));
-                add_come_code(info, "%s = %s;\n", var_name, come_value.c_value);
+                static int num_result = 0;
+                
+                string var_name = xsprintf("__result%d__", ++num_result);
+                int num_result_stack = num_result;
+                if(result_type2->mPointerNum > 0) {
+                    check_assign_type("result type", result_type2, come_value.type, come_value);
+                    
+                    add_come_code_at_function_head(info, "%s;\n", make_define_var(result_type2, var_name));
+                    add_come_code(info, "%s = __result_obj__ = %s;\n", var_name, come_value.c_value);
+                }
+                else {
+                    add_come_code_at_function_head(info, "%s;\n", make_define_var(result_type2, var_name));
+                    add_come_code(info, "%s = %s;\n", var_name, come_value.c_value);
+                }
+                add_last_code_to_source(info);
+        
+                free_objects_on_return(come_fun.mBlock, info, come_value.var, false@top_block);
+                free_right_value_objects(info);
+                
+                if(!gComeC && info.come_fun.mName === "main") {
+                    free_objects(info->gv_table, null@ret_value, info);
+                    add_come_code(info, xsprintf("come_heap_final();\n"));
+                }
+                
+                add_come_code(info, "return __result%d__;\n", num_result_stack);
             }
-            add_last_code_to_source(info);
-    
-            free_objects_on_return(come_fun.mBlock, info, come_value.var, false@top_block);
-            free_right_value_objects(info);
-            
-            if(!gComeC && info.come_fun.mName === "main") {
-                free_objects(info->gv_table, null@ret_value, info);
-                add_come_code(info, xsprintf("come_heap_final();\n"));
-            }
-            
-            add_come_code(info, "return __result%d__;\n", num_result_stack);
         }
         else {
             sFun* come_fun = info.come_fun;
@@ -362,6 +368,7 @@ class sFunCallNode extends sNodeBase
                 
                 i++;
             }
+            
             
             buffer*% buf = new buffer();
             
@@ -996,11 +1003,15 @@ sNode*% parse_function_call(char* fun_name, sInfo* info)
         bool no_comma = info.no_comma;
         info.no_comma = true;
         
+        bool in_fun_param = info.in_fun_param;
+        info.in_fun_param = true;
+        
         sNode*% node = expression();
         
         node = post_position_operator(node, info);
         
         info.no_comma = no_comma;
+        info.in_fun_param = in_fun_param;
         
         params.push_back((label, node));
         
@@ -1036,7 +1047,7 @@ sNode*% parse_function_call(char* fun_name, sInfo* info)
     return node;
 }
 
-record sNode*% expression_node(sInfo* info=info) version 1
+sNode*% expression_node(sInfo* info=info) version 1
 {
     skip_spaces_and_lf();
     parse_sharp();
@@ -1048,7 +1059,7 @@ record sNode*% expression_node(sInfo* info=info) version 1
     return (sNode*%)null;
 }
 
-record sNode*% expression_node(sInfo* info=info) version 97
+sNode*% expression_node(sInfo* info=info) version 97
 {
     skip_spaces_and_lf();
     parse_sharp();
@@ -1501,11 +1512,15 @@ sNode*% post_position_operator(sNode*% node, sInfo* info)
             bool no_comma = info.no_comma;
             info.no_comma = true;
             
+            bool in_fun_param = info.in_fun_param;
+            info.in_fun_param = true;
+            
             sNode*% node = expression();
             
             node = post_position_operator(node, info);
             
             info.no_comma = no_comma;
+            info.in_fun_param = in_fun_param;
             
             params.push_back((label, node));
             

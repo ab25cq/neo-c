@@ -603,10 +603,10 @@ void branch(int lab) {
 			warning("source code specifies an infinite loop\n");
 	}
 }
-void equatelab(Symbol old, Symbol new) {
+void equatelab(Symbol old, Symbol new_) {
 	assert(old->u.l.equatedto == NULL);
-	old->u.l.equatedto = new;
-	new->ref++;
+	old->u.l.equatedto = new_;
+	new_->ref++;
 }
 static int equal(Symbol lprime, Symbol dst) {
 	assert(dst && lprime);

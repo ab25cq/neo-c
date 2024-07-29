@@ -449,13 +449,15 @@ class sStoreNode extends sNodeBase
             if((var_->mType->mStatic || var_->mType->mConstant) && !var_->mGlobal) {
                 check_assign_type(s"\{self.name} is assining to", left_type, right_type, right_value);
                 
-                add_come_code(info, "%s=%s;\n", var_->mCValueName, right_value.c_value);
-                
                 CVALUE*% come_value = new CVALUE;
-                come_value.c_value = string("");
+                
+                come_value.c_value = xsprintf("%s=%s", var_->mCValueName, right_value.c_value);
+                come_value.type = clone left_type;
+                come_value.var = var_;
+                
                 info.stack.push_back(come_value);
                 
-                transpiler_clear_last_code(info);
+                add_come_last_code(info, "%s;\n", come_value.c_value);
             }
             else if(right_type->mHeap && left_type->mHeap && left_type->mPointerNum > 0 && right_type->mPointerNum > 0)
             {
@@ -713,6 +715,12 @@ sNode*% parse_array_initializer(sInfo* info=info)
     while(*info->p == ',') {
         info->p++;
         skip_spaces_and_lf();
+        
+        parse_sharp();
+        
+        if(*info->p == '}') {
+            break;
+        }
         
         bool no_comma = info->no_comma;
         info->no_comma = true;

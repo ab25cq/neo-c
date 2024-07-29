@@ -140,7 +140,7 @@ bool parsecmp(char* str, sInfo* info=info)
     return strmemcmp(info.p, str) && (c == ';' || c == ' ' || c == '\t' || c == '\n' || c == '\n');
 }
 
-record string parse_word(sInfo* info=info)
+string parse_word(sInfo* info=info)
 {
     var buf = new buffer();
     parse_sharp();

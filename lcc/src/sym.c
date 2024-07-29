@@ -31,19 +31,19 @@ static int tempid;
 List loci, symbols;
 
 Table newtable(int arena) {
-	Table new;
+	Table new_;
 
-	NEW0(new, arena);
-	return new;
+	NEW0(new_, arena);
+	return new_;
 }
 
 Table table(Table tp, int level) {
-	Table new = newtable(FUNC);
-	new->previous = tp;
-	new->level = level;
+	Table new_ = newtable(FUNC);
+	new_->previous = tp;
+	new_->level = level;
 	if (tp)
-		new->all = tp->all;
-	return new;
+		new_->all = tp->all;
+	return new_;
 }
 void foreach(Table tp, int lev, void (*apply)(Symbol, void *), void *cl) {
 	assert(tp);

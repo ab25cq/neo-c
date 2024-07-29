@@ -408,6 +408,7 @@ struct sModule
 {
     struct buffer* mSourceHead;
     struct buffer* mSourceHead2;
+    struct buffer* mSourceHead3;
     struct buffer* mSource;
     char* mLastCode;
     char* mLastCode2;
@@ -620,6 +621,7 @@ struct sInfo
     struct sClass* defining_class;
     _Bool array_initializer;
     _Bool va_arg;
+    _Bool in_fun_param;
 };
 struct tuple2$2sTypephcharph
 {
@@ -1609,6 +1611,8 @@ void add_come_code_at_come_header(struct sInfo* info, const char* msg, ...);
 void add_come_code_at_function_head2(struct sInfo* info, char* code, ...);
 
 void add_come_code_at_source_head(struct sInfo* info, const char* msg, ...);
+
+void add_come_code_at_source_head3(struct sInfo* info, const char* msg, ...);
 
 void add_come_code_at_source_head2(struct sInfo* info, const char* msg, ...);
 
@@ -3293,7 +3297,6 @@ _Bool _if_conditional156;
 _Bool _if_conditional157;
 _Bool __result85__;
 void* right_value144;
-struct CVALUE* __exception_result_var_b1;
 struct CVALUE* come_value_100;
 _Bool _if_conditional160;
 void* right_value145;
@@ -3367,7 +3370,7 @@ right_value152 = (void*)0;
                 }
                 else {
                     if(initializer_99) {
-                        add_come_code_at_source_head(info,"%s=%s;\n",((char*)(right_value137=make_define_var(type_97,name_98,(_Bool)0,info))),initializer_99);
+                        add_come_code_at_source_head3(info,"%s=%s;\n",((char*)(right_value137=make_define_var(type_97,name_98,(_Bool)0,info))),initializer_99);
                         right_value137 = come_decrement_ref_count2(right_value137, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                     }
                     else {
@@ -3394,11 +3397,11 @@ right_value152 = (void*)0;
                 if(type_87->mUniq) {
                     add_come_code_at_source_head(info,"extern %s;\n",((char*)(right_value141=make_define_var(type_87,name_88,(_Bool)0,info))));
                     right_value141 = come_decrement_ref_count2(right_value141, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
-                    add_come_code_at_source_head2(info,"%s=%s;\n",((char*)(right_value142=make_define_var(type_87,name_88,(_Bool)0,info))),array_initializer_90);
+                    add_come_code_at_source_head3(info,"%s=%s;\n",((char*)(right_value142=make_define_var(type_87,name_88,(_Bool)0,info))),array_initializer_90);
                     right_value142 = come_decrement_ref_count2(right_value142, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                 }
                 else {
-                    add_come_code_at_source_head(info,"%s=%s;\n",((char*)(right_value143=make_define_var(type_87,name_88,(_Bool)0,info))),array_initializer_90);
+                    add_come_code_at_source_head3(info,"%s=%s;\n",((char*)(right_value143=make_define_var(type_87,name_88,(_Bool)0,info))),array_initializer_90);
                     right_value143 = come_decrement_ref_count2(right_value143, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                 }
             }
@@ -3412,7 +3415,7 @@ right_value152 = (void*)0;
                     array_initializer_90 = come_decrement_ref_count2(array_initializer_90, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                     return __result85__;
                 }
-                come_value_100=(struct CVALUE*)come_increment_ref_count((come_push_stackframe("07gvar.c", 71, 0),__exception_result_var_b1=((struct CVALUE*)(right_value144=get_value_from_stack(-1,info))), come_pop_stackframe(), __exception_result_var_b1));
+                come_value_100=(struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(right_value144=get_value_from_stack(-1,info))));
                 come_call_finalizer3(right_value144,CVALUE_finalize, 0, 1, 0, 0, __result_obj__);
                 dec_stack_ptr(1,info);
                 if(info->output_header_file) {
@@ -3423,11 +3426,11 @@ right_value152 = (void*)0;
                     if(type_87->mUniq) {
                         add_come_code_at_source_head(info,"extern %s;\n",((char*)(right_value146=make_define_var(type_87,name_88,(_Bool)0,info))));
                         right_value146 = come_decrement_ref_count2(right_value146, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
-                        add_come_code_at_source_head2(info,"%s=%s;\n",((char*)(right_value147=make_define_var(type_87,name_88,(_Bool)0,info))),come_value_100->c_value);
+                        add_come_code_at_source_head3(info,"%s=%s;\n",((char*)(right_value147=make_define_var(type_87,name_88,(_Bool)0,info))),come_value_100->c_value);
                         right_value147 = come_decrement_ref_count2(right_value147, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                     }
                     else {
-                        add_come_code_at_source_head(info,"%s=%s;\n",((char*)(right_value148=make_define_var(type_87,name_88,(_Bool)0,info))),come_value_100->c_value);
+                        add_come_code_at_source_head3(info,"%s=%s;\n",((char*)(right_value148=make_define_var(type_87,name_88,(_Bool)0,info))),come_value_100->c_value);
                         right_value148 = come_decrement_ref_count2(right_value148, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                     }
                 }
@@ -3442,7 +3445,7 @@ right_value152 = (void*)0;
                     if(type_87->mUniq) {
                         add_come_code_at_source_head(info,"extern %s;\n",((char*)(right_value150=make_define_var(type_87,name_88,(_Bool)0,info))));
                         right_value150 = come_decrement_ref_count2(right_value150, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
-                        add_come_code_at_source_head2(info,"%s;\n",((char*)(right_value151=make_define_var(type_87,name_88,(_Bool)0,info))));
+                        add_come_code_at_source_head3(info,"%s;\n",((char*)(right_value151=make_define_var(type_87,name_88,(_Bool)0,info))));
                         right_value151 = come_decrement_ref_count2(right_value151, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
                     }
                     else {

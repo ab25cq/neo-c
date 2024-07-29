@@ -8,13 +8,13 @@ struct entry {
 };
 
 Events events;
-void attach(Apply func, void *cl, List *list) {
+void attach(Apply func, void *cl, List *list_) {
 	struct entry *p;
 
 	NEW(p, PERM);
 	p->func = func;
 	p->cl = cl;
-	*list = append(p, *list);
+	*list_ = append(p, *list_);
 }
 void apply(List event, void *arg1, void *arg2) {
 	if (event) {

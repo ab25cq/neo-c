@@ -4924,6 +4924,8 @@ static void function(Symbol f, Symbol caller[], Symbol callee[], int ncalls) {
 #define exch(x, y, t) (((t) = x), ((x) = (y)), ((y) = (t)))
 
 static void renameregs(void) {
+using c
+{
         int i;
 
         for (i = 0; i < 8; i++) {
@@ -4935,6 +4937,7 @@ static void renameregs(void) {
                 exch(ireg[i]->x.regnode->number,
                         oreg[i]->x.regnode->number, itmp);
         }
+}
 }
 static void defconst(int suffix, int size, Value v) {
         if (suffix == F && size == 4) {

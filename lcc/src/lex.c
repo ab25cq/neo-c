@@ -147,12 +147,14 @@ Symbol tsym;		/* symbol table entry for current token */
 
 static void *cput(int c, void *cl);
 static void *wcput(int c, void *cl);
-static void *scon(int q, void *put(int c, void *cl), void *cl);
+static void *scon(int q, void *(*put)(int c, void *cl), void *cl);
 static int backslash(int q);
 static Symbol fcon(void);
 static Symbol icon(unsigned long, int, int);
 static void ppnumber(char *);
 
+using c
+{
 int gettok(void) {
 	for (;;) {
 		register unsigned char *rcp = cp;
@@ -694,6 +696,7 @@ int gettok(void) {
 		}
 	}
 }
+}
 static Symbol icon(unsigned long n, int overflow, int base) {
 	if ((*cp=='u'||*cp=='U') && (cp[1]=='l'||cp[1]=='L')
 	||  (*cp=='l'||*cp=='L') && (cp[1]=='u'||cp[1]=='U')) {
@@ -736,7 +739,9 @@ static Symbol icon(unsigned long n, int overflow, int base) {
 		} else
 			tval.u.c.v.u = n;
 		break;
+using c {
 	default: assert(0);
+}
 	}
 	ppnumber("integer");
 	return &tval;
@@ -810,7 +815,7 @@ static void *wcput(int c, void *cl) {
 	return s;
 }
 
-static void *scon(int q, void *put(int c, void *cl), void *cl) {
+static void *scon(int q, void *(*put)(int c, void *cl), void *cl) {
 	int n = 0, nbad = 0;
 
 	do {

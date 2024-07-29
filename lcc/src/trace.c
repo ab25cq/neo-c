@@ -55,12 +55,12 @@ static void tracevalue(Tree e, int lev) {
 		if (unqual(ty->type) == chartype
 		||  unqual(ty->type) == signedchar
 		||  unqual(ty->type) == unsignedchar) {
-			static Symbol null;
-			if (null == NULL)
-				null = mkstr("(null)");
+			static Symbol null_;
+			if (null_ == NULL)
+				null_ = mkstr("(null)");
 			tracevalue(cast(e, unsignedtype), lev + 1);
 			appendstr(" \"%.30s\"");
-			e = condtree(e, e, pointer(idtree(null->u.c.loc)));
+			e = condtree(e, e, pointer(idtree(null_->u.c.loc)));
 		} else {
 			appendstr("("); appendstr(typestring(ty, "")); appendstr(")0x%x");
 		}

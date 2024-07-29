@@ -1,0 +1,1821 @@
+# 1 "src/simp.c"
+# 1 "<built-in>" 1
+# 1 "<built-in>" 3
+# 393 "<built-in>" 3
+# 1 "<command line>" 1
+# 1 "<built-in>" 2
+# 1 "src/simp.c" 2
+# 1 "src/c.h" 1
+
+# 1 "/usr/include/assert.h" 1 3 4
+# 1 "/usr/include/features.h" 1 3 4
+# 2 "/usr/include/assert.h" 2 3 4
+# 19 "/usr/include/assert.h" 3 4
+_Noreturn void __assert_fail (const char *, const char *, int, const char *);
+# 3 "src/c.h" 2
+# 1 "/usr/include/stdarg.h" 1 3 4
+# 10 "/usr/include/stdarg.h" 3 4
+# 1 "/usr/include/bits/alltypes.h" 1 3 4
+# 334 "/usr/include/bits/alltypes.h" 3 4
+typedef __builtin_va_list va_list;
+# 11 "/usr/include/stdarg.h" 2 3 4
+# 4 "src/c.h" 2
+# 1 "/usr/include/fortify/stdio.h" 1 3 4
+# 23 "/usr/include/fortify/stdio.h" 3 4
+# 1 "/usr/include/stdio.h" 1 3 4
+# 26 "/usr/include/stdio.h" 3 4
+# 1 "/usr/include/bits/alltypes.h" 1 3 4
+# 58 "/usr/include/bits/alltypes.h" 3 4
+typedef unsigned long size_t;
+# 73 "/usr/include/bits/alltypes.h" 3 4
+typedef long ssize_t;
+# 170 "/usr/include/bits/alltypes.h" 3 4
+typedef long off_t;
+# 328 "/usr/include/bits/alltypes.h" 3 4
+typedef struct _IO_FILE FILE;
+# 339 "/usr/include/bits/alltypes.h" 3 4
+typedef __builtin_va_list __isoc_va_list;
+# 27 "/usr/include/stdio.h" 2 3 4
+# 56 "/usr/include/stdio.h" 3 4
+typedef union _G_fpos64_t {
+ char __opaque[16];
+ long long __lldata;
+ double __align;
+} fpos_t;
+
+extern FILE *const stdin;
+extern FILE *const stdout;
+extern FILE *const stderr;
+
+
+
+
+
+FILE *fopen(const char *restrict, const char *restrict);
+FILE *freopen(const char *restrict, const char *restrict, FILE *restrict);
+int fclose(FILE *);
+
+int remove(const char *);
+int rename(const char *, const char *);
+
+int feof(FILE *);
+int ferror(FILE *);
+int fflush(FILE *);
+void clearerr(FILE *);
+
+int fseek(FILE *, long, int);
+long ftell(FILE *);
+void rewind(FILE *);
+
+int fgetpos(FILE *restrict, fpos_t *restrict);
+int fsetpos(FILE *, const fpos_t *);
+
+size_t fread(void *restrict, size_t, size_t, FILE *restrict);
+size_t fwrite(const void *restrict, size_t, size_t, FILE *restrict);
+
+int fgetc(FILE *);
+int getc(FILE *);
+int getchar(void);
+int ungetc(int, FILE *);
+
+int fputc(int, FILE *);
+int putc(int, FILE *);
+int putchar(int);
+
+char *fgets(char *restrict, int, FILE *restrict);
+
+
+
+
+int fputs(const char *restrict, FILE *restrict);
+int puts(const char *);
+
+int printf(const char *restrict, ...);
+int fprintf(FILE *restrict, const char *restrict, ...);
+int sprintf(char *restrict, const char *restrict, ...);
+int snprintf(char *restrict, size_t, const char *restrict, ...);
+
+int vprintf(const char *restrict, __isoc_va_list);
+int vfprintf(FILE *restrict, const char *restrict, __isoc_va_list);
+int vsprintf(char *restrict, const char *restrict, __isoc_va_list);
+int vsnprintf(char *restrict, size_t, const char *restrict, __isoc_va_list);
+
+int scanf(const char *restrict, ...);
+int fscanf(FILE *restrict, const char *restrict, ...);
+int sscanf(const char *restrict, const char *restrict, ...);
+int vscanf(const char *restrict, __isoc_va_list);
+int vfscanf(FILE *restrict, const char *restrict, __isoc_va_list);
+int vsscanf(const char *restrict, const char *restrict, __isoc_va_list);
+
+void perror(const char *);
+
+int setvbuf(FILE *restrict, char *restrict, int, size_t);
+void setbuf(FILE *restrict, char *restrict);
+
+char *tmpnam(char *);
+FILE *tmpfile(void);
+
+
+
+
+FILE *fmemopen(void *restrict, size_t, const char *restrict);
+FILE *open_memstream(char **, size_t *);
+FILE *fdopen(int, const char *);
+FILE *popen(const char *, const char *);
+int pclose(FILE *);
+int fileno(FILE *);
+int fseeko(FILE *, off_t, int);
+off_t ftello(FILE *);
+int dprintf(int, const char *restrict, ...);
+int vdprintf(int, const char *restrict, __isoc_va_list);
+void flockfile(FILE *);
+int ftrylockfile(FILE *);
+void funlockfile(FILE *);
+int getc_unlocked(FILE *);
+int getchar_unlocked(void);
+int putc_unlocked(int, FILE *);
+int putchar_unlocked(int);
+ssize_t getdelim(char **restrict, size_t *restrict, int, FILE *restrict);
+ssize_t getline(char **restrict, size_t *restrict, FILE *restrict);
+int renameat(int, const char *, int, const char *);
+char *ctermid(char *);
+
+
+
+
+
+
+
+char *tempnam(const char *, const char *);
+
+
+
+
+char *cuserid(char *);
+void setlinebuf(FILE *);
+void setbuffer(FILE *, char *, size_t);
+int fgetc_unlocked(FILE *);
+int fputc_unlocked(int, FILE *);
+int fflush_unlocked(FILE *);
+size_t fread_unlocked(void *, size_t, size_t, FILE *);
+size_t fwrite_unlocked(const void *, size_t, size_t, FILE *);
+void clearerr_unlocked(FILE *);
+int feof_unlocked(FILE *);
+int ferror_unlocked(FILE *);
+int fileno_unlocked(FILE *);
+int getw(FILE *);
+int putw(int, FILE *);
+char *fgetln(FILE *, size_t *);
+int asprintf(char **, const char *, ...);
+int vasprintf(char **, const char *, __isoc_va_list);
+# 24 "/usr/include/fortify/stdio.h" 2 3 4
+# 5 "src/c.h" 2
+# 1 "/usr/include/fortify/stdlib.h" 1 3 4
+# 23 "/usr/include/fortify/stdlib.h" 3 4
+# 1 "/usr/include/stdlib.h" 1 3 4
+# 21 "/usr/include/stdlib.h" 3 4
+# 1 "/usr/include/bits/alltypes.h" 1 3 4
+# 15 "/usr/include/bits/alltypes.h" 3 4
+typedef unsigned wchar_t;
+# 22 "/usr/include/stdlib.h" 2 3 4
+
+int atoi (const char *);
+long atol (const char *);
+long long atoll (const char *);
+double atof (const char *);
+
+float strtof (const char *restrict, char **restrict);
+double strtod (const char *restrict, char **restrict);
+long double strtold (const char *restrict, char **restrict);
+
+long strtol (const char *restrict, char **restrict, int);
+unsigned long strtoul (const char *restrict, char **restrict, int);
+long long strtoll (const char *restrict, char **restrict, int);
+unsigned long long strtoull (const char *restrict, char **restrict, int);
+
+int rand (void);
+void srand (unsigned);
+
+void *malloc (size_t);
+void *calloc (size_t, size_t);
+void *realloc (void *, size_t);
+void free (void *);
+void *aligned_alloc(size_t, size_t);
+
+_Noreturn void abort (void);
+int atexit (void (*) (void));
+_Noreturn void exit (int);
+_Noreturn void _Exit (int);
+int at_quick_exit (void (*) (void));
+_Noreturn void quick_exit (int);
+
+char *getenv (const char *);
+
+int system (const char *);
+
+void *bsearch (const void *, const void *, size_t, size_t, int (*)(const void *, const void *));
+void qsort (void *, size_t, size_t, int (*)(const void *, const void *));
+
+int abs (int);
+long labs (long);
+long long llabs (long long);
+
+typedef struct { int quot, rem; } div_t;
+typedef struct { long quot, rem; } ldiv_t;
+typedef struct { long long quot, rem; } lldiv_t;
+
+div_t div (int, int);
+ldiv_t ldiv (long, long);
+lldiv_t lldiv (long long, long long);
+
+int mblen (const char *, size_t);
+int mbtowc (wchar_t *restrict, const char *restrict, size_t);
+int wctomb (char *, wchar_t);
+size_t mbstowcs (wchar_t *restrict, const char *restrict, size_t);
+size_t wcstombs (char *restrict, const wchar_t *restrict, size_t);
+
+
+
+
+size_t __ctype_get_mb_cur_max(void);
+# 101 "/usr/include/stdlib.h" 3 4
+int posix_memalign (void **, size_t, size_t);
+int setenv (const char *, const char *, int);
+int unsetenv (const char *);
+int mkstemp (char *);
+int mkostemp (char *, int);
+char *mkdtemp (char *);
+int getsubopt (char **, char *const *, char **);
+int rand_r (unsigned *);
+
+
+
+
+
+
+char *realpath (const char *restrict, char *restrict);
+long int random (void);
+void srandom (unsigned int);
+char *initstate (unsigned int, char *, size_t);
+char *setstate (char *);
+int putenv (char *);
+int posix_openpt (int);
+int grantpt (int);
+int unlockpt (int);
+char *ptsname (int);
+char *l64a (long);
+long a64l (const char *);
+void setkey (const char *);
+double drand48 (void);
+double erand48 (unsigned short [3]);
+long int lrand48 (void);
+long int nrand48 (unsigned short [3]);
+long mrand48 (void);
+long jrand48 (unsigned short [3]);
+void srand48 (long);
+unsigned short *seed48 (unsigned short [3]);
+void lcong48 (unsigned short [7]);
+
+
+
+# 1 "/usr/include/alloca.h" 1 3 4
+
+
+
+
+
+
+
+
+# 1 "/usr/include/bits/alltypes.h" 1 3 4
+# 10 "/usr/include/alloca.h" 2 3 4
+
+void *alloca(size_t);
+# 141 "/usr/include/stdlib.h" 2 3 4
+char *mktemp (char *);
+int mkstemps (char *, int);
+int mkostemps (char *, int, int);
+void *valloc (size_t);
+void *memalign(size_t, size_t);
+int getloadavg(double *, int);
+int clearenv(void);
+
+
+void *reallocarray (void *, size_t, size_t);
+void qsort_r (void *, size_t, size_t, int (*)(const void *, const void *, void *), void *);
+# 24 "/usr/include/fortify/stdlib.h" 2 3 4
+# 6 "src/c.h" 2
+# 1 "/usr/include/limits.h" 1 3 4
+
+
+
+
+
+# 1 "/usr/include/bits/alltypes.h" 1 3 4
+# 7 "/usr/include/limits.h" 2 3 4
+# 40 "/usr/include/limits.h" 3 4
+# 1 "/usr/include/bits/limits.h" 1 3 4
+# 41 "/usr/include/limits.h" 2 3 4
+# 7 "src/c.h" 2
+# 1 "/usr/include/fortify/string.h" 1 3 4
+# 23 "/usr/include/fortify/string.h" 3 4
+# 1 "/usr/include/string.h" 1 3 4
+# 25 "/usr/include/string.h" 3 4
+# 1 "/usr/include/bits/alltypes.h" 1 3 4
+# 351 "/usr/include/bits/alltypes.h" 3 4
+typedef struct __locale_struct * locale_t;
+# 26 "/usr/include/string.h" 2 3 4
+
+void *memcpy (void *restrict, const void *restrict, size_t);
+void *memmove (void *, const void *, size_t);
+void *memset (void *, int, size_t);
+int memcmp (const void *, const void *, size_t);
+void *memchr (const void *, int, size_t);
+
+char *strcpy (char *restrict, const char *restrict);
+char *strncpy (char *restrict, const char *restrict, size_t);
+
+char *strcat (char *restrict, const char *restrict);
+char *strncat (char *restrict, const char *restrict, size_t);
+
+int strcmp (const char *, const char *);
+int strncmp (const char *, const char *, size_t);
+
+int strcoll (const char *, const char *);
+size_t strxfrm (char *restrict, const char *restrict, size_t);
+
+char *strchr (const char *, int);
+char *strrchr (const char *, int);
+
+size_t strcspn (const char *, const char *);
+size_t strspn (const char *, const char *);
+char *strpbrk (const char *, const char *);
+char *strstr (const char *, const char *);
+char *strtok (char *restrict, const char *restrict);
+
+size_t strlen (const char *);
+
+char *strerror (int);
+
+
+# 1 "/usr/include/fortify/strings.h" 1 3 4
+# 20 "/usr/include/fortify/strings.h" 3 4
+# 1 "/usr/include/strings.h" 1 3 4
+# 12 "/usr/include/strings.h" 3 4
+# 1 "/usr/include/bits/alltypes.h" 1 3 4
+# 13 "/usr/include/strings.h" 2 3 4
+
+
+
+
+int bcmp (const void *, const void *, size_t);
+void bcopy (const void *, void *, size_t);
+void bzero (void *, size_t);
+char *index (const char *, int);
+char *rindex (const char *, int);
+
+
+
+int ffs (int);
+int ffsl (long);
+int ffsll (long long);
+
+
+int strcasecmp (const char *, const char *);
+int strncasecmp (const char *, const char *, size_t);
+
+int strcasecmp_l (const char *, const char *, locale_t);
+int strncasecmp_l (const char *, const char *, size_t, locale_t);
+# 21 "/usr/include/fortify/strings.h" 2 3 4
+# 60 "/usr/include/string.h" 2 3 4
+
+
+
+
+
+char *strtok_r (char *restrict, const char *restrict, char **restrict);
+int strerror_r (int, char *, size_t);
+char *stpcpy(char *restrict, const char *restrict);
+char *stpncpy(char *restrict, const char *restrict, size_t);
+size_t strnlen (const char *, size_t);
+char *strdup (const char *);
+char *strndup (const char *, size_t);
+char *strsignal(int);
+char *strerror_l (int, locale_t);
+int strcoll_l (const char *, const char *, locale_t);
+size_t strxfrm_l (char *restrict, const char *restrict, size_t, locale_t);
+void *memmem(const void *, size_t, const void *, size_t);
+
+
+
+
+void *memccpy (void *restrict, const void *restrict, int, size_t);
+
+
+
+char *strsep(char **, const char *);
+size_t strlcat (char *, const char *, size_t);
+size_t strlcpy (char *, const char *, size_t);
+void explicit_bzero (void *, size_t);
+# 24 "/usr/include/fortify/string.h" 2 3 4
+# 8 "src/c.h" 2
+# 66 "src/c.h"
+typedef struct node *Node;
+
+typedef struct list *List;
+
+typedef struct code *Code;
+
+typedef struct swtch *Swtch;
+
+typedef struct symbol *Symbol;
+
+typedef struct coord {
+ char *file;
+ unsigned x, y;
+} Coordinate;
+typedef struct table *Table;
+
+typedef union value {
+ long i;
+ unsigned long u;
+ long double d;
+ void *p;
+ void (*g)(void);
+} Value;
+typedef struct tree *Tree;
+
+typedef struct type *Type;
+
+typedef struct field *Field;
+
+typedef struct {
+ unsigned printed:1;
+ unsigned marked;
+ unsigned short typeno;
+ void *xt;
+} Xtype;
+
+# 1 "src/config.h" 1
+
+typedef struct {
+ unsigned char max_unaligned_load;
+ Symbol (*rmap)(int);
+
+ void (*blkfetch)(int size, int off, int reg, int tmp);
+ void (*blkstore)(int size, int off, int reg, int tmp);
+ void (*blkloop)(int dreg, int doff,
+                  int sreg, int soff,
+                  int size, int tmps[]);
+ void (*_label)(Node);
+ int (*_rule)(void*, int);
+ short **_nts;
+ void (*_kids)(Node, int, Node*);
+ char **_string;
+ char **_templates;
+ char *_isinstruction;
+ char **_ntname;
+ void (*emit2)(Node);
+ void (*doarg)(Node);
+ void (*target)(Node);
+ void (*clobber)(Node);
+} Xinterface;
+extern int askregvar(Symbol, Symbol);
+extern void blkcopy(int, int, int, int, int, int[]);
+extern unsigned emitasm(Node, int);
+extern int getregnum(Node);
+extern int mayrecalc(Node);
+extern int mkactual(int, int);
+extern void mkauto(Symbol);
+extern Symbol mkreg(char *, int, int, int);
+extern Symbol mkwildcard(Symbol *);
+extern int move(Node);
+extern int notarget(Node);
+extern void parseflags(int, char **);
+extern int range(Node, int, int);
+extern unsigned regloc(Symbol);
+extern void rtarget(Node, int, Symbol);
+extern void setreg(Node, Symbol);
+extern void spill(unsigned, int, Node);
+extern int widens(Node);
+
+extern int argoffset, maxargoffset;
+extern int bflag, dflag;
+extern int dalign, salign;
+extern int framesize;
+extern unsigned freemask[], usedmask[];
+extern int offset, maxoffset;
+extern int swap;
+extern unsigned tmask[], vmask[];
+typedef struct {
+ unsigned listed:1;
+ unsigned registered:1;
+ unsigned emitted:1;
+ unsigned copy:1;
+ unsigned equatable:1;
+ unsigned spills:1;
+ unsigned mayrecalc:1;
+ void *state;
+ short inst;
+ Node kids[3];
+ Node prev, next;
+ Node prevuse;
+ short argno;
+} Xnode;
+typedef struct {
+ Symbol vbl;
+ short set;
+ short number;
+ unsigned mask;
+} *Regnode;
+enum { IREG=0, FREG=1 };
+typedef struct {
+ char *name;
+ unsigned int eaddr;
+ int offset;
+ Node lastuse;
+ int usecount;
+ Regnode regnode;
+ Symbol *wildcard;
+} Xsymbol;
+enum { RX=2 };
+typedef struct {
+ int offset;
+ unsigned freemask[2];
+} Env;
+
+
+
+enum { VREG=(44<<4) };
+
+
+extern void blockbeg(Env *);
+extern void blockend(Env *);
+extern void emit(Node);
+extern Node gen(Node);
+
+extern unsigned emitbin(Node, int);
+# 103 "src/c.h" 2
+typedef struct metrics {
+ unsigned char size, align, outofline;
+} Metrics;
+typedef struct interface {
+ Metrics charmetric;
+ Metrics shortmetric;
+ Metrics intmetric;
+ Metrics longmetric;
+ Metrics longlongmetric;
+ Metrics floatmetric;
+ Metrics doublemetric;
+ Metrics longdoublemetric;
+ Metrics ptrmetric;
+ Metrics structmetric;
+ unsigned little_endian:1;
+ unsigned mulops_calls:1;
+ unsigned wants_callb:1;
+ unsigned wants_argb:1;
+ unsigned left_to_right:1;
+ unsigned wants_dag:1;
+ unsigned unsigned_char:1;
+void (*address)(Symbol p, Symbol q, long n);
+void (*blockbeg)(Env *);
+void (*blockend)(Env *);
+void (*defaddress)(Symbol);
+void (*defconst) (int suffix, int size, Value v);
+void (*defstring)(int n, char *s);
+void (*defsymbol)(Symbol);
+void (*emit) (Node);
+void (*export)(Symbol);
+void (*function)(Symbol, Symbol[], Symbol[], int);
+Node (*gen) (Node);
+void (*global)(Symbol);
+void (*import)(Symbol);
+void (*local)(Symbol);
+void (*progbeg)(int argc, char *argv[]);
+void (*progend)(void);
+void (*segment)(int);
+void (*space)(int);
+void (*stabblock)(int, int, Symbol*);
+void (*stabend) (Coordinate *, Symbol, Coordinate **, Symbol *, Symbol *);
+void (*stabfend) (Symbol, int);
+void (*stabinit) (char *, int, char *[]);
+void (*stabline) (Coordinate *);
+void (*stabsym) (Symbol);
+void (*stabtype) (Symbol);
+ Xinterface x;
+} Interface;
+typedef struct binding {
+ char *name;
+ Interface *ir;
+} Binding;
+
+extern Binding bindings[];
+extern Interface *IR;
+typedef struct {
+ List blockentry;
+ List blockexit;
+ List entry;
+ List exit;
+ List returns;
+ List points;
+ List calls;
+ List end;
+} Events;
+
+enum {
+
+
+# 1 "src/token.h" 1
+
+
+
+
+
+FLOAT=1,
+DOUBLE=2,
+CHAR=3,
+SHORT=4,
+INT=5,
+UNSIGNED=6,
+POINTER=7,
+VOID=8,
+STRUCT=9,
+UNION=10,
+FUNCTION=11,
+ARRAY=12,
+ENUM=13,
+LONG=14,
+CONST=15,
+VOLATILE=16,
+# 37 "src/token.h"
+ID=32,
+
+FCON=34,
+ICON=35,
+SCON=36,
+
+
+INCR=39,
+# 53 "src/token.h"
+DECR=48,
+DEREF=49,
+ANDAND=50,
+OROR=51,
+LEQ=52,
+EQL=53,
+NEQ=54,
+GEQ=55,
+RSHIFT=56,
+LSHIFT=57,
+
+
+
+
+
+
+ELLIPSIS=64,
+SIZEOF=65,
+
+AUTO=67,
+BREAK=68,
+CASE=69,
+CONTINUE=70,
+DEFAULT=71,
+DO=72,
+ELSE=73,
+EXTERN=74,
+FOR=75,
+GOTO=76,
+IF=77,
+REGISTER=78,
+RETURN=79,
+SIGNED=80,
+STATIC=81,
+SWITCH=82,
+TYPEDEF=83,
+WHILE=84,
+TYPECODE=85,
+FIRSTARG=86,
+# 132 "src/token.h"
+EOI=127,
+# 173 "src/c.h" 2
+ LAST
+};
+struct node {
+ short op;
+ short count;
+  Symbol syms[3];
+ Node kids[2];
+ Node link;
+ Xnode x;
+};
+enum {
+ F=FLOAT,
+ I=INT,
+ U=UNSIGNED,
+ P=POINTER,
+ V=VOID,
+ B=STRUCT
+};
+
+
+
+enum {
+# 1 "src/ops.h" 1
+
+
+CNST=1<<4,
+
+
+
+
+ARG=2<<4,
+
+
+
+
+
+ASGN=3<<4,
+
+
+
+
+
+INDIR=4<<4,
+
+
+
+
+
+CVF=7<<4,
+
+
+CVI=8<<4,
+
+
+
+CVP=9<<4,
+
+CVU=11<<4,
+
+
+
+NEG=12<<4,
+
+
+CALL=13<<4,
+
+
+
+
+
+
+RET=15<<4,
+
+
+
+
+
+ADDRG=16<<4,
+
+ADDRF=17<<4,
+
+ADDRL=18<<4,
+
+ADD=19<<4,
+
+
+
+
+SUB=20<<4,
+
+
+
+
+LSH=21<<4,
+
+
+MOD=22<<4,
+
+
+RSH=23<<4,
+
+
+BAND=24<<4,
+
+
+BCOM=25<<4,
+
+
+BOR=26<<4,
+
+
+BXOR=27<<4,
+
+
+DIV=28<<4,
+
+
+
+MUL=29<<4,
+
+
+
+EQ=30<<4,
+
+
+
+GE=31<<4,
+
+
+
+GT=32<<4,
+
+
+
+LE=33<<4,
+
+
+
+LT=34<<4,
+
+
+
+NE=35<<4,
+
+
+
+JUMP=36<<4,
+
+LABEL=37<<4,
+
+LOAD=14<<4,
+# 196 "src/c.h" 2
+ LASTOP
+};
+
+
+
+enum { CODE=1, BSS, DATA, LIT };
+enum { PERM=0, FUNC, STMT };
+struct list {
+ void *x;
+ List link;
+};
+
+struct code {
+ enum { Blockbeg, Blockend, Local, Address, Defpoint,
+        Label, Start, Gen, Jump, Switch
+ } kind;
+ Code prev, next;
+ union {
+  struct {
+   int level;
+   Symbol *locals;
+   Table identifiers, types;
+   Env x;
+  } block;
+  Code begin;
+  Symbol var;
+
+  struct {
+   Symbol sym;
+   Symbol base;
+   long offset;
+  } addr;
+  struct {
+   Coordinate src;
+   int point;
+  } point;
+  Node forest;
+  struct {
+   Symbol sym;
+   Symbol table;
+   Symbol deflab;
+   int size;
+   long *values;
+   Symbol *labels;
+  } swtch;
+
+ } u;
+};
+struct swtch {
+ Symbol sym;
+ int lab;
+ Symbol deflab;
+ int ncases;
+ int size;
+ long *values;
+ Symbol *labels;
+};
+struct symbol {
+ char *name;
+ int scope;
+ Coordinate src;
+ Symbol up;
+ List uses;
+ int sclass;
+ unsigned structarg:1;
+
+ unsigned addressed:1;
+ unsigned computed:1;
+ unsigned temporary:1;
+ unsigned generated:1;
+ unsigned defined:1;
+ Type type;
+ float ref;
+ union {
+  struct {
+   int label;
+   Symbol equatedto;
+  } l;
+  struct {
+   unsigned cfields:1;
+   unsigned vfields:1;
+   Table ftab;
+   Field flist;
+  } s;
+  int value;
+  Symbol *idlist;
+  struct {
+   Value min, max;
+  } limits;
+  struct {
+   Value v;
+   Symbol loc;
+  } c;
+  struct {
+   Coordinate pt;
+   int label;
+   int ncalls;
+   Symbol *callee;
+  } f;
+  int seg;
+  Symbol alias;
+  struct {
+   Node cse;
+   int replace;
+   Symbol next;
+  } t;
+ } u;
+ Xsymbol x;
+};
+enum { CONSTANTS=1, LABELS, GLOBAL, PARAM, LOCAL };
+struct tree {
+ int op;
+ Type type;
+ Tree kids[2];
+ Node node;
+ union {
+  Value v;
+  Symbol sym;
+
+  Field field;
+ } u;
+};
+enum {
+ AND=38<<4,
+ NOT=39<<4,
+ OR=40<<4,
+ COND=41<<4,
+ RIGHT=42<<4,
+ FIELD=43<<4
+};
+struct type {
+ int op;
+ Type type;
+ int align;
+ int size;
+ union {
+  Symbol sym;
+  struct {
+   unsigned oldstyle:1;
+   Type *proto;
+  } f;
+ } u;
+ Xtype x;
+};
+struct field {
+ char *name;
+ Type type;
+ int offset;
+ short bitsize;
+ short lsb;
+ Field link;
+};
+extern int assignargs;
+extern int prunetemps;
+extern int nodecount;
+extern Symbol cfunc;
+extern Symbol retv;
+extern Tree (*optree[])(int, Tree, Tree);
+
+extern char kind[];
+extern int errcnt;
+extern int errlimit;
+extern int wflag;
+extern Events events;
+extern float refinc;
+
+extern unsigned char *cp;
+extern unsigned char *limit;
+extern char *firstfile;
+extern char *file;
+extern char *line;
+extern int lineno;
+extern int t;
+extern char *token;
+extern Symbol tsym;
+extern Coordinate src;
+extern int Aflag;
+extern int Pflag;
+extern Symbol YYnull;
+extern Symbol YYcheck;
+extern int glevel;
+extern int xref;
+
+extern int ncalled;
+extern int npoints;
+
+extern int needconst;
+extern int explicitCast;
+extern struct code codehead;
+extern Code codelist;
+extern Table stmtlabs;
+extern float density;
+extern Table constants;
+extern Table externals;
+extern Table globals;
+extern Table identifiers;
+extern Table labels;
+extern Table types;
+extern int level;
+
+extern List loci, symbols;
+
+extern List symbols;
+
+extern int where;
+extern Type chartype;
+extern Type doubletype;
+extern Type floattype;
+extern Type inttype;
+extern Type longdouble;
+extern Type longtype;
+extern Type longlong;
+extern Type shorttype;
+extern Type signedchar;
+extern Type unsignedchar;
+extern Type unsignedlonglong;
+extern Type unsignedlong;
+extern Type unsignedshort;
+extern Type unsignedtype;
+extern Type charptype;
+extern Type funcptype;
+extern Type voidptype;
+extern Type voidtype;
+extern Type unsignedptr;
+extern Type signedptr;
+extern Type widechar;
+extern void *allocate(unsigned long n, unsigned a);
+extern void deallocate(unsigned a);
+extern void *newarray(unsigned long m, unsigned long n, unsigned a);
+extern void walk(Tree e, int tlab, int flab);
+extern Node listnodes(Tree e, int tlab, int flab);
+extern Node newnode(int op, Node left, Node right, Symbol p);
+extern Tree cvtconst(Tree);
+extern void printdag(Node, int);
+extern void compound(int, Swtch, int);
+extern void defglobal(Symbol, int);
+extern void finalize(void);
+extern void program(void);
+
+extern Tree vcall(Symbol func, Type ty, ...);
+extern Tree addrof(Tree);
+extern Tree asgn(Symbol, Tree);
+extern Tree asgntree(int, Tree, Tree);
+extern Type assign(Type, Tree);
+extern Tree bittree(int, Tree, Tree);
+extern Tree call(Tree, Type, Coordinate);
+extern Tree calltree(Tree, Type, Tree, Symbol);
+extern Tree condtree(Tree, Tree, Tree);
+extern Tree cnsttree(Type, ...);
+extern Tree consttree(int, Type);
+extern Tree eqtree(int, Tree, Tree);
+extern int iscallb(Tree);
+extern Tree shtree(int, Tree, Tree);
+extern void typeerror(int, Tree, Tree);
+
+extern void test(int tok, char set[]);
+extern void expect(int tok);
+extern void skipto(int tok, char set[]);
+extern void error(const char *, ...);
+extern int fatal(const char *, const char *, int);
+extern void warning(const char *, ...);
+
+typedef void (*Apply)(void *, void *, void *);
+extern void attach(Apply, void *, List *);
+extern void apply(List event, void *arg1, void *arg2);
+extern Tree retype(Tree p, Type ty);
+extern Tree rightkid(Tree p);
+extern int hascall(Tree p);
+extern Type binary(Type, Type);
+extern Tree cast(Tree, Type);
+extern Tree cond(Tree);
+extern Tree expr0(int);
+extern Tree expr(int);
+extern Tree expr1(int);
+extern Tree field(Tree, const char *);
+extern char *funcname(Tree);
+extern Tree idtree(Symbol);
+extern Tree incr(int, Tree, Tree);
+extern Tree lvalue(Tree);
+extern Tree nullcall(Type, Symbol, Tree, Tree);
+extern Tree pointer(Tree);
+extern Tree rvalue(Tree);
+extern Tree value(Tree);
+
+extern void defpointer(Symbol);
+extern Type initializer(Type, int);
+extern void swtoseg(int);
+
+extern void input_init(int, char *[]);
+extern void fillbuf(void);
+extern void nextline(void);
+
+extern int getchr(void);
+extern int gettok(void);
+
+extern void emitcode(void);
+extern void gencode (Symbol[], Symbol[]);
+extern void fprint(FILE *f, const char *fmt, ...);
+extern char *stringf(const char *, ...);
+extern void check(Node);
+extern void print(const char *, ...);
+
+extern List append(void *x, List list);
+extern int length(List list);
+extern void *ltov (List *list, unsigned a);
+extern void init(int, char *[]);
+
+extern Type typename(void);
+extern void checklab(Symbol p, void *cl);
+extern Type enumdcl(void);
+extern void main_init(int, char *[]);
+extern int main(int, char *[]);
+
+extern void vfprint(FILE *, char *, const char *, va_list);
+
+void profInit(char *);
+extern int process(char *);
+extern int findfunc(char *, char *);
+extern int findcount(char *, int, int);
+
+extern Tree constexpr(int);
+extern int intexpr(int, int);
+extern Tree simplify(int, Type, Tree, Tree);
+extern int ispow2(unsigned long u);
+
+extern int reachable(int);
+
+extern void addlocal(Symbol);
+extern void branch(int);
+extern Code code(int);
+extern void definelab(int);
+extern void definept(Coordinate *);
+extern void equatelab(Symbol, Symbol);
+extern Node jump(int);
+extern void retcode(Tree);
+extern void statement(int, Swtch, int);
+extern void swcode(Swtch, int *, int, int);
+extern void swgen(Swtch);
+
+extern char * string(const char *str);
+extern char *stringn(const char *str, int len);
+extern char *stringd(long n);
+extern Symbol relocate(const char *name, Table src, Table dst);
+extern void use(Symbol p, Coordinate src);
+extern void locus(Table tp, Coordinate *cp);
+extern Symbol allsymbols(Table);
+
+extern Symbol constant(Type, Value);
+extern void enterscope(void);
+extern void exitscope(void);
+extern Symbol findlabel(int);
+extern Symbol findtype(Type);
+extern void foreach(Table, int, void (*)(Symbol, void *), void *);
+extern Symbol genident(int, Type, int);
+extern int genlabel(int);
+extern Symbol install(const char *, Table *, int, int);
+extern Symbol intconst(int);
+extern Symbol lookup(const char *, Table);
+extern Symbol mkstr(char *);
+extern Symbol mksymbol(int, const char *, Type);
+extern Symbol newtemp(int, int, int);
+extern Table newtable(int);
+extern Table table(Table, int);
+extern Symbol temporary(int, Type);
+extern char *vtoa(Type, Value);
+
+extern void traceInit(char *);
+extern int nodeid(Tree);
+extern char *opname(int);
+extern int *printed(int);
+extern void printtree(Tree, int);
+extern Tree root(Tree);
+extern Tree texpr(Tree (*)(int), int, int);
+extern Tree tree(int, Type, Tree, Tree);
+
+extern void type_init(int, char *[]);
+
+extern Type signedint(Type);
+
+extern int hasproto(Type);
+extern void outtype(Type, FILE *);
+extern void printdecl (Symbol p, Type ty);
+extern void printproto(Symbol p, Symbol args[]);
+extern char *typestring(Type ty, char *id);
+extern Field fieldref(const char *name, Type ty);
+extern Type array(Type, int, int);
+extern Type atop(Type);
+extern Type btot(int, int);
+extern Type compose(Type, Type);
+extern Type deref(Type);
+extern int eqtype(Type, Type, int);
+extern Field fieldlist(Type);
+extern Type freturn(Type);
+extern Type ftype(Type, ...);
+extern Type func(Type, Type *, int);
+extern Field newfield(char *, Type, Type);
+extern Type newstruct(int, char *);
+extern void printtype(Type, int);
+extern Type promote(Type);
+extern Type ptr(Type);
+extern Type qual(int, Type);
+extern void rmtypes(int);
+extern int ttob(Type);
+extern int variadic(Type);
+# 2 "src/simp.c" 2
+# 1 "/usr/include/float.h" 1 3 4
+
+
+
+
+
+
+
+int __flt_rounds(void);
+# 46 "/usr/include/float.h" 3 4
+# 1 "/usr/include/bits/float.h" 1 3 4
+# 47 "/usr/include/float.h" 2 3 4
+# 3 "src/simp.c" 2
+
+static char rcsid[] = "$Id$";
+# 53 "src/simp.c"
+int needconst;
+int explicitCast;
+static int addi(long x, long y, long min, long max, int needconst) {
+ int cond = x == 0 || y == 0
+ || x < 0 && y < 0 && x >= min - y
+ || x < 0 && y > 0
+ || x > 0 && y < 0
+ || x > 0 && y > 0 && x <= max - y;
+ if (!cond && needconst) {
+  warning("overflow in constant expression\n");
+  cond = 1;
+ }
+ return cond;
+
+
+}
+
+static int addd(double x, double y, double min, double max, int needconst) {
+ int cond = x == 0 || y == 0
+ || x < 0 && y < 0 && x >= min - y
+ || x < 0 && y > 0
+ || x > 0 && y < 0
+ || x > 0 && y > 0 && x <= max - y;
+ if (!cond && needconst) {
+  warning("overflow in constant expression\n");
+  cond = 1;
+ }
+ return cond;
+
+
+}
+
+static Tree addrtree(Tree e, long n, Type ty) {
+ Symbol p = e->u.sym, q;
+
+ if (p->scope == GLOBAL
+ || p->sclass == STATIC || p->sclass == EXTERN)
+  memset((((q)) = allocate(sizeof *((q)), ((PERM)))), 0, sizeof *(q));
+ else
+  memset((((q)) = allocate(sizeof *((q)), ((FUNC)))), 0, sizeof *(q));
+ q->name = stringd(genlabel(1));
+ q->sclass = p->sclass;
+ q->scope = p->scope;
+ ((void)((((((ty)->op >= CONST) ? (ty)->type : (ty))->op == POINTER) || ((((ty)->op >= CONST) ? (ty)->type : (ty))->op == ARRAY)) || (__assert_fail("isptr(ty) || isarray(ty)", "src/simp.c", 96, __func__),0)));
+ q->type = ((((ty)->op >= CONST) ? (ty)->type : (ty))->op == POINTER) ? ty->type : ty;
+ q->temporary = p->temporary;
+ q->generated = p->generated;
+ q->addressed = p->addressed;
+ q->computed = 1;
+ q->defined = 1;
+ q->ref = 1;
+ ((void)((IR->address) || (__assert_fail("IR->address", "src/simp.c", 104, __func__),0)));
+ if (p->scope == GLOBAL
+ || p->sclass == STATIC || p->sclass == EXTERN) {
+  if (p->sclass == AUTO)
+   q->sclass = STATIC;
+  (*IR->address)(q, p, n);
+ } else {
+  Code cp;
+  addlocal(p);
+  cp = code(Address);
+  cp->u.addr.sym = q;
+  cp->u.addr.base = p;
+  cp->u.addr.offset = n;
+ }
+ e = tree(e->op, ty, ((void*)0), ((void*)0));
+ e->u.sym = q;
+ return e;
+}
+
+
+static int divi(long x, long y, long min, long max, int needconst) {
+ int cond = y != 0 && !(x == min && y == -1);
+ if (!cond && needconst) {
+  warning("overflow in constant expression\n");
+  cond = 1;
+ }
+ return cond;
+
+
+}
+
+static int divd(double x, double y, double min, double max, int needconst) {
+ int cond;
+
+ if (x < 0) x = -x;
+ if (y < 0) y = -y;
+ cond = y != 0 && !(y < 1 && x > max*y);
+ if (!cond && needconst) {
+  warning("overflow in constant expression\n");
+  cond = 1;
+ }
+ return cond;
+
+}
+
+
+static int muli(long x, long y, long min, long max, int needconst) {
+ int cond = x > -1 && x <= 1 || y > -1 && y <= 1
+ || x < 0 && y < 0 && -x <= max/-y
+ || x < 0 && y > 0 && x >= min/y
+ || x > 0 && y < 0 && y >= min/x
+ || x > 0 && y > 0 && x <= max/y;
+ if (!cond && needconst) {
+  warning("overflow in constant expression\n");
+  cond = 1;
+ }
+ return cond;
+
+
+}
+
+static int muld(double x, double y, double min, double max, int needconst) {
+ int cond = x >= -1 && x <= 1 || y >= -1 && y <= 1
+ || x < 0 && y < 0 && -x <= max/-y
+ || x < 0 && y > 0 && x >= min/y
+ || x > 0 && y < 0 && y >= min/x
+ || x > 0 && y > 0 && x <= max/y;
+ if (!cond && needconst) {
+  warning("overflow in constant expression\n");
+  cond = 1;
+ }
+ return cond;
+
+
+}
+
+static int subi(long x, long y, long min, long max, int needconst) {
+ return addi(x, -y, min, max, needconst);
+}
+
+static int subd(double x, double y, double min, double max, int needconst) {
+ return addd(x, -y, min, max, needconst);
+}
+Tree constexpr(int tok) {
+ Tree p;
+
+ needconst++;
+ p = expr1(tok);
+ needconst--;
+ return p;
+}
+
+int intexpr(int tok, int n) {
+ Tree p = constexpr(tok);
+
+ needconst++;
+ if (p->op == CNST+I || p->op == CNST+U)
+  n = cast(p, inttype)->u.v.i;
+ else
+  error("integer expression must be constant\n");
+ needconst--;
+ return n;
+}
+Tree simplify(int op, Type ty, Tree l, Tree r) {
+ int n;
+ Tree p;
+
+ if (((op)&0xF) == 0)
+  op = ((((op) + ttob(ty))&0x3FF));
+ switch (op) {
+  case ADD+U:
+   if (l->op == CNST+U && r->op == CNST+U) return cnsttree(ty, l->u.v.u + r->u.v.u);
+   if (((l->op)&0x3F0) == CNST && ((r->op)&0x3F0) != CNST) do { Tree t = r; r = l; l = t; } while(0);
+   if (r->op == CNST+U && r->u.v.u == 0) return l;
+   break;
+  case ADD+I:
+   if (l->op == CNST+I && r->op == CNST+I && addi(l->u.v.i,r->u.v.i, ty->u.sym->u.limits.min.i, ty->u.sym->u.limits.max.i, needconst)) return cnsttree(ty, l->u.v.i + r->u.v.i);
+   if (((l->op)&0x3F0) == CNST && ((r->op)&0x3F0) != CNST) do { Tree t = r; r = l; l = t; } while(0);
+   if (r->op == CNST+I && r->u.v.i == 0) return l;
+   break;
+  case CVI+I:
+   if (l->op == CNST+I) do { if (!explicitCast && ((l->u.v.i) < ty->u.sym->u.limits.min.i || (l->u.v.i) > ty->u.sym->u.limits.max.i)) warning("overflow in converting constant expression from `%t' to `%t'\n", l->type, ty); if (needconst || !((l->u.v.i) < ty->u.sym->u.limits.min.i || (l->u.v.i) > ty->u.sym->u.limits.max.i)) return cnsttree(ty, ((long)((l->u.v.i)&(1<<(8*(ty)->size-1)) ? (l->u.v.i)|((~0UL)<<(8*(ty)->size-1)) : (l->u.v.i)&((8*(ty)->size)>=8*sizeof (unsigned long) ? ~0UL : ~((~0UL)<<(8*(ty)->size)))))); } while(0);
+   break;
+  case CVU+I:
+   if (l->op == CNST+U) {
+    if (!explicitCast && l->u.v.u > ty->u.sym->u.limits.max.i)
+     warning("overflow in converting constant expression from `%t' to `%t'\n", l->type, ty);
+    if (needconst || !(l->u.v.u > ty->u.sym->u.limits.max.i))
+     return cnsttree(ty, (long)((l->u.v.u)&(1<<(8*(ty)->size-1)) ? (l->u.v.u)|((~0UL)<<(8*(ty)->size-1)) : (l->u.v.u)&((8*(ty)->size)>=8*sizeof (unsigned long) ? ~0UL : ~((~0UL)<<(8*(ty)->size)))));
+   }
+   break;
+  case CVP+U:
+   if (l->op == CNST+P) do { if (!explicitCast && (((unsigned long)l->u.v.p) < ty->u.sym->u.limits.min.u || ((unsigned long)l->u.v.p) > ty->u.sym->u.limits.max.u)) warning("overflow in converting constant expression from `%t' to `%t'\n", l->type, ty); if (needconst || !(((unsigned long)l->u.v.p) < ty->u.sym->u.limits.min.u || ((unsigned long)l->u.v.p) > ty->u.sym->u.limits.max.u)) return cnsttree(ty, ((unsigned long)l->u.v.p)); } while(0);
+   break;
+  case CVU+P:
+   if (l->op == CNST+U) do { if (!explicitCast && (((void*)l->u.v.u) < ty->u.sym->u.limits.min.p || ((void*)l->u.v.u) > ty->u.sym->u.limits.max.p)) warning("overflow in converting constant expression from `%t' to `%t'\n", l->type, ty); if (needconst || !(((void*)l->u.v.u) < ty->u.sym->u.limits.min.p || ((void*)l->u.v.u) > ty->u.sym->u.limits.max.p)) return cnsttree(ty, ((void*)l->u.v.u)); } while(0);
+   break;
+  case CVP+P:
+   if (l->op == CNST+P) do { if (!explicitCast && ((l->u.v.p) < ty->u.sym->u.limits.min.p || (l->u.v.p) > ty->u.sym->u.limits.max.p)) warning("overflow in converting constant expression from `%t' to `%t'\n", l->type, ty); if (needconst || !((l->u.v.p) < ty->u.sym->u.limits.min.p || (l->u.v.p) > ty->u.sym->u.limits.max.p)) return cnsttree(ty, (l->u.v.p)); } while(0);
+   break;
+  case CVI+U:
+   if (l->op == CNST+I) do { if (!explicitCast && ((l->u.v.i) < ty->u.sym->u.limits.min.u || (l->u.v.i) > ty->u.sym->u.limits.max.u)) warning("overflow in converting constant expression from `%t' to `%t'\n", l->type, ty); if (needconst || !((l->u.v.i) < ty->u.sym->u.limits.min.u || (l->u.v.i) > ty->u.sym->u.limits.max.u)) return cnsttree(ty, (((unsigned long)l->u.v.i)&((8*ty->size)>=8*sizeof (unsigned long) ? ~0UL : ~((~0UL)<<(8*ty->size))))); } while(0);
+   break;
+  case CVU+U:
+   if (l->op == CNST+U) do { if (!explicitCast && ((l->u.v.u) < ty->u.sym->u.limits.min.u || (l->u.v.u) > ty->u.sym->u.limits.max.u)) warning("overflow in converting constant expression from `%t' to `%t'\n", l->type, ty); if (needconst || !((l->u.v.u) < ty->u.sym->u.limits.min.u || (l->u.v.u) > ty->u.sym->u.limits.max.u)) return cnsttree(ty, (l->u.v.u&((8*ty->size)>=8*sizeof (unsigned long) ? ~0UL : ~((~0UL)<<(8*ty->size))))); } while(0);
+   break;
+
+  case CVI+F:
+   if (l->op == CNST+I) do { if (!explicitCast && ((l->u.v.i) < ty->u.sym->u.limits.min.d || (l->u.v.i) > ty->u.sym->u.limits.max.d)) warning("overflow in converting constant expression from `%t' to `%t'\n", l->type, ty); if (needconst || !((l->u.v.i) < ty->u.sym->u.limits.min.d || (l->u.v.i) > ty->u.sym->u.limits.max.d)) return cnsttree(ty, ((long double)l->u.v.i)); } while(0);
+  case CVU+F:
+   if (l->op == CNST+U) do { if (!explicitCast && ((l->u.v.u) < ty->u.sym->u.limits.min.d || (l->u.v.u) > ty->u.sym->u.limits.max.d)) warning("overflow in converting constant expression from `%t' to `%t'\n", l->type, ty); if (needconst || !((l->u.v.u) < ty->u.sym->u.limits.min.d || (l->u.v.u) > ty->u.sym->u.limits.max.d)) return cnsttree(ty, ((long double)l->u.v.u)); } while(0);
+   break;
+  case CVF+I:
+   if (l->op == CNST+F) do { if (!explicitCast && ((l->u.v.d) < ty->u.sym->u.limits.min.i || (l->u.v.d) > ty->u.sym->u.limits.max.i)) warning("overflow in converting constant expression from `%t' to `%t'\n", l->type, ty); if (needconst || !((l->u.v.d) < ty->u.sym->u.limits.min.i || (l->u.v.d) > ty->u.sym->u.limits.max.i)) return cnsttree(ty, ((long)l->u.v.d)); } while(0);
+   break;
+  case CVF+F: {
+   float d;
+   if (l->op == CNST+F)
+    if (l->u.v.d < ty->u.sym->u.limits.min.d)
+     d = ty->u.sym->u.limits.min.d;
+    else if (l->u.v.d > ty->u.sym->u.limits.max.d)
+     d = ty->u.sym->u.limits.max.d;
+    else
+     d = l->u.v.d;
+   if (l->op == CNST+F) do { if (!explicitCast && ((l->u.v.d) < ty->u.sym->u.limits.min.d || (l->u.v.d) > ty->u.sym->u.limits.max.d)) warning("overflow in converting constant expression from `%t' to `%t'\n", l->type, ty); if (needconst || !((l->u.v.d) < ty->u.sym->u.limits.min.d || (l->u.v.d) > ty->u.sym->u.limits.max.d)) return cnsttree(ty, ((long double)d)); } while(0);
+   break;
+   }
+  case BAND+U:
+   if (l->op == CNST+U && r->op == CNST+U) return cnsttree(ty, l->u.v.u & r->u.v.u);
+   if (((l->op)&0x3F0) == CNST && ((r->op)&0x3F0) != CNST) do { Tree t = r; r = l; l = t; } while(0);
+   if (r->op == CNST+U && r->u.v.u == ((8*ty->size)>=8*sizeof (unsigned long) ? ~0UL : ~((~0UL)<<(8*ty->size)))) return l;
+   if (r->op == CNST+U && r->u.v.u == 0)
+    return tree(RIGHT, ty, root(l), cnsttree(ty, 0UL));
+   break;
+  case BAND+I:
+   if (l->op == CNST+I && r->op == CNST+I) return cnsttree(ty, l->u.v.i & r->u.v.i);
+   if (((l->op)&0x3F0) == CNST && ((r->op)&0x3F0) != CNST) do { Tree t = r; r = l; l = t; } while(0);
+   if (r->op == CNST+I && r->u.v.i == ((8*ty->size)>=8*sizeof (unsigned long) ? ~0UL : ~((~0UL)<<(8*ty->size)))) return l;
+   if (r->op == CNST+I && r->u.v.u == 0)
+    return tree(RIGHT, ty, root(l), cnsttree(ty, 0L));
+   break;
+
+  case MUL+U:
+   if (((r->op)&0x3F0) == CNST && ((l->op)&0x3F0) != CNST) do { Tree t = l; l = r; r = t; } while(0);
+   if (l->op == CNST+U && (n = ispow2(l->u.v.u)) != 0)
+    return simplify(LSH, ty, r, cnsttree(inttype, (long)n));
+   if (l->op == CNST+U && r->op == CNST+U) return cnsttree(ty, l->u.v.u * r->u.v.u);
+   if (r->op == CNST+U && r->u.v.u == 1) return l;
+   break;
+  case NE+I:
+   if (l->op == CNST+I && r->op == CNST+I) return cnsttree(inttype, (long)(l->u.v.i != r->u.v.i));
+   if (((l->op)&0x3F0) == CNST && ((r->op)&0x3F0) != CNST) do { Tree t = r; r = l; l = t; } while(0);
+   if (l->op == FIELD && r->op == CNST+I && r->u.v.i == 0) return eqtree(NE, bittree(BAND, l->kids[0], cnsttree(unsignedtype, (unsigned long)(~((l->u.field)->bitsize < 8*unsignedtype->size ? ~0u<<(l->u.field)->bitsize : 0u))<<((l->u.field)->lsb - 1))), r);
+   break;
+
+  case EQ+I:
+   if (l->op == CNST+I && r->op == CNST+I) return cnsttree(inttype, (long)(l->u.v.i == r->u.v.i));
+   if (((l->op)&0x3F0) == CNST && ((r->op)&0x3F0) != CNST) do { Tree t = r; r = l; l = t; } while(0);
+   if (l->op == FIELD && r->op == CNST+I && r->u.v.i == 0) return eqtree(EQ, bittree(BAND, l->kids[0], cnsttree(unsignedtype, (unsigned long)(~((l->u.field)->bitsize < 8*unsignedtype->size ? ~0u<<(l->u.field)->bitsize : 0u))<<((l->u.field)->lsb - 1))), r);
+   break;
+  case ADD+P:
+   if (l->op == CNST+P && r->op == CNST+I) { Tree e = tree(CNST+P, ty, ((void*)0), ((void*)0)); e->u.v.p = (char *)l->u.v.p + r->u.v.i; return e; };
+   if (l->op == CNST+P && r->op == CNST+U) { Tree e = tree(CNST+P, ty, ((void*)0), ((void*)0)); e->u.v.p = (char *)l->u.v.p + r->u.v.u; return e; };
+   if (r->op == CNST+P && l->op == CNST+I) { Tree e = tree(CNST+P, ty, ((void*)0), ((void*)0)); e->u.v.p = (char *)r->u.v.p + l->u.v.i; return e; };
+   if (r->op == CNST+P && l->op == CNST+U) { Tree e = tree(CNST+P, ty, ((void*)0), ((void*)0)); e->u.v.p = (char *)r->u.v.p + l->u.v.u; return e; };
+   if (((l->op)&0x3F0) == CNST && ((r->op)&0x3F0) != CNST) do { Tree t = r; r = l; l = t; } while(0);
+   if (r->op == CNST+I && r->u.v.i == 0) return retype(l,ty);
+   if (r->op == CNST+U && r->u.v.u == 0) return retype(l,ty);
+
+
+
+
+
+   if (l->op == ADDRG+P && l->u.sym->generated
+   && (r->op == CNST+I && (r->u.v.i > 32767 || r->u.v.i < -32768)
+   || r->op == CNST+U && r->u.v.u > 65536))
+    break;
+   if (IR->address
+   && (((l->op)&0x3FF)==ADDRG+P || ((l->op)&0x3FF)==ADDRL+P || ((l->op)&0x3FF)==ADDRF+P)
+   && (r->op == CNST+I && r->u.v.i <= longtype->u.sym->u.limits.max.i
+       && r->u.v.i >= longtype->u.sym->u.limits.min.i
+   || r->op == CNST+U && r->u.v.u <= longtype->u.sym->u.limits.max.i))
+    return addrtree(l, cast(r, longtype)->u.v.i, ty);
+   if (IR->address
+   && l->op == ADD+P && (((l->kids[1]->op)&0x3FF)==ADDRG+P || ((l->kids[1]->op)&0x3FF)==ADDRL+P || ((l->kids[1]->op)&0x3FF)==ADDRF+P)
+   && (r->op == CNST+I && r->u.v.i <= longtype->u.sym->u.limits.max.i
+       && r->u.v.i >= longtype->u.sym->u.limits.min.i
+   || r->op == CNST+U && r->u.v.u <= longtype->u.sym->u.limits.max.i))
+    return simplify(ADD+P, ty, l->kids[0],
+     addrtree(l->kids[1], cast(r, longtype)->u.v.i, ty));
+   if ((l->op == ADD+I || l->op == SUB+I)
+   && l->kids[1]->op == CNST+I && (((r->op)&0x3FF)==ADDRG+P || ((r->op)&0x3FF)==ADDRL+P || ((r->op)&0x3FF)==ADDRF+P))
+    return simplify(ADD+P, ty, l->kids[0],
+     simplify(((l->op)&0x3F0)+P, ty, r, l->kids[1]));
+   if (l->op == ADD+P && ((l->kids[1]->op)&0x3F0) == CNST
+   && ((r->op)&0x3F0) == CNST)
+    return simplify(ADD+P, ty, l->kids[0],
+     simplify(ADD, l->kids[1]->type, l->kids[1], r));
+   if (l->op == ADD+I && ((l->kids[1]->op)&0x3F0) == CNST
+   && r->op == ADD+P && ((r->kids[1]->op)&0x3F0) == CNST)
+    return simplify(ADD+P, ty, l->kids[0],
+     simplify(ADD+P, ty, r->kids[0],
+     simplify(ADD, r->kids[1]->type, l->kids[1], r->kids[1])));
+   if (l->op == RIGHT && l->kids[1])
+    return tree(RIGHT, ty, l->kids[0],
+     simplify(ADD+P, ty, l->kids[1], r));
+   else if (l->op == RIGHT && l->kids[0])
+    return tree(RIGHT, ty,
+     simplify(ADD+P, ty, l->kids[0], r), ((void*)0));
+   break;
+
+  case ADD+F:
+   if (l->op == CNST+F && r->op == CNST+F && addd(l->u.v.d,r->u.v.d, ty->u.sym->u.limits.min.d, ty->u.sym->u.limits.max.d, needconst)) return cnsttree(ty, l->u.v.d + r->u.v.d);
+   if (((l->op)&0x3F0) == CNST && ((r->op)&0x3F0) != CNST) do { Tree t = r; r = l; l = t; } while(0);
+   break;
+  case AND+I:
+   op = AND;
+   if (l->op == CNST+I) return l->u.v.i ? cond(r) : l;
+   break;
+  case OR+I:
+   op = OR;
+
+   if (l->op == CNST+I) return l->u.v.i ? cnsttree(ty, 1L) : cond(r);
+   break;
+  case BCOM+I:
+   if (l->op == CNST+I) return cnsttree(ty, (long)(((~l->u.v.i)&((8*ty->size)>=8*sizeof (unsigned long) ? ~0UL : ~((~0UL)<<(8*ty->size))))&(1<<(8*(ty)->size-1)) ? ((~l->u.v.i)&((8*ty->size)>=8*sizeof (unsigned long) ? ~0UL : ~((~0UL)<<(8*ty->size))))|((~0UL)<<(8*(ty)->size-1)) : ((~l->u.v.i)&((8*ty->size)>=8*sizeof (unsigned long) ? ~0UL : ~((~0UL)<<(8*ty->size))))&((8*(ty)->size)>=8*sizeof (unsigned long) ? ~0UL : ~((~0UL)<<(8*(ty)->size)))));
+   if (l->op == BCOM+U) return l->kids[0];
+   break;
+  case BCOM+U:
+   if (l->op == CNST+U) return cnsttree(ty, (unsigned long)((~l->u.v.u)&((8*ty->size)>=8*sizeof (unsigned long) ? ~0UL : ~((~0UL)<<(8*ty->size)))));
+   if (l->op == BCOM+U) return l->kids[0];
+   break;
+  case BOR+U:
+   if (l->op == CNST+U && r->op == CNST+U) return cnsttree(ty, l->u.v.u | r->u.v.u);
+   if (((l->op)&0x3F0) == CNST && ((r->op)&0x3F0) != CNST) do { Tree t = r; r = l; l = t; } while(0);
+   if (r->op == CNST+U && r->u.v.u == 0) return l;
+   break;
+  case BOR+I:
+   if (l->op == CNST+I && r->op == CNST+I) return cnsttree(ty, l->u.v.i | r->u.v.i);
+   if (((l->op)&0x3F0) == CNST && ((r->op)&0x3F0) != CNST) do { Tree t = r; r = l; l = t; } while(0);
+   if (r->op == CNST+I && r->u.v.i == 0) return l;
+   break;
+  case BXOR+U:
+   if (l->op == CNST+U && r->op == CNST+U) return cnsttree(ty, l->u.v.u ^ r->u.v.u);
+   if (((l->op)&0x3F0) == CNST && ((r->op)&0x3F0) != CNST) do { Tree t = r; r = l; l = t; } while(0);
+   if (r->op == CNST+U && r->u.v.u == 0) return l;
+   break;
+  case BXOR+I:
+   if (l->op == CNST+I && r->op == CNST+I) return cnsttree(ty, l->u.v.i ^ r->u.v.i);
+   if (((l->op)&0x3F0) == CNST && ((r->op)&0x3F0) != CNST) do { Tree t = r; r = l; l = t; } while(0);
+   if (r->op == CNST+I && r->u.v.i == 0) return l;
+   break;
+  case DIV+F:
+   if (l->op == CNST+F && r->op == CNST+F && divd(l->u.v.d,r->u.v.d, ty->u.sym->u.limits.min.d, ty->u.sym->u.limits.max.d, needconst)) return cnsttree(ty, l->u.v.d / r->u.v.d);
+   break;
+  case DIV+I:
+   if (r->op == CNST+I && r->u.v.i == 1) return l;
+   if (r->op == CNST+I && r->u.v.i == 0
+   || l->op == CNST+I && l->u.v.i == ty->u.sym->u.limits.min.i
+   && r->op == CNST+I && r->u.v.i == -1)
+    break;
+   if (l->op == CNST+I && r->op == CNST+I && divi(l->u.v.i,r->u.v.i, ty->u.sym->u.limits.min.i, ty->u.sym->u.limits.max.i, needconst)) return cnsttree(ty, l->u.v.i / r->u.v.i);
+   break;
+  case DIV+U:
+   if (r->op == CNST+U && r->u.v.u == 1) return l;
+   if (r->op == CNST+U && r->u.v.u == 0)
+    break;
+   if (r->op == CNST+U && (n = ispow2(r->u.v.u)) != 0)
+    return simplify(RSH, ty, l, cnsttree(inttype, (long)n));
+   if (l->op == CNST+U && r->op == CNST+U) return cnsttree(ty, l->u.v.u / r->u.v.u);
+   break;
+  case EQ+F:
+   if (l->op == CNST+F && r->op == CNST+F) return cnsttree(inttype, (long)(l->u.v.d == r->u.v.d));
+   if (((l->op)&0x3F0) == CNST && ((r->op)&0x3F0) != CNST) do { Tree t = r; r = l; l = t; } while(0);
+   break;
+  case EQ+U:
+   if (l->op == CNST+U && r->op == CNST+U) return cnsttree(inttype, (long)(l->u.v.u == r->u.v.u));
+   if (((l->op)&0x3F0) == CNST && ((r->op)&0x3F0) != CNST) do { Tree t = r; r = l; l = t; } while(0);
+   if (l->op == FIELD && r->op == CNST+U && r->u.v.u == 0) return eqtree(EQ, bittree(BAND, l->kids[0], cnsttree(unsignedtype, (unsigned long)(~((l->u.field)->bitsize < 8*unsignedtype->size ? ~0u<<(l->u.field)->bitsize : 0u))<<((l->u.field)->lsb - 1))), r);
+   break;
+  case GE+F: if (l->op == CNST+F && r->op == CNST+F) return cnsttree(inttype, (long)(l->u.v.d >= r->u.v.d)); break;
+  case GE+I: if (l->op == CNST+I && r->op == CNST+I) return cnsttree(inttype, (long)(l->u.v.i >= r->u.v.i)); break;
+  case GE+U:
+   if (r->op == CNST+U && r->u.v.u == 0) do { warning("result of unsigned comparison is constant\n"); return tree(RIGHT, inttype, root(l), cnsttree(inttype, (long)(1))); } while(0);
+   if (l->op == CNST+U && r->op == CNST+U) return cnsttree(inttype, (long)(l->u.v.u >= r->u.v.u));
+   if (l->op == CNST+U && l->u.v.u == 0)
+    return eqtree(EQ, r, l);
+   break;
+  case GT+F: if (l->op == CNST+F && r->op == CNST+F) return cnsttree(inttype, (long)(l->u.v.d > r->u.v.d)); break;
+  case GT+I: if (l->op == CNST+I && r->op == CNST+I) return cnsttree(inttype, (long)(l->u.v.i > r->u.v.i)); break;
+  case GT+U:
+   if (l->op == CNST+U && l->u.v.u == 0) do { warning("result of unsigned comparison is constant\n"); return tree(RIGHT, inttype, root(r), cnsttree(inttype, (long)(0))); } while(0);
+   if (l->op == CNST+U && r->op == CNST+U) return cnsttree(inttype, (long)(l->u.v.u > r->u.v.u));
+   if (r->op == CNST+U && r->u.v.u == 0)
+    return eqtree(NE, l, r);
+   break;
+  case LE+F: if (l->op == CNST+F && r->op == CNST+F) return cnsttree(inttype, (long)(l->u.v.d <= r->u.v.d)); break;
+  case LE+I: if (l->op == CNST+I && r->op == CNST+I) return cnsttree(inttype, (long)(l->u.v.i <= r->u.v.i)); break;
+  case LE+U:
+   if (l->op == CNST+U && l->u.v.u == 0) do { warning("result of unsigned comparison is constant\n"); return tree(RIGHT, inttype, root(r), cnsttree(inttype, (long)(1))); } while(0);
+   if (l->op == CNST+U && r->op == CNST+U) return cnsttree(inttype, (long)(l->u.v.u <= r->u.v.u));
+   if (r->op == CNST+U && r->u.v.u == 0)
+    return eqtree(EQ, l, r);
+   break;
+  case LSH+I:
+   if (r->op == CNST+I && r->u.v.i == 0) return l;
+   if (l->op == CNST+I && r->op == CNST+I
+   && r->u.v.i >= 0 && r->u.v.i < 8*l->type->size
+   && muli(l->u.v.i, 1<<r->u.v.i, ty->u.sym->u.limits.min.i, ty->u.sym->u.limits.max.i, needconst))
+    return cnsttree(ty, (long)(l->u.v.i<<r->u.v.i));
+   if (r->op == CNST+I && (r->u.v.i >= 8*ty->size || r->u.v.i < 0)) {
+    warning("shifting an `%t' by %d bits is undefined\n", ty, r->u.v.i);
+    break;
+   }
+
+   break;
+  case LSH+U:
+   if (r->op == CNST+I && r->u.v.i == 0) return l;
+   if (l->op == CNST+U && r->op == CNST+I && r->u.v.i >= 0 && r->u.v.i < 8*l->type->size) return cnsttree(ty, (unsigned long)(l->u.v.u << r->u.v.i));
+   if (r->op == CNST+I && (r->u.v.i >= 8*ty->size || r->u.v.i < 0)) {
+    warning("shifting an `%t' by %d bits is undefined\n", ty, r->u.v.i);
+    break;
+   }
+
+   break;
+
+  case LT+F: if (l->op == CNST+F && r->op == CNST+F) return cnsttree(inttype, (long)(l->u.v.d < r->u.v.d)); break;
+  case LT+I: if (l->op == CNST+I && r->op == CNST+I) return cnsttree(inttype, (long)(l->u.v.i < r->u.v.i)); break;
+  case LT+U:
+   if (r->op == CNST+U && r->u.v.u == 0) do { warning("result of unsigned comparison is constant\n"); return tree(RIGHT, inttype, root(l), cnsttree(inttype, (long)(0))); } while(0);
+   if (l->op == CNST+U && r->op == CNST+U) return cnsttree(inttype, (long)(l->u.v.u < r->u.v.u));
+   if (l->op == CNST+U && l->u.v.u == 0)
+    return eqtree(NE, r, l);
+   break;
+  case MOD+I:
+   if (r->op == CNST+I && r->u.v.i == 0
+   || l->op == CNST+I && l->u.v.i == ty->u.sym->u.limits.min.i
+   && r->op == CNST+I && r->u.v.i == -1)
+    break;
+   if (l->op == CNST+I && r->op == CNST+I && divi(l->u.v.i,r->u.v.i, ty->u.sym->u.limits.min.i, ty->u.sym->u.limits.max.i, needconst)) return cnsttree(ty, l->u.v.i % r->u.v.i);
+   if (r->op == CNST+I && r->u.v.i == 1)
+    return tree(RIGHT, ty, root(l), cnsttree(ty, 0L));
+   break;
+  case MOD+U:
+   if (r->op == CNST+U && ispow2(r->u.v.u))
+    return bittree(BAND, l, cnsttree(ty, r->u.v.u - 1));
+   if (r->op == CNST+U && r->u.v.u == 0)
+    break;
+   if (l->op == CNST+U && r->op == CNST+U) return cnsttree(ty, l->u.v.u % r->u.v.u);
+   break;
+  case MUL+F:
+   if (l->op == CNST+F && r->op == CNST+F && muld(l->u.v.d,r->u.v.d, ty->u.sym->u.limits.min.d, ty->u.sym->u.limits.max.d, needconst)) return cnsttree(ty, l->u.v.d * r->u.v.d);
+   if (((r->op)&0x3F0) == CNST && ((l->op)&0x3F0) != CNST) do { Tree t = l; l = r; r = t; } while(0);
+   break;
+  case MUL+I:
+   if (((r->op)&0x3F0) == CNST && ((l->op)&0x3F0) != CNST) do { Tree t = l; l = r; r = t; } while(0);
+   if (l->op == CNST+I && r->op == CNST+I && muli(l->u.v.i,r->u.v.i, ty->u.sym->u.limits.min.i, ty->u.sym->u.limits.max.i, needconst)) return cnsttree(ty, l->u.v.i * r->u.v.i);
+   if (l->op == CNST+I && r->op == ADD+I && r->kids[1]->op == CNST+I)
+
+    return simplify(ADD, ty, simplify(MUL, ty, l, r->kids[0]),
+     simplify(MUL, ty, l, r->kids[1]));
+   if (l->op == CNST+I && r->op == SUB+I && r->kids[1]->op == CNST+I)
+
+    return simplify(SUB, ty, simplify(MUL, ty, l, r->kids[0]),
+     simplify(MUL, ty, l, r->kids[1]));
+   if (l->op == CNST+I && l->u.v.i > 0 && (n = ispow2(l->u.v.i)) != 0)
+
+    return simplify(LSH, ty, r, cnsttree(inttype, (long)n));
+   if (r->op == CNST+I && r->u.v.i == 1) return l;
+   break;
+  case NE+F:
+   if (l->op == CNST+F && r->op == CNST+F) return cnsttree(inttype, (long)(l->u.v.d != r->u.v.d));
+   if (((l->op)&0x3F0) == CNST && ((r->op)&0x3F0) != CNST) do { Tree t = r; r = l; l = t; } while(0);
+   break;
+  case NE+U:
+   if (l->op == CNST+U && r->op == CNST+U) return cnsttree(inttype, (long)(l->u.v.u != r->u.v.u));
+   if (((l->op)&0x3F0) == CNST && ((r->op)&0x3F0) != CNST) do { Tree t = r; r = l; l = t; } while(0);
+   if (l->op == FIELD && r->op == CNST+U && r->u.v.u == 0) return eqtree(NE, bittree(BAND, l->kids[0], cnsttree(unsignedtype, (unsigned long)(~((l->u.field)->bitsize < 8*unsignedtype->size ? ~0u<<(l->u.field)->bitsize : 0u))<<((l->u.field)->lsb - 1))), r);
+   break;
+  case NEG+F:
+   if (l->op == CNST+F) return cnsttree(ty, -l->u.v.d);
+   if (l->op == NEG+F) return l->kids[0];
+   break;
+  case NEG+I:
+   if (l->op == CNST+I) {
+    if (needconst && l->u.v.i == ty->u.sym->u.limits.min.i)
+     warning("overflow in constant expression\n");
+    if (needconst || l->u.v.i != ty->u.sym->u.limits.min.i)
+     return cnsttree(ty, -l->u.v.i);
+   }
+   if (l->op == NEG+I) return l->kids[0];
+   break;
+  case NOT+I:
+   op = NOT;
+   if (l->op == CNST+I) return cnsttree(ty, !l->u.v.i);
+   break;
+  case RSH+I:
+   if (r->op == CNST+I && r->u.v.i == 0) return l;
+   if (l->op == CNST+I && r->op == CNST+I
+   && r->u.v.i >= 0 && r->u.v.i < 8*l->type->size) {
+    long n = l->u.v.i>>r->u.v.i;
+    if (l->u.v.i < 0)
+     n |= ~0UL<<(8*l->type->size - r->u.v.i);
+    return cnsttree(ty, n);
+   }
+   if (r->op == CNST+I && (r->u.v.i >= 8*ty->size || r->u.v.i < 0)) {
+    warning("shifting an `%t' by %d bits is undefined\n", ty, r->u.v.i);
+    break;
+   }
+
+   break;
+  case RSH+U:
+   if (r->op == CNST+I && r->u.v.i == 0) return l;
+   if (l->op == CNST+U && r->op == CNST+I && r->u.v.i >= 0 && r->u.v.i < 8*l->type->size) return cnsttree(ty, (unsigned long)(l->u.v.u >> r->u.v.i));
+   if (r->op == CNST+I && (r->u.v.i >= 8*ty->size || r->u.v.i < 0)) {
+    warning("shifting an `%t' by %d bits is undefined\n", ty, r->u.v.i);
+    break;
+   }
+
+   break;
+  case SUB+F:
+   if (l->op == CNST+F && r->op == CNST+F && subd(l->u.v.d,r->u.v.d, ty->u.sym->u.limits.min.d, ty->u.sym->u.limits.max.d, needconst)) return cnsttree(ty, l->u.v.d - r->u.v.d);
+   break;
+  case SUB+I:
+   if (l->op == CNST+I && r->op == CNST+I && subi(l->u.v.i,r->u.v.i, ty->u.sym->u.limits.min.i, ty->u.sym->u.limits.max.i, needconst)) return cnsttree(ty, l->u.v.i - r->u.v.i);
+   if (r->op == CNST+I && r->u.v.i == 0) return l;
+   break;
+  case SUB+U:
+   if (l->op == CNST+U && r->op == CNST+U) return cnsttree(ty, l->u.v.u - r->u.v.u);
+   if (r->op == CNST+U && r->u.v.u == 0) return l;
+   break;
+  case SUB+P:
+   if (l->op == CNST+P && r->op == CNST+P)
+    return cnsttree(ty, (long)((char *)l->u.v.p - (char *)r->u.v.p));
+   if (r->op == CNST+I || r->op == CNST+U)
+    return simplify(ADD, ty, l,
+     cnsttree(inttype, r->op == CNST+I ? -r->u.v.i : -(long)r->u.v.u));
+   if ((((l->op)&0x3FF)==ADDRG+P || ((l->op)&0x3FF)==ADDRL+P || ((l->op)&0x3FF)==ADDRF+P) && r->op == ADD+I && r->kids[1]->op == CNST+I)
+
+    return simplify(SUB, ty,
+     simplify(SUB, ty, l, r->kids[1]), r->kids[0]);
+   break;
+  default:((void)((0) || (__assert_fail("0", "src/simp.c", 586, __func__),0)));
+ }
+ return tree(op, ty, l, r);
+}
+
+int ispow2(unsigned long u) {
+ int n;
+
+ if (u > 1 && (u&(u-1)) == 0)
+  for (n = 0; u; u >>= 1, n++)
+   if (u&1)
+    return n;
+ return 0;
+}

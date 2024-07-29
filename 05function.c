@@ -220,6 +220,11 @@ info->sline = node.sline();
                 err_msg(info, "Invalid expression");
                 exit(1);
             }
+            
+            if(*info->p == ';') {
+                info->p++;
+                skip_spaces_and_lf();
+            }
         }
         
         result.mNodes.push_back(node);
@@ -361,7 +366,7 @@ void arrange_stack(sInfo* info, int top)
     }
 }
 
-record int expected_next_character(char c, sInfo* info=info)
+int expected_next_character(char c, sInfo* info=info)
 {
     parse_sharp();
     if(*info->p != c) {
@@ -644,7 +649,7 @@ string parse_attribute(sInfo* info=info)
     return asm_fun_name.to_string();
 }
 
-record void transpile_toplevel(bool block=false, sInfo* info=info)
+void transpile_toplevel(bool block=false, sInfo* info=info)
 {
     while(*info->p) {
         parse_sharp();

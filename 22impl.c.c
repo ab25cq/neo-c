@@ -408,6 +408,7 @@ struct sModule
 {
     struct buffer* mSourceHead;
     struct buffer* mSourceHead2;
+    struct buffer* mSourceHead3;
     struct buffer* mSource;
     char* mLastCode;
     char* mLastCode2;
@@ -620,6 +621,7 @@ struct sInfo
     struct sClass* defining_class;
     _Bool array_initializer;
     _Bool va_arg;
+    _Bool in_fun_param;
 };
 struct tuple2$2sTypephcharph
 {
@@ -1564,6 +1566,8 @@ void add_come_code_at_come_header(struct sInfo* info, const char* msg, ...);
 void add_come_code_at_function_head2(struct sInfo* info, char* code, ...);
 
 void add_come_code_at_source_head(struct sInfo* info, const char* msg, ...);
+
+void add_come_code_at_source_head3(struct sInfo* info, const char* msg, ...);
 
 void add_come_code_at_source_head2(struct sInfo* info, const char* msg, ...);
 
@@ -3107,7 +3111,6 @@ _Bool _if_conditional24;
 _Bool _if_conditional25;
 int pointer_num_55;
 _Bool _while_condtional9;
-int __exception_result_var_b1;
 void* right_value85;
 void* right_value86;
 struct sType* __dec_obj15;
@@ -3120,7 +3123,6 @@ struct sNode* node_64;
 _Bool _while_condtional14;
 _Bool _if_conditional42;
 _Bool _if_conditional43;
-int __exception_result_var_b2;
 struct sType* __dec_obj16;
 char* source_tail_65;
 void* right_value89;
@@ -3189,7 +3191,7 @@ right_value92 = (void*)0;
             skip_spaces_and_lf(info);
             pointer_num_55++;
         }
-        (come_push_stackframe("22impl.c", 43, 0),__exception_result_var_b1=expected_next_character(123,info), come_pop_stackframe(), __exception_result_var_b1);
+        expected_next_character(123,info);
         __dec_obj15=info->impl_type;
         info->impl_type=(struct sType*)come_increment_ref_count(((struct sType*)(right_value86=sType_initialize((struct sType*)come_increment_ref_count(((struct sType*)(right_value85=(struct sType*)come_calloc(1, sizeof(struct sType)*(1), "22impl.c", 45, "sType")))),word_48,(_Bool)0,info))));
         come_call_finalizer3(__dec_obj15,sType_finalize, 0, 0, 0, 0, (void*)0);
@@ -3221,7 +3223,7 @@ right_value92 = (void*)0;
             buf_63 = come_decrement_ref_count2(buf_63, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             if(node_64) { node_64 = come_decrement_ref_count2(node_64, ((struct sNode*)node_64)->finalize, ((struct sNode*)node_64)->_protocol_obj, 0, 0, 0, (void*)0); } 
         }
-        (come_push_stackframe("22impl.c", 76, 1),__exception_result_var_b2=expected_next_character(125,info), come_pop_stackframe(), __exception_result_var_b2);
+        expected_next_character(125,info);
         list$1charph_reset(info->generics_type_names);
         __dec_obj16=info->impl_type;
         info->impl_type=((void*)0);

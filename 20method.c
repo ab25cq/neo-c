@@ -959,10 +959,14 @@ sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info) version 20
             bool no_comma = info.no_comma;
             info.no_comma = true;
             
+            bool in_fun_param = info.in_fun_param;
+            info.in_fun_param = true;
+            
             sNode*% node = expression();
             
             node = post_position_operator(node, info);
             
+            info.in_fun_param = in_fun_param;
             info.no_comma = no_comma;
             
             params.push_back((label, node));

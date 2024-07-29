@@ -46,7 +46,7 @@ bool node_compile(sNode* node, sInfo* info=info)
     return result;
 }
 
-record void err_msg(sInfo* info, char* msg, ...)
+void err_msg(sInfo* info, char* msg, ...)
 {
     if(!info.no_output_err) {
         char* msg2;
