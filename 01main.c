@@ -1,5 +1,4 @@
 #include "common.h"
-#include <locale.h>
 
 int come_main(int argc, char** argv) version 1
 {

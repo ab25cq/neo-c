@@ -1,7 +1,14 @@
 #include <neo-c.h>
 #include <neo-c-str.h>
-#include <limits.h>
+
+using C
+{
+#ifdef __DARWIN_ARM__
+#include <gc/gc.h>
+#else
 #include <gc.h>
+#endif
+}
 
 void regex_finalizer(GC_PTR obj, GC_PTR client_data)
 {
@@ -2130,3 +2137,24 @@ string string::chomp(char* str)
     return result;
 }
 
+string xrealpath(char* path)
+{
+    if(path == null) {
+        return string("");
+    }
+    char* result = realpath(path, null);
+
+    string result2 = string(result);
+
+    free(result);
+
+    return result2;
+}
+
+string xdirname(char* path)
+{
+    if(path == null) {
+        return string("");
+    }
+    return string(dirname(string(path)));
+}

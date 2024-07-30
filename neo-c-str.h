@@ -6,7 +6,9 @@
 #ifndef _XOPEN_SOURCE
 #define _XOPEN_SOURCE
 #endif
+
 #include <wchar.h>
+#include <libgen.h>
 
 typedef wchar_t*% wstring;
 
@@ -322,5 +324,8 @@ static inline string char*::chomp(char* str)
 {
     return string::chomp(str);
 }
+
+string xrealpath(char* path);
+string xdirname(char* path);
 
 #endif

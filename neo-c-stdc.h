@@ -1,5 +1,5 @@
-#ifndef NEO_C_ALONE_H
-#define NEO_C_ALONE_H
+#ifndef NEO_C_STDC_H
+#define NEO_C_STDC_H
 
 #define _GNU_SOURCE
 
@@ -9,14 +9,13 @@ using C
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
-//#include <libgen.h>
+#include <limits.h>
+#include <locale.h>
+#include <errno.h>
 }
 
 typedef void* any;
 typedef char*% string;
-
-void __builtin_va_start(char*);
-void __builtin_va_end(char*);
 
 string xsprintf(char* msg, ...);
 
@@ -4147,7 +4146,6 @@ uniq string int::xsprintf(int self, char* msg, ...)
     return xsprintf(msg, self);
 }
 
-/*
 //////////////////////////////
 /// base library(path library)
 //////////////////////////////
@@ -4175,14 +4173,6 @@ uniq string xbasename(char* path)
     }
     
     return string("");
-}
-
-uniq string xdirname(char* path)
-{
-    if(path == null) {
-        return string("");
-    }
-    return string(dirname(string(path)));
 }
 
 uniq string xnoextname(char* path)
@@ -4238,6 +4228,16 @@ uniq string xextname(char* path)
     
     return string("");
 }
+
+/*
+uniq string xdirname(char* path)
+{
+    if(path == null) {
+        return string("");
+    }
+    return string(dirname(string(path)));
+}
+
 
 uniq string xrealpath(char* path)
 {

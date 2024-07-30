@@ -3,8 +3,6 @@
 
 #include <neo-c.h>
 
-//#define exit(o); { int* a = (void*)0; *a = 1; exit(2); }
-
 #define FUN_VERSION_MAX 128
 #define GENERICS_TYPE_MAX 12
 #define METHOD_GENERICS_TYPE_MAX 7

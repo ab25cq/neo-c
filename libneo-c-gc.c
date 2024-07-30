@@ -1,7 +1,6 @@
 #include "common.h"
 using C
 {
-#include <libgen.h>
 #ifdef __DARWIN_ARM__
 #include <gc/gc.h>
 #else
@@ -1611,14 +1610,6 @@ string xbasename(char* path)
     return string("");
 }
 
-string xdirname(char* path)
-{
-    if(path == null) {
-        return string("");
-    }
-    return string(dirname(string(path)));
-}
-
 string xnoextname(char* path)
 {
     if(path == null) {
@@ -1673,19 +1664,6 @@ string xextname(char* path)
     return string("");
 }
 
-string xrealpath(char* path)
-{
-    if(path == null) {
-        return string("");
-    }
-    char* result = realpath(path, null);
-
-    string result2 = string(result);
-
-    free(result);
-
-    return result2;
-}
 
 //////////////////////////////
 /// base library(to_string)

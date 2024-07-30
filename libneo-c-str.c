@@ -1,18 +1,5 @@
 #include <neo-c.h>
 #include <neo-c-str.h>
-#include <limits.h>
-#include <gc.h>
-
-#ifdef ENABLE_GC
-void regex_finalizer(GC_PTR obj, GC_PTR client_data)
-{
-    come_regex* self = obj;
-    
-    if(self && self.re) {
-        free(self.re);
-    }
-}
-#endif
 
 come_regex*% come_regex*::initialize(come_regex*% self, char* str, bool ignore_case=false, bool multiline=false, bool global=false, bool extended=false, bool dotall=false, bool anchored=false, bool dollar_endonly=false, bool ungreedy=false)
 {
@@ -40,12 +27,6 @@ come_regex*% come_regex*::initialize(come_regex*% self, char* str, bool ignore_c
         stackframe();
         exit(1);
     }
-    
-#ifdef ENABLE_GC
-    if(gComeGCLib) {
-        GC_register_finalizer(self@obj, regex_finalizer@fn, null@cd, null@ofn, null@ocd);
-    }
-#endif
 
     return self;
 }
@@ -2134,3 +2115,24 @@ string string::chomp(char* str)
     return result;
 }
 
+string xrealpath(char* path)
+{
+    if(path == null) {
+        return string("");
+    }
+    char* result = realpath(path, null);
+
+    string result2 = string(result);
+
+    free(result);
+
+    return result2;
+}
+
+string xdirname(char* path)
+{
+    if(path == null) {
+        return string("");
+    }
+    return string(dirname(string(path)));
+}

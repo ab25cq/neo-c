@@ -1,21 +1,9 @@
 
-if ! test -e Makefile
-then
-    sh install_pkg.sh
-    
-    if uname -a | grep Android
-    then
-        #./configure --with-optimize --prefix=$HOME
-        ./configure --with-optimize --prefix=$HOME --with-debug
-    else
-        #./configure --with-optimize
-        ./configure --with-optimize --with-debug
-    fi
-fi
-        
+sh install_pkg.sh
+
 if uname -a | grep Android
 then
-    make && make install
+    make DESTDIR=$HOME && make install
 else
     make && sudo make install
 fi

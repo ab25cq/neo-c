@@ -15,13 +15,13 @@ using C
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
+#include <limits.h>
+#include <locale.h>
+#include <errno.h>
 }
 
 typedef void* any;
 typedef char*% string;
-
-//void __builtin_va_start(char*);
-//void __builtin_va_end(char*);
 
 //////////////////////////////
 /// exception
@@ -2354,10 +2354,8 @@ list<string>*% char*::split_char(char* self, char c);
 //////////////////////////////
 /// base library(path library)
 //////////////////////////////
-string xrealpath(char* path);
 string xbasename(char* path);
 string xextname(char* path);
-string xdirname(char* path);
 string xnoextname(char* path);
 
 //////////////////////////////

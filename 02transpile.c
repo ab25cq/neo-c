@@ -1,13 +1,5 @@
 #include "common.h"
 
-using c
-{
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <errno.h>
-}
-
 bool gComeGC = false;
 bool gComeLink = true;
 bool gComeC = true;
@@ -314,7 +306,7 @@ bool new_project(int argc, char** argv)
     string cflags = string(" -common-header -O2 ");
     string cflags_debug = string(" -common-header -gdwarf-4 -cg ");
     
-    mkdir(project_name, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH) or die("mkdir error");
+    system(s"mkdir \{project_name}") or die("mkdir error");
     
     """
 \#########################################
@@ -533,9 +525,6 @@ int come_main(int argc, char** argv) version 2
             else if(argv[i] === "-str") {
                 come_str = true;
             }
-            else if(argv[i] === "-leak") {
-                come_malloc = true;
-            }
             else if(argv[i] === "-gc") {
                 gComeGC = true;
             }
@@ -609,10 +598,10 @@ int come_main(int argc, char** argv) version 2
             }
         }
         
+        system(s"rm -f \{output_file_name}") or die("rm");
+        
         FILE* f = fopen(output_file_name, "w") and die("fopen");
         fclose(f);
-        
-        truncate(output_file_name, 0) or die("truncate");
         
         string tmp_file = string("tmp-common-header");
         
@@ -741,9 +730,6 @@ int come_main(int argc, char** argv) version 2
             }
             else if(argv[i] === "-str") {
                 come_str = true;
-            }
-            else if(argv[i] === "-leak") {
-                come_malloc = true;
             }
             else if(argv[i] === "-gc") {
                 gComeGC = true;

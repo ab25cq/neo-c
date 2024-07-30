@@ -1,5 +1,4 @@
 #include "common.h"
-#include <limits.h>
 
 class sStrNode extends sNodeBase
 {
