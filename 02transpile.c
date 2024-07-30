@@ -10,6 +10,14 @@ bool gComeDebug = false;
 bool gComeOriginalSourcePosition = true;
 int gComeDebugStackFrameID = 0;
 
+#ifdef __LINUX__
+static char* RM = "rm -rf";
+#elif __MAC__
+static char* RM = "rm -rf";
+#else
+static char* RM = "rm -rf";
+#endif
+
 static void write_source_file_position_to_source(sInfo* info=info)
 {
     if(gComeOriginalSourcePosition) {
@@ -103,7 +111,7 @@ static void clear_tmp_file(sInfo* info)
     string input_file_name = info.sname;
     
     if(input_file_name != null && input_file_name !== "") {
-        system(xsprintf("%s %s.*", getenv("RM"), input_file_name));
+        system(xsprintf("%s %s.*", RM, input_file_name));
     }
 }
 
@@ -112,7 +120,7 @@ static void clear_tmp_file_without_object_file(sInfo* info)
     string input_file_name = info.sname;
     
     if(input_file_name != null && input_file_name !== "") {
-        system(xsprintf("%s %s.i* %s.c*", getenv("RM"), input_file_name, input_file_name));
+        system(xsprintf("%s %s.i* %s.c*", RM, input_file_name, input_file_name));
     }
 }
 
@@ -121,7 +129,7 @@ static void clear_tmp_file_without_object_file_and_ccfile(sInfo* info)
     string input_file_name = info.sname;
     
     if(input_file_name != null && input_file_name !== "") {
-        system(xsprintf("%s %s.i* %s.c.out", getenv("RM"), input_file_name, input_file_name));
+        system(xsprintf("%s %s.i* %s.c.out", RM, input_file_name, input_file_name));
     }
 }
 
@@ -591,7 +599,7 @@ int come_main(int argc, char** argv) version 2
             }
         }
         
-        system(xsprintf("%s %s", getenv("RM"), output_file_name)) or die("rm");
+        system(xsprintf("%s %s", RM, output_file_name)) or die("rm");
         
         FILE* f = fopen(output_file_name, "w") and die("fopen");
         fclose(f);
@@ -657,7 +665,7 @@ int come_main(int argc, char** argv) version 2
             }
         }
         
-        system(xsprintf("%s %s*", getenv("RM"), tmp_file));
+        system(xsprintf("%s %s*", RM, tmp_file));
     }
     else if(argv[1] === "new" && argc == 3) {
         if(!new_project(argc, argv)) {
