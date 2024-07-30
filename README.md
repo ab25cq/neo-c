@@ -258,7 +258,8 @@ int main()
 
 14. class and inheritance system supported.
 
-15. neo-c depends starndard c library only. neo-c can output the source code depended on std-c library only for micro computer.
+15. neo-c only depends on the standard C library. Even in an embedded environment, you can output source files that only use the standard C library.
+
 
 1. C言語と互換性があります。Cプリプロセッサーも動きます。
 
