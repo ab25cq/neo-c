@@ -240,7 +240,6 @@ install:
 	$(INSTALL) -m 755 ./neo-c "$(DESTDIR)/bin"
 	mkdir -p "$(DESTDIR)/include"
 	$(INSTALL) -m 644 ./neo-c.h "$(DESTDIR)/include"
-	$(INSTALL) -m 644 ./neo-c-stdc.h "$(DESTDIR)/include"
 	$(INSTALL) -m 644 ./neo-c-str.h "$(DESTDIR)/include"
 	mkdir -p "$(DESTDIR)/lib"
 	$(INSTALL) -m 644 ./libneo-c.a "$(DESTDIR)/lib"
@@ -265,7 +264,6 @@ distclean: clean
 uninstall:
 	rm -f "$(DESTDIR)"/bin/neo-c
 	rm -f "$(DESTDIR)"/include/neo-c.h
-	rm -f "$(DESTDIR)"/include/neo-c-stdc.h
 	rm -f "$(DESTDIR)"/include/neo-c-str.h
 	rm -f "$(DESTDIR)"/lib/libneo-c.a
 	rm -f "$(DESTDIR)"/lib/libneo-c-str.a

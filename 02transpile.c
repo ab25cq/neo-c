@@ -536,12 +536,6 @@ int come_main(int argc, char** argv) version 2
             else if(argv[i] === "-gc") {
                 gComeGC = true;
             }
-            else if(argv[i] === "-stdc") {
-                gComeLink = false;
-                cpp_option.append_str(s" -DNEO_C_STDC=1 ");
-                output_source_file_flag = true;
-                gComeOriginalSourcePosition = false;
-            }
             else if(argv[i] === "-g") {
                 clang_option.append_str("-g ");
             }
@@ -741,12 +735,6 @@ int come_main(int argc, char** argv) version 2
             }
             else if(argv[i] === "-gc") {
                 gComeGC = true;
-            }
-            else if(argv[i] === "-stdc") {
-                gComeLink = false;
-                cpp_option.append_str(s" -DNEO_C_STDC=1 ");
-                output_source_file_flag = true;
-                gComeOriginalSourcePosition = false;
             }
             else if(argv[i] === "-cg") {
                 come_debug = true;

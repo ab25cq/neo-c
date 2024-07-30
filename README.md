@@ -5,7 +5,7 @@ Another modern Object Oriented C traspiler. It has a heap system that is a cross
 
 もう一つのモダンなオブジェクト指向Cコンパイラ。automatically-free-systemとリファレンスカウントGCの間をとったようなヒープシステムがありコレクションライブラリ、文字列ライブラリを備えてます。
 
-version 1.2.0c
+version 1.2.1
 
 ``` C
 #include <neo-c.h>
@@ -258,7 +258,7 @@ int main()
 
 14. class and inheritance system supported.
 
-15. neo-c can output to the source code depended on std-c library only
+15. neo-c depends starndard c library only. neo-c can output the source code depended on std-c library only for micro computer.
 
 1. C言語と互換性があります。Cプリプロセッサーも動きます。
 
@@ -288,7 +288,7 @@ int main()
 
 14. クラスと継承システムをサポートします。
 
-15. neo-c can output to the source code depended on std-c library only
+15. neo-cは標準Cライブラリにしか依存していません。組み込み環境でも標準Cライブラリしか使わないソースファイルを出力できます。
 
 # インストール
 
@@ -340,6 +340,7 @@ sh all_build.sh
 
 # Histories
 
+1.2.1 remove -stdc option. neo-c depends on standard c library only at the default.
 1.2.0c some changes.
 1.2.0b some changes.
 1.2.0a remove configure. remove none-stdc header
@@ -3489,32 +3490,10 @@ void fun2()
 uniq function and global variable added to main module.
 In other module, not defined contents.
 
-# Output of stdc targeted C Source
+# Output of standard c targeted C Source
 
-```
-> vin a.c
-#include <neo-c.h>
+Don't include neo-c-str.h. Inlucde neo-c.h only. It depends standard c library only. If you get c source depends standard c library only, use to "neo-c -s"
 
-int fun(int x, int y);
-
-int main(int argc, char** argv)
-{
-    fun(1,2).to_string().puts();
-    
-    return 0;
-}
-> vin b.c
-#include <neo-c.h>
-
-int fun(int x, int y) {
-    return x + y;
-}
-> neo-c -stdc -c b.c
-> neo-c -stdc a.c b.c.o
-> ./a
-3
-```
-neo-c outputs a.c.c and b.c.c files, and a.c.c and b.c.c may be worked on all stdc enviroment. 
 
 # afterword
 
