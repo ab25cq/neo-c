@@ -1,9 +1,13 @@
-
 sh install_pkg.sh
+
+export RM="rm -rf"
 
 if uname -a | grep Android
 then
-    make DESTDIR=$HOME && make install
+    make DESTDIR=$HOME CFLAGS_OPT="-O2 -D__ANDROID__" && make install
+elif uname -a | grep Darwin
+then
+    make DESTDIR=$HOME CFLAGS_OPT="-O2 -D__MAC__" && make install
 else
-    make && sudo make install
+    make CFLAGS_OPT="-O2 -D__LINUX__" && sudo make install
 fi

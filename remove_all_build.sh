@@ -1,4 +1,7 @@
 
+(cd tcc; make clean)
+(cd lcc; make clean)
+(cd 9cc; make clean)
 
 if [ -e Makefile ]
 then
