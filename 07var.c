@@ -62,6 +62,7 @@ class sStoreNode extends sNodeBase
                     add_come_code(info, "%s=%s;\n", make_define_var(left_type, var_->mCValueName), come_value.c_value);
                 }
                 else {
+                    add_come_code_at_function_head2(info, "memset(&%s, 0, sizeof(%s));\n", var_->mCValueName, make_type_name_string(left_type));
                     add_come_code_at_function_head(info, "%s;\n", make_define_var(left_type, var_->mCValueName));
                 }
             }
@@ -178,7 +179,7 @@ class sStoreNode extends sNodeBase
             if(left_type->mArrayNum.length() > 0) {
                 add_come_code(info, "%s;\n", make_define_var(left_type, var_->mCValueName));
                 
-                if(!left_type->mStatic) {
+                //if(!left_type->mStatic) {
                     add_come_code(info, "memset(&%s, 0, sizeof(%s)", var_->mCValueName, make_type_name_string(left_type));
                     
                     foreach(it, left_type->mArrayNum) {
@@ -192,7 +193,7 @@ class sStoreNode extends sNodeBase
                         add_come_code(info, "*(%s)", come_value.c_value);
                     }
                     add_come_code(info, ");\n");
-                }
+                //}
             }
             else {
                 add_come_code_at_function_head(info, "%s;\n", make_define_var(left_type, var_->mCValueName));
