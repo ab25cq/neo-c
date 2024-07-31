@@ -1951,9 +1951,7 @@ static struct sWhileNode* sWhileNode_clone(struct sWhileNode* self);
 
 // inline function
 static inline _Bool die(char* msg){
-void* __result_obj__;
 _Bool __result1__;
-memset(&__result_obj__, 0, sizeof(void*));
     perror(msg);
     stackframe();
     exit(4);
@@ -2346,44 +2344,32 @@ right_value75 = (void*)0;
     return __result42__;
 }
 static inline unsigned long int charpa_length(char* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result43__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result43__ = len;
     return __result43__;
 }
 static inline unsigned long int shortpa_length(short short* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result44__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result44__ = len;
     return __result44__;
 }
 static inline unsigned long int intpa_length(int* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result45__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result45__ = len;
     return __result45__;
 }
 static inline unsigned long int longpa_length(long* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result46__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result46__ = len;
     return __result46__;
 }
 static inline unsigned long int floatpa_length(float* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result47__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result47__ = len;
     return __result47__;
 }
 static inline unsigned long int doublepa_length(double* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result48__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result48__ = len;
     return __result48__;
 }
@@ -3155,9 +3141,7 @@ right_value108 = (void*)0;
 }
 
 _Bool sWhileNode_terminated(struct sWhileNode* self){
-void* __result_obj__;
 _Bool __result91__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result91__ = (_Bool)1;
     return __result91__;
 }
@@ -3174,7 +3158,6 @@ right_value109 = (void*)0;
 }
 
 _Bool sWhileNode_compile(struct sWhileNode* self, struct sInfo* info){
-void* __result_obj__;
 _Bool in_loop_118;
 struct sNode* expression_node_119;
 _Bool __result93__;
@@ -3186,7 +3169,6 @@ void* right_value111;
 struct CVALUE* conditional_value_123;
 int num_while_conditional_stack_125;
 _Bool __result94__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&in_loop_118, 0, sizeof(_Bool));
 memset(&expression_node_119, 0, sizeof(struct sNode*));
 memset(&block_120, 0, sizeof(struct sBlock*));
@@ -3212,14 +3194,14 @@ memset(&num_while_conditional_stack_125, 0, sizeof(int));
     }
     if(normal_if_121) {
         conditional_value_122=(struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(right_value110=get_value_from_stack(-1,info))));
-        come_call_finalizer3(right_value110,CVALUE_finalize, 0, 1, 0, 0, __result_obj__);
+        come_call_finalizer3(right_value110,CVALUE_finalize, 0, 1, 0, 0, (void*)0);
         dec_stack_ptr(1,info);
         add_come_code(info,"while(%s) {\n",conditional_value_122->c_value);
         come_call_finalizer3(conditional_value_122,CVALUE_finalize, 0, 0, 0, 0, (void*)0);
     }
     else {
         conditional_value_123=(struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(right_value111=get_value_from_stack(-1,info))));
-        come_call_finalizer3(right_value111,CVALUE_finalize, 0, 1, 0, 0, __result_obj__);
+        come_call_finalizer3(right_value111,CVALUE_finalize, 0, 1, 0, 0, (void*)0);
         dec_stack_ptr(1,info);
         static int num_while_condtional_124=0;
         add_come_code_at_function_head(info,"_Bool _while_condtional%d;\n",++num_while_condtional_124);
@@ -3782,9 +3764,7 @@ memset(&result_70, 0, sizeof(char*));
 }
 
 static _Bool map$2charphsVarph_end(struct map$2charphsVarph* self){
-void* __result_obj__;
 _Bool __result66__;
-memset(&__result_obj__, 0, sizeof(void*));
                             __result66__ = self==((void*)0)||self->key_list==((void*)0)||self->key_list->it==((void*)0);
                             return __result66__;
 }
@@ -4224,9 +4204,7 @@ memset(&result_109, 0, sizeof(char*));
 }
 
 static _Bool list$1charp_end(struct list$1charp* self){
-void* __result_obj__;
 _Bool __result81__;
-memset(&__result_obj__, 0, sizeof(void*));
                                     __result81__ = self==((void*)0)||self->it==((void*)0);
                                     return __result81__;
 }

@@ -1951,9 +1951,7 @@ struct sHeapPage gHeapPages;
 
 // inline function
 static inline _Bool die(char* msg){
-void* __result_obj__;
 _Bool __result1__;
-memset(&__result_obj__, 0, sizeof(void*));
     perror(msg);
     stackframe();
     exit(4);
@@ -2346,44 +2344,32 @@ right_value75 = (void*)0;
     return __result42__;
 }
 static inline unsigned long int charpa_length(char* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result43__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result43__ = len;
     return __result43__;
 }
 static inline unsigned long int shortpa_length(short short* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result44__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result44__ = len;
     return __result44__;
 }
 static inline unsigned long int intpa_length(int* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result45__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result45__ = len;
     return __result45__;
 }
 static inline unsigned long int longpa_length(long* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result46__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result46__ = len;
     return __result46__;
 }
 static inline unsigned long int floatpa_length(float* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result47__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result47__ = len;
     return __result47__;
 }
 static inline unsigned long int doublepa_length(double* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result48__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result48__ = len;
     return __result48__;
 }
@@ -3227,9 +3213,7 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 _Bool bool_expect(_Bool self, void* parent, void (*block)(void*)){
-void* __result_obj__;
 _Bool __result55__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(!self) {
         block(parent);
         stackframe();
@@ -3240,17 +3224,13 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 _Bool bool_value(_Bool self){
-void* __result_obj__;
 _Bool __result56__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result56__ = self;
     return __result56__;
 }
 
 int int_catch(int self, void* parent, void (*block)(void*)){
-void* __result_obj__;
 int __result57__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(self<0) {
         block(parent);
     }
@@ -3259,9 +3239,7 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 int int_expect(int self, void* parent, void (*block)(void*)){
-void* __result_obj__;
 int __result58__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(self<0) {
         block(parent);
         stackframe();
@@ -3272,17 +3250,13 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 int int_value(int self){
-void* __result_obj__;
 int __result59__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result59__ = self;
     return __result59__;
 }
 
 int int_except(int self, void* parent, void (*block)(void*)){
-void* __result_obj__;
 int __result60__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(self<0) {
         block(parent);
     }
@@ -3291,9 +3265,7 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 _Bool bool_except(_Bool self, void* parent, void (*block)(void*)){
-void* __result_obj__;
 _Bool __result61__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(!self) {
         block(parent);
     }
@@ -3302,9 +3274,7 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 _Bool bool_catch(_Bool self, void* parent, void (*block)(void*)){
-void* __result_obj__;
 _Bool __result62__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(!self) {
         block(parent);
     }
@@ -4042,11 +4012,9 @@ memset(&result_124, 0, sizeof(char*));
 }
 
 _Bool come_is_contained_element(void** array, int len, void* element){
-void* __result_obj__;
 _Bool found_125;
 int i_126;
 _Bool __result83__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&found_125, 0, sizeof(_Bool));
 memset(&i_126, 0, sizeof(int));
     found_125=(_Bool)0;
@@ -4124,10 +4092,8 @@ right_value88 = (void*)0;
 }
 
 int buffer_length(struct buffer* self){
-void* __result_obj__;
 int __result87__;
 int __result88__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(self==((void*)0)) {
         __result87__ = 0;
         return __result87__;
@@ -4502,12 +4468,10 @@ memset(&i_159, 0, sizeof(int));
 }
 
 int buffer_compare(struct buffer* left, struct buffer* right){
-void* __result_obj__;
 int __result104__;
 int __result105__;
 int __result106__;
 int __result107__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(left==((void*)0)&&right==((void*)0)) {
         __result104__ = 0;
         return __result104__;
@@ -4600,76 +4564,58 @@ right_value109 = (void*)0;
 }
 
 _Bool bool_equals(_Bool self, _Bool right){
-void* __result_obj__;
 _Bool __result114__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result114__ = self==right;
     return __result114__;
 }
 
 _Bool int_equals(int self, int right){
-void* __result_obj__;
 _Bool __result115__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result115__ = self==right;
     return __result115__;
 }
 
 _Bool char_equals(char self, char right){
-void* __result_obj__;
 _Bool __result116__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result116__ = self==right;
     return __result116__;
 }
 
 _Bool short_equals(short short self, short short right){
-void* __result_obj__;
 _Bool __result117__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result117__ = self==right;
     return __result117__;
 }
 
 _Bool long_equals(long self, long right){
-void* __result_obj__;
 _Bool __result118__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result118__ = self==right;
     return __result118__;
 }
 
 _Bool size_t_equals(unsigned long int self, unsigned long int right){
-void* __result_obj__;
 _Bool __result119__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result119__ = self==right;
     return __result119__;
 }
 
 _Bool float_equals(float self, float right){
-void* __result_obj__;
 _Bool __result120__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result120__ = self==right;
     return __result120__;
 }
 
 _Bool double_equals(double self, double right){
-void* __result_obj__;
 _Bool __result121__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result121__ = self==right;
     return __result121__;
 }
 
 _Bool string_equals(char* self, char* right){
-void* __result_obj__;
 _Bool __result122__;
 _Bool __result123__;
 _Bool __result124__;
 _Bool __result125__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(self==((void*)0)&&right==((void*)0)) {
         __result122__ = (_Bool)1;
         return __result122__;
@@ -4691,12 +4637,10 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 _Bool charp_equals(char* self, char* right){
-void* __result_obj__;
 _Bool __result126__;
 _Bool __result127__;
 _Bool __result128__;
 _Bool __result129__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(self==((void*)0)&&right==((void*)0)) {
         __result126__ = (_Bool)1;
         return __result126__;
@@ -4718,12 +4662,10 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 _Bool string_operator_equals(char* self, char* right){
-void* __result_obj__;
 _Bool __result130__;
 _Bool __result131__;
 _Bool __result132__;
 _Bool __result133__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(self==((void*)0)&&right==((void*)0)) {
         __result130__ = (_Bool)1;
         return __result130__;
@@ -4745,12 +4687,10 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 _Bool charp_operator_equals(char* self, char* right){
-void* __result_obj__;
 _Bool __result134__;
 _Bool __result135__;
 _Bool __result136__;
 _Bool __result137__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(self==((void*)0)&&right==((void*)0)) {
         __result134__ = (_Bool)1;
         return __result134__;
@@ -4772,12 +4712,10 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 _Bool string_operator_not_equals(char* self, char* right){
-void* __result_obj__;
 _Bool __result138__;
 _Bool __result139__;
 _Bool __result140__;
 _Bool __result141__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(self==((void*)0)&&right==((void*)0)) {
         __result138__ = (_Bool)0;
         return __result138__;
@@ -4799,12 +4737,10 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 _Bool charp_operator_not_equals(char* self, char* right){
-void* __result_obj__;
 _Bool __result142__;
 _Bool __result143__;
 _Bool __result144__;
 _Bool __result145__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(self==((void*)0)&&right==((void*)0)) {
         __result142__ = (_Bool)0;
         return __result142__;
@@ -4954,76 +4890,58 @@ right_value121 = (void*)0;
 }
 
 unsigned int bool_get_hash_key(_Bool value){
-void* __result_obj__;
 unsigned int __result154__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result154__ = (int_get_hash_key(((int)value)));
     return __result154__;
 }
 
 unsigned int char_get_hash_key(char value){
-void* __result_obj__;
 unsigned int __result155__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result155__ = value;
     return __result155__;
 }
 
 unsigned int short_get_hash_key(short int value){
-void* __result_obj__;
 unsigned int __result156__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result156__ = value;
     return __result156__;
 }
 
 unsigned int int_get_hash_key(int value){
-void* __result_obj__;
 unsigned int __result157__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result157__ = value;
     return __result157__;
 }
 
 unsigned int long_get_hash_key(long value){
-void* __result_obj__;
 unsigned int __result158__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result158__ = value;
     return __result158__;
 }
 
 unsigned int size_t_get_hash_key(unsigned long int value){
-void* __result_obj__;
 unsigned int __result159__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result159__ = value;
     return __result159__;
 }
 
 unsigned int float_get_hash_key(float value){
-void* __result_obj__;
 unsigned int __result160__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result160__ = (unsigned int)value;
     return __result160__;
 }
 
 unsigned int double_get_hash_key(double value){
-void* __result_obj__;
 unsigned int __result161__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result161__ = (unsigned int)value;
     return __result161__;
 }
 
 unsigned int string_get_hash_key(char* value){
-void* __result_obj__;
 unsigned int __result162__;
 int result_170;
 char* p_171;
 unsigned int __result163__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&result_170, 0, sizeof(int));
 memset(&p_171, 0, sizeof(char*));
     if(value==((void*)0)) {
@@ -5041,12 +4959,10 @@ memset(&p_171, 0, sizeof(char*));
 }
 
 unsigned int charp_get_hash_key(char* value){
-void* __result_obj__;
 unsigned int __result164__;
 int result_172;
 char* p_173;
 unsigned int __result165__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&result_172, 0, sizeof(int));
 memset(&p_173, 0, sizeof(char*));
     if(value==((void*)0)) {
@@ -5064,49 +4980,37 @@ memset(&p_173, 0, sizeof(char*));
 }
 
 _Bool bool_clone(_Bool self){
-void* __result_obj__;
 _Bool __result166__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result166__ = self;
     return __result166__;
 }
 
 char char_clone(char self){
-void* __result_obj__;
 char __result167__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result167__ = self;
     return __result167__;
 }
 
 short int short_clone(short short self){
-void* __result_obj__;
 short int __result168__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result168__ = self;
     return __result168__;
 }
 
 int int_clone(int self){
-void* __result_obj__;
 int __result169__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result169__ = self;
     return __result169__;
 }
 
 long int long_clone(long self){
-void* __result_obj__;
 long int __result170__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result170__ = self;
     return __result170__;
 }
 
 unsigned long int size_t_clone(unsigned long int self){
-void* __result_obj__;
 unsigned long int __result171__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result171__ = self;
     return __result171__;
 }
@@ -5160,10 +5064,8 @@ right_value123 = (void*)0;
 }
 
 _Bool xiswalpha(unsigned int c){
-void* __result_obj__;
 _Bool result_174;
 _Bool __result178__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&result_174, 0, sizeof(_Bool));
     result_174=(c>=97&&c<=122)||(c>=65&&c<=90);
     __result178__ = result_174;
@@ -5171,34 +5073,26 @@ memset(&result_174, 0, sizeof(_Bool));
 }
 
 _Bool xiswblank(unsigned int c){
-void* __result_obj__;
 _Bool __result179__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result179__ = c==32||c==9;
     return __result179__;
 }
 
 _Bool xiswdigit(unsigned int c){
-void* __result_obj__;
 _Bool __result180__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result180__ = (c>=48&&c<=57);
     return __result180__;
 }
 
 _Bool xiswalnum(unsigned int c){
-void* __result_obj__;
 _Bool __result181__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result181__ = xiswalpha(c)||xiswdigit(c);
     return __result181__;
 }
 
 _Bool xisalpha(char c){
-void* __result_obj__;
 _Bool result_175;
 _Bool __result182__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&result_175, 0, sizeof(_Bool));
     result_175=(c>=97&&c<=122)||(c>=65&&c<=90);
     __result182__ = result_175;
@@ -5206,34 +5100,26 @@ memset(&result_175, 0, sizeof(_Bool));
 }
 
 _Bool xisblank(char c){
-void* __result_obj__;
 _Bool __result183__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result183__ = c==32||c==9;
     return __result183__;
 }
 
 _Bool xisdigit(char c){
-void* __result_obj__;
 _Bool __result184__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result184__ = (c>=48&&c<=57);
     return __result184__;
 }
 
 _Bool xisalnum(char c){
-void* __result_obj__;
 _Bool __result185__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result185__ = xisalpha(c)||xisdigit(c);
     return __result185__;
 }
 
 _Bool xisascii(char c){
-void* __result_obj__;
 _Bool result_176;
 _Bool __result186__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&result_176, 0, sizeof(_Bool));
     result_176=(c>=32&&c<=126);
     __result186__ = result_176;
@@ -5241,10 +5127,8 @@ memset(&result_176, 0, sizeof(_Bool));
 }
 
 _Bool xiswascii(unsigned int c){
-void* __result_obj__;
 _Bool result_177;
 _Bool __result187__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&result_177, 0, sizeof(_Bool));
     result_177=(c>=32&&c<=126);
     __result187__ = result_177;
@@ -5252,10 +5136,8 @@ memset(&result_177, 0, sizeof(_Bool));
 }
 
 int string_length(char* str){
-void* __result_obj__;
 int __result188__;
 int __result189__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(str==((void*)0)) {
         __result188__ = 0;
         return __result188__;
@@ -5265,10 +5147,8 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 int charp_length(char* str){
-void* __result_obj__;
 int __result190__;
 int __result191__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(str==((void*)0)) {
         __result190__ = 0;
         return __result190__;
@@ -6281,13 +6161,11 @@ right_value209 = (void*)0;
 }
 
 int bool_compare(_Bool left, _Bool right){
-void* __result_obj__;
 int __result258__;
 int __result259__;
 int __result260__;
 int __result261__;
 int __result262__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(!left&&right) {
         __result258__ = -1;
         return __result258__;
@@ -6313,12 +6191,10 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 int char_compare(char left, char right){
-void* __result_obj__;
 int __result263__;
 int __result264__;
 int __result265__;
 int __result266__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(left<right) {
         __result263__ = -1;
         return __result263__;
@@ -6338,12 +6214,10 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 int short_compare(short short left, short short right){
-void* __result_obj__;
 int __result267__;
 int __result268__;
 int __result269__;
 int __result270__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(left<right) {
         __result267__ = -1;
         return __result267__;
@@ -6363,12 +6237,10 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 int int_compare(int left, int right){
-void* __result_obj__;
 int __result271__;
 int __result272__;
 int __result273__;
 int __result274__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(left<right) {
         __result271__ = -1;
         return __result271__;
@@ -6388,12 +6260,10 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 int long_compare(long left, long right){
-void* __result_obj__;
 int __result275__;
 int __result276__;
 int __result277__;
 int __result278__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(left<right) {
         __result275__ = -1;
         return __result275__;
@@ -6413,12 +6283,10 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 int size_t_compare(unsigned long int left, unsigned long int right){
-void* __result_obj__;
 int __result279__;
 int __result280__;
 int __result281__;
 int __result282__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(left<right) {
         __result279__ = -1;
         return __result279__;
@@ -6438,12 +6306,10 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 int float_compare(float left, float right){
-void* __result_obj__;
 int __result283__;
 int __result284__;
 int __result285__;
 int __result286__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(left<right) {
         __result283__ = -1;
         return __result283__;
@@ -6463,12 +6329,10 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 int double_compare(double left, double right){
-void* __result_obj__;
 int __result287__;
 int __result288__;
 int __result289__;
 int __result290__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(left<right) {
         __result287__ = -1;
         return __result287__;
@@ -6488,12 +6352,10 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 int string_compare(char* left, char* right){
-void* __result_obj__;
 int __result291__;
 int __result292__;
 int __result293__;
 int __result294__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(left==((void*)0)&&right==((void*)0)) {
         __result291__ = 0;
         return __result291__;
@@ -6515,12 +6377,10 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 int charp_compare(char* left, char* right){
-void* __result_obj__;
 int __result295__;
 int __result296__;
 int __result297__;
 int __result298__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(left==((void*)0)&&right==((void*)0)) {
         __result295__ = 0;
         return __result295__;
@@ -6583,10 +6443,8 @@ right_value213 = (void*)0;
 }
 
 int FILE_write(struct _IO_FILE* f, char* str){
-void* __result_obj__;
 int __result301__;
 int __result302__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(f==((void*)0)||str==((void*)0)) {
         __result301__ = -1;
         return __result301__;
@@ -6596,12 +6454,10 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 int FILE_fclose(struct _IO_FILE* f){
-void* __result_obj__;
 int __result303__;
 int result_218;
 int __result304__;
 int __result305__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&result_218, 0, sizeof(int));
     if(f==((void*)0)) {
         __result303__ = -1;
@@ -6648,7 +6504,6 @@ memset(&result_221, 0, sizeof(int));
 }
 
 int string_write(char* self, char* file_name, _Bool append){
-void* __result_obj__;
 int __result309__;
 struct _IO_FILE* f_222;
 int __result310__;
@@ -6657,7 +6512,6 @@ int __result311__;
 int result2_224;
 int __result312__;
 int __result313__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&f_222, 0, sizeof(struct _IO_FILE*));
 memset(&result_223, 0, sizeof(int));
 memset(&result2_224, 0, sizeof(int));
@@ -6690,7 +6544,6 @@ memset(&result2_224, 0, sizeof(int));
 }
 
 int charp_write(char* self, char* file_name, _Bool append){
-void* __result_obj__;
 int __result314__;
 struct _IO_FILE* f_225;
 int __result315__;
@@ -6699,7 +6552,6 @@ int __result316__;
 int result2_227;
 int __result317__;
 int __result318__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&f_225, 0, sizeof(struct _IO_FILE*));
 memset(&result_226, 0, sizeof(int));
 memset(&result2_227, 0, sizeof(int));
@@ -6908,12 +6760,10 @@ right_value228 = (void*)0;
 }
 
 int fopen_block(const char* path, const char* mode, void* parent, void (*block)(void*,struct _IO_FILE*)){
-void* __result_obj__;
 int __result329__;
 struct _IO_FILE* f_242;
 int __result330__;
 int __result331__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&f_242, 0, sizeof(struct _IO_FILE*));
     if(path==((void*)0)||mode==((void*)0)) {
         __result329__ = -1;
@@ -7031,9 +6881,7 @@ right_value236 = (void*)0;
 }
 
 int int_printf(int self, char* msg){
-void* __result_obj__;
 int __result340__;
-memset(&__result_obj__, 0, sizeof(void*));
     printf(msg,self);
     __result340__ = self;
     return __result340__;
@@ -7082,9 +6930,7 @@ static void integer_finalize(struct integer* self){
 }
 
 int integer_to_int(struct integer* self){
-void* __result_obj__;
 int __result344__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result344__ = self->value;
     return __result344__;
 }
@@ -7146,12 +6992,10 @@ right_value246 = (void*)0;
 }
 
 int integer_compare(struct integer* left, struct integer* right){
-void* __result_obj__;
 int __result349__;
 int __result350__;
 int __result351__;
 int __result352__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(left->value<right->value) {
         __result349__ = -1;
         return __result349__;
@@ -7171,25 +7015,19 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 _Bool integer_equals(struct integer* self, struct integer* right){
-void* __result_obj__;
 _Bool __result353__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result353__ = self->value==right->value;
     return __result353__;
 }
 
 _Bool integer_operator_equals(struct integer* self, struct integer* right){
-void* __result_obj__;
 _Bool __result354__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result354__ = self->value==right->value;
     return __result354__;
 }
 
 _Bool integer_operator_not_equals(struct integer* self, struct integer* right){
-void* __result_obj__;
 _Bool __result355__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result355__ = self->value!=right->value;
     return __result355__;
 }

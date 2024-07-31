@@ -1956,9 +1956,7 @@ void transpiler_clear_last_code(struct sInfo* info);
 
 // inline function
 static inline _Bool die(char* msg){
-void* __result_obj__;
 _Bool __result1__;
-memset(&__result_obj__, 0, sizeof(void*));
     perror(msg);
     stackframe();
     exit(4);
@@ -2351,44 +2349,32 @@ right_value75 = (void*)0;
     return __result42__;
 }
 static inline unsigned long int charpa_length(char* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result43__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result43__ = len;
     return __result43__;
 }
 static inline unsigned long int shortpa_length(short short* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result44__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result44__ = len;
     return __result44__;
 }
 static inline unsigned long int intpa_length(int* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result45__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result45__ = len;
     return __result45__;
 }
 static inline unsigned long int longpa_length(long* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result46__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result46__ = len;
     return __result46__;
 }
 static inline unsigned long int floatpa_length(float* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result47__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result47__ = len;
     return __result47__;
 }
 static inline unsigned long int doublepa_length(double* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result48__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result48__ = len;
     return __result48__;
 }
@@ -3472,9 +3458,7 @@ memset(&result_60, 0, sizeof(struct sType*));
 }
 
 static _Bool list$1sTypeph_end(struct list$1sTypeph* self){
-void* __result_obj__;
 _Bool __result56__;
-memset(&__result_obj__, 0, sizeof(void*));
                                                         __result56__ = self==((void*)0)||self->it==((void*)0);
                                                         return __result56__;
 }
@@ -3505,10 +3489,8 @@ memset(&result_63, 0, sizeof(struct sType*));
 }
 
 static int list$1sTypeph_length(struct list$1sTypeph* self){
-void* __result_obj__;
 int __result60__;
 int __result61__;
-memset(&__result_obj__, 0, sizeof(void*));
                                                             if(self==((void*)0)) {
                                                                 __result60__ = 0;
                                                                 return __result60__;
@@ -3518,10 +3500,8 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 static int list$1sNodeph_length(struct list$1sNodeph* self){
-void* __result_obj__;
 int __result63__;
 int __result64__;
-memset(&__result_obj__, 0, sizeof(void*));
         if(self==((void*)0)) {
             __result63__ = 0;
             return __result63__;
@@ -4704,9 +4684,7 @@ memset(&result_116, 0, sizeof(struct sNode*));
 }
 
 static _Bool list$1sNodeph_end(struct list$1sNodeph* self){
-void* __result_obj__;
 _Bool __result95__;
-memset(&__result_obj__, 0, sizeof(void*));
                             __result95__ = self==((void*)0)||self->it==((void*)0);
                             return __result95__;
 }
@@ -5678,15 +5656,12 @@ right_value230 = (void*)0;
 }
 
 int transpile_v3(struct sInfo* info){
-void* __result_obj__;
 int __result118__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result118__ = 0;
     return __result118__;
 }
 
 _Bool output_source_file_v3(struct sInfo* info){
-void* __result_obj__;
 void* right_value231;
 _Bool main_module_214;
 void* right_value232;
@@ -5719,7 +5694,6 @@ struct sFun* it2_240;
 void* right_value242;
 char* output_241;
 _Bool __result130__;
-memset(&__result_obj__, 0, sizeof(void*));
 right_value231 = (void*)0;
 memset(&main_module_214, 0, sizeof(_Bool));
 right_value232 = (void*)0;
@@ -5750,21 +5724,21 @@ memset(&it2_240, 0, sizeof(struct sFun*));
 right_value242 = (void*)0;
 memset(&output_241, 0, sizeof(char*));
     main_module_214=map$2charphsFunphp_operator_load_element(info->funcs,((char*)(right_value231=xsprintf("main"))))!=((void*)0);
-    right_value231 = come_decrement_ref_count2(right_value231, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+    right_value231 = come_decrement_ref_count2(right_value231, (void*)0, (void*)0, 1, 0, 0, (void*)0);
     output_file_name_218=(char*)come_increment_ref_count(((char*)(right_value232=xsprintf("%s.c",info->sname))));
-    right_value232 = come_decrement_ref_count2(right_value232, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+    right_value232 = come_decrement_ref_count2(right_value232, (void*)0, (void*)0, 1, 0, 0, (void*)0);
     if(_and_conditional1=f_219=fopen(output_file_name_218,"w"),    _and_conditional1 == 0) {
         (come_push_stackframe("03output_code.c", 822, 11),__exception_result_var_b1=die("fopen"), come_pop_stackframe(), __exception_result_var_b1);
     }
     fprintf(f_219,"// source head\n");
     fprintf(f_219,"%s\n",((char*)(right_value233=buffer_to_string(info->module->mSourceHead))));
-    right_value233 = come_decrement_ref_count2(right_value233, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+    right_value233 = come_decrement_ref_count2(right_value233, (void*)0, (void*)0, 1, 0, 0, (void*)0);
     fprintf(f_219,"// header function\n");
     for(    o2_saved_220=(struct map$2charphsFunph*)come_increment_ref_count((info->funcs)),it_223=map$2charphsFunph_begin((o2_saved_220));    !map$2charphsFunph_end((o2_saved_220));    it_223=map$2charphsFunph_next((o2_saved_220))    ){
         it2_226=map$2charphsFunphp_operator_load_element(info->funcs,((char*)(right_value234=__builtin_string(it_223))));
-        right_value234 = come_decrement_ref_count2(right_value234, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+        right_value234 = come_decrement_ref_count2(right_value234, (void*)0, (void*)0, 1, 0, 0, (void*)0);
         header_227=(char*)come_increment_ref_count(((char*)(right_value235=header_function(it2_226,info))));
-        right_value235 = come_decrement_ref_count2(right_value235, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+        right_value235 = come_decrement_ref_count2(right_value235, (void*)0, (void*)0, 1, 0, 0, (void*)0);
         if(it2_226->mResultType->mUniq) {
             fprintf(f_219,"%s",header_227);
         }
@@ -5792,27 +5766,27 @@ memset(&output_241, 0, sizeof(char*));
     fprintf(f_219,"// uniq global variable\n");
     if(main_module_214) {
         fprintf(f_219,"%s\n",((char*)(right_value236=buffer_to_string(info->module->mSourceHead2))));
-        right_value236 = come_decrement_ref_count2(right_value236, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+        right_value236 = come_decrement_ref_count2(right_value236, (void*)0, (void*)0, 1, 0, 0, (void*)0);
     }
     fprintf(f_219,"// source head3\n");
     fprintf(f_219,"%s\n",((char*)(right_value237=buffer_to_string(info->module->mSourceHead3))));
-    right_value237 = come_decrement_ref_count2(right_value237, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+    right_value237 = come_decrement_ref_count2(right_value237, (void*)0, (void*)0, 1, 0, 0, (void*)0);
     fprintf(f_219,"// inline function\n");
     for(    o2_saved_232=(struct map$2charphsFunph*)come_increment_ref_count((info->funcs)),it_233=map$2charphsFunph_begin((o2_saved_232));    !map$2charphsFunph_end((o2_saved_232));    it_233=map$2charphsFunph_next((o2_saved_232))    ){
         it2_234=map$2charphsFunphp_operator_load_element(info->funcs,((char*)(right_value238=__builtin_string(it_233))));
-        right_value238 = come_decrement_ref_count2(right_value238, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+        right_value238 = come_decrement_ref_count2(right_value238, (void*)0, (void*)0, 1, 0, 0, (void*)0);
         header_235=(char*)come_increment_ref_count(((char*)(right_value239=header_function(it2_234,info))));
-        right_value239 = come_decrement_ref_count2(right_value239, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+        right_value239 = come_decrement_ref_count2(right_value239, (void*)0, (void*)0, 1, 0, 0, (void*)0);
         if(it2_234->mStatic&&it2_234->mResultType->mInline) {
             output_236=(char*)come_increment_ref_count(((char*)(right_value240=output_function(it2_234,info))));
-            right_value240 = come_decrement_ref_count2(right_value240, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+            right_value240 = come_decrement_ref_count2(right_value240, (void*)0, (void*)0, 1, 0, 0, (void*)0);
             fprintf(f_219,"static inline %s",output_236);
             output_236 = come_decrement_ref_count2(output_236, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         }
         else {
             if(it2_234->mResultType->mInline) {
                 output_237=(char*)come_increment_ref_count(((char*)(right_value241=output_function(it2_234,info))));
-                right_value241 = come_decrement_ref_count2(right_value241, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+                right_value241 = come_decrement_ref_count2(right_value241, (void*)0, (void*)0, 1, 0, 0, (void*)0);
                 fprintf(f_219,"static inline %s",output_237);
                 output_237 = come_decrement_ref_count2(output_237, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             }
@@ -5834,7 +5808,7 @@ memset(&output_241, 0, sizeof(char*));
         it2_240=map$2charphsFunphp_operator_load_element(info->funcs,it_239);
         if(!it2_240->mExternal) {
             output_241=(char*)come_increment_ref_count(((char*)(right_value242=output_function(it2_240,info))));
-            right_value242 = come_decrement_ref_count2(right_value242, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+            right_value242 = come_decrement_ref_count2(right_value242, (void*)0, (void*)0, 1, 0, 0, (void*)0);
             if(it2_240->mStatic&&it2_240->mResultType->mInline) {
             }
             else {
@@ -5989,9 +5963,7 @@ memset(&result_222, 0, sizeof(char*));
 }
 
 static _Bool map$2charphsFunph_end(struct map$2charphsFunph* self){
-void* __result_obj__;
 _Bool __result126__;
-memset(&__result_obj__, 0, sizeof(void*));
         __result126__ = self==((void*)0)||self->key_list==((void*)0)||self->key_list->it==((void*)0);
         return __result126__;
 }
@@ -6063,12 +6035,10 @@ static void list_item$1charpp_finalize(struct list_item$1charp* self){
 }
 
 _Bool output_header_file(struct sInfo* info){
-void* __result_obj__;
 char* output_file_name_242;
 struct _IO_FILE* f_243;
 void* right_value243;
 _Bool __result131__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&output_file_name_242, 0, sizeof(char*));
 memset(&f_243, 0, sizeof(struct _IO_FILE*));
 right_value243 = (void*)0;
@@ -6080,7 +6050,7 @@ right_value243 = (void*)0;
         fprintf(f_243,"#include <neo-c.h>\n");
     }
     fprintf(f_243,"%s\n",((char*)(right_value243=buffer_to_string(info->module->mHeader))));
-    right_value243 = come_decrement_ref_count2(right_value243, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+    right_value243 = come_decrement_ref_count2(right_value243, (void*)0, (void*)0, 1, 0, 0, (void*)0);
     fprintf(f_243,"\n");
     if(string_operator_equals(info->output_file_name,"common.h")) {
         fprintf(f_243,"#endif\n");

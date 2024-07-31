@@ -1982,9 +1982,7 @@ static struct sInterfaceNode* sInterfaceNode_clone(struct sInterfaceNode* self);
 
 // inline function
 static inline _Bool die(char* msg){
-void* __result_obj__;
 _Bool __result1__;
-memset(&__result_obj__, 0, sizeof(void*));
     perror(msg);
     stackframe();
     exit(4);
@@ -2377,44 +2375,32 @@ right_value75 = (void*)0;
     return __result42__;
 }
 static inline unsigned long int charpa_length(char* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result43__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result43__ = len;
     return __result43__;
 }
 static inline unsigned long int shortpa_length(short short* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result44__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result44__ = len;
     return __result44__;
 }
 static inline unsigned long int intpa_length(int* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result45__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result45__ = len;
     return __result45__;
 }
 static inline unsigned long int longpa_length(long* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result46__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result46__ = len;
     return __result46__;
 }
 static inline unsigned long int floatpa_length(float* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result47__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result47__ = len;
     return __result47__;
 }
 static inline unsigned long int doublepa_length(double* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result48__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result48__ = len;
     return __result48__;
 }
@@ -3200,7 +3186,6 @@ right_value135 = (void*)0;
 }
 
 _Bool sInterfaceNode_compile(struct sInterfaceNode* self, struct sInfo* info){
-void* __result_obj__;
 void* right_value136;
 char* name_90;
 struct sClass* klass_91;
@@ -3218,7 +3203,6 @@ void* right_value141;
 void* right_value148;
 void* right_value149;
 _Bool __result115__;
-memset(&__result_obj__, 0, sizeof(void*));
 right_value136 = (void*)0;
 memset(&name_90, 0, sizeof(char*));
 memset(&klass_91, 0, sizeof(struct sClass*));
@@ -3233,21 +3217,21 @@ right_value141 = (void*)0;
 right_value148 = (void*)0;
 right_value149 = (void*)0;
     name_90=(char*)come_increment_ref_count(((char*)(right_value136=__builtin_string(self->name))));
-    right_value136 = come_decrement_ref_count2(right_value136, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+    right_value136 = come_decrement_ref_count2(right_value136, (void*)0, (void*)0, 1, 0, 0, (void*)0);
     klass_91=self->klass;
     klass_91->mProtocol=(_Bool)1;
     buf_92=(struct buffer*)come_increment_ref_count(((struct buffer*)(right_value138=buffer_initialize((struct buffer*)come_increment_ref_count(((struct buffer*)(right_value137=(struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "23interface.c", 26, "buffer"))))))));
-    come_call_finalizer3(right_value137,buffer_finalize, 0, 1, 0, 0, __result_obj__);
-    come_call_finalizer3(right_value138,buffer_finalize, 0, 1, 0, 0, __result_obj__);
+    come_call_finalizer3(right_value137,buffer_finalize, 0, 1, 0, 0, (void*)0);
+    come_call_finalizer3(right_value138,buffer_finalize, 0, 1, 0, 0, (void*)0);
     buffer_append_str(buf_92,((char*)(right_value139=xsprintf("struct %s\n{\n",klass_91->mName))));
-    right_value139 = come_decrement_ref_count2(right_value139, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+    right_value139 = come_decrement_ref_count2(right_value139, (void*)0, (void*)0, 1, 0, 0, (void*)0);
     for(    o2_saved_93=(struct list$1tuple2$2charphsTypephph*)come_increment_ref_count((klass_91->mFields)),it_96=list$1tuple2$2charphsTypephph_begin((o2_saved_93));    !list$1tuple2$2charphsTypephph_end((o2_saved_93));    it_96=list$1tuple2$2charphsTypephph_next((o2_saved_93))    ){
         multiple_assign_var1=it_96;
         name_99=(char*)come_increment_ref_count(multiple_assign_var1->v1);
         type_100=(struct sType*)come_increment_ref_count(multiple_assign_var1->v2);
         buffer_append_str(buf_92,"    ");
         buffer_append_str(buf_92,((char*)(right_value140=make_define_var(type_100,name_99,(_Bool)0,info))));
-        right_value140 = come_decrement_ref_count2(right_value140, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+        right_value140 = come_decrement_ref_count2(right_value140, (void*)0, (void*)0, 1, 0, 0, (void*)0);
         buffer_append_str(buf_92,";\n");
         name_99 = come_decrement_ref_count2(name_99, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_call_finalizer3(type_100,sType_finalize, 0, 0, 0, 0, (void*)0);
@@ -3256,10 +3240,10 @@ right_value149 = (void*)0;
     buffer_append_str(buf_92,"};\n");
     if(self->mOutput) {
         add_come_code_at_source_head(info,"%s",((char*)(right_value141=buffer_to_string(buf_92))));
-        right_value141 = come_decrement_ref_count2(right_value141, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+        right_value141 = come_decrement_ref_count2(right_value141, (void*)0, (void*)0, 1, 0, 0, (void*)0);
         map$2charphsClassph_insert(info->classes,(char*)come_increment_ref_count(((char*)(right_value148=__builtin_string(name_90)))),(struct sClass*)come_increment_ref_count(((struct sClass*)(right_value149=sClass_clone(klass_91)))));
-        right_value148 = come_decrement_ref_count2(right_value148, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
-        come_call_finalizer3(right_value149,sClass_finalize, 0, 1, 0, 0, __result_obj__);
+        right_value148 = come_decrement_ref_count2(right_value148, (void*)0, (void*)0, 1, 0, 0, (void*)0);
+        come_call_finalizer3(right_value149,sClass_finalize, 0, 1, 0, 0, (void*)0);
     }
     __result115__ = (_Bool)1;
     name_90 = come_decrement_ref_count2(name_90, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -4425,9 +4409,7 @@ memset(&result_95, 0, sizeof(struct tuple2$2charphsTypeph*));
 }
 
 static _Bool list$1tuple2$2charphsTypephph_end(struct list$1tuple2$2charphsTypephph* self){
-void* __result_obj__;
 _Bool __result87__;
-memset(&__result_obj__, 0, sizeof(void*));
         __result87__ = self==((void*)0)||self->it==((void*)0);
         return __result87__;
 }
@@ -4643,9 +4625,7 @@ memset(&result_107, 0, sizeof(char*));
 }
 
 static _Bool map$2charphsClassph_end(struct map$2charphsClassph* self){
-void* __result_obj__;
 _Bool __result94__;
-memset(&__result_obj__, 0, sizeof(void*));
                         __result94__ = self==((void*)0)||self->key_list==((void*)0)||self->key_list->it==((void*)0);
                         return __result94__;
 }
@@ -4928,9 +4908,7 @@ memset(&result_138, 0, sizeof(char*));
 }
 
 static _Bool list$1charp_end(struct list$1charp* self){
-void* __result_obj__;
 _Bool __result109__;
-memset(&__result_obj__, 0, sizeof(void*));
                 __result109__ = self==((void*)0)||self->it==((void*)0);
                 return __result109__;
 }
@@ -5844,10 +5822,8 @@ right_value238 = (void*)0;
 }
 
 static int list$1tuple2$2charphsTypephph_length(struct list$1tuple2$2charphsTypephph* self){
-void* __result_obj__;
 int __result129__;
 int __result130__;
-memset(&__result_obj__, 0, sizeof(void*));
                 if(self==((void*)0)) {
                     __result129__ = 0;
                     return __result129__;

@@ -176,7 +176,9 @@ sFun*% sFun*::initialize(sFun*% self, string name, sType*% result_type, list<sTy
     
     self.mDeclareSName = string(declare_sname);
     
-    if(self.mResultType->mClass->mName === "void" && self.mResultType->mPointerNum == 0) {
+    sType* result
+    
+    if((result_type->mClass->mName === "void" || result_type->mClass->mNumber) && result_type->mPointerNum == 0) {
         self.mNoResultType = true;
     }
     

@@ -2008,9 +2008,7 @@ static struct sTypedefNullNode* sTypedefNullNode_clone(struct sTypedefNullNode* 
 
 // inline function
 static inline _Bool die(char* msg){
-void* __result_obj__;
 _Bool __result1__;
-memset(&__result_obj__, 0, sizeof(void*));
     perror(msg);
     stackframe();
     exit(4);
@@ -2403,44 +2401,32 @@ right_value75 = (void*)0;
     return __result42__;
 }
 static inline unsigned long int charpa_length(char* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result43__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result43__ = len;
     return __result43__;
 }
 static inline unsigned long int shortpa_length(short short* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result44__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result44__ = len;
     return __result44__;
 }
 static inline unsigned long int intpa_length(int* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result45__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result45__ = len;
     return __result45__;
 }
 static inline unsigned long int longpa_length(long* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result46__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result46__ = len;
     return __result46__;
 }
 static inline unsigned long int floatpa_length(float* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result47__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result47__ = len;
     return __result47__;
 }
 static inline unsigned long int doublepa_length(double* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result48__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result48__ = len;
     return __result48__;
 }
@@ -3230,9 +3216,7 @@ right_value127 = (void*)0;
 }
 
 _Bool sTypedefNode_terminated(struct sTypedefNode* self){
-void* __result_obj__;
 _Bool __result77__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result77__ = (_Bool)1;
     return __result77__;
 }
@@ -3249,7 +3233,6 @@ right_value128 = (void*)0;
 }
 
 _Bool sTypedefNode_compile(struct sTypedefNode* self, struct sInfo* info){
-void* __result_obj__;
 void* right_value129;
 char* type_name_87;
 void* right_value136;
@@ -3280,7 +3263,6 @@ void* right_value153;
 void* right_value154;
 void* right_value155;
 _Bool __result122__;
-memset(&__result_obj__, 0, sizeof(void*));
 right_value129 = (void*)0;
 memset(&type_name_87, 0, sizeof(char*));
 right_value136 = (void*)0;
@@ -3305,22 +3287,22 @@ right_value153 = (void*)0;
 right_value154 = (void*)0;
 right_value155 = (void*)0;
     type_name_87=(char*)come_increment_ref_count(((char*)(right_value129=__builtin_string(self->mTypeName))));
-    right_value129 = come_decrement_ref_count2(right_value129, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+    right_value129 = come_decrement_ref_count2(right_value129, (void*)0, (void*)0, 1, 0, 0, (void*)0);
     if(string_operator_equals(type_name_87,"__darwin_va_list")) {
         map$2charphsClassph_insert(info->classes,(char*)come_increment_ref_count(((char*)(right_value136=__builtin_string("__darwin_va_list")))),(struct sClass*)come_increment_ref_count(((struct sClass*)(right_value138=sClass_initialize((struct sClass*)come_increment_ref_count(((struct sClass*)(right_value137=(struct sClass*)come_calloc(1, sizeof(struct sClass)*(1), "17typedef.c", 32, "sClass")))),"__darwin_va_list",(_Bool)1,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,-1,-1,(_Bool)0,info)))));
-        right_value136 = come_decrement_ref_count2(right_value136, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
-        come_call_finalizer3(right_value137,sClass_finalize, 0, 1, 0, 0, __result_obj__);
-        come_call_finalizer3(right_value138,sClass_finalize, 0, 1, 0, 0, __result_obj__);
+        right_value136 = come_decrement_ref_count2(right_value136, (void*)0, (void*)0, 1, 0, 0, (void*)0);
+        come_call_finalizer3(right_value137,sClass_finalize, 0, 1, 0, 0, (void*)0);
+        come_call_finalizer3(right_value138,sClass_finalize, 0, 1, 0, 0, (void*)0);
         type_134=(struct sType*)come_increment_ref_count(((struct sType*)(right_value140=sType_initialize((struct sType*)come_increment_ref_count(((struct sType*)(right_value139=(struct sType*)come_calloc(1, sizeof(struct sType)*(1), "17typedef.c", 34, "sType")))),"__darwin_va_list",(_Bool)0,info))));
-        come_call_finalizer3(right_value139,sType_finalize, 0, 1, 0, 0, __result_obj__);
-        come_call_finalizer3(right_value140,sType_finalize, 0, 1, 0, 0, __result_obj__);
+        come_call_finalizer3(right_value139,sType_finalize, 0, 1, 0, 0, (void*)0);
+        come_call_finalizer3(right_value140,sType_finalize, 0, 1, 0, 0, (void*)0);
         __dec_obj44=type_134->mOriginalTypeName;
         type_134->mOriginalTypeName=(char*)come_increment_ref_count(((char*)(right_value141=__builtin_string("__darwin_va_list"))));
         __dec_obj44 = come_decrement_ref_count2(__dec_obj44, (void*)0, (void*)0, 0,0,0, (void*)0);
-        right_value141 = come_decrement_ref_count2(right_value141, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+        right_value141 = come_decrement_ref_count2(right_value141, (void*)0, (void*)0, 1, 0, 0, (void*)0);
         map$2charphsTypeph_insert(info->types,(char*)come_increment_ref_count(((char*)(right_value145=__builtin_string(type_name_87)))),(struct sType*)come_increment_ref_count(((struct sType*)(right_value146=sType_clone(type_134)))));
-        right_value145 = come_decrement_ref_count2(right_value145, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
-        come_call_finalizer3(right_value146,sType_finalize, 0, 1, 0, 0, __result_obj__);
+        right_value145 = come_decrement_ref_count2(right_value145, (void*)0, (void*)0, 1, 0, 0, (void*)0);
+        come_call_finalizer3(right_value146,sType_finalize, 0, 1, 0, 0, (void*)0);
         if(info->output_header_file&&string_operator_not_equals(self->mDeclareSName,info->base_sname)) {
         }
         else {
@@ -3338,16 +3320,16 @@ right_value155 = (void*)0;
                     __dec_obj45=type_162->mOriginalTypeName;
                     type_162->mOriginalTypeName=(char*)come_increment_ref_count(((char*)(right_value147=__builtin_string(type_name_163))));
                     __dec_obj45 = come_decrement_ref_count2(__dec_obj45, (void*)0, (void*)0, 0,0,0, (void*)0);
-                    right_value147 = come_decrement_ref_count2(right_value147, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+                    right_value147 = come_decrement_ref_count2(right_value147, (void*)0, (void*)0, 1, 0, 0, (void*)0);
                 }
                 map$2charphsTypeph_insert(info->types,(char*)come_increment_ref_count(((char*)(right_value148=__builtin_string(type_name_163)))),(struct sType*)come_increment_ref_count(((struct sType*)(right_value149=sType_clone(type_162)))));
-                right_value148 = come_decrement_ref_count2(right_value148, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
-                come_call_finalizer3(right_value149,sType_finalize, 0, 1, 0, 0, __result_obj__);
+                right_value148 = come_decrement_ref_count2(right_value148, (void*)0, (void*)0, 1, 0, 0, (void*)0);
+                come_call_finalizer3(right_value149,sType_finalize, 0, 1, 0, 0, (void*)0);
                 if(info->output_header_file&&string_operator_not_equals(self->mDeclareSName,info->base_sname)) {
                 }
                 else {
                     add_come_code_at_source_head(info,"typedef %s;\n",((char*)(right_value150=make_define_var(type_162,type_name_163,(_Bool)1,info))));
-                    right_value150 = come_decrement_ref_count2(right_value150, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+                    right_value150 = come_decrement_ref_count2(right_value150, (void*)0, (void*)0, 1, 0, 0, (void*)0);
                 }
                 come_call_finalizer3(type_162,sType_finalize, 0, 0, 0, 0, (void*)0);
                 type_name_163 = come_decrement_ref_count2(type_name_163, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -3356,21 +3338,21 @@ right_value155 = (void*)0;
         }
         else {
             type_164=(struct sType*)come_increment_ref_count(((struct sType*)(right_value151=sType_clone(self->mType))));
-            come_call_finalizer3(right_value151,sType_finalize, 0, 1, 0, 0, __result_obj__);
+            come_call_finalizer3(right_value151,sType_finalize, 0, 1, 0, 0, (void*)0);
             if(string_operator_not_equals(type_name_87,"va_list")) {
                 __dec_obj46=type_164->mOriginalTypeName;
                 type_164->mOriginalTypeName=(char*)come_increment_ref_count(((char*)(right_value152=__builtin_string(type_name_87))));
                 __dec_obj46 = come_decrement_ref_count2(__dec_obj46, (void*)0, (void*)0, 0,0,0, (void*)0);
-                right_value152 = come_decrement_ref_count2(right_value152, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+                right_value152 = come_decrement_ref_count2(right_value152, (void*)0, (void*)0, 1, 0, 0, (void*)0);
             }
             map$2charphsTypeph_insert(info->types,(char*)come_increment_ref_count(((char*)(right_value153=__builtin_string(type_name_87)))),(struct sType*)come_increment_ref_count(((struct sType*)(right_value154=sType_clone(type_164)))));
-            right_value153 = come_decrement_ref_count2(right_value153, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
-            come_call_finalizer3(right_value154,sType_finalize, 0, 1, 0, 0, __result_obj__);
+            right_value153 = come_decrement_ref_count2(right_value153, (void*)0, (void*)0, 1, 0, 0, (void*)0);
+            come_call_finalizer3(right_value154,sType_finalize, 0, 1, 0, 0, (void*)0);
             if(info->output_header_file&&string_operator_not_equals(self->mDeclareSName,info->base_sname)) {
             }
             else {
                 add_come_code_at_source_head(info,"typedef %s;\n",((char*)(right_value155=make_define_var(type_164,type_name_87,(_Bool)1,info))));
-                right_value155 = come_decrement_ref_count2(right_value155, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+                right_value155 = come_decrement_ref_count2(right_value155, (void*)0, (void*)0, 1, 0, 0, (void*)0);
             }
             come_call_finalizer3(type_164,sType_finalize, 0, 0, 0, 0, (void*)0);
         }
@@ -4629,9 +4611,7 @@ memset(&result_96, 0, sizeof(char*));
 }
 
 static _Bool map$2charphsClassph_end(struct map$2charphsClassph* self){
-void* __result_obj__;
 _Bool __result82__;
-memset(&__result_obj__, 0, sizeof(void*));
                         __result82__ = self==((void*)0)||self->key_list==((void*)0)||self->key_list->it==((void*)0);
                         return __result82__;
 }
@@ -4914,9 +4894,7 @@ memset(&result_127, 0, sizeof(char*));
 }
 
 static _Bool list$1charp_end(struct list$1charp* self){
-void* __result_obj__;
 _Bool __result97__;
-memset(&__result_obj__, 0, sizeof(void*));
                 __result97__ = self==((void*)0)||self->it==((void*)0);
                 return __result97__;
 }
@@ -5182,9 +5160,7 @@ memset(&result_141, 0, sizeof(char*));
 }
 
 static _Bool map$2charphsTypeph_end(struct map$2charphsTypeph* self){
-void* __result_obj__;
 _Bool __result106__;
-memset(&__result_obj__, 0, sizeof(void*));
                         __result106__ = self==((void*)0)||self->key_list==((void*)0)||self->key_list->it==((void*)0);
                         return __result106__;
 }
@@ -5284,9 +5260,7 @@ memset(&result_158, 0, sizeof(struct tuple2$2sTypephcharph*));
 }
 
 static _Bool list$1tuple2$2sTypephcharphph_end(struct list$1tuple2$2sTypephcharphph* self){
-void* __result_obj__;
 _Bool __result118__;
-memset(&__result_obj__, 0, sizeof(void*));
                 __result118__ = self==((void*)0)||self->it==((void*)0);
                 return __result118__;
 }
@@ -5331,9 +5305,7 @@ right_value156 = (void*)0;
 }
 
 _Bool sTypedefNullNode_terminated(struct sTypedefNullNode* self){
-void* __result_obj__;
 _Bool __result124__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result124__ = (_Bool)1;
     return __result124__;
 }
@@ -5350,9 +5322,7 @@ right_value157 = (void*)0;
 }
 
 _Bool sTypedefNullNode_compile(struct sTypedefNullNode* self, struct sInfo* info){
-void* __result_obj__;
 _Bool __result126__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result126__ = (_Bool)1;
     return __result126__;
 }

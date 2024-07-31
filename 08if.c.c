@@ -2013,9 +2013,7 @@ static struct sAndStatmentNode* sAndStatmentNode_clone(struct sAndStatmentNode* 
 
 // inline function
 static inline _Bool die(char* msg){
-void* __result_obj__;
 _Bool __result1__;
-memset(&__result_obj__, 0, sizeof(void*));
     perror(msg);
     stackframe();
     exit(4);
@@ -2408,44 +2406,32 @@ right_value75 = (void*)0;
     return __result42__;
 }
 static inline unsigned long int charpa_length(char* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result43__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result43__ = len;
     return __result43__;
 }
 static inline unsigned long int shortpa_length(short short* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result44__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result44__ = len;
     return __result44__;
 }
 static inline unsigned long int intpa_length(int* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result45__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result45__ = len;
     return __result45__;
 }
 static inline unsigned long int longpa_length(long* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result46__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result46__ = len;
     return __result46__;
 }
 static inline unsigned long int floatpa_length(float* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result47__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result47__ = len;
     return __result47__;
 }
 static inline unsigned long int doublepa_length(double* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result48__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result48__ = len;
     return __result48__;
 }
@@ -3249,9 +3235,7 @@ right_value117 = (void*)0;
 }
 
 _Bool sIfNode_terminated(struct sIfNode* self){
-void* __result_obj__;
 _Bool __result95__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result95__ = (_Bool)1;
     return __result95__;
 }
@@ -3268,7 +3252,6 @@ right_value118 = (void*)0;
 }
 
 _Bool sIfNode_compile(struct sIfNode* self, struct sInfo* info){
-void* __result_obj__;
 struct sBlock* else_block_127;
 int elif_num_128;
 _Bool guard__129;
@@ -3296,7 +3279,6 @@ void* right_value122;
 struct CVALUE* conditional_value_152;
 int num_elif_conditional_stack_154;
 _Bool __result103__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&else_block_127, 0, sizeof(struct sBlock*));
 memset(&elif_num_128, 0, sizeof(int));
 memset(&guard__129, 0, sizeof(_Bool));
@@ -3341,7 +3323,7 @@ memset(&num_elif_conditional_stack_154, 0, sizeof(int));
     }
     if(normal_if_134) {
         conditional_value_135=(struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(right_value119=get_value_from_stack(-1,info))));
-        come_call_finalizer3(right_value119,CVALUE_finalize, 0, 1, 0, 0, __result_obj__);
+        come_call_finalizer3(right_value119,CVALUE_finalize, 0, 1, 0, 0, (void*)0);
         dec_stack_ptr(1,info);
         if(guard__129) {
             var__136=conditional_value_135->var;
@@ -3357,7 +3339,7 @@ memset(&num_elif_conditional_stack_154, 0, sizeof(int));
         add_come_code_at_function_head(info,"_Bool _if_conditional%d;\n",++num_if_conditional_137);
         num_if_conditional_stack_138=num_if_conditional_137;
         conditional_value_139=(struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(right_value120=get_value_from_stack(-1,info))));
-        come_call_finalizer3(right_value120,CVALUE_finalize, 0, 1, 0, 0, __result_obj__);
+        come_call_finalizer3(right_value120,CVALUE_finalize, 0, 1, 0, 0, (void*)0);
         dec_stack_ptr(1,info);
         if(guard__129) {
             var__140=conditional_value_139->var;
@@ -3390,14 +3372,14 @@ memset(&num_elif_conditional_stack_154, 0, sizeof(int));
             }
             if(normal_if_150) {
                 conditional_value_151=(struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(right_value121=get_value_from_stack(-1,info))));
-                come_call_finalizer3(right_value121,CVALUE_finalize, 0, 1, 0, 0, __result_obj__);
+                come_call_finalizer3(right_value121,CVALUE_finalize, 0, 1, 0, 0, (void*)0);
                 dec_stack_ptr(1,info);
                 add_come_code(info,"else if(%s) {\n",conditional_value_151->c_value);
                 come_call_finalizer3(conditional_value_151,CVALUE_finalize, 0, 0, 0, 0, (void*)0);
             }
             else {
                 conditional_value_152=(struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(right_value122=get_value_from_stack(-1,info))));
-                come_call_finalizer3(right_value122,CVALUE_finalize, 0, 1, 0, 0, __result_obj__);
+                come_call_finalizer3(right_value122,CVALUE_finalize, 0, 1, 0, 0, (void*)0);
                 dec_stack_ptr(1,info);
                 static int num_elif_conditional_153=0;
                 add_come_code_at_function_head(info,"_Bool _elif_conditional%d;\n",++num_elif_conditional_153);
@@ -3966,9 +3948,7 @@ memset(&result_70, 0, sizeof(char*));
 }
 
 static _Bool map$2charphsVarph_end(struct map$2charphsVarph* self){
-void* __result_obj__;
 _Bool __result66__;
-memset(&__result_obj__, 0, sizeof(void*));
                             __result66__ = self==((void*)0)||self->key_list==((void*)0)||self->key_list->it==((void*)0);
                             return __result66__;
 }
@@ -4408,9 +4388,7 @@ memset(&result_109, 0, sizeof(char*));
 }
 
 static _Bool list$1charp_end(struct list$1charp* self){
-void* __result_obj__;
 _Bool __result81__;
-memset(&__result_obj__, 0, sizeof(void*));
                                     __result81__ = self==((void*)0)||self->it==((void*)0);
                                     return __result81__;
 }
@@ -4757,9 +4735,7 @@ right_value125 = (void*)0;
 }
 
 _Bool sOrStatmentNode_terminated(struct sOrStatmentNode* self){
-void* __result_obj__;
 _Bool __result105__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result105__ = (_Bool)1;
     return __result105__;
 }
@@ -4776,7 +4752,6 @@ right_value126 = (void*)0;
 }
 
 _Bool sOrStatmentNode_compile(struct sOrStatmentNode* self, struct sInfo* info){
-void* __result_obj__;
 struct sNode* expression_node_155;
 _Bool __result107__;
 void* right_value127;
@@ -4784,7 +4759,6 @@ struct CVALUE* conditional_value_156;
 struct sBlock* if_block_157;
 int num_or_conditional_stack_159;
 _Bool __result108__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&expression_node_155, 0, sizeof(struct sNode*));
 right_value127 = (void*)0;
 memset(&conditional_value_156, 0, sizeof(struct CVALUE*));
@@ -4798,7 +4772,7 @@ memset(&num_or_conditional_stack_159, 0, sizeof(int));
     }
     info->without_semicolon=(_Bool)0;
     conditional_value_156=(struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(right_value127=get_value_from_stack(-1,info))));
-    come_call_finalizer3(right_value127,CVALUE_finalize, 0, 1, 0, 0, __result_obj__);
+    come_call_finalizer3(right_value127,CVALUE_finalize, 0, 1, 0, 0, (void*)0);
     dec_stack_ptr(1,info);
     if_block_157=self->mIfBlock;
     static int num_or_conditional_158=0;
@@ -4848,9 +4822,7 @@ right_value130 = (void*)0;
 }
 
 _Bool sAndStatmentNode_terminated(struct sAndStatmentNode* self){
-void* __result_obj__;
 _Bool __result110__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result110__ = (_Bool)1;
     return __result110__;
 }
@@ -4867,7 +4839,6 @@ right_value131 = (void*)0;
 }
 
 _Bool sAndStatmentNode_compile(struct sAndStatmentNode* self, struct sInfo* info){
-void* __result_obj__;
 struct sNode* expression_node_160;
 _Bool __result112__;
 void* right_value132;
@@ -4875,7 +4846,6 @@ struct CVALUE* conditional_value_161;
 struct sBlock* if_block_162;
 int num_and_conditional_stack_164;
 _Bool __result113__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&expression_node_160, 0, sizeof(struct sNode*));
 right_value132 = (void*)0;
 memset(&conditional_value_161, 0, sizeof(struct CVALUE*));
@@ -4889,7 +4859,7 @@ memset(&num_and_conditional_stack_164, 0, sizeof(int));
     }
     info->without_semicolon=(_Bool)0;
     conditional_value_161=(struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(right_value132=get_value_from_stack(-1,info))));
-    come_call_finalizer3(right_value132,CVALUE_finalize, 0, 1, 0, 0, __result_obj__);
+    come_call_finalizer3(right_value132,CVALUE_finalize, 0, 1, 0, 0, (void*)0);
     dec_stack_ptr(1,info);
     if_block_162=self->mIfBlock;
     static int num_and_conditional_163=0;

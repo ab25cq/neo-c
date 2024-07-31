@@ -1933,9 +1933,7 @@ static struct sModuleNode* sModuleNode_clone(struct sModuleNode* self);
 
 // inline function
 static inline _Bool die(char* msg){
-void* __result_obj__;
 _Bool __result1__;
-memset(&__result_obj__, 0, sizeof(void*));
     perror(msg);
     stackframe();
     exit(4);
@@ -2328,44 +2326,32 @@ right_value75 = (void*)0;
     return __result42__;
 }
 static inline unsigned long int charpa_length(char* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result43__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result43__ = len;
     return __result43__;
 }
 static inline unsigned long int shortpa_length(short short* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result44__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result44__ = len;
     return __result44__;
 }
 static inline unsigned long int intpa_length(int* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result45__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result45__ = len;
     return __result45__;
 }
 static inline unsigned long int longpa_length(long* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result46__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result46__ = len;
     return __result46__;
 }
 static inline unsigned long int floatpa_length(float* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result47__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result47__ = len;
     return __result47__;
 }
 static inline unsigned long int doublepa_length(double* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result48__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result48__ = len;
     return __result48__;
 }
@@ -3146,17 +3132,15 @@ right_value92 = (void*)0;
 }
 
 _Bool sModuleNode_compile(struct sModuleNode* self, struct sInfo* info){
-void* __result_obj__;
 void* right_value93;
 char* name_57;
 struct sClassModule* module_58;
 _Bool __result60__;
-memset(&__result_obj__, 0, sizeof(void*));
 right_value93 = (void*)0;
 memset(&name_57, 0, sizeof(char*));
 memset(&module_58, 0, sizeof(struct sClassModule*));
     name_57=(char*)come_increment_ref_count(((char*)(right_value93=__builtin_string(self->name))));
-    right_value93 = come_decrement_ref_count2(right_value93, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+    right_value93 = come_decrement_ref_count2(right_value93, (void*)0, (void*)0, 1, 0, 0, (void*)0);
     module_58=self->module;
     __result60__ = (_Bool)1;
     name_57 = come_decrement_ref_count2(name_57, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -3832,9 +3816,7 @@ memset(&result_78, 0, sizeof(char*));
 }
 
 static _Bool map$2charphsClassModuleph_end(struct map$2charphsClassModuleph* self){
-void* __result_obj__;
 _Bool __result64__;
-memset(&__result_obj__, 0, sizeof(void*));
                             __result64__ = self==((void*)0)||self->key_list==((void*)0)||self->key_list->it==((void*)0);
                             return __result64__;
 }
@@ -4117,9 +4099,7 @@ memset(&result_109, 0, sizeof(char*));
 }
 
 static _Bool list$1charp_end(struct list$1charp* self){
-void* __result_obj__;
 _Bool __result79__;
-memset(&__result_obj__, 0, sizeof(void*));
                     __result79__ = self==((void*)0)||self->it==((void*)0);
                     return __result79__;
 }

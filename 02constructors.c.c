@@ -1969,9 +1969,7 @@ char* sNodeBase_sname(struct sNodeBase* self, struct sInfo* info);
 
 // inline function
 static inline _Bool die(char* msg){
-void* __result_obj__;
 _Bool __result1__;
-memset(&__result_obj__, 0, sizeof(void*));
     perror(msg);
     stackframe();
     exit(4);
@@ -2364,44 +2362,32 @@ right_value75 = (void*)0;
     return __result42__;
 }
 static inline unsigned long int charpa_length(char* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result43__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result43__ = len;
     return __result43__;
 }
 static inline unsigned long int shortpa_length(short short* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result44__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result44__ = len;
     return __result44__;
 }
 static inline unsigned long int intpa_length(int* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result45__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result45__ = len;
     return __result45__;
 }
 static inline unsigned long int longpa_length(long* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result46__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result46__ = len;
     return __result46__;
 }
 static inline unsigned long int floatpa_length(float* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result47__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result47__ = len;
     return __result47__;
 }
 static inline unsigned long int doublepa_length(double* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result48__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result48__ = len;
     return __result48__;
 }
@@ -3961,9 +3947,7 @@ memset(&result_78, 0, sizeof(char*));
 }
 
 static _Bool map$2charphsClassph_end(struct map$2charphsClassph* self){
-void* __result_obj__;
 _Bool __result63__;
-memset(&__result_obj__, 0, sizeof(void*));
                         __result63__ = self==((void*)0)||self->key_list==((void*)0)||self->key_list->it==((void*)0);
                         return __result63__;
 }
@@ -4243,9 +4227,7 @@ memset(&result_109, 0, sizeof(char*));
 }
 
 static _Bool list$1charp_end(struct list$1charp* self){
-void* __result_obj__;
 _Bool __result78__;
-memset(&__result_obj__, 0, sizeof(void*));
                 __result78__ = self==((void*)0)||self->it==((void*)0);
                 return __result78__;
 }
@@ -4593,6 +4575,7 @@ struct sBlock* __dec_obj85;
 char* __dec_obj86;
 void* right_value201;
 char* __dec_obj87;
+struct sType* result_187;
 struct sFun* __result141__;
 memset(&__result_obj__, 0, sizeof(void*));
 right_value133 = (void*)0;
@@ -4615,6 +4598,7 @@ right_value186 = (void*)0;
 right_value187 = (void*)0;
 right_value200 = (void*)0;
 right_value201 = (void*)0;
+memset(&result_187, 0, sizeof(struct sType*));
     __dec_obj41=self->mName;
     self->mName=(char*)come_increment_ref_count(name);
     __dec_obj41 = come_decrement_ref_count2(__dec_obj41, (void*)0, (void*)0, 0,0,0, (void*)0);
@@ -4685,7 +4669,7 @@ right_value201 = (void*)0;
     self->mDeclareSName=(char*)come_increment_ref_count(((char*)(right_value201=__builtin_string(declare_sname))));
     __dec_obj87 = come_decrement_ref_count2(__dec_obj87, (void*)0, (void*)0, 0,0,0, (void*)0);
     right_value201 = come_decrement_ref_count2(right_value201, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
-    if(string_operator_equals(self->mResultType->mClass->mName,"void")&&self->mResultType->mPointerNum==0) {
+    if((string_operator_equals(result_type->mClass->mName,"void")||result_type->mClass->mNumber)&&result_type->mPointerNum==0) {
         self->mNoResultType=(_Bool)1;
     }
     __result141__ = __result_obj__ = self;
@@ -4736,9 +4720,7 @@ memset(&result_126, 0, sizeof(struct sType*));
 }
 
 static _Bool list$1sTypeph_end(struct list$1sTypeph* self){
-void* __result_obj__;
 _Bool __result95__;
-memset(&__result_obj__, 0, sizeof(void*));
         __result95__ = self==((void*)0)||self->it==((void*)0);
         return __result95__;
 }
@@ -5488,9 +5470,7 @@ memset(&result_153, 0, sizeof(char*));
 }
 
 static _Bool list$1charph_end(struct list$1charph* self){
-void* __result_obj__;
 _Bool __result118__;
-memset(&__result_obj__, 0, sizeof(void*));
         __result118__ = self==((void*)0)||self->it==((void*)0);
         return __result118__;
 }
@@ -5739,9 +5719,7 @@ memset(&result_164, 0, sizeof(char*));
 }
 
 static _Bool map$2charphsVarph_end(struct map$2charphsVarph* self){
-void* __result_obj__;
 _Bool __result129__;
-memset(&__result_obj__, 0, sizeof(void*));
                             __result129__ = self==((void*)0)||self->key_list==((void*)0)||self->key_list->it==((void*)0);
                             return __result129__;
 }
@@ -6042,17 +6020,13 @@ static void sNodeBase_finalize(struct sNodeBase* self){
 }
 
 int sNodeBase_sline(struct sNodeBase* self, struct sInfo* info){
-void* __result_obj__;
 int __result143__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result143__ = self->sline;
     return __result143__;
 }
 
 _Bool sNodeBase_terminated(struct sNodeBase* self){
-void* __result_obj__;
 _Bool __result144__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result144__ = (_Bool)0;
     return __result144__;
 }

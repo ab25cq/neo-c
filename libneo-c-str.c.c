@@ -1753,9 +1753,7 @@ char* xdirname(char* path);
 
 // inline function
 static inline _Bool die(char* msg){
-void* __result_obj__;
 _Bool __result1__;
-memset(&__result_obj__, 0, sizeof(void*));
     perror(msg);
     stackframe();
     exit(4);
@@ -2148,44 +2146,32 @@ right_value75 = (void*)0;
     return __result42__;
 }
 static inline unsigned long int charpa_length(char* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result43__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result43__ = len;
     return __result43__;
 }
 static inline unsigned long int shortpa_length(short short* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result44__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result44__ = len;
     return __result44__;
 }
 static inline unsigned long int intpa_length(int* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result45__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result45__ = len;
     return __result45__;
 }
 static inline unsigned long int longpa_length(long* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result46__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result46__ = len;
     return __result46__;
 }
 static inline unsigned long int floatpa_length(float* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result47__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result47__ = len;
     return __result47__;
 }
 static inline unsigned long int doublepa_length(double* self, unsigned long int len){
-void* __result_obj__;
 unsigned long int __result48__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result48__ = len;
     return __result48__;
 }
@@ -2230,37 +2216,27 @@ right_value79 = (void*)0;
     return __result52__;
 }
 static inline int string_index_count(char* str, char* search_str, int count, int default_value){
-void* __result_obj__;
 int __result53__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result53__ = charp_index_count(str,search_str,count,default_value);
     return __result53__;
 }
 static inline int string_index_regex_count(char* self, struct come_regex* reg, int count, int default_value){
-void* __result_obj__;
 int __result54__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result54__ = charp_index_regex_count(self,reg,count,default_value);
     return __result54__;
 }
 static inline int string_rindex(char* str, char* search_str, int default_value){
-void* __result_obj__;
 int __result55__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result55__ = charp_rindex(str,search_str,default_value);
     return __result55__;
 }
 static inline int string_rindex_regex(char* self, struct come_regex* reg, int default_value){
-void* __result_obj__;
 int __result56__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result56__ = charp_rindex_regex(self,reg,default_value);
     return __result56__;
 }
 static inline int string_rindex_count(char* str, char* search_str, int count, int default_value){
-void* __result_obj__;
 int __result57__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result57__ = charp_rindex_count(str,search_str,default_value,-1);
     return __result57__;
 }
@@ -2368,9 +2344,7 @@ right_value90 = (void*)0;
     return __result67__;
 }
 static inline int wstring_length(unsigned int* str){
-void* __result_obj__;
 int __result68__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result68__ = wchar_tp_length(str);
     return __result68__;
 }
@@ -2385,16 +2359,12 @@ right_value91 = (void*)0;
     return __result69__;
 }
 static inline int wstring_index(unsigned int* str, unsigned int* search_str, int default_value){
-void* __result_obj__;
 int __result70__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result70__ = wchar_tp_index(str,search_str,default_value);
     return __result70__;
 }
 static inline int wstring_rindex(unsigned int* str, unsigned int* search_str, int default_value){
-void* __result_obj__;
 int __result71__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result71__ = wchar_tp_rindex(str,search_str,default_value);
     return __result71__;
 }
@@ -2429,30 +2399,22 @@ right_value94 = (void*)0;
     return __result74__;
 }
 static inline unsigned int wstring_get_hash_key(unsigned int* value){
-void* __result_obj__;
 unsigned int __result75__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result75__ = wchar_tp_get_hash_key(value);
     return __result75__;
 }
 static inline _Bool string_match_group_strings(char* self, struct come_regex* reg, int count, struct list$1charph* group_strings){
-void* __result_obj__;
 _Bool __result76__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result76__ = charp_match_group_strings(self,reg,count,group_strings);
     return __result76__;
 }
 static inline int string_index(char* str, char* search_str, int default_value){
-void* __result_obj__;
 int __result77__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result77__ = charp_index(str,search_str,default_value);
     return __result77__;
 }
 static inline int string_index_regex(char* self, struct come_regex* reg, int default_value){
-void* __result_obj__;
 int __result78__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result78__ = charp_index_regex(self,reg,default_value);
     return __result78__;
 }
@@ -2527,9 +2489,7 @@ right_value101 = (void*)0;
     return __result85__;
 }
 static inline _Bool string_match(char* self, struct come_regex* reg){
-void* __result_obj__;
 _Bool __result86__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result86__ = charp_match(self,reg);
     return __result86__;
 }
@@ -2544,16 +2504,12 @@ right_value102 = (void*)0;
     return __result87__;
 }
 static inline int string_rindex_regex_count(char* self, struct come_regex* reg, int count, int default_value){
-void* __result_obj__;
 int __result88__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result88__ = charp_rindex_regex_count(self,reg,count,default_value);
     return __result88__;
 }
 static inline _Bool string_match_count(char* self, struct come_regex* reg, int count){
-void* __result_obj__;
 _Bool __result89__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result89__ = charp_match_count(self,reg,count);
     return __result89__;
 }
@@ -3630,7 +3586,6 @@ memset(&ret_63, 0, sizeof(int));
 }
 
 int charp_index_count(char* str, char* search_str, int count, int default_value){
-void* __result_obj__;
 int n_64;
 int len_65;
 int i_66;
@@ -3638,7 +3593,6 @@ int len2_67;
 int j_68;
 int __result109__;
 int __result110__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&n_64, 0, sizeof(int));
 memset(&len_65, 0, sizeof(int));
 memset(&i_66, 0, sizeof(int));
@@ -3666,7 +3620,6 @@ memset(&j_68, 0, sizeof(int));
 }
 
 int charp_index_regex_count(char* self, struct come_regex* reg, int count, int default_value){
-void* __result_obj__;
 int ovec_max_69;
 int result_73;
 int offset_74;
@@ -3682,7 +3635,6 @@ int regex_result_83;
 int i_84;
 int i_85;
 int __result111__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&ovec_max_69, 0, sizeof(int));
 memset(&result_73, 0, sizeof(int));
 memset(&offset_74, 0, sizeof(int));
@@ -3742,12 +3694,10 @@ memset(&i_85, 0, sizeof(int));
 }
 
 int charp_rindex(char* str, char* search_str, int default_value){
-void* __result_obj__;
 int len_86;
 char* p_87;
 int __result112__;
 int __result113__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&len_86, 0, sizeof(int));
 memset(&p_87, 0, sizeof(char*));
     len_86=strlen(search_str);
@@ -3764,7 +3714,6 @@ memset(&p_87, 0, sizeof(char*));
 }
 
 int charp_rindex_regex(char* self, struct come_regex* reg, int default_value){
-void* __result_obj__;
 const char* err_88;
 int erro_ofs_89;
 int options_90;
@@ -3781,7 +3730,6 @@ int regex_result_102;
 int i_103;
 int i_104;
 int __result114__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&err_88, 0, sizeof(const char*));
 memset(&erro_ofs_89, 0, sizeof(int));
 memset(&options_90, 0, sizeof(int));
@@ -3801,7 +3749,7 @@ memset(&i_104, 0, sizeof(int));
     str_91=reg->str;
     re_92=reg->re;
     self2_93=(char*)come_increment_ref_count(((char*)(right_value123=charp_reverse(self))));
-    right_value123 = come_decrement_ref_count2(right_value123, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+    right_value123 = come_decrement_ref_count2(right_value123, (void*)0, (void*)0, 1, 0, 0, (void*)0);
     ovec_max_94=16;
     int start_95[ovec_max_94];
     memset(&start_95, 0, sizeof(int)    *(ovec_max_94)    );
@@ -3836,13 +3784,11 @@ memset(&i_104, 0, sizeof(int));
 }
 
 int charp_rindex_count(char* str, char* search_str, int count, int default_value){
-void* __result_obj__;
 int len_105;
 char* p_106;
 int n_107;
 int __result115__;
 int __result116__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&len_105, 0, sizeof(int));
 memset(&p_106, 0, sizeof(char*));
 memset(&n_107, 0, sizeof(int));
@@ -4581,7 +4527,6 @@ memset(&str2_211, 0, sizeof(char*));
 }
 
 _Bool come_regex_equals(struct come_regex* left, struct come_regex* right){
-void* __result_obj__;
 _Bool __result123__;
 _Bool __result124__;
 _Bool __result125__;
@@ -4593,7 +4538,6 @@ _Bool __result130__;
 _Bool __result131__;
 _Bool __result132__;
 _Bool __result133__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(strcmp(left->str,right->str)!=0) {
         __result123__ = (_Bool)0;
         return __result123__;
@@ -4856,9 +4800,7 @@ right_value183 = (void*)0;
 }
 
 int wchar_tp_length(unsigned int* str){
-void* __result_obj__;
 int __result139__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result139__ = wcslen(str);
     return __result139__;
 }
@@ -4924,11 +4866,9 @@ right_value190 = (void*)0;
 }
 
 int wchar_tp_index(unsigned int* str, unsigned int* search_str, int default_value){
-void* __result_obj__;
 unsigned int* head_243;
 int __result143__;
 int __result144__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&head_243, 0, sizeof(unsigned int*));
     head_243=wcsstr(str,search_str);
     if(head_243==((void*)0)) {
@@ -4940,7 +4880,6 @@ memset(&head_243, 0, sizeof(unsigned int*));
 }
 
 int wchar_tp_rindex(unsigned int* str, unsigned int* search_str, int default_value){
-void* __result_obj__;
 int len_244;
 unsigned int* p_245;
 int len2_246;
@@ -4948,7 +4887,6 @@ _Bool result_247;
 int i_248;
 int __result145__;
 int __result146__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&len_244, 0, sizeof(int));
 memset(&p_245, 0, sizeof(unsigned int*));
 memset(&len2_246, 0, sizeof(int));
@@ -5062,7 +5000,6 @@ memset(&c_259, 0, sizeof(unsigned int));
 }
 
 _Bool charp_match_group_strings(char* self, struct come_regex* reg, int count, struct list$1charph* group_strings){
-void* __result_obj__;
 int offset_260;
 int ovec_max_261;
 const char* err_265;
@@ -5083,7 +5020,6 @@ char* match_string_279;
 _Bool __result152__;
 _Bool __result153__;
 _Bool __result154__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&offset_260, 0, sizeof(int));
 memset(&ovec_max_261, 0, sizeof(int));
 memset(&err_265, 0, sizeof(const char*));
@@ -5141,7 +5077,7 @@ memset(&match_string_279, 0, sizeof(char*));
                 list$1charph_reset(group_strings);
                 for(                i_278=1;                i_278<regex_result_273;                i_278++                ){
                     match_string_279=(char*)come_increment_ref_count(((char*)(right_value194=charp_substring(self,start_262[i_278],end_263[i_278]))));
-                    right_value194 = come_decrement_ref_count2(right_value194, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+                    right_value194 = come_decrement_ref_count2(right_value194, (void*)0, (void*)0, 1, 0, 0, (void*)0);
                     list$1charph_push_back(group_strings,(char*)come_increment_ref_count(match_string_279));
                     match_string_279 = come_decrement_ref_count2(match_string_279, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 }
@@ -5188,33 +5124,25 @@ memset(&prev_it_277, 0, sizeof(struct list_item$1charph*));
 }
 
 int wchar_tp_compare(unsigned int* left, unsigned int* right){
-void* __result_obj__;
 int __result155__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result155__ = wcscmp(left,right);
     return __result155__;
 }
 
 int wstring_compare(unsigned int* left, unsigned int* right){
-void* __result_obj__;
 int __result156__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result156__ = wcscmp(left,right);
     return __result156__;
 }
 
 unsigned int come_regex_get_hash_key(struct come_regex* reg){
-void* __result_obj__;
 unsigned int __result157__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result157__ = string_get_hash_key(reg->str);
     return __result157__;
 }
 
 _Bool wchar_tp_equals(unsigned int left, unsigned int right){
-void* __result_obj__;
 _Bool __result158__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result158__ = left==right;
     return __result158__;
 }
@@ -5242,49 +5170,37 @@ right_value196 = (void*)0;
 }
 
 _Bool wchar_tp_operator_equals(unsigned int* left, unsigned int* right){
-void* __result_obj__;
 _Bool __result161__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result161__ = wcscmp(left,right)==0;
     return __result161__;
 }
 
 _Bool wstring_operator_equals(unsigned int* left, unsigned int* right){
-void* __result_obj__;
 _Bool __result162__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result162__ = wcscmp(left,right)==0;
     return __result162__;
 }
 
 _Bool wchar_tp_operator_not_equals(unsigned int* left, unsigned int* right){
-void* __result_obj__;
 _Bool __result163__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result163__ = wcscmp(left,right)!=0;
     return __result163__;
 }
 
 _Bool wstring_operator_not_equals(unsigned int* left, unsigned int* right){
-void* __result_obj__;
 _Bool __result164__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result164__ = wcscmp(left,right)!=0;
     return __result164__;
 }
 
 _Bool come_regex_operator_equals(struct come_regex* left, struct come_regex* right){
-void* __result_obj__;
 _Bool __result165__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result165__ = come_regex_equals(left,right);
     return __result165__;
 }
 
 _Bool come_regex_operator_not_equals(struct come_regex* left, struct come_regex* right){
-void* __result_obj__;
 _Bool __result166__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result166__ = !come_regex_equals(left,right);
     return __result166__;
 }
@@ -5326,11 +5242,9 @@ memset(&result_281, 0, sizeof(unsigned int*));
 }
 
 int charp_index(char* str, char* search_str, int default_value){
-void* __result_obj__;
 char* head_282;
 int __result169__;
 int __result170__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&head_282, 0, sizeof(char*));
     head_282=strstr(str,search_str);
     if(head_282==((void*)0)) {
@@ -5342,7 +5256,6 @@ memset(&head_282, 0, sizeof(char*));
 }
 
 int charp_index_regex(char* self, struct come_regex* reg, int default_value){
-void* __result_obj__;
 int ovec_max_283;
 int result_287;
 int offset_288;
@@ -5357,7 +5270,6 @@ int regex_result_296;
 int i_297;
 int i_298;
 int __result171__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&ovec_max_283, 0, sizeof(int));
 memset(&result_287, 0, sizeof(int));
 memset(&offset_288, 0, sizeof(int));
@@ -5989,7 +5901,6 @@ memset(&str_386, 0, sizeof(char*));
 }
 
 _Bool charp_match(char* self, struct come_regex* reg){
-void* __result_obj__;
 int offset_387;
 int ovec_max_388;
 const char* err_392;
@@ -6005,7 +5916,6 @@ int i_401;
 _Bool __result180__;
 _Bool __result181__;
 _Bool __result182__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&offset_387, 0, sizeof(int));
 memset(&ovec_max_388, 0, sizeof(int));
 memset(&err_392, 0, sizeof(const char*));
@@ -6184,7 +6094,6 @@ memset(&str_423, 0, sizeof(char*));
 }
 
 int charp_rindex_regex_count(char* self, struct come_regex* reg, int count, int default_value){
-void* __result_obj__;
 const char* err_424;
 int erro_ofs_425;
 int options_426;
@@ -6202,7 +6111,6 @@ int regex_result_439;
 int i_440;
 int i_441;
 int __result184__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&err_424, 0, sizeof(const char*));
 memset(&erro_ofs_425, 0, sizeof(int));
 memset(&options_426, 0, sizeof(int));
@@ -6223,7 +6131,7 @@ memset(&i_441, 0, sizeof(int));
     str_427=reg->str;
     re_428=reg->re;
     self2_429=(char*)come_increment_ref_count(((char*)(right_value238=charp_reverse(self))));
-    right_value238 = come_decrement_ref_count2(right_value238, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
+    right_value238 = come_decrement_ref_count2(right_value238, (void*)0, (void*)0, 1, 0, 0, (void*)0);
     ovec_max_430=16;
     int start_431[ovec_max_430];
     memset(&start_431, 0, sizeof(int)    *(ovec_max_430)    );
@@ -6268,7 +6176,6 @@ memset(&i_441, 0, sizeof(int));
 }
 
 _Bool charp_match_count(char* self, struct come_regex* reg, int count){
-void* __result_obj__;
 int offset_442;
 int ovec_max_443;
 const char* err_447;
@@ -6285,7 +6192,6 @@ int i_457;
 _Bool __result185__;
 _Bool __result186__;
 _Bool __result187__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&offset_442, 0, sizeof(int));
 memset(&ovec_max_443, 0, sizeof(int));
 memset(&err_447, 0, sizeof(const char*));
@@ -6805,11 +6711,9 @@ right_value276 = (void*)0;
 }
 
 unsigned int wchar_tp_get_hash_key(unsigned int* value){
-void* __result_obj__;
 int result_519;
 unsigned int* p_520;
 unsigned int __result190__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&result_519, 0, sizeof(int));
 memset(&p_520, 0, sizeof(unsigned int*));
     result_519=0;
@@ -6823,41 +6727,31 @@ memset(&p_520, 0, sizeof(unsigned int*));
 }
 
 _Bool wstring_equals(unsigned int* left, unsigned int* right){
-void* __result_obj__;
 _Bool __result192__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result192__ = wcscmp(left,right)==0;
     return __result192__;
 }
 
 _Bool wchar_t_operator_equals(unsigned int left, unsigned int right){
-void* __result_obj__;
 _Bool __result194__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result194__ = left==right;
     return __result194__;
 }
 
 _Bool wchar_t_operator_not_equals(unsigned int left, unsigned int right){
-void* __result_obj__;
 _Bool __result195__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result195__ = left!=right;
     return __result195__;
 }
 
 unsigned int wchar_t_get_hash_key(unsigned int value){
-void* __result_obj__;
 unsigned int __result196__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result196__ = value;
     return __result196__;
 }
 
 _Bool wchar_t_equals(unsigned int left, unsigned int right){
-void* __result_obj__;
 _Bool __result197__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result197__ = left==right;
     return __result197__;
 }
