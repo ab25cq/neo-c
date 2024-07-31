@@ -5797,10 +5797,10 @@ memset(&type_name_262, 0, sizeof(char*));
                     if(c_value_205) {
                         if(no_decrement) {
                             if(comma) {
-                                add_come_code(info,"come_call_finalizer2(%s, %s, ((%s)%s)->finalize, ((%s)%s)->_protocol_obj, %d, %d, %d, %d, %s),\n",fun_name2_210,c_value_205,type_name_219,c_value_205,type_name_219,c_value_205,type->mAllocaValue,no_decrement,no_free,force_delete_,info->come_fun->mNoResultType?"__result_obj__":"__result_obj__");
+                                add_come_code(info,"come_call_finalizer2(%s, %s, ((%s)%s)->finalize, ((%s)%s)->_protocol_obj, %d, %d, %d, %d, %s),\n",fun_name2_210,c_value_205,type_name_219,c_value_205,type_name_219,c_value_205,type->mAllocaValue,no_decrement,no_free,force_delete_,info->come_fun->mNoResultType?"(void*)0":"__result_obj__");
                             }
                             else {
-                                add_come_code(info,"come_call_finalizer2(%s, %s, ((%s)%s)->finalize, ((%s)%s)->_protocol_obj, %d, %d, %d, %d, %s);\n",fun_name2_210,c_value_205,type_name_219,c_value_205,type_name_219,c_value_205,type->mAllocaValue,no_decrement,no_free,force_delete_,info->come_fun->mNoResultType?"__result_obj__":"__result_obj__");
+                                add_come_code(info,"come_call_finalizer2(%s, %s, ((%s)%s)->finalize, ((%s)%s)->_protocol_obj, %d, %d, %d, %d, %s);\n",fun_name2_210,c_value_205,type_name_219,c_value_205,type_name_219,c_value_205,type->mAllocaValue,no_decrement,no_free,force_delete_,info->come_fun->mNoResultType?"(void*)0":"__result_obj__");
                             }
                         }
                         else {
@@ -5818,11 +5818,11 @@ memset(&type_name_262, 0, sizeof(char*));
                     if(c_value_205) {
                         if(no_decrement) {
                             if(comma) {
-                                add_come_code(info,((char*)(right_value179=xsprintf("come_call_finalizer3(%s,%s, %d, %d, %d, %d, %s),\n",c_value_205,fun_name2_210,type->mAllocaValue,no_decrement,no_free,force_delete_,info->come_fun->mNoResultType?"__result_obj__":"__result_obj__"))));
+                                add_come_code(info,((char*)(right_value179=xsprintf("come_call_finalizer3(%s,%s, %d, %d, %d, %d, %s),\n",c_value_205,fun_name2_210,type->mAllocaValue,no_decrement,no_free,force_delete_,info->come_fun->mNoResultType?"(void*)0":"__result_obj__"))));
                                 right_value179 = come_decrement_ref_count2(right_value179, (void*)0, (void*)0, 1, 0, 0, (void*)0);
                             }
                             else {
-                                add_come_code(info,((char*)(right_value180=xsprintf("come_call_finalizer3(%s,%s, %d, %d, %d, %d, %s);\n",c_value_205,fun_name2_210,type->mAllocaValue,no_decrement,no_free,force_delete_,info->come_fun->mNoResultType?"__result_obj__":"__result_obj__"))));
+                                add_come_code(info,((char*)(right_value180=xsprintf("come_call_finalizer3(%s,%s, %d, %d, %d, %d, %s);\n",c_value_205,fun_name2_210,type->mAllocaValue,no_decrement,no_free,force_delete_,info->come_fun->mNoResultType?"(void*)0":"__result_obj__"))));
                                 right_value180 = come_decrement_ref_count2(right_value180, (void*)0, (void*)0, 1, 0, 0, (void*)0);
                             }
                         }
