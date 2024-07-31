@@ -1,14 +1,9 @@
-#include <stdio.h>
-
-int a[3] = { [1] = 2, 1, 3 };
-
-static struct sA { int a; int b;}* gA;
-int gB;
+#include <neo-c.h>
 
 int main(int argc, char** argv)
 {
-    for(int i=0; i<3; i++) {
-        printf("%d\n", a[i]);
+    if(1) {
+        puts("AAA");
     }
     
     return 0;

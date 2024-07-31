@@ -54,14 +54,12 @@ class sIfNode extends sNodeBase
     
         sBlock* if_block = self.mIfBlock;
         
-        static int num_if_conditional = 0;
-        add_come_code_at_function_head(info, "_Bool _if_conditional%d;\n", ++num_if_conditional);
-        int num_if_conditional_stack = num_if_conditional;
-        
         bool normal_if = true;
+/*
         if(info.module.mLastCode || info.module.mLastCode2 || info.module.mLastCode3) {
             normal_if = false;
         }
+*/
         if(existance_free_right_value_objects(info)) {
             normal_if = false;
         }
@@ -81,6 +79,10 @@ class sIfNode extends sNodeBase
             add_come_code(info, "if(%s) {\n", conditional_value.c_value);
         }
         else {
+            static int num_if_conditional = 0;
+            add_come_code_at_function_head(info, "_Bool _if_conditional%d;\n", ++num_if_conditional);
+            int num_if_conditional_stack = num_if_conditional;
+            
             CVALUE*% conditional_value = get_value_from_stack(-1, info);
             dec_stack_ptr(1, info);
             
@@ -118,9 +120,11 @@ class sIfNode extends sNodeBase
                 
         
                 bool normal_if = true;
+/*
                 if(info.module.mLastCode || info.module.mLastCode2 || info.module.mLastCode3) {
                     normal_if = false;
                 }
+*/
                 if(existance_free_right_value_objects(info)) {
                     normal_if = false;
                 }

@@ -42,9 +42,11 @@ class sDoWhileNode extends sNodeBase
         info.without_semicolon = false;
         
         bool normal_if = true;
+/*
         if(info.module.mLastCode || info.module.mLastCode2 || info.module.mLastCode3) {
             normal_if = false;
         }
+*/
         if(existance_free_right_value_objects(info)) {
             normal_if = false;
         }

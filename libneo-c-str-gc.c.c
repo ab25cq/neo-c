@@ -2856,9 +2856,7 @@ memset(&i_11, 0, sizeof(int));
 
 static struct list$1char* list$1char_push_back(struct list$1char* self, char item){
 void* __result_obj__;
-_Bool _if_conditional1;
 struct list_item$1char* litem_12;
-_Bool _if_conditional2;
 struct list_item$1char* litem_13;
 struct list_item$1char* litem_14;
 struct list$1char* __result25__;
@@ -2866,7 +2864,7 @@ memset(&__result_obj__, 0, sizeof(void*));
 memset(&litem_12, 0, sizeof(struct list_item$1char*));
 memset(&litem_13, 0, sizeof(struct list_item$1char*));
 memset(&litem_14, 0, sizeof(struct list_item$1char*));
-                if(_if_conditional1=self->len==0,                _if_conditional1) {
+                if(self->len==0) {
                     litem_12=(struct list_item$1char*)come_calloc(1, sizeof(struct list_item$1char)*(1), "./neo-c.h", 219, "list_item$1char");
                     litem_12->prev=((void*)0);
                     litem_12->next=((void*)0);
@@ -2875,7 +2873,7 @@ memset(&litem_14, 0, sizeof(struct list_item$1char*));
                     self->head=litem_12;
                 }
                 else {
-                    if(_if_conditional2=self->len==1,                    _if_conditional2) {
+                    if(self->len==1) {
                         litem_13=(struct list_item$1char*)come_calloc(1, sizeof(struct list_item$1char)*(1), "./neo-c.h", 229, "list_item$1char");
                         litem_13->prev=self->head;
                         litem_13->next=((void*)0);
@@ -2916,9 +2914,7 @@ memset(&i_15, 0, sizeof(int));
 
 static struct list$1short* list$1short_push_back(struct list$1short* self, short short item){
 void* __result_obj__;
-_Bool _if_conditional3;
 struct list_item$1short* litem_16;
-_Bool _if_conditional4;
 struct list_item$1short* litem_17;
 struct list_item$1short* litem_18;
 struct list$1short* __result28__;
@@ -2926,7 +2922,7 @@ memset(&__result_obj__, 0, sizeof(void*));
 memset(&litem_16, 0, sizeof(struct list_item$1short*));
 memset(&litem_17, 0, sizeof(struct list_item$1short*));
 memset(&litem_18, 0, sizeof(struct list_item$1short*));
-                if(_if_conditional3=self->len==0,                _if_conditional3) {
+                if(self->len==0) {
                     litem_16=(struct list_item$1short*)come_calloc(1, sizeof(struct list_item$1short)*(1), "./neo-c.h", 219, "list_item$1short");
                     litem_16->prev=((void*)0);
                     litem_16->next=((void*)0);
@@ -2935,7 +2931,7 @@ memset(&litem_18, 0, sizeof(struct list_item$1short*));
                     self->head=litem_16;
                 }
                 else {
-                    if(_if_conditional4=self->len==1,                    _if_conditional4) {
+                    if(self->len==1) {
                         litem_17=(struct list_item$1short*)come_calloc(1, sizeof(struct list_item$1short)*(1), "./neo-c.h", 229, "list_item$1short");
                         litem_17->prev=self->head;
                         litem_17->next=((void*)0);
@@ -2976,9 +2972,7 @@ memset(&i_19, 0, sizeof(int));
 
 static struct list$1int* list$1int_push_back(struct list$1int* self, int item){
 void* __result_obj__;
-_Bool _if_conditional5;
 struct list_item$1int* litem_20;
-_Bool _if_conditional6;
 struct list_item$1int* litem_21;
 struct list_item$1int* litem_22;
 struct list$1int* __result31__;
@@ -2986,7 +2980,7 @@ memset(&__result_obj__, 0, sizeof(void*));
 memset(&litem_20, 0, sizeof(struct list_item$1int*));
 memset(&litem_21, 0, sizeof(struct list_item$1int*));
 memset(&litem_22, 0, sizeof(struct list_item$1int*));
-                if(_if_conditional5=self->len==0,                _if_conditional5) {
+                if(self->len==0) {
                     litem_20=(struct list_item$1int*)come_calloc(1, sizeof(struct list_item$1int)*(1), "./neo-c.h", 219, "list_item$1int");
                     litem_20->prev=((void*)0);
                     litem_20->next=((void*)0);
@@ -2995,7 +2989,7 @@ memset(&litem_22, 0, sizeof(struct list_item$1int*));
                     self->head=litem_20;
                 }
                 else {
-                    if(_if_conditional6=self->len==1,                    _if_conditional6) {
+                    if(self->len==1) {
                         litem_21=(struct list_item$1int*)come_calloc(1, sizeof(struct list_item$1int)*(1), "./neo-c.h", 229, "list_item$1int");
                         litem_21->prev=self->head;
                         litem_21->next=((void*)0);
@@ -3036,9 +3030,7 @@ memset(&i_23, 0, sizeof(int));
 
 static struct list$1long* list$1long_push_back(struct list$1long* self, long item){
 void* __result_obj__;
-_Bool _if_conditional7;
 struct list_item$1long* litem_24;
-_Bool _if_conditional8;
 struct list_item$1long* litem_25;
 struct list_item$1long* litem_26;
 struct list$1long* __result34__;
@@ -3046,7 +3038,7 @@ memset(&__result_obj__, 0, sizeof(void*));
 memset(&litem_24, 0, sizeof(struct list_item$1long*));
 memset(&litem_25, 0, sizeof(struct list_item$1long*));
 memset(&litem_26, 0, sizeof(struct list_item$1long*));
-                if(_if_conditional7=self->len==0,                _if_conditional7) {
+                if(self->len==0) {
                     litem_24=(struct list_item$1long*)come_calloc(1, sizeof(struct list_item$1long)*(1), "./neo-c.h", 219, "list_item$1long");
                     litem_24->prev=((void*)0);
                     litem_24->next=((void*)0);
@@ -3055,7 +3047,7 @@ memset(&litem_26, 0, sizeof(struct list_item$1long*));
                     self->head=litem_24;
                 }
                 else {
-                    if(_if_conditional8=self->len==1,                    _if_conditional8) {
+                    if(self->len==1) {
                         litem_25=(struct list_item$1long*)come_calloc(1, sizeof(struct list_item$1long)*(1), "./neo-c.h", 229, "list_item$1long");
                         litem_25->prev=self->head;
                         litem_25->next=((void*)0);
@@ -3096,9 +3088,7 @@ memset(&i_27, 0, sizeof(int));
 
 static struct list$1float* list$1float_push_back(struct list$1float* self, float item){
 void* __result_obj__;
-_Bool _if_conditional9;
 struct list_item$1float* litem_28;
-_Bool _if_conditional10;
 struct list_item$1float* litem_29;
 struct list_item$1float* litem_30;
 struct list$1float* __result37__;
@@ -3106,7 +3096,7 @@ memset(&__result_obj__, 0, sizeof(void*));
 memset(&litem_28, 0, sizeof(struct list_item$1float*));
 memset(&litem_29, 0, sizeof(struct list_item$1float*));
 memset(&litem_30, 0, sizeof(struct list_item$1float*));
-                if(_if_conditional9=self->len==0,                _if_conditional9) {
+                if(self->len==0) {
                     litem_28=(struct list_item$1float*)come_calloc(1, sizeof(struct list_item$1float)*(1), "./neo-c.h", 219, "list_item$1float");
                     litem_28->prev=((void*)0);
                     litem_28->next=((void*)0);
@@ -3115,7 +3105,7 @@ memset(&litem_30, 0, sizeof(struct list_item$1float*));
                     self->head=litem_28;
                 }
                 else {
-                    if(_if_conditional10=self->len==1,                    _if_conditional10) {
+                    if(self->len==1) {
                         litem_29=(struct list_item$1float*)come_calloc(1, sizeof(struct list_item$1float)*(1), "./neo-c.h", 229, "list_item$1float");
                         litem_29->prev=self->head;
                         litem_29->next=((void*)0);
@@ -3156,9 +3146,7 @@ memset(&i_31, 0, sizeof(int));
 
 static struct list$1double* list$1double_push_back(struct list$1double* self, double item){
 void* __result_obj__;
-_Bool _if_conditional11;
 struct list_item$1double* litem_32;
-_Bool _if_conditional12;
 struct list_item$1double* litem_33;
 struct list_item$1double* litem_34;
 struct list$1double* __result40__;
@@ -3166,7 +3154,7 @@ memset(&__result_obj__, 0, sizeof(void*));
 memset(&litem_32, 0, sizeof(struct list_item$1double*));
 memset(&litem_33, 0, sizeof(struct list_item$1double*));
 memset(&litem_34, 0, sizeof(struct list_item$1double*));
-                if(_if_conditional11=self->len==0,                _if_conditional11) {
+                if(self->len==0) {
                     litem_32=(struct list_item$1double*)come_calloc(1, sizeof(struct list_item$1double)*(1), "./neo-c.h", 219, "list_item$1double");
                     litem_32->prev=((void*)0);
                     litem_32->next=((void*)0);
@@ -3175,7 +3163,7 @@ memset(&litem_34, 0, sizeof(struct list_item$1double*));
                     self->head=litem_32;
                 }
                 else {
-                    if(_if_conditional12=self->len==1,                    _if_conditional12) {
+                    if(self->len==1) {
                         litem_33=(struct list_item$1double*)come_calloc(1, sizeof(struct list_item$1double)*(1), "./neo-c.h", 229, "list_item$1double");
                         litem_33->prev=self->head;
                         litem_33->next=((void*)0);
@@ -3250,11 +3238,10 @@ memset(&litem_34, 0, sizeof(struct list_item$1double*));
 void regex_finalizer(void* obj, void* client_data){
 void* __result_obj__;
 struct come_regex* self_35;
-_Bool _if_conditional13;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&self_35, 0, sizeof(struct come_regex*));
     self_35=obj;
-    if(_if_conditional13=self_35&&self_35->re,    _if_conditional13) {
+    if(self_35&&self_35->re) {
         free(self_35->re);
     }
 }
@@ -3264,8 +3251,6 @@ void* __result_obj__;
 const char* err_36;
 int erro_ofs_37;
 int options_38;
-_Bool _if_conditional14;
-_Bool _if_conditional15;
 struct come_regex* __result94__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&err_36, 0, sizeof(const char*));
@@ -3282,7 +3267,7 @@ memset(&options_38, 0, sizeof(int));
     self->dollar_endonly=dollar_endonly;
     self->options=options_38;
     self->re=pcre_compile(str,options_38,&err_36,&erro_ofs_37,((void*)0));
-    if(_if_conditional14=self->re==((void*)0),    _if_conditional14) {
+    if(self->re==((void*)0)) {
         printf("regex error (%s)\n",str);
         stackframe();
         exit(1);
@@ -3296,12 +3281,10 @@ memset(&options_38, 0, sizeof(int));
 
 void come_regex_finalize(struct come_regex* reg){
 void* __result_obj__;
-_Bool _if_conditional16;
-_Bool _if_conditional17;
 memset(&__result_obj__, 0, sizeof(void*));
-    if(_if_conditional16=reg&&reg->str,    _if_conditional16) {
+    if(reg&&reg->str) {
     }
-    if(_if_conditional17=reg&&reg->re,    _if_conditional17) {
+    if(reg&&reg->re) {
         free(reg->re);
     }
 }
@@ -3324,18 +3307,16 @@ memset(&__result_obj__, 0, sizeof(void*));
 
 struct come_regex* come_regex_clone(struct come_regex* reg){
 void* __result_obj__;
-_Bool _if_conditional18;
 struct come_regex* __result97__;
 struct come_regex* result_39;
 const char* err_40;
 int erro_ofs_41;
-_Bool _if_conditional19;
 struct come_regex* __result98__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&result_39, 0, sizeof(struct come_regex*));
 memset(&err_40, 0, sizeof(const char*));
 memset(&erro_ofs_41, 0, sizeof(int));
-    if(_if_conditional18=reg==((void*)0),    _if_conditional18) {
+    if(reg==((void*)0)) {
         __result97__ = __result_obj__ = ((void*)0);
         return __result97__;
     }
@@ -3351,7 +3332,7 @@ memset(&erro_ofs_41, 0, sizeof(int));
     result_39->ungreedy=reg->ungreedy;
     result_39->options=reg->options;
     result_39->re=pcre_compile(result_39->str,result_39->options,&err_40,&erro_ofs_41,((void*)0));
-    if(_if_conditional19=result_39->re==((void*)0),    _if_conditional19) {
+    if(result_39->re==((void*)0)) {
         printf("regex compile error(%s)\n",result_39->str);
         stackframe();
         exit(1);
@@ -3372,14 +3353,13 @@ char* string_lower_case(char* str){
 void* __result_obj__;
 char* result_42;
 int i_43;
-_Bool _if_conditional20;
 char* __result100__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&result_42, 0, sizeof(char*));
 memset(&i_43, 0, sizeof(int));
     result_42=__builtin_string(str);
     for(    i_43=0;    i_43<strlen(str);    i_43++    ){
-        if(_if_conditional20=str[i_43]>=65&&str[i_43]<=90,        _if_conditional20) {
+        if(str[i_43]>=65&&str[i_43]<=90) {
             result_42[i_43]=str[i_43]-65+97;
         }
     }
@@ -3391,14 +3371,13 @@ char* string_upper_case(char* str){
 void* __result_obj__;
 char* result_44;
 int i_45;
-_Bool _if_conditional21;
 char* __result101__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&result_44, 0, sizeof(char*));
 memset(&i_45, 0, sizeof(int));
     result_44=__builtin_string(str);
     for(    i_45=0;    i_45<strlen(str);    i_45++    ){
-        if(_if_conditional21=str[i_45]>=97&&str[i_45]<=122,        _if_conditional21) {
+        if(str[i_45]>=97&&str[i_45]<=122) {
             result_44[i_45]=str[i_45]-97+65;
         }
     }
@@ -3408,50 +3387,42 @@ memset(&i_45, 0, sizeof(int));
 
 unsigned int* wchar_tp_substring(unsigned int* str, int head, int tail){
 void* __result_obj__;
-_Bool _if_conditional22;
 unsigned int* __result102__;
 int len_46;
-_Bool _if_conditional23;
-_Bool _if_conditional24;
-_Bool _if_conditional25;
 unsigned int* __result103__;
-_Bool _if_conditional26;
-_Bool _if_conditional27;
-_Bool _if_conditional28;
 unsigned int* __result104__;
-_Bool _if_conditional29;
 unsigned int* __result105__;
 unsigned int* result_47;
 unsigned int* __result106__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&len_46, 0, sizeof(int));
 memset(&result_47, 0, sizeof(unsigned int*));
-    if(_if_conditional22=str==((void*)0),    _if_conditional22) {
+    if(str==((void*)0)) {
         __result102__ = __result_obj__ = __builtin_wstring("");
         return __result102__;
     }
     len_46=wcslen(str);
-    if(_if_conditional23=head<0,    _if_conditional23) {
+    if(head<0) {
         head+=len_46;
     }
-    if(_if_conditional24=tail<0,    _if_conditional24) {
+    if(tail<0) {
         tail+=len_46+1;
     }
-    if(_if_conditional25=head>tail,    _if_conditional25) {
+    if(head>tail) {
         __result103__ = __result_obj__ = __builtin_wstring("");
         return __result103__;
     }
-    if(_if_conditional26=head<0,    _if_conditional26) {
+    if(head<0) {
         head=0;
     }
-    if(_if_conditional27=tail>=len_46,    _if_conditional27) {
+    if(tail>=len_46) {
         tail=len_46;
     }
-    if(_if_conditional28=head==tail,    _if_conditional28) {
+    if(head==tail) {
         __result104__ = __result_obj__ = __builtin_wstring("");
         return __result104__;
     }
-    if(_if_conditional29=tail-head+1<1,    _if_conditional29) {
+    if(tail-head+1<1) {
         __result105__ = __result_obj__ = __builtin_wstring("");
         return __result105__;
     }
@@ -3464,18 +3435,16 @@ memset(&result_47, 0, sizeof(unsigned int*));
 
 unsigned int* __builtin_wstring(char* str){
 void* __result_obj__;
-_Bool _if_conditional30;
 unsigned int* __result107__;
 int len_48;
 unsigned int* wstr_49;
 int ret_50;
-_Bool _if_conditional31;
 unsigned int* __result108__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&len_48, 0, sizeof(int));
 memset(&wstr_49, 0, sizeof(unsigned int*));
 memset(&ret_50, 0, sizeof(int));
-    if(_if_conditional30=str==((void*)0),    _if_conditional30) {
+    if(str==((void*)0)) {
         __result107__ = __result_obj__ = ((void*)0);
         return __result107__;
     }
@@ -3483,7 +3452,7 @@ memset(&ret_50, 0, sizeof(int));
     wstr_49=(unsigned int*)come_calloc(1, sizeof(unsigned int)*(1*(len_48+1)), "libneo-c-str-gc.c", 193, "int");
     ret_50=mbstowcs(wstr_49,str,len_48+1);
     wstr_49[ret_50]=0;
-    if(_if_conditional31=ret_50<0,    _if_conditional31) {
+    if(ret_50<0) {
         wstr_49[0]=0;
     }
     __result108__ = __result_obj__ = wstr_49;
@@ -3497,9 +3466,6 @@ int len_52;
 int i_53;
 int len2_54;
 int j_55;
-_Bool _if_conditional32;
-_Bool _if_conditional33;
-_Bool _if_conditional34;
 int __result109__;
 int __result110__;
 memset(&__result_obj__, 0, sizeof(void*));
@@ -3513,13 +3479,13 @@ memset(&j_55, 0, sizeof(int));
     for(    i_53=0;    i_53<len_52;    i_53++    ){
         len2_54=strlen(search_str);
         for(        j_55=0;        j_55<len2_54;        j_55++        ){
-            if(_if_conditional32=str[i_53+j_55]!=search_str[j_55],            _if_conditional32) {
+            if(str[i_53+j_55]!=search_str[j_55]) {
                 break;
             }
         }
-        if(_if_conditional33=j_55==len2_54,        _if_conditional33) {
+        if(j_55==len2_54) {
             n_51++;
-            if(_if_conditional34=n_51==count,            _if_conditional34) {
+            if(n_51==count) {
                 __result109__ = i_53;
                 return __result109__;
             }
@@ -3540,15 +3506,11 @@ int options_64;
 char* str_65;
 struct real_pcre8_or_16* re_66;
 int n_67;
-_Bool _while_condtional1;
 int options_68;
 int len_69;
 int regex_result_70;
 int i_71;
 int i_72;
-_Bool _if_conditional35;
-_Bool _if_conditional36;
-_Bool _if_conditional37;
 int __result111__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&ovec_max_56, 0, sizeof(int));
@@ -3578,7 +3540,7 @@ memset(&i_72, 0, sizeof(int));
     str_65=reg->str;
     re_66=reg->re;
     n_67=0;
-    while(_while_condtional1=(_Bool)1,    _while_condtional1) {
+    while((_Bool)1) {
         options_68=2097152;
         len_69=strlen(self);
         regex_result_70=pcre_exec(re_66,(struct pcre_extra*)0,self,len_69,offset_61,options_68,ovec_value_59,ovec_max_56*3);
@@ -3588,15 +3550,15 @@ memset(&i_72, 0, sizeof(int));
         for(        i_72=0;        i_72<ovec_max_56;        i_72++        ){
             end_58[i_72]=ovec_value_59[i_72*2+1];
         }
-        if(_if_conditional35=regex_result_70>0,        _if_conditional35) {
+        if(regex_result_70>0) {
             n_67++;
-            if(_if_conditional36=offset_61==end_58[0],            _if_conditional36) {
+            if(offset_61==end_58[0]) {
                 offset_61++;
             }
             else {
                 offset_61=end_58[0];
             }
-            if(_if_conditional37=n_67==count,            _if_conditional37) {
+            if(n_67==count) {
                 result_60=start_57[0];
                 break;
             }
@@ -3613,8 +3575,6 @@ int charp_rindex(char* str, char* search_str, int default_value){
 void* __result_obj__;
 int len_73;
 char* p_74;
-_Bool _while_condtional2;
-_Bool _if_conditional38;
 int __result112__;
 int __result113__;
 memset(&__result_obj__, 0, sizeof(void*));
@@ -3622,8 +3582,8 @@ memset(&len_73, 0, sizeof(int));
 memset(&p_74, 0, sizeof(char*));
     len_73=strlen(search_str);
     p_74=str+strlen(str)-len_73;
-    while(_while_condtional2=p_74>=str,    _while_condtional2) {
-        if(_if_conditional38=strncmp(p_74,search_str,len_73)==0,        _if_conditional38) {
+    while(p_74>=str) {
+        if(strncmp(p_74,search_str,len_73)==0) {
             __result112__ = p_74-str;
             return __result112__;
         }
@@ -3644,13 +3604,11 @@ char* self2_80;
 int ovec_max_81;
 int result_85;
 int offset_86;
-_Bool _while_condtional3;
 int options_87;
 int len_88;
 int regex_result_89;
 int i_90;
 int i_91;
-_Bool _if_conditional39;
 int __result114__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&err_75, 0, sizeof(const char*));
@@ -3680,7 +3638,7 @@ memset(&i_91, 0, sizeof(int));
     memset(&ovec_value_84, 0, sizeof(int)    *(ovec_max_81*3)    );
     result_85=default_value;
     offset_86=0;
-    while(_while_condtional3=(_Bool)1,    _while_condtional3) {
+    while((_Bool)1) {
         options_87=2097152;
         len_88=strlen(self2_80);
         regex_result_89=pcre_exec(re_79,(struct pcre_extra*)0,self2_80,len_88,offset_86,options_87,ovec_value_84,ovec_max_81*3);
@@ -3690,7 +3648,7 @@ memset(&i_91, 0, sizeof(int));
         for(        i_91=0;        i_91<ovec_max_81;        i_91++        ){
             end_83[i_91]=ovec_value_84[i_91*2+1];
         }
-        if(_if_conditional39=regex_result_89==1||regex_result_89>0,        _if_conditional39) {
+        if(regex_result_89==1||regex_result_89>0) {
             result_85=strlen(self)-1-start_82[0];
             break;
         }
@@ -3707,9 +3665,6 @@ void* __result_obj__;
 int len_92;
 char* p_93;
 int n_94;
-_Bool _while_condtional4;
-_Bool _if_conditional40;
-_Bool _if_conditional41;
 int __result115__;
 int __result116__;
 memset(&__result_obj__, 0, sizeof(void*));
@@ -3719,10 +3674,10 @@ memset(&n_94, 0, sizeof(int));
     len_92=strlen(search_str);
     p_93=str+strlen(str)-len_92;
     n_94=0;
-    while(_while_condtional4=p_93>=str,    _while_condtional4) {
-        if(_if_conditional40=strncmp(p_93,search_str,len_92)==0,        _if_conditional40) {
+    while(p_93>=str) {
+        if(strncmp(p_93,search_str,len_92)==0) {
             n_94++;
-            if(_if_conditional41=n_94==count,            _if_conditional41) {
+            if(n_94==count) {
                 __result115__ = p_93-str;
                 return __result115__;
             }
@@ -3743,24 +3698,19 @@ int erro_ofs_102;
 int options_103;
 char* str_104;
 struct real_pcre8_or_16* re_105;
-_Bool _while_condtional5;
 int options_106;
 int len_107;
 int regex_result_108;
 int i_109;
 int i_110;
-_Bool _if_conditional42;
 char* str_111;
 struct list$1charph* group_strings_112;
 char* str2_113;
-_Bool _if_conditional45;
-_Bool _if_conditional46;
 char* str_117;
 struct list$1charph* group_strings_118;
 int i_119;
 char* match_string_120;
 char* str2_121;
-_Bool _if_conditional47;
 struct list$1charph* __result119__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&result_95, 0, sizeof(struct list$1charph*));
@@ -3796,7 +3746,7 @@ memset(&str2_121, 0, sizeof(char*));
     options_103=reg->options;
     str_104=reg->str;
     re_105=reg->re;
-    while(_while_condtional5=(_Bool)1,    _while_condtional5) {
+    while((_Bool)1) {
         options_106=2097152;
         len_107=strlen(self);
         regex_result_108=pcre_exec(re_105,(struct pcre_extra*)0,self,len_107,offset_96,options_106,ovec_value_100,ovec_max_97*3);
@@ -3806,12 +3756,12 @@ memset(&str2_121, 0, sizeof(char*));
         for(        i_110=0;        i_110<ovec_max_97;        i_110++        ){
             end_99[i_110]=ovec_value_100[i_110*2+1];
         }
-        if(_if_conditional42=regex_result_108==1,        _if_conditional42) {
+        if(regex_result_108==1) {
             str_111=charp_substring(self,start_98[0],end_99[0]);
             group_strings_112=list$1charph_initialize((struct list$1charph*)come_calloc(1, sizeof(struct list$1charph)*(1), "libneo-c-str-gc.c", 413, "list$1charph"));
             str2_113=block(parent,str_111,group_strings_112);
             list$1charph_push_back(result_95,str2_113);
-            if(_if_conditional45=offset_96==end_99[0],            _if_conditional45) {
+            if(offset_96==end_99[0]) {
                 offset_96++;
             }
             else {
@@ -3819,7 +3769,7 @@ memset(&str2_121, 0, sizeof(char*));
             }
         }
         else {
-            if(_if_conditional46=regex_result_108>1,            _if_conditional46) {
+            if(regex_result_108>1) {
                 str_117=charp_substring(self,start_98[0],end_99[0]);
                 group_strings_118=list$1charph_initialize((struct list$1charph*)come_calloc(1, sizeof(struct list$1charph)*(1), "libneo-c-str-gc.c", 430, "list$1charph"));
                 for(                i_119=1;                i_119<regex_result_108;                i_119++                ){
@@ -3828,7 +3778,7 @@ memset(&str2_121, 0, sizeof(char*));
                 }
                 str2_121=block(parent,str_117,group_strings_118);
                 list$1charph_push_back(result_95,str2_121);
-                if(_if_conditional47=offset_96==end_99[0],                _if_conditional47) {
+                if(offset_96==end_99[0]) {
                     offset_96++;
                 }
                 else {
@@ -3857,9 +3807,7 @@ memset(&__result_obj__, 0, sizeof(void*));
 
 static struct list$1charph* list$1charph_push_back(struct list$1charph* self, char* item){
 void* __result_obj__;
-_Bool _if_conditional43;
 struct list_item$1charph* litem_114;
-_Bool _if_conditional44;
 struct list_item$1charph* litem_115;
 struct list_item$1charph* litem_116;
 struct list$1charph* __result118__;
@@ -3867,7 +3815,7 @@ memset(&__result_obj__, 0, sizeof(void*));
 memset(&litem_114, 0, sizeof(struct list_item$1charph*));
 memset(&litem_115, 0, sizeof(struct list_item$1charph*));
 memset(&litem_116, 0, sizeof(struct list_item$1charph*));
-                if(_if_conditional43=self->len==0,                _if_conditional43) {
+                if(self->len==0) {
                     litem_114=(struct list_item$1charph*)come_calloc(1, sizeof(struct list_item$1charph)*(1), "./neo-c.h", 219, "list_item$1charph");
                     litem_114->prev=((void*)0);
                     litem_114->next=((void*)0);
@@ -3876,7 +3824,7 @@ memset(&litem_116, 0, sizeof(struct list_item$1charph*));
                     self->head=litem_114;
                 }
                 else {
-                    if(_if_conditional44=self->len==1,                    _if_conditional44) {
+                    if(self->len==1) {
                         litem_115=(struct list_item$1charph*)come_calloc(1, sizeof(struct list_item$1charph)*(1), "./neo-c.h", 229, "list_item$1charph");
                         litem_115->prev=self->head;
                         litem_115->next=((void*)0);
@@ -3909,26 +3857,19 @@ int options_130;
 char* str_131;
 struct real_pcre8_or_16* re_132;
 int n_133;
-_Bool _while_condtional6;
 int options_134;
 int len_135;
 int regex_result_136;
 int i_137;
 int i_138;
-_Bool _if_conditional48;
 char* str_139;
 struct list$1charph* group_strings_140;
 char* str2_141;
-_Bool _if_conditional49;
-_Bool _if_conditional50;
-_Bool _if_conditional51;
 char* str_142;
 struct list$1charph* group_strings_143;
 int i_144;
 char* match_string_145;
 char* str2_146;
-_Bool _if_conditional52;
-_Bool _if_conditional53;
 struct list$1charph* __result120__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&result_122, 0, sizeof(struct list$1charph*));
@@ -3966,7 +3907,7 @@ memset(&str2_146, 0, sizeof(char*));
     str_131=reg->str;
     re_132=reg->re;
     n_133=0;
-    while(_while_condtional6=(_Bool)1,    _while_condtional6) {
+    while((_Bool)1) {
         options_134=2097152;
         len_135=strlen(self);
         regex_result_136=pcre_exec(re_132,(struct pcre_extra*)0,self,len_135,offset_123,options_134,ovec_value_127,ovec_max_124*3);
@@ -3976,24 +3917,24 @@ memset(&str2_146, 0, sizeof(char*));
         for(        i_138=0;        i_138<ovec_max_124;        i_138++        ){
             end_126[i_138]=ovec_value_127[i_138*2+1];
         }
-        if(_if_conditional48=regex_result_136==1,        _if_conditional48) {
+        if(regex_result_136==1) {
             str_139=charp_substring(self,start_125[0],end_126[0]);
             group_strings_140=list$1charph_initialize((struct list$1charph*)come_calloc(1, sizeof(struct list$1charph)*(1), "libneo-c-str-gc.c", 496, "list$1charph"));
             str2_141=block(parent,str_139,group_strings_140);
             list$1charph_push_back(result_122,str2_141);
-            if(_if_conditional49=offset_123==end_126[0],            _if_conditional49) {
+            if(offset_123==end_126[0]) {
                 offset_123++;
             }
             else {
                 offset_123=end_126[0];
             }
             n_133++;
-            if(_if_conditional50=n_133==count,            _if_conditional50) {
+            if(n_133==count) {
                 break;
             }
         }
         else {
-            if(_if_conditional51=regex_result_136>1,            _if_conditional51) {
+            if(regex_result_136>1) {
                 str_142=charp_substring(self,start_125[0],end_126[0]);
                 group_strings_143=list$1charph_initialize((struct list$1charph*)come_calloc(1, sizeof(struct list$1charph)*(1), "libneo-c-str-gc.c", 518, "list$1charph"));
                 for(                i_144=1;                i_144<regex_result_136;                i_144++                ){
@@ -4002,14 +3943,14 @@ memset(&str2_146, 0, sizeof(char*));
                 }
                 str2_146=block(parent,str_142,group_strings_143);
                 list$1charph_push_back(result_122,str2_146);
-                if(_if_conditional52=offset_123==end_126[0],                _if_conditional52) {
+                if(offset_123==end_126[0]) {
                     offset_123++;
                 }
                 else {
                     offset_123=end_126[0];
                 }
                 n_133++;
-                if(_if_conditional53=n_133==count,                _if_conditional53) {
+                if(n_133==count) {
                     break;
                 }
             }
@@ -4032,25 +3973,19 @@ struct real_pcre8_or_16* re_151;
 struct list$1charph* result_152;
 int offset_153;
 int ovec_max_154;
-_Bool _while_condtional7;
 int options_158;
 int len_159;
 int regex_result_160;
 int i_161;
 int i_162;
-_Bool _if_conditional54;
 char* str_163;
 struct list$1charph* match_strings_164;
 char* str2_165;
-_Bool _if_conditional55;
-_Bool _if_conditional56;
 char* str_166;
-_Bool _if_conditional57;
 struct list$1charph* match_strings_167;
 int i_168;
 char* match_str_169;
 char* str2_170;
-_Bool _if_conditional58;
 char* str_171;
 struct list$1charph* match_strings_172;
 char* str2_173;
@@ -4092,7 +4027,7 @@ memset(&str2_173, 0, sizeof(char*));
     memset(&end_156, 0, sizeof(int)    *(ovec_max_154)    );
     int ovec_value_157[ovec_max_154*3];
     memset(&ovec_value_157, 0, sizeof(int)    *(ovec_max_154*3)    );
-    while(_while_condtional7=(_Bool)1,    _while_condtional7) {
+    while((_Bool)1) {
         options_158=2097152;
         len_159=strlen(self);
         regex_result_160=pcre_exec(re_151,(struct pcre_extra*)0,self,len_159,offset_153,options_158,ovec_value_157,ovec_max_154*3);
@@ -4102,12 +4037,12 @@ memset(&str2_173, 0, sizeof(char*));
         for(        i_162=0;        i_162<ovec_max_154;        i_162++        ){
             end_156[i_162]=ovec_value_157[i_162*2+1];
         }
-        if(_if_conditional54=regex_result_160==1,        _if_conditional54) {
+        if(regex_result_160==1) {
             str_163=charp_substring(self,offset_153,start_155[0]);
             match_strings_164=list$1charph_initialize((struct list$1charph*)come_calloc(1, sizeof(struct list$1charph)*(1), "libneo-c-str-gc.c", 587, "list$1charph"));
             str2_165=block(parent,str_163,match_strings_164);
             list$1charph_push_back(result_152,str2_165);
-            if(_if_conditional55=offset_153==end_156[0],            _if_conditional55) {
+            if(offset_153==end_156[0]) {
                 offset_153++;
             }
             else {
@@ -4115,9 +4050,9 @@ memset(&str2_173, 0, sizeof(char*));
             }
         }
         else {
-            if(_if_conditional56=regex_result_160>1,            _if_conditional56) {
+            if(regex_result_160>1) {
                 str_166=charp_substring(self,offset_153,start_155[0]);
-                if(_if_conditional57=offset_153==end_156[0],                _if_conditional57) {
+                if(offset_153==end_156[0]) {
                     offset_153++;
                 }
                 else {
@@ -4136,7 +4071,7 @@ memset(&str2_173, 0, sizeof(char*));
             }
         }
     }
-    if(_if_conditional58=offset_153<charp_length(self),    _if_conditional58) {
+    if(offset_153<charp_length(self)) {
         str_171=charp_substring(self,offset_153,-1);
         match_strings_172=list$1charph_initialize((struct list$1charph*)come_calloc(1, sizeof(struct list$1charph)*(1), "libneo-c-str-gc.c", 628, "list$1charph"));
         str2_173=block(parent,str_171,match_strings_172);
@@ -4157,25 +4092,19 @@ struct list$1charph* result_179;
 int offset_180;
 int ovec_max_181;
 int n_185;
-_Bool _while_condtional8;
 int options_186;
 int len_187;
 int regex_result_188;
 int i_189;
 int i_190;
-_Bool _if_conditional59;
 char* str_191;
 struct list$1charph* match_strings_192;
 char* str2_193;
-_Bool _if_conditional60;
-_Bool _if_conditional61;
 char* str_194;
-_Bool _if_conditional62;
 struct list$1charph* match_strings_195;
 int i_196;
 char* match_str_197;
 char* str2_198;
-_Bool _if_conditional63;
 struct list$1charph* __result122__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&err_174, 0, sizeof(const char*));
@@ -4213,7 +4142,7 @@ memset(&str2_198, 0, sizeof(char*));
     int ovec_value_184[ovec_max_181*3];
     memset(&ovec_value_184, 0, sizeof(int)    *(ovec_max_181*3)    );
     n_185=0;
-    while(_while_condtional8=(_Bool)1,    _while_condtional8) {
+    while((_Bool)1) {
         options_186=2097152;
         len_187=strlen(self);
         regex_result_188=pcre_exec(re_178,(struct pcre_extra*)0,self,len_187,offset_180,options_186,ovec_value_184,ovec_max_181*3);
@@ -4223,12 +4152,12 @@ memset(&str2_198, 0, sizeof(char*));
         for(        i_190=0;        i_190<ovec_max_181;        i_190++        ){
             end_183[i_190]=ovec_value_184[i_190*2+1];
         }
-        if(_if_conditional59=regex_result_188==1,        _if_conditional59) {
+        if(regex_result_188==1) {
             str_191=charp_substring(self,offset_180,start_182[0]);
             match_strings_192=list$1charph_initialize((struct list$1charph*)come_calloc(1, sizeof(struct list$1charph)*(1), "libneo-c-str-gc.c", 676, "list$1charph"));
             str2_193=block(parent,str_191,match_strings_192);
             list$1charph_push_back(result_179,str2_193);
-            if(_if_conditional60=offset_180==end_183[0],            _if_conditional60) {
+            if(offset_180==end_183[0]) {
                 offset_180++;
             }
             else {
@@ -4236,9 +4165,9 @@ memset(&str2_198, 0, sizeof(char*));
             }
         }
         else {
-            if(_if_conditional61=regex_result_188>1,            _if_conditional61) {
+            if(regex_result_188>1) {
                 str_194=charp_substring(self,offset_180,start_182[0]);
-                if(_if_conditional62=offset_180==end_183[0],                _if_conditional62) {
+                if(offset_180==end_183[0]) {
                     offset_180++;
                 }
                 else {
@@ -4257,7 +4186,7 @@ memset(&str2_198, 0, sizeof(char*));
             }
         }
         n_185++;
-        if(_if_conditional63=n_185==count,        _if_conditional63) {
+        if(n_185==count) {
             break;
         }
     }
@@ -4267,65 +4196,55 @@ memset(&str2_198, 0, sizeof(char*));
 
 _Bool come_regex_equals(struct come_regex* left, struct come_regex* right){
 void* __result_obj__;
-_Bool _if_conditional64;
 _Bool __result123__;
-_Bool _if_conditional65;
 _Bool __result124__;
-_Bool _if_conditional66;
 _Bool __result125__;
-_Bool _if_conditional67;
 _Bool __result126__;
-_Bool _if_conditional68;
 _Bool __result127__;
-_Bool _if_conditional69;
 _Bool __result128__;
-_Bool _if_conditional70;
 _Bool __result129__;
-_Bool _if_conditional71;
 _Bool __result130__;
-_Bool _if_conditional72;
 _Bool __result131__;
-_Bool _if_conditional73;
 _Bool __result132__;
 _Bool __result133__;
 memset(&__result_obj__, 0, sizeof(void*));
-    if(_if_conditional64=strcmp(left->str,right->str)!=0,    _if_conditional64) {
+    if(strcmp(left->str,right->str)!=0) {
         __result123__ = (_Bool)0;
         return __result123__;
     }
-    if(_if_conditional65=left->ignore_case!=right->ignore_case,    _if_conditional65) {
+    if(left->ignore_case!=right->ignore_case) {
         __result124__ = (_Bool)0;
         return __result124__;
     }
-    if(_if_conditional66=left->multiline!=right->multiline,    _if_conditional66) {
+    if(left->multiline!=right->multiline) {
         __result125__ = (_Bool)0;
         return __result125__;
     }
-    if(_if_conditional67=left->global!=right->global,    _if_conditional67) {
+    if(left->global!=right->global) {
         __result126__ = (_Bool)0;
         return __result126__;
     }
-    if(_if_conditional68=left->extended!=right->extended,    _if_conditional68) {
+    if(left->extended!=right->extended) {
         __result127__ = (_Bool)0;
         return __result127__;
     }
-    if(_if_conditional69=left->dotall!=right->dotall,    _if_conditional69) {
+    if(left->dotall!=right->dotall) {
         __result128__ = (_Bool)0;
         return __result128__;
     }
-    if(_if_conditional70=left->anchored!=right->anchored,    _if_conditional70) {
+    if(left->anchored!=right->anchored) {
         __result129__ = (_Bool)0;
         return __result129__;
     }
-    if(_if_conditional71=left->dollar_endonly!=right->dollar_endonly,    _if_conditional71) {
+    if(left->dollar_endonly!=right->dollar_endonly) {
         __result130__ = (_Bool)0;
         return __result130__;
     }
-    if(_if_conditional72=left->ungreedy!=right->ungreedy,    _if_conditional72) {
+    if(left->ungreedy!=right->ungreedy) {
         __result131__ = (_Bool)0;
         return __result131__;
     }
-    if(_if_conditional73=left->options!=right->options,    _if_conditional73) {
+    if(left->options!=right->options) {
         __result132__ = (_Bool)0;
         return __result132__;
     }
@@ -4343,18 +4262,13 @@ int erro_ofs_206;
 int options_207;
 char* str_208;
 struct real_pcre8_or_16* re_209;
-_Bool _while_condtional9;
 int options_210;
 int len_211;
 int regex_result_212;
 int i_213;
 int i_214;
-_Bool _if_conditional74;
 char* str_215;
-_Bool _if_conditional75;
-_Bool _if_conditional76;
 char* str_216;
-_Bool _if_conditional77;
 int i_217;
 char* match_string_218;
 struct list$1charph* __result134__;
@@ -4388,7 +4302,7 @@ memset(&match_string_218, 0, sizeof(char*));
     options_207=reg->options;
     str_208=reg->str;
     re_209=reg->re;
-    while(_while_condtional9=(_Bool)1,    _while_condtional9) {
+    while((_Bool)1) {
         options_210=2097152;
         len_211=strlen(self);
         regex_result_212=pcre_exec(re_209,(struct pcre_extra*)0,self,len_211,offset_200,options_210,ovec_value_204,ovec_max_201*3);
@@ -4398,10 +4312,10 @@ memset(&match_string_218, 0, sizeof(char*));
         for(        i_214=0;        i_214<ovec_max_201;        i_214++        ){
             end_203[i_214]=ovec_value_204[i_214*2+1];
         }
-        if(_if_conditional74=regex_result_212==1,        _if_conditional74) {
+        if(regex_result_212==1) {
             str_215=charp_substring(self,start_202[0],end_203[0]);
             list$1charph_push_back(result_199,str_215);
-            if(_if_conditional75=offset_200==end_203[0],            _if_conditional75) {
+            if(offset_200==end_203[0]) {
                 offset_200++;
             }
             else {
@@ -4409,10 +4323,10 @@ memset(&match_string_218, 0, sizeof(char*));
             }
         }
         else {
-            if(_if_conditional76=regex_result_212>1,            _if_conditional76) {
+            if(regex_result_212>1) {
                 str_216=charp_substring(self,start_202[0],end_203[0]);
                 list$1charph_push_back(result_199,str_216);
-                if(_if_conditional77=offset_200==end_203[0],                _if_conditional77) {
+                if(offset_200==end_203[0]) {
                     offset_200++;
                 }
                 else {
@@ -4437,24 +4351,21 @@ char* charp_strip(char* self){
 void* __result_obj__;
 char* result_219;
 int len_220;
-_Bool _if_conditional78;
-_Bool _if_conditional79;
-_Bool _if_conditional80;
 char* __result135__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&result_219, 0, sizeof(char*));
 memset(&len_220, 0, sizeof(int));
     result_219=__builtin_string(self);
     len_220=strlen(self);
-    if(_if_conditional78=self[len_220-1]==10,    _if_conditional78) {
+    if(self[len_220-1]==10) {
         result_219[len_220-1]=0;
     }
     else {
-        if(_if_conditional79=self[len_220-1]==13,        _if_conditional79) {
+        if(self[len_220-1]==13) {
             result_219[len_220-1]=0;
         }
         else {
-            if(_if_conditional80=len_220>2&&self[len_220-2]==13&&self[len_220-1]==10,            _if_conditional80) {
+            if(len_220>2&&self[len_220-2]==13&&self[len_220-1]==10) {
                 result_219[len_220-2]=0;
             }
         }
@@ -4470,7 +4381,6 @@ char* result_222;
 int n_223;
 int i_224;
 char c_225;
-_Bool _if_conditional81;
 char* __result136__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&len_221, 0, sizeof(int));
@@ -4483,7 +4393,7 @@ memset(&c_225, 0, sizeof(char));
     n_223=0;
     for(    i_224=0;    i_224<len_221;    i_224++    ){
         c_225=str[i_224];
-        if(_if_conditional81=(c_225>=0&&c_225<32)||c_225==127,        _if_conditional81) {
+        if((c_225>=0&&c_225<32)||c_225==127) {
             result_222[n_223++]=94;
             result_222[n_223++]=c_225+65-1;
         }
@@ -4500,14 +4410,13 @@ char* wchar_tp_to_string(unsigned int* wstr){
 void* __result_obj__;
 int len_226;
 char* result_227;
-_Bool _if_conditional82;
 char* __result137__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&len_226, 0, sizeof(int));
 memset(&result_227, 0, sizeof(char*));
     len_226=4*(wcslen(wstr)+1);
     result_227=(char*)come_calloc(1, sizeof(char)*(1*(len_226)), "libneo-c-str-gc.c", 883, "char");
-    if(_if_conditional82=wcstombs(result_227,wstr,len_226)<0,    _if_conditional82) {
+    if(wcstombs(result_227,wstr,len_226)<0) {
         strncpy(result_227,"",len_226);
     }
     __result137__ = __result_obj__ = result_227;
@@ -4533,38 +4442,32 @@ memset(&__result_obj__, 0, sizeof(void*));
 unsigned int* wchar_tp_delete(unsigned int* str, int head, int tail){
 void* __result_obj__;
 int len_228;
-_Bool _if_conditional83;
 unsigned int* __result140__;
-_Bool _if_conditional84;
-_Bool _if_conditional85;
-_Bool _if_conditional86;
-_Bool _if_conditional87;
 unsigned int* __result141__;
-_Bool _if_conditional88;
 unsigned int* sub_str_229;
 unsigned int* __result142__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&len_228, 0, sizeof(int));
 memset(&sub_str_229, 0, sizeof(unsigned int*));
     len_228=wcslen(str);
-    if(_if_conditional83=len_228==0,    _if_conditional83) {
+    if(len_228==0) {
         __result140__ = __result_obj__ = string_to_wstring(wchar_tp_to_string(str));
         return __result140__;
     }
-    if(_if_conditional84=head<0,    _if_conditional84) {
+    if(head<0) {
         head+=len_228;
     }
-    if(_if_conditional85=tail<0,    _if_conditional85) {
+    if(tail<0) {
         tail+=len_228+1;
     }
-    if(_if_conditional86=head<0,    _if_conditional86) {
+    if(head<0) {
         head=0;
     }
-    if(_if_conditional87=tail<0,    _if_conditional87) {
+    if(tail<0) {
         __result141__ = __result_obj__ = string_to_wstring(wchar_tp_to_string(str));
         return __result141__;
     }
-    if(_if_conditional88=tail>=len_228,    _if_conditional88) {
+    if(tail>=len_228) {
         tail=len_228;
     }
     sub_str_229=wchar_tp_substring(str,tail,-1);
@@ -4576,13 +4479,12 @@ memset(&sub_str_229, 0, sizeof(unsigned int*));
 int wchar_tp_index(unsigned int* str, unsigned int* search_str, int default_value){
 void* __result_obj__;
 unsigned int* head_230;
-_Bool _if_conditional89;
 int __result143__;
 int __result144__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&head_230, 0, sizeof(unsigned int*));
     head_230=wcsstr(str,search_str);
-    if(_if_conditional89=head_230==((void*)0),    _if_conditional89) {
+    if(head_230==((void*)0)) {
         __result143__ = default_value;
         return __result143__;
     }
@@ -4594,12 +4496,9 @@ int wchar_tp_rindex(unsigned int* str, unsigned int* search_str, int default_val
 void* __result_obj__;
 int len_231;
 unsigned int* p_232;
-_Bool _while_condtional10;
 int len2_233;
 _Bool result_234;
 int i_235;
-_Bool _if_conditional90;
-_Bool _if_conditional91;
 int __result145__;
 int __result146__;
 memset(&__result_obj__, 0, sizeof(void*));
@@ -4610,11 +4509,11 @@ memset(&result_234, 0, sizeof(_Bool));
 memset(&i_235, 0, sizeof(int));
     len_231=wcslen(search_str);
     p_232=str+wcslen(str)-len_231;
-    while(_while_condtional10=p_232>=str,    _while_condtional10) {
+    while(p_232>=str) {
         len2_233=wcslen(p_232);
         result_234=(_Bool)1;
         for(        i_235=0;        i_235<len_231&&i_235<len2_233;        i_235++        ){
-            if(_if_conditional90=p_232[i_235]!=search_str[i_235],            _if_conditional90) {
+            if(p_232[i_235]!=search_str[i_235]) {
                 result_234=(_Bool)0;
             }
         }
@@ -4675,7 +4574,6 @@ unsigned int* result_243;
 int n_244;
 int i_245;
 unsigned int c_246;
-_Bool _if_conditional92;
 unsigned int* __result149__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&len_242, 0, sizeof(int));
@@ -4688,7 +4586,7 @@ memset(&c_246, 0, sizeof(unsigned int));
     n_244=0;
     for(    i_245=0;    i_245<len_242;    i_245++    ){
         c_246=str[i_245];
-        if(_if_conditional92=(c_246>=0&&c_246<32)||c_246==127,        _if_conditional92) {
+        if((c_246>=0&&c_246<32)||c_246==127) {
             result_243[n_244++]=94;
             result_243[n_244++]=c_246+65-1;
         }
@@ -4711,22 +4609,15 @@ int options_254;
 char* str_255;
 struct real_pcre8_or_16* re_256;
 int n_257;
-_Bool _while_condtional11;
 int options_258;
 int len_259;
 int regex_result_260;
 int i_261;
 int i_262;
-_Bool _if_conditional93;
-_Bool _if_conditional94;
 _Bool __result150__;
-_Bool _if_conditional95;
-_Bool _if_conditional96;
 int i_265;
 char* match_string_266;
-_Bool _if_conditional97;
 _Bool __result152__;
-_Bool _if_conditional98;
 _Bool __result153__;
 _Bool __result154__;
 memset(&__result_obj__, 0, sizeof(void*));
@@ -4757,7 +4648,7 @@ memset(&match_string_266, 0, sizeof(char*));
     str_255=reg->str;
     re_256=reg->re;
     n_257=0;
-    while(_while_condtional11=(_Bool)1,    _while_condtional11) {
+    while((_Bool)1) {
         options_258=2097152;
         len_259=strlen(self);
         regex_result_260=pcre_exec(re_256,(struct pcre_extra*)0,self,len_259,offset_247,options_258,ovec_value_251,ovec_max_248*3);
@@ -4767,13 +4658,13 @@ memset(&match_string_266, 0, sizeof(char*));
         for(        i_262=0;        i_262<ovec_max_248;        i_262++        ){
             end_250[i_262]=ovec_value_251[i_262*2+1];
         }
-        if(_if_conditional93=regex_result_260==1||(group_strings==((void*)0)&&regex_result_260>0),        _if_conditional93) {
+        if(regex_result_260==1||(group_strings==((void*)0)&&regex_result_260>0)) {
             n_257++;
-            if(_if_conditional94=n_257==count,            _if_conditional94) {
+            if(n_257==count) {
                 __result150__ = (_Bool)1;
                 return __result150__;
             }
-            if(_if_conditional95=offset_247==end_250[0],            _if_conditional95) {
+            if(offset_247==end_250[0]) {
                 offset_247++;
             }
             else {
@@ -4781,18 +4672,18 @@ memset(&match_string_266, 0, sizeof(char*));
             }
         }
         else {
-            if(_if_conditional96=regex_result_260>1,            _if_conditional96) {
+            if(regex_result_260>1) {
                 n_257++;
                 list$1charph_reset(group_strings);
                 for(                i_265=1;                i_265<regex_result_260;                i_265++                ){
                     match_string_266=charp_substring(self,start_249[i_265],end_250[i_265]);
                     list$1charph_push_back(group_strings,match_string_266);
                 }
-                if(_if_conditional97=n_257==count,                _if_conditional97) {
+                if(n_257==count) {
                     __result152__ = (_Bool)1;
                     return __result152__;
                 }
-                if(_if_conditional98=offset_247==end_250[0],                _if_conditional98) {
+                if(offset_247==end_250[0]) {
                     offset_247++;
                 }
                 else {
@@ -4812,14 +4703,13 @@ memset(&match_string_266, 0, sizeof(char*));
 static struct list$1charph* list$1charph_reset(struct list$1charph* self){
 void* __result_obj__;
 struct list_item$1charph* it_263;
-_Bool _while_condtional12;
 struct list_item$1charph* prev_it_264;
 struct list$1charph* __result151__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&it_263, 0, sizeof(struct list_item$1charph*));
 memset(&prev_it_264, 0, sizeof(struct list_item$1charph*));
                     it_263=self->head;
-                    while(_while_condtional12=it_263!=((void*)0),                    _while_condtional12) {
+                    while(it_263!=((void*)0)) {
                         prev_it_264=it_263;
                         it_263=it_263->next;
                     }
@@ -4955,13 +4845,12 @@ memset(&result_268, 0, sizeof(unsigned int*));
 int charp_index(char* str, char* search_str, int default_value){
 void* __result_obj__;
 char* head_269;
-_Bool _if_conditional99;
 int __result169__;
 int __result170__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&head_269, 0, sizeof(char*));
     head_269=strstr(str,search_str);
-    if(_if_conditional99=head_269==((void*)0),    _if_conditional99) {
+    if(head_269==((void*)0)) {
         __result169__ = default_value;
         return __result169__;
     }
@@ -4979,13 +4868,11 @@ int erro_ofs_277;
 int options_278;
 char* str_279;
 struct real_pcre8_or_16* re_280;
-_Bool _while_condtional13;
 int options_281;
 int len_282;
 int regex_result_283;
 int i_284;
 int i_285;
-_Bool _if_conditional100;
 int __result171__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&ovec_max_270, 0, sizeof(int));
@@ -5013,7 +4900,7 @@ memset(&i_285, 0, sizeof(int));
     options_278=reg->options;
     str_279=reg->str;
     re_280=reg->re;
-    while(_while_condtional13=(_Bool)1,    _while_condtional13) {
+    while((_Bool)1) {
         options_281=2097152;
         len_282=strlen(self);
         regex_result_283=pcre_exec(re_280,(struct pcre_extra*)0,self,len_282,offset_275,options_281,ovec_value_273,ovec_max_270*3);
@@ -5023,7 +4910,7 @@ memset(&i_285, 0, sizeof(int));
         for(        i_285=0;        i_285<ovec_max_270;        i_285++        ){
             end_272[i_285]=ovec_value_273[i_285*2+1];
         }
-        if(_if_conditional100=regex_result_283==1||regex_result_283>0,        _if_conditional100) {
+        if(regex_result_283==1||regex_result_283>0) {
             result_274=start_271[0];
             break;
         }
@@ -5038,26 +4925,22 @@ memset(&i_285, 0, sizeof(int));
 char* charp_replace(char* self, int index, char c){
 void* __result_obj__;
 int len_286;
-_Bool _if_conditional101;
 char* __result172__;
-_Bool _if_conditional102;
-_Bool _if_conditional103;
-_Bool _if_conditional104;
 char* __result173__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&len_286, 0, sizeof(int));
     len_286=strlen(self);
-    if(_if_conditional101=strcmp(self,"")==0,    _if_conditional101) {
+    if(strcmp(self,"")==0) {
         __result172__ = __result_obj__ = __builtin_string(self);
         return __result172__;
     }
-    if(_if_conditional102=index<0,    _if_conditional102) {
+    if(index<0) {
         index+=len_286;
     }
-    if(_if_conditional103=index>=len_286,    _if_conditional103) {
+    if(index>=len_286) {
         index=len_286-1;
     }
-    if(_if_conditional104=index<0,    _if_conditional104) {
+    if(index<0) {
         index=0;
     }
     self[index]=c;
@@ -5095,16 +4978,12 @@ int options_297;
 char* str_298;
 struct real_pcre8_or_16* re_299;
 struct buffer* result_300;
-_Bool _while_condtional14;
 int options_301;
 int len_302;
 int regex_result_303;
 int i_304;
 int i_305;
-_Bool _if_conditional105;
 char* str_306;
-_Bool _if_conditional106;
-_Bool _if_conditional107;
 char* str_307;
 char* str_308;
 char* __result175__;
@@ -5137,7 +5016,7 @@ memset(&str_308, 0, sizeof(char*));
     str_298=reg->str;
     re_299=reg->re;
     result_300=buffer_initialize((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "libneo-c-str-gc.c", 1312, "buffer"));
-    while(_while_condtional14=(_Bool)1,    _while_condtional14) {
+    while((_Bool)1) {
         options_301=2097152;
         len_302=strlen(self);
         regex_result_303=pcre_exec(re_299,(struct pcre_extra*)0,self,len_302,offset_290,options_301,ovec_value_294,ovec_max_291*3);
@@ -5147,17 +5026,17 @@ memset(&str_308, 0, sizeof(char*));
         for(        i_305=0;        i_305<ovec_max_291;        i_305++        ){
             end_293[i_305]=ovec_value_294[i_305*2+1];
         }
-        if(_if_conditional105=regex_result_303==1,        _if_conditional105) {
+        if(regex_result_303==1) {
             str_306=charp_substring(self,offset_290,start_292[0]);
             buffer_append_str(result_300,str_306);
             buffer_append_str(result_300,replace);
-            if(_if_conditional106=offset_290==end_293[0],            _if_conditional106) {
+            if(offset_290==end_293[0]) {
                 offset_290++;
             }
             else {
                 offset_290=end_293[0];
             }
-            if(_if_conditional107=!reg->global,            _if_conditional107) {
+            if(!reg->global) {
                 str_307=charp_substring(self,offset_290,-1);
                 buffer_append_str(result_300,str_307);
                 break;
@@ -5184,18 +5063,13 @@ char* str_317;
 struct real_pcre8_or_16* re_318;
 struct buffer* result_319;
 int n_320;
-_Bool _while_condtional15;
 int options_321;
 int len_322;
 int regex_result_323;
 int i_324;
 int i_325;
-_Bool _if_conditional108;
 char* str_326;
-_Bool _if_conditional109;
-_Bool _if_conditional110;
 char* str_327;
-_Bool _if_conditional111;
 char* str_328;
 char* str_329;
 char* __result176__;
@@ -5231,7 +5105,7 @@ memset(&str_329, 0, sizeof(char*));
     re_318=reg->re;
     result_319=buffer_initialize((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "libneo-c-str-gc.c", 1375, "buffer"));
     n_320=0;
-    while(_while_condtional15=(_Bool)1,    _while_condtional15) {
+    while((_Bool)1) {
         options_321=2097152;
         len_322=strlen(self);
         regex_result_323=pcre_exec(re_318,(struct pcre_extra*)0,self,len_322,offset_309,options_321,ovec_value_313,ovec_max_310*3);
@@ -5241,23 +5115,23 @@ memset(&str_329, 0, sizeof(char*));
         for(        i_325=0;        i_325<ovec_max_310;        i_325++        ){
             end_312[i_325]=ovec_value_313[i_325*2+1];
         }
-        if(_if_conditional108=regex_result_323==1,        _if_conditional108) {
+        if(regex_result_323==1) {
             n_320++;
             str_326=charp_substring(self,offset_309,start_311[0]);
             buffer_append_str(result_319,str_326);
             buffer_append_str(result_319,replace);
-            if(_if_conditional109=offset_309==end_312[0],            _if_conditional109) {
+            if(offset_309==end_312[0]) {
                 offset_309++;
             }
             else {
                 offset_309=end_312[0];
             }
-            if(_if_conditional110=!reg->global,            _if_conditional110) {
+            if(!reg->global) {
                 str_327=charp_substring(self,offset_309,-1);
                 buffer_append_str(result_319,str_327);
                 break;
             }
-            if(_if_conditional111=n_320==count,            _if_conditional111) {
+            if(n_320==count) {
                 str_328=charp_substring(self,offset_309,-1);
                 buffer_append_str(result_319,str_328);
                 break;
@@ -5278,8 +5152,6 @@ void* __result_obj__;
 struct list$1charph* result_330;
 struct buffer* buf_331;
 int i_332;
-_Bool _if_conditional112;
-_Bool _if_conditional113;
 struct list$1charph* __result177__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&result_330, 0, sizeof(struct list$1charph*));
@@ -5288,7 +5160,7 @@ memset(&i_332, 0, sizeof(int));
     result_330=list$1charph_initialize((struct list$1charph*)come_calloc(1, sizeof(struct list$1charph)*(1), "libneo-c-str-gc.c", 1434, "list$1charph"));
     buf_331=buffer_initialize((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "libneo-c-str-gc.c", 1436, "buffer"));
     for(    i_332=0;    i_332<charp_length(self);    i_332++    ){
-        if(_if_conditional112=strstr(self+i_332,str)==self+i_332,        _if_conditional112) {
+        if(strstr(self+i_332,str)==self+i_332) {
             list$1charph_push_back(result_330,__builtin_string(buf_331->buf));
             buffer_reset(buf_331);
             i_332+=strlen(str)-1;
@@ -5297,7 +5169,7 @@ memset(&i_332, 0, sizeof(int));
             buffer_append_char(buf_331,self[i_332]);
         }
     }
-    if(_if_conditional113=buffer_length(buf_331)!=0,    _if_conditional113) {
+    if(buffer_length(buf_331)!=0) {
         list$1charph_push_back(result_330,__builtin_string(buf_331->buf));
     }
     __result177__ = __result_obj__ = result_330;
@@ -5314,18 +5186,13 @@ int erro_ofs_340;
 int options_341;
 char* str_342;
 struct real_pcre8_or_16* re_343;
-_Bool _while_condtional16;
 int options_344;
 int len_345;
 int regex_result_346;
 int i_347;
 int i_348;
-_Bool _if_conditional114;
 char* str_349;
-_Bool _if_conditional115;
-_Bool _if_conditional116;
 char* str_350;
-_Bool _if_conditional117;
 int i_351;
 char* match_string_352;
 struct list$1charph* __result178__;
@@ -5359,7 +5226,7 @@ memset(&match_string_352, 0, sizeof(char*));
     options_341=reg->options;
     str_342=reg->str;
     re_343=reg->re;
-    while(_while_condtional16=(_Bool)1,    _while_condtional16) {
+    while((_Bool)1) {
         options_344=2097152;
         len_345=strlen(self);
         regex_result_346=pcre_exec(re_343,(struct pcre_extra*)0,self,len_345,offset_334,options_344,ovec_value_338,ovec_max_335*3);
@@ -5369,10 +5236,10 @@ memset(&match_string_352, 0, sizeof(char*));
         for(        i_348=0;        i_348<ovec_max_335;        i_348++        ){
             end_337[i_348]=ovec_value_338[i_348*2+1];
         }
-        if(_if_conditional114=regex_result_346==1,        _if_conditional114) {
+        if(regex_result_346==1) {
             str_349=charp_substring(self,start_336[0],end_337[0]);
             list$1charph_push_back(result_333,str_349);
-            if(_if_conditional115=offset_334==end_337[0],            _if_conditional115) {
+            if(offset_334==end_337[0]) {
                 offset_334++;
             }
             else {
@@ -5380,10 +5247,10 @@ memset(&match_string_352, 0, sizeof(char*));
             }
         }
         else {
-            if(_if_conditional116=regex_result_346>1,            _if_conditional116) {
+            if(regex_result_346>1) {
                 str_350=charp_substring(self,start_336[0],end_337[0]);
                 list$1charph_push_back(result_333,str_350);
-                if(_if_conditional117=offset_334==end_337[0],                _if_conditional117) {
+                if(offset_334==end_337[0]) {
                     offset_334++;
                 }
                 else {
@@ -5413,21 +5280,15 @@ struct real_pcre8_or_16* re_357;
 struct list$1charph* result_358;
 int offset_359;
 int ovec_max_360;
-_Bool _while_condtional17;
 int options_364;
 int len_365;
 int regex_result_366;
 int i_367;
 int i_368;
-_Bool _if_conditional118;
 char* str_369;
-_Bool _if_conditional119;
-_Bool _if_conditional120;
 char* str_370;
-_Bool _if_conditional121;
 int i_371;
 char* match_str_372;
-_Bool _if_conditional122;
 char* str_373;
 struct list$1charph* __result179__;
 memset(&__result_obj__, 0, sizeof(void*));
@@ -5461,7 +5322,7 @@ memset(&str_373, 0, sizeof(char*));
     memset(&end_362, 0, sizeof(int)    *(ovec_max_360)    );
     int ovec_value_363[ovec_max_360*3];
     memset(&ovec_value_363, 0, sizeof(int)    *(ovec_max_360*3)    );
-    while(_while_condtional17=(_Bool)1,    _while_condtional17) {
+    while((_Bool)1) {
         options_364=2097152;
         len_365=strlen(self);
         regex_result_366=pcre_exec(re_357,(struct pcre_extra*)0,self,len_365,offset_359,options_364,ovec_value_363,ovec_max_360*3);
@@ -5471,10 +5332,10 @@ memset(&str_373, 0, sizeof(char*));
         for(        i_368=0;        i_368<ovec_max_360;        i_368++        ){
             end_362[i_368]=ovec_value_363[i_368*2+1];
         }
-        if(_if_conditional118=regex_result_366==1,        _if_conditional118) {
+        if(regex_result_366==1) {
             str_369=charp_substring(self,offset_359,start_361[0]);
             list$1charph_push_back(result_358,str_369);
-            if(_if_conditional119=offset_359==end_362[0],            _if_conditional119) {
+            if(offset_359==end_362[0]) {
                 offset_359++;
             }
             else {
@@ -5482,10 +5343,10 @@ memset(&str_373, 0, sizeof(char*));
             }
         }
         else {
-            if(_if_conditional120=regex_result_366>1,            _if_conditional120) {
+            if(regex_result_366>1) {
                 str_370=charp_substring(self,offset_359,start_361[0]);
                 list$1charph_push_back(result_358,str_370);
-                if(_if_conditional121=offset_359==end_362[0],                _if_conditional121) {
+                if(offset_359==end_362[0]) {
                     offset_359++;
                 }
                 else {
@@ -5501,7 +5362,7 @@ memset(&str_373, 0, sizeof(char*));
             }
         }
     }
-    if(_if_conditional122=offset_359<charp_length(self),    _if_conditional122) {
+    if(offset_359<charp_length(self)) {
         str_373=charp_substring(self,offset_359,-1);
         list$1charph_push_back(result_358,str_373);
     }
@@ -5518,13 +5379,11 @@ int erro_ofs_380;
 int options_381;
 char* str_382;
 struct real_pcre8_or_16* re_383;
-_Bool _while_condtional18;
 int options_384;
 int len_385;
 int regex_result_386;
 int i_387;
 int i_388;
-_Bool _if_conditional123;
 _Bool __result180__;
 _Bool __result181__;
 _Bool __result182__;
@@ -5552,7 +5411,7 @@ memset(&i_388, 0, sizeof(int));
     options_381=reg->options;
     str_382=reg->str;
     re_383=reg->re;
-    while(_while_condtional18=(_Bool)1,    _while_condtional18) {
+    while((_Bool)1) {
         options_384=2097152;
         len_385=strlen(self);
         regex_result_386=pcre_exec(re_383,(struct pcre_extra*)0,self,len_385,offset_374,options_384,ovec_value_378,ovec_max_375*3);
@@ -5562,7 +5421,7 @@ memset(&i_388, 0, sizeof(int));
         for(        i_388=0;        i_388<ovec_max_375;        i_388++        ){
             end_377[i_388]=ovec_value_378[i_388*2+1];
         }
-        if(_if_conditional123=regex_result_386>0,        _if_conditional123) {
+        if(regex_result_386>0) {
             __result180__ = (_Bool)1;
             return __result180__;
         }
@@ -5586,22 +5445,15 @@ struct list$1charph* result_394;
 int offset_395;
 int ovec_max_396;
 int n_400;
-_Bool _while_condtional19;
 int options_401;
 int len_402;
 int regex_result_403;
 int i_404;
 int i_405;
-_Bool _if_conditional124;
 char* str_406;
-_Bool _if_conditional125;
-_Bool _if_conditional126;
 char* str_407;
-_Bool _if_conditional127;
 int i_408;
 char* match_str_409;
-_Bool _if_conditional128;
-_Bool _if_conditional129;
 char* str_410;
 struct list$1charph* __result183__;
 memset(&__result_obj__, 0, sizeof(void*));
@@ -5637,7 +5489,7 @@ memset(&str_410, 0, sizeof(char*));
     int ovec_value_399[ovec_max_396*3];
     memset(&ovec_value_399, 0, sizeof(int)    *(ovec_max_396*3)    );
     n_400=0;
-    while(_while_condtional19=(_Bool)1,    _while_condtional19) {
+    while((_Bool)1) {
         options_401=2097152;
         len_402=strlen(self);
         regex_result_403=pcre_exec(re_393,(struct pcre_extra*)0,self,len_402,offset_395,options_401,ovec_value_399,ovec_max_396*3);
@@ -5647,10 +5499,10 @@ memset(&str_410, 0, sizeof(char*));
         for(        i_405=0;        i_405<ovec_max_396;        i_405++        ){
             end_398[i_405]=ovec_value_399[i_405*2+1];
         }
-        if(_if_conditional124=regex_result_403==1,        _if_conditional124) {
+        if(regex_result_403==1) {
             str_406=charp_substring(self,offset_395,start_397[0]);
             list$1charph_push_back(result_394,str_406);
-            if(_if_conditional125=offset_395==end_398[0],            _if_conditional125) {
+            if(offset_395==end_398[0]) {
                 offset_395++;
             }
             else {
@@ -5658,10 +5510,10 @@ memset(&str_410, 0, sizeof(char*));
             }
         }
         else {
-            if(_if_conditional126=regex_result_403>1,            _if_conditional126) {
+            if(regex_result_403>1) {
                 str_407=charp_substring(self,offset_395,start_397[0]);
                 list$1charph_push_back(result_394,str_407);
-                if(_if_conditional127=offset_395==end_398[0],                _if_conditional127) {
+                if(offset_395==end_398[0]) {
                     offset_395++;
                 }
                 else {
@@ -5677,11 +5529,11 @@ memset(&str_410, 0, sizeof(char*));
             }
         }
         n_400++;
-        if(_if_conditional128=maxsplit==n_400,        _if_conditional128) {
+        if(maxsplit==n_400) {
             break;
         }
     }
-    if(_if_conditional129=offset_395<charp_length(self),    _if_conditional129) {
+    if(offset_395<charp_length(self)) {
         str_410=charp_substring(self,offset_395,-1);
         list$1charph_push_back(result_394,str_410);
     }
@@ -5701,15 +5553,11 @@ int ovec_max_417;
 int result_421;
 int offset_422;
 int n_423;
-_Bool _while_condtional20;
 int options_424;
 int len_425;
 int regex_result_426;
 int i_427;
 int i_428;
-_Bool _if_conditional130;
-_Bool _if_conditional131;
-_Bool _if_conditional132;
 int __result184__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&err_411, 0, sizeof(const char*));
@@ -5741,7 +5589,7 @@ memset(&i_428, 0, sizeof(int));
     result_421=default_value;
     offset_422=0;
     n_423=0;
-    while(_while_condtional20=(_Bool)1,    _while_condtional20) {
+    while((_Bool)1) {
         options_424=2097152;
         len_425=strlen(self2_416);
         regex_result_426=pcre_exec(re_415,(struct pcre_extra*)0,self2_416,len_425,offset_422,options_424,ovec_value_420,ovec_max_417*3);
@@ -5751,15 +5599,15 @@ memset(&i_428, 0, sizeof(int));
         for(        i_428=0;        i_428<ovec_max_417;        i_428++        ){
             end_419[i_428]=ovec_value_420[i_428*2+1];
         }
-        if(_if_conditional130=regex_result_426>0,        _if_conditional130) {
+        if(regex_result_426>0) {
             n_423++;
-            if(_if_conditional131=offset_422==end_419[0],            _if_conditional131) {
+            if(offset_422==end_419[0]) {
                 offset_422++;
             }
             else {
                 offset_422=end_419[0];
             }
-            if(_if_conditional132=n_423==count,            _if_conditional132) {
+            if(n_423==count) {
                 result_421=strlen(self)-end_419[0];
                 break;
             }
@@ -5782,16 +5630,12 @@ int options_436;
 char* str_437;
 struct real_pcre8_or_16* re_438;
 int n_439;
-_Bool _while_condtional21;
 int options_440;
 int len_441;
 int regex_result_442;
 int i_443;
 int i_444;
-_Bool _if_conditional133;
-_Bool _if_conditional134;
 _Bool __result185__;
-_Bool _if_conditional135;
 _Bool __result186__;
 _Bool __result187__;
 memset(&__result_obj__, 0, sizeof(void*));
@@ -5820,7 +5664,7 @@ memset(&i_444, 0, sizeof(int));
     str_437=reg->str;
     re_438=reg->re;
     n_439=0;
-    while(_while_condtional21=(_Bool)1,    _while_condtional21) {
+    while((_Bool)1) {
         options_440=2097152;
         len_441=strlen(self);
         regex_result_442=pcre_exec(re_438,(struct pcre_extra*)0,self,len_441,offset_429,options_440,ovec_value_433,ovec_max_430*3);
@@ -5830,13 +5674,13 @@ memset(&i_444, 0, sizeof(int));
         for(        i_444=0;        i_444<ovec_max_430;        i_444++        ){
             end_432[i_444]=ovec_value_433[i_444*2+1];
         }
-        if(_if_conditional133=regex_result_442>0,        _if_conditional133) {
+        if(regex_result_442>0) {
             n_439++;
-            if(_if_conditional134=count==n_439,            _if_conditional134) {
+            if(count==n_439) {
                 __result185__ = (_Bool)1;
                 return __result185__;
             }
-            if(_if_conditional135=offset_429==end_432[0],            _if_conditional135) {
+            if(offset_429==end_432[0]) {
                 offset_429++;
             }
             else {
@@ -5862,29 +5706,22 @@ int options_452;
 char* str_453;
 struct real_pcre8_or_16* re_454;
 struct buffer* result_455;
-_Bool _while_condtional22;
 int options_456;
 int len_457;
 int regex_result_458;
 int i_459;
 int i_460;
-_Bool _if_conditional136;
 char* str_461;
 struct list$1charph* group_strings_462;
 char* match_string_463;
 char* block_result_464;
-_Bool _if_conditional137;
-_Bool _if_conditional138;
 char* str_465;
-_Bool _if_conditional139;
 char* str_466;
-_Bool _if_conditional140;
 struct list$1charph* group_strings_467;
 int i_468;
 char* match_string_469;
 char* match_string_470;
 char* block_result_471;
-_Bool _if_conditional141;
 char* str_472;
 char* str_473;
 char* __result188__;
@@ -5927,7 +5764,7 @@ memset(&str_473, 0, sizeof(char*));
     str_453=reg->str;
     re_454=reg->re;
     result_455=buffer_initialize((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "libneo-c-str-gc.c", 1872, "buffer"));
-    while(_while_condtional22=(_Bool)1,    _while_condtional22) {
+    while((_Bool)1) {
         options_456=2097152;
         len_457=strlen(self);
         regex_result_458=pcre_exec(re_454,(struct pcre_extra*)0,self,len_457,offset_445,options_456,ovec_value_449,ovec_max_446*3);
@@ -5937,7 +5774,7 @@ memset(&str_473, 0, sizeof(char*));
         for(        i_460=0;        i_460<ovec_max_446;        i_460++        ){
             end_448[i_460]=ovec_value_449[i_460*2+1];
         }
-        if(_if_conditional136=regex_result_458==1,        _if_conditional136) {
+        if(regex_result_458==1) {
             str_461=charp_substring(self,offset_445,start_447[0]);
             buffer_append_str(result_455,str_461);
             group_strings_462=list$1charph_initialize((struct list$1charph*)come_calloc(1, sizeof(struct list$1charph)*(1), "libneo-c-str-gc.c", 1892, "list$1charph"));
@@ -5945,23 +5782,23 @@ memset(&str_473, 0, sizeof(char*));
             list$1charph_push_back(group_strings_462,charp_substring(self,start_447[0],end_448[0]));
             block_result_464=block(parent,match_string_463,group_strings_462);
             buffer_append_str(result_455,block_result_464);
-            if(_if_conditional137=offset_445==end_448[0],            _if_conditional137) {
+            if(offset_445==end_448[0]) {
                 offset_445++;
             }
             else {
                 offset_445=end_448[0];
             }
-            if(_if_conditional138=!reg->global,            _if_conditional138) {
+            if(!reg->global) {
                 str_465=charp_substring(self,offset_445,-1);
                 buffer_append_str(result_455,str_465);
                 break;
             }
         }
         else {
-            if(_if_conditional139=regex_result_458>1,            _if_conditional139) {
+            if(regex_result_458>1) {
                 str_466=charp_substring(self,offset_445,start_447[0]);
                 buffer_append_str(result_455,str_466);
-                if(_if_conditional140=offset_445==end_448[0],                _if_conditional140) {
+                if(offset_445==end_448[0]) {
                     offset_445++;
                 }
                 else {
@@ -5975,7 +5812,7 @@ memset(&str_473, 0, sizeof(char*));
                 match_string_470=charp_substring(self,start_447[0],end_448[0]);
                 block_result_471=block(parent,match_string_470,group_strings_467);
                 buffer_append_str(result_455,block_result_471);
-                if(_if_conditional141=!reg->global,                _if_conditional141) {
+                if(!reg->global) {
                     str_472=charp_substring(self,offset_445,-1);
                     buffer_append_str(result_455,str_472);
                     break;
@@ -6003,33 +5840,24 @@ char* str_482;
 struct real_pcre8_or_16* re_483;
 struct buffer* result_484;
 int n_485;
-_Bool _while_condtional23;
 int options_486;
 int len_487;
 int regex_result_488;
 int i_489;
 int i_490;
-_Bool _if_conditional142;
 char* str_491;
 struct list$1charph* group_strings_492;
 char* match_string_493;
 char* block_result_494;
-_Bool _if_conditional143;
-_Bool _if_conditional144;
 char* str_495;
-_Bool _if_conditional145;
 char* str_496;
-_Bool _if_conditional146;
 char* str_497;
-_Bool _if_conditional147;
 struct list$1charph* group_strings_498;
 int i_499;
 char* match_string_500;
 char* match_string_501;
 char* block_result_502;
-_Bool _if_conditional148;
 char* str_503;
-_Bool _if_conditional149;
 char* str_504;
 char* str_505;
 char* __result189__;
@@ -6076,7 +5904,7 @@ memset(&str_505, 0, sizeof(char*));
     re_483=reg->re;
     result_484=buffer_initialize((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "libneo-c-str-gc.c", 1973, "buffer"));
     n_485=0;
-    while(_while_condtional23=(_Bool)1,    _while_condtional23) {
+    while((_Bool)1) {
         options_486=2097152;
         len_487=strlen(self);
         regex_result_488=pcre_exec(re_483,(struct pcre_extra*)0,self,len_487,offset_474,options_486,ovec_value_478,ovec_max_475*3);
@@ -6086,7 +5914,7 @@ memset(&str_505, 0, sizeof(char*));
         for(        i_490=0;        i_490<ovec_max_475;        i_490++        ){
             end_477[i_490]=ovec_value_478[i_490*2+1];
         }
-        if(_if_conditional142=regex_result_488==1,        _if_conditional142) {
+        if(regex_result_488==1) {
             n_485++;
             str_491=charp_substring(self,offset_474,start_476[0]);
             buffer_append_str(result_484,str_491);
@@ -6095,29 +5923,29 @@ memset(&str_505, 0, sizeof(char*));
             match_string_493=charp_substring(self,start_476[0],end_477[0]);
             block_result_494=block(parent,match_string_493,group_strings_492);
             buffer_append_str(result_484,block_result_494);
-            if(_if_conditional143=offset_474==end_477[0],            _if_conditional143) {
+            if(offset_474==end_477[0]) {
                 offset_474++;
             }
             else {
                 offset_474=end_477[0];
             }
-            if(_if_conditional144=!reg->global,            _if_conditional144) {
+            if(!reg->global) {
                 str_495=charp_substring(self,offset_474,-1);
                 buffer_append_str(result_484,str_495);
                 break;
             }
-            if(_if_conditional145=n_485==count,            _if_conditional145) {
+            if(n_485==count) {
                 str_496=charp_substring(self,offset_474,-1);
                 buffer_append_str(result_484,str_496);
                 break;
             }
         }
         else {
-            if(_if_conditional146=regex_result_488>1,            _if_conditional146) {
+            if(regex_result_488>1) {
                 n_485++;
                 str_497=charp_substring(self,offset_474,start_476[0]);
                 buffer_append_str(result_484,str_497);
-                if(_if_conditional147=offset_474==end_477[0],                _if_conditional147) {
+                if(offset_474==end_477[0]) {
                     offset_474++;
                 }
                 else {
@@ -6131,12 +5959,12 @@ memset(&str_505, 0, sizeof(char*));
                 match_string_501=charp_substring(self,start_476[0],end_477[0]);
                 block_result_502=block(parent,match_string_501,group_strings_498);
                 buffer_append_str(result_484,block_result_502);
-                if(_if_conditional148=!reg->global,                _if_conditional148) {
+                if(!reg->global) {
                     str_503=charp_substring(self,offset_474,-1);
                     buffer_append_str(result_484,str_503);
                     break;
                 }
-                if(_if_conditional149=n_485==count,                _if_conditional149) {
+                if(n_485==count) {
                     str_504=charp_substring(self,offset_474,-1);
                     buffer_append_str(result_484,str_504);
                     break;
@@ -6157,14 +5985,13 @@ unsigned int wchar_tp_get_hash_key(unsigned int* value){
 void* __result_obj__;
 int result_506;
 unsigned int* p_507;
-_Bool _while_condtional24;
 unsigned int __result190__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&result_506, 0, sizeof(int));
 memset(&p_507, 0, sizeof(unsigned int*));
     result_506=0;
     p_507=value;
-    while(_while_condtional24=*p_507,    _while_condtional24) {
+    while(*p_507) {
         result_506+=(*p_507);
         p_507++;
     }
@@ -6223,13 +6050,12 @@ memset(&__result_obj__, 0, sizeof(void*));
 char* string_chomp(char* str){
 void* __result_obj__;
 char* result_508;
-_Bool _if_conditional150;
 char* __result199__;
 char* __result200__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&result_508, 0, sizeof(char*));
     result_508=__builtin_string(str);
-    if(_if_conditional150=result_508[string_length(result_508)-1]==10,    _if_conditional150) {
+    if(result_508[string_length(result_508)-1]==10) {
         __result199__ = __result_obj__ = string_substring(result_508,0,-2);
         return __result199__;
     }
@@ -6239,7 +6065,6 @@ memset(&result_508, 0, sizeof(char*));
 
 char* xrealpath(char* path){
 void* __result_obj__;
-_Bool _if_conditional151;
 char* __result201__;
 char* result_509;
 char* result2_510;
@@ -6247,7 +6072,7 @@ char* __result202__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&result_509, 0, sizeof(char*));
 memset(&result2_510, 0, sizeof(char*));
-    if(_if_conditional151=path==((void*)0),    _if_conditional151) {
+    if(path==((void*)0)) {
         __result201__ = __result_obj__ = __builtin_string("");
         return __result201__;
     }
@@ -6260,11 +6085,10 @@ memset(&result2_510, 0, sizeof(char*));
 
 char* xdirname(char* path){
 void* __result_obj__;
-_Bool _if_conditional152;
 char* __result203__;
 char* __result204__;
 memset(&__result_obj__, 0, sizeof(void*));
-    if(_if_conditional152=path==((void*)0),    _if_conditional152) {
+    if(path==((void*)0)) {
         __result203__ = __result_obj__ = __builtin_string("");
         return __result203__;
     }
