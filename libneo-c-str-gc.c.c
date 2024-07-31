@@ -3236,9 +3236,7 @@ memset(&litem_34, 0, sizeof(struct list_item$1double*));
 
 
 void regex_finalizer(void* obj, void* client_data){
-void* __result_obj__;
 struct come_regex* self_35;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&self_35, 0, sizeof(struct come_regex*));
     self_35=obj;
     if(self_35&&self_35->re) {
@@ -3280,8 +3278,6 @@ memset(&options_38, 0, sizeof(int));
 }
 
 void come_regex_finalize(struct come_regex* reg){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(reg&&reg->str) {
     }
     if(reg&&reg->re) {

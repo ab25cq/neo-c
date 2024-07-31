@@ -200,6 +200,7 @@ struct sFun
     bool mCloner;
     
     string mDeclareSName;
+    bool mNoResultType;
 };
 
 struct sGenericsFun

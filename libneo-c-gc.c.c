@@ -416,6 +416,7 @@ struct sFun
     char* mComeHeader;
     _Bool mCloner;
     char* mDeclareSName;
+    _Bool mNoResultType;
 };
 struct sGenericsFun
 {
@@ -3090,8 +3091,6 @@ memset(&litem_34, 0, sizeof(struct list_item$1double*));
 
 
 void come_push_stackframe(char* sname, int sline, int id){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(gNumComeStackFrame<1024) {
         gComeStackFrameSName[gNumComeStackFrame]=sname;
         gComeStackFrameSLine[gNumComeStackFrame]=sline;
@@ -3101,18 +3100,14 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 void come_pop_stackframe(){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(gNumComeStackFrame>0) {
         gNumComeStackFrame--;
     }
 }
 
 void come_save_stackframe(char* sname, int sline){
-void* __result_obj__;
 struct buffer* buf_35;
 int i_36;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&buf_35, 0, sizeof(struct buffer*));
 memset(&i_36, 0, sizeof(int));
     buf_35=buffer_initialize((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "libneo-c-gc.c", 43, "buffer"));
@@ -3127,15 +3122,11 @@ memset(&i_36, 0, sizeof(int));
 }
 
 void exception_stackframe(){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     printf("%s",gComeStackFrameBuffer);
 }
 
 void stackframe(){
-void* __result_obj__;
 int i_37;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&i_37, 0, sizeof(int));
     for(    i_37=gNumComeStackFrame-1;    i_37>=0;    i_37--    ){
         printf("%s %d #%d\n",gComeStackFrameSName[i_37],gComeStackFrameSLine[i_37],gComeStackFrameID[i_37]);
@@ -3273,8 +3264,6 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 void xassert(char* msg, _Bool test){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     printf("%s...",msg);
     if(!test) {
         puts("false");
@@ -3284,8 +3273,6 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 void come_heap_init(int come_malloc, int come_debug, int come_gc){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     gComeMallocLib=(_Bool)0;
     gComeDebugLib=come_debug;
     gComeGCLib=come_gc;
@@ -3298,8 +3285,6 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 void come_heap_final(){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(gComeStackFrameBuffer) {
         free(gComeStackFrameBuffer);
     }
@@ -3375,8 +3360,6 @@ memset(&it_41, 0, sizeof(struct sMemHeaderTiny*));
 }
 
 static void come_free_mem_of_heap_pool(char* mem){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(mem) {
         if(gComeDebugLib) {
         }
@@ -3420,9 +3403,7 @@ memset(&size2_45, 0, sizeof(unsigned long int*));
 }
 
 void come_free_object(void* mem){
-void* __result_obj__;
 unsigned long int* ref_count_46;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&ref_count_46, 0, sizeof(unsigned long int*));
     if(mem==((void*)0)) {
         return;
@@ -3432,9 +3413,7 @@ memset(&ref_count_46, 0, sizeof(unsigned long int*));
 }
 
 void come_free(void* mem){
-void* __result_obj__;
 unsigned long int* ref_count_47;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&ref_count_47, 0, sizeof(unsigned long int*));
     if(mem==((void*)0)) {
         return;
@@ -3539,14 +3518,12 @@ memset(&finalizer_56, 0, sizeof(void (*)(void*)));
 }
 
 void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* protocol_obj, int call_finalizer_only, int no_decrement, int no_free, int force_delete_){
-void* __result_obj__;
 void (*finalizer_57)(void*);
 void (*finalizer_58)(void*);
 unsigned long int* ref_count_59;
 unsigned long int count_60;
 void (*finalizer_61)(void*);
 void (*finalizer_62)(void*);
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&finalizer_57, 0, sizeof(void (*)(void*)));
 memset(&finalizer_58, 0, sizeof(void (*)(void*)));
 memset(&ref_count_59, 0, sizeof(unsigned long int*));
@@ -3641,15 +3618,11 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 void buffer_finalize(struct buffer* self){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(self&&self->buf) {
     }
 }
 
 void buffer_force_finalize(struct buffer* self){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(self&&self->buf) {
     }
 }
@@ -3688,8 +3661,6 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 void buffer_reset(struct buffer* self){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(self==((void*)0)) {
         return;
     }
@@ -3698,8 +3669,6 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 void buffer_trim(struct buffer* self, int len){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     if(self==((void*)0)) {
         return;
     }
@@ -6028,9 +5997,7 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 void int_times(int self, void* parent, void (*block)(void*,int)){
-void* __result_obj__;
 int i_185;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&i_185, 0, sizeof(int));
     for(    i_185=0;    i_185<self;    i_185++    ){
         block(parent,i_185);
