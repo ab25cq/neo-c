@@ -1297,7 +1297,7 @@ string append_stackframe(char* c_value, sType* type, sInfo* info)
 bool existance_free_objects(sVarTable* table, sVar* ret_value, sInfo* info)
 {
     if(gComeGC || gComeC) {
-        return false;
+        return true;
     }
     foreach(it, table->mVars) {
         sVar* p = table->mVars[it]??;
@@ -1320,6 +1320,8 @@ bool existance_free_objects(sVarTable* table, sVar* ret_value, sInfo* info)
             return true;
         }
     }
+    
+    return false;
 }
 
 bool existance_free_objects_on_return(sBlock* current_block, sInfo* info, sVar* ret_value, bool top_block)
