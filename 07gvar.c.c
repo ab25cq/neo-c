@@ -1680,6 +1680,8 @@ struct sType* solve_method_generics(struct sType* type, struct sInfo* info);
 
 _Bool existance_free_right_value_objects(struct sInfo* info);
 
+_Bool existance_free_objects_on_return(struct sBlock* current_block, struct sInfo* info, struct sVar* ret_value, _Bool top_block);
+
 void std_move(struct sType* left_type, struct sType* right_type, struct CVALUE* right_value, struct sInfo* info);
 
 char* append_stackframe(char* c_value, struct sType* type, struct sInfo* info);

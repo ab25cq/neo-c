@@ -1963,6 +1963,10 @@ void free_objects_on_break(struct sInfo* info);
 
 char* append_stackframe(char* c_value, struct sType* type, struct sInfo* info);
 
+_Bool existance_free_objects(struct sVarTable* table, struct sVar* ret_value, struct sInfo* info);
+
+_Bool existance_free_objects_on_return(struct sBlock* current_block, struct sInfo* info, struct sVar* ret_value, _Bool top_block);
+
 // uniq global variable
 // source head3
 int gRightValueNum=0;
@@ -7463,5 +7467,95 @@ right_value279 = (void*)0;
     __result158__ = __result_obj__ = ((char*)(right_value279=__builtin_string(c_value)));
     right_value279 = come_decrement_ref_count2(right_value279, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
     return __result158__;
+}
+
+_Bool existance_free_objects(struct sVarTable* table, struct sVar* ret_value, struct sInfo* info){
+_Bool __result159__;
+struct map$2charphsVarph* o2_saved_373;
+char* it_374;
+struct sVar* p_375;
+struct sType* type_376;
+struct sClass* klass_377;
+_Bool __result160__;
+_Bool __result161__;
+_Bool __result162__;
+_Bool __result163__;
+memset(&o2_saved_373, 0, sizeof(struct map$2charphsVarph*));
+memset(&it_374, 0, sizeof(char*));
+memset(&p_375, 0, sizeof(struct sVar*));
+memset(&type_376, 0, sizeof(struct sType*));
+memset(&klass_377, 0, sizeof(struct sClass*));
+    if(gComeGC||gComeC) {
+        __result159__ = (_Bool)0;
+        return __result159__;
+    }
+    for(    o2_saved_373=(struct map$2charphsVarph*)come_increment_ref_count((table->mVars)),it_374=map$2charphsVarph_begin((o2_saved_373));    !map$2charphsVarph_end((o2_saved_373));    it_374=map$2charphsVarph_next((o2_saved_373))    ){
+        p_375=map$2charphsVarphp_operator_load_element(table->mVars,it_374);
+        type_376=p_375->mType;
+        klass_377=type_376->mClass;
+        if(ret_value!=((void*)0)&&p_375->mCValueName!=((void*)0)&&string_operator_equals(p_375->mCValueName,ret_value->mCValueName)&&type_376->mHeap) {
+            __result160__ = (_Bool)1;
+            come_call_finalizer3(o2_saved_373,map$2charphsVarphp_finalize, 0, 0, 0, 0, (void*)0);
+            return __result160__;
+        }
+        else {
+            if(type_376->mHeap&&p_375->mCValueName) {
+                if(type_376->mFunctionParam) {
+                    __result161__ = (_Bool)1;
+                    come_call_finalizer3(o2_saved_373,map$2charphsVarphp_finalize, 0, 0, 0, 0, (void*)0);
+                    return __result161__;
+                }
+                else {
+                    __result162__ = (_Bool)1;
+                    come_call_finalizer3(o2_saved_373,map$2charphsVarphp_finalize, 0, 0, 0, 0, (void*)0);
+                    return __result162__;
+                }
+            }
+            else {
+                if(klass_377->mStruct&&p_375->mCValueName&&type_376->mAllocaValue&&!type_376->mNoCallingDestructor) {
+                    __result163__ = (_Bool)1;
+                    come_call_finalizer3(o2_saved_373,map$2charphsVarphp_finalize, 0, 0, 0, 0, (void*)0);
+                    return __result163__;
+                }
+            }
+        }
+    }
+    come_call_finalizer3(o2_saved_373,map$2charphsVarphp_finalize, 0, 0, 0, 0, (void*)0);
+}
+
+_Bool existance_free_objects_on_return(struct sBlock* current_block, struct sInfo* info, struct sVar* ret_value, _Bool top_block){
+_Bool __result164__;
+struct sVarTable* it_378;
+_Bool __result165__;
+_Bool __result166__;
+_Bool __result167__;
+_Bool __result168__;
+memset(&it_378, 0, sizeof(struct sVarTable*));
+    if(gComeGC||gComeC) {
+        __result164__ = (_Bool)0;
+        return __result164__;
+    }
+    it_378=info->lv_table;
+    if(it_378==info->come_fun->mBlock->mVarTable) {
+        if(existance_free_objects(it_378,ret_value,info)) {
+            __result165__ = (_Bool)1;
+            return __result165__;
+        }
+    }
+    else {
+        while(it_378!=info->come_fun->mBlock->mVarTable) {
+            if(existance_free_objects(it_378,ret_value,info)) {
+                __result166__ = (_Bool)1;
+                return __result166__;
+            }
+            it_378=it_378->mParent;
+        }
+        if(existance_free_objects(it_378,ret_value,info)) {
+            __result167__ = (_Bool)1;
+            return __result167__;
+        }
+    }
+    __result168__ = (_Bool)0;
+    return __result168__;
 }
 

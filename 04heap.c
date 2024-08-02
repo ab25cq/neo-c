@@ -1293,3 +1293,59 @@ string append_stackframe(char* c_value, sType* type, sInfo* info)
     
     return string(c_value);
 }
+
+bool existance_free_objects(sVarTable* table, sVar* ret_value, sInfo* info)
+{
+    if(gComeGC || gComeC) {
+        return false;
+    }
+    foreach(it, table->mVars) {
+        sVar* p = table->mVars[it]??;
+        sType* type = p->mType;
+        sClass* klass = type->mClass;
+        
+        if(ret_value != null && p->mCValueName != null && p->mCValueName === ret_value->mCValueName && type->mHeap) 
+        {
+            return true;
+        }
+        else if(type->mHeap && p->mCValueName) {
+            if(type->mFunctionParam) {
+                return true;
+            }
+            else {
+                return true;
+            }
+        }
+        else if(klass->mStruct && p->mCValueName && type->mAllocaValue && !type->mNoCallingDestructor) {
+            return true;
+        }
+    }
+}
+
+bool existance_free_objects_on_return(sBlock* current_block, sInfo* info, sVar* ret_value, bool top_block)
+{
+    if(gComeGC || gComeC) {
+        return false;
+    }
+    sVarTable* it = info->lv_table;
+    
+    if(it == info->come_fun->mBlock->mVarTable) {
+        if(existance_free_objects(it, ret_value, info)) {
+            return true;
+        }
+    }
+    else {
+        while(it != info->come_fun->mBlock->mVarTable) {
+            if(existance_free_objects(it, ret_value, info)) {
+                return true;
+            }
+    
+            it = it->mParent;
+        }
+        if(existance_free_objects(it, ret_value, info)) {
+            return true;
+        }
+    }
+    
+    return false;
+}

@@ -427,6 +427,7 @@ bool output_header_file(sInfo* info);
 /////////////////////////////////////////////////////////////////////
 sType*% solve_method_generics(sType* type, sInfo* info);
 bool existance_free_right_value_objects(sInfo* info);
+bool existance_free_objects_on_return(sBlock* current_block, sInfo* info, sVar* ret_value, bool top_block);
 void std_move(sType* left_type, sType* right_type, CVALUE* right_value, sInfo* info=info);;
 string append_stackframe(char* c_value, sType* type, sInfo* info);
 bool create_equals_method(sType* type, sInfo* info);
