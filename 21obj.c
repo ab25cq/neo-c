@@ -1638,11 +1638,12 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 94
                 info->p++;
                 skip_spaces_and_lf(info);
                 
+                bool come_c = gComeC;
                 gComeC = true;
                 
                 transpile_toplevel(true);
                 
-                gComeC = false;
+                gComeC = come_c;
             }
             else {
                 gComeC = true;

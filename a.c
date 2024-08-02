@@ -1,14 +1,15 @@
 #include <neo-c.h>
 
-int fun(int a, int b)
+struct sData
 {
-    return a + b;
-}
-
+    int* a;
+};
 
 int main(int argc, char** argv)
 {
-    static char a;
+    sData data;
+    
+    *data.a = 111;
     
     return 0;
 }

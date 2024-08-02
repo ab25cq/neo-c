@@ -1,0 +1,3 @@
+lib/libtcc1.c:143:2: error: #error unsupported CPU type
+  143 | #error unsupported CPU type
+      |  ^~~~~

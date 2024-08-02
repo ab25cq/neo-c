@@ -5513,7 +5513,7 @@ memset(&i_155, 0, sizeof(int));
                                                                 return __result112__;
                                                             }
                                                             else {
-                                                                if(!(string_operator_equals(right_type2_120->mClass->mName,"lambda")&&string_operator_equals(left_type->mClass->mName,"lambda"))&&right_type2_120->mPointerNum==0) {
+                                                                if(left_type->mPointerNum>0&&!(string_operator_equals(right_type2_120->mClass->mName,"lambda")&&string_operator_equals(left_type->mClass->mName,"lambda"))&&right_type2_120->mPointerNum==0) {
                                                                     tmp_154=(char*)come_increment_ref_count(((char*)(right_value194=xsprintf("/*b*/(void*)%s",come_value->c_value))));
                                                                     right_value194 = come_decrement_ref_count2(right_value194, (void*)0, (void*)0, 1, 0, 0, (void*)0);
                                                                     __dec_obj66=come_value->c_value;

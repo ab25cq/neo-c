@@ -742,7 +742,7 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
             
             return false;
         }
-        else if(!(right_type2->mClass->mName === "lambda" && left_type->mClass->mName === "lambda") && right_type2->mPointerNum == 0) {
+        else if(left_type->mPointerNum > 0 && !(right_type2->mClass->mName === "lambda" && left_type->mClass->mName === "lambda") && right_type2->mPointerNum == 0) {
 /*
             if(print_err_msg) {
                 err_msg(info, "type error16");

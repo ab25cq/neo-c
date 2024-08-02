@@ -1476,7 +1476,7 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                 break_guard = true;
             }
             
-            if(*info->p == '=' && *(info->p+1) != '=') {
+            if(!info.no_assign && *info->p == '=' && *(info->p+1) != '=') {
                 info->p++;
                 skip_spaces_and_lf();
                 
@@ -1567,7 +1567,7 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                 info->sline = sline;
             }
             
-            if(*info->p == '=' && *(info->p+1) != '=') {
+            if(!info.no_assign && *info->p == '=' && *(info->p+1) != '=') {
                 info->p++;
                 skip_spaces_and_lf();
                 
@@ -1577,7 +1577,7 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                 
                 node = new sStoreFieldNode(node, right_node, field_name, info) implements sNode;
             }
-            else if(*info->p == '(' || *info->p == '{' || parse_method_generics_type || (*info->p == '-' && *(info->p+1) == '>' && *(info->p+2) == '(')) {
+            else if(!gComeC && (*info->p == '(' || *info->p == '{' || parse_method_generics_type || (*info->p == '-' && *(info->p+1) == '>' && *(info->p+2) == '('))) {
                 if(field_name === "if") {
                     node = parse_if_method_call(clone node, info);
                 }

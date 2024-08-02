@@ -341,6 +341,7 @@ sh all_build.sh
 
 # Histories
 
+1.2.3 More Compatibility to C. Real passed 9ccc, lcc and tcc.
 1.2.2 Optimize output code
 1.2.1a Optimize output code
 1.2.1 remove -stdc option. neo-c depends on standard c library only at the default.

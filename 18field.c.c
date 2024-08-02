@@ -8509,7 +8509,7 @@ memset(&node2_370, 0, sizeof(struct sNode*));
                     skip_spaces_and_lf(info);
                     break_guard_351=(_Bool)1;
                 }
-                if(*info->p==61&&*(info->p+1)!=61) {
+                if(!info->no_assign&&*info->p==61&&*(info->p+1)!=61) {
                     info->p++;
                     skip_spaces_and_lf(info);
                     parse_sharp_v5(info);
@@ -8681,7 +8681,7 @@ memset(&node2_370, 0, sizeof(struct sNode*));
                                     info->p=p_364;
                                     info->sline=sline_365;
                                 }
-                                if(*info->p==61&&*(info->p+1)!=61) {
+                                if(!info->no_assign&&*info->p==61&&*(info->p+1)!=61) {
                                     info->p++;
                                     skip_spaces_and_lf(info);
                                     parse_sharp_v5(info);
@@ -8706,7 +8706,7 @@ memset(&node2_370, 0, sizeof(struct sNode*));
                                     if(right_node_367) { right_node_367 = come_decrement_ref_count2(right_node_367, ((struct sNode*)right_node_367)->finalize, ((struct sNode*)right_node_367)->_protocol_obj, 0, 0, 0, (void*)0); } 
                                 }
                                 else {
-                                    if(*info->p==40||*info->p==123||parse_method_generics_type_363||(*info->p==45&&*(info->p+1)==62&&*(info->p+2)==40)) {
+                                    if(!gComeC&&(*info->p==40||*info->p==123||parse_method_generics_type_363||(*info->p==45&&*(info->p+1)==62&&*(info->p+2)==40))) {
                                         if(string_operator_equals(field_name_362,"if")) {
                                             __dec_obj202=node;
                                             node=(struct sNode*)come_increment_ref_count(((struct sNode*)(right_value469=parse_if_method_call((struct sNode*)come_increment_ref_count(((struct sNode*)(right_value468=sNode_clone(node)))),info))));
