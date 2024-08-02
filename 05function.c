@@ -50,7 +50,7 @@ class sLambdaNode extends sNodeBase
             transpile_block(self.mFun.mBlock, self.mFun.mParamTypes, self.mFun.mParamNames, info);
         }
         
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = xsprintf("%s", self.mFun.mName);
         come_value.type = clone self.mFun.mLambdaType;

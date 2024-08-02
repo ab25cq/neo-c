@@ -111,13 +111,13 @@ class sStoreNode extends sNodeBase
                     
                     sType*% left_type = clone var_->mType;
                     
-                    CVALUE*% right_value2 = new CVALUE;
+                    CVALUE*% right_value2 = new CVALUE();
                     
                     right_value2.c_value = xsprintf("%s->v%d", right_value.c_value, i+1);
                     right_value2.type = clone right_type2;
                     right_value2.var = null;
                     
-                    CVALUE*% come_value = new CVALUE;
+                    CVALUE*% come_value = new CVALUE();
                     
                     check_assign_type(s"\{self.name} is assining to}", left_type, right_type2, come_value);
                     
@@ -204,7 +204,7 @@ class sStoreNode extends sNodeBase
                 add_come_code_at_function_head2(info, "memset(&%s, 0, sizeof(%s));\n", var_->mCValueName, make_type_name_string(left_type2));
             }
             
-            CVALUE*% come_value = new CVALUE;
+            CVALUE*% come_value = new CVALUE();
             
             come_value.c_value = xsprintf("%s", var_->mCValueName);
             come_value.type = clone left_type;
@@ -264,7 +264,7 @@ class sStoreNode extends sNodeBase
                 sVar* var_ = info.lv_table.mVars[self.name]??;
                 add_come_code(info, "%s=%s;\n", make_define_var(var_->mType, var_->mCValueName), right_value.c_value);
                 
-                CVALUE*% come_value = new CVALUE;
+                CVALUE*% come_value = new CVALUE();
                 come_value.c_value = string("");
                 info.stack.push_back(come_value);
                 
@@ -275,7 +275,7 @@ class sStoreNode extends sNodeBase
                 
                 add_come_code(info, "%s=%s;\n", make_define_var(left_type, var_->mCValueName), right_value.c_value);
                 
-                CVALUE*% come_value = new CVALUE;
+                CVALUE*% come_value = new CVALUE();
                 come_value.c_value = string("");
                 info.stack.push_back(come_value);
                 
@@ -295,7 +295,7 @@ class sStoreNode extends sNodeBase
                 
                 add_come_code_at_function_head(info, "%s;\n", make_define_var(left_type, var_->mCValueName));
                 
-                CVALUE*% come_value = new CVALUE;
+                CVALUE*% come_value = new CVALUE();
                 come_value.c_value = xsprintf("%s=%s", var_->mCValueName, right_value.c_value);
                 come_value.type = clone left_type;
                 come_value.var = var_;
@@ -312,7 +312,7 @@ class sStoreNode extends sNodeBase
                 
                 add_come_code_at_function_head(info, "%s;\n", make_define_var(left_type, var_->mCValueName));
                 
-                CVALUE*% come_value = new CVALUE;
+                CVALUE*% come_value = new CVALUE();
                 
                 come_value.c_value = xsprintf("%s=%s", var_->mCValueName, right_value.c_value);
                 come_value.type = clone left_type;
@@ -332,7 +332,7 @@ class sStoreNode extends sNodeBase
                 
                 add_come_code_at_function_head(info, "%s;\n", make_define_var(left_type, var_->mCValueName));
                 
-                CVALUE*% come_value = new CVALUE;
+                CVALUE*% come_value = new CVALUE();
                 
                 come_value.c_value = xsprintf("%s=%s", var_->mCValueName, right_value.c_value);
                 come_value.type = clone left_type;
@@ -375,7 +375,7 @@ class sStoreNode extends sNodeBase
                                 remove_object_from_right_values(right_value_id, info);
                             }
                             
-                            CVALUE*% come_value = new CVALUE;
+                            CVALUE*% come_value = new CVALUE();
                         
                             come_value.c_value = xsprintf("(*(parent->%s))=%s", parent_var->mCValueName, right_value.c_value);
                             come_value.type = clone left_type;
@@ -394,7 +394,7 @@ class sStoreNode extends sNodeBase
                             string c_value = xsprintf("*(parent->%s)", parent_var->mCValueName);
                             decrement_ref_count_object(parent_var->mType, c_value, info);
                             
-                            CVALUE*% come_value = new CVALUE;
+                            CVALUE*% come_value = new CVALUE();
                             
                             come_value.c_value = xsprintf("(*(parent->%s))=%s", parent_var->mCValueName, right_value.c_value);
                             come_value.type = clone left_type;
@@ -414,7 +414,7 @@ class sStoreNode extends sNodeBase
                                 return false;
                             }
                             
-                            CVALUE*% come_value = new CVALUE;
+                            CVALUE*% come_value = new CVALUE();
                             
                             come_value.c_value = xsprintf("(*(parent->%s))=%s", parent_var->mCValueName, right_value.c_value);
                             come_value.type = clone left_type;
@@ -450,7 +450,7 @@ class sStoreNode extends sNodeBase
             if((var_->mType->mStatic || var_->mType->mConstant) && !var_->mGlobal) {
                 check_assign_type(s"\{self.name} is assining to", left_type, right_type, right_value);
                 
-                CVALUE*% come_value = new CVALUE;
+                CVALUE*% come_value = new CVALUE();
                 
                 come_value.c_value = xsprintf("%s=%s", var_->mCValueName, right_value.c_value);
                 come_value.type = clone left_type;
@@ -473,7 +473,7 @@ class sStoreNode extends sNodeBase
                     remove_object_from_right_values(right_value_id, info);
                 }
                 
-                CVALUE*% come_value = new CVALUE;
+                CVALUE*% come_value = new CVALUE();
                 
                 come_value.c_value = xsprintf("%s=%s", var_->mCValueName, right_value.c_value);
                 come_value.type = clone left_type;
@@ -489,7 +489,7 @@ class sStoreNode extends sNodeBase
                 
                 decrement_ref_count_object(left_type, var_->mCValueName, info);
                 
-                CVALUE*% come_value = new CVALUE;
+                CVALUE*% come_value = new CVALUE();
                 
                 come_value.c_value = xsprintf("%s=%s", var_->mCValueName, right_value.c_value);
                 come_value.type = clone left_type;
@@ -507,7 +507,7 @@ class sStoreNode extends sNodeBase
                     return false;
                 }
                 
-                CVALUE*% come_value = new CVALUE;
+                CVALUE*% come_value = new CVALUE();
                 
                 come_value.c_value = xsprintf("%s=%s", var_->mCValueName, right_value.c_value);
                 come_value.type = clone left_type;
@@ -546,7 +546,7 @@ class sLoadNode extends sNodeBase
             
             if(parent_var != null) {
                 if(parent_var->mFunName !== info.come_fun.mName) {
-                    CVALUE*% come_value = new CVALUE;
+                    CVALUE*% come_value = new CVALUE();
                     
                     sType* type = parent_var->mType;
                     
@@ -573,7 +573,7 @@ class sLoadNode extends sNodeBase
                 sFun* fun = info.funcs[self.name]??;
                 
                 if(fun) {
-                    CVALUE*% come_value = new CVALUE;
+                    CVALUE*% come_value = new CVALUE();
                     
                     come_value.c_value = xsprintf("%s", fun->mName);
                     come_value.type = fun->mLambdaType;
@@ -590,7 +590,7 @@ class sLoadNode extends sNodeBase
             }
         }
         
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         come_value.c_value = xsprintf("%s", var_->mCValueName);
         come_value.type = clone var_->mType;
         come_value.var = var_;
@@ -632,7 +632,7 @@ class sFunLoadNode extends sNodeBase
             return false;
         }
         else {
-            CVALUE*% come_value = new CVALUE;
+            CVALUE*% come_value = new CVALUE();
             
             come_value.c_value = xsprintf("%s", fun->mName);
             come_value.type = fun->mLambdaType;
@@ -702,7 +702,7 @@ class sArrayInitializer extends sNodeBase
         }
         buf.append_str("}");
         
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = buf.to_string();
         come_value.type = clone element_type;

@@ -121,7 +121,7 @@ class sLineNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = xsprintf("%d", info->sline);
         come_value.type = new sType("int");
@@ -149,7 +149,7 @@ class sSNameNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = xsprintf("\"%s\"", info->sname);
         come_value.type = new sType("char*");
@@ -177,7 +177,7 @@ class sFuncNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = xsprintf("\"%s\"", info->come_fun->mName);
         come_value.type = new sType("char*");
@@ -206,7 +206,7 @@ class sCallerFuncNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         if(info->caller_fun) {
             come_value.c_value = xsprintf("\"%s\"", info->caller_fun->mName);
@@ -235,7 +235,7 @@ class sCallerLineNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = xsprintf("%d", info->caller_line);
         come_value.type = new sType("int");
@@ -263,7 +263,7 @@ class sCallerSNameNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = xsprintf("\"%s\"", info->caller_sname);
         come_value.type = new sType("char*");
@@ -392,7 +392,7 @@ class sFunCallNode extends sNodeBase
             }
             buf.append_str(")");
             
-            CVALUE*% come_value = new CVALUE;
+            CVALUE*% come_value = new CVALUE();
             come_value.c_value = buf.to_string();
             
             if(lambda_type->mResultType.v1.mHeap) {
@@ -445,7 +445,7 @@ class sFunCallNode extends sNodeBase
                 }
                 buf.append_str(")");
                 
-                CVALUE*% come_value = new CVALUE;
+                CVALUE*% come_value = new CVALUE();
                 come_value.c_value = buf.to_string();
                 
                 if(fun_name === "__builtin_memmove" || fun_name === "__builtin_memset") {
@@ -571,7 +571,7 @@ class sFunCallNode extends sNodeBase
                 }
                 buf.append_str(")");
                 
-                CVALUE*% come_value = new CVALUE;
+                CVALUE*% come_value = new CVALUE();
                 come_value.c_value = buf.to_string();
                 come_value.type = result_type;
                 come_value.var = null;
@@ -768,7 +768,7 @@ class sFunCallNode extends sNodeBase
                 }
                 buf.append_str(")");
                 
-                CVALUE*% come_value = new CVALUE;
+                CVALUE*% come_value = new CVALUE();
                 come_value.c_value = buf.to_string();
                 come_value.type = clone result_type;
                 come_value.type->mStatic = false;
@@ -881,7 +881,7 @@ class sLambdaCall extends sNodeBase
         }
         buf.append_str(")");
         
-        CVALUE*% come_value2 = new CVALUE;
+        CVALUE*% come_value2 = new CVALUE();
         come_value2.c_value = buf.to_string();
         
         if(lambda_type->mResultType.v1.mHeap) {
@@ -918,7 +918,7 @@ class sVarArgTypeName extends sNodeBase
     {
         sType*% type = self.type;
         
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = make_type_name_string(type);
         come_value.type = type;

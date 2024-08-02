@@ -58,7 +58,7 @@ bool operator_overload_fun2(sType* type, char* fun_name, CVALUE* left_value, CVA
     bool result = false;
     
     if(operator_fun) {
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         string left_value2;
         check_assign_type(s"\{fun_name2} is assigned to", operator_fun.mParamTypes[0], left_value.type, left_value);
         if(operator_fun.mParamTypes[0].mHeap && left_value.type.mHeap) {
@@ -221,7 +221,7 @@ class sStoreFieldNode extends sNodeBase
             }
         }
         
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         check_assign_type(s"\{name} is assigned to", field_type, right_type, right_value);
         
@@ -396,7 +396,7 @@ class sNullCheckNode extends sNodeBase
             
             sType*% type = solve_generics(fun.mResultType, left_value.type, info);
             
-            CVALUE*% come_value = new CVALUE;
+            CVALUE*% come_value = new CVALUE();
             
             come_value.c_value = xsprintf("%s(%s)", method_name, left_value.c_value);
             come_value.type = clone type;
@@ -410,7 +410,7 @@ class sNullCheckNode extends sNodeBase
             info.stack.push_back(left_value);
         }
         else if(left_value.type->mPointerNum > 0) {
-            CVALUE*% come_value = new CVALUE;
+            CVALUE*% come_value = new CVALUE();
             
             come_value.c_value = xsprintf("((%s)come_null_check(%s, \"%s\", %d, %d))", make_type_name_string(left_value.type)!, left_value.c_value, info->sname, info->sline, gComeDebugStackFrameID++);
             come_value.type = clone left_value.type;
@@ -517,7 +517,7 @@ class sRangeCheckNode extends sNodeBase
         
         if(left_value.type->mPointerNum > 0) {
             if(!gComeDebug) {
-                CVALUE*% come_value = new CVALUE;
+                CVALUE*% come_value = new CVALUE();
                 
                 come_value.c_value = xsprintf("(*((%s)%s))", make_type_name_string(left_value.type), left_value.c_value);
                 
@@ -530,7 +530,7 @@ class sRangeCheckNode extends sNodeBase
                 add_come_last_code(info, "%s;\n", come_value.c_value);
             }
             else {
-                CVALUE*% come_value = new CVALUE;
+                CVALUE*% come_value = new CVALUE();
                 
                 come_value.c_value = xsprintf("(*((%s)come_range_check(%s, %s, %s, \"%s\", %d)))", make_type_name_string(left_value.type), left_value.c_value, begin_value.c_value, end_value.c_value, info->sname, info->sline);
                 left_value.type->mPointerNum--;
@@ -642,7 +642,7 @@ class sLoadFieldNode extends sNodeBase
             }
         }
         
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         if(left_value.type->mPointerNum > 0) {
             if(child_field_name) {
@@ -798,7 +798,7 @@ class sStoreArrayNode extends sNodeBase
                     }
                 }
                 
-                CVALUE*% come_value = new CVALUE;
+                CVALUE*% come_value = new CVALUE();
                 
                 buffer*% buf = new buffer();
                 
@@ -832,7 +832,7 @@ class sStoreArrayNode extends sNodeBase
                 check_code = buf.to_string();
             }
             
-            CVALUE*% come_value = new CVALUE;
+            CVALUE*% come_value = new CVALUE();
             
     /*
             if(left_type->mHeap && !right_type->mHeap) {
@@ -1020,7 +1020,7 @@ class sLoadArrayNode extends sNodeBase
                     }
                 }
                 
-                CVALUE*% come_value = new CVALUE;
+                CVALUE*% come_value = new CVALUE();
                 
                 buffer*% buf = new buffer();
                 
@@ -1066,7 +1066,7 @@ class sLoadArrayNode extends sNodeBase
                 add_come_last_code(info, "%s;\n", come_value.c_value);
             }
             else {
-                CVALUE*% come_value = new CVALUE;
+                CVALUE*% come_value = new CVALUE();
                 
                 buffer*% buf = new buffer();
                 
@@ -1189,7 +1189,7 @@ class sLoadRangeArrayNode extends sNodeBase
         }
         
         if(!calling_fun) {
-            CVALUE*% come_value = new CVALUE;
+            CVALUE*% come_value = new CVALUE();
             
             buffer*% buf = new buffer();
             

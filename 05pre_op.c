@@ -74,7 +74,7 @@ bool operator_overload_fun_self(sType* type, char* fun_name, CVALUE* left_value,
     bool result = false;
     
     if(operator_fun) {
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         string left_value2;
         check_assign_type(s"\{fun_name2} is assigned to", operator_fun.mParamTypes[0], left_value.type, left_value);
         if(operator_fun.mParamTypes[0].mHeap && left_value.type.mHeap) {
@@ -135,7 +135,7 @@ class sRefferenceNode extends sNodeBase
         CVALUE*% left_value = get_value_from_stack(-1, info);
         dec_stack_ptr(1, info);
         
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = xsprintf("&%s", left_value.c_value);
         come_value.type = clone left_value.type;
@@ -223,7 +223,7 @@ class sDerefferenceNode extends sNodeBase
         }
         
         if(!calling_fun) {
-            CVALUE*% come_value = new CVALUE;
+            CVALUE*% come_value = new CVALUE();
             
             come_value.c_value = xsprintf("*%s", left_value.c_value);
             come_value.type = clone left_value.type;
@@ -262,7 +262,7 @@ class sLogicalDenial extends sNodeBase
         CVALUE*% come_value = get_value_from_stack(-1, info);
         dec_stack_ptr(1, info);
         
-        CVALUE*% come_value2 = new CVALUE;
+        CVALUE*% come_value2 = new CVALUE();
         
         come_value2.c_value = xsprintf("!%s", come_value.c_value);
         come_value2.type = clone come_value.type;
@@ -301,7 +301,7 @@ class sReverseNode extends sNodeBase
         CVALUE*% left_value = get_value_from_stack(-1, info);
         dec_stack_ptr(1, info);
         
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = xsprintf("!%s", left_value.c_value);
         come_value.type = clone left_value.type;
@@ -339,7 +339,7 @@ class sMinusNode2 extends sNodeBase
         CVALUE*% come_value = get_value_from_stack(-1, info);
         dec_stack_ptr(1, info);
         
-        CVALUE*% come_value2 = new CVALUE;
+        CVALUE*% come_value2 = new CVALUE();
         
         come_value2.c_value = xsprintf("-%s", come_value.c_value);
         come_value2.type = clone come_value.type;
@@ -376,7 +376,7 @@ class sPlusPlusNode2 extends sNodeBase
         CVALUE*% come_value = get_value_from_stack(-1, info);
         dec_stack_ptr(1, info);
         
-        CVALUE*% come_value2 = new CVALUE;
+        CVALUE*% come_value2 = new CVALUE();
         
         come_value2.c_value = xsprintf("++%s", come_value.c_value);
         come_value2.type = clone come_value.type;
@@ -413,7 +413,7 @@ class sMinusMinusNode2 extends sNodeBase
         CVALUE*% come_value = get_value_from_stack(-1, info);
         dec_stack_ptr(1, info);
         
-        CVALUE*% come_value2 = new CVALUE;
+        CVALUE*% come_value2 = new CVALUE();
         
         come_value2.c_value = xsprintf("--%s", come_value.c_value);
         come_value2.type = clone come_value.type;
@@ -485,7 +485,7 @@ class sComplement extends sNodeBase
         CVALUE*% come_value = get_value_from_stack(-1, info);
         dec_stack_ptr(1, info);
         
-        CVALUE*% come_value2 = new CVALUE;
+        CVALUE*% come_value2 = new CVALUE();
         
         come_value2.c_value = xsprintf("~%s", come_value.c_value);
         come_value2.type = clone come_value.type;
@@ -524,7 +524,7 @@ class sParenNode extends sNodeBase
         CVALUE*% left_value = get_value_from_stack(-1, info);
         dec_stack_ptr(1, info);
         
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = xsprintf("(%s)", left_value.c_value);
         come_value.type = clone left_value.type;
@@ -567,7 +567,7 @@ class sCastNode extends sNodeBase
         
         sType*% type2 = solve_generics(clone type, info.generics_type, info);
         
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         cast_type(type2, left_value.type, left_value);
         

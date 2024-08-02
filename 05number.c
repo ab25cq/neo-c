@@ -16,7 +16,7 @@ class sIntNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = xsprintf("%d", self.value);
         come_value.type = new sType("int");
@@ -46,7 +46,7 @@ class sUIntNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = xsprintf("%u", self.value);
         come_value.type = new sType("int");
@@ -76,7 +76,7 @@ class sLongNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = xsprintf("%ld", self.value);
         come_value.type = new sType("long");
@@ -106,7 +106,7 @@ class sULongNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = xsprintf("%lu", self.value);
         come_value.type = new sType("long");
@@ -136,7 +136,7 @@ class sFloatNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = xsprintf("%s", self.value);
         come_value.type = new sType("float");
@@ -166,7 +166,7 @@ class sDoubleNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = xsprintf("%s", self.value);
         come_value.type = new sType("double");

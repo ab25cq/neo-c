@@ -1,5 +1,12 @@
 #include "common.h"
 
+CVALUE*% CVALUE*::initialize(CVALUE*% self)
+{
+    self.right_values = new list<sRightValueObject*>();
+    
+    return self;
+}
+
 sModule*% sModule*::initialize(sModule*% self)
 {
     self.mSourceHead = new buffer();

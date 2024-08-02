@@ -146,12 +146,17 @@ struct sType
 
 struct sVar;
 
+struct sRightValueObject;
+
 struct CVALUE 
 {
     string c_value;
     sType*% type;
     sVar* var;
+    list<sRightValueObject*>*% right_values;
 };
+
+CVALUE*% CVALUE*::initialize(CVALUE*% self);
 
 struct sVar 
 {

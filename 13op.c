@@ -74,7 +74,7 @@ bool operator_overload_fun(sType* type, char* fun_name, CVALUE* left_value, CVAL
     bool result = false;
     
     if(operator_fun && (type->mGenericsTypes.length() > 0 || (left_value.type.mClass.mName === right_value.type.mClass.mName && left_value.type.mPointerNum == right_value.type.mPointerNum) || fun_name === "operator_mult")) {
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         string left_value2;
         check_assign_type(s"\{fun_name2} is assigned to", operator_fun.mParamTypes[0], left_value.type, left_value);
         if(operator_fun.mParamTypes[0].mHeap && left_value.type.mHeap) {
@@ -137,7 +137,7 @@ class sNullNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = xsprintf("((void*)0)");
         come_value.type = new sType("void*");
@@ -170,7 +170,7 @@ class sNilNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = xsprintf("((void*)0)");
         come_value.type = new sType("void*");
@@ -239,7 +239,7 @@ class sAddNode extends sNodeBase
                 result_type = clone right_value.type;
             }
             
-            CVALUE*% come_value = new CVALUE;
+            CVALUE*% come_value = new CVALUE();
             
             come_value.c_value = xsprintf("%s+%s", left_value.c_value, right_value.c_value);
             come_value.type = clone result_type;
@@ -309,7 +309,7 @@ class sSubNode extends sNodeBase
                 result_type = new sType("long");
             }
             
-            CVALUE*% come_value = new CVALUE;
+            CVALUE*% come_value = new CVALUE();
             
             come_value.c_value = xsprintf("%s-%s", left_value.c_value, right_value.c_value);
             come_value.type = clone result_type;
@@ -374,7 +374,7 @@ class sMultNode extends sNodeBase
         }
         
         if(!calling_fun) {
-            CVALUE*% come_value = new CVALUE;
+            CVALUE*% come_value = new CVALUE();
             
             come_value.c_value = xsprintf("%s*%s", left_value.c_value, right_value.c_value);
             come_value.type = clone left_value.type;
@@ -439,7 +439,7 @@ class sDivNode extends sNodeBase
         }
         
         if(!calling_fun) {
-            CVALUE*% come_value = new CVALUE;
+            CVALUE*% come_value = new CVALUE();
             
             come_value.c_value = xsprintf("%s/%s", left_value.c_value, right_value.c_value);
             come_value.type = clone left_value.type;
@@ -504,7 +504,7 @@ class sModNode extends sNodeBase
         }
         
         if(!calling_fun) {
-            CVALUE*% come_value = new CVALUE;
+            CVALUE*% come_value = new CVALUE();
             
             come_value.c_value = xsprintf("%s%%%s", left_value.c_value, right_value.c_value);
             come_value.type = clone left_value.type;
@@ -570,7 +570,7 @@ class sLShiftNode extends sNodeBase
         }
         
         if(!calling_fun) {
-            CVALUE*% come_value = new CVALUE;
+            CVALUE*% come_value = new CVALUE();
             
             come_value.c_value = xsprintf("%s<<%s", left_value.c_value, right_value.c_value);
             come_value.type = clone left_value.type;
@@ -635,7 +635,7 @@ class sRShiftNode extends sNodeBase
         }
         
         if(!calling_fun) {
-            CVALUE*% come_value = new CVALUE;
+            CVALUE*% come_value = new CVALUE();
             
             come_value.c_value = xsprintf("%s>>%s", left_value.c_value, right_value.c_value);
             come_value.type = clone left_value.type;
@@ -700,7 +700,7 @@ class sGtEqNode extends sNodeBase
         }
         
         if(!calling_fun) {
-            CVALUE*% come_value = new CVALUE;
+            CVALUE*% come_value = new CVALUE();
             
             come_value.c_value = xsprintf("%s>=%s", left_value.c_value, right_value.c_value);
             come_value.type = clone left_value.type;
@@ -765,7 +765,7 @@ class sLtEqNode extends sNodeBase
         }
         
         if(!calling_fun) {
-            CVALUE*% come_value = new CVALUE;
+            CVALUE*% come_value = new CVALUE();
             
             come_value.c_value = xsprintf("%s<=%s", left_value.c_value, right_value.c_value);
             come_value.type = clone left_value.type;
@@ -830,7 +830,7 @@ class sLtNode extends sNodeBase
         }
         
         if(!calling_fun) {
-            CVALUE*% come_value = new CVALUE;
+            CVALUE*% come_value = new CVALUE();
             
             come_value.c_value = xsprintf("%s<%s", left_value.c_value, right_value.c_value);
             come_value.type = clone left_value.type;
@@ -895,7 +895,7 @@ class sGtNode extends sNodeBase
         }
         
         if(!calling_fun) {
-            CVALUE*% come_value = new CVALUE;
+            CVALUE*% come_value = new CVALUE();
             
             come_value.c_value = xsprintf("%s>%s", left_value.c_value, right_value.c_value);
             come_value.type = clone left_value.type;
@@ -948,7 +948,7 @@ class sEqNode extends sNodeBase
         CVALUE*% right_value = get_value_from_stack(-1, info);
         dec_stack_ptr(1, info);
         
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = xsprintf("%s==%s", left_value.c_value, right_value.c_value);
         come_value.type = clone left_value.type;
@@ -1000,7 +1000,7 @@ class sNotEqNode extends sNodeBase
         CVALUE*% right_value = get_value_from_stack(-1, info);
         dec_stack_ptr(1, info);
         
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = xsprintf("%s!=%s", left_value.c_value, right_value.c_value);
         come_value.type = clone left_value.type;
@@ -1064,7 +1064,7 @@ class sEq2Node extends sNodeBase
         }
         
         if(!calling_fun) {
-            CVALUE*% come_value = new CVALUE;
+            CVALUE*% come_value = new CVALUE();
             
             come_value.c_value = xsprintf("%s==%s", left_value.c_value, right_value.c_value);
             come_value.type = clone left_value.type;
@@ -1129,7 +1129,7 @@ class sNotEq2Node extends sNodeBase
         }
         
         if(!calling_fun) {
-            CVALUE*% come_value = new CVALUE;
+            CVALUE*% come_value = new CVALUE();
             
             come_value.c_value = xsprintf("%s!=%s", left_value.c_value, right_value.c_value);
             come_value.type = clone left_value.type;
@@ -1195,7 +1195,7 @@ class sAndNode extends sNodeBase
         
         
         if(!calling_fun) {
-            CVALUE*% come_value = new CVALUE;
+            CVALUE*% come_value = new CVALUE();
             
             come_value.c_value = xsprintf("%s&%s", left_value.c_value, right_value.c_value);
             come_value.type = clone left_value.type;
@@ -1260,7 +1260,7 @@ class sXOrNode extends sNodeBase
         }
         
         if(!calling_fun) {
-            CVALUE*% come_value = new CVALUE;
+            CVALUE*% come_value = new CVALUE();
             
             come_value.c_value = xsprintf("%s^%s", left_value.c_value, right_value.c_value);
             come_value.type = clone left_value.type;
@@ -1326,7 +1326,7 @@ class sOrNode extends sNodeBase
         
         
         if(!calling_fun) {
-            CVALUE*% come_value = new CVALUE;
+            CVALUE*% come_value = new CVALUE();
             
             come_value.c_value = xsprintf("%s|%s", left_value.c_value, right_value.c_value);
             come_value.type = clone left_value.type;
@@ -1392,7 +1392,7 @@ class sAndAndNode extends sNodeBase
         
         
         if(!calling_fun) {
-            CVALUE*% come_value = new CVALUE;
+            CVALUE*% come_value = new CVALUE();
             
             come_value.c_value = xsprintf("%s&&%s", left_value.c_value, right_value.c_value);
             come_value.type = clone left_value.type;
@@ -1457,7 +1457,7 @@ class sOrOrNode extends sNodeBase
         }
         
         if(!calling_fun) {
-            CVALUE*% come_value = new CVALUE;
+            CVALUE*% come_value = new CVALUE();
             
             come_value.c_value = xsprintf("%s||%s", left_value.c_value, right_value.c_value);
             come_value.type = clone left_value.type;
@@ -1509,7 +1509,7 @@ class sCommaNode extends sNodeBase
         CVALUE*% right_value = get_value_from_stack(-1, info);
         dec_stack_ptr(1, info);
         
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = xsprintf("%s,%s", left_value.c_value, right_value.c_value);
         come_value.type = clone left_value.type;
@@ -1569,7 +1569,7 @@ class sConditionalNode extends sNodeBase
         CVALUE*% value3_value = get_value_from_stack(-1, info);
         dec_stack_ptr(1, info);
         
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = xsprintf("%s?%s:%s", value1_value.c_value, value2_value.c_value, value3_value.c_value);
         come_value.type = clone value2_value.type;

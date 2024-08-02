@@ -117,7 +117,7 @@ class sCurrentNode extends sNodeBase
             vtable = vtable->mParent;
         }
         
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = xsprintf("&__current_stack%d__", num_current_stack);
         come_value.type = new sType(class_name);
@@ -280,7 +280,7 @@ class sMethodCallNode extends sNodeBase
             }
             buf.append_str(")");
             
-            CVALUE*% come_value2 = new CVALUE;
+            CVALUE*% come_value2 = new CVALUE();
             
             come_value2.c_value = buf.to_string();
             
@@ -534,7 +534,7 @@ class sMethodCallNode extends sNodeBase
                     i++;
                 }
                 
-                CVALUE*% come_value = new CVALUE;
+                CVALUE*% come_value = new CVALUE();
                 
                 come_value.c_value = buf.to_string();
                 come_value.var = null;
@@ -563,7 +563,7 @@ class sMethodCallNode extends sNodeBase
                     i++;
                 }
                 
-                CVALUE*% come_value = new CVALUE;
+                CVALUE*% come_value = new CVALUE();
                 
                 come_value.c_value = buf.to_string();
                 come_value.var = null;
@@ -592,7 +592,7 @@ class sMethodCallNode extends sNodeBase
                     i++;
                 }
                 
-                CVALUE*% come_value = new CVALUE;
+                CVALUE*% come_value = new CVALUE();
                 
                 come_value.c_value = buf.to_string();
                 come_value.var = null;
@@ -621,7 +621,7 @@ class sMethodCallNode extends sNodeBase
                     i++;
                 }
                 
-                CVALUE*% come_value = new CVALUE;
+                CVALUE*% come_value = new CVALUE();
                 
                 come_value.c_value = buf.to_string();
                 come_value.var = null;
@@ -775,7 +775,7 @@ class sMethodCallNode extends sNodeBase
                 
                 char*% method_block_name = xsprintf("method_block%d_%s", info->num_method_block, all_alhabet_sname.to_string());
                 
-                CVALUE*% come_value2 = new CVALUE;
+                CVALUE*% come_value2 = new CVALUE();
                 
                 sFun* fun2 = info.funcs.at(method_block_name, null);
                 
@@ -819,7 +819,7 @@ class sMethodCallNode extends sNodeBase
             buf.append_str(")");
             
             
-            CVALUE*% come_value2 = new CVALUE;
+            CVALUE*% come_value2 = new CVALUE();
             
             come_value2.c_value = buf.to_string();
             come_value2.type = clone result_type2;

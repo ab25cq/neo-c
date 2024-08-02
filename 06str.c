@@ -16,7 +16,7 @@ class sStrNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = xsprintf("\"%s\"", self.value);
         come_value.type = new sType("char*");
@@ -48,7 +48,7 @@ class sSStringNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         buffer*% buf = new buffer();
         
@@ -130,7 +130,7 @@ class sCharNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = xsprintf("%d", self.value);
         come_value.type = new sType("char");
@@ -161,7 +161,7 @@ class sWCharNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         if(self.quote) {
             come_value.c_value = xsprintf("L'\\%o'", self.value);
@@ -196,7 +196,7 @@ class sWStringNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = xsprintf("L\"%ls\"", self.value);
         come_value.type = new sType("int*");
@@ -228,7 +228,7 @@ class sRegexNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = xsprintf("charp_to_regex(\"%s\", %s, 0, %s, 0, 0, 0, 0, 0)", self.str, self.ignore_case ? string("1"):string("0"), self.global ? string("1"):string("0"));
         come_value.type = new sType("come_regex");
@@ -342,7 +342,7 @@ class sListNode extends sNodeBase
         
         sType* type = list_type;
         
-        CVALUE*% obj_value = new CVALUE;
+        CVALUE*% obj_value = new CVALUE();
         
         buffer*% num_string = new buffer();
         
@@ -370,7 +370,7 @@ class sListNode extends sNodeBase
         }
         come_params.push_back(obj_value);
         
-        CVALUE*% come_value2 = new CVALUE;
+        CVALUE*% come_value2 = new CVALUE();
         
         come_value2.c_value = xsprintf("%d", params.length());
         come_value2.type = null; // no required
@@ -378,7 +378,7 @@ class sListNode extends sNodeBase
         
         come_params.push_back(come_value2);
         
-        CVALUE*% come_value3 = new CVALUE;
+        CVALUE*% come_value3 = new CVALUE();
         
         come_value3.c_value = xsprintf("%s", var_->mCValueName);
         come_value3.type = null; // no required
@@ -403,7 +403,7 @@ class sListNode extends sNodeBase
         }
         buf.append_str(")");
         
-        CVALUE*% come_value4 = new CVALUE;
+        CVALUE*% come_value4 = new CVALUE();
         
         come_value4.c_value = buf.to_string();
         
@@ -461,7 +461,7 @@ class sTupleNode extends sNodeBase
             type->mGenericsTypes.push_back(clone it);
         }
         
-        CVALUE*% obj_value = new CVALUE;
+        CVALUE*% obj_value = new CVALUE();
         
         buffer*% num_string = new buffer();
         
@@ -539,7 +539,7 @@ class sTupleNode extends sNodeBase
         }
         buf.append_str(")");
         
-        CVALUE*% come_value2 = new CVALUE;
+        CVALUE*% come_value2 = new CVALUE();
         
         come_value2.c_value = buf.to_string();
         
@@ -698,7 +698,7 @@ class sMapNode extends sNodeBase
         
         sType* type = map_type;
         
-        CVALUE*% obj_value = new CVALUE;
+        CVALUE*% obj_value = new CVALUE();
         
         buffer*% num_string = new buffer();
         
@@ -726,7 +726,7 @@ class sMapNode extends sNodeBase
         }
         come_params.push_back(obj_value);
         
-        CVALUE*% come_value2 = new CVALUE;
+        CVALUE*% come_value2 = new CVALUE();
         
         come_value2.c_value = xsprintf("%d", key_params.length());
         come_value2.type = null; // no required
@@ -734,7 +734,7 @@ class sMapNode extends sNodeBase
         
         come_params.push_back(come_value2);
         
-        CVALUE*% come_value3 = new CVALUE;
+        CVALUE*% come_value3 = new CVALUE();
         
         come_value3.c_value = xsprintf("%s", var_->mCValueName);
         come_value3.type = null; // no required
@@ -742,7 +742,7 @@ class sMapNode extends sNodeBase
         
         come_params.push_back(come_value3);
         
-        CVALUE*% come_value4 = new CVALUE;
+        CVALUE*% come_value4 = new CVALUE();
         
         come_value4.c_value = xsprintf("%s", var2_->mCValueName);
         come_value4.type = null; // no required
@@ -767,7 +767,7 @@ class sMapNode extends sNodeBase
         }
         buf.append_str(")");
         
-        CVALUE*% come_value5 = new CVALUE;
+        CVALUE*% come_value5 = new CVALUE();
         
         come_value5.c_value = buf.to_string();
         

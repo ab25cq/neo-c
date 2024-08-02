@@ -36,7 +36,7 @@ class sNewNode extends sNodeBase
     {
         sType* type = self.type;
         
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         buffer*% num_string = new buffer();
         
@@ -121,7 +121,7 @@ class sImplementsNode extends sNodeBase
         
         sClass* klass = inf_type->mClass;
         
-        CVALUE*% come_value2 = new CVALUE;
+        CVALUE*% come_value2 = new CVALUE();
         
         sType*% type2 = clone inf_type;
         
@@ -206,7 +206,7 @@ class sTrueNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = xsprintf("(_Bool)1");
         come_value.type = new sType("bool");
@@ -234,7 +234,7 @@ class sFalseNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = xsprintf("(_Bool)0");
         come_value.type = new sType("bool");
@@ -266,7 +266,7 @@ class sSizeOfNode extends sNodeBase
     {
         sType* type = self.type;
         
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         var type2 = solve_generics(type, info->generics_type, info);
         
@@ -312,7 +312,7 @@ class sSizeOfExpNode extends sNodeBase
         CVALUE*% come_value = get_value_from_stack(-1, info);
         dec_stack_ptr(1, info);
         
-        CVALUE*% come_value2 = new CVALUE;
+        CVALUE*% come_value2 = new CVALUE();
         
         come_value2.c_value = xsprintf("sizeof(%s)", come_value.c_value);
         come_value2.type = new sType("long");
@@ -345,7 +345,7 @@ class sTypeOfNode extends sNodeBase
     {
         sType* type = self.type;
         
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
     
         var type2 = solve_generics(type, info->generics_type, info);
         
@@ -449,7 +449,7 @@ class sDynamicTypeOfNode extends sNodeBase
             return true;
         }
         else {
-            CVALUE*% come_value2 = new CVALUE;
+            CVALUE*% come_value2 = new CVALUE();
             
             come_value2.c_value = xsprintf("come_dynamic_typeof(%s)", come_value.c_value);
             come_value2.type = new sType("char*");
@@ -484,7 +484,7 @@ class sAlignOfNode extends sNodeBase
     {
         sType* type = self.type;
         
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         var type2 = solve_generics(type, info->generics_type, info);
         
@@ -528,7 +528,7 @@ class sAlignOfExpNode extends sNodeBase
         CVALUE*% come_value = get_value_from_stack(-1, info);
         dec_stack_ptr(1, info);
         
-        CVALUE*% come_value2 = new CVALUE;
+        CVALUE*% come_value2 = new CVALUE();
         
         come_value2.c_value = xsprintf("_AlignOf(%s)", come_value.c_value);
         come_value2.type = new sType("long");
@@ -561,7 +561,7 @@ class sAlignOfNode2 extends sNodeBase
     {
         sType* type = self.type;
         
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         var type2 = solve_generics(type, info->generics_type, info);
         
@@ -605,7 +605,7 @@ class sAlignOfExpNode2 extends sNodeBase
         CVALUE*% come_value = get_value_from_stack(-1, info);
         dec_stack_ptr(1, info);
         
-        CVALUE*% come_value2 = new CVALUE;
+        CVALUE*% come_value2 = new CVALUE();
         
         come_value2.c_value = xsprintf("__alignof__(%s)", come_value.c_value);
         come_value2.type = new sType("long");
@@ -638,7 +638,7 @@ class sAlignAsNode extends sNodeBase
     {
         sType* type = self.type;
         
-        CVALUE*% come_value = new CVALUE;
+        CVALUE*% come_value = new CVALUE();
         
         var type2 = solve_generics(type, info->generics_type, info);
         
@@ -682,7 +682,7 @@ class sAlignAsExpNode extends sNodeBase
         CVALUE*% come_value = get_value_from_stack(-1, info);
         dec_stack_ptr(1, info);
         
-        CVALUE*% come_value2 = new CVALUE;
+        CVALUE*% come_value2 = new CVALUE();
         
         come_value2.c_value = xsprintf("_Alignas(%s)", come_value.c_value);
         come_value2.type = new sType("long");
@@ -918,7 +918,7 @@ class sCloneNode extends sNodeBase
             info.stack.push_back(left_value);
         }
         else if(left_type->mPointerNum > 0) {
-            CVALUE*% come_value = new CVALUE;
+            CVALUE*% come_value = new CVALUE();
             
             var result_type, c_value = clone_object(left_type, left_value.c_value, info);
             come_value.c_value = c_value;
@@ -970,7 +970,7 @@ class sDupeNode extends sNodeBase
             info.stack.push_back(left_value);
         }
         else if(left_type->mPointerNum > 0) {
-            CVALUE*% come_value = new CVALUE;
+            CVALUE*% come_value = new CVALUE();
             
             var result_type, c_value = clone_object(left_type, left_value.c_value, info);
             come_value.c_value = c_value;
@@ -1112,7 +1112,7 @@ class sIsHeap extends sNodeBase
         sType* node = self.type;
         
         if(self.type.mHeap) {
-            CVALUE*% come_value = new CVALUE;
+            CVALUE*% come_value = new CVALUE();
             
             come_value.c_value = xsprintf("1");
             come_value.type = new sType("int");
@@ -1123,7 +1123,7 @@ class sIsHeap extends sNodeBase
             add_come_last_code(info, "%s;\n", come_value.c_value);
         }
         else {
-            CVALUE*% come_value = new CVALUE;
+            CVALUE*% come_value = new CVALUE();
             
             come_value.c_value = xsprintf("0");
             come_value.type = new sType("int");
@@ -1157,7 +1157,7 @@ class sIsPointer extends sNodeBase
         sType* node = self.type;
         
         if(self.type.mPointerNum > 0) {
-            CVALUE*% come_value = new CVALUE;
+            CVALUE*% come_value = new CVALUE();
             
             come_value.c_value = xsprintf("1");
             come_value.type = new sType("int");
@@ -1168,7 +1168,7 @@ class sIsPointer extends sNodeBase
             add_come_last_code(info, "%s;\n", come_value.c_value);
         }
         else {
-            CVALUE*% come_value = new CVALUE;
+            CVALUE*% come_value = new CVALUE();
             
             come_value.c_value = xsprintf("0");
             come_value.type = new sType("int");
