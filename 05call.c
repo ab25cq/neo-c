@@ -59,7 +59,7 @@ class sReturnNode extends sNodeBase
                 
                 string var_name = xsprintf("__result%d__", ++num_result);
                 int num_result_stack = num_result;
-                if(result_type2->mPointerNum > 0) {
+                if(!info.come_fun.mNoResultType) {
                     check_assign_type("result type", result_type2, come_value.type, come_value);
                     
                     add_come_code_at_function_head(info, "%s;\n", make_define_var(result_type2, var_name));

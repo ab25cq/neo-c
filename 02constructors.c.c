@@ -4669,7 +4669,7 @@ memset(&result_187, 0, sizeof(struct sType*));
     self->mDeclareSName=(char*)come_increment_ref_count(((char*)(right_value201=__builtin_string(declare_sname))));
     __dec_obj87 = come_decrement_ref_count2(__dec_obj87, (void*)0, (void*)0, 0,0,0, (void*)0);
     right_value201 = come_decrement_ref_count2(right_value201, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
-    if((string_operator_equals(result_type->mClass->mName,"void")||result_type->mClass->mNumber)&&result_type->mPointerNum==0) {
+    if((string_operator_equals(result_type->mClass->mName,"void")||result_type->mClass->mNumber||string_operator_equals(result_type->mClass->mName,"double")||string_operator_equals(result_type->mClass->mName,"float"))&&result_type->mPointerNum==0) {
         self->mNoResultType=(_Bool)1;
     }
     __result141__ = __result_obj__ = self;

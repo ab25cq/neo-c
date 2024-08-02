@@ -5016,17 +5016,13 @@ unsigned long int __result171__;
 }
 
 double double_clone(double self){
-void* __result_obj__;
 double __result172__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result172__ = self;
     return __result172__;
 }
 
 float float_clone(float self){
-void* __result_obj__;
 float __result173__;
-memset(&__result_obj__, 0, sizeof(void*));
     __result173__ = self;
     return __result173__;
 }

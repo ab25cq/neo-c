@@ -178,7 +178,7 @@ sFun*% sFun*::initialize(sFun*% self, string name, sType*% result_type, list<sTy
     
     sType* result
     
-    if((result_type->mClass->mName === "void" || result_type->mClass->mNumber) && result_type->mPointerNum == 0) {
+    if((result_type->mClass->mName === "void" || result_type->mClass->mNumber || result_type->mClass->mName === "double" || result_type->mClass->mName === "float") && result_type->mPointerNum == 0) {
         self.mNoResultType = true;
     }
     
