@@ -62,6 +62,12 @@ class sReturnNode extends sNodeBase
                 if(!info.come_fun.mNoResultType) {
                     check_assign_type("result type", result_type2, come_value.type, come_value);
                     
+                    if(!info.come_fun.mDeclaredResultObject) {
+                        info.come_fun.mDeclaredResultObject = true;
+                        add_come_code_at_function_head(info, "%s;\n", make_define_var(result_type, "__result_obj__"));
+                        add_come_code_at_function_head2(info, "memset(&__result_obj__, 0, sizeof(%s));\n", make_type_name_string(result_type));
+                    }
+                    
                     add_come_code_at_function_head(info, "%s;\n", make_define_var(result_type2, var_name));
                     add_come_code(info, "%s = __result_obj__ = %s;\n", var_name, come_value.c_value);
                 }

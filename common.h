@@ -201,6 +201,7 @@ struct sFun
     
     string mDeclareSName;
     bool mNoResultType;
+    bool mDeclaredResultObject;
 };
 
 struct sGenericsFun
