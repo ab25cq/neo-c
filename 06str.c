@@ -102,9 +102,10 @@ class sSStringNode extends sNodeBase
         type2->mHeap = true;
         
         come_value.c_value = buf.to_string();
-        come_value.c_value = append_object_to_right_values(come_value.c_value, type2,info);
         come_value.type = clone type2;
         come_value.var = null;
+        
+        append_object_to_right_values2(come_value, type2,info);
         
         info.stack.push_back(come_value);
         
@@ -240,7 +241,7 @@ class sRegexNode extends sNodeBase
         
         add_come_last_code(info, "%s;\n", come_value.c_value);
         
-        come_value.c_value = append_object_to_right_values(come_value.c_value, come_value.type, info);
+        append_object_to_right_values2(come_value, come_value.type, info);
         
         return true;
     }
@@ -359,9 +360,10 @@ class sListNode extends sNodeBase
         type3->mHeap = true;
         type2->mHeap = true;
         obj_value.type = clone type2;
-        obj_value.c_value = append_object_to_right_values(obj_value.c_value, type3 ,info);
         obj_value.type->mPointerNum ++;
         obj_value.var = null;
+        
+        append_object_to_right_values2(obj_value, type3 ,info);
             
         list<CVALUE*%>*% come_params = new list<CVALUE*%>();
         
@@ -407,13 +409,13 @@ class sListNode extends sNodeBase
         
         come_value4.c_value = buf.to_string();
         
-        if(result_type->mHeap) {
-            come_value4.c_value = append_object_to_right_values(buf.to_string(), result_type, info);
-        }
-        
         come_value4.type = clone result_type;
         come_value4.type->mStatic = false;
         come_value4.var = null;
+        
+        if(result_type->mHeap) {
+            append_object_to_right_values2(come_value4, result_type, info);
+        }
         
         add_come_last_code(info, "%s;\n", buf.to_string());
         
@@ -478,9 +480,10 @@ class sTupleNode extends sNodeBase
         type3->mHeap = true;
         type2->mHeap = true;
         obj_value.type = clone type2;
-        obj_value.c_value = append_object_to_right_values(obj_value.c_value, type3 ,info);
         obj_value.type->mPointerNum ++;
         obj_value.var = null;
+        
+        append_object_to_right_values2(obj_value, type3 ,info);
         
         sType*% obj_type = clone type2;
         char* fun_name = "initialize";
@@ -543,13 +546,13 @@ class sTupleNode extends sNodeBase
         
         come_value2.c_value = buf.to_string();
         
-        if(result_type->mHeap) {
-            come_value2.c_value = append_object_to_right_values(buf.to_string(), result_type, info);
-        }
-        
         come_value2.type = clone result_type;
         come_value2.type->mStatic = false;
         come_value2.var = null;
+        
+        if(result_type->mHeap) {
+            append_object_to_right_values2(come_value2, result_type, info);
+        }
         
         add_come_last_code(info, "%s;\n", buf.to_string());
         
@@ -715,9 +718,10 @@ class sMapNode extends sNodeBase
         type3->mHeap = true;
         type2->mHeap = true;
         obj_value.type = clone type2;
-        obj_value.c_value = append_object_to_right_values(obj_value.c_value, type3 ,info);
         obj_value.type->mPointerNum ++;
         obj_value.var = null;
+        
+        append_object_to_right_values2(obj_value, type3 ,info);
             
         list<CVALUE*%>*% come_params = new list<CVALUE*%>();
         
@@ -770,14 +774,13 @@ class sMapNode extends sNodeBase
         CVALUE*% come_value5 = new CVALUE();
         
         come_value5.c_value = buf.to_string();
-        
-        if(result_type->mHeap) {
-            come_value5.c_value = append_object_to_right_values(buf.to_string(), result_type, info);
-        }
-        
         come_value5.type = clone result_type;
         come_value5.type->mStatic = false;
         come_value5.var = null;
+        
+        if(result_type->mHeap) {
+            append_object_to_right_values2(come_value5, result_type, info);
+        }
         
         add_come_last_code(info, "%s;\n", buf.to_string());
         

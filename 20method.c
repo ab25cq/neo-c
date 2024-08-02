@@ -286,13 +286,13 @@ class sMethodCallNode extends sNodeBase
             
             sType*% result_type2 = solve_generics(result_type, info.generics_type, info);
             
-            if(result_type2->mHeap) {
-                come_value2.c_value = append_object_to_right_values(buf.to_string(), result_type2, info);
-            }
-            
             come_value2.type = clone result_type2;
             come_value2.type->mStatic = false;
             come_value2.var = null;
+            
+            if(result_type2->mHeap) {
+                append_object_to_right_values2(come_value2, result_type2, info);
+            }
             
             add_come_last_code(info, "%s;\n", come_value2.c_value);
             
@@ -827,7 +827,7 @@ class sMethodCallNode extends sNodeBase
             come_value2.var = null;
             
             if(result_type2->mHeap) {
-                come_value2.c_value = append_object_to_right_values(come_value2.c_value, result_type2, info);
+                append_object_to_right_values2(come_value2, result_type2, info);
             }
             
             come_value2.c_value = append_stackframe(come_value2.c_value, come_value2.type, info);

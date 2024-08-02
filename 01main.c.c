@@ -396,7 +396,7 @@ struct CVALUE
     char* c_value;
     struct sType* type;
     struct sVar* var;
-    struct list$1sRightValueObjectp* right_values;
+    struct list$1sRightValueObjectp* right_value_objects;
 };
 struct sVar
 {
@@ -505,6 +505,7 @@ struct sRightValueObject
     _Bool mFreed;
     int mID;
     int mBlockLevel;
+    _Bool mStored;
 };
 struct sClassModule
 {
@@ -1679,6 +1680,8 @@ void free_right_value_objects(struct sInfo* info, _Bool comma);
 void free_objects(struct sVarTable* table, struct sVar* ret_value, struct sInfo* info);
 
 char* append_object_to_right_values(char* obj, struct sType* type, struct sInfo* info);
+
+void append_object_to_right_values2(struct CVALUE* come_value, struct sType* type, struct sInfo* info);
 
 _Bool is_right_values(int right_value_num, struct sInfo* info);
 

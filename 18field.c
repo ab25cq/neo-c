@@ -97,7 +97,7 @@ bool operator_overload_fun2(sType* type, char* fun_name, CVALUE* left_value, CVA
         come_value.var = null;
         
         if(result_type2->mHeap) {
-            come_value.c_value = append_object_to_right_values(come_value.c_value, result_type2, info);
+            append_object_to_right_values2(come_value, result_type2, info);
         }
         
         if(result_type2.mGuardValue && result_type2->mPointerNum > 0) {
@@ -168,6 +168,7 @@ class sStoreFieldNode extends sNodeBase
         sType*% field_type = null;
         int index = 0;
         string child_field_name = null;
+        bool child_field_is_pointer = false;
         klass = info.classes[klass->mName]??;
         
         if(klass->mFields == null) {
@@ -198,6 +199,9 @@ class sStoreFieldNode extends sNodeBase
                     
                     if(field_name2 === name) {
                         child_field_name = string(field_name);
+                        if(field_type2->mPointerNum > 0) {
+                            child_field_is_pointer = true;
+                        }
                         field_type = clone field_type3;
                         break;
                     }
@@ -243,10 +247,21 @@ class sStoreFieldNode extends sNodeBase
         {
             if(left_value.type->mPointerNum == 1) {
                 if(child_field_name) {
-                    string c_value = xsprintf("%s->%s.%s", left_value.c_value, child_field_name, name);
+                    string c_value;
+                    if(child_field_is_pointer) {
+                        c_value = xsprintf("%s->%s->%s", left_value.c_value, child_field_name, name);
+                    }
+                    else {
+                        c_value = xsprintf("%s->%s.%s", left_value.c_value, child_field_name, name);
+                    }
                     decrement_ref_count_object(field_type, c_value, info);
                     std_move(field_type, right_type, right_value);
-                    come_value.c_value = xsprintf("%s->%s.%s=%s", left_value.c_value, child_field_name, name, right_value.c_value);
+                    if(child_field_is_pointer) {
+                        come_value.c_value = xsprintf("%s->%s->%s=%s", left_value.c_value, child_field_name, name, right_value.c_value);
+                    }
+                    else {
+                        come_value.c_value = xsprintf("%s->%s.%s=%s", left_value.c_value, child_field_name, name, right_value.c_value);
+                    }
                 }
                 else {
                     string c_value = xsprintf("%s->%s", left_value.c_value, name);
@@ -257,10 +272,21 @@ class sStoreFieldNode extends sNodeBase
             }
             else if(left_value.type->mPointerNum == 0) {
                 if(child_field_name) {
-                    string c_value = xsprintf("%s.%s.%s", left_value.c_value, child_field_name, name);
+                    string c_value;
+                    if(child_field_is_pointer) {
+                        c_value = xsprintf("%s.%s->%s", left_value.c_value, child_field_name, name);
+                    }
+                    else {
+                        c_value = xsprintf("%s.%s.%s", left_value.c_value, child_field_name, name);
+                    }
                     decrement_ref_count_object(field_type, c_value, info);
                     std_move(field_type, right_type, right_value);
-                    come_value.c_value = xsprintf("%s.%s.%s=%s", left_value.c_value, child_field_name, name, right_value.c_value);
+                    if(child_field_is_pointer) {
+                        come_value.c_value = xsprintf("%s.%s->%s=%s", left_value.c_value, child_field_name, name, right_value.c_value);
+                    }
+                    else {
+                        come_value.c_value = xsprintf("%s.%s.%s=%s", left_value.c_value, child_field_name, name, right_value.c_value);
+                    }
                 }
                 else {
                     string c_value = xsprintf("%s.%s", left_value.c_value, name);
@@ -283,9 +309,20 @@ class sStoreFieldNode extends sNodeBase
         {
             if(left_value.type->mPointerNum == 1) {
                 if(child_field_name) {
-                    string c_value = xsprintf("%s->%s.%s", left_value.c_value, child_field_name, name);
+                    string c_value;
+                    if(child_field_is_pointer) {
+                        c_value = xsprintf("%s->%s->%s", left_value.c_value, child_field_name, name);
+                    }
+                    else {
+                        c_value = xsprintf("%s->%s.%s", left_value.c_value, child_field_name, name);
+                    }
                     decrement_ref_count_object(field_type, c_value, info);
-                    come_value.c_value = xsprintf("%s->%s.%s=%s", left_value.c_value, child_field_name, name, right_value.c_value);
+                    if(child_field_is_pointer) {
+                        come_value.c_value = xsprintf("%s->%s->%s=%s", left_value.c_value, child_field_name, name, right_value.c_value);
+                    }
+                    else {
+                        come_value.c_value = xsprintf("%s->%s.%s=%s", left_value.c_value, child_field_name, name, right_value.c_value);
+                    }
                 }
                 else {
                     string c_value = xsprintf("%s->%s", left_value.c_value, name);
@@ -295,9 +332,20 @@ class sStoreFieldNode extends sNodeBase
             }
             else if(left_value.type->mPointerNum == 0) {
                 if(child_field_name) {
-                    string c_value = xsprintf("%s.%s.%s", left_value.c_value, child_field_name, name);
+                    string c_value;
+                    if(child_field_is_pointer) {
+                        c_value = xsprintf("%s.%s->%s", left_value.c_value, child_field_name, name);
+                    }
+                    else {
+                        c_value = xsprintf("%s.%s.%s", left_value.c_value, child_field_name, name);
+                    }
                     decrement_ref_count_object(field_type, c_value, info);
-                    come_value.c_value = xsprintf("%s.%s.%s=%s", left_value.c_value, child_field_name, name, right_value.c_value);
+                    if(child_field_is_pointer) {
+                        come_value.c_value = xsprintf("%s.%s->%s=%s", left_value.c_value, child_field_name, name, right_value.c_value);
+                    }
+                    else {
+                        come_value.c_value = xsprintf("%s.%s->%s=%s", left_value.c_value, child_field_name, name, right_value.c_value);
+                    }
                 }
                 else {
                     string c_value = xsprintf("%s.%s", left_value.c_value, name);
@@ -313,7 +361,12 @@ class sStoreFieldNode extends sNodeBase
         else {
             if(left_value.type->mPointerNum == 1) {
                 if(child_field_name) {
-                    come_value.c_value = xsprintf("%s->%s.%s=%s", left_value.c_value, child_field_name, name, right_value.c_value);
+                    if(child_field_is_pointer) {
+                        come_value.c_value = xsprintf("%s->%s->%s=%s", left_value.c_value, child_field_name, name, right_value.c_value);
+                    }
+                    else {
+                        come_value.c_value = xsprintf("%s->%s.%s=%s", left_value.c_value, child_field_name, name, right_value.c_value);
+                    }
                 }
                 else {
                     come_value.c_value = xsprintf("%s->%s=%s", left_value.c_value, name, right_value.c_value);
@@ -321,7 +374,12 @@ class sStoreFieldNode extends sNodeBase
             }
             else if(left_value.type->mPointerNum == 0) {
                 if(child_field_name) {
-                    come_value.c_value = xsprintf("%s.%s.%s=%s", left_value.c_value, child_field_name, name, right_value.c_value);
+                    if(child_field_is_pointer) {
+                        come_value.c_value = xsprintf("%s.%s->%s=%s", left_value.c_value, child_field_name, name, right_value.c_value);
+                    }
+                    else {
+                        come_value.c_value = xsprintf("%s.%s.%s=%s", left_value.c_value, child_field_name, name, right_value.c_value);
+                    }
                 }
                 else {
                     come_value.c_value = xsprintf("%s.%s=%s", left_value.c_value, name, right_value.c_value);
@@ -590,6 +648,7 @@ class sLoadFieldNode extends sNodeBase
         
         sType*% field_type = null;
         int index = 0;
+        bool child_field_is_pointer = false;
         string child_field_name = null;
         klass = info.classes[klass->mName]??;
         if(klass == null || klass->mFields == null) {
@@ -619,6 +678,9 @@ class sLoadFieldNode extends sNodeBase
                     
                     if(field_name2 === name) {
                         child_field_name = string(field_name);
+                        if(field_type2->mPointerNum > 0) {
+                            child_field_is_pointer = true;
+                        }
                         field_type = clone field_type3;
                         break;
                     }
@@ -646,7 +708,12 @@ class sLoadFieldNode extends sNodeBase
         
         if(left_value.type->mPointerNum > 0) {
             if(child_field_name) {
-                come_value.c_value = xsprintf("%s->%s.%s", left_value.c_value, child_field_name, name);
+                if(child_field_is_pointer) {
+                    come_value.c_value = xsprintf("%s->%s->%s", left_value.c_value, child_field_name, name);
+                }
+                else {
+                    come_value.c_value = xsprintf("%s->%s.%s", left_value.c_value, child_field_name, name);
+                }
             }
             else {
                 come_value.c_value = xsprintf("%s->%s", left_value.c_value, name);
@@ -654,7 +721,12 @@ class sLoadFieldNode extends sNodeBase
         }
         else {
             if(child_field_name) {
-                come_value.c_value = xsprintf("%s.%s.%s", left_value.c_value, child_field_name, name);
+                if(child_field_is_pointer) {
+                    come_value.c_value = xsprintf("%s.%s->%s", left_value.c_value, child_field_name, name);
+                }
+                else {
+                    come_value.c_value = xsprintf("%s.%s.%s", left_value.c_value, child_field_name, name);
+                }
             }
             else {
                 come_value.c_value = xsprintf("%s.%s", left_value.c_value, name);

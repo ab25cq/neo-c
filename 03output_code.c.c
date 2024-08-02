@@ -396,7 +396,7 @@ struct CVALUE
     char* c_value;
     struct sType* type;
     struct sVar* var;
-    struct list$1sRightValueObjectp* right_values;
+    struct list$1sRightValueObjectp* right_value_objects;
 };
 struct sVar
 {
@@ -505,6 +505,7 @@ struct sRightValueObject
     _Bool mFreed;
     int mID;
     int mBlockLevel;
+    _Bool mStored;
 };
 struct sClassModule
 {
@@ -1631,6 +1632,8 @@ void free_right_value_objects(struct sInfo* info, _Bool comma);
 void free_objects(struct sVarTable* table, struct sVar* ret_value, struct sInfo* info);
 
 char* append_object_to_right_values(char* obj, struct sType* type, struct sInfo* info);
+
+void append_object_to_right_values2(struct CVALUE* come_value, struct sType* type, struct sInfo* info);
 
 _Bool is_right_values(int right_value_num, struct sInfo* info);
 
@@ -3339,8 +3342,8 @@ static void CVALUE_finalize(struct CVALUE* self){
             if(self!=((void*)0)&&self->type!=((void*)0)) {
                 come_call_finalizer3(self->type,sType_finalize, 0, 0, 0, 0, (void*)0);
             }
-            if(self!=((void*)0)&&self->right_values!=((void*)0)) {
-                come_call_finalizer3(self->right_values,list$1sRightValueObjectpp_finalize, 0, 0, 0, 0, (void*)0);
+            if(self!=((void*)0)&&self->right_value_objects!=((void*)0)) {
+                come_call_finalizer3(self->right_value_objects,list$1sRightValueObjectpp_finalize, 0, 0, 0, 0, (void*)0);
             }
 }
 
@@ -6516,9 +6519,9 @@ right_value263 = (void*)0;
         if(self!=((void*)0)) {
             result_279->var=self->var;
         }
-        if(self!=((void*)0)&&self->right_values!=((void*)0)) {
-            __dec_obj58=result_279->right_values;
-            result_279->right_values=(struct list$1sRightValueObjectp*)come_increment_ref_count(((struct list$1sRightValueObjectp*)(right_value263=list$1sRightValueObjectpp_clone(self->right_values))));
+        if(self!=((void*)0)&&self->right_value_objects!=((void*)0)) {
+            __dec_obj58=result_279->right_value_objects;
+            result_279->right_value_objects=(struct list$1sRightValueObjectp*)come_increment_ref_count(((struct list$1sRightValueObjectp*)(right_value263=list$1sRightValueObjectpp_clone(self->right_value_objects))));
             come_call_finalizer3(__dec_obj58,list$1sRightValueObjectp_finalize, 0, 0, 0, 0, (void*)0);
             come_call_finalizer3(right_value263,list$1sRightValueObjectpp_finalize, 0, 1, 0, 0, __result_obj__);
         }
@@ -6675,6 +6678,9 @@ right_value261 = (void*)0;
                         }
                         if(self!=((void*)0)) {
                             result_285->mBlockLevel=self->mBlockLevel;
+                        }
+                        if(self!=((void*)0)) {
+                            result_285->mStored=self->mStored;
                         }
                         __result127__ = __result_obj__ = result_285;
                         come_call_finalizer3(result_285,sRightValueObject_finalize, 0, 0, 1, 0, (void*)0);

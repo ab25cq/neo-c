@@ -396,7 +396,7 @@ struct CVALUE
     char* c_value;
     struct sType* type;
     struct sVar* var;
-    struct list$1sRightValueObjectp* right_values;
+    struct list$1sRightValueObjectp* right_value_objects;
 };
 struct sVar
 {
@@ -505,6 +505,7 @@ struct sRightValueObject
     _Bool mFreed;
     int mID;
     int mBlockLevel;
+    _Bool mStored;
 };
 struct sClassModule
 {
@@ -1657,6 +1658,8 @@ void free_right_value_objects(struct sInfo* info, _Bool comma);
 void free_objects(struct sVarTable* table, struct sVar* ret_value, struct sInfo* info);
 
 char* append_object_to_right_values(char* obj, struct sType* type, struct sInfo* info);
+
+void append_object_to_right_values2(struct CVALUE* come_value, struct sType* type, struct sInfo* info);
 
 _Bool is_right_values(int right_value_num, struct sInfo* info);
 
@@ -3148,8 +3151,8 @@ struct CVALUE* __result46__;
 memset(&__result_obj__, 0, sizeof(void*));
 right_value79 = (void*)0;
 right_value80 = (void*)0;
-    __dec_obj12=self->right_values;
-    self->right_values=(struct list$1sRightValueObjectp*)come_increment_ref_count(((struct list$1sRightValueObjectp*)(right_value80=list$1sRightValueObjectp_initialize((struct list$1sRightValueObjectp*)come_increment_ref_count(((struct list$1sRightValueObjectp*)(right_value79=(struct list$1sRightValueObjectp*)come_calloc(1, sizeof(struct list$1sRightValueObjectp)*(1), "02constructors.c", 5, "list$1sRightValueObjectp"))))))));
+    __dec_obj12=self->right_value_objects;
+    self->right_value_objects=(struct list$1sRightValueObjectp*)come_increment_ref_count(((struct list$1sRightValueObjectp*)(right_value80=list$1sRightValueObjectp_initialize((struct list$1sRightValueObjectp*)come_increment_ref_count(((struct list$1sRightValueObjectp*)(right_value79=(struct list$1sRightValueObjectp*)come_calloc(1, sizeof(struct list$1sRightValueObjectp)*(1), "02constructors.c", 5, "list$1sRightValueObjectp"))))))));
     come_call_finalizer3(__dec_obj12,list$1sRightValueObjectp_finalize, 0, 0, 0, 0, (void*)0);
     come_call_finalizer3(right_value79,list$1sRightValueObjectpp_finalize, 0, 1, 0, 0, __result_obj__);
     come_call_finalizer3(right_value80,list$1sRightValueObjectpp_finalize, 0, 1, 0, 0, __result_obj__);
@@ -3208,8 +3211,8 @@ static void CVALUE_finalize(struct CVALUE* self){
         if(self!=((void*)0)&&self->type!=((void*)0)) {
             come_call_finalizer3(self->type,sType_finalize, 0, 0, 0, 0, (void*)0);
         }
-        if(self!=((void*)0)&&self->right_values!=((void*)0)) {
-            come_call_finalizer3(self->right_values,list$1sRightValueObjectpp_finalize, 0, 0, 0, 0, (void*)0);
+        if(self!=((void*)0)&&self->right_value_objects!=((void*)0)) {
+            come_call_finalizer3(self->right_value_objects,list$1sRightValueObjectpp_finalize, 0, 0, 0, 0, (void*)0);
         }
 }
 

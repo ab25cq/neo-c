@@ -95,7 +95,7 @@ bool operator_overload_fun_self(sType* type, char* fun_name, CVALUE* left_value,
         come_value.var = null;
         
         if(type3->mHeap) {
-            come_value.c_value = append_object_to_right_values(come_value.c_value, type3, info);
+            append_object_to_right_values2(come_value, type3, info);
         }
         
         come_value.c_value = append_stackframe(come_value.c_value, come_value.type, info);

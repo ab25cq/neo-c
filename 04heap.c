@@ -5,6 +5,15 @@ void std_move(sType* left_type, sType* right_type, CVALUE* right_value, sInfo* i
     if(gComeGC || gComeC) {
         return;
     }
+    if(right_value.right_value_objects.length() > 0) {
+        foreach(it, right_value.right_value_objects) {
+            foreach(it2, info.right_value_objects) {
+                if(it->mID == it2->mID) {
+                    //it2->mStored = true;
+                }
+            }
+        }
+    }
     if(right_value.var) {
         if(right_value.var.mType.mDelegate) {
             right_value.var->mCValueName = null;
@@ -308,6 +317,32 @@ string append_object_to_right_values(char* obj, sType*% type, sInfo* info)
     add_come_code_at_function_head2(info, "right_value%d = (void*)0;\n", gRightValueNum-1);
     
     return xsprintf("((%s)(%s=%s))", make_type_name_string(type, false@in_header, true@array_cast_pointer), new_value->mVarName, obj)!;
+}
+
+void append_object_to_right_values2(CVALUE* come_value, sType*% type, sInfo* info)
+{
+    if(gComeGC || gComeC) {
+        return ;
+    }
+    if(info->no_output_come_code) {
+        return ;
+    }
+    var new_value = new sRightValueObject;
+    new_value.mType = type;
+    new_value.mFreed = false;
+    new_value.mID = gRightValueNum;
+    new_value.mVarName = xsprintf("right_value%d", gRightValueNum++);
+    new_value.mFunName = clone info->come_fun->mName;
+    new_value.mBlockLevel = info->block_level;
+    
+    info.right_value_objects.push_back(new_value);
+    
+    string buf = xsprintf("void* right_value%d;\n", gRightValueNum-1);
+    add_come_code_at_function_head(info, buf);
+    add_come_code_at_function_head2(info, "right_value%d = (void*)0;\n", gRightValueNum-1);
+    
+    come_value.c_value = xsprintf("((%s)(%s=%s))", make_type_name_string(type, false@in_header, true@array_cast_pointer), new_value->mVarName, come_value.c_value)!;
+    come_value.right_value_objects.add(new_value);
 }
 
 void remove_object_from_right_values(int right_value_num, sInfo* info)
@@ -1155,7 +1190,7 @@ void free_right_value_objects(sInfo* info, bool comma=false)
     int n = 0;
     foreach(it, right_value_objects) {
         if(it && !it->mFreed) {
-            if(it->mFunName === info->come_fun->mName && it->mBlockLevel == info->block_level) {
+            if(it->mFunName === info->come_fun->mName && it->mBlockLevel == info->block_level && !it->mStored) {
                 sType*% type = clone it->mType;
                 
                 type = solve_type(type, info->generics_type, info->method_generics_types, info);

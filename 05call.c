@@ -394,14 +394,13 @@ class sFunCallNode extends sNodeBase
             
             CVALUE*% come_value = new CVALUE();
             come_value.c_value = buf.to_string();
-            
-            if(lambda_type->mResultType.v1.mHeap) {
-                come_value.c_value = append_object_to_right_values(come_value.c_value, lambda_type->mResultType.v1, info);
-            }
-            
             come_value.type = clone result_type;
             come_value.type->mStatic = false;
             come_value.var = null;
+            
+            if(lambda_type->mResultType.v1.mHeap) {
+                append_object_to_right_values2(come_value, lambda_type->mResultType.v1, info);
+            }
             
             add_come_last_code(info, "%s;\n", come_value.c_value);
             
@@ -775,7 +774,7 @@ class sFunCallNode extends sNodeBase
                 come_value.var = null;
                 
                 if(fun.mResultType->mHeap) {
-                    come_value.c_value = append_object_to_right_values(come_value.c_value, result_type, info);
+                    append_object_to_right_values2(come_value, result_type, info);
                 }
                 
                 if(info.come_fun_name !== "come_alloc_mem_from_heap_pool" && info.come_fun_name !== "come_calloc" && info.come_fun_name !== "come_free_mem_of_heap_pool" && info.come_fun_name !== "come_free") 
@@ -885,7 +884,7 @@ class sLambdaCall extends sNodeBase
         come_value2.c_value = buf.to_string();
         
         if(lambda_type->mResultType.v1.mHeap) {
-            come_value2.c_value = append_object_to_right_values(come_value2.c_value, lambda_type->mResultType.v1, info);
+            append_object_to_right_values2(come_value2, lambda_type->mResultType.v1, info);
         }
         
         come_value2.type = clone result_type;

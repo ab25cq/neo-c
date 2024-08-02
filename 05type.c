@@ -589,10 +589,11 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
             sType*% type = new sType("integer");
             type->mHeap = true;
             type->mPointerNum = 1;
-            
-            come_value.c_value = append_object_to_right_values(buf2.to_string(), type, info);
+            come_value.c_value = buf2.to_string();
             come_value.type = clone type;
             come_value.var = null;
+            
+            append_object_to_right_values2(come_value, type, info);
             
             right_type2 = clone type;
         }
@@ -818,10 +819,11 @@ void cast_type(sType* left_type, sType* right_type, CVALUE* come_value, sInfo* i
             sType*% type = new sType("integer");
             type->mHeap = true;
             type->mPointerNum = 1;
-            
-            come_value.c_value = append_object_to_right_values(buf2.to_string(), type, info);
+            come_value.c_value = buf2.to_string();
             come_value.type = clone type;
             come_value.var = null;
+            
+            append_object_to_right_values2(come_value, type, info);
             
             right_type2 = clone type;
         }

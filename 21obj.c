@@ -76,9 +76,10 @@ class sNewNode extends sNodeBase
             type2->mNoSolvedGenericsType.v1->mHeap = true;
         }
         
-        come_value.c_value = append_object_to_right_values(come_value.c_value, type2 ,info);
         come_value.type = clone type2;
         come_value.var = null;
+        
+        append_object_to_right_values2(come_value, type2 ,info);
         
         add_come_last_code(info, "%s;\n", come_value.c_value);
         
@@ -179,9 +180,10 @@ class sImplementsNode extends sNodeBase
         type3->mHeap = true;
         type2->mHeap = true;
         come_value2.type = clone type2;
-        come_value2.c_value = append_object_to_right_values(come_value2.c_value, type3 ,info);
         come_value2.type->mPointerNum ++;
         come_value2.var = null;
+        
+        append_object_to_right_values2(come_value2, type3 ,info);
         
         add_come_last_code(info, "%s;\n", come_value2.c_value);
         
@@ -927,7 +929,7 @@ class sCloneNode extends sNodeBase
             come_value.type->mClone = true;
             come_value.var = null;
             
-            come_value.c_value = append_object_to_right_values(come_value.c_value, left_type,info);
+            append_object_to_right_values2(come_value, left_type,info);
             
             info.stack.push_back(come_value);
         }
@@ -978,7 +980,7 @@ class sDupeNode extends sNodeBase
             come_value.type->mHeap = true;
             come_value.var = null;
             
-            come_value.c_value = append_object_to_right_values(come_value.c_value, left_type,info);
+            append_object_to_right_values2(come_value, left_type,info);
             
             info.stack.push_back(come_value);
         }

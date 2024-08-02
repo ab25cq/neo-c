@@ -153,7 +153,7 @@ struct CVALUE
     string c_value;
     sType*% type;
     sVar* var;
-    list<sRightValueObject*>*% right_values;
+    list<sRightValueObject*>*% right_value_objects;
 };
 
 CVALUE*% CVALUE*::initialize(CVALUE*% self);
@@ -268,6 +268,7 @@ struct sRightValueObject
     bool mFreed;
     int mID;
     int mBlockLevel;
+    bool mStored;
 };
 
 struct sClassModule
@@ -447,6 +448,7 @@ sType*%, string clone_object(sType* type, char* obj, sInfo* info);
 void free_right_value_objects(sInfo* info, bool comma=false);
 void free_objects(sVarTable* table, sVar* ret_value, sInfo* info);
 string append_object_to_right_values(char* obj, sType*% type, sInfo* info);
+void append_object_to_right_values2(CVALUE* come_value, sType*% type, sInfo* info);
 bool is_right_values(int right_value_num, sInfo* info);
 int get_right_value_id_from_obj(string obj);
 void remove_object_from_right_values(int right_value_num, sInfo* info);
