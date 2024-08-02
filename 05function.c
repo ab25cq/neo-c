@@ -41,6 +41,11 @@ class sLambdaNode extends sNodeBase
         
         sType*% result_type = new sType("void*");
         
+        if(!gComeC && !self.mFun.mNoResultType) {
+            add_come_code_at_function_head(info, "%s;\n", make_define_var(result_type, "__result_obj__"));
+            add_come_code_at_function_head2(info, "memset(&__result_obj__, 0, sizeof(%s));\n", make_type_name_string(result_type));
+        }
+        
         if(self.mFun.mBlock) {
             transpile_block(self.mFun.mBlock, self.mFun.mParamTypes, self.mFun.mParamNames, info);
         }
@@ -89,6 +94,11 @@ class sFunNode extends sNodeBase
             }
             
             sType*% result_type = new sType("void*");
+            
+            if(!gComeC && !self.mFun.mNoResultType) {
+                add_come_code_at_function_head(info, "%s;\n", make_define_var(result_type, "__result_obj__"));
+                add_come_code_at_function_head2(info, "memset(&__result_obj__, 0, sizeof(%s));\n", make_type_name_string(result_type));
+            }
             
             transpile_block(self.mFun.mBlock, self.mFun.mParamTypes, self.mFun.mParamNames, info);
             if(!gComeC && info.come_fun.mName === "main") {
