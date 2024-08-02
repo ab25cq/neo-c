@@ -1573,7 +1573,7 @@ int transpile_v2(struct sInfo* info);
 
 _Bool output_source_file_v2(struct sInfo* info);
 
-char* make_type_name_string(struct sType* type, _Bool in_header, _Bool array_cast_pointer, _Bool no_pointer, struct sInfo* info);
+char* make_type_name_string(struct sType* type, _Bool in_header, _Bool array_cast_pointer, _Bool no_pointer, struct sInfo* info, _Bool no_static);
 
 char* make_come_type_name_string(struct sType* type, struct sInfo* info);
 

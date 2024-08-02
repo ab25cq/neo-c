@@ -1345,62 +1345,6 @@ TOK_INT
 };
 extern int num_callers;
 extern const char** rt_bound_error_msg;
-int total_lines;
-int total_bytes;
-struct BufferedFile* file;
-static int ch;
-static int tok;
-union CValue tokc;
-struct CString tokcstr;
-static int tok_flags;
-static int* macro_ptr;
-static int* macro_ptr_allocated;
-static int* unget_saved_macro_ptr;
-static int unget_saved_buffer[4+1];
-static int unget_buffer_enabled;
-static int parse_flags;
-struct Section* text_section;
-struct Section* data_section;
-struct Section* bss_section;
-struct Section* cur_text_section;
-struct Section* bounds_section;
-struct Section* lbounds_section;
-struct Section* symtab_section;
-struct Section* strtab_section;
-struct Section* stab_section;
-struct Section* stabstr_section;
-static int rsym;
-static int anon_sym;
-static int ind;
-static int loc;
-static int const_wanted;
-static int nocode_wanted;
-static int global_expr;
-struct CType func_vt;
-static int func_vc;
-static int last_line_num;
-static int last_ind;
-static int func_ind;
-static int tok_ident;
-struct TokenSym** table_ident;
-struct TokenSym* hash_ident[8192];
-static char token_buf[1024+1];
-static char* funcname;
-struct Sym* global_stack;
-struct Sym* local_stack;
-struct Sym* define_stack;
-struct Sym* global_label_stack;
-struct Sym* local_label_stack;
-struct Sym* sym_free_first;
-static void** sym_pools;
-static int nb_sym_pools;
-struct SValue vstack[256];
-struct SValue* vtop;
-struct CType char_pointer_type;
-struct CType func_old_type;
-struct CType int_type;
-const char** rt_bound_error_msg;
-struct TCCState* tcc_state;
 enum { TREG_RAX=(0),
 TREG_RCX=(1),
 TREG_RDX=(2),
@@ -1414,8 +1358,6 @@ TREG_XMM0=(3),
 TREG_ST0=(4),
 TREG_MEM=(16)
 };
-static unsigned long int func_sub_sp_offset;
-static int func_ret_sub;
 struct anonymous_typeX106
 {
     const char* dli_fname;
@@ -1424,7 +1366,6 @@ struct anonymous_typeX106
     void* dli_saddr;
 };
 typedef struct anonymous_typeX106 Dl_info;
-static unsigned char isidnum_table[256-(-1)];
 struct macro_level
 {
     struct macro_level* prev;
@@ -1466,14 +1407,6 @@ struct FlagDef
     const char* name;
 };
 typedef struct FlagDef FlagDef;
-static char** files;
-static int nb_files;
-static int nb_libraries;
-static int multiple_files;
-static int print_search_dirs;
-static int output_type;
-static int reloc_output;
-static const char* outfile;
 struct TCCOption
 {
     const char* name;
@@ -3069,7 +3002,7 @@ static struct TokenSym* tok_alloc_new(struct TokenSym** pts, const char* str, in
 static struct TokenSym* tok_alloc(const char* str, int len);
 char* get_tok_str(int v, union CValue* cv);
 
-static void CString_finalize(struct CString* self);
+static void CString_finalize(static struct CString* self);
 static int tcc_peekc_slow(struct BufferedFile* bf);
 static int handle_eob();
 static int handle_stray_noerror();
@@ -3362,9 +3295,65 @@ int main(int argc, char** argv);
 // uniq global variable
 
 // source head3
+int total_lines;
+int total_bytes;
+static struct BufferedFile* file;
+static int ch;
+static int tok;
+static union CValue tokc;
+static struct CString tokcstr;
+static int tok_flags;
+static int* macro_ptr;
+static int* macro_ptr_allocated;
+static int* unget_saved_macro_ptr;
+static int unget_saved_buffer[4+1];
+static int unget_buffer_enabled;
+static int parse_flags;
+static struct Section* text_section;
+static struct Section* data_section;
+static struct Section* bss_section;
+static struct Section* cur_text_section;
+static struct Section* bounds_section;
+static struct Section* lbounds_section;
+static struct Section* symtab_section;
+static struct Section* strtab_section;
+static struct Section* stab_section;
+static struct Section* stabstr_section;
+static int rsym;
+static int anon_sym;
+static int ind;
+static int loc;
+static int const_wanted;
+static int nocode_wanted;
+static int global_expr;
+static struct CType func_vt;
+static int func_vc;
+static int last_line_num;
+static int last_ind;
+static int func_ind;
+static int tok_ident;
+static struct TokenSym** table_ident;
+static struct TokenSym* hash_ident[8192];
+static char token_buf[1024+1];
+static char* funcname;
+static struct Sym* global_stack;
+static struct Sym* local_stack;
+static struct Sym* define_stack;
+static struct Sym* global_label_stack;
+static struct Sym* local_label_stack;
+static struct Sym* sym_free_first;
+static void** sym_pools;
+static int nb_sym_pools;
+static struct SValue vstack[256];
+static struct SValue* vtop;
+static struct CType char_pointer_type;
+static struct CType func_old_type;
+static struct CType int_type;
 static int gnu_ext=1;
 static int tcc_ext=1;
 int num_callers=6;
+const char** rt_bound_error_msg;
+static struct TCCState* tcc_state;
 int reg_classes[5]={
               0x0001 | 0x0004,
               0x0001 | 0x0008,
@@ -3372,31 +3361,42 @@ int reg_classes[5]={
                0x0002 | 0x0020,
               0x0040,
 };
+static unsigned long int func_sub_sp_offset;
+static int func_ret_sub;
 static unsigned char arg_regs[6]={
     TREG_RDI, TREG_RSI, TREG_RDX, TREG_RCX, TREG_R8, TREG_R9
 };
 static const char tcc_keywords[]="int\0void\0char\0if\0else\0while\0break\0return\0for\0extern\0static\0unsigned\0goto\0do\0continue\0switch\0case\0const\0__const\0__const__\0volatile\0__volatile\0__volatile__\0long\0register\0signed\0__signed\0__signed__\0auto\0inline\0__inline\0__inline__\0restrict\0__restrict\0__restrict__\0__extension__\0float\0double\0_Bool\0short\0struct\0union\0typedef\0default\0enum\0sizeof\0__attribute\0__attribute__\0__alignof\0__alignof__\0typeof\0__typeof\0__typeof__\0__label__\0asm\0__asm\0__asm__\0define\0include\0include_next\0ifdef\0ifndef\0elif\0endif\0defined\0undef\0error\0warning\0line\0pragma\0__LINE__\0__FILE__\0__DATE__\0__TIME__\0__FUNCTION__\0__VA_ARGS__\0__func__\0section\0__section__\0aligned\0__aligned__\0packed\0__packed__\0unused\0__unused__\0cdecl\0__cdecl\0__cdecl__\0stdcall\0__stdcall\0__stdcall__\0fastcall\0__fastcall\0__fastcall__\0dllexport\0noreturn\0__noreturn__\0__builtin_types_compatible_p\0__builtin_constant_p\0__builtin_frame_address\0__builtin_malloc\0__builtin_free\0malloc\0free\0regparm\0__regparm__\0pack\0push\0pop\0memcpy\0memset\0__divdi3\0__moddi3\0__udivdi3\0__umoddi3\0__ashrdi3\0__lshrdi3\0__ashldi3\0__floatundisf\0__floatundidf\0__floatundixf\0__fixunsxfdi\0__fixunssfdi\0__fixunsdfdi\0byte\0align\0skip\0space\0string\0asciz\0ascii\0globl\0global\0text\0data\0bss\0previous\0fill\0org\0quad\0";
 static char tok_two_chars[]="<=\236>=\235!=\225&&\240||\241++\244--\242==\224<<\1>>\2+=\253-=\255*=\252/=\257%=\245&=\246^=\336|=\374->\313..\250##\266";
+static unsigned char isidnum_table[256-(-1)];
 static char ab_month_name[12][4]={
     "Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 };
 static char elf_interp[]="/lib/ld-linux-x86-64.so.2";
-const struct FlagDef warning_defs[]={
+static const struct FlagDef warning_defs[]={
     { ((size_t) &((TCCState *)0)->warn_unsupported), 0, "unsupported" },
     { ((size_t) &((TCCState *)0)->warn_write_strings), 0, "write-strings" },
     { ((size_t) &((TCCState *)0)->warn_error), 0, "error" },
     { ((size_t) &((TCCState *)0)->warn_implicit_function_declaration), 0x0001,
       "implicit-function-declaration" },
 };
-const struct FlagDef flag_defs[]={
+static const struct FlagDef flag_defs[]={
     { ((size_t) &((TCCState *)0)->char_is_unsigned), 0, "unsigned-char" },
     { ((size_t) &((TCCState *)0)->char_is_unsigned), 0x0002, "signed-char" },
     { ((size_t) &((TCCState *)0)->nocommon), 0x0002, "common" },
     { ((size_t) &((TCCState *)0)->leading_underscore), 0, "leading-underscore" },
 };
+static char** files;
+static int nb_files;
+static int nb_libraries;
+static int multiple_files;
+static int print_search_dirs;
+static int output_type;
+static int reloc_output;
+static const char* outfile;
 static int do_bench=0;
-const struct TCCOption tcc_options[]={
+static const struct TCCOption tcc_options[]={
     { "h", TCC_OPTION_HELP, 0 },
     { "?", TCC_OPTION_HELP, 0 },
     { "I", TCC_OPTION_I, 0x0001 },
@@ -3440,9 +3440,7 @@ const struct TCCOption tcc_options[]={
 
 // inline function
 static inline unsigned int __FLOAT_BITS(float __f){
-void* __result_obj__;
 union anonymous_typeZ6 __u_0;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&__u_0, 0, sizeof(union anonymous_typeZ6));
     # 57 "/usr/include/math.h"
     # 58 "/usr/include/math.h"
@@ -3451,9 +3449,7 @@ memset(&__u_0, 0, sizeof(union anonymous_typeZ6));
     return __u_0.__i;
 }
 static inline unsigned long long __DOUBLE_BITS(double __f){
-void* __result_obj__;
 union anonymous_typeZ9 __u_1;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&__u_1, 0, sizeof(union anonymous_typeZ9));
     # 63 "/usr/include/math.h"
     # 64 "/usr/include/math.h"
@@ -3462,121 +3458,82 @@ memset(&__u_1, 0, sizeof(union anonymous_typeZ9));
     return __u_1.__i;
 }
 static inline int __islessf(float __x, float __y){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 108 "/usr/include/math.h"
     return !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x<__y;
 }
 static inline int __isless(double __x, double __y){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 109 "/usr/include/math.h"
     return !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x<__y;
 }
 static inline int __islessl(long double __x, long double __y){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 110 "/usr/include/math.h"
     return !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x<__y;
 }
 static inline int __islessequalf(float __x, float __y){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 111 "/usr/include/math.h"
     return !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x<=__y;
 }
 static inline int __islessequal(double __x, double __y){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 112 "/usr/include/math.h"
     return !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x<=__y;
 }
 static inline int __islessequall(long double __x, long double __y){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 113 "/usr/include/math.h"
     return !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x<=__y;
 }
 static inline int __islessgreaterf(float __x, float __y){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 114 "/usr/include/math.h"
     return !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x!=__y;
 }
 static inline int __islessgreater(double __x, double __y){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 115 "/usr/include/math.h"
     return !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x!=__y;
 }
 static inline int __islessgreaterl(long double __x, long double __y){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 116 "/usr/include/math.h"
     return !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x!=__y;
 }
 static inline int __isgreaterf(float __x, float __y){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 117 "/usr/include/math.h"
     return !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x>__y;
 }
 static inline int __isgreater(double __x, double __y){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 118 "/usr/include/math.h"
     return !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x>__y;
 }
 static inline int __isgreaterl(long double __x, long double __y){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 119 "/usr/include/math.h"
     return !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x>__y;
 }
 static inline int __isgreaterequalf(float __x, float __y){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 120 "/usr/include/math.h"
     return !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x>=__y;
 }
 static inline int __isgreaterequal(double __x, double __y){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 121 "/usr/include/math.h"
     return !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x>=__y;
 }
 static inline int __isgreaterequall(long double __x, long double __y){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 122 "/usr/include/math.h"
     return !((sizeof((__x))==sizeof(float)?(__FLOAT_BITS((__x))&2147483647)>2139095040:sizeof((__x))==sizeof(double)?(__DOUBLE_BITS((__x))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__x))==0)?((void)(__y),1):(sizeof((__y))==sizeof(float)?(__FLOAT_BITS((__y))&2147483647)>2139095040:sizeof((__y))==sizeof(double)?(__DOUBLE_BITS((__y))&18446744073709551615>>1)>2047<<52:__fpclassifyl((__y))==0))&&__x>=__y;
 }
 static inline int is_float(int t){
-void* __result_obj__;
 int bt_2;
-int __result1__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&bt_2, 0, sizeof(int));
     # 762 "tcc.h"
     # 763 "tcc.h"
     bt_2=t&15;
     # 764 "tcc.h"
-    __result1__ = bt_2==10||bt_2==9||bt_2==8;
-    return __result1__;
+    return bt_2==10||bt_2==9||bt_2==8;
 }
 static inline int is_space(int ch){
-void* __result_obj__;
-int __result2__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 770 "tcc.h"
-    __result2__ = ch==32||ch==9||ch==11||ch==12||ch==13;
-    return __result2__;
+    return ch==32||ch==9||ch==11||ch==12||ch==13;
 }
 static inline struct Sym* sym_malloc(){
 void* __result_obj__;
 struct Sym* sym_103;
-_Bool _if_conditional118;
-struct Sym* __result14__;
+struct Sym* __result11__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&sym_103, 0, sizeof(struct Sym*));
     # 533 "libtcc.c"
@@ -3584,79 +3541,55 @@ memset(&sym_103, 0, sizeof(struct Sym*));
     sym_103=sym_free_first;
     # 537 "libtcc.c"
     # 535 "libtcc.c"
-    if(_if_conditional118=!sym_103,    _if_conditional118) {
+    if(!sym_103) {
         # 536 "libtcc.c"
         sym_103=__sym_malloc();
     }
     # 537 "libtcc.c"
     sym_free_first=sym_103->next;
     # 538 "libtcc.c"
-    __result14__ = __result_obj__ = sym_103;
-    return __result14__;
+    __result11__ = __result_obj__ = sym_103;
+    return __result11__;
 }
 static inline void sym_free(struct Sym* sym){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 543 "libtcc.c"
     sym->next=sym_free_first;
     # 544 "libtcc.c"
     sym_free_first=sym;
 }
 static inline int isid(int c){
-void* __result_obj__;
-int __result19__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 747 "libtcc.c"
-    __result19__ = (c>=97&&c<=122)||(c>=65&&c<=90)||c==95;
-    return __result19__;
+    return (c>=97&&c<=122)||(c>=65&&c<=90)||c==95;
 }
 static inline int isnum(int c){
-void* __result_obj__;
-int __result20__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 752 "libtcc.c"
-    __result20__ = c>=48&&c<=57;
-    return __result20__;
+    return c>=48&&c<=57;
 }
 static inline int isoct(int c){
-void* __result_obj__;
-int __result21__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 757 "libtcc.c"
-    __result21__ = c>=48&&c<=55;
-    return __result21__;
+    return c>=48&&c<=55;
 }
 static inline int toup(int c){
-void* __result_obj__;
-_Bool _if_conditional130;
-int __result22__;
-int __result23__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 766 "libtcc.c"
     # 762 "libtcc.c"
-    if(_if_conditional130=c>=97&&c<=122,    _if_conditional130) {
+    if(c>=97&&c<=122) {
         # 763 "libtcc.c"
-        __result22__ = c-97+65;
-        return __result22__;
+        return c-97+65;
     }
     else {
         # 765 "libtcc.c"
-        __result23__ = c;
-        return __result23__;
+        return c;
     }
 }
 static inline void cstr_ccat(struct CString* cstr, int ch){
-void* __result_obj__;
 int size_132;
-_Bool _if_conditional142;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&size_132, 0, sizeof(int));
     # 907 "libtcc.c"
     # 908 "libtcc.c"
     size_132=cstr->size+1;
     # 911 "libtcc.c"
     # 909 "libtcc.c"
-    if(_if_conditional142=size_132>cstr->size_allocated,    _if_conditional142) {
+    if(size_132>cstr->size_allocated) {
         # 910 "libtcc.c"
         cstr_realloc(cstr,size_132);
     }
@@ -3667,81 +3600,66 @@ memset(&size_132, 0, sizeof(int));
 }
 static inline struct Sym* struct_find(int v){
 void* __result_obj__;
-_Bool _if_conditional149;
-struct Sym* __result27__;
-struct Sym* __result28__;
+struct Sym* __result19__;
+struct Sym* __result20__;
 memset(&__result_obj__, 0, sizeof(void*));
     # 1003 "libtcc.c"
     v-=256;
     # 1006 "libtcc.c"
     # 1004 "libtcc.c"
-    if(_if_conditional149=(unsigned int)v>=(unsigned int)(tok_ident-256),    _if_conditional149) {
+    if((unsigned int)v>=(unsigned int)(tok_ident-256)) {
         # 1005 "libtcc.c"
-        __result27__ = __result_obj__ = ((void*)0);
-        return __result27__;
+        __result19__ = __result_obj__ = ((void*)0);
+        return __result19__;
     }
     # 1006 "libtcc.c"
-    __result28__ = __result_obj__ = table_ident[v]->sym_struct;
-    return __result28__;
+    __result20__ = __result_obj__ = table_ident[v]->sym_struct;
+    return __result20__;
 }
 static inline struct Sym* sym_find(int v){
 void* __result_obj__;
-_Bool _if_conditional150;
-struct Sym* __result29__;
-struct Sym* __result30__;
+struct Sym* __result21__;
+struct Sym* __result22__;
 memset(&__result_obj__, 0, sizeof(void*));
     # 1012 "libtcc.c"
     v-=256;
     # 1015 "libtcc.c"
     # 1013 "libtcc.c"
-    if(_if_conditional150=(unsigned int)v>=(unsigned int)(tok_ident-256),    _if_conditional150) {
+    if((unsigned int)v>=(unsigned int)(tok_ident-256)) {
         # 1014 "libtcc.c"
-        __result29__ = __result_obj__ = ((void*)0);
-        return __result29__;
+        __result21__ = __result_obj__ = ((void*)0);
+        return __result21__;
     }
     # 1015 "libtcc.c"
-    __result30__ = __result_obj__ = table_ident[v]->sym_identifier;
-    return __result30__;
+    __result22__ = __result_obj__ = table_ident[v]->sym_identifier;
+    return __result22__;
 }
 static inline void inp(){
-void* __result_obj__;
-_Bool _if_conditional172;
-memset(&__result_obj__, 0, sizeof(void*));
     # 249 "tccpp.c"
     ch=*(++(file->buf_ptr));
     # 253 "tccpp.c"
     # 251 "tccpp.c"
-    if(_if_conditional172=ch==92,    _if_conditional172) {
+    if(ch==92) {
         # 252 "tccpp.c"
         ch=handle_eob();
     }
 }
 static inline void skip_spaces(){
-void* __result_obj__;
-_Bool _while_condtional13;
-memset(&__result_obj__, 0, sizeof(void*));
     # 457 "tccpp.c"
-    while(_while_condtional13=is_space(ch),    _while_condtional13) {
+    while(is_space(ch)) {
         # 456 "tccpp.c"
         minp();
     }
 }
 static inline int check_space(int t, int* spc){
-void* __result_obj__;
-_Bool _if_conditional199;
-_Bool _if_conditional200;
-int __result53__;
-int __result54__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 467 "tccpp.c"
     # 461 "tccpp.c"
-    if(_if_conditional199=is_space(t),    _if_conditional199) {
+    if(is_space(t)) {
         # 464 "tccpp.c"
         # 462 "tccpp.c"
-        if(_if_conditional200=*spc,        _if_conditional200) {
+        if(*spc) {
             # 463 "tccpp.c"
-            __result53__ = 1;
-            return __result53__;
+            return 1;
         }
         # 464 "tccpp.c"
         *spc=1;
@@ -3751,17 +3669,9 @@ memset(&__result_obj__, 0, sizeof(void*));
         *spc=0;
     }
     # 467 "tccpp.c"
-    __result54__ = 0;
-    return __result54__;
+    return 0;
 }
 static inline int tok_ext_size(int t){
-void* __result_obj__;
-int __result56__;
-int __result57__;
-int __result58__;
-int __result59__;
-int __result60__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 671 "tccpp.c"
     switch (t) {
         # 651 "tccpp.c"
@@ -3777,8 +3687,7 @@ memset(&__result_obj__, 0, sizeof(void*));
         # 656 "tccpp.c"
         case 186:
         # 656 "tccpp.c"
-        __result56__ = 1;
-        return __result56__;
+        return 1;
         # 658 "tccpp.c"
         case 181:
         # 659 "tccpp.c"
@@ -3788,8 +3697,7 @@ memset(&__result_obj__, 0, sizeof(void*));
         # 660 "tccpp.c"
         error("unsupported token");
         # 661 "tccpp.c"
-        __result57__ = 1;
-        return __result57__;
+        return 1;
         # 663 "tccpp.c"
         case 192:
         # 664 "tccpp.c"
@@ -3797,23 +3705,18 @@ memset(&__result_obj__, 0, sizeof(void*));
         # 665 "tccpp.c"
         case 202:
         # 665 "tccpp.c"
-        __result58__ = 2;
-        return __result58__;
+        return 2;
         # 667 "tccpp.c"
         case 193:
         # 667 "tccpp.c"
-        __result59__ = 16/4;
-        return __result59__;
+        return 16/4;
         # 669 "tccpp.c"
         default:
         # 669 "tccpp.c"
-        __result60__ = 0;
-        return __result60__;
+        return 0;
     }
 }
 static inline void tok_str_new(struct TokenString* s){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 677 "tccpp.c"
     s->str=((void*)0);
     # 678 "tccpp.c"
@@ -3824,9 +3727,7 @@ memset(&__result_obj__, 0, sizeof(void*));
     s->last_line_num=-1;
 }
 static inline void define_push(int v, int macro_type, int* str, struct Sym* first_arg){
-void* __result_obj__;
 struct Sym* s_181;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&s_181, 0, sizeof(struct Sym*));
     # 861 "tccpp.c"
     # 863 "tccpp.c"
@@ -3838,30 +3739,25 @@ memset(&s_181, 0, sizeof(struct Sym*));
 }
 static inline struct Sym* define_find(int v){
 void* __result_obj__;
-_Bool _if_conditional226;
-struct Sym* __result62__;
-struct Sym* __result63__;
+struct Sym* __result41__;
+struct Sym* __result42__;
 memset(&__result_obj__, 0, sizeof(void*));
     # 880 "tccpp.c"
     v-=256;
     # 883 "tccpp.c"
     # 881 "tccpp.c"
-    if(_if_conditional226=(unsigned int)v>=(unsigned int)(tok_ident-256),    _if_conditional226) {
+    if((unsigned int)v>=(unsigned int)(tok_ident-256)) {
         # 882 "tccpp.c"
-        __result62__ = __result_obj__ = ((void*)0);
-        return __result62__;
+        __result41__ = __result_obj__ = ((void*)0);
+        return __result41__;
     }
     # 883 "tccpp.c"
-    __result63__ = __result_obj__ = table_ident[v]->sym_define;
-    return __result63__;
+    __result42__ = __result_obj__ = table_ident[v]->sym_define;
+    return __result42__;
 }
 static inline int hash_cached_include(int type, const char* filename){
-void* __result_obj__;
 const unsigned char* s_202;
 unsigned int h_203;
-_Bool _while_condtional20;
-int __result68__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&s_202, 0, sizeof(const unsigned char*));
 memset(&h_203, 0, sizeof(unsigned int));
     # 1085 "tccpp.c"
@@ -3873,7 +3769,7 @@ memset(&h_203, 0, sizeof(unsigned int));
     # 1090 "tccpp.c"
     s_202=filename;
     # 1095 "tccpp.c"
-    while(_while_condtional20=*s_202,    _while_condtional20) {
+    while(*s_202) {
         # 1092 "tccpp.c"
         h_203=((h_203)*263+(*s_202));
         # 1093 "tccpp.c"
@@ -3882,23 +3778,18 @@ memset(&h_203, 0, sizeof(unsigned int));
     # 1095 "tccpp.c"
     h_203&=(512-1);
     # 1096 "tccpp.c"
-    __result68__ = h_203;
-    return __result68__;
+    return h_203;
 }
 static inline void add_cached_include(struct TCCState* s1, int type, const char* filename, int ifndef_macro){
-void* __result_obj__;
 struct CachedInclude* e_207;
 int h_208;
-_Bool _if_conditional247;
-_Bool _if_conditional248;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&e_207, 0, sizeof(struct CachedInclude*));
 memset(&h_208, 0, sizeof(int));
     # 1121 "tccpp.c"
     # 1122 "tccpp.c"
     # 1129 "tccpp.c"
     # 1124 "tccpp.c"
-    if(_if_conditional247=search_cached_include(s1,type,filename),    _if_conditional247) {
+    if(search_cached_include(s1,type,filename)) {
         # 1125 "tccpp.c"
         return;
     }
@@ -3906,7 +3797,7 @@ memset(&h_208, 0, sizeof(int));
     e_207=tcc_malloc(sizeof(struct CachedInclude)+strlen(filename));
     # 1132 "tccpp.c"
     # 1130 "tccpp.c"
-    if(_if_conditional248=!e_207,    _if_conditional248) {
+    if(!e_207) {
         # 1131 "tccpp.c"
         return;
     }
@@ -3926,7 +3817,6 @@ memset(&h_208, 0, sizeof(int));
     s1->cached_includes_hash[h_208]=s1->nb_cached_includes;
 }
 static inline void next_nomacro1(){
-void* __result_obj__;
 int t_244;
 int c_245;
 int is_long_246;
@@ -3934,87 +3824,18 @@ struct TokenSym* ts_247;
 unsigned char* p_248;
 unsigned char* p1_249;
 unsigned int h_250;
-_Bool _if_conditional346;
-_Bool _if_conditional347;
 struct TCCState* s1_251;
-_Bool _if_conditional348;
-_Bool _elif_conditional85;
-_Bool _if_conditional349;
-_Bool _if_conditional350;
-_Bool _if_conditional351;
-_Bool _if_conditional352;
-_Bool _if_conditional353;
-_Bool _if_conditional354;
-_Bool _if_conditional355;
-_Bool _if_conditional356;
-_Bool _if_conditional357;
 struct TokenSym** pts_252;
 int len_253;
-_Bool _if_conditional358;
-_Bool _if_conditional359;
-_Bool _while_condtional34;
-_Bool _if_conditional360;
-_Bool _while_condtional35;
-_Bool _if_conditional361;
-_Bool _if_conditional362;
-_Bool _if_conditional363;
-_Bool _if_conditional364;
-_Bool _if_conditional365;
-_Bool _if_conditional366;
-_Bool _if_conditional367;
-_Bool _if_conditional368;
-_Bool _elif_conditional86;
-_Bool _if_conditional369;
-_Bool _if_conditional370;
-_Bool _if_conditional371;
 struct CString str_254;
 int sep_255;
-_Bool _if_conditional372;
 int char_size_256;
-_Bool _if_conditional373;
-_Bool _if_conditional374;
-_Bool _if_conditional375;
-_Bool _if_conditional376;
-_Bool _if_conditional377;
-_Bool _if_conditional378;
-_Bool _if_conditional379;
-_Bool _elif_conditional87;
-_Bool _if_conditional380;
-_Bool _if_conditional381;
-_Bool _if_conditional382;
-_Bool _if_conditional383;
-_Bool _elif_conditional88;
-_Bool _if_conditional384;
-_Bool _if_conditional385;
-_Bool _if_conditional386;
-_Bool _if_conditional387;
-_Bool _elif_conditional89;
-_Bool _if_conditional388;
-_Bool _if_conditional389;
-_Bool _elif_conditional90;
-_Bool _if_conditional390;
-_Bool _if_conditional391;
-_Bool _elif_conditional91;
-_Bool _if_conditional392;
-_Bool _if_conditional393;
-_Bool _elif_conditional92;
-_Bool _elif_conditional93;
-_Bool _if_conditional394;
-_Bool _if_conditional395;
-_Bool _if_conditional396;
-_Bool _if_conditional397;
-_Bool _if_conditional398;
-_Bool _if_conditional399;
-_Bool _if_conditional400;
-_Bool _if_conditional401;
-_Bool _if_conditional402;
-_Bool _if_conditional403;
-_Bool _if_conditional404;
-_Bool _if_conditional405;
-_Bool _elif_conditional94;
-_Bool _elif_conditional95;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&t_244, 0, sizeof(int));
+memset(&c_245, 0, sizeof(int));
+memset(&is_long_246, 0, sizeof(int));
 memset(&ts_247, 0, sizeof(struct TokenSym*));
+memset(&p_248, 0, sizeof(unsigned char*));
+memset(&p1_249, 0, sizeof(unsigned char*));
 memset(&h_250, 0, sizeof(unsigned int));
 memset(&s1_251, 0, sizeof(struct TCCState*));
 memset(&pts_252, 0, sizeof(struct TokenSym**));
@@ -4058,7 +3879,7 @@ memset(&char_size_256, 0, sizeof(int));
         case 92:
         # 1932 "tccpp.c"
         # 1917 "tccpp.c"
-        if(_if_conditional346=p_248>=file->buf_end,        _if_conditional346) {
+        if(p_248>=file->buf_end) {
             # 1918 "tccpp.c"
             file->buf_ptr=p_248;
             # 1919 "tccpp.c"
@@ -4067,7 +3888,7 @@ memset(&char_size_256, 0, sizeof(int));
             p_248=file->buf_ptr;
             # 1925 "tccpp.c"
             # 1921 "tccpp.c"
-            if(_if_conditional347=p_248>=file->buf_end,            _if_conditional347) {
+            if(p_248>=file->buf_end) {
                 # 1922 "tccpp.c"
                 goto parse_eof;
             }
@@ -4096,7 +3917,7 @@ memset(&char_size_256, 0, sizeof(int));
             s1_251=tcc_state;
             # 1969 "tccpp.c"
             # 1936 "tccpp.c"
-            if(_if_conditional348=(parse_flags&4)&&!(tok_flags&8),            _if_conditional348) {
+            if((parse_flags&4)&&!(tok_flags&8)) {
                 # 1937 "tccpp.c"
                 tok_flags|=8;
                 # 1938 "tccpp.c"
@@ -4105,7 +3926,7 @@ memset(&char_size_256, 0, sizeof(int));
                 goto keep_tok_flags;
             }
             # 1941 "tccpp.c"
-            else if(_elif_conditional85=s1_251->include_stack_ptr==s1_251->include_stack||!(parse_flags&1),            _elif_conditional85) {
+            else if(s1_251->include_stack_ptr==s1_251->include_stack||!(parse_flags&1)) {
                 # 1943 "tccpp.c"
                 tok=(-1);
             }
@@ -4114,7 +3935,7 @@ memset(&char_size_256, 0, sizeof(int));
                 tok_flags&=~8;
                 # 1959 "tccpp.c"
                 # 1950 "tccpp.c"
-                if(_if_conditional349=tok_flags&4,                _if_conditional349) {
+                if(tok_flags&4) {
                     # 1955 "tccpp.c"
                     add_cached_include(s1_251,file->inc_type,file->inc_filename,file->ifndef_macro_saved);
                 }
@@ -4148,7 +3969,7 @@ memset(&char_size_256, 0, sizeof(int));
         p_248++;
         # 1978 "tccpp.c"
         # 1976 "tccpp.c"
-        if(_if_conditional351=0==(parse_flags&4),        _if_conditional351) {
+        if(0==(parse_flags&4)) {
             # 1977 "tccpp.c"
             goto redo_no_start;
         }
@@ -4166,7 +3987,7 @@ memset(&char_size_256, 0, sizeof(int));
             c_245=*p_248;
             # 1983 "tccpp.c"
             # 1983 "tccpp.c"
-            if(_if_conditional352=c_245==92,            _if_conditional352) {
+            if(c_245==92) {
                 # 1983 "tccpp.c"
                 c_245=handle_stray1(p_248);
                 # 1983 "tccpp.c"
@@ -4175,7 +3996,7 @@ memset(&char_size_256, 0, sizeof(int));
         }
         # 2003 "tccpp.c"
         # 1985 "tccpp.c"
-        if(_if_conditional353=(tok_flags&1)&&(parse_flags&1),        _if_conditional353) {
+        if((tok_flags&1)&&(parse_flags&1)) {
             # 1986 "tccpp.c"
             file->buf_ptr=p_248;
             # 1987 "tccpp.c"
@@ -4188,7 +4009,7 @@ memset(&char_size_256, 0, sizeof(int));
         else {
             # 2002 "tccpp.c"
             # 1991 "tccpp.c"
-            if(_if_conditional354=c_245==35,            _if_conditional354) {
+            if(c_245==35) {
                 # 1992 "tccpp.c"
                 p_248++;
                 # 1993 "tccpp.c"
@@ -4197,7 +4018,7 @@ memset(&char_size_256, 0, sizeof(int));
             else {
                 # 2001 "tccpp.c"
                 # 1995 "tccpp.c"
-                if(_if_conditional355=parse_flags&8,                _if_conditional355) {
+                if(parse_flags&8) {
                     # 1996 "tccpp.c"
                     p_248=parse_line_comment(p_248-1);
                     # 1997 "tccpp.c"
@@ -4331,7 +4152,7 @@ memset(&char_size_256, 0, sizeof(int));
             c_245=*p_248;
             # 2029 "tccpp.c"
             # 2027 "tccpp.c"
-            if(_if_conditional356=!isidnum_table[c_245-(-1)],            _if_conditional356) {
+            if(!isidnum_table[c_245-(-1)]) {
                 # 2028 "tccpp.c"
                 break;
             }
@@ -4342,7 +4163,7 @@ memset(&char_size_256, 0, sizeof(int));
         }
         # 2068 "tccpp.c"
         # 2032 "tccpp.c"
-        if(_if_conditional357=c_245!=92,        _if_conditional357) {
+        if(c_245!=92) {
             # 2033 "tccpp.c"
             # 2034 "tccpp.c"
             # 2038 "tccpp.c"
@@ -4357,13 +4178,13 @@ memset(&char_size_256, 0, sizeof(int));
                 ts_247=*pts_252;
                 # 2045 "tccpp.c"
                 # 2043 "tccpp.c"
-                if(_if_conditional358=!ts_247,                _if_conditional358) {
+                if(!ts_247) {
                     # 2044 "tccpp.c"
                     break;
                 }
                 # 2047 "tccpp.c"
                 # 2045 "tccpp.c"
-                if(_if_conditional359=ts_247->len==len_253&&!memcmp(ts_247->str,p1_249,len_253),                _if_conditional359) {
+                if(ts_247->len==len_253&&!memcmp(ts_247->str,p1_249,len_253)) {
                     # 2046 "tccpp.c"
                     goto token_found;
                 }
@@ -4379,7 +4200,7 @@ memset(&char_size_256, 0, sizeof(int));
             # 2053 "tccpp.c"
             cstr_free(&tokcstr);
             # 2059 "tccpp.c"
-            while(_while_condtional34=p1_249<p_248,            _while_condtional34) {
+            while(p1_249<p_248) {
                 # 2056 "tccpp.c"
                 cstr_ccat(&tokcstr,*p1_249);
                 # 2057 "tccpp.c"
@@ -4395,7 +4216,7 @@ memset(&char_size_256, 0, sizeof(int));
                 c_245=*p_248;
                 # 2060 "tccpp.c"
                 # 2060 "tccpp.c"
-                if(_if_conditional360=c_245==92,                _if_conditional360) {
+                if(c_245==92) {
                     # 2060 "tccpp.c"
                     c_245=handle_stray1(p_248);
                     # 2060 "tccpp.c"
@@ -4405,7 +4226,7 @@ memset(&char_size_256, 0, sizeof(int));
             # 2062 "tccpp.c"
             parse_ident_slow:
             # 2066 "tccpp.c"
-            while(_while_condtional35=isidnum_table[c_245-(-1)],            _while_condtional35) {
+            while(isidnum_table[c_245-(-1)]) {
                 # 2063 "tccpp.c"
                 cstr_ccat(&tokcstr,c_245);
                 # 2064 "tccpp.c"
@@ -4416,7 +4237,7 @@ memset(&char_size_256, 0, sizeof(int));
                     c_245=*p_248;
                     # 2064 "tccpp.c"
                     # 2064 "tccpp.c"
-                    if(_if_conditional361=c_245==92,                    _if_conditional361) {
+                    if(c_245==92) {
                         # 2064 "tccpp.c"
                         c_245=handle_stray1(p_248);
                         # 2064 "tccpp.c"
@@ -4437,7 +4258,7 @@ memset(&char_size_256, 0, sizeof(int));
         t_244=p_248[1];
         # 2086 "tccpp.c"
         # 2072 "tccpp.c"
-        if(_if_conditional362=t_244!=92&&t_244!=39&&t_244!=34,        _if_conditional362) {
+        if(t_244!=92&&t_244!=39&&t_244!=34) {
             # 2074 "tccpp.c"
             goto parse_ident_fast;
         }
@@ -4450,7 +4271,7 @@ memset(&char_size_256, 0, sizeof(int));
                 c_245=*p_248;
                 # 2076 "tccpp.c"
                 # 2076 "tccpp.c"
-                if(_if_conditional363=c_245==92,                _if_conditional363) {
+                if(c_245==92) {
                     # 2076 "tccpp.c"
                     c_245=handle_stray1(p_248);
                     # 2076 "tccpp.c"
@@ -4459,7 +4280,7 @@ memset(&char_size_256, 0, sizeof(int));
             }
             # 2085 "tccpp.c"
             # 2077 "tccpp.c"
-            if(_if_conditional364=c_245==39||c_245==34,            _if_conditional364) {
+            if(c_245==39||c_245==34) {
                 # 2078 "tccpp.c"
                 is_long_246=1;
                 # 2079 "tccpp.c"
@@ -4514,7 +4335,7 @@ memset(&char_size_256, 0, sizeof(int));
                 c_245=*p_248;
                 # 2098 "tccpp.c"
                 # 2098 "tccpp.c"
-                if(_if_conditional365=c_245==92,                _if_conditional365) {
+                if(c_245==92) {
                     # 2098 "tccpp.c"
                     c_245=handle_stray1(p_248);
                     # 2098 "tccpp.c"
@@ -4523,7 +4344,7 @@ memset(&char_size_256, 0, sizeof(int));
             }
             # 2103 "tccpp.c"
             # 2101 "tccpp.c"
-            if(_if_conditional366=!(isnum(c_245)||isid(c_245)||c_245==46||((c_245==43||c_245==45)&&(t_244==101||t_244==69||t_244==112||t_244==80))),            _if_conditional366) {
+            if(!(isnum(c_245)||isid(c_245)||c_245==46||((c_245==43||c_245==45)&&(t_244==101||t_244==69||t_244==112||t_244==80)))) {
                 # 2102 "tccpp.c"
                 break;
             }
@@ -4546,7 +4367,7 @@ memset(&char_size_256, 0, sizeof(int));
             c_245=*p_248;
             # 2111 "tccpp.c"
             # 2111 "tccpp.c"
-            if(_if_conditional367=c_245==92,            _if_conditional367) {
+            if(c_245==92) {
                 # 2111 "tccpp.c"
                 c_245=handle_stray1(p_248);
                 # 2111 "tccpp.c"
@@ -4555,7 +4376,7 @@ memset(&char_size_256, 0, sizeof(int));
         }
         # 2125 "tccpp.c"
         # 2112 "tccpp.c"
-        if(_if_conditional368=isnum(c_245),        _if_conditional368) {
+        if(isnum(c_245)) {
             # 2113 "tccpp.c"
             cstr_free(&tokcstr);
             # 2114 "tccpp.c"
@@ -4564,7 +4385,7 @@ memset(&char_size_256, 0, sizeof(int));
             goto parse_num;
         }
         # 2116 "tccpp.c"
-        else if(_elif_conditional86=c_245==46,        _elif_conditional86) {
+        else if(c_245==46) {
             # 2117 "tccpp.c"
             {
                 # 2117 "tccpp.c"
@@ -4573,7 +4394,7 @@ memset(&char_size_256, 0, sizeof(int));
                 c_245=*p_248;
                 # 2117 "tccpp.c"
                 # 2117 "tccpp.c"
-                if(_if_conditional369=c_245==92,                _if_conditional369) {
+                if(c_245==92) {
                     # 2117 "tccpp.c"
                     c_245=handle_stray1(p_248);
                     # 2117 "tccpp.c"
@@ -4582,7 +4403,7 @@ memset(&char_size_256, 0, sizeof(int));
             }
             # 2120 "tccpp.c"
             # 2118 "tccpp.c"
-            if(_if_conditional370=c_245!=46,            _if_conditional370) {
+            if(c_245!=46) {
                 # 2119 "tccpp.c"
                 expect("'.'");
             }
@@ -4594,7 +4415,7 @@ memset(&char_size_256, 0, sizeof(int));
                 c_245=*p_248;
                 # 2120 "tccpp.c"
                 # 2120 "tccpp.c"
-                if(_if_conditional371=c_245==92,                _if_conditional371) {
+                if(c_245==92) {
                     # 2120 "tccpp.c"
                     c_245=handle_stray1(p_248);
                     # 2120 "tccpp.c"
@@ -4638,11 +4459,11 @@ memset(&char_size_256, 0, sizeof(int));
             cstr_free(&str_254);
             # 2171 "tccpp.c"
             # 2146 "tccpp.c"
-            if(_if_conditional372=sep_255==39,            _if_conditional372) {
+            if(sep_255==39) {
                 # 2147 "tccpp.c"
                 # 2153 "tccpp.c"
                 # 2149 "tccpp.c"
-                if(_if_conditional373=!is_long_246,                _if_conditional373) {
+                if(!is_long_246) {
                     # 2150 "tccpp.c"
                     char_size_256=1;
                 }
@@ -4652,19 +4473,19 @@ memset(&char_size_256, 0, sizeof(int));
                 }
                 # 2155 "tccpp.c"
                 # 2153 "tccpp.c"
-                if(_if_conditional374=tokcstr.size<=char_size_256,                _if_conditional374) {
+                if(tokcstr.size<=char_size_256) {
                     # 2154 "tccpp.c"
                     error("empty character constant");
                 }
                 # 2157 "tccpp.c"
                 # 2155 "tccpp.c"
-                if(_if_conditional375=tokcstr.size>2*char_size_256,                _if_conditional375) {
+                if(tokcstr.size>2*char_size_256) {
                     # 2156 "tccpp.c"
                     warning("multi-character character constant");
                 }
                 # 2164 "tccpp.c"
                 # 2157 "tccpp.c"
-                if(_if_conditional376=!is_long_246,                _if_conditional376) {
+                if(!is_long_246) {
                     # 2158 "tccpp.c"
                     tokc.i=*(char*)tokcstr.data;
                     # 2159 "tccpp.c"
@@ -4682,7 +4503,7 @@ memset(&char_size_256, 0, sizeof(int));
                 tokc.cstr=&tokcstr;
                 # 2170 "tccpp.c"
                 # 2166 "tccpp.c"
-                if(_if_conditional377=!is_long_246,                _if_conditional377) {
+                if(!is_long_246) {
                     # 2167 "tccpp.c"
                     tok=181;
                 }
@@ -4705,7 +4526,7 @@ memset(&char_size_256, 0, sizeof(int));
             c_245=*p_248;
             # 2175 "tccpp.c"
             # 2175 "tccpp.c"
-            if(_if_conditional378=c_245==92,            _if_conditional378) {
+            if(c_245==92) {
                 # 2175 "tccpp.c"
                 c_245=handle_stray1(p_248);
                 # 2175 "tccpp.c"
@@ -4714,14 +4535,14 @@ memset(&char_size_256, 0, sizeof(int));
         }
         # 2190 "tccpp.c"
         # 2176 "tccpp.c"
-        if(_if_conditional379=c_245==61,        _if_conditional379) {
+        if(c_245==61) {
             # 2177 "tccpp.c"
             p_248++;
             # 2178 "tccpp.c"
             tok=158;
         }
         # 2179 "tccpp.c"
-        else if(_elif_conditional87=c_245==60,        _elif_conditional87) {
+        else if(c_245==60) {
             # 2180 "tccpp.c"
             {
                 # 2180 "tccpp.c"
@@ -4730,7 +4551,7 @@ memset(&char_size_256, 0, sizeof(int));
                 c_245=*p_248;
                 # 2180 "tccpp.c"
                 # 2180 "tccpp.c"
-                if(_if_conditional380=c_245==92,                _if_conditional380) {
+                if(c_245==92) {
                     # 2180 "tccpp.c"
                     c_245=handle_stray1(p_248);
                     # 2180 "tccpp.c"
@@ -4739,7 +4560,7 @@ memset(&char_size_256, 0, sizeof(int));
             }
             # 2187 "tccpp.c"
             # 2181 "tccpp.c"
-            if(_if_conditional381=c_245==61,            _if_conditional381) {
+            if(c_245==61) {
                 # 2182 "tccpp.c"
                 p_248++;
                 # 2183 "tccpp.c"
@@ -4766,7 +4587,7 @@ memset(&char_size_256, 0, sizeof(int));
             c_245=*p_248;
             # 2193 "tccpp.c"
             # 2193 "tccpp.c"
-            if(_if_conditional382=c_245==92,            _if_conditional382) {
+            if(c_245==92) {
                 # 2193 "tccpp.c"
                 c_245=handle_stray1(p_248);
                 # 2193 "tccpp.c"
@@ -4775,14 +4596,14 @@ memset(&char_size_256, 0, sizeof(int));
         }
         # 2208 "tccpp.c"
         # 2194 "tccpp.c"
-        if(_if_conditional383=c_245==61,        _if_conditional383) {
+        if(c_245==61) {
             # 2195 "tccpp.c"
             p_248++;
             # 2196 "tccpp.c"
             tok=157;
         }
         # 2197 "tccpp.c"
-        else if(_elif_conditional88=c_245==62,        _elif_conditional88) {
+        else if(c_245==62) {
             # 2198 "tccpp.c"
             {
                 # 2198 "tccpp.c"
@@ -4791,7 +4612,7 @@ memset(&char_size_256, 0, sizeof(int));
                 c_245=*p_248;
                 # 2198 "tccpp.c"
                 # 2198 "tccpp.c"
-                if(_if_conditional384=c_245==92,                _if_conditional384) {
+                if(c_245==92) {
                     # 2198 "tccpp.c"
                     c_245=handle_stray1(p_248);
                     # 2198 "tccpp.c"
@@ -4800,7 +4621,7 @@ memset(&char_size_256, 0, sizeof(int));
             }
             # 2205 "tccpp.c"
             # 2199 "tccpp.c"
-            if(_if_conditional385=c_245==61,            _if_conditional385) {
+            if(c_245==61) {
                 # 2200 "tccpp.c"
                 p_248++;
                 # 2201 "tccpp.c"
@@ -4827,7 +4648,7 @@ memset(&char_size_256, 0, sizeof(int));
             c_245=*p_248;
             # 2211 "tccpp.c"
             # 2211 "tccpp.c"
-            if(_if_conditional386=c_245==92,            _if_conditional386) {
+            if(c_245==92) {
                 # 2211 "tccpp.c"
                 c_245=handle_stray1(p_248);
                 # 2211 "tccpp.c"
@@ -4836,14 +4657,14 @@ memset(&char_size_256, 0, sizeof(int));
         }
         # 2221 "tccpp.c"
         # 2212 "tccpp.c"
-        if(_if_conditional387=c_245==38,        _if_conditional387) {
+        if(c_245==38) {
             # 2213 "tccpp.c"
             p_248++;
             # 2214 "tccpp.c"
             tok=160;
         }
         # 2215 "tccpp.c"
-        else if(_elif_conditional89=c_245==61,        _elif_conditional89) {
+        else if(c_245==61) {
             # 2216 "tccpp.c"
             p_248++;
             # 2217 "tccpp.c"
@@ -4865,7 +4686,7 @@ memset(&char_size_256, 0, sizeof(int));
             c_245=*p_248;
             # 2224 "tccpp.c"
             # 2224 "tccpp.c"
-            if(_if_conditional388=c_245==92,            _if_conditional388) {
+            if(c_245==92) {
                 # 2224 "tccpp.c"
                 c_245=handle_stray1(p_248);
                 # 2224 "tccpp.c"
@@ -4874,14 +4695,14 @@ memset(&char_size_256, 0, sizeof(int));
         }
         # 2234 "tccpp.c"
         # 2225 "tccpp.c"
-        if(_if_conditional389=c_245==124,        _if_conditional389) {
+        if(c_245==124) {
             # 2226 "tccpp.c"
             p_248++;
             # 2227 "tccpp.c"
             tok=161;
         }
         # 2228 "tccpp.c"
-        else if(_elif_conditional90=c_245==61,        _elif_conditional90) {
+        else if(c_245==61) {
             # 2229 "tccpp.c"
             p_248++;
             # 2230 "tccpp.c"
@@ -4903,7 +4724,7 @@ memset(&char_size_256, 0, sizeof(int));
             c_245=*p_248;
             # 2237 "tccpp.c"
             # 2237 "tccpp.c"
-            if(_if_conditional390=c_245==92,            _if_conditional390) {
+            if(c_245==92) {
                 # 2237 "tccpp.c"
                 c_245=handle_stray1(p_248);
                 # 2237 "tccpp.c"
@@ -4912,14 +4733,14 @@ memset(&char_size_256, 0, sizeof(int));
         }
         # 2247 "tccpp.c"
         # 2238 "tccpp.c"
-        if(_if_conditional391=c_245==43,        _if_conditional391) {
+        if(c_245==43) {
             # 2239 "tccpp.c"
             p_248++;
             # 2240 "tccpp.c"
             tok=164;
         }
         # 2241 "tccpp.c"
-        else if(_elif_conditional91=c_245==61,        _elif_conditional91) {
+        else if(c_245==61) {
             # 2242 "tccpp.c"
             p_248++;
             # 2243 "tccpp.c"
@@ -4941,7 +4762,7 @@ memset(&char_size_256, 0, sizeof(int));
             c_245=*p_248;
             # 2250 "tccpp.c"
             # 2250 "tccpp.c"
-            if(_if_conditional392=c_245==92,            _if_conditional392) {
+            if(c_245==92) {
                 # 2250 "tccpp.c"
                 c_245=handle_stray1(p_248);
                 # 2250 "tccpp.c"
@@ -4950,21 +4771,21 @@ memset(&char_size_256, 0, sizeof(int));
         }
         # 2263 "tccpp.c"
         # 2251 "tccpp.c"
-        if(_if_conditional393=c_245==45,        _if_conditional393) {
+        if(c_245==45) {
             # 2252 "tccpp.c"
             p_248++;
             # 2253 "tccpp.c"
             tok=162;
         }
         # 2254 "tccpp.c"
-        else if(_elif_conditional92=c_245==61,        _elif_conditional92) {
+        else if(c_245==61) {
             # 2255 "tccpp.c"
             p_248++;
             # 2256 "tccpp.c"
             tok=173;
         }
         # 2257 "tccpp.c"
-        else if(_elif_conditional93=c_245==62,        _elif_conditional93) {
+        else if(c_245==62) {
             # 2258 "tccpp.c"
             p_248++;
             # 2259 "tccpp.c"
@@ -4986,7 +4807,7 @@ memset(&char_size_256, 0, sizeof(int));
             c_245=*p_248;
             # 2265 "tccpp.c"
             # 2265 "tccpp.c"
-            if(_if_conditional394=c_245==92,            _if_conditional394) {
+            if(c_245==92) {
                 # 2265 "tccpp.c"
                 c_245=handle_stray1(p_248);
                 # 2265 "tccpp.c"
@@ -4995,7 +4816,7 @@ memset(&char_size_256, 0, sizeof(int));
         }
         # 2265 "tccpp.c"
         # 2265 "tccpp.c"
-        if(_if_conditional395=c_245==61,        _if_conditional395) {
+        if(c_245==61) {
             # 2265 "tccpp.c"
             p_248++;
             # 2265 "tccpp.c"
@@ -5017,7 +4838,7 @@ memset(&char_size_256, 0, sizeof(int));
             c_245=*p_248;
             # 2266 "tccpp.c"
             # 2266 "tccpp.c"
-            if(_if_conditional396=c_245==92,            _if_conditional396) {
+            if(c_245==92) {
                 # 2266 "tccpp.c"
                 c_245=handle_stray1(p_248);
                 # 2266 "tccpp.c"
@@ -5026,7 +4847,7 @@ memset(&char_size_256, 0, sizeof(int));
         }
         # 2266 "tccpp.c"
         # 2266 "tccpp.c"
-        if(_if_conditional397=c_245==61,        _if_conditional397) {
+        if(c_245==61) {
             # 2266 "tccpp.c"
             p_248++;
             # 2266 "tccpp.c"
@@ -5048,7 +4869,7 @@ memset(&char_size_256, 0, sizeof(int));
             c_245=*p_248;
             # 2267 "tccpp.c"
             # 2267 "tccpp.c"
-            if(_if_conditional398=c_245==92,            _if_conditional398) {
+            if(c_245==92) {
                 # 2267 "tccpp.c"
                 c_245=handle_stray1(p_248);
                 # 2267 "tccpp.c"
@@ -5057,7 +4878,7 @@ memset(&char_size_256, 0, sizeof(int));
         }
         # 2267 "tccpp.c"
         # 2267 "tccpp.c"
-        if(_if_conditional399=c_245==61,        _if_conditional399) {
+        if(c_245==61) {
             # 2267 "tccpp.c"
             p_248++;
             # 2267 "tccpp.c"
@@ -5079,7 +4900,7 @@ memset(&char_size_256, 0, sizeof(int));
             c_245=*p_248;
             # 2268 "tccpp.c"
             # 2268 "tccpp.c"
-            if(_if_conditional400=c_245==92,            _if_conditional400) {
+            if(c_245==92) {
                 # 2268 "tccpp.c"
                 c_245=handle_stray1(p_248);
                 # 2268 "tccpp.c"
@@ -5088,7 +4909,7 @@ memset(&char_size_256, 0, sizeof(int));
         }
         # 2268 "tccpp.c"
         # 2268 "tccpp.c"
-        if(_if_conditional401=c_245==61,        _if_conditional401) {
+        if(c_245==61) {
             # 2268 "tccpp.c"
             p_248++;
             # 2268 "tccpp.c"
@@ -5110,7 +4931,7 @@ memset(&char_size_256, 0, sizeof(int));
             c_245=*p_248;
             # 2269 "tccpp.c"
             # 2269 "tccpp.c"
-            if(_if_conditional402=c_245==92,            _if_conditional402) {
+            if(c_245==92) {
                 # 2269 "tccpp.c"
                 c_245=handle_stray1(p_248);
                 # 2269 "tccpp.c"
@@ -5119,7 +4940,7 @@ memset(&char_size_256, 0, sizeof(int));
         }
         # 2269 "tccpp.c"
         # 2269 "tccpp.c"
-        if(_if_conditional403=c_245==61,        _if_conditional403) {
+        if(c_245==61) {
             # 2269 "tccpp.c"
             p_248++;
             # 2269 "tccpp.c"
@@ -5141,7 +4962,7 @@ memset(&char_size_256, 0, sizeof(int));
             c_245=*p_248;
             # 2273 "tccpp.c"
             # 2273 "tccpp.c"
-            if(_if_conditional404=c_245==92,            _if_conditional404) {
+            if(c_245==92) {
                 # 2273 "tccpp.c"
                 c_245=handle_stray1(p_248);
                 # 2273 "tccpp.c"
@@ -5150,21 +4971,21 @@ memset(&char_size_256, 0, sizeof(int));
         }
         # 2286 "tccpp.c"
         # 2274 "tccpp.c"
-        if(_if_conditional405=c_245==42,        _if_conditional405) {
+        if(c_245==42) {
             # 2275 "tccpp.c"
             p_248=parse_comment(p_248);
             # 2276 "tccpp.c"
             goto redo_no_start;
         }
         # 2277 "tccpp.c"
-        else if(_elif_conditional94=c_245==47,        _elif_conditional94) {
+        else if(c_245==47) {
             # 2278 "tccpp.c"
             p_248=parse_line_comment(p_248);
             # 2279 "tccpp.c"
             goto redo_no_start;
         }
         # 2280 "tccpp.c"
-        else if(_elif_conditional95=c_245==61,        _elif_conditional95) {
+        else if(c_245==61) {
             # 2281 "tccpp.c"
             p_248++;
             # 2282 "tccpp.c"
@@ -5233,30 +5054,18 @@ const char* p2_289;
 union CValue cval_290;
 struct TokenString macro_str1_291;
 struct CString cstr_292;
-_Bool _if_conditional436;
-_Bool _if_conditional437;
-int* __result74__;
-_Bool _if_conditional438;
-_Bool _if_conditional439;
-_Bool _while_condtional41;
-_Bool _if_conditional440;
-_Bool _if_conditional441;
-_Bool _if_conditional442;
-_Bool _if_conditional443;
+int* __result52__;
 const char* p_293;
 int c_294;
-_Bool _if_conditional444;
-_Bool _if_conditional445;
 const unsigned char* q_296;
-_Bool _if_conditional446;
-_Bool _elif_conditional100;
-_Bool _elif_conditional101;
-_Bool _if_conditional447;
-_Bool _if_conditional448;
-int* __result75__;
+int* __result53__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&ts_284, 0, sizeof(struct TokenSym*));
+memset(&ptr_285, 0, sizeof(const int*));
+memset(&saved_macro_ptr_286, 0, sizeof(const int*));
 memset(&t_287, 0, sizeof(int));
+memset(&p1_288, 0, sizeof(const char*));
+memset(&p2_289, 0, sizeof(const char*));
 memset(&cval_290, 0, sizeof(union CValue));
 memset(&macro_str1_291, 0, sizeof(struct TokenString));
 memset(&cstr_292, 0, sizeof(struct CString));
@@ -5344,18 +5153,18 @@ memset(&q_296, 0, sizeof(const unsigned char*));
         }
         # 2615 "tccpp.c"
         # 2612 "tccpp.c"
-        if(_if_conditional436=t_287==182,        _if_conditional436) {
+        if(t_287==182) {
             # 2613 "tccpp.c"
             break;
         }
         # 2617 "tccpp.c"
         # 2615 "tccpp.c"
-        if(_if_conditional437=t_287==0,        _if_conditional437) {
+        if(t_287==0) {
             # 2616 "tccpp.c"
-            __result74__ = __result_obj__ = ((void*)0);
+            __result52__ = __result_obj__ = ((void*)0);
             come_call_finalizer3((&macro_str1_291),TokenString_finalize, 1, 0, 0, 0, (void*)0);
             come_call_finalizer3((&cstr_292),CString_finalize, 1, 0, 0, 0, (void*)0);
-            return __result74__;
+            return __result52__;
         }
     }
     # 2620 "tccpp.c"
@@ -5372,23 +5181,23 @@ memset(&q_296, 0, sizeof(const unsigned char*));
         next_nomacro_spc();
         # 2629 "tccpp.c"
         # 2627 "tccpp.c"
-        if(_if_conditional438=tok==0,        _if_conditional438) {
+        if(tok==0) {
             # 2628 "tccpp.c"
             break;
         }
         # 2631 "tccpp.c"
         # 2629 "tccpp.c"
-        if(_if_conditional439=tok==182,        _if_conditional439) {
+        if(tok==182) {
             # 2630 "tccpp.c"
             continue;
         }
         # 2714 "tccpp.c"
-        while(_while_condtional41=*macro_ptr==182,        _while_condtional41) {
+        while(*macro_ptr==182) {
             # 2632 "tccpp.c"
             t_287=*++macro_ptr;
             # 2713 "tccpp.c"
             # 2633 "tccpp.c"
-            if(_if_conditional440=t_287&&t_287!=182,            _if_conditional440) {
+            if(t_287&&t_287!=182) {
                 # 2634 "tccpp.c"
                 {
                     # 2634 "tccpp.c"
@@ -5473,10 +5282,10 @@ memset(&q_296, 0, sizeof(const unsigned char*));
                 cstr_ccat(&cstr_292,0);
                 # 2712 "tccpp.c"
                 # 2645 "tccpp.c"
-                if(_if_conditional441=(tok>=256||tok==206)&&(t_287>=256||t_287==206),                _if_conditional441) {
+                if((tok>=256||tok==206)&&(t_287>=256||t_287==206)) {
                     # 2674 "tccpp.c"
                     # 2646 "tccpp.c"
-                    if(_if_conditional442=tok==206,                    _if_conditional442) {
+                    if(tok==206) {
                         # 2650 "tccpp.c"
                         cstr_free(&tokcstr);
                         # 2651 "tccpp.c"
@@ -5489,7 +5298,7 @@ memset(&q_296, 0, sizeof(const unsigned char*));
                     else {
                         # 2671 "tccpp.c"
                         # 2657 "tccpp.c"
-                        if(_if_conditional443=t_287==206,                        _if_conditional443) {
+                        if(t_287==206) {
                             # 2658 "tccpp.c"
                             # 2659 "tccpp.c"
                             # 2661 "tccpp.c"
@@ -5500,7 +5309,7 @@ memset(&q_296, 0, sizeof(const unsigned char*));
                                 c_294=*p_293;
                                 # 2666 "tccpp.c"
                                 # 2664 "tccpp.c"
-                                if(_if_conditional444=c_294==0,                                _if_conditional444) {
+                                if(c_294==0) {
                                     # 2665 "tccpp.c"
                                     break;
                                 }
@@ -5508,7 +5317,7 @@ memset(&q_296, 0, sizeof(const unsigned char*));
                                 p_293++;
                                 # 2669 "tccpp.c"
                                 # 2667 "tccpp.c"
-                                if(_if_conditional445=!isnum(c_294)&&!isid(c_294),                                _if_conditional445) {
+                                if(!isnum(c_294)&&!isid(c_294)) {
                                     # 2668 "tccpp.c"
                                     goto error_pasting;
                                 }
@@ -5526,30 +5335,30 @@ memset(&q_296, 0, sizeof(const unsigned char*));
                     # 2676 "tccpp.c"
                     # 2711 "tccpp.c"
                     # 2680 "tccpp.c"
-                    if(_if_conditional446=!strcmp(str_295,">>="),                    _if_conditional446) {
+                    if(!strcmp(str_295,">>=")) {
                         # 2681 "tccpp.c"
                         tok=130;
                     }
                     # 2682 "tccpp.c"
-                    else if(_elif_conditional100=!strcmp(str_295,"<<="),                    _elif_conditional100) {
+                    else if(!strcmp(str_295,"<<=")) {
                         # 2683 "tccpp.c"
                         tok=129;
                     }
                     # 2684 "tccpp.c"
-                    else if(_elif_conditional101=strlen(str_295)==2,                    _elif_conditional101) {
+                    else if(strlen(str_295)==2) {
                         # 2686 "tccpp.c"
                         q_296=tok_two_chars;
                         # 2694 "tccpp.c"
                         for(                        ;                        ;                        ){
                             # 2690 "tccpp.c"
                             # 2688 "tccpp.c"
-                            if(_if_conditional447=!*q_296,                            _if_conditional447) {
+                            if(!*q_296) {
                                 # 2689 "tccpp.c"
                                 goto error_pasting;
                             }
                             # 2692 "tccpp.c"
                             # 2690 "tccpp.c"
-                            if(_if_conditional448=q_296[0]==str_295[0]&&q_296[1]==str_295[1],                            _if_conditional448) {
+                            if(q_296[0]==str_295[0]&&q_296[1]==str_295[1]) {
                                 # 2691 "tccpp.c"
                                 break;
                             }
@@ -5594,19 +5403,19 @@ memset(&q_296, 0, sizeof(const unsigned char*));
     # 2718 "tccpp.c"
     tok_str_add(&macro_str1_291,0);
     # 2719 "tccpp.c"
-    __result75__ = __result_obj__ = macro_str1_291.str;
+    __result53__ = __result_obj__ = macro_str1_291.str;
     come_call_finalizer3((&macro_str1_291),TokenString_finalize, 1, 0, 0, 0, (void*)0);
     come_call_finalizer3((&cstr_292),CString_finalize, 1, 0, 0, 0, (void*)0);
-    return __result75__;
+    return __result53__;
     come_call_finalizer3((&macro_str1_291),TokenString_finalize, 1, 0, 0, 0, (void*)0);
     come_call_finalizer3((&cstr_292),CString_finalize, 1, 0, 0, 0, (void*)0);
 }
 static inline void unget_tok(int last_tok){
-void* __result_obj__;
 int i_309;
 int n_310;
 int* q_311;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&i_309, 0, sizeof(int));
+memset(&n_310, 0, sizeof(int));
 memset(&q_311, 0, sizeof(int*));
     # 2835 "tccpp.c"
     # 2836 "tccpp.c"
@@ -5633,49 +5442,35 @@ memset(&q_311, 0, sizeof(int*));
     tok=last_tok;
 }
 static inline int is_null_pointer(struct SValue* p){
-void* __result_obj__;
-_Bool _if_conditional530;
-int __result91__;
-int __result92__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 1196 "tccgen.c"
     # 1194 "tccgen.c"
-    if(_if_conditional530=(p->r&(255|256|512))!=240,    _if_conditional530) {
+    if((p->r&(255|256|512))!=240) {
         # 1195 "tccgen.c"
-        __result91__ = 0;
-        return __result91__;
+        return 0;
     }
     # 1197 "tccgen.c"
-    __result92__ = ((p->type.t&15)==0&&p->c.i==0)||((p->type.t&15)==12&&p->c.ll==0);
-    return __result92__;
+    return ((p->type.t&15)==0&&p->c.i==0)||((p->type.t&15)==12&&p->c.ll==0);
 }
 static inline int is_integer_btype(int bt){
-void* __result_obj__;
-int __result93__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 1203 "tccgen.c"
-    __result93__ = (bt==1||bt==2||bt==0||bt==12);
-    return __result93__;
+    return (bt==1||bt==2||bt==0||bt==12);
 }
 static inline struct CType* pointed_type(struct CType* type){
 void* __result_obj__;
-struct CType* __result102__;
+struct CType* __result57__;
 memset(&__result_obj__, 0, sizeof(void*));
     # 1722 "tccgen.c"
-    __result102__ = __result_obj__ = &type->ref->type;
-    return __result102__;
+    __result57__ = __result_obj__ = &type->ref->type;
+    return __result57__;
 }
 static inline void convert_parameter_type(struct CType* pt){
-void* __result_obj__;
-_Bool _if_conditional679;
-memset(&__result_obj__, 0, sizeof(void*));
     # 2667 "tccgen.c"
     pt->t&=~(2048|4096);
     # 2669 "tccgen.c"
     pt->t&=~32;
     # 2673 "tccgen.c"
     # 2670 "tccgen.c"
-    if(_if_conditional679=(pt->t&15)==6,    _if_conditional679) {
+    if((pt->t&15)==6) {
         # 2671 "tccgen.c"
         mk_pointer(pt);
     }
@@ -5702,17 +5497,14 @@ memset(&__result_obj__, 0, sizeof(void*));
 
 
 void g(int c){
-void* __result_obj__;
 int ind1_3;
-_Bool _if_conditional1;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&ind1_3, 0, sizeof(int));
     # 112 "x86_64-gen.c"
     # 113 "x86_64-gen.c"
     ind1_3=ind+1;
     # 116 "x86_64-gen.c"
     # 114 "x86_64-gen.c"
-    if(_if_conditional1=ind1_3>cur_text_section->data_allocated,    _if_conditional1) {
+    if(ind1_3>cur_text_section->data_allocated) {
         # 115 "x86_64-gen.c"
         section_realloc(cur_text_section,ind1_3);
     }
@@ -5723,8 +5515,6 @@ memset(&ind1_3, 0, sizeof(int));
 }
 
 void o(unsigned int c){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 126 "x86_64-gen.c"
     while(c) {
         # 123 "x86_64-gen.c"
@@ -5735,8 +5525,6 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 void gen_le32(int c){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 130 "x86_64-gen.c"
     g(c);
     # 131 "x86_64-gen.c"
@@ -5748,8 +5536,6 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 void gen_le64(long c){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 138 "x86_64-gen.c"
     g(c);
     # 139 "x86_64-gen.c"
@@ -5769,10 +5555,10 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 void gsym_addr(int t, int a){
-void* __result_obj__;
 int n_4;
 int* ptr_5;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&n_4, 0, sizeof(int));
+memset(&ptr_5, 0, sizeof(int*));
     # 151 "x86_64-gen.c"
     # 158 "x86_64-gen.c"
     while(t) {
@@ -5788,23 +5574,17 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 void gsym(int t){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 162 "x86_64-gen.c"
     gsym_addr(t,ind);
 }
 
 static int is64_type(int t){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 173 "x86_64-gen.c"
     return ((t&15)==4||(t&15)==6||(t&15)==12);
 }
 
 static int is_sse_float(int t){
-void* __result_obj__;
 int bt_6;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&bt_6, 0, sizeof(int));
     # 177 "x86_64-gen.c"
     # 178 "x86_64-gen.c"
@@ -5814,10 +5594,7 @@ memset(&bt_6, 0, sizeof(int));
 }
 
 static int oad(int c, int s){
-void* __result_obj__;
 int ind1_7;
-_Bool _if_conditional2;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&ind1_7, 0, sizeof(int));
     # 185 "x86_64-gen.c"
     # 187 "x86_64-gen.c"
@@ -5826,7 +5603,7 @@ memset(&ind1_7, 0, sizeof(int));
     ind1_7=ind+4;
     # 191 "x86_64-gen.c"
     # 189 "x86_64-gen.c"
-    if(_if_conditional2=ind1_7>cur_text_section->data_allocated,    _if_conditional2) {
+    if(ind1_7>cur_text_section->data_allocated) {
         # 190 "x86_64-gen.c"
         section_realloc(cur_text_section,ind1_7);
     }
@@ -5841,12 +5618,9 @@ memset(&ind1_7, 0, sizeof(int));
 }
 
 static void gen_addr64(int r, struct Sym* sym, long c){
-void* __result_obj__;
-_Bool _if_conditional3;
-memset(&__result_obj__, 0, sizeof(void*));
     # 202 "x86_64-gen.c"
     # 200 "x86_64-gen.c"
-    if(_if_conditional3=r&512,    _if_conditional3) {
+    if(r&512) {
         # 201 "x86_64-gen.c"
         greloc(cur_text_section,sym,ind,1);
     }
@@ -5855,12 +5629,9 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 static void gen_addrpc32(int r, struct Sym* sym, int c){
-void* __result_obj__;
-_Bool _if_conditional4;
-memset(&__result_obj__, 0, sizeof(void*));
     # 210 "x86_64-gen.c"
     # 208 "x86_64-gen.c"
-    if(_if_conditional4=r&512,    _if_conditional4) {
+    if(r&512) {
         # 209 "x86_64-gen.c"
         greloc(cur_text_section,sym,ind,2);
     }
@@ -5869,11 +5640,8 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 static void gen_gotpcrel(int r, struct Sym* sym, int c){
-void* __result_obj__;
 struct Section* sr_8;
 struct anonymous_typeX72* rel_9;
-_Bool _if_conditional5;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&sr_8, 0, sizeof(struct Section*));
 memset(&rel_9, 0, sizeof(struct anonymous_typeX72*));
     # 216 "x86_64-gen.c"
@@ -5903,19 +5671,11 @@ memset(&rel_9, 0, sizeof(struct anonymous_typeX72*));
 }
 
 static void gen_modrm_impl(int op_reg, int r, struct Sym* sym, int c, int is_got){
-void* __result_obj__;
-_Bool _if_conditional6;
-_Bool _if_conditional7;
-_Bool _elif_conditional1;
-_Bool _if_conditional8;
-_Bool _elif_conditional2;
-_Bool _if_conditional9;
-memset(&__result_obj__, 0, sizeof(void*));
     # 235 "x86_64-gen.c"
     op_reg=((op_reg)&7)<<3;
     # 263 "x86_64-gen.c"
     # 236 "x86_64-gen.c"
-    if(_if_conditional6=(r&255)==240,    _if_conditional6) {
+    if((r&255)==240) {
         # 238 "x86_64-gen.c"
         o(5|op_reg);
         # 244 "x86_64-gen.c"
@@ -5930,10 +5690,10 @@ memset(&__result_obj__, 0, sizeof(void*));
         }
     }
     # 244 "x86_64-gen.c"
-    else if(_elif_conditional1=(r&255)==242,    _elif_conditional1) {
+    else if((r&255)==242) {
         # 253 "x86_64-gen.c"
         # 246 "x86_64-gen.c"
-        if(_if_conditional8=c==(char)c,        _if_conditional8) {
+        if(c==(char)c) {
             # 248 "x86_64-gen.c"
             o(69|op_reg);
             # 249 "x86_64-gen.c"
@@ -5945,7 +5705,7 @@ memset(&__result_obj__, 0, sizeof(void*));
         }
     }
     # 253 "x86_64-gen.c"
-    else if(_elif_conditional2=(r&255)>=(16),    _elif_conditional2) {
+    else if((r&255)>=(16)) {
         # 260 "x86_64-gen.c"
         # 254 "x86_64-gen.c"
         if(c) {
@@ -5966,18 +5726,13 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 static void gen_modrm(int op_reg, int r, struct Sym* sym, int c){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 269 "x86_64-gen.c"
     gen_modrm_impl(op_reg,r,sym,c,0);
 }
 
 static void gen_modrm64(int opcode, int op_reg, int r, struct Sym* sym, int c){
-void* __result_obj__;
 int is_got_10;
 int rex_11;
-_Bool _if_conditional10;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&is_got_10, 0, sizeof(int));
 memset(&rex_11, 0, sizeof(int));
     # 276 "x86_64-gen.c"
@@ -5985,7 +5740,7 @@ memset(&rex_11, 0, sizeof(int));
     rex_11=72|((((op_reg)>>3)&1)<<2);
     # 282 "x86_64-gen.c"
     # 279 "x86_64-gen.c"
-    if(_if_conditional10=(r&255)!=240&&(r&255)!=242,    _if_conditional10) {
+    if((r&255)!=240&&(r&255)!=242) {
         # 280 "x86_64-gen.c"
         rex_11|=(((255&r)>>3)&1);
     }
@@ -6000,37 +5755,18 @@ memset(&rex_11, 0, sizeof(int));
 }
 
 void load(int r, struct SValue* sv){
-void* __result_obj__;
 int v_12;
 int t_13;
 int ft_14;
 int fc_15;
 int fr_16;
 struct SValue v1_17;
-_Bool _if_conditional11;
 int tr_18;
-_Bool _if_conditional12;
-_Bool _if_conditional13;
-_Bool _if_conditional14;
-_Bool _if_conditional15;
-_Bool _elif_conditional3;
-_Bool _elif_conditional4;
-_Bool _elif_conditional5;
-_Bool _elif_conditional6;
-_Bool _elif_conditional7;
-_Bool _elif_conditional8;
-_Bool _elif_conditional9;
-_Bool _if_conditional16;
-_Bool _if_conditional17;
-_Bool _if_conditional18;
-_Bool _if_conditional19;
-_Bool _elif_conditional10;
-_Bool _elif_conditional11;
-_Bool _elif_conditional12;
-_Bool _elif_conditional13;
-_Bool _if_conditional20;
-_Bool _elif_conditional14;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&v_12, 0, sizeof(int));
+memset(&t_13, 0, sizeof(int));
+memset(&ft_14, 0, sizeof(int));
+memset(&fc_15, 0, sizeof(int));
+memset(&fr_16, 0, sizeof(int));
 memset(&v1_17, 0, sizeof(struct SValue));
 memset(&tr_18, 0, sizeof(int));
     # 292 "x86_64-gen.c"
@@ -6043,12 +5779,12 @@ memset(&tr_18, 0, sizeof(int));
     fc_15=sv->c.ul;
     # 314 "x86_64-gen.c"
     # 301 "x86_64-gen.c"
-    if(_if_conditional11=(fr_16&255)==240&&(fr_16&512)&&(fr_16&256)&&!(sv->sym->type.t&256),    _if_conditional11) {
+    if((fr_16&255)==240&&(fr_16&512)&&(fr_16&256)&&!(sv->sym->type.t&256)) {
         # 303 "x86_64-gen.c"
         tr_18=r|(16);
         # 308 "x86_64-gen.c"
         # 304 "x86_64-gen.c"
-        if(_if_conditional12=is_float(ft_14),        _if_conditional12) {
+        if(is_float(ft_14)) {
             # 306 "x86_64-gen.c"
             tr_18=get_reg(1)|(16);
         }
@@ -6061,10 +5797,10 @@ memset(&tr_18, 0, sizeof(int));
     v_12=fr_16&255;
     # 407 "x86_64-gen.c"
     # 315 "x86_64-gen.c"
-    if(_if_conditional13=fr_16&256,    _if_conditional13) {
+    if(fr_16&256) {
         # 323 "x86_64-gen.c"
         # 316 "x86_64-gen.c"
-        if(_if_conditional14=v_12==241,        _if_conditional14) {
+        if(v_12==241) {
             # 317 "x86_64-gen.c"
             v1_17.type.t=4;
             # 318 "x86_64-gen.c"
@@ -6078,48 +5814,48 @@ memset(&tr_18, 0, sizeof(int));
         }
         # 346 "x86_64-gen.c"
         # 323 "x86_64-gen.c"
-        if(_if_conditional15=(ft_14&15)==8,        _if_conditional15) {
+        if((ft_14&15)==8) {
             # 324 "x86_64-gen.c"
             o(7212902);
             # 325 "x86_64-gen.c"
             r=0;
         }
         # 326 "x86_64-gen.c"
-        else if(_elif_conditional3=(ft_14&15)==9,        _elif_conditional3) {
+        else if((ft_14&15)==9) {
             # 327 "x86_64-gen.c"
             o(8261619);
             # 328 "x86_64-gen.c"
             r=0;
         }
         # 329 "x86_64-gen.c"
-        else if(_elif_conditional4=(ft_14&15)==10,        _elif_conditional4) {
+        else if((ft_14&15)==10) {
             # 330 "x86_64-gen.c"
             o(219);
             # 331 "x86_64-gen.c"
             r=5;
         }
         # 332 "x86_64-gen.c"
-        else if(_elif_conditional5=(ft_14&(~((128|256|512|1024))))==1,        _elif_conditional5) {
+        else if((ft_14&(~((128|256|512|1024))))==1) {
             # 333 "x86_64-gen.c"
             o(48655);
         }
         # 334 "x86_64-gen.c"
-        else if(_elif_conditional6=(ft_14&(~((128|256|512|1024))))==(1|16),        _elif_conditional6) {
+        else if((ft_14&(~((128|256|512|1024))))==(1|16)) {
             # 335 "x86_64-gen.c"
             o(46607);
         }
         # 336 "x86_64-gen.c"
-        else if(_elif_conditional7=(ft_14&(~((128|256|512|1024))))==2,        _elif_conditional7) {
+        else if((ft_14&(~((128|256|512|1024))))==2) {
             # 337 "x86_64-gen.c"
             o(48911);
         }
         # 338 "x86_64-gen.c"
-        else if(_elif_conditional8=(ft_14&(~((128|256|512|1024))))==(2|16),        _elif_conditional8) {
+        else if((ft_14&(~((128|256|512|1024))))==(2|16)) {
             # 339 "x86_64-gen.c"
             o(46863);
         }
         # 340 "x86_64-gen.c"
-        else if(_elif_conditional9=is64_type(ft_14),        _elif_conditional9) {
+        else if(is64_type(ft_14)) {
             # 341 "x86_64-gen.c"
             gen_modrm64(139,r,fr_16,sv->sym,fc_15);
             # 342 "x86_64-gen.c"
@@ -6135,10 +5871,10 @@ memset(&tr_18, 0, sizeof(int));
     else {
         # 406 "x86_64-gen.c"
         # 348 "x86_64-gen.c"
-        if(_if_conditional16=v_12==240,        _if_conditional16) {
+        if(v_12==240) {
             # 370 "x86_64-gen.c"
             # 349 "x86_64-gen.c"
-            if(_if_conditional17=(ft_14&15)==12,            _if_conditional17) {
+            if((ft_14&15)==12) {
                 # 350 "x86_64-gen.c"
                 ((void)((!(fr_16&512))||(__assert_fail("!(fr & VT_SYM)","x86_64-gen.c",350,"load"),0)));
                 # 351 "x86_64-gen.c"
@@ -6151,10 +5887,10 @@ memset(&tr_18, 0, sizeof(int));
             else {
                 # 369 "x86_64-gen.c"
                 # 355 "x86_64-gen.c"
-                if(_if_conditional18=fr_16&512,                _if_conditional18) {
+                if(fr_16&512) {
                     # 365 "x86_64-gen.c"
                     # 356 "x86_64-gen.c"
-                    if(_if_conditional19=sv->sym->type.t&256,                    _if_conditional19) {
+                    if(sv->sym->type.t&256) {
                         # 357 "x86_64-gen.c"
                         o(36168);
                         # 358 "x86_64-gen.c"
@@ -6180,7 +5916,7 @@ memset(&tr_18, 0, sizeof(int));
             }
         }
         # 370 "x86_64-gen.c"
-        else if(_elif_conditional10=v_12==242,        _elif_conditional10) {
+        else if(v_12==242) {
             # 371 "x86_64-gen.c"
             o(72|(((r)>>3)&1));
             # 372 "x86_64-gen.c"
@@ -6189,7 +5925,7 @@ memset(&tr_18, 0, sizeof(int));
             gen_modrm(r,242,sv->sym,fc_15);
         }
         # 374 "x86_64-gen.c"
-        else if(_elif_conditional11=v_12==243,        _elif_conditional11) {
+        else if(v_12==243) {
             # 375 "x86_64-gen.c"
             oad(184+r,0);
             # 376 "x86_64-gen.c"
@@ -6200,7 +5936,7 @@ memset(&tr_18, 0, sizeof(int));
             o(192+r);
         }
         # 379 "x86_64-gen.c"
-        else if(_elif_conditional12=v_12==244||v_12==245,        _elif_conditional12) {
+        else if(v_12==244||v_12==245) {
             # 380 "x86_64-gen.c"
             t_13=v_12&1;
             # 381 "x86_64-gen.c"
@@ -6213,10 +5949,10 @@ memset(&tr_18, 0, sizeof(int));
             oad(184+r,t_13^1);
         }
         # 385 "x86_64-gen.c"
-        else if(_elif_conditional13=v_12!=r,        _elif_conditional13) {
+        else if(v_12!=r) {
             # 405 "x86_64-gen.c"
             # 386 "x86_64-gen.c"
-            if(_if_conditional20=r==(3),            _if_conditional20) {
+            if(r==(3)) {
                 # 387 "x86_64-gen.c"
                 ((void)((v_12==(4))||(__assert_fail("v == TREG_ST0","x86_64-gen.c",387,"load"),0)));
                 # 389 "x86_64-gen.c"
@@ -6227,7 +5963,7 @@ memset(&tr_18, 0, sizeof(int));
                 o(61476);
             }
             # 393 "x86_64-gen.c"
-            else if(_elif_conditional14=r==(4),            _elif_conditional14) {
+            else if(r==(4)) {
                 # 394 "x86_64-gen.c"
                 ((void)((v_12==(3))||(__assert_fail("v == TREG_XMM0","x86_64-gen.c",394,"load"),0)));
                 # 397 "x86_64-gen.c"
@@ -6250,27 +5986,16 @@ memset(&tr_18, 0, sizeof(int));
 }
 
 void store(int r, struct SValue* v){
-void* __result_obj__;
 int fr_19;
 int bt_20;
 int ft_21;
 int fc_22;
 int op64_23;
 int pic_24;
-_Bool _if_conditional21;
-_Bool _if_conditional22;
-_Bool _elif_conditional15;
-_Bool _elif_conditional16;
-_Bool _if_conditional23;
-_Bool _if_conditional24;
-_Bool _elif_conditional17;
-_Bool _if_conditional25;
-_Bool _if_conditional26;
-_Bool _if_conditional27;
-_Bool _elif_conditional18;
-_Bool _if_conditional28;
-_Bool _elif_conditional19;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&fr_19, 0, sizeof(int));
+memset(&bt_20, 0, sizeof(int));
+memset(&ft_21, 0, sizeof(int));
+memset(&fc_22, 0, sizeof(int));
 memset(&op64_23, 0, sizeof(int));
 memset(&pic_24, 0, sizeof(int));
     # 412 "x86_64-gen.c"
@@ -6288,7 +6013,7 @@ memset(&pic_24, 0, sizeof(int));
     bt_20=ft_21&15;
     # 431 "x86_64-gen.c"
     # 423 "x86_64-gen.c"
-    if(_if_conditional21=fr_19==240&&(v->r&512),    _if_conditional21) {
+    if(fr_19==240&&(v->r&512)) {
         # 425 "x86_64-gen.c"
         o(1936204);
         # 426 "x86_64-gen.c"
@@ -6298,7 +6023,7 @@ memset(&pic_24, 0, sizeof(int));
     }
     # 457 "x86_64-gen.c"
     # 431 "x86_64-gen.c"
-    if(_if_conditional22=bt_20==8,    _if_conditional22) {
+    if(bt_20==8) {
         # 432 "x86_64-gen.c"
         o(102);
         # 433 "x86_64-gen.c"
@@ -6309,7 +6034,7 @@ memset(&pic_24, 0, sizeof(int));
         r=0;
     }
     # 436 "x86_64-gen.c"
-    else if(_elif_conditional15=bt_20==9,    _elif_conditional15) {
+    else if(bt_20==9) {
         # 437 "x86_64-gen.c"
         o(102);
         # 438 "x86_64-gen.c"
@@ -6320,7 +6045,7 @@ memset(&pic_24, 0, sizeof(int));
         r=0;
     }
     # 441 "x86_64-gen.c"
-    else if(_elif_conditional16=bt_20==10,    _elif_conditional16) {
+    else if(bt_20==10) {
         # 442 "x86_64-gen.c"
         o(49369);
         # 443 "x86_64-gen.c"
@@ -6333,7 +6058,7 @@ memset(&pic_24, 0, sizeof(int));
     else {
         # 449 "x86_64-gen.c"
         # 447 "x86_64-gen.c"
-        if(_if_conditional23=bt_20==2,        _if_conditional23) {
+        if(bt_20==2) {
             # 448 "x86_64-gen.c"
             o(102);
         }
@@ -6341,12 +6066,12 @@ memset(&pic_24, 0, sizeof(int));
         o(pic_24);
         # 456 "x86_64-gen.c"
         # 450 "x86_64-gen.c"
-        if(_if_conditional24=bt_20==1||bt_20==11,        _if_conditional24) {
+        if(bt_20==1||bt_20==11) {
             # 451 "x86_64-gen.c"
             o(136);
         }
         # 452 "x86_64-gen.c"
-        else if(_elif_conditional17=is64_type(bt_20),        _elif_conditional17) {
+        else if(is64_type(bt_20)) {
             # 453 "x86_64-gen.c"
             op64_23=137;
         }
@@ -6371,12 +6096,12 @@ memset(&pic_24, 0, sizeof(int));
     else if(op64_23) {
         # 472 "x86_64-gen.c"
         # 465 "x86_64-gen.c"
-        if(_if_conditional27=fr_19==240||fr_19==242||(v->r&256),        _if_conditional27) {
+        if(fr_19==240||fr_19==242||(v->r&256)) {
             # 466 "x86_64-gen.c"
             gen_modrm64(op64_23,r,v->r,v->sym,fc_22);
         }
         # 467 "x86_64-gen.c"
-        else if(_elif_conditional18=fr_19!=r,        _elif_conditional18) {
+        else if(fr_19!=r) {
             # 469 "x86_64-gen.c"
             abort();
             # 470 "x86_64-gen.c"
@@ -6386,12 +6111,12 @@ memset(&pic_24, 0, sizeof(int));
     else {
         # 482 "x86_64-gen.c"
         # 475 "x86_64-gen.c"
-        if(_if_conditional28=fr_19==240||fr_19==242||(v->r&256),        _if_conditional28) {
+        if(fr_19==240||fr_19==242||(v->r&256)) {
             # 476 "x86_64-gen.c"
             gen_modrm(r,v->r,v->sym,fc_22);
         }
         # 477 "x86_64-gen.c"
-        else if(_elif_conditional19=fr_19!=r,        _elif_conditional19) {
+        else if(fr_19!=r) {
             # 479 "x86_64-gen.c"
             abort();
             # 480 "x86_64-gen.c"
@@ -6401,12 +6126,9 @@ memset(&pic_24, 0, sizeof(int));
 }
 
 static void gadd_sp(int val){
-void* __result_obj__;
-_Bool _if_conditional29;
-memset(&__result_obj__, 0, sizeof(void*));
     # 493 "x86_64-gen.c"
     # 487 "x86_64-gen.c"
-    if(_if_conditional29=val==(char)val,    _if_conditional29) {
+    if(val==(char)val) {
         # 488 "x86_64-gen.c"
         o(12878664);
         # 489 "x86_64-gen.c"
@@ -6419,19 +6141,15 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 static void gcall_or_jmp(int is_jmp){
-void* __result_obj__;
 int r_25;
-_Bool _if_conditional30;
-_Bool _if_conditional31;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&r_25, 0, sizeof(int));
     # 498 "x86_64-gen.c"
     # 519 "x86_64-gen.c"
     # 499 "x86_64-gen.c"
-    if(_if_conditional30=(vtop->r&(255|256))==240,    _if_conditional30) {
+    if((vtop->r&(255|256))==240) {
         # 510 "x86_64-gen.c"
         # 501 "x86_64-gen.c"
-        if(_if_conditional31=vtop->r&512,        _if_conditional31) {
+        if(vtop->r&512) {
             # 504 "x86_64-gen.c"
             greloc(cur_text_section,vtop->sym,ind+1,2);
         }
@@ -6457,7 +6175,6 @@ memset(&r_25, 0, sizeof(int));
 }
 
 void gfunc_call(int nb_args){
-void* __result_obj__;
 int size_26;
 int align_27;
 int r_28;
@@ -6470,36 +6187,23 @@ int nb_reg_args_34;
 int nb_sse_args_35;
 int sse_reg_36;
 int gen_reg_37;
-_Bool _if_conditional32;
-_Bool _elif_conditional20;
-_Bool _elif_conditional21;
-_Bool _if_conditional33;
-_Bool _if_conditional34;
-_Bool _if_conditional35;
-_Bool _if_conditional36;
 struct SValue tmp_38;
-_Bool _elif_conditional22;
-_Bool _elif_conditional23;
 int j_39;
-_Bool _if_conditional37;
 int j_40;
-_Bool _if_conditional38;
-_Bool _if_conditional39;
-_Bool _elif_conditional24;
 int j_41;
-_Bool _if_conditional40;
 int j_42;
-_Bool _if_conditional41;
-_Bool _if_conditional42;
-_Bool _elif_conditional25;
-_Bool _if_conditional43;
-_Bool _if_conditional44;
-_Bool _if_conditional45;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&size_26, 0, sizeof(int));
+memset(&align_27, 0, sizeof(int));
+memset(&r_28, 0, sizeof(int));
+memset(&args_size_29, 0, sizeof(int));
+memset(&i_30, 0, sizeof(int));
+memset(&func_call_31, 0, sizeof(int));
 memset(&func_sym_32, 0, sizeof(struct Sym*));
 memset(&orig_vtop_33, 0, sizeof(struct SValue*));
 memset(&nb_reg_args_34, 0, sizeof(int));
 memset(&nb_sse_args_35, 0, sizeof(int));
+memset(&sse_reg_36, 0, sizeof(int));
+memset(&gen_reg_37, 0, sizeof(int));
 memset(&tmp_38, 0, sizeof(struct SValue));
 memset(&j_39, 0, sizeof(int));
 memset(&j_40, 0, sizeof(int));
@@ -6519,22 +6223,22 @@ memset(&j_42, 0, sizeof(int));
     for(    i_30=0;    i_30<nb_args;    i_30++    ){
         # 550 "x86_64-gen.c"
         # 539 "x86_64-gen.c"
-        if(_if_conditional32=(vtop[-i_30].type.t&15)==7,        _if_conditional32) {
+        if((vtop[-i_30].type.t&15)==7) {
             # 540 "x86_64-gen.c"
             args_size_29+=type_size(&vtop->type,&align_27);
         }
         # 541 "x86_64-gen.c"
-        else if(_elif_conditional20=(vtop[-i_30].type.t&15)==10,        _elif_conditional20) {
+        else if((vtop[-i_30].type.t&15)==10) {
             # 542 "x86_64-gen.c"
             args_size_29+=16;
         }
         # 543 "x86_64-gen.c"
-        else if(_elif_conditional21=is_sse_float(vtop[-i_30].type.t),        _elif_conditional21) {
+        else if(is_sse_float(vtop[-i_30].type.t)) {
             # 544 "x86_64-gen.c"
             nb_sse_args_35++;
             # 546 "x86_64-gen.c"
             # 545 "x86_64-gen.c"
-            if(_if_conditional33=nb_sse_args_35>8,            _if_conditional33) {
+            if(nb_sse_args_35>8) {
                 # 545 "x86_64-gen.c"
                 args_size_29+=8;
             }
@@ -6544,7 +6248,7 @@ memset(&j_42, 0, sizeof(int));
             nb_reg_args_34++;
             # 549 "x86_64-gen.c"
             # 548 "x86_64-gen.c"
-            if(_if_conditional34=nb_reg_args_34>6,            _if_conditional34) {
+            if(nb_reg_args_34>6) {
                 # 548 "x86_64-gen.c"
                 args_size_29+=8;
             }
@@ -6558,7 +6262,7 @@ memset(&j_42, 0, sizeof(int));
     sse_reg_36=nb_sse_args_35;
     # 562 "x86_64-gen.c"
     # 559 "x86_64-gen.c"
-    if(_if_conditional35=args_size_29&=8,    _if_conditional35) {
+    if(args_size_29&=8) {
         # 560 "x86_64-gen.c"
         o(80);
     }
@@ -6566,7 +6270,7 @@ memset(&j_42, 0, sizeof(int));
     for(    i_30=0;    i_30<nb_args;    i_30++    ){
         # 612 "x86_64-gen.c"
         # 563 "x86_64-gen.c"
-        if(_if_conditional36=(vtop->type.t&15)==7,        _if_conditional36) {
+        if((vtop->type.t&15)==7) {
             # 564 "x86_64-gen.c"
             size_26=type_size(&vtop->type,&align_27);
             # 566 "x86_64-gen.c"
@@ -6600,7 +6304,7 @@ memset(&j_42, 0, sizeof(int));
             args_size_29+=size_26;
         }
         # 584 "x86_64-gen.c"
-        else if(_elif_conditional22=(vtop->type.t&15)==10,        _elif_conditional22) {
+        else if((vtop->type.t&15)==10) {
             # 585 "x86_64-gen.c"
             gv(64);
             # 586 "x86_64-gen.c"
@@ -6617,12 +6321,12 @@ memset(&j_42, 0, sizeof(int));
             args_size_29+=size_26;
         }
         # 592 "x86_64-gen.c"
-        else if(_elif_conditional23=is_sse_float(vtop->type.t),        _elif_conditional23) {
+        else if(is_sse_float(vtop->type.t)) {
             # 593 "x86_64-gen.c"
             j_39=--sse_reg_36;
             # 602 "x86_64-gen.c"
             # 594 "x86_64-gen.c"
-            if(_if_conditional37=j_39>=8,            _if_conditional37) {
+            if(j_39>=8) {
                 # 595 "x86_64-gen.c"
                 gv(2);
                 # 596 "x86_64-gen.c"
@@ -6640,7 +6344,7 @@ memset(&j_42, 0, sizeof(int));
             j_40=--gen_reg_37;
             # 611 "x86_64-gen.c"
             # 606 "x86_64-gen.c"
-            if(_if_conditional38=j_40>=6,            _if_conditional38) {
+            if(j_40>=6) {
                 # 607 "x86_64-gen.c"
                 r_28=gv(1);
                 # 608 "x86_64-gen.c"
@@ -6662,15 +6366,15 @@ memset(&j_42, 0, sizeof(int));
     for(    i_30=0;    i_30<nb_args;    i_30++    ){
         # 653 "x86_64-gen.c"
         # 624 "x86_64-gen.c"
-        if(_if_conditional39=(vtop->type.t&15)==7||(vtop->type.t&15)==10,        _if_conditional39) {
+        if((vtop->type.t&15)==7||(vtop->type.t&15)==10) {
         }
         # 625 "x86_64-gen.c"
-        else if(_elif_conditional24=is_sse_float(vtop->type.t),        _elif_conditional24) {
+        else if(is_sse_float(vtop->type.t)) {
             # 626 "x86_64-gen.c"
             j_41=--sse_reg_36;
             # 633 "x86_64-gen.c"
             # 627 "x86_64-gen.c"
-            if(_if_conditional40=j_41<8,            _if_conditional40) {
+            if(j_41<8) {
                 # 628 "x86_64-gen.c"
                 gv(2);
                 # 630 "x86_64-gen.c"
@@ -6684,19 +6388,19 @@ memset(&j_42, 0, sizeof(int));
             j_42=--gen_reg_37;
             # 652 "x86_64-gen.c"
             # 637 "x86_64-gen.c"
-            if(_if_conditional41=j_42<6,            _if_conditional41) {
+            if(j_42<6) {
                 # 638 "x86_64-gen.c"
                 r_28=gv(1);
                 # 651 "x86_64-gen.c"
                 # 639 "x86_64-gen.c"
-                if(_if_conditional42=j_42<2,                _if_conditional42) {
+                if(j_42<2) {
                     # 640 "x86_64-gen.c"
                     o(35144);
                     # 641 "x86_64-gen.c"
                     o(192+r_28*8+arg_regs[j_42]);
                 }
                 # 642 "x86_64-gen.c"
-                else if(_elif_conditional25=j_42<4,                _elif_conditional25) {
+                else if(j_42<4) {
                     # 643 "x86_64-gen.c"
                     o(35145);
                     # 645 "x86_64-gen.c"
@@ -6717,12 +6421,12 @@ memset(&j_42, 0, sizeof(int));
     save_regs(0);
     # 666 "x86_64-gen.c"
     # 659 "x86_64-gen.c"
-    if(_if_conditional43=nb_reg_args_34>2,    _if_conditional43) {
+    if(nb_reg_args_34>2) {
         # 660 "x86_64-gen.c"
         o(13797708);
         # 664 "x86_64-gen.c"
         # 661 "x86_64-gen.c"
-        if(_if_conditional44=nb_reg_args_34>3,        _if_conditional44) {
+        if(nb_reg_args_34>3) {
             # 662 "x86_64-gen.c"
             o(14256460);
         }
@@ -6746,8 +6450,6 @@ memset(&j_42, 0, sizeof(int));
 }
 
 static void push_arg_reg(int i){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 684 "x86_64-gen.c"
     loc-=8;
     # 685 "x86_64-gen.c"
@@ -6755,7 +6457,6 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 void gfunc_prolog(struct CType* func_type){
-void* __result_obj__;
 int i_43;
 int addr_44;
 int align_45;
@@ -6767,25 +6468,23 @@ int reg_param_index_50;
 int sse_param_index_51;
 struct Sym* sym_52;
 struct CType* type_53;
-_Bool _if_conditional46;
 int seen_reg_num_54;
 int seen_sse_num_55;
 int seen_stack_size_56;
-_Bool _while_condtional1;
-_Bool _if_conditional47;
-_Bool _if_conditional48;
-_Bool _elif_conditional26;
-_Bool _elif_conditional27;
-_Bool _if_conditional49;
-_Bool _if_conditional50;
-_Bool _while_condtional2;
-_Bool _if_conditional51;
-_Bool _if_conditional52;
-_Bool _elif_conditional28;
-_Bool _if_conditional53;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&i_43, 0, sizeof(int));
+memset(&addr_44, 0, sizeof(int));
+memset(&align_45, 0, sizeof(int));
+memset(&size_46, 0, sizeof(int));
+memset(&func_call_47, 0, sizeof(int));
+memset(&param_index_48, 0, sizeof(int));
+memset(&param_addr_49, 0, sizeof(int));
+memset(&reg_param_index_50, 0, sizeof(int));
+memset(&sse_param_index_51, 0, sizeof(int));
 memset(&sym_52, 0, sizeof(struct Sym*));
 memset(&type_53, 0, sizeof(struct CType*));
+memset(&seen_reg_num_54, 0, sizeof(int));
+memset(&seen_sse_num_55, 0, sizeof(int));
+memset(&seen_stack_size_56, 0, sizeof(int));
     # 691 "x86_64-gen.c"
     # 692 "x86_64-gen.c"
     # 693 "x86_64-gen.c"
@@ -6806,7 +6505,7 @@ memset(&type_53, 0, sizeof(struct CType*));
     func_sub_sp_offset=ind;
     # 761 "x86_64-gen.c"
     # 705 "x86_64-gen.c"
-    if(_if_conditional46=func_type->ref->c==3,    _if_conditional46) {
+    if(func_type->ref->c==3) {
         # 706 "x86_64-gen.c"
         # 707 "x86_64-gen.c"
         seen_reg_num_54=seen_sse_num_55=0;
@@ -6815,15 +6514,15 @@ memset(&type_53, 0, sizeof(struct CType*));
         # 711 "x86_64-gen.c"
         sym_52=func_type->ref;
         # 735 "x86_64-gen.c"
-        while(_while_condtional1=(sym_52=sym_52->next)!=((void*)0),        _while_condtional1) {
+        while((sym_52=sym_52->next)!=((void*)0)) {
             # 713 "x86_64-gen.c"
             type_53=&sym_52->type;
             # 733 "x86_64-gen.c"
             # 714 "x86_64-gen.c"
-            if(_if_conditional47=is_sse_float(type_53->t),            _if_conditional47) {
+            if(is_sse_float(type_53->t)) {
                 # 720 "x86_64-gen.c"
                 # 715 "x86_64-gen.c"
-                if(_if_conditional48=seen_sse_num_55<8,                _if_conditional48) {
+                if(seen_sse_num_55<8) {
                     # 716 "x86_64-gen.c"
                     seen_sse_num_55++;
                 }
@@ -6833,7 +6532,7 @@ memset(&type_53, 0, sizeof(struct CType*));
                 }
             }
             # 720 "x86_64-gen.c"
-            else if(_elif_conditional26=(type_53->t&15)==7,            _elif_conditional26) {
+            else if((type_53->t&15)==7) {
                 # 721 "x86_64-gen.c"
                 size_46=type_size(type_53,&align_45);
                 # 722 "x86_64-gen.c"
@@ -6842,14 +6541,14 @@ memset(&type_53, 0, sizeof(struct CType*));
                 seen_stack_size_56+=size_46;
             }
             # 724 "x86_64-gen.c"
-            else if(_elif_conditional27=(type_53->t&15)==10,            _elif_conditional27) {
+            else if((type_53->t&15)==10) {
                 # 725 "x86_64-gen.c"
                 seen_stack_size_56+=16;
             }
             else {
                 # 732 "x86_64-gen.c"
                 # 727 "x86_64-gen.c"
-                if(_if_conditional49=seen_reg_num_54<6,                _if_conditional49) {
+                if(seen_reg_num_54<6) {
                     # 728 "x86_64-gen.c"
                     seen_reg_num_54++;
                 }
@@ -6906,7 +6605,7 @@ memset(&type_53, 0, sizeof(struct CType*));
     func_vt=sym_52->type;
     # 778 "x86_64-gen.c"
     # 769 "x86_64-gen.c"
-    if(_if_conditional50=(func_vt.t&15)==7,    _if_conditional50) {
+    if((func_vt.t&15)==7) {
         # 770 "x86_64-gen.c"
         push_arg_reg(reg_param_index_50);
         # 771 "x86_64-gen.c"
@@ -6919,7 +6618,7 @@ memset(&type_53, 0, sizeof(struct CType*));
         reg_param_index_50++;
     }
     # 813 "x86_64-gen.c"
-    while(_while_condtional2=(sym_52=sym_52->next)!=((void*)0),    _while_condtional2) {
+    while((sym_52=sym_52->next)!=((void*)0)) {
         # 779 "x86_64-gen.c"
         type_53=&sym_52->type;
         # 780 "x86_64-gen.c"
@@ -6928,10 +6627,10 @@ memset(&type_53, 0, sizeof(struct CType*));
         size_46=(size_46+3)&~3;
         # 809 "x86_64-gen.c"
         # 782 "x86_64-gen.c"
-        if(_if_conditional51=is_sse_float(type_53->t),        _if_conditional51) {
+        if(is_sse_float(type_53->t)) {
             # 793 "x86_64-gen.c"
             # 783 "x86_64-gen.c"
-            if(_if_conditional52=sse_param_index_51<8,            _if_conditional52) {
+            if(sse_param_index_51<8) {
                 # 785 "x86_64-gen.c"
                 loc-=8;
                 # 786 "x86_64-gen.c"
@@ -6951,7 +6650,7 @@ memset(&type_53, 0, sizeof(struct CType*));
             sse_param_index_51++;
         }
         # 795 "x86_64-gen.c"
-        else if(_elif_conditional28=(type_53->t&15)==7||(type_53->t&15)==10,        _elif_conditional28) {
+        else if((type_53->t&15)==7||(type_53->t&15)==10) {
             # 796 "x86_64-gen.c"
             param_addr_49=addr_44;
             # 797 "x86_64-gen.c"
@@ -6960,7 +6659,7 @@ memset(&type_53, 0, sizeof(struct CType*));
         else {
             # 807 "x86_64-gen.c"
             # 799 "x86_64-gen.c"
-            if(_if_conditional53=reg_param_index_50<6,            _if_conditional53) {
+            if(reg_param_index_50<6) {
                 # 801 "x86_64-gen.c"
                 push_arg_reg(reg_param_index_50);
                 # 802 "x86_64-gen.c"
@@ -6983,17 +6682,16 @@ memset(&type_53, 0, sizeof(struct CType*));
 }
 
 void gfunc_epilog(){
-void* __result_obj__;
 int v_57;
 int saved_ind_58;
-_Bool _if_conditional54;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&v_57, 0, sizeof(int));
+memset(&saved_ind_58, 0, sizeof(int));
     # 818 "x86_64-gen.c"
     # 820 "x86_64-gen.c"
     o(201);
     # 829 "x86_64-gen.c"
     # 821 "x86_64-gen.c"
-    if(_if_conditional54=func_ret_sub==0,    _if_conditional54) {
+    if(func_ret_sub==0) {
         # 822 "x86_64-gen.c"
         o(195);
     }
@@ -7025,24 +6723,19 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 int gjmp(int t){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 854 "x86_64-gen.c"
     return oad(233,t);
 }
 
 void gjmp_addr(int a){
-void* __result_obj__;
 int r_59;
-_Bool _if_conditional55;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&r_59, 0, sizeof(int));
     # 860 "x86_64-gen.c"
     # 861 "x86_64-gen.c"
     r_59=a-ind-2;
     # 868 "x86_64-gen.c"
     # 862 "x86_64-gen.c"
-    if(_if_conditional55=r_59==(char)r_59,    _if_conditional55) {
+    if(r_59==(char)r_59) {
         # 863 "x86_64-gen.c"
         g(235);
         # 864 "x86_64-gen.c"
@@ -7055,37 +6748,30 @@ memset(&r_59, 0, sizeof(int));
 }
 
 int gtst(int inv, int t){
-void* __result_obj__;
 int v_60;
 int* p_61;
-_Bool _if_conditional56;
-_Bool _elif_conditional29;
-_Bool _if_conditional57;
-_Bool _while_condtional3;
-_Bool _if_conditional58;
-_Bool _if_conditional59;
-_Bool _if_conditional60;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&v_60, 0, sizeof(int));
+memset(&p_61, 0, sizeof(int*));
     # 873 "x86_64-gen.c"
     # 875 "x86_64-gen.c"
     v_60=vtop->r&255;
     # 911 "x86_64-gen.c"
     # 876 "x86_64-gen.c"
-    if(_if_conditional56=v_60==243,    _if_conditional56) {
+    if(v_60==243) {
         # 878 "x86_64-gen.c"
         g(15);
         # 879 "x86_64-gen.c"
         t=oad((vtop->c.i-16)^inv,t);
     }
     # 880 "x86_64-gen.c"
-    else if(_elif_conditional29=v_60==244||v_60==245,    _elif_conditional29) {
+    else if(v_60==244||v_60==245) {
         # 893 "x86_64-gen.c"
         # 882 "x86_64-gen.c"
-        if(_if_conditional57=(v_60&1)==inv,        _if_conditional57) {
+        if((v_60&1)==inv) {
             # 884 "x86_64-gen.c"
             p_61=&vtop->c.i;
             # 887 "x86_64-gen.c"
-            while(_while_condtional3=*p_61!=0,            _while_condtional3) {
+            while(*p_61!=0) {
                 # 886 "x86_64-gen.c"
                 p_61=(int*)(cur_text_section->data+*p_61);
             }
@@ -7104,7 +6790,7 @@ memset(&__result_obj__, 0, sizeof(void*));
     else {
         # 899 "x86_64-gen.c"
         # 895 "x86_64-gen.c"
-        if(_if_conditional58=is_float(vtop->type.t)||(vtop->type.t&15)==12,        _if_conditional58) {
+        if(is_float(vtop->type.t)||(vtop->type.t&15)==12) {
             # 896 "x86_64-gen.c"
             vpushi(0);
             # 897 "x86_64-gen.c"
@@ -7112,10 +6798,10 @@ memset(&__result_obj__, 0, sizeof(void*));
         }
         # 910 "x86_64-gen.c"
         # 899 "x86_64-gen.c"
-        if(_if_conditional59=(vtop->r&(255|256|512))==240,        _if_conditional59) {
+        if((vtop->r&(255|256|512))==240) {
             # 903 "x86_64-gen.c"
             # 901 "x86_64-gen.c"
-            if(_if_conditional60=(vtop->c.i!=0)!=inv,            _if_conditional60) {
+            if((vtop->c.i!=0)!=inv) {
                 # 902 "x86_64-gen.c"
                 t=gjmp(t);
             }
@@ -7140,25 +6826,14 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 void gen_opi(int op){
-void* __result_obj__;
 int r_62;
 int fr_63;
 int opc_64;
 int c_65;
-_Bool _if_conditional61;
-_Bool _if_conditional62;
-_Bool _if_conditional63;
-_Bool _if_conditional64;
-_Bool _if_conditional65;
-_Bool _if_conditional66;
-_Bool _if_conditional67;
-_Bool _if_conditional68;
-_Bool _if_conditional69;
-_Bool _if_conditional70;
-_Bool _if_conditional71;
-_Bool _if_conditional72;
-_Bool _if_conditional73;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&r_62, 0, sizeof(int));
+memset(&fr_63, 0, sizeof(int));
+memset(&opc_64, 0, sizeof(int));
+memset(&c_65, 0, sizeof(int));
     # 918 "x86_64-gen.c"
     # 1073 "x86_64-gen.c"
     switch (op) {
@@ -7172,14 +6847,14 @@ memset(&__result_obj__, 0, sizeof(void*));
         gen_op8:
         # 956 "x86_64-gen.c"
         # 926 "x86_64-gen.c"
-        if(_if_conditional61=(vtop->r&(255|256|512))==240&&!is64_type(vtop->type.t),        _if_conditional61) {
+        if((vtop->r&(255|256|512))==240&&!is64_type(vtop->type.t)) {
             # 928 "x86_64-gen.c"
             vswap();
             # 929 "x86_64-gen.c"
             r_62=gv(1);
             # 933 "x86_64-gen.c"
             # 930 "x86_64-gen.c"
-            if(_if_conditional62=is64_type(vtop->type.t),            _if_conditional62) {
+            if(is64_type(vtop->type.t)) {
                 # 931 "x86_64-gen.c"
                 o(72|(((r_62)>>3)&1));
             }
@@ -7189,7 +6864,7 @@ memset(&__result_obj__, 0, sizeof(void*));
             c_65=vtop->c.i;
             # 944 "x86_64-gen.c"
             # 935 "x86_64-gen.c"
-            if(_if_conditional63=c_65==(char)c_65,            _if_conditional63) {
+            if(c_65==(char)c_65) {
                 # 937 "x86_64-gen.c"
                 o(131);
                 # 938 "x86_64-gen.c"
@@ -7213,7 +6888,7 @@ memset(&__result_obj__, 0, sizeof(void*));
             fr_63=vtop[0].r;
             # 953 "x86_64-gen.c"
             # 950 "x86_64-gen.c"
-            if(_if_conditional64=opc_64!=7||is64_type(vtop[0].type.t)||(vtop[0].type.t&16)||is64_type(vtop[-1].type.t)||(vtop[-1].type.t&16),            _if_conditional64) {
+            if(opc_64!=7||is64_type(vtop[0].type.t)||(vtop[0].type.t&16)||is64_type(vtop[-1].type.t)||(vtop[-1].type.t&16)) {
                 # 951 "x86_64-gen.c"
                 o(72|(((r_62)>>3)&1)|((((fr_63)>>3)&1)<<2));
             }
@@ -7226,7 +6901,7 @@ memset(&__result_obj__, 0, sizeof(void*));
         vtop--;
         # 961 "x86_64-gen.c"
         # 957 "x86_64-gen.c"
-        if(_if_conditional65=op>=146&&op<=159,        _if_conditional65) {
+        if(op>=146&&op<=159) {
             # 958 "x86_64-gen.c"
             vtop->r=243;
             # 959 "x86_64-gen.c"
@@ -7282,7 +6957,7 @@ memset(&__result_obj__, 0, sizeof(void*));
         fr_63=vtop[0].r;
         # 989 "x86_64-gen.c"
         # 986 "x86_64-gen.c"
-        if(_if_conditional66=is64_type(vtop[0].type.t)||(vtop[0].type.t&16)||is64_type(vtop[-1].type.t)||(vtop[-1].type.t&16),        _if_conditional66) {
+        if(is64_type(vtop[0].type.t)||(vtop[0].type.t&16)||is64_type(vtop[-1].type.t)||(vtop[-1].type.t&16)) {
             # 987 "x86_64-gen.c"
             o(72|(((fr_63)>>3)&1)|((((r_62)>>3)&1)<<2));
         }
@@ -7316,14 +6991,14 @@ memset(&__result_obj__, 0, sizeof(void*));
         opc_64=192|(opc_64<<3);
         # 1028 "x86_64-gen.c"
         # 1003 "x86_64-gen.c"
-        if(_if_conditional67=(vtop->r&(255|256|512))==240,        _if_conditional67) {
+        if((vtop->r&(255|256|512))==240) {
             # 1005 "x86_64-gen.c"
             vswap();
             # 1006 "x86_64-gen.c"
             r_62=gv(1);
             # 1013 "x86_64-gen.c"
             # 1007 "x86_64-gen.c"
-            if(_if_conditional68=(vtop->type.t&15)==12,            _if_conditional68) {
+            if((vtop->type.t&15)==12) {
                 # 1008 "x86_64-gen.c"
                 o(72|(((r_62)>>3)&1));
                 # 1009 "x86_64-gen.c"
@@ -7351,7 +7026,7 @@ memset(&__result_obj__, 0, sizeof(void*));
             r_62=vtop[-1].r;
             # 1025 "x86_64-gen.c"
             # 1022 "x86_64-gen.c"
-            if(_if_conditional69=(vtop[-1].type.t&15)==12,            _if_conditional69) {
+            if((vtop[-1].type.t&15)==12) {
                 # 1023 "x86_64-gen.c"
                 o(72|(((r_62)>>3)&1));
             }
@@ -7388,7 +7063,7 @@ memset(&__result_obj__, 0, sizeof(void*));
         save_reg((2));
         # 1067 "x86_64-gen.c"
         # 1043 "x86_64-gen.c"
-        if(_if_conditional70=op==194,        _if_conditional70) {
+        if(op==194) {
             # 1044 "x86_64-gen.c"
             o(247);
             # 1045 "x86_64-gen.c"
@@ -7401,7 +7076,7 @@ memset(&__result_obj__, 0, sizeof(void*));
         else {
             # 1062 "x86_64-gen.c"
             # 1049 "x86_64-gen.c"
-            if(_if_conditional71=op==176||op==177,            _if_conditional71) {
+            if(op==176||op==177) {
                 # 1050 "x86_64-gen.c"
                 o(16241201);
                 # 1051 "x86_64-gen.c"
@@ -7410,7 +7085,7 @@ memset(&__result_obj__, 0, sizeof(void*));
             else {
                 # 1059 "x86_64-gen.c"
                 # 1053 "x86_64-gen.c"
-                if(_if_conditional72=(vtop->type.t&15)&12,                _if_conditional72) {
+                if((vtop->type.t&15)&12) {
                     # 1054 "x86_64-gen.c"
                     o(39240);
                     # 1055 "x86_64-gen.c"
@@ -7427,7 +7102,7 @@ memset(&__result_obj__, 0, sizeof(void*));
             }
             # 1066 "x86_64-gen.c"
             # 1062 "x86_64-gen.c"
-            if(_if_conditional73=op==37||op==177,            _if_conditional73) {
+            if(op==37||op==177) {
                 # 1063 "x86_64-gen.c"
                 r_62=(2);
             }
@@ -7450,51 +7125,24 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 void gen_opl(int op){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 1077 "x86_64-gen.c"
     gen_opi(op);
 }
 
 void gen_opf(int op){
-void* __result_obj__;
 int a_66;
 int ft_67;
 int fc_68;
 int swapped_69;
 int r_70;
 int float_type_71;
-_Bool _if_conditional74;
-_Bool _if_conditional75;
-_Bool _if_conditional76;
-_Bool _if_conditional77;
-_Bool _if_conditional78;
-_Bool _if_conditional79;
-_Bool _if_conditional80;
-_Bool _elif_conditional30;
-_Bool _if_conditional81;
-_Bool _if_conditional82;
-_Bool _elif_conditional31;
-_Bool _elif_conditional32;
-_Bool _if_conditional83;
-_Bool _if_conditional84;
-_Bool _if_conditional85;
-_Bool _if_conditional86;
 struct SValue v1_72;
-_Bool _if_conditional87;
-_Bool _if_conditional88;
-_Bool _if_conditional89;
-_Bool _if_conditional90;
-_Bool _if_conditional91;
-_Bool _if_conditional92;
-_Bool _if_conditional93;
-_Bool _if_conditional94;
-_Bool _if_conditional95;
 struct SValue v1_73;
-_Bool _if_conditional96;
-_Bool _if_conditional97;
-_Bool _if_conditional98;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&a_66, 0, sizeof(int));
+memset(&ft_67, 0, sizeof(int));
+memset(&fc_68, 0, sizeof(int));
+memset(&swapped_69, 0, sizeof(int));
+memset(&r_70, 0, sizeof(int));
 memset(&float_type_71, 0, sizeof(int));
 memset(&v1_72, 0, sizeof(struct SValue));
 memset(&v1_73, 0, sizeof(struct SValue));
@@ -7503,7 +7151,7 @@ memset(&v1_73, 0, sizeof(struct SValue));
     float_type_71=(vtop->type.t&15)==10?64:2;
     # 1095 "x86_64-gen.c"
     # 1090 "x86_64-gen.c"
-    if(_if_conditional74=(vtop[-1].r&(255|256))==240,    _if_conditional74) {
+    if((vtop[-1].r&(255|256))==240) {
         # 1091 "x86_64-gen.c"
         vswap();
         # 1092 "x86_64-gen.c"
@@ -7513,13 +7161,13 @@ memset(&v1_73, 0, sizeof(struct SValue));
     }
     # 1099 "x86_64-gen.c"
     # 1095 "x86_64-gen.c"
-    if(_if_conditional75=(vtop[0].r&(255|256))==240,    _if_conditional75) {
+    if((vtop[0].r&(255|256))==240) {
         # 1096 "x86_64-gen.c"
         gv(float_type_71);
     }
     # 1105 "x86_64-gen.c"
     # 1100 "x86_64-gen.c"
-    if(_if_conditional76=(vtop[-1].r&256)&&(vtop[0].r&256),    _if_conditional76) {
+    if((vtop[-1].r&256)&&(vtop[0].r&256)) {
         # 1101 "x86_64-gen.c"
         vswap();
         # 1102 "x86_64-gen.c"
@@ -7531,7 +7179,7 @@ memset(&v1_73, 0, sizeof(struct SValue));
     swapped_69=0;
     # 1112 "x86_64-gen.c"
     # 1108 "x86_64-gen.c"
-    if(_if_conditional77=vtop[-1].r&256,    _if_conditional77) {
+    if(vtop[-1].r&256) {
         # 1109 "x86_64-gen.c"
         vswap();
         # 1110 "x86_64-gen.c"
@@ -7539,22 +7187,22 @@ memset(&v1_73, 0, sizeof(struct SValue));
     }
     # 1285 "x86_64-gen.c"
     # 1112 "x86_64-gen.c"
-    if(_if_conditional78=(vtop->type.t&15)==10,    _if_conditional78) {
+    if((vtop->type.t&15)==10) {
         # 1172 "x86_64-gen.c"
         # 1113 "x86_64-gen.c"
-        if(_if_conditional79=op>=146&&op<=159,        _if_conditional79) {
+        if(op>=146&&op<=159) {
             # 1115 "x86_64-gen.c"
             load((4),vtop);
             # 1116 "x86_64-gen.c"
             save_reg((0));
             # 1121 "x86_64-gen.c"
             # 1117 "x86_64-gen.c"
-            if(_if_conditional80=op==157||op==159,            _if_conditional80) {
+            if(op==157||op==159) {
                 # 1118 "x86_64-gen.c"
                 swapped_69=!swapped_69;
             }
             # 1119 "x86_64-gen.c"
-            else if(_elif_conditional30=op==148||op==149,            _elif_conditional30) {
+            else if(op==148||op==149) {
                 # 1120 "x86_64-gen.c"
                 swapped_69=0;
             }
@@ -7570,14 +7218,14 @@ memset(&v1_73, 0, sizeof(struct SValue));
             o(57567);
             # 1139 "x86_64-gen.c"
             # 1125 "x86_64-gen.c"
-            if(_if_conditional82=op==148,            _if_conditional82) {
+            if(op==148) {
                 # 1126 "x86_64-gen.c"
                 o(4580480);
                 # 1127 "x86_64-gen.c"
                 o(4258944);
             }
             # 1128 "x86_64-gen.c"
-            else if(_elif_conditional31=op==149,            _elif_conditional31) {
+            else if(op==149) {
                 # 1129 "x86_64-gen.c"
                 o(4580480);
                 # 1130 "x86_64-gen.c"
@@ -7586,7 +7234,7 @@ memset(&v1_73, 0, sizeof(struct SValue));
                 op=149;
             }
             # 1132 "x86_64-gen.c"
-            else if(_elif_conditional32=op==157||op==158,            _elif_conditional32) {
+            else if(op==157||op==158) {
                 # 1133 "x86_64-gen.c"
                 o(378102);
                 # 1134 "x86_64-gen.c"
@@ -7666,14 +7314,14 @@ memset(&v1_73, 0, sizeof(struct SValue));
     else {
         # 1284 "x86_64-gen.c"
         # 1173 "x86_64-gen.c"
-        if(_if_conditional85=op>=146&&op<=159,        _if_conditional85) {
+        if(op>=146&&op<=159) {
             # 1175 "x86_64-gen.c"
             r_70=vtop->r;
             # 1176 "x86_64-gen.c"
             fc_68=vtop->c.ul;
             # 1187 "x86_64-gen.c"
             # 1177 "x86_64-gen.c"
-            if(_if_conditional86=(r_70&255)==241,            _if_conditional86) {
+            if((r_70&255)==241) {
                 # 1178 "x86_64-gen.c"
                 # 1179 "x86_64-gen.c"
                 r_70=get_reg(1);
@@ -7690,20 +7338,20 @@ memset(&v1_73, 0, sizeof(struct SValue));
             }
             # 1199 "x86_64-gen.c"
             # 1187 "x86_64-gen.c"
-            if(_if_conditional87=op==148||op==149,            _if_conditional87) {
+            if(op==148||op==149) {
                 # 1188 "x86_64-gen.c"
                 swapped_69=0;
             }
             else {
                 # 1192 "x86_64-gen.c"
                 # 1190 "x86_64-gen.c"
-                if(_if_conditional88=op==158||op==156,                _if_conditional88) {
+                if(op==158||op==156) {
                     # 1191 "x86_64-gen.c"
                     swapped_69=!swapped_69;
                 }
                 # 1197 "x86_64-gen.c"
                 # 1192 "x86_64-gen.c"
-                if(_if_conditional89=op==158||op==157,                _if_conditional89) {
+                if(op==158||op==157) {
                     # 1193 "x86_64-gen.c"
                     op=147;
                 }
@@ -7721,7 +7369,7 @@ memset(&v1_73, 0, sizeof(struct SValue));
                 gen_modrm(1,r_70,vtop->sym,fc_68);
                 # 1206 "x86_64-gen.c"
                 # 1203 "x86_64-gen.c"
-                if(_if_conditional91=(vtop->type.t&15)==9,                _if_conditional91) {
+                if((vtop->type.t&15)==9) {
                     # 1204 "x86_64-gen.c"
                     o(102);
                 }
@@ -7733,7 +7381,7 @@ memset(&v1_73, 0, sizeof(struct SValue));
             else {
                 # 1212 "x86_64-gen.c"
                 # 1209 "x86_64-gen.c"
-                if(_if_conditional92=(vtop->type.t&15)==9,                _if_conditional92) {
+                if((vtop->type.t&15)==9) {
                     # 1210 "x86_64-gen.c"
                     o(102);
                 }
@@ -7752,7 +7400,7 @@ memset(&v1_73, 0, sizeof(struct SValue));
         else {
             # 1225 "x86_64-gen.c"
             # 1221 "x86_64-gen.c"
-            if(_if_conditional93=(vtop->type.t&15)==10,            _if_conditional93) {
+            if((vtop->type.t&15)==10) {
                 # 1222 "x86_64-gen.c"
                 load((3),vtop);
                 # 1223 "x86_64-gen.c"
@@ -7793,7 +7441,7 @@ memset(&v1_73, 0, sizeof(struct SValue));
             fc_68=vtop->c.ul;
             # 1282 "x86_64-gen.c"
             # 1242 "x86_64-gen.c"
-            if(_if_conditional94=(ft_67&15)==10,            _if_conditional94) {
+            if((ft_67&15)==10) {
                 # 1243 "x86_64-gen.c"
                 o(222);
                 # 1244 "x86_64-gen.c"
@@ -7804,7 +7452,7 @@ memset(&v1_73, 0, sizeof(struct SValue));
                 r_70=vtop->r;
                 # 1257 "x86_64-gen.c"
                 # 1248 "x86_64-gen.c"
-                if(_if_conditional95=(r_70&255)==241,                _if_conditional95) {
+                if((r_70&255)==241) {
                     # 1249 "x86_64-gen.c"
                     # 1250 "x86_64-gen.c"
                     r_70=get_reg(1);
@@ -7830,7 +7478,7 @@ memset(&v1_73, 0, sizeof(struct SValue));
                     load((3),vtop);
                     # 1268 "x86_64-gen.c"
                     # 1263 "x86_64-gen.c"
-                    if(_if_conditional97=(ft_67&15)==9,                    _if_conditional97) {
+                    if((ft_67&15)==9) {
                         # 1264 "x86_64-gen.c"
                         o(242);
                     }
@@ -7848,7 +7496,7 @@ memset(&v1_73, 0, sizeof(struct SValue));
                 else {
                     # 1277 "x86_64-gen.c"
                     # 1272 "x86_64-gen.c"
-                    if(_if_conditional98=(ft_67&15)==9,                    _if_conditional98) {
+                    if((ft_67&15)==9) {
                         # 1273 "x86_64-gen.c"
                         o(242);
                     }
@@ -7871,22 +7519,16 @@ memset(&v1_73, 0, sizeof(struct SValue));
 }
 
 void gen_cvt_itof(int t){
-void* __result_obj__;
-_Bool _if_conditional99;
-_Bool _if_conditional100;
-_Bool _elif_conditional33;
-_Bool _if_conditional101;
-memset(&__result_obj__, 0, sizeof(void*));
     # 1328 "x86_64-gen.c"
     # 1291 "x86_64-gen.c"
-    if(_if_conditional99=(t&15)==10,    _if_conditional99) {
+    if((t&15)==10) {
         # 1292 "x86_64-gen.c"
         save_reg((4));
         # 1293 "x86_64-gen.c"
         gv(1);
         # 1314 "x86_64-gen.c"
         # 1294 "x86_64-gen.c"
-        if(_if_conditional100=(vtop->type.t&15)==12,        _if_conditional100) {
+        if((vtop->type.t&15)==12) {
             # 1297 "x86_64-gen.c"
             o(80+(vtop->r&255));
             # 1298 "x86_64-gen.c"
@@ -7895,7 +7537,7 @@ memset(&__result_obj__, 0, sizeof(void*));
             o(147096392);
         }
         # 1301 "x86_64-gen.c"
-        else if(_elif_conditional33=(vtop->type.t&(15|16))==(0|16),        _elif_conditional33) {
+        else if((vtop->type.t&(15|16))==(0|16)) {
             # 1303 "x86_64-gen.c"
             o(106);
             # 1304 "x86_64-gen.c"
@@ -7927,7 +7569,7 @@ memset(&__result_obj__, 0, sizeof(void*));
         o(242+((t&15)==8));
         # 1324 "x86_64-gen.c"
         # 1321 "x86_64-gen.c"
-        if(_if_conditional101=(vtop->type.t&(15|16))==(0|16)||(vtop->type.t&15)==12,        _if_conditional101) {
+        if((vtop->type.t&(15|16))==(0|16)||(vtop->type.t&15)==12) {
             # 1322 "x86_64-gen.c"
             o(72);
         }
@@ -7941,19 +7583,12 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 void gen_cvt_ftof(int t){
-void* __result_obj__;
 int ft_74;
 int bt_75;
 int tbt_76;
-_Bool _if_conditional102;
-_Bool _if_conditional103;
-_Bool _elif_conditional34;
-_Bool _elif_conditional35;
-_Bool _if_conditional104;
-_Bool _elif_conditional36;
-_Bool _if_conditional105;
-_Bool _elif_conditional37;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&ft_74, 0, sizeof(int));
+memset(&bt_75, 0, sizeof(int));
+memset(&tbt_76, 0, sizeof(int));
     # 1333 "x86_64-gen.c"
     # 1335 "x86_64-gen.c"
     ft_74=vtop->type.t;
@@ -7963,19 +7598,19 @@ memset(&__result_obj__, 0, sizeof(void*));
     tbt_76=t&15;
     # 1379 "x86_64-gen.c"
     # 1339 "x86_64-gen.c"
-    if(_if_conditional102=bt_75==8,    _if_conditional102) {
+    if(bt_75==8) {
         # 1340 "x86_64-gen.c"
         gv(2);
         # 1351 "x86_64-gen.c"
         # 1341 "x86_64-gen.c"
-        if(_if_conditional103=tbt_76==9,        _if_conditional103) {
+        if(tbt_76==9) {
             # 1342 "x86_64-gen.c"
             o(12588047);
             # 1343 "x86_64-gen.c"
             o(12605967);
         }
         # 1344 "x86_64-gen.c"
-        else if(_elif_conditional34=tbt_76==10,        _elif_conditional34) {
+        else if(tbt_76==10) {
             # 1346 "x86_64-gen.c"
             o(1141968883);
             # 1347 "x86_64-gen.c"
@@ -7987,19 +7622,19 @@ memset(&__result_obj__, 0, sizeof(void*));
         }
     }
     # 1351 "x86_64-gen.c"
-    else if(_elif_conditional35=bt_75==9,    _elif_conditional35) {
+    else if(bt_75==9) {
         # 1352 "x86_64-gen.c"
         gv(2);
         # 1363 "x86_64-gen.c"
         # 1353 "x86_64-gen.c"
-        if(_if_conditional104=tbt_76==8,        _if_conditional104) {
+        if(tbt_76==8) {
             # 1354 "x86_64-gen.c"
             o(-1072427162);
             # 1355 "x86_64-gen.c"
             o(-1067839642);
         }
         # 1356 "x86_64-gen.c"
-        else if(_elif_conditional36=tbt_76==10,        _elif_conditional36) {
+        else if(tbt_76==10) {
             # 1358 "x86_64-gen.c"
             o(1141968882);
             # 1359 "x86_64-gen.c"
@@ -8015,7 +7650,7 @@ memset(&__result_obj__, 0, sizeof(void*));
         gv(64);
         # 1378 "x86_64-gen.c"
         # 1365 "x86_64-gen.c"
-        if(_if_conditional105=tbt_76==9,        _if_conditional105) {
+        if(tbt_76==9) {
             # 1366 "x86_64-gen.c"
             o(-266052387);
             # 1368 "x86_64-gen.c"
@@ -8026,7 +7661,7 @@ memset(&__result_obj__, 0, sizeof(void*));
             vtop->r=(3);
         }
         # 1371 "x86_64-gen.c"
-        else if(_elif_conditional37=tbt_76==8,        _elif_conditional37) {
+        else if(tbt_76==8) {
             # 1372 "x86_64-gen.c"
             o(-266052391);
             # 1374 "x86_64-gen.c"
@@ -8040,17 +7675,14 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 void gen_cvt_ftoi(int t){
-void* __result_obj__;
 int ft_77;
 int bt_78;
 int size_79;
 int r_80;
-_Bool _if_conditional106;
-_Bool _if_conditional107;
-_Bool _if_conditional108;
-_Bool _elif_conditional38;
-_Bool _if_conditional109;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&ft_77, 0, sizeof(int));
+memset(&bt_78, 0, sizeof(int));
+memset(&size_79, 0, sizeof(int));
+memset(&r_80, 0, sizeof(int));
     # 1384 "x86_64-gen.c"
     # 1385 "x86_64-gen.c"
     ft_77=vtop->type.t;
@@ -8058,7 +7690,7 @@ memset(&__result_obj__, 0, sizeof(void*));
     bt_78=ft_77&15;
     # 1392 "x86_64-gen.c"
     # 1387 "x86_64-gen.c"
-    if(_if_conditional106=bt_78==10,    _if_conditional106) {
+    if(bt_78==10) {
         # 1388 "x86_64-gen.c"
         gen_cvt_ftof(9);
         # 1389 "x86_64-gen.c"
@@ -8068,7 +7700,7 @@ memset(&__result_obj__, 0, sizeof(void*));
     gv(2);
     # 1398 "x86_64-gen.c"
     # 1393 "x86_64-gen.c"
-    if(_if_conditional107=t!=0,    _if_conditional107) {
+    if(t!=0) {
         # 1394 "x86_64-gen.c"
         size_79=8;
     }
@@ -8080,12 +7712,12 @@ memset(&__result_obj__, 0, sizeof(void*));
     r_80=get_reg(1);
     # 1406 "x86_64-gen.c"
     # 1399 "x86_64-gen.c"
-    if(_if_conditional108=bt_78==8,    _if_conditional108) {
+    if(bt_78==8) {
         # 1400 "x86_64-gen.c"
         o(243);
     }
     # 1401 "x86_64-gen.c"
-    else if(_elif_conditional38=bt_78==9,    _elif_conditional38) {
+    else if(bt_78==9) {
         # 1402 "x86_64-gen.c"
         o(242);
     }
@@ -8095,7 +7727,7 @@ memset(&__result_obj__, 0, sizeof(void*));
     }
     # 1409 "x86_64-gen.c"
     # 1406 "x86_64-gen.c"
-    if(_if_conditional109=size_79==8,    _if_conditional109) {
+    if(size_79==8) {
         # 1407 "x86_64-gen.c"
         o(72+(((r_80)>>3)&1));
     }
@@ -8108,8 +7740,6 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 void ggoto(){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 1417 "x86_64-gen.c"
     gcall_or_jmp(1);
     # 1418 "x86_64-gen.c"
@@ -8118,24 +7748,20 @@ memset(&__result_obj__, 0, sizeof(void*));
 
 void* resolve_sym(struct TCCState* s1, const char* sym, int type){
 void* __result_obj__;
-void* __result3__;
+void* __result1__;
 memset(&__result_obj__, 0, sizeof(void*));
     # 312 "libtcc.c"
-    __result3__ = __result_obj__ = dlsym(((void*)0),sym);
-    return __result3__;
+    __result1__ = __result_obj__ = dlsym(((void*)0),sym);
+    return __result1__;
 }
 
 int ieee_finite(double d){
-void* __result_obj__;
 int* p_81;
-int __result4__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&p_81, 0, sizeof(int*));
     # 324 "libtcc.c"
     p_81=(int*)&d;
     # 325 "libtcc.c"
-    __result4__ = ((unsigned int)((p_81[1]|-2146435073)+1))>>31;
-    return __result4__;
+    return ((unsigned int)((p_81[1]|-2146435073)+1))>>31;
 }
 
 char* pstrcpy(char* buf, int buf_size, const char* s){
@@ -8143,28 +7769,27 @@ void* __result_obj__;
 char* q_82;
 char* q_end_83;
 int c_84;
-_Bool _if_conditional110;
-_Bool _while_condtional4;
-_Bool _if_conditional111;
-char* __result5__;
+char* __result2__;
 memset(&__result_obj__, 0, sizeof(void*));
+memset(&q_82, 0, sizeof(char*));
+memset(&q_end_83, 0, sizeof(char*));
 memset(&c_84, 0, sizeof(int));
     # 331 "libtcc.c"
     # 332 "libtcc.c"
     # 345 "libtcc.c"
     # 334 "libtcc.c"
-    if(_if_conditional110=buf_size>0,    _if_conditional110) {
+    if(buf_size>0) {
         # 335 "libtcc.c"
         q_82=buf;
         # 336 "libtcc.c"
         q_end_83=buf+buf_size-1;
         # 343 "libtcc.c"
-        while(_while_condtional4=q_82<q_end_83,        _while_condtional4) {
+        while(q_82<q_end_83) {
             # 338 "libtcc.c"
             c_84=*s++;
             # 341 "libtcc.c"
             # 339 "libtcc.c"
-            if(_if_conditional111=c_84==0,            _if_conditional111) {
+            if(c_84==0) {
                 # 340 "libtcc.c"
                 break;
             }
@@ -8175,15 +7800,14 @@ memset(&c_84, 0, sizeof(int));
         *q_82=0;
     }
     # 345 "libtcc.c"
-    __result5__ = __result_obj__ = buf;
-    return __result5__;
+    __result2__ = __result_obj__ = buf;
+    return __result2__;
 }
 
 char* pstrcat(char* buf, int buf_size, const char* s){
 void* __result_obj__;
 int len_85;
-_Bool _if_conditional112;
-char* __result6__;
+char* __result3__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&len_85, 0, sizeof(int));
     # 351 "libtcc.c"
@@ -8191,39 +7815,38 @@ memset(&len_85, 0, sizeof(int));
     len_85=strlen(buf);
     # 355 "libtcc.c"
     # 353 "libtcc.c"
-    if(_if_conditional112=len_85<buf_size,    _if_conditional112) {
+    if(len_85<buf_size) {
         # 354 "libtcc.c"
         pstrcpy(buf+len_85,buf_size-len_85,s);
     }
     # 355 "libtcc.c"
-    __result6__ = __result_obj__ = buf;
-    return __result6__;
+    __result3__ = __result_obj__ = buf;
+    return __result3__;
 }
 
 char* tcc_basename(const char* name){
 void* __result_obj__;
 char* p_86;
-_Bool _while_condtional5;
-char* __result7__;
+char* __result4__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&p_86, 0, sizeof(char*));
     # 361 "libtcc.c"
     p_86=strchr(name,0);
     # 364 "libtcc.c"
-    while(_while_condtional5=p_86>name&&!(p_86[-1]==47),    _while_condtional5) {
+    while(p_86>name&&!(p_86[-1]==47)) {
         # 363 "libtcc.c"
         --p_86;
     }
     # 364 "libtcc.c"
-    __result7__ = __result_obj__ = p_86;
-    return __result7__;
+    __result4__ = __result_obj__ = p_86;
+    return __result4__;
 }
 
 char* tcc_fileextension(const char* name){
 void* __result_obj__;
 char* b_87;
 char* e_88;
-char* __result8__;
+char* __result5__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&b_87, 0, sizeof(char*));
 memset(&e_88, 0, sizeof(char*));
@@ -8232,15 +7855,15 @@ memset(&e_88, 0, sizeof(char*));
     # 370 "libtcc.c"
     e_88=strrchr(b_87,46);
     # 371 "libtcc.c"
-    __result8__ = __result_obj__ = e_88?e_88:strchr(b_87,0);
-    return __result8__;
+    __result5__ = __result_obj__ = e_88?e_88:strchr(b_87,0);
+    return __result5__;
 }
 
 void set_pages_executable(void* ptr, unsigned long int length){
-void* __result_obj__;
 unsigned long int start_89;
 unsigned long int end_90;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&start_89, 0, sizeof(unsigned long int));
+memset(&end_90, 0, sizeof(unsigned long int));
     # 406 "libtcc.c"
     # 407 "libtcc.c"
     start_89=(unsigned long int)ptr&~(4096-1);
@@ -8253,8 +7876,6 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 void tcc_free(void* ptr){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 426 "libtcc.c"
     free(ptr);
 }
@@ -8262,8 +7883,7 @@ memset(&__result_obj__, 0, sizeof(void*));
 void* tcc_malloc(unsigned long int size){
 void* __result_obj__;
 void* ptr_91;
-_Bool _if_conditional113;
-void* __result9__;
+void* __result6__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&ptr_91, 0, sizeof(void*));
     # 431 "libtcc.c"
@@ -8271,19 +7891,19 @@ memset(&ptr_91, 0, sizeof(void*));
     ptr_91=malloc(size);
     # 440 "libtcc.c"
     # 433 "libtcc.c"
-    if(_if_conditional113=!ptr_91&&size,    _if_conditional113) {
+    if(!ptr_91&&size) {
         # 434 "libtcc.c"
         error("memory full");
     }
     # 440 "libtcc.c"
-    __result9__ = __result_obj__ = ptr_91;
-    return __result9__;
+    __result6__ = __result_obj__ = ptr_91;
+    return __result6__;
 }
 
 void* tcc_mallocz(unsigned long int size){
 void* __result_obj__;
 void* ptr_92;
-void* __result10__;
+void* __result7__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&ptr_92, 0, sizeof(void*));
     # 445 "libtcc.c"
@@ -8292,28 +7912,28 @@ memset(&ptr_92, 0, sizeof(void*));
     # 447 "libtcc.c"
     memset(ptr_92,0,size);
     # 448 "libtcc.c"
-    __result10__ = __result_obj__ = ptr_92;
-    return __result10__;
+    __result7__ = __result_obj__ = ptr_92;
+    return __result7__;
 }
 
 void* tcc_realloc(void* ptr, unsigned long int size){
 void* __result_obj__;
 void* ptr1_93;
-void* __result11__;
+void* __result8__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&ptr1_93, 0, sizeof(void*));
     # 453 "libtcc.c"
     # 457 "libtcc.c"
     ptr1_93=realloc(ptr,size);
     # 464 "libtcc.c"
-    __result11__ = __result_obj__ = ptr1_93;
-    return __result11__;
+    __result8__ = __result_obj__ = ptr1_93;
+    return __result8__;
 }
 
 char* tcc_strdup(const char* str){
 void* __result_obj__;
 char* ptr_94;
-char* __result12__;
+char* __result9__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&ptr_94, 0, sizeof(char*));
     # 469 "libtcc.c"
@@ -8322,19 +7942,16 @@ memset(&ptr_94, 0, sizeof(char*));
     # 471 "libtcc.c"
     strcpy(ptr_94,str);
     # 472 "libtcc.c"
-    __result12__ = __result_obj__ = ptr_94;
-    return __result12__;
+    __result9__ = __result_obj__ = ptr_94;
+    return __result9__;
 }
 
 void dynarray_add(void*** ptab, int* nb_ptr, void* data){
-void* __result_obj__;
 int nb_95;
 int nb_alloc_96;
 void** pp_97;
-_Bool _if_conditional114;
-_Bool _if_conditional115;
-_Bool _if_conditional116;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&nb_95, 0, sizeof(int));
+memset(&nb_alloc_96, 0, sizeof(int));
 memset(&pp_97, 0, sizeof(void**));
     # 481 "libtcc.c"
     # 482 "libtcc.c"
@@ -8344,10 +7961,10 @@ memset(&pp_97, 0, sizeof(void**));
     pp_97=*ptab;
     # 497 "libtcc.c"
     # 487 "libtcc.c"
-    if(_if_conditional114=(nb_95&(nb_95-1))==0,    _if_conditional114) {
+    if((nb_95&(nb_95-1))==0) {
         # 492 "libtcc.c"
         # 488 "libtcc.c"
-        if(_if_conditional115=!nb_95,        _if_conditional115) {
+        if(!nb_95) {
             # 489 "libtcc.c"
             nb_alloc_96=1;
         }
@@ -8359,7 +7976,7 @@ memset(&pp_97, 0, sizeof(void**));
         pp_97=tcc_realloc(pp_97,nb_alloc_96*sizeof(void*));
         # 495 "libtcc.c"
         # 493 "libtcc.c"
-        if(_if_conditional116=!pp_97,        _if_conditional116) {
+        if(!pp_97) {
             # 494 "libtcc.c"
             error("memory full");
         }
@@ -8373,17 +7990,14 @@ memset(&pp_97, 0, sizeof(void**));
 }
 
 void dynarray_reset(void* pp, int* n){
-void* __result_obj__;
 void** p_98;
-_Bool _if_conditional117;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&p_98, 0, sizeof(void**));
     # 503 "libtcc.c"
     # 507 "libtcc.c"
     for(    p_98=*(void***)pp;    *n;    ++p_98,--*n    ){
         # 507 "libtcc.c"
         # 505 "libtcc.c"
-        if(_if_conditional117=*p_98,        _if_conditional117) {
+        if(*p_98) {
             # 506 "libtcc.c"
             tcc_free(*p_98);
         }
@@ -8400,8 +8014,11 @@ struct Sym* sym_pool_99;
 struct Sym* sym_100;
 struct Sym* last_sym_101;
 int i_102;
-struct Sym* __result13__;
+struct Sym* __result10__;
 memset(&__result_obj__, 0, sizeof(void*));
+memset(&sym_pool_99, 0, sizeof(struct Sym*));
+memset(&sym_100, 0, sizeof(struct Sym*));
+memset(&last_sym_101, 0, sizeof(struct Sym*));
 memset(&i_102, 0, sizeof(int));
     # 514 "libtcc.c"
     # 515 "libtcc.c"
@@ -8425,8 +8042,8 @@ memset(&i_102, 0, sizeof(int));
     # 527 "libtcc.c"
     sym_free_first=last_sym_101;
     # 528 "libtcc.c"
-    __result13__ = __result_obj__ = last_sym_101;
-    return __result13__;
+    __result10__ = __result_obj__ = last_sym_101;
+    return __result10__;
 }
 
 
@@ -8434,8 +8051,7 @@ memset(&i_102, 0, sizeof(int));
 struct Section* new_section(struct TCCState* s1, const char* name, int sh_type, int sh_flags){
 void* __result_obj__;
 struct Section* sec_104;
-_Bool _if_conditional119;
-struct Section* __result15__;
+struct Section* __result12__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&sec_104, 0, sizeof(struct Section*));
     # 549 "libtcc.c"
@@ -8480,7 +8096,7 @@ memset(&sec_104, 0, sizeof(struct Section*));
     }
     # 579 "libtcc.c"
     # 572 "libtcc.c"
-    if(_if_conditional119=sh_flags&-2147483648,    _if_conditional119) {
+    if(sh_flags&-2147483648) {
         # 573 "libtcc.c"
         dynarray_add((void***)&s1->priv_sections,&s1->nb_priv_sections,sec_104);
     }
@@ -8491,25 +8107,18 @@ memset(&sec_104, 0, sizeof(struct Section*));
         dynarray_add((void***)&s1->sections,&s1->nb_sections,sec_104);
     }
     # 579 "libtcc.c"
-    __result15__ = __result_obj__ = sec_104;
-    return __result15__;
+    __result12__ = __result_obj__ = sec_104;
+    return __result12__;
 }
 
 static void free_section(struct Section* s){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 584 "libtcc.c"
     tcc_free(s->data);
 }
 
 static void section_realloc(struct Section* sec, unsigned long int new_size){
-void* __result_obj__;
 unsigned long int size_105;
 unsigned char* data_106;
-_Bool _if_conditional120;
-_Bool _while_condtional6;
-_Bool _if_conditional121;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&size_105, 0, sizeof(unsigned long int));
 memset(&data_106, 0, sizeof(unsigned char*));
     # 590 "libtcc.c"
@@ -8518,12 +8127,12 @@ memset(&data_106, 0, sizeof(unsigned char*));
     size_105=sec->data_allocated;
     # 596 "libtcc.c"
     # 594 "libtcc.c"
-    if(_if_conditional120=size_105==0,    _if_conditional120) {
+    if(size_105==0) {
         # 595 "libtcc.c"
         size_105=1;
     }
     # 598 "libtcc.c"
-    while(_while_condtional6=size_105<new_size,    _while_condtional6) {
+    while(size_105<new_size) {
         # 597 "libtcc.c"
         size_105=size_105*2;
     }
@@ -8531,7 +8140,7 @@ memset(&data_106, 0, sizeof(unsigned char*));
     data_106=tcc_realloc(sec->data,size_105);
     # 601 "libtcc.c"
     # 599 "libtcc.c"
-    if(_if_conditional121=!data_106,    _if_conditional121) {
+    if(!data_106) {
         # 600 "libtcc.c"
         error("memory full");
     }
@@ -8547,9 +8156,10 @@ static void* section_ptr_add(struct Section* sec, unsigned long int size){
 void* __result_obj__;
 unsigned long int offset_107;
 unsigned long int offset1_108;
-_Bool _if_conditional122;
-void* __result16__;
+void* __result13__;
 memset(&__result_obj__, 0, sizeof(void*));
+memset(&offset_107, 0, sizeof(unsigned long int));
+memset(&offset1_108, 0, sizeof(unsigned long int));
     # 610 "libtcc.c"
     # 612 "libtcc.c"
     offset_107=sec->data_offset;
@@ -8557,24 +8167,23 @@ memset(&__result_obj__, 0, sizeof(void*));
     offset1_108=offset_107+size;
     # 616 "libtcc.c"
     # 614 "libtcc.c"
-    if(_if_conditional122=offset1_108>sec->data_allocated,    _if_conditional122) {
+    if(offset1_108>sec->data_allocated) {
         # 615 "libtcc.c"
         section_realloc(sec,offset1_108);
     }
     # 616 "libtcc.c"
     sec->data_offset=offset1_108;
     # 617 "libtcc.c"
-    __result16__ = __result_obj__ = sec->data+offset_107;
-    return __result16__;
+    __result13__ = __result_obj__ = sec->data+offset_107;
+    return __result13__;
 }
 
 struct Section* find_section(struct TCCState* s1, const char* name){
 void* __result_obj__;
 struct Section* sec_109;
 int i_110;
-_Bool _if_conditional123;
-struct Section* __result17__;
-struct Section* __result18__;
+struct Section* __result14__;
+struct Section* __result15__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&sec_109, 0, sizeof(struct Section*));
 memset(&i_110, 0, sizeof(int));
@@ -8586,19 +8195,18 @@ memset(&i_110, 0, sizeof(int));
         sec_109=s1->sections[i_110];
         # 630 "libtcc.c"
         # 628 "libtcc.c"
-        if(_if_conditional123=!strcmp(name,sec_109->name),        _if_conditional123) {
+        if(!strcmp(name,sec_109->name)) {
             # 629 "libtcc.c"
-            __result17__ = __result_obj__ = sec_109;
-            return __result17__;
+            __result14__ = __result_obj__ = sec_109;
+            return __result14__;
         }
     }
     # 632 "libtcc.c"
-    __result18__ = __result_obj__ = new_section(s1,name,1,(1<<1));
-    return __result18__;
+    __result15__ = __result_obj__ = new_section(s1,name,1,(1<<1));
+    return __result15__;
 }
 
 static void put_extern_sym2(struct Sym* sym, struct Section* section, unsigned long int value, unsigned long int size, int can_add_underscore){
-void* __result_obj__;
 int sym_type_111;
 int sym_bind_112;
 int sh_num_113;
@@ -8607,13 +8215,12 @@ int other_115;
 int attr_116;
 struct anonymous_typeX66* esym_117;
 const char* name_118;
-_Bool _if_conditional124;
-_Bool _elif_conditional39;
-_Bool _if_conditional125;
-_Bool _if_conditional126;
-_Bool _if_conditional127;
-_Bool _if_conditional128;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&sym_type_111, 0, sizeof(int));
+memset(&sym_bind_112, 0, sizeof(int));
+memset(&sh_num_113, 0, sizeof(int));
+memset(&info_114, 0, sizeof(int));
+memset(&other_115, 0, sizeof(int));
+memset(&attr_116, 0, sizeof(int));
 memset(&esym_117, 0, sizeof(struct anonymous_typeX66*));
 memset(&name_118, 0, sizeof(const char*));
     # 641 "libtcc.c"
@@ -8624,12 +8231,12 @@ memset(&name_118, 0, sizeof(const char*));
     memset(&buf1_119, 0, sizeof(char)    *(256)    );
     # 653 "libtcc.c"
     # 646 "libtcc.c"
-    if(_if_conditional124=section==((void*)0),    _if_conditional124) {
+    if(section==((void*)0)) {
         # 647 "libtcc.c"
         sh_num_113=0;
     }
     # 648 "libtcc.c"
-    else if(_elif_conditional39=section==((void*)1),    _elif_conditional39) {
+    else if(section==((void*)1)) {
         # 649 "libtcc.c"
         sh_num_113=65521;
     }
@@ -8641,7 +8248,7 @@ memset(&name_118, 0, sizeof(const char*));
     other_115=attr_116=0;
     # 669 "libtcc.c"
     # 655 "libtcc.c"
-    if(_if_conditional125=(sym->type.t&15)==6,    _if_conditional125) {
+    if((sym->type.t&15)==6) {
         # 656 "libtcc.c"
         sym_type_111=2;
     }
@@ -8651,7 +8258,7 @@ memset(&name_118, 0, sizeof(const char*));
     }
     # 674 "libtcc.c"
     # 669 "libtcc.c"
-    if(_if_conditional126=sym->type.t&256,    _if_conditional126) {
+    if(sym->type.t&256) {
         # 670 "libtcc.c"
         sym_bind_112=0;
     }
@@ -8661,12 +8268,12 @@ memset(&name_118, 0, sizeof(const char*));
     }
     # 726 "libtcc.c"
     # 674 "libtcc.c"
-    if(_if_conditional127=!sym->c,    _if_conditional127) {
+    if(!sym->c) {
         # 675 "libtcc.c"
         name_118=get_tok_str(sym->v,((void*)0));
         # 717 "libtcc.c"
         # 712 "libtcc.c"
-        if(_if_conditional128=tcc_state->leading_underscore&&can_add_underscore,        _if_conditional128) {
+        if(tcc_state->leading_underscore&&can_add_underscore) {
             # 713 "libtcc.c"
             buf1_119[0]=95;
             # 714 "libtcc.c"
@@ -8694,19 +8301,14 @@ memset(&name_118, 0, sizeof(const char*));
 }
 
 static void put_extern_sym(struct Sym* sym, struct Section* section, unsigned long int value, unsigned long int size){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 731 "libtcc.c"
     put_extern_sym2(sym,section,value,size,1);
 }
 
 static void greloc(struct Section* s, struct Sym* sym, unsigned long int offset, int type){
-void* __result_obj__;
-_Bool _if_conditional129;
-memset(&__result_obj__, 0, sizeof(void*));
     # 740 "libtcc.c"
     # 737 "libtcc.c"
-    if(_if_conditional129=!sym->c,    _if_conditional129) {
+    if(!sym->c) {
         # 738 "libtcc.c"
         put_extern_sym(sym,((void*)0),0,0);
     }
@@ -8719,9 +8321,7 @@ memset(&__result_obj__, 0, sizeof(void*));
 
 
 static void strcat_vprintf(char* buf, int buf_size, const char* fmt, va_list ap){
-void* __result_obj__;
 int len_120;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&len_120, 0, sizeof(int));
     # 770 "libtcc.c"
     # 771 "libtcc.c"
@@ -8731,9 +8331,7 @@ memset(&len_120, 0, sizeof(int));
 }
 
 static void strcat_printf(char* buf, int buf_size, const char* fmt, ...){
-void* __result_obj__;
 va_list ap_121;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&ap_121, 0, sizeof(va_list));
     # 777 "libtcc.c"
     # 778 "libtcc.c"
@@ -8746,19 +8344,10 @@ memset(&ap_121, 0, sizeof(va_list));
 }
 
 static void va_list_finalize(va_list self){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
 }
 
 void error1(struct TCCState* s1, int is_warning, const char* fmt, va_list ap){
-void* __result_obj__;
 struct BufferedFile** f_123;
-_Bool _if_conditional131;
-_Bool _if_conditional132;
-_Bool _if_conditional133;
-_Bool _if_conditional134;
-_Bool _if_conditional135;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&f_123, 0, sizeof(struct BufferedFile**));
     # 785 "libtcc.c"
     char buf_122[2048];
@@ -8776,7 +8365,7 @@ memset(&f_123, 0, sizeof(struct BufferedFile**));
         }
         # 800 "libtcc.c"
         # 793 "libtcc.c"
-        if(_if_conditional132=file->line_num>0,        _if_conditional132) {
+        if(file->line_num>0) {
             # 795 "libtcc.c"
             strcat_printf(buf_122,sizeof(buf_122),"%s:%d: ",file->filename,file->line_num);
         }
@@ -8799,7 +8388,7 @@ memset(&f_123, 0, sizeof(struct BufferedFile**));
     strcat_vprintf(buf_122,sizeof(buf_122),fmt,ap);
     # 814 "libtcc.c"
     # 808 "libtcc.c"
-    if(_if_conditional134=!s1->error_func,    _if_conditional134) {
+    if(!s1->error_func) {
         # 810 "libtcc.c"
         fprintf((stderr),"%s\n",buf_122);
     }
@@ -8809,15 +8398,13 @@ memset(&f_123, 0, sizeof(struct BufferedFile**));
     }
     # 816 "libtcc.c"
     # 814 "libtcc.c"
-    if(_if_conditional135=!is_warning||s1->warn_error,    _if_conditional135) {
+    if(!is_warning||s1->warn_error) {
         # 815 "libtcc.c"
         s1->nb_errors++;
     }
 }
 
 void tcc_set_error_func(struct TCCState* s, void* error_opaque, void (*error_func)(void*,const char*)){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 821 "libtcc.c"
     s->error_opaque=error_opaque;
     # 822 "libtcc.c"
@@ -8825,10 +8412,8 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 void error_noabort(const char* fmt, ...){
-void* __result_obj__;
 struct TCCState* s1_124;
 va_list ap_125;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&s1_124, 0, sizeof(struct TCCState*));
 memset(&ap_125, 0, sizeof(va_list));
     # 828 "libtcc.c"
@@ -8844,11 +8429,8 @@ memset(&ap_125, 0, sizeof(va_list));
 }
 
 void error(const char* fmt, ...){
-void* __result_obj__;
 struct TCCState* s1_126;
 va_list ap_127;
-_Bool _if_conditional136;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&s1_126, 0, sizeof(struct TCCState*));
 memset(&ap_127, 0, sizeof(va_list));
     # 838 "libtcc.c"
@@ -8874,18 +8456,13 @@ memset(&ap_127, 0, sizeof(va_list));
 }
 
 void expect(const char* msg){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 855 "libtcc.c"
     error("%s expected",msg);
 }
 
 void warning(const char* fmt, ...){
-void* __result_obj__;
 struct TCCState* s1_128;
 va_list ap_129;
-_Bool _if_conditional137;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&s1_128, 0, sizeof(struct TCCState*));
 memset(&ap_129, 0, sizeof(va_list));
     # 860 "libtcc.c"
@@ -8908,12 +8485,9 @@ memset(&ap_129, 0, sizeof(va_list));
 }
 
 void skip(int c){
-void* __result_obj__;
-_Bool _if_conditional138;
-memset(&__result_obj__, 0, sizeof(void*));
     # 875 "libtcc.c"
     # 873 "libtcc.c"
-    if(_if_conditional138=tok!=c,    _if_conditional138) {
+    if(tok!=c) {
         # 874 "libtcc.c"
         error("'%c' expected",c);
     }
@@ -8922,25 +8496,17 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 static void test_lvalue(){
-void* __result_obj__;
-_Bool _if_conditional139;
-memset(&__result_obj__, 0, sizeof(void*));
     # 882 "libtcc.c"
     # 880 "libtcc.c"
-    if(_if_conditional139=!(vtop->r&256),    _if_conditional139) {
+    if(!(vtop->r&256)) {
         # 881 "libtcc.c"
         expect("lvalue");
     }
 }
 
 static void cstr_realloc(struct CString* cstr, int new_size){
-void* __result_obj__;
 int size_130;
 void* data_131;
-_Bool _if_conditional140;
-_Bool _while_condtional7;
-_Bool _if_conditional141;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&size_130, 0, sizeof(int));
 memset(&data_131, 0, sizeof(void*));
     # 888 "libtcc.c"
@@ -8949,12 +8515,12 @@ memset(&data_131, 0, sizeof(void*));
     size_130=cstr->size_allocated;
     # 894 "libtcc.c"
     # 892 "libtcc.c"
-    if(_if_conditional140=size_130==0,    _if_conditional140) {
+    if(size_130==0) {
         # 893 "libtcc.c"
         size_130=8;
     }
     # 896 "libtcc.c"
-    while(_while_condtional7=size_130<new_size,    _while_condtional7) {
+    while(size_130<new_size) {
         # 895 "libtcc.c"
         size_130=size_130*2;
     }
@@ -8962,7 +8528,7 @@ memset(&data_131, 0, sizeof(void*));
     data_131=tcc_realloc(cstr->data_allocated,size_130);
     # 899 "libtcc.c"
     # 897 "libtcc.c"
-    if(_if_conditional141=!data_131,    _if_conditional141) {
+    if(!data_131) {
         # 898 "libtcc.c"
         error("memory full");
     }
@@ -8976,10 +8542,7 @@ memset(&data_131, 0, sizeof(void*));
 
 
 static void cstr_cat(struct CString* cstr, const char* str){
-void* __result_obj__;
 int c_133;
-_Bool _if_conditional143;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&c_133, 0, sizeof(int));
     # 917 "libtcc.c"
     # 925 "libtcc.c"
@@ -8988,7 +8551,7 @@ memset(&c_133, 0, sizeof(int));
         c_133=*str;
         # 922 "libtcc.c"
         # 920 "libtcc.c"
-        if(_if_conditional143=c_133==0,        _if_conditional143) {
+        if(c_133==0) {
             # 921 "libtcc.c"
             break;
         }
@@ -9000,17 +8563,14 @@ memset(&c_133, 0, sizeof(int));
 }
 
 static void cstr_wccat(struct CString* cstr, int ch){
-void* __result_obj__;
 int size_134;
-_Bool _if_conditional144;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&size_134, 0, sizeof(int));
     # 930 "libtcc.c"
     # 931 "libtcc.c"
     size_134=cstr->size+sizeof(int);
     # 934 "libtcc.c"
     # 932 "libtcc.c"
-    if(_if_conditional144=size_134>cstr->size_allocated,    _if_conditional144) {
+    if(size_134>cstr->size_allocated) {
         # 933 "libtcc.c"
         cstr_realloc(cstr,size_134);
     }
@@ -9021,15 +8581,11 @@ memset(&size_134, 0, sizeof(int));
 }
 
 static void cstr_new(struct CString* cstr){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 940 "libtcc.c"
     memset(cstr,0,sizeof(struct CString));
 }
 
 static void cstr_free(struct CString* cstr){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 946 "libtcc.c"
     tcc_free(cstr->data_allocated);
     # 947 "libtcc.c"
@@ -9037,20 +8593,15 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 static void add_char(struct CString* cstr, int c){
-void* __result_obj__;
-_Bool _if_conditional145;
-_Bool _if_conditional146;
-_Bool _if_conditional147;
-memset(&__result_obj__, 0, sizeof(void*));
     # 959 "libtcc.c"
     # 955 "libtcc.c"
-    if(_if_conditional145=c==39||c==34||c==92,    _if_conditional145) {
+    if(c==39||c==34||c==92) {
         # 957 "libtcc.c"
         cstr_ccat(cstr,92);
     }
     # 971 "libtcc.c"
     # 959 "libtcc.c"
-    if(_if_conditional146=c>=32&&c<=126,    _if_conditional146) {
+    if(c>=32&&c<=126) {
         # 960 "libtcc.c"
         cstr_ccat(cstr,c);
     }
@@ -9059,7 +8610,7 @@ memset(&__result_obj__, 0, sizeof(void*));
         cstr_ccat(cstr,92);
         # 970 "libtcc.c"
         # 963 "libtcc.c"
-        if(_if_conditional147=c==10,        _if_conditional147) {
+        if(c==10) {
             # 964 "libtcc.c"
             cstr_ccat(cstr,110);
         }
@@ -9077,7 +8628,7 @@ memset(&__result_obj__, 0, sizeof(void*));
 static struct Sym* sym_push2(struct Sym** ps, int v, int t, long c){
 void* __result_obj__;
 struct Sym* s_135;
-struct Sym* __result24__;
+struct Sym* __result16__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&s_135, 0, sizeof(struct Sym*));
     # 976 "libtcc.c"
@@ -9096,31 +8647,30 @@ memset(&s_135, 0, sizeof(struct Sym*));
     # 984 "libtcc.c"
     *ps=s_135;
     # 985 "libtcc.c"
-    __result24__ = __result_obj__ = s_135;
-    return __result24__;
+    __result16__ = __result_obj__ = s_135;
+    return __result16__;
 }
 
 static struct Sym* sym_find2(struct Sym* s, int v){
 void* __result_obj__;
-_Bool _if_conditional148;
-struct Sym* __result25__;
-struct Sym* __result26__;
+struct Sym* __result17__;
+struct Sym* __result18__;
 memset(&__result_obj__, 0, sizeof(void*));
     # 997 "libtcc.c"
     while(s) {
         # 995 "libtcc.c"
         # 993 "libtcc.c"
-        if(_if_conditional148=s->v==v,        _if_conditional148) {
+        if(s->v==v) {
             # 994 "libtcc.c"
-            __result25__ = __result_obj__ = s;
-            return __result25__;
+            __result17__ = __result_obj__ = s;
+            return __result17__;
         }
         # 995 "libtcc.c"
         s=s->prev;
     }
     # 997 "libtcc.c"
-    __result26__ = __result_obj__ = ((void*)0);
-    return __result26__;
+    __result18__ = __result_obj__ = ((void*)0);
+    return __result18__;
 }
 
 
@@ -9130,11 +8680,10 @@ void* __result_obj__;
 struct Sym* s_136;
 struct Sym** ps_137;
 struct TokenSym* ts_138;
-_Bool _if_conditional151;
-_Bool _if_conditional152;
-_Bool _if_conditional153;
-struct Sym* __result31__;
+struct Sym* __result23__;
 memset(&__result_obj__, 0, sizeof(void*));
+memset(&s_136, 0, sizeof(struct Sym*));
+memset(&ps_137, 0, sizeof(struct Sym**));
 memset(&ts_138, 0, sizeof(struct TokenSym*));
     # 1021 "libtcc.c"
     # 1022 "libtcc.c"
@@ -9156,12 +8705,12 @@ memset(&ts_138, 0, sizeof(struct TokenSym*));
     s_136->r=r;
     # 1043 "libtcc.c"
     # 1033 "libtcc.c"
-    if(_if_conditional152=!(v&536870912)&&(v&~1073741824)<268435456,    _if_conditional152) {
+    if(!(v&536870912)&&(v&~1073741824)<268435456) {
         # 1035 "libtcc.c"
         ts_138=table_ident[(v&~1073741824)-256];
         # 1040 "libtcc.c"
         # 1036 "libtcc.c"
-        if(_if_conditional153=v&1073741824,        _if_conditional153) {
+        if(v&1073741824) {
             # 1037 "libtcc.c"
             ps_137=&ts_138->sym_struct;
         }
@@ -9175,28 +8724,28 @@ memset(&ts_138, 0, sizeof(struct TokenSym*));
         *ps_137=s_136;
     }
     # 1043 "libtcc.c"
-    __result31__ = __result_obj__ = s_136;
-    return __result31__;
+    __result23__ = __result_obj__ = s_136;
+    return __result23__;
 }
 
 static struct Sym* global_identifier_push(int v, int t, int c){
 void* __result_obj__;
 struct Sym* s_139;
 struct Sym** ps_140;
-_Bool _if_conditional154;
-_Bool _while_condtional8;
-struct Sym* __result32__;
+struct Sym* __result24__;
 memset(&__result_obj__, 0, sizeof(void*));
+memset(&s_139, 0, sizeof(struct Sym*));
+memset(&ps_140, 0, sizeof(struct Sym**));
     # 1049 "libtcc.c"
     # 1050 "libtcc.c"
     s_139=sym_push2(&global_stack,v,t,c);
     # 1061 "libtcc.c"
     # 1052 "libtcc.c"
-    if(_if_conditional154=v<268435456,    _if_conditional154) {
+    if(v<268435456) {
         # 1053 "libtcc.c"
         ps_140=&table_ident[v-256]->sym_identifier;
         # 1058 "libtcc.c"
-        while(_while_condtional8=*ps_140!=((void*)0),        _while_condtional8) {
+        while(*ps_140!=((void*)0)) {
             # 1057 "libtcc.c"
             ps_140=&(*ps_140)->prev_tok;
         }
@@ -9206,21 +8755,19 @@ memset(&__result_obj__, 0, sizeof(void*));
         *ps_140=s_139;
     }
     # 1061 "libtcc.c"
-    __result32__ = __result_obj__ = s_139;
-    return __result32__;
+    __result24__ = __result_obj__ = s_139;
+    return __result24__;
 }
 
 static void sym_pop(struct Sym** ptop, struct Sym* b){
-void* __result_obj__;
 struct Sym* s_141;
 struct Sym* ss_142;
 struct Sym** ps_143;
 struct TokenSym* ts_144;
 int v_145;
-_Bool _while_condtional9;
-_Bool _if_conditional155;
-_Bool _if_conditional156;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&s_141, 0, sizeof(struct Sym*));
+memset(&ss_142, 0, sizeof(struct Sym*));
+memset(&ps_143, 0, sizeof(struct Sym**));
 memset(&ts_144, 0, sizeof(struct TokenSym*));
 memset(&v_145, 0, sizeof(int));
     # 1067 "libtcc.c"
@@ -9229,19 +8776,19 @@ memset(&v_145, 0, sizeof(int));
     # 1071 "libtcc.c"
     s_141=*ptop;
     # 1088 "libtcc.c"
-    while(_while_condtional9=s_141!=b,    _while_condtional9) {
+    while(s_141!=b) {
         # 1073 "libtcc.c"
         ss_142=s_141->prev;
         # 1074 "libtcc.c"
         v_145=s_141->v;
         # 1085 "libtcc.c"
         # 1077 "libtcc.c"
-        if(_if_conditional155=!(v_145&536870912)&&(v_145&~1073741824)<268435456,        _if_conditional155) {
+        if(!(v_145&536870912)&&(v_145&~1073741824)<268435456) {
             # 1078 "libtcc.c"
             ts_144=table_ident[(v_145&~1073741824)-256];
             # 1083 "libtcc.c"
             # 1079 "libtcc.c"
-            if(_if_conditional156=v_145&1073741824,            _if_conditional156) {
+            if(v_145&1073741824) {
                 # 1080 "libtcc.c"
                 ps_143=&ts_144->sym_struct;
             }
@@ -9265,11 +8812,8 @@ struct BufferedFile* tcc_open(struct TCCState* s1, const char* filename){
 void* __result_obj__;
 int fd_146;
 struct BufferedFile* bf_147;
-_Bool _if_conditional157;
-_Bool _if_conditional158;
-_Bool _if_conditional159;
-struct BufferedFile* __result33__;
-struct BufferedFile* __result34__;
+struct BufferedFile* __result25__;
+struct BufferedFile* __result26__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&fd_146, 0, sizeof(int));
 memset(&bf_147, 0, sizeof(struct BufferedFile*));
@@ -9277,7 +8821,7 @@ memset(&bf_147, 0, sizeof(struct BufferedFile*));
     # 1096 "libtcc.c"
     # 1102 "libtcc.c"
     # 1098 "libtcc.c"
-    if(_if_conditional157=strcmp(filename,"-")==0,    _if_conditional157) {
+    if(strcmp(filename,"-")==0) {
         # 1099 "libtcc.c"
         fd_146=0,filename="stdin";
     }
@@ -9287,16 +8831,16 @@ memset(&bf_147, 0, sizeof(struct BufferedFile*));
     }
     # 1105 "libtcc.c"
     # 1102 "libtcc.c"
-    if(_if_conditional158=(s1->verbose==2&&fd_146>=0)||s1->verbose==3,    _if_conditional158) {
+    if((s1->verbose==2&&fd_146>=0)||s1->verbose==3) {
         # 1104 "libtcc.c"
         printf("%s %*s%s\n",fd_146<0?"nf":"->",(s1->include_stack_ptr-s1->include_stack),"",filename);
     }
     # 1107 "libtcc.c"
     # 1105 "libtcc.c"
-    if(_if_conditional159=fd_146<0,    _if_conditional159) {
+    if(fd_146<0) {
         # 1106 "libtcc.c"
-        __result33__ = __result_obj__ = ((void*)0);
-        return __result33__;
+        __result25__ = __result_obj__ = ((void*)0);
+        return __result25__;
     }
     # 1107 "libtcc.c"
     bf_147=tcc_malloc(sizeof(struct BufferedFile));
@@ -9317,13 +8861,11 @@ memset(&bf_147, 0, sizeof(struct BufferedFile*));
     # 1118 "libtcc.c"
     bf_147->ifdef_stack_ptr=s1->ifdef_stack_ptr;
     # 1120 "libtcc.c"
-    __result34__ = __result_obj__ = bf_147;
-    return __result34__;
+    __result26__ = __result_obj__ = bf_147;
+    return __result26__;
 }
 
 void tcc_close(struct BufferedFile* bf){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 1125 "libtcc.c"
     total_lines+=bf->line_num;
     # 1126 "libtcc.c"
@@ -9337,17 +8879,16 @@ void* __result_obj__;
 struct TokenSym* ts_148;
 struct TokenSym** ptable_149;
 int i_150;
-_Bool _if_conditional160;
-_Bool _if_conditional161;
-_Bool _if_conditional162;
-struct TokenSym* __result35__;
+struct TokenSym* __result27__;
 memset(&__result_obj__, 0, sizeof(void*));
+memset(&ts_148, 0, sizeof(struct TokenSym*));
+memset(&ptable_149, 0, sizeof(struct TokenSym**));
 memset(&i_150, 0, sizeof(int));
     # 49 "tccpp.c"
     # 50 "tccpp.c"
     # 56 "tccpp.c"
     # 52 "tccpp.c"
-    if(_if_conditional160=tok_ident>=268435456,    _if_conditional160) {
+    if(tok_ident>=268435456) {
         # 53 "tccpp.c"
         error("memory full");
     }
@@ -9355,12 +8896,12 @@ memset(&i_150, 0, sizeof(int));
     i_150=tok_ident-256;
     # 64 "tccpp.c"
     # 57 "tccpp.c"
-    if(_if_conditional161=(i_150%512)==0,    _if_conditional161) {
+    if((i_150%512)==0) {
         # 58 "tccpp.c"
         ptable_149=tcc_realloc(table_ident,(i_150+512)*sizeof(struct TokenSym*));
         # 61 "tccpp.c"
         # 59 "tccpp.c"
-        if(_if_conditional162=!ptable_149,        _if_conditional162) {
+        if(!ptable_149) {
             # 60 "tccpp.c"
             error("memory full");
         }
@@ -9392,8 +8933,8 @@ memset(&i_150, 0, sizeof(int));
     # 75 "tccpp.c"
     *pts=ts_148;
     # 76 "tccpp.c"
-    __result35__ = __result_obj__ = ts_148;
-    return __result35__;
+    __result27__ = __result_obj__ = ts_148;
+    return __result27__;
 }
 
 static struct TokenSym* tok_alloc(const char* str, int len){
@@ -9402,11 +8943,11 @@ struct TokenSym* ts_151;
 struct TokenSym** pts_152;
 int i_153;
 unsigned int h_154;
-_Bool _if_conditional163;
-_Bool _if_conditional164;
-struct TokenSym* __result36__;
-struct TokenSym* __result37__;
+struct TokenSym* __result28__;
+struct TokenSym* __result29__;
 memset(&__result_obj__, 0, sizeof(void*));
+memset(&ts_151, 0, sizeof(struct TokenSym*));
+memset(&pts_152, 0, sizeof(struct TokenSym**));
 memset(&i_153, 0, sizeof(int));
 memset(&h_154, 0, sizeof(unsigned int));
     # 85 "tccpp.c"
@@ -9429,53 +8970,50 @@ memset(&h_154, 0, sizeof(unsigned int));
         ts_151=*pts_152;
         # 99 "tccpp.c"
         # 97 "tccpp.c"
-        if(_if_conditional163=!ts_151,        _if_conditional163) {
+        if(!ts_151) {
             # 98 "tccpp.c"
             break;
         }
         # 101 "tccpp.c"
         # 99 "tccpp.c"
-        if(_if_conditional164=ts_151->len==len&&!memcmp(ts_151->str,str,len),        _if_conditional164) {
+        if(ts_151->len==len&&!memcmp(ts_151->str,str,len)) {
             # 100 "tccpp.c"
-            __result36__ = __result_obj__ = ts_151;
-            return __result36__;
+            __result28__ = __result_obj__ = ts_151;
+            return __result28__;
         }
         # 101 "tccpp.c"
         pts_152=&(ts_151->hash_next);
     }
     # 103 "tccpp.c"
-    __result37__ = __result_obj__ = tok_alloc_new(pts_152,str,len);
-    return __result37__;
+    __result29__ = __result_obj__ = tok_alloc_new(pts_152,str,len);
+    return __result29__;
 }
 
 char* get_tok_str(int v, union CValue* cv){
 void* __result_obj__;
-struct CString cstr_buf_156;
+static struct CString cstr_buf_156;
 struct CString* cstr_157;
 unsigned char* q_158;
 char* p_159;
 int i_160;
 int len_161;
-_Bool _if_conditional165;
-char* __result38__;
-char* __result39__;
-char* __result40__;
-_Bool _if_conditional166;
-_Bool _while_condtional10;
-_Bool _if_conditional167;
-char* __result41__;
-_Bool _elif_conditional40;
-char* __result42__;
-_Bool _elif_conditional41;
-char* __result43__;
-char* __result44__;
+char* __result30__;
+char* __result31__;
+char* __result32__;
+char* __result33__;
+char* __result34__;
+char* __result35__;
+char* __result36__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&cstr_buf_156, 0, sizeof(struct CString));
 memset(&cstr_157, 0, sizeof(struct CString*));
 memset(&q_158, 0, sizeof(unsigned char*));
 memset(&p_159, 0, sizeof(char*));
+memset(&i_160, 0, sizeof(int));
+memset(&len_161, 0, sizeof(int));
     # 110 "tccpp.c"
     static char buf_155[1024+1];
+    memset(&buf_155, 0, sizeof(static char)    *(1024+1)    );
     # 111 "tccpp.c"
     # 112 "tccpp.c"
     # 113 "tccpp.c"
@@ -9550,7 +9088,7 @@ memset(&p_159, 0, sizeof(char*));
         cstr_ccat(&cstr_buf_156,34);
         # 163 "tccpp.c"
         # 154 "tccpp.c"
-        if(_if_conditional165=v==181,        _if_conditional165) {
+        if(v==181) {
             # 155 "tccpp.c"
             len_161=cstr_157->size-1;
             # 158 "tccpp.c"
@@ -9589,33 +9127,33 @@ memset(&p_159, 0, sizeof(char*));
         # 173 "tccpp.c"
         case 204:
         # 173 "tccpp.c"
-        __result38__ = __result_obj__ = strcpy(p_159,"...");
+        __result30__ = __result_obj__ = strcpy(p_159,"...");
         come_call_finalizer3((&cstr_buf_156),CString_finalize, 1, 0, 0, 0, (void*)0);
-        return __result38__;
+        return __result30__;
         # 175 "tccpp.c"
         case 129:
         # 175 "tccpp.c"
-        __result39__ = __result_obj__ = strcpy(p_159,"<<=");
+        __result31__ = __result_obj__ = strcpy(p_159,"<<=");
         come_call_finalizer3((&cstr_buf_156),CString_finalize, 1, 0, 0, 0, (void*)0);
-        return __result39__;
+        return __result31__;
         # 177 "tccpp.c"
         case 130:
         # 177 "tccpp.c"
-        __result40__ = __result_obj__ = strcpy(p_159,">>=");
+        __result32__ = __result_obj__ = strcpy(p_159,">>=");
         come_call_finalizer3((&cstr_buf_156),CString_finalize, 1, 0, 0, 0, (void*)0);
-        return __result40__;
+        return __result32__;
         # 179 "tccpp.c"
         default:
         # 203 "tccpp.c"
         # 179 "tccpp.c"
-        if(_if_conditional166=v<256,        _if_conditional166) {
+        if(v<256) {
             # 181 "tccpp.c"
             q_158=tok_two_chars;
             # 191 "tccpp.c"
-            while(_while_condtional10=*q_158,            _while_condtional10) {
+            while(*q_158) {
                 # 189 "tccpp.c"
                 # 183 "tccpp.c"
-                if(_if_conditional167=q_158[2]==v,                _if_conditional167) {
+                if(q_158[2]==v) {
                     # 184 "tccpp.c"
                     *p_159++=q_158[0];
                     # 185 "tccpp.c"
@@ -9623,9 +9161,9 @@ memset(&p_159, 0, sizeof(char*));
                     # 186 "tccpp.c"
                     *p_159=0;
                     # 187 "tccpp.c"
-                    __result41__ = __result_obj__ = buf_155;
+                    __result33__ = __result_obj__ = buf_155;
                     come_call_finalizer3((&cstr_buf_156),CString_finalize, 1, 0, 0, 0, (void*)0);
-                    return __result41__;
+                    return __result33__;
                 }
                 # 189 "tccpp.c"
                 q_158+=3;
@@ -9638,63 +9176,53 @@ memset(&p_159, 0, sizeof(char*));
             *p_159=0;
         }
         # 194 "tccpp.c"
-        else if(_elif_conditional40=v<tok_ident,        _elif_conditional40) {
+        else if(v<tok_ident) {
             # 195 "tccpp.c"
-            __result42__ = __result_obj__ = table_ident[v-256]->str;
+            __result34__ = __result_obj__ = table_ident[v-256]->str;
             come_call_finalizer3((&cstr_buf_156),CString_finalize, 1, 0, 0, 0, (void*)0);
-            return __result42__;
+            return __result34__;
         }
         # 196 "tccpp.c"
-        else if(_elif_conditional41=v>=268435456,        _elif_conditional41) {
+        else if(v>=268435456) {
             # 198 "tccpp.c"
             sprintf(p_159,"L.%u",v-268435456);
         }
         else {
             # 201 "tccpp.c"
-            __result43__ = __result_obj__ = ((void*)0);
+            __result35__ = __result_obj__ = ((void*)0);
             come_call_finalizer3((&cstr_buf_156),CString_finalize, 1, 0, 0, 0, (void*)0);
-            return __result43__;
+            return __result35__;
         }
         # 203 "tccpp.c"
         break;
     }
     # 205 "tccpp.c"
-    __result44__ = __result_obj__ = cstr_buf_156.data;
+    __result36__ = __result_obj__ = cstr_buf_156.data;
     come_call_finalizer3((&cstr_buf_156),CString_finalize, 1, 0, 0, 0, (void*)0);
-    return __result44__;
+    return __result36__;
     come_call_finalizer3((&cstr_buf_156),CString_finalize, 1, 0, 0, 0, (void*)0);
 }
 
-static void CString_finalize(struct CString* self){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
+static void CString_finalize(static struct CString* self){
 }
 
 static int tcc_peekc_slow(struct BufferedFile* bf){
-void* __result_obj__;
 int len_162;
-_Bool _if_conditional168;
-_Bool _if_conditional169;
-_Bool _if_conditional170;
-_Bool _if_conditional171;
-int __result45__;
-int __result46__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&len_162, 0, sizeof(int));
     # 211 "tccpp.c"
     # 231 "tccpp.c"
     # 213 "tccpp.c"
-    if(_if_conditional168=bf->buf_ptr>=bf->buf_end,    _if_conditional168) {
+    if(bf->buf_ptr>=bf->buf_end) {
         # 226 "tccpp.c"
         # 214 "tccpp.c"
-        if(_if_conditional169=bf->fd!=-1,        _if_conditional169) {
+        if(bf->fd!=-1) {
             # 218 "tccpp.c"
             len_162=8192;
             # 220 "tccpp.c"
             len_162=read(bf->fd,bf->buffer,len_162);
             # 223 "tccpp.c"
             # 221 "tccpp.c"
-            if(_if_conditional170=len_162<0,            _if_conditional170) {
+            if(len_162<0) {
                 # 222 "tccpp.c"
                 len_162=0;
             }
@@ -9714,58 +9242,44 @@ memset(&len_162, 0, sizeof(int));
     }
     # 237 "tccpp.c"
     # 231 "tccpp.c"
-    if(_if_conditional171=bf->buf_ptr<bf->buf_end,    _if_conditional171) {
+    if(bf->buf_ptr<bf->buf_end) {
         # 232 "tccpp.c"
-        __result45__ = bf->buf_ptr[0];
-        return __result45__;
+        return bf->buf_ptr[0];
     }
     else {
         # 234 "tccpp.c"
         bf->buf_ptr=bf->buf_end;
         # 235 "tccpp.c"
-        __result46__ = (-1);
-        return __result46__;
+        return (-1);
     }
 }
 
 static int handle_eob(){
-void* __result_obj__;
-int __result47__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 243 "tccpp.c"
-    __result47__ = tcc_peekc_slow(file);
-    return __result47__;
+    return tcc_peekc_slow(file);
 }
 
 
 static int handle_stray_noerror(){
-void* __result_obj__;
-_Bool _while_condtional11;
-_Bool _if_conditional173;
-_Bool _elif_conditional42;
-_Bool _if_conditional174;
-int __result48__;
-int __result49__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 274 "tccpp.c"
-    while(_while_condtional11=ch==92,    _while_condtional11) {
+    while(ch==92) {
         # 259 "tccpp.c"
         inp();
         # 273 "tccpp.c"
         # 260 "tccpp.c"
-        if(_if_conditional173=ch==10,        _if_conditional173) {
+        if(ch==10) {
             # 261 "tccpp.c"
             file->line_num++;
             # 262 "tccpp.c"
             inp();
         }
         # 263 "tccpp.c"
-        else if(_elif_conditional42=ch==13,        _elif_conditional42) {
+        else if(ch==13) {
             # 264 "tccpp.c"
             inp();
             # 267 "tccpp.c"
             # 265 "tccpp.c"
-            if(_if_conditional174=ch!=10,            _if_conditional174) {
+            if(ch!=10) {
                 # 266 "tccpp.c"
                 goto fail;
             }
@@ -9778,39 +9292,29 @@ memset(&__result_obj__, 0, sizeof(void*));
             # 271 "tccpp.c"
             fail:
             # 271 "tccpp.c"
-            __result48__ = 1;
-            return __result48__;
+            return 1;
         }
     }
     # 274 "tccpp.c"
-    __result49__ = 0;
-    return __result49__;
+    return 0;
 }
 
 static void handle_stray(){
-void* __result_obj__;
-_Bool _if_conditional175;
-memset(&__result_obj__, 0, sizeof(void*));
     # 281 "tccpp.c"
     # 279 "tccpp.c"
-    if(_if_conditional175=handle_stray_noerror(),    _if_conditional175) {
+    if(handle_stray_noerror()) {
         # 280 "tccpp.c"
         error("stray '\\' in program");
     }
 }
 
 static int handle_stray1(unsigned char* p){
-void* __result_obj__;
 int c_163;
-_Bool _if_conditional176;
-_Bool _if_conditional177;
-int __result50__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&c_163, 0, sizeof(int));
     # 287 "tccpp.c"
     # 303 "tccpp.c"
     # 289 "tccpp.c"
-    if(_if_conditional176=p>=file->buf_end,    _if_conditional176) {
+    if(p>=file->buf_end) {
         # 290 "tccpp.c"
         file->buf_ptr=p;
         # 291 "tccpp.c"
@@ -9819,7 +9323,7 @@ memset(&c_163, 0, sizeof(int));
         p=file->buf_ptr;
         # 295 "tccpp.c"
         # 293 "tccpp.c"
-        if(_if_conditional177=c_163==92,        _if_conditional177) {
+        if(c_163==92) {
             # 294 "tccpp.c"
             goto parse_stray;
         }
@@ -9839,19 +9343,15 @@ memset(&c_163, 0, sizeof(int));
         c_163=*p;
     }
     # 303 "tccpp.c"
-    __result50__ = c_163;
-    return __result50__;
+    return c_163;
 }
 
 static void minp(){
-void* __result_obj__;
-_Bool _if_conditional178;
-memset(&__result_obj__, 0, sizeof(void*));
     # 334 "tccpp.c"
     inp();
     # 337 "tccpp.c"
     # 335 "tccpp.c"
-    if(_if_conditional178=ch==92,    _if_conditional178) {
+    if(ch==92) {
         # 336 "tccpp.c"
         handle_stray();
     }
@@ -9860,17 +9360,7 @@ memset(&__result_obj__, 0, sizeof(void*));
 static unsigned char* parse_line_comment(unsigned char* p){
 void* __result_obj__;
 int c_164;
-_Bool _if_conditional179;
-_Bool _elif_conditional43;
-_Bool _if_conditional180;
-_Bool _if_conditional181;
-_Bool _if_conditional182;
-_Bool _if_conditional183;
-_Bool _elif_conditional44;
-_Bool _if_conditional184;
-_Bool _if_conditional185;
-_Bool _if_conditional186;
-unsigned char* __result51__;
+unsigned char* __result37__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&c_164, 0, sizeof(int));
     # 343 "tccpp.c"
@@ -9884,12 +9374,12 @@ memset(&c_164, 0, sizeof(int));
         redo:
         # 373 "tccpp.c"
         # 349 "tccpp.c"
-        if(_if_conditional179=c_164==10||c_164==(-1),        _if_conditional179) {
+        if(c_164==10||c_164==(-1)) {
             # 350 "tccpp.c"
             break;
         }
         # 351 "tccpp.c"
-        else if(_elif_conditional43=c_164==92,        _elif_conditional43) {
+        else if(c_164==92) {
             # 352 "tccpp.c"
             file->buf_ptr=p;
             # 353 "tccpp.c"
@@ -9898,7 +9388,7 @@ memset(&c_164, 0, sizeof(int));
             p=file->buf_ptr;
             # 370 "tccpp.c"
             # 355 "tccpp.c"
-            if(_if_conditional180=c_164==92,            _if_conditional180) {
+            if(c_164==92) {
                 # 356 "tccpp.c"
                 {
                     # 356 "tccpp.c"
@@ -9907,7 +9397,7 @@ memset(&c_164, 0, sizeof(int));
                     c_164=*p;
                     # 356 "tccpp.c"
                     # 356 "tccpp.c"
-                    if(_if_conditional181=c_164==92,                    _if_conditional181) {
+                    if(c_164==92) {
                         # 356 "tccpp.c"
                         file->buf_ptr=p;
                         # 356 "tccpp.c"
@@ -9918,7 +9408,7 @@ memset(&c_164, 0, sizeof(int));
                 }
                 # 367 "tccpp.c"
                 # 357 "tccpp.c"
-                if(_if_conditional182=c_164==10,                _if_conditional182) {
+                if(c_164==10) {
                     # 358 "tccpp.c"
                     file->line_num++;
                     # 359 "tccpp.c"
@@ -9929,7 +9419,7 @@ memset(&c_164, 0, sizeof(int));
                         c_164=*p;
                         # 359 "tccpp.c"
                         # 359 "tccpp.c"
-                        if(_if_conditional183=c_164==92,                        _if_conditional183) {
+                        if(c_164==92) {
                             # 359 "tccpp.c"
                             file->buf_ptr=p;
                             # 359 "tccpp.c"
@@ -9940,7 +9430,7 @@ memset(&c_164, 0, sizeof(int));
                     }
                 }
                 # 360 "tccpp.c"
-                else if(_elif_conditional44=c_164==13,                _elif_conditional44) {
+                else if(c_164==13) {
                     # 361 "tccpp.c"
                     {
                         # 361 "tccpp.c"
@@ -9949,7 +9439,7 @@ memset(&c_164, 0, sizeof(int));
                         c_164=*p;
                         # 361 "tccpp.c"
                         # 361 "tccpp.c"
-                        if(_if_conditional184=c_164==92,                        _if_conditional184) {
+                        if(c_164==92) {
                             # 361 "tccpp.c"
                             file->buf_ptr=p;
                             # 361 "tccpp.c"
@@ -9960,7 +9450,7 @@ memset(&c_164, 0, sizeof(int));
                     }
                     # 366 "tccpp.c"
                     # 362 "tccpp.c"
-                    if(_if_conditional185=c_164==10,                    _if_conditional185) {
+                    if(c_164==10) {
                         # 363 "tccpp.c"
                         file->line_num++;
                         # 364 "tccpp.c"
@@ -9971,7 +9461,7 @@ memset(&c_164, 0, sizeof(int));
                             c_164=*p;
                             # 364 "tccpp.c"
                             # 364 "tccpp.c"
-                            if(_if_conditional186=c_164==92,                            _if_conditional186) {
+                            if(c_164==92) {
                                 # 364 "tccpp.c"
                                 file->buf_ptr=p;
                                 # 364 "tccpp.c"
@@ -9994,32 +9484,14 @@ memset(&c_164, 0, sizeof(int));
         }
     }
     # 374 "tccpp.c"
-    __result51__ = __result_obj__ = p;
-    return __result51__;
+    __result37__ = __result_obj__ = p;
+    return __result37__;
 }
 
 static unsigned char* parse_comment(unsigned char* p){
 void* __result_obj__;
 int c_165;
-_Bool _if_conditional187;
-_Bool _if_conditional188;
-_Bool _if_conditional189;
-_Bool _elif_conditional45;
-_Bool _if_conditional190;
-_Bool _elif_conditional46;
-_Bool _elif_conditional47;
-_Bool _if_conditional191;
-_Bool _while_condtional12;
-_Bool _if_conditional192;
-_Bool _if_conditional193;
-_Bool _if_conditional194;
-_Bool _elif_conditional48;
-_Bool _if_conditional195;
-_Bool _if_conditional196;
-_Bool _if_conditional197;
-_Bool _if_conditional198;
-_Bool _elif_conditional49;
-unsigned char* __result52__;
+unsigned char* __result38__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&c_165, 0, sizeof(int));
     # 380 "tccpp.c"
@@ -10033,7 +9505,7 @@ memset(&c_165, 0, sizeof(int));
             c_165=*p;
             # 389 "tccpp.c"
             # 387 "tccpp.c"
-            if(_if_conditional187=c_165==10||c_165==42||c_165==92,            _if_conditional187) {
+            if(c_165==10||c_165==42||c_165==92) {
                 # 388 "tccpp.c"
                 break;
             }
@@ -10043,7 +9515,7 @@ memset(&c_165, 0, sizeof(int));
             c_165=*p;
             # 393 "tccpp.c"
             # 391 "tccpp.c"
-            if(_if_conditional188=c_165==10||c_165==42||c_165==92,            _if_conditional188) {
+            if(c_165==10||c_165==42||c_165==92) {
                 # 392 "tccpp.c"
                 break;
             }
@@ -10052,14 +9524,14 @@ memset(&c_165, 0, sizeof(int));
         }
         # 445 "tccpp.c"
         # 396 "tccpp.c"
-        if(_if_conditional189=c_165==10,        _if_conditional189) {
+        if(c_165==10) {
             # 397 "tccpp.c"
             file->line_num++;
             # 398 "tccpp.c"
             p++;
         }
         # 399 "tccpp.c"
-        else if(_elif_conditional45=c_165==42,        _elif_conditional45) {
+        else if(c_165==42) {
             # 400 "tccpp.c"
             p++;
             # 433 "tccpp.c"
@@ -10068,17 +9540,17 @@ memset(&c_165, 0, sizeof(int));
                 c_165=*p;
                 # 432 "tccpp.c"
                 # 403 "tccpp.c"
-                if(_if_conditional190=c_165==42,                _if_conditional190) {
+                if(c_165==42) {
                     # 404 "tccpp.c"
                     p++;
                 }
                 # 405 "tccpp.c"
-                else if(_elif_conditional46=c_165==47,                _elif_conditional46) {
+                else if(c_165==47) {
                     # 406 "tccpp.c"
                     goto end_of_comment;
                 }
                 # 407 "tccpp.c"
-                else if(_elif_conditional47=c_165==92,                _elif_conditional47) {
+                else if(c_165==92) {
                     # 408 "tccpp.c"
                     file->buf_ptr=p;
                     # 409 "tccpp.c"
@@ -10087,9 +9559,9 @@ memset(&c_165, 0, sizeof(int));
                     p=file->buf_ptr;
                     # 429 "tccpp.c"
                     # 411 "tccpp.c"
-                    if(_if_conditional191=c_165==92,                    _if_conditional191) {
+                    if(c_165==92) {
                         # 428 "tccpp.c"
-                        while(_while_condtional12=c_165==92,                        _while_condtional12) {
+                        while(c_165==92) {
                             # 414 "tccpp.c"
                             {
                                 # 414 "tccpp.c"
@@ -10098,7 +9570,7 @@ memset(&c_165, 0, sizeof(int));
                                 c_165=*p;
                                 # 414 "tccpp.c"
                                 # 414 "tccpp.c"
-                                if(_if_conditional192=c_165==92,                                _if_conditional192) {
+                                if(c_165==92) {
                                     # 414 "tccpp.c"
                                     file->buf_ptr=p;
                                     # 414 "tccpp.c"
@@ -10109,7 +9581,7 @@ memset(&c_165, 0, sizeof(int));
                             }
                             # 427 "tccpp.c"
                             # 415 "tccpp.c"
-                            if(_if_conditional193=c_165==10,                            _if_conditional193) {
+                            if(c_165==10) {
                                 # 416 "tccpp.c"
                                 file->line_num++;
                                 # 417 "tccpp.c"
@@ -10120,7 +9592,7 @@ memset(&c_165, 0, sizeof(int));
                                     c_165=*p;
                                     # 417 "tccpp.c"
                                     # 417 "tccpp.c"
-                                    if(_if_conditional194=c_165==92,                                    _if_conditional194) {
+                                    if(c_165==92) {
                                         # 417 "tccpp.c"
                                         file->buf_ptr=p;
                                         # 417 "tccpp.c"
@@ -10131,7 +9603,7 @@ memset(&c_165, 0, sizeof(int));
                                 }
                             }
                             # 418 "tccpp.c"
-                            else if(_elif_conditional48=c_165==13,                            _elif_conditional48) {
+                            else if(c_165==13) {
                                 # 419 "tccpp.c"
                                 {
                                     # 419 "tccpp.c"
@@ -10140,7 +9612,7 @@ memset(&c_165, 0, sizeof(int));
                                     c_165=*p;
                                     # 419 "tccpp.c"
                                     # 419 "tccpp.c"
-                                    if(_if_conditional195=c_165==92,                                    _if_conditional195) {
+                                    if(c_165==92) {
                                         # 419 "tccpp.c"
                                         file->buf_ptr=p;
                                         # 419 "tccpp.c"
@@ -10151,7 +9623,7 @@ memset(&c_165, 0, sizeof(int));
                                 }
                                 # 424 "tccpp.c"
                                 # 420 "tccpp.c"
-                                if(_if_conditional196=c_165==10,                                _if_conditional196) {
+                                if(c_165==10) {
                                     # 421 "tccpp.c"
                                     file->line_num++;
                                     # 422 "tccpp.c"
@@ -10162,7 +9634,7 @@ memset(&c_165, 0, sizeof(int));
                                         c_165=*p;
                                         # 422 "tccpp.c"
                                         # 422 "tccpp.c"
-                                        if(_if_conditional197=c_165==92,                                        _if_conditional197) {
+                                        if(c_165==92) {
                                             # 422 "tccpp.c"
                                             file->buf_ptr=p;
                                             # 422 "tccpp.c"
@@ -10197,12 +9669,12 @@ memset(&c_165, 0, sizeof(int));
             p=file->buf_ptr;
             # 444 "tccpp.c"
             # 439 "tccpp.c"
-            if(_if_conditional198=c_165==(-1),            _if_conditional198) {
+            if(c_165==(-1)) {
                 # 440 "tccpp.c"
                 error("unexpected end of file in comment");
             }
             # 441 "tccpp.c"
-            else if(_elif_conditional49=c_165==92,            _elif_conditional49) {
+            else if(c_165==92) {
                 # 442 "tccpp.c"
                 p++;
             }
@@ -10213,8 +9685,8 @@ memset(&c_165, 0, sizeof(int));
     # 447 "tccpp.c"
     p++;
     # 448 "tccpp.c"
-    __result52__ = __result_obj__ = p;
-    return __result52__;
+    __result38__ = __result_obj__ = p;
+    return __result38__;
 }
 
 
@@ -10222,24 +9694,7 @@ memset(&c_165, 0, sizeof(int));
 static unsigned char* parse_pp_string(unsigned char* p, int sep, struct CString* str){
 void* __result_obj__;
 int c_166;
-_Bool _if_conditional201;
-_Bool _elif_conditional50;
-_Bool _if_conditional202;
-_Bool _elif_conditional51;
-_Bool _if_conditional203;
-_Bool _if_conditional204;
-_Bool _elif_conditional52;
-_Bool _if_conditional205;
-_Bool _if_conditional206;
-_Bool _elif_conditional53;
-_Bool _if_conditional207;
-_Bool _elif_conditional54;
-_Bool _elif_conditional55;
-_Bool _if_conditional208;
-_Bool _if_conditional209;
-_Bool _if_conditional210;
-_Bool _if_conditional211;
-unsigned char* __result55__;
+unsigned char* __result39__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&c_166, 0, sizeof(int));
     # 474 "tccpp.c"
@@ -10251,12 +9706,12 @@ memset(&c_166, 0, sizeof(int));
         c_166=*p;
         # 528 "tccpp.c"
         # 478 "tccpp.c"
-        if(_if_conditional201=c_166==sep,        _if_conditional201) {
+        if(c_166==sep) {
             # 479 "tccpp.c"
             break;
         }
         # 480 "tccpp.c"
-        else if(_elif_conditional50=c_166==92,        _elif_conditional50) {
+        else if(c_166==92) {
             # 481 "tccpp.c"
             file->buf_ptr=p;
             # 482 "tccpp.c"
@@ -10265,14 +9720,14 @@ memset(&c_166, 0, sizeof(int));
             p=file->buf_ptr;
             # 510 "tccpp.c"
             # 484 "tccpp.c"
-            if(_if_conditional202=c_166==(-1),            _if_conditional202) {
+            if(c_166==(-1)) {
                 # 487 "tccpp.c"
                 unterminated_string:
                 # 487 "tccpp.c"
                 error("missing terminating %c character",sep);
             }
             # 488 "tccpp.c"
-            else if(_elif_conditional51=c_166==92,            _elif_conditional51) {
+            else if(c_166==92) {
                 # 490 "tccpp.c"
                 {
                     # 490 "tccpp.c"
@@ -10281,7 +9736,7 @@ memset(&c_166, 0, sizeof(int));
                     c_166=*p;
                     # 490 "tccpp.c"
                     # 490 "tccpp.c"
-                    if(_if_conditional203=c_166==92,                    _if_conditional203) {
+                    if(c_166==92) {
                         # 490 "tccpp.c"
                         file->buf_ptr=p;
                         # 490 "tccpp.c"
@@ -10292,14 +9747,14 @@ memset(&c_166, 0, sizeof(int));
                 }
                 # 509 "tccpp.c"
                 # 491 "tccpp.c"
-                if(_if_conditional204=c_166==10,                _if_conditional204) {
+                if(c_166==10) {
                     # 492 "tccpp.c"
                     file->line_num++;
                     # 493 "tccpp.c"
                     p++;
                 }
                 # 494 "tccpp.c"
-                else if(_elif_conditional52=c_166==13,                _elif_conditional52) {
+                else if(c_166==13) {
                     # 495 "tccpp.c"
                     {
                         # 495 "tccpp.c"
@@ -10308,7 +9763,7 @@ memset(&c_166, 0, sizeof(int));
                         c_166=*p;
                         # 495 "tccpp.c"
                         # 495 "tccpp.c"
-                        if(_if_conditional205=c_166==92,                        _if_conditional205) {
+                        if(c_166==92) {
                             # 495 "tccpp.c"
                             file->buf_ptr=p;
                             # 495 "tccpp.c"
@@ -10319,7 +9774,7 @@ memset(&c_166, 0, sizeof(int));
                     }
                     # 498 "tccpp.c"
                     # 496 "tccpp.c"
-                    if(_if_conditional206=c_166!=10,                    _if_conditional206) {
+                    if(c_166!=10) {
                         # 497 "tccpp.c"
                         expect("'\n' after '\r'");
                     }
@@ -10329,7 +9784,7 @@ memset(&c_166, 0, sizeof(int));
                     p++;
                 }
                 # 500 "tccpp.c"
-                else if(_elif_conditional53=c_166==(-1),                _elif_conditional53) {
+                else if(c_166==(-1)) {
                     # 501 "tccpp.c"
                     goto unterminated_string;
                 }
@@ -10348,14 +9803,14 @@ memset(&c_166, 0, sizeof(int));
             }
         }
         # 510 "tccpp.c"
-        else if(_elif_conditional54=c_166==10,        _elif_conditional54) {
+        else if(c_166==10) {
             # 511 "tccpp.c"
             file->line_num++;
             # 512 "tccpp.c"
             goto add_char;
         }
         # 513 "tccpp.c"
-        else if(_elif_conditional55=c_166==13,        _elif_conditional55) {
+        else if(c_166==13) {
             # 514 "tccpp.c"
             {
                 # 514 "tccpp.c"
@@ -10364,7 +9819,7 @@ memset(&c_166, 0, sizeof(int));
                 c_166=*p;
                 # 514 "tccpp.c"
                 # 514 "tccpp.c"
-                if(_if_conditional208=c_166==92,                _if_conditional208) {
+                if(c_166==92) {
                     # 514 "tccpp.c"
                     file->buf_ptr=p;
                     # 514 "tccpp.c"
@@ -10375,7 +9830,7 @@ memset(&c_166, 0, sizeof(int));
             }
             # 522 "tccpp.c"
             # 515 "tccpp.c"
-            if(_if_conditional209=c_166!=10,            _if_conditional209) {
+            if(c_166!=10) {
                 # 518 "tccpp.c"
                 # 516 "tccpp.c"
                 if(str) {
@@ -10406,29 +9861,20 @@ memset(&c_166, 0, sizeof(int));
     # 529 "tccpp.c"
     p++;
     # 530 "tccpp.c"
-    __result55__ = __result_obj__ = p;
-    return __result55__;
+    __result39__ = __result_obj__ = p;
+    return __result39__;
 }
 
 void preprocess_skip(){
-void* __result_obj__;
 int a_167;
 int start_of_line_168;
 int c_169;
 int in_warn_or_error_170;
 unsigned char* p_171;
-_Bool _if_conditional212;
-_Bool _elif_conditional56;
-_Bool _if_conditional213;
-_Bool _if_conditional214;
-_Bool _if_conditional215;
-_Bool _elif_conditional57;
-_Bool _if_conditional216;
-_Bool _if_conditional217;
-_Bool _if_conditional218;
-_Bool _elif_conditional58;
-_Bool _if_conditional219;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&a_167, 0, sizeof(int));
+memset(&start_of_line_168, 0, sizeof(int));
+memset(&c_169, 0, sizeof(int));
+memset(&in_warn_or_error_170, 0, sizeof(int));
 memset(&p_171, 0, sizeof(unsigned char*));
     # 537 "tccpp.c"
     # 538 "tccpp.c"
@@ -10480,12 +9926,12 @@ memset(&p_171, 0, sizeof(unsigned char*));
             c_169=handle_eob();
             # 569 "tccpp.c"
             # 563 "tccpp.c"
-            if(_if_conditional212=c_169==(-1),            _if_conditional212) {
+            if(c_169==(-1)) {
                 # 564 "tccpp.c"
                 expect("#endif");
             }
             # 565 "tccpp.c"
-            else if(_elif_conditional56=c_169==92,            _elif_conditional56) {
+            else if(c_169==92) {
                 # 566 "tccpp.c"
                 ch=file->buf_ptr[0];
                 # 567 "tccpp.c"
@@ -10527,12 +9973,12 @@ memset(&p_171, 0, sizeof(unsigned char*));
             p_171=file->buf_ptr;
             # 591 "tccpp.c"
             # 586 "tccpp.c"
-            if(_if_conditional215=ch==42,            _if_conditional215) {
+            if(ch==42) {
                 # 587 "tccpp.c"
                 p_171=parse_comment(p_171);
             }
             # 588 "tccpp.c"
-            else if(_elif_conditional57=ch==47,            _elif_conditional57) {
+            else if(ch==47) {
                 # 589 "tccpp.c"
                 p_171=parse_line_comment(p_171);
             }
@@ -10553,25 +9999,25 @@ memset(&p_171, 0, sizeof(unsigned char*));
                 p_171=file->buf_ptr;
                 # 601 "tccpp.c"
                 # 599 "tccpp.c"
-                if(_if_conditional217=a_167==0&&(tok==(261)||tok==(319)||tok==(320)),                _if_conditional217) {
+                if(a_167==0&&(tok==(261)||tok==(319)||tok==(320))) {
                     # 600 "tccpp.c"
                     goto the_end;
                 }
                 # 607 "tccpp.c"
                 # 601 "tccpp.c"
-                if(_if_conditional218=tok==(260)||tok==(317)||tok==(318),                _if_conditional218) {
+                if(tok==(260)||tok==(317)||tok==(318)) {
                     # 602 "tccpp.c"
                     a_167++;
                 }
                 # 603 "tccpp.c"
-                else if(_elif_conditional58=tok==(320),                _elif_conditional58) {
+                else if(tok==(320)) {
                     # 604 "tccpp.c"
                     a_167--;
                 }
                 else {
                     # 607 "tccpp.c"
                     # 605 "tccpp.c"
-                    if(_if_conditional219=tok==(323)||tok==(324),                    _if_conditional219) {
+                    if(tok==(323)||tok==(324)) {
                         # 606 "tccpp.c"
                         in_warn_or_error_170=1;
                     }
@@ -10598,8 +10044,6 @@ memset(&p_171, 0, sizeof(unsigned char*));
 }
 
 void save_parse_state(struct ParseState* s){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 629 "tccpp.c"
     s->line_num=file->line_num;
     # 630 "tccpp.c"
@@ -10611,8 +10055,6 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 void restore_parse_state(struct ParseState* s){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 638 "tccpp.c"
     file->line_num=s->line_num;
     # 639 "tccpp.c"
@@ -10626,8 +10068,6 @@ memset(&__result_obj__, 0, sizeof(void*));
 
 
 static void tok_str_free(int* str){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 685 "tccpp.c"
     tcc_free(str);
 }
@@ -10636,14 +10076,14 @@ static int* tok_str_realloc(struct TokenString* s){
 void* __result_obj__;
 int* str_172;
 int len_173;
-_Bool _if_conditional220;
-_Bool _if_conditional221;
-int* __result61__;
+int* __result40__;
 memset(&__result_obj__, 0, sizeof(void*));
+memset(&str_172, 0, sizeof(int*));
+memset(&len_173, 0, sizeof(int));
     # 690 "tccpp.c"
     # 697 "tccpp.c"
     # 692 "tccpp.c"
-    if(_if_conditional220=s->allocated_len==0,    _if_conditional220) {
+    if(s->allocated_len==0) {
         # 693 "tccpp.c"
         len_173=8;
     }
@@ -10655,7 +10095,7 @@ memset(&__result_obj__, 0, sizeof(void*));
     str_172=tcc_realloc(s->str,len_173*sizeof(int));
     # 700 "tccpp.c"
     # 698 "tccpp.c"
-    if(_if_conditional221=!str_172,    _if_conditional221) {
+    if(!str_172) {
         # 699 "tccpp.c"
         error("memory full");
     }
@@ -10664,16 +10104,15 @@ memset(&__result_obj__, 0, sizeof(void*));
     # 701 "tccpp.c"
     s->str=str_172;
     # 702 "tccpp.c"
-    __result61__ = __result_obj__ = str_172;
-    return __result61__;
+    __result40__ = __result_obj__ = str_172;
+    return __result40__;
 }
 
 static void tok_str_add(struct TokenString* s, int t){
-void* __result_obj__;
 int len_174;
 int* str_175;
-_Bool _if_conditional222;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&len_174, 0, sizeof(int));
+memset(&str_175, 0, sizeof(int*));
     # 707 "tccpp.c"
     # 709 "tccpp.c"
     len_174=s->len;
@@ -10681,7 +10120,7 @@ memset(&__result_obj__, 0, sizeof(void*));
     str_175=s->str;
     # 713 "tccpp.c"
     # 711 "tccpp.c"
-    if(_if_conditional222=len_174>=s->allocated_len,    _if_conditional222) {
+    if(len_174>=s->allocated_len) {
         # 712 "tccpp.c"
         str_175=tok_str_realloc(s);
     }
@@ -10692,14 +10131,12 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 static void tok_str_add2(struct TokenString* s, int t, union CValue* cv){
-void* __result_obj__;
 int len_176;
 int* str_177;
-_Bool _if_conditional223;
 int nb_words_178;
 struct CString* cstr_179;
-_Bool _while_condtional14;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&len_176, 0, sizeof(int));
+memset(&str_177, 0, sizeof(int*));
 memset(&nb_words_178, 0, sizeof(int));
 memset(&cstr_179, 0, sizeof(struct CString*));
     # 719 "tccpp.c"
@@ -10709,7 +10146,7 @@ memset(&cstr_179, 0, sizeof(struct CString*));
     str_177=s->str;
     # 727 "tccpp.c"
     # 725 "tccpp.c"
-    if(_if_conditional223=len_176+4>s->allocated_len,    _if_conditional223) {
+    if(len_176+4>s->allocated_len) {
         # 726 "tccpp.c"
         str_177=tok_str_realloc(s);
     }
@@ -10746,7 +10183,7 @@ memset(&cstr_179, 0, sizeof(struct CString*));
             # 744 "tccpp.c"
             nb_words_178=(sizeof(struct CString)+cv->cstr->size+3)>>2;
             # 747 "tccpp.c"
-            while(_while_condtional14=(len_176+nb_words_178)>s->allocated_len,            _while_condtional14) {
+            while((len_176+nb_words_178)>s->allocated_len) {
                 # 746 "tccpp.c"
                 str_177=tok_str_realloc(s);
             }
@@ -10801,15 +10238,12 @@ memset(&cstr_179, 0, sizeof(struct CString*));
 }
 
 static void tok_str_add_tok(struct TokenString* s){
-void* __result_obj__;
 union CValue cval_180;
-_Bool _if_conditional224;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&cval_180, 0, sizeof(union CValue));
     # 790 "tccpp.c"
     # 798 "tccpp.c"
     # 793 "tccpp.c"
-    if(_if_conditional224=file->line_num!=s->last_line_num,    _if_conditional224) {
+    if(file->line_num!=s->last_line_num) {
         # 794 "tccpp.c"
         s->last_line_num=file->line_num;
         # 795 "tccpp.c"
@@ -10823,17 +10257,14 @@ memset(&cval_180, 0, sizeof(union CValue));
 
 
 static void define_undef(struct Sym* s){
-void* __result_obj__;
 int v_182;
-_Bool _if_conditional225;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&v_182, 0, sizeof(int));
     # 871 "tccpp.c"
     # 872 "tccpp.c"
     v_182=s->v;
     # 875 "tccpp.c"
     # 873 "tccpp.c"
-    if(_if_conditional225=v_182>=256&&v_182<tok_ident,    _if_conditional225) {
+    if(v_182>=256&&v_182<tok_ident) {
         # 874 "tccpp.c"
         table_ident[v_182-256]->sym_define=((void*)0);
     }
@@ -10843,21 +10274,18 @@ memset(&v_182, 0, sizeof(int));
 
 
 static void free_defines(struct Sym* b){
-void* __result_obj__;
 struct Sym* top_183;
 struct Sym* top1_184;
 int v_185;
-_Bool _while_condtional15;
-_Bool _if_conditional227;
-_Bool _if_conditional228;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&top_183, 0, sizeof(struct Sym*));
+memset(&top1_184, 0, sizeof(struct Sym*));
 memset(&v_185, 0, sizeof(int));
     # 889 "tccpp.c"
     # 890 "tccpp.c"
     # 892 "tccpp.c"
     top_183=define_stack;
     # 904 "tccpp.c"
-    while(_while_condtional15=top_183!=b,    _while_condtional15) {
+    while(top_183!=b) {
         # 894 "tccpp.c"
         top1_184=top_183->prev;
         # 898 "tccpp.c"
@@ -10870,7 +10298,7 @@ memset(&v_185, 0, sizeof(int));
         v_185=top_183->v;
         # 901 "tccpp.c"
         # 899 "tccpp.c"
-        if(_if_conditional228=v_185>=256&&v_185<tok_ident,        _if_conditional228) {
+        if(v_185>=256&&v_185<tok_ident) {
             # 900 "tccpp.c"
             table_ident[v_185-256]->sym_define=((void*)0);
         }
@@ -10885,32 +10313,31 @@ memset(&v_185, 0, sizeof(int));
 
 static struct Sym* label_find(int v){
 void* __result_obj__;
-_Bool _if_conditional229;
-struct Sym* __result64__;
-struct Sym* __result65__;
+struct Sym* __result43__;
+struct Sym* __result44__;
 memset(&__result_obj__, 0, sizeof(void*));
     # 910 "tccpp.c"
     v-=256;
     # 913 "tccpp.c"
     # 911 "tccpp.c"
-    if(_if_conditional229=(unsigned int)v>=(unsigned int)(tok_ident-256),    _if_conditional229) {
+    if((unsigned int)v>=(unsigned int)(tok_ident-256)) {
         # 912 "tccpp.c"
-        __result64__ = __result_obj__ = ((void*)0);
-        return __result64__;
+        __result43__ = __result_obj__ = ((void*)0);
+        return __result43__;
     }
     # 913 "tccpp.c"
-    __result65__ = __result_obj__ = table_ident[v]->sym_label;
-    return __result65__;
+    __result44__ = __result_obj__ = table_ident[v]->sym_label;
+    return __result44__;
 }
 
 static struct Sym* label_push(struct Sym** ptop, int v, int flags){
 void* __result_obj__;
 struct Sym* s_186;
 struct Sym** ps_187;
-_Bool _if_conditional230;
-_Bool _while_condtional16;
-struct Sym* __result66__;
+struct Sym* __result45__;
 memset(&__result_obj__, 0, sizeof(void*));
+memset(&s_186, 0, sizeof(struct Sym*));
+memset(&ps_187, 0, sizeof(struct Sym**));
     # 918 "tccpp.c"
     # 919 "tccpp.c"
     s_186=sym_push2(ptop,v,0,0);
@@ -10920,9 +10347,9 @@ memset(&__result_obj__, 0, sizeof(void*));
     ps_187=&table_ident[v-256]->sym_label;
     # 928 "tccpp.c"
     # 922 "tccpp.c"
-    if(_if_conditional230=ptop==&global_label_stack,    _if_conditional230) {
+    if(ptop==&global_label_stack) {
         # 927 "tccpp.c"
-        while(_while_condtional16=*ps_187!=((void*)0),        _while_condtional16) {
+        while(*ps_187!=((void*)0)) {
             # 926 "tccpp.c"
             ps_187=&(*ps_187)->prev_tok;
         }
@@ -10932,18 +10359,15 @@ memset(&__result_obj__, 0, sizeof(void*));
     # 929 "tccpp.c"
     *ps_187=s_186;
     # 930 "tccpp.c"
-    __result66__ = __result_obj__ = s_186;
-    return __result66__;
+    __result45__ = __result_obj__ = s_186;
+    return __result45__;
 }
 
 static void label_pop(struct Sym** ptop, struct Sym* slast){
-void* __result_obj__;
 struct Sym* s_188;
 struct Sym* s1_189;
-_Bool _if_conditional231;
-_Bool _elif_conditional59;
-_Bool _if_conditional232;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&s_188, 0, sizeof(struct Sym*));
+memset(&s1_189, 0, sizeof(struct Sym*));
     # 937 "tccpp.c"
     # 956 "tccpp.c"
     for(    s_188=*ptop;    s_188!=slast;    s_188=s1_189    ){
@@ -10951,12 +10375,12 @@ memset(&__result_obj__, 0, sizeof(void*));
         s1_189=s_188->prev;
         # 953 "tccpp.c"
         # 940 "tccpp.c"
-        if(_if_conditional231=s_188->r==2,        _if_conditional231) {
+        if(s_188->r==2) {
             # 941 "tccpp.c"
             warning("label '%s' declared but not used",get_tok_str(s_188->v,((void*)0)));
         }
         # 942 "tccpp.c"
-        else if(_elif_conditional59=s_188->r==1,        _elif_conditional59) {
+        else if(s_188->r==1) {
             # 944 "tccpp.c"
             error("label '%s' used but not defined",get_tok_str(s_188->v,((void*)0)));
         }
@@ -10978,36 +10402,31 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 static int expr_preprocess(){
-void* __result_obj__;
 int c_190;
 int t_191;
 struct TokenString str_192;
-_Bool _while_condtional17;
-_Bool _if_conditional233;
-_Bool _if_conditional234;
-_Bool _if_conditional235;
-_Bool _elif_conditional60;
-int __result67__;
-memset(&__result_obj__, 0, sizeof(void*));
+int __result46__;
+memset(&c_190, 0, sizeof(int));
+memset(&t_191, 0, sizeof(int));
 memset(&str_192, 0, sizeof(struct TokenString));
     # 962 "tccpp.c"
     # 963 "tccpp.c"
     # 965 "tccpp.c"
     tok_str_new(&str_192);
     # 985 "tccpp.c"
-    while(_while_condtional17=tok!=10&&tok!=(-1),    _while_condtional17) {
+    while(tok!=10&&tok!=(-1)) {
         # 967 "tccpp.c"
         next();
         # 983 "tccpp.c"
         # 968 "tccpp.c"
-        if(_if_conditional233=tok==(321),        _if_conditional233) {
+        if(tok==(321)) {
             # 969 "tccpp.c"
             next_nomacro();
             # 970 "tccpp.c"
             t_191=tok;
             # 973 "tccpp.c"
             # 971 "tccpp.c"
-            if(_if_conditional234=t_191==40,            _if_conditional234) {
+            if(t_191==40) {
                 # 972 "tccpp.c"
                 next_nomacro();
             }
@@ -11015,7 +10434,7 @@ memset(&str_192, 0, sizeof(struct TokenString));
             c_190=define_find(tok)!=0;
             # 976 "tccpp.c"
             # 974 "tccpp.c"
-            if(_if_conditional235=t_191==40,            _if_conditional235) {
+            if(t_191==40) {
                 # 975 "tccpp.c"
                 next_nomacro();
             }
@@ -11025,7 +10444,7 @@ memset(&str_192, 0, sizeof(struct TokenString));
             tokc.i=c_190;
         }
         # 978 "tccpp.c"
-        else if(_elif_conditional60=tok>=256,        _elif_conditional60) {
+        else if(tok>=256) {
             # 980 "tccpp.c"
             tok=179;
             # 981 "tccpp.c"
@@ -11049,19 +10468,16 @@ memset(&str_192, 0, sizeof(struct TokenString));
     # 992 "tccpp.c"
     tok_str_free(str_192.str);
     # 993 "tccpp.c"
-    __result67__ = c_190!=0;
+    __result46__ = c_190!=0;
     come_call_finalizer3((&str_192),TokenString_finalize, 1, 0, 0, 0, (void*)0);
-    return __result67__;
+    return __result46__;
     come_call_finalizer3((&str_192),TokenString_finalize, 1, 0, 0, 0, (void*)0);
 }
 
 static void TokenString_finalize(struct TokenString* self){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
 }
 
 static void parse_define(){
-void* __result_obj__;
 struct Sym* s_193;
 struct Sym* first_194;
 struct Sym** ps_195;
@@ -11071,21 +10487,14 @@ int varg_198;
 int is_vaargs_199;
 int spc_200;
 struct TokenString str_201;
-_Bool _if_conditional236;
-_Bool _if_conditional237;
-_Bool _while_condtional18;
-_Bool _if_conditional238;
-_Bool _elif_conditional61;
-_Bool _if_conditional239;
-_Bool _if_conditional240;
-_Bool _if_conditional241;
-_Bool _while_condtional19;
-_Bool _if_conditional242;
-_Bool _if_conditional243;
-_Bool _elif_conditional62;
-_Bool _elif_conditional63;
-_Bool _if_conditional244;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&s_193, 0, sizeof(struct Sym*));
+memset(&first_194, 0, sizeof(struct Sym*));
+memset(&ps_195, 0, sizeof(struct Sym**));
+memset(&v_196, 0, sizeof(int));
+memset(&t_197, 0, sizeof(int));
+memset(&varg_198, 0, sizeof(int));
+memset(&is_vaargs_199, 0, sizeof(int));
+memset(&spc_200, 0, sizeof(int));
 memset(&str_201, 0, sizeof(struct TokenString));
     # 1016 "tccpp.c"
     # 1017 "tccpp.c"
@@ -11094,7 +10503,7 @@ memset(&str_201, 0, sizeof(struct TokenString));
     v_196=tok;
     # 1024 "tccpp.c"
     # 1021 "tccpp.c"
-    if(_if_conditional236=v_196<256,    _if_conditional236) {
+    if(v_196<256) {
         # 1022 "tccpp.c"
         error("invalid macro name '%s'",get_tok_str(tok,&tokc));
     }
@@ -11106,13 +10515,13 @@ memset(&str_201, 0, sizeof(struct TokenString));
     next_nomacro_spc();
     # 1055 "tccpp.c"
     # 1028 "tccpp.c"
-    if(_if_conditional237=tok==40,    _if_conditional237) {
+    if(tok==40) {
         # 1029 "tccpp.c"
         next_nomacro();
         # 1030 "tccpp.c"
         ps_195=&first_194;
         # 1051 "tccpp.c"
-        while(_while_condtional18=tok!=41,        _while_condtional18) {
+        while(tok!=41) {
             # 1032 "tccpp.c"
             varg_198=tok;
             # 1033 "tccpp.c"
@@ -11121,14 +10530,14 @@ memset(&str_201, 0, sizeof(struct TokenString));
             is_vaargs_199=0;
             # 1042 "tccpp.c"
             # 1035 "tccpp.c"
-            if(_if_conditional238=varg_198==204,            _if_conditional238) {
+            if(varg_198==204) {
                 # 1036 "tccpp.c"
                 varg_198=(332);
                 # 1037 "tccpp.c"
                 is_vaargs_199=1;
             }
             # 1038 "tccpp.c"
-            else if(_elif_conditional61=tok==204&&gnu_ext,            _elif_conditional61) {
+            else if(tok==204&&gnu_ext) {
                 # 1039 "tccpp.c"
                 is_vaargs_199=1;
                 # 1040 "tccpp.c"
@@ -11136,7 +10545,7 @@ memset(&str_201, 0, sizeof(struct TokenString));
             }
             # 1044 "tccpp.c"
             # 1042 "tccpp.c"
-            if(_if_conditional239=varg_198<256,            _if_conditional239) {
+            if(varg_198<256) {
                 # 1043 "tccpp.c"
                 error("badly punctuated parameter list");
             }
@@ -11148,7 +10557,7 @@ memset(&str_201, 0, sizeof(struct TokenString));
             ps_195=&s_193->next;
             # 1049 "tccpp.c"
             # 1047 "tccpp.c"
-            if(_if_conditional240=tok!=44,            _if_conditional240) {
+            if(tok!=44) {
                 # 1048 "tccpp.c"
                 break;
             }
@@ -11157,7 +10566,7 @@ memset(&str_201, 0, sizeof(struct TokenString));
         }
         # 1053 "tccpp.c"
         # 1051 "tccpp.c"
-        if(_if_conditional241=tok==41,        _if_conditional241) {
+        if(tok==41) {
             # 1052 "tccpp.c"
             next_nomacro_spc();
         }
@@ -11169,13 +10578,13 @@ memset(&str_201, 0, sizeof(struct TokenString));
     # 1056 "tccpp.c"
     spc_200=2;
     # 1073 "tccpp.c"
-    while(_while_condtional19=tok!=10&&tok!=(-1),    _while_condtional19) {
+    while(tok!=10&&tok!=(-1)) {
         # 1069 "tccpp.c"
         # 1060 "tccpp.c"
-        if(_if_conditional242=182==tok,        _if_conditional242) {
+        if(182==tok) {
             # 1063 "tccpp.c"
             # 1061 "tccpp.c"
-            if(_if_conditional243=1==spc_200,            _if_conditional243) {
+            if(1==spc_200) {
                 # 1062 "tccpp.c"
                 --str_201.len;
             }
@@ -11183,12 +10592,12 @@ memset(&str_201, 0, sizeof(struct TokenString));
             spc_200=2;
         }
         # 1064 "tccpp.c"
-        else if(_elif_conditional62=35==tok,        _elif_conditional62) {
+        else if(35==tok) {
             # 1065 "tccpp.c"
             spc_200=2;
         }
         # 1066 "tccpp.c"
-        else if(_elif_conditional63=check_space(tok,&spc_200),        _elif_conditional63) {
+        else if(check_space(tok,&spc_200)) {
             # 1067 "tccpp.c"
             goto skip;
         }
@@ -11201,7 +10610,7 @@ memset(&str_201, 0, sizeof(struct TokenString));
     }
     # 1075 "tccpp.c"
     # 1073 "tccpp.c"
-    if(_if_conditional244=spc_200==1,    _if_conditional244) {
+    if(spc_200==1) {
         # 1074 "tccpp.c"
         --str_201.len;
     }
@@ -11218,12 +10627,12 @@ void* __result_obj__;
 struct CachedInclude* e_204;
 int i_205;
 int h_206;
-_Bool _if_conditional245;
-_Bool _if_conditional246;
-struct CachedInclude* __result69__;
-struct CachedInclude* __result70__;
+struct CachedInclude* __result47__;
+struct CachedInclude* __result48__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&e_204, 0, sizeof(struct CachedInclude*));
+memset(&i_205, 0, sizeof(int));
+memset(&h_206, 0, sizeof(int));
     # 1103 "tccpp.c"
     # 1104 "tccpp.c"
     # 1105 "tccpp.c"
@@ -11234,7 +10643,7 @@ memset(&e_204, 0, sizeof(struct CachedInclude*));
     for(    ;    ;    ){
         # 1110 "tccpp.c"
         # 1108 "tccpp.c"
-        if(_if_conditional245=i_205==0,        _if_conditional245) {
+        if(i_205==0) {
             # 1109 "tccpp.c"
             break;
         }
@@ -11242,51 +10651,41 @@ memset(&e_204, 0, sizeof(struct CachedInclude*));
         e_204=s1->cached_includes[i_205-1];
         # 1113 "tccpp.c"
         # 1111 "tccpp.c"
-        if(_if_conditional246=e_204->type==type&&!strcmp(e_204->filename,filename),        _if_conditional246) {
+        if(e_204->type==type&&!strcmp(e_204->filename,filename)) {
             # 1112 "tccpp.c"
-            __result69__ = __result_obj__ = e_204;
-            return __result69__;
+            __result47__ = __result_obj__ = e_204;
+            return __result47__;
         }
         # 1113 "tccpp.c"
         i_205=e_204->hash_next;
     }
     # 1115 "tccpp.c"
-    __result70__ = __result_obj__ = ((void*)0);
-    return __result70__;
+    __result48__ = __result_obj__ = ((void*)0);
+    return __result48__;
 }
 
 
 static void pragma_parse(struct TCCState* s1){
-void* __result_obj__;
 int val_209;
-_Bool _if_conditional249;
-_Bool _if_conditional250;
-_Bool _if_conditional251;
-_Bool _if_conditional252;
-_Bool _if_conditional253;
-_Bool _if_conditional254;
-_Bool _if_conditional255;
-_Bool _if_conditional256;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&val_209, 0, sizeof(int));
     # 1144 "tccpp.c"
     # 1146 "tccpp.c"
     next();
     # 1187 "tccpp.c"
     # 1147 "tccpp.c"
-    if(_if_conditional249=tok==(363),    _if_conditional249) {
+    if(tok==(363)) {
         # 1155 "tccpp.c"
         next();
         # 1156 "tccpp.c"
         skip(40);
         # 1186 "tccpp.c"
         # 1157 "tccpp.c"
-        if(_if_conditional250=tok==(365),        _if_conditional250) {
+        if(tok==(365)) {
             # 1158 "tccpp.c"
             next();
             # 1163 "tccpp.c"
             # 1159 "tccpp.c"
-            if(_if_conditional251=s1->pack_stack_ptr<=s1->pack_stack,            _if_conditional251) {
+            if(s1->pack_stack_ptr<=s1->pack_stack) {
                 # 1161 "tccpp.c"
                 stk_error:
                 # 1161 "tccpp.c"
@@ -11300,15 +10699,15 @@ memset(&val_209, 0, sizeof(int));
             val_209=0;
             # 1183 "tccpp.c"
             # 1166 "tccpp.c"
-            if(_if_conditional252=tok!=41,            _if_conditional252) {
+            if(tok!=41) {
                 # 1174 "tccpp.c"
                 # 1167 "tccpp.c"
-                if(_if_conditional253=tok==(364),                _if_conditional253) {
+                if(tok==(364)) {
                     # 1168 "tccpp.c"
                     next();
                     # 1171 "tccpp.c"
                     # 1169 "tccpp.c"
-                    if(_if_conditional254=s1->pack_stack_ptr>=s1->pack_stack+8-1,                    _if_conditional254) {
+                    if(s1->pack_stack_ptr>=s1->pack_stack+8-1) {
                         # 1170 "tccpp.c"
                         goto stk_error;
                     }
@@ -11319,7 +10718,7 @@ memset(&val_209, 0, sizeof(int));
                 }
                 # 1178 "tccpp.c"
                 # 1174 "tccpp.c"
-                if(_if_conditional255=tok!=179,                _if_conditional255) {
+                if(tok!=179) {
                     # 1176 "tccpp.c"
                     pack_error:
                     # 1176 "tccpp.c"
@@ -11329,7 +10728,7 @@ memset(&val_209, 0, sizeof(int));
                 val_209=tokc.i;
                 # 1181 "tccpp.c"
                 # 1179 "tccpp.c"
-                if(_if_conditional256=val_209<1||val_209>16||(val_209&(val_209-1))!=0,                _if_conditional256) {
+                if(val_209<1||val_209>16||(val_209&(val_209-1))!=0) {
                     # 1180 "tccpp.c"
                     goto pack_error;
                 }
@@ -11345,7 +10744,6 @@ memset(&val_209, 0, sizeof(int));
 }
 
 static void preprocess(int is_bof){
-void* __result_obj__;
 struct TCCState* s1_210;
 int i_211;
 int c_212;
@@ -11354,61 +10752,18 @@ int saved_parse_flags_214;
 char buf_215[1024];
 char* q_216;
 struct Sym* s_217;
-_Bool _if_conditional257;
-_Bool _if_conditional258;
-_Bool _elif_conditional64;
-_Bool _while_condtional21;
-_Bool _if_conditional259;
-_Bool _if_conditional260;
-_Bool _if_conditional261;
-_Bool _if_conditional262;
-_Bool _while_condtional22;
-_Bool _if_conditional263;
 int len_218;
-_Bool _while_condtional23;
-_Bool _if_conditional264;
-_Bool _if_conditional265;
 struct BufferedFile* f_220;
 struct CachedInclude* e_221;
 const char* path_222;
 int size_223;
-_Bool _if_conditional266;
-_Bool _if_conditional267;
-_Bool _elif_conditional65;
-_Bool _if_conditional268;
-_Bool _if_conditional269;
-_Bool _if_conditional270;
-_Bool _if_conditional271;
-_Bool _if_conditional272;
-_Bool _if_conditional273;
-_Bool _if_conditional274;
-_Bool _if_conditional275;
-_Bool _if_conditional276;
-_Bool _if_conditional277;
-_Bool _if_conditional278;
-_Bool _if_conditional279;
-_Bool _if_conditional280;
-_Bool _if_conditional281;
-_Bool _if_conditional282;
-_Bool _if_conditional283;
-_Bool _if_conditional284;
-_Bool _if_conditional285;
-_Bool _if_conditional286;
-_Bool _if_conditional287;
-_Bool _while_condtional24;
-_Bool _if_conditional288;
-_Bool _if_conditional289;
-_Bool _if_conditional290;
-_Bool _while_condtional25;
-_Bool _if_conditional291;
-_Bool _if_conditional292;
-_Bool _if_conditional293;
-_Bool _if_conditional294;
-_Bool _if_conditional295;
-_Bool _if_conditional296;
-_Bool _while_condtional26;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&s1_210, 0, sizeof(struct TCCState*));
+memset(&i_211, 0, sizeof(int));
+memset(&c_212, 0, sizeof(int));
+memset(&n_213, 0, sizeof(int));
+memset(&saved_parse_flags_214, 0, sizeof(int));
+memset(&buf_215, 0, sizeof(char));
+memset(&q_216, 0, sizeof(char*));
 memset(&s_217, 0, sizeof(struct Sym*));
 memset(&len_218, 0, sizeof(int));
 memset(&f_220, 0, sizeof(struct BufferedFile*));
@@ -11462,14 +10817,14 @@ memset(&size_223, 0, sizeof(int));
         skip_spaces();
         # 1275 "tccpp.c"
         # 1219 "tccpp.c"
-        if(_if_conditional258=ch==60,        _if_conditional258) {
+        if(ch==60) {
             # 1220 "tccpp.c"
             c_212=62;
             # 1221 "tccpp.c"
             goto read_name;
         }
         # 1222 "tccpp.c"
-        else if(_elif_conditional64=ch==34,        _elif_conditional64) {
+        else if(ch==34) {
             # 1223 "tccpp.c"
             c_212=ch;
             # 1225 "tccpp.c"
@@ -11479,19 +10834,19 @@ memset(&size_223, 0, sizeof(int));
             # 1226 "tccpp.c"
             q_216=buf_215;
             # 1236 "tccpp.c"
-            while(_while_condtional21=ch!=c_212&&ch!=10&&ch!=(-1),            _while_condtional21) {
+            while(ch!=c_212&&ch!=10&&ch!=(-1)) {
                 # 1230 "tccpp.c"
                 # 1228 "tccpp.c"
-                if(_if_conditional259=(q_216-buf_215)<sizeof(buf_215)-1,                _if_conditional259) {
+                if((q_216-buf_215)<sizeof(buf_215)-1) {
                     # 1229 "tccpp.c"
                     *q_216++=ch;
                 }
                 # 1235 "tccpp.c"
                 # 1230 "tccpp.c"
-                if(_if_conditional260=ch==92,                _if_conditional260) {
+                if(ch==92) {
                     # 1233 "tccpp.c"
                     # 1231 "tccpp.c"
-                    if(_if_conditional261=handle_stray_noerror()==0,                    _if_conditional261) {
+                    if(handle_stray_noerror()==0) {
                         # 1232 "tccpp.c"
                         --q_216;
                     }
@@ -11513,12 +10868,12 @@ memset(&size_223, 0, sizeof(int));
             buf_215[0]=0;
             # 1273 "tccpp.c"
             # 1249 "tccpp.c"
-            if(_if_conditional262=tok==181,            _if_conditional262) {
+            if(tok==181) {
                 # 1258 "tccpp.c"
-                while(_while_condtional22=tok!=10,                _while_condtional22) {
+                while(tok!=10) {
                     # 1255 "tccpp.c"
                     # 1251 "tccpp.c"
-                    if(_if_conditional263=tok!=181,                    _if_conditional263) {
+                    if(tok!=181) {
                         # 1253 "tccpp.c"
                         include_syntax:
                         # 1253 "tccpp.c"
@@ -11535,7 +10890,7 @@ memset(&size_223, 0, sizeof(int));
             else {
                 # 1260 "tccpp.c"
                 # 1265 "tccpp.c"
-                while(_while_condtional23=tok!=10,                _while_condtional23) {
+                while(tok!=10) {
                     # 1262 "tccpp.c"
                     pstrcat(buf_215,sizeof(buf_215),get_tok_str(tok,&tokc));
                     # 1263 "tccpp.c"
@@ -11545,7 +10900,7 @@ memset(&size_223, 0, sizeof(int));
                 len_218=strlen(buf_215);
                 # 1269 "tccpp.c"
                 # 1267 "tccpp.c"
-                if(_if_conditional264=len_218<2||buf_215[0]!=60||buf_215[len_218-1]!=62,                _if_conditional264) {
+                if(len_218<2||buf_215[0]!=60||buf_215[len_218-1]!=62) {
                     # 1268 "tccpp.c"
                     goto include_syntax;
                 }
@@ -11559,7 +10914,7 @@ memset(&size_223, 0, sizeof(int));
         }
         # 1278 "tccpp.c"
         # 1275 "tccpp.c"
-        if(_if_conditional265=s1_210->include_stack_ptr>=s1_210->include_stack+32,        _if_conditional265) {
+        if(s1_210->include_stack_ptr>=s1_210->include_stack+32) {
             # 1276 "tccpp.c"
             error("#include recursion too deep");
         }
@@ -11576,10 +10931,10 @@ memset(&size_223, 0, sizeof(int));
             # 1284 "tccpp.c"
             # 1310 "tccpp.c"
             # 1286 "tccpp.c"
-            if(_if_conditional266=i_211==-2,            _if_conditional266) {
+            if(i_211==-2) {
                 # 1290 "tccpp.c"
                 # 1288 "tccpp.c"
-                if(_if_conditional267=!(buf_215[0]==47),                _if_conditional267) {
+                if(!(buf_215[0]==47)) {
                     # 1289 "tccpp.c"
                     continue;
                 }
@@ -11587,10 +10942,10 @@ memset(&size_223, 0, sizeof(int));
                 buf1_219[0]=0;
             }
             # 1292 "tccpp.c"
-            else if(_elif_conditional65=i_211==-1,            _elif_conditional65) {
+            else if(i_211==-1) {
                 # 1296 "tccpp.c"
                 # 1294 "tccpp.c"
-                if(_if_conditional268=c_212!=34,                _if_conditional268) {
+                if(c_212!=34) {
                     # 1295 "tccpp.c"
                     continue;
                 }
@@ -11604,7 +10959,7 @@ memset(&size_223, 0, sizeof(int));
             else {
                 # 1306 "tccpp.c"
                 # 1302 "tccpp.c"
-                if(_if_conditional269=i_211<s1_210->nb_include_paths,                _if_conditional269) {
+                if(i_211<s1_210->nb_include_paths) {
                     # 1303 "tccpp.c"
                     path_222=s1_210->include_paths[i_211];
                 }
@@ -11623,7 +10978,7 @@ memset(&size_223, 0, sizeof(int));
             e_221=search_cached_include(s1_210,c_212,buf1_219);
             # 1326 "tccpp.c"
             # 1313 "tccpp.c"
-            if(_if_conditional270=e_221&&define_find(e_221->ifndef_macro),            _if_conditional270) {
+            if(e_221&&define_find(e_221->ifndef_macro)) {
                 # 1319 "tccpp.c"
                 f_220=((void*)0);
             }
@@ -11632,14 +10987,14 @@ memset(&size_223, 0, sizeof(int));
                 f_220=tcc_open(s1_210,buf1_219);
                 # 1324 "tccpp.c"
                 # 1322 "tccpp.c"
-                if(_if_conditional271=!f_220,                _if_conditional271) {
+                if(!f_220) {
                     # 1323 "tccpp.c"
                     continue;
                 }
             }
             # 1333 "tccpp.c"
             # 1326 "tccpp.c"
-            if(_if_conditional272=tok==(316),            _if_conditional272) {
+            if(tok==(316)) {
                 # 1327 "tccpp.c"
                 tok=(315);
                 # 1330 "tccpp.c"
@@ -11653,7 +11008,7 @@ memset(&size_223, 0, sizeof(int));
             }
             # 1342 "tccpp.c"
             # 1333 "tccpp.c"
-            if(_if_conditional274=!f_220,            _if_conditional274) {
+            if(!f_220) {
                 # 1334 "tccpp.c"
                 goto include_done;
             }
@@ -11706,7 +11061,7 @@ memset(&size_223, 0, sizeof(int));
         next_nomacro();
         # 1369 "tccpp.c"
         # 1367 "tccpp.c"
-        if(_if_conditional276=tok<256,        _if_conditional276) {
+        if(tok<256) {
             # 1368 "tccpp.c"
             error("invalid argument for '#if%sdef'",c_212?"n":"");
         }
@@ -11726,7 +11081,7 @@ memset(&size_223, 0, sizeof(int));
         do_if:
         # 1381 "tccpp.c"
         # 1379 "tccpp.c"
-        if(_if_conditional279=s1_210->ifdef_stack_ptr>=s1_210->ifdef_stack+64,        _if_conditional279) {
+        if(s1_210->ifdef_stack_ptr>=s1_210->ifdef_stack+64) {
             # 1380 "tccpp.c"
             error("memory full");
         }
@@ -11738,13 +11093,13 @@ memset(&size_223, 0, sizeof(int));
         case (261):
         # 1386 "tccpp.c"
         # 1384 "tccpp.c"
-        if(_if_conditional280=s1_210->ifdef_stack_ptr==s1_210->ifdef_stack,        _if_conditional280) {
+        if(s1_210->ifdef_stack_ptr==s1_210->ifdef_stack) {
             # 1385 "tccpp.c"
             error("#else without matching #if");
         }
         # 1388 "tccpp.c"
         # 1386 "tccpp.c"
-        if(_if_conditional281=s1_210->ifdef_stack_ptr[-1]&2,        _if_conditional281) {
+        if(s1_210->ifdef_stack_ptr[-1]&2) {
             # 1387 "tccpp.c"
             error("#else after #else");
         }
@@ -11756,7 +11111,7 @@ memset(&size_223, 0, sizeof(int));
         case (319):
         # 1393 "tccpp.c"
         # 1391 "tccpp.c"
-        if(_if_conditional282=s1_210->ifdef_stack_ptr==s1_210->ifdef_stack,        _if_conditional282) {
+        if(s1_210->ifdef_stack_ptr==s1_210->ifdef_stack) {
             # 1392 "tccpp.c"
             error("#elif without matching #if");
         }
@@ -11764,13 +11119,13 @@ memset(&size_223, 0, sizeof(int));
         c_212=s1_210->ifdef_stack_ptr[-1];
         # 1397 "tccpp.c"
         # 1394 "tccpp.c"
-        if(_if_conditional283=c_212>1,        _if_conditional283) {
+        if(c_212>1) {
             # 1395 "tccpp.c"
             error("#elif after #else");
         }
         # 1399 "tccpp.c"
         # 1397 "tccpp.c"
-        if(_if_conditional284=c_212==1,        _if_conditional284) {
+        if(c_212==1) {
             # 1398 "tccpp.c"
             goto skip;
         }
@@ -11782,7 +11137,7 @@ memset(&size_223, 0, sizeof(int));
         test_skip:
         # 1408 "tccpp.c"
         # 1402 "tccpp.c"
-        if(_if_conditional285=!(c_212&1),        _if_conditional285) {
+        if(!(c_212&1)) {
             # 1404 "tccpp.c"
             skip:
             # 1404 "tccpp.c"
@@ -11798,7 +11153,7 @@ memset(&size_223, 0, sizeof(int));
         case (320):
         # 1412 "tccpp.c"
         # 1410 "tccpp.c"
-        if(_if_conditional286=s1_210->ifdef_stack_ptr<=file->ifdef_stack_ptr,        _if_conditional286) {
+        if(s1_210->ifdef_stack_ptr<=file->ifdef_stack_ptr) {
             # 1411 "tccpp.c"
             error("#endif without matching #if");
         }
@@ -11806,13 +11161,13 @@ memset(&size_223, 0, sizeof(int));
         s1_210->ifdef_stack_ptr--;
         # 1426 "tccpp.c"
         # 1416 "tccpp.c"
-        if(_if_conditional287=file->ifndef_macro&&s1_210->ifdef_stack_ptr==file->ifdef_stack_ptr,        _if_conditional287) {
+        if(file->ifndef_macro&&s1_210->ifdef_stack_ptr==file->ifdef_stack_ptr) {
             # 1417 "tccpp.c"
             file->ifndef_macro_saved=file->ifndef_macro;
             # 1420 "tccpp.c"
             file->ifndef_macro=0;
             # 1423 "tccpp.c"
-            while(_while_condtional24=tok!=10,            _while_condtional24) {
+            while(tok!=10) {
                 # 1422 "tccpp.c"
                 next_nomacro();
             }
@@ -11829,7 +11184,7 @@ memset(&size_223, 0, sizeof(int));
         next();
         # 1431 "tccpp.c"
         # 1429 "tccpp.c"
-        if(_if_conditional288=tok!=179,        _if_conditional288) {
+        if(tok!=179) {
             # 1430 "tccpp.c"
             error("#line");
         }
@@ -11839,10 +11194,10 @@ memset(&size_223, 0, sizeof(int));
         next();
         # 1439 "tccpp.c"
         # 1433 "tccpp.c"
-        if(_if_conditional289=tok!=10,        _if_conditional289) {
+        if(tok!=10) {
             # 1436 "tccpp.c"
             # 1434 "tccpp.c"
-            if(_if_conditional290=tok!=181,            _if_conditional290) {
+            if(tok!=181) {
                 # 1435 "tccpp.c"
                 error("#line");
             }
@@ -11864,19 +11219,19 @@ memset(&size_223, 0, sizeof(int));
         # 1445 "tccpp.c"
         q_216=buf_215;
         # 1455 "tccpp.c"
-        while(_while_condtional25=ch!=10&&ch!=(-1),        _while_condtional25) {
+        while(ch!=10&&ch!=(-1)) {
             # 1449 "tccpp.c"
             # 1447 "tccpp.c"
-            if(_if_conditional291=(q_216-buf_215)<sizeof(buf_215)-1,            _if_conditional291) {
+            if((q_216-buf_215)<sizeof(buf_215)-1) {
                 # 1448 "tccpp.c"
                 *q_216++=ch;
             }
             # 1454 "tccpp.c"
             # 1449 "tccpp.c"
-            if(_if_conditional292=ch==92,            _if_conditional292) {
+            if(ch==92) {
                 # 1452 "tccpp.c"
                 # 1450 "tccpp.c"
-                if(_if_conditional293=handle_stray_noerror()==0,                _if_conditional293) {
+                if(handle_stray_noerror()==0) {
                     # 1451 "tccpp.c"
                     --q_216;
                 }
@@ -11890,7 +11245,7 @@ memset(&size_223, 0, sizeof(int));
         *q_216=0;
         # 1460 "tccpp.c"
         # 1456 "tccpp.c"
-        if(_if_conditional294=c_212==(323),        _if_conditional294) {
+        if(c_212==(323)) {
             # 1457 "tccpp.c"
             error("#error %s",buf_215);
         }
@@ -11910,12 +11265,12 @@ memset(&size_223, 0, sizeof(int));
         default:
         # 1472 "tccpp.c"
         # 1465 "tccpp.c"
-        if(_if_conditional295=tok==10||tok==33||tok==179,        _if_conditional295) {
+        if(tok==10||tok==33||tok==179) {
         }
         else {
             # 1471 "tccpp.c"
             # 1469 "tccpp.c"
-            if(_if_conditional296=!(saved_parse_flags_214&8),            _if_conditional296) {
+            if(!(saved_parse_flags_214&8)) {
                 # 1470 "tccpp.c"
                 warning("Ignoring unknown preprocessing directive #%s",get_tok_str(tok,&tokc));
             }
@@ -11924,7 +11279,7 @@ memset(&size_223, 0, sizeof(int));
         break;
     }
     # 1477 "tccpp.c"
-    while(_while_condtional26=tok!=10,    _while_condtional26) {
+    while(tok!=10) {
         # 1476 "tccpp.c"
         next_nomacro();
     }
@@ -11935,22 +11290,11 @@ memset(&size_223, 0, sizeof(int));
 }
 
 static void parse_escape_string(struct CString* outstr, const unsigned char* buf, int is_long){
-void* __result_obj__;
 int c_224;
 int n_225;
 const unsigned char* p_226;
-_Bool _if_conditional297;
-_Bool _if_conditional298;
-_Bool _if_conditional299;
-_Bool _if_conditional300;
-_Bool _if_conditional301;
-_Bool _elif_conditional66;
-_Bool _elif_conditional67;
-_Bool _if_conditional302;
-_Bool _if_conditional303;
-_Bool _if_conditional304;
-_Bool _if_conditional305;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&c_224, 0, sizeof(int));
+memset(&n_225, 0, sizeof(int));
 memset(&p_226, 0, sizeof(const unsigned char*));
     # 1484 "tccpp.c"
     # 1485 "tccpp.c"
@@ -11962,13 +11306,13 @@ memset(&p_226, 0, sizeof(const unsigned char*));
         c_224=*p_226;
         # 1492 "tccpp.c"
         # 1490 "tccpp.c"
-        if(_if_conditional297=c_224==0,        _if_conditional297) {
+        if(c_224==0) {
             # 1491 "tccpp.c"
             break;
         }
         # 1574 "tccpp.c"
         # 1492 "tccpp.c"
-        if(_if_conditional298=c_224==92,        _if_conditional298) {
+        if(c_224==92) {
             # 1493 "tccpp.c"
             p_226++;
             # 1495 "tccpp.c"
@@ -11999,7 +11343,7 @@ memset(&p_226, 0, sizeof(const unsigned char*));
                 c_224=*p_226;
                 # 1512 "tccpp.c"
                 # 1503 "tccpp.c"
-                if(_if_conditional299=isoct(c_224),                _if_conditional299) {
+                if(isoct(c_224)) {
                     # 1504 "tccpp.c"
                     n_225=n_225*8+c_224-48;
                     # 1505 "tccpp.c"
@@ -12008,7 +11352,7 @@ memset(&p_226, 0, sizeof(const unsigned char*));
                     c_224=*p_226;
                     # 1511 "tccpp.c"
                     # 1507 "tccpp.c"
-                    if(_if_conditional300=isoct(c_224),                    _if_conditional300) {
+                    if(isoct(c_224)) {
                         # 1508 "tccpp.c"
                         n_225=n_225*8+c_224-48;
                         # 1509 "tccpp.c"
@@ -12035,17 +11379,17 @@ memset(&p_226, 0, sizeof(const unsigned char*));
                     c_224=*p_226;
                     # 1529 "tccpp.c"
                     # 1521 "tccpp.c"
-                    if(_if_conditional301=c_224>=97&&c_224<=102,                    _if_conditional301) {
+                    if(c_224>=97&&c_224<=102) {
                         # 1522 "tccpp.c"
                         c_224=c_224-97+10;
                     }
                     # 1523 "tccpp.c"
-                    else if(_elif_conditional66=c_224>=65&&c_224<=70,                    _elif_conditional66) {
+                    else if(c_224>=65&&c_224<=70) {
                         # 1524 "tccpp.c"
                         c_224=c_224-65+10;
                     }
                     # 1525 "tccpp.c"
-                    else if(_elif_conditional67=isnum(c_224),                    _elif_conditional67) {
+                    else if(isnum(c_224)) {
                         # 1526 "tccpp.c"
                         c_224=c_224-48;
                     }
@@ -12108,7 +11452,7 @@ memset(&p_226, 0, sizeof(const unsigned char*));
                 case 101:
                 # 1558 "tccpp.c"
                 # 1556 "tccpp.c"
-                if(_if_conditional302=!gnu_ext,                _if_conditional302) {
+                if(!gnu_ext) {
                     # 1557 "tccpp.c"
                     goto invalid_escape;
                 }
@@ -12132,7 +11476,7 @@ memset(&p_226, 0, sizeof(const unsigned char*));
                 invalid_escape:
                 # 1571 "tccpp.c"
                 # 1567 "tccpp.c"
-                if(_if_conditional303=c_224>=33&&c_224<=126,                _if_conditional303) {
+                if(c_224>=33&&c_224<=126) {
                     # 1568 "tccpp.c"
                     warning("unknown escape sequence: \'\\%c\'",c_224);
                 }
@@ -12150,7 +11494,7 @@ memset(&p_226, 0, sizeof(const unsigned char*));
         add_char_nonext:
         # 1580 "tccpp.c"
         # 1576 "tccpp.c"
-        if(_if_conditional304=!is_long,        _if_conditional304) {
+        if(!is_long) {
             # 1577 "tccpp.c"
             cstr_ccat(outstr,c_224);
         }
@@ -12161,7 +11505,7 @@ memset(&p_226, 0, sizeof(const unsigned char*));
     }
     # 1586 "tccpp.c"
     # 1582 "tccpp.c"
-    if(_if_conditional305=!is_long,    _if_conditional305) {
+    if(!is_long) {
         # 1583 "tccpp.c"
         cstr_ccat(outstr,0);
     }
@@ -12172,10 +11516,8 @@ memset(&p_226, 0, sizeof(const unsigned char*));
 }
 
 void bn_lshift(unsigned int* bn, int shift, int or_val){
-void* __result_obj__;
 int i_227;
 unsigned int v_228;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&i_227, 0, sizeof(int));
 memset(&v_228, 0, sizeof(unsigned int));
     # 1594 "tccpp.c"
@@ -12192,9 +11534,7 @@ memset(&v_228, 0, sizeof(unsigned int));
 }
 
 void bn_zero(unsigned int* bn){
-void* __result_obj__;
 int i_229;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&i_229, 0, sizeof(int));
     # 1605 "tccpp.c"
     # 1609 "tccpp.c"
@@ -12205,7 +11545,6 @@ memset(&i_229, 0, sizeof(int));
 }
 
 void parse_number(const char* p){
-void* __result_obj__;
 int b_230;
 int t_231;
 int shift_232;
@@ -12215,77 +11554,23 @@ int exp_val_235;
 int ch_236;
 char* q_237;
 double d_239;
-_Bool _if_conditional306;
-_Bool _elif_conditional68;
-_Bool _if_conditional307;
-_Bool _elif_conditional69;
-_Bool _while_condtional27;
-_Bool _if_conditional308;
-_Bool _elif_conditional70;
-_Bool _elif_conditional71;
-_Bool _if_conditional309;
-_Bool _if_conditional310;
-_Bool _if_conditional311;
-_Bool _if_conditional312;
-_Bool _if_conditional313;
-_Bool _while_condtional28;
-_Bool _if_conditional314;
-_Bool _elif_conditional72;
-_Bool _elif_conditional73;
-_Bool _if_conditional315;
-_Bool _while_condtional29;
-_Bool _if_conditional316;
-_Bool _elif_conditional74;
-_Bool _elif_conditional75;
-_Bool _if_conditional317;
-_Bool _if_conditional318;
-_Bool _if_conditional319;
-_Bool _elif_conditional76;
-_Bool _if_conditional320;
-_Bool _while_condtional30;
-_Bool _if_conditional321;
-_Bool _elif_conditional77;
-_Bool _if_conditional322;
-_Bool _if_conditional323;
-_Bool _while_condtional31;
-_Bool _if_conditional324;
-_Bool _if_conditional325;
-_Bool _if_conditional326;
-_Bool _if_conditional327;
-_Bool _if_conditional328;
-_Bool _if_conditional329;
-_Bool _while_condtional32;
-_Bool _if_conditional330;
-_Bool _if_conditional331;
-_Bool _elif_conditional78;
 unsigned long long n_240;
 unsigned long long n1_241;
 int lcount_242;
 int ucount_243;
-_Bool _if_conditional332;
-_Bool _while_condtional33;
-_Bool _if_conditional333;
-_Bool _elif_conditional79;
-_Bool _elif_conditional80;
-_Bool _if_conditional334;
-_Bool _if_conditional335;
-_Bool _if_conditional336;
-_Bool _if_conditional337;
-_Bool _elif_conditional81;
-_Bool _if_conditional338;
-_Bool _if_conditional339;
-_Bool _if_conditional340;
-_Bool _if_conditional341;
-_Bool _elif_conditional82;
-_Bool _elif_conditional83;
-_Bool _if_conditional342;
-_Bool _if_conditional343;
-_Bool _elif_conditional84;
-_Bool _if_conditional344;
-_Bool _if_conditional345;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&b_230, 0, sizeof(int));
+memset(&t_231, 0, sizeof(int));
+memset(&shift_232, 0, sizeof(int));
+memset(&frac_bits_233, 0, sizeof(int));
+memset(&s_234, 0, sizeof(int));
+memset(&exp_val_235, 0, sizeof(int));
+memset(&ch_236, 0, sizeof(int));
 memset(&q_237, 0, sizeof(char*));
 memset(&d_239, 0, sizeof(double));
+memset(&n_240, 0, sizeof(unsigned long long));
+memset(&n1_241, 0, sizeof(unsigned long long));
+memset(&lcount_242, 0, sizeof(int));
+memset(&ucount_243, 0, sizeof(int));
     # 1615 "tccpp.c"
     # 1616 "tccpp.c"
     # 1617 "tccpp.c"
@@ -12306,15 +11591,15 @@ memset(&d_239, 0, sizeof(double));
     b_230=10;
     # 1642 "tccpp.c"
     # 1627 "tccpp.c"
-    if(_if_conditional306=t_231==46,    _if_conditional306) {
+    if(t_231==46) {
         # 1628 "tccpp.c"
         goto float_frac_parse;
     }
     # 1629 "tccpp.c"
-    else if(_elif_conditional68=t_231==48,    _elif_conditional68) {
+    else if(t_231==48) {
         # 1639 "tccpp.c"
         # 1630 "tccpp.c"
-        if(_if_conditional307=ch_236==120||ch_236==88,        _if_conditional307) {
+        if(ch_236==120||ch_236==88) {
             # 1631 "tccpp.c"
             q_237--;
             # 1632 "tccpp.c"
@@ -12323,7 +11608,7 @@ memset(&d_239, 0, sizeof(double));
             b_230=16;
         }
         # 1634 "tccpp.c"
-        else if(_elif_conditional69=tcc_ext&&(ch_236==98||ch_236==66),        _elif_conditional69) {
+        else if(tcc_ext&&(ch_236==98||ch_236==66)) {
             # 1635 "tccpp.c"
             q_237--;
             # 1636 "tccpp.c"
@@ -12333,20 +11618,20 @@ memset(&d_239, 0, sizeof(double));
         }
     }
     # 1660 "tccpp.c"
-    while(_while_condtional27=1,    _while_condtional27) {
+    while(1) {
         # 1651 "tccpp.c"
         # 1643 "tccpp.c"
-        if(_if_conditional308=ch_236>=97&&ch_236<=102,        _if_conditional308) {
+        if(ch_236>=97&&ch_236<=102) {
             # 1644 "tccpp.c"
             t_231=ch_236-97+10;
         }
         # 1645 "tccpp.c"
-        else if(_elif_conditional70=ch_236>=65&&ch_236<=70,        _elif_conditional70) {
+        else if(ch_236>=65&&ch_236<=70) {
             # 1646 "tccpp.c"
             t_231=ch_236-65+10;
         }
         # 1647 "tccpp.c"
-        else if(_elif_conditional71=isnum(ch_236),        _elif_conditional71) {
+        else if(isnum(ch_236)) {
             # 1648 "tccpp.c"
             t_231=ch_236-48;
         }
@@ -12356,13 +11641,13 @@ memset(&d_239, 0, sizeof(double));
         }
         # 1653 "tccpp.c"
         # 1651 "tccpp.c"
-        if(_if_conditional309=t_231>=b_230,        _if_conditional309) {
+        if(t_231>=b_230) {
             # 1652 "tccpp.c"
             break;
         }
         # 1657 "tccpp.c"
         # 1653 "tccpp.c"
-        if(_if_conditional310=q_237>=token_buf+1024,        _if_conditional310) {
+        if(q_237>=token_buf+1024) {
             # 1655 "tccpp.c"
             num_too_long:
             # 1655 "tccpp.c"
@@ -12375,15 +11660,15 @@ memset(&d_239, 0, sizeof(double));
     }
     # 1877 "tccpp.c"
     # 1662 "tccpp.c"
-    if(_if_conditional311=ch_236==46||((ch_236==101||ch_236==69)&&b_230==10)||((ch_236==112||ch_236==80)&&(b_230==16||b_230==2)),    _if_conditional311) {
+    if(ch_236==46||((ch_236==101||ch_236==69)&&b_230==10)||((ch_236==112||ch_236==80)&&(b_230==16||b_230==2))) {
         # 1799 "tccpp.c"
         # 1663 "tccpp.c"
-        if(_if_conditional312=b_230!=10,        _if_conditional312) {
+        if(b_230!=10) {
             # 1669 "tccpp.c"
             *q_237=0;
             # 1674 "tccpp.c"
             # 1670 "tccpp.c"
-            if(_if_conditional313=b_230==16,            _if_conditional313) {
+            if(b_230==16) {
                 # 1671 "tccpp.c"
                 shift_232=4;
             }
@@ -12396,22 +11681,22 @@ memset(&d_239, 0, sizeof(double));
             # 1675 "tccpp.c"
             q_237=token_buf;
             # 1689 "tccpp.c"
-            while(_while_condtional28=1,            _while_condtional28) {
+            while(1) {
                 # 1677 "tccpp.c"
                 t_231=*q_237++;
                 # 1687 "tccpp.c"
                 # 1678 "tccpp.c"
-                if(_if_conditional314=t_231==0,                _if_conditional314) {
+                if(t_231==0) {
                     # 1679 "tccpp.c"
                     break;
                 }
                 # 1680 "tccpp.c"
-                else if(_elif_conditional72=t_231>=97,                _elif_conditional72) {
+                else if(t_231>=97) {
                     # 1681 "tccpp.c"
                     t_231=t_231-97+10;
                 }
                 # 1682 "tccpp.c"
-                else if(_elif_conditional73=t_231>=65,                _elif_conditional73) {
+                else if(t_231>=65) {
                     # 1683 "tccpp.c"
                     t_231=t_231-65+10;
                 }
@@ -12426,26 +11711,26 @@ memset(&d_239, 0, sizeof(double));
             frac_bits_233=0;
             # 1710 "tccpp.c"
             # 1690 "tccpp.c"
-            if(_if_conditional315=ch_236==46,            _if_conditional315) {
+            if(ch_236==46) {
                 # 1691 "tccpp.c"
                 ch_236=*p++;
                 # 1709 "tccpp.c"
-                while(_while_condtional29=1,                _while_condtional29) {
+                while(1) {
                     # 1693 "tccpp.c"
                     t_231=ch_236;
                     # 1703 "tccpp.c"
                     # 1694 "tccpp.c"
-                    if(_if_conditional316=t_231>=97&&t_231<=102,                    _if_conditional316) {
+                    if(t_231>=97&&t_231<=102) {
                         # 1695 "tccpp.c"
                         t_231=t_231-97+10;
                     }
                     # 1696 "tccpp.c"
-                    else if(_elif_conditional74=t_231>=65&&t_231<=70,                    _elif_conditional74) {
+                    else if(t_231>=65&&t_231<=70) {
                         # 1697 "tccpp.c"
                         t_231=t_231-65+10;
                     }
                     # 1698 "tccpp.c"
-                    else if(_elif_conditional75=t_231>=48&&t_231<=57,                    _elif_conditional75) {
+                    else if(t_231>=48&&t_231<=57) {
                         # 1699 "tccpp.c"
                         t_231=t_231-48;
                     }
@@ -12455,7 +11740,7 @@ memset(&d_239, 0, sizeof(double));
                     }
                     # 1705 "tccpp.c"
                     # 1703 "tccpp.c"
-                    if(_if_conditional317=t_231>=b_230,                    _if_conditional317) {
+                    if(t_231>=b_230) {
                         # 1704 "tccpp.c"
                         error("invalid digit");
                     }
@@ -12469,7 +11754,7 @@ memset(&d_239, 0, sizeof(double));
             }
             # 1712 "tccpp.c"
             # 1710 "tccpp.c"
-            if(_if_conditional318=ch_236!=112&&ch_236!=80,            _if_conditional318) {
+            if(ch_236!=112&&ch_236!=80) {
                 # 1711 "tccpp.c"
                 expect("exponent");
             }
@@ -12481,12 +11766,12 @@ memset(&d_239, 0, sizeof(double));
             exp_val_235=0;
             # 1721 "tccpp.c"
             # 1715 "tccpp.c"
-            if(_if_conditional319=ch_236==43,            _if_conditional319) {
+            if(ch_236==43) {
                 # 1716 "tccpp.c"
                 ch_236=*p++;
             }
             # 1717 "tccpp.c"
-            else if(_elif_conditional76=ch_236==45,            _elif_conditional76) {
+            else if(ch_236==45) {
                 # 1718 "tccpp.c"
                 s_234=-1;
                 # 1719 "tccpp.c"
@@ -12494,12 +11779,12 @@ memset(&d_239, 0, sizeof(double));
             }
             # 1723 "tccpp.c"
             # 1721 "tccpp.c"
-            if(_if_conditional320=ch_236<48||ch_236>57,            _if_conditional320) {
+            if(ch_236<48||ch_236>57) {
                 # 1722 "tccpp.c"
                 expect("exponent digits");
             }
             # 1727 "tccpp.c"
-            while(_while_condtional30=ch_236>=48&&ch_236<=57,            _while_condtional30) {
+            while(ch_236>=48&&ch_236<=57) {
                 # 1724 "tccpp.c"
                 exp_val_235=exp_val_235*10+ch_236-48;
                 # 1725 "tccpp.c"
@@ -12515,7 +11800,7 @@ memset(&d_239, 0, sizeof(double));
             t_231=toup(ch_236);
             # 1748 "tccpp.c"
             # 1734 "tccpp.c"
-            if(_if_conditional321=t_231==70,            _if_conditional321) {
+            if(t_231==70) {
                 # 1735 "tccpp.c"
                 ch_236=*p++;
                 # 1736 "tccpp.c"
@@ -12524,7 +11809,7 @@ memset(&d_239, 0, sizeof(double));
                 tokc.f=(float)d_239;
             }
             # 1739 "tccpp.c"
-            else if(_elif_conditional77=t_231==76,            _elif_conditional77) {
+            else if(t_231==76) {
                 # 1740 "tccpp.c"
                 ch_236=*p++;
                 # 1741 "tccpp.c"
@@ -12542,10 +11827,10 @@ memset(&d_239, 0, sizeof(double));
         else {
             # 1763 "tccpp.c"
             # 1750 "tccpp.c"
-            if(_if_conditional322=ch_236==46,            _if_conditional322) {
+            if(ch_236==46) {
                 # 1753 "tccpp.c"
                 # 1751 "tccpp.c"
-                if(_if_conditional323=q_237>=token_buf+1024,                _if_conditional323) {
+                if(q_237>=token_buf+1024) {
                     # 1752 "tccpp.c"
                     goto num_too_long;
                 }
@@ -12556,10 +11841,10 @@ memset(&d_239, 0, sizeof(double));
                 # 1756 "tccpp.c"
                 float_frac_parse:
                 # 1762 "tccpp.c"
-                while(_while_condtional31=ch_236>=48&&ch_236<=57,                _while_condtional31) {
+                while(ch_236>=48&&ch_236<=57) {
                     # 1759 "tccpp.c"
                     # 1757 "tccpp.c"
-                    if(_if_conditional324=q_237>=token_buf+1024,                    _if_conditional324) {
+                    if(q_237>=token_buf+1024) {
                         # 1758 "tccpp.c"
                         goto num_too_long;
                     }
@@ -12571,10 +11856,10 @@ memset(&d_239, 0, sizeof(double));
             }
             # 1783 "tccpp.c"
             # 1763 "tccpp.c"
-            if(_if_conditional325=ch_236==101||ch_236==69,            _if_conditional325) {
+            if(ch_236==101||ch_236==69) {
                 # 1766 "tccpp.c"
                 # 1764 "tccpp.c"
-                if(_if_conditional326=q_237>=token_buf+1024,                _if_conditional326) {
+                if(q_237>=token_buf+1024) {
                     # 1765 "tccpp.c"
                     goto num_too_long;
                 }
@@ -12584,10 +11869,10 @@ memset(&d_239, 0, sizeof(double));
                 ch_236=*p++;
                 # 1774 "tccpp.c"
                 # 1768 "tccpp.c"
-                if(_if_conditional327=ch_236==45||ch_236==43,                _if_conditional327) {
+                if(ch_236==45||ch_236==43) {
                     # 1771 "tccpp.c"
                     # 1769 "tccpp.c"
-                    if(_if_conditional328=q_237>=token_buf+1024,                    _if_conditional328) {
+                    if(q_237>=token_buf+1024) {
                         # 1770 "tccpp.c"
                         goto num_too_long;
                     }
@@ -12598,15 +11883,15 @@ memset(&d_239, 0, sizeof(double));
                 }
                 # 1776 "tccpp.c"
                 # 1774 "tccpp.c"
-                if(_if_conditional329=ch_236<48||ch_236>57,                _if_conditional329) {
+                if(ch_236<48||ch_236>57) {
                     # 1775 "tccpp.c"
                     expect("exponent digits");
                 }
                 # 1782 "tccpp.c"
-                while(_while_condtional32=ch_236>=48&&ch_236<=57,                _while_condtional32) {
+                while(ch_236>=48&&ch_236<=57) {
                     # 1779 "tccpp.c"
                     # 1777 "tccpp.c"
-                    if(_if_conditional330=q_237>=token_buf+1024,                    _if_conditional330) {
+                    if(q_237>=token_buf+1024) {
                         # 1778 "tccpp.c"
                         goto num_too_long;
                     }
@@ -12624,7 +11909,7 @@ memset(&d_239, 0, sizeof(double));
             (*__errno_location())=0;
             # 1798 "tccpp.c"
             # 1786 "tccpp.c"
-            if(_if_conditional331=t_231==70,            _if_conditional331) {
+            if(t_231==70) {
                 # 1787 "tccpp.c"
                 ch_236=*p++;
                 # 1788 "tccpp.c"
@@ -12633,7 +11918,7 @@ memset(&d_239, 0, sizeof(double));
                 tokc.f=strtof(token_buf,((void*)0));
             }
             # 1790 "tccpp.c"
-            else if(_elif_conditional78=t_231==76,            _elif_conditional78) {
+            else if(t_231==76) {
                 # 1791 "tccpp.c"
                 ch_236=*p++;
                 # 1792 "tccpp.c"
@@ -12658,7 +11943,7 @@ memset(&d_239, 0, sizeof(double));
         q_237=token_buf;
         # 1810 "tccpp.c"
         # 1806 "tccpp.c"
-        if(_if_conditional332=b_230==10&&*q_237==48,        _if_conditional332) {
+        if(b_230==10&&*q_237==48) {
             # 1807 "tccpp.c"
             b_230=8;
             # 1808 "tccpp.c"
@@ -12667,22 +11952,22 @@ memset(&d_239, 0, sizeof(double));
         # 1810 "tccpp.c"
         n_240=0;
         # 1834 "tccpp.c"
-        while(_while_condtional33=1,        _while_condtional33) {
+        while(1) {
             # 1812 "tccpp.c"
             t_231=*q_237++;
             # 1825 "tccpp.c"
             # 1814 "tccpp.c"
-            if(_if_conditional333=t_231==0,            _if_conditional333) {
+            if(t_231==0) {
                 # 1815 "tccpp.c"
                 break;
             }
             # 1816 "tccpp.c"
-            else if(_elif_conditional79=t_231>=97,            _elif_conditional79) {
+            else if(t_231>=97) {
                 # 1817 "tccpp.c"
                 t_231=t_231-97+10;
             }
             # 1818 "tccpp.c"
-            else if(_elif_conditional80=t_231>=65,            _elif_conditional80) {
+            else if(t_231>=65) {
                 # 1819 "tccpp.c"
                 t_231=t_231-65+10;
             }
@@ -12691,7 +11976,7 @@ memset(&d_239, 0, sizeof(double));
                 t_231=t_231-48;
                 # 1824 "tccpp.c"
                 # 1822 "tccpp.c"
-                if(_if_conditional334=t_231>=b_230,                _if_conditional334) {
+                if(t_231>=b_230) {
                     # 1823 "tccpp.c"
                     error("invalid digit");
                 }
@@ -12702,17 +11987,17 @@ memset(&d_239, 0, sizeof(double));
             n_240=n_240*b_230+t_231;
             # 1831 "tccpp.c"
             # 1829 "tccpp.c"
-            if(_if_conditional335=n_240<n1_241,            _if_conditional335) {
+            if(n_240<n1_241) {
                 # 1830 "tccpp.c"
                 error("integer constant overflow");
             }
         }
         # 1844 "tccpp.c"
         # 1834 "tccpp.c"
-        if(_if_conditional336=(n_240&-4294967296)!=0,        _if_conditional336) {
+        if((n_240&-4294967296)!=0) {
             # 1839 "tccpp.c"
             # 1835 "tccpp.c"
-            if(_if_conditional337=(n_240>>63)!=0,            _if_conditional337) {
+            if((n_240>>63)!=0) {
                 # 1836 "tccpp.c"
                 tok=202;
             }
@@ -12722,7 +12007,7 @@ memset(&d_239, 0, sizeof(double));
             }
         }
         # 1839 "tccpp.c"
-        else if(_elif_conditional81=n_240>2147483647,        _elif_conditional81) {
+        else if(n_240>2147483647) {
             # 1840 "tccpp.c"
             tok=200;
         }
@@ -12740,10 +12025,10 @@ memset(&d_239, 0, sizeof(double));
             t_231=toup(ch_236);
             # 1871 "tccpp.c"
             # 1848 "tccpp.c"
-            if(_if_conditional338=t_231==76,            _if_conditional338) {
+            if(t_231==76) {
                 # 1851 "tccpp.c"
                 # 1849 "tccpp.c"
-                if(_if_conditional339=lcount_242>=2,                _if_conditional339) {
+                if(lcount_242>=2) {
                     # 1850 "tccpp.c"
                     error("three 'l's in integer constant");
                 }
@@ -12751,15 +12036,15 @@ memset(&d_239, 0, sizeof(double));
                 lcount_242++;
                 # 1858 "tccpp.c"
                 # 1852 "tccpp.c"
-                if(_if_conditional340=lcount_242==2,                _if_conditional340) {
+                if(lcount_242==2) {
                     # 1857 "tccpp.c"
                     # 1853 "tccpp.c"
-                    if(_if_conditional341=tok==179,                    _if_conditional341) {
+                    if(tok==179) {
                         # 1854 "tccpp.c"
                         tok=201;
                     }
                     # 1855 "tccpp.c"
-                    else if(_elif_conditional82=tok==200,                    _elif_conditional82) {
+                    else if(tok==200) {
                         # 1856 "tccpp.c"
                         tok=202;
                     }
@@ -12768,10 +12053,10 @@ memset(&d_239, 0, sizeof(double));
                 ch_236=*p++;
             }
             # 1859 "tccpp.c"
-            else if(_elif_conditional83=t_231==85,            _elif_conditional83) {
+            else if(t_231==85) {
                 # 1862 "tccpp.c"
                 # 1860 "tccpp.c"
-                if(_if_conditional342=ucount_243>=1,                _if_conditional342) {
+                if(ucount_243>=1) {
                     # 1861 "tccpp.c"
                     error("two 'u's in integer constant");
                 }
@@ -12779,12 +12064,12 @@ memset(&d_239, 0, sizeof(double));
                 ucount_243++;
                 # 1867 "tccpp.c"
                 # 1863 "tccpp.c"
-                if(_if_conditional343=tok==179,                _if_conditional343) {
+                if(tok==179) {
                     # 1864 "tccpp.c"
                     tok=200;
                 }
                 # 1865 "tccpp.c"
-                else if(_elif_conditional84=tok==201,                _elif_conditional84) {
+                else if(tok==201) {
                     # 1866 "tccpp.c"
                     tok=202;
                 }
@@ -12798,7 +12083,7 @@ memset(&d_239, 0, sizeof(double));
         }
         # 1876 "tccpp.c"
         # 1872 "tccpp.c"
-        if(_if_conditional344=tok==179||tok==200,        _if_conditional344) {
+        if(tok==179||tok==200) {
             # 1873 "tccpp.c"
             tokc.ui=n_240;
         }
@@ -12817,11 +12102,6 @@ memset(&d_239, 0, sizeof(double));
 
 
 static void next_nomacro_spc(){
-void* __result_obj__;
-_Bool _if_conditional406;
-_Bool _if_conditional407;
-_Bool _if_conditional408;
-memset(&__result_obj__, 0, sizeof(void*));
     # 2334 "tccpp.c"
     # 2321 "tccpp.c"
     if(macro_ptr) {
@@ -12904,7 +12184,7 @@ memset(&__result_obj__, 0, sizeof(void*));
             }
             # 2330 "tccpp.c"
             # 2326 "tccpp.c"
-            if(_if_conditional408=tok==186,            _if_conditional408) {
+            if(tok==186) {
                 # 2327 "tccpp.c"
                 file->line_num=tokc.i;
                 # 2328 "tccpp.c"
@@ -12919,15 +12199,12 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 static void next_nomacro(){
-void* __result_obj__;
-_Bool _do_while_condtional1;
-memset(&__result_obj__, 0, sizeof(void*));
     # 2340 "tccpp.c"
     do {
         # 2339 "tccpp.c"
         next_nomacro_spc();
     # 2340 "tccpp.c"
-    } while(_do_while_condtional1=is_space(tok),    _do_while_condtional1);
+    } while(is_space(tok));
 }
 
 static int* macro_arg_subst(struct Sym** nested_list, int* macro_str, struct Sym* args){
@@ -12940,22 +12217,13 @@ struct Sym* s_261;
 union CValue cval_262;
 struct TokenString str_263;
 struct CString cstr_264;
-_Bool _while_condtional36;
-_Bool _if_conditional409;
-_Bool _if_conditional410;
-_Bool _if_conditional411;
-_Bool _if_conditional412;
-_Bool _while_condtional37;
-_Bool _if_conditional413;
-_Bool _elif_conditional96;
-_Bool _if_conditional414;
-_Bool _if_conditional415;
-_Bool _if_conditional416;
-_Bool _if_conditional417;
 int t1_265;
-_Bool _if_conditional418;
-int* __result71__;
+int* __result49__;
 memset(&__result_obj__, 0, sizeof(void*));
+memset(&st_257, 0, sizeof(int*));
+memset(&last_tok_258, 0, sizeof(int));
+memset(&t_259, 0, sizeof(int));
+memset(&spc_260, 0, sizeof(int));
 memset(&s_261, 0, sizeof(struct Sym*));
 memset(&cval_262, 0, sizeof(union CValue));
 memset(&str_263, 0, sizeof(struct TokenString));
@@ -12971,7 +12239,7 @@ memset(&t1_265, 0, sizeof(int));
     # 2353 "tccpp.c"
     last_tok_258=0;
     # 2430 "tccpp.c"
-    while(_while_condtional36=1,    _while_condtional36) {
+    while(1) {
         # 2355 "tccpp.c"
         {
             # 2355 "tccpp.c"
@@ -13044,13 +12312,13 @@ memset(&t1_265, 0, sizeof(int));
         }
         # 2358 "tccpp.c"
         # 2356 "tccpp.c"
-        if(_if_conditional409=!t_259,        _if_conditional409) {
+        if(!t_259) {
             # 2357 "tccpp.c"
             break;
         }
         # 2428 "tccpp.c"
         # 2358 "tccpp.c"
-        if(_if_conditional410=t_259==35,        _if_conditional410) {
+        if(t_259==35) {
             # 2360 "tccpp.c"
             {
                 # 2360 "tccpp.c"
@@ -13123,7 +12391,7 @@ memset(&t1_265, 0, sizeof(int));
             }
             # 2363 "tccpp.c"
             # 2361 "tccpp.c"
-            if(_if_conditional411=!t_259,            _if_conditional411) {
+            if(!t_259) {
                 # 2362 "tccpp.c"
                 break;
             }
@@ -13139,7 +12407,7 @@ memset(&t1_265, 0, sizeof(int));
                 # 2367 "tccpp.c"
                 spc_260=0;
                 # 2373 "tccpp.c"
-                while(_while_condtional37=*st_257,                _while_condtional37) {
+                while(*st_257) {
                     # 2369 "tccpp.c"
                     {
                         # 2369 "tccpp.c"
@@ -13212,7 +12480,7 @@ memset(&t1_265, 0, sizeof(int));
                     }
                     # 2372 "tccpp.c"
                     # 2370 "tccpp.c"
-                    if(_if_conditional413=!check_space(t_259,&spc_260),                    _if_conditional413) {
+                    if(!check_space(t_259,&spc_260)) {
                         # 2371 "tccpp.c"
                         cstr_cat(&cstr_264,get_tok_str(t_259,&cval_262));
                     }
@@ -13234,7 +12502,7 @@ memset(&t1_265, 0, sizeof(int));
             }
         }
         # 2385 "tccpp.c"
-        else if(_elif_conditional96=t_259>=256,        _elif_conditional96) {
+        else if(t_259>=256) {
             # 2386 "tccpp.c"
             s_261=sym_find2(args,t_259);
             # 2425 "tccpp.c"
@@ -13244,13 +12512,13 @@ memset(&t1_265, 0, sizeof(int));
                 st_257=(int*)s_261->c;
                 # 2422 "tccpp.c"
                 # 2390 "tccpp.c"
-                if(_if_conditional415=*macro_str==182||last_tok_258==182,                _if_conditional415) {
+                if(*macro_str==182||last_tok_258==182) {
                     # 2417 "tccpp.c"
                     # 2398 "tccpp.c"
-                    if(_if_conditional416=gnu_ext&&s_261->type.t&&last_tok_258==182&&str_263.len>=2&&str_263.str[str_263.len-2]==44,                    _if_conditional416) {
+                    if(gnu_ext&&s_261->type.t&&last_tok_258==182&&str_263.len>=2&&str_263.str[str_263.len-2]==44) {
                         # 2407 "tccpp.c"
                         # 2399 "tccpp.c"
-                        if(_if_conditional417=*st_257==0,                        _if_conditional417) {
+                        if(*st_257==0) {
                             # 2401 "tccpp.c"
                             str_263.len-=2;
                         }
@@ -13339,7 +12607,7 @@ memset(&t1_265, 0, sizeof(int));
                             }
                             # 2414 "tccpp.c"
                             # 2412 "tccpp.c"
-                            if(_if_conditional418=!t1_265,                            _if_conditional418) {
+                            if(!t1_265) {
                                 # 2413 "tccpp.c"
                                 break;
                             }
@@ -13368,16 +12636,15 @@ memset(&t1_265, 0, sizeof(int));
     # 2430 "tccpp.c"
     tok_str_add(&str_263,0);
     # 2431 "tccpp.c"
-    __result71__ = __result_obj__ = str_263.str;
+    __result49__ = __result_obj__ = str_263.str;
     come_call_finalizer3((&str_263),TokenString_finalize, 1, 0, 0, 0, (void*)0);
     come_call_finalizer3((&cstr_264),CString_finalize, 1, 0, 0, 0, (void*)0);
-    return __result71__;
+    return __result49__;
     come_call_finalizer3((&str_263),TokenString_finalize, 1, 0, 0, 0, (void*)0);
     come_call_finalizer3((&cstr_264),CString_finalize, 1, 0, 0, 0, (void*)0);
 }
 
 static int macro_subst_tok(struct TokenString* tok_str, struct Sym** nested_list, struct Sym* s, struct macro_level** can_read_stream){
-void* __result_obj__;
 struct Sym* args_266;
 struct Sym* sa_267;
 struct Sym* sa1_268;
@@ -13392,35 +12659,21 @@ struct TokenString str_276;
 char* cstrval_277;
 union CValue cval_278;
 struct CString cstr_279;
-_Bool _if_conditional419;
-_Bool _elif_conditional97;
-_Bool _elif_conditional98;
 long ti_281;
 struct tm* tm2_282;
-_Bool _if_conditional420;
-_Bool _if_conditional421;
-_Bool _if_conditional422;
-_Bool _while_condtional38;
-_Bool _if_conditional423;
 struct macro_level* ml_283;
-_Bool _if_conditional424;
-_Bool _while_condtional39;
-_Bool _if_conditional425;
-int __result72__;
-_Bool _if_conditional426;
-_Bool _if_conditional427;
-_Bool _while_condtional40;
-_Bool _if_conditional428;
-_Bool _elif_conditional99;
-_Bool _if_conditional429;
-_Bool _if_conditional430;
-_Bool _if_conditional431;
-_Bool _if_conditional432;
-_Bool _if_conditional433;
-_Bool _if_conditional434;
-_Bool _if_conditional435;
-int __result73__;
-memset(&__result_obj__, 0, sizeof(void*));
+int __result50__;
+int __result51__;
+memset(&args_266, 0, sizeof(struct Sym*));
+memset(&sa_267, 0, sizeof(struct Sym*));
+memset(&sa1_268, 0, sizeof(struct Sym*));
+memset(&mstr_allocated_269, 0, sizeof(int));
+memset(&parlevel_270, 0, sizeof(int));
+memset(&mstr_271, 0, sizeof(int*));
+memset(&t_272, 0, sizeof(int));
+memset(&t1_273, 0, sizeof(int));
+memset(&p_274, 0, sizeof(int*));
+memset(&spc_275, 0, sizeof(int));
 memset(&str_276, 0, sizeof(struct TokenString));
 memset(&cstrval_277, 0, sizeof(char*));
 memset(&cval_278, 0, sizeof(union CValue));
@@ -13439,7 +12692,7 @@ memset(&ml_283, 0, sizeof(struct macro_level*));
     memset(&buf_280, 0, sizeof(char)    *(32)    );
     # 2594 "tccpp.c"
     # 2457 "tccpp.c"
-    if(_if_conditional419=tok==(327),    _if_conditional419) {
+    if(tok==(327)) {
         # 2458 "tccpp.c"
         snprintf(buf_280,sizeof(buf_280),"%d",file->line_num);
         # 2459 "tccpp.c"
@@ -13450,14 +12703,14 @@ memset(&ml_283, 0, sizeof(struct macro_level*));
         goto add_cstr1;
     }
     # 2462 "tccpp.c"
-    else if(_elif_conditional97=tok==(328),    _elif_conditional97) {
+    else if(tok==(328)) {
         # 2463 "tccpp.c"
         cstrval_277=file->filename;
         # 2464 "tccpp.c"
         goto add_cstr;
     }
     # 2465 "tccpp.c"
-    else if(_elif_conditional98=tok==(329)||tok==(330),    _elif_conditional98) {
+    else if(tok==(329)||tok==(330)) {
         # 2466 "tccpp.c"
         # 2467 "tccpp.c"
         # 2469 "tccpp.c"
@@ -13466,7 +12719,7 @@ memset(&ml_283, 0, sizeof(struct macro_level*));
         tm2_282=localtime(&ti_281);
         # 2478 "tccpp.c"
         # 2471 "tccpp.c"
-        if(_if_conditional420=tok==(329),        _if_conditional420) {
+        if(tok==(329)) {
             # 2473 "tccpp.c"
             snprintf(buf_280,sizeof(buf_280),"%s %2d %d",ab_month_name[tm2_282->tm_mon],tm2_282->tm_mday,tm2_282->tm_year+1900);
         }
@@ -13502,7 +12755,7 @@ memset(&ml_283, 0, sizeof(struct macro_level*));
         mstr_allocated_269=0;
         # 2585 "tccpp.c"
         # 2491 "tccpp.c"
-        if(_if_conditional421=s->type.t==1,        _if_conditional421) {
+        if(s->type.t==1) {
             # 2495 "tccpp.c"
             redo:
             # 2519 "tccpp.c"
@@ -13511,13 +12764,13 @@ memset(&ml_283, 0, sizeof(struct macro_level*));
                 # 2496 "tccpp.c"
                 p_274=macro_ptr;
                 # 2499 "tccpp.c"
-                while(_while_condtional38=is_space(t_272=*p_274)||10==t_272,                _while_condtional38) {
+                while(is_space(t_272=*p_274)||10==t_272) {
                     # 2498 "tccpp.c"
                     ++p_274;
                 }
                 # 2512 "tccpp.c"
                 # 2499 "tccpp.c"
-                if(_if_conditional423=t_272==0&&can_read_stream,                _if_conditional423) {
+                if(t_272==0&&can_read_stream) {
                     # 2502 "tccpp.c"
                     ml_283=*can_read_stream;
                     # 2503 "tccpp.c"
@@ -13540,7 +12793,7 @@ memset(&ml_283, 0, sizeof(struct macro_level*));
                 # 2514 "tccpp.c"
                 ch=file->buf_ptr[0];
                 # 2517 "tccpp.c"
-                while(_while_condtional39=is_space(ch)||ch==10,                _while_condtional39) {
+                while(is_space(ch)||ch==10) {
                     # 2516 "tccpp.c"
                     minp();
                 }
@@ -13549,12 +12802,12 @@ memset(&ml_283, 0, sizeof(struct macro_level*));
             }
             # 2523 "tccpp.c"
             # 2519 "tccpp.c"
-            if(_if_conditional425=t_272!=40,            _if_conditional425) {
+            if(t_272!=40) {
                 # 2520 "tccpp.c"
-                __result72__ = -1;
+                __result50__ = -1;
                 come_call_finalizer3((&str_276),TokenString_finalize, 1, 0, 0, 0, (void*)0);
                 come_call_finalizer3((&cstr_279),CString_finalize, 1, 0, 0, 0, (void*)0);
-                return __result72__;
+                return __result50__;
             }
             # 2523 "tccpp.c"
             next_nomacro();
@@ -13568,13 +12821,13 @@ memset(&ml_283, 0, sizeof(struct macro_level*));
             for(            ;            ;            ){
                 # 2532 "tccpp.c"
                 # 2530 "tccpp.c"
-                if(_if_conditional426=!args_266&&!sa_267&&tok==41,                _if_conditional426) {
+                if(!args_266&&!sa_267&&tok==41) {
                     # 2531 "tccpp.c"
                     break;
                 }
                 # 2535 "tccpp.c"
                 # 2532 "tccpp.c"
-                if(_if_conditional427=!sa_267,                _if_conditional427) {
+                if(!sa_267) {
                     # 2534 "tccpp.c"
                     error("macro '%s' used with too many args",get_tok_str(s->v,/*b*/(void*)0));
                 }
@@ -13583,27 +12836,27 @@ memset(&ml_283, 0, sizeof(struct macro_level*));
                 # 2536 "tccpp.c"
                 parlevel_270=spc_275=0;
                 # 2552 "tccpp.c"
-                while(_while_condtional40=(parlevel_270>0||(tok!=41&&(tok!=44||sa_267->type.t)))&&tok!=-1,                _while_condtional40) {
+                while((parlevel_270>0||(tok!=41&&(tok!=44||sa_267->type.t)))&&tok!=-1) {
                     # 2546 "tccpp.c"
                     # 2542 "tccpp.c"
-                    if(_if_conditional428=tok==40,                    _if_conditional428) {
+                    if(tok==40) {
                         # 2543 "tccpp.c"
                         parlevel_270++;
                     }
                     # 2544 "tccpp.c"
-                    else if(_elif_conditional99=tok==41,                    _elif_conditional99) {
+                    else if(tok==41) {
                         # 2545 "tccpp.c"
                         parlevel_270--;
                     }
                     # 2548 "tccpp.c"
                     # 2546 "tccpp.c"
-                    if(_if_conditional429=tok==10,                    _if_conditional429) {
+                    if(tok==10) {
                         # 2547 "tccpp.c"
                         tok=32;
                     }
                     # 2550 "tccpp.c"
                     # 2548 "tccpp.c"
-                    if(_if_conditional430=!check_space(tok,&spc_275),                    _if_conditional430) {
+                    if(!check_space(tok,&spc_275)) {
                         # 2549 "tccpp.c"
                         tok_str_add2(&str_276,tok,&tokc);
                     }
@@ -13620,10 +12873,10 @@ memset(&ml_283, 0, sizeof(struct macro_level*));
                 sa_267=sa_267->next;
                 # 2564 "tccpp.c"
                 # 2556 "tccpp.c"
-                if(_if_conditional431=tok==41,                _if_conditional431) {
+                if(tok==41) {
                     # 2563 "tccpp.c"
                     # 2559 "tccpp.c"
-                    if(_if_conditional432=sa_267&&sa_267->type.t&&gnu_ext,                    _if_conditional432) {
+                    if(sa_267&&sa_267->type.t&&gnu_ext) {
                         # 2560 "tccpp.c"
                         continue;
                     }
@@ -13634,7 +12887,7 @@ memset(&ml_283, 0, sizeof(struct macro_level*));
                 }
                 # 2566 "tccpp.c"
                 # 2564 "tccpp.c"
-                if(_if_conditional433=tok!=44,                _if_conditional433) {
+                if(tok!=44) {
                     # 2565 "tccpp.c"
                     expect(",");
                 }
@@ -13683,17 +12936,16 @@ memset(&ml_283, 0, sizeof(struct macro_level*));
         }
     }
     # 2594 "tccpp.c"
-    __result73__ = 0;
+    __result51__ = 0;
     come_call_finalizer3((&str_276),TokenString_finalize, 1, 0, 0, 0, (void*)0);
     come_call_finalizer3((&cstr_279),CString_finalize, 1, 0, 0, 0, (void*)0);
-    return __result73__;
+    return __result51__;
     come_call_finalizer3((&str_276),TokenString_finalize, 1, 0, 0, 0, (void*)0);
     come_call_finalizer3((&cstr_279),CString_finalize, 1, 0, 0, 0, (void*)0);
 }
 
 
 static void macro_subst(struct TokenString* tok_str, struct Sym** nested_list, const int* macro_str, struct macro_level** can_read_stream){
-void* __result_obj__;
 struct Sym* s_297;
 int* macro_str1_298;
 const int* ptr_299;
@@ -13702,21 +12954,12 @@ int ret_301;
 int spc_302;
 union CValue cval_303;
 struct macro_level ml_304;
-_Bool _if_conditional449;
-_Bool _while_condtional42;
-_Bool _if_conditional450;
-_Bool _if_conditional451;
-_Bool _if_conditional452;
-_Bool _if_conditional453;
-_Bool _if_conditional454;
-_Bool _if_conditional455;
-_Bool _if_conditional456;
-_Bool _if_conditional457;
-_Bool _if_conditional458;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&s_297, 0, sizeof(struct Sym*));
 memset(&macro_str1_298, 0, sizeof(int*));
 memset(&ptr_299, 0, sizeof(const int*));
+memset(&t_300, 0, sizeof(int));
+memset(&ret_301, 0, sizeof(int));
+memset(&spc_302, 0, sizeof(int));
 memset(&cval_303, 0, sizeof(union CValue));
 memset(&ml_304, 0, sizeof(struct macro_level));
     # 2729 "tccpp.c"
@@ -13738,10 +12981,10 @@ memset(&ml_304, 0, sizeof(struct macro_level));
     # 2741 "tccpp.c"
     spc_302=0;
     # 2773 "tccpp.c"
-    while(_while_condtional42=1,    _while_condtional42) {
+    while(1) {
         # 2747 "tccpp.c"
         # 2745 "tccpp.c"
-        if(_if_conditional450=ptr_299==((void*)0),        _if_conditional450) {
+        if(ptr_299==((void*)0)) {
             # 2746 "tccpp.c"
             break;
         }
@@ -13817,7 +13060,7 @@ memset(&ml_304, 0, sizeof(struct macro_level));
         }
         # 2750 "tccpp.c"
         # 2748 "tccpp.c"
-        if(_if_conditional451=t_300==0,        _if_conditional451) {
+        if(t_300==0) {
             # 2749 "tccpp.c"
             break;
         }
@@ -13825,10 +13068,10 @@ memset(&ml_304, 0, sizeof(struct macro_level));
         s_297=define_find(t_300);
         # 2772 "tccpp.c"
         # 2751 "tccpp.c"
-        if(_if_conditional452=s_297!=((void*)0),        _if_conditional452) {
+        if(s_297!=((void*)0)) {
             # 2755 "tccpp.c"
             # 2753 "tccpp.c"
-            if(_if_conditional453=sym_find2(*nested_list,t_300),            _if_conditional453) {
+            if(sym_find2(*nested_list,t_300)) {
                 # 2754 "tccpp.c"
                 goto no_subst;
             }
@@ -13852,13 +13095,13 @@ memset(&ml_304, 0, sizeof(struct macro_level));
             macro_ptr=ml_304.p;
             # 2765 "tccpp.c"
             # 2763 "tccpp.c"
-            if(_if_conditional455=can_read_stream&&*can_read_stream==&ml_304,            _if_conditional455) {
+            if(can_read_stream&&*can_read_stream==&ml_304) {
                 # 2764 "tccpp.c"
                 *can_read_stream=ml_304.prev;
             }
             # 2767 "tccpp.c"
             # 2765 "tccpp.c"
-            if(_if_conditional456=ret_301!=0,            _if_conditional456) {
+            if(ret_301!=0) {
                 # 2766 "tccpp.c"
                 goto no_subst;
             }
@@ -13868,7 +13111,7 @@ memset(&ml_304, 0, sizeof(struct macro_level));
             no_subst:
             # 2771 "tccpp.c"
             # 2769 "tccpp.c"
-            if(_if_conditional457=!check_space(t_300,&spc_302),            _if_conditional457) {
+            if(!check_space(t_300,&spc_302)) {
                 # 2770 "tccpp.c"
                 tok_str_add2(tok_str,t_300,&cval_303);
             }
@@ -13884,25 +13127,15 @@ memset(&ml_304, 0, sizeof(struct macro_level));
 }
 
 static void macro_level_finalize(struct macro_level* self){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
 }
 
 static void next(){
-void* __result_obj__;
 struct Sym* nested_list_305;
 struct Sym* s_306;
 struct TokenString str_307;
 struct macro_level* ml_308;
-_Bool _if_conditional459;
-_Bool _if_conditional460;
-_Bool _if_conditional461;
-_Bool _if_conditional462;
-_Bool _if_conditional463;
-_Bool _if_conditional464;
-_Bool _if_conditional465;
-_Bool _if_conditional466;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&nested_list_305, 0, sizeof(struct Sym*));
+memset(&s_306, 0, sizeof(struct Sym*));
 memset(&str_307, 0, sizeof(struct TokenString));
 memset(&ml_308, 0, sizeof(struct macro_level*));
     # 2780 "tccpp.c"
@@ -13912,7 +13145,7 @@ memset(&ml_308, 0, sizeof(struct macro_level*));
     redo:
     # 2789 "tccpp.c"
     # 2785 "tccpp.c"
-    if(_if_conditional459=parse_flags&16,    _if_conditional459) {
+    if(parse_flags&16) {
         # 2786 "tccpp.c"
         next_nomacro_spc();
     }
@@ -13922,10 +13155,10 @@ memset(&ml_308, 0, sizeof(struct macro_level*));
     }
     # 2825 "tccpp.c"
     # 2789 "tccpp.c"
-    if(_if_conditional460=!macro_ptr,    _if_conditional460) {
+    if(!macro_ptr) {
         # 2809 "tccpp.c"
         # 2793 "tccpp.c"
-        if(_if_conditional461=tok>=256&&(parse_flags&1),        _if_conditional461) {
+        if(tok>=256&&(parse_flags&1)) {
             # 2794 "tccpp.c"
             s_306=define_find(tok);
             # 2808 "tccpp.c"
@@ -13939,7 +13172,7 @@ memset(&ml_308, 0, sizeof(struct macro_level*));
                 ml_308=((void*)0);
                 # 2807 "tccpp.c"
                 # 2800 "tccpp.c"
-                if(_if_conditional463=macro_subst_tok(&str_307,&nested_list_305,s_306,&ml_308)==0,                _if_conditional463) {
+                if(macro_subst_tok(&str_307,&nested_list_305,s_306,&ml_308)==0) {
                     # 2802 "tccpp.c"
                     tok_str_add(&str_307,0);
                     # 2803 "tccpp.c"
@@ -13955,7 +13188,7 @@ memset(&ml_308, 0, sizeof(struct macro_level*));
     else {
         # 2822 "tccpp.c"
         # 2810 "tccpp.c"
-        if(_if_conditional464=tok==0,        _if_conditional464) {
+        if(tok==0) {
             # 2820 "tccpp.c"
             # 2812 "tccpp.c"
             if(unget_buffer_enabled) {
@@ -13976,7 +13209,7 @@ memset(&ml_308, 0, sizeof(struct macro_level*));
     }
     # 2829 "tccpp.c"
     # 2826 "tccpp.c"
-    if(_if_conditional466=tok==206&&(parse_flags&2),    _if_conditional466) {
+    if(tok==206&&(parse_flags&2)) {
         # 2827 "tccpp.c"
         parse_number((char*)tokc.cstr->data);
     }
@@ -13985,8 +13218,6 @@ memset(&ml_308, 0, sizeof(struct macro_level*));
 
 
 static void preprocess_init(struct TCCState* s1){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 2854 "tccpp.c"
     s1->include_stack_ptr=s1->include_stack;
     # 2857 "tccpp.c"
@@ -14002,15 +13233,15 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 void preprocess_new(){
-void* __result_obj__;
 int i_312;
 int c_313;
 const char* p_314;
 const char* r_315;
 struct TokenSym* ts_316;
-_Bool _while_condtional43;
-_Bool _if_conditional467;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&i_312, 0, sizeof(int));
+memset(&c_313, 0, sizeof(int));
+memset(&p_314, 0, sizeof(const char*));
+memset(&r_315, 0, sizeof(const char*));
 memset(&ts_316, 0, sizeof(struct TokenSym*));
     # 2868 "tccpp.c"
     # 2869 "tccpp.c"
@@ -14029,7 +13260,7 @@ memset(&ts_316, 0, sizeof(struct TokenSym*));
     # 2881 "tccpp.c"
     p_314=tcc_keywords;
     # 2892 "tccpp.c"
-    while(_while_condtional43=*p_314,    _while_condtional43) {
+    while(*p_314) {
         # 2883 "tccpp.c"
         r_315=p_314;
         # 2889 "tccpp.c"
@@ -14038,7 +13269,7 @@ memset(&ts_316, 0, sizeof(struct TokenSym*));
             c_313=*r_315++;
             # 2888 "tccpp.c"
             # 2886 "tccpp.c"
-            if(_if_conditional467=c_313==0,            _if_conditional467) {
+            if(c_313==0) {
                 # 2887 "tccpp.c"
                 break;
             }
@@ -14051,21 +13282,15 @@ memset(&ts_316, 0, sizeof(struct TokenSym*));
 }
 
 static int tcc_preprocess(struct TCCState* s1){
-void* __result_obj__;
 struct Sym* define_start_317;
 struct BufferedFile* file_ref_318;
 int token_seen_319;
 int line_ref_320;
-_Bool _if_conditional468;
-_Bool _elif_conditional102;
-_Bool _if_conditional469;
-_Bool _elif_conditional103;
 int d_321;
-_Bool _if_conditional470;
-int __result76__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&define_start_317, 0, sizeof(struct Sym*));
 memset(&file_ref_318, 0, sizeof(struct BufferedFile*));
+memset(&token_seen_319, 0, sizeof(int));
+memset(&line_ref_320, 0, sizeof(int));
 memset(&d_321, 0, sizeof(int));
     # 2897 "tccpp.c"
     # 2898 "tccpp.c"
@@ -14092,15 +13317,15 @@ memset(&d_321, 0, sizeof(int));
         next();
         # 2930 "tccpp.c"
         # 2913 "tccpp.c"
-        if(_if_conditional468=tok==(-1),        _if_conditional468) {
+        if(tok==(-1)) {
             # 2914 "tccpp.c"
             break;
         }
         # 2915 "tccpp.c"
-        else if(_elif_conditional102=tok==10,        _elif_conditional102) {
+        else if(tok==10) {
             # 2918 "tccpp.c"
             # 2916 "tccpp.c"
-            if(_if_conditional469=!token_seen_319,            _if_conditional469) {
+            if(!token_seen_319) {
                 # 2917 "tccpp.c"
                 continue;
             }
@@ -14110,12 +13335,12 @@ memset(&d_321, 0, sizeof(int));
             token_seen_319=0;
         }
         # 2920 "tccpp.c"
-        else if(_elif_conditional103=!token_seen_319,        _elif_conditional103) {
+        else if(!token_seen_319) {
             # 2921 "tccpp.c"
             d_321=file->line_num-line_ref_320;
             # 2927 "tccpp.c"
             # 2922 "tccpp.c"
-            if(_if_conditional470=file!=file_ref_318||d_321<0||d_321>=8,            _if_conditional470) {
+            if(file!=file_ref_318||d_321<0||d_321>=8) {
                 # 2923 "tccpp.c"
                 fprintf(s1->outfile,"# %d \"%s\"\n",file->line_num,file->filename);
             }
@@ -14137,14 +13362,11 @@ memset(&d_321, 0, sizeof(int));
     # 2932 "tccpp.c"
     free_defines(define_start_317);
     # 2933 "tccpp.c"
-    __result76__ = 0;
-    return __result76__;
+    return 0;
 }
 
 void swap(int* p, int* q){
-void* __result_obj__;
 int t_322;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&t_322, 0, sizeof(int));
     # 23 "tccgen.c"
     # 24 "tccgen.c"
@@ -14156,28 +13378,23 @@ memset(&t_322, 0, sizeof(int));
 }
 
 void vsetc(struct CType* type, int r, union CValue* vc){
-void* __result_obj__;
 int v_323;
-_Bool _if_conditional471;
-_Bool _if_conditional472;
-_Bool _if_conditional473;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&v_323, 0, sizeof(int));
     # 31 "tccgen.c"
     # 38 "tccgen.c"
     # 33 "tccgen.c"
-    if(_if_conditional471=vtop>=vstack+(256-1),    _if_conditional471) {
+    if(vtop>=vstack+(256-1)) {
         # 34 "tccgen.c"
         error("memory full");
     }
     # 43 "tccgen.c"
     # 38 "tccgen.c"
-    if(_if_conditional472=vtop>=vstack,    _if_conditional472) {
+    if(vtop>=vstack) {
         # 39 "tccgen.c"
         v_323=vtop->r&255;
         # 42 "tccgen.c"
         # 40 "tccgen.c"
-        if(_if_conditional473=v_323==243||(v_323&~1)==244,        _if_conditional473) {
+        if(v_323==243||(v_323&~1)==244) {
             # 41 "tccgen.c"
             gv(1);
         }
@@ -14195,9 +13412,7 @@ memset(&v_323, 0, sizeof(int));
 }
 
 void vpushi(int v){
-void* __result_obj__;
 union CValue cval_324;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&cval_324, 0, sizeof(union CValue));
     # 53 "tccgen.c"
     # 54 "tccgen.c"
@@ -14207,10 +13422,8 @@ memset(&cval_324, 0, sizeof(union CValue));
 }
 
 void vpushll(long long v){
-void* __result_obj__;
 union CValue cval_325;
 struct CType ctype_326;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&cval_325, 0, sizeof(union CValue));
 memset(&ctype_326, 0, sizeof(struct CType));
     # 61 "tccgen.c"
@@ -14225,15 +13438,13 @@ memset(&ctype_326, 0, sizeof(struct CType));
 }
 
 static void CType_finalize(struct CType* self){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
 }
 
 static struct Sym* get_sym_ref(struct CType* type, struct Section* sec, unsigned long int offset, unsigned long int size){
 void* __result_obj__;
 int v_327;
 struct Sym* sym_328;
-struct Sym* __result77__;
+struct Sym* __result54__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&v_327, 0, sizeof(int));
 memset(&sym_328, 0, sizeof(struct Sym*));
@@ -14250,14 +13461,12 @@ memset(&sym_328, 0, sizeof(struct Sym*));
     # 79 "tccgen.c"
     put_extern_sym(sym_328,sec,offset,size);
     # 80 "tccgen.c"
-    __result77__ = __result_obj__ = sym_328;
-    return __result77__;
+    __result54__ = __result_obj__ = sym_328;
+    return __result54__;
 }
 
 static void vpush_ref(struct CType* type, struct Section* sec, unsigned long int offset, unsigned long int size){
-void* __result_obj__;
 union CValue cval_329;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&cval_329, 0, sizeof(union CValue));
     # 86 "tccgen.c"
     # 88 "tccgen.c"
@@ -14271,8 +13480,7 @@ memset(&cval_329, 0, sizeof(union CValue));
 static struct Sym* external_global_sym(int v, struct CType* type, int r){
 void* __result_obj__;
 struct Sym* s_330;
-_Bool _if_conditional474;
-struct Sym* __result78__;
+struct Sym* __result55__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&s_330, 0, sizeof(struct Sym*));
     # 96 "tccgen.c"
@@ -14280,7 +13488,7 @@ memset(&s_330, 0, sizeof(struct Sym*));
     s_330=sym_find(v);
     # 105 "tccgen.c"
     # 99 "tccgen.c"
-    if(_if_conditional474=!s_330,    _if_conditional474) {
+    if(!s_330) {
         # 101 "tccgen.c"
         s_330=global_identifier_push(v,type->t|128,0);
         # 102 "tccgen.c"
@@ -14289,16 +13497,14 @@ memset(&s_330, 0, sizeof(struct Sym*));
         s_330->r=r|240|512;
     }
     # 105 "tccgen.c"
-    __result78__ = __result_obj__ = s_330;
-    return __result78__;
+    __result55__ = __result_obj__ = s_330;
+    return __result55__;
 }
 
 static struct Sym* external_sym(int v, struct CType* type, int r){
 void* __result_obj__;
 struct Sym* s_331;
-_Bool _if_conditional475;
-_Bool _if_conditional476;
-struct Sym* __result79__;
+struct Sym* __result56__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&s_331, 0, sizeof(struct Sym*));
     # 111 "tccgen.c"
@@ -14306,7 +13512,7 @@ memset(&s_331, 0, sizeof(struct Sym*));
     s_331=sym_find(v);
     # 123 "tccgen.c"
     # 114 "tccgen.c"
-    if(_if_conditional475=!s_331,    _if_conditional475) {
+    if(!s_331) {
         # 116 "tccgen.c"
         s_331=sym_push(v,type,r|240|512,0);
         # 117 "tccgen.c"
@@ -14315,21 +13521,19 @@ memset(&s_331, 0, sizeof(struct Sym*));
     else {
         # 122 "tccgen.c"
         # 119 "tccgen.c"
-        if(_if_conditional476=!is_compatible_types(&s_331->type,type),        _if_conditional476) {
+        if(!is_compatible_types(&s_331->type,type)) {
             # 121 "tccgen.c"
             error("incompatible types for redefinition of '%s'",get_tok_str(v,((void*)0)));
         }
     }
     # 123 "tccgen.c"
-    __result79__ = __result_obj__ = s_331;
-    return __result79__;
+    __result56__ = __result_obj__ = s_331;
+    return __result56__;
 }
 
 static void vpush_global_sym(struct CType* type, int v){
-void* __result_obj__;
 struct Sym* sym_332;
 union CValue cval_333;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&sym_332, 0, sizeof(struct Sym*));
 memset(&cval_333, 0, sizeof(union CValue));
     # 129 "tccgen.c"
@@ -14345,9 +13549,7 @@ memset(&cval_333, 0, sizeof(union CValue));
 }
 
 void vset(struct CType* type, int r, int v){
-void* __result_obj__;
 union CValue cval_334;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&cval_334, 0, sizeof(union CValue));
     # 140 "tccgen.c"
     # 142 "tccgen.c"
@@ -14357,9 +13559,7 @@ memset(&cval_334, 0, sizeof(union CValue));
 }
 
 void vseti(int r, int v){
-void* __result_obj__;
 struct CType type_335;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&type_335, 0, sizeof(struct CType));
     # 148 "tccgen.c"
     # 149 "tccgen.c"
@@ -14370,9 +13570,7 @@ memset(&type_335, 0, sizeof(struct CType));
 }
 
 void vswap(){
-void* __result_obj__;
 struct SValue tmp_336;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&tmp_336, 0, sizeof(struct SValue));
     # 155 "tccgen.c"
     # 157 "tccgen.c"
@@ -14385,17 +13583,12 @@ memset(&tmp_336, 0, sizeof(struct SValue));
 }
 
 static void SValue_finalize(struct SValue* self){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
 }
 
 void vpushv(struct SValue* v){
-void* __result_obj__;
-_Bool _if_conditional477;
-memset(&__result_obj__, 0, sizeof(void*));
     # 166 "tccgen.c"
     # 164 "tccgen.c"
-    if(_if_conditional477=vtop>=vstack+(256-1),    _if_conditional477) {
+    if(vtop>=vstack+(256-1)) {
         # 165 "tccgen.c"
         error("memory full");
     }
@@ -14406,14 +13599,11 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 void vdup(){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 172 "tccgen.c"
     vpushv(vtop);
 }
 
 void save_reg(int r){
-void* __result_obj__;
 int l_337;
 int saved_338;
 int size_339;
@@ -14421,12 +13611,12 @@ int align_340;
 struct SValue* p_341;
 struct SValue sv_342;
 struct CType* type_343;
-_Bool _if_conditional478;
-_Bool _if_conditional479;
-_Bool _if_conditional480;
-_Bool _if_conditional481;
-_Bool _if_conditional482;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&l_337, 0, sizeof(int));
+memset(&saved_338, 0, sizeof(int));
+memset(&size_339, 0, sizeof(int));
+memset(&align_340, 0, sizeof(int));
+memset(&p_341, 0, sizeof(struct SValue*));
+memset(&sv_342, 0, sizeof(struct SValue));
 memset(&type_343, 0, sizeof(struct CType*));
     # 178 "tccgen.c"
     # 179 "tccgen.c"
@@ -14439,17 +13629,17 @@ memset(&type_343, 0, sizeof(struct CType*));
     for(    p_341=vstack;    p_341<=vtop;    p_341++    ){
         # 227 "tccgen.c"
         # 187 "tccgen.c"
-        if(_if_conditional478=(p_341->r&255)==r||((p_341->type.t&15)==12&&(p_341->r2&255)==r),        _if_conditional478) {
+        if((p_341->r&255)==r||((p_341->type.t&15)==12&&(p_341->r2&255)==r)) {
             # 216 "tccgen.c"
             # 189 "tccgen.c"
-            if(_if_conditional479=!saved_338,            _if_conditional479) {
+            if(!saved_338) {
                 # 191 "tccgen.c"
                 r=p_341->r&255;
                 # 193 "tccgen.c"
                 type_343=&p_341->type;
                 # 201 "tccgen.c"
                 # 195 "tccgen.c"
-                if(_if_conditional480=(p_341->r&256)||(!is_float(type_343->t)&&(type_343->t&15)!=12),                _if_conditional480) {
+                if((p_341->r&256)||(!is_float(type_343->t)&&(type_343->t&15)!=12)) {
                     # 197 "tccgen.c"
                     type_343=&char_pointer_type;
                 }
@@ -14467,7 +13657,7 @@ memset(&type_343, 0, sizeof(struct CType*));
                 store(r,&sv_342);
                 # 212 "tccgen.c"
                 # 209 "tccgen.c"
-                if(_if_conditional481=r==(4),                _if_conditional481) {
+                if(r==(4)) {
                     # 210 "tccgen.c"
                     o(55773);
                 }
@@ -14478,7 +13668,7 @@ memset(&type_343, 0, sizeof(struct CType*));
             }
             # 224 "tccgen.c"
             # 216 "tccgen.c"
-            if(_if_conditional482=p_341->r&256,            _if_conditional482) {
+            if(p_341->r&256) {
                 # 220 "tccgen.c"
                 p_341->r=(p_341->r&~(255|32768))|241;
             }
@@ -14495,16 +13685,9 @@ memset(&type_343, 0, sizeof(struct CType*));
 }
 
 int get_reg_ex(int rc, int rc2){
-void* __result_obj__;
 int r_344;
 struct SValue* p_345;
-_Bool _if_conditional483;
 int n_346;
-_Bool _if_conditional484;
-_Bool _if_conditional485;
-int __result80__;
-int __result81__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&r_344, 0, sizeof(int));
 memset(&p_345, 0, sizeof(struct SValue*));
 memset(&n_346, 0, sizeof(int));
@@ -14514,7 +13697,7 @@ memset(&n_346, 0, sizeof(int));
     for(    r_344=0;    r_344<5;    r_344++    ){
         # 249 "tccgen.c"
         # 238 "tccgen.c"
-        if(_if_conditional483=reg_classes[r_344]&rc2,        _if_conditional483) {
+        if(reg_classes[r_344]&rc2) {
             # 239 "tccgen.c"
             # 240 "tccgen.c"
             n_346=0;
@@ -14522,37 +13705,26 @@ memset(&n_346, 0, sizeof(int));
             for(            p_345=vstack;            p_345<=vtop;            p_345++            ){
                 # 245 "tccgen.c"
                 # 243 "tccgen.c"
-                if(_if_conditional484=(p_345->r&255)==r_344||(p_345->r2&255)==r_344,                _if_conditional484) {
+                if((p_345->r&255)==r_344||(p_345->r2&255)==r_344) {
                     # 244 "tccgen.c"
                     n_346++;
                 }
             }
             # 248 "tccgen.c"
             # 246 "tccgen.c"
-            if(_if_conditional485=n_346<=1,            _if_conditional485) {
+            if(n_346<=1) {
                 # 247 "tccgen.c"
-                __result80__ = r_344;
-                return __result80__;
+                return r_344;
             }
         }
     }
     # 250 "tccgen.c"
-    __result81__ = get_reg(rc);
-    return __result81__;
+    return get_reg(rc);
 }
 
 int get_reg(int rc){
-void* __result_obj__;
 int r_347;
 struct SValue* p_348;
-_Bool _if_conditional486;
-_Bool _if_conditional487;
-int __result82__;
-_Bool _if_conditional488;
-_Bool _if_conditional489;
-int __result83__;
-int __result84__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&r_347, 0, sizeof(int));
 memset(&p_348, 0, sizeof(struct SValue*));
     # 256 "tccgen.c"
@@ -14561,19 +13733,18 @@ memset(&p_348, 0, sizeof(struct SValue*));
     for(    r_347=0;    r_347<5;    r_347++    ){
         # 269 "tccgen.c"
         # 261 "tccgen.c"
-        if(_if_conditional486=reg_classes[r_347]&rc,        _if_conditional486) {
+        if(reg_classes[r_347]&rc) {
             # 267 "tccgen.c"
             for(            p_348=vstack;            p_348<=vtop;            p_348++            ){
                 # 266 "tccgen.c"
                 # 264 "tccgen.c"
-                if(_if_conditional487=(p_348->r&255)==r_347||(p_348->r2&255)==r_347,                _if_conditional487) {
+                if((p_348->r&255)==r_347||(p_348->r2&255)==r_347) {
                     # 265 "tccgen.c"
                     goto notfound;
                 }
             }
             # 267 "tccgen.c"
-            __result82__ = r_347;
-            return __result82__;
+            return r_347;
         }
         # 269 "tccgen.c"
         notfound:
@@ -14584,7 +13755,7 @@ memset(&p_348, 0, sizeof(struct SValue*));
         r_347=p_348->r&255;
         # 280 "tccgen.c"
         # 277 "tccgen.c"
-        if(_if_conditional488=r_347<240&&(reg_classes[r_347]&rc),        _if_conditional488) {
+        if(r_347<240&&(reg_classes[r_347]&rc)) {
             # 278 "tccgen.c"
             goto save_found;
         }
@@ -14592,29 +13763,26 @@ memset(&p_348, 0, sizeof(struct SValue*));
         r_347=p_348->r2&255;
         # 286 "tccgen.c"
         # 281 "tccgen.c"
-        if(_if_conditional489=r_347<240&&(reg_classes[r_347]&rc),        _if_conditional489) {
+        if(r_347<240&&(reg_classes[r_347]&rc)) {
             # 283 "tccgen.c"
             save_found:
             # 283 "tccgen.c"
             save_reg(r_347);
             # 284 "tccgen.c"
-            __result83__ = r_347;
-            return __result83__;
+            return r_347;
         }
     }
     # 288 "tccgen.c"
-    __result84__ = -1;
-    return __result84__;
+    return -1;
 }
 
 void save_regs(int n){
-void* __result_obj__;
 int r_349;
 struct SValue* p_350;
 struct SValue* p1_351;
-_Bool _if_conditional490;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&r_349, 0, sizeof(int));
+memset(&p_350, 0, sizeof(struct SValue*));
+memset(&p1_351, 0, sizeof(struct SValue*));
     # 294 "tccgen.c"
     # 295 "tccgen.c"
     # 296 "tccgen.c"
@@ -14625,7 +13793,7 @@ memset(&r_349, 0, sizeof(int));
         r_349=p_350->r&255;
         # 302 "tccgen.c"
         # 299 "tccgen.c"
-        if(_if_conditional490=r_349<240,        _if_conditional490) {
+        if(r_349<240) {
             # 300 "tccgen.c"
             save_reg(r_349);
         }
@@ -14633,15 +13801,12 @@ memset(&r_349, 0, sizeof(int));
 }
 
 void move_reg(int r, int s){
-void* __result_obj__;
 struct SValue sv_352;
-_Bool _if_conditional491;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&sv_352, 0, sizeof(struct SValue));
     # 309 "tccgen.c"
     # 318 "tccgen.c"
     # 311 "tccgen.c"
-    if(_if_conditional491=r!=s,    _if_conditional491) {
+    if(r!=s) {
         # 312 "tccgen.c"
         save_reg(r);
         # 313 "tccgen.c"
@@ -14657,21 +13822,17 @@ memset(&sv_352, 0, sizeof(struct SValue));
 }
 
 void gaddrof(){
-void* __result_obj__;
-_Bool _if_conditional492;
-memset(&__result_obj__, 0, sizeof(void*));
     # 323 "tccgen.c"
     vtop->r&=~256;
     # 327 "tccgen.c"
     # 325 "tccgen.c"
-    if(_if_conditional492=(vtop->r&255)==241,    _if_conditional492) {
+    if((vtop->r&255)==241) {
         # 326 "tccgen.c"
         vtop->r=(vtop->r&~(255|(4096|8192|16384)))|242|256;
     }
 }
 
 int gv(int rc){
-void* __result_obj__;
 int r_353;
 int rc2_354;
 int bit_pos_355;
@@ -14679,34 +13840,31 @@ int bit_size_356;
 int size_357;
 int align_358;
 int i_359;
-_Bool _if_conditional493;
 struct CType type_360;
 int bits_361;
-_Bool _if_conditional494;
-_Bool _if_conditional495;
-_Bool _if_conditional496;
 struct Sym* sym_362;
 int* ptr_363;
 unsigned long int offset_364;
-_Bool _if_conditional497;
-_Bool _if_conditional498;
-_Bool _if_conditional499;
 int t1_365;
 int t_366;
-_Bool _if_conditional500;
-_Bool _elif_conditional104;
-_Bool _if_conditional501;
-int __result85__;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&r_353, 0, sizeof(int));
+memset(&rc2_354, 0, sizeof(int));
+memset(&bit_pos_355, 0, sizeof(int));
+memset(&bit_size_356, 0, sizeof(int));
+memset(&size_357, 0, sizeof(int));
+memset(&align_358, 0, sizeof(int));
+memset(&i_359, 0, sizeof(int));
 memset(&type_360, 0, sizeof(struct CType));
 memset(&bits_361, 0, sizeof(int));
 memset(&sym_362, 0, sizeof(struct Sym*));
 memset(&ptr_363, 0, sizeof(int*));
 memset(&offset_364, 0, sizeof(unsigned long int));
+memset(&t1_365, 0, sizeof(int));
+memset(&t_366, 0, sizeof(int));
     # 370 "tccgen.c"
     # 528 "tccgen.c"
     # 373 "tccgen.c"
-    if(_if_conditional493=vtop->type.t&64,    _if_conditional493) {
+    if(vtop->type.t&64) {
         # 374 "tccgen.c"
         # 375 "tccgen.c"
         bits_361=32;
@@ -14718,7 +13876,7 @@ memset(&offset_364, 0, sizeof(unsigned long int));
         vtop->type.t&=~(64|(-1<<16));
         # 386 "tccgen.c"
         # 381 "tccgen.c"
-        if(_if_conditional494=(vtop->type.t&15)==12,        _if_conditional494) {
+        if((vtop->type.t&15)==12) {
             # 382 "tccgen.c"
             type_360.t=12;
             # 383 "tccgen.c"
@@ -14730,7 +13888,7 @@ memset(&offset_364, 0, sizeof(unsigned long int));
         }
         # 389 "tccgen.c"
         # 387 "tccgen.c"
-        if(_if_conditional495=(vtop->type.t&16)||(vtop->type.t&15)==11,        _if_conditional495) {
+        if((vtop->type.t&16)||(vtop->type.t&15)==11) {
             # 388 "tccgen.c"
             type_360.t|=16;
         }
@@ -14751,7 +13909,7 @@ memset(&offset_364, 0, sizeof(unsigned long int));
     else {
         # 440 "tccgen.c"
         # 399 "tccgen.c"
-        if(_if_conditional496=is_float(vtop->type.t)&&(vtop->r&(255|256))==240,        _if_conditional496) {
+        if(is_float(vtop->type.t)&&(vtop->r&(255|256))==240) {
             # 400 "tccgen.c"
             # 401 "tccgen.c"
             # 402 "tccgen.c"
@@ -14785,18 +13943,18 @@ memset(&offset_364, 0, sizeof(unsigned long int));
         rc2_354=1;
         # 448 "tccgen.c"
         # 442 "tccgen.c"
-        if(_if_conditional497=rc==4,        _if_conditional497) {
+        if(rc==4) {
             # 443 "tccgen.c"
             rc2_354=16;
         }
         # 521 "tccgen.c"
         # 452 "tccgen.c"
-        if(_if_conditional498=r_353>=240||(vtop->r&256)||!(reg_classes[r_353]&rc)||((vtop->type.t&15)==12&&!(reg_classes[vtop->r2]&rc2_354)),        _if_conditional498) {
+        if(r_353>=240||(vtop->r&256)||!(reg_classes[r_353]&rc)||((vtop->type.t&15)==12&&!(reg_classes[vtop->r2]&rc2_354))) {
             # 453 "tccgen.c"
             r_353=get_reg(rc);
             # 520 "tccgen.c"
             # 499 "tccgen.c"
-            if(_if_conditional499=(vtop->r&256)&&!is_float(vtop->type.t),            _if_conditional499) {
+            if((vtop->r&256)&&!is_float(vtop->type.t)) {
                 # 500 "tccgen.c"
                 # 503 "tccgen.c"
                 t_366=vtop->type.t;
@@ -14804,18 +13962,18 @@ memset(&offset_364, 0, sizeof(unsigned long int));
                 t1_365=t_366;
                 # 510 "tccgen.c"
                 # 506 "tccgen.c"
-                if(_if_conditional500=vtop->r&4096,                _if_conditional500) {
+                if(vtop->r&4096) {
                     # 507 "tccgen.c"
                     t_366=1;
                 }
                 # 508 "tccgen.c"
-                else if(_elif_conditional104=vtop->r&8192,                _elif_conditional104) {
+                else if(vtop->r&8192) {
                     # 509 "tccgen.c"
                     t_366=2;
                 }
                 # 512 "tccgen.c"
                 # 510 "tccgen.c"
-                if(_if_conditional501=vtop->r&16384,                _if_conditional501) {
+                if(vtop->r&16384) {
                     # 511 "tccgen.c"
                     t_366|=16;
                 }
@@ -14835,24 +13993,18 @@ memset(&offset_364, 0, sizeof(unsigned long int));
         vtop->r=r_353;
     }
     # 528 "tccgen.c"
-    __result85__ = r_353;
-    return __result85__;
+    return r_353;
 }
 
 void gv2(int rc1, int rc2){
-void* __result_obj__;
 int v_367;
-_Bool _if_conditional502;
-_Bool _if_conditional503;
-_Bool _if_conditional504;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&v_367, 0, sizeof(int));
     # 534 "tccgen.c"
     # 539 "tccgen.c"
     v_367=vtop[0].r&255;
     # 561 "tccgen.c"
     # 540 "tccgen.c"
-    if(_if_conditional502=v_367!=243&&(v_367&~1)!=244&&rc1<=rc2,    _if_conditional502) {
+    if(v_367!=243&&(v_367&~1)!=244&&rc1<=rc2) {
         # 541 "tccgen.c"
         vswap();
         # 542 "tccgen.c"
@@ -14863,7 +14015,7 @@ memset(&v_367, 0, sizeof(int));
         gv(rc2);
         # 551 "tccgen.c"
         # 546 "tccgen.c"
-        if(_if_conditional503=(vtop[-1].r&255)>=240,        _if_conditional503) {
+        if((vtop[-1].r&255)>=240) {
             # 547 "tccgen.c"
             vswap();
             # 548 "tccgen.c"
@@ -14883,7 +14035,7 @@ memset(&v_367, 0, sizeof(int));
         vswap();
         # 560 "tccgen.c"
         # 557 "tccgen.c"
-        if(_if_conditional504=(vtop[0].r&255)>=240,        _if_conditional504) {
+        if((vtop[0].r&255)>=240) {
             # 558 "tccgen.c"
             gv(rc2);
         }
@@ -14891,45 +14043,29 @@ memset(&v_367, 0, sizeof(int));
 }
 
 int rc_fret(int t){
-void* __result_obj__;
-_Bool _if_conditional505;
-int __result86__;
-int __result87__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 571 "tccgen.c"
     # 567 "tccgen.c"
-    if(_if_conditional505=t==10,    _if_conditional505) {
+    if(t==10) {
         # 568 "tccgen.c"
-        __result86__ = 64;
-        return __result86__;
+        return 64;
     }
     # 571 "tccgen.c"
-    __result87__ = 32;
-    return __result87__;
+    return 32;
 }
 
 int reg_fret(int t){
-void* __result_obj__;
-_Bool _if_conditional506;
-int __result88__;
-int __result89__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 582 "tccgen.c"
     # 578 "tccgen.c"
-    if(_if_conditional506=t==10,    _if_conditional506) {
+    if(t==10) {
         # 579 "tccgen.c"
-        __result88__ = (4);
-        return __result88__;
+        return (4);
     }
     # 582 "tccgen.c"
-    __result89__ = (3);
-    return __result89__;
+    return (3);
 }
 
 void lexpand(){
-void* __result_obj__;
 int u_368;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&u_368, 0, sizeof(int));
     # 588 "tccgen.c"
     # 590 "tccgen.c"
@@ -14951,8 +14087,6 @@ memset(&u_368, 0, sizeof(int));
 }
 
 void lbuild(int t){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 631 "tccgen.c"
     gv2(1,1);
     # 632 "tccgen.c"
@@ -14964,10 +14098,8 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 void vrotb(int n){
-void* __result_obj__;
 int i_369;
 struct SValue tmp_370;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&i_369, 0, sizeof(int));
 memset(&tmp_370, 0, sizeof(struct SValue));
     # 642 "tccgen.c"
@@ -14985,10 +14117,8 @@ memset(&tmp_370, 0, sizeof(struct SValue));
 }
 
 void vrott(int n){
-void* __result_obj__;
 int i_371;
 struct SValue tmp_372;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&i_371, 0, sizeof(int));
 memset(&tmp_372, 0, sizeof(struct SValue));
     # 656 "tccgen.c"
@@ -15006,23 +14136,19 @@ memset(&tmp_372, 0, sizeof(struct SValue));
 }
 
 void vpop(){
-void* __result_obj__;
 int v_373;
-_Bool _if_conditional507;
-_Bool _elif_conditional105;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&v_373, 0, sizeof(int));
     # 684 "tccgen.c"
     # 685 "tccgen.c"
     v_373=vtop->r&255;
     # 696 "tccgen.c"
     # 688 "tccgen.c"
-    if(_if_conditional507=v_373==(4)&&!nocode_wanted,    _if_conditional507) {
+    if(v_373==(4)&&!nocode_wanted) {
         # 689 "tccgen.c"
         o(55773);
     }
     # 692 "tccgen.c"
-    else if(_elif_conditional105=v_373==244||v_373==245,    _elif_conditional105) {
+    else if(v_373==244||v_373==245) {
         # 694 "tccgen.c"
         gsym(vtop->c.ul);
     }
@@ -15031,16 +14157,15 @@ memset(&v_373, 0, sizeof(int));
 }
 
 void gv_dup(){
-void* __result_obj__;
 int rc_374;
 int t_375;
 int r_376;
 int r1_377;
 struct SValue sv_378;
-_Bool _if_conditional508;
-_Bool _if_conditional509;
-_Bool _if_conditional510;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&rc_374, 0, sizeof(int));
+memset(&t_375, 0, sizeof(int));
+memset(&r_376, 0, sizeof(int));
+memset(&r1_377, 0, sizeof(int));
 memset(&sv_378, 0, sizeof(struct SValue));
     # 703 "tccgen.c"
     # 704 "tccgen.c"
@@ -15048,7 +14173,7 @@ memset(&sv_378, 0, sizeof(struct SValue));
     t_375=vtop->type.t;
     # 743 "tccgen.c"
     # 707 "tccgen.c"
-    if(_if_conditional508=(t_375&15)==12,    _if_conditional508) {
+    if((t_375&15)==12) {
         # 708 "tccgen.c"
         lexpand();
         # 709 "tccgen.c"
@@ -15081,12 +14206,12 @@ memset(&sv_378, 0, sizeof(struct SValue));
         sv_378.type.t=0;
         # 734 "tccgen.c"
         # 725 "tccgen.c"
-        if(_if_conditional509=is_float(t_375),        _if_conditional509) {
+        if(is_float(t_375)) {
             # 726 "tccgen.c"
             rc_374=2;
             # 732 "tccgen.c"
             # 728 "tccgen.c"
-            if(_if_conditional510=(t_375&15)==10,            _if_conditional510) {
+            if((t_375&15)==10) {
                 # 729 "tccgen.c"
                 rc_374=64;
             }
@@ -15112,7 +14237,6 @@ memset(&sv_378, 0, sizeof(struct SValue));
 }
 
 void gen_opic(int op){
-void* __result_obj__;
 int c1_379;
 int c2_380;
 int t1_381;
@@ -15122,24 +14246,15 @@ struct SValue* v1_384;
 struct SValue* v2_385;
 long long l1_386;
 long long l2_387;
-_Bool _if_conditional511;
-_Bool _elif_conditional106;
-_Bool _if_conditional512;
-_Bool _elif_conditional107;
-_Bool _if_conditional513;
-_Bool _if_conditional514;
-_Bool _if_conditional515;
-_Bool _if_conditional516;
-_Bool _if_conditional517;
-_Bool _elif_conditional108;
-_Bool _if_conditional518;
-_Bool _if_conditional519;
-_Bool _elif_conditional109;
-_Bool _elif_conditional110;
-_Bool _if_conditional520;
-_Bool _if_conditional521;
-_Bool _if_conditional522;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&c1_379, 0, sizeof(int));
+memset(&c2_380, 0, sizeof(int));
+memset(&t1_381, 0, sizeof(int));
+memset(&t2_382, 0, sizeof(int));
+memset(&n_383, 0, sizeof(int));
+memset(&v1_384, 0, sizeof(struct SValue*));
+memset(&v2_385, 0, sizeof(struct SValue*));
+memset(&l1_386, 0, sizeof(long long));
+memset(&l2_387, 0, sizeof(long long));
     # 986 "tccgen.c"
     # 987 "tccgen.c"
     # 988 "tccgen.c"
@@ -15154,12 +14269,12 @@ memset(&__result_obj__, 0, sizeof(void*));
     t2_382=v2_385->type.t&15;
     # 1003 "tccgen.c"
     # 996 "tccgen.c"
-    if(_if_conditional511=t1_381==12,    _if_conditional511) {
+    if(t1_381==12) {
         # 997 "tccgen.c"
         l1_386=v1_384->c.ll;
     }
     # 998 "tccgen.c"
-    else if(_elif_conditional106=v1_384->type.t&16,    _elif_conditional106) {
+    else if(v1_384->type.t&16) {
         # 999 "tccgen.c"
         l1_386=v1_384->c.ui;
     }
@@ -15169,12 +14284,12 @@ memset(&__result_obj__, 0, sizeof(void*));
     }
     # 1011 "tccgen.c"
     # 1003 "tccgen.c"
-    if(_if_conditional512=t2_382==12,    _if_conditional512) {
+    if(t2_382==12) {
         # 1004 "tccgen.c"
         l2_387=v2_385->c.ll;
     }
     # 1005 "tccgen.c"
-    else if(_elif_conditional107=v2_385->type.t&16,    _elif_conditional107) {
+    else if(v2_385->type.t&16) {
         # 1006 "tccgen.c"
         l2_387=v2_385->c.ui;
     }
@@ -15188,7 +14303,7 @@ memset(&__result_obj__, 0, sizeof(void*));
     c2_380=(v2_385->r&(255|256|512))==240;
     # 1120 "tccgen.c"
     # 1013 "tccgen.c"
-    if(_if_conditional513=c1_379&&c2_380,    _if_conditional513) {
+    if(c1_379&&c2_380) {
         # 1060 "tccgen.c"
         switch (op) {
             # 1015 "tccgen.c"
@@ -15239,7 +14354,7 @@ memset(&__result_obj__, 0, sizeof(void*));
             case 177:
             # 1033 "tccgen.c"
             # 1028 "tccgen.c"
-            if(_if_conditional514=l2_387==0,            _if_conditional514) {
+            if(l2_387==0) {
                 # 1031 "tccgen.c"
                 # 1029 "tccgen.c"
                 if(const_wanted) {
@@ -15381,7 +14496,7 @@ memset(&__result_obj__, 0, sizeof(void*));
     else {
         # 1071 "tccgen.c"
         # 1065 "tccgen.c"
-        if(_if_conditional516=c1_379&&(op==43||op==38||op==94||op==124||op==42),        _if_conditional516) {
+        if(c1_379&&(op==43||op==38||op==94||op==124||op==42)) {
             # 1066 "tccgen.c"
             vswap();
             # 1067 "tccgen.c"
@@ -15391,15 +14506,15 @@ memset(&__result_obj__, 0, sizeof(void*));
         }
         # 1119 "tccgen.c"
         # 1078 "tccgen.c"
-        if(_if_conditional517=c2_380&&(((op==42||op==47||op==176||op==178)&&l2_387==1)||((op==43||op==45||op==124||op==94||op==1||op==205||op==2)&&l2_387==0)||(op==38&&l2_387==-1)),        _if_conditional517) {
+        if(c2_380&&(((op==42||op==47||op==176||op==178)&&l2_387==1)||((op==43||op==45||op==124||op==94||op==1||op==205||op==2)&&l2_387==0)||(op==38&&l2_387==-1))) {
             # 1080 "tccgen.c"
             vtop--;
         }
         # 1081 "tccgen.c"
-        else if(_elif_conditional108=c2_380&&(op==42||op==178||op==176),        _elif_conditional108) {
+        else if(c2_380&&(op==42||op==178||op==176)) {
             # 1097 "tccgen.c"
             # 1083 "tccgen.c"
-            if(_if_conditional518=l2_387>0&&(l2_387&(l2_387-1))==0,            _if_conditional518) {
+            if(l2_387>0&&(l2_387&(l2_387-1))==0) {
                 # 1084 "tccgen.c"
                 n_383=-1;
                 # 1089 "tccgen.c"
@@ -15413,12 +14528,12 @@ memset(&__result_obj__, 0, sizeof(void*));
                 vtop->c.ll=n_383;
                 # 1096 "tccgen.c"
                 # 1090 "tccgen.c"
-                if(_if_conditional519=op==42,                _if_conditional519) {
+                if(op==42) {
                     # 1091 "tccgen.c"
                     op=1;
                 }
                 # 1092 "tccgen.c"
-                else if(_elif_conditional109=op==178,                _elif_conditional109) {
+                else if(op==178) {
                     # 1093 "tccgen.c"
                     op=2;
                 }
@@ -15431,10 +14546,10 @@ memset(&__result_obj__, 0, sizeof(void*));
             goto general_case;
         }
         # 1101 "tccgen.c"
-        else if(_elif_conditional110=c2_380&&(op==43||op==45)&&((vtop[-1].r&(255|256|512))==(240|512)||(vtop[-1].r&(255|256))==242),        _elif_conditional110) {
+        else if(c2_380&&(op==43||op==45)&&((vtop[-1].r&(255|256|512))==(240|512)||(vtop[-1].r&(255|256))==242)) {
             # 1105 "tccgen.c"
             # 1103 "tccgen.c"
-            if(_if_conditional520=op==45,            _if_conditional520) {
+            if(op==45) {
                 # 1104 "tccgen.c"
                 l2_387=-l2_387;
             }
@@ -15448,10 +14563,10 @@ memset(&__result_obj__, 0, sizeof(void*));
             general_case:
             # 1118 "tccgen.c"
             # 1109 "tccgen.c"
-            if(_if_conditional521=!nocode_wanted,            _if_conditional521) {
+            if(!nocode_wanted) {
                 # 1115 "tccgen.c"
                 # 1111 "tccgen.c"
-                if(_if_conditional522=t1_381==12||t2_382==12,                _if_conditional522) {
+                if(t1_381==12||t2_382==12) {
                     # 1112 "tccgen.c"
                     gen_opl(op);
                 }
@@ -15469,23 +14584,18 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 void gen_opif(int op){
-void* __result_obj__;
 int c1_388;
 int c2_389;
 struct SValue* v1_390;
 struct SValue* v2_391;
 long double f1_392;
 long double f2_393;
-_Bool _if_conditional523;
-_Bool _if_conditional524;
-_Bool _elif_conditional111;
-_Bool _if_conditional525;
-_Bool _if_conditional526;
-_Bool _if_conditional527;
-_Bool _if_conditional528;
-_Bool _elif_conditional112;
-_Bool _if_conditional529;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&c1_388, 0, sizeof(int));
+memset(&c2_389, 0, sizeof(int));
+memset(&v1_390, 0, sizeof(struct SValue*));
+memset(&v2_391, 0, sizeof(struct SValue*));
+memset(&f1_392, 0, sizeof(long double));
+memset(&f2_393, 0, sizeof(long double));
     # 1125 "tccgen.c"
     # 1126 "tccgen.c"
     # 1127 "tccgen.c"
@@ -15499,17 +14609,17 @@ memset(&__result_obj__, 0, sizeof(void*));
     c2_389=(v2_391->r&(255|256|512))==240;
     # 1184 "tccgen.c"
     # 1134 "tccgen.c"
-    if(_if_conditional523=c1_388&&c2_389,    _if_conditional523) {
+    if(c1_388&&c2_389) {
         # 1148 "tccgen.c"
         # 1135 "tccgen.c"
-        if(_if_conditional524=v1_390->type.t==8,        _if_conditional524) {
+        if(v1_390->type.t==8) {
             # 1136 "tccgen.c"
             f1_392=v1_390->c.f;
             # 1137 "tccgen.c"
             f2_393=v2_391->c.f;
         }
         # 1138 "tccgen.c"
-        else if(_elif_conditional111=v1_390->type.t==9,        _elif_conditional111) {
+        else if(v1_390->type.t==9) {
             # 1139 "tccgen.c"
             f1_392=v1_390->c.d;
             # 1140 "tccgen.c"
@@ -15523,7 +14633,7 @@ memset(&__result_obj__, 0, sizeof(void*));
         }
         # 1151 "tccgen.c"
         # 1148 "tccgen.c"
-        if(_if_conditional525=!ieee_finite(f1_392)||!ieee_finite(f2_393),        _if_conditional525) {
+        if(!ieee_finite(f1_392)||!ieee_finite(f2_393)) {
             # 1149 "tccgen.c"
             goto general_case;
         }
@@ -15551,7 +14661,7 @@ memset(&__result_obj__, 0, sizeof(void*));
             case 47:
             # 1161 "tccgen.c"
             # 1156 "tccgen.c"
-            if(_if_conditional526=f2_393==0.0,            _if_conditional526) {
+            if(f2_393==0.0) {
                 # 1159 "tccgen.c"
                 # 1157 "tccgen.c"
                 if(const_wanted) {
@@ -15572,12 +14682,12 @@ memset(&__result_obj__, 0, sizeof(void*));
         }
         # 1175 "tccgen.c"
         # 1168 "tccgen.c"
-        if(_if_conditional528=v1_390->type.t==8,        _if_conditional528) {
+        if(v1_390->type.t==8) {
             # 1169 "tccgen.c"
             v1_390->c.f=f1_392;
         }
         # 1170 "tccgen.c"
-        else if(_elif_conditional112=v1_390->type.t==9,        _elif_conditional112) {
+        else if(v1_390->type.t==9) {
             # 1171 "tccgen.c"
             v1_390->c.d=f1_392;
         }
@@ -15593,7 +14703,7 @@ memset(&__result_obj__, 0, sizeof(void*));
         general_case:
         # 1183 "tccgen.c"
         # 1178 "tccgen.c"
-        if(_if_conditional529=!nocode_wanted,        _if_conditional529) {
+        if(!nocode_wanted) {
             # 1179 "tccgen.c"
             gen_opf(op);
         }
@@ -15605,43 +14715,33 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 static int pointed_size(struct CType* type){
-void* __result_obj__;
 int align_394;
-int __result90__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&align_394, 0, sizeof(int));
     # 1188 "tccgen.c"
     # 1189 "tccgen.c"
-    __result90__ = type_size(pointed_type(type),&align_394);
-    return __result90__;
+    return type_size(pointed_type(type),&align_394);
 }
 
 
 
 static void check_comparison_pointer_types(struct SValue* p1, struct SValue* p2, int op){
-void* __result_obj__;
 struct CType* type1_395;
 struct CType* type2_396;
 struct CType tmp_type1_397;
 struct CType tmp_type2_398;
 int bt1_399;
 int bt2_400;
-_Bool _if_conditional531;
-_Bool _if_conditional532;
-_Bool _if_conditional533;
-_Bool _if_conditional534;
-_Bool _elif_conditional113;
-_Bool _if_conditional535;
-_Bool _elif_conditional114;
-_Bool _if_conditional536;
-_Bool _if_conditional537;
-_Bool _if_conditional538;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&type1_395, 0, sizeof(struct CType*));
+memset(&type2_396, 0, sizeof(struct CType*));
+memset(&tmp_type1_397, 0, sizeof(struct CType));
+memset(&tmp_type2_398, 0, sizeof(struct CType));
+memset(&bt1_399, 0, sizeof(int));
+memset(&bt2_400, 0, sizeof(int));
     # 1209 "tccgen.c"
     # 1210 "tccgen.c"
     # 1215 "tccgen.c"
     # 1213 "tccgen.c"
-    if(_if_conditional531=is_null_pointer(p1)||is_null_pointer(p2),    _if_conditional531) {
+    if(is_null_pointer(p1)||is_null_pointer(p2)) {
         # 1214 "tccgen.c"
         return;
     }
@@ -15655,10 +14755,10 @@ memset(&__result_obj__, 0, sizeof(void*));
     bt2_400=type2_396->t&15;
     # 1227 "tccgen.c"
     # 1220 "tccgen.c"
-    if(_if_conditional532=(is_integer_btype(bt1_399)||is_integer_btype(bt2_400))&&op!=45,    _if_conditional532) {
+    if((is_integer_btype(bt1_399)||is_integer_btype(bt2_400))&&op!=45) {
         # 1223 "tccgen.c"
         # 1221 "tccgen.c"
-        if(_if_conditional533=op!=161&&op!=160,        _if_conditional533) {
+        if(op!=161&&op!=160) {
             # 1222 "tccgen.c"
             warning("comparison between pointer and integer");
         }
@@ -15667,23 +14767,23 @@ memset(&__result_obj__, 0, sizeof(void*));
     }
     # 1232 "tccgen.c"
     # 1227 "tccgen.c"
-    if(_if_conditional534=bt1_399==4,    _if_conditional534) {
+    if(bt1_399==4) {
         # 1228 "tccgen.c"
         type1_395=pointed_type(type1_395);
     }
     # 1229 "tccgen.c"
-    else if(_elif_conditional113=bt1_399!=6,    _elif_conditional113) {
+    else if(bt1_399!=6) {
         # 1230 "tccgen.c"
         goto invalid_operands;
     }
     # 1238 "tccgen.c"
     # 1232 "tccgen.c"
-    if(_if_conditional535=bt2_400==4,    _if_conditional535) {
+    if(bt2_400==4) {
         # 1233 "tccgen.c"
         type2_396=pointed_type(type2_396);
     }
     # 1234 "tccgen.c"
-    else if(_elif_conditional114=bt2_400!=6,    _elif_conditional114) {
+    else if(bt2_400!=6) {
         # 1236 "tccgen.c"
         invalid_operands:
         # 1236 "tccgen.c"
@@ -15691,7 +14791,7 @@ memset(&__result_obj__, 0, sizeof(void*));
     }
     # 1241 "tccgen.c"
     # 1239 "tccgen.c"
-    if(_if_conditional536=(type1_395->t&15)==3||(type2_396->t&15)==3,    _if_conditional536) {
+    if((type1_395->t&15)==3||(type2_396->t&15)==3) {
         # 1240 "tccgen.c"
         return;
     }
@@ -15705,10 +14805,10 @@ memset(&__result_obj__, 0, sizeof(void*));
     tmp_type2_398.t&=~(16|2048|4096);
     # 1252 "tccgen.c"
     # 1245 "tccgen.c"
-    if(_if_conditional537=!is_compatible_types(&tmp_type1_397,&tmp_type2_398),    _if_conditional537) {
+    if(!is_compatible_types(&tmp_type1_397,&tmp_type2_398)) {
         # 1251 "tccgen.c"
         # 1247 "tccgen.c"
-        if(_if_conditional538=op==45,        _if_conditional538) {
+        if(op==45) {
             # 1248 "tccgen.c"
             goto invalid_operands;
         }
@@ -15720,7 +14820,6 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 void gen_op(int op){
-void* __result_obj__;
 int u_401;
 int t1_402;
 int t2_403;
@@ -15728,31 +14827,12 @@ int bt1_404;
 int bt2_405;
 int t_406;
 struct CType type1_407;
-_Bool _if_conditional539;
-_Bool _if_conditional540;
-_Bool _if_conditional541;
-_Bool _if_conditional542;
-_Bool _if_conditional543;
-_Bool _if_conditional544;
-_Bool _elif_conditional115;
-_Bool _if_conditional545;
-_Bool _elif_conditional116;
-_Bool _if_conditional546;
-_Bool _elif_conditional117;
-_Bool _if_conditional547;
-_Bool _if_conditional548;
-_Bool _if_conditional549;
-_Bool _if_conditional550;
-_Bool _elif_conditional118;
-_Bool _elif_conditional119;
-_Bool _elif_conditional120;
-_Bool _elif_conditional121;
-_Bool _elif_conditional122;
-_Bool _elif_conditional123;
-_Bool _if_conditional551;
-_Bool _if_conditional552;
-_Bool _if_conditional553;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&u_401, 0, sizeof(int));
+memset(&t1_402, 0, sizeof(int));
+memset(&t2_403, 0, sizeof(int));
+memset(&bt1_404, 0, sizeof(int));
+memset(&bt2_405, 0, sizeof(int));
+memset(&t_406, 0, sizeof(int));
 memset(&type1_407, 0, sizeof(struct CType));
     # 1257 "tccgen.c"
     # 1258 "tccgen.c"
@@ -15766,10 +14846,10 @@ memset(&type1_407, 0, sizeof(struct CType));
     bt2_405=t2_403&15;
     # 1399 "tccgen.c"
     # 1265 "tccgen.c"
-    if(_if_conditional539=bt1_404==4||bt2_405==4,    _if_conditional539) {
+    if(bt1_404==4||bt2_405==4) {
         # 1279 "tccgen.c"
         # 1268 "tccgen.c"
-        if(_if_conditional540=op>=146&&op<=161,        _if_conditional540) {
+        if(op>=146&&op<=161) {
             # 1269 "tccgen.c"
             check_comparison_pointer_types(vtop-1,vtop,op);
             # 1272 "tccgen.c"
@@ -15779,10 +14859,10 @@ memset(&type1_407, 0, sizeof(struct CType));
         }
         # 1331 "tccgen.c"
         # 1279 "tccgen.c"
-        if(_if_conditional541=bt1_404==4&&bt2_405==4,        _if_conditional541) {
+        if(bt1_404==4&&bt2_405==4) {
             # 1282 "tccgen.c"
             # 1280 "tccgen.c"
-            if(_if_conditional542=op!=45,            _if_conditional542) {
+            if(op!=45) {
                 # 1281 "tccgen.c"
                 error("cannot use pointers here");
             }
@@ -15802,13 +14882,13 @@ memset(&type1_407, 0, sizeof(struct CType));
         else {
             # 1299 "tccgen.c"
             # 1296 "tccgen.c"
-            if(_if_conditional543=op!=45&&op!=43,            _if_conditional543) {
+            if(op!=45&&op!=43) {
                 # 1297 "tccgen.c"
                 error("cannot use pointers here");
             }
             # 1303 "tccgen.c"
             # 1299 "tccgen.c"
-            if(_if_conditional544=bt2_405==4,            _if_conditional544) {
+            if(bt2_405==4) {
                 # 1300 "tccgen.c"
                 vswap();
                 # 1301 "tccgen.c"
@@ -15830,15 +14910,15 @@ memset(&type1_407, 0, sizeof(struct CType));
         }
     }
     # 1331 "tccgen.c"
-    else if(_elif_conditional115=is_float(bt1_404)||is_float(bt2_405),    _elif_conditional115) {
+    else if(is_float(bt1_404)||is_float(bt2_405)) {
         # 1341 "tccgen.c"
         # 1333 "tccgen.c"
-        if(_if_conditional545=bt1_404==10||bt2_405==10,        _if_conditional545) {
+        if(bt1_404==10||bt2_405==10) {
             # 1334 "tccgen.c"
             t_406=10;
         }
         # 1335 "tccgen.c"
-        else if(_elif_conditional116=bt1_404==9||bt2_405==9,        _elif_conditional116) {
+        else if(bt1_404==9||bt2_405==9) {
             # 1336 "tccgen.c"
             t_406=9;
         }
@@ -15848,7 +14928,7 @@ memset(&type1_407, 0, sizeof(struct CType));
         }
         # 1344 "tccgen.c"
         # 1342 "tccgen.c"
-        if(_if_conditional546=op!=43&&op!=45&&op!=42&&op!=47&&(op<146||op>159),        _if_conditional546) {
+        if(op!=43&&op!=45&&op!=42&&op!=47&&(op<146||op>159)) {
             # 1343 "tccgen.c"
             error("invalid operands for binary operation");
         }
@@ -15856,12 +14936,12 @@ memset(&type1_407, 0, sizeof(struct CType));
         goto std_op;
     }
     # 1345 "tccgen.c"
-    else if(_elif_conditional117=bt1_404==12||bt2_405==12,    _elif_conditional117) {
+    else if(bt1_404==12||bt2_405==12) {
         # 1347 "tccgen.c"
         t_406=12;
         # 1352 "tccgen.c"
         # 1350 "tccgen.c"
-        if(_if_conditional547=(t1_402&(15|16))==(12|16)||(t2_403&(15|16))==(12|16),        _if_conditional547) {
+        if((t1_402&(15|16))==(12|16)||(t2_403&(15|16))==(12|16)) {
             # 1351 "tccgen.c"
             t_406|=16;
         }
@@ -15873,7 +14953,7 @@ memset(&type1_407, 0, sizeof(struct CType));
         t_406=0;
         # 1360 "tccgen.c"
         # 1358 "tccgen.c"
-        if(_if_conditional548=(t1_402&(15|16))==(0|16)||(t2_403&(15|16))==(0|16),        _if_conditional548) {
+        if((t1_402&(15|16))==(0|16)||(t2_403&(15|16))==(0|16)) {
             # 1359 "tccgen.c"
             t_406|=16;
         }
@@ -15881,40 +14961,40 @@ memset(&type1_407, 0, sizeof(struct CType));
         std_op:
         # 1379 "tccgen.c"
         # 1363 "tccgen.c"
-        if(_if_conditional549=t_406&16,        _if_conditional549) {
+        if(t_406&16) {
             # 1378 "tccgen.c"
             # 1364 "tccgen.c"
-            if(_if_conditional550=op==2,            _if_conditional550) {
+            if(op==2) {
                 # 1365 "tccgen.c"
                 op=205;
             }
             # 1366 "tccgen.c"
-            else if(_elif_conditional118=op==47,            _elif_conditional118) {
+            else if(op==47) {
                 # 1367 "tccgen.c"
                 op=176;
             }
             # 1368 "tccgen.c"
-            else if(_elif_conditional119=op==37,            _elif_conditional119) {
+            else if(op==37) {
                 # 1369 "tccgen.c"
                 op=177;
             }
             # 1370 "tccgen.c"
-            else if(_elif_conditional120=op==156,            _elif_conditional120) {
+            else if(op==156) {
                 # 1371 "tccgen.c"
                 op=146;
             }
             # 1372 "tccgen.c"
-            else if(_elif_conditional121=op==159,            _elif_conditional121) {
+            else if(op==159) {
                 # 1373 "tccgen.c"
                 op=151;
             }
             # 1374 "tccgen.c"
-            else if(_elif_conditional122=op==158,            _elif_conditional122) {
+            else if(op==158) {
                 # 1375 "tccgen.c"
                 op=150;
             }
             # 1376 "tccgen.c"
-            else if(_elif_conditional123=op==157,            _elif_conditional123) {
+            else if(op==157) {
                 # 1377 "tccgen.c"
                 op=147;
             }
@@ -15929,7 +15009,7 @@ memset(&type1_407, 0, sizeof(struct CType));
         vswap();
         # 1387 "tccgen.c"
         # 1385 "tccgen.c"
-        if(_if_conditional551=op==205||op==2||op==1,        _if_conditional551) {
+        if(op==205||op==2||op==1) {
             # 1386 "tccgen.c"
             type1_407.t=0;
         }
@@ -15937,7 +15017,7 @@ memset(&type1_407, 0, sizeof(struct CType));
         gen_cast(&type1_407);
         # 1392 "tccgen.c"
         # 1388 "tccgen.c"
-        if(_if_conditional552=is_float(t_406),        _if_conditional552) {
+        if(is_float(t_406)) {
             # 1389 "tccgen.c"
             gen_opif(op);
         }
@@ -15947,7 +15027,7 @@ memset(&type1_407, 0, sizeof(struct CType));
         }
         # 1398 "tccgen.c"
         # 1392 "tccgen.c"
-        if(_if_conditional553=op>=146&&op<=159,        _if_conditional553) {
+        if(op>=146&&op<=159) {
             # 1394 "tccgen.c"
             vtop->type.t=0;
         }
@@ -15960,22 +15040,17 @@ memset(&type1_407, 0, sizeof(struct CType));
 }
 
 void gen_cvt_itof1(int t){
-void* __result_obj__;
-_Bool _if_conditional554;
-_Bool _if_conditional555;
-_Bool _elif_conditional124;
-memset(&__result_obj__, 0, sizeof(void*));
     # 1423 "tccgen.c"
     # 1406 "tccgen.c"
-    if(_if_conditional554=(vtop->type.t&(15|16))==(12|16),    _if_conditional554) {
+    if((vtop->type.t&(15|16))==(12|16)) {
         # 1416 "tccgen.c"
         # 1408 "tccgen.c"
-        if(_if_conditional555=t==8,        _if_conditional555) {
+        if(t==8) {
             # 1409 "tccgen.c"
             vpush_global_sym(&func_old_type,(375));
         }
         # 1411 "tccgen.c"
-        else if(_elif_conditional124=t==10,        _elif_conditional124) {
+        else if(t==10) {
             # 1412 "tccgen.c"
             vpush_global_sym(&func_old_type,(377));
         }
@@ -15999,27 +15074,22 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 void gen_cvt_ftoi1(int t){
-void* __result_obj__;
 int st_408;
-_Bool _if_conditional556;
-_Bool _if_conditional557;
-_Bool _elif_conditional125;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&st_408, 0, sizeof(int));
     # 1429 "tccgen.c"
     # 1450 "tccgen.c"
     # 1431 "tccgen.c"
-    if(_if_conditional556=t==(12|16),    _if_conditional556) {
+    if(t==(12|16)) {
         # 1433 "tccgen.c"
         st_408=vtop->type.t&15;
         # 1442 "tccgen.c"
         # 1434 "tccgen.c"
-        if(_if_conditional557=st_408==8,        _if_conditional557) {
+        if(st_408==8) {
             # 1435 "tccgen.c"
             vpush_global_sym(&func_old_type,(379));
         }
         # 1437 "tccgen.c"
-        else if(_elif_conditional125=st_408==10,        _elif_conditional125) {
+        else if(st_408==10) {
             # 1438 "tccgen.c"
             vpush_global_sym(&func_old_type,(378));
         }
@@ -16045,18 +15115,16 @@ memset(&st_408, 0, sizeof(int));
 }
 
 void force_charshort_cast(int t){
-void* __result_obj__;
 int bits_409;
 int dbt_410;
-_Bool _if_conditional558;
-_Bool _if_conditional559;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&bits_409, 0, sizeof(int));
+memset(&dbt_410, 0, sizeof(int));
     # 1455 "tccgen.c"
     # 1456 "tccgen.c"
     dbt_410=t&15;
     # 1462 "tccgen.c"
     # 1458 "tccgen.c"
-    if(_if_conditional558=dbt_410==1,    _if_conditional558) {
+    if(dbt_410==1) {
         # 1459 "tccgen.c"
         bits_409=8;
     }
@@ -16066,7 +15134,7 @@ memset(&__result_obj__, 0, sizeof(void*));
     }
     # 1476 "tccgen.c"
     # 1462 "tccgen.c"
-    if(_if_conditional559=t&16,    _if_conditional559) {
+    if(t&16) {
         # 1463 "tccgen.c"
         vpushi((1<<bits_409)-1);
         # 1464 "tccgen.c"
@@ -16089,62 +15157,26 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 static void gen_cast(struct CType* type){
-void* __result_obj__;
 int sbt_411;
 int dbt_412;
 int sf_413;
 int df_414;
 int c_415;
 int p_416;
-_Bool _if_conditional560;
-_Bool _if_conditional561;
-_Bool _if_conditional562;
-_Bool _if_conditional563;
-_Bool _if_conditional564;
-_Bool _elif_conditional126;
-_Bool _if_conditional565;
-_Bool _if_conditional566;
-_Bool _if_conditional567;
-_Bool _if_conditional568;
-_Bool _if_conditional569;
-_Bool _if_conditional570;
-_Bool _elif_conditional127;
-_Bool _elif_conditional128;
-_Bool _elif_conditional129;
-_Bool _if_conditional571;
-_Bool _elif_conditional130;
-_Bool _elif_conditional131;
-_Bool _elif_conditional132;
-_Bool _if_conditional572;
-_Bool _elif_conditional133;
-_Bool _elif_conditional134;
 int s_417;
-_Bool _if_conditional573;
-_Bool _elif_conditional135;
-_Bool _if_conditional574;
-_Bool _elif_conditional136;
-_Bool _elif_conditional137;
-_Bool _if_conditional575;
-_Bool _if_conditional576;
-_Bool _if_conditional577;
-_Bool _if_conditional578;
-_Bool _elif_conditional138;
-_Bool _if_conditional579;
 int r_418;
-_Bool _if_conditional580;
-_Bool _elif_conditional139;
-_Bool _elif_conditional140;
-_Bool _if_conditional581;
-_Bool _elif_conditional141;
-_Bool _if_conditional582;
-_Bool _elif_conditional142;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&sbt_411, 0, sizeof(int));
+memset(&dbt_412, 0, sizeof(int));
+memset(&sf_413, 0, sizeof(int));
+memset(&df_414, 0, sizeof(int));
+memset(&c_415, 0, sizeof(int));
+memset(&p_416, 0, sizeof(int));
 memset(&s_417, 0, sizeof(int));
 memset(&r_418, 0, sizeof(int));
     # 1481 "tccgen.c"
     # 1492 "tccgen.c"
     # 1486 "tccgen.c"
-    if(_if_conditional560=vtop->r&1024,    _if_conditional560) {
+    if(vtop->r&1024) {
         # 1487 "tccgen.c"
         vtop->r&=~1024;
         # 1488 "tccgen.c"
@@ -16152,7 +15184,7 @@ memset(&r_418, 0, sizeof(int));
     }
     # 1496 "tccgen.c"
     # 1492 "tccgen.c"
-    if(_if_conditional561=vtop->type.t&64,    _if_conditional561) {
+    if(vtop->type.t&64) {
         # 1493 "tccgen.c"
         gv(1);
     }
@@ -16162,7 +15194,7 @@ memset(&r_418, 0, sizeof(int));
     sbt_411=vtop->type.t&(15|16);
     # 1631 "tccgen.c"
     # 1499 "tccgen.c"
-    if(_if_conditional562=sbt_411!=dbt_412,    _if_conditional562) {
+    if(sbt_411!=dbt_412) {
         # 1500 "tccgen.c"
         sf_413=is_float(sbt_411);
         # 1501 "tccgen.c"
@@ -16176,12 +15208,12 @@ memset(&r_418, 0, sizeof(int));
         if(c_415) {
             # 1512 "tccgen.c"
             # 1507 "tccgen.c"
-            if(_if_conditional564=sbt_411==8,            _if_conditional564) {
+            if(sbt_411==8) {
                 # 1508 "tccgen.c"
                 vtop->c.ld=vtop->c.f;
             }
             # 1509 "tccgen.c"
-            else if(_elif_conditional126=sbt_411==9,            _elif_conditional126) {
+            else if(sbt_411==9) {
                 # 1510 "tccgen.c"
                 vtop->c.ld=vtop->c.d;
             }
@@ -16190,10 +15222,10 @@ memset(&r_418, 0, sizeof(int));
             if(df_414) {
                 # 1525 "tccgen.c"
                 # 1513 "tccgen.c"
-                if(_if_conditional566=(sbt_411&15)==12,                _if_conditional566) {
+                if((sbt_411&15)==12) {
                     # 1518 "tccgen.c"
                     # 1514 "tccgen.c"
-                    if(_if_conditional567=sbt_411&16,                    _if_conditional567) {
+                    if(sbt_411&16) {
                         # 1515 "tccgen.c"
                         vtop->c.ld=vtop->c.ull;
                     }
@@ -16205,10 +15237,10 @@ memset(&r_418, 0, sizeof(int));
                 else {
                     # 1525 "tccgen.c"
                     # 1518 "tccgen.c"
-                    if(_if_conditional568=!sf_413,                    _if_conditional568) {
+                    if(!sf_413) {
                         # 1523 "tccgen.c"
                         # 1519 "tccgen.c"
-                        if(_if_conditional569=sbt_411&16,                        _if_conditional569) {
+                        if(sbt_411&16) {
                             # 1520 "tccgen.c"
                             vtop->c.ld=vtop->c.ui;
                         }
@@ -16220,23 +15252,23 @@ memset(&r_418, 0, sizeof(int));
                 }
                 # 1529 "tccgen.c"
                 # 1525 "tccgen.c"
-                if(_if_conditional570=dbt_412==8,                _if_conditional570) {
+                if(dbt_412==8) {
                     # 1526 "tccgen.c"
                     vtop->c.f=(float)vtop->c.ld;
                 }
                 # 1527 "tccgen.c"
-                else if(_elif_conditional127=dbt_412==9,                _elif_conditional127) {
+                else if(dbt_412==9) {
                     # 1528 "tccgen.c"
                     vtop->c.d=(double)vtop->c.ld;
                 }
             }
             # 1529 "tccgen.c"
-            else if(_elif_conditional128=sf_413&&dbt_412==(12|16),            _elif_conditional128) {
+            else if(sf_413&&dbt_412==(12|16)) {
                 # 1530 "tccgen.c"
                 vtop->c.ull=(unsigned long long)vtop->c.ld;
             }
             # 1531 "tccgen.c"
-            else if(_elif_conditional129=sf_413&&dbt_412==11,            _elif_conditional129) {
+            else if(sf_413&&dbt_412==11) {
                 # 1532 "tccgen.c"
                 vtop->c.i=(vtop->c.ld!=0);
             }
@@ -16248,49 +15280,49 @@ memset(&r_418, 0, sizeof(int));
                     vtop->c.ll=(long long)vtop->c.ld;
                 }
                 # 1536 "tccgen.c"
-                else if(_elif_conditional130=sbt_411==(12|16),                _elif_conditional130) {
+                else if(sbt_411==(12|16)) {
                     # 1537 "tccgen.c"
                     vtop->c.ll=vtop->c.ull;
                 }
                 # 1538 "tccgen.c"
-                else if(_elif_conditional131=sbt_411&16,                _elif_conditional131) {
+                else if(sbt_411&16) {
                     # 1539 "tccgen.c"
                     vtop->c.ll=vtop->c.ui;
                 }
                 # 1540 "tccgen.c"
-                else if(_elif_conditional132=sbt_411!=12,                _elif_conditional132) {
+                else if(sbt_411!=12) {
                     # 1541 "tccgen.c"
                     vtop->c.ll=vtop->c.i;
                 }
                 # 1559 "tccgen.c"
                 # 1543 "tccgen.c"
-                if(_if_conditional572=dbt_412==(12|16),                _if_conditional572) {
+                if(dbt_412==(12|16)) {
                     # 1544 "tccgen.c"
                     vtop->c.ull=vtop->c.ll;
                 }
                 # 1545 "tccgen.c"
-                else if(_elif_conditional133=dbt_412==11,                _elif_conditional133) {
+                else if(dbt_412==11) {
                     # 1546 "tccgen.c"
                     vtop->c.i=(vtop->c.ll!=0);
                 }
                 # 1547 "tccgen.c"
-                else if(_elif_conditional134=dbt_412!=12,                _elif_conditional134) {
+                else if(dbt_412!=12) {
                     # 1548 "tccgen.c"
                     s_417=0;
                     # 1554 "tccgen.c"
                     # 1549 "tccgen.c"
-                    if(_if_conditional573=(dbt_412&15)==1,                    _if_conditional573) {
+                    if((dbt_412&15)==1) {
                         # 1550 "tccgen.c"
                         s_417=24;
                     }
                     # 1551 "tccgen.c"
-                    else if(_elif_conditional135=(dbt_412&15)==2,                    _elif_conditional135) {
+                    else if((dbt_412&15)==2) {
                         # 1552 "tccgen.c"
                         s_417=16;
                     }
                     # 1558 "tccgen.c"
                     # 1554 "tccgen.c"
-                    if(_if_conditional574=dbt_412&16,                    _if_conditional574) {
+                    if(dbt_412&16) {
                         # 1555 "tccgen.c"
                         vtop->c.ui=((unsigned int)vtop->c.ll<<s_417)>>s_417;
                     }
@@ -16302,17 +15334,17 @@ memset(&r_418, 0, sizeof(int));
             }
         }
         # 1560 "tccgen.c"
-        else if(_elif_conditional136=p_416&&dbt_412==11,        _elif_conditional136) {
+        else if(p_416&&dbt_412==11) {
             # 1561 "tccgen.c"
             vtop->r=240;
             # 1562 "tccgen.c"
             vtop->c.i=1;
         }
         # 1563 "tccgen.c"
-        else if(_elif_conditional137=!nocode_wanted,        _elif_conditional137) {
+        else if(!nocode_wanted) {
             # 1624 "tccgen.c"
             # 1565 "tccgen.c"
-            if(_if_conditional575=sf_413&&df_414,            _if_conditional575) {
+            if(sf_413&&df_414) {
                 # 1567 "tccgen.c"
                 gen_cvt_ftof(dbt_412);
             }
@@ -16325,7 +15357,7 @@ memset(&r_418, 0, sizeof(int));
             else if(sf_413) {
                 # 1589 "tccgen.c"
                 # 1573 "tccgen.c"
-                if(_if_conditional576=dbt_412==11,                _if_conditional576) {
+                if(dbt_412==11) {
                     # 1574 "tccgen.c"
                     vpushi(0);
                     # 1575 "tccgen.c"
@@ -16334,7 +15366,7 @@ memset(&r_418, 0, sizeof(int));
                 else {
                     # 1582 "tccgen.c"
                     # 1580 "tccgen.c"
-                    if(_if_conditional577=dbt_412!=(0|16)&&dbt_412!=(12|16)&&dbt_412!=12,                    _if_conditional577) {
+                    if(dbt_412!=(0|16)&&dbt_412!=(12|16)&&dbt_412!=12) {
                         # 1581 "tccgen.c"
                         dbt_412=0;
                     }
@@ -16342,7 +15374,7 @@ memset(&r_418, 0, sizeof(int));
                     gen_cvt_ftoi1(dbt_412);
                     # 1588 "tccgen.c"
                     # 1583 "tccgen.c"
-                    if(_if_conditional578=dbt_412==0&&(type->t&(15|16))!=dbt_412,                    _if_conditional578) {
+                    if(dbt_412==0&&(type->t&(15|16))!=dbt_412) {
                         # 1585 "tccgen.c"
                         vtop->type.t=dbt_412;
                         # 1586 "tccgen.c"
@@ -16351,15 +15383,15 @@ memset(&r_418, 0, sizeof(int));
                 }
             }
             # 1590 "tccgen.c"
-            else if(_elif_conditional138=(dbt_412&15)==12||(dbt_412&15)==4,            _elif_conditional138) {
+            else if((dbt_412&15)==12||(dbt_412&15)==4) {
                 # 1602 "tccgen.c"
                 # 1592 "tccgen.c"
-                if(_if_conditional579=(sbt_411&15)!=12,                _if_conditional579) {
+                if((sbt_411&15)!=12) {
                     # 1593 "tccgen.c"
                     r_418=gv(1);
                     # 1600 "tccgen.c"
                     # 1595 "tccgen.c"
-                    if(_if_conditional580=sbt_411!=(0|16)&&sbt_411!=4&&sbt_411!=6,                    _if_conditional580) {
+                    if(sbt_411!=(0|16)&&sbt_411!=4&&sbt_411!=6) {
                         # 1597 "tccgen.c"
                         o(25416);
                         # 1598 "tccgen.c"
@@ -16368,17 +15400,17 @@ memset(&r_418, 0, sizeof(int));
                 }
             }
             # 1602 "tccgen.c"
-            else if(_elif_conditional139=dbt_412==11,            _elif_conditional139) {
+            else if(dbt_412==11) {
                 # 1604 "tccgen.c"
                 vpushi(0);
                 # 1605 "tccgen.c"
                 gen_op(149);
             }
             # 1607 "tccgen.c"
-            else if(_elif_conditional140=(dbt_412&15)==1||(dbt_412&15)==2,            _elif_conditional140) {
+            else if((dbt_412&15)==1||(dbt_412&15)==2) {
                 # 1612 "tccgen.c"
                 # 1608 "tccgen.c"
-                if(_if_conditional581=sbt_411==4,                _if_conditional581) {
+                if(sbt_411==4) {
                     # 1609 "tccgen.c"
                     vtop->type.t=0;
                     # 1610 "tccgen.c"
@@ -16388,10 +15420,10 @@ memset(&r_418, 0, sizeof(int));
                 force_charshort_cast(dbt_412);
             }
             # 1613 "tccgen.c"
-            else if(_elif_conditional141=(dbt_412&15)==0,            _elif_conditional141) {
+            else if((dbt_412&15)==0) {
                 # 1623 "tccgen.c"
                 # 1615 "tccgen.c"
-                if(_if_conditional582=sbt_411==12,                _if_conditional582) {
+                if(sbt_411==12) {
                     # 1617 "tccgen.c"
                     lexpand();
                     # 1618 "tccgen.c"
@@ -16401,7 +15433,7 @@ memset(&r_418, 0, sizeof(int));
         }
     }
     # 1625 "tccgen.c"
-    else if(_elif_conditional142=(dbt_412&15)==4&&!(vtop->r&256),    _elif_conditional142) {
+    else if((dbt_412&15)==4&&!(vtop->r&256)) {
         # 1629 "tccgen.c"
         vtop->r=(vtop->r&~(4096|8192|16384))|(lvalue_type(type->ref->type.t)&(4096|8192|16384));
     }
@@ -16410,27 +15442,9 @@ memset(&r_418, 0, sizeof(int));
 }
 
 static int type_size(struct CType* type, int* a){
-void* __result_obj__;
 struct Sym* s_419;
 int bt_420;
-_Bool _if_conditional583;
-int __result94__;
-_Bool _elif_conditional143;
-_Bool _if_conditional584;
 int ts_421;
-_Bool _if_conditional585;
-int __result95__;
-int __result96__;
-_Bool _elif_conditional144;
-int __result97__;
-_Bool _elif_conditional145;
-int __result98__;
-_Bool _elif_conditional146;
-int __result99__;
-_Bool _elif_conditional147;
-int __result100__;
-int __result101__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&s_419, 0, sizeof(struct Sym*));
 memset(&bt_420, 0, sizeof(int));
 memset(&ts_421, 0, sizeof(int));
@@ -16440,20 +15454,19 @@ memset(&ts_421, 0, sizeof(int));
     bt_420=type->t&15;
     # 1717 "tccgen.c"
     # 1641 "tccgen.c"
-    if(_if_conditional583=bt_420==7,    _if_conditional583) {
+    if(bt_420==7) {
         # 1643 "tccgen.c"
         s_419=type->ref;
         # 1644 "tccgen.c"
         *a=s_419->r;
         # 1645 "tccgen.c"
-        __result94__ = s_419->c;
-        return __result94__;
+        return s_419->c;
     }
     # 1646 "tccgen.c"
-    else if(_elif_conditional143=bt_420==4,    _elif_conditional143) {
+    else if(bt_420==4) {
         # 1661 "tccgen.c"
         # 1647 "tccgen.c"
-        if(_if_conditional584=type->t&32,        _if_conditional584) {
+        if(type->t&32) {
             # 1648 "tccgen.c"
             # 1650 "tccgen.c"
             s_419=type->ref;
@@ -16461,68 +15474,59 @@ memset(&ts_421, 0, sizeof(int));
             ts_421=type_size(&s_419->type,a);
             # 1656 "tccgen.c"
             # 1653 "tccgen.c"
-            if(_if_conditional585=ts_421<0&&s_419->c<0,            _if_conditional585) {
+            if(ts_421<0&&s_419->c<0) {
                 # 1654 "tccgen.c"
                 ts_421=-ts_421;
             }
             # 1656 "tccgen.c"
-            __result95__ = ts_421*s_419->c;
-            return __result95__;
+            return ts_421*s_419->c;
         }
         else {
             # 1658 "tccgen.c"
             *a=8;
             # 1659 "tccgen.c"
-            __result96__ = 8;
-            return __result96__;
+            return 8;
         }
     }
     # 1661 "tccgen.c"
-    else if(_elif_conditional144=bt_420==10,    _elif_conditional144) {
+    else if(bt_420==10) {
         # 1662 "tccgen.c"
         *a=8;
         # 1663 "tccgen.c"
-        __result97__ = 16;
-        return __result97__;
+        return 16;
     }
     # 1664 "tccgen.c"
-    else if(_elif_conditional145=bt_420==9||bt_420==12,    _elif_conditional145) {
+    else if(bt_420==9||bt_420==12) {
         # 1703 "tccgen.c"
         *a=8;
         # 1705 "tccgen.c"
-        __result98__ = 8;
-        return __result98__;
+        return 8;
     }
     # 1706 "tccgen.c"
-    else if(_elif_conditional146=bt_420==0||bt_420==5||bt_420==8,    _elif_conditional146) {
+    else if(bt_420==0||bt_420==5||bt_420==8) {
         # 1707 "tccgen.c"
         *a=4;
         # 1708 "tccgen.c"
-        __result99__ = 4;
-        return __result99__;
+        return 4;
     }
     # 1709 "tccgen.c"
-    else if(_elif_conditional147=bt_420==2,    _elif_conditional147) {
+    else if(bt_420==2) {
         # 1710 "tccgen.c"
         *a=2;
         # 1711 "tccgen.c"
-        __result100__ = 2;
-        return __result100__;
+        return 2;
     }
     else {
         # 1714 "tccgen.c"
         *a=1;
         # 1715 "tccgen.c"
-        __result101__ = 1;
-        return __result101__;
+        return 1;
     }
 }
 
 
 static void mk_pointer(struct CType* type){
-void* __result_obj__;
 struct Sym* s_422;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&s_422, 0, sizeof(struct Sym*));
     # 1728 "tccgen.c"
     # 1729 "tccgen.c"
@@ -16534,26 +15538,10 @@ memset(&s_422, 0, sizeof(struct Sym*));
 }
 
 static int is_compatible_func(struct CType* type1, struct CType* type2){
-void* __result_obj__;
 struct Sym* s1_423;
 struct Sym* s2_424;
-_Bool _if_conditional586;
-int __result103__;
-_Bool _if_conditional587;
-int __result104__;
-_Bool _if_conditional588;
-int __result105__;
-_Bool _if_conditional589;
-int __result106__;
-_Bool _while_condtional44;
-_Bool _if_conditional590;
-int __result107__;
-_Bool _if_conditional591;
-int __result108__;
-_Bool _if_conditional592;
-int __result109__;
-int __result110__;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&s1_423, 0, sizeof(struct Sym*));
+memset(&s2_424, 0, sizeof(struct Sym*));
     # 1737 "tccgen.c"
     # 1739 "tccgen.c"
     s1_423=type1->ref;
@@ -16561,47 +15549,41 @@ memset(&__result_obj__, 0, sizeof(void*));
     s2_424=type2->ref;
     # 1744 "tccgen.c"
     # 1741 "tccgen.c"
-    if(_if_conditional586=!is_compatible_types(&s1_423->type,&s2_424->type),    _if_conditional586) {
+    if(!is_compatible_types(&s1_423->type,&s2_424->type)) {
         # 1742 "tccgen.c"
-        __result103__ = 0;
-        return __result103__;
+        return 0;
     }
     # 1747 "tccgen.c"
     # 1744 "tccgen.c"
-    if(_if_conditional587=(((struct anonymous_typeX105*)&(s1_423->r))->func_call)!=(((struct anonymous_typeX105*)&(s2_424->r))->func_call),    _if_conditional587) {
+    if((((struct anonymous_typeX105*)&(s1_423->r))->func_call)!=(((struct anonymous_typeX105*)&(s2_424->r))->func_call)) {
         # 1745 "tccgen.c"
-        __result104__ = 0;
-        return __result104__;
+        return 0;
     }
     # 1749 "tccgen.c"
     # 1747 "tccgen.c"
-    if(_if_conditional588=s1_423->c==2||s2_424->c==2,    _if_conditional588) {
+    if(s1_423->c==2||s2_424->c==2) {
         # 1748 "tccgen.c"
-        __result105__ = 1;
-        return __result105__;
+        return 1;
     }
     # 1751 "tccgen.c"
     # 1749 "tccgen.c"
-    if(_if_conditional589=s1_423->c!=s2_424->c,    _if_conditional589) {
+    if(s1_423->c!=s2_424->c) {
         # 1750 "tccgen.c"
-        __result106__ = 0;
-        return __result106__;
+        return 0;
     }
     # 1759 "tccgen.c"
-    while(_while_condtional44=s1_423!=((void*)0),    _while_condtional44) {
+    while(s1_423!=((void*)0)) {
         # 1754 "tccgen.c"
         # 1752 "tccgen.c"
-        if(_if_conditional590=s2_424==((void*)0),        _if_conditional590) {
+        if(s2_424==((void*)0)) {
             # 1753 "tccgen.c"
-            __result107__ = 0;
-            return __result107__;
+            return 0;
         }
         # 1756 "tccgen.c"
         # 1754 "tccgen.c"
-        if(_if_conditional591=!is_compatible_parameter_types(&s1_423->type,&s2_424->type),        _if_conditional591) {
+        if(!is_compatible_parameter_types(&s1_423->type,&s2_424->type)) {
             # 1755 "tccgen.c"
-            __result108__ = 0;
-            return __result108__;
+            return 0;
         }
         # 1756 "tccgen.c"
         s1_423=s1_423->next;
@@ -16612,30 +15594,19 @@ memset(&__result_obj__, 0, sizeof(void*));
     # 1759 "tccgen.c"
     if(s2_424) {
         # 1760 "tccgen.c"
-        __result109__ = 0;
-        return __result109__;
+        return 0;
     }
     # 1761 "tccgen.c"
-    __result110__ = 1;
-    return __result110__;
+    return 1;
 }
 
 static int compare_types(struct CType* type1, struct CType* type2, int unqualified){
-void* __result_obj__;
 int bt1_425;
 int t1_426;
 int t2_427;
-_Bool _if_conditional593;
-_Bool _if_conditional594;
-int __result111__;
-_Bool _if_conditional595;
-int __result112__;
-_Bool _elif_conditional148;
-int __result113__;
-_Bool _elif_conditional149;
-int __result114__;
-int __result115__;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&bt1_425, 0, sizeof(int));
+memset(&t1_426, 0, sizeof(int));
+memset(&t2_427, 0, sizeof(int));
     # 1771 "tccgen.c"
     # 1773 "tccgen.c"
     t1_426=type1->t&(~((128|256|512|1024)));
@@ -16651,79 +15622,60 @@ memset(&__result_obj__, 0, sizeof(void*));
     }
     # 1784 "tccgen.c"
     # 1781 "tccgen.c"
-    if(_if_conditional594=t1_426!=t2_427,    _if_conditional594) {
+    if(t1_426!=t2_427) {
         # 1782 "tccgen.c"
-        __result111__ = 0;
-        return __result111__;
+        return 0;
     }
     # 1784 "tccgen.c"
     bt1_425=t1_426&15;
     # 1796 "tccgen.c"
     # 1785 "tccgen.c"
-    if(_if_conditional595=bt1_425==4,    _if_conditional595) {
+    if(bt1_425==4) {
         # 1786 "tccgen.c"
         type1=pointed_type(type1);
         # 1787 "tccgen.c"
         type2=pointed_type(type2);
         # 1788 "tccgen.c"
-        __result112__ = is_compatible_types(type1,type2);
-        return __result112__;
+        return is_compatible_types(type1,type2);
     }
     # 1789 "tccgen.c"
-    else if(_elif_conditional148=bt1_425==7,    _elif_conditional148) {
+    else if(bt1_425==7) {
         # 1790 "tccgen.c"
-        __result113__ = (type1->ref==type2->ref);
-        return __result113__;
+        return (type1->ref==type2->ref);
     }
     # 1791 "tccgen.c"
-    else if(_elif_conditional149=bt1_425==6,    _elif_conditional149) {
+    else if(bt1_425==6) {
         # 1792 "tccgen.c"
-        __result114__ = is_compatible_func(type1,type2);
-        return __result114__;
+        return is_compatible_func(type1,type2);
     }
     else {
         # 1794 "tccgen.c"
-        __result115__ = 1;
-        return __result115__;
+        return 1;
     }
 }
 
 static int is_compatible_types(struct CType* type1, struct CType* type2){
-void* __result_obj__;
-int __result116__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 1803 "tccgen.c"
-    __result116__ = compare_types(type1,type2,0);
-    return __result116__;
+    return compare_types(type1,type2,0);
 }
 
 static int is_compatible_parameter_types(struct CType* type1, struct CType* type2){
-void* __result_obj__;
-int __result117__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 1810 "tccgen.c"
-    __result117__ = compare_types(type1,type2,1);
-    return __result117__;
+    return compare_types(type1,type2,1);
 }
 
 void type_to_str(char* buf, int buf_size, struct CType* type, const char* varstr){
-void* __result_obj__;
 int bt_428;
 int v_429;
 int t_430;
 struct Sym* s_431;
 struct Sym* sa_432;
 const char* tstr_434;
-_Bool _if_conditional596;
-_Bool _if_conditional597;
-_Bool _if_conditional598;
-_Bool _if_conditional599;
-_Bool _if_conditional600;
-_Bool _while_condtional45;
-_Bool _if_conditional601;
-_Bool _if_conditional602;
-_Bool _if_conditional603;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&bt_428, 0, sizeof(int));
+memset(&v_429, 0, sizeof(int));
+memset(&t_430, 0, sizeof(int));
+memset(&s_431, 0, sizeof(struct Sym*));
+memset(&sa_432, 0, sizeof(struct Sym*));
 memset(&tstr_434, 0, sizeof(const char*));
     # 1820 "tccgen.c"
     # 1821 "tccgen.c"
@@ -16739,19 +15691,19 @@ memset(&tstr_434, 0, sizeof(const char*));
     buf[0]=0;
     # 1830 "tccgen.c"
     # 1828 "tccgen.c"
-    if(_if_conditional596=t_430&2048,    _if_conditional596) {
+    if(t_430&2048) {
         # 1829 "tccgen.c"
         pstrcat(buf,buf_size,"const ");
     }
     # 1832 "tccgen.c"
     # 1830 "tccgen.c"
-    if(_if_conditional597=t_430&4096,    _if_conditional597) {
+    if(t_430&4096) {
         # 1831 "tccgen.c"
         pstrcat(buf,buf_size,"volatile ");
     }
     # 1834 "tccgen.c"
     # 1832 "tccgen.c"
-    if(_if_conditional598=t_430&16,    _if_conditional598) {
+    if(t_430&16) {
         # 1833 "tccgen.c"
         pstrcat(buf,buf_size,"unsigned ");
     }
@@ -16827,7 +15779,7 @@ memset(&tstr_434, 0, sizeof(const char*));
         case 7:
         # 1873 "tccgen.c"
         # 1869 "tccgen.c"
-        if(_if_conditional599=bt_428==7,        _if_conditional599) {
+        if(bt_428==7) {
             # 1870 "tccgen.c"
             tstr_434="struct ";
         }
@@ -16841,7 +15793,7 @@ memset(&tstr_434, 0, sizeof(const char*));
         v_429=type->ref->v&~1073741824;
         # 1879 "tccgen.c"
         # 1875 "tccgen.c"
-        if(_if_conditional600=v_429>=268435456,        _if_conditional600) {
+        if(v_429>=268435456) {
             # 1876 "tccgen.c"
             pstrcat(buf,buf_size,"<anonymous>");
         }
@@ -16862,7 +15814,7 @@ memset(&tstr_434, 0, sizeof(const char*));
         # 1884 "tccgen.c"
         sa_432=s_431->next;
         # 1892 "tccgen.c"
-        while(_while_condtional45=sa_432!=((void*)0),        _while_condtional45) {
+        while(sa_432!=((void*)0)) {
             # 1886 "tccgen.c"
             type_to_str(buf1_433,sizeof(buf1_433),&sa_432->type,((void*)0));
             # 1887 "tccgen.c"
@@ -16910,7 +15862,6 @@ memset(&tstr_434, 0, sizeof(const char*));
 }
 
 static void gen_assign_cast(struct CType* dt){
-void* __result_obj__;
 struct CType* st_435;
 struct CType* type1_436;
 struct CType* type2_437;
@@ -16920,18 +15871,15 @@ char buf1_440[256];
 char buf2_441[256];
 int dbt_442;
 int sbt_443;
-_Bool _if_conditional604;
-_Bool _if_conditional605;
-_Bool _if_conditional606;
-_Bool _if_conditional607;
-_Bool _if_conditional608;
-_Bool _if_conditional609;
-_Bool _if_conditional610;
-_Bool _if_conditional611;
-_Bool _if_conditional612;
-_Bool _if_conditional613;
-_Bool _if_conditional614;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&st_435, 0, sizeof(struct CType*));
+memset(&type1_436, 0, sizeof(struct CType*));
+memset(&type2_437, 0, sizeof(struct CType*));
+memset(&tmp_type1_438, 0, sizeof(struct CType));
+memset(&tmp_type2_439, 0, sizeof(struct CType));
+memset(&buf1_440, 0, sizeof(char));
+memset(&buf2_441, 0, sizeof(char));
+memset(&dbt_442, 0, sizeof(int));
+memset(&sbt_443, 0, sizeof(int));
     # 1913 "tccgen.c"
     # 1914 "tccgen.c"
     # 1915 "tccgen.c"
@@ -16943,7 +15891,7 @@ memset(&__result_obj__, 0, sizeof(void*));
     sbt_443=st_435->t&15;
     # 1922 "tccgen.c"
     # 1920 "tccgen.c"
-    if(_if_conditional604=dt->t&2048,    _if_conditional604) {
+    if(dt->t&2048) {
         # 1921 "tccgen.c"
         warning("assignment of read-only location");
     }
@@ -16953,13 +15901,13 @@ memset(&__result_obj__, 0, sizeof(void*));
         case 4:
         # 1929 "tccgen.c"
         # 1926 "tccgen.c"
-        if(_if_conditional605=is_null_pointer(vtop),        _if_conditional605) {
+        if(is_null_pointer(vtop)) {
             # 1927 "tccgen.c"
             goto type_ok;
         }
         # 1933 "tccgen.c"
         # 1929 "tccgen.c"
-        if(_if_conditional606=is_integer_btype(sbt_443),        _if_conditional606) {
+        if(is_integer_btype(sbt_443)) {
             # 1930 "tccgen.c"
             warning("assignment makes pointer from integer without a cast");
             # 1931 "tccgen.c"
@@ -16969,10 +15917,10 @@ memset(&__result_obj__, 0, sizeof(void*));
         type1_436=pointed_type(dt);
         # 1942 "tccgen.c"
         # 1935 "tccgen.c"
-        if(_if_conditional607=sbt_443==6,        _if_conditional607) {
+        if(sbt_443==6) {
             # 1941 "tccgen.c"
             # 1937 "tccgen.c"
-            if(_if_conditional608=(type1_436->t&15)!=3&&!is_compatible_types(pointed_type(dt),st_435),            _if_conditional608) {
+            if((type1_436->t&15)!=3&&!is_compatible_types(pointed_type(dt),st_435)) {
                 # 1938 "tccgen.c"
                 goto error;
             }
@@ -16983,7 +15931,7 @@ memset(&__result_obj__, 0, sizeof(void*));
         }
         # 1944 "tccgen.c"
         # 1942 "tccgen.c"
-        if(_if_conditional609=sbt_443!=4,        _if_conditional609) {
+        if(sbt_443!=4) {
             # 1943 "tccgen.c"
             goto error;
         }
@@ -16991,7 +15939,7 @@ memset(&__result_obj__, 0, sizeof(void*));
         type2_437=pointed_type(st_435);
         # 1958 "tccgen.c"
         # 1946 "tccgen.c"
-        if(_if_conditional610=(type1_436->t&15)==3||(type2_437->t&15)==3,        _if_conditional610) {
+        if((type1_436->t&15)==3||(type2_437->t&15)==3) {
         }
         else {
             # 1950 "tccgen.c"
@@ -17004,14 +15952,14 @@ memset(&__result_obj__, 0, sizeof(void*));
             tmp_type2_439.t&=~(16|2048|4096);
             # 1956 "tccgen.c"
             # 1954 "tccgen.c"
-            if(_if_conditional611=!is_compatible_types(&tmp_type1_438,&tmp_type2_439),            _if_conditional611) {
+            if(!is_compatible_types(&tmp_type1_438,&tmp_type2_439)) {
                 # 1955 "tccgen.c"
                 warning("assignment from incompatible pointer type");
             }
         }
         # 1961 "tccgen.c"
         # 1959 "tccgen.c"
-        if(_if_conditional612=(!(type1_436->t&2048)&&(type2_437->t&2048))||(!(type1_436->t&4096)&&(type2_437->t&4096)),        _if_conditional612) {
+        if((!(type1_436->t&2048)&&(type2_437->t&2048))||(!(type1_436->t&4096)&&(type2_437->t&4096))) {
             # 1960 "tccgen.c"
             warning("assignment discards qualifiers from pointer target type");
         }
@@ -17027,7 +15975,7 @@ memset(&__result_obj__, 0, sizeof(void*));
         case 12:
         # 1970 "tccgen.c"
         # 1966 "tccgen.c"
-        if(_if_conditional613=sbt_443==4||sbt_443==6,        _if_conditional613) {
+        if(sbt_443==4||sbt_443==6) {
             # 1967 "tccgen.c"
             warning("assignment makes integer from pointer without a cast");
         }
@@ -17045,7 +15993,7 @@ memset(&__result_obj__, 0, sizeof(void*));
         tmp_type2_439.t&=~(2048|4096);
         # 1982 "tccgen.c"
         # 1976 "tccgen.c"
-        if(_if_conditional614=!is_compatible_types(&tmp_type1_438,&tmp_type2_439),        _if_conditional614) {
+        if(!is_compatible_types(&tmp_type1_438,&tmp_type2_439)) {
             # 1978 "tccgen.c"
             error:
             # 1978 "tccgen.c"
@@ -17065,7 +16013,6 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 void vstore(){
-void* __result_obj__;
 int sbt_444;
 int dbt_445;
 int ft_446;
@@ -17077,22 +16024,18 @@ int bit_size_451;
 int bit_pos_452;
 int rc_453;
 int delayed_cast_454;
-_Bool _if_conditional615;
-_Bool _if_conditional616;
-_Bool _if_conditional617;
-_Bool _if_conditional618;
-_Bool _if_conditional619;
-_Bool _elif_conditional150;
-_Bool _if_conditional620;
-_Bool _if_conditional621;
-_Bool _if_conditional622;
-_Bool _if_conditional623;
-_Bool _if_conditional624;
-_Bool _if_conditional625;
-_Bool _if_conditional626;
-_Bool _if_conditional627;
 struct SValue sv_455;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&sbt_444, 0, sizeof(int));
+memset(&dbt_445, 0, sizeof(int));
+memset(&ft_446, 0, sizeof(int));
+memset(&r_447, 0, sizeof(int));
+memset(&t_448, 0, sizeof(int));
+memset(&size_449, 0, sizeof(int));
+memset(&align_450, 0, sizeof(int));
+memset(&bit_size_451, 0, sizeof(int));
+memset(&bit_pos_452, 0, sizeof(int));
+memset(&rc_453, 0, sizeof(int));
+memset(&delayed_cast_454, 0, sizeof(int));
 memset(&sv_455, 0, sizeof(struct SValue));
     # 1991 "tccgen.c"
     # 1993 "tccgen.c"
@@ -17103,14 +16046,14 @@ memset(&sv_455, 0, sizeof(struct SValue));
     dbt_445=ft_446&15;
     # 2010 "tccgen.c"
     # 1997 "tccgen.c"
-    if(_if_conditional615=((sbt_444==0||sbt_444==2)&&dbt_445==1)||(sbt_444==0&&dbt_445==2),    _if_conditional615) {
+    if(((sbt_444==0||sbt_444==2)&&dbt_445==1)||(sbt_444==0&&dbt_445==2)) {
         # 1999 "tccgen.c"
         delayed_cast_454=1024;
         # 2000 "tccgen.c"
         vtop->type.t=ft_446&((~((128|256|512|1024)))&~(64|(-1<<16)));
         # 2004 "tccgen.c"
         # 2002 "tccgen.c"
-        if(_if_conditional616=ft_446&2048,        _if_conditional616) {
+        if(ft_446&2048) {
             # 2003 "tccgen.c"
             warning("assignment of read-only location");
         }
@@ -17120,17 +16063,17 @@ memset(&sv_455, 0, sizeof(struct SValue));
         delayed_cast_454=0;
         # 2008 "tccgen.c"
         # 2006 "tccgen.c"
-        if(_if_conditional617=!(ft_446&64),        _if_conditional617) {
+        if(!(ft_446&64)) {
             # 2007 "tccgen.c"
             gen_assign_cast(&vtop[-1].type);
         }
     }
     # 2147 "tccgen.c"
     # 2010 "tccgen.c"
-    if(_if_conditional618=sbt_444==7,    _if_conditional618) {
+    if(sbt_444==7) {
         # 2045 "tccgen.c"
         # 2014 "tccgen.c"
-        if(_if_conditional619=!nocode_wanted,        _if_conditional619) {
+        if(!nocode_wanted) {
             # 2015 "tccgen.c"
             size_449=type_size(&vtop->type,&align_450);
             # 2024 "tccgen.c"
@@ -17164,7 +16107,7 @@ memset(&sv_455, 0, sizeof(struct SValue));
         }
     }
     # 2045 "tccgen.c"
-    else if(_elif_conditional150=ft_446&64,    _elif_conditional150) {
+    else if(ft_446&64) {
         # 2047 "tccgen.c"
         bit_pos_452=(ft_446>>16)&63;
         # 2048 "tccgen.c"
@@ -17179,7 +16122,7 @@ memset(&sv_455, 0, sizeof(struct SValue));
         vrott(3);
         # 2063 "tccgen.c"
         # 2057 "tccgen.c"
-        if(_if_conditional620=(ft_446&15)==11,        _if_conditional620) {
+        if((ft_446&15)==11) {
             # 2058 "tccgen.c"
             gen_cast(&vtop[-1].type);
             # 2059 "tccgen.c"
@@ -17191,10 +16134,10 @@ memset(&sv_455, 0, sizeof(struct SValue));
         vtop[-1]=vtop[-2];
         # 2075 "tccgen.c"
         # 2067 "tccgen.c"
-        if(_if_conditional621=(ft_446&15)!=11,        _if_conditional621) {
+        if((ft_446&15)!=11) {
             # 2073 "tccgen.c"
             # 2068 "tccgen.c"
-            if(_if_conditional622=(ft_446&15)==12,            _if_conditional622) {
+            if((ft_446&15)==12) {
                 # 2069 "tccgen.c"
                 vpushll((1<<bit_size_451)-1);
             }
@@ -17213,7 +16156,7 @@ memset(&sv_455, 0, sizeof(struct SValue));
         vswap();
         # 2084 "tccgen.c"
         # 2079 "tccgen.c"
-        if(_if_conditional623=(ft_446&15)==12,        _if_conditional623) {
+        if((ft_446&15)==12) {
             # 2080 "tccgen.c"
             vpushll(~(((1<<bit_size_451)-1)<<bit_pos_452));
         }
@@ -17233,17 +16176,17 @@ memset(&sv_455, 0, sizeof(struct SValue));
     else {
         # 2143 "tccgen.c"
         # 2101 "tccgen.c"
-        if(_if_conditional624=!nocode_wanted,        _if_conditional624) {
+        if(!nocode_wanted) {
             # 2102 "tccgen.c"
             rc_453=1;
             # 2111 "tccgen.c"
             # 2103 "tccgen.c"
-            if(_if_conditional625=is_float(ft_446),            _if_conditional625) {
+            if(is_float(ft_446)) {
                 # 2104 "tccgen.c"
                 rc_453=2;
                 # 2110 "tccgen.c"
                 # 2106 "tccgen.c"
-                if(_if_conditional626=(ft_446&15)==10,                _if_conditional626) {
+                if((ft_446&15)==10) {
                     # 2107 "tccgen.c"
                     rc_453=64;
                 }
@@ -17252,7 +16195,7 @@ memset(&sv_455, 0, sizeof(struct SValue));
             r_447=gv(rc_453);
             # 2126 "tccgen.c"
             # 2113 "tccgen.c"
-            if(_if_conditional627=(vtop[-1].r&255)==241,            _if_conditional627) {
+            if((vtop[-1].r&255)==241) {
                 # 2114 "tccgen.c"
                 # 2115 "tccgen.c"
                 t_448=get_reg(1);
@@ -17281,10 +16224,6 @@ memset(&sv_455, 0, sizeof(struct SValue));
 }
 
 void inc(int post, int c){
-void* __result_obj__;
-_Bool _if_conditional628;
-_Bool _if_conditional629;
-memset(&__result_obj__, 0, sizeof(void*));
     # 2152 "tccgen.c"
     test_lvalue();
     # 2153 "tccgen.c"
@@ -17314,27 +16253,15 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 static void parse_attribute(struct AttributeDef* ad){
-void* __result_obj__;
 int t_456;
 int n_457;
-_Bool _while_condtional46;
-_Bool _while_condtional47;
-_Bool _if_conditional630;
-_Bool _if_conditional631;
-_Bool _if_conditional632;
-_Bool _if_conditional633;
-_Bool _if_conditional634;
-_Bool _if_conditional635;
 int parenthesis_458;
-_Bool _if_conditional636;
-_Bool _elif_conditional151;
-_Bool _do_while_condtional2;
-_Bool _if_conditional637;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&t_456, 0, sizeof(int));
+memset(&n_457, 0, sizeof(int));
 memset(&parenthesis_458, 0, sizeof(int));
     # 2177 "tccgen.c"
     # 2280 "tccgen.c"
-    while(_while_condtional46=tok==(303)||tok==(304),    _while_condtional46) {
+    while(tok==(303)||tok==(304)) {
         # 2180 "tccgen.c"
         next();
         # 2181 "tccgen.c"
@@ -17342,10 +16269,10 @@ memset(&parenthesis_458, 0, sizeof(int));
         # 2182 "tccgen.c"
         skip(40);
         # 2277 "tccgen.c"
-        while(_while_condtional47=tok!=41,        _while_condtional47) {
+        while(tok!=41) {
             # 2186 "tccgen.c"
             # 2184 "tccgen.c"
-            if(_if_conditional630=tok<256,            _if_conditional630) {
+            if(tok<256) {
                 # 2185 "tccgen.c"
                 expect("attribute name");
             }
@@ -17363,7 +16290,7 @@ memset(&parenthesis_458, 0, sizeof(int));
                 skip(40);
                 # 2194 "tccgen.c"
                 # 2192 "tccgen.c"
-                if(_if_conditional631=tok!=181,                _if_conditional631) {
+                if(tok!=181) {
                     # 2193 "tccgen.c"
                     expect("section name");
                 }
@@ -17381,14 +16308,14 @@ memset(&parenthesis_458, 0, sizeof(int));
                 case (337):
                 # 2209 "tccgen.c"
                 # 2200 "tccgen.c"
-                if(_if_conditional632=tok==40,                _if_conditional632) {
+                if(tok==40) {
                     # 2201 "tccgen.c"
                     next();
                     # 2202 "tccgen.c"
                     n_457=expr_const();
                     # 2205 "tccgen.c"
                     # 2203 "tccgen.c"
-                    if(_if_conditional633=n_457<=0||(n_457&(n_457-1))!=0,                    _if_conditional633) {
+                    if(n_457<=0||(n_457&(n_457-1))!=0) {
                         # 2204 "tccgen.c"
                         error("alignment must be a positive power of two");
                     }
@@ -17459,33 +16386,33 @@ memset(&parenthesis_458, 0, sizeof(int));
                 }
                 # 2271 "tccgen.c"
                 # 2261 "tccgen.c"
-                if(_if_conditional635=tok==40,                _if_conditional635) {
+                if(tok==40) {
                     # 2262 "tccgen.c"
                     parenthesis_458=0;
                     # 2269 "tccgen.c"
                     do {
                         # 2268 "tccgen.c"
                         # 2264 "tccgen.c"
-                        if(_if_conditional636=tok==40,                        _if_conditional636) {
+                        if(tok==40) {
                             # 2265 "tccgen.c"
                             parenthesis_458++;
                         }
                         # 2266 "tccgen.c"
-                        else if(_elif_conditional151=tok==41,                        _elif_conditional151) {
+                        else if(tok==41) {
                             # 2267 "tccgen.c"
                             parenthesis_458--;
                         }
                         # 2268 "tccgen.c"
                         next();
                     # 2269 "tccgen.c"
-                    } while(_do_while_condtional2=parenthesis_458&&tok!=-1,                    _do_while_condtional2);
+                    } while(parenthesis_458&&tok!=-1);
                 }
                 # 2271 "tccgen.c"
                 break;
             }
             # 2275 "tccgen.c"
             # 2273 "tccgen.c"
-            if(_if_conditional637=tok!=44,            _if_conditional637) {
+            if(tok!=44) {
                 # 2274 "tccgen.c"
                 break;
             }
@@ -17500,7 +16427,6 @@ memset(&parenthesis_458, 0, sizeof(int));
 }
 
 static void struct_decl(struct CType* type, int u){
-void* __result_obj__;
 int a_459;
 int v_460;
 int size_461;
@@ -17521,46 +16447,26 @@ struct Sym** ps_475;
 struct AttributeDef ad_476;
 struct CType type1_477;
 struct CType btype_478;
-_Bool _if_conditional638;
-_Bool _if_conditional639;
-_Bool _if_conditional640;
-_Bool _if_conditional641;
-_Bool _if_conditional642;
-_Bool _if_conditional643;
-_Bool _if_conditional644;
-_Bool _if_conditional645;
-_Bool _if_conditional646;
-_Bool _if_conditional647;
-_Bool _if_conditional648;
-_Bool _while_condtional48;
-_Bool _while_condtional49;
-_Bool _if_conditional649;
-_Bool _if_conditional650;
-_Bool _if_conditional651;
-_Bool _if_conditional652;
-_Bool _if_conditional653;
-_Bool _if_conditional654;
-_Bool _if_conditional655;
-_Bool _if_conditional656;
-_Bool _elif_conditional152;
-_Bool _if_conditional657;
-_Bool _if_conditional658;
-_Bool _if_conditional659;
-_Bool _if_conditional660;
-_Bool _elif_conditional153;
-_Bool _elif_conditional154;
-_Bool _if_conditional661;
-_Bool _if_conditional662;
-_Bool _if_conditional663;
-_Bool _if_conditional664;
-_Bool _if_conditional665;
-_Bool _if_conditional666;
-_Bool _if_conditional667;
-_Bool _if_conditional668;
-_Bool _while_condtional50;
-_Bool _if_conditional669;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&a_459, 0, sizeof(int));
+memset(&v_460, 0, sizeof(int));
+memset(&size_461, 0, sizeof(int));
+memset(&align_462, 0, sizeof(int));
+memset(&maxalign_463, 0, sizeof(int));
+memset(&c_464, 0, sizeof(int));
+memset(&offset_465, 0, sizeof(int));
+memset(&bit_size_466, 0, sizeof(int));
+memset(&bit_pos_467, 0, sizeof(int));
+memset(&bsize_468, 0, sizeof(int));
+memset(&bt_469, 0, sizeof(int));
+memset(&lbit_pos_470, 0, sizeof(int));
+memset(&prevbt_471, 0, sizeof(int));
+memset(&s_472, 0, sizeof(struct Sym*));
+memset(&ss_473, 0, sizeof(struct Sym*));
+memset(&ass_474, 0, sizeof(struct Sym*));
+memset(&ps_475, 0, sizeof(struct Sym**));
 memset(&ad_476, 0, sizeof(struct AttributeDef));
+memset(&type1_477, 0, sizeof(struct CType));
+memset(&btype_478, 0, sizeof(struct CType));
     # 2285 "tccgen.c"
     # 2286 "tccgen.c"
     # 2287 "tccgen.c"
@@ -17572,14 +16478,14 @@ memset(&ad_476, 0, sizeof(struct AttributeDef));
     next();
     # 2308 "tccgen.c"
     # 2293 "tccgen.c"
-    if(_if_conditional638=tok!=123,    _if_conditional638) {
+    if(tok!=123) {
         # 2294 "tccgen.c"
         v_460=tok;
         # 2295 "tccgen.c"
         next();
         # 2299 "tccgen.c"
         # 2297 "tccgen.c"
-        if(_if_conditional639=v_460<256,        _if_conditional639) {
+        if(v_460<256) {
             # 2298 "tccgen.c"
             expect("struct/union/enum name");
         }
@@ -17590,7 +16496,7 @@ memset(&ad_476, 0, sizeof(struct AttributeDef));
         if(s_472) {
             # 2303 "tccgen.c"
             # 2301 "tccgen.c"
-            if(_if_conditional641=s_472->type.t!=a_459,            _if_conditional641) {
+            if(s_472->type.t!=a_459) {
                 # 2302 "tccgen.c"
                 error("invalid type");
             }
@@ -17616,12 +16522,12 @@ memset(&ad_476, 0, sizeof(struct AttributeDef));
     type->ref=s_472;
     # 2480 "tccgen.c"
     # 2317 "tccgen.c"
-    if(_if_conditional642=tok==123,    _if_conditional642) {
+    if(tok==123) {
         # 2318 "tccgen.c"
         next();
         # 2322 "tccgen.c"
         # 2319 "tccgen.c"
-        if(_if_conditional643=s_472->c!=-1,        _if_conditional643) {
+        if(s_472->c!=-1) {
             # 2320 "tccgen.c"
             error("struct/union/enum already defined");
         }
@@ -17629,14 +16535,14 @@ memset(&ad_476, 0, sizeof(struct AttributeDef));
         c_464=0;
         # 2479 "tccgen.c"
         # 2324 "tccgen.c"
-        if(_if_conditional644=a_459==(301),        _if_conditional644) {
+        if(a_459==(301)) {
             # 2345 "tccgen.c"
             for(            ;            ;            ){
                 # 2326 "tccgen.c"
                 v_460=tok;
                 # 2329 "tccgen.c"
                 # 2327 "tccgen.c"
-                if(_if_conditional645=v_460<(314),                _if_conditional645) {
+                if(v_460<(314)) {
                     # 2328 "tccgen.c"
                     expect("identifier");
                 }
@@ -17644,7 +16550,7 @@ memset(&ad_476, 0, sizeof(struct AttributeDef));
                 next();
                 # 2335 "tccgen.c"
                 # 2330 "tccgen.c"
-                if(_if_conditional646=tok==61,                _if_conditional646) {
+                if(tok==61) {
                     # 2331 "tccgen.c"
                     next();
                     # 2332 "tccgen.c"
@@ -17656,7 +16562,7 @@ memset(&ad_476, 0, sizeof(struct AttributeDef));
                 ss_473->type.t|=256;
                 # 2339 "tccgen.c"
                 # 2337 "tccgen.c"
-                if(_if_conditional647=tok!=44,                _if_conditional647) {
+                if(tok!=44) {
                     # 2338 "tccgen.c"
                     break;
                 }
@@ -17666,7 +16572,7 @@ memset(&ad_476, 0, sizeof(struct AttributeDef));
                 c_464++;
                 # 2344 "tccgen.c"
                 # 2342 "tccgen.c"
-                if(_if_conditional648=tok==125,                _if_conditional648) {
+                if(tok==125) {
                     # 2343 "tccgen.c"
                     break;
                 }
@@ -17686,11 +16592,11 @@ memset(&ad_476, 0, sizeof(struct AttributeDef));
             # 2351 "tccgen.c"
             offset_465=0;
             # 2474 "tccgen.c"
-            while(_while_condtional48=tok!=125,            _while_condtional48) {
+            while(tok!=125) {
                 # 2353 "tccgen.c"
                 parse_btype(&btype_478,&ad_476);
                 # 2472 "tccgen.c"
-                while(_while_condtional49=1,                _while_condtional49) {
+                while(1) {
                     # 2355 "tccgen.c"
                     bit_size_466=-1;
                     # 2356 "tccgen.c"
@@ -17699,38 +16605,38 @@ memset(&ad_476, 0, sizeof(struct AttributeDef));
                     type1_477=btype_478;
                     # 2367 "tccgen.c"
                     # 2358 "tccgen.c"
-                    if(_if_conditional649=tok!=58,                    _if_conditional649) {
+                    if(tok!=58) {
                         # 2359 "tccgen.c"
                         type_decl(&type1_477,&ad_476,&v_460,2|1);
                         # 2362 "tccgen.c"
                         # 2360 "tccgen.c"
-                        if(_if_conditional650=v_460==0&&(type1_477.t&15)!=7,                        _if_conditional650) {
+                        if(v_460==0&&(type1_477.t&15)!=7) {
                             # 2361 "tccgen.c"
                             expect("identifier");
                         }
                         # 2366 "tccgen.c"
                         # 2363 "tccgen.c"
-                        if(_if_conditional651=(type1_477.t&15)==6||(type1_477.t&(512|256|128|1024)),                        _if_conditional651) {
+                        if((type1_477.t&15)==6||(type1_477.t&(512|256|128|1024))) {
                             # 2365 "tccgen.c"
                             error("invalid type for '%s'",get_tok_str(v_460,((void*)0)));
                         }
                     }
                     # 2378 "tccgen.c"
                     # 2367 "tccgen.c"
-                    if(_if_conditional652=tok==58,                    _if_conditional652) {
+                    if(tok==58) {
                         # 2368 "tccgen.c"
                         next();
                         # 2369 "tccgen.c"
                         bit_size_466=expr_const();
                         # 2374 "tccgen.c"
                         # 2371 "tccgen.c"
-                        if(_if_conditional653=bit_size_466<0,                        _if_conditional653) {
+                        if(bit_size_466<0) {
                             # 2373 "tccgen.c"
                             error("negative width in bit-field '%s'",get_tok_str(v_460,((void*)0)));
                         }
                         # 2377 "tccgen.c"
                         # 2374 "tccgen.c"
-                        if(_if_conditional654=v_460&&bit_size_466==0,                        _if_conditional654) {
+                        if(v_460&&bit_size_466==0) {
                             # 2376 "tccgen.c"
                             error("zero width for bit-field '%s'",get_tok_str(v_460,((void*)0)));
                         }
@@ -17742,7 +16648,7 @@ memset(&ad_476, 0, sizeof(struct AttributeDef));
                     if(ad_476.aligned) {
                         # 2382 "tccgen.c"
                         # 2380 "tccgen.c"
-                        if(_if_conditional656=align_462<ad_476.aligned,                        _if_conditional656) {
+                        if(align_462<ad_476.aligned) {
                             # 2381 "tccgen.c"
                             align_462=ad_476.aligned;
                         }
@@ -17753,10 +16659,10 @@ memset(&ad_476, 0, sizeof(struct AttributeDef));
                         align_462=1;
                     }
                     # 2384 "tccgen.c"
-                    else if(_elif_conditional152=*tcc_state->pack_stack_ptr,                    _elif_conditional152) {
+                    else if(*tcc_state->pack_stack_ptr) {
                         # 2387 "tccgen.c"
                         # 2385 "tccgen.c"
-                        if(_if_conditional657=align_462>*tcc_state->pack_stack_ptr,                        _if_conditional657) {
+                        if(align_462>*tcc_state->pack_stack_ptr) {
                             # 2386 "tccgen.c"
                             align_462=*tcc_state->pack_stack_ptr;
                         }
@@ -17765,12 +16671,12 @@ memset(&ad_476, 0, sizeof(struct AttributeDef));
                     lbit_pos_470=0;
                     # 2428 "tccgen.c"
                     # 2389 "tccgen.c"
-                    if(_if_conditional658=bit_size_466>=0,                    _if_conditional658) {
+                    if(bit_size_466>=0) {
                         # 2390 "tccgen.c"
                         bt_469=type1_477.t&15;
                         # 2398 "tccgen.c"
                         # 2396 "tccgen.c"
-                        if(_if_conditional659=bt_469!=0&&bt_469!=1&&bt_469!=2&&bt_469!=11&&bt_469!=5&&bt_469!=12,                        _if_conditional659) {
+                        if(bt_469!=0&&bt_469!=1&&bt_469!=2&&bt_469!=11&&bt_469!=5&&bt_469!=12) {
                             # 2397 "tccgen.c"
                             error("bitfields must have scalar type");
                         }
@@ -17778,24 +16684,24 @@ memset(&ad_476, 0, sizeof(struct AttributeDef));
                         bsize_468=size_461*8;
                         # 2424 "tccgen.c"
                         # 2399 "tccgen.c"
-                        if(_if_conditional660=bit_size_466>bsize_468,                        _if_conditional660) {
+                        if(bit_size_466>bsize_468) {
                             # 2401 "tccgen.c"
                             error("width of '%s' exceeds its type",get_tok_str(v_460,((void*)0)));
                         }
                         # 2402 "tccgen.c"
-                        else if(_elif_conditional153=bit_size_466==bsize_468,                        _elif_conditional153) {
+                        else if(bit_size_466==bsize_468) {
                             # 2404 "tccgen.c"
                             bit_pos_467=0;
                         }
                         # 2405 "tccgen.c"
-                        else if(_elif_conditional154=bit_size_466==0,                        _elif_conditional154) {
+                        else if(bit_size_466==0) {
                             # 2409 "tccgen.c"
                             bit_pos_467=0;
                         }
                         else {
                             # 2417 "tccgen.c"
                             # 2415 "tccgen.c"
-                            if(_if_conditional661=(bit_pos_467+bit_size_466)>bsize_468||bt_469!=prevbt_471||a_459==(298),                            _if_conditional661) {
+                            if((bit_pos_467+bit_size_466)>bsize_468||bt_469!=prevbt_471||a_459==(298)) {
                                 # 2416 "tccgen.c"
                                 bit_pos_467=0;
                             }
@@ -17815,20 +16721,20 @@ memset(&ad_476, 0, sizeof(struct AttributeDef));
                     }
                     # 2456 "tccgen.c"
                     # 2428 "tccgen.c"
-                    if(_if_conditional662=v_460!=0||(type1_477.t&15)==7,                    _if_conditional662) {
+                    if(v_460!=0||(type1_477.t&15)==7) {
                         # 2455 "tccgen.c"
                         # 2431 "tccgen.c"
-                        if(_if_conditional663=lbit_pos_470==0,                        _if_conditional663) {
+                        if(lbit_pos_470==0) {
                             # 2442 "tccgen.c"
                             # 2432 "tccgen.c"
-                            if(_if_conditional664=a_459==(297),                            _if_conditional664) {
+                            if(a_459==(297)) {
                                 # 2433 "tccgen.c"
                                 c_464=(c_464+align_462-1)&-align_462;
                                 # 2434 "tccgen.c"
                                 offset_465=c_464;
                                 # 2437 "tccgen.c"
                                 # 2435 "tccgen.c"
-                                if(_if_conditional665=size_461>0,                                _if_conditional665) {
+                                if(size_461>0) {
                                     # 2436 "tccgen.c"
                                     c_464+=size_461;
                                 }
@@ -17838,14 +16744,14 @@ memset(&ad_476, 0, sizeof(struct AttributeDef));
                                 offset_465=0;
                                 # 2441 "tccgen.c"
                                 # 2439 "tccgen.c"
-                                if(_if_conditional666=size_461>c_464,                                _if_conditional666) {
+                                if(size_461>c_464) {
                                     # 2440 "tccgen.c"
                                     c_464=size_461;
                                 }
                             }
                             # 2444 "tccgen.c"
                             # 2442 "tccgen.c"
-                            if(_if_conditional667=align_462>maxalign_463,                            _if_conditional667) {
+                            if(align_462>maxalign_463) {
                                 # 2443 "tccgen.c"
                                 maxalign_463=align_462;
                             }
@@ -17853,11 +16759,11 @@ memset(&ad_476, 0, sizeof(struct AttributeDef));
                     }
                     # 2468 "tccgen.c"
                     # 2456 "tccgen.c"
-                    if(_if_conditional668=v_460==0&&(type1_477.t&15)==7,                    _if_conditional668) {
+                    if(v_460==0&&(type1_477.t&15)==7) {
                         # 2457 "tccgen.c"
                         ass_474=type1_477.ref;
                         # 2463 "tccgen.c"
-                        while(_while_condtional50=(ass_474=ass_474->next)!=((void*)0),                        _while_condtional50) {
+                        while((ass_474=ass_474->next)!=((void*)0)) {
                             # 2459 "tccgen.c"
                             ss_473=sym_push(ass_474->v,&ass_474->type,0,offset_465+ass_474->c);
                             # 2460 "tccgen.c"
@@ -17877,7 +16783,7 @@ memset(&ad_476, 0, sizeof(struct AttributeDef));
                     }
                     # 2470 "tccgen.c"
                     # 2468 "tccgen.c"
-                    if(_if_conditional669=tok==59||tok==(-1),                    _if_conditional669) {
+                    if(tok==59||tok==(-1)) {
                         # 2469 "tccgen.c"
                         break;
                     }
@@ -17899,12 +16805,9 @@ memset(&ad_476, 0, sizeof(struct AttributeDef));
 }
 
 static void AttributeDef_finalize(struct AttributeDef* self){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
 }
 
 static int parse_btype(struct CType* type, struct AttributeDef* ad){
-void* __result_obj__;
 int t_479;
 int u_480;
 int type_found_481;
@@ -17912,19 +16815,12 @@ int typespec_found_482;
 int typedef_found_483;
 struct Sym* s_484;
 struct CType type1_485;
-_Bool _while_condtional51;
-_Bool _if_conditional670;
-_Bool _if_conditional671;
-_Bool _elif_conditional155;
-_Bool _if_conditional672;
-_Bool _if_conditional673;
-_Bool _if_conditional674;
-_Bool _if_conditional675;
-_Bool _if_conditional676;
-_Bool _if_conditional677;
-_Bool _if_conditional678;
-int __result118__;
-memset(&__result_obj__, 0, sizeof(void*));
+int __result58__;
+memset(&t_479, 0, sizeof(int));
+memset(&u_480, 0, sizeof(int));
+memset(&type_found_481, 0, sizeof(int));
+memset(&typespec_found_482, 0, sizeof(int));
+memset(&typedef_found_483, 0, sizeof(int));
 memset(&s_484, 0, sizeof(struct Sym*));
 memset(&type1_485, 0, sizeof(struct CType));
     # 2487 "tccgen.c"
@@ -17941,7 +16837,7 @@ memset(&type1_485, 0, sizeof(struct CType));
     # 2495 "tccgen.c"
     t_479=0;
     # 2641 "tccgen.c"
-    while(_while_condtional51=1,    _while_condtional51) {
+    while(1) {
         # 2639 "tccgen.c"
         switch (tok) {
             # 2500 "tccgen.c"
@@ -17962,7 +16858,7 @@ memset(&type1_485, 0, sizeof(struct CType));
             basic_type1:
             # 2511 "tccgen.c"
             # 2509 "tccgen.c"
-            if(_if_conditional670=(t_479&15)!=0,            _if_conditional670) {
+            if((t_479&15)!=0) {
                 # 2510 "tccgen.c"
                 error("too many basic types");
             }
@@ -17998,12 +16894,12 @@ memset(&type1_485, 0, sizeof(struct CType));
             next();
             # 2534 "tccgen.c"
             # 2526 "tccgen.c"
-            if(_if_conditional671=(t_479&15)==9,            _if_conditional671) {
+            if((t_479&15)==9) {
                 # 2527 "tccgen.c"
                 t_479=(t_479&~15)|10;
             }
             # 2528 "tccgen.c"
-            else if(_elif_conditional155=(t_479&15)==13,            _elif_conditional155) {
+            else if((t_479&15)==13) {
                 # 2529 "tccgen.c"
                 t_479=(t_479&~15)|12;
             }
@@ -18033,7 +16929,7 @@ memset(&type1_485, 0, sizeof(struct CType));
             next();
             # 2549 "tccgen.c"
             # 2543 "tccgen.c"
-            if(_if_conditional672=(t_479&15)==13,            _if_conditional672) {
+            if((t_479&15)==13) {
                 # 2544 "tccgen.c"
                 t_479=(t_479&~15)|10;
             }
@@ -18187,7 +17083,7 @@ memset(&type1_485, 0, sizeof(struct CType));
             default:
             # 2629 "tccgen.c"
             # 2627 "tccgen.c"
-            if(_if_conditional673=typespec_found_482||typedef_found_483,            _if_conditional673) {
+            if(typespec_found_482||typedef_found_483) {
                 # 2628 "tccgen.c"
                 goto the_end;
             }
@@ -18195,7 +17091,7 @@ memset(&type1_485, 0, sizeof(struct CType));
             s_484=sym_find(tok);
             # 2632 "tccgen.c"
             # 2630 "tccgen.c"
-            if(_if_conditional674=!s_484||!(s_484->type.t&512),            _if_conditional674) {
+            if(!s_484||!(s_484->type.t&512)) {
                 # 2631 "tccgen.c"
                 goto the_end;
             }
@@ -18219,7 +17115,7 @@ memset(&type1_485, 0, sizeof(struct CType));
     the_end:
     # 2644 "tccgen.c"
     # 2642 "tccgen.c"
-    if(_if_conditional675=(t_479&(8192|16))==(8192|16),    _if_conditional675) {
+    if((t_479&(8192|16))==(8192|16)) {
         # 2643 "tccgen.c"
         error("signed and unsigned modifier");
     }
@@ -18228,7 +17124,7 @@ memset(&type1_485, 0, sizeof(struct CType));
     if(tcc_state->char_is_unsigned) {
         # 2647 "tccgen.c"
         # 2645 "tccgen.c"
-        if(_if_conditional677=(t_479&(8192|16|15))==1,        _if_conditional677) {
+        if((t_479&(8192|16|15))==1) {
             # 2646 "tccgen.c"
             t_479|=16;
         }
@@ -18237,22 +17133,21 @@ memset(&type1_485, 0, sizeof(struct CType));
     t_479&=~8192;
     # 2657 "tccgen.c"
     # 2651 "tccgen.c"
-    if(_if_conditional678=(t_479&15)==13,    _if_conditional678) {
+    if((t_479&15)==13) {
         # 2655 "tccgen.c"
         t_479=(t_479&~15)|12;
     }
     # 2657 "tccgen.c"
     type->t=t_479;
     # 2658 "tccgen.c"
-    __result118__ = type_found_481;
+    __result58__ = type_found_481;
     come_call_finalizer3((&type1_485),CType_finalize, 1, 0, 0, 0, (void*)0);
-    return __result118__;
+    return __result58__;
     come_call_finalizer3((&type1_485),CType_finalize, 1, 0, 0, 0, (void*)0);
 }
 
 
 static void post_type(struct CType* type, struct AttributeDef* ad){
-void* __result_obj__;
 int n_486;
 int l_487;
 int t1_488;
@@ -18263,22 +17158,14 @@ struct Sym* s_492;
 struct Sym* first_493;
 struct AttributeDef ad1_494;
 struct CType pt_495;
-_Bool _if_conditional680;
-_Bool _if_conditional681;
-_Bool _if_conditional682;
-_Bool _if_conditional683;
-_Bool _if_conditional684;
-_Bool _if_conditional685;
-_Bool _if_conditional686;
-_Bool _if_conditional687;
-_Bool _if_conditional688;
-_Bool _if_conditional689;
-_Bool _if_conditional690;
-_Bool _elif_conditional156;
-_Bool _if_conditional691;
-_Bool _if_conditional692;
-_Bool _if_conditional693;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&n_486, 0, sizeof(int));
+memset(&l_487, 0, sizeof(int));
+memset(&t1_488, 0, sizeof(int));
+memset(&arg_size_489, 0, sizeof(int));
+memset(&align_490, 0, sizeof(int));
+memset(&plast_491, 0, sizeof(struct Sym**));
+memset(&s_492, 0, sizeof(struct Sym*));
+memset(&first_493, 0, sizeof(struct Sym*));
 memset(&ad1_494, 0, sizeof(struct AttributeDef));
 memset(&pt_495, 0, sizeof(struct CType));
     # 2677 "tccgen.c"
@@ -18287,7 +17174,7 @@ memset(&pt_495, 0, sizeof(struct CType));
     # 2680 "tccgen.c"
     # 2768 "tccgen.c"
     # 2682 "tccgen.c"
-    if(_if_conditional680=tok==40,    _if_conditional680) {
+    if(tok==40) {
         # 2684 "tccgen.c"
         next();
         # 2685 "tccgen.c"
@@ -18300,15 +17187,15 @@ memset(&pt_495, 0, sizeof(struct CType));
         arg_size_489=0;
         # 2731 "tccgen.c"
         # 2689 "tccgen.c"
-        if(_if_conditional681=tok!=41,        _if_conditional681) {
+        if(tok!=41) {
             # 2729 "tccgen.c"
             for(            ;            ;            ){
                 # 2716 "tccgen.c"
                 # 2692 "tccgen.c"
-                if(_if_conditional682=l_487!=2,                _if_conditional682) {
+                if(l_487!=2) {
                     # 2701 "tccgen.c"
                     # 2693 "tccgen.c"
-                    if(_if_conditional683=!parse_btype(&pt_495,&ad1_494),                    _if_conditional683) {
+                    if(!parse_btype(&pt_495,&ad1_494)) {
                         # 2700 "tccgen.c"
                         # 2694 "tccgen.c"
                         if(l_487) {
@@ -18326,7 +17213,7 @@ memset(&pt_495, 0, sizeof(struct CType));
                     l_487=1;
                     # 2704 "tccgen.c"
                     # 2702 "tccgen.c"
-                    if(_if_conditional685=(pt_495.t&15)==3&&tok==41,                    _if_conditional685) {
+                    if((pt_495.t&15)==3&&tok==41) {
                         # 2703 "tccgen.c"
                         break;
                     }
@@ -18334,7 +17221,7 @@ memset(&pt_495, 0, sizeof(struct CType));
                     type_decl(&pt_495,&ad1_494,&n_486,2|1);
                     # 2707 "tccgen.c"
                     # 2705 "tccgen.c"
-                    if(_if_conditional686=(pt_495.t&15)==3,                    _if_conditional686) {
+                    if((pt_495.t&15)==3) {
                         # 2706 "tccgen.c"
                         error("parameter declared as void");
                     }
@@ -18348,7 +17235,7 @@ memset(&pt_495, 0, sizeof(struct CType));
                     n_486=tok;
                     # 2713 "tccgen.c"
                     # 2711 "tccgen.c"
-                    if(_if_conditional687=n_486<(314),                    _if_conditional687) {
+                    if(n_486<(314)) {
                         # 2712 "tccgen.c"
                         expect("identifier");
                     }
@@ -18367,7 +17254,7 @@ memset(&pt_495, 0, sizeof(struct CType));
                 plast_491=&s_492->next;
                 # 2722 "tccgen.c"
                 # 2720 "tccgen.c"
-                if(_if_conditional688=tok==41,                _if_conditional688) {
+                if(tok==41) {
                     # 2721 "tccgen.c"
                     break;
                 }
@@ -18375,7 +17262,7 @@ memset(&pt_495, 0, sizeof(struct CType));
                 skip(44);
                 # 2728 "tccgen.c"
                 # 2723 "tccgen.c"
-                if(_if_conditional689=l_487==1&&tok==204,                _if_conditional689) {
+                if(l_487==1&&tok==204) {
                     # 2724 "tccgen.c"
                     l_487=3;
                     # 2725 "tccgen.c"
@@ -18387,7 +17274,7 @@ memset(&pt_495, 0, sizeof(struct CType));
         }
         # 2733 "tccgen.c"
         # 2731 "tccgen.c"
-        if(_if_conditional690=l_487==0,        _if_conditional690) {
+        if(l_487==0) {
             # 2732 "tccgen.c"
             l_487=2;
         }
@@ -18411,12 +17298,12 @@ memset(&pt_495, 0, sizeof(struct CType));
         type->ref=s_492;
     }
     # 2745 "tccgen.c"
-    else if(_elif_conditional156=tok==91,    _elif_conditional156) {
+    else if(tok==91) {
         # 2747 "tccgen.c"
         next();
         # 2750 "tccgen.c"
         # 2748 "tccgen.c"
-        if(_if_conditional691=tok==(289),        _if_conditional691) {
+        if(tok==(289)) {
             # 2749 "tccgen.c"
             next();
         }
@@ -18424,12 +17311,12 @@ memset(&pt_495, 0, sizeof(struct CType));
         n_486=-1;
         # 2756 "tccgen.c"
         # 2751 "tccgen.c"
-        if(_if_conditional692=tok!=93,        _if_conditional692) {
+        if(tok!=93) {
             # 2752 "tccgen.c"
             n_486=expr_const();
             # 2755 "tccgen.c"
             # 2753 "tccgen.c"
-            if(_if_conditional693=n_486<0,            _if_conditional693) {
+            if(n_486<0) {
                 # 2754 "tccgen.c"
                 error("invalid array size");
             }
@@ -18454,28 +17341,19 @@ memset(&pt_495, 0, sizeof(struct CType));
 }
 
 static void type_decl(struct CType* type, struct AttributeDef* ad, int* v, int td){
-void* __result_obj__;
 struct Sym* s_496;
 struct CType type1_497;
 struct CType* type2_498;
 int qualifiers_499;
-_Bool _while_condtional52;
-_Bool _if_conditional694;
-_Bool _if_conditional695;
-_Bool _if_conditional696;
-_Bool _if_conditional697;
-_Bool _if_conditional698;
-_Bool _if_conditional699;
-_Bool _if_conditional700;
-_Bool _if_conditional701;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&s_496, 0, sizeof(struct Sym*));
+memset(&type1_497, 0, sizeof(struct CType));
+memset(&type2_498, 0, sizeof(struct CType*));
 memset(&qualifiers_499, 0, sizeof(int));
     # 2778 "tccgen.c"
     # 2779 "tccgen.c"
     # 2780 "tccgen.c"
     # 2807 "tccgen.c"
-    while(_while_condtional52=tok==42,    _while_condtional52) {
+    while(tok==42) {
         # 2783 "tccgen.c"
         qualifiers_499=0;
         # 2785 "tccgen.c"
@@ -18520,7 +17398,7 @@ memset(&qualifiers_499, 0, sizeof(int));
     }
     # 2812 "tccgen.c"
     # 2807 "tccgen.c"
-    if(_if_conditional694=tok==(303)||tok==(304),    _if_conditional694) {
+    if(tok==(303)||tok==(304)) {
         # 2808 "tccgen.c"
         parse_attribute(ad);
     }
@@ -18528,12 +17406,12 @@ memset(&qualifiers_499, 0, sizeof(int));
     type1_497.t=0;
     # 2832 "tccgen.c"
     # 2813 "tccgen.c"
-    if(_if_conditional695=tok==40,    _if_conditional695) {
+    if(tok==40) {
         # 2814 "tccgen.c"
         next();
         # 2819 "tccgen.c"
         # 2817 "tccgen.c"
-        if(_if_conditional696=tok==(303)||tok==(304),        _if_conditional696) {
+        if(tok==(303)||tok==(304)) {
             # 2818 "tccgen.c"
             parse_attribute(ad);
         }
@@ -18545,7 +17423,7 @@ memset(&qualifiers_499, 0, sizeof(int));
     else {
         # 2831 "tccgen.c"
         # 2823 "tccgen.c"
-        if(_if_conditional697=tok>=256&&(td&2),        _if_conditional697) {
+        if(tok>=256&&(td&2)) {
             # 2824 "tccgen.c"
             *v=tok;
             # 2825 "tccgen.c"
@@ -18554,7 +17432,7 @@ memset(&qualifiers_499, 0, sizeof(int));
         else {
             # 2829 "tccgen.c"
             # 2827 "tccgen.c"
-            if(_if_conditional698=!(td&1),            _if_conditional698) {
+            if(!(td&1)) {
                 # 2828 "tccgen.c"
                 expect("identifier");
             }
@@ -18566,13 +17444,13 @@ memset(&qualifiers_499, 0, sizeof(int));
     post_type(type,ad);
     # 2835 "tccgen.c"
     # 2833 "tccgen.c"
-    if(_if_conditional699=tok==(303)||tok==(304),    _if_conditional699) {
+    if(tok==(303)||tok==(304)) {
         # 2834 "tccgen.c"
         parse_attribute(ad);
     }
     # 2838 "tccgen.c"
     # 2835 "tccgen.c"
-    if(_if_conditional700=!type1_497.t,    _if_conditional700) {
+    if(!type1_497.t) {
         # 2836 "tccgen.c"
         return;
     }
@@ -18586,7 +17464,7 @@ memset(&qualifiers_499, 0, sizeof(int));
         type2_498=&s_496->type;
         # 2846 "tccgen.c"
         # 2842 "tccgen.c"
-        if(_if_conditional701=!type2_498->t,        _if_conditional701) {
+        if(!type2_498->t) {
             # 2843 "tccgen.c"
             *type2_498=*type;
             # 2844 "tccgen.c"
@@ -18598,15 +17476,10 @@ memset(&qualifiers_499, 0, sizeof(int));
 }
 
 static int lvalue_type(int t){
-void* __result_obj__;
 int bt_500;
 int r_501;
-_Bool _if_conditional702;
-_Bool _elif_conditional157;
-int __result119__;
-_Bool _if_conditional703;
-int __result120__;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&bt_500, 0, sizeof(int));
+memset(&r_501, 0, sizeof(int));
     # 2853 "tccgen.c"
     # 2854 "tccgen.c"
     r_501=256;
@@ -18614,45 +17487,36 @@ memset(&__result_obj__, 0, sizeof(void*));
     bt_500=t&15;
     # 2862 "tccgen.c"
     # 2856 "tccgen.c"
-    if(_if_conditional702=bt_500==1||bt_500==11,    _if_conditional702) {
+    if(bt_500==1||bt_500==11) {
         # 2857 "tccgen.c"
         r_501|=4096;
     }
     # 2858 "tccgen.c"
-    else if(_elif_conditional157=bt_500==2,    _elif_conditional157) {
+    else if(bt_500==2) {
         # 2859 "tccgen.c"
         r_501|=8192;
     }
     else {
         # 2861 "tccgen.c"
-        __result119__ = r_501;
-        return __result119__;
+        return r_501;
     }
     # 2864 "tccgen.c"
     # 2862 "tccgen.c"
-    if(_if_conditional703=t&16,    _if_conditional703) {
+    if(t&16) {
         # 2863 "tccgen.c"
         r_501|=16384;
     }
     # 2864 "tccgen.c"
-    __result120__ = r_501;
-    return __result120__;
+    return r_501;
 }
 
 static void indir(){
-void* __result_obj__;
-_Bool _if_conditional704;
-_Bool _if_conditional705;
-_Bool _if_conditional706;
-_Bool _if_conditional707;
-_Bool _if_conditional708;
-memset(&__result_obj__, 0, sizeof(void*));
     # 2875 "tccgen.c"
     # 2870 "tccgen.c"
-    if(_if_conditional704=(vtop->type.t&15)!=4,    _if_conditional704) {
+    if((vtop->type.t&15)!=4) {
         # 2873 "tccgen.c"
         # 2871 "tccgen.c"
-        if(_if_conditional705=(vtop->type.t&15)==6,        _if_conditional705) {
+        if((vtop->type.t&15)==6) {
             # 2872 "tccgen.c"
             return;
         }
@@ -18661,7 +17525,7 @@ memset(&__result_obj__, 0, sizeof(void*));
     }
     # 2877 "tccgen.c"
     # 2875 "tccgen.c"
-    if(_if_conditional706=(vtop->r&256)&&!nocode_wanted,    _if_conditional706) {
+    if((vtop->r&256)&&!nocode_wanted) {
         # 2876 "tccgen.c"
         gv(1);
     }
@@ -18669,7 +17533,7 @@ memset(&__result_obj__, 0, sizeof(void*));
     vtop->type=*pointed_type(&vtop->type);
     # 2886 "tccgen.c"
     # 2880 "tccgen.c"
-    if(_if_conditional707=!(vtop->type.t&32)&&(vtop->type.t&15)!=6,    _if_conditional707) {
+    if(!(vtop->type.t&32)&&(vtop->type.t&15)!=6) {
         # 2881 "tccgen.c"
         vtop->r|=lvalue_type(vtop->type.t);
         # 2885 "tccgen.c"
@@ -18682,13 +17546,8 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 static void gfunc_param_typed(struct Sym* func, struct Sym* arg){
-void* __result_obj__;
 int func_type_502;
 struct CType type_503;
-_Bool _if_conditional709;
-_Bool _if_conditional710;
-_Bool _elif_conditional158;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&func_type_502, 0, sizeof(int));
 memset(&type_503, 0, sizeof(struct CType));
     # 2891 "tccgen.c"
@@ -18697,10 +17556,10 @@ memset(&type_503, 0, sizeof(struct CType));
     func_type_502=func->c;
     # 2909 "tccgen.c"
     # 2896 "tccgen.c"
-    if(_if_conditional709=func_type_502==2||(func_type_502==3&&arg==((void*)0)),    _if_conditional709) {
+    if(func_type_502==2||(func_type_502==3&&arg==((void*)0))) {
         # 2902 "tccgen.c"
         # 2898 "tccgen.c"
-        if(_if_conditional710=(vtop->type.t&15)==8,        _if_conditional710) {
+        if((vtop->type.t&15)==8) {
             # 2899 "tccgen.c"
             type_503.t=9;
             # 2900 "tccgen.c"
@@ -18708,7 +17567,7 @@ memset(&type_503, 0, sizeof(struct CType));
         }
     }
     # 2902 "tccgen.c"
-    else if(_elif_conditional158=arg==((void*)0),    _elif_conditional158) {
+    else if(arg==((void*)0)) {
         # 2903 "tccgen.c"
         error("too many arguments to function");
     }
@@ -18724,11 +17583,8 @@ memset(&type_503, 0, sizeof(struct CType));
 }
 
 static void parse_expr_type(struct CType* type){
-void* __result_obj__;
 int n_504;
 struct AttributeDef ad_505;
-_Bool _if_conditional711;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&n_504, 0, sizeof(int));
 memset(&ad_505, 0, sizeof(struct AttributeDef));
     # 2915 "tccgen.c"
@@ -18737,7 +17593,7 @@ memset(&ad_505, 0, sizeof(struct AttributeDef));
     skip(40);
     # 2924 "tccgen.c"
     # 2919 "tccgen.c"
-    if(_if_conditional711=parse_btype(type,&ad_505),    _if_conditional711) {
+    if(parse_btype(type,&ad_505)) {
         # 2920 "tccgen.c"
         type_decl(type,&ad_505,&n_504,1);
     }
@@ -18751,18 +17607,15 @@ memset(&ad_505, 0, sizeof(struct AttributeDef));
 }
 
 static void parse_type(struct CType* type){
-void* __result_obj__;
 struct AttributeDef ad_506;
 int n_507;
-_Bool _if_conditional712;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&ad_506, 0, sizeof(struct AttributeDef));
 memset(&n_507, 0, sizeof(int));
     # 2929 "tccgen.c"
     # 2930 "tccgen.c"
     # 2935 "tccgen.c"
     # 2932 "tccgen.c"
-    if(_if_conditional712=!parse_btype(type,&ad_506),    _if_conditional712) {
+    if(!parse_btype(type,&ad_506)) {
         # 2933 "tccgen.c"
         expect("type");
     }
@@ -18772,9 +17625,7 @@ memset(&n_507, 0, sizeof(int));
 }
 
 static void vpush_tokc(int t){
-void* __result_obj__;
 struct CType type_508;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&type_508, 0, sizeof(struct CType));
     # 2940 "tccgen.c"
     # 2941 "tccgen.c"
@@ -18785,7 +17636,6 @@ memset(&type_508, 0, sizeof(struct CType));
 }
 
 static void unary(){
-void* __result_obj__;
 int n_509;
 int t_510;
 int align_511;
@@ -18794,75 +17644,32 @@ int r_513;
 struct CType type_514;
 struct Sym* s_515;
 struct AttributeDef ad_516;
-_Bool _if_conditional713;
 void* ptr_517;
 int len_518;
-_Bool _if_conditional714;
-_Bool _if_conditional715;
-_Bool _if_conditional716;
-_Bool _if_conditional717;
-_Bool _if_conditional718;
-_Bool _elif_conditional159;
-_Bool _if_conditional719;
-_Bool _if_conditional720;
 struct CType boolean_519;
-_Bool _elif_conditional160;
-_Bool _if_conditional721;
-_Bool _if_conditional722;
-_Bool _if_conditional723;
-_Bool _if_conditional724;
 struct CType type1_520;
 struct CType type2_521;
 int saved_nocode_wanted_522;
 int res_523;
 struct CType type_524;
-_Bool _if_conditional725;
-_Bool _if_conditional726;
-_Bool _if_conditional727;
-_Bool _if_conditional728;
-_Bool _if_conditional729;
-_Bool _if_conditional730;
-_Bool _if_conditional731;
-_Bool _if_conditional732;
-_Bool _if_conditional733;
-_Bool _if_conditional734;
-_Bool _if_conditional735;
-_Bool _if_conditional736;
-_Bool _if_conditional737;
-_Bool _if_conditional738;
-_Bool _while_condtional53;
-_Bool _if_conditional739;
-_Bool _elif_conditional161;
-_Bool _if_conditional740;
-_Bool _if_conditional741;
-_Bool _while_condtional54;
-_Bool _if_conditional742;
-_Bool _if_conditional743;
-_Bool _if_conditional744;
-_Bool _if_conditional745;
-_Bool _elif_conditional162;
-_Bool _elif_conditional163;
 struct SValue ret_525;
 struct Sym* sa_526;
 int nb_args_527;
-_Bool _if_conditional746;
-_Bool _if_conditional747;
-_Bool _if_conditional748;
-_Bool _if_conditional749;
-_Bool _if_conditional750;
-_Bool _if_conditional751;
-_Bool _if_conditional752;
-_Bool _if_conditional753;
-_Bool _if_conditional754;
-_Bool _if_conditional755;
-_Bool _if_conditional756;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&n_509, 0, sizeof(int));
+memset(&t_510, 0, sizeof(int));
+memset(&align_511, 0, sizeof(int));
+memset(&size_512, 0, sizeof(int));
+memset(&r_513, 0, sizeof(int));
 memset(&type_514, 0, sizeof(struct CType));
 memset(&s_515, 0, sizeof(struct Sym*));
 memset(&ad_516, 0, sizeof(struct AttributeDef));
 memset(&ptr_517, 0, sizeof(void*));
 memset(&len_518, 0, sizeof(int));
 memset(&boolean_519, 0, sizeof(struct CType));
+memset(&type1_520, 0, sizeof(struct CType));
+memset(&type2_521, 0, sizeof(struct CType));
+memset(&saved_nocode_wanted_522, 0, sizeof(int));
+memset(&res_523, 0, sizeof(int));
 memset(&type_524, 0, sizeof(struct CType));
 memset(&ret_525, 0, sizeof(struct SValue));
 memset(&sa_526, 0, sizeof(struct Sym*));
@@ -18945,7 +17752,7 @@ memset(&nb_args_527, 0, sizeof(int));
         case (331):
         # 2993 "tccgen.c"
         # 2990 "tccgen.c"
-        if(_if_conditional713=!gnu_ext,        _if_conditional713) {
+        if(!gnu_ext) {
             # 2991 "tccgen.c"
             goto tok_identifier;
         }
@@ -19012,14 +17819,14 @@ memset(&nb_args_527, 0, sizeof(int));
         next();
         # 3062 "tccgen.c"
         # 3032 "tccgen.c"
-        if(_if_conditional715=parse_btype(&type_514,&ad_516),        _if_conditional715) {
+        if(parse_btype(&type_514,&ad_516)) {
             # 3033 "tccgen.c"
             type_decl(&type_514,&ad_516,&n_509,1);
             # 3034 "tccgen.c"
             skip(41);
             # 3051 "tccgen.c"
             # 3036 "tccgen.c"
-            if(_if_conditional716=tok==123,            _if_conditional716) {
+            if(tok==123) {
                 # 3043 "tccgen.c"
                 # 3038 "tccgen.c"
                 if(global_expr) {
@@ -19032,7 +17839,7 @@ memset(&nb_args_527, 0, sizeof(int));
                 }
                 # 3045 "tccgen.c"
                 # 3043 "tccgen.c"
-                if(_if_conditional718=!(type_514.t&32),                _if_conditional718) {
+                if(!(type_514.t&32)) {
                     # 3044 "tccgen.c"
                     r_513|=lvalue_type(type_514.t);
                 }
@@ -19049,7 +17856,7 @@ memset(&nb_args_527, 0, sizeof(int));
             }
         }
         # 3051 "tccgen.c"
-        else if(_elif_conditional159=tok==123,        _elif_conditional159) {
+        else if(tok==123) {
             # 3053 "tccgen.c"
             save_regs(0);
             # 3056 "tccgen.c"
@@ -19083,7 +17890,7 @@ memset(&nb_args_527, 0, sizeof(int));
         unary();
         # 3079 "tccgen.c"
         # 3077 "tccgen.c"
-        if(_if_conditional719=(vtop->type.t&15)!=6&&!(vtop->type.t&32)&&!(vtop->type.t&241),        _if_conditional719) {
+        if((vtop->type.t&15)!=6&&!(vtop->type.t&32)&&!(vtop->type.t&241)) {
             # 3078 "tccgen.c"
             test_lvalue();
         }
@@ -19101,7 +17908,7 @@ memset(&nb_args_527, 0, sizeof(int));
         unary();
         # 3096 "tccgen.c"
         # 3085 "tccgen.c"
-        if(_if_conditional720=(vtop->r&(255|256|512))==240,        _if_conditional720) {
+        if((vtop->r&(255|256|512))==240) {
             # 3086 "tccgen.c"
             # 3087 "tccgen.c"
             boolean_519.t=11;
@@ -19112,7 +17919,7 @@ memset(&nb_args_527, 0, sizeof(int));
             come_call_finalizer3((&boolean_519),CType_finalize, 1, 0, 0, 0, (void*)0);
         }
         # 3090 "tccgen.c"
-        else if(_elif_conditional160=(vtop->r&255)==243,        _elif_conditional160) {
+        else if((vtop->r&255)==243) {
             # 3091 "tccgen.c"
             vtop->c.i=vtop->c.i^1;
         }
@@ -19144,7 +17951,7 @@ memset(&nb_args_527, 0, sizeof(int));
         unary();
         # 3109 "tccgen.c"
         # 3107 "tccgen.c"
-        if(_if_conditional721=(vtop->type.t&15)==4,        _if_conditional721) {
+        if((vtop->type.t&15)==4) {
             # 3108 "tccgen.c"
             error("pointer not accepted for unary plus");
         }
@@ -19166,7 +17973,7 @@ memset(&nb_args_527, 0, sizeof(int));
         next();
         # 3122 "tccgen.c"
         # 3117 "tccgen.c"
-        if(_if_conditional722=tok==40,        _if_conditional722) {
+        if(tok==40) {
             # 3118 "tccgen.c"
             parse_expr_type(&type_514);
         }
@@ -19178,10 +17985,10 @@ memset(&nb_args_527, 0, sizeof(int));
         size_512=type_size(&type_514,&align_511);
         # 3130 "tccgen.c"
         # 3123 "tccgen.c"
-        if(_if_conditional723=t_510==(302),        _if_conditional723) {
+        if(t_510==(302)) {
             # 3126 "tccgen.c"
             # 3124 "tccgen.c"
-            if(_if_conditional724=size_512<0,            _if_conditional724) {
+            if(size_512<0) {
                 # 3125 "tccgen.c"
                 error("sizeof applied to an incomplete type");
             }
@@ -19261,13 +18068,13 @@ memset(&nb_args_527, 0, sizeof(int));
             skip(40);
             # 3170 "tccgen.c"
             # 3167 "tccgen.c"
-            if(_if_conditional725=tok!=179,            _if_conditional725) {
+            if(tok!=179) {
                 # 3168 "tccgen.c"
                 error("__builtin_frame_address only takes integers");
             }
             # 3173 "tccgen.c"
             # 3170 "tccgen.c"
-            if(_if_conditional726=tokc.i!=0,            _if_conditional726) {
+            if(tokc.i!=0) {
                 # 3171 "tccgen.c"
                 error("TCC only supports __builtin_frame_address(0)");
             }
@@ -19327,7 +18134,7 @@ memset(&nb_args_527, 0, sizeof(int));
         case 160:
         # 3204 "tccgen.c"
         # 3202 "tccgen.c"
-        if(_if_conditional727=!gnu_ext,        _if_conditional727) {
+        if(!gnu_ext) {
             # 3203 "tccgen.c"
             goto tok_identifier;
         }
@@ -19335,7 +18142,7 @@ memset(&nb_args_527, 0, sizeof(int));
         next();
         # 3208 "tccgen.c"
         # 3206 "tccgen.c"
-        if(_if_conditional728=tok<(314),        _if_conditional728) {
+        if(tok<(314)) {
             # 3207 "tccgen.c"
             expect("label identifier");
         }
@@ -19343,21 +18150,21 @@ memset(&nb_args_527, 0, sizeof(int));
         s_515=label_find(tok);
         # 3215 "tccgen.c"
         # 3209 "tccgen.c"
-        if(_if_conditional729=!s_515,        _if_conditional729) {
+        if(!s_515) {
             # 3210 "tccgen.c"
             s_515=label_push(&global_label_stack,tok,1);
         }
         else {
             # 3214 "tccgen.c"
             # 3212 "tccgen.c"
-            if(_if_conditional730=s_515->r==2,            _if_conditional730) {
+            if(s_515->r==2) {
                 # 3213 "tccgen.c"
                 s_515->r=1;
             }
         }
         # 3220 "tccgen.c"
         # 3215 "tccgen.c"
-        if(_if_conditional731=!s_515->type.t,        _if_conditional731) {
+        if(!s_515->type.t) {
             # 3216 "tccgen.c"
             s_515->type.t=3;
             # 3217 "tccgen.c"
@@ -19383,7 +18190,7 @@ memset(&nb_args_527, 0, sizeof(int));
         next();
         # 3230 "tccgen.c"
         # 3228 "tccgen.c"
-        if(_if_conditional732=t_510<(314),        _if_conditional732) {
+        if(t_510<(314)) {
             # 3229 "tccgen.c"
             expect("identifier");
         }
@@ -19391,10 +18198,10 @@ memset(&nb_args_527, 0, sizeof(int));
         s_515=sym_find(t_510);
         # 3241 "tccgen.c"
         # 3231 "tccgen.c"
-        if(_if_conditional733=!s_515,        _if_conditional733) {
+        if(!s_515) {
             # 3236 "tccgen.c"
             # 3232 "tccgen.c"
-            if(_if_conditional734=tok!=40,            _if_conditional734) {
+            if(tok!=40) {
                 # 3233 "tccgen.c"
                 error("'%s' undeclared",get_tok_str(t_510,((void*)0)));
             }
@@ -19409,10 +18216,10 @@ memset(&nb_args_527, 0, sizeof(int));
         }
         # 3254 "tccgen.c"
         # 3242 "tccgen.c"
-        if(_if_conditional736=(s_515->type.t&(256|1024|15))==(256|1024|6),        _if_conditional736) {
+        if((s_515->type.t&(256|1024|15))==(256|1024|6)) {
             # 3250 "tccgen.c"
             # 3248 "tccgen.c"
-            if(_if_conditional737=!s_515->c,            _if_conditional737) {
+            if(!s_515->c) {
                 # 3249 "tccgen.c"
                 put_extern_sym(s_515,text_section,0,0);
             }
@@ -19427,7 +18234,7 @@ memset(&nb_args_527, 0, sizeof(int));
         vset(&s_515->type,r_513,s_515->c);
         # 3260 "tccgen.c"
         # 3256 "tccgen.c"
-        if(_if_conditional738=vtop->r&512,        _if_conditional738) {
+        if(vtop->r&512) {
             # 3257 "tccgen.c"
             vtop->sym=s_515;
             # 3258 "tccgen.c"
@@ -19437,20 +18244,20 @@ memset(&nb_args_527, 0, sizeof(int));
         break;
     }
     # 3383 "tccgen.c"
-    while(_while_condtional53=1,    _while_condtional53) {
+    while(1) {
         # 3382 "tccgen.c"
         # 3265 "tccgen.c"
-        if(_if_conditional739=tok==164||tok==162,        _if_conditional739) {
+        if(tok==164||tok==162) {
             # 3266 "tccgen.c"
             inc(1,tok);
             # 3267 "tccgen.c"
             next();
         }
         # 3268 "tccgen.c"
-        else if(_elif_conditional161=tok==46||tok==203,        _elif_conditional161) {
+        else if(tok==46||tok==203) {
             # 3272 "tccgen.c"
             # 3270 "tccgen.c"
-            if(_if_conditional740=tok==203,            _if_conditional740) {
+            if(tok==203) {
                 # 3271 "tccgen.c"
                 indir();
             }
@@ -19462,7 +18269,7 @@ memset(&nb_args_527, 0, sizeof(int));
             next();
             # 3278 "tccgen.c"
             # 3276 "tccgen.c"
-            if(_if_conditional741=(vtop->type.t&15)!=7,            _if_conditional741) {
+            if((vtop->type.t&15)!=7) {
                 # 3277 "tccgen.c"
                 expect("struct or union");
             }
@@ -19471,17 +18278,17 @@ memset(&nb_args_527, 0, sizeof(int));
             # 3280 "tccgen.c"
             tok|=536870912;
             # 3285 "tccgen.c"
-            while(_while_condtional54=(s_515=s_515->next)!=((void*)0),            _while_condtional54) {
+            while((s_515=s_515->next)!=((void*)0)) {
                 # 3284 "tccgen.c"
                 # 3282 "tccgen.c"
-                if(_if_conditional742=s_515->v==tok,                _if_conditional742) {
+                if(s_515->v==tok) {
                     # 3283 "tccgen.c"
                     break;
                 }
             }
             # 3288 "tccgen.c"
             # 3285 "tccgen.c"
-            if(_if_conditional743=!s_515,            _if_conditional743) {
+            if(!s_515) {
                 # 3286 "tccgen.c"
                 error("field not found: %s",get_tok_str(tok&~536870912,((void*)0)));
             }
@@ -19495,7 +18302,7 @@ memset(&nb_args_527, 0, sizeof(int));
             vtop->type=s_515->type;
             # 3300 "tccgen.c"
             # 3294 "tccgen.c"
-            if(_if_conditional744=!(vtop->type.t&32),            _if_conditional744) {
+            if(!(vtop->type.t&32)) {
                 # 3295 "tccgen.c"
                 vtop->r|=lvalue_type(vtop->type.t);
                 # 3299 "tccgen.c"
@@ -19509,7 +18316,7 @@ memset(&nb_args_527, 0, sizeof(int));
             next();
         }
         # 3301 "tccgen.c"
-        else if(_elif_conditional162=tok==91,        _elif_conditional162) {
+        else if(tok==91) {
             # 3302 "tccgen.c"
             next();
             # 3303 "tccgen.c"
@@ -19522,21 +18329,21 @@ memset(&nb_args_527, 0, sizeof(int));
             skip(93);
         }
         # 3307 "tccgen.c"
-        else if(_elif_conditional163=tok==40,        _elif_conditional163) {
+        else if(tok==40) {
             # 3308 "tccgen.c"
             # 3309 "tccgen.c"
             # 3310 "tccgen.c"
             # 3327 "tccgen.c"
             # 3313 "tccgen.c"
-            if(_if_conditional746=(vtop->type.t&15)!=6,            _if_conditional746) {
+            if((vtop->type.t&15)!=6) {
                 # 3323 "tccgen.c"
                 # 3315 "tccgen.c"
-                if(_if_conditional747=(vtop->type.t&(15|32))==4,                _if_conditional747) {
+                if((vtop->type.t&(15|32))==4) {
                     # 3316 "tccgen.c"
                     vtop->type=*pointed_type(&vtop->type);
                     # 3319 "tccgen.c"
                     # 3317 "tccgen.c"
-                    if(_if_conditional748=(vtop->type.t&15)!=6,                    _if_conditional748) {
+                    if((vtop->type.t&15)!=6) {
                         # 3318 "tccgen.c"
                         goto error_func;
                     }
@@ -19564,7 +18371,7 @@ memset(&nb_args_527, 0, sizeof(int));
             ret_525.r2=240;
             # 3356 "tccgen.c"
             # 3333 "tccgen.c"
-            if(_if_conditional749=(s_515->type.t&15)==7,            _if_conditional749) {
+            if((s_515->type.t&15)==7) {
                 # 3335 "tccgen.c"
                 size_512=type_size(&s_515->type,&align_511);
                 # 3336 "tccgen.c"
@@ -19585,14 +18392,14 @@ memset(&nb_args_527, 0, sizeof(int));
                 ret_525.type=s_515->type;
                 # 3354 "tccgen.c"
                 # 3347 "tccgen.c"
-                if(_if_conditional750=is_float(ret_525.type.t),                _if_conditional750) {
+                if(is_float(ret_525.type.t)) {
                     # 3348 "tccgen.c"
                     ret_525.r=reg_fret(ret_525.type.t);
                 }
                 else {
                     # 3352 "tccgen.c"
                     # 3350 "tccgen.c"
-                    if(_if_conditional751=(ret_525.type.t&15)==12,                    _if_conditional751) {
+                    if((ret_525.type.t&15)==12) {
                         # 3351 "tccgen.c"
                         ret_525.r2=(2);
                     }
@@ -19604,7 +18411,7 @@ memset(&nb_args_527, 0, sizeof(int));
             }
             # 3368 "tccgen.c"
             # 3356 "tccgen.c"
-            if(_if_conditional752=tok!=41,            _if_conditional752) {
+            if(tok!=41) {
                 # 3367 "tccgen.c"
                 for(                ;                ;                ){
                     # 3358 "tccgen.c"
@@ -19621,7 +18428,7 @@ memset(&nb_args_527, 0, sizeof(int));
                     }
                     # 3365 "tccgen.c"
                     # 3363 "tccgen.c"
-                    if(_if_conditional754=tok==41,                    _if_conditional754) {
+                    if(tok==41) {
                         # 3364 "tccgen.c"
                         break;
                     }
@@ -19639,7 +18446,7 @@ memset(&nb_args_527, 0, sizeof(int));
             skip(41);
             # 3377 "tccgen.c"
             # 3371 "tccgen.c"
-            if(_if_conditional756=!nocode_wanted,            _if_conditional756) {
+            if(!nocode_wanted) {
                 # 3372 "tccgen.c"
                 gfunc_call(nb_args_527);
             }
@@ -19663,18 +18470,14 @@ memset(&nb_args_527, 0, sizeof(int));
 }
 
 static void uneq(){
-void* __result_obj__;
 int t_528;
-_Bool _if_conditional757;
-_Bool _if_conditional758;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&t_528, 0, sizeof(int));
     # 3387 "tccgen.c"
     # 3389 "tccgen.c"
     unary();
     # 3406 "tccgen.c"
     # 3393 "tccgen.c"
-    if(_if_conditional757=tok==61||(tok>=165&&tok<=175)||tok==222||tok==252||tok==129||tok==130,    _if_conditional757) {
+    if(tok==61||(tok>=165&&tok<=175)||tok==222||tok==252||tok==129||tok==130) {
         # 3394 "tccgen.c"
         test_lvalue();
         # 3395 "tccgen.c"
@@ -19683,7 +18486,7 @@ memset(&t_528, 0, sizeof(int));
         next();
         # 3404 "tccgen.c"
         # 3397 "tccgen.c"
-        if(_if_conditional758=t_528==61,        _if_conditional758) {
+        if(t_528==61) {
             # 3398 "tccgen.c"
             expr_eq();
         }
@@ -19701,16 +18504,13 @@ memset(&t_528, 0, sizeof(int));
 }
 
 static void expr_prod(){
-void* __result_obj__;
 int t_529;
-_Bool _while_condtional55;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&t_529, 0, sizeof(int));
     # 3410 "tccgen.c"
     # 3412 "tccgen.c"
     uneq();
     # 3419 "tccgen.c"
-    while(_while_condtional55=tok==42||tok==47||tok==37,    _while_condtional55) {
+    while(tok==42||tok==47||tok==37) {
         # 3414 "tccgen.c"
         t_529=tok;
         # 3415 "tccgen.c"
@@ -19723,16 +18523,13 @@ memset(&t_529, 0, sizeof(int));
 }
 
 static void expr_sum(){
-void* __result_obj__;
 int t_530;
-_Bool _while_condtional56;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&t_530, 0, sizeof(int));
     # 3423 "tccgen.c"
     # 3425 "tccgen.c"
     expr_prod();
     # 3432 "tccgen.c"
-    while(_while_condtional56=tok==43||tok==45,    _while_condtional56) {
+    while(tok==43||tok==45) {
         # 3427 "tccgen.c"
         t_530=tok;
         # 3428 "tccgen.c"
@@ -19745,16 +18542,13 @@ memset(&t_530, 0, sizeof(int));
 }
 
 static void expr_shift(){
-void* __result_obj__;
 int t_531;
-_Bool _while_condtional57;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&t_531, 0, sizeof(int));
     # 3436 "tccgen.c"
     # 3438 "tccgen.c"
     expr_sum();
     # 3445 "tccgen.c"
-    while(_while_condtional57=tok==1||tok==2,    _while_condtional57) {
+    while(tok==1||tok==2) {
         # 3440 "tccgen.c"
         t_531=tok;
         # 3441 "tccgen.c"
@@ -19767,16 +18561,13 @@ memset(&t_531, 0, sizeof(int));
 }
 
 static void expr_cmp(){
-void* __result_obj__;
 int t_532;
-_Bool _while_condtional58;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&t_532, 0, sizeof(int));
     # 3449 "tccgen.c"
     # 3451 "tccgen.c"
     expr_shift();
     # 3459 "tccgen.c"
-    while(_while_condtional58=(tok>=150&&tok<=159)||tok==146||tok==147,    _while_condtional58) {
+    while((tok>=150&&tok<=159)||tok==146||tok==147) {
         # 3454 "tccgen.c"
         t_532=tok;
         # 3455 "tccgen.c"
@@ -19789,16 +18580,13 @@ memset(&t_532, 0, sizeof(int));
 }
 
 static void expr_cmpeq(){
-void* __result_obj__;
 int t_533;
-_Bool _while_condtional59;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&t_533, 0, sizeof(int));
     # 3463 "tccgen.c"
     # 3465 "tccgen.c"
     expr_cmp();
     # 3472 "tccgen.c"
-    while(_while_condtional59=tok==148||tok==149,    _while_condtional59) {
+    while(tok==148||tok==149) {
         # 3467 "tccgen.c"
         t_533=tok;
         # 3468 "tccgen.c"
@@ -19811,13 +18599,10 @@ memset(&t_533, 0, sizeof(int));
 }
 
 static void expr_and(){
-void* __result_obj__;
-_Bool _while_condtional60;
-memset(&__result_obj__, 0, sizeof(void*));
     # 3476 "tccgen.c"
     expr_cmpeq();
     # 3482 "tccgen.c"
-    while(_while_condtional60=tok==38,    _while_condtional60) {
+    while(tok==38) {
         # 3478 "tccgen.c"
         next();
         # 3479 "tccgen.c"
@@ -19828,13 +18613,10 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 static void expr_xor(){
-void* __result_obj__;
-_Bool _while_condtional61;
-memset(&__result_obj__, 0, sizeof(void*));
     # 3486 "tccgen.c"
     expr_and();
     # 3492 "tccgen.c"
-    while(_while_condtional61=tok==94,    _while_condtional61) {
+    while(tok==94) {
         # 3488 "tccgen.c"
         next();
         # 3489 "tccgen.c"
@@ -19845,13 +18627,10 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 static void expr_or(){
-void* __result_obj__;
-_Bool _while_condtional62;
-memset(&__result_obj__, 0, sizeof(void*));
     # 3496 "tccgen.c"
     expr_xor();
     # 3502 "tccgen.c"
-    while(_while_condtional62=tok==124,    _while_condtional62) {
+    while(tok==124) {
         # 3498 "tccgen.c"
         next();
         # 3499 "tccgen.c"
@@ -19862,13 +18641,10 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 static void expr_land_const(){
-void* __result_obj__;
-_Bool _while_condtional63;
-memset(&__result_obj__, 0, sizeof(void*));
     # 3507 "tccgen.c"
     expr_or();
     # 3513 "tccgen.c"
-    while(_while_condtional63=tok==160,    _while_condtional63) {
+    while(tok==160) {
         # 3509 "tccgen.c"
         next();
         # 3510 "tccgen.c"
@@ -19879,13 +18655,10 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 static void expr_lor_const(){
-void* __result_obj__;
-_Bool _while_condtional64;
-memset(&__result_obj__, 0, sizeof(void*));
     # 3518 "tccgen.c"
     expr_land_const();
     # 3524 "tccgen.c"
-    while(_while_condtional64=tok==161,    _while_condtional64) {
+    while(tok==161) {
         # 3520 "tccgen.c"
         next();
         # 3521 "tccgen.c"
@@ -19896,18 +18669,14 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 static void expr_land(){
-void* __result_obj__;
 int t_534;
-_Bool _if_conditional759;
-_Bool _if_conditional760;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&t_534, 0, sizeof(int));
     # 3529 "tccgen.c"
     # 3531 "tccgen.c"
     expr_or();
     # 3545 "tccgen.c"
     # 3532 "tccgen.c"
-    if(_if_conditional759=tok==160,    _if_conditional759) {
+    if(tok==160) {
         # 3533 "tccgen.c"
         t_534=0;
         # 3534 "tccgen.c"
@@ -19918,7 +18687,7 @@ memset(&t_534, 0, sizeof(int));
             t_534=gtst(1,t_534);
             # 3541 "tccgen.c"
             # 3537 "tccgen.c"
-            if(_if_conditional760=tok!=160,            _if_conditional760) {
+            if(tok!=160) {
                 # 3538 "tccgen.c"
                 vseti(245,t_534);
                 # 3539 "tccgen.c"
@@ -19933,18 +18702,14 @@ memset(&t_534, 0, sizeof(int));
 }
 
 static void expr_lor(){
-void* __result_obj__;
 int t_535;
-_Bool _if_conditional761;
-_Bool _if_conditional762;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&t_535, 0, sizeof(int));
     # 3549 "tccgen.c"
     # 3551 "tccgen.c"
     expr_land();
     # 3565 "tccgen.c"
     # 3552 "tccgen.c"
-    if(_if_conditional761=tok==161,    _if_conditional761) {
+    if(tok==161) {
         # 3553 "tccgen.c"
         t_535=0;
         # 3554 "tccgen.c"
@@ -19955,7 +18720,7 @@ memset(&t_535, 0, sizeof(int));
             t_535=gtst(0,t_535);
             # 3561 "tccgen.c"
             # 3557 "tccgen.c"
-            if(_if_conditional762=tok!=161,            _if_conditional762) {
+            if(tok!=161) {
                 # 3558 "tccgen.c"
                 vseti(244,t_535);
                 # 3559 "tccgen.c"
@@ -19970,7 +18735,6 @@ memset(&t_535, 0, sizeof(int));
 }
 
 static void expr_eq(){
-void* __result_obj__;
 int tt_536;
 int u_537;
 int r1_538;
@@ -19984,35 +18748,21 @@ struct SValue sv_545;
 struct CType type_546;
 struct CType type1_547;
 struct CType type2_548;
-_Bool _if_conditional763;
-_Bool _if_conditional764;
 struct CType boolean_549;
 int c_550;
-_Bool _if_conditional765;
-_Bool _if_conditional766;
-_Bool _if_conditional767;
-_Bool _if_conditional768;
-_Bool _if_conditional769;
-_Bool _if_conditional770;
-_Bool _if_conditional771;
-_Bool _if_conditional772;
-_Bool _if_conditional773;
-_Bool _if_conditional774;
-_Bool _elif_conditional164;
-_Bool _elif_conditional165;
-_Bool _if_conditional775;
-_Bool _elif_conditional166;
-_Bool _elif_conditional167;
-_Bool _elif_conditional168;
-_Bool _elif_conditional169;
-_Bool _if_conditional776;
-_Bool _if_conditional777;
-_Bool _if_conditional778;
-_Bool _if_conditional779;
-_Bool _elif_conditional170;
-_Bool _if_conditional780;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&tt_536, 0, sizeof(int));
+memset(&u_537, 0, sizeof(int));
+memset(&r1_538, 0, sizeof(int));
+memset(&r2_539, 0, sizeof(int));
+memset(&rc_540, 0, sizeof(int));
+memset(&t1_541, 0, sizeof(int));
+memset(&t2_542, 0, sizeof(int));
+memset(&bt1_543, 0, sizeof(int));
+memset(&bt2_544, 0, sizeof(int));
 memset(&sv_545, 0, sizeof(struct SValue));
+memset(&type_546, 0, sizeof(struct CType));
+memset(&type1_547, 0, sizeof(struct CType));
+memset(&type2_548, 0, sizeof(struct CType));
 memset(&boolean_549, 0, sizeof(struct CType));
 memset(&c_550, 0, sizeof(int));
     # 3570 "tccgen.c"
@@ -20025,7 +18775,7 @@ memset(&c_550, 0, sizeof(int));
         expr_lor_const();
         # 3596 "tccgen.c"
         # 3576 "tccgen.c"
-        if(_if_conditional764=tok==63,        _if_conditional764) {
+        if(tok==63) {
             # 3577 "tccgen.c"
             # 3578 "tccgen.c"
             # 3579 "tccgen.c"
@@ -20042,7 +18792,7 @@ memset(&c_550, 0, sizeof(int));
             next();
             # 3589 "tccgen.c"
             # 3585 "tccgen.c"
-            if(_if_conditional765=tok!=58||!gnu_ext,            _if_conditional765) {
+            if(tok!=58||!gnu_ext) {
                 # 3586 "tccgen.c"
                 vpop();
                 # 3587 "tccgen.c"
@@ -20050,7 +18800,7 @@ memset(&c_550, 0, sizeof(int));
             }
             # 3591 "tccgen.c"
             # 3589 "tccgen.c"
-            if(_if_conditional766=!c_550,            _if_conditional766) {
+            if(!c_550) {
                 # 3590 "tccgen.c"
                 vpop();
             }
@@ -20072,20 +18822,20 @@ memset(&c_550, 0, sizeof(int));
         expr_lor();
         # 3706 "tccgen.c"
         # 3598 "tccgen.c"
-        if(_if_conditional768=tok==63,        _if_conditional768) {
+        if(tok==63) {
             # 3599 "tccgen.c"
             next();
             # 3616 "tccgen.c"
             # 3600 "tccgen.c"
-            if(_if_conditional769=vtop!=vstack,            _if_conditional769) {
+            if(vtop!=vstack) {
                 # 3613 "tccgen.c"
                 # 3603 "tccgen.c"
-                if(_if_conditional770=is_float(vtop->type.t),                _if_conditional770) {
+                if(is_float(vtop->type.t)) {
                     # 3604 "tccgen.c"
                     rc_540=2;
                     # 3610 "tccgen.c"
                     # 3606 "tccgen.c"
-                    if(_if_conditional771=(vtop->type.t&15)==10,                    _if_conditional771) {
+                    if((vtop->type.t&15)==10) {
                         # 3607 "tccgen.c"
                         rc_540=64;
                     }
@@ -20101,7 +18851,7 @@ memset(&c_550, 0, sizeof(int));
             }
             # 3623 "tccgen.c"
             # 3616 "tccgen.c"
-            if(_if_conditional772=tok==58&&gnu_ext,            _if_conditional772) {
+            if(tok==58&&gnu_ext) {
                 # 3617 "tccgen.c"
                 gv_dup();
                 # 3618 "tccgen.c"
@@ -20139,15 +18889,15 @@ memset(&c_550, 0, sizeof(int));
             bt2_544=t2_542&15;
             # 3674 "tccgen.c"
             # 3637 "tccgen.c"
-            if(_if_conditional773=is_float(bt1_543)||is_float(bt2_544),            _if_conditional773) {
+            if(is_float(bt1_543)||is_float(bt2_544)) {
                 # 3645 "tccgen.c"
                 # 3638 "tccgen.c"
-                if(_if_conditional774=bt1_543==10||bt2_544==10,                _if_conditional774) {
+                if(bt1_543==10||bt2_544==10) {
                     # 3639 "tccgen.c"
                     type_546.t=10;
                 }
                 # 3640 "tccgen.c"
-                else if(_elif_conditional164=bt1_543==9||bt2_544==9,                _elif_conditional164) {
+                else if(bt1_543==9||bt2_544==9) {
                     # 3641 "tccgen.c"
                     type_546.t=9;
                 }
@@ -20157,33 +18907,33 @@ memset(&c_550, 0, sizeof(int));
                 }
             }
             # 3645 "tccgen.c"
-            else if(_elif_conditional165=bt1_543==12||bt2_544==12,            _elif_conditional165) {
+            else if(bt1_543==12||bt2_544==12) {
                 # 3647 "tccgen.c"
                 type_546.t=12;
                 # 3652 "tccgen.c"
                 # 3650 "tccgen.c"
-                if(_if_conditional775=(t1_541&(15|16))==(12|16)||(t2_542&(15|16))==(12|16),                _if_conditional775) {
+                if((t1_541&(15|16))==(12|16)||(t2_542&(15|16))==(12|16)) {
                     # 3651 "tccgen.c"
                     type_546.t|=16;
                 }
             }
             # 3652 "tccgen.c"
-            else if(_elif_conditional166=bt1_543==4||bt2_544==4,            _elif_conditional166) {
+            else if(bt1_543==4||bt2_544==4) {
                 # 3654 "tccgen.c"
                 type_546=type1_547;
             }
             # 3655 "tccgen.c"
-            else if(_elif_conditional167=bt1_543==6||bt2_544==6,            _elif_conditional167) {
+            else if(bt1_543==6||bt2_544==6) {
                 # 3657 "tccgen.c"
                 type_546=type1_547;
             }
             # 3658 "tccgen.c"
-            else if(_elif_conditional168=bt1_543==7||bt2_544==7,            _elif_conditional168) {
+            else if(bt1_543==7||bt2_544==7) {
                 # 3660 "tccgen.c"
                 type_546=type1_547;
             }
             # 3661 "tccgen.c"
-            else if(_elif_conditional169=bt1_543==3||bt2_544==3,            _elif_conditional169) {
+            else if(bt1_543==3||bt2_544==3) {
                 # 3663 "tccgen.c"
                 type_546.t=3;
             }
@@ -20192,7 +18942,7 @@ memset(&c_550, 0, sizeof(int));
                 type_546.t=0;
                 # 3671 "tccgen.c"
                 # 3669 "tccgen.c"
-                if(_if_conditional776=(t1_541&(15|16))==(0|16)||(t2_542&(15|16))==(0|16),                _if_conditional776) {
+                if((t1_541&(15|16))==(0|16)||(t2_542&(15|16))==(0|16)) {
                     # 3670 "tccgen.c"
                     type_546.t|=16;
                 }
@@ -20201,7 +18951,7 @@ memset(&c_550, 0, sizeof(int));
             gen_cast(&type_546);
             # 3677 "tccgen.c"
             # 3675 "tccgen.c"
-            if(_if_conditional777=7==(vtop->type.t&15),            _if_conditional777) {
+            if(7==(vtop->type.t&15)) {
                 # 3676 "tccgen.c"
                 gaddrof();
             }
@@ -20209,18 +18959,18 @@ memset(&c_550, 0, sizeof(int));
             rc_540=1;
             # 3691 "tccgen.c"
             # 3678 "tccgen.c"
-            if(_if_conditional778=is_float(type_546.t),            _if_conditional778) {
+            if(is_float(type_546.t)) {
                 # 3679 "tccgen.c"
                 rc_540=2;
                 # 3685 "tccgen.c"
                 # 3681 "tccgen.c"
-                if(_if_conditional779=(type_546.t&15)==10,                _if_conditional779) {
+                if((type_546.t&15)==10) {
                     # 3682 "tccgen.c"
                     rc_540=64;
                 }
             }
             # 3685 "tccgen.c"
-            else if(_elif_conditional170=(type_546.t&15)==12,            _elif_conditional170) {
+            else if((type_546.t&15)==12) {
                 # 3688 "tccgen.c"
                 rc_540=4;
             }
@@ -20236,7 +18986,7 @@ memset(&c_550, 0, sizeof(int));
             gen_cast(&type_546);
             # 3701 "tccgen.c"
             # 3699 "tccgen.c"
-            if(_if_conditional780=7==(vtop->type.t&15),            _if_conditional780) {
+            if(7==(vtop->type.t&15)) {
                 # 3700 "tccgen.c"
                 gaddrof();
             }
@@ -20254,17 +19004,13 @@ memset(&c_550, 0, sizeof(int));
 }
 
 static void gexpr(){
-void* __result_obj__;
-_Bool _while_condtional65;
-_Bool _if_conditional781;
-memset(&__result_obj__, 0, sizeof(void*));
     # 3718 "tccgen.c"
-    while(_while_condtional65=1,    _while_condtional65) {
+    while(1) {
         # 3712 "tccgen.c"
         expr_eq();
         # 3715 "tccgen.c"
         # 3713 "tccgen.c"
-        if(_if_conditional781=tok!=44,        _if_conditional781) {
+        if(tok!=44) {
             # 3714 "tccgen.c"
             break;
         }
@@ -20276,9 +19022,7 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 static void expr_type(struct CType* type){
-void* __result_obj__;
 int saved_nocode_wanted_551;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&saved_nocode_wanted_551, 0, sizeof(int));
     # 3723 "tccgen.c"
     # 3725 "tccgen.c"
@@ -20296,9 +19040,7 @@ memset(&saved_nocode_wanted_551, 0, sizeof(int));
 }
 
 static void unary_type(struct CType* type){
-void* __result_obj__;
 int a_552;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&a_552, 0, sizeof(int));
     # 3737 "tccgen.c"
     # 3739 "tccgen.c"
@@ -20316,9 +19058,7 @@ memset(&a_552, 0, sizeof(int));
 }
 
 static void expr_const1(){
-void* __result_obj__;
 int a_553;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&a_553, 0, sizeof(int));
     # 3750 "tccgen.c"
     # 3751 "tccgen.c"
@@ -20332,18 +19072,14 @@ memset(&a_553, 0, sizeof(int));
 }
 
 static int expr_const(){
-void* __result_obj__;
 int c_554;
-_Bool _if_conditional782;
-int __result121__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&c_554, 0, sizeof(int));
     # 3760 "tccgen.c"
     # 3761 "tccgen.c"
     expr_const1();
     # 3764 "tccgen.c"
     # 3762 "tccgen.c"
-    if(_if_conditional782=(vtop->r&(255|256|512))!=240,    _if_conditional782) {
+    if((vtop->r&(255|256|512))!=240) {
         # 3763 "tccgen.c"
         expect("constant expression");
     }
@@ -20352,27 +19088,18 @@ memset(&c_554, 0, sizeof(int));
     # 3765 "tccgen.c"
     vpop();
     # 3766 "tccgen.c"
-    __result121__ = c_554;
-    return __result121__;
+    return c_554;
 }
 
 static int is_label(){
-void* __result_obj__;
 int last_tok_555;
-_Bool _if_conditional783;
-int __result122__;
-_Bool _if_conditional784;
-int __result123__;
-int __result124__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&last_tok_555, 0, sizeof(int));
     # 3773 "tccgen.c"
     # 3779 "tccgen.c"
     # 3776 "tccgen.c"
-    if(_if_conditional783=tok<(314),    _if_conditional783) {
+    if(tok<(314)) {
         # 3777 "tccgen.c"
-        __result122__ = 0;
-        return __result122__;
+        return 0;
     }
     # 3779 "tccgen.c"
     last_tok_555=tok;
@@ -20380,98 +19107,48 @@ memset(&last_tok_555, 0, sizeof(int));
     next();
     # 3788 "tccgen.c"
     # 3781 "tccgen.c"
-    if(_if_conditional784=tok==58,    _if_conditional784) {
+    if(tok==58) {
         # 3782 "tccgen.c"
         next();
         # 3783 "tccgen.c"
-        __result123__ = last_tok_555;
-        return __result123__;
+        return last_tok_555;
     }
     else {
         # 3785 "tccgen.c"
         unget_tok(last_tok_555);
         # 3786 "tccgen.c"
-        __result124__ = 0;
-        return __result124__;
+        return 0;
     }
 }
 
 static void block(int* bsym, int* csym, int* case_sym, int* def_sym, int case_reg, int is_expr){
-void* __result_obj__;
 int a_556;
 int b_557;
 int c_558;
 int d_559;
 struct Sym* s_560;
-_Bool _if_conditional785;
-_Bool _if_conditional786;
-_Bool _if_conditional787;
-_Bool _if_conditional788;
-_Bool _elif_conditional171;
-_Bool _elif_conditional172;
 struct Sym* llabel_561;
-_Bool _if_conditional789;
-_Bool _if_conditional790;
-_Bool _if_conditional791;
-_Bool _while_condtional66;
-_Bool _if_conditional792;
-_Bool _if_conditional793;
-_Bool _if_conditional794;
 struct Sym* p_562;
-_Bool _if_conditional795;
-_Bool _elif_conditional173;
-_Bool _if_conditional796;
-_Bool _if_conditional797;
 struct CType type_563;
-_Bool _elif_conditional174;
-_Bool _elif_conditional175;
-_Bool _if_conditional798;
-_Bool _elif_conditional176;
-_Bool _if_conditional799;
-_Bool _elif_conditional177;
 int e_564;
-_Bool _if_conditional800;
-_Bool _if_conditional801;
-_Bool _if_conditional802;
-_Bool _elif_conditional178;
-_Bool _elif_conditional179;
-_Bool _if_conditional803;
-_Bool _elif_conditional180;
 int v1_565;
 int v2_566;
-_Bool _if_conditional804;
-_Bool _if_conditional805;
-_Bool _if_conditional806;
-_Bool _if_conditional807;
-_Bool _elif_conditional181;
-_Bool _if_conditional808;
-_Bool _if_conditional809;
-_Bool _elif_conditional182;
-_Bool _if_conditional810;
-_Bool _if_conditional811;
-_Bool _elif_conditional183;
-_Bool _if_conditional812;
-_Bool _if_conditional813;
-_Bool _if_conditional814;
-_Bool _elif_conditional184;
-_Bool _if_conditional815;
-_Bool _if_conditional816;
-_Bool _if_conditional817;
-_Bool _if_conditional818;
-_Bool _if_conditional819;
-_Bool _if_conditional820;
-_Bool _if_conditional821;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&a_556, 0, sizeof(int));
+memset(&b_557, 0, sizeof(int));
+memset(&c_558, 0, sizeof(int));
+memset(&d_559, 0, sizeof(int));
 memset(&s_560, 0, sizeof(struct Sym*));
 memset(&llabel_561, 0, sizeof(struct Sym*));
 memset(&p_562, 0, sizeof(struct Sym*));
 memset(&type_563, 0, sizeof(struct CType));
 memset(&e_564, 0, sizeof(int));
+memset(&v1_565, 0, sizeof(int));
+memset(&v2_566, 0, sizeof(int));
     # 3793 "tccgen.c"
     # 3794 "tccgen.c"
     # 3804 "tccgen.c"
     # 3798 "tccgen.c"
-    if(_if_conditional785=tcc_state->do_debug&&(last_line_num!=file->line_num||last_ind!=ind),    _if_conditional785) {
+    if(tcc_state->do_debug&&(last_line_num!=file->line_num||last_ind!=ind)) {
         # 3799 "tccgen.c"
         put_stabn((68),0,file->line_num,ind-func_ind);
         # 3800 "tccgen.c"
@@ -20489,7 +19166,7 @@ memset(&e_564, 0, sizeof(int));
     }
     # 4132 "tccgen.c"
     # 3810 "tccgen.c"
-    if(_if_conditional787=tok==(260),    _if_conditional787) {
+    if(tok==(260)) {
         # 3812 "tccgen.c"
         next();
         # 3813 "tccgen.c"
@@ -20506,7 +19183,7 @@ memset(&e_564, 0, sizeof(int));
         c_558=tok;
         # 3827 "tccgen.c"
         # 3819 "tccgen.c"
-        if(_if_conditional788=c_558==(261),        _if_conditional788) {
+        if(c_558==(261)) {
             # 3820 "tccgen.c"
             next();
             # 3821 "tccgen.c"
@@ -20524,7 +19201,7 @@ memset(&e_564, 0, sizeof(int));
         }
     }
     # 3827 "tccgen.c"
-    else if(_elif_conditional171=tok==(262),    _elif_conditional171) {
+    else if(tok==(262)) {
         # 3828 "tccgen.c"
         next();
         # 3829 "tccgen.c"
@@ -20549,7 +19226,7 @@ memset(&e_564, 0, sizeof(int));
         gsym_addr(b_557,d_559);
     }
     # 3839 "tccgen.c"
-    else if(_elif_conditional172=tok==123,    _elif_conditional172) {
+    else if(tok==123) {
         # 3840 "tccgen.c"
         # 3842 "tccgen.c"
         next();
@@ -20559,14 +19236,14 @@ memset(&e_564, 0, sizeof(int));
         llabel_561=local_label_stack;
         # 3862 "tccgen.c"
         # 3847 "tccgen.c"
-        if(_if_conditional789=tok==(310),        _if_conditional789) {
+        if(tok==(310)) {
             # 3848 "tccgen.c"
             next();
             # 3861 "tccgen.c"
             for(            ;            ;            ){
                 # 3852 "tccgen.c"
                 # 3850 "tccgen.c"
-                if(_if_conditional790=tok<(314),                _if_conditional790) {
+                if(tok<(314)) {
                     # 3851 "tccgen.c"
                     expect("label identifier");
                 }
@@ -20576,7 +19253,7 @@ memset(&e_564, 0, sizeof(int));
                 next();
                 # 3860 "tccgen.c"
                 # 3854 "tccgen.c"
-                if(_if_conditional791=tok==44,                _if_conditional791) {
+                if(tok==44) {
                     # 3855 "tccgen.c"
                     next();
                 }
@@ -20589,12 +19266,12 @@ memset(&e_564, 0, sizeof(int));
             }
         }
         # 3871 "tccgen.c"
-        while(_while_condtional66=tok!=125,        _while_condtional66) {
+        while(tok!=125) {
             # 3863 "tccgen.c"
             decl(242);
             # 3869 "tccgen.c"
             # 3864 "tccgen.c"
-            if(_if_conditional792=tok!=125,            _if_conditional792) {
+            if(tok!=125) {
                 # 3867 "tccgen.c"
                 # 3865 "tccgen.c"
                 if(is_expr) {
@@ -20625,7 +19302,7 @@ memset(&e_564, 0, sizeof(int));
                 for(                p_562=vtop->type.ref;                p_562;                p_562=p_562->prev                ){
                     # 3885 "tccgen.c"
                     # 3883 "tccgen.c"
-                    if(_if_conditional795=p_562->prev==s_560,                    _if_conditional795) {
+                    if(p_562->prev==s_560) {
                         # 3884 "tccgen.c"
                         error("unsupported expression type");
                     }
@@ -20638,19 +19315,19 @@ memset(&e_564, 0, sizeof(int));
         next();
     }
     # 3889 "tccgen.c"
-    else if(_elif_conditional173=tok==(264),    _elif_conditional173) {
+    else if(tok==(264)) {
         # 3890 "tccgen.c"
         next();
         # 3936 "tccgen.c"
         # 3891 "tccgen.c"
-        if(_if_conditional796=tok!=59,        _if_conditional796) {
+        if(tok!=59) {
             # 3892 "tccgen.c"
             gexpr();
             # 3893 "tccgen.c"
             gen_assign_cast(&func_vt);
             # 3934 "tccgen.c"
             # 3894 "tccgen.c"
-            if(_if_conditional797=(func_vt.t&15)==7,            _if_conditional797) {
+            if((func_vt.t&15)==7) {
                 # 3895 "tccgen.c"
                 # 3919 "tccgen.c"
                 type_563=func_vt;
@@ -20667,7 +19344,7 @@ memset(&e_564, 0, sizeof(int));
                 come_call_finalizer3((&type_563),CType_finalize, 1, 0, 0, 0, (void*)0);
             }
             # 3929 "tccgen.c"
-            else if(_elif_conditional174=is_float(func_vt.t),            _elif_conditional174) {
+            else if(is_float(func_vt.t)) {
                 # 3930 "tccgen.c"
                 gv(rc_fret(func_vt.t));
             }
@@ -20684,10 +19361,10 @@ memset(&e_564, 0, sizeof(int));
         rsym=gjmp(rsym);
     }
     # 3938 "tccgen.c"
-    else if(_elif_conditional175=tok==(263),    _elif_conditional175) {
+    else if(tok==(263)) {
         # 3942 "tccgen.c"
         # 3940 "tccgen.c"
-        if(_if_conditional798=!bsym,        _if_conditional798) {
+        if(!bsym) {
             # 3941 "tccgen.c"
             error("cannot break");
         }
@@ -20699,10 +19376,10 @@ memset(&e_564, 0, sizeof(int));
         skip(59);
     }
     # 3945 "tccgen.c"
-    else if(_elif_conditional176=tok==(271),    _elif_conditional176) {
+    else if(tok==(271)) {
         # 3949 "tccgen.c"
         # 3947 "tccgen.c"
-        if(_if_conditional799=!csym,        _if_conditional799) {
+        if(!csym) {
             # 3948 "tccgen.c"
             error("cannot continue");
         }
@@ -20714,7 +19391,7 @@ memset(&e_564, 0, sizeof(int));
         skip(59);
     }
     # 3952 "tccgen.c"
-    else if(_elif_conditional177=tok==(265),    _elif_conditional177) {
+    else if(tok==(265)) {
         # 3953 "tccgen.c"
         # 3954 "tccgen.c"
         next();
@@ -20722,7 +19399,7 @@ memset(&e_564, 0, sizeof(int));
         skip(40);
         # 3960 "tccgen.c"
         # 3956 "tccgen.c"
-        if(_if_conditional800=tok!=59,        _if_conditional800) {
+        if(tok!=59) {
             # 3957 "tccgen.c"
             gexpr();
             # 3958 "tccgen.c"
@@ -20740,7 +19417,7 @@ memset(&e_564, 0, sizeof(int));
         b_557=0;
         # 3969 "tccgen.c"
         # 3965 "tccgen.c"
-        if(_if_conditional801=tok!=59,        _if_conditional801) {
+        if(tok!=59) {
             # 3966 "tccgen.c"
             gexpr();
             # 3967 "tccgen.c"
@@ -20750,7 +19427,7 @@ memset(&e_564, 0, sizeof(int));
         skip(59);
         # 3978 "tccgen.c"
         # 3970 "tccgen.c"
-        if(_if_conditional802=tok!=41,        _if_conditional802) {
+        if(tok!=41) {
             # 3971 "tccgen.c"
             e_564=gjmp(0);
             # 3972 "tccgen.c"
@@ -20776,7 +19453,7 @@ memset(&e_564, 0, sizeof(int));
         gsym_addr(b_557,c_558);
     }
     # 3984 "tccgen.c"
-    else if(_elif_conditional178=tok==(270),    _elif_conditional178) {
+    else if(tok==(270)) {
         # 3985 "tccgen.c"
         next();
         # 3986 "tccgen.c"
@@ -20807,7 +19484,7 @@ memset(&e_564, 0, sizeof(int));
         skip(59);
     }
     # 4000 "tccgen.c"
-    else if(_elif_conditional179=tok==(272),    _elif_conditional179) {
+    else if(tok==(272)) {
         # 4001 "tccgen.c"
         next();
         # 4002 "tccgen.c"
@@ -20830,7 +19507,7 @@ memset(&e_564, 0, sizeof(int));
         block(&a_556,csym,&b_557,&c_558,case_reg,0);
         # 4016 "tccgen.c"
         # 4013 "tccgen.c"
-        if(_if_conditional803=c_558==0,        _if_conditional803) {
+        if(c_558==0) {
             # 4014 "tccgen.c"
             c_558=ind;
         }
@@ -20840,11 +19517,11 @@ memset(&e_564, 0, sizeof(int));
         gsym(a_556);
     }
     # 4020 "tccgen.c"
-    else if(_elif_conditional180=tok==(273),    _elif_conditional180) {
+    else if(tok==(273)) {
         # 4021 "tccgen.c"
         # 4024 "tccgen.c"
         # 4022 "tccgen.c"
-        if(_if_conditional804=!case_sym,        _if_conditional804) {
+        if(!case_sym) {
             # 4023 "tccgen.c"
             expect("switch");
         }
@@ -20856,14 +19533,14 @@ memset(&e_564, 0, sizeof(int));
         v2_566=v1_565;
         # 4034 "tccgen.c"
         # 4027 "tccgen.c"
-        if(_if_conditional805=gnu_ext&&tok==204,        _if_conditional805) {
+        if(gnu_ext&&tok==204) {
             # 4028 "tccgen.c"
             next();
             # 4029 "tccgen.c"
             v2_566=expr_const();
             # 4032 "tccgen.c"
             # 4030 "tccgen.c"
-            if(_if_conditional806=v2_566<v1_565,            _if_conditional806) {
+            if(v2_566<v1_565) {
                 # 4031 "tccgen.c"
                 warning("empty case range");
             }
@@ -20878,7 +19555,7 @@ memset(&e_564, 0, sizeof(int));
         vpushi(v1_565);
         # 4049 "tccgen.c"
         # 4038 "tccgen.c"
-        if(_if_conditional807=v1_565==v2_566,        _if_conditional807) {
+        if(v1_565==v2_566) {
             # 4039 "tccgen.c"
             gen_op(148);
             # 4040 "tccgen.c"
@@ -20908,20 +19585,20 @@ memset(&e_564, 0, sizeof(int));
         goto block_after_label;
     }
     # 4054 "tccgen.c"
-    else if(_elif_conditional181=tok==(300),    _elif_conditional181) {
+    else if(tok==(300)) {
         # 4055 "tccgen.c"
         next();
         # 4056 "tccgen.c"
         skip(58);
         # 4059 "tccgen.c"
         # 4057 "tccgen.c"
-        if(_if_conditional808=!def_sym,        _if_conditional808) {
+        if(!def_sym) {
             # 4058 "tccgen.c"
             expect("switch");
         }
         # 4061 "tccgen.c"
         # 4059 "tccgen.c"
-        if(_if_conditional809=*def_sym,        _if_conditional809) {
+        if(*def_sym) {
             # 4060 "tccgen.c"
             error("too many 'default'");
         }
@@ -20933,19 +19610,19 @@ memset(&e_564, 0, sizeof(int));
         goto block_after_label;
     }
     # 4065 "tccgen.c"
-    else if(_elif_conditional182=tok==(269),    _elif_conditional182) {
+    else if(tok==(269)) {
         # 4066 "tccgen.c"
         next();
         # 4092 "tccgen.c"
         # 4067 "tccgen.c"
-        if(_if_conditional810=tok==42&&gnu_ext,        _if_conditional810) {
+        if(tok==42&&gnu_ext) {
             # 4069 "tccgen.c"
             next();
             # 4070 "tccgen.c"
             gexpr();
             # 4073 "tccgen.c"
             # 4071 "tccgen.c"
-            if(_if_conditional811=(vtop->type.t&15)!=4,            _if_conditional811) {
+            if((vtop->type.t&15)!=4) {
                 # 4072 "tccgen.c"
                 expect("pointer");
             }
@@ -20953,26 +19630,26 @@ memset(&e_564, 0, sizeof(int));
             ggoto();
         }
         # 4074 "tccgen.c"
-        else if(_elif_conditional183=tok>=(314),        _elif_conditional183) {
+        else if(tok>=(314)) {
             # 4075 "tccgen.c"
             s_560=label_find(tok);
             # 4084 "tccgen.c"
             # 4077 "tccgen.c"
-            if(_if_conditional812=!s_560,            _if_conditional812) {
+            if(!s_560) {
                 # 4078 "tccgen.c"
                 s_560=label_push(&global_label_stack,tok,1);
             }
             else {
                 # 4082 "tccgen.c"
                 # 4080 "tccgen.c"
-                if(_if_conditional813=s_560->r==2,                _if_conditional813) {
+                if(s_560->r==2) {
                     # 4081 "tccgen.c"
                     s_560->r=1;
                 }
             }
             # 4088 "tccgen.c"
             # 4084 "tccgen.c"
-            if(_if_conditional814=s_560->r&1,            _if_conditional814) {
+            if(s_560->r&1) {
                 # 4085 "tccgen.c"
                 s_560->next=(void*)gjmp((long)s_560->next);
             }
@@ -20991,7 +19668,7 @@ memset(&e_564, 0, sizeof(int));
         skip(59);
     }
     # 4093 "tccgen.c"
-    else if(_elif_conditional184=tok==(311)||tok==(312)||tok==(313),    _elif_conditional184) {
+    else if(tok==(311)||tok==(312)||tok==(313)) {
         # 4094 "tccgen.c"
         asm_instr();
     }
@@ -21008,7 +19685,7 @@ memset(&e_564, 0, sizeof(int));
             if(s_560) {
                 # 4103 "tccgen.c"
                 # 4101 "tccgen.c"
-                if(_if_conditional817=s_560->r==0,                _if_conditional817) {
+                if(s_560->r==0) {
                     # 4102 "tccgen.c"
                     error("duplicate label '%s'",get_tok_str(s_560->v,((void*)0)));
                 }
@@ -21027,7 +19704,7 @@ memset(&e_564, 0, sizeof(int));
             block_after_label:
             # 4118 "tccgen.c"
             # 4111 "tccgen.c"
-            if(_if_conditional818=tok==125,            _if_conditional818) {
+            if(tok==125) {
                 # 4112 "tccgen.c"
                 warning("deprecated use of label at end of compound statement");
             }
@@ -21045,7 +19722,7 @@ memset(&e_564, 0, sizeof(int));
         else {
             # 4129 "tccgen.c"
             # 4120 "tccgen.c"
-            if(_if_conditional820=tok!=59,            _if_conditional820) {
+            if(tok!=59) {
                 # 4128 "tccgen.c"
                 # 4121 "tccgen.c"
                 if(is_expr) {
@@ -21068,7 +19745,6 @@ memset(&e_564, 0, sizeof(int));
 }
 
 static void decl_designator(struct CType* type, struct Section* sec, unsigned long int c, int* cur_index, struct Sym** cur_field, int size_only){
-void* __result_obj__;
 struct Sym* s_567;
 struct Sym* f_568;
 int notfirst_569;
@@ -21079,34 +19755,23 @@ int l_573;
 int nb_elems_574;
 int elem_size_575;
 struct CType type1_576;
-_Bool _if_conditional822;
-_Bool _while_condtional67;
-_Bool _if_conditional823;
-_Bool _if_conditional824;
-_Bool _if_conditional825;
-_Bool _if_conditional826;
-_Bool _if_conditional827;
-_Bool _if_conditional828;
-_Bool _if_conditional829;
-_Bool _if_conditional830;
-_Bool _if_conditional831;
-_Bool _if_conditional832;
-_Bool _if_conditional833;
-_Bool _if_conditional834;
-_Bool _if_conditional835;
-_Bool _if_conditional836;
-_Bool _if_conditional837;
-_Bool _if_conditional838;
-_Bool _if_conditional839;
 unsigned long int c_end_577;
 unsigned char* src_578;
 unsigned char* dst_579;
 int i_580;
-_Bool _if_conditional840;
-_Bool _if_conditional841;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&s_567, 0, sizeof(struct Sym*));
+memset(&f_568, 0, sizeof(struct Sym*));
+memset(&notfirst_569, 0, sizeof(int));
+memset(&index_570, 0, sizeof(int));
+memset(&index_last_571, 0, sizeof(int));
+memset(&align_572, 0, sizeof(int));
+memset(&l_573, 0, sizeof(int));
+memset(&nb_elems_574, 0, sizeof(int));
+memset(&elem_size_575, 0, sizeof(int));
 memset(&type1_576, 0, sizeof(struct CType));
 memset(&c_end_577, 0, sizeof(unsigned long int));
+memset(&src_578, 0, sizeof(unsigned char*));
+memset(&dst_579, 0, sizeof(unsigned char*));
 memset(&i_580, 0, sizeof(int));
     # 4142 "tccgen.c"
     # 4143 "tccgen.c"
@@ -21119,18 +19784,18 @@ memset(&i_580, 0, sizeof(int));
     nb_elems_574=1;
     # 4151 "tccgen.c"
     # 4149 "tccgen.c"
-    if(_if_conditional822=gnu_ext&&(l_573=is_label())!=0,    _if_conditional822) {
+    if(gnu_ext&&(l_573=is_label())!=0) {
         # 4150 "tccgen.c"
         goto struct_field;
     }
     # 4209 "tccgen.c"
-    while(_while_condtional67=tok==91||tok==46,    _while_condtional67) {
+    while(tok==91||tok==46) {
         # 4207 "tccgen.c"
         # 4152 "tccgen.c"
-        if(_if_conditional823=tok==91,        _if_conditional823) {
+        if(tok==91) {
             # 4155 "tccgen.c"
             # 4153 "tccgen.c"
-            if(_if_conditional824=!(type->t&32),            _if_conditional824) {
+            if(!(type->t&32)) {
                 # 4154 "tccgen.c"
                 expect("array type");
             }
@@ -21142,20 +19807,20 @@ memset(&i_580, 0, sizeof(int));
             index_570=expr_const();
             # 4160 "tccgen.c"
             # 4158 "tccgen.c"
-            if(_if_conditional825=index_570<0||(s_567->c>=0&&index_570>=s_567->c),            _if_conditional825) {
+            if(index_570<0||(s_567->c>=0&&index_570>=s_567->c)) {
                 # 4159 "tccgen.c"
                 expect("invalid index");
             }
             # 4170 "tccgen.c"
             # 4160 "tccgen.c"
-            if(_if_conditional826=tok==204&&gnu_ext,            _if_conditional826) {
+            if(tok==204&&gnu_ext) {
                 # 4161 "tccgen.c"
                 next();
                 # 4162 "tccgen.c"
                 index_last_571=expr_const();
                 # 4167 "tccgen.c"
                 # 4165 "tccgen.c"
-                if(_if_conditional827=index_last_571<0||(s_567->c>=0&&index_last_571>=s_567->c)||index_last_571<index_570,                _if_conditional827) {
+                if(index_last_571<0||(s_567->c>=0&&index_last_571>=s_567->c)||index_last_571<index_570) {
                     # 4166 "tccgen.c"
                     expect("invalid index");
                 }
@@ -21168,7 +19833,7 @@ memset(&i_580, 0, sizeof(int));
             skip(93);
             # 4173 "tccgen.c"
             # 4171 "tccgen.c"
-            if(_if_conditional828=!notfirst_569,            _if_conditional828) {
+            if(!notfirst_569) {
                 # 4172 "tccgen.c"
                 *cur_index=index_last_571;
             }
@@ -21182,7 +19847,7 @@ memset(&i_580, 0, sizeof(int));
             nb_elems_574=index_last_571-index_570+1;
             # 4182 "tccgen.c"
             # 4178 "tccgen.c"
-            if(_if_conditional829=nb_elems_574!=1,            _if_conditional829) {
+            if(nb_elems_574!=1) {
                 # 4179 "tccgen.c"
                 notfirst_569=1;
                 # 4180 "tccgen.c"
@@ -21200,7 +19865,7 @@ memset(&i_580, 0, sizeof(int));
             struct_field:
             # 4189 "tccgen.c"
             # 4187 "tccgen.c"
-            if(_if_conditional830=(type->t&15)!=7,            _if_conditional830) {
+            if((type->t&15)!=7) {
                 # 4188 "tccgen.c"
                 expect("struct/union type");
             }
@@ -21214,7 +19879,7 @@ memset(&i_580, 0, sizeof(int));
             while(f_568) {
                 # 4195 "tccgen.c"
                 # 4193 "tccgen.c"
-                if(_if_conditional831=f_568->v==l_573,                _if_conditional831) {
+                if(f_568->v==l_573) {
                     # 4194 "tccgen.c"
                     break;
                 }
@@ -21223,13 +19888,13 @@ memset(&i_580, 0, sizeof(int));
             }
             # 4199 "tccgen.c"
             # 4197 "tccgen.c"
-            if(_if_conditional832=!f_568,            _if_conditional832) {
+            if(!f_568) {
                 # 4198 "tccgen.c"
                 expect("field");
             }
             # 4202 "tccgen.c"
             # 4199 "tccgen.c"
-            if(_if_conditional833=!notfirst_569,            _if_conditional833) {
+            if(!notfirst_569) {
                 # 4200 "tccgen.c"
                 *cur_field=f_568;
             }
@@ -21250,14 +19915,14 @@ memset(&i_580, 0, sizeof(int));
     if(notfirst_569) {
         # 4216 "tccgen.c"
         # 4210 "tccgen.c"
-        if(_if_conditional835=tok==61,        _if_conditional835) {
+        if(tok==61) {
             # 4211 "tccgen.c"
             next();
         }
         else {
             # 4215 "tccgen.c"
             # 4213 "tccgen.c"
-            if(_if_conditional836=!gnu_ext,            _if_conditional836) {
+            if(!gnu_ext) {
                 # 4214 "tccgen.c"
                 expect("=");
             }
@@ -21266,7 +19931,7 @@ memset(&i_580, 0, sizeof(int));
     else {
         # 4231 "tccgen.c"
         # 4217 "tccgen.c"
-        if(_if_conditional837=type->t&32,        _if_conditional837) {
+        if(type->t&32) {
             # 4218 "tccgen.c"
             index_570=*cur_index;
             # 4219 "tccgen.c"
@@ -21279,7 +19944,7 @@ memset(&i_580, 0, sizeof(int));
             f_568=*cur_field;
             # 4226 "tccgen.c"
             # 4223 "tccgen.c"
-            if(_if_conditional838=!f_568,            _if_conditional838) {
+            if(!f_568) {
                 # 4224 "tccgen.c"
                 error("too many field init");
             }
@@ -21297,13 +19962,13 @@ memset(&i_580, 0, sizeof(int));
     decl_initializer(type,sec,c,0,size_only);
     # 4252 "tccgen.c"
     # 4235 "tccgen.c"
-    if(_if_conditional839=!size_only&&nb_elems_574>1,    _if_conditional839) {
+    if(!size_only&&nb_elems_574>1) {
         # 4236 "tccgen.c"
         # 4237 "tccgen.c"
         # 4238 "tccgen.c"
         # 4242 "tccgen.c"
         # 4240 "tccgen.c"
-        if(_if_conditional840=!sec,        _if_conditional840) {
+        if(!sec) {
             # 4241 "tccgen.c"
             error("range init not supported yet for dynamic storage");
         }
@@ -21311,7 +19976,7 @@ memset(&i_580, 0, sizeof(int));
         c_end_577=c+nb_elems_574*elem_size_575;
         # 4245 "tccgen.c"
         # 4243 "tccgen.c"
-        if(_if_conditional841=c_end_577>sec->data_allocated,        _if_conditional841) {
+        if(c_end_577>sec->data_allocated) {
             # 4244 "tccgen.c"
             section_realloc(sec,c_end_577);
         }
@@ -21331,7 +19996,6 @@ memset(&i_580, 0, sizeof(int));
 }
 
 static void init_putv(struct CType* type, struct Section* sec, unsigned long int c, int v, int expr_type){
-void* __result_obj__;
 int saved_global_expr_581;
 int bt_582;
 int bit_pos_583;
@@ -21339,13 +20003,10 @@ int bit_size_584;
 void* ptr_585;
 unsigned long long bit_mask_586;
 struct CType dtype_587;
-_Bool _if_conditional842;
-_Bool _if_conditional843;
-_Bool _if_conditional844;
-_Bool _if_conditional845;
-_Bool _if_conditional846;
-_Bool _if_conditional847;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&saved_global_expr_581, 0, sizeof(int));
+memset(&bt_582, 0, sizeof(int));
+memset(&bit_pos_583, 0, sizeof(int));
+memset(&bit_size_584, 0, sizeof(int));
 memset(&ptr_585, 0, sizeof(void*));
 memset(&bit_mask_586, 0, sizeof(unsigned long long));
 memset(&dtype_587, 0, sizeof(struct CType));
@@ -21373,7 +20034,7 @@ memset(&dtype_587, 0, sizeof(struct CType));
         global_expr=saved_global_expr_581;
         # 4280 "tccgen.c"
         # 4278 "tccgen.c"
-        if(_if_conditional842=(vtop->r&(255|256))!=240,        _if_conditional842) {
+        if((vtop->r&(255|256))!=240) {
             # 4279 "tccgen.c"
             error("initializer element is not constant");
         }
@@ -21399,7 +20060,7 @@ memset(&dtype_587, 0, sizeof(struct CType));
         bt_582=type->t&15;
         # 4298 "tccgen.c"
         # 4295 "tccgen.c"
-        if(_if_conditional844=c+12>sec->data_allocated,        _if_conditional844) {
+        if(c+12>sec->data_allocated) {
             # 4296 "tccgen.c"
             section_realloc(sec,c+12);
         }
@@ -21407,7 +20068,7 @@ memset(&dtype_587, 0, sizeof(struct CType));
         ptr_585=sec->data+c;
         # 4309 "tccgen.c"
         # 4300 "tccgen.c"
-        if(_if_conditional845=!(type->t&64),        _if_conditional845) {
+        if(!(type->t&64)) {
             # 4301 "tccgen.c"
             bit_pos_583=0;
             # 4302 "tccgen.c"
@@ -21425,7 +20086,7 @@ memset(&dtype_587, 0, sizeof(struct CType));
         }
         # 4317 "tccgen.c"
         # 4315 "tccgen.c"
-        if(_if_conditional846=(vtop->r&512)&&(bt_582==1||bt_582==2||bt_582==9||bt_582==10||bt_582==12||(bt_582==0&&bit_size_584!=32)),        _if_conditional846) {
+        if((vtop->r&512)&&(bt_582==1||bt_582==2||bt_582==9||bt_582==10||bt_582==12||(bt_582==0&&bit_size_584!=32))) {
             # 4316 "tccgen.c"
             error("initializer element is not computable at load time");
         }
@@ -21469,7 +20130,7 @@ memset(&dtype_587, 0, sizeof(struct CType));
             default:
             # 4339 "tccgen.c"
             # 4336 "tccgen.c"
-            if(_if_conditional847=vtop->r&512,            _if_conditional847) {
+            if(vtop->r&512) {
                 # 4337 "tccgen.c"
                 greloc(sec,vtop->sym,c,1);
             }
@@ -21495,9 +20156,6 @@ memset(&dtype_587, 0, sizeof(struct CType));
 }
 
 static void init_putz(struct CType* t, struct Section* sec, unsigned long int c, int size){
-void* __result_obj__;
-_Bool _if_conditional848;
-memset(&__result_obj__, 0, sizeof(void*));
     # 4363 "tccgen.c"
     # 4354 "tccgen.c"
     if(sec) {
@@ -21517,7 +20175,6 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 static void decl_initializer(struct CType* type, struct Section* sec, unsigned long int c, int first, int size_only){
-void* __result_obj__;
 int index_588;
 int array_length_589;
 int n_590;
@@ -21531,52 +20188,27 @@ int expr_type_597;
 struct Sym* s_598;
 struct Sym* f_599;
 struct CType* t1_600;
-_Bool _if_conditional849;
-_Bool _if_conditional850;
-_Bool _if_conditional851;
-_Bool _while_condtional68;
 int cstr_len_601;
 int ch_602;
 struct CString* cstr_603;
-_Bool _if_conditional852;
-_Bool _if_conditional853;
-_Bool _if_conditional854;
-_Bool _if_conditional855;
-_Bool _if_conditional856;
-_Bool _if_conditional857;
-_Bool _if_conditional858;
-_Bool _if_conditional859;
-_Bool _while_condtional69;
-_Bool _if_conditional860;
-_Bool _if_conditional861;
-_Bool _if_conditional862;
-_Bool _if_conditional863;
-_Bool _if_conditional864;
-_Bool _if_conditional865;
-_Bool _if_conditional866;
-_Bool _if_conditional867;
-_Bool _elif_conditional185;
 int par_count_604;
-_Bool _if_conditional868;
 struct AttributeDef ad1_605;
 struct CType type1_606;
-_Bool _while_condtional70;
-_Bool _if_conditional869;
-_Bool _if_conditional870;
-_Bool _while_condtional71;
-_Bool _if_conditional871;
-_Bool _if_conditional872;
-_Bool _if_conditional873;
-_Bool _if_conditional874;
-_Bool _if_conditional875;
-_Bool _if_conditional876;
-_Bool _elif_conditional186;
-_Bool _while_condtional72;
-_Bool _if_conditional877;
-_Bool _elif_conditional187;
-_Bool _if_conditional878;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&index_588, 0, sizeof(int));
+memset(&array_length_589, 0, sizeof(int));
+memset(&n_590, 0, sizeof(int));
+memset(&no_oblock_591, 0, sizeof(int));
+memset(&nb_592, 0, sizeof(int));
+memset(&parlevel_593, 0, sizeof(int));
+memset(&i_594, 0, sizeof(int));
+memset(&size1_595, 0, sizeof(int));
+memset(&align1_596, 0, sizeof(int));
+memset(&expr_type_597, 0, sizeof(int));
+memset(&s_598, 0, sizeof(struct Sym*));
+memset(&f_599, 0, sizeof(struct Sym*));
 memset(&t1_600, 0, sizeof(struct CType*));
+memset(&cstr_len_601, 0, sizeof(int));
+memset(&ch_602, 0, sizeof(int));
 memset(&cstr_603, 0, sizeof(struct CString*));
 memset(&par_count_604, 0, sizeof(int));
 memset(&ad1_605, 0, sizeof(struct AttributeDef));
@@ -21587,7 +20219,7 @@ memset(&type1_606, 0, sizeof(struct CType));
     # 4376 "tccgen.c"
     # 4571 "tccgen.c"
     # 4378 "tccgen.c"
-    if(_if_conditional849=type->t&32,    _if_conditional849) {
+    if(type->t&32) {
         # 4379 "tccgen.c"
         s_598=type->ref;
         # 4380 "tccgen.c"
@@ -21602,7 +20234,7 @@ memset(&type1_606, 0, sizeof(struct CType));
         no_oblock_591=1;
         # 4394 "tccgen.c"
         # 4387 "tccgen.c"
-        if(_if_conditional850=(first&&tok!=184&&tok!=181)||tok==123,        _if_conditional850) {
+        if((first&&tok!=184&&tok!=181)||tok==123) {
             # 4388 "tccgen.c"
             skip(123);
             # 4389 "tccgen.c"
@@ -21610,16 +20242,16 @@ memset(&type1_606, 0, sizeof(struct CType));
         }
         # 4470 "tccgen.c"
         # 4400 "tccgen.c"
-        if(_if_conditional851=(tok==184&&(t1_600->t&15)==0)||(tok==181&&(t1_600->t&15)==1),        _if_conditional851) {
+        if((tok==184&&(t1_600->t&15)==0)||(tok==181&&(t1_600->t&15)==1)) {
             # 4439 "tccgen.c"
-            while(_while_condtional68=tok==181||tok==184,            _while_condtional68) {
+            while(tok==181||tok==184) {
                 # 4402 "tccgen.c"
                 # 4403 "tccgen.c"
                 # 4405 "tccgen.c"
                 cstr_603=tokc.cstr;
                 # 4411 "tccgen.c"
                 # 4407 "tccgen.c"
-                if(_if_conditional852=tok==181,                _if_conditional852) {
+                if(tok==181) {
                     # 4408 "tccgen.c"
                     cstr_len_601=cstr_603->size;
                 }
@@ -21633,22 +20265,22 @@ memset(&type1_606, 0, sizeof(struct CType));
                 nb_592=cstr_len_601;
                 # 4415 "tccgen.c"
                 # 4413 "tccgen.c"
-                if(_if_conditional853=n_590>=0&&nb_592>(n_590-array_length_589),                _if_conditional853) {
+                if(n_590>=0&&nb_592>(n_590-array_length_589)) {
                     # 4414 "tccgen.c"
                     nb_592=n_590-array_length_589;
                 }
                 # 4434 "tccgen.c"
                 # 4415 "tccgen.c"
-                if(_if_conditional854=!size_only,                _if_conditional854) {
+                if(!size_only) {
                     # 4421 "tccgen.c"
                     # 4416 "tccgen.c"
-                    if(_if_conditional855=cstr_len_601>nb_592,                    _if_conditional855) {
+                    if(cstr_len_601>nb_592) {
                         # 4417 "tccgen.c"
                         warning("initializer-string for array is too long");
                     }
                     # 4433 "tccgen.c"
                     # 4421 "tccgen.c"
-                    if(_if_conditional856=sec&&tok==181&&size1_595==1,                    _if_conditional856) {
+                    if(sec&&tok==181&&size1_595==1) {
                         # 4422 "tccgen.c"
                         memcpy(sec->data+c+array_length_589,cstr_603->data,nb_592);
                     }
@@ -21657,7 +20289,7 @@ memset(&type1_606, 0, sizeof(struct CType));
                         for(                        i_594=0;                        i_594<nb_592;                        i_594++                        ){
                             # 4429 "tccgen.c"
                             # 4425 "tccgen.c"
-                            if(_if_conditional857=tok==181,                            _if_conditional857) {
+                            if(tok==181) {
                                 # 4426 "tccgen.c"
                                 ch_602=((unsigned char*)cstr_603->data)[i_594];
                             }
@@ -21677,10 +20309,10 @@ memset(&type1_606, 0, sizeof(struct CType));
             }
             # 4445 "tccgen.c"
             # 4439 "tccgen.c"
-            if(_if_conditional858=n_590<0||array_length_589<n_590,            _if_conditional858) {
+            if(n_590<0||array_length_589<n_590) {
                 # 4443 "tccgen.c"
                 # 4440 "tccgen.c"
-                if(_if_conditional859=!size_only,                _if_conditional859) {
+                if(!size_only) {
                     # 4441 "tccgen.c"
                     init_putv(t1_600,sec,c+(array_length_589*size1_595),0,0);
                 }
@@ -21692,18 +20324,18 @@ memset(&type1_606, 0, sizeof(struct CType));
             # 4446 "tccgen.c"
             index_588=0;
             # 4469 "tccgen.c"
-            while(_while_condtional69=tok!=125,            _while_condtional69) {
+            while(tok!=125) {
                 # 4448 "tccgen.c"
                 decl_designator(type,sec,c,&index_588,((void*)0),size_only);
                 # 4453 "tccgen.c"
                 # 4449 "tccgen.c"
-                if(_if_conditional860=n_590>=0&&index_588>=n_590,                _if_conditional860) {
+                if(n_590>=0&&index_588>=n_590) {
                     # 4450 "tccgen.c"
                     error("index too large");
                 }
                 # 4457 "tccgen.c"
                 # 4453 "tccgen.c"
-                if(_if_conditional861=!size_only&&array_length_589<index_588,                _if_conditional861) {
+                if(!size_only&&array_length_589<index_588) {
                     # 4455 "tccgen.c"
                     init_putz(t1_600,sec,c+array_length_589*size1_595,(index_588-array_length_589)*size1_595);
                 }
@@ -21711,19 +20343,19 @@ memset(&type1_606, 0, sizeof(struct CType));
                 index_588++;
                 # 4463 "tccgen.c"
                 # 4458 "tccgen.c"
-                if(_if_conditional862=index_588>array_length_589,                _if_conditional862) {
+                if(index_588>array_length_589) {
                     # 4459 "tccgen.c"
                     array_length_589=index_588;
                 }
                 # 4465 "tccgen.c"
                 # 4463 "tccgen.c"
-                if(_if_conditional863=index_588>=n_590&&no_oblock_591,                _if_conditional863) {
+                if(index_588>=n_590&&no_oblock_591) {
                     # 4464 "tccgen.c"
                     break;
                 }
                 # 4467 "tccgen.c"
                 # 4465 "tccgen.c"
-                if(_if_conditional864=tok==125,                _if_conditional864) {
+                if(tok==125) {
                     # 4466 "tccgen.c"
                     break;
                 }
@@ -21733,37 +20365,37 @@ memset(&type1_606, 0, sizeof(struct CType));
         }
         # 4473 "tccgen.c"
         # 4470 "tccgen.c"
-        if(_if_conditional865=!no_oblock_591,        _if_conditional865) {
+        if(!no_oblock_591) {
             # 4471 "tccgen.c"
             skip(125);
         }
         # 4478 "tccgen.c"
         # 4473 "tccgen.c"
-        if(_if_conditional866=!size_only&&n_590>=0&&array_length_589<n_590,        _if_conditional866) {
+        if(!size_only&&n_590>=0&&array_length_589<n_590) {
             # 4475 "tccgen.c"
             init_putz(t1_600,sec,c+array_length_589*size1_595,(n_590-array_length_589)*size1_595);
         }
         # 4480 "tccgen.c"
         # 4478 "tccgen.c"
-        if(_if_conditional867=n_590<0,        _if_conditional867) {
+        if(n_590<0) {
             # 4479 "tccgen.c"
             s_598->c=array_length_589;
         }
     }
     # 4481 "tccgen.c"
-    else if(_elif_conditional185=(type->t&15)==7&&(sec||!first||tok==123),    _elif_conditional185) {
+    else if((type->t&15)==7&&(sec||!first||tok==123)) {
         # 4482 "tccgen.c"
         # 4492 "tccgen.c"
         par_count_604=0;
         # 4510 "tccgen.c"
         # 4493 "tccgen.c"
-        if(_if_conditional868=tok==40,        _if_conditional868) {
+        if(tok==40) {
             # 4494 "tccgen.c"
             # 4495 "tccgen.c"
             # 4496 "tccgen.c"
             next();
             # 4501 "tccgen.c"
-            while(_while_condtional70=tok==40,            _while_condtional70) {
+            while(tok==40) {
                 # 4498 "tccgen.c"
                 par_count_604++;
                 # 4499 "tccgen.c"
@@ -21771,7 +20403,7 @@ memset(&type1_606, 0, sizeof(struct CType));
             }
             # 4503 "tccgen.c"
             # 4501 "tccgen.c"
-            if(_if_conditional869=!parse_btype(&type1_606,&ad1_605),            _if_conditional869) {
+            if(!parse_btype(&type1_606,&ad1_605)) {
                 # 4502 "tccgen.c"
                 expect("cast");
             }
@@ -21786,7 +20418,7 @@ memset(&type1_606, 0, sizeof(struct CType));
         no_oblock_591=1;
         # 4515 "tccgen.c"
         # 4511 "tccgen.c"
-        if(_if_conditional870=first||tok==123,        _if_conditional870) {
+        if(first||tok==123) {
             # 4512 "tccgen.c"
             skip(123);
             # 4513 "tccgen.c"
@@ -21803,14 +20435,14 @@ memset(&type1_606, 0, sizeof(struct CType));
         # 4519 "tccgen.c"
         n_590=s_598->c;
         # 4538 "tccgen.c"
-        while(_while_condtional71=tok!=125,        _while_condtional71) {
+        while(tok!=125) {
             # 4521 "tccgen.c"
             decl_designator(type,sec,c,((void*)0),&f_599,size_only);
             # 4522 "tccgen.c"
             index_588=f_599->c;
             # 4527 "tccgen.c"
             # 4523 "tccgen.c"
-            if(_if_conditional871=!size_only&&array_length_589<index_588,            _if_conditional871) {
+            if(!size_only&&array_length_589<index_588) {
                 # 4525 "tccgen.c"
                 init_putz(type,sec,c+array_length_589,index_588-array_length_589);
             }
@@ -21818,7 +20450,7 @@ memset(&type1_606, 0, sizeof(struct CType));
             index_588=index_588+type_size(&f_599->type,&align1_596);
             # 4530 "tccgen.c"
             # 4528 "tccgen.c"
-            if(_if_conditional872=index_588>array_length_589,            _if_conditional872) {
+            if(index_588>array_length_589) {
                 # 4529 "tccgen.c"
                 array_length_589=index_588;
             }
@@ -21826,13 +20458,13 @@ memset(&type1_606, 0, sizeof(struct CType));
             f_599=f_599->next;
             # 4533 "tccgen.c"
             # 4531 "tccgen.c"
-            if(_if_conditional873=no_oblock_591&&f_599==((void*)0),            _if_conditional873) {
+            if(no_oblock_591&&f_599==((void*)0)) {
                 # 4532 "tccgen.c"
                 break;
             }
             # 4535 "tccgen.c"
             # 4533 "tccgen.c"
-            if(_if_conditional874=tok==125,            _if_conditional874) {
+            if(tok==125) {
                 # 4534 "tccgen.c"
                 break;
             }
@@ -21841,13 +20473,13 @@ memset(&type1_606, 0, sizeof(struct CType));
         }
         # 4542 "tccgen.c"
         # 4538 "tccgen.c"
-        if(_if_conditional875=!size_only&&array_length_589<n_590,        _if_conditional875) {
+        if(!size_only&&array_length_589<n_590) {
             # 4540 "tccgen.c"
             init_putz(type,sec,c+array_length_589,n_590-array_length_589);
         }
         # 4544 "tccgen.c"
         # 4542 "tccgen.c"
-        if(_if_conditional876=!no_oblock_591,        _if_conditional876) {
+        if(!no_oblock_591) {
             # 4543 "tccgen.c"
             skip(125);
         }
@@ -21860,7 +20492,7 @@ memset(&type1_606, 0, sizeof(struct CType));
         }
     }
     # 4548 "tccgen.c"
-    else if(_elif_conditional186=tok==123,    _elif_conditional186) {
+    else if(tok==123) {
         # 4549 "tccgen.c"
         next();
         # 4550 "tccgen.c"
@@ -21873,15 +20505,15 @@ memset(&type1_606, 0, sizeof(struct CType));
         # 4554 "tccgen.c"
         parlevel_593=0;
         # 4563 "tccgen.c"
-        while(_while_condtional72=(parlevel_593>0||(tok!=125&&tok!=44))&&tok!=-1,        _while_condtional72) {
+        while((parlevel_593>0||(tok!=125&&tok!=44))&&tok!=-1) {
             # 4561 "tccgen.c"
             # 4557 "tccgen.c"
-            if(_if_conditional877=tok==40,            _if_conditional877) {
+            if(tok==40) {
                 # 4558 "tccgen.c"
                 parlevel_593++;
             }
             # 4559 "tccgen.c"
-            else if(_elif_conditional187=tok==41,            _elif_conditional187) {
+            else if(tok==41) {
                 # 4560 "tccgen.c"
                 parlevel_593--;
             }
@@ -21894,7 +20526,7 @@ memset(&type1_606, 0, sizeof(struct CType));
         expr_type_597=1;
         # 4569 "tccgen.c"
         # 4567 "tccgen.c"
-        if(_if_conditional878=!sec,        _if_conditional878) {
+        if(!sec) {
             # 4568 "tccgen.c"
             expr_type_597=2;
         }
@@ -21904,7 +20536,6 @@ memset(&type1_606, 0, sizeof(struct CType));
 }
 
 static void decl_initializer_alloc(struct CType* type, struct AttributeDef* ad, int r, int has_init, int v, int scope){
-void* __result_obj__;
 int size_607;
 int align_608;
 int addr_609;
@@ -21912,46 +20543,15 @@ int data_offset_610;
 int level_611;
 struct TokenString init_str_613;
 struct Section* sec_614;
-_Bool _if_conditional879;
-_Bool _if_conditional880;
-_Bool _if_conditional881;
-_Bool _while_condtional73;
-_Bool _while_condtional74;
-_Bool _if_conditional882;
-_Bool _if_conditional883;
-_Bool _elif_conditional188;
-_Bool _if_conditional884;
-_Bool _if_conditional885;
-_Bool _if_conditional886;
-_Bool _if_conditional887;
-_Bool _if_conditional888;
-_Bool _if_conditional889;
-_Bool _if_conditional890;
 unsigned long int* bounds_ptr_615;
-_Bool _if_conditional891;
 struct Sym* sym_616;
-_Bool _if_conditional892;
-_Bool _if_conditional893;
-_Bool _if_conditional894;
-_Bool _if_conditional895;
-_Bool _if_conditional896;
-_Bool _if_conditional897;
-_Bool _if_conditional898;
-_Bool _if_conditional899;
-_Bool _if_conditional900;
-_Bool _if_conditional901;
-_Bool _if_conditional902;
-_Bool _if_conditional903;
-_Bool _if_conditional904;
-_Bool _if_conditional905;
-_Bool _if_conditional906;
 struct anonymous_typeX66* esym_617;
 union CValue cval_618;
-_Bool _if_conditional907;
 unsigned long int* bounds_ptr_619;
-_Bool _if_conditional908;
-_Bool _if_conditional909;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&size_607, 0, sizeof(int));
+memset(&align_608, 0, sizeof(int));
+memset(&addr_609, 0, sizeof(int));
+memset(&data_offset_610, 0, sizeof(int));
 memset(&level_611, 0, sizeof(int));
 memset(&init_str_613, 0, sizeof(struct TokenString));
 memset(&sec_614, 0, sizeof(struct Section*));
@@ -21972,18 +20572,18 @@ memset(&bounds_ptr_619, 0, sizeof(unsigned long int*));
     tok_str_new(&init_str_613);
     # 4644 "tccgen.c"
     # 4597 "tccgen.c"
-    if(_if_conditional879=size_607<0,    _if_conditional879) {
+    if(size_607<0) {
         # 4601 "tccgen.c"
         # 4598 "tccgen.c"
-        if(_if_conditional880=!has_init,        _if_conditional880) {
+        if(!has_init) {
             # 4599 "tccgen.c"
             error("unknown type size");
         }
         # 4625 "tccgen.c"
         # 4601 "tccgen.c"
-        if(_if_conditional881=has_init==2,        _if_conditional881) {
+        if(has_init==2) {
             # 4607 "tccgen.c"
-            while(_while_condtional73=tok==181||tok==184,            _while_condtional73) {
+            while(tok==181||tok==184) {
                 # 4604 "tccgen.c"
                 tok_str_add_tok(&init_str_613);
                 # 4605 "tccgen.c"
@@ -21994,10 +20594,10 @@ memset(&bounds_ptr_619, 0, sizeof(unsigned long int*));
             # 4608 "tccgen.c"
             level_611=0;
             # 4624 "tccgen.c"
-            while(_while_condtional74=level_611>0||(tok!=44&&tok!=59),            _while_condtional74) {
+            while(level_611>0||(tok!=44&&tok!=59)) {
                 # 4612 "tccgen.c"
                 # 4610 "tccgen.c"
-                if(_if_conditional882=tok<0,                _if_conditional882) {
+                if(tok<0) {
                     # 4611 "tccgen.c"
                     error("unexpected end of file in initializer");
                 }
@@ -22005,17 +20605,17 @@ memset(&bounds_ptr_619, 0, sizeof(unsigned long int*));
                 tok_str_add_tok(&init_str_613);
                 # 4622 "tccgen.c"
                 # 4613 "tccgen.c"
-                if(_if_conditional883=tok==123,                _if_conditional883) {
+                if(tok==123) {
                     # 4614 "tccgen.c"
                     level_611++;
                 }
                 # 4615 "tccgen.c"
-                else if(_elif_conditional188=tok==125,                _elif_conditional188) {
+                else if(tok==125) {
                     # 4616 "tccgen.c"
                     level_611--;
                     # 4621 "tccgen.c"
                     # 4617 "tccgen.c"
-                    if(_if_conditional884=level_611<=0,                    _if_conditional884) {
+                    if(level_611<=0) {
                         # 4618 "tccgen.c"
                         next();
                         # 4619 "tccgen.c"
@@ -22046,7 +20646,7 @@ memset(&bounds_ptr_619, 0, sizeof(unsigned long int*));
         size_607=type_size(type,&align_608);
         # 4642 "tccgen.c"
         # 4640 "tccgen.c"
-        if(_if_conditional885=size_607<0,        _if_conditional885) {
+        if(size_607<0) {
             # 4641 "tccgen.c"
             error("unknown type size");
         }
@@ -22056,7 +20656,7 @@ memset(&bounds_ptr_619, 0, sizeof(unsigned long int*));
     if(ad->aligned) {
         # 4647 "tccgen.c"
         # 4645 "tccgen.c"
-        if(_if_conditional887=ad->aligned>align_608,        _if_conditional887) {
+        if(ad->aligned>align_608) {
             # 4646 "tccgen.c"
             align_608=ad->aligned;
         }
@@ -22068,12 +20668,12 @@ memset(&bounds_ptr_619, 0, sizeof(unsigned long int*));
     }
     # 4776 "tccgen.c"
     # 4650 "tccgen.c"
-    if(_if_conditional888=(r&255)==242,    _if_conditional888) {
+    if((r&255)==242) {
         # 4651 "tccgen.c"
         sec_614=((void*)0);
         # 4654 "tccgen.c"
         # 4652 "tccgen.c"
-        if(_if_conditional889=tcc_state->do_bounds_check&&(type->t&32),        _if_conditional889) {
+        if(tcc_state->do_bounds_check&&(type->t&32)) {
             # 4653 "tccgen.c"
             loc--;
         }
@@ -22083,7 +20683,7 @@ memset(&bounds_ptr_619, 0, sizeof(unsigned long int*));
         addr_609=loc;
         # 4668 "tccgen.c"
         # 4659 "tccgen.c"
-        if(_if_conditional890=tcc_state->do_bounds_check&&(type->t&32),        _if_conditional890) {
+        if(tcc_state->do_bounds_check&&(type->t&32)) {
             # 4660 "tccgen.c"
             # 4662 "tccgen.c"
             loc--;
@@ -22111,7 +20711,7 @@ memset(&bounds_ptr_619, 0, sizeof(unsigned long int*));
         sym_616=((void*)0);
         # 4710 "tccgen.c"
         # 4679 "tccgen.c"
-        if(_if_conditional892=v&&scope==240,        _if_conditional892) {
+        if(v&&scope==240) {
             # 4681 "tccgen.c"
             sym_616=sym_find(v);
             # 4707 "tccgen.c"
@@ -22119,18 +20719,18 @@ memset(&bounds_ptr_619, 0, sizeof(unsigned long int*));
             if(sym_616) {
                 # 4686 "tccgen.c"
                 # 4683 "tccgen.c"
-                if(_if_conditional894=!is_compatible_types(&sym_616->type,type),                _if_conditional894) {
+                if(!is_compatible_types(&sym_616->type,type)) {
                     # 4685 "tccgen.c"
                     error("incompatible types for redefinition of '%s'",get_tok_str(v,((void*)0)));
                 }
                 # 4706 "tccgen.c"
                 # 4686 "tccgen.c"
-                if(_if_conditional895=sym_616->type.t&128,                _if_conditional895) {
+                if(sym_616->type.t&128) {
                     # 4688 "tccgen.c"
                     sym_616->type.t&=~128;
                     # 4695 "tccgen.c"
                     # 4693 "tccgen.c"
-                    if(_if_conditional896=(sym_616->type.t&32)&&sym_616->type.ref->c<0&&type->ref->c>=0,                    _if_conditional896) {
+                    if((sym_616->type.t&32)&&sym_616->type.ref->c<0&&type->ref->c>=0) {
                         # 4694 "tccgen.c"
                         sym_616->type.ref->c=type->ref->c;
                     }
@@ -22138,7 +20738,7 @@ memset(&bounds_ptr_619, 0, sizeof(unsigned long int*));
                 else {
                     # 4705 "tccgen.c"
                     # 4703 "tccgen.c"
-                    if(_if_conditional897=!has_init,                    _if_conditional897) {
+                    if(!has_init) {
                         # 4704 "tccgen.c"
                         goto no_alloc;
                     }
@@ -22149,7 +20749,7 @@ memset(&bounds_ptr_619, 0, sizeof(unsigned long int*));
         sec_614=ad->section;
         # 4717 "tccgen.c"
         # 4711 "tccgen.c"
-        if(_if_conditional898=!sec_614,        _if_conditional898) {
+        if(!sec_614) {
             # 4716 "tccgen.c"
             # 4712 "tccgen.c"
             if(has_init) {
@@ -22183,13 +20783,13 @@ memset(&bounds_ptr_619, 0, sizeof(unsigned long int*));
             sec_614->data_offset=data_offset_610;
             # 4733 "tccgen.c"
             # 4730 "tccgen.c"
-            if(_if_conditional902=sec_614->sh_type!=8&&data_offset_610>sec_614->data_allocated,            _if_conditional902) {
+            if(sec_614->sh_type!=8&&data_offset_610>sec_614->data_allocated) {
                 # 4731 "tccgen.c"
                 section_realloc(sec_614,data_offset_610);
             }
             # 4735 "tccgen.c"
             # 4733 "tccgen.c"
-            if(_if_conditional903=align_608>sec_614->sh_addralign,            _if_conditional903) {
+            if(align_608>sec_614->sh_addralign) {
                 # 4734 "tccgen.c"
                 sec_614->sh_addralign=align_608;
             }
@@ -22203,7 +20803,7 @@ memset(&bounds_ptr_619, 0, sizeof(unsigned long int*));
         if(v) {
             # 4744 "tccgen.c"
             # 4740 "tccgen.c"
-            if(_if_conditional905=scope!=240||!sym_616,            _if_conditional905) {
+            if(scope!=240||!sym_616) {
                 # 4741 "tccgen.c"
                 sym_616=sym_push(v,type,r|512,0);
             }
@@ -22268,8 +20868,6 @@ memset(&bounds_ptr_619, 0, sizeof(unsigned long int*));
 }
 
 void put_func_debug(struct Sym* sym){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 4789 "tccgen.c"
     char buf_620[512];
     memset(&buf_620, 0, sizeof(char)    *(512)    );
@@ -22286,38 +20884,31 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 static void func_decl_list(struct Sym* func_sym){
-void* __result_obj__;
 struct AttributeDef ad_621;
 int v_622;
 struct Sym* s_623;
 struct CType btype_624;
 struct CType type_625;
-_Bool _while_condtional75;
-_Bool _if_conditional910;
-_Bool _if_conditional911;
-_Bool _while_condtional76;
-_Bool _if_conditional912;
-_Bool _if_conditional913;
-_Bool _if_conditional914;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&ad_621, 0, sizeof(struct AttributeDef));
 memset(&v_622, 0, sizeof(int));
 memset(&s_623, 0, sizeof(struct Sym*));
+memset(&btype_624, 0, sizeof(struct CType));
+memset(&type_625, 0, sizeof(struct CType));
     # 4807 "tccgen.c"
     # 4808 "tccgen.c"
     # 4809 "tccgen.c"
     # 4810 "tccgen.c"
     # 4849 "tccgen.c"
-    while(_while_condtional75=tok!=123&&tok!=59&&tok!=44&&tok!=(-1),    _while_condtional75) {
+    while(tok!=123&&tok!=59&&tok!=44&&tok!=(-1)) {
         # 4816 "tccgen.c"
         # 4814 "tccgen.c"
-        if(_if_conditional910=!parse_btype(&btype_624,&ad_621),        _if_conditional910) {
+        if(!parse_btype(&btype_624,&ad_621)) {
             # 4815 "tccgen.c"
             expect("declaration list");
         }
         # 4847 "tccgen.c"
         # 4818 "tccgen.c"
-        if(_if_conditional911=((btype_624.t&15)==5||(btype_624.t&15)==7)&&tok==59,        _if_conditional911) {
+        if(((btype_624.t&15)==5||(btype_624.t&15)==7)&&tok==59) {
         }
         else {
             # 4846 "tccgen.c"
@@ -22329,10 +20920,10 @@ memset(&s_623, 0, sizeof(struct Sym*));
                 # 4825 "tccgen.c"
                 s_623=func_sym->next;
                 # 4831 "tccgen.c"
-                while(_while_condtional76=s_623!=((void*)0),                _while_condtional76) {
+                while(s_623!=((void*)0)) {
                     # 4829 "tccgen.c"
                     # 4827 "tccgen.c"
-                    if(_if_conditional912=(s_623->v&~536870912)==v_622,                    _if_conditional912) {
+                    if((s_623->v&~536870912)==v_622) {
                         # 4828 "tccgen.c"
                         goto found;
                     }
@@ -22345,7 +20936,7 @@ memset(&s_623, 0, sizeof(struct Sym*));
                 found:
                 # 4837 "tccgen.c"
                 # 4835 "tccgen.c"
-                if(_if_conditional913=type_625.t&(128|256|512|1024),                _if_conditional913) {
+                if(type_625.t&(128|256|512|1024)) {
                     # 4836 "tccgen.c"
                     error("storage class specified for '%s'",get_tok_str(v_622,((void*)0)));
                 }
@@ -22355,7 +20946,7 @@ memset(&s_623, 0, sizeof(struct Sym*));
                 s_623->type=type_625;
                 # 4845 "tccgen.c"
                 # 4841 "tccgen.c"
-                if(_if_conditional914=tok==44,                _if_conditional914) {
+                if(tok==44) {
                     # 4842 "tccgen.c"
                     next();
                 }
@@ -22372,11 +20963,7 @@ memset(&s_623, 0, sizeof(struct Sym*));
 }
 
 static void gen_function(struct Sym* sym){
-void* __result_obj__;
 int saved_nocode_wanted_626;
-_Bool _if_conditional915;
-_Bool _if_conditional916;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&saved_nocode_wanted_626, 0, sizeof(int));
     # 4855 "tccgen.c"
     saved_nocode_wanted_626=nocode_wanted;
@@ -22435,18 +21022,14 @@ memset(&saved_nocode_wanted_626, 0, sizeof(int));
 }
 
 static void gen_inline_functions(){
-void* __result_obj__;
 struct Sym* sym_627;
 struct CType* type_628;
 int* str_629;
 int inline_generated_630;
-_Bool _if_conditional917;
-_Bool _if_conditional918;
-_Bool _if_conditional919;
-_Bool _if_conditional920;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&sym_627, 0, sizeof(struct Sym*));
 memset(&type_628, 0, sizeof(struct CType*));
+memset(&str_629, 0, sizeof(int*));
+memset(&inline_generated_630, 0, sizeof(int));
     # 4892 "tccgen.c"
     # 4893 "tccgen.c"
     # 4894 "tccgen.c"
@@ -22460,7 +21043,7 @@ memset(&type_628, 0, sizeof(struct CType*));
             type_628=&sym_627->type;
             # 4920 "tccgen.c"
             # 4904 "tccgen.c"
-            if(_if_conditional917=((type_628->t&15)==6)&&(type_628->t&(256|1024))==(256|1024)&&sym_627->c!=0,            _if_conditional917) {
+            if(((type_628->t&15)==6)&&(type_628->t&(256|1024))==(256|1024)&&sym_627->c!=0) {
                 # 4907 "tccgen.c"
                 str_629=(*(int**)&(sym_627->r));
                 # 4908 "tccgen.c"
@@ -22485,7 +21068,7 @@ memset(&type_628, 0, sizeof(struct CType*));
         }
         # 4923 "tccgen.c"
         # 4921 "tccgen.c"
-        if(_if_conditional918=!inline_generated_630,        _if_conditional918) {
+        if(!inline_generated_630) {
             # 4922 "tccgen.c"
             break;
         }
@@ -22496,10 +21079,10 @@ memset(&type_628, 0, sizeof(struct CType*));
         type_628=&sym_627->type;
         # 4938 "tccgen.c"
         # 4930 "tccgen.c"
-        if(_if_conditional919=((type_628->t&15)==6)&&(type_628->t&(256|1024))==(256|1024),        _if_conditional919) {
+        if(((type_628->t&15)==6)&&(type_628->t&(256|1024))==(256|1024)) {
             # 4934 "tccgen.c"
             # 4932 "tccgen.c"
-            if(_if_conditional920=sym_627->r==(512|240),            _if_conditional920) {
+            if(sym_627->r==(512|240)) {
                 # 4933 "tccgen.c"
                 continue;
             }
@@ -22514,7 +21097,6 @@ memset(&type_628, 0, sizeof(struct CType*));
 }
 
 static void decl(int l){
-void* __result_obj__;
 int v_631;
 int has_init_632;
 int r_633;
@@ -22522,44 +21104,14 @@ struct CType type_634;
 struct CType btype_635;
 struct Sym* sym_636;
 struct AttributeDef ad_637;
-_Bool _while_condtional77;
-_Bool _if_conditional921;
-_Bool _if_conditional922;
-_Bool _if_conditional923;
-_Bool _if_conditional924;
-_Bool _if_conditional925;
-_Bool _while_condtional78;
-_Bool _if_conditional926;
-_Bool _if_conditional927;
-_Bool _if_conditional928;
-_Bool _if_conditional929;
-_Bool _if_conditional930;
-_Bool _while_condtional79;
-_Bool _if_conditional931;
-_Bool _if_conditional932;
-_Bool _if_conditional933;
-_Bool _if_conditional934;
-_Bool _if_conditional935;
-_Bool _if_conditional936;
-_Bool _if_conditional937;
-_Bool _if_conditional938;
 struct TokenString func_str_638;
 int block_level_639;
 int t_640;
-_Bool _if_conditional939;
-_Bool _if_conditional940;
-_Bool _elif_conditional189;
-_Bool _if_conditional941;
-_Bool _if_conditional942;
-_Bool _if_conditional943;
-_Bool _elif_conditional190;
-_Bool _if_conditional944;
-_Bool _if_conditional945;
-_Bool _if_conditional946;
-_Bool _if_conditional947;
-_Bool _if_conditional948;
-_Bool _if_conditional949;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&v_631, 0, sizeof(int));
+memset(&has_init_632, 0, sizeof(int));
+memset(&r_633, 0, sizeof(int));
+memset(&type_634, 0, sizeof(struct CType));
+memset(&btype_635, 0, sizeof(struct CType));
 memset(&sym_636, 0, sizeof(struct Sym*));
 memset(&ad_637, 0, sizeof(struct AttributeDef));
 memset(&func_str_638, 0, sizeof(struct TokenString));
@@ -22570,13 +21122,13 @@ memset(&t_640, 0, sizeof(int));
     # 4946 "tccgen.c"
     # 4947 "tccgen.c"
     # 5121 "tccgen.c"
-    while(_while_condtional77=1,    _while_condtional77) {
+    while(1) {
         # 4969 "tccgen.c"
         # 4950 "tccgen.c"
-        if(_if_conditional921=!parse_btype(&btype_635,&ad_637),        _if_conditional921) {
+        if(!parse_btype(&btype_635,&ad_637)) {
             # 4957 "tccgen.c"
             # 4953 "tccgen.c"
-            if(_if_conditional922=tok==59,            _if_conditional922) {
+            if(tok==59) {
                 # 4954 "tccgen.c"
                 next();
                 # 4955 "tccgen.c"
@@ -22584,7 +21136,7 @@ memset(&t_640, 0, sizeof(int));
             }
             # 4965 "tccgen.c"
             # 4958 "tccgen.c"
-            if(_if_conditional923=l==240&&(tok==(311)||tok==(312)||tok==(313)),            _if_conditional923) {
+            if(l==240&&(tok==(311)||tok==(312)||tok==(313))) {
                 # 4960 "tccgen.c"
                 asm_global_instr();
                 # 4961 "tccgen.c"
@@ -22592,7 +21144,7 @@ memset(&t_640, 0, sizeof(int));
             }
             # 4967 "tccgen.c"
             # 4965 "tccgen.c"
-            if(_if_conditional924=l==242||tok<(314),            _if_conditional924) {
+            if(l==242||tok<(314)) {
                 # 4966 "tccgen.c"
                 break;
             }
@@ -22601,59 +21153,59 @@ memset(&t_640, 0, sizeof(int));
         }
         # 4976 "tccgen.c"
         # 4971 "tccgen.c"
-        if(_if_conditional925=((btype_635.t&15)==5||(btype_635.t&15)==7)&&tok==59,        _if_conditional925) {
+        if(((btype_635.t&15)==5||(btype_635.t&15)==7)&&tok==59) {
             # 4973 "tccgen.c"
             next();
             # 4974 "tccgen.c"
             continue;
         }
         # 5120 "tccgen.c"
-        while(_while_condtional78=1,        _while_condtional78) {
+        while(1) {
             # 4977 "tccgen.c"
             type_634=btype_635;
             # 4978 "tccgen.c"
             type_decl(&type_634,&ad_637,&v_631,2);
             # 4994 "tccgen.c"
             # 4986 "tccgen.c"
-            if(_if_conditional926=(type_634.t&15)==6,            _if_conditional926) {
+            if((type_634.t&15)==6) {
                 # 4989 "tccgen.c"
                 sym_636=type_634.ref;
                 # 4992 "tccgen.c"
                 # 4990 "tccgen.c"
-                if(_if_conditional927=sym_636->c==2,                _if_conditional927) {
+                if(sym_636->c==2) {
                     # 4991 "tccgen.c"
                     func_decl_list(sym_636);
                 }
             }
             # 5119 "tccgen.c"
             # 4994 "tccgen.c"
-            if(_if_conditional928=tok==123,            _if_conditional928) {
+            if(tok==123) {
                 # 4997 "tccgen.c"
                 # 4995 "tccgen.c"
-                if(_if_conditional929=l==242,                _if_conditional929) {
+                if(l==242) {
                     # 4996 "tccgen.c"
                     error("cannot use local functions");
                 }
                 # 5001 "tccgen.c"
                 # 4997 "tccgen.c"
-                if(_if_conditional930=(type_634.t&15)!=6,                _if_conditional930) {
+                if((type_634.t&15)!=6) {
                     # 4998 "tccgen.c"
                     expect("function definition");
                 }
                 # 5001 "tccgen.c"
                 sym_636=type_634.ref;
                 # 5007 "tccgen.c"
-                while(_while_condtional79=(sym_636=sym_636->next)!=((void*)0),                _while_condtional79) {
+                while((sym_636=sym_636->next)!=((void*)0)) {
                     # 5007 "tccgen.c"
                     # 5003 "tccgen.c"
-                    if(_if_conditional931=!(sym_636->v&~536870912),                    _if_conditional931) {
+                    if(!(sym_636->v&~536870912)) {
                         # 5004 "tccgen.c"
                         expect("identifier");
                     }
                 }
                 # 5010 "tccgen.c"
                 # 5007 "tccgen.c"
-                if(_if_conditional932=(type_634.t&(128|1024))==(128|1024),                _if_conditional932) {
+                if((type_634.t&(128|1024))==(128|1024)) {
                     # 5008 "tccgen.c"
                     type_634.t=(type_634.t&~128)|256;
                 }
@@ -22664,7 +21216,7 @@ memset(&t_640, 0, sizeof(int));
                 if(sym_636) {
                     # 5017 "tccgen.c"
                     # 5012 "tccgen.c"
-                    if(_if_conditional934=(sym_636->type.t&15)!=6,                    _if_conditional934) {
+                    if((sym_636->type.t&15)!=6) {
                         # 5013 "tccgen.c"
                         goto func_error1;
                     }
@@ -22672,19 +21224,19 @@ memset(&t_640, 0, sizeof(int));
                     r_633=sym_636->type.ref->r;
                     # 5021 "tccgen.c"
                     # 5019 "tccgen.c"
-                    if(_if_conditional935=(((struct anonymous_typeX105*)&(r_633))->func_call)!=0&&(((struct anonymous_typeX105*)&(type_634.ref->r))->func_call)==0,                    _if_conditional935) {
+                    if((((struct anonymous_typeX105*)&(r_633))->func_call)!=0&&(((struct anonymous_typeX105*)&(type_634.ref->r))->func_call)==0) {
                         # 5020 "tccgen.c"
                         (((struct anonymous_typeX105*)&(type_634.ref->r))->func_call)=(((struct anonymous_typeX105*)&(r_633))->func_call);
                     }
                     # 5024 "tccgen.c"
                     # 5021 "tccgen.c"
-                    if(_if_conditional936=(((struct anonymous_typeX105*)&(r_633))->func_export),                    _if_conditional936) {
+                    if((((struct anonymous_typeX105*)&(r_633))->func_export)) {
                         # 5022 "tccgen.c"
                         (((struct anonymous_typeX105*)&(type_634.ref->r))->func_export)=1;
                     }
                     # 5030 "tccgen.c"
                     # 5024 "tccgen.c"
-                    if(_if_conditional937=!is_compatible_types(&sym_636->type,&type_634),                    _if_conditional937) {
+                    if(!is_compatible_types(&sym_636->type,&type_634)) {
                         # 5026 "tccgen.c"
                         func_error1:
                         # 5027 "tccgen.c"
@@ -22701,7 +21253,7 @@ memset(&t_640, 0, sizeof(int));
                 }
                 # 5074 "tccgen.c"
                 # 5041 "tccgen.c"
-                if(_if_conditional938=(type_634.t&(1024|256))==(1024|256),                _if_conditional938) {
+                if((type_634.t&(1024|256))==(1024|256)) {
                     # 5042 "tccgen.c"
                     # 5043 "tccgen.c"
                     # 5045 "tccgen.c"
@@ -22713,7 +21265,7 @@ memset(&t_640, 0, sizeof(int));
                         # 5049 "tccgen.c"
                         # 5052 "tccgen.c"
                         # 5050 "tccgen.c"
-                        if(_if_conditional939=tok==(-1),                        _if_conditional939) {
+                        if(tok==(-1)) {
                             # 5051 "tccgen.c"
                             error("unexpected end of file");
                         }
@@ -22725,17 +21277,17 @@ memset(&t_640, 0, sizeof(int));
                         next();
                         # 5062 "tccgen.c"
                         # 5055 "tccgen.c"
-                        if(_if_conditional940=t_640==123,                        _if_conditional940) {
+                        if(t_640==123) {
                             # 5056 "tccgen.c"
                             block_level_639++;
                         }
                         # 5057 "tccgen.c"
-                        else if(_elif_conditional189=t_640==125,                        _elif_conditional189) {
+                        else if(t_640==125) {
                             # 5058 "tccgen.c"
                             block_level_639--;
                             # 5061 "tccgen.c"
                             # 5059 "tccgen.c"
-                            if(_if_conditional941=block_level_639==0,                            _if_conditional941) {
+                            if(block_level_639==0) {
                                 # 5060 "tccgen.c"
                                 break;
                             }
@@ -22754,7 +21306,7 @@ memset(&t_640, 0, sizeof(int));
                     cur_text_section=ad_637.section;
                     # 5071 "tccgen.c"
                     # 5069 "tccgen.c"
-                    if(_if_conditional942=!cur_text_section,                    _if_conditional942) {
+                    if(!cur_text_section) {
                         # 5070 "tccgen.c"
                         cur_text_section=text_section;
                     }
@@ -22769,14 +21321,14 @@ memset(&t_640, 0, sizeof(int));
             else {
                 # 5113 "tccgen.c"
                 # 5076 "tccgen.c"
-                if(_if_conditional943=btype_635.t&512,                _if_conditional943) {
+                if(btype_635.t&512) {
                     # 5079 "tccgen.c"
                     sym_636=sym_push(v_631,&type_634,0,0);
                     # 5080 "tccgen.c"
                     sym_636->type.t|=512;
                 }
                 # 5081 "tccgen.c"
-                else if(_elif_conditional190=(type_634.t&15)==6,                _elif_conditional190) {
+                else if((type_634.t&15)==6) {
                     # 5086 "tccgen.c"
                     # 5084 "tccgen.c"
                     if(ad_637.func_attr) {
@@ -22791,7 +21343,7 @@ memset(&t_640, 0, sizeof(int));
                     r_633=0;
                     # 5092 "tccgen.c"
                     # 5090 "tccgen.c"
-                    if(_if_conditional945=!(type_634.t&32),                    _if_conditional945) {
+                    if(!(type_634.t&32)) {
                         # 5091 "tccgen.c"
                         r_633|=lvalue_type(type_634.t);
                     }
@@ -22799,7 +21351,7 @@ memset(&t_640, 0, sizeof(int));
                     has_init_632=(tok==61);
                     # 5112 "tccgen.c"
                     # 5095 "tccgen.c"
-                    if(_if_conditional946=(btype_635.t&128)||((type_634.t&32)&&(type_634.t&256)&&!has_init_632&&l==240&&type_634.ref->c<0),                    _if_conditional946) {
+                    if((btype_635.t&128)||((type_634.t&32)&&(type_634.t&256)&&!has_init_632&&l==240&&type_634.ref->c<0)) {
                         # 5100 "tccgen.c"
                         external_sym(v_631,&type_634,r_633);
                     }
@@ -22808,7 +21360,7 @@ memset(&t_640, 0, sizeof(int));
                         type_634.t|=(btype_635.t&256);
                         # 5107 "tccgen.c"
                         # 5103 "tccgen.c"
-                        if(_if_conditional947=type_634.t&256,                        _if_conditional947) {
+                        if(type_634.t&256) {
                             # 5104 "tccgen.c"
                             r_633|=240;
                         }
@@ -22828,7 +21380,7 @@ memset(&t_640, 0, sizeof(int));
                 }
                 # 5117 "tccgen.c"
                 # 5113 "tccgen.c"
-                if(_if_conditional949=tok!=44,                _if_conditional949) {
+                if(tok!=44) {
                     # 5114 "tccgen.c"
                     skip(59);
                     # 5115 "tccgen.c"
@@ -22843,15 +21395,8 @@ memset(&t_640, 0, sizeof(int));
 }
 
 static int tcc_compile(struct TCCState* s1){
-void* __result_obj__;
 struct Sym* define_start_641;
 int section_sym_643;
-_Bool _if_conditional950;
-_Bool _if_conditional951;
-_Bool _if_conditional952;
-_Bool _if_conditional953;
-int __result125__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&define_start_641, 0, sizeof(struct Sym*));
 memset(&section_sym_643, 0, sizeof(int));
     # 1137 "libtcc.c"
@@ -22901,7 +21446,7 @@ memset(&section_sym_643, 0, sizeof(int));
     nocode_wanted=1;
     # 1226 "libtcc.c"
     # 1208 "libtcc.c"
-    if(_if_conditional951=setjmp(s1->error_jmp_buf)==0,    _if_conditional951) {
+    if(setjmp(s1->error_jmp_buf)==0) {
         # 1209 "libtcc.c"
         s1->nb_errors=0;
         # 1210 "libtcc.c"
@@ -22918,7 +21463,7 @@ memset(&section_sym_643, 0, sizeof(int));
         decl(240);
         # 1221 "libtcc.c"
         # 1217 "libtcc.c"
-        if(_if_conditional952=tok!=(-1),        _if_conditional952) {
+        if(tok!=(-1)) {
             # 1218 "libtcc.c"
             expect("declaration");
         }
@@ -22940,20 +21485,17 @@ memset(&section_sym_643, 0, sizeof(int));
     # 1235 "libtcc.c"
     sym_pop(&local_stack,((void*)0));
     # 1237 "libtcc.c"
-    __result125__ = s1->nb_errors!=0?-1:0;
-    return __result125__;
+    return s1->nb_errors!=0?-1:0;
 }
 
 int tcc_compile_string(struct TCCState* s, const char* str){
-void* __result_obj__;
 struct BufferedFile bf1_644;
 int ret_646;
 int len_647;
 char* buf_648;
-_Bool _if_conditional954;
-int __result126__;
-int __result127__;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&bf1_644, 0, sizeof(struct BufferedFile));
+memset(&ret_646, 0, sizeof(int));
+memset(&len_647, 0, sizeof(int));
 memset(&buf_648, 0, sizeof(char*));
     # 1242 "libtcc.c"
     struct BufferedFile* bf_645=&bf1_644;
@@ -22967,10 +21509,9 @@ memset(&buf_648, 0, sizeof(char*));
     buf_648=tcc_malloc(len_647+1);
     # 1253 "libtcc.c"
     # 1251 "libtcc.c"
-    if(_if_conditional954=!buf_648,    _if_conditional954) {
+    if(!buf_648) {
         # 1252 "libtcc.c"
-        __result126__ = -1;
-        return __result126__;
+        return -1;
     }
     # 1253 "libtcc.c"
     memcpy(buf_648,str,len_647);
@@ -22993,15 +21534,12 @@ memset(&buf_648, 0, sizeof(char*));
     # 1262 "libtcc.c"
     tcc_free(buf_648);
     # 1265 "libtcc.c"
-    __result127__ = ret_646;
-    return __result127__;
+    return ret_646;
 }
 
 void tcc_define_symbol(struct TCCState* s1, const char* sym, const char* value){
-void* __result_obj__;
 struct BufferedFile bf1_649;
-_Bool _if_conditional955;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&bf1_649, 0, sizeof(struct BufferedFile));
     # 1271 "libtcc.c"
     struct BufferedFile* bf_650=&bf1_649;
     # 1273 "libtcc.c"
@@ -23010,7 +21548,7 @@ memset(&__result_obj__, 0, sizeof(void*));
     pstrcat(bf_650->buffer,8192," ");
     # 1278 "libtcc.c"
     # 1276 "libtcc.c"
-    if(_if_conditional955=!value,    _if_conditional955) {
+    if(!value) {
         # 1277 "libtcc.c"
         value="1";
     }
@@ -23043,11 +21581,8 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 void tcc_undefine_symbol(struct TCCState* s1, const char* sym){
-void* __result_obj__;
 struct TokenSym* ts_651;
 struct Sym* s_652;
-_Bool _if_conditional956;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&ts_651, 0, sizeof(struct TokenSym*));
 memset(&s_652, 0, sizeof(struct Sym*));
     # 1301 "libtcc.c"
@@ -23065,26 +21600,21 @@ memset(&s_652, 0, sizeof(struct Sym*));
 }
 
 static void asm_instr(){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 1320 "libtcc.c"
     error("inline asm() not supported");
 }
 
 static void asm_global_instr(){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 1324 "libtcc.c"
     error("inline asm() not supported");
 }
 
 static int put_elf_str(struct Section* s, const char* sym){
-void* __result_obj__;
 int offset_653;
 int len_654;
 char* ptr_655;
-int __result128__;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&offset_653, 0, sizeof(int));
+memset(&len_654, 0, sizeof(int));
 memset(&ptr_655, 0, sizeof(char*));
     # 38 "tccelf.c"
     # 39 "tccelf.c"
@@ -23097,21 +21627,16 @@ memset(&ptr_655, 0, sizeof(char*));
     # 44 "tccelf.c"
     memcpy(ptr_655,sym,len_654);
     # 45 "tccelf.c"
-    __result128__ = offset_653;
-    return __result128__;
+    return offset_653;
 }
 
 static unsigned long int elf_hash(const unsigned char* name){
-void* __result_obj__;
 unsigned long int g_657;
-_Bool _while_condtional80;
-_Bool _if_conditional957;
-unsigned long int __result129__;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&g_657, 0, sizeof(unsigned long int));
     # 51 "tccelf.c"
     unsigned long int h_656=0;
     # 60 "tccelf.c"
-    while(_while_condtional80=*name,    _while_condtional80) {
+    while(*name) {
         # 54 "tccelf.c"
         h_656=(h_656<<4)+*name++;
         # 55 "tccelf.c"
@@ -23126,12 +21651,10 @@ memset(&__result_obj__, 0, sizeof(void*));
         h_656&=~g_657;
     }
     # 60 "tccelf.c"
-    __result129__ = h_656;
-    return __result129__;
+    return h_656;
 }
 
 static void rebuild_hash(struct Section* s, unsigned int nb_buckets){
-void* __result_obj__;
 struct anonymous_typeX66* sym_658;
 int* ptr_659;
 int* hash_660;
@@ -23139,9 +21662,12 @@ int nb_syms_661;
 int sym_index_662;
 int h_663;
 char* strtab_664;
-_Bool _if_conditional958;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&sym_658, 0, sizeof(struct anonymous_typeX66*));
+memset(&ptr_659, 0, sizeof(int*));
+memset(&hash_660, 0, sizeof(int*));
+memset(&nb_syms_661, 0, sizeof(int));
+memset(&sym_index_662, 0, sizeof(int));
+memset(&h_663, 0, sizeof(int));
 memset(&strtab_664, 0, sizeof(char*));
     # 67 "tccelf.c"
     # 68 "tccelf.c"
@@ -23172,7 +21698,7 @@ memset(&strtab_664, 0, sizeof(char*));
     for(    sym_index_662=1;    sym_index_662<nb_syms_661;    sym_index_662++    ){
         # 92 "tccelf.c"
         # 85 "tccelf.c"
-        if(_if_conditional958=(((unsigned char)(sym_658->st_info))>>4)!=0,        _if_conditional958) {
+        if((((unsigned char)(sym_658->st_info))>>4)!=0) {
             # 86 "tccelf.c"
             h_663=elf_hash(strtab_664+sym_658->st_name)%nb_buckets;
             # 87 "tccelf.c"
@@ -23192,23 +21718,22 @@ memset(&strtab_664, 0, sizeof(char*));
 }
 
 static int put_elf_sym(struct Section* s, unsigned long int value, unsigned long int size, int info, int other, int shndx, const char* name){
-void* __result_obj__;
 int name_offset_665;
 int sym_index_666;
 int nbuckets_667;
 int h_668;
 struct anonymous_typeX66* sym_669;
 struct Section* hs_670;
-_Bool _if_conditional959;
-_Bool _if_conditional960;
 int* ptr_671;
 int* base_672;
-_Bool _if_conditional961;
-_Bool _if_conditional962;
-int __result130__;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&name_offset_665, 0, sizeof(int));
+memset(&sym_index_666, 0, sizeof(int));
+memset(&nbuckets_667, 0, sizeof(int));
+memset(&h_668, 0, sizeof(int));
 memset(&sym_669, 0, sizeof(struct anonymous_typeX66*));
 memset(&hs_670, 0, sizeof(struct Section*));
+memset(&ptr_671, 0, sizeof(int*));
+memset(&base_672, 0, sizeof(int*));
     # 102 "tccelf.c"
     # 103 "tccelf.c"
     # 104 "tccelf.c"
@@ -23251,7 +21776,7 @@ memset(&hs_670, 0, sizeof(struct Section*));
         base_672=(int*)hs_670->data;
         # 142 "tccelf.c"
         # 126 "tccelf.c"
-        if(_if_conditional961=(((unsigned char)(info))>>4)!=0,        _if_conditional961) {
+        if((((unsigned char)(info))>>4)!=0) {
             # 128 "tccelf.c"
             nbuckets_667=base_672[0];
             # 129 "tccelf.c"
@@ -23266,7 +21791,7 @@ memset(&hs_670, 0, sizeof(struct Section*));
             hs_670->nb_hashed_syms++;
             # 138 "tccelf.c"
             # 135 "tccelf.c"
-            if(_if_conditional962=hs_670->nb_hashed_syms>2*nbuckets_667,            _if_conditional962) {
+            if(hs_670->nb_hashed_syms>2*nbuckets_667) {
                 # 136 "tccelf.c"
                 rebuild_hash(s,2*nbuckets_667);
             }
@@ -23279,27 +21804,21 @@ memset(&hs_670, 0, sizeof(struct Section*));
         }
     }
     # 143 "tccelf.c"
-    __result130__ = sym_index_666;
-    return __result130__;
+    return sym_index_666;
 }
 
 static int find_elf_sym(struct Section* s, const char* name){
-void* __result_obj__;
 struct anonymous_typeX66* sym_673;
 struct Section* hs_674;
 int nbuckets_675;
 int sym_index_676;
 int h_677;
 const char* name1_678;
-_Bool _if_conditional963;
-int __result131__;
-_Bool _while_condtional81;
-_Bool _if_conditional964;
-int __result132__;
-int __result133__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&sym_673, 0, sizeof(struct anonymous_typeX66*));
 memset(&hs_674, 0, sizeof(struct Section*));
+memset(&nbuckets_675, 0, sizeof(int));
+memset(&sym_index_676, 0, sizeof(int));
+memset(&h_677, 0, sizeof(int));
 memset(&name1_678, 0, sizeof(const char*));
     # 150 "tccelf.c"
     # 151 "tccelf.c"
@@ -23309,10 +21828,9 @@ memset(&name1_678, 0, sizeof(const char*));
     hs_674=s->hash;
     # 158 "tccelf.c"
     # 156 "tccelf.c"
-    if(_if_conditional963=!hs_674,    _if_conditional963) {
+    if(!hs_674) {
         # 157 "tccelf.c"
-        __result131__ = 0;
-        return __result131__;
+        return 0;
     }
     # 158 "tccelf.c"
     nbuckets_675=((int*)hs_674->data)[0];
@@ -23321,33 +21839,30 @@ memset(&name1_678, 0, sizeof(const char*));
     # 160 "tccelf.c"
     sym_index_676=((int*)hs_674->data)[2+h_677];
     # 168 "tccelf.c"
-    while(_while_condtional81=sym_index_676!=0,    _while_condtional81) {
+    while(sym_index_676!=0) {
         # 162 "tccelf.c"
         sym_673=&((struct anonymous_typeX66*)s->data)[sym_index_676];
         # 163 "tccelf.c"
         name1_678=s->link->data+sym_673->st_name;
         # 166 "tccelf.c"
         # 164 "tccelf.c"
-        if(_if_conditional964=!strcmp(name,name1_678),        _if_conditional964) {
+        if(!strcmp(name,name1_678)) {
             # 165 "tccelf.c"
-            __result132__ = sym_index_676;
-            return __result132__;
+            return sym_index_676;
         }
         # 166 "tccelf.c"
         sym_index_676=((int*)hs_674->data)[2+nbuckets_675+sym_index_676];
     }
     # 168 "tccelf.c"
-    __result133__ = 0;
-    return __result133__;
+    return 0;
 }
 
 void* tcc_get_symbol(struct TCCState* s, const char* name){
 void* __result_obj__;
 int sym_index_679;
 struct anonymous_typeX66* sym_680;
-_Bool _if_conditional965;
-void* __result134__;
-void* __result135__;
+void* __result59__;
+void* __result60__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&sym_index_679, 0, sizeof(int));
 memset(&sym_680, 0, sizeof(struct anonymous_typeX66*));
@@ -23357,23 +21872,22 @@ memset(&sym_680, 0, sizeof(struct anonymous_typeX66*));
     sym_index_679=find_elf_sym(symtab_section,name);
     # 179 "tccelf.c"
     # 177 "tccelf.c"
-    if(_if_conditional965=!sym_index_679,    _if_conditional965) {
+    if(!sym_index_679) {
         # 178 "tccelf.c"
-        __result134__ = __result_obj__ = ((void*)0);
-        return __result134__;
+        __result59__ = __result_obj__ = ((void*)0);
+        return __result59__;
     }
     # 179 "tccelf.c"
     sym_680=&((struct anonymous_typeX66*)symtab_section->data)[sym_index_679];
     # 180 "tccelf.c"
-    __result135__ = __result_obj__ = (void*)(long)sym_680->st_value;
-    return __result135__;
+    __result60__ = __result_obj__ = (void*)(long)sym_680->st_value;
+    return __result60__;
 }
 
 void* tcc_get_symbol_err(struct TCCState* s, const char* name){
 void* __result_obj__;
 void* sym_681;
-_Bool _if_conditional966;
-void* __result136__;
+void* __result61__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&sym_681, 0, sizeof(void*));
     # 185 "tccelf.c"
@@ -23381,17 +21895,16 @@ memset(&sym_681, 0, sizeof(void*));
     sym_681=tcc_get_symbol(s,name);
     # 189 "tccelf.c"
     # 187 "tccelf.c"
-    if(_if_conditional966=!sym_681,    _if_conditional966) {
+    if(!sym_681) {
         # 188 "tccelf.c"
         error("%s not defined",name);
     }
     # 189 "tccelf.c"
-    __result136__ = __result_obj__ = sym_681;
-    return __result136__;
+    __result61__ = __result_obj__ = sym_681;
+    return __result61__;
 }
 
 static int add_elf_sym(struct Section* s, unsigned long int value, unsigned long int size, int info, int other, int sh_num, const char* name){
-void* __result_obj__;
 struct anonymous_typeX66* esym_682;
 int sym_bind_683;
 int sym_index_684;
@@ -23400,20 +21913,14 @@ int esym_bind_686;
 unsigned char sym_vis_687;
 unsigned char esym_vis_688;
 unsigned char new_vis_689;
-_Bool _if_conditional967;
-_Bool _if_conditional968;
-_Bool _if_conditional969;
-_Bool _if_conditional970;
-_Bool _elif_conditional191;
-_Bool _if_conditional971;
-_Bool _elif_conditional192;
-_Bool _elif_conditional193;
-_Bool _elif_conditional194;
-_Bool _elif_conditional195;
-_Bool _elif_conditional196;
-int __result137__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&esym_682, 0, sizeof(struct anonymous_typeX66*));
+memset(&sym_bind_683, 0, sizeof(int));
+memset(&sym_index_684, 0, sizeof(int));
+memset(&sym_type_685, 0, sizeof(int));
+memset(&esym_bind_686, 0, sizeof(int));
+memset(&sym_vis_687, 0, sizeof(unsigned char));
+memset(&esym_vis_688, 0, sizeof(unsigned char));
+memset(&new_vis_689, 0, sizeof(unsigned char));
     # 197 "tccelf.c"
     # 198 "tccelf.c"
     # 199 "tccelf.c"
@@ -23425,12 +21932,12 @@ memset(&esym_682, 0, sizeof(struct anonymous_typeX66*));
     sym_vis_687=((other)&3);
     # 263 "tccelf.c"
     # 205 "tccelf.c"
-    if(_if_conditional967=sym_bind_683!=0,    _if_conditional967) {
+    if(sym_bind_683!=0) {
         # 207 "tccelf.c"
         sym_index_684=find_elf_sym(s,name);
         # 210 "tccelf.c"
         # 208 "tccelf.c"
-        if(_if_conditional968=!sym_index_684,        _if_conditional968) {
+        if(!sym_index_684) {
             # 209 "tccelf.c"
             goto do_def;
         }
@@ -23438,19 +21945,19 @@ memset(&esym_682, 0, sizeof(struct anonymous_typeX66*));
         esym_682=&((struct anonymous_typeX66*)s->data)[sym_index_684];
         # 257 "tccelf.c"
         # 211 "tccelf.c"
-        if(_if_conditional969=esym_682->st_shndx!=0,        _if_conditional969) {
+        if(esym_682->st_shndx!=0) {
             # 212 "tccelf.c"
             esym_bind_686=(((unsigned char)(esym_682->st_info))>>4);
             # 215 "tccelf.c"
             esym_vis_688=((esym_682->st_other)&3);
             # 223 "tccelf.c"
             # 216 "tccelf.c"
-            if(_if_conditional970=esym_vis_688==0,            _if_conditional970) {
+            if(esym_vis_688==0) {
                 # 217 "tccelf.c"
                 new_vis_689=sym_vis_687;
             }
             # 218 "tccelf.c"
-            else if(_elif_conditional191=sym_vis_687==0,            _elif_conditional191) {
+            else if(sym_vis_687==0) {
                 # 219 "tccelf.c"
                 new_vis_689=esym_vis_688;
             }
@@ -23464,26 +21971,26 @@ memset(&esym_682, 0, sizeof(struct anonymous_typeX66*));
             other=esym_682->st_other;
             # 249 "tccelf.c"
             # 226 "tccelf.c"
-            if(_if_conditional971=sh_num==0,            _if_conditional971) {
+            if(sh_num==0) {
             }
             # 229 "tccelf.c"
-            else if(_elif_conditional192=sym_bind_683==1&&esym_bind_686==2,            _elif_conditional192) {
+            else if(sym_bind_683==1&&esym_bind_686==2) {
                 # 231 "tccelf.c"
                 goto do_patch;
             }
             # 232 "tccelf.c"
-            else if(_elif_conditional193=sym_bind_683==2&&esym_bind_686==1,            _elif_conditional193) {
+            else if(sym_bind_683==2&&esym_bind_686==1) {
             }
             # 234 "tccelf.c"
-            else if(_elif_conditional194=sym_vis_687==2||sym_vis_687==1,            _elif_conditional194) {
+            else if(sym_vis_687==2||sym_vis_687==1) {
             }
             # 236 "tccelf.c"
-            else if(_elif_conditional195=esym_682->st_shndx==65522&&sh_num<65280,            _elif_conditional195) {
+            else if(esym_682->st_shndx==65522&&sh_num<65280) {
                 # 239 "tccelf.c"
                 goto do_patch;
             }
             # 240 "tccelf.c"
-            else if(_elif_conditional196=s==tcc_state->dynsymtab_section,            _elif_conditional196) {
+            else if(s==tcc_state->dynsymtab_section) {
             }
             else {
                 # 245 "tccelf.c"
@@ -23514,16 +22021,12 @@ memset(&esym_682, 0, sizeof(struct anonymous_typeX66*));
         sym_index_684=put_elf_sym(s,value,size,((((sym_bind_683))<<4)+(((sym_type_685))&15)),other,sh_num,name);
     }
     # 263 "tccelf.c"
-    __result137__ = sym_index_684;
-    return __result137__;
+    return sym_index_684;
 }
 
 static void put_elf_reloc(struct Section* symtab, struct Section* s, unsigned long int offset, int type, int symbol){
-void* __result_obj__;
 struct Section* sr_691;
 struct anonymous_typeX72* rel_692;
-_Bool _if_conditional972;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&sr_691, 0, sizeof(struct Section*));
 memset(&rel_692, 0, sizeof(struct anonymous_typeX72*));
     # 270 "tccelf.c"
@@ -23535,7 +22038,7 @@ memset(&rel_692, 0, sizeof(struct anonymous_typeX72*));
     sr_691=s->reloc;
     # 286 "tccelf.c"
     # 275 "tccelf.c"
-    if(_if_conditional972=!sr_691,    _if_conditional972) {
+    if(!sr_691) {
         # 277 "tccelf.c"
         snprintf(buf_690,sizeof(buf_690),".rela%s",s->name);
         # 280 "tccelf.c"
@@ -23560,10 +22063,7 @@ memset(&rel_692, 0, sizeof(struct anonymous_typeX72*));
 }
 
 static void put_stabs(const char* str, int type, int other, int desc, unsigned long int value){
-void* __result_obj__;
 struct anonymous_typeX107* sym_693;
-_Bool _if_conditional973;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&sym_693, 0, sizeof(struct anonymous_typeX107*));
     # 307 "tccelf.c"
     # 309 "tccelf.c"
@@ -23589,8 +22089,6 @@ memset(&sym_693, 0, sizeof(struct anonymous_typeX107*));
 }
 
 static void put_stabs_r(const char* str, int type, int other, int desc, unsigned long int value, struct Section* sec, int sym_index){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 324 "tccelf.c"
     put_stabs(str,type,other,desc,value);
     # 327 "tccelf.c"
@@ -23598,21 +22096,16 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 static void put_stabn(int type, int other, int desc, int value){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 332 "tccelf.c"
     put_stabs(((void*)0),type,other,desc,value);
 }
 
 static void put_stabd(int type, int other, int desc){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 337 "tccelf.c"
     put_stabs(((void*)0),type,other,desc,0);
 }
 
 static void sort_syms(struct TCCState* s1, struct Section* s){
-void* __result_obj__;
 int* old_to_new_syms_694;
 struct anonymous_typeX66* new_syms_695;
 int nb_syms_696;
@@ -23624,13 +22117,17 @@ struct anonymous_typeX72* rel_end_701;
 struct Section* sr_702;
 int type_703;
 int sym_index_704;
-_Bool _if_conditional974;
-_Bool _if_conditional975;
-_Bool _if_conditional976;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&old_to_new_syms_694, 0, sizeof(int*));
 memset(&new_syms_695, 0, sizeof(struct anonymous_typeX66*));
+memset(&nb_syms_696, 0, sizeof(int));
+memset(&i_697, 0, sizeof(int));
+memset(&p_698, 0, sizeof(struct anonymous_typeX66*));
+memset(&q_699, 0, sizeof(struct anonymous_typeX66*));
+memset(&rel_700, 0, sizeof(struct anonymous_typeX72*));
+memset(&rel_end_701, 0, sizeof(struct anonymous_typeX72*));
 memset(&sr_702, 0, sizeof(struct Section*));
+memset(&type_703, 0, sizeof(int));
+memset(&sym_index_704, 0, sizeof(int));
     # 346 "tccelf.c"
     # 347 "tccelf.c"
     # 348 "tccelf.c"
@@ -23652,7 +22149,7 @@ memset(&sr_702, 0, sizeof(struct Section*));
     for(    i_697=0;    i_697<nb_syms_696;    i_697++    ){
         # 366 "tccelf.c"
         # 362 "tccelf.c"
-        if(_if_conditional974=(((unsigned char)(p_698->st_info))>>4)==0,        _if_conditional974) {
+        if((((unsigned char)(p_698->st_info))>>4)==0) {
             # 363 "tccelf.c"
             old_to_new_syms_694[i_697]=q_699-new_syms_695;
             # 364 "tccelf.c"
@@ -23669,7 +22166,7 @@ memset(&sr_702, 0, sizeof(struct Section*));
     for(    i_697=0;    i_697<nb_syms_696;    i_697++    ){
         # 378 "tccelf.c"
         # 374 "tccelf.c"
-        if(_if_conditional975=(((unsigned char)(p_698->st_info))>>4)!=0,        _if_conditional975) {
+        if((((unsigned char)(p_698->st_info))>>4)!=0) {
             # 375 "tccelf.c"
             old_to_new_syms_694[i_697]=q_699-new_syms_695;
             # 376 "tccelf.c"
@@ -23688,7 +22185,7 @@ memset(&sr_702, 0, sizeof(struct Section*));
         sr_702=s1->sections[i_697];
         # 399 "tccelf.c"
         # 388 "tccelf.c"
-        if(_if_conditional976=sr_702->sh_type==4&&sr_702->link==s,        _if_conditional976) {
+        if(sr_702->sh_type==4&&sr_702->link==s) {
             # 389 "tccelf.c"
             rel_end_701=(struct anonymous_typeX72*)(sr_702->data+sr_702->data_offset);
             # 398 "tccelf.c"
@@ -23709,13 +22206,14 @@ memset(&sr_702, 0, sizeof(struct Section*));
 }
 
 static void relocate_common_syms(){
-void* __result_obj__;
 struct anonymous_typeX66* sym_705;
 struct anonymous_typeX66* sym_end_706;
 unsigned long int offset_707;
 unsigned long int align_708;
-_Bool _if_conditional977;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&sym_705, 0, sizeof(struct anonymous_typeX66*));
+memset(&sym_end_706, 0, sizeof(struct anonymous_typeX66*));
+memset(&offset_707, 0, sizeof(unsigned long int));
+memset(&align_708, 0, sizeof(unsigned long int));
     # 407 "tccelf.c"
     # 408 "tccelf.c"
     # 410 "tccelf.c"
@@ -23724,7 +22222,7 @@ memset(&__result_obj__, 0, sizeof(void*));
     for(    sym_705=(struct anonymous_typeX66*)symtab_section->data+1;    sym_705<sym_end_706;    sym_705++    ){
         # 424 "tccelf.c"
         # 414 "tccelf.c"
-        if(_if_conditional977=sym_705->st_shndx==65522,        _if_conditional977) {
+        if(sym_705->st_shndx==65522) {
             # 416 "tccelf.c"
             align_708=sym_705->st_value;
             # 417 "tccelf.c"
@@ -23744,7 +22242,6 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 static void relocate_syms(struct TCCState* s1, int do_resolve){
-void* __result_obj__;
 struct anonymous_typeX66* sym_709;
 struct anonymous_typeX66* esym_710;
 struct anonymous_typeX66* sym_end_711;
@@ -23753,14 +22250,12 @@ int sh_num_713;
 int sym_index_714;
 const char* name_715;
 unsigned long int addr_716;
-_Bool _if_conditional978;
-_Bool _if_conditional979;
-_Bool _if_conditional980;
-_Bool _if_conditional981;
-_Bool _if_conditional982;
-_Bool _if_conditional983;
-_Bool _elif_conditional197;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&sym_709, 0, sizeof(struct anonymous_typeX66*));
+memset(&esym_710, 0, sizeof(struct anonymous_typeX66*));
+memset(&sym_end_711, 0, sizeof(struct anonymous_typeX66*));
+memset(&sym_bind_712, 0, sizeof(int));
+memset(&sh_num_713, 0, sizeof(int));
+memset(&sym_index_714, 0, sizeof(int));
 memset(&name_715, 0, sizeof(const char*));
 memset(&addr_716, 0, sizeof(unsigned long int));
     # 431 "tccelf.c"
@@ -23775,7 +22270,7 @@ memset(&addr_716, 0, sizeof(unsigned long int));
         sh_num_713=sym_709->st_shndx;
         # 475 "tccelf.c"
         # 441 "tccelf.c"
-        if(_if_conditional978=sh_num_713==0,        _if_conditional978) {
+        if(sh_num_713==0) {
             # 442 "tccelf.c"
             name_715=strtab_section->data+sym_709->st_name;
             # 461 "tccelf.c"
@@ -23811,7 +22306,7 @@ memset(&addr_716, 0, sizeof(unsigned long int));
             }
             # 465 "tccelf.c"
             # 461 "tccelf.c"
-            if(_if_conditional982=!strcmp(name_715,"_fp_hw"),            _if_conditional982) {
+            if(!strcmp(name_715,"_fp_hw")) {
                 # 462 "tccelf.c"
                 goto found;
             }
@@ -23819,7 +22314,7 @@ memset(&addr_716, 0, sizeof(unsigned long int));
             sym_bind_712=(((unsigned char)(sym_709->st_info))>>4);
             # 471 "tccelf.c"
             # 466 "tccelf.c"
-            if(_if_conditional983=sym_bind_712==2,            _if_conditional983) {
+            if(sym_bind_712==2) {
                 # 467 "tccelf.c"
                 sym_709->st_value=0;
             }
@@ -23829,7 +22324,7 @@ memset(&addr_716, 0, sizeof(unsigned long int));
             }
         }
         # 471 "tccelf.c"
-        else if(_elif_conditional197=sh_num_713<65280,        _elif_conditional197) {
+        else if(sh_num_713<65280) {
             # 473 "tccelf.c"
             sym_709->st_value+=s1->sections[sym_709->st_shndx]->sh_addr;
         }
@@ -23839,10 +22334,7 @@ memset(&addr_716, 0, sizeof(unsigned long int));
 }
 
 static unsigned long int add_jmp_table(struct TCCState* s1, unsigned long int val){
-void* __result_obj__;
 char* p_717;
-unsigned long int __result138__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&p_717, 0, sizeof(char*));
     # 483 "tccelf.c"
     p_717=s1->runtime_plt_and_got+s1->runtime_plt_and_got_offset;
@@ -23857,15 +22349,11 @@ memset(&p_717, 0, sizeof(char*));
     # 489 "tccelf.c"
     *(unsigned long int*)(p_717+6)=val;
     # 490 "tccelf.c"
-    __result138__ = (unsigned long int)p_717;
-    return __result138__;
+    return (unsigned long int)p_717;
 }
 
 static unsigned long int add_got_table(struct TCCState* s1, unsigned long int val){
-void* __result_obj__;
 unsigned long int* p_718;
-unsigned long int __result139__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&p_718, 0, sizeof(unsigned long int*));
     # 496 "tccelf.c"
     p_718=(unsigned long int*)(s1->runtime_plt_and_got+s1->runtime_plt_and_got_offset);
@@ -23874,12 +22362,10 @@ memset(&p_718, 0, sizeof(unsigned long int*));
     # 498 "tccelf.c"
     *p_718=val;
     # 499 "tccelf.c"
-    __result139__ = (unsigned long int)p_718;
-    return __result139__;
+    return (unsigned long int)p_718;
 }
 
 static void relocate_section(struct TCCState* s1, struct Section* s){
-void* __result_obj__;
 struct Section* sr_719;
 struct anonymous_typeX72* rel_720;
 struct anonymous_typeX72* rel_end_721;
@@ -23891,20 +22377,17 @@ unsigned char* ptr_726;
 unsigned long int val_727;
 unsigned long int addr_728;
 int esym_index_729;
-_Bool _if_conditional984;
-_Bool _if_conditional985;
-_Bool _if_conditional986;
-_Bool _if_conditional987;
 long diff_730;
-_Bool _if_conditional988;
-_Bool _if_conditional989;
-_Bool _if_conditional990;
-_Bool _if_conditional991;
-_Bool _if_conditional992;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&sr_719, 0, sizeof(struct Section*));
+memset(&rel_720, 0, sizeof(struct anonymous_typeX72*));
+memset(&rel_end_721, 0, sizeof(struct anonymous_typeX72*));
+memset(&qrel_722, 0, sizeof(struct anonymous_typeX72*));
 memset(&sym_723, 0, sizeof(struct anonymous_typeX66*));
+memset(&type_724, 0, sizeof(int));
+memset(&sym_index_725, 0, sizeof(int));
 memset(&ptr_726, 0, sizeof(unsigned char*));
+memset(&val_727, 0, sizeof(unsigned long int));
+memset(&addr_728, 0, sizeof(unsigned long int));
 memset(&esym_index_729, 0, sizeof(int));
 memset(&diff_730, 0, sizeof(long));
     # 506 "tccelf.c"
@@ -23942,7 +22425,7 @@ memset(&diff_730, 0, sizeof(long));
             case 1:
             # 665 "tccelf.c"
             # 660 "tccelf.c"
-            if(_if_conditional984=s1->output_type==2,            _if_conditional984) {
+            if(s1->output_type==2) {
                 # 661 "tccelf.c"
                 qrel_722->r_info=((((unsigned long int)(0))<<32)+(8));
                 # 662 "tccelf.c"
@@ -23960,7 +22443,7 @@ memset(&diff_730, 0, sizeof(long));
             case 11:
             # 676 "tccelf.c"
             # 669 "tccelf.c"
-            if(_if_conditional985=s1->output_type==2,            _if_conditional985) {
+            if(s1->output_type==2) {
                 # 672 "tccelf.c"
                 qrel_722->r_info=((((unsigned long int)(0))<<32)+(8));
                 # 673 "tccelf.c"
@@ -23978,7 +22461,7 @@ memset(&diff_730, 0, sizeof(long));
             {
                 # 690 "tccelf.c"
                 # 679 "tccelf.c"
-                if(_if_conditional986=s1->output_type==2,                _if_conditional986) {
+                if(s1->output_type==2) {
                     # 681 "tccelf.c"
                     esym_index_729=s1->symtab_to_dynsym[sym_index_725];
                     # 689 "tccelf.c"
@@ -24000,10 +22483,10 @@ memset(&diff_730, 0, sizeof(long));
                 diff_730=val_727-addr_728;
                 # 701 "tccelf.c"
                 # 691 "tccelf.c"
-                if(_if_conditional988=diff_730<=-2147483647||diff_730>2147483647,                _if_conditional988) {
+                if(diff_730<=-2147483647||diff_730>2147483647) {
                     # 697 "tccelf.c"
                     # 693 "tccelf.c"
-                    if(_if_conditional989=s1->output_type==0,                    _if_conditional989) {
+                    if(s1->output_type==0) {
                         # 694 "tccelf.c"
                         val_727=add_jmp_table(s1,val_727);
                         # 695 "tccelf.c"
@@ -24011,7 +22494,7 @@ memset(&diff_730, 0, sizeof(long));
                     }
                     # 700 "tccelf.c"
                     # 697 "tccelf.c"
-                    if(_if_conditional990=diff_730<=-2147483647||diff_730>2147483647,                    _if_conditional990) {
+                    if(diff_730<=-2147483647||diff_730>2147483647) {
                         # 698 "tccelf.c"
                         error("internal error: relocation failed");
                     }
@@ -24039,7 +22522,7 @@ memset(&diff_730, 0, sizeof(long));
             case 9:
             # 717 "tccelf.c"
             # 712 "tccelf.c"
-            if(_if_conditional991=s1->output_type==0,            _if_conditional991) {
+            if(s1->output_type==0) {
                 # 713 "tccelf.c"
                 val_727=add_got_table(s1,val_727-rel_720->r_addend)+rel_720->r_addend;
                 # 714 "tccelf.c"
@@ -24067,19 +22550,19 @@ memset(&diff_730, 0, sizeof(long));
     }
     # 735 "tccelf.c"
     # 733 "tccelf.c"
-    if(_if_conditional992=sr_719->sh_flags&(1<<1),    _if_conditional992) {
+    if(sr_719->sh_flags&(1<<1)) {
         # 734 "tccelf.c"
         sr_719->link=s1->dynsym;
     }
 }
 
 static void relocate_rel(struct TCCState* s1, struct Section* sr){
-void* __result_obj__;
 struct Section* s_731;
 struct anonymous_typeX72* rel_732;
 struct anonymous_typeX72* rel_end_733;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&s_731, 0, sizeof(struct Section*));
+memset(&rel_732, 0, sizeof(struct anonymous_typeX72*));
+memset(&rel_end_733, 0, sizeof(struct anonymous_typeX72*));
     # 740 "tccelf.c"
     # 741 "tccelf.c"
     # 743 "tccelf.c"
@@ -24094,17 +22577,18 @@ memset(&s_731, 0, sizeof(struct Section*));
 }
 
 static int prepare_dynamic_rel(struct TCCState* s1, struct Section* sr){
-void* __result_obj__;
 struct anonymous_typeX72* rel_734;
 struct anonymous_typeX72* rel_end_735;
 int sym_index_736;
 int esym_index_737;
 int type_738;
 int count_739;
-_Bool _if_conditional993;
-_Bool _if_conditional994;
-int __result140__;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&rel_734, 0, sizeof(struct anonymous_typeX72*));
+memset(&rel_end_735, 0, sizeof(struct anonymous_typeX72*));
+memset(&sym_index_736, 0, sizeof(int));
+memset(&esym_index_737, 0, sizeof(int));
+memset(&type_738, 0, sizeof(int));
+memset(&count_739, 0, sizeof(int));
     # 756 "tccelf.c"
     # 757 "tccelf.c"
     # 759 "tccelf.c"
@@ -24156,29 +22640,23 @@ memset(&__result_obj__, 0, sizeof(void*));
         sr->sh_size=count_739*sizeof(struct anonymous_typeX72);
     }
     # 792 "tccelf.c"
-    __result140__ = count_739;
-    return __result140__;
+    return count_739;
 }
 
 static void put_got_offset(struct TCCState* s1, int index, unsigned long int val){
-void* __result_obj__;
 int n_740;
 unsigned long int* tab_741;
-_Bool _if_conditional995;
-_Bool _while_condtional82;
-_Bool _if_conditional996;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&n_740, 0, sizeof(int));
 memset(&tab_741, 0, sizeof(unsigned long int*));
     # 797 "tccelf.c"
     # 798 "tccelf.c"
     # 813 "tccelf.c"
     # 800 "tccelf.c"
-    if(_if_conditional995=index>=s1->nb_got_offsets,    _if_conditional995) {
+    if(index>=s1->nb_got_offsets) {
         # 802 "tccelf.c"
         n_740=1;
         # 805 "tccelf.c"
-        while(_while_condtional82=index>=n_740,        _while_condtional82) {
+        while(index>=n_740) {
             # 804 "tccelf.c"
             n_740*=2;
         }
@@ -24186,7 +22664,7 @@ memset(&tab_741, 0, sizeof(unsigned long int*));
         tab_741=tcc_realloc(s1->got_offsets,n_740*sizeof(unsigned long int));
         # 808 "tccelf.c"
         # 806 "tccelf.c"
-        if(_if_conditional996=!tab_741,        _if_conditional996) {
+        if(!tab_741) {
             # 807 "tccelf.c"
             error("memory full");
         }
@@ -24202,8 +22680,6 @@ memset(&tab_741, 0, sizeof(unsigned long int*));
 }
 
 static void put32(unsigned char* p, unsigned int val){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 819 "tccelf.c"
     p[0]=val;
     # 820 "tccelf.c"
@@ -24215,18 +22691,12 @@ memset(&__result_obj__, 0, sizeof(void*));
 }
 
 static unsigned int get32(unsigned char* p){
-void* __result_obj__;
-unsigned int __result141__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 829 "tccelf.c"
-    __result141__ = p[0]|(p[1]<<8)|(p[2]<<16)|(p[3]<<24);
-    return __result141__;
+    return p[0]|(p[1]<<8)|(p[2]<<16)|(p[3]<<24);
 }
 
 static void build_got(struct TCCState* s1){
-void* __result_obj__;
 unsigned char* ptr_742;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&ptr_742, 0, sizeof(unsigned char*));
     # 835 "tccelf.c"
     # 838 "tccelf.c"
@@ -24252,21 +22722,14 @@ memset(&ptr_742, 0, sizeof(unsigned char*));
 }
 
 static void put_got_entry(struct TCCState* s1, int reloc_type, unsigned long int size, int info, int sym_index){
-void* __result_obj__;
 int index_743;
 const char* name_744;
 struct anonymous_typeX66* sym_745;
 unsigned long int offset_746;
 int* ptr_747;
-_Bool _if_conditional997;
-_Bool _if_conditional998;
-_Bool _if_conditional999;
-_Bool _if_conditional1000;
 struct Section* plt_748;
 unsigned char* p_749;
 int modrm_750;
-_Bool _if_conditional1001;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&index_743, 0, sizeof(int));
 memset(&name_744, 0, sizeof(const char*));
 memset(&sym_745, 0, sizeof(struct anonymous_typeX66*));
@@ -24282,13 +22745,13 @@ memset(&modrm_750, 0, sizeof(int));
     # 871 "tccelf.c"
     # 877 "tccelf.c"
     # 873 "tccelf.c"
-    if(_if_conditional997=!s1->got,    _if_conditional997) {
+    if(!s1->got) {
         # 874 "tccelf.c"
         build_got(s1);
     }
     # 881 "tccelf.c"
     # 878 "tccelf.c"
-    if(_if_conditional998=sym_index<s1->nb_got_offsets&&s1->got_offsets[sym_index]!=0,    _if_conditional998) {
+    if(sym_index<s1->nb_got_offsets&&s1->got_offsets[sym_index]!=0) {
         # 879 "tccelf.c"
         return;
     }
@@ -24305,7 +22768,7 @@ memset(&modrm_750, 0, sizeof(int));
         offset_746=sym_745->st_value;
         # 938 "tccelf.c"
         # 894 "tccelf.c"
-        if(_if_conditional1000=reloc_type==7,        _if_conditional1000) {
+        if(reloc_type==7) {
             # 895 "tccelf.c"
             # 896 "tccelf.c"
             # 897 "tccelf.c"
@@ -24315,7 +22778,7 @@ memset(&modrm_750, 0, sizeof(int));
             plt_748=s1->plt;
             # 922 "tccelf.c"
             # 911 "tccelf.c"
-            if(_if_conditional1001=plt_748->data_offset==0,            _if_conditional1001) {
+            if(plt_748->data_offset==0) {
                 # 913 "tccelf.c"
                 p_749=section_ptr_add(plt_748,16);
                 # 914 "tccelf.c"
@@ -24362,7 +22825,6 @@ memset(&modrm_750, 0, sizeof(int));
 }
 
 static void build_got_entries(struct TCCState* s1){
-void* __result_obj__;
 struct Section* s_751;
 struct Section* symtab_752;
 struct anonymous_typeX72* rel_753;
@@ -24372,13 +22834,15 @@ int i_756;
 int type_757;
 int reloc_type_758;
 int sym_index_759;
-_Bool _if_conditional1002;
-_Bool _if_conditional1003;
-_Bool _if_conditional1004;
-_Bool _if_conditional1005;
-_Bool _if_conditional1006;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&s_751, 0, sizeof(struct Section*));
+memset(&symtab_752, 0, sizeof(struct Section*));
+memset(&rel_753, 0, sizeof(struct anonymous_typeX72*));
+memset(&rel_end_754, 0, sizeof(struct anonymous_typeX72*));
 memset(&sym_755, 0, sizeof(struct anonymous_typeX66*));
+memset(&i_756, 0, sizeof(int));
+memset(&type_757, 0, sizeof(int));
+memset(&reloc_type_758, 0, sizeof(int));
+memset(&sym_index_759, 0, sizeof(int));
     # 952 "tccelf.c"
     # 953 "tccelf.c"
     # 954 "tccelf.c"
@@ -24389,13 +22853,13 @@ memset(&sym_755, 0, sizeof(struct anonymous_typeX66*));
         s_751=s1->sections[i_756];
         # 962 "tccelf.c"
         # 959 "tccelf.c"
-        if(_if_conditional1002=s_751->sh_type!=4,        _if_conditional1002) {
+        if(s_751->sh_type!=4) {
             # 960 "tccelf.c"
             continue;
         }
         # 964 "tccelf.c"
         # 962 "tccelf.c"
-        if(_if_conditional1003=s_751->link!=symtab_section,        _if_conditional1003) {
+        if(s_751->link!=symtab_section) {
             # 963 "tccelf.c"
             continue;
         }
@@ -24419,20 +22883,20 @@ memset(&sym_755, 0, sizeof(struct anonymous_typeX66*));
                 case 4:
                 # 1071 "tccelf.c"
                 # 1069 "tccelf.c"
-                if(_if_conditional1004=!s1->got,                _if_conditional1004) {
+                if(!s1->got) {
                     # 1070 "tccelf.c"
                     build_got(s1);
                 }
                 # 1083 "tccelf.c"
                 # 1072 "tccelf.c"
-                if(_if_conditional1005=type_757==3||type_757==9||type_757==4,                _if_conditional1005) {
+                if(type_757==3||type_757==9||type_757==4) {
                     # 1073 "tccelf.c"
                     sym_index_759=((rel_753->r_info)>>32);
                     # 1074 "tccelf.c"
                     sym_755=&((struct anonymous_typeX66*)symtab_section->data)[sym_index_759];
                     # 1080 "tccelf.c"
                     # 1076 "tccelf.c"
-                    if(_if_conditional1006=type_757==3||type_757==9,                    _if_conditional1006) {
+                    if(type_757==3||type_757==9) {
                         # 1077 "tccelf.c"
                         reloc_type_758=6;
                     }
@@ -24461,8 +22925,13 @@ struct Section* strtab_761;
 struct Section* hash_762;
 int* ptr_763;
 int nb_buckets_764;
-struct Section* __result142__;
+struct Section* __result62__;
 memset(&__result_obj__, 0, sizeof(void*));
+memset(&symtab_760, 0, sizeof(struct Section*));
+memset(&strtab_761, 0, sizeof(struct Section*));
+memset(&hash_762, 0, sizeof(struct Section*));
+memset(&ptr_763, 0, sizeof(int*));
+memset(&nb_buckets_764, 0, sizeof(int));
     # 1099 "tccelf.c"
     # 1100 "tccelf.c"
     # 1102 "tccelf.c"
@@ -24496,14 +22965,12 @@ memset(&__result_obj__, 0, sizeof(void*));
     # 1119 "tccelf.c"
     memset(ptr_763+2,0,(nb_buckets_764+1)*sizeof(int));
     # 1120 "tccelf.c"
-    __result142__ = __result_obj__ = symtab_760;
-    return __result142__;
+    __result62__ = __result_obj__ = symtab_760;
+    return __result62__;
 }
 
 static void put_dt(struct Section* dynamic, int dt, unsigned long int val){
-void* __result_obj__;
 struct anonymous_typeX78* dyn_765;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&dyn_765, 0, sizeof(struct anonymous_typeX78*));
     # 1126 "tccelf.c"
     # 1127 "tccelf.c"
@@ -24515,11 +22982,8 @@ memset(&dyn_765, 0, sizeof(struct anonymous_typeX78*));
 }
 
 static void add_init_array_defines(struct TCCState* s1, const char* section_name){
-void* __result_obj__;
 struct Section* s_766;
 long end_offset_767;
-_Bool _if_conditional1007;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&s_766, 0, sizeof(struct Section*));
 memset(&end_offset_767, 0, sizeof(long));
     # 1134 "tccelf.c"
@@ -24538,7 +23002,7 @@ memset(&end_offset_767, 0, sizeof(long));
     s_766=find_section(s1,section_name);
     # 1150 "tccelf.c"
     # 1143 "tccelf.c"
-    if(_if_conditional1007=!s_766,    _if_conditional1007) {
+    if(!s_766) {
         # 1144 "tccelf.c"
         end_offset_767=0;
         # 1145 "tccelf.c"
@@ -24555,16 +23019,12 @@ memset(&end_offset_767, 0, sizeof(long));
 }
 
 static void tcc_add_runtime(struct TCCState* s1){
-void* __result_obj__;
-_Bool _if_conditional1008;
-_Bool _if_conditional1009;
-memset(&__result_obj__, 0, sizeof(void*));
     # 1164 "tccelf.c"
     char buf_770[1024];
     memset(&buf_770, 0, sizeof(char)    *(1024)    );
     # 1209 "tccelf.c"
     # 1198 "tccelf.c"
-    if(_if_conditional1008=!s1->nostdlib,    _if_conditional1008) {
+    if(!s1->nostdlib) {
         # 1199 "tccelf.c"
         tcc_add_library(s1,"c");
         # 1204 "tccelf.c"
@@ -24574,22 +23034,17 @@ memset(&__result_obj__, 0, sizeof(void*));
     }
     # 1212 "tccelf.c"
     # 1209 "tccelf.c"
-    if(_if_conditional1009=s1->output_type!=0&&!s1->nostdlib,    _if_conditional1009) {
+    if(s1->output_type!=0&&!s1->nostdlib) {
         # 1210 "tccelf.c"
         tcc_add_file(s1,"/usr/lib/crtn.o");
     }
 }
 
 static void tcc_add_linker_symbols(struct TCCState* s1){
-void* __result_obj__;
 int i_772;
 struct Section* s_773;
-_Bool _if_conditional1010;
 const char* p_774;
 int ch_775;
-_Bool _if_conditional1011;
-_Bool _if_conditional1012;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&i_772, 0, sizeof(int));
 memset(&s_773, 0, sizeof(struct Section*));
 memset(&p_774, 0, sizeof(const char*));
@@ -24617,7 +23072,7 @@ memset(&ch_775, 0, sizeof(int));
         s_773=s1->sections[i_772];
         # 1270 "tccelf.c"
         # 1245 "tccelf.c"
-        if(_if_conditional1010=s_773->sh_type==1&&(s_773->sh_flags&(1<<1)),        _if_conditional1010) {
+        if(s_773->sh_type==1&&(s_773->sh_flags&(1<<1))) {
             # 1246 "tccelf.c"
             # 1247 "tccelf.c"
             # 1250 "tccelf.c"
@@ -24628,13 +23083,13 @@ memset(&ch_775, 0, sizeof(int));
                 ch_775=*p_774;
                 # 1255 "tccelf.c"
                 # 1253 "tccelf.c"
-                if(_if_conditional1011=!ch_775,                _if_conditional1011) {
+                if(!ch_775) {
                     # 1254 "tccelf.c"
                     break;
                 }
                 # 1257 "tccelf.c"
                 # 1255 "tccelf.c"
-                if(_if_conditional1012=!isid(ch_775)&&!isnum(ch_775),                _if_conditional1012) {
+                if(!isid(ch_775)&&!isnum(ch_775)) {
                     # 1256 "tccelf.c"
                     goto next_sec;
                 }
@@ -24656,15 +23111,14 @@ memset(&ch_775, 0, sizeof(int));
 }
 
 static void tcc_output_binary(struct TCCState* s1, struct _IO_FILE* f, const int* section_order){
-void* __result_obj__;
 struct Section* s_776;
 int i_777;
 int offset_778;
 int size_779;
-_Bool _if_conditional1013;
-_Bool _while_condtional83;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&s_776, 0, sizeof(struct Section*));
+memset(&i_777, 0, sizeof(int));
+memset(&offset_778, 0, sizeof(int));
+memset(&size_779, 0, sizeof(int));
     # 1290 "tccelf.c"
     # 1291 "tccelf.c"
     # 1293 "tccelf.c"
@@ -24675,9 +23129,9 @@ memset(&s_776, 0, sizeof(struct Section*));
         s_776=s1->sections[section_order[i_777]];
         # 1306 "tccelf.c"
         # 1297 "tccelf.c"
-        if(_if_conditional1013=s_776->sh_type!=8&&(s_776->sh_flags&(1<<1)),        _if_conditional1013) {
+        if(s_776->sh_type!=8&&(s_776->sh_flags&(1<<1))) {
             # 1302 "tccelf.c"
-            while(_while_condtional83=offset_778<s_776->sh_offset,            _while_condtional83) {
+            while(offset_778<s_776->sh_offset) {
                 # 1299 "tccelf.c"
                 fputc(0,f);
                 # 1300 "tccelf.c"
@@ -24694,7 +23148,6 @@ memset(&s_776, 0, sizeof(struct Section*));
 }
 
 int elf_output_file(struct TCCState* s1, const char* filename){
-void* __result_obj__;
 struct anonymous_typeX62 ehdr_780;
 struct _IO_FILE* f_781;
 int fd_782;
@@ -24727,111 +23180,68 @@ int type_808;
 int file_type_809;
 unsigned long int rel_addr_810;
 unsigned long int rel_size_811;
-_Bool _if_conditional1014;
-_Bool _if_conditional1015;
-_Bool _if_conditional1016;
 const char* name_812;
 int sym_index_813;
 int index_814;
 struct anonymous_typeX66* esym_815;
 struct anonymous_typeX66* sym_end_816;
-_Bool _if_conditional1017;
 char* ptr_817;
-_Bool _if_conditional1018;
-_Bool _if_conditional1019;
-_Bool _if_conditional1020;
-_Bool _if_conditional1021;
-_Bool _elif_conditional198;
 unsigned long int offset_818;
-_Bool _if_conditional1022;
-_Bool _elif_conditional199;
-_Bool _if_conditional1023;
-_Bool _if_conditional1024;
-_Bool _if_conditional1025;
-_Bool _if_conditional1026;
 int nb_syms_819;
-_Bool _if_conditional1027;
-_Bool _if_conditional1028;
-_Bool _elif_conditional200;
 struct DLLReference* dllref_820;
-_Bool _if_conditional1029;
-_Bool _if_conditional1030;
-_Bool _if_conditional1031;
-_Bool _if_conditional1032;
-_Bool _if_conditional1033;
-_Bool _if_conditional1034;
-_Bool _elif_conditional201;
-_Bool _if_conditional1035;
-_Bool _if_conditional1036;
-_Bool _if_conditional1037;
 int a_offset_821;
 int p_offset_822;
-_Bool _if_conditional1038;
-_Bool _if_conditional1039;
-_Bool _if_conditional1040;
-_Bool _if_conditional1041;
-_Bool _if_conditional1042;
-_Bool _if_conditional1043;
-_Bool _if_conditional1044;
-_Bool _if_conditional1045;
-_Bool _if_conditional1046;
-_Bool _elif_conditional202;
-_Bool _if_conditional1047;
-_Bool _elif_conditional203;
-_Bool _if_conditional1048;
-_Bool _elif_conditional204;
-_Bool _if_conditional1049;
-_Bool _if_conditional1050;
-_Bool _if_conditional1051;
-_Bool _if_conditional1052;
-_Bool _if_conditional1053;
-_Bool _if_conditional1054;
-_Bool _if_conditional1055;
-_Bool _if_conditional1056;
-_Bool _if_conditional1057;
-_Bool _if_conditional1058;
-_Bool _if_conditional1059;
 struct anonymous_typeX66* sym_end_823;
-_Bool _if_conditional1060;
 unsigned char* p_824;
 unsigned char* p_end_825;
-_Bool _if_conditional1061;
 int x_826;
-_Bool _while_condtional84;
-_Bool _if_conditional1062;
-_Bool _if_conditional1063;
-_Bool _elif_conditional205;
-_Bool _if_conditional1064;
-_Bool _if_conditional1065;
-_Bool _if_conditional1066;
-_Bool _if_conditional1067;
-_Bool _if_conditional1068;
-_Bool _if_conditional1069;
-_Bool _if_conditional1070;
-_Bool _if_conditional1071;
-_Bool _if_conditional1072;
-_Bool _if_conditional1073;
-_Bool _if_conditional1074;
-_Bool _if_conditional1075;
-_Bool _if_conditional1076;
-_Bool _while_condtional85;
-_Bool _while_condtional86;
-_Bool _if_conditional1077;
-_Bool _if_conditional1078;
-int __result143__;
-memset(&__result_obj__, 0, sizeof(void*));
+int __result63__;
 memset(&ehdr_780, 0, sizeof(struct anonymous_typeX62));
 memset(&f_781, 0, sizeof(struct _IO_FILE*));
+memset(&fd_782, 0, sizeof(int));
+memset(&mode_783, 0, sizeof(int));
+memset(&ret_784, 0, sizeof(int));
 memset(&section_order_785, 0, sizeof(int*));
+memset(&shnum_786, 0, sizeof(int));
+memset(&i_787, 0, sizeof(int));
+memset(&phnum_788, 0, sizeof(int));
+memset(&file_offset_789, 0, sizeof(int));
+memset(&offset_790, 0, sizeof(int));
+memset(&size_791, 0, sizeof(int));
+memset(&j_792, 0, sizeof(int));
+memset(&tmp_793, 0, sizeof(int));
+memset(&sh_order_index_794, 0, sizeof(int));
+memset(&k_795, 0, sizeof(int));
 memset(&addr_796, 0, sizeof(unsigned long int));
+memset(&strsec_797, 0, sizeof(struct Section*));
+memset(&s_798, 0, sizeof(struct Section*));
+memset(&shdr_799, 0, sizeof(struct anonymous_typeX64));
+memset(&sh_800, 0, sizeof(struct anonymous_typeX64*));
+memset(&phdr_801, 0, sizeof(struct anonymous_typeX74*));
+memset(&ph_802, 0, sizeof(struct anonymous_typeX74*));
+memset(&interp_803, 0, sizeof(struct Section*));
+memset(&dynamic_804, 0, sizeof(struct Section*));
+memset(&dynstr_805, 0, sizeof(struct Section*));
 memset(&saved_dynamic_data_offset_806, 0, sizeof(unsigned long int));
 memset(&sym_807, 0, sizeof(struct anonymous_typeX66*));
+memset(&type_808, 0, sizeof(int));
+memset(&file_type_809, 0, sizeof(int));
+memset(&rel_addr_810, 0, sizeof(unsigned long int));
+memset(&rel_size_811, 0, sizeof(unsigned long int));
 memset(&name_812, 0, sizeof(const char*));
+memset(&sym_index_813, 0, sizeof(int));
+memset(&index_814, 0, sizeof(int));
+memset(&esym_815, 0, sizeof(struct anonymous_typeX66*));
+memset(&sym_end_816, 0, sizeof(struct anonymous_typeX66*));
 memset(&ptr_817, 0, sizeof(char*));
 memset(&offset_818, 0, sizeof(unsigned long int));
 memset(&nb_syms_819, 0, sizeof(int));
 memset(&dllref_820, 0, sizeof(struct DLLReference*));
+memset(&a_offset_821, 0, sizeof(int));
+memset(&p_offset_822, 0, sizeof(int));
 memset(&sym_end_823, 0, sizeof(struct anonymous_typeX66*));
+memset(&p_824, 0, sizeof(unsigned char*));
+memset(&p_end_825, 0, sizeof(unsigned char*));
 memset(&x_826, 0, sizeof(int));
     # 1313 "tccelf.c"
     # 1314 "tccelf.c"
@@ -24853,7 +23263,7 @@ memset(&x_826, 0, sizeof(int));
     s1->nb_errors=0;
     # 1335 "tccelf.c"
     # 1331 "tccelf.c"
-    if(_if_conditional1014=file_type_809!=3,    _if_conditional1014) {
+    if(file_type_809!=3) {
         # 1332 "tccelf.c"
         tcc_add_runtime(s1);
     }
@@ -24871,20 +23281,20 @@ memset(&x_826, 0, sizeof(int));
     saved_dynamic_data_offset_806=0;
     # 1524 "tccelf.c"
     # 1342 "tccelf.c"
-    if(_if_conditional1015=file_type_809!=3,    _if_conditional1015) {
+    if(file_type_809!=3) {
         # 1343 "tccelf.c"
         relocate_common_syms();
         # 1345 "tccelf.c"
         tcc_add_linker_symbols(s1);
         # 1522 "tccelf.c"
         # 1347 "tccelf.c"
-        if(_if_conditional1016=!s1->static_link,        _if_conditional1016) {
+        if(!s1->static_link) {
             # 1348 "tccelf.c"
             # 1349 "tccelf.c"
             # 1350 "tccelf.c"
             # 1362 "tccelf.c"
             # 1352 "tccelf.c"
-            if(_if_conditional1017=file_type_809==1,            _if_conditional1017) {
+            if(file_type_809==1) {
                 # 1353 "tccelf.c"
                 # 1355 "tccelf.c"
                 interp_803=new_section(s1,".interp",1,(1<<1));
@@ -24915,12 +23325,12 @@ memset(&x_826, 0, sizeof(int));
             sym_end_816=(struct anonymous_typeX66*)(symtab_section->data+symtab_section->data_offset);
             # 1499 "tccelf.c"
             # 1386 "tccelf.c"
-            if(_if_conditional1018=file_type_809==1,            _if_conditional1018) {
+            if(file_type_809==1) {
                 # 1434 "tccelf.c"
                 for(                sym_807=(struct anonymous_typeX66*)symtab_section->data+1;                sym_807<sym_end_816;                sym_807++                ){
                     # 1432 "tccelf.c"
                     # 1390 "tccelf.c"
-                    if(_if_conditional1019=sym_807->st_shndx==0,                    _if_conditional1019) {
+                    if(sym_807->st_shndx==0) {
                         # 1391 "tccelf.c"
                         name_812=symtab_section->link->data+sym_807->st_name;
                         # 1392 "tccelf.c"
@@ -24934,12 +23344,12 @@ memset(&x_826, 0, sizeof(int));
                             type_808=((esym_815->st_info)&15);
                             # 1413 "tccelf.c"
                             # 1396 "tccelf.c"
-                            if(_if_conditional1021=type_808==2,                            _if_conditional1021) {
+                            if(type_808==2) {
                                 # 1399 "tccelf.c"
                                 put_got_entry(s1,7,esym_815->st_size,esym_815->st_info,sym_807-(struct anonymous_typeX66*)symtab_section->data);
                             }
                             # 1400 "tccelf.c"
-                            else if(_elif_conditional198=type_808==1,                            _elif_conditional198) {
+                            else if(type_808==1) {
                                 # 1401 "tccelf.c"
                                 # 1402 "tccelf.c"
                                 offset_818=bss_section->data_offset;
@@ -24958,7 +23368,7 @@ memset(&x_826, 0, sizeof(int));
                         else {
                             # 1422 "tccelf.c"
                             # 1418 "tccelf.c"
-                            if(_if_conditional1022=(((unsigned char)(sym_807->st_info))>>4)==2||!strcmp(name_812,"_fp_hw"),                            _if_conditional1022) {
+                            if((((unsigned char)(sym_807->st_info))>>4)==2||!strcmp(name_812,"_fp_hw")) {
                             }
                             else {
                                 # 1420 "tccelf.c"
@@ -24967,7 +23377,7 @@ memset(&x_826, 0, sizeof(int));
                         }
                     }
                     # 1424 "tccelf.c"
-                    else if(_elif_conditional199=s1->rdynamic&&(((unsigned char)(sym_807->st_info))>>4)!=0,                    _elif_conditional199) {
+                    else if(s1->rdynamic&&(((unsigned char)(sym_807->st_info))>>4)!=0) {
                         # 1427 "tccelf.c"
                         name_812=symtab_section->link->data+sym_807->st_name;
                         # 1430 "tccelf.c"
@@ -24986,7 +23396,7 @@ memset(&x_826, 0, sizeof(int));
                 for(                esym_815=(struct anonymous_typeX66*)s1->dynsymtab_section->data+1;                esym_815<sym_end_816;                esym_815++                ){
                     # 1462 "tccelf.c"
                     # 1444 "tccelf.c"
-                    if(_if_conditional1024=esym_815->st_shndx==0,                    _if_conditional1024) {
+                    if(esym_815->st_shndx==0) {
                         # 1445 "tccelf.c"
                         name_812=s1->dynsymtab_section->link->data+esym_815->st_name;
                         # 1446 "tccelf.c"
@@ -25002,7 +23412,7 @@ memset(&x_826, 0, sizeof(int));
                         else {
                             # 1460 "tccelf.c"
                             # 1455 "tccelf.c"
-                            if(_if_conditional1026=(((unsigned char)(esym_815->st_info))>>4)==2,                            _if_conditional1026) {
+                            if((((unsigned char)(esym_815->st_info))>>4)==2) {
                             }
                             else {
                                 # 1458 "tccelf.c"
@@ -25022,15 +23432,15 @@ memset(&x_826, 0, sizeof(int));
                 for(                sym_807=(struct anonymous_typeX66*)symtab_section->data+1;                sym_807<sym_end_816;                sym_807++                ){
                     # 1496 "tccelf.c"
                     # 1471 "tccelf.c"
-                    if(_if_conditional1027=(((unsigned char)(sym_807->st_info))>>4)!=0,                    _if_conditional1027) {
+                    if((((unsigned char)(sym_807->st_info))>>4)!=0) {
                         # 1495 "tccelf.c"
                         # 1474 "tccelf.c"
-                        if(_if_conditional1028=((sym_807->st_info)&15)==2&&sym_807->st_shndx==0,                        _if_conditional1028) {
+                        if(((sym_807->st_info)&15)==2&&sym_807->st_shndx==0) {
                             # 1477 "tccelf.c"
                             put_got_entry(s1,7,sym_807->st_size,sym_807->st_info,sym_807-(struct anonymous_typeX66*)symtab_section->data);
                         }
                         # 1479 "tccelf.c"
-                        else if(_elif_conditional200=((sym_807->st_info)&15)==1,                        _elif_conditional200) {
+                        else if(((sym_807->st_info)&15)==1) {
                             # 1482 "tccelf.c"
                             put_got_entry(s1,6,sym_807->st_size,sym_807->st_info,sym_807-(struct anonymous_typeX66*)symtab_section->data);
                         }
@@ -25053,14 +23463,14 @@ memset(&x_826, 0, sizeof(int));
                 dllref_820=s1->loaded_dlls[i_787];
                 # 1506 "tccelf.c"
                 # 1504 "tccelf.c"
-                if(_if_conditional1029=dllref_820->level==0,                _if_conditional1029) {
+                if(dllref_820->level==0) {
                     # 1505 "tccelf.c"
                     put_dt(dynamic_804,1,put_elf_str(dynstr_805,dllref_820->name));
                 }
             }
             # 1516 "tccelf.c"
             # 1509 "tccelf.c"
-            if(_if_conditional1030=file_type_809==2,            _if_conditional1030) {
+            if(file_type_809==2) {
                 # 1512 "tccelf.c"
                 # 1510 "tccelf.c"
                 if(s1->soname) {
@@ -25108,7 +23518,7 @@ memset(&x_826, 0, sizeof(int));
         case 1:
         # 1549 "tccelf.c"
         # 1545 "tccelf.c"
-        if(_if_conditional1032=!s1->static_link,        _if_conditional1032) {
+        if(!s1->static_link) {
             # 1546 "tccelf.c"
             phnum_788=4;
         }
@@ -25133,10 +23543,10 @@ memset(&x_826, 0, sizeof(int));
         s_798->sh_name=put_elf_str(strsec_797,s_798->name);
         # 1588 "tccelf.c"
         # 1575 "tccelf.c"
-        if(_if_conditional1033=file_type_809==2&&s_798->sh_type==4&&!(s_798->sh_flags&(1<<1)),        _if_conditional1033) {
+        if(file_type_809==2&&s_798->sh_type==4&&!(s_798->sh_flags&(1<<1))) {
             # 1581 "tccelf.c"
             # 1577 "tccelf.c"
-            if(_if_conditional1034=s1->sections[s_798->sh_info]->sh_flags&(1<<1),            _if_conditional1034) {
+            if(s1->sections[s_798->sh_info]->sh_flags&(1<<1)) {
                 # 1578 "tccelf.c"
                 prepare_dynamic_rel(s1,s_798);
             }
@@ -25147,7 +23557,7 @@ memset(&x_826, 0, sizeof(int));
             }
         }
         # 1584 "tccelf.c"
-        else if(_elif_conditional201=s1->do_debug||file_type_809==3||(s_798->sh_flags&(1<<1))||i_787==(s1->nb_sections-1),        _elif_conditional201) {
+        else if(s1->do_debug||file_type_809==3||(s_798->sh_flags&(1<<1))||i_787==(s1->nb_sections-1)) {
             # 1586 "tccelf.c"
             s_798->sh_size=s_798->data_offset;
         }
@@ -25156,7 +23566,7 @@ memset(&x_826, 0, sizeof(int));
     phdr_801=tcc_mallocz(phnum_788*sizeof(struct anonymous_typeX74));
     # 1598 "tccelf.c"
     # 1593 "tccelf.c"
-    if(_if_conditional1035=s1->output_format==0,    _if_conditional1035) {
+    if(s1->output_format==0) {
         # 1594 "tccelf.c"
         file_offset_789=sizeof(struct anonymous_typeX62)+phnum_788*sizeof(struct anonymous_typeX74);
     }
@@ -25166,7 +23576,7 @@ memset(&x_826, 0, sizeof(int));
     }
     # 1820 "tccelf.c"
     # 1598 "tccelf.c"
-    if(_if_conditional1036=phnum_788>0,    _if_conditional1036) {
+    if(phnum_788>0) {
         # 1620 "tccelf.c"
         # 1600 "tccelf.c"
         if(s1->has_text_addr) {
@@ -25179,7 +23589,7 @@ memset(&x_826, 0, sizeof(int));
             p_offset_822=file_offset_789&(4096-1);
             # 1609 "tccelf.c"
             # 1607 "tccelf.c"
-            if(_if_conditional1038=a_offset_821<p_offset_822,            _if_conditional1038) {
+            if(a_offset_821<p_offset_822) {
                 # 1608 "tccelf.c"
                 a_offset_821+=4096;
             }
@@ -25189,7 +23599,7 @@ memset(&x_826, 0, sizeof(int));
         else {
             # 1616 "tccelf.c"
             # 1611 "tccelf.c"
-            if(_if_conditional1039=file_type_809==2,            _if_conditional1039) {
+            if(file_type_809==2) {
                 # 1612 "tccelf.c"
                 addr_796=0;
             }
@@ -25218,7 +23628,7 @@ memset(&x_826, 0, sizeof(int));
             ph_802->p_type=1;
             # 1634 "tccelf.c"
             # 1630 "tccelf.c"
-            if(_if_conditional1041=j_792==0,            _if_conditional1041) {
+            if(j_792==0) {
                 # 1631 "tccelf.c"
                 ph_802->p_flags=(1<<2)|(1<<0);
             }
@@ -25236,10 +23646,10 @@ memset(&x_826, 0, sizeof(int));
                     s_798=s1->sections[i_787];
                     # 1652 "tccelf.c"
                     # 1643 "tccelf.c"
-                    if(_if_conditional1042=j_792==0,                    _if_conditional1042) {
+                    if(j_792==0) {
                         # 1647 "tccelf.c"
                         # 1645 "tccelf.c"
-                        if(_if_conditional1043=(s_798->sh_flags&((1<<1)|(1<<0)))!=(1<<1),                        _if_conditional1043) {
+                        if((s_798->sh_flags&((1<<1)|(1<<0)))!=(1<<1)) {
                             # 1646 "tccelf.c"
                             continue;
                         }
@@ -25247,44 +23657,44 @@ memset(&x_826, 0, sizeof(int));
                     else {
                         # 1651 "tccelf.c"
                         # 1649 "tccelf.c"
-                        if(_if_conditional1044=(s_798->sh_flags&((1<<1)|(1<<0)))!=((1<<1)|(1<<0)),                        _if_conditional1044) {
+                        if((s_798->sh_flags&((1<<1)|(1<<0)))!=((1<<1)|(1<<0))) {
                             # 1650 "tccelf.c"
                             continue;
                         }
                     }
                     # 1670 "tccelf.c"
                     # 1652 "tccelf.c"
-                    if(_if_conditional1045=s_798==interp_803,                    _if_conditional1045) {
+                    if(s_798==interp_803) {
                         # 1655 "tccelf.c"
                         # 1653 "tccelf.c"
-                        if(_if_conditional1046=k_795!=0,                        _if_conditional1046) {
+                        if(k_795!=0) {
                             # 1654 "tccelf.c"
                             continue;
                         }
                     }
                     # 1657 "tccelf.c"
-                    else if(_elif_conditional202=s_798->sh_type==11||s_798->sh_type==3||s_798->sh_type==5,                    _elif_conditional202) {
+                    else if(s_798->sh_type==11||s_798->sh_type==3||s_798->sh_type==5) {
                         # 1660 "tccelf.c"
                         # 1658 "tccelf.c"
-                        if(_if_conditional1047=k_795!=1,                        _if_conditional1047) {
+                        if(k_795!=1) {
                             # 1659 "tccelf.c"
                             continue;
                         }
                     }
                     # 1660 "tccelf.c"
-                    else if(_elif_conditional203=s_798->sh_type==4,                    _elif_conditional203) {
+                    else if(s_798->sh_type==4) {
                         # 1663 "tccelf.c"
                         # 1661 "tccelf.c"
-                        if(_if_conditional1048=k_795!=2,                        _if_conditional1048) {
+                        if(k_795!=2) {
                             # 1662 "tccelf.c"
                             continue;
                         }
                     }
                     # 1663 "tccelf.c"
-                    else if(_elif_conditional204=s_798->sh_type==8,                    _elif_conditional204) {
+                    else if(s_798->sh_type==8) {
                         # 1666 "tccelf.c"
                         # 1664 "tccelf.c"
-                        if(_if_conditional1049=k_795!=4,                        _if_conditional1049) {
+                        if(k_795!=4) {
                             # 1665 "tccelf.c"
                             continue;
                         }
@@ -25292,7 +23702,7 @@ memset(&x_826, 0, sizeof(int));
                     else {
                         # 1669 "tccelf.c"
                         # 1667 "tccelf.c"
-                        if(_if_conditional1050=k_795!=3,                        _if_conditional1050) {
+                        if(k_795!=3) {
                             # 1668 "tccelf.c"
                             continue;
                         }
@@ -25311,7 +23721,7 @@ memset(&x_826, 0, sizeof(int));
                     s_798->sh_addr=addr_796;
                     # 1687 "tccelf.c"
                     # 1681 "tccelf.c"
-                    if(_if_conditional1051=ph_802->p_offset==0,                    _if_conditional1051) {
+                    if(ph_802->p_offset==0) {
                         # 1682 "tccelf.c"
                         ph_802->p_offset=file_offset_789;
                         # 1683 "tccelf.c"
@@ -25321,10 +23731,10 @@ memset(&x_826, 0, sizeof(int));
                     }
                     # 1692 "tccelf.c"
                     # 1687 "tccelf.c"
-                    if(_if_conditional1052=s_798->sh_type==4,                    _if_conditional1052) {
+                    if(s_798->sh_type==4) {
                         # 1690 "tccelf.c"
                         # 1688 "tccelf.c"
-                        if(_if_conditional1053=rel_size_811==0,                        _if_conditional1053) {
+                        if(rel_size_811==0) {
                             # 1689 "tccelf.c"
                             rel_addr_810=addr_796;
                         }
@@ -25335,7 +23745,7 @@ memset(&x_826, 0, sizeof(int));
                     addr_796+=s_798->sh_size;
                     # 1695 "tccelf.c"
                     # 1693 "tccelf.c"
-                    if(_if_conditional1054=s_798->sh_type!=8,                    _if_conditional1054) {
+                    if(s_798->sh_type!=8) {
                         # 1694 "tccelf.c"
                         file_offset_789+=s_798->sh_size;
                     }
@@ -25349,13 +23759,13 @@ memset(&x_826, 0, sizeof(int));
             ph_802++;
             # 1712 "tccelf.c"
             # 1700 "tccelf.c"
-            if(_if_conditional1055=j_792==0,            _if_conditional1055) {
+            if(j_792==0) {
                 # 1711 "tccelf.c"
                 # 1701 "tccelf.c"
-                if(_if_conditional1056=s1->output_format==0,                _if_conditional1056) {
+                if(s1->output_format==0) {
                     # 1706 "tccelf.c"
                     # 1704 "tccelf.c"
-                    if(_if_conditional1057=(addr_796&(4096-1))!=0,                    _if_conditional1057) {
+                    if((addr_796&(4096-1))!=0) {
                         # 1705 "tccelf.c"
                         addr_796+=4096;
                     }
@@ -25416,7 +23826,7 @@ memset(&x_826, 0, sizeof(int));
             put32(s1->got->data,dynamic_804->sh_addr);
             # 1778 "tccelf.c"
             # 1751 "tccelf.c"
-            if(_if_conditional1060=file_type_809==1||file_type_809==2,            _if_conditional1060) {
+            if(file_type_809==1||file_type_809==2) {
                 # 1752 "tccelf.c"
                 # 1754 "tccelf.c"
                 p_824=s1->plt->data;
@@ -25424,7 +23834,7 @@ memset(&x_826, 0, sizeof(int));
                 p_end_825=p_824+s1->plt->data_offset;
                 # 1775 "tccelf.c"
                 # 1756 "tccelf.c"
-                if(_if_conditional1061=p_824<p_end_825,                _if_conditional1061) {
+                if(p_824<p_end_825) {
                     # 1766 "tccelf.c"
                     x_826=s1->got->sh_addr-s1->plt->sh_addr-6;
                     # 1767 "tccelf.c"
@@ -25434,7 +23844,7 @@ memset(&x_826, 0, sizeof(int));
                     # 1769 "tccelf.c"
                     p_824+=16;
                     # 1774 "tccelf.c"
-                    while(_while_condtional84=p_824<p_end_825,                    _while_condtional84) {
+                    while(p_824<p_end_825) {
                         # 1771 "tccelf.c"
                         put32(p_824+2,get32(p_824+2)+x_826+s1->plt->data-p_824);
                         # 1772 "tccelf.c"
@@ -25448,7 +23858,7 @@ memset(&x_826, 0, sizeof(int));
             for(            sym_807=(struct anonymous_typeX66*)s1->dynsym->data+1;            sym_807<sym_end_823;            sym_807++            ){
                 # 1791 "tccelf.c"
                 # 1782 "tccelf.c"
-                if(_if_conditional1062=sym_807->st_shndx==0,                _if_conditional1062) {
+                if(sym_807->st_shndx==0) {
                     # 1787 "tccelf.c"
                     # 1785 "tccelf.c"
                     if(sym_807->st_value) {
@@ -25457,7 +23867,7 @@ memset(&x_826, 0, sizeof(int));
                     }
                 }
                 # 1787 "tccelf.c"
-                else if(_elif_conditional205=sym_807->st_shndx<65280,                _elif_conditional205) {
+                else if(sym_807->st_shndx<65280) {
                     # 1789 "tccelf.c"
                     sym_807->st_value+=s1->sections[sym_807->st_shndx]->sh_addr;
                 }
@@ -25502,7 +23912,7 @@ memset(&x_826, 0, sizeof(int));
         s_798=s1->sections[i_787];
         # 1824 "tccelf.c"
         # 1822 "tccelf.c"
-        if(_if_conditional1065=phnum_788>0&&(s_798->sh_flags&(1<<1)),        _if_conditional1065) {
+        if(phnum_788>0&&(s_798->sh_flags&(1<<1))) {
             # 1823 "tccelf.c"
             continue;
         }
@@ -25514,19 +23924,19 @@ memset(&x_826, 0, sizeof(int));
         s_798->sh_offset=file_offset_789;
         # 1831 "tccelf.c"
         # 1829 "tccelf.c"
-        if(_if_conditional1066=s_798->sh_type!=8,        _if_conditional1066) {
+        if(s_798->sh_type!=8) {
             # 1830 "tccelf.c"
             file_offset_789+=s_798->sh_size;
         }
     }
     # 1870 "tccelf.c"
     # 1835 "tccelf.c"
-    if(_if_conditional1067=file_type_809!=3,    _if_conditional1067) {
+    if(file_type_809!=3) {
         # 1836 "tccelf.c"
         relocate_syms(s1,0);
         # 1846 "tccelf.c"
         # 1838 "tccelf.c"
-        if(_if_conditional1068=s1->nb_errors!=0,        _if_conditional1068) {
+        if(s1->nb_errors!=0) {
             # 1840 "tccelf.c"
             fail:
             # 1840 "tccelf.c"
@@ -25540,7 +23950,7 @@ memset(&x_826, 0, sizeof(int));
             s_798=s1->sections[i_787];
             # 1850 "tccelf.c"
             # 1848 "tccelf.c"
-            if(_if_conditional1069=s_798->reloc&&s_798!=s1->got&&(s_798->sh_flags&(1<<1)),            _if_conditional1069) {
+            if(s_798->reloc&&s_798!=s1->got&&(s_798->sh_flags&(1<<1))) {
                 # 1849 "tccelf.c"
                 relocate_section(s1,s_798);
             }
@@ -25551,14 +23961,14 @@ memset(&x_826, 0, sizeof(int));
             s_798=s1->sections[i_787];
             # 1860 "tccelf.c"
             # 1857 "tccelf.c"
-            if(_if_conditional1070=(s_798->sh_flags&(1<<1))&&s_798->sh_type==4,            _if_conditional1070) {
+            if((s_798->sh_flags&(1<<1))&&s_798->sh_type==4) {
                 # 1858 "tccelf.c"
                 relocate_rel(s1,s_798);
             }
         }
         # 1867 "tccelf.c"
         # 1863 "tccelf.c"
-        if(_if_conditional1071=file_type_809==1,        _if_conditional1071) {
+        if(file_type_809==1) {
             # 1864 "tccelf.c"
             ehdr_780.e_entry=(unsigned long int)tcc_get_symbol_err(s1,"_start");
         }
@@ -25569,7 +23979,7 @@ memset(&x_826, 0, sizeof(int));
     }
     # 1874 "tccelf.c"
     # 1870 "tccelf.c"
-    if(_if_conditional1072=file_type_809==3,    _if_conditional1072) {
+    if(file_type_809==3) {
         # 1871 "tccelf.c"
         mode_783=438;
     }
@@ -25581,7 +23991,7 @@ memset(&x_826, 0, sizeof(int));
     fd_782=open(filename,1|64|512|0,mode_783);
     # 1892 "tccelf.c"
     # 1888 "tccelf.c"
-    if(_if_conditional1073=fd_782<0,    _if_conditional1073) {
+    if(fd_782<0) {
         # 1889 "tccelf.c"
         error_noabort("could not write '%s'",filename);
         # 1890 "tccelf.c"
@@ -25597,7 +24007,7 @@ memset(&x_826, 0, sizeof(int));
     }
     # 1991 "tccelf.c"
     # 1901 "tccelf.c"
-    if(_if_conditional1075=s1->output_format==0,    _if_conditional1075) {
+    if(s1->output_format==0) {
         # 1902 "tccelf.c"
         sort_syms(s1,symtab_section);
         # 1905 "tccelf.c"
@@ -25665,9 +24075,9 @@ memset(&x_826, 0, sizeof(int));
             s_798=s1->sections[section_order_785[i_787]];
             # 1961 "tccelf.c"
             # 1952 "tccelf.c"
-            if(_if_conditional1076=s_798->sh_type!=8,            _if_conditional1076) {
+            if(s_798->sh_type!=8) {
                 # 1957 "tccelf.c"
-                while(_while_condtional85=offset_790<s_798->sh_offset,                _while_condtional85) {
+                while(offset_790<s_798->sh_offset) {
                     # 1954 "tccelf.c"
                     fputc(0,f_781);
                     # 1955 "tccelf.c"
@@ -25682,7 +24092,7 @@ memset(&x_826, 0, sizeof(int));
             }
         }
         # 1969 "tccelf.c"
-        while(_while_condtional86=offset_790<ehdr_780.e_shoff,        _while_condtional86) {
+        while(offset_790<ehdr_780.e_shoff) {
             # 1965 "tccelf.c"
             fputc(0,f_781);
             # 1966 "tccelf.c"
@@ -25747,22 +24157,17 @@ memset(&x_826, 0, sizeof(int));
     # 1998 "tccelf.c"
     tcc_free(s1->got_offsets);
     # 1999 "tccelf.c"
-    __result143__ = ret_784;
+    __result63__ = ret_784;
     come_call_finalizer3((&ehdr_780),Elf64_Ehdr_finalize, 1, 0, 0, 0, (void*)0);
-    return __result143__;
+    return __result63__;
     come_call_finalizer3((&ehdr_780),Elf64_Ehdr_finalize, 1, 0, 0, 0, (void*)0);
 }
 
 static void Elf64_Ehdr_finalize(struct anonymous_typeX62* self){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
 }
 
 int tcc_output_file(struct TCCState* s, const char* filename){
-void* __result_obj__;
 int ret_827;
-int __result144__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&ret_827, 0, sizeof(int));
     # 2004 "tccelf.c"
     # 2013 "tccelf.c"
@@ -25771,14 +24176,13 @@ memset(&ret_827, 0, sizeof(int));
         ret_827=elf_output_file(s,filename);
     }
     # 2013 "tccelf.c"
-    __result144__ = ret_827;
-    return __result144__;
+    return ret_827;
 }
 
 static void* load_data(int fd, unsigned long int file_offset, unsigned long int size){
 void* __result_obj__;
 void* data_828;
-void* __result145__;
+void* __result64__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&data_828, 0, sizeof(void*));
     # 2018 "tccelf.c"
@@ -25789,12 +24193,11 @@ memset(&data_828, 0, sizeof(void*));
     # 2022 "tccelf.c"
     read(fd,data_828,size);
     # 2023 "tccelf.c"
-    __result145__ = __result_obj__ = data_828;
-    return __result145__;
+    __result64__ = __result_obj__ = data_828;
+    return __result64__;
 }
 
 static int tcc_load_object_file(struct TCCState* s1, int fd, unsigned long int file_offset){
-void* __result_obj__;
 struct anonymous_typeX62 ehdr_829;
 struct anonymous_typeX64* shdr_830;
 struct anonymous_typeX64* sh_831;
@@ -25820,50 +24223,42 @@ struct anonymous_typeX72* rel_end_850;
 struct Section* s_851;
 int stab_index_852;
 int stabstr_index_853;
-_Bool _if_conditional1079;
-_Bool _if_conditional1080;
-_Bool _if_conditional1081;
-_Bool _if_conditional1082;
-int __result146__;
-_Bool _if_conditional1083;
-_Bool _if_conditional1084;
-_Bool _if_conditional1085;
-_Bool _if_conditional1086;
-_Bool _if_conditional1087;
-_Bool _if_conditional1088;
-_Bool _if_conditional1089;
-_Bool _if_conditional1090;
-_Bool _if_conditional1091;
-_Bool _if_conditional1092;
-_Bool _if_conditional1093;
-_Bool _if_conditional1094;
+int __result65__;
 unsigned char* ptr_854;
-_Bool _if_conditional1095;
 struct anonymous_typeX107* a_855;
 struct anonymous_typeX107* b_856;
 unsigned int o_857;
-_Bool _while_condtional87;
-_Bool _if_conditional1096;
-_Bool _if_conditional1097;
-_Bool _if_conditional1098;
-_Bool _if_conditional1099;
-_Bool _if_conditional1100;
-_Bool _if_conditional1101;
-_Bool _if_conditional1102;
-_Bool _if_conditional1103;
-_Bool _if_conditional1104;
 int type_858;
 unsigned int sym_index_859;
-_Bool _if_conditional1105;
-_Bool _if_conditional1106;
-int __result147__;
-memset(&__result_obj__, 0, sizeof(void*));
+int __result66__;
 memset(&ehdr_829, 0, sizeof(struct anonymous_typeX62));
+memset(&shdr_830, 0, sizeof(struct anonymous_typeX64*));
+memset(&sh_831, 0, sizeof(struct anonymous_typeX64*));
+memset(&size_832, 0, sizeof(int));
+memset(&i_833, 0, sizeof(int));
+memset(&j_834, 0, sizeof(int));
+memset(&offset_835, 0, sizeof(int));
+memset(&offseti_836, 0, sizeof(int));
+memset(&nb_syms_837, 0, sizeof(int));
+memset(&sym_index_838, 0, sizeof(int));
+memset(&ret_839, 0, sizeof(int));
+memset(&strsec_840, 0, sizeof(unsigned char*));
+memset(&strtab_841, 0, sizeof(unsigned char*));
 memset(&old_to_new_syms_842, 0, sizeof(int*));
+memset(&sh_name_843, 0, sizeof(char*));
+memset(&name_844, 0, sizeof(char*));
+memset(&sm_table_845, 0, sizeof(struct SectionMergeInfo*));
+memset(&sm_846, 0, sizeof(struct SectionMergeInfo*));
+memset(&sym_847, 0, sizeof(struct anonymous_typeX66*));
+memset(&symtab_848, 0, sizeof(struct anonymous_typeX66*));
+memset(&rel_849, 0, sizeof(struct anonymous_typeX72*));
+memset(&rel_end_850, 0, sizeof(struct anonymous_typeX72*));
 memset(&s_851, 0, sizeof(struct Section*));
 memset(&stab_index_852, 0, sizeof(int));
 memset(&stabstr_index_853, 0, sizeof(int));
 memset(&ptr_854, 0, sizeof(unsigned char*));
+memset(&a_855, 0, sizeof(struct anonymous_typeX107*));
+memset(&b_856, 0, sizeof(struct anonymous_typeX107*));
 memset(&o_857, 0, sizeof(unsigned int));
 memset(&type_858, 0, sizeof(int));
 memset(&sym_index_859, 0, sizeof(unsigned int));
@@ -25883,33 +24278,33 @@ memset(&sym_index_859, 0, sizeof(unsigned int));
     stab_index_852=stabstr_index_853=0;
     # 2056 "tccelf.c"
     # 2054 "tccelf.c"
-    if(_if_conditional1079=read(fd,&ehdr_829,sizeof(ehdr_829))!=sizeof(ehdr_829),    _if_conditional1079) {
+    if(read(fd,&ehdr_829,sizeof(ehdr_829))!=sizeof(ehdr_829)) {
         # 2055 "tccelf.c"
         goto fail1;
     }
     # 2062 "tccelf.c"
     # 2059 "tccelf.c"
-    if(_if_conditional1080=ehdr_829.e_ident[0]!=127||ehdr_829.e_ident[1]!=69||ehdr_829.e_ident[2]!=76||ehdr_829.e_ident[3]!=70,    _if_conditional1080) {
+    if(ehdr_829.e_ident[0]!=127||ehdr_829.e_ident[1]!=69||ehdr_829.e_ident[2]!=76||ehdr_829.e_ident[3]!=70) {
         # 2060 "tccelf.c"
         goto fail1;
     }
     # 2065 "tccelf.c"
     # 2062 "tccelf.c"
-    if(_if_conditional1081=ehdr_829.e_type!=1,    _if_conditional1081) {
+    if(ehdr_829.e_type!=1) {
         # 2063 "tccelf.c"
         goto fail1;
     }
     # 2072 "tccelf.c"
     # 2066 "tccelf.c"
-    if(_if_conditional1082=ehdr_829.e_ident[5]!=1||ehdr_829.e_machine!=62,    _if_conditional1082) {
+    if(ehdr_829.e_ident[5]!=1||ehdr_829.e_machine!=62) {
         # 2068 "tccelf.c"
         fail1:
         # 2068 "tccelf.c"
         error_noabort("invalid object file");
         # 2069 "tccelf.c"
-        __result146__ = -1;
+        __result65__ = -1;
         come_call_finalizer3((&ehdr_829),Elf64_Ehdr_finalize, 1, 0, 0, 0, (void*)0);
-        return __result146__;
+        return __result65__;
     }
     # 2073 "tccelf.c"
     shdr_830=load_data(fd,file_offset+ehdr_829.e_shoff,sizeof(struct anonymous_typeX64)*ehdr_829.e_shnum);
@@ -25933,7 +24328,7 @@ memset(&sym_index_859, 0, sizeof(unsigned int));
         sh_831=&shdr_830[i_833];
         # 2102 "tccelf.c"
         # 2087 "tccelf.c"
-        if(_if_conditional1083=sh_831->sh_type==2,        _if_conditional1083) {
+        if(sh_831->sh_type==2) {
             # 2094 "tccelf.c"
             # 2088 "tccelf.c"
             if(symtab_848) {
@@ -25962,7 +24357,7 @@ memset(&sym_index_859, 0, sizeof(unsigned int));
     for(    i_833=1;    i_833<ehdr_829.e_shnum;    i_833++    ){
         # 2110 "tccelf.c"
         # 2108 "tccelf.c"
-        if(_if_conditional1085=i_833==ehdr_829.e_shstrndx,        _if_conditional1085) {
+        if(i_833==ehdr_829.e_shstrndx) {
             # 2109 "tccelf.c"
             continue;
         }
@@ -25972,13 +24367,13 @@ memset(&sym_index_859, 0, sizeof(unsigned int));
         sh_name_843=strsec_840+sh_831->sh_name;
         # 2122 "tccelf.c"
         # 2120 "tccelf.c"
-        if(_if_conditional1086=sh_831->sh_type!=1&&sh_831->sh_type!=4&&sh_831->sh_type!=8&&strcmp(sh_name_843,".stabstr"),        _if_conditional1086) {
+        if(sh_831->sh_type!=1&&sh_831->sh_type!=4&&sh_831->sh_type!=8&&strcmp(sh_name_843,".stabstr")) {
             # 2121 "tccelf.c"
             continue;
         }
         # 2125 "tccelf.c"
         # 2122 "tccelf.c"
-        if(_if_conditional1087=sh_831->sh_addralign<1,        _if_conditional1087) {
+        if(sh_831->sh_addralign<1) {
             # 2123 "tccelf.c"
             sh_831->sh_addralign=1;
         }
@@ -25988,10 +24383,10 @@ memset(&sym_index_859, 0, sizeof(unsigned int));
             s_851=s1->sections[j_834];
             # 2140 "tccelf.c"
             # 2127 "tccelf.c"
-            if(_if_conditional1088=!strcmp(s_851->name,sh_name_843),            _if_conditional1088) {
+            if(!strcmp(s_851->name,sh_name_843)) {
                 # 2139 "tccelf.c"
                 # 2129 "tccelf.c"
-                if(_if_conditional1089=!strncmp(sh_name_843,".gnu.linkonce",sizeof(".gnu.linkonce")-1),                _if_conditional1089) {
+                if(!strncmp(sh_name_843,".gnu.linkonce",sizeof(".gnu.linkonce")-1)) {
                     # 2134 "tccelf.c"
                     sm_table_845[i_833].link_once=1;
                     # 2135 "tccelf.c"
@@ -26015,7 +24410,7 @@ memset(&sym_index_859, 0, sizeof(unsigned int));
         found:
         # 2155 "tccelf.c"
         # 2149 "tccelf.c"
-        if(_if_conditional1090=sh_831->sh_type!=s_851->sh_type,        _if_conditional1090) {
+        if(sh_831->sh_type!=s_851->sh_type) {
             # 2150 "tccelf.c"
             error_noabort("invalid section type");
             # 2151 "tccelf.c"
@@ -26025,7 +24420,7 @@ memset(&sym_index_859, 0, sizeof(unsigned int));
         offset_835=s_851->data_offset;
         # 2161 "tccelf.c"
         # 2157 "tccelf.c"
-        if(_if_conditional1091=0==strcmp(sh_name_843,".stab"),        _if_conditional1091) {
+        if(0==strcmp(sh_name_843,".stab")) {
             # 2158 "tccelf.c"
             stab_index_852=i_833;
             # 2159 "tccelf.c"
@@ -26033,7 +24428,7 @@ memset(&sym_index_859, 0, sizeof(unsigned int));
         }
         # 2166 "tccelf.c"
         # 2161 "tccelf.c"
-        if(_if_conditional1092=0==strcmp(sh_name_843,".stabstr"),        _if_conditional1092) {
+        if(0==strcmp(sh_name_843,".stabstr")) {
             # 2162 "tccelf.c"
             stabstr_index_853=i_833;
             # 2163 "tccelf.c"
@@ -26045,7 +24440,7 @@ memset(&sym_index_859, 0, sizeof(unsigned int));
         offset_835=(offset_835+size_832)&~size_832;
         # 2170 "tccelf.c"
         # 2168 "tccelf.c"
-        if(_if_conditional1093=sh_831->sh_addralign>s_851->sh_addralign,        _if_conditional1093) {
+        if(sh_831->sh_addralign>s_851->sh_addralign) {
             # 2169 "tccelf.c"
             s_851->sh_addralign=sh_831->sh_addralign;
         }
@@ -26061,7 +24456,7 @@ memset(&sym_index_859, 0, sizeof(unsigned int));
         size_832=sh_831->sh_size;
         # 2184 "tccelf.c"
         # 2176 "tccelf.c"
-        if(_if_conditional1094=sh_831->sh_type!=8,        _if_conditional1094) {
+        if(sh_831->sh_type!=8) {
             # 2177 "tccelf.c"
             # 2178 "tccelf.c"
             lseek(fd,file_offset+sh_831->sh_offset,0);
@@ -26079,7 +24474,7 @@ memset(&sym_index_859, 0, sizeof(unsigned int));
     }
     # 2201 "tccelf.c"
     # 2188 "tccelf.c"
-    if(_if_conditional1095=stab_index_852&&stabstr_index_853,    _if_conditional1095) {
+    if(stab_index_852&&stabstr_index_853) {
         # 2189 "tccelf.c"
         # 2190 "tccelf.c"
         # 2191 "tccelf.c"
@@ -26091,7 +24486,7 @@ memset(&sym_index_859, 0, sizeof(unsigned int));
         # 2194 "tccelf.c"
         o_857=sm_table_845[stabstr_index_853].offset;
         # 2197 "tccelf.c"
-        while(_while_condtional87=a_855<b_856,        _while_condtional87) {
+        while(a_855<b_856) {
             # 2196 "tccelf.c"
             a_855->n_strx+=o_857,a_855++;
         }
@@ -26102,7 +24497,7 @@ memset(&sym_index_859, 0, sizeof(unsigned int));
         s_851=sm_table_845[i_833].s;
         # 2205 "tccelf.c"
         # 2203 "tccelf.c"
-        if(_if_conditional1096=!s_851||!sm_table_845[i_833].new_section,        _if_conditional1096) {
+        if(!s_851||!sm_table_845[i_833].new_section) {
             # 2204 "tccelf.c"
             continue;
         }
@@ -26110,13 +24505,13 @@ memset(&sym_index_859, 0, sizeof(unsigned int));
         sh_831=&shdr_830[i_833];
         # 2208 "tccelf.c"
         # 2206 "tccelf.c"
-        if(_if_conditional1097=sh_831->sh_link>0,        _if_conditional1097) {
+        if(sh_831->sh_link>0) {
             # 2207 "tccelf.c"
             s_851->link=sm_table_845[sh_831->sh_link].s;
         }
         # 2213 "tccelf.c"
         # 2208 "tccelf.c"
-        if(_if_conditional1098=sh_831->sh_type==4,        _if_conditional1098) {
+        if(sh_831->sh_type==4) {
             # 2209 "tccelf.c"
             s_851->sh_info=sm_table_845[sh_831->sh_info].s->sh_num;
             # 2211 "tccelf.c"
@@ -26133,7 +24528,7 @@ memset(&sym_index_859, 0, sizeof(unsigned int));
     for(    i_833=1;    i_833<nb_syms_837;    i_833++,sym_847++    ){
         # 2245 "tccelf.c"
         # 2222 "tccelf.c"
-        if(_if_conditional1099=sym_847->st_shndx!=0&&sym_847->st_shndx<65280,        _if_conditional1099) {
+        if(sym_847->st_shndx!=0&&sym_847->st_shndx<65280) {
             # 2223 "tccelf.c"
             sm_846=&sm_table_845[sym_847->st_shndx];
             # 2237 "tccelf.c"
@@ -26141,7 +24536,7 @@ memset(&sym_index_859, 0, sizeof(unsigned int));
             if(sm_846->link_once) {
                 # 2234 "tccelf.c"
                 # 2228 "tccelf.c"
-                if(_if_conditional1101=(((unsigned char)(sym_847->st_info))>>4)!=0,                _if_conditional1101) {
+                if((((unsigned char)(sym_847->st_info))>>4)!=0) {
                     # 2229 "tccelf.c"
                     name_844=strtab_841+sym_847->st_name;
                     # 2230 "tccelf.c"
@@ -26158,7 +24553,7 @@ memset(&sym_index_859, 0, sizeof(unsigned int));
             }
             # 2240 "tccelf.c"
             # 2237 "tccelf.c"
-            if(_if_conditional1103=!sm_846->s,            _if_conditional1103) {
+            if(!sm_846->s) {
                 # 2238 "tccelf.c"
                 continue;
             }
@@ -26180,7 +24575,7 @@ memset(&sym_index_859, 0, sizeof(unsigned int));
         s_851=sm_table_845[i_833].s;
         # 2257 "tccelf.c"
         # 2255 "tccelf.c"
-        if(_if_conditional1104=!s_851,        _if_conditional1104) {
+        if(!s_851) {
             # 2256 "tccelf.c"
             continue;
         }
@@ -26206,7 +24601,7 @@ memset(&sym_index_859, 0, sizeof(unsigned int));
                 sym_index_859=((rel_849->r_info)>>32);
                 # 2275 "tccelf.c"
                 # 2273 "tccelf.c"
-                if(_if_conditional1105=sym_index_859>=nb_syms_837,                _if_conditional1105) {
+                if(sym_index_859>=nb_syms_837) {
                     # 2274 "tccelf.c"
                     goto invalid_reloc;
                 }
@@ -26214,7 +24609,7 @@ memset(&sym_index_859, 0, sizeof(unsigned int));
                 sym_index_859=old_to_new_syms_842[sym_index_859];
                 # 2283 "tccelf.c"
                 # 2277 "tccelf.c"
-                if(_if_conditional1106=!sym_index_859&&!sm_846->link_once,                _if_conditional1106) {
+                if(!sym_index_859&&!sm_846->link_once) {
                     # 2279 "tccelf.c"
                     invalid_reloc:
                     # 2280 "tccelf.c"
@@ -26252,23 +24647,18 @@ memset(&sym_index_859, 0, sizeof(unsigned int));
     # 2300 "tccelf.c"
     tcc_free(shdr_830);
     # 2301 "tccelf.c"
-    __result147__ = ret_839;
+    __result66__ = ret_839;
     come_call_finalizer3((&ehdr_829),Elf64_Ehdr_finalize, 1, 0, 0, 0, (void*)0);
-    return __result147__;
+    return __result66__;
     come_call_finalizer3((&ehdr_829),Elf64_Ehdr_finalize, 1, 0, 0, 0, (void*)0);
 }
 
 static int get_be32(const unsigned char* b){
-void* __result_obj__;
-int __result148__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 2318 "tccelf.c"
-    __result148__ = b[3]|(b[2]<<8)|(b[1]<<16)|(b[0]<<24);
-    return __result148__;
+    return b[3]|(b[2]<<8)|(b[1]<<16)|(b[0]<<24);
 }
 
 static int tcc_load_alacarte(struct TCCState* s1, int fd, int size){
-void* __result_obj__;
 int i_860;
 int bound_861;
 int nsyms_862;
@@ -26280,13 +24670,15 @@ const char* ar_names_867;
 const char* p_868;
 const unsigned char* ar_index_869;
 struct anonymous_typeX66* sym_870;
-_Bool _if_conditional1107;
-_Bool _if_conditional1108;
-_Bool _if_conditional1109;
-_Bool _if_conditional1110;
-int __result149__;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&i_860, 0, sizeof(int));
+memset(&bound_861, 0, sizeof(int));
+memset(&nsyms_862, 0, sizeof(int));
+memset(&sym_index_863, 0, sizeof(int));
+memset(&off_864, 0, sizeof(int));
+memset(&ret_865, 0, sizeof(int));
 memset(&data_866, 0, sizeof(unsigned char*));
+memset(&ar_names_867, 0, sizeof(const char*));
+memset(&p_868, 0, sizeof(const char*));
 memset(&ar_index_869, 0, sizeof(const unsigned char*));
 memset(&sym_870, 0, sizeof(struct anonymous_typeX66*));
     # 2324 "tccelf.c"
@@ -26298,7 +24690,7 @@ memset(&sym_870, 0, sizeof(struct anonymous_typeX66*));
     data_866=tcc_malloc(size);
     # 2333 "tccelf.c"
     # 2331 "tccelf.c"
-    if(_if_conditional1107=read(fd,data_866,size)!=size,    _if_conditional1107) {
+    if(read(fd,data_866,size)!=size) {
         # 2332 "tccelf.c"
         goto fail;
     }
@@ -26323,7 +24715,7 @@ memset(&sym_870, 0, sizeof(struct anonymous_typeX66*));
                 sym_870=&((struct anonymous_typeX66*)symtab_section->data)[sym_index_863];
                 # 2356 "tccelf.c"
                 # 2343 "tccelf.c"
-                if(_if_conditional1109=sym_870->st_shndx==0,                _if_conditional1109) {
+                if(sym_870->st_shndx==0) {
                     # 2344 "tccelf.c"
                     off_864=get_be32(ar_index_869+i_860*4)+sizeof(struct ArchiveHeader);
                     # 2348 "tccelf.c"
@@ -26332,7 +24724,7 @@ memset(&sym_870, 0, sizeof(struct anonymous_typeX66*));
                     lseek(fd,off_864,0);
                     # 2355 "tccelf.c"
                     # 2350 "tccelf.c"
-                    if(_if_conditional1110=tcc_load_object_file(s1,fd,off_864)<0,                    _if_conditional1110) {
+                    if(tcc_load_object_file(s1,fd,off_864)<0) {
                         # 2352 "tccelf.c"
                         fail:
                         # 2352 "tccelf.c"
@@ -26352,30 +24744,23 @@ memset(&sym_870, 0, sizeof(struct anonymous_typeX66*));
     # 2361 "tccelf.c"
     tcc_free(data_866);
     # 2362 "tccelf.c"
-    __result149__ = ret_865;
-    return __result149__;
+    return ret_865;
 }
 
 static int tcc_load_archive(struct TCCState* s1, int fd){
-void* __result_obj__;
 struct ArchiveHeader hdr_871;
 int size_875;
 int len_876;
 int i_877;
 unsigned long int file_offset_878;
-_Bool _if_conditional1111;
-_Bool _if_conditional1112;
-int __result150__;
-_Bool _if_conditional1113;
-_Bool _if_conditional1114;
-_Bool _if_conditional1115;
-int __result151__;
-_Bool _elif_conditional206;
-_Bool _if_conditional1116;
-int __result152__;
-int __result153__;
-memset(&__result_obj__, 0, sizeof(void*));
+int __result67__;
+int __result68__;
+int __result69__;
+int __result70__;
 memset(&hdr_871, 0, sizeof(struct ArchiveHeader));
+memset(&size_875, 0, sizeof(int));
+memset(&len_876, 0, sizeof(int));
+memset(&i_877, 0, sizeof(int));
 memset(&file_offset_878, 0, sizeof(unsigned long int));
     # 2368 "tccelf.c"
     # 2369 "tccelf.c"
@@ -26397,19 +24782,19 @@ memset(&file_offset_878, 0, sizeof(unsigned long int));
         len_876=read(fd,&hdr_871,sizeof(hdr_871));
         # 2382 "tccelf.c"
         # 2380 "tccelf.c"
-        if(_if_conditional1111=len_876==0,        _if_conditional1111) {
+        if(len_876==0) {
             # 2381 "tccelf.c"
             break;
         }
         # 2386 "tccelf.c"
         # 2382 "tccelf.c"
-        if(_if_conditional1112=len_876!=sizeof(hdr_871),        _if_conditional1112) {
+        if(len_876!=sizeof(hdr_871)) {
             # 2383 "tccelf.c"
             error_noabort("invalid archive");
             # 2384 "tccelf.c"
-            __result150__ = -1;
+            __result67__ = -1;
             come_call_finalizer3((&hdr_871),ArchiveHeader_finalize, 1, 0, 0, 0, (void*)0);
-            return __result150__;
+            return __result67__;
         }
         # 2386 "tccelf.c"
         memcpy(ar_size_872,hdr_871.ar_size,sizeof(hdr_871.ar_size));
@@ -26423,7 +24808,7 @@ memset(&file_offset_878, 0, sizeof(unsigned long int));
         for(        i_877=sizeof(hdr_871.ar_name)-1;        i_877>=0;        i_877--        ){
             # 2393 "tccelf.c"
             # 2391 "tccelf.c"
-            if(_if_conditional1113=ar_name_873[i_877]!=32,            _if_conditional1113) {
+            if(ar_name_873[i_877]!=32) {
                 # 2392 "tccelf.c"
                 break;
             }
@@ -26436,46 +24821,43 @@ memset(&file_offset_878, 0, sizeof(unsigned long int));
         size_875=(size_875+1)&~1;
         # 2412 "tccelf.c"
         # 2399 "tccelf.c"
-        if(_if_conditional1114=!strcmp(ar_name_873,"/"),        _if_conditional1114) {
+        if(!strcmp(ar_name_873,"/")) {
             # 2403 "tccelf.c"
             # 2401 "tccelf.c"
             if(s1->alacarte_link) {
                 # 2402 "tccelf.c"
-                __result151__ = tcc_load_alacarte(s1,fd,size_875);
+                __result68__ = tcc_load_alacarte(s1,fd,size_875);
                 come_call_finalizer3((&hdr_871),ArchiveHeader_finalize, 1, 0, 0, 0, (void*)0);
-                return __result151__;
+                return __result68__;
             }
         }
         # 2406 "tccelf.c"
-        else if(_elif_conditional206=!strcmp(ar_name_873,"//")||!strcmp(ar_name_873,"__.SYMDEF")||!strcmp(ar_name_873,"__.SYMDEF/")||!strcmp(ar_name_873,"ARFILENAMES/"),        _elif_conditional206) {
+        else if(!strcmp(ar_name_873,"//")||!strcmp(ar_name_873,"__.SYMDEF")||!strcmp(ar_name_873,"__.SYMDEF/")||!strcmp(ar_name_873,"ARFILENAMES/")) {
         }
         else {
             # 2411 "tccelf.c"
             # 2409 "tccelf.c"
-            if(_if_conditional1116=tcc_load_object_file(s1,fd,file_offset_878)<0,            _if_conditional1116) {
+            if(tcc_load_object_file(s1,fd,file_offset_878)<0) {
                 # 2410 "tccelf.c"
-                __result152__ = -1;
+                __result69__ = -1;
                 come_call_finalizer3((&hdr_871),ArchiveHeader_finalize, 1, 0, 0, 0, (void*)0);
-                return __result152__;
+                return __result69__;
             }
         }
         # 2412 "tccelf.c"
         lseek(fd,file_offset_878+size_875,0);
     }
     # 2414 "tccelf.c"
-    __result153__ = 0;
+    __result70__ = 0;
     come_call_finalizer3((&hdr_871),ArchiveHeader_finalize, 1, 0, 0, 0, (void*)0);
-    return __result153__;
+    return __result70__;
     come_call_finalizer3((&hdr_871),ArchiveHeader_finalize, 1, 0, 0, 0, (void*)0);
 }
 
 static void ArchiveHeader_finalize(struct ArchiveHeader* self){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
 }
 
 static int tcc_load_dll(struct TCCState* s1, int fd, const char* filename, int level){
-void* __result_obj__;
 struct anonymous_typeX62 ehdr_879;
 struct anonymous_typeX64* shdr_880;
 struct anonymous_typeX64* sh_881;
@@ -26494,18 +24876,25 @@ unsigned char* dynstr_893;
 const char* name_894;
 const char* soname_895;
 struct DLLReference* dllref_896;
-_Bool _if_conditional1117;
-int __result154__;
-_Bool _if_conditional1118;
-_Bool _if_conditional1119;
-_Bool _if_conditional1120;
-_Bool _if_conditional1121;
-_Bool _if_conditional1122;
-_Bool _if_conditional1123;
-int __result155__;
-memset(&__result_obj__, 0, sizeof(void*));
+int __result71__;
+int __result72__;
 memset(&ehdr_879, 0, sizeof(struct anonymous_typeX62));
+memset(&shdr_880, 0, sizeof(struct anonymous_typeX64*));
+memset(&sh_881, 0, sizeof(struct anonymous_typeX64*));
+memset(&sh1_882, 0, sizeof(struct anonymous_typeX64*));
+memset(&i_883, 0, sizeof(int));
+memset(&j_884, 0, sizeof(int));
+memset(&nb_syms_885, 0, sizeof(int));
+memset(&nb_dts_886, 0, sizeof(int));
+memset(&sym_bind_887, 0, sizeof(int));
+memset(&ret_888, 0, sizeof(int));
+memset(&sym_889, 0, sizeof(struct anonymous_typeX66*));
+memset(&dynsym_890, 0, sizeof(struct anonymous_typeX66*));
+memset(&dt_891, 0, sizeof(struct anonymous_typeX78*));
+memset(&dynamic_892, 0, sizeof(struct anonymous_typeX78*));
 memset(&dynstr_893, 0, sizeof(unsigned char*));
+memset(&name_894, 0, sizeof(const char*));
+memset(&soname_895, 0, sizeof(const char*));
 memset(&dllref_896, 0, sizeof(struct DLLReference*));
     # 2422 "tccelf.c"
     # 2423 "tccelf.c"
@@ -26519,13 +24908,13 @@ memset(&dllref_896, 0, sizeof(struct DLLReference*));
     read(fd,&ehdr_879,sizeof(ehdr_879));
     # 2441 "tccelf.c"
     # 2435 "tccelf.c"
-    if(_if_conditional1117=ehdr_879.e_ident[5]!=1||ehdr_879.e_machine!=62,    _if_conditional1117) {
+    if(ehdr_879.e_ident[5]!=1||ehdr_879.e_machine!=62) {
         # 2436 "tccelf.c"
         error_noabort("bad architecture");
         # 2437 "tccelf.c"
-        __result154__ = -1;
+        __result71__ = -1;
         come_call_finalizer3((&ehdr_879),Elf64_Ehdr_finalize, 1, 0, 0, 0, (void*)0);
-        return __result154__;
+        return __result71__;
     }
     # 2441 "tccelf.c"
     shdr_880=load_data(fd,ehdr_879.e_shoff,sizeof(struct anonymous_typeX64)*ehdr_879.e_shnum);
@@ -26575,7 +24964,7 @@ memset(&dllref_896, 0, sizeof(struct DLLReference*));
     for(    i_883=0,dt_891=dynamic_892;    i_883<nb_dts_886;    i_883++,dt_891++    ){
         # 2473 "tccelf.c"
         # 2470 "tccelf.c"
-        if(_if_conditional1118=dt_891->d_tag==14,        _if_conditional1118) {
+        if(dt_891->d_tag==14) {
             # 2471 "tccelf.c"
             soname_895=dynstr_893+dt_891->d_un.d_val;
         }
@@ -26586,10 +24975,10 @@ memset(&dllref_896, 0, sizeof(struct DLLReference*));
         dllref_896=s1->loaded_dlls[i_883];
         # 2485 "tccelf.c"
         # 2478 "tccelf.c"
-        if(_if_conditional1119=!strcmp(soname_895,dllref_896->name),        _if_conditional1119) {
+        if(!strcmp(soname_895,dllref_896->name)) {
             # 2482 "tccelf.c"
             # 2480 "tccelf.c"
-            if(_if_conditional1120=level<dllref_896->level,            _if_conditional1120) {
+            if(level<dllref_896->level) {
                 # 2481 "tccelf.c"
                 dllref_896->level=level;
             }
@@ -26613,7 +25002,7 @@ memset(&dllref_896, 0, sizeof(struct DLLReference*));
         sym_bind_887=(((unsigned char)(sym_889->st_info))>>4);
         # 2500 "tccelf.c"
         # 2498 "tccelf.c"
-        if(_if_conditional1121=sym_bind_887==0,        _if_conditional1121) {
+        if(sym_bind_887==0) {
             # 2499 "tccelf.c"
             continue;
         }
@@ -26636,14 +25025,14 @@ memset(&dllref_896, 0, sizeof(struct DLLReference*));
                 dllref_896=s1->loaded_dlls[j_884];
                 # 2514 "tccelf.c"
                 # 2512 "tccelf.c"
-                if(_if_conditional1122=!strcmp(name_894,dllref_896->name),                _if_conditional1122) {
+                if(!strcmp(name_894,dllref_896->name)) {
                     # 2513 "tccelf.c"
                     goto already_loaded;
                 }
             }
             # 2520 "tccelf.c"
             # 2515 "tccelf.c"
-            if(_if_conditional1123=tcc_add_dll(s1,name_894,2)<0,            _if_conditional1123) {
+            if(tcc_add_dll(s1,name_894,2)<0) {
                 # 2516 "tccelf.c"
                 error_noabort("referenced dll '%s' not found",name_894);
                 # 2517 "tccelf.c"
@@ -26670,21 +25059,15 @@ memset(&dllref_896, 0, sizeof(struct DLLReference*));
     # 2529 "tccelf.c"
     tcc_free(shdr_880);
     # 2530 "tccelf.c"
-    __result155__ = ret_888;
+    __result72__ = ret_888;
     come_call_finalizer3((&ehdr_879),Elf64_Ehdr_finalize, 1, 0, 0, 0, (void*)0);
-    return __result155__;
+    return __result72__;
     come_call_finalizer3((&ehdr_879),Elf64_Ehdr_finalize, 1, 0, 0, 0, (void*)0);
 }
 
 static int ld_next(struct TCCState* s1, char* name, int name_size){
-void* __result_obj__;
 int c_897;
 char* q_898;
-_Bool _if_conditional1124;
-_Bool _if_conditional1125;
-_Bool _if_conditional1126;
-int __result156__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&c_897, 0, sizeof(int));
 memset(&q_898, 0, sizeof(char*));
     # 2539 "tccelf.c"
@@ -26715,7 +25098,7 @@ memset(&q_898, 0, sizeof(char*));
         minp();
         # 2563 "tccelf.c"
         # 2554 "tccelf.c"
-        if(_if_conditional1124=ch==42,        _if_conditional1124) {
+        if(ch==42) {
             # 2555 "tccelf.c"
             file->buf_ptr=parse_comment(file->buf_ptr);
             # 2556 "tccelf.c"
@@ -26855,13 +25238,13 @@ memset(&q_898, 0, sizeof(char*));
         for(        ;        ;        ){
             # 2631 "tccelf.c"
             # 2629 "tccelf.c"
-            if(_if_conditional1125=!((ch>=97&&ch<=122)||(ch>=65&&ch<=90)||(ch>=48&&ch<=57)||strchr("/.-_+=$:\\,~",ch)),            _if_conditional1125) {
+            if(!((ch>=97&&ch<=122)||(ch>=65&&ch<=90)||(ch>=48&&ch<=57)||strchr("/.-_+=$:\\,~",ch))) {
                 # 2630 "tccelf.c"
                 break;
             }
             # 2634 "tccelf.c"
             # 2631 "tccelf.c"
-            if(_if_conditional1126=(q_898-name)<name_size-1,            _if_conditional1126) {
+            if((q_898-name)<name_size-1) {
                 # 2632 "tccelf.c"
                 *q_898++=ch;
             }
@@ -26890,27 +25273,14 @@ memset(&q_898, 0, sizeof(char*));
         break;
     }
     # 2652 "tccelf.c"
-    __result156__ = c_897;
-    return __result156__;
+    return c_897;
 }
 
 static int ld_add_file_list(struct TCCState* s1, int as_needed){
-void* __result_obj__;
 int t_900;
 int ret_901;
-_Bool _if_conditional1127;
-_Bool _if_conditional1128;
-int __result157__;
-_Bool _elif_conditional207;
-_Bool _elif_conditional208;
-int __result158__;
-_Bool _if_conditional1129;
-_Bool _if_conditional1130;
-int __result159__;
-_Bool _if_conditional1131;
-_Bool _if_conditional1132;
-int __result160__;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&t_900, 0, sizeof(int));
+memset(&ret_901, 0, sizeof(int));
     # 2657 "tccelf.c"
     char filename_899[1024];
     memset(&filename_899, 0, sizeof(char)    *(1024)    );
@@ -26919,7 +25289,7 @@ memset(&__result_obj__, 0, sizeof(void*));
     t_900=ld_next(s1,filename_899,sizeof(filename_899));
     # 2663 "tccelf.c"
     # 2661 "tccelf.c"
-    if(_if_conditional1127=t_900!=40,    _if_conditional1127) {
+    if(t_900!=40) {
         # 2662 "tccelf.c"
         expect("(");
     }
@@ -26929,43 +25299,40 @@ memset(&__result_obj__, 0, sizeof(void*));
     for(    ;    ;    ){
         # 2674 "tccelf.c"
         # 2665 "tccelf.c"
-        if(_if_conditional1128=t_900==(-1),        _if_conditional1128) {
+        if(t_900==(-1)) {
             # 2666 "tccelf.c"
             error_noabort("unexpected end of file");
             # 2667 "tccelf.c"
-            __result157__ = -1;
-            return __result157__;
+            return -1;
         }
         # 2668 "tccelf.c"
-        else if(_elif_conditional207=t_900==41,        _elif_conditional207) {
+        else if(t_900==41) {
             # 2669 "tccelf.c"
             break;
         }
         # 2670 "tccelf.c"
-        else if(_elif_conditional208=t_900!=256,        _elif_conditional208) {
+        else if(t_900!=256) {
             # 2671 "tccelf.c"
             error_noabort("filename expected");
             # 2672 "tccelf.c"
-            __result158__ = -1;
-            return __result158__;
+            return -1;
         }
         # 2683 "tccelf.c"
         # 2674 "tccelf.c"
-        if(_if_conditional1129=!strcmp(filename_899,"AS_NEEDED"),        _if_conditional1129) {
+        if(!strcmp(filename_899,"AS_NEEDED")) {
             # 2675 "tccelf.c"
             ret_901=ld_add_file_list(s1,1);
             # 2678 "tccelf.c"
             # 2676 "tccelf.c"
             if(ret_901) {
                 # 2677 "tccelf.c"
-                __result159__ = ret_901;
-                return __result159__;
+                return ret_901;
             }
         }
         else {
             # 2682 "tccelf.c"
             # 2680 "tccelf.c"
-            if(_if_conditional1131=!as_needed,            _if_conditional1131) {
+            if(!as_needed) {
                 # 2681 "tccelf.c"
                 tcc_add_file(s1,filename_899);
             }
@@ -26974,35 +25341,20 @@ memset(&__result_obj__, 0, sizeof(void*));
         t_900=ld_next(s1,filename_899,sizeof(filename_899));
         # 2687 "tccelf.c"
         # 2684 "tccelf.c"
-        if(_if_conditional1132=t_900==44,        _if_conditional1132) {
+        if(t_900==44) {
             # 2685 "tccelf.c"
             t_900=ld_next(s1,filename_899,sizeof(filename_899));
         }
     }
     # 2688 "tccelf.c"
-    __result160__ = 0;
-    return __result160__;
+    return 0;
 }
 
 static int tcc_load_ldscript(struct TCCState* s1){
-void* __result_obj__;
 int t_904;
 int ret_905;
-_Bool _if_conditional1133;
-int __result161__;
-_Bool _elif_conditional209;
-int __result162__;
-_Bool _if_conditional1134;
-_Bool _if_conditional1135;
-int __result163__;
-_Bool _elif_conditional210;
-_Bool _if_conditional1136;
-_Bool _if_conditional1137;
-int __result164__;
-_Bool _elif_conditional211;
-int __result165__;
-int __result166__;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&t_904, 0, sizeof(int));
+memset(&ret_905, 0, sizeof(int));
     # 2695 "tccelf.c"
     char cmd_902[64];
     memset(&cmd_902, 0, sizeof(char)    *(64)    );
@@ -27020,37 +25372,34 @@ memset(&__result_obj__, 0, sizeof(void*));
         t_904=ld_next(s1,cmd_902,sizeof(cmd_902));
         # 2707 "tccelf.c"
         # 2703 "tccelf.c"
-        if(_if_conditional1133=t_904==(-1),        _if_conditional1133) {
+        if(t_904==(-1)) {
             # 2704 "tccelf.c"
-            __result161__ = 0;
-            return __result161__;
+            return 0;
         }
         # 2705 "tccelf.c"
-        else if(_elif_conditional209=t_904!=256,        _elif_conditional209) {
+        else if(t_904!=256) {
             # 2706 "tccelf.c"
-            __result162__ = -1;
-            return __result162__;
+            return -1;
         }
         # 2730 "tccelf.c"
         # 2708 "tccelf.c"
-        if(_if_conditional1134=!strcmp(cmd_902,"INPUT")||!strcmp(cmd_902,"GROUP"),        _if_conditional1134) {
+        if(!strcmp(cmd_902,"INPUT")||!strcmp(cmd_902,"GROUP")) {
             # 2709 "tccelf.c"
             ret_905=ld_add_file_list(s1,0);
             # 2712 "tccelf.c"
             # 2710 "tccelf.c"
             if(ret_905) {
                 # 2711 "tccelf.c"
-                __result163__ = ret_905;
-                return __result163__;
+                return ret_905;
             }
         }
         # 2713 "tccelf.c"
-        else if(_elif_conditional210=!strcmp(cmd_902,"OUTPUT_FORMAT")||!strcmp(cmd_902,"TARGET"),        _elif_conditional210) {
+        else if(!strcmp(cmd_902,"OUTPUT_FORMAT")||!strcmp(cmd_902,"TARGET")) {
             # 2715 "tccelf.c"
             t_904=ld_next(s1,cmd_902,sizeof(cmd_902));
             # 2718 "tccelf.c"
             # 2716 "tccelf.c"
-            if(_if_conditional1136=t_904!=40,            _if_conditional1136) {
+            if(t_904!=40) {
                 # 2717 "tccelf.c"
                 expect("(");
             }
@@ -27060,15 +25409,14 @@ memset(&__result_obj__, 0, sizeof(void*));
                 t_904=ld_next(s1,filename_903,sizeof(filename_903));
                 # 2726 "tccelf.c"
                 # 2720 "tccelf.c"
-                if(_if_conditional1137=t_904==(-1),                _if_conditional1137) {
+                if(t_904==(-1)) {
                     # 2721 "tccelf.c"
                     error_noabort("unexpected end of file");
                     # 2722 "tccelf.c"
-                    __result164__ = -1;
-                    return __result164__;
+                    return -1;
                 }
                 # 2723 "tccelf.c"
-                else if(_elif_conditional211=t_904==41,                _elif_conditional211) {
+                else if(t_904==41) {
                     # 2724 "tccelf.c"
                     break;
                 }
@@ -27076,17 +25424,14 @@ memset(&__result_obj__, 0, sizeof(void*));
         }
         else {
             # 2728 "tccelf.c"
-            __result165__ = -1;
-            return __result165__;
+            return -1;
         }
     }
     # 2731 "tccelf.c"
-    __result166__ = 0;
-    return __result166__;
+    return 0;
 }
 
 static void rt_printline(unsigned long int wanted_pc){
-void* __result_obj__;
 struct anonymous_typeX107* sym_906;
 struct anonymous_typeX107* sym_end_907;
 char func_name_908[128];
@@ -27100,24 +25445,24 @@ int last_line_num_916;
 int i_917;
 const char* str_918;
 const char* p_919;
-_Bool _while_condtional88;
-_Bool _if_conditional1138;
-_Bool _if_conditional1139;
-_Bool _if_conditional1140;
-_Bool _if_conditional1141;
-_Bool _if_conditional1142;
-_Bool _if_conditional1143;
-_Bool _if_conditional1144;
-_Bool _if_conditional1145;
-_Bool _if_conditional1146;
 struct anonymous_typeX66* sym_920;
 struct anonymous_typeX66* sym_end_921;
 int type_922;
-_Bool _if_conditional1147;
-_Bool _if_conditional1148;
-_Bool _if_conditional1149;
-_Bool _if_conditional1150;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&sym_906, 0, sizeof(struct anonymous_typeX107*));
+memset(&sym_end_907, 0, sizeof(struct anonymous_typeX107*));
+memset(&func_name_908, 0, sizeof(char));
+memset(&last_func_name_909, 0, sizeof(char));
+memset(&func_addr_910, 0, sizeof(unsigned long int));
+memset(&last_pc_911, 0, sizeof(unsigned long int));
+memset(&pc_912, 0, sizeof(unsigned long int));
+memset(&incl_index_914, 0, sizeof(int));
+memset(&len_915, 0, sizeof(int));
+memset(&last_line_num_916, 0, sizeof(int));
+memset(&i_917, 0, sizeof(int));
+memset(&str_918, 0, sizeof(const char*));
+memset(&p_919, 0, sizeof(const char*));
+memset(&sym_920, 0, sizeof(struct anonymous_typeX66*));
+memset(&sym_end_921, 0, sizeof(struct anonymous_typeX66*));
 memset(&type_922, 0, sizeof(int));
     # 1343 "libtcc.c"
     # 1344 "libtcc.c"
@@ -27146,19 +25491,19 @@ memset(&type_922, 0, sizeof(int));
     # 1359 "libtcc.c"
     sym_end_907=(struct anonymous_typeX107*)(stab_section->data+stab_section->data_offset);
     # 1424 "libtcc.c"
-    while(_while_condtional88=sym_906<sym_end_907,    _while_condtional88) {
+    while(sym_906<sym_end_907) {
         # 1420 "libtcc.c"
         switch (sym_906->n_type) {
             # 1364 "libtcc.c"
             case (36):
             # 1385 "libtcc.c"
             # 1364 "libtcc.c"
-            if(_if_conditional1138=sym_906->n_strx==0,            _if_conditional1138) {
+            if(sym_906->n_strx==0) {
                 # 1366 "libtcc.c"
                 pc_912=sym_906->n_value+func_addr_910;
                 # 1369 "libtcc.c"
                 # 1367 "libtcc.c"
-                if(_if_conditional1139=wanted_pc>=last_pc_911&&wanted_pc<pc_912,                _if_conditional1139) {
+                if(wanted_pc>=last_pc_911&&wanted_pc<pc_912) {
                     # 1368 "libtcc.c"
                     goto found;
                 }
@@ -27174,7 +25519,7 @@ memset(&type_922, 0, sizeof(int));
                 p_919=strchr(str_918,58);
                 # 1383 "libtcc.c"
                 # 1374 "libtcc.c"
-                if(_if_conditional1140=!p_919,                _if_conditional1140) {
+                if(!p_919) {
                     # 1375 "libtcc.c"
                     pstrcpy(func_name_908,sizeof(func_name_908),str_918);
                 }
@@ -27183,7 +25528,7 @@ memset(&type_922, 0, sizeof(int));
                     len_915=p_919-str_918;
                     # 1380 "libtcc.c"
                     # 1378 "libtcc.c"
-                    if(_if_conditional1141=len_915>sizeof(func_name_908)-1,                    _if_conditional1141) {
+                    if(len_915>sizeof(func_name_908)-1) {
                         # 1379 "libtcc.c"
                         len_915=sizeof(func_name_908)-1;
                     }
@@ -27203,7 +25548,7 @@ memset(&type_922, 0, sizeof(int));
             pc_912=sym_906->n_value+func_addr_910;
             # 1391 "libtcc.c"
             # 1389 "libtcc.c"
-            if(_if_conditional1142=wanted_pc>=last_pc_911&&wanted_pc<pc_912,            _if_conditional1142) {
+            if(wanted_pc>=last_pc_911&&wanted_pc<pc_912) {
                 # 1390 "libtcc.c"
                 goto found;
             }
@@ -27223,7 +25568,7 @@ memset(&type_922, 0, sizeof(int));
             add_incl:
             # 1403 "libtcc.c"
             # 1400 "libtcc.c"
-            if(_if_conditional1143=incl_index_914<32,            _if_conditional1143) {
+            if(incl_index_914<32) {
                 # 1401 "libtcc.c"
                 incl_files_913[incl_index_914++]=str_918;
             }
@@ -27233,7 +25578,7 @@ memset(&type_922, 0, sizeof(int));
             case (162):
             # 1407 "libtcc.c"
             # 1405 "libtcc.c"
-            if(_if_conditional1144=incl_index_914>1,            _if_conditional1144) {
+            if(incl_index_914>1) {
                 # 1406 "libtcc.c"
                 incl_index_914--;
             }
@@ -27243,7 +25588,7 @@ memset(&type_922, 0, sizeof(int));
             case (100):
             # 1418 "libtcc.c"
             # 1409 "libtcc.c"
-            if(_if_conditional1145=sym_906->n_strx==0,            _if_conditional1145) {
+            if(sym_906->n_strx==0) {
                 # 1410 "libtcc.c"
                 incl_index_914=0;
             }
@@ -27254,7 +25599,7 @@ memset(&type_922, 0, sizeof(int));
                 len_915=strlen(str_918);
                 # 1417 "libtcc.c"
                 # 1415 "libtcc.c"
-                if(_if_conditional1146=len_915>0&&str_918[len_915-1]!=47,                _if_conditional1146) {
+                if(len_915>0&&str_918[len_915-1]!=47) {
                     # 1416 "libtcc.c"
                     goto add_incl;
                 }
@@ -27279,10 +25624,10 @@ memset(&type_922, 0, sizeof(int));
             type_922=((sym_920->st_info)&15);
             # 1442 "libtcc.c"
             # 1434 "libtcc.c"
-            if(_if_conditional1147=type_922==2,            _if_conditional1147) {
+            if(type_922==2) {
                 # 1441 "libtcc.c"
                 # 1436 "libtcc.c"
-                if(_if_conditional1148=wanted_pc>=sym_920->st_value&&wanted_pc<sym_920->st_value+sym_920->st_size,                _if_conditional1148) {
+                if(wanted_pc>=sym_920->st_value&&wanted_pc<sym_920->st_value+sym_920->st_size) {
                     # 1438 "libtcc.c"
                     pstrcpy(last_func_name_909,sizeof(last_func_name_909),strtab_section->data+sym_920->st_name);
                     # 1439 "libtcc.c"
@@ -27299,13 +25644,13 @@ memset(&type_922, 0, sizeof(int));
     found:
     # 1451 "libtcc.c"
     # 1448 "libtcc.c"
-    if(_if_conditional1149=last_func_name_909[0]!=0,    _if_conditional1149) {
+    if(last_func_name_909[0]!=0) {
         # 1449 "libtcc.c"
         fprintf((stderr)," %s()",last_func_name_909);
     }
     # 1458 "libtcc.c"
     # 1451 "libtcc.c"
-    if(_if_conditional1150=incl_index_914>0,    _if_conditional1150) {
+    if(incl_index_914>0) {
         # 1453 "libtcc.c"
         fprintf((stderr)," (%s:%d",incl_files_913[incl_index_914-1],last_line_num_916);
         # 1456 "libtcc.c"
@@ -27321,22 +25666,14 @@ memset(&type_922, 0, sizeof(int));
 }
 
 static int rt_get_caller_pc(unsigned long int* paddr, struct ucontext* uc, int level){
-void* __result_obj__;
-int __result167__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 1531 "libtcc.c"
-    __result167__ = -1;
-    return __result167__;
+    return -1;
 }
 
 void rt_error(struct ucontext* uc, const char* fmt, ...){
-void* __result_obj__;
 va_list ap_923;
 unsigned long int pc_924;
 int i_925;
-_Bool _if_conditional1151;
-_Bool _if_conditional1152;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&ap_923, 0, sizeof(va_list));
 memset(&pc_924, 0, sizeof(unsigned long int));
 memset(&i_925, 0, sizeof(int));
@@ -27355,13 +25692,13 @@ memset(&i_925, 0, sizeof(int));
     for(    i_925=0;    i_925<num_callers;    i_925++    ){
         # 1549 "libtcc.c"
         # 1547 "libtcc.c"
-        if(_if_conditional1151=rt_get_caller_pc(&pc_924,uc,i_925)<0,        _if_conditional1151) {
+        if(rt_get_caller_pc(&pc_924,uc,i_925)<0) {
             # 1548 "libtcc.c"
             break;
         }
         # 1553 "libtcc.c"
         # 1549 "libtcc.c"
-        if(_if_conditional1152=i_925==0,        _if_conditional1152) {
+        if(i_925==0) {
             # 1550 "libtcc.c"
             fprintf((stderr),"at ");
         }
@@ -27380,10 +25717,7 @@ memset(&i_925, 0, sizeof(int));
 }
 
 static void sig_error(int signum, struct anonymous_typeX14* siginf, void* puc){
-void* __result_obj__;
 struct ucontext* uc_926;
-_Bool _if_conditional1153;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&uc_926, 0, sizeof(struct ucontext*));
     # 1562 "libtcc.c"
     uc_926=puc;
@@ -27416,7 +25750,7 @@ memset(&uc_926, 0, sizeof(struct ucontext*));
         case 11:
         # 1582 "libtcc.c"
         # 1578 "libtcc.c"
-        if(_if_conditional1153=rt_bound_error_msg&&*rt_bound_error_msg,        _if_conditional1153) {
+        if(rt_bound_error_msg&&*rt_bound_error_msg) {
             # 1579 "libtcc.c"
             rt_error(uc_926,*rt_bound_error_msg);
         }
@@ -27450,32 +25784,22 @@ memset(&uc_926, 0, sizeof(struct ucontext*));
 }
 
 int tcc_relocate(struct TCCState* s1, void* ptr){
-void* __result_obj__;
 struct Section* s_927;
 unsigned long int offset_928;
 unsigned long int length_929;
 unsigned long int mem_930;
 int i_931;
-_Bool _if_conditional1154;
-_Bool _if_conditional1155;
-_Bool _if_conditional1156;
-int __result168__;
-_Bool _if_conditional1157;
-int __result169__;
-_Bool _if_conditional1158;
-_Bool _if_conditional1159;
-_Bool _if_conditional1160;
-_Bool _if_conditional1161;
-int __result170__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&s_927, 0, sizeof(struct Section*));
+memset(&offset_928, 0, sizeof(unsigned long int));
+memset(&length_929, 0, sizeof(unsigned long int));
+memset(&mem_930, 0, sizeof(unsigned long int));
 memset(&i_931, 0, sizeof(int));
     # 1603 "libtcc.c"
     # 1604 "libtcc.c"
     # 1605 "libtcc.c"
     # 1622 "libtcc.c"
     # 1607 "libtcc.c"
-    if(_if_conditional1154=0==s1->runtime_added,    _if_conditional1154) {
+    if(0==s1->runtime_added) {
         # 1608 "libtcc.c"
         s1->runtime_added=1;
         # 1609 "libtcc.c"
@@ -27497,7 +25821,7 @@ memset(&i_931, 0, sizeof(int));
         s_927=s1->sections[i_931];
         # 1627 "libtcc.c"
         # 1625 "libtcc.c"
-        if(_if_conditional1155=0==(s_927->sh_flags&(1<<1)),        _if_conditional1155) {
+        if(0==(s_927->sh_flags&(1<<1))) {
             # 1626 "libtcc.c"
             continue;
         }
@@ -27514,8 +25838,7 @@ memset(&i_931, 0, sizeof(int));
     # 1634 "libtcc.c"
     if(s1->nb_errors) {
         # 1635 "libtcc.c"
-        __result168__ = -1;
-        return __result168__;
+        return -1;
     }
     # 1638 "libtcc.c"
     s1->runtime_plt_and_got_offset=0;
@@ -27525,10 +25848,9 @@ memset(&i_931, 0, sizeof(int));
     offset_928*=2;
     # 1649 "libtcc.c"
     # 1645 "libtcc.c"
-    if(_if_conditional1157=0==mem_930,    _if_conditional1157) {
+    if(0==mem_930) {
         # 1646 "libtcc.c"
-        __result169__ = offset_928+15;
-        return __result169__;
+        return offset_928+15;
     }
     # 1655 "libtcc.c"
     for(    i_931=1;    i_931<s1->nb_sections;    i_931++    ){
@@ -27547,7 +25869,7 @@ memset(&i_931, 0, sizeof(int));
         s_927=s1->sections[i_931];
         # 1659 "libtcc.c"
         # 1657 "libtcc.c"
-        if(_if_conditional1159=0==(s_927->sh_flags&(1<<1)),        _if_conditional1159) {
+        if(0==(s_927->sh_flags&(1<<1))) {
             # 1658 "libtcc.c"
             continue;
         }
@@ -27557,7 +25879,7 @@ memset(&i_931, 0, sizeof(int));
         ptr=(void*)s_927->sh_addr;
         # 1667 "libtcc.c"
         # 1662 "libtcc.c"
-        if(_if_conditional1160=((void*)0)==s_927->data||s_927->sh_type==8,        _if_conditional1160) {
+        if(((void*)0)==s_927->data||s_927->sh_type==8) {
             # 1663 "libtcc.c"
             memset(ptr,0,length_929);
         }
@@ -27567,7 +25889,7 @@ memset(&i_931, 0, sizeof(int));
         }
         # 1669 "libtcc.c"
         # 1667 "libtcc.c"
-        if(_if_conditional1161=s_927->sh_flags&(1<<2),        _if_conditional1161) {
+        if(s_927->sh_flags&(1<<2)) {
             # 1668 "libtcc.c"
             set_pages_executable(ptr,length_929);
         }
@@ -27575,19 +25897,14 @@ memset(&i_931, 0, sizeof(int));
     # 1672 "libtcc.c"
     set_pages_executable(s1->runtime_plt_and_got,s1->runtime_plt_and_got_offset);
     # 1674 "libtcc.c"
-    __result170__ = 0;
-    return __result170__;
+    return 0;
 }
 
 int tcc_run(struct TCCState* s1, int argc, char** argv){
-void* __result_obj__;
 int (*prog_main_932)(int,char**);
 void* ptr_933;
 int ret_934;
-_Bool _if_conditional1162;
-_Bool _if_conditional1163;
 struct sigaction sigact_935;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&prog_main_932, 0, sizeof(int (*)(int,char**)));
 memset(&ptr_933, 0, sizeof(void*));
 memset(&ret_934, 0, sizeof(int));
@@ -27599,7 +25916,7 @@ memset(&sigact_935, 0, sizeof(struct sigaction));
     ret_934=tcc_relocate(s1,((void*)0));
     # 1689 "libtcc.c"
     # 1687 "libtcc.c"
-    if(_if_conditional1162=ret_934<0,    _if_conditional1162) {
+    if(ret_934<0) {
         # 1688 "libtcc.c"
         return -1;
     }
@@ -27639,20 +25956,17 @@ memset(&sigact_935, 0, sizeof(struct sigaction));
 }
 
 void tcc_memstats(){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
 }
 
 static void tcc_cleanup(){
-void* __result_obj__;
 int i_936;
 int n_937;
-_Bool _if_conditional1164;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&i_936, 0, sizeof(int));
+memset(&n_937, 0, sizeof(int));
     # 1726 "libtcc.c"
     # 1743 "libtcc.c"
     # 1741 "libtcc.c"
-    if(_if_conditional1164=((void*)0)==tcc_state,    _if_conditional1164) {
+    if(((void*)0)==tcc_state) {
         # 1742 "libtcc.c"
         return;
     }
@@ -27682,9 +25996,8 @@ memset(&__result_obj__, 0, sizeof(void*));
 struct TCCState* tcc_new(){
 void* __result_obj__;
 struct TCCState* s_938;
-_Bool _if_conditional1165;
-struct TCCState* __result171__;
-struct TCCState* __result172__;
+struct TCCState* __result73__;
+struct TCCState* __result74__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&s_938, 0, sizeof(struct TCCState*));
     # 1766 "libtcc.c"
@@ -27694,10 +26007,10 @@ memset(&s_938, 0, sizeof(struct TCCState*));
     s_938=tcc_mallocz(sizeof(struct TCCState));
     # 1773 "libtcc.c"
     # 1771 "libtcc.c"
-    if(_if_conditional1165=!s_938,    _if_conditional1165) {
+    if(!s_938) {
         # 1772 "libtcc.c"
-        __result171__ = __result_obj__ = ((void*)0);
-        return __result171__;
+        __result73__ = __result_obj__ = ((void*)0);
+        return __result73__;
     }
     # 1773 "libtcc.c"
     tcc_state=s_938;
@@ -27760,16 +26073,13 @@ memset(&s_938, 0, sizeof(struct TCCState*));
     # 1852 "libtcc.c"
     s_938->alacarte_link=1;
     # 1861 "libtcc.c"
-    __result172__ = __result_obj__ = s_938;
-    return __result172__;
+    __result74__ = __result_obj__ = s_938;
+    return __result74__;
 }
 
 void tcc_delete(struct TCCState* s1){
-void* __result_obj__;
 int i_939;
 struct DLLReference* ref_940;
-_Bool _if_conditional1166;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&i_939, 0, sizeof(int));
 memset(&ref_940, 0, sizeof(struct DLLReference*));
     # 1866 "libtcc.c"
@@ -27815,10 +26125,7 @@ memset(&ref_940, 0, sizeof(struct DLLReference*));
 }
 
 int tcc_add_include_path(struct TCCState* s1, const char* pathname){
-void* __result_obj__;
 char* pathname1_941;
-int __result173__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&pathname1_941, 0, sizeof(char*));
     # 1902 "libtcc.c"
     # 1904 "libtcc.c"
@@ -27826,15 +26133,11 @@ memset(&pathname1_941, 0, sizeof(char*));
     # 1905 "libtcc.c"
     dynarray_add((void***)&s1->include_paths,&s1->nb_include_paths,pathname1_941);
     # 1906 "libtcc.c"
-    __result173__ = 0;
-    return __result173__;
+    return 0;
 }
 
 int tcc_add_sysinclude_path(struct TCCState* s1, const char* pathname){
-void* __result_obj__;
 char* pathname1_942;
-int __result174__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&pathname1_942, 0, sizeof(char*));
     # 1911 "libtcc.c"
     # 1913 "libtcc.c"
@@ -27842,36 +26145,21 @@ memset(&pathname1_942, 0, sizeof(char*));
     # 1914 "libtcc.c"
     dynarray_add((void***)&s1->sysinclude_paths,&s1->nb_sysinclude_paths,pathname1_942);
     # 1915 "libtcc.c"
-    __result174__ = 0;
-    return __result174__;
+    return 0;
 }
 
 static int tcc_add_file_internal(struct TCCState* s1, const char* filename, int flags){
-void* __result_obj__;
 const char* ext_943;
 struct anonymous_typeX62 ehdr_944;
 int fd_945;
 int ret_946;
 struct BufferedFile* saved_file_947;
-_Bool _if_conditional1167;
-_Bool _if_conditional1168;
-_Bool _if_conditional1169;
-_Bool _if_conditional1170;
-_Bool _elif_conditional212;
-_Bool _if_conditional1171;
-_Bool _elif_conditional213;
-_Bool _if_conditional1172;
-_Bool _if_conditional1173;
-_Bool _elif_conditional214;
-_Bool _if_conditional1174;
 void* h_948;
-_Bool _if_conditional1175;
-_Bool _elif_conditional215;
-_Bool _if_conditional1176;
-int __result175__;
-memset(&__result_obj__, 0, sizeof(void*));
+int __result75__;
 memset(&ext_943, 0, sizeof(const char*));
 memset(&ehdr_944, 0, sizeof(struct anonymous_typeX62));
+memset(&fd_945, 0, sizeof(int));
+memset(&ret_946, 0, sizeof(int));
 memset(&saved_file_947, 0, sizeof(struct BufferedFile*));
 memset(&h_948, 0, sizeof(void*));
     # 1920 "libtcc.c"
@@ -27882,7 +26170,7 @@ memset(&h_948, 0, sizeof(void*));
     ext_943=tcc_fileextension(filename);
     # 1931 "libtcc.c"
     # 1927 "libtcc.c"
-    if(_if_conditional1167=ext_943[0],    _if_conditional1167) {
+    if(ext_943[0]) {
         # 1928 "libtcc.c"
         ext_943++;
     }
@@ -27892,10 +26180,10 @@ memset(&h_948, 0, sizeof(void*));
     file=tcc_open(s1,filename);
     # 1941 "libtcc.c"
     # 1933 "libtcc.c"
-    if(_if_conditional1168=!file,    _if_conditional1168) {
+    if(!file) {
         # 1937 "libtcc.c"
         # 1934 "libtcc.c"
-        if(_if_conditional1169=flags&1,        _if_conditional1169) {
+        if(flags&1) {
             # 1935 "libtcc.c"
             error_noabort("file '%s' not found",filename);
         }
@@ -27906,12 +26194,12 @@ memset(&h_948, 0, sizeof(void*));
     }
     # 2024 "libtcc.c"
     # 1941 "libtcc.c"
-    if(_if_conditional1170=flags&4,    _if_conditional1170) {
+    if(flags&4) {
         # 1942 "libtcc.c"
         ret_946=tcc_preprocess(s1);
     }
     # 1943 "libtcc.c"
-    else if(_elif_conditional212=!ext_943[0]||!strcmp(ext_943,"c"),    _elif_conditional212) {
+    else if(!ext_943[0]||!strcmp(ext_943,"c")) {
         # 1945 "libtcc.c"
         ret_946=tcc_compile(s1);
     }
@@ -27924,33 +26212,33 @@ memset(&h_948, 0, sizeof(void*));
         lseek(fd_945,0,0);
         # 1973 "libtcc.c"
         # 1966 "libtcc.c"
-        if(_if_conditional1171=ret_946<=0,        _if_conditional1171) {
+        if(ret_946<=0) {
             # 1967 "libtcc.c"
             error_noabort("could not read header");
             # 1968 "libtcc.c"
             goto fail;
         }
         # 1969 "libtcc.c"
-        else if(_elif_conditional213=ret_946!=sizeof(ehdr_944),        _elif_conditional213) {
+        else if(ret_946!=sizeof(ehdr_944)) {
             # 1970 "libtcc.c"
             goto try_load_script;
         }
         # 2023 "libtcc.c"
         # 1976 "libtcc.c"
-        if(_if_conditional1172=ehdr_944.e_ident[0]==127&&ehdr_944.e_ident[1]==69&&ehdr_944.e_ident[2]==76&&ehdr_944.e_ident[3]==70,        _if_conditional1172) {
+        if(ehdr_944.e_ident[0]==127&&ehdr_944.e_ident[1]==69&&ehdr_944.e_ident[2]==76&&ehdr_944.e_ident[3]==70) {
             # 1977 "libtcc.c"
             file->line_num=0;
             # 2000 "libtcc.c"
             # 1978 "libtcc.c"
-            if(_if_conditional1173=ehdr_944.e_type==1,            _if_conditional1173) {
+            if(ehdr_944.e_type==1) {
                 # 1979 "libtcc.c"
                 ret_946=tcc_load_object_file(s1,fd_945,0);
             }
             # 1980 "libtcc.c"
-            else if(_elif_conditional214=ehdr_944.e_type==3,            _elif_conditional214) {
+            else if(ehdr_944.e_type==3) {
                 # 1996 "libtcc.c"
                 # 1981 "libtcc.c"
-                if(_if_conditional1174=s1->output_type==0,                _if_conditional1174) {
+                if(s1->output_type==0) {
                     # 1985 "libtcc.c"
                     # 1986 "libtcc.c"
                     h_948=dlopen(filename,256|1);
@@ -27978,7 +26266,7 @@ memset(&h_948, 0, sizeof(void*));
             }
         }
         # 2000 "libtcc.c"
-        else if(_elif_conditional215=memcmp((char*)&ehdr_944,"!<arch>\012",8)==0,        _elif_conditional215) {
+        else if(memcmp((char*)&ehdr_944,"!<arch>\012",8)==0) {
             # 2001 "libtcc.c"
             file->line_num=0;
             # 2002 "libtcc.c"
@@ -27991,7 +26279,7 @@ memset(&h_948, 0, sizeof(void*));
             ret_946=tcc_load_ldscript(s1);
             # 2022 "libtcc.c"
             # 2018 "libtcc.c"
-            if(_if_conditional1176=ret_946<0,            _if_conditional1176) {
+            if(ret_946<0) {
                 # 2019 "libtcc.c"
                 error_noabort("unrecognized file type");
                 # 2020 "libtcc.c"
@@ -28008,9 +26296,9 @@ memset(&h_948, 0, sizeof(void*));
     # 2027 "libtcc.c"
     file=saved_file_947;
     # 2028 "libtcc.c"
-    __result175__ = ret_946;
+    __result75__ = ret_946;
     come_call_finalizer3((&ehdr_944),Elf64_Ehdr_finalize, 1, 0, 0, 0, (void*)0);
-    return __result175__;
+    return __result75__;
     # 2030 "libtcc.c"
     fail:
     # 2030 "libtcc.c"
@@ -28021,30 +26309,20 @@ memset(&h_948, 0, sizeof(void*));
 }
 
 int tcc_add_file(struct TCCState* s, const char* filename){
-void* __result_obj__;
-_Bool _if_conditional1177;
-int __result176__;
-int __result177__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 2040 "libtcc.c"
     # 2036 "libtcc.c"
-    if(_if_conditional1177=s->output_type==4,    _if_conditional1177) {
+    if(s->output_type==4) {
         # 2037 "libtcc.c"
-        __result176__ = tcc_add_file_internal(s,filename,1|4);
-        return __result176__;
+        return tcc_add_file_internal(s,filename,1|4);
     }
     else {
         # 2039 "libtcc.c"
-        __result177__ = tcc_add_file_internal(s,filename,1);
-        return __result177__;
+        return tcc_add_file_internal(s,filename,1);
     }
 }
 
 int tcc_add_library_path(struct TCCState* s, const char* pathname){
-void* __result_obj__;
 char* pathname1_949;
-int __result178__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&pathname1_949, 0, sizeof(char*));
     # 2044 "libtcc.c"
     # 2046 "libtcc.c"
@@ -28052,17 +26330,11 @@ memset(&pathname1_949, 0, sizeof(char*));
     # 2047 "libtcc.c"
     dynarray_add((void***)&s->library_paths,&s->nb_library_paths,pathname1_949);
     # 2048 "libtcc.c"
-    __result178__ = 0;
-    return __result178__;
+    return 0;
 }
 
 static int tcc_add_dll(struct TCCState* s, const char* filename, int flags){
-void* __result_obj__;
 int i_951;
-_Bool _if_conditional1178;
-int __result179__;
-int __result180__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&i_951, 0, sizeof(int));
     # 2055 "libtcc.c"
     char buf_950[1024];
@@ -28074,27 +26346,17 @@ memset(&i_951, 0, sizeof(int));
         snprintf(buf_950,sizeof(buf_950),"%s/%s",s->library_paths[i_951],filename);
         # 2063 "libtcc.c"
         # 2061 "libtcc.c"
-        if(_if_conditional1178=tcc_add_file_internal(s,buf_950,flags)==0,        _if_conditional1178) {
+        if(tcc_add_file_internal(s,buf_950,flags)==0) {
             # 2062 "libtcc.c"
-            __result179__ = 0;
-            return __result179__;
+            return 0;
         }
     }
     # 2064 "libtcc.c"
-    __result180__ = -1;
-    return __result180__;
+    return -1;
 }
 
 int tcc_add_library(struct TCCState* s, const char* libraryname){
-void* __result_obj__;
 int i_953;
-_Bool _if_conditional1179;
-_Bool _if_conditional1180;
-int __result181__;
-_Bool _if_conditional1181;
-int __result182__;
-int __result183__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&i_953, 0, sizeof(int));
     # 2070 "libtcc.c"
     char buf_952[1024];
@@ -28102,15 +26364,14 @@ memset(&i_953, 0, sizeof(int));
     # 2071 "libtcc.c"
     # 2085 "libtcc.c"
     # 2074 "libtcc.c"
-    if(_if_conditional1179=!s->static_link,    _if_conditional1179) {
+    if(!s->static_link) {
         # 2078 "libtcc.c"
         snprintf(buf_952,sizeof(buf_952),"lib%s.so",libraryname);
         # 2082 "libtcc.c"
         # 2080 "libtcc.c"
-        if(_if_conditional1180=tcc_add_dll(s,buf_952,0)==0,        _if_conditional1180) {
+        if(tcc_add_dll(s,buf_952,0)==0) {
             # 2081 "libtcc.c"
-            __result181__ = 0;
-            return __result181__;
+            return 0;
         }
     }
     # 2091 "libtcc.c"
@@ -28119,37 +26380,23 @@ memset(&i_953, 0, sizeof(int));
         snprintf(buf_952,sizeof(buf_952),"%s/lib%s.a",s->library_paths[i_953],libraryname);
         # 2090 "libtcc.c"
         # 2088 "libtcc.c"
-        if(_if_conditional1181=tcc_add_file_internal(s,buf_952,0)==0,        _if_conditional1181) {
+        if(tcc_add_file_internal(s,buf_952,0)==0) {
             # 2089 "libtcc.c"
-            __result182__ = 0;
-            return __result182__;
+            return 0;
         }
     }
     # 2091 "libtcc.c"
-    __result183__ = -1;
-    return __result183__;
+    return -1;
 }
 
 int tcc_add_symbol(struct TCCState* s, const char* name, void* val){
-void* __result_obj__;
-int __result184__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 2098 "libtcc.c"
     add_elf_sym(symtab_section,(unsigned long int)val,0,((((1))<<4)+(((0))&15)),0,65521,name);
     # 2099 "libtcc.c"
-    __result184__ = 0;
-    return __result184__;
+    return 0;
 }
 
 int tcc_set_output_type(struct TCCState* s, int output_type){
-void* __result_obj__;
-_Bool _if_conditional1182;
-_Bool _if_conditional1183;
-_Bool _if_conditional1184;
-_Bool _if_conditional1185;
-_Bool _if_conditional1186;
-int __result185__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 2104 "libtcc.c"
     char buf_954[1024];
     memset(&buf_954, 0, sizeof(char)    *(1024)    );
@@ -28157,7 +26404,7 @@ memset(&__result_obj__, 0, sizeof(void*));
     s->output_type=output_type;
     # 2122 "libtcc.c"
     # 2108 "libtcc.c"
-    if(_if_conditional1182=!s->nostdinc,    _if_conditional1182) {
+    if(!s->nostdinc) {
         # 2112 "libtcc.c"
         tcc_add_sysinclude_path(s,"/usr/local/include");
         # 2113 "libtcc.c"
@@ -28191,10 +26438,10 @@ memset(&__result_obj__, 0, sizeof(void*));
     }
     # 2167 "libtcc.c"
     # 2155 "libtcc.c"
-    if(_if_conditional1185=(output_type==1||output_type==2)&&!s->nostdlib,    _if_conditional1185) {
+    if((output_type==1||output_type==2)&&!s->nostdlib) {
         # 2158 "libtcc.c"
         # 2156 "libtcc.c"
-        if(_if_conditional1186=output_type!=2,        _if_conditional1186) {
+        if(output_type!=2) {
             # 2157 "libtcc.c"
             tcc_add_file(s,"/usr/lib/crt1.o");
         }
@@ -28202,21 +26449,13 @@ memset(&__result_obj__, 0, sizeof(void*));
         tcc_add_file(s,"/usr/lib/crti.o");
     }
     # 2167 "libtcc.c"
-    __result185__ = 0;
-    return __result185__;
+    return 0;
 }
 
 static int set_flag(struct TCCState* s, const struct FlagDef* flags, int nb_flags, const char* name, int value){
-void* __result_obj__;
 int i_955;
 const struct FlagDef* p_956;
 const char* r_957;
-_Bool _if_conditional1187;
-_Bool _if_conditional1188;
-int __result186__;
-_Bool _if_conditional1189;
-int __result187__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&i_955, 0, sizeof(int));
 memset(&p_956, 0, sizeof(const struct FlagDef*));
 memset(&r_957, 0, sizeof(const char*));
@@ -28227,7 +26466,7 @@ memset(&r_957, 0, sizeof(const char*));
     r_957=name;
     # 2199 "libtcc.c"
     # 2195 "libtcc.c"
-    if(_if_conditional1187=r_957[0]==110&&r_957[1]==111&&r_957[2]==45,    _if_conditional1187) {
+    if(r_957[0]==110&&r_957[1]==111&&r_957[2]==45) {
         # 2196 "libtcc.c"
         r_957+=3;
         # 2197 "libtcc.c"
@@ -28237,100 +26476,80 @@ memset(&r_957, 0, sizeof(const char*));
     for(    i_955=0,p_956=flags;    i_955<nb_flags;    i_955++,p_956++    ){
         # 2202 "libtcc.c"
         # 2200 "libtcc.c"
-        if(_if_conditional1188=!strcmp(r_957,p_956->name),        _if_conditional1188) {
+        if(!strcmp(r_957,p_956->name)) {
             # 2201 "libtcc.c"
             goto found;
         }
     }
     # 2203 "libtcc.c"
-    __result186__ = -1;
-    return __result186__;
+    return -1;
     # 2205 "libtcc.c"
     found:
     # 2207 "libtcc.c"
     # 2205 "libtcc.c"
-    if(_if_conditional1189=p_956->flags&2,    _if_conditional1189) {
+    if(p_956->flags&2) {
         # 2206 "libtcc.c"
         value=!value;
     }
     # 2207 "libtcc.c"
     *(int*)((unsigned char*)s+p_956->offset)=value;
     # 2208 "libtcc.c"
-    __result187__ = 0;
-    return __result187__;
+    return 0;
 }
 
 int tcc_set_warning(struct TCCState* s, const char* warning_name, int value){
-void* __result_obj__;
 int i_958;
 const struct FlagDef* p_959;
-_Bool _if_conditional1190;
-_Bool _if_conditional1191;
-int __result188__;
-int __result189__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&i_958, 0, sizeof(int));
 memset(&p_959, 0, sizeof(const struct FlagDef*));
     # 2215 "libtcc.c"
     # 2216 "libtcc.c"
     # 2228 "libtcc.c"
     # 2218 "libtcc.c"
-    if(_if_conditional1190=!strcmp(warning_name,"all"),    _if_conditional1190) {
+    if(!strcmp(warning_name,"all")) {
         # 2223 "libtcc.c"
         for(        i_958=0,p_959=warning_defs;        i_958<(sizeof(warning_defs)/sizeof((warning_defs)[0]));        i_958++,p_959++        ){
             # 2222 "libtcc.c"
             # 2220 "libtcc.c"
-            if(_if_conditional1191=p_959->flags&1,            _if_conditional1191) {
+            if(p_959->flags&1) {
                 # 2221 "libtcc.c"
                 *(int*)((unsigned char*)s+p_959->offset)=1;
             }
         }
         # 2223 "libtcc.c"
-        __result188__ = 0;
-        return __result188__;
+        return 0;
     }
     else {
         # 2226 "libtcc.c"
-        __result189__ = set_flag(s,warning_defs,(sizeof(warning_defs)/sizeof((warning_defs)[0])),warning_name,value);
-        return __result189__;
+        return set_flag(s,warning_defs,(sizeof(warning_defs)/sizeof((warning_defs)[0])),warning_name,value);
     }
 }
 
 int tcc_set_flag(struct TCCState* s, const char* flag_name, int value){
-void* __result_obj__;
-int __result190__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 2241 "libtcc.c"
-    __result190__ = set_flag(s,flag_defs,(sizeof(flag_defs)/sizeof((flag_defs)[0])),flag_name,value);
-    return __result190__;
+    return set_flag(s,flag_defs,(sizeof(flag_defs)/sizeof((flag_defs)[0])),flag_name,value);
 }
 
 void tcc_set_lib_path(struct TCCState* s, const char* path){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 2247 "libtcc.c"
     s->tcc_lib_path=tcc_strdup(path);
 }
 
 void tcc_print_stats(struct TCCState* s, long total_time){
-void* __result_obj__;
 double tt_960;
-_Bool _if_conditional1192;
-_Bool _if_conditional1193;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&tt_960, 0, sizeof(double));
     # 2252 "libtcc.c"
     # 2253 "libtcc.c"
     tt_960=(double)total_time/1000000.0;
     # 2256 "libtcc.c"
     # 2254 "libtcc.c"
-    if(_if_conditional1192=tt_960<0.001,    _if_conditional1192) {
+    if(tt_960<0.001) {
         # 2255 "libtcc.c"
         tt_960=0.001;
     }
     # 2258 "libtcc.c"
     # 2256 "libtcc.c"
-    if(_if_conditional1193=total_bytes<1,    _if_conditional1193) {
+    if(total_bytes<1) {
         # 2257 "libtcc.c"
         total_bytes=1;
     }
@@ -28339,56 +26558,44 @@ memset(&tt_960, 0, sizeof(double));
 }
 
 void help(){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
     # 62 "tcc.c"
     printf("tcc version 0.9.25 - Tiny C Compiler - Copyright (C) 2001-2006 Fabrice Bellard\nusage: tcc [-v] [-c] [-o outfile] [-Bdir] [-bench] [-Idir] [-Dsym[=val]] [-Usym]\n           [-Wwarn] [-g] [-b] [-bt N] [-Ldir] [-llib] [-shared] [-soname name]\n           [-static] [infile1 infile2...] [-run infile args...]\n\nGeneral options:\n  -v          display current version, increase verbosity\n  -c          compile only - generate an object file\n  -o outfile  set output filename\n  -Bdir       set tcc internal library path\n  -bench      output compilation statistics\n  -run        run compiled source\n  -fflag      set or reset (with 'no-' prefix) 'flag' (see man page)\n  -Wwarning   set or reset (with 'no-' prefix) 'warning' (see man page)\n  -w          disable all warnings\nPreprocessor options:\n  -E          preprocess only\n  -Idir       add include path 'dir'\n  -Dsym[=val] define 'sym' with value 'val'\n  -Usym       undefine 'sym'\nLinker options:\n  -Ldir       add library path 'dir'\n  -llib       link with dynamic or static library 'lib'\n  -shared     generate a shared library\n  -soname     set name for shared library to be used at runtime\n  -static     static linking\n  -rdynamic   export all global symbols to dynamic linker\n  -r          generate (relocatable) object file\nDebugger options:\n  -g          generate runtime debug info\n  -bt N       show N callers in stack traces\n");
 }
 
 static long getclock_us(){
-void* __result_obj__;
 struct timeval tv_961;
-long __result191__;
-memset(&__result_obj__, 0, sizeof(void*));
+long __result76__;
 memset(&tv_961, 0, sizeof(struct timeval));
     # 166 "tcc.c"
     # 163 "tcc.c"
     gettimeofday(&tv_961,((void*)0));
     # 164 "tcc.c"
-    __result191__ = tv_961.tv_sec*1000000+tv_961.tv_usec;
+    __result76__ = tv_961.tv_sec*1000000+tv_961.tv_usec;
     come_call_finalizer3((&tv_961),timeval_finalize, 1, 0, 0, 0, (void*)0);
-    return __result191__;
+    return __result76__;
     come_call_finalizer3((&tv_961),timeval_finalize, 1, 0, 0, 0, (void*)0);
 }
 
 static void timeval_finalize(struct timeval* self){
-void* __result_obj__;
-memset(&__result_obj__, 0, sizeof(void*));
 }
 
 static int strstart(const char* str, const char* val, const char** ptr){
-void* __result_obj__;
 const char* p_962;
 const char* q_963;
-_Bool _while_condtional89;
-_Bool _if_conditional1194;
-int __result192__;
-_Bool _if_conditional1195;
-int __result193__;
-memset(&__result_obj__, 0, sizeof(void*));
+memset(&p_962, 0, sizeof(const char*));
+memset(&q_963, 0, sizeof(const char*));
     # 170 "tcc.c"
     # 171 "tcc.c"
     p_962=str;
     # 172 "tcc.c"
     q_963=val;
     # 179 "tcc.c"
-    while(_while_condtional89=*q_963!=0,    _while_condtional89) {
+    while(*q_963!=0) {
         # 176 "tcc.c"
         # 174 "tcc.c"
-        if(_if_conditional1194=*p_962!=*q_963,        _if_conditional1194) {
+        if(*p_962!=*q_963) {
             # 175 "tcc.c"
-            __result192__ = 0;
-            return __result192__;
+            return 0;
         }
         # 176 "tcc.c"
         p_962++;
@@ -28402,23 +26609,20 @@ memset(&__result_obj__, 0, sizeof(void*));
         *ptr=p_962;
     }
     # 181 "tcc.c"
-    __result193__ = 1;
-    return __result193__;
+    return 1;
 }
 
 static int expand_args(char*** pargv, const char* str){
-void* __result_obj__;
 const char* s1_964;
 char** argv_965;
 char* arg_966;
 int argc_967;
 int len_968;
-_Bool _while_condtional90;
-_Bool _if_conditional1196;
-_Bool _while_condtional91;
-int __result194__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&s1_964, 0, sizeof(const char*));
+memset(&argv_965, 0, sizeof(char**));
+memset(&arg_966, 0, sizeof(char*));
+memset(&argc_967, 0, sizeof(int));
+memset(&len_968, 0, sizeof(int));
     # 187 "tcc.c"
     # 188 "tcc.c"
     # 189 "tcc.c"
@@ -28429,20 +26633,20 @@ memset(&s1_964, 0, sizeof(const char*));
     # 207 "tcc.c"
     for(    ;    ;    ){
         # 196 "tcc.c"
-        while(_while_condtional90=is_space(*str),        _while_condtional90) {
+        while(is_space(*str)) {
             # 195 "tcc.c"
             str++;
         }
         # 198 "tcc.c"
         # 196 "tcc.c"
-        if(_if_conditional1196=*str==0,        _if_conditional1196) {
+        if(*str==0) {
             # 197 "tcc.c"
             break;
         }
         # 198 "tcc.c"
         s1_964=str;
         # 201 "tcc.c"
-        while(_while_condtional91=*str!=0&&!is_space(*str),        _while_condtional91) {
+        while(*str!=0&&!is_space(*str)) {
             # 200 "tcc.c"
             str++;
         }
@@ -28460,52 +26664,29 @@ memset(&s1_964, 0, sizeof(const char*));
     # 207 "tcc.c"
     *pargv=argv_965;
     # 208 "tcc.c"
-    __result194__ = argc_967;
-    return __result194__;
+    return argc_967;
 }
 
 int parse_args(struct TCCState* s, int argc, char** argv){
-void* __result_obj__;
 int optind_969;
 const struct TCCOption* popt_970;
 const char* optarg_971;
 const char* p1_972;
 const char* r1_973;
 char* r_974;
-_Bool _while_condtional92;
-_Bool _if_conditional1197;
-_Bool _if_conditional1198;
-_Bool _if_conditional1199;
-_Bool _if_conditional1200;
-_Bool _if_conditional1201;
-_Bool _if_conditional1202;
-_Bool _if_conditional1203;
-_Bool _if_conditional1204;
-_Bool _if_conditional1205;
-int __result195__;
-int __result196__;
-_Bool _if_conditional1206;
 char* sym_975;
 char* value_976;
-_Bool _if_conditional1207;
 int argc1_977;
 char** argv1_978;
-_Bool _if_conditional1208;
-_Bool _if_conditional1209;
-_Bool _do_while_condtional3;
-_Bool _if_conditional1210;
-_Bool _if_conditional1211;
 const char* p_979;
-_Bool _if_conditional1212;
-_Bool _elif_conditional216;
-_Bool _if_conditional1213;
-_Bool _elif_conditional217;
-_Bool _if_conditional1214;
-int __result197__;
-memset(&__result_obj__, 0, sizeof(void*));
 memset(&optind_969, 0, sizeof(int));
 memset(&popt_970, 0, sizeof(const struct TCCOption*));
+memset(&optarg_971, 0, sizeof(const char*));
+memset(&p1_972, 0, sizeof(const char*));
+memset(&r1_973, 0, sizeof(const char*));
 memset(&r_974, 0, sizeof(char*));
+memset(&sym_975, 0, sizeof(char*));
+memset(&value_976, 0, sizeof(char*));
 memset(&argc1_977, 0, sizeof(int));
 memset(&argv1_978, 0, sizeof(char**));
 memset(&p_979, 0, sizeof(const char*));
@@ -28516,17 +26697,17 @@ memset(&p_979, 0, sizeof(const char*));
     # 218 "tcc.c"
     optind_969=0;
     # 415 "tcc.c"
-    while(_while_condtional92=optind_969<argc,    _while_condtional92) {
+    while(optind_969<argc) {
         # 221 "tcc.c"
         r_974=argv[optind_969++];
         # 414 "tcc.c"
         # 222 "tcc.c"
-        if(_if_conditional1197=r_974[0]!=45||r_974[1]==0,        _if_conditional1197) {
+        if(r_974[0]!=45||r_974[1]==0) {
             # 224 "tcc.c"
             dynarray_add((void***)&files,&nb_files,r_974);
             # 230 "tcc.c"
             # 225 "tcc.c"
-            if(_if_conditional1198=!multiple_files,            _if_conditional1198) {
+            if(!multiple_files) {
                 # 226 "tcc.c"
                 optind_969--;
                 # 228 "tcc.c"
@@ -28542,7 +26723,7 @@ memset(&p_979, 0, sizeof(const char*));
                 p1_972=popt_970->name;
                 # 237 "tcc.c"
                 # 235 "tcc.c"
-                if(_if_conditional1199=p1_972==((void*)0),                _if_conditional1199) {
+                if(p1_972==((void*)0)) {
                     # 236 "tcc.c"
                     error("invalid option -- '%s'",r_974);
                 }
@@ -28552,13 +26733,13 @@ memset(&p_979, 0, sizeof(const char*));
                 for(                ;                ;                ){
                     # 241 "tcc.c"
                     # 239 "tcc.c"
-                    if(_if_conditional1200=*p1_972==0,                    _if_conditional1200) {
+                    if(*p1_972==0) {
                         # 240 "tcc.c"
                         goto option_found;
                     }
                     # 243 "tcc.c"
                     # 241 "tcc.c"
-                    if(_if_conditional1201=*r1_973!=*p1_972,                    _if_conditional1201) {
+                    if(*r1_973!=*p1_972) {
                         # 242 "tcc.c"
                         break;
                     }
@@ -28574,17 +26755,17 @@ memset(&p_979, 0, sizeof(const char*));
             option_found:
             # 263 "tcc.c"
             # 249 "tcc.c"
-            if(_if_conditional1202=popt_970->flags&1,            _if_conditional1202) {
+            if(popt_970->flags&1) {
                 # 257 "tcc.c"
                 # 250 "tcc.c"
-                if(_if_conditional1203=*r1_973!=0||(popt_970->flags&2),                _if_conditional1203) {
+                if(*r1_973!=0||(popt_970->flags&2)) {
                     # 251 "tcc.c"
                     optarg_971=r1_973;
                 }
                 else {
                     # 255 "tcc.c"
                     # 253 "tcc.c"
-                    if(_if_conditional1204=optind_969>=argc,                    _if_conditional1204) {
+                    if(optind_969>=argc) {
                         # 254 "tcc.c"
                         error("argument to '%s' is missing",r_974);
                     }
@@ -28595,10 +26776,9 @@ memset(&p_979, 0, sizeof(const char*));
             else {
                 # 260 "tcc.c"
                 # 258 "tcc.c"
-                if(_if_conditional1205=*r1_973!=0,                _if_conditional1205) {
+                if(*r1_973!=0) {
                     # 259 "tcc.c"
-                    __result195__ = 0;
-                    return __result195__;
+                    return 0;
                 }
                 # 260 "tcc.c"
                 optarg_971=((void*)0);
@@ -28608,13 +26788,12 @@ memset(&p_979, 0, sizeof(const char*));
                 # 265 "tcc.c"
                 case (0):
                 # 265 "tcc.c"
-                __result196__ = 0;
-                return __result196__;
+                return 0;
                 # 268 "tcc.c"
                 case (1):
                 # 270 "tcc.c"
                 # 268 "tcc.c"
-                if(_if_conditional1206=tcc_add_include_path(s,optarg_971)<0,                _if_conditional1206) {
+                if(tcc_add_include_path(s,optarg_971)<0) {
                     # 269 "tcc.c"
                     error("too many include paths");
                 }
@@ -28756,7 +26935,7 @@ memset(&p_979, 0, sizeof(const char*));
                     argc1_977=expand_args(&argv1_978,optarg_971);
                     # 353 "tcc.c"
                     # 350 "tcc.c"
-                    if(_if_conditional1208=argc1_977>0,                    _if_conditional1208) {
+                    if(argc1_977>0) {
                         # 351 "tcc.c"
                         parse_args(s,argc1_977,argv1_978);
                     }
@@ -28773,19 +26952,19 @@ memset(&p_979, 0, sizeof(const char*));
                 do {
                     # 361 "tcc.c"
                     # 359 "tcc.c"
-                    if(_if_conditional1209=0==s->verbose++,                    _if_conditional1209) {
+                    if(0==s->verbose++) {
                         # 360 "tcc.c"
                         printf("tcc version %s\n","0.9.25");
                     }
                 # 361 "tcc.c"
-                } while(_do_while_condtional3=*optarg_971++==118,                _do_while_condtional3);
+                } while(*optarg_971++==118);
                 # 362 "tcc.c"
                 break;
                 # 364 "tcc.c"
                 case (21):
                 # 366 "tcc.c"
                 # 364 "tcc.c"
-                if(_if_conditional1210=tcc_set_flag(s,optarg_971,1)<0&&s->warn_unsupported,                _if_conditional1210) {
+                if(tcc_set_flag(s,optarg_971,1)<0&&s->warn_unsupported) {
                     # 365 "tcc.c"
                     goto unsupported_option;
                 }
@@ -28795,7 +26974,7 @@ memset(&p_979, 0, sizeof(const char*));
                 case (18):
                 # 371 "tcc.c"
                 # 369 "tcc.c"
-                if(_if_conditional1211=tcc_set_warning(s,optarg_971,1)<0&&s->warn_unsupported,                _if_conditional1211) {
+                if(tcc_set_warning(s,optarg_971,1)<0&&s->warn_unsupported) {
                     # 370 "tcc.c"
                     goto unsupported_option;
                 }
@@ -28820,22 +26999,22 @@ memset(&p_979, 0, sizeof(const char*));
                     # 380 "tcc.c"
                     # 401 "tcc.c"
                     # 381 "tcc.c"
-                    if(_if_conditional1212=strstart(optarg_971,"-Ttext,",&p_979),                    _if_conditional1212) {
+                    if(strstart(optarg_971,"-Ttext,",&p_979)) {
                         # 382 "tcc.c"
                         s->text_addr=strtoul(p_979,((void*)0),16);
                         # 383 "tcc.c"
                         s->has_text_addr=1;
                     }
                     # 384 "tcc.c"
-                    else if(_elif_conditional216=strstart(optarg_971,"--oformat,",&p_979),                    _elif_conditional216) {
+                    else if(strstart(optarg_971,"--oformat,",&p_979)) {
                         # 398 "tcc.c"
                         # 385 "tcc.c"
-                        if(_if_conditional1213=strstart(p_979,"elf32-",((void*)0)),                        _if_conditional1213) {
+                        if(strstart(p_979,"elf32-",((void*)0))) {
                             # 386 "tcc.c"
                             s->output_format=0;
                         }
                         # 387 "tcc.c"
-                        else if(_elif_conditional217=!strcmp(p_979,"binary"),                        _elif_conditional217) {
+                        else if(!strcmp(p_979,"binary")) {
                             # 388 "tcc.c"
                             s->output_format=1;
                         }
@@ -28873,51 +27052,27 @@ memset(&p_979, 0, sizeof(const char*));
         }
     }
     # 415 "tcc.c"
-    __result197__ = optind_969+1;
-    return __result197__;
+    return optind_969+1;
 }
 
 int main(int argc, char** argv){
-void* __result_obj__;
 int i_980;
 struct TCCState* s_981;
 int nb_objfiles_982;
 int ret_983;
 int optind_984;
 long start_time_986;
-_Bool _if_conditional1215;
-int __result198__;
-_Bool _if_conditional1216;
-_Bool _if_conditional1217;
-int __result199__;
-int __result200__;
-_Bool _if_conditional1218;
-_Bool _if_conditional1219;
-_Bool _if_conditional1220;
-_Bool _if_conditional1221;
-_Bool _if_conditional1222;
-_Bool _if_conditional1223;
-_Bool _if_conditional1224;
-_Bool _elif_conditional218;
-_Bool _if_conditional1225;
+int __result77__;
+int __result78__;
+int __result79__;
 char* ext_987;
-_Bool _if_conditional1226;
-_Bool _if_conditional1227;
 const char* filename_989;
-_Bool _if_conditional1228;
-_Bool _if_conditional1229;
-_Bool _if_conditional1230;
-_Bool _if_conditional1231;
-_Bool _if_conditional1232;
-_Bool _if_conditional1233;
-_Bool _if_conditional1234;
-_Bool _if_conditional1235;
-_Bool _elif_conditional219;
-_Bool _if_conditional1236;
-int __result201__;
-memset(&__result_obj__, 0, sizeof(void*));
+int __result80__;
 memset(&i_980, 0, sizeof(int));
 memset(&s_981, 0, sizeof(struct TCCState*));
+memset(&nb_objfiles_982, 0, sizeof(int));
+memset(&ret_983, 0, sizeof(int));
+memset(&optind_984, 0, sizeof(int));
 memset(&start_time_986, 0, sizeof(long));
 memset(&ext_987, 0, sizeof(char*));
 memset(&filename_989, 0, sizeof(const char*));
@@ -28958,58 +27113,58 @@ come_heap_init(0, 0, 0);
         # 443 "tcc.c"
         printf("install: %s/\n",s_981->tcc_lib_path);
         # 444 "tcc.c"
-        __result198__ = 0;
+        __result77__ = 0;
         come_heap_final();
-        return __result198__;
+        return __result77__;
     }
     # 453 "tcc.c"
     # 446 "tcc.c"
-    if(_if_conditional1216=optind_984==0||nb_files==0,    _if_conditional1216) {
+    if(optind_984==0||nb_files==0) {
         # 449 "tcc.c"
         # 447 "tcc.c"
-        if(_if_conditional1217=optind_984&&s_981->verbose,        _if_conditional1217) {
+        if(optind_984&&s_981->verbose) {
             # 448 "tcc.c"
-            __result199__ = 0;
+            __result78__ = 0;
             come_heap_final();
-            return __result199__;
+            return __result78__;
         }
         # 449 "tcc.c"
         help();
         # 450 "tcc.c"
-        __result200__ = 1;
+        __result79__ = 1;
         come_heap_final();
-        return __result200__;
+        return __result79__;
     }
     # 453 "tcc.c"
     nb_objfiles_982=nb_files-nb_libraries;
     # 461 "tcc.c"
     # 457 "tcc.c"
-    if(_if_conditional1218=outfile&&output_type==0,    _if_conditional1218) {
+    if(outfile&&output_type==0) {
         # 458 "tcc.c"
         output_type=1;
     }
     # 470 "tcc.c"
     # 461 "tcc.c"
-    if(_if_conditional1219=output_type==3&&!reloc_output,    _if_conditional1219) {
+    if(output_type==3&&!reloc_output) {
         # 465 "tcc.c"
         # 463 "tcc.c"
-        if(_if_conditional1220=nb_objfiles_982!=1,        _if_conditional1220) {
+        if(nb_objfiles_982!=1) {
             # 464 "tcc.c"
             error("cannot specify multiple files with -c");
         }
         # 467 "tcc.c"
         # 465 "tcc.c"
-        if(_if_conditional1221=nb_libraries!=0,        _if_conditional1221) {
+        if(nb_libraries!=0) {
             # 466 "tcc.c"
             error("cannot specify libraries with -c");
         }
     }
     # 502 "tcc.c"
     # 470 "tcc.c"
-    if(_if_conditional1222=output_type==4,    _if_conditional1222) {
+    if(output_type==4) {
         # 478 "tcc.c"
         # 471 "tcc.c"
-        if(_if_conditional1223=!outfile,        _if_conditional1223) {
+        if(!outfile) {
             # 472 "tcc.c"
             s_981->outfile=(stdout);
         }
@@ -29018,17 +27173,17 @@ come_heap_init(0, 0, 0);
             s_981->outfile=fopen(outfile,"w");
             # 477 "tcc.c"
             # 475 "tcc.c"
-            if(_if_conditional1224=!s_981->outfile,            _if_conditional1224) {
+            if(!s_981->outfile) {
                 # 476 "tcc.c"
                 error("could not open '%s",outfile);
             }
         }
     }
     # 478 "tcc.c"
-    else if(_elif_conditional218=output_type!=0,    _elif_conditional218) {
+    else if(output_type!=0) {
         # 500 "tcc.c"
         # 479 "tcc.c"
-        if(_if_conditional1225=!outfile,        _if_conditional1225) {
+        if(!outfile) {
             # 481 "tcc.c"
             # 483 "tcc.c"
             const char* name_988=strcmp(files[0],"-")==0?"a":tcc_basename(files[0]);
@@ -29038,7 +27193,7 @@ come_heap_init(0, 0, 0);
             ext_987=tcc_fileextension(objfilename_985);
             # 498 "tcc.c"
             # 494 "tcc.c"
-            if(_if_conditional1226=output_type==3&&!reloc_output&&*ext_987,            _if_conditional1226) {
+            if(output_type==3&&!reloc_output&&*ext_987) {
                 # 495 "tcc.c"
                 strcpy(ext_987,".o");
             }
@@ -29065,10 +27220,10 @@ come_heap_init(0, 0, 0);
         filename_989=files[i_980];
         # 524 "tcc.c"
         # 513 "tcc.c"
-        if(_if_conditional1228=filename_989[0]==45&&filename_989[1],        _if_conditional1228) {
+        if(filename_989[0]==45&&filename_989[1]) {
             # 518 "tcc.c"
             # 514 "tcc.c"
-            if(_if_conditional1229=tcc_add_library(s_981,filename_989+2)<0,            _if_conditional1229) {
+            if(tcc_add_library(s_981,filename_989+2)<0) {
                 # 515 "tcc.c"
                 error_noabort("cannot find %s",filename_989);
                 # 516 "tcc.c"
@@ -29078,13 +27233,13 @@ come_heap_init(0, 0, 0);
         else {
             # 521 "tcc.c"
             # 519 "tcc.c"
-            if(_if_conditional1230=1==s_981->verbose,            _if_conditional1230) {
+            if(1==s_981->verbose) {
                 # 520 "tcc.c"
                 printf("-> %s\n",filename_989);
             }
             # 523 "tcc.c"
             # 521 "tcc.c"
-            if(_if_conditional1231=tcc_add_file(s_981,filename_989)<0,            _if_conditional1231) {
+            if(tcc_add_file(s_981,filename_989)<0) {
                 # 522 "tcc.c"
                 ret_983=1;
             }
@@ -29106,7 +27261,7 @@ come_heap_init(0, 0, 0);
     }
     # 542 "tcc.c"
     # 535 "tcc.c"
-    if(_if_conditional1234=s_981->output_type==4,    _if_conditional1234) {
+    if(s_981->output_type==4) {
         # 538 "tcc.c"
         # 536 "tcc.c"
         if(outfile) {
@@ -29115,7 +27270,7 @@ come_heap_init(0, 0, 0);
         }
     }
     # 538 "tcc.c"
-    else if(_elif_conditional219=s_981->output_type==0,    _elif_conditional219) {
+    else if(s_981->output_type==0) {
         # 539 "tcc.c"
         ret_983=tcc_run(s_981,argc-optind_984,argv+optind_984);
     }
@@ -29127,14 +27282,14 @@ come_heap_init(0, 0, 0);
     the_end:
     # 552 "tcc.c"
     # 544 "tcc.c"
-    if(_if_conditional1236=!s_981->do_bounds_check,    _if_conditional1236) {
+    if(!s_981->do_bounds_check) {
         # 545 "tcc.c"
         tcc_delete(s_981);
     }
     # 552 "tcc.c"
-    __result201__ = ret_983;
+    __result80__ = ret_983;
     come_heap_final();
-    return __result201__;
+    return __result80__;
 come_heap_final();
 }
 

@@ -1656,7 +1656,7 @@ struct sClassModule* sClassModule_initialize(struct sClassModule* self, char* na
 
 struct sFun* sFun_initialize(struct sFun* self, char* name, struct sType* result_type, struct list$1sTypeph* param_types, struct list$1charph* param_names, struct list$1charph* param_default_parametors, _Bool external, _Bool var_args, struct sBlock* block, _Bool static_, char* come_header, char* declare_sname, struct sInfo* info);
 
-char* make_type_name_string(struct sType* type, _Bool in_header, _Bool array_cast_pointer, _Bool no_pointer, struct sInfo* info);
+char* make_type_name_string(struct sType* type, _Bool in_header, _Bool array_cast_pointer, _Bool no_pointer, struct sInfo* info, _Bool no_static);
 
 char* make_come_type_name_string(struct sType* type, struct sInfo* info);
 
@@ -5216,7 +5216,7 @@ right_value238 = (void*)0;
     buffer_append_str(num_string_142,"1");
     type2_143=(struct sType*)come_increment_ref_count(((struct sType*)(right_value218=solve_generics(type_140,type_140,info))));
     come_call_finalizer3(right_value218,sType_finalize, 0, 1, 0, 0, (void*)0);
-    type_name_144=(char*)come_increment_ref_count(((char*)(right_value219=make_type_name_string(type2_143,(_Bool)0,(_Bool)1,(_Bool)0,info))));
+    type_name_144=(char*)come_increment_ref_count(((char*)(right_value219=make_type_name_string(type2_143,(_Bool)0,(_Bool)1,(_Bool)0,info,(_Bool)0))));
     right_value219 = come_decrement_ref_count2(right_value219, (void*)0, (void*)0, 1, 0, 0, (void*)0);
     __dec_obj67=obj_value_141->c_value;
     obj_value_141->c_value=(char*)come_increment_ref_count(((char*)(right_value221=xsprintf("(%s*)come_calloc(1, sizeof(%s)*(%s), \"%s\", %d, \"%s\")",type_name_144,type_name_144,((char*)(right_value220=buffer_to_string(num_string_142))),info->sname,info->sline,type_name_144))));
@@ -5828,7 +5828,7 @@ right_value292 = (void*)0;
     buffer_append_str(num_string_180,"1");
     type2_181=(struct sType*)come_increment_ref_count(((struct sType*)(right_value270=solve_generics(type_172,type_172,info))));
     come_call_finalizer3(right_value270,sType_finalize, 0, 1, 0, 0, (void*)0);
-    type_name_182=(char*)come_increment_ref_count(((char*)(right_value271=make_type_name_string(type2_181,(_Bool)0,(_Bool)1,(_Bool)0,info))));
+    type_name_182=(char*)come_increment_ref_count(((char*)(right_value271=make_type_name_string(type2_181,(_Bool)0,(_Bool)1,(_Bool)0,info,(_Bool)0))));
     right_value271 = come_decrement_ref_count2(right_value271, (void*)0, (void*)0, 1, 0, 0, (void*)0);
     __dec_obj82=obj_value_179->c_value;
     obj_value_179->c_value=(char*)come_increment_ref_count(((char*)(right_value273=xsprintf("(%s*)come_calloc(1, sizeof(%s)*(%s), \"%s\", %d, \"%s\")",type_name_182,type_name_182,((char*)(right_value272=buffer_to_string(num_string_180))),info->sname,info->sline,type_name_182))));
@@ -6692,7 +6692,7 @@ right_value360 = (void*)0;
     buffer_append_str(num_string_232,"1");
     type2_233=(struct sType*)come_increment_ref_count(((struct sType*)(right_value337=solve_generics(type_230,type_230,info))));
     come_call_finalizer3(right_value337,sType_finalize, 0, 1, 0, 0, (void*)0);
-    type_name_234=(char*)come_increment_ref_count(((char*)(right_value338=make_type_name_string(type2_233,(_Bool)0,(_Bool)1,(_Bool)0,info))));
+    type_name_234=(char*)come_increment_ref_count(((char*)(right_value338=make_type_name_string(type2_233,(_Bool)0,(_Bool)1,(_Bool)0,info,(_Bool)0))));
     right_value338 = come_decrement_ref_count2(right_value338, (void*)0, (void*)0, 1, 0, 0, (void*)0);
     __dec_obj94=obj_value_231->c_value;
     obj_value_231->c_value=(char*)come_increment_ref_count(((char*)(right_value340=xsprintf("(%s*)come_calloc(1, sizeof(%s)*(%s), \"%s\", %d, \"%s\")",type_name_234,type_name_234,((char*)(right_value339=buffer_to_string(num_string_232))),info->sname,info->sline,type_name_234))));

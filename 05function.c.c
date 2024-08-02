@@ -1614,7 +1614,7 @@ struct sClassModule* sClassModule_initialize(struct sClassModule* self, char* na
 
 struct sFun* sFun_initialize(struct sFun* self, char* name, struct sType* result_type, struct list$1sTypeph* param_types, struct list$1charph* param_names, struct list$1charph* param_default_parametors, _Bool external, _Bool var_args, struct sBlock* block, _Bool static_, char* come_header, char* declare_sname, struct sInfo* info);
 
-char* make_type_name_string(struct sType* type, _Bool in_header, _Bool array_cast_pointer, _Bool no_pointer, struct sInfo* info);
+char* make_type_name_string(struct sType* type, _Bool in_header, _Bool array_cast_pointer, _Bool no_pointer, struct sInfo* info, _Bool no_static);
 
 char* make_come_type_name_string(struct sType* type, struct sInfo* info);
 
@@ -3315,7 +3315,7 @@ right_value125 = (void*)0;
     if(!gComeC&&!self->mFun->mNoResultType) {
         add_come_code_at_function_head(info,"%s;\n",((char*)(right_value85=make_define_var(result_type_48,"__result_obj__",(_Bool)0,info))));
         right_value85 = come_decrement_ref_count2(right_value85, (void*)0, (void*)0, 1, 0, 0, (void*)0);
-        add_come_code_at_function_head2(info,"memset(&__result_obj__, 0, sizeof(%s));\n",((char*)(right_value86=make_type_name_string(result_type_48,(_Bool)0,(_Bool)0,(_Bool)0,info))));
+        add_come_code_at_function_head2(info,"memset(&__result_obj__, 0, sizeof(%s));\n",((char*)(right_value86=make_type_name_string(result_type_48,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)1))));
         right_value86 = come_decrement_ref_count2(right_value86, (void*)0, (void*)0, 1, 0, 0, (void*)0);
     }
     if(self->mFun->mBlock) {
@@ -4325,7 +4325,7 @@ right_value136 = (void*)0;
         if(!gComeC&&!self->mFun->mNoResultType) {
             add_come_code_at_function_head(info,"%s;\n",((char*)(right_value134=make_define_var(result_type_87,"__result_obj__",(_Bool)0,info))));
             right_value134 = come_decrement_ref_count2(right_value134, (void*)0, (void*)0, 1, 0, 0, (void*)0);
-            add_come_code_at_function_head2(info,"memset(&__result_obj__, 0, sizeof(%s));\n",((char*)(right_value135=make_type_name_string(result_type_87,(_Bool)0,(_Bool)0,(_Bool)0,info))));
+            add_come_code_at_function_head2(info,"memset(&__result_obj__, 0, sizeof(%s));\n",((char*)(right_value135=make_type_name_string(result_type_87,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)1))));
             right_value135 = come_decrement_ref_count2(right_value135, (void*)0, (void*)0, 1, 0, 0, (void*)0);
         }
         transpile_block(self->mFun->mBlock,self->mFun->mParamTypes,self->mFun->mParamNames,info,(_Bool)0,(_Bool)0);
@@ -13434,7 +13434,7 @@ right_value975 = (void*)0;
         come_call_finalizer3(right_value942,buffer_finalize, 0, 1, 0, 0, __result_obj__);
         buffer_append_str(source_790,"{\n");
         buffer_append_str(source_790,"if(self == (void*)0) { return (void*)0; }\n");
-        buffer_append_str(source_790,((char*)(right_value944=xsprintf("var result = new %s;\n",((char*)(right_value943=make_type_name_string(type,(_Bool)0,(_Bool)0,(_Bool)1,info)))))));
+        buffer_append_str(source_790,((char*)(right_value944=xsprintf("var result = new %s;\n",((char*)(right_value943=make_type_name_string(type,(_Bool)0,(_Bool)0,(_Bool)1,info,(_Bool)0)))))));
         right_value943 = come_decrement_ref_count2(right_value943, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
         right_value944 = come_decrement_ref_count2(right_value944, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
         if(klass_789->mProtocol) {

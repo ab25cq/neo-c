@@ -1665,7 +1665,7 @@ struct sClassModule* sClassModule_initialize(struct sClassModule* self, char* na
 
 struct sFun* sFun_initialize(struct sFun* self, char* name, struct sType* result_type, struct list$1sTypeph* param_types, struct list$1charph* param_names, struct list$1charph* param_default_parametors, _Bool external, _Bool var_args, struct sBlock* block, _Bool static_, char* come_header, char* declare_sname, struct sInfo* info);
 
-char* make_type_name_string(struct sType* type, _Bool in_header, _Bool array_cast_pointer, _Bool no_pointer, struct sInfo* info);
+char* make_type_name_string(struct sType* type, _Bool in_header, _Bool array_cast_pointer, _Bool no_pointer, struct sInfo* info, _Bool no_static);
 
 char* make_come_type_name_string(struct sType* type, struct sInfo* info);
 
@@ -4864,7 +4864,7 @@ right_value165 = (void*)0;
         if(_if_conditional2=string_operator_not_equals(((char*)(right_value151=value_117->kind(value_117->_protocol_obj))),"sExpEqualNode"),        right_value151 = come_decrement_ref_count2(right_value151, (void*)0, (void*)0, 1, 0, 0, (void*)0),
         _if_conditional2) {
             __dec_obj51=left_value_118->c_value;
-            left_value_118->c_value=(char*)come_increment_ref_count(((char*)(right_value153=xsprintf("((%s)come_null_check(%s, \"%s\", %d, %d))",((char*)(right_value152=make_type_name_string(left_value_118->type,(_Bool)0,(_Bool)0,(_Bool)0,info))),left_value_118->c_value,info->sname,info->sline,gComeDebugStackFrameID++))));
+            left_value_118->c_value=(char*)come_increment_ref_count(((char*)(right_value153=xsprintf("((%s)come_null_check(%s, \"%s\", %d, %d))",((char*)(right_value152=make_type_name_string(left_value_118->type,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0))),left_value_118->c_value,info->sname,info->sline,gComeDebugStackFrameID++))));
             __dec_obj51 = come_decrement_ref_count2(__dec_obj51, (void*)0, (void*)0, 0,0,0, (void*)0);
             right_value152 = come_decrement_ref_count2(right_value152, (void*)0, (void*)0, 1, 0, 0, (void*)0);
             right_value153 = come_decrement_ref_count2(right_value153, (void*)0, (void*)0, 1, 0, 0, (void*)0);
@@ -4895,7 +4895,7 @@ right_value165 = (void*)0;
             come_call_finalizer3(right_value157,buffer_finalize, 0, 1, 0, 0, (void*)0);
             buffer_append(buf2_122,p2_120,p_119+strlen(p_119)-p2_120);
             __dec_obj52=left_value_118->c_value;
-            left_value_118->c_value=(char*)come_increment_ref_count(((char*)(right_value161=xsprintf("((%s)come_null_check(%s, \"%s\", %d, %d))%s",((char*)(right_value158=make_type_name_string(left_value_118->type,(_Bool)0,(_Bool)0,(_Bool)0,info))),((char*)(right_value159=buffer_to_string(buf_121))),info->sname,info->sline,gComeDebugStackFrameID++,((char*)(right_value160=buffer_to_string(buf2_122)))))));
+            left_value_118->c_value=(char*)come_increment_ref_count(((char*)(right_value161=xsprintf("((%s)come_null_check(%s, \"%s\", %d, %d))%s",((char*)(right_value158=make_type_name_string(left_value_118->type,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0))),((char*)(right_value159=buffer_to_string(buf_121))),info->sname,info->sline,gComeDebugStackFrameID++,((char*)(right_value160=buffer_to_string(buf2_122)))))));
             __dec_obj52 = come_decrement_ref_count2(__dec_obj52, (void*)0, (void*)0, 0,0,0, (void*)0);
             right_value158 = come_decrement_ref_count2(right_value158, (void*)0, (void*)0, 1, 0, 0, (void*)0);
             right_value159 = come_decrement_ref_count2(right_value159, (void*)0, (void*)0, 1, 0, 0, (void*)0);
@@ -6417,7 +6417,7 @@ right_value250 = (void*)0;
     come_call_finalizer3(right_value247,CVALUE_finalize, 0, 1, 0, 0, (void*)0);
     cast_type(type2_204,left_value_203->type,left_value_203,info);
     __dec_obj84=come_value_205->c_value;
-    come_value_205->c_value=(char*)come_increment_ref_count(((char*)(right_value249=xsprintf("(%s)%s",((char*)(right_value248=make_type_name_string(type2_204,(_Bool)0,(_Bool)0,(_Bool)0,info))),left_value_203->c_value))));
+    come_value_205->c_value=(char*)come_increment_ref_count(((char*)(right_value249=xsprintf("(%s)%s",((char*)(right_value248=make_type_name_string(type2_204,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0))),left_value_203->c_value))));
     __dec_obj84 = come_decrement_ref_count2(__dec_obj84, (void*)0, (void*)0, 0,0,0, (void*)0);
     right_value248 = come_decrement_ref_count2(right_value248, (void*)0, (void*)0, 1, 0, 0, (void*)0);
     right_value249 = come_decrement_ref_count2(right_value249, (void*)0, (void*)0, 1, 0, 0, (void*)0);
@@ -7109,7 +7109,7 @@ right_value343 = (void*)0;
                                                     if(node_246) { node_246 = come_decrement_ref_count2(node_246, ((struct sNode*)node_246)->finalize, ((struct sNode*)node_246)->_protocol_obj, 0, 0, 0, (void*)0); } 
                                                 }
                                                 else {
-                                                    if(gComeC&&!info->in_fun_param) {
+                                                    if(gComeC&&info->in_fun_param) {
                                                         no_comma_249=info->no_comma;
                                                         info->no_comma=(_Bool)0;
                                                         parse_sharp_v5(info);

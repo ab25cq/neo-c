@@ -62,7 +62,7 @@ class sNewNode extends sNodeBase
     */
         type2->mArrayNum.reset();
         
-        string type_name = make_type_name_string(type2, array_cast_pointer:true);
+        string type_name = make_type_name_string(type2, array_cast_pointer:true, no_static:true);
         
         string type_name2 = make_come_type_name_string(type2);
         
@@ -272,7 +272,7 @@ class sSizeOfNode extends sNodeBase
         
         var type2 = solve_generics(type, info->generics_type, info);
         
-        string type_name = make_type_name_string(type2);
+        string type_name = make_type_name_string(type2, no_static:true);
         
         come_value.c_value = xsprintf("sizeof(%s)", type_name);
         come_value.type = new sType("long");

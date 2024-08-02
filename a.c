@@ -8,9 +8,7 @@ int fun(int a, int b)
 
 int main(int argc, char** argv)
 {
-    if(1) {
-        puts("AAA");
-    }
+    static char a;
     
     return 0;
 }

@@ -1636,7 +1636,7 @@ struct sClassModule* sClassModule_initialize(struct sClassModule* self, char* na
 
 struct sFun* sFun_initialize(struct sFun* self, char* name, struct sType* result_type, struct list$1sTypeph* param_types, struct list$1charph* param_names, struct list$1charph* param_default_parametors, _Bool external, _Bool var_args, struct sBlock* block, _Bool static_, char* come_header, char* declare_sname, struct sInfo* info);
 
-char* make_type_name_string(struct sType* type, _Bool in_header, _Bool array_cast_pointer, _Bool no_pointer, struct sInfo* info);
+char* make_type_name_string(struct sType* type, _Bool in_header, _Bool array_cast_pointer, _Bool no_pointer, struct sInfo* info, _Bool no_static);
 
 char* make_come_type_name_string(struct sType* type, struct sInfo* info);
 
@@ -6140,7 +6140,7 @@ memset(&result_type3_364, 0, sizeof(struct sType*));
     dec_stack_ptr(1,info);
     if(gComeDebug&&obj_value_186->type->mPointerNum>0) {
         __dec_obj58=obj_value_186->c_value;
-        obj_value_186->c_value=(char*)come_increment_ref_count(((char*)(right_value177=xsprintf("((%s)come_null_check(%s, \"%s\", %d, %d))",((char*)(right_value176=make_type_name_string(obj_value_186->type,(_Bool)0,(_Bool)0,(_Bool)0,info))),obj_value_186->c_value,info->sname,info->sline,gComeDebugStackFrameID++))));
+        obj_value_186->c_value=(char*)come_increment_ref_count(((char*)(right_value177=xsprintf("((%s)come_null_check(%s, \"%s\", %d, %d))",((char*)(right_value176=make_type_name_string(obj_value_186->type,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0))),obj_value_186->c_value,info->sname,info->sline,gComeDebugStackFrameID++))));
         __dec_obj58 = come_decrement_ref_count2(__dec_obj58, (void*)0, (void*)0, 0,0,0, (void*)0);
         right_value176 = come_decrement_ref_count2(right_value176, (void*)0, (void*)0, 1, 0, 0, (void*)0);
         right_value177 = come_decrement_ref_count2(right_value177, (void*)0, (void*)0, 1, 0, 0, (void*)0);
@@ -6881,7 +6881,7 @@ memset(&result_type3_364, 0, sizeof(struct sType*));
                     }
                 }
             }
-            buffer_append_str(method_block2_331,((char*)(right_value308=xsprintf("%s method_block%d_%s(",((char*)(right_value306=make_type_name_string(result_type_335,(_Bool)0,(_Bool)0,(_Bool)0,info))),info->num_method_block,((char*)(right_value307=buffer_to_string(all_alhabet_sname_338)))))));
+            buffer_append_str(method_block2_331,((char*)(right_value308=xsprintf("%s method_block%d_%s(",((char*)(right_value306=make_type_name_string(result_type_335,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0))),info->num_method_block,((char*)(right_value307=buffer_to_string(all_alhabet_sname_338)))))));
             right_value306 = come_decrement_ref_count2(right_value306, (void*)0, (void*)0, 1, 0, 0, (void*)0);
             right_value307 = come_decrement_ref_count2(right_value307, (void*)0, (void*)0, 1, 0, 0, (void*)0);
             right_value308 = come_decrement_ref_count2(right_value308, (void*)0, (void*)0, 1, 0, 0, (void*)0);

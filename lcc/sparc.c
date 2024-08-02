@@ -56,7 +56,7 @@ static int pflag = 0;
 static int cseg;
 
 /*
-generated at Tue Sep 27 04:30:14 2022
+generated at Fri Aug  2 16:49:08 2024
 by $Id$
 */
 static void _kids(NODEPTR_TYPE, int, NODEPTR_TYPE[]);
@@ -4924,8 +4924,6 @@ static void function(Symbol f, Symbol caller[], Symbol callee[], int ncalls) {
 #define exch(x, y, t) (((t) = x), ((x) = (y)), ((y) = (t)))
 
 static void renameregs(void) {
-using c
-{
         int i;
 
         for (i = 0; i < 8; i++) {
@@ -4937,7 +4935,6 @@ using c
                 exch(ireg[i]->x.regnode->number,
                         oreg[i]->x.regnode->number, itmp);
         }
-}
 }
 static void defconst(int suffix, int size, Value v) {
         if (suffix == F && size == 4) {
@@ -4955,12 +4952,7 @@ static void defconst(int suffix, int size, Value v) {
                 print(".half 0x%x\n", (unsigned)((unsigned short)(suffix == I ? v.i : v.u)));
         else if (size == 4)
                 print(".word 0x%x\n", (unsigned)(suffix == I ? v.i : v.u));
-        else {
-using c
-{
-            assert(0);
-}
-        }
+        else assert(0);
 }
 
 static void defaddress(Symbol p) {
@@ -4978,9 +4970,7 @@ static void address(Symbol q, Symbol p, long n) {
         if (p->scope == GLOBAL || p->sclass == STATIC || p->sclass == EXTERN)
                 q->x.name = stringf("%s%s%D", p->x.name, n >= 0 ? "+" : "", n);
         else {
-                using c {
                 assert(n <= INT_MAX && n >= INT_MIN);
-                }
                 q->x.offset = p->x.offset + n;
                 q->x.name = stringd(q->x.offset);
         }
@@ -4992,12 +4982,9 @@ static void import(Symbol p) {}
 static void defsymbol(Symbol p) {
         if (p->scope >= LOCAL && p->sclass == STATIC)
                 p->x.name = stringf("%d", genlabel(1));
-        else {
-                using c {
+        else
                 assert(p->scope != CONSTANTS || isint(p->type) || isptr(p->type)),
                 p->x.name = p->name;
-                }
-        }
         if (p->scope >= LABELS)
                 p->x.name = stringf(p->generated ? "L%s" : "_%s",
                         p->x.name);
@@ -5017,9 +5004,7 @@ static void space(int n) {
 }
 static void global(Symbol p) {
         print(".align %d\n", p->type->align);
-        using c {
         assert(p->u.seg);
-        }
         if (p->u.seg == BSS
         && (p->sclass == STATIC || Aflag >= 2))
                 print(".reserve %s,%d\n", p->x.name, p->type->size);
@@ -5029,10 +5014,8 @@ static void global(Symbol p) {
                 print("%s:\n", p->x.name);
 }
 static void blkfetch(int k, int off, int reg, int tmp) {
-        using c {
         assert(k == 1 || k == 2 || k == 4);
         assert(salign >= k);
-        }
         if (k == 1)
                 print("ldub [%%r%d+%d],%%r%d\n", reg, off, tmp);
         else if (k == 2)
@@ -5041,10 +5024,8 @@ static void blkfetch(int k, int off, int reg, int tmp) {
                 print("ld [%%r%d+%d],%%r%d\n",   reg, off, tmp);
 }
 static void blkstore(int k, int off, int reg, int tmp) {
-        using c {
         assert(k == 1 || k == 2 || k == 4);
         assert(dalign >= k);
-        }
         if (k == 1)
                 print("stb %%r%d,[%%r%d+%d]\n", tmp, reg, off);
         else if (k == 2)
@@ -5071,12 +5052,9 @@ static void blkloop(int dreg, int doff, int sreg, int soff, int size, int tmps[]
 static void defsymbol2(Symbol p) {
         if (p->scope >= LOCAL && p->sclass == STATIC)
                 p->x.name = stringf(".%d", genlabel(1));
-        else {
-                using c {
-                    assert(p->scope != CONSTANTS || isint(p->type) || isptr(p->type)),
+        else
+                assert(p->scope != CONSTANTS || isint(p->type) || isptr(p->type)),
                 p->x.name = p->name;
-                }
-        }
         if (p->scope >= LABELS)
                 p->x.name = stringf(p->generated ? ".L%s" : "%s",
                         p->x.name);
@@ -5101,9 +5079,7 @@ static void progend2(void) {
 
 static void global2(Symbol p) {
         globalend();
-        using c {
         assert(p->u.seg);
-        }
         if (!p->generated) {
                 print(".type %s,#%s\n", p->x.name,
                         isfunc(p->type) ? "function" : "object");

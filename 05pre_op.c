@@ -808,7 +808,7 @@ sNode*% pre_position_operator(sInfo* info=info)
         }
         else {
             sNode*% node;
-            if(gComeC && !info.in_fun_param) {
+            if(gComeC && info.in_fun_param) {
                 bool no_comma = info.no_comma;
                 info.no_comma = false;
                 parse_sharp();

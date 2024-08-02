@@ -43,7 +43,7 @@ class sLambdaNode extends sNodeBase
         
         if(!gComeC && !self.mFun.mNoResultType) {
             add_come_code_at_function_head(info, "%s;\n", make_define_var(result_type, "__result_obj__"));
-            add_come_code_at_function_head2(info, "memset(&__result_obj__, 0, sizeof(%s));\n", make_type_name_string(result_type));
+            add_come_code_at_function_head2(info, "memset(&__result_obj__, 0, sizeof(%s));\n", make_type_name_string(result_type, no_static:true));
         }
         
         if(self.mFun.mBlock) {
@@ -97,7 +97,7 @@ class sFunNode extends sNodeBase
             
             if(!gComeC && !self.mFun.mNoResultType) {
                 add_come_code_at_function_head(info, "%s;\n", make_define_var(result_type, "__result_obj__"));
-                add_come_code_at_function_head2(info, "memset(&__result_obj__, 0, sizeof(%s));\n", make_type_name_string(result_type));
+                add_come_code_at_function_head2(info, "memset(&__result_obj__, 0, sizeof(%s));\n", make_type_name_string(result_type, no_static:true));
             }
             
             transpile_block(self.mFun.mBlock, self.mFun.mParamTypes, self.mFun.mParamNames, info);

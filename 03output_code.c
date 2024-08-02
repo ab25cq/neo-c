@@ -1,6 +1,6 @@
 #include "common.h"
 
-string make_type_name_string(sType* type, bool in_header=false, bool array_cast_pointer=false, bool no_pointer=false, sInfo* info=info)
+string make_type_name_string(sType* type, bool in_header=false, bool array_cast_pointer=false, bool no_pointer=false, sInfo* info=info, bool no_static=false)
 {
     var buf = new buffer();
     
@@ -18,7 +18,7 @@ string make_type_name_string(sType* type, bool in_header=false, bool array_cast_
         buf.append_str(xsprintf("_Alignas(%s) ", come_value.c_value));
     }
     
-    if(type->mStatic) {// && !type->mClass->mStruct && !type->mClass->mUnion) {
+    if(type->mStatic && !no_static) {// && !type->mClass->mStruct && !type->mClass->mUnion) {
         buf.append_str("static ");
     }
     

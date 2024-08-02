@@ -59,7 +59,9 @@ static void bbcall(Symbol yycounts, Coordinate *cp, Tree *e) {
     }
 using C
 {
-    (*IR->defconst)(U, unsignedtype->size, (v.u = u.coord, v));
+    v.u = u.coord;
+    (*IR->defconst)(U, unsignedtype->size, v);
+    //(*IR->defconst)(U, unsignedtype->size, (v.u = u.coord, v));
     bbpad(2*voidptype->size + unsignedtype->size, p->type->align);    
 }
     if (caller_ == 0) {
@@ -143,7 +145,9 @@ static void bbfunc(Symbol yylink, Symbol f, void *ignore) {
     }
 using C
 {
-    (*IR->defconst)(U, unsignedtype->size, (v.u = u.coord, v));
+    v.u = u.coord;
+    (*IR->defconst)(U, unsignedtype->size, v);
+    //(*IR->defconst)(U, unsignedtype->size, (v.u = u.coord, v));
 }
     bbpad(3*voidptype->size + unsignedtype->size, afunc->type->align);
     funclist = afunc;

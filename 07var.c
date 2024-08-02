@@ -62,7 +62,7 @@ class sStoreNode extends sNodeBase
                     add_come_code(info, "%s=%s;\n", make_define_var(left_type, var_->mCValueName), come_value.c_value);
                 }
                 else {
-                    add_come_code_at_function_head2(info, "memset(&%s, 0, sizeof(%s));\n", var_->mCValueName, make_type_name_string(left_type));
+                    add_come_code_at_function_head2(info, "memset(&%s, 0, sizeof(%s));\n", var_->mCValueName, make_type_name_string(left_type, no_static:true));
                     add_come_code_at_function_head(info, "%s;\n", make_define_var(left_type, var_->mCValueName));
                 }
             }
@@ -180,7 +180,7 @@ class sStoreNode extends sNodeBase
                 add_come_code(info, "%s;\n", make_define_var(left_type, var_->mCValueName));
                 
                 //if(!left_type->mStatic) {
-                    add_come_code(info, "memset(&%s, 0, sizeof(%s)", var_->mCValueName, make_type_name_string(left_type));
+                    add_come_code(info, "memset(&%s, 0, sizeof(%s)", var_->mCValueName, make_type_name_string(left_type, no_static:true));
                     
                     foreach(it, left_type->mArrayNum) {
                         if(!node_compile(it)) {
@@ -201,7 +201,7 @@ class sStoreNode extends sNodeBase
                 sType*% left_type2 = clone left_type;
                 left_type2->mStatic = false;
                 
-                add_come_code_at_function_head2(info, "memset(&%s, 0, sizeof(%s));\n", var_->mCValueName, make_type_name_string(left_type2));
+                add_come_code_at_function_head2(info, "memset(&%s, 0, sizeof(%s));\n", var_->mCValueName, make_type_name_string(left_type2, no_static:true));
             }
             
             CVALUE*% come_value = new CVALUE();
@@ -255,7 +255,7 @@ class sStoreNode extends sNodeBase
             var_type->mStatic = false;
             
             if(!array_initializer && !var_->mType->mStatic && !var_type->mConstant && var_type->mArrayNum.length() == 0) {
-                add_come_code_at_function_head2(info, "memset(&%s, 0, sizeof(%s));\n", var_->mCValueName, make_type_name_string(var_type));
+                add_come_code_at_function_head2(info, "memset(&%s, 0, sizeof(%s));\n", var_->mCValueName, make_type_name_string(var_type, no_static:true));
             }
             
             sType*% left_type = clone var_->mType;

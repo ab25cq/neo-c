@@ -1597,7 +1597,7 @@ struct sClassModule* sClassModule_initialize(struct sClassModule* self, char* na
 
 struct sFun* sFun_initialize(struct sFun* self, char* name, struct sType* result_type, struct list$1sTypeph* param_types, struct list$1charph* param_names, struct list$1charph* param_default_parametors, _Bool external, _Bool var_args, struct sBlock* block, _Bool static_, char* come_header, char* declare_sname, struct sInfo* info);
 
-char* make_type_name_string(struct sType* type, _Bool in_header, _Bool array_cast_pointer, _Bool no_pointer, struct sInfo* info);
+char* make_type_name_string(struct sType* type, _Bool in_header, _Bool array_cast_pointer, _Bool no_pointer, struct sInfo* info, _Bool no_static);
 
 char* make_come_type_name_string(struct sType* type, struct sInfo* info);
 
@@ -4893,7 +4893,7 @@ right_value151 = (void*)0;
     right_value149 = come_decrement_ref_count2(right_value149, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
     add_come_code_at_function_head(info,buf_157);
     add_come_code_at_function_head2(info,"right_value%d = (void*)0;\n",gRightValueNum-1);
-    __result96__ = __result_obj__ = ((char*)(right_value151=xsprintf("((%s)(%s=%s))",((char*)(right_value150=make_type_name_string(type,(_Bool)0,(_Bool)1,(_Bool)0,info))),new_value_153->mVarName,obj)));
+    __result96__ = __result_obj__ = ((char*)(right_value151=xsprintf("((%s)(%s=%s))",((char*)(right_value150=make_type_name_string(type,(_Bool)0,(_Bool)1,(_Bool)0,info,(_Bool)0))),new_value_153->mVarName,obj)));
     come_call_finalizer3(type,sType_finalize, 0, 0, 1, 0, (void*)0);
     come_call_finalizer3(new_value_153,sRightValueObject_finalize, 0, 0, 0, 0, (void*)0);
     buf_157 = come_decrement_ref_count2(buf_157, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -5017,7 +5017,7 @@ right_value157 = (void*)0;
     add_come_code_at_function_head(info,buf_159);
     add_come_code_at_function_head2(info,"right_value%d = (void*)0;\n",gRightValueNum-1);
     __dec_obj61=come_value->c_value;
-    come_value->c_value=(char*)come_increment_ref_count(((char*)(right_value157=xsprintf("((%s)(%s=%s))",((char*)(right_value156=make_type_name_string(type,(_Bool)0,(_Bool)1,(_Bool)0,info))),new_value_158->mVarName,come_value->c_value))));
+    come_value->c_value=(char*)come_increment_ref_count(((char*)(right_value157=xsprintf("((%s)(%s=%s))",((char*)(right_value156=make_type_name_string(type,(_Bool)0,(_Bool)1,(_Bool)0,info,(_Bool)0))),new_value_158->mVarName,come_value->c_value))));
     __dec_obj61 = come_decrement_ref_count2(__dec_obj61, (void*)0, (void*)0, 0,0,0, (void*)0);
     right_value156 = come_decrement_ref_count2(right_value156, (void*)0, (void*)0, 1, 0, 0, (void*)0);
     right_value157 = come_decrement_ref_count2(right_value157, (void*)0, (void*)0, 1, 0, 0, (void*)0);
@@ -5277,7 +5277,7 @@ right_value163 = (void*)0;
         return __result101__;
     }
     klass_180=type->mClass;
-    type_name_181=(char*)come_increment_ref_count(((char*)(right_value162=make_type_name_string(type,(_Bool)0,(_Bool)0,(_Bool)0,info))));
+    type_name_181=(char*)come_increment_ref_count(((char*)(right_value162=make_type_name_string(type,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0))));
     right_value162 = come_decrement_ref_count2(right_value162, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
     __result102__ = __result_obj__ = ((char*)(right_value163=xsprintf("(%s)come_increment_ref_count(%s)",type_name_181,obj)));
     type_name_181 = come_decrement_ref_count2(type_name_181, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -5445,7 +5445,7 @@ right_value178 = (void*)0;
         }
         if(finalizer_195!=((void*)0)) {
             if(klass_190->mProtocol&&type->mPointerNum==1) {
-                type_name_209=(char*)come_increment_ref_count(((char*)(right_value174=make_type_name_string(type,(_Bool)0,(_Bool)0,(_Bool)0,info))));
+                type_name_209=(char*)come_increment_ref_count(((char*)(right_value174=make_type_name_string(type,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0))));
                 right_value174 = come_decrement_ref_count2(right_value174, (void*)0, (void*)0, 1, 0, 0, (void*)0);
                 if(c_value_189) {
                     add_come_last_code2(info,"come_call_finalizer2(%s, %s, ((%s)%s)->finalize, ((%s)%s)->_protocol_obj, %d, %d, %d, %d, (void*)0);\n",fun_name2_194,c_value_189,type_name_209,c_value_189,type_name_209,c_value_189,type->mAllocaValue,no_decrement_187,no_free_188,force_delete_);
@@ -5461,7 +5461,7 @@ right_value178 = (void*)0;
         }
         else {
             if(klass_190->mProtocol&&type->mPointerNum==1) {
-                type_name_210=(char*)come_increment_ref_count(((char*)(right_value176=make_type_name_string(type,(_Bool)0,(_Bool)0,(_Bool)0,info))));
+                type_name_210=(char*)come_increment_ref_count(((char*)(right_value176=make_type_name_string(type,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0))));
                 right_value176 = come_decrement_ref_count2(right_value176, (void*)0, (void*)0, 1, 0, 0, (void*)0);
                 add_come_last_code2(info,((char*)(right_value177=xsprintf("if(%s) { %s = come_decrement_ref_count2(%s, ((%s)%s)->finalize, ((%s)%s)->_protocol_obj, 0,0,0, (void*)0); }\n",name_186,name_186,name_186,type_name_210,name_186,type_name_210,name_186))));
                 right_value177 = come_decrement_ref_count2(right_value177, (void*)0, (void*)0, 1, 0, 0, (void*)0);
@@ -5983,7 +5983,7 @@ memset(&type_name_277, 0, sizeof(char*));
             }
             if(finalizer_226!=((void*)0)) {
                 if(klass_221->mProtocol&&type->mPointerNum==1) {
-                    type_name_234=(char*)come_increment_ref_count(((char*)(right_value187=make_type_name_string(type,(_Bool)0,(_Bool)0,(_Bool)0,info))));
+                    type_name_234=(char*)come_increment_ref_count(((char*)(right_value187=make_type_name_string(type,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0))));
                     right_value187 = come_decrement_ref_count2(right_value187, (void*)0, (void*)0, 1, 0, 0, (void*)0);
                     if(c_value_220) {
                         if(no_decrement) {
@@ -6037,7 +6037,7 @@ memset(&type_name_277, 0, sizeof(char*));
                         name_241=(char*)come_increment_ref_count(multiple_assign_var3->v1);
                         field_type_242=(struct sType*)come_increment_ref_count(multiple_assign_var3->v2);
                         if(field_type_242->mHeap&&field_type_242->mPointerNum>0) {
-                            obj_243=(char*)come_increment_ref_count(((char*)(right_value193=xsprintf("(((%s)%s).%s)",((char*)(right_value192=make_type_name_string(type,(_Bool)0,(_Bool)0,(_Bool)0,info))),c_value_220,name_241))));
+                            obj_243=(char*)come_increment_ref_count(((char*)(right_value193=xsprintf("(((%s)%s).%s)",((char*)(right_value192=make_type_name_string(type,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0))),c_value_220,name_241))));
                             right_value192 = come_decrement_ref_count2(right_value192, (void*)0, (void*)0, 1, 0, 0, (void*)0);
                             right_value193 = come_decrement_ref_count2(right_value193, (void*)0, (void*)0, 1, 0, 0, (void*)0);
                             free_object(field_type_242,obj_243,no_decrement,no_free,info,(_Bool)0,(_Bool)0,(_Bool)0);
@@ -6055,7 +6055,7 @@ memset(&type_name_277, 0, sizeof(char*));
                             name_248=(char*)come_increment_ref_count(multiple_assign_var4->v1);
                             field_type_249=(struct sType*)come_increment_ref_count(multiple_assign_var4->v2);
                             if(field_type_249->mHeap&&field_type_249->mPointerNum>0) {
-                                obj_250=(char*)come_increment_ref_count(((char*)(right_value195=xsprintf("(((%s)%s)->%s)",((char*)(right_value194=make_type_name_string(type,(_Bool)0,(_Bool)0,(_Bool)0,info))),c_value_220,name_248))));
+                                obj_250=(char*)come_increment_ref_count(((char*)(right_value195=xsprintf("(((%s)%s)->%s)",((char*)(right_value194=make_type_name_string(type,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0))),c_value_220,name_248))));
                                 right_value194 = come_decrement_ref_count2(right_value194, (void*)0, (void*)0, 1, 0, 0, (void*)0);
                                 right_value195 = come_decrement_ref_count2(right_value195, (void*)0, (void*)0, 1, 0, 0, (void*)0);
                                 free_object(field_type_249,obj_250,no_decrement,no_free,info,(_Bool)0,(_Bool)0,(_Bool)0);
@@ -6070,7 +6070,7 @@ memset(&type_name_277, 0, sizeof(char*));
                 if(!type->mAllocaValue) {
                     if(klass_221->mProtocol&&type->mPointerNum==1) {
                         if(c_value_220) {
-                            type_name_251=(char*)come_increment_ref_count(((char*)(right_value196=make_type_name_string(type,(_Bool)0,(_Bool)0,(_Bool)0,info))));
+                            type_name_251=(char*)come_increment_ref_count(((char*)(right_value196=make_type_name_string(type,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0))));
                             right_value196 = come_decrement_ref_count2(right_value196, (void*)0, (void*)0, 1, 0, 0, (void*)0);
                             if(no_decrement) {
                                 if(comma) {
@@ -6180,7 +6180,7 @@ memset(&type_name_277, 0, sizeof(char*));
             }
             if(finalizer_258!=((void*)0)) {
                 if(klass_253->mProtocol&&type->mPointerNum==1) {
-                    type_name_266=(char*)come_increment_ref_count(((char*)(right_value205=make_type_name_string(type,(_Bool)0,(_Bool)0,(_Bool)0,info))));
+                    type_name_266=(char*)come_increment_ref_count(((char*)(right_value205=make_type_name_string(type,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0))));
                     right_value205 = come_decrement_ref_count2(right_value205, (void*)0, (void*)0, 1, 0, 0, (void*)0);
                     if(c_value_252) {
                         if(no_decrement) {
@@ -6234,7 +6234,7 @@ memset(&type_name_277, 0, sizeof(char*));
                         name_269=(char*)come_increment_ref_count(multiple_assign_var6->v1);
                         field_type_270=(struct sType*)come_increment_ref_count(multiple_assign_var6->v2);
                         if(field_type_270->mHeap&&field_type_270->mPointerNum>0) {
-                            obj_271=(char*)come_increment_ref_count(((char*)(right_value211=xsprintf("(((%s)%s).%s)",((char*)(right_value210=make_type_name_string(type,(_Bool)0,(_Bool)0,(_Bool)0,info))),c_value_252,name_269))));
+                            obj_271=(char*)come_increment_ref_count(((char*)(right_value211=xsprintf("(((%s)%s).%s)",((char*)(right_value210=make_type_name_string(type,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0))),c_value_252,name_269))));
                             right_value210 = come_decrement_ref_count2(right_value210, (void*)0, (void*)0, 1, 0, 0, (void*)0);
                             right_value211 = come_decrement_ref_count2(right_value211, (void*)0, (void*)0, 1, 0, 0, (void*)0);
                             free_object(field_type_270,obj_271,no_decrement,no_free,info,(_Bool)0,(_Bool)0,(_Bool)0);
@@ -6252,7 +6252,7 @@ memset(&type_name_277, 0, sizeof(char*));
                             name_274=(char*)come_increment_ref_count(multiple_assign_var7->v1);
                             field_type_275=(struct sType*)come_increment_ref_count(multiple_assign_var7->v2);
                             if(field_type_275->mHeap&&field_type_275->mPointerNum>0) {
-                                obj_276=(char*)come_increment_ref_count(((char*)(right_value213=xsprintf("(((%s)%s)->%s)",((char*)(right_value212=make_type_name_string(type,(_Bool)0,(_Bool)0,(_Bool)0,info))),c_value_252,name_274))));
+                                obj_276=(char*)come_increment_ref_count(((char*)(right_value213=xsprintf("(((%s)%s)->%s)",((char*)(right_value212=make_type_name_string(type,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0))),c_value_252,name_274))));
                                 right_value212 = come_decrement_ref_count2(right_value212, (void*)0, (void*)0, 1, 0, 0, (void*)0);
                                 right_value213 = come_decrement_ref_count2(right_value213, (void*)0, (void*)0, 1, 0, 0, (void*)0);
                                 free_object(field_type_275,obj_276,no_decrement,no_free,info,(_Bool)0,(_Bool)0,(_Bool)0);
@@ -6267,7 +6267,7 @@ memset(&type_name_277, 0, sizeof(char*));
                 if(!type->mAllocaValue) {
                     if(klass_253->mProtocol&&type->mPointerNum==1) {
                         if(c_value_252) {
-                            type_name_277=(char*)come_increment_ref_count(((char*)(right_value214=make_type_name_string(type,(_Bool)0,(_Bool)0,(_Bool)0,info))));
+                            type_name_277=(char*)come_increment_ref_count(((char*)(right_value214=make_type_name_string(type,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0))));
                             right_value214 = come_decrement_ref_count2(right_value214, (void*)0, (void*)0, 1, 0, 0, (void*)0);
                             if(no_decrement) {
                                 if(comma) {
@@ -6632,7 +6632,7 @@ right_value239 = (void*)0;
         come_call_finalizer3(__dec_obj84,sType_finalize, 0, 0, 0, 0, (void*)0);
         come_call_finalizer3(right_value234,sType_finalize, 0, 1, 0, 0, __result_obj__);
         type2_278->mHeap=(_Bool)1;
-        type_name_299=(char*)come_increment_ref_count(((char*)(right_value235=make_type_name_string(type2_278,(_Bool)0,(_Bool)0,(_Bool)0,info))));
+        type_name_299=(char*)come_increment_ref_count(((char*)(right_value235=make_type_name_string(type2_278,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0))));
         right_value235 = come_decrement_ref_count2(right_value235, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
         __dec_obj85=result_279;
         result_279=(char*)come_increment_ref_count(((char*)(right_value236=xsprintf("(%s)come_memdup(%s, \"%s\", %d, \"%s\")",type_name_299,c_value_283,info->sname,info->sline,type_name_299))));

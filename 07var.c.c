@@ -1674,7 +1674,7 @@ struct sClassModule* sClassModule_initialize(struct sClassModule* self, char* na
 
 struct sFun* sFun_initialize(struct sFun* self, char* name, struct sType* result_type, struct list$1sTypeph* param_types, struct list$1charph* param_names, struct list$1charph* param_default_parametors, _Bool external, _Bool var_args, struct sBlock* block, _Bool static_, char* come_header, char* declare_sname, struct sInfo* info);
 
-char* make_type_name_string(struct sType* type, _Bool in_header, _Bool array_cast_pointer, _Bool no_pointer, struct sInfo* info);
+char* make_type_name_string(struct sType* type, _Bool in_header, _Bool array_cast_pointer, _Bool no_pointer, struct sInfo* info, _Bool no_static);
 
 char* make_come_type_name_string(struct sType* type, struct sInfo* info);
 
@@ -3814,7 +3814,7 @@ right_value258 = (void*)0;
                 come_call_finalizer3(come_value_102,CVALUE_finalize, 0, 0, 0, 0, (void*)0);
             }
             else {
-                add_come_code_at_function_head2(info,"memset(&%s, 0, sizeof(%s));\n",var__87->mCValueName,((char*)(right_value135=make_type_name_string(left_type_101,(_Bool)0,(_Bool)0,(_Bool)0,info))));
+                add_come_code_at_function_head2(info,"memset(&%s, 0, sizeof(%s));\n",var__87->mCValueName,((char*)(right_value135=make_type_name_string(left_type_101,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)1))));
                 right_value135 = come_decrement_ref_count2(right_value135, (void*)0, (void*)0, 1, 0, 0, (void*)0);
                 add_come_code_at_function_head(info,"%s;\n",((char*)(right_value136=make_define_var(left_type_101,var__87->mCValueName,(_Bool)0,info))));
                 right_value136 = come_decrement_ref_count2(right_value136, (void*)0, (void*)0, 1, 0, 0, (void*)0);
@@ -3957,7 +3957,7 @@ right_value258 = (void*)0;
                 if(list$1sNodeph_length(left_type_131->mArrayNum)>0) {
                     add_come_code(info,"%s;\n",((char*)(right_value160=make_define_var(left_type_131,var__129->mCValueName,(_Bool)0,info))));
                     right_value160 = come_decrement_ref_count2(right_value160, (void*)0, (void*)0, 1, 0, 0, (void*)0);
-                    add_come_code(info,"memset(&%s, 0, sizeof(%s)",var__129->mCValueName,((char*)(right_value161=make_type_name_string(left_type_131,(_Bool)0,(_Bool)0,(_Bool)0,info))));
+                    add_come_code(info,"memset(&%s, 0, sizeof(%s)",var__129->mCValueName,((char*)(right_value161=make_type_name_string(left_type_131,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)1))));
                     right_value161 = come_decrement_ref_count2(right_value161, (void*)0, (void*)0, 1, 0, 0, (void*)0);
                     for(                    o2_saved_132=(struct list$1sNodeph*)come_increment_ref_count((left_type_131->mArrayNum)),it_135=list$1sNodeph_begin((o2_saved_132));                    !list$1sNodeph_end((o2_saved_132));                    it_135=list$1sNodeph_next((o2_saved_132))                    ){
                         if(!node_compile(it_135,info)) {
@@ -3979,7 +3979,7 @@ right_value258 = (void*)0;
                     left_type2_139=(struct sType*)come_increment_ref_count(((struct sType*)(right_value164=sType_clone(left_type_131))));
                     come_call_finalizer3(right_value164,sType_finalize, 0, 1, 0, 0, (void*)0);
                     left_type2_139->mStatic=(_Bool)0;
-                    add_come_code_at_function_head2(info,"memset(&%s, 0, sizeof(%s));\n",var__129->mCValueName,((char*)(right_value165=make_type_name_string(left_type2_139,(_Bool)0,(_Bool)0,(_Bool)0,info))));
+                    add_come_code_at_function_head2(info,"memset(&%s, 0, sizeof(%s));\n",var__129->mCValueName,((char*)(right_value165=make_type_name_string(left_type2_139,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)1))));
                     right_value165 = come_decrement_ref_count2(right_value165, (void*)0, (void*)0, 1, 0, 0, (void*)0);
                     come_call_finalizer3(left_type2_139,sType_finalize, 0, 0, 0, 0, (void*)0);
                 }
@@ -4041,7 +4041,7 @@ right_value258 = (void*)0;
                     come_call_finalizer3(right_value178,sType_finalize, 0, 1, 0, 0, (void*)0);
                     var_type_149->mStatic=(_Bool)0;
                     if(!array_initializer_146&&!var__144->mType->mStatic&&!var_type_149->mConstant&&list$1sNodeph_length(var_type_149->mArrayNum)==0) {
-                        add_come_code_at_function_head2(info,"memset(&%s, 0, sizeof(%s));\n",var__144->mCValueName,((char*)(right_value179=make_type_name_string(var_type_149,(_Bool)0,(_Bool)0,(_Bool)0,info))));
+                        add_come_code_at_function_head2(info,"memset(&%s, 0, sizeof(%s));\n",var__144->mCValueName,((char*)(right_value179=make_type_name_string(var_type_149,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)1))));
                         right_value179 = come_decrement_ref_count2(right_value179, (void*)0, (void*)0, 1, 0, 0, (void*)0);
                     }
                     left_type_150=(struct sType*)come_increment_ref_count(((struct sType*)(right_value180=sType_clone(var__144->mType))));
