@@ -378,25 +378,12 @@ struct sType
 };
 struct sVar;
 struct sRightValueObject;
-struct list_item$1sRightValueObjectp
-{
-    struct sRightValueObject* item;
-    struct list_item$1sRightValueObjectp* prev;
-    struct list_item$1sRightValueObjectp* next;
-};
-struct list$1sRightValueObjectp
-{
-    struct list_item$1sRightValueObjectp* head;
-    struct list_item$1sRightValueObjectp* tail;
-    int len;
-    struct list_item$1sRightValueObjectp* it;
-};
 struct CVALUE
 {
     char* c_value;
     struct sType* type;
     struct sVar* var;
-    struct list$1sRightValueObjectp* right_value_objects;
+    struct sRightValueObject* right_value_objects;
 };
 struct sVar
 {
@@ -1401,7 +1388,7 @@ _Bool existance_free_right_value_objects(struct sInfo* info);
 
 _Bool existance_free_objects_on_return(struct sBlock* current_block, struct sInfo* info, struct sVar* ret_value, _Bool top_block);
 
-void std_move(struct sType* left_type, struct sType* right_type, struct CVALUE* right_value, struct sInfo* info);
+void std_move(struct sType* left_type, struct sType* right_type, struct CVALUE* right_value, struct sInfo* info, _Bool no_delete_from_right_value_objects);
 
 char* append_stackframe(char* c_value, struct sType* type, struct sInfo* info);
 

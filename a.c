@@ -5,11 +5,14 @@ struct sData
     int* a;
 };
 
+
 int main(int argc, char** argv)
 {
     sData data;
     
-    *data.a = 111;
+    int b = 123;
+    
+    *data.a = b;
     
     return 0;
 }

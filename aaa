@@ -1,0 +1,89 @@
+rm -fR *.log *.c.o neo-c libneo-c.a libneo-c-str.a libneo-c-gc.a libneo-c-str-gc.a *.o a *.tmp neo-c-val neo-c-sh neo-c-inf *.i *.val *.out *.log a.c.c b.c.c b c c.c.c
+rm -fR  config.h autom4te.cache 
+OK: 661 MiB in 101 packages
+neo-c -S -o 01main.c.o -c 01main.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg 
+0 memory leaks. 699689 alloc, 699689 free.
+neo-c -S -o 02transpile.c.o -c 02transpile.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg 
+0 memory leaks. 2426378 alloc, 2426378 free.
+neo-c -S -o 02constructors.c.o -c 02constructors.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg 
+0 memory leaks. 1579028 alloc, 1579028 free.
+neo-c -S -o 03output_code.c.o -c 03output_code.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg 
+0 memory leaks. 1753258 alloc, 1753258 free.
+neo-c -S -o 04heap.c.o -c 04heap.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg 
+0 memory leaks. 2009282 alloc, 2009282 free.
+neo-c -S -o 05pre_op.c.o -c 05pre_op.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg 
+0 memory leaks. 1870681 alloc, 1870681 free.
+neo-c -S -o 05call.c.o -c 05call.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg 
+0 memory leaks. 2462552 alloc, 2462552 free.
+neo-c -S -o 05function.c.o -c 05function.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg 
+0 memory leaks. 3499622 alloc, 3499622 free.
+neo-c -S -o 05number.c.o -c 05number.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg 
+0 memory leaks. 1435101 alloc, 1435101 free.
+neo-c -S -o 05type.c.o -c 05type.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg 
+0 memory leaks. 2652208 alloc, 2652208 free.
+neo-c -S -o 06str.c.o -c 06str.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg 
+0 memory leaks. 2292703 alloc, 2292703 free.
+neo-c -S -o 07var.c.o -c 07var.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg 
+0 memory leaks. 2582861 alloc, 2582861 free.
+neo-c -S -o 07gvar.c.o -c 07gvar.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg 
+0 memory leaks. 1575321 alloc, 1575321 free.
+neo-c -S -o 08if.c.o -c 08if.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg 
+0 memory leaks. 1490405 alloc, 1490405 free.
+neo-c -S -o 09while.c.o -c 09while.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg 
+0 memory leaks. 1106157 alloc, 1106157 free.
+neo-c -S -o 10do_while.c.o -c 10do_while.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg 
+0 memory leaks. 1108759 alloc, 1108759 free.
+neo-c -S -o 11for.c.o -c 11for.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg 
+0 memory leaks. 1157903 alloc, 1157903 free.
+neo-c -S -o 12switch.c.o -c 12switch.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg 
+0 memory leaks. 1234347 alloc, 1234347 free.
+neo-c -S -o 13op.c.o -c 13op.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg 
+0 memory leaks. 2991307 alloc, 2991307 free.
+neo-c -S -o 14struct.c.o -c 14struct.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg 
+0 memory leaks. 2470665 alloc, 2470665 free.
+neo-c -S -o 15union.c.o -c 15union.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg 
+0 memory leaks. 1535442 alloc, 1535442 free.
+neo-c -S -o 16enum.c.o -c 16enum.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg 
+0 memory leaks. 1667785 alloc, 1667785 free.
+neo-c -S -o 17typedef.c.o -c 17typedef.c  
+0 memory leaks. 1596176 alloc, 1596176 free.
+neo-c -S -o 18field.c.o -c 18field.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg 
+0 memory leaks. 2392701 alloc, 2392701 free.
+neo-c -S -o 19eq.c.o -c 19eq.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg 
+0 memory leaks. 1803548 alloc, 1803548 free.
+neo-c -S -o 20method.c.o -c 20method.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg 
+0 memory leaks. 2394959 alloc, 2394959 free.
+neo-c -S -o 21obj.c.o -c 21obj.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg 
+0 memory leaks. 2374299 alloc, 2374299 free.
+neo-c -S -o 22impl.c.o -c 22impl.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg 
+0 memory leaks. 804174 alloc, 804174 free.
+neo-c -S -o 23interface.c.o -c 23interface.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg 
+0 memory leaks. 1624833 alloc, 1624833 free.
+neo-c -S -o 24module.c.o -c 24module.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg 
+0 memory leaks. 1021292 alloc, 1021292 free.
+neo-c -S -c libneo-c.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg 
+0 memory leaks. 1540254 alloc, 1540254 free.
+ar r libneo-c.a libneo-c.c.o
+neo-c -S -gc -c libneo-c-gc.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg -I/opt/homebrew/opt/boehmgc/include/
+0 memory leaks. 1370504 alloc, 1370504 free.
+ar r libneo-c-gc.a libneo-c-gc.c.o 
+neo-c -S -c libneo-c-str.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg 
+0 memory leaks. 1696791 alloc, 1696791 free.
+ar r libneo-c-str.a libneo-c-str.c.o
+neo-c -S -o libneo-c-str-gc.c.o -gc -c libneo-c-str-gc.c -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg -I/opt/homebrew/opt/boehmgc/include/
+0 memory leaks. 1675817 alloc, 1675817 free.
+ar r libneo-c-str-gc.a libneo-c-str-gc.c.o
+neo-c -o neo-c 01main.c.o 02transpile.c.o 02constructors.c.o 03output_code.c.o 04heap.c.o 05pre_op.c.o 05call.c.o 05function.c.o 05number.c.o 05type.c.o 06str.c.o 07var.c.o 07gvar.c.o 08if.c.o 09while.c.o 10do_while.c.o 11for.c.o 12switch.c.o 13op.c.o 14struct.c.o 15union.c.o 16enum.c.o 17typedef.c.o 18field.c.o 19eq.c.o 20method.c.o 21obj.c.o 22impl.c.o 23interface.c.o 24module.c.o -DPREFIX="\"/usr/local/\""  -I/usr/local/include -gdwarf-4 -cg 
+0 memory leaks. 182 alloc, 182 free.
+mkdir -p "/usr/local/bin"
+/usr/bin/install -c -m 755 ./neo-c "/usr/local/bin"
+mkdir -p "/usr/local/include"
+/usr/bin/install -c -m 644 ./neo-c.h "/usr/local/include"
+/usr/bin/install -c -m 644 ./neo-c-str.h "/usr/local/include"
+mkdir -p "/usr/local/lib"
+/usr/bin/install -c -m 644 ./libneo-c.a "/usr/local/lib"
+/usr/bin/install -c -m 644 ./libneo-c-str.a "/usr/local/lib"
+if [ -e ./libneo-c-gc.a ]; then /usr/bin/install -c -m 644 ./libneo-c-gc.a "/usr/local/lib"; fi
+if [ -e ./libneo-c-str-gc.a ]; then /usr/bin/install -c -m 644 ./libneo-c-str-gc.a "/usr/local/lib"; fi
+mkdir -p "/usr/local/share/doc/neo-c"
+/usr/bin/install -c -m 644 README.md "/usr/local/share/doc/neo-c/README.md"

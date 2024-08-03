@@ -2,7 +2,6 @@
 
 CVALUE*% CVALUE*::initialize(CVALUE*% self)
 {
-    self.right_value_objects = new list<sRightValueObject*>();
     
     return self;
 }

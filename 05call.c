@@ -364,7 +364,7 @@ class sFunCallNode extends sNodeBase
                 else {
                     check_assign_type(s"\{fun_name} calling param #\{i}", lambda_type.mParamTypes[i], come_value.type, come_value);
                     if(lambda_type.mParamTypes[i].mHeap && come_value.type.mHeap) {
-                        std_move(lambda_type.mParamTypes[i], come_value.type, come_value);
+                        std_move(lambda_type.mParamTypes[i], come_value.type, come_value, no_delete_from_right_value_objects:true);
                     }
                 }
                 
@@ -627,7 +627,7 @@ class sFunCallNode extends sNodeBase
                             check_assign_type(s"\{fun_name} param num \{n} is assinged to", param_types[n], come_value.type, come_value);
                         }
                         if(param_types[n]?? && param_types[n].mHeap && come_value.type.mHeap) {
-                            std_move(param_types[n], come_value.type, come_value);
+                            std_move(param_types[n], come_value.type, come_value, no_delete_from_right_value_objects:true);
                         }
                         
                         come_params.replace(n, come_value);
@@ -681,7 +681,7 @@ class sFunCallNode extends sNodeBase
                             check_assign_type(s"\{fun_name} param num \{i} is assinged to", param_types[i], come_value.type, come_value);
                         }
                         if(param_types[i]?? && param_types[i].mHeap && come_value.type.mHeap) {
-                            std_move(param_types[i], come_value.type, come_value);
+                            std_move(param_types[i], come_value.type, come_value, no_delete_from_right_value_objects:true);
                         }
                         
                         come_params.replace(i, come_value);
@@ -730,7 +730,7 @@ class sFunCallNode extends sNodeBase
                                 check_assign_type(s"\{fun_name} param num \{i} is assinged to", param_types[i], come_value.type, come_value);
                             }
                             if(param_types[i] && param_types[i].mHeap && come_value.type.mHeap) {
-                                std_move(param_types[i], come_value.type, come_value);
+                                std_move(param_types[i], come_value.type, come_value, no_delete_from_right_value_objects:true);
                             }
                             come_params.replace(i, come_value);
                             dec_stack_ptr(1, info);
@@ -851,7 +851,7 @@ class sLambdaCall extends sNodeBase
             else {
                 check_assign_type(s"calling param #\{i}", lambda_type.mParamTypes[i], come_value.type, come_value);
                 if(lambda_type.mParamTypes[i].mHeap && come_value.type.mHeap) {
-                    std_move(lambda_type.mParamTypes[i], come_value.type, come_value);
+                    std_move(lambda_type.mParamTypes[i], come_value.type, come_value, no_delete_from_right_value_objects:true);
                 }
             }
             

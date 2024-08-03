@@ -5,7 +5,7 @@ Another modern Object Oriented C traspiler. It has a heap system that is a cross
 
 もう一つのモダンなオブジェクト指向Cコンパイラ。automatically-free-systemとリファレンスカウントGCの間をとったようなヒープシステムがありコレクションライブラリ、文字列ライブラリを備えてます。
 
-version 1.2.2
+version 1.2.4
 
 ``` C
 #include <neo-c.h>
@@ -341,6 +341,7 @@ sh all_build.sh
 
 # Histories
 
+1.2.4 Optimize output code.
 1.2.3 More Compatibility to C. Real passed 9ccc, lcc and tcc.
 1.2.2 Optimize output code
 1.2.1a Optimize output code
@@ -805,7 +806,9 @@ list<T>*% sublist(list<T>* self, int begin, int tail)
 ```
 
 
+```C
 T&?? operator_load_element(list<T>* self, int position) 
+```
 
 ```C
     var li = [1,2,3,4,5];

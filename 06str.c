@@ -368,7 +368,7 @@ class sListNode extends sNodeBase
         list<CVALUE*%>*% come_params = new list<CVALUE*%>();
         
         if(fun.mParamTypes[0].mHeap && obj_value.type.mHeap) {
-            std_move(fun.mParamTypes[0], obj_value.type, obj_value);
+            std_move(fun.mParamTypes[0], obj_value.type, obj_value, no_delete_from_right_value_objects:true);
         }
         come_params.push_back(obj_value);
         
@@ -509,7 +509,7 @@ class sTupleNode extends sNodeBase
         list<CVALUE*%>*% come_params = new list<CVALUE*%>();
         
         if(fun.mParamTypes[0].mHeap && obj_value.type.mHeap) {
-            std_move(fun.mParamTypes[0], obj_value.type, obj_value);
+            std_move(fun.mParamTypes[0], obj_value.type, obj_value, no_delete_from_right_value_objects:true);
         }
         come_params.push_back(obj_value);
     
@@ -518,7 +518,7 @@ class sTupleNode extends sNodeBase
             CVALUE*% come_value = clone it;
             
             if(fun.mParamTypes[i] && fun.mParamTypes[i].mHeap && come_value.type.mHeap) {
-                std_move(fun.mParamTypes[i], come_value.type, come_value);
+                std_move(fun.mParamTypes[i], come_value.type, come_value, no_delete_from_right_value_objects:true);
             }
             come_params.push_back(come_value);
             
@@ -726,7 +726,7 @@ class sMapNode extends sNodeBase
         list<CVALUE*%>*% come_params = new list<CVALUE*%>();
         
         if(fun.mParamTypes[0].mHeap && obj_value.type.mHeap) {
-            std_move(fun.mParamTypes[0], obj_value.type, obj_value);
+            std_move(fun.mParamTypes[0], obj_value.type, obj_value, no_delete_from_right_value_objects:true);
         }
         come_params.push_back(obj_value);
         

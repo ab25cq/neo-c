@@ -78,7 +78,7 @@ bool operator_overload_fun_self(sType* type, char* fun_name, CVALUE* left_value,
         string left_value2;
         check_assign_type(s"\{fun_name2} is assigned to", operator_fun.mParamTypes[0], left_value.type, left_value);
         if(operator_fun.mParamTypes[0].mHeap && left_value.type.mHeap) {
-            std_move(operator_fun.mParamTypes[0], left_value.type, left_value);
+            std_move(operator_fun.mParamTypes[0], left_value.type, left_value, no_delete_from_right_value_objects:true);
             left_value2 = xsprintf("%s", left_value.c_value);
         }
         else {

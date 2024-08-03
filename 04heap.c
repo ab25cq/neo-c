@@ -1,16 +1,16 @@
 #include "common.h"
 
-void std_move(sType* left_type, sType* right_type, CVALUE* right_value, sInfo* info=info)
+void std_move(sType* left_type, sType* right_type, CVALUE* right_value, sInfo* info=info, bool no_delete_from_right_value_objects=false)
 {
     if(gComeGC || gComeC) {
         return;
     }
-    if(right_value.right_value_objects.length() > 0) {
-        foreach(it, right_value.right_value_objects) {
-            foreach(it2, info.right_value_objects) {
-                if(it->mID == it2->mID) {
-                    //it2->mStored = true;
-                }
+    if(!no_delete_from_right_value_objects && right_value.right_value_objects) {
+        sRightValueObject* it = right_value.right_value_objects;
+        foreach(it2, info.right_value_objects) {
+            if(it->mID == it2->mID) {
+                it2->mStored = true;
+                break;
             }
         }
     }
@@ -342,7 +342,7 @@ void append_object_to_right_values2(CVALUE* come_value, sType*% type, sInfo* inf
     add_come_code_at_function_head2(info, "right_value%d = (void*)0;\n", gRightValueNum-1);
     
     come_value.c_value = xsprintf("((%s)(%s=%s))", make_type_name_string(type, false@in_header, true@array_cast_pointer), new_value->mVarName, come_value.c_value)!;
-    come_value.right_value_objects.add(new_value);
+    come_value.right_value_objects = new_value;
 }
 
 void remove_object_from_right_values(int right_value_num, sInfo* info)
