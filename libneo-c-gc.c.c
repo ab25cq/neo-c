@@ -2721,7 +2721,6 @@ void* __result_obj__;
 int i_11;
 struct list$1char* __result25__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&i_11, 0, sizeof(int));
         self->head=((void*)0);
         self->tail=((void*)0);
         self->len=0;
@@ -2779,7 +2778,6 @@ void* __result_obj__;
 int i_15;
 struct list$1short* __result28__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&i_15, 0, sizeof(int));
         self->head=((void*)0);
         self->tail=((void*)0);
         self->len=0;
@@ -2837,7 +2835,6 @@ void* __result_obj__;
 int i_19;
 struct list$1int* __result31__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&i_19, 0, sizeof(int));
         self->head=((void*)0);
         self->tail=((void*)0);
         self->len=0;
@@ -2895,7 +2892,6 @@ void* __result_obj__;
 int i_23;
 struct list$1long* __result34__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&i_23, 0, sizeof(int));
         self->head=((void*)0);
         self->tail=((void*)0);
         self->len=0;
@@ -2953,7 +2949,6 @@ void* __result_obj__;
 int i_27;
 struct list$1float* __result37__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&i_27, 0, sizeof(int));
         self->head=((void*)0);
         self->tail=((void*)0);
         self->len=0;
@@ -3011,7 +3006,6 @@ void* __result_obj__;
 int i_31;
 struct list$1double* __result40__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&i_31, 0, sizeof(int));
         self->head=((void*)0);
         self->tail=((void*)0);
         self->len=0;
@@ -3091,7 +3085,6 @@ void come_save_stackframe(char* sname, int sline){
 struct buffer* buf_35;
 int i_36;
 memset(&buf_35, 0, sizeof(struct buffer*));
-memset(&i_36, 0, sizeof(int));
     buf_35=buffer_initialize((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "libneo-c-gc.c", 43, "buffer"));
     buffer_append_str(buf_35,xsprintf("%s %d\n",sname,sline));
     for(    i_36=gNumComeStackFrame-2;    i_36>=0;    i_36--    ){
@@ -3109,7 +3102,6 @@ void exception_stackframe(){
 
 void stackframe(){
 int i_37;
-memset(&i_37, 0, sizeof(int));
     for(    i_37=gNumComeStackFrame-1;    i_37>=0;    i_37--    ){
         printf("%s %d #%d\n",gComeStackFrameSName[i_37],gComeStackFrameSLine[i_37],gComeStackFrameID[i_37]);
     }
@@ -3340,9 +3332,6 @@ unsigned long int* ref_count_44;
 unsigned long int* size2_45;
 void* __result51__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&mem_43, 0, sizeof(char*));
-memset(&ref_count_44, 0, sizeof(unsigned long int*));
-memset(&size2_45, 0, sizeof(unsigned long int*));
     mem_43=come_alloc_mem_from_heap_pool(sizeof(unsigned long int)+sizeof(unsigned long int)+count*size,sname,sline,class_name);
     ref_count_44=(unsigned long int*)mem_43;
     *ref_count_44=0;
@@ -3354,7 +3343,6 @@ memset(&size2_45, 0, sizeof(unsigned long int*));
 
 void come_free_object(void* mem){
 unsigned long int* ref_count_46;
-memset(&ref_count_46, 0, sizeof(unsigned long int*));
     if(mem==((void*)0)) {
         return;
     }
@@ -3364,7 +3352,6 @@ memset(&ref_count_46, 0, sizeof(unsigned long int*));
 
 void come_free(void* mem){
 unsigned long int* ref_count_47;
-memset(&ref_count_47, 0, sizeof(unsigned long int*));
     if(mem==((void*)0)) {
         return;
     }
@@ -3381,9 +3368,6 @@ unsigned long int size_50;
 void* result_51;
 void* __result53__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&mem_48, 0, sizeof(char*));
-memset(&size_p_49, 0, sizeof(unsigned long int*));
-memset(&size_50, 0, sizeof(unsigned long int));
 memset(&result_51, 0, sizeof(void*));
     if(!block) {
         __result52__ = __result_obj__ = ((void*)0);
@@ -3404,7 +3388,6 @@ void* __result54__;
 unsigned long int* ref_count_52;
 void* __result55__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&ref_count_52, 0, sizeof(unsigned long int*));
     if(mem==((void*)0)) {
         __result54__ = __result_obj__ = mem;
         return __result54__;
@@ -3421,7 +3404,6 @@ void* __result56__;
 unsigned long int* ref_count_53;
 void* __result57__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&ref_count_53, 0, sizeof(unsigned long int*));
     if(mem==((void*)0)) {
         __result56__ = __result_obj__ = mem;
         return __result56__;
@@ -3441,8 +3423,6 @@ void (*finalizer_56)(void*);
 void* __result59__;
 void* __result60__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&ref_count_54, 0, sizeof(unsigned long int*));
-memset(&count_55, 0, sizeof(unsigned long int));
 memset(&finalizer_56, 0, sizeof(void (*)(void*)));
     if(mem==((void*)0)) {
         __result58__ = __result_obj__ = ((void*)0);
@@ -3476,8 +3456,6 @@ void (*finalizer_61)(void*);
 void (*finalizer_62)(void*);
 memset(&finalizer_57, 0, sizeof(void (*)(void*)));
 memset(&finalizer_58, 0, sizeof(void (*)(void*)));
-memset(&ref_count_59, 0, sizeof(unsigned long int*));
-memset(&count_60, 0, sizeof(unsigned long int));
 memset(&finalizer_61, 0, sizeof(void (*)(void*)));
 memset(&finalizer_62, 0, sizeof(void (*)(void*)));
     if(mem==((void*)0)) {
@@ -3523,7 +3501,6 @@ int len_63;
 char* result_64;
 char* __result62__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&len_63, 0, sizeof(int));
 memset(&result_64, 0, sizeof(char*));
     if(str==((void*)0)) {
         __result61__ = __result_obj__ = ((void*)0);
@@ -3539,8 +3516,6 @@ memset(&result_64, 0, sizeof(char*));
 _Bool come_is_contained_element(void** array, int len, void* element){
 _Bool found_65;
 int i_66;
-memset(&found_65, 0, sizeof(_Bool));
-memset(&i_66, 0, sizeof(int));
     found_65=(_Bool)0;
     for(    i_66=0;    i_66<len;    i_66++    ){
         if(array[i_66]==element) {
@@ -3625,8 +3600,6 @@ int new_size_70;
 struct buffer* __result67__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&old_buf_68, 0, sizeof(char*));
-memset(&old_len_69, 0, sizeof(int));
-memset(&new_size_70, 0, sizeof(int));
     if(self==((void*)0)||mem==((void*)0)) {
         __result66__ = __result_obj__ = self;
         return __result66__;
@@ -3657,8 +3630,6 @@ int new_size_73;
 struct buffer* __result69__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&old_buf_71, 0, sizeof(char*));
-memset(&old_len_72, 0, sizeof(int));
-memset(&new_size_73, 0, sizeof(int));
     if(self==((void*)0)) {
         __result68__ = __result_obj__ = ((void*)0);
         return __result68__;
@@ -3688,10 +3659,7 @@ int old_len_76;
 int new_size_77;
 struct buffer* __result71__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&size_74, 0, sizeof(int));
 memset(&old_buf_75, 0, sizeof(char*));
-memset(&old_len_76, 0, sizeof(int));
-memset(&new_size_77, 0, sizeof(int));
     if(self==((void*)0)||mem==((void*)0)) {
         __result70__ = __result_obj__ = self;
         return __result70__;
@@ -3723,10 +3691,7 @@ int old_len_80;
 int new_size_81;
 struct buffer* __result73__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&size_78, 0, sizeof(int));
 memset(&old_buf_79, 0, sizeof(char*));
-memset(&old_len_80, 0, sizeof(int));
-memset(&new_size_81, 0, sizeof(int));
     if(self==((void*)0)||mem==((void*)0)) {
         __result72__ = __result_obj__ = self;
         return __result72__;
@@ -3760,11 +3725,7 @@ int old_len_85;
 int new_size_86;
 struct buffer* __result75__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&mem_82, 0, sizeof(int*));
-memset(&size_83, 0, sizeof(int));
 memset(&old_buf_84, 0, sizeof(char*));
-memset(&old_len_85, 0, sizeof(int));
-memset(&new_size_86, 0, sizeof(int));
     if(self==((void*)0)) {
         __result74__ = __result_obj__ = ((void*)0);
         return __result74__;
@@ -3797,11 +3758,7 @@ int old_len_90;
 int new_size_91;
 struct buffer* __result76__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&mem_87, 0, sizeof(long*));
-memset(&size_88, 0, sizeof(int));
 memset(&old_buf_89, 0, sizeof(char*));
-memset(&old_len_90, 0, sizeof(int));
-memset(&new_size_91, 0, sizeof(int));
     mem_87=&value;
     size_88=sizeof(long);
     if(self->len+size_88+1+1>=self->size) {
@@ -3831,11 +3788,7 @@ int old_len_95;
 int new_size_96;
 struct buffer* __result78__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&mem_92, 0, sizeof(short short*));
-memset(&size_93, 0, sizeof(int));
 memset(&old_buf_94, 0, sizeof(char*));
-memset(&old_len_95, 0, sizeof(int));
-memset(&new_size_96, 0, sizeof(int));
     if(self==((void*)0)) {
         __result77__ = __result_obj__ = ((void*)0);
         return __result77__;
@@ -3867,9 +3820,6 @@ int new_size_98;
 int i_99;
 struct buffer* __result80__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&len_97, 0, sizeof(int));
-memset(&new_size_98, 0, sizeof(int));
-memset(&i_99, 0, sizeof(int));
     if(self==((void*)0)) {
         __result79__ = __result_obj__ = ((void*)0);
         return __result79__;
@@ -4094,7 +4044,6 @@ int len_102;
 char* result_103;
 char* __result88__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&len_102, 0, sizeof(int));
 memset(&result_103, 0, sizeof(char*));
     if(self==((void*)0)||right==((void*)0)) {
         __result87__ = __result_obj__ = __builtin_string("");
@@ -4115,7 +4064,6 @@ int len_104;
 char* result_105;
 char* __result90__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&len_104, 0, sizeof(int));
 memset(&result_105, 0, sizeof(char*));
     if(self==((void*)0)||right==((void*)0)) {
         __result89__ = __result_obj__ = __builtin_string("");
@@ -4137,7 +4085,6 @@ int i_107;
 char* __result92__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&buf_106, 0, sizeof(struct buffer*));
-memset(&i_107, 0, sizeof(int));
     if(self==((void*)0)) {
         __result91__ = __result_obj__ = __builtin_string("");
         return __result91__;
@@ -4158,7 +4105,6 @@ int i_109;
 char* __result94__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&buf_108, 0, sizeof(struct buffer*));
-memset(&i_109, 0, sizeof(int));
     if(self==((void*)0)) {
         __result93__ = __result_obj__ = __builtin_string("");
         return __result93__;
@@ -4206,8 +4152,6 @@ unsigned int double_get_hash_key(double value){
 unsigned int string_get_hash_key(char* value){
 int result_110;
 char* p_111;
-memset(&result_110, 0, sizeof(int));
-memset(&p_111, 0, sizeof(char*));
     if(value==((void*)0)) {
         return 0;
     }
@@ -4223,8 +4167,6 @@ memset(&p_111, 0, sizeof(char*));
 unsigned int charp_get_hash_key(char* value){
 int result_112;
 char* p_113;
-memset(&result_112, 0, sizeof(int));
-memset(&p_113, 0, sizeof(char*));
     if(value==((void*)0)) {
         return 0;
     }
@@ -4297,7 +4239,6 @@ memset(&__result_obj__, 0, sizeof(void*));
 
 _Bool xiswalpha(unsigned int c){
 _Bool result_114;
-memset(&result_114, 0, sizeof(_Bool));
     result_114=(c>=97&&c<=122)||(c>=65&&c<=90);
     return result_114;
 }
@@ -4316,7 +4257,6 @@ _Bool xiswalnum(unsigned int c){
 
 _Bool xisalpha(char c){
 _Bool result_115;
-memset(&result_115, 0, sizeof(_Bool));
     result_115=(c>=97&&c<=122)||(c>=65&&c<=90);
     return result_115;
 }
@@ -4335,14 +4275,12 @@ _Bool xisalnum(char c){
 
 _Bool xisascii(char c){
 _Bool result_116;
-memset(&result_116, 0, sizeof(_Bool));
     result_116=(c>=32&&c<=126);
     return result_116;
 }
 
 _Bool xiswascii(unsigned int c){
 _Bool result_117;
-memset(&result_117, 0, sizeof(_Bool));
     result_117=(c>=32&&c<=126);
     return result_117;
 }
@@ -4369,9 +4307,7 @@ char* result_119;
 int i_120;
 char* __result100__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&len_118, 0, sizeof(int));
 memset(&result_119, 0, sizeof(char*));
-memset(&i_120, 0, sizeof(int));
     if(str==((void*)0)) {
         __result99__ = __result_obj__ = __builtin_string("");
         return __result99__;
@@ -4394,9 +4330,7 @@ char* result_122;
 int i_123;
 char* __result102__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&len_121, 0, sizeof(int));
 memset(&result_122, 0, sizeof(char*));
-memset(&i_123, 0, sizeof(int));
     if(str==((void*)0)) {
         __result101__ = __result_obj__ = __builtin_string("");
         return __result101__;
@@ -4421,7 +4355,6 @@ char* __result106__;
 char* result_125;
 char* __result107__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&len_124, 0, sizeof(int));
 memset(&result_125, 0, sizeof(char*));
     if(str==((void*)0)) {
         __result103__ = __result_obj__ = __builtin_string("");
@@ -4469,7 +4402,6 @@ char* __result111__;
 char* result_127;
 char* __result112__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&len_126, 0, sizeof(int));
 memset(&result_127, 0, sizeof(char*));
     if(str==((void*)0)) {
         __result108__ = __result_obj__ = __builtin_string("");
@@ -4517,7 +4449,6 @@ char* __result116__;
 char* result_129;
 char* __result117__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&len_128, 0, sizeof(int));
 memset(&result_129, 0, sizeof(char*));
     if(str==((void*)0)) {
         __result113__ = __result_obj__ = __builtin_string("");
@@ -4565,7 +4496,6 @@ char* __result121__;
 char* result_131;
 char* __result122__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&len_130, 0, sizeof(int));
 memset(&result_131, 0, sizeof(char*));
     if(str==((void*)0)) {
         __result118__ = __result_obj__ = __builtin_string("");
@@ -4615,7 +4545,6 @@ char* __result125__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&args_132, 0, sizeof(va_list));
 memset(&result_133, 0, sizeof(char*));
-memset(&len_134, 0, sizeof(int));
 memset(&result2_135, 0, sizeof(char*));
     if(msg==((void*)0)) {
         __result123__ = __result_obj__ = __builtin_string("");
@@ -4643,7 +4572,6 @@ char* __result128__;
 char* sub_str_137;
 char* __result129__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&len_136, 0, sizeof(int));
 memset(&sub_str_137, 0, sizeof(char*));
     if(str==((void*)0)) {
         __result126__ = __result_obj__ = __builtin_string("");
@@ -4685,7 +4613,6 @@ char* __result132__;
 char* sub_str_139;
 char* __result133__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&len_138, 0, sizeof(int));
 memset(&sub_str_139, 0, sizeof(char*));
     if(str==((void*)0)) {
         __result130__ = __result_obj__ = __builtin_string("");
@@ -4728,7 +4655,6 @@ struct list$1charph* __result137__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&result_140, 0, sizeof(struct list$1charph*));
 memset(&str_141, 0, sizeof(struct buffer*));
-memset(&i_142, 0, sizeof(int));
     if(self==((void*)0)) {
         __result135__ = __result_obj__ = list$1charph_initialize((struct list$1charph*)come_calloc(1, sizeof(struct list$1charph)*(1), "libneo-c-gc.c", 1535, "list$1charph"));
         return __result135__;
@@ -4813,7 +4739,6 @@ struct list$1charph* __result139__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&result_146, 0, sizeof(struct list$1charph*));
 memset(&str_147, 0, sizeof(struct buffer*));
-memset(&i_148, 0, sizeof(int));
     if(self==((void*)0)) {
         __result138__ = __result_obj__ = list$1charph_initialize((struct list$1charph*)come_calloc(1, sizeof(struct list$1charph)*(1), "libneo-c-gc.c", 1561, "list$1charph"));
         return __result138__;
@@ -4844,7 +4769,6 @@ char* __result141__;
 char* __result142__;
 char* __result143__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&p_149, 0, sizeof(char*));
     if(path==((void*)0)) {
         __result140__ = __result_obj__ = __builtin_string("");
         return __result140__;
@@ -4880,7 +4804,6 @@ char* __result146__;
 char* __result147__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&path2_150, 0, sizeof(char*));
-memset(&p_151, 0, sizeof(char*));
     if(path==((void*)0)) {
         __result144__ = __result_obj__ = __builtin_string("");
         return __result144__;
@@ -4915,7 +4838,6 @@ char* __result149__;
 char* __result150__;
 char* __result151__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&p_152, 0, sizeof(char*));
     if(path==((void*)0)) {
         __result148__ = __result_obj__ = __builtin_string("");
         return __result148__;
@@ -5205,7 +5127,6 @@ int size_155;
 char* __result166__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&buf_153, 0, sizeof(struct buffer*));
-memset(&size_155, 0, sizeof(int));
     if(f==((void*)0)) {
         __result165__ = __result_obj__ = __builtin_string("");
         return __result165__;
@@ -5233,7 +5154,6 @@ int FILE_write(struct _IO_FILE* f, char* str){
 
 int FILE_fclose(struct _IO_FILE* f){
 int result_156;
-memset(&result_156, 0, sizeof(int));
     if(f==((void*)0)) {
         return -1;
     }
@@ -5253,7 +5173,6 @@ struct _IO_FILE* __result168__;
 struct _IO_FILE* __result169__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&args_158, 0, sizeof(va_list));
-memset(&result_159, 0, sizeof(int));
     if(f==((void*)0)||msg==((void*)0)) {
         __result167__ = __result_obj__ = f;
         return __result167__;
@@ -5277,8 +5196,6 @@ struct _IO_FILE* f_160;
 int result_161;
 int result2_162;
 memset(&f_160, 0, sizeof(struct _IO_FILE*));
-memset(&result_161, 0, sizeof(int));
-memset(&result2_162, 0, sizeof(int));
     if(self==((void*)0)||file_name==((void*)0)) {
         return -1;
     }
@@ -5307,8 +5224,6 @@ struct _IO_FILE* f_163;
 int result_164;
 int result2_165;
 memset(&f_163, 0, sizeof(struct _IO_FILE*));
-memset(&result_164, 0, sizeof(int));
-memset(&result2_165, 0, sizeof(int));
     if(self==((void*)0)||file_name==((void*)0)) {
         return -1;
     }
@@ -5346,9 +5261,7 @@ char* __result173__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&f_166, 0, sizeof(struct _IO_FILE*));
 memset(&buf_167, 0, sizeof(struct buffer*));
-memset(&size_169, 0, sizeof(int));
 memset(&result_170, 0, sizeof(char*));
-memset(&result2_171, 0, sizeof(int));
     if(file_name==((void*)0)) {
         __result170__ = __result_obj__ = __builtin_string("");
         return __result170__;
@@ -5392,9 +5305,7 @@ char* __result177__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&f_172, 0, sizeof(struct _IO_FILE*));
 memset(&buf_173, 0, sizeof(struct buffer*));
-memset(&size_175, 0, sizeof(int));
 memset(&result_176, 0, sizeof(char*));
-memset(&result2_177, 0, sizeof(int));
     if(file_name==((void*)0)) {
         __result174__ = __result_obj__ = __builtin_string("");
         return __result174__;
@@ -5556,7 +5467,6 @@ memset(&__result_obj__, 0, sizeof(void*));
 
 void int_times(int self, void* parent, void (*block)(void*,int)){
 int i_185;
-memset(&i_185, 0, sizeof(int));
     for(    i_185=0;    i_185<self;    i_185++    ){
         block(parent,i_185);
     }

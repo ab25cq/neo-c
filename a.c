@@ -2,7 +2,7 @@
 
 int main(int argc, char** argv)
 {
-    int a = 0;
+    string a = string("ABC");
     
     return 0;
 }
