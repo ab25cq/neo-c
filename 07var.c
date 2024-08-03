@@ -255,7 +255,11 @@ class sStoreNode extends sNodeBase
             var_type->mStatic = false;
             
             if(!array_initializer && !var_->mType->mStatic && !var_type->mConstant && var_type->mArrayNum.length() == 0) {
-                add_come_code_at_function_head2(info, "memset(&%s, 0, sizeof(%s));\n", var_->mCValueName, make_type_name_string(var_type, no_static:true));
+                if(var_type->mNumber && !var_type->mHeap) {
+                }
+                else {
+                    add_come_code_at_function_head2(info, "memset(&%s, 0, sizeof(%s));\n", var_->mCValueName, make_type_name_string(var_type, no_static:true));
+                }
             }
             
             sType*% left_type = clone var_->mType;
@@ -308,7 +312,7 @@ class sStoreNode extends sNodeBase
             {
                 check_assign_type(s"\{self.name} is assining to", left_type, right_type, right_value);
                 
-                decrement_ref_count_object(left_type, var_->mCValueName, info);
+                //decrement_ref_count_object(left_type, var_->mCValueName, info);
                 
                 add_come_code_at_function_head(info, "%s;\n", make_define_var(left_type, var_->mCValueName));
                 
