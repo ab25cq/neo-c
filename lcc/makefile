@@ -220,6 +220,8 @@ testclean:
 	$(RM) $Tyacc$E $Tyacc.s $Tyacc.2 $Tyacc.1
 
 clean::		testclean
+		$(RM) *.i
+		$(RM) *.cpp.out
 		$(RM) *.o
 		$(RM) $B*$O
 		$(RM) $Bdagcheck.c $Balpha.c $Bmips.c $Bx86.c $Bsparc.c $Bx86linux.c
