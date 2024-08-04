@@ -3142,7 +3142,6 @@ void* __right_value153 = (void*)0;
 void* __right_value154 = (void*)0;
 void* __right_value155 = (void*)0;
 _Bool __result110__;
-memset(&type_name_87, 0, sizeof(char*));
 memset(&type_134, 0, sizeof(struct sType*));
 memset(&o2_saved_156, 0, sizeof(struct list$1tuple2$2sTypephcharphph*));
 memset(&it_159, 0, sizeof(struct tuple2$2sTypephcharph*));

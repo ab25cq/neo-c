@@ -3503,7 +3503,6 @@ int len_63;
 char* result_64;
 char* __result62__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_64, 0, sizeof(char*));
     if(str==((void*)0)) {
         __result61__ = __result_obj__ = ((void*)0);
         return __result61__;
@@ -3601,7 +3600,6 @@ int old_len_69;
 int new_size_70;
 struct buffer* __result67__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&old_buf_68, 0, sizeof(char*));
     if(self==((void*)0)||mem==((void*)0)) {
         __result66__ = __result_obj__ = self;
         return __result66__;
@@ -3631,7 +3629,6 @@ int old_len_72;
 int new_size_73;
 struct buffer* __result69__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&old_buf_71, 0, sizeof(char*));
     if(self==((void*)0)) {
         __result68__ = __result_obj__ = ((void*)0);
         return __result68__;
@@ -3661,7 +3658,6 @@ int old_len_76;
 int new_size_77;
 struct buffer* __result71__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&old_buf_75, 0, sizeof(char*));
     if(self==((void*)0)||mem==((void*)0)) {
         __result70__ = __result_obj__ = self;
         return __result70__;
@@ -3693,7 +3689,6 @@ int old_len_80;
 int new_size_81;
 struct buffer* __result73__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&old_buf_79, 0, sizeof(char*));
     if(self==((void*)0)||mem==((void*)0)) {
         __result72__ = __result_obj__ = self;
         return __result72__;
@@ -3727,7 +3722,6 @@ int old_len_85;
 int new_size_86;
 struct buffer* __result75__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&old_buf_84, 0, sizeof(char*));
     if(self==((void*)0)) {
         __result74__ = __result_obj__ = ((void*)0);
         return __result74__;
@@ -3760,7 +3754,6 @@ int old_len_90;
 int new_size_91;
 struct buffer* __result76__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&old_buf_89, 0, sizeof(char*));
     mem_87=&value;
     size_88=sizeof(long);
     if(self->len+size_88+1+1>=self->size) {
@@ -3790,7 +3783,6 @@ int old_len_95;
 int new_size_96;
 struct buffer* __result78__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&old_buf_94, 0, sizeof(char*));
     if(self==((void*)0)) {
         __result77__ = __result_obj__ = ((void*)0);
         return __result77__;
@@ -4046,7 +4038,6 @@ int len_102;
 char* result_103;
 char* __result88__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_103, 0, sizeof(char*));
     if(self==((void*)0)||right==((void*)0)) {
         __result87__ = __result_obj__ = __builtin_string("");
         return __result87__;
@@ -4066,7 +4057,6 @@ int len_104;
 char* result_105;
 char* __result90__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_105, 0, sizeof(char*));
     if(self==((void*)0)||right==((void*)0)) {
         __result89__ = __result_obj__ = __builtin_string("");
         return __result89__;
@@ -4309,7 +4299,6 @@ char* result_119;
 int i_120;
 char* __result100__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_119, 0, sizeof(char*));
     if(str==((void*)0)) {
         __result99__ = __result_obj__ = __builtin_string("");
         return __result99__;
@@ -4332,7 +4321,6 @@ char* result_122;
 int i_123;
 char* __result102__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_122, 0, sizeof(char*));
     if(str==((void*)0)) {
         __result101__ = __result_obj__ = __builtin_string("");
         return __result101__;
@@ -4357,7 +4345,6 @@ char* __result106__;
 char* result_125;
 char* __result107__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_125, 0, sizeof(char*));
     if(str==((void*)0)) {
         __result103__ = __result_obj__ = __builtin_string("");
         return __result103__;
@@ -4404,7 +4391,6 @@ char* __result111__;
 char* result_127;
 char* __result112__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_127, 0, sizeof(char*));
     if(str==((void*)0)) {
         __result108__ = __result_obj__ = __builtin_string("");
         return __result108__;
@@ -4451,7 +4437,6 @@ char* __result116__;
 char* result_129;
 char* __result117__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_129, 0, sizeof(char*));
     if(str==((void*)0)) {
         __result113__ = __result_obj__ = __builtin_string("");
         return __result113__;
@@ -4498,7 +4483,6 @@ char* __result121__;
 char* result_131;
 char* __result122__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_131, 0, sizeof(char*));
     if(str==((void*)0)) {
         __result118__ = __result_obj__ = __builtin_string("");
         return __result118__;
@@ -4547,7 +4531,6 @@ char* __result125__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&args_132, 0, sizeof(va_list));
 memset(&result_133, 0, sizeof(char*));
-memset(&result2_135, 0, sizeof(char*));
     if(msg==((void*)0)) {
         __result123__ = __result_obj__ = __builtin_string("");
         return __result123__;
@@ -4574,7 +4557,6 @@ char* __result128__;
 char* sub_str_137;
 char* __result129__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&sub_str_137, 0, sizeof(char*));
     if(str==((void*)0)) {
         __result126__ = __result_obj__ = __builtin_string("");
         return __result126__;
@@ -4615,7 +4597,6 @@ char* __result132__;
 char* sub_str_139;
 char* __result133__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&sub_str_139, 0, sizeof(char*));
     if(str==((void*)0)) {
         __result130__ = __result_obj__ = __builtin_string("");
         return __result130__;
@@ -4805,7 +4786,6 @@ char* __result145__;
 char* __result146__;
 char* __result147__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&path2_150, 0, sizeof(char*));
     if(path==((void*)0)) {
         __result144__ = __result_obj__ = __builtin_string("");
         return __result144__;
@@ -5263,7 +5243,6 @@ char* __result173__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&f_166, 0, sizeof(struct _IO_FILE*));
 memset(&buf_167, 0, sizeof(struct buffer*));
-memset(&result_170, 0, sizeof(char*));
     if(file_name==((void*)0)) {
         __result170__ = __result_obj__ = __builtin_string("");
         return __result170__;
@@ -5307,7 +5286,6 @@ char* __result177__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&f_172, 0, sizeof(struct _IO_FILE*));
 memset(&buf_173, 0, sizeof(struct buffer*));
-memset(&result_176, 0, sizeof(char*));
     if(file_name==((void*)0)) {
         __result174__ = __result_obj__ = __builtin_string("");
         return __result174__;

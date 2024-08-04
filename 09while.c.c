@@ -4146,7 +4146,6 @@ struct sNode* __result85__;
 void* __right_value122 = (void*)0;
 struct sNode* __result86__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&sname_126, 0, sizeof(char*));
 memset(&expression_node_128, 0, sizeof(struct sNode*));
 memset(&block_129, 0, sizeof(struct sBlock*));
     if(charp_operator_equals(buf,"while")) {

@@ -2982,9 +2982,6 @@ struct sNode* __result47__;
 void* __right_value92 = (void*)0;
 struct sNode* __result48__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&word_48, 0, sizeof(char*));
-memset(&generics_name_51, 0, sizeof(char*));
-memset(&buf_63, 0, sizeof(char*));
 memset(&node_64, 0, sizeof(struct sNode*));
 memset(&header_66, 0, sizeof(struct buffer*));
     if(charp_operator_equals(buf,"impl")) {

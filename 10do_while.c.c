@@ -4149,9 +4149,7 @@ struct sNode* __result85__;
 void* __right_value123 = (void*)0;
 struct sNode* __result86__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&sname_126, 0, sizeof(char*));
 memset(&block_128, 0, sizeof(struct sBlock*));
-memset(&buf2_129, 0, sizeof(char*));
 memset(&expression_node_130, 0, sizeof(struct sNode*));
     if(charp_operator_equals(buf,"do")) {
         sname_126=(char*)come_increment_ref_count(string_clone(info->sname));

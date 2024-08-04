@@ -3413,7 +3413,6 @@ void* __right_value123 = (void*)0;
 char* __dec_obj33;
 struct sType* __result80__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&name2_63, 0, sizeof(char*));
 memset(&klass_64, 0, sizeof(struct sClass*));
 memset(&generics_class_70, 0, sizeof(struct sClass*));
 memset(&klass2_71, 0, sizeof(struct sClass*));

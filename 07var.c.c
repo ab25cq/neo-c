@@ -3450,7 +3450,6 @@ memset(&right_value_103, 0, sizeof(struct CVALUE*));
 memset(&right_type_104, 0, sizeof(struct sType*));
 memset(&o2_saved_106, 0, sizeof(struct list$1charph*));
 memset(&right_type2_112, 0, sizeof(struct sType*));
-memset(&multiple_var_name_117, 0, sizeof(char*));
 memset(&o2_saved_118, 0, sizeof(struct list$1charph*));
 memset(&right_type2_120, 0, sizeof(struct sType*));
 memset(&var__121, 0, sizeof(struct sVar*));
@@ -3483,9 +3482,7 @@ memset(&right_type_155, 0, sizeof(struct sType*));
 memset(&current_stack_frame_struct_156, 0, sizeof(struct sClass*));
 memset(&parent_var_157, 0, sizeof(struct sVar*));
 memset(&left_type_158, 0, sizeof(struct sType*));
-memset(&c_value_159, 0, sizeof(char*));
 memset(&come_value_160, 0, sizeof(struct CVALUE*));
-memset(&c_value_161, 0, sizeof(char*));
 memset(&come_value_162, 0, sizeof(struct CVALUE*));
 memset(&come_value_163, 0, sizeof(struct CVALUE*));
 memset(&var__164, 0, sizeof(struct sVar*));
@@ -3743,7 +3740,7 @@ memset(&come_value_169, 0, sizeof(struct CVALUE*));
                     var_type_146=(struct sType*)come_increment_ref_count(sType_clone(var__141->mType));
                     var_type_146->mStatic=(_Bool)0;
                     if(!array_initializer_143&&!var__141->mType->mStatic&&!var_type_146->mConstant&&list$1sNodeph_length(var_type_146->mArrayNum)==0) {
-                        if(var_type_146->mClass->mNumber&&!var_type_146->mHeap) {
+                        if(var_type_146->mClass->mNumber) {
                         }
                         else {
                             add_come_code_at_function_head2(info,"memset(&%s, 0, sizeof(%s));\n",var__141->mCValueName,((char*)(__right_value179=make_type_name_string(var_type_146,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)1))));
@@ -7119,15 +7116,12 @@ struct sNode* __result192__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&exp_282, 0, sizeof(struct sNode*));
 memset(&fun_289, 0, sizeof(struct sFun*));
-memset(&buf2_290, 0, sizeof(char*));
 memset(&multiple_assign_291, 0, sizeof(struct list$1charph*));
-memset(&buf3_295, 0, sizeof(char*));
 memset(&right_value_297, 0, sizeof(struct sNode*));
 memset(&multiple_declare_299, 0, sizeof(struct list$1tuple3$3sTypephcharphsNodephph*));
 memset(&exp_306, 0, sizeof(struct sNode*));
 memset(&exp_313, 0, sizeof(struct sNode*));
 memset(&right_node_314, 0, sizeof(struct sNode*));
-memset(&var_name2_315, 0, sizeof(char*));
 memset(&self_node_323, 0, sizeof(struct sNode*));
 memset(&right_node_325, 0, sizeof(struct sNode*));
 memset(&right_value_326, 0, sizeof(struct sNode*));

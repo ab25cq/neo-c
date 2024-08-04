@@ -3820,7 +3820,6 @@ void* __right_value85 = (void*)0;
 char* result_124;
 char* __result67__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_124, 0, sizeof(char*));
     if(str==((void*)0)) {
         __result66__ = __result_obj__ = ((void*)0);
         return __result66__;
@@ -3938,7 +3937,6 @@ void* __right_value90 = (void*)0;
 char* __dec_obj14;
 struct buffer* __result72__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&old_buf_128, 0, sizeof(char*));
     if(self==((void*)0)||mem==((void*)0)) {
         __result71__ = __result_obj__ = self;
         return __result71__;
@@ -3974,7 +3972,6 @@ void* __right_value92 = (void*)0;
 char* __dec_obj15;
 struct buffer* __result74__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&old_buf_131, 0, sizeof(char*));
     if(self==((void*)0)) {
         __result73__ = __result_obj__ = ((void*)0);
         return __result73__;
@@ -4010,7 +4007,6 @@ void* __right_value94 = (void*)0;
 char* __dec_obj16;
 struct buffer* __result76__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&old_buf_135, 0, sizeof(char*));
     if(self==((void*)0)||mem==((void*)0)) {
         __result75__ = __result_obj__ = self;
         return __result75__;
@@ -4048,7 +4044,6 @@ void* __right_value96 = (void*)0;
 char* __dec_obj17;
 struct buffer* __result78__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&old_buf_139, 0, sizeof(char*));
     if(self==((void*)0)||mem==((void*)0)) {
         __result77__ = __result_obj__ = self;
         return __result77__;
@@ -4088,7 +4083,6 @@ void* __right_value98 = (void*)0;
 char* __dec_obj18;
 struct buffer* __result80__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&old_buf_144, 0, sizeof(char*));
     if(self==((void*)0)) {
         __result79__ = __result_obj__ = ((void*)0);
         return __result79__;
@@ -4127,7 +4121,6 @@ void* __right_value100 = (void*)0;
 char* __dec_obj19;
 struct buffer* __result81__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&old_buf_149, 0, sizeof(char*));
     mem_147=&value;
     size_148=sizeof(long);
     if(self->len+size_148+1+1>=self->size) {
@@ -4163,7 +4156,6 @@ void* __right_value102 = (void*)0;
 char* __dec_obj20;
 struct buffer* __result83__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&old_buf_154, 0, sizeof(char*));
     if(self==((void*)0)) {
         __result82__ = __result_obj__ = ((void*)0);
         return __result82__;
@@ -4444,7 +4436,6 @@ void* __right_value111 = (void*)0;
 char* result_163;
 char* __result93__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_163, 0, sizeof(char*));
     if(self==((void*)0)||right==((void*)0)) {
         __result92__ = __result_obj__ = ((char*)(__right_value110=__builtin_string("")));
         __right_value110 = come_decrement_ref_count2(__right_value110, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
@@ -4469,7 +4460,6 @@ void* __right_value113 = (void*)0;
 char* result_165;
 char* __result95__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_165, 0, sizeof(char*));
     if(self==((void*)0)||right==((void*)0)) {
         __result94__ = __result_obj__ = ((char*)(__right_value112=__builtin_string("")));
         __right_value112 = come_decrement_ref_count2(__right_value112, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
@@ -4739,7 +4729,6 @@ char* result_179;
 int i_180;
 char* __result105__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_179, 0, sizeof(char*));
     if(str==((void*)0)) {
         __result104__ = __result_obj__ = ((char*)(__right_value124=__builtin_string("")));
         __right_value124 = come_decrement_ref_count2(__right_value124, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
@@ -4767,7 +4756,6 @@ char* result_182;
 int i_183;
 char* __result107__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_182, 0, sizeof(char*));
     if(str==((void*)0)) {
         __result106__ = __result_obj__ = ((char*)(__right_value126=__builtin_string("")));
         __right_value126 = come_decrement_ref_count2(__right_value126, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
@@ -4801,7 +4789,6 @@ void* __right_value133 = (void*)0;
 char* result_185;
 char* __result112__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_185, 0, sizeof(char*));
     if(str==((void*)0)) {
         __result108__ = __result_obj__ = ((char*)(__right_value128=__builtin_string("")));
         __right_value128 = come_decrement_ref_count2(__right_value128, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
@@ -4861,7 +4848,6 @@ void* __right_value139 = (void*)0;
 char* result_187;
 char* __result117__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_187, 0, sizeof(char*));
     if(str==((void*)0)) {
         __result113__ = __result_obj__ = ((char*)(__right_value134=__builtin_string("")));
         __right_value134 = come_decrement_ref_count2(__right_value134, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
@@ -4921,7 +4907,6 @@ void* __right_value145 = (void*)0;
 char* result_189;
 char* __result122__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_189, 0, sizeof(char*));
     if(str==((void*)0)) {
         __result118__ = __result_obj__ = ((char*)(__right_value140=__builtin_string("")));
         __right_value140 = come_decrement_ref_count2(__right_value140, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
@@ -4981,7 +4966,6 @@ void* __right_value151 = (void*)0;
 char* result_191;
 char* __result127__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_191, 0, sizeof(char*));
     if(str==((void*)0)) {
         __result123__ = __result_obj__ = ((char*)(__right_value146=__builtin_string("")));
         __right_value146 = come_decrement_ref_count2(__right_value146, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
@@ -5040,7 +5024,6 @@ char* __result130__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&args_192, 0, sizeof(va_list));
 memset(&result_193, 0, sizeof(char*));
-memset(&result2_195, 0, sizeof(char*));
     if(msg==((void*)0)) {
         __result128__ = __result_obj__ = ((char*)(__right_value152=__builtin_string("")));
         __right_value152 = come_decrement_ref_count2(__right_value152, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
@@ -5082,7 +5065,6 @@ char* sub_str_197;
 void* __right_value159 = (void*)0;
 char* __result134__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&sub_str_197, 0, sizeof(char*));
     if(str==((void*)0)) {
         __result131__ = __result_obj__ = ((char*)(__right_value155=__builtin_string("")));
         __right_value155 = come_decrement_ref_count2(__right_value155, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
@@ -5134,7 +5116,6 @@ char* sub_str_199;
 void* __right_value164 = (void*)0;
 char* __result138__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&sub_str_199, 0, sizeof(char*));
     if(str==((void*)0)) {
         __result135__ = __result_obj__ = ((char*)(__right_value160=__builtin_string("")));
         __right_value160 = come_decrement_ref_count2(__right_value160, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
@@ -5417,7 +5398,6 @@ char* __result151__;
 void* __right_value192 = (void*)0;
 char* __result152__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&path2_212, 0, sizeof(char*));
     if(path==((void*)0)) {
         __result149__ = __result_obj__ = ((char*)(__right_value188=__builtin_string("")));
         __right_value188 = come_decrement_ref_count2(__right_value188, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
@@ -5935,7 +5915,6 @@ char* __result178__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&f_228, 0, sizeof(struct _IO_FILE*));
 memset(&buf_229, 0, sizeof(struct buffer*));
-memset(&result_232, 0, sizeof(char*));
     if(file_name==((void*)0)) {
         __result175__ = __result_obj__ = ((char*)(__right_value214=__builtin_string("")));
         __right_value214 = come_decrement_ref_count2(__right_value214, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
@@ -5995,7 +5974,6 @@ char* __result182__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&f_234, 0, sizeof(struct _IO_FILE*));
 memset(&buf_235, 0, sizeof(struct buffer*));
-memset(&result_238, 0, sizeof(char*));
     if(file_name==((void*)0)) {
         __result179__ = __result_obj__ = ((char*)(__right_value220=__builtin_string("")));
         __right_value220 = come_decrement_ref_count2(__right_value220, (void*)0, (void*)0, 1, 0, 0, __result_obj__);

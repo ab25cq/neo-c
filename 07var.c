@@ -257,7 +257,7 @@ class sStoreNode extends sNodeBase
             var_type->mStatic = false;
             
             if(!array_initializer && !var_->mType->mStatic && !var_type->mConstant && var_type->mArrayNum.length() == 0) {
-                if(var_type->mNumber && !var_type->mHeap) {
+                if(var_type->mNumber) {
                 }
                 else {
                     add_come_code_at_function_head2(info, "memset(&%s, 0, sizeof(%s));\n", var_->mCValueName, make_type_name_string(var_type, no_static:true));

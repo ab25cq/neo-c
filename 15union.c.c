@@ -5221,7 +5221,6 @@ struct sNode* __result119__;
 void* __right_value186 = (void*)0;
 struct sNode* __result120__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&type_name_175, 0, sizeof(char*));
 memset(&type_177, 0, sizeof(struct sType*));
 memset(&header_182, 0, sizeof(struct buffer*));
     if(charp_operator_equals(buf,"union")) {
@@ -5365,7 +5364,6 @@ void* __right_value191 = (void*)0;
 struct sNode* __result122__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&type_name_187, 0, sizeof(char*));
-memset(&type_name_188, 0, sizeof(char*));
     define_union_184=(_Bool)0;
     {
         p_185=info->p;

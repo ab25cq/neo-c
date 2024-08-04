@@ -4476,7 +4476,6 @@ void* __right_value173 = (void*)0;
 struct sNode* __result118__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&node_124, 0, sizeof(struct sNode*));
-memset(&buf_130, 0, sizeof(char*));
 memset(&expression_node_132, 0, sizeof(struct sNode*));
 memset(&block_133, 0, sizeof(struct sBlock*));
     if(charp_operator_equals(buf,"case")) {
