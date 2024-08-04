@@ -1,7 +1,13 @@
 #include <neo-c.h>
 
+struct sData
+{
+    string a;
+};
+
 int main(int argc, char** argv)
 {
-    string a = clone string("ABC");
+    sData data;
+    data.a = clone string("ABC");
     return 0;
 }

@@ -46,9 +46,14 @@ class sLambdaNode extends sNodeBase
             add_come_code_at_function_head2(info, "memset(&__result_obj__, 0, sizeof(%s));\n", make_type_name_string(result_type, no_static:true));
         }
         
+        int block_level = info->block_level;
+        info->block_level = 0;
+        
         if(self.mFun.mBlock) {
             transpile_block(self.mFun.mBlock, self.mFun.mParamTypes, self.mFun.mParamNames, info);
         }
+        
+        info->block_level = block_level;
         
         CVALUE*% come_value = new CVALUE();
         
@@ -100,7 +105,12 @@ class sFunNode extends sNodeBase
                 add_come_code_at_function_head2(info, "memset(&__result_obj__, 0, sizeof(%s));\n", make_type_name_string(result_type, no_static:true));
             }
             
+            int block_level = info->block_level;
+            info->block_level = 0;
+            
             transpile_block(self.mFun.mBlock, self.mFun.mParamTypes, self.mFun.mParamNames, info);
+            
+            info->block_level = block_level;
             
             if(!gComeC && info.come_fun.mName === "main" && !info.inhibits_output_code) {
                 free_objects(info->gv_table, null@ret_value, info);
@@ -268,6 +278,9 @@ int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* par
         return 0;
     }
     
+    bool inhibits_output_code = info->inhibits_output_code;
+    info->inhibits_output_code = false;
+    
     sVarTable* old_table = info->lv_table;
     if(!no_var_table) {
         block->mVarTable = new sVarTable(false@global, old_table);
@@ -345,7 +358,6 @@ int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* par
     }
 
     if(!no_var_table && !info.inhibits_output_code) {
-//    if(!info->last_statment_is_return && !no_var_table) {
         free_objects(info->lv_table, null, info);
     }
     
@@ -356,6 +368,7 @@ int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* par
     info.param_names = param_names_;
 
     info->current_loop_vtable = current_loop_vtable;
+    info->inhibits_output_code = inhibits_output_code;
     
     return 0;
 }
