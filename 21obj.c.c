@@ -2353,7 +2353,6 @@ void* __right_value1 = (void*)0;
 struct buffer* result_0;
 struct buffer* __result1__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_0, 0, sizeof(struct buffer*));
     result_0=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count(((struct buffer*)(__right_value0=(struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "./neo-c.h", 1899, "buffer"))))));
     come_call_finalizer3(__right_value0,buffer_finalize, 0, 1, 0, 0, __result_obj__);
     buffer_append(result_0,self,sizeof(char)*len);
@@ -2368,7 +2367,6 @@ void* __right_value3 = (void*)0;
 struct buffer* result_1;
 struct buffer* __result2__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_1, 0, sizeof(struct buffer*));
     result_1=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count(((struct buffer*)(__right_value2=(struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "./neo-c.h", 1906, "buffer"))))));
     come_call_finalizer3(__right_value2,buffer_finalize, 0, 1, 0, 0, __result_obj__);
     buffer_append(result_1,(char*)self,sizeof(short short)*len);
@@ -2383,7 +2381,6 @@ void* __right_value5 = (void*)0;
 struct buffer* result_2;
 struct buffer* __result3__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_2, 0, sizeof(struct buffer*));
     result_2=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count(((struct buffer*)(__right_value4=(struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "./neo-c.h", 1913, "buffer"))))));
     come_call_finalizer3(__right_value4,buffer_finalize, 0, 1, 0, 0, __result_obj__);
     buffer_append(result_2,(char*)self,sizeof(int)*len);
@@ -2398,7 +2395,6 @@ void* __right_value7 = (void*)0;
 struct buffer* result_3;
 struct buffer* __result4__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_3, 0, sizeof(struct buffer*));
     result_3=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count(((struct buffer*)(__right_value6=(struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "./neo-c.h", 1920, "buffer"))))));
     come_call_finalizer3(__right_value6,buffer_finalize, 0, 1, 0, 0, __result_obj__);
     buffer_append(result_3,(char*)self,sizeof(long)*len);
@@ -2413,7 +2409,6 @@ void* __right_value9 = (void*)0;
 struct buffer* result_4;
 struct buffer* __result5__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_4, 0, sizeof(struct buffer*));
     result_4=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count(((struct buffer*)(__right_value8=(struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "./neo-c.h", 1927, "buffer"))))));
     come_call_finalizer3(__right_value8,buffer_finalize, 0, 1, 0, 0, __result_obj__);
     buffer_append(result_4,(char*)self,sizeof(float)*len);
@@ -2428,7 +2423,6 @@ void* __right_value11 = (void*)0;
 struct buffer* result_5;
 struct buffer* __result6__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_5, 0, sizeof(struct buffer*));
     result_5=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count(((struct buffer*)(__right_value10=(struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "./neo-c.h", 1934, "buffer"))))));
     come_call_finalizer3(__right_value10,buffer_finalize, 0, 1, 0, 0, __result_obj__);
     buffer_append(result_5,(char*)self,sizeof(double)*len);
@@ -2444,7 +2438,6 @@ void* __right_value13 = (void*)0;
 struct buffer* __dec_obj1;
 struct smart_pointer$1char* __result7__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_6, 0, sizeof(struct smart_pointer$1char*));
     result_6=(struct smart_pointer$1char*)come_increment_ref_count((struct smart_pointer$1char*)come_calloc(1, sizeof(struct smart_pointer$1char)*(1), "./neo-c.h", 1950, "smart_pointer$1char"));
     __dec_obj1=result_6->memory;
     result_6->memory=(struct buffer*)come_increment_ref_count(buffer_clone(self));
@@ -2462,7 +2455,6 @@ void* __right_value15 = (void*)0;
 struct buffer* __dec_obj2;
 struct smart_pointer$1char* __result8__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_7, 0, sizeof(struct smart_pointer$1char*));
     result_7=(struct smart_pointer$1char*)come_increment_ref_count((struct smart_pointer$1char*)come_calloc(1, sizeof(struct smart_pointer$1char)*(1), "./neo-c.h", 1960, "smart_pointer$1char"));
     __dec_obj2=result_7->memory;
     result_7->memory=(struct buffer*)come_increment_ref_count(buffer_clone(self));
@@ -2480,7 +2472,6 @@ void* __right_value17 = (void*)0;
 struct buffer* __dec_obj3;
 struct smart_pointer$1short* __result9__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_8, 0, sizeof(struct smart_pointer$1short*));
     result_8=(struct smart_pointer$1short*)come_increment_ref_count((struct smart_pointer$1short*)come_calloc(1, sizeof(struct smart_pointer$1short)*(1), "./neo-c.h", 1970, "smart_pointer$1short"));
     __dec_obj3=result_8->memory;
     result_8->memory=(struct buffer*)come_increment_ref_count(buffer_clone(self));
@@ -2498,7 +2489,6 @@ void* __right_value19 = (void*)0;
 struct buffer* __dec_obj4;
 struct smart_pointer$1int* __result10__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_9, 0, sizeof(struct smart_pointer$1int*));
     result_9=(struct smart_pointer$1int*)come_increment_ref_count((struct smart_pointer$1int*)come_calloc(1, sizeof(struct smart_pointer$1int)*(1), "./neo-c.h", 1980, "smart_pointer$1int"));
     __dec_obj4=result_9->memory;
     result_9->memory=(struct buffer*)come_increment_ref_count(buffer_clone(self));
@@ -2516,7 +2506,6 @@ void* __right_value21 = (void*)0;
 struct buffer* __dec_obj5;
 struct smart_pointer$1long* __result11__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_10, 0, sizeof(struct smart_pointer$1long*));
     result_10=(struct smart_pointer$1long*)come_increment_ref_count((struct smart_pointer$1long*)come_calloc(1, sizeof(struct smart_pointer$1long)*(1), "./neo-c.h", 1990, "smart_pointer$1long"));
     __dec_obj5=result_10->memory;
     result_10->memory=(struct buffer*)come_increment_ref_count(buffer_clone(self));
@@ -2894,9 +2883,6 @@ void* __right_value49 = (void*)0;
 struct list_item$1char* litem_14;
 struct list$1char* __result24__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&litem_12, 0, sizeof(struct list_item$1char*));
-memset(&litem_13, 0, sizeof(struct list_item$1char*));
-memset(&litem_14, 0, sizeof(struct list_item$1char*));
     if(self->len==0) {
         litem_12=(struct list_item$1char*)come_increment_ref_count(((struct list_item$1char*)(__right_value47=(struct list_item$1char*)come_calloc(1, sizeof(struct list_item$1char)*(1), "./neo-c.h", 219, "list_item$1char"))));
         come_call_finalizer3(__right_value47,list_item$1charp_finalize, 0, 1, 0, 0, __result_obj__);
@@ -2937,8 +2923,6 @@ static void list_item$1charp_finalize(struct list_item$1char* self){
 static void list$1charp_finalize(struct list$1char* self){
 struct list_item$1char* it_15;
 struct list_item$1char* prev_it_16;
-memset(&it_15, 0, sizeof(struct list_item$1char*));
-memset(&prev_it_16, 0, sizeof(struct list_item$1char*));
     it_15=self->head;
     while(it_15!=((void*)0)) {
         prev_it_16=it_15;
@@ -2974,9 +2958,6 @@ void* __right_value54 = (void*)0;
 struct list_item$1short* litem_20;
 struct list$1short* __result27__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&litem_18, 0, sizeof(struct list_item$1short*));
-memset(&litem_19, 0, sizeof(struct list_item$1short*));
-memset(&litem_20, 0, sizeof(struct list_item$1short*));
     if(self->len==0) {
         litem_18=(struct list_item$1short*)come_increment_ref_count(((struct list_item$1short*)(__right_value52=(struct list_item$1short*)come_calloc(1, sizeof(struct list_item$1short)*(1), "./neo-c.h", 219, "list_item$1short"))));
         come_call_finalizer3(__right_value52,list_item$1shortp_finalize, 0, 1, 0, 0, __result_obj__);
@@ -3017,8 +2998,6 @@ static void list_item$1shortp_finalize(struct list_item$1short* self){
 static void list$1shortp_finalize(struct list$1short* self){
 struct list_item$1short* it_21;
 struct list_item$1short* prev_it_22;
-memset(&it_21, 0, sizeof(struct list_item$1short*));
-memset(&prev_it_22, 0, sizeof(struct list_item$1short*));
     it_21=self->head;
     while(it_21!=((void*)0)) {
         prev_it_22=it_21;
@@ -3054,9 +3033,6 @@ void* __right_value59 = (void*)0;
 struct list_item$1int* litem_26;
 struct list$1int* __result30__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&litem_24, 0, sizeof(struct list_item$1int*));
-memset(&litem_25, 0, sizeof(struct list_item$1int*));
-memset(&litem_26, 0, sizeof(struct list_item$1int*));
     if(self->len==0) {
         litem_24=(struct list_item$1int*)come_increment_ref_count(((struct list_item$1int*)(__right_value57=(struct list_item$1int*)come_calloc(1, sizeof(struct list_item$1int)*(1), "./neo-c.h", 219, "list_item$1int"))));
         come_call_finalizer3(__right_value57,list_item$1intp_finalize, 0, 1, 0, 0, __result_obj__);
@@ -3097,8 +3073,6 @@ static void list_item$1intp_finalize(struct list_item$1int* self){
 static void list$1intp_finalize(struct list$1int* self){
 struct list_item$1int* it_27;
 struct list_item$1int* prev_it_28;
-memset(&it_27, 0, sizeof(struct list_item$1int*));
-memset(&prev_it_28, 0, sizeof(struct list_item$1int*));
     it_27=self->head;
     while(it_27!=((void*)0)) {
         prev_it_28=it_27;
@@ -3134,9 +3108,6 @@ void* __right_value64 = (void*)0;
 struct list_item$1long* litem_32;
 struct list$1long* __result33__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&litem_30, 0, sizeof(struct list_item$1long*));
-memset(&litem_31, 0, sizeof(struct list_item$1long*));
-memset(&litem_32, 0, sizeof(struct list_item$1long*));
     if(self->len==0) {
         litem_30=(struct list_item$1long*)come_increment_ref_count(((struct list_item$1long*)(__right_value62=(struct list_item$1long*)come_calloc(1, sizeof(struct list_item$1long)*(1), "./neo-c.h", 219, "list_item$1long"))));
         come_call_finalizer3(__right_value62,list_item$1longp_finalize, 0, 1, 0, 0, __result_obj__);
@@ -3177,8 +3148,6 @@ static void list_item$1longp_finalize(struct list_item$1long* self){
 static void list$1longp_finalize(struct list$1long* self){
 struct list_item$1long* it_33;
 struct list_item$1long* prev_it_34;
-memset(&it_33, 0, sizeof(struct list_item$1long*));
-memset(&prev_it_34, 0, sizeof(struct list_item$1long*));
     it_33=self->head;
     while(it_33!=((void*)0)) {
         prev_it_34=it_33;
@@ -3214,9 +3183,6 @@ void* __right_value69 = (void*)0;
 struct list_item$1float* litem_38;
 struct list$1float* __result36__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&litem_36, 0, sizeof(struct list_item$1float*));
-memset(&litem_37, 0, sizeof(struct list_item$1float*));
-memset(&litem_38, 0, sizeof(struct list_item$1float*));
     if(self->len==0) {
         litem_36=(struct list_item$1float*)come_increment_ref_count(((struct list_item$1float*)(__right_value67=(struct list_item$1float*)come_calloc(1, sizeof(struct list_item$1float)*(1), "./neo-c.h", 219, "list_item$1float"))));
         come_call_finalizer3(__right_value67,list_item$1floatp_finalize, 0, 1, 0, 0, __result_obj__);
@@ -3257,8 +3223,6 @@ static void list_item$1floatp_finalize(struct list_item$1float* self){
 static void list$1floatp_finalize(struct list$1float* self){
 struct list_item$1float* it_39;
 struct list_item$1float* prev_it_40;
-memset(&it_39, 0, sizeof(struct list_item$1float*));
-memset(&prev_it_40, 0, sizeof(struct list_item$1float*));
     it_39=self->head;
     while(it_39!=((void*)0)) {
         prev_it_40=it_39;
@@ -3294,9 +3258,6 @@ void* __right_value74 = (void*)0;
 struct list_item$1double* litem_44;
 struct list$1double* __result39__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&litem_42, 0, sizeof(struct list_item$1double*));
-memset(&litem_43, 0, sizeof(struct list_item$1double*));
-memset(&litem_44, 0, sizeof(struct list_item$1double*));
     if(self->len==0) {
         litem_42=(struct list_item$1double*)come_increment_ref_count(((struct list_item$1double*)(__right_value72=(struct list_item$1double*)come_calloc(1, sizeof(struct list_item$1double)*(1), "./neo-c.h", 219, "list_item$1double"))));
         come_call_finalizer3(__right_value72,list_item$1doublep_finalize, 0, 1, 0, 0, __result_obj__);
@@ -3337,8 +3298,6 @@ static void list_item$1doublep_finalize(struct list_item$1double* self){
 static void list$1doublep_finalize(struct list$1double* self){
 struct list_item$1double* it_45;
 struct list_item$1double* prev_it_46;
-memset(&it_45, 0, sizeof(struct list_item$1double*));
-memset(&prev_it_46, 0, sizeof(struct list_item$1double*));
     it_45=self->head;
     while(it_45!=((void*)0)) {
         prev_it_46=it_45;
@@ -3442,13 +3401,6 @@ char* __dec_obj36;
 void* __right_value130 = (void*)0;
 struct sType* __dec_obj37;
 _Bool __result76__;
-memset(&type_77, 0, sizeof(struct sType*));
-memset(&come_value_78, 0, sizeof(struct CVALUE*));
-memset(&num_string_79, 0, sizeof(struct buffer*));
-memset(&o2_saved_80, 0, sizeof(struct list$1sNodeph*));
-memset(&it_83, 0, sizeof(struct sNode*));
-memset(&cvalue_86, 0, sizeof(struct CVALUE*));
-memset(&type2_87, 0, sizeof(struct sType*));
     type_77=self->type;
     come_value_78=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(__right_value119=(struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), "21obj.c", 39, "CVALUE"))))));
     come_call_finalizer3(__right_value119,CVALUE_finalize, 0, 1, 0, 0, (void*)0);
@@ -3533,7 +3485,6 @@ void* __right_value116 = (void*)0;
 char* __dec_obj34;
 struct sType* __result64__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_47, 0, sizeof(struct sType*));
     if(self==(void*)0) {
         __result47__ = __result_obj__ = (void*)0;
         return __result47__;
@@ -3748,8 +3699,6 @@ struct list_item$1sTypeph* it_55;
 void* __right_value88 = (void*)0;
 struct list$1sTypeph* __result51__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_54, 0, sizeof(struct list$1sTypeph*));
-memset(&it_55, 0, sizeof(struct list_item$1sTypeph*));
     if(self==((void*)0)) {
         __result48__ = __result_obj__ = ((void*)0);
         return __result48__;
@@ -3782,8 +3731,6 @@ memset(&__result_obj__, 0, sizeof(void*));
 static void list$1sTypephp_finalize(struct list$1sTypeph* self){
 struct list_item$1sTypeph* it_48;
 struct list_item$1sTypeph* prev_it_49;
-memset(&it_48, 0, sizeof(struct list_item$1sTypeph*));
-memset(&prev_it_49, 0, sizeof(struct list_item$1sTypeph*));
     it_48=self->head;
     while(it_48!=((void*)0)) {
         prev_it_49=it_48;
@@ -3849,8 +3796,6 @@ static void tuple1$1sTypephp_finalize(struct tuple1$1sTypeph* self){
 static void list$1sNodephp_finalize(struct list$1sNodeph* self){
 struct list_item$1sNodeph* it_50;
 struct list_item$1sNodeph* prev_it_51;
-memset(&it_50, 0, sizeof(struct list_item$1sNodeph*));
-memset(&prev_it_51, 0, sizeof(struct list_item$1sNodeph*));
     it_50=self->head;
     while(it_50!=((void*)0)) {
         prev_it_51=it_50;
@@ -3868,8 +3813,6 @@ static void list_item$1sNodephp_finalize(struct list_item$1sNodeph* self){
 static void list$1charphp_finalize(struct list$1charph* self){
 struct list_item$1charph* it_52;
 struct list_item$1charph* prev_it_53;
-memset(&it_52, 0, sizeof(struct list_item$1charph*));
-memset(&prev_it_53, 0, sizeof(struct list_item$1charph*));
     it_52=self->head;
     while(it_52!=((void*)0)) {
         prev_it_53=it_52;
@@ -3897,9 +3840,6 @@ struct list_item$1sTypeph* litem_58;
 struct sType* __dec_obj14;
 struct list$1sTypeph* __result50__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&litem_56, 0, sizeof(struct list_item$1sTypeph*));
-memset(&litem_57, 0, sizeof(struct list_item$1sTypeph*));
-memset(&litem_58, 0, sizeof(struct list_item$1sTypeph*));
     if(self->len==0) {
         litem_56=(struct list_item$1sTypeph*)come_increment_ref_count(((struct list_item$1sTypeph*)(__right_value85=(struct list_item$1sTypeph*)come_calloc(1, sizeof(struct list_item$1sTypeph)*(1), "./neo-c.h", 149, "list_item$1sTypeph"))));
         come_call_finalizer3(__right_value85,list_item$1sTypephp_finalize, 0, 1, 0, 0, __result_obj__);
@@ -3944,8 +3884,6 @@ memset(&litem_58, 0, sizeof(struct list_item$1sTypeph*));
 static void list$1sTypeph_finalize(struct list$1sTypeph* self){
 struct list_item$1sTypeph* it_59;
 struct list_item$1sTypeph* prev_it_60;
-memset(&it_59, 0, sizeof(struct list_item$1sTypeph*));
-memset(&prev_it_60, 0, sizeof(struct list_item$1sTypeph*));
     it_59=self->head;
     while(it_59!=((void*)0)) {
         prev_it_60=it_59;
@@ -3963,7 +3901,6 @@ void* __right_value91 = (void*)0;
 struct sType* __dec_obj16;
 struct tuple1$1sTypeph* __result53__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_61, 0, sizeof(struct tuple1$1sTypeph*));
     if(self==(void*)0) {
         __result52__ = __result_obj__ = (void*)0;
         return __result52__;
@@ -3995,8 +3932,6 @@ struct list_item$1sNodeph* it_63;
 void* __right_value102 = (void*)0;
 struct list$1sNodeph* __result59__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_62, 0, sizeof(struct list$1sNodeph*));
-memset(&it_63, 0, sizeof(struct list_item$1sNodeph*));
     if(self==((void*)0)) {
         __result54__ = __result_obj__ = ((void*)0);
         return __result54__;
@@ -4039,9 +3974,6 @@ struct list_item$1sNodeph* litem_66;
 struct sNode* __dec_obj23;
 struct list$1sNodeph* __result56__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&litem_64, 0, sizeof(struct list_item$1sNodeph*));
-memset(&litem_65, 0, sizeof(struct list_item$1sNodeph*));
-memset(&litem_66, 0, sizeof(struct list_item$1sNodeph*));
     if(self->len==0) {
         litem_64=(struct list_item$1sNodeph*)come_increment_ref_count(((struct list_item$1sNodeph*)(__right_value98=(struct list_item$1sNodeph*)come_calloc(1, sizeof(struct list_item$1sNodeph)*(1), "./neo-c.h", 149, "list_item$1sNodeph"))));
         come_call_finalizer3(__right_value98,list_item$1sNodephp_finalize, 0, 1, 0, 0, __result_obj__);
@@ -4090,7 +4022,6 @@ void* __right_value101 = (void*)0;
 struct sNode* result_67;
 struct sNode* __result58__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_67, 0, sizeof(struct sNode*));
     if(self==(void*)0) {
         __result57__ = __result_obj__ = (void*)0;
         return __result57__;
@@ -4128,8 +4059,6 @@ memset(&result_67, 0, sizeof(struct sNode*));
 static void list$1sNodeph_finalize(struct list$1sNodeph* self){
 struct list_item$1sNodeph* it_68;
 struct list_item$1sNodeph* prev_it_69;
-memset(&it_68, 0, sizeof(struct list_item$1sNodeph*));
-memset(&prev_it_69, 0, sizeof(struct list_item$1sNodeph*));
     it_68=self->head;
     while(it_68!=((void*)0)) {
         prev_it_69=it_68;
@@ -4148,8 +4077,6 @@ struct list_item$1charph* it_71;
 void* __right_value110 = (void*)0;
 struct list$1charph* __result63__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_70, 0, sizeof(struct list$1charph*));
-memset(&it_71, 0, sizeof(struct list_item$1charph*));
     if(self==((void*)0)) {
         __result60__ = __result_obj__ = ((void*)0);
         return __result60__;
@@ -4192,9 +4119,6 @@ struct list_item$1charph* litem_74;
 char* __dec_obj28;
 struct list$1charph* __result62__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&litem_72, 0, sizeof(struct list_item$1charph*));
-memset(&litem_73, 0, sizeof(struct list_item$1charph*));
-memset(&litem_74, 0, sizeof(struct list_item$1charph*));
     if(self->len==0) {
         litem_72=(struct list_item$1charph*)come_increment_ref_count(((struct list_item$1charph*)(__right_value107=(struct list_item$1charph*)come_calloc(1, sizeof(struct list_item$1charph)*(1), "./neo-c.h", 149, "list_item$1charph"))));
         come_call_finalizer3(__right_value107,list_item$1charphp_finalize, 0, 1, 0, 0, __result_obj__);
@@ -4239,8 +4163,6 @@ memset(&litem_74, 0, sizeof(struct list_item$1charph*));
 static void list$1charph_finalize(struct list$1charph* self){
 struct list_item$1charph* it_75;
 struct list_item$1charph* prev_it_76;
-memset(&it_75, 0, sizeof(struct list_item$1charph*));
-memset(&prev_it_76, 0, sizeof(struct list_item$1charph*));
     it_75=self->head;
     while(it_75!=((void*)0)) {
         prev_it_76=it_75;
@@ -4321,8 +4243,6 @@ struct list_item$1sNodeph* it_88;
 struct list_item$1sNodeph* prev_it_89;
 struct list$1sNodeph* __result74__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&it_88, 0, sizeof(struct list_item$1sNodeph*));
-memset(&prev_it_89, 0, sizeof(struct list_item$1sNodeph*));
     it_88=self->head;
     while(it_88!=((void*)0)) {
         prev_it_89=it_88;
@@ -4349,9 +4269,6 @@ struct list_item$1CVALUEph* litem_94;
 struct CVALUE* __dec_obj40;
 struct list$1CVALUEph* __result75__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&litem_92, 0, sizeof(struct list_item$1CVALUEph*));
-memset(&litem_93, 0, sizeof(struct list_item$1CVALUEph*));
-memset(&litem_94, 0, sizeof(struct list_item$1CVALUEph*));
     if(self->len==0) {
         litem_92=(struct list_item$1CVALUEph*)come_increment_ref_count(((struct list_item$1CVALUEph*)(__right_value131=(struct list_item$1CVALUEph*)come_calloc(1, sizeof(struct list_item$1CVALUEph)*(1), "./neo-c.h", 219, "list_item$1CVALUEph"))));
         come_call_finalizer3(__right_value131,list_item$1CVALUEphp_finalize, 0, 1, 0, 0, __result_obj__);
@@ -4478,17 +4395,6 @@ struct sType* type3_124;
 void* __right_value156 = (void*)0;
 struct sType* __dec_obj45;
 _Bool __result90__;
-memset(&obj_exp_95, 0, sizeof(struct sNode*));
-memset(&inf_type_96, 0, sizeof(struct sType*));
-memset(&come_value_97, 0, sizeof(struct CVALUE*));
-memset(&type_98, 0, sizeof(struct sType*));
-memset(&klass_99, 0, sizeof(struct sClass*));
-memset(&come_value2_100, 0, sizeof(struct CVALUE*));
-memset(&type2_101, 0, sizeof(struct sType*));
-memset(&typeX_107, 0, sizeof(struct sType*));
-memset(&fun_115, 0, sizeof(struct sFun*));
-memset(&klass2_118, 0, sizeof(struct sClass*));
-memset(&type3_124, 0, sizeof(struct sType*));
     obj_exp_95=(struct sNode*)come_increment_ref_count(sNode_clone(self->obj_exp));
     inf_type_96=(struct sType*)come_increment_ref_count(sType_clone(self->inf_type));
     if(!node_compile(obj_exp_95,info)) {
@@ -4601,7 +4507,6 @@ struct tuple2$2charphsTypeph* __result80__;
 struct tuple2$2charphsTypeph* default_value_111;
 struct tuple2$2charphsTypeph* __result81__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&it_109, 0, sizeof(struct list_item$1tuple2$2charphsTypephph*));
 memset(&default_value_111, 0, sizeof(struct tuple2$2charphsTypeph*));
     if(position<0) {
         position+=self->len;
@@ -4785,8 +4690,6 @@ static void sClass_finalize(struct sClass* self){
 static void list$1tuple2$2charphsTypephphp_finalize(struct list$1tuple2$2charphsTypephph* self){
 struct list_item$1tuple2$2charphsTypephph* it_122;
 struct list_item$1tuple2$2charphsTypephph* prev_it_123;
-memset(&it_122, 0, sizeof(struct list_item$1tuple2$2charphsTypephph*));
-memset(&prev_it_123, 0, sizeof(struct list_item$1tuple2$2charphsTypephph*));
     it_122=self->head;
     while(it_122!=((void*)0)) {
         prev_it_123=it_122;
@@ -4833,7 +4736,6 @@ void* __right_value162 = (void*)0;
 void* __right_value163 = (void*)0;
 struct sType* __dec_obj47;
 _Bool __result93__;
-memset(&come_value_125, 0, sizeof(struct CVALUE*));
     come_value_125=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(__right_value159=(struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), "21obj.c", 211, "CVALUE"))))));
     come_call_finalizer3(__right_value159,CVALUE_finalize, 0, 1, 0, 0, (void*)0);
     __dec_obj46=come_value_125->c_value;
@@ -4883,7 +4785,6 @@ void* __right_value169 = (void*)0;
 void* __right_value170 = (void*)0;
 struct sType* __dec_obj49;
 _Bool __result96__;
-memset(&come_value_126, 0, sizeof(struct CVALUE*));
     come_value_126=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(__right_value166=(struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), "21obj.c", 239, "CVALUE"))))));
     come_call_finalizer3(__right_value166,CVALUE_finalize, 0, 1, 0, 0, (void*)0);
     __dec_obj48=come_value_126->c_value;
@@ -4944,9 +4845,6 @@ void* __right_value179 = (void*)0;
 void* __right_value180 = (void*)0;
 struct sType* __dec_obj52;
 _Bool __result99__;
-memset(&type_127, 0, sizeof(struct sType*));
-memset(&come_value_128, 0, sizeof(struct CVALUE*));
-memset(&type2_129, 0, sizeof(struct sType*));
     type_127=self->type;
     come_value_128=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(__right_value174=(struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), "21obj.c", 271, "CVALUE"))))));
     come_call_finalizer3(__right_value174,CVALUE_finalize, 0, 1, 0, 0, (void*)0);
@@ -5017,9 +4915,6 @@ void* __right_value188 = (void*)0;
 void* __right_value189 = (void*)0;
 struct sType* __dec_obj55;
 _Bool __result104__;
-memset(&exp_131, 0, sizeof(struct sNode*));
-memset(&come_value_132, 0, sizeof(struct CVALUE*));
-memset(&come_value2_133, 0, sizeof(struct CVALUE*));
     exp_131=(struct sNode*)come_increment_ref_count(self->exp);
     if(!node_compile(exp_131,info)) {
         __result103__ = (_Bool)0;
@@ -5091,9 +4986,6 @@ void* __right_value198 = (void*)0;
 void* __right_value199 = (void*)0;
 struct sType* __dec_obj58;
 _Bool __result107__;
-memset(&type_134, 0, sizeof(struct sType*));
-memset(&come_value_135, 0, sizeof(struct CVALUE*));
-memset(&type2_136, 0, sizeof(struct sType*));
     type_134=self->type;
     come_value_135=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(__right_value193=(struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), "21obj.c", 350, "CVALUE"))))));
     come_call_finalizer3(__right_value193,CVALUE_finalize, 0, 1, 0, 0, (void*)0);
@@ -5161,10 +5053,6 @@ void* __right_value208 = (void*)0;
 void* __right_value209 = (void*)0;
 struct sType* __dec_obj61;
 _Bool __result111__;
-memset(&exp_138, 0, sizeof(struct sNode*));
-memset(&come_value_139, 0, sizeof(struct CVALUE*));
-memset(&type_140, 0, sizeof(struct sType*));
-memset(&type2_141, 0, sizeof(struct sType*));
     exp_138=(struct sNode*)come_increment_ref_count(self->exp);
     if(!node_compile(exp_138,info)) {
         __result110__ = (_Bool)0;
@@ -5249,11 +5137,6 @@ void* __right_value223 = (void*)0;
 void* __right_value224 = (void*)0;
 struct sType* __dec_obj66;
 _Bool __result116__;
-memset(&exp_143, 0, sizeof(struct sNode*));
-memset(&come_value_144, 0, sizeof(struct CVALUE*));
-memset(&type_145, 0, sizeof(struct sType*));
-memset(&type2_146, 0, sizeof(struct sType*));
-memset(&come_value2_148, 0, sizeof(struct CVALUE*));
     exp_143=(struct sNode*)come_increment_ref_count(self->exp);
     if(!node_compile(exp_143,info)) {
         __result114__ = (_Bool)0;
@@ -5365,9 +5248,6 @@ void* __right_value233 = (void*)0;
 void* __right_value234 = (void*)0;
 struct sType* __dec_obj69;
 _Bool __result120__;
-memset(&type_149, 0, sizeof(struct sType*));
-memset(&come_value_150, 0, sizeof(struct CVALUE*));
-memset(&type2_151, 0, sizeof(struct sType*));
     type_149=self->type;
     come_value_150=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(__right_value228=(struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), "21obj.c", 489, "CVALUE"))))));
     come_call_finalizer3(__right_value228,CVALUE_finalize, 0, 1, 0, 0, (void*)0);
@@ -5433,9 +5313,6 @@ void* __right_value242 = (void*)0;
 void* __right_value243 = (void*)0;
 struct sType* __dec_obj72;
 _Bool __result124__;
-memset(&exp_153, 0, sizeof(struct sNode*));
-memset(&come_value_154, 0, sizeof(struct CVALUE*));
-memset(&come_value2_155, 0, sizeof(struct CVALUE*));
     exp_153=(struct sNode*)come_increment_ref_count(self->exp);
     if(!node_compile(exp_153,info)) {
         __result123__ = (_Bool)0;
@@ -5507,9 +5384,6 @@ void* __right_value252 = (void*)0;
 void* __right_value253 = (void*)0;
 struct sType* __dec_obj75;
 _Bool __result127__;
-memset(&type_156, 0, sizeof(struct sType*));
-memset(&come_value_157, 0, sizeof(struct CVALUE*));
-memset(&type2_158, 0, sizeof(struct sType*));
     type_156=self->type;
     come_value_157=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(__right_value247=(struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), "21obj.c", 566, "CVALUE"))))));
     come_call_finalizer3(__right_value247,CVALUE_finalize, 0, 1, 0, 0, (void*)0);
@@ -5575,9 +5449,6 @@ void* __right_value261 = (void*)0;
 void* __right_value262 = (void*)0;
 struct sType* __dec_obj78;
 _Bool __result131__;
-memset(&exp_160, 0, sizeof(struct sNode*));
-memset(&come_value_161, 0, sizeof(struct CVALUE*));
-memset(&come_value2_162, 0, sizeof(struct CVALUE*));
     exp_160=(struct sNode*)come_increment_ref_count(self->exp);
     if(!node_compile(exp_160,info)) {
         __result130__ = (_Bool)0;
@@ -5649,9 +5520,6 @@ void* __right_value271 = (void*)0;
 void* __right_value272 = (void*)0;
 struct sType* __dec_obj81;
 _Bool __result134__;
-memset(&type_163, 0, sizeof(struct sType*));
-memset(&come_value_164, 0, sizeof(struct CVALUE*));
-memset(&type2_165, 0, sizeof(struct sType*));
     type_163=self->type;
     come_value_164=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(__right_value266=(struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), "21obj.c", 643, "CVALUE"))))));
     come_call_finalizer3(__right_value266,CVALUE_finalize, 0, 1, 0, 0, (void*)0);
@@ -5717,9 +5585,6 @@ void* __right_value280 = (void*)0;
 void* __right_value281 = (void*)0;
 struct sType* __dec_obj84;
 _Bool __result138__;
-memset(&exp_167, 0, sizeof(struct sNode*));
-memset(&come_value_168, 0, sizeof(struct CVALUE*));
-memset(&come_value2_169, 0, sizeof(struct CVALUE*));
     exp_167=(struct sNode*)come_increment_ref_count(self->exp);
     if(!node_compile(exp_167,info)) {
         __result137__ = (_Bool)0;
@@ -5781,8 +5646,6 @@ struct sNode* node_170;
 void* __right_value285 = (void*)0;
 struct CVALUE* come_value_171;
 _Bool __result141__;
-memset(&node_170, 0, sizeof(struct sNode*));
-memset(&come_value_171, 0, sizeof(struct CVALUE*));
     node_170=self->node;
     if(!node_compile(node_170,info)) {
         return (_Bool)0;
@@ -5828,8 +5691,6 @@ struct sNode* node_172;
 void* __right_value289 = (void*)0;
 struct CVALUE* come_value_173;
 _Bool __result144__;
-memset(&node_172, 0, sizeof(struct sNode*));
-memset(&come_value_173, 0, sizeof(struct CVALUE*));
     node_172=self->node;
     if(!node_compile(node_172,info)) {
         return (_Bool)0;
@@ -5880,8 +5741,6 @@ struct sNode* node_174;
 void* __right_value293 = (void*)0;
 struct CVALUE* come_value_175;
 _Bool __result148__;
-memset(&node_174, 0, sizeof(struct sNode*));
-memset(&come_value_175, 0, sizeof(struct CVALUE*));
     node_174=self->node;
     if(!node_compile(node_174,info)) {
         return (_Bool)0;
@@ -5931,8 +5790,6 @@ struct sNode* node_176;
 void* __right_value297 = (void*)0;
 struct CVALUE* come_value_177;
 _Bool __result151__;
-memset(&node_176, 0, sizeof(struct sNode*));
-memset(&come_value_177, 0, sizeof(struct CVALUE*));
     node_176=self->node;
     if(!node_compile(node_176,info)) {
         return (_Bool)0;
@@ -5988,8 +5845,6 @@ void* __right_value301 = (void*)0;
 struct CVALUE* come_value_179;
 int right_value_id_180;
 _Bool __result155__;
-memset(&node_178, 0, sizeof(struct sNode*));
-memset(&come_value_179, 0, sizeof(struct CVALUE*));
     node_178=self->node;
     if(!node_compile(node_178,info)) {
         return (_Bool)0;
@@ -6052,10 +5907,6 @@ char* __dec_obj91;
 void* __right_value310 = (void*)0;
 struct sType* __dec_obj92;
 _Bool __result158__;
-memset(&node_181, 0, sizeof(struct sNode*));
-memset(&left_value_182, 0, sizeof(struct CVALUE*));
-memset(&left_type_183, 0, sizeof(struct sType*));
-memset(&come_value_184, 0, sizeof(struct CVALUE*));
     node_181=self->node;
     if(!node_compile(node_181,info)) {
         return (_Bool)0;
@@ -6156,10 +6007,6 @@ char* __dec_obj94;
 void* __right_value319 = (void*)0;
 struct sType* __dec_obj95;
 _Bool __result161__;
-memset(&node_187, 0, sizeof(struct sNode*));
-memset(&left_value_188, 0, sizeof(struct CVALUE*));
-memset(&left_type_189, 0, sizeof(struct sType*));
-memset(&come_value_190, 0, sizeof(struct CVALUE*));
     node_187=self->node;
     if(!node_compile(node_187,info)) {
         return (_Bool)0;
@@ -6237,8 +6084,6 @@ struct sNode* node_193;
 void* __right_value323 = (void*)0;
 struct CVALUE* come_value_194;
 _Bool __result164__;
-memset(&node_193, 0, sizeof(struct sNode*));
-memset(&come_value_194, 0, sizeof(struct CVALUE*));
     node_193=self->node;
     if(!node_compile(node_193,info)) {
         return (_Bool)0;
@@ -6290,9 +6135,6 @@ char* type_name_198;
 void* __right_value329 = (void*)0;
 char* __dec_obj98;
 _Bool __result167__;
-memset(&node_195, 0, sizeof(struct sNode*));
-memset(&come_value_196, 0, sizeof(struct CVALUE*));
-memset(&type_197, 0, sizeof(struct sType*));
     node_195=self->node;
     if(!node_compile(node_195,info)) {
         return (_Bool)0;
@@ -6347,9 +6189,6 @@ void* __right_value333 = (void*)0;
 struct CVALUE* come_value_200;
 struct sType* type_201;
 _Bool __result170__;
-memset(&node_199, 0, sizeof(struct sNode*));
-memset(&come_value_200, 0, sizeof(struct CVALUE*));
-memset(&type_201, 0, sizeof(struct sType*));
     node_199=self->node;
     if(!node_compile(node_199,info)) {
         return (_Bool)0;
@@ -6410,9 +6249,6 @@ char* __dec_obj103;
 void* __right_value345 = (void*)0;
 void* __right_value346 = (void*)0;
 struct sType* __dec_obj104;
-memset(&node_202, 0, sizeof(struct sType*));
-memset(&come_value_203, 0, sizeof(struct CVALUE*));
-memset(&come_value_204, 0, sizeof(struct CVALUE*));
     node_202=self->type;
     if(self->type->mHeap) {
         come_value_203=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(__right_value337=(struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), "21obj.c", 1117, "CVALUE"))))));
@@ -6493,9 +6329,6 @@ char* __dec_obj108;
 void* __right_value358 = (void*)0;
 void* __right_value359 = (void*)0;
 struct sType* __dec_obj109;
-memset(&node_205, 0, sizeof(struct sType*));
-memset(&come_value_206, 0, sizeof(struct CVALUE*));
-memset(&come_value_207, 0, sizeof(struct CVALUE*));
     node_205=self->type;
     if(self->type->mPointerNum>0) {
         come_value_206=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(__right_value350=(struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), "21obj.c", 1162, "CVALUE"))))));
@@ -6846,27 +6679,6 @@ struct sNode* __result274__;
 void* __right_value587 = (void*)0;
 struct sNode* __result275__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&inf_type_211, 0, sizeof(struct sType*));
-memset(&node_212, 0, sizeof(struct sNode*));
-memset(&obj_214, 0, sizeof(struct sNode*));
-memset(&node_220, 0, sizeof(struct sNode*));
-memset(&node_222, 0, sizeof(struct sNode*));
-memset(&node_224, 0, sizeof(struct sNode*));
-memset(&node_226, 0, sizeof(struct sNode*));
-memset(&node_228, 0, sizeof(struct sNode*));
-memset(&node_230, 0, sizeof(struct sNode*));
-memset(&node_232, 0, sizeof(struct sNode*));
-memset(&node_234, 0, sizeof(struct sNode*));
-memset(&node_236, 0, sizeof(struct sNode*));
-memset(&node_238, 0, sizeof(struct sNode*));
-memset(&type2_243, 0, sizeof(struct sType*));
-memset(&type2_248, 0, sizeof(struct sType*));
-memset(&node_251, 0, sizeof(struct sNode*));
-memset(&exp_266, 0, sizeof(struct sNode*));
-memset(&exp_277, 0, sizeof(struct sNode*));
-memset(&exp_287, 0, sizeof(struct sNode*));
-memset(&exp_297, 0, sizeof(struct sNode*));
-memset(&exp_307, 0, sizeof(struct sNode*));
     if(charp_operator_equals(buf,"new")) {
         multiple_assign_var4=((struct tuple3$3sTypephcharphbool*)(__right_value360=parse_type(info,(_Bool)0,(_Bool)1,(_Bool)0)));
         type_208=(struct sType*)come_increment_ref_count(multiple_assign_var4->v1);
@@ -7850,7 +7662,6 @@ void* __right_value383 = (void*)0;
 struct sType* __dec_obj116;
 struct sNewNode* __result182__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_217, 0, sizeof(struct sNewNode*));
     if(self==(void*)0) {
         __result181__ = __result_obj__ = (void*)0;
         return __result181__;
@@ -7889,7 +7700,6 @@ void* __right_value388 = (void*)0;
 char* __dec_obj117;
 struct sTrueNode* __result185__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_218, 0, sizeof(struct sTrueNode*));
     if(self==(void*)0) {
         __result184__ = __result_obj__ = (void*)0;
         return __result184__;
@@ -7923,7 +7733,6 @@ void* __right_value393 = (void*)0;
 char* __dec_obj118;
 struct sFalseNode* __result188__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_219, 0, sizeof(struct sFalseNode*));
     if(self==(void*)0) {
         __result187__ = __result_obj__ = (void*)0;
         return __result187__;
@@ -7962,7 +7771,6 @@ void* __right_value400 = (void*)0;
 struct sNode* __dec_obj120;
 struct sDeleteNode* __result191__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_221, 0, sizeof(struct sDeleteNode*));
     if(self==(void*)0) {
         __result190__ = __result_obj__ = (void*)0;
         return __result190__;
@@ -8006,7 +7814,6 @@ void* __right_value407 = (void*)0;
 struct sNode* __dec_obj122;
 struct sForceDeleteNode* __result194__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_223, 0, sizeof(struct sForceDeleteNode*));
     if(self==(void*)0) {
         __result193__ = __result_obj__ = (void*)0;
         return __result193__;
@@ -8050,7 +7857,6 @@ void* __right_value414 = (void*)0;
 struct sNode* __dec_obj124;
 struct sBorrowNode* __result197__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_225, 0, sizeof(struct sBorrowNode*));
     if(self==(void*)0) {
         __result196__ = __result_obj__ = (void*)0;
         return __result196__;
@@ -8094,7 +7900,6 @@ void* __right_value421 = (void*)0;
 struct sNode* __dec_obj126;
 struct sDelegateNode* __result200__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_227, 0, sizeof(struct sDelegateNode*));
     if(self==(void*)0) {
         __result199__ = __result_obj__ = (void*)0;
         return __result199__;
@@ -8138,7 +7943,6 @@ void* __right_value428 = (void*)0;
 struct sNode* __dec_obj128;
 struct sShareNode* __result203__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_229, 0, sizeof(struct sShareNode*));
     if(self==(void*)0) {
         __result202__ = __result_obj__ = (void*)0;
         return __result202__;
@@ -8182,7 +7986,6 @@ void* __right_value435 = (void*)0;
 struct sNode* __dec_obj130;
 struct sCloneNode* __result206__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_231, 0, sizeof(struct sCloneNode*));
     if(self==(void*)0) {
         __result205__ = __result_obj__ = (void*)0;
         return __result205__;
@@ -8226,7 +8029,6 @@ void* __right_value442 = (void*)0;
 struct sNode* __dec_obj132;
 struct sDupeNode* __result209__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_233, 0, sizeof(struct sDupeNode*));
     if(self==(void*)0) {
         __result208__ = __result_obj__ = (void*)0;
         return __result208__;
@@ -8270,7 +8072,6 @@ void* __right_value449 = (void*)0;
 struct sNode* __dec_obj134;
 struct sDummyHeapNode* __result212__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_235, 0, sizeof(struct sDummyHeapNode*));
     if(self==(void*)0) {
         __result211__ = __result_obj__ = (void*)0;
         return __result211__;
@@ -8314,7 +8115,6 @@ void* __right_value456 = (void*)0;
 struct sNode* __dec_obj136;
 struct sGCIncNode* __result215__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_237, 0, sizeof(struct sGCIncNode*));
     if(self==(void*)0) {
         __result214__ = __result_obj__ = (void*)0;
         return __result214__;
@@ -8358,7 +8158,6 @@ void* __right_value463 = (void*)0;
 struct sNode* __dec_obj138;
 struct sGCDecNode* __result218__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_239, 0, sizeof(struct sGCDecNode*));
     if(self==(void*)0) {
         __result217__ = __result_obj__ = (void*)0;
         return __result217__;
@@ -8402,7 +8201,6 @@ void* __right_value471 = (void*)0;
 struct sType* __dec_obj140;
 struct sIsHeap* __result221__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_244, 0, sizeof(struct sIsHeap*));
     if(self==(void*)0) {
         __result220__ = __result_obj__ = (void*)0;
         return __result220__;
@@ -8446,7 +8244,6 @@ void* __right_value479 = (void*)0;
 struct sType* __dec_obj142;
 struct sIsPointer* __result224__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_249, 0, sizeof(struct sIsPointer*));
     if(self==(void*)0) {
         __result223__ = __result_obj__ = (void*)0;
         return __result223__;
@@ -8490,7 +8287,6 @@ void* __right_value518 = (void*)0;
 struct sType* __dec_obj150;
 struct sSizeOfNode* __result246__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_265, 0, sizeof(struct sSizeOfNode*));
     if(self==(void*)0) {
         __result245__ = __result_obj__ = (void*)0;
         return __result245__;
@@ -8534,7 +8330,6 @@ void* __right_value525 = (void*)0;
 struct sNode* __dec_obj152;
 struct sSizeOfExpNode* __result249__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_267, 0, sizeof(struct sSizeOfExpNode*));
     if(self==(void*)0) {
         __result248__ = __result_obj__ = (void*)0;
         return __result248__;
@@ -8578,7 +8373,6 @@ void* __right_value533 = (void*)0;
 struct sType* __dec_obj154;
 struct sTypeOfNode* __result252__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_276, 0, sizeof(struct sTypeOfNode*));
     if(self==(void*)0) {
         __result251__ = __result_obj__ = (void*)0;
         return __result251__;
@@ -8622,7 +8416,6 @@ void* __right_value540 = (void*)0;
 struct sNode* __dec_obj156;
 struct sTypeOfExpNode* __result255__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_278, 0, sizeof(struct sTypeOfExpNode*));
     if(self==(void*)0) {
         __result254__ = __result_obj__ = (void*)0;
         return __result254__;
@@ -8666,7 +8459,6 @@ void* __right_value548 = (void*)0;
 struct sType* __dec_obj158;
 struct sAlignOfNode* __result258__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_286, 0, sizeof(struct sAlignOfNode*));
     if(self==(void*)0) {
         __result257__ = __result_obj__ = (void*)0;
         return __result257__;
@@ -8710,7 +8502,6 @@ void* __right_value555 = (void*)0;
 struct sNode* __dec_obj160;
 struct sAlignOfExpNode* __result261__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_288, 0, sizeof(struct sAlignOfExpNode*));
     if(self==(void*)0) {
         __result260__ = __result_obj__ = (void*)0;
         return __result260__;
@@ -8754,7 +8545,6 @@ void* __right_value563 = (void*)0;
 struct sType* __dec_obj162;
 struct sAlignOfNode2* __result264__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_296, 0, sizeof(struct sAlignOfNode2*));
     if(self==(void*)0) {
         __result263__ = __result_obj__ = (void*)0;
         return __result263__;
@@ -8798,7 +8588,6 @@ void* __right_value570 = (void*)0;
 struct sNode* __dec_obj164;
 struct sAlignOfExpNode2* __result267__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_298, 0, sizeof(struct sAlignOfExpNode2*));
     if(self==(void*)0) {
         __result266__ = __result_obj__ = (void*)0;
         return __result266__;
@@ -8842,7 +8631,6 @@ void* __right_value578 = (void*)0;
 struct sType* __dec_obj166;
 struct sAlignAsNode* __result270__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_306, 0, sizeof(struct sAlignAsNode*));
     if(self==(void*)0) {
         __result269__ = __result_obj__ = (void*)0;
         return __result269__;
@@ -8886,7 +8674,6 @@ void* __right_value585 = (void*)0;
 struct sNode* __dec_obj168;
 struct sAlignAsExpNode* __result273__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_308, 0, sizeof(struct sAlignAsExpNode*));
     if(self==(void*)0) {
         __result272__ = __result_obj__ = (void*)0;
         return __result272__;
@@ -9003,7 +8790,6 @@ void* __right_value591 = (void*)0;
 char* __dec_obj169;
 struct sNothingNode* __result277__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_310, 0, sizeof(struct sNothingNode*));
     if(self==(void*)0) {
         __result276__ = __result_obj__ = (void*)0;
         return __result276__;
@@ -9040,7 +8826,6 @@ struct sNode* __result282__;
 void* __right_value603 = (void*)0;
 struct sNode* __result283__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&inf_type_314, 0, sizeof(struct sType*));
     if(parsecmp("implements",info)) {
         info->p+=strlen("implements");
         skip_spaces_and_lf(info);
@@ -9117,7 +8902,6 @@ void* __right_value601 = (void*)0;
 struct sType* __dec_obj172;
 struct sImplementsNode* __result281__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_315, 0, sizeof(struct sImplementsNode*));
     if(self==(void*)0) {
         __result280__ = __result_obj__ = (void*)0;
         return __result280__;
