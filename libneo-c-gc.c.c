@@ -1652,75 +1652,75 @@ unsigned int GC_get_version();
 
 unsigned long int GC_get_gc_no();
 
-void GC_set_oom_fn(void* (*anonymous_var_nameX502)(unsigned long int));
+void GC_set_oom_fn(void* (*anonymous_var_nameX506)(unsigned long int));
 
 void* (*GC_get_oom_fn())(unsigned long int);
 
-void GC_set_on_heap_resize(void (*anonymous_var_nameX504)(unsigned long int));
+void GC_set_on_heap_resize(void (*anonymous_var_nameX508)(unsigned long int));
 
 void (*GC_get_on_heap_resize())(unsigned long int);
 
-void GC_set_on_collection_event(void (*anonymous_var_nameX506)(enum anonymous_typeY5));
+void GC_set_on_collection_event(void (*anonymous_var_nameX510)(enum anonymous_typeY5));
 
 void (*GC_get_on_collection_event())(enum anonymous_typeY5);
 
-void GC_set_find_leak(int anonymous_var_nameX507);
+void GC_set_find_leak(int anonymous_var_nameX511);
 
 int GC_get_find_leak();
 
-void GC_set_all_interior_pointers(int anonymous_var_nameX508);
+void GC_set_all_interior_pointers(int anonymous_var_nameX512);
 
 int GC_get_all_interior_pointers();
 
-void GC_set_finalize_on_demand(int anonymous_var_nameX509);
+void GC_set_finalize_on_demand(int anonymous_var_nameX513);
 
 int GC_get_finalize_on_demand();
 
-void GC_set_java_finalization(int anonymous_var_nameX510);
+void GC_set_java_finalization(int anonymous_var_nameX514);
 
 int GC_get_java_finalization();
 
-void GC_set_finalizer_notifier(void (*anonymous_var_nameX511)());
+void GC_set_finalizer_notifier(void (*anonymous_var_nameX515)());
 
 void (*GC_get_finalizer_notifier())();
 
-void GC_set_dont_expand(int anonymous_var_nameX512);
+void GC_set_dont_expand(int anonymous_var_nameX516);
 
 int GC_get_dont_expand();
 
-void GC_set_full_freq(int anonymous_var_nameX513);
+void GC_set_full_freq(int anonymous_var_nameX517);
 
 int GC_get_full_freq();
 
-void GC_set_non_gc_bytes(unsigned long int anonymous_var_nameX514);
+void GC_set_non_gc_bytes(unsigned long int anonymous_var_nameX518);
 
 unsigned long int GC_get_non_gc_bytes();
 
-void GC_set_no_dls(int anonymous_var_nameX515);
+void GC_set_no_dls(int anonymous_var_nameX519);
 
 int GC_get_no_dls();
 
-void GC_set_free_space_divisor(unsigned long int anonymous_var_nameX516);
+void GC_set_free_space_divisor(unsigned long int anonymous_var_nameX520);
 
 unsigned long int GC_get_free_space_divisor();
 
-void GC_set_max_retries(unsigned long int anonymous_var_nameX517);
+void GC_set_max_retries(unsigned long int anonymous_var_nameX521);
 
 unsigned long int GC_get_max_retries();
 
-void GC_set_dont_precollect(int anonymous_var_nameX518);
+void GC_set_dont_precollect(int anonymous_var_nameX522);
 
 int GC_get_dont_precollect();
 
-void GC_set_time_limit(unsigned long int anonymous_var_nameX519);
+void GC_set_time_limit(unsigned long int anonymous_var_nameX523);
 
 unsigned long int GC_get_time_limit();
 
-void GC_set_time_limit_tv(struct GC_timeval_s anonymous_var_nameX520);
+void GC_set_time_limit_tv(struct GC_timeval_s anonymous_var_nameX524);
 
 struct GC_timeval_s GC_get_time_limit_tv();
 
-void GC_set_allocd_bytes_per_finalizer(unsigned long int anonymous_var_nameX521);
+void GC_set_allocd_bytes_per_finalizer(unsigned long int anonymous_var_nameX525);
 
 unsigned long int GC_get_allocd_bytes_per_finalizer();
 
@@ -1728,27 +1728,27 @@ void GC_start_performance_measurement();
 
 unsigned long int GC_get_full_gc_total_time();
 
-void GC_set_pages_executable(int anonymous_var_nameX522);
+void GC_set_pages_executable(int anonymous_var_nameX526);
 
 int GC_get_pages_executable();
 
-void GC_set_min_bytes_allocd(unsigned long int anonymous_var_nameX523);
+void GC_set_min_bytes_allocd(unsigned long int anonymous_var_nameX527);
 
 unsigned long int GC_get_min_bytes_allocd();
 
-void GC_set_rate(int anonymous_var_nameX524);
+void GC_set_rate(int anonymous_var_nameX528);
 
 int GC_get_rate();
 
-void GC_set_max_prior_attempts(int anonymous_var_nameX525);
+void GC_set_max_prior_attempts(int anonymous_var_nameX529);
 
 int GC_get_max_prior_attempts();
 
-void GC_set_disable_automatic_collection(int anonymous_var_nameX526);
+void GC_set_disable_automatic_collection(int anonymous_var_nameX530);
 
 int GC_get_disable_automatic_collection();
 
-void GC_set_handle_fork(int anonymous_var_nameX527);
+void GC_set_handle_fork(int anonymous_var_nameX531);
 
 void GC_atfork_prepare();
 
@@ -1762,61 +1762,61 @@ int GC_is_init_called();
 
 void GC_deinit();
 
-void* GC_malloc(unsigned long int anonymous_var_nameX528);
+void* GC_malloc(unsigned long int anonymous_var_nameX532);
 
-void* GC_malloc_atomic(unsigned long int anonymous_var_nameX529);
+void* GC_malloc_atomic(unsigned long int anonymous_var_nameX533);
 
-char* GC_strdup(const char* anonymous_var_nameX530);
+char* GC_strdup(const char* anonymous_var_nameX534);
 
-char* GC_strndup(const char* anonymous_var_nameX531, unsigned long int anonymous_var_nameX532);
+char* GC_strndup(const char* anonymous_var_nameX535, unsigned long int anonymous_var_nameX536);
 
-void* GC_malloc_uncollectable(unsigned long int anonymous_var_nameX533);
+void* GC_malloc_uncollectable(unsigned long int anonymous_var_nameX537);
 
-void* GC_malloc_stubborn(unsigned long int anonymous_var_nameX534);
+void* GC_malloc_stubborn(unsigned long int anonymous_var_nameX538);
 
-void* GC_memalign(unsigned long int anonymous_var_nameX535, unsigned long int anonymous_var_nameX536);
+void* GC_memalign(unsigned long int anonymous_var_nameX539, unsigned long int anonymous_var_nameX540);
 
-int GC_posix_memalign(void** anonymous_var_nameX537, unsigned long int anonymous_var_nameX538, unsigned long int anonymous_var_nameX539);
+int GC_posix_memalign(void** anonymous_var_nameX541, unsigned long int anonymous_var_nameX542, unsigned long int anonymous_var_nameX543);
 
-void GC_free(void* anonymous_var_nameX540);
+void GC_free(void* anonymous_var_nameX544);
 
-void GC_change_stubborn(const void* anonymous_var_nameX541);
+void GC_change_stubborn(const void* anonymous_var_nameX545);
 
-void GC_end_stubborn_change(const void* anonymous_var_nameX542);
+void GC_end_stubborn_change(const void* anonymous_var_nameX546);
 
-void* GC_base(void* anonymous_var_nameX543);
+void* GC_base(void* anonymous_var_nameX547);
 
-int GC_is_heap_ptr(const void* anonymous_var_nameX544);
+int GC_is_heap_ptr(const void* anonymous_var_nameX548);
 
-unsigned long int GC_size(const void* anonymous_var_nameX545);
+unsigned long int GC_size(const void* anonymous_var_nameX549);
 
-void* GC_realloc(void* anonymous_var_nameX546, unsigned long int anonymous_var_nameX547);
+void* GC_realloc(void* anonymous_var_nameX550, unsigned long int anonymous_var_nameX551);
 
-int GC_expand_hp(unsigned long int anonymous_var_nameX548);
+int GC_expand_hp(unsigned long int anonymous_var_nameX552);
 
-void GC_set_max_heap_size(unsigned long int anonymous_var_nameX549);
+void GC_set_max_heap_size(unsigned long int anonymous_var_nameX553);
 
-void GC_exclude_static_roots(void* anonymous_var_nameX550, void* anonymous_var_nameX551);
+void GC_exclude_static_roots(void* anonymous_var_nameX554, void* anonymous_var_nameX555);
 
 void GC_clear_exclusion_table();
 
 void GC_clear_roots();
 
-void GC_add_roots(void* anonymous_var_nameX552, void* anonymous_var_nameX553);
+void GC_add_roots(void* anonymous_var_nameX556, void* anonymous_var_nameX557);
 
-void GC_remove_roots(void* anonymous_var_nameX554, void* anonymous_var_nameX555);
+void GC_remove_roots(void* anonymous_var_nameX558, void* anonymous_var_nameX559);
 
-void GC_register_displacement(unsigned long int anonymous_var_nameX556);
+void GC_register_displacement(unsigned long int anonymous_var_nameX560);
 
-void GC_debug_register_displacement(unsigned long int anonymous_var_nameX557);
+void GC_debug_register_displacement(unsigned long int anonymous_var_nameX561);
 
 void GC_gcollect();
 
 void GC_gcollect_and_unmap();
 
-int GC_try_to_collect(int (*anonymous_var_nameX558)());
+int GC_try_to_collect(int (*anonymous_var_nameX562)());
 
-void GC_set_stop_func(int (*anonymous_var_nameX559)());
+void GC_set_stop_func(int (*anonymous_var_nameX563)());
 
 int (*GC_get_stop_func())();
 
@@ -1834,9 +1834,9 @@ unsigned long int GC_get_total_bytes();
 
 unsigned long int GC_get_obtained_from_os_bytes();
 
-void GC_get_heap_usage_safe(unsigned long int* anonymous_var_nameX560, unsigned long int* anonymous_var_nameX561, unsigned long int* anonymous_var_nameX562, unsigned long int* anonymous_var_nameX563, unsigned long int* anonymous_var_nameX564);
+void GC_get_heap_usage_safe(unsigned long int* anonymous_var_nameX564, unsigned long int* anonymous_var_nameX565, unsigned long int* anonymous_var_nameX566, unsigned long int* anonymous_var_nameX567, unsigned long int* anonymous_var_nameX568);
 
-unsigned long int GC_get_prof_stats(struct GC_prof_stats_s* anonymous_var_nameX565, unsigned long int anonymous_var_nameX566);
+unsigned long int GC_get_prof_stats(struct GC_prof_stats_s* anonymous_var_nameX569, unsigned long int anonymous_var_nameX570);
 
 unsigned long int GC_get_size_map_at(int i);
 
@@ -1848,7 +1848,7 @@ int GC_is_disabled();
 
 void GC_enable();
 
-void GC_set_manual_vdb_allowed(int anonymous_var_nameX567);
+void GC_set_manual_vdb_allowed(int anonymous_var_nameX571);
 
 int GC_get_manual_vdb_allowed();
 
@@ -1862,79 +1862,79 @@ void GC_start_incremental_collection();
 
 int GC_collect_a_little();
 
-void* GC_malloc_ignore_off_page(unsigned long int anonymous_var_nameX568);
+void* GC_malloc_ignore_off_page(unsigned long int anonymous_var_nameX572);
 
-void* GC_malloc_atomic_ignore_off_page(unsigned long int anonymous_var_nameX569);
+void* GC_malloc_atomic_ignore_off_page(unsigned long int anonymous_var_nameX573);
 
-void* GC_malloc_atomic_uncollectable(unsigned long int anonymous_var_nameX570);
+void* GC_malloc_atomic_uncollectable(unsigned long int anonymous_var_nameX574);
 
-void* GC_debug_malloc_atomic_uncollectable(unsigned long int anonymous_var_nameX571, unsigned long int ra, const char* s, int i);
+void* GC_debug_malloc_atomic_uncollectable(unsigned long int anonymous_var_nameX575, unsigned long int ra, const char* s, int i);
 
-void* GC_debug_malloc(unsigned long int anonymous_var_nameX572, unsigned long int ra, const char* s, int i);
+void* GC_debug_malloc(unsigned long int anonymous_var_nameX576, unsigned long int ra, const char* s, int i);
 
-void* GC_debug_malloc_atomic(unsigned long int anonymous_var_nameX573, unsigned long int ra, const char* s, int i);
+void* GC_debug_malloc_atomic(unsigned long int anonymous_var_nameX577, unsigned long int ra, const char* s, int i);
 
-char* GC_debug_strdup(const char* anonymous_var_nameX574, unsigned long int ra, const char* s, int i);
+char* GC_debug_strdup(const char* anonymous_var_nameX578, unsigned long int ra, const char* s, int i);
 
-char* GC_debug_strndup(const char* anonymous_var_nameX575, unsigned long int anonymous_var_nameX576, unsigned long int ra, const char* s, int i);
+char* GC_debug_strndup(const char* anonymous_var_nameX579, unsigned long int anonymous_var_nameX580, unsigned long int ra, const char* s, int i);
 
-void* GC_debug_malloc_uncollectable(unsigned long int anonymous_var_nameX577, unsigned long int ra, const char* s, int i);
+void* GC_debug_malloc_uncollectable(unsigned long int anonymous_var_nameX581, unsigned long int ra, const char* s, int i);
 
-void* GC_debug_malloc_stubborn(unsigned long int anonymous_var_nameX578, unsigned long int ra, const char* s, int i);
+void* GC_debug_malloc_stubborn(unsigned long int anonymous_var_nameX582, unsigned long int ra, const char* s, int i);
 
-void* GC_debug_malloc_ignore_off_page(unsigned long int anonymous_var_nameX579, unsigned long int ra, const char* s, int i);
+void* GC_debug_malloc_ignore_off_page(unsigned long int anonymous_var_nameX583, unsigned long int ra, const char* s, int i);
 
-void* GC_debug_malloc_atomic_ignore_off_page(unsigned long int anonymous_var_nameX580, unsigned long int ra, const char* s, int i);
+void* GC_debug_malloc_atomic_ignore_off_page(unsigned long int anonymous_var_nameX584, unsigned long int ra, const char* s, int i);
 
-void GC_debug_free(void* anonymous_var_nameX581);
+void GC_debug_free(void* anonymous_var_nameX585);
 
-void* GC_debug_realloc(void* anonymous_var_nameX582, unsigned long int anonymous_var_nameX583, unsigned long int ra, const char* s, int i);
+void* GC_debug_realloc(void* anonymous_var_nameX586, unsigned long int anonymous_var_nameX587, unsigned long int ra, const char* s, int i);
 
-void GC_debug_change_stubborn(const void* anonymous_var_nameX584);
+void GC_debug_change_stubborn(const void* anonymous_var_nameX588);
 
-void GC_debug_end_stubborn_change(const void* anonymous_var_nameX585);
+void GC_debug_end_stubborn_change(const void* anonymous_var_nameX589);
 
-void* GC_debug_malloc_replacement(unsigned long int anonymous_var_nameX586);
+void* GC_debug_malloc_replacement(unsigned long int anonymous_var_nameX590);
 
-void* GC_debug_realloc_replacement(void* anonymous_var_nameX587, unsigned long int anonymous_var_nameX588);
+void* GC_debug_realloc_replacement(void* anonymous_var_nameX591, unsigned long int anonymous_var_nameX592);
 
-void GC_register_finalizer(void* anonymous_var_nameX591, void (*anonymous_var_nameX592)(void*,void*), void* anonymous_var_nameX593, void (*anonymous_var_nameX594)(void*,void*), void** anonymous_var_nameX595);
+void GC_register_finalizer(void* anonymous_var_nameX595, void (*anonymous_var_nameX596)(void*,void*), void* anonymous_var_nameX597, void (*anonymous_var_nameX598)(void*,void*), void** anonymous_var_nameX599);
 
-void GC_debug_register_finalizer(void* anonymous_var_nameX596, void (*anonymous_var_nameX597)(void*,void*), void* anonymous_var_nameX598, void (*anonymous_var_nameX599)(void*,void*), void** anonymous_var_nameX600);
+void GC_debug_register_finalizer(void* anonymous_var_nameX600, void (*anonymous_var_nameX601)(void*,void*), void* anonymous_var_nameX602, void (*anonymous_var_nameX603)(void*,void*), void** anonymous_var_nameX604);
 
-void GC_register_finalizer_ignore_self(void* anonymous_var_nameX601, void (*anonymous_var_nameX602)(void*,void*), void* anonymous_var_nameX603, void (*anonymous_var_nameX604)(void*,void*), void** anonymous_var_nameX605);
+void GC_register_finalizer_ignore_self(void* anonymous_var_nameX605, void (*anonymous_var_nameX606)(void*,void*), void* anonymous_var_nameX607, void (*anonymous_var_nameX608)(void*,void*), void** anonymous_var_nameX609);
 
-void GC_debug_register_finalizer_ignore_self(void* anonymous_var_nameX606, void (*anonymous_var_nameX607)(void*,void*), void* anonymous_var_nameX608, void (*anonymous_var_nameX609)(void*,void*), void** anonymous_var_nameX610);
+void GC_debug_register_finalizer_ignore_self(void* anonymous_var_nameX610, void (*anonymous_var_nameX611)(void*,void*), void* anonymous_var_nameX612, void (*anonymous_var_nameX613)(void*,void*), void** anonymous_var_nameX614);
 
-void GC_register_finalizer_no_order(void* anonymous_var_nameX611, void (*anonymous_var_nameX612)(void*,void*), void* anonymous_var_nameX613, void (*anonymous_var_nameX614)(void*,void*), void** anonymous_var_nameX615);
+void GC_register_finalizer_no_order(void* anonymous_var_nameX615, void (*anonymous_var_nameX616)(void*,void*), void* anonymous_var_nameX617, void (*anonymous_var_nameX618)(void*,void*), void** anonymous_var_nameX619);
 
-void GC_debug_register_finalizer_no_order(void* anonymous_var_nameX616, void (*anonymous_var_nameX617)(void*,void*), void* anonymous_var_nameX618, void (*anonymous_var_nameX619)(void*,void*), void** anonymous_var_nameX620);
+void GC_debug_register_finalizer_no_order(void* anonymous_var_nameX620, void (*anonymous_var_nameX621)(void*,void*), void* anonymous_var_nameX622, void (*anonymous_var_nameX623)(void*,void*), void** anonymous_var_nameX624);
 
-void GC_register_finalizer_unreachable(void* anonymous_var_nameX621, void (*anonymous_var_nameX622)(void*,void*), void* anonymous_var_nameX623, void (*anonymous_var_nameX624)(void*,void*), void** anonymous_var_nameX625);
+void GC_register_finalizer_unreachable(void* anonymous_var_nameX625, void (*anonymous_var_nameX626)(void*,void*), void* anonymous_var_nameX627, void (*anonymous_var_nameX628)(void*,void*), void** anonymous_var_nameX629);
 
-void GC_debug_register_finalizer_unreachable(void* anonymous_var_nameX626, void (*anonymous_var_nameX627)(void*,void*), void* anonymous_var_nameX628, void (*anonymous_var_nameX629)(void*,void*), void** anonymous_var_nameX630);
+void GC_debug_register_finalizer_unreachable(void* anonymous_var_nameX630, void (*anonymous_var_nameX631)(void*,void*), void* anonymous_var_nameX632, void (*anonymous_var_nameX633)(void*,void*), void** anonymous_var_nameX634);
 
-int GC_register_disappearing_link(void** anonymous_var_nameX631);
+int GC_register_disappearing_link(void** anonymous_var_nameX635);
 
-int GC_general_register_disappearing_link(void** anonymous_var_nameX632, const void* anonymous_var_nameX633);
+int GC_general_register_disappearing_link(void** anonymous_var_nameX636, const void* anonymous_var_nameX637);
 
-int GC_move_disappearing_link(void** anonymous_var_nameX634, void** anonymous_var_nameX635);
+int GC_move_disappearing_link(void** anonymous_var_nameX638, void** anonymous_var_nameX639);
 
-int GC_unregister_disappearing_link(void** anonymous_var_nameX636);
+int GC_unregister_disappearing_link(void** anonymous_var_nameX640);
 
-int GC_register_long_link(void** anonymous_var_nameX637, const void* anonymous_var_nameX638);
+int GC_register_long_link(void** anonymous_var_nameX641, const void* anonymous_var_nameX642);
 
-int GC_move_long_link(void** anonymous_var_nameX639, void** anonymous_var_nameX640);
+int GC_move_long_link(void** anonymous_var_nameX643, void** anonymous_var_nameX644);
 
-int GC_unregister_long_link(void** anonymous_var_nameX641);
+int GC_unregister_long_link(void** anonymous_var_nameX645);
 
-void GC_set_toggleref_func(enum anonymous_typeY6 (*anonymous_var_nameX643)(void*));
+void GC_set_toggleref_func(enum anonymous_typeY6 (*anonymous_var_nameX647)(void*));
 
 enum anonymous_typeY6 (*GC_get_toggleref_func())(void*);
 
-int GC_toggleref_add(void* anonymous_var_nameX644, int anonymous_var_nameX645);
+int GC_toggleref_add(void* anonymous_var_nameX648, int anonymous_var_nameX649);
 
-void GC_set_await_finalize_proc(void (*anonymous_var_nameX647)(void*));
+void GC_set_await_finalize_proc(void (*anonymous_var_nameX651)(void*));
 
 void (*GC_get_await_finalize_proc())(void*);
 
@@ -1942,65 +1942,65 @@ int GC_should_invoke_finalizers();
 
 int GC_invoke_finalizers();
 
-void GC_noop1(unsigned long int anonymous_var_nameX648);
+void GC_noop1(unsigned long int anonymous_var_nameX652);
 
-void GC_set_warn_proc(void (*anonymous_var_nameX651)(char*,unsigned long int));
+void GC_set_warn_proc(void (*anonymous_var_nameX655)(char*,unsigned long int));
 
 void (*GC_get_warn_proc())(char*,unsigned long int);
 
-void GC_ignore_warn_proc(char* anonymous_var_nameX652, unsigned long int anonymous_var_nameX653);
+void GC_ignore_warn_proc(char* anonymous_var_nameX656, unsigned long int anonymous_var_nameX657);
 
-void GC_set_log_fd(int anonymous_var_nameX654);
+void GC_set_log_fd(int anonymous_var_nameX658);
 
-void GC_set_abort_func(void (*anonymous_var_nameX656)(const char*));
+void GC_set_abort_func(void (*anonymous_var_nameX660)(const char*));
 
 void (*GC_get_abort_func())(const char*);
 
 void GC_abort_on_oom();
 
-void* GC_call_with_alloc_lock(void* (*anonymous_var_nameX658)(void*), void* anonymous_var_nameX659);
+void* GC_call_with_alloc_lock(void* (*anonymous_var_nameX662)(void*), void* anonymous_var_nameX663);
 
-void* GC_call_with_stack_base(void* (*anonymous_var_nameX662)(struct GC_stack_base*,void*), void* anonymous_var_nameX663);
+void* GC_call_with_stack_base(void* (*anonymous_var_nameX666)(struct GC_stack_base*,void*), void* anonymous_var_nameX667);
 
 void GC_start_mark_threads();
 
-void* GC_do_blocking(void* (*anonymous_var_nameX664)(void*), void* anonymous_var_nameX665);
+void* GC_do_blocking(void* (*anonymous_var_nameX668)(void*), void* anonymous_var_nameX669);
 
-void* GC_call_with_gc_active(void* (*anonymous_var_nameX666)(void*), void* anonymous_var_nameX667);
+void* GC_call_with_gc_active(void* (*anonymous_var_nameX670)(void*), void* anonymous_var_nameX671);
 
-int GC_get_stack_base(struct GC_stack_base* anonymous_var_nameX668);
+int GC_get_stack_base(struct GC_stack_base* anonymous_var_nameX672);
 
-void* GC_get_my_stackbottom(struct GC_stack_base* anonymous_var_nameX669);
+void* GC_get_my_stackbottom(struct GC_stack_base* anonymous_var_nameX673);
 
-void GC_set_stackbottom(void* anonymous_var_nameX670, const struct GC_stack_base* anonymous_var_nameX671);
+void GC_set_stackbottom(void* anonymous_var_nameX674, const struct GC_stack_base* anonymous_var_nameX675);
 
-void* GC_same_obj(void* anonymous_var_nameX672, void* anonymous_var_nameX673);
+void* GC_same_obj(void* anonymous_var_nameX676, void* anonymous_var_nameX677);
 
-void* GC_pre_incr(void** anonymous_var_nameX674, long anonymous_var_nameX675);
+void* GC_pre_incr(void** anonymous_var_nameX678, long anonymous_var_nameX679);
 
-void* GC_post_incr(void** anonymous_var_nameX676, long anonymous_var_nameX677);
+void* GC_post_incr(void** anonymous_var_nameX680, long anonymous_var_nameX681);
 
-void* GC_is_visible(void* anonymous_var_nameX678);
+void* GC_is_visible(void* anonymous_var_nameX682);
 
-void* GC_is_valid_displacement(void* anonymous_var_nameX679);
+void* GC_is_valid_displacement(void* anonymous_var_nameX683);
 
 void GC_dump();
 
-void GC_dump_named(const char* anonymous_var_nameX680);
+void GC_dump_named(const char* anonymous_var_nameX684);
 
 void GC_dump_regions();
 
 void GC_dump_finalization();
 
-void GC_ptr_store_and_dirty(void* anonymous_var_nameX681, const void* anonymous_var_nameX682);
+void GC_ptr_store_and_dirty(void* anonymous_var_nameX685, const void* anonymous_var_nameX686);
 
-void GC_debug_ptr_store_and_dirty(void* anonymous_var_nameX683, const void* anonymous_var_nameX684);
+void GC_debug_ptr_store_and_dirty(void* anonymous_var_nameX687, const void* anonymous_var_nameX688);
 
-void* GC_malloc_many(unsigned long int anonymous_var_nameX705);
+void* GC_malloc_many(unsigned long int anonymous_var_nameX709);
 
-void GC_register_has_static_roots_callback(int (*anonymous_var_nameX709)(const char*,void*,unsigned long int));
+void GC_register_has_static_roots_callback(int (*anonymous_var_nameX713)(const char*,void*,unsigned long int));
 
-void GC_set_force_unmap_on_gcollect(int anonymous_var_nameX710);
+void GC_set_force_unmap_on_gcollect(int anonymous_var_nameX714);
 
 int GC_get_force_unmap_on_gcollect();
 
@@ -2386,7 +2386,7 @@ static inline struct buffer* charpa_to_buffer(char* self, unsigned long int len)
 void* __result_obj__=(void*)0;
 struct buffer* result_0;
 struct buffer* __result1__;
-    result_0=buffer_initialize((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "./neo-c.h", 1899, "buffer"));
+    result_0=buffer_initialize((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "./neo-c.h", 2111, "buffer"));
     buffer_append(result_0,self,sizeof(char)*len);
     __result1__ = __result_obj__ = result_0;
     return __result1__;
@@ -2395,7 +2395,7 @@ static inline struct buffer* shortpa_to_buffer(short short* self, unsigned long 
 void* __result_obj__=(void*)0;
 struct buffer* result_1;
 struct buffer* __result2__;
-    result_1=buffer_initialize((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "./neo-c.h", 1906, "buffer"));
+    result_1=buffer_initialize((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "./neo-c.h", 2118, "buffer"));
     buffer_append(result_1,(char*)self,sizeof(short short)*len);
     __result2__ = __result_obj__ = result_1;
     return __result2__;
@@ -2404,7 +2404,7 @@ static inline struct buffer* intpa_to_buffer(int* self, unsigned long int len){
 void* __result_obj__=(void*)0;
 struct buffer* result_2;
 struct buffer* __result3__;
-    result_2=buffer_initialize((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "./neo-c.h", 1913, "buffer"));
+    result_2=buffer_initialize((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "./neo-c.h", 2125, "buffer"));
     buffer_append(result_2,(char*)self,sizeof(int)*len);
     __result3__ = __result_obj__ = result_2;
     return __result3__;
@@ -2413,7 +2413,7 @@ static inline struct buffer* longpa_to_buffer(long* self, unsigned long int len)
 void* __result_obj__=(void*)0;
 struct buffer* result_3;
 struct buffer* __result4__;
-    result_3=buffer_initialize((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "./neo-c.h", 1920, "buffer"));
+    result_3=buffer_initialize((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "./neo-c.h", 2132, "buffer"));
     buffer_append(result_3,(char*)self,sizeof(long)*len);
     __result4__ = __result_obj__ = result_3;
     return __result4__;
@@ -2422,7 +2422,7 @@ static inline struct buffer* floatpa_to_buffer(float* self, unsigned long int le
 void* __result_obj__=(void*)0;
 struct buffer* result_4;
 struct buffer* __result5__;
-    result_4=buffer_initialize((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "./neo-c.h", 1927, "buffer"));
+    result_4=buffer_initialize((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "./neo-c.h", 2139, "buffer"));
     buffer_append(result_4,(char*)self,sizeof(float)*len);
     __result5__ = __result_obj__ = result_4;
     return __result5__;
@@ -2431,7 +2431,7 @@ static inline struct buffer* doublepa_to_buffer(double* self, unsigned long int 
 void* __result_obj__=(void*)0;
 struct buffer* result_5;
 struct buffer* __result6__;
-    result_5=buffer_initialize((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "./neo-c.h", 1934, "buffer"));
+    result_5=buffer_initialize((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "./neo-c.h", 2146, "buffer"));
     buffer_append(result_5,(char*)self,sizeof(double)*len);
     __result6__ = __result_obj__ = result_5;
     return __result6__;
@@ -2440,7 +2440,7 @@ static inline struct smart_pointer$1char* buffer_to_pointer(struct buffer* self)
 void* __result_obj__=(void*)0;
 struct smart_pointer$1char* result_6;
 struct smart_pointer$1char* __result7__;
-    result_6=(struct smart_pointer$1char*)come_calloc(1, sizeof(struct smart_pointer$1char)*(1), "./neo-c.h", 1950, "smart_pointer$1char");
+    result_6=(struct smart_pointer$1char*)come_calloc(1, sizeof(struct smart_pointer$1char)*(1), "./neo-c.h", 2162, "smart_pointer$1char");
     result_6->memory=buffer_clone(self);
     result_6->p=result_6->memory->buf;
     __result7__ = __result_obj__ = result_6;
@@ -2450,7 +2450,7 @@ static inline struct smart_pointer$1char* buffer_to_char_pointer(struct buffer* 
 void* __result_obj__=(void*)0;
 struct smart_pointer$1char* result_7;
 struct smart_pointer$1char* __result8__;
-    result_7=(struct smart_pointer$1char*)come_calloc(1, sizeof(struct smart_pointer$1char)*(1), "./neo-c.h", 1960, "smart_pointer$1char");
+    result_7=(struct smart_pointer$1char*)come_calloc(1, sizeof(struct smart_pointer$1char)*(1), "./neo-c.h", 2172, "smart_pointer$1char");
     result_7->memory=buffer_clone(self);
     result_7->p=(char*)result_7->memory->buf;
     __result8__ = __result_obj__ = result_7;
@@ -2460,7 +2460,7 @@ static inline struct smart_pointer$1short* buffer_to_short_pointer(struct buffer
 void* __result_obj__=(void*)0;
 struct smart_pointer$1short* result_8;
 struct smart_pointer$1short* __result9__;
-    result_8=(struct smart_pointer$1short*)come_calloc(1, sizeof(struct smart_pointer$1short)*(1), "./neo-c.h", 1970, "smart_pointer$1short");
+    result_8=(struct smart_pointer$1short*)come_calloc(1, sizeof(struct smart_pointer$1short)*(1), "./neo-c.h", 2182, "smart_pointer$1short");
     result_8->memory=buffer_clone(self);
     result_8->p=(short short*)result_8->memory->buf;
     __result9__ = __result_obj__ = result_8;
@@ -2470,7 +2470,7 @@ static inline struct smart_pointer$1int* buffer_to_int_pointer(struct buffer* se
 void* __result_obj__=(void*)0;
 struct smart_pointer$1int* result_9;
 struct smart_pointer$1int* __result10__;
-    result_9=(struct smart_pointer$1int*)come_calloc(1, sizeof(struct smart_pointer$1int)*(1), "./neo-c.h", 1980, "smart_pointer$1int");
+    result_9=(struct smart_pointer$1int*)come_calloc(1, sizeof(struct smart_pointer$1int)*(1), "./neo-c.h", 2192, "smart_pointer$1int");
     result_9->memory=buffer_clone(self);
     result_9->p=(int*)result_9->memory->buf;
     __result10__ = __result_obj__ = result_9;
@@ -2480,7 +2480,7 @@ static inline struct smart_pointer$1long* buffer_to_long_pointer(struct buffer* 
 void* __result_obj__=(void*)0;
 struct smart_pointer$1long* result_10;
 struct smart_pointer$1long* __result11__;
-    result_10=(struct smart_pointer$1long*)come_calloc(1, sizeof(struct smart_pointer$1long)*(1), "./neo-c.h", 1990, "smart_pointer$1long");
+    result_10=(struct smart_pointer$1long*)come_calloc(1, sizeof(struct smart_pointer$1long)*(1), "./neo-c.h", 2202, "smart_pointer$1long");
     result_10->memory=buffer_clone(self);
     result_10->p=(long*)result_10->memory->buf;
     __result11__ = __result_obj__ = result_10;
@@ -2489,73 +2489,73 @@ struct smart_pointer$1long* __result11__;
 static inline struct smart_pointer$1char* charpa_to_pointer(char* self, unsigned long int len){
 void* __result_obj__=(void*)0;
 struct smart_pointer$1char* __result13__;
-    __result13__ = __result_obj__ = smart_pointer$1char_initialize((struct smart_pointer$1char*)come_calloc(1, sizeof(struct smart_pointer$1char)*(1), "./neo-c.h", 2161, "smart_pointer$1char"),self,len);
+    __result13__ = __result_obj__ = smart_pointer$1char_initialize((struct smart_pointer$1char*)come_calloc(1, sizeof(struct smart_pointer$1char)*(1), "./neo-c.h", 2373, "smart_pointer$1char"),self,len);
     return __result13__;
 }
 static inline struct smart_pointer$1short* shortpa_to_pointer(short short* self, unsigned long int len){
 void* __result_obj__=(void*)0;
 struct smart_pointer$1short* __result15__;
-    __result15__ = __result_obj__ = smart_pointer$1short_initialize((struct smart_pointer$1short*)come_calloc(1, sizeof(struct smart_pointer$1short)*(1), "./neo-c.h", 2166, "smart_pointer$1short"),self,len);
+    __result15__ = __result_obj__ = smart_pointer$1short_initialize((struct smart_pointer$1short*)come_calloc(1, sizeof(struct smart_pointer$1short)*(1), "./neo-c.h", 2378, "smart_pointer$1short"),self,len);
     return __result15__;
 }
 static inline struct smart_pointer$1int* intpa_to_pointer(int* self, unsigned long int len){
 void* __result_obj__=(void*)0;
 struct smart_pointer$1int* __result17__;
-    __result17__ = __result_obj__ = smart_pointer$1int_initialize((struct smart_pointer$1int*)come_calloc(1, sizeof(struct smart_pointer$1int)*(1), "./neo-c.h", 2171, "smart_pointer$1int"),self,len);
+    __result17__ = __result_obj__ = smart_pointer$1int_initialize((struct smart_pointer$1int*)come_calloc(1, sizeof(struct smart_pointer$1int)*(1), "./neo-c.h", 2383, "smart_pointer$1int"),self,len);
     return __result17__;
 }
 static inline struct smart_pointer$1long* longpa_to_pointer(long* self, unsigned long int len){
 void* __result_obj__=(void*)0;
 struct smart_pointer$1long* __result19__;
-    __result19__ = __result_obj__ = smart_pointer$1long_initialize((struct smart_pointer$1long*)come_calloc(1, sizeof(struct smart_pointer$1long)*(1), "./neo-c.h", 2176, "smart_pointer$1long"),self,len);
+    __result19__ = __result_obj__ = smart_pointer$1long_initialize((struct smart_pointer$1long*)come_calloc(1, sizeof(struct smart_pointer$1long)*(1), "./neo-c.h", 2388, "smart_pointer$1long"),self,len);
     return __result19__;
 }
 static inline struct smart_pointer$1float* floatpa_to_pointer(float* self, unsigned long int len){
 void* __result_obj__=(void*)0;
 struct smart_pointer$1float* __result21__;
-    __result21__ = __result_obj__ = smart_pointer$1float_initialize((struct smart_pointer$1float*)come_calloc(1, sizeof(struct smart_pointer$1float)*(1), "./neo-c.h", 2181, "smart_pointer$1float"),self,len);
+    __result21__ = __result_obj__ = smart_pointer$1float_initialize((struct smart_pointer$1float*)come_calloc(1, sizeof(struct smart_pointer$1float)*(1), "./neo-c.h", 2393, "smart_pointer$1float"),self,len);
     return __result21__;
 }
 static inline struct smart_pointer$1double* doublepa_to_pointer(double* self, unsigned long int len){
 void* __result_obj__=(void*)0;
 struct smart_pointer$1double* __result23__;
-    __result23__ = __result_obj__ = smart_pointer$1double_initialize((struct smart_pointer$1double*)come_calloc(1, sizeof(struct smart_pointer$1double)*(1), "./neo-c.h", 2186, "smart_pointer$1double"),self,len);
+    __result23__ = __result_obj__ = smart_pointer$1double_initialize((struct smart_pointer$1double*)come_calloc(1, sizeof(struct smart_pointer$1double)*(1), "./neo-c.h", 2398, "smart_pointer$1double"),self,len);
     return __result23__;
 }
 static inline struct list$1char* charpa_to_list(char* self, unsigned long int len){
 void* __result_obj__=(void*)0;
 struct list$1char* __result26__;
-    __result26__ = __result_obj__ = list$1char_initialize_with_values((struct list$1char*)come_calloc(1, sizeof(struct list$1char)*(1), "./neo-c.h", 2191, "list$1char"),len,self);
+    __result26__ = __result_obj__ = list$1char_initialize_with_values((struct list$1char*)come_calloc(1, sizeof(struct list$1char)*(1), "./neo-c.h", 2403, "list$1char"),len,self);
     return __result26__;
 }
 static inline struct list$1short* shortpa_to_list(short short* self, unsigned long int len){
 void* __result_obj__=(void*)0;
 struct list$1short* __result29__;
-    __result29__ = __result_obj__ = list$1short_initialize_with_values((struct list$1short*)come_calloc(1, sizeof(struct list$1short)*(1), "./neo-c.h", 2196, "list$1short"),len,self);
+    __result29__ = __result_obj__ = list$1short_initialize_with_values((struct list$1short*)come_calloc(1, sizeof(struct list$1short)*(1), "./neo-c.h", 2408, "list$1short"),len,self);
     return __result29__;
 }
 static inline struct list$1int* intpa_to_list(int* self, unsigned long int len){
 void* __result_obj__=(void*)0;
 struct list$1int* __result32__;
-    __result32__ = __result_obj__ = list$1int_initialize_with_values((struct list$1int*)come_calloc(1, sizeof(struct list$1int)*(1), "./neo-c.h", 2201, "list$1int"),len,self);
+    __result32__ = __result_obj__ = list$1int_initialize_with_values((struct list$1int*)come_calloc(1, sizeof(struct list$1int)*(1), "./neo-c.h", 2413, "list$1int"),len,self);
     return __result32__;
 }
 static inline struct list$1long* longpa_to_list(long* self, unsigned long int len){
 void* __result_obj__=(void*)0;
 struct list$1long* __result35__;
-    __result35__ = __result_obj__ = list$1long_initialize_with_values((struct list$1long*)come_calloc(1, sizeof(struct list$1long)*(1), "./neo-c.h", 2206, "list$1long"),len,self);
+    __result35__ = __result_obj__ = list$1long_initialize_with_values((struct list$1long*)come_calloc(1, sizeof(struct list$1long)*(1), "./neo-c.h", 2418, "list$1long"),len,self);
     return __result35__;
 }
 static inline struct list$1float* floatpa_to_list(float* self, unsigned long int len){
 void* __result_obj__=(void*)0;
 struct list$1float* __result38__;
-    __result38__ = __result_obj__ = list$1float_initialize_with_values((struct list$1float*)come_calloc(1, sizeof(struct list$1float)*(1), "./neo-c.h", 2211, "list$1float"),len,self);
+    __result38__ = __result_obj__ = list$1float_initialize_with_values((struct list$1float*)come_calloc(1, sizeof(struct list$1float)*(1), "./neo-c.h", 2423, "list$1float"),len,self);
     return __result38__;
 }
 static inline struct list$1double* doublepa_to_list(double* self, unsigned long int len){
 void* __result_obj__=(void*)0;
 struct list$1double* __result41__;
-    __result41__ = __result_obj__ = list$1double_initialize_with_values((struct list$1double*)come_calloc(1, sizeof(struct list$1double)*(1), "./neo-c.h", 2216, "list$1double"),len,self);
+    __result41__ = __result_obj__ = list$1double_initialize_with_values((struct list$1double*)come_calloc(1, sizeof(struct list$1double)*(1), "./neo-c.h", 2428, "list$1double"),len,self);
     return __result41__;
 }
 static inline unsigned long int charpa_length(char* self, unsigned long int len){
@@ -2612,7 +2612,7 @@ char* __result44__;
 static struct smart_pointer$1char* smart_pointer$1char_initialize(struct smart_pointer$1char* self, void* memory, int size){
 void* __result_obj__=(void*)0;
 struct smart_pointer$1char* __result12__;
-    self->memory=buffer_initialize((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "./neo-c.h", 2002, "buffer"));
+    self->memory=buffer_initialize((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "./neo-c.h", 2214, "buffer"));
     buffer_append(self->memory,memory,sizeof(char)*size);
     self->p=(char*)self->memory->buf;
     __result12__ = __result_obj__ = self;
@@ -2623,7 +2623,7 @@ struct smart_pointer$1char* __result12__;
 static struct smart_pointer$1short* smart_pointer$1short_initialize(struct smart_pointer$1short* self, void* memory, int size){
 void* __result_obj__=(void*)0;
 struct smart_pointer$1short* __result14__;
-    self->memory=buffer_initialize((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "./neo-c.h", 2002, "buffer"));
+    self->memory=buffer_initialize((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "./neo-c.h", 2214, "buffer"));
     buffer_append(self->memory,memory,sizeof(short short)*size);
     self->p=(short short*)self->memory->buf;
     __result14__ = __result_obj__ = self;
@@ -2634,7 +2634,7 @@ struct smart_pointer$1short* __result14__;
 static struct smart_pointer$1int* smart_pointer$1int_initialize(struct smart_pointer$1int* self, void* memory, int size){
 void* __result_obj__=(void*)0;
 struct smart_pointer$1int* __result16__;
-    self->memory=buffer_initialize((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "./neo-c.h", 2002, "buffer"));
+    self->memory=buffer_initialize((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "./neo-c.h", 2214, "buffer"));
     buffer_append(self->memory,memory,sizeof(int)*size);
     self->p=(int*)self->memory->buf;
     __result16__ = __result_obj__ = self;
@@ -2645,7 +2645,7 @@ struct smart_pointer$1int* __result16__;
 static struct smart_pointer$1long* smart_pointer$1long_initialize(struct smart_pointer$1long* self, void* memory, int size){
 void* __result_obj__=(void*)0;
 struct smart_pointer$1long* __result18__;
-    self->memory=buffer_initialize((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "./neo-c.h", 2002, "buffer"));
+    self->memory=buffer_initialize((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "./neo-c.h", 2214, "buffer"));
     buffer_append(self->memory,memory,sizeof(long)*size);
     self->p=(long*)self->memory->buf;
     __result18__ = __result_obj__ = self;
@@ -2656,7 +2656,7 @@ struct smart_pointer$1long* __result18__;
 static struct smart_pointer$1float* smart_pointer$1float_initialize(struct smart_pointer$1float* self, void* memory, int size){
 void* __result_obj__=(void*)0;
 struct smart_pointer$1float* __result20__;
-    self->memory=buffer_initialize((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "./neo-c.h", 2002, "buffer"));
+    self->memory=buffer_initialize((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "./neo-c.h", 2214, "buffer"));
     buffer_append(self->memory,memory,sizeof(float)*size);
     self->p=(float*)self->memory->buf;
     __result20__ = __result_obj__ = self;
@@ -2667,7 +2667,7 @@ struct smart_pointer$1float* __result20__;
 static struct smart_pointer$1double* smart_pointer$1double_initialize(struct smart_pointer$1double* self, void* memory, int size){
 void* __result_obj__=(void*)0;
 struct smart_pointer$1double* __result22__;
-    self->memory=buffer_initialize((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "./neo-c.h", 2002, "buffer"));
+    self->memory=buffer_initialize((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "./neo-c.h", 2214, "buffer"));
     buffer_append(self->memory,memory,sizeof(double)*size);
     self->p=(double*)self->memory->buf;
     __result22__ = __result_obj__ = self;

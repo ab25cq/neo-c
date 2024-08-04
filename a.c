@@ -1,13 +1,18 @@
 #include <neo-c.h>
 
-struct sData
-{
-    string a;
-};
-
 int main(int argc, char** argv)
 {
-    sData data;
-    data.a = clone string("ABC");
+    vector<int>*% v = new vector<int>();
+    
+    v.add(7);
+    v.add(3);
+    v.add(1);
+    
+    var v2 = v.sort();
+    
+    foreach(it, v2) {
+        printf("%d\n", it);
+    }
+    
     return 0;
 }

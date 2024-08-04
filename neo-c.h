@@ -823,93 +823,8 @@ impl list <T>
     list<T>*% sort_with_lambda(list<T>* self, int (*compare)(T&,T&)) {
         return self.merge_sort_with_lambda(compare);
     }
-    list<T>*% merge_list(list<T>* left, list<T>* right) {
-        auto result = new list<T>.initialize();
-
-        list_item<T>* it = left.head;
-        list_item<T>* it2= right.head;
-
-        while(true) {
-            if(it && it2) {
-                if(it.item == null) {
-                    it = it.next;
-                }
-                else if(it2.item == null) {
-                    it2 = it2.next;
-                }
-                else if(it.item.compare(it2.item) <= 0) 
-                {
-                    result.push_back(dupe it.item);
-
-                    it = it.next;
-                }
-                else {
-                    result.push_back(dupe it2.item);
-
-                    it2 = it2.next;
-                }
-            }
-
-            if(it == null) {
-                if(it2 != null) {
-                    while(it2 != null) {
-                        result.push_back(dupe it2.item);
-
-                        it2 = it2.next;
-                    }
-                }
-                break;
-            }
-            else if(it2 == null) {
-                if(it != null) {
-                    while(it != null) {
-                        result.push_back(dupe it.item);
-
-                        it = it.next;
-                    }
-                }
-                break;
-            }
-        }
-
-        return result;
-    }
-    list<T>*% merge_sort(list<T>* self) {
-        if(self.head == null) {
-            return clone self;
-        }
-        if(self.head.next == null) {
-            return clone self;
-        }
-
-        auto list1 = new list<T>.initialize();
-        auto list2 = new list<T>.initialize();
-
-        list_item<T>* it = self.head;
-
-        while(true) {
-            list1.push_back(dupe it.item);
-            list2.push_back(dupe it.next.item);
-
-            if(it.next.next == null) {
-                break;
-            }
-
-            it = it.next.next;
-
-            if(it.next == null) {
-                list1.push_back(dupe it.item);
-                break;
-            }
-        }
-        
-        auto left_list = list1.merge_sort();
-        auto right_list = list2.merge_sort();
-        
-        return left_list.merge_list(right_list);
-    }
     list<T>*% sort(list<T>* self) {
-        return self.merge_sort();
+        return self.merge_sort_with_lambda(int lambda(T& left, T& right) { return left.compare(right); });
     }
     list<any>*% map(list<T>* self, void* parent, any (*block)(void*, T&))
     {
@@ -1039,6 +954,303 @@ impl list <T>
 }
 
 #define foreach(o1, o2) for(var o2_saved = (o2), var o1 = (o2_saved).begin(); !(o2_saved).end(); o1 = (o2_saved).next())
+
+struct vector<T> 
+{
+    T&* items;
+    int len;
+    int size;
+
+    int it;
+};
+
+impl vector<T> 
+{
+    vector<T>*% initialize(vector<T>*% self) 
+    {
+        self.size = 16;
+        self.len = 0;
+        self.items = borrow new T[self.size];
+        
+        return self;
+    }
+
+    vector<T>*% clone(vector<T>* self)
+    {
+        if(self == null) {
+            return null;
+        }
+        vector<T>*% result = new vector<T>;
+
+        result.len = self.len;
+        result.size = self.size;
+        result.it = 0;
+        result.items = borrow new T[result.size];
+        
+        for(int i=0; i<self.len; i++) 
+        {
+            result.items[i] = borrow dupe self.items[i];
+        }
+
+        return result;
+    }
+
+    void finalize(vector<T>* self)
+    {
+        if(isheap(T)) {
+            for(int i=0; i<self.len; i++) 
+            {
+                delete borrow self.items[i];
+            }
+        }
+        if(self && self.items) {
+            come_free((char*)self.items);
+        }
+    }
+    
+    vector<T>*% operator_add(vector<T>* left, vector<T>* right) {
+        vector<T>*% result = new vector<T>.initialize();
+        
+        foreach(it, left) {
+            result.push_back(dupe it);
+        }
+        
+        foreach(it, right) {
+            result.push_back(dupe it);
+        }
+        
+        return result;
+    }
+    vector<T>*% operator_mult(vector<T>* left, int n) {
+        vector<T>*% result = new vector<T>.initialize();
+        
+        for(int i=0; i<n; i++) {
+            foreach(it, left) {
+                result.push_back(dupe it);
+            }
+        }
+        
+        return result;
+    }
+    bool operator_equals(vector<T>* left, vector<T>* right) {
+        return left.equals(right);
+    }
+    bool operator_not_equals(vector<T>* left, vector<T>* right) {
+        return !left.equals(right);
+    }
+    void operator_store_element(vector<T>* self, int index, T item) {
+        self.replace(index, item);
+    }
+    
+    T&?? operator_load_element(vector<T>* self, int index) {
+        T` default_value;
+        memset(&default_value, 0, sizeof(T));
+        
+        return self.item(index, default_value)??;
+    }
+    
+    void push_back(vector<T>* self, T item) {
+        if(self.len == self.size) {
+            auto new_size = self.size * 2;
+            auto items = self.items;
+
+            self.items = new T[new_size];
+
+            int i;
+            for(i=0; i<self.size; i++) {
+                self.items[i] = items[i];
+            }
+
+            self.size = new_size;
+
+            come_free(items);
+        }
+
+        self.items[self.len] = item;
+        self.len++;
+    }
+    
+    void add(vector<T>* self, T item) {
+        if(self.len == self.size) {
+            auto new_size = self.size * 2;
+            auto items = self.items;
+
+            self.items = new T[new_size];
+
+            int i;
+            for(i=0; i<self.size; i++) {
+                self.items[i] = items[i];
+            }
+
+            self.size = new_size;
+
+            come_free(items);
+        }
+
+        self.items[self.len] = item;
+        self.len++;
+    }
+
+    T& item(vector<T>* self, int index, T default_value) 
+    {
+        if(index < 0) {
+            index += self.len;
+        }
+
+        if(index >= 0 && index < self.len)
+        {
+            return self.items[index];
+        }
+
+        return default_value;
+    }
+
+
+    bool equals(vector<T>* left, vector<T>* right)
+    {
+        if(left.len != right.len) {
+            return false;
+        }
+
+        for(int i=0; i<left.len; i++) {
+            if(!(left.items[i].equals(right.items[i])))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+    
+    void replace(vector<T>* self, int index, T value)
+    {
+        if(index < 0) {
+            index += self.len;
+        }
+
+        if(index >= 0 && index < self.len)
+        {
+            if(isheap(T)) {
+                delete borrow self.items[index];
+            }
+
+            self.items[index] = value;
+        }
+    }
+    
+    int find(vector<T>* self, T& item, int default_value) {
+        int it2 = 0;
+        foreach(it, self) {
+            if(it.equals(item)) {
+                return it2;
+            }
+            it2++;
+        }
+
+        return default_value;
+    }
+
+    int length(vector<T>* self)
+    {
+        return self.len;
+    }
+
+    void reset(vector<T>* self) {
+        if(isheap(T)) {
+            for(int i=0; i<self.len; i++) 
+            {
+                delete borrow self.items[i];
+            }
+        }
+        come_free((char*)self.items);
+        
+        self.size = 16;
+        self.len = 0;
+        self.items = borrow new T[self.size];
+        
+        self.len = 0;
+    }
+
+    T& begin(vector<T>* self) {
+        self.it = 0;
+
+        T` default_value;
+        return self.item(0, default_value);
+    }
+
+    T& next(vector<T>* self) {
+        self.it++;
+
+        T` default_value
+        return self.item(self.it, default_value);
+    }
+
+    bool end(vector<T>* self) {
+        return self.it >= self.len;
+    }
+    
+    void delete_back(vector<T>* self) {
+        if(self.len > 0) {
+            if(isheap(T)) {
+                delete borrow self.items[self.len-1];
+                self.items[self.len-1] = null;
+            }
+            
+            self.len--;
+        }
+    }
+    vector<T>*% quick_sort(vector<T>* self, int left, int right, int (*compare_)(T&, T&)) {
+        int l_hold = left;
+        int r_hold = right;
+
+        T& pivot = self.items[left];
+        int pivot_num = left;
+
+        while(left < right) {
+            while((compare_(self.items[right], pivot) >= 0) && (left < right)) {
+                right--;
+            }
+
+            if(left != right) {
+                self.items[left] = self.items[right];
+                left++;
+            }
+
+            while((compare_(self.items[left], pivot) <= 0) && (left < right)) {
+                left++;
+            }
+
+            if(left != right) {
+                self.items[right] = self.items[left];
+                right--;
+            }
+        }
+
+        self.items[left] = pivot;
+
+        pivot_num = left;
+
+        int left2 = l_hold;
+        int right2 = r_hold;
+
+        if(left2 < pivot_num) {
+            self.quick_sort(left2, pivot_num-1, compare_);
+        }
+
+        if(right2 > pivot_num) {
+            self.quick_sort(pivot_num+1, right2, compare_);
+        }
+
+        return self;
+    }
+
+    vector<T>*% sort_with_lambda(vector<T>* self, int (*compare_)(T&, T&)) {
+        return self.quick_sort(0, self.length()-1, compare_);
+    }
+    vector<T>*% sort(vector<T>* self)  {
+        return self.quick_sort(0, self.length()-1, int lambda(T& left, T& right) { return left.compare(right) });
+    }
+}
 
 //////////////////////////////
 // map

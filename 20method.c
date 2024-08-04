@@ -489,10 +489,10 @@ class sMethodCallNode extends sNodeBase
                         }
                     }
                     
-                    if(param_types[i]) {
+                    if(param_types[i]??) {
                         check_assign_type(s"\{fun_name} param num \{i} is assinged to", param_types[i], come_value.type, come_value);
                     }
-                    if(param_types[i] && param_types[i].mHeap && come_value.type.mHeap) {
+                    if(param_types[i]?? && param_types[i].mHeap && come_value.type.mHeap) {
                         std_move(param_types[i], come_value.type, come_value, no_delete_from_right_value_objects:true);
                     }
                     
