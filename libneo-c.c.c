@@ -4917,7 +4917,7 @@ char* result2_195;
 char* __result130__;
 memset(&__result_obj__, 0, sizeof(void*));
 memset(&args_192, 0, sizeof(va_list));
-memset(&result_193, 0, sizeof(char*));
+result_193 = (void*)0;
     if(msg==((void*)0)) {
         __result128__ = __result_obj__ = ((char*)(__right_value152=__builtin_string("")));
         __right_value152 = come_decrement_ref_count2(__right_value152, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
@@ -5714,7 +5714,7 @@ int string_write(char* self, char* file_name, _Bool append){
 struct _IO_FILE* f_222;
 int result_223;
 int result2_224;
-memset(&f_222, 0, sizeof(struct _IO_FILE*));
+f_222 = (void*)0;
     if(self==((void*)0)||file_name==((void*)0)) {
         return -1;
     }
@@ -5742,7 +5742,7 @@ int charp_write(char* self, char* file_name, _Bool append){
 struct _IO_FILE* f_225;
 int result_226;
 int result2_227;
-memset(&f_225, 0, sizeof(struct _IO_FILE*));
+f_225 = (void*)0;
     if(self==((void*)0)||file_name==((void*)0)) {
         return -1;
     }
@@ -5965,7 +5965,7 @@ va_list args_244;
 void* __right_value234 = (void*)0;
 char* __result190__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&msg2_243, 0, sizeof(char*));
+msg2_243 = (void*)0;
 memset(&args_244, 0, sizeof(va_list));
     if(self==((void*)0)) {
         __result189__ = __result_obj__ = ((char*)(__right_value233=__builtin_string("")));
@@ -5992,7 +5992,7 @@ va_list args_246;
 void* __right_value236 = (void*)0;
 char* __result192__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&msg2_245, 0, sizeof(char*));
+msg2_245 = (void*)0;
 memset(&args_246, 0, sizeof(va_list));
     if(self==((void*)0)) {
         __result191__ = __result_obj__ = ((char*)(__right_value235=__builtin_string("")));

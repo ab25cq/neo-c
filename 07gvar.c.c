@@ -4110,8 +4110,8 @@ struct tuple3$3sTypephcharphcharph* __result72__;
 struct tuple3$3sTypephcharphcharph* result_93;
 struct tuple3$3sTypephcharphcharph* __result73__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_92, 0, sizeof(struct tuple3$3sTypephcharphcharph*));
-memset(&result_93, 0, sizeof(struct tuple3$3sTypephcharphcharph*));
+result_92 = (void*)0;
+result_93 = (void*)0;
     if(self==((void*)0)) {
         memset(&result_92,0,sizeof(struct tuple3$3sTypephcharphcharph*));
         __result71__ = __result_obj__ = result_92;
@@ -4139,8 +4139,8 @@ struct tuple3$3sTypephcharphcharph* __result75__;
 struct tuple3$3sTypephcharphcharph* result_96;
 struct tuple3$3sTypephcharphcharph* __result76__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_95, 0, sizeof(struct tuple3$3sTypephcharphcharph*));
-memset(&result_96, 0, sizeof(struct tuple3$3sTypephcharphcharph*));
+result_95 = (void*)0;
+result_96 = (void*)0;
     if(self==((void*)0)||self->it==((void*)0)) {
         memset(&result_95,0,sizeof(struct tuple3$3sTypephcharphcharph*));
         __result74__ = __result_obj__ = result_95;

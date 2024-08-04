@@ -4788,7 +4788,7 @@ void* __right_value303 = (void*)0;
 struct sNode* __dec_obj73;
 struct sNode* __result169__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&node_131, 0, sizeof(struct sNode*));
+node_131 = (void*)0;
     skip_spaces_and_lf(info);
     parse_sharp_v5(info);
     if(*info->p==48&&(*(info->p+1)==120||*(info->p+1)==88)) {

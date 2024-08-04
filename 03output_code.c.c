@@ -3241,8 +3241,8 @@ struct sType* __result47__;
 struct sType* result_60;
 struct sType* __result48__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_59, 0, sizeof(struct sType*));
-memset(&result_60, 0, sizeof(struct sType*));
+result_59 = (void*)0;
+result_60 = (void*)0;
     if(self==((void*)0)) {
         memset(&result_59,0,sizeof(struct sType*));
         __result46__ = __result_obj__ = result_59;
@@ -3270,8 +3270,8 @@ struct sType* __result50__;
 struct sType* result_63;
 struct sType* __result51__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_62, 0, sizeof(struct sType*));
-memset(&result_63, 0, sizeof(struct sType*));
+result_62 = (void*)0;
+result_63 = (void*)0;
     if(self==((void*)0)||self->it==((void*)0)) {
         memset(&result_62,0,sizeof(struct sType*));
         __result49__ = __result_obj__ = result_62;
@@ -3358,7 +3358,7 @@ struct sType* __result54__;
 struct sType* default_value_72;
 struct sType* __result55__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&default_value_72, 0, sizeof(struct sType*));
+default_value_72 = (void*)0;
     if(position<0) {
         position+=self->len;
     }
@@ -4280,8 +4280,8 @@ struct sNode* __result81__;
 struct sNode* result_116;
 struct sNode* __result82__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_115, 0, sizeof(struct sNode*));
-memset(&result_116, 0, sizeof(struct sNode*));
+result_115 = (void*)0;
+result_116 = (void*)0;
     if(self==((void*)0)) {
         memset(&result_115,0,sizeof(struct sNode*));
         __result80__ = __result_obj__ = result_115;
@@ -4309,8 +4309,8 @@ struct sNode* __result84__;
 struct sNode* result_119;
 struct sNode* __result85__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_118, 0, sizeof(struct sNode*));
-memset(&result_119, 0, sizeof(struct sNode*));
+result_118 = (void*)0;
+result_119 = (void*)0;
     if(self==((void*)0)||self->it==((void*)0)) {
         memset(&result_118,0,sizeof(struct sNode*));
         __result83__ = __result_obj__ = result_118;
@@ -4339,7 +4339,7 @@ struct sType* it_125;
 void* __right_value167 = (void*)0;
 struct sType* __result93__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_122, 0, sizeof(struct sType*));
+result_122 = (void*)0;
     if(type->mNoSolvedGenericsType->v1) {
         __dec_obj35=result_122;
         result_122=(struct sType*)come_increment_ref_count(sType_clone(type->mNoSolvedGenericsType->v1));
@@ -4716,7 +4716,7 @@ char* __result96__;
 char* default_value_147;
 char* __result97__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&default_value_147, 0, sizeof(char*));
+default_value_147 = (void*)0;
     if(position<0) {
         position+=self->len;
     }
@@ -4744,7 +4744,7 @@ struct sNode* __result98__;
 struct sNode* default_value_160;
 struct sNode* __result99__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&default_value_160, 0, sizeof(struct sNode*));
+default_value_160 = (void*)0;
     if(position<0) {
         position+=self->len;
     }
@@ -4974,7 +4974,7 @@ int len_200;
 int i_201;
 void* __right_value225 = (void*)0;
 void* __right_value226 = (void*)0;
-memset(&msg2_198, 0, sizeof(char*));
+msg2_198 = (void*)0;
 memset(&args_199, 0, sizeof(va_list));
 memset(&i_201, 0, sizeof(int));
     if(info->no_output_come_code) {
@@ -5006,7 +5006,7 @@ char* msg2_202;
 va_list args_203;
 int len_204;
 void* __right_value227 = (void*)0;
-memset(&msg2_202, 0, sizeof(char*));
+msg2_202 = (void*)0;
 memset(&args_203, 0, sizeof(va_list));
     if(info->no_output_come_code) {
         return;
@@ -5025,7 +5025,7 @@ char* msg2_205;
 va_list args_206;
 int len_207;
 void* __right_value228 = (void*)0;
-memset(&msg2_205, 0, sizeof(char*));
+msg2_205 = (void*)0;
 memset(&args_206, 0, sizeof(va_list));
     if(info->no_output_come_code) {
         return;
@@ -5044,7 +5044,7 @@ char* msg2_208;
 va_list args_209;
 int len_210;
 void* __right_value229 = (void*)0;
-memset(&msg2_208, 0, sizeof(char*));
+msg2_208 = (void*)0;
 memset(&args_209, 0, sizeof(va_list));
     if(info->no_output_come_code) {
         return;
@@ -5063,7 +5063,7 @@ char* msg2_211;
 va_list args_212;
 int len_213;
 void* __right_value230 = (void*)0;
-memset(&msg2_211, 0, sizeof(char*));
+msg2_211 = (void*)0;
 memset(&args_212, 0, sizeof(va_list));
     if(info->no_output_come_code) {
         return;
@@ -5235,7 +5235,7 @@ struct sFun* __result106__;
 struct sFun* __result107__;
 struct sFun* __result108__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&default_value_215, 0, sizeof(struct sFun*));
+default_value_215 = (void*)0;
     memset(&default_value_215,0,sizeof(struct sFun*));
     hash_216=string_get_hash_key(((char*)key))%self->size;
     it_217=hash_216;
@@ -5328,8 +5328,8 @@ char* __result110__;
 char* result_222;
 char* __result111__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_221, 0, sizeof(char*));
-memset(&result_222, 0, sizeof(char*));
+result_221 = (void*)0;
+result_222 = (void*)0;
     if(self==((void*)0)) {
         memset(&result_221,0,sizeof(char*));
         __result109__ = __result_obj__ = result_221;
@@ -5357,8 +5357,8 @@ char* __result113__;
 char* result_225;
 char* __result114__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_224, 0, sizeof(char*));
-memset(&result_225, 0, sizeof(char*));
+result_224 = (void*)0;
+result_225 = (void*)0;
     if(self==((void*)0)||self->key_list->it==((void*)0)) {
         memset(&result_224,0,sizeof(char*));
         __result112__ = __result_obj__ = result_224;
@@ -5439,7 +5439,7 @@ void add_come_code_at_function_head(struct sInfo* info, char* code, ...){
 char* msg2_244;
 va_list args_245;
 int len_246;
-memset(&msg2_244, 0, sizeof(char*));
+msg2_244 = (void*)0;
 memset(&args_245, 0, sizeof(va_list));
     if(info->no_output_come_code) {
         return;
@@ -5458,7 +5458,7 @@ void add_come_code_at_function_head2(struct sInfo* info, char* code, ...){
 char* msg2_247;
 va_list args_248;
 int len_249;
-memset(&msg2_247, 0, sizeof(char*));
+msg2_247 = (void*)0;
 memset(&args_248, 0, sizeof(va_list));
     if(info->no_output_come_code) {
         return;
@@ -5539,7 +5539,7 @@ va_list args_251;
 int len_252;
 void* __right_value247 = (void*)0;
 char* __dec_obj49;
-memset(&msg2_250, 0, sizeof(char*));
+msg2_250 = (void*)0;
 memset(&args_251, 0, sizeof(va_list));
     if(info->no_output_come_code) {
         return;
@@ -5560,7 +5560,7 @@ va_list args_254;
 int len_255;
 void* __right_value248 = (void*)0;
 char* __dec_obj50;
-memset(&msg2_253, 0, sizeof(char*));
+msg2_253 = (void*)0;
 memset(&args_254, 0, sizeof(va_list));
     if(info->no_output_come_code) {
         return;
@@ -5581,7 +5581,7 @@ va_list args_257;
 int len_258;
 void* __right_value249 = (void*)0;
 char* __dec_obj51;
-memset(&msg2_256, 0, sizeof(char*));
+msg2_256 = (void*)0;
 memset(&args_257, 0, sizeof(va_list));
     if(info->no_output_come_code) {
         return;
@@ -5778,7 +5778,7 @@ struct CVALUE* __result120__;
 struct CVALUE* default_value_276;
 struct CVALUE* __result121__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&default_value_276, 0, sizeof(struct CVALUE*));
+default_value_276 = (void*)0;
     if(position<0) {
         position+=self->len;
     }

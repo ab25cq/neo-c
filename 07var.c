@@ -200,10 +200,12 @@ class sStoreNode extends sNodeBase
             else {
                 add_come_code_at_function_head(info, "%s;\n", make_define_var(left_type, var_->mCValueName));
                 
-                sType*% left_type2 = clone left_type;
-                left_type2->mStatic = false;
-                
-                add_come_code_at_function_head2(info, "memset(&%s, 0, sizeof(%s));\n", var_->mCValueName, make_type_name_string(left_type2, no_static:true));
+                if(left_type->mPointerNum > 0) {
+                    add_come_code_at_function_head2(info, "%s = (void*)0;\n", var_->mCValueName);
+                }
+                else {
+                    add_come_code_at_function_head2(info, "memset(&%s, 0, sizeof(%s));\n", var_->mCValueName, make_type_name_string(left_type, no_static:true));
+                }
             }
             
             CVALUE*% come_value = new CVALUE();

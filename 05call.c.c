@@ -5540,8 +5540,8 @@ struct tuple2$2charphsNodeph* __result103__;
 struct tuple2$2charphsNodeph* result_123;
 struct tuple2$2charphsNodeph* __result104__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_122, 0, sizeof(struct tuple2$2charphsNodeph*));
-memset(&result_123, 0, sizeof(struct tuple2$2charphsNodeph*));
+result_122 = (void*)0;
+result_123 = (void*)0;
     if(self==((void*)0)) {
         memset(&result_122,0,sizeof(struct tuple2$2charphsNodeph*));
         __result102__ = __result_obj__ = result_122;
@@ -5569,8 +5569,8 @@ struct tuple2$2charphsNodeph* __result106__;
 struct tuple2$2charphsNodeph* result_126;
 struct tuple2$2charphsNodeph* __result107__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_125, 0, sizeof(struct tuple2$2charphsNodeph*));
-memset(&result_126, 0, sizeof(struct tuple2$2charphsNodeph*));
+result_125 = (void*)0;
+result_126 = (void*)0;
     if(self==((void*)0)||self->it==((void*)0)) {
         memset(&result_125,0,sizeof(struct tuple2$2charphsNodeph*));
         __result105__ = __result_obj__ = result_125;
@@ -5594,7 +5594,7 @@ struct sType* __result109__;
 struct sType* default_value_132;
 struct sType* __result110__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&default_value_132, 0, sizeof(struct sType*));
+default_value_132 = (void*)0;
     if(position<0) {
         position+=self->len;
     }
@@ -5622,8 +5622,8 @@ struct CVALUE* __result112__;
 struct CVALUE* result_137;
 struct CVALUE* __result113__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_136, 0, sizeof(struct CVALUE*));
-memset(&result_137, 0, sizeof(struct CVALUE*));
+result_136 = (void*)0;
+result_137 = (void*)0;
     if(self==((void*)0)) {
         memset(&result_136,0,sizeof(struct CVALUE*));
         __result111__ = __result_obj__ = result_136;
@@ -5651,8 +5651,8 @@ struct CVALUE* __result115__;
 struct CVALUE* result_140;
 struct CVALUE* __result116__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_139, 0, sizeof(struct CVALUE*));
-memset(&result_140, 0, sizeof(struct CVALUE*));
+result_139 = (void*)0;
+result_140 = (void*)0;
     if(self==((void*)0)||self->it==((void*)0)) {
         memset(&result_139,0,sizeof(struct CVALUE*));
         __result114__ = __result_obj__ = result_139;
@@ -5685,7 +5685,7 @@ struct sFun* __result120__;
 struct sFun* __result121__;
 struct sFun* __result122__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&default_value_159, 0, sizeof(struct sFun*));
+default_value_159 = (void*)0;
     memset(&default_value_159,0,sizeof(struct sFun*));
     hash_160=string_get_hash_key(((char*)key))%self->size;
     it_161=hash_160;
@@ -5873,8 +5873,8 @@ struct sType* __result132__;
 struct sType* result_188;
 struct sType* __result133__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_187, 0, sizeof(struct sType*));
-memset(&result_188, 0, sizeof(struct sType*));
+result_187 = (void*)0;
+result_188 = (void*)0;
     if(self==((void*)0)) {
         memset(&result_187,0,sizeof(struct sType*));
         __result131__ = __result_obj__ = result_187;
@@ -5902,8 +5902,8 @@ struct sType* __result135__;
 struct sType* result_191;
 struct sType* __result136__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_190, 0, sizeof(struct sType*));
-memset(&result_191, 0, sizeof(struct sType*));
+result_190 = (void*)0;
+result_191 = (void*)0;
     if(self==((void*)0)||self->it==((void*)0)) {
         memset(&result_190,0,sizeof(struct sType*));
         __result134__ = __result_obj__ = result_190;
@@ -5981,8 +5981,8 @@ char* __result140__;
 char* result_206;
 char* __result141__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_205, 0, sizeof(char*));
-memset(&result_206, 0, sizeof(char*));
+result_205 = (void*)0;
+result_206 = (void*)0;
     if(self==((void*)0)) {
         memset(&result_205,0,sizeof(char*));
         __result139__ = __result_obj__ = result_205;
@@ -6010,8 +6010,8 @@ char* __result143__;
 char* result_209;
 char* __result144__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_208, 0, sizeof(char*));
-memset(&result_209, 0, sizeof(char*));
+result_208 = (void*)0;
+result_209 = (void*)0;
     if(self==((void*)0)||self->it==((void*)0)) {
         memset(&result_208,0,sizeof(char*));
         __result142__ = __result_obj__ = result_208;
@@ -6069,7 +6069,7 @@ struct CVALUE* __result148__;
 struct CVALUE* default_value_220;
 struct CVALUE* __result149__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&default_value_220, 0, sizeof(struct CVALUE*));
+default_value_220 = (void*)0;
     if(position<0) {
         position+=self->len;
     }
@@ -6097,7 +6097,7 @@ char* __result151__;
 char* default_value_225;
 char* __result152__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&default_value_225, 0, sizeof(char*));
+default_value_225 = (void*)0;
     if(position<0) {
         position+=self->len;
     }
@@ -7332,7 +7332,7 @@ struct sVar* __result179__;
 struct sVar* __result180__;
 struct sVar* __result181__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&default_value_292, 0, sizeof(struct sVar*));
+default_value_292 = (void*)0;
     memset(&default_value_292,0,sizeof(struct sVar*));
     hash_293=string_get_hash_key(((char*)key))%self->size;
     it_294=hash_293;
@@ -7632,7 +7632,7 @@ struct sType* __result207__;
 struct sType* __result208__;
 struct sType* __result209__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&default_value_310, 0, sizeof(struct sType*));
+default_value_310 = (void*)0;
     memset(&default_value_310,0,sizeof(struct sType*));
     hash_311=string_get_hash_key(((char*)key))%self->size;
     it_312=hash_311;
@@ -7676,7 +7676,7 @@ struct sClass* __result211__;
 struct sClass* __result212__;
 struct sClass* __result213__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&default_value_314, 0, sizeof(struct sClass*));
+default_value_314 = (void*)0;
     memset(&default_value_314,0,sizeof(struct sClass*));
     hash_315=string_get_hash_key(((char*)key))%self->size;
     it_316=hash_315;
@@ -7837,7 +7837,7 @@ void* __right_value416 = (void*)0;
 void* __right_value417 = (void*)0;
 char* __result226__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&struct_name_329, 0, sizeof(char*));
+struct_name_329 = (void*)0;
     buf_330=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count(((struct buffer*)(__right_value411=(struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "05call.c", 1398, "buffer"))))));
     come_call_finalizer3(__right_value411,buffer_finalize, 0, 1, 0, 0, __result_obj__);
     if(string_operator_not_equals(obj_type->mOriginalTypeName,"")) {
@@ -7905,7 +7905,7 @@ int len_338;
 void* __right_value424 = (void*)0;
 char* __result227__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&struct_name_333, 0, sizeof(char*));
+struct_name_333 = (void*)0;
     buf_334=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count(((struct buffer*)(__right_value418=(struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "05call.c", 1433, "buffer"))))));
     come_call_finalizer3(__right_value418,buffer_finalize, 0, 1, 0, 0, __result_obj__);
     if(string_operator_not_equals(obj_type->mOriginalTypeName,"")) {

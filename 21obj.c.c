@@ -4191,8 +4191,8 @@ struct sNode* __result68__;
 struct sNode* result_82;
 struct sNode* __result69__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_81, 0, sizeof(struct sNode*));
-memset(&result_82, 0, sizeof(struct sNode*));
+result_81 = (void*)0;
+result_82 = (void*)0;
     if(self==((void*)0)) {
         memset(&result_81,0,sizeof(struct sNode*));
         __result67__ = __result_obj__ = result_81;
@@ -4220,8 +4220,8 @@ struct sNode* __result71__;
 struct sNode* result_85;
 struct sNode* __result72__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_84, 0, sizeof(struct sNode*));
-memset(&result_85, 0, sizeof(struct sNode*));
+result_84 = (void*)0;
+result_85 = (void*)0;
     if(self==((void*)0)||self->it==((void*)0)) {
         memset(&result_84,0,sizeof(struct sNode*));
         __result70__ = __result_obj__ = result_84;
@@ -4507,7 +4507,7 @@ struct tuple2$2charphsTypeph* __result80__;
 struct tuple2$2charphsTypeph* default_value_111;
 struct tuple2$2charphsTypeph* __result81__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&default_value_111, 0, sizeof(struct tuple2$2charphsTypeph*));
+default_value_111 = (void*)0;
     if(position<0) {
         position+=self->len;
     }
@@ -4638,7 +4638,7 @@ struct sClass* __result87__;
 struct sClass* __result88__;
 struct sClass* __result89__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&default_value_119, 0, sizeof(struct sClass*));
+default_value_119 = (void*)0;
     memset(&default_value_119,0,sizeof(struct sClass*));
     hash_120=string_get_hash_key(((char*)key))%self->size;
     it_121=hash_120;

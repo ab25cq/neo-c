@@ -3600,8 +3600,8 @@ struct sNode* __result58__;
 struct sNode* result_69;
 struct sNode* __result59__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_68, 0, sizeof(struct sNode*));
-memset(&result_69, 0, sizeof(struct sNode*));
+result_68 = (void*)0;
+result_69 = (void*)0;
     if(self==((void*)0)) {
         memset(&result_68,0,sizeof(struct sNode*));
         __result57__ = __result_obj__ = result_68;
@@ -3629,8 +3629,8 @@ struct sNode* __result61__;
 struct sNode* result_72;
 struct sNode* __result62__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_71, 0, sizeof(struct sNode*));
-memset(&result_72, 0, sizeof(struct sNode*));
+result_71 = (void*)0;
+result_72 = (void*)0;
     if(self==((void*)0)||self->it==((void*)0)) {
         memset(&result_71,0,sizeof(struct sNode*));
         __result60__ = __result_obj__ = result_71;
@@ -4852,8 +4852,8 @@ struct CVALUE* __result99__;
 struct CVALUE* result_122;
 struct CVALUE* __result100__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_121, 0, sizeof(struct CVALUE*));
-memset(&result_122, 0, sizeof(struct CVALUE*));
+result_121 = (void*)0;
+result_122 = (void*)0;
     if(self==((void*)0)) {
         memset(&result_121,0,sizeof(struct CVALUE*));
         __result98__ = __result_obj__ = result_121;
@@ -4881,8 +4881,8 @@ struct CVALUE* __result102__;
 struct CVALUE* result_125;
 struct CVALUE* __result103__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_124, 0, sizeof(struct CVALUE*));
-memset(&result_125, 0, sizeof(struct CVALUE*));
+result_124 = (void*)0;
+result_125 = (void*)0;
     if(self==((void*)0)||self->it==((void*)0)) {
         memset(&result_124,0,sizeof(struct CVALUE*));
         __result101__ = __result_obj__ = result_124;
@@ -4906,7 +4906,7 @@ struct CVALUE* __result104__;
 struct CVALUE* default_value_128;
 struct CVALUE* __result105__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&default_value_128, 0, sizeof(struct CVALUE*));
+default_value_128 = (void*)0;
     if(position<0) {
         position+=self->len;
     }
@@ -4988,7 +4988,7 @@ struct sType* __result108__;
 struct sType* default_value_147;
 struct sType* __result109__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&default_value_147, 0, sizeof(struct sType*));
+default_value_147 = (void*)0;
     if(position<0) {
         position+=self->len;
     }
@@ -5305,8 +5305,8 @@ struct sType* __result117__;
 struct sType* result_165;
 struct sType* __result118__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_164, 0, sizeof(struct sType*));
-memset(&result_165, 0, sizeof(struct sType*));
+result_164 = (void*)0;
+result_165 = (void*)0;
     if(self==((void*)0)) {
         memset(&result_164,0,sizeof(struct sType*));
         __result116__ = __result_obj__ = result_164;
@@ -5334,8 +5334,8 @@ struct sType* __result120__;
 struct sType* result_168;
 struct sType* __result121__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&result_167, 0, sizeof(struct sType*));
-memset(&result_168, 0, sizeof(struct sType*));
+result_167 = (void*)0;
+result_168 = (void*)0;
     if(self==((void*)0)||self->it==((void*)0)) {
         memset(&result_167,0,sizeof(struct sType*));
         __result119__ = __result_obj__ = result_167;
@@ -5767,7 +5767,7 @@ struct sNode* __result126__;
 struct sNode* default_value_199;
 struct sNode* __result127__;
 memset(&__result_obj__, 0, sizeof(void*));
-memset(&default_value_199, 0, sizeof(struct sNode*));
+default_value_199 = (void*)0;
     if(position<0) {
         position+=self->len;
     }
