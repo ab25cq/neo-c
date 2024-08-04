@@ -657,6 +657,7 @@ struct sInfo
     _Bool array_initializer;
     _Bool va_arg;
     _Bool in_fun_param;
+    _Bool inhibits_output_code;
 };
 struct tuple2$2sTypephcharph
 {

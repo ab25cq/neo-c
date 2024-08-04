@@ -90,7 +90,7 @@ class sFunNode extends sNodeBase
         
         if(self.mFun.mBlock) {
             if(!gComeC && info.come_fun.mName === "main") {
-                add_come_code(info, "come_heap_init(%d, %d, %d);\n", gComeMalloc, gComeDebug, gComeGC);
+                add_come_code(info, "    come_heap_init(%d, %d, %d);\n", gComeMalloc, gComeDebug, gComeGC);
             }
             
             sType*% result_type = new sType("void*");
@@ -101,7 +101,8 @@ class sFunNode extends sNodeBase
             }
             
             transpile_block(self.mFun.mBlock, self.mFun.mParamTypes, self.mFun.mParamNames, info);
-            if(!gComeC && info.come_fun.mName === "main") {
+            
+            if(!gComeC && info.come_fun.mName === "main" && !info.inhibits_output_code) {
                 free_objects(info->gv_table, null@ret_value, info);
                 add_come_code(info, xsprintf("come_heap_final();\n"));
             }
@@ -343,7 +344,7 @@ int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* par
         }
     }
 
-    if(!no_var_table) {
+    if(!no_var_table && !info.inhibits_output_code) {
 //    if(!info->last_statment_is_return && !no_var_table) {
         free_objects(info->lv_table, null, info);
     }

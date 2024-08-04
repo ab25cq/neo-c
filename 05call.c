@@ -84,6 +84,10 @@ class sReturnNode extends sNodeBase
                 if(!gComeC && info.come_fun.mName === "main") {
                     free_objects(info->gv_table, null@ret_value, info);
                     add_come_code(info, xsprintf("come_heap_final();\n"));
+                    
+                    if(info->block_level == 1) {
+                        info->inhibits_output_code = true;
+                    }
                 }
                 
                 add_come_code(info, "return __result%d__;\n", num_result_stack);
@@ -99,6 +103,10 @@ class sReturnNode extends sNodeBase
             if(!gComeC && info.come_fun.mName === "main") {
                 free_objects(info->gv_table, null@ret_value, info);
                 add_come_code(info, xsprintf("come_heap_final();\n"));
+                
+                if(info->block_level == 1) {
+                    info->inhibits_output_code = true;
+                }
             }
             add_come_code(info, "return;\n");
         }
