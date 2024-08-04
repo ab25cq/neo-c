@@ -58,7 +58,7 @@ class sWhileNode extends sNodeBase
             add_come_code_at_function_head(info, "_Bool _while_condtional%d;\n", ++num_while_condtional);
             int num_while_conditional_stack = num_while_condtional;
             
-            add_come_code(info, "while(_while_condtional%d=%s,", num_while_condtional, conditional_value.c_value);
+            add_come_code(info, "while((_while_condtional%d=(%s)),", num_while_condtional, conditional_value.c_value);
             add_last_code_to_source_with_comma(info);
             
             free_right_value_objects(info, comma:true);

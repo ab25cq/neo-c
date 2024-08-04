@@ -397,7 +397,7 @@ void Vi*::exitFromComandMode(Vi* self)
         }
         if(string(self.commandString).index("q", -1) != -1) {
             bool writed = self.activeWin.writed;
-
+            
             if(!writed || string(self.commandString).index("!", -1) != -1) {
                 if(self.wins.length() == 1) {
                     self.appEnd = true;

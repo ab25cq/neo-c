@@ -120,7 +120,7 @@ class sForNode extends sNodeBase
                 conditional_value2 = get_value_from_stack(-1, info);
                 dec_stack_ptr(1, info);
                 
-                add_come_code(info, "_for_condtionalA%d=%s, ", num_for_condtionalA, conditional_value2.c_value);
+                add_come_code(info, "(_for_condtionalA%d=(%s)), ", num_for_condtionalA, conditional_value2.c_value);
                 
                 add_last_code_to_source_with_comma(info);
                 

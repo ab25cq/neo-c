@@ -94,7 +94,7 @@ class sIfNode extends sNodeBase
                 }
             }
             
-            add_come_code(info, "if(_if_conditional%d=%s,", num_if_conditional, conditional_value.c_value);
+            add_come_code(info, "if((_if_conditional%d=(%s)),", num_if_conditional, conditional_value.c_value);
             add_last_code_to_source_with_comma(info);
             
             free_right_value_objects(info, comma:true);
@@ -143,7 +143,7 @@ class sIfNode extends sNodeBase
                     add_come_code_at_function_head(info, "_Bool _elif_conditional%d;\n", ++num_elif_conditional);
                     int num_elif_conditional_stack = num_elif_conditional;
         
-                    add_come_code(info, "else if(_elif_conditional%d=%s,", num_elif_conditional, conditional_value.c_value);
+                    add_come_code(info, "else if((_elif_conditional%d=(%s)),", num_elif_conditional, conditional_value.c_value);
                     add_last_code_to_source_with_comma(info);
                     free_right_value_objects(info, comma:true);
                     add_come_code(info, "_elif_conditional%d) {\n", num_elif_conditional_stack);
@@ -209,7 +209,7 @@ class sOrStatmentNode extends sNodeBase
         static int num_or_conditional = 0;
         add_come_code_at_function_head(info, "_Bool _or_conditional%d;\n", ++num_or_conditional);
         
-        add_come_code(info, "if(_or_conditional%d=%s,", num_or_conditional, conditional_value.c_value);
+        add_come_code(info, "if((_or_conditional%d=(%s)),", num_or_conditional, conditional_value.c_value);
         int num_or_conditional_stack = num_or_conditional;
         add_last_code_to_source_with_comma(info);
         free_right_value_objects(info, comma:true);
@@ -268,7 +268,7 @@ class sAndStatmentNode extends sNodeBase
         static int num_and_conditional = 0;
         add_come_code_at_function_head(info, "_Bool _and_conditional%d;\n", ++num_and_conditional);
         
-        add_come_code(info, "if(_and_conditional%d=%s,", num_and_conditional, conditional_value.c_value);
+        add_come_code(info, "if((_and_conditional%d=(%s)),", num_and_conditional, conditional_value.c_value);
         int num_and_conditional_stack = num_and_conditional;
         add_last_code_to_source_with_comma(info);
         free_right_value_objects(info, comma:true);

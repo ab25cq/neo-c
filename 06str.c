@@ -237,11 +237,10 @@ class sRegexNode extends sNodeBase
         come_value.type.mHeap = true;
         come_value.var = null;
         
-        info.stack.push_back(come_value);
-        
-        add_come_last_code(info, "%s;\n", come_value.c_value);
-        
         append_object_to_right_values2(come_value, come_value.type, info);
+        
+        info.stack.push_back(come_value);
+        add_come_last_code(info, "%s;\n", come_value.c_value);
         
         return true;
     }
@@ -417,9 +416,9 @@ class sListNode extends sNodeBase
             append_object_to_right_values2(come_value4, result_type, info);
         }
         
-        add_come_last_code(info, "%s;\n", buf.to_string());
-        
         info.stack.push_back(come_value4);
+        
+        add_come_last_code(info, "%s;\n", come_value4.c_value);
         
         return true;
     }
@@ -554,7 +553,7 @@ class sTupleNode extends sNodeBase
             append_object_to_right_values2(come_value2, result_type, info);
         }
         
-        add_come_last_code(info, "%s;\n", buf.to_string());
+        add_come_last_code(info, "%s;\n", come_value2.c_value);
         
         info.stack.push_back(come_value2);
         
@@ -782,7 +781,7 @@ class sMapNode extends sNodeBase
             append_object_to_right_values2(come_value5, result_type, info);
         }
         
-        add_come_last_code(info, "%s;\n", buf.to_string());
+        add_come_last_code(info, "%s;\n", come_value5.c_value);
         
         info.stack.push_back(come_value5);
         
