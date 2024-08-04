@@ -2955,11 +2955,10 @@ int come_main_v1(int argc, char** argv){
 
 int main(int argc, char** argv){
 int __result45__;
-come_heap_init(0, 0, 0);
+    come_heap_init(0, 0, 0);
     setlocale(6,"");
     __result45__ = come_main_v2(argc,argv);
     come_heap_final();
     return __result45__;
-come_heap_final();
 }
 
