@@ -19,12 +19,21 @@ void std_move(sType* left_type, sType* right_type, CVALUE* right_value, sInfo* i
             right_value.var->mCValueName = null;
         }
         else if(right_value.var.mType.mShare) {
+            if(!no_delete_from_right_value_objects && right_value.c_value_without_right_value_objects) {
+                right_value.c_value = right_value.c_value_without_right_value_objects;
+            }
             right_value.c_value = increment_ref_count_object(right_value.type, right_value.c_value, info);
         }
         else if(right_value.var.mType.mClone) {
+            if(!no_delete_from_right_value_objects && right_value.c_value_without_right_value_objects) {
+                right_value.c_value = right_value.c_value_without_right_value_objects;
+            }
             right_value.c_value = increment_ref_count_object(right_value.type, right_value.c_value, info);
         }
         else {
+            if(!no_delete_from_right_value_objects && right_value.c_value_without_right_value_objects) {
+                right_value.c_value = right_value.c_value_without_right_value_objects;
+            }
             right_value.c_value = increment_ref_count_object(right_value.type, right_value.c_value, info);
         }
     }
@@ -32,6 +41,9 @@ void std_move(sType* left_type, sType* right_type, CVALUE* right_value, sInfo* i
         if(right_value.type.mDelegate) {
         }
         else {
+            if(!no_delete_from_right_value_objects && right_value.c_value_without_right_value_objects) {
+                right_value.c_value = right_value.c_value_without_right_value_objects;
+            }
             right_value.c_value = increment_ref_count_object(right_value.type, right_value.c_value, info);
         }
     }
@@ -339,6 +351,8 @@ void append_object_to_right_values2(CVALUE* come_value, sType*% type, sInfo* inf
     string buf = xsprintf("void* __right_value%d = (void*)0;\n", gRightValueNum-1);
     add_come_code_at_function_head(info, buf);
     
+    
+    come_value.c_value_without_right_value_objects = clone come_value.c_value;
     come_value.c_value = xsprintf("((%s)(%s=%s))", make_type_name_string(type, false@in_header, true@array_cast_pointer), new_value->mVarName, come_value.c_value)!;
     come_value.right_value_objects = new_value;
 }

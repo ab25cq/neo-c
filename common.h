@@ -154,6 +154,7 @@ struct CVALUE
     sType*% type;
     sVar* var;
     sRightValueObject* right_value_objects;
+    string c_value_without_right_value_objects;
 };
 
 CVALUE*% CVALUE*::initialize(CVALUE*% self);
