@@ -599,6 +599,7 @@ sNode*% pre_position_operator(sInfo* info=info)
 {
     skip_spaces_and_lf();
     
+    
     bool refference = false;
     {
         char* p = info.p;
@@ -808,6 +809,9 @@ sNode*% pre_position_operator(sInfo* info=info)
         }
         else {
             sNode*% node;
+            bool no_assign = info.no_assign;
+            info.no_assign = false;
+            
             if(gComeC && info.in_fun_param) {
                 bool no_comma = info.no_comma;
                 info.no_comma = false;
@@ -821,6 +825,8 @@ sNode*% pre_position_operator(sInfo* info=info)
                 node = expression();
                 parse_sharp();
             }
+            
+            info.no_assign = no_assign;
             
             expected_next_character(')');
             parse_sharp();

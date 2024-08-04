@@ -1,8 +1,9 @@
-#include <neo-c.h>
 
 int main(int argc, char** argv)
 {
-    string a = string("ABC");
+    char* p;
+    
+    *p = 'A';
     
     return 0;
 }

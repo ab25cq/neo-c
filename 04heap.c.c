@@ -3390,7 +3390,7 @@ memset(&new_name_131, 0, sizeof(char*));
     if(string_operator_equals(klass_87->mName,"lambda")) {
         result_type_88=(struct sType*)come_increment_ref_count(solve_generics(type->mResultType->v1,generics_type,info));
         __dec_obj45=result_62->mResultType;
-        result_62->mResultType=(struct tuple1$1sTypeph*)come_increment_ref_count(tuple1$1sTypeph_initialize((struct tuple1$1sTypeph*)come_increment_ref_count(((struct tuple1$1sTypeph*)(__right_value120=(struct tuple1$1sTypeph*)come_calloc(1, sizeof(struct tuple1$1sTypeph)*(1), "04heap.c", 229, "tuple1$1sTypeph")))),(struct sType*)come_increment_ref_count(result_type_88)));
+        result_62->mResultType=(struct tuple1$1sTypeph*)come_increment_ref_count(tuple1$1sTypeph_initialize((struct tuple1$1sTypeph*)come_increment_ref_count(((struct tuple1$1sTypeph*)(__right_value120=(struct tuple1$1sTypeph*)come_calloc(1, sizeof(struct tuple1$1sTypeph)*(1), "04heap.c", 67, "tuple1$1sTypeph")))),(struct sType*)come_increment_ref_count(result_type_88)));
         come_call_finalizer3(__dec_obj45,tuple1$1sTypeph_finalize, 0, 0, 0, 0, (void*)0);
         come_call_finalizer3(__right_value120,tuple1$1sTypephp_finalize, 0, 1, 0, 0, __result_obj__);
         list$1sTypeph_reset(result_62->mParamTypes);
@@ -3419,7 +3419,7 @@ memset(&new_name_131, 0, sizeof(char*));
             no_calling_destructor_108=type->mNoCallingDestructor;
             null_value_109=type->mNullValue;
             __dec_obj49=result_62;
-            result_62=(struct sType*)come_increment_ref_count(sType_clone(((struct sType*)come_null_check(list$1sTypephp_operator_load_element(info->method_generics_types,generics_number_101), "04heap.c", 258, 0))));
+            result_62=(struct sType*)come_increment_ref_count(sType_clone(((struct sType*)come_null_check(list$1sTypephp_operator_load_element(info->method_generics_types,generics_number_101), "04heap.c", 96, 0))));
             come_call_finalizer3(__dec_obj49,sType_finalize, 0, 0, 0, 0, (void*)0);
             if(heap_105) {
                 result_62->mHeap=heap_105;
@@ -3457,7 +3457,7 @@ memset(&new_name_131, 0, sizeof(char*));
                     err_msg(info,"invalid generics parametor number");
                     exit(2);
                 }
-                klass2_114=((struct sType*)come_null_check(list$1sTypephp_operator_load_element(generics_type->mGenericsTypes,generics_number_113), "04heap.c", 297, 1))->mClass;
+                klass2_114=((struct sType*)come_null_check(list$1sTypephp_operator_load_element(generics_type->mGenericsTypes,generics_number_113), "04heap.c", 135, 1))->mClass;
                 generics_number2_115=klass2_114->mGenericsNum;
                 if(generics_number_113!=generics_number2_115) {
                     array_num_116=(struct list$1sNodeph*)come_increment_ref_count(list$1sNodephp_clone(type->mArrayNum));
@@ -3470,7 +3470,7 @@ memset(&new_name_131, 0, sizeof(char*));
                     null_value_123=type->mNullValue;
                     record__124=type->mRecord;
                     __dec_obj51=result_62;
-                    result_62=(struct sType*)come_increment_ref_count(sType_clone(((struct sType*)come_null_check(list$1sTypephp_operator_load_element(generics_type->mGenericsTypes,generics_number_113), "04heap.c", 314, 2))));
+                    result_62=(struct sType*)come_increment_ref_count(sType_clone(((struct sType*)come_null_check(list$1sTypephp_operator_load_element(generics_type->mGenericsTypes,generics_number_113), "04heap.c", 152, 2))));
                     come_call_finalizer3(__dec_obj51,sType_finalize, 0, 0, 0, 0, (void*)0);
                     if(heap_119) {
                         result_62->mHeap=heap_119;
@@ -4426,7 +4426,7 @@ memset(&array_num_135, 0, sizeof(struct list$1sNodeph*));
         no_calling_destructor_141=type->mNoCallingDestructor;
         null_value_142=type->mNullValue;
         __dec_obj53=result_132;
-        result_132=(struct sType*)come_increment_ref_count(sType_clone(((struct sType*)come_null_check(list$1sTypephp_operator_load_element(info->method_generics_types,generics_number_134), "04heap.c", 396, 3))));
+        result_132=(struct sType*)come_increment_ref_count(sType_clone(((struct sType*)come_null_check(list$1sTypephp_operator_load_element(info->method_generics_types,generics_number_134), "04heap.c", 234, 3))));
         come_call_finalizer3(__dec_obj53,sType_finalize, 0, 0, 0, 0, (void*)0);
         if(heap_138) {
             result_132->mHeap=heap_138;
@@ -4552,7 +4552,7 @@ memset(&buf_150, 0, sizeof(char*));
         __right_value142 = come_decrement_ref_count2(__right_value142, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
         return __result88__;
     }
-    new_value_146=(struct sRightValueObject*)come_increment_ref_count((struct sRightValueObject*)come_calloc(1, sizeof(struct sRightValueObject)*(1), "04heap.c", 479, "sRightValueObject"));
+    new_value_146=(struct sRightValueObject*)come_increment_ref_count((struct sRightValueObject*)come_calloc(1, sizeof(struct sRightValueObject)*(1), "04heap.c", 317, "sRightValueObject"));
     __dec_obj56=new_value_146->mType;
     new_value_146->mType=(struct sType*)come_increment_ref_count(type);
     come_call_finalizer3(__dec_obj56,sType_finalize, 0, 0, 0, 0, (void*)0);
@@ -4663,7 +4663,7 @@ memset(&buf_152, 0, sizeof(char*));
         come_call_finalizer3(type,sType_finalize, 0, 0, 1, 0, (void*)0);
         return;
     }
-    new_value_151=(struct sRightValueObject*)come_increment_ref_count((struct sRightValueObject*)come_calloc(1, sizeof(struct sRightValueObject)*(1), "04heap.c", 503, "sRightValueObject"));
+    new_value_151=(struct sRightValueObject*)come_increment_ref_count((struct sRightValueObject*)come_calloc(1, sizeof(struct sRightValueObject)*(1), "04heap.c", 341, "sRightValueObject"));
     __dec_obj62=new_value_151->mType;
     new_value_151->mType=(struct sType*)come_increment_ref_count(type);
     come_call_finalizer3(__dec_obj62,sType_finalize, 0, 0, 0, 0, (void*)0);
@@ -6022,7 +6022,7 @@ memset(&type_name_289, 0, sizeof(char*));
         if(generics_fun_282) {
             if((_if_conditional1=(!create_generics_fun((char*)come_increment_ref_count(((char*)(__right_value219=__builtin_string(fun_name2_278)))),generics_fun_282,obj_type_280,info))),            (__right_value219 = come_decrement_ref_count2(__right_value219, (void*)0, (void*)0, 1, 0, 0, __result_obj__)),
             _if_conditional1) {
-                __result115__ = __result_obj__ = ((struct tuple2$2sTypephcharph*)(__right_value224=tuple2$2sTypephcharph_initialize((struct tuple2$2sTypephcharph*)come_increment_ref_count(((struct tuple2$2sTypephcharph*)(__right_value223=(struct tuple2$2sTypephcharph*)come_calloc(1, sizeof(struct tuple2$2sTypephcharph)*(1), "04heap.c", 1065, "struct tuple2$2sTypephcharph")))),(struct sType*)come_increment_ref_count(((struct sType*)(__right_value221=sType_initialize((struct sType*)come_increment_ref_count(((struct sType*)(__right_value220=(struct sType*)come_calloc(1, sizeof(struct sType)*(1), "04heap.c", 1065, "sType")))),"void",(_Bool)0,info)))),(char*)come_increment_ref_count(((char*)(__right_value222=__builtin_string("")))))));
+                __result115__ = __result_obj__ = ((struct tuple2$2sTypephcharph*)(__right_value224=tuple2$2sTypephcharph_initialize((struct tuple2$2sTypephcharph*)come_increment_ref_count(((struct tuple2$2sTypephcharph*)(__right_value223=(struct tuple2$2sTypephcharph*)come_calloc(1, sizeof(struct tuple2$2sTypephcharph)*(1), "04heap.c", 903, "struct tuple2$2sTypephcharph")))),(struct sType*)come_increment_ref_count(((struct sType*)(__right_value221=sType_initialize((struct sType*)come_increment_ref_count(((struct sType*)(__right_value220=(struct sType*)come_calloc(1, sizeof(struct sType)*(1), "04heap.c", 903, "sType")))),"void",(_Bool)0,info)))),(char*)come_increment_ref_count(((char*)(__right_value222=__builtin_string("")))))));
                 none_generics_name_279 = come_decrement_ref_count2(none_generics_name_279, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 come_call_finalizer3(obj_type_280,sType_finalize, 0, 0, 0, 0, (void*)0);
                 fun_name3_281 = come_decrement_ref_count2(fun_name3_281, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -6114,7 +6114,7 @@ memset(&type_name_289, 0, sizeof(char*));
     __dec_obj91=info->stack;
     info->stack=(struct list$1CVALUEph*)come_increment_ref_count(stack_saved_271);
     come_call_finalizer3(__dec_obj91,list$1CVALUEph_finalize, 0, 0, 0, 0, (void*)0);
-    __result116__ = __result_obj__ = ((struct tuple2$2sTypephcharph*)(__right_value237=tuple2$2sTypephcharph_initialize((struct tuple2$2sTypephcharph*)come_increment_ref_count(((struct tuple2$2sTypephcharph*)(__right_value236=(struct tuple2$2sTypephcharph*)come_calloc(1, sizeof(struct tuple2$2sTypephcharph)*(1), "04heap.c", 1122, "struct tuple2$2sTypephcharph")))),(struct sType*)come_increment_ref_count(result_type_270),(char*)come_increment_ref_count(result_269))));
+    __result116__ = __result_obj__ = ((struct tuple2$2sTypephcharph*)(__right_value237=tuple2$2sTypephcharph_initialize((struct tuple2$2sTypephcharph*)come_increment_ref_count(((struct tuple2$2sTypephcharph*)(__right_value236=(struct tuple2$2sTypephcharph*)come_calloc(1, sizeof(struct tuple2$2sTypephcharph)*(1), "04heap.c", 960, "struct tuple2$2sTypephcharph")))),(struct sType*)come_increment_ref_count(result_type_270),(char*)come_increment_ref_count(result_269))));
     come_call_finalizer3(type2_268,sType_finalize, 0, 0, 0, 0, (void*)0);
     result_269 = come_decrement_ref_count2(result_269, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer3(result_type_270,sType_finalize, 0, 0, 0, 0, (void*)0);

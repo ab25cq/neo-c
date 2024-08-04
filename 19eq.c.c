@@ -5925,7 +5925,7 @@ memset(&right_node_215, 0, sizeof(struct sNode*));
                                                     if(right_node_212) { right_node_212 = come_decrement_ref_count2(right_node_212, ((struct sNode*)right_node_212)->finalize, ((struct sNode*)right_node_212)->_protocol_obj, 0, 0, 0, (void*)0); } 
                                                 }
                                                 else {
-                                                    if((*info->p==92&&*(info->p+1)==61&&*(info->p+2)!=61)||(*info->p==61&&*(info->p+1)!=61)) {
+                                                    if(((*info->p==92&&*(info->p+1)==61&&*(info->p+2)!=61)||(*info->p==61&&*(info->p+1)!=61))) {
                                                         if(*info->p==92) {
                                                             info->p+=2;
                                                             skip_spaces_and_lf(info);
