@@ -1,14 +1,8 @@
-#include <stdio.h>
-
-int fun()
-{
-    return -1;
-}
+#include <neo-c.h>
 
 int main(int argc, char** argv)
 {
-int a =	(puts("AAA"), puts("BBB"), puts("CCC"), 7);
-printf("%d\n", a);
+    string a = string("ABC");
     
     return 0;
 }

@@ -3175,7 +3175,7 @@ memset(&result_52, 0, sizeof(char*));
         info->p++;
     }
     skip_spaces_and_lf(info);
-    if((_if_conditional1=(string_length(((char*)(__right_value84=buffer_to_string(buf_51))))==0)),    (come_decrement_ref_count2(__right_value84, (void*)0, (void*)0, 1, 0, 0, __result_obj__)),
+    if((_if_conditional1=(string_length(((char*)(__right_value84=buffer_to_string(buf_51))))==0)),    (__right_value84 = come_decrement_ref_count2(__right_value84, (void*)0, (void*)0, 1, 0, 0, __result_obj__)),
     _if_conditional1) {
         err_msg(info,"unexpected character(%c). expected word character",*info->p);
         __result45__ = __result_obj__ = ((char*)(__right_value85=__builtin_string("")));

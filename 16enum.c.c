@@ -3163,7 +3163,7 @@ memset(&c_value_81, 0, sizeof(char*));
         multiple_assign_var1=it_66;
         name_69=(char*)come_increment_ref_count(multiple_assign_var1->v1);
         value_70=(struct sNode*)come_increment_ref_count(multiple_assign_var1->v2);
-        if((_if_conditional1=(map$2charphsVarph_at(info->gv_table->mVars,((char*)(__right_value98=__builtin_string(name_69))),((void*)0))!=((void*)0))),        (come_decrement_ref_count2(__right_value98, (void*)0, (void*)0, 1, 0, 0, (void*)0)),
+        if((_if_conditional1=(map$2charphsVarph_at(info->gv_table->mVars,((char*)(__right_value98=__builtin_string(name_69))),((void*)0))!=((void*)0))),        (__right_value98 = come_decrement_ref_count2(__right_value98, (void*)0, (void*)0, 1, 0, 0, (void*)0)),
         _if_conditional1) {
             self->mOutput=(_Bool)0;
         }

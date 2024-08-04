@@ -4513,7 +4513,7 @@ memset(&generics_fun_99, 0, sizeof(struct sGenericsFun*));
     come_call_finalizer3(__dec_obj54,list$1sTypeph_finalize, 0, 0, 0, 0, (void*)0);
     generics_fun_99=map$2charphsGenericsFunph_at(info->generics_funcs,fun_name,((void*)0));
     if(generics_fun_99) {
-        if((_if_conditional1=(!create_method_generics_fun((char*)come_increment_ref_count(((char*)(__right_value174=__builtin_string(fun_name3_97)))),generics_fun_99,info))),        (come_decrement_ref_count2(__right_value174, (void*)0, (void*)0, 1, 0, 0, __result_obj__)),
+        if((_if_conditional1=(!create_method_generics_fun((char*)come_increment_ref_count(((char*)(__right_value174=__builtin_string(fun_name3_97)))),generics_fun_99,info))),        (__right_value174 = come_decrement_ref_count2(__right_value174, (void*)0, (void*)0, 1, 0, 0, __result_obj__)),
         _if_conditional1) {
             err_msg(info,"%s not found",fun_name3_97);
             __result89__ = __result_obj__ = ((char*)(__right_value175=__builtin_string("")));

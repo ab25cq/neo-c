@@ -3897,8 +3897,8 @@ memset(&cflags_debug_112, 0, sizeof(char*));
     prefix_110=(char*)come_increment_ref_count(((char*)(__right_value147=__builtin_string("/usr/local/"))));
     cflags_111=(char*)come_increment_ref_count(((char*)(__right_value148=__builtin_string(" -common-header -O2 "))));
     cflags_debug_112=(char*)come_increment_ref_count(((char*)(__right_value149=__builtin_string(" -common-header -gdwarf-4 -cg "))));
-    if((_or_conditional1=(system(((char*)(__right_value151=xsprintf("mkdir \%s",((char*)(__right_value150=string_to_string(project_name_104))))))))),    (come_decrement_ref_count2(__right_value150, (void*)0, (void*)0, 1, 0, 0, (void*)0)),
-    (come_decrement_ref_count2(__right_value151, (void*)0, (void*)0, 1, 0, 0, (void*)0)),
+    if((_or_conditional1=(system(((char*)(__right_value151=xsprintf("mkdir \%s",((char*)(__right_value150=string_to_string(project_name_104))))))))),    (__right_value150 = come_decrement_ref_count2(__right_value150, (void*)0, (void*)0, 1, 0, 0, (void*)0)),
+    (__right_value151 = come_decrement_ref_count2(__right_value151, (void*)0, (void*)0, 1, 0, 0, (void*)0)),
     _or_conditional1 != 0) {
         (come_push_stackframe("02transpile.c", 317, 0),__exception_result_var_b1=die("mkdir error"), come_pop_stackframe(), __exception_result_var_b1);
     }
@@ -4004,8 +4004,8 @@ void* __right_value181 = (void*)0;
 void* __right_value182 = (void*)0;
 _Bool _or_conditional7;
 _Bool __exception_result_var_b7;
-    if((_or_conditional7=(system(((char*)(__right_value182=xsprintf("make install DESTDIR=\%s",((char*)(__right_value181=charp_to_string(prefix))))))))),    (come_decrement_ref_count2(__right_value181, (void*)0, (void*)0, 1, 0, 0, (void*)0)),
-    (come_decrement_ref_count2(__right_value182, (void*)0, (void*)0, 1, 0, 0, (void*)0)),
+    if((_or_conditional7=(system(((char*)(__right_value182=xsprintf("make install DESTDIR=\%s",((char*)(__right_value181=charp_to_string(prefix))))))))),    (__right_value181 = come_decrement_ref_count2(__right_value181, (void*)0, (void*)0, 1, 0, 0, (void*)0)),
+    (__right_value182 = come_decrement_ref_count2(__right_value182, (void*)0, (void*)0, 1, 0, 0, (void*)0)),
     _or_conditional7 != 0) {
         (come_push_stackframe("02transpile.c", 453, 6),__exception_result_var_b7=die("system"), come_pop_stackframe(), __exception_result_var_b7);
     }
@@ -6375,7 +6375,7 @@ memset(&__current_stack2__, 0, sizeof(struct __current_stack2__));
                                         gComeOriginalSourcePosition=(_Bool)0;
                                     }
                                     else {
-                                        if((_if_conditional1=(string_operator_equals(((char*)(__right_value337=charp_operator_load_range_element(argv[i_244],0,2))),"-O"))),                                        (come_decrement_ref_count2(__right_value337, (void*)0, (void*)0, 1, 0, 0, (void*)0)),
+                                        if((_if_conditional1=(string_operator_equals(((char*)(__right_value337=charp_operator_load_range_element(argv[i_244],0,2))),"-O"))),                                        (__right_value337 = come_decrement_ref_count2(__right_value337, (void*)0, (void*)0, 1, 0, 0, (void*)0)),
                                         _if_conditional1) {
                                             buffer_append_str(clang_option_231,((char*)(__right_value339=xsprintf(" \%s ",((char*)(__right_value338=charp_to_string(argv[i_244])))))));
                                             __right_value338 = come_decrement_ref_count2(__right_value338, (void*)0, (void*)0, 1, 0, 0, (void*)0);
@@ -6383,7 +6383,7 @@ memset(&__current_stack2__, 0, sizeof(struct __current_stack2__));
                                             come_debug_241=(_Bool)0;
                                         }
                                         else {
-                                            if((_if_conditional2=(string_operator_equals(((char*)(__right_value340=charp_operator_load_range_element(argv[i_244],0,2))),"-D"))),                                            (come_decrement_ref_count2(__right_value340, (void*)0, (void*)0, 1, 0, 0, (void*)0)),
+                                            if((_if_conditional2=(string_operator_equals(((char*)(__right_value340=charp_operator_load_range_element(argv[i_244],0,2))),"-D"))),                                            (__right_value340 = come_decrement_ref_count2(__right_value340, (void*)0, (void*)0, 1, 0, 0, (void*)0)),
                                             _if_conditional2) {
                                                 buffer_append_str(cpp_option_232,((char*)(__right_value342=xsprintf(" \%s ",((char*)(__right_value341=charp_to_string(argv[i_244])))))));
                                                 __right_value341 = come_decrement_ref_count2(__right_value341, (void*)0, (void*)0, 1, 0, 0, (void*)0);
@@ -6461,7 +6461,7 @@ memset(&__current_stack2__, 0, sizeof(struct __current_stack2__));
                 buffer_append_str(clang_option_231," -lneo-c-str -lpcre ");
             }
         }
-        if((_or_conditional8=(system(((char*)(__right_value350=xsprintf("%s %s",RM,output_file_name_238)))))),        (come_decrement_ref_count2(__right_value350, (void*)0, (void*)0, 1, 0, 0, (void*)0)),
+        if((_or_conditional8=(system(((char*)(__right_value350=xsprintf("%s %s",RM,output_file_name_238)))))),        (__right_value350 = come_decrement_ref_count2(__right_value350, (void*)0, (void*)0, 1, 0, 0, (void*)0)),
         _or_conditional8 != 0) {
             (come_push_stackframe("02transpile.c", 603, 7),__exception_result_var_b8=die("rm"), come_pop_stackframe(), __exception_result_var_b8);
         }
@@ -6703,7 +6703,7 @@ memset(&__current_stack2__, 0, sizeof(struct __current_stack2__));
                                                                 gComeOriginalSourcePosition=(_Bool)0;
                                                             }
                                                             else {
-                                                                if((_if_conditional3=(string_operator_equals(((char*)(__right_value428=charp_operator_load_range_element(argv[i_299],0,2))),"-O"))),                                                                (come_decrement_ref_count2(__right_value428, (void*)0, (void*)0, 1, 0, 0, (void*)0)),
+                                                                if((_if_conditional3=(string_operator_equals(((char*)(__right_value428=charp_operator_load_range_element(argv[i_299],0,2))),"-O"))),                                                                (__right_value428 = come_decrement_ref_count2(__right_value428, (void*)0, (void*)0, 1, 0, 0, (void*)0)),
                                                                 _if_conditional3) {
                                                                     buffer_append_str(clang_option_287,((char*)(__right_value430=xsprintf(" \%s ",((char*)(__right_value429=charp_to_string(argv[i_299])))))));
                                                                     __right_value429 = come_decrement_ref_count2(__right_value429, (void*)0, (void*)0, 1, 0, 0, (void*)0);
@@ -6711,7 +6711,7 @@ memset(&__current_stack2__, 0, sizeof(struct __current_stack2__));
                                                                     come_debug_296=(_Bool)0;
                                                                 }
                                                                 else {
-                                                                    if((_if_conditional4=(string_operator_equals(((char*)(__right_value431=charp_operator_load_range_element(argv[i_299],0,2))),"-D"))),                                                                    (come_decrement_ref_count2(__right_value431, (void*)0, (void*)0, 1, 0, 0, (void*)0)),
+                                                                    if((_if_conditional4=(string_operator_equals(((char*)(__right_value431=charp_operator_load_range_element(argv[i_299],0,2))),"-D"))),                                                                    (__right_value431 = come_decrement_ref_count2(__right_value431, (void*)0, (void*)0, 1, 0, 0, (void*)0)),
                                                                     _if_conditional4) {
                                                                         buffer_append_str(cpp_option_288,((char*)(__right_value433=xsprintf(" \%s ",((char*)(__right_value432=charp_to_string(argv[i_299])))))));
                                                                         __right_value432 = come_decrement_ref_count2(__right_value432, (void*)0, (void*)0, 1, 0, 0, (void*)0);

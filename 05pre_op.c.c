@@ -3263,7 +3263,7 @@ memset(&type3_108, 0, sizeof(struct sType*));
         fun_name3_84=(char*)come_increment_ref_count(((char*)(__right_value118=xsprintf("%s_%s",none_generics_name_82,fun_name))));
         generics_fun_85=map$2charphsGenericsFunph_at(info->generics_funcs,fun_name3_84,((void*)0));
         if(generics_fun_85) {
-            if((_if_conditional1=(!create_generics_fun((char*)come_increment_ref_count(((char*)(__right_value119=__builtin_string(fun_name2_81)))),generics_fun_85,obj_type_83,info))),            (come_decrement_ref_count2(__right_value119, (void*)0, (void*)0, 1, 0, 0, (void*)0)),
+            if((_if_conditional1=(!create_generics_fun((char*)come_increment_ref_count(((char*)(__right_value119=__builtin_string(fun_name2_81)))),generics_fun_85,obj_type_83,info))),            (__right_value119 = come_decrement_ref_count2(__right_value119, (void*)0, (void*)0, 1, 0, 0, (void*)0)),
             _if_conditional1) {
                 __result67__ = (_Bool)0;
                 none_generics_name_82 = come_decrement_ref_count2(none_generics_name_82, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -4582,7 +4582,7 @@ memset(&come_value_124, 0, sizeof(struct CVALUE*));
     left_value_116=(struct CVALUE*)come_increment_ref_count(((struct CVALUE*)(__right_value150=get_value_from_stack(-1,info))));
     dec_stack_ptr(1,info);
     if(gComeDebug) {
-        if((_if_conditional2=(string_operator_not_equals(((char*)(__right_value151=value_115->kind(value_115->_protocol_obj))),"sExpEqualNode"))),        (come_decrement_ref_count2(__right_value151, (void*)0, (void*)0, 1, 0, 0, (void*)0)),
+        if((_if_conditional2=(string_operator_not_equals(((char*)(__right_value151=value_115->kind(value_115->_protocol_obj))),"sExpEqualNode"))),        (__right_value151 = come_decrement_ref_count2(__right_value151, (void*)0, (void*)0, 1, 0, 0, (void*)0)),
         _if_conditional2) {
             __dec_obj51=left_value_116->c_value;
             left_value_116->c_value=(char*)come_increment_ref_count(((char*)(__right_value153=xsprintf("((%s)come_null_check(%s, \"%s\", %d, %d))",((char*)(__right_value152=make_type_name_string(left_value_116->type,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0))),left_value_116->c_value,info->sname,info->sline,gComeDebugStackFrameID++))));
