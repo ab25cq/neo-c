@@ -39,6 +39,7 @@ class sReturnNode extends sNodeBase
             CVALUE*% come_value = get_value_from_stack(-1, info);
             dec_stack_ptr(1, info);
             
+            /*
             if(come_value.type->mHeap && come_value.var == null) {
                 int right_value_id = get_right_value_id_from_obj(come_value.c_value);
                 
@@ -46,6 +47,7 @@ class sReturnNode extends sNodeBase
                     remove_object_from_right_values(right_value_id, info);
                 }
             }
+            */
             
             sType*% come_value_type = solve_generics(come_value.type, info.generics_type, info);
             

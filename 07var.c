@@ -126,11 +126,13 @@ class sStoreNode extends sNodeBase
                         std_move(left_type, right_type2, right_value2);
                         come_value.c_value = xsprintf("%s=%s", var_->mCValueName, right_value2.c_value);
                         
+                        /*
                         int right_value_id = get_right_value_id_from_obj(right_value2.c_value);
                         
                         if(right_value_id != -1) {
                             remove_object_from_right_values(right_value_id, info);
                         }
+                        */
                     }
                     else {
                         come_value.c_value = xsprintf("%s=%s", var_->mCValueName, right_value2.c_value);
@@ -291,11 +293,13 @@ class sStoreNode extends sNodeBase
                 
                 std_move(left_type, right_type, right_value);
                 
+                /*
                 int right_value_id = get_right_value_id_from_obj(right_value.c_value);
                 
                 if(right_value_id != -1) {
                     remove_object_from_right_values(right_value_id, info);
                 }
+                */
                 
                 add_come_code_at_function_head(info, "%s;\n", make_define_var(left_type, var_->mCValueName));
                 
@@ -373,11 +377,13 @@ class sStoreNode extends sNodeBase
                             decrement_ref_count_object(parent_var->mType, c_value, info);
                             std_move(left_type, right_type, right_value);
                             
+                            /*
                             int right_value_id = get_right_value_id_from_obj(right_value.c_value);
                             
                             if(right_value_id != -1) {
                                 remove_object_from_right_values(right_value_id, info);
                             }
+                            */
                             
                             CVALUE*% come_value = new CVALUE();
                         
@@ -471,11 +477,13 @@ class sStoreNode extends sNodeBase
                 decrement_ref_count_object(left_type, var_->mCValueName, info);
                 std_move(left_type, right_type, right_value);
                 
+                /*
                 int right_value_id = get_right_value_id_from_obj(right_value.c_value);
                 
                 if(right_value_id != -1) {
                     remove_object_from_right_values(right_value_id, info);
                 }
+                */
                 
                 CVALUE*% come_value = new CVALUE();
                 

@@ -299,11 +299,13 @@ class sStoreFieldNode extends sNodeBase
                 err_msg(info, "Invalid left_type. The field name is %s. The pointer num is %d.", name, left_value.type->mPointerNum);
                 return false;
             }
+            /*
             int right_value_id = get_right_value_id_from_obj(right_value.c_value);
             
             if(right_value_id != -1) {
                 remove_object_from_right_values(right_value_id, info);
             }
+            */
         }
         else if(field_type->mHeap && field_type->mPointerNum > 0 && right_type->mPointerNum > 0 && right_type->mClass->mName === "void") 
         {
@@ -952,11 +954,13 @@ class sStoreArrayNode extends sNodeBase
                     err_msg(info, "Invalid left_type. The name is %s. The pointer num is %d.(1)", left_value_code, left_value.type->mPointerNum);
                     return false;
                 }
+                /*
                 int right_value_id = get_right_value_id_from_obj(right_value.c_value);
                 
                 if(right_value_id != -1) {
                     remove_object_from_right_values(right_value_id, info);
                 }
+                */
             }
             else {
                 if(left_value.type->mPointerNum >= 1) {
