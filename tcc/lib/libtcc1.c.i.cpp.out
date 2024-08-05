@@ -1,5 +1,3 @@
-clang: warning: -lang-c: 'linker' input unused [-Wunused-command-line-argument]
-lib/libtcc1.c:143:2: error: unsupported CPU type
-#error unsupported CPU type
- ^
-1 error generated.
+lib/libtcc1.c:143:2: error: #error unsupported CPU type
+  143 | #error unsupported CPU type
+      |  ^~~~~
