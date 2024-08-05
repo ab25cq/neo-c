@@ -376,6 +376,7 @@ struct sInfo
     bool in_fun_param;
     
     bool inhibits_output_code;
+    bool inhibits_output_code2;
 };
 
 /////////////////////////////////////////////////////////////////////

@@ -372,579 +372,292 @@ struct come_regex
 
 // header function
 void come_heap_init(int come_malloc, int come_debug, int come_gc);
-
 void come_heap_final();
-
 struct _IO_FILE* fopen(const char* anonymous_var_nameX1, const char* anonymous_var_nameX2);
-
 struct _IO_FILE* freopen(const char* anonymous_var_nameX3, const char* anonymous_var_nameX4, struct _IO_FILE* anonymous_var_nameX5);
-
 int fclose(struct _IO_FILE* anonymous_var_nameX6);
-
 int remove(const char* anonymous_var_nameX7);
-
 int rename(const char* anonymous_var_nameX8, const char* anonymous_var_nameX9);
-
 int feof(struct _IO_FILE* anonymous_var_nameX10);
-
 int ferror(struct _IO_FILE* anonymous_var_nameX11);
-
 int fflush(struct _IO_FILE* anonymous_var_nameX12);
-
 void clearerr(struct _IO_FILE* anonymous_var_nameX13);
-
 int fseek(struct _IO_FILE* anonymous_var_nameX14, long anonymous_var_nameX15, int anonymous_var_nameX16);
-
 long ftell(struct _IO_FILE* anonymous_var_nameX17);
-
 void rewind(struct _IO_FILE* anonymous_var_nameX18);
-
 int fgetpos(struct _IO_FILE* anonymous_var_nameX19, union _G_fpos64_t* anonymous_var_nameX20);
-
 int fsetpos(struct _IO_FILE* anonymous_var_nameX21, const union _G_fpos64_t* anonymous_var_nameX22);
-
 unsigned long int fread(void* anonymous_var_nameX23, unsigned long int anonymous_var_nameX24, unsigned long int anonymous_var_nameX25, struct _IO_FILE* anonymous_var_nameX26);
-
 unsigned long int fwrite(const void* anonymous_var_nameX27, unsigned long int anonymous_var_nameX28, unsigned long int anonymous_var_nameX29, struct _IO_FILE* anonymous_var_nameX30);
-
 int fgetc(struct _IO_FILE* anonymous_var_nameX31);
-
 int getc(struct _IO_FILE* anonymous_var_nameX32);
-
 int getchar();
-
 int ungetc(int anonymous_var_nameX33, struct _IO_FILE* anonymous_var_nameX34);
-
 int fputc(int anonymous_var_nameX35, struct _IO_FILE* anonymous_var_nameX36);
-
 int putc(int anonymous_var_nameX37, struct _IO_FILE* anonymous_var_nameX38);
-
 int putchar(int anonymous_var_nameX39);
-
 char* fgets(char* anonymous_var_nameX40, int anonymous_var_nameX41, struct _IO_FILE* anonymous_var_nameX42);
-
 int fputs(const char* anonymous_var_nameX43, struct _IO_FILE* anonymous_var_nameX44);
-
 int puts(const char* anonymous_var_nameX45);
-
 int printf(const char* anonymous_var_nameX46, ...);
-
 int fprintf(struct _IO_FILE* anonymous_var_nameX47, const char* anonymous_var_nameX48, ...);
-
 int sprintf(char* anonymous_var_nameX49, const char* anonymous_var_nameX50, ...);
-
 int snprintf(char* anonymous_var_nameX51, unsigned long int anonymous_var_nameX52, const char* anonymous_var_nameX53, ...);
-
 int vprintf(const char* anonymous_var_nameX54, va_list anonymous_var_nameX55);
-
 int vfprintf(struct _IO_FILE* anonymous_var_nameX56, const char* anonymous_var_nameX57, va_list anonymous_var_nameX58);
-
 int vsprintf(char* anonymous_var_nameX59, const char* anonymous_var_nameX60, va_list anonymous_var_nameX61);
-
 int vsnprintf(char* anonymous_var_nameX62, unsigned long int anonymous_var_nameX63, const char* anonymous_var_nameX64, va_list anonymous_var_nameX65);
-
 int scanf(const char* anonymous_var_nameX66, ...);
-
 int fscanf(struct _IO_FILE* anonymous_var_nameX67, const char* anonymous_var_nameX68, ...);
-
 int sscanf(const char* anonymous_var_nameX69, const char* anonymous_var_nameX70, ...);
-
 int vscanf(const char* anonymous_var_nameX71, va_list anonymous_var_nameX72);
-
 int vfscanf(struct _IO_FILE* anonymous_var_nameX73, const char* anonymous_var_nameX74, va_list anonymous_var_nameX75);
-
 int vsscanf(const char* anonymous_var_nameX76, const char* anonymous_var_nameX77, va_list anonymous_var_nameX78);
-
 void perror(const char* anonymous_var_nameX79);
-
 int setvbuf(struct _IO_FILE* anonymous_var_nameX80, char* anonymous_var_nameX81, int anonymous_var_nameX82, unsigned long int anonymous_var_nameX83);
-
 void setbuf(struct _IO_FILE* anonymous_var_nameX84, char* anonymous_var_nameX85);
-
 char* tmpnam(char* anonymous_var_nameX86);
-
 struct _IO_FILE* tmpfile();
-
 struct _IO_FILE* fmemopen(void* anonymous_var_nameX87, unsigned long int anonymous_var_nameX88, const char* anonymous_var_nameX89);
-
 struct _IO_FILE* open_memstream(char** anonymous_var_nameX90, unsigned long int* anonymous_var_nameX91);
-
 struct _IO_FILE* fdopen(int anonymous_var_nameX92, const char* anonymous_var_nameX93);
-
 struct _IO_FILE* popen(const char* anonymous_var_nameX94, const char* anonymous_var_nameX95);
-
 int pclose(struct _IO_FILE* anonymous_var_nameX96);
-
 int fileno(struct _IO_FILE* anonymous_var_nameX97);
-
 int fseeko(struct _IO_FILE* anonymous_var_nameX98, long anonymous_var_nameX99, int anonymous_var_nameX100);
-
 long ftello(struct _IO_FILE* anonymous_var_nameX101);
-
 int dprintf(int anonymous_var_nameX102, const char* anonymous_var_nameX103, ...);
-
 int vdprintf(int anonymous_var_nameX104, const char* anonymous_var_nameX105, va_list anonymous_var_nameX106);
-
 void flockfile(struct _IO_FILE* anonymous_var_nameX107);
-
 int ftrylockfile(struct _IO_FILE* anonymous_var_nameX108);
-
 void funlockfile(struct _IO_FILE* anonymous_var_nameX109);
-
 int getc_unlocked(struct _IO_FILE* anonymous_var_nameX110);
-
 int getchar_unlocked();
-
 int putc_unlocked(int anonymous_var_nameX111, struct _IO_FILE* anonymous_var_nameX112);
-
 int putchar_unlocked(int anonymous_var_nameX113);
-
 long getdelim(char** anonymous_var_nameX114, unsigned long int* anonymous_var_nameX115, int anonymous_var_nameX116, struct _IO_FILE* anonymous_var_nameX117);
-
 long getline(char** anonymous_var_nameX118, unsigned long int* anonymous_var_nameX119, struct _IO_FILE* anonymous_var_nameX120);
-
 int renameat(int anonymous_var_nameX121, const char* anonymous_var_nameX122, int anonymous_var_nameX123, const char* anonymous_var_nameX124);
-
 char* ctermid(char* anonymous_var_nameX125);
-
 char* tempnam(const char* anonymous_var_nameX126, const char* anonymous_var_nameX127);
-
 char* cuserid(char* anonymous_var_nameX128);
-
 void setlinebuf(struct _IO_FILE* anonymous_var_nameX129);
-
 void setbuffer(struct _IO_FILE* anonymous_var_nameX130, char* anonymous_var_nameX131, unsigned long int anonymous_var_nameX132);
-
 int fgetc_unlocked(struct _IO_FILE* anonymous_var_nameX133);
-
 int fputc_unlocked(int anonymous_var_nameX134, struct _IO_FILE* anonymous_var_nameX135);
-
 int fflush_unlocked(struct _IO_FILE* anonymous_var_nameX136);
-
 unsigned long int fread_unlocked(void* anonymous_var_nameX137, unsigned long int anonymous_var_nameX138, unsigned long int anonymous_var_nameX139, struct _IO_FILE* anonymous_var_nameX140);
-
 unsigned long int fwrite_unlocked(const void* anonymous_var_nameX141, unsigned long int anonymous_var_nameX142, unsigned long int anonymous_var_nameX143, struct _IO_FILE* anonymous_var_nameX144);
-
 void clearerr_unlocked(struct _IO_FILE* anonymous_var_nameX145);
-
 int feof_unlocked(struct _IO_FILE* anonymous_var_nameX146);
-
 int ferror_unlocked(struct _IO_FILE* anonymous_var_nameX147);
-
 int fileno_unlocked(struct _IO_FILE* anonymous_var_nameX148);
-
 int getw(struct _IO_FILE* anonymous_var_nameX149);
-
 int putw(int anonymous_var_nameX150, struct _IO_FILE* anonymous_var_nameX151);
-
 char* fgetln(struct _IO_FILE* anonymous_var_nameX152, unsigned long int* anonymous_var_nameX153);
-
 int asprintf(char** anonymous_var_nameX154, const char* anonymous_var_nameX155, ...);
-
 int vasprintf(char** anonymous_var_nameX156, const char* anonymous_var_nameX157, va_list anonymous_var_nameX158);
-
 char* fgets_unlocked(char* anonymous_var_nameX159, int anonymous_var_nameX160, struct _IO_FILE* anonymous_var_nameX161);
-
 int fputs_unlocked(const char* anonymous_var_nameX162, struct _IO_FILE* anonymous_var_nameX163);
-
 struct _IO_FILE* fopencookie(void* anonymous_var_nameX174, const char* anonymous_var_nameX175, struct _IO_cookie_io_functions_t anonymous_var_nameX176);
-
 int atoi(const char* anonymous_var_nameX177);
-
 long atol(const char* anonymous_var_nameX178);
-
 long long atoll(const char* anonymous_var_nameX179);
-
 double atof(const char* anonymous_var_nameX180);
-
 float strtof(const char* anonymous_var_nameX181, char** anonymous_var_nameX182);
-
 double strtod(const char* anonymous_var_nameX183, char** anonymous_var_nameX184);
-
 long double strtold(const char* anonymous_var_nameX185, char** anonymous_var_nameX186);
-
 long strtol(const char* anonymous_var_nameX187, char** anonymous_var_nameX188, int anonymous_var_nameX189);
-
 unsigned long int strtoul(const char* anonymous_var_nameX190, char** anonymous_var_nameX191, int anonymous_var_nameX192);
-
 long long strtoll(const char* anonymous_var_nameX193, char** anonymous_var_nameX194, int anonymous_var_nameX195);
-
 unsigned long long strtoull(const char* anonymous_var_nameX196, char** anonymous_var_nameX197, int anonymous_var_nameX198);
-
 int rand();
-
 void srand(unsigned int anonymous_var_nameX199);
-
 void* malloc(unsigned long int anonymous_var_nameX200);
-
 void* calloc(unsigned long int anonymous_var_nameX201, unsigned long int anonymous_var_nameX202);
-
 void* realloc(void* anonymous_var_nameX203, unsigned long int anonymous_var_nameX204);
-
 void free(void* anonymous_var_nameX205);
-
 void* aligned_alloc(unsigned long int anonymous_var_nameX206, unsigned long int anonymous_var_nameX207);
-
 void abort();
-
 int atexit(void (*anonymous_lambda_var_nameZ1)());
-
 void exit(int anonymous_var_nameX208);
-
 void _Exit(int anonymous_var_nameX209);
-
 int at_quick_exit(void (*anonymous_lambda_var_nameZ2)());
-
 void quick_exit(int anonymous_var_nameX210);
-
 char* getenv(const char* anonymous_var_nameX211);
-
 int system(const char* anonymous_var_nameX212);
-
 void* bsearch(const void* anonymous_var_nameX213, const void* anonymous_var_nameX214, unsigned long int anonymous_var_nameX215, unsigned long int anonymous_var_nameX216, int (*anonymous_lambda_var_nameZ3)(const void*,const void*));
-
 void qsort(void* anonymous_var_nameX219, unsigned long int anonymous_var_nameX220, unsigned long int anonymous_var_nameX221, int (*anonymous_lambda_var_nameZ4)(const void*,const void*));
-
 int abs(int anonymous_var_nameX224);
-
 long labs(long anonymous_var_nameX225);
-
 long long llabs(long long anonymous_var_nameX226);
-
 struct anonymous_typeX1 div(int anonymous_var_nameX227, int anonymous_var_nameX228);
-
 struct anonymous_typeX2 ldiv(long anonymous_var_nameX229, long anonymous_var_nameX230);
-
 struct anonymous_typeX3 lldiv(long long anonymous_var_nameX231, long long anonymous_var_nameX232);
-
 int mblen(const char* anonymous_var_nameX233, unsigned long int anonymous_var_nameX234);
-
 int mbtowc(unsigned int* anonymous_var_nameX235, const char* anonymous_var_nameX236, unsigned long int anonymous_var_nameX237);
-
 int wctomb(char* anonymous_var_nameX238, unsigned int anonymous_var_nameX239);
-
 unsigned long int mbstowcs(unsigned int* anonymous_var_nameX240, const char* anonymous_var_nameX241, unsigned long int anonymous_var_nameX242);
-
 unsigned long int wcstombs(char* anonymous_var_nameX243, const unsigned int* anonymous_var_nameX244, unsigned long int anonymous_var_nameX245);
-
 unsigned long int __ctype_get_mb_cur_max();
-
 int posix_memalign(void** anonymous_var_nameX246, unsigned long int anonymous_var_nameX247, unsigned long int anonymous_var_nameX248);
-
 int setenv(const char* anonymous_var_nameX249, const char* anonymous_var_nameX250, int anonymous_var_nameX251);
-
 int unsetenv(const char* anonymous_var_nameX252);
-
 int mkstemp(char* anonymous_var_nameX253);
-
 int mkostemp(char* anonymous_var_nameX254, int anonymous_var_nameX255);
-
 char* mkdtemp(char* anonymous_var_nameX256);
-
 int getsubopt(char** anonymous_var_nameX257, char** anonymous_var_nameX258, char** anonymous_var_nameX259);
-
 int rand_r(unsigned int* anonymous_var_nameX260);
-
 char* realpath(const char* anonymous_var_nameX261, char* anonymous_var_nameX262);
-
 long int random();
-
 void srandom(unsigned int anonymous_var_nameX263);
-
 char* initstate(unsigned int anonymous_var_nameX264, char* anonymous_var_nameX265, unsigned long int anonymous_var_nameX266);
-
 char* setstate(char* anonymous_var_nameX267);
-
 int putenv(char* anonymous_var_nameX268);
-
 int posix_openpt(int anonymous_var_nameX269);
-
 int grantpt(int anonymous_var_nameX270);
-
 int unlockpt(int anonymous_var_nameX271);
-
 char* ptsname(int anonymous_var_nameX272);
-
 char* l64a(long anonymous_var_nameX273);
-
 long a64l(const char* anonymous_var_nameX274);
-
 void setkey(const char* anonymous_var_nameX275);
-
 double drand48();
-
 double erand48(unsigned short int anonymous_var_nameX276[3]);
-
 long int lrand48();
-
 long int nrand48(unsigned short int anonymous_var_nameX277[3]);
-
 long mrand48();
-
 long jrand48(unsigned short int anonymous_var_nameX278[3]);
-
 void srand48(long anonymous_var_nameX279);
-
 unsigned short int* seed48(unsigned short int anonymous_var_nameX280[3]);
-
 void lcong48(unsigned short int anonymous_var_nameX281[7]);
-
 void* alloca(unsigned long int anonymous_var_nameX282);
-
 char* mktemp(char* anonymous_var_nameX283);
-
 int mkstemps(char* anonymous_var_nameX284, int anonymous_var_nameX285);
-
 int mkostemps(char* anonymous_var_nameX286, int anonymous_var_nameX287, int anonymous_var_nameX288);
-
 void* valloc(unsigned long int anonymous_var_nameX289);
-
 void* memalign(unsigned long int anonymous_var_nameX290, unsigned long int anonymous_var_nameX291);
-
 int getloadavg(double* anonymous_var_nameX292, int anonymous_var_nameX293);
-
 int clearenv();
-
 void* reallocarray(void* anonymous_var_nameX294, unsigned long int anonymous_var_nameX295, unsigned long int anonymous_var_nameX296);
-
 void qsort_r(void* anonymous_var_nameX297, unsigned long int anonymous_var_nameX298, unsigned long int anonymous_var_nameX299, int (*anonymous_lambda_var_nameZ5)(const void*,const void*,void*), void* anonymous_var_nameX303);
-
 int ptsname_r(int anonymous_var_nameX304, char* anonymous_var_nameX305, unsigned long int anonymous_var_nameX306);
-
 char* ecvt(double anonymous_var_nameX307, int anonymous_var_nameX308, int* anonymous_var_nameX309, int* anonymous_var_nameX310);
-
 char* fcvt(double anonymous_var_nameX311, int anonymous_var_nameX312, int* anonymous_var_nameX313, int* anonymous_var_nameX314);
-
 char* gcvt(double anonymous_var_nameX315, int anonymous_var_nameX316, char* anonymous_var_nameX317);
-
 char* secure_getenv(const char* anonymous_var_nameX318);
-
 float strtof_l(const char* anonymous_var_nameX319, char** anonymous_var_nameX320, struct __locale_struct* anonymous_var_nameX321);
-
 double strtod_l(const char* anonymous_var_nameX322, char** anonymous_var_nameX323, struct __locale_struct* anonymous_var_nameX324);
-
 long double strtold_l(const char* anonymous_var_nameX325, char** anonymous_var_nameX326, struct __locale_struct* anonymous_var_nameX327);
-
 void* memcpy(void* anonymous_var_nameX328, const void* anonymous_var_nameX329, unsigned long int anonymous_var_nameX330);
-
 void* memmove(void* anonymous_var_nameX331, const void* anonymous_var_nameX332, unsigned long int anonymous_var_nameX333);
-
 void* memset(void* anonymous_var_nameX334, int anonymous_var_nameX335, unsigned long int anonymous_var_nameX336);
-
 int memcmp(const void* anonymous_var_nameX337, const void* anonymous_var_nameX338, unsigned long int anonymous_var_nameX339);
-
 void* memchr(const void* anonymous_var_nameX340, int anonymous_var_nameX341, unsigned long int anonymous_var_nameX342);
-
 char* strcpy(char* anonymous_var_nameX343, const char* anonymous_var_nameX344);
-
 char* strncpy(char* anonymous_var_nameX345, const char* anonymous_var_nameX346, unsigned long int anonymous_var_nameX347);
-
 char* strcat(char* anonymous_var_nameX348, const char* anonymous_var_nameX349);
-
 char* strncat(char* anonymous_var_nameX350, const char* anonymous_var_nameX351, unsigned long int anonymous_var_nameX352);
-
 int strcmp(const char* anonymous_var_nameX353, const char* anonymous_var_nameX354);
-
 int strncmp(const char* anonymous_var_nameX355, const char* anonymous_var_nameX356, unsigned long int anonymous_var_nameX357);
-
 int strcoll(const char* anonymous_var_nameX358, const char* anonymous_var_nameX359);
-
 unsigned long int strxfrm(char* anonymous_var_nameX360, const char* anonymous_var_nameX361, unsigned long int anonymous_var_nameX362);
-
 char* strchr(const char* anonymous_var_nameX363, int anonymous_var_nameX364);
-
 char* strrchr(const char* anonymous_var_nameX365, int anonymous_var_nameX366);
-
 unsigned long int strcspn(const char* anonymous_var_nameX367, const char* anonymous_var_nameX368);
-
 unsigned long int strspn(const char* anonymous_var_nameX369, const char* anonymous_var_nameX370);
-
 char* strpbrk(const char* anonymous_var_nameX371, const char* anonymous_var_nameX372);
-
 char* strstr(const char* anonymous_var_nameX373, const char* anonymous_var_nameX374);
-
 char* strtok(char* anonymous_var_nameX375, const char* anonymous_var_nameX376);
-
 unsigned long int strlen(const char* anonymous_var_nameX377);
-
 char* strerror(int anonymous_var_nameX378);
-
 int bcmp(const void* anonymous_var_nameX379, const void* anonymous_var_nameX380, unsigned long int anonymous_var_nameX381);
-
 void bcopy(const void* anonymous_var_nameX382, void* anonymous_var_nameX383, unsigned long int anonymous_var_nameX384);
-
 void bzero(void* anonymous_var_nameX385, unsigned long int anonymous_var_nameX386);
-
 char* index(const char* anonymous_var_nameX387, int anonymous_var_nameX388);
-
 char* rindex(const char* anonymous_var_nameX389, int anonymous_var_nameX390);
-
 int ffs(int anonymous_var_nameX391);
-
 int ffsl(long anonymous_var_nameX392);
-
 int ffsll(long long anonymous_var_nameX393);
-
 int strcasecmp(const char* anonymous_var_nameX394, const char* anonymous_var_nameX395);
-
 int strncasecmp(const char* anonymous_var_nameX396, const char* anonymous_var_nameX397, unsigned long int anonymous_var_nameX398);
-
 int strcasecmp_l(const char* anonymous_var_nameX399, const char* anonymous_var_nameX400, struct __locale_struct* anonymous_var_nameX401);
-
 int strncasecmp_l(const char* anonymous_var_nameX402, const char* anonymous_var_nameX403, unsigned long int anonymous_var_nameX404, struct __locale_struct* anonymous_var_nameX405);
-
 char* strtok_r(char* anonymous_var_nameX406, const char* anonymous_var_nameX407, char** anonymous_var_nameX408);
-
 int strerror_r(int anonymous_var_nameX409, char* anonymous_var_nameX410, unsigned long int anonymous_var_nameX411);
-
 char* stpcpy(char* anonymous_var_nameX412, const char* anonymous_var_nameX413);
-
 char* stpncpy(char* anonymous_var_nameX414, const char* anonymous_var_nameX415, unsigned long int anonymous_var_nameX416);
-
 unsigned long int strnlen(const char* anonymous_var_nameX417, unsigned long int anonymous_var_nameX418);
-
 char* strdup(const char* anonymous_var_nameX419);
-
 char* strndup(const char* anonymous_var_nameX420, unsigned long int anonymous_var_nameX421);
-
 char* strsignal(int anonymous_var_nameX422);
-
 char* strerror_l(int anonymous_var_nameX423, struct __locale_struct* anonymous_var_nameX424);
-
 int strcoll_l(const char* anonymous_var_nameX425, const char* anonymous_var_nameX426, struct __locale_struct* anonymous_var_nameX427);
-
 unsigned long int strxfrm_l(char* anonymous_var_nameX428, const char* anonymous_var_nameX429, unsigned long int anonymous_var_nameX430, struct __locale_struct* anonymous_var_nameX431);
-
 void* memmem(const void* anonymous_var_nameX432, unsigned long int anonymous_var_nameX433, const void* anonymous_var_nameX434, unsigned long int anonymous_var_nameX435);
-
 void* memccpy(void* anonymous_var_nameX436, const void* anonymous_var_nameX437, int anonymous_var_nameX438, unsigned long int anonymous_var_nameX439);
-
 char* strsep(char** anonymous_var_nameX440, const char* anonymous_var_nameX441);
-
 unsigned long int strlcat(char* anonymous_var_nameX442, const char* anonymous_var_nameX443, unsigned long int anonymous_var_nameX444);
-
 unsigned long int strlcpy(char* anonymous_var_nameX445, const char* anonymous_var_nameX446, unsigned long int anonymous_var_nameX447);
-
 void explicit_bzero(void* anonymous_var_nameX448, unsigned long int anonymous_var_nameX449);
-
 int strverscmp(const char* anonymous_var_nameX450, const char* anonymous_var_nameX451);
-
 char* strchrnul(const char* anonymous_var_nameX452, int anonymous_var_nameX453);
-
 char* strcasestr(const char* anonymous_var_nameX454, const char* anonymous_var_nameX455);
-
 void* memrchr(const void* anonymous_var_nameX456, int anonymous_var_nameX457, unsigned long int anonymous_var_nameX458);
-
 void* mempcpy(void* anonymous_var_nameX459, const void* anonymous_var_nameX460, unsigned long int anonymous_var_nameX461);
-
 char* setlocale(int anonymous_var_nameX462, const char* anonymous_var_nameX463);
-
 struct lconv* localeconv();
-
 struct __locale_struct* duplocale(struct __locale_struct* anonymous_var_nameX464);
-
 void freelocale(struct __locale_struct* anonymous_var_nameX465);
-
 struct __locale_struct* newlocale(int anonymous_var_nameX466, const char* anonymous_var_nameX467, struct __locale_struct* anonymous_var_nameX468);
-
 struct __locale_struct* uselocale(struct __locale_struct* anonymous_var_nameX469);
-
 int* __errno_location();
-
 void come_push_stackframe(char* sname, int sline, int id);
-
 void come_pop_stackframe();
-
 void stackframe();
-
 void come_save_stackframe(char* sname, int sline);
-
 void* come_null_check(void* mem, char* sname, int sline, int id);
-
 void* come_range_check(void* mem, void* begin, void* end, char* sname, int sline);
-
 _Bool bool_expect(_Bool self, void* parent, void (*block)(void*));
-
 _Bool bool_catch(_Bool self, void* parent, void (*block)(void*));
-
 _Bool bool_value(_Bool self, void* parent, void (*block)(void*));
-
 int int_expect(int self, void* parent, void (*block)(void*));
-
 int int_catch(int self, void* parent, void (*block)(void*));
-
 int int_value(int self, void* parent, void (*block)(void*));
-
 int int_except(int self, void* parent, void (*block)(void*));
-
 _Bool bool_except(_Bool self, void* parent, void (*block)(void*));
-
 void xassert(char* msg, _Bool test);
-
 void* come_calloc(unsigned long int count, unsigned long int size, char* sname, int sline, char* class_name);
-
 void* come_increment_ref_count(void* mem);
-
 void* come_print_ref_count(void* mem);
-
 void* come_dynamic_typeof(void* mem);
-
 void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* protocol_obj, int call_finalizer_only, int no_decrement, int no_free, int force_delete_);
-
 void come_call_finalizer2(void* fun, void* mem, void* protocol_fun, void* protocol_obj, int call_finalizer_only, int no_decrement, int no_free, int force_delete_, void* result_obj);
-
 void come_call_finalizer3(void* mem, void* fun, int call_finalizer_only, int no_decrement, int no_free, int force_delete_, void* result_obj);
-
 void* come_decrement_ref_count(void* mem, void* protocol_fun, void* protocol_obj, _Bool no_decrement, _Bool no_free, _Bool force_delete_);
-
 void* come_decrement_ref_count2(void* mem, void* protocol_fun, void* protocol_obj, _Bool no_decrement, _Bool no_free, _Bool force_delete_, void* result_obj);
-
 void come_free_object(void* mem);
-
 void come_free(void* mem);
-
 void* come_memdup(void* block, char* sname, int sline, char* class_name);
-
 char* __builtin_string(char* str);
-
 struct buffer* buffer_initialize(struct buffer* self);
-
 void buffer_finalize(struct buffer* self);
-
 void buffer_force_finalize(struct buffer* self);
-
 struct buffer* buffer_clone(struct buffer* self);
-
 int buffer_length(struct buffer* self);
-
 void buffer_reset(struct buffer* self);
-
 void buffer_trim(struct buffer* self, int len);
-
 struct buffer* buffer_append(struct buffer* self, char* mem, unsigned long int size);
-
 struct buffer* buffer_append_char(struct buffer* self, char c);
-
 struct buffer* buffer_append_str(struct buffer* self, char* str);
-
 struct buffer* buffer_append_nullterminated_str(struct buffer* self, char* str);
-
 struct buffer* buffer_append_int(struct buffer* self, int value);
-
 struct buffer* buffer_append_long(struct buffer* self, long value);
-
 struct buffer* buffer_append_short(struct buffer* self, short short value);
-
 struct buffer* buffer_alignment(struct buffer* self);
-
 int buffer_compare(struct buffer* left, struct buffer* right);
-
 struct buffer* string_to_buffer(char* self);
-
 struct buffer* charp_to_buffer(char* self);
-
 char* buffer_to_string(struct buffer* self);
-
 static void smart_pointer$1charp_finalize(struct smart_pointer$1char* self);
 static void smart_pointer$1shortp_finalize(struct smart_pointer$1short* self);
 static void smart_pointer$1intp_finalize(struct smart_pointer$1int* self);
@@ -982,772 +695,391 @@ static struct list$1double* list$1double_push_back(struct list$1double* self, do
 static void list_item$1doublep_finalize(struct list_item$1double* self);
 static void list$1doublep_finalize(struct list$1double* self);
 _Bool bool_equals(_Bool self, _Bool right);
-
 _Bool char_equals(char self, char right);
-
 _Bool int_equals(int self, int right);
-
 _Bool short_equals(short short self, short short right);
-
 _Bool long_equals(long self, long right);
-
 _Bool size_t_equals(long self, long right);
-
 _Bool float_equals(float self, float right);
-
 _Bool double_equals(double self, double right);
-
 _Bool charp_equals(char* self, char* right);
-
 _Bool string_equals(char* self, char* right);
-
 _Bool string_operator_equals(char* self, char* right);
-
 _Bool charp_operator_equals(char* self, char* right);
-
 _Bool string_operator_not_equals(char* self, char* right);
-
 _Bool charp_operator_not_equals(char* self, char* right);
-
 char* charp_operator_add(char* self, char* right);
-
 char* string_operator_add(char* self, char* right);
-
 char* charp_operator_mult(char* self, int right);
-
 char* string_operator_mult(char* self, int right);
-
 unsigned int bool_get_hash_key(_Bool value);
-
 unsigned int char_get_hash_key(char value);
-
 unsigned int short_get_hash_key(short short value);
-
 unsigned int int_get_hash_key(int value);
-
 unsigned int long_get_hash_key(long value);
-
 unsigned int size_t_get_hash_key(long value);
-
 unsigned int float_get_hash_key(float value);
-
 unsigned int double_get_hash_key(double value);
-
 unsigned int string_get_hash_key(char* value);
-
 unsigned int charp_get_hash_key(char* value);
-
 _Bool bool_clone(char self);
-
 char char_clone(char self);
-
 short int short_clone(short short self);
-
 int int_clone(int self);
-
 long int long_clone(long self);
-
 unsigned long int size_t_clone(long self);
-
 double double_clone(double self);
-
 float float_clone(float self);
-
 char* charp_clone(char* self);
-
 char* string_clone(char* self);
-
 _Bool xiswascii(unsigned int c);
-
 _Bool xiswalpha(unsigned int c);
-
 _Bool xiswblank(unsigned int c);
-
 _Bool xiswdigit(unsigned int c);
-
 _Bool xiswalnum(unsigned int c);
-
 _Bool xisblank(char c);
-
 _Bool xisdigit(char c);
-
 _Bool xisalnum(char c);
-
 _Bool xisascii(char c);
-
 _Bool xisalpha(char c);
-
 int string_length(char* str);
-
 int charp_length(char* str);
-
 char* charp_substring(char* str, int head, int tail);
-
 char* string_substring(char* str, int head, int tail);
-
 char* string_operator_load_range_element(char* str, int head, int tail);
-
 char* charp_operator_load_range_element(char* str, int head, int tail);
-
 char* charp_reverse(char* str);
-
 char* string_reverse(char* str);
-
 char* xsprintf(char* msg, ...);
-
 char* charp_delete(char* str, int head, int tail);
-
 char* string_delete(char* str, int head, int tail);
-
 struct list$1charph* string_split_char(char* self, char c);
-
 struct list$1charph* charp_split_char(char* self, char c);
-
 char* xbasename(char* path);
-
 char* xextname(char* path);
-
 char* xnoextname(char* path);
-
 char* bool_to_string(_Bool self);
-
 char* char_to_string(char self);
-
 char* short_to_string(short short self);
-
 char* int_to_string(int self);
-
 char* long_to_string(long self);
-
 char* size_t_to_string(unsigned long int self);
-
 char* float_to_string(float self);
-
 char* double_to_string(double self);
-
 char* string_to_string(char* self);
-
 char* charp_to_string(char* self);
-
 int bool_compare(_Bool left, _Bool right);
-
 int char_compare(char left, char right);
-
 int short_compare(short short left, short short right);
-
 int int_compare(int left, int right);
-
 int long_compare(long left, long right);
-
 int float_compare(float left, float right);
-
 int double_compare(float left, float right);
-
 int size_t_compare(long left, long right);
-
 int string_compare(char* left, char* right);
-
 int charp_compare(char* left, char* right);
-
 int FILE_write(struct _IO_FILE* f, char* str);
-
 char* FILE_read(struct _IO_FILE* f);
-
 int FILE_fclose(struct _IO_FILE* f);
-
 int* FILE_fprintf(struct _IO_FILE* f, const char* msg, ...);
-
 struct list$1charph* FILE_readlines(struct _IO_FILE* f);
-
 int fopen_block(const char* path, const char* mode, void* parent, void (*block)(void*,struct _IO_FILE*));
-
 int string_write(char* self, char* file_name, _Bool append);
-
 int charp_write(char* self, char* file_name, _Bool append);
-
 char* charp_read(char* file_name);
-
 char* string_read(char* file_name);
-
 char* charp_puts(char* self);
-
 char* string_puts(char* self);
-
 int int_printf(int self, char* msg);
-
 char* string_printf(char* self, ...);
-
 char* charp_printf(char* self, ...);
-
 char* charp_print(char* self);
-
 void int_times(int self, void* parent, void (*block)(void*,int));
-
 struct integer* integer_initialize(struct integer* self, long value);
-
 struct integer* char_to_integer(char self);
-
 struct integer* short_to_integer(short short self);
-
 struct integer* int_to_integer(int self);
-
 struct integer* long_to_integer(long self);
-
 int integer_to_int(struct integer* self);
-
 _Bool integer_equals(struct integer* self, struct integer* right);
-
 int integer_compare(struct integer* self, struct integer* right);
-
 _Bool integer_operator_equals(struct integer* self, struct integer* right);
-
 _Bool integer_operator_not_equals(struct integer* self, struct integer* right);
-
 struct integer* integer_operator_add(struct integer* left, struct integer* right);
-
 struct integer* integer_operator_sub(struct integer* left, struct integer* right);
-
 struct integer* integer_operator_mult(struct integer* left, struct integer* right);
-
 struct integer* integer_operator_div(struct integer* left, struct integer* right);
-
 struct integer* integer_operator_mod(struct integer* left, struct integer* right);
-
 struct integer* integer_operator_lshift(struct integer* left, struct integer* right);
-
 struct integer* integer_operator_rshift(struct integer* left, struct integer* right);
-
 struct integer* integer_operator_gteq(struct integer* left, struct integer* right);
-
 struct integer* integer_operator_lteq(struct integer* left, struct integer* right);
-
 struct integer* integer_operator_lt(struct integer* left, struct integer* right);
-
 struct integer* integer_operator_gt(struct integer* left, struct integer* right);
-
 struct integer* integer_operator_and(struct integer* left, struct integer* right);
-
 struct integer* integer_operator_xor(struct integer* left, struct integer* right);
-
 struct integer* integer_operator_or(struct integer* left, struct integer* right);
-
 struct integer* integer_operator_andand(struct integer* left, struct integer* right);
-
 struct integer* integer_operator_oror(struct integer* left, struct integer* right);
-
 struct real_pcre8_or_16* pcre_compile(const char* anonymous_var_nameX607, int anonymous_var_nameX608, const char** anonymous_var_nameX609, int* anonymous_var_nameX610, const unsigned char* anonymous_var_nameX611);
-
 struct real_pcre8_or_16* pcre16_compile(const unsigned short int* anonymous_var_nameX612, int anonymous_var_nameX613, const char** anonymous_var_nameX614, int* anonymous_var_nameX615, const unsigned char* anonymous_var_nameX616);
-
 struct real_pcre32* pcre32_compile(const unsigned int* anonymous_var_nameX617, int anonymous_var_nameX618, const char** anonymous_var_nameX619, int* anonymous_var_nameX620, const unsigned char* anonymous_var_nameX621);
-
 struct real_pcre8_or_16* pcre_compile2(const char* anonymous_var_nameX622, int anonymous_var_nameX623, int* anonymous_var_nameX624, const char** anonymous_var_nameX625, int* anonymous_var_nameX626, const unsigned char* anonymous_var_nameX627);
-
 struct real_pcre8_or_16* pcre16_compile2(const unsigned short int* anonymous_var_nameX628, int anonymous_var_nameX629, int* anonymous_var_nameX630, const char** anonymous_var_nameX631, int* anonymous_var_nameX632, const unsigned char* anonymous_var_nameX633);
-
 struct real_pcre32* pcre32_compile2(const unsigned int* anonymous_var_nameX634, int anonymous_var_nameX635, int* anonymous_var_nameX636, const char** anonymous_var_nameX637, int* anonymous_var_nameX638, const unsigned char* anonymous_var_nameX639);
-
 int pcre_config(int anonymous_var_nameX640, void* anonymous_var_nameX641);
-
 int pcre16_config(int anonymous_var_nameX642, void* anonymous_var_nameX643);
-
 int pcre32_config(int anonymous_var_nameX644, void* anonymous_var_nameX645);
-
 int pcre_copy_named_substring(const struct real_pcre8_or_16* anonymous_var_nameX646, const char* anonymous_var_nameX647, int* anonymous_var_nameX648, int anonymous_var_nameX649, const char* anonymous_var_nameX650, char* anonymous_var_nameX651, int anonymous_var_nameX652);
-
 int pcre16_copy_named_substring(const struct real_pcre8_or_16* anonymous_var_nameX653, const unsigned short int* anonymous_var_nameX654, int* anonymous_var_nameX655, int anonymous_var_nameX656, const unsigned short int* anonymous_var_nameX657, unsigned short int* anonymous_var_nameX658, int anonymous_var_nameX659);
-
 int pcre32_copy_named_substring(const struct real_pcre32* anonymous_var_nameX660, const unsigned int* anonymous_var_nameX661, int* anonymous_var_nameX662, int anonymous_var_nameX663, const unsigned int* anonymous_var_nameX664, unsigned int* anonymous_var_nameX665, int anonymous_var_nameX666);
-
 int pcre_copy_substring(const char* anonymous_var_nameX667, int* anonymous_var_nameX668, int anonymous_var_nameX669, int anonymous_var_nameX670, char* anonymous_var_nameX671, int anonymous_var_nameX672);
-
 int pcre16_copy_substring(const unsigned short int* anonymous_var_nameX673, int* anonymous_var_nameX674, int anonymous_var_nameX675, int anonymous_var_nameX676, unsigned short int* anonymous_var_nameX677, int anonymous_var_nameX678);
-
 int pcre32_copy_substring(const unsigned int* anonymous_var_nameX679, int* anonymous_var_nameX680, int anonymous_var_nameX681, int anonymous_var_nameX682, unsigned int* anonymous_var_nameX683, int anonymous_var_nameX684);
-
 int pcre_dfa_exec(const struct real_pcre8_or_16* anonymous_var_nameX685, const struct pcre_extra* anonymous_var_nameX686, const char* anonymous_var_nameX687, int anonymous_var_nameX688, int anonymous_var_nameX689, int anonymous_var_nameX690, int* anonymous_var_nameX691, int anonymous_var_nameX692, int* anonymous_var_nameX693, int anonymous_var_nameX694);
-
 int pcre16_dfa_exec(const struct real_pcre8_or_16* anonymous_var_nameX695, const struct pcre16_extra* anonymous_var_nameX696, const unsigned short int* anonymous_var_nameX697, int anonymous_var_nameX698, int anonymous_var_nameX699, int anonymous_var_nameX700, int* anonymous_var_nameX701, int anonymous_var_nameX702, int* anonymous_var_nameX703, int anonymous_var_nameX704);
-
 int pcre32_dfa_exec(const struct real_pcre32* anonymous_var_nameX705, const struct pcre32_extra* anonymous_var_nameX706, const unsigned int* anonymous_var_nameX707, int anonymous_var_nameX708, int anonymous_var_nameX709, int anonymous_var_nameX710, int* anonymous_var_nameX711, int anonymous_var_nameX712, int* anonymous_var_nameX713, int anonymous_var_nameX714);
-
 int pcre_exec(const struct real_pcre8_or_16* anonymous_var_nameX715, const struct pcre_extra* anonymous_var_nameX716, const char* anonymous_var_nameX717, int anonymous_var_nameX718, int anonymous_var_nameX719, int anonymous_var_nameX720, int* anonymous_var_nameX721, int anonymous_var_nameX722);
-
 int pcre16_exec(const struct real_pcre8_or_16* anonymous_var_nameX723, const struct pcre16_extra* anonymous_var_nameX724, const unsigned short int* anonymous_var_nameX725, int anonymous_var_nameX726, int anonymous_var_nameX727, int anonymous_var_nameX728, int* anonymous_var_nameX729, int anonymous_var_nameX730);
-
 int pcre32_exec(const struct real_pcre32* anonymous_var_nameX731, const struct pcre32_extra* anonymous_var_nameX732, const unsigned int* anonymous_var_nameX733, int anonymous_var_nameX734, int anonymous_var_nameX735, int anonymous_var_nameX736, int* anonymous_var_nameX737, int anonymous_var_nameX738);
-
 int pcre_jit_exec(const struct real_pcre8_or_16* anonymous_var_nameX739, const struct pcre_extra* anonymous_var_nameX740, const char* anonymous_var_nameX741, int anonymous_var_nameX742, int anonymous_var_nameX743, int anonymous_var_nameX744, int* anonymous_var_nameX745, int anonymous_var_nameX746, struct real_pcre_jit_stack* anonymous_var_nameX747);
-
 int pcre16_jit_exec(const struct real_pcre8_or_16* anonymous_var_nameX748, const struct pcre16_extra* anonymous_var_nameX749, const unsigned short int* anonymous_var_nameX750, int anonymous_var_nameX751, int anonymous_var_nameX752, int anonymous_var_nameX753, int* anonymous_var_nameX754, int anonymous_var_nameX755, struct real_pcre16_jit_stack* anonymous_var_nameX756);
-
 int pcre32_jit_exec(const struct real_pcre32* anonymous_var_nameX757, const struct pcre32_extra* anonymous_var_nameX758, const unsigned int* anonymous_var_nameX759, int anonymous_var_nameX760, int anonymous_var_nameX761, int anonymous_var_nameX762, int* anonymous_var_nameX763, int anonymous_var_nameX764, struct real_pcre32_jit_stack* anonymous_var_nameX765);
-
 void pcre_free_substring(const char* anonymous_var_nameX766);
-
 void pcre16_free_substring(const unsigned short int* anonymous_var_nameX767);
-
 void pcre32_free_substring(const unsigned int* anonymous_var_nameX768);
-
 void pcre_free_substring_list(const char** anonymous_var_nameX769);
-
 void pcre16_free_substring_list(const unsigned short int** anonymous_var_nameX770);
-
 void pcre32_free_substring_list(const unsigned int** anonymous_var_nameX771);
-
 int pcre_fullinfo(const struct real_pcre8_or_16* anonymous_var_nameX772, const struct pcre_extra* anonymous_var_nameX773, int anonymous_var_nameX774, void* anonymous_var_nameX775);
-
 int pcre16_fullinfo(const struct real_pcre8_or_16* anonymous_var_nameX776, const struct pcre16_extra* anonymous_var_nameX777, int anonymous_var_nameX778, void* anonymous_var_nameX779);
-
 int pcre32_fullinfo(const struct real_pcre32* anonymous_var_nameX780, const struct pcre32_extra* anonymous_var_nameX781, int anonymous_var_nameX782, void* anonymous_var_nameX783);
-
 int pcre_get_named_substring(const struct real_pcre8_or_16* anonymous_var_nameX784, const char* anonymous_var_nameX785, int* anonymous_var_nameX786, int anonymous_var_nameX787, const char* anonymous_var_nameX788, const char** anonymous_var_nameX789);
-
 int pcre16_get_named_substring(const struct real_pcre8_or_16* anonymous_var_nameX790, const unsigned short int* anonymous_var_nameX791, int* anonymous_var_nameX792, int anonymous_var_nameX793, const unsigned short int* anonymous_var_nameX794, const unsigned short int** anonymous_var_nameX795);
-
 int pcre32_get_named_substring(const struct real_pcre32* anonymous_var_nameX796, const unsigned int* anonymous_var_nameX797, int* anonymous_var_nameX798, int anonymous_var_nameX799, const unsigned int* anonymous_var_nameX800, const unsigned int** anonymous_var_nameX801);
-
 int pcre_get_stringnumber(const struct real_pcre8_or_16* anonymous_var_nameX802, const char* anonymous_var_nameX803);
-
 int pcre16_get_stringnumber(const struct real_pcre8_or_16* anonymous_var_nameX804, const unsigned short int* anonymous_var_nameX805);
-
 int pcre32_get_stringnumber(const struct real_pcre32* anonymous_var_nameX806, const unsigned int* anonymous_var_nameX807);
-
 int pcre_get_stringtable_entries(const struct real_pcre8_or_16* anonymous_var_nameX808, const char* anonymous_var_nameX809, char** anonymous_var_nameX810, char** anonymous_var_nameX811);
-
 int pcre16_get_stringtable_entries(const struct real_pcre8_or_16* anonymous_var_nameX812, const unsigned short int* anonymous_var_nameX813, unsigned short int** anonymous_var_nameX814, unsigned short int** anonymous_var_nameX815);
-
 int pcre32_get_stringtable_entries(const struct real_pcre32* anonymous_var_nameX816, const unsigned int* anonymous_var_nameX817, unsigned int** anonymous_var_nameX818, unsigned int** anonymous_var_nameX819);
-
 int pcre_get_substring(const char* anonymous_var_nameX820, int* anonymous_var_nameX821, int anonymous_var_nameX822, int anonymous_var_nameX823, const char** anonymous_var_nameX824);
-
 int pcre16_get_substring(const unsigned short int* anonymous_var_nameX825, int* anonymous_var_nameX826, int anonymous_var_nameX827, int anonymous_var_nameX828, const unsigned short int** anonymous_var_nameX829);
-
 int pcre32_get_substring(const unsigned int* anonymous_var_nameX830, int* anonymous_var_nameX831, int anonymous_var_nameX832, int anonymous_var_nameX833, const unsigned int** anonymous_var_nameX834);
-
 int pcre_get_substring_list(const char* anonymous_var_nameX835, int* anonymous_var_nameX836, int anonymous_var_nameX837, const char*** anonymous_var_nameX838);
-
 int pcre16_get_substring_list(const unsigned short int* anonymous_var_nameX839, int* anonymous_var_nameX840, int anonymous_var_nameX841, const unsigned short int*** anonymous_var_nameX842);
-
 int pcre32_get_substring_list(const unsigned int* anonymous_var_nameX843, int* anonymous_var_nameX844, int anonymous_var_nameX845, const unsigned int*** anonymous_var_nameX846);
-
 const unsigned char* pcre_maketables();
-
 const unsigned char* pcre16_maketables();
-
 const unsigned char* pcre32_maketables();
-
 int pcre_refcount(struct real_pcre8_or_16* anonymous_var_nameX847, int anonymous_var_nameX848);
-
 int pcre16_refcount(struct real_pcre8_or_16* anonymous_var_nameX849, int anonymous_var_nameX850);
-
 int pcre32_refcount(struct real_pcre32* anonymous_var_nameX851, int anonymous_var_nameX852);
-
 struct pcre_extra* pcre_study(const struct real_pcre8_or_16* anonymous_var_nameX853, int anonymous_var_nameX854, const char** anonymous_var_nameX855);
-
 struct pcre16_extra* pcre16_study(const struct real_pcre8_or_16* anonymous_var_nameX856, int anonymous_var_nameX857, const char** anonymous_var_nameX858);
-
 struct pcre32_extra* pcre32_study(const struct real_pcre32* anonymous_var_nameX859, int anonymous_var_nameX860, const char** anonymous_var_nameX861);
-
 void pcre_free_study(struct pcre_extra* anonymous_var_nameX862);
-
 void pcre16_free_study(struct pcre16_extra* anonymous_var_nameX863);
-
 void pcre32_free_study(struct pcre32_extra* anonymous_var_nameX864);
-
 const char* pcre_version();
-
 const char* pcre16_version();
-
 const char* pcre32_version();
-
 int pcre_pattern_to_host_byte_order(struct real_pcre8_or_16* anonymous_var_nameX865, struct pcre_extra* anonymous_var_nameX866, const unsigned char* anonymous_var_nameX867);
-
 int pcre16_pattern_to_host_byte_order(struct real_pcre8_or_16* anonymous_var_nameX868, struct pcre16_extra* anonymous_var_nameX869, const unsigned char* anonymous_var_nameX870);
-
 int pcre32_pattern_to_host_byte_order(struct real_pcre32* anonymous_var_nameX871, struct pcre32_extra* anonymous_var_nameX872, const unsigned char* anonymous_var_nameX873);
-
 int pcre16_utf16_to_host_byte_order(unsigned short int* anonymous_var_nameX874, const unsigned short int* anonymous_var_nameX875, int anonymous_var_nameX876, int* anonymous_var_nameX877, int anonymous_var_nameX878);
-
 int pcre32_utf32_to_host_byte_order(unsigned int* anonymous_var_nameX879, const unsigned int* anonymous_var_nameX880, int anonymous_var_nameX881, int* anonymous_var_nameX882, int anonymous_var_nameX883);
-
 struct real_pcre_jit_stack* pcre_jit_stack_alloc(int anonymous_var_nameX884, int anonymous_var_nameX885);
-
 struct real_pcre16_jit_stack* pcre16_jit_stack_alloc(int anonymous_var_nameX886, int anonymous_var_nameX887);
-
 struct real_pcre32_jit_stack* pcre32_jit_stack_alloc(int anonymous_var_nameX888, int anonymous_var_nameX889);
-
 void pcre_jit_stack_free(struct real_pcre_jit_stack* anonymous_var_nameX890);
-
 void pcre16_jit_stack_free(struct real_pcre16_jit_stack* anonymous_var_nameX891);
-
 void pcre32_jit_stack_free(struct real_pcre32_jit_stack* anonymous_var_nameX892);
-
 void pcre_assign_jit_stack(struct pcre_extra* anonymous_var_nameX893, struct real_pcre_jit_stack* (*anonymous_var_nameX894)(void*), void* anonymous_var_nameX895);
-
 void pcre16_assign_jit_stack(struct pcre16_extra* anonymous_var_nameX896, struct real_pcre16_jit_stack* (*anonymous_var_nameX897)(void*), void* anonymous_var_nameX898);
-
 void pcre32_assign_jit_stack(struct pcre32_extra* anonymous_var_nameX899, struct real_pcre32_jit_stack* (*anonymous_var_nameX900)(void*), void* anonymous_var_nameX901);
-
 void pcre_jit_free_unused_memory();
-
 void pcre16_jit_free_unused_memory();
-
 void pcre32_jit_free_unused_memory();
-
 unsigned int* wcscpy(unsigned int* anonymous_var_nameX902, const unsigned int* anonymous_var_nameX903);
-
 unsigned int* wcsncpy(unsigned int* anonymous_var_nameX904, const unsigned int* anonymous_var_nameX905, unsigned long int anonymous_var_nameX906);
-
 unsigned int* wcscat(unsigned int* anonymous_var_nameX907, const unsigned int* anonymous_var_nameX908);
-
 unsigned int* wcsncat(unsigned int* anonymous_var_nameX909, const unsigned int* anonymous_var_nameX910, unsigned long int anonymous_var_nameX911);
-
 int wcscmp(const unsigned int* anonymous_var_nameX912, const unsigned int* anonymous_var_nameX913);
-
 int wcsncmp(const unsigned int* anonymous_var_nameX914, const unsigned int* anonymous_var_nameX915, unsigned long int anonymous_var_nameX916);
-
 int wcscoll(const unsigned int* anonymous_var_nameX917, const unsigned int* anonymous_var_nameX918);
-
 unsigned long int wcsxfrm(unsigned int* anonymous_var_nameX919, const unsigned int* anonymous_var_nameX920, unsigned long int anonymous_var_nameX921);
-
 unsigned int* wcschr(const unsigned int* anonymous_var_nameX922, unsigned int anonymous_var_nameX923);
-
 unsigned int* wcsrchr(const unsigned int* anonymous_var_nameX924, unsigned int anonymous_var_nameX925);
-
 unsigned long int wcscspn(const unsigned int* anonymous_var_nameX926, const unsigned int* anonymous_var_nameX927);
-
 unsigned long int wcsspn(const unsigned int* anonymous_var_nameX928, const unsigned int* anonymous_var_nameX929);
-
 unsigned int* wcspbrk(const unsigned int* anonymous_var_nameX930, const unsigned int* anonymous_var_nameX931);
-
 unsigned int* wcstok(unsigned int* anonymous_var_nameX932, const unsigned int* anonymous_var_nameX933, unsigned int** anonymous_var_nameX934);
-
 unsigned long int wcslen(const unsigned int* anonymous_var_nameX935);
-
 unsigned int* wcsstr(const unsigned int* anonymous_var_nameX936, const unsigned int* anonymous_var_nameX937);
-
 unsigned int* wcswcs(const unsigned int* anonymous_var_nameX938, const unsigned int* anonymous_var_nameX939);
-
 unsigned int* wmemchr(const unsigned int* anonymous_var_nameX940, unsigned int anonymous_var_nameX941, unsigned long int anonymous_var_nameX942);
-
 int wmemcmp(const unsigned int* anonymous_var_nameX943, const unsigned int* anonymous_var_nameX944, unsigned long int anonymous_var_nameX945);
-
 unsigned int* wmemcpy(unsigned int* anonymous_var_nameX946, const unsigned int* anonymous_var_nameX947, unsigned long int anonymous_var_nameX948);
-
 unsigned int* wmemmove(unsigned int* anonymous_var_nameX949, const unsigned int* anonymous_var_nameX950, unsigned long int anonymous_var_nameX951);
-
 unsigned int* wmemset(unsigned int* anonymous_var_nameX952, unsigned int anonymous_var_nameX953, unsigned long int anonymous_var_nameX954);
-
 unsigned int btowc(int anonymous_var_nameX955);
-
 int wctob(unsigned int anonymous_var_nameX956);
-
 int mbsinit(const struct __mbstate_t* anonymous_var_nameX957);
-
 unsigned long int mbrtowc(unsigned int* anonymous_var_nameX958, const char* anonymous_var_nameX959, unsigned long int anonymous_var_nameX960, struct __mbstate_t* anonymous_var_nameX961);
-
 unsigned long int wcrtomb(char* anonymous_var_nameX962, unsigned int anonymous_var_nameX963, struct __mbstate_t* anonymous_var_nameX964);
-
 unsigned long int mbrlen(const char* anonymous_var_nameX965, unsigned long int anonymous_var_nameX966, struct __mbstate_t* anonymous_var_nameX967);
-
 unsigned long int mbsrtowcs(unsigned int* anonymous_var_nameX968, const char** anonymous_var_nameX969, unsigned long int anonymous_var_nameX970, struct __mbstate_t* anonymous_var_nameX971);
-
 unsigned long int wcsrtombs(char* anonymous_var_nameX972, const unsigned int** anonymous_var_nameX973, unsigned long int anonymous_var_nameX974, struct __mbstate_t* anonymous_var_nameX975);
-
 float wcstof(const unsigned int* anonymous_var_nameX976, unsigned int** anonymous_var_nameX977);
-
 double wcstod(const unsigned int* anonymous_var_nameX978, unsigned int** anonymous_var_nameX979);
-
 long double wcstold(const unsigned int* anonymous_var_nameX980, unsigned int** anonymous_var_nameX981);
-
 long wcstol(const unsigned int* anonymous_var_nameX982, unsigned int** anonymous_var_nameX983, int anonymous_var_nameX984);
-
 unsigned long int wcstoul(const unsigned int* anonymous_var_nameX985, unsigned int** anonymous_var_nameX986, int anonymous_var_nameX987);
-
 long long wcstoll(const unsigned int* anonymous_var_nameX988, unsigned int** anonymous_var_nameX989, int anonymous_var_nameX990);
-
 unsigned long long wcstoull(const unsigned int* anonymous_var_nameX991, unsigned int** anonymous_var_nameX992, int anonymous_var_nameX993);
-
 int fwide(struct _IO_FILE* anonymous_var_nameX994, int anonymous_var_nameX995);
-
 int wprintf(const unsigned int* anonymous_var_nameX996, ...);
-
 int fwprintf(struct _IO_FILE* anonymous_var_nameX997, const unsigned int* anonymous_var_nameX998, ...);
-
 int swprintf(unsigned int* anonymous_var_nameX999, unsigned long int anonymous_var_nameX1000, const unsigned int* anonymous_var_nameX1001, ...);
-
 int vwprintf(const unsigned int* anonymous_var_nameX1002, va_list anonymous_var_nameX1003);
-
 int vfwprintf(struct _IO_FILE* anonymous_var_nameX1004, const unsigned int* anonymous_var_nameX1005, va_list anonymous_var_nameX1006);
-
 int vswprintf(unsigned int* anonymous_var_nameX1007, unsigned long int anonymous_var_nameX1008, const unsigned int* anonymous_var_nameX1009, va_list anonymous_var_nameX1010);
-
 int wscanf(const unsigned int* anonymous_var_nameX1011, ...);
-
 int fwscanf(struct _IO_FILE* anonymous_var_nameX1012, const unsigned int* anonymous_var_nameX1013, ...);
-
 int swscanf(const unsigned int* anonymous_var_nameX1014, const unsigned int* anonymous_var_nameX1015, ...);
-
 int vwscanf(const unsigned int* anonymous_var_nameX1016, va_list anonymous_var_nameX1017);
-
 int vfwscanf(struct _IO_FILE* anonymous_var_nameX1018, const unsigned int* anonymous_var_nameX1019, va_list anonymous_var_nameX1020);
-
 int vswscanf(const unsigned int* anonymous_var_nameX1021, const unsigned int* anonymous_var_nameX1022, va_list anonymous_var_nameX1023);
-
 unsigned int fgetwc(struct _IO_FILE* anonymous_var_nameX1024);
-
 unsigned int getwc(struct _IO_FILE* anonymous_var_nameX1025);
-
 unsigned int getwchar();
-
 unsigned int fputwc(unsigned int anonymous_var_nameX1026, struct _IO_FILE* anonymous_var_nameX1027);
-
 unsigned int putwc(unsigned int anonymous_var_nameX1028, struct _IO_FILE* anonymous_var_nameX1029);
-
 unsigned int putwchar(unsigned int anonymous_var_nameX1030);
-
 unsigned int* fgetws(unsigned int* anonymous_var_nameX1031, int anonymous_var_nameX1032, struct _IO_FILE* anonymous_var_nameX1033);
-
 int fputws(const unsigned int* anonymous_var_nameX1034, struct _IO_FILE* anonymous_var_nameX1035);
-
 unsigned int ungetwc(unsigned int anonymous_var_nameX1036, struct _IO_FILE* anonymous_var_nameX1037);
-
 unsigned long int wcsftime(unsigned int* anonymous_var_nameX1038, unsigned long int anonymous_var_nameX1039, const unsigned int* anonymous_var_nameX1040, const struct tm* anonymous_var_nameX1041);
-
 unsigned int fgetwc_unlocked(struct _IO_FILE* anonymous_var_nameX1042);
-
 unsigned int getwc_unlocked(struct _IO_FILE* anonymous_var_nameX1043);
-
 unsigned int getwchar_unlocked();
-
 unsigned int fputwc_unlocked(unsigned int anonymous_var_nameX1044, struct _IO_FILE* anonymous_var_nameX1045);
-
 unsigned int putwc_unlocked(unsigned int anonymous_var_nameX1046, struct _IO_FILE* anonymous_var_nameX1047);
-
 unsigned int putwchar_unlocked(unsigned int anonymous_var_nameX1048);
-
 unsigned int* fgetws_unlocked(unsigned int* anonymous_var_nameX1049, int anonymous_var_nameX1050, struct _IO_FILE* anonymous_var_nameX1051);
-
 int fputws_unlocked(const unsigned int* anonymous_var_nameX1052, struct _IO_FILE* anonymous_var_nameX1053);
-
 unsigned long int wcsftime_l(unsigned int* anonymous_var_nameX1054, unsigned long int anonymous_var_nameX1055, const unsigned int* anonymous_var_nameX1056, const struct tm* anonymous_var_nameX1057, struct __locale_struct* anonymous_var_nameX1058);
-
 struct _IO_FILE* open_wmemstream(unsigned int** anonymous_var_nameX1059, unsigned long int* anonymous_var_nameX1060);
-
 unsigned long int mbsnrtowcs(unsigned int* anonymous_var_nameX1061, const char** anonymous_var_nameX1062, unsigned long int anonymous_var_nameX1063, unsigned long int anonymous_var_nameX1064, struct __mbstate_t* anonymous_var_nameX1065);
-
 unsigned long int wcsnrtombs(char* anonymous_var_nameX1066, const unsigned int** anonymous_var_nameX1067, unsigned long int anonymous_var_nameX1068, unsigned long int anonymous_var_nameX1069, struct __mbstate_t* anonymous_var_nameX1070);
-
 unsigned int* wcsdup(const unsigned int* anonymous_var_nameX1071);
-
 unsigned long int wcsnlen(const unsigned int* anonymous_var_nameX1072, unsigned long int anonymous_var_nameX1073);
-
 unsigned int* wcpcpy(unsigned int* anonymous_var_nameX1074, const unsigned int* anonymous_var_nameX1075);
-
 unsigned int* wcpncpy(unsigned int* anonymous_var_nameX1076, const unsigned int* anonymous_var_nameX1077, unsigned long int anonymous_var_nameX1078);
-
 int wcscasecmp(const unsigned int* anonymous_var_nameX1079, const unsigned int* anonymous_var_nameX1080);
-
 int wcscasecmp_l(const unsigned int* anonymous_var_nameX1081, const unsigned int* anonymous_var_nameX1082, struct __locale_struct* anonymous_var_nameX1083);
-
 int wcsncasecmp(const unsigned int* anonymous_var_nameX1084, const unsigned int* anonymous_var_nameX1085, unsigned long int anonymous_var_nameX1086);
-
 int wcsncasecmp_l(const unsigned int* anonymous_var_nameX1087, const unsigned int* anonymous_var_nameX1088, unsigned long int anonymous_var_nameX1089, struct __locale_struct* anonymous_var_nameX1090);
-
 int wcscoll_l(const unsigned int* anonymous_var_nameX1091, const unsigned int* anonymous_var_nameX1092, struct __locale_struct* anonymous_var_nameX1093);
-
 unsigned long int wcsxfrm_l(unsigned int* anonymous_var_nameX1094, const unsigned int* anonymous_var_nameX1095, unsigned long int anonymous_var_nameX1096, struct __locale_struct* anonymous_var_nameX1097);
-
 int wcwidth(unsigned int anonymous_var_nameX1098);
-
 int wcswidth(const unsigned int* anonymous_var_nameX1099, unsigned long int anonymous_var_nameX1100);
-
 int iswalnum(unsigned int anonymous_var_nameX1101);
-
 int iswalpha(unsigned int anonymous_var_nameX1102);
-
 int iswblank(unsigned int anonymous_var_nameX1103);
-
 int iswcntrl(unsigned int anonymous_var_nameX1104);
-
 int iswdigit(unsigned int anonymous_var_nameX1105);
-
 int iswgraph(unsigned int anonymous_var_nameX1106);
-
 int iswlower(unsigned int anonymous_var_nameX1107);
-
 int iswprint(unsigned int anonymous_var_nameX1108);
-
 int iswpunct(unsigned int anonymous_var_nameX1109);
-
 int iswspace(unsigned int anonymous_var_nameX1110);
-
 int iswupper(unsigned int anonymous_var_nameX1111);
-
 int iswxdigit(unsigned int anonymous_var_nameX1112);
-
 int iswctype(unsigned int anonymous_var_nameX1113, unsigned long int anonymous_var_nameX1114);
-
 unsigned int towlower(unsigned int anonymous_var_nameX1115);
-
 unsigned int towupper(unsigned int anonymous_var_nameX1116);
-
 unsigned long int wctype(const char* anonymous_var_nameX1117);
-
 char* dirname(char* anonymous_var_nameX1118);
-
 char* basename(char* anonymous_var_nameX1119);
-
 static void list$1charphp_finalize(struct list$1charph* self);
 static void list_item$1charphp_finalize(struct list_item$1charph* self);
 struct come_regex* come_regex_initialize(struct come_regex* self, char* str, _Bool ignore_case, _Bool multiline, _Bool global, _Bool extended, _Bool dotall, _Bool anchored, _Bool dollar_endonly, _Bool ungreedy);
-
 void come_regex_finalize(struct come_regex* reg);
-
 struct come_regex* charp_to_regex(char* self, _Bool ignore_case, _Bool multiline, _Bool global, _Bool extended, _Bool dotall, _Bool anchored, _Bool dollar_endonly, _Bool ungreedy);
-
 struct come_regex* string_to_regex(char* self, _Bool ignore_case, _Bool multiline, _Bool global, _Bool extended, _Bool dotall, _Bool anchored, _Bool dollar_endonly, _Bool ungreedy);
-
 struct come_regex* come_regex_clone(struct come_regex* reg);
-
 char* come_regex_to_string(struct come_regex* regex);
-
 char* string_lower_case(char* str);
-
 char* string_upper_case(char* str);
-
 unsigned int* wchar_tp_substring(unsigned int* str, int head, int tail);
-
 unsigned int* __builtin_wstring(char* str);
-
 int charp_index_count(char* str, char* search_str, int count, int default_value);
-
 int charp_index_regex_count(char* self, struct come_regex* reg, int count, int default_value);
-
 int charp_rindex(char* str, char* search_str, int default_value);
-
 int charp_rindex_regex(char* self, struct come_regex* reg, int default_value);
-
 int charp_rindex_count(char* str, char* search_str, int count, int default_value);
-
 struct list$1charph* charp_scan_block(char* self, struct come_regex* reg, void* parent, char* (*block)(void*,char*,struct list$1charph*));
-
 static struct list$1charph* list$1charph_initialize(struct list$1charph* self);
 static struct list$1charph* list$1charph_push_back(struct list$1charph* self, char* item);
 struct list$1charph* charp_scan_block_count(char* self, struct come_regex* reg, int count, void* parent, char* (*block)(void*,char*,struct list$1charph*));
-
 struct list$1charph* charp_split_block(char* self, struct come_regex* reg, void* parent, char* (*block)(void*,char*,struct list$1charph*));
-
 struct list$1charph* charp_split_block_count(char* self, struct come_regex* reg, int count, void* parent, char* (*block)(void*,char*,struct list$1charph*));
-
 _Bool come_regex_equals(struct come_regex* left, struct come_regex* right);
-
 struct list$1charph* charp_scan_group_strings(char* self, struct come_regex* reg, struct list$1charph* group_strings, int* num_group_string_in_regex);
-
 char* charp_strip(char* self);
-
 char* charp_printable(char* str);
-
 char* wchar_tp_to_string(unsigned int* wstr);
-
 unsigned int* charp_to_wstring(char* str);
-
 int wchar_tp_length(unsigned int* str);
-
 unsigned int* wchar_tp_delete(unsigned int* str, int head, int tail);
-
 int wchar_tp_index(unsigned int* str, unsigned int* search_str, int default_value);
-
 int wchar_tp_rindex(unsigned int* str, unsigned int* search_str, int default_value);
-
 unsigned int* wchar_tp_reverse(unsigned int* str);
-
 unsigned int* wchar_tp_multiply(unsigned int* str, int n);
-
 unsigned int* wchar_tp_printable(unsigned int* str);
-
 _Bool charp_match_group_strings(char* self, struct come_regex* reg, int count, struct list$1charph* group_strings);
-
 static struct list$1charph* list$1charph_reset(struct list$1charph* self);
 int wchar_tp_compare(unsigned int* left, unsigned int* right);
-
 int wstring_compare(unsigned int* left, unsigned int* right);
-
 unsigned int come_regex_get_hash_key(struct come_regex* reg);
-
 _Bool wchar_tp_equals(unsigned int left, unsigned int right);
-
 unsigned int* wchar_tp_operator_mult(unsigned int* str, int n);
-
 unsigned int* wstring_operator_mult(unsigned int* str, int n);
-
 _Bool wchar_tp_operator_equals(unsigned int* left, unsigned int* right);
-
 _Bool wstring_operator_equals(unsigned int* left, unsigned int* right);
-
 _Bool wchar_tp_operator_not_equals(unsigned int* left, unsigned int* right);
-
 _Bool wstring_operator_not_equals(unsigned int* left, unsigned int* right);
-
 _Bool come_regex_operator_equals(struct come_regex* left, struct come_regex* right);
-
 _Bool come_regex_operator_not_equals(struct come_regex* left, struct come_regex* right);
-
 unsigned int* wchar_tp_operator_add(unsigned int* left, unsigned int* right);
-
 unsigned int* wstring_operator_add(unsigned int* left, unsigned int* right);
-
 int charp_index(char* str, char* search_str, int default_value);
-
 int charp_index_regex(char* self, struct come_regex* reg, int default_value);
-
 char* charp_replace(char* self, int index, char c);
-
 char* charp_multiply(char* str, int n);
-
 char* charp_sub(char* self, struct come_regex* reg, char* replace);
-
 char* charp_sub_count(char* self, struct come_regex* reg, char* replace, int count);
-
 struct list$1charph* charp_split_str(char* self, char* str);
-
 struct list$1charph* charp_scan(char* self, struct come_regex* reg);
-
 struct list$1charph* charp_split(char* self, struct come_regex* reg);
-
 _Bool charp_match(char* self, struct come_regex* reg);
-
 struct list$1charph* charp_split_maxsplit(char* self, struct come_regex* reg, int maxsplit);
-
 int charp_rindex_regex_count(char* self, struct come_regex* reg, int count, int default_value);
-
 _Bool charp_match_count(char* self, struct come_regex* reg, int count);
-
 char* charp_sub_block(char* self, struct come_regex* reg, void* parent, char* (*block)(void*,char*,struct list$1charph*));
-
 char* charp_sub_block_count(char* self, struct come_regex* reg, int count, void* parent, char* (*block)(void*,char*,struct list$1charph*));
-
 unsigned int wchar_tp_get_hash_key(unsigned int* value);
-
 _Bool wstring_equals(unsigned int* left, unsigned int* right);
-
 _Bool wchar_t_operator_equals(unsigned int left, unsigned int right);
-
 _Bool wchar_t_operator_not_equals(unsigned int left, unsigned int right);
-
 unsigned int wchar_t_get_hash_key(unsigned int value);
-
 _Bool wchar_t_equals(unsigned int left, unsigned int right);
-
 char* wchar_t_to_string(unsigned int wc);
-
 char* string_chomp(char* str);
-
 char* xrealpath(char* path);
-
 char* xdirname(char* path);
-
 // uniq global variable
 // source head3
 

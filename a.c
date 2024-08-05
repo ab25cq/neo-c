@@ -1,18 +1,12 @@
 #include <neo-c.h>
 
+vector<string>*% gV;
+
 int main(int argc, char** argv)
 {
-    vector<int>*% v = new vector<int>();
+    gV = new vector<string>();
     
-    v.add(7);
-    v.add(3);
-    v.add(1);
-    
-    var v2 = v.sort();
-    
-    foreach(it, v2) {
-        printf("%d\n", it);
-    }
+    gV.add(string("aaa"));
     
     return 0;
 }

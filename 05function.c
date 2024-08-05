@@ -110,7 +110,7 @@ class sFunNode extends sNodeBase
             
             info->block_level = block_level;
             
-            if(!gComeC && info.come_fun.mName === "main" && !info.inhibits_output_code) {
+            if(!gComeC && info.come_fun.mName === "main" && !info.inhibits_output_code2) {
                 free_objects(info->gv_table, null@ret_value, info);
                 add_come_code(info, xsprintf("come_heap_final();\n"));
             }
@@ -364,6 +364,10 @@ int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* par
     
     info.param_types = param_types_;
     info.param_names = param_names_;
+    
+    if(info.come_fun.mName === "main") {
+        info->inhibits_output_code2 = info->inhibits_output_code;
+    }
 
     info->current_loop_vtable = current_loop_vtable;
     info->inhibits_output_code = inhibits_output_code;

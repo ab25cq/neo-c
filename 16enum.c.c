@@ -658,6 +658,7 @@ struct sInfo
     _Bool va_arg;
     _Bool in_fun_param;
     _Bool inhibits_output_code;
+    _Bool inhibits_output_code2;
 };
 struct tuple2$2sTypephcharph
 {
@@ -717,581 +718,293 @@ struct tuple2$2charphvoidp
 
 // header function
 void come_heap_init(int come_malloc, int come_debug, int come_gc);
-
 void come_heap_final();
-
 struct _IO_FILE* fopen(const char* anonymous_var_nameX1, const char* anonymous_var_nameX2);
-
 struct _IO_FILE* freopen(const char* anonymous_var_nameX3, const char* anonymous_var_nameX4, struct _IO_FILE* anonymous_var_nameX5);
-
 int fclose(struct _IO_FILE* anonymous_var_nameX6);
-
 int remove(const char* anonymous_var_nameX7);
-
 int rename(const char* anonymous_var_nameX8, const char* anonymous_var_nameX9);
-
 int feof(struct _IO_FILE* anonymous_var_nameX10);
-
 int ferror(struct _IO_FILE* anonymous_var_nameX11);
-
 int fflush(struct _IO_FILE* anonymous_var_nameX12);
-
 void clearerr(struct _IO_FILE* anonymous_var_nameX13);
-
 int fseek(struct _IO_FILE* anonymous_var_nameX14, long anonymous_var_nameX15, int anonymous_var_nameX16);
-
 long ftell(struct _IO_FILE* anonymous_var_nameX17);
-
 void rewind(struct _IO_FILE* anonymous_var_nameX18);
-
 int fgetpos(struct _IO_FILE* anonymous_var_nameX19, union _G_fpos64_t* anonymous_var_nameX20);
-
 int fsetpos(struct _IO_FILE* anonymous_var_nameX21, const union _G_fpos64_t* anonymous_var_nameX22);
-
 unsigned long int fread(void* anonymous_var_nameX23, unsigned long int anonymous_var_nameX24, unsigned long int anonymous_var_nameX25, struct _IO_FILE* anonymous_var_nameX26);
-
 unsigned long int fwrite(const void* anonymous_var_nameX27, unsigned long int anonymous_var_nameX28, unsigned long int anonymous_var_nameX29, struct _IO_FILE* anonymous_var_nameX30);
-
 int fgetc(struct _IO_FILE* anonymous_var_nameX31);
-
 int getc(struct _IO_FILE* anonymous_var_nameX32);
-
 int getchar();
-
 int ungetc(int anonymous_var_nameX33, struct _IO_FILE* anonymous_var_nameX34);
-
 int fputc(int anonymous_var_nameX35, struct _IO_FILE* anonymous_var_nameX36);
-
 int putc(int anonymous_var_nameX37, struct _IO_FILE* anonymous_var_nameX38);
-
 int putchar(int anonymous_var_nameX39);
-
 char* fgets(char* anonymous_var_nameX40, int anonymous_var_nameX41, struct _IO_FILE* anonymous_var_nameX42);
-
 int fputs(const char* anonymous_var_nameX43, struct _IO_FILE* anonymous_var_nameX44);
-
 int puts(const char* anonymous_var_nameX45);
-
 int printf(const char* anonymous_var_nameX46, ...);
-
 int fprintf(struct _IO_FILE* anonymous_var_nameX47, const char* anonymous_var_nameX48, ...);
-
 int sprintf(char* anonymous_var_nameX49, const char* anonymous_var_nameX50, ...);
-
 int snprintf(char* anonymous_var_nameX51, unsigned long int anonymous_var_nameX52, const char* anonymous_var_nameX53, ...);
-
 int vprintf(const char* anonymous_var_nameX54, va_list anonymous_var_nameX55);
-
 int vfprintf(struct _IO_FILE* anonymous_var_nameX56, const char* anonymous_var_nameX57, va_list anonymous_var_nameX58);
-
 int vsprintf(char* anonymous_var_nameX59, const char* anonymous_var_nameX60, va_list anonymous_var_nameX61);
-
 int vsnprintf(char* anonymous_var_nameX62, unsigned long int anonymous_var_nameX63, const char* anonymous_var_nameX64, va_list anonymous_var_nameX65);
-
 int scanf(const char* anonymous_var_nameX66, ...);
-
 int fscanf(struct _IO_FILE* anonymous_var_nameX67, const char* anonymous_var_nameX68, ...);
-
 int sscanf(const char* anonymous_var_nameX69, const char* anonymous_var_nameX70, ...);
-
 int vscanf(const char* anonymous_var_nameX71, va_list anonymous_var_nameX72);
-
 int vfscanf(struct _IO_FILE* anonymous_var_nameX73, const char* anonymous_var_nameX74, va_list anonymous_var_nameX75);
-
 int vsscanf(const char* anonymous_var_nameX76, const char* anonymous_var_nameX77, va_list anonymous_var_nameX78);
-
 void perror(const char* anonymous_var_nameX79);
-
 int setvbuf(struct _IO_FILE* anonymous_var_nameX80, char* anonymous_var_nameX81, int anonymous_var_nameX82, unsigned long int anonymous_var_nameX83);
-
 void setbuf(struct _IO_FILE* anonymous_var_nameX84, char* anonymous_var_nameX85);
-
 char* tmpnam(char* anonymous_var_nameX86);
-
 struct _IO_FILE* tmpfile();
-
 struct _IO_FILE* fmemopen(void* anonymous_var_nameX87, unsigned long int anonymous_var_nameX88, const char* anonymous_var_nameX89);
-
 struct _IO_FILE* open_memstream(char** anonymous_var_nameX90, unsigned long int* anonymous_var_nameX91);
-
 struct _IO_FILE* fdopen(int anonymous_var_nameX92, const char* anonymous_var_nameX93);
-
 struct _IO_FILE* popen(const char* anonymous_var_nameX94, const char* anonymous_var_nameX95);
-
 int pclose(struct _IO_FILE* anonymous_var_nameX96);
-
 int fileno(struct _IO_FILE* anonymous_var_nameX97);
-
 int fseeko(struct _IO_FILE* anonymous_var_nameX98, long anonymous_var_nameX99, int anonymous_var_nameX100);
-
 long ftello(struct _IO_FILE* anonymous_var_nameX101);
-
 int dprintf(int anonymous_var_nameX102, const char* anonymous_var_nameX103, ...);
-
 int vdprintf(int anonymous_var_nameX104, const char* anonymous_var_nameX105, va_list anonymous_var_nameX106);
-
 void flockfile(struct _IO_FILE* anonymous_var_nameX107);
-
 int ftrylockfile(struct _IO_FILE* anonymous_var_nameX108);
-
 void funlockfile(struct _IO_FILE* anonymous_var_nameX109);
-
 int getc_unlocked(struct _IO_FILE* anonymous_var_nameX110);
-
 int getchar_unlocked();
-
 int putc_unlocked(int anonymous_var_nameX111, struct _IO_FILE* anonymous_var_nameX112);
-
 int putchar_unlocked(int anonymous_var_nameX113);
-
 long getdelim(char** anonymous_var_nameX114, unsigned long int* anonymous_var_nameX115, int anonymous_var_nameX116, struct _IO_FILE* anonymous_var_nameX117);
-
 long getline(char** anonymous_var_nameX118, unsigned long int* anonymous_var_nameX119, struct _IO_FILE* anonymous_var_nameX120);
-
 int renameat(int anonymous_var_nameX121, const char* anonymous_var_nameX122, int anonymous_var_nameX123, const char* anonymous_var_nameX124);
-
 char* ctermid(char* anonymous_var_nameX125);
-
 char* tempnam(const char* anonymous_var_nameX126, const char* anonymous_var_nameX127);
-
 char* cuserid(char* anonymous_var_nameX128);
-
 void setlinebuf(struct _IO_FILE* anonymous_var_nameX129);
-
 void setbuffer(struct _IO_FILE* anonymous_var_nameX130, char* anonymous_var_nameX131, unsigned long int anonymous_var_nameX132);
-
 int fgetc_unlocked(struct _IO_FILE* anonymous_var_nameX133);
-
 int fputc_unlocked(int anonymous_var_nameX134, struct _IO_FILE* anonymous_var_nameX135);
-
 int fflush_unlocked(struct _IO_FILE* anonymous_var_nameX136);
-
 unsigned long int fread_unlocked(void* anonymous_var_nameX137, unsigned long int anonymous_var_nameX138, unsigned long int anonymous_var_nameX139, struct _IO_FILE* anonymous_var_nameX140);
-
 unsigned long int fwrite_unlocked(const void* anonymous_var_nameX141, unsigned long int anonymous_var_nameX142, unsigned long int anonymous_var_nameX143, struct _IO_FILE* anonymous_var_nameX144);
-
 void clearerr_unlocked(struct _IO_FILE* anonymous_var_nameX145);
-
 int feof_unlocked(struct _IO_FILE* anonymous_var_nameX146);
-
 int ferror_unlocked(struct _IO_FILE* anonymous_var_nameX147);
-
 int fileno_unlocked(struct _IO_FILE* anonymous_var_nameX148);
-
 int getw(struct _IO_FILE* anonymous_var_nameX149);
-
 int putw(int anonymous_var_nameX150, struct _IO_FILE* anonymous_var_nameX151);
-
 char* fgetln(struct _IO_FILE* anonymous_var_nameX152, unsigned long int* anonymous_var_nameX153);
-
 int asprintf(char** anonymous_var_nameX154, const char* anonymous_var_nameX155, ...);
-
 int vasprintf(char** anonymous_var_nameX156, const char* anonymous_var_nameX157, va_list anonymous_var_nameX158);
-
 char* fgets_unlocked(char* anonymous_var_nameX159, int anonymous_var_nameX160, struct _IO_FILE* anonymous_var_nameX161);
-
 int fputs_unlocked(const char* anonymous_var_nameX162, struct _IO_FILE* anonymous_var_nameX163);
-
 struct _IO_FILE* fopencookie(void* anonymous_var_nameX174, const char* anonymous_var_nameX175, struct _IO_cookie_io_functions_t anonymous_var_nameX176);
-
 int atoi(const char* anonymous_var_nameX177);
-
 long atol(const char* anonymous_var_nameX178);
-
 long long atoll(const char* anonymous_var_nameX179);
-
 double atof(const char* anonymous_var_nameX180);
-
 float strtof(const char* anonymous_var_nameX181, char** anonymous_var_nameX182);
-
 double strtod(const char* anonymous_var_nameX183, char** anonymous_var_nameX184);
-
 long double strtold(const char* anonymous_var_nameX185, char** anonymous_var_nameX186);
-
 long strtol(const char* anonymous_var_nameX187, char** anonymous_var_nameX188, int anonymous_var_nameX189);
-
 unsigned long int strtoul(const char* anonymous_var_nameX190, char** anonymous_var_nameX191, int anonymous_var_nameX192);
-
 long long strtoll(const char* anonymous_var_nameX193, char** anonymous_var_nameX194, int anonymous_var_nameX195);
-
 unsigned long long strtoull(const char* anonymous_var_nameX196, char** anonymous_var_nameX197, int anonymous_var_nameX198);
-
 int rand();
-
 void srand(unsigned int anonymous_var_nameX199);
-
 void* malloc(unsigned long int anonymous_var_nameX200);
-
 void* calloc(unsigned long int anonymous_var_nameX201, unsigned long int anonymous_var_nameX202);
-
 void* realloc(void* anonymous_var_nameX203, unsigned long int anonymous_var_nameX204);
-
 void free(void* anonymous_var_nameX205);
-
 void* aligned_alloc(unsigned long int anonymous_var_nameX206, unsigned long int anonymous_var_nameX207);
-
 void abort();
-
 int atexit(void (*anonymous_lambda_var_nameZ1)());
-
 void exit(int anonymous_var_nameX208);
-
 void _Exit(int anonymous_var_nameX209);
-
 int at_quick_exit(void (*anonymous_lambda_var_nameZ2)());
-
 void quick_exit(int anonymous_var_nameX210);
-
 char* getenv(const char* anonymous_var_nameX211);
-
 int system(const char* anonymous_var_nameX212);
-
 void* bsearch(const void* anonymous_var_nameX213, const void* anonymous_var_nameX214, unsigned long int anonymous_var_nameX215, unsigned long int anonymous_var_nameX216, int (*anonymous_lambda_var_nameZ3)(const void*,const void*));
-
 void qsort(void* anonymous_var_nameX219, unsigned long int anonymous_var_nameX220, unsigned long int anonymous_var_nameX221, int (*anonymous_lambda_var_nameZ4)(const void*,const void*));
-
 int abs(int anonymous_var_nameX224);
-
 long labs(long anonymous_var_nameX225);
-
 long long llabs(long long anonymous_var_nameX226);
-
 struct anonymous_typeX1 div(int anonymous_var_nameX227, int anonymous_var_nameX228);
-
 struct anonymous_typeX2 ldiv(long anonymous_var_nameX229, long anonymous_var_nameX230);
-
 struct anonymous_typeX3 lldiv(long long anonymous_var_nameX231, long long anonymous_var_nameX232);
-
 int mblen(const char* anonymous_var_nameX233, unsigned long int anonymous_var_nameX234);
-
 int mbtowc(unsigned int* anonymous_var_nameX235, const char* anonymous_var_nameX236, unsigned long int anonymous_var_nameX237);
-
 int wctomb(char* anonymous_var_nameX238, unsigned int anonymous_var_nameX239);
-
 unsigned long int mbstowcs(unsigned int* anonymous_var_nameX240, const char* anonymous_var_nameX241, unsigned long int anonymous_var_nameX242);
-
 unsigned long int wcstombs(char* anonymous_var_nameX243, const unsigned int* anonymous_var_nameX244, unsigned long int anonymous_var_nameX245);
-
 unsigned long int __ctype_get_mb_cur_max();
-
 int posix_memalign(void** anonymous_var_nameX246, unsigned long int anonymous_var_nameX247, unsigned long int anonymous_var_nameX248);
-
 int setenv(const char* anonymous_var_nameX249, const char* anonymous_var_nameX250, int anonymous_var_nameX251);
-
 int unsetenv(const char* anonymous_var_nameX252);
-
 int mkstemp(char* anonymous_var_nameX253);
-
 int mkostemp(char* anonymous_var_nameX254, int anonymous_var_nameX255);
-
 char* mkdtemp(char* anonymous_var_nameX256);
-
 int getsubopt(char** anonymous_var_nameX257, char** anonymous_var_nameX258, char** anonymous_var_nameX259);
-
 int rand_r(unsigned int* anonymous_var_nameX260);
-
 char* realpath(const char* anonymous_var_nameX261, char* anonymous_var_nameX262);
-
 long int random();
-
 void srandom(unsigned int anonymous_var_nameX263);
-
 char* initstate(unsigned int anonymous_var_nameX264, char* anonymous_var_nameX265, unsigned long int anonymous_var_nameX266);
-
 char* setstate(char* anonymous_var_nameX267);
-
 int putenv(char* anonymous_var_nameX268);
-
 int posix_openpt(int anonymous_var_nameX269);
-
 int grantpt(int anonymous_var_nameX270);
-
 int unlockpt(int anonymous_var_nameX271);
-
 char* ptsname(int anonymous_var_nameX272);
-
 char* l64a(long anonymous_var_nameX273);
-
 long a64l(const char* anonymous_var_nameX274);
-
 void setkey(const char* anonymous_var_nameX275);
-
 double drand48();
-
 double erand48(unsigned short int anonymous_var_nameX276[3]);
-
 long int lrand48();
-
 long int nrand48(unsigned short int anonymous_var_nameX277[3]);
-
 long mrand48();
-
 long jrand48(unsigned short int anonymous_var_nameX278[3]);
-
 void srand48(long anonymous_var_nameX279);
-
 unsigned short int* seed48(unsigned short int anonymous_var_nameX280[3]);
-
 void lcong48(unsigned short int anonymous_var_nameX281[7]);
-
 void* alloca(unsigned long int anonymous_var_nameX282);
-
 char* mktemp(char* anonymous_var_nameX283);
-
 int mkstemps(char* anonymous_var_nameX284, int anonymous_var_nameX285);
-
 int mkostemps(char* anonymous_var_nameX286, int anonymous_var_nameX287, int anonymous_var_nameX288);
-
 void* valloc(unsigned long int anonymous_var_nameX289);
-
 void* memalign(unsigned long int anonymous_var_nameX290, unsigned long int anonymous_var_nameX291);
-
 int getloadavg(double* anonymous_var_nameX292, int anonymous_var_nameX293);
-
 int clearenv();
-
 void* reallocarray(void* anonymous_var_nameX294, unsigned long int anonymous_var_nameX295, unsigned long int anonymous_var_nameX296);
-
 void qsort_r(void* anonymous_var_nameX297, unsigned long int anonymous_var_nameX298, unsigned long int anonymous_var_nameX299, int (*anonymous_lambda_var_nameZ5)(const void*,const void*,void*), void* anonymous_var_nameX303);
-
 int ptsname_r(int anonymous_var_nameX304, char* anonymous_var_nameX305, unsigned long int anonymous_var_nameX306);
-
 char* ecvt(double anonymous_var_nameX307, int anonymous_var_nameX308, int* anonymous_var_nameX309, int* anonymous_var_nameX310);
-
 char* fcvt(double anonymous_var_nameX311, int anonymous_var_nameX312, int* anonymous_var_nameX313, int* anonymous_var_nameX314);
-
 char* gcvt(double anonymous_var_nameX315, int anonymous_var_nameX316, char* anonymous_var_nameX317);
-
 char* secure_getenv(const char* anonymous_var_nameX318);
-
 float strtof_l(const char* anonymous_var_nameX319, char** anonymous_var_nameX320, struct __locale_struct* anonymous_var_nameX321);
-
 double strtod_l(const char* anonymous_var_nameX322, char** anonymous_var_nameX323, struct __locale_struct* anonymous_var_nameX324);
-
 long double strtold_l(const char* anonymous_var_nameX325, char** anonymous_var_nameX326, struct __locale_struct* anonymous_var_nameX327);
-
 void* memcpy(void* anonymous_var_nameX328, const void* anonymous_var_nameX329, unsigned long int anonymous_var_nameX330);
-
 void* memmove(void* anonymous_var_nameX331, const void* anonymous_var_nameX332, unsigned long int anonymous_var_nameX333);
-
 void* memset(void* anonymous_var_nameX334, int anonymous_var_nameX335, unsigned long int anonymous_var_nameX336);
-
 int memcmp(const void* anonymous_var_nameX337, const void* anonymous_var_nameX338, unsigned long int anonymous_var_nameX339);
-
 void* memchr(const void* anonymous_var_nameX340, int anonymous_var_nameX341, unsigned long int anonymous_var_nameX342);
-
 char* strcpy(char* anonymous_var_nameX343, const char* anonymous_var_nameX344);
-
 char* strncpy(char* anonymous_var_nameX345, const char* anonymous_var_nameX346, unsigned long int anonymous_var_nameX347);
-
 char* strcat(char* anonymous_var_nameX348, const char* anonymous_var_nameX349);
-
 char* strncat(char* anonymous_var_nameX350, const char* anonymous_var_nameX351, unsigned long int anonymous_var_nameX352);
-
 int strcmp(const char* anonymous_var_nameX353, const char* anonymous_var_nameX354);
-
 int strncmp(const char* anonymous_var_nameX355, const char* anonymous_var_nameX356, unsigned long int anonymous_var_nameX357);
-
 int strcoll(const char* anonymous_var_nameX358, const char* anonymous_var_nameX359);
-
 unsigned long int strxfrm(char* anonymous_var_nameX360, const char* anonymous_var_nameX361, unsigned long int anonymous_var_nameX362);
-
 char* strchr(const char* anonymous_var_nameX363, int anonymous_var_nameX364);
-
 char* strrchr(const char* anonymous_var_nameX365, int anonymous_var_nameX366);
-
 unsigned long int strcspn(const char* anonymous_var_nameX367, const char* anonymous_var_nameX368);
-
 unsigned long int strspn(const char* anonymous_var_nameX369, const char* anonymous_var_nameX370);
-
 char* strpbrk(const char* anonymous_var_nameX371, const char* anonymous_var_nameX372);
-
 char* strstr(const char* anonymous_var_nameX373, const char* anonymous_var_nameX374);
-
 char* strtok(char* anonymous_var_nameX375, const char* anonymous_var_nameX376);
-
 unsigned long int strlen(const char* anonymous_var_nameX377);
-
 char* strerror(int anonymous_var_nameX378);
-
 int bcmp(const void* anonymous_var_nameX379, const void* anonymous_var_nameX380, unsigned long int anonymous_var_nameX381);
-
 void bcopy(const void* anonymous_var_nameX382, void* anonymous_var_nameX383, unsigned long int anonymous_var_nameX384);
-
 void bzero(void* anonymous_var_nameX385, unsigned long int anonymous_var_nameX386);
-
 char* index(const char* anonymous_var_nameX387, int anonymous_var_nameX388);
-
 char* rindex(const char* anonymous_var_nameX389, int anonymous_var_nameX390);
-
 int ffs(int anonymous_var_nameX391);
-
 int ffsl(long anonymous_var_nameX392);
-
 int ffsll(long long anonymous_var_nameX393);
-
 int strcasecmp(const char* anonymous_var_nameX394, const char* anonymous_var_nameX395);
-
 int strncasecmp(const char* anonymous_var_nameX396, const char* anonymous_var_nameX397, unsigned long int anonymous_var_nameX398);
-
 int strcasecmp_l(const char* anonymous_var_nameX399, const char* anonymous_var_nameX400, struct __locale_struct* anonymous_var_nameX401);
-
 int strncasecmp_l(const char* anonymous_var_nameX402, const char* anonymous_var_nameX403, unsigned long int anonymous_var_nameX404, struct __locale_struct* anonymous_var_nameX405);
-
 char* strtok_r(char* anonymous_var_nameX406, const char* anonymous_var_nameX407, char** anonymous_var_nameX408);
-
 int strerror_r(int anonymous_var_nameX409, char* anonymous_var_nameX410, unsigned long int anonymous_var_nameX411);
-
 char* stpcpy(char* anonymous_var_nameX412, const char* anonymous_var_nameX413);
-
 char* stpncpy(char* anonymous_var_nameX414, const char* anonymous_var_nameX415, unsigned long int anonymous_var_nameX416);
-
 unsigned long int strnlen(const char* anonymous_var_nameX417, unsigned long int anonymous_var_nameX418);
-
 char* strdup(const char* anonymous_var_nameX419);
-
 char* strndup(const char* anonymous_var_nameX420, unsigned long int anonymous_var_nameX421);
-
 char* strsignal(int anonymous_var_nameX422);
-
 char* strerror_l(int anonymous_var_nameX423, struct __locale_struct* anonymous_var_nameX424);
-
 int strcoll_l(const char* anonymous_var_nameX425, const char* anonymous_var_nameX426, struct __locale_struct* anonymous_var_nameX427);
-
 unsigned long int strxfrm_l(char* anonymous_var_nameX428, const char* anonymous_var_nameX429, unsigned long int anonymous_var_nameX430, struct __locale_struct* anonymous_var_nameX431);
-
 void* memmem(const void* anonymous_var_nameX432, unsigned long int anonymous_var_nameX433, const void* anonymous_var_nameX434, unsigned long int anonymous_var_nameX435);
-
 void* memccpy(void* anonymous_var_nameX436, const void* anonymous_var_nameX437, int anonymous_var_nameX438, unsigned long int anonymous_var_nameX439);
-
 char* strsep(char** anonymous_var_nameX440, const char* anonymous_var_nameX441);
-
 unsigned long int strlcat(char* anonymous_var_nameX442, const char* anonymous_var_nameX443, unsigned long int anonymous_var_nameX444);
-
 unsigned long int strlcpy(char* anonymous_var_nameX445, const char* anonymous_var_nameX446, unsigned long int anonymous_var_nameX447);
-
 void explicit_bzero(void* anonymous_var_nameX448, unsigned long int anonymous_var_nameX449);
-
 int strverscmp(const char* anonymous_var_nameX450, const char* anonymous_var_nameX451);
-
 char* strchrnul(const char* anonymous_var_nameX452, int anonymous_var_nameX453);
-
 char* strcasestr(const char* anonymous_var_nameX454, const char* anonymous_var_nameX455);
-
 void* memrchr(const void* anonymous_var_nameX456, int anonymous_var_nameX457, unsigned long int anonymous_var_nameX458);
-
 void* mempcpy(void* anonymous_var_nameX459, const void* anonymous_var_nameX460, unsigned long int anonymous_var_nameX461);
-
 char* basename();
-
 char* setlocale(int anonymous_var_nameX462, const char* anonymous_var_nameX463);
-
 struct lconv* localeconv();
-
 struct __locale_struct* duplocale(struct __locale_struct* anonymous_var_nameX464);
-
 void freelocale(struct __locale_struct* anonymous_var_nameX465);
-
 struct __locale_struct* newlocale(int anonymous_var_nameX466, const char* anonymous_var_nameX467, struct __locale_struct* anonymous_var_nameX468);
-
 struct __locale_struct* uselocale(struct __locale_struct* anonymous_var_nameX469);
-
 int* __errno_location();
-
 void come_push_stackframe(char* sname, int sline, int id);
-
 void come_pop_stackframe();
-
 void stackframe();
-
 void come_save_stackframe(char* sname, int sline);
-
 void* come_null_check(void* mem, char* sname, int sline, int id);
-
 void* come_range_check(void* mem, void* begin, void* end, char* sname, int sline);
-
 _Bool bool_expect(_Bool self, void* parent, void (*block)(void*));
-
 _Bool bool_catch(_Bool self, void* parent, void (*block)(void*));
-
 _Bool bool_value(_Bool self, void* parent, void (*block)(void*));
-
 int int_expect(int self, void* parent, void (*block)(void*));
-
 int int_catch(int self, void* parent, void (*block)(void*));
-
 int int_value(int self, void* parent, void (*block)(void*));
-
 int int_except(int self, void* parent, void (*block)(void*));
-
 _Bool bool_except(_Bool self, void* parent, void (*block)(void*));
-
 void xassert(char* msg, _Bool test);
-
 void* come_calloc(unsigned long int count, unsigned long int size, char* sname, int sline, char* class_name);
-
 void* come_increment_ref_count(void* mem);
-
 void* come_print_ref_count(void* mem);
-
 void* come_dynamic_typeof(void* mem);
-
 void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* protocol_obj, int call_finalizer_only, int no_decrement, int no_free, int force_delete_);
-
 void come_call_finalizer2(void* fun, void* mem, void* protocol_fun, void* protocol_obj, int call_finalizer_only, int no_decrement, int no_free, int force_delete_, void* result_obj);
-
 void come_call_finalizer3(void* mem, void* fun, int call_finalizer_only, int no_decrement, int no_free, int force_delete_, void* result_obj);
-
 void* come_decrement_ref_count(void* mem, void* protocol_fun, void* protocol_obj, _Bool no_decrement, _Bool no_free, _Bool force_delete_);
-
 void* come_decrement_ref_count2(void* mem, void* protocol_fun, void* protocol_obj, _Bool no_decrement, _Bool no_free, _Bool force_delete_, void* result_obj);
-
 void come_free_object(void* mem);
-
 void come_free(void* mem);
-
 void* come_memdup(void* block, char* sname, int sline, char* class_name);
-
 char* __builtin_string(char* str);
-
 struct buffer* buffer_initialize(struct buffer* self);
-
 void buffer_finalize(struct buffer* self);
-
 void buffer_force_finalize(struct buffer* self);
-
 struct buffer* buffer_clone(struct buffer* self);
-
 int buffer_length(struct buffer* self);
-
 void buffer_reset(struct buffer* self);
-
 void buffer_trim(struct buffer* self, int len);
-
 struct buffer* buffer_append(struct buffer* self, char* mem, unsigned long int size);
-
 struct buffer* buffer_append_char(struct buffer* self, char c);
-
 struct buffer* buffer_append_str(struct buffer* self, char* str);
-
 struct buffer* buffer_append_nullterminated_str(struct buffer* self, char* str);
-
 struct buffer* buffer_append_int(struct buffer* self, int value);
-
 struct buffer* buffer_append_long(struct buffer* self, long value);
-
 struct buffer* buffer_append_short(struct buffer* self, short short value);
-
 struct buffer* buffer_alignment(struct buffer* self);
-
 int buffer_compare(struct buffer* left, struct buffer* right);
-
 struct buffer* string_to_buffer(char* self);
-
 struct buffer* charp_to_buffer(char* self);
-
 char* buffer_to_string(struct buffer* self);
-
 static void smart_pointer$1charp_finalize(struct smart_pointer$1char* self);
 static void smart_pointer$1shortp_finalize(struct smart_pointer$1short* self);
 static void smart_pointer$1intp_finalize(struct smart_pointer$1int* self);
@@ -1329,615 +1042,310 @@ static struct list$1double* list$1double_push_back(struct list$1double* self, do
 static void list_item$1doublep_finalize(struct list_item$1double* self);
 static void list$1doublep_finalize(struct list$1double* self);
 _Bool bool_equals(_Bool self, _Bool right);
-
 _Bool char_equals(char self, char right);
-
 _Bool int_equals(int self, int right);
-
 _Bool short_equals(short short self, short short right);
-
 _Bool long_equals(long self, long right);
-
 _Bool size_t_equals(long self, long right);
-
 _Bool float_equals(float self, float right);
-
 _Bool double_equals(double self, double right);
-
 _Bool charp_equals(char* self, char* right);
-
 _Bool string_equals(char* self, char* right);
-
 _Bool string_operator_equals(char* self, char* right);
-
 _Bool charp_operator_equals(char* self, char* right);
-
 _Bool string_operator_not_equals(char* self, char* right);
-
 _Bool charp_operator_not_equals(char* self, char* right);
-
 char* charp_operator_add(char* self, char* right);
-
 char* string_operator_add(char* self, char* right);
-
 char* charp_operator_mult(char* self, int right);
-
 char* string_operator_mult(char* self, int right);
-
 unsigned int bool_get_hash_key(_Bool value);
-
 unsigned int char_get_hash_key(char value);
-
 unsigned int short_get_hash_key(short short value);
-
 unsigned int int_get_hash_key(int value);
-
 unsigned int long_get_hash_key(long value);
-
 unsigned int size_t_get_hash_key(long value);
-
 unsigned int float_get_hash_key(float value);
-
 unsigned int double_get_hash_key(double value);
-
 unsigned int string_get_hash_key(char* value);
-
 unsigned int charp_get_hash_key(char* value);
-
 _Bool bool_clone(char self);
-
 char char_clone(char self);
-
 short int short_clone(short short self);
-
 int int_clone(int self);
-
 long int long_clone(long self);
-
 unsigned long int size_t_clone(long self);
-
 double double_clone(double self);
-
 float float_clone(float self);
-
 char* charp_clone(char* self);
-
 char* string_clone(char* self);
-
 _Bool xiswascii(unsigned int c);
-
 _Bool xiswalpha(unsigned int c);
-
 _Bool xiswblank(unsigned int c);
-
 _Bool xiswdigit(unsigned int c);
-
 _Bool xiswalnum(unsigned int c);
-
 _Bool xisblank(char c);
-
 _Bool xisdigit(char c);
-
 _Bool xisalnum(char c);
-
 _Bool xisascii(char c);
-
 _Bool xisalpha(char c);
-
 int string_length(char* str);
-
 int charp_length(char* str);
-
 char* charp_substring(char* str, int head, int tail);
-
 char* string_substring(char* str, int head, int tail);
-
 char* string_operator_load_range_element(char* str, int head, int tail);
-
 char* charp_operator_load_range_element(char* str, int head, int tail);
-
 char* charp_reverse(char* str);
-
 char* string_reverse(char* str);
-
 char* xsprintf(char* msg, ...);
-
 char* charp_delete(char* str, int head, int tail);
-
 char* string_delete(char* str, int head, int tail);
-
 struct list$1charph* string_split_char(char* self, char c);
-
 struct list$1charph* charp_split_char(char* self, char c);
-
 char* xbasename(char* path);
-
 char* xextname(char* path);
-
 char* xnoextname(char* path);
-
 char* bool_to_string(_Bool self);
-
 char* char_to_string(char self);
-
 char* short_to_string(short short self);
-
 char* int_to_string(int self);
-
 char* long_to_string(long self);
-
 char* size_t_to_string(unsigned long int self);
-
 char* float_to_string(float self);
-
 char* double_to_string(double self);
-
 char* string_to_string(char* self);
-
 char* charp_to_string(char* self);
-
 int bool_compare(_Bool left, _Bool right);
-
 int char_compare(char left, char right);
-
 int short_compare(short short left, short short right);
-
 int int_compare(int left, int right);
-
 int long_compare(long left, long right);
-
 int float_compare(float left, float right);
-
 int double_compare(float left, float right);
-
 int size_t_compare(long left, long right);
-
 int string_compare(char* left, char* right);
-
 int charp_compare(char* left, char* right);
-
 int FILE_write(struct _IO_FILE* f, char* str);
-
 char* FILE_read(struct _IO_FILE* f);
-
 int FILE_fclose(struct _IO_FILE* f);
-
 int* FILE_fprintf(struct _IO_FILE* f, const char* msg, ...);
-
 struct list$1charph* FILE_readlines(struct _IO_FILE* f);
-
 int fopen_block(const char* path, const char* mode, void* parent, void (*block)(void*,struct _IO_FILE*));
-
 int string_write(char* self, char* file_name, _Bool append);
-
 int charp_write(char* self, char* file_name, _Bool append);
-
 char* charp_read(char* file_name);
-
 char* string_read(char* file_name);
-
 char* charp_puts(char* self);
-
 char* string_puts(char* self);
-
 int int_printf(int self, char* msg);
-
 char* string_printf(char* self, ...);
-
 char* charp_printf(char* self, ...);
-
 char* charp_print(char* self);
-
 void int_times(int self, void* parent, void (*block)(void*,int));
-
 struct integer* integer_initialize(struct integer* self, long value);
-
 struct integer* char_to_integer(char self);
-
 struct integer* short_to_integer(short short self);
-
 struct integer* int_to_integer(int self);
-
 struct integer* long_to_integer(long self);
-
 int integer_to_int(struct integer* self);
-
 _Bool integer_equals(struct integer* self, struct integer* right);
-
 int integer_compare(struct integer* self, struct integer* right);
-
 _Bool integer_operator_equals(struct integer* self, struct integer* right);
-
 _Bool integer_operator_not_equals(struct integer* self, struct integer* right);
-
 struct integer* integer_operator_add(struct integer* left, struct integer* right);
-
 struct integer* integer_operator_sub(struct integer* left, struct integer* right);
-
 struct integer* integer_operator_mult(struct integer* left, struct integer* right);
-
 struct integer* integer_operator_div(struct integer* left, struct integer* right);
-
 struct integer* integer_operator_mod(struct integer* left, struct integer* right);
-
 struct integer* integer_operator_lshift(struct integer* left, struct integer* right);
-
 struct integer* integer_operator_rshift(struct integer* left, struct integer* right);
-
 struct integer* integer_operator_gteq(struct integer* left, struct integer* right);
-
 struct integer* integer_operator_lteq(struct integer* left, struct integer* right);
-
 struct integer* integer_operator_lt(struct integer* left, struct integer* right);
-
 struct integer* integer_operator_gt(struct integer* left, struct integer* right);
-
 struct integer* integer_operator_and(struct integer* left, struct integer* right);
-
 struct integer* integer_operator_xor(struct integer* left, struct integer* right);
-
 struct integer* integer_operator_or(struct integer* left, struct integer* right);
-
 struct integer* integer_operator_andand(struct integer* left, struct integer* right);
-
 struct integer* integer_operator_oror(struct integer* left, struct integer* right);
-
 int sNodeBase_sline(struct sNodeBase* self, struct sInfo* info);
-
 char* sNodeBase_sname(struct sNodeBase* self, struct sInfo* info);
-
 struct CVALUE* CVALUE_initialize(struct CVALUE* self);
-
 int come_main_v1(int argc, char** argv);
-
 struct sNodeBase* sNodeBase_initialize(struct sNodeBase* self, struct sInfo* info);
-
 _Bool node_compile(struct sNode* node, struct sInfo* info);
-
 int come_main_v2(int argc, char** argv);
-
 void err_msg(struct sInfo* info, char* msg, ...);
-
 _Bool sNodeBase_terminated(struct sNodeBase* self);
-
 int transpile_v2(struct sInfo* info);
-
 _Bool output_source_file_v2(struct sInfo* info);
-
 struct sModule* sModule_initialize(struct sModule* self);
-
 struct sType* sType_initialize(struct sType* self, char* name, _Bool heap, struct sInfo* info);
-
 struct sVarTable* sVarTable_initialize(struct sVarTable* self, _Bool global, struct sVarTable* parent);
-
 void sVarTable_finalize(struct sVarTable* self);
-
 struct sClass* sClass_initialize(struct sClass* self, char* name, _Bool number, _Bool union_, _Bool generics, _Bool method_generics, _Bool protocol_, _Bool struct_, _Bool float_, int generics_num, int method_generics_num, _Bool enum_, struct sInfo* info);
-
 struct sClassModule* sClassModule_initialize(struct sClassModule* self, char* name, char* text, char* sname, int sline, struct sInfo* info);
-
 struct sFun* sFun_initialize(struct sFun* self, char* name, struct sType* result_type, struct list$1sTypeph* param_types, struct list$1charph* param_names, struct list$1charph* param_default_parametors, _Bool external, _Bool var_args, struct sBlock* block, _Bool static_, char* come_header, char* declare_sname, struct sInfo* info);
-
 char* make_type_name_string(struct sType* type, _Bool in_header, _Bool array_cast_pointer, _Bool no_pointer, struct sInfo* info, _Bool no_static);
-
 char* make_come_type_name_string(struct sType* type, struct sInfo* info);
-
 char* make_come_type_name_string_no_solved(struct sType* type, struct sInfo* info);
-
 char* make_define_var_no_solved(struct sType* type, char* name, _Bool in_header, struct sInfo* info);
-
 char* header_function(struct sFun* fun, struct sInfo* info);
-
 int transpile_v3(struct sInfo* info);
-
 _Bool output_source_file_v3(struct sInfo* info);
-
 void show_type(struct sType* type, struct sInfo* info);
-
 char* create_generics_name(struct sType* generics_type, struct sInfo* info);
-
 void add_last_code_to_source(struct sInfo* info);
-
 void add_come_code_at_function_head(struct sInfo* info, char* code, ...);
-
 void add_come_code_at_come_header(struct sInfo* info, const char* msg, ...);
-
 void add_come_code_at_function_head2(struct sInfo* info, char* code, ...);
-
 void add_come_code_at_source_head(struct sInfo* info, const char* msg, ...);
-
 void add_come_code_at_source_head3(struct sInfo* info, const char* msg, ...);
-
 void add_come_code_at_source_head2(struct sInfo* info, const char* msg, ...);
-
 void add_come_code(struct sInfo* info, const char* msg, ...);
-
 void add_come_last_code(struct sInfo* info, const char* msg, ...);
-
 void add_come_last_code2(struct sInfo* info, const char* msg, ...);
-
 void add_come_last_code3(struct sInfo* info, const char* msg, ...);
-
 void add_last_code_to_source_with_comma(struct sInfo* info);
-
 void dec_stack_ptr(int value, struct sInfo* info);
-
 struct CVALUE* get_value_from_stack(int offset, struct sInfo* info);
-
 char* make_define_var(struct sType* type, char* name, _Bool in_header, struct sInfo* info);
-
 void transpiler_clear_last_code(struct sInfo* info);
-
 _Bool output_header_file(struct sInfo* info);
-
 struct sType* solve_method_generics(struct sType* type, struct sInfo* info);
-
 _Bool existance_free_right_value_objects(struct sInfo* info);
-
 _Bool existance_free_objects_on_return(struct sBlock* current_block, struct sInfo* info, struct sVar* ret_value, _Bool top_block);
-
 void std_move(struct sType* left_type, struct sType* right_type, struct CVALUE* right_value, struct sInfo* info, _Bool no_delete_from_right_value_objects);
-
 char* append_stackframe(char* c_value, struct sType* type, struct sInfo* info);
-
 _Bool create_equals_method(struct sType* type, struct sInfo* info);
-
 _Bool create_operator_equals_method(struct sType* type, struct sInfo* info);
-
 _Bool create_operator_not_equals_method(struct sType* type, struct sInfo* info);
-
 struct sType* solve_generics(struct sType* type, struct sType* generics_type, struct sInfo* info);
-
 struct sVar* get_variable_from_table(struct sVarTable* table, char* name);
-
 void free_objects_on_return(struct sBlock* current_block, struct sInfo* info, struct sVar* ret_value, _Bool top_block);
-
 void free_objects_on_break(struct sInfo* info);
-
 void free_object(struct sType* type, char* obj, _Bool no_decrement, _Bool no_free, struct sInfo* info, _Bool comma, _Bool ret_value, _Bool force_delete_);
-
 struct tuple2$2sTypephcharph* clone_object(struct sType* type, char* obj, struct sInfo* info);
-
 void free_right_value_objects(struct sInfo* info, _Bool comma);
-
 void free_objects(struct sVarTable* table, struct sVar* ret_value, struct sInfo* info);
-
 char* append_object_to_right_values(char* obj, struct sType* type, struct sInfo* info);
-
 void append_object_to_right_values2(struct CVALUE* come_value, struct sType* type, struct sInfo* info);
-
 _Bool is_right_values(int right_value_num, struct sInfo* info);
-
 int get_right_value_id_from_obj(char* obj);
-
 void remove_object_from_right_values(int right_value_num, struct sInfo* info);
-
 char* increment_ref_count_object(struct sType* type, char* obj, struct sInfo* info);
-
 void decrement_ref_count_object(struct sType* type, char* obj, struct sInfo* info, _Bool force_delete_);
-
 struct sNode* post_position_operator(struct sNode* node, struct sInfo* info);
-
 _Bool create_method_generics_fun(char* fun_name, struct sGenericsFun* generics_fun, struct sInfo* info);
-
 _Bool operator_overload_fun_self(struct sType* type, char* fun_name, struct CVALUE* left_value, struct sInfo* info);
-
 _Bool strmemcmp(char* p, char* p2);
-
 void caller_begin(struct sInfo* info);
-
 void caller_end(struct sInfo* info);
-
 struct sNode* craete_logical_denial(struct sNode* node, struct sInfo* info);
-
 struct tuple3$3sTypephcharphbool* backtrace_parse_type(_Bool parse_variable_name, struct sInfo* info);
-
 void transpile_toplevel(_Bool block, struct sInfo* info);
-
 void skip_pointer_attribute(struct sInfo* info);
-
 struct sNode* parse_normal_block(struct sInfo* info);
-
 _Bool check_assign_type(char* msg, struct sType* left_type, struct sType* right_type, struct CVALUE* come_value, _Bool check_no_pointer, _Bool print_err_msg, struct sInfo* info);
-
 void cast_type(struct sType* left_type, struct sType* right_type, struct CVALUE* come_value, struct sInfo* info);
-
 char* parse_attribute(struct sInfo* info);
-
 struct sNode* get_number(_Bool minus, struct sInfo* info);
-
 struct sNode* get_oct_number(struct sInfo* info);
-
 struct sNode* get_hex_number(_Bool minus, struct sInfo* info);
-
 struct sNode* create_int_node(int value, struct sInfo* info);
-
 struct tuple4$4list$1sTypephphlist$1charphphlist$1charphphbool* parse_params(struct sInfo* info, _Bool in_constructor_);
-
 struct tuple2$2sFunpcharph* create_finalizer_automatically(struct sType* type, char* fun_name, struct sInfo* info);
-
 struct tuple2$2sFunpcharph* create_force_finalizer_automatically(struct sType* type, char* fun_name, struct sInfo* info);
-
 struct tuple2$2sFunpcharph* create_cloner_automatically(struct sType* type, char* fun_name, struct sInfo* info);
-
 struct tuple2$2sFunpcharph* create_equals_automatically(struct sType* type, char* fun_name, struct sInfo* info);
-
 struct tuple2$2sFunpcharph* create_operator_equals_automatically(struct sType* type, char* fun_name, struct sInfo* info);
-
 struct tuple2$2sFunpcharph* create_operator_not_equals_automatically(struct sType* type, char* fun_name, struct sInfo* info);
-
 char* skip_block(struct sInfo* info);
-
 _Bool is_contained_generics_class(struct sType* type, struct sInfo* info);
-
 _Bool is_type_name(char* buf, struct sInfo* info);
-
 _Bool parsecmp(char* str, struct sInfo* info);
-
 char* parse_word(struct sInfo* info);
-
 char* backtrace_parse_word(struct sInfo* info);
-
 void skip_spaces_and_lf(struct sInfo* info);
-
 int expected_next_character(char c, struct sInfo* info);
-
 struct sBlock* sBlock_initialize(struct sBlock* self, struct sInfo* info);
-
 _Bool create_generics_fun(char* fun_name, struct sGenericsFun* generics_fun, struct sType* generics_type, struct sInfo* info);
-
 struct tuple3$3sTypephcharphbool* parse_type(struct sInfo* info, _Bool parse_variable_name, _Bool parse_multiple_type, _Bool in_function_parametor);
-
 struct tuple2$2sTypephcharph* parse_variable_name(struct sType* base_type_name, _Bool first, struct sInfo* info);
-
 struct sBlock* parse_block(struct sInfo* info, _Bool no_block_level, _Bool return_self_at_last);
-
 int transpile_block(struct sBlock* block, struct list$1sTypeph* param_types, struct list$1charph* param_names, struct sInfo* info, _Bool no_var_table, _Bool loop_block);
-
 void arrange_stack(struct sInfo* info, int top);
-
 struct sNode* parse_function(struct sInfo* info);
-
 struct sNode* expression_v5(struct sInfo* info);
-
 struct sNode* statment(struct sInfo* info);
-
 struct sNode* top_level_v1(char* buf, char* head, int head_sline, struct sInfo* info);
-
 struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo* info);
-
 struct sNode* expression_node_v1(struct sInfo* info);
-
 struct sNode* expression_node_v99(struct sInfo* info);
-
 struct sNode* expression_node_v98(struct sInfo* info);
-
 struct sNode* expression_node_v97(struct sInfo* info);
-
 int transpile_v5(struct sInfo* info);
-
 void parse_sharp_v5(struct sInfo* info);
-
 char* create_method_name(struct sType* obj_type, _Bool no_pointer_name, char* fun_name, struct sInfo* info, _Bool array_equal_pointer);
-
 char* create_non_method_name(struct sType* obj_type, _Bool no_pointer_name, char* fun_name, struct sInfo* info, _Bool array_equal_pointer);
-
 char* create_method_name_using_class(struct sClass* obj_class, _Bool no_pointer_name, char* fun_name, struct sInfo* info, _Bool array_equal_pointer);
-
 struct sNode* expression_node_v96(struct sInfo* info);
-
 struct sNode* parse_tuple(struct sInfo* info);
-
 struct sNode* parse_array_initializer(struct sInfo* info);
-
 struct sNode* parse_global_variable(struct sInfo* info);
-
 struct sNode* store_var(char* name, struct list$1charph* multiple_assign, struct sType* type, _Bool alloc, struct sNode* right_node, struct sInfo* info);
-
 struct sNode* load_var(char* name, struct sInfo* info);
-
 struct sNode* string_node_v7(char* buf, char* head, int head_sline, struct sInfo* info);
-
 void add_variable_to_table(char* name, struct sType* type, struct sInfo* info);
-
 void add_variable_to_global_table(char* name, struct sType* type, struct sInfo* info);
-
 void add_variable_to_global_table_with_int_value(char* name, struct sType* type, char* c_value, struct sInfo* info);
-
 struct sNode* string_node_v8(char* buf, char* head, int head_sline, struct sInfo* info);
-
 struct sNode* parse_if_method_call(struct sNode* expression_node, struct sInfo* info);
-
 struct sNode* parse_elif_method_call(struct sNode* expression_node, struct sInfo* info);
-
 struct sNode* parse_or_statment(struct sNode* expression_node, struct sInfo* info);
-
 struct sNode* parse_and_statment(struct sNode* expression_node, struct sInfo* info);
-
 struct sNode* string_node_v9(char* buf, char* head, int head_sline, struct sInfo* info);
-
 struct sNode* string_node_v10(char* buf, char* head, int head_sline, struct sInfo* info);
-
 struct sNode* string_node_v11(char* buf, char* head, int head_sline, struct sInfo* info);
-
 struct sNode* string_node_v12(char* buf, char* head, int head_sline, struct sInfo* info);
-
 struct sNode* create_null_node(struct sInfo* info);
-
 _Bool operator_overload_fun(struct sType* type, char* fun_name, struct CVALUE* left_value, struct CVALUE* right_value, _Bool break_guard, struct sInfo* info);
-
 struct sNode* expression_v13(struct sInfo* info);
-
 struct sNode* post_op_v13(struct sNode* node, struct sInfo* info);
-
 struct sNode* string_node_v13(char* buf, char* head, int head_sline, struct sInfo* info);
-
 struct sNode* string_node_v14(char* buf, char* head, int head_sline, struct sInfo* info);
-
 struct sNode* parse_struct(char* type_name, struct sInfo* info);
-
 char* get_none_generics_name(char* class_name);
-
 struct sNode* top_level_v98(char* buf, char* head, int head_sline, struct sInfo* info);
-
 _Bool output_generics_struct(struct sType* type, struct sType* generics_type, struct sInfo* info);
-
 void output_struct(struct sClass* klass, struct sInfo* info);
-
 struct sNode* string_node_v15(char* buf, char* head, int head_sline, struct sInfo* info);
-
 struct sNode* parse_union(char* type_name, struct sInfo* info);
-
 struct sNode* top_level_v97(char* buf, char* head, int head_sline, struct sInfo* info);
-
 struct sNode* top_level_v95(char* buf, char* head, int head_sline, struct sInfo* info);
-
 struct sNode* string_node_v17(char* buf, char* head, int head_sline, struct sInfo* info);
-
 _Bool compiletime_get_exception_value(struct sInfo* info);
-
 struct sNode* store_field(struct sNode* left, struct sNode* right, char* name, struct sInfo* info);
-
 struct sNode* exception_get_value(struct sNode* node, struct sInfo* info);
-
 struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo* info);
-
 struct sNode* parse_method_call_v18(struct sNode* obj, char* fun_name, struct sInfo* info);
-
 struct sNode* post_position_operator_v19(struct sNode* node, struct sInfo* info);
-
 char* make_generics_function(struct sType* type, char* fun_name, struct sInfo* info, _Bool array_equal_pointer);
-
 struct sNode* parse_method_call_v20(struct sNode* obj, char* fun_name, struct sInfo* info);
-
 struct sNode* string_node_v20(char* buf, char* head, int head_sline, struct sInfo* info);
-
 struct sNode* create_object(struct sType* type, struct sInfo* info);
-
 struct sNode* create_true_object(struct sInfo* info);
-
 struct sNode* create_false_object(struct sInfo* info);
-
 struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInfo* info);
-
 struct sNode* top_level_v94(char* buf, char* head, int head_sline, struct sInfo* info);
-
 struct sNode* post_position_operator_v21(struct sNode* node, struct sInfo* info);
-
 struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo* info);
-
 struct sNode* top_level_v92(char* buf, char* head, int head_sline, struct sInfo* info);
-
 struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo* info);
-
 struct sEnumNode* sEnumNode_initialize(struct sEnumNode* self, char* type_name, struct list$1tuple2$2charphsNodephph* elements, _Bool output, struct sInfo* info);
-
 _Bool sEnumNode_terminated(struct sEnumNode* self);
-
 char* sEnumNode_kind(struct sEnumNode* self);
-
 _Bool sEnumNode_compile(struct sEnumNode* self, struct sInfo* info);
-
 static void sNodeBase_finalize(struct sNodeBase* self);
 static struct list$1tuple2$2charphsNodephph* list$1tuple2$2charphsNodephphp_clone(struct list$1tuple2$2charphsNodephph* self);
 static struct list$1tuple2$2charphsNodephph* list$1tuple2$2charphsNodephph_initialize(struct list$1tuple2$2charphsNodephph* self);
@@ -1965,7 +1373,6 @@ static void list_item$1charphp_finalize(struct list_item$1charph* self);
 static int list$1tuple2$2charphsNodephph_length(struct list$1tuple2$2charphsNodephph* self);
 static void CVALUE_finalize(struct CVALUE* self);
 struct sNode* parse_enum(char* type_name, struct sInfo* info);
-
 static struct sClass* map$2charphsClassph_at(struct map$2charphsClassph* self, char* key, struct sClass* default_value);
 static void sClass_finalize(struct sClass* self);
 static void list$1tuple2$2charphsTypephphp_finalize(struct list$1tuple2$2charphsTypephph* self);
@@ -2011,7 +1418,6 @@ static struct tuple2$2charphsNodeph* tuple2$2charphsNodeph_initialize(struct tup
 static struct tuple2$2charphvoidp* tuple2$2charphvoidp_initialize(struct tuple2$2charphvoidp* self, char* v1, void* v2);
 static void tuple2$2charphvoidpp_finalize(struct tuple2$2charphvoidp* self);
 struct sNode* top_level_v96(char* buf, char* head, int head_sline, struct sInfo* info);
-
 static void sEnumNode_finalize(struct sEnumNode* self);
 static struct sEnumNode* sEnumNode_clone(struct sEnumNode* self);
 // uniq global variable
