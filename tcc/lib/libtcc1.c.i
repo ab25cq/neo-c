@@ -1,42 +1,11 @@
-# 0 "lib/libtcc1.c"
-# 0 "<built-in>"
-# 0 "<command-line>"
-# 1 "/usr/include/stdc-predef.h" 1 3 4
-# 0 "<command-line>" 2
 # 1 "lib/libtcc1.c"
-/* TCC runtime library. 
-   Parts of this code are (c) 2002 Fabrice Bellard 
-
-   Copyright (C) 1987, 1988, 1992, 1994, 1995 Free Software Foundation, Inc.
-
-This file is free software; you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation; either version 2, or (at your option) any
-later version.
-
-In addition to the permissions in the GNU General Public License, the
-Free Software Foundation gives you unlimited permission to link the
-compiled version of this file into combinations with other programs,
-and to distribute those combinations without any restriction coming
-from the use of this file.  (The General Public License restrictions
-do apply in other respects; for example, they cover modification of
-the file, and distribution when not linked into a combine
-executable.)
-
-This file is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; see the file COPYING.  If not, write to
-the Free Software Foundation, 59 Temple Place - Suite 330,
-Boston, MA 02111-1307, USA.  
-*/
-
-
-
-
+# 1 "<built-in>" 1
+# 1 "<built-in>" 3
+# 418 "<built-in>" 3
+# 1 "<command line>" 1
+# 1 "<built-in>" 2
+# 1 "lib/libtcc1.c" 2
+# 34 "lib/libtcc1.c"
 typedef int Wtype;
 typedef unsigned int UWtype;
 typedef unsigned int USItype;
@@ -54,19 +23,7 @@ typedef union
 } DWunion;
 
 typedef long double XFtype;
-
-
-
-/* the following deal with IEEE single-precision numbers */
-# 63 "lib/libtcc1.c"
-/* the following deal with IEEE double-precision numbers */
-# 74 "lib/libtcc1.c"
-/* the following deal with x86 long double-precision numbers */
-
-
-
-
-/* only for x86 */
+# 80 "lib/libtcc1.c"
 union ldouble_long {
     long double ld;
     struct {
@@ -95,14 +52,7 @@ union float_long {
     float f;
     long l;
 };
-
-/* XXX: we don't support several builtin supports for now */
-
-
-/* XXX: use gcc/tcc intrinsic ? */
-# 146 "lib/libtcc1.c"
-/* most of this code is taken from libgcc2.c from gcc */
-
+# 148 "lib/libtcc1.c"
 static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 {
   DWunion ww;
@@ -125,24 +75,24 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
     {
       if (d0 > n1)
  {
-   /* 0q = nn / 0D */
+
 
    udiv_qrnnd (q0, n0, n1, n0, d0);
    q1 = 0;
 
-   /* Remainder in n0.  */
+
  }
       else
  {
-   /* qq = NN / 0d */
+
 
    if (d0 == 0)
-     d0 = 1 / d0; /* Divide intentionally by zero.  */
+     d0 = 1 / d0;
 
    udiv_qrnnd (q1, n1, 0, n1, d0);
    udiv_qrnnd (q0, n0, n1, n0, d0);
 
-   /* Remainder in n0.  */
+
  }
 
       if (rp != 0)
@@ -157,12 +107,12 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
     {
       if (d1 > n1)
  {
-   /* 00 = nn / DD */
+
 
    q0 = 0;
    q1 = 0;
 
-   /* Remainder in n1n0.  */
+
    if (rp != 0)
      {
        rr.s.low = n0;
@@ -172,19 +122,12 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
  }
       else
  {
-   /* 0q = NN / dd */
+
 
    count_leading_zeros (bm, d1);
    if (bm == 0)
      {
-       /* From (n1 >= d1) /\ (the most significant bit of d1 is set),
-		 conclude (the most significant bit of n1 is set) /\ (the
-		 quotient digit q0 = 0 or 1).
-
-		 This special case is necessary, not an optimization.  */
-
-       /* The condition on the next line takes advantage of that
-		 n1 >= d1 (true due to program flow).  */
+# 306 "lib/libtcc1.c"
        if (n1 > d1 || n0 >= d0)
   {
     q0 = 1;
@@ -205,7 +148,7 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
    else
      {
        UWtype m1, m0;
-       /* Normalize.  */
+
 
        b = 32 - bm;
 
@@ -226,7 +169,7 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 
        q1 = 0;
 
-       /* Remainder in (n1n0 - m1m0) >> bm.  */
+
        if (rp != 0)
   {
     sub_ddmmss (n1, n0, n1, n0, m1, m0);
@@ -303,7 +246,7 @@ unsigned long long __umoddi3(unsigned long long u, unsigned long long v)
     return w;
 }
 
-/* XXX: fix tcc's code generator to do this instead */
+
 long long __ashrdi3(long long a, int b)
 {
 # 439 "lib/libtcc1.c"
@@ -311,7 +254,7 @@ long long __ashrdi3(long long a, int b)
 
 }
 
-/* XXX: fix tcc's code generator to do this instead */
+
 unsigned long long __lshrdi3(unsigned long long a, int b)
 {
 # 458 "lib/libtcc1.c"
@@ -319,15 +262,14 @@ unsigned long long __lshrdi3(unsigned long long a, int b)
 
 }
 
-/* XXX: fix tcc's code generator to do this instead */
+
 long long __ashldi3(long long a, int b)
 {
 # 477 "lib/libtcc1.c"
     return a << b;
 
 }
-# 490 "lib/libtcc1.c"
-/* XXX: fix tcc's code generator to do this instead */
+# 491 "lib/libtcc1.c"
 float __floatundisf(unsigned long long a)
 {
     DWunion uu;

@@ -39,7 +39,7 @@ static int cseg;
 static Symbol quo, rem;
 
 /*
-generated at Sun Aug  4 21:12:55 2024
+generated at Mon Aug  5 17:18:18 2024
 by $Id$
 */
 static void _kids(NODEPTR_TYPE, int, NODEPTR_TYPE[]);

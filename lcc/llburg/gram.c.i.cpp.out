@@ -1,0 +1,8 @@
+clang: warning: -lang-c: 'linker' input unused [-Wunused-command-line-argument]
+In file included from llburg/gram.c:19:
+In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/stdio.h:64:
+In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h:68:
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h:81:2: warning: "Unsupported compiler detected" [-W#warnings]
+#warning "Unsupported compiler detected"
+ ^
+1 warning generated.
