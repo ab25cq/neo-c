@@ -709,7 +709,7 @@ struct sHeapPage
     int mSizePages;
     char* mTop;
     int mCurrentPages;
-    struct sMemHeaderTiny* mFreeMem[1024*2];
+    struct sMemHeaderTiny* mFreeMem[2048];
 };
 
 // header function
@@ -2463,11 +2463,11 @@ int i_50;
     gHeapPages.mSizePages=4;
     gHeapPages.mPages=calloc(1,sizeof(char**)*gHeapPages.mSizePages);
     for(    i_50=0;    i_50<gHeapPages.mSizePages;    i_50++    ){
-        gHeapPages.mPages[i_50]=calloc(1,sizeof(char)*1024*2);
+        gHeapPages.mPages[i_50]=calloc(1,sizeof(char)*2048);
     }
     gHeapPages.mTop=gHeapPages.mPages[0];
     gHeapPages.mCurrentPages=0;
-    memset(gHeapPages.mFreeMem,0,sizeof(struct sMemHeaderTiny*)*1024*2);
+    memset(gHeapPages.mFreeMem,0,sizeof(struct sMemHeaderTiny*)*2048);
     gAllocMem=((void*)0);
 }
 
@@ -2535,25 +2535,25 @@ void** new_pages_61;
 int i_62;
 void* __result48__;
     result_58=((void*)0);
-    if(size<1024*2) {
+    if(size<2048) {
         if(gHeapPages.mFreeMem[size]) {
             result_58=gHeapPages.mFreeMem[size];
             gHeapPages.mFreeMem[size]=gHeapPages.mFreeMem[size]->free_next;
             memset(result_58,0,size);
         }
         if(result_58==((void*)0)) {
-            free_area_59=gHeapPages.mPages[gHeapPages.mCurrentPages]+1024*2-gHeapPages.mTop;
+            free_area_59=gHeapPages.mPages[gHeapPages.mCurrentPages]+2048-gHeapPages.mTop;
             if(size>=free_area_59) {
                 gHeapPages.mCurrentPages++;
                 if(gHeapPages.mCurrentPages==gHeapPages.mSizePages) {
-                    new_size_pages_60=gHeapPages.mSizePages*2;
+                    new_size_pages_60=gHeapPages.mSizePages*4;
                     new_pages_61=calloc(1,sizeof(char*)*new_size_pages_60);
                     i_62=0;
                     for(                    ;                    i_62<gHeapPages.mSizePages;                    i_62++                    ){
                         new_pages_61[i_62]=gHeapPages.mPages[i_62];
                     }
                     for(                    ;                    i_62<new_size_pages_60;                    i_62++                    ){
-                        new_pages_61[i_62]=calloc(1,sizeof(char)*1024*2);
+                        new_pages_61[i_62]=calloc(1,sizeof(char)*2048);
                     }
                     free(gHeapPages.mPages);
                     gHeapPages.mPages=new_pages_61;
@@ -2671,7 +2671,7 @@ unsigned long int size_74;
                     }
                 }
                 size_70=it_67->size;
-                if(size_70<1024*2) {
+                if(size_70<2048) {
                     if(gHeapPages.mFreeMem[size_70]==((void*)0)) {
                         it_67->free_next=((void*)0);
                         gHeapPages.mFreeMem[size_70]=(struct sMemHeaderTiny*)it_67;
@@ -2709,7 +2709,7 @@ unsigned long int size_74;
                     }
                 }
                 size_74=it_71->size;
-                if(size_74<1024*2) {
+                if(size_74<2048) {
                     if(gHeapPages.mFreeMem[size_74]==((void*)0)) {
                         it_71->free_next=((void*)0);
                         gHeapPages.mFreeMem[size_74]=it_71;
@@ -3046,7 +3046,7 @@ char* __result67__;
         return __result66__;
     }
     len_109=strlen(str)+1;
-    result_110=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len_109)), "libneo-c.c", 910, "char"));
+    result_110=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len_109)), "libneo-c.c", 909, "char"));
     strncpy(result_110,str,len_109);
     __result67__ = __result_obj__ = result_110;
     result_110 = come_decrement_ref_count2(result_110, (void*)0, (void*)0, 0, 1, 0, (void*)0);
@@ -3073,7 +3073,7 @@ char* __dec_obj12;
 struct buffer* __result68__;
     self->size=128;
     __dec_obj12=self->buf;
-    self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), "libneo-c.c", 935, "char"));
+    self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), "libneo-c.c", 934, "char"));
     __dec_obj12 = come_decrement_ref_count2(__dec_obj12, (void*)0, (void*)0, 0,0,0, (void*)0);
     self->buf[0]=0;
     self->len=0;
@@ -3106,10 +3106,10 @@ struct buffer* __result70__;
         __result69__ = __result_obj__ = ((void*)0);
         return __result69__;
     }
-    result_113=(struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "libneo-c.c", 957, "buffer"));
+    result_113=(struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "libneo-c.c", 956, "buffer"));
     result_113->size=self->size;
     __dec_obj13=result_113->buf;
-    result_113->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), "libneo-c.c", 960, "char"));
+    result_113->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), "libneo-c.c", 959, "char"));
     __dec_obj13 = come_decrement_ref_count2(__dec_obj13, (void*)0, (void*)0, 0,0,0, (void*)0);
     result_113->len=self->len;
     memcpy(result_113->buf,self->buf,self->len);
@@ -3156,12 +3156,12 @@ struct buffer* __result72__;
         return __result71__;
     }
     if(self->len+size+1+1>=self->size) {
-        old_buf_114=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), "libneo-c.c", 999, "char"));
+        old_buf_114=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), "libneo-c.c", 998, "char"));
         memcpy(old_buf_114,self->buf,self->size);
         old_len_115=self->len;
         new_size_116=(self->size+size+1)*2;
         __dec_obj14=self->buf;
-        self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size_116)), "libneo-c.c", 1003, "char"));
+        self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size_116)), "libneo-c.c", 1002, "char"));
         __dec_obj14 = come_decrement_ref_count2(__dec_obj14, (void*)0, (void*)0, 0,0,0, (void*)0);
         memcpy(self->buf,old_buf_114,old_len_115);
         self->buf[old_len_115]=0;
@@ -3194,7 +3194,7 @@ struct buffer* __result74__;
         old_len_118=self->len;
         new_size_119=(self->size+10+1)*2;
         __dec_obj15=self->buf;
-        self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size_119)), "libneo-c.c", 1026, "char"));
+        self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size_119)), "libneo-c.c", 1025, "char"));
         __dec_obj15 = come_decrement_ref_count2(__dec_obj15, (void*)0, (void*)0, 0,0,0, (void*)0);
         memcpy(self->buf,old_buf_117,old_len_118);
         self->buf[old_len_118]=0;
@@ -3225,12 +3225,12 @@ struct buffer* __result76__;
     }
     size_120=strlen(mem);
     if(self->len+size_120+1+1>=self->size) {
-        old_buf_121=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), "libneo-c.c", 1048, "char"));
+        old_buf_121=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), "libneo-c.c", 1047, "char"));
         memcpy(old_buf_121,self->buf,self->size);
         old_len_122=self->len;
         new_size_123=(self->size+size_120+1)*2;
         __dec_obj16=self->buf;
-        self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size_123)), "libneo-c.c", 1052, "char"));
+        self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size_123)), "libneo-c.c", 1051, "char"));
         __dec_obj16 = come_decrement_ref_count2(__dec_obj16, (void*)0, (void*)0, 0,0,0, (void*)0);
         memcpy(self->buf,old_buf_121,old_len_122);
         self->buf[old_len_122]=0;
@@ -3261,12 +3261,12 @@ struct buffer* __result78__;
     }
     size_124=strlen(mem)+1;
     if(self->len+size_124+1+1+1>=self->size) {
-        old_buf_125=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), "libneo-c.c", 1072, "char"));
+        old_buf_125=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), "libneo-c.c", 1071, "char"));
         memcpy(old_buf_125,self->buf,self->size);
         old_len_126=self->len;
         new_size_127=(self->size+size_124+1)*2;
         __dec_obj17=self->buf;
-        self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size_127)), "libneo-c.c", 1076, "char"));
+        self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size_127)), "libneo-c.c", 1075, "char"));
         __dec_obj17 = come_decrement_ref_count2(__dec_obj17, (void*)0, (void*)0, 0,0,0, (void*)0);
         memcpy(self->buf,old_buf_125,old_len_126);
         self->buf[old_len_126]=0;
@@ -3300,12 +3300,12 @@ struct buffer* __result80__;
     mem_128=&value;
     size_129=sizeof(int);
     if(self->len+size_129+1+1>=self->size) {
-        old_buf_130=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), "libneo-c.c", 1099, "char"));
+        old_buf_130=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), "libneo-c.c", 1098, "char"));
         memcpy(old_buf_130,self->buf,self->size);
         old_len_131=self->len;
         new_size_132=(self->size+size_129+1)*2;
         __dec_obj18=self->buf;
-        self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size_132)), "libneo-c.c", 1103, "char"));
+        self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size_132)), "libneo-c.c", 1102, "char"));
         __dec_obj18 = come_decrement_ref_count2(__dec_obj18, (void*)0, (void*)0, 0,0,0, (void*)0);
         memcpy(self->buf,old_buf_130,old_len_131);
         self->buf[old_len_131]=0;
@@ -3333,12 +3333,12 @@ struct buffer* __result81__;
     mem_133=&value;
     size_134=sizeof(long);
     if(self->len+size_134+1+1>=self->size) {
-        old_buf_135=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), "libneo-c.c", 1122, "char"));
+        old_buf_135=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), "libneo-c.c", 1121, "char"));
         memcpy(old_buf_135,self->buf,self->size);
         old_len_136=self->len;
         new_size_137=(self->size+size_134+1)*2;
         __dec_obj19=self->buf;
-        self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size_137)), "libneo-c.c", 1126, "char"));
+        self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size_137)), "libneo-c.c", 1125, "char"));
         __dec_obj19 = come_decrement_ref_count2(__dec_obj19, (void*)0, (void*)0, 0,0,0, (void*)0);
         memcpy(self->buf,old_buf_135,old_len_136);
         self->buf[old_len_136]=0;
@@ -3371,12 +3371,12 @@ struct buffer* __result83__;
     mem_138=&value;
     size_139=sizeof(short short);
     if(self->len+size_139+1+1>=self->size) {
-        old_buf_140=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), "libneo-c.c", 1149, "char"));
+        old_buf_140=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), "libneo-c.c", 1148, "char"));
         memcpy(old_buf_140,self->buf,self->size);
         old_len_141=self->len;
         new_size_142=(self->size+size_139+1)*2;
         __dec_obj20=self->buf;
-        self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size_142)), "libneo-c.c", 1153, "char"));
+        self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size_142)), "libneo-c.c", 1152, "char"));
         __dec_obj20 = come_decrement_ref_count2(__dec_obj20, (void*)0, (void*)0, 0,0,0, (void*)0);
         memcpy(self->buf,old_buf_140,old_len_141);
         self->buf[old_len_141]=0;
@@ -3408,7 +3408,7 @@ struct buffer* __result85__;
     if(len_143>=self->size) {
         new_size_144=(self->size+1+1)*2;
         __dec_obj21=self->buf;
-        self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size_144)), "libneo-c.c", 1177, "char"));
+        self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size_144)), "libneo-c.c", 1176, "char"));
         __dec_obj21 = come_decrement_ref_count2(__dec_obj21, (void*)0, (void*)0, 0,0,0, (void*)0);
         self->size=new_size_144;
     }
@@ -3444,7 +3444,7 @@ void* __right_value105 = (void*)0;
 struct buffer* result_146;
 struct buffer* __result86__;
 struct buffer* __result87__;
-    result_146=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count(((struct buffer*)(__right_value104=(struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "libneo-c.c", 1207, "buffer"))))));
+    result_146=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count(((struct buffer*)(__right_value104=(struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "libneo-c.c", 1206, "buffer"))))));
     come_call_finalizer3(__right_value104,buffer_finalize, 0, 1, 0, 0, __result_obj__);
     if(self==((void*)0)) {
         __result86__ = __result_obj__ = result_146;
@@ -3464,7 +3464,7 @@ void* __right_value107 = (void*)0;
 struct buffer* result_147;
 struct buffer* __result88__;
 struct buffer* __result89__;
-    result_147=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count(((struct buffer*)(__right_value106=(struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "libneo-c.c", 1220, "buffer"))))));
+    result_147=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count(((struct buffer*)(__right_value106=(struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "libneo-c.c", 1219, "buffer"))))));
     come_call_finalizer3(__right_value106,buffer_finalize, 0, 1, 0, 0, __result_obj__);
     if(self==((void*)0)) {
         __result88__ = __result_obj__ = result_147;
@@ -3641,7 +3641,7 @@ char* __result93__;
         return __result92__;
     }
     len_148=strlen(self)+strlen(right);
-    result_149=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len_148+1)), "libneo-c.c", 1382, "char"));
+    result_149=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len_148+1)), "libneo-c.c", 1381, "char"));
     strncpy(result_149,self,len_148+1);
     strncat(result_149,right,len_148+1);
     __result93__ = __result_obj__ = result_149;
@@ -3663,7 +3663,7 @@ char* __result95__;
         return __result94__;
     }
     len_150=strlen(self)+strlen(right);
-    result_151=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len_150+1)), "libneo-c.c", 1397, "char"));
+    result_151=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len_150+1)), "libneo-c.c", 1396, "char"));
     strncpy(result_151,self,len_150+1);
     strncat(result_151,right,len_150+1);
     __result95__ = __result_obj__ = result_151;
@@ -3686,7 +3686,7 @@ char* __result97__;
         __right_value114 = come_decrement_ref_count2(__right_value114, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
         return __result96__;
     }
-    buf_152=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count(((struct buffer*)(__right_value115=(struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "libneo-c.c", 1410, "buffer"))))));
+    buf_152=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count(((struct buffer*)(__right_value115=(struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "libneo-c.c", 1409, "buffer"))))));
     come_call_finalizer3(__right_value115,buffer_finalize, 0, 1, 0, 0, __result_obj__);
     for(    i_153=0;    i_153<right;    i_153++    ){
         buffer_append_str(buf_152,self);
@@ -3712,7 +3712,7 @@ char* __result99__;
         __right_value118 = come_decrement_ref_count2(__right_value118, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
         return __result98__;
     }
-    buf_154=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count(((struct buffer*)(__right_value119=(struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "libneo-c.c", 1424, "buffer"))))));
+    buf_154=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count(((struct buffer*)(__right_value119=(struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "libneo-c.c", 1423, "buffer"))))));
     come_call_finalizer3(__right_value119,buffer_finalize, 0, 1, 0, 0, __result_obj__);
     for(    i_155=0;    i_155<right;    i_155++    ){
         buffer_append_str(buf_154,self);
@@ -3922,7 +3922,7 @@ char* __result105__;
         return __result104__;
     }
     len_164=strlen(str);
-    result_165=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len_164+1)), "libneo-c.c", 1641, "char"));
+    result_165=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len_164+1)), "libneo-c.c", 1640, "char"));
     for(    i_166=0;    i_166<len_164;    i_166++    ){
         result_165[i_166]=str[len_164-i_166-1];
     }
@@ -3947,7 +3947,7 @@ char* __result107__;
         return __result106__;
     }
     len_167=strlen(str);
-    result_168=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len_167+1)), "libneo-c.c", 1658, "char"));
+    result_168=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len_167+1)), "libneo-c.c", 1657, "char"));
     for(    i_169=0;    i_169<len_167;    i_169++    ){
         result_168[i_169]=str[len_167-i_169-1];
     }
@@ -4006,7 +4006,7 @@ char* __result112__;
         __right_value132 = come_decrement_ref_count2(__right_value132, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
         return __result111__;
     }
-    result_171=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(tail-head+1)), "libneo-c.c", 1703, "char"));
+    result_171=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(tail-head+1)), "libneo-c.c", 1702, "char"));
     memcpy(result_171,str+head,tail-head);
     result_171[tail-head]=0;
     __result112__ = __result_obj__ = result_171;
@@ -4063,7 +4063,7 @@ char* __result117__;
         __right_value138 = come_decrement_ref_count2(__right_value138, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
         return __result116__;
     }
-    result_173=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(tail-head+1)), "libneo-c.c", 1746, "char"));
+    result_173=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(tail-head+1)), "libneo-c.c", 1745, "char"));
     memcpy(result_173,str+head,tail-head);
     result_173[tail-head]=0;
     __result117__ = __result_obj__ = result_173;
@@ -4120,7 +4120,7 @@ char* __result122__;
         __right_value144 = come_decrement_ref_count2(__right_value144, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
         return __result121__;
     }
-    result_175=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(tail-head+1)), "libneo-c.c", 1789, "char"));
+    result_175=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(tail-head+1)), "libneo-c.c", 1788, "char"));
     memcpy(result_175,str+head,tail-head);
     result_175[tail-head]=0;
     __result122__ = __result_obj__ = result_175;
@@ -4177,7 +4177,7 @@ char* __result127__;
         __right_value150 = come_decrement_ref_count2(__right_value150, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
         return __result126__;
     }
-    result_177=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(tail-head+1)), "libneo-c.c", 1832, "char"));
+    result_177=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(tail-head+1)), "libneo-c.c", 1831, "char"));
     memcpy(result_177,str+head,tail-head);
     result_177[tail-head]=0;
     __result127__ = __result_obj__ = result_177;
@@ -4338,14 +4338,14 @@ void* __right_value174 = (void*)0;
 void* __right_value175 = (void*)0;
 struct list$1charph* __result142__;
     if(self==((void*)0)) {
-        __result140__ = __result_obj__ = ((struct list$1charph*)(__right_value166=list$1charph_initialize((struct list$1charph*)come_increment_ref_count(((struct list$1charph*)(__right_value165=(struct list$1charph*)come_calloc(1, sizeof(struct list$1charph)*(1), "libneo-c.c", 1943, "list$1charph")))))));
+        __result140__ = __result_obj__ = ((struct list$1charph*)(__right_value166=list$1charph_initialize((struct list$1charph*)come_increment_ref_count(((struct list$1charph*)(__right_value165=(struct list$1charph*)come_calloc(1, sizeof(struct list$1charph)*(1), "libneo-c.c", 1942, "list$1charph")))))));
         come_call_finalizer3(__right_value165,list$1charphp_finalize, 0, 1, 0, 0, __result_obj__);
         come_call_finalizer3(__right_value166,list$1charphp_finalize, 0, 1, 0, 0, __result_obj__);
         return __result140__;
     }
-    result_188=(struct list$1charph*)come_increment_ref_count(list$1charph_initialize((struct list$1charph*)come_increment_ref_count(((struct list$1charph*)(__right_value167=(struct list$1charph*)come_calloc(1, sizeof(struct list$1charph)*(1), "libneo-c.c", 1946, "list$1charph"))))));
+    result_188=(struct list$1charph*)come_increment_ref_count(list$1charph_initialize((struct list$1charph*)come_increment_ref_count(((struct list$1charph*)(__right_value167=(struct list$1charph*)come_calloc(1, sizeof(struct list$1charph)*(1), "libneo-c.c", 1945, "list$1charph"))))));
     come_call_finalizer3(__right_value167,list$1charphp_finalize, 0, 1, 0, 0, __result_obj__);
-    str_189=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count(((struct buffer*)(__right_value169=(struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "libneo-c.c", 1948, "buffer"))))));
+    str_189=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count(((struct buffer*)(__right_value169=(struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "libneo-c.c", 1947, "buffer"))))));
     come_call_finalizer3(__right_value169,buffer_finalize, 0, 1, 0, 0, __result_obj__);
     for(    i_190=0;    i_190<charp_length(self);    i_190++    ){
         if(self[i_190]==c) {
@@ -4464,14 +4464,14 @@ void* __right_value182 = (void*)0;
 void* __right_value183 = (void*)0;
 struct list$1charph* __result144__;
     if(self==((void*)0)) {
-        __result143__ = __result_obj__ = ((struct list$1charph*)(__right_value177=list$1charph_initialize((struct list$1charph*)come_increment_ref_count(((struct list$1charph*)(__right_value176=(struct list$1charph*)come_calloc(1, sizeof(struct list$1charph)*(1), "libneo-c.c", 1969, "list$1charph")))))));
+        __result143__ = __result_obj__ = ((struct list$1charph*)(__right_value177=list$1charph_initialize((struct list$1charph*)come_increment_ref_count(((struct list$1charph*)(__right_value176=(struct list$1charph*)come_calloc(1, sizeof(struct list$1charph)*(1), "libneo-c.c", 1968, "list$1charph")))))));
         come_call_finalizer3(__right_value176,list$1charphp_finalize, 0, 1, 0, 0, __result_obj__);
         come_call_finalizer3(__right_value177,list$1charphp_finalize, 0, 1, 0, 0, __result_obj__);
         return __result143__;
     }
-    result_194=(struct list$1charph*)come_increment_ref_count(list$1charph_initialize((struct list$1charph*)come_increment_ref_count(((struct list$1charph*)(__right_value178=(struct list$1charph*)come_calloc(1, sizeof(struct list$1charph)*(1), "libneo-c.c", 1972, "list$1charph"))))));
+    result_194=(struct list$1charph*)come_increment_ref_count(list$1charph_initialize((struct list$1charph*)come_increment_ref_count(((struct list$1charph*)(__right_value178=(struct list$1charph*)come_calloc(1, sizeof(struct list$1charph)*(1), "libneo-c.c", 1971, "list$1charph"))))));
     come_call_finalizer3(__right_value178,list$1charphp_finalize, 0, 1, 0, 0, __result_obj__);
-    str_195=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count(((struct buffer*)(__right_value180=(struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "libneo-c.c", 1974, "buffer"))))));
+    str_195=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count(((struct buffer*)(__right_value180=(struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "libneo-c.c", 1973, "buffer"))))));
     come_call_finalizer3(__right_value180,buffer_finalize, 0, 1, 0, 0, __result_obj__);
     for(    i_196=0;    i_196<charp_length(self);    i_196++    ){
         if(self[i_196]==c) {
@@ -4906,7 +4906,7 @@ char* __result171__;
         __right_value210 = come_decrement_ref_count2(__right_value210, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
         return __result170__;
     }
-    buf_201=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count(((struct buffer*)(__right_value211=(struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "libneo-c.c", 2304, "buffer"))))));
+    buf_201=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count(((struct buffer*)(__right_value211=(struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "libneo-c.c", 2303, "buffer"))))));
     come_call_finalizer3(__right_value211,buffer_finalize, 0, 1, 0, 0, __result_obj__);
     while(1) {
         char buf2_202[1024];
@@ -5054,7 +5054,7 @@ char* __result178__;
         __right_value215 = come_decrement_ref_count2(__right_value215, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
         return __result176__;
     }
-    buf_215=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count(((struct buffer*)(__right_value216=(struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "libneo-c.c", 2444, "buffer"))))));
+    buf_215=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count(((struct buffer*)(__right_value216=(struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "libneo-c.c", 2443, "buffer"))))));
     come_call_finalizer3(__right_value216,buffer_finalize, 0, 1, 0, 0, __result_obj__);
     while(1) {
         char buf2_216[1024];
@@ -5108,7 +5108,7 @@ char* __result182__;
         __right_value221 = come_decrement_ref_count2(__right_value221, (void*)0, (void*)0, 1, 0, 0, __result_obj__);
         return __result180__;
     }
-    buf_221=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count(((struct buffer*)(__right_value222=(struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "libneo-c.c", 2481, "buffer"))))));
+    buf_221=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count(((struct buffer*)(__right_value222=(struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "libneo-c.c", 2480, "buffer"))))));
     come_call_finalizer3(__right_value222,buffer_finalize, 0, 1, 0, 0, __result_obj__);
     while(1) {
         char buf2_222[1024];
@@ -5142,7 +5142,7 @@ struct list$1charph* result_226;
 struct list$1charph* __result183__;
 void* __right_value228 = (void*)0;
 struct list$1charph* __result184__;
-    result_226=(struct list$1charph*)come_increment_ref_count(list$1charph_initialize((struct list$1charph*)come_increment_ref_count(((struct list$1charph*)(__right_value226=(struct list$1charph*)come_calloc(1, sizeof(struct list$1charph)*(1), "libneo-c.c", 2508, "list$1charph"))))));
+    result_226=(struct list$1charph*)come_increment_ref_count(list$1charph_initialize((struct list$1charph*)come_increment_ref_count(((struct list$1charph*)(__right_value226=(struct list$1charph*)come_calloc(1, sizeof(struct list$1charph)*(1), "libneo-c.c", 2507, "list$1charph"))))));
     come_call_finalizer3(__right_value226,list$1charphp_finalize, 0, 1, 0, 0, __result_obj__);
     if(f==((void*)0)) {
         __result183__ = __result_obj__ = result_226;
@@ -5313,7 +5313,7 @@ void* __result_obj__=(void*)0;
 void* __right_value239 = (void*)0;
 void* __right_value240 = (void*)0;
 struct integer* __result196__;
-    __result196__ = __result_obj__ = ((struct integer*)(__right_value240=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value239=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2651, "integer")))),self)));
+    __result196__ = __result_obj__ = ((struct integer*)(__right_value240=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value239=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2650, "integer")))),self)));
     come_call_finalizer3(__right_value239,integer_finalize, 0, 1, 0, 0, __result_obj__);
     come_call_finalizer3(__right_value240,integer_finalize, 0, 1, 0, 0, __result_obj__);
     return __result196__;
@@ -5324,7 +5324,7 @@ void* __result_obj__=(void*)0;
 void* __right_value241 = (void*)0;
 void* __right_value242 = (void*)0;
 struct integer* __result197__;
-    __result197__ = __result_obj__ = ((struct integer*)(__right_value242=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value241=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2656, "integer")))),self)));
+    __result197__ = __result_obj__ = ((struct integer*)(__right_value242=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value241=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2655, "integer")))),self)));
     come_call_finalizer3(__right_value241,integer_finalize, 0, 1, 0, 0, __result_obj__);
     come_call_finalizer3(__right_value242,integer_finalize, 0, 1, 0, 0, __result_obj__);
     return __result197__;
@@ -5335,7 +5335,7 @@ void* __result_obj__=(void*)0;
 void* __right_value243 = (void*)0;
 void* __right_value244 = (void*)0;
 struct integer* __result198__;
-    __result198__ = __result_obj__ = ((struct integer*)(__right_value244=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value243=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2661, "integer")))),self)));
+    __result198__ = __result_obj__ = ((struct integer*)(__right_value244=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value243=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2660, "integer")))),self)));
     come_call_finalizer3(__right_value243,integer_finalize, 0, 1, 0, 0, __result_obj__);
     come_call_finalizer3(__right_value244,integer_finalize, 0, 1, 0, 0, __result_obj__);
     return __result198__;
@@ -5346,7 +5346,7 @@ void* __result_obj__=(void*)0;
 void* __right_value245 = (void*)0;
 void* __right_value246 = (void*)0;
 struct integer* __result199__;
-    __result199__ = __result_obj__ = ((struct integer*)(__right_value246=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value245=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2666, "integer")))),self)));
+    __result199__ = __result_obj__ = ((struct integer*)(__right_value246=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value245=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2665, "integer")))),self)));
     come_call_finalizer3(__right_value245,integer_finalize, 0, 1, 0, 0, __result_obj__);
     come_call_finalizer3(__right_value246,integer_finalize, 0, 1, 0, 0, __result_obj__);
     return __result199__;
@@ -5384,7 +5384,7 @@ void* __result_obj__=(void*)0;
 void* __right_value247 = (void*)0;
 void* __right_value248 = (void*)0;
 struct integer* __result200__;
-    __result200__ = __result_obj__ = ((struct integer*)(__right_value248=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value247=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2701, "integer")))),left->value+right->value)));
+    __result200__ = __result_obj__ = ((struct integer*)(__right_value248=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value247=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2700, "integer")))),left->value+right->value)));
     come_call_finalizer3(__right_value247,integer_finalize, 0, 1, 0, 0, __result_obj__);
     come_call_finalizer3(__right_value248,integer_finalize, 0, 1, 0, 0, __result_obj__);
     return __result200__;
@@ -5395,7 +5395,7 @@ void* __result_obj__=(void*)0;
 void* __right_value249 = (void*)0;
 void* __right_value250 = (void*)0;
 struct integer* __result201__;
-    __result201__ = __result_obj__ = ((struct integer*)(__right_value250=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value249=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2706, "integer")))),left->value-right->value)));
+    __result201__ = __result_obj__ = ((struct integer*)(__right_value250=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value249=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2705, "integer")))),left->value-right->value)));
     come_call_finalizer3(__right_value249,integer_finalize, 0, 1, 0, 0, __result_obj__);
     come_call_finalizer3(__right_value250,integer_finalize, 0, 1, 0, 0, __result_obj__);
     return __result201__;
@@ -5406,7 +5406,7 @@ void* __result_obj__=(void*)0;
 void* __right_value251 = (void*)0;
 void* __right_value252 = (void*)0;
 struct integer* __result202__;
-    __result202__ = __result_obj__ = ((struct integer*)(__right_value252=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value251=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2711, "integer")))),left->value*right->value)));
+    __result202__ = __result_obj__ = ((struct integer*)(__right_value252=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value251=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2710, "integer")))),left->value*right->value)));
     come_call_finalizer3(__right_value251,integer_finalize, 0, 1, 0, 0, __result_obj__);
     come_call_finalizer3(__right_value252,integer_finalize, 0, 1, 0, 0, __result_obj__);
     return __result202__;
@@ -5417,7 +5417,7 @@ void* __result_obj__=(void*)0;
 void* __right_value253 = (void*)0;
 void* __right_value254 = (void*)0;
 struct integer* __result203__;
-    __result203__ = __result_obj__ = ((struct integer*)(__right_value254=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value253=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2716, "integer")))),left->value/right->value)));
+    __result203__ = __result_obj__ = ((struct integer*)(__right_value254=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value253=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2715, "integer")))),left->value/right->value)));
     come_call_finalizer3(__right_value253,integer_finalize, 0, 1, 0, 0, __result_obj__);
     come_call_finalizer3(__right_value254,integer_finalize, 0, 1, 0, 0, __result_obj__);
     return __result203__;
@@ -5428,7 +5428,7 @@ void* __result_obj__=(void*)0;
 void* __right_value255 = (void*)0;
 void* __right_value256 = (void*)0;
 struct integer* __result204__;
-    __result204__ = __result_obj__ = ((struct integer*)(__right_value256=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value255=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2721, "integer")))),left->value%right->value)));
+    __result204__ = __result_obj__ = ((struct integer*)(__right_value256=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value255=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2720, "integer")))),left->value%right->value)));
     come_call_finalizer3(__right_value255,integer_finalize, 0, 1, 0, 0, __result_obj__);
     come_call_finalizer3(__right_value256,integer_finalize, 0, 1, 0, 0, __result_obj__);
     return __result204__;
@@ -5439,7 +5439,7 @@ void* __result_obj__=(void*)0;
 void* __right_value257 = (void*)0;
 void* __right_value258 = (void*)0;
 struct integer* __result205__;
-    __result205__ = __result_obj__ = ((struct integer*)(__right_value258=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value257=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2726, "integer")))),left->value<<right->value)));
+    __result205__ = __result_obj__ = ((struct integer*)(__right_value258=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value257=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2725, "integer")))),left->value<<right->value)));
     come_call_finalizer3(__right_value257,integer_finalize, 0, 1, 0, 0, __result_obj__);
     come_call_finalizer3(__right_value258,integer_finalize, 0, 1, 0, 0, __result_obj__);
     return __result205__;
@@ -5450,7 +5450,7 @@ void* __result_obj__=(void*)0;
 void* __right_value259 = (void*)0;
 void* __right_value260 = (void*)0;
 struct integer* __result206__;
-    __result206__ = __result_obj__ = ((struct integer*)(__right_value260=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value259=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2731, "integer")))),left->value>>right->value)));
+    __result206__ = __result_obj__ = ((struct integer*)(__right_value260=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value259=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2730, "integer")))),left->value>>right->value)));
     come_call_finalizer3(__right_value259,integer_finalize, 0, 1, 0, 0, __result_obj__);
     come_call_finalizer3(__right_value260,integer_finalize, 0, 1, 0, 0, __result_obj__);
     return __result206__;
@@ -5461,7 +5461,7 @@ void* __result_obj__=(void*)0;
 void* __right_value261 = (void*)0;
 void* __right_value262 = (void*)0;
 struct integer* __result207__;
-    __result207__ = __result_obj__ = ((struct integer*)(__right_value262=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value261=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2736, "integer")))),left->value>=right->value)));
+    __result207__ = __result_obj__ = ((struct integer*)(__right_value262=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value261=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2735, "integer")))),left->value>=right->value)));
     come_call_finalizer3(__right_value261,integer_finalize, 0, 1, 0, 0, __result_obj__);
     come_call_finalizer3(__right_value262,integer_finalize, 0, 1, 0, 0, __result_obj__);
     return __result207__;
@@ -5472,7 +5472,7 @@ void* __result_obj__=(void*)0;
 void* __right_value263 = (void*)0;
 void* __right_value264 = (void*)0;
 struct integer* __result208__;
-    __result208__ = __result_obj__ = ((struct integer*)(__right_value264=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value263=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2741, "integer")))),left->value<=right->value)));
+    __result208__ = __result_obj__ = ((struct integer*)(__right_value264=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value263=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2740, "integer")))),left->value<=right->value)));
     come_call_finalizer3(__right_value263,integer_finalize, 0, 1, 0, 0, __result_obj__);
     come_call_finalizer3(__right_value264,integer_finalize, 0, 1, 0, 0, __result_obj__);
     return __result208__;
@@ -5483,7 +5483,7 @@ void* __result_obj__=(void*)0;
 void* __right_value265 = (void*)0;
 void* __right_value266 = (void*)0;
 struct integer* __result209__;
-    __result209__ = __result_obj__ = ((struct integer*)(__right_value266=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value265=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2746, "integer")))),left->value<right->value)));
+    __result209__ = __result_obj__ = ((struct integer*)(__right_value266=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value265=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2745, "integer")))),left->value<right->value)));
     come_call_finalizer3(__right_value265,integer_finalize, 0, 1, 0, 0, __result_obj__);
     come_call_finalizer3(__right_value266,integer_finalize, 0, 1, 0, 0, __result_obj__);
     return __result209__;
@@ -5494,7 +5494,7 @@ void* __result_obj__=(void*)0;
 void* __right_value267 = (void*)0;
 void* __right_value268 = (void*)0;
 struct integer* __result210__;
-    __result210__ = __result_obj__ = ((struct integer*)(__right_value268=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value267=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2751, "integer")))),left->value>right->value)));
+    __result210__ = __result_obj__ = ((struct integer*)(__right_value268=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value267=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2750, "integer")))),left->value>right->value)));
     come_call_finalizer3(__right_value267,integer_finalize, 0, 1, 0, 0, __result_obj__);
     come_call_finalizer3(__right_value268,integer_finalize, 0, 1, 0, 0, __result_obj__);
     return __result210__;
@@ -5505,7 +5505,7 @@ void* __result_obj__=(void*)0;
 void* __right_value269 = (void*)0;
 void* __right_value270 = (void*)0;
 struct integer* __result211__;
-    __result211__ = __result_obj__ = ((struct integer*)(__right_value270=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value269=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2756, "integer")))),left->value&right->value)));
+    __result211__ = __result_obj__ = ((struct integer*)(__right_value270=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value269=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2755, "integer")))),left->value&right->value)));
     come_call_finalizer3(__right_value269,integer_finalize, 0, 1, 0, 0, __result_obj__);
     come_call_finalizer3(__right_value270,integer_finalize, 0, 1, 0, 0, __result_obj__);
     return __result211__;
@@ -5516,7 +5516,7 @@ void* __result_obj__=(void*)0;
 void* __right_value271 = (void*)0;
 void* __right_value272 = (void*)0;
 struct integer* __result212__;
-    __result212__ = __result_obj__ = ((struct integer*)(__right_value272=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value271=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2761, "integer")))),left->value^right->value)));
+    __result212__ = __result_obj__ = ((struct integer*)(__right_value272=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value271=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2760, "integer")))),left->value^right->value)));
     come_call_finalizer3(__right_value271,integer_finalize, 0, 1, 0, 0, __result_obj__);
     come_call_finalizer3(__right_value272,integer_finalize, 0, 1, 0, 0, __result_obj__);
     return __result212__;
@@ -5527,7 +5527,7 @@ void* __result_obj__=(void*)0;
 void* __right_value273 = (void*)0;
 void* __right_value274 = (void*)0;
 struct integer* __result213__;
-    __result213__ = __result_obj__ = ((struct integer*)(__right_value274=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value273=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2766, "integer")))),left->value|right->value)));
+    __result213__ = __result_obj__ = ((struct integer*)(__right_value274=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value273=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2765, "integer")))),left->value|right->value)));
     come_call_finalizer3(__right_value273,integer_finalize, 0, 1, 0, 0, __result_obj__);
     come_call_finalizer3(__right_value274,integer_finalize, 0, 1, 0, 0, __result_obj__);
     return __result213__;
@@ -5538,7 +5538,7 @@ void* __result_obj__=(void*)0;
 void* __right_value275 = (void*)0;
 void* __right_value276 = (void*)0;
 struct integer* __result214__;
-    __result214__ = __result_obj__ = ((struct integer*)(__right_value276=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value275=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2771, "integer")))),left->value&&right->value)));
+    __result214__ = __result_obj__ = ((struct integer*)(__right_value276=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value275=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2770, "integer")))),left->value&&right->value)));
     come_call_finalizer3(__right_value275,integer_finalize, 0, 1, 0, 0, __result_obj__);
     come_call_finalizer3(__right_value276,integer_finalize, 0, 1, 0, 0, __result_obj__);
     return __result214__;
@@ -5549,7 +5549,7 @@ void* __result_obj__=(void*)0;
 void* __right_value277 = (void*)0;
 void* __right_value278 = (void*)0;
 struct integer* __result215__;
-    __result215__ = __result_obj__ = ((struct integer*)(__right_value278=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value277=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2776, "integer")))),left->value||right->value)));
+    __result215__ = __result_obj__ = ((struct integer*)(__right_value278=integer_initialize((struct integer*)come_increment_ref_count(((struct integer*)(__right_value277=(struct integer*)come_calloc(1, sizeof(struct integer)*(1), "libneo-c.c", 2775, "integer")))),left->value||right->value)));
     come_call_finalizer3(__right_value277,integer_finalize, 0, 1, 0, 0, __result_obj__);
     come_call_finalizer3(__right_value278,integer_finalize, 0, 1, 0, 0, __result_obj__);
     return __result215__;

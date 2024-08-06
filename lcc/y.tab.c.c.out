@@ -1,0 +1,105 @@
+y.tab.c.c:374:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  374 | static const short short yylhs[]={ -1,
+      |                    ^~~~~
+y.tab.c.c:378:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  378 | static const short short yylen[]={ 2,
+      |                    ^~~~~
+y.tab.c.c:382:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  382 | static const short short yydefred[]={ 3,
+      |                    ^~~~~
+y.tab.c.c:388:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  388 | static const short short yydgoto[]={ 1,
+      |                    ^~~~~
+y.tab.c.c:391:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  391 | static const short short yysindex[]={ 0,
+      |                    ^~~~~
+y.tab.c.c:397:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  397 | static const short short yyrindex[]={ 0,
+      |                    ^~~~~
+y.tab.c.c:403:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  403 | static const short short yygindex[]={ 0,
+      |                    ^~~~~
+y.tab.c.c:406:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  406 | static const short short yytable[]={ 18,
+      |                    ^~~~~
+y.tab.c.c:434:20: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  434 | static const short short yycheck[]={ 10,
+      |                    ^~~~~
+y.tab.c.c:468:14: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  468 | static short short* yyss;
+      |              ^~~~~
+y.tab.c:227:7: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  227 | short short* new_yyss_3;
+      |       ^~~~~
+y.tab.c:245:23: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  245 |     new_yyss_3=(short short*)yyrealloc((char*)yyss,yystacksize*sizeof(short short));
+      |                       ^~~~~
+y.tab.c:245:77: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  245 |     new_yyss_3=(short short*)yyrealloc((char*)yyss,yystacksize*sizeof(short short));
+      |                                                                             ^~~~~
+lburg/gram.y:209:7: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  209 | short short* yyssp_17;
+      |       ^~~~~
+lburg/gram.y:210:7: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  210 | short short* yysse_18;
+      |       ^~~~~
+y.tab.c:439:21: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  439 |         yyss=(short short*)yymalloc(500*sizeof(short short));
+      |                     ^~~~~
+y.tab.c:439:54: warning: duplicate 'short' declaration specifier [-Wduplicate-decl-specifier]
+  439 |         yyss=(short short*)yymalloc(500*sizeof(short short));
+      |                                                      ^~~~~
+y.tab.c:473:14: warning: using the result of an assignment as a condition without parentheses [-Wparentheses]
+  473 |     if(yyn_14=yydefred[yystate_15]) {
+      |        ~~~~~~^~~~~~~~~~~~~~~~~~~~~
+y.tab.c:473:14: note: place parentheses around the assignment to silence this warning
+  473 |     if(yyn_14=yydefred[yystate_15]) {
+      |              ^                    
+      |        (                          )
+y.tab.c:473:14: note: use '==' to turn this assignment into an equality comparison
+  473 |     if(yyn_14=yydefred[yystate_15]) {
+      |              ^
+      |              ==
+y.tab.c:515:5: error: redefinition of label 'yyoverflow'
+  515 |     yyoverflow:
+      |     ^
+y.tab.c:457:5: note: previous definition is here
+  457 |     yyoverflow:
+      |     ^
+y.tab.c:520:13: error: expected identifier or '('
+  520 |     register:
+      |             ^
+y.tab.c:564:13: error: expected identifier or '('
+  564 |     register:
+      |             ^
+y.tab.c:676:5: error: redefinition of label 'yyoverflow'
+  676 |     yyoverflow:
+      |     ^
+y.tab.c:457:5: note: previous definition is here
+  457 |     yyoverflow:
+      |     ^
+y.tab.c:678:5: error: use of undeclared identifier 'y'
+  678 |     y.tab.c:
+      |     ^
+y.tab.c:680:13: error: expected identifier or '('
+  680 |     register:
+      |             ^
+y.tab.c:441:18: error: use of undeclared label 'yyabort'
+  441 |             goto yyabort;
+      |                  ^
+y.tab.c:454:10: error: use of undeclared label 'yyloop'
+  454 |     goto yyloop;
+      |          ^
+y.tab.c:473:14: error: use of undeclared label 'yyreduce'
+  473 |         goto yyreduce;
+      |              ^
+y.tab.c:500:14: error: use of undeclared label 'yypush_lex'
+  500 |         goto yypush_lex;
+      |              ^
+y.tab.c:659:18: error: use of undeclared label 'yyaccept'
+  659 |             goto yyaccept;
+      |                  ^
+y.tab.c:674:10: error: use of undeclared label 'yypush'
+  674 |     goto yypush;
+      |          ^
+18 warnings and 12 errors generated.

@@ -210,9 +210,8 @@ struct sMemHeader
 
 sMemHeader* gAllocMem;
 
-#define HEAP_POOL_PAGE_SIZE 1024*2
-#define FREE_MEM_INIT_NUM 16
-#define NEW_ALLOC_SIZE 2
+#define HEAP_POOL_PAGE_SIZE 2048
+#define NEW_ALLOC_SIZE 4
 
 struct sHeapPage
 {
