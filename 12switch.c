@@ -238,7 +238,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         info->p++;
         skip_spaces_and_lf();
         
-        return new sLabelNode(buf, info) implements sNode;
+        return new sLabelNode(string(buf), info) implements sNode;
     }
     else if(buf === "goto") {
         string buf = parse_word();
