@@ -1230,7 +1230,8 @@ sNode*% expression_node(sInfo* info=info) version 97
             info.p = head;
             info.sline = head_sline;
             
-            return parse_function(info);
+            sNode*% node =  parse_function(info);
+            return node;
         }
         else if((buf === "string" || buf === "wstring") && *info->p == '(') {
             sNode*% node = parse_function_call(buf, info);

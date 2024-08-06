@@ -1377,7 +1377,9 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         info.p = head;
         info.sline = sline;
         
-        return parse_function(info);
+        sNode*% node = parse_function(info);
+        
+        return node;
     }
     else if(define_variable) {
         info.p = head;
@@ -1468,7 +1470,7 @@ bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sType* gen
     sType*% generics_type_saved = info->generics_type;
     info->generics_type = clone generics_type;
     
-    list<string>* method_generics_type_names = info->method_generics_type_names;
+    list<string>*% method_generics_type_names = info->method_generics_type_names;
     
     info->method_generics_type_names = new list<string>();
     foreach(it, generics_fun->mMethodGenericsTypeNames) {
@@ -1506,8 +1508,7 @@ bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sType* gen
     }
     
     info->generics_type = generics_type_saved;
-    delete info.method_generics_type_names;
-    info.method_generics_type_names = dummy_heap gc_dec(method_generics_type_names);
+    info.method_generics_type_names = method_generics_type_names;
     
     info.generics_type_names.reset();
     
@@ -1921,7 +1922,6 @@ sNode*% parse_function(sInfo* info)
             }
         }
     
-        
         delete base_fun_name;
         return new sFunNode(fun, info) implements sNode;
     }

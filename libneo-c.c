@@ -4,7 +4,7 @@
 /// exception
 //////////////////////////////
 
-#define COME_STACKFRAME_MAX_GLOBAL 1024
+#define COME_STACKFRAME_MAX_GLOBAL 128
 
 char* gComeStackFrameSName[COME_STACKFRAME_MAX_GLOBAL];
 int gComeStackFrameSLine[COME_STACKFRAME_MAX_GLOBAL];
@@ -210,7 +210,9 @@ struct sMemHeader
 
 sMemHeader* gAllocMem;
 
-#define HEAP_POOL_PAGE_SIZE 4048
+#define HEAP_POOL_PAGE_SIZE 1024*2
+#define FREE_MEM_INIT_NUM 16
+#define NEW_ALLOC_SIZE 2
 
 struct sHeapPage
 {
@@ -220,9 +222,7 @@ struct sHeapPage
     char* mTop;
     int mCurrentPages;
     
-    void** mFreeMem[HEAP_POOL_PAGE_SIZE];
-    int mNumFreeMem[HEAP_POOL_PAGE_SIZE];
-    int mSizeFreeMem[HEAP_POOL_PAGE_SIZE];
+    sMemHeaderTiny* mFreeMem[HEAP_POOL_PAGE_SIZE];
 };
 
 struct sHeapPage gHeapPages;
@@ -248,9 +248,7 @@ void come_heap_init(int come_malloc, int come_debug, int come_gc)
     gHeapPages.mTop = gHeapPages.mPages[0];
     gHeapPages.mCurrentPages = 0;
     
-    memset(gHeapPages.mFreeMem, 0, sizeof(void**)*HEAP_POOL_PAGE_SIZE);
-    memset(gHeapPages.mNumFreeMem, 0, sizeof(int)*HEAP_POOL_PAGE_SIZE);
-    memset(gHeapPages.mSizeFreeMem, 0, sizeof(int)*HEAP_POOL_PAGE_SIZE);
+    memset(gHeapPages.mFreeMem, 0, sizeof(sMemHeaderTiny*)*HEAP_POOL_PAGE_SIZE);
     
     gAllocMem = NULL;
 }
@@ -302,21 +300,17 @@ void come_heap_final()
         free(gHeapPages.mPages[i]);
     }
     free(gHeapPages.mPages);
-    
-    for(int i=0; i<HEAP_POOL_PAGE_SIZE; i++) {
-        if(gHeapPages.mFreeMem[i]) {
-            free(gHeapPages.mFreeMem[i]);
-        }
-    }
 }
 
 static void* alloc_from_pages(size_t size)
 {
     void* result = null;
     if(size < HEAP_POOL_PAGE_SIZE) {
-        if(gHeapPages.mFreeMem[size] && gHeapPages.mNumFreeMem[size] > 0) {
-            sMemHeaderTiny* it = gHeapPages.mFreeMem[size][gHeapPages.mNumFreeMem[size]-1];
-            gHeapPages.mNumFreeMem[size]--;
+        if(gHeapPages.mFreeMem[size]) {
+            result = gHeapPages.mFreeMem[size];
+            
+            gHeapPages.mFreeMem[size] = gHeapPages.mFreeMem[size]->free_next;
+            memset(result, 0, size);
         }
 
         if(result == null) {
@@ -326,7 +320,7 @@ static void* alloc_from_pages(size_t size)
                 gHeapPages.mCurrentPages++;
                 
                 if(gHeapPages.mCurrentPages == gHeapPages.mSizePages) {
-                    int new_size_pages = gHeapPages.mSizePages * 2;
+                    int new_size_pages = gHeapPages.mSizePages * NEW_ALLOC_SIZE;
                     void** new_pages = calloc(1, sizeof(char*)*new_size_pages);
                     
                     int i=0;
@@ -368,7 +362,7 @@ static void* come_alloc_mem_from_heap_pool(size_t size, char* sname=null, int sl
         it->allocated = ALLOCATED_MAGIC_NUM;
         
         it->size = size + sizeof(sMemHeader);
-        //it->free_next = NULL;
+        it->free_next = NULL;
         
         come_push_stackframe(sname, sline, 0);
 
@@ -423,7 +417,7 @@ static void* come_alloc_mem_from_heap_pool(size_t size, char* sname=null, int sl
 */
         
         it->size = size + sizeof(sMemHeaderTiny);
-        //it->free_next = NULL;
+        it->free_next = NULL;
         
         it->next = (sMemHeaderTiny*)gAllocMem;
         it->prev = null;
@@ -480,30 +474,14 @@ static void come_free_mem_of_heap_pool(void* mem)
             size_t size = it->size;
             
             if(size < HEAP_POOL_PAGE_SIZE) {
-                int num_free_mem = gHeapPages.mNumFreeMem[size];
-                int size_free_mem = gHeapPages.mSizeFreeMem[size];
-                
                 if(gHeapPages.mFreeMem[size] == NULL) {
-                    int new_size_free_mem = 16;
-                    void** new_free_mem = calloc(1, sizeof(void*)*new_size_free_mem);
-                    
-                    gHeapPages.mSizeFreeMem[size] = new_size_free_mem;
-                    gHeapPages.mFreeMem[size] = new_free_mem;
+                    it->free_next = NULL;
+                    gHeapPages.mFreeMem[size] = (sMemHeaderTiny*)it;
                 }
-                else if(num_free_mem == size_free_mem) {
-                    int new_size_free_mem = size_free_mem * 2;
-                    void** new_free_mem = calloc(1, sizeof(void*)*new_size_free_mem);
-                    
-                    memcpy(new_free_mem, gHeapPages.mFreeMem[size], sizeof(void*)*num_free_mem);
-                    
-                    free(gHeapPages.mFreeMem[size]);
-                    
-                    gHeapPages.mSizeFreeMem[size] = new_size_free_mem;
-                    gHeapPages.mFreeMem[size] = new_free_mem;
+                else {
+                    it->free_next = (sMemHeader*)gHeapPages.mFreeMem[size];
+                    gHeapPages.mFreeMem[size] = (sMemHeaderTiny*)it;
                 }
-                
-                gHeapPages.mFreeMem[size][gHeapPages.mNumFreeMem[size]] = it;
-                gHeapPages.mNumFreeMem[size]++;
             }
             else {
                 free(it);
@@ -548,30 +526,14 @@ static void come_free_mem_of_heap_pool(void* mem)
             size_t size = it->size;
             
             if(size < HEAP_POOL_PAGE_SIZE) {
-                int num_free_mem = gHeapPages.mNumFreeMem[size];
-                int size_free_mem = gHeapPages.mSizeFreeMem[size];
-                
                 if(gHeapPages.mFreeMem[size] == NULL) {
-                    int new_size_free_mem = 16;
-                    void** new_free_mem = calloc(1, sizeof(void*)*new_size_free_mem);
-                    
-                    gHeapPages.mSizeFreeMem[size] = new_size_free_mem;
-                    gHeapPages.mFreeMem[size] = new_free_mem;
+                    it->free_next = NULL;
+                    gHeapPages.mFreeMem[size] = it;
                 }
-                else if(num_free_mem == size_free_mem) {
-                    int new_size_free_mem = size_free_mem * 2;
-                    void** new_free_mem = calloc(1, sizeof(void*)*new_size_free_mem);
-                    
-                    memcpy(new_free_mem, gHeapPages.mFreeMem[size], sizeof(void*)*num_free_mem);
-                    
-                    free(gHeapPages.mFreeMem[size]);
-                    
-                    gHeapPages.mSizeFreeMem[size] = new_size_free_mem;
-                    gHeapPages.mFreeMem[size] = new_free_mem;
+                else {
+                    it->free_next = gHeapPages.mFreeMem[size];
+                    gHeapPages.mFreeMem[size] = it;
                 }
-                
-                gHeapPages.mFreeMem[size][gHeapPages.mNumFreeMem[size]] = it;
-                gHeapPages.mNumFreeMem[size]++;
             }
             else {
                 free(it);
