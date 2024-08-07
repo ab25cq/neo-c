@@ -5,7 +5,7 @@ Another modern Object Oriented C traspiler. It has a heap system that is a cross
 
 もう一つのモダンなオブジェクト指向Cコンパイラ。automatically-free-systemとリファレンスカウントGCの間をとったようなヒープシステムがありコレクションライブラリ、文字列ライブラリを備えてます。
 
-version 1.3.0
+version 1.3.0a
 
 ``` C
 #include <neo-c.h>
@@ -341,6 +341,7 @@ sh all_build.sh
 
 # Histories
 
+1.3.0a Refactoring.
 1.3.0 Real new heap algorithm. Faster.
 1.2.9 Improved heap algorithm.
 1.2.8 Append vector collection library.
@@ -493,12 +494,16 @@ The constructor must add a % to the first argument and add 1 to the reference co
 
 Write return self; at the end of the constructor. It cannot be omitted.
 
+You can easily write constructors by using the class function described later.
+
 コンストラクタです。new list<int>();とすれば呼び出されます。これは内部的にはnew list<int>.initialize();
 の略です。
 
 コンストラクタは第一引数に%をつけてリファレンスカウントを＋１しなければなりません。%をつけてないと解放していいヒープだと判断されて自動的にfreeされます。戻り値も%をつけて解放されないようにしないといけません。
 
 コンストラクタの最後にはreturn self;と書いてください。略することはできません。
+
+後述するclass機能を使えば、簡単にコンストラクタなどが記述できます。
 
 ```C
 var li = new list<int>.initialize();
@@ -587,7 +592,11 @@ list<int>* li2 = li;
 
 In this case, li and li2 refer to the same thing, but if li2 is accessed after li is released, a segmentation fault will occur.
 
+In most cases, you can just add a % to the pointer. Reference count GC handles this well.
+
 この場合もliとli2は同じものをさしていますが、liが解放された後にli2にアクセスするとセグメンテーションフォルトを起します。
+
+たいていの場合はポインタに%をつけておけば大丈夫です。リファレンスカウントGCがうまく対処してくれます。
 
 ```C
 list<T>* add(list<T>* self, T item)

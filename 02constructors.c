@@ -176,7 +176,7 @@ sFun*% sFun*::initialize(sFun*% self, string name, sType*% result_type, list<sTy
     self.mSourceHead2 = new buffer();
     self.mSourceDefer = new buffer();
     
-    self.mBlock = clone block;
+    self.mBlock = block;
     
     self.mComeHeader = come_header;
     
