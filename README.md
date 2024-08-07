@@ -3249,6 +3249,11 @@ In other module, not defined contents.
 
 Don't include neo-c-str.h. Inlucde neo-c.h only. It depends standard c library only. If you get c source depends standard c library only, use to "neo-c -s"
 
+# Extra libraries
+
+Please use the C language extension library. The strength of neo-c is that the C library can be used as is.
+
+拡張ライブラリはC言語のものを使ってください。neo-cの強みはCライブラリがそのまま使える点です。
 
 # afterword
 
