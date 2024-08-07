@@ -71,7 +71,7 @@ sType*% solve_generics(sType* type, sType* generics_type, sInfo* info)
         foreach(it, type->mParamTypes) {
             sType*% new_param_type = solve_generics(it, generics_type, info);
 
-            result.mParamTypes.push_back(clone new_param_type);
+            result.mParamTypes.push_back(new_param_type);
         }
     }
     else if(klass->mMethodGenerics && info->method_generics_types && info->method_generics_types.length() > 0) {
@@ -83,7 +83,7 @@ sType*% solve_generics(sType* type, sType* generics_type, sInfo* info)
             exit(2);
         }
         
-        var array_num = clone type->mArrayNum;
+        var array_num = type->mArrayNum;
         bool immutable_ = type->mImmutable;
         int pointer_num = type->mPointerNum;
         bool heap = type->mHeap;
@@ -138,7 +138,7 @@ sType*% solve_generics(sType* type, sType* generics_type, sInfo* info)
 
         if(generics_number != generics_number2) 
         {
-            var array_num = clone type->mArrayNum;
+            var array_num = type->mArrayNum;
             bool immutable_ = type->mImmutable;
             int pointer_num = type->mPointerNum;
             bool heap = type->mHeap;
@@ -221,7 +221,7 @@ sType*% solve_method_generics(sType* type, sInfo* info)
             exit(2);
         }
         
-        var array_num = clone type->mArrayNum;
+        var array_num = type->mArrayNum;
         bool immutable_ = type->mImmutable;
         int pointer_num = type->mPointerNum;
         bool heap = type->mHeap;
@@ -319,7 +319,7 @@ string append_object_to_right_values(char* obj, sType*% type, sInfo* info)
     new_value.mFreed = false;
     new_value.mID = gRightValueNum;
     new_value.mVarName = xsprintf("__right_value%d", gRightValueNum++);
-    new_value.mFunName = clone info->come_fun->mName;
+    new_value.mFunName = info->come_fun->mName;
     new_value.mBlockLevel = info->block_level;
     
     info.right_value_objects.push_back(new_value);
@@ -343,7 +343,7 @@ void append_object_to_right_values2(CVALUE* come_value, sType*% type, sInfo* inf
     new_value.mFreed = false;
     new_value.mID = gRightValueNum;
     new_value.mVarName = xsprintf("__right_value%d", gRightValueNum++);
-    new_value.mFunName = clone info->come_fun->mName;
+    new_value.mFunName = info->come_fun->mName;
     new_value.mBlockLevel = info->block_level;
     
     info.right_value_objects.push_back(new_value);
@@ -1203,7 +1203,7 @@ void free_right_value_objects(sInfo* info, bool comma=false)
     foreach(it, right_value_objects) {
         if(it && !it->mFreed) {
             if(it->mFunName === info->come_fun->mName && it->mBlockLevel == info->block_level && !it->mStored) {
-                sType*% type = clone it->mType;
+                sType*% type = it->mType;
                 
                 type = solve_type(type, info->generics_type, info->method_generics_types, info);
                 

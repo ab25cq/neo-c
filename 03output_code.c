@@ -354,7 +354,7 @@ sType*% get_no_solved_type(sType* type)
 {
     sType*% result;
     if(type->mNoSolvedGenericsType.v1) {
-        result = clone type->mNoSolvedGenericsType.v1;
+        result = type->mNoSolvedGenericsType.v1;
     }
     else {
         result = clone type;
@@ -577,7 +577,7 @@ string header_function(sFun* fun, sInfo* info)
         output.append_str(";\n");
     }
     else if(fun->mResultType->mArrayNum.length() > 0) {
-        sType*% base_result_type = clone fun->mResultType;
+        sType*% base_result_type = fun->mResultType;
         base_result_type->mArrayNum = new list<sNode*%>();
         
         string result_type_str = make_type_name_string(base_result_type, true@in_header);

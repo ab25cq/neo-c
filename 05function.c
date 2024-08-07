@@ -1574,7 +1574,7 @@ bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sIn
     info.p = info.source.buf;
     info.head = info.source.buf;
     
-    list<string>* method_generics_type_names = info->method_generics_type_names;
+    list<string>*% method_generics_type_names = info->method_generics_type_names;
     
     info->method_generics_type_names = new list<string>();
     foreach(it, generics_fun->mMethodGenericsTypeNames) {
@@ -1611,8 +1611,7 @@ bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sIn
         return false
     }
     
-    delete info.method_generics_type_names;
-    info.method_generics_type_names = dummy_heap gc_dec(method_generics_type_names);
+    info.method_generics_type_names = method_generics_type_names;
     
     info.generics_type_names.reset();
     
@@ -1699,9 +1698,9 @@ sNode*% parse_function(sInfo* info)
     }
     
     string fun_name;
-    char* base_fun_name = null;
+    char*% base_fun_name = null;
     if(constructor_) {
-        base_fun_name = borrow gc_inc(string("initialize"));
+        base_fun_name = string("initialize");
         fun_name = create_method_name(info->impl_type, false@no_pointer_name, base_fun_name, info);
     }
     else if(method_definition) {
@@ -1715,17 +1714,17 @@ sNode*% parse_function(sInfo* info)
         expected_next_character(':');
         expected_next_character(':');
         
-        base_fun_name = borrow gc_inc(parse_word());
+        base_fun_name = parse_word();
         fun_name = create_method_name(obj_type, false@no_pointer_name, base_fun_name, info);
     }
     else if(info->impl_type) {
-        base_fun_name = borrow gc_inc(parse_word());
+        base_fun_name = parse_word();
     
         fun_name = create_method_name(info->impl_type, false@no_pointer_name, base_fun_name, info);
     }
     else {
         fun_name = parse_word();
-        base_fun_name = borrow gc_inc(string(fun_name));
+        base_fun_name = string(fun_name);
     }
     
     if(info.in_class && base_fun_name === "initialize") {
@@ -1778,7 +1777,6 @@ sNode*% parse_function(sInfo* info)
             info.funcs.insert(clone fun_name, fun);
         }
         
-        delete base_fun_name;
         return new sLambdaNode(fun, info) implements sNode;
     }
     else if(info.impl_type && info.generics_type_names.length() > 0) {
@@ -1795,8 +1793,6 @@ sNode*% parse_function(sInfo* info)
         
         info.generics_funcs.insert(string(fun_name3), fun);
         
-        delete base_fun_name;
-        
         return (sNode*%)null;
     }
     else if(info.method_generics_type_names.length() > 0) {
@@ -1810,8 +1806,6 @@ sNode*% parse_function(sInfo* info)
         string fun_name3 = clone base_fun_name;
         
         info.generics_funcs.insert(string(fun_name3), fun);
-        
-        delete base_fun_name;
         
         return (sNode*%)null;
     }
@@ -1922,7 +1916,6 @@ sNode*% parse_function(sInfo* info)
             }
         }
     
-        delete base_fun_name;
         return new sFunNode(fun, info) implements sNode;
     }
     else if(xisalpha(*info->p) || *info->p == '_' || *info->p == ';') {
@@ -1948,8 +1941,6 @@ sNode*% parse_function(sInfo* info)
     
                 info.funcs.insert(clone fun_name, fun);
             }
-            
-            delete base_fun_name;
             
             char* source_tail = info.p;
             
@@ -1983,8 +1974,6 @@ sNode*% parse_function(sInfo* info)
                 info.funcs.insert(clone fun_name, fun);
             }
             
-            delete base_fun_name;
-            
             char* source_tail = info.p;
             
             buffer*% header = new buffer();
@@ -2002,7 +1991,6 @@ sNode*% parse_function(sInfo* info)
     
     info.constructor_ = false;
     
-    delete base_fun_name;
     return (sNode*%)null;
 }
 
