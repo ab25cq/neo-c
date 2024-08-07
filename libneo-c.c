@@ -210,8 +210,9 @@ struct sMemHeader
 
 sMemHeader* gAllocMem;
 
-#define HEAP_POOL_PAGE_SIZE 2048
-#define NEW_ALLOC_SIZE 4
+#define HEAP_POOL_PAGE_SIZE 2048*2
+#define INIT_PAGE_PAGE_SIZE 4
+#define NEW_ALLOC_SIZE 2
 
 struct sHeapPage
 {
@@ -237,7 +238,7 @@ void come_heap_init(int come_malloc, int come_debug, int come_gc)
     memset(gComeStackFrameSLine, 0, sizeof(int)*COME_STACKFRAME_MAX_GLOBAL);
     memset(gComeStackFrameID, 0, sizeof(int)*COME_STACKFRAME_MAX_GLOBAL);
     
-    gHeapPages.mSizePages = 4;
+    gHeapPages.mSizePages = INIT_PAGE_PAGE_SIZE;
     
     gHeapPages.mPages = calloc(1, sizeof(char**)*gHeapPages.mSizePages);
     for(int i=0; i<gHeapPages.mSizePages; i++) {
