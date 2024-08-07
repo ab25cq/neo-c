@@ -503,7 +503,7 @@ static void init_classes(sInfo* info)
         klass.mFields.push_back((string("v4"), new sType("int")));
         klass.mFields.push_back((string("v5"), new sType("int")));
         
-        info.classes.insert(string("__builtin_va_list"), clone klass);
+        info.classes.insert(string("__builtin_va_list"), klass);
     }
 }
 
@@ -784,7 +784,7 @@ int come_main(int argc, char** argv) version 2
                 object_files.push_back(string(argv[i]));
             }
             else {
-                files.push_back(clone string(argv[i]));
+                files.push_back(string(argv[i]));
             }
         }
         

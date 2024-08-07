@@ -459,7 +459,7 @@ string output_function(sFun* fun, sInfo* info)
         info.module.mSourceHead.append_str(";\n");
     }
     else if(fun->mResultType->mArrayNum.length() > 0) {
-        sType*% base_result_type = clone fun->mResultType;
+        sType*% base_result_type = fun->mResultType;
         base_result_type.mArrayNum = new list<sNode*%>();
         
         string result_type_str = make_type_name_string(base_result_type);
