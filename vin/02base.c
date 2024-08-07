@@ -379,6 +379,16 @@ void ViWin*::moveAtHead(ViWin* self)
     self.cursorX = 0;
 }
 
+void ViWin*::moveAtHead2(ViWin* self) 
+{
+    self.cursorX = 0;
+    auto cursor_line = self.texts.item(self.scroll+self.cursorY, wstring(""));
+    
+    while(cursor_line[self.cursorX]?? == L' ' || cursor_line[self.cursorX]?? == L'\t') {
+        self.cursorX++;
+    }
+}
+
 void ViWin*::moveAtTail(ViWin* self) 
 {
     auto cursor_line = self.texts.item(self.scroll+self.cursorY, wstring(""));
@@ -571,6 +581,16 @@ Vi*% Vi*::initialize(Vi*% self) version 2
         self.activeWin.moveAtHead();
         self.activeWin.saveInputedKeyOnTheMovingCursor();
     });
+    self.events.replace('A'-'A'+1, void lambda(Vi* self, int key) 
+    {
+        self.activeWin.moveAtHead2();
+        self.activeWin.saveInputedKeyOnTheMovingCursor();
+    });
+    self.events.replace('^', void lambda(Vi* self, int key) 
+    {
+        self.activeWin.moveAtHead2();
+        self.activeWin.saveInputedKeyOnTheMovingCursor();
+    });
     self.events.replace('|', void lambda(Vi* self, int key) 
     {
         self.activeWin.moveAtHead();
@@ -591,6 +611,23 @@ Vi*% Vi*::initialize(Vi*% self) version 2
         
         self.activeWin.saveInputedKeyOnTheMovingCursor();
     });
+/*
+    self.events.replace('E'-'A'+1, void lambda(Vi* self, int key) 
+    {
+        if(self.activeWin.digitInput > 0) {
+            self.activeWin.cursorY += self.activeWin.digitInput;
+            self.activeWin.modifyOverCursorYValue();
+            
+            self.activeWin.digitInput = 0;
+            self.activeWin.moveAtTail();
+        }
+        else {
+            self.activeWin.moveAtTail();
+        }
+        
+        self.activeWin.saveInputedKeyOnTheMovingCursor();
+    });
+*/
     self.events.replace('D'-'A'+1, void lambda(Vi* self, int key) 
     {
         self.activeWin.halfScrollDown();

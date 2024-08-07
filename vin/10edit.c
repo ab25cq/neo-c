@@ -1002,12 +1002,14 @@ Vi*% Vi*::initialize(Vi*% self) version 10
 
         self.activeWin.saveInputedKey();
     });
+/*
     result.events.replace('A'-'A'+1, void lambda(Vi* self, int key) {
         self.activeWin.incrementNumber();
         self.activeWin.writed = true;
 
         self.activeWin.saveInputedKey();
     });
+*/
     result.events.replace('r', void lambda(Vi* self, int key) {
         self.activeWin.replaceCursorCharactor();
         self.activeWin.writed = true;
@@ -1068,11 +1070,13 @@ Vi*% Vi*::initialize(Vi*% self) version 10
 
         self.activeWin.saveInputedKeyOnTheMovingCursor();
     });
+/*
     result.events.replace('^', void lambda(Vi* self, int key) {
         self.activeWin.moveToHead();
 
         self.activeWin.saveInputedKeyOnTheMovingCursor();
     });
+*/
     result.events.replace('-', void lambda(Vi* self, int key) {
         self.activeWin.moveToHead();
 
@@ -1112,6 +1116,7 @@ Vi*% Vi*::initialize(Vi*% self) version 10
 
         self.activeWin.saveInputedKeyOnTheMovingCursor();
     });
+/*
     result.events.replace('E'-'A'+1, void lambda(Vi* self, int key) {
         self.activeWin.scroll++;
         if(self.activeWin.scroll >= self.activeWin.texts.length()) {
@@ -1120,6 +1125,22 @@ Vi*% Vi*::initialize(Vi*% self) version 10
         self.activeWin.modifyOverCursorYValue();
         self.activeWin.modifyUnderCursorYValue();
 
+        self.activeWin.saveInputedKeyOnTheMovingCursor();
+    });
+*/
+    self.events.replace('E'-'A'+1, void lambda(Vi* self, int key) 
+    {
+        if(self.activeWin.digitInput > 0) {
+            self.activeWin.cursorY += self.activeWin.digitInput;
+            self.activeWin.modifyOverCursorYValue();
+            
+            self.activeWin.digitInput = 0;
+            self.activeWin.moveAtTail();
+        }
+        else {
+            self.activeWin.moveAtTail();
+        }
+        
         self.activeWin.saveInputedKeyOnTheMovingCursor();
     });
 
