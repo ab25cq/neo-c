@@ -1049,7 +1049,7 @@ impl vector<T>
         return self.item(index, default_value)??;
     }
     
-    void push_back(vector<T>* self, T item) {
+    vector<T>* push_back(vector<T>* self, T item) {
         if(self.len == self.size) {
             auto new_size = self.size * 2;
             auto items = self.items;
@@ -1068,9 +1068,11 @@ impl vector<T>
 
         self.items[self.len] = item;
         self.len++;
+        
+        return self;
     }
     
-    void add(vector<T>* self, T item) {
+    vector<T>* add(vector<T>* self, T item) {
         if(self.len == self.size) {
             auto new_size = self.size * 2;
             auto items = self.items;
@@ -1089,6 +1091,8 @@ impl vector<T>
 
         self.items[self.len] = item;
         self.len++;
+        
+        return self;
     }
 
     T& item(vector<T>* self, int index, T default_value) 
@@ -1122,7 +1126,7 @@ impl vector<T>
         return true;
     }
     
-    void replace(vector<T>* self, int index, T value)
+    vector<T>* replace(vector<T>* self, int index, T value)
     {
         if(index < 0) {
             index += self.len;
@@ -1136,6 +1140,8 @@ impl vector<T>
 
             self.items[index] = value;
         }
+        
+        return self;
     }
     
     int find(vector<T>* self, T& item, int default_value) {
@@ -1155,7 +1161,7 @@ impl vector<T>
         return self.len;
     }
 
-    void reset(vector<T>* self) {
+    vector<T>* reset(vector<T>* self) {
         if(isheap(T)) {
             for(int i=0; i<self.len; i++) 
             {
@@ -1169,6 +1175,8 @@ impl vector<T>
         self.items = borrow new T[self.size];
         
         self.len = 0;
+        
+        return self;
     }
 
     T& begin(vector<T>* self) {
@@ -1189,7 +1197,7 @@ impl vector<T>
         return self.it >= self.len;
     }
     
-    void delete_back(vector<T>* self) {
+    vector<T>* delete_back(vector<T>* self) {
         if(self.len > 0) {
             if(isheap(T)) {
                 delete borrow self.items[self.len-1];
@@ -1198,6 +1206,8 @@ impl vector<T>
             
             self.len--;
         }
+        
+        return self;
     }
     vector<T>*% quick_sort(vector<T>* self, int left, int right, int (*compare_)(T&, T&)) {
         int l_hold = left;

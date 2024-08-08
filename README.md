@@ -1452,11 +1452,11 @@ void operator_store_element(vector<T>* self, int index, T item);
 ```
     
 ```C
-    void push_back(vector<T>* self, T item);
+    vector<T>* push_back(vector<T>* self, T item);
 ```
     
 ```C
-    void add(vector<T>* self, T item);
+    vector<T>* add(vector<T>* self, T item);
 ```
 
 ```C
