@@ -1386,6 +1386,11 @@ vector<T>*% operator_add(vector<T>* left, vector<T>* right);
     }
 ```
 
+```
+vector<T>*% operator_mult(vector<T>* left, vector<T>* right);
+```
+
+
 ```C
     var v = new vector<int>();
     v.add(1).add(2).add(3);
@@ -1410,7 +1415,7 @@ vector<T>*% operator_add(vector<T>* left, vector<T>* right);
     
     v === v2; // false
 ```
-    
+
 ```C
 bool operator_not_equals(vector<T>* left, vector<T>* right);
 ```
