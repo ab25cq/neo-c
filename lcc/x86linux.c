@@ -36,7 +36,7 @@ static char rcsid[] = "$Id$";
 
 #define hasargs(p) (p->syms[0] && p->syms[0]->u.c.v.i > 0 ? 0 : LBURG_MAX)
 /*
-generated at Wed Aug  7 10:58:11 2024
+generated at Tue Aug  6 16:05:18 2024
 by $Id$
 */
 static void _kids(NODEPTR_TYPE, int, NODEPTR_TYPE[]);
