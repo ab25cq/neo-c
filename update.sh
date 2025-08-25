@@ -11,7 +11,7 @@ make clean
 git add .
 git commit 
 git remote set-url origin git@github.com:ab25cq/neo-c.git
-git push --force -u origin main
+git push --force origin main
 
 
 
