@@ -4,11 +4,14 @@ export EDITOR=vin
 git config --global user.email ab25cq@icloud.com
 git config --global user.name ab25cq
 
-sh remove_all_build.sh
+#sh remove_all_build.sh
+
+make clean
 
 git add .
 git commit 
-git remote set-url main git@github.com:ab25cq/neo-c.git
+git remote set-url origin git@github.com:ab25cq/cparse.git
 git push --force origin main
+
 
 
