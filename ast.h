@@ -221,4 +221,10 @@ AstNode* ast_desig_index_new(struct AstNode* index_expr);
 AstNode* ast_desig_range_new(struct AstNode* first, struct AstNode* last);
 AstNode* ast_init_desig_chain_new(struct AstNode** elems, long count, struct AstNode* value);
 
+
+void ast_all_compile();
+void ast_generate_c_source(char* path);
+void ast_init();
+void ast_finalize();
+
 #endif /* AST_H */

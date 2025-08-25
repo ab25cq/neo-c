@@ -38,8 +38,11 @@ int main(int argc, char** argv)
         return 3;
     }
     printf("parsed OK: %s\n", path);
+    ast_init();
     ast_validate();
     ast_dump();
-    ast_free_all();
+    ast_all_compile();
+    ast_generate_c_source(path);
+    ast_final();
     return 0;
 }

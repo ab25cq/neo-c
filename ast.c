@@ -1418,6 +1418,30 @@ void ast_dump(void) {
     }
 }
 
+void ast_all_compile() {
+    for(size_t i=0;i<g_nodes.len;i++) {
+        ast_compile(g_nodes.data[i], 2);
+    }
+}
+
+void ast_init()
+{
+}
+
+void ast_final()
+{
+    ast_free_all();
+}
+
+void ast_generate_c_source(char* path)
+{
+    char path2[256];
+    snprintf(path2, 256, "%s.c", path);
+    FILE* f = fopen(path2, "w");
+    
+    fclose(f);
+}
+
 /* ---------------- Validation (very simple) ---------------- */
 static int parse_dims(const char* type, long* dims, int max_dims)
 {
