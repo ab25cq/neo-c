@@ -10,8 +10,8 @@ make clean
 
 git add .
 git commit 
-git remote add origin https://github.com/ab25cq/neo-c.git
-git push -u origin main
+git remote add origin git@github.com:ab25cq/neo-c.git
+git push --force -u origin main
 
 
 
