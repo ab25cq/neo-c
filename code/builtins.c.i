@@ -291,10 +291,7 @@
  * __exported_push/_exported_pop are pragmas used to delimit a range of
  *  symbols that should be exported even when symbols are hidden by default.
  */
-
-
-
-
+# 213 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
 /* __deprecated causes the compiler to produce a warning when encountering
  * code using the deprecated functionality.
  * __deprecated_msg() does the same, and compilers that support it will print
@@ -305,11 +302,11 @@
  * __kpi_deprecated() specifically indicates deprecation of kernel programming
  * interfaces in Kernel.framework used by KEXTs.
  */
-# 231 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
+# 240 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
 /* __unavailable causes the compiler to error out when encountering
  * code using the tagged function
  */
-# 244 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
+# 253 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
 /* Delete pseudo-keywords wherever they are not available or needed. */
 
 
@@ -329,7 +326,7 @@
 /* Compatibility with compilers and environments that don't support the
  * nullability feature.
  */
-# 285 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
+# 294 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
 /*
  * __disable_tail_calls causes the compiler to not perform tail call
  * optimization inside the marked function.
@@ -376,7 +373,7 @@
 /*
  * Attributes to support Swift concurrency.
  */
-# 341 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
+# 350 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
 /*
  * __abortlike is the attribute to put on functions like abort() that are
  * typically used to mark assertions. These optimize the codegen
@@ -401,7 +398,7 @@
  * support c99 inline in some cases:
  * http://gcc.gnu.org/bugzilla/show_bug.cgi?id=55965
  */
-# 385 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
+# 394 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
 /* Unfortunately, we're using a compiler that we don't know how to force to
  * inline.  Oh well.
  */
@@ -412,7 +409,7 @@
  * Compiler-dependent macros that bracket portions of code where the
  * "-Wunreachable-code" warning should be ignored. Please use sparingly.
  */
-# 412 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
+# 421 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
 /*
  * Compiler-dependent macros to declare that functions take printf-like
  * or scanf-like arguments.  They are null except for versions of gcc
@@ -421,14 +418,14 @@
  * mismatch between the format string and subsequent function parameter
  * types.
  */
-# 447 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
+# 456 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
 /* Source compatibility only, ID string not emitted in object file */
-# 464 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
+# 473 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
 /*
  * __alloc_align can be used to label function arguments that represent the
  * alignment of the returned pointer.
  */
-# 476 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
+# 485 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
 /*
  * __alloc_size can be used to label function arguments that represent the
  * size of memory that the function allocates and returns. The one-argument
@@ -442,7 +439,7 @@
  *
  * void	*calloc(size_t __count, size_t __size) __alloc_size(1,2);
  */
-# 497 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
+# 506 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
 /*
  * Facilities below assist adoption of -Wunsafe-buffer-usage, an off-by-default
  * Clang compiler warning that helps the developer minimize unsafe, raw
@@ -458,12 +455,14 @@
  * for plain C (see also <ptrcheck.h>).
  *
  * Attribute __unsafe_buffer_usage can be used to label functions that should be
- * avoided as they may perform or otherwise introduce unsafe buffer
- * manipulation operations.
+ * avoided as they may perform or otherwise introduce unsafe buffer manipulation
+ * operations. The attribute can also be attached to class/struct fields that
+ * are used in unsafe buffer manipulations.
  *
- * Calls to such functions are flagged by -Wunsafe-buffer-usage, similarly to
+ * Calls to attribute annotated functions are flagged by -Wunsafe-buffer-usage, similar to
  * how unchecked buffer manipulation operations are flagged when observed
- * by the compiler directly:
+ * by the compiler directly. Similarly, use of and assignment to the struct/class fields
+ * that have the attribute also get flagged by the compiler.
  *
  *   // An unsafe function that needs to be avoided.
  *   __unsafe_buffer_usage
@@ -476,12 +475,28 @@
  *       int array[5];
  *
  *       // Direct unsafe buffer manipulation through subscript operator:
- *       array[idx] = 3;  // warning [-Wunsafe-buffer-usage]
+ *       array[idx] = 3;  // warning: function introduces unsafe buffer manipulation [-Wunsafe-buffer-usage]
  *       // Unsafe buffer manipulation through function foo():
- *       foo(array, 5);   // warning [-Wunsafe-buffer-usage]
+ *       foo(array, 5);   // warning: function introduces unsafe buffer manipulation [-Wunsafe-buffer-usage]
  *       // Checked buffer manipulation, with bounds information automatically
  *       // preserved for the purposes of runtime checks in standard library:
  *       foo(array);      // no warning
+ *   }
+ *
+ *   struct Reader {
+ *      // Field involved in unsafe buffer manipulation
+ *      __unsafe_buffer_usage
+ *      void *ptr;
+ *
+ *      __unsafe_buffer_usage
+ *      size_t sz, count;
+ *   };
+ *
+ *   void add_element(Reader rdr, int value) {
+ *      if(rdr.count < rdr.sz) { // warning: unsafe buffer access [-Wunsafe-buffer-usage]
+ *         rdr.ptr[rdr.count] = value; // warning: unsafe buffer access [-Wunsafe-buffer-usage]
+ *         rdr.count++; // warning: unsafe buffer access [-Wunsafe-buffer-usage]
+ *      }
  *   }
  *
  * While annotating a function as __unsafe_buffer_usage has an effect similar
@@ -491,11 +506,12 @@
  * don't attempt to achieve bounds safety this way) as opposed to -Wdeprecated
  * (enabled in most codebases).
  *
- * The attribute does NOT suppress -Wunsafe-buffer-usage warnings inside
- * the function's body; it simply introduces new warnings at each call site
- * to help the developers avoid the function entirely. Most of the time
- * it does not make sense to annotate a function as __unsafe_buffer_usage
- * without providing the users with a safe alternative.
+ * The attribute suppresses all -Wunsafe-buffer-usage warnings inside the
+ * function's body as it is explictly marked as unsafe by the user and
+ * introduces new warnings at each call site to help the developers avoid the
+ * function entirely. Most of the time it does not make sense to annotate a
+ * function as __unsafe_buffer_usage without providing the users with a safe
+ * alternative.
  *
  * Pragmas __unsafe_buffer_usage_begin and __unsafe_buffer_usage_end
  * annotate a range of code as intentionally containing unsafe buffer
@@ -509,11 +525,9 @@
  *
  * These pragmas are NOT a way to mass-annotate functions with the attribute
  * __unsafe_buffer_usage. Functions declared within the pragma range
- * do NOT get annotated automatically. In some rare situations it makes sense
- * to do all three: put the attribute on the function, put pragmas inside
- * the body of the function, and put pragmas around some call sites.
+ * do NOT get annotated automatically.
  */
-# 585 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
+# 611 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
 /*
  * COMPILATION ENVIRONMENTS -- see compat(5) for additional detail
  *
@@ -553,7 +567,7 @@
 
 /* These settings are particular to each product. */
 /* Platform: MacOSX */
-# 638 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
+# 664 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
 /*
  * The __DARWIN_ALIAS macros are used to do symbol renaming; they allow
  * legacy code to use the old symbol, thus maintaining binary compatibility
@@ -572,15 +586,15 @@
  * pre-10.5, and it is the default compilation environment, revert the
  * compilation environment to pre-__DARWIN_UNIX03.
  */
-# 716 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
+# 742 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
 /*
  * symbol suffixes used for symbol versioning
  */
-# 761 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
+# 787 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
 /*
  * symbol versioning macros
  */
-# 779 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
+# 805 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
 /*
  * symbol release macros
  */
@@ -611,8 +625,8 @@
  * 
  * @APPLE_OSREFERENCE_LICENSE_HEADER_END@
  */
-# 783 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 2 3 4
-# 793 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
+# 809 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 2 3 4
+# 819 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
 /*
  * POSIX.1 requires that the macros we test be defined before any standard
  * header file is included.  This permits us to convert values for feature
@@ -646,7 +660,7 @@
 
 
 /* Deal with various X/Open Portability Guides and Single UNIX Spec. */
-# 839 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
+# 865 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
 /*
  * Deal with all versions of POSIX.  The ordering relative to the tests above is
  * important.
@@ -683,7 +697,7 @@
  * 
  * @APPLE_OSREFERENCE_LICENSE_HEADER_END@
  */
-# 849 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 2 3 4
+# 875 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 2 3 4
 
 
 
@@ -693,7 +707,7 @@
  * _POSIX_C_SOURCE value.  Currently there are two additional levels corresponding
  * to ANSI (_ANSI_SOURCE) and Darwin extensions (_DARWIN_C_SOURCE)
  */
-# 869 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
+# 895 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
 /* If the developer has neither requested a strict language mode nor a version
  * of POSIX, turn on functionality provided by __STDC_WANT_LIB_EXT1__ as part
  * of __DARWIN_C_FULL.
@@ -773,7 +787,7 @@
  * ignored everything, so things break left and right if you
  * make it only ignore -Wcast-qual.
  */
-# 957 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
+# 983 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
 /*
  * __XNU_PRIVATE_EXTERN is a linkage decoration indicating that a symbol can be
  * used from other compilation units, but not other libraries or executables.
@@ -783,7 +797,7 @@
 
 
 
-# 1 "/Library/Developer/CommandLineTools/usr/lib/clang/17/include/ptrcheck.h" 1 3 4
+# 1 "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include/ptrcheck.h" 1 3 4
 /*===---- ptrcheck.h - Pointer bounds hints & specifications ----------------===
  *
  * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -799,7 +813,7 @@
 /* __has_ptrcheck can be used in preprocessor macros (and other parts of the
    language expecting constant expressions) to test if bounds attributes
    exist. */
-# 163 "/Library/Developer/CommandLineTools/usr/lib/clang/17/include/ptrcheck.h" 3 4
+# 163 "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include/ptrcheck.h" 3 4
 /* We intentionally define the terminated_by attributes to nothing. */
 
 
@@ -818,7 +832,7 @@
 
 
 /* decay operates normally; attribute is meaningless without pointer checks. */
-# 307 "/Library/Developer/CommandLineTools/usr/lib/clang/17/include/ptrcheck.h" 3 4
+# 307 "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include/ptrcheck.h" 3 4
 /* We intentionally define to nothing pointer attributes which do not have an
    impact on the ABI. __indexable and __bidi_indexable are not defined because
    of the ABI incompatibility that makes the diagnostic preferable. */
@@ -846,12 +860,12 @@
 
 /* The APIs marked with these attributes are available outside the context of
    pointer checks, so do nothing. */
-# 967 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 2 3 4
-# 1034 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
+# 993 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 2 3 4
+# 1060 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
 /*
  * Architecture validation for current SDK
  */
-# 1063 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
+# 1089 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h" 3 4
 /*
  * Similar to OS_ENUM/OS_CLOSED_ENUM/OS_OPTIONS/OS_CLOSED_OPTIONS
  *
@@ -1015,17 +1029,17 @@
  * 
  * @APPLE_LICENSE_HEADER_END@
  */
-# 98 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityVersions.h" 3 4
+# 100 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityVersions.h" 3 4
 /* __MAC__NA is not defined to a value but is used as a token by macros to indicate that the API is unavailable */
-# 188 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityVersions.h" 3 4
+# 191 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityVersions.h" 3 4
 /* __IPHONE__NA is not defined to a value but is used as a token by macros to indicate that the API is unavailable */
-# 245 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityVersions.h" 3 4
+# 251 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityVersions.h" 3 4
 /* __WATCHOS__NA is not defined to a value but is used as a token by macros to indicate that the API is unavailable */
-# 302 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityVersions.h" 3 4
+# 311 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityVersions.h" 3 4
 /* __TVOS__NA is not defined to a value but is used as a token by macros to indicate that the API is unavailable */
-# 360 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityVersions.h" 3 4
-/* __DRIVERKIT__NA is not defined to a value but is used as a token by macros to indicate that the API is unavailable */
 # 372 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityVersions.h" 3 4
+/* __DRIVERKIT__NA is not defined to a value but is used as a token by macros to indicate that the API is unavailable */
+# 387 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityVersions.h" 3 4
 /* __VISIONOS__NA is not defined to a value but is used as a token by macros to indicate that the API is unavailable */
 
 
@@ -1040,7 +1054,7 @@
 /*
  * Set up standard Mac OS X versions
  */
-# 466 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityVersions.h" 3 4
+# 483 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityVersions.h" 3 4
 // This is explicitly outside the header guard
 # 197 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/Availability.h" 2 3 4
 # 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityInternal.h" 1 3 4
@@ -1099,16 +1113,16 @@
  * 
  * @APPLE_LICENSE_HEADER_END@
  */
-# 466 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityVersions.h" 3 4
+# 483 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityVersions.h" 3 4
 // This is explicitly outside the header guard
 # 34 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityInternal.h" 2 3 4
-# 221 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityInternal.h" 3 4
+# 233 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityInternal.h" 3 4
 /*
  Macros for defining which versions/platform a given symbol can be used.
  
  @see http://clang.llvm.org/docs/AttributeReference.html#availability
  */
-# 452 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityInternal.h" 3 4
+# 464 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityInternal.h" 3 4
     /*
      * API Unavailability
      * Use to specify that an API is unavailable for a particular platform.
@@ -1117,7 +1131,7 @@
      *    __API_UNAVAILABLE(macos)
      *    __API_UNAVAILABLE(watchos, tvos)
      */
-# 504 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityInternal.h" 3 4
+# 516 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityInternal.h" 3 4
 /*
  * Swift compiler version
  * Allows for project-agnostic "epochs" for frameworks imported into Swift via the Clang importer, like #if _compiler_version for Swift
@@ -1129,7 +1143,7 @@
  *  - (NSString *)description;
  *  #endif
  */
-# 528 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityInternal.h" 3 4
+# 540 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityInternal.h" 3 4
 // This is explicitly outside the header guard
 # 198 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/Availability.h" 2 3 4
 # 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityInternalLegacy.h" 1 3 4
@@ -1196,7 +1210,7 @@
     Contains:   implementation details of __OSX_AVAILABLE_* macros from <Availability.h>
 
 */
-# 528 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityInternal.h" 3 4
+# 540 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityInternal.h" 3 4
 // This is explicitly outside the header guard
 # 35 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityInternalLegacy.h" 2 3 4
 # 2832 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityInternalLegacy.h" 3 4
@@ -1263,6 +1277,9 @@
      *   ios, iOSApplicationExtension, tvos, tvOSApplicationExtension, watchos,
      *   watchOSApplicationExtension, driverkit, visionos, visionOSApplicationExtension
      *
+     *   Within each platform a tuple of versions will represent the version the API was
+     *   introduced in, followed by the version it was deperecated in.
+     *
      * Examples:
      *
      *    __API_DEPRECATED("Deprecated", macos(10.4, 10.8))
@@ -1271,7 +1288,7 @@
      *    __API_DEPRECATED_WITH_REPLACEMENT("-setName:", tvos(10.0, 10.4), ios(9.0, 10.0))
      *    __API_DEPRECATED_WITH_REPLACEMENT("SomeClassName", macos(10.4, 10.6), watchos(2.0, 3.0))
      */
-# 499 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/Availability.h" 3 4
+# 504 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/Availability.h" 3 4
     /*
      * API Unavailability
      * Use to specify that an API is unavailable for a particular platform.
@@ -1290,11 +1307,11 @@
 /* 
  * Evaluate to nothing for compilers that don't support availability.
  */
-# 590 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/Availability.h" 3 4
+# 595 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/Availability.h" 3 4
 /*
  * If SPI decorations have not been defined elsewhere, disable them.
  */
-# 617 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/Availability.h" 3 4
+# 622 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/Availability.h" 3 4
 // This is explicitly outside the header guard
 # 72 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h" 2 3 4
 
@@ -2180,7 +2197,7 @@ typedef __darwin_size_t size_t;
  *
  * @APPLE_OSREFERENCE_LICENSE_HEADER_END@
  */
-# 43 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stdio.h" 3 4
+# 44 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stdio.h" 3 4
 # 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/Availability.h" 1 3 4
 /*
  * Copyright (c) 2007-2016 by Apple Inc.. All rights reserved.
@@ -2204,9 +2221,9 @@ typedef __darwin_size_t size_t;
  * 
  * @APPLE_LICENSE_HEADER_END@
  */
-# 617 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/Availability.h" 3 4
+# 622 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/Availability.h" 3 4
 // This is explicitly outside the header guard
-# 44 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stdio.h" 2 3 4
+# 45 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stdio.h" 2 3 4
 
 
 
@@ -2477,6 +2494,10 @@ int vsprintf(char * restrict , const char * restrict, va_list) __attribute__((__
 
 
 
+
+
+
+
 # 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_ctermid.h" 1 3 4
 /*
  * Copyright (c) 2000, 2002-2006, 2008-2010, 2012, 2020 Apple Inc. All rights reserved.
@@ -2500,9 +2521,9 @@ int vsprintf(char * restrict , const char * restrict, va_list) __attribute__((__
  *
  * @APPLE_LICENSE_HEADER_END@
  */
-# 36 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_ctermid.h" 3 4
+# 38 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_ctermid.h" 3 4
 char * ctermid(char *);
-# 312 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h" 2 3 4
+# 316 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h" 2 3 4
 
 
 
@@ -2550,11 +2571,11 @@ int __swbuf(int, FILE *);
  * The __sfoo macros are here so that we can
  * define function versions in the C library.
  */
-# 368 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h" 3 4
+# 372 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h" 3 4
 /*
  * This has been tuned to generate reasonable code on the vax using pcc.
  */
-# 387 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h" 3 4
+# 391 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h" 3 4
 void flockfile(FILE *);
 int ftrylockfile(FILE *);
 void funlockfile(FILE *);
@@ -2574,7 +2595,7 @@ __attribute__((__availability__(swift, unavailable, message="Use mkstemp(3) inst
 __attribute__((__deprecated__("This function is provided for compatibility reasons only.  Due to security concerns inherent in the design of tempnam(3), it is highly recommended that you use mkstemp(3) instead.")))
 
 char * tempnam(const char *__dir, const char *__prefix) __asm("_" "tempnam" );
-# 419 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h" 3 4
+# 423 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h" 3 4
 /* Additional functionality provided by:
  * POSIX.1-2001
  * ISO C99
@@ -2613,7 +2634,7 @@ char * tempnam(const char *__dir, const char *__prefix) __asm("_" "tempnam" );
 
 
 typedef __darwin_off_t off_t;
-# 426 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h" 2 3 4
+# 430 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h" 2 3 4
 
 
 int fseeko(FILE * __stream, off_t __offset, int __whence);
@@ -2670,7 +2691,7 @@ int vsscanf(const char * restrict __str, const char * restrict __format, va_list
 
 
 typedef __darwin_ssize_t ssize_t;
-# 451 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h" 2 3 4
+# 455 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h" 2 3 4
 
 
 int dprintf(int, const char * restrict, ...) __attribute__((__format__ (__printf__, 2, 3))) __attribute__((availability(macosx,introduced=10.7)));
@@ -2711,7 +2732,7 @@ FILE *funopen(const void *,
      int (* _Nullable)(void *));
 # 62 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/stdio.h" 2 3 4
 # 3 "builtins.c" 2
-# 1 "/Library/Developer/CommandLineTools/usr/lib/clang/17/include/stdint.h" 1 3
+# 1 "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include/stdint.h" 1 3
 /*===---- stdint.h - Standard header for sized integer types --------------===*\
  *
  * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -2756,7 +2777,7 @@ FILE *funopen(const void *,
 // Work around this inconsistency by always defining those macros in C++ mode,
 // so that a C library implementation which follows the C99 standard can be
 // used in C++.
-# 56 "/Library/Developer/CommandLineTools/usr/lib/clang/17/include/stdint.h" 3
+# 56 "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include/stdint.h" 3
 # 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/stdint.h" 1 3 4
 /*
  * Copyright (c) 2000-2010 Apple Inc.
@@ -3047,7 +3068,7 @@ typedef long unsigned int uintmax_t;
    (-WCHAR_MAX-1) if wchar_t is a signed type.  Unfortunately,
    it turns out that -fshort-wchar changes the signedness of
    the type. */
-# 57 "/Library/Developer/CommandLineTools/usr/lib/clang/17/include/stdint.h" 2 3
+# 57 "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include/stdint.h" 2 3
 # 4 "builtins.c" 2
 
 static int likely_branch(int x) {

@@ -2,9 +2,8 @@
 
 int main(int argc, char** argv)
 {
-    [s"aaa", s"bbb", s"ccc"].map { it + s"bbb" }.filter { strstr(it, "bbb") }.each
-    {
-        puts(it);
+    [s"Z", s"B", s"Y", s"G", s"O", s"AB"].sort().each {
+        printf("%s\n", it);
     }
     
     return 0;
