@@ -1,3 +1,4 @@
+#include "common.h"
 
 ZVALUE*%, bool str_method(string fun_name, ZVALUE* obj, list<ZVALUE*%>* params, buffer* codes, sInfo* info) version 3
 {

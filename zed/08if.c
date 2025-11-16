@@ -1,3 +1,4 @@
+#include "common.h"
 
 bool compile_block(sNodeBlock& block, sInfo* info)
 {

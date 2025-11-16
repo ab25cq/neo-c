@@ -1,3 +1,4 @@
+#include "common.h"
 
 bool vm(sInfo* info) version 6
 {

@@ -18,8 +18,8 @@ libdir=${exec_prefix}/lib
 #########################################
 CC=neo-c
 INSTALL=install
-CFLAGS= -common-header -O2 -I/opt/homebrew/opt/readline/include -L/opt/homebrew/opt/readline/lib -lreadline
-CFLAGS_DEBUG= -common-header -gdwarf-4 -cg -lreadline 
+CFLAGS= -O2 -I/opt/homebrew/opt/readline/include -L/opt/homebrew/opt/readline/lib -lreadline
+CFLAGS_DEBUG= -gdwarf-4 -cg -lreadline 
 LIBS=
 OS=linux
 DESTDIR=/usr/local/

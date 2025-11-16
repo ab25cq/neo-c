@@ -1,3 +1,4 @@
+#include "common.h"
 
 void append_str_to_codes(sInfo* info, wchar_t* str)
 {

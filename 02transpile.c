@@ -3,7 +3,6 @@
 bool gComeC = true;
 bool gComeNet = false;
 bool gComePthread = false;
-bool gCommonHeader = false;
 bool gComeDebug = false;
 bool gComeOriginalSourcePosition = true;
 int gComeDebugStackFrameID = 0;
@@ -147,20 +146,6 @@ static bool cpp(sInfo* info)
     }
     
 #ifndef __MINUX__
-    bool exist_common_h = false;
-    {
-        fopen("common.h", "r").if {
-            exist_common_h = true;
-            fclose(Value);
-        }
-        if(info.output_file_name === "common.h") {
-            exist_common_h = false;
-        }
-        if(!gCommonHeader) {
-            exist_common_h = false;
-        }
-    }
-    
     int is_mac = system("uname -a | grep Darwin 1> /dev/null 2>/dev/null") == 0;
     int is_android = system("uname -a | grep Android 1> /dev/null 2>/dev/null") == 0;
     int is_debian = system("uname -a | grep Debian 1> /dev/null 2>/dev/null") == 0;
@@ -192,7 +177,7 @@ static bool cpp(sInfo* info)
     
     /// Android ///
     if(is_android) {
-        string cmd3 = xsprintf("cpp %s -lang-c %s -I. -I%s/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -I/data/data/com.termux/files/usr/include/mariadb -D__ANDROID__ %s %s > %s 2> %s.cpp.out", (info.remove_comment ? "": " -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, exist_common_h ? string(" -include common.h "):"", input_file_name, output_file_name, output_file_name);
+        string cmd3 = xsprintf("cpp %s -lang-c %s -I. -I%s/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -I/data/data/com.termux/files/usr/include/mariadb -D__ANDROID__ %s %s > %s 2> %s.cpp.out", (info.remove_comment ? "": " -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
         
         if(info.verbose) puts(cmd3);
         int rc = system(cmd3);
@@ -208,7 +193,7 @@ static bool cpp(sInfo* info)
         }
     }
     else if(is_m5stack) {
-        string cmd2 = xsprintf("xtensa-esp-elf-cpp -E %s -lang-c %s -I. -I/usr/local/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -DNEO_C -D__M5STACK__ %s %s > %s 2> %s.cpp.out", info.remove_comment ? "":" -C", info.cpp_option, PREFIX, PREFIX, exist_common_h ? string(" -include common.h "):"", input_file_name, output_file_name, output_file_name);
+        string cmd2 = xsprintf("xtensa-esp-elf-cpp -E %s -lang-c %s -I. -I/usr/local/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -DNEO_C -D__M5STACK__ %s %s > %s 2> %s.cpp.out", info.remove_comment ? "":" -C", info.cpp_option, PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
         
         if(info.verbose) puts(cmd2);
         
@@ -230,7 +215,7 @@ static bool cpp(sInfo* info)
         (void)system(command2);
     }
     else if(is_pico) {
-        string cmd2 = xsprintf("arm-none-eabi-gcc -E %s -lang-c %s -I. -I/usr/local/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -DNEO_C -D__PICO__ %s %s > %s 2> %s.cpp.out", info.remove_comment ? "":" -C", info.cpp_option, PREFIX, PREFIX, exist_common_h ? string(" -include common.h "):"", input_file_name, output_file_name, output_file_name);
+        string cmd2 = xsprintf("arm-none-eabi-gcc -E %s -lang-c %s -I. -I/usr/local/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -DNEO_C -D__PICO__ %s %s > %s 2> %s.cpp.out", info.remove_comment ? "":" -C", info.cpp_option, PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
         
         if(info.verbose) puts(cmd2);
         
@@ -253,7 +238,7 @@ static bool cpp(sInfo* info)
     }
     /// Mac ///
     else if(is_mac) {
-        string cmd2 = xsprintf("gcc -E %s -lang-c %s -I. -I/usr/local/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -DNEO_C -D__MAC__ -I/opt/homebrew/opt/boehmgc/include/ -I/opt/homebrew/opt/openssl/include -I/opt/homebrew/opt/mysql/include %s %s > %s 2> %s.cpp.out", info.remove_comment ? "":" -C", info.cpp_option, PREFIX, PREFIX, exist_common_h ? string(" -include common.h "):"", input_file_name, output_file_name, output_file_name);
+        string cmd2 = xsprintf("gcc -E %s -lang-c %s -I. -I/usr/local/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -DNEO_C -D__MAC__ -I/opt/homebrew/opt/boehmgc/include/ -I/opt/homebrew/opt/openssl/include -I/opt/homebrew/opt/mysql/include %s %s > %s 2> %s.cpp.out", info.remove_comment ? "":" -C", info.cpp_option, PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
         
         if(info.verbose) puts(cmd2);
         
@@ -276,7 +261,7 @@ static bool cpp(sInfo* info)
     }
     /// EMBBEDED ///
     else if(is_emb) {
-        string cmd3 = xsprintf("clang -E %s -lang-c %s -I. -I%s/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -D__EMB__ %s %s > %s 2> %s.cpp.out", (info->remove_comment ? "":" -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, exist_common_h ? string(" -include common.h "):"", input_file_name, output_file_name, output_file_name);
+        string cmd3 = xsprintf("clang -E %s -lang-c %s -I. -I%s/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -D__EMB__ %s %s > %s 2> %s.cpp.out", (info->remove_comment ? "":" -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
 
         if(info.verbose) puts(cmd3);
         int rc = system(cmd3);
@@ -287,10 +272,10 @@ static bool cpp(sInfo* info)
         (void)system(command2);
         
         if(rc != 0) {
-            string cmd4 = xsprintf("clang -E %s -I. %s -DPREFIX=%s -I%s/include -D__EMB__ %s %s > %s 2> %s.cpp.out", info->remove_comment ? "": " -C", info.cpp_option, PREFIX, PREFIX, exist_common_h ? string(" -include common.h "):"", input_file_name, output_file_name, output_file_name);
+            string cmd4 = xsprintf("clang -E %s -I. %s -DPREFIX=%s -I%s/include -D__EMB__ %s %s > %s 2> %s.cpp.out", info->remove_comment ? "": " -C", info.cpp_option, PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
 
             if(is_debian) {
-                cmd4 = xsprintf("clang -E %s -D__DEBIAN__ -I. %s -DPREFIX=%s -I%s/include -D__EMB__ %s %s > %s 2> %s.cpp.out", info.remove_comment ? "":" -C", info.cpp_option, PREFIX, PREFIX, exist_common_h ? string(" -include common.h "):"", input_file_name, output_file_name, output_file_name);
+                cmd4 = xsprintf("clang -E %s -D__DEBIAN__ -I. %s -DPREFIX=%s -I%s/include -D__EMB__ %s %s > %s 2> %s.cpp.out", info.remove_comment ? "":" -C", info.cpp_option, PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
             }
             
             var command2 = xsprintf("grep error\\: %s.cpp.out 2>/dev/null", output_file_name);
@@ -306,7 +291,7 @@ static bool cpp(sInfo* info)
     }
     /// __RASPIBERRY_PI__ ///
     else if(is_raspi) {
-        string cmd3 = xsprintf("cpp %s -lang-c %s -I. -I%s/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -D__RASPBERRY_PI__ %s %s > %s 2> %s.cpp.out", (info->remove_comment ? "":" -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, exist_common_h ? string(" -include common.h "):"", input_file_name, output_file_name, output_file_name);
+        string cmd3 = xsprintf("cpp %s -lang-c %s -I. -I%s/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -D__RASPBERRY_PI__ %s %s > %s 2> %s.cpp.out", (info->remove_comment ? "":" -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
 
         if(info.verbose) puts(cmd3);
         int rc = system(cmd3);
@@ -317,7 +302,7 @@ static bool cpp(sInfo* info)
         (void)system(command2);
         
         if(rc != 0) {
-            string cmd4 = xsprintf("cpp %s -I. %s -DPREFIX=%s -I%s/include -D__RASPBERRY_PI__ %s %s > %s 2> %s.cpp.out", info->remove_comment ? "": " -C", info.cpp_option, PREFIX, PREFIX, exist_common_h ? string(" -include common.h "):"", input_file_name, output_file_name, output_file_name);
+            string cmd4 = xsprintf("cpp %s -I. %s -DPREFIX=%s -I%s/include -D__RASPBERRY_PI__ %s %s > %s 2> %s.cpp.out", info->remove_comment ? "": " -C", info.cpp_option, PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
             
             var command2 = xsprintf("grep error\\: %s.cpp.out 2>/dev/null", output_file_name);
             
@@ -331,10 +316,10 @@ static bool cpp(sInfo* info)
         }
     }
     else if(is_linux) {
-        string cmd3 = xsprintf("cpp %s -lang-c %s -I. -I%s/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -D__LINUX__ %s %s > %s 2> %s.cpp.out", (info->remove_comment ? "":" -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, exist_common_h ? string(" -include common.h "):"", input_file_name, output_file_name, output_file_name);
+        string cmd3 = xsprintf("cpp %s -lang-c %s -I. -I%s/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -D__LINUX__ %s %s > %s 2> %s.cpp.out", (info->remove_comment ? "":" -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
 
         if(is_debian) {
-            cmd3 = xsprintf("cpp %s -lang-c %s -I. -D__DEBIAN__ -I%s/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -D__LINUX__ %s %s > %s 2> %s.cpp.out", info.remove_comment ? "": " -C", info.cpp_option, getenv("HOME"), PREFIX, PREFIX, exist_common_h ? string(" -include common.h "):"", input_file_name, output_file_name, output_file_name);
+            cmd3 = xsprintf("cpp %s -lang-c %s -I. -D__DEBIAN__ -I%s/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -D__LINUX__ %s %s > %s 2> %s.cpp.out", info.remove_comment ? "": " -C", info.cpp_option, getenv("HOME"), PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
         }
 
         if(info.verbose) puts(cmd3);
@@ -346,10 +331,10 @@ static bool cpp(sInfo* info)
         (void)system(command2);
         
         if(rc != 0) {
-            string cmd4 = xsprintf("cpp %s -I. %s -DPREFIX=%s -I%s/include -D__LINUX__ %s %s > %s 2> %s.cpp.out", info->remove_comment ? "": " -C", info.cpp_option, PREFIX, PREFIX, exist_common_h ? string(" -include common.h "):"", input_file_name, output_file_name, output_file_name);
+            string cmd4 = xsprintf("cpp %s -I. %s -DPREFIX=%s -I%s/include -D__LINUX__ %s %s > %s 2> %s.cpp.out", info->remove_comment ? "": " -C", info.cpp_option, PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
 
             if(is_debian) {
-                cmd4 = xsprintf("cpp %s -D__DEBIAN__ -I. %s -DPREFIX=%s -I%s/include -D__LINUX__ %s %s > %s 2> %s.cpp.out", info.remove_comment ? "":" -C", info.cpp_option, PREFIX, PREFIX, exist_common_h ? string(" -include common.h "):"", input_file_name, output_file_name, output_file_name);
+                cmd4 = xsprintf("cpp %s -D__DEBIAN__ -I. %s -DPREFIX=%s -I%s/include -D__LINUX__ %s %s > %s 2> %s.cpp.out", info.remove_comment ? "":" -C", info.cpp_option, PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
             }
             
             var command2 = xsprintf("grep error\\: %s.cpp.out 2>/dev/null", output_file_name);
@@ -790,9 +775,6 @@ module MEvalOptions<T, T2>
         else if(i + 1 < argc && argv[i] === "-T") {
             clang_option.append_str(s" -T \{argv[i+1]} ");
             i++;
-        }
-        else if(argv[i] === "-common-header") {
-            gCommonHeader = true;
         }
         else if(argv[i] === "-original-position") {
             gComeOriginalSourcePosition = false;

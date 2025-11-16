@@ -20,68 +20,6 @@ void handle_sigint(int sig) {
     exit(0);
 }
 
-string,int eval_zed(string command)
-{
-    sInfo info;
-    
-    info.command = command;
-    
-    info.nodes = new list<sNode*%>();
-    info.codes = new buffer();
-    
-    info.stack = new list<ZVALUE*%>();
-    
-    /// parse ///
-    buffer*% command_buffer = info.command.to_buffer();
-    info.p = command_buffer.buf;
-    
-    while(*info.p) {
-        if(!parse(&info)) {
-            fprintf(stderr, "parse error\n");
-            return (s"", 1);
-        }
-        
-        if(*info.p == ';') {
-            info.p++;
-            skip_spaces(&info);
-        }
-    }
-    
-    /// compile ///
-    foreach(it, info.nodes) {
-        if(!it.compile(&info)) {
-            fprintf(stderr, "compile error\n");
-            return (s"", 1);
-        }
-        
-        if(info.stack_num > 0) {
-            arrange_stack(&info);
-        }
-    }
-    
-    info.codes.append_int(0);  /// terminator
-    
-    /// vm ///
-    info.op = (int*)info.codes.buf;
-    info.head = (char*)info.op;
-    
-    while(*info.op) {
-        if(!vm(&info)) {
-            fprintf(stderr, "vm error\n");
-            return (s"", 1);
-        }
-    }
-    
-    /// output ///
-    if(info->result_value) {
-        info->result_value.to_string()
-        
-        return (info->result_value.to_string(), 0);
-    }
-    else {
-        return (s"", 0);
-    }
-}
 
 string parse_html(string file_contents)
 {
@@ -89,40 +27,7 @@ string parse_html(string file_contents)
     
     char* p = file_contents;
     
-    while(true) {
-        char* p2 = strstr(p, "<?zed");
-        
-        if(p2 == null) {
-            contents.append_str(p);
-            break;
-        }
-        
-        p2 += strlen("<?zed");
-        
-        while(*p2 == ' ' || *p2 == '\n' || *p2 == '\t') {
-            p2++;
-        }
-        
-        char* p3 = strstr(p2, "?>");
-        
-        if(p3 == null) {
-            break;
-        }
-        
-        buffer*% code = new buffer();
-        
-        code.append(p2, p3 - p2);
-        
-        var output, result = eval_zed(code.to_string());
-        
-        if(result != 0) {
-            break;
-        }
-        
-        contents.append_str(output);
-        
-        p = p3 + strlen("?>");
-    }
+    contents.append_str(p);
     
     return contents.to_string();
 }
@@ -355,6 +260,14 @@ void run_get_cgi_http(int it, string cgi_path, string header, string contents, s
             write(it, response, strlen(response));
         }
     }
+}
+
+void initialize_modules()
+{
+}
+
+void finalize_modules()
+{
 }
 
 int main(int argc, char **argv) 

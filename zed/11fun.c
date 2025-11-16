@@ -1,3 +1,4 @@
+#include "common.h"
 
 class sFunNode
 {

@@ -1,4 +1,4 @@
-#include <neo-c.h>
+#include "common.h"
 
 struct sInfo;
 
