@@ -529,13 +529,6 @@ class sMethodCallNode extends sNodeBase
             sType*% result_type = clone lambda_type->mResultType;
             result_type->mStatic = false;
             
-            if(obj_type->mImmutable) {
-                if(!result_type->mImmutable) {
-                    err_msg(info, "Immutable object can't call mutable method(%s)", fun_name);
-                    return true;
-                }
-            }
-            
             list<CVALUE*%>*% come_params = new list<CVALUE*%>();
             
             int i = 0;
@@ -596,7 +589,6 @@ class sMethodCallNode extends sNodeBase
             come_value2.type = clone result_type2;
             if(come_value2.type) {
                 come_value2.type->mStatic = false;
-                come_value2.type->mImmutable = false;
             }
             come_value2.var = null;
             
@@ -632,13 +624,6 @@ class sMethodCallNode extends sNodeBase
             
             result_type->mStatic = false;
             
-            if(obj_type->mImmutable) {
-                if(!result_type->mImmutable) {
-                    err_msg(info, "Immutable object can't call mutable method(%s)", fun_name);
-                    return true;
-                }
-            }
-
             list<sType*%>*% param_types = new list<sType*%>();
             foreach(it, fun.mParamTypes) {
                 if(it == null) {
@@ -883,7 +868,6 @@ class sMethodCallNode extends sNodeBase
             come_value2.type = clone result_type;
             if(come_value2.type) {
                 come_value2.type->mStatic = false;
-                come_value2.type->mImmutable = false;
             }
             
             if(result_type->mHeap) {

@@ -1042,7 +1042,7 @@ impl list <T>
             delete prev_it;
         }
     }
-    immutable list<T>*% clone(list<T>* self) {
+    list<T>*% clone(list<T>* self) {
         if(self == null) {
             return null;
         }
@@ -1178,7 +1178,7 @@ impl list <T>
         return self;
     }
     
-    immutable string to_string(list<T>* self)
+    string to_string(list<T>* self)
     {
         buffer*% result = new buffer();
         
@@ -1239,7 +1239,7 @@ impl list <T>
     bool end(list<T>* self) {
         return self == null || self.it == null;
     }
-    immutable list<T>* each(list<T>* self, void* parent, void (*block)(void*, T,int,bool*)) 
+    list<T>* each(list<T>* self, void* parent, void (*block)(void*, T,int,bool*)) 
     {
         list_item<T>* it = self.head;
         int i = 0;
@@ -1256,7 +1256,7 @@ impl list <T>
         
         return self;
     }
-    immutable T item(list<T>* self, int position, T& default_value) 
+    T item(list<T>* self, int position, T& default_value) 
     {
         if(position < 0) {
             position += self.len;
@@ -1275,7 +1275,7 @@ impl list <T>
         return dummy_heap default_value;
     }
 
-    immutable int length(list<T>* self)
+    int length(list<T>* self)
     {
         if(self == null) {
             return 0;
@@ -1553,7 +1553,7 @@ impl list <T>
         return self;
     }
 
-    immutable int find(list<T>* self, T& item, int default_value) {
+    int find(list<T>* self, T& item, int default_value) {
         int it2 = 0;
         list_item<T>* it = self.head;
         while(it != null) {
@@ -1567,7 +1567,7 @@ impl list <T>
 
         return default_value;
     }
-    immutable int find_by_pointer(list<T>* self, T& item, int default_value) {
+    int find_by_pointer(list<T>* self, T& item, int default_value) {
         int it2 = 0;
         list_item<T>* it = self.head;
         while(it != null) {
@@ -1581,7 +1581,7 @@ impl list <T>
 
         return default_value;
     }
-    immutable bool equals(list<T>* left, list<T>* right)
+    bool equals(list<T>* left, list<T>* right)
     {
         if(left.len != right.len) {
             return false;
@@ -1601,7 +1601,7 @@ impl list <T>
 
         return true;
     }
-    immutable list<T>*% sublist(list<T>* self, int begin, int tail) {
+    list<T>*% sublist(list<T>* self, int begin, int tail) {
         list<T>*% result = new list<T>.initialize();
 
         if(begin < 0) {
@@ -1635,7 +1635,7 @@ impl list <T>
     void operator_store_element(list<T>* self, int position, T item) {
         self.replace(position, item);
     }
-    immutable T operator_load_element(list<T>* self, int position) {
+    T operator_load_element(list<T>* self, int position) {
         if(position < 0) {
             position += self.len;
         }
@@ -1654,7 +1654,7 @@ impl list <T>
         memset(&default_value, 0, sizeof(T));
         return default_value;
     }
-    immutable list<T>*% operator_load_range_element(list<T>* self, int begin, int tail) {
+    list<T>*% operator_load_range_element(list<T>* self, int begin, int tail) {
         list<T>*% result = new list<T>.initialize();
 
         if(begin < 0) {
@@ -1834,7 +1834,7 @@ impl list <T>
     list<T>*% sort(list<T>* self) {
         return self.merge_sort_with_lambda(int lambda(T& left, T& right) { return left.compare(right); });
     }
-    template<R> immutable list<R>*% map(list<T>* self, void* parent, R (*block)(void*, T))
+    template<R> list<R>*% map(list<T>* self, void* parent, R (*block)(void*, T))
     {
         auto result = new list<R>.initialize();
 
@@ -1848,7 +1848,7 @@ impl list <T>
 
         return result;
     }
-    immutable list<T>*% reverse(list<T>* self) {
+    list<T>*% reverse(list<T>* self) {
         list<T>%* result = new list<T>();
 
         list_item<T>* it = self.tail;
@@ -1859,7 +1859,7 @@ impl list <T>
 
         return result;
     }
-    immutable list<T>*% uniq(list<T>* self) {
+    list<T>*% uniq(list<T>* self) {
         list<T>*% result = new list<T>.initialize();
 
         if(self.length() > 0) {
@@ -1882,7 +1882,7 @@ impl list <T>
 
         return result;
     }
-    immutable list<T>*% filter(list<T>* self, void* parent, bool (*block)(void*, T))
+    list<T>*% filter(list<T>* self, void* parent, bool (*block)(void*, T))
     {
         list<T>*% result = new list<T>();
 
@@ -1898,7 +1898,7 @@ impl list <T>
         return result;
     } 
     
-    immutable list<T>*% operator_add(list<T>*% left, list<T>*% right) {
+    list<T>*% operator_add(list<T>*% left, list<T>*% right) {
         list<T>*% result = new list<T>();
 
         list_item<T>* it = left.head;
@@ -2068,7 +2068,7 @@ impl map <T, T2>
         return result;
     }
     
-    immutable string to_string(map<T,T2>* self)
+    string to_string(map<T,T2>* self)
     {
         buffer*% result = new buffer();
         
@@ -2096,7 +2096,7 @@ impl map <T, T2>
         return result.to_string();
     }
     
-    immutable T2 at(map<T, T2>* self, T& key, T2 default_value) {
+    T2 at(map<T, T2>* self, T& key, T2 default_value) {
         unsigned int hash = ((T)key).get_hash_key() % self.size;
         unsigned int it = hash;
         
@@ -2206,7 +2206,7 @@ impl map <T, T2>
         
         return self;
     }
-    immutable int length(map<T, T2>* self) {
+    int length(map<T, T2>* self) {
         return self.len;
     }
     
@@ -2453,7 +2453,7 @@ impl map <T, T2>
         
         return self;
     }
-    immutable T2 operator_load_element(map<T, T2>* self, T& key) {
+    T2 operator_load_element(map<T, T2>* self, T& key) {
         T2` default_value;
         memset(&default_value, 0, sizeof(T2));
         
@@ -2489,7 +2489,7 @@ impl map <T, T2>
         self.insert(key, item);
     }
     
-    immutable bool equals(map<T, T2>* left, map<T, T2>* right)
+    bool equals(map<T, T2>* left, map<T, T2>* right)
     {
         if(left.len != right.len) {
             return false;
@@ -2522,7 +2522,7 @@ impl map <T, T2>
         return result;
     }
     
-    immutable bool operator_equals(map<T, T2>* left, map<T,T2>* right) {
+    bool operator_equals(map<T, T2>* left, map<T,T2>* right) {
         if(left.len != right.len) {
             return false;
         }
@@ -2558,7 +2558,7 @@ impl map <T, T2>
         return !(left.operator_equals(right);
     }
     
-    immutable bool find(map<T, T2>* self, T& key) {
+    bool find(map<T, T2>* self, T& key) {
         unsigned int hash = ((T)key).get_hash_key() % self.size;
         int it = hash;
 
@@ -2586,7 +2586,7 @@ impl map <T, T2>
 
         return false;
     }
-    immutable map<T,T2>*% operator_add(map<T,T2>* left, map<T,T2>* right) {
+    map<T,T2>*% operator_add(map<T,T2>* left, map<T,T2>* right) {
         map<T,T2>*% result = new map<T,T2>();
 
         int n = 0;
@@ -2633,7 +2633,7 @@ impl map <T, T2>
 
         return result;
     }
-    immutable map<T,T2>*% operator_mult(map<T,T2>* left, int right) {
+    map<T,T2>*% operator_mult(map<T,T2>* left, int right) {
         map<T,T2>*% result = new map<T,T2>();
 
         for(int i=0; i<right; i++ ) {
@@ -2662,7 +2662,7 @@ impl map <T, T2>
 
         return result;
     }
-    immutable list<T>*% keys(map<T, T2>* self) {
+    list<T>*% keys(map<T, T2>* self) {
         var result = new list<T>();
         
         for(var it = self.key_list.begin(); !self.key_list.end(); it = self.key_list.next()) {
@@ -2677,7 +2677,7 @@ impl map <T, T2>
         return result;
     }
     
-    immutable list<T2>*% values(map<T, T2>* self) {
+    list<T2>*% values(map<T, T2>* self) {
         var result = new list<T2>();
         
         for(var it = self.key_list.begin(); !self.key_list.end(); it = self.key_list.next()) { 
@@ -2715,7 +2715,7 @@ impl tuple1 <T>
         return self;
     }
     
-    immutable bool equals(tuple1<T>* self, tuple1<T>* right)
+    bool equals(tuple1<T>* self, tuple1<T>* right)
     {
         if(!self.v1.equals(right.v1)) {
             return false;
@@ -2723,7 +2723,7 @@ impl tuple1 <T>
         
         return true;
     }
-    immutable bool operator_equals(tuple1<T>* self, tuple1<T>* right) 
+    bool operator_equals(tuple1<T>* self, tuple1<T>* right) 
     {
         if(!(self.v1 === right.v1)) {
             return false;
@@ -2731,11 +2731,11 @@ impl tuple1 <T>
         
         return true;
     }
-    immutable bool operator_not_equals(tuple1<T>* left, tuple1<T>* right) {
+    bool operator_not_equals(tuple1<T>* left, tuple1<T>* right) {
         return !left.operator_equals(right);
     }
     
-    immutable string to_string(tuple1<T>* self)
+    string to_string(tuple1<T>* self)
     {
         return "(" + self.v1.to_string() + ")";
     }
@@ -2757,11 +2757,11 @@ impl tuple2 <T, T2>
         return self;
     }
     
-    immutable string to_string(tuple2<T, T2>* self)
+    string to_string(tuple2<T, T2>* self)
     {
         return "(" + self.v1.to_string() + "," + self.v2.to_string() + ")";
     }
-    immutable bool equals(tuple2<T,T2>* self, tuple2<T,T2>* right)
+    bool equals(tuple2<T,T2>* self, tuple2<T,T2>* right)
     {
         if(!self.v1.equals(right.v1)) {
             return false;
@@ -2772,7 +2772,7 @@ impl tuple2 <T, T2>
         
         return true;
     }
-    immutable bool operator_equals(tuple2<T,T2>* self, tuple2<T,T2>* right) 
+    bool operator_equals(tuple2<T,T2>* self, tuple2<T,T2>* right) 
     {
         if(!(self.v1 === right.v1)) {
             return false;
@@ -2783,7 +2783,7 @@ impl tuple2 <T, T2>
         
         return true;
     }
-    immutable bool operator_not_equals(tuple2<T,T2>* left, tuple2<T,T2>* right) {
+    bool operator_not_equals(tuple2<T,T2>* left, tuple2<T,T2>* right) {
         return !left.operator_equals(right);
     }
 }
@@ -2807,11 +2807,11 @@ impl tuple3 <T, T2, T3>
         return self;
     }
     
-    immutable string to_string(tuple3<T, T2, T3>* self)
+    string to_string(tuple3<T, T2, T3>* self)
     {
         return "(" + self.v1.to_string() + "," + self.v2.to_string() + "," + self.v3.to_string() + ")";
     }
-    immutable bool equals(tuple3<T,T2,T3>* self, tuple3<T,T2,T3>* right)
+    bool equals(tuple3<T,T2,T3>* self, tuple3<T,T2,T3>* right)
     {
         if(!self.v1.equals(right.v1)) {
             return false;
@@ -2825,7 +2825,7 @@ impl tuple3 <T, T2, T3>
         
         return true;
     }
-    immutable bool operator_equals(tuple3<T,T2,T3>* self, tuple3<T,T2,T3>* right) 
+    bool operator_equals(tuple3<T,T2,T3>* self, tuple3<T,T2,T3>* right) 
     {
         if(!(self.v1 === right.v1)) {
             return false;
@@ -2839,7 +2839,7 @@ impl tuple3 <T, T2, T3>
         
         return true;
     }
-    immutable bool operator_not_equals(tuple3<T,T2,T3>* left, tuple3<T,T2,T3>* right) {
+    bool operator_not_equals(tuple3<T,T2,T3>* left, tuple3<T,T2,T3>* right) {
         return !left.operator_equals(right);
     }
 }
@@ -2864,11 +2864,11 @@ impl tuple4 <T, T2, T3, T4>
         return self;
     }
     
-    immutable string to_string(tuple4<T, T2, T3, T4>* self)
+    string to_string(tuple4<T, T2, T3, T4>* self)
     {
         return "(" + self.v1.to_string() + "," + self.v2.to_string() + "," + self.v3.to_string() + "," + self.v4.to_string() + ")";
     }
-    immutable bool equals(tuple4<T,T2,T3,T4>* self, tuple4<T,T2,T3,T4>* right)
+    bool equals(tuple4<T,T2,T3,T4>* self, tuple4<T,T2,T3,T4>* right)
     {
         if(!self.v1.equals(right.v1)) {
             return false;
@@ -2885,7 +2885,7 @@ impl tuple4 <T, T2, T3, T4>
         
         return true;
     }
-    immutable bool operator_equals(tuple4<T,T2,T3,T4>* self, tuple4<T,T2,T3,T4>* right) 
+    bool operator_equals(tuple4<T,T2,T3,T4>* self, tuple4<T,T2,T3,T4>* right) 
     {
         if(!(self.v1 === right.v1)) {
             return false;
@@ -2902,7 +2902,7 @@ impl tuple4 <T, T2, T3, T4>
         
         return true;
     }
-    immutable bool operator_not_equals(tuple4<T,T2,T3,T4>* left, tuple4<T,T2,T3,T4>* right) {
+    bool operator_not_equals(tuple4<T,T2,T3,T4>* left, tuple4<T,T2,T3,T4>* right) {
         return !left.operator_equals(right);
     }
 }
@@ -2929,11 +2929,11 @@ impl tuple5 <T, T2, T3, T4, T5>
         return self;
     }
     
-    immutable string to_string(tuple5<T, T2, T3, T4, T5>* self)
+    string to_string(tuple5<T, T2, T3, T4, T5>* self)
     {
         return "(" + self.v1.to_string() + "," + self.v2.to_string() + "," + self.v3.to_string() + "," + self.v4.to_string() + "," + self.v5.to_string() + ")";
     }
-    immutable bool equals(tuple5<T,T2,T3,T4,T5>* self, tuple5<T,T2,T3,T4,T5>* right)
+    bool equals(tuple5<T,T2,T3,T4,T5>* self, tuple5<T,T2,T3,T4,T5>* right)
     {
         if(!self.v1.equals(right.v1)) {
             return false;
@@ -2953,7 +2953,7 @@ impl tuple5 <T, T2, T3, T4, T5>
         
         return true;
     }
-    immutable bool operator_equals(tuple5<T,T2,T3,T4,T5>* self, tuple5<T,T2,T3,T4,T5>* right) 
+    bool operator_equals(tuple5<T,T2,T3,T4,T5>* self, tuple5<T,T2,T3,T4,T5>* right) 
     {
         if(!(self.v1 === right.v1)) {
             return false;
@@ -2973,7 +2973,7 @@ impl tuple5 <T, T2, T3, T4, T5>
         
         return true;
     }
-    immutable bool operator_not_equals(tuple5<T,T2,T3,T4,T5>* left, tuple5<T,T2,T3,T4,T5>* right) {
+    bool operator_not_equals(tuple5<T,T2,T3,T4,T5>* left, tuple5<T,T2,T3,T4,T5>* right) {
         return !left.operator_equals(right);
     }
 }
@@ -3008,7 +3008,7 @@ uniq void buffer*::finalize(buffer* self)
     if(self && self.buf) delete borrow self.buf;
 }
 
-uniq immutable buffer*% buffer*::clone(buffer* self)
+uniq buffer*% buffer*::clone(buffer* self)
 {
     if(self == null) {
         return null;
@@ -3024,7 +3024,7 @@ uniq immutable buffer*% buffer*::clone(buffer* self)
     return result;
 }
 
-uniq immutable bool buffer*::equals(buffer* left, buffer* right)
+uniq bool buffer*::equals(buffer* left, buffer* right)
 {
     if(left == null || right == null) {
         return false;
@@ -3033,7 +3033,7 @@ uniq immutable bool buffer*::equals(buffer* left, buffer* right)
     return left.to_string().equals(right.to_string());
 }
 
-uniq immutable int buffer*::length(buffer* self) 
+uniq int buffer*::length(buffer* self) 
 {
     if(self == null) {
         return 0;
@@ -3306,7 +3306,7 @@ uniq buffer* buffer*::alignment(buffer* self)
     return self;
 }
 
-uniq immutable int buffer*::compare(buffer* left, buffer* right) 
+uniq int buffer*::compare(buffer* left, buffer* right) 
 {
     if(left == null && right == null) {
         return 0;
@@ -3321,7 +3321,7 @@ uniq immutable int buffer*::compare(buffer* left, buffer* right)
     return strcmp(left.buf, right.buf);
 }
 
-uniq immutable buffer*% char*::to_buffer(char* self) 
+uniq buffer*% char*::to_buffer(char* self) 
 {
     var result = new buffer.initialize();
     
@@ -3334,7 +3334,7 @@ uniq immutable buffer*% char*::to_buffer(char* self)
     return result;
 }
 
-uniq immutable string buffer*::to_string(buffer* self)
+uniq string buffer*::to_string(buffer* self)
 {
     if(self == null) {
         return string("");
@@ -3343,7 +3343,7 @@ uniq immutable string buffer*::to_string(buffer* self)
     return string(self.buf);
 }
 
-uniq immutable unsigned char* buffer*::head_pointer(buffer* self)
+uniq unsigned char* buffer*::head_pointer(buffer* self)
 {
     return self.buf;
 }
@@ -3355,7 +3355,7 @@ uniq buffer*% char[]::to_buffer(char* self, size_t len)
     return result;
 }
 
-uniq immutable buffer*% char*[]::to_buffer(char** self, size_t len) 
+uniq buffer*% char*[]::to_buffer(char** self, size_t len) 
 {
     var result = new buffer();
     for(int i=0; i<len; i++) {
@@ -3364,42 +3364,42 @@ uniq immutable buffer*% char*[]::to_buffer(char** self, size_t len)
     return result;
 }
 
-uniq immutable buffer*% short[]::to_buffer(short* self, size_t len) 
+uniq buffer*% short[]::to_buffer(short* self, size_t len) 
 {
     var result = new buffer();
     result.append((char*)self, sizeof(short)*len);
     return result;
 }
 
-uniq immutable buffer*% int[]::to_buffer(int* self, size_t len) 
+uniq buffer*% int[]::to_buffer(int* self, size_t len) 
 {
     var result = new buffer();
     result.append((char*)self, sizeof(int)*len);
     return result;
 }
 
-uniq immutable buffer*% long[]::to_buffer(long* self, size_t len) 
+uniq buffer*% long[]::to_buffer(long* self, size_t len) 
 {
     var result = new buffer();
     result.append((char*)self, sizeof(long)*len);
     return result;
 }
 
-uniq immutable buffer*% float[]::to_buffer(float* self, size_t len) 
+uniq buffer*% float[]::to_buffer(float* self, size_t len) 
 {
     var result = new buffer();
     result.append((char*)self, sizeof(float)*len);
     return result;
 }
 
-uniq immutable buffer*% double[]::to_buffer(double* self, size_t len) 
+uniq buffer*% double[]::to_buffer(double* self, size_t len) 
 {
     var result = new buffer();
     result.append((char*)self, sizeof(double)*len);
     return result;
 }
 
-uniq immutable string buffer*::printable(buffer* self)
+uniq string buffer*::printable(buffer* self)
 {
     int len = self.len;
     string result = new char[len*2+1];
@@ -3429,7 +3429,7 @@ uniq immutable string buffer*::printable(buffer* self)
 
 impl list <T>
 {
-    immutable buffer*% to_buffer(list<T>* self) {
+    buffer*% to_buffer(list<T>* self) {
         var result = new buffer();
         for(var it = self.begin(); !self.end(); it = self.next()) {
             result.append((char*)&it, sizeof(T));
@@ -3479,77 +3479,77 @@ uniq list<double>*% double[]::to_list(double* self, size_t len)
 //////////////////////////////
 /// base library(equals)
 //////////////////////////////
-uniq immutable bool bool::equals(bool self, bool right) 
+uniq bool bool::equals(bool self, bool right) 
 {
     return self == right;
 }
 
-uniq immutable bool _Bool::equals(_Bool self, _Bool right) 
+uniq bool _Bool::equals(_Bool self, _Bool right) 
 {
     return self == right;
 }
 
-uniq immutable bool char::equals(char self, char right) 
+uniq bool char::equals(char self, char right) 
 {
     return self == right;
 }
 
-uniq immutable bool short::equals(short self, short right) 
+uniq bool short::equals(short self, short right) 
 {
     return self == right;
 }
 
-uniq immutable bool int::equals(int self, int right) 
+uniq bool int::equals(int self, int right) 
 {
     return self == right;
 }
 
-uniq immutable bool long::equals(long self, long right) 
+uniq bool long::equals(long self, long right) 
 {
     return self == right;
 }
 
-uniq immutable bool size_t::equals(size_t self, size_t right) 
+uniq bool size_t::equals(size_t self, size_t right) 
 {
     return self == right;
 }
 
-uniq immutable bool float::equals(float self, float right) 
+uniq bool float::equals(float self, float right) 
 {
     return self == right;
 }
 
-uniq immutable bool double::equals(double self, double right) 
+uniq bool double::equals(double self, double right) 
 {
     return self == right;
 }
 
-uniq immutable bool bool::operator_equals(bool self, bool right)
+uniq bool bool::operator_equals(bool self, bool right)
 {
     return self == right;
 }
 
-uniq immutable bool _Bool::operator_equals(bool self, bool right)
+uniq bool _Bool::operator_equals(bool self, bool right)
 {
     return self == right;
 }
 
-uniq immutable bool char::operator_equals(char self, char right)
+uniq bool char::operator_equals(char self, char right)
 {
     return self == right;
 }
 
-uniq immutable bool short::operator_equals(short self, short right)
+uniq bool short::operator_equals(short self, short right)
 {
     return self == right;
 }
 
-uniq immutable bool int::operator_equals(int self, int right)
+uniq bool int::operator_equals(int self, int right)
 {
     return self == right;
 }
 
-uniq immutable bool long::operator_equals(long self, long right)
+uniq bool long::operator_equals(long self, long right)
 {
     return self == right;
 }

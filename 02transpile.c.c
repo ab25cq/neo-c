@@ -1431,7 +1431,6 @@ struct sType
     _Bool mRecord;
     _Bool mExtern;
     _Bool mRestrict;
-    _Bool mImmutable;
     _Bool mTask;
     _Bool mHeap;
     _Bool mChannel;
@@ -1517,7 +1516,6 @@ struct sFun
     char* mAttribute;
     char* mFunAttribute;
     _Bool mGenericsFun;
-    _Bool mImmutable;
 };
 
 struct sGenericsFun

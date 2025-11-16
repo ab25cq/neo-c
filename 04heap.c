@@ -82,7 +82,6 @@ sType*% solve_generics(sType*% type, sType*% generics_type, sInfo* info)
         }
         
         var array_num = type->mArrayNum;
-        bool immutable_ = type->mImmutable;
         int pointer_num = type->mPointerNum;
         bool heap = type->mHeap;
         bool guard_ = type->mGuardValue;
@@ -109,9 +108,6 @@ sType*% solve_generics(sType*% type, sType*% generics_type, sInfo* info)
         }
         if(no_calling_destructor) {
             result->mNoCallingDestructor = true;
-        }
-        if(immutable_) {
-            result->mImmutable = immutable_;
         }
         if(array_num.length() > 0) {
             result->mArrayNum = array_num;
@@ -141,7 +137,6 @@ sType*% solve_generics(sType*% type, sType*% generics_type, sInfo* info)
         if(generics_number != generics_number2) 
         {
             var array_num = type->mArrayNum;
-            bool immutable_ = type->mImmutable;
             int pointer_num = type->mPointerNum;
             bool heap = type->mHeap;
             bool guard_ = type->mGuardValue;
@@ -176,9 +171,6 @@ sType*% solve_generics(sType*% type, sType*% generics_type, sInfo* info)
             }
             if(no_calling_destructor) {
                 result->mNoCallingDestructor = true;
-            }
-            if(immutable_) {
-                result->mImmutable = immutable_;
             }
             if(array_num.length() > 0) {
                 result->mArrayNum = array_num;
@@ -227,7 +219,6 @@ sType*% solve_method_generics(sType* type, sInfo* info)
         }
         
         var array_num = type->mArrayNum;
-        bool immutable_ = type->mImmutable;
         int pointer_num = type->mPointerNum;
         bool heap = type->mHeap;
         bool guard_ = type->mGuardValue;
@@ -254,9 +245,6 @@ sType*% solve_method_generics(sType* type, sInfo* info)
         }
         if(no_calling_destructor) {
             result->mNoCallingDestructor = true;
-        }
-        if(immutable_) {
-            result->mImmutable = immutable_;
         }
         if(array_num.length() > 0) {
             result->mArrayNum = array_num;

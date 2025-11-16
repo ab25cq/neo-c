@@ -372,11 +372,6 @@ class sStoreNode extends sNodeBase
                     if(parent_var->mFunName !== info.come_fun.mName) {
                         sType* left_type = parent_var->mType;
                         
-                        if(left_type->mImmutable) {
-                            err_msg(info, "Immutable object can't change");
-                            return true;
-                        }
-                        
                         check_assign_type(s"\{self.name} is assigning to", left_type, right_type, right_value);
                         
                         if(left_type->mPointerNum > 0 && right_type->mPointerNum > 0 && right_type->mHeap && left_type->mHeap) {
@@ -430,11 +425,6 @@ class sStoreNode extends sNodeBase
             }
             
             sType*% left_type = clone var_->mType;
-            
-            if(left_type->mImmutable) {
-                err_msg(info, "Immutable object can't change");
-                return true;
-            }
             
             if(left_type->mChannel && new_channel) {
                 CVALUE*% come_value = new CVALUE();
