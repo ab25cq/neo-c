@@ -1,4 +1,5 @@
 #include "common.h"
+
 #if defined(__LINUX__) || defined(__MAC__) || defined(__ANDROID__)
 #include <poll.h>
 #endif
@@ -132,7 +133,7 @@ class sReturnNode extends sNodeBase
         
         return true;
     }
-};
+}
 
 sNode*% create_return_node(sNode*% value, string value_source, sInfo* info=info)
 {
