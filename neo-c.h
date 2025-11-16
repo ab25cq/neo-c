@@ -28,26 +28,11 @@ typedef char*% string;
 #undef _GNU_SOURCE
 __c__ {#define _GNU_SOURCE}
 #define _GNU_SOURCE
-no_output {
-#include "stdarg.h"
-}
-no_output {
-#include "stdlib.h"
-}
-no_output {
-#include "stdio.h"
-}
-no_output {
-#include "string.h"
-}
-no_output {
-#include "pico/stdio.h"
-}
 __c__ {#include "stdarg.h"}
 __c__ {#include "stdlib.h"}
 __c__ {#include "stdint.h"}
 __c__ {#include "string.h"}
-//__c__ {#include "stdio.h"}
+__c__ {#include "stdio.h"}
 __c__ {#include "ctype.h"}
 __c__ {#include "wchar.h"}
 __c__ {#include "pico/stdlib.h"}
@@ -70,7 +55,7 @@ using neo-c;
 ///////////////////////////////////////////////////////////////////////////
 // BARE METAL 
 ///////////////////////////////////////////////////////////////////////////
-#elif defined(__BARE_METAL__)
+#elif defined(__BARE_METAL__) 
 
 #include "neo-c-libc.h"
 
