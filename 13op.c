@@ -2183,8 +2183,9 @@ sNode*% expression(sInfo* info=info, bool type_name_exp=false) version 13
         
         if(is_type_name(word) && !fun_call) {
             var type1, name, err = parse_type(parse_variable_name:false, parse_multiple_type:false);
+            var type2 = solve_generics(type1, info->generics_type, info);
             
-            node = new sTypeNode(type1) implements sNode;
+            node = new sTypeNode(type2) implements sNode;
         }
         else {
             node = conditional_exp(info);

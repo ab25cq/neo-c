@@ -708,6 +708,7 @@ class sFunCallNode extends sNodeBase
             || fun_name === "__builtin___strncat_chk" || fun_name === "__builtin___vsnprintf_chk" 
             || fun_name === "__builtin_strrchr"
             || fun_name === "__builtin_clz"
+            || fun_name === "__builtin_choose_expr"
             || fun_name === "__dsb"
             || fun_name === "__isb"
             || fun_name === "__dmb"
@@ -887,6 +888,12 @@ class sFunCallNode extends sNodeBase
             }
             else if(fun_name === "__builtin_arm_ldcl") {
                 come_value.type = new sType(s"void");
+            }
+            else if(fun_name === "__builtin_choose_expr") {
+                come_value.type = new sType(s"int");
+            }
+            else {
+                come_value.type = new sType(s"int");
             }
             
             come_value.var = null;
@@ -2000,7 +2007,6 @@ sNode*% parse_function_call(char* fun_name, sInfo* info, bool come_=false)
         if(fun_name === "__builtin_types_compatible_p") {
             type_name_exp = true;
         }
-        
         
         sNode*% node = expression(type_name_exp:type_name_exp);
         
