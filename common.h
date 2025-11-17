@@ -709,6 +709,8 @@ uniq class sCurrentNode extends sNodeBase
         
         vtable = info->lv_table;
         
+        add_come_code(info, "({");
+        
         while(vtable) {
             foreach(it, vtable.mVars) {
                 char* key = it;
@@ -753,6 +755,13 @@ uniq class sCurrentNode extends sNodeBase
             }
             
             vtable = vtable->mParent;
+        }
+        add_come_code(info, "})");
+        if(info->in_conditional) {
+            add_come_code(info, ",");
+        }
+        else {
+            add_come_code(info, ";");
         }
         
         CVALUE*% come_value = new CVALUE();

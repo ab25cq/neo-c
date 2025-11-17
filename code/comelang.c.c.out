@@ -1,0 +1,470 @@
+comelang.c.c:1400:17: warning: excess elements in array initializer [-Wexcess-initializers]
+ 1400 | int a[3]={1,2,3,4};
+      |                 ^
+comelang.c.c:1401:20: warning: excess elements in array initializer [-Wexcess-initializers]
+ 1401 | int b[2][2]={ {1,2,3}, {4,5} };
+      |                    ^
+comelang.c.c:1402:10: warning: excess elements in scalar initializer [-Wexcess-initializers]
+ 1402 | int c={1,2};
+      |          ^
+comelang.c.c:2747:7: warning: assigning to 'struct P2 *' from 'const struct P2 *' discards qualifiers [-Wincompatible-pointer-types-discards-qualifiers]
+ 2747 |     pp=(const struct P2*)vp;
+      |       ^~~~~~~~~~~~~~~~~~~~~
+comelang.c.c:2900:41: warning: using the result of an assignment as a condition without parentheses [-Wparentheses]
+ 2900 |     else if(    __current_stack1__.argc = &argc;
+      |                 ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+comelang.c.c:2900:41: note: place parentheses around the assignment to silence this warning
+ 2900 |     else if(    __current_stack1__.argc = &argc;
+      |                                         ^      
+      |                 (                              )
+comelang.c.c:2900:41: note: use '==' to turn this assignment into an equality comparison
+ 2900 |     else if(    __current_stack1__.argc = &argc;
+      |                                         ^
+      |                                         ==
+comelang.c.c:2900:48: error: expected ')'
+ 2900 |     else if(    __current_stack1__.argc = &argc;
+      |                                                ^
+comelang.c.c:2900:12: note: to match this '('
+ 2900 |     else if(    __current_stack1__.argc = &argc;
+      |            ^
+comelang.c.c:2905:26: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 2905 |     __current_stack1__.a = &a;
+      |                          ^ ~~
+comelang.c.c:2906:41: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 2906 |     __current_stack1__.__list_values1__ = &__list_values1__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:2910:29: error: expected ';' after expression
+ 2910 |     _conditional_value_X0;})    ) {
+      |                             ^
+      |                             ;
+comelang.c.c:2910:33: error: expected expression
+ 2910 |     _conditional_value_X0;})    ) {
+      |                                 ^
+comelang.c.c:2914:46: warning: using the result of an assignment as a condition without parentheses [-Wparentheses]
+ 2914 |     for(    i=0    ;    __current_stack2__.i = &i;
+      |                         ~~~~~~~~~~~~~~~~~~~~~^~~~
+comelang.c.c:2914:46: note: place parentheses around the assignment to silence this warning
+ 2914 |     for(    i=0    ;    __current_stack2__.i = &i;
+      |                                              ^   
+      |                         (                        )
+comelang.c.c:2914:46: note: use '==' to turn this assignment into an equality comparison
+ 2914 |     for(    i=0    ;    __current_stack2__.i = &i;
+      |                                              ^
+      |                                              ==
+comelang.c.c:2915:36: error: expected ')'
+ 2915 |     __current_stack2__.argc = &argc;
+      |                                    ^
+comelang.c.c:2914:8: note: to match this '('
+ 2914 |     for(    i=0    ;    __current_stack2__.i = &i;
+      |        ^
+comelang.c.c:2920:26: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 2920 |     __current_stack2__.a = &a;
+      |                          ^ ~~
+comelang.c.c:2921:41: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 2921 |     __current_stack2__.__list_values1__ = &__list_values1__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:2926:41: error: expected ';' after expression
+ 2926 |     _conditional_value_X0;})    ;    i++    ){
+      |                                         ^
+      |                                         ;
+comelang.c.c:2926:45: error: expected expression
+ 2926 |     _conditional_value_X0;})    ;    i++    ){
+      |                                             ^
+comelang.c.c:2965:41: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 2965 |     __current_stack4__.__list_values1__ = &__list_values1__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:2972:41: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 2972 |     __current_stack4__.__list_values2__ = &__list_values2__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:2978:41: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 2978 |     __current_stack6__.__list_values1__ = &__list_values1__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:2985:41: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 2985 |     __current_stack6__.__list_values2__ = &__list_values2__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:2986:41: warning: incompatible pointer types assigning to 'char *' from 'char *(*)[3]' [-Wincompatible-pointer-types]
+ 2986 |     __current_stack6__.__list_values3__ = &__list_values3__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:2987:41: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 2987 |     __current_stack6__.__list_values4__ = &__list_values4__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3014:41: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 3014 |     __current_stack7__.__list_values1__ = &__list_values1__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3021:41: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 3021 |     __current_stack7__.__list_values2__ = &__list_values2__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3022:41: warning: incompatible pointer types assigning to 'char *' from 'char *(*)[3]' [-Wincompatible-pointer-types]
+ 3022 |     __current_stack7__.__list_values3__ = &__list_values3__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3023:41: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 3023 |     __current_stack7__.__list_values4__ = &__list_values4__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3024:41: warning: incompatible pointer types assigning to 'char *' from 'char *(*)[3]' [-Wincompatible-pointer-types]
+ 3024 |     __current_stack7__.__list_values5__ = &__list_values5__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3025:41: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 3025 |     __current_stack7__.__list_values6__ = &__list_values6__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3032:41: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 3032 |     __current_stack9__.__list_values1__ = &__list_values1__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3039:41: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 3039 |     __current_stack9__.__list_values2__ = &__list_values2__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3040:41: warning: incompatible pointer types assigning to 'char *' from 'char *(*)[3]' [-Wincompatible-pointer-types]
+ 3040 |     __current_stack9__.__list_values3__ = &__list_values3__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3041:41: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 3041 |     __current_stack9__.__list_values4__ = &__list_values4__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3042:41: warning: incompatible pointer types assigning to 'char *' from 'char *(*)[3]' [-Wincompatible-pointer-types]
+ 3042 |     __current_stack9__.__list_values5__ = &__list_values5__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3043:41: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 3043 |     __current_stack9__.__list_values6__ = &__list_values6__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3050:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 3050 |     __current_stack11__.__list_values1__ = &__list_values1__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3057:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 3057 |     __current_stack11__.__list_values2__ = &__list_values2__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3058:42: warning: incompatible pointer types assigning to 'char *' from 'char *(*)[3]' [-Wincompatible-pointer-types]
+ 3058 |     __current_stack11__.__list_values3__ = &__list_values3__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3059:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 3059 |     __current_stack11__.__list_values4__ = &__list_values4__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3060:42: warning: incompatible pointer types assigning to 'char *' from 'char *(*)[3]' [-Wincompatible-pointer-types]
+ 3060 |     __current_stack11__.__list_values5__ = &__list_values5__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3061:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 3061 |     __current_stack11__.__list_values6__ = &__list_values6__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3072:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 3072 |     __current_stack12__.__list_values1__ = &__list_values1__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3079:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 3079 |     __current_stack12__.__list_values2__ = &__list_values2__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3080:42: warning: incompatible pointer types assigning to 'char *' from 'char *(*)[3]' [-Wincompatible-pointer-types]
+ 3080 |     __current_stack12__.__list_values3__ = &__list_values3__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3081:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 3081 |     __current_stack12__.__list_values4__ = &__list_values4__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3082:42: warning: incompatible pointer types assigning to 'char *' from 'char *(*)[3]' [-Wincompatible-pointer-types]
+ 3082 |     __current_stack12__.__list_values5__ = &__list_values5__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3083:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 3083 |     __current_stack12__.__list_values6__ = &__list_values6__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3084:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 3084 |     __current_stack12__.__list_values7__ = &__list_values7__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3085:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 3085 |     __current_stack12__.__list_values8__ = &__list_values8__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3092:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 3092 |     __current_stack14__.__list_values1__ = &__list_values1__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3099:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 3099 |     __current_stack14__.__list_values2__ = &__list_values2__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3100:42: warning: incompatible pointer types assigning to 'char *' from 'char *(*)[3]' [-Wincompatible-pointer-types]
+ 3100 |     __current_stack14__.__list_values3__ = &__list_values3__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3101:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 3101 |     __current_stack14__.__list_values4__ = &__list_values4__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3102:42: warning: incompatible pointer types assigning to 'char *' from 'char *(*)[3]' [-Wincompatible-pointer-types]
+ 3102 |     __current_stack14__.__list_values5__ = &__list_values5__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3103:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 3103 |     __current_stack14__.__list_values6__ = &__list_values6__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3104:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 3104 |     __current_stack14__.__list_values7__ = &__list_values7__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3105:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 3105 |     __current_stack14__.__list_values8__ = &__list_values8__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3112:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 3112 |     __current_stack16__.__list_values1__ = &__list_values1__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3119:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 3119 |     __current_stack16__.__list_values2__ = &__list_values2__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3120:42: warning: incompatible pointer types assigning to 'char *' from 'char *(*)[3]' [-Wincompatible-pointer-types]
+ 3120 |     __current_stack16__.__list_values3__ = &__list_values3__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3121:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 3121 |     __current_stack16__.__list_values4__ = &__list_values4__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3122:42: warning: incompatible pointer types assigning to 'char *' from 'char *(*)[3]' [-Wincompatible-pointer-types]
+ 3122 |     __current_stack16__.__list_values5__ = &__list_values5__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3123:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 3123 |     __current_stack16__.__list_values6__ = &__list_values6__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3124:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 3124 |     __current_stack16__.__list_values7__ = &__list_values7__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3125:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 3125 |     __current_stack16__.__list_values8__ = &__list_values8__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3153:7: warning: assigning to 'int *' from 'const int *' discards qualifiers [-Wincompatible-pointer-types-discards-qualifiers]
+ 3153 |     ip=(const int*)vp;
+      |       ^~~~~~~~~~~~~~~
+comelang.c.c:2910:5: warning: expression result unused [-Wunused-value]
+ 2910 |     _conditional_value_X0;})    ) {
+      |     ^~~~~~~~~~~~~~~~~~~~~
+comelang.c.c:2926:5: warning: expression result unused [-Wunused-value]
+ 2926 |     _conditional_value_X0;})    ;    i++    ){
+      |     ^~~~~~~~~~~~~~~~~~~~~
+comelang.c.c:3777:37: warning: comparison of distinct pointer types ('struct sMemHeader *' and 'struct sMemHeaderTiny *') [-Wcompare-distinct-pointer-types]
+ 3777 |             if(            gAllocMem==it_17            ) {
+      |                            ~~~~~~~~~^ ~~~~~
+comelang.c.c:4641:22: warning: assigning to 'unsigned char *' from 'char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+ 4641 |     __result_obj__79 = self->buf;
+      |                      ^ ~~~~~~~~~
+comelang.c.c:5616:31: warning: cast to smaller integer type 'int' from 'void *' [-Wvoid-pointer-to-int-cast]
+ 5616 |     return (int_get_hash_key(((int)value)));
+      |                               ^~~~~~~~~~
+64 warnings and 6 errors generated.
+comelang.c.c:1400:17: warning: excess elements in array initializer [-Wexcess-initializers]
+ 1400 | int a[3]={1,2,3,4};
+      |                 ^
+comelang.c.c:1401:20: warning: excess elements in array initializer [-Wexcess-initializers]
+ 1401 | int b[2][2]={ {1,2,3}, {4,5} };
+      |                    ^
+comelang.c.c:1402:10: warning: excess elements in scalar initializer [-Wexcess-initializers]
+ 1402 | int c={1,2};
+      |          ^
+comelang.c.c:2747:7: warning: assigning to 'struct P2 *' from 'const struct P2 *' discards qualifiers [-Wincompatible-pointer-types-discards-qualifiers]
+ 2747 |     pp=(const struct P2*)vp;
+      |       ^~~~~~~~~~~~~~~~~~~~~
+comelang.c.c:2900:41: warning: using the result of an assignment as a condition without parentheses [-Wparentheses]
+ 2900 |     else if(    __current_stack1__.argc = &argc;
+      |                 ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+comelang.c.c:2900:41: note: place parentheses around the assignment to silence this warning
+ 2900 |     else if(    __current_stack1__.argc = &argc;
+      |                                         ^      
+      |                 (                              )
+comelang.c.c:2900:41: note: use '==' to turn this assignment into an equality comparison
+ 2900 |     else if(    __current_stack1__.argc = &argc;
+      |                                         ^
+      |                                         ==
+comelang.c.c:2900:48: error: expected ')'
+ 2900 |     else if(    __current_stack1__.argc = &argc;
+      |                                                ^
+comelang.c.c:2900:12: note: to match this '('
+ 2900 |     else if(    __current_stack1__.argc = &argc;
+      |            ^
+comelang.c.c:2905:26: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 2905 |     __current_stack1__.a = &a;
+      |                          ^ ~~
+comelang.c.c:2906:41: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 2906 |     __current_stack1__.__list_values1__ = &__list_values1__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:2910:29: error: expected ';' after expression
+ 2910 |     _conditional_value_X0;})    ) {
+      |                             ^
+      |                             ;
+comelang.c.c:2910:33: error: expected expression
+ 2910 |     _conditional_value_X0;})    ) {
+      |                                 ^
+comelang.c.c:2914:46: warning: using the result of an assignment as a condition without parentheses [-Wparentheses]
+ 2914 |     for(    i=0    ;    __current_stack2__.i = &i;
+      |                         ~~~~~~~~~~~~~~~~~~~~~^~~~
+comelang.c.c:2914:46: note: place parentheses around the assignment to silence this warning
+ 2914 |     for(    i=0    ;    __current_stack2__.i = &i;
+      |                                              ^   
+      |                         (                        )
+comelang.c.c:2914:46: note: use '==' to turn this assignment into an equality comparison
+ 2914 |     for(    i=0    ;    __current_stack2__.i = &i;
+      |                                              ^
+      |                                              ==
+comelang.c.c:2915:36: error: expected ')'
+ 2915 |     __current_stack2__.argc = &argc;
+      |                                    ^
+comelang.c.c:2914:8: note: to match this '('
+ 2914 |     for(    i=0    ;    __current_stack2__.i = &i;
+      |        ^
+comelang.c.c:2920:26: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 2920 |     __current_stack2__.a = &a;
+      |                          ^ ~~
+comelang.c.c:2921:41: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 2921 |     __current_stack2__.__list_values1__ = &__list_values1__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:2926:41: error: expected ';' after expression
+ 2926 |     _conditional_value_X0;})    ;    i++    ){
+      |                                         ^
+      |                                         ;
+comelang.c.c:2926:45: error: expected expression
+ 2926 |     _conditional_value_X0;})    ;    i++    ){
+      |                                             ^
+comelang.c.c:2965:41: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 2965 |     __current_stack4__.__list_values1__ = &__list_values1__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:2972:41: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 2972 |     __current_stack4__.__list_values2__ = &__list_values2__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:2978:41: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 2978 |     __current_stack6__.__list_values1__ = &__list_values1__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:2985:41: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 2985 |     __current_stack6__.__list_values2__ = &__list_values2__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:2986:41: warning: incompatible pointer types assigning to 'char *' from 'char *(*)[3]' [-Wincompatible-pointer-types]
+ 2986 |     __current_stack6__.__list_values3__ = &__list_values3__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:2987:41: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 2987 |     __current_stack6__.__list_values4__ = &__list_values4__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3014:41: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 3014 |     __current_stack7__.__list_values1__ = &__list_values1__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3021:41: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 3021 |     __current_stack7__.__list_values2__ = &__list_values2__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3022:41: warning: incompatible pointer types assigning to 'char *' from 'char *(*)[3]' [-Wincompatible-pointer-types]
+ 3022 |     __current_stack7__.__list_values3__ = &__list_values3__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3023:41: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 3023 |     __current_stack7__.__list_values4__ = &__list_values4__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3024:41: warning: incompatible pointer types assigning to 'char *' from 'char *(*)[3]' [-Wincompatible-pointer-types]
+ 3024 |     __current_stack7__.__list_values5__ = &__list_values5__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3025:41: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 3025 |     __current_stack7__.__list_values6__ = &__list_values6__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3032:41: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 3032 |     __current_stack9__.__list_values1__ = &__list_values1__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3039:41: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 3039 |     __current_stack9__.__list_values2__ = &__list_values2__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3040:41: warning: incompatible pointer types assigning to 'char *' from 'char *(*)[3]' [-Wincompatible-pointer-types]
+ 3040 |     __current_stack9__.__list_values3__ = &__list_values3__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3041:41: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 3041 |     __current_stack9__.__list_values4__ = &__list_values4__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3042:41: warning: incompatible pointer types assigning to 'char *' from 'char *(*)[3]' [-Wincompatible-pointer-types]
+ 3042 |     __current_stack9__.__list_values5__ = &__list_values5__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3043:41: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 3043 |     __current_stack9__.__list_values6__ = &__list_values6__;
+      |                                         ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3050:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 3050 |     __current_stack11__.__list_values1__ = &__list_values1__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3057:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 3057 |     __current_stack11__.__list_values2__ = &__list_values2__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3058:42: warning: incompatible pointer types assigning to 'char *' from 'char *(*)[3]' [-Wincompatible-pointer-types]
+ 3058 |     __current_stack11__.__list_values3__ = &__list_values3__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3059:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 3059 |     __current_stack11__.__list_values4__ = &__list_values4__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3060:42: warning: incompatible pointer types assigning to 'char *' from 'char *(*)[3]' [-Wincompatible-pointer-types]
+ 3060 |     __current_stack11__.__list_values5__ = &__list_values5__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3061:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 3061 |     __current_stack11__.__list_values6__ = &__list_values6__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3072:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 3072 |     __current_stack12__.__list_values1__ = &__list_values1__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3079:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 3079 |     __current_stack12__.__list_values2__ = &__list_values2__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3080:42: warning: incompatible pointer types assigning to 'char *' from 'char *(*)[3]' [-Wincompatible-pointer-types]
+ 3080 |     __current_stack12__.__list_values3__ = &__list_values3__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3081:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 3081 |     __current_stack12__.__list_values4__ = &__list_values4__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3082:42: warning: incompatible pointer types assigning to 'char *' from 'char *(*)[3]' [-Wincompatible-pointer-types]
+ 3082 |     __current_stack12__.__list_values5__ = &__list_values5__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3083:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 3083 |     __current_stack12__.__list_values6__ = &__list_values6__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3084:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 3084 |     __current_stack12__.__list_values7__ = &__list_values7__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3085:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 3085 |     __current_stack12__.__list_values8__ = &__list_values8__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3092:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 3092 |     __current_stack14__.__list_values1__ = &__list_values1__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3099:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 3099 |     __current_stack14__.__list_values2__ = &__list_values2__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3100:42: warning: incompatible pointer types assigning to 'char *' from 'char *(*)[3]' [-Wincompatible-pointer-types]
+ 3100 |     __current_stack14__.__list_values3__ = &__list_values3__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3101:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 3101 |     __current_stack14__.__list_values4__ = &__list_values4__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3102:42: warning: incompatible pointer types assigning to 'char *' from 'char *(*)[3]' [-Wincompatible-pointer-types]
+ 3102 |     __current_stack14__.__list_values5__ = &__list_values5__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3103:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 3103 |     __current_stack14__.__list_values6__ = &__list_values6__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3104:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 3104 |     __current_stack14__.__list_values7__ = &__list_values7__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3105:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 3105 |     __current_stack14__.__list_values8__ = &__list_values8__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3112:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 3112 |     __current_stack16__.__list_values1__ = &__list_values1__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3119:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 3119 |     __current_stack16__.__list_values2__ = &__list_values2__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3120:42: warning: incompatible pointer types assigning to 'char *' from 'char *(*)[3]' [-Wincompatible-pointer-types]
+ 3120 |     __current_stack16__.__list_values3__ = &__list_values3__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3121:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 3121 |     __current_stack16__.__list_values4__ = &__list_values4__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3122:42: warning: incompatible pointer types assigning to 'char *' from 'char *(*)[3]' [-Wincompatible-pointer-types]
+ 3122 |     __current_stack16__.__list_values5__ = &__list_values5__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3123:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 3123 |     __current_stack16__.__list_values6__ = &__list_values6__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3124:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[3]' [-Wincompatible-pointer-types]
+ 3124 |     __current_stack16__.__list_values7__ = &__list_values7__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3125:42: warning: incompatible pointer types assigning to 'int *' from 'int (*)[5]' [-Wincompatible-pointer-types]
+ 3125 |     __current_stack16__.__list_values8__ = &__list_values8__;
+      |                                          ^ ~~~~~~~~~~~~~~~~~
+comelang.c.c:3153:7: warning: assigning to 'int *' from 'const int *' discards qualifiers [-Wincompatible-pointer-types-discards-qualifiers]
+ 3153 |     ip=(const int*)vp;
+      |       ^~~~~~~~~~~~~~~
+comelang.c.c:2910:5: warning: expression result unused [-Wunused-value]
+ 2910 |     _conditional_value_X0;})    ) {
+      |     ^~~~~~~~~~~~~~~~~~~~~
+comelang.c.c:2926:5: warning: expression result unused [-Wunused-value]
+ 2926 |     _conditional_value_X0;})    ;    i++    ){
+      |     ^~~~~~~~~~~~~~~~~~~~~
+comelang.c.c:3777:37: warning: comparison of distinct pointer types ('struct sMemHeader *' and 'struct sMemHeaderTiny *') [-Wcompare-distinct-pointer-types]
+ 3777 |             if(            gAllocMem==it_17            ) {
+      |                            ~~~~~~~~~^ ~~~~~
+comelang.c.c:4641:22: warning: assigning to 'unsigned char *' from 'char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+ 4641 |     __result_obj__79 = self->buf;
+      |                      ^ ~~~~~~~~~
+comelang.c.c:5616:31: warning: cast to smaller integer type 'int' from 'void *' [-Wvoid-pointer-to-int-cast]
+ 5616 |     return (int_get_hash_key(((int)value)));
+      |                               ^~~~~~~~~~
+64 warnings and 6 errors generated.
