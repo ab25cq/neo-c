@@ -294,3 +294,40 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 96
     
     return inherit(buf, head, head_sline, info);
 }
+
+sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 16
+{
+    /// backtrace ///
+    bool define_enum = false;
+    {
+        char* p = info.p;
+        int sline = info.sline;
+        
+        if(buf === "enum") {
+            if(xisalpha(*info->p) || *info->p == '_') {
+                string type_name = parse_word();
+                
+                if(*info->p == '{') {
+                    skip_block();
+                    
+                    if(*info->p == ';') {
+                        define_enum = true;
+                    }
+                }
+            }
+        }
+        
+        info.p = p;
+        info.sline = sline;
+    }
+    
+    if(define_enum) {
+        string struct_attribute = parse_struct_attribute();
+        
+        string type_name = parse_word();
+        
+        return parse_enum(type_name, struct_attribute, info);
+    }
+    
+    return inherit(buf, head, head_sline, info);
+}

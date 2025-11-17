@@ -3,6 +3,7 @@
 (cd lcc; make clean)
 (cd 9cc; make clean)
 (cd cinatora; make clean)
+(cd code; make clean)
 
 if [ -e Makefile ]
 then

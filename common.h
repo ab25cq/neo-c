@@ -139,6 +139,7 @@ uniq class sType
     
     list<sNode*%>*% mArrayNum;
     list<int>*% mArrayStatic;
+    list<int>*% mArrayRestrict;
     
     int mPointerNum;
     int mOriginalTypeNamePointerNum;
@@ -208,6 +209,7 @@ uniq class sType
         self.mGenericsTypes = new list<sType*%>();
         self.mArrayNum = new list<sNode*%>();
         self.mArrayStatic = new list<int>();
+        self.mArrayRestrict = new list<int>();
         self.mParamTypes = new list<sType*%>();
         self.mParamNames = new list<string>();
         self.mVarArgs = false;
@@ -1006,6 +1008,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 97
 /////////////////////////////////////////////////////////////////////
 /// 16enum.c
 /////////////////////////////////////////////////////////////////////
+sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 16;
 sNode*% parse_enum(string type_name, string attribute, sInfo* info);
 sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 96;
 

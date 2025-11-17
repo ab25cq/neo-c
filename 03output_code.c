@@ -394,8 +394,14 @@ string make_define_var(sType* type, char* name, sInfo* info=info, bool no_static
             }
             CVALUE*% cvalue = get_value_from_stack(-1, info);
         
-            if(type2->mArrayStatic[n]) {
+            if(type2->mArrayRestrict[n] && type2->mArrayStatic[n]) {
+                buf.append_format("[restrict static %s]", cvalue.c_value);
+            }
+            else if(type2->mArrayStatic[n]) {
                 buf.append_format("[static %s]", cvalue.c_value);
+            }
+            else if(type2->mArrayRestrict[n]) {
+                buf.append_format("[restrict %s]", cvalue.c_value);
             }
             else {
                 buf.append_format("[%s]", cvalue.c_value);
@@ -451,8 +457,14 @@ string make_define_var(sType* type, char* name, sInfo* info=info, bool no_static
             }
             CVALUE*% cvalue = get_value_from_stack(-1, info);
         
-            if(type2->mArrayStatic[n]) {
+            if(type2->mArrayRestrict[n] && type2->mArrayStatic[n]) {
+                buf.append_format("[restrict static %s]", cvalue.c_value);
+            }
+            else if(type2->mArrayStatic[n]) {
                 buf.append_format("[static %s]", cvalue.c_value);
+            }
+            else if(type2->mArrayRestrict[n]) {
+                buf.append_format("[restrict %s]", cvalue.c_value);
             }
             else {
                 buf.append_format("[%s]", cvalue.c_value);

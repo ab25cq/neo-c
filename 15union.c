@@ -309,3 +309,4 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
     
     return inherit(buf, head, head_sline, info);
 }
+

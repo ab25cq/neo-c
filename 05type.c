@@ -3277,11 +3277,23 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
         parse_sharp();
         
         bool array_static = false;
-        if(parsecmp("static")) {
-            info->p += strlen("static");
-            skip_spaces_and_lf();
-            
-            array_static = true;
+        bool array_restrict = false;
+        while(1) {
+            if(parsecmp("static")) {
+                info->p += strlen("static");
+                skip_spaces_and_lf();
+                
+                array_static = true;
+            }
+            else if(parsecmp("restrict")) {
+                info->p += strlen("restrict");
+                skip_spaces_and_lf();
+                
+                array_restrict = true;
+            }
+            else {
+                break;
+            }
         }
         
         skip_pointer_attribute();
@@ -3299,6 +3311,7 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
         sNode*% node = expression();
         type.mArrayNum.push_back(node);
         type.mArrayStatic.push_back(array_static);
+        type.mArrayRestrict.push_back(array_restrict);
         parse_sharp();
         
         expected_next_character(']');
