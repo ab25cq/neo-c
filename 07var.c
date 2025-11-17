@@ -42,6 +42,12 @@ class sStoreNode extends sNodeBase
             
             var type = solve_generics(self.type, info->generics_type, info);
             
+            type->mPointerNum = 0;
+            
+            buffer*% buf = new buffer();
+            buf.append_format("%s ", make_type_name_string(type));
+            
+            int n = 0;
             foreach(it, self.multiple_declare) {
                 var type, var_name, right_value = it;
                 var_ = info.lv_table.mVars.at(string(var_name), null);
@@ -70,15 +76,34 @@ class sStoreNode extends sNodeBase
                     }
                     CVALUE*% come_value = get_value_from_stack(-1, info);
                     
-                    add_come_code(info, "%s=%s;\n", make_define_var(left_type, var_->mCValueName), come_value.c_value);
+                    string var_name2 = make_var_name(type2, var_name);
+                    
+                    buf.append_format("%s=%s", var_name2, come_value.c_value);
                 }
                 else {
                     if(info.come_fun.mName !== "memset" && !left_type->mNoCallingDestructor && info.funcs["memset"]) {
                         add_come_code_at_function_head2(info, "memset(&%s, 0, sizeof(%s));\n", var_->mCValueName, make_type_name_string(left_type, no_static:true));
                     }
-                    add_come_code_at_function_head(info, "%s;\n", make_define_var(left_type, var_->mCValueName));
+                    
+                    string var_name2 = make_var_name(type2, var_name);
+                    
+                    buf.append_format("%s", var_name2);
                 }
+                
+                if(n != self.multiple_declare.length()-1) {
+                    buf.append_format(", ");
+                }
+                n++;
             }
+            
+            CVALUE*% come_value = new CVALUE();
+            come_value.c_value = buf.to_string();
+            come_value.type = new sType(s"void");
+            come_value.var = null;
+            
+            info.stack.push_back(come_value);
+            
+            add_come_last_code(info, "%s", come_value.c_value);
         }
         else if(self.multiple_assign) {
             buffer*% buf = new buffer();

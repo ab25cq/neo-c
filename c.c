@@ -1,13 +1,18 @@
 #include <stdio.h>
-
-static int dot3(const int x[restrict static 3], const int y[restrict static 3]) {
-    int s = 0;
-    for (int i = 0; i < 3; i++) s += x[i] * y[i];
-    return s;
-}
+#include <stdlib.h>
 
 int main() {
-    enum Mode { MODE_NONE, MODE_ONE = 4, MODE_TWO };
+    int **a, *b;
+    int accum = 0;
+    for (int i = 0, j = 5; i < 3; i++, j--) {
+        accum += i + j;
+    }
+//    printf("%d\n", accum);
+/*
+    if(accum == (0+5) + (1+4) + (2+3)) {
+        puts("OK");
+    }
+*/
     
     return 0;
 }

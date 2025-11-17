@@ -522,6 +522,152 @@ string make_define_var(sType* type, char* name, sInfo* info=info, bool no_static
     return buf.to_string();
 }
 
+string make_var_name(sType* type, char* name, sInfo* info=info, bool no_static=false)
+{
+    var buf = new buffer();
+    
+    sType*% type2 = clone type;
+    if(type2->mArrayPointerType) {
+        type2->mPointerNum--;
+    }
+    
+    if(type2->mClass->mName === "lambda" && type2->mAsmName != null && type2->mAsmName !== "") {
+        return string(name);
+    }
+    else if(type2->mClass->mName === "lambda") {
+        return string(name);
+    }
+    else if(type2->mArrayPointerNum > 0) {
+        string type_name = make_type_name_string(type2, no_static:no_static);
+        
+        buf.append_format("(*%s)", name);
+        
+        int n = 0;
+        foreach(it, type2->mArrayNum) {
+            if(!node_compile(it)) {
+                err_msg(info, "invalid array number");
+                return string("");
+            }
+            CVALUE*% cvalue = get_value_from_stack(-1, info);
+        
+            if(type2->mArrayRestrict[n] && type2->mArrayStatic[n]) {
+                buf.append_format("[restrict static %s]", cvalue.c_value);
+            }
+            else if(type2->mArrayStatic[n]) {
+                buf.append_format("[static %s]", cvalue.c_value);
+            }
+            else if(type2->mArrayRestrict[n]) {
+                buf.append_format("[restrict %s]", cvalue.c_value);
+            }
+            else {
+                buf.append_format("[%s]", cvalue.c_value);
+            }
+            
+            n++;
+        }
+        
+        if(type2->mAsmName != null && type2->mAsmName !== "") {
+            buf.append_format(" __asm__(\"%s\")", type2->mAsmName);
+        }
+        
+        if(type2->mAttribute != null) {
+            buf.append_format(" ");
+            buf.append_format(type->mAttribute);
+        }
+    }
+    else if(type2->mSizeNum != null) {
+        if(!node_compile(type2->mSizeNum)) {
+            err_msg(info, "invalid bit field number");
+            return string("");
+        }
+        
+        CVALUE*% come_value = get_value_from_stack(-1, info);
+    
+        for(int i=0; i<type2->mPointerNum; i++) {
+            buf.append_str("*");
+        }
+        buf.append_format("%s:%s", name, come_value.c_value);
+        
+        if(type2->mAsmName != null && type2->mAsmName !== "") {
+            buf.append_format(" __asm__(\"%s\")", type2->mAsmName);
+        }
+        
+        if(type2->mAttribute != null) {
+            buf.append_format(" %s", type->mAttribute);
+        }
+    }
+    else if(type2->mArrayNum.length() > 0) {
+        for(int i=0; i<type2->mPointerNum; i++) {
+            buf.append_str("*");
+        }
+        buf.append_str(name);
+        
+        int n = 0;
+        foreach(it, type2->mArrayNum) {
+            if(!node_compile(it)) {
+                err_msg(info, "invalid array number");
+                return string("");
+            }
+            CVALUE*% cvalue = get_value_from_stack(-1, info);
+        
+            if(type2->mArrayRestrict[n] && type2->mArrayStatic[n]) {
+                buf.append_format("[restrict static %s]", cvalue.c_value);
+            }
+            else if(type2->mArrayStatic[n]) {
+                buf.append_format("[static %s]", cvalue.c_value);
+            }
+            else if(type2->mArrayRestrict[n]) {
+                buf.append_format("[restrict %s]", cvalue.c_value);
+            }
+            else {
+                buf.append_format("[%s]", cvalue.c_value);
+            }
+            
+            n++;
+        }
+        
+        if(type2->mArrayPointerType) {
+            buf.append_str("[]");
+        }
+        
+        if(type2->mAsmName != null && type2->mAsmName !== "") {
+            buf.append_format(" __asm__(\"%s\")", type2->mAsmName);
+        }
+        
+        if(type2->mAttribute != null) {
+            buf.append_format(" %s", type->mAttribute);
+        }
+    }
+    else {
+        if(type2->mAttribute != null) {
+            buf.append_format(type->mAttribute);
+        }
+        buf.append_str(" ");
+        for(int i=0; i<type2->mPointerNum; i++) {
+            buf.append_str("*");
+        }
+        buf.append_str(name);
+        
+        if(type2->mArrayPointerType) {
+            buf.append_str("[]");
+        }
+        
+        if(type2->mAsmName != null && type2->mAsmName !== "") {
+            buf.append_format(" __asm__(\"%s\")", type2->mAsmName);
+        }
+        
+        if(type2->mAttribute != null) {
+            buf.append_format(" %s", type->mAttribute);
+        }
+    }
+    
+    if(type2->mVarAttribute) {
+        buf.append_str(" " + type->mVarAttribute);
+    }
+    
+    return buf.to_string();
+}
+
 string make_come_define_var(sType* type, char* name, sInfo* info=info)
 {
     var buf = new buffer();
@@ -529,7 +675,7 @@ string make_come_define_var(sType* type, char* name, sInfo* info=info)
     sType*% type2 = clone type;
     if(type2->mArrayPointerType) {
         type2->mPointerNum--;
-   }
+    }
     
     if(type2->mClass->mName === "lambda" && type2->mAsmName != null && type2->mAsmName !== "") {
         var str = header_lambda(type2, type2->mAsmName, info);

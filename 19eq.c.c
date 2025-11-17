@@ -2853,6 +2853,7 @@ void add_come_last_code2(struct sInfo* info, const char* msg, ...);
 void dec_stack_ptr(int value, struct sInfo* info);
 struct CVALUE* get_value_from_stack(int offset, struct sInfo* info);
 char* make_define_var(struct sType* type, char* name, struct sInfo* info, _Bool no_static);
+char* make_var_name(struct sType* type, char* name, struct sInfo* info, _Bool no_static);
 void transpiler_clear_last_code(struct sInfo* info);
 _Bool output_header_file(struct sInfo* info);
 void on_drop_object(struct sType* type, char* obj, struct sInfo* info);

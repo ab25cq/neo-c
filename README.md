@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.5.0
+version 0.5.1
 
 ``` C
 #include <neo-c.h>
@@ -77,6 +77,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.5.1 more c compatiblities
 0.5.0 Reborn
 ```
 
