@@ -1,10 +1,10 @@
-#include <neo-c.h>
+#include <stdio.h>
+#include <stdint.h>
 
 int main(int argc, char** argv)
 {
-    [s"Z", s"B", s"Y", s"G", s"O", s"AB"].sort().each {
-        printf("%s\n", it);
-    }
+    _Static_assert(__builtin_types_compatible_p(char*, signed int),
+                   "int and signed int should be compatible");
     
     return 0;
 }

@@ -2136,11 +2136,63 @@ sNode*% conditional_exp(sInfo* info)
     return node;
 }
 
-sNode*% expression(sInfo* info=info) version 13
+class sTypeNode extends sNodeBase
 {
-    parse_sharp();
+    new(sType*% type, sInfo* info=info)
+    {
+        self.super();
+        
+        sType*% self.type = type;
+    }
+    
+    string kind()
+    {
+        return string("sTypeNode");
+    }
+    
+    bool compile(sInfo* info)
+    {
+        CVALUE*% come_value = new CVALUE();
+        
+        come_value.c_value = make_type_name_string(self.type);
+        come_value.type = new sType(s"__typename");
+        come_value.var = null;
+        
+        info.stack.push_back(come_value);
+        
+        return true;
+    }
+}
 
-    sNode*% node = conditional_exp(info);
+sNode*% expression(sInfo* info=info, bool type_name_exp=false) version 13
+{
+    sNode*% node = null;
+    parse_sharp();
+    
+    /// backtrace ///
+    if(type_name_exp && (*info->p == '_' || xisalpha(*info->p))) {
+        char* p = info.p;
+        int sline = info.sline;
+        
+        string word = parse_word();
+        
+        bool fun_call = *info->p == '(';
+        
+        info.p = p;
+        info.sline = sline;
+        
+        if(is_type_name(word) && !fun_call) {
+            var type1, name, err = parse_type(parse_variable_name:false, parse_multiple_type:false);
+            
+            node = new sTypeNode(type1) implements sNode;
+        }
+        else {
+            node = conditional_exp(info);
+        }
+    }
+    else {
+        node = conditional_exp(info);
+    }
     
     return node;
 }

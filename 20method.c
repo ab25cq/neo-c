@@ -1006,7 +1006,9 @@ sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info) version 20
             bool in_fun_param = info.in_fun_param;
             info.in_fun_param = true;
             
-            sNode*% node = expression();
+            bool type_name_exp = false;
+            
+            sNode*% node = expression(type_name_exp:type_name_exp);
             
             node = post_position_operator(node, info);
             

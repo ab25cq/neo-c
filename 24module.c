@@ -59,7 +59,7 @@ class sStaticAssert extends sNodeBase {
         come_value3.type = new sType(s"void");
         come_value3.var = null;
         
-        add_come_last_code(info, "%s", come_value2.c_value);
+        add_come_last_code(info, "%s", come_value3.c_value);
         
         return true;
     }

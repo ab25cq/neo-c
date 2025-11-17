@@ -648,7 +648,58 @@ class sFunCallNode extends sNodeBase
         }
         
         /// builtin ///
-        if(fun_name === "__builtin_memmove" || fun_name === "__builtin_memset" || fun_name === "__builtin_ffs" 
+        if(fun_name === "__builtin_types_compatible_p") {
+            if(params.length() != 2) {
+                err_msg(info, "__builtin_types_compatible_p params error");
+                return false;
+            }
+            
+            list<CVALUE*%>*% come_params = new list<CVALUE*%>();
+            foreach(it, params) {
+                var label, node = it;
+                
+                node_compile(node).elif {
+                    return false;
+                }
+                
+                CVALUE*% come_value = get_value_from_stack(-1, info);
+                
+                come_value.type = solve_generics(come_value.type, info->generics_type, info);
+                
+                come_params.push_back(come_value);
+            }
+            
+            string type1 = come_params[0].c_value;
+            string type2 = come_params[1].c_value;
+            
+            if(type1 === type2) {
+                CVALUE*% come_value = new CVALUE();
+                
+                come_value.c_value = s"1";
+                come_value.type = new sType(s"int");
+                come_value.var = null;
+                
+                add_come_last_code(info, "%s", come_value.c_value);
+                
+                info.stack.push_back(come_value);
+                
+                return true;
+            }
+            else {
+                CVALUE*% come_value = new CVALUE();
+                
+                come_value.c_value = s"0";
+                come_value.type = new sType(s"void");
+                come_value.var = null;
+                
+                add_come_last_code(info, "%s", come_value.c_value);
+                
+                info.stack.push_back(come_value);
+                
+                return true;
+            }
+        }
+        else if(fun_name === "__builtin_memmove" || fun_name === "__builtin_memset" || fun_name === "__builtin_ffs" 
             || fun_name === "__builtin_ffsl" || fun_name === "__builtin_ffsll" 
             || fun_name === "__builtin_bswap16" || fun_name === "__builtin_bswap32" || fun_name === "__builtin_bswap64" 
             || fun_name === "__builtin_constant_p" || fun_name === "__builtin_expect" 
@@ -1944,7 +1995,14 @@ sNode*% parse_function_call(char* fun_name, sInfo* info, bool come_=false)
         bool in_fun_param = info.in_fun_param;
         info.in_fun_param = true;
         
-        sNode*% node = expression();
+        bool type_name_exp = false;
+        
+        if(fun_name === "__builtin_types_compatible_p") {
+            type_name_exp = true;
+        }
+        
+        
+        sNode*% node = expression(type_name_exp:type_name_exp);
         
         node = post_position_operator(node, info);
         
@@ -2336,6 +2394,12 @@ sNode*% expression_node(sInfo* info=info) version 97
         }
         else if(!gComeC && (buf === "string" || buf === "wstring") && *info->p == '(') {
             sNode*% node = parse_function_call(buf, info);
+            
+            info.sline_real = sline_real;
+            return node;
+        }
+        else if(is_special_word) {
+            sNode*% node = string_node(buf, head, head_sline, info)
             
             info.sline_real = sline_real;
             return node;

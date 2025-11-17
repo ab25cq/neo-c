@@ -1371,6 +1371,7 @@ struct sClass
     _Bool mProtocol;
     _Bool mNumber;
     _Bool mUniq;
+    _Bool mTypeName;
     char* mName;
     int mGenericsNum;
     int mMethodGenericsNum;
@@ -1444,6 +1445,7 @@ struct sType
     _Bool mNoHeap;
     _Bool mNoCallingDestructor;
     _Bool mException;
+    _Bool mTypeName;
     _Bool mInline;
     _Bool mNullValue;
     _Bool mGuardValue;
@@ -2730,7 +2732,7 @@ _Bool xiswblank(int c);
 _Bool xiswdigit(int c);
 _Bool xiswalnum(int c);
 _Bool xiswascii(int c);
-struct sClass* sClass_initialize(struct sClass* self, char* name, _Bool number, _Bool union_, _Bool generics, _Bool method_generics, _Bool protocol_, _Bool struct_, _Bool float_, int generics_num, int method_generics_num, _Bool enum_, _Bool uniq_, struct sInfo* info);
+struct sClass* sClass_initialize(struct sClass* self, char* name, _Bool number, _Bool union_, _Bool generics, _Bool method_generics, _Bool protocol_, _Bool struct_, _Bool float_, int generics_num, int method_generics_num, _Bool enum_, _Bool uniq_, _Bool typename, struct sInfo* info);
 struct sType* sType_initialize(struct sType* self, char* name, _Bool heap, struct sInfo* info);
 struct sFun* sFun_initialize(struct sFun* self, char* name, struct sType* result_type, struct list$1sType$ph* param_types, struct list$1char$ph* param_names, struct list$1char$ph* param_default_parametors, _Bool external, _Bool var_args, struct sBlock* block, _Bool static_, struct sInfo* info, _Bool inline_, _Bool uniq_, _Bool generate_, char* attribute, char* fun_attribute, _Bool const_fun, char* text_block, char* generics_sname, int generics_sline, _Bool immutable_);
 struct sGenericsFun* sGenericsFun_initialize(struct sGenericsFun* self, struct sType* impl_type, struct list$1char$ph* generics_type_names, struct list$1char$ph* method_generics_type_names, char* name, struct sType* result_type, struct list$1sType$ph* param_types, struct list$1char$ph* param_names, struct list$1char$ph* param_default_parametors, _Bool var_args, char* block, struct sInfo* info, char* generics_sname, int generics_sline, _Bool const_fun);
@@ -2848,7 +2850,6 @@ struct sBlock* parse_block(struct sInfo* info, _Bool return_self_at_last, _Bool 
 int transpile_block(struct sBlock* block, struct list$1sType$ph* param_types, struct list$1char$ph* param_names, struct sInfo* info, _Bool no_var_table, _Bool loop_block);
 void arrange_stack(struct sInfo* info, int top);
 struct sNode* parse_function(struct sInfo* info);
-struct sNode* expression_v5(struct sInfo* info);
 struct sNode* statment(struct sInfo* info);
 struct sNode* top_level_v1(char* buf, char* head, int head_sline, struct sInfo* info);
 struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo* info);
@@ -2890,7 +2891,7 @@ struct sNode* create_less(struct sNode* node, struct sNode* right, struct sInfo*
 struct sNode* create_null_node(struct sInfo* info);
 struct sNode* conditional_node(struct sNode* value1, struct sNode* value2, struct sNode* value3, struct sInfo* info);
 _Bool operator_overload_fun(struct sType* type, char* fun_name, struct sNode* left_node, struct sNode* right_node, struct CVALUE* left_value, struct CVALUE* right_value, _Bool break_guard, struct sInfo* info);
-struct sNode* expression_v13(struct sInfo* info);
+struct sNode* expression_v13(struct sInfo* info, _Bool type_name_exp);
 struct sNode* post_op_v13(struct sNode* node, struct sInfo* info);
 struct sNode* string_node_v13(char* buf, char* head, int head_sline, struct sInfo* info);
 char* parse_struct_attribute(struct sInfo* info);
@@ -4044,6 +4045,9 @@ struct sType* __result_obj__16;
         result->mException=self->mException;
     }
     if(    self!=((void*)0)    ) {
+        result->mTypeName=self->mTypeName;
+    }
+    if(    self!=((void*)0)    ) {
         result->mInline=self->mInline;
     }
     if(    self!=((void*)0)    ) {
@@ -4055,7 +4059,7 @@ struct sType* __result_obj__16;
     if(    self!=((void*)0)&&self->mAsmName!=((void*)0)    ) {
         __right_value0 = (void*)0;
         __dec_obj14=result->mAsmName,
-        result->mAsmName=(char*)come_increment_ref_count((char*)come_memdup(self->mAsmName, "sType_clone", 40, "char*"));
+        result->mAsmName=(char*)come_increment_ref_count((char*)come_memdup(self->mAsmName, "sType_clone", 41, "char*"));
         __dec_obj14 = come_decrement_ref_count(__dec_obj14, (void*)0, (void*)0, 0,0, (void*)0);
     }
     if(    self!=((void*)0)    ) {
@@ -4094,7 +4098,7 @@ struct sType* __result_obj__16;
     if(    self!=((void*)0)&&self->mOriginalTypeName!=((void*)0)    ) {
         __right_value0 = (void*)0;
         __dec_obj19=result->mOriginalTypeName,
-        result->mOriginalTypeName=(char*)come_increment_ref_count((char*)come_memdup(self->mOriginalTypeName, "sType_clone", 51, "char*"));
+        result->mOriginalTypeName=(char*)come_increment_ref_count((char*)come_memdup(self->mOriginalTypeName, "sType_clone", 52, "char*"));
         __dec_obj19 = come_decrement_ref_count(__dec_obj19, (void*)0, (void*)0, 0,0, (void*)0);
     }
     if(    self!=((void*)0)    ) {
@@ -6881,7 +6885,7 @@ word = (void*)0;
                         info->no_comma=(_Bool)1;
                         info->no_output_come_code=(_Bool)1;
                         __right_value0 = (void*)0;
-                        exp=(struct sNode*)come_increment_ref_count(expression_v13(info));
+                        exp=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
                         info->no_comma=no_comma;
                         info->no_output_err=no_output_err;
                         info->no_output_come_code=no_output_come_code;
@@ -6962,7 +6966,7 @@ word = (void*)0;
             no_comma_87=info->no_comma;
             info->no_comma=(_Bool)1;
             __right_value0 = (void*)0;
-            right_value=(struct sNode*)come_increment_ref_count(expression_v13(info));
+            right_value=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
             info->no_comma=no_comma_87;
             parse_sharp_v5(info);
             __right_value0 = (void*)0;
@@ -7063,7 +7067,7 @@ word = (void*)0;
                 no_comma_92=info->no_comma;
                 info->no_comma=(_Bool)1;
                 __right_value0 = (void*)0;
-                exp_93=(struct sNode*)come_increment_ref_count(expression_v13(info));
+                exp_93=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
                 info->no_comma=no_comma_92;
                 info->array_initializer=(_Bool)0;
                 __right_value0 = (void*)0;
@@ -7076,7 +7080,7 @@ word = (void*)0;
                 no_comma_96=info->no_comma;
                 info->no_comma=(_Bool)1;
                 __right_value0 = (void*)0;
-                exp_97=(struct sNode*)come_increment_ref_count(expression_v13(info));
+                exp_97=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
                 info->no_comma=no_comma_96;
                 info->array_initializer=(_Bool)0;
                 __right_value0 = (void*)0;
@@ -7107,7 +7111,7 @@ word = (void*)0;
                     no_comma_100=info->no_comma;
                     info->no_comma=(_Bool)1;
                     __right_value0 = (void*)0;
-                    exp_101=(struct sNode*)come_increment_ref_count(expression_v13(info));
+                    exp_101=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
                     info->no_comma=no_comma_100;
                     info->array_initializer=(_Bool)0;
                     __right_value0 = (void*)0;
@@ -7120,7 +7124,7 @@ word = (void*)0;
                     info->no_comma=(_Bool)1;
                     info->array_initializer=(_Bool)1;
                     __right_value0 = (void*)0;
-                    exp_103=(struct sNode*)come_increment_ref_count(expression_v13(info));
+                    exp_103=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
                     info->no_comma=no_comma_102;
                     info->array_initializer=(_Bool)0;
                     __right_value0 = (void*)0;
@@ -7227,7 +7231,7 @@ word = (void*)0;
             self_node=(struct sNode*)come_increment_ref_count(_inf_value6);
             come_call_finalizer(sLoadNode_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0);
             __right_value0 = (void*)0;
-            right_node_110=(struct sNode*)come_increment_ref_count(expression_v13(info));
+            right_node_110=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
             __right_value0 = (void*)0;
             node_111=(struct sNode*)come_increment_ref_count(store_field(self_node,(struct sNode*)come_increment_ref_count(right_node_110),(char*)come_increment_ref_count(name_106),info));
             info->sline_real=sline_real;
@@ -7261,7 +7265,7 @@ word = (void*)0;
         skip_spaces_and_lf(info);
         parse_sharp_v5(info);
         __right_value0 = (void*)0;
-        right_value_112=(struct sNode*)come_increment_ref_count(expression_v13(info));
+        right_value_112=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
         parse_sharp_v5(info);
         __right_value0 = (void*)0;
         __dec_obj133=right_value_112,
@@ -7430,7 +7434,7 @@ word = (void*)0;
                     info->no_comma=(_Bool)1;
                     __right_value0 = (void*)0;
                     __dec_obj138=right_value_121,
-                    right_value_121=(struct sNode*)come_increment_ref_count(expression_v13(info));
+                    right_value_121=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
                     (__dec_obj138 ? __dec_obj138 = come_decrement_ref_count(__dec_obj138, ((struct sNode*)__dec_obj138)->finalize, ((struct sNode*)__dec_obj138)->_protocol_obj, 0,0, (void*)0) :0);
                     info->no_comma=no_comma_122;
                     info->array_initializer=(_Bool)0;
@@ -7440,7 +7444,7 @@ word = (void*)0;
                     parse_sharp_v5(info);
                     __right_value0 = (void*)0;
                     __dec_obj139=right_value_121,
-                    right_value_121=(struct sNode*)come_increment_ref_count(expression_v13(info));
+                    right_value_121=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
                     (__dec_obj139 ? __dec_obj139 = come_decrement_ref_count(__dec_obj139, ((struct sNode*)__dec_obj139)->finalize, ((struct sNode*)__dec_obj139)->_protocol_obj, 0,0, (void*)0) :0);
                     parse_sharp_v5(info);
                     info->array_initializer=(_Bool)0;
@@ -7449,7 +7453,7 @@ word = (void*)0;
                     parse_sharp_v5(info);
                     __right_value0 = (void*)0;
                     __dec_obj140=right_value_121,
-                    right_value_121=(struct sNode*)come_increment_ref_count(expression_v13(info));
+                    right_value_121=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
                     (__dec_obj140 ? __dec_obj140 = come_decrement_ref_count(__dec_obj140, ((struct sNode*)__dec_obj140)->finalize, ((struct sNode*)__dec_obj140)->_protocol_obj, 0,0, (void*)0) :0);
                     parse_sharp_v5(info);
                 }
@@ -7733,7 +7737,7 @@ node = (void*)0;
         info->p+=strlen("<-");
         skip_spaces_and_lf(info);
         parse_sharp_v5(info);
-        exp=(struct sNode*)come_increment_ref_count(expression_v13(info));
+        exp=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
         parse_sharp_v5(info);
         __right_value0 = (void*)0;
         _inf_value13=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "07var.c", 1256, "struct sNode");
@@ -7818,7 +7822,7 @@ struct sNode* __result_obj__145;
         info->p+=2;
         skip_spaces_and_lf(info);
         parse_sharp_v5(info);
-        right_value=(struct sNode*)come_increment_ref_count(expression_v13(info));
+        right_value=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
         parse_sharp_v5(info);
         __right_value0 = (void*)0;
         __dec_obj145=right_value,

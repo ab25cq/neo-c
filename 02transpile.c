@@ -504,6 +504,7 @@ static void init_classes(sInfo* info)
     info.classes.insert(string("_Float16"), new sClass(s"_Float16", float_:true));
     info.classes.insert(string("lambda"), new sClass(s"lambda"));
     info.classes.insert(string("__uint128_t"), new sClass(s"__uint128_t", number:true));
+    info.classes.insert(string("__typename"), new sClass(s"__typename", typename:true));
     info.classes.insert(string("_Complex"), new sClass(s"_Complex", float_:true));
     info.classes.insert(string("__int128"), new sClass(s"__int128", number:true));
     for(int i=0; i<GENERICS_TYPE_MAX; i++) {

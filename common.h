@@ -46,6 +46,7 @@ uniq class sClass
     bool mProtocol;
     bool mNumber;
     bool mUniq;
+    bool mTypeName;
     
     string mName;
     
@@ -58,7 +59,7 @@ uniq class sClass
     
     string mAttribute;
     
-    new(string name, bool number=false, bool union_=false, bool generics=false, bool method_generics=false, bool protocol_=false, bool struct_=false, bool float_=false, int generics_num=-1, int method_generics_num=-1, bool enum_=false, bool uniq_=false, sInfo* info=info)
+    new(string name, bool number=false, bool union_=false, bool generics=false, bool method_generics=false, bool protocol_=false, bool struct_=false, bool float_=false, int generics_num=-1, int method_generics_num=-1, bool enum_=false, bool uniq_=false, bool typename=false, sInfo* info=info)
     {
         self.mNumber = number;
         self.mStruct = struct_;
@@ -69,6 +70,7 @@ uniq class sClass
         self.mProtocol = protocol_;
         self.mFloat = float_;
         self.mEnum = enum_;
+        self.mTypeName = typename;
         self.mUniq = uniq_;
         
         self.mName = string(name);
@@ -122,6 +124,7 @@ uniq class sType
     bool mNoHeap;
     bool mNoCallingDestructor;
     bool mException;
+    bool mTypeName;
     
     bool mInline;
     bool mNullValue;
@@ -881,7 +884,6 @@ int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* par
 void arrange_stack(sInfo* info, int top);
 sNode*% parse_function(sInfo* info);
 
-sNode*% expression(sInfo* info=info) version 5;
 sNode*% statment(sInfo* info=info);
 sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 1;
 sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99;
@@ -965,7 +967,7 @@ sNode*% create_less(sNode*% node, sNode*% right, sInfo* info);
 sNode*% create_null_node(sInfo* info=info);
 sNode*% conditional_node(sNode*% value1, sNode*% value2, sNode*% value3, sInfo* info);
 bool operator_overload_fun(sType* type, char* fun_name, sNode*% left_node, sNode*% right_node, CVALUE*% left_value, CVALUE*% right_value, bool break_guard, sInfo* info);
-sNode*% expression(sInfo* info=info) version 13;
+sNode*% expression(sInfo* info=info, bool type_name_exp=false) version 13;
 sNode*% post_op(sNode*% node, sInfo* info) version 13;
 sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 13;
 
