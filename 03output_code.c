@@ -386,6 +386,7 @@ string make_define_var(sType* type, char* name, sInfo* info=info, bool no_static
         
         buf.append_format("%s (*%s)", type_name, name);
         
+        int n = 0;
         foreach(it, type2->mArrayNum) {
             if(!node_compile(it)) {
                 err_msg(info, "invalid array number");
@@ -393,7 +394,14 @@ string make_define_var(sType* type, char* name, sInfo* info=info, bool no_static
             }
             CVALUE*% cvalue = get_value_from_stack(-1, info);
         
-            buf.append_format("[%s]", cvalue.c_value);
+            if(type2->mArrayStatic[n]) {
+                buf.append_format("[static %s]", cvalue.c_value);
+            }
+            else {
+                buf.append_format("[%s]", cvalue.c_value);
+            }
+            
+            n++;
         }
         
         if(type2->mAsmName != null && type2->mAsmName !== "") {
@@ -435,6 +443,7 @@ string make_define_var(sType* type, char* name, sInfo* info=info, bool no_static
         buf.append_str(" ");
         buf.append_str(name);
         
+        int n = 0;
         foreach(it, type2->mArrayNum) {
             if(!node_compile(it)) {
                 err_msg(info, "invalid array number");
@@ -442,7 +451,14 @@ string make_define_var(sType* type, char* name, sInfo* info=info, bool no_static
             }
             CVALUE*% cvalue = get_value_from_stack(-1, info);
         
-            buf.append_format("[%s]", cvalue.c_value);
+            if(type2->mArrayStatic[n]) {
+                buf.append_format("[static %s]", cvalue.c_value);
+            }
+            else {
+                buf.append_format("[%s]", cvalue.c_value);
+            }
+            
+            n++;
         }
         
         if(type2->mArrayPointerType) {

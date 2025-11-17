@@ -3276,6 +3276,14 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
         skip_spaces_and_lf();
         parse_sharp();
         
+        bool array_static = false;
+        if(parsecmp("static")) {
+            info->p += strlen("static");
+            skip_spaces_and_lf();
+            
+            array_static = true;
+        }
+        
         skip_pointer_attribute();
         
         if(*info->p == ']') {
@@ -3290,6 +3298,7 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
         
         sNode*% node = expression();
         type.mArrayNum.push_back(node);
+        type.mArrayStatic.push_back(array_static);
         parse_sharp();
         
         expected_next_character(']');

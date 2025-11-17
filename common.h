@@ -138,6 +138,7 @@ uniq class sType
     bool mOriginIsArray;
     
     list<sNode*%>*% mArrayNum;
+    list<int>*% mArrayStatic;
     
     int mPointerNum;
     int mOriginalTypeNamePointerNum;
@@ -206,6 +207,7 @@ uniq class sType
         self.mOriginalLoadVarType = null;
         self.mGenericsTypes = new list<sType*%>();
         self.mArrayNum = new list<sNode*%>();
+        self.mArrayStatic = new list<int>();
         self.mParamTypes = new list<sType*%>();
         self.mParamNames = new list<string>();
         self.mVarArgs = false;
