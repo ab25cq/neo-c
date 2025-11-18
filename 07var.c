@@ -1224,7 +1224,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
                 parse_sharp();
                 
                 sNode*% right_value = null;
-                if(type->mClass->mStruct && type->mArrayNum.length() == 0) {
+                if((type->mClass->mStruct || type->mClass->mUnion ) && type->mArrayNum.length() == 0) {
                     info->array_initializer = true;
                     bool no_comma = info->no_comma;
                     info->no_comma = true;

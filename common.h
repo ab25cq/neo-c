@@ -141,12 +141,13 @@ uniq class sType
     list<int>*% mArrayStatic;
     list<int>*% mArrayRestrict;
     
-    int mPointerNum;
-    int mOriginalTypeNamePointerNum;
-    int mOriginalTypeNameHeap;
     int mTypedefOriginalPointerNum;
     int mFunctionPointerNum;
     int mArrayPointerNum;
+    
+    int mPointerNum;
+    int mOriginalTypeNamePointerNum;
+    int mOriginalTypeNameHeap;
     
     string mOriginalTypeName;
     int mOriginalPointerNum;
@@ -812,7 +813,7 @@ void add_come_last_code(sInfo* info, const char* msg, ...);
 void add_come_last_code2(sInfo* info, const char* msg, ...);
 void dec_stack_ptr(int value=1, sInfo* info=info);
 CVALUE*% get_value_from_stack(int offset, sInfo* info);
-string make_define_var(sType* type, char* name, sInfo* info=info, bool no_static=false);
+string make_define_var(sType* type, char* name, sInfo* info=info, bool no_static=false, bool in_typedef=false);
 string make_var_name(sType* type, char* name, sInfo* info=info, bool no_static=false);
 void transpiler_clear_last_code(sInfo* info);
 bool output_header_file(sInfo* info);

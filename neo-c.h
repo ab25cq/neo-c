@@ -1726,7 +1726,7 @@ impl list <T>
         
         return false;
     }
-    list<T>*% merge_list_with_lambda(list<T>* left, list<T>* right, int (*compare)(T,T)) {
+    list<T>*% merge_list_with_lambda(list<T>* left, list<T>* right, int (*compare)(T&,T&)) {
         auto result = new list<T>.initialize();
 
         list_item<T>* it = left.head;
@@ -1798,7 +1798,7 @@ impl list <T>
 
         return result;
     }
-    list<T>*% merge_sort_with_lambda(list<T>* self, int (*compare)(T,T)) {
+    list<T>*% merge_sort_with_lambda(list<T>* self, int (*compare)(T&,T&)) {
         if(self.head == null) {
             return clone self;
         }
@@ -1837,12 +1837,13 @@ impl list <T>
         
         return left_list.merge_list_with_lambda(right_list, compare);
     }
-    list<T>*% sort_with_lambda(list<T>* self, int (*compare)(T,T)) {
+    list<T>*% sort_with_lambda(list<T>* self, int (*compare)(T&,T&)) {
         return self.merge_sort_with_lambda(compare);
     }
     list<T>*% sort(list<T>* self) {
-        return self.merge_sort_with_lambda(int lambda(T left, T right) { return left.compare(right); });
+        return self.merge_sort_with_lambda(int lambda(T& left, T& right) { return left.compare(right); });
     }
+    
     template<R> list<R>*% map(list<T>* self, void* parent, R (*block)(void*, T))
     {
         auto result = new list<R>.initialize();

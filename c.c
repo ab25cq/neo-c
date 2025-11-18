@@ -1,18 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef unsigned (*uop_t)(unsigned);
+
+static unsigned rotl5(unsigned x) {
+    return 0u;
+}
+
+static unsigned rotl6(unsigned x) {
+    return 0u;
+}
+
 int main() {
-    int **a, *b;
-    int accum = 0;
-    for (int i = 0, j = 5; i < 3; i++, j--) {
-        accum += i + j;
-    }
-//    printf("%d\n", accum);
-/*
-    if(accum == (0+5) + (1+4) + (2+3)) {
-        puts("OK");
-    }
-*/
+    uop_t ops[] = { rotl5, rotl6 };
+    unsigned v = 0x12345678u;
+    unsigned rotated = ops[0](v);
     
     return 0;
 }
