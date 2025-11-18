@@ -737,6 +737,7 @@ class sFunCallNode extends sNodeBase
             || fun_name === "__c11_atomic_fetch_or_explicit"
             || fun_name === "__c11_atomic_fetch_xor_explicit")
         {
+            
             list<CVALUE*%>*% come_params = new list<CVALUE*%>();
             foreach(it, params) {
                 var label, node = it;
@@ -896,6 +897,28 @@ class sFunCallNode extends sNodeBase
                 come_value.type = new sType(s"int");
             }
             
+            come_value.var = null;
+            
+            add_come_last_code(info, "%s", come_value.c_value);
+            
+            info.stack.push_back(come_value);
+            
+            return true;
+        }
+        else if(fun_name === "__nan") {
+            if(fun_name === "__nan") {
+                fun_name = s"__builtin_nan";
+            }
+            
+            buffer*% buf = new buffer();
+            
+            buf.append_str(fun_name);
+            buf.append_str("(\"\")");
+            
+            CVALUE*% come_value = new CVALUE();
+            
+            come_value.c_value = buf.to_string();
+            come_value.type = new sType(s"double");
             come_value.var = null;
             
             add_come_last_code(info, "%s", come_value.c_value);

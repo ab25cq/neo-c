@@ -1907,6 +1907,29 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
                 }
             }
         }
+        else if(type_name === "signed") {
+            unsigned_ = false;
+            
+            if(xisalpha(*info->p) || *info->p == '_') {
+                char* p = info.p;
+                int sline = info.sline;
+                
+                type_name = parse_word();
+                
+                if(type_name === "char" || type_name === "short" || type_name === "long" || type_name === "int") {
+                }
+                else {
+                    type_name = s"int";
+                    info.p = p;
+                    info.sline = sline;
+                    break;
+                }
+            }
+            else {
+                type_name = s"int";
+                break;
+            }
+        }
         else if(type_name === "unsigned") {
             unsigned_ = true;
             
