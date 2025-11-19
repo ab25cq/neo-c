@@ -735,7 +735,9 @@ class sFunCallNode extends sNodeBase
             || fun_name === "__c11_atomic_fetch_sub_explicit"
             || fun_name === "__c11_atomic_fetch_and_explicit"
             || fun_name === "__c11_atomic_fetch_or_explicit"
-            || fun_name === "__c11_atomic_fetch_xor_explicit")
+            || fun_name === "__c11_atomic_fetch_xor_explicit"
+            || fun_name === "__c11_atomic_init"
+            || fun_name === "__c11_atomic_is_lock_free")
         {
             
             list<CVALUE*%>*% come_params = new list<CVALUE*%>();
