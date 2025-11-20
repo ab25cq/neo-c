@@ -1095,7 +1095,7 @@ string parse_struct_attribute(sInfo* info=info)
         info.p = p;
         info.sline = sline;
         
-        if(((info->end - info->p) >= strlen("__attribute__")) && memcmp(info->p, "__attribute__", strlen("__attribute__")) == 0) {
+        if(buf === "__attribute__") {
             char* head = info.p;
             
             info->p += strlen("__attribute__");
@@ -1106,7 +1106,8 @@ string parse_struct_attribute(sInfo* info=info)
             
             result.append(head, tail-head);
         }
-        else if(((info->end - info->p) >= strlen("_Alignas")) && memcmp(info->p, "_Alignas", strlen("_Alignas")) == 0) {
+/*
+        else if(buf == "_Alignas") {
             char* head = info.p;
             
             info->p += strlen("_Alignas");
@@ -1127,6 +1128,7 @@ string parse_struct_attribute(sInfo* info=info)
             
             result.append(head, tail-head);
         }
+*/
         else {
             break;
         }

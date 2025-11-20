@@ -58,7 +58,6 @@ void output_struct(sClass* klass, string pragma, sInfo* info)
     
     buffer*% buf = new buffer();
         
-    
     if(pragma) {
         buf.append_str(pragma);
     }
