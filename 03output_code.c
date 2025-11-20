@@ -163,9 +163,6 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
     if(type->mRestrict) {
         buf.append_str("restrict");
     }
-    if(type->mAtomic) {
-        //buf.append_str(")");
-    }
     
     if(type->mAttribute && gComeBareMetal) {
         buf.append_str(" " + type->mAttribute);

@@ -1495,7 +1495,6 @@ struct sType
     _Bool mRecord;
     _Bool mExtern;
     _Bool mRestrict;
-    _Bool mTask;
     _Bool mHeap;
     _Bool mChannel;
     _Bool mDefferRightValue;

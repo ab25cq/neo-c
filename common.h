@@ -117,7 +117,6 @@ uniq class sType
     bool mRecord;
     bool mExtern;
     bool mRestrict;
-    bool mTask;
     bool mHeap;
     bool mChannel;
     bool mDefferRightValue;
