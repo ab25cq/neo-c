@@ -167,14 +167,22 @@ void parse_sharp(sInfo* info=info) version 5
             skip_spaces_and_lf2();
             
             if(parsecmp("pragma")) {
+                buffer*% buf = new buffer();
+                buf.append_str("#");
                 while(*info->p) {
                     if(*info->p == '\n') {
+                        buf.append_char(*info->p);
                         skip_spaces_and_lf2();
                         break;
                     }
                     else {
+                        buf.append_char(*info->p);
                         info->p++;
                     }
+                }
+                
+                if(buf.to_string().index("pack(", -1) != -1) {
+                    info.pragma = buf.to_string();
                 }
             }
             else if(xisdigit(*info->p)) {

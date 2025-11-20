@@ -862,8 +862,17 @@ struct anonymous_typeX3
 union wait
 {
 int w_status;
-struct anonymous_typeX2 w_T;
-struct anonymous_typeX3 w_S;
+    struct {
+        unsigned int w_Termsig:7;
+        unsigned int w_Coredump:1;
+        unsigned int w_Retcode:8;
+        unsigned int w_Filler:16;
+    } w_T;
+    struct {
+        unsigned int w_Stopval:8;
+        unsigned int w_Stopsig:8;
+        unsigned int w_Filler:16;
+    } w_S;
 };
 
 typedef int ct_rune_t;
@@ -959,7 +968,12 @@ typedef struct anonymous_typeX7 _RuneEntry;
 struct anonymous_typeX8
 {
     int __nranges;
-    struct anonymous_typeX7* __ranges;
+    struct {
+        int __min;
+        int __max;
+        int __map;
+        unsigned int* __types;
+    } __ranges;
 };
 
 typedef struct anonymous_typeX8 _RuneRange;
@@ -982,13 +996,40 @@ struct anonymous_typeX10
     unsigned int __runetype[(1<<8)];
     int __maplower[(1<<8)];
     int __mapupper[(1<<8)];
-    struct anonymous_typeX8 __runetype_ext;
-    struct anonymous_typeX8 __maplower_ext;
-    struct anonymous_typeX8 __mapupper_ext;
+    struct {
+        int __nranges;
+        struct {
+            int __min;
+            int __max;
+            int __map;
+            unsigned int* __types;
+        } __ranges;
+    } __runetype_ext;
+    struct {
+        int __nranges;
+        struct {
+            int __min;
+            int __max;
+            int __map;
+            unsigned int* __types;
+        } __ranges;
+    } __maplower_ext;
+    struct {
+        int __nranges;
+        struct {
+            int __min;
+            int __max;
+            int __map;
+            unsigned int* __types;
+        } __ranges;
+    } __mapupper_ext;
     void* __variable;
     int __variable_len;
     int __ncharclasses;
-    struct anonymous_typeX9* __charclasses;
+    struct {
+        char __name[14];
+        unsigned int __mask;
+    } __charclasses;
 };
 
 typedef struct anonymous_typeX10 _RuneLocale;
@@ -1215,7 +1256,11 @@ union anonymous_typeZ11
 {
 unsigned char ch;
 unsigned char* ccl;
-struct anonymous_typeX12 group;
+    struct {
+        struct regex_t* first;
+        struct regex_t* last;
+        int id;
+    } group;
 };
 
 struct anonymous_typeX14
@@ -1229,13 +1274,25 @@ union anonymous_typeZ13
 {
 unsigned char ch;
 unsigned char* ccl;
-struct anonymous_typeX14 group;
+    struct {
+        struct regex_t* first;
+        struct regex_t* last;
+        int id;
+    } group;
 };
 
 struct regex_t
 {
     unsigned char type;
-    union anonymous_typeZ13 u;
+    union {
+        unsigned char ch;
+        unsigned char* ccl;
+        struct {
+            struct regex_t* first;
+            struct regex_t* last;
+            int id;
+        } group;
+    } u;
     struct regex_t* next;
 };
 
@@ -1446,6 +1503,8 @@ struct sType
     _Bool mNoCallingDestructor;
     _Bool mException;
     _Bool mTypeName;
+    _Bool mAnonymous;
+    _Bool mAnonymousVarName;
     _Bool mInline;
     _Bool mNullValue;
     _Bool mGuardValue;
@@ -1817,6 +1876,7 @@ struct sInfo
     _Bool in_conditional;
     int num_conditional;
     int max_conditional;
+    char* pragma;
 };
 
 struct sNodeBase
@@ -2843,6 +2903,7 @@ _Bool operator_overload_fun(struct sType* type, char* fun_name, struct sNode* le
 struct sNode* expression_v13(struct sInfo* info, _Bool type_name_exp);
 struct sNode* post_op_v13(struct sNode* node, struct sInfo* info);
 struct sNode* string_node_v13(char* buf, char* head, int head_sline, struct sInfo* info);
+void child_output_struct(struct sType* type, struct buffer* buf, _Bool* existance_generics, char* name, int indent, struct sInfo* info);
 char* parse_struct_attribute(struct sInfo* info);
 struct sNode* create_nothing_node(struct sInfo* info);
 _Bool is_contained_method_generics_types(struct sType* type, struct sInfo* info);
@@ -2852,7 +2913,7 @@ struct sNode* parse_struct(char* type_name, char* struct_attribute, struct sInfo
 char* get_none_generics_name(char* class_name);
 struct sNode* top_level_v98(char* buf, char* head, int head_sline, struct sInfo* info);
 _Bool output_generics_struct(struct sType* type, struct sType* generics_type, struct sInfo* info);
-void output_struct(struct sClass* klass, struct sInfo* info);
+void output_struct(struct sClass* klass, char* pragma, struct sInfo* info);
 struct sNode* string_node_v15(char* buf, char* head, int head_sline, struct sInfo* info);
 struct sNode* parse_union(char* type_name, char* union_attribute, struct sInfo* info);
 struct sNode* top_level_v97(char* buf, char* head, int head_sline, struct sInfo* info);
@@ -3194,11 +3255,14 @@ void skip_spaces_and_lf2(struct sInfo* info){
 }
 
 void parse_sharp_v5(struct sInfo* info){
-int line;
 void* __right_value0 = (void*)0;
 void* __right_value1 = (void*)0;
-struct buffer* fname;
+struct buffer* buf;
+_Bool _conditional_value_X0;
 char* __dec_obj3;
+int line;
+struct buffer* fname;
+char* __dec_obj4;
 int nest;
     while(    1    ) {
         if(        *info->p==35        ) {
@@ -3206,19 +3270,33 @@ int nest;
             info->p++;
             skip_spaces_and_lf2(info);
             if(            parsecmp("pragma",info)            ) {
+                buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 170, "struct buffer*"))));
+                buffer_append_str(buf,"#");
                 while(                *info->p                ) {
                     if(                    *info->p==10                    ) {
+                        buffer_append_char(buf,*info->p);
                         skip_spaces_and_lf2(info);
                         break;
                     }
                     else {
+                        buffer_append_char(buf,*info->p);
                         info->p++;
                     }
                 }
+                if(                __right_value0 = (void*)0,                 ({(_conditional_value_X0=(string_index(((char*)(__right_value0=buffer_to_string(buf))),"pack(",-1)!=-1));                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
+                _conditional_value_X0;})                ) {
+                    __right_value0 = (void*)0;
+                    __dec_obj3=info->pragma,
+                    info->pragma=(char*)come_increment_ref_count(buffer_to_string(buf));
+                    __dec_obj3 = come_decrement_ref_count(__dec_obj3, (void*)0, (void*)0, 0,0, (void*)0);
+                }
+                come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             }
             else if(            isdigit(*info->p)            ) {
                 line=0;
-                fname=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 182, "struct buffer*"))));
+                __right_value0 = (void*)0;
+                __right_value1 = (void*)0;
+                fname=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 190, "struct buffer*"))));
                 while(                isdigit(*info->p)                ) {
                     line=line*10+(*info->p-48);
                     info->p++;
@@ -3237,9 +3315,9 @@ int nest;
                 }
                 info->sline=line;
                 __right_value0 = (void*)0;
-                __dec_obj3=info->sname,
+                __dec_obj4=info->sname,
                 info->sname=(char*)come_increment_ref_count(buffer_to_string(fname));
-                __dec_obj3 = come_decrement_ref_count(__dec_obj3, (void*)0, (void*)0, 0,0, (void*)0);
+                __dec_obj4 = come_decrement_ref_count(__dec_obj4, (void*)0, (void*)0, 0,0, (void*)0);
                 skip_spaces_and_lf2(info);
                 come_call_finalizer(buffer_finalize, fname, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             }

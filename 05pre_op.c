@@ -674,7 +674,6 @@ sNode*% pre_position_operator(sInfo* info=info)
 {
     skip_spaces_and_lf();
     
-    
     bool refference = false;
     {
         char* p = info.p;
@@ -696,7 +695,10 @@ sNode*% pre_position_operator(sInfo* info=info)
                     skip_spaces_and_lf();
                 }
                 
-                if(xisalpha(*info->p) || *info->p == '_') {
+                if(*info->p == '&') {
+                    refference = true;
+                }
+                else if(xisalpha(*info->p) || *info->p == '_') {
                     refference = true;
                 }
             }
@@ -705,6 +707,7 @@ sNode*% pre_position_operator(sInfo* info=info)
         info.p = p;
         info.sline = sline;
     }
+    
     
     parse_sharp();
     
@@ -1140,7 +1143,7 @@ sNode*% pre_position_operator(sInfo* info=info)
     }
 }
 
-sNode*% expression_node(sInfo* info=info) version 98
+sNode*% expression_node(sInfo* info=info) version 97
 {
     sNode*% node = pre_position_operator();
     

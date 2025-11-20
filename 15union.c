@@ -15,11 +15,17 @@ void output_union(sClass* klass, sInfo* info)
     
     buf.append_format("union %s\n{\n", klass.mName);
     
+    bool existance_generics = false;
     foreach(it, klass.mFields) {
         var name, type = it;
         
-        buf.append_str(make_define_var(type, name));
-        buf.append_str(";\n");
+        if(type->mAnonymous) {
+            child_output_struct(type, buf, &existance_generics, name, 1, info);
+        }
+        else {
+            buf.append_str(make_define_var(type, name));
+            buf.append_str(";\n");
+        }
     }
     
     if(klass->mAttribute == null) {

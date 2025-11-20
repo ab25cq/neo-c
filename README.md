@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.5.2
+version 0.5.5
 
 ``` C
 #include <neo-c.h>
@@ -43,7 +43,7 @@ int main()
 }
 ```
 
-Comelang outputs c source with standard C libraries only. So you can use this for micro computer or other system working c language.
+neo-c outputs c source with standard C libraries only. So you can use this for micro computer or other system working c language.
 
 # インストール
 
@@ -77,6 +77,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.5.5 more c compatiblities
 0.5.2 more c compatiblities
 0.5.1 more c compatiblities
 0.5.0 Reborn

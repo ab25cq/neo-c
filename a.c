@@ -1,53 +1,32 @@
-#include <stdio.h>
-#include <stdlib.h>
 
-int fun()
-{
-    puts("aaa");
-}
-
-void fun2()
-{
-    puts("bbb");
-}
-
-static int fun4(int a, char* b)
-{
-    return 1;
-}
-
-static const int gUHO;
-
-struct sData
-{
-    int a;
-    char* b;
+struct Outer {
+    int id;
+    union {
+        struct {
+            short sx;
+            short sy;
+        };
+        int combined;
+    };
+    struct {
+        unsigned char r, g, b;
+    } color;
 };
 
-if(num_param_types(fun4) == 2) {
-    if(param_types(fun4, 0) == int) {
-        int a = 888;
-    }
-}
-elif (num_fields(sData) == 2) {
-    if(field_types(sData, 0) == int) {
-        int a = 7;
-    }
-    else {
-        int a = 999;
-    }
-}
-elif (defined(fun2) && defined(fun)) {
-    int a = 3;
-}
-else {
-    int a = 2;
-}
+#pragma pack(push, 1)
+struct Packed {
+    unsigned short a;
+    unsigned char b;
+    unsigned int c;
+};
+#pragma pack(pop)
 
-int main(void) {
-    printf("a %d\n", a);
-    
-    
+int main(int argc, char** argv)
+{
+    struct Outer o = { .id = 5, .sx = 10, .sy = 20 };
+    if(o.sx == 10 && o.sy == 20) {
+        int a = 1;
+    }
+    o.color.r = 111;
     return 0;
 }
-

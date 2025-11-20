@@ -1,6 +1,51 @@
 #include "common.h"
 
-void output_struct(sClass* klass, sInfo* info)
+void child_output_struct(sType* type, buffer*% buf, bool* existance_generics, string name, int indent, sInfo* info)
+{
+    sClass* klass = type->mClass;
+    
+    if(klass.mStruct) {
+        buf.append_str("    " * indent);
+        buf.append_str("struct {\n");
+    }
+    else if(klass.mUnion) {
+        buf.append_str("    " * indent);
+        buf.append_str("union {\n");
+    }
+            
+    indent++;
+    foreach(it, klass.mFields) {
+        var name2, type2 = it;
+            
+        if(is_contained_generics_class(type2, info)) {
+            *existance_generics = true;
+        }
+        
+        type2->mStatic = false;
+        
+        sClass* klass = type2->mClass;
+        
+        if(type2->mAnonymous) {
+            child_output_struct(type2, buf, existance_generics, name2, indent, info);
+        }
+        else {
+            buf.append_str("    " * indent);
+            buf.append_str(make_define_var(type2, name2));
+            buf.append_str(";\n");
+        }
+    }
+            
+    if(type->mAnonymousVarName) {
+        buf.append_str("    " * (indent-1));
+        buf.append_format("};\n");
+    }
+    else {
+        buf.append_str("    " * (indent-1));
+        buf.append_format("} %s;\n", name);
+    }
+}
+
+void output_struct(sClass* klass, string pragma, sInfo* info)
 {
     if(info->no_output_come_code) {
         return;
@@ -13,6 +58,10 @@ void output_struct(sClass* klass, sInfo* info)
     
     buffer*% buf = new buffer();
         
+    
+    if(pragma) {
+        buf.append_str(pragma);
+    }
     buf.append_format("struct %s\n{\n", klass.mName);
             
     bool existance_generics = false;
@@ -25,9 +74,16 @@ void output_struct(sClass* klass, sInfo* info)
         
         type->mStatic = false;
         
-        buf.append_str("    ");
-        buf.append_str(make_define_var(type, name));
-        buf.append_str(";\n");
+        sClass* klass = type->mClass;
+        
+        if(type->mAnonymous) {
+            child_output_struct(type, buf, &existance_generics, name, 1, info);
+        }
+        else {
+            buf.append_str("    ");
+            buf.append_str(make_define_var(type, name));
+            buf.append_str(";\n");
+        }
     }
             
     if(klass->mAttribute == null) {
@@ -35,6 +91,9 @@ void output_struct(sClass* klass, sInfo* info)
     }
     else {
         buf.append_format("} %s;\n", klass->mAttribute);
+    }
+    if(pragma) {
+        buf.append_str("#pragma pack(pop)");
     }
             
     if(info.struct_definition[string(name)]?? == null && !existance_generics) {
@@ -74,7 +133,7 @@ bool output_generics_struct(sType*% type, sType*% generics_type, sInfo* info)
         type->mClass = new_class;
         type->mGenericsTypes.reset();
         
-        output_struct(new_class, info);
+        output_struct(new_class, null, info);
     }
     else { 
         if(type->mNoSolvedGenericsType == null && type->mGenericsTypes.length() > 0) {
@@ -96,6 +155,7 @@ class sStructNode extends sNodeBase
     
         string self.mName = string(name);
         sClass*% self.mClass = clone klass;
+        string self.pragma = info.pragma;
     }
     
     bool terminated()
@@ -112,8 +172,9 @@ class sStructNode extends sNodeBase
     {
         sClass*% klass = self.mClass;
         string name = string(self.mName);
+        string pragma = self.pragma;
         
-        output_struct(klass, info);
+        output_struct(klass, pragma, info);
     
         return true;
     }
@@ -199,7 +260,7 @@ class sClassNode extends sNodeBase
         }
         info.types.insert(string(name), clone type);
         
-        output_struct(klass, info);
+        output_struct(klass, null, info);
         
         foreach(it, self.mMethods) {
             node_compile(it).elif {

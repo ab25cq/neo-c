@@ -126,6 +126,9 @@ uniq class sType
     bool mException;
     bool mTypeName;
     
+    bool mAnonymous;
+    bool mAnonymousVarName;
+    
     bool mInline;
     bool mNullValue;
     bool mGuardValue;
@@ -599,6 +602,8 @@ struct sInfo
     bool in_conditional;
     int num_conditional;
     int max_conditional;
+    
+    string pragma;
 };
 
 uniq class sNodeBase
@@ -705,7 +710,7 @@ uniq class sCurrentNode extends sNodeBase
             vtable = vtable->mParent;
         }
         
-        output_struct(current_stack, info);
+        output_struct(current_stack, null, info);
         
         info.classes.insert(class_name, current_stack);
         
@@ -989,6 +994,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
 /////////////////////////////////////////////////////////////////////
 /// 14struct.c
 /////////////////////////////////////////////////////////////////////
+void child_output_struct(sType* type, buffer*% buf, bool* existance_generics, string name, int indent, sInfo* info);
 string parse_struct_attribute(sInfo* info=info);
 sNode*% create_nothing_node(sInfo* info=info);
 bool is_contained_method_generics_types(sType* type, sInfo* info);
@@ -998,7 +1004,7 @@ sNode*% parse_struct(string type_name, string struct_attribute, sInfo* info);
 string get_none_generics_name(char* class_name);
 sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98;
 bool output_generics_struct(sType*% type, sType*% generics_type, sInfo* info);
-void output_struct(sClass* klass, sInfo* info);
+void output_struct(sClass* klass, string pragma, sInfo* info);
 
 /////////////////////////////////////////////////////////////////////
 /// 15union.c

@@ -2127,6 +2127,7 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
                 static int num_anonymous_var_name = 0;
                 num_anonymous_var_name++;
                 var_name = xsprintf("anonymous_var_nameY%d", num_anonymous_var_name);
+                type->mAnonymousVarName = true;
             }
             
             if(*info->p == ':') {
@@ -2331,7 +2332,9 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
     if(anonymous_type && *info->p == '{') {
         static int anonymous_num = 0;
         if(struct_) {
+            bool anonymous = false;
             if(type_name === "") {
+                anonymous = true;
                 type_name = xsprintf("anonymous_typeX%d", ++anonymous_num);
             }
             
@@ -2353,6 +2356,7 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
             }
             
             type = new sType(string(type_name));
+            type->mAnonymous = anonymous;
             
             type->mPointerNum = pointer_num;
         }
@@ -2378,8 +2382,10 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
             type = new sType(string(type_name));
         }
         else if(union_) {
+            bool anonymous = false;
             if(type_name === "") {
                 type_name = xsprintf("anonymous_typeZ%d", ++anonymous_num);
+                anonymous = true;
             }
             
             sNode*% node = parse_union(type_name, union_attribute, info);
@@ -2402,6 +2408,7 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
             type = new sType(string(type_name));
             
             type->mPointerNum = pointer_num;
+            type->mAnonymous = anonymous;
         }
         else {
             err_msg(info, "unexpected { character");
@@ -2427,6 +2434,7 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
                 static int num_anonymous_var_name = 0;
                 num_anonymous_var_name++;
                 var_name = xsprintf("anonymous_var_nameXYZ%d", num_anonymous_var_name);
+                type->mAnonymousVarName = true;
             }
             else if(xisalnum(*info.p) || *info->p == '_') {
                 var_name = parse_word();
@@ -2435,6 +2443,7 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
                 static int num_anonymous_var_name = 0;
                 num_anonymous_var_name++;
                 var_name = xsprintf("anonymous_var_nameY%d", num_anonymous_var_name);
+                type->mAnonymousVarName = true;
             }
             
             if(var_name_between_brace && *info->p == ')') {
@@ -2738,6 +2747,7 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
                 static int num_anonymous_var_name = 0;
                 num_anonymous_var_name++;
                 var_name = xsprintf("anonymous_var_nameXYZL%d", num_anonymous_var_name);
+                type->mAnonymousVarName = true;
             }
             else if(xisalnum(*info.p) || *info->p == '_') {
                 var_name = parse_word();
@@ -2746,6 +2756,7 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
                 static int num_anonymous_var_name = 0;
                 num_anonymous_var_name++;
                 var_name = xsprintf("anonymous_var_nameX%d", num_anonymous_var_name);
+                type->mAnonymousVarName = true;
             }
             
             if(var_name_between_brace && *info->p == ')') {
@@ -3254,6 +3265,7 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
                 static int num_anonymous_var_name = 0;
                 num_anonymous_var_name++;
                 var_name = xsprintf("anonymous_var_nameXYZLO%d", num_anonymous_var_name);
+                type->mAnonymousVarName = true;
             }
             else if(xisalnum(*info.p) || *info->p == '_') {
                 var_name = parse_word();
@@ -3262,6 +3274,7 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
                 static int num_anonymous_var_name = 0;
                 num_anonymous_var_name++;
                 var_name = xsprintf("anonymous_var_nameX%d", num_anonymous_var_name);
+                type->mAnonymousVarName = true;
             }
             
             if(var_name_between_brace && *info->p == ')') {

@@ -33,6 +33,29 @@ bool operator_overload_fun2(sType*% type, char* fun_name, sNode*% left_node, sNo
     return result;
 }
 
+sType*% get_field_type(sClass* klass, string name, sInfo* info)
+{
+    sType*% result = null
+    foreach(field, klass->mFields) {
+        var field_name, field_type2 = field;
+        
+        if(field_name === name) {
+            result = clone field_type2;
+            break;
+        };
+        
+        if(field_type2->mAnonymousVarName) {
+            result = get_field_type(field_type2->mClass, name, info);
+            
+            if(result) {
+                break;
+            }
+        }
+    }
+    
+    return result;
+}
+
 class sStoreFieldNode extends sNodeBase
 {
     new(sNode* left, sNode*% right, string name, sInfo* info)
@@ -102,56 +125,7 @@ class sStoreFieldNode extends sNodeBase
             return true;
         }
         
-        foreach(field, klass->mFields) {
-            var field_name, field_type2 = field;
-            
-            if(field_name === name) {
-                field_type = clone field_type2;
-                break;
-            };
-            
-            index++;
-        }
-        
-        if(index == klass->mFields.length()) {
-            index = 0;
-            foreach(field, klass->mFields) {
-                var field_name, field_type2 = field;
-                
-                sClass* klass2 = field_type2->mClass;
-                
-                if(klass2->mUnion) {
-                    foreach(field2, klass2->mFields) {
-                        var field_name2, field_type3 = field2;
-                        
-                        if(field_name2 === name) {
-                            child_field_name = string(field_name);
-                            if(field_type2->mPointerNum > 0) {
-                                child_field_is_pointer = true;
-                            }
-                            field_type = clone field_type3;
-                            break;
-                        }
-                    }
-                    
-                    if(child_field_name) {
-                        break;
-                    }
-                }
-                
-                if(field_name === name) {
-                    field_type = clone field_type2;
-                    break;
-                };
-                
-                index++;
-            }
-            
-            if(index == klass->mFields.length() || field_type == null) {
-                err_msg(info, "field not found(%s) in %s(1)", name, klass->mName);
-                return true;
-            }
-        }
+        sType*% field_type = get_field_type(klass, name, info);
         
         if(field_type == null) {
             return true;
@@ -396,109 +370,29 @@ class sLoadFieldNode extends sNodeBase
         sClass* klass = left_type3->mClass;
         klass = info.classes[string(klass->mName)]??;
         
-        sType*% field_type = null;
-        int index = 0;
-        bool child_field_is_pointer = false;
-        string child_field_name = null;
-        klass = info.classes[string(klass->mName)]??;
         if(klass == null || klass->mFields == null) {
             err_msg(info, "invalid class %s", klass->mName);
             return true;
         }
-        foreach(field, klass->mFields) {
-            var field_name, field_type2 = field;
-            
-            if(field_name === name) {
-                field_type = clone field_type2;
-                break;
-            }
-            
-            index++;
-        }
         
-        if(index == klass->mFields.length()) {
-            index = 0;
-            foreach(field, klass->mFields) {
-                var field_name, field_type2 = field;
-                
-                sClass* klass2 = field_type2->mClass;
-                
-                if(klass2->mUnion) {
-                    foreach(field2, klass2->mFields) {
-                        var field_name2, field_type3 = field2;
-                        
-                        if(field_name2 === name) {
-                            child_field_name = string(field_name);
-                            if(field_type2->mPointerNum > 0) {
-                                child_field_is_pointer = true;
-                            }
-                            field_type = clone field_type3;
-                            break;
-                        }
-                    }
-                    
-                    if(child_field_name) {
-                        break;
-                    }
-                }
-                
-                if(field_name === name) {
-                    field_type = clone field_type2;
-                    break;
-                }
-                
-                index++;
-            }
-            
-            if(index == klass->mFields.length()) {
-                err_msg(info, "field not found(%s) in %s(2)", name, klass->mName);
-                return true;
-            }
+        sType*% field_type = get_field_type(klass, name, info);
+        
+        if(field_type == null) {
+            err_msg(info, "no field(%s) in klass(%s)", name, klass->mName);
+            return true;
         }
         
         CVALUE*% come_value = new CVALUE();
         
         if(left_value.type->mPointerNum > 0) {
-            if(child_field_name) {
-                if(child_field_is_pointer) {
-                    come_value.c_value = xsprintf("%s->%s->%s", left_value.c_value, child_field_name, name);
-                }
-                else {
-                    come_value.c_value = xsprintf("%s->%s.%s", left_value.c_value, child_field_name, name);
-                }
-            }
-            else {
-                come_value.c_value = xsprintf("%s->%s", left_value.c_value, name);
-            }
+            come_value.c_value = xsprintf("%s->%s", left_value.c_value, name);
         }
         else {
-            if(child_field_name) {
-                if(child_field_is_pointer) {
-                    come_value.c_value = xsprintf("%s.%s->%s", left_value.c_value, child_field_name, name);
-                }
-                else {
-                    come_value.c_value = xsprintf("%s.%s.%s", left_value.c_value, child_field_name, name);
-                }
-            }
-            else {
-                come_value.c_value = xsprintf("%s.%s", left_value.c_value, name);
-            }
+            come_value.c_value = xsprintf("%s.%s", left_value.c_value, name);
         }
         come_value.type = clone field_type;
-        
         come_value.type = solve_generics(come_value.type, info->generics_type, info);
-        
-/*
-        if(come_value.type->mNoSolvedGenericsType) {
-            come_value.type = come_value.type->mNoSolvedGenericsType;
-        }
-*/
         come_value.var = null;
-        
-        if(field_type == null) {
-            err_msg(info, "no field(%s)", name);
-            return true;
-        }
         
         if(come_value.type->mArrayNum.length() == 1) {
             come_value.type->mOriginalLoadVarType = clone come_value.type;

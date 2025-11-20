@@ -2148,7 +2148,7 @@ string parse_inner_attribute(sInfo* info=info)
     return buf.to_string();
 }
 
-sNode*% expression_node(sInfo* info=info) version 97
+sNode*% expression_node(sInfo* info=info) version 98
 {
     skip_spaces_and_lf();
     parse_sharp();
