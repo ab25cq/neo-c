@@ -7124,7 +7124,7 @@ uniq bool wchar_t*::operator_not_equals(wchar_t* left, wchar_t* right)
 //////////////////////////////
 /// base library(IO-FILE)
 //////////////////////////////
-#if !defined(__MINUX__) && !defined(__BARE_METAL__) && !defined(__PICO__)
+#if !defined(__BARE_METAL__) && !defined(__PICO__)
 uniq string FILE*::read(FILE* f)
 {
     if(f == null) {
