@@ -52,11 +52,12 @@ class sSwitchNode extends sNodeBase
 
 class sCaseNode extends sNodeBase
 {
-    new(sNode*% node, sInfo* info)
+    new(sNode*% node, sNode*% node2, sInfo* info)
     {
         self.super();
     
         sNode*% self.mNode = clone node;
+        sNode*% self.mNode2 = clone node2;
     }
     
     bool terminated()
@@ -83,7 +84,22 @@ class sCaseNode extends sNodeBase
         
         CVALUE*% label_value = get_value_from_stack(-1, info);
         
-        add_come_code(info, "case %s:\n", label_value.c_value);
+        sNode* node2 = self.mNode2;
+        
+        CVALUE*% label_value2 = null;
+        if(node2) {
+            node_compile(node2).elif {
+                return false;
+            }
+            label_value2 = get_value_from_stack(-1, info);
+        }
+        
+        if(label_value2) {
+            add_come_code(info, "case %s ... %s:\n", label_value.c_value, label_value2.c_value);
+        }
+        else {
+            add_come_code(info, "case %s:\n", label_value.c_value);
+        }
         
         transpiler_clear_last_code(info);
     
@@ -260,9 +276,20 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         info.no_label = true;
         sNode*% node = expression();
         info.no_label = no_label;
+        
+        sNode*% node2 = null;
+        if(parsecmp("...")) {
+            info->p += strlen("...");
+            skip_spaces_and_lf();
+            
+            bool no_label = info.no_label;
+            info.no_label = true;
+            node2 = expression();
+            info.no_label = no_label;
+        }
         expected_next_character(':');
         
-        return new sCaseNode(node, info) implements sNode;
+        return new sCaseNode(node, node2, info) implements sNode;
     }
     else if(buf === "default") {
         expected_next_character(':');
