@@ -2687,6 +2687,7 @@ int charp_rindex_count(char* str, char* search_str, int count, int default_value
 char* charp_strip(char* self);
 char* wchar_tp_to_string(int* wstr);
 int* charp_to_wstring(char* str);
+int* charpa_to_wstring(char* str);
 int* wchar_tp_delete(int* str, int head, int tail);
 int wchar_tp_index(int* str, int* search_str, int default_value);
 int wchar_tp_rindex(int* str, int* search_str, int default_value);

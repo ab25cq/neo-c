@@ -339,7 +339,7 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
         else if(left_type->mPointerNum > 0 && right_type->mPointerNum == 0) {
         }
 */
-        else if(right_type->mPointerNum > 0 && right_type->mClass->mName === "void" && left_type2->mClass->mNumber && left_type2->mPointerNum == 0) {
+        else if(right_type->mPointerNum > 0 && right_type->mClass->mName === "void" && left_type2->mClass->mNumber && left_type2->mPointerNum == 0 && left_type2->mArrayPointerNum == 0) {
             if(pointer_massive) {
                 if(print_err_msg) {
                     printf("%s %d %s\n", info->sname, info->sline, msg);
@@ -353,7 +353,7 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
             }
             else {
                 string left_type3 = make_type_name_string(left_type2);
-                come_value.c_value = xsprintf("(%s)%s", left_type3, come_value.c_value);
+                come_value.c_value = xsprintf("/*a*/(%s)%s", left_type3, come_value.c_value);
                 come_value.type = clone left_type2;
                 come_value.var = null;
                 
@@ -445,7 +445,7 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
             return false;
         }
     } 
-    else if(right_type->mPointerNum > 0 && right_type->mClass->mName === "void" && left_type2->mClass->mNumber && left_type2->mPointerNum == 0) {
+    else if(right_type->mPointerNum > 0 && right_type->mClass->mName === "void" && left_type2->mClass->mNumber && left_type2->mPointerNum == 0 && left_type2->mArrayPointerNum == 0) {
         if(pointer_massive) {
             if(print_err_msg) {
                 printf("%s %d %s\n", info->sname, info->sline, msg);
@@ -459,7 +459,7 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
         }
         else {
             string left_type3 = make_type_name_string(left_type2);
-            come_value.c_value = xsprintf("(%s)%s", left_type3, come_value.c_value);
+            come_value.c_value = xsprintf("/*b*/(%s)%s", left_type3, come_value.c_value);
             come_value.type = clone left_type2;
             come_value.var = null;
             
@@ -504,7 +504,7 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
         
         right_type2 = clone left_type2;
     }
-    else if(right_type->mPointerNum > 0 && right_type->mClass->mName === "void" && left_type2->mClass->mNumber && left_type2->mPointerNum == 0) {
+    else if(right_type->mPointerNum > 0 && right_type->mClass->mName === "void" && left_type2->mClass->mNumber && left_type2->mPointerNum == 0 && left_type2->mArrayPointerNum == 0) {
         if(pointer_massive) {
             if(print_err_msg) {
                 printf("%s %d %s\n", info->sname, info->sline, msg);
@@ -518,7 +518,7 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
         }
         else {
             string left_type3 = make_type_name_string(left_type2);
-            come_value.c_value = xsprintf("(%s)%s", left_type3, come_value.c_value);
+            come_value.c_value = xsprintf("/*c*/(%s)%s", left_type3, come_value.c_value);
             come_value.type = clone left_type2;
             come_value.var = null;
             

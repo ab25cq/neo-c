@@ -6609,6 +6609,11 @@ uniq wstring char*::to_wstring(char* str)
     return wstring(str);
 }
 
+uniq wstring char[]::to_wstring(char* str)
+{
+    return wstring(str);
+}
+
 uniq wstring wchar_t*::delete(wchar_t* str, int head, int tail) 
 {
     int len = wcslen(str);

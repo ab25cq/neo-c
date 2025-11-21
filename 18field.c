@@ -401,6 +401,25 @@ class sLoadFieldNode extends sNodeBase
             come_value.type->mPointerNum++;
             come_value.type->mOriginalTypeNamePointerNum = come_value.type->mPointerNum;
         }
+        /*
+        if(come_value.type->mArrayNum.length() > 0) {
+            if(info.in_typeof) {
+            }
+            else if(info.in_refference) {
+                come_value.type->mOriginalLoadVarType = clone come_value.type;
+                
+                /// no decay ///
+                come_value.type->mArrayPointerNum++;
+            }
+            else {
+                come_value.type->mOriginalLoadVarType = clone come_value.type;
+                
+                /// decay ///
+                come_value.type->mArrayNum.delete(0, 1);
+                come_value.type->mArrayPointerNum++;
+            }
+        }
+        */
         
         info.stack.push_back(come_value);
     
@@ -627,6 +646,30 @@ class sLoadArrayNode extends sNodeBase
                 result_type = result_type->mOriginalLoadVarType;
             }
             
+            come_value.type = result_type;
+            
+            if(come_value.type->mArrayNum.length() > 0) {
+                if(info.in_typeof) {
+                }
+                else if(info.in_refference) {
+                    come_value.type->mOriginalLoadVarType = clone come_value.type;
+                    
+                    /// no decay ///
+                    come_value.type->mArrayPointerNum++;
+                }
+                else {
+                    come_value.type->mOriginalLoadVarType = clone come_value.type;
+                    
+                    /// decay ///
+                    come_value.type->mArrayNum.delete(0, 1);
+                    come_value.type->mArrayPointerNum++;
+                }
+            }
+            else if(come_value.type->mPointerNum > 0) {
+                come_value.type->mPointerNum--;
+            }
+            
+/*
             if(result_type.mArrayNum.length() > 0) {
                 int n = result_type.mArrayNum.length() - array_num.length();
                 
@@ -661,8 +704,9 @@ class sLoadArrayNode extends sNodeBase
                     }
                 }
             }
-            
             come_value.type = clone result_type;
+*/
+            
             come_value.var = null;
             
             come_value.type = solve_generics(clone come_value.type, info->generics_type, info);

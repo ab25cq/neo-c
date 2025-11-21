@@ -2678,6 +2678,7 @@ int charp_rindex_count(char* str, char* search_str, int count, int default_value
 char* charp_strip(char* self);
 char* wchar_tp_to_string(int* wstr);
 int* charp_to_wstring(char* str);
+int* charpa_to_wstring(char* str);
 int* wchar_tp_delete(int* str, int head, int tail);
 int wchar_tp_index(int* str, int* search_str, int default_value);
 int wchar_tp_rindex(int* str, int* search_str, int default_value);
@@ -4778,7 +4779,7 @@ _Bool __result_obj__101;
         }
         else if(        right_type->mPointerNum==0&&left_type2->mPointerNum>0        ) {
         }
-        else if(        right_type->mPointerNum>0&&string_operator_equals(right_type->mClass->mName,"void")&&left_type2->mClass->mNumber&&left_type2->mPointerNum==0        ) {
+        else if(        right_type->mPointerNum>0&&string_operator_equals(right_type->mClass->mName,"void")&&left_type2->mClass->mNumber&&left_type2->mPointerNum==0&&left_type2->mArrayPointerNum==0        ) {
             if(            pointer_massive            ) {
                 if(                print_err_msg                ) {
                     printf("%s %d %s\n",info->sname,info->sline,msg);
@@ -4796,7 +4797,7 @@ _Bool __result_obj__101;
                 left_type3=(char*)come_increment_ref_count(make_type_name_string(left_type2,info,(_Bool)0,(_Bool)0));
                 __right_value0 = (void*)0;
                 __dec_obj39=come_value->c_value,
-                come_value->c_value=(char*)come_increment_ref_count(xsprintf("(%s)%s",left_type3,come_value->c_value));
+                come_value->c_value=(char*)come_increment_ref_count(xsprintf("/*a*/(%s)%s",left_type3,come_value->c_value));
                 __dec_obj39 = come_decrement_ref_count(__dec_obj39, (void*)0, (void*)0, 0,0, (void*)0);
                 __right_value0 = (void*)0;
                 __dec_obj40=come_value->type,
@@ -4905,7 +4906,7 @@ _Bool __result_obj__101;
             return __result_obj__71;
         }
     }
-    else if(    right_type->mPointerNum>0&&string_operator_equals(right_type->mClass->mName,"void")&&left_type2->mClass->mNumber&&left_type2->mPointerNum==0    ) {
+    else if(    right_type->mPointerNum>0&&string_operator_equals(right_type->mClass->mName,"void")&&left_type2->mClass->mNumber&&left_type2->mPointerNum==0&&left_type2->mArrayPointerNum==0    ) {
         if(        pointer_massive        ) {
             if(            print_err_msg            ) {
                 printf("%s %d %s\n",info->sname,info->sline,msg);
@@ -4923,7 +4924,7 @@ _Bool __result_obj__101;
             left_type3_18=(char*)come_increment_ref_count(make_type_name_string(left_type2,info,(_Bool)0,(_Bool)0));
             __right_value0 = (void*)0;
             __dec_obj45=come_value->c_value,
-            come_value->c_value=(char*)come_increment_ref_count(xsprintf("(%s)%s",left_type3_18,come_value->c_value));
+            come_value->c_value=(char*)come_increment_ref_count(xsprintf("/*b*/(%s)%s",left_type3_18,come_value->c_value));
             __dec_obj45 = come_decrement_ref_count(__dec_obj45, (void*)0, (void*)0, 0,0, (void*)0);
             __right_value0 = (void*)0;
             __dec_obj46=come_value->type,
@@ -4994,7 +4995,7 @@ _Bool __result_obj__101;
         right_type2=(struct sType*)come_increment_ref_count(sType_clone(left_type2));
         come_call_finalizer(sType_finalize, __dec_obj53,(void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    else if(    right_type->mPointerNum>0&&string_operator_equals(right_type->mClass->mName,"void")&&left_type2->mClass->mNumber&&left_type2->mPointerNum==0    ) {
+    else if(    right_type->mPointerNum>0&&string_operator_equals(right_type->mClass->mName,"void")&&left_type2->mClass->mNumber&&left_type2->mPointerNum==0&&left_type2->mArrayPointerNum==0    ) {
         if(        pointer_massive        ) {
             if(            print_err_msg            ) {
                 printf("%s %d %s\n",info->sname,info->sline,msg);
@@ -5012,7 +5013,7 @@ _Bool __result_obj__101;
             left_type3_20=(char*)come_increment_ref_count(make_type_name_string(left_type2,info,(_Bool)0,(_Bool)0));
             __right_value0 = (void*)0;
             __dec_obj54=come_value->c_value,
-            come_value->c_value=(char*)come_increment_ref_count(xsprintf("(%s)%s",left_type3_20,come_value->c_value));
+            come_value->c_value=(char*)come_increment_ref_count(xsprintf("/*c*/(%s)%s",left_type3_20,come_value->c_value));
             __dec_obj54 = come_decrement_ref_count(__dec_obj54, (void*)0, (void*)0, 0,0, (void*)0);
             __right_value0 = (void*)0;
             __dec_obj55=come_value->type,
