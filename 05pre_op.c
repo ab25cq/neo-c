@@ -51,9 +51,12 @@ class sRefferenceNode extends sNodeBase
     {
         sNode* value = self.value;
         
+        bool in_refference = info.in_refference;
+        info.in_refference = true;
         if(!node_compile(value)) {
             return false;
         }
+        info.in_refference = in_refference;
         
         CVALUE*% left_value = get_value_from_stack(-1, info);
         
@@ -100,15 +103,23 @@ class sParenBlockNode extends sNodeBase
         
         buf.append_str("({");
         
+/*
+        if(info->paren_block_buffer) {
+            buf.append_str(info.paren_block_buffer.to_string());
+        }
+*/
+        
+        var paren_block_buffer = info.paren_block_buffer;
+        info->paren_block_buffer = new buffer(); 
         sType*% come_type = null;
         foreach(it, paren_block) {
-            if(it.kind() === "sIfNode" || it.kind() === "sWhileNode" || it.kind() === "sDoWhileNode" || it.kind() === "sForNode" || it.kind() == "sSwitchNode") {
-                add_come_code(info, buf.to_string());
-                buf = null;
-            }
-            
             if(!node_compile(it)) {
                 return false;
+            }
+            
+            if(info.paren_block_buffer.length() > 0) {
+                buf.append_str(info.paren_block_buffer.to_string());
+                info.paren_block_buffer = new buffer();
             }
             
             if(info.stack.length() > 0) {
@@ -137,6 +148,7 @@ class sParenBlockNode extends sNodeBase
                 }
             }
         }
+        info->paren_block_buffer = paren_block_buffer;
         
         if(buf) {
             buf.append_str("})");
@@ -158,6 +170,7 @@ class sParenBlockNode extends sNodeBase
         return true;
     }
 };
+
 
 class sDerefferenceNode extends sNodeBase
 {

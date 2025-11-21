@@ -1509,9 +1509,9 @@ struct sType
     struct list$1int$* mArrayStatic;
     struct list$1int$* mArrayRestrict;
     int mTypedefOriginalPointerNum;
+    int mPointerNum;
     int mFunctionPointerNum;
     int mArrayPointerNum;
-    int mPointerNum;
     int mOriginalTypeNamePointerNum;
     int mOriginalTypeNameHeap;
     char* mOriginalTypeName;
@@ -1870,6 +1870,9 @@ struct sInfo
     int num_conditional;
     int max_conditional;
     char* pragma;
+    _Bool in_refference;
+    struct buffer* paren_block_buffer;
+    _Bool in_typeof;
 };
 
 struct sNodeBase
@@ -5879,6 +5882,9 @@ static void sInfo_finalize(struct sInfo* self){
     }
     if(    self!=((void*)0)&&self->pragma!=((void*)0)    ) {
         (self->pragma = come_decrement_ref_count(self->pragma, (void*)0, (void*)0, 0, 0, (void*)0));
+    }
+    if(    self!=((void*)0)&&self->paren_block_buffer!=((void*)0)    ) {
+        come_call_finalizer(buffer_finalize, self->paren_block_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
 }
 

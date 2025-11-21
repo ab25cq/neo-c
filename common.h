@@ -144,10 +144,11 @@ uniq class sType
     list<int>*% mArrayRestrict;
     
     int mTypedefOriginalPointerNum;
+    
+    int mPointerNum;
     int mFunctionPointerNum;
     int mArrayPointerNum;
     
-    int mPointerNum;
     int mOriginalTypeNamePointerNum;
     int mOriginalTypeNameHeap;
     
@@ -603,6 +604,9 @@ struct sInfo
     int max_conditional;
     
     string pragma;
+    bool in_refference;
+    buffer*% paren_block_buffer;
+    bool in_typeof;
 };
 
 uniq class sNodeBase

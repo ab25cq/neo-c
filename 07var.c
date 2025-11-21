@@ -742,12 +742,22 @@ class sLoadNode extends sNodeBase
         
         info.stack.push_back(come_value);
         
-        if(come_value.type->mArrayNum.length() == 1) {
-            come_value.type->mOriginalLoadVarType = clone come_value.type;
-            
-            come_value.type->mArrayNum.reset();
-            come_value.type->mPointerNum++;
-            come_value.type->mOriginalTypeNamePointerNum = come_value.type->mPointerNum;
+        if(come_value.type->mArrayNum.length() > 0) {
+            if(info.in_typeof) {
+            }
+            else if(info.in_refference) {
+                come_value.type->mOriginalLoadVarType = clone come_value.type;
+                
+                /// no decay ///
+                come_value.type->mArrayPointerNum++;
+            }
+            else {
+                come_value.type->mOriginalLoadVarType = clone come_value.type;
+                
+                /// decay ///
+                come_value.type->mArrayNum.delete(0, 1);
+                come_value.type->mArrayPointerNum++;
+            }
         }
         
         return true;

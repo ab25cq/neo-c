@@ -34,17 +34,26 @@ sType*% solve_generics(sType*% type, sType*% generics_type, sInfo* info)
         sNode*% node = type->mTypeOfNode;
         
         info.no_output_come_code = true;
+        info.in_typeof = true;
         node_compile(node).elif {
             return result;
         }
         info.no_output_come_code = false;
+        info.in_typeof = false;
         
         CVALUE*% come_value = get_value_from_stack(-1, info);
         
         result = come_value.type;
         
-        if(pointer_num > 0) {
-            result.mPointerNum += pointer_num;
+        if(result.mArrayNum.length() > 0) {
+            if(pointer_num > 0) {
+                result.mArrayPointerNum += pointer_num;
+            }
+        }
+        else {
+            if(pointer_num > 0) {
+                result.mPointerNum += pointer_num;
+            }
         }
         if(heap) {
             result.mHeap = true;

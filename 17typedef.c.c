@@ -1515,9 +1515,9 @@ struct sType
     struct list$1int$* mArrayStatic;
     struct list$1int$* mArrayRestrict;
     int mTypedefOriginalPointerNum;
+    int mPointerNum;
     int mFunctionPointerNum;
     int mArrayPointerNum;
-    int mPointerNum;
     int mOriginalTypeNamePointerNum;
     int mOriginalTypeNameHeap;
     char* mOriginalTypeName;
@@ -1876,6 +1876,9 @@ struct sInfo
     int num_conditional;
     int max_conditional;
     char* pragma;
+    _Bool in_refference;
+    struct buffer* paren_block_buffer;
+    _Bool in_typeof;
 };
 
 struct sNodeBase
@@ -3422,13 +3425,13 @@ struct sType* __result_obj__20;
         result->mTypedefOriginalPointerNum=self->mTypedefOriginalPointerNum;
     }
     if(    self!=((void*)0)    ) {
+        result->mPointerNum=self->mPointerNum;
+    }
+    if(    self!=((void*)0)    ) {
         result->mFunctionPointerNum=self->mFunctionPointerNum;
     }
     if(    self!=((void*)0)    ) {
         result->mArrayPointerNum=self->mArrayPointerNum;
-    }
-    if(    self!=((void*)0)    ) {
-        result->mPointerNum=self->mPointerNum;
     }
     if(    self!=((void*)0)    ) {
         result->mOriginalTypeNamePointerNum=self->mOriginalTypeNamePointerNum;

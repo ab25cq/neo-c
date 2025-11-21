@@ -460,7 +460,11 @@ string make_define_var(sType* type, char* name, sInfo* info=info, bool no_static
     else if(type2->mArrayPointerNum > 0) {
         string type_name = make_type_name_string(type2, no_static:no_static);
         
-        buf.append_format("%s (*%s)", type_name, name);
+        buf.append_format("%s (", type_name);
+        type2->mArrayPointerNum.times {
+            buf.append_format("*");
+        }
+        buf.append_format("%s)", name);
         
         int n = 0;
         foreach(it, type2->mArrayNum) {
@@ -616,7 +620,11 @@ string make_var_name(sType* type, char* name, sInfo* info=info, bool no_static=f
     else if(type2->mArrayPointerNum > 0) {
         string type_name = make_type_name_string(type2, no_static:no_static);
         
-        buf.append_format("(*%s)", name);
+        buf.append_format("(");
+        type2->mArrayPointerNum.times {
+            buf.append_format("*");
+        }
+        buf.append_format("%s)", name);
         
         int n = 0;
         foreach(it, type2->mArrayNum) {
@@ -766,7 +774,11 @@ string make_come_define_var(sType* type, char* name, sInfo* info=info)
     else if(type2->mArrayPointerNum > 0) {
         string type_name = make_come_type_name_string(type2);
         
-        buf.append_format("%s (*%s)", type_name, name);
+        buf.append_format("%s (", type_name);
+        type2->mArrayPointerNum.times {
+            buf.append_format("*");
+        }
+        buf.append_format("%s)", name);
         
         foreach(it, type2->mArrayNum) {
             if(!node_compile(it)) {
@@ -1260,7 +1272,10 @@ void add_come_code(sInfo* info, const char* msg, ...)
     int len = vasprintf(&msg2, msg, args);
     va_end(args);
     
-    if(info->come_fun) {
+    if(info->paren_block_buffer) {
+        info->paren_block_buffer.append_str(xsprintf("%s", msg2));
+    }
+    else if(info->come_fun) {
         int i;
         for(i=0; i<info->block_level; i++) {
             info.come_fun.mSource.append_str("    ");

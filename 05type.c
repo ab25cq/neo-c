@@ -23,6 +23,7 @@ bool is_type_name(char* buf, sInfo* info=info)
             || buf === "__noreturn" 
             || buf === "_noreturn" 
             || buf === "__typeof__" 
+            || buf === "typeof" 
             || buf === "_Nullable" 
             || buf === "_Alignas"
             || buf === "_Atomic"
@@ -41,6 +42,7 @@ bool is_type_name(char* buf, sInfo* info=info)
         || (info->in_top_level && buf === "__noreturn")
         || (info->in_top_level && buf === "_noreturn")
         || buf === "__typeof__" 
+        || buf === "typeof" 
         || buf === "_Nullable" 
         || buf === "_Alignas"
         || buf === "_Atomic"
@@ -2031,7 +2033,7 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
         }
     }
     
-    if(type_name === "__typeof__" && *info->p == '(') {
+    if((type_name === "typeof" || type_name === "__typeof__") && *info->p == '(') {
         info->p++;
         skip_spaces_and_lf();
         
