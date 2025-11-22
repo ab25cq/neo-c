@@ -607,6 +607,7 @@ struct sInfo
     bool in_refference;
     buffer*% paren_block_buffer;
     bool in_typeof;
+    bool in_store_array;
 };
 
 uniq class sNodeBase

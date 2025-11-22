@@ -1879,6 +1879,7 @@ struct sInfo
     _Bool in_refference;
     struct buffer* paren_block_buffer;
     _Bool in_typeof;
+    _Bool in_store_array;
 };
 
 struct sNodeBase
@@ -2426,7 +2427,6 @@ char* charp_operator_add(char* self, char* right);
 char* string_operator_add(char* self, char* right);
 char* charp_operator_mult(char* self, int right);
 char* string_operator_mult(char* self, int right);
-unsigned long  int charpa_length(char* self, unsigned long  int len);
 _Bool charppa_contained(char** self, unsigned long  int len, char* str);
 unsigned long  int shortpa_length(short* self, unsigned long  int len);
 unsigned long  int intpa_length(int* self, unsigned long  int len);
@@ -2463,6 +2463,7 @@ _Bool xisascii(char c);
 _Bool xispunct(char c);
 int string_length(char* str);
 int charp_length(char* str);
+int charpa_length(char* str);
 char* charp_reverse(char* str);
 char* string_operator_load_range_element(char* str, int head, int tail);
 char* charp_operator_load_range_element(char* str, int head, int tail);
@@ -2473,6 +2474,7 @@ struct list$1char$ph* charp_split_char(char* self, char c);
 char* charp_xsprintf(char* self, char* msg, ...);
 char* int_xsprintf(int self, char* msg, ...);
 char* charp_printable(char* str);
+char* charpa_printable(char* str);
 char* charp_sub_plain(char* self, char* str, char* replace);
 char* xbasename(char* path);
 char* xnoextname(char* path);
@@ -2668,6 +2670,7 @@ char* basename_r(const char* anonymous_var_nameX599, char* anonymous_var_nameX60
 char* dirname_r(const char* anonymous_var_nameX601, char* anonymous_var_nameX602);
 int* __builtin_wstring(char* str);
 int wchar_tp_length(int* str);
+int wchar_ta_length(int* str);
 int wstring_length(int* str);
 char* string_lower_case(char* str);
 char* string_upper_case(char* str);
@@ -2677,6 +2680,7 @@ int charp_rindex(char* str, char* search_str, int default_value);
 int charp_rindex_count(char* str, char* search_str, int count, int default_value);
 char* charp_strip(char* self);
 char* wchar_tp_to_string(int* wstr);
+char* wchar_ta_to_string(int* wstr);
 int* charp_to_wstring(char* str);
 int* charpa_to_wstring(char* str);
 int* wchar_tp_delete(int* str, int head, int tail);

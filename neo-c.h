@@ -3992,6 +3992,13 @@ uniq int char*::length(char* str) {
     return strlen(str);
 }
 
+uniq int char[]::length(char* str) {
+    if(str == null) {
+        return 0;
+    }
+    return strlen(str);
+}
+
 uniq string char*::reverse(char* str) 
 {
     if(str == null) {
@@ -4262,6 +4269,11 @@ uniq string char*::printable(char* str)
     result[n] = '\0'
 
     return result;
+}
+
+uniq string char[]::printable(char* str)
+{
+    return char*::printable(str);
 }
 
 uniq string char*::sub_plain(char* self, char* str, char* replace)
@@ -6424,6 +6436,11 @@ uniq int wchar_t*::length(wchar_t* str)
     return wcslen(str);
 }
 
+uniq int wchar_t[]::length(wchar_t* str)
+{
+    return wcslen(str);
+}
+
 uniq int wstring::length(wchar_t* str)
 {
     return wchar_t*::length(str);
@@ -6602,6 +6619,11 @@ uniq string wchar_t*::to_string(wchar_t* wstr)
     }
 
     return result;
+}
+
+uniq string wchar_t[]::to_string(wchar_t* wstr)
+{
+    return wchar_t*::to_string(wstr);
 }
 
 uniq wstring char*::to_wstring(char* str)

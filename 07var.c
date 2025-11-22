@@ -740,10 +740,9 @@ class sLoadNode extends sNodeBase
         come_value.type = clone var_->mType;
         come_value.var = var_;
         
-        info.stack.push_back(come_value);
-        
         if(come_value.type->mArrayNum.length() > 0) {
             if(info.in_typeof) {
+                come_value.type->mOriginalLoadVarType = clone come_value.type;
             }
             else if(info.in_refference) {
                 come_value.type->mOriginalLoadVarType = clone come_value.type;
@@ -759,6 +758,8 @@ class sLoadNode extends sNodeBase
                 come_value.type->mArrayPointerNum++;
             }
         }
+        
+        info.stack.push_back(come_value);
         
         return true;
     }

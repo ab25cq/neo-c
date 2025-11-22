@@ -394,6 +394,29 @@ class sLoadFieldNode extends sNodeBase
         come_value.type = solve_generics(come_value.type, info->generics_type, info);
         come_value.var = null;
         
+        if(come_value.type->mArrayNum.length() > 0) {
+            if(info.in_store_array) {
+                come_value.type->mOriginalLoadVarType = clone come_value.type;
+            }
+            else if(info.in_typeof) {
+                come_value.type->mOriginalLoadVarType = clone come_value.type;
+            }
+            else if(info.in_refference) {
+                come_value.type->mOriginalLoadVarType = clone come_value.type;
+                
+                /// no decay ///
+                come_value.type->mArrayPointerNum++;
+            }
+            else {
+                come_value.type->mOriginalLoadVarType = clone come_value.type;
+                
+                /// decay ///
+                come_value.type->mArrayNum.delete(0, 1);
+                come_value.type->mArrayPointerNum++;
+            }
+        }
+        
+/*
         if(come_value.type->mArrayNum.length() == 1) {
             come_value.type->mOriginalLoadVarType = clone come_value.type;
             
@@ -401,6 +424,7 @@ class sLoadFieldNode extends sNodeBase
             come_value.type->mPointerNum++;
             come_value.type->mOriginalTypeNamePointerNum = come_value.type->mPointerNum;
         }
+*/
         /*
         if(come_value.type->mArrayNum.length() > 0) {
             if(info.in_typeof) {
@@ -455,9 +479,11 @@ class sStoreArrayNode extends sNodeBase
         sNode*% right = self.mRight;
         list<sNode*%>* array_num_nodes = self.mArrayNum;
         
+        info.in_store_array = true;
         node_compile(left).elif {
             return false;
         }
+        info.in_store_array = false;
         
         CVALUE*% left_value = get_value_from_stack(-1, info);
         
@@ -649,7 +675,12 @@ class sLoadArrayNode extends sNodeBase
             come_value.type = result_type;
             
             if(come_value.type->mArrayNum.length() > 0) {
-                if(info.in_typeof) {
+                if(info.in_store_array) {
+                    come_value.type->mOriginalLoadVarType = clone come_value.type;
+                    come_value.type->mArrayNum.delete(0, array_num.length());
+                }
+                else if(info.in_typeof) {
+                    come_value.type->mOriginalLoadVarType = clone come_value.type;
                 }
                 else if(info.in_refference) {
                     come_value.type->mOriginalLoadVarType = clone come_value.type;
@@ -1129,11 +1160,6 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                 else {
                     break;
                 }
-            }
-            
-            if(*info->p == '?' && *(info->p+1) == '?') {
-                info->p+=2;
-                skip_spaces_and_lf();
             }
             
             if(!info.no_assign && *info->p == '=' && *(info->p+1) != '=' && *(info->p+1) != '>') {
