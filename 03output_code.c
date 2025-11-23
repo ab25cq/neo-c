@@ -305,7 +305,17 @@ static string make_lambda_type_name_string(sType* type, char* var_name, sInfo* i
     }
     else {
         buf.append_format("%s ", make_type_name_string(type->mResultType, no_static:true));
-        if(type->mFunctionPointerNum > 1) {
+        if(type->mArrayPointerNum > 0) {
+            for(int i=0; i<type->mArrayPointerNum+1; i++) {
+                buf.append_str("(");
+                buf.append_str("*");
+            }
+            buf.append_str(var_name);
+            for(int i=0; i<type->mArrayPointerNum; i++) {
+                buf.append_str(")");
+            }
+        }
+        else if(type->mFunctionPointerNum > 1) {
             buf.append_str("(");
             for(int i=0; i<type->mFunctionPointerNum; i++) {
                 buf.append_str("*");

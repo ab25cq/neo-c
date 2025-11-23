@@ -55,10 +55,16 @@ test: *.c
 	./statement_expr
 	neo-c test_arith.c
 	./test_arith
+	neo-c test_array_features.c
+	./test_array_features
 	neo-c test_array_ptr.c
 	./test_array_ptr
+	neo-c test_array_pointer_advanced.c
+	./test_array_pointer_advanced
 	neo-c test_c_compat.c
 	./test_c_compat
+	neo-c test_typedefs.c
+	./test_typedefs
 	neo-c test_c_compat2.c
 	./test_c_compat2
 	neo-c test_c_compat3.c
