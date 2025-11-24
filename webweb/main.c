@@ -329,7 +329,6 @@ puts(contents);
 puts("contents end");
         
                 if(header.match("^GET ") && header.match("Accept: text\/html")) {
-/*
 puts("GET");
                     char* str = header.scan("GET (.+) HTTP")[0]??;
 puts(str);
@@ -380,7 +379,6 @@ puts(file_path);
                         
                         run_get_cgi_http(it, cgi_path.to_string(), header, contents, query_string);
                     }
-*/
                 }
                 /// image ///
                 else if(header.match("^GET ") && header.match("Accept: image")) {
@@ -389,7 +387,6 @@ puts("GET image");
                     
                     string file_path = str.substring(1,-1);  // remove /
                     
-/*
 puts("file_path");
 puts(file_path);
                     FILE *file = fopen(file_path, "r");
@@ -431,7 +428,6 @@ printf("image_size %ld\n", image_size);
                     
                         fclose(image_file);
                     }
-*/
                 }
                 else if(header.match("^POST ")) {
 puts("POST");
@@ -469,7 +465,6 @@ if(count >= 10) {
 }
 */
         }
-/*
         else {
             signal(SIGINT, handle_sigint);
             
@@ -621,7 +616,6 @@ printf("image_size %ld\n", image_size);
                 }
             }
         }
-*/
     }
     
     finalize_modules();
