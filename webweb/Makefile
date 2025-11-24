@@ -18,7 +18,7 @@ libdir=${exec_prefix}/lib
 #########################################
 CC=neo-c
 INSTALL=install
-CFLAGS= -O2 -net -g -s
+CFLAGS= -O2 -net -g -s 
 CFLAGS_DEBUG= -gdwarf-4 -cg -net 
 LIBS=-lpcre
 OS=linux

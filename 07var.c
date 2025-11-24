@@ -82,7 +82,7 @@ class sStoreNode extends sNodeBase
                 }
                 else {
                     if(info.come_fun.mName !== "memset" && !left_type->mNoCallingDestructor && info.funcs["memset"]) {
-                        add_come_code_at_function_head2(info, "memset(&%s, 0, sizeof(%s));\n", var_->mCValueName, make_type_name_string(left_type, no_static:true));
+                        add_come_last_code2(info, "memset(&%s, 0, sizeof(%s));\n", var_->mCValueName, make_type_name_string(left_type, no_static:true));
                     }
                     
                     string var_name2 = make_var_name(type2, var_name);
