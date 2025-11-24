@@ -78,4 +78,3 @@ int main(void) {
 */
     return ok ? 0 : 1;
 }
-

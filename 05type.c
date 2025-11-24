@@ -2793,10 +2793,10 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
         type->mArrayPointerNum = array_pointer;
     }
     else {
-        if(info.types[type_name]??) {
+        if(info.types[type_name]) {
             type = clone info.types[type_name]??;
             type->mTypedefOriginalPointerNum = type->mPointerNum;
-            type->mClass = info.classes[type->mClass->mName]??;
+            type->mClass = info.classes[type->mClass->mName];
             type.mOriginalTypeName = string(type_name);
             type.mOriginalTypeNamePointerNum = pointer_num;
             type.mOriginalTypeNameHeap = heap;
@@ -2818,6 +2818,9 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
             type->mLong = type->mLong || long_;
             type->mShort = type->mShort || short_;
             if(type.mArrayNum.length() > 0) {
+                type->mArrayPointerNum += pointer_num;
+            }
+            else if(type.mClass.mName === "lambda") {
                 type->mArrayPointerNum += pointer_num;
             }
             else {

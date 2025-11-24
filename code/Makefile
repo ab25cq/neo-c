@@ -63,6 +63,8 @@ test: *.c
 	./test_array_pointer_advanced
 	neo-c test_array_pointer_matrix.c
 	./test_array_pointer_matrix
+	neo-c test_pointer_qualifiers.c
+	./test_pointer_qualifiers
 	neo-c test_c_compat.c
 	./test_c_compat
 	neo-c test_typedefs.c
