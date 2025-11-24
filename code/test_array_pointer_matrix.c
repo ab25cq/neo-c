@@ -14,7 +14,6 @@
 typedef int row4[4];
 
 static int sum_row(row4 r) {
-printf("%d %d %d %d\n", r[0], r[1], r[2], r[3]);
     return r[0] + r[1] + r[2] + r[3];
 }
 
@@ -24,11 +23,9 @@ static int dot_restrict(const int *restrict a, const int *restrict b, int n) {
     return s;
 }
 
-/*
 static row4* select_row(row4 *m, size_t idx) {
     return &m[idx];
 }
-*/
 
 // VLA パラメータを neo-c が受け付けるか確認するテスト（失敗したらそのまま）
 static int vla_diag_sum(size_t n, int m[n][n]) {
@@ -51,7 +48,6 @@ int main(void) {
     CHECK(sum_row(mat[2]) == 42);
 
     row4 *prow = mat;
-/*
     CHECK(prow[1][2] == 7);
     ptrdiff_t row_bytes = (char*)(prow + 1) - (char*)prow;
     CHECK((size_t)row_bytes == sizeof(row4));
@@ -84,6 +80,5 @@ int main(void) {
     CHECK(pcmat[0][1] == 2);
 
     puts(ok ? "OK" : "NG");
-*/
     return ok ? 0 : 1;
 }

@@ -2817,7 +2817,12 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
             type->mLongLong = type->mLongLong || long_long;
             type->mLong = type->mLong || long_;
             type->mShort = type->mShort || short_;
-            type->mPointerNum += pointer_num;
+            if(type.mArrayNum.length() > 0) {
+                type->mArrayPointerNum += pointer_num;
+            }
+            else {
+                type->mPointerNum += pointer_num;
+            }
             type->mHeap = type->mHeap || heap;
             type->mChannel = type->mChannel || channel;
             type->mDefferRightValue = type->mDefferRightValue || deffer_;
@@ -3306,6 +3311,11 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
         }
     }
     parse_sharp();
+    list<sNode*%>*% array_num_typedef = null;
+    if(type->mArrayNum.length() > 0) {
+        array_num_typedef = clone type->mArrayNum;
+        type->mArrayNum.reset();
+    }
     
     while(*info->p == '[') {
         info->p++;
@@ -3351,6 +3361,12 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
         parse_sharp();
         
         expected_next_character(']');
+    }
+    
+    if(array_num_typedef) {
+        array_num_typedef.each {
+            type.mArrayNum.add(clone it);
+        }
     }
     var asm_name,attribute2 = parse_attribute();
     
