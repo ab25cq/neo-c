@@ -8310,7 +8310,6 @@ memset(&__current_stack1__, 0, sizeof(struct __current_stack1__));
             type_73->mShort=type_73->mShort||short_;
             if(            list$1sNode$ph_length(type_73->mArrayNum)>0            ) {
                 type_73->mArrayPointerNum+=pointer_num;
-                type_73->mPointerNum+=pointer_num;
             }
             else if(            string_operator_equals(type_73->mClass->mName,"lambda")            ) {
                 type_73->mArrayPointerNum+=pointer_num;

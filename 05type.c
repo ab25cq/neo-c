@@ -2819,7 +2819,7 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
             type->mShort = type->mShort || short_;
             if(type.mArrayNum.length() > 0) {
                 type->mArrayPointerNum += pointer_num;
-                type->mPointerNum += pointer_num;
+                //type->mPointerNum += pointer_num;
             }
             else if(type.mClass.mName === "lambda") {
                 type->mArrayPointerNum += pointer_num;
