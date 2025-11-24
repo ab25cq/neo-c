@@ -12672,6 +12672,7 @@ char* __dec_obj258;
 char* __dec_obj259;
 char* __dec_obj260;
 int i_240;
+int i_241;
 char* __result_obj__330;
 struct_name = (void*)0;
     buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05call.c", 2823, "struct buffer*"))));
@@ -12718,6 +12719,9 @@ struct_name = (void*)0;
         for(        i_240=0        ;        i_240<obj_type->mPointerNum        ;        i_240++        ){
             buffer_append_str(buf,"p");
         }
+        for(        i_241=0        ;        i_241<obj_type->mArrayPointerNum        ;        i_241++        ){
+            buffer_append_str(buf,"p");
+        }
     }
     if(    obj_type->mArrayPointerType    ) {
         buffer_append_str(buf,"a");
@@ -12747,7 +12751,7 @@ char* __dec_obj263;
 int i;
 char* __result_obj__331;
 struct_name = (void*)0;
-    buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05call.c", 2870, "struct buffer*"))));
+    buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05call.c", 2874, "struct buffer*"))));
     if(    obj_type->mClass->mStruct||obj_type->mClass->mProtocol    ) {
         __right_value0 = (void*)0;
         __dec_obj261=struct_name,
@@ -12800,11 +12804,11 @@ int i;
 char* __dec_obj266;
 char* __dec_obj267;
 char* __dec_obj268;
-int i_241;
+int i_242;
 int len;
 char* __result_obj__332;
 struct_name = (void*)0;
-    buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05call.c", 2902, "struct buffer*"))));
+    buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05call.c", 2906, "struct buffer*"))));
     if(    string_operator_not_equals(obj_type->mOriginalTypeName,"")    ) {
         __right_value0 = (void*)0;
         __dec_obj264=struct_name,
@@ -12845,7 +12849,7 @@ struct_name = (void*)0;
         if(        list$1sType$ph_length(obj_type->mGenericsTypes)>0&&obj_type->mPointerNum>0        ) {
             buffer_append_str(buf,"$");
         }
-        for(        i_241=0        ;        i_241<obj_type->mPointerNum        ;        i_241++        ){
+        for(        i_242=0        ;        i_242<obj_type->mPointerNum        ;        i_242++        ){
             buffer_append_str(buf,"p");
         }
     }
@@ -12912,7 +12916,7 @@ char* __dec_obj270;
 char* __dec_obj271;
 _Bool no_comma;
 _Bool in_fun_param;
-struct sNode* node_242;
+struct sNode* node_243;
 struct sNode* __dec_obj272;
 struct sNode* _inf_value20;
 struct sLambdaCall* _inf_obj_value20;
@@ -12924,7 +12928,7 @@ struct sNode* __result_obj__338;
         info->p++;
         skip_spaces_and_lf(info);
         parse_sharp_v5(info);
-        params=(struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(list$1tuple2$2char$phsNode$ph$ph_initialize((struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count((struct list$1tuple2$2char$phsNode$ph$ph*)come_calloc_v2(1, sizeof(struct list$1tuple2$2char$phsNode$ph$ph)*(1), "05call.c", 2980, "struct list$1tuple2$2char$phsNode$ph$ph*"))));
+        params=(struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(list$1tuple2$2char$phsNode$ph$ph_initialize((struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count((struct list$1tuple2$2char$phsNode$ph$ph*)come_calloc_v2(1, sizeof(struct list$1tuple2$2char$phsNode$ph$ph)*(1), "05call.c", 2984, "struct list$1tuple2$2char$phsNode$ph$ph*"))));
         while(        (_Bool)1        ) {
             if(            *info->p==41            ) {
                 info->p++;
@@ -12959,16 +12963,16 @@ struct sNode* __result_obj__338;
             in_fun_param=info->in_fun_param;
             info->in_fun_param=(_Bool)1;
             __right_value0 = (void*)0;
-            node_242=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
+            node_243=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
             __right_value0 = (void*)0;
-            __dec_obj272=node_242,
-            node_242=(struct sNode*)come_increment_ref_count(post_position_operator_v99((struct sNode*)come_increment_ref_count(node_242),info));
+            __dec_obj272=node_243,
+            node_243=(struct sNode*)come_increment_ref_count(post_position_operator_v99((struct sNode*)come_increment_ref_count(node_243),info));
             (__dec_obj272 ? __dec_obj272 = come_decrement_ref_count(__dec_obj272, ((struct sNode*)__dec_obj272)->finalize, ((struct sNode*)__dec_obj272)->_protocol_obj, 0,0, (void*)0) :0);
             info->no_comma=no_comma;
             info->in_fun_param=in_fun_param;
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
-            list$1tuple2$2char$phsNode$ph$ph_push_back(params,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc_v2(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "05call.c", 3023, "struct tuple2$2char$phsNode$ph")),(char*)come_increment_ref_count(label),(struct sNode*)come_increment_ref_count(node_242))));
+            list$1tuple2$2char$phsNode$ph$ph_push_back(params,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc_v2(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "05call.c", 3027, "struct tuple2$2char$phsNode$ph")),(char*)come_increment_ref_count(label),(struct sNode*)come_increment_ref_count(node_243))));
             parse_sharp_v5(info);
             if(            *info->p==44            ) {
                 info->p++;
@@ -12978,17 +12982,17 @@ struct sNode* __result_obj__338;
                 info->p++;
                 skip_spaces_and_lf(info);
                 (label = come_decrement_ref_count(label, (void*)0, (void*)0, 0, 0, (void*)0));
-                ((node_242) ? node_242 = come_decrement_ref_count(node_242, ((struct sNode*)node_242)->finalize, ((struct sNode*)node_242)->_protocol_obj, 0, 0,(void*)0):(void*)0);
+                ((node_243) ? node_243 = come_decrement_ref_count(node_243, ((struct sNode*)node_243)->finalize, ((struct sNode*)node_243)->_protocol_obj, 0, 0,(void*)0):(void*)0);
                 break;
             }
             (label = come_decrement_ref_count(label, (void*)0, (void*)0, 0, 0, (void*)0));
-            ((node_242) ? node_242 = come_decrement_ref_count(node_242, ((struct sNode*)node_242)->finalize, ((struct sNode*)node_242)->_protocol_obj, 0, 0,(void*)0):(void*)0);
+            ((node_243) ? node_243 = come_decrement_ref_count(node_243, ((struct sNode*)node_243)->finalize, ((struct sNode*)node_243)->_protocol_obj, 0, 0,(void*)0):(void*)0);
         }
         parse_sharp_v5(info);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        _inf_value20=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "05call.c", 3041, "struct sNode");
-        _inf_obj_value20=(struct sLambdaCall*)come_increment_ref_count(((struct sLambdaCall*)(__right_value1=sLambdaCall_initialize((struct sLambdaCall*)come_increment_ref_count((struct sLambdaCall*)come_calloc_v2(1, sizeof(struct sLambdaCall)*(1), "05call.c", 3041, "struct sLambdaCall*")),(struct sNode*)come_increment_ref_count(node),params,info))));
+        _inf_value20=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "05call.c", 3045, "struct sNode");
+        _inf_obj_value20=(struct sLambdaCall*)come_increment_ref_count(((struct sLambdaCall*)(__right_value1=sLambdaCall_initialize((struct sLambdaCall*)come_increment_ref_count((struct sLambdaCall*)come_calloc_v2(1, sizeof(struct sLambdaCall)*(1), "05call.c", 3045, "struct sLambdaCall*")),(struct sNode*)come_increment_ref_count(node),params,info))));
         _inf_value20->_protocol_obj=_inf_obj_value20;
         _inf_value20->finalize=(void*)sLambdaCall_finalize;
         _inf_value20->clone=(void*)sLambdaCall_clone;

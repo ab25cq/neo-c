@@ -2851,6 +2851,10 @@ string create_method_name(sType* obj_type, bool no_pointer_name, char* fun_name,
         {
             buf.append_str("p");
         }
+        for(int i=0; i<obj_type->mArrayPointerNum; i++)
+        {
+            buf.append_str("p");
+        }
     }
     
     if(obj_type->mArrayPointerType) {

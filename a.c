@@ -4,6 +4,11 @@
 int main(int argc, char** argv) {
     char buf[28];
     
-    strstr(buf, "a");
+    strncpy(buf, "ABC", 28);
+    
+    puts("""
+    \{buf}
+    """);
+    
     return 0;
 }
