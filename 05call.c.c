@@ -2931,7 +2931,7 @@ int expected_next_character(char c, struct sInfo* info);
 _Bool node_compile(struct sNode* node, struct sInfo* info);
 _Bool node_conditional_compile(struct sNode* node, struct sInfo* info);
 int come_main(int argc, char** argv);
-char* make_type_name_string(struct sType* type, struct sInfo* info, _Bool no_static, _Bool cast_type);
+char* make_type_name_string(struct sType* type, struct sInfo* info, _Bool no_static, _Bool cast_type, _Bool typedef_extended);
 char* make_come_type_name_string(struct sType* type, struct sInfo* info);
 char* make_come_define_var(struct sType* type, char* name, struct sInfo* info);
 char* header_function(struct sFun* fun, struct sInfo* info);
@@ -3455,7 +3455,7 @@ struct list$1sVar$ph* __dec_obj33;
                 }
                 if(                result_type2->mHeap                ) {
                     __right_value0 = (void*)0;
-                    type_name=(char*)come_increment_ref_count(make_type_name_string(come_value->type,info,(_Bool)0,(_Bool)0));
+                    type_name=(char*)come_increment_ref_count(make_type_name_string(come_value->type,info,(_Bool)0,(_Bool)0,(_Bool)0));
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     add_come_code(info,((char*)(__right_value1=xsprintf("__result_obj__\%s = (%%s)come_increment_ref_count(%%s);\n",((char*)(__right_value0=int_to_string(result_num)))))),type_name,come_value->c_value);
@@ -9693,7 +9693,7 @@ _Bool __result_obj__214;
     come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc_v2(1, sizeof(struct CVALUE)*(1), "05call.c", 1913, "struct CVALUE*"))));
     __right_value0 = (void*)0;
     __dec_obj188=come_value->c_value,
-    come_value->c_value=(char*)come_increment_ref_count(make_type_name_string(type,info,(_Bool)0,(_Bool)0));
+    come_value->c_value=(char*)come_increment_ref_count(make_type_name_string(type,info,(_Bool)0,(_Bool)0,(_Bool)0));
     __dec_obj188 = come_decrement_ref_count(__dec_obj188, (void*)0, (void*)0, 0,0, (void*)0);
     __dec_obj189=come_value->type,
     come_value->type=(struct sType*)come_increment_ref_count(type);

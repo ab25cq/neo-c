@@ -3008,7 +3008,7 @@ int expected_next_character(char c, struct sInfo* info);
 _Bool node_compile(struct sNode* node, struct sInfo* info);
 _Bool node_conditional_compile(struct sNode* node, struct sInfo* info);
 int come_main(int argc, char** argv);
-char* make_type_name_string(struct sType* type, struct sInfo* info, _Bool no_static, _Bool cast_type);
+char* make_type_name_string(struct sType* type, struct sInfo* info, _Bool no_static, _Bool cast_type, _Bool typedef_extended);
 char* make_come_type_name_string(struct sType* type, struct sInfo* info);
 char* make_come_define_var(struct sType* type, char* name, struct sInfo* info);
 char* header_function(struct sFun* fun, struct sInfo* info);
@@ -9954,7 +9954,7 @@ _Bool __result_obj__199;
     come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc_v2(1, sizeof(struct CVALUE)*(1), "13op.c", 2155, "struct CVALUE*"))));
     __right_value0 = (void*)0;
     __dec_obj244=come_value->c_value,
-    come_value->c_value=(char*)come_increment_ref_count(make_type_name_string(self->type,info,(_Bool)0,(_Bool)0));
+    come_value->c_value=(char*)come_increment_ref_count(make_type_name_string(self->type,info,(_Bool)0,(_Bool)0,(_Bool)0));
     __dec_obj244 = come_decrement_ref_count(__dec_obj244, (void*)0, (void*)0, 0,0, (void*)0);
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;

@@ -2827,7 +2827,7 @@ int expected_next_character(char c, struct sInfo* info);
 _Bool node_compile(struct sNode* node, struct sInfo* info);
 _Bool node_conditional_compile(struct sNode* node, struct sInfo* info);
 int come_main(int argc, char** argv);
-char* make_type_name_string(struct sType* type, struct sInfo* info, _Bool no_static, _Bool cast_type);
+char* make_type_name_string(struct sType* type, struct sInfo* info, _Bool no_static, _Bool cast_type, _Bool typedef_extended);
 char* make_come_type_name_string(struct sType* type, struct sInfo* info);
 char* make_come_define_var(struct sType* type, char* name, struct sInfo* info);
 char* header_function(struct sFun* fun, struct sInfo* info);
@@ -4854,7 +4854,7 @@ _Bool __result_obj__101;
             }
             else {
                 __right_value0 = (void*)0;
-                left_type3=(char*)come_increment_ref_count(make_type_name_string(left_type2,info,(_Bool)0,(_Bool)0));
+                left_type3=(char*)come_increment_ref_count(make_type_name_string(left_type2,info,(_Bool)0,(_Bool)0,(_Bool)0));
                 __right_value0 = (void*)0;
                 __dec_obj39=come_value->c_value,
                 come_value->c_value=(char*)come_increment_ref_count(xsprintf("/*a*/(%s)%s",left_type3,come_value->c_value));
@@ -4886,7 +4886,7 @@ _Bool __result_obj__101;
             }
             else {
                 __right_value0 = (void*)0;
-                left_type3_17=(char*)come_increment_ref_count(make_type_name_string(left_type2,info,(_Bool)0,(_Bool)0));
+                left_type3_17=(char*)come_increment_ref_count(make_type_name_string(left_type2,info,(_Bool)0,(_Bool)0,(_Bool)0));
                 __right_value0 = (void*)0;
                 __dec_obj42=come_value->c_value,
                 come_value->c_value=(char*)come_increment_ref_count(xsprintf("(%s)(long)%s",left_type3_17,come_value->c_value));
@@ -4981,7 +4981,7 @@ _Bool __result_obj__101;
         }
         else {
             __right_value0 = (void*)0;
-            left_type3_18=(char*)come_increment_ref_count(make_type_name_string(left_type2,info,(_Bool)0,(_Bool)0));
+            left_type3_18=(char*)come_increment_ref_count(make_type_name_string(left_type2,info,(_Bool)0,(_Bool)0,(_Bool)0));
             __right_value0 = (void*)0;
             __dec_obj45=come_value->c_value,
             come_value->c_value=(char*)come_increment_ref_count(xsprintf("/*b*/(%s)%s",left_type3_18,come_value->c_value));
@@ -5013,7 +5013,7 @@ _Bool __result_obj__101;
         }
         else {
             __right_value0 = (void*)0;
-            left_type3_19=(char*)come_increment_ref_count(make_type_name_string(left_type2,info,(_Bool)0,(_Bool)0));
+            left_type3_19=(char*)come_increment_ref_count(make_type_name_string(left_type2,info,(_Bool)0,(_Bool)0,(_Bool)0));
             __right_value0 = (void*)0;
             __dec_obj48=come_value->c_value,
             come_value->c_value=(char*)come_increment_ref_count(xsprintf("(%s)(long)%s",left_type3_19,come_value->c_value));
@@ -5070,7 +5070,7 @@ _Bool __result_obj__101;
         }
         else {
             __right_value0 = (void*)0;
-            left_type3_20=(char*)come_increment_ref_count(make_type_name_string(left_type2,info,(_Bool)0,(_Bool)0));
+            left_type3_20=(char*)come_increment_ref_count(make_type_name_string(left_type2,info,(_Bool)0,(_Bool)0,(_Bool)0));
             __right_value0 = (void*)0;
             __dec_obj54=come_value->c_value,
             come_value->c_value=(char*)come_increment_ref_count(xsprintf("/*c*/(%s)%s",left_type3_20,come_value->c_value));
@@ -5102,7 +5102,7 @@ _Bool __result_obj__101;
         }
         else {
             __right_value0 = (void*)0;
-            left_type3_21=(char*)come_increment_ref_count(make_type_name_string(left_type2,info,(_Bool)0,(_Bool)0));
+            left_type3_21=(char*)come_increment_ref_count(make_type_name_string(left_type2,info,(_Bool)0,(_Bool)0,(_Bool)0));
             __right_value0 = (void*)0;
             __dec_obj57=come_value->c_value,
             come_value->c_value=(char*)come_increment_ref_count(xsprintf("(%s)(long)%s",left_type3_21,come_value->c_value));

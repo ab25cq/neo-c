@@ -2994,7 +2994,7 @@ int expected_next_character(char c, struct sInfo* info);
 _Bool node_compile(struct sNode* node, struct sInfo* info);
 _Bool node_conditional_compile(struct sNode* node, struct sInfo* info);
 int come_main(int argc, char** argv);
-char* make_type_name_string(struct sType* type, struct sInfo* info, _Bool no_static, _Bool cast_type);
+char* make_type_name_string(struct sType* type, struct sInfo* info, _Bool no_static, _Bool cast_type, _Bool typedef_extended);
 char* make_come_type_name_string(struct sType* type, struct sInfo* info);
 char* make_come_define_var(struct sType* type, char* name, struct sInfo* info);
 char* header_function(struct sFun* fun, struct sInfo* info);
@@ -3511,7 +3511,7 @@ obj = (void*)0;
     type2=(struct sType*)come_increment_ref_count(solve_generics((struct sType*)come_increment_ref_count(type),(struct sType*)come_increment_ref_count(info->generics_type),info));
     list$1sNode$ph_reset(type2->mArrayNum);
     __right_value0 = (void*)0;
-    type_name=(char*)come_increment_ref_count(make_type_name_string(type2,info,(_Bool)1,(_Bool)1));
+    type_name=(char*)come_increment_ref_count(make_type_name_string(type2,info,(_Bool)1,(_Bool)1,(_Bool)0));
     __right_value0 = (void*)0;
     type_name2=(char*)come_increment_ref_count(make_come_type_name_string(type2,info));
     if(    initializer    ) {
@@ -3526,7 +3526,7 @@ obj = (void*)0;
             type3->mNoSolvedGenericsType->mPointerNum++;
         }
         __right_value0 = (void*)0;
-        type_name3=(char*)come_increment_ref_count(make_type_name_string(type3,info,(_Bool)0,(_Bool)0));
+        type_name3=(char*)come_increment_ref_count(make_type_name_string(type3,info,(_Bool)0,(_Bool)0,(_Bool)0));
         __right_value0 = (void*)0;
         add_come_code_at_function_head(info,"%s;\n",((char*)(__right_value0=make_define_var(type3,var_name,info,(_Bool)0,(_Bool)0))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -3686,7 +3686,7 @@ obj = (void*)0;
             type3_20->mNoSolvedGenericsType->mHeap=(_Bool)1;
         }
         __right_value0 = (void*)0;
-        type_name3_21=(char*)come_increment_ref_count(make_type_name_string(type3_20,info,(_Bool)0,(_Bool)0));
+        type_name3_21=(char*)come_increment_ref_count(make_type_name_string(type3_20,info,(_Bool)0,(_Bool)0,(_Bool)0));
         if(        __right_value0 = (void*)0,         ({(_conditional_value_X1=(((struct sFun*)(__right_value0=map$2char$phsFun$ph_operator_load_element(info->funcs,"come_calloc_v2")))));        come_call_finalizer(sFun_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         _conditional_value_X1;})        ) {
             __right_value0 = (void*)0;
@@ -5143,9 +5143,9 @@ _Bool __result_obj__74;
     __right_value0 = (void*)0;
     type2=(struct sType*)come_increment_ref_count(sType_clone(inf_type));
     __right_value0 = (void*)0;
-    type_name=(char*)come_increment_ref_count(make_type_name_string(inf_type,info,(_Bool)0,(_Bool)1));
+    type_name=(char*)come_increment_ref_count(make_type_name_string(inf_type,info,(_Bool)0,(_Bool)1,(_Bool)0));
     __right_value0 = (void*)0;
-    type_name2=(char*)come_increment_ref_count(make_type_name_string(type,info,(_Bool)0,(_Bool)1));
+    type_name2=(char*)come_increment_ref_count(make_type_name_string(type,info,(_Bool)0,(_Bool)1,(_Bool)0));
     static int inf_num=0;
     ++inf_num;
     inf_num_stack=inf_num;
@@ -5844,7 +5844,7 @@ _Bool __result_obj__97;
             result_type=(struct sType*)come_increment_ref_count(come_value_27->type);
             come_call_finalizer(sType_finalize, __dec_obj59,(void*)0, (void*)0, 0, 0, 0, (void*)0);
             __right_value0 = (void*)0;
-            buffer_append_format(buf,"%s: %s",((char*)(__right_value0=make_type_name_string(type,info,(_Bool)0,(_Bool)0))),come_value_27->c_value);
+            buffer_append_format(buf,"%s: %s",((char*)(__right_value0=make_type_name_string(type,info,(_Bool)0,(_Bool)0,(_Bool)0))),come_value_27->c_value);
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             buffer_append_format(buf,",");
             n++;
@@ -5899,7 +5899,7 @@ _Bool __result_obj__97;
             result_type=(struct sType*)come_increment_ref_count(come_value_35->type);
             come_call_finalizer(sType_finalize, __dec_obj60,(void*)0, (void*)0, 0, 0, 0, (void*)0);
             __right_value0 = (void*)0;
-            buffer_append_format(buf,"%s: %s",((char*)(__right_value0=make_type_name_string(type_33,info,(_Bool)0,(_Bool)0))),come_value_35->c_value);
+            buffer_append_format(buf,"%s: %s",((char*)(__right_value0=make_type_name_string(type_33,info,(_Bool)0,(_Bool)0,(_Bool)0))),come_value_35->c_value);
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             if(            n_30==list$1sNode$ph_length(exps)-1            ) {
                 buffer_append_format(buf,")");
@@ -6061,7 +6061,7 @@ _Bool __result_obj__100;
     __right_value0 = (void*)0;
     type2=(struct sType*)come_increment_ref_count(solve_generics((struct sType*)come_increment_ref_count(type),(struct sType*)come_increment_ref_count(info->generics_type),info));
     __right_value0 = (void*)0;
-    type_name=(char*)come_increment_ref_count(make_type_name_string(type2,info,(_Bool)1,(_Bool)0));
+    type_name=(char*)come_increment_ref_count(make_type_name_string(type2,info,(_Bool)1,(_Bool)0,(_Bool)1));
     __right_value0 = (void*)0;
     __dec_obj64=come_value->c_value,
     come_value->c_value=(char*)come_increment_ref_count(xsprintf("sizeof(%s)",type_name));
@@ -6141,7 +6141,7 @@ _Bool __result_obj__103;
     __right_value0 = (void*)0;
     type2=(struct sType*)come_increment_ref_count(solve_generics((struct sType*)come_increment_ref_count(type),(struct sType*)come_increment_ref_count(info->generics_type),info));
     __right_value0 = (void*)0;
-    type_name=(char*)come_increment_ref_count(make_type_name_string(type2,info,(_Bool)1,(_Bool)0));
+    type_name=(char*)come_increment_ref_count(make_type_name_string(type2,info,(_Bool)1,(_Bool)0,(_Bool)0));
     __right_value0 = (void*)0;
     __dec_obj68=come_value->c_value,
     come_value->c_value=(char*)come_increment_ref_count(xsprintf("__builtin_offsetof(%s, %s)",type_name,name));
@@ -6300,7 +6300,7 @@ _Bool __result_obj__111;
     __right_value0 = (void*)0;
     type2=(struct sType*)come_increment_ref_count(solve_generics((struct sType*)come_increment_ref_count(type),(struct sType*)come_increment_ref_count(info->generics_type),info));
     __right_value0 = (void*)0;
-    type_name=(char*)come_increment_ref_count(make_type_name_string(type2,info,(_Bool)0,(_Bool)0));
+    type_name=(char*)come_increment_ref_count(make_type_name_string(type2,info,(_Bool)0,(_Bool)0,(_Bool)0));
     __right_value0 = (void*)0;
     __dec_obj74=come_value->c_value,
     come_value->c_value=(char*)come_increment_ref_count(xsprintf("\"%s\"",type_name));
@@ -6385,7 +6385,7 @@ _Bool __result_obj__115;
     __right_value0 = (void*)0;
     type2=(struct sType*)come_increment_ref_count(solve_generics((struct sType*)come_increment_ref_count(type),(struct sType*)come_increment_ref_count(info->generics_type),info));
     __right_value0 = (void*)0;
-    type_name=(char*)come_increment_ref_count(make_type_name_string(type2,info,(_Bool)0,(_Bool)0));
+    type_name=(char*)come_increment_ref_count(make_type_name_string(type2,info,(_Bool)0,(_Bool)0,(_Bool)0));
     __right_value0 = (void*)0;
     __dec_obj77=come_value->c_value,
     come_value->c_value=(char*)come_increment_ref_count(xsprintf("\"%s\"",type_name));
@@ -6566,7 +6566,7 @@ _Bool __result_obj__123;
     __right_value0 = (void*)0;
     type2=(struct sType*)come_increment_ref_count(solve_generics((struct sType*)come_increment_ref_count(type),(struct sType*)come_increment_ref_count(info->generics_type),info));
     __right_value0 = (void*)0;
-    type_name=(char*)come_increment_ref_count(make_type_name_string(type2,info,(_Bool)0,(_Bool)0));
+    type_name=(char*)come_increment_ref_count(make_type_name_string(type2,info,(_Bool)0,(_Bool)0,(_Bool)0));
     __right_value0 = (void*)0;
     __dec_obj85=come_value->c_value,
     come_value->c_value=(char*)come_increment_ref_count(xsprintf("_Alignof(%s)",type_name));
@@ -6718,7 +6718,7 @@ _Bool __result_obj__130;
     __right_value0 = (void*)0;
     type2=(struct sType*)come_increment_ref_count(solve_generics((struct sType*)come_increment_ref_count(type),(struct sType*)come_increment_ref_count(info->generics_type),info));
     __right_value0 = (void*)0;
-    type_name=(char*)come_increment_ref_count(make_type_name_string(type2,info,(_Bool)0,(_Bool)0));
+    type_name=(char*)come_increment_ref_count(make_type_name_string(type2,info,(_Bool)0,(_Bool)0,(_Bool)0));
     __right_value0 = (void*)0;
     __dec_obj91=come_value->c_value,
     come_value->c_value=(char*)come_increment_ref_count(xsprintf("__alignof__(%s)",type_name));
@@ -6870,7 +6870,7 @@ _Bool __result_obj__137;
     __right_value0 = (void*)0;
     type2=(struct sType*)come_increment_ref_count(solve_generics((struct sType*)come_increment_ref_count(type),(struct sType*)come_increment_ref_count(info->generics_type),info));
     __right_value0 = (void*)0;
-    type_name=(char*)come_increment_ref_count(make_type_name_string(type2,info,(_Bool)0,(_Bool)0));
+    type_name=(char*)come_increment_ref_count(make_type_name_string(type2,info,(_Bool)0,(_Bool)0,(_Bool)0));
     __right_value0 = (void*)0;
     __dec_obj97=come_value->c_value,
     come_value->c_value=(char*)come_increment_ref_count(xsprintf("_Alignas(%s)",type_name));
@@ -7412,7 +7412,7 @@ _Bool __result_obj__160;
     type=come_value->type;
     if(    come_value->type->mHeap&&come_value->type->mPointerNum>0    ) {
         __right_value0 = (void*)0;
-        type_name=(char*)come_increment_ref_count(make_type_name_string(type,info,(_Bool)0,(_Bool)0));
+        type_name=(char*)come_increment_ref_count(make_type_name_string(type,info,(_Bool)0,(_Bool)0,(_Bool)0));
         __right_value0 = (void*)0;
         __dec_obj112=come_value->c_value,
         come_value->c_value=(char*)come_increment_ref_count(increment_ref_count_object(come_value->type,come_value->c_value,info));

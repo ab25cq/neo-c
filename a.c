@@ -48,8 +48,9 @@ int main(void) {
 
     row4 *prow = mat;
     CHECK(prow[1][2] == 7);
-/*
     ptrdiff_t row_bytes = (char*)(prow + 1) - (char*)prow;
+    
+printf("%ld %ld\n", row_bytes, sizeof(int [4]));
     CHECK((size_t)row_bytes == sizeof(row4));
 
     row4 *picked = select_row(mat, 2);
@@ -62,6 +63,7 @@ int main(void) {
     int diag2[2][2] = { { 1, 2 }, { 3, 4 } };
     CHECK(diag2[1][0] == 3);
 
+/*
     // フラットアクセス
     int *flat = &mat[0][0];
     CHECK(*(flat + 5) == 6);

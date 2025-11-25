@@ -1,6 +1,6 @@
 #include "common.h"
 
-string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=false, bool cast_type=false)
+string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=false, bool cast_type=false, bool typedef_extended=false)
 {
     var buf = new buffer();
     
@@ -166,6 +166,23 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
     
     if(type->mAttribute && gComeBareMetal) {
         buf.append_str(" " + type->mAttribute);
+    }
+    
+    if(type->mArrayNum.length() > 0 && typedef_extended) {
+        for(int i=0; i<type->mArrayNum.length(); i++) {
+            buf.append_str("[");
+            sNode*% node = type->mArrayNum[i];
+            
+            node_compile(node).elif {
+                err_msg(info, "invalid array num");
+                exit(2);
+            }
+        
+            CVALUE*% cvalue = get_value_from_stack(-1, info);
+            
+            buf.append_format("%s", cvalue.c_value);
+            buf.append_str("]");
+        }
     }
     
     return buf.to_string();
@@ -948,7 +965,7 @@ string output_function(sFun* fun, sInfo* info)
         }
     }
     else if(fun->mResultType->mArrayNum.length() > 0) {
-        sType*% base_result_type = fun->mResultType;
+        sType*% base_result_type = clone fun->mResultType;
         base_result_type.mArrayNum = new list<sNode*%>();
         
         string result_type_str = make_type_name_string(base_result_type, no_static:true);
@@ -1112,7 +1129,7 @@ string header_function(sFun* fun, sInfo* info)
         output.append_str(";\n");
     }
     else if(fun->mResultType->mArrayNum.length() > 0) {
-        sType*% base_result_type = fun->mResultType;
+        sType*% base_result_type = clone fun->mResultType;
         base_result_type->mArrayNum = new list<sNode*%>();
         
         string result_type_str = make_type_name_string(base_result_type, no_static:true);
@@ -1312,7 +1329,7 @@ bool is_contained_generics_funcstion(sFun* fun, sInfo* info=info)
             return true;
         }
     }
-    sType*% result_type = fun->mResultType;
+    sType*% result_type = clone fun->mResultType;
     
     if(result_type->mNoSolvedGenericsType) {
         result_type = result_type->mNoSolvedGenericsType;
