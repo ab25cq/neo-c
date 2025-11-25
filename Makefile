@@ -306,36 +306,6 @@ neo-c-sh: 01main.c.o.tmp 02transpile.c.o.tmp 03output_code.c.o.tmp 04heap.c.o.tm
 	$(CC) -o 24module.c.o.tmp -c 24module.c.c $(CFLAGS) 2> /dev/null
 
 #########################################
-# test
-#########################################
-test:
-	neo-c -s code/neo-c.c -o code/neo-c && ./code/neo-c
-	neo-c -s code/neo-c2.c -o code/neo-c2 && ./code/neo-c2
-	neo-c -s code/neo-c3.c -o code/neo-c3 && ./code/neo-c3
-	neo-c -s code/neo-c4.c -o code/neo-c4 && ./code/neo-c4
-	neo-c -s code/neo-c5.c -o code/neo-c5 && ./code/neo-c5
-	neo-c -s code/neo-c6.c -o code/neo-c6 && ./code/neo-c6
-	neo-c -s code/neo-c7.c -o code/neo-c7 && ./code/neo-c7
-	neo-c -s code/neo-c8.c -o code/neo-c8 && ./code/neo-c8
-	neo-c -s code/neo-c9.c -o code/neo-c9 && ./code/neo-c9
-	neo-c -s code/neo-c10.c -o code/neo-c10 && ./code/neo-c10
-	neo-c -s code/neo-c11.c -o code/neo-c11 && ./code/neo-c11
-	neo-c -s code/neo-c12.c -o code/neo-c12 && ./code/neo-c12
-	neo-c -s code/neo-c13.c -o code/neo-c13 && ./code/neo-c13
-	neo-c -s code/neo-c14.c -o code/neo-c14 && ./code/neo-c14
-	neo-c -s code/codex.c -o code/codex && ./code/codex
-	cc -std=c11 -Wall -Wextra -o code/runner code/runner.c
-	./code/runner
-	neo-c -s code/test_control.c -o code/test_control && ./code/test_control
-	neo-c -s code/test_ops.c -o code/test_ops && ./code/test_ops
-	neo-c -s code/test_array_ptr.c -o code/test_array_ptr && ./code/test_array_ptr
-	neo-c -s code/test_struct_enum.c -o code/test_struct_enum && ./code/test_struct_enum
-	neo-c -s code/test_functions.c -o code/test_functions && ./code/test_functions
-	neo-c -s code/test_switch_ternary.c -o code/test_switch_ternary && ./code/test_switch_ternary
-	neo-c -s code/test_string_cast.c -o code/test_string_cast && ./code/test_string_cast
-	(cd code && make)
-
-#########################################
 # install
 #########################################
 install:

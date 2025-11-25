@@ -63,7 +63,6 @@ printf("%ld %ld\n", row_bytes, sizeof(int [4]));
     int diag2[2][2] = { { 1, 2 }, { 3, 4 } };
     CHECK(diag2[1][0] == 3);
 
-/*
     // フラットアクセス
     int *flat = &mat[0][0];
     CHECK(*(flat + 5) == 6);
@@ -80,7 +79,6 @@ printf("%ld %ld\n", row_bytes, sizeof(int [4]));
     // 配列ポインタを const で受ける関数が通るか
     const row4 *pcmat = mat;
     CHECK(pcmat[0][1] == 2);
-*/
 
     puts(ok ? "OK" : "NG");
     return ok ? 0 : 1;
