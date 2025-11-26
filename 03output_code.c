@@ -21,7 +21,7 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
         buf.append_str("static ");
     }
     if(type->mAtomic) {
-        buf.append_str("_Atomic ");
+        buf.append_str("_Atomic(");
     }
     if(type->mThreadLocal) {
         buf.append_str("_Thread_local ");
@@ -183,6 +183,9 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
             buf.append_format("%s", cvalue.c_value);
             buf.append_str("]");
         }
+    }
+    if(type->mAtomic) {
+        buf.append_str(")");
     }
     
     return buf.to_string();
