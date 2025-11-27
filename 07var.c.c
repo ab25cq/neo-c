@@ -3756,7 +3756,7 @@ struct sType* __dec_obj71;
             come_call_finalizer(sType_finalize, left_type_56, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             return __result_obj__75;
         }
-        else if(        array_initializer||string_initializer||left_type_56->mStatic||left_type_56->mConstant||left_type_56->mRegister        ) {
+        else if(        array_initializer||string_initializer||left_type_56->mStatic||left_type_56->mConstant||left_type_56->mRegister||list$1sNode$ph_length(left_type_56->mArrayNum)>0||left_type_56->mArrayPointerType        ) {
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             var__57=((struct sVar*)(__right_value1=map$2char$phsVar$ph_at(info->lv_table->mVars,((char*)(__right_value0=__builtin_string(self->name))),((void*)0))));

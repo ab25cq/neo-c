@@ -2570,108 +2570,6 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
         
         type->mArrayPointerNum = array_pointer_num;
     }
-/*
-    else if(function_pointer_flag) {
-        info->p++;
-        skip_spaces_and_lf();
-        
-        skip_pointer_attribute();
-        
-        int function_pointer_num = 0;
-        while(*info->p == '*' || *info->p == '^') {
-            info->p++;
-            skip_spaces_and_lf();
-            skip_pointer_attribute();
-            function_pointer_num++;
-        }
-        
-        skip_pointer_attribute();
-        
-        sType*% result_type;
-        if(info.types[type_name]??) {
-            result_type = clone info.types[type_name]??;
-            result_type->mClass = info.classes[result_type->mClass->mName]??;
-            //type.mOriginalTypeName = string(type_name);
-        }
-        else if(info.generics_type_names.contained(type_name)) {
-            for(int i=0; i<info.generics_type_names.length(); i++) {
-                if(info.generics_type_names[i] === type_name) {
-                    result_type = new sType(xsprintf("__generics_type%d", i));
-                }
-            }
-        }
-        else if(info.method_generics_type_names.contained(type_name)) {
-            for(int i=0; i<info.method_generics_type_names.length(); i++) {
-                if(info.method_generics_type_names[i] === type_name) {
-                    result_type = new sType(xsprintf("__mgenerics_type%d", i));
-                }
-            }
-        }
-        else {
-            result_type = new sType(string(type_name));
-        }
-        
-        result_type->mConstant = result_type->mConstant || constant;
-        result_type->mAtomic = result_type->mAtomic || atomic_;
-        result_type->mThreadLocal = result_type->mThreadLocal || thread_local;
-        result_type->mAlignas = alignas_;
-        result_type->mRegister = register_;
-        result_type->mUnsigned = result_type->mUnsigned || unsigned_;
-        result_type->mVolatile = volatile_;
-        result_type->mUniq = result_type->mUniq || uniq_;
-        result_type->mStatic = (result_type->mStatic || static_) && !result_type->mUniq;
-        result_type->mRecord = result_type->mRecord || record_;
-        result_type->mExtern = result_type->mExtern || extern_;
-        result_type->mInline = result_type->mInline || inline_;
-        result_type->mRestrict = result_type->mRestrict || restrict_;
-        result_type->mLongLong = result_type->mLongLong || long_long;
-        result_type->mLong = result_type->mLong || long_;
-        result_type->mShort = result_type->mShort || short_;
-        result_type->mPointerNum += pointer_num;
-        result_type->mHeap = result_type->mHeap || heap;
-        result_type->mChannel = result_type->mChannel || channel;
-        result_type->mDefferRightValue = result_type->mDefferRightValue || deffer_;
-        
-        if(xisalnum(*info.p) || *info->p == '_') {
-            var_name = parse_word();
-            if(*info->p == '(') { // function pointer result function
-                return (result_type,var_name, false);
-            }
-        }
-        else {
-            static int num_anonymous_var_name = 0;
-            num_anonymous_var_name++;
-            var_name = xsprintf("anonymous_lambda_var_nameZ%d", num_anonymous_var_name);
-        }
-        
-        type = new sType(s"lambda");
-        
-        while(*info->p == '[') {
-            info->p++;
-            skip_spaces_and_lf();
-            
-            sNode*% node = expression();
-            
-            type.mArrayNum.add(node);
-            
-            if(*info->p == ']') {
-                info->p++;
-                skip_spaces_and_lf();
-            }
-        }
-        expected_next_character(')');
-        
-        var param_types, param_names, param_default_parametors, var_args = parse_params(info);
-        
-        type->mResultType = clone result_type;
-        type->mParamTypes = param_types;
-        type->mParamNames = param_names;
-        type->mVarArgs = var_args;
-        type->mExtern = extern_;
-        
-        type->mFunctionPointerNum = function_pointer_num;
-    }
-*/
     else if(function_pointer_flag) {
         info->p++;
         skip_spaces_and_lf();
@@ -2760,6 +2658,28 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
         }
         
         type = new sType(s"lambda");
+        while(*info->p == '[') {
+            info->p++;
+            skip_spaces_and_lf();
+            
+            if(*info->p == ']') {
+                info->p++;
+                skip_spaces_and_lf();
+                
+                type->mArrayPointerType = true;
+                break;
+            }
+            else {
+                sNode*% node = expression();
+                
+                type.mArrayNum.add(node);
+                
+                if(*info->p == ']') {
+                    info->p++;
+                    skip_spaces_and_lf();
+                }
+            }
+        }
         
         if(paren_flag && *info->p == ')') {
             info->p++;

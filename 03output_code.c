@@ -120,6 +120,9 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
                 buf.append_str("]");
             }
         }
+        if(type->mArrayPointerType) {
+            buf.append_str("[]");
+        }
         buf.append_str(")(");
         
         int j = 0;
@@ -331,6 +334,9 @@ static string make_lambda_type_name_string(sType* type, char* var_name, sInfo* i
                 buf.append_str("*");
             }
             buf.append_str(var_name);
+            if(type->mArrayPointerType) {
+                buf.append_str("[]");
+            }
             for(int i=0; i<type->mArrayPointerNum; i++) {
                 buf.append_str(")");
             }
@@ -341,9 +347,15 @@ static string make_lambda_type_name_string(sType* type, char* var_name, sInfo* i
                 buf.append_str("*");
             }
             buf.append_str(var_name);
+            if(type->mArrayPointerType) {
+                buf.append_str("[]");
+            }
         }
         else {
             buf.append_format("(*%s", var_name);
+            if(type->mArrayPointerType) {
+                buf.append_str("[]");
+            }
         }
         if(type->mArrayNum.length() > 0) {
             for(int i=0; i<type->mArrayNum.length(); i++) {
@@ -818,6 +830,10 @@ string make_come_define_var(sType* type, char* name, sInfo* info=info)
             CVALUE*% cvalue = get_value_from_stack(-1, info);
         
             buf.append_format("[%s]", cvalue.c_value);
+        }
+        
+        if(type2->mArrayPointerType) {
+            buf.append_format("[]");
         }
         
         if(type2->mAsmName != null && type2->mAsmName !== "") {
