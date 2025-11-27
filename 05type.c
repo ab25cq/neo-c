@@ -2202,8 +2202,9 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
                 
                 function_pointer_flag = true;
                 
+                string word = null;
                 if(xisalpha(*info->p) || *info->p == '_') {
-                    string word = parse_word();
+                    word = parse_word();
                 }
                 
                 if(*info->p == ')') {
@@ -2519,7 +2520,11 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
         
         skip_pointer_attribute();
         
-        type = new sType(string(type_name));
+        type = clone info.types[type_name];
+        
+        if(type == null) {
+            type = new sType(string(type_name));
+        }
         
         type->mConstant = type->mConstant || constant;
         type->mAtomic = type->mAtomic || atomic_;

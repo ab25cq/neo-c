@@ -1803,7 +1803,7 @@ sNode*% parse_function(sInfo* info)
     sType*% result_type = null;
     string var_name = null;
     bool constructor_ = false;
-    
+
     if(info.in_class && (info->end - info->p) >= strlen("new(") && memcmp(info.p, "new(", 4) == 0) {
         parse_word();
         result_type = clone info.class_type;
@@ -1928,6 +1928,11 @@ sNode*% parse_function(sInfo* info)
         skip_spaces_and_lf();
         
         version = n;
+    }
+    if(parsecmp("record")) {
+        info->p += strlen("record");
+        skip_spaces_and_lf();
+        result_type->mRecord = true;
     }
     
     var asm_fun2, fun_attribute2 = parse_function_attribute();

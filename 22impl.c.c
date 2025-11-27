@@ -2988,6 +2988,8 @@ char* word;
 char* generics_name;
 int pointer_num;
 void* __right_value1 = (void*)0;
+struct sType* __exception_result_var_b1;
+struct sType* __exception_result_var_b2;
 struct sType* __dec_obj4;
 char* head_2;
 char* buf_3;
@@ -3039,7 +3041,7 @@ struct sNode* __result_obj__4;
         expected_next_character(123,info);
         __right_value0 = (void*)0;
         __dec_obj4=info->impl_type,
-        info->impl_type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "22impl.c", 45, "struct sType*")),(char*)come_increment_ref_count(word),(_Bool)0,info));
+        info->impl_type=(struct sType*)come_increment_ref_count((come_push_stackframe("22impl.c", 45, 0),__exception_result_var_b1=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "22impl.c", 45, "struct sType*")),(char*)come_increment_ref_count(word),(_Bool)0,info), come_pop_stackframe(), __exception_result_var_b1));
         come_call_finalizer(sType_finalize, __dec_obj4,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         info->impl_type->mPointerNum=pointer_num;
         while(        *info->p!=125        ) {

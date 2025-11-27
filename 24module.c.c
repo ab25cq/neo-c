@@ -3387,6 +3387,8 @@ void* __right_value1 = (void*)0;
 struct CVALUE* come_value3;
 char* __dec_obj12;
 void* __right_value2 = (void*)0;
+struct sType* __exception_result_var_b1;
+struct sType* __exception_result_var_b2;
 struct sType* __dec_obj13;
 _Bool __result_obj__14;
     exp=(struct sNode*)come_increment_ref_count(self->exp);
@@ -3421,7 +3423,7 @@ _Bool __result_obj__14;
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     __dec_obj13=come_value3->type,
-    come_value3->type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "24module.c", 59, "struct sType*")),(char*)come_increment_ref_count(xsprintf("void")),(_Bool)0,info));
+    come_value3->type=(struct sType*)come_increment_ref_count((come_push_stackframe("24module.c", 59, 0),__exception_result_var_b1=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "24module.c", 59, "struct sType*")),(char*)come_increment_ref_count(xsprintf("void")),(_Bool)0,info), come_pop_stackframe(), __exception_result_var_b1));
     come_call_finalizer(sType_finalize, __dec_obj13,(void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_value3->var=((void*)0);
     add_come_last_code(info,"%s",come_value3->c_value);

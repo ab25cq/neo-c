@@ -3947,9 +3947,15 @@ _Bool _conditional_value_X0;
 void* __right_value1 = (void*)0;
 void* __right_value2 = (void*)0;
 void* __right_value3 = (void*)0;
+struct sType* __exception_result_var_b1;
+struct sType* __exception_result_var_b2;
+struct sType* __exception_result_var_b3;
 struct sType* type;
 struct sType* override_;
 _Bool typedef_;
+struct sType* __exception_result_var_b4;
+struct sType* __exception_result_var_b5;
+struct sType* __exception_result_var_b6;
 struct sType* type_30;
 char* __dec_obj32;
 struct tuple3$3sType$phchar$phbool$* multiple_assign_var2 = (void*)0;
@@ -3973,7 +3979,7 @@ klass = (void*)0;
         map$2char$phsClass$ph_insert(info->classes,(char*)come_increment_ref_count(__builtin_string(type_name)),(struct sClass*)come_increment_ref_count(sClass_initialize((struct sClass*)come_increment_ref_count((struct sClass*)come_calloc_v2(1, sizeof(struct sClass)*(1), "15union.c", 78, "struct sClass*")),(char*)come_increment_ref_count(__builtin_string(type_name)),(_Bool)0,(_Bool)1,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,-1,-1,(_Bool)0,(_Bool)0,(_Bool)0,info)));
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "15union.c", 80, "struct sType*")),(char*)come_increment_ref_count(type_name),(_Bool)0,info));
+        type=(struct sType*)come_increment_ref_count((come_push_stackframe("15union.c", 80, 2),__exception_result_var_b3=(come_push_stackframe("15union.c", 80, 0),__exception_result_var_b1=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "15union.c", 80, "struct sType*")),(char*)come_increment_ref_count(type_name),(_Bool)0,info), come_pop_stackframe(), __exception_result_var_b1), come_pop_stackframe(), __exception_result_var_b3));
         __right_value0 = (void*)0;
         map$2char$phsType$ph_insert(info->types,(char*)come_increment_ref_count(type_name),(struct sType*)come_increment_ref_count(sType_clone(type)));
         __right_value0 = (void*)0;
@@ -3994,7 +4000,7 @@ klass = (void*)0;
         }
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        type_30=(struct sType*)come_increment_ref_count(sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "15union.c", 93, "struct sType*")),(char*)come_increment_ref_count(type_name),(_Bool)0,info));
+        type_30=(struct sType*)come_increment_ref_count((come_push_stackframe("15union.c", 93, 5),__exception_result_var_b6=(come_push_stackframe("15union.c", 93, 3),__exception_result_var_b4=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "15union.c", 93, "struct sType*")),(char*)come_increment_ref_count(type_name),(_Bool)0,info), come_pop_stackframe(), __exception_result_var_b4), come_pop_stackframe(), __exception_result_var_b6));
         if(        typedef_        ) {
             type_30->mTypedef=(_Bool)1;
         }
@@ -5419,9 +5425,15 @@ _Bool _conditional_value_X0;
 void* __right_value1 = (void*)0;
 void* __right_value2 = (void*)0;
 void* __right_value3 = (void*)0;
+struct sType* __exception_result_var_b7;
+struct sType* __exception_result_var_b8;
+struct sType* __exception_result_var_b9;
 struct sType* type;
 struct sType* override_;
 _Bool typedef_;
+struct sType* __exception_result_var_b10;
+struct sType* __exception_result_var_b11;
+struct sType* __exception_result_var_b12;
 struct sType* type_33;
 struct tuple3$3sType$phchar$phbool$* multiple_assign_var3 = (void*)0;
 struct sType* type2=0;
@@ -5453,7 +5465,7 @@ klass = (void*)0;
             map$2char$phsClass$ph_insert(info->classes,(char*)come_increment_ref_count(__builtin_string(type_name)),(struct sClass*)come_increment_ref_count(sClass_initialize((struct sClass*)come_increment_ref_count((struct sClass*)come_calloc_v2(1, sizeof(struct sClass)*(1), "15union.c", 184, "struct sClass*")),(char*)come_increment_ref_count(__builtin_string(type_name)),(_Bool)0,(_Bool)1,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,-1,-1,(_Bool)0,(_Bool)0,(_Bool)0,info)));
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
-            type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "15union.c", 185, "struct sType*")),(char*)come_increment_ref_count(type_name),(_Bool)0,info));
+            type=(struct sType*)come_increment_ref_count((come_push_stackframe("15union.c", 185, 8),__exception_result_var_b9=(come_push_stackframe("15union.c", 185, 6),__exception_result_var_b7=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "15union.c", 185, "struct sType*")),(char*)come_increment_ref_count(type_name),(_Bool)0,info), come_pop_stackframe(), __exception_result_var_b7), come_pop_stackframe(), __exception_result_var_b9));
             __right_value0 = (void*)0;
             map$2char$phsType$ph_insert(info->types,(char*)come_increment_ref_count(type_name),(struct sType*)come_increment_ref_count(sType_clone(type)));
             __right_value0 = (void*)0;
@@ -5474,7 +5486,7 @@ klass = (void*)0;
             }
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
-            type_33=(struct sType*)come_increment_ref_count(sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "15union.c", 197, "struct sType*")),(char*)come_increment_ref_count(type_name),(_Bool)0,info));
+            type_33=(struct sType*)come_increment_ref_count((come_push_stackframe("15union.c", 197, 11),__exception_result_var_b12=(come_push_stackframe("15union.c", 197, 9),__exception_result_var_b10=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "15union.c", 197, "struct sType*")),(char*)come_increment_ref_count(type_name),(_Bool)0,info), come_pop_stackframe(), __exception_result_var_b10), come_pop_stackframe(), __exception_result_var_b12));
             if(            typedef_            ) {
                 type_33->mTypedef=typedef_;
             }

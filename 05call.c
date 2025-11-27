@@ -1488,11 +1488,13 @@ class sFunCallNode extends sNodeBase
             append_object_to_right_values(come_value, result_type, info);
         }
         
-        if(info.come_fun.mName !== "come_alloc_mem_from_heap_pool" && info.come_fun.mName !== "come_calloc" && info.come_fun.mName !== "come_calloc_v2" && info.come_fun.mName !== "come_free_mem_of_heap_pool" && info.come_fun.mName !== "come_free" && info.come_fun.mName !== "come_free_v2") 
+        if(info.come_fun.mName === "come_alloc_mem_from_heap_pool" || info.come_fun.mName === "come_calloc" || info.come_fun.mName === "come_calloc_v2" || info.come_fun.mName === "come_free_mem_of_heap_pool" || info.come_fun.mName === "come_free" || info.come_fun.mName === "come_free_v2") 
         {
-            if(fun_name !== "come_alloc_mem_from_heap_pool" && fun_name !== "null_check" && fun_name !== "come_push_stackframe" && fun_name !== "come_push_stackframe_v2" && fun_name !== "come_pop_stackframe" && fun_name !== "come_pop_stackframe_v2") {
-                come_value.c_value = append_stackframe(come_value.c_value, come_value.type, info);
-            }
+        }
+        else if(fun_name === "come_alloc_mem_from_heap_pool" || fun_name === "null_check" || fun_name === "come_push_stackframe" || fun_name === "come_push_stackframe_v2" || fun_name === "come_pop_stackframe" || fun_name === "come_pop_stackframe_v2") {
+        }
+        else {
+            come_value.c_value = append_stackframe(come_value.c_value, come_value.type, info);
         }
         
         add_come_last_code(info, "%s", come_value.c_value);

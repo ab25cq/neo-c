@@ -3156,10 +3156,16 @@ char* c_value;
 char* __dec_obj11;
 char* __dec_obj12;
 void* __right_value2 = (void*)0;
+struct sType* __exception_result_var_b1;
+struct sType* __exception_result_var_b2;
+struct sType* __exception_result_var_b3;
 _Bool Value;
 _Bool __result_obj__22;
 struct CVALUE* right_value;
 char* c_value_5;
+struct sType* __exception_result_var_b4;
+struct sType* __exception_result_var_b5;
+struct sType* __exception_result_var_b6;
 char* __dec_obj13;
 char* __dec_obj14;
 _Bool __result_obj__53;
@@ -3222,7 +3228,7 @@ c_value = (void*)0;
             }
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
-            add_variable_to_global_table_with_int_value(name,(struct sType*)come_increment_ref_count(sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "16enum.c", 80, "struct sType*")),(char*)come_increment_ref_count(xsprintf("int")),(_Bool)0,info)),c_value,info);
+            add_variable_to_global_table_with_int_value(name,(struct sType*)come_increment_ref_count((come_push_stackframe("16enum.c", 80, 2),__exception_result_var_b3=(come_push_stackframe("16enum.c", 80, 0),__exception_result_var_b1=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "16enum.c", 80, "struct sType*")),(char*)come_increment_ref_count(xsprintf("int")),(_Bool)0,info), come_pop_stackframe(), __exception_result_var_b1), come_pop_stackframe(), __exception_result_var_b3)),c_value,info);
             (c_value = come_decrement_ref_count(c_value, (void*)0, (void*)0, 0, 0, (void*)0));
         }
         else {
@@ -3247,7 +3253,7 @@ c_value = (void*)0;
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __right_value2 = (void*)0;
-            add_variable_to_global_table_with_int_value(name,(struct sType*)come_increment_ref_count(sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "16enum.c", 91, "struct sType*")),(char*)come_increment_ref_count(xsprintf("int")),(_Bool)0,info)),c_value_5,info);
+            add_variable_to_global_table_with_int_value(name,(struct sType*)come_increment_ref_count((come_push_stackframe("16enum.c", 91, 5),__exception_result_var_b6=(come_push_stackframe("16enum.c", 91, 3),__exception_result_var_b4=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "16enum.c", 91, "struct sType*")),(char*)come_increment_ref_count(xsprintf("int")),(_Bool)0,info), come_pop_stackframe(), __exception_result_var_b4), come_pop_stackframe(), __exception_result_var_b6)),c_value_5,info);
             buffer_append_format(buf,"%s=(%s)",name,right_value->c_value);
             if(            i!=list$1tuple3$3char$phsNode$phchar$ph$ph_length(elements)-1            ) {
                 buffer_append_str(buf,",");

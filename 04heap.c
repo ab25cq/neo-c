@@ -16,7 +16,7 @@ void std_move(sType* left_type, sType* right_type, CVALUE* right_value, sInfo* i
     }
     if(right_value.c_value_without_right_value_objects) {
         right_value.c_value = right_value.c_value_without_right_value_objects;
-        if(gComeDebug) {
+        if(gComeDebug || right_type->mRecord) {
             right_value.c_value = append_stackframe(right_value.c_value, right_value.type, info);
         }
     }
@@ -95,6 +95,7 @@ sType*% solve_generics(sType*% type, sType*% generics_type, sInfo* info)
         bool heap = type->mHeap;
         bool guard_ = type->mGuardValue;
         bool deffer_right_value = type->mDefferRightValue;
+        bool record_ = type->mRecord;
         
         bool no_heap = type->mNoHeap;
         bool no_calling_destructor = type->mNoCallingDestructor;
@@ -114,6 +115,9 @@ sType*% solve_generics(sType*% type, sType*% generics_type, sInfo* info)
         if(no_heap) {
             result->mNoHeap = true;
             result->mHeap = false;
+        }
+        if(record_) {
+            result->mRecord = true;
         }
         if(no_calling_destructor) {
             result->mNoCallingDestructor = true;
@@ -151,6 +155,7 @@ sType*% solve_generics(sType*% type, sType*% generics_type, sInfo* info)
             bool guard_ = type->mGuardValue;
             bool deffer_right_value = type->mDefferRightValue;
             
+            bool record_ = type->mRecord;
             bool no_heap = type->mNoHeap;
             bool no_calling_destructor = type->mNoCallingDestructor;
             bool null_value = type->mNullValue;
@@ -164,6 +169,9 @@ sType*% solve_generics(sType*% type, sType*% generics_type, sInfo* info)
             }
             if(guard_) {
                 result->mGuardValue = guard_;
+            }
+            if(record_) {
+                result->mRecord = record_;
             }
             if(deffer_right_value) {
                 result->mDefferRightValue = deffer_right_value || result->mDefferRightValue;
@@ -236,11 +244,15 @@ sType*% solve_method_generics(sType* type, sInfo* info)
         bool no_heap = type->mNoHeap;
         bool no_calling_destructor = type->mNoCallingDestructor;
         bool null_value = type->mNullValue;
+        bool record_ = type->mRecord;
         
         result = clone info->method_generics_types[generics_number];
 
         if(heap) {
             result->mHeap = heap || result->mHeap;
+        }
+        if(record_) {
+            result->mRecord = record_ || result->mRecord;
         }
         if(deffer_right_value) {
             result->mDefferRightValue = deffer_right_value || result->mDefferRightValue;
@@ -335,6 +347,9 @@ void append_object_to_right_values(CVALUE* come_value, sType*% type, sInfo* info
         }
         
         come_value.c_value_without_right_value_objects = clone come_value.c_value;
+        if(gComeDebug || type->mRecord) {
+            come_value.c_value_without_right_value_objects = append_stackframe(come_value.c_value_without_right_value_objects, type, info);
+        }
         come_value.c_value = xsprintf("((%s)(%s=%s))", make_type_name_string(type, cast_type:true), new_value->mVarName, come_value.c_value);
         come_value.right_value_objects = new_value;
     }

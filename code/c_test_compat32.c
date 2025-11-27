@@ -19,7 +19,6 @@ static void inc(int *v) { (*v)++; }
 static void dbl(int *v) { (*v) *= 2; }
 
 typedef int (*binop_fn)(int, int);
-/*
 typedef int binop_t(int, int); // function type (not pointer)
 
 static void test_basic_array(void) {
@@ -35,21 +34,17 @@ static void test_function_type_typedef(void) {
     REQUIRE(fns[1](2, 5) == 10);
     REQUIRE(fns[0] == add);
 }
-*/
 
 static void test_pointer_to_array(void) {
     binop_fn table[2] = { sub, add };
     binop_fn (*ptbl)[2] = &table;
-/*
     REQUIRE((*ptbl)[0](9, 3) == 6);
     REQUIRE((*ptbl)[1](4, 6) == 10);
 
     binop_fn *flat = *ptbl;
     REQUIRE(flat[1](1, 2) == 3);
-*/
 }
 
-/*
 struct Handler {
     void (*cbs[2])(int *);
 };
@@ -69,10 +64,8 @@ static void test_null_and_assign(void) {
     f = sub;
     REQUIRE(f(10, 4) == 6);
 }
-*/
 
 int main(void) {
-/*
     test_basic_array();
     test_function_type_typedef();
     test_pointer_to_array();
@@ -80,6 +73,5 @@ int main(void) {
     test_null_and_assign();
 
     puts(g_ok ? "OK" : "NG");
-*/
     return g_ok ? 0 : 1;
 }

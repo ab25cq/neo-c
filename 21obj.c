@@ -49,6 +49,7 @@ class sNewNode extends sNodeBase
         
         string type_name2 = make_come_type_name_string(type2);
         
+/*
         if(initializer) {
             static int var_num = 1;
             var_num++;
@@ -142,13 +143,28 @@ class sNewNode extends sNodeBase
             come_value.type = clone type2;
             come_value.var = null;
             
+            string initializer_fun_name = xsprintf("%s_initialize", type2->mClass->mName);
+            sFun* initializer_fun = info.funcs[initializer_fun_name];
+            
+            if(initializer_fun == null) {
+                err_msg(info, "initializer not found(%s)", initializer_fun_name);
+                return false;
+            }
+            
             append_object_to_right_values(come_value, type2, info);
+            
+            if(initializer_fun->mResultType->mRecord) {
+                come_value.type->mRecord = true;
+            }
+            
+            come_value.c_value = append_stackframe(come_value.c_value, come_value.type, info);
             
             add_come_last_code(info, "%s", come_value.c_value);
             
             info.stack.push_back(come_value);
         }
         else {
+*/
             sType*% type3 = clone type2;
             type3->mPointerNum++;
             type3->mHeap = true;
@@ -183,7 +199,7 @@ class sNewNode extends sNodeBase
             add_come_last_code(info, "%s", come_value.c_value);
             
             info.stack.push_back(come_value);
-        }
+//        }
         
         return true;
     }

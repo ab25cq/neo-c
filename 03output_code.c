@@ -415,7 +415,19 @@ string lambda_with_oroginal_type_name(sType* type2, char* name, sInfo* info=info
         buf.append_str(type2->mOriginalTypeName);
         
         buf.append_str(" ");
+        
+        if(type2->mArrayPointerNum > 0) {
+            buf.append_format("(");
+            type2->mArrayPointerNum.times {
+                buf.append_format("*");
+            }
+        }
+        
         buf.append_str(name);
+        
+        if(type2->mArrayPointerNum > 0) {
+            buf.append_format(")");
+        }
         
         int n = 0;
         foreach(it, type2->mArrayNum) {

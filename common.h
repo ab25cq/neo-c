@@ -165,7 +165,7 @@ uniq class sType
     
     sNode*% mTypeOfNode;
     
-    new(string name, bool heap=false, sInfo* info=info)
+    new(string name, bool heap=false, sInfo* info=info) record
     {
         int pointer_num = 0;
         char* p = name;
@@ -194,6 +194,7 @@ uniq class sType
             }
 */
             printf("%s %d: class not found(%s)(1)\n", info->sname, info->sline, name2);
+            stackframe();
         }
         
         if(klass) {
