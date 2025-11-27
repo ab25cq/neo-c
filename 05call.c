@@ -852,6 +852,7 @@ class sFunCallNode extends sNodeBase
             else if(fun_name === "__c11_atomic_load") {
                 come_value.type = clone come_params[0].type;
                 come_value.type.mPointerNum--;
+                come_value.type.mAtomic = false;
             }
             else if(fun_name === "__c11_atomic_fetch_add") {
                 come_value.type = clone come_params[1].type;
