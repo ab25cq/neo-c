@@ -113,14 +113,10 @@ class sEnumNode extends sNodeBase
                     static int type_name_num = 0;
                     type_name_num++;
                     type_name = xsprintf("__enum_type_name_X%d", type_name_num);
-                    if(!info->no_output_come_code2) {
-                        info.struct_definition.insert(string(type_name), buf);
-                    }
+                    info.struct_definition.insert(string(type_name), buf);
                 }
                 else {
-                    if(!info->no_output_come_code2) {
-                        info.struct_definition.insert(string(type_name), buf);
-                    }
+                    info.struct_definition.insert(string(type_name), buf);
                 }
             }
         }

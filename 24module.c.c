@@ -1,25 +1,4 @@
 /// previous struct definition ///
-struct __sFILEX;
-
-struct _xlocale;
-
-struct re_program;
-
-struct sType;
-
-struct sClass;
-
-struct sInfo;
-
-struct sVar;
-
-struct sRightValueObject;
-
-struct sVarTable;
-
-struct sBlock;
-
-/// struct definition ///
 typedef char* string;
 
 typedef char __int8_t;
@@ -43,12 +22,6 @@ typedef long __darwin_intptr_t;
 typedef unsigned int __darwin_natural_t;
 
 typedef int __darwin_ct_rune_t;
-
-union anonymous_typeZ1
-{
-char __mbstate8[128];
-long long _mbstateL;
-};
 
 typedef union anonymous_typeZ1 __mbstate_t;
 
@@ -109,72 +82,6 @@ typedef int __darwin_suseconds_t;
 typedef unsigned int __darwin_uid_t;
 
 typedef unsigned int __darwin_useconds_t;
-
-typedef unsigned char __darwin_uuid_t[16];
-
-typedef char __darwin_uuid_string_t[37];
-
-struct __darwin_pthread_handler_rec
-{
-    void (*__routine)(void*);
-    void* __arg;
-    struct __darwin_pthread_handler_rec* __next;
-};
-
-struct _opaque_pthread_attr_t
-{
-    long __sig;
-    char __opaque[56];
-};
-
-struct _opaque_pthread_cond_t
-{
-    long __sig;
-    char __opaque[40];
-};
-
-struct _opaque_pthread_condattr_t
-{
-    long __sig;
-    char __opaque[8];
-};
-
-struct _opaque_pthread_mutex_t
-{
-    long __sig;
-    char __opaque[56];
-};
-
-struct _opaque_pthread_mutexattr_t
-{
-    long __sig;
-    char __opaque[8];
-};
-
-struct _opaque_pthread_once_t
-{
-    long __sig;
-    char __opaque[8];
-};
-
-struct _opaque_pthread_rwlock_t
-{
-    long __sig;
-    char __opaque[192];
-};
-
-struct _opaque_pthread_rwlockattr_t
-{
-    long __sig;
-    char __opaque[16];
-};
-
-struct _opaque_pthread_t
-{
-    long __sig;
-    struct __darwin_pthread_handler_rec* __cleanup_stack;
-    char __opaque[8176];
-};
 
 typedef struct _opaque_pthread_attr_t __darwin_pthread_attr_t;
 
@@ -244,6 +151,243 @@ typedef unsigned long  int size_t;
 
 typedef long long fpos_t;
 
+struct __sFILEX;
+
+typedef struct __sFILE FILE;
+
+typedef long long off_t;
+
+typedef long ssize_t;
+
+typedef enum anonymous_typeY1 idtype_t;
+
+typedef int pid_t;
+
+typedef unsigned int id_t;
+
+typedef int sig_atomic_t;
+
+typedef struct __darwin_mcontext64* mcontext_t;
+
+typedef struct _opaque_pthread_attr_t pthread_attr_t;
+
+typedef struct __darwin_sigaltstack stack_t;
+
+typedef struct __darwin_ucontext ucontext_t;
+
+typedef unsigned int sigset_t;
+
+typedef unsigned int uid_t;
+
+typedef struct __siginfo siginfo_t;
+
+typedef void (*sig_t)(int);
+
+typedef unsigned char uint8_t;
+
+typedef unsigned short int uint16_t;
+
+typedef unsigned int uint32_t;
+
+typedef unsigned long  long uint64_t;
+
+typedef char int_least8_t;
+
+typedef short int_least16_t;
+
+typedef int int_least32_t;
+
+typedef long long int_least64_t;
+
+typedef unsigned char uint_least8_t;
+
+typedef unsigned short int uint_least16_t;
+
+typedef unsigned int uint_least32_t;
+
+typedef unsigned long  long uint_least64_t;
+
+typedef char int_fast8_t;
+
+typedef short int_fast16_t;
+
+typedef int int_fast32_t;
+
+typedef long long int_fast64_t;
+
+typedef unsigned char uint_fast8_t;
+
+typedef unsigned short int uint_fast16_t;
+
+typedef unsigned int uint_fast32_t;
+
+typedef unsigned long  long uint_fast64_t;
+
+typedef long  int intmax_t;
+
+typedef unsigned long  int uintmax_t;
+
+typedef unsigned long  long rlim_t;
+
+typedef void* rusage_info_t;
+
+typedef struct rusage_info_v6 rusage_info_current;
+
+typedef int ct_rune_t;
+
+typedef int rune_t;
+
+typedef int wchar_t;
+
+typedef struct anonymous_typeX4 div_t;
+
+typedef struct anonymous_typeX5 ldiv_t;
+
+typedef struct anonymous_typeX6 lldiv_t;
+
+typedef unsigned long  long malloc_type_id_t;
+
+typedef struct _malloc_zone_t malloc_zone_t;
+
+typedef int dev_t;
+
+typedef unsigned short int mode_t;
+
+typedef unsigned long  int rsize_t;
+
+typedef int errno_t;
+
+typedef __builtin_va_list __gnuc_va_list;
+
+typedef __builtin_va_list va_list;
+
+struct _xlocale;
+
+typedef struct _xlocale* locale_t;
+
+typedef int wint_t;
+
+typedef struct anonymous_typeX7 _RuneEntry;
+
+typedef struct anonymous_typeX8 _RuneRange;
+
+typedef struct anonymous_typeX9 _RuneCharClass;
+
+typedef struct anonymous_typeX10 _RuneLocale;
+
+struct re_program;
+
+typedef struct re_program* re_t;
+
+typedef struct re_capture re_capture;
+
+typedef struct regex_t regex_t;
+
+typedef struct re_program regex_program_t;
+
+typedef struct anonymous_typeX15 compiler_state;
+
+typedef struct anonymous_typeX16 match_context;
+
+typedef union anonymous_typeZ1 mbstate_t;
+
+typedef unsigned long  int clock_t;
+
+typedef long time_t;
+
+typedef enum anonymous_typeY16 clockid_t;
+
+typedef unsigned int wctype_t;
+
+typedef int* wstring;
+
+struct sType;
+
+struct sClass;
+
+struct sInfo;
+
+struct sVar;
+
+struct sRightValueObject;
+
+struct sVarTable;
+
+struct sBlock;
+
+/// struct definition ///
+union anonymous_typeZ1
+{
+char __mbstate8[128];
+long long _mbstateL;
+};
+
+typedef unsigned char __darwin_uuid_t[16];
+
+typedef char __darwin_uuid_string_t[37];
+
+struct __darwin_pthread_handler_rec
+{
+    void (*__routine)(void*);
+    void* __arg;
+    struct __darwin_pthread_handler_rec* __next;
+};
+
+struct _opaque_pthread_attr_t
+{
+    long __sig;
+    char __opaque[56];
+};
+
+struct _opaque_pthread_cond_t
+{
+    long __sig;
+    char __opaque[40];
+};
+
+struct _opaque_pthread_condattr_t
+{
+    long __sig;
+    char __opaque[8];
+};
+
+struct _opaque_pthread_mutex_t
+{
+    long __sig;
+    char __opaque[56];
+};
+
+struct _opaque_pthread_mutexattr_t
+{
+    long __sig;
+    char __opaque[8];
+};
+
+struct _opaque_pthread_once_t
+{
+    long __sig;
+    char __opaque[8];
+};
+
+struct _opaque_pthread_rwlock_t
+{
+    long __sig;
+    char __opaque[192];
+};
+
+struct _opaque_pthread_rwlockattr_t
+{
+    long __sig;
+    char __opaque[16];
+};
+
+struct _opaque_pthread_t
+{
+    long __sig;
+    struct __darwin_pthread_handler_rec* __cleanup_stack;
+    char __opaque[8176];
+};
+
 struct __sbuf
 {
     unsigned char* _base;
@@ -274,29 +418,15 @@ struct __sFILE
     long long _offset;
 };
 
-typedef struct __sFILE FILE;
-
 extern struct __sFILE* __stdinp __attribute__((__swift_attr__("nonisolated(unsafe)")));
 extern struct __sFILE* __stdoutp __attribute__((__swift_attr__("nonisolated(unsafe)")));
 extern struct __sFILE* __stderrp __attribute__((__swift_attr__("nonisolated(unsafe)")));
-typedef long long off_t;
-
-typedef long ssize_t;
-
 extern const int sys_nerr;
 extern const char* sys_errlist[];
 enum   anonymous_typeY1 { P_ALL 
 ,P_PID 
 ,P_PGID 
 };
-
-typedef enum anonymous_typeY1 idtype_t;
-
-typedef int pid_t;
-
-typedef unsigned int id_t;
-
-typedef int sig_atomic_t;
 
 struct __darwin_arm_exception_state
 {
@@ -435,18 +565,12 @@ struct __darwin_mcontext64
     struct __darwin_arm_neon_state64 __ns;
 };
 
-typedef struct __darwin_mcontext64* mcontext_t;
-
-typedef struct _opaque_pthread_attr_t pthread_attr_t;
-
 struct __darwin_sigaltstack
 {
     void* ss_sp;
     unsigned long  int ss_size;
     int ss_flags;
 };
-
-typedef struct __darwin_sigaltstack stack_t;
 
 struct __darwin_ucontext
 {
@@ -457,12 +581,6 @@ struct __darwin_ucontext
     unsigned long  int uc_mcsize;
     struct __darwin_mcontext64* uc_mcontext;
 };
-
-typedef struct __darwin_ucontext ucontext_t;
-
-typedef unsigned int sigset_t;
-
-typedef unsigned int uid_t;
 
 union sigval
 {
@@ -493,8 +611,6 @@ struct __siginfo
     unsigned long  int __pad[7];
 };
 
-typedef struct __siginfo siginfo_t;
-
 union __sigaction_u
 {
 void (*__sa_handler)(int);
@@ -516,8 +632,6 @@ struct sigaction
     int sa_flags;
 };
 
-typedef void (*sig_t)(int);
-
 struct sigvec
 {
     void (*sv_handler)(int);
@@ -531,57 +645,11 @@ struct sigstack
     int ss_onstack;
 };
 
-typedef unsigned char uint8_t;
-
-typedef unsigned short int uint16_t;
-
-typedef unsigned int uint32_t;
-
-typedef unsigned long  long uint64_t;
-
-typedef char int_least8_t;
-
-typedef short int_least16_t;
-
-typedef int int_least32_t;
-
-typedef long long int_least64_t;
-
-typedef unsigned char uint_least8_t;
-
-typedef unsigned short int uint_least16_t;
-
-typedef unsigned int uint_least32_t;
-
-typedef unsigned long  long uint_least64_t;
-
-typedef char int_fast8_t;
-
-typedef short int_fast16_t;
-
-typedef int int_fast32_t;
-
-typedef long long int_fast64_t;
-
-typedef unsigned char uint_fast8_t;
-
-typedef unsigned short int uint_fast16_t;
-
-typedef unsigned int uint_fast32_t;
-
-typedef unsigned long  long uint_fast64_t;
-
-typedef long  int intmax_t;
-
-typedef unsigned long  int uintmax_t;
-
 struct timeval
 {
     long tv_sec;
     int tv_usec;
 };
-
-typedef unsigned long  long rlim_t;
 
 struct rusage
 {
@@ -602,8 +670,6 @@ struct rusage
     long ru_nvcsw;
     long ru_nivcsw;
 };
-
-typedef void* rusage_info_t;
 
 struct rusage_info_v0
 {
@@ -830,8 +896,6 @@ struct rusage_info_v6
     unsigned long  long ri_reserved[9];
 };
 
-typedef struct rusage_info_v6 rusage_info_current;
-
 struct rlimit
 {
     unsigned long  long rlim_cur;
@@ -875,19 +939,11 @@ int w_status;
     } w_S;
 };
 
-typedef int ct_rune_t;
-
-typedef int rune_t;
-
-typedef int wchar_t;
-
 struct anonymous_typeX4
 {
     int quot;
     int rem;
 };
-
-typedef struct anonymous_typeX4 div_t;
 
 struct anonymous_typeX5
 {
@@ -895,34 +951,14 @@ struct anonymous_typeX5
     long rem;
 };
 
-typedef struct anonymous_typeX5 ldiv_t;
-
 struct anonymous_typeX6
 {
     long long quot;
     long long rem;
 };
 
-typedef struct anonymous_typeX6 lldiv_t;
-
 extern int __mb_cur_max;
-typedef unsigned long  long malloc_type_id_t;
-
-typedef struct _malloc_zone_t malloc_zone_t;
-
-typedef int dev_t;
-
-typedef unsigned short int mode_t;
-
 extern char* suboptarg;
-typedef unsigned long  int rsize_t;
-
-typedef int errno_t;
-
-typedef __builtin_va_list __gnuc_va_list;
-
-typedef __builtin_va_list va_list;
-
 struct lconv
 {
     char* decimal_point;
@@ -951,10 +987,6 @@ struct lconv
     char int_n_sign_posn;
 };
 
-typedef struct _xlocale* locale_t;
-
-typedef int wint_t;
-
 struct anonymous_typeX7
 {
     int __min;
@@ -962,8 +994,6 @@ struct anonymous_typeX7
     int __map;
     unsigned int* __types;
 };
-
-typedef struct anonymous_typeX7 _RuneEntry;
 
 struct anonymous_typeX8
 {
@@ -976,15 +1006,11 @@ struct anonymous_typeX8
     } __ranges;
 };
 
-typedef struct anonymous_typeX8 _RuneRange;
-
 struct anonymous_typeX9
 {
     char __name[14];
     unsigned int __mask;
 };
-
-typedef struct anonymous_typeX9 _RuneCharClass;
 
 struct anonymous_typeX10
 {
@@ -1031,8 +1057,6 @@ struct anonymous_typeX10
         unsigned int __mask;
     } __charclasses;
 };
-
-typedef struct anonymous_typeX10 _RuneLocale;
 
 extern struct anonymous_typeX10 _DefaultRuneLocale;
 extern struct anonymous_typeX10* _CurrentRuneLocale;
@@ -1217,8 +1241,6 @@ struct list$1char$ph
     struct list_item$1char$ph* it;
 };
 
-typedef struct re_program* re_t;
-
 struct re_capture
 {
     int start;
@@ -1302,8 +1324,6 @@ struct re_program
     int group_count;
 };
 
-typedef struct re_program regex_program_t;
-
 struct anonymous_typeX15
 {
     struct regex_t* pool;
@@ -1315,8 +1335,6 @@ struct anonymous_typeX15
     int group_count;
 };
 
-typedef struct anonymous_typeX15 compiler_state;
-
 struct anonymous_typeX16
 {
     const char* base;
@@ -1324,14 +1342,6 @@ struct anonymous_typeX16
     int capture_capacity;
     int total_groups;
 };
-
-typedef struct anonymous_typeX16 match_context;
-
-typedef union anonymous_typeZ1 mbstate_t;
-
-typedef unsigned long  int clock_t;
-
-typedef long time_t;
 
 struct timespec
 {
@@ -1367,12 +1377,6 @@ _CLOCK_UPTIME_RAW_APPROX=(9),
 _CLOCK_PROCESS_CPUTIME_ID=(12),
 _CLOCK_THREAD_CPUTIME_ID=(16)
 };
-
-typedef enum anonymous_typeY16 clockid_t;
-
-typedef unsigned int wctype_t;
-
-typedef int* wstring;
 
 extern _Bool gComeDebug;
 extern _Bool gComeC;
@@ -1797,7 +1801,6 @@ struct sInfo
     char* linker_option;
     _Bool no_output_err;
     _Bool no_output_come_code;
-    _Bool no_output_come_code2;
     _Bool undefined_array_num_var;
     struct sFun* come_fun;
     struct sFun* caller_fun;
@@ -6479,33 +6482,23 @@ struct sNode* __result_obj__174;
 struct sNode* _inf_value3;
 struct sNothingNode* _inf_obj_value3;
 struct sNode* __result_obj__188;
-/*a*/_Bool no_output_come_code;
-/*a*/_Bool no_output_come_code2;
-/*a*/_Bool block;
-/*a*/char* head_92;
-/*a*/int head_sline_93;
-/*a*/char* buf_94;
-/*a*/struct sNode* node;
-struct sNode* _inf_value4;
-struct sNothingNode* _inf_obj_value4;
-struct sNode* __result_obj__189;
 /*a*/_Bool no_comma;
 /*a*/struct sNode* exp;
 /*a*/struct sNode* exp2;
+struct sNode* _inf_value4;
+struct sStaticAssert* _inf_obj_value4;
+struct sNode* __result_obj__189;
+/*a*/char* word_92;
 struct sNode* _inf_value5;
-struct sStaticAssert* _inf_obj_value5;
-struct sNode* __result_obj__190;
-/*a*/char* word_95;
-struct sNode* _inf_value6;
-struct sUndefNode* _inf_obj_value6;
-struct sNode* __result_obj__193;
+struct sUndefNode* _inf_obj_value5;
+struct sNode* __result_obj__192;
 /*a*/char* refrection_condtional;
 /*a*/_Bool match_;
-/*a*/char* refrection_condtional_96;
-struct sNode* _inf_value7;
-struct sNothingNode* _inf_obj_value7;
+/*a*/char* refrection_condtional_93;
+struct sNode* _inf_value6;
+struct sNothingNode* _inf_obj_value6;
+struct sNode* __result_obj__193;
 struct sNode* __result_obj__194;
-struct sNode* __result_obj__195;
     if(    charp_operator_equals(buf,"module")    ) {
         type_name=(char*)come_increment_ref_count(parse_word(info));
         sname=(char*)come_increment_ref_count(info->sname);
@@ -6689,68 +6682,6 @@ struct sNode* __result_obj__195;
         (block_text = come_decrement_ref_count(block_text, (void*)0, (void*)0, 0, 0, (void*)0));
         (contents = come_decrement_ref_count(contents, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    else if(    charp_operator_equals(buf,"no_output")&&*info->p==123    ) {
-        info->p++;
-        skip_spaces_and_lf(info);
-        no_output_come_code=info->no_output_come_code;
-        no_output_come_code2=info->no_output_come_code2;
-        info->no_output_come_code=(_Bool)1;
-        info->no_output_come_code2=(_Bool)1;
-        block=(_Bool)1;
-        while(        *info->p        ) {
-            parse_sharp_v5(info);
-            if(            block&&*info->p==125            ) {
-                info->p++;
-                skip_spaces_and_lf(info);
-                break;
-            }
-            head_92=info->p;
-            head_sline_93=info->sline;
-            __right_value0 = (void*)0;
-            buf_94=(char*)come_increment_ref_count(parse_word(info));
-            parse_sharp_v5(info);
-            __right_value0 = (void*)0;
-            node=(struct sNode*)come_increment_ref_count(top_level_v99(buf_94,head_92,head_sline_93,info));
-            parse_sharp_v5(info);
-            while(            *info->p==59            ) {
-                info->p++;
-                skip_spaces_and_lf(info);
-            }
-            parse_sharp_v5(info);
-            skip_spaces_and_lf(info);
-            if(            block&&*info->p==125            ) {
-                info->p++;
-                skip_spaces_and_lf(info);
-                (buf_94 = come_decrement_ref_count(buf_94, (void*)0, (void*)0, 0, 0, (void*)0));
-                ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0):(void*)0);
-                break;
-            }
-            (buf_94 = come_decrement_ref_count(buf_94, (void*)0, (void*)0, 0, 0, (void*)0));
-            ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0):(void*)0);
-        }
-        info->no_output_come_code=no_output_come_code;
-        info->no_output_come_code2=no_output_come_code2;
-        __right_value0 = (void*)0;
-        __right_value1 = (void*)0;
-        _inf_value4=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "24module.c", 1218, "struct sNode");
-        _inf_obj_value4=(struct sNothingNode*)come_increment_ref_count(((struct sNothingNode*)(__right_value1=sNothingNode_initialize((struct sNothingNode*)come_increment_ref_count((struct sNothingNode*)come_calloc_v2(1, sizeof(struct sNothingNode)*(1), "24module.c", 1218, "struct sNothingNode*")),info))));
-        _inf_value4->_protocol_obj=_inf_obj_value4;
-        _inf_value4->finalize=(void*)sNothingNode_finalize;
-        _inf_value4->clone=(void*)sNothingNode_clone;
-        _inf_value4->compile=(void*)sNothingNode_compile;
-        _inf_value4->sline=(void*)sNodeBase_sline;
-        _inf_value4->sline_real=(void*)sNodeBase_sline_real;
-        _inf_value4->sname=(void*)sNodeBase_sname;
-        _inf_value4->terminated=(void*)sNothingNode_terminated;
-        _inf_value4->kind=(void*)sNothingNode_kind;
-        _inf_value4->no_mutex=(void*)sNodeBase_no_mutex;
-        __right_value2 = (void*)0;
-        __result_obj__189 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value2=_inf_value4)));
-        come_call_finalizer(sNothingNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-        ((__right_value2) ? __right_value2 = come_decrement_ref_count(__right_value2, ((struct sNode*)__right_value2)->finalize, ((struct sNode*)__right_value2)->_protocol_obj, 1, 0,(void*)0):(void*)0);
-        ((__result_obj__189) ? __result_obj__189 = come_decrement_ref_count(__result_obj__189, ((struct sNode*)__result_obj__189)->finalize, ((struct sNode*)__result_obj__189)->_protocol_obj, 0, 1,(void*)0):(void*)0);
-        return __result_obj__189;
-    }
     else if(    charp_operator_equals(buf,"_Static_assert")||charp_operator_equals(buf,"static_assert")||charp_operator_equals(buf,"__STATIC_ASSERT")    ) {
         expected_next_character(40,info);
         no_comma=info->no_comma;
@@ -6764,58 +6695,58 @@ struct sNode* __result_obj__195;
         expected_next_character(41,info);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        _inf_value5=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "24module.c", 1234, "struct sNode");
-        _inf_obj_value5=(struct sStaticAssert*)come_increment_ref_count(((struct sStaticAssert*)(__right_value1=sStaticAssert_initialize((struct sStaticAssert*)come_increment_ref_count((struct sStaticAssert*)come_calloc_v2(1, sizeof(struct sStaticAssert)*(1), "24module.c", 1234, "struct sStaticAssert*")),(struct sNode*)come_increment_ref_count(exp),(struct sNode*)come_increment_ref_count(exp2),info))));
-        _inf_value5->_protocol_obj=_inf_obj_value5;
-        _inf_value5->finalize=(void*)sStaticAssert_finalize;
-        _inf_value5->clone=(void*)sStaticAssert_clone;
-        _inf_value5->compile=(void*)sStaticAssert_compile;
-        _inf_value5->sline=(void*)sNodeBase_sline;
-        _inf_value5->sline_real=(void*)sNodeBase_sline_real;
-        _inf_value5->sname=(void*)sNodeBase_sname;
-        _inf_value5->terminated=(void*)sNodeBase_terminated;
-        _inf_value5->kind=(void*)sStaticAssert_kind;
-        _inf_value5->no_mutex=(void*)sNodeBase_no_mutex;
+        _inf_value4=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "24module.c", 1185, "struct sNode");
+        _inf_obj_value4=(struct sStaticAssert*)come_increment_ref_count(((struct sStaticAssert*)(__right_value1=sStaticAssert_initialize((struct sStaticAssert*)come_increment_ref_count((struct sStaticAssert*)come_calloc_v2(1, sizeof(struct sStaticAssert)*(1), "24module.c", 1185, "struct sStaticAssert*")),(struct sNode*)come_increment_ref_count(exp),(struct sNode*)come_increment_ref_count(exp2),info))));
+        _inf_value4->_protocol_obj=_inf_obj_value4;
+        _inf_value4->finalize=(void*)sStaticAssert_finalize;
+        _inf_value4->clone=(void*)sStaticAssert_clone;
+        _inf_value4->compile=(void*)sStaticAssert_compile;
+        _inf_value4->sline=(void*)sNodeBase_sline;
+        _inf_value4->sline_real=(void*)sNodeBase_sline_real;
+        _inf_value4->sname=(void*)sNodeBase_sname;
+        _inf_value4->terminated=(void*)sNodeBase_terminated;
+        _inf_value4->kind=(void*)sStaticAssert_kind;
+        _inf_value4->no_mutex=(void*)sNodeBase_no_mutex;
         __right_value2 = (void*)0;
-        __result_obj__190 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value2=_inf_value5)));
+        __result_obj__189 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value2=_inf_value4)));
         ((exp) ? exp = come_decrement_ref_count(exp, ((struct sNode*)exp)->finalize, ((struct sNode*)exp)->_protocol_obj, 0, 0,(void*)0):(void*)0);
         ((exp2) ? exp2 = come_decrement_ref_count(exp2, ((struct sNode*)exp2)->finalize, ((struct sNode*)exp2)->_protocol_obj, 0, 0,(void*)0):(void*)0);
         come_call_finalizer(sStaticAssert_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         ((__right_value2) ? __right_value2 = come_decrement_ref_count(__right_value2, ((struct sNode*)__right_value2)->finalize, ((struct sNode*)__right_value2)->_protocol_obj, 1, 0,(void*)0):(void*)0);
-        ((__result_obj__190) ? __result_obj__190 = come_decrement_ref_count(__result_obj__190, ((struct sNode*)__result_obj__190)->finalize, ((struct sNode*)__result_obj__190)->_protocol_obj, 0, 1,(void*)0):(void*)0);
-        return __result_obj__190;
+        ((__result_obj__189) ? __result_obj__189 = come_decrement_ref_count(__result_obj__189, ((struct sNode*)__result_obj__189)->finalize, ((struct sNode*)__result_obj__189)->_protocol_obj, 0, 1,(void*)0):(void*)0);
+        return __result_obj__189;
         ((exp) ? exp = come_decrement_ref_count(exp, ((struct sNode*)exp)->finalize, ((struct sNode*)exp)->_protocol_obj, 0, 0,(void*)0):(void*)0);
         ((exp2) ? exp2 = come_decrement_ref_count(exp2, ((struct sNode*)exp2)->finalize, ((struct sNode*)exp2)->_protocol_obj, 0, 0,(void*)0):(void*)0);
     }
     else if(    charp_operator_equals(buf,"undef")    ) {
         __right_value0 = (void*)0;
-        word_95=(char*)come_increment_ref_count(parse_word(info));
+        word_92=(char*)come_increment_ref_count(parse_word(info));
         if(        *info->p==59        ) {
             info->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        _inf_value6=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "24module.c", 1244, "struct sNode");
-        _inf_obj_value6=(struct sUndefNode*)come_increment_ref_count(((struct sUndefNode*)(__right_value1=sUndefNode_initialize((struct sUndefNode*)come_increment_ref_count((struct sUndefNode*)come_calloc_v2(1, sizeof(struct sUndefNode)*(1), "24module.c", 1244, "struct sUndefNode*")),(char*)come_increment_ref_count(word_95),info))));
-        _inf_value6->_protocol_obj=_inf_obj_value6;
-        _inf_value6->finalize=(void*)sUndefNode_finalize;
-        _inf_value6->clone=(void*)sUndefNode_clone;
-        _inf_value6->compile=(void*)sUndefNode_compile;
-        _inf_value6->sline=(void*)sNodeBase_sline;
-        _inf_value6->sline_real=(void*)sNodeBase_sline_real;
-        _inf_value6->sname=(void*)sNodeBase_sname;
-        _inf_value6->terminated=(void*)sNodeBase_terminated;
-        _inf_value6->kind=(void*)sUndefNode_kind;
-        _inf_value6->no_mutex=(void*)sNodeBase_no_mutex;
+        _inf_value5=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "24module.c", 1195, "struct sNode");
+        _inf_obj_value5=(struct sUndefNode*)come_increment_ref_count(((struct sUndefNode*)(__right_value1=sUndefNode_initialize((struct sUndefNode*)come_increment_ref_count((struct sUndefNode*)come_calloc_v2(1, sizeof(struct sUndefNode)*(1), "24module.c", 1195, "struct sUndefNode*")),(char*)come_increment_ref_count(word_92),info))));
+        _inf_value5->_protocol_obj=_inf_obj_value5;
+        _inf_value5->finalize=(void*)sUndefNode_finalize;
+        _inf_value5->clone=(void*)sUndefNode_clone;
+        _inf_value5->compile=(void*)sUndefNode_compile;
+        _inf_value5->sline=(void*)sNodeBase_sline;
+        _inf_value5->sline_real=(void*)sNodeBase_sline_real;
+        _inf_value5->sname=(void*)sNodeBase_sname;
+        _inf_value5->terminated=(void*)sNodeBase_terminated;
+        _inf_value5->kind=(void*)sUndefNode_kind;
+        _inf_value5->no_mutex=(void*)sNodeBase_no_mutex;
         __right_value2 = (void*)0;
-        __result_obj__193 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value2=_inf_value6)));
-        (word_95 = come_decrement_ref_count(word_95, (void*)0, (void*)0, 0, 0, (void*)0));
+        __result_obj__192 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value2=_inf_value5)));
+        (word_92 = come_decrement_ref_count(word_92, (void*)0, (void*)0, 0, 0, (void*)0));
         come_call_finalizer(sUndefNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         ((__right_value2) ? __right_value2 = come_decrement_ref_count(__right_value2, ((struct sNode*)__right_value2)->finalize, ((struct sNode*)__right_value2)->_protocol_obj, 1, 0,(void*)0):(void*)0);
-        ((__result_obj__193) ? __result_obj__193 = come_decrement_ref_count(__result_obj__193, ((struct sNode*)__result_obj__193)->finalize, ((struct sNode*)__result_obj__193)->_protocol_obj, 0, 1,(void*)0):(void*)0);
-        return __result_obj__193;
-        (word_95 = come_decrement_ref_count(word_95, (void*)0, (void*)0, 0, 0, (void*)0));
+        ((__result_obj__192) ? __result_obj__192 = come_decrement_ref_count(__result_obj__192, ((struct sNode*)__result_obj__192)->finalize, ((struct sNode*)__result_obj__192)->_protocol_obj, 0, 1,(void*)0):(void*)0);
+        return __result_obj__192;
+        (word_92 = come_decrement_ref_count(word_92, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     else if(    charp_operator_equals(buf,"if")    ) {
         if(        *info->p==40        ) {
@@ -6850,12 +6781,12 @@ struct sNode* __result_obj__195;
                     skip_spaces_and_lf(info);
                 }
                 __right_value0 = (void*)0;
-                refrection_condtional_96=(char*)come_increment_ref_count(refrection_expression(info));
+                refrection_condtional_93=(char*)come_increment_ref_count(refrection_expression(info));
                 if(                *info->p==41                ) {
                     info->p++;
                     skip_spaces_and_lf(info);
                 }
-                if(                !match_&&string_operator_equals(refrection_condtional_96,"true")                ) {
+                if(                !match_&&string_operator_equals(refrection_condtional_93,"true")                ) {
                     expected_next_character(123,info);
                     transpile_toplevel((_Bool)1,info);
                     match_=(_Bool)1;
@@ -6865,7 +6796,7 @@ struct sNode* __result_obj__195;
                     ((char*)(__right_value0=skip_block(info,(_Bool)0)));
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                 }
-                (refrection_condtional_96 = come_decrement_ref_count(refrection_condtional_96, (void*)0, (void*)0, 0, 0, (void*)0));
+                (refrection_condtional_93 = come_decrement_ref_count(refrection_condtional_93, (void*)0, (void*)0, 0, 0, (void*)0));
             }
             else {
                 break;
@@ -6887,32 +6818,32 @@ struct sNode* __result_obj__195;
         }
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        _inf_value7=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "24module.c", 1311, "struct sNode");
-        _inf_obj_value7=(struct sNothingNode*)come_increment_ref_count(((struct sNothingNode*)(__right_value1=sNothingNode_initialize((struct sNothingNode*)come_increment_ref_count((struct sNothingNode*)come_calloc_v2(1, sizeof(struct sNothingNode)*(1), "24module.c", 1311, "struct sNothingNode*")),info))));
-        _inf_value7->_protocol_obj=_inf_obj_value7;
-        _inf_value7->finalize=(void*)sNothingNode_finalize;
-        _inf_value7->clone=(void*)sNothingNode_clone;
-        _inf_value7->compile=(void*)sNothingNode_compile;
-        _inf_value7->sline=(void*)sNodeBase_sline;
-        _inf_value7->sline_real=(void*)sNodeBase_sline_real;
-        _inf_value7->sname=(void*)sNodeBase_sname;
-        _inf_value7->terminated=(void*)sNothingNode_terminated;
-        _inf_value7->kind=(void*)sNothingNode_kind;
-        _inf_value7->no_mutex=(void*)sNodeBase_no_mutex;
+        _inf_value6=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "24module.c", 1262, "struct sNode");
+        _inf_obj_value6=(struct sNothingNode*)come_increment_ref_count(((struct sNothingNode*)(__right_value1=sNothingNode_initialize((struct sNothingNode*)come_increment_ref_count((struct sNothingNode*)come_calloc_v2(1, sizeof(struct sNothingNode)*(1), "24module.c", 1262, "struct sNothingNode*")),info))));
+        _inf_value6->_protocol_obj=_inf_obj_value6;
+        _inf_value6->finalize=(void*)sNothingNode_finalize;
+        _inf_value6->clone=(void*)sNothingNode_clone;
+        _inf_value6->compile=(void*)sNothingNode_compile;
+        _inf_value6->sline=(void*)sNodeBase_sline;
+        _inf_value6->sline_real=(void*)sNodeBase_sline_real;
+        _inf_value6->sname=(void*)sNodeBase_sname;
+        _inf_value6->terminated=(void*)sNothingNode_terminated;
+        _inf_value6->kind=(void*)sNothingNode_kind;
+        _inf_value6->no_mutex=(void*)sNodeBase_no_mutex;
         __right_value2 = (void*)0;
-        __result_obj__194 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value2=_inf_value7)));
+        __result_obj__193 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value2=_inf_value6)));
         (refrection_condtional = come_decrement_ref_count(refrection_condtional, (void*)0, (void*)0, 0, 0, (void*)0));
         come_call_finalizer(sNothingNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         ((__right_value2) ? __right_value2 = come_decrement_ref_count(__right_value2, ((struct sNode*)__right_value2)->finalize, ((struct sNode*)__right_value2)->_protocol_obj, 1, 0,(void*)0):(void*)0);
-        ((__result_obj__194) ? __result_obj__194 = come_decrement_ref_count(__result_obj__194, ((struct sNode*)__result_obj__194)->finalize, ((struct sNode*)__result_obj__194)->_protocol_obj, 0, 1,(void*)0):(void*)0);
-        return __result_obj__194;
+        ((__result_obj__193) ? __result_obj__193 = come_decrement_ref_count(__result_obj__193, ((struct sNode*)__result_obj__193)->finalize, ((struct sNode*)__result_obj__193)->_protocol_obj, 0, 1,(void*)0):(void*)0);
+        return __result_obj__193;
         (refrection_condtional = come_decrement_ref_count(refrection_condtional, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     __right_value0 = (void*)0;
-    __result_obj__195 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=top_level_v1(buf,head,head_sline,info))));
+    __result_obj__194 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=top_level_v1(buf,head,head_sline,info))));
     ((__right_value0) ? __right_value0 = come_decrement_ref_count(__right_value0, ((struct sNode*)__right_value0)->finalize, ((struct sNode*)__right_value0)->_protocol_obj, 1, 0,(void*)0):(void*)0);
-    ((__result_obj__195) ? __result_obj__195 = come_decrement_ref_count(__result_obj__195, ((struct sNode*)__result_obj__195)->finalize, ((struct sNode*)__result_obj__195)->_protocol_obj, 0, 1,(void*)0):(void*)0);
-    return __result_obj__195;
+    ((__result_obj__194) ? __result_obj__194 = come_decrement_ref_count(__result_obj__194, ((struct sNode*)__result_obj__194)->finalize, ((struct sNode*)__result_obj__194)->_protocol_obj, 0, 1,(void*)0):(void*)0);
+    return __result_obj__194;
 }
 
 static void map$2char$phsClassModule$ph_operator_store_element(struct map$2char$phsClassModule$ph* self, char* key, struct sClassModule* item){
@@ -7557,15 +7488,15 @@ struct sNothingNode* __result_obj__187;
 }
 
 static struct sUndefNode* sUndefNode_clone(struct sUndefNode* self){
-struct sUndefNode* __result_obj__191;
+struct sUndefNode* __result_obj__190;
 void* __right_value0 = (void*)0;
 /*a*/struct sUndefNode* result;
 char* __dec_obj32;
 char* __dec_obj33;
-struct sUndefNode* __result_obj__192;
+struct sUndefNode* __result_obj__191;
     if(    self==(void*)0    ) {
-        __result_obj__191 = (void*)0;
-        return __result_obj__191;
+        __result_obj__190 = (void*)0;
+        return __result_obj__190;
     }
     result=(struct sUndefNode*)come_increment_ref_count((struct sUndefNode*)come_calloc_v2(1, sizeof(struct sUndefNode)*(1), "sUndefNode_clone", 3, "struct sUndefNode*"));
     if(    self!=((void*)0)    ) {
@@ -7586,8 +7517,8 @@ struct sUndefNode* __result_obj__192;
         result->str=(char*)come_increment_ref_count((char*)come_memdup(self->str, "sUndefNode_clone", 7, "char*"));
         __dec_obj33 = come_decrement_ref_count(__dec_obj33, (void*)0, (void*)0, 0,0, (void*)0);
     }
-    __result_obj__192 = result;
+    __result_obj__191 = result;
     come_call_finalizer(sUndefNode_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    return __result_obj__192;
+    return __result_obj__191;
 }
 

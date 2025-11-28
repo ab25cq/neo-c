@@ -1168,55 +1168,6 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
         
         return new sNothingNode(info) implements sNode;
     }
-    else if(buf === "no_output" && *info->p == '{') {
-        info->p++;
-        skip_spaces_and_lf();
-        
-        bool no_output_come_code = info.no_output_come_code;
-        bool no_output_come_code2 = info.no_output_come_code2;
-        info.no_output_come_code = true;
-        info.no_output_come_code2 = true;
-        
-        bool block = true;
-        
-        while(*info->p) {
-            parse_sharp();
-            
-            if(block && *info->p == '}') {
-                info->p++;
-                skip_spaces_and_lf(info);
-                break;
-            }
-            
-            char* head = info.p;
-            int head_sline = info.sline;
-            string buf = parse_word();
-            
-            parse_sharp();
-            
-            sNode*% node = top_level(buf, head, head_sline, info);
-            parse_sharp();
-            
-            while(*info->p == ';') {
-                info->p++;
-                skip_spaces_and_lf();
-            }
-            parse_sharp();
-            
-            skip_spaces_and_lf();
-            
-            if(block && *info->p == '}') {
-                info->p++;
-                skip_spaces_and_lf(info);
-                break;
-            }
-        }
-        
-        info->no_output_come_code = no_output_come_code;
-        info->no_output_come_code2 = no_output_come_code2;
-        
-        return new sNothingNode(info) implements sNode;
-    }
     else if(buf === "_Static_assert" || buf === "static_assert" || buf === "__STATIC_ASSERT") {
         expected_next_character('(');
         

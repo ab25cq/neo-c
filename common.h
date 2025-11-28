@@ -494,7 +494,6 @@ struct sInfo
     string linker_option;
     bool no_output_err;
     bool no_output_come_code;
-    bool no_output_come_code2;
     bool undefined_array_num_var;
     
     sFun* come_fun;

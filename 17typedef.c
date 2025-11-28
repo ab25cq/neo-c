@@ -35,8 +35,11 @@ class sTypedefNode extends sNodeBase
             type->mTypedef = true;
             info.types.insert(string(type_name), clone type);
             
-            if(!info->no_output_come_code2) {
+            if(type->mArrayNum.length() > 0) {
                 info.struct_definition.insert(string(type_name), "typedef __builtin_va_list __darwin_va_list;\n".to_buffer());
+            }
+            else {
+                info.previous_struct_definition.insert(string(type_name), "typedef __builtin_va_list __darwin_va_list;\n".to_buffer());
             }
         }
         else if(self.multiple_declare) {
@@ -51,11 +54,11 @@ class sTypedefNode extends sNodeBase
                 info.types.insert(string(type_name), clone type);
                 
             
-                if(type->mClass->mName !== type_name) {
-                    if(!info->no_output_come_code2) {
-                        //info.struct_definition.insert(string(type_name), xsprintf("typedef %s;\n", make_define_var(type, type_name)).to_buffer());
-                        info.struct_definition.insert(string(type_name), xsprintf("typedef %s;\n", make_define_var(type, type_name, in_typedef:true)).to_buffer());
-                    }
+                if(type->mArrayNum.length() > 0) {
+                    info.struct_definition.insert(string(type_name), xsprintf("typedef %s;\n", make_define_var(type, type_name, in_typedef:true)).to_buffer());
+                }
+                else {
+                    info.previous_struct_definition.insert(string(type_name), xsprintf("typedef %s;\n", make_define_var(type, type_name, in_typedef:true)).to_buffer());
                 }
             }
         }
@@ -69,11 +72,11 @@ class sTypedefNode extends sNodeBase
             type->mTypedef = true;
             info.types.insert(string(type_name), clone type);
             
-            if(type->mClass->mName !== type_name) {
-                if(!info->no_output_come_code2) {
-                    //info.struct_definition.insert(string(type_name), xsprintf("typedef %s;\n", make_define_var(type, type_name)).to_buffer());
-                    info.struct_definition.insert(string(type_name), xsprintf("typedef %s;\n", make_define_var(type, type_name, in_typedef:true)).to_buffer());
-                }
+            if(type->mArrayNum.length() > 0) {
+                info.struct_definition.insert(string(type_name), xsprintf("typedef %s;\n", make_define_var(type, type_name, in_typedef:true)).to_buffer());
+            }
+            else {
+                info.previous_struct_definition.insert(string(type_name), xsprintf("typedef %s;\n", make_define_var(type, type_name, in_typedef:true)).to_buffer());
             }
         }
     
