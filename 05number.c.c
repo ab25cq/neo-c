@@ -3115,7 +3115,7 @@ char* __result_obj__2;
 _Bool sIntNode_compile(struct sIntNode* self, struct sInfo* info){
 void* __right_value0 = (void*)0;
 void* __right_value1 = (void*)0;
-struct CVALUE* come_value;
+/*a*/struct CVALUE* come_value;
 char* __dec_obj2;
 void* __right_value2 = (void*)0;
 struct sType* __exception_result_var_b1;
@@ -3213,8 +3213,8 @@ static void sType_finalize(struct sType* self){
 }
 
 static void list$1sType$ph$p_finalize(struct list$1sType$ph* self){
-struct list_item$1sType$ph* it;
-struct list_item$1sType$ph* prev_it;
+/*a*/struct list_item$1sType$ph* it;
+/*a*/struct list_item$1sType$ph* prev_it;
     it=self->head;
     while(    it!=((void*)0)    ) {
         prev_it=it;
@@ -3230,8 +3230,8 @@ static void list_item$1sType$ph$p_finalize(struct list_item$1sType$ph* self){
 }
 
 static void list$1sNode$ph$p_finalize(struct list$1sNode$ph* self){
-struct list_item$1sNode$ph* it;
-struct list_item$1sNode$ph* prev_it;
+/*a*/struct list_item$1sNode$ph* it;
+/*a*/struct list_item$1sNode$ph* prev_it;
     it=self->head;
     while(    it!=((void*)0)    ) {
         prev_it=it;
@@ -3247,8 +3247,8 @@ static void list_item$1sNode$ph$p_finalize(struct list_item$1sNode$ph* self){
 }
 
 static void list$1int$$p_finalize(struct list$1int$* self){
-struct list_item$1int$* it;
-struct list_item$1int$* prev_it;
+/*a*/struct list_item$1int$* it;
+/*a*/struct list_item$1int$* prev_it;
     it=self->head;
     while(    it!=((void*)0)    ) {
         prev_it=it;
@@ -3261,8 +3261,8 @@ static void list_item$1int$$p_finalize(struct list_item$1int$* self){
 }
 
 static void list$1char$ph$p_finalize(struct list$1char$ph* self){
-struct list_item$1char$ph* it;
-struct list_item$1char$ph* prev_it;
+/*a*/struct list_item$1char$ph* it;
+/*a*/struct list_item$1char$ph* prev_it;
     it=self->head;
     while(    it!=((void*)0)    ) {
         prev_it=it;
@@ -3279,11 +3279,11 @@ static void list_item$1char$ph$p_finalize(struct list_item$1char$ph* self){
 
 static struct list$1CVALUE$ph* list$1CVALUE$ph_push_back(struct list$1CVALUE$ph* self, struct CVALUE* item){
 void* __right_value0 = (void*)0;
-struct list_item$1CVALUE$ph* litem;
+/*a*/struct list_item$1CVALUE$ph* litem;
 struct CVALUE* __dec_obj4;
-struct list_item$1CVALUE$ph* litem_0;
+/*a*/struct list_item$1CVALUE$ph* litem_0;
 struct CVALUE* __dec_obj5;
-struct list_item$1CVALUE$ph* litem_1;
+/*a*/struct list_item$1CVALUE$ph* litem_1;
 struct CVALUE* __dec_obj6;
 struct list$1CVALUE$ph* __result_obj__3;
     if(    self->len==0    ) {
@@ -3367,7 +3367,7 @@ char* __result_obj__6;
 _Bool sUIntNode_compile(struct sUIntNode* self, struct sInfo* info){
 void* __right_value0 = (void*)0;
 void* __right_value1 = (void*)0;
-struct CVALUE* come_value;
+/*a*/struct CVALUE* come_value;
 char* __dec_obj8;
 void* __right_value2 = (void*)0;
 struct sType* __exception_result_var_b3;
@@ -3429,7 +3429,7 @@ char* __result_obj__9;
 _Bool sLongNode_compile(struct sLongNode* self, struct sInfo* info){
 void* __right_value0 = (void*)0;
 void* __right_value1 = (void*)0;
-struct CVALUE* come_value;
+/*a*/struct CVALUE* come_value;
 char* __dec_obj11;
 void* __right_value2 = (void*)0;
 struct sType* __exception_result_var_b5;
@@ -3491,7 +3491,7 @@ char* __result_obj__12;
 _Bool sULongNode_compile(struct sULongNode* self, struct sInfo* info){
 void* __right_value0 = (void*)0;
 void* __right_value1 = (void*)0;
-struct CVALUE* come_value;
+/*a*/struct CVALUE* come_value;
 char* __dec_obj14;
 void* __right_value2 = (void*)0;
 struct sType* __exception_result_var_b7;
@@ -3552,7 +3552,7 @@ char* __result_obj__15;
 _Bool sFloatNode_compile(struct sFloatNode* self, struct sInfo* info){
 void* __right_value0 = (void*)0;
 void* __right_value1 = (void*)0;
-struct CVALUE* come_value;
+/*a*/struct CVALUE* come_value;
 char* __dec_obj17;
 void* __right_value2 = (void*)0;
 struct sType* __exception_result_var_b9;
@@ -3614,7 +3614,7 @@ char* __result_obj__18;
 _Bool sComplexNode_compile(struct sComplexNode* self, struct sInfo* info){
 void* __right_value0 = (void*)0;
 void* __right_value1 = (void*)0;
-struct CVALUE* come_value;
+/*a*/struct CVALUE* come_value;
 char* __dec_obj20;
 void* __right_value2 = (void*)0;
 struct sType* __exception_result_var_b11;
@@ -3676,7 +3676,7 @@ char* __result_obj__21;
 _Bool sDoubleNode_compile(struct sDoubleNode* self, struct sInfo* info){
 void* __right_value0 = (void*)0;
 void* __right_value1 = (void*)0;
-struct CVALUE* come_value;
+/*a*/struct CVALUE* come_value;
 char* __dec_obj23;
 void* __right_value2 = (void*)0;
 struct sType* __exception_result_var_b13;
@@ -3738,7 +3738,7 @@ char* __result_obj__24;
 _Bool sDigitNode_compile(struct sDigitNode* self, struct sInfo* info){
 void* __right_value0 = (void*)0;
 void* __right_value1 = (void*)0;
-struct CVALUE* come_value;
+/*a*/struct CVALUE* come_value;
 char* __dec_obj26;
 void* __right_value2 = (void*)0;
 struct sType* __exception_result_var_b15;
@@ -3802,7 +3802,7 @@ struct sNode* __result_obj__28;
 static struct sIntNode* sIntNode_clone(struct sIntNode* self){
 struct sIntNode* __result_obj__26;
 void* __right_value0 = (void*)0;
-struct sIntNode* result;
+/*a*/struct sIntNode* result;
 char* __dec_obj28;
 char* __dec_obj29;
 struct sIntNode* __result_obj__27;
@@ -4084,7 +4084,7 @@ struct sNode* __result_obj__42;
 static struct sULongNode* sULongNode_clone(struct sULongNode* self){
 struct sULongNode* __result_obj__29;
 void* __right_value0 = (void*)0;
-struct sULongNode* result;
+/*a*/struct sULongNode* result;
 char* __dec_obj30;
 char* __dec_obj31;
 struct sULongNode* __result_obj__30;
@@ -4119,7 +4119,7 @@ struct sULongNode* __result_obj__30;
 static struct sUIntNode* sUIntNode_clone(struct sUIntNode* self){
 struct sUIntNode* __result_obj__33;
 void* __right_value0 = (void*)0;
-struct sUIntNode* result;
+/*a*/struct sUIntNode* result;
 char* __dec_obj32;
 char* __dec_obj33;
 struct sUIntNode* __result_obj__34;
@@ -4154,7 +4154,7 @@ struct sUIntNode* __result_obj__34;
 static struct sLongNode* sLongNode_clone(struct sLongNode* self){
 struct sLongNode* __result_obj__36;
 void* __right_value0 = (void*)0;
-struct sLongNode* result;
+/*a*/struct sLongNode* result;
 char* __dec_obj34;
 char* __dec_obj35;
 struct sLongNode* __result_obj__37;
@@ -4187,8 +4187,8 @@ struct sLongNode* __result_obj__37;
 }
 
 struct sNode* get_number(_Bool minus, struct sInfo* info){
-char* p;
-char c;
+/*a*/char* p;
+/*a*/char c;
 void* __right_value0 = (void*)0;
 void* __right_value1 = (void*)0;
 void* __right_value2 = (void*)0;
@@ -4215,7 +4215,7 @@ struct sNode* __result_obj__55;
 struct sNode* __result_obj__56;
     const int buf_size=128;
     char buf[128+1];
-    memset(&buf, 0, sizeof(char)    *(128+1)    );
+    memset(&buf, 0, sizeof(buf));
     p=buf;
     if(    minus    ) {
         *p=45;
@@ -4481,7 +4481,7 @@ struct sNode* __result_obj__56;
 static struct sFloatNode* sFloatNode_clone(struct sFloatNode* self){
 struct sFloatNode* __result_obj__43;
 void* __right_value0 = (void*)0;
-struct sFloatNode* result;
+/*a*/struct sFloatNode* result;
 char* __dec_obj36;
 char* __dec_obj37;
 struct sFloatNode* __result_obj__44;
@@ -4516,7 +4516,7 @@ struct sFloatNode* __result_obj__44;
 static struct sDoubleNode* sDoubleNode_clone(struct sDoubleNode* self){
 struct sDoubleNode* __result_obj__46;
 void* __right_value0 = (void*)0;
-struct sDoubleNode* result;
+/*a*/struct sDoubleNode* result;
 char* __dec_obj38;
 char* __dec_obj39;
 struct sDoubleNode* __result_obj__47;
@@ -4551,7 +4551,7 @@ struct sDoubleNode* __result_obj__47;
 static struct sComplexNode* sComplexNode_clone(struct sComplexNode* self){
 struct sComplexNode* __result_obj__49;
 void* __right_value0 = (void*)0;
-struct sComplexNode* result;
+/*a*/struct sComplexNode* result;
 char* __dec_obj40;
 char* __dec_obj41;
 struct sComplexNode* __result_obj__50;
@@ -4584,13 +4584,13 @@ struct sComplexNode* __result_obj__50;
 }
 
 struct sNode* get_hex_number(_Bool minus, struct sInfo* info){
-int buf_size;
-char* p;
+/*a*/int buf_size;
+/*a*/char* p;
 void* __right_value0 = (void*)0;
 struct sNode* __result_obj__57;
     buf_size=128;
     char buf[128+1];
-    memset(&buf, 0, sizeof(char)    *(128+1)    );
+    memset(&buf, 0, sizeof(buf));
     p=buf;
     if(    minus    ) {
         *p=45;
@@ -4620,13 +4620,13 @@ struct sNode* __result_obj__57;
 }
 
 struct sNode* get_digits(struct sInfo* info){
-int buf_size;
-char* p;
+/*a*/int buf_size;
+/*a*/char* p;
 void* __right_value0 = (void*)0;
 struct sNode* __result_obj__58;
     buf_size=128;
     char buf[128+1];
-    memset(&buf, 0, sizeof(char)    *(128+1)    );
+    memset(&buf, 0, sizeof(buf));
     p=buf;
     *p++=48;
     *p++=98;
@@ -4652,13 +4652,13 @@ struct sNode* __result_obj__58;
 }
 
 struct sNode* get_oct_number(_Bool minus, struct sInfo* info){
-int buf_size;
-char* p;
+/*a*/int buf_size;
+/*a*/char* p;
 void* __right_value0 = (void*)0;
 struct sNode* __result_obj__59;
     buf_size=128;
     char buf[128+1];
-    memset(&buf, 0, sizeof(char)    *(128+1)    );
+    memset(&buf, 0, sizeof(buf));
     p=buf;
     if(    minus    ) {
         *p++=45;
@@ -4688,16 +4688,16 @@ struct sNode* __result_obj__59;
 
 struct sNode* expression_node_v99(struct sInfo* info){
 void* __right_value0 = (void*)0;
-struct sNode* node;
+/*a*/struct sNode* node;
 struct sNode* __dec_obj42;
 struct sNode* __result_obj__60;
-struct sNode* node_2;
+/*a*/struct sNode* node_2;
 struct sNode* __dec_obj43;
 struct sNode* __result_obj__61;
-struct sNode* node_3;
+/*a*/struct sNode* node_3;
 struct sNode* __dec_obj44;
 struct sNode* __result_obj__62;
-struct sNode* node_4;
+/*a*/struct sNode* node_4;
 struct sNode* __dec_obj45;
 struct sNode* __result_obj__63;
 struct sNode* node_5;
@@ -4710,7 +4710,7 @@ struct sNode* __result_obj__65;
 struct sNode* __dec_obj50;
 struct sNode* __dec_obj51;
 struct sNode* __result_obj__66;
-struct sNode* node_6;
+/*a*/struct sNode* node_6;
 struct sNode* __dec_obj52;
 struct sNode* __result_obj__67;
 node_5 = (void*)0;

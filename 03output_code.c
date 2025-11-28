@@ -74,12 +74,6 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
     else if(type->mLong) {
         buf.append_str("long ");
         
-/*
-        if(type->mUnsigned) {
-            buf.append_str("unsigned ");
-        }
-*/
-        
         if(class_name === "int") {
             buf.append_str(" int");
         }
@@ -401,7 +395,7 @@ static string make_lambda_type_name_string(sType* type, char* var_name, sInfo* i
 
 static string header_lambda(sType* lambda_type, string name, sInfo* info);
 
-string lambda_with_oroginal_type_name(sType* type2, char* name, sInfo* info=info)
+string output_lambda_original_type(sType* type2, char* name, sInfo* info=info)
 {
     buffer*% buf = new buffer();
     
@@ -489,7 +483,7 @@ string make_define_var(sType* type, char* name, sInfo* info=info, bool no_static
     
     if(type2->mClass->mName === "lambda" && type2->mAsmName != null && type2->mAsmName !== "") {
         if(!in_typedef && type2->mOriginalTypeName !== "" && (type2->mArrayNum.length() > 0 || type2->mArrayPointerType)) {
-            var str = lambda_with_oroginal_type_name(type2, name);
+            var str = output_lambda_original_type(type2, name);
             
             buf.append_str(str);
         }
@@ -501,7 +495,7 @@ string make_define_var(sType* type, char* name, sInfo* info=info, bool no_static
     }
     else if(type2->mClass->mName === "lambda") {
         if(!in_typedef && type2->mOriginalTypeName !== "" && (type2->mArrayNum.length() > 0 || type2->mArrayPointerType)) {
-            var str = lambda_with_oroginal_type_name(type2, name);
+            var str = output_lambda_original_type(type2, name);
             
             buf.append_str(str);
         }

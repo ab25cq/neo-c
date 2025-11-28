@@ -82,7 +82,7 @@ class sStoreNode extends sNodeBase
                 }
                 else {
                     if(info.come_fun.mName !== "memset" && !left_type->mNoCallingDestructor && info.funcs["memset"]) {
-                        add_come_last_code2(info, "memset(&%s, 0, sizeof(%s));\n", var_->mCValueName, make_type_name_string(left_type, no_static:true));
+                        add_come_last_code2(info, "memset(&%s, 0, sizeof(%s));\n", var_->mCValueName, var_->mCValueName);
                     }
                     
                     string var_name2 = make_var_name(type2, var_name);
@@ -234,18 +234,7 @@ class sStoreNode extends sNodeBase
                 add_come_code(info, "%s;\n", make_define_var(left_type, var_->mCValueName));
                 
                 if(info.come_fun.mName !== "memset" && !left_type->mNoCallingDestructor && info.funcs["memset"]) {
-                    add_come_code(info, "memset(&%s, 0, sizeof(%s)", var_->mCValueName, make_type_name_string(left_type, no_static:true));
-                    
-                    foreach(it, left_type->mArrayNum) {
-                        node_compile(it).elif {
-                            err_msg(info, "invalid array num");
-                            return true;
-                        }
-                        
-                        CVALUE*% come_value = get_value_from_stack(-1, info);
-                        add_come_code(info, "*(%s)", come_value.c_value);
-                    }
-                    add_come_code(info, ");\n");
+                    add_come_code(info, "memset(&%s, 0, sizeof(%s));\n", var_->mCValueName, var_->mCValueName);
                 }
             }
             else {
@@ -256,7 +245,7 @@ class sStoreNode extends sNodeBase
                 }
                 else {
                     if(info.come_fun.mName !== "memset" && !left_type->mNoCallingDestructor && info.funcs["memset"]) {
-                        add_come_code_at_function_head2(info, "memset(&%s, 0, sizeof(%s));\n", var_->mCValueName, make_type_name_string(left_type, no_static:true));
+                        add_come_code_at_function_head2(info, "memset(&%s, 0, sizeof(%s));\n", var_->mCValueName, var_->mCValueName);
                     }
                 }
             }
@@ -365,7 +354,7 @@ class sStoreNode extends sNodeBase
                     return true;
                 }
                 
-                add_come_code_at_function_head(info, "%s;\n", make_define_var(left_type, var_->mCValueName));
+                add_come_code_at_function_head(info, "/*a*/%s;\n", make_define_var(left_type, var_->mCValueName));
                 
                 CVALUE*% come_value = new CVALUE();
                 

@@ -2974,10 +2974,10 @@ void skip_paren(struct sInfo* info);
 
 // body function
 _Bool parsecmp(char* p2, struct sInfo* info){
-_Bool terminated;
-char* p3;
-int i;
-unsigned char c;
+/*a*/_Bool terminated;
+/*a*/char* p3;
+/*a*/int i;
+/*a*/unsigned char c;
     terminated=(_Bool)0;
     p3=info->p;
     for(    i=0    ;    i<strlen(p2)    ;    i++    ){
@@ -2993,17 +2993,17 @@ unsigned char c;
 int err_msg(struct sInfo* info, char* msg, ...){
 char* msg2;
 va_list args;
-char* p;
-char* last_lf;
+/*a*/char* p;
+/*a*/char* last_lf;
 void* __right_value0 = (void*)0;
 void* __right_value1 = (void*)0;
-struct buffer* buf;
-int col;
-int col_0;
+/*a*/struct buffer* buf;
+/*a*/int col;
+/*a*/int col_0;
 void* __right_value2 = (void*)0;
 int __result_obj__1;
 msg2 = (void*)0;
-memset(&args, 0, sizeof(va_list));
+memset(&args, 0, sizeof(args));
     if(    !info->no_output_err    ) {
         __builtin_va_start(args,msg);
         vasprintf(&msg2,msg,args);
@@ -3059,10 +3059,10 @@ int expected_next_character(char c, struct sInfo* info){
 char* parse_word(struct sInfo* info){
 void* __right_value0 = (void*)0;
 void* __right_value1 = (void*)0;
-struct buffer* buf;
+/*a*/struct buffer* buf;
 _Bool _conditional_value_X0;
 char* __result_obj__2;
-char* result;
+/*a*/char* result;
 void* __right_value2 = (void*)0;
 void* __right_value3 = (void*)0;
 char* __result_obj__11;
@@ -3114,8 +3114,8 @@ char* __result_obj__12;
 
 static char* map$2char$phchar$ph$p_operator_load_element(struct map$2char$phchar$ph* self, char* key){
 char* default_value;
-unsigned int hash;
-unsigned int it;
+/*a*/unsigned int hash;
+/*a*/unsigned int it;
 char* __result_obj__3;
 char* __result_obj__4;
 char* __result_obj__5;
@@ -3158,8 +3158,8 @@ default_value = (void*)0;
 
 static char* map$2char$phchar$ph_operator_load_element(struct map$2char$phchar$ph* self, char* key){
 char* default_value;
-unsigned int hash;
-unsigned int it;
+/*a*/unsigned int hash;
+/*a*/unsigned int it;
 char* __result_obj__7;
 char* __result_obj__8;
 char* __result_obj__9;
@@ -3201,8 +3201,8 @@ default_value = (void*)0;
 }
 
 char* backtrace_parse_word(struct sInfo* info){
-char* p;
-int sline;
+/*a*/char* p;
+/*a*/int sline;
 char* buf;
 void* __right_value0 = (void*)0;
 char* __dec_obj1;
@@ -3264,13 +3264,13 @@ void skip_spaces_and_lf2(struct sInfo* info){
 void parse_sharp_v5(struct sInfo* info){
 void* __right_value0 = (void*)0;
 void* __right_value1 = (void*)0;
-struct buffer* buf;
+/*a*/struct buffer* buf;
 _Bool _conditional_value_X0;
 char* __dec_obj3;
-int line;
-struct buffer* fname;
+/*a*/int line;
+/*a*/struct buffer* fname;
 char* __dec_obj4;
-int nest;
+/*a*/int nest;
     while(    1    ) {
         if(        *info->p==35        ) {
             skip_spaces_and_lf2(info);
@@ -3392,7 +3392,7 @@ int nest;
 }
 
 void skip_paren(struct sInfo* info){
-int nest;
+/*a*/int nest;
     nest=0;
     while(    (_Bool)1    ) {
         if(        *info->p==40        ) {
