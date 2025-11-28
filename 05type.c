@@ -2197,8 +2197,10 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
             skip_pointer_attribute();
             
             if(*info->p == '*' || *info->p == '^') {
-                info->p++;
-                skip_spaces_and_lf();
+                while(*info->p == '*' || *info->p == '^') {
+                    info->p++;
+                    skip_spaces_and_lf();
+                }
                 
                 function_pointer_flag = true;
                 
@@ -2314,7 +2316,12 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
                 pointer_num++;
             }
             
-            type = new sType(string(type_name));
+            //type = new sType(string(type_name));
+            type = clone info.types[type_name];
+            
+            if(type == null) {
+                type = new sType(string(type_name));
+            }
             type->mAnonymous = anonymous;
             
             type->mPointerNum = pointer_num;
@@ -2338,7 +2345,11 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
                 }
             }
             
-            type = new sType(string(type_name));
+            type = clone info.types[type_name];
+            
+            if(type == null) {
+                type = new sType(string(type_name));
+            }
         }
         else if(union_) {
             bool anonymous = false;
@@ -2364,7 +2375,13 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
                 pointer_num++;
             }
             
-            type = new sType(string(type_name));
+            
+            type = clone info.types[type_name];
+            
+            if(type == null) {
+                type = new sType(string(type_name));
+            }
+            //type = new sType(string(type_name));
             
             type->mPointerNum = pointer_num;
             type->mAnonymous = anonymous;
@@ -2468,7 +2485,12 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
             }
         }
         else {
-            result_type = new sType(string(type_name));
+            //result_type = new sType(string(type_name));
+            result_type = clone info.types[type_name];
+            
+            if(result_type == null) {
+                result_type = new sType(string(type_name));
+            }
         }
         
         result_type->mAtomic = result_type->mAtomic || atomic_;
@@ -2612,7 +2634,11 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
             }
         }
         else {
-            result_type = new sType(string(type_name));
+            result_type = clone info.types[type_name];
+            
+            if(result_type == null) {
+                result_type = new sType(string(type_name));
+            }
         }
         
         result_type->mConstant = result_type->mConstant || constant;
@@ -2856,7 +2882,13 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
                 return ((sType*%)null, (string)null, false);
             }
             
-            type = new sType(string(type_name));
+            //type = new sType(string(type_name));
+            
+            type = clone info.types[type_name];
+            
+            if(type == null) {
+                type = new sType(string(type_name));
+            }
             
             while(true) {
                 var generics_type, var_name, err = parse_type(parse_multiple_type:false);
@@ -2935,7 +2967,13 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
                 }
             }
             
-            type = new sType(string(type_name));
+            //type = new sType(string(type_name));
+            
+            type = clone info.types[type_name];
+            
+            if(type == null) {
+                type = new sType(string(type_name));
+            }
             
             type->mConstant = type->mConstant || constant;
             type->mAtomic = type->mAtomic || atomic_;
