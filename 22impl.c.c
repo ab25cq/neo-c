@@ -1,4 +1,4 @@
-/// previous struct definition ///
+/// typedef definition ///
 typedef char* string;
 
 typedef char __int8_t;
@@ -151,8 +151,6 @@ typedef unsigned long  int size_t;
 
 typedef long long fpos_t;
 
-struct __sFILEX;
-
 typedef struct __sFILE FILE;
 
 typedef long long off_t;
@@ -261,8 +259,6 @@ typedef __builtin_va_list __gnuc_va_list;
 
 typedef __builtin_va_list va_list;
 
-struct _xlocale;
-
 typedef struct _xlocale* locale_t;
 
 typedef int wint_t;
@@ -274,8 +270,6 @@ typedef struct anonymous_typeX8 _RuneRange;
 typedef struct anonymous_typeX9 _RuneCharClass;
 
 typedef struct anonymous_typeX10 _RuneLocale;
-
-struct re_program;
 
 typedef struct re_program* re_t;
 
@@ -300,6 +294,13 @@ typedef enum anonymous_typeY16 clockid_t;
 typedef unsigned int wctype_t;
 
 typedef int* wstring;
+
+/// previous struct definition ///
+struct __sFILEX;
+
+struct _xlocale;
+
+struct re_program;
 
 struct sType;
 
@@ -1516,16 +1517,15 @@ struct sType
     _Bool mMultipleTypes;
     _Bool mOriginIsArray;
     struct list$1sNode$ph* mArrayNum;
+    struct list$1sNode$ph* mVarNameArrayNum;
     struct list$1int$* mArrayStatic;
     struct list$1int$* mArrayRestrict;
-    int mTypedefOriginalPointerNum;
     int mPointerNum;
     int mFunctionPointerNum;
     int mArrayPointerNum;
-    int mOriginalTypeNamePointerNum;
-    int mOriginalTypeNameHeap;
+    struct sType* mTypedefOriginalType;
     char* mOriginalTypeName;
-    int mOriginalPointerNum;
+    int mOriginalTypePointerNum;
     _Bool mArrayPointerType;
     struct list$1sType$ph* mParamTypes;
     struct list$1char$ph* mParamNames;
@@ -1816,6 +1816,7 @@ struct sInfo
     struct map$2char$phsClass$ph* generics_classes;
     struct map$2char$phbuffer$ph* struct_definition;
     struct map$2char$phbuffer$ph* previous_struct_definition;
+    struct map$2char$phbuffer$ph* typedef_definition;
     struct sModule* module;
     struct sType* type;
     struct list$1sRightValueObject$ph* right_value_objects;
@@ -2053,16 +2054,16 @@ int sscanf(const char* anonymous_var_nameX76, const char* anonymous_var_nameX77,
 struct __sFILE* tmpfile();
 char* tmpnam(char* anonymous_var_nameX78);
 int ungetc(int anonymous_var_nameX79, struct __sFILE* anonymous_var_nameX80);
-int vfprintf(struct __sFILE* anonymous_var_nameX81, const char* anonymous_var_nameX82, va_list anonymous_var_nameX83);
-int vprintf(const char* anonymous_var_nameX84, va_list anonymous_var_nameX85);
-int vsprintf(char* anonymous_var_nameX86, const char* anonymous_var_nameX87, va_list anonymous_var_nameX88);
+int vfprintf(struct __sFILE* anonymous_var_nameX81, const char* anonymous_var_nameX82, __darwin_va_list anonymous_var_nameX83);
+int vprintf(const char* anonymous_var_nameX84, __darwin_va_list anonymous_var_nameX85);
+int vsprintf(char* anonymous_var_nameX86, const char* anonymous_var_nameX87, __darwin_va_list anonymous_var_nameX88);
 char* ctermid(char* anonymous_var_nameX89);
 struct __sFILE* fdopen(int anonymous_var_nameX90, const char* anonymous_var_nameX91);
 int fileno(struct __sFILE* anonymous_var_nameX92);
 int pclose(struct __sFILE* anonymous_var_nameX93);
 struct __sFILE* popen(const char* anonymous_var_nameX94, const char* anonymous_var_nameX95);
 int __srget(struct __sFILE* anonymous_var_nameX96);
-int __svfscanf(struct __sFILE* anonymous_var_nameX97, const char* anonymous_var_nameX98, va_list anonymous_var_nameX99);
+int __svfscanf(struct __sFILE* anonymous_var_nameX97, const char* anonymous_var_nameX98, __darwin_va_list anonymous_var_nameX99);
 int __swbuf(int anonymous_var_nameX100, struct __sFILE* anonymous_var_nameX101);
 void flockfile(struct __sFILE* anonymous_var_nameX102);
 int ftrylockfile(struct __sFILE* anonymous_var_nameX103);
@@ -2077,12 +2078,12 @@ char* tempnam(const char* __dir, const char* __prefix);
 int fseeko(struct __sFILE* __stream, long long __offset, int __whence);
 long long ftello(struct __sFILE* __stream);
 int snprintf(char* __str, unsigned long  int __size, const char* __format, ...);
-int vfscanf(struct __sFILE* __stream, const char* __format, va_list anonymous_var_nameX112);
-int vscanf(const char* __format, va_list anonymous_var_nameX113);
-int vsnprintf(char* __str, unsigned long  int __size, const char* __format, va_list anonymous_var_nameX114);
-int vsscanf(const char* __str, const char* __format, va_list anonymous_var_nameX115);
+int vfscanf(struct __sFILE* __stream, const char* __format, __darwin_va_list anonymous_var_nameX112);
+int vscanf(const char* __format, __darwin_va_list anonymous_var_nameX113);
+int vsnprintf(char* __str, unsigned long  int __size, const char* __format, __darwin_va_list anonymous_var_nameX114);
+int vsscanf(const char* __str, const char* __format, __darwin_va_list anonymous_var_nameX115);
 int dprintf(int anonymous_var_nameX116, const char* anonymous_var_nameX117, ...);
-int vdprintf(int anonymous_var_nameX118, const char* anonymous_var_nameX119, va_list anonymous_var_nameX120);
+int vdprintf(int anonymous_var_nameX118, const char* anonymous_var_nameX119, __darwin_va_list anonymous_var_nameX120);
 long getdelim(char** __linep, unsigned long  int* __linecapp, int __delimiter, struct __sFILE* __stream);
 long getline(char** __linep, unsigned long  int* __linecapp, struct __sFILE* __stream);
 struct __sFILE* fmemopen(void* __buf, unsigned long  int __size, const char* __mode);
@@ -2094,7 +2095,7 @@ const char* fmtcheck(const char* anonymous_var_nameX125, const char* anonymous_v
 int fpurge(struct __sFILE* anonymous_var_nameX127);
 void setbuffer(struct __sFILE* anonymous_var_nameX128, char* anonymous_var_nameX129, int __size);
 int setlinebuf(struct __sFILE* anonymous_var_nameX130);
-int vasprintf(char** anonymous_var_nameX131, const char* anonymous_var_nameX132, va_list anonymous_var_nameX133);
+int vasprintf(char** anonymous_var_nameX131, const char* anonymous_var_nameX132, __darwin_va_list anonymous_var_nameX133);
 struct __sFILE* funopen(const void* anonymous_var_nameX134, int (*anonymous_lambda_var_nameZ1)(void*,char*,int), int (*anonymous_lambda_var_nameZ2)(void*,const char*,int), long long (*anonymous_lambda_var_nameZ3)(void*,long long,int), int (*anonymous_lambda_var_nameZ4)(void*));
 void (*signal(int _function_pointer_result_var_name_a1, void (*_function_pointer_result_var_name_a2)(int)))(int);
 int getpriority(int anonymous_var_nameX163, unsigned int anonymous_var_nameX164);
@@ -2380,21 +2381,21 @@ int buffer_compare(struct buffer* left, struct buffer* right);
 struct buffer* charp_to_buffer(char* self);
 char* buffer_to_string(struct buffer* self);
 unsigned char* buffer_head_pointer(struct buffer* self);
-struct buffer* charpa_to_buffer(char* self, unsigned long  int len);
-struct buffer* charppa_to_buffer(char** self, unsigned long  int len);
-struct buffer* shortpa_to_buffer(short* self, unsigned long  int len);
-struct buffer* intpa_to_buffer(int* self, unsigned long  int len);
-struct buffer* longpa_to_buffer(long* self, unsigned long  int len);
-struct buffer* floatpa_to_buffer(float* self, unsigned long  int len);
-struct buffer* doublepa_to_buffer(double* self, unsigned long  int len);
+struct buffer* chara_to_buffer(char* self, unsigned long  int len);
+struct buffer* charpa_to_buffer(char** self, unsigned long  int len);
+struct buffer* shorta_to_buffer(short* self, unsigned long  int len);
+struct buffer* inta_to_buffer(int* self, unsigned long  int len);
+struct buffer* longa_to_buffer(long* self, unsigned long  int len);
+struct buffer* floata_to_buffer(float* self, unsigned long  int len);
+struct buffer* doublea_to_buffer(double* self, unsigned long  int len);
 char* buffer_printable(struct buffer* self);
-struct list$1char$* charpa_to_list(char* self, unsigned long  int len);
-struct list$1char$p* charppa_to_list(char** self, unsigned long  int len);
-struct list$1short$* shortpa_to_list(short* self, unsigned long  int len);
-struct list$1int$* intpa_to_list(int* self, unsigned long  int len);
-struct list$1long$* longpa_to_list(long* self, unsigned long  int len);
-struct list$1float$* floatpa_to_list(float* self, unsigned long  int len);
-struct list$1double$* doublepa_to_list(double* self, unsigned long  int len);
+struct list$1char$* chara_to_list(char* self, unsigned long  int len);
+struct list$1char$p* charpa_to_list(char** self, unsigned long  int len);
+struct list$1short$* shorta_to_list(short* self, unsigned long  int len);
+struct list$1int$* inta_to_list(int* self, unsigned long  int len);
+struct list$1long$* longa_to_list(long* self, unsigned long  int len);
+struct list$1float$* floata_to_list(float* self, unsigned long  int len);
+struct list$1double$* doublea_to_list(double* self, unsigned long  int len);
 _Bool bool_equals(_Bool self, _Bool right);
 _Bool _Bool_equals(_Bool self, _Bool right);
 _Bool char_equals(char self, char right);
@@ -2430,12 +2431,12 @@ char* charp_operator_add(char* self, char* right);
 char* string_operator_add(char* self, char* right);
 char* charp_operator_mult(char* self, int right);
 char* string_operator_mult(char* self, int right);
-_Bool charppa_contained(char** self, unsigned long  int len, char* str);
-unsigned long  int shortpa_length(short* self, unsigned long  int len);
-unsigned long  int intpa_length(int* self, unsigned long  int len);
-unsigned long  int longpa_length(long* self, unsigned long  int len);
-unsigned long  int floatpa_length(float* self, unsigned long  int len);
-unsigned long  int doublepa_length(double* self, unsigned long  int len);
+_Bool charpa_contained(char** self, unsigned long  int len, char* str);
+unsigned long  int shorta_length(short* self, unsigned long  int len);
+unsigned long  int inta_length(int* self, unsigned long  int len);
+unsigned long  int longa_length(long* self, unsigned long  int len);
+unsigned long  int floata_length(float* self, unsigned long  int len);
+unsigned long  int doublea_length(double* self, unsigned long  int len);
 unsigned int bool_get_hash_key(_Bool value);
 unsigned int _Bool_get_hash_key(_Bool value);
 unsigned int char_get_hash_key(char value);
@@ -2466,7 +2467,7 @@ _Bool xisascii(char c);
 _Bool xispunct(char c);
 int string_length(char* str);
 int charp_length(char* str);
-int charpa_length(char* str);
+int chara_length(char* str);
 char* charp_reverse(char* str);
 char* string_operator_load_range_element(char* str, int head, int tail);
 char* charp_operator_load_range_element(char* str, int head, int tail);
@@ -2477,7 +2478,7 @@ struct list$1char$ph* charp_split_char(char* self, char c);
 char* charp_xsprintf(char* self, char* msg, ...);
 char* int_xsprintf(int self, char* msg, ...);
 char* charp_printable(char* str);
-char* charpa_printable(char* str);
+char* chara_printable(char* str);
 char* charp_sub_plain(char* self, char* str, char* replace);
 char* xbasename(char* path);
 char* xnoextname(char* path);
@@ -2539,6 +2540,7 @@ void re_print_internal(struct regex_t* pattern, int depth);
 int re_get_group_count(struct re_program* pattern);
 int charp_index_regex(char* self, char* reg, int default_value);
 int charp_rindex_regex(char* self, char* reg, int default_value);
+char* string_chomp(char* str);
 int string_rindex_regex(char* self, char* reg, int default_value);
 int string_index_regex(char* self, char* reg, int default_value);
 _Bool charp_match(char* self, char* reg);
@@ -2685,7 +2687,7 @@ char* charp_strip(char* self);
 char* wchar_tp_to_string(int* wstr);
 char* wchar_ta_to_string(int* wstr);
 int* charp_to_wstring(char* str);
-int* charpa_to_wstring(char* str);
+int* chara_to_wstring(char* str);
 int* wchar_tp_delete(int* str, int head, int tail);
 int wchar_tp_index(int* str, int* search_str, int default_value);
 int wchar_tp_rindex(int* str, int* search_str, int default_value);
@@ -2711,7 +2713,6 @@ _Bool wchar_t_operator_not_equals(int left, int right);
 unsigned int wchar_t_get_hash_key(int value);
 _Bool wchar_t_equals(int left, int right);
 char* wchar_t_to_string(int wc);
-char* string_chomp(char* str);
 char* xrealpath(char* path);
 char* xdirname(char* path);
 unsigned long  int xwcslen(int* wstr);
@@ -2864,7 +2865,7 @@ char* backtrace_parse_word(struct sInfo* info);
 void skip_spaces_and_lf(struct sInfo* info);
 struct tuple2$2char$phbool$* create_generics_fun(char* fun_name, struct sGenericsFun* generics_fun, struct sType* generics_type, struct sInfo* info);
 struct tuple3$3sType$phchar$phbool$* parse_type(struct sInfo* info, _Bool parse_variable_name, _Bool parse_multiple_type, _Bool in_function_parametor);
-struct tuple2$2sType$phchar$ph* parse_variable_name(struct sType* base_type_name, _Bool first, struct sInfo* info);
+struct tuple2$2sType$phchar$ph* parse_variable_name_on_multiple_declare(struct sType* base_type_name, _Bool first, struct sInfo* info);
 struct sBlock* parse_block(struct sInfo* info, _Bool return_self_at_last, _Bool in_function);
 int transpile_block(struct sBlock* block, struct list$1sType$ph* param_types, struct list$1char$ph* param_names, struct sInfo* info, _Bool no_var_table, _Bool loop_block);
 void arrange_stack(struct sInfo* info, int top);
@@ -3212,11 +3213,17 @@ static void sType_finalize(struct sType* self){
     if(    self!=((void*)0)&&self->mArrayNum!=((void*)0)    ) {
         come_call_finalizer(list$1sNode$ph$p_finalize, self->mArrayNum, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
+    if(    self!=((void*)0)&&self->mVarNameArrayNum!=((void*)0)    ) {
+        come_call_finalizer(list$1sNode$ph$p_finalize, self->mVarNameArrayNum, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    }
     if(    self!=((void*)0)&&self->mArrayStatic!=((void*)0)    ) {
         come_call_finalizer(list$1int$$p_finalize, self->mArrayStatic, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     if(    self!=((void*)0)&&self->mArrayRestrict!=((void*)0)    ) {
         come_call_finalizer(list$1int$$p_finalize, self->mArrayRestrict, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    }
+    if(    self!=((void*)0)&&self->mTypedefOriginalType!=((void*)0)    ) {
+        come_call_finalizer(sType_finalize, self->mTypedefOriginalType, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     if(    self!=((void*)0)&&self->mOriginalTypeName!=((void*)0)    ) {
         (self->mOriginalTypeName = come_decrement_ref_count(self->mOriginalTypeName, (void*)0, (void*)0, 0, 0, (void*)0));

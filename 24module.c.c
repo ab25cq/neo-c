@@ -1,4 +1,4 @@
-/// previous struct definition ///
+/// typedef definition ///
 typedef char* string;
 
 typedef char __int8_t;
@@ -151,8 +151,6 @@ typedef unsigned long  int size_t;
 
 typedef long long fpos_t;
 
-struct __sFILEX;
-
 typedef struct __sFILE FILE;
 
 typedef long long off_t;
@@ -261,8 +259,6 @@ typedef __builtin_va_list __gnuc_va_list;
 
 typedef __builtin_va_list va_list;
 
-struct _xlocale;
-
 typedef struct _xlocale* locale_t;
 
 typedef int wint_t;
@@ -274,8 +270,6 @@ typedef struct anonymous_typeX8 _RuneRange;
 typedef struct anonymous_typeX9 _RuneCharClass;
 
 typedef struct anonymous_typeX10 _RuneLocale;
-
-struct re_program;
 
 typedef struct re_program* re_t;
 
@@ -300,6 +294,13 @@ typedef enum anonymous_typeY16 clockid_t;
 typedef unsigned int wctype_t;
 
 typedef int* wstring;
+
+/// previous struct definition ///
+struct __sFILEX;
+
+struct _xlocale;
+
+struct re_program;
 
 struct sType;
 
@@ -1516,16 +1517,15 @@ struct sType
     _Bool mMultipleTypes;
     _Bool mOriginIsArray;
     struct list$1sNode$ph* mArrayNum;
+    struct list$1sNode$ph* mVarNameArrayNum;
     struct list$1int$* mArrayStatic;
     struct list$1int$* mArrayRestrict;
-    int mTypedefOriginalPointerNum;
     int mPointerNum;
     int mFunctionPointerNum;
     int mArrayPointerNum;
-    int mOriginalTypeNamePointerNum;
-    int mOriginalTypeNameHeap;
+    struct sType* mTypedefOriginalType;
     char* mOriginalTypeName;
-    int mOriginalPointerNum;
+    int mOriginalTypePointerNum;
     _Bool mArrayPointerType;
     struct list$1sType$ph* mParamTypes;
     struct list$1char$ph* mParamNames;
@@ -1816,6 +1816,7 @@ struct sInfo
     struct map$2char$phsClass$ph* generics_classes;
     struct map$2char$phbuffer$ph* struct_definition;
     struct map$2char$phbuffer$ph* previous_struct_definition;
+    struct map$2char$phbuffer$ph* typedef_definition;
     struct sModule* module;
     struct sType* type;
     struct list$1sRightValueObject$ph* right_value_objects;
@@ -2086,16 +2087,16 @@ int sscanf(const char* anonymous_var_nameX76, const char* anonymous_var_nameX77,
 struct __sFILE* tmpfile();
 char* tmpnam(char* anonymous_var_nameX78);
 int ungetc(int anonymous_var_nameX79, struct __sFILE* anonymous_var_nameX80);
-int vfprintf(struct __sFILE* anonymous_var_nameX81, const char* anonymous_var_nameX82, va_list anonymous_var_nameX83);
-int vprintf(const char* anonymous_var_nameX84, va_list anonymous_var_nameX85);
-int vsprintf(char* anonymous_var_nameX86, const char* anonymous_var_nameX87, va_list anonymous_var_nameX88);
+int vfprintf(struct __sFILE* anonymous_var_nameX81, const char* anonymous_var_nameX82, __darwin_va_list anonymous_var_nameX83);
+int vprintf(const char* anonymous_var_nameX84, __darwin_va_list anonymous_var_nameX85);
+int vsprintf(char* anonymous_var_nameX86, const char* anonymous_var_nameX87, __darwin_va_list anonymous_var_nameX88);
 char* ctermid(char* anonymous_var_nameX89);
 struct __sFILE* fdopen(int anonymous_var_nameX90, const char* anonymous_var_nameX91);
 int fileno(struct __sFILE* anonymous_var_nameX92);
 int pclose(struct __sFILE* anonymous_var_nameX93);
 struct __sFILE* popen(const char* anonymous_var_nameX94, const char* anonymous_var_nameX95);
 int __srget(struct __sFILE* anonymous_var_nameX96);
-int __svfscanf(struct __sFILE* anonymous_var_nameX97, const char* anonymous_var_nameX98, va_list anonymous_var_nameX99);
+int __svfscanf(struct __sFILE* anonymous_var_nameX97, const char* anonymous_var_nameX98, __darwin_va_list anonymous_var_nameX99);
 int __swbuf(int anonymous_var_nameX100, struct __sFILE* anonymous_var_nameX101);
 void flockfile(struct __sFILE* anonymous_var_nameX102);
 int ftrylockfile(struct __sFILE* anonymous_var_nameX103);
@@ -2110,12 +2111,12 @@ char* tempnam(const char* __dir, const char* __prefix);
 int fseeko(struct __sFILE* __stream, long long __offset, int __whence);
 long long ftello(struct __sFILE* __stream);
 int snprintf(char* __str, unsigned long  int __size, const char* __format, ...);
-int vfscanf(struct __sFILE* __stream, const char* __format, va_list anonymous_var_nameX112);
-int vscanf(const char* __format, va_list anonymous_var_nameX113);
-int vsnprintf(char* __str, unsigned long  int __size, const char* __format, va_list anonymous_var_nameX114);
-int vsscanf(const char* __str, const char* __format, va_list anonymous_var_nameX115);
+int vfscanf(struct __sFILE* __stream, const char* __format, __darwin_va_list anonymous_var_nameX112);
+int vscanf(const char* __format, __darwin_va_list anonymous_var_nameX113);
+int vsnprintf(char* __str, unsigned long  int __size, const char* __format, __darwin_va_list anonymous_var_nameX114);
+int vsscanf(const char* __str, const char* __format, __darwin_va_list anonymous_var_nameX115);
 int dprintf(int anonymous_var_nameX116, const char* anonymous_var_nameX117, ...);
-int vdprintf(int anonymous_var_nameX118, const char* anonymous_var_nameX119, va_list anonymous_var_nameX120);
+int vdprintf(int anonymous_var_nameX118, const char* anonymous_var_nameX119, __darwin_va_list anonymous_var_nameX120);
 long getdelim(char** __linep, unsigned long  int* __linecapp, int __delimiter, struct __sFILE* __stream);
 long getline(char** __linep, unsigned long  int* __linecapp, struct __sFILE* __stream);
 struct __sFILE* fmemopen(void* __buf, unsigned long  int __size, const char* __mode);
@@ -2127,7 +2128,7 @@ const char* fmtcheck(const char* anonymous_var_nameX125, const char* anonymous_v
 int fpurge(struct __sFILE* anonymous_var_nameX127);
 void setbuffer(struct __sFILE* anonymous_var_nameX128, char* anonymous_var_nameX129, int __size);
 int setlinebuf(struct __sFILE* anonymous_var_nameX130);
-int vasprintf(char** anonymous_var_nameX131, const char* anonymous_var_nameX132, va_list anonymous_var_nameX133);
+int vasprintf(char** anonymous_var_nameX131, const char* anonymous_var_nameX132, __darwin_va_list anonymous_var_nameX133);
 struct __sFILE* funopen(const void* anonymous_var_nameX134, int (*anonymous_lambda_var_nameZ1)(void*,char*,int), int (*anonymous_lambda_var_nameZ2)(void*,const char*,int), long long (*anonymous_lambda_var_nameZ3)(void*,long long,int), int (*anonymous_lambda_var_nameZ4)(void*));
 void (*signal(int _function_pointer_result_var_name_a1, void (*_function_pointer_result_var_name_a2)(int)))(int);
 int getpriority(int anonymous_var_nameX163, unsigned int anonymous_var_nameX164);
@@ -2413,21 +2414,21 @@ int buffer_compare(struct buffer* left, struct buffer* right);
 struct buffer* charp_to_buffer(char* self);
 char* buffer_to_string(struct buffer* self);
 unsigned char* buffer_head_pointer(struct buffer* self);
-struct buffer* charpa_to_buffer(char* self, unsigned long  int len);
-struct buffer* charppa_to_buffer(char** self, unsigned long  int len);
-struct buffer* shortpa_to_buffer(short* self, unsigned long  int len);
-struct buffer* intpa_to_buffer(int* self, unsigned long  int len);
-struct buffer* longpa_to_buffer(long* self, unsigned long  int len);
-struct buffer* floatpa_to_buffer(float* self, unsigned long  int len);
-struct buffer* doublepa_to_buffer(double* self, unsigned long  int len);
+struct buffer* chara_to_buffer(char* self, unsigned long  int len);
+struct buffer* charpa_to_buffer(char** self, unsigned long  int len);
+struct buffer* shorta_to_buffer(short* self, unsigned long  int len);
+struct buffer* inta_to_buffer(int* self, unsigned long  int len);
+struct buffer* longa_to_buffer(long* self, unsigned long  int len);
+struct buffer* floata_to_buffer(float* self, unsigned long  int len);
+struct buffer* doublea_to_buffer(double* self, unsigned long  int len);
 char* buffer_printable(struct buffer* self);
-struct list$1char$* charpa_to_list(char* self, unsigned long  int len);
-struct list$1char$p* charppa_to_list(char** self, unsigned long  int len);
-struct list$1short$* shortpa_to_list(short* self, unsigned long  int len);
-struct list$1int$* intpa_to_list(int* self, unsigned long  int len);
-struct list$1long$* longpa_to_list(long* self, unsigned long  int len);
-struct list$1float$* floatpa_to_list(float* self, unsigned long  int len);
-struct list$1double$* doublepa_to_list(double* self, unsigned long  int len);
+struct list$1char$* chara_to_list(char* self, unsigned long  int len);
+struct list$1char$p* charpa_to_list(char** self, unsigned long  int len);
+struct list$1short$* shorta_to_list(short* self, unsigned long  int len);
+struct list$1int$* inta_to_list(int* self, unsigned long  int len);
+struct list$1long$* longa_to_list(long* self, unsigned long  int len);
+struct list$1float$* floata_to_list(float* self, unsigned long  int len);
+struct list$1double$* doublea_to_list(double* self, unsigned long  int len);
 _Bool bool_equals(_Bool self, _Bool right);
 _Bool _Bool_equals(_Bool self, _Bool right);
 _Bool char_equals(char self, char right);
@@ -2463,12 +2464,12 @@ char* charp_operator_add(char* self, char* right);
 char* string_operator_add(char* self, char* right);
 char* charp_operator_mult(char* self, int right);
 char* string_operator_mult(char* self, int right);
-_Bool charppa_contained(char** self, unsigned long  int len, char* str);
-unsigned long  int shortpa_length(short* self, unsigned long  int len);
-unsigned long  int intpa_length(int* self, unsigned long  int len);
-unsigned long  int longpa_length(long* self, unsigned long  int len);
-unsigned long  int floatpa_length(float* self, unsigned long  int len);
-unsigned long  int doublepa_length(double* self, unsigned long  int len);
+_Bool charpa_contained(char** self, unsigned long  int len, char* str);
+unsigned long  int shorta_length(short* self, unsigned long  int len);
+unsigned long  int inta_length(int* self, unsigned long  int len);
+unsigned long  int longa_length(long* self, unsigned long  int len);
+unsigned long  int floata_length(float* self, unsigned long  int len);
+unsigned long  int doublea_length(double* self, unsigned long  int len);
 unsigned int bool_get_hash_key(_Bool value);
 unsigned int _Bool_get_hash_key(_Bool value);
 unsigned int char_get_hash_key(char value);
@@ -2499,7 +2500,7 @@ _Bool xisascii(char c);
 _Bool xispunct(char c);
 int string_length(char* str);
 int charp_length(char* str);
-int charpa_length(char* str);
+int chara_length(char* str);
 char* charp_reverse(char* str);
 char* string_operator_load_range_element(char* str, int head, int tail);
 char* charp_operator_load_range_element(char* str, int head, int tail);
@@ -2510,7 +2511,7 @@ struct list$1char$ph* charp_split_char(char* self, char c);
 char* charp_xsprintf(char* self, char* msg, ...);
 char* int_xsprintf(int self, char* msg, ...);
 char* charp_printable(char* str);
-char* charpa_printable(char* str);
+char* chara_printable(char* str);
 char* charp_sub_plain(char* self, char* str, char* replace);
 char* xbasename(char* path);
 char* xnoextname(char* path);
@@ -2572,6 +2573,7 @@ void re_print_internal(struct regex_t* pattern, int depth);
 int re_get_group_count(struct re_program* pattern);
 int charp_index_regex(char* self, char* reg, int default_value);
 int charp_rindex_regex(char* self, char* reg, int default_value);
+char* string_chomp(char* str);
 int string_rindex_regex(char* self, char* reg, int default_value);
 int string_index_regex(char* self, char* reg, int default_value);
 _Bool charp_match(char* self, char* reg);
@@ -2718,7 +2720,7 @@ char* charp_strip(char* self);
 char* wchar_tp_to_string(int* wstr);
 char* wchar_ta_to_string(int* wstr);
 int* charp_to_wstring(char* str);
-int* charpa_to_wstring(char* str);
+int* chara_to_wstring(char* str);
 int* wchar_tp_delete(int* str, int head, int tail);
 int wchar_tp_index(int* str, int* search_str, int default_value);
 int wchar_tp_rindex(int* str, int* search_str, int default_value);
@@ -2744,7 +2746,6 @@ _Bool wchar_t_operator_not_equals(int left, int right);
 unsigned int wchar_t_get_hash_key(int value);
 _Bool wchar_t_equals(int left, int right);
 char* wchar_t_to_string(int wc);
-char* string_chomp(char* str);
 char* xrealpath(char* path);
 char* xdirname(char* path);
 unsigned long  int xwcslen(int* wstr);
@@ -2897,7 +2898,7 @@ char* backtrace_parse_word(struct sInfo* info);
 void skip_spaces_and_lf(struct sInfo* info);
 struct tuple2$2char$phbool$* create_generics_fun(char* fun_name, struct sGenericsFun* generics_fun, struct sType* generics_type, struct sInfo* info);
 struct tuple3$3sType$phchar$phbool$* parse_type(struct sInfo* info, _Bool parse_variable_name, _Bool parse_multiple_type, _Bool in_function_parametor);
-struct tuple2$2sType$phchar$ph* parse_variable_name(struct sType* base_type_name, _Bool first, struct sInfo* info);
+struct tuple2$2sType$phchar$ph* parse_variable_name_on_multiple_declare(struct sType* base_type_name, _Bool first, struct sInfo* info);
 struct sBlock* parse_block(struct sInfo* info, _Bool return_self_at_last, _Bool in_function);
 int transpile_block(struct sBlock* block, struct list$1sType$ph* param_types, struct list$1char$ph* param_names, struct sInfo* info, _Bool no_var_table, _Bool loop_block);
 void arrange_stack(struct sInfo* info, int top);
@@ -3164,7 +3165,7 @@ struct list$1char$ph* __dec_obj7;
 char* __dec_obj8;
 struct sClassModule* __result_obj__6;
     if(    self==(void*)0    ) {
-        __result_obj__1 = (void*)come_increment_ref_count((void*)0);
+        __result_obj__1 = (struct sClassModule*)come_increment_ref_count((void*)0);
         come_call_finalizer(sClassModule_finalize, __result_obj__1, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__1;
     }
@@ -3242,7 +3243,7 @@ void* __right_value1 = (void*)0;
 /*a*/struct list_item$1char$ph* it;
 struct list$1char$ph* __result_obj__5;
     if(    self==((void*)0)    ) {
-        __result_obj__2 = (void*)come_increment_ref_count(((void*)0));
+        __result_obj__2 = (struct list$1char$ph*)come_increment_ref_count(((void*)0));
         come_call_finalizer(list$1char$ph$p_finalize, __result_obj__2, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__2;
     }
@@ -3500,11 +3501,17 @@ static void sType_finalize(struct sType* self){
     if(    self!=((void*)0)&&self->mArrayNum!=((void*)0)    ) {
         come_call_finalizer(list$1sNode$ph$p_finalize, self->mArrayNum, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
+    if(    self!=((void*)0)&&self->mVarNameArrayNum!=((void*)0)    ) {
+        come_call_finalizer(list$1sNode$ph$p_finalize, self->mVarNameArrayNum, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    }
     if(    self!=((void*)0)&&self->mArrayStatic!=((void*)0)    ) {
         come_call_finalizer(list$1int$$p_finalize, self->mArrayStatic, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     if(    self!=((void*)0)&&self->mArrayRestrict!=((void*)0)    ) {
         come_call_finalizer(list$1int$$p_finalize, self->mArrayRestrict, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    }
+    if(    self!=((void*)0)&&self->mTypedefOriginalType!=((void*)0)    ) {
+        come_call_finalizer(sType_finalize, self->mTypedefOriginalType, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     if(    self!=((void*)0)&&self->mOriginalTypeName!=((void*)0)    ) {
         (self->mOriginalTypeName = come_decrement_ref_count(self->mOriginalTypeName, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -4192,7 +4199,7 @@ void* __right_value0 = (void*)0;
 /*a*/struct sNode* result;
 struct sNode* __result_obj__31;
     if(    self==(void*)0    ) {
-        __result_obj__30 = (void*)come_increment_ref_count((void*)0);
+        __result_obj__30 = (struct sNode*)come_increment_ref_count((void*)0);
         ((__result_obj__30) ? __result_obj__30 = come_decrement_ref_count(__result_obj__30, ((struct sNode*)__result_obj__30)->finalize, ((struct sNode*)__result_obj__30)->_protocol_obj, 0, 1,(void*)0):(void*)0);
         return __result_obj__30;
     }
@@ -4322,8 +4329,8 @@ char* __result_obj__105;
 /*a*/struct sClass* Value_48;
 _Bool _conditional_value_X14;
 /*a*/int n;
-struct tuple2$2char$phsType$ph* multiple_assign_var1 = (void*)0;
-char* name=0;
+struct tuple2$2char$phsType$ph* multiple_assign_var1
+;char* name=0;
 struct sType* type_49=0;
 char* __dec_obj23;
 char* __result_obj__110;
@@ -5467,7 +5474,6 @@ struct buffer* __result_obj__34;
 struct buffer* __result_obj__35;
 struct buffer* __result_obj__36;
 struct buffer* __result_obj__37;
-default_value = (void*)0;
     memset(&default_value,0,sizeof(struct buffer*));
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
@@ -5511,7 +5517,6 @@ struct buffer* __result_obj__38;
 struct buffer* __result_obj__39;
 struct buffer* __result_obj__40;
 struct buffer* __result_obj__41;
-default_value = (void*)0;
     memset(&default_value,0,sizeof(struct buffer*));
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
@@ -5555,7 +5560,6 @@ struct sFun* __result_obj__42;
 struct sFun* __result_obj__43;
 struct sFun* __result_obj__44;
 struct sFun* __result_obj__45;
-default_value = (void*)0;
     memset(&default_value,0,sizeof(struct sFun*));
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
@@ -5599,7 +5603,6 @@ struct sFun* __result_obj__46;
 struct sFun* __result_obj__47;
 struct sFun* __result_obj__48;
 struct sFun* __result_obj__49;
-default_value = (void*)0;
     memset(&default_value,0,sizeof(struct sFun*));
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
@@ -5643,7 +5646,6 @@ struct sGenericsFun* __result_obj__50;
 struct sGenericsFun* __result_obj__51;
 struct sGenericsFun* __result_obj__52;
 struct sGenericsFun* __result_obj__53;
-default_value = (void*)0;
     memset(&default_value,0,sizeof(struct sGenericsFun*));
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
@@ -5687,7 +5689,6 @@ struct sGenericsFun* __result_obj__54;
 struct sGenericsFun* __result_obj__55;
 struct sGenericsFun* __result_obj__56;
 struct sGenericsFun* __result_obj__57;
-default_value = (void*)0;
     memset(&default_value,0,sizeof(struct sGenericsFun*));
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
@@ -5731,7 +5732,6 @@ struct sClassModule* __result_obj__58;
 struct sClassModule* __result_obj__59;
 struct sClassModule* __result_obj__60;
 struct sClassModule* __result_obj__61;
-default_value = (void*)0;
     memset(&default_value,0,sizeof(struct sClassModule*));
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
@@ -5775,7 +5775,6 @@ struct sClassModule* __result_obj__62;
 struct sClassModule* __result_obj__63;
 struct sClassModule* __result_obj__64;
 struct sClassModule* __result_obj__65;
-default_value = (void*)0;
     memset(&default_value,0,sizeof(struct sClassModule*));
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
@@ -5819,7 +5818,6 @@ struct sType* __result_obj__66;
 struct sType* __result_obj__67;
 struct sType* __result_obj__68;
 struct sType* __result_obj__69;
-default_value = (void*)0;
     memset(&default_value,0,sizeof(struct sType*));
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
@@ -5863,7 +5861,6 @@ struct sType* __result_obj__70;
 struct sType* __result_obj__71;
 struct sType* __result_obj__72;
 struct sType* __result_obj__73;
-default_value = (void*)0;
     memset(&default_value,0,sizeof(struct sType*));
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
@@ -5905,7 +5902,6 @@ static struct sType* list$1sType$ph$p_operator_load_element(struct list$1sType$p
 struct sType* __result_obj__88;
 struct sType* default_value;
 struct sType* __result_obj__89;
-default_value = (void*)0;
     if(    position<0    ) {
         position+=self->len;
     }
@@ -5933,7 +5929,6 @@ static struct sType* list$1sType$ph_operator_load_element(struct list$1sType$ph*
 struct sType* __result_obj__90;
 struct sType* default_value;
 struct sType* __result_obj__91;
-default_value = (void*)0;
     if(    position<0    ) {
         position+=self->len;
     }
@@ -5970,7 +5965,6 @@ struct sClass* __result_obj__96;
 struct sClass* __result_obj__97;
 struct sClass* __result_obj__98;
 struct sClass* __result_obj__99;
-default_value = (void*)0;
     memset(&default_value,0,sizeof(struct sClass*));
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
@@ -6055,7 +6049,6 @@ struct sClass* __result_obj__100;
 struct sClass* __result_obj__101;
 struct sClass* __result_obj__102;
 struct sClass* __result_obj__103;
-default_value = (void*)0;
     memset(&default_value,0,sizeof(struct sClass*));
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
@@ -6104,7 +6097,6 @@ static struct tuple2$2char$phsType$ph* list$1tuple2$2char$phsType$ph$ph$p_operat
 struct tuple2$2char$phsType$ph* __result_obj__106;
 struct tuple2$2char$phsType$ph* default_value;
 struct tuple2$2char$phsType$ph* __result_obj__107;
-default_value = (void*)0;
     if(    position<0    ) {
         position+=self->len;
     }
@@ -6132,7 +6124,6 @@ static struct tuple2$2char$phsType$ph* list$1tuple2$2char$phsType$ph$ph_operator
 struct tuple2$2char$phsType$ph* __result_obj__108;
 struct tuple2$2char$phsType$ph* default_value;
 struct tuple2$2char$phsType$ph* __result_obj__109;
-default_value = (void*)0;
     if(    position<0    ) {
         position+=self->len;
     }
@@ -6940,8 +6931,7 @@ struct sClassModule* default_value;
 /*a*/unsigned int hash;
 /*a*/int n;
 struct sClassModule* default_value_84;
-default_value = (void*)0;
-default_value_84 = (void*)0;
+memset(&default_value_84, 0, sizeof(default_value_84));
     size=self->size*10;
     keys=(char**)come_increment_ref_count(((char**)(__right_value0=(char**)come_calloc_v2(1, sizeof(char*)*(1*(size)), "/usr/local/include/neo-c.h", 2263, "char**"))));
     __right_value0 = (void*)0;
@@ -6998,8 +6988,6 @@ char* __result_obj__154;
 char* __result_obj__155;
 char* result_82;
 char* __result_obj__156;
-result = (void*)0;
-result_82 = (void*)0;
     if(    self==((void*)0)    ) {
         memset(&result,0,sizeof(char*));
         __result_obj__154 = result;
@@ -7025,8 +7013,6 @@ char* __result_obj__157;
 char* __result_obj__158;
 char* result_83;
 char* __result_obj__159;
-result = (void*)0;
-result_83 = (void*)0;
     if(    self==((void*)0)||self->key_list->it==((void*)0)    ) {
         memset(&result,0,sizeof(char*));
         __result_obj__157 = result;
@@ -7089,8 +7075,6 @@ char* __result_obj__164;
 char* __result_obj__165;
 char* result_85;
 char* __result_obj__166;
-result = (void*)0;
-result_85 = (void*)0;
     if(    self==((void*)0)    ) {
         memset(&result,0,sizeof(char*));
         __result_obj__164 = result;
@@ -7116,8 +7100,6 @@ char* __result_obj__167;
 char* __result_obj__168;
 char* result_86;
 char* __result_obj__169;
-result = (void*)0;
-result_86 = (void*)0;
     if(    self==((void*)0)||self->it==((void*)0)    ) {
         memset(&result,0,sizeof(char*));
         __result_obj__167 = result;
@@ -7310,8 +7292,7 @@ struct buffer* default_value;
 /*a*/unsigned int hash;
 /*a*/int n;
 struct buffer* default_value_91;
-default_value = (void*)0;
-default_value_91 = (void*)0;
+memset(&default_value_91, 0, sizeof(default_value_91));
     size=self->size*10;
     keys=(char**)come_increment_ref_count(((char**)(__right_value0=(char**)come_calloc_v2(1, sizeof(char*)*(1*(size)), "/usr/local/include/neo-c.h", 2263, "char**"))));
     __right_value0 = (void*)0;
@@ -7368,8 +7349,6 @@ char* __result_obj__175;
 char* __result_obj__176;
 char* result_89;
 char* __result_obj__177;
-result = (void*)0;
-result_89 = (void*)0;
     if(    self==((void*)0)    ) {
         memset(&result,0,sizeof(char*));
         __result_obj__175 = result;
@@ -7395,8 +7374,6 @@ char* __result_obj__178;
 char* __result_obj__179;
 char* result_90;
 char* __result_obj__180;
-result = (void*)0;
-result_90 = (void*)0;
     if(    self==((void*)0)||self->key_list->it==((void*)0)    ) {
         memset(&result,0,sizeof(char*));
         __result_obj__178 = result;

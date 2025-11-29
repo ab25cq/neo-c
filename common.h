@@ -140,20 +140,17 @@ uniq class sType
     bool mOriginIsArray;
     
     list<sNode*%>*% mArrayNum;
+    list<sNode*%>*% mVarNameArrayNum;
     list<int>*% mArrayStatic;
     list<int>*% mArrayRestrict;
-    
-    int mTypedefOriginalPointerNum;
     
     int mPointerNum;
     int mFunctionPointerNum;
     int mArrayPointerNum;
     
-    int mOriginalTypeNamePointerNum;
-    int mOriginalTypeNameHeap;
-    
+    sType*% mTypedefOriginalType;
     string mOriginalTypeName;
-    int mOriginalPointerNum;
+    int mOriginalTypePointerNum;
     
     bool mArrayPointerType;
     
@@ -213,10 +210,12 @@ uniq class sType
         self.mOriginalLoadVarType = null;
         self.mGenericsTypes = new list<sType*%>();
         self.mArrayNum = new list<sNode*%>();
+        self.mVarNameArrayNum = new list<sNode*%>();
         self.mArrayStatic = new list<int>();
         self.mArrayRestrict = new list<int>();
         self.mParamTypes = new list<sType*%>();
         self.mParamNames = new list<string>();
+        self.mOriginalTypeName = s"";
         self.mVarArgs = false;
         self.mResultType = null;
         self.mUnsigned = false;
@@ -232,8 +231,6 @@ uniq class sType
         self.mPointerNum = pointer_num;
         self.mSizeNum = null;
         
-        self.mOriginalTypeName = string("");
-        self.mOriginalPointerNum = 0;
         self.mTypeOfNode = null;
     }
 };
@@ -513,6 +510,7 @@ struct sInfo
     map<string, sClass*%>*% generics_classes;
     map<string, buffer*%>*% struct_definition;
     map<string, buffer*%>*% previous_struct_definition;
+    map<string, buffer*%>*% typedef_definition;
     
     sModule*% module;
     
@@ -902,7 +900,7 @@ void skip_spaces_and_lf(sInfo* info=info);
 string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sType*% generics_type, sInfo* info);
 
 sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false, bool parse_multiple_type=true, bool in_function_parametor=false);
-tup: sType*%, string parse_variable_name(sType*% base_type_name, bool first, sInfo* info);
+tup: sType*%, string parse_variable_name_on_multiple_declare(sType*% base_type_name, bool first, sInfo* info);
 sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_function=false);
 int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* param_names, sInfo* info, bool no_var_table=false, bool loop_block=false);
 void arrange_stack(sInfo* info, int top);

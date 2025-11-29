@@ -65,7 +65,8 @@ class sReturnNode extends sNodeBase
                     }
                     
                     if(result_type2.mHeap) {
-                        string type_name = make_type_name_string(come_value.type);
+                        string type_name = make_type_name_string(result_type2);
+                        //come_value.type);
                         add_come_code(info, s"__result_obj__\{result_num} = (%s)come_increment_ref_count(%s);\n", type_name, come_value.c_value);
                     }
                     else {
@@ -2830,10 +2831,10 @@ string create_method_name(sType* obj_type, bool no_pointer_name, char* fun_name,
             struct_name = s"bool";
         }
         if(!obj_type->mClass->mStruct) {
-            if(obj_type->mGenericsTypes.length() > 0 && obj_type->mOriginalTypeNamePointerNum > 0) {
+            if(obj_type->mGenericsTypes.length() > 0 && obj_type->mTypedefOriginalType.mPointerNum > 0) {
                 buf.append_str("$");
             }
-            for(int i=0; i<obj_type->mOriginalTypeNamePointerNum; i++)
+            if(obj_type->mOriginalTypePointerNum)
             {
                 buf.append_str("p");
             }
@@ -2863,9 +2864,8 @@ string create_method_name(sType* obj_type, bool no_pointer_name, char* fun_name,
     if(obj_type->mArrayPointerType) {
         buf.append_str("a");
     }
-    
-    if(!array_equal_pointer && obj_type->mArrayNum.length() > 0) {
-        buf.append_str("pa");
+    else if(!array_equal_pointer && obj_type->mArrayNum.length() > 0) {
+        buf.append_str("a");
     }
     
     return xsprintf("%s%s_%s", struct_name, buf.to_string(), fun_name);
@@ -2913,12 +2913,14 @@ string create_non_method_name(sType* obj_type, bool no_pointer_name, char* fun_n
             struct_name = s"bool";
         }
         if(!obj_type->mClass->mStruct) {
-            if(obj_type->mGenericsTypes.length() > 0 && obj_type->mOriginalTypeNamePointerNum > 0) {
-                buf.append_str("$");
-            }
-            for(int i=0; i<obj_type->mOriginalTypeNamePointerNum; i++)
-            {
-                buf.append_str("p");
+            if(obj_type->mTypedefOriginalType) {
+                if(obj_type->mGenericsTypes.length() > 0 && obj_type->mTypedefOriginalType.mPointerNum > 0) {
+                    buf.append_str("$");
+                }
+                for(int i=0; i<obj_type->mTypedefOriginalType.mPointerNum; i++)
+                {
+                    buf.append_str("p");
+                }
             }
         }
     }

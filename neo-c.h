@@ -6965,17 +6965,6 @@ uniq string wchar_t::to_string(wchar_t wc)
     return xsprintf("%ls", wc);
 }
 
-uniq string string::chomp(char* str)
-{
-    string result = string(str);
-    
-    if(result[result.length()-1] == '\n') {
-        return result.substring(0, -2);
-    }
-    
-    return result;
-}
-
 uniq string xrealpath(char* path)
 {
     if(path == null) {

@@ -139,7 +139,7 @@ sNode*% parse_global_variable(sInfo* info)
             
             if(err) {
                 parse_sharp();
-                var type,name = parse_variable_name(type@base_type_name, true@first, info);
+                var type,name = parse_variable_name_on_multiple_declare(type@base_type_name, true@first, info);
                 parse_sharp();
                 
                 if(*info->p == '=' && *(info->p+1) != '>') {
@@ -190,7 +190,7 @@ sNode*% parse_global_variable(sInfo* info)
         }
         
         parse_sharp();
-        var type2, var_name = parse_variable_name(base_type, true@first, info);
+        var type2, var_name = parse_variable_name_on_multiple_declare(base_type, true@first, info);
         parse_sharp();
         
         if(*info->p == '=') {
@@ -237,7 +237,7 @@ sNode*% parse_global_variable(sInfo* info)
             skip_spaces_and_lf();
             
             parse_sharp();
-            var type2, var_name = parse_variable_name(base_type, false@first, info);
+            var type2, var_name = parse_variable_name_on_multiple_declare(base_type, false@first, info);
             
             if(*info->p == '=')  {
                 info->p++;

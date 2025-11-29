@@ -1137,11 +1137,13 @@ string parse_struct_attribute(sInfo* info=info)
     return result.to_string();
 }
 
-sType*%, string parse_variable_name(sType*% base_type_name, bool first, sInfo* info)
+sType*%, string parse_variable_name_on_multiple_declare(sType*% base_type_name, bool first, sInfo* info)
 {
     sType*% result_type = clone base_type_name;
     if(!first) {
-        result_type->mPointerNum = result_type->mTypedefOriginalPointerNum;
+        if(result_type->mTypedefOriginalType) {
+            result_type->mPointerNum = result_type->mTypedefOriginalType.mPointerNum;
+        }
     }
     string var_name = null;
     
@@ -1332,7 +1334,7 @@ sType*%, string parse_variable_name(sType*% base_type_name, bool first, sInfo* i
             skip_spaces_and_lf();
             
             result_type->mArrayPointerType = true;
-            result_type->mPointerNum++;
+            //result_type->mPointerNum++;
             break;
         }
         parse_sharp();
@@ -2209,7 +2211,30 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
                     word = parse_word();
                 }
                 
-                if(*info->p == ')') {
+                if(*info->p == '[') {
+                    pointer_to_array_flag = true;
+                    while(*info->p == '[') {
+                        info.no_output_come_code = true;
+                        sNode*% exp = expression();
+                        info.no_output_come_code = false;
+                        
+                        if(*info->p == ']') {
+                            info->p++;
+                            skip_spaces_and_lf();
+                        }
+                    }
+                    
+                    if(*info->p == ')') {
+                        info->p++;
+                        skip_spaces_and_lf();
+                        
+                        if(*info->p == '(') {
+                            function_pointer_flag = true;
+                            pointer_to_array_flag = false;
+                        }
+                    }
+                }
+                else if(*info->p == ')') {
                     info->p++;
                     skip_spaces_and_lf();
                     
@@ -2527,8 +2552,7 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
         type->mExtern = extern_;
     }
     else if(pointer_to_array_flag) {
-        info->p++;
-        skip_spaces_and_lf();
+        expected_next_character('(');
         
         skip_pointer_attribute();
         
@@ -2570,13 +2594,25 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
         type->mTupleName = tuple_name;
         type->mDefferRightValue = type->mDefferRightValue || deffer_;
         
-//    type = new sType(s"lambda");
-        
         if(xisalpha(*info->p) || *info->p == '_') {
             var_name = parse_word();
         }
         else {
             var_name = s"";
+        }
+        
+        while(*info->p == '[') {
+            info->p++;
+            skip_spaces_and_lf();
+            
+            sNode*% node = expression();
+            
+            type.mVarNameArrayNum.add(node);
+            
+            if(*info->p == ']') {
+                info->p++;
+                skip_spaces_and_lf();
+            }
         }
         
         expected_next_character(')');
@@ -2617,7 +2653,6 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
         if(info.types[type_name]??) {
             result_type = clone info.types[type_name]??;
             result_type->mClass = info.classes[result_type->mClass->mName]??;
-            //type.mOriginalTypeName = string(type_name);
         }
         else if(info.generics_type_names.contained(type_name)) {
             for(int i=0; i<info.generics_type_names.length(); i++) {
@@ -2746,11 +2781,14 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
     else {
         if(info.types[type_name]) {
             type = clone info.types[type_name]??;
-            type->mTypedefOriginalPointerNum = type->mPointerNum;
             type->mClass = info.classes[type->mClass->mName];
-            type.mOriginalTypeName = string(type_name);
-            type.mOriginalTypeNamePointerNum = pointer_num;
-            type.mOriginalTypeNameHeap = heap;
+            
+            buffer* t = info.typedef_definition[type_name];
+            
+            type->mOriginalTypePointerNum = pointer_num;
+            if(type->mTypedef || t) {
+                type.mTypedefOriginalType = clone type;
+            }
             
             type->mConstant = type->mConstant || constant;
             type->mAtomic = type->mAtomic || atomic_;
@@ -2768,11 +2806,7 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
             type->mLongLong = type->mLongLong || long_long;
             type->mLong = type->mLong || long_;
             type->mShort = type->mShort || short_;
-            if(type.mArrayNum.length() > 0) {
-                type->mArrayPointerNum += pointer_num;
-                //type->mPointerNum += pointer_num;
-            }
-            else if(type.mClass.mName === "lambda") {
+            if(type.mClass.mName === "lambda") {
                 type->mArrayPointerNum += pointer_num;
             }
             else {
@@ -2793,38 +2827,6 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
             type->mConstant = type->mConstant || constant;
             type->mAtomic = type->mAtomic || atomic_;
             type->mThreadLocal = type->mThreadLocal || thread_local;
-        /*
-        else if(parsecmp("_Alignas")) {
-            char* head = info.p;
-            
-            info->p += strlen("_Alignas");
-            
-            parse_function_attribute_skip_paren(info);
-            
-            char* tail = info.p;
-            result.append(head, tail-head);
-        }
-        else if(parsecmp("_Alignof")) {
-            char* head = info.p;
-            
-            info->p += strlen("_Alignof");
-            
-            parse_function_attribute_skip_paren(info);
-            
-            char* tail = info.p;
-            result.append(head, tail-head);
-        }
-        else if(parsecmp("_Static_assert")) {
-            char* head = info.p;
-            
-            info->p += strlen("_Static_assert");
-            
-            parse_function_attribute_skip_paren(info);
-            
-            char* tail = info.p;
-            result.append(head, tail-head);
-        }
-        */
             type->mAlignas = alignas_;
             type->mRegister = register_;
             type->mUnsigned = type->mUnsigned || unsigned_;
@@ -3008,6 +3010,7 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
                 skip_pointer_attribute();
                 
                 type->mPointerNum++;
+                type.mOriginalTypePointerNum++;
                 if(type->mNoSolvedGenericsType) {
                     type->mNoSolvedGenericsType.mPointerNum++;
                 }
@@ -3316,7 +3319,7 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
             skip_spaces_and_lf();
             
             type->mArrayPointerType = true;
-            type->mPointerNum++;
+            //type->mPointerNum++;
             break;
         }
         parse_sharp();

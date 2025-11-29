@@ -141,7 +141,7 @@ class sStoreNode extends sNodeBase
             
             static int num_multiple_var = 0;
             string multiple_var_name = xsprintf("multiple_assign_var%d", ++num_multiple_var);
-            add_come_code_at_function_head(info, "%s = (void*)0;\n", make_define_var(right_value.type, multiple_var_name));
+            add_come_code_at_function_head(info, "%s\n;", make_define_var(right_value.type, multiple_var_name));
             
             add_come_code(info, "%s=%s;\n", multiple_var_name, right_value.c_value);
             
@@ -230,7 +230,7 @@ class sStoreNode extends sNodeBase
                     add_come_code_at_function_head2(info, "memset(%s, 0, sizeof(int)*2);\n", var_->mCValueName);
                 }
             }
-            else if(left_type->mArrayNum.length() > 0) {
+            else if(left_type->mArrayNum.length() > 0 || left_type->mVarNameArrayNum.length() > 0) {
                 add_come_code(info, "%s;\n", make_define_var(left_type, var_->mCValueName));
                 
                 if(info.come_fun.mName !== "memset" && !left_type->mNoCallingDestructor && info.funcs["memset"]) {
@@ -240,13 +240,8 @@ class sStoreNode extends sNodeBase
             else {
                 add_come_code_at_function_head(info, "%s;\n", make_define_var(left_type, var_->mCValueName));
                 
-                if(left_type->mPointerNum > 0) {
-                    add_come_code_at_function_head2(info, "%s = (void*)0;\n", var_->mCValueName);
-                }
-                else {
-                    if(info.come_fun.mName !== "memset" && !left_type->mNoCallingDestructor && info.funcs["memset"]) {
-                        add_come_code_at_function_head2(info, "memset(&%s, 0, sizeof(%s));\n", var_->mCValueName, var_->mCValueName);
-                    }
+                if(info.come_fun.mName !== "memset" && !left_type->mNoCallingDestructor && info.funcs["memset"]) {
+                    add_come_code_at_function_head2(info, "memset(&%s, 0, sizeof(%s));\n", var_->mCValueName, var_->mCValueName);
                 }
             }
             
@@ -900,7 +895,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             
             if(err) {
                 parse_sharp();
-                var type,name = parse_variable_name(type@base_type_name, true@first, info);
+                var type,name = parse_variable_name_on_multiple_declare(type@base_type_name, true@first, info);
                 
                 if(*info->p == '=' && *(info->p+1) != '>' && !info->no_assign) {
                     info->p++;
@@ -1031,7 +1026,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         }
         
         parse_sharp();
-        var type2,var_name = parse_variable_name(base_type, true@first, info);
+        var type2,var_name = parse_variable_name_on_multiple_declare(base_type, true@first, info);
         parse_sharp();
         
         if(*info->p == '=') {
@@ -1068,7 +1063,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             skip_spaces_and_lf();
             
             parse_sharp();
-            var type2, var_name = parse_variable_name(base_type, false@first, info);
+            var type2, var_name = parse_variable_name_on_multiple_declare(base_type, false@first, info);
             
             if(*info->p == '=')  {
                 info->p++;

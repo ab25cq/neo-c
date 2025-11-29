@@ -337,7 +337,7 @@ sNode*% parse_struct(string type_name, string struct_attribute, sInfo* info)
         if(multiple_declare) {
             var base_type, name, err = parse_type();
             
-            var type2, name2 = parse_variable_name(base_type, true@first, info);
+            var type2, name2 = parse_variable_name_on_multiple_declare(base_type, true@first, info);
             
             klass.mFields.push_back((name2, type2));
             
@@ -345,7 +345,7 @@ sNode*% parse_struct(string type_name, string struct_attribute, sInfo* info)
                 info->p++;
                 skip_spaces_and_lf();
                 
-                var type2, name2 = parse_variable_name(base_type, false@first, info);
+                var type2, name2 = parse_variable_name_on_multiple_declare(base_type, false@first, info);
                 
                 klass.mFields.push_back((name2, type2));
             }
@@ -616,7 +616,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                 if(multiple_declare) {
                     var base_type, name, err = parse_type();
                     
-                    var type2,name2 = parse_variable_name(base_type, true@first, info);
+                    var type2,name2 = parse_variable_name_on_multiple_declare(base_type, true@first, info);
                     
                     struct_class.mFields.push_back((name2, type2));
                     
@@ -624,7 +624,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                         info->p++;
                         skip_spaces_and_lf();
                         
-                        var type2, name2 = parse_variable_name(base_type, false@first, info);
+                        var type2, name2 = parse_variable_name_on_multiple_declare(base_type, false@first, info);
                         
                         struct_class.mFields.push_back((name2, type2));
                     }
@@ -873,7 +873,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
             else if(multiple_declare) {
                 var base_type, name, err = parse_type();
                 
-                var type2,name2 = parse_variable_name(base_type, true@first, info);
+                var type2,name2 = parse_variable_name_on_multiple_declare(base_type, true@first, info);
                 
                 struct_class.mFields.push_back((name2, type2));
                 
@@ -881,7 +881,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                     info->p++;
                     skip_spaces_and_lf();
                     
-                    var type2, name2 = parse_variable_name(base_type, false@first, info);
+                    var type2, name2 = parse_variable_name_on_multiple_declare(base_type, false@first, info);
                     
                     struct_class.mFields.push_back((name2, type2));
                 }

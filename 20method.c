@@ -609,7 +609,7 @@ class sMethodCallNode extends sNodeBase
             var generics_fun_name, fun, generics_fun = get_method(fun_name, obj_type, info);
             
             if(fun == null) {
-                err_msg(info, "function not found(%s) at method(%s)(ZY)", generics_fun_name, info.come_fun.mName);
+                err_msg(info, "function not found(%s, %s) at method(%s)(ZY)", generics_fun_name, fun_name, info.come_fun.mName);
                 return true;
             }
             

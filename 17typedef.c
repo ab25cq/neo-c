@@ -39,7 +39,7 @@ class sTypedefNode extends sNodeBase
                 info.struct_definition.insert(string(type_name), "typedef __builtin_va_list __darwin_va_list;\n".to_buffer());
             }
             else {
-                info.previous_struct_definition.insert(string(type_name), "typedef __builtin_va_list __darwin_va_list;\n".to_buffer());
+                info.typedef_definition.insert(string(type_name), "typedef __builtin_va_list __darwin_va_list;\n".to_buffer());
             }
         }
         else if(self.multiple_declare) {
@@ -58,7 +58,7 @@ class sTypedefNode extends sNodeBase
                     info.struct_definition.insert(string(type_name), xsprintf("typedef %s;\n", make_define_var(type, type_name, in_typedef:true)).to_buffer());
                 }
                 else {
-                    info.previous_struct_definition.insert(string(type_name), xsprintf("typedef %s;\n", make_define_var(type, type_name, in_typedef:true)).to_buffer());
+                    info.typedef_definition.insert(string(type_name), xsprintf("typedef %s;\n", make_define_var(type, type_name, in_typedef:true)).to_buffer());
                 }
             }
         }
@@ -76,7 +76,7 @@ class sTypedefNode extends sNodeBase
                 info.struct_definition.insert(string(type_name), xsprintf("typedef %s;\n", make_define_var(type, type_name, in_typedef:true)).to_buffer());
             }
             else {
-                info.previous_struct_definition.insert(string(type_name), xsprintf("typedef %s;\n", make_define_var(type, type_name, in_typedef:true)).to_buffer());
+                info.typedef_definition.insert(string(type_name), xsprintf("typedef %s;\n", make_define_var(type, type_name, in_typedef:true)).to_buffer());
             }
         }
     
@@ -109,14 +109,14 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 95
             tup: sType*%, string variable_name = (base_type, type_name);
             multiple_declare.push_back(variable_name);
             
-            tup: sType*%, string variable_name2 = parse_variable_name(base_type, true@first, info);
+            tup: sType*%, string variable_name2 = parse_variable_name_on_multiple_declare(base_type, true@first, info);
             multiple_declare.push_back(variable_name2);
             
             while(*info->p == ',') {
                 info->p++;
                 skip_spaces_and_lf();
                 
-                tup: sType*%, string variable_name = parse_variable_name(base_type, false@first, info);
+                tup: sType*%, string variable_name = parse_variable_name_on_multiple_declare(base_type, false@first, info);
                 
                 multiple_declare.push_back(variable_name);
             }
@@ -179,14 +179,14 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             tup: sType*%, string variable_name = (base_type, type_name);
             multiple_declare.push_back(variable_name);
             
-            tup: sType*%, string variable_name2 = parse_variable_name(base_type, true@first, info);
+            tup: sType*%, string variable_name2 = parse_variable_name_on_multiple_declare(base_type, true@first, info);
             multiple_declare.push_back(variable_name2);
             
             while(*info->p == ',') {
                 info->p++;
                 skip_spaces_and_lf();
                 
-                tup: sType*%, string variable_name = parse_variable_name(base_type, false@first, info);
+                tup: sType*%, string variable_name = parse_variable_name_on_multiple_declare(base_type, false@first, info);
                 
                 multiple_declare.push_back(variable_name);
             }
