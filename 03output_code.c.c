@@ -1526,6 +1526,7 @@ struct sType
     struct sType* mTypedefOriginalType;
     char* mOriginalTypeName;
     int mOriginalTypePointerNum;
+    int mOriginalTypePointerHeap;
     _Bool mArrayPointerType;
     struct list$1sType$ph* mParamTypes;
     struct list$1char$ph* mParamNames;
@@ -2341,9 +2342,9 @@ int flsl(long anonymous_var_nameX348);
 int flsll(long  long anonymous_var_nameX349);
 struct _xlocale* duplocale(struct _xlocale* anonymous_var_nameX350);
 int freelocale(struct _xlocale* anonymous_var_nameX351);
+struct lconv* localeconv();
 struct _xlocale* newlocale(int anonymous_var_nameX352, const char* anonymous_var_nameX353, struct _xlocale* anonymous_var_nameX354);
 struct _xlocale* uselocale(struct _xlocale* anonymous_var_nameX355);
-struct lconv* localeconv();
 char* setlocale(int anonymous_var_nameX356, const char* anonymous_var_nameX357);
 int* __error();
 int isalnum(int anonymous_var_nameX364);
@@ -3958,6 +3959,9 @@ struct sType* __result_obj__41;
         result->mOriginalTypePointerNum=self->mOriginalTypePointerNum;
     }
     if(    self!=((void*)0)    ) {
+        result->mOriginalTypePointerHeap=self->mOriginalTypePointerHeap;
+    }
+    if(    self!=((void*)0)    ) {
         result->mArrayPointerType=self->mArrayPointerType;
     }
     if(    self!=((void*)0)&&self->mParamTypes!=((void*)0)    ) {
@@ -4547,10 +4551,10 @@ char* __result_obj__51;
         buf_28=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "03output_code.c", 246, "struct buffer*"))));
         buffer_append_str(buf_28,type->mOriginalTypeName);
         if(        type->mTypedefOriginalType        ) {
-            for(            i=0            ;            i<type->mTypedefOriginalType->mPointerNum            ;            i++            ){
+            for(            i=0            ;            i<type->mOriginalTypePointerNum            ;            i++            ){
                 buffer_append_str(buf_28,"*");
             }
-            if(            type->mTypedefOriginalType->mHeap            ) {
+            if(            type->mOriginalTypePointerHeap            ) {
                 buffer_append_str(buf_28,"%");
             }
         }

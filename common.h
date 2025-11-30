@@ -151,6 +151,7 @@ uniq class sType
     sType*% mTypedefOriginalType;
     string mOriginalTypeName;
     int mOriginalTypePointerNum;
+    int mOriginalTypePointerHeap;
     
     bool mArrayPointerType;
     

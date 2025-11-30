@@ -2303,25 +2303,6 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
         info.sline = sline;
     }
     
-/*
-    if(gComeC && in_function_parametor) {
-        char* p = info.p;
-        int sline = info.sline;
-        
-        if(xisalpha(*info->p) || *info->p == '_') {
-            string word = parse_word();
-            
-            if(is_type_name(word)) {
-            }
-            else {
-                type_name = s"int";
-            }
-        }
-        
-        info.p = p;
-        info.sline = sline;
-    }
-*/
     
     if(anonymous_type && *info->p == '{') {
         static int anonymous_num = 0;
@@ -2794,6 +2775,7 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
             buffer* t = info.typedef_definition[type_name];
             
             type->mOriginalTypePointerNum = pointer_num;
+            type->mOriginalTypePointerHeap = heap;
             if(type->mTypedef || t) {
                 type.mTypedefOriginalType = clone type;
             }
@@ -3342,6 +3324,10 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
     }
     
     if(array_num_typedef) {
+        type->mArrayNum.each {
+            type->mVarNameArrayNum.add(clone it);
+        }
+        type->mArrayNum.reset();
         array_num_typedef.each {
             type.mArrayNum.add(clone it);
         }

@@ -77,6 +77,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.6.6 more c compatiblities, array, pointer.
 0.6.0 more c compatiblities, array, pointer.
 0.5.5 more c compatiblities
 0.5.2 more c compatiblities

@@ -247,10 +247,10 @@ string make_come_type_name_string(sType* type, sInfo* info=info)
         
         buf.append_str(type->mOriginalTypeName);
         if(type->mTypedefOriginalType) {
-            for(int i=0; i<type->mTypedefOriginalType.mPointerNum; i++) {
+            for(int i=0; i<type->mOriginalTypePointerNum; i++) {
                 buf.append_str("*");
             }
-            if(type->mTypedefOriginalType.mHeap) {
+            if(type->mOriginalTypePointerHeap) {
                 buf.append_str("%");
             }
         }
