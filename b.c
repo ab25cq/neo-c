@@ -43,5 +43,12 @@ int main(int argc, char** argv)
     bbb* UHO;
     int (*ops[3])(int,int);
     
+    int* a = (int[]){ 1, 2, 3}
+    int v = 3;
+    int vla[v];
+    for (int i = 0; i < v; i++) vla[i] = (int)(10 + i);
+    // neo-c が対応しているか確認するための配列ポインタキャスト（失敗した場合はそのままにする）
+    int (*pv)[3] = (int (*)[3])&vla; // VLA への配列ポインタキャスト
+    
     return 0;
 }

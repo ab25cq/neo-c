@@ -140,6 +140,33 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
             return string("");
         }
         buf.append_str(class_name);
+        if(cast_type) {
+            if(type->mArrayPointerNum > 0) {
+                buf.append_str("(");
+                for(int i=0; i<type->mArrayPointerNum; i++) {
+                    buf.append_str("*");
+                }
+                foreach(it, type->mVarNameArrayNum) {
+                    if(!node_compile(it)) {
+                        err_msg(info, "invalid array number");
+                        return string("");
+                    }
+                    CVALUE*% cvalue = get_value_from_stack(-1, info);
+                
+                    buf.append_format("[%s]", cvalue.c_value);
+                }
+                buf.append_str(")");
+                foreach(it, type->mArrayNum) {
+                    if(!node_compile(it)) {
+                        err_msg(info, "invalid array number");
+                        return string("");
+                    }
+                    CVALUE*% cvalue = get_value_from_stack(-1, info);
+                
+                    buf.append_format("[%s]", cvalue.c_value);
+                }
+            }
+        }
     }
     
     if(class_name !== "lambda" && type->mOriginalTypeName !== "va_list" && type->mOriginalTypeName !== "__builtin_va_list") {
@@ -174,6 +201,10 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
     }
     if(type->mAtomic) {
         buf.append_str(")");
+    }
+    
+    if(cast_type && type->mArrayPointerType) {
+        buf.append_str("[]");
     }
     
     return buf.to_string();
