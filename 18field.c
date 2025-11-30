@@ -108,7 +108,6 @@ class sStoreFieldNode extends sNodeBase
         sType* right_type = right_value.type;
         
         sType*% left_type = left_value.type;
-        
         sType*% left_type3 = left_type;
         
 //        sType*% left_type2 = solve_generics(left_type, info.generics_type, info);
@@ -150,7 +149,7 @@ class sStoreFieldNode extends sNodeBase
         }
         if(field_type->mHeap && right_type->mHeap && field_type->mPointerNum > 0 && right_type->mPointerNum > 0) 
         {
-            if(left_value.type->mPointerNum == 1) {
+            if(left_value.type->mPointerNum == 1 || left_value.type->mArrayPointerNum == 1) {
                 if(child_field_name) {
                     string c_value;
                     if(child_field_is_pointer) {
@@ -207,7 +206,7 @@ class sStoreFieldNode extends sNodeBase
         }
         else if(field_type->mHeap && field_type->mPointerNum > 0 && right_type->mPointerNum > 0 && right_type->mClass->mName === "void") 
         {
-            if(left_value.type->mPointerNum == 1) {
+            if(left_value.type->mPointerNum == 1 || left_value.type->mArrayPointerNum == 1) {
                 if(child_field_name) {
                     string c_value;
                     if(child_field_is_pointer) {
@@ -276,7 +275,7 @@ class sStoreFieldNode extends sNodeBase
             return true;
         }
         else {
-            if(left_value.type->mPointerNum == 1) {
+            if(left_value.type->mPointerNum == 1 || left_value.type->mArrayPointerNum == 1) {
                 if(child_field_name) {
                     if(child_field_is_pointer) {
                         come_value.c_value = xsprintf("%s->%s->%s=%s", left_value.c_value, child_field_name, name, right_value.c_value);
@@ -384,7 +383,7 @@ class sLoadFieldNode extends sNodeBase
         
         CVALUE*% come_value = new CVALUE();
         
-        if(left_value.type->mPointerNum > 0) {
+        if(left_value.type->mPointerNum > 0 || left_value.type->mArrayPointerNum > 0) {
             come_value.c_value = xsprintf("%s->%s", left_value.c_value, name);
         }
         else {
@@ -415,35 +414,6 @@ class sLoadFieldNode extends sNodeBase
                 come_value.type->mArrayPointerNum++;
             }
         }
-        
-/*
-        if(come_value.type->mArrayNum.length() == 1) {
-            come_value.type->mOriginalLoadVarType = clone come_value.type;
-            
-            come_value.type->mArrayNum.reset();
-            come_value.type->mPointerNum++;
-            come_value.type->mOriginalTypeNamePointerNum = come_value.type->mPointerNum;
-        }
-*/
-        /*
-        if(come_value.type->mArrayNum.length() > 0) {
-            if(info.in_typeof) {
-            }
-            else if(info.in_refference) {
-                come_value.type->mOriginalLoadVarType = clone come_value.type;
-                
-                /// no decay ///
-                come_value.type->mArrayPointerNum++;
-            }
-            else {
-                come_value.type->mOriginalLoadVarType = clone come_value.type;
-                
-                /// decay ///
-                come_value.type->mArrayNum.delete(0, 1);
-                come_value.type->mArrayPointerNum++;
-            }
-        }
-        */
         
         info.stack.push_back(come_value);
     
@@ -693,50 +663,14 @@ class sLoadArrayNode extends sNodeBase
                     
                     /// decay ///
                     come_value.type->mArrayNum.delete(0, 1);
-                    come_value.type->mArrayPointerNum++;
+                    if(come_value.type->mArrayNum.length() > 0) {
+                        come_value.type->mArrayPointerNum++;
+                    }
                 }
             }
             else if(come_value.type->mPointerNum > 0) {
                 come_value.type->mPointerNum--;
             }
-            
-/*
-            if(result_type.mArrayNum.length() > 0) {
-                int n = result_type.mArrayNum.length() - array_num.length();
-                
-                if(n == 0) {
-                    result_type = clone left_type;
-                    if(left_type->mOriginalLoadVarType) {
-                        result_type = clone left_type->mOriginalLoadVarType;
-                    }
-                    result_type->mArrayNum.reset();
-                }
-                else if(n > 0) {
-                    for(int i=0; i<n; i++) {
-                        result_type.mArrayNum.delete(-1, -1);
-                    }
-                    result_type.mPointerNum++;
-                }
-                else if(n < 0) {
-                    result_type.mArrayNum.reset();
-                    result_type.mPointerNum += n;
-                    
-                    if(result_type.mPointerNum < 0) {
-                        result_type.mPointerNum = 0;
-                    }
-                }
-            }
-            else {
-                if(result_type->mPointerNum > 0) {
-                    result_type->mPointerNum -= array_num.length();
-                    
-                    if(result_type->mPointerNum < 0) {
-                        result_type->mPointerNum = 0;
-                    }
-                }
-            }
-            come_value.type = clone result_type;
-*/
             
             come_value.var = null;
             

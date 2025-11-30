@@ -2214,6 +2214,14 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
                 if(*info->p == '[') {
                     pointer_to_array_flag = true;
                     while(*info->p == '[') {
+                        info->p++;
+                        skip_spaces_and_lf();
+                        
+                        if(*info->p == ']') {
+                            info->p++;
+                            skip_spaces_and_lf();
+                            break;
+                        }
                         info.no_output_come_code = true;
                         sNode*% exp = expression();
                         info.no_output_come_code = false;
@@ -2806,7 +2814,7 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
             type->mLongLong = type->mLongLong || long_long;
             type->mLong = type->mLong || long_;
             type->mShort = type->mShort || short_;
-            if(type.mClass.mName === "lambda") {
+            if(type.mClass.mName === "lambda" || type.mArrayNum.length() > 0) {
                 type->mArrayPointerNum += pointer_num;
             }
             else {

@@ -35,7 +35,7 @@ class sTypedefNode extends sNodeBase
             type->mTypedef = true;
             info.types.insert(string(type_name), clone type);
             
-            if(type->mArrayNum.length() > 0) {
+            if(type->mArrayNum.length() > 0 || type->mAtomic) {
                 info.struct_definition.insert(string(type_name), "typedef __builtin_va_list __darwin_va_list;\n".to_buffer());
             }
             else {
@@ -54,7 +54,7 @@ class sTypedefNode extends sNodeBase
                 info.types.insert(string(type_name), clone type);
                 
             
-                if(type->mArrayNum.length() > 0) {
+                if(type->mArrayNum.length() > 0 || type->mAtomic) {
                     info.struct_definition.insert(string(type_name), xsprintf("typedef %s;\n", make_define_var(type, type_name, in_typedef:true)).to_buffer());
                 }
                 else {
@@ -72,7 +72,7 @@ class sTypedefNode extends sNodeBase
             type->mTypedef = true;
             info.types.insert(string(type_name), clone type);
             
-            if(type->mArrayNum.length() > 0) {
+            if(type->mArrayNum.length() > 0 || type->mAtomic) {
                 info.struct_definition.insert(string(type_name), xsprintf("typedef %s;\n", make_define_var(type, type_name, in_typedef:true)).to_buffer());
             }
             else {

@@ -1,4 +1,4 @@
-// Typedef + multi-level pointers: typedefed pointer/array, pointer-to-pointer-to-typedef
+// Pointer/array compatibility tests (non-atomic): decay, pointer arithmetic, VLA, array-of-arrays
 #include <stdio.h>
 #include <stdbool.h>
 #include <stddef.h>
@@ -12,69 +12,55 @@ static bool g_ok = true;
     } \
 } while (0)
 
-typedef int *int_ptr;
-typedef int_ptr *int_ptr_ptr;
-typedef int arr2[2];
-typedef arr2 *arr2_ptr;
-
-static void test_typedef_pointer_levels(void) {
-    int a = 10, b = 20;
-    int_ptr p = &a;
-    int_ptr_ptr pp = &p;
-    REQUIRE(**pp == 10);
-    *pp = &b;
-    REQUIRE(**pp == 20);
+static void test_decay_and_arith(void) {
+    int nums[] = {1, 2, 3, 4};
+    int *p = nums;                 // array-to-pointer decay
+    REQUIRE(p[0] == 1 && *(p + 2) == 3);
+    REQUIRE(&nums[3] - &nums[0] == 3);
 }
 
-static void test_typedef_array_pointer(void) {
-    int grid[2][2] = { {1, 2}, {3, 4} };
-    arr2_ptr row = grid;      // points to first row
-    REQUIRE((*row)[0] == 1);
-    row += 1;
-    REQUIRE((*row)[1] == 4);
+static void test_array_of_arrays(void) {
+    int mat[2][3] = { {1,2,3}, {4,5,6} };
+    int (*row0)[3] = &mat[0];
+    int (*row1)[3] = &mat[1];
+    REQUIRE((*row0)[1] == 2);
+    REQUIRE((*row1)[2] == 6);
+
+    int (*cursor)[3] = mat;
+    REQUIRE(cursor[0][0] == 1);
+    cursor += 1;
+    REQUIRE(cursor[0][0] == 4);
 }
 
-static void test_pointer_to_typedef_array_pointer(void) {
-    int data[3][2] = { {5, 6}, {7, 8}, {9, 10} };
-    arr2_ptr r0 = &data[0];
-    arr2_ptr r1 = &data[1];
-    arr2_ptr r2 = &data[2];
-puts("AAA");
+static void test_vla_pointer(void) {
+    int n = 4;
+    int vla[n];
+    for (int i = 0; i < n; i++) vla[i] = i * 10;
 
-    arr2_ptr rows[3] = { r0, r1, r2 };
-    arr2_ptr *prows = rows;      // pointer to array of arr2_ptr
-    REQUIRE((*prows[0])[1] == 6);
-    REQUIRE((*prows[2])[0] == 9);
-puts("BBB");
+    int (*pvla)[n] = &vla; // pointer to VLA
+    REQUIRE((*pvla)[0] == 0);
+    REQUIRE((*pvla)[3] == 30);
 
-    arr2_ptr *prow2 = &prows[1];
-    REQUIRE((*prow2)[0][0] == 7);
-    *prow2 = r0;
-    REQUIRE((*prows[1])[0] == 5);
-    
+    // decay from VLA to pointer preserves length in sizeof when applied to pointer target
+    size_t elems = sizeof(*pvla) / sizeof(int);
+    REQUIRE(elems == (size_t)n);
 }
-int add(int x, int y) { return x + y; }
-int sub(int x, int y) { return x - y; }
 
-static void test_function_pointer_typedef_levels(void) {
-    typedef int (*binop_fn)(int, int);
-    typedef binop_fn *binop_fn_ptr;
+int add1(int x) { return x + 1; }
+int mul2(int x) { return x * 2; }
 
-    binop_fn ops[2] = { add, sub };
-    binop_fn_ptr p = ops;
-    binop_fn_ptr *pp = &p;
-    REQUIRE((*pp)[0](2, 3) == 5);
-    *pp = ops + 1;
-    REQUIRE((*pp)[0](9, 4) == 5);
+static void test_function_pointer_array(void) {
+
+    int (*ops[])(int) = { add1, mul2 };
+    REQUIRE(ops[0](5) == 6);
+    REQUIRE(ops[1](6) == 12);
 }
 
 int main(void) {
-    test_typedef_pointer_levels();
-    test_typedef_array_pointer();
-    test_pointer_to_typedef_array_pointer();
-/*
-    test_function_pointer_typedef_levels();
-*/
+    test_decay_and_arith();
+    test_array_of_arrays();
+    test_vla_pointer();
+    test_function_pointer_array();
 
     puts(g_ok ? "OK" : "NG");
     return g_ok ? 0 : 1;

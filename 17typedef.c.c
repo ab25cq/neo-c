@@ -3156,7 +3156,7 @@ _Bool __result_obj__79;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         map$2char$phsType$ph_insert(info->types,(char*)come_increment_ref_count(__builtin_string(type_name)),(struct sType*)come_increment_ref_count(sType_clone(type)));
-        if(        list$1sNode$ph_length(type->mArrayNum)>0        ) {
+        if(        list$1sNode$ph_length(type->mArrayNum)>0||type->mAtomic        ) {
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             map$2char$phbuffer$ph_insert(info->struct_definition,(char*)come_increment_ref_count(__builtin_string(type_name)),(struct buffer*)come_increment_ref_count(charp_to_buffer("typedef __builtin_va_list __darwin_va_list;\n")));
@@ -3183,7 +3183,7 @@ _Bool __result_obj__79;
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             map$2char$phsType$ph_insert(info->types,(char*)come_increment_ref_count(__builtin_string(type_name_32)),(struct sType*)come_increment_ref_count(sType_clone(type_31)));
-            if(            list$1sNode$ph_length(type_31->mArrayNum)>0            ) {
+            if(            list$1sNode$ph_length(type_31->mArrayNum)>0||type_31->mAtomic            ) {
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __right_value2 = (void*)0;
@@ -3219,7 +3219,7 @@ _Bool __result_obj__79;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         map$2char$phsType$ph_insert(info->types,(char*)come_increment_ref_count(__builtin_string(type_name)),(struct sType*)come_increment_ref_count(sType_clone(type_33)));
-        if(        list$1sNode$ph_length(type_33->mArrayNum)>0        ) {
+        if(        list$1sNode$ph_length(type_33->mArrayNum)>0||type_33->mAtomic        ) {
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __right_value2 = (void*)0;

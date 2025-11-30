@@ -146,6 +146,11 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
                 for(int i=0; i<type->mArrayPointerNum; i++) {
                     buf.append_str("*");
                 }
+                if(type->mTypedefOriginalType) {
+                    for(int i=0; i<type->mTypedefOriginalType.mPointerNum; i++) {
+                        buf.append_str("*");
+                    }
+                }
                 foreach(it, type->mVarNameArrayNum) {
                     if(!node_compile(it)) {
                         err_msg(info, "invalid array number");
