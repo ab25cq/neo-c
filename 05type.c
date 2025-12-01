@@ -2563,7 +2563,7 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
         skip_pointer_attribute();
         
         bool pointer_paren = false;
-        int paren_num = 0;
+        int paren_num = 1;
         if(*info->p == '(') {
             pointer_paren = true;
             info->p++;

@@ -200,7 +200,7 @@ class sStoreFieldNode extends sNodeBase
                 }
             }
             else {
-                err_msg(info, "Invalid left_type. The field name is %s. The pointer num is %d.", name, left_value.type->mPointerNum);
+                err_msg(info, "Invalid left_type. The field name is %s. The pointer num is %d.(X)", name, left_value.type->mPointerNum);
                 return true;
             }
         }
@@ -253,7 +253,7 @@ class sStoreFieldNode extends sNodeBase
                 }
             }
             else {
-                err_msg(info, "Invalid left_type. The field name is %s. The pointer num is %d.", name, left_value.type->mPointerNum);
+                err_msg(info, "Invalid left_type. The field name is %s. The pointer num is %d.(Y)", name, left_value.type->mPointerNum);
                 return true;
             }
         }
@@ -302,7 +302,7 @@ class sStoreFieldNode extends sNodeBase
                 }
             }
             else {
-                err_msg(info, "Invalid left_type. The field name is %s. The pointer num is %d.", name, left_value.type->mPointerNum);
+                err_msg(info, "Invalid left_type. The field name is %s. The pointer num is %d.(Z)", name, left_value.type->mPointerNum);
                 return true;
             }
         }
@@ -535,8 +535,11 @@ class sStoreArrayNode extends sNodeBase
                     come_value.c_value = xsprintf("%s=%s", left_value_code, right_value.c_value);
                 }
                 else {
-                    err_msg(info, "Invalid left_type. The name is %s. The pointer num is %d.(1)", left_value_code, left_value.type->mPointerNum);
-                    return true;
+                    decrement_ref_count_object(left_type,left_value_code, info);
+                    std_move(left_type, right_type, right_value);
+                    come_value.c_value = xsprintf("%s=%s", left_value_code, right_value.c_value);
+                    //err_msg(info, "Invalid left_type. The name is %s. The pointer num is %d.(1)", left_value_code, left_value.type->mPointerNum);
+                    //return true;
                 }
             }
             else {
@@ -547,8 +550,9 @@ class sStoreArrayNode extends sNodeBase
                     come_value.c_value = xsprintf("%s=%s", left_value_code, right_value.c_value);
                 }
                 else {
-                    err_msg(info, "Invalid left_type. The name is %s. The pointer num is %d.(2)", left_value_code, left_value.type->mPointerNum);
-                    return true;
+                    come_value.c_value = xsprintf("%s=%s", left_value_code, right_value.c_value);
+//                    err_msg(info, "Invalid left_type. The name is %s. The pointer num is %d.(2)", left_value_code, left_value.type->mPointerNum);
+//                    return true;
                 }
             }
             sType*% result_type = clone left_type;
