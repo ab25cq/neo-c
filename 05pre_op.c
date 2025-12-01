@@ -900,12 +900,10 @@ sNode*% pre_position_operator(sInfo* info=info)
             if(xisalpha(*info->p) || *info->p == '_') {
                 word = parse_word();
                 if(is_type_name(word)) {
-puts("KKK");
                     info.p = p2;
                     info.sline = sline2;
                     
                     parse_type();
-printf("%c\n", *info->p);
                     
                     if(*info->p == ')') {
                         info->p++;

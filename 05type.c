@@ -2563,10 +2563,12 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
         skip_pointer_attribute();
         
         bool pointer_paren = false;
+        int paren_num = 0;
         if(*info->p == '(') {
             pointer_paren = true;
             info->p++;
             skip_spaces_and_lf();
+            paren_num++;
         }
         
         int array_pointer_num = 0;
@@ -2617,6 +2619,7 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
         if(*info->p == ')') {
             info->p++;
             skip_spaces_and_lf();
+            paren_num--;
         }
         list<sNode*%>*% array = new list<sNode*%>();
         while(*info->p == '[') {
@@ -2632,7 +2635,7 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
                 skip_spaces_and_lf();
             }
         }
-        if(*info->p == ')') {
+        if(paren_num > 0 && *info->p == ')') {
             info->p++;
             skip_spaces_and_lf();
             
