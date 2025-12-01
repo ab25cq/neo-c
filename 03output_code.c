@@ -539,6 +539,9 @@ string make_define_var(sType* type, char* name, sInfo* info=info, bool no_static
         if(type2->mArrayPointerNum > 0) {
             buf.append_format("(");
         }
+        if(type->mPointerParen) {
+            buf.append_format("(");
+        }
         
         type2->mArrayPointerNum.times {
             buf.append_format("*");
@@ -554,6 +557,10 @@ string make_define_var(sType* type, char* name, sInfo* info=info, bool no_static
             
             CVALUE*% come_value = get_value_from_stack(-1, info);
             buf.append_format(":%s", come_value.c_value);
+        }
+        
+        if(type->mPointerParen) {
+            buf.append_format(")");
         }
         
         foreach(it, type2->mVarNameArrayNum) {

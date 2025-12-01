@@ -2710,7 +2710,7 @@ sNode*% expression_node(sInfo* info=info) version 98
             info.sline_real = sline_real;
             return node;
         }
-        else if(!is_special_word && *info->p == '(' && !(*(info->p+1) == '*' && is_type_name_))
+        else if(!is_special_word && *info->p == '(' && !is_type_name_)
         {
             sNode*% node = parse_function_call(buf, info);
             
@@ -3046,7 +3046,7 @@ sNode*% post_position_operator(sNode*% node, sInfo* info)
         }
         
         parse_sharp();
-        
+
         return new sLambdaCall(node, params, info) implements sNode;
     }
     else {

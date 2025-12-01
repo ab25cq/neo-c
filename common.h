@@ -147,6 +147,7 @@ uniq class sType
     int mPointerNum;
     int mFunctionPointerNum;
     int mArrayPointerNum;
+    bool mPointerParen;
     
     sType*% mTypedefOriginalType;
     string mOriginalTypeName;

@@ -2198,6 +2198,11 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
         
             skip_pointer_attribute();
             
+            if(*info->p == '(') {
+                info->p++;
+                skip_spaces_and_lf();
+            }
+            
             if(*info->p == '*' || *info->p == '^') {
                 while(*info->p == '*' || *info->p == '^') {
                     info->p++;
@@ -2248,6 +2253,7 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
                     
                     if(*info->p == '[') {
                         pointer_to_array_flag = true;
+                        function_pointer_flag = false;
                     }
                     else if(*info->p == '(') {
                         function_pointer_flag = true;
@@ -2545,6 +2551,13 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
         
         skip_pointer_attribute();
         
+        bool pointer_paren = false;
+        if(*info->p == '(') {
+            pointer_paren = true;
+            info->p++;
+            skip_spaces_and_lf();
+        }
+        
         int array_pointer_num = 0;
         while(*info->p == '*' || *info->p == '^') {
             info->p++;
@@ -2590,25 +2603,41 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
             var_name = s"";
         }
         
+        if(*info->p == ')') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+        else {
+            while(*info->p == '[') {
+                info->p++;
+                skip_spaces_and_lf();
+                
+                sNode*% node = expression();
+                
+                type.mVarNameArrayNum.add(node);
+                
+                if(*info->p == ']') {
+                    info->p++;
+                    skip_spaces_and_lf();
+                }
+            }
+        }
+        
+        if(*info->p == ')') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+        
         while(*info->p == '[') {
             info->p++;
             skip_spaces_and_lf();
-            
-            sNode*% node = expression();
-            
-            type.mVarNameArrayNum.add(node);
             
             if(*info->p == ']') {
                 info->p++;
                 skip_spaces_and_lf();
+                type->mArrayPointerType = true;
+                break;
             }
-        }
-        
-        expected_next_character(')');
-        
-        while(*info->p == '[') {
-            info->p++;
-            skip_spaces_and_lf();
             
             sNode*% node = expression();
             
@@ -2621,6 +2650,7 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
         }
         
         type->mArrayPointerNum = array_pointer_num;
+        type->mPointerParen = pointer_paren;
     }
     else if(function_pointer_flag) {
         info->p++;

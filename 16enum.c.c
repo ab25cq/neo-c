@@ -1523,6 +1523,7 @@ struct sType
     int mPointerNum;
     int mFunctionPointerNum;
     int mArrayPointerNum;
+    _Bool mPointerParen;
     struct sType* mTypedefOriginalType;
     char* mOriginalTypeName;
     int mOriginalTypePointerNum;
@@ -3140,18 +3141,18 @@ char* __result_obj__11;
 }
 
 _Bool sEnumNode_compile(struct sEnumNode* self, struct sInfo* info){
-/*a*/char* type_name;
-/*a*/struct list$1tuple3$3char$phsNode$phchar$ph$ph* elements;
-/*a*/char* attribute;
+char* type_name;
+struct list$1tuple3$3char$phsNode$phchar$ph$ph* elements;
+char* attribute;
 void* __right_value0 = (void*)0;
 void* __right_value1 = (void*)0;
-/*a*/struct buffer* buf;
-/*a*/int i;
-/*a*/int n;
-/*a*/char* right_c_value;
-/*a*/_Bool output;
-/*a*/struct list$1tuple3$3char$phsNode$phchar$ph$ph* o2_saved;
-/*a*/struct tuple3$3char$phsNode$phchar$ph* it;
+struct buffer* buf;
+int i;
+int n;
+char* right_c_value;
+_Bool output;
+struct list$1tuple3$3char$phsNode$phchar$ph$ph* o2_saved;
+struct tuple3$3char$phsNode$phchar$ph* it;
 struct tuple3$3char$phsNode$phchar$ph* multiple_assign_var1
 ;char* name=0;
 struct sNode* value=0;
@@ -3164,10 +3165,10 @@ void* __right_value2 = (void*)0;
 struct sType* __exception_result_var_b1;
 struct sType* __exception_result_var_b2;
 struct sType* __exception_result_var_b3;
-/*a*/_Bool Value;
+_Bool Value;
 _Bool __result_obj__22;
-/*a*/struct CVALUE* right_value;
-/*a*/char* c_value_5;
+struct CVALUE* right_value;
+char* c_value_5;
 struct sType* __exception_result_var_b4;
 struct sType* __exception_result_var_b5;
 struct sType* __exception_result_var_b6;
@@ -3318,8 +3319,8 @@ static struct list$1tuple3$3char$phsNode$phchar$ph$ph* list$1tuple3$3char$phsNod
 struct list$1tuple3$3char$phsNode$phchar$ph$ph* __result_obj__1;
 void* __right_value0 = (void*)0;
 void* __right_value1 = (void*)0;
-/*a*/struct list$1tuple3$3char$phsNode$phchar$ph$ph* result;
-/*a*/struct list_item$1tuple3$3char$phsNode$phchar$ph$ph* it;
+struct list$1tuple3$3char$phsNode$phchar$ph$ph* result;
+struct list_item$1tuple3$3char$phsNode$phchar$ph$ph* it;
 struct list$1tuple3$3char$phsNode$phchar$ph$ph* __result_obj__8;
     if(    self==((void*)0)    ) {
         __result_obj__1 = (struct list$1tuple3$3char$phsNode$phchar$ph$ph*)come_increment_ref_count(((void*)0));
@@ -3346,8 +3347,8 @@ struct list$1tuple3$3char$phsNode$phchar$ph$ph* __result_obj__8;
 }
 
 static void list$1tuple3$3char$phsNode$phchar$ph$ph$p_finalize(struct list$1tuple3$3char$phsNode$phchar$ph$ph* self){
-/*a*/struct list_item$1tuple3$3char$phsNode$phchar$ph$ph* it;
-/*a*/struct list_item$1tuple3$3char$phsNode$phchar$ph$ph* prev_it;
+struct list_item$1tuple3$3char$phsNode$phchar$ph$ph* it;
+struct list_item$1tuple3$3char$phsNode$phchar$ph$ph* prev_it;
     it=self->head;
     while(    it!=((void*)0)    ) {
         prev_it=it;
@@ -3387,11 +3388,11 @@ struct list$1tuple3$3char$phsNode$phchar$ph$ph* __result_obj__2;
 
 static struct list$1tuple3$3char$phsNode$phchar$ph$ph* list$1tuple3$3char$phsNode$phchar$ph$ph_add(struct list$1tuple3$3char$phsNode$phchar$ph$ph* self, struct tuple3$3char$phsNode$phchar$ph* item){
 void* __right_value0 = (void*)0;
-/*a*/struct list_item$1tuple3$3char$phsNode$phchar$ph$ph* litem;
+struct list_item$1tuple3$3char$phsNode$phchar$ph$ph* litem;
 struct tuple3$3char$phsNode$phchar$ph* __dec_obj2;
-/*a*/struct list_item$1tuple3$3char$phsNode$phchar$ph$ph* litem_0;
+struct list_item$1tuple3$3char$phsNode$phchar$ph$ph* litem_0;
 struct tuple3$3char$phsNode$phchar$ph* __dec_obj3;
-/*a*/struct list_item$1tuple3$3char$phsNode$phchar$ph$ph* litem_1;
+struct list_item$1tuple3$3char$phsNode$phchar$ph$ph* litem_1;
 struct tuple3$3char$phsNode$phchar$ph* __dec_obj4;
 struct list$1tuple3$3char$phsNode$phchar$ph$ph* __result_obj__3;
     if(    self->len==0    ) {
@@ -3435,7 +3436,7 @@ struct list$1tuple3$3char$phsNode$phchar$ph$ph* __result_obj__3;
 static struct tuple3$3char$phsNode$phchar$ph* tuple3$3char$phsNode$phchar$ph_clone(struct tuple3$3char$phsNode$phchar$ph* self){
 struct tuple3$3char$phsNode$phchar$ph* __result_obj__4;
 void* __right_value0 = (void*)0;
-/*a*/struct tuple3$3char$phsNode$phchar$ph* result;
+struct tuple3$3char$phsNode$phchar$ph* result;
 char* __dec_obj5;
 struct sNode* __dec_obj6;
 char* __dec_obj7;
@@ -3473,7 +3474,7 @@ struct tuple3$3char$phsNode$phchar$ph* __result_obj__7;
 static struct sNode* sNode_clone(struct sNode* self){
 struct sNode* __result_obj__5;
 void* __right_value0 = (void*)0;
-/*a*/struct sNode* result;
+struct sNode* result;
 struct sNode* __result_obj__6;
     if(    self==(void*)0    ) {
         __result_obj__5 = (struct sNode*)come_increment_ref_count((void*)0);
@@ -3530,8 +3531,8 @@ static void tuple3$3char$phsNode$phchar$ph_finalize(struct tuple3$3char$phsNode$
 }
 
 static void list$1tuple3$3char$phsNode$phchar$ph$ph_finalize(struct list$1tuple3$3char$phsNode$phchar$ph$ph* self){
-/*a*/struct list_item$1tuple3$3char$phsNode$phchar$ph$ph* it;
-/*a*/struct list_item$1tuple3$3char$phsNode$phchar$ph$ph* prev_it;
+struct list_item$1tuple3$3char$phsNode$phchar$ph$ph* it;
+struct list_item$1tuple3$3char$phsNode$phchar$ph$ph* prev_it;
     it=self->head;
     while(    it!=((void*)0)    ) {
         prev_it=it;
@@ -3604,8 +3605,8 @@ static void sType_finalize(struct sType* self){
 }
 
 static void list$1sType$ph$p_finalize(struct list$1sType$ph* self){
-/*a*/struct list_item$1sType$ph* it;
-/*a*/struct list_item$1sType$ph* prev_it;
+struct list_item$1sType$ph* it;
+struct list_item$1sType$ph* prev_it;
     it=self->head;
     while(    it!=((void*)0)    ) {
         prev_it=it;
@@ -3621,8 +3622,8 @@ static void list_item$1sType$ph$p_finalize(struct list_item$1sType$ph* self){
 }
 
 static void list$1sNode$ph$p_finalize(struct list$1sNode$ph* self){
-/*a*/struct list_item$1sNode$ph* it;
-/*a*/struct list_item$1sNode$ph* prev_it;
+struct list_item$1sNode$ph* it;
+struct list_item$1sNode$ph* prev_it;
     it=self->head;
     while(    it!=((void*)0)    ) {
         prev_it=it;
@@ -3638,8 +3639,8 @@ static void list_item$1sNode$ph$p_finalize(struct list_item$1sNode$ph* self){
 }
 
 static void list$1int$$p_finalize(struct list$1int$* self){
-/*a*/struct list_item$1int$* it;
-/*a*/struct list_item$1int$* prev_it;
+struct list_item$1int$* it;
+struct list_item$1int$* prev_it;
     it=self->head;
     while(    it!=((void*)0)    ) {
         prev_it=it;
@@ -3652,8 +3653,8 @@ static void list_item$1int$$p_finalize(struct list_item$1int$* self){
 }
 
 static void list$1char$ph$p_finalize(struct list$1char$ph* self){
-/*a*/struct list_item$1char$ph* it;
-/*a*/struct list_item$1char$ph* prev_it;
+struct list_item$1char$ph* it;
+struct list_item$1char$ph* prev_it;
     it=self->head;
     while(    it!=((void*)0)    ) {
         prev_it=it;
@@ -3733,8 +3734,8 @@ struct tuple3$3char$phsNode$phchar$ph* __result_obj__17;
 }
 
 static struct sVar* map$2char$phsVar$ph_at(struct map$2char$phsVar$ph* self, char* key, struct sVar* default_value){
-/*a*/unsigned int hash;
-/*a*/unsigned int it;
+unsigned int hash;
+unsigned int it;
 struct sVar* __result_obj__18;
 struct sVar* __result_obj__19;
 struct sVar* __result_obj__20;
@@ -3812,8 +3813,8 @@ static void CVALUE_finalize(struct CVALUE* self){
 
 static struct buffer* map$2char$phbuffer$ph$p_operator_load_element(struct map$2char$phbuffer$ph* self, char* key){
 struct buffer* default_value;
-/*a*/unsigned int hash;
-/*a*/unsigned int it;
+unsigned int hash;
+unsigned int it;
 struct buffer* __result_obj__23;
 struct buffer* __result_obj__24;
 struct buffer* __result_obj__25;
@@ -3855,8 +3856,8 @@ struct buffer* __result_obj__26;
 
 static struct buffer* map$2char$phbuffer$ph_operator_load_element(struct map$2char$phbuffer$ph* self, char* key){
 struct buffer* default_value;
-/*a*/unsigned int hash;
-/*a*/unsigned int it;
+unsigned int hash;
+unsigned int it;
 struct buffer* __result_obj__27;
 struct buffer* __result_obj__28;
 struct buffer* __result_obj__29;
@@ -3897,10 +3898,10 @@ struct buffer* __result_obj__30;
 }
 
 static struct map$2char$phbuffer$ph* map$2char$phbuffer$ph_insert(struct map$2char$phbuffer$ph* self, char* key, struct buffer* item){
-/*a*/unsigned int hash;
-/*a*/unsigned int it;
-/*a*/_Bool same_key_exist;
-/*a*/char* it2;
+unsigned int hash;
+unsigned int it;
+_Bool same_key_exist;
+char* it2;
 struct map$2char$phbuffer$ph* __result_obj__52;
     if(    self->len*10>=self->size    ) {
         map$2char$phbuffer$ph_rehash(self);
@@ -3972,17 +3973,17 @@ struct map$2char$phbuffer$ph* __result_obj__52;
 }
 
 static void map$2char$phbuffer$ph_rehash(struct map$2char$phbuffer$ph* self){
-/*a*/int size;
+int size;
 void* __right_value0 = (void*)0;
-/*a*/char** keys;
-/*a*/struct buffer** items;
-/*a*/_Bool* item_existance;
-/*a*/int len;
-/*a*/char* it;
+char** keys;
+struct buffer** items;
+_Bool* item_existance;
+int len;
+char* it;
 struct buffer* default_value;
-/*a*/struct buffer* it2;
-/*a*/unsigned int hash;
-/*a*/int n;
+struct buffer* it2;
+unsigned int hash;
+int n;
 struct buffer* default_value_8;
 memset(&default_value_8, 0, sizeof(default_value_8));
     size=self->size*10;
@@ -4082,8 +4083,8 @@ char* __result_obj__36;
 }
 
 static struct buffer* map$2char$phbuffer$ph_at(struct map$2char$phbuffer$ph* self, char* key, struct buffer* default_value){
-/*a*/unsigned int hash;
-/*a*/unsigned int it;
+unsigned int hash;
+unsigned int it;
 struct buffer* __result_obj__37;
 struct buffer* __result_obj__38;
 struct buffer* __result_obj__39;
@@ -4123,8 +4124,8 @@ struct buffer* __result_obj__40;
 }
 
 static struct list$1char$ph* list$1char$ph_remove(struct list$1char$ph* self, char* item){
-/*a*/int it2;
-/*a*/struct list_item$1char$ph* it;
+int it2;
+struct list_item$1char$ph* it;
 struct list$1char$ph* __result_obj__44;
     it2=0;
     it=self->head;
@@ -4141,19 +4142,19 @@ struct list$1char$ph* __result_obj__44;
 }
 
 static struct list$1char$ph* list$1char$ph_delete(struct list$1char$ph* self, int head, int tail){
-/*a*/int tmp;
+int tmp;
 struct list$1char$ph* __result_obj__41;
-/*a*/struct list_item$1char$ph* it;
-/*a*/int i;
-/*a*/struct list_item$1char$ph* prev_it;
-/*a*/struct list_item$1char$ph* it_9;
-/*a*/int i_10;
-/*a*/struct list_item$1char$ph* prev_it_11;
-/*a*/struct list_item$1char$ph* it_12;
-/*a*/struct list_item$1char$ph* head_prev_it;
-/*a*/struct list_item$1char$ph* tail_it;
-/*a*/int i_13;
-/*a*/struct list_item$1char$ph* prev_it_14;
+struct list_item$1char$ph* it;
+int i;
+struct list_item$1char$ph* prev_it;
+struct list_item$1char$ph* it_9;
+int i_10;
+struct list_item$1char$ph* prev_it_11;
+struct list_item$1char$ph* it_12;
+struct list_item$1char$ph* head_prev_it;
+struct list_item$1char$ph* tail_it;
+int i_13;
+struct list_item$1char$ph* prev_it_14;
 struct list$1char$ph* __result_obj__43;
     if(    head<0    ) {
         head+=self->len;
@@ -4258,8 +4259,8 @@ struct list$1char$ph* __result_obj__43;
 }
 
 static struct list$1char$ph* list$1char$ph_reset(struct list$1char$ph* self){
-/*a*/struct list_item$1char$ph* it;
-/*a*/struct list_item$1char$ph* prev_it;
+struct list_item$1char$ph* it;
+struct list_item$1char$ph* prev_it;
 struct list$1char$ph* __result_obj__42;
     it=self->head;
     while(    it!=((void*)0)    ) {
@@ -4322,11 +4323,11 @@ char* __result_obj__50;
 
 static struct list$1char$ph* list$1char$ph_push_back(struct list$1char$ph* self, char* item){
 void* __right_value0 = (void*)0;
-/*a*/struct list_item$1char$ph* litem;
+struct list_item$1char$ph* litem;
 char* __dec_obj15;
-/*a*/struct list_item$1char$ph* litem_17;
+struct list_item$1char$ph* litem_17;
 char* __dec_obj16;
-/*a*/struct list_item$1char$ph* litem_18;
+struct list_item$1char$ph* litem_18;
 char* __dec_obj17;
 struct list$1char$ph* __result_obj__51;
     if(    self->len==0    ) {
@@ -4375,22 +4376,22 @@ void* __right_value1 = (void*)0;
 void* __right_value2 = (void*)0;
 struct sClass* __dec_obj18;
 struct sClass* __dec_obj19;
-/*a*/struct sType* type_elements;
+struct sType* type_elements;
 struct tuple3$3sType$phchar$phbool$* multiple_assign_var2
 ;struct sType* type=0;
 char* name=0;
 _Bool err=0;
 struct sType* __dec_obj20;
-/*a*/struct list$1tuple3$3char$phsNode$phchar$ph$ph* elements;
-/*a*/char* element_name;
-/*a*/char* attribute_22;
-/*a*/_Bool no_comma;
-/*a*/struct sNode* element_value;
+struct list$1tuple3$3char$phsNode$phchar$ph$ph* elements;
+char* element_name;
+char* attribute_22;
+_Bool no_comma;
+struct sNode* element_value;
 void* __right_value3 = (void*)0;
 void* __right_value4 = (void*)0;
 void* __right_value5 = (void*)0;
 void* __right_value6 = (void*)0;
-/*a*/char* attribute2;
+char* attribute2;
 struct sNode* _inf_value1;
 struct sEnumNode* _inf_obj_value1;
 struct sNode* __result_obj__87;
@@ -4521,8 +4522,8 @@ memset(&klass, 0, sizeof(klass));
 }
 
 static struct sClass* map$2char$phsClass$ph_at(struct map$2char$phsClass$ph* self, char* key, struct sClass* default_value){
-/*a*/unsigned int hash;
-/*a*/unsigned int it;
+unsigned int hash;
+unsigned int it;
 struct sClass* __result_obj__54;
 struct sClass* __result_obj__55;
 struct sClass* __result_obj__56;
@@ -4577,8 +4578,8 @@ static void sClass_finalize(struct sClass* self){
 }
 
 static void list$1tuple2$2char$phsType$ph$ph$p_finalize(struct list$1tuple2$2char$phsType$ph$ph* self){
-/*a*/struct list_item$1tuple2$2char$phsType$ph$ph* it;
-/*a*/struct list_item$1tuple2$2char$phsType$ph$ph* prev_it;
+struct list_item$1tuple2$2char$phsType$ph$ph* it;
+struct list_item$1tuple2$2char$phsType$ph$ph* prev_it;
     it=self->head;
     while(    it!=((void*)0)    ) {
         prev_it=it;
@@ -4603,10 +4604,10 @@ static void tuple2$2char$phsType$ph$p_finalize(struct tuple2$2char$phsType$ph* s
 }
 
 static struct map$2char$phsClass$ph* map$2char$phsClass$ph_insert(struct map$2char$phsClass$ph* self, char* key, struct sClass* item){
-/*a*/unsigned int hash;
-/*a*/unsigned int it;
-/*a*/_Bool same_key_exist;
-/*a*/char* it2;
+unsigned int hash;
+unsigned int it;
+_Bool same_key_exist;
+char* it2;
 struct map$2char$phsClass$ph* __result_obj__64;
     if(    self->len*10>=self->size    ) {
         map$2char$phsClass$ph_rehash(self);
@@ -4678,17 +4679,17 @@ struct map$2char$phsClass$ph* __result_obj__64;
 }
 
 static void map$2char$phsClass$ph_rehash(struct map$2char$phsClass$ph* self){
-/*a*/int size;
+int size;
 void* __right_value0 = (void*)0;
-/*a*/char** keys;
-/*a*/struct sClass** items;
-/*a*/_Bool* item_existance;
-/*a*/int len;
-/*a*/char* it;
+char** keys;
+struct sClass** items;
+_Bool* item_existance;
+int len;
+char* it;
 struct sClass* default_value;
-/*a*/struct sClass* it2;
-/*a*/unsigned int hash;
-/*a*/int n;
+struct sClass* it2;
+unsigned int hash;
+int n;
 struct sClass* default_value_21;
 memset(&default_value_21, 0, sizeof(default_value_21));
     size=self->size*10;
@@ -4798,11 +4799,11 @@ static void tuple3$3sType$phchar$phbool$$p_finalize(struct tuple3$3sType$phchar$
 
 static struct list$1tuple3$3char$phsNode$phchar$ph$ph* list$1tuple3$3char$phsNode$phchar$ph$ph_push_back(struct list$1tuple3$3char$phsNode$phchar$ph$ph* self, struct tuple3$3char$phsNode$phchar$ph* item){
 void* __right_value0 = (void*)0;
-/*a*/struct list_item$1tuple3$3char$phsNode$phchar$ph$ph* litem;
+struct list_item$1tuple3$3char$phsNode$phchar$ph$ph* litem;
 struct tuple3$3char$phsNode$phchar$ph* __dec_obj21;
-/*a*/struct list_item$1tuple3$3char$phsNode$phchar$ph$ph* litem_23;
+struct list_item$1tuple3$3char$phsNode$phchar$ph$ph* litem_23;
 struct tuple3$3char$phsNode$phchar$ph* __dec_obj22;
-/*a*/struct list_item$1tuple3$3char$phsNode$phchar$ph$ph* litem_24;
+struct list_item$1tuple3$3char$phsNode$phchar$ph$ph* litem_24;
 struct tuple3$3char$phsNode$phchar$ph* __dec_obj23;
 struct list$1tuple3$3char$phsNode$phchar$ph$ph* __result_obj__65;
     if(    self->len==0    ) {
@@ -4869,7 +4870,7 @@ struct tuple3$3char$phsNode$phchar$ph* __result_obj__66;
 static struct sEnumNode* sEnumNode_clone(struct sEnumNode* self){
 struct sEnumNode* __result_obj__67;
 void* __right_value0 = (void*)0;
-/*a*/struct sEnumNode* result;
+struct sEnumNode* result;
 char* __dec_obj27;
 char* __dec_obj28;
 struct list$1tuple3$3char$phsNode$phchar$ph$ph* __dec_obj29;
@@ -4925,7 +4926,7 @@ struct sEnumNode* __result_obj__86;
 static struct sType* sType_clone(struct sType* self){
 struct sType* __result_obj__68;
 void* __right_value0 = (void*)0;
-/*a*/struct sType* result;
+struct sType* result;
 struct sType* __dec_obj30;
 struct sType* __dec_obj31;
 struct list$1sType$ph* __dec_obj35;
@@ -5142,6 +5143,9 @@ struct sType* __result_obj__85;
     if(    self!=((void*)0)    ) {
         result->mArrayPointerNum=self->mArrayPointerNum;
     }
+    if(    self!=((void*)0)    ) {
+        result->mPointerParen=self->mPointerParen;
+    }
     if(    self!=((void*)0)&&self->mTypedefOriginalType!=((void*)0)    ) {
         __right_value0 = (void*)0;
         __dec_obj50=result->mTypedefOriginalType,
@@ -5151,7 +5155,7 @@ struct sType* __result_obj__85;
     if(    self!=((void*)0)&&self->mOriginalTypeName!=((void*)0)    ) {
         __right_value0 = (void*)0;
         __dec_obj51=result->mOriginalTypeName,
-        result->mOriginalTypeName=(char*)come_increment_ref_count((char*)come_memdup(self->mOriginalTypeName, "sType_clone", 54, "char*"));
+        result->mOriginalTypeName=(char*)come_increment_ref_count((char*)come_memdup(self->mOriginalTypeName, "sType_clone", 55, "char*"));
         __dec_obj51 = come_decrement_ref_count(__dec_obj51, (void*)0, (void*)0, 0,0, (void*)0);
     }
     if(    self!=((void*)0)    ) {
@@ -5200,8 +5204,8 @@ static struct list$1sType$ph* list$1sType$ph$p_clone(struct list$1sType$ph* self
 struct list$1sType$ph* __result_obj__69;
 void* __right_value0 = (void*)0;
 void* __right_value1 = (void*)0;
-/*a*/struct list$1sType$ph* result;
-/*a*/struct list_item$1sType$ph* it;
+struct list$1sType$ph* result;
+struct list_item$1sType$ph* it;
 struct list$1sType$ph* __result_obj__72;
     if(    self==((void*)0)    ) {
         __result_obj__69 = (struct list$1sType$ph*)come_increment_ref_count(((void*)0));
@@ -5240,11 +5244,11 @@ struct list$1sType$ph* __result_obj__70;
 
 static struct list$1sType$ph* list$1sType$ph_add(struct list$1sType$ph* self, struct sType* item){
 void* __right_value0 = (void*)0;
-/*a*/struct list_item$1sType$ph* litem;
+struct list_item$1sType$ph* litem;
 struct sType* __dec_obj32;
-/*a*/struct list_item$1sType$ph* litem_25;
+struct list_item$1sType$ph* litem_25;
 struct sType* __dec_obj33;
-/*a*/struct list_item$1sType$ph* litem_26;
+struct list_item$1sType$ph* litem_26;
 struct sType* __dec_obj34;
 struct list$1sType$ph* __result_obj__71;
     if(    self->len==0    ) {
@@ -5286,8 +5290,8 @@ struct list$1sType$ph* __result_obj__71;
 }
 
 static void list$1sType$ph_finalize(struct list$1sType$ph* self){
-/*a*/struct list_item$1sType$ph* it;
-/*a*/struct list_item$1sType$ph* prev_it;
+struct list_item$1sType$ph* it;
+struct list_item$1sType$ph* prev_it;
     it=self->head;
     while(    it!=((void*)0)    ) {
         prev_it=it;
@@ -5300,8 +5304,8 @@ static struct list$1sNode$ph* list$1sNode$ph$p_clone(struct list$1sNode$ph* self
 struct list$1sNode$ph* __result_obj__73;
 void* __right_value0 = (void*)0;
 void* __right_value1 = (void*)0;
-/*a*/struct list$1sNode$ph* result;
-/*a*/struct list_item$1sNode$ph* it;
+struct list$1sNode$ph* result;
+struct list_item$1sNode$ph* it;
 struct list$1sNode$ph* __result_obj__76;
     if(    self==((void*)0)    ) {
         __result_obj__73 = (struct list$1sNode$ph*)come_increment_ref_count(((void*)0));
@@ -5340,11 +5344,11 @@ struct list$1sNode$ph* __result_obj__74;
 
 static struct list$1sNode$ph* list$1sNode$ph_add(struct list$1sNode$ph* self, struct sNode* item){
 void* __right_value0 = (void*)0;
-/*a*/struct list_item$1sNode$ph* litem;
+struct list_item$1sNode$ph* litem;
 struct sNode* __dec_obj43;
-/*a*/struct list_item$1sNode$ph* litem_27;
+struct list_item$1sNode$ph* litem_27;
 struct sNode* __dec_obj44;
-/*a*/struct list_item$1sNode$ph* litem_28;
+struct list_item$1sNode$ph* litem_28;
 struct sNode* __dec_obj45;
 struct list$1sNode$ph* __result_obj__75;
     if(    self->len==0    ) {
@@ -5386,8 +5390,8 @@ struct list$1sNode$ph* __result_obj__75;
 }
 
 static void list$1sNode$ph_finalize(struct list$1sNode$ph* self){
-/*a*/struct list_item$1sNode$ph* it;
-/*a*/struct list_item$1sNode$ph* prev_it;
+struct list_item$1sNode$ph* it;
+struct list_item$1sNode$ph* prev_it;
     it=self->head;
     while(    it!=((void*)0)    ) {
         prev_it=it;
@@ -5400,8 +5404,8 @@ static struct list$1int$* list$1int$$p_clone(struct list$1int$* self){
 struct list$1int$* __result_obj__77;
 void* __right_value0 = (void*)0;
 void* __right_value1 = (void*)0;
-/*a*/struct list$1int$* result;
-/*a*/struct list_item$1int$* it;
+struct list$1int$* result;
+struct list_item$1int$* it;
 struct list$1int$* __result_obj__80;
     if(    self==((void*)0)    ) {
         __result_obj__77 = (struct list$1int$*)come_increment_ref_count(((void*)0));
@@ -5438,9 +5442,9 @@ struct list$1int$* __result_obj__78;
 
 static struct list$1int$* list$1int$_add(struct list$1int$* self, int item){
 void* __right_value0 = (void*)0;
-/*a*/struct list_item$1int$* litem;
-/*a*/struct list_item$1int$* litem_29;
-/*a*/struct list_item$1int$* litem_30;
+struct list_item$1int$* litem;
+struct list_item$1int$* litem_29;
+struct list_item$1int$* litem_30;
 struct list$1int$* __result_obj__79;
     if(    self->len==0    ) {
         litem=(struct list_item$1int$*)come_increment_ref_count(((struct list_item$1int$*)(__right_value0=(struct list_item$1int$*)come_calloc_v2(1, sizeof(struct list_item$1int$)*(1), "/usr/local/include/neo-c.h", 1068, "struct list_item$1int$*"))));
@@ -5474,8 +5478,8 @@ struct list$1int$* __result_obj__79;
 }
 
 static void list$1int$_finalize(struct list$1int$* self){
-/*a*/struct list_item$1int$* it;
-/*a*/struct list_item$1int$* prev_it;
+struct list_item$1int$* it;
+struct list_item$1int$* prev_it;
     it=self->head;
     while(    it!=((void*)0)    ) {
         prev_it=it;
@@ -5488,8 +5492,8 @@ static struct list$1char$ph* list$1char$ph$p_clone(struct list$1char$ph* self){
 struct list$1char$ph* __result_obj__81;
 void* __right_value0 = (void*)0;
 void* __right_value1 = (void*)0;
-/*a*/struct list$1char$ph* result;
-/*a*/struct list_item$1char$ph* it;
+struct list$1char$ph* result;
+struct list_item$1char$ph* it;
 struct list$1char$ph* __result_obj__84;
     if(    self==((void*)0)    ) {
         __result_obj__81 = (struct list$1char$ph*)come_increment_ref_count(((void*)0));
@@ -5528,11 +5532,11 @@ struct list$1char$ph* __result_obj__82;
 
 static struct list$1char$ph* list$1char$ph_add(struct list$1char$ph* self, char* item){
 void* __right_value0 = (void*)0;
-/*a*/struct list_item$1char$ph* litem;
+struct list_item$1char$ph* litem;
 char* __dec_obj53;
-/*a*/struct list_item$1char$ph* litem_31;
+struct list_item$1char$ph* litem_31;
 char* __dec_obj54;
-/*a*/struct list_item$1char$ph* litem_32;
+struct list_item$1char$ph* litem_32;
 char* __dec_obj55;
 struct list$1char$ph* __result_obj__83;
     if(    self->len==0    ) {
@@ -5574,8 +5578,8 @@ struct list$1char$ph* __result_obj__83;
 }
 
 static void list$1char$ph_finalize(struct list$1char$ph* self){
-/*a*/struct list_item$1char$ph* it;
-/*a*/struct list_item$1char$ph* prev_it;
+struct list_item$1char$ph* it;
+struct list_item$1char$ph* prev_it;
     it=self->head;
     while(    it!=((void*)0)    ) {
         prev_it=it;
@@ -5585,11 +5589,11 @@ static void list$1char$ph_finalize(struct list$1char$ph* self){
 }
 
 struct sNode* top_level_v96(char* buf, char* head, int head_sline, struct sInfo* info){
-/*a*/char* source_head;
-/*a*/char* type_name;
-/*a*/struct sType* type_elements;
+char* source_head;
+char* type_name;
+struct sType* type_elements;
 void* __right_value0 = (void*)0;
-/*a*/char* attribute;
+char* attribute;
 struct tuple3$3sType$phchar$phbool$* multiple_assign_var3
 ;struct sType* type=0;
 char* name=0;
@@ -5605,13 +5609,13 @@ struct tuple3$3sType$phchar$phbool$* multiple_assign_var4
 char* name_34=0;
 _Bool err_35=0;
 struct sType* __dec_obj64;
-/*a*/struct list$1tuple3$3char$phsNode$phchar$ph$ph* elements;
-/*a*/char* element_name;
-/*a*/char* attribute_36;
-/*a*/_Bool no_comma;
-/*a*/struct sNode* element_value;
-/*a*/char* source_tail;
-/*a*/struct buffer* header;
+struct list$1tuple3$3char$phsNode$phchar$ph$ph* elements;
+char* element_name;
+char* attribute_36;
+_Bool no_comma;
+struct sNode* element_value;
+char* source_tail;
+struct buffer* header;
 struct sNode* _inf_value2;
 struct sEnumNode* _inf_obj_value2;
 struct sNode* __result_obj__88;
@@ -5775,13 +5779,13 @@ struct sNode* __result_obj__89;
 }
 
 struct sNode* string_node_v16(char* buf, char* head, int head_sline, struct sInfo* info){
-/*a*/_Bool define_enum;
-/*a*/char* p;
-/*a*/int sline;
+_Bool define_enum;
+char* p;
+int sline;
 void* __right_value0 = (void*)0;
-/*a*/char* type_name;
-/*a*/char* struct_attribute;
-/*a*/char* type_name_37;
+char* type_name;
+char* struct_attribute;
+char* type_name_37;
 struct sNode* __result_obj__90;
 struct sNode* __result_obj__91;
     define_enum=(_Bool)0;
