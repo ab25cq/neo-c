@@ -2245,11 +2245,22 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
                             function_pointer_flag = true;
                             pointer_to_array_flag = false;
                         }
+                        else if(*info->p == '[') {
+                            function_pointer_flag = false;
+                            pointer_to_array_flag = true;
+                        }
                     }
                 }
                 else if(*info->p == ')') {
                     info->p++;
                     skip_spaces_and_lf();
+                    
+                    if(*info->p == ')') {
+                        info->p++;
+                        skip_spaces_and_lf();
+                        pointer_to_array_flag = true;
+                        function_pointer_flag = false;
+                    }
                     
                     if(*info->p == '[') {
                         pointer_to_array_flag = true;
@@ -2607,25 +2618,30 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
             info->p++;
             skip_spaces_and_lf();
         }
-        else {
-            while(*info->p == '[') {
+        list<sNode*%>*% array = new list<sNode*%>();
+        while(*info->p == '[') {
+            info->p++;
+            skip_spaces_and_lf();
+            
+            sNode*% node = expression();
+            
+            array.add(node);
+            
+            if(*info->p == ']') {
                 info->p++;
                 skip_spaces_and_lf();
-                
-                sNode*% node = expression();
-                
-                type.mVarNameArrayNum.add(node);
-                
-                if(*info->p == ']') {
-                    info->p++;
-                    skip_spaces_and_lf();
-                }
             }
         }
-        
         if(*info->p == ')') {
             info->p++;
             skip_spaces_and_lf();
+            
+            type.mVarNameArrayNum = array;
+        }
+        else {
+            array.each {
+                type.mArrayNum.add(clone it);
+            }
         }
         
         while(*info->p == '[') {
