@@ -1343,7 +1343,7 @@ class sCommaNode extends sNodeBase
         CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = xsprintf("%s,%s", left_value.c_value, right_value.c_value);
-        come_value.type = clone left_value.type;
+        come_value.type = clone right_value.type;
         come_value.var = null;
         
         add_come_last_code(info, "%s", come_value.c_value);

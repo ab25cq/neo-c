@@ -797,7 +797,7 @@ uniq class sCurrentNode extends sNodeBase
 /////////////////////////////////////////////////////////////////////
 bool transpile_conditional_with_free_right_object_value(sNode* node, sInfo* info=info);
 int err_msg(sInfo* info, char* msg, ...);
-int expected_next_character(char c, sInfo* info=info);;
+record int expected_next_character(char c, sInfo* info=info);;
 bool node_compile(sNode* node, sInfo* info=info);
 bool node_conditional_compile(sNode* node, sInfo* info=info);
 int come_main(int argc, char** argv);

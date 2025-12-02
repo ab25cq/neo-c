@@ -39,7 +39,7 @@ Content-Length: 0\r
             printf(redirect_response);
         }
         else {
-            if(password === li[1]??) {
+            if(password === li[1]) {
                 string redirect_response = """
 HTTP/1.1 302 Found\r
 Set-Cookie: username=\{username};\r

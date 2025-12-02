@@ -2,9 +2,9 @@
 
 bool is_type_name(char* buf, sInfo* info=info)
 {
-    sClass* klass = info.classes[buf]??;
-    sType* type = info.types[buf]??;
-    sClass* generics_class = info.generics_classes[string(buf)]??;
+    sClass* klass = info.classes[buf];
+    sType* type = info.types[buf];
+    sClass* generics_class = info.generics_classes[string(buf)];
     bool generics_type_name = info.generics_type_names.contained(string(buf));
     bool mgenerics_type_name = info.method_generics_type_names.contained(string(buf));
     
@@ -233,7 +233,7 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
                 parent_class = true;
             }
             if(right_class->mParentClassName) {
-                right_class = info.classes[right_class->mParentClassName]??;
+                right_class = info.classes[right_class->mParentClassName];
             }
             else {
                 right_class = null;
@@ -282,7 +282,7 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
                     flag_ = true;
                 }
                 if(klass->mParentClassName) {
-                    klass = info.classes[klass->mParentClassName]??;
+                    klass = info.classes[klass->mParentClassName];
                 }
                 else {
                     klass = null;
@@ -2039,7 +2039,10 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
         info->p++;
         skip_spaces_and_lf();
         
+        bool no_comma = info.no_comma;
+        info.no_comma = false;
         sNode*% exp = expression();
+        info.no_comma = no_comma;
         
         expected_next_character(')');
         
@@ -2497,9 +2500,9 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
     }
     else if(lambda_flag) {
         sType*% result_type;
-        if(info.types[type_name]??) {
-            result_type = clone info.types[type_name]??;
-            result_type->mClass = info.classes[result_type->mClass->mName]??;
+        if(info.types[type_name]) {
+            result_type = clone info.types[type_name];
+            result_type->mClass = info.classes[result_type->mClass->mName];
         }
         else if(info.generics_type_names.contained(type_name)) {
             for(int i=0; i<info.generics_type_names.length(); i++) {
@@ -2688,9 +2691,9 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
         skip_pointer_attribute();
         
         sType*% result_type;
-        if(info.types[type_name]??) {
-            result_type = clone info.types[type_name]??;
-            result_type->mClass = info.classes[result_type->mClass->mName]??;
+        if(info.types[type_name]) {
+            result_type = clone info.types[type_name];
+            result_type->mClass = info.classes[result_type->mClass->mName];
         }
         else if(info.generics_type_names.contained(type_name)) {
             for(int i=0; i<info.generics_type_names.length(); i++) {
@@ -2818,7 +2821,7 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
     }
     else {
         if(info.types[type_name]) {
-            type = clone info.types[type_name]??;
+            type = clone info.types[type_name];
             type->mClass = info.classes[type->mClass->mName];
             
             buffer* t = info.typedef_definition[type_name];
@@ -2918,7 +2921,7 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
             info->p++;
             skip_spaces_and_lf();
             
-            if(info.generics_classes[string(type_name)]?? == null)
+            if(info.generics_classes[string(type_name)] == null)
             {
                 return ((sType*%)null, (string)null, false);
             }
@@ -2994,14 +2997,14 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
         }
         else {
             if(struct_) {
-                sClass* klass = info.classes[type_name]??;
+                sClass* klass = info.classes[type_name];
                 
                 if(klass == null && *info->p != '<') {
                     info.classes.insert(string(type_name), new sClass(name:string(type_name), struct_:true));
                 }
             }
             if(union_) {
-                sClass* klass = info.classes[type_name]??;
+                sClass* klass = info.classes[type_name];
                 
                 if(klass == null && *info->p != '<') {
                     info.classes.insert(string(type_name), new sClass(name:string(type_name), union_:true));

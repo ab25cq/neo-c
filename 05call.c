@@ -1062,7 +1062,7 @@ class sFunCallNode extends sNodeBase
             for(i=version-1; i>=1; i--) {
                 string new_fun_name = xsprintf("%s_v%d", real_fun_name, i);
                 
-                if(info.funcs[new_fun_name]??) {
+                if(info.funcs[new_fun_name]) {
                     fun_name = string(new_fun_name);
                     break;
                 }
@@ -1071,7 +1071,7 @@ class sFunCallNode extends sNodeBase
             if(i==0) {
                 string new_fun_name = xsprintf("%s", real_fun_name);
                 
-                if(info.funcs[new_fun_name]??) {
+                if(info.funcs[new_fun_name]) {
                     fun_name = string(new_fun_name);
                 }
                 
@@ -1085,7 +1085,7 @@ class sFunCallNode extends sNodeBase
             for(int i=FUN_VERSION_MAX; i>=1; i--) {
                 string new_fun_name = xsprintf("%s_v%d", fun_name, i);
             
-                if(info.funcs[new_fun_name]??) {
+                if(info.funcs[new_fun_name]) {
                     fun_name = string(new_fun_name);
                     break;
                 }
@@ -1335,13 +1335,13 @@ class sFunCallNode extends sNodeBase
             come_params.push_back(come_value);
             
             buffer*% method_block2 = new buffer();
-            sType*% method_block_type = clone fun.mParamTypes[-1]??;
+            sType*% method_block_type = clone fun.mParamTypes[-1];
             
             string class_name = xsprintf("__current_stack%d__", info->current_stack_num);
             
-            method_block_type.mParamTypes[0].mClass = info.classes[class_name]??;
+            method_block_type.mParamTypes[0].mClass = info.classes[class_name];
             sClass* current_stack_frame_struct = info.current_stack_frame_struct;
-            info->current_stack_frame_struct = info.classes[class_name]??;
+            info->current_stack_frame_struct = info.classes[class_name];
             
             info->num_method_block++;
             
@@ -1592,7 +1592,7 @@ class sComeCallNode extends sNodeBase
         come_block2.append_str(come_block.to_string());
                         
         sClass* current_stack_frame_struct = info.current_stack_frame_struct;
-        info->current_stack_frame_struct = info.classes[class_name]??;
+        info->current_stack_frame_struct = info.classes[class_name];
         
         buffer*% source3 = info.source;
         char* p = info.p;
@@ -1842,7 +1842,7 @@ class sLambdaCall extends sNodeBase
             CVALUE*% come_value = get_value_from_stack(-1, info);
             
             come_value.type = solve_generics(come_value.type, info->generics_type, info);
-            if(lambda_type.mVarArgs && lambda_type.mParamTypes[i]?? == null) {
+            if(lambda_type.mVarArgs && lambda_type.mParamTypes[i] == null) {
             }
             else {
                 check_assign_type(s"calling param #\{i}", lambda_type.mParamTypes[i], come_value.type, come_value);
@@ -2318,7 +2318,7 @@ sNode*% expression_node(sInfo* info=info) version 98
                 buf = parse_word();
             }
             
-            if(!is_type_name(buf) && info.lv_table.mVars[string(buf)]?? == null && info.gv_table.mVars[string(buf)]?? == null && *info->p == '<') {
+            if(!is_type_name(buf) && info.lv_table.mVars[string(buf)] == null && info.gv_table.mVars[string(buf)] == null && *info->p == '<') {
                 int nest = 0;
                 while(*info->p) {
                     if(*info->p == '<') {
@@ -2648,10 +2648,10 @@ sNode*% expression_node(sInfo* info=info) version 98
             
             fun_name.append_str(buf);
             
-            sType*% type = clone info.types[fun_name.to_string()]??;
+            sType*% type = clone info.types[fun_name.to_string()];
             
             if(type == null) {
-                sClass* klass = info.classes[fun_name.to_string()]??;
+                sClass* klass = info.classes[fun_name.to_string()];
                 
                 if(klass) {
                     type = new sType(string(buf));

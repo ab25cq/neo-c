@@ -71,7 +71,7 @@ class sNewNode extends sNodeBase
             buf.append_str("(");
             
             string obj;
-            if(info.funcs["come_calloc_v2"]??) {
+            if(info.funcs["come_calloc_v2"]) {
                 obj = xsprintf("%s = (%s*)come_calloc_v2(1, sizeof(%s)*(%s), \"%s\", %d, \"%s\")", var_name, type_name, type_name, num_string.to_string(), info.sname, info.sline, type_name3);
             }
             else {
@@ -176,7 +176,7 @@ class sNewNode extends sNodeBase
             
             string type_name3 = make_type_name_string(type3);
             
-            if(info.funcs["come_calloc_v2"]??) {
+            if(info.funcs["come_calloc_v2"]) {
                 come_value.c_value = xsprintf("(%s*)come_calloc_v2(1, sizeof(%s)*(%s), \"%s\", %d, \"%s\")", type_name, type_name, num_string.to_string(), info.sname, info.sline, type_name3);
             }
             else {
@@ -253,7 +253,7 @@ class sImplementsNode extends sNodeBase
         string buf2 = xsprintf("%s* _inf_obj_value%d;\n", type_name2, inf_num_stack);
         add_come_code_at_function_head(info, buf2);
         
-        if(info.funcs["come_calloc_v2"]??) {
+        if(info.funcs["come_calloc_v2"]) {
             add_come_code(info, "_inf_value%d=(%s*)come_calloc_v2(1, sizeof(%s), \"%s\", %d, \"%s\");\n", inf_num_stack, type_name, type_name, info.sname, info.sline, type_name);
         }
         else {
@@ -297,9 +297,9 @@ class sImplementsNode extends sNodeBase
             }
             
             if(fun == null) {
-                sClass* klass2 = info->classes[type->mClass->mName]??;
-                while(info->classes[klass2->mParentClassName]??) {
-                    klass2 = info->classes[klass2->mParentClassName]??;
+                sClass* klass2 = info->classes[type->mClass->mName];
+                while(info->classes[klass2->mParentClassName]) {
+                    klass2 = info->classes[klass2->mParentClassName];
                     
                     method_name = create_method_name_using_class(klass2, name, info);
                     

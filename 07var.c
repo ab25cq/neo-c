@@ -699,7 +699,7 @@ class sLoadNode extends sNodeBase
             var_ = get_variable_from_table(info.gv_table, self.name);
             
             if(var_ == null) {
-                sFun* fun = info.funcs[string(self.name)]??;
+                sFun* fun = info.funcs[string(self.name)];
                 
                 if(fun) {
                     CVALUE*% come_value = new CVALUE();
@@ -772,7 +772,7 @@ class sFunLoadNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        sFun* fun = info.funcs[string(self.name)]??;
+        sFun* fun = info.funcs[string(self.name)];
         
         if(fun == null) {
             err_msg(info, "fun not found(%s) at loading variable", self.name);
@@ -955,7 +955,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
     }
     
     parse_sharp();
-    sFun* fun = info.funcs[string(buf)]??;
+    sFun* fun = info.funcs[string(buf)];
 
     
     if((!gComeC && buf === "var") || buf === "auto" || buf === "__auto_type") {
@@ -1160,7 +1160,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         info.sline_real = sline_real;
         return node;
     }
-    else if(!is_type_name_flag || info.funcs[string(buf)]??) {
+    else if(!is_type_name_flag || info.funcs[string(buf)]) {
         sNode*% node = new sLoadNode(string(buf)@name, info) implements sNode;
     
         node = post_position_operator(node, info);

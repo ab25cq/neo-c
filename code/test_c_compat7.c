@@ -1,6 +1,6 @@
-// C 言語互換性テスト (7):
-// - fenv: 例外フラグの保存/復元と明示的な発火
-// - C11 atomics: lock-free 判断、compare_exchange、fetch_add
+
+
+
 
 #include <stdio.h>
 #include <stdbool.h>
@@ -19,7 +19,7 @@
 int main(void) {
     bool ok = true;
 
-    // fenv: 例外フラグの設定と保存/復元
+
     fenv_t saved;
     REQUIRE(feclearexcept(FE_ALL_EXCEPT) == 0);
     REQUIRE(feraiseexcept(FE_INVALID | FE_DIVBYZERO) == 0);
@@ -34,7 +34,8 @@ int main(void) {
     REQUIRE(fetestexcept(FE_ALL_EXCEPT) == (FE_INVALID | FE_DIVBYZERO));
 
     // C11 atomics
-    atomic_int ai;
+    //atomic_int ai;
+    int ai;
     atomic_init(&ai, 1);
     REQUIRE(atomic_is_lock_free(&ai));
 

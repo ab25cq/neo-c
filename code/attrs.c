@@ -3,6 +3,9 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
+#undef va_start
+#define va_start(ap, last) __builtin_va_start(ap, last)
+
 // constructor/destructor: run before/after main
 static void __attribute__((constructor)) on_load(void) {
     puts("[constructor] Library/Program loaded");

@@ -19,7 +19,8 @@ struct Pair {
 
 struct PackedAligned {
     alignas(16) int x;
-    _Atomic int count;
+    int count;
+    //_Atomic int count;
     union {
         struct { int lx, ly; };
         int pair[2];

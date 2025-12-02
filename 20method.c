@@ -68,9 +68,9 @@ bool compile_method_block(buffer* method_block, list<CVALUE*%>*% come_params, sF
     
     string class_name = xsprintf("__current_stack%d__", info->current_stack_num);
     
-    method_block_type.mParamTypes[0].mClass = info.classes[class_name]??;
+    method_block_type.mParamTypes[0].mClass = info.classes[class_name];
     sClass* current_stack_frame_struct = info.current_stack_frame_struct;
-    info->current_stack_frame_struct = info.classes[class_name]??;
+    info->current_stack_frame_struct = info.classes[class_name];
     
     info->num_method_block++;
     
@@ -199,8 +199,8 @@ string, sFun*,sGenericsFun* get_method(char* fun_name, sType*% obj_type, sInfo* 
         string fun_name2 = create_non_method_name(obj_type, false@no_pointer_name, info.come_fun.mName, info);
         
         sClass* klass = obj_type->mClass;
-        while(info.classes[klass->mParentClassName]??) {
-            klass = info.classes[klass->mParentClassName]??;
+        while(info.classes[klass->mParentClassName]) {
+            klass = info.classes[klass->mParentClassName];
             generics_fun_name = create_method_name_using_class(klass, fun_name2, info);
             
             fun = info.funcs.at(string(generics_fun_name), null);
@@ -232,7 +232,7 @@ string, sFun*,sGenericsFun* get_method(char* fun_name, sType*% obj_type, sInfo* 
         for(int i=FUN_VERSION_MAX; i>=1; i--) {
             string new_fun_name = xsprintf("%s_v%d", generics_fun_name, i);
         
-            fun = info.funcs[string(new_fun_name)]??;
+            fun = info.funcs[string(new_fun_name)];
             
             if(fun != null) {
                 generics_fun_name = string(new_fun_name);
@@ -273,8 +273,8 @@ string, sFun*,sGenericsFun* get_method(char* fun_name, sType*% obj_type, sInfo* 
                     
                     if(fun == null) {
                         sClass* klass = obj_type->mClass;
-                        while(info.classes[klass->mParentClassName]??) {
-                            klass = info.classes[klass->mParentClassName]??;
+                        while(info.classes[klass->mParentClassName]) {
+                            klass = info.classes[klass->mParentClassName];
                             generics_fun_name = create_method_name_using_class(klass, fun_name, info);
                             
                             fun = info.funcs.at(string(generics_fun_name), null);

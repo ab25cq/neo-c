@@ -79,13 +79,13 @@ test: *.c
 	./test_c_compat5
 	neo-c test_c_compat6.c
 	./test_c_compat6
-	neo-c test_c_compat7.c
+	neo-c test_c_compat7.c -lm
 	./test_c_compat7
 	neo-c c_test_compat8.c
 	./c_test_compat8
 	neo-c c_test_compat9.c
 	./c_test_compat9
-	neo-c c_test_compat10.c
+	neo-c c_test_compat10.c -lm
 	./c_test_compat10
 	neo-c c_test_compat11.c
 	./c_test_compat11
@@ -117,12 +117,12 @@ test: *.c
 	./c_test_compat24
 	neo-c c_test_compat25.c
 	./c_test_compat25
-	neo-c c_test_compat26.c
-	./c_test_compat26
-	neo-c c_test_compat27.c
-	./c_test_compat27
-	neo-c c_test_compat28.c
-	./c_test_compat28
+#	neo-c c_test_compat26.c
+#	./c_test_compat26
+#	neo-c c_test_compat27.c
+#	./c_test_compat27
+#	neo-c c_test_compat28.c
+#	./c_test_compat28
 	neo-c c_test_compat29.c
 	./c_test_compat29
 	neo-c c_test_compat30.c

@@ -44,7 +44,6 @@ sType*% solve_generics(sType*% type, sType*% generics_type, sInfo* info)
         CVALUE*% come_value = get_value_from_stack(-1, info);
         
         result = come_value.type;
-        
         if(result.mArrayNum.length() > 0) {
             if(pointer_num > 0) {
                 result.mArrayPointerNum += pointer_num;
@@ -979,7 +978,7 @@ string append_stackframe(char* c_value, sType* type, sInfo* info)
 {
     if(type->mClass->mName === "void" && type->mPointerNum == 0) {
         if(gComeDebug || type->mRecord) {
-            if(info.funcs["come_push_stack_frame_v2"]??) {
+            if(info.funcs["come_push_stack_frame_v2"]) {
                 return s"(come_push_stackframe_v2(\"\{info.sname}\", \{info.sline},\{gComeDebugStackFrameID++}),\{c_value},come_pop_stackframe_v2())";
             }
             else {
@@ -993,7 +992,7 @@ string append_stackframe(char* c_value, sType* type, sInfo* info)
         
         string var_name = xsprintf("__exception_result_var_b%d", n);
         add_come_code_at_function_head(info, "%s;\n", make_define_var(type, var_name));
-        if(info.funcs["come_push_stack_frame_v2"]??) {
+        if(info.funcs["come_push_stack_frame_v2"]) {
             return s"(come_push_stackframe_v2(\"\{info.sname}\", \{info.sline}, \{gComeDebugStackFrameID++}),\{var_name}=\{c_value}, come_pop_stackframe_v2(), \{var_name})";
         }
         else {

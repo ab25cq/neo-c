@@ -59,7 +59,7 @@ int err_msg(sInfo* info, char* msg, ...)
     return 0;
 }
 
-int expected_next_character(char c, sInfo* info=info)
+record int expected_next_character(char c, sInfo* info=info)
 {
     parse_sharp();
     if(*info->p != c) {
@@ -96,7 +96,7 @@ string parse_word(sInfo* info=info)
     string result = buf.to_string();
     
     if(info->module_params) {
-        if(info->module_params[string(result)]??) {
+        if(info->module_params[string(result)]) {
             return string(info->module_params[string(result)]);
         }
     }

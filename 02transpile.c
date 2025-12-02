@@ -177,7 +177,7 @@ static bool cpp(sInfo* info)
     
     /// Android ///
     if(is_android) {
-        string cmd3 = xsprintf("cpp %s -lang-c %s -I. -I%s/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -I/data/data/com.termux/files/usr/include/mariadb -D__ANDROID__ %s %s > %s 2> %s.cpp.out", (info.remove_comment ? "": " -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
+        string cmd3 = xsprintf("cpp %s -lang-c %s -D__clang__ -D__CLANG_ATOMICS=1 -I. -I%s/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -I/data/data/com.termux/files/usr/include/mariadb -D__ANDROID__ %s %s > %s 2> %s.cpp.out", (info.remove_comment ? "": " -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
         
         if(info.verbose) puts(cmd3);
         int rc = system(cmd3);
@@ -316,7 +316,7 @@ static bool cpp(sInfo* info)
         }
     }
     else if(is_linux) {
-        string cmd3 = xsprintf("cpp %s -lang-c %s -I. -I%s/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -D__LINUX__ %s %s > %s 2> %s.cpp.out", (info->remove_comment ? "":" -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
+        string cmd3 = xsprintf("cpp %s -lang-c -D__clang__ -D__CLANG_ATOMICS=1 %s -I. -I%s/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -D__LINUX__ %s %s > %s 2> %s.cpp.out", (info->remove_comment ? "":" -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
 
         if(is_debian) {
             cmd3 = xsprintf("cpp %s -lang-c %s -I. -D__DEBIAN__ -I%s/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -D__LINUX__ %s %s > %s 2> %s.cpp.out", info.remove_comment ? "": " -C", info.cpp_option, getenv("HOME"), PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
@@ -620,10 +620,12 @@ void create_pico_version_header()
 module MEvalOptions<T, T2>
 {
     var clang_option = new buffer();
-    clang_option.append_str(" -std=c99 ");
+    //clang_option.append_str(" -std=c99 ");
+    clang_option.append_str(" -std=c11 ");
     var linker_option = new buffer();
     var cpp_option = new buffer();
     cpp_option.append_str("-U__GNUC__");
+    cpp_option.append_str(" -std=c11 ");
     var files = new list<string>();
     var object_files = new list<string>();
     bool output_object_file = false;

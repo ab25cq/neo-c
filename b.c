@@ -1,4 +1,7 @@
 int main(int argc, char** argv)
 {
-    int (*pv)[3] = (int (*)[3])&vla; // VLA への配列ポインタキャスト
+    _Atomic(int*) __atomic_load_ptr;
+    __typeof__ ((void)0, *__atomic_load_ptr) BBB;
+
+    return 0;
 }
