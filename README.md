@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.7.0
+version 0.7.1
 
 ``` C
 #include <neo-c.h>
@@ -77,6 +77,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.7.1 Linux tested. Atomic supported. -std=c11 supported
 0.7.0 more c compatiblities, array, pointer.
 0.6.0 more c compatiblities, array, pointer.
 0.5.5 more c compatiblities
