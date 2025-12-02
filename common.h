@@ -126,6 +126,9 @@ uniq class sType
     bool mTypeName;
     
     bool mAnonymous;
+    string mAnonymousName;
+    bool mInnerStruct;
+    string mInnerStructName;
     bool mAnonymousVarName;
     
     bool mInline;
@@ -608,6 +611,7 @@ struct sInfo
     buffer*% paren_block_buffer;
     bool in_typeof;
     bool in_store_array;
+    int parse_struct_recursive_count;
 };
 
 uniq class sNodeBase
@@ -871,7 +875,7 @@ bool operator_overload_fun_self(sType*% type, char* fun_name, sNode*% node, CVAL
 void caller_begin(sInfo* info=info);
 void caller_end(sInfo* info=info);
 sNode*% craete_logical_denial(sNode*% node, sInfo* info);
-tup: sType*%,string,bool backtrace_parse_type(bool parse_variable_name=false,sInfo* info=info);
+tuple3<sType*%,string,bool>*% backtrace_parse_type(bool parse_variable_name=false,sInfo* info=info);
 void skip_pointer_attribute(sInfo* info=info);
 void skip_paren(sInfo* info);
 sNode*% parse_normal_block(bool clang=false, sInfo* info=info);
@@ -901,7 +905,7 @@ string backtrace_parse_word(sInfo* info=info);
 void skip_spaces_and_lf(sInfo* info=info);
 string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sType*% generics_type, sInfo* info);
 
-sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false, bool parse_multiple_type=true, bool in_function_parametor=false);
+tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_name=false, bool parse_multiple_type=true, bool in_function_parametor=false)
 tup: sType*%, string parse_variable_name_on_multiple_declare(sType*% base_type_name, bool first, sInfo* info);
 sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_function=false);
 int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* param_names, sInfo* info, bool no_var_table=false, bool loop_block=false);
@@ -998,7 +1002,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
 /////////////////////////////////////////////////////////////////////
 /// 14struct.c
 /////////////////////////////////////////////////////////////////////
-void child_output_struct(sType* type, buffer*% buf, bool* existance_generics, string name, int indent, sInfo* info);
+void child_output_struct(sType* type, string struct_name, buffer*% buf, bool* existance_generics, string name, int indent, sInfo* info);
 string parse_struct_attribute(sInfo* info=info);
 sNode*% create_nothing_node(sInfo* info=info);
 bool is_contained_method_generics_types(sType* type, sInfo* info);

@@ -1,16 +1,28 @@
 #include "common.h"
 
-void child_output_struct(sType* type, buffer*% buf, bool* existance_generics, string name, int indent, sInfo* info)
+void child_output_struct(sType* type, string struct_name, buffer*% buf, bool* existance_generics, string name, int indent, sInfo* info)
 {
     sClass* klass = type->mClass;
     
-    if(klass.mStruct) {
-        buf.append_str("    " * indent);
-        buf.append_str("struct {\n");
+    if(struct_name !== "") {
+        if(klass.mStruct) {
+            buf.append_str("    " * indent);
+            buf.append_format("struct %s {\n", struct_name);
+        }
+        else if(klass.mUnion) {
+            buf.append_str("    " * indent);
+            buf.append_format("union %s {\n", struct_name);
+        }
     }
-    else if(klass.mUnion) {
-        buf.append_str("    " * indent);
-        buf.append_str("union {\n");
+    else {
+        if(klass.mStruct) {
+            buf.append_str("    " * indent);
+            buf.append_str("struct {\n");
+        }
+        else if(klass.mUnion) {
+            buf.append_str("    " * indent);
+            buf.append_str("union {\n");
+        }
     }
             
     indent++;
@@ -26,7 +38,12 @@ void child_output_struct(sType* type, buffer*% buf, bool* existance_generics, st
         sClass* klass = type2->mClass;
         
         if(type2->mAnonymous) {
-            child_output_struct(type2, buf, existance_generics, name2, indent, info);
+            info.struct_definition.remove(type2->mAnonymousName);
+            child_output_struct(type2, s"", buf, existance_generics, name2, indent, info);
+        }
+        else if(type2->mInnerStruct) {
+            info.struct_definition.remove(type2->mInnerStructName);
+            child_output_struct(type2, type2->mInnerStructName, buf, existance_generics, name2, indent, info);
         }
         else {
             buf.append_str("    " * indent);
@@ -76,7 +93,12 @@ void output_struct(sClass* klass, string pragma, sInfo* info)
         sClass* klass = type->mClass;
         
         if(type->mAnonymous) {
-            child_output_struct(type, buf, &existance_generics, name, 1, info);
+            info.struct_definition.remove(type->mAnonymousName);
+            child_output_struct(type, s"", buf, &existance_generics, name, 1, info);
+        }
+        else if(type->mInnerStruct) {
+            info.struct_definition.remove(type->mInnerStructName);
+            child_output_struct(type, type->mInnerStructName, buf, &existance_generics, name, 1, info);
         }
         else {
             buf.append_str("    ");
@@ -132,7 +154,10 @@ bool output_generics_struct(sType*% type, sType*% generics_type, sInfo* info)
         type->mClass = new_class;
         type->mGenericsTypes.reset();
         
+        bool no_output_come_code = info.no_output_come_code;
+        info.no_output_come_code = false;
         output_struct(new_class, null, info);
+        info.no_output_come_code = no_output_come_code;
     }
     else { 
         if(type->mNoSolvedGenericsType == null && type->mGenericsTypes.length() > 0) {
@@ -273,6 +298,8 @@ class sClassNode extends sNodeBase
 
 sNode*% parse_struct(string type_name, string struct_attribute, sInfo* info)
 {
+    info.parse_struct_recursive_count++;
+    
     sClass*% klass;
     if(info.classes.at(type_name, null) == null) {
         klass = new sClass(name:string(type_name), struct_:true);
@@ -284,6 +311,10 @@ sNode*% parse_struct(string type_name, string struct_attribute, sInfo* info)
     }
     
     sType*% type = new sType(type_name);
+    if(info.parse_struct_recursive_count >= 2) {
+        type->mInnerStruct = true;
+        type->mInnerStructName = string(type_name);
+    }
     sType* override_ = info.types.at(type_name, null);
     if(override_) {
         if(override_->mTypedef) {
@@ -397,9 +428,11 @@ sNode*% parse_struct(string type_name, string struct_attribute, sInfo* info)
     sNode*% node = new sStructNode(string(type_name), klass, info) implements sNode;
     
     node_compile(node, info).elif {
+        info.parse_struct_recursive_count--;
         return null;
     }
     
+    info.parse_struct_recursive_count--;
     return new sNothingNode(info) implements sNode;
 }
 
@@ -407,6 +440,7 @@ sNode*% parse_struct(string type_name, string struct_attribute, sInfo* info)
 sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
 {
     if(buf === "struct") {
+        info.parse_struct_recursive_count++;
         char* source_head = head;
         
         string struct_attribute = parse_struct_attribute();
@@ -427,6 +461,10 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                 struct_class = info.classes.at(type_name, null);
             }
             sType*% type = new sType(type_name);
+            if(info.parse_struct_recursive_count >= 2) {
+                type->mInnerStruct = true;
+                type->mInnerStructName = string(type_name);
+            }
             sType* override_ = info.types.at(type_name, null);
             if(override_) {
                 if(override_->mTypedef) {
@@ -440,6 +478,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
             buffer*% header = new buffer();
             header.append(source_head, source_tail - source_head);
             
+            info.parse_struct_recursive_count--;
             return new sStructNobodyNode(string(type_name), info) implements sNode;
         }
         else if(*info->p == '<') {
@@ -551,6 +590,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
             header.append_str("struct ");
             header.append(source_head, source_tail - source_head);
             
+            info.parse_struct_recursive_count--;
             return new sNothingNode(info) implements sNode;
         }
         else {
@@ -565,6 +605,10 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
             }
             
             sType*% type = new sType(type_name);
+            if(info.parse_struct_recursive_count >= 2) {
+                type->mInnerStruct = true;
+                type->mInnerStructName = string(type_name);
+            }
             sType* override_ = info.types.at(type_name, null);
             if(override_) {
                 if(override_->mTypedef) {
@@ -676,12 +720,14 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                 struct_class->mAttribute = struct_attribute + " " + struct_attribute2;
             }
             
+            info.parse_struct_recursive_count--;
             return new sStructNode(string(type_name), struct_class, info) implements sNode;
         }
     }
     else if(!gComeC && ((buf === "uniq" && info.p.substring(0, strlen("class")) === "class")
         || buf === "class") )
     {
+        info.parse_struct_recursive_count++;
         bool uniq_class = false;
         if(buf === "uniq")  {
             parse_word();
@@ -999,6 +1045,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
         
         info.defining_class = defining_class;
         
+        info.parse_struct_recursive_count--;
         return new sClassNode(string(type_name), struct_class, methods, info) implements sNode;
     }
     

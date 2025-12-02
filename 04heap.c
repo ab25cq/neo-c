@@ -33,12 +33,13 @@ sType*% solve_generics(sType*% type, sType*% generics_type, sInfo* info)
         
         sNode*% node = type->mTypeOfNode;
         
+        bool no_output_come_code = info.no_output_come_code;
         info.no_output_come_code = true;
         info.in_typeof = true;
         node_compile(node).elif {
             return result;
         }
-        info.no_output_come_code = false;
+        info.no_output_come_code = no_output_come_code;
         info.in_typeof = false;
         
         CVALUE*% come_value = get_value_from_stack(-1, info);

@@ -20,7 +20,12 @@ void output_union(sClass* klass, sInfo* info)
         var name, type = it;
         
         if(type->mAnonymous) {
-            child_output_struct(type, buf, &existance_generics, name, 1, info);
+            info.struct_definition.remove(type->mAnonymousName);
+            child_output_struct(type, s"", buf, &existance_generics, name, 1, info);
+        }
+        else if(type->mInnerStruct) {
+            info.struct_definition.remove(type->mInnerStructName);
+            child_output_struct(type, type->mInnerStructName, buf, &existance_generics, name, 1, info);
         }
         else {
             buf.append_str(make_define_var(type, name));
@@ -73,11 +78,16 @@ class sUnionNode extends sNodeBase
 
 sNode*% parse_union(string type_name, string union_attribute, sInfo* info)
 {
+    info.parse_struct_recursive_count++;
     sClass* klass;
     if(info.classes.at(type_name, null) == null) {
         info.classes.insert(string(type_name), new sClass(name:string(type_name), union_:true));
         
         sType*% type = new sType(type_name);
+        if(info.parse_struct_recursive_count >= 2) {
+            type->mInnerStruct = true;
+            type->mInnerStructName = string(type_name);
+        }
         
         info.types.insert(type_name, clone type);
         
@@ -85,12 +95,17 @@ sNode*% parse_union(string type_name, string union_attribute, sInfo* info)
     }
     else {
         klass = info.classes.at(type_name, null);
+        klass.mFields.reset();
         sType* override_ = info.types.at(type_name, null);
         bool typedef_ = false;
         if(override_) {
             typedef_ = override_->mTypedef;
         }
         sType*% type = new sType(type_name);
+        if(info.parse_struct_recursive_count >= 2) {
+            type->mInnerStruct = true;
+            type->mInnerStructName = string(type_name);
+        }
         if(typedef_) {
             type->mTypedef = true;
         }
@@ -164,15 +179,18 @@ sNode*% parse_union(string type_name, string union_attribute, sInfo* info)
     sNode*% node = new sUnionNode(type_name, klass, info) implements sNode;
     
     node_compile(node, info).elif {
+        info.parse_struct_recursive_count--;
         return null;
     }
     
+    info.parse_struct_recursive_count--;
     return create_nothing_node();
 }
 
 sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 97
 {
     if(buf === "union") {
+        info.parse_struct_recursive_count++;
         char* source_head = info.p;
         
         string struct_attribute = parse_struct_attribute();
@@ -183,6 +201,10 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 97
         if(info.classes.at(type_name, null) == null) {
             info.classes.insert(string(type_name), new sClass(name:string(type_name), union_:true));
             sType*% type = new sType(type_name);
+            if(info.parse_struct_recursive_count >= 2) {
+                type->mInnerStruct = true;
+                type->mInnerStructName = string(type_name);
+            }
             info.types.insert(type_name, clone type);
             
             klass = info.classes.at(type_name, null);
@@ -195,6 +217,10 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 97
                 typedef_ = override_->mTypedef;
             }
             sType*% type = new sType(type_name);
+            if(info.parse_struct_recursive_count >= 2) {
+                type->mInnerStruct = true;
+                type->mInnerStructName = string(type_name);
+            }
             if(typedef_) {
                 type->mTypedef = typedef_;
             }
@@ -266,9 +292,11 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 97
         sNode*% node = new sUnionNode(type_name, klass, info) implements sNode;
         
         node_compile(node, info).elif {
+            info.parse_struct_recursive_count--;
             return null;
         }
         
+        info.parse_struct_recursive_count--;
         return create_nothing_node();
     }
     

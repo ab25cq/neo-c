@@ -927,9 +927,6 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             }
         }
         
-//        info.no_output_come_code = false;
-//        info.no_output_come_code = no_output_come_code;
-        
         info.p = p;
         info.sline = sline;
     }

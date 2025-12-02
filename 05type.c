@@ -1409,25 +1409,27 @@ void skip_pointer_attribute(sInfo* info=info)
     }
 }
 
-sType*%,string,bool backtrace_parse_type(bool parse_variable_name=false,sInfo* info=info)
+tuple3<sType*%,string,bool>*% backtrace_parse_type(bool parse_variable_name=false,sInfo* info=info)
 {
     bool no_output_err = info.no_output_err;
     info.no_output_err = true;
+    bool no_output_come_code = info.no_output_come_code;
+    info.no_output_come_code = true;
     var type, name, err = parse_type(parse_variable_name:parse_variable_name);
+    info.no_output_come_code = no_output_come_code;
     info.no_output_err = false;
     info.no_output_err = no_output_err;
     
     return (type, name, err);
 }
 
-sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false, bool parse_multiple_type=true, bool in_function_parametor=false)
+tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_name=false, bool parse_multiple_type=true, bool in_function_parametor=false)
 {
     char* head = info.p;
     int head_sline = info.sline;
     info.define_struct = false;
     
     string type_name = parse_word();
-    
     
     bool record_ = false;
     bool constant = false;
@@ -1639,15 +1641,11 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
                         info.p = p;
                         info.sline = sline;
                         
-                        //info.p = head;
-                        //info.sline = head_sline;
-                        
                         sNode*% node = parse_struct(type_name, union_attribute, info);
                         
                         node_compile(node).elif {
                             return ((sType*%)null, (string)null, false);
                         }
-                        //anonymous_type = true;
                         break;
                     }
                 }
@@ -2230,9 +2228,10 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
                             skip_spaces_and_lf();
                             break;
                         }
+                        bool no_output_come_code = info.no_output_come_code
                         info.no_output_come_code = true;
                         sNode*% exp = expression();
-                        info.no_output_come_code = false;
+                        info.no_output_come_code = no_output_come_code;
                         
                         if(*info->p == ']') {
                             info->p++;
@@ -2357,6 +2356,7 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
                 type = new sType(string(type_name));
             }
             type->mAnonymous = anonymous;
+            type->mAnonymousName = string(type_name);
             
             type->mPointerNum = pointer_num;
         }
@@ -2419,6 +2419,7 @@ sType*%,string,bool parse_type(sInfo* info=info, bool parse_variable_name=false,
             
             type->mPointerNum = pointer_num;
             type->mAnonymous = anonymous;
+            type->mAnonymousName = string(type_name);
         }
         else {
             err_msg(info, "unexpected { character");
