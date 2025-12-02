@@ -380,11 +380,13 @@ uniq void come_heap_final()
 uniq void* alloc_from_pages(size_t size)
 {
     void* result = null;
+/*
 #ifdef __32BIT_CPU__
     size = (size + 3 & ~0x3);
 #else
     size = (size + 7 & ~0x7);
 #endif
+*/
     
     if(size < HEAP_POOL_PAGE_SIZE) {
         if(gHeapPages.mFreeMem[size]) {
@@ -534,13 +536,19 @@ uniq void come_free_mem_of_heap_pool(void* mem)
 uniq void* come_alloc_mem_from_heap_pool(size_t size, char* sname=null, int sline=0, char* class_name="")
 {
     if(gComeDebugLib) {
-        void* result = alloc_from_pages(size + sizeof(sMemHeader));
+        size_t size2 = size + sizeof(sMemHeader);
+#ifdef __32BIT_CPU__
+        size2 = (size2 + 3 & ~0x3);
+#else
+        size2 = (size2 + 7 & ~0x7);
+#endif
+        void* result = alloc_from_pages(size2);
         
         sMemHeader* it = result;
         
         it->allocated = ALLOCATED_MAGIC_NUM;
         
-        it->size = size + sizeof(sMemHeader);
+        it->size = size2;
         it->free_next = NULL;
         
         come_push_stackframe(sname, sline, 0);
@@ -580,7 +588,13 @@ uniq void* come_alloc_mem_from_heap_pool(size_t size, char* sname=null, int slin
         return (char*)result + sizeof(sMemHeader);
     }
     else {
-        void* result = alloc_from_pages(size + sizeof(sMemHeaderTiny));
+        size_t size2 = size + sizeof(sMemHeaderTiny);
+#ifdef __32BIT_CPU__
+        size2 = (size2 + 3 & ~0x3);
+#else
+        size2 = (size2 + 7 & ~0x7);
+#endif
+        void* result = alloc_from_pages(size2);
         
         sMemHeaderTiny* it = result;
         
@@ -591,7 +605,7 @@ uniq void* come_alloc_mem_from_heap_pool(size_t size, char* sname=null, int slin
         it->sname = sname;
         it->sline = sline;
         
-        it->size = size + sizeof(sMemHeaderTiny);
+        it->size = size2;
         it->free_next = NULL;
         
         it->next = (sMemHeaderTiny*)gAllocMem;
@@ -652,11 +666,6 @@ uniq void come_heap_final()
 uniq void* alloc_from_pages(size_t size)
 {
     void* result = null;
-#ifdef __32BIT_CPU__
-    size = (size + 3 & ~0x3);
-#else
-    size = (size + 7 & ~0x7);
-#endif
     result = calloc(1, size);
 
     return result;
@@ -709,7 +718,14 @@ uniq void* come_alloc_mem_from_heap_pool(size_t size, char* sname=null, int slin
     if(gComeDebugLib) {
     }
     else {
-        void* result = alloc_from_pages(size + sizeof(sMemHeaderTiny));
+        size_t size2 = size + sizeof(sMemHeaderTiny);
+#ifdef __32BIT_CPU__
+        size2 = (size2 + 3 & ~0x3);
+#else
+        size2 = (size2 + 7 & ~0x7);
+#endif
+        
+        void* result = alloc_from_pages(size2);
         
         sMemHeaderTiny* it = result;
         
@@ -720,7 +736,7 @@ uniq void* come_alloc_mem_from_heap_pool(size_t size, char* sname=null, int slin
         it->sname = sname;
         it->sline = sline;
         
-        it->size = size + sizeof(sMemHeaderTiny);
+        it->size = size2;
         it->free_next = NULL;
         
         it->next = (sMemHeaderTiny*)gAllocMem;

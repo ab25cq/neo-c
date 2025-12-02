@@ -196,12 +196,12 @@ string, sFun*,sGenericsFun* get_method(char* fun_name, sType*% obj_type, sInfo* 
     sGenericsFun* generics_fun = null;
     
     if(fun_name === "super") {
-        fun_name = create_non_method_name(obj_type, false@no_pointer_name, info.come_fun.mName, info);
+        string fun_name2 = create_non_method_name(obj_type, false@no_pointer_name, info.come_fun.mName, info);
         
         sClass* klass = obj_type->mClass;
         while(info.classes[klass->mParentClassName]??) {
             klass = info.classes[klass->mParentClassName]??;
-            generics_fun_name = create_method_name_using_class(klass, fun_name, info);
+            generics_fun_name = create_method_name_using_class(klass, fun_name2, info);
             
             fun = info.funcs.at(string(generics_fun_name), null);
             
