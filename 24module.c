@@ -86,6 +86,7 @@ class sUndefNode extends sNodeBase {
         info.generics_funcs.remove(str);
         info.modules.remove(str);
         info.types.remove(str);
+        info.typedef_definition.remove(str);
         
         return true;
     }

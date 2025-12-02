@@ -2761,7 +2761,7 @@ static char* list$1char$ph_operator_load_element(struct list$1char$ph* self, int
 char* header_function(struct sFun* fun, struct sInfo* info);
 static char* header_lambda(struct sType* lambda_type, char* name, struct sInfo* info);
 void add_come_code(struct sInfo* info, const char* msg, ...);
-static void __gnuc_va_list_finalize(__builtin_va_list* self);
+static void __builtin_va_list_finalize(__builtin_va_list* self);
 _Bool is_contained_generics_funcstion(struct sFun* fun, struct sInfo* info);
 _Bool output_source_file(struct sInfo* info);
 static struct sFun* map$2char$phsFun$ph$p_operator_load_element(struct map$2char$phsFun$ph* self, char* key);
@@ -5924,10 +5924,10 @@ memset(&i, 0, sizeof(i));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     }
     free(msg2);
-    come_call_finalizer(__gnuc_va_list_finalize, (&args), (void*)0, (void*)0, 1, 0, 0, (void*)0);
+    come_call_finalizer(__builtin_va_list_finalize, (&args), (void*)0, (void*)0, 1, 0, 0, (void*)0);
 }
 
-static void __gnuc_va_list_finalize(__builtin_va_list* self){
+static void __builtin_va_list_finalize(__builtin_va_list* self){
 }
 
 _Bool is_contained_generics_funcstion(struct sFun* fun, struct sInfo* info){
@@ -7182,7 +7182,7 @@ memset(&args, 0, sizeof(args));
         buffer_append_str(info->come_fun->mSourceHead,msg2);
     }
     free(msg2);
-    come_call_finalizer(__gnuc_va_list_finalize, (&args), (void*)0, (void*)0, 1, 0, 0, (void*)0);
+    come_call_finalizer(__builtin_va_list_finalize, (&args), (void*)0, (void*)0, 1, 0, 0, (void*)0);
 }
 
 void add_come_code_at_function_head2(struct sInfo* info, char* code, ...){
@@ -7201,7 +7201,7 @@ memset(&args, 0, sizeof(args));
         buffer_append_str(info->come_fun->mSourceHead2,msg2);
     }
     free(msg2);
-    come_call_finalizer(__gnuc_va_list_finalize, (&args), (void*)0, (void*)0, 1, 0, 0, (void*)0);
+    come_call_finalizer(__builtin_va_list_finalize, (&args), (void*)0, (void*)0, 1, 0, 0, (void*)0);
 }
 
 void add_last_code_to_source(struct sInfo* info){
@@ -7242,7 +7242,7 @@ memset(&args, 0, sizeof(args));
     info->module->mLastCode=(char*)come_increment_ref_count(__builtin_string(msg2));
     __dec_obj48 = come_decrement_ref_count(__dec_obj48, (void*)0, (void*)0, 0,0, (void*)0);
     free(msg2);
-    come_call_finalizer(__gnuc_va_list_finalize, (&args), (void*)0, (void*)0, 1, 0, 0, (void*)0);
+    come_call_finalizer(__builtin_va_list_finalize, (&args), (void*)0, (void*)0, 1, 0, 0, (void*)0);
 }
 
 void add_come_last_code2(struct sInfo* info, const char* msg, ...){
@@ -7263,7 +7263,7 @@ memset(&args, 0, sizeof(args));
     info->module->mLastCode2=(char*)come_increment_ref_count(__builtin_string(msg2));
     __dec_obj49 = come_decrement_ref_count(__dec_obj49, (void*)0, (void*)0, 0,0, (void*)0);
     free(msg2);
-    come_call_finalizer(__gnuc_va_list_finalize, (&args), (void*)0, (void*)0, 1, 0, 0, (void*)0);
+    come_call_finalizer(__builtin_va_list_finalize, (&args), (void*)0, (void*)0, 1, 0, 0, (void*)0);
 }
 
 void dec_stack_ptr(int value, struct sInfo* info){

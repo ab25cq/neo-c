@@ -2667,7 +2667,7 @@ char* sNothingNode_kind(struct sNothingNode* self);
 _Bool sNothingNode_compile(struct sNothingNode* self, struct sInfo* info);
 _Bool parsecmp(char* p2, struct sInfo* info);
 int err_msg(struct sInfo* info, char* msg, ...);
-static void __gnuc_va_list_finalize(__builtin_va_list* self);
+static void __builtin_va_list_finalize(__builtin_va_list* self);
 int expected_next_character(char c, struct sInfo* info);
 char* parse_word(struct sInfo* info);
 static char* map$2char$phchar$ph$p_operator_load_element(struct map$2char$phchar$ph* self, char* key);
@@ -2761,16 +2761,16 @@ memset(&args, 0, sizeof(args));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
         (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0));
         __result_obj__1 = 0;
-        come_call_finalizer(__gnuc_va_list_finalize, (&args), (void*)0, (void*)0, 1, 0, 0, (void*)0);
+        come_call_finalizer(__builtin_va_list_finalize, (&args), (void*)0, (void*)0, 1, 0, 0, (void*)0);
         come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         return __result_obj__1;
-        come_call_finalizer(__gnuc_va_list_finalize, (&args), (void*)0, (void*)0, 1, 0, 0, (void*)0);
+        come_call_finalizer(__builtin_va_list_finalize, (&args), (void*)0, (void*)0, 1, 0, 0, (void*)0);
         come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     return 0;
 }
 
-static void __gnuc_va_list_finalize(__builtin_va_list* self){
+static void __builtin_va_list_finalize(__builtin_va_list* self){
 }
 
 int expected_next_character(char c, struct sInfo* info){

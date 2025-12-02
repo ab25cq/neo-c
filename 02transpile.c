@@ -150,6 +150,7 @@ static bool cpp(sInfo* info)
     int is_android = system("uname -a | grep Android 1> /dev/null 2>/dev/null") == 0;
     int is_debian = system("uname -a | grep Debian 1> /dev/null 2>/dev/null") == 0;
     int is_linux = 1;
+    int is_arm64 = system("uname -a | grep arm64 1> /dev/null 2> /dev/null");
     int is_m5stack = info.m5stack_cpp; // M5Stack?
     int is_pico = info.pico_cpp; // PICO?
     int is_emb = info.emb_cpp; // EMBBEDED
@@ -177,7 +178,7 @@ static bool cpp(sInfo* info)
     
     /// Android ///
     if(is_android) {
-        string cmd3 = xsprintf("cpp %s -lang-c %s -D__clang__ -D__CLANG_ATOMICS=1 -I. -I%s/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -I/data/data/com.termux/files/usr/include/mariadb -D__ANDROID__ %s %s > %s 2> %s.cpp.out", (info.remove_comment ? "": " -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
+        string cmd3 = xsprintf("cpp %s -lang-c %s -I. -I%s/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -I/data/data/com.termux/files/usr/include/mariadb -D__ANDROID__ %s %s > %s 2> %s.cpp.out", (info.remove_comment ? "": " -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
         
         if(info.verbose) puts(cmd3);
         int rc = system(cmd3);
@@ -316,7 +317,11 @@ static bool cpp(sInfo* info)
         }
     }
     else if(is_linux) {
-        string cmd3 = xsprintf("cpp %s -lang-c -D__clang__ -D__CLANG_ATOMICS=1 %s -I. -I%s/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -D__LINUX__ %s %s > %s 2> %s.cpp.out", (info->remove_comment ? "":" -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
+        if(is_arm64) {
+            info.cpp_option = info.cpp_option; // + " -march=armv8-a+sve";
+        }
+        string cmd3 = xsprintf("clang -E %s -lang-c %s -I. -I%s/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -D__LINUX__ %s %s > %s 2> %s.cpp.out", (info->remove_comment ? "":" -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
+        //string cmd3 = xsprintf("cpp %s -D__clang__ -D__CLANG_ATOMICS=1 -lang-c %s -I. -I%s/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -D__LINUX__ %s %s > %s 2> %s.cpp.out", (info->remove_comment ? "":" -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
 
         if(is_debian) {
             cmd3 = xsprintf("cpp %s -lang-c %s -I. -D__DEBIAN__ -I%s/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -D__LINUX__ %s %s > %s 2> %s.cpp.out", info.remove_comment ? "": " -C", info.cpp_option, getenv("HOME"), PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
@@ -367,9 +372,13 @@ static bool compile(sInfo* info, bool output_object_file, list<string>* object_f
     
 #ifndef __MINUX__
     int is_mac = system("uname -a | grep Darwin 1> /dev/null 2>/dev/null") == 0;
+    int is_arm64 = system("uname -a | grep arm64 1> /dev/null 2> /dev/null");
     
     if(is_mac) {
         info.clang_option = info.clang_option + " -std=gnu17 ";
+    }
+    if(is_arm64) {
+        info.clang_option = info.clang_option; // + " -march=armv8-a+sve";
     }
     
     var command = xsprintf("%s -o %s -c %s %s >> %s.out 2>&1", CC, output_file_name, input_file_name, info.clang_option, input_file_name);
@@ -378,12 +387,14 @@ static bool compile(sInfo* info, bool output_object_file, list<string>* object_f
     int rc = system(command);
     
     if(rc != 0) {
-        command = xsprintf("%s -o %s -c %s %s >> %s.out 2>&1", "gcc", output_file_name, input_file_name, info.clang_option, input_file_name);
+    /*
+        string command = xsprintf("%s -o %s -c %s %s >> %s.out 2>&1", "gcc", output_file_name, input_file_name, info.clang_option, input_file_name);
         
         if(info.verbose) puts(command);
         int rc = system(command);
         
         if(rc != 0) {
+        */
             printf("%s is faild\n", CC);
             
             var command2 = xsprintf("grep error\\: %s.out 2>/dev/null", input_file_name);
@@ -391,7 +402,7 @@ static bool compile(sInfo* info, bool output_object_file, list<string>* object_f
             if(info.verbose) puts(command2);
             (void)system(command2);
             exit(2);
-        }
+   //     }
     }
     
     if(!output_object_file) {

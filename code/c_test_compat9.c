@@ -1,13 +1,10 @@
-// C 標準ライブラリ機能テスト (9):
-// - locale: setlocale/localeconv/strtod によるロケール依存動作
-// - signal: SIGUSR1 (なければ SIGINT) ハンドラと raise
-
 #include <stdio.h>
 #include <stdbool.h>
 #include <locale.h>
 #include <signal.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdatomic.h>
 
 static bool g_ok = true;
 
@@ -57,10 +54,10 @@ static void test_signal(void) {
     const int sig = SIGINT;
 #endif
     g_signal_value = 0;
-    REQUIRE(signal(sig, sig_handler) != SIG_ERR);
+    REQUIRE(__sysv_signal(sig, sig_handler) != SIG_ERR);
     REQUIRE(raise(sig) == 0);
     REQUIRE(g_signal_value == sig);
-    REQUIRE(signal(sig, SIG_DFL) != SIG_ERR);
+    REQUIRE(__sysv_signal(sig, SIG_DFL) != SIG_ERR);
 }
 
 int main(void) {

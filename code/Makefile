@@ -117,12 +117,12 @@ test: *.c
 	./c_test_compat24
 	neo-c c_test_compat25.c
 	./c_test_compat25
-#	neo-c c_test_compat26.c
-#	./c_test_compat26
-#	neo-c c_test_compat27.c
-#	./c_test_compat27
-#	neo-c c_test_compat28.c
-#	./c_test_compat28
+	neo-c c_test_compat26.c
+	./c_test_compat26
+	neo-c c_test_compat27.c
+	./c_test_compat27
+	neo-c c_test_compat28.c
+	./c_test_compat28
 	neo-c c_test_compat29.c
 	./c_test_compat29
 	neo-c c_test_compat30.c

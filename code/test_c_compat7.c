@@ -34,8 +34,8 @@ int main(void) {
     REQUIRE(fetestexcept(FE_ALL_EXCEPT) == (FE_INVALID | FE_DIVBYZERO));
 
     // C11 atomics
-    //atomic_int ai;
-    int ai;
+    atomic_int ai;
+    //int ai;
     atomic_init(&ai, 1);
     REQUIRE(atomic_is_lock_free(&ai));
 
