@@ -47,18 +47,35 @@ static void sig_handler(int signo) {
     g_signal_value = signo;
 }
 
-static void test_signal(void) {
+if defined(__sysv_signal) {
+    static void test_signal(void) {
 #ifdef SIGUSR1
-    const int sig = SIGUSR1;
+        const int sig = SIGUSR1;
 #else
-    const int sig = SIGINT;
+        const int sig = SIGINT;
 #endif
-    g_signal_value = 0;
-    REQUIRE(__sysv_signal(sig, sig_handler) != SIG_ERR);
-    REQUIRE(raise(sig) == 0);
-    REQUIRE(g_signal_value == sig);
-    REQUIRE(__sysv_signal(sig, SIG_DFL) != SIG_ERR);
+        g_signal_value = 0;
+        REQUIRE(__sysv_signal(sig, sig_handler) != SIG_ERR);
+        REQUIRE(raise(sig) == 0);
+        REQUIRE(g_signal_value == sig);
+        REQUIRE(__sysv_signal(sig, SIG_DFL) != SIG_ERR);
+    }
 }
+else {
+    static void test_signal(void) {
+#ifdef SIGUSR1
+        const int sig = SIGUSR1;
+#else
+        const int sig = SIGINT;
+#endif
+        g_signal_value = 0;
+        REQUIRE(signal(sig, sig_handler) != SIG_ERR);
+        REQUIRE(raise(sig) == 0);
+        REQUIRE(g_signal_value == sig);
+        REQUIRE(signal(sig, SIG_DFL) != SIG_ERR);
+    }
+}
+
 
 int main(void) {
     test_locale();
