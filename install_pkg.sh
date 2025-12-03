@@ -2,7 +2,7 @@
 # Mac
 if uname | grep Darwin
 then
-    brew install git readline ncurses make autoconf libgc readline openssl mysql-client mysql
+    brew install git readline ncurses make autoconf libgc readline openssl 
 # alpine linux
 elif which apk > /dev/null
 then
@@ -16,8 +16,8 @@ then
     sudo pacman -Syu make valgrind 
 elif which dnf > /dev/null
 then
-    sudo dnf install make valgrind readline-devel ncurses-devel clang gcc which openssl-devel mysql-devel
+    sudo dnf install make valgrind readline-devel ncurses-devel clang gcc which openssl-devel 
 elif which apt > /dev/null
 then
-    sudo apt install clang gcc libreadline-dev ncurses-dev make autoconf valgrind gdb lldb libssl-dev libmysqlclient-dev mysql-server 
+    sudo apt install clang gcc libreadline-dev ncurses-dev make autoconf valgrind gdb lldb libssl-dev 
 fi

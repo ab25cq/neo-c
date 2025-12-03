@@ -239,7 +239,7 @@ static bool cpp(sInfo* info)
     }
     /// Mac ///
     else if(is_mac) {
-        string cmd2 = xsprintf("gcc -E %s -lang-c %s -I. -I/usr/local/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -DNEO_C -D__MAC__ -I/opt/homebrew/opt/boehmgc/include/ -I/opt/homebrew/opt/openssl/include -I/opt/homebrew/opt/mysql/include %s %s > %s 2> %s.cpp.out", (info.remove_comment ? "":" -C"), info.cpp_option, PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
+        string cmd2 = xsprintf("gcc -E %s -lang-c %s -I. -I/usr/local/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -DNEO_C -D__MAC__ -I/opt/homebrew/opt/boehmgc/include/ -I/opt/homebrew/opt/openssl/include %s %s > %s 2> %s.cpp.out", (info.remove_comment ? "":" -C"), info.cpp_option, PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
         
         if(info.verbose) puts(cmd2);
         
@@ -441,7 +441,7 @@ static bool linker(sInfo* info, list<string>* object_files)
     
     int is_mac = system("uname -a | grep Darwin 1> /dev/null 2>/dev/null") == 0;
     if(is_mac) {
-        command.append_str(" -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/mysql/lib -L/opt/homebrew/opt/zstd/lib ");
+        command.append_str(" -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib ");
     }
     
     string cmd = xsprintf("ls /usr/local/lib 1> /dev/null 2>/dev/null"); // /usr/local/lib?
@@ -468,22 +468,7 @@ static bool linker(sInfo* info, list<string>* object_files)
         command.append_str(" -lpthread ");
     }
     if(gComeNet) {
-        int is_apline = system("which apk 1> /dev/null 2>/dev/null") == 0;
-        int is_debian = system("uname -a | grep Debian 1> /dev/null 2>/dev/null") == 0;
-        int is_android = system("uname -a | grep Android 1>/dev/null 2>/dev/null") == 0;
-        
-        if(is_android) { // is Android
-            command.append_str(" -lssl -I/data/data/com.termux/files/usr/include/mariadb -lmariadb");
-        }
-        else if(is_apline || is_debian) { // Alpine | Debian
-            command.append_str(" -lssl -I/usr/include/mariadb -L/usr/lib -lmariadb");
-        }
-        else if(is_mac) {
-            command.append_format(" -lssl `mysql_config --cflags --libs`");
-        }
-        else { // Ohter
-            command.append_str(" -lssl `mysql_config --cflags --libs`");
-        }
+        command.append_str(" -lssl ");
     }
     
     if(info.verbose) puts(command.to_string());
