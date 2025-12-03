@@ -3127,7 +3127,6 @@ struct sClass* klass_2;
         type2->mStatic=(_Bool)0;
         klass_2=type2->mClass;
         if(        type2->mAnonymous        ) {
-            map$2char$phbuffer$ph_remove(info->struct_definition,(char*)come_increment_ref_count(type2->mAnonymousName));
             __right_value0 = (void*)0;
             child_output_struct(type2,(char*)come_increment_ref_count(xsprintf("")),buf,existance_generics,(char*)come_increment_ref_count(name2),indent,info);
         }
