@@ -41,7 +41,7 @@ void output_union(sClass* klass, sInfo* info)
     }
     
     if(info.struct_definition[string(name)]?? == null) {
-        info.struct_definition.insert(string(name), buf);
+        info.struct_definition.insert(string(name), clone buf);
     }
 }
 

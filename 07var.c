@@ -897,7 +897,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
                 parse_sharp();
                 var type,name = parse_variable_name_on_multiple_declare(type@base_type_name, true@first, info);
                 
-                if(*info->p == '=' && *(info->p+1) != '>' && !info->no_assign) {
+                if(*info->p == '=' && *(info->p+1) != '=' && *(info->p+1) != '>' && !info->no_assign) {
                     info->p++;
                     skip_spaces_and_lf();
                     
@@ -1026,7 +1026,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         var type2,var_name = parse_variable_name_on_multiple_declare(base_type, true@first, info);
         parse_sharp();
         
-        if(*info->p == '=') {
+        if(*info->p == '=' && *(info->p+1) != '=') {
             info->p++;
             skip_spaces_and_lf();
             
@@ -1062,7 +1062,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             parse_sharp();
             var type2, var_name = parse_variable_name_on_multiple_declare(base_type, false@first, info);
             
-            if(*info->p == '=')  {
+            if(*info->p == '=' && *(info->p+1) != '=')  {
                 info->p++;
                 skip_spaces_and_lf();
                 
@@ -1203,13 +1203,13 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             }
             parse_sharp();
             
-            if(*info->p == '=' && *(info->p+1) != '>' && info->no_assign) {
+            if(*info->p == '=' && *(info->p+1) != '=' && *(info->p+1) != '>' && info->no_assign) {
                 sNode*% node = new sLoadNode(name@name, info) implements sNode;
                 
                 info.sline_real = sline_real;
                 return node;
             }
-            else if(*info->p == '=' && *(info->p+1) != '>' && !info->no_assign) {
+            else if(*info->p == '=' && *(info->p+1) != '=' && *(info->p+1) != '>' && !info->no_assign) {
                 info.p++;
                 skip_spaces_and_lf();
                 

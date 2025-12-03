@@ -93,7 +93,7 @@ void output_struct(sClass* klass, string pragma, sInfo* info)
         sClass* klass = type->mClass;
         
         if(type->mAnonymous) {
-            info.struct_definition.remove(type->mAnonymousName);
+            //info.struct_definition.remove(type->mAnonymousName);
             child_output_struct(type, s"", buf, &existance_generics, name, 1, info);
         }
         else if(type->mInnerStruct) {
@@ -117,8 +117,8 @@ void output_struct(sClass* klass, string pragma, sInfo* info)
         buf.append_str("#pragma pack(pop)");
     }
             
-    if(info.struct_definition[string(name)]?? == null && !existance_generics) {
-        info.struct_definition.insert(string(name), buf);
+    if(info.struct_definition[string(name)] == null && !existance_generics) {
+        info.struct_definition.insert(string(name), clone buf);
     }
 }
 

@@ -153,7 +153,7 @@ tuple4<list<sType*%>*%, list<string>*%, list<string>*%, bool>*% parse_params(sIn
             param_types.push_back(clone param_type2);
             param_names.push_back(clone param_name);
             
-            if(*info->p == '=' && *(info->p+1) != '>') {
+            if(*info->p == '=' && *(info->p+1) != '=' && *(info->p+1) != '>') {
                 info->p++;
                 skip_spaces_and_lf();
                 

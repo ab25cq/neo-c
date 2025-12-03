@@ -2166,6 +2166,7 @@ impl map <T, T2>
                         delete borrow self.keys\[it];
                     }
                     self.keys\[it] = null;
+		    
                     if(isheap(T2)) {
                         delete borrow self.items\[it];
                     }
@@ -2306,7 +2307,8 @@ impl map <T, T2>
                 else {
                     item_existance[n] = true;
                     keys\[n] = it;
-                    T2 default_value;
+                    T2` default_value;
+		    memset(&default_value, 0, sizeof(T2));
                     items\[n] = self.at(it, default_value);
 
                     len++;
@@ -2325,6 +2327,18 @@ impl map <T, T2>
 
         self.size = size;
         self.len = len;
+    }
+
+    void show_map(map<T, T2>* self) {
+        for(var it = self.begin(); !self.end(); it = self.next()) {
+            puts("key " + it.to_string());
+	T2` default_value;
+		memset(&default_value, 0, sizeof(T2));
+	    var item = self.at(it, default_value);
+	    if(item) {
+		    puts("item " + item.to_string());
+            }
+        }
     }
     
     map<T,T2>* insert(map<T,T2>* self, T key, T2 item) {

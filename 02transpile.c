@@ -33,9 +33,9 @@ bool node_compile(sNode* node, sInfo* info=info)
     info->sline_real = node->sline_real();
     
     write_source_file_position_to_source();
-    
+
     bool result = node->compile(info);
-    
+
     info->sname = string(sname);
     info->sline = sline;
     info->sline_real = sline_real;

@@ -159,7 +159,7 @@ sNode*% parse_enum(string type_name, string attribute, sInfo* info)
 
         string attribute = parse_struct_attribute();
         
-        if(*info->p == '=') {
+        if(*info->p == '=' && *(info->p+1) != '=') {
             info->p++;
             skip_spaces_and_lf();
             
@@ -249,7 +249,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 96
             string element_name = parse_word();
             string attribute = parse_struct_attribute();
 
-            if(*info->p == '=') {
+            if(*info->p == '=' && *(info->p+1) != '=') {
                 info->p++;
                 skip_spaces_and_lf();
 

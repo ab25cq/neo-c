@@ -938,7 +938,7 @@ string refrection_expression_eq(sInfo* info=info)
     parse_sharp();
     
     while(*info->p) {
-        if(*info->p == '=' && *(info->p+1) == '=') {
+        if(*info->p == '=' && *(info->p+1) == '=' && *(info->p+2) != '=') {
             info->p += 2;
             skip_spaces_and_lf();
             
@@ -951,7 +951,7 @@ string refrection_expression_eq(sInfo* info=info)
                 return s"false";
             }
         }
-        else if(*info->p == '!' && *(info->p+1) == '=') {
+        else if(*info->p == '!' && *(info->p+1) == '=' && *(info->p+2) != '=') {
             info->p += 2;
             skip_spaces_and_lf();
             
