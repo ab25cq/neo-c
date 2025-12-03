@@ -15,6 +15,8 @@ test: *.c
 	./attrs
 	neo-c builtins.c
 	./builtins
+	neo-c inline_asm.c
+	./inline_asm
 	neo-c codex.c
 	./codex
 	neo-c comelang.c

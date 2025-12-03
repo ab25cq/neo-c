@@ -288,6 +288,10 @@ void ViWin*::fileCompetion(ViWin* self, Vi* nvi)
 void ViWin*::commandModeInput(ViWin* self, Vi* nvi) 
 {
     auto key = self.getKey(false);
+    
+if(key == 410) { // For iPhone + clicks
+    key = self.getKey(false);
+}
 
     char a[128];
     snprintf(a, 128, "%c", key);
