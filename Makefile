@@ -5,7 +5,7 @@ DESTDIR=/usr/local
 CFLAGS_OPT=
 CC=clang
 INSTALL=/usr/bin/install -c
-CFLAGS=-DPREFIX="\"${DESTDIR}/\""  -I/usr/local/include $(CFLAGS_OPT) -std=c11 
+CFLAGS=-DPREFIX="\"${DESTDIR}/\""  -I/usr/local/include $(CFLAGS_OPT) -std=c11 -O2
 LIBS= -lutil -ldl -lm -lrt
 
 #########################################

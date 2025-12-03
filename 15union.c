@@ -20,7 +20,7 @@ void output_union(sClass* klass, sInfo* info)
         var name, type = it;
         
         if(type->mAnonymous) {
-            info.struct_definition.remove(type->mAnonymousName);
+            //info.struct_definition.remove(type->mAnonymousName);
             child_output_struct(type, s"", buf, &existance_generics, name, 1, info);
         }
         else if(type->mInnerStruct) {

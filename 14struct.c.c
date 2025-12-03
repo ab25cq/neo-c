@@ -905,6 +905,14 @@ struct proc_rlimit_control_wakeupmon
     int wm_rate;
 };
 
+struct anonymous_typeX2
+{
+    unsigned int w_Termsig:7;
+    unsigned int w_Coredump:1;
+    unsigned int w_Retcode:8;
+    unsigned int w_Filler:16;
+};
+
 struct anonymous_typeX3
 {
     unsigned int w_Stopval:8;
@@ -974,6 +982,31 @@ struct lconv
     char int_n_sep_by_space;
     char int_p_sign_posn;
     char int_n_sign_posn;
+};
+
+struct anonymous_typeX7
+{
+    int __min;
+    int __max;
+    int __map;
+    unsigned int* __types;
+};
+
+struct anonymous_typeX8
+{
+    int __nranges;
+    struct {
+        int __min;
+        int __max;
+        int __map;
+        unsigned int* __types;
+    } __ranges;
+};
+
+struct anonymous_typeX9
+{
+    char __name[14];
+    unsigned int __mask;
 };
 
 struct anonymous_typeX10
@@ -1229,6 +1262,24 @@ enum { RE_UNUSED
 ,RE_NOT_WHITESPACE 
 ,RE_GROUP 
 ,RE_GROUP_END 
+};
+
+struct anonymous_typeX14
+{
+    struct regex_t* first;
+    struct regex_t* last;
+    int id;
+};
+
+union anonymous_typeZ13
+{
+unsigned char ch;
+unsigned char* ccl;
+    struct {
+        struct regex_t* first;
+        struct regex_t* last;
+        int id;
+    } group;
 };
 
 struct regex_t
@@ -3599,7 +3650,6 @@ _Bool _conditional_value_X0;
         type->mStatic=(_Bool)0;
         klass_10=type->mClass;
         if(        type->mAnonymous        ) {
-            map$2char$phbuffer$ph_remove(info->struct_definition,(char*)come_increment_ref_count(type->mAnonymousName));
             __right_value0 = (void*)0;
             child_output_struct(type,(char*)come_increment_ref_count(xsprintf("")),buf,&existance_generics,(char*)come_increment_ref_count(name_9),1,info);
         }
