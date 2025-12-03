@@ -1002,7 +1002,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
 /////////////////////////////////////////////////////////////////////
 /// 14struct.c
 /////////////////////////////////////////////////////////////////////
-void child_output_struct(sType* type, string struct_name, buffer*% buf, bool* existance_generics, string name, int indent, sInfo* info);
+void child_output_struct(sType* type, string struct_name, buffer* buf, bool* existance_generics, string name, int indent, sInfo* info);
 string parse_struct_attribute(sInfo* info=info);
 sNode*% create_nothing_node(sInfo* info=info);
 bool is_contained_method_generics_types(sType* type, sInfo* info);

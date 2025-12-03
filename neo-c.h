@@ -2150,7 +2150,7 @@ impl map <T, T2>
 
         return default_value;
     }
-    map<T,T2>* remove(map<T, T2>* self, T& key) {
+    map<T,T2>* remove(map<T, T2>* self, T key) {
         unsigned int hash = ((T)key).get_hash_key() % self.size;
         unsigned int it = hash;
         
@@ -2166,7 +2166,7 @@ impl map <T, T2>
                         delete borrow self.keys\[it];
                     }
                     self.keys\[it] = null;
-		    
+   
                     if(isheap(T2)) {
                         delete borrow self.items\[it];
                     }

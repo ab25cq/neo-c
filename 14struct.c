@@ -1,6 +1,6 @@
 #include "common.h"
 
-void child_output_struct(sType* type, string struct_name, buffer*% buf, bool* existance_generics, string name, int indent, sInfo* info)
+void child_output_struct(sType* type, string struct_name, buffer* buf, bool* existance_generics, string name, int indent, sInfo* info)
 {
     sClass* klass = type->mClass;
     
@@ -93,7 +93,7 @@ void output_struct(sClass* klass, string pragma, sInfo* info)
         sClass* klass = type->mClass;
         
         if(type->mAnonymous) {
-            //info.struct_definition.remove(type->mAnonymousName);
+            info.struct_definition.remove(type->mAnonymousName);
             child_output_struct(type, s"", buf, &existance_generics, name, 1, info);
         }
         else if(type->mInnerStruct) {
@@ -118,7 +118,7 @@ void output_struct(sClass* klass, string pragma, sInfo* info)
     }
             
     if(info.struct_definition[string(name)] == null && !existance_generics) {
-        info.struct_definition.insert(string(name), clone buf);
+        info.struct_definition.insert(string(name), buf);
     }
 }
 
