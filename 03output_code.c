@@ -547,7 +547,9 @@ string make_define_var(sType* type, char* name, sInfo* info=info, bool no_static
             buf.append_format("*");
         }
         
-        buf.append_format("%s", name);
+        if(!type2->mAnonymousVarName) {
+            buf.append_format("%s", name);
+        }
         
         if(type2->mSizeNum != null) {
             if(!node_compile(type2->mSizeNum)) {
