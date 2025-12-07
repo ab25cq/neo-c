@@ -1450,6 +1450,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
     bool uniq_ = false;
     bool tuple_ = false;
     bool original_var_name = false;
+    bool complex_ = false;
     
     sNode*% alignas_ = null;
     
@@ -1525,6 +1526,11 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         }
         else if(type_name === "const") {
             constant = true;
+            
+            type_name = parse_word();
+        }
+        else if(type_name === "_Complex") {
+            complex_ = true;
             
             type_name = parse_word();
         }
@@ -2531,6 +2537,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         result_type->mAtomic = result_type->mAtomic || atomic_;
         result_type->mThreadLocal = result_type->mThreadLocal || thread_local;
         result_type->mConstant = result_type->mConstant || constant;
+        result_type->mComplex = result_type->mComplex || complex_;
         result_type->mAlignas = alignas_;
         result_type->mRegister = register_;
         result_type->mUnsigned = result_type->mUnsigned || unsigned_;
@@ -2592,6 +2599,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         }
         
         type->mConstant = type->mConstant || constant;
+        type->mComplex = type->mComplex || complex_;
         type->mAtomic = type->mAtomic || atomic_;
         type->mThreadLocal = type->mThreadLocal || thread_local;
         type->mAlignas = alignas_;
@@ -2719,6 +2727,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         }
         
         result_type->mConstant = result_type->mConstant || constant;
+        result_type->mComplex = result_type->mComplex || complex_;
         result_type->mAtomic = result_type->mAtomic || atomic_;
         result_type->mThreadLocal = result_type->mThreadLocal || thread_local;
         result_type->mAlignas = alignas_;
@@ -2834,6 +2843,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             }
             
             type->mConstant = type->mConstant || constant;
+            type->mComplex = type->mComplex || complex_;
             type->mAtomic = type->mAtomic || atomic_;
             type->mThreadLocal = type->mThreadLocal || thread_local;
             type->mAlignas = alignas_;
@@ -2868,6 +2878,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             }
             
             type->mConstant = type->mConstant || constant;
+            type->mComplex = type->mComplex || complex_;
             type->mAtomic = type->mAtomic || atomic_;
             type->mThreadLocal = type->mThreadLocal || thread_local;
             type->mAlignas = alignas_;
@@ -2897,6 +2908,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             }
             
             type->mConstant = type->mConstant || constant;
+            type->mComplex = type->mComplex || complex_;
             type->mAtomic = type->mAtomic || atomic_;
             type->mThreadLocal = type->mThreadLocal || thread_local;
             type->mAlignas = alignas_;
@@ -2973,6 +2985,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             }
             
             type->mConstant = type->mConstant || constant;
+            type->mComplex = type->mComplex || complex_;
             type->mAtomic = type->mAtomic || atomic_;
             type->mThreadLocal = type->mThreadLocal || thread_local;
             type->mAlignas = alignas_;
@@ -3021,6 +3034,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             }
             
             type->mConstant = type->mConstant || constant;
+            type->mComplex = type->mComplex || complex_;
             type->mAtomic = type->mAtomic || atomic_;
             type->mThreadLocal = type->mThreadLocal || thread_local;
             type->mAlignas = alignas_;

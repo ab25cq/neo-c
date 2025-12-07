@@ -30,6 +30,9 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
     if(type->mConstant) {
         buf.append_str("const ");
     }
+    if(type->mComplex) {
+        buf.append_str("_Complex ");
+    }
     if(type->mRegister) {
         buf.append_str("register ");
     }
