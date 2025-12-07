@@ -13,7 +13,7 @@ then
     apt install which clang readline ncurses make autoconf valgrind gdb lldb binutils libandroid-glob libgc openssl mariadb libdwarf-dev libelf-dev libc6-dev
 elif which pacman > /dev/null
 then
-    sudo pacman -Syu make valgrind 
+    sudo pacman -S make valgrind readline ncurses clang gcc which openssl
 elif which dnf > /dev/null
 then
     sudo dnf install make valgrind readline-devel ncurses-devel clang gcc which openssl-devel 
