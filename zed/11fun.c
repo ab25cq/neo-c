@@ -88,7 +88,7 @@ sNode*% exp_node(sInfo* info) version 9
         
         string fun_name = string("read");
         list<sNode*%>*% params = new list<sNode*%>();
-        sNodeBlock? block = null
+        sNodeBlock block = null
         result = new sFunNode(fun_name, clone result, params, block) implements sNode;
     }
     else {

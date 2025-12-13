@@ -368,7 +368,7 @@ Vi*% Vi*::initialize(Vi*% self) version 12;
 ////////////////////////////
 // src/13completion.c
 ////////////////////////////
-wchar_t*? ViWin*::selector2(ViWin* self, list<wstring>* lines);
+wchar_t* ViWin*::selector2(ViWin* self, list<wstring>* lines);
 void ViWin*::completion(ViWin* self, Vi* nvi) version 13;
 
 ////////////////////////////

@@ -1,8 +1,8 @@
 #include "common.h"
 
-wchar_t*? ViWin*::selector2(ViWin* self, list<wstring>* lines) 
+wchar_t* ViWin*::selector2(ViWin* self, list<wstring>* lines) 
 {
-    wchar_t*? result = null;
+    wchar_t* result = null;
 
     bool end_of_select = false;
     bool canceled = false;

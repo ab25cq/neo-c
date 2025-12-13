@@ -3091,19 +3091,6 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                     type->mNoSolvedGenericsType.mHeap = false;
                 }
             }
-            else if(*info->p == '?') {
-                info->p++;
-                
-                if(*info->p == '?') {
-                    info->p++;
-                    type->mGuardValue = true;
-                }
-                else {
-                    type->mNullValue = true;
-                }
-                
-                skip_spaces_and_lf();
-            }
             else if(*info->p == '`') {
                 info->p++;
                 skip_spaces_and_lf();

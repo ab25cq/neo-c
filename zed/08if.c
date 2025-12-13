@@ -16,14 +16,14 @@ bool compile_block(sNodeBlock& block, sInfo* info)
 
 class sIfNode
 {
-    new(sNode*% if_exp, sNodeBlock if_block, list<sNode*%>*% elif_exps, list<sNodeBlock>*% elif_blocks, sNodeBlock? else_block)
+    new(sNode*% if_exp, sNodeBlock if_block, list<sNode*%>*% elif_exps, list<sNodeBlock>*% elif_blocks, sNodeBlock else_block)
     {
         int self.id = gNodeID++;
         sNode*% self.if_exp = if_exp;
         sNodeBlock self.if_block = if_block;
         list<sNode*%>*% self.elif_exps = elif_exps;
         list<sNodeBlock>*% self.elif_blocks = elif_blocks
-        sNodeBlock? self.else_block = clone else_block;
+        sNodeBlock self.else_block = clone else_block;
     }
     
     unsigned int id()
@@ -37,7 +37,7 @@ class sIfNode
         sNodeBlock& if_block = self.if_block;
         list<sNode*%>* elif_exps = self.elif_exps;
         list<sNodeBlock>* elif_blocks = self.elif_blocks;
-        sNodeBlock? else_block = self.else_block;
+        sNodeBlock else_block = self.else_block;
         
         list<int>*% end_points = new list<int>();
         

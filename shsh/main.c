@@ -1473,7 +1473,7 @@ int main(int argc, char** argv)
         }
     }
     else {
-        string? command_str = null;
+        string command_str = null;
         if(command) {
             
             string history_file_name = getenv("HOME") + ".shsh_history";
