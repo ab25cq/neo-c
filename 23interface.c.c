@@ -1264,6 +1264,13 @@ enum { RE_UNUSED
 ,RE_GROUP_END 
 };
 
+struct anonymous_typeX12
+{
+    struct regex_t* first;
+    struct regex_t* last;
+    int id;
+};
+
 struct anonymous_typeX14
 {
     struct regex_t* first;

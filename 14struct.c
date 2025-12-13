@@ -64,9 +64,6 @@ void child_output_struct(sType* type, string struct_name, buffer* buf, bool* exi
 
 void output_struct(sClass* klass, string pragma, sInfo* info)
 {
-    if(info->no_output_come_code) {
-        return;
-    }
     if(klass->mFields.length() == 0) {
         return;
     }
@@ -126,8 +123,7 @@ bool output_generics_struct(sType*% type, sType*% generics_type, sInfo* info)
 {
     string new_name = create_generics_name(type, info);
     
-    if(!info.classes.find(new_name)) 
-    {
+    if(!info.classes.find(new_name)) {
         sClass*% generics_class = info.generics_classes[string(type.mClass.mName)]??;
         
         if(generics_class == null) {
@@ -154,10 +150,7 @@ bool output_generics_struct(sType*% type, sType*% generics_type, sInfo* info)
         type->mClass = new_class;
         type->mGenericsTypes.reset();
         
-        bool no_output_come_code = info.no_output_come_code;
-        info.no_output_come_code = false;
         output_struct(new_class, null, info);
-        info.no_output_come_code = no_output_come_code;
     }
     else { 
         if(type->mNoSolvedGenericsType == null && type->mGenericsTypes.length() > 0) {
