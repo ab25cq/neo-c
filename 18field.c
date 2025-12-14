@@ -985,14 +985,11 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                 skip_spaces_and_lf();
                 
                 bool no_comma = info.no_comma;
-                bool no_output_err = info.no_output_err;
                 bool no_output_come_code = info.no_output_come_code;
-                info->no_output_err = true;
                 info->no_comma = true;
                 info->no_output_come_code = true;
                 sNode*% exp = expression();
                 info->no_comma = no_comma;
-                info->no_output_err = no_output_err;
                 info->no_output_come_code = no_output_come_code;
                 
                 if(*info->p == '.' && *(info->p+1) == '.') {
@@ -1054,14 +1051,11 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                         skip_spaces_and_lf();
                         
                         bool no_comma = info.no_comma;
-                        bool no_output_err = info.no_output_err;
                         bool no_output_come_code = info.no_output_come_code;
-                        info->no_output_err = true;
                         info->no_comma = true;
                         info->no_output_come_code = true;
                         sNode*% exp = expression();
                         info->no_comma = no_comma;
-                        info->no_output_err = no_output_err;
                         info->no_output_come_code = no_output_come_code;
                         
                         if(*info->p == '.' && *(info->p+1) == '.') {

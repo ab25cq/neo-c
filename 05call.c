@@ -2101,7 +2101,6 @@ sNode*% expression_node(sInfo* info=info) version 1
     skip_spaces_and_lf();
     parse_sharp();
     
-    info->no_output_err = false;
     err_msg(info, "invalid character(1)(%d)(%c)", *info->p, *info->p);
     stackframe();
     exit(3);
@@ -2284,7 +2283,8 @@ sNode*% expression_node(sInfo* info=info) version 98
             info.p = head;
             info.sline = head_sline;
             
-            info.no_output_err = true;
+            bool no_output_come_code = info.no_output_come_code;
+            info.no_output_come_code = true;
             
             if(xisalpha(*info.p) || *info.p == '_') {
                 var word2 = parse_word();
@@ -2301,7 +2301,7 @@ sNode*% expression_node(sInfo* info=info) version 98
                 }
             }
             
-            info.no_output_err = false;
+            info.no_output_come_code = no_output_come_code;
             
             info.p = head;
             info.sline = head_sline;

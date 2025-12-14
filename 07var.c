@@ -882,6 +882,9 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
     bool multiple_declare = false;
     if(is_type_name_flag && !info.in_offsetof)
     {
+        bool no_output_come_code = info.no_output_come_code;
+        info.no_output_come_code = true;
+        
         char* p = info.p;
         int sline = info.sline;
         
@@ -905,18 +908,15 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
                         skip_block();
                     }
                     else {
-                        bool no_output_err = info->no_output_err;
                         bool no_comma = info->no_comma;
                         bool no_output_come_code = info->no_output_come_code;
                         
-                        info->no_output_err = true;
                         info->no_comma = true;
                         info->no_output_come_code = true;
                         
                         sNode*% exp = expression();
                         
                         info->no_comma = no_comma;
-                        info->no_output_err = no_output_err;
                         info->no_output_come_code = no_output_come_code;
                     }
                 }
@@ -929,12 +929,15 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         
         info.p = p;
         info.sline = sline;
+        info.no_output_come_code = no_output_come_code;
     }
     
     bool attr_define = false;
     if(is_type_name_flag && info->defining_class && !info.in_offsetof) {
         char* p = info.p;
         int sline = info.sline;
+        bool no_output_come_code = info.no_output_come_code;
+        info.no_output_come_code = true;
         
         info.p = head;
         info.sline = head_sline;
@@ -949,6 +952,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         
         info.p = p;
         info.sline = sline;
+        info.no_output_come_code = no_output_come_code;
     }
     
     parse_sharp();

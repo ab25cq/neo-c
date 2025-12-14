@@ -51,13 +51,8 @@ class sEnumNode extends sNodeBase
         int i = 0;
         int n = 0;
         string right_c_value = null;
-        bool output = true;
         foreach(it, elements) {
             var name, value, attribute = it;
-            
-            if(info.gv_table.mVars.at(string(name), null) != null) {
-                output = false;
-            }
             
             if(value == null) {
                 buf.append_str(name);
@@ -107,17 +102,15 @@ class sEnumNode extends sNodeBase
         }
         buf.append_format("};\n");
         
-        if(output) {
-            if(info.struct_definition[string(type_name)]?? == null || type_name === "") {
-                if(type_name === "") {
-                    static int type_name_num = 0;
-                    type_name_num++;
-                    type_name = xsprintf("__enum_type_name_X%d", type_name_num);
-                    info.struct_definition.insert(string(type_name), buf);
-                }
-                else {
-                    info.struct_definition.insert(string(type_name), buf);
-                }
+        if(info.struct_definition[string(type_name)]?? == null || type_name === "") {
+            if(type_name === "") {
+                static int type_name_num = 0;
+                type_name_num++;
+                type_name = xsprintf("__enum_type_name_X%d", type_name_num);
+                info.struct_definition.insert(string(type_name), buf);
+            }
+            else {
+                info.struct_definition.insert(string(type_name), buf);
             }
         }
     
@@ -298,6 +291,8 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
     {
         char* p = info.p;
         int sline = info.sline;
+        bool no_output_come_code = info.no_output_come_code;
+        info.no_output_come_code = true;
         
         if(buf === "enum") {
             if(xisalpha(*info->p) || *info->p == '_') {
@@ -315,6 +310,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         
         info.p = p;
         info.sline = sline;
+        info.no_output_come_code = no_output_come_code;
     }
     
     if(define_enum) {

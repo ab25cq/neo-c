@@ -869,7 +869,6 @@ int come_main(int argc, char** argv)
         info.clang_option = clang_option.to_string();
         info.cpp_option = cpp_option.to_string();
         info.linker_option = linker_option.to_string();
-        info.no_output_err = false;
         info.funcs = new map<string, sFun*%>();
         info.uniq_funcs = new map<string, sFun*%>();
         info.struct_definition = new map<string, buffer*%>();

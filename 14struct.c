@@ -856,7 +856,6 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                     else {
                         word = null;
                     }
-                    info.no_output_err = false;
                     
                     if(word) {
                         if(is_type_name(word)) {
@@ -1052,6 +1051,8 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
     {
         char* p = info.p;
         int sline = info.sline;
+        bool no_output_come_code = info.no_output_come_code;
+        info.no_output_come_code = true;
         
         if(buf === "struct") {
             if(xisalpha(*info->p) || *info->p == '_') {
@@ -1072,6 +1073,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             }
         }
         
+        info.no_output_come_code = no_output_come_code;
         info.p = p;
         info.sline = sline;
     }

@@ -1025,6 +1025,9 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
     /// backtrace ///
     bool define_struct_nobody = false;
     {
+        bool no_output_come_code = info.no_output_come_code;
+        info.no_output_come_code = true;
+        
         char* p = info.p;
         int sline = info.sline;
         
@@ -1040,11 +1043,15 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         
         info.p = head;
         info.sline = sline;
+        info.no_output_come_code = no_output_come_code;
     }
     
     /// uniq class ///
     bool uniq_class = false;
     if(buf === "uniq") {
+        bool no_output_come_code = info.no_output_come_code;
+        info.no_output_come_code = true;
+        
         char* p = info.p;
         info.p = head;
         
@@ -1060,6 +1067,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         
         info.p = p;
         info.sline = sline;
+        info.no_output_come_code = no_output_come_code;
     }
     
     /// backtrace ///
@@ -1067,6 +1075,9 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
     bool define_variable_between_brace = false;
     if(is_type_name_flag && !uniq_class)
     {
+        bool no_output_come_code = info.no_output_come_code;
+        info.no_output_come_code = true;
+        
         char* p = info.p;
         info.p = head;
         
@@ -1098,6 +1109,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
             }
         }
         
+        info.no_output_come_code = no_output_come_code;
         info.p = head;
         info.sline = sline;
     }
@@ -1106,6 +1118,9 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
     bool define_function_flag = false;
     if(is_type_name_flag && !define_function_pointer_result_function && buf !== "__typeof__" && !uniq_class)
     {
+        bool no_output_come_code = info.no_output_come_code;
+        info.no_output_come_code = true;
+        
         char* p = info.p;
         info.p = head;
         
@@ -1126,7 +1141,6 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
             else {
                 word = null;
             }
-            info.no_output_err = false;
             
             if(word) {
                 if(is_type_name(word)) {
@@ -1160,6 +1174,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
             }
         }
         
+        info.no_output_come_code = no_output_come_code;
         info.p = p;
         info.sline = sline;
     }
@@ -1168,6 +1183,9 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
     bool define_variable = true;
     if(is_type_name_flag && !define_function_pointer_result_function && !uniq_class)
     {
+        bool no_output_come_code = info.no_output_come_code;
+        info.no_output_come_code = true;
+        
         char* p = info.p;
         info.p = head;
         
@@ -1237,6 +1255,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         
         info.p = p;
         info.sline = sline;
+        info.no_output_come_code = no_output_come_code;
     }
     else {
         define_variable = false;
@@ -1245,6 +1264,9 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
     /// backtrace ///
     if(!define_function_pointer_result_function)
     {
+        bool no_output_come_code = info.no_output_come_code;
+        info.no_output_come_code = true;
+        
         char* p = info.p;
         info.p = head;
         
@@ -1288,6 +1310,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         
         info.p = p;
         info.sline = sline;
+        info.no_output_come_code = no_output_come_code;
     }
     
     if(uniq_class) {

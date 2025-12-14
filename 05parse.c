@@ -16,7 +16,7 @@ bool parsecmp(char* p2, sInfo* info=info)
 
 int err_msg(sInfo* info, char* msg, ...)
 {
-    if(!info.no_output_err) {
+    if(!info.no_output_come_code) {
         char* msg2;
     
         va_list args;
@@ -63,7 +63,7 @@ record int expected_next_character(char c, sInfo* info=info)
 {
     parse_sharp();
     if(*info->p != c) {
-        if(!info.no_output_err) {
+        if(!info.no_output_come_code) {
             err_msg(info, "expected next charaster is %c, but %c, caller %s %d", c, *info->p, info->caller_sname, info->caller_line);
             stackframe();
             exit(1);

@@ -954,8 +954,6 @@ sNode*% pre_position_operator(sInfo* info=info)
             
             bool no_comma = info.no_comma;
             info.no_comma = true;
-            bool no_output_err = info.no_output_err;
-            info.no_output_err = true;
             bool no_output_come_code = info.no_output_come_code;
             info.no_output_come_code = true;
             
@@ -965,7 +963,6 @@ sNode*% pre_position_operator(sInfo* info=info)
             parse_sharp();
             
             info.no_comma = no_comma;
-            info.no_output_err = no_output_err;
             info.no_output_come_code = no_output_come_code;
             
             if(*info->p == ',') {

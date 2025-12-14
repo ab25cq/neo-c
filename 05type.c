@@ -1411,19 +1411,15 @@ void skip_pointer_attribute(sInfo* info=info)
 
 tuple3<sType*%,string,bool>*% backtrace_parse_type(bool parse_variable_name=false,sInfo* info=info)
 {
-    bool no_output_err = info.no_output_err;
-    info.no_output_err = true;
     bool no_output_come_code = info.no_output_come_code;
     info.no_output_come_code = true;
     var type, name, err = parse_type(parse_variable_name:parse_variable_name);
     info.no_output_come_code = no_output_come_code;
-    info.no_output_err = false;
-    info.no_output_err = no_output_err;
     
     return (type, name, err);
 }
 
-tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_name=false, bool parse_multiple_type=true, bool in_function_parametor=false)
+record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_name=false, bool parse_multiple_type=true, bool in_function_parametor=false)
 {
     char* head = info.p;
     int head_sline = info.sline;

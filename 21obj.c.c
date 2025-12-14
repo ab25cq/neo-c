@@ -157,7 +157,7 @@ typedef long long off_t;
 
 typedef long ssize_t;
 
-typedef enum anonymous_typeY1 idtype_t;
+typedef enum anonymous_typeY2 idtype_t;
 
 typedef int pid_t;
 
@@ -237,11 +237,11 @@ typedef int rune_t;
 
 typedef int wchar_t;
 
-typedef struct anonymous_typeX4 div_t;
+typedef struct anonymous_typeX5 div_t;
 
-typedef struct anonymous_typeX5 ldiv_t;
+typedef struct anonymous_typeX6 ldiv_t;
 
-typedef struct anonymous_typeX6 lldiv_t;
+typedef struct anonymous_typeX7 lldiv_t;
 
 typedef unsigned long  long malloc_type_id_t;
 
@@ -259,13 +259,13 @@ typedef struct _xlocale* locale_t;
 
 typedef int wint_t;
 
-typedef struct anonymous_typeX7 _RuneEntry;
+typedef struct anonymous_typeX8 _RuneEntry;
 
-typedef struct anonymous_typeX8 _RuneRange;
+typedef struct anonymous_typeX9 _RuneRange;
 
-typedef struct anonymous_typeX9 _RuneCharClass;
+typedef struct anonymous_typeX10 _RuneCharClass;
 
-typedef struct anonymous_typeX10 _RuneLocale;
+typedef struct anonymous_typeX11 _RuneLocale;
 
 typedef struct re_program* re_t;
 
@@ -275,9 +275,9 @@ typedef struct regex_t regex_t;
 
 typedef struct re_program regex_program_t;
 
-typedef struct anonymous_typeX15 compiler_state;
+typedef struct anonymous_typeX14 compiler_state;
 
-typedef struct anonymous_typeX16 match_context;
+typedef struct anonymous_typeX15 match_context;
 
 typedef union anonymous_typeZ1 mbstate_t;
 
@@ -420,7 +420,7 @@ extern struct __sFILE* __stdoutp __attribute__((__swift_attr__("nonisolated(unsa
 extern struct __sFILE* __stderrp __attribute__((__swift_attr__("nonisolated(unsafe)")));
 extern const int sys_nerr;
 extern const char* sys_errlist[];
-enum   anonymous_typeY1 { P_ALL 
+enum   anonymous_typeY2 { P_ALL 
 ,P_PID 
 ,P_PGID 
 };
@@ -905,7 +905,7 @@ struct proc_rlimit_control_wakeupmon
     int wm_rate;
 };
 
-struct anonymous_typeX2
+struct anonymous_typeX3
 {
     unsigned int w_Termsig:7;
     unsigned int w_Coredump:1;
@@ -913,7 +913,7 @@ struct anonymous_typeX2
     unsigned int w_Filler:16;
 };
 
-struct anonymous_typeX3
+struct anonymous_typeX4
 {
     unsigned int w_Stopval:8;
     unsigned int w_Stopsig:8;
@@ -936,19 +936,19 @@ int w_status;
     } w_S;
 };
 
-struct anonymous_typeX4
+struct anonymous_typeX5
 {
     int quot;
     int rem;
 };
 
-struct anonymous_typeX5
+struct anonymous_typeX6
 {
     long quot;
     long rem;
 };
 
-struct anonymous_typeX6
+struct anonymous_typeX7
 {
     long long quot;
     long long rem;
@@ -984,7 +984,7 @@ struct lconv
     char int_n_sign_posn;
 };
 
-struct anonymous_typeX7
+struct anonymous_typeX8
 {
     int __min;
     int __max;
@@ -992,7 +992,7 @@ struct anonymous_typeX7
     unsigned int* __types;
 };
 
-struct anonymous_typeX8
+struct anonymous_typeX9
 {
     int __nranges;
     struct {
@@ -1003,13 +1003,13 @@ struct anonymous_typeX8
     } __ranges;
 };
 
-struct anonymous_typeX9
+struct anonymous_typeX10
 {
     char __name[14];
     unsigned int __mask;
 };
 
-struct anonymous_typeX10
+struct anonymous_typeX11
 {
     char __magic[8];
     char __encoding[32];
@@ -1055,8 +1055,8 @@ struct anonymous_typeX10
     } __charclasses;
 };
 
-extern struct anonymous_typeX10 _DefaultRuneLocale;
-extern struct anonymous_typeX10* _CurrentRuneLocale;
+extern struct anonymous_typeX11 _DefaultRuneLocale;
+extern struct anonymous_typeX11* _CurrentRuneLocale;
 struct buffer
 {
     char* buf;
@@ -1264,21 +1264,25 @@ enum { RE_UNUSED
 ,RE_GROUP_END 
 };
 
-struct anonymous_typeX12
+union anonymous_typeZ11
+{
+unsigned char ch;
+unsigned char* ccl;
+    struct {
+        struct regex_t* first;
+        struct regex_t* last;
+        int id;
+    } group;
+};
+
+struct anonymous_typeX13
 {
     struct regex_t* first;
     struct regex_t* last;
     int id;
 };
 
-struct anonymous_typeX14
-{
-    struct regex_t* first;
-    struct regex_t* last;
-    int id;
-};
-
-union anonymous_typeZ13
+union anonymous_typeZ12
 {
 unsigned char ch;
 unsigned char* ccl;
@@ -1310,7 +1314,7 @@ struct re_program
     int group_count;
 };
 
-struct anonymous_typeX15
+struct anonymous_typeX14
 {
     struct regex_t* pool;
     int pool_capacity;
@@ -1321,7 +1325,7 @@ struct anonymous_typeX15
     int group_count;
 };
 
-struct anonymous_typeX16
+struct anonymous_typeX15
 {
     const char* base;
     struct re_capture* captures;
@@ -2318,7 +2322,7 @@ int setiopolicy_np(int , int , int );
 int setrlimit(int , const struct rlimit* );
 int wait(int* );
 int waitpid(int , int* , int );
-int waitid(enum anonymous_typeY1 , unsigned int , struct __siginfo* , int );
+int waitid(enum anonymous_typeY2 , unsigned int , struct __siginfo* , int );
 int wait3(int* , int , struct rusage* );
 int wait4(int , int* , int , struct rusage* );
 void* alloca(unsigned long  int __size);
@@ -2352,13 +2356,13 @@ int atoi(const char* );
 long atol(const char* );
 long long atoll(const char* );
 void* bsearch(const void* __key, const void* __base, unsigned long  int __nel, unsigned long  int __width, int (*__compar)(const void*,const void*));
-struct anonymous_typeX4 div(int , int );
+struct anonymous_typeX5 div(int , int );
 void exit(int );
 char* getenv(const char* );
 long labs(long );
-struct anonymous_typeX5 ldiv(long , long );
+struct anonymous_typeX6 ldiv(long , long );
 long long llabs(long  long );
-struct anonymous_typeX6 lldiv(long  long , long  long );
+struct anonymous_typeX7 lldiv(long  long , long  long );
 int mblen(const char* __s, unsigned long  int __n);
 unsigned long  int mbstowcs(int* , const char* , unsigned long  int __n);
 int mbtowc(int* , const char* , unsigned long  int __n);
@@ -2725,18 +2729,18 @@ int re_matchp(struct re_program* pattern, const char* text, int* matchlength, st
 int re_match(const char* pattern, const char* text, int* matchlength);
 struct re_program* re_compile(const char* pattern);
 void re_print(struct re_program* pattern);
-void clear_captures(struct anonymous_typeX16* ctx);
-void snapshot_captures(const struct anonymous_typeX16* ctx, struct re_capture* buffer_);
-void restore_captures(struct anonymous_typeX16* ctx, const struct re_capture* buffer_);
-struct regex_t* new_token(struct anonymous_typeX15* st);
+void clear_captures(struct anonymous_typeX15* ctx);
+void snapshot_captures(const struct anonymous_typeX15* ctx, struct re_capture* buffer_);
+void restore_captures(struct anonymous_typeX15* ctx, const struct re_capture* buffer_);
+struct regex_t* new_token(struct anonymous_typeX14* st);
 int append_token(struct regex_t** head, struct regex_t** tail, struct regex_t* token);
-struct regex_t* compile_sequence(struct anonymous_typeX15* st, const char* pattern, int* pos, int in_group);
-const char* matchpattern(struct regex_t* pattern, const char* text, struct anonymous_typeX16* ctx);
-const char* matchgroup(struct regex_t* token, struct regex_t* rest, const char* text, struct anonymous_typeX16* ctx);
-const char* matchstar(struct regex_t* token, struct regex_t* rest, const char* text, struct anonymous_typeX16* ctx);
-const char* matchplus(struct regex_t* token, struct regex_t* rest, const char* text, struct anonymous_typeX16* ctx);
-const char* matchquestion(struct regex_t* token, struct regex_t* rest, const char* text, struct anonymous_typeX16* ctx);
-const char* matchtoken(struct regex_t* token, const char* text, struct anonymous_typeX16* ctx);
+struct regex_t* compile_sequence(struct anonymous_typeX14* st, const char* pattern, int* pos, int in_group);
+const char* matchpattern(struct regex_t* pattern, const char* text, struct anonymous_typeX15* ctx);
+const char* matchgroup(struct regex_t* token, struct regex_t* rest, const char* text, struct anonymous_typeX15* ctx);
+const char* matchstar(struct regex_t* token, struct regex_t* rest, const char* text, struct anonymous_typeX15* ctx);
+const char* matchplus(struct regex_t* token, struct regex_t* rest, const char* text, struct anonymous_typeX15* ctx);
+const char* matchquestion(struct regex_t* token, struct regex_t* rest, const char* text, struct anonymous_typeX15* ctx);
+const char* matchtoken(struct regex_t* token, const char* text, struct anonymous_typeX15* ctx);
 int matchdigit(char c);
 int matchalpha(char c);
 int matchwhitespace(char c);
@@ -7484,6 +7488,8 @@ static void sGCDecNoFreeNode_finalize(struct sGCDecNoFreeNode* self){
 
 struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInfo* info){
 void* __right_value0 = (void*)0;
+struct tuple3$3sType$phchar$phbool$* __exception_result_var_b37;
+struct tuple3$3sType$phchar$phbool$* __exception_result_var_b38;
 struct tuple3$3sType$phchar$phbool$* multiple_assign_var6
 ;struct sType* type=0;
 char* name=0;
@@ -7533,40 +7539,44 @@ struct sNode* _inf_value12;
 struct sDummyHeapNode* _inf_obj_value12;
 struct sNode* __result_obj__185;
 struct sNode* node_36;
-int __exception_result_var_b37;
+int __exception_result_var_b39;
 struct sNode* _inf_value13;
 struct sGCIncNode* _inf_obj_value13;
 struct sNode* __result_obj__188;
 struct sNode* node_37;
-int __exception_result_var_b38;
+int __exception_result_var_b40;
 struct sNode* _inf_value14;
 struct sGCDecNode* _inf_obj_value14;
 struct sNode* __result_obj__191;
 struct sNode* node_38;
-int __exception_result_var_b39;
+int __exception_result_var_b41;
 struct sNode* _inf_value15;
 struct sGCDecNoFreeNode* _inf_obj_value15;
 struct sNode* __result_obj__194;
 struct sNode* node_39;
-int __exception_result_var_b40;
+int __exception_result_var_b42;
 struct sNode* _inf_value16;
 struct sGCDecNoFreeNode* _inf_obj_value16;
 struct sNode* __result_obj__195;
+struct tuple3$3sType$phchar$phbool$* __exception_result_var_b43;
+struct tuple3$3sType$phchar$phbool$* __exception_result_var_b44;
 struct tuple3$3sType$phchar$phbool$* multiple_assign_var7
 ;struct sType* param_type=0;
 char* param_name=0;
 _Bool err_40=0;
 struct sType* type2;
-int __exception_result_var_b41;
+int __exception_result_var_b45;
 struct sNode* _inf_value17;
 struct sIsHeap* _inf_obj_value17;
 struct sNode* __result_obj__198;
+struct tuple3$3sType$phchar$phbool$* __exception_result_var_b46;
+struct tuple3$3sType$phchar$phbool$* __exception_result_var_b47;
 struct tuple3$3sType$phchar$phbool$* multiple_assign_var8
 ;struct sType* param_type_41=0;
 char* param_name_42=0;
 _Bool err_43=0;
 struct sType* type2_44;
-int __exception_result_var_b42;
+int __exception_result_var_b48;
 struct sNode* _inf_value18;
 struct sIsPointer* _inf_obj_value18;
 struct sNode* __result_obj__201;
@@ -7579,31 +7589,35 @@ struct sNode* __result_obj__205;
 struct sNode* __result_obj__206;
 _Bool no_comma_46;
 struct sNode* exp_47;
-int __exception_result_var_b43;
+int __exception_result_var_b49;
 struct list$1sType$ph* types;
 struct list$1sNode$ph* exps;
 struct sNode* default_exp;
-int __exception_result_var_b44;
+int __exception_result_var_b50;
 _Bool no_comma_48;
 struct sNode* __dec_obj153;
+struct tuple3$3sType$phchar$phbool$* __exception_result_var_b51;
+struct tuple3$3sType$phchar$phbool$* __exception_result_var_b52;
 struct tuple3$3sType$phchar$phbool$* multiple_assign_var9
 ;struct sType* type_49=0;
 char* name_50=0;
 _Bool err_51=0;
-int __exception_result_var_b45;
+int __exception_result_var_b53;
 _Bool no_comma_52;
 struct sNode* node_53;
 struct sNode* _inf_value19;
 struct sGeneric* _inf_obj_value19;
 struct sNode* __result_obj__209;
-int __exception_result_var_b46;
+int __exception_result_var_b54;
+struct tuple3$3sType$phchar$phbool$* __exception_result_var_b55;
+struct tuple3$3sType$phchar$phbool$* __exception_result_var_b56;
 struct tuple3$3sType$phchar$phbool$* multiple_assign_var10
 ;struct sType* type_54=0;
 char* name_55=0;
 _Bool err_56=0;
-int __exception_result_var_b47;
+int __exception_result_var_b57;
 char* word_57;
-int __exception_result_var_b48;
+int __exception_result_var_b58;
 struct sNode* _inf_value20;
 struct sOffsetOf* _inf_obj_value20;
 struct sNode* __result_obj__212;
@@ -7612,6 +7626,8 @@ _Bool is_type_name_flag;
 char* p;
 int sline;
 char* word_58;
+struct tuple3$3sType$phchar$phbool$* __exception_result_var_b59;
+struct tuple3$3sType$phchar$phbool$* __exception_result_var_b60;
 struct tuple3$3sType$phchar$phbool$* multiple_assign_var11
 ;struct sType* type_59=0;
 char* name_60=0;
@@ -7639,6 +7655,8 @@ _Bool is_type_name_flag_68;
 char* p_69;
 int sline_70;
 char* word_71;
+struct tuple3$3sType$phchar$phbool$* __exception_result_var_b61;
+struct tuple3$3sType$phchar$phbool$* __exception_result_var_b62;
 struct tuple3$3sType$phchar$phbool$* multiple_assign_var12
 ;struct sType* type_72=0;
 char* name_73=0;
@@ -7658,6 +7676,8 @@ _Bool is_type_name_flag_78;
 char* p_79;
 int sline_80;
 char* word_81;
+struct tuple3$3sType$phchar$phbool$* __exception_result_var_b63;
+struct tuple3$3sType$phchar$phbool$* __exception_result_var_b64;
 struct tuple3$3sType$phchar$phbool$* multiple_assign_var13
 ;struct sType* type_82=0;
 char* name_83=0;
@@ -7672,21 +7692,23 @@ struct sNode* __dec_obj181;
 struct sNode* _inf_value27;
 struct sAlignOfExpNode2* _inf_obj_value27;
 struct sNode* __result_obj__233;
-int __exception_result_var_b49;
+int __exception_result_var_b65;
 _Bool is_type_name_flag_87;
 char* p_88;
 int sline_89;
 char* word_90;
+struct tuple3$3sType$phchar$phbool$* __exception_result_var_b66;
+struct tuple3$3sType$phchar$phbool$* __exception_result_var_b67;
 struct tuple3$3sType$phchar$phbool$* multiple_assign_var14
 ;struct sType* type_91=0;
 char* name_92=0;
 _Bool err_93=0;
-int __exception_result_var_b50;
+int __exception_result_var_b68;
 struct sNode* _inf_value28;
 struct sAlignAsNode* _inf_obj_value28;
 struct sNode* __result_obj__236;
 struct sNode* exp_94;
-int __exception_result_var_b51;
+int __exception_result_var_b69;
 struct sNode* _inf_value29;
 struct sAlignAsExpNode* _inf_obj_value29;
 struct sNode* __result_obj__239;
@@ -7696,7 +7718,7 @@ memset(&exp_65, 0, sizeof(exp_65));
 memset(&exp_75, 0, sizeof(exp_75));
 memset(&exp_85, 0, sizeof(exp_85));
     if(    !gComeC&&charp_operator_equals(buf,"new")    ) {
-        multiple_assign_var6=((struct tuple3$3sType$phchar$phbool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)1,(_Bool)0)));
+        multiple_assign_var6=(come_push_stackframe("21obj.c", 1402, 37),__exception_result_var_b38=((struct tuple3$3sType$phchar$phbool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)1,(_Bool)0))), come_pop_stackframe(), __exception_result_var_b38);
         type=(struct sType*)come_increment_ref_count(multiple_assign_var6->v1);
         name=(char*)come_increment_ref_count(multiple_assign_var6->v2);
         err=multiple_assign_var6->v3;
@@ -8017,7 +8039,7 @@ memset(&exp_85, 0, sizeof(exp_85));
         skip_spaces_and_lf(info);
         __right_value0 = (void*)0;
         node_36=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
-        (come_push_stackframe("21obj.c", 1501, 36),__exception_result_var_b37=expected_next_character(41,info), come_pop_stackframe(), __exception_result_var_b37);
+        (come_push_stackframe("21obj.c", 1501, 38),__exception_result_var_b39=expected_next_character(41,info), come_pop_stackframe(), __exception_result_var_b39);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         _inf_value13=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "21obj.c", 1503, "struct sNode");
@@ -8046,7 +8068,7 @@ memset(&exp_85, 0, sizeof(exp_85));
         skip_spaces_and_lf(info);
         __right_value0 = (void*)0;
         node_37=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
-        (come_push_stackframe("21obj.c", 1511, 37),__exception_result_var_b38=expected_next_character(41,info), come_pop_stackframe(), __exception_result_var_b38);
+        (come_push_stackframe("21obj.c", 1511, 39),__exception_result_var_b40=expected_next_character(41,info), come_pop_stackframe(), __exception_result_var_b40);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         _inf_value14=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "21obj.c", 1513, "struct sNode");
@@ -8075,7 +8097,7 @@ memset(&exp_85, 0, sizeof(exp_85));
         skip_spaces_and_lf(info);
         __right_value0 = (void*)0;
         node_38=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
-        (come_push_stackframe("21obj.c", 1521, 38),__exception_result_var_b39=expected_next_character(41,info), come_pop_stackframe(), __exception_result_var_b39);
+        (come_push_stackframe("21obj.c", 1521, 40),__exception_result_var_b41=expected_next_character(41,info), come_pop_stackframe(), __exception_result_var_b41);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         _inf_value15=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "21obj.c", 1523, "struct sNode");
@@ -8104,7 +8126,7 @@ memset(&exp_85, 0, sizeof(exp_85));
         skip_spaces_and_lf(info);
         __right_value0 = (void*)0;
         node_39=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
-        (come_push_stackframe("21obj.c", 1531, 39),__exception_result_var_b40=expected_next_character(41,info), come_pop_stackframe(), __exception_result_var_b40);
+        (come_push_stackframe("21obj.c", 1531, 41),__exception_result_var_b42=expected_next_character(41,info), come_pop_stackframe(), __exception_result_var_b42);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         _inf_value16=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "21obj.c", 1533, "struct sNode");
@@ -8132,7 +8154,7 @@ memset(&exp_85, 0, sizeof(exp_85));
         info->p++;
         skip_spaces_and_lf(info);
         __right_value0 = (void*)0;
-        multiple_assign_var7=((struct tuple3$3sType$phchar$phbool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)1,(_Bool)0)));
+        multiple_assign_var7=(come_push_stackframe("21obj.c", 1539, 43),__exception_result_var_b44=((struct tuple3$3sType$phchar$phbool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)1,(_Bool)0))), come_pop_stackframe(), __exception_result_var_b44);
         param_type=(struct sType*)come_increment_ref_count(multiple_assign_var7->v1);
         param_name=(char*)come_increment_ref_count(multiple_assign_var7->v2);
         err_40=multiple_assign_var7->v3;
@@ -8143,7 +8165,7 @@ memset(&exp_85, 0, sizeof(exp_85));
         }
         __right_value0 = (void*)0;
         type2=(struct sType*)come_increment_ref_count(solve_generics((struct sType*)come_increment_ref_count(param_type),(struct sType*)come_increment_ref_count(info->generics_type),info));
-        (come_push_stackframe("21obj.c", 1547, 40),__exception_result_var_b41=expected_next_character(41,info), come_pop_stackframe(), __exception_result_var_b41);
+        (come_push_stackframe("21obj.c", 1547, 44),__exception_result_var_b45=expected_next_character(41,info), come_pop_stackframe(), __exception_result_var_b45);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         _inf_value17=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "21obj.c", 1549, "struct sNode");
@@ -8175,7 +8197,7 @@ memset(&exp_85, 0, sizeof(exp_85));
         info->p++;
         skip_spaces_and_lf(info);
         __right_value0 = (void*)0;
-        multiple_assign_var8=((struct tuple3$3sType$phchar$phbool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)1,(_Bool)0)));
+        multiple_assign_var8=(come_push_stackframe("21obj.c", 1555, 46),__exception_result_var_b47=((struct tuple3$3sType$phchar$phbool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)1,(_Bool)0))), come_pop_stackframe(), __exception_result_var_b47);
         param_type_41=(struct sType*)come_increment_ref_count(multiple_assign_var8->v1);
         param_name_42=(char*)come_increment_ref_count(multiple_assign_var8->v2);
         err_43=multiple_assign_var8->v3;
@@ -8186,7 +8208,7 @@ memset(&exp_85, 0, sizeof(exp_85));
         }
         __right_value0 = (void*)0;
         type2_44=(struct sType*)come_increment_ref_count(solve_generics((struct sType*)come_increment_ref_count(param_type_41),(struct sType*)come_increment_ref_count(info->generics_type),info));
-        (come_push_stackframe("21obj.c", 1563, 41),__exception_result_var_b42=expected_next_character(41,info), come_pop_stackframe(), __exception_result_var_b42);
+        (come_push_stackframe("21obj.c", 1563, 47),__exception_result_var_b48=expected_next_character(41,info), come_pop_stackframe(), __exception_result_var_b48);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         _inf_value18=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "21obj.c", 1565, "struct sNode");
@@ -8281,7 +8303,7 @@ memset(&exp_85, 0, sizeof(exp_85));
         __right_value0 = (void*)0;
         exp_47=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
         info->no_comma=no_comma_46;
-        (come_push_stackframe("21obj.c", 1624, 42),__exception_result_var_b43=expected_next_character(44,info), come_pop_stackframe(), __exception_result_var_b43);
+        (come_push_stackframe("21obj.c", 1624, 48),__exception_result_var_b49=expected_next_character(44,info), come_pop_stackframe(), __exception_result_var_b49);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         types=(struct list$1sType$ph*)come_increment_ref_count(list$1sType$ph_initialize((struct list$1sType$ph*)come_increment_ref_count((struct list$1sType$ph*)come_calloc_v2(1, sizeof(struct list$1sType$ph)*(1), "21obj.c", 1626, "struct list$1sType$ph*"))));
@@ -8293,7 +8315,7 @@ memset(&exp_85, 0, sizeof(exp_85));
             if(            strncmp(info->p,"default",strlen("default"))==0            ) {
                 info->p+=strlen("default");
                 skip_spaces_and_lf(info);
-                (come_push_stackframe("21obj.c", 1635, 43),__exception_result_var_b44=expected_next_character(58,info), come_pop_stackframe(), __exception_result_var_b44);
+                (come_push_stackframe("21obj.c", 1635, 49),__exception_result_var_b50=expected_next_character(58,info), come_pop_stackframe(), __exception_result_var_b50);
                 no_comma_48=info->no_comma;
                 info->no_comma=(_Bool)1;
                 __right_value0 = (void*)0;
@@ -8304,13 +8326,13 @@ memset(&exp_85, 0, sizeof(exp_85));
             }
             else {
                 __right_value0 = (void*)0;
-                multiple_assign_var9=((struct tuple3$3sType$phchar$phbool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)0,(_Bool)0)));
+                multiple_assign_var9=(come_push_stackframe("21obj.c", 1643, 51),__exception_result_var_b52=((struct tuple3$3sType$phchar$phbool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)0,(_Bool)0))), come_pop_stackframe(), __exception_result_var_b52);
                 type_49=(struct sType*)come_increment_ref_count(multiple_assign_var9->v1);
                 name_50=(char*)come_increment_ref_count(multiple_assign_var9->v2);
                 err_51=multiple_assign_var9->v3;
                 come_call_finalizer(tuple3$3sType$phchar$phbool$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
                 list$1sType$ph_add(types,(struct sType*)come_increment_ref_count(type_49));
-                (come_push_stackframe("21obj.c", 1647, 44),__exception_result_var_b45=expected_next_character(58,info), come_pop_stackframe(), __exception_result_var_b45);
+                (come_push_stackframe("21obj.c", 1647, 52),__exception_result_var_b53=expected_next_character(58,info), come_pop_stackframe(), __exception_result_var_b53);
                 no_comma_52=info->no_comma;
                 info->no_comma=(_Bool)1;
                 __right_value0 = (void*)0;
@@ -8365,10 +8387,10 @@ memset(&exp_85, 0, sizeof(exp_85));
         ((default_exp) ? default_exp = come_decrement_ref_count(default_exp, ((struct sNode*)default_exp)->finalize, ((struct sNode*)default_exp)->_protocol_obj, 0, 0,(void*)0):(void*)0);
     }
     else if(    charp_operator_equals(buf,"offsetof")||charp_operator_equals(buf,"__builtin_offsetof")    ) {
-        (come_push_stackframe("21obj.c", 1675, 45),__exception_result_var_b46=expected_next_character(40,info), come_pop_stackframe(), __exception_result_var_b46);
+        (come_push_stackframe("21obj.c", 1675, 53),__exception_result_var_b54=expected_next_character(40,info), come_pop_stackframe(), __exception_result_var_b54);
         info->in_offsetof=(_Bool)1;
         __right_value0 = (void*)0;
-        multiple_assign_var10=((struct tuple3$3sType$phchar$phbool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)0,(_Bool)0)));
+        multiple_assign_var10=(come_push_stackframe("21obj.c", 1678, 55),__exception_result_var_b56=((struct tuple3$3sType$phchar$phbool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)0,(_Bool)0))), come_pop_stackframe(), __exception_result_var_b56);
         type_54=(struct sType*)come_increment_ref_count(multiple_assign_var10->v1);
         name_55=(char*)come_increment_ref_count(multiple_assign_var10->v2);
         err_56=multiple_assign_var10->v3;
@@ -8378,10 +8400,10 @@ memset(&exp_85, 0, sizeof(exp_85));
             err_msg(info,"parse type");
             exit(2);
         }
-        (come_push_stackframe("21obj.c", 1686, 46),__exception_result_var_b47=expected_next_character(44,info), come_pop_stackframe(), __exception_result_var_b47);
+        (come_push_stackframe("21obj.c", 1686, 56),__exception_result_var_b57=expected_next_character(44,info), come_pop_stackframe(), __exception_result_var_b57);
         __right_value0 = (void*)0;
         word_57=(char*)come_increment_ref_count(parse_word(info));
-        (come_push_stackframe("21obj.c", 1690, 47),__exception_result_var_b48=expected_next_character(41,info), come_pop_stackframe(), __exception_result_var_b48);
+        (come_push_stackframe("21obj.c", 1690, 57),__exception_result_var_b58=expected_next_character(41,info), come_pop_stackframe(), __exception_result_var_b58);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         _inf_value20=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "21obj.c", 1692, "struct sNode");
@@ -8433,7 +8455,7 @@ memset(&exp_85, 0, sizeof(exp_85));
         }
         if(        is_type_name_flag        ) {
             __right_value0 = (void*)0;
-            multiple_assign_var11=((struct tuple3$3sType$phchar$phbool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)1,(_Bool)0)));
+            multiple_assign_var11=(come_push_stackframe("21obj.c", 1722, 59),__exception_result_var_b60=((struct tuple3$3sType$phchar$phbool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)1,(_Bool)0))), come_pop_stackframe(), __exception_result_var_b60);
             type_59=(struct sType*)come_increment_ref_count(multiple_assign_var11->v1);
             name_60=(char*)come_increment_ref_count(multiple_assign_var11->v2);
             err_61=multiple_assign_var11->v3;
@@ -8588,7 +8610,7 @@ memset(&exp_85, 0, sizeof(exp_85));
         }
         if(        is_type_name_flag_68        ) {
             __right_value0 = (void*)0;
-            multiple_assign_var12=((struct tuple3$3sType$phchar$phbool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)1,(_Bool)0)));
+            multiple_assign_var12=(come_push_stackframe("21obj.c", 1884, 61),__exception_result_var_b62=((struct tuple3$3sType$phchar$phbool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)1,(_Bool)0))), come_pop_stackframe(), __exception_result_var_b62);
             type_72=(struct sType*)come_increment_ref_count(multiple_assign_var12->v1);
             name_73=(char*)come_increment_ref_count(multiple_assign_var12->v2);
             err_74=multiple_assign_var12->v3;
@@ -8690,7 +8712,7 @@ memset(&exp_85, 0, sizeof(exp_85));
         }
         if(        is_type_name_flag_78        ) {
             __right_value0 = (void*)0;
-            multiple_assign_var13=((struct tuple3$3sType$phchar$phbool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)1,(_Bool)0)));
+            multiple_assign_var13=(come_push_stackframe("21obj.c", 1939, 63),__exception_result_var_b64=((struct tuple3$3sType$phchar$phbool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)1,(_Bool)0))), come_pop_stackframe(), __exception_result_var_b64);
             type_82=(struct sType*)come_increment_ref_count(multiple_assign_var13->v1);
             name_83=(char*)come_increment_ref_count(multiple_assign_var13->v2);
             err_84=multiple_assign_var13->v3;
@@ -8769,7 +8791,7 @@ memset(&exp_85, 0, sizeof(exp_85));
         }
     }
     else if(    charp_operator_equals(buf,"_Alignas")    ) {
-        (come_push_stackframe("21obj.c", 1968, 48),__exception_result_var_b49=expected_next_character(40,info), come_pop_stackframe(), __exception_result_var_b49);
+        (come_push_stackframe("21obj.c", 1968, 64),__exception_result_var_b65=expected_next_character(40,info), come_pop_stackframe(), __exception_result_var_b65);
         is_type_name_flag_87=(_Bool)0;
         {
             p_88=info->p;
@@ -8787,7 +8809,7 @@ memset(&exp_85, 0, sizeof(exp_85));
         }
         if(        is_type_name_flag_87        ) {
             __right_value0 = (void*)0;
-            multiple_assign_var14=((struct tuple3$3sType$phchar$phbool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)1,(_Bool)0)));
+            multiple_assign_var14=(come_push_stackframe("21obj.c", 1989, 66),__exception_result_var_b67=((struct tuple3$3sType$phchar$phbool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)1,(_Bool)0))), come_pop_stackframe(), __exception_result_var_b67);
             type_91=(struct sType*)come_increment_ref_count(multiple_assign_var14->v1);
             name_92=(char*)come_increment_ref_count(multiple_assign_var14->v2);
             err_93=multiple_assign_var14->v3;
@@ -8796,7 +8818,7 @@ memset(&exp_85, 0, sizeof(exp_85));
                 err_msg(info,"parse type");
                 exit(2);
             }
-            (come_push_stackframe("21obj.c", 1995, 49),__exception_result_var_b50=expected_next_character(41,info), come_pop_stackframe(), __exception_result_var_b50);
+            (come_push_stackframe("21obj.c", 1995, 67),__exception_result_var_b68=expected_next_character(41,info), come_pop_stackframe(), __exception_result_var_b68);
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             _inf_value28=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "21obj.c", 1997, "struct sNode");
@@ -8825,7 +8847,7 @@ memset(&exp_85, 0, sizeof(exp_85));
         else {
             __right_value0 = (void*)0;
             exp_94=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
-            (come_push_stackframe("21obj.c", 2002, 50),__exception_result_var_b51=expected_next_character(41,info), come_pop_stackframe(), __exception_result_var_b51);
+            (come_push_stackframe("21obj.c", 2002, 68),__exception_result_var_b69=expected_next_character(41,info), come_pop_stackframe(), __exception_result_var_b69);
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             _inf_value29=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "21obj.c", 2004, "struct sNode");
@@ -9954,6 +9976,8 @@ struct sImplementsNode* __result_obj__246;
 
 struct sNode* post_position_operator_v21(struct sNode* node, struct sInfo* info){
 void* __right_value0 = (void*)0;
+struct tuple3$3sType$phchar$phbool$* __exception_result_var_b70;
+struct tuple3$3sType$phchar$phbool$* __exception_result_var_b71;
 struct tuple3$3sType$phchar$phbool$* multiple_assign_var15
 ;struct sType* type3=0;
 char* name2=0;
@@ -9968,7 +9992,7 @@ struct sNode* __result_obj__249;
     if(    !node->terminated(node->_protocol_obj)&&!gComeC&&parsecmp("implements",info)    ) {
         info->p+=strlen("implements");
         skip_spaces_and_lf(info);
-        multiple_assign_var15=((struct tuple3$3sType$phchar$phbool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)0,(_Bool)0)));
+        multiple_assign_var15=(come_push_stackframe("21obj.c", 2077, 70),__exception_result_var_b71=((struct tuple3$3sType$phchar$phbool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)0,(_Bool)0))), come_pop_stackframe(), __exception_result_var_b71);
         type3=(struct sType*)come_increment_ref_count(multiple_assign_var15->v1);
         name2=(char*)come_increment_ref_count(multiple_assign_var15->v2);
         err=multiple_assign_var15->v3;

@@ -2,9 +2,11 @@
 
 void output_union(sClass* klass, sInfo* info)
 {
+/*
     if(info->no_output_come_code) {
         return;
     }
+*/
     if(klass.mFields.length() == 0) {
         return;
     }
@@ -311,6 +313,8 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
     {
         char* p = info.p;
         int sline = info.sline;
+        bool no_output_come_code = info.no_output_come_code;
+        info.no_output_come_code = true;
         
         if(buf === "union") {
             string type_name;
@@ -331,6 +335,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             }
         }
         
+        info.no_output_come_code = no_output_come_code;
         info.p = p;
         info.sline = sline;
     }
