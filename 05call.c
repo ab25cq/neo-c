@@ -1285,11 +1285,16 @@ class sFunCallNode extends sNodeBase
                     info.p = info.source.buf;
                     info.head = info.source.buf;
                     
+                    bool no_output_come_code = info.no_output_come_code;
+                    info.no_output_come_code = true;
+                    
                     sNode*% node = expression();
                     
                     node_compile(node).elif {
                         return false;
                     }
+                    
+                    info.no_output_come_code = no_output_come_code;
                     
                     info.source = source;
                     info.p = p;
