@@ -1914,7 +1914,7 @@ struct tuple2$2char$phsGenericsFun$p
     struct sGenericsFun* v2;
 };
 
-struct tuple3$3sType$phchar$phbool$
+struct tuple3$3sType$phchar$ph_Bool$
 {
     struct sType* v1;
     char* v2;
@@ -1927,7 +1927,7 @@ struct tuple2$2char$phchar$ph
     char* v2;
 };
 
-struct tuple4$4list$1sType$ph$phlist$1char$ph$phlist$1char$ph$phbool$
+struct tuple4$4list$1sType$ph$phlist$1char$ph$phlist$1char$ph$ph_Bool$
 {
     struct list$1sType$ph* v1;
     struct list$1char$ph* v2;
@@ -1941,7 +1941,7 @@ struct tuple2$2sFun$pchar$ph
     char* v2;
 };
 
-struct tuple2$2char$phbool$
+struct tuple2$2char$ph_Bool$
 {
     char* v1;
     _Bool v2;
@@ -2397,7 +2397,6 @@ struct list$1int$* inta_to_list(int* self, unsigned long  int len);
 struct list$1long$* longa_to_list(long* self, unsigned long  int len);
 struct list$1float$* floata_to_list(float* self, unsigned long  int len);
 struct list$1double$* doublea_to_list(double* self, unsigned long  int len);
-_Bool bool_equals(_Bool self, _Bool right);
 _Bool _Bool_equals(_Bool self, _Bool right);
 _Bool char_equals(char self, char right);
 _Bool short_equals(short self, short right);
@@ -2406,13 +2405,11 @@ _Bool long_equals(long self, long right);
 _Bool size_t_equals(unsigned long  int self, unsigned long  int right);
 _Bool float_equals(float self, float right);
 _Bool double_equals(double self, double right);
-_Bool bool_operator_equals(_Bool self, _Bool right);
 _Bool _Bool_operator_equals(_Bool self, _Bool right);
 _Bool char_operator_equals(char self, char right);
 _Bool short_operator_equals(short self, short right);
 _Bool int_operator_equals(int self, int right);
 _Bool long_operator_equals(long self, long right);
-_Bool bool_operator_not_equals(_Bool self, _Bool right);
 _Bool _Bool_operator_not_equals(_Bool self, _Bool right);
 _Bool char_operator_not_equals(char self, char right);
 _Bool short_operator_not_equals(short self, short right);
@@ -2421,7 +2418,7 @@ _Bool long_operator_not_equals(long self, long right);
 _Bool charp_equals(char* self, char* right);
 _Bool string_equals(char* self, char* right);
 _Bool voidp_equals(void* self, void* right);
-_Bool boolp_equals(_Bool* self, _Bool* right);
+_Bool _Boolp_equals(_Bool* self, _Bool* right);
 _Bool string_operator_equals(char* self, char* right);
 _Bool charp_operator_equals(char* self, char* right);
 _Bool voidp_operator_equals(char* self, char* right);
@@ -2438,7 +2435,6 @@ unsigned long  int inta_length(int* self, unsigned long  int len);
 unsigned long  int longa_length(long* self, unsigned long  int len);
 unsigned long  int floata_length(float* self, unsigned long  int len);
 unsigned long  int doublea_length(double* self, unsigned long  int len);
-unsigned int bool_get_hash_key(_Bool value);
 unsigned int _Bool_get_hash_key(_Bool value);
 unsigned int char_get_hash_key(char value);
 unsigned int short_get_hash_key(short int value);
@@ -2450,7 +2446,6 @@ unsigned int double_get_hash_key(double value);
 unsigned int charp_get_hash_key(char* value);
 unsigned int string_get_hash_key(char* value);
 unsigned int voidp_get_hash_key(void* value);
-_Bool bool_clone(_Bool self);
 _Bool _Bool_clone(_Bool self);
 char char_clone(char self);
 short int short_clone(short self);
@@ -2484,7 +2479,6 @@ char* charp_sub_plain(char* self, char* str, char* replace);
 char* xbasename(char* path);
 char* xnoextname(char* path);
 char* xextname(char* path);
-char* bool_to_string(_Bool self);
 char* _Bool_to_string(_Bool self);
 char* char_to_string(char self);
 char* short_to_string(short self);
@@ -2495,7 +2489,6 @@ char* float_to_string(float self);
 char* double_to_string(double self);
 char* string_to_string(char* self);
 char* charp_to_string(char* self);
-int bool_compare(_Bool left, _Bool right);
 int _Bool_compare(_Bool left, _Bool right);
 int char_compare(char left, char right);
 int short_compare(short left, short right);
@@ -2836,7 +2829,7 @@ _Bool operator_overload_fun_self(struct sType* type, char* fun_name, struct sNod
 void caller_begin(struct sInfo* info);
 void caller_end(struct sInfo* info);
 struct sNode* craete_logical_denial(struct sNode* node, struct sInfo* info);
-struct tuple3$3sType$phchar$phbool$* backtrace_parse_type(_Bool parse_variable_name, struct sInfo* info);
+struct tuple3$3sType$phchar$ph_Bool$* backtrace_parse_type(_Bool parse_variable_name, struct sInfo* info);
 void skip_pointer_attribute(struct sInfo* info);
 void skip_paren(struct sInfo* info);
 struct sNode* parse_normal_block(_Bool clang, struct sInfo* info);
@@ -2847,7 +2840,7 @@ struct sNode* get_number(_Bool minus, struct sInfo* info);
 struct sNode* get_oct_number(struct sInfo* info);
 struct sNode* get_hex_number(_Bool minus, struct sInfo* info);
 struct sNode* create_int_node(char* value, struct sInfo* info);
-struct tuple4$4list$1sType$ph$phlist$1char$ph$phlist$1char$ph$phbool$* parse_params(struct sInfo* info, _Bool in_constructor_);
+struct tuple4$4list$1sType$ph$phlist$1char$ph$phlist$1char$ph$ph_Bool$* parse_params(struct sInfo* info, _Bool in_constructor_);
 struct tuple2$2sFun$pchar$ph* create_pthread_fun(struct sType* type, char* fun_name, struct sInfo* info);
 struct tuple2$2sFun$pchar$ph* create_finalizer_automatically(struct sType* type, char* fun_name, struct sInfo* info);
 struct tuple2$2sFun$pchar$ph* create_to_string_automatically(struct sType* type, char* fun_name, struct sInfo* info);
@@ -2864,8 +2857,8 @@ _Bool parsecmp(char* p2, struct sInfo* info);
 char* parse_word(struct sInfo* info);
 char* backtrace_parse_word(struct sInfo* info);
 void skip_spaces_and_lf(struct sInfo* info);
-struct tuple2$2char$phbool$* create_generics_fun(char* fun_name, struct sGenericsFun* generics_fun, struct sType* generics_type, struct sInfo* info);
-struct tuple3$3sType$phchar$phbool$* parse_type(struct sInfo* info, _Bool parse_variable_name, _Bool parse_multiple_type, _Bool in_function_parametor);
+struct tuple2$2char$ph_Bool$* create_generics_fun(char* fun_name, struct sGenericsFun* generics_fun, struct sType* generics_type, struct sInfo* info);
+struct tuple3$3sType$phchar$ph_Bool$* parse_type(struct sInfo* info, _Bool parse_variable_name, _Bool parse_multiple_type, _Bool in_function_parametor);
 struct tuple2$2sType$phchar$ph* parse_variable_name_on_multiple_declare(struct sType* base_type_name, _Bool first, struct sInfo* info);
 struct sBlock* parse_block(struct sInfo* info, _Bool return_self_at_last, _Bool in_function);
 int transpile_block(struct sBlock* block, struct list$1sType$ph* param_types, struct list$1char$ph* param_names, struct sInfo* info, _Bool no_var_table, _Bool loop_block);
@@ -3017,7 +3010,7 @@ struct sNode* __result_obj__4;
             info->p++;
             skip_spaces_and_lf(info);
             list$1char$ph_reset(info->generics_type_names);
-            while(            (_Bool)1            ) {
+            while(            1            ) {
                 __right_value0 = (void*)0;
                 generics_name=(char*)come_increment_ref_count(parse_word(info));
                 __right_value0 = (void*)0;
@@ -3048,7 +3041,7 @@ struct sNode* __result_obj__4;
         (come_push_stackframe("22impl.c", 43, 0),__exception_result_var_b1=expected_next_character(123,info), come_pop_stackframe(), __exception_result_var_b1);
         __right_value0 = (void*)0;
         __dec_obj4=info->impl_type,
-        info->impl_type=(struct sType*)come_increment_ref_count((come_push_stackframe("22impl.c", 45, 1),__exception_result_var_b2=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "22impl.c", 45, "struct sType*")),(char*)come_increment_ref_count(word),(_Bool)0,info), come_pop_stackframe(), __exception_result_var_b2));
+        info->impl_type=(struct sType*)come_increment_ref_count((come_push_stackframe("22impl.c", 45, 1),__exception_result_var_b2=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "22impl.c", 45, "struct sType*")),(char*)come_increment_ref_count(word),0,info), come_pop_stackframe(), __exception_result_var_b2));
         come_call_finalizer(sType_finalize, __dec_obj4,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         info->impl_type->mPointerNum=pointer_num;
         while(        *info->p!=125        ) {
@@ -3145,7 +3138,7 @@ struct list_item$1char$ph* litem_1;
 char* __dec_obj3;
 struct list$1char$ph* __result_obj__2;
     if(    self->len==0    ) {
-        litem=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc_v2(1, sizeof(struct list_item$1char$ph)*(1), "/usr/local/include/neo-c.h", 1162, "struct list_item$1char$ph*"))));
+        litem=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc_v2(1, sizeof(struct list_item$1char$ph)*(1), "/usr/local/include/neo-c.h", 1163, "struct list_item$1char$ph*"))));
         litem->prev=((void*)0);
         litem->next=((void*)0);
         __dec_obj1=litem->item,
@@ -3156,7 +3149,7 @@ struct list$1char$ph* __result_obj__2;
     }
     else if(    self->len==1    ) {
         __right_value0 = (void*)0;
-        litem_0=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc_v2(1, sizeof(struct list_item$1char$ph)*(1), "/usr/local/include/neo-c.h", 1172, "struct list_item$1char$ph*"))));
+        litem_0=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc_v2(1, sizeof(struct list_item$1char$ph)*(1), "/usr/local/include/neo-c.h", 1173, "struct list_item$1char$ph*"))));
         litem_0->prev=self->head;
         litem_0->next=((void*)0);
         __dec_obj2=litem_0->item,
@@ -3167,7 +3160,7 @@ struct list$1char$ph* __result_obj__2;
     }
     else {
         __right_value0 = (void*)0;
-        litem_1=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc_v2(1, sizeof(struct list_item$1char$ph)*(1), "/usr/local/include/neo-c.h", 1182, "struct list_item$1char$ph*"))));
+        litem_1=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc_v2(1, sizeof(struct list_item$1char$ph)*(1), "/usr/local/include/neo-c.h", 1183, "struct list_item$1char$ph*"))));
         litem_1->prev=self->tail;
         litem_1->next=((void*)0);
         __dec_obj3=litem_1->item,
