@@ -80,6 +80,7 @@ using C
 #include <errno.h>
 #include <assert.h>
 #include <ctype.h>
+#include <stdbool.h>
 }
 
 using neo-c;
