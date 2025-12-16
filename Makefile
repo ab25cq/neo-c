@@ -96,7 +96,7 @@ neo-c: 01main.c.o 02transpile.c.o 03output_code.c.o 04heap.c.o 05pre_op.c.o 05ca
 	neo-c -s -C -o 16enum.c.o -c 16enum.c $(CFLAGS) 
 
 17typedef.c.o: 17typedef.c
-	neo-c -s -C -o 17typedef.c.o -c 17typedef.c $(CLAGS) 
+	neo-c -s -C -o 17typedef.c.o -c 17typedef.c $(CFLAGS) 
 
 18field.c.o: 18field.c
 	neo-c -s -C -o 18field.c.o -c 18field.c $(CFLAGS) 

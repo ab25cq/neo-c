@@ -155,7 +155,6 @@ sType*% solve_generics(sType*% type, sType*% generics_type, sInfo* info)
             bool guard_ = type->mGuardValue;
             bool deffer_right_value = type->mDefferRightValue;
             
-            bool record_ = type->mRecord;
             bool no_heap = type->mNoHeap;
             bool no_calling_destructor = type->mNoCallingDestructor;
             bool null_value = type->mNullValue;
@@ -735,7 +734,7 @@ tuple2<sType*%, string>*% clone_object(sType*% type, char* obj, sInfo* info)
         type = type->mNoSolvedGenericsType;
     }
     
-    string result = null
+    string result = null;
     sType*% result_type = null;
     var stack_saved = info.stack;
     list<sRightValueObject*%>* right_value_objects = info.right_value_objects;

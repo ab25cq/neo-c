@@ -14,9 +14,6 @@ else {
     int X = 2;
 }
 
-puts HEL
- 
-
 record long*% fun2()
 {
     fun(111, "BBB");
