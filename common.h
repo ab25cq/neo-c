@@ -700,6 +700,13 @@ uniq class sCurrentNode extends sNodeBase
                     else if(value.mType.mClass.mName === "va_list" || value.mType.mClass.mName === "__builtin_va_list") 
                     {
                     }
+                    else if(type2->mArrayPointerType) {
+                        sType*% type3 = clone type2;
+                        type3->mArrayPointerType = false;
+                        type3->mPointerNum++;
+                        tup: string, sType*% item2 = (string(value.mCValueName), type3);
+                        current_stack.mFields.push_back(clone item2);
+                    }
                     else if(type2->mArrayNum.length() == 1) {
                         sType*% type3 = clone type2;
                         type3->mArrayNum.reset();

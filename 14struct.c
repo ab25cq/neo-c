@@ -69,6 +69,7 @@ void output_struct(sClass* klass, string pragma, sInfo* info)
     }
     
     string name = klass.mName;
+    bool current_stack = memcmp(name,"__current_stack", strlen("__current_stack")) == 0;
     
     buffer*% buf = new buffer();
         
@@ -89,11 +90,11 @@ void output_struct(sClass* klass, string pragma, sInfo* info)
         
         sClass* klass = type->mClass;
         
-        if(type->mAnonymous) {
+        if(type->mAnonymous && !current_stack) {
             //info.struct_definition.remove(type->mAnonymousName);
             child_output_struct(type, s"", buf, &existance_generics, name, 1, info);
         }
-        else if(type->mInnerStruct) {
+        else if(type->mInnerStruct && !current_stack) {
             info.struct_definition.remove(type->mInnerStructName);
             child_output_struct(type, type->mInnerStructName, buf, &existance_generics, name, 1, info);
         }
