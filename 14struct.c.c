@@ -2789,7 +2789,7 @@ _Bool xiswdigit(int c);
 _Bool xiswalnum(int c);
 _Bool xiswascii(int c);
 struct sClass* sClass_initialize(struct sClass* self, char* name, _Bool number, _Bool union_, _Bool generics, _Bool method_generics, _Bool protocol_, _Bool struct_, _Bool float_, int generics_num, int method_generics_num, _Bool enum_, _Bool uniq_, _Bool typename, struct sInfo* info);
-struct sType* sType_initialize(struct sType* self, char* name, _Bool heap, struct sInfo* info);
+struct sType* sType_initialize(struct sType* self, char* name, _Bool heap, struct sInfo* info, _Bool unsinged_);
 struct sFun* sFun_initialize(struct sFun* self, char* name, struct sType* result_type, struct list$1sType$ph* param_types, struct list$1char$ph* param_names, struct list$1char$ph* param_default_parametors, _Bool external, _Bool var_args, struct sBlock* block, _Bool static_, struct sInfo* info, _Bool inline_, _Bool uniq_, _Bool generate_, char* attribute, char* fun_attribute, _Bool const_fun, char* text_block, char* generics_sname, int generics_sline, _Bool immutable_);
 struct sGenericsFun* sGenericsFun_initialize(struct sGenericsFun* self, struct sType* impl_type, struct list$1char$ph* generics_type_names, struct list$1char$ph* method_generics_type_names, char* name, struct sType* result_type, struct list$1sType$ph* param_types, struct list$1char$ph* param_names, struct list$1char$ph* param_default_parametors, _Bool var_args, char* block, struct sInfo* info, char* generics_sname, int generics_sline, _Bool const_fun);
 struct CVALUE* CVALUE_initialize(struct CVALUE* self);
@@ -5860,7 +5860,7 @@ _Bool __result_obj__119;
     }
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
-    type=(struct sType*)come_increment_ref_count((come_push_stackframe("14struct.c", 272, 2),__exception_result_var_b3=(come_push_stackframe("14struct.c", 272, 0),__exception_result_var_b1=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "14struct.c", 272, "struct sType*")),(char*)come_increment_ref_count(name),0,info), come_pop_stackframe(), __exception_result_var_b1), come_pop_stackframe(), __exception_result_var_b3));
+    type=(struct sType*)come_increment_ref_count((come_push_stackframe("14struct.c", 272, 2),__exception_result_var_b3=(come_push_stackframe("14struct.c", 272, 0),__exception_result_var_b1=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "14struct.c", 272, "struct sType*")),(char*)come_increment_ref_count(name),0,info,0), come_pop_stackframe(), __exception_result_var_b1), come_pop_stackframe(), __exception_result_var_b3));
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     override_=((struct sType*)(__right_value1=map$2char$phsType$ph_at(info->types,((char*)(__right_value0=__builtin_string(name))),((void*)0))));
@@ -6259,7 +6259,7 @@ memset(&klass, 0, sizeof(klass));
     }
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
-    type=(struct sType*)come_increment_ref_count((come_push_stackframe("14struct.c", 307, 5),__exception_result_var_b6=(come_push_stackframe("14struct.c", 307, 3),__exception_result_var_b4=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "14struct.c", 307, "struct sType*")),(char*)come_increment_ref_count(type_name),0,info), come_pop_stackframe(), __exception_result_var_b4), come_pop_stackframe(), __exception_result_var_b6));
+    type=(struct sType*)come_increment_ref_count((come_push_stackframe("14struct.c", 307, 5),__exception_result_var_b6=(come_push_stackframe("14struct.c", 307, 3),__exception_result_var_b4=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "14struct.c", 307, "struct sType*")),(char*)come_increment_ref_count(type_name),0,info,0), come_pop_stackframe(), __exception_result_var_b4), come_pop_stackframe(), __exception_result_var_b6));
     if(    info->parse_struct_recursive_count>=2    ) {
         type->mInnerStruct=1;
         __right_value0 = (void*)0;
@@ -6775,7 +6775,7 @@ memset(&struct_class_49, 0, sizeof(struct_class_49));
             }
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
-            type=(struct sType*)come_increment_ref_count((come_push_stackframe("14struct.c", 457, 13),__exception_result_var_b14=(come_push_stackframe("14struct.c", 457, 11),__exception_result_var_b12=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "14struct.c", 457, "struct sType*")),(char*)come_increment_ref_count(type_name),0,info), come_pop_stackframe(), __exception_result_var_b12), come_pop_stackframe(), __exception_result_var_b14));
+            type=(struct sType*)come_increment_ref_count((come_push_stackframe("14struct.c", 457, 13),__exception_result_var_b14=(come_push_stackframe("14struct.c", 457, 11),__exception_result_var_b12=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "14struct.c", 457, "struct sType*")),(char*)come_increment_ref_count(type_name),0,info,0), come_pop_stackframe(), __exception_result_var_b12), come_pop_stackframe(), __exception_result_var_b14));
             if(            info->parse_struct_recursive_count>=2            ) {
                 type->mInnerStruct=1;
                 __right_value0 = (void*)0;
@@ -6991,7 +6991,7 @@ memset(&struct_class_49, 0, sizeof(struct_class_49));
             }
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
-            type_50=(struct sType*)come_increment_ref_count((come_push_stackframe("14struct.c", 601, 19),__exception_result_var_b20=(come_push_stackframe("14struct.c", 601, 17),__exception_result_var_b18=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "14struct.c", 601, "struct sType*")),(char*)come_increment_ref_count(type_name),0,info), come_pop_stackframe(), __exception_result_var_b18), come_pop_stackframe(), __exception_result_var_b20));
+            type_50=(struct sType*)come_increment_ref_count((come_push_stackframe("14struct.c", 601, 19),__exception_result_var_b20=(come_push_stackframe("14struct.c", 601, 17),__exception_result_var_b18=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "14struct.c", 601, "struct sType*")),(char*)come_increment_ref_count(type_name),0,info,0), come_pop_stackframe(), __exception_result_var_b18), come_pop_stackframe(), __exception_result_var_b20));
             if(            info->parse_struct_recursive_count>=2            ) {
                 type_50->mInnerStruct=1;
                 __right_value0 = (void*)0;
@@ -7390,7 +7390,7 @@ memset(&struct_class_49, 0, sizeof(struct_class_49));
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __dec_obj91=info->class_type,
-                info->class_type=(struct sType*)come_increment_ref_count((come_push_stackframe("14struct.c", 900, 26),__exception_result_var_b27=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "14struct.c", 900, "struct sType*")),(char*)come_increment_ref_count(type_name_67),0,info), come_pop_stackframe(), __exception_result_var_b27));
+                info->class_type=(struct sType*)come_increment_ref_count((come_push_stackframe("14struct.c", 900, 26),__exception_result_var_b27=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "14struct.c", 900, "struct sType*")),(char*)come_increment_ref_count(type_name_67),0,info,0), come_pop_stackframe(), __exception_result_var_b27));
                 come_call_finalizer(sType_finalize, __dec_obj91,(void*)0, (void*)0, 0, 0, 0, (void*)0);
                 info->class_type->mPointerNum=pointer_num;
                 info->in_class=1;

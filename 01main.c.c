@@ -3009,7 +3009,7 @@ static void list$1sNode$ph_finalize(struct list$1sNode$ph* self);
 static struct list$1int$* list$1int$_initialize(struct list$1int$* self);
 static void list$1int$_finalize(struct list$1int$* self);
 static void list$1char$ph_finalize(struct list$1char$ph* self);
-struct sType* sType_initialize(struct sType* self, char* name, _Bool heap, struct sInfo* info);
+struct sType* sType_initialize(struct sType* self, char* name, _Bool heap, struct sInfo* info, _Bool unsinged_);
 static struct list$1sVar$ph* list$1sVar$ph_initialize(struct list$1sVar$ph* self);
 static void list$1sVar$ph$p_finalize(struct list$1sVar$ph* self);
 static void list_item$1sVar$ph$p_finalize(struct list_item$1sVar$ph* self);
@@ -9668,7 +9668,7 @@ struct list_item$1char$ph* prev_it;
     }
 }
 
-struct sType* sType_initialize(struct sType* self, char* name, _Bool heap, struct sInfo* info){
+struct sType* sType_initialize(struct sType* self, char* name, _Bool heap, struct sInfo* info, _Bool unsinged_){
 int pointer_num;
 char* p;
 void* __right_value0 = (void*)0;
@@ -9792,7 +9792,7 @@ struct sType* __result_obj__340;
     __dec_obj32=self->mResultType,
     self->mResultType=((void*)0);
     come_call_finalizer(sType_finalize, __dec_obj32,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-    self->mUnsigned=0;
+    self->mUnsigned=unsinged_;
     self->mConstant=0;
     self->mRegister=0;
     self->mVolatile=0;
@@ -10671,7 +10671,7 @@ struct sFun* __result_obj__364;
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     __dec_obj41=self->mLambdaType,
-    self->mLambdaType=(struct sType*)come_increment_ref_count((come_push_stackframe("./common.h", 310, 0),__exception_result_var_b1=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "./common.h", 310, "struct sType*")),(char*)come_increment_ref_count(xsprintf("lambda")),0,info), come_pop_stackframe(), __exception_result_var_b1));
+    self->mLambdaType=(struct sType*)come_increment_ref_count((come_push_stackframe("./common.h", 310, 0),__exception_result_var_b1=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "./common.h", 310, "struct sType*")),(char*)come_increment_ref_count(xsprintf("lambda")),0,info,0), come_pop_stackframe(), __exception_result_var_b1));
     come_call_finalizer(sType_finalize, __dec_obj41,(void*)0, (void*)0, 0, 0, 0, (void*)0);
     for(    o2_saved=(struct list$1sType$ph*)come_increment_ref_count(param_types),it=list$1sType$ph_begin(o2_saved)    ;    !list$1sType$ph_end(o2_saved)    ;    it=list$1sType$ph_next(o2_saved)    ){
         __right_value0 = (void*)0;
@@ -11698,7 +11698,7 @@ _Bool __result_obj__398;
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     __dec_obj114=come_value->type,
-    come_value->type=(struct sType*)come_increment_ref_count((come_push_stackframe("./common.h", 795, 2),__exception_result_var_b3=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "./common.h", 795, "struct sType*")),(char*)come_increment_ref_count(class_name),0,info), come_pop_stackframe(), __exception_result_var_b3));
+    come_value->type=(struct sType*)come_increment_ref_count((come_push_stackframe("./common.h", 795, 2),__exception_result_var_b3=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "./common.h", 795, "struct sType*")),(char*)come_increment_ref_count(class_name),0,info,0), come_pop_stackframe(), __exception_result_var_b3));
     come_call_finalizer(sType_finalize, __dec_obj114,(void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_value->var=((void*)0);
     add_come_last_code(info,"%s;\n",come_value->c_value);

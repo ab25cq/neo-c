@@ -167,7 +167,7 @@ uniq class sType
     
     sNode*% mTypeOfNode;
     
-    new(string name, bool heap=false, sInfo* info=info) record
+    new(string name, bool heap=false, sInfo* info=info, bool unsinged_=false) record
     {
         int pointer_num = 0;
         char* p = name;
@@ -223,7 +223,7 @@ uniq class sType
         self.mOriginalTypeName = s"";
         self.mVarArgs = false;
         self.mResultType = null;
-        self.mUnsigned = false;
+        self.mUnsigned = unsinged_;
         self.mConstant = false;
         self.mRegister = false;
         self.mVolatile = false;

@@ -2926,7 +2926,7 @@ _Bool xiswdigit(int c);
 _Bool xiswalnum(int c);
 _Bool xiswascii(int c);
 struct sClass* sClass_initialize(struct sClass* self, char* name, _Bool number, _Bool union_, _Bool generics, _Bool method_generics, _Bool protocol_, _Bool struct_, _Bool float_, int generics_num, int method_generics_num, _Bool enum_, _Bool uniq_, _Bool typename, struct sInfo* info);
-struct sType* sType_initialize(struct sType* self, char* name, _Bool heap, struct sInfo* info);
+struct sType* sType_initialize(struct sType* self, char* name, _Bool heap, struct sInfo* info, _Bool unsinged_);
 struct sFun* sFun_initialize(struct sFun* self, char* name, struct sType* result_type, struct list$1sType$ph* param_types, struct list$1char$ph* param_names, struct list$1char$ph* param_default_parametors, _Bool external, _Bool var_args, struct sBlock* block, _Bool static_, struct sInfo* info, _Bool inline_, _Bool uniq_, _Bool generate_, char* attribute, char* fun_attribute, _Bool const_fun, char* text_block, char* generics_sname, int generics_sline, _Bool immutable_);
 struct sGenericsFun* sGenericsFun_initialize(struct sGenericsFun* self, struct sType* impl_type, struct list$1char$ph* generics_type_names, struct list$1char$ph* method_generics_type_names, char* name, struct sType* result_type, struct list$1sType$ph* param_types, struct list$1char$ph* param_names, struct list$1char$ph* param_default_parametors, _Bool var_args, char* block, struct sInfo* info, char* generics_sname, int generics_sline, _Bool const_fun);
 struct CVALUE* CVALUE_initialize(struct CVALUE* self);
@@ -6236,7 +6236,7 @@ struct tuple2$2sType$phchar$ph* __result_obj__108;
         var_name=(char*)come_increment_ref_count(parse_word(info));
         __dec_obj75 = come_decrement_ref_count(__dec_obj75, (void*)0, (void*)0, 0,0, (void*)0);
         __right_value0 = (void*)0;
-        result_type2=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 1257, 8),__exception_result_var_b9=(come_push_stackframe("05type.c", 1257, 6),__exception_result_var_b7=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 1257, "struct sType*")),(char*)come_increment_ref_count(xsprintf("lambda")),0,info), come_pop_stackframe(), __exception_result_var_b7), come_pop_stackframe(), __exception_result_var_b9));
+        result_type2=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 1257, 8),__exception_result_var_b9=(come_push_stackframe("05type.c", 1257, 6),__exception_result_var_b7=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 1257, "struct sType*")),(char*)come_increment_ref_count(xsprintf("lambda")),0,info,0), come_pop_stackframe(), __exception_result_var_b7), come_pop_stackframe(), __exception_result_var_b9));
         if(        *info->p==91        ) {
             info->p++;
             skip_spaces_and_lf(info);
@@ -7774,7 +7774,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
         (come_push_stackframe("05type.c", 2047, 22),__exception_result_var_b23=expected_next_character(41,info), come_pop_stackframe(), __exception_result_var_b23);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        type_70=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 2049, 25),__exception_result_var_b26=(come_push_stackframe("05type.c", 2049, 23),__exception_result_var_b24=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 2049, "struct sType*")),(char*)come_increment_ref_count(xsprintf("int")),0,info), come_pop_stackframe(), __exception_result_var_b24), come_pop_stackframe(), __exception_result_var_b26));
+        type_70=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 2049, 25),__exception_result_var_b26=(come_push_stackframe("05type.c", 2049, 23),__exception_result_var_b24=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 2049, "struct sType*")),(char*)come_increment_ref_count(xsprintf("int")),0,info,0), come_pop_stackframe(), __exception_result_var_b24), come_pop_stackframe(), __exception_result_var_b26));
         __dec_obj149=type_70->mTypeOfNode,
         type_70->mTypeOfNode=(struct sNode*)come_increment_ref_count(exp_69);
         (__dec_obj149 ? __dec_obj149 = come_decrement_ref_count(__dec_obj149, ((struct sNode*)__dec_obj149)->finalize, ((struct sNode*)__dec_obj149)->_protocol_obj, 0,0, (void*)0) :0);
@@ -8105,7 +8105,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
                 __right_value1 = (void*)0;
                 __right_value2 = (void*)0;
                 __dec_obj160=type_74,
-                type_74=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 2358, 29),__exception_result_var_b30=(come_push_stackframe("05type.c", 2358, 27),__exception_result_var_b28=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 2358, "struct sType*")),(char*)come_increment_ref_count(__builtin_string(type_name)),0,info), come_pop_stackframe(), __exception_result_var_b28), come_pop_stackframe(), __exception_result_var_b30));
+                type_74=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 2358, 29),__exception_result_var_b30=(come_push_stackframe("05type.c", 2358, 27),__exception_result_var_b28=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 2358, "struct sType*")),(char*)come_increment_ref_count(__builtin_string(type_name)),0,info,0), come_pop_stackframe(), __exception_result_var_b28), come_pop_stackframe(), __exception_result_var_b30));
                 come_call_finalizer(sType_finalize, __dec_obj160,(void*)0, (void*)0, 0, 0, 0, (void*)0);
             }
             type_74->mAnonymous=anonymous;
@@ -8166,7 +8166,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
                 __right_value1 = (void*)0;
                 __right_value2 = (void*)0;
                 __dec_obj165=type_74,
-                type_74=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 2387, 32),__exception_result_var_b33=(come_push_stackframe("05type.c", 2387, 30),__exception_result_var_b31=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 2387, "struct sType*")),(char*)come_increment_ref_count(__builtin_string(type_name)),0,info), come_pop_stackframe(), __exception_result_var_b31), come_pop_stackframe(), __exception_result_var_b33));
+                type_74=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 2387, 32),__exception_result_var_b33=(come_push_stackframe("05type.c", 2387, 30),__exception_result_var_b31=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 2387, "struct sType*")),(char*)come_increment_ref_count(__builtin_string(type_name)),0,info,0), come_pop_stackframe(), __exception_result_var_b31), come_pop_stackframe(), __exception_result_var_b33));
                 come_call_finalizer(sType_finalize, __dec_obj165,(void*)0, (void*)0, 0, 0, 0, (void*)0);
             }
             ((node_86) ? node_86 = come_decrement_ref_count(node_86, ((struct sNode*)node_86)->finalize, ((struct sNode*)node_86)->_protocol_obj, 0, 0,(void*)0):(void*)0);
@@ -8220,7 +8220,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
                 __right_value1 = (void*)0;
                 __right_value2 = (void*)0;
                 __dec_obj168=type_74,
-                type_74=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 2418, 35),__exception_result_var_b36=(come_push_stackframe("05type.c", 2418, 33),__exception_result_var_b34=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 2418, "struct sType*")),(char*)come_increment_ref_count(__builtin_string(type_name)),0,info), come_pop_stackframe(), __exception_result_var_b34), come_pop_stackframe(), __exception_result_var_b36));
+                type_74=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 2418, 35),__exception_result_var_b36=(come_push_stackframe("05type.c", 2418, 33),__exception_result_var_b34=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 2418, "struct sType*")),(char*)come_increment_ref_count(__builtin_string(type_name)),0,info,0), come_pop_stackframe(), __exception_result_var_b34), come_pop_stackframe(), __exception_result_var_b36));
                 come_call_finalizer(sType_finalize, __dec_obj168,(void*)0, (void*)0, 0, 0, 0, (void*)0);
             }
             type_74->mPointerNum=pointer_num_91;
@@ -8349,7 +8349,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
                     __right_value1 = (void*)0;
                     __right_value2 = (void*)0;
                     __dec_obj179=result_type,
-                    result_type=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 2513, 38),__exception_result_var_b39=(come_push_stackframe("05type.c", 2513, 36),__exception_result_var_b37=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 2513, "struct sType*")),(char*)come_increment_ref_count(xsprintf("__generics_type%d",i)),0,info), come_pop_stackframe(), __exception_result_var_b37), come_pop_stackframe(), __exception_result_var_b39));
+                    result_type=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 2513, 38),__exception_result_var_b39=(come_push_stackframe("05type.c", 2513, 36),__exception_result_var_b37=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 2513, "struct sType*")),(char*)come_increment_ref_count(xsprintf("__generics_type%d",i)),0,info,0), come_pop_stackframe(), __exception_result_var_b37), come_pop_stackframe(), __exception_result_var_b39));
                     come_call_finalizer(sType_finalize, __dec_obj179,(void*)0, (void*)0, 0, 0, 0, (void*)0);
                 }
             }
@@ -8363,7 +8363,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
                     __right_value1 = (void*)0;
                     __right_value2 = (void*)0;
                     __dec_obj180=result_type,
-                    result_type=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 2520, 41),__exception_result_var_b42=(come_push_stackframe("05type.c", 2520, 39),__exception_result_var_b40=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 2520, "struct sType*")),(char*)come_increment_ref_count(xsprintf("__mgenerics_type%d",i_98)),0,info), come_pop_stackframe(), __exception_result_var_b40), come_pop_stackframe(), __exception_result_var_b42));
+                    result_type=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 2520, 41),__exception_result_var_b42=(come_push_stackframe("05type.c", 2520, 39),__exception_result_var_b40=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 2520, "struct sType*")),(char*)come_increment_ref_count(xsprintf("__mgenerics_type%d",i_98)),0,info,0), come_pop_stackframe(), __exception_result_var_b40), come_pop_stackframe(), __exception_result_var_b42));
                     come_call_finalizer(sType_finalize, __dec_obj180,(void*)0, (void*)0, 0, 0, 0, (void*)0);
                 }
             }
@@ -8380,7 +8380,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
                 __right_value1 = (void*)0;
                 __right_value2 = (void*)0;
                 __dec_obj182=result_type,
-                result_type=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 2529, 44),__exception_result_var_b45=(come_push_stackframe("05type.c", 2529, 42),__exception_result_var_b43=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 2529, "struct sType*")),(char*)come_increment_ref_count(__builtin_string(type_name)),0,info), come_pop_stackframe(), __exception_result_var_b43), come_pop_stackframe(), __exception_result_var_b45));
+                result_type=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 2529, 44),__exception_result_var_b45=(come_push_stackframe("05type.c", 2529, 42),__exception_result_var_b43=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 2529, "struct sType*")),(char*)come_increment_ref_count(__builtin_string(type_name)),0,info,0), come_pop_stackframe(), __exception_result_var_b43), come_pop_stackframe(), __exception_result_var_b45));
                 come_call_finalizer(sType_finalize, __dec_obj182,(void*)0, (void*)0, 0, 0, 0, (void*)0);
             }
         }
@@ -8422,7 +8422,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         __dec_obj185=type_74,
-        type_74=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 2559, 47),__exception_result_var_b48=(come_push_stackframe("05type.c", 2559, 45),__exception_result_var_b46=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 2559, "struct sType*")),(char*)come_increment_ref_count(xsprintf("lambda")),0,info), come_pop_stackframe(), __exception_result_var_b46), come_pop_stackframe(), __exception_result_var_b48));
+        type_74=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 2559, 47),__exception_result_var_b48=(come_push_stackframe("05type.c", 2559, 45),__exception_result_var_b46=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 2559, "struct sType*")),(char*)come_increment_ref_count(xsprintf("lambda")),0,info,0), come_pop_stackframe(), __exception_result_var_b46), come_pop_stackframe(), __exception_result_var_b48));
         come_call_finalizer(sType_finalize, __dec_obj185,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         __dec_obj186=type_74->mResultType,
         type_74->mResultType=(struct sType*)come_increment_ref_count(result_type);
@@ -8470,7 +8470,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
             __right_value1 = (void*)0;
             __right_value2 = (void*)0;
             __dec_obj190=type_74,
-            type_74=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 2594, 51),__exception_result_var_b52=(come_push_stackframe("05type.c", 2594, 49),__exception_result_var_b50=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 2594, "struct sType*")),(char*)come_increment_ref_count(__builtin_string(type_name)),0,info), come_pop_stackframe(), __exception_result_var_b50), come_pop_stackframe(), __exception_result_var_b52));
+            type_74=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 2594, 51),__exception_result_var_b52=(come_push_stackframe("05type.c", 2594, 49),__exception_result_var_b50=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 2594, "struct sType*")),(char*)come_increment_ref_count(__builtin_string(type_name)),0,info,0), come_pop_stackframe(), __exception_result_var_b50), come_pop_stackframe(), __exception_result_var_b52));
             come_call_finalizer(sType_finalize, __dec_obj190,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         }
         type_74->mConstant=type_74->mConstant||constant;
@@ -8649,7 +8649,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
                     __right_value1 = (void*)0;
                     __right_value2 = (void*)0;
                     __dec_obj197=result_type_101,
-                    result_type_101=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 2706, 54),__exception_result_var_b55=(come_push_stackframe("05type.c", 2706, 52),__exception_result_var_b53=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 2706, "struct sType*")),(char*)come_increment_ref_count(xsprintf("__generics_type%d",i_102)),0,info), come_pop_stackframe(), __exception_result_var_b53), come_pop_stackframe(), __exception_result_var_b55));
+                    result_type_101=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 2706, 54),__exception_result_var_b55=(come_push_stackframe("05type.c", 2706, 52),__exception_result_var_b53=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 2706, "struct sType*")),(char*)come_increment_ref_count(xsprintf("__generics_type%d",i_102)),0,info,0), come_pop_stackframe(), __exception_result_var_b53), come_pop_stackframe(), __exception_result_var_b55));
                     come_call_finalizer(sType_finalize, __dec_obj197,(void*)0, (void*)0, 0, 0, 0, (void*)0);
                 }
             }
@@ -8663,7 +8663,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
                     __right_value1 = (void*)0;
                     __right_value2 = (void*)0;
                     __dec_obj198=result_type_101,
-                    result_type_101=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 2713, 57),__exception_result_var_b58=(come_push_stackframe("05type.c", 2713, 55),__exception_result_var_b56=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 2713, "struct sType*")),(char*)come_increment_ref_count(xsprintf("__mgenerics_type%d",i_103)),0,info), come_pop_stackframe(), __exception_result_var_b56), come_pop_stackframe(), __exception_result_var_b58));
+                    result_type_101=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 2713, 57),__exception_result_var_b58=(come_push_stackframe("05type.c", 2713, 55),__exception_result_var_b56=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 2713, "struct sType*")),(char*)come_increment_ref_count(xsprintf("__mgenerics_type%d",i_103)),0,info,0), come_pop_stackframe(), __exception_result_var_b56), come_pop_stackframe(), __exception_result_var_b58));
                     come_call_finalizer(sType_finalize, __dec_obj198,(void*)0, (void*)0, 0, 0, 0, (void*)0);
                 }
             }
@@ -8680,7 +8680,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
                 __right_value1 = (void*)0;
                 __right_value2 = (void*)0;
                 __dec_obj200=result_type_101,
-                result_type_101=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 2721, 60),__exception_result_var_b61=(come_push_stackframe("05type.c", 2721, 58),__exception_result_var_b59=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 2721, "struct sType*")),(char*)come_increment_ref_count(__builtin_string(type_name)),0,info), come_pop_stackframe(), __exception_result_var_b59), come_pop_stackframe(), __exception_result_var_b61));
+                result_type_101=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 2721, 60),__exception_result_var_b61=(come_push_stackframe("05type.c", 2721, 58),__exception_result_var_b59=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 2721, "struct sType*")),(char*)come_increment_ref_count(__builtin_string(type_name)),0,info,0), come_pop_stackframe(), __exception_result_var_b59), come_pop_stackframe(), __exception_result_var_b61));
                 come_call_finalizer(sType_finalize, __dec_obj200,(void*)0, (void*)0, 0, 0, 0, (void*)0);
             }
         }
@@ -8753,7 +8753,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         __dec_obj204=type_74,
-        type_74=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 2773, 63),__exception_result_var_b64=(come_push_stackframe("05type.c", 2773, 61),__exception_result_var_b62=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 2773, "struct sType*")),(char*)come_increment_ref_count(xsprintf("lambda")),0,info), come_pop_stackframe(), __exception_result_var_b62), come_pop_stackframe(), __exception_result_var_b64));
+        type_74=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 2773, 63),__exception_result_var_b64=(come_push_stackframe("05type.c", 2773, 61),__exception_result_var_b62=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 2773, "struct sType*")),(char*)come_increment_ref_count(xsprintf("lambda")),0,info,0), come_pop_stackframe(), __exception_result_var_b62), come_pop_stackframe(), __exception_result_var_b64));
         come_call_finalizer(sType_finalize, __dec_obj204,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         while(        *info->p==91        ) {
             info->p++;
@@ -8882,7 +8882,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
                     __right_value1 = (void*)0;
                     __right_value2 = (void*)0;
                     __dec_obj212=type_74,
-                    type_74=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 2872, 67),__exception_result_var_b68=(come_push_stackframe("05type.c", 2872, 65),__exception_result_var_b66=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 2872, "struct sType*")),(char*)come_increment_ref_count(xsprintf("__generics_type%d",i_111)),0,info), come_pop_stackframe(), __exception_result_var_b66), come_pop_stackframe(), __exception_result_var_b68));
+                    type_74=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 2872, 67),__exception_result_var_b68=(come_push_stackframe("05type.c", 2872, 65),__exception_result_var_b66=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 2872, "struct sType*")),(char*)come_increment_ref_count(xsprintf("__generics_type%d",i_111)),0,info,0), come_pop_stackframe(), __exception_result_var_b66), come_pop_stackframe(), __exception_result_var_b68));
                     come_call_finalizer(sType_finalize, __dec_obj212,(void*)0, (void*)0, 0, 0, 0, (void*)0);
                 }
             }
@@ -8922,7 +8922,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
                     __right_value1 = (void*)0;
                     __right_value2 = (void*)0;
                     __dec_obj215=type_74,
-                    type_74=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 2902, 70),__exception_result_var_b71=(come_push_stackframe("05type.c", 2902, 68),__exception_result_var_b69=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 2902, "struct sType*")),(char*)come_increment_ref_count(xsprintf("__mgenerics_type%d",i_112)),0,info), come_pop_stackframe(), __exception_result_var_b69), come_pop_stackframe(), __exception_result_var_b71));
+                    type_74=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 2902, 70),__exception_result_var_b71=(come_push_stackframe("05type.c", 2902, 68),__exception_result_var_b69=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 2902, "struct sType*")),(char*)come_increment_ref_count(xsprintf("__mgenerics_type%d",i_112)),0,info,0), come_pop_stackframe(), __exception_result_var_b69), come_pop_stackframe(), __exception_result_var_b71));
                     come_call_finalizer(sType_finalize, __dec_obj215,(void*)0, (void*)0, 0, 0, 0, (void*)0);
                 }
             }
@@ -8985,7 +8985,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
                 __right_value1 = (void*)0;
                 __right_value2 = (void*)0;
                 __dec_obj219=type_74,
-                type_74=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 2943, 73),__exception_result_var_b74=(come_push_stackframe("05type.c", 2943, 71),__exception_result_var_b72=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 2943, "struct sType*")),(char*)come_increment_ref_count(__builtin_string(type_name)),0,info), come_pop_stackframe(), __exception_result_var_b72), come_pop_stackframe(), __exception_result_var_b74));
+                type_74=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 2943, 73),__exception_result_var_b74=(come_push_stackframe("05type.c", 2943, 71),__exception_result_var_b72=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 2943, "struct sType*")),(char*)come_increment_ref_count(__builtin_string(type_name)),0,info,0), come_pop_stackframe(), __exception_result_var_b72), come_pop_stackframe(), __exception_result_var_b74));
                 come_call_finalizer(sType_finalize, __dec_obj219,(void*)0, (void*)0, 0, 0, 0, (void*)0);
             }
             while(            1            ) {
@@ -9125,7 +9125,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
                 __right_value1 = (void*)0;
                 __right_value2 = (void*)0;
                 __dec_obj225=type_74,
-                type_74=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 3029, 78),__exception_result_var_b79=(come_push_stackframe("05type.c", 3029, 76),__exception_result_var_b77=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 3029, "struct sType*")),(char*)come_increment_ref_count(__builtin_string(type_name)),0,info), come_pop_stackframe(), __exception_result_var_b77), come_pop_stackframe(), __exception_result_var_b79));
+                type_74=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 3029, 78),__exception_result_var_b79=(come_push_stackframe("05type.c", 3029, 76),__exception_result_var_b77=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 3029, "struct sType*")),(char*)come_increment_ref_count(__builtin_string(type_name)),0,info,0), come_pop_stackframe(), __exception_result_var_b77), come_pop_stackframe(), __exception_result_var_b79));
                 come_call_finalizer(sType_finalize, __dec_obj225,(void*)0, (void*)0, 0, 0, 0, (void*)0);
             }
             type_74->mConstant=type_74->mConstant||constant;
@@ -9287,7 +9287,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
             __right_value1 = (void*)0;
             __right_value2 = (void*)0;
             __dec_obj228=type_74,
-            type_74=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 3184, 83),__exception_result_var_b84=(come_push_stackframe("05type.c", 3184, 81),__exception_result_var_b82=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 3184, "struct sType*")),(char*)come_increment_ref_count(xsprintf("tuple%d",num_tuples)),0,info), come_pop_stackframe(), __exception_result_var_b82), come_pop_stackframe(), __exception_result_var_b84));
+            type_74=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 3184, 83),__exception_result_var_b84=(come_push_stackframe("05type.c", 3184, 81),__exception_result_var_b82=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 3184, "struct sType*")),(char*)come_increment_ref_count(xsprintf("tuple%d",num_tuples)),0,info,0), come_pop_stackframe(), __exception_result_var_b82), come_pop_stackframe(), __exception_result_var_b84));
             come_call_finalizer(sType_finalize, __dec_obj228,(void*)0, (void*)0, 0, 0, 0, (void*)0);
             type_74->mPointerNum++;
             type_74->mHeap=1;
@@ -9616,7 +9616,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         __dec_obj243=type_74,
-        type_74=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 3397, 87),__exception_result_var_b88=(come_push_stackframe("05type.c", 3397, 85),__exception_result_var_b86=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 3397, "struct sType*")),(char*)come_increment_ref_count(xsprintf("int")),0,info), come_pop_stackframe(), __exception_result_var_b86), come_pop_stackframe(), __exception_result_var_b88));
+        type_74=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 3397, 87),__exception_result_var_b88=(come_push_stackframe("05type.c", 3397, 85),__exception_result_var_b86=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 3397, "struct sType*")),(char*)come_increment_ref_count(xsprintf("int")),0,info,0), come_pop_stackframe(), __exception_result_var_b86), come_pop_stackframe(), __exception_result_var_b88));
         come_call_finalizer(sType_finalize, __dec_obj243,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
