@@ -1921,7 +1921,7 @@ int main(int argc, char** argv)
 }
 ```
 
-type inference is no works.
+type inference is works.
 
 ```C
 #include <neo-c.h>
@@ -2320,7 +2320,7 @@ int main(int argc, char** argv)
 }
 ```
 
-Pattern matching should'nt block result value.
+Pattern matching can't have any block result value.
 
 # Reflection
 
