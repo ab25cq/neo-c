@@ -2,12 +2,13 @@
 
 class sNewNode extends sNodeBase
 {
-    new(sType*% type, list<tup: string, sNode*%>*% initializer, sInfo* info)
+    new(sType*% type, list<tup: string, sNode*%>*% initializer, sNode*% initializer_num, sInfo* info)
     {
         self.super();
         
         sType*% self.type = clone type;
         list<tup:string, sNode*%>*% self.initializer = initializer;
+        sNode*% self.initializer_num = initializer_num;
     }
     
     string kind()
@@ -19,6 +20,7 @@ class sNewNode extends sNodeBase
     {
         sType*% type = self.type;
         list<tup:string, sNode*%>*% initializer = self.initializer;
+        sNode*% initializer_num = self.initializer_num;
         
         CVALUE*% come_value = new CVALUE();
         
@@ -38,19 +40,80 @@ class sNewNode extends sNodeBase
         
         sType*% type2 = solve_generics(type, info->generics_type, info);
         
-    /*
-        if(type->mArrayNum.length() > 0) {
-            type2->mPointerNum--;
-        }
-    */
         type2->mArrayNum.reset();
         
         string type_name = make_type_name_string(type2, cast_type:true, no_static:true);
         
         string type_name2 = make_come_type_name_string(type2);
         
-/*
-        if(initializer) {
+        if(initializer_num) {
+            static int var_num = 1;
+            var_num++;
+            
+            string var_name = xsprintf("__new_num__%d", var_num);
+            
+            sType*% type3 = clone type2;
+            type3->mPointerNum++;
+            if(type3->mNoSolvedGenericsType) {
+                type3->mNoSolvedGenericsType.mPointerNum++;
+            }
+            
+            string type_name3 = make_type_name_string(type3);
+            
+            add_come_code_at_function_head(info, "%s;\n", make_define_var(type3, var_name));
+            
+            var buf = new buffer();
+            
+            buf.append_str("({");
+            
+            string obj;
+            if(info.funcs["come_calloc_v2"]) {
+                obj = xsprintf("%s = (%s*)come_calloc_v2(1, sizeof(%s)*(%s), \"%s\", %d, \"%s\")", var_name, type_name, type_name, num_string.to_string(), info.sname, info.sline, type_name3);
+            }
+            else {
+                obj = xsprintf("%s = (%s*)come_calloc(1, sizeof(%s)*(%s), \"%s\", %d, \"%s\")", var_name, type_name, type_name, num_string.to_string(), info.sname, info.sline, type_name3);
+            }
+            
+            buf.append_str(obj);
+            buf.append_str(";");
+            
+            sClass* klass = type3->mClass;
+            
+            node_compile(initializer_num).elif {
+                return false;
+            }
+                
+            CVALUE*% come_value2 = get_value_from_stack(-1, info);
+            
+            buf.append_str("*" + var_name + "= " + come_value2.c_value + ";");
+                
+            buf.append_str(var_name);
+            buf.append_str("; })");
+            
+            CVALUE*% come_value = new CVALUE();
+            
+            come_value.c_value = buf.to_string();
+            
+            type2->mHeap = true;
+            type2->mPointerNum++;
+            
+            if(type2->mNoSolvedGenericsType) {
+                type2->mNoSolvedGenericsType->mPointerNum++;
+                type2->mNoSolvedGenericsType->mHeap = true;
+            }
+            
+            come_value.type = clone type2;
+            come_value.var = null;
+            
+            append_object_to_right_values(come_value, type2, info);
+            
+            come_value.c_value = append_stackframe(come_value.c_value, come_value.type, info);
+            
+            add_come_last_code(info, "%s", come_value.c_value);
+            
+            info.stack.push_back(come_value);
+        }
+        else if(initializer) {
             static int var_num = 1;
             var_num++;
             
@@ -68,7 +131,7 @@ class sNewNode extends sNodeBase
             
             var buf = new buffer();
             
-            buf.append_str("(");
+            buf.append_str("({");
             
             string obj;
             if(info.funcs["come_calloc_v2"]) {
@@ -79,7 +142,7 @@ class sNewNode extends sNodeBase
             }
             
             buf.append_str(obj);
-            buf.append_str(",");
+            buf.append_str(";");
             
             sClass* klass = type3->mClass;
             
@@ -122,13 +185,13 @@ class sNewNode extends sNodeBase
                     buf.append_format("%s->%s = %s", var_name, name, come_value2.c_value);
                 }
                 
-                buf.append_str(",");
+                buf.append_str(";");
                 
                 i++;
             }
             
             buf.append_str(var_name);
-            buf.append_str(")");
+            buf.append_str("; })");
             
             come_value.c_value = buf.to_string();
             
@@ -143,19 +206,7 @@ class sNewNode extends sNodeBase
             come_value.type = clone type2;
             come_value.var = null;
             
-            string initializer_fun_name = xsprintf("%s_initialize", type2->mClass->mName);
-            sFun* initializer_fun = info.funcs[initializer_fun_name];
-            
-            if(initializer_fun == null) {
-                err_msg(info, "initializer not found(%s)", initializer_fun_name);
-                return false;
-            }
-            
             append_object_to_right_values(come_value, type2, info);
-            
-            if(initializer_fun->mResultType->mRecord) {
-                come_value.type->mRecord = true;
-            }
             
             come_value.c_value = append_stackframe(come_value.c_value, come_value.type, info);
             
@@ -164,7 +215,6 @@ class sNewNode extends sNodeBase
             info.stack.push_back(come_value);
         }
         else {
-*/
             sType*% type3 = clone type2;
             type3->mPointerNum++;
             type3->mHeap = true;
@@ -199,7 +249,7 @@ class sNewNode extends sNodeBase
             add_come_last_code(info, "%s", come_value.c_value);
             
             info.stack.push_back(come_value);
-//        }
+        }
         
         return true;
     }
@@ -1406,10 +1456,21 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         }
         
         if(*info->p == '(') {
-            sNode*% obj = new sNewNode(type, null, info) implements sNode;
-            string fun_name = string("initialize");
-            
-            return parse_method_call(clone obj, fun_name, info);
+            if(type->mClass->mNumber) {
+                info->p++;
+                skip_spaces_and_lf();
+                sNode*% exp = expression();
+                
+                expected_next_character(')');
+                
+                return new sNewNode(type, null, exp, info) implements sNode;
+            }
+            else {
+                sNode*% obj = new sNewNode(type, null, null, info) implements sNode;
+                string fun_name = string("initialize");
+                
+                return parse_method_call(clone obj, fun_name, info);
+            }
         }
         else if(*info->p == '{') {
             info->p++;
@@ -1455,10 +1516,10 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
                     exit(2);
                 }
             }
-            return new sNewNode(type, initializer, info) implements sNode;
+            return new sNewNode(type, initializer, null, info) implements sNode;
         }
         else {
-            return new sNewNode(type, null, info) implements sNode;
+            return new sNewNode(type, null, null, info) implements sNode;
         }
     }
     else if(!gComeC && buf === "true") {

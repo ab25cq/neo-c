@@ -2,15 +2,20 @@
 #include <neo-c-pthread.h>
 #include <unistd.h>
 
+struct sData {
+    int a ;
+    int b;
+};
+
 int main(int argc, char** argv)
 {
-    var thread = come { puts(s"1"); sleep(1); puts(s"2"); puts(s"3"); }
+    var a  = new int(5);
     
-    var thread2 = come { puts(s"a"); puts(s"b"); puts(s"c"); }
+    printf("%d\n", *a);
     
-    come_join(thread);
+    var b = new sData { a:123, b:234 };
     
-    come_join(thread2);    
+    printf("%d %d\n", b.a, b.b);
     
     return 0;
 }
