@@ -1508,7 +1508,6 @@ struct sType
     char* mAsmName;
     _Bool mTypedef;
     _Bool mMultipleTypes;
-    _Bool mOriginIsArray;
     struct list$1sNode$ph* mArrayNum;
     struct list$1sNode$ph* mVarNameArrayNum;
     struct list$1int$* mArrayStatic;

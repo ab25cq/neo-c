@@ -1516,7 +1516,6 @@ struct sType
     char* mAsmName;
     _Bool mTypedef;
     _Bool mMultipleTypes;
-    _Bool mOriginIsArray;
     struct list$1sNode$ph* mArrayNum;
     struct list$1sNode$ph* mVarNameArrayNum;
     struct list$1int$* mArrayStatic;
@@ -3765,9 +3764,6 @@ struct sType* __result_obj__22;
     if(    self!=((void*)0)    ) {
         result->mMultipleTypes=self->mMultipleTypes;
     }
-    if(    self!=((void*)0)    ) {
-        result->mOriginIsArray=self->mOriginIsArray;
-    }
     if(    self!=((void*)0)&&self->mArrayNum!=((void*)0)    ) {
         __right_value0 = (void*)0;
         __dec_obj21=result->mArrayNum,
@@ -3813,7 +3809,7 @@ struct sType* __result_obj__22;
     if(    self!=((void*)0)&&self->mOriginalTypeName!=((void*)0)    ) {
         __right_value0 = (void*)0;
         __dec_obj26=result->mOriginalTypeName,
-        result->mOriginalTypeName=(char*)come_increment_ref_count((char*)come_memdup(self->mOriginalTypeName, "sType_clone", 58, "char*"));
+        result->mOriginalTypeName=(char*)come_increment_ref_count((char*)come_memdup(self->mOriginalTypeName, "sType_clone", 57, "char*"));
         __dec_obj26 = come_decrement_ref_count(__dec_obj26, (void*)0, (void*)0, 0,0, (void*)0);
     }
     if(    self!=((void*)0)    ) {
