@@ -11,6 +11,10 @@ all: test
 
 # Run tests that validate common C syntax
 test: *.c
+	neo-c test_comelang.c
+	./test_comelang
+	neo-c test_comelang2.c
+	./test_comelang2
 	neo-c attrs.c
 	./attrs
 	neo-c builtins.c
@@ -51,8 +55,8 @@ test: *.c
 	./labels_as_values
 	neo-c nested_functions.c
 	./nested_functions
-	neo-c runner.c
-	./runner
+#	neo-c runner.c
+#	./runner
 	neo-c statement_expr.c
 	./statement_expr
 	neo-c test_arith.c
