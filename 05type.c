@@ -1343,8 +1343,6 @@ sType*%, string parse_variable_name_on_multiple_declare(sType*% base_type_name, 
         result_type.mArrayNum.push_back(node);
         parse_sharp();
         
-        result_type.mOriginIsArray = true;
-        
         expected_next_character(']');
     }
     

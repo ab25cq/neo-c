@@ -400,12 +400,7 @@ class sStoreNode extends sNodeBase
                         
                         CVALUE*% come_value = new CVALUE();
                         
-                        if(parent_var->mType->mOriginIsArray) {
-                            come_value.c_value = xsprintf("(parent->%s)=%s", parent_var->mCValueName, right_value.c_value);
-                        }
-                        else {
-                            come_value.c_value = xsprintf("(*(parent->%s))=%s", parent_var->mCValueName, right_value.c_value);
-                        }
+                        come_value.c_value = xsprintf("(*(parent->%s))=%s", parent_var->mCValueName, right_value.c_value);
                         come_value.type = clone left_type;
                         come_value.var = null;
                         
@@ -661,13 +656,7 @@ class sLoadNode extends sNodeBase
                     
                     sType* type = parent_var->mType;
                     
-                    if(parent_var->mType->mOriginIsArray) {
-                        come_value.c_value = xsprintf("(parent->%s)", parent_var->mCValueName);
-                    }
-                    else {
-                        come_value.c_value = xsprintf("(*(parent->%s))", parent_var->mCValueName);
-                    }
-                    
+                    come_value.c_value = xsprintf("(*(parent->%s))", parent_var->mCValueName);
                     come_value.type = clone type;
                     come_value.var = null;
                     

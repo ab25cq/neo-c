@@ -140,7 +140,6 @@ uniq class sType
     bool mTypedef;
     
     bool mMultipleTypes;
-    bool mOriginIsArray;
     
     list<sNode*%>*% mArrayNum;
     list<sNode*%>*% mVarNameArrayNum;
@@ -708,14 +707,12 @@ uniq class sCurrentNode extends sNodeBase
                         tup: string, sType*% item2 = (string(value.mCValueName), type3);
                         current_stack.mFields.push_back(clone item2);
                     }
-                    else if(type2->mArrayNum.length() == 1) {
+                    else if(type2->mArrayNum.length() > 0) {
                         sType*% type3 = clone type2;
-                        type3->mArrayNum.reset();
-                        type3->mPointerNum = 1;
-                        type3->mOriginIsArray = true;
+                        type3->mPointerNum--;
+                        type3->mArrayPointerNum++;
                         tup: string, sType*% item2 = (string(value.mCValueName), type3);
                         current_stack.mFields.push_back(clone item2);
-                        value->mType->mOriginIsArray = true;
                     }
                     else {
                         current_stack.mFields.push_back(clone item);
