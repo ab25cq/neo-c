@@ -702,8 +702,9 @@ uniq class sCurrentNode extends sNodeBase
                     }
                     else if(type2->mArrayPointerType) {
                         sType*% type3 = clone type2;
-                        type3->mArrayPointerType = false;
-                        type3->mPointerNum++;
+                        type3->mPointerNum--;
+                        //type3->mArrayPointerType = false;
+                        type3->mArrayPointerNum++;
                         tup: string, sType*% item2 = (string(value.mCValueName), type3);
                         current_stack.mFields.push_back(clone item2);
                     }

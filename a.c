@@ -6,17 +6,21 @@ int main(int argc, char** argv)
         int aaa;
         
         struct {
-            int aaa;
             int bbb;
-        } bbb;
+        } ccc;
     } aaa;
     
+    const int xxx[] = {
+        1, 2, 3
+    };
+    
     aaa.aaa = 123;
-    aaa.bbb.aaa = 234;
-    aaa.bbb.bbb = 567;
+    aaa.ccc.bbb = 567;
+    printf("%d\n", aaa.ccc.bbb);
     
     3.times {
-        printf("%d %d %d\n", aaa.aaa, aaa.bbb.aaa, aaa.bbb.bbb);
+        printf("%d %d\n", aaa.aaa, aaa.ccc.bbb);
+        printf("%d %d %d\n", xxx[0], xxx[1], xxx[2]);
     }
     
     return 0;

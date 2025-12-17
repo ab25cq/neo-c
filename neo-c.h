@@ -7031,10 +7031,6 @@ uniq size_t xwcslen(wchar_t* wstr)
     return len;
 }
 
-#ifdef __DEBIAN__
-#define wcslen(o) xwcslen(o)
-#endif
-
 uniq wstring wstring::substring(wchar_t* str, int head, int tail) 
 {
     return wchar_t*::substring(str, head, tail);

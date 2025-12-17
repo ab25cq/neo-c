@@ -148,7 +148,6 @@ static bool cpp(sInfo* info)
 #ifndef __MINUX__
     int is_mac = system("uname -a | grep Darwin 1> /dev/null 2>/dev/null") == 0;
     int is_android = system("uname -a | grep Android 1> /dev/null 2>/dev/null") == 0;
-    int is_debian = system("uname -a | grep Debian 1> /dev/null 2>/dev/null") == 0;
     int is_linux = 1;
     int is_arm64 = system("uname -a | grep arm64 1> /dev/null 2> /dev/null");
     int is_m5stack = info.m5stack_cpp; // M5Stack?
@@ -275,9 +274,6 @@ static bool cpp(sInfo* info)
         if(rc != 0) {
             string cmd4 = xsprintf("clang -E %s -I. %s -DPREFIX=%s -I%s/include -D__EMB__ %s %s > %s 2> %s.cpp.out", info->remove_comment ? "": " -C", info.cpp_option, PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
 
-            if(is_debian) {
-                cmd4 = xsprintf("clang -E %s -D__DEBIAN__ -I. %s -DPREFIX=%s -I%s/include -D__EMB__ %s %s > %s 2> %s.cpp.out", info.remove_comment ? "":" -C", info.cpp_option, PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
-            }
             
             var command2 = xsprintf("grep error\\: %s.cpp.out 2>/dev/null", output_file_name);
             
@@ -323,10 +319,6 @@ static bool cpp(sInfo* info)
         string cmd3 = xsprintf("clang -E %s -lang-c %s -I. -I%s/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -D__LINUX__ %s %s > %s 2> %s.cpp.out", (info->remove_comment ? "":" -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
         //string cmd3 = xsprintf("cpp %s -D__clang__ -D__CLANG_ATOMICS=1 -lang-c %s -I. -I%s/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -D__LINUX__ %s %s > %s 2> %s.cpp.out", (info->remove_comment ? "":" -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
 
-        if(is_debian) {
-            cmd3 = xsprintf("cpp %s -lang-c %s -I. -D__DEBIAN__ -I%s/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -D__LINUX__ %s %s > %s 2> %s.cpp.out", info.remove_comment ? "": " -C", info.cpp_option, getenv("HOME"), PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
-        }
-
         if(info.verbose) puts(cmd3);
         int rc = system(cmd3);
         
@@ -338,10 +330,6 @@ static bool cpp(sInfo* info)
         if(rc != 0) {
             string cmd4 = xsprintf("cpp %s -I. %s -DPREFIX=%s -I%s/include -D__LINUX__ %s %s > %s 2> %s.cpp.out", info->remove_comment ? "": " -C", info.cpp_option, PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
 
-            if(is_debian) {
-                cmd4 = xsprintf("cpp %s -D__DEBIAN__ -I. %s -DPREFIX=%s -I%s/include -D__LINUX__ %s %s > %s 2> %s.cpp.out", info.remove_comment ? "":" -C", info.cpp_option, PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
-            }
-            
             var command2 = xsprintf("grep error\\: %s.cpp.out 2>/dev/null", output_file_name);
             
             if(info.verbose) puts(command2);
