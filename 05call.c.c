@@ -1078,7 +1078,7 @@ extern char* gComeStackFrameBuffer;
 
 struct sMemHeaderTiny
 {
-    unsigned long  int size;
+    long size;
     int allocated;
     struct sMemHeaderTiny* next;
     struct sMemHeaderTiny* prev;
@@ -1090,7 +1090,7 @@ struct sMemHeaderTiny
 
 struct sMemHeader
 {
-    unsigned long  int size;
+    long size;
     int allocated;
     struct sMemHeader* next;
     struct sMemHeader* prev;

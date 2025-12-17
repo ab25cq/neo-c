@@ -250,7 +250,7 @@ uniq bool die(char* msg)
 //////////////////////////////
 struct sMemHeaderTiny
 {
-    size_t size;
+    long size;
     int allocated;   //ALLOCATED_MAGIC_NUM
     struct sMemHeaderTiny* next;
     struct sMemHeaderTiny* prev;
@@ -262,7 +262,7 @@ struct sMemHeaderTiny
 
 struct sMemHeader
 {
-    size_t size;
+    long size;
     int allocated;            /// ALLOCATED_MAGIC_NUM 
     struct sMemHeader* next;
     struct sMemHeader* prev;
