@@ -3097,7 +3097,13 @@ uniq void buffer*::trim(buffer* self, int len)
         return;
     }
     self.len -= len;
-    self.buf[self.len] = '\0';
+    if(self.len >= 0) {
+        self.buf[self.len] = '\0';
+    }
+    else {
+        self.len = 0;
+        self.buf[0] = '\0';
+    }
 }
 
 uniq buffer* buffer*::append(buffer* self, char* mem, size_t size)
