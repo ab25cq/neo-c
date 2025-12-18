@@ -3109,6 +3109,7 @@ uniq buffer* buffer*::append(buffer* self, char* mem, size_t size)
         char*% old_buf = new char[self.size];
         memcpy(old_buf, self.buf, self.size);
         int old_len = self.len;
+        
         int new_size = (self.size + size + 1) * 2;
         self.buf = new char[new_size];
         memcpy(self.buf, old_buf, old_len);
@@ -3129,7 +3130,8 @@ uniq buffer* buffer*::append_char(buffer* self, char c)
         return null;
     }
     if(self.len + 1 + 1 + 1 >= self.size) {
-        char*% old_buf = clone self.buf;
+        char*% old_buf = new char[self.size];
+        memcpy(old_buf, self.buf, self.size);
         int old_len = self.len;
         
         int new_size = (self.size + 10 + 1) * 2;
@@ -3183,7 +3185,7 @@ uniq buffer* buffer*::append_format(buffer* self, char* msg, ...)
     
     va_list` args;
     va_start(args, msg);
-    snprintf(result, 128, args);
+    vsnprintf(result, 128, msg, args);
     va_end(args);
     
     int len = strlen(result);
@@ -3333,8 +3335,13 @@ uniq buffer* buffer*::alignment(buffer* self)
     len = (len + 3) & ~3;
     
     if(len >= self.size) {
+        char*% old_buf = new char[self.size];
+        memcpy(old_buf, self.buf, self.size);
+        int old_len = self.len;
         int new_size = (self.size + 1 + 1) * 2;
         self.buf = new char[new_size];
+        memcpy(self.buf, old_buf, old_len);
+        self.buf[old_len] = '\0';
         self.size = new_size;
     }
 

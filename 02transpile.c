@@ -98,7 +98,7 @@ static void clear_tmp_file(sInfo* info)
     string input_file_name = info.sname;
     
     if(input_file_name != null && input_file_name !== "") {
-        (void)system(xsprintf("%s %s.*", RM, input_file_name));
+        (void)system(xsprintf("%s \"%s\".*", RM, input_file_name));
     }
 }
 
@@ -107,7 +107,7 @@ static void clear_tmp_file_without_object_file(sInfo* info)
     string input_file_name = info.sname;
     
     if(input_file_name != null && input_file_name !== "") {
-        (void)system(xsprintf("%s %s.i* %s.c*", RM, input_file_name, input_file_name));
+        (void)system(xsprintf("%s \"%s\".i* \"%s\".c*", RM, input_file_name, input_file_name));
     }
 }
 
@@ -116,7 +116,7 @@ static void clear_tmp_file_without_object_file_and_ccfile(sInfo* info)
     string input_file_name = info.sname;
     
     if(input_file_name != null && input_file_name !== "") {
-        (void)system(xsprintf("%s %s.i* %s.c.out", RM, input_file_name, input_file_name));
+        (void)system(xsprintf("%s \"%s\".i* \"%s\".c.out", RM, input_file_name, input_file_name));
     }
 }
 #else
@@ -177,12 +177,12 @@ static bool cpp(sInfo* info)
     
     /// Android ///
     if(is_android) {
-        string cmd3 = xsprintf("cpp %s -lang-c %s -I. -I%s/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -I/data/data/com.termux/files/usr/include/mariadb -D__ANDROID__ %s %s > %s 2> %s.cpp.out", (info.remove_comment ? "": " -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
+        string cmd3 = xsprintf("cpp %s -lang-c %s -I. -I\"%s\"/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -I/data/data/com.termux/files/usr/include/mariadb -D__ANDROID__ \"%s\" \"%s\" > \"%s\" 2> \"%s\".cpp.out", (info.remove_comment ? "": " -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
         
         if(info.verbose) puts(cmd3);
         int rc = system(cmd3);
         
-        string command2 = xsprintf("grep error\\: %s.cpp.out 2>/dev/null", output_file_name);
+        string command2 = xsprintf("grep error\\: \"%s\".cpp.out 2>/dev/null", output_file_name);
         
         if(info.verbose) puts(command2);
         (void)system(command2);
@@ -193,13 +193,13 @@ static bool cpp(sInfo* info)
         }
     }
     else if(is_m5stack) {
-        string cmd2 = xsprintf("xtensa-esp-elf-cpp -E %s -lang-c %s -I. -I/usr/local/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -DNEO_C -D__M5STACK__ %s %s > %s 2> %s.cpp.out", info.remove_comment ? "":" -C", info.cpp_option, PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
+        string cmd2 = xsprintf("xtensa-esp-elf-cpp -E %s -lang-c %s -I. -I/usr/local/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -DNEO_C -D__M5STACK__ \"%s\" \"%s\" > \"%s\" 2> \"%s\".cpp.out", info.remove_comment ? "":" -C", info.cpp_option, PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
         
         if(info.verbose) puts(cmd2);
         
         int rc = system(cmd2);
         
-        string command2 = xsprintf("grep error\\: %s.cpp.out 2>/dev/null", output_file_name);
+        string command2 = xsprintf("grep error\\: \"%s\".cpp.out 2>/dev/null", output_file_name);
         
         if(info.verbose) puts(command2);
         (void)system(command2);
@@ -209,17 +209,17 @@ static bool cpp(sInfo* info)
             exit(5);
         }
         
-        var command2 = xsprintf("grep error\\: %s.cpp.out 2>/dev/null", output_file_name);
+        var command2 = xsprintf("grep error\\: \"%s\".cpp.out 2>/dev/null", output_file_name);
         
         if(info.verbose) puts(command2);
         (void)system(command2);
     }
     else if(is_pico) {
-        string cmd2 = xsprintf("arm-none-eabi-gcc -E %s -lang-c %s -I. -I/usr/local/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -DNEO_C -D__PICO__ %s %s > %s 2> %s.cpp.out", info.remove_comment ? "":" -C", info.cpp_option, PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
+        string cmd2 = xsprintf("arm-none-eabi-gcc -E %s -lang-c %s -I. -I/usr/local/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -DNEO_C -D__PICO__ \"%s\" \"%s\" > \"%s\" 2> \"%s\".cpp.out", info.remove_comment ? "":" -C", info.cpp_option, PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
         
         if(info.verbose) puts(cmd2);
         
-        string command2 = xsprintf("grep error\\: %s.cpp.out 2>/dev/null", output_file_name);
+        string command2 = xsprintf("grep error\\: \"%s\".cpp.out 2>/dev/null", output_file_name);
         
         if(info.verbose) puts(command2);
         (void)system(command2);
@@ -231,18 +231,18 @@ static bool cpp(sInfo* info)
             exit(5);
         }
         
-        var command2 = xsprintf("grep error\\: %s.cpp.out 2>/dev/null", output_file_name);
+        var command2 = xsprintf("grep error\\: \"%s\".cpp.out 2>/dev/null", output_file_name);
         
         if(info.verbose) puts(command2);
         (void)system(command2);
     }
     /// Mac ///
     else if(is_mac) {
-        string cmd2 = xsprintf("gcc -E %s -lang-c %s -I. -I/usr/local/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -DNEO_C -D__MAC__ -I/opt/homebrew/opt/boehmgc/include/ -I/opt/homebrew/opt/openssl/include %s %s > %s 2> %s.cpp.out", (info.remove_comment ? "":" -C"), info.cpp_option, PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
+        string cmd2 = xsprintf("gcc -E %s -lang-c %s -I. -I/usr/local/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -DNEO_C -D__MAC__ -I/opt/homebrew/opt/boehmgc/include/ -I/opt/homebrew/opt/openssl/include \"%s\" \"%s\" > \"%s\" 2> \"%s\".cpp.out", (info.remove_comment ? "":" -C"), info.cpp_option, PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
         
         if(info.verbose) puts(cmd2);
         
-        string command2 = xsprintf("grep error\\: %s.cpp.out 2>/dev/null", output_file_name);
+        string command2 = xsprintf("grep error\\: \"%s\".cpp.out 2>/dev/null", output_file_name);
         
         if(info.verbose) puts(command2);
         (void)system(command2);
@@ -254,28 +254,28 @@ static bool cpp(sInfo* info)
             exit(5);
         }
         
-        var command2 = xsprintf("grep error\\: %s.cpp.out 2>/dev/null", output_file_name);
+        var command2 = xsprintf("grep error\\: \"%s\".cpp.out 2>/dev/null", output_file_name);
         
         if(info.verbose) puts(command2);
         (void)system(command2);
     }
     /// EMBBEDED ///
     else if(is_emb) {
-        string cmd3 = xsprintf("clang -E %s -lang-c %s -I. -I%s/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -D__EMB__ %s %s > %s 2> %s.cpp.out", (info->remove_comment ? "":" -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
+        string cmd3 = xsprintf("clang -E %s -lang-c %s -I. -I\"%s\"/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -D__EMB__ \"%s\" \"%s\" > \"%s\" 2> \"%s\".cpp.out", (info->remove_comment ? "":" -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
 
         if(info.verbose) puts(cmd3);
         int rc = system(cmd3);
         
-        var command2 = xsprintf("grep error\\: %s.cpp.out 2>/dev/null", output_file_name);
+        var command2 = xsprintf("grep error\\: \"%s\".cpp.out 2>/dev/null", output_file_name);
         
         if(info.verbose) puts(command2);
         (void)system(command2);
         
         if(rc != 0) {
-            string cmd4 = xsprintf("clang -E %s -I. %s -DPREFIX=%s -I%s/include -D__EMB__ %s %s > %s 2> %s.cpp.out", info->remove_comment ? "": " -C", info.cpp_option, PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
+            string cmd4 = xsprintf("clang -E %s -I. %s -DPREFIX=\"%s\" -I\"%s\"/include -D__EMB__ \"%s\" \"%s\" > \"%s\" 2> \"%s\".cpp.out", info->remove_comment ? "": " -C", info.cpp_option, PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
 
             
-            var command2 = xsprintf("grep error\\: %s.cpp.out 2>/dev/null", output_file_name);
+            var command2 = xsprintf("grep error\\: \"%s\".cpp.out 2>/dev/null", output_file_name);
             
             if(info.verbose) puts(command2);
             (void)system(command2);
@@ -288,18 +288,18 @@ static bool cpp(sInfo* info)
     }
     /// __RASPIBERRY_PI__ ///
     else if(is_raspi) {
-        string cmd3 = xsprintf("cpp %s -lang-c %s -I. -I%s/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -D__RASPBERRY_PI__ %s %s > %s 2> %s.cpp.out", (info->remove_comment ? "":" -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
+        string cmd3 = xsprintf("cpp %s -lang-c %s -I. -I\"%s\"/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -D__RASPBERRY_PI__ \"%s\" \"%s\" > \"%s\" 2> \"%s\".cpp.out", (info->remove_comment ? "":" -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
 
         if(info.verbose) puts(cmd3);
         int rc = system(cmd3);
         
-        var command2 = xsprintf("grep error\\: %s.cpp.out 2>/dev/null", output_file_name);
+        var command2 = xsprintf("grep error\\: \"%s\".cpp.out 2>/dev/null", output_file_name);
         
         if(info.verbose) puts(command2);
         (void)system(command2);
         
         if(rc != 0) {
-            string cmd4 = xsprintf("cpp %s -I. %s -DPREFIX=%s -I%s/include -D__RASPBERRY_PI__ %s %s > %s 2> %s.cpp.out", info->remove_comment ? "": " -C", info.cpp_option, PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
+            string cmd4 = xsprintf("cpp %s -I. %s -DPREFIX=\"%s\" -I\"%s\"/include -D__RASPBERRY_PI__ \"%s\" \"%s\" > \"%s\" 2> \"%s\".cpp.out", info->remove_comment ? "": " -C", info.cpp_option, PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
             
             var command2 = xsprintf("grep error\\: %s.cpp.out 2>/dev/null", output_file_name);
             
@@ -316,21 +316,20 @@ static bool cpp(sInfo* info)
         if(is_arm64) {
             info.cpp_option = info.cpp_option; // + " -march=armv8-a+sve";
         }
-        string cmd3 = xsprintf("clang -E %s -lang-c %s -I. -I%s/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -D__LINUX__ %s %s > %s 2> %s.cpp.out", (info->remove_comment ? "":" -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
-        //string cmd3 = xsprintf("cpp %s -D__clang__ -D__CLANG_ATOMICS=1 -lang-c %s -I. -I%s/include -DPREFIX=\"\\\"%s\\\"\" -I%s/include -D__LINUX__ %s %s > %s 2> %s.cpp.out", (info->remove_comment ? "":" -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
+        string cmd3 = xsprintf("clang -E %s -lang-c %s -I. -I\"%s\"/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -D__LINUX__ \"%s\" \"%s\" > \"%s\" 2> \"%s\".cpp.out", (info->remove_comment ? "":" -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
 
         if(info.verbose) puts(cmd3);
         int rc = system(cmd3);
         
-        var command2 = xsprintf("grep error\\: %s.cpp.out 2>/dev/null", output_file_name);
+        var command2 = xsprintf("grep error\\: \"%s\".cpp.out 2>/dev/null", output_file_name);
         
         if(info.verbose) puts(command2);
         (void)system(command2);
         
         if(rc != 0) {
-            string cmd4 = xsprintf("cpp %s -I. %s -DPREFIX=%s -I%s/include -D__LINUX__ %s %s > %s 2> %s.cpp.out", info->remove_comment ? "": " -C", info.cpp_option, PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
+            string cmd4 = xsprintf("cpp %s -I. %s -DPREFIX=\"%s\" -I\"%s\"/include -D__LINUX__ \"%s\" \"%s\" > \"%s\" 2> \"%s\".cpp.out", info->remove_comment ? "": " -C", info.cpp_option, PREFIX, PREFIX, "", input_file_name, output_file_name, output_file_name);
 
-            var command2 = xsprintf("grep error\\: %s.cpp.out 2>/dev/null", output_file_name);
+            var command2 = xsprintf("grep error\\: \"%s\".cpp.out 2>/dev/null", output_file_name);
             
             if(info.verbose) puts(command2);
             (void)system(command2);
@@ -369,14 +368,14 @@ static bool compile(sInfo* info, bool output_object_file, list<string>* object_f
         info.clang_option = info.clang_option; // + " -march=armv8-a+sve";
     }
     
-    var command = xsprintf("%s -o %s -c %s %s >> %s.out 2>&1", CC, output_file_name, input_file_name, info.clang_option, input_file_name);
+    var command = xsprintf("%s -o \"%s\" -c \"%s\" %s >> %s.out 2>&1", CC, output_file_name, input_file_name, info.clang_option, input_file_name);
     
     if(info.verbose) puts(command);
     int rc = system(command);
     
     if(rc != 0) {
     /*
-        string command = xsprintf("%s -o %s -c %s %s >> %s.out 2>&1", "gcc", output_file_name, input_file_name, info.clang_option, input_file_name);
+        string command = xsprintf("%s -o \"%s\" -c %s \"%s\" >> \"%s\".out 2>&1", "gcc", output_file_name, input_file_name, info.clang_option, input_file_name);
         
         if(info.verbose) puts(command);
         int rc = system(command);
@@ -385,7 +384,7 @@ static bool compile(sInfo* info, bool output_object_file, list<string>* object_f
         */
             printf("%s is faild\n", CC);
             
-            var command2 = xsprintf("grep error\\: %s.out 2>/dev/null", input_file_name);
+            var command2 = xsprintf("grep error\\: \"%s\".out 2>/dev/null", input_file_name);
             
             if(info.verbose) puts(command2);
             (void)system(command2);
@@ -414,7 +413,7 @@ static bool linker(sInfo* info, list<string>* object_files)
 #ifndef __MINUX__
     var command = new buffer();
     
-    command.append_format("%s -o %s ", CC, output_file_name);
+    command.append_format("%s -o \"%s\" ", CC, output_file_name);
     
     int is_mac = system("uname -a | grep Darwin 1> /dev/null 2>/dev/null") == 0;
     if(is_mac) {
@@ -438,16 +437,16 @@ static bool linker(sInfo* info, list<string>* object_files)
         command.append_str(" -L. -L/usr/local/lib ");
     }
     
-    string cmd = xsprintf("ls %s/lib 1> /dev/null 2>/dev/null", getenv("HOME")); // $HOME/lib?
+    string cmd = xsprintf("ls \"%s\"/lib 1> /dev/null 2>/dev/null", getenv("HOME")); // $HOME/lib?
     int rc = system(cmd);
     if(rc == 0) {
-        command.append_format(" -L%s/lib ", getenv("HOME"));
+        command.append_format(" -L\"%s\"/lib ", getenv("HOME"));
     }
     
-    string cmd = xsprintf("ls %s/lib 1> /dev/null 2>/dev/null", PREFIX); // PREFIX/lib?
+    string cmd = xsprintf("ls \"%s\"/lib 1> /dev/null 2>/dev/null", PREFIX); // PREFIX/lib?
     int rc = system(cmd);
     if(rc == 0) {
-        command.append_format(" -L%s/lib ", PREFIX);
+        command.append_format(" -L\"%s\"/lib ", PREFIX);
     }
     
     command.append_format(" %s ", info.clang_option);
