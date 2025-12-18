@@ -8,7 +8,8 @@ then
     make DESTDIR=$HOME CFLAGS_OPT="-O2" neo-c $(($(nproc) / 2)) && make DESTDIR=$HOME install
 elif uname -a | grep Darwin
 then
-    make CFLAGS_OPT="-O2 -g" neo-c -j$(($(sysctl -n hw.logicalcpu) / 2)) && sudo make install
+    make CFLAGS_OPT="-O2 -g" neo-c && sudo make install
+#    make CFLAGS_OPT="-O2 -g" neo-c -j$(($(sysctl -n hw.logicalcpu) / 2)) && sudo make install
 else # Linux
     make CFLAGS_OPT="-O2 -g" neo-c -j$(($(nproc) / 2)) && sudo make install
 fi

@@ -1801,6 +1801,9 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
                     break;
                 }
                 else {
+                    char* p2 = info.p;
+                    int sline2 = info.sline;
+                    
                     type_name = parse_word();
                     
                     if(type_name === "unsigned") {
@@ -1827,6 +1830,20 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
                         if(xisalpha(*info->p) || *info->p == '_') {
                             long_long = true;
                             type_name = parse_word();
+                        }
+/*
+                        else {
+                            type_name = string("long");
+                            info.p = p2;
+                            info.sline = sline2;
+                            break;
+                        }
+*/
+                        else if(*info->p == ':') {
+                            type_name = string("long");
+                            info.p = p2;
+                            info.sline = sline2;
+                            break;
                         }
                         else {
                             long_ = true;

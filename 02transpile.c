@@ -149,7 +149,7 @@ static bool cpp(sInfo* info)
     int is_mac = system("uname -a | grep Darwin 1> /dev/null 2>/dev/null") == 0;
     int is_android = system("uname -a | grep Android 1> /dev/null 2>/dev/null") == 0;
     int is_linux = 1;
-    int is_arm64 = system("uname -a | grep arm64 1> /dev/null 2> /dev/null");
+    int is_arm64 = system("uname -a | grep arm64 1> /dev/null 2> /dev/null") == 0;
     int is_m5stack = info.m5stack_cpp; // M5Stack?
     int is_pico = info.pico_cpp; // PICO?
     int is_emb = info.emb_cpp; // EMBBEDED
@@ -359,7 +359,7 @@ static bool compile(sInfo* info, bool output_object_file, list<string>* object_f
     
 #ifndef __MINUX__
     int is_mac = system("uname -a | grep Darwin 1> /dev/null 2>/dev/null") == 0;
-    int is_arm64 = system("uname -a | grep arm64 1> /dev/null 2> /dev/null");
+    int is_arm64 = system("uname -a | grep arm64 1> /dev/null 2> /dev/null") == 0;
     
     if(is_mac) {
         info.clang_option = info.clang_option + " -std=gnu17 ";

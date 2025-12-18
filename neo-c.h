@@ -381,13 +381,6 @@ uniq void come_heap_final()
 uniq void* alloc_from_pages(size_t size)
 {
     void* result = null;
-/*
-#ifdef __32BIT_CPU__
-    size = (size + 3 & ~0x3);
-#else
-    size = (size + 7 & ~0x7);
-#endif
-*/
     
     if(size < HEAP_POOL_PAGE_SIZE) {
         if(gHeapPages.mFreeMem[size]) {
@@ -1052,6 +1045,8 @@ impl list <T>
         return self;
     }
     void finalize(list<T>* self) {
+        if(self == null) return;
+        
         list_item<T>* it = self.head;
         while(it != null) {
             var prev_it = it;
@@ -1081,6 +1076,8 @@ impl list <T>
     }
     list<T>* add(list<T>* self, T item)
     {
+        if(self == null) return self;
+        
         if(self.len == 0) {
             list_item<T>* litem = borrow gc_inc(new list_item<T>);
             
@@ -1118,6 +1115,9 @@ impl list <T>
     }
     T pop_front(list<T>* self) {
         T result;
+
+        if(self == null) { return result; }
+        
         if(self.len == 1) {
             result = self.head.item;
             
@@ -1159,6 +1159,10 @@ impl list <T>
     }
     list<T>* push_back(list<T>* self, T item)
     {
+        if(self == null) {
+            return self;
+        }
+        
         if(self.len == 0) {
             list_item<T>* litem = borrow gc_inc(new list_item<T>);
             
@@ -1197,6 +1201,10 @@ impl list <T>
     
     string to_string(list<T>* self)
     {
+        if(self == null) {
+            return string("");
+        }
+        
         buffer*% result = new buffer();
         
         result.append_str("[");
@@ -1258,6 +1266,10 @@ impl list <T>
     }
     list<T>* each(list<T>* self, void* parent, void (*block)(void*, T,int,bool*)) 
     {
+        if(self == null) {
+            return null;
+        }
+        
         list_item<T>* it = self.head;
         int i = 0;
         while(it != null) {
@@ -1275,6 +1287,10 @@ impl list <T>
     }
     T item(list<T>* self, int position, T& default_value) 
     {
+        if(self == null) {
+            return dummy_heap default_value;
+        }
+        
         if(position < 0) {
             position += self.len;
         }
@@ -1302,6 +1318,9 @@ impl list <T>
     
     list<T>* insert(list<T>* self, int position, T item)
     {
+        if(self == null) {
+            return null;
+        }
         if(position < 0) {
             position += self.len + 1;
         }
@@ -1368,6 +1387,10 @@ impl list <T>
         return self;
     }
     list<T>* reset(list<T>* self) {
+        if(self == null) {
+            return self;
+        }
+        
         list_item<T>* it = self.head;
         while(it != null) {
             var prev_it = it;
@@ -1383,6 +1406,10 @@ impl list <T>
         return self;
     }
     list<T>* remove(list<T>* self, T& item) {
+        if(self == null) {
+            return self;
+        }
+        
         int it2 = 0;
         list_item<T>* it = self.head;
         while(it != null) {
@@ -1398,6 +1425,10 @@ impl list <T>
         return self;
     }
     list<T>* remove_by_pointer(list<T>* self, T& item) {
+        if(self == null) {
+            return self;
+        }
+        
         int it2 = 0;
         list_item<T>* it = self.head;
         while(it != null) {
@@ -1414,6 +1445,10 @@ impl list <T>
     }
     list<T>* delete(list<T>* self, int head, int tail)
     {
+        if(self == null) {
+            return self;
+        }
+        
         if(head < 0) {
             head += self.len;
         }
@@ -1433,6 +1468,10 @@ impl list <T>
 
         if(tail > self.len) {
             tail = self.len;
+        }
+        
+        if(head >= self.len) {
+            return self;
         }
 
         if(head == tail) {
@@ -1538,6 +1577,10 @@ impl list <T>
     }
     list<T>* replace(list<T>* self, int position, T item)
     {
+        if(self == null) {
+            return self;
+        }
+        
         if(position < 0) {
             position += self.len;
         }
@@ -1571,6 +1614,10 @@ impl list <T>
     }
 
     int find(list<T>* self, T& item, int default_value) {
+        if(self == null) {
+            return default_value;
+        }
+        
         int it2 = 0;
         list_item<T>* it = self.head;
         while(it != null) {
@@ -1585,6 +1632,10 @@ impl list <T>
         return default_value;
     }
     int find_by_pointer(list<T>* self, T& item, int default_value) {
+        if(self == null) {
+            return default_value;
+        }
+        
         int it2 = 0;
         list_item<T>* it = self.head;
         while(it != null) {
@@ -1600,6 +1651,13 @@ impl list <T>
     }
     bool equals(list<T>* left, list<T>* right)
     {
+        if(left == null && right == null) {
+            return true;
+        }
+        else if(left == null || right == null) {
+            return false;
+        }
+        
         if(left.len != right.len) {
             return false;
         }
@@ -1619,6 +1677,10 @@ impl list <T>
         return true;
     }
     list<T>*% sublist(list<T>* self, int begin, int tail) {
+        if(self == null) {
+            return self;
+        }
+        
         list<T>*% result = new list<T>.initialize();
 
         if(begin < 0) {
@@ -1631,6 +1693,10 @@ impl list <T>
 
         if(begin < 0) {
             begin = 0;
+        }
+        
+        if(begin >= self.len) {
+            return new list<T>();
         }
 
         if(tail >= self.len) {
@@ -1653,10 +1719,16 @@ impl list <T>
         self.replace(position, item);
     }
     T operator_load_element(list<T>* self, int position) {
+        if(self == null) {
+            T` default_value;
+            memset(&default_value, 0, sizeof(T));
+            return default_value;
+        }
+        
         if(position < 0) {
             position += self.len;
         }
-
+        
         list_item<T>* it = self.head;
         var i = 0;
         while(it != null) {
@@ -1673,6 +1745,10 @@ impl list <T>
     }
     list<T>*% operator_load_range_element(list<T>* self, int begin, int tail) {
         list<T>*% result = new list<T>.initialize();
+        
+        if(self == null) {
+            return result;
+        }
 
         if(begin < 0) {
             begin += self.len;
@@ -1689,6 +1765,10 @@ impl list <T>
         if(tail >= self.len) {
             tail = self.len;
         }
+        
+        if(begin >= self.len) {
+            return result;
+        }
 
         list_item<T>* it = self.head;
         int i = 0;
@@ -1704,6 +1784,13 @@ impl list <T>
     }
     bool operator_equals(list<T>* left, list<T>* right) 
     {
+        if(left == null && right == null) {
+            return true;
+        }
+        else if(left == null || right == null) {
+            return false;
+        }
+        
         if(left.len != right.len) {
             return false;
         }
@@ -1726,6 +1813,10 @@ impl list <T>
         return !left.operator_equals(right);
     }
     bool contained(list<T>* self, T& item) {
+        if(self == null) {
+            return false;
+        }
+        
         for(var it = self.begin(); !self.end(); it = self.next()) {
             if(it.equals(item)) {
                 return true;
@@ -1735,6 +1826,9 @@ impl list <T>
         return false;
     }
     bool contained_by_pointer(list<T>* self, T& item) {
+        if(self == null) {
+            return false;
+        }
         for(var it = self.begin(); !self.end(); it = self.next()) {
             if(it == item) {
                 return true;
@@ -1855,14 +1949,23 @@ impl list <T>
         return left_list.merge_list_with_lambda(right_list, compare);
     }
     list<T>*% sort_with_lambda(list<T>* self, int (*compare)(T&,T&)) {
+        if(self == null) {
+            return new list<T>();
+        }
         return self.merge_sort_with_lambda(compare);
     }
     list<T>*% sort(list<T>* self) {
+        if(self == null) {
+            return new list<T>();
+        }
         return self.merge_sort_with_lambda(int lambda(T& left, T& right) { return left.compare(right); });
     }
     
     template<R> list<R>*% map(list<T>* self, void* parent, R (*block)(void*, T))
     {
+        if(self == null) {
+            return new list<R>();
+        }
         auto result = new list<R>.initialize();
 
         list_item<T>* it = self.head;
@@ -1877,6 +1980,10 @@ impl list <T>
     }
     list<T>*% reverse(list<T>* self) {
         list<T>%* result = new list<T>();
+        
+        if(self == null) { 
+            return result;
+        }
 
         list_item<T>* it = self.tail;
         while(it != null) {
@@ -1888,6 +1995,10 @@ impl list <T>
     }
     list<T>*% uniq(list<T>* self) {
         list<T>*% result = new list<T>.initialize();
+        
+        if(self == null) {
+            return result;
+        }
 
         if(self.length() > 0) {
             T item_before = self.head.item;
@@ -1912,6 +2023,10 @@ impl list <T>
     list<T>*% filter(list<T>* self, void* parent, bool (*block)(void*, T))
     {
         list<T>*% result = new list<T>();
+        
+        if(self == null) {
+            return result;
+        }
 
         list_item<T>* it = self.head;
         while(it != null) {
@@ -1927,6 +2042,10 @@ impl list <T>
     
     list<T>*% operator_add(list<T>*% left, list<T>*% right) {
         list<T>*% result = new list<T>();
+        
+        if(left == null || right == null) {
+            return result;
+        }
 
         list_item<T>* it = left.head;
         while(it != null) {
@@ -1946,6 +2065,10 @@ impl list <T>
     }
     list<T>*% operator_mult(list<T>* left, int right) {
         list<T>*% result = new list<T>();
+        
+        if(left == null) {
+            return result;
+        }
 
         for(int i=0; i<right; i++) {
             list_item<T>* it = left.head;
@@ -1959,6 +2082,10 @@ impl list <T>
         return result;
     }
     string join(list<T>* self, char* sep=" ") {
+        if(self == null) {
+            return string("");
+        }
+        
         buffer*% buf = new buffer();
         
         int n = 0;
@@ -2097,6 +2224,10 @@ impl map <T, T2>
     
     string to_string(map<T,T2>* self)
     {
+        if(self == null) {
+            return string("");
+        }
+        
         buffer*% result = new buffer();
         
         result.append_str("[");
@@ -2124,6 +2255,10 @@ impl map <T, T2>
     }
     
     T2 at(map<T, T2>* self, T& key, T2 default_value) {
+        if(self == null) {
+            return default_value;
+        }
+        
         unsigned int hash = ((T)key).get_hash_key() % self.size;
         unsigned int it = hash;
         
@@ -2152,6 +2287,10 @@ impl map <T, T2>
         return default_value;
     }
     map<T,T2>* remove(map<T, T2>* self, T key) {
+        if(self == null) {
+            return self;
+        }
+        
         unsigned int hash = ((T)key).get_hash_key() % self.size;
         unsigned int it = hash;
         
@@ -2194,6 +2333,10 @@ impl map <T, T2>
         return self;
     }
     map<T,T2>* remove_by_pointer(map<T, T2>* self, T& key) {
+        if(self == null) {
+            return self;
+        }
+        
         unsigned int hash = ((T)key).get_hash_key() % self.size;
         unsigned int it = hash;
         
@@ -2235,6 +2378,9 @@ impl map <T, T2>
         return self;
     }
     int length(map<T, T2>* self) {
+        if(self == null) {
+            return 0;
+        }
         return self.len;
     }
     
@@ -2331,18 +2477,28 @@ impl map <T, T2>
     }
 
     void show_map(map<T, T2>* self) {
+        if(self == null) {
+            return;
+        }
+        
         for(var it = self.begin(); !self.end(); it = self.next()) {
             puts("key " + it.to_string());
-	T2` default_value;
-		memset(&default_value, 0, sizeof(T2));
-	    var item = self.at(it, default_value);
-	    if(item) {
-		    puts("item " + item.to_string());
+            
+            T2` default_value;
+            memset(&default_value, 0, sizeof(T2));
+            
+            var item = self.at(it, default_value);
+            if(item) {
+                puts("item " + item.to_string());
             }
         }
     }
     
     map<T,T2>* insert(map<T,T2>* self, T key, T2 item) {
+        if(self == null) {
+            return self;
+        }
+        
         if(self.len*10 >= self.size) {
             self.rehash();
         }
@@ -2419,6 +2575,10 @@ impl map <T, T2>
         return self;
     }
     map<T,T2>* put(map<T,T2>* self, T key, T2 item) {
+        if(self == null) {
+            return self;
+        }
+        
         if(self.len*2 >= self.size) {
             self.rehash();
         }
@@ -2498,6 +2658,10 @@ impl map <T, T2>
         T2` default_value;
         memset(&default_value, 0, sizeof(T2));
         
+        if(self == null) {
+            return default_value;
+        }
+        
         unsigned int hash = ((T)key).get_hash_key() % self.size;
         unsigned int it = hash;
         
@@ -2527,11 +2691,21 @@ impl map <T, T2>
     }
     
     void operator_store_element(map<T, T2>* self, T key, T2 item) {
+        if(self == null) {
+            return ;
+        }
         self.insert(key, item);
     }
     
     bool equals(map<T, T2>* left, map<T, T2>* right)
     {
+        if(left == null && right == null) {
+            return true;
+        }
+        else if(left == null || right == null) {
+            return false;
+        }
+        
         if(left.len != right.len) {
             return false;
         }
@@ -2564,6 +2738,12 @@ impl map <T, T2>
     }
     
     bool operator_equals(map<T, T2>* left, map<T,T2>* right) {
+        if(left == null && right == null) {
+            return true;
+        }
+        else if(left == null || right == null) {
+            return false;
+        }
         if(left.len != right.len) {
             return false;
         }
@@ -2596,10 +2776,21 @@ impl map <T, T2>
     }
     
     bool operator_not_equals(map<T, T2>* left, map<T,T2>* right) {
-        return !(left.operator_equals(right);
+        if(left == null && right == null) {
+            return false;
+        }
+        else if(left == null || right == null) {
+            return true;
+        }
+        
+        return !(left.operator_equals(right));
     }
     
     bool find(map<T, T2>* self, T& key) {
+        if(self == null) {
+            return false;
+        }
+        
         unsigned int hash = ((T)key).get_hash_key() % self.size;
         int it = hash;
 
@@ -2629,6 +2820,10 @@ impl map <T, T2>
     }
     map<T,T2>*% operator_add(map<T,T2>* left, map<T,T2>* right) {
         map<T,T2>*% result = new map<T,T2>();
+        
+        if(left == null || right == null) {
+            return result;
+        }
 
         int n = 0;
         for(var it = left.key_list.begin(); !left.key_list.end(); it = left.key_list.next()) {
@@ -2676,6 +2871,10 @@ impl map <T, T2>
     }
     map<T,T2>*% operator_mult(map<T,T2>* left, int right) {
         map<T,T2>*% result = new map<T,T2>();
+        
+        if(left == null || right == null) {
+            return result;
+        }
 
         for(int i=0; i<right; i++ ) {
             int n = 0;
@@ -2706,6 +2905,10 @@ impl map <T, T2>
     list<T>*% keys(map<T, T2>* self) {
         var result = new list<T>();
         
+        if(self == null) {
+            return result;
+        }
+        
         for(var it = self.key_list.begin(); !self.key_list.end(); it = self.key_list.next()) {
             if(isheap(T)) {
                 result.push_back(clone it);
@@ -2720,6 +2923,10 @@ impl map <T, T2>
     
     list<T2>*% values(map<T, T2>* self) {
         var result = new list<T2>();
+        
+        if(self == null) {
+            return result;
+        }
         
         for(var it = self.key_list.begin(); !self.key_list.end(); it = self.key_list.next()) { 
             T2` default_value;
@@ -2758,6 +2965,12 @@ impl tuple1 <T>
     
     bool equals(tuple1<T>* self, tuple1<T>* right)
     {
+        if(self == null && right == null) {
+            return true;
+        }
+        else if(self == null || right == null) {
+            return false;
+        }
         if(!self.v1.equals(right.v1)) {
             return false;
         }
@@ -2766,6 +2979,12 @@ impl tuple1 <T>
     }
     bool operator_equals(tuple1<T>* self, tuple1<T>* right) 
     {
+        if(self == null && right == null) {
+            return true;
+        }
+        else if(self == null || right == null) {
+            return false;
+        }
         if(!(self.v1 === right.v1)) {
             return false;
         }
@@ -2778,6 +2997,9 @@ impl tuple1 <T>
     
     string to_string(tuple1<T>* self)
     {
+        if(self == null) {
+            return string("");
+        }
         return "(" + self.v1.to_string() + ")";
     }
 }
@@ -2800,10 +3022,19 @@ impl tuple2 <T, T2>
     
     string to_string(tuple2<T, T2>* self)
     {
+        if(self == null) {
+            return string("");
+        }
         return "(" + self.v1.to_string() + "," + self.v2.to_string() + ")";
     }
     bool equals(tuple2<T,T2>* self, tuple2<T,T2>* right)
     {
+        if(self == null && right == null) {
+            return true;
+        }
+        else if(self == null || right == null) {
+            return false;
+        }
         if(!self.v1.equals(right.v1)) {
             return false;
         }
@@ -2815,6 +3046,12 @@ impl tuple2 <T, T2>
     }
     bool operator_equals(tuple2<T,T2>* self, tuple2<T,T2>* right) 
     {
+        if(self == null && right == null) {
+            return true;
+        }
+        else if(self == null || right == null) {
+            return false;
+        }
         if(!(self.v1 === right.v1)) {
             return false;
         }
@@ -2850,10 +3087,19 @@ impl tuple3 <T, T2, T3>
     
     string to_string(tuple3<T, T2, T3>* self)
     {
+        if(self == null) {
+            return string("");
+        }
         return "(" + self.v1.to_string() + "," + self.v2.to_string() + "," + self.v3.to_string() + ")";
     }
     bool equals(tuple3<T,T2,T3>* self, tuple3<T,T2,T3>* right)
     {
+        if(self == null && right == null) {
+            return true;
+        }
+        else if(self == null || right == null) {
+            return false;
+        }
         if(!self.v1.equals(right.v1)) {
             return false;
         }
@@ -2868,6 +3114,12 @@ impl tuple3 <T, T2, T3>
     }
     bool operator_equals(tuple3<T,T2,T3>* self, tuple3<T,T2,T3>* right) 
     {
+        if(self == null && right == null) {
+            return true;
+        }
+        else if(self == null || right == null) {
+            return false;
+        }
         if(!(self.v1 === right.v1)) {
             return false;
         }
@@ -2907,10 +3159,19 @@ impl tuple4 <T, T2, T3, T4>
     
     string to_string(tuple4<T, T2, T3, T4>* self)
     {
+        if(self == null) {
+            return string("");
+        }
         return "(" + self.v1.to_string() + "," + self.v2.to_string() + "," + self.v3.to_string() + "," + self.v4.to_string() + ")";
     }
     bool equals(tuple4<T,T2,T3,T4>* self, tuple4<T,T2,T3,T4>* right)
     {
+        if(self == null && right == null) {
+            return true;
+        }
+        else if(self == null || right == null) {
+            return false;
+        }
         if(!self.v1.equals(right.v1)) {
             return false;
         }
@@ -2928,6 +3189,12 @@ impl tuple4 <T, T2, T3, T4>
     }
     bool operator_equals(tuple4<T,T2,T3,T4>* self, tuple4<T,T2,T3,T4>* right) 
     {
+        if(self == null && right == null) {
+            return true;
+        }
+        else if(self == null || right == null) {
+            return false;
+        }
         if(!(self.v1 === right.v1)) {
             return false;
         }
@@ -2972,10 +3239,19 @@ impl tuple5 <T, T2, T3, T4, T5>
     
     string to_string(tuple5<T, T2, T3, T4, T5>* self)
     {
+        if(self == null) {
+            return string("");
+        }
         return "(" + self.v1.to_string() + "," + self.v2.to_string() + "," + self.v3.to_string() + "," + self.v4.to_string() + "," + self.v5.to_string() + ")";
     }
     bool equals(tuple5<T,T2,T3,T4,T5>* self, tuple5<T,T2,T3,T4,T5>* right)
     {
+        if(self == null && right == null) {
+            return true;
+        }
+        else if(self == null || right == null) {
+            return false;
+        }
         if(!self.v1.equals(right.v1)) {
             return false;
         }
@@ -2996,6 +3272,12 @@ impl tuple5 <T, T2, T3, T4, T5>
     }
     bool operator_equals(tuple5<T,T2,T3,T4,T5>* self, tuple5<T,T2,T3,T4,T5>* right) 
     {
+        if(self == null && right == null) {
+            return true;
+        }
+        else if(self == null || right == null) {
+            return false;
+        }
         if(!(self.v1 === right.v1)) {
             return false;
         }
@@ -3067,7 +3349,10 @@ uniq buffer*% buffer*::clone(buffer* self)
 
 uniq bool buffer*::equals(buffer* left, buffer* right)
 {
-    if(left == null || right == null) {
+    if(left == null && right == null) {
+        return true;
+    }
+    else if(left == null || right == null) {
         return false;
     }
     
@@ -3283,6 +3568,9 @@ uniq buffer* buffer*::append_int(buffer* self, int value)
 
 uniq buffer* buffer*::append_long(buffer* self, long value) 
 {
+    if(self == null) {
+        return null;
+    }
     long* mem = &value;
     int size = sizeof(long);
     
@@ -3399,12 +3687,18 @@ uniq string buffer*::to_string(buffer* self)
 
 uniq unsigned char* buffer*::head_pointer(buffer* self)
 {
+    if(self == null) {
+        return null;
+    }
     return self.buf;
 }
 
 uniq buffer*% char[]::to_buffer(char* self, size_t len) 
 {
     var result = new buffer();
+    if(self == null) {
+        return result;
+    }
     result.append(self, sizeof(char)*len);
     return result;
 }
@@ -3412,6 +3706,9 @@ uniq buffer*% char[]::to_buffer(char* self, size_t len)
 uniq buffer*% char*[]::to_buffer(char** self, size_t len) 
 {
     var result = new buffer();
+    if(self == null) {
+        return result;
+    }
     for(int i=0; i<len; i++) {
         result.append(self[i], strlen(self[i]));
     }
@@ -3421,6 +3718,9 @@ uniq buffer*% char*[]::to_buffer(char** self, size_t len)
 uniq buffer*% short[]::to_buffer(short* self, size_t len) 
 {
     var result = new buffer();
+    if(self == null) {
+        return result;
+    }
     result.append((char*)self, sizeof(short)*len);
     return result;
 }
@@ -3428,6 +3728,9 @@ uniq buffer*% short[]::to_buffer(short* self, size_t len)
 uniq buffer*% int[]::to_buffer(int* self, size_t len) 
 {
     var result = new buffer();
+    if(self == null) {
+        return result;
+    }
     result.append((char*)self, sizeof(int)*len);
     return result;
 }
@@ -3435,6 +3738,9 @@ uniq buffer*% int[]::to_buffer(int* self, size_t len)
 uniq buffer*% long[]::to_buffer(long* self, size_t len) 
 {
     var result = new buffer();
+    if(self == null) {
+        return result;
+    }
     result.append((char*)self, sizeof(long)*len);
     return result;
 }
@@ -3442,6 +3748,9 @@ uniq buffer*% long[]::to_buffer(long* self, size_t len)
 uniq buffer*% float[]::to_buffer(float* self, size_t len) 
 {
     var result = new buffer();
+    if(self == null) {
+        return result;
+    }
     result.append((char*)self, sizeof(float)*len);
     return result;
 }
@@ -3449,6 +3758,9 @@ uniq buffer*% float[]::to_buffer(float* self, size_t len)
 uniq buffer*% double[]::to_buffer(double* self, size_t len) 
 {
     var result = new buffer();
+    if(self == null) {
+        return result;
+    }
     result.append((char*)self, sizeof(double)*len);
     return result;
 }
@@ -3457,6 +3769,10 @@ uniq string buffer*::printable(buffer* self)
 {
     int len = self.len;
     string result = new char[len*2+1];
+    
+    if(self == null) {
+        return result;
+    }
 
     int n = 0;
     for(int i=0; i<len; i++) {
@@ -3485,6 +3801,9 @@ impl list <T>
 {
     buffer*% to_buffer(list<T>* self) {
         var result = new buffer();
+        if(self == null) {
+            return result;
+        }
         for(var it = self.begin(); !self.end(); it = self.next()) {
             result.append((char*)&it, sizeof(T));
         }
@@ -3643,10 +3962,7 @@ uniq bool char*::equals(char* self, char* right)
     if(self == null && right == null) {
         return true;
     }
-    else if(self == null) {
-        return false;
-    }
-    else if(right == null) {
+    else if(self == null || right == null) {
         return false;
     }
     
@@ -3658,10 +3974,7 @@ uniq bool string::equals(char* self, char* right)
     if(self == null && right == null) {
         return true;
     }
-    else if(self == null) {
-        return false;
-    }
-    else if(right == null) {
+    else if(self == null || right == null) {
         return false;
     }
     
@@ -3683,10 +3996,7 @@ uniq bool string::operator_equals(char* self, char* right)
     if(self == null && right == null) {
         return true;
     }
-    else if(self == null) {
-        return false;
-    }
-    else if(right == null) {
+    else if(self == null || right == null) {
         return false;
     }
     
@@ -3698,10 +4008,7 @@ uniq bool char*::operator_equals(char* self, char* right)
     if(self == null && right == null) {
         return true;
     }
-    else if(self == null) {
-        return false;
-    }
-    else if(right == null) {
+    else if(self == null || right == null) {
         return false;
     }
     
@@ -3723,10 +4030,7 @@ uniq bool string::operator_not_equals(char* self, char* right)
     if(self == null && right == null) {
         return false;
     }
-    else if(self == null) {
-        return true;
-    }
-    else if(right == null) {
+    else if(self == null || right == null) {
         return true;
     }
     
@@ -3738,10 +4042,7 @@ uniq bool char*::operator_not_equals(char* self, char* right)
     if(self == null && right == null) {
         return false;
     }
-    else if(self == null) {
-        return true;
-    }
-    else if(right == null) {
+    else if(self == null || right == null) {
         return true;
     }
     
@@ -3815,6 +4116,9 @@ uniq size_t char[]::length(char* self, size_t len)
 uniq bool char*[]::contained(char** self, size_t len, char* str) 
 {
     bool result = false;
+    if(self == null) {
+        return result;
+    }
     for(int i=0; i<len; i++) {
         if(strncmp(self[i], str, strlen(self[i])) == 0) {
             result = true;
@@ -4218,6 +4522,10 @@ uniq string char*::delete(char* str, int head, int tail)
     }
     
     int len = strlen(str);
+    
+    if(head >= len) {
+        return string(str);
+    }
 
     if(strcmp(str, "") == 0) {
         return string(str);
@@ -4292,6 +4600,8 @@ uniq string int::xsprintf(int self, char* msg, ...)
 
 uniq string char*::printable(char* str)
 {
+    if(str == null) { return string(""); }
+    
     int len = str.length();
     string result = new char[len*2+1];
 
@@ -4322,7 +4632,7 @@ uniq string char[]::printable(char* str)
 
 uniq string char*::sub_plain(char* self, char* str, char* replace)
 {
-    if(str == null || replace == null) {
+    if(self == null || str == null || replace == null) {
         return string(self);
     }
 
@@ -4735,6 +5045,19 @@ uniq string char*::printf(char* self, ...)
 
 uniq int int::printf(int self, char* msg)
 {
+    if(self == null) {
+        return self;
+    }
+    printf(msg, self);
+    
+    return self;
+}
+
+uniq long long::printf(long self, char* msg)
+{
+    if(self == null) {
+        return self;
+    }
     printf(msg, self);
     
     return self;
@@ -5773,6 +6096,10 @@ uniq int re_get_group_count(re_t pattern)
 
 uniq string string::lower_case(char* str)
 {
+    if(str == null) {
+        return string("");
+    }
+    
     string result = string(str);
     for(int i=0; i<strlen(str); i++) {
         if(str[i] >= 'A' && str[i] <= 'Z') {
@@ -5785,6 +6112,10 @@ uniq string string::lower_case(char* str)
 
 uniq string string::upper_case(char* str)
 {
+    if(str == null) {
+        return string("");
+    }
+    
     string result = string(str);
     for(int i=0; i<strlen(str); i++) {
         if(str[i] >= 'a' && str[i] <= 'z') {
@@ -5797,7 +6128,7 @@ uniq string string::upper_case(char* str)
 
 uniq int char*::index_regex(char* self, char* reg, int default_value)
 {
-    if(reg == null) {
+    if(self == null || reg == null) {
         return default_value;
     }
     
@@ -5838,6 +6169,10 @@ uniq int char*::index_regex(char* self, char* reg, int default_value)
 
 uniq int char*::rindex(char* str, char* search_str, int default_value)
 {
+    if(str == null || search_str == null) {
+        return default_value;
+    }
+    
     int len = strlen(search_str);
     char* p = str + strlen(str) - len;
 
@@ -5854,7 +6189,7 @@ uniq int char*::rindex(char* str, char* search_str, int default_value)
 
 uniq int char*::rindex_regex(char* self, char* reg, int default_value)
 {
-    if(reg == null) {
+    if(self == null || reg == null) {
         return default_value;
     }
     
@@ -5897,6 +6232,9 @@ uniq int char*::rindex_regex(char* self, char* reg, int default_value)
 
 uniq string char*::strip(char* self)
 {
+    if(self == null) {
+        return string("");
+    }
     string result = string(self);
     
     int len = strlen(self);
@@ -5916,6 +6254,10 @@ uniq string char*::strip(char* self)
 
 uniq int char*::index(char* str, char* search_str, int default_value)
 {
+    if(str == null || search_str == null) {
+        return default_value;
+    }
+    
     char* head = strstr(str, search_str);
 
     if(head == null) {
@@ -5927,6 +6269,9 @@ uniq int char*::index(char* str, char* search_str, int default_value)
 
 uniq string string::chomp(char* str)
 {
+    if(str == null) {
+        return string("");
+    }
     string result = string(str);
     
     if(result[result.length()-1] == '\n') {
@@ -5955,6 +6300,10 @@ uniq string xrealpath(char* path)
 
 uniq string char*::replace(char* self, int index, char c)
 {
+    if(self == null) {
+        return string("");
+    }
+    
     int len = strlen(self);
 
     if(strcmp(self, "") == 0) {
@@ -5980,6 +6329,10 @@ uniq string char*::replace(char* self, int index, char c)
 
 uniq string char*::multiply(char* str, int n)
 {
+    if(str == null) {
+        return string("");
+    }
+    
     int len = strlen(str) * n + 1;
 
     char*% result = new char[len];
@@ -5995,6 +6348,10 @@ uniq string char*::multiply(char* str, int n)
 
 uniq list<string>*% char*::split_str(char* self, char* str) 
 {
+    if(self == null || str == null) {
+        return new list<string>();
+    }
+    
     auto result = new list<string>.initialize();
 
     auto buf = new buffer.initialize();
@@ -6053,7 +6410,7 @@ uniq string string::multiply(char* str, int n)
 
 uniq bool char*::match(char* self, char* reg)
 {
-    if(reg == null) {
+    if(self == null || reg == null) {
         return false;
     }
     
@@ -6086,7 +6443,7 @@ uniq bool char*::match(char* self, char* reg)
 
 uniq list<string>*% char*::scan(char* self, char* reg)
 {
-    if(reg == null || reg == null) {
+    if(self == null || reg == null) {
         return new list<string>();
     }
     auto result = new list<string>();
@@ -6149,7 +6506,7 @@ uniq list<string>*% char*::scan(char* self, char* reg)
 
 uniq list<string>*% char*::split(char* self, char* reg)
 {
-    if(reg == null || reg == null) {
+    if(self == null || reg == null) {
         return new list<string>();
     }
     
@@ -6229,7 +6586,7 @@ uniq bool string::match(char* self, char* reg)
 
 uniq string char*::sub(char* self, char* reg, char* replace)
 {
-    if(reg == null || reg == null) {
+    if(self == null || reg == null) {
         return string("");
     }
     
@@ -6281,7 +6638,7 @@ uniq string char*::sub(char* self, char* reg, char* replace)
 
 uniq string char*::sub_block(char* self, char* reg, void* parent, string (*block)(void* parent, char* match_string, list<string>* group_strings))
 {
-    if(reg == null || reg == null) {
+    if(self == null || reg == null) {
         return string("");
     }
     
@@ -6367,7 +6724,7 @@ uniq string char*::sub_block(char* self, char* reg, void* parent, string (*block
 
 uniq list<string>*% char*::scan_block(char* self, char* reg, void* parent, string (*block)(void* parent, char* match_string, list<string>* group_strings))
 {
-    if(reg == null || reg == null) {
+    if(self == null || reg == null) {
         return new list<string>();
     }
     auto result = new list<string>();
@@ -6477,11 +6834,17 @@ uniq wstring __builtin_wstring(char* str)
 
 uniq int wchar_t*::length(wchar_t* str)
 {
+    if(str == null) {
+        return 0;
+    }
     return wcslen(str);
 }
 
 uniq int wchar_t[]::length(wchar_t* str)
 {
+    if(str == null) {
+        return 0;
+    }
     return wcslen(str);
 }
 
@@ -6490,13 +6853,11 @@ uniq int wstring::length(wchar_t* str)
     return wchar_t*::length(str);
 }
 
-
-
-
-
-
 uniq string string::lower_case(char* str)
 {
+    if(str == null) {
+        return string("");
+    }
     string result = string(str);
     for(int i=0; i<strlen(str); i++) {
         if(str[i] >= 'A' && str[i] <= 'Z') {
@@ -6509,6 +6870,9 @@ uniq string string::lower_case(char* str)
 
 uniq string string::upper_case(char* str)
 {
+    if(str == null) {
+        return string("");
+    }
     string result = string(str);
     for(int i=0; i<strlen(str); i++) {
         if(str[i] >= 'a' && str[i] <= 'z') {
@@ -6545,6 +6909,10 @@ uniq wstring wchar_t*::substring(wchar_t* str, int head, int tail)
     if(tail >= len) {
         tail = len;
     }
+    
+    if(head >= len) {
+        return wstring("");
+    }
 
     if(head == tail) {
         return wstring("");
@@ -6564,6 +6932,10 @@ uniq wstring wchar_t*::substring(wchar_t* str, int head, int tail)
 
 uniq int char*::index_count(char* str, char* search_str, int count, int default_value)
 {
+    if(str == null || search_str == null) {
+        return default_value;
+    }
+    
     int n = 0;
     int len = strlen(str);
     for(int i=0; i<len; i++) {
@@ -6590,6 +6962,9 @@ uniq int char*::index_count(char* str, char* search_str, int count, int default_
 
 uniq int char*::rindex(char* str, char* search_str, int default_value)
 {
+    if(str == null || search_str == null) {
+        return default_value;
+    }
     int len = strlen(search_str);
     char* p = str + strlen(str) - len;
 
@@ -6607,6 +6982,9 @@ uniq int char*::rindex(char* str, char* search_str, int default_value)
 
 uniq int char*::rindex_count(char* str, char* search_str, int count, int default_value)
 {
+    if(str == null || search_str == null) {
+        return default_value;
+    }
     int len = strlen(search_str);
     char* p = str + strlen(str) - len;
     
@@ -6634,6 +7012,10 @@ uniq int char*::rindex_count(char* str, char* search_str, int count, int default
 
 uniq string char*::strip(char* self)
 {
+    if(self == null) {
+        return string("");
+    }
+    
     string result = string(self);
     
     int len = strlen(self);
@@ -6653,6 +7035,10 @@ uniq string char*::strip(char* self)
 
 uniq string wchar_t*::to_string(wchar_t* wstr)
 {
+    if(wstr == null) {
+        return string("");
+    }
+    
     int len = MB_LEN_MAX*(wcslen(wstr)+1);
 
     string result = new char[len];
@@ -6667,21 +7053,33 @@ uniq string wchar_t*::to_string(wchar_t* wstr)
 
 uniq string wchar_t[]::to_string(wchar_t* wstr)
 {
+    if(wstr == null) {
+        return string("");
+    }
     return wchar_t*::to_string(wstr);
 }
 
 uniq wstring char*::to_wstring(char* str)
 {
+    if(str == null) {
+        return wstring("");
+    }
     return wstring(str);
 }
 
 uniq wstring char[]::to_wstring(char* str)
 {
+    if(str == null) {
+        return wstring("");
+    }
     return wstring(str);
 }
 
 uniq wstring wchar_t*::delete(wchar_t* str, int head, int tail) 
 {
+    if(str == null) {
+        return wstring("");
+    }
     int len = wcslen(str);
 
     if(len == 0) {
@@ -6717,6 +7115,10 @@ uniq wstring wchar_t*::delete(wchar_t* str, int head, int tail)
 
 uniq int wchar_t*::index(wchar_t* str, wchar_t* search_str, int default_value)
 {
+    if(str == null || search_str == null) {
+        return default_value;
+    }
+    
     wchar_t* head = wcsstr(str, search_str);
 
     if(head == null) {
@@ -6728,6 +7130,10 @@ uniq int wchar_t*::index(wchar_t* str, wchar_t* search_str, int default_value)
 
 uniq int wchar_t*::rindex(wchar_t* str, wchar_t* search_str, int default_value)
 {
+    if(str == null || search_str == null) {
+        return default_value;
+    }
+    
     int len = wcslen(search_str);
 
     wchar_t* p = str + wcslen(str) - len;
@@ -6753,6 +7159,10 @@ uniq int wchar_t*::rindex(wchar_t* str, wchar_t* search_str, int default_value)
 
 uniq wstring wchar_t*::reverse(wchar_t* str) 
 {
+    if(str == null) {
+        return wstring("");
+    }
+    
     int len = wcslen(str);
     wstring result = new wchar_t[len + 1];
 
@@ -6767,6 +7177,10 @@ uniq wstring wchar_t*::reverse(wchar_t* str)
 
 uniq wstring wchar_t*::multiply(wchar_t* str, int n)
 {
+    if(str == null) {
+        return wstring("");
+    }
+    
     int len = wcslen(str) * n + 1;
 
     wstring result = new wchar_t[len];
@@ -6782,6 +7196,9 @@ uniq wstring wchar_t*::multiply(wchar_t* str, int n)
 
 uniq wstring wchar_t*::printable(wchar_t* str)
 {
+    if(str == null) {
+        return wstring("");
+    }
     int len = str.length();
     wstring result = new wchar_t[len*2+1];
 
@@ -6808,11 +7225,43 @@ uniq wstring wchar_t*::printable(wchar_t* str)
 
 uniq int wchar_t*::compare(wchar_t* left, wchar_t* right)
 {
+    if(left == null) {
+        if(right == null) {
+            return 0;
+        }
+        else {
+            return 1;
+        }
+    }
+    else if(right == null) {
+        if(left == null) {
+            return 0;
+        }
+        else {
+            return -1;
+        }
+    }
     return wcscmp(left, right);
 }
 
 uniq int wstring::compare(wchar_t* left, wchar_t* right)
 {
+    if(left == null) {
+        if(right == null) {
+            return 0;
+        }
+        else {
+            return 1;
+        }
+    }
+    else if(right == null) {
+        if(left == null) {
+            return 0;
+        }
+        else {
+            return -1;
+        }
+    }
     return wcscmp(left, right);
 }
 
@@ -6856,6 +7305,9 @@ uniq bool wstring::operator_not_equals(wchar_t* left, wchar_t* right)
 
 uniq wstring wchar_t*::operator_add(wchar_t* left, wchar_t* right)
 {
+    if(left == null || right == null) {
+        return wstring("");
+    }
     wchar_t*% result = new wchar_t[wcslen(left) + wcslen(right) + 1];
     
     wcscpy(result, left);
@@ -6866,6 +7318,9 @@ uniq wstring wchar_t*::operator_add(wchar_t* left, wchar_t* right)
 
 uniq wstring wstring::operator_add(wchar_t* left, wchar_t* right)
 {
+    if(left == null || right == null) {
+        return wstring("");
+    }
     wchar_t*% result = new wchar_t[wcslen(left) + wcslen(right) + 1];
     
     wcscpy(result, left);
@@ -6876,6 +7331,9 @@ uniq wstring wstring::operator_add(wchar_t* left, wchar_t* right)
 
 uniq int char*::index(char* str, char* search_str, int default_value)
 {
+    if(str == null || search_str == null) {
+        return default_value;
+    }
     char* head = strstr(str, search_str);
 
     if(head == null) {
@@ -6890,6 +7348,9 @@ uniq int char*::index(char* str, char* search_str, int default_value)
 
 uniq string char*::replace(char* self, int index, char c)
 {
+    if(self == null) {
+        return string("");
+    }
     int len = strlen(self);
 
     if(strcmp(self, "") == 0) {
@@ -6915,6 +7376,9 @@ uniq string char*::replace(char* self, int index, char c)
 
 uniq string char*::multiply(char* str, int n)
 {
+    if(str == null) {
+        return string("");
+    }
     int len = strlen(str) * n + 1;
 
     char*% result = new char[len];
@@ -6933,6 +7397,9 @@ uniq string char*::multiply(char* str, int n)
 
 uniq list<string>*% char*::split_str(char* self, char* str) 
 {
+    if(self == null || str == null) {
+        return new list<string>();
+    }
     auto result = new list<string>.initialize();
 
     auto buf = new buffer.initialize();
@@ -6964,6 +7431,9 @@ uniq list<string>*% char*::split_str(char* self, char* str)
 
 uniq unsigned int wchar_t*::get_hash_key(wchar_t* value)
 {
+    if(value == null) {
+        return 0;
+    }
     int result = 0;
     wchar_t* p = value;
     while(*p) {
@@ -6975,11 +7445,23 @@ uniq unsigned int wchar_t*::get_hash_key(wchar_t* value)
 
 uniq bool wchar_t*::equals(wchar_t* left, wchar_t* right)
 {
+    if(left == null && right == null) {
+        return true;
+    }
+    else if(left == null || right == null) {
+        return false;
+    }
     return wcscmp(left, right) == 0;
 }
 
 uniq bool wstring::equals(wchar_t* left, wchar_t* right)
 {
+    if(left == null && right == null) {
+        return true;
+    }
+    else if(left == null || right == null) {
+        return false;
+    }
     return wcscmp(left, right) == 0;
 }
 
@@ -7033,6 +7515,9 @@ uniq string xdirname(char* path)
 
 uniq size_t xwcslen(wchar_t* wstr)
 {
+    if(wstr == null) {
+        return 0;
+    }
     wchar_t* p = wstr;
     
     size_t len = 0;
@@ -7268,7 +7753,7 @@ uniq int char*::write(char* self, char* file_name, bool append=false)
     
     int result = fwrite(self, strlen(self), 1, f);
     
-    if(result < 0) {
+    if(result != 1) {
         return result;
     }
     
