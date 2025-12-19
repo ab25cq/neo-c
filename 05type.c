@@ -1806,6 +1806,13 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
                     
                     type_name = parse_word();
                     
+                    if(*info->p == ':' && *(info->p+1) == ':') {
+                        type_name = string("long");
+                        info.p = p2;
+                        info.sline = sline2;
+                        break;
+                    }
+                    
                     if(type_name === "unsigned") {
                         type_name = parse_word();
                         
@@ -1969,7 +1976,17 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
         else if(type_name === "signed" || type_name === "__signed__") {
             unsigned_ = false;
             
+            char* p = info.p;
+            int sline = info.sline;
+            
             type_name = parse_word();
+            
+            if(*info->p == ':' && *(info->p+1) == ':') {
+                type_name = string("int");
+                info.p = p;
+                info.sline = sline;
+                break;
+            }
         }
         else if(type_name === "register") {
             register_ = true;
@@ -2013,6 +2030,13 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
                 char* p = info.p;
                 int sline = info.sline;
                 type_name = parse_word();
+                
+                if(*info->p == ':' && *(info->p+1) == ':') {
+                    type_name = string("short");
+                    info.p = p;
+                    info.sline = sline;
+                    break;
+                }
                 
                 if(type_name === "int") {
                     short_ = true;

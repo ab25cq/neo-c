@@ -1,21 +1,15 @@
 #include <neo-c.h>
-#include <neo-c-pthread.h>
-#include <unistd.h>
 
-struct sData {
-    int a ;
-    int b;
-};
+void unsigned long::fun(unsigned long self)
+{
+puts("unsigned long");
+}
 
 int main(int argc, char** argv)
 {
-    var a  = new int(5);
+    unsigned long a;
     
-    printf("%d\n", *a);
-    
-    var b = new sData { a:123, b:234 };
-    
-    printf("%d %d\n", b.a, b.b);
+    a.fun();
     
     return 0;
 }
