@@ -249,6 +249,9 @@ void parse_sharp(sInfo* info=info) version 5
                     info->p++;
                     info->sline++;
                 }
+                else if(*info->p == '\0') {
+                    break;
+                }
                 else {
                     info->p++;
                 }

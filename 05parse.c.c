@@ -3370,6 +3370,9 @@ int nest;
                     info->p++;
                     info->sline++;
                 }
+                else if(                *info->p==0                ) {
+                    break;
+                }
                 else {
                     info->p++;
                 }
