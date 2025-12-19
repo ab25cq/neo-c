@@ -2869,7 +2869,7 @@ struct tuple2$2sFun$pchar$ph* create_pthread_fun(struct sType* type, char* fun_n
 _Bool is_contained_generics_class(struct sType* type, struct sInfo* info);
 _Bool is_type_name(char* buf, struct sInfo* info);
 _Bool parsecmp(char* p2, struct sInfo* info);
-char* parse_word(struct sInfo* info);
+char* parse_word(_Bool digits, struct sInfo* info);
 char* backtrace_parse_word(struct sInfo* info);
 void skip_spaces_and_lf(struct sInfo* info);
 struct tuple3$3sType$phchar$ph_Bool$* parse_type(struct sInfo* info, _Bool parse_variable_name, _Bool parse_multiple_type, _Bool in_function_parametor);
@@ -4519,10 +4519,10 @@ memset(&node_36, 0, sizeof(node_36));
             }
             if(            strncmp(info->p,"include ",strlen("include "))==0            ) {
                 __right_value0 = (void*)0;
-                ((char*)(__right_value0=parse_word(info)));
+                ((char*)(__right_value0=parse_word(0,info)));
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                 __right_value0 = (void*)0;
-                module_name=(char*)come_increment_ref_count(parse_word(info));
+                module_name=(char*)come_increment_ref_count(parse_word(0,info));
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 params=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "05function.c", 194, "struct list$1char$ph*"))));
@@ -4531,7 +4531,7 @@ memset(&node_36, 0, sizeof(node_36));
                     skip_spaces_and_lf(info);
                     while(                    1                    ) {
                         __right_value0 = (void*)0;
-                        word=(char*)come_increment_ref_count(parse_word(info));
+                        word=(char*)come_increment_ref_count(parse_word(0,info));
                         list$1char$ph_add(params,(char*)come_increment_ref_count(word));
                         if(                        *info->p==44                        ) {
                             info->p++;
@@ -6712,7 +6712,7 @@ _Bool Value;
         head=info->p;
         head_sline=info->sline;
         __right_value0 = (void*)0;
-        buf=(char*)come_increment_ref_count(parse_word(info));
+        buf=(char*)come_increment_ref_count(parse_word(0,info));
         parse_sharp_v5(info);
         if(        block&&*info->p==125        ) {
             info->p++;
@@ -7207,7 +7207,7 @@ struct sNode* __result_obj__178;
         sline_91=info->sline;
         if(        charp_operator_equals(buf,"struct")        ) {
             if(            isalpha(*info->p)||*info->p==95            ) {
-                word=(char*)come_increment_ref_count(parse_word(info));
+                word=(char*)come_increment_ref_count(parse_word(0,info));
                 if(                *info->p==59                ) {
                     define_struct_nobody=1;
                 }
@@ -7225,11 +7225,11 @@ struct sNode* __result_obj__178;
         p_93=info->p;
         info->p=head;
         __right_value0 = (void*)0;
-        (void)((char*)(__right_value0=parse_word(info)));
+        (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         if(        isalpha(*info->p)||*info->p==95        ) {
             __right_value0 = (void*)0;
-            buf2=(char*)come_increment_ref_count(parse_word(info));
+            buf2=(char*)come_increment_ref_count(parse_word(0,info));
             if(            string_operator_equals(buf2,"class")            ) {
                 uniq_class=1;
             }
@@ -7260,7 +7260,7 @@ struct sNode* __result_obj__178;
                     define_function_pointer_result_function=1;
                     if(                    isalpha(*info->p)||*info->p==95                    ) {
                         __right_value0 = (void*)0;
-                        word_96=(char*)come_increment_ref_count(parse_word(info));
+                        word_96=(char*)come_increment_ref_count(parse_word(0,info));
                         if(                        !is_type_name(word_96,info)&&*info->p==41                        ) {
                             info->p++;
                             skip_spaces_and_lf(info);
@@ -7303,12 +7303,12 @@ struct sNode* __result_obj__178;
             if(            xisalnum(*info->p)||*info->p==95            ) {
                 __right_value0 = (void*)0;
                 __dec_obj70=word_102,
-                word_102=(char*)come_increment_ref_count(parse_word(info));
+                word_102=(char*)come_increment_ref_count(parse_word(0,info));
                 __dec_obj70 = come_decrement_ref_count(__dec_obj70, (void*)0, (void*)0, 0,0, (void*)0);
                 if(                string_operator_equals(word_102,"extern")                ) {
                     __right_value0 = (void*)0;
                     __dec_obj71=word_102,
-                    word_102=(char*)come_increment_ref_count(parse_word(info));
+                    word_102=(char*)come_increment_ref_count(parse_word(0,info));
                     __dec_obj71 = come_decrement_ref_count(__dec_obj71, (void*)0, (void*)0, 0,0, (void*)0);
                 }
             }
@@ -7338,7 +7338,7 @@ struct sNode* __result_obj__178;
                     if(                    xisalnum(*info->p)||*info->p==95                    ) {
                         __right_value0 = (void*)0;
                         __dec_obj73=word_102,
-                        word_102=(char*)come_increment_ref_count(parse_word(info));
+                        word_102=(char*)come_increment_ref_count(parse_word(0,info));
                         __dec_obj73 = come_decrement_ref_count(__dec_obj73, (void*)0, (void*)0, 0,0, (void*)0);
                     }
                 }
@@ -7378,7 +7378,7 @@ struct sNode* __result_obj__178;
                     skip_spaces_and_lf(info);
                     if(                    isalpha(*info->p)||*info->p==95                    ) {
                         __right_value0 = (void*)0;
-                        word_108=(char*)come_increment_ref_count(parse_word(info));
+                        word_108=(char*)come_increment_ref_count(parse_word(0,info));
                         if(                        *info->p==41                        ) {
                             info->p++;
                             skip_spaces_and_lf(info);
@@ -7391,7 +7391,7 @@ struct sNode* __result_obj__178;
                 }
                 else if(                isalpha(*info->p)||*info->p==95                ) {
                     __right_value0 = (void*)0;
-                    word_109=(char*)come_increment_ref_count(parse_word(info));
+                    word_109=(char*)come_increment_ref_count(parse_word(0,info));
                     if(                    *info->p==41                    ) {
                         info->p++;
                         skip_spaces_and_lf(info);
@@ -7441,15 +7441,15 @@ struct sNode* __result_obj__178;
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             if(            isalpha(*info->p)||*info->p==95            ) {
                 __right_value0 = (void*)0;
-                ((char*)(__right_value0=parse_word(info)));
+                ((char*)(__right_value0=parse_word(0,info)));
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                 if(                isalpha(*info->p)||*info->p==95                ) {
                     __right_value0 = (void*)0;
-                    word_112=(char*)come_increment_ref_count(parse_word(info));
+                    word_112=(char*)come_increment_ref_count(parse_word(0,info));
                     if(                    isalpha(*info->p)||*info->p==95                    ) {
                         __right_value0 = (void*)0;
                         __dec_obj74=word_112,
-                        word_112=(char*)come_increment_ref_count(parse_word(info));
+                        word_112=(char*)come_increment_ref_count(parse_word(0,info));
                         __dec_obj74 = come_decrement_ref_count(__dec_obj74, (void*)0, (void*)0, 0,0, (void*)0);
                         if(                        string_operator_equals(word_112,"extends")                        ) {
                             define_variable=0;
@@ -7485,7 +7485,7 @@ struct sNode* __result_obj__178;
         info->p=head;
         info->sline=sline;
         __right_value0 = (void*)0;
-        buf2_113=(char*)come_increment_ref_count(parse_word(info));
+        buf2_113=(char*)come_increment_ref_count(parse_word(0,info));
         __right_value0 = (void*)0;
         __result_obj__133 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=top_level_v98(buf2_113,head,head_sline,info))));
         (buf2_113 = come_decrement_ref_count(buf2_113, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -7496,7 +7496,7 @@ struct sNode* __result_obj__178;
     }
     else if(    charp_operator_equals(buf,"template")    ) {
         __right_value0 = (void*)0;
-        word_114=(char*)come_increment_ref_count(parse_word(info));
+        word_114=(char*)come_increment_ref_count(parse_word(0,info));
         if(        *info->p==60        ) {
             info->p++;
             skip_spaces_and_lf(info);
@@ -7517,7 +7517,7 @@ struct sNode* __result_obj__178;
                 }
                 else {
                     __right_value0 = (void*)0;
-                    word_115=(char*)come_increment_ref_count(parse_word(info));
+                    word_115=(char*)come_increment_ref_count(parse_word(0,info));
                     __right_value0 = (void*)0;
                     list$1char$ph_push_back(info->method_generics_type_names,(char*)come_increment_ref_count((char*)come_memdup(word_115, "05function.c", 1349, "char*")));
                     (word_115 = come_decrement_ref_count(word_115, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -7586,7 +7586,7 @@ struct sNode* __result_obj__178;
                     list$1char$ph_push_back(param_names,(char*)come_increment_ref_count(xsprintf("_function_pointer_result_var_name_a%d",++num_function_pointer_result_var_name_a)));
                     if(                    isalpha(*info->p)||*info->p==95                    ) {
                         __right_value0 = (void*)0;
-                        (void)((char*)(__right_value0=parse_word(info)));
+                        (void)((char*)(__right_value0=parse_word(0,info)));
                         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                     }
                     if(                    *info->p==44                    ) {
@@ -7640,7 +7640,7 @@ struct sNode* __result_obj__178;
                         list$1char$ph_push_back(param_names2,(char*)come_increment_ref_count(xsprintf("_function_pointer_result_var_name_b%d",++num_function_pointer_result_var_name_b)));
                         if(                        isalpha(*info->p)||*info->p==95                        ) {
                             __right_value0 = (void*)0;
-                            (void)((char*)(__right_value0=parse_word(info)));
+                            (void)((char*)(__right_value0=parse_word(0,info)));
                             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                         }
                         if(                        *info->p==44                        ) {
@@ -7743,7 +7743,7 @@ struct sNode* __result_obj__178;
         struct_attribute0=(char*)come_increment_ref_count(parse_struct_attribute(info));
         if(        isalpha(*info->p)||*info->p==95        ) {
             __right_value0 = (void*)0;
-            word_132=(char*)come_increment_ref_count(parse_word(info));
+            word_132=(char*)come_increment_ref_count(parse_word(0,info));
             if(            string_operator_equals(word_132,"struct")            ) {
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
@@ -7757,7 +7757,7 @@ struct sNode* __result_obj__178;
                 (__right_value5 = come_decrement_ref_count(__right_value5, (void*)0, (void*)0, 1, 0, (void*)0));
                 __right_value0 = (void*)0;
                 __dec_obj111=word_132,
-                word_132=(char*)come_increment_ref_count(parse_word(info));
+                word_132=(char*)come_increment_ref_count(parse_word(0,info));
                 __dec_obj111 = come_decrement_ref_count(__dec_obj111, (void*)0, (void*)0, 0,0, (void*)0);
                 __right_value0 = (void*)0;
                 __result_obj__170 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=parse_struct((char*)come_increment_ref_count(word_132),(char*)come_increment_ref_count(struct_attribute),info))));
@@ -7786,7 +7786,7 @@ struct sNode* __result_obj__178;
                 (__right_value5 = come_decrement_ref_count(__right_value5, (void*)0, (void*)0, 1, 0, (void*)0));
                 __right_value0 = (void*)0;
                 __dec_obj112=word_132,
-                word_132=(char*)come_increment_ref_count(parse_word(info));
+                word_132=(char*)come_increment_ref_count(parse_word(0,info));
                 __dec_obj112 = come_decrement_ref_count(__dec_obj112, (void*)0, (void*)0, 0,0, (void*)0);
                 __right_value0 = (void*)0;
                 __result_obj__171 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=parse_union((char*)come_increment_ref_count(word_132),(char*)come_increment_ref_count(struct_attribute_133),info))));
@@ -7815,7 +7815,7 @@ struct sNode* __result_obj__178;
                 (__right_value5 = come_decrement_ref_count(__right_value5, (void*)0, (void*)0, 1, 0, (void*)0));
                 __right_value0 = (void*)0;
                 __dec_obj113=word_132,
-                word_132=(char*)come_increment_ref_count(parse_word(info));
+                word_132=(char*)come_increment_ref_count(parse_word(0,info));
                 __dec_obj113 = come_decrement_ref_count(__dec_obj113, (void*)0, (void*)0, 0,0, (void*)0);
                 __right_value0 = (void*)0;
                 __result_obj__172 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=parse_enum((char*)come_increment_ref_count(word_132),(char*)come_increment_ref_count(struct_attribute_134),info))));
@@ -7891,7 +7891,7 @@ struct sNode* __result_obj__178;
     info->p=head;
     info->sline=sline;
     __right_value0 = (void*)0;
-    buf2_138=(char*)come_increment_ref_count(parse_word(info));
+    buf2_138=(char*)come_increment_ref_count(parse_word(0,info));
     __right_value0 = (void*)0;
     __result_obj__178 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=top_level_v98(buf2_138,head,head_sline,info))));
     (buf2_138 = come_decrement_ref_count(buf2_138, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -9582,7 +9582,7 @@ memset(&fun_name, 0, sizeof(fun_name));
     constructor_=0;
     if(    info->in_class&&(info->end-info->p)>=strlen("new(")&&memcmp(info->p,"new(",4)==0    ) {
         __right_value0 = (void*)0;
-        ((char*)(__right_value0=parse_word(info)));
+        ((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         __right_value0 = (void*)0;
         __dec_obj149=result_type,
@@ -9620,7 +9620,7 @@ memset(&fun_name, 0, sizeof(fun_name));
         while(        xisalnum(*info->p)||*info->p==95        ) {
             flag=1;
             __right_value0 = (void*)0;
-            ((char*)(__right_value0=parse_word(info)));
+            ((char*)(__right_value0=parse_word(0,info)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         }
         while(        *info->p==42        ) {
@@ -9672,7 +9672,7 @@ memset(&fun_name, 0, sizeof(fun_name));
         (come_push_stackframe("05function.c", 1901, 22),__exception_result_var_b23=expected_next_character(58,info), come_pop_stackframe(), __exception_result_var_b23);
         __right_value0 = (void*)0;
         __dec_obj155=base_fun_name,
-        base_fun_name=(char*)come_increment_ref_count(parse_word(info));
+        base_fun_name=(char*)come_increment_ref_count(parse_word(0,info));
         __dec_obj155 = come_decrement_ref_count(__dec_obj155, (void*)0, (void*)0, 0,0, (void*)0);
         __right_value0 = (void*)0;
         __dec_obj156=fun_name,
@@ -9688,7 +9688,7 @@ memset(&fun_name, 0, sizeof(fun_name));
     else if(    info->impl_type    ) {
         __right_value0 = (void*)0;
         __dec_obj158=base_fun_name,
-        base_fun_name=(char*)come_increment_ref_count(parse_word(info));
+        base_fun_name=(char*)come_increment_ref_count(parse_word(0,info));
         __dec_obj158 = come_decrement_ref_count(__dec_obj158, (void*)0, (void*)0, 0,0, (void*)0);
         __right_value0 = (void*)0;
         __dec_obj159=fun_name,
@@ -9702,7 +9702,7 @@ memset(&fun_name, 0, sizeof(fun_name));
     else if(    info->class_type    ) {
         __right_value0 = (void*)0;
         __dec_obj161=base_fun_name,
-        base_fun_name=(char*)come_increment_ref_count(parse_word(info));
+        base_fun_name=(char*)come_increment_ref_count(parse_word(0,info));
         __dec_obj161 = come_decrement_ref_count(__dec_obj161, (void*)0, (void*)0, 0,0, (void*)0);
         __right_value0 = (void*)0;
         __dec_obj162=fun_name,
@@ -9716,7 +9716,7 @@ memset(&fun_name, 0, sizeof(fun_name));
     else {
         __right_value0 = (void*)0;
         __dec_obj164=fun_name,
-        fun_name=(char*)come_increment_ref_count(parse_word(info));
+        fun_name=(char*)come_increment_ref_count(parse_word(0,info));
         __dec_obj164 = come_decrement_ref_count(__dec_obj164, (void*)0, (void*)0, 0,0, (void*)0);
         __right_value0 = (void*)0;
         __dec_obj165=base_fun_name,

@@ -3009,7 +3009,7 @@ char* skip_block(struct sInfo* info, _Bool return_self_at_last);
 _Bool is_contained_generics_class(struct sType* type, struct sInfo* info);
 _Bool is_type_name(char* buf, struct sInfo* info);
 _Bool parsecmp(char* p2, struct sInfo* info);
-char* parse_word(struct sInfo* info);
+char* parse_word(_Bool digits, struct sInfo* info);
 char* backtrace_parse_word(struct sInfo* info);
 void skip_spaces_and_lf(struct sInfo* info);
 struct tuple2$2char$ph_Bool$* create_generics_fun(char* fun_name, struct sGenericsFun* generics_fun, struct sType* generics_type, struct sInfo* info);
@@ -10230,7 +10230,7 @@ struct sNode* __result_obj__255;
         if(        isalpha(*info->p)||*info->p==95        ) {
             __right_value0 = (void*)0;
             __dec_obj195=label,
-            label=(char*)come_increment_ref_count(parse_word(info));
+            label=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj195 = come_decrement_ref_count(__dec_obj195, (void*)0, (void*)0, 0,0, (void*)0);
             err_flag=1;
         }
@@ -10855,7 +10855,7 @@ struct sNode* __result_obj__352;
             while(            isalpha(*info->p)||*info->p==95            ) {
                 flag=1;
                 __right_value0 = (void*)0;
-                word2_214=(char*)come_increment_ref_count(parse_word(info));
+                word2_214=(char*)come_increment_ref_count(parse_word(0,info));
                 (word2_214 = come_decrement_ref_count(word2_214, (void*)0, (void*)0, 0, 0, (void*)0));
             }
             while(            *info->p==42||*info->p==37            ) {
@@ -10884,7 +10884,7 @@ struct sNode* __result_obj__352;
             if(            isalpha(*info->p)||*info->p==95            ) {
                 __right_value0 = (void*)0;
                 __dec_obj211=buf_213,
-                buf_213=(char*)come_increment_ref_count(parse_word(info));
+                buf_213=(char*)come_increment_ref_count(parse_word(0,info));
                 __dec_obj211 = come_decrement_ref_count(__dec_obj211, (void*)0, (void*)0, 0,0, (void*)0);
             }
             if(            __right_value0 = (void*)0,             __right_value1 = (void*)0,             __right_value2 = (void*)0,             __right_value3 = (void*)0,             ({(_conditional_value_X0=(!is_type_name(buf_213,info)&&((struct sVar*)(__right_value2=map$2char$phsVar$ph_operator_load_element(info->lv_table->mVars,((char*)(__right_value1=__builtin_string(buf_213))))))==((void*)0)&&((struct sVar*)(__right_value5=map$2char$phsVar$ph_operator_load_element(info->gv_table->mVars,((char*)(__right_value4=__builtin_string(buf_213))))))==((void*)0)&&*info->p==60));            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -10926,7 +10926,7 @@ struct sNode* __result_obj__352;
             info->sline=head_sline;
             __right_value0 = (void*)0;
             __dec_obj212=buf_213,
-            buf_213=(char*)come_increment_ref_count(parse_word(info));
+            buf_213=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj212 = come_decrement_ref_count(__dec_obj212, (void*)0, (void*)0, 0,0, (void*)0);
             if(            string_operator_equals(buf_213,"asm")||string_operator_equals(buf_213,"__asm")||string_operator_equals(buf_213,"__asm__")            ) {
                 if(                *info->p==40                ) {
@@ -10936,7 +10936,7 @@ struct sNode* __result_obj__352;
                     if(                    isalpha(*info->p)||*info->p==95                    ) {
                         __right_value0 = (void*)0;
                         __dec_obj213=buf_213,
-                        buf_213=(char*)come_increment_ref_count(parse_word(info));
+                        buf_213=(char*)come_increment_ref_count(parse_word(0,info));
                         __dec_obj213 = come_decrement_ref_count(__dec_obj213, (void*)0, (void*)0, 0,0, (void*)0);
                         if(                        *info->p==40                        ) {
                             inline_asm=1;
@@ -10950,7 +10950,7 @@ struct sNode* __result_obj__352;
         parse_sharp_v5(info);
         __right_value0 = (void*)0;
         __dec_obj214=buf_213,
-        buf_213=(char*)come_increment_ref_count(parse_word(info));
+        buf_213=(char*)come_increment_ref_count(parse_word(0,info));
         __dec_obj214 = come_decrement_ref_count(__dec_obj214, (void*)0, (void*)0, 0,0, (void*)0);
         parse_sharp_v5(info);
         if(        lambda_flag        ) {
@@ -11465,7 +11465,7 @@ struct sNode* __result_obj__352;
             buf2=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05call.c", 2607, "struct buffer*"))));
             if(            *info->p!=40            ) {
                 __right_value0 = (void*)0;
-                word=(char*)come_increment_ref_count(parse_word(info));
+                word=(char*)come_increment_ref_count(parse_word(0,info));
                 buffer_append_str(buf2,word);
                 (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0));
             }
@@ -11547,7 +11547,7 @@ struct sNode* __result_obj__352;
             (come_push_stackframe("05call.c", 2663, 104),__exception_result_var_b105=expected_next_character(58,info), come_pop_stackframe(), __exception_result_var_b105);
             (come_push_stackframe("05call.c", 2664, 105),__exception_result_var_b106=expected_next_character(58,info), come_pop_stackframe(), __exception_result_var_b106);
             __right_value0 = (void*)0;
-            base_fun_name=(char*)come_increment_ref_count(parse_word(info));
+            base_fun_name=(char*)come_increment_ref_count(parse_word(0,info));
             __right_value0 = (void*)0;
             fun_name=(char*)come_increment_ref_count(create_method_name(type_241,0,base_fun_name,info,1));
             __right_value0 = (void*)0;
@@ -11577,7 +11577,7 @@ struct sNode* __result_obj__352;
             buffer_append_str(fun_name_245,buf_213);
             buffer_append_str(fun_name_245,"_");
             __right_value0 = (void*)0;
-            buf2_246=(char*)come_increment_ref_count(parse_word(info));
+            buf2_246=(char*)come_increment_ref_count(parse_word(0,info));
             buffer_append_str(fun_name_245,buf2_246);
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
@@ -13264,7 +13264,7 @@ struct sNode* __result_obj__369;
             if(            isalpha(*info->p)||*info->p==95            ) {
                 __right_value0 = (void*)0;
                 __dec_obj273=label,
-                label=(char*)come_increment_ref_count(parse_word(info));
+                label=(char*)come_increment_ref_count(parse_word(0,info));
                 __dec_obj273 = come_decrement_ref_count(__dec_obj273, (void*)0, (void*)0, 0,0, (void*)0);
                 err_flag=1;
             }

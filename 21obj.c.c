@@ -3076,7 +3076,7 @@ char* skip_block(struct sInfo* info, _Bool return_self_at_last);
 _Bool is_contained_generics_class(struct sType* type, struct sInfo* info);
 _Bool is_type_name(char* buf, struct sInfo* info);
 _Bool parsecmp(char* p2, struct sInfo* info);
-char* parse_word(struct sInfo* info);
+char* parse_word(_Bool digits, struct sInfo* info);
 char* backtrace_parse_word(struct sInfo* info);
 void skip_spaces_and_lf(struct sInfo* info);
 struct tuple2$2char$ph_Bool$* create_generics_fun(char* fun_name, struct sGenericsFun* generics_fun, struct sType* generics_type, struct sInfo* info);
@@ -8387,7 +8387,7 @@ memset(&exp_110, 0, sizeof(exp_110));
             initializer=(struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(list$1tuple2$2char$phsNode$ph$ph_initialize((struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count((struct list$1tuple2$2char$phsNode$ph$ph*)come_calloc_v2(1, sizeof(struct list$1tuple2$2char$phsNode$ph$ph)*(1), "21obj.c", 1479, "struct list$1tuple2$2char$phsNode$ph$ph*"))));
             while(            1            ) {
                 __right_value0 = (void*)0;
-                word=(char*)come_increment_ref_count(parse_word(info));
+                word=(char*)come_increment_ref_count(parse_word(0,info));
                 if(                *info->p==58                ) {
                     info->p++;
                     skip_spaces_and_lf(info);
@@ -9023,7 +9023,7 @@ memset(&exp_110, 0, sizeof(exp_110));
         }
         (come_push_stackframe("21obj.c", 1747, 57),__exception_result_var_b58=expected_next_character(44,info), come_pop_stackframe(), __exception_result_var_b58);
         __right_value0 = (void*)0;
-        word_82=(char*)come_increment_ref_count(parse_word(info));
+        word_82=(char*)come_increment_ref_count(parse_word(0,info));
         (come_push_stackframe("21obj.c", 1751, 58),__exception_result_var_b59=expected_next_character(41,info), come_pop_stackframe(), __exception_result_var_b59);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
@@ -9065,7 +9065,7 @@ memset(&exp_110, 0, sizeof(exp_110));
             sline=info->sline;
             if(            isalpha(*info->p)||*info->p==95            ) {
                 __right_value0 = (void*)0;
-                word_83=(char*)come_increment_ref_count(parse_word(info));
+                word_83=(char*)come_increment_ref_count(parse_word(0,info));
                 if(                is_type_name(word_83,info)                ) {
                     is_type_name_flag=1;
                 }
@@ -9220,7 +9220,7 @@ memset(&exp_110, 0, sizeof(exp_110));
             sline_95=info->sline;
             if(            isalpha(*info->p)||*info->p==95            ) {
                 __right_value0 = (void*)0;
-                word_96=(char*)come_increment_ref_count(parse_word(info));
+                word_96=(char*)come_increment_ref_count(parse_word(0,info));
                 if(                is_type_name(word_96,info)                ) {
                     is_type_name_flag_93=1;
                 }
@@ -9322,7 +9322,7 @@ memset(&exp_110, 0, sizeof(exp_110));
             sline_105=info->sline;
             if(            isalpha(*info->p)||*info->p==95            ) {
                 __right_value0 = (void*)0;
-                word_106=(char*)come_increment_ref_count(parse_word(info));
+                word_106=(char*)come_increment_ref_count(parse_word(0,info));
                 if(                is_type_name(word_106,info)                ) {
                     is_type_name_flag_103=1;
                 }

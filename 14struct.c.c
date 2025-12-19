@@ -2898,7 +2898,7 @@ char* skip_block(struct sInfo* info, _Bool return_self_at_last);
 _Bool is_contained_generics_class(struct sType* type, struct sInfo* info);
 _Bool is_type_name(char* buf, struct sInfo* info);
 _Bool parsecmp(char* p2, struct sInfo* info);
-char* parse_word(struct sInfo* info);
+char* parse_word(_Bool digits, struct sInfo* info);
 char* backtrace_parse_word(struct sInfo* info);
 void skip_spaces_and_lf(struct sInfo* info);
 struct tuple2$2char$ph_Bool$* create_generics_fun(char* fun_name, struct sGenericsFun* generics_fun, struct sType* generics_type, struct sInfo* info);
@@ -6456,10 +6456,10 @@ memset(&klass, 0, sizeof(klass));
     parent_class=((void*)0);
     if(    parsecmp("extends",info)    ) {
         __right_value0 = (void*)0;
-        ((char*)(__right_value0=parse_word(info)));
+        ((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         __right_value0 = (void*)0;
-        parent_class_name=(char*)come_increment_ref_count(parse_word(info));
+        parent_class_name=(char*)come_increment_ref_count(parse_word(0,info));
         __right_value0 = (void*)0;
         parent_class=((struct sClass*)(__right_value0=map$2char$phsClass$ph_operator_load_element(info->classes,parent_class_name)));
         come_call_finalizer(sClass_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
@@ -6933,7 +6933,7 @@ memset(&struct_class_49, 0, sizeof(struct_class_49));
         source_head=head;
         struct_attribute=(char*)come_increment_ref_count(parse_struct_attribute(info));
         __right_value0 = (void*)0;
-        type_name=(char*)come_increment_ref_count(parse_word(info));
+        type_name=(char*)come_increment_ref_count(parse_word(0,info));
         if(        *info->p==59        ) {
             info->p++;
             skip_spaces_and_lf(info);
@@ -7013,7 +7013,7 @@ memset(&struct_class_49, 0, sizeof(struct_class_49));
             skip_spaces_and_lf(info);
             while(            1            ) {
                 __right_value0 = (void*)0;
-                T=(char*)come_increment_ref_count(parse_word(info));
+                T=(char*)come_increment_ref_count(parse_word(0,info));
                 __right_value0 = (void*)0;
                 list$1char$ph_push_back(info->generics_type_names,(char*)come_increment_ref_count((char*)come_memdup(T, "14struct.c", 486, "char*")));
                 if(                *info->p==62                ) {
@@ -7070,7 +7070,7 @@ memset(&struct_class_49, 0, sizeof(struct_class_49));
                         info->p++;
                         skip_spaces_and_lf(info);
                         __right_value0 = (void*)0;
-                        name2=(char*)come_increment_ref_count(parse_word(info));
+                        name2=(char*)come_increment_ref_count(parse_word(0,info));
                         __right_value0 = (void*)0;
                         type3=(struct sType*)come_increment_ref_count(sType_clone(type2));
                         if(                        *info->p==58                        ) {
@@ -7191,10 +7191,10 @@ memset(&struct_class_49, 0, sizeof(struct_class_49));
             parent_class=((void*)0);
             if(            parsecmp("extends",info)            ) {
                 __right_value0 = (void*)0;
-                ((char*)(__right_value0=parse_word(info)));
+                ((char*)(__right_value0=parse_word(0,info)));
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                 __right_value0 = (void*)0;
-                parent_class_name=(char*)come_increment_ref_count(parse_word(info));
+                parent_class_name=(char*)come_increment_ref_count(parse_word(0,info));
                 __right_value0 = (void*)0;
                 parent_class=((struct sClass*)(__right_value0=map$2char$phsClass$ph_operator_load_element(info->classes,parent_class_name)));
                 come_call_finalizer(sClass_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
@@ -7367,20 +7367,20 @@ memset(&struct_class_49, 0, sizeof(struct_class_49));
         uniq_class=0;
         if(        charp_operator_equals(buf,"uniq")        ) {
             __right_value0 = (void*)0;
-            ((char*)(__right_value0=parse_word(info)));
+            ((char*)(__right_value0=parse_word(0,info)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             uniq_class=1;
         }
         source_head_66=head;
         __right_value0 = (void*)0;
-        type_name_67=(char*)come_increment_ref_count(parse_word(info));
+        type_name_67=(char*)come_increment_ref_count(parse_word(0,info));
         parent_class_68=((void*)0);
         if(        parsecmp("extends",info)        ) {
             __right_value0 = (void*)0;
-            ((char*)(__right_value0=parse_word(info)));
+            ((char*)(__right_value0=parse_word(0,info)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             __right_value0 = (void*)0;
-            parent_class_name_69=(char*)come_increment_ref_count(parse_word(info));
+            parent_class_name_69=(char*)come_increment_ref_count(parse_word(0,info));
             __right_value0 = (void*)0;
             parent_class_68=((struct sClass*)(__right_value0=map$2char$phsClass$ph_operator_load_element(info->classes,parent_class_name_69)));
             come_call_finalizer(sClass_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
@@ -7517,7 +7517,7 @@ memset(&struct_class_49, 0, sizeof(struct_class_49));
                         while(                        xisalnum(*info->p)||*info->p==95                        ) {
                             __right_value0 = (void*)0;
                             __dec_obj87=word,
-                            word=(char*)come_increment_ref_count(parse_word(info));
+                            word=(char*)come_increment_ref_count(parse_word(0,info));
                             __dec_obj87 = come_decrement_ref_count(__dec_obj87, (void*)0, (void*)0, 0,0, (void*)0);
                         }
                     }
@@ -7551,7 +7551,7 @@ memset(&struct_class_49, 0, sizeof(struct_class_49));
                             if(                            xisalnum(*info->p)||*info->p==95                            ) {
                                 __right_value0 = (void*)0;
                                 __dec_obj89=word,
-                                word=(char*)come_increment_ref_count(parse_word(info));
+                                word=(char*)come_increment_ref_count(parse_word(0,info));
                                 __dec_obj89 = come_decrement_ref_count(__dec_obj89, (void*)0, (void*)0, 0,0, (void*)0);
                             }
                         }
@@ -7620,10 +7620,10 @@ memset(&struct_class_49, 0, sizeof(struct_class_49));
             }
             else if(            parsecmp("include",info)            ) {
                 __right_value0 = (void*)0;
-                ((char*)(__right_value0=parse_word(info)));
+                ((char*)(__right_value0=parse_word(0,info)));
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                 __right_value0 = (void*)0;
-                module_name=(char*)come_increment_ref_count(parse_word(info));
+                module_name=(char*)come_increment_ref_count(parse_word(0,info));
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 params=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "14struct.c", 936, "struct list$1char$ph*"))));
@@ -7632,7 +7632,7 @@ memset(&struct_class_49, 0, sizeof(struct_class_49));
                     skip_spaces_and_lf(info);
                     while(                    1                    ) {
                         __right_value0 = (void*)0;
-                        word_98=(char*)come_increment_ref_count(parse_word(info));
+                        word_98=(char*)come_increment_ref_count(parse_word(0,info));
                         list$1char$ph_add(params,(char*)come_increment_ref_count(word_98));
                         if(                        *info->p==44                        ) {
                             info->p++;
@@ -8656,13 +8656,13 @@ struct sNode* __result_obj__204;
         info->no_output_come_code=1;
         if(        charp_operator_equals(buf,"struct")        ) {
             if(            isalpha(*info->p)||*info->p==95            ) {
-                type_name=(char*)come_increment_ref_count(parse_word(info));
+                type_name=(char*)come_increment_ref_count(parse_word(0,info));
                 if(                parsecmp("extends",info)                ) {
                     __right_value0 = (void*)0;
-                    ((char*)(__right_value0=parse_word(info)));
+                    ((char*)(__right_value0=parse_word(0,info)));
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                     __right_value0 = (void*)0;
-                    ((char*)(__right_value0=parse_word(info)));
+                    ((char*)(__right_value0=parse_word(0,info)));
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                 }
                 if(                *info->p==123                ) {
@@ -8684,7 +8684,7 @@ struct sNode* __result_obj__204;
         __right_value0 = (void*)0;
         struct_attribute=(char*)come_increment_ref_count(parse_struct_attribute(info));
         __right_value0 = (void*)0;
-        type_name_110=(char*)come_increment_ref_count(parse_word(info));
+        type_name_110=(char*)come_increment_ref_count(parse_word(0,info));
         __right_value0 = (void*)0;
         __result_obj__203 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=parse_struct((char*)come_increment_ref_count(type_name_110),(char*)come_increment_ref_count(struct_attribute),info))));
         (struct_attribute = come_decrement_ref_count(struct_attribute, (void*)0, (void*)0, 0, 0, (void*)0));

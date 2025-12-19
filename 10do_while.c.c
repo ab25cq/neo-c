@@ -2864,7 +2864,7 @@ char* skip_block(struct sInfo* info, _Bool return_self_at_last);
 _Bool is_contained_generics_class(struct sType* type, struct sInfo* info);
 _Bool is_type_name(char* buf, struct sInfo* info);
 _Bool parsecmp(char* p2, struct sInfo* info);
-char* parse_word(struct sInfo* info);
+char* parse_word(_Bool digits, struct sInfo* info);
 char* backtrace_parse_word(struct sInfo* info);
 void skip_spaces_and_lf(struct sInfo* info);
 struct tuple2$2char$ph_Bool$* create_generics_fun(char* fun_name, struct sGenericsFun* generics_fun, struct sType* generics_type, struct sInfo* info);
@@ -4851,7 +4851,7 @@ struct sNode* __result_obj__70;
         __right_value0 = (void*)0;
         block=(struct sBlock*)come_increment_ref_count(parse_block(info,0,0));
         __right_value0 = (void*)0;
-        buf2=(char*)come_increment_ref_count(parse_word(info));
+        buf2=(char*)come_increment_ref_count(parse_word(0,info));
         if(        string_operator_not_equals(buf2,"while")        ) {
             err_msg(info,"require while");
             exit(2);

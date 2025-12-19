@@ -2920,7 +2920,7 @@ char* skip_block(struct sInfo* info, _Bool return_self_at_last);
 _Bool is_contained_generics_class(struct sType* type, struct sInfo* info);
 _Bool is_type_name(char* buf, struct sInfo* info);
 _Bool parsecmp(char* p2, struct sInfo* info);
-char* parse_word(struct sInfo* info);
+char* parse_word(_Bool digits, struct sInfo* info);
 char* backtrace_parse_word(struct sInfo* info);
 void skip_spaces_and_lf(struct sInfo* info);
 struct tuple2$2char$ph_Bool$* create_generics_fun(char* fun_name, struct sGenericsFun* generics_fun, struct sType* generics_type, struct sInfo* info);
@@ -5681,7 +5681,7 @@ struct sNode* __result_obj__105;
             }
             parse_sharp_v5(info);
             __right_value0 = (void*)0;
-            buf_32=(char*)come_increment_ref_count(parse_word(info));
+            buf_32=(char*)come_increment_ref_count(parse_word(0,info));
             parse_sharp_v5(info);
             if(            string_operator_equals(buf_32,"else")            ) {
                 sline_real_33=info->sline_real;
@@ -6334,7 +6334,7 @@ struct sNode* __result_obj__117;
         }
         parse_sharp_v5(info);
         __right_value0 = (void*)0;
-        buf=(char*)come_increment_ref_count(parse_word(info));
+        buf=(char*)come_increment_ref_count(parse_word(0,info));
         parse_sharp_v5(info);
         if(        string_operator_equals(buf,"else")        ) {
             if(            parsecmp("if",info)            ) {
@@ -6531,7 +6531,7 @@ struct sNode* __result_obj__118;
         }
         parse_sharp_v5(info);
         __right_value0 = (void*)0;
-        buf=(char*)come_increment_ref_count(parse_word(info));
+        buf=(char*)come_increment_ref_count(parse_word(0,info));
         parse_sharp_v5(info);
         if(        string_operator_equals(buf,"else")        ) {
             if(            parsecmp("if",info)            ) {
@@ -6688,7 +6688,7 @@ struct sNode* __result_obj__119;
         }
         parse_sharp_v5(info);
         __right_value0 = (void*)0;
-        buf=(char*)come_increment_ref_count(parse_word(info));
+        buf=(char*)come_increment_ref_count(parse_word(0,info));
         parse_sharp_v5(info);
         if(        string_operator_equals(buf,"else")        ) {
             if(            parsecmp("if",info)            ) {

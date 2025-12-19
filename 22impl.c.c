@@ -2855,7 +2855,7 @@ char* skip_block(struct sInfo* info, _Bool return_self_at_last);
 _Bool is_contained_generics_class(struct sType* type, struct sInfo* info);
 _Bool is_type_name(char* buf, struct sInfo* info);
 _Bool parsecmp(char* p2, struct sInfo* info);
-char* parse_word(struct sInfo* info);
+char* parse_word(_Bool digits, struct sInfo* info);
 char* backtrace_parse_word(struct sInfo* info);
 void skip_spaces_and_lf(struct sInfo* info);
 struct tuple2$2char$ph_Bool$* create_generics_fun(char* fun_name, struct sGenericsFun* generics_fun, struct sType* generics_type, struct sInfo* info);
@@ -3006,14 +3006,14 @@ struct sNode* __result_obj__5;
 struct sNode* __result_obj__6;
     if(    !gComeC&&charp_operator_equals(buf,"impl")    ) {
         source_head=info->p;
-        word=(char*)come_increment_ref_count(parse_word(info));
+        word=(char*)come_increment_ref_count(parse_word(info,info));
         if(        *info->p==60        ) {
             info->p++;
             skip_spaces_and_lf(info);
             list$1char$ph_reset(info->generics_type_names);
             while(            1            ) {
                 __right_value0 = (void*)0;
-                generics_name=(char*)come_increment_ref_count(parse_word(info));
+                generics_name=(char*)come_increment_ref_count(parse_word(0,info));
                 __right_value0 = (void*)0;
                 list$1char$ph_push_back(info->generics_type_names,(char*)come_increment_ref_count((char*)come_memdup(generics_name, "22impl.c", 18, "char*")));
                 if(                *info->p==44                ) {
@@ -3049,7 +3049,7 @@ struct sNode* __result_obj__6;
             parse_sharp_v5(info);
             head_2=info->p;
             __right_value0 = (void*)0;
-            buf_3=(char*)come_increment_ref_count(parse_word(info));
+            buf_3=(char*)come_increment_ref_count(parse_word(0,info));
             parse_sharp_v5(info);
             __right_value0 = (void*)0;
             node=(struct sNode*)come_increment_ref_count(top_level_v99(buf_3,head_2,head_sline,info));

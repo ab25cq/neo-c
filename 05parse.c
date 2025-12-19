@@ -76,15 +76,27 @@ record int expected_next_character(char c, sInfo* info=info)
     return 0;
 }
 
-string parse_word(sInfo* info=info)
+string parse_word(bool digits=false, sInfo* info=info)
 {
     var buf = new buffer();
     parse_sharp();
     
-    while((*info->p >= 'a' && *info->p <= 'z') || (*info->p >= 'A' && *info->p <= 'Z') || *info->p == '_' || (*info->p >= '0' && *info->p <= '9') || (*info->p == '$'))
-    {
-        buf.append_char(*info->p);
-        info->p++;
+    if(digits) {
+        while((*info->p >= 'a' && *info->p <= 'z') || (*info->p >= 'A' && *info->p <= 'Z') || *info->p == '_' || (*info->p >= '0' && *info->p <= '9') || (*info->p == '$'))
+        {
+            buf.append_char(*info->p);
+            info->p++;
+        }
+    }
+    else {
+        if((*info->p >= 'a' && *info->p <= 'z') || (*info->p >= 'A' && *info->p <= 'Z') || *info->p == '_' || (*info->p == '$'))
+        {
+            while((*info->p >= 'a' && *info->p <= 'z') || (*info->p >= 'A' && *info->p <= 'Z') || *info->p == '_' || (*info->p >= '0' && *info->p <= '9') || (*info->p == '$'))
+            {
+                buf.append_char(*info->p);
+                info->p++;
+            }
+        }
     }
     skip_spaces_and_lf();
     

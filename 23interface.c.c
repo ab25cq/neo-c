@@ -2865,7 +2865,7 @@ char* skip_block(struct sInfo* info, _Bool return_self_at_last);
 _Bool is_contained_generics_class(struct sType* type, struct sInfo* info);
 _Bool is_type_name(char* buf, struct sInfo* info);
 _Bool parsecmp(char* p2, struct sInfo* info);
-char* parse_word(struct sInfo* info);
+char* parse_word(_Bool digits, struct sInfo* info);
 char* backtrace_parse_word(struct sInfo* info);
 void skip_spaces_and_lf(struct sInfo* info);
 struct tuple2$2char$ph_Bool$* create_generics_fun(char* fun_name, struct sGenericsFun* generics_fun, struct sType* generics_type, struct sInfo* info);
@@ -5174,7 +5174,7 @@ struct tuple2$2sType$phchar$ph* __result_obj__98;
         exit(2);
     }
     __right_value0 = (void*)0;
-    fun_name=(char*)come_increment_ref_count(parse_word(info));
+    fun_name=(char*)come_increment_ref_count(parse_word(0,info));
     __right_value0 = (void*)0;
     multiple_assign_var3=((struct tuple4$4list$1sType$ph$phlist$1char$ph$phlist$1char$ph$ph_Bool$*)(__right_value0=parse_params(info,0)));
     param_types=(struct list$1sType$ph*)come_increment_ref_count(multiple_assign_var3->v1);
@@ -5606,7 +5606,7 @@ memset(&klass, 0, sizeof(klass));
     if(    !gComeC&&charp_operator_equals(buf,"interface")    ) {
         source_head=info->p;
         output=1;
-        type_name=(char*)come_increment_ref_count(parse_word(info));
+        type_name=(char*)come_increment_ref_count(parse_word(0,info));
         if(        __right_value0 = (void*)0,         ({(_conditional_value_X0=(((struct sClass*)(__right_value0=map$2char$phsClass$ph_at(info->classes,type_name,((void*)0))))==((void*)0)));        come_call_finalizer(sClass_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         _conditional_value_X0;})        ) {
             __right_value0 = (void*)0;

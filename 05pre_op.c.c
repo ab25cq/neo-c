@@ -2965,7 +2965,7 @@ char* skip_block(struct sInfo* info, _Bool return_self_at_last);
 _Bool is_contained_generics_class(struct sType* type, struct sInfo* info);
 _Bool is_type_name(char* buf, struct sInfo* info);
 _Bool parsecmp(char* p2, struct sInfo* info);
-char* parse_word(struct sInfo* info);
+char* parse_word(_Bool digits, struct sInfo* info);
 char* backtrace_parse_word(struct sInfo* info);
 void skip_spaces_and_lf(struct sInfo* info);
 struct tuple2$2char$ph_Bool$* create_generics_fun(char* fun_name, struct sGenericsFun* generics_fun, struct sType* generics_type, struct sInfo* info);
@@ -7156,7 +7156,7 @@ memset(&node_57, 0, sizeof(node_57));
             if(            isalpha(*info->p)||*info->p==95            ) {
                 __right_value0 = (void*)0;
                 __dec_obj129=word,
-                word=(char*)come_increment_ref_count(parse_word(info));
+                word=(char*)come_increment_ref_count(parse_word(0,info));
                 __dec_obj129 = come_decrement_ref_count(__dec_obj129, (void*)0, (void*)0, 0,0, (void*)0);
                 if(                is_type_name(word,info)                ) {
                     info->p=p2;
@@ -7192,7 +7192,7 @@ memset(&node_57, 0, sizeof(node_57));
                 sline_44=info->sline;
                 if(                *info->p==95||isalpha(*info->p)                ) {
                     __right_value0 = (void*)0;
-                    ((char*)(__right_value0=parse_word(info)));
+                    ((char*)(__right_value0=parse_word(0,info)));
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                 }
                 if(                *info->p==58                ) {

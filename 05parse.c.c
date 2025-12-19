@@ -2960,7 +2960,7 @@ _Bool sNothingNode_compile(struct sNothingNode* self, struct sInfo* info);
 _Bool parsecmp(char* p2, struct sInfo* info);
 int err_msg(struct sInfo* info, char* msg, ...);
 int expected_next_character(char c, struct sInfo* info);
-char* parse_word(struct sInfo* info);
+char* parse_word(_Bool digits, struct sInfo* info);
 static char* map$2char$phchar$ph$p_operator_load_element(struct map$2char$phchar$ph* self, char* key);
 static char* map$2char$phchar$ph_operator_load_element(struct map$2char$phchar$ph* self, char* key);
 char* backtrace_parse_word(struct sInfo* info);
@@ -3055,7 +3055,7 @@ int expected_next_character(char c, struct sInfo* info){
     return 0;
 }
 
-char* parse_word(struct sInfo* info){
+char* parse_word(_Bool digits, struct sInfo* info){
 void* __right_value0 = (void*)0;
 void* __right_value1 = (void*)0;
 struct buffer* buf;
@@ -3068,9 +3068,19 @@ char* __result_obj__13;
 char* __result_obj__14;
     buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 81, "struct buffer*"))));
     parse_sharp_v5(info);
-    while(    (*info->p>=97&&*info->p<=122)||(*info->p>=65&&*info->p<=90)||*info->p==95||(*info->p>=48&&*info->p<=57)||(*info->p==36)    ) {
-        buffer_append_char(buf,*info->p);
-        info->p++;
+    if(    digits    ) {
+        while(        (*info->p>=97&&*info->p<=122)||(*info->p>=65&&*info->p<=90)||*info->p==95||(*info->p>=48&&*info->p<=57)||(*info->p==36)        ) {
+            buffer_append_char(buf,*info->p);
+            info->p++;
+        }
+    }
+    else {
+        if(        (*info->p>=97&&*info->p<=122)||(*info->p>=65&&*info->p<=90)||*info->p==95||(*info->p==36)        ) {
+            while(            (*info->p>=97&&*info->p<=122)||(*info->p>=65&&*info->p<=90)||*info->p==95||(*info->p>=48&&*info->p<=57)||(*info->p==36)            ) {
+                buffer_append_char(buf,*info->p);
+                info->p++;
+            }
+        }
     }
     skip_spaces_and_lf(info);
     if(    __right_value0 = (void*)0,     ({(_conditional_value_X0=(string_length(((char*)(__right_value0=buffer_to_string(buf))))==0));    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -3224,7 +3234,7 @@ memset(&buf, 0, sizeof(buf));
     sline=info->sline;
     if(    isalpha(*info->p)||*info->p==95    ) {
         __dec_obj1=buf,
-        buf=(char*)come_increment_ref_count(parse_word(info));
+        buf=(char*)come_increment_ref_count(parse_word(0,info));
         __dec_obj1 = come_decrement_ref_count(__dec_obj1, (void*)0, (void*)0, 0,0, (void*)0);
     }
     else {
@@ -3292,7 +3302,7 @@ int nest;
             info->p++;
             skip_spaces_and_lf2(info);
             if(            parsecmp("pragma",info)            ) {
-                buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 174, "struct buffer*"))));
+                buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 186, "struct buffer*"))));
                 buffer_append_str(buf,"#");
                 while(                *info->p                ) {
                     if(                    *info->p==10                    ) {
@@ -3321,7 +3331,7 @@ int nest;
                 line=0;
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
-                fname=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 197, "struct buffer*"))));
+                fname=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 209, "struct buffer*"))));
                 while(                isdigit(*info->p)                ) {
                     line=line*10+(*info->p-48);
                     info->p++;

@@ -906,7 +906,7 @@ string skip_block(sInfo* info=info, bool return_self_at_last=false);
 bool is_contained_generics_class(sType* type, sInfo* info);
 bool is_type_name(char* buf, sInfo* info=info);
 bool parsecmp(char* p2, sInfo* info=info)
-string parse_word(sInfo* info=info);
+string parse_word(bool digits=false, sInfo* info=info);
 string backtrace_parse_word(sInfo* info=info);
 void skip_spaces_and_lf(sInfo* info=info);
 string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sType*% generics_type, sInfo* info);

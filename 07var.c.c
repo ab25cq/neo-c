@@ -2909,7 +2909,7 @@ char* skip_block(struct sInfo* info, _Bool return_self_at_last);
 _Bool is_contained_generics_class(struct sType* type, struct sInfo* info);
 _Bool is_type_name(char* buf, struct sInfo* info);
 _Bool parsecmp(char* p2, struct sInfo* info);
-char* parse_word(struct sInfo* info);
+char* parse_word(_Bool digits, struct sInfo* info);
 char* backtrace_parse_word(struct sInfo* info);
 void skip_spaces_and_lf(struct sInfo* info);
 struct tuple2$2char$ph_Bool$* create_generics_fun(char* fun_name, struct sGenericsFun* generics_fun, struct sType* generics_type, struct sInfo* info);
@@ -7426,7 +7426,7 @@ memset(&word, 0, sizeof(word));
     if(    (!gComeC&&charp_operator_equals(buf,"var"))||charp_operator_equals(buf,"auto")||charp_operator_equals(buf,"__auto_type")    ) {
         parse_sharp_v5(info);
         __right_value0 = (void*)0;
-        buf2=(char*)come_increment_ref_count(parse_word(info));
+        buf2=(char*)come_increment_ref_count(parse_word(0,info));
         parse_sharp_v5(info);
         multiple_assign=((void*)0);
         if(        *info->p==44        ) {
@@ -7442,7 +7442,7 @@ memset(&word, 0, sizeof(word));
                 skip_spaces_and_lf(info);
                 parse_sharp_v5(info);
                 __right_value0 = (void*)0;
-                buf3=(char*)come_increment_ref_count(parse_word(info));
+                buf3=(char*)come_increment_ref_count(parse_word(0,info));
                 parse_sharp_v5(info);
                 __right_value0 = (void*)0;
                 list$1char$ph_push_back(multiple_assign,(char*)come_increment_ref_count((char*)come_memdup(buf3, "07var.c", 970, "char*")));
@@ -7692,7 +7692,7 @@ memset(&word, 0, sizeof(word));
         info->p+=strlen("self.");
         __right_value0 = (void*)0;
         __dec_obj135=name_115,
-        name_115=(char*)come_increment_ref_count(parse_word(info));
+        name_115=(char*)come_increment_ref_count(parse_word(0,info));
         __dec_obj135 = come_decrement_ref_count(__dec_obj135, (void*)0, (void*)0, 0,0, (void*)0);
         parse_sharp_v5(info);
         __right_value0 = (void*)0;
@@ -7858,7 +7858,7 @@ memset(&word, 0, sizeof(word));
         if(        isalpha(*info->p)||*info->p==95        ) {
             __right_value0 = (void*)0;
             __dec_obj144=word,
-            word=(char*)come_increment_ref_count(parse_word(info));
+            word=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj144 = come_decrement_ref_count(__dec_obj144, (void*)0, (void*)0, 0,0, (void*)0);
         }
         else {

@@ -2864,7 +2864,7 @@ char* skip_block(struct sInfo* info, _Bool return_self_at_last);
 _Bool is_contained_generics_class(struct sType* type, struct sInfo* info);
 _Bool is_type_name(char* buf, struct sInfo* info);
 _Bool parsecmp(char* p2, struct sInfo* info);
-char* parse_word(struct sInfo* info);
+char* parse_word(_Bool digits, struct sInfo* info);
 char* backtrace_parse_word(struct sInfo* info);
 void skip_spaces_and_lf(struct sInfo* info);
 struct tuple2$2char$ph_Bool$* create_generics_fun(char* fun_name, struct sGenericsFun* generics_fun, struct sType* generics_type, struct sInfo* info);
@@ -4173,7 +4173,7 @@ memset(&klass, 0, sizeof(klass));
                 info->p++;
                 skip_spaces_and_lf(info);
                 __right_value0 = (void*)0;
-                name2=(char*)come_increment_ref_count(parse_word(info));
+                name2=(char*)come_increment_ref_count(parse_word(0,info));
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 list$1tuple2$2char$phsType$ph$ph_push_back(klass->mFields,(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_initialize((struct tuple2$2char$phsType$ph*)come_increment_ref_count((struct tuple2$2char$phsType$ph*)come_calloc_v2(1, sizeof(struct tuple2$2char$phsType$ph)*(1), "15union.c", 143, "struct tuple2$2char$phsType$ph")),(char*)come_increment_ref_count(name2),(struct sType*)come_increment_ref_count(type2))));
@@ -5715,7 +5715,7 @@ memset(&klass, 0, sizeof(klass));
         source_head=info->p;
         struct_attribute=(char*)come_increment_ref_count(parse_struct_attribute(info));
         __right_value0 = (void*)0;
-        type_name=(char*)come_increment_ref_count(parse_word(info));
+        type_name=(char*)come_increment_ref_count(parse_word(0,info));
         if(        __right_value0 = (void*)0,         ({(_conditional_value_X0=(((struct sClass*)(__right_value0=map$2char$phsClass$ph_at(info->classes,type_name,((void*)0))))==((void*)0)));        come_call_finalizer(sClass_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         _conditional_value_X0;})        ) {
             __right_value0 = (void*)0;
@@ -5783,7 +5783,7 @@ memset(&klass, 0, sizeof(klass));
                     info->p++;
                     skip_spaces_and_lf(info);
                     __right_value0 = (void*)0;
-                    name2=(char*)come_increment_ref_count(parse_word(info));
+                    name2=(char*)come_increment_ref_count(parse_word(0,info));
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     list$1tuple2$2char$phsType$ph$ph_push_back(klass->mFields,(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_initialize((struct tuple2$2char$phsType$ph*)come_increment_ref_count((struct tuple2$2char$phsType$ph*)come_calloc_v2(1, sizeof(struct tuple2$2char$phsType$ph)*(1), "15union.c", 250, "struct tuple2$2char$phsType$ph")),(char*)come_increment_ref_count(name2),(struct sType*)come_increment_ref_count(type2))));
@@ -5926,7 +5926,7 @@ memset(&type_name, 0, sizeof(type_name));
                 if(                *info->p==95||isalpha(*info->p)                ) {
                     __right_value0 = (void*)0;
                     __dec_obj54=type_name,
-                    type_name=(char*)come_increment_ref_count(parse_word(info));
+                    type_name=(char*)come_increment_ref_count(parse_word(0,info));
                     __dec_obj54 = come_decrement_ref_count(__dec_obj54, (void*)0, (void*)0, 0,0, (void*)0);
                     if(                    *info->p==123                    ) {
                         __right_value0 = (void*)0;
@@ -5946,7 +5946,7 @@ memset(&type_name, 0, sizeof(type_name));
     }
     if(    define_union    ) {
         __right_value0 = (void*)0;
-        type_name_34=(char*)come_increment_ref_count(parse_word(info));
+        type_name_34=(char*)come_increment_ref_count(parse_word(0,info));
         __right_value0 = (void*)0;
         __result_obj__113 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=parse_union((char*)come_increment_ref_count(type_name_34),(char*)come_increment_ref_count(union_attribute),info))));
         (type_name_34 = come_decrement_ref_count(type_name_34, (void*)0, (void*)0, 0, 0, (void*)0));

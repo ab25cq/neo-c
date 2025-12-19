@@ -2888,7 +2888,7 @@ char* skip_block(struct sInfo* info, _Bool return_self_at_last);
 _Bool is_contained_generics_class(struct sType* type, struct sInfo* info);
 _Bool is_type_name(char* buf, struct sInfo* info);
 _Bool parsecmp(char* p2, struct sInfo* info);
-char* parse_word(struct sInfo* info);
+char* parse_word(_Bool digits, struct sInfo* info);
 char* backtrace_parse_word(struct sInfo* info);
 void skip_spaces_and_lf(struct sInfo* info);
 struct tuple2$2char$ph_Bool$* create_generics_fun(char* fun_name, struct sGenericsFun* generics_fun, struct sType* generics_type, struct sInfo* info);
@@ -4475,7 +4475,7 @@ char* __result_obj__156;
 char* __result_obj__157;
 char* __result_obj__158;
     if(    parsecmp("defined",info)    ) {
-        (void)((char*)(__right_value0=parse_word(info)));
+        (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         parse_sharp_v5(info);
         if(        *info->p==40        ) {
@@ -4556,7 +4556,7 @@ char* __result_obj__158;
     }
     else if(    parsecmp("is_static",info)    ) {
         __right_value0 = (void*)0;
-        (void)((char*)(__right_value0=parse_word(info)));
+        (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         parse_sharp_v5(info);
         if(        *info->p==40        ) {
@@ -4609,7 +4609,7 @@ char* __result_obj__158;
     }
     else if(    parsecmp("is_heap",info)    ) {
         __right_value0 = (void*)0;
-        (void)((char*)(__right_value0=parse_word(info)));
+        (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         parse_sharp_v5(info);
         if(        *info->p==40        ) {
@@ -4662,7 +4662,7 @@ char* __result_obj__158;
     }
     else if(    parsecmp("is_const",info)    ) {
         __right_value0 = (void*)0;
-        (void)((char*)(__right_value0=parse_word(info)));
+        (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         parse_sharp_v5(info);
         if(        *info->p==40        ) {
@@ -4715,7 +4715,7 @@ char* __result_obj__158;
     }
     else if(    parsecmp("is_uniq",info)    ) {
         __right_value0 = (void*)0;
-        (void)((char*)(__right_value0=parse_word(info)));
+        (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         parse_sharp_v5(info);
         if(        *info->p==40        ) {
@@ -4766,7 +4766,7 @@ char* __result_obj__158;
     }
     else if(    parsecmp("is_type",info)    ) {
         __right_value0 = (void*)0;
-        (void)((char*)(__right_value0=parse_word(info)));
+        (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         parse_sharp_v5(info);
         if(        *info->p==40        ) {
@@ -4811,7 +4811,7 @@ char* __result_obj__158;
     }
     else if(    parsecmp("type",info)    ) {
         __right_value0 = (void*)0;
-        (void)((char*)(__right_value0=parse_word(info)));
+        (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         parse_sharp_v5(info);
         if(        *info->p==40        ) {
@@ -4867,7 +4867,7 @@ char* __result_obj__158;
     }
     else if(    parsecmp("param_types",info)    ) {
         __right_value0 = (void*)0;
-        (void)((char*)(__right_value0=parse_word(info)));
+        (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         parse_sharp_v5(info);
         if(        *info->p==40        ) {
@@ -4930,7 +4930,7 @@ char* __result_obj__158;
     }
     else if(    parsecmp("num_param_types",info)    ) {
         __right_value0 = (void*)0;
-        (void)((char*)(__right_value0=parse_word(info)));
+        (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         parse_sharp_v5(info);
         if(        *info->p==40        ) {
@@ -4979,7 +4979,7 @@ char* __result_obj__158;
     }
     else if(    parsecmp("num_fields",info)    ) {
         __right_value0 = (void*)0;
-        (void)((char*)(__right_value0=parse_word(info)));
+        (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         parse_sharp_v5(info);
         if(        *info->p==40        ) {
@@ -5030,7 +5030,7 @@ char* __result_obj__158;
     }
     else if(    parsecmp("field_types",info)    ) {
         __right_value0 = (void*)0;
-        (void)((char*)(__right_value0=parse_word(info)));
+        (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         parse_sharp_v5(info);
         if(        *info->p==40        ) {
@@ -5102,7 +5102,7 @@ char* __result_obj__158;
     }
     else if(    parsecmp("type",info)    ) {
         __right_value0 = (void*)0;
-        (void)((char*)(__right_value0=parse_word(info)));
+        (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         parse_sharp_v5(info);
         if(        *info->p==40        ) {
@@ -5135,7 +5135,7 @@ char* __result_obj__158;
     }
     else if(    parsecmp("puts",info)    ) {
         __right_value0 = (void*)0;
-        (void)((char*)(__right_value0=parse_word(info)));
+        (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         parse_sharp_v5(info);
         if(        *info->p==40        ) {
@@ -5159,7 +5159,7 @@ char* __result_obj__158;
     }
     else if(    parsecmp("is_inline",info)    ) {
         __right_value0 = (void*)0;
-        (void)((char*)(__right_value0=parse_word(info)));
+        (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         parse_sharp_v5(info);
         if(        *info->p==40        ) {
@@ -5206,7 +5206,7 @@ char* __result_obj__158;
     }
     else if(    parsecmp("is_struct",info)    ) {
         __right_value0 = (void*)0;
-        (void)((char*)(__right_value0=parse_word(info)));
+        (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         parse_sharp_v5(info);
         if(        *info->p==40        ) {
@@ -5253,7 +5253,7 @@ char* __result_obj__158;
     }
     else if(    parsecmp("is_union",info)    ) {
         __right_value0 = (void*)0;
-        (void)((char*)(__right_value0=parse_word(info)));
+        (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         parse_sharp_v5(info);
         if(        *info->p==40        ) {
@@ -5300,7 +5300,7 @@ char* __result_obj__158;
     }
     else if(    parsecmp("is_enum",info)    ) {
         __right_value0 = (void*)0;
-        (void)((char*)(__right_value0=parse_word(info)));
+        (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         parse_sharp_v5(info);
         if(        *info->p==40        ) {
@@ -5347,7 +5347,7 @@ char* __result_obj__158;
     }
     else if(    parsecmp("is_interface",info)    ) {
         __right_value0 = (void*)0;
-        (void)((char*)(__right_value0=parse_word(info)));
+        (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         parse_sharp_v5(info);
         if(        *info->p==40        ) {
@@ -5394,7 +5394,7 @@ char* __result_obj__158;
     }
     else if(    parsecmp("is_generics",info)    ) {
         __right_value0 = (void*)0;
-        (void)((char*)(__right_value0=parse_word(info)));
+        (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         parse_sharp_v5(info);
         if(        *info->p==40        ) {
@@ -5441,7 +5441,7 @@ char* __result_obj__158;
     }
     else if(    parsecmp("is_module",info)    ) {
         __right_value0 = (void*)0;
-        (void)((char*)(__right_value0=parse_word(info)));
+        (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         parse_sharp_v5(info);
         if(        *info->p==40        ) {
@@ -6706,7 +6706,7 @@ struct sNothingNode* _inf_obj_value6;
 struct sNode* __result_obj__224;
 struct sNode* __result_obj__225;
     if(    charp_operator_equals(buf,"module")    ) {
-        type_name=(char*)come_increment_ref_count(parse_word(info));
+        type_name=(char*)come_increment_ref_count(parse_word(0,info));
         sname=(char*)come_increment_ref_count(info->sname);
         sline=info->sline;
         __right_value0 = (void*)0;
@@ -6716,7 +6716,7 @@ struct sNode* __result_obj__225;
             skip_spaces_and_lf(info);
             while(            1            ) {
                 __right_value0 = (void*)0;
-                word=(char*)come_increment_ref_count(parse_word(info));
+                word=(char*)come_increment_ref_count(parse_word(0,info));
                 list$1char$ph_add(params,(char*)come_increment_ref_count(word));
                 if(                *info->p==44                ) {
                     info->p++;
@@ -6926,7 +6926,7 @@ struct sNode* __result_obj__225;
     }
     else if(    charp_operator_equals(buf,"undef")    ) {
         __right_value0 = (void*)0;
-        word_96=(char*)come_increment_ref_count(parse_word(info));
+        word_96=(char*)come_increment_ref_count(parse_word(0,info));
         if(        *info->p==59        ) {
             info->p++;
             skip_spaces_and_lf(info);
@@ -6980,7 +6980,7 @@ struct sNode* __result_obj__225;
         while(        1        ) {
             if(            parsecmp("elif",info)            ) {
                 __right_value0 = (void*)0;
-                (void)((char*)(__right_value0=parse_word(info)));
+                (void)((char*)(__right_value0=parse_word(0,info)));
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                 if(                *info->p==40                ) {
                     info->p++;
@@ -7010,7 +7010,7 @@ struct sNode* __result_obj__225;
         }
         if(        parsecmp("else",info)        ) {
             __right_value0 = (void*)0;
-            (void)((char*)(__right_value0=parse_word(info)));
+            (void)((char*)(__right_value0=parse_word(0,info)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             if(            !match_            ) {
                 (come_push_stackframe("24module.c", 1255, 8),__exception_result_var_b9=expected_next_character(123,info), come_pop_stackframe(), __exception_result_var_b9);

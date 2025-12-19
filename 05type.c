@@ -1080,7 +1080,7 @@ string parse_struct_attribute(sInfo* info=info)
     parse_sharp();
     buffer*% result = new buffer();
     while(1) {
-        if(xisalnum(*info->p) || *info->p == '_') {
+        if(xisalpha(*info->p) || *info->p == '_') {
         }
         else {
             break;

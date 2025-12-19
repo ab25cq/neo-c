@@ -3030,7 +3030,7 @@ struct tuple2$2sFun$pchar$ph* create_not_equals_automatically(struct sType* type
 struct tuple2$2sFun$pchar$ph* create_get_hash_key_automatically(struct sType* type, char* fun_name, struct sInfo* info);
 char* skip_block(struct sInfo* info, _Bool return_self_at_last);
 _Bool parsecmp(char* p2, struct sInfo* info);
-char* parse_word(struct sInfo* info);
+char* parse_word(_Bool digits, struct sInfo* info);
 char* backtrace_parse_word(struct sInfo* info);
 void skip_spaces_and_lf(struct sInfo* info);
 struct tuple2$2char$ph_Bool$* create_generics_fun(char* fun_name, struct sGenericsFun* generics_fun, struct sType* generics_type, struct sInfo* info);
@@ -6166,7 +6166,7 @@ char* __result_obj__117;
     parse_sharp_v5(info);
     result=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05type.c", 1081, "struct buffer*"))));
     while(    1    ) {
-        if(        xisalnum(*info->p)||*info->p==95        ) {
+        if(        isalpha(*info->p)||*info->p==95        ) {
         }
         else {
             break;
@@ -6174,7 +6174,7 @@ char* __result_obj__117;
         p=info->p;
         sline=info->sline;
         __right_value0 = (void*)0;
-        buf=(char*)come_increment_ref_count(parse_word(info));
+        buf=(char*)come_increment_ref_count(parse_word(0,info));
         info->p=p;
         info->sline=sline;
         if(        string_operator_equals(buf,"__attribute__")        ) {
@@ -6262,7 +6262,7 @@ struct tuple2$2sType$phchar$ph* __result_obj__121;
         sline=info->sline;
         if(        isalpha(*info->p)||*info->p==95        ) {
             __right_value0 = (void*)0;
-            word=(char*)come_increment_ref_count(parse_word(info));
+            word=(char*)come_increment_ref_count(parse_word(0,info));
             if(            string_operator_equals(word,"const")||string_operator_equals(word,"__restrict")||string_operator_equals(word,"restrict")||string_operator_equals(word,"__user")||string_operator_equals(word,"volatile")||string_operator_equals(word,"_Nonnull")||string_operator_equals(word,"_Nullable")||string_operator_equals(word,"_Null_unspecified")||string_operator_equals(word,"__user")||string_operator_equals(word,"_Addr")            ) {
             }
             else {
@@ -6285,7 +6285,7 @@ struct tuple2$2sType$phchar$ph* __result_obj__121;
             skip_spaces_and_lf(info);
             if(            isalpha(*info->p)||*info->p==95            ) {
                 __right_value0 = (void*)0;
-                word_33=(char*)come_increment_ref_count(parse_word(info));
+                word_33=(char*)come_increment_ref_count(parse_word(0,info));
                 if(                is_type_name(word_33,info)                ) {
                 }
                 else if(                *info->p==41                ) {
@@ -6313,7 +6313,7 @@ struct tuple2$2sType$phchar$ph* __result_obj__121;
                 skip_spaces_and_lf(info);
                 if(                isalpha(*info->p)||*info->p==95                ) {
                     __right_value0 = (void*)0;
-                    word_36=(char*)come_increment_ref_count(parse_word(info));
+                    word_36=(char*)come_increment_ref_count(parse_word(0,info));
                     if(                    is_type_name(word_36,info)                    ) {
                     }
                     else if(                    *info->p==91                    ) {
@@ -6350,7 +6350,7 @@ struct tuple2$2sType$phchar$ph* __result_obj__121;
         (come_push_stackframe("05type.c", 1253, 5),__exception_result_var_b6=expected_next_character(42,info), come_pop_stackframe(), __exception_result_var_b6);
         __right_value0 = (void*)0;
         __dec_obj75=var_name,
-        var_name=(char*)come_increment_ref_count(parse_word(info));
+        var_name=(char*)come_increment_ref_count(parse_word(0,info));
         __dec_obj75 = come_decrement_ref_count(__dec_obj75, (void*)0, (void*)0, 0,0, (void*)0);
         __right_value0 = (void*)0;
         result_type2=(struct sType*)come_increment_ref_count((come_push_stackframe("05type.c", 1257, 8),__exception_result_var_b9=(come_push_stackframe("05type.c", 1257, 6),__exception_result_var_b7=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "05type.c", 1257, "struct sType*")),(char*)come_increment_ref_count(xsprintf("lambda")),0,info,0), come_pop_stackframe(), __exception_result_var_b7), come_pop_stackframe(), __exception_result_var_b9));
@@ -6393,7 +6393,7 @@ struct tuple2$2sType$phchar$ph* __result_obj__121;
     else if(    xisalnum(*info->p)||*info->p==95    ) {
         __right_value0 = (void*)0;
         __dec_obj80=var_name,
-        var_name=(char*)come_increment_ref_count(parse_word(info));
+        var_name=(char*)come_increment_ref_count(parse_word(0,info));
         __dec_obj80 = come_decrement_ref_count(__dec_obj80, (void*)0, (void*)0, 0,0, (void*)0);
     }
     else {
@@ -6430,7 +6430,7 @@ struct tuple2$2sType$phchar$ph* __result_obj__121;
             sline_39=info->sline;
             if(            isalpha(*info->p)||*info->p==95            ) {
                 __right_value0 = (void*)0;
-                word_40=(char*)come_increment_ref_count(parse_word(info));
+                word_40=(char*)come_increment_ref_count(parse_word(0,info));
                 if(                string_operator_equals(word_40,"const")||string_operator_equals(word_40,"__restrict")||string_operator_equals(word_40,"restrict")||string_operator_equals(word_40,"__user")||string_operator_equals(word_40,"volatile")||string_operator_equals(word_40,"_Nonnull")||string_operator_equals(word_40,"_Nullable")||string_operator_equals(word_40,"_Null_unspecified")||string_operator_equals(word_40,"__user")||string_operator_equals(word_40,"_Addr")                ) {
                 }
                 else {
@@ -6581,7 +6581,7 @@ int nest;
     p=info->p;
     sline=info->sline;
     if(    isalpha(*info->p)||*info->p==95    ) {
-        word=(char*)come_increment_ref_count(parse_word(info));
+        word=(char*)come_increment_ref_count(parse_word(0,info));
         if(        (string_operator_equals(word,"__attribute")||string_operator_equals(word,"__attribute__"))&&*info->p==40        ) {
             nest=0;
             while(            1            ) {
@@ -7121,7 +7121,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
     head=info->p;
     head_sline=info->sline;
     info->define_struct=0;
-    type_name=(char*)come_increment_ref_count(parse_word(info));
+    type_name=(char*)come_increment_ref_count(parse_word(0,info));
     record_=0;
     constant=0;
     static_=0;
@@ -7154,7 +7154,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
         if(        string_operator_equals(type_name,"_Thread_local")        ) {
             __right_value0 = (void*)0;
             __dec_obj92=type_name,
-            type_name=(char*)come_increment_ref_count(parse_word(info));
+            type_name=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj92 = come_decrement_ref_count(__dec_obj92, (void*)0, (void*)0, 0,0, (void*)0);
             thread_local=1;
         }
@@ -7164,14 +7164,14 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
             }
             __right_value0 = (void*)0;
             __dec_obj93=type_name,
-            type_name=(char*)come_increment_ref_count(parse_word(info));
+            type_name=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj93 = come_decrement_ref_count(__dec_obj93, (void*)0, (void*)0, 0,0, (void*)0);
             atomic_=1;
         }
         else if(        string_operator_equals(type_name,"__extension__")        ) {
             __right_value0 = (void*)0;
             __dec_obj94=type_name,
-            type_name=(char*)come_increment_ref_count(parse_word(info));
+            type_name=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj94 = come_decrement_ref_count(__dec_obj94, (void*)0, (void*)0, 0,0, (void*)0);
         }
         else if(        string_operator_equals(type_name,"__attribute__")        ) {
@@ -7197,38 +7197,38 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             __dec_obj95=type_name,
-            type_name=(char*)come_increment_ref_count(parse_word(info));
+            type_name=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj95 = come_decrement_ref_count(__dec_obj95, (void*)0, (void*)0, 0,0, (void*)0);
         }
         else if(        string_operator_equals(type_name,"_Noreturn")        ) {
             __right_value0 = (void*)0;
             __dec_obj96=type_name,
-            type_name=(char*)come_increment_ref_count(parse_word(info));
+            type_name=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj96 = come_decrement_ref_count(__dec_obj96, (void*)0, (void*)0, 0,0, (void*)0);
         }
         else if(        string_operator_equals(type_name,"__noreturn")        ) {
             __right_value0 = (void*)0;
             __dec_obj97=type_name,
-            type_name=(char*)come_increment_ref_count(parse_word(info));
+            type_name=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj97 = come_decrement_ref_count(__dec_obj97, (void*)0, (void*)0, 0,0, (void*)0);
         }
         else if(        string_operator_equals(type_name,"_Nullable")        ) {
             __right_value0 = (void*)0;
             __dec_obj98=type_name,
-            type_name=(char*)come_increment_ref_count(parse_word(info));
+            type_name=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj98 = come_decrement_ref_count(__dec_obj98, (void*)0, (void*)0, 0,0, (void*)0);
         }
         else if(        string_operator_equals(type_name,"_noreturn")        ) {
             __right_value0 = (void*)0;
             __dec_obj99=type_name,
-            type_name=(char*)come_increment_ref_count(parse_word(info));
+            type_name=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj99 = come_decrement_ref_count(__dec_obj99, (void*)0, (void*)0, 0,0, (void*)0);
         }
         else if(        string_operator_equals(type_name,"_Alignas")        ) {
             (come_push_stackframe("05type.c", 1512, 15),__exception_result_var_b16=expected_next_character(40,info), come_pop_stackframe(), __exception_result_var_b16);
             if(            (info->end-info->p)>strlen("double")&&memcmp(info->p,"double",strlen("double"))==0            ) {
                 __right_value0 = (void*)0;
-                (void)((char*)(__right_value0=parse_word(info)));
+                (void)((char*)(__right_value0=parse_word(0,info)));
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                 alignas_double=1;
             }
@@ -7241,63 +7241,63 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
             (come_push_stackframe("05type.c", 1523, 16),__exception_result_var_b17=expected_next_character(41,info), come_pop_stackframe(), __exception_result_var_b17);
             __right_value0 = (void*)0;
             __dec_obj101=type_name,
-            type_name=(char*)come_increment_ref_count(parse_word(info));
+            type_name=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj101 = come_decrement_ref_count(__dec_obj101, (void*)0, (void*)0, 0,0, (void*)0);
         }
         else if(        string_operator_equals(type_name,"const")        ) {
             constant=1;
             __right_value0 = (void*)0;
             __dec_obj102=type_name,
-            type_name=(char*)come_increment_ref_count(parse_word(info));
+            type_name=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj102 = come_decrement_ref_count(__dec_obj102, (void*)0, (void*)0, 0,0, (void*)0);
         }
         else if(        string_operator_equals(type_name,"_Complex")        ) {
             complex_=1;
             __right_value0 = (void*)0;
             __dec_obj103=type_name,
-            type_name=(char*)come_increment_ref_count(parse_word(info));
+            type_name=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj103 = come_decrement_ref_count(__dec_obj103, (void*)0, (void*)0, 0,0, (void*)0);
         }
         else if(        string_operator_equals(type_name,"static")        ) {
             static_=1;
             __right_value0 = (void*)0;
             __dec_obj104=type_name,
-            type_name=(char*)come_increment_ref_count(parse_word(info));
+            type_name=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj104 = come_decrement_ref_count(__dec_obj104, (void*)0, (void*)0, 0,0, (void*)0);
         }
         else if(        string_operator_equals(type_name,"uniq")        ) {
             uniq_=1;
             __right_value0 = (void*)0;
             __dec_obj105=type_name,
-            type_name=(char*)come_increment_ref_count(parse_word(info));
+            type_name=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj105 = come_decrement_ref_count(__dec_obj105, (void*)0, (void*)0, 0,0, (void*)0);
         }
         else if(        string_operator_equals(type_name,"record")        ) {
             record_=1;
             __right_value0 = (void*)0;
             __dec_obj106=type_name,
-            type_name=(char*)come_increment_ref_count(parse_word(info));
+            type_name=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj106 = come_decrement_ref_count(__dec_obj106, (void*)0, (void*)0, 0,0, (void*)0);
         }
         else if(        string_operator_equals(type_name,"extern")        ) {
             extern_=1;
             __right_value0 = (void*)0;
             __dec_obj107=type_name,
-            type_name=(char*)come_increment_ref_count(parse_word(info));
+            type_name=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj107 = come_decrement_ref_count(__dec_obj107, (void*)0, (void*)0, 0,0, (void*)0);
         }
         else if(        string_operator_equals(type_name,"inline")||string_operator_equals(type_name,"__inline")||string_operator_equals(type_name,"__inline__")||string_operator_equals(type_name,"__always_inline")||string_operator_equals(type_name,"__forceinline")        ) {
             inline_=1;
             __right_value0 = (void*)0;
             __dec_obj108=type_name,
-            type_name=(char*)come_increment_ref_count(parse_word(info));
+            type_name=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj108 = come_decrement_ref_count(__dec_obj108, (void*)0, (void*)0, 0,0, (void*)0);
         }
         else if(        string_operator_equals(type_name,"volatile")        ) {
             volatile_=1;
             __right_value0 = (void*)0;
             __dec_obj109=type_name,
-            type_name=(char*)come_increment_ref_count(parse_word(info));
+            type_name=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj109 = come_decrement_ref_count(__dec_obj109, (void*)0, (void*)0, 0,0, (void*)0);
         }
         else if(        string_operator_equals(type_name,"struct")        ) {
@@ -7338,7 +7338,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
             if(            *info->p!=62            ) {
                 __right_value0 = (void*)0;
                 __dec_obj113=type_name,
-                type_name=(char*)come_increment_ref_count(parse_word(info));
+                type_name=(char*)come_increment_ref_count(parse_word(0,info));
                 __dec_obj113 = come_decrement_ref_count(__dec_obj113, (void*)0, (void*)0, 0,0, (void*)0);
                 parse_sharp_v5(info);
                 if(                *info->p==60                ) {
@@ -7468,7 +7468,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
             parse_sharp_v5(info);
             __right_value0 = (void*)0;
             __dec_obj119=type_name,
-            type_name=(char*)come_increment_ref_count(parse_word(info));
+            type_name=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj119 = come_decrement_ref_count(__dec_obj119, (void*)0, (void*)0, 0,0, (void*)0);
             parse_sharp_v5(info);
             if(            *info->p==123            ) {
@@ -7557,7 +7557,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
             parse_sharp_v5(info);
             __right_value0 = (void*)0;
             __dec_obj121=type_name,
-            type_name=(char*)come_increment_ref_count(parse_word(info));
+            type_name=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj121 = come_decrement_ref_count(__dec_obj121, (void*)0, (void*)0, 0,0, (void*)0);
             parse_sharp_v5(info);
             if(            *info->p==58            ) {
@@ -7617,7 +7617,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
                     sline2=info->sline;
                     __right_value0 = (void*)0;
                     __dec_obj123=type_name,
-                    type_name=(char*)come_increment_ref_count(parse_word(info));
+                    type_name=(char*)come_increment_ref_count(parse_word(0,info));
                     __dec_obj123 = come_decrement_ref_count(__dec_obj123, (void*)0, (void*)0, 0,0, (void*)0);
                     if(                    string_operator_equals(type_name,"double")                    ) {
                         long_=1;
@@ -7626,7 +7626,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
                     else if(                    string_operator_equals(type_name,"unsigned")                    ) {
                         __right_value0 = (void*)0;
                         __dec_obj124=type_name,
-                        type_name=(char*)come_increment_ref_count(parse_word(info));
+                        type_name=(char*)come_increment_ref_count(parse_word(0,info));
                         __dec_obj124 = come_decrement_ref_count(__dec_obj124, (void*)0, (void*)0, 0,0, (void*)0);
                         if(                        string_operator_equals(type_name,"int")                        ) {
                             long_=1;
@@ -7637,7 +7637,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
                     else if(                    string_operator_equals(type_name,"signed")                    ) {
                         __right_value0 = (void*)0;
                         __dec_obj125=type_name,
-                        type_name=(char*)come_increment_ref_count(parse_word(info));
+                        type_name=(char*)come_increment_ref_count(parse_word(0,info));
                         __dec_obj125 = come_decrement_ref_count(__dec_obj125, (void*)0, (void*)0, 0,0, (void*)0);
                         if(                        string_operator_equals(type_name,"int")                        ) {
                             long_=1;
@@ -7652,7 +7652,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
                             long_long=1;
                             __right_value0 = (void*)0;
                             __dec_obj126=type_name,
-                            type_name=(char*)come_increment_ref_count(parse_word(info));
+                            type_name=(char*)come_increment_ref_count(parse_word(0,info));
                             __dec_obj126 = come_decrement_ref_count(__dec_obj126, (void*)0, (void*)0, 0,0, (void*)0);
                         }
                         else if(                        *info->p==58                        ) {
@@ -7712,7 +7712,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
                 sline_62=info->sline;
                 __right_value0 = (void*)0;
                 __dec_obj130=type_name,
-                type_name=(char*)come_increment_ref_count(parse_word(info));
+                type_name=(char*)come_increment_ref_count(parse_word(0,info));
                 __dec_obj130 = come_decrement_ref_count(__dec_obj130, (void*)0, (void*)0, 0,0, (void*)0);
                 if(                string_operator_equals(type_name,"char")||string_operator_equals(type_name,"short")||string_operator_equals(type_name,"long")||string_operator_equals(type_name,"int")                ) {
                 }
@@ -7741,7 +7741,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
                 sline_64=info->sline;
                 __right_value0 = (void*)0;
                 __dec_obj133=type_name,
-                type_name=(char*)come_increment_ref_count(parse_word(info));
+                type_name=(char*)come_increment_ref_count(parse_word(0,info));
                 __dec_obj133 = come_decrement_ref_count(__dec_obj133, (void*)0, (void*)0, 0,0, (void*)0);
                 if(                string_operator_equals(type_name,"short")                ) {
                     if(                    isalpha(*info->p)||*info->p==95                    ) {
@@ -7749,7 +7749,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
                         sline_66=info->sline;
                         __right_value0 = (void*)0;
                         __dec_obj134=type_name,
-                        type_name=(char*)come_increment_ref_count(parse_word(info));
+                        type_name=(char*)come_increment_ref_count(parse_word(0,info));
                         __dec_obj134 = come_decrement_ref_count(__dec_obj134, (void*)0, (void*)0, 0,0, (void*)0);
                         if(                        is_type_name(type_name,info)                        ) {
                             short_=1;
@@ -7779,7 +7779,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
                         sline_68=info->sline;
                         __right_value0 = (void*)0;
                         __dec_obj137=type_name,
-                        type_name=(char*)come_increment_ref_count(parse_word(info));
+                        type_name=(char*)come_increment_ref_count(parse_word(0,info));
                         __dec_obj137 = come_decrement_ref_count(__dec_obj137, (void*)0, (void*)0, 0,0, (void*)0);
                         if(                        is_type_name(type_name,info)                        ) {
                             long_=1;
@@ -7827,7 +7827,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
             sline_70=info->sline;
             __right_value0 = (void*)0;
             __dec_obj142=type_name,
-            type_name=(char*)come_increment_ref_count(parse_word(info));
+            type_name=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj142 = come_decrement_ref_count(__dec_obj142, (void*)0, (void*)0, 0,0, (void*)0);
             if(            *info->p==58&&*(info->p+1)==58            ) {
                 __right_value0 = (void*)0;
@@ -7843,27 +7843,27 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
             register_=1;
             __right_value0 = (void*)0;
             __dec_obj144=type_name,
-            type_name=(char*)come_increment_ref_count(parse_word(info));
+            type_name=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj144 = come_decrement_ref_count(__dec_obj144, (void*)0, (void*)0, 0,0, (void*)0);
         }
         else if(        string_operator_equals(type_name,"restrict")        ) {
             restrict_=1;
             __right_value0 = (void*)0;
             __dec_obj145=type_name,
-            type_name=(char*)come_increment_ref_count(parse_word(info));
+            type_name=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj145 = come_decrement_ref_count(__dec_obj145, (void*)0, (void*)0, 0,0, (void*)0);
         }
         else if(        string_operator_equals(type_name,"_Addr")        ) {
             __right_value0 = (void*)0;
             __dec_obj146=type_name,
-            type_name=(char*)come_increment_ref_count(parse_word(info));
+            type_name=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj146 = come_decrement_ref_count(__dec_obj146, (void*)0, (void*)0, 0,0, (void*)0);
         }
         else if(        string_operator_equals(type_name,"__restrict")        ) {
             restrict_=1;
             __right_value0 = (void*)0;
             __dec_obj147=type_name,
-            type_name=(char*)come_increment_ref_count(parse_word(info));
+            type_name=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj147 = come_decrement_ref_count(__dec_obj147, (void*)0, (void*)0, 0,0, (void*)0);
         }
         else if(        string_operator_equals(type_name,"tup")        ) {
@@ -7876,7 +7876,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
             }
             __right_value0 = (void*)0;
             __dec_obj148=type_name,
-            type_name=(char*)come_increment_ref_count(parse_word(info));
+            type_name=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj148 = come_decrement_ref_count(__dec_obj148, (void*)0, (void*)0, 0,0, (void*)0);
             parse_multiple_type=1;
             tuple_=1;
@@ -7891,7 +7891,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
                 sline_72=info->sline;
                 __right_value0 = (void*)0;
                 __dec_obj149=type_name,
-                type_name=(char*)come_increment_ref_count(parse_word(info));
+                type_name=(char*)come_increment_ref_count(parse_word(0,info));
                 __dec_obj149 = come_decrement_ref_count(__dec_obj149, (void*)0, (void*)0, 0,0, (void*)0);
                 if(                *info->p==58&&*(info->p+1)==58                ) {
                     __right_value0 = (void*)0;
@@ -7980,7 +7980,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
             else if(            xisalnum(*info->p)||*info->p==95            ) {
                 __right_value0 = (void*)0;
                 __dec_obj154=var_name,
-                var_name=(char*)come_increment_ref_count(parse_word(info));
+                var_name=(char*)come_increment_ref_count(parse_word(0,info));
                 __dec_obj154 = come_decrement_ref_count(__dec_obj154, (void*)0, (void*)0, 0,0, (void*)0);
             }
             else {
@@ -8081,7 +8081,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
         skip_spaces_and_lf(info);
         __right_value0 = (void*)0;
         __dec_obj159=tuple_name,
-        tuple_name=(char*)come_increment_ref_count(parse_word(info));
+        tuple_name=(char*)come_increment_ref_count(parse_word(0,info));
         __dec_obj159 = come_decrement_ref_count(__dec_obj159, (void*)0, (void*)0, 0,0, (void*)0);
     }
     if(    atomic_&&*info->p==41    ) {
@@ -8093,7 +8093,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
         slineX=info->sline;
         if(        isalpha(*info->p)||*info->p==95        ) {
             __right_value0 = (void*)0;
-            (void)((char*)(__right_value0=parse_word(info)));
+            (void)((char*)(__right_value0=parse_word(0,info)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             if(            *info->p==40&&info->in_typedef            ) {
                 lambda_flag=1;
@@ -8125,7 +8125,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
                 if(                isalpha(*info->p)||*info->p==95                ) {
                     __right_value0 = (void*)0;
                     __dec_obj160=word,
-                    word=(char*)come_increment_ref_count(parse_word(info));
+                    word=(char*)come_increment_ref_count(parse_word(0,info));
                     __dec_obj160 = come_decrement_ref_count(__dec_obj160, (void*)0, (void*)0, 0,0, (void*)0);
                 }
                 if(                *info->p==91                ) {
@@ -8183,7 +8183,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
             }
             else if(            isalpha(*info->p)||*info->p==95            ) {
                 __right_value0 = (void*)0;
-                word_82=(char*)come_increment_ref_count(parse_word(info));
+                word_82=(char*)come_increment_ref_count(parse_word(0,info));
                 if(                *info->p==41                ) {
                     info->p++;
                     skip_spaces_and_lf(info);
@@ -8207,7 +8207,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
             skip_pointer_attribute(info);
             if(            isalpha(*info->p)||*info->p==95            ) {
                 __right_value0 = (void*)0;
-                word_85=(char*)come_increment_ref_count(parse_word(info));
+                word_85=(char*)come_increment_ref_count(parse_word(0,info));
                 if(                is_type_name(word_85,info)                ) {
                 }
                 else if(                *info->p==41                ) {
@@ -8446,7 +8446,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
             else if(            xisalnum(*info->p)||*info->p==95            ) {
                 __right_value0 = (void*)0;
                 __dec_obj176=var_name_78,
-                var_name_78=(char*)come_increment_ref_count(parse_word(info));
+                var_name_78=(char*)come_increment_ref_count(parse_word(0,info));
                 __dec_obj176 = come_decrement_ref_count(__dec_obj176, (void*)0, (void*)0, 0,0, (void*)0);
             }
             else {
@@ -8579,7 +8579,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
         result_type->mDefferRightValue=result_type->mDefferRightValue||deffer_;
         __right_value0 = (void*)0;
         __dec_obj187=var_name_78,
-        var_name_78=(char*)come_increment_ref_count(parse_word(info));
+        var_name_78=(char*)come_increment_ref_count(parse_word(0,info));
         __dec_obj187 = come_decrement_ref_count(__dec_obj187, (void*)0, (void*)0, 0,0, (void*)0);
         __right_value0 = (void*)0;
         multiple_assign_var6=((struct tuple4$4list$1sType$ph$phlist$1char$ph$phlist$1char$ph$ph_Bool$*)(__right_value0=parse_params(info,0)));
@@ -8673,7 +8673,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
         if(        isalpha(*info->p)||*info->p==95        ) {
             __right_value0 = (void*)0;
             __dec_obj196=var_name_78,
-            var_name_78=(char*)come_increment_ref_count(parse_word(info));
+            var_name_78=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj196 = come_decrement_ref_count(__dec_obj196, (void*)0, (void*)0, 0,0, (void*)0);
         }
         else {
@@ -8895,7 +8895,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
         if(        xisalnum(*info->p)||*info->p==95        ) {
             __right_value0 = (void*)0;
             __dec_obj205=var_name_78,
-            var_name_78=(char*)come_increment_ref_count(parse_word(info));
+            var_name_78=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj205 = come_decrement_ref_count(__dec_obj205, (void*)0, (void*)0, 0,0, (void*)0);
             if(            !paren_flag&&*info->p==40            ) {
                 __right_value0 = (void*)0;
@@ -9573,7 +9573,7 @@ memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
             else if(            xisalnum(*info->p)||*info->p==95            ) {
                 __right_value0 = (void*)0;
                 __dec_obj237=var_name_78,
-                var_name_78=(char*)come_increment_ref_count(parse_word(info));
+                var_name_78=(char*)come_increment_ref_count(parse_word(0,info));
                 __dec_obj237 = come_decrement_ref_count(__dec_obj237, (void*)0, (void*)0, 0,0, (void*)0);
             }
             else {

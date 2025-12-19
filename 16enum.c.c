@@ -2888,7 +2888,7 @@ char* skip_block(struct sInfo* info, _Bool return_self_at_last);
 _Bool is_contained_generics_class(struct sType* type, struct sInfo* info);
 _Bool is_type_name(char* buf, struct sInfo* info);
 _Bool parsecmp(char* p2, struct sInfo* info);
-char* parse_word(struct sInfo* info);
+char* parse_word(_Bool digits, struct sInfo* info);
 char* backtrace_parse_word(struct sInfo* info);
 void skip_spaces_and_lf(struct sInfo* info);
 struct tuple2$2char$ph_Bool$* create_generics_fun(char* fun_name, struct sGenericsFun* generics_fun, struct sType* generics_type, struct sInfo* info);
@@ -4452,7 +4452,7 @@ memset(&klass, 0, sizeof(klass));
         ((char*)(__right_value0=parse_struct_attribute(info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         __right_value0 = (void*)0;
-        element_name=(char*)come_increment_ref_count(parse_word(info));
+        element_name=(char*)come_increment_ref_count(parse_word(0,info));
         __right_value0 = (void*)0;
         attribute_22=(char*)come_increment_ref_count(parse_struct_attribute(info));
         if(        *info->p==61&&*(info->p+1)!=61        ) {
@@ -5748,7 +5748,7 @@ struct sNode* __result_obj__102;
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             __right_value0 = (void*)0;
             __dec_obj65=type_name,
-            type_name=(char*)come_increment_ref_count(parse_word(info));
+            type_name=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj65 = come_decrement_ref_count(__dec_obj65, (void*)0, (void*)0, 0,0, (void*)0);
             __right_value0 = (void*)0;
             map$2char$phsClass$ph_insert(info->classes,(char*)come_increment_ref_count(__builtin_string(type_name)),(struct sClass*)come_increment_ref_count(sClass_initialize((struct sClass*)come_increment_ref_count((struct sClass*)come_calloc_v2(1, sizeof(struct sClass)*(1), "16enum.c", 221, "struct sClass*")),(char*)come_increment_ref_count(__builtin_string(type_name)),0,0,0,0,0,0,0,-1,-1,1,0,0,info)));
@@ -5786,7 +5786,7 @@ struct sNode* __result_obj__102;
             ((char*)(__right_value0=parse_struct_attribute(info)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             __right_value0 = (void*)0;
-            element_name=(char*)come_increment_ref_count(parse_word(info));
+            element_name=(char*)come_increment_ref_count(parse_word(0,info));
             __right_value0 = (void*)0;
             attribute_36=(char*)come_increment_ref_count(parse_struct_attribute(info));
             if(            *info->p==61&&*(info->p+1)!=61            ) {
@@ -5890,7 +5890,7 @@ struct sNode* __result_obj__104;
         info->no_output_come_code=1;
         if(        charp_operator_equals(buf,"enum")        ) {
             if(            isalpha(*info->p)||*info->p==95            ) {
-                type_name=(char*)come_increment_ref_count(parse_word(info));
+                type_name=(char*)come_increment_ref_count(parse_word(0,info));
                 if(                *info->p==123                ) {
                     __right_value0 = (void*)0;
                     ((char*)(__right_value0=skip_block(info,0)));
@@ -5910,7 +5910,7 @@ struct sNode* __result_obj__104;
         __right_value0 = (void*)0;
         struct_attribute=(char*)come_increment_ref_count(parse_struct_attribute(info));
         __right_value0 = (void*)0;
-        type_name_37=(char*)come_increment_ref_count(parse_word(info));
+        type_name_37=(char*)come_increment_ref_count(parse_word(0,info));
         __right_value0 = (void*)0;
         __result_obj__103 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=parse_enum((char*)come_increment_ref_count(type_name_37),(char*)come_increment_ref_count(struct_attribute),info))));
         (struct_attribute = come_decrement_ref_count(struct_attribute, (void*)0, (void*)0, 0, 0, (void*)0));
