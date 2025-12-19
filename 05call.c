@@ -2291,14 +2291,20 @@ sNode*% expression_node(sInfo* info=info) version 98
             bool no_output_come_code = info.no_output_come_code;
             info.no_output_come_code = true;
             
-            if(xisalpha(*info.p) || *info.p == '_') {
+            bool flag = false
+            while(xisalpha(*info.p) || *info.p == '_') {
+                flag = true;
                 var word2 = parse_word();
             }
-            while(*info->p == '*') {
+            while(*info->p == '*' || *info->p == '%') {
                 info->p++;
                 skip_spaces_and_lf();
             }
-            if(*info->p == ':' && *(info->p+1) == ':') {
+            while(*info->p == '[' && *(info->p+1) == ']') {
+                info->p+=2;
+                skip_spaces_and_lf();
+            }
+            if(flag && *info->p == ':' && *(info->p+1) == ':') {
                 info->p += 2;
                 skip_spaces_and_lf();
                 if(xisalpha(*info->p) || *info.p == '_') {
@@ -2649,43 +2655,19 @@ sNode*% expression_node(sInfo* info=info) version 98
             return new sInlineAssembler(buf2.to_string(), exps, info) implements sNode;
         }
         else if(fun_name_with_type_name) {
-            buffer*% fun_name = new buffer();
+            info.p = head;
+            info.sline = head_sline;
             
-            fun_name.append_str(buf);
-            
-            sType*% type = clone info.types[fun_name.to_string()];
-            
-            if(type == null) {
-                sClass* klass = info.classes[fun_name.to_string()];
-                
-                if(klass) {
-                    type = new sType(string(buf));
-                }
-                else {
-                    err_msg(info, "null type(%s)", buf);
-                    exit(2);
-                }
-            }
-            
-            while(*info->p == '*') {
-                info->p++;
-                skip_spaces_and_lf();
-                
-                if(type->mClass->mStruct == false) {
-                    fun_name.append_str("p");
-                }
-            }
+            var type,name,err = parse_type();
             
             expected_next_character(':');
             expected_next_character(':');
             
-            fun_name.append_str("_");
+            string base_fun_name = parse_word();
             
-            string buf2 = parse_word();
+            string fun_name = create_method_name(type, false@nopointer_name, base_fun_name, info);
             
-            fun_name.append_str(buf2);
-            
-            sNode*% node = parse_function_call(fun_name.to_string(), info);
+            sNode*% node = parse_function_call(fun_name, info);
             
             info.sline_real = sline_real;
             return node;

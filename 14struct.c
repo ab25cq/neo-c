@@ -848,9 +848,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                     
                     string word = null;
                     if(xisalnum(*info.p) || *info->p == '_') {
-                        word = parse_word();
-                        
-                        if(word === "extern") {
+                        while(xisalnum(*info.p) || *info->p == '_') {
                             word = parse_word();
                         }
                     }
@@ -861,6 +859,10 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                     if(word) {
                         if(is_type_name(word)) {
                             while(*info->p == '*') {
+                                info->p++;
+                                skip_spaces_and_lf();
+                            }
+                            while(*info->p == '%') {
                                 info->p++;
                                 skip_spaces_and_lf();
                             }

@@ -1853,12 +1853,11 @@ sNode*% parse_function(sInfo* info)
         char* p = info.p;
         int sline = info.sline;
         
-        buffer*% buf2 = new buffer();
+        bool flag = false;
         while(xisalnum(*info->p) || *info->p == '_') {
-            buf2.append_char(*info->p);
-            info->p++;
+            flag = true;
+            parse_word();
         }
-        skip_spaces_and_lf();
         
         while(*info->p == '*') {
             info->p++;
@@ -1872,8 +1871,7 @@ sNode*% parse_function(sInfo* info)
             info->p++;
             skip_spaces_and_lf();
         }
-        
-        if(buf2.length() > 0 && *info->p == ':' && *(info->p+1) == ':') {
+        if(flag && *info->p == ':' && *(info->p+1) == ':') {
             method_definition = true;
         }
         
