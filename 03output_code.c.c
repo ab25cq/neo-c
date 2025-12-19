@@ -3142,7 +3142,7 @@ struct CVALUE* cvalue_18;
 char* __result_obj__23;
     buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "03output_code.c", 5, "struct buffer*"))));
     class_name=type->mClass->mName;
-    if(    type->mAlignasDouble    ) {
+    if(    type->mAlignasDouble&&!no_static    ) {
         buffer_append_format(buf,"_Alignas(double) ");
     }
     else if(    type->mAlignas&&!no_static    ) {

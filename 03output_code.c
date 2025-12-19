@@ -6,7 +6,7 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
     
     char* class_name = type->mClass->mName;
     
-    if(type->mAlignasDouble) {
+    if(type->mAlignasDouble && !no_static) {
         buf.append_format("_Alignas(double) ");
     }
     else if(type->mAlignas && !no_static) {
