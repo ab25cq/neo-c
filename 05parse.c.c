@@ -2986,7 +2986,7 @@ unsigned char c;
         p3++;
     }
     c=*(info->p+strlen(p2));
-    return memcmp(info->p,p2,strlen(p2))==0&&(xispunct(c)||c==32||c==9||c==10)&&c!=95;
+    return memcmp(info->p,p2,strlen(p2))==0&&(xispunct(c)||c==32||c==9||c==10||c==0||c==13)&&c!=95;
 }
 
 int err_msg(struct sInfo* info, char* msg, ...){
@@ -3246,6 +3246,10 @@ void skip_spaces_and_lf(struct sInfo* info){
         if(        *info->p==32||*info->p==9        ) {
             info->p++;
         }
+        else if(        *info->p==13&&*(info->p+1)==10        ) {
+            info->p+=2;
+            info->sline++;
+        }
         else if(        *info->p==10        ) {
             info->p++;
             info->sline++;
@@ -3288,12 +3292,15 @@ int nest;
             info->p++;
             skip_spaces_and_lf2(info);
             if(            parsecmp("pragma",info)            ) {
-                buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 170, "struct buffer*"))));
+                buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 174, "struct buffer*"))));
                 buffer_append_str(buf,"#");
                 while(                *info->p                ) {
                     if(                    *info->p==10                    ) {
                         buffer_append_char(buf,*info->p);
                         skip_spaces_and_lf2(info);
+                        break;
+                    }
+                    else if(                    *info->p==0                    ) {
                         break;
                     }
                     else {
@@ -3314,7 +3321,7 @@ int nest;
                 line=0;
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
-                fname=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 190, "struct buffer*"))));
+                fname=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 197, "struct buffer*"))));
                 while(                isdigit(*info->p)                ) {
                     line=line*10+(*info->p-48);
                     info->p++;
@@ -3322,11 +3329,11 @@ int nest;
                 skip_spaces_and_lf2(info);
                 if(                *info->p==34                ) {
                     info->p++;
-                    while(                    *info->p!=34                    ) {
+                    while(                    *info->p&&*info->p!=34                    ) {
                         buffer_append_char(fname,*info->p);
                         info->p++;
                     }
-                    while(                    *info->p!=10                    ) {
+                    while(                    *info->p&&*info->p!=10                    ) {
                         info->p++;
                     }
                     info->p++;

@@ -11,7 +11,7 @@ bool parsecmp(char* p2, sInfo* info=info)
         p3++;
     }
     unsigned char c = *(info->p+strlen(p2));
-    return memcmp(info->p, p2, strlen(p2)) == 0 && (xispunct(c) || c == ' ' || c == '\t' || c == '\n') && c != '_';
+    return memcmp(info->p, p2, strlen(p2)) == 0 && (xispunct(c) || c == ' ' || c == '\t' || c == '\n' || c == '\0' || c == '\r') && c != '_';
 }
 
 int err_msg(sInfo* info, char* msg, ...)
@@ -129,6 +129,10 @@ void skip_spaces_and_lf(sInfo* info=info)
         if(*info->p == ' ' || *info->p == '\t') {
             info->p++;
         }
+        else if(*info->p == '\r' && *(info->p + 1) == '\n') {
+            info->p+=2;
+            info->sline++;
+        }
         else if(*info->p == '\n') {
             info->p++;
             info->sline++;
@@ -175,6 +179,9 @@ void parse_sharp(sInfo* info=info) version 5
                         skip_spaces_and_lf2();
                         break;
                     }
+                    else if(*info->p == '\0') {
+                        break;
+                    }
                     else {
                         buf.append_char(*info->p);
                         info->p++;
@@ -198,12 +205,12 @@ void parse_sharp(sInfo* info=info) version 5
                 if(*info->p == '"') {
                     info->p++;
     
-                    while(*info->p != '"') {
+                    while(*info->p && *info->p != '"') {
                         fname.append_char(*info->p);
                         info->p++;
                     }
     
-                    while(*info->p != '\n') {
+                    while(*info->p && *info->p != '\n') {
                         info->p++;
                     }
                     info->p++;
