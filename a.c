@@ -1,13 +1,14 @@
 #include <neo-c.h>
 
-void unsigned long::fun(unsigned long self)
+typedef unsigned long XXX;
+
+void XXX::fun(XXX self)
 {
-puts("unsigned long");
 }
 
 int main(int argc, char** argv)
 {
-    unsigned long a;
+    XXX a;
     
     a.fun();
     
