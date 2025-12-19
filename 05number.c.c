@@ -1477,6 +1477,7 @@ struct sType
     struct sType* mNoSolvedGenericsType;
     struct sNode* mSizeNum;
     struct sNode* mAlignas;
+    _Bool mAlignasDouble;
     char* mTupleName;
     char* mAttribute;
     char* mVarAttribute;

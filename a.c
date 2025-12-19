@@ -1,16 +1,9 @@
 #include <neo-c.h>
 
-typedef unsigned long XXX;
-
-void XXX::fun(XXX self)
-{
-}
-
 int main(int argc, char** argv)
 {
-    XXX a;
-    
-    a.fun();
+    _Complex double a;
+    _Alignas(double) int x;
     
     return 0;
 }

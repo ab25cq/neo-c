@@ -6,11 +6,17 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
     
     char* class_name = type->mClass->mName;
     
-    if(type->mAlignas && !no_static) {
+    if(type->mAlignasDouble) {
+        buf.append_format("_Alignas(double) ");
+    }
+    else if(type->mAlignas && !no_static) {
+        bool no_output_come_code = info.no_output_come_code;
+        info.no_output_come_code = true;
         if(!node_compile(type->mAlignas)) {
             printf("_Alignas error\n");
             return string("");
         }
+        info.no_output_come_code = no_output_come_code;
         
         CVALUE*% come_value = get_value_from_stack(-1, info);
         

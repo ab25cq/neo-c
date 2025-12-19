@@ -96,6 +96,7 @@ uniq class sType
     
     sNode*% mSizeNum;
     sNode*% mAlignas;
+    bool mAlignasDouble;
     string mTupleName;
     string mAttribute;
     string mVarAttribute;

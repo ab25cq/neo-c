@@ -1447,6 +1447,7 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
     bool complex_ = false;
     
     sNode*% alignas_ = null;
+    bool alignas_double = false;
     
     string union_attribute = s"";
     
@@ -1510,9 +1511,14 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
         else if(type_name === "_Alignas") {
             expected_next_character('(');
             
-            sNode*% exp = expression();
-            
-            alignas_ = exp;
+            if((info->end - info->p) > strlen("double") && memcmp(info->p, "double", strlen("double")) == 0)
+            {
+                (void)parse_word();
+                alignas_double = true;
+            }
+            else {
+                alignas_ = expression();
+            }
             
             expected_next_character(')');
             
@@ -2560,6 +2566,7 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
         result_type->mConstant = result_type->mConstant || constant;
         result_type->mComplex = result_type->mComplex || complex_;
         result_type->mAlignas = alignas_;
+        result_type->mAlignasDouble = alignas_double;
         result_type->mRegister = register_;
         result_type->mUnsigned = result_type->mUnsigned || unsigned_;
         result_type->mVolatile = volatile_;
@@ -2624,6 +2631,7 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
         type->mAtomic = type->mAtomic || atomic_;
         type->mThreadLocal = type->mThreadLocal || thread_local;
         type->mAlignas = alignas_;
+        type->mAlignasDouble = alignas_double;
         type->mRegister = register_;
         type->mUnsigned = type->mUnsigned || unsigned_;
         type->mVolatile = volatile_;
@@ -2752,6 +2760,7 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
         result_type->mAtomic = result_type->mAtomic || atomic_;
         result_type->mThreadLocal = result_type->mThreadLocal || thread_local;
         result_type->mAlignas = alignas_;
+        result_type->mAlignasDouble = alignas_double;
         result_type->mRegister = register_;
         result_type->mUnsigned = result_type->mUnsigned || unsigned_;
         result_type->mVolatile = volatile_;
@@ -2868,6 +2877,7 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
             type->mAtomic = type->mAtomic || atomic_;
             type->mThreadLocal = type->mThreadLocal || thread_local;
             type->mAlignas = alignas_;
+            type->mAlignasDouble = alignas_double;
             type->mRegister = register_;
             type->mUnsigned = type->mUnsigned || unsigned_;
             type->mVolatile = volatile_;
@@ -2903,6 +2913,7 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
             type->mAtomic = type->mAtomic || atomic_;
             type->mThreadLocal = type->mThreadLocal || thread_local;
             type->mAlignas = alignas_;
+            type->mAlignasDouble = alignas_double;
             type->mRegister = register_;
             type->mUnsigned = type->mUnsigned || unsigned_;
             type->mVolatile = volatile_;
@@ -2933,6 +2944,7 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
             type->mAtomic = type->mAtomic || atomic_;
             type->mThreadLocal = type->mThreadLocal || thread_local;
             type->mAlignas = alignas_;
+            type->mAlignasDouble = alignas_double;
             type->mRegister = register_;
             type->mUnsigned = type->mUnsigned || unsigned_;
             type->mVolatile = volatile_;
@@ -3010,6 +3022,7 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
             type->mAtomic = type->mAtomic || atomic_;
             type->mThreadLocal = type->mThreadLocal || thread_local;
             type->mAlignas = alignas_;
+            type->mAlignasDouble = alignas_double;
             type->mRegister = register_;
             type->mUnsigned = type->mUnsigned || unsigned_;
             type->mVolatile = volatile_;
@@ -3059,6 +3072,7 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
             type->mAtomic = type->mAtomic || atomic_;
             type->mThreadLocal = type->mThreadLocal || thread_local;
             type->mAlignas = alignas_;
+            type->mAlignasDouble = alignas_double;
             type->mRegister = register_;
             type->mUnsigned = type->mUnsigned || unsigned_;
             type->mVolatile = volatile_;

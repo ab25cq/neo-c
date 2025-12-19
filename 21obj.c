@@ -2025,6 +2025,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             return new sAlignOfExpNode2(exp, info) implements sNode;
         }
     }
+/*
     else if(buf === "_Alignas") {
         expected_next_character('(');
         
@@ -2065,6 +2066,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             return new sAlignAsExpNode(exp, info) implements sNode;
         }
     }
+*/
     
     return inherit(buf, head, head_sline, info);
 }
