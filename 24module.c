@@ -118,7 +118,7 @@ string refrection_node(sInfo* info=info)
     if(parsecmp("defined")) {
         (void)parse_word();
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(*info->p == '(') {
             info->p++;
@@ -132,7 +132,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         bool defined = false;
         info.struct_definition[exp].if {
@@ -164,7 +164,7 @@ string refrection_node(sInfo* info=info)
     else if(parsecmp("is_static")) {
         (void)parse_word();
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(*info->p == '(') {
             info->p++;
@@ -178,7 +178,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         bool defined = false;
         
@@ -204,7 +204,7 @@ string refrection_node(sInfo* info=info)
     else if(parsecmp("is_heap")) {
         (void)parse_word();
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(*info->p == '(') {
             info->p++;
@@ -218,7 +218,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         bool defined = false;
         
@@ -244,7 +244,7 @@ string refrection_node(sInfo* info=info)
     else if(parsecmp("is_const")) {
         (void)parse_word();
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(*info->p == '(') {
             info->p++;
@@ -258,7 +258,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         bool defined = false;
         
@@ -284,7 +284,7 @@ string refrection_node(sInfo* info=info)
     else if(parsecmp("is_uniq")) {
         (void)parse_word();
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(*info->p == '(') {
             info->p++;
@@ -298,7 +298,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         bool defined = false;
         
@@ -321,7 +321,7 @@ string refrection_node(sInfo* info=info)
     else if(parsecmp("is_type")) {
         (void)parse_word();
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(*info->p == '(') {
             info->p++;
@@ -335,7 +335,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         bool defined = false;
         
@@ -353,7 +353,7 @@ string refrection_node(sInfo* info=info)
     else if(parsecmp("type")) {
         (void)parse_word();
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(*info->p == '(') {
             info->p++;
@@ -367,7 +367,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         string result = null;
         
@@ -389,7 +389,7 @@ string refrection_node(sInfo* info=info)
     else if(parsecmp("param_types")) {
         (void)parse_word();
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(*info->p == '(') {
             info->p++;
@@ -410,7 +410,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         string result = null;
         
@@ -431,7 +431,7 @@ string refrection_node(sInfo* info=info)
     else if(parsecmp("num_param_types")) {
         (void)parse_word();
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(*info->p == '(') {
             info->p++;
@@ -445,7 +445,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         string result = null;
         
@@ -463,7 +463,7 @@ string refrection_node(sInfo* info=info)
     else if(parsecmp("num_fields")) {
         (void)parse_word();
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(*info->p == '(') {
             info->p++;
@@ -477,7 +477,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         string result = null;
         
@@ -497,7 +497,7 @@ string refrection_node(sInfo* info=info)
     else if(parsecmp("field_types")) {
         (void)parse_word();
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(*info->p == '(') {
             info->p++;
@@ -518,7 +518,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         string result = null;
         
@@ -544,7 +544,7 @@ string refrection_node(sInfo* info=info)
     else if(parsecmp("type")) {
         (void)parse_word();
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(*info->p == '(') {
             info->p++;
@@ -558,7 +558,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         bool defined = false;
         
@@ -569,7 +569,7 @@ string refrection_node(sInfo* info=info)
     else if(parsecmp("puts")) {
         (void)parse_word();
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(*info->p == '(') {
             info->p++;
@@ -590,7 +590,7 @@ string refrection_node(sInfo* info=info)
     else if(parsecmp("is_inline")) {
         (void)parse_word();
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(*info->p == '(') {
             info->p++;
@@ -604,7 +604,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         bool defined = false;
         
@@ -624,7 +624,7 @@ string refrection_node(sInfo* info=info)
     else if(parsecmp("is_struct")) {
         (void)parse_word();
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(*info->p == '(') {
             info->p++;
@@ -638,7 +638,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         bool defined = false;
         
@@ -658,7 +658,7 @@ string refrection_node(sInfo* info=info)
     else if(parsecmp("is_union")) {
         (void)parse_word();
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(*info->p == '(') {
             info->p++;
@@ -672,7 +672,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         bool defined = false;
         
@@ -692,7 +692,7 @@ string refrection_node(sInfo* info=info)
     else if(parsecmp("is_enum")) {
         (void)parse_word();
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(*info->p == '(') {
             info->p++;
@@ -706,7 +706,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         bool defined = false;
         
@@ -726,7 +726,7 @@ string refrection_node(sInfo* info=info)
     else if(parsecmp("is_interface")) {
         (void)parse_word();
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(*info->p == '(') {
             info->p++;
@@ -740,7 +740,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         bool defined = false;
         
@@ -760,7 +760,7 @@ string refrection_node(sInfo* info=info)
     else if(parsecmp("is_generics")) {
         (void)parse_word();
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(*info->p == '(') {
             info->p++;
@@ -774,7 +774,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         bool defined = false;
         
@@ -794,7 +794,7 @@ string refrection_node(sInfo* info=info)
     else if(parsecmp("is_module")) {
         (void)parse_word();
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(*info->p == '(') {
             info->p++;
@@ -808,7 +808,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         bool defined = false;
         
@@ -868,7 +868,7 @@ string refrection_expression_comp(sInfo* info=info)
 {
     string node = refrection_node();
     
-    parse_sharp();
+    skip_spaces_and_lf();
     
     while(*info->p) {
         if(*info->p == '>' && *(info->p+1) == '=') {
@@ -935,7 +935,7 @@ string refrection_expression_eq(sInfo* info=info)
 {
     string node = refrection_expression_comp();
     
-    parse_sharp();
+    skip_spaces_and_lf();
     
     while(*info->p) {
         if(*info->p == '=' && *(info->p+1) == '=' && *(info->p+2) != '=') {
@@ -976,7 +976,7 @@ string refrection_expression_oror(sInfo* info=info)
 {
     string node = refrection_expression_eq();
     
-    parse_sharp();
+    skip_spaces_and_lf();
     
     while(*info->p) {
         if(*info->p == '|' && *(info->p+1) == '|') {
@@ -1004,7 +1004,7 @@ string refrection_expression_andand(sInfo* info=info)
 {
     string node = refrection_expression_oror();
     
-    parse_sharp();
+    skip_spaces_and_lf();
     
     while(*info->p) {
         if(*info->p == '&' && *(info->p+1) == '&') {
@@ -1216,7 +1216,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
             skip_block();
         }
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         while(1) {
             if(parsecmp("elif")) {

@@ -2873,6 +2873,7 @@ _Bool parsecmp(char* p2, struct sInfo* info);
 char* parse_word(_Bool digits, struct sInfo* info);
 char* backtrace_parse_word(struct sInfo* info);
 void skip_spaces_and_lf(struct sInfo* info);
+void skip_spaces_and_lf2(struct sInfo* info);
 struct tuple2$2char$ph_Bool$* create_generics_fun(char* fun_name, struct sGenericsFun* generics_fun, struct sType* generics_type, struct sInfo* info);
 struct tuple3$3sType$phchar$ph_Bool$* parse_type(struct sInfo* info, _Bool parse_variable_name, _Bool parse_multiple_type, _Bool in_function_parametor);
 struct tuple2$2sType$phchar$ph* parse_variable_name_on_multiple_declare(struct sType* base_type_name, _Bool first, struct sInfo* info);
@@ -7975,7 +7976,7 @@ struct sNode* __result_obj__171;
         buffer_append_str(method_block,"\n");
         (mem = come_decrement_ref_count(mem, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    parse_sharp_v5(info);
+    skip_spaces_and_lf(info);
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     __right_value2 = (void*)0;

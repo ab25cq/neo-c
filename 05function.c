@@ -165,7 +165,7 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
                     info->module_params = null;
                 }
             }
-            parse_sharp();
+            skip_spaces_and_lf();
             if(*info->p == '}') {
                 info->p++;
                 skip_spaces_and_lf();
@@ -176,7 +176,7 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
                 skip_spaces_and_lf();
             }
             
-            parse_sharp();
+            skip_spaces_and_lf();
             
             char* p = info.p;
             int sline = info.sline;
@@ -272,7 +272,7 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
             
             result.mNodes.push_back(node);
             
-            parse_sharp();
+            skip_spaces_and_lf();
             
             if(node.terminated()) {
                 skip_spaces_and_lf();
@@ -289,7 +289,7 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
                 
                 omit_semicolon = false;
             }
-            parse_sharp();
+            skip_spaces_and_lf();
             
             if(*info->p == '}') {
                 result.mOmitSemicolon = omit_semicolon;
@@ -339,14 +339,13 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
     else {
         info.sline_block = info.sline;
         
-        parse_sharp();
+        skip_spaces_and_lf();
         sNode*% node;
         
         if(*info->p == ';') {
             info->p++;
             skip_spaces_and_lf();
             
-            parse_sharp();
             
             node = new sSemicolonNode() implements sNode;
             
@@ -354,14 +353,14 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
         }
         else {
             node = expression();
-            parse_sharp();
+            skip_spaces_and_lf();
             
             if(node == null) {
                 err_msg(info, "Invalid expression");
                 return null;
             }
             
-            parse_sharp();
+            skip_spaces_and_lf();
             
             if(node.terminated()) {
                 skip_spaces_and_lf();
@@ -377,7 +376,7 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
                 
                 omit_semicolon = false;
             }
-            parse_sharp();
+            skip_spaces_and_lf();
             result.mOmitSemicolon = omit_semicolon;
             
             result.mNodes.push_back(node);
@@ -613,13 +612,13 @@ string skip_block(sInfo* info=info, bool return_self_at_last=false)
                 dquort = !dquort;
             }
             else if(*info->p == '#') {
-                parse_sharp();
+                skip_spaces_and_lf();
             }
             else if(*info->p == '/' && *(info->p+1) == '*') {
-                parse_sharp();
+                skip_spaces_and_lf();
             }
             else if(*info->p == '/' && *(info->p+1) == '/') {
-                parse_sharp();
+                skip_spaces_and_lf();
             }
             else if(*info->p == '{') {
                 info->p++;
@@ -936,13 +935,13 @@ void transpile_toplevel(bool block=false, sInfo* info=info)
 {
     while(*info->p) {
         info.sname_at_head = clone info.sname;
-        parse_sharp();
+        skip_spaces_and_lf();
         
         char* head = info.p;
         int head_sline = info.sline;
         string buf = parse_word();
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(block && *info->p == '}') {
             info->p++;
@@ -951,13 +950,13 @@ void transpile_toplevel(bool block=false, sInfo* info=info)
         }
         
         sNode*% node = top_level(buf, head, head_sline, info);
-        parse_sharp();
+        skip_spaces_and_lf();
         
         while(*info->p == ';') {
             info->p++;
             skip_spaces_and_lf();
         }
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(node != null) {
             node_compile(node).elif {
@@ -966,7 +965,6 @@ void transpile_toplevel(bool block=false, sInfo* info=info)
             }
         }
         
-        parse_sharp();
         
         skip_spaces_and_lf();
         
@@ -981,7 +979,6 @@ void transpile_toplevel(bool block=false, sInfo* info=info)
 int transpile(sInfo* info)
 {
     skip_spaces_and_lf();
-    parse_sharp();
     
     {
         var name = string("__builtin_va_start");

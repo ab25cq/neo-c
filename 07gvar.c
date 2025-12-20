@@ -135,14 +135,14 @@ sNode*% parse_global_variable(sInfo* info)
         info.no_output_come_code = true;
         
         if(xisalpha(*info->p) || *info->p == '_') {
-            parse_sharp();
+            skip_spaces_and_lf();
             var type, name, err = parse_type();
-            parse_sharp();
+            skip_spaces_and_lf();
             
             if(err) {
-                parse_sharp();
+                skip_spaces_and_lf();
                 var type,name = parse_variable_name_on_multiple_declare(type@base_type_name, true@first, info);
-                parse_sharp();
+                skip_spaces_and_lf();
                 
                 if(*info->p == '=' && *(info->p+1) != '=' && *(info->p+1) != '>') {
                     info->p++;
@@ -177,18 +177,18 @@ sNode*% parse_global_variable(sInfo* info)
     if(multiple_declare) {
         list<tup: sType*%,string,string>*% multiple_declare = new list<tup: sType*%,string,string>();
         
-        parse_sharp();
+        skip_spaces_and_lf();
         var base_type, name, err = parse_type();
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(!err) {
             printf("%s %d: parse_type failed\n", info->sname, info->sline);
             exit(2);
         }
         
-        parse_sharp();
+        skip_spaces_and_lf();
         var type2, var_name = parse_variable_name_on_multiple_declare(base_type, true@first, info);
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(*info->p == '=' && *(info->p+1) != '=') {
             info->p++;
@@ -230,7 +230,6 @@ sNode*% parse_global_variable(sInfo* info)
             info->p++;
             skip_spaces_and_lf();
             
-            parse_sharp();
             var type2, var_name = parse_variable_name_on_multiple_declare(base_type, false@first, info);
             
             if(*info->p == '=' && *(info->p+1) != '=')  {
@@ -288,9 +287,9 @@ sNode*% parse_global_variable(sInfo* info)
     else {
         bool no_output_come_code = info.no_output_come_code;
         info.no_output_come_code = true;
-        parse_sharp();
+        skip_spaces_and_lf();
         var result_type, var_name,err = parse_type(parse_variable_name:true);
-        parse_sharp();
+        skip_spaces_and_lf();
         info.no_output_come_code = no_output_come_code;
         
         if(!err) {
@@ -373,9 +372,9 @@ sNode*% parse_global_variable(sInfo* info)
                 array_initializer = buf.to_string();
             }
             else {
-                parse_sharp();
+                skip_spaces_and_lf();
                 right_node = expression();
-                parse_sharp();
+                skip_spaces_and_lf();
             }
         }
         

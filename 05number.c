@@ -589,7 +589,6 @@ sNode*% expression_node(sInfo* info=info) version 99
 {
     skip_spaces_and_lf();
     
-    parse_sharp();
     
     if(*info->p == '0' && (*(info->p+1) == 'x' || *(info->p+1) == 'X')) {
         info->p += 2;

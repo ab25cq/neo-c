@@ -881,12 +881,12 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         info.sline = head_sline;
         
         if(xisalpha(*info->p) || *info->p == '_') {
-            parse_sharp();
+            skip_spaces_and_lf();
             var type, name, err = parse_type(parse_variable_name:false);
-            parse_sharp();
+            skip_spaces_and_lf();
             
             if(err) {
-                parse_sharp();
+                skip_spaces_and_lf();
                 var type,name = parse_variable_name_on_multiple_declare(type@base_type_name, true@first, info);
                 
                 if(*info->p == '=' && *(info->p+1) != '=' && *(info->p+1) != '>' && !info->no_assign) {
@@ -931,9 +931,9 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         info.p = head;
         info.sline = head_sline;
         
-        parse_sharp();
+        skip_spaces_and_lf();
         var type, name, err = parse_type(parse_variable_name:false);
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(err && parsecmp("self")) {
             attr_define = true;
@@ -944,14 +944,14 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         info.no_output_come_code = no_output_come_code;
     }
     
-    parse_sharp();
+    skip_spaces_and_lf();
     sFun* fun = info.funcs[string(buf)];
 
     
     if((!gComeC && buf === "var") || buf === "auto" || buf === "__auto_type") {
-        parse_sharp();
+        skip_spaces_and_lf();
         var buf2 = parse_word();
-        parse_sharp();
+        skip_spaces_and_lf();
         
         list<string>*% multiple_assign = null;
         
@@ -963,28 +963,26 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
                 info->p++;
                 skip_spaces_and_lf();
                 
-                parse_sharp();
                 var buf3 = parse_word();
-                parse_sharp();
+                skip_spaces_and_lf();
                 
                 multiple_assign.push_back(clone buf3);
             }
         }
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(*info->p == '=' && *(info->p+1) != '=' && *(info->p+1) != '>' && !info->no_assign) {
             info.p++;
             skip_spaces_and_lf();
             
-            parse_sharp();
             bool no_comma = info->no_comma
             info.no_comma = true;
             sNode*% right_value = expression();
             info.no_comma = no_comma;
-            parse_sharp();
+            skip_spaces_and_lf();
             
             right_value = post_position_operator(right_value, info);
-            parse_sharp();
+            skip_spaces_and_lf();
             
             sNode*% node = new sStoreNode(string(buf2)@name, multiple_assign, null@multiple_declare, null@type, true@alloc, right_value, info) implements sNode;
             info.sline_real = sline_real;
@@ -1006,18 +1004,18 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
 
         list<tup: sType*%, string,sNode*%>*% multiple_declare = new list<tup: sType*%, string, sNode*%>();
         
-        parse_sharp();
+        skip_spaces_and_lf();
         var base_type, name, err = parse_type(parse_variable_name:false);
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(!err) {
             printf("%s %d: parse_type failed\n", info->sname, info->sline);
             exit(2);
         }
         
-        parse_sharp();
+        skip_spaces_and_lf();
         var type2,var_name = parse_variable_name_on_multiple_declare(base_type, true@first, info);
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(*info->p == '=' && *(info->p+1) != '=') {
             info->p++;
@@ -1052,7 +1050,6 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             info->p++;
             skip_spaces_and_lf();
             
-            parse_sharp();
             var type2, var_name = parse_variable_name_on_multiple_declare(base_type, false@first, info);
             
             if(*info->p == '=' && *(info->p+1) != '=')  {
@@ -1099,9 +1096,9 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         info.p = head;
         info.sline = head_sline;
         
-        parse_sharp();
+        skip_spaces_and_lf();
         var type, name, err = parse_type(parse_variable_name:false);
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(!err) {
             printf("%s %d: parse_type failed\n", info->sname, info->sline);
@@ -1112,14 +1109,13 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         
         name = parse_word();
         
-        parse_sharp();
+        skip_spaces_and_lf();
         info.defining_class->mFields.add((name, type));
         
         if(*info->p == '=' && *(info->p+1) != '=' && *(info->p+1) != '>') {
             info->p++;
             skip_spaces_and_lf();
             
-            parse_sharp();
             
             sNode*% self_node = new sLoadNode(string("self"), info) implements sNode;
             
@@ -1138,13 +1134,12 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         info.p++;
         skip_spaces_and_lf();
         
-        parse_sharp();
         sNode*% right_value = expression();
-        parse_sharp();
+        skip_spaces_and_lf();
         
         right_value = post_position_operator(right_value, info);
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         sNode*% node = new sStoreNode(string(buf)@name, null@multiple_assign, null@multiple_declare, null@type, false@alloc, right_value, info) implements sNode;
         info.sline_real = sline_real;
@@ -1186,15 +1181,15 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         info.sline = head_sline;
         
         if(is_type_name_flag) {
-            parse_sharp();
+            skip_spaces_and_lf();
             var type, name, err = parse_type(parse_variable_name:true);
-            parse_sharp();
+            skip_spaces_and_lf();
             
             if(!err) {
                 printf("%s %d: parse_type failed\n", info->sname, info->sline);
                 exit(2);
             }
-            parse_sharp();
+            skip_spaces_and_lf();
             
             if(*info->p == '=' && *(info->p+1) != '=' && *(info->p+1) != '>' && info->no_assign) {
                 sNode*% node = new sLoadNode(name@name, info) implements sNode;
@@ -1206,7 +1201,6 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
                 info.p++;
                 skip_spaces_and_lf();
                 
-                parse_sharp();
                 
                 sNode*% right_value = null;
                 if((type->mClass->mStruct || type->mClass->mUnion ) && type->mArrayNum.length() == 0) {
@@ -1219,15 +1213,15 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
                 }
                 else if(type->mArrayNum.length() > 0 || type->mArrayPointerType) {
                     info.array_initializer = true;
-                    parse_sharp();
+                    skip_spaces_and_lf();
                     right_value = expression();
-                    parse_sharp();
+                    skip_spaces_and_lf();
                     info.array_initializer = false;
                 }
                 else {
-                    parse_sharp();
+                    skip_spaces_and_lf();
                     right_value = expression();
-                    parse_sharp();
+                    skip_spaces_and_lf();
                 }
                 
                 right_value = post_position_operator(right_value, info);
@@ -1251,7 +1245,6 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
 sNode*% expression_node(sInfo* info=info) version 95
 {
     skip_spaces_and_lf();
-    parse_sharp();
     
     sNode*% node;
     
@@ -1259,9 +1252,8 @@ sNode*% expression_node(sInfo* info=info) version 95
         info->p += strlen("<-");
         skip_spaces_and_lf();
         
-        parse_sharp();
         sNode*% exp = expression();
-        parse_sharp();
+        skip_spaces_and_lf();
         
         return new sReadChannelNode(exp, info) implements sNode;
     }
@@ -1278,13 +1270,12 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 07
         info.p+=2;
         skip_spaces_and_lf();
         
-        parse_sharp();
         sNode*% right_value = expression();
-        parse_sharp();
+        skip_spaces_and_lf();
         
         right_value = post_position_operator(right_value, info);
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         return new sWriteChannelNode(node, right_value, info) implements sNode;
     }

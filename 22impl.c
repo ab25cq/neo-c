@@ -46,7 +46,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 93
         info->impl_type->mPointerNum = pointer_num;
         
         while(*info->p != '}') {
-            parse_sharp();
+            skip_spaces_and_lf();
             
             char* head = info.p;
             string buf = parse_word();

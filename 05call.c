@@ -1990,10 +1990,9 @@ sNode*% parse_function_call(char* fun_name, sInfo* info, bool come_=false)
         }
     }
     
-    parse_sharp();
     expected_next_character('(');
     
-    parse_sharp();
+    skip_spaces_and_lf();
     
     list<tup: string,sNode*%>*% params = new list<tup: string,sNode*%>();
     
@@ -2051,7 +2050,7 @@ sNode*% parse_function_call(char* fun_name, sInfo* info, bool come_=false)
         
         params.push_back((label, node));
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(*info->p == ',') {
             info->p++;
@@ -2067,7 +2066,7 @@ sNode*% parse_function_call(char* fun_name, sInfo* info, bool come_=false)
     
     info->va_arg = _va_arg;
     
-    parse_sharp();
+    skip_spaces_and_lf();
     
     buffer*% method_block = null;
     int method_block_sline = 0;
@@ -2090,13 +2089,13 @@ sNode*% parse_function_call(char* fun_name, sInfo* info, bool come_=false)
         method_block.append_str("\n");
     }
     
-    parse_sharp();
+    skip_spaces_and_lf();
     
     sNode*% node = new sFunCallNode(fun_name, params, method_generics_types, method_block, method_block_sline, info) implements sNode;
         
     node = post_position_operator(node, info);
     
-    parse_sharp();
+    skip_spaces_and_lf();
     
     return node;
 }
@@ -2104,7 +2103,6 @@ sNode*% parse_function_call(char* fun_name, sInfo* info, bool come_=false)
 sNode*% expression_node(sInfo* info=info) version 1
 {
     skip_spaces_and_lf();
-    parse_sharp();
     
     err_msg(info, "invalid character(1)(%d)(%c)", *info->p, *info->p);
     stackframe();
@@ -2159,7 +2157,6 @@ string parse_inner_attribute(sInfo* info=info)
 sNode*% expression_node(sInfo* info=info) version 98
 {
     skip_spaces_and_lf();
-    parse_sharp();
     
     if(parsecmp("return", info)) {
         info->p += strlen("return");
@@ -2388,11 +2385,11 @@ sNode*% expression_node(sInfo* info=info) version 98
             info.sline = head_sline;
         }
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         buf = parse_word();
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(lambda_flag) {
             info.p = head;
@@ -2649,7 +2646,6 @@ sNode*% expression_node(sInfo* info=info) version 98
                 }
             }
             skip_spaces_and_lf();
-            parse_sharp();
             
             info.sline_real = sline_real;
             return new sInlineAssembler(buf2.to_string(), exps, info) implements sNode;
@@ -2965,13 +2961,13 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 1
 
 sNode*% post_position_operator(sNode*% node, sInfo* info)
 {
-    parse_sharp();
+    skip_spaces_and_lf();
     
     if(!node->terminated() && *info->p == '(') {
         info->p++;
         skip_spaces_and_lf(info);
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         list<tup: string,sNode*%>*% params = new list<tup: string,sNode*%>();
         
@@ -3018,7 +3014,7 @@ sNode*% post_position_operator(sNode*% node, sInfo* info)
             
             params.push_back((label, node));
             
-            parse_sharp();
+            skip_spaces_and_lf();
             
             if(*info->p == ',') {
                 info->p++;
@@ -3032,7 +3028,7 @@ sNode*% post_position_operator(sNode*% node, sInfo* info)
             }
         }
         
-        parse_sharp();
+        skip_spaces_and_lf();
 
         return new sLambdaCall(node, params, info) implements sNode;
     }

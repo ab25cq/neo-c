@@ -139,7 +139,7 @@ tuple4<list<sType*%>*%, list<string>*%, list<string>*%, bool>*% parse_params(sIn
                 break;
             }
             
-            parse_sharp();
+            skip_spaces_and_lf();
             
             var param_type, param_name, err = parse_type(parse_variable_name:true, parse_multiple_type:false, in_function_parametor:true);
             
@@ -157,7 +157,6 @@ tuple4<list<sType*%>*%, list<string>*%, list<string>*%, bool>*% parse_params(sIn
                 info->p++;
                 skip_spaces_and_lf();
                 
-                parse_sharp();
                 
                 char* p = info->p;
                 
@@ -180,7 +179,7 @@ tuple4<list<sType*%>*%, list<string>*%, list<string>*%, bool>*% parse_params(sIn
                 param_default_parametors.push_back(null);
             }
             
-            parse_sharp();
+            skip_spaces_and_lf();
             
             if(*info->p == ',') {
                 info->p++;
@@ -1077,7 +1076,7 @@ void parse_struct_attribute_skip_paren(sInfo* info)
 
 string parse_struct_attribute(sInfo* info=info)
 {
-    parse_sharp();
+    skip_spaces_and_lf();
     buffer*% result = new buffer();
     while(1) {
         if(xisalpha(*info->p) || *info->p == '_') {
@@ -1132,7 +1131,7 @@ string parse_struct_attribute(sInfo* info=info)
             break;
         }
     }
-    parse_sharp();
+    skip_spaces_and_lf();
     
     return result.to_string();
 }
@@ -1232,7 +1231,7 @@ sType*%, string parse_variable_name_on_multiple_declare(sType*% base_type_name, 
         info.sline = sline;
     }
     
-    parse_sharp();
+    skip_spaces_and_lf();
     while(*info->p == '*') {
         info->p++;
         skip_spaces_and_lf();
@@ -1241,7 +1240,7 @@ sType*%, string parse_variable_name_on_multiple_declare(sType*% base_type_name, 
         
         result_type->mPointerNum++;
     }
-    parse_sharp();
+    skip_spaces_and_lf();
     
     if(between_brace && *info->p == '(') {
         info->p++;
@@ -1307,7 +1306,6 @@ sType*%, string parse_variable_name_on_multiple_declare(sType*% base_type_name, 
     while(*info->p == '[') {
         info->p++;
         skip_spaces_and_lf();
-        parse_sharp();
         
         {
             char* p = info.p;
@@ -1337,11 +1335,10 @@ sType*%, string parse_variable_name_on_multiple_declare(sType*% base_type_name, 
             //result_type->mPointerNum++;
             break;
         }
-        parse_sharp();
+        skip_spaces_and_lf();
         
         sNode*% node = expression();
         result_type.mArrayNum.push_back(node);
-        parse_sharp();
         
         expected_next_character(']');
     }
@@ -1592,12 +1589,12 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
                 }
             }
 
-            parse_sharp();
+            skip_spaces_and_lf();
             
             if(*info->p != '>') {
                 type_name = parse_word();
                 
-                parse_sharp();
+                skip_spaces_and_lf();
                 
                 if(*info->p == '<') {
                     char* p = info.p;
@@ -1691,11 +1688,11 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
                 }
             }
 
-            parse_sharp();
+            skip_spaces_and_lf();
             
             type_name = parse_word();
 
-            parse_sharp();
+            skip_spaces_and_lf();
             
             if(*info->p == '{') {
                 char* p = info.p;
@@ -1720,7 +1717,7 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
         else if(type_name === "enum") {
             enum_ = true;
 
-            parse_sharp();
+            skip_spaces_and_lf();
             
             parse_attribute();
             
@@ -1731,7 +1728,7 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
                 var type,name,err = parse_type();
             }
 
-            parse_sharp();
+            skip_spaces_and_lf();
             
             if(*info->p == '{') {
                 char* p = info.p;
@@ -1758,11 +1755,11 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
                 }
             }
 
-            parse_sharp();
+            skip_spaces_and_lf();
             
             type_name = parse_word();
 
-            parse_sharp();
+            skip_spaces_and_lf();
             
             if(*info->p == ':') {
                 info->p++;
@@ -1771,7 +1768,7 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
                 var type,name,err = parse_type();
             }
 
-            parse_sharp();
+            skip_spaces_and_lf();
             
             if(*info->p == '{') {
                 char* p = info.p;
@@ -3359,7 +3356,7 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
             }
         }
     }
-    parse_sharp();
+    skip_spaces_and_lf();
     list<sNode*%>*% array_num_typedef = null;
     if(type->mArrayNum.length() > 0) {
         array_num_typedef = clone type->mArrayNum;
@@ -3369,7 +3366,6 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
     while(*info->p == '[') {
         info->p++;
         skip_spaces_and_lf();
-        parse_sharp();
         
         bool array_static = false;
         bool array_restrict = false;
@@ -3401,13 +3397,12 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
             //type->mPointerNum++;
             break;
         }
-        parse_sharp();
+        skip_spaces_and_lf();
         
         sNode*% node = expression();
         type.mArrayNum.push_back(node);
         type.mArrayStatic.push_back(array_static);
         type.mArrayRestrict.push_back(array_restrict);
-        parse_sharp();
         
         expected_next_character(']');
     }
@@ -3429,7 +3424,7 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
     
     type->mAsmName = asm_name;
     
-    parse_sharp();
+    skip_spaces_and_lf();
     
     if(type->mChannel) {
         sType*% type_before = clone type;

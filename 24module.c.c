@@ -2891,6 +2891,7 @@ _Bool parsecmp(char* p2, struct sInfo* info);
 char* parse_word(_Bool digits, struct sInfo* info);
 char* backtrace_parse_word(struct sInfo* info);
 void skip_spaces_and_lf(struct sInfo* info);
+void skip_spaces_and_lf2(struct sInfo* info);
 struct tuple2$2char$ph_Bool$* create_generics_fun(char* fun_name, struct sGenericsFun* generics_fun, struct sType* generics_type, struct sInfo* info);
 struct tuple3$3sType$phchar$ph_Bool$* parse_type(struct sInfo* info, _Bool parse_variable_name, _Bool parse_multiple_type, _Bool in_function_parametor);
 struct tuple2$2sType$phchar$ph* parse_variable_name_on_multiple_declare(struct sType* base_type_name, _Bool first, struct sInfo* info);
@@ -4477,7 +4478,7 @@ char* __result_obj__158;
     if(    parsecmp("defined",info)    ) {
         (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         if(        *info->p==40        ) {
             info->p++;
             skip_spaces_and_lf(info);
@@ -4488,7 +4489,7 @@ char* __result_obj__158;
             info->p++;
             skip_spaces_and_lf(info);
         }
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         defined=0;
         __right_value0 = (void*)0;
         Value=(struct buffer*)come_increment_ref_count(map$2char$phbuffer$ph_operator_load_element(info->struct_definition,exp));
@@ -4558,7 +4559,7 @@ char* __result_obj__158;
         __right_value0 = (void*)0;
         (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         if(        *info->p==40        ) {
             info->p++;
             skip_spaces_and_lf(info);
@@ -4569,7 +4570,7 @@ char* __result_obj__158;
             info->p++;
             skip_spaces_and_lf(info);
         }
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         defined_15=0;
         __right_value0 = (void*)0;
         Value_16=(struct sFun*)come_increment_ref_count(map$2char$phsFun$ph_operator_load_element(info->funcs,exp_14));
@@ -4611,7 +4612,7 @@ char* __result_obj__158;
         __right_value0 = (void*)0;
         (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         if(        *info->p==40        ) {
             info->p++;
             skip_spaces_and_lf(info);
@@ -4622,7 +4623,7 @@ char* __result_obj__158;
             info->p++;
             skip_spaces_and_lf(info);
         }
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         defined_19=0;
         __right_value0 = (void*)0;
         Value_20=(struct sFun*)come_increment_ref_count(map$2char$phsFun$ph_operator_load_element(info->funcs,exp_18));
@@ -4664,7 +4665,7 @@ char* __result_obj__158;
         __right_value0 = (void*)0;
         (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         if(        *info->p==40        ) {
             info->p++;
             skip_spaces_and_lf(info);
@@ -4675,7 +4676,7 @@ char* __result_obj__158;
             info->p++;
             skip_spaces_and_lf(info);
         }
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         defined_23=0;
         __right_value0 = (void*)0;
         Value_24=(struct sFun*)come_increment_ref_count(map$2char$phsFun$ph_operator_load_element(info->funcs,exp_22));
@@ -4717,7 +4718,7 @@ char* __result_obj__158;
         __right_value0 = (void*)0;
         (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         if(        *info->p==40        ) {
             info->p++;
             skip_spaces_and_lf(info);
@@ -4728,7 +4729,7 @@ char* __result_obj__158;
             info->p++;
             skip_spaces_and_lf(info);
         }
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         defined_27=0;
         __right_value0 = (void*)0;
         Value_28=(struct sFun*)come_increment_ref_count(map$2char$phsFun$ph_operator_load_element(info->uniq_funcs,exp_26));
@@ -4768,7 +4769,7 @@ char* __result_obj__158;
         __right_value0 = (void*)0;
         (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         if(        *info->p==40        ) {
             info->p++;
             skip_spaces_and_lf(info);
@@ -4779,7 +4780,7 @@ char* __result_obj__158;
             info->p++;
             skip_spaces_and_lf(info);
         }
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         defined_31=0;
         __right_value0 = (void*)0;
         Value_32=(struct sType*)come_increment_ref_count(map$2char$phsType$ph_operator_load_element(info->types,exp_30));
@@ -4813,7 +4814,7 @@ char* __result_obj__158;
         __right_value0 = (void*)0;
         (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         if(        *info->p==40        ) {
             info->p++;
             skip_spaces_and_lf(info);
@@ -4824,7 +4825,7 @@ char* __result_obj__158;
             info->p++;
             skip_spaces_and_lf(info);
         }
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         result=((void*)0);
         __right_value0 = (void*)0;
         Value_34=(struct sFun*)come_increment_ref_count(map$2char$phsFun$ph_operator_load_element(info->funcs,exp_33));
@@ -4869,7 +4870,7 @@ char* __result_obj__158;
         __right_value0 = (void*)0;
         (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         if(        *info->p==40        ) {
             info->p++;
             skip_spaces_and_lf(info);
@@ -4886,7 +4887,7 @@ char* __result_obj__158;
             info->p++;
             skip_spaces_and_lf(info);
         }
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         result_37=((void*)0);
         __right_value0 = (void*)0;
         Value_38=(struct sFun*)come_increment_ref_count(map$2char$phsFun$ph_operator_load_element(info->funcs,exp_36));
@@ -4932,7 +4933,7 @@ char* __result_obj__158;
         __right_value0 = (void*)0;
         (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         if(        *info->p==40        ) {
             info->p++;
             skip_spaces_and_lf(info);
@@ -4943,7 +4944,7 @@ char* __result_obj__158;
             info->p++;
             skip_spaces_and_lf(info);
         }
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         result_42=((void*)0);
         __right_value0 = (void*)0;
         Value_43=(struct sFun*)come_increment_ref_count(map$2char$phsFun$ph_operator_load_element(info->funcs,exp_41));
@@ -4981,7 +4982,7 @@ char* __result_obj__158;
         __right_value0 = (void*)0;
         (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         if(        *info->p==40        ) {
             info->p++;
             skip_spaces_and_lf(info);
@@ -4992,7 +4993,7 @@ char* __result_obj__158;
             info->p++;
             skip_spaces_and_lf(info);
         }
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         result_45=((void*)0);
         __right_value0 = (void*)0;
         Value_46=(struct sClass*)come_increment_ref_count(map$2char$phsClass$ph_operator_load_element(info->classes,exp_44));
@@ -5032,7 +5033,7 @@ char* __result_obj__158;
         __right_value0 = (void*)0;
         (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         if(        *info->p==40        ) {
             info->p++;
             skip_spaces_and_lf(info);
@@ -5049,7 +5050,7 @@ char* __result_obj__158;
             info->p++;
             skip_spaces_and_lf(info);
         }
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         result_49=((void*)0);
         __right_value0 = (void*)0;
         Value_50=(struct sClass*)come_increment_ref_count(map$2char$phsClass$ph_operator_load_element(info->classes,exp_47));
@@ -5104,7 +5105,7 @@ char* __result_obj__158;
         __right_value0 = (void*)0;
         (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         if(        *info->p==40        ) {
             info->p++;
             skip_spaces_and_lf(info);
@@ -5115,7 +5116,7 @@ char* __result_obj__158;
             info->p++;
             skip_spaces_and_lf(info);
         }
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         defined_55=0;
         __right_value0 = (void*)0;
         Value_56=(struct sType*)come_increment_ref_count(map$2char$phsType$ph_operator_load_element(info->types,exp_54));
@@ -5137,7 +5138,7 @@ char* __result_obj__158;
         __right_value0 = (void*)0;
         (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         if(        *info->p==40        ) {
             info->p++;
             skip_spaces_and_lf(info);
@@ -5161,7 +5162,7 @@ char* __result_obj__158;
         __right_value0 = (void*)0;
         (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         if(        *info->p==40        ) {
             info->p++;
             skip_spaces_and_lf(info);
@@ -5172,7 +5173,7 @@ char* __result_obj__158;
             info->p++;
             skip_spaces_and_lf(info);
         }
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         defined_59=0;
         __right_value0 = (void*)0;
         Value_60=(struct sFun*)come_increment_ref_count(map$2char$phsFun$ph_operator_load_element(info->funcs,exp_58));
@@ -5208,7 +5209,7 @@ char* __result_obj__158;
         __right_value0 = (void*)0;
         (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         if(        *info->p==40        ) {
             info->p++;
             skip_spaces_and_lf(info);
@@ -5219,7 +5220,7 @@ char* __result_obj__158;
             info->p++;
             skip_spaces_and_lf(info);
         }
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         defined_62=0;
         __right_value0 = (void*)0;
         Value_63=(struct sClass*)come_increment_ref_count(map$2char$phsClass$ph_operator_load_element(info->classes,exp_61));
@@ -5255,7 +5256,7 @@ char* __result_obj__158;
         __right_value0 = (void*)0;
         (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         if(        *info->p==40        ) {
             info->p++;
             skip_spaces_and_lf(info);
@@ -5266,7 +5267,7 @@ char* __result_obj__158;
             info->p++;
             skip_spaces_and_lf(info);
         }
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         defined_65=0;
         __right_value0 = (void*)0;
         Value_66=(struct sClass*)come_increment_ref_count(map$2char$phsClass$ph_operator_load_element(info->classes,exp_64));
@@ -5302,7 +5303,7 @@ char* __result_obj__158;
         __right_value0 = (void*)0;
         (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         if(        *info->p==40        ) {
             info->p++;
             skip_spaces_and_lf(info);
@@ -5313,7 +5314,7 @@ char* __result_obj__158;
             info->p++;
             skip_spaces_and_lf(info);
         }
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         defined_68=0;
         __right_value0 = (void*)0;
         Value_69=(struct sClass*)come_increment_ref_count(map$2char$phsClass$ph_operator_load_element(info->classes,exp_67));
@@ -5349,7 +5350,7 @@ char* __result_obj__158;
         __right_value0 = (void*)0;
         (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         if(        *info->p==40        ) {
             info->p++;
             skip_spaces_and_lf(info);
@@ -5360,7 +5361,7 @@ char* __result_obj__158;
             info->p++;
             skip_spaces_and_lf(info);
         }
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         defined_71=0;
         __right_value0 = (void*)0;
         Value_72=(struct sClass*)come_increment_ref_count(map$2char$phsClass$ph_operator_load_element(info->classes,exp_70));
@@ -5396,7 +5397,7 @@ char* __result_obj__158;
         __right_value0 = (void*)0;
         (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         if(        *info->p==40        ) {
             info->p++;
             skip_spaces_and_lf(info);
@@ -5407,7 +5408,7 @@ char* __result_obj__158;
             info->p++;
             skip_spaces_and_lf(info);
         }
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         defined_74=0;
         __right_value0 = (void*)0;
         Value_75=(struct sClass*)come_increment_ref_count(map$2char$phsClass$ph_operator_load_element(info->classes,exp_73));
@@ -5443,7 +5444,7 @@ char* __result_obj__158;
         __right_value0 = (void*)0;
         (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         if(        *info->p==40        ) {
             info->p++;
             skip_spaces_and_lf(info);
@@ -5454,7 +5455,7 @@ char* __result_obj__158;
             info->p++;
             skip_spaces_and_lf(info);
         }
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         defined_77=0;
         __right_value0 = (void*)0;
         Value_78=(struct sClassModule*)come_increment_ref_count(map$2char$phsClassModule$ph_operator_load_element(info->modules,exp_76));
@@ -6370,7 +6371,7 @@ char* __result_obj__165;
 char* __result_obj__166;
 char* __result_obj__167;
     node=(char*)come_increment_ref_count(refrection_node(info));
-    parse_sharp_v5(info);
+    skip_spaces_and_lf(info);
     while(    *info->p    ) {
         if(        *info->p==62&&*(info->p+1)==61        ) {
             info->p+=2;
@@ -6493,7 +6494,7 @@ char* __result_obj__170;
 char* __result_obj__171;
 char* __result_obj__172;
     node=(char*)come_increment_ref_count(refrection_expression_comp(info));
-    parse_sharp_v5(info);
+    skip_spaces_and_lf(info);
     while(    *info->p    ) {
         if(        *info->p==61&&*(info->p+1)==61&&*(info->p+2)!=61        ) {
             info->p+=2;
@@ -6563,7 +6564,7 @@ char* __result_obj__173;
 char* __result_obj__174;
 char* __result_obj__175;
     node=(char*)come_increment_ref_count(refrection_expression_eq(info));
-    parse_sharp_v5(info);
+    skip_spaces_and_lf(info);
     while(    *info->p    ) {
         if(        *info->p==124&&*(info->p+1)==124        ) {
             info->p+=2;
@@ -6608,7 +6609,7 @@ char* __result_obj__176;
 char* __result_obj__177;
 char* __result_obj__178;
     node=(char*)come_increment_ref_count(refrection_expression_oror(info));
-    parse_sharp_v5(info);
+    skip_spaces_and_lf(info);
     while(    *info->p    ) {
         if(        *info->p==38&&*(info->p+1)==38        ) {
             info->p+=2;
@@ -6976,7 +6977,7 @@ struct sNode* __result_obj__225;
             ((char*)(__right_value0=skip_block(info,0)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         }
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         while(        1        ) {
             if(            parsecmp("elif",info)            ) {
                 __right_value0 = (void*)0;

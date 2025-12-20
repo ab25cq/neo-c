@@ -2868,6 +2868,7 @@ _Bool parsecmp(char* p2, struct sInfo* info);
 char* parse_word(_Bool digits, struct sInfo* info);
 char* backtrace_parse_word(struct sInfo* info);
 void skip_spaces_and_lf(struct sInfo* info);
+void skip_spaces_and_lf2(struct sInfo* info);
 struct tuple2$2char$ph_Bool$* create_generics_fun(char* fun_name, struct sGenericsFun* generics_fun, struct sType* generics_type, struct sInfo* info);
 struct tuple3$3sType$phchar$ph_Bool$* parse_type(struct sInfo* info, _Bool parse_variable_name, _Bool parse_multiple_type, _Bool in_function_parametor);
 struct tuple2$2sType$phchar$ph* parse_variable_name_on_multiple_declare(struct sType* base_type_name, _Bool first, struct sInfo* info);
@@ -5699,18 +5700,17 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
                 skip_spaces_and_lf(info);
                 break;
             }
-            parse_sharp_v5(info);
-            parse_sharp_v5(info);
+            skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             multiple_assign_var4=((struct tuple2$2sType$phchar$ph*)(__right_value0=parse_interface_function(info)));
             type2=(struct sType*)come_increment_ref_count(multiple_assign_var4->v1);
             name=(char*)come_increment_ref_count(multiple_assign_var4->v2);
             come_call_finalizer(tuple2$2sType$phchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-            (come_push_stackframe("23interface.c", 128, 20),__exception_result_var_b21=expected_next_character(59,info), come_pop_stackframe(), __exception_result_var_b21);
+            (come_push_stackframe("23interface.c", 127, 20),__exception_result_var_b21=expected_next_character(59,info), come_pop_stackframe(), __exception_result_var_b21);
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
-            list$1tuple2$2char$phsType$ph$ph_push_back(klass->mFields,(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_initialize((struct tuple2$2char$phsType$ph*)come_increment_ref_count((struct tuple2$2char$phsType$ph*)come_calloc_v2(1, sizeof(struct tuple2$2char$phsType$ph)*(1), "23interface.c", 130, "struct tuple2$2char$phsType$ph")),(char*)come_increment_ref_count(name),(struct sType*)come_increment_ref_count(type2))));
-            parse_sharp_v5(info);
+            list$1tuple2$2char$phsType$ph$ph_push_back(klass->mFields,(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_initialize((struct tuple2$2char$phsType$ph*)come_increment_ref_count((struct tuple2$2char$phsType$ph*)come_calloc_v2(1, sizeof(struct tuple2$2char$phsType$ph)*(1), "23interface.c", 129, "struct tuple2$2char$phsType$ph")),(char*)come_increment_ref_count(name),(struct sType*)come_increment_ref_count(type2))));
+            skip_spaces_and_lf(info);
             if(            *info->p==125            ) {
                 info->p++;
                 skip_spaces_and_lf(info);
@@ -5718,21 +5718,21 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
                 (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0));
                 break;
             }
-            parse_sharp_v5(info);
+            skip_spaces_and_lf(info);
             come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0));
         }
         source_tail=info->p;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        header=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "23interface.c", 144, "struct buffer*"))));
+        header=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "23interface.c", 143, "struct buffer*"))));
         buffer_append_str(header,"interface ");
         buffer_append(header,source_head,source_tail-source_head);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
-        _inf_value1=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "23interface.c", 148, "struct sNode");
-        _inf_obj_value1=(struct sInterfaceNode*)come_increment_ref_count(((struct sInterfaceNode*)(__right_value2=sInterfaceNode_initialize((struct sInterfaceNode*)come_increment_ref_count((struct sInterfaceNode*)come_calloc_v2(1, sizeof(struct sInterfaceNode)*(1), "23interface.c", 148, "struct sInterfaceNode*")),(char*)come_increment_ref_count(__builtin_string(type_name)),(struct sClass*)come_increment_ref_count(klass),output,info))));
+        _inf_value1=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "23interface.c", 147, "struct sNode");
+        _inf_obj_value1=(struct sInterfaceNode*)come_increment_ref_count(((struct sInterfaceNode*)(__right_value2=sInterfaceNode_initialize((struct sInterfaceNode*)come_increment_ref_count((struct sInterfaceNode*)come_calloc_v2(1, sizeof(struct sInterfaceNode)*(1), "23interface.c", 147, "struct sInterfaceNode*")),(char*)come_increment_ref_count(__builtin_string(type_name)),(struct sClass*)come_increment_ref_count(klass),output,info))));
         _inf_value1->_protocol_obj=_inf_obj_value1;
         _inf_value1->finalize=(void*)sInterfaceNode_finalize;
         _inf_value1->clone=(void*)sInterfaceNode_clone;

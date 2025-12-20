@@ -287,7 +287,6 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         int sline_real = info.sline_real;
         info.sline_real = info.sline;
         
-        parse_sharp();
     
         expected_next_character('(');
     
@@ -295,7 +294,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         sNode*% expression_node = expression();
         
         expected_next_character(')');
-        parse_sharp();
+        skip_spaces_and_lf();
     
         sBlock*% if_block = parse_block();
         
@@ -317,7 +316,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         while(1) {
             char* saved_p = info->p;
             int saved_sline = info->sline;
-            parse_sharp();
+            skip_spaces_and_lf();
             
             if(*info->p == ';') {
                 info->p++;
@@ -328,18 +327,17 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             if(!(xisalpha(*info->p) || *info->p == '_')) {
                 break;
             }
-            parse_sharp();
+            skip_spaces_and_lf();
             string buf = parse_word();
-            parse_sharp();
+            skip_spaces_and_lf();
     
             if(buf === "else") {
                 int sline_real = info.sline_real;
                 info.sline_real = info.sline;
                 if(parsecmp("if", info)) {
-                    parse_sharp();
+                    skip_spaces_and_lf();
                     info->p+=strlen("if");
                     skip_spaces_and_lf();
-                    parse_sharp();
     
                     expected_next_character('(');
     
@@ -349,7 +347,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
                     elif_expression_nodes.push_back(expression_node);
     
                     expected_next_character(')');
-                    parse_sharp();
+                    skip_spaces_and_lf();
     
                     
                     sBlock*% elif_block = parse_block();
@@ -397,7 +395,7 @@ sNode*% parse_or_statment(sNode*% expression_node, sInfo* info)
     string sname = clone info->sname;
     int sline = info->sline;
     
-    parse_sharp();
+    skip_spaces_and_lf();
 
     sBlock*% if_block = parse_block();
     
@@ -409,7 +407,7 @@ sNode*% parse_and_statment(sNode*% expression_node, sInfo* info)
     string sname = clone info->sname;
     int sline = info->sline;
     
-    parse_sharp();
+    skip_spaces_and_lf();
 
     sBlock*% if_block = parse_block();
     
@@ -431,7 +429,7 @@ sNode*% parse_match(sNode*% expression_node, sInfo* info)
     
     expected_next_character(')');
     
-    parse_sharp();
+    skip_spaces_and_lf();
     
     sBlock*% if_block = parse_block();
     /*
@@ -446,7 +444,7 @@ sNode*% parse_match(sNode*% expression_node, sInfo* info)
     sBlock*% else_block = null;
     
     while(true) {
-        parse_sharp();
+        skip_spaces_and_lf();
         if(strncmp(info->p, "else", strlen("else")) == 0) {
             info->p += strlen("else");
             skip_spaces_and_lf();
@@ -468,7 +466,7 @@ sNode*% parse_match(sNode*% expression_node, sInfo* info)
             
             expected_next_character(')');
             
-            parse_sharp();
+            skip_spaces_and_lf();
             
             sBlock*% elif_block = parse_block();
             /*
@@ -509,7 +507,7 @@ sNode*% parse_if_method_call(sNode*% expression_node, sInfo* info)
     
     sNode*% conditional_node = create_load_var("Value");
     
-    parse_sharp();
+    skip_spaces_and_lf();
 
     sBlock*% if_block = parse_block();
     /*
@@ -530,7 +528,7 @@ sNode*% parse_if_method_call(sNode*% expression_node, sInfo* info)
     while(1) {
         char* saved_p = info->p;
         int saved_sline = info->sline;
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(*info->p == ';') {
             info->p++;
@@ -541,16 +539,15 @@ sNode*% parse_if_method_call(sNode*% expression_node, sInfo* info)
         if(!(xisalpha(*info->p) || *info->p == '_')) {
             break;
         }
-        parse_sharp();
+        skip_spaces_and_lf();
         string buf = parse_word();
-        parse_sharp();
+        skip_spaces_and_lf();
 
         if(buf === "else") {
             if(parsecmp("if", info)) {
-                parse_sharp();
+                skip_spaces_and_lf();
                 info->p+=strlen("if");
                 skip_spaces_and_lf();
-                parse_sharp();
 
                 expected_next_character('(');
 
@@ -560,7 +557,7 @@ sNode*% parse_if_method_call(sNode*% expression_node, sInfo* info)
                 elif_expression_nodes.push_back(expression_node);
 
                 expected_next_character(')');
-                parse_sharp();
+                skip_spaces_and_lf();
 
                 
                 sBlock*% elif_block = parse_block();
@@ -615,7 +612,7 @@ sNode*% parse_elif_method_call(sNode*% expression_node, sInfo* info)
     sNode*% conditional_node = create_load_var("Value");
     sNode*% conditional_node2 = craete_logical_denial(conditional_node, info);
     
-    parse_sharp();
+    skip_spaces_and_lf();
 
     sBlock*% if_block = parse_block();
     /*
@@ -636,7 +633,7 @@ sNode*% parse_elif_method_call(sNode*% expression_node, sInfo* info)
     while(1) {
         char* saved_p = info->p;
         int saved_sline = info->sline;
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(*info->p == ';') {
             info->p++;
@@ -647,16 +644,15 @@ sNode*% parse_elif_method_call(sNode*% expression_node, sInfo* info)
         if(!(xisalpha(*info->p) || *info->p == '_')) {
             break;
         }
-        parse_sharp();
+        skip_spaces_and_lf();
         string buf = parse_word();
-        parse_sharp();
+        skip_spaces_and_lf();
 
         if(buf === "else") {
             if(parsecmp("if", info)) {
-                parse_sharp();
+                skip_spaces_and_lf();
                 info->p+=strlen("if");
                 skip_spaces_and_lf();
-                parse_sharp();
 
                 expected_next_character('(');
 
@@ -666,7 +662,7 @@ sNode*% parse_elif_method_call(sNode*% expression_node, sInfo* info)
                 elif_expression_nodes.push_back(expression_node);
 
                 expected_next_character(')');
-                parse_sharp();
+                skip_spaces_and_lf();
 
                 
                 sBlock*% elif_block = parse_block();
@@ -721,7 +717,7 @@ sNode*% parse_less_method_call(sNode*% expression_node, sInfo* info)
     sNode*% conditional_node = create_load_var("Value");
     sNode*% conditional_node2 = create_less(conditional_node, create_int_node(0.to_string(), info), info);
     
-    parse_sharp();
+    skip_spaces_and_lf();
 
     sBlock*% if_block = parse_block();
     /*
@@ -742,7 +738,7 @@ sNode*% parse_less_method_call(sNode*% expression_node, sInfo* info)
     while(1) {
         char* saved_p = info->p;
         int saved_sline = info->sline;
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(*info->p == ';') {
             info->p++;
@@ -753,16 +749,15 @@ sNode*% parse_less_method_call(sNode*% expression_node, sInfo* info)
         if(!(xisalpha(*info->p) || *info->p == '_')) {
             break;
         }
-        parse_sharp();
+        skip_spaces_and_lf();
         string buf = parse_word();
-        parse_sharp();
+        skip_spaces_and_lf();
 
         if(buf === "else") {
             if(parsecmp("if", info)) {
-                parse_sharp();
+                skip_spaces_and_lf();
                 info->p+=strlen("if");
                 skip_spaces_and_lf();
-                parse_sharp();
 
                 expected_next_character('(');
 
@@ -772,7 +767,7 @@ sNode*% parse_less_method_call(sNode*% expression_node, sInfo* info)
                 elif_expression_nodes.push_back(expression_node);
 
                 expected_next_character(')');
-                parse_sharp();
+                skip_spaces_and_lf();
 
                 
                 sBlock*% elif_block = parse_block();

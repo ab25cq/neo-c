@@ -112,7 +112,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         expected_next_character('(');
         
         /// expression ///
-        parse_sharp();
+        skip_spaces_and_lf();
         sNode*% expression_node;
         if(*info->p == ';') {
             expression_node = null;
@@ -120,9 +120,8 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         else {
             expression_node = expression();
         }
-        parse_sharp();
         expected_next_character(';');
-        parse_sharp();
+        skip_spaces_and_lf();
         sNode*% expression_node2;
         if(*info->p == ';') {
             expression_node2 = null;
@@ -130,9 +129,8 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         else {
             expression_node2 = expression();
         }
-        parse_sharp();
         expected_next_character(';');
-        parse_sharp();
+        skip_spaces_and_lf();
         sNode*% expression_node3;
         if(*info->p == ')') {
             expression_node3 = null;
@@ -140,9 +138,8 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         else {
             expression_node3 = expression();
         }
-        parse_sharp();
         expected_next_character(')');
-        parse_sharp();
+        skip_spaces_and_lf();
         
         sBlock*% block = parse_block();
         
@@ -150,19 +147,17 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
     }
     else if(buf === "foreach") {
         expected_next_character('(');
-        parse_sharp();
+        skip_spaces_and_lf();
         
         string it_name = parse_word();
-        parse_sharp();
         
         expected_next_character(',');
-        parse_sharp();
+        skip_spaces_and_lf();
         
         sNode*% exp = expression();
         
-        parse_sharp();
         expected_next_character(')');
-        parse_sharp();
+        skip_spaces_and_lf();
         
         /// expression ///
         sNode*% o2_saved = store_var(s"o2_saved"@name, null@multiple_assign, null@multiple_declare, null@type, true@alloc, exp, info);

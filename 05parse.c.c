@@ -2964,6 +2964,8 @@ char* parse_word(_Bool digits, struct sInfo* info);
 static char* map$2char$phchar$ph$p_operator_load_element(struct map$2char$phchar$ph* self, char* key);
 static char* map$2char$phchar$ph_operator_load_element(struct map$2char$phchar$ph* self, char* key);
 char* backtrace_parse_word(struct sInfo* info);
+static _Bool is_line_head(struct sInfo* info);
+static _Bool skip_comment(struct sInfo* info, _Bool skip_space_after);
 void skip_spaces_and_lf(struct sInfo* info);
 void skip_spaces_and_lf2(struct sInfo* info);
 void parse_sharp_v5(struct sInfo* info);
@@ -3251,6 +3253,96 @@ memset(&buf, 0, sizeof(buf));
     return __result_obj__15;
 }
 
+static _Bool is_line_head(struct sInfo* info){
+char* p;
+    if(    info->p==info->head    ) {
+        return 1;
+    }
+    p=info->p-1;
+    while(    p>=info->head    ) {
+        if(        *p==32||*p==9||*p==13        ) {
+            p--;
+            continue;
+        }
+        return *p==10;
+    }
+    return 1;
+}
+
+static _Bool skip_comment(struct sInfo* info, _Bool skip_space_after){
+int nest;
+    if(    *info->p==47&&*(info->p+1)==42    ) {
+        nest=0;
+        while(        1        ) {
+            if(            *info->p==47&&*(info->p+1)==42            ) {
+                info->p+=2;
+                nest++;
+            }
+            else if(            *info->p==42&&*(info->p+1)==47            ) {
+                info->p+=2;
+                nest--;
+                if(                nest==0                ) {
+                    if(                    skip_space_after                    ) {
+                        skip_spaces_and_lf2(info);
+                    }
+                    break;
+                }
+            }
+            else if(            *info->p==10            ) {
+                info->p++;
+                info->sline++;
+            }
+            else if(            *info->p==13            ) {
+                info->p++;
+                if(                *info->p==10                ) {
+                    info->p++;
+                }
+                info->sline++;
+            }
+            else if(            *info->p==0            ) {
+                err_msg(info,"unterminated comment");
+                break;
+            }
+            else {
+                info->p++;
+            }
+        }
+        return 1;
+    }
+    else if(    *info->p==47&&*(info->p+1)==47    ) {
+        info->p+=2;
+        while(        1        ) {
+            if(            *info->p==10            ) {
+                info->p++;
+                info->sline++;
+                if(                skip_space_after                ) {
+                    skip_spaces_and_lf2(info);
+                }
+                break;
+            }
+            else if(            *info->p==13            ) {
+                info->p++;
+                if(                *info->p==10                ) {
+                    info->p++;
+                }
+                info->sline++;
+                if(                skip_space_after                ) {
+                    skip_spaces_and_lf2(info);
+                }
+                break;
+            }
+            else if(            *info->p==0            ) {
+                break;
+            }
+            else {
+                info->p++;
+            }
+        }
+        return 1;
+    }
+    return 0;
+}
+
 void skip_spaces_and_lf(struct sInfo* info){
     while(    1    ) {
         if(        *info->p==32||*info->p==9        ) {
@@ -3267,11 +3359,18 @@ void skip_spaces_and_lf(struct sInfo* info){
             info->p++;
             info->sline++;
         }
+        else if(        skip_comment(info,0)        ) {
+        }
         else {
             break;
         }
     }
-    parse_sharp_v5(info);
+    if(    *info->p==35    ) {
+        parse_sharp_v5(info);
+    }
+    else if(    *info->p==95&&parsecmp("__extension__",info)    ) {
+        parse_sharp_v5(info);
+    }
 }
 
 void skip_spaces_and_lf2(struct sInfo* info){
@@ -3290,6 +3389,8 @@ void skip_spaces_and_lf2(struct sInfo* info){
             info->p++;
             info->sline++;
         }
+        else if(        skip_comment(info,0)        ) {
+        }
         else {
             break;
         }
@@ -3297,6 +3398,7 @@ void skip_spaces_and_lf2(struct sInfo* info){
 }
 
 void parse_sharp_v5(struct sInfo* info){
+char c;
 void* __right_value0 = (void*)0;
 void* __right_value1 = (void*)0;
 struct buffer* buf;
@@ -3310,14 +3412,32 @@ int line_1;
 struct buffer* fname_2;
 char* fname_str_3;
 char* __dec_obj5;
-int nest;
+    static struct sInfo* last_info=((void*)0);
+    static char* last_p=((void*)0);
+    if(    info==last_info&&info->p==last_p    ) {
+        return;
+    }
+    c=*info->p;
+    if(    c!=35&&c!=47&&c!=95    ) {
+        last_info=info;
+        last_p=info->p;
+        return;
+    }
+    if(    c==35&&!is_line_head(info)    ) {
+        last_info=info;
+        last_p=info->p;
+        return;
+    }
     while(    1    ) {
         if(        *info->p==35        ) {
+            if(            !is_line_head(info)            ) {
+                break;
+            }
             skip_spaces_and_lf2(info);
             info->p++;
             skip_spaces_and_lf2(info);
             if(            parsecmp("pragma",info)            ) {
-                buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 195, "struct buffer*"))));
+                buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 323, "struct buffer*"))));
                 buffer_append_str(buf,"#");
                 while(                *info->p                ) {
                     if(                    *info->p==10                    ) {
@@ -3348,7 +3468,7 @@ int nest;
                 line=0;
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
-                fname=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 221, "struct buffer*"))));
+                fname=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 349, "struct buffer*"))));
                 if(                !isdigit(*info->p)                ) {
                     err_msg(info,"invalid #line directive");
                     come_call_finalizer(buffer_finalize, fname, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -3399,7 +3519,7 @@ int nest;
                 line_1=0;
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
-                fname_2=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 271, "struct buffer*"))));
+                fname_2=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 399, "struct buffer*"))));
                 while(                isdigit(*info->p)                ) {
                     line_1=line_1*10+(*info->p-48);
                     info->p++;
@@ -3460,66 +3580,7 @@ int nest;
             }
             skip_spaces_and_lf2(info);
         }
-        else if(        *info->p==47&&*(info->p+1)==42        ) {
-            nest=0;
-            while(            1            ) {
-                if(                *info->p==47&&*(info->p+1)==42                ) {
-                    info->p+=2;
-                    nest++;
-                }
-                else if(                *info->p==42&&*(info->p+1)==47                ) {
-                    info->p+=2;
-                    nest--;
-                    if(                    nest==0                    ) {
-                        skip_spaces_and_lf2(info);
-                        break;
-                    }
-                }
-                else if(                *info->p==10                ) {
-                    info->p++;
-                    info->sline++;
-                }
-                else if(                *info->p==13                ) {
-                    info->p++;
-                    if(                    *info->p==10                    ) {
-                        info->p++;
-                    }
-                    info->sline++;
-                }
-                else if(                *info->p==0                ) {
-                    err_msg(info,"unterminated comment");
-                    break;
-                }
-                else {
-                    info->p++;
-                }
-            }
-        }
-        else if(        *info->p==47&&*(info->p+1)==47        ) {
-            info->p+=2;
-            while(            1            ) {
-                if(                *info->p==10                ) {
-                    info->p++;
-                    info->sline++;
-                    skip_spaces_and_lf2(info);
-                    break;
-                }
-                else if(                *info->p==13                ) {
-                    info->p++;
-                    if(                    *info->p==10                    ) {
-                        info->p++;
-                    }
-                    info->sline++;
-                    skip_spaces_and_lf2(info);
-                    break;
-                }
-                else if(                *info->p==0                ) {
-                    break;
-                }
-                else {
-                    info->p++;
-                }
-            }
+        else if(        skip_comment(info,1)        ) {
         }
         else if(        parsecmp("__extension__",info)        ) {
             info->p+=strlen("__extension__");
@@ -3529,6 +3590,8 @@ int nest;
             break;
         }
     }
+    last_info=info;
+    last_p=info->p;
 }
 
 void skip_paren(struct sInfo* info){

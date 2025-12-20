@@ -135,6 +135,103 @@ string backtrace_parse_word(sInfo* info=info)
     return buf;
 }
 
+static bool is_line_head(sInfo* info)
+{
+    if(info->p == info->head) {
+        return true;
+    }
+    
+    char* p = info->p - 1;
+    while(p >= info->head) {
+        if(*p == ' ' || *p == '\t' || *p == '\r') {
+            p--;
+            continue;
+        }
+        return *p == '\n';
+    }
+    
+    return true;
+}
+
+static bool skip_comment(sInfo* info, bool skip_space_after)
+{
+    if(*info->p == '/' && *(info->p+1) == '*') {
+        int nest = 0;
+        while(1) {
+            if(*info->p == '/' && *(info->p+1) == '*') {
+                info->p +=2;
+                nest++;
+            }
+            else if(*info->p == '*' && *(info->p+1) == '/') {
+                info->p +=2;
+                nest--;
+                
+                if(nest == 0) {
+                    if(skip_space_after) {
+                        skip_spaces_and_lf2();
+                    }
+                    break;
+                }
+            }
+            else if(*info->p == '\n') {
+                info->p++;
+                info->sline++;
+            }
+            else if(*info->p == '\r') {
+                info->p++;
+                if(*info->p == '\n') {
+                    info->p++;
+                }
+                info->sline++;
+            }
+            else if(*info->p == '\0') {
+                err_msg(info, "unterminated comment");
+                break;
+            }
+            else {
+                info->p++;
+            }
+        }
+        
+        return true;
+    }
+    else if(*info->p == '/' && *(info->p+1) == '/') {
+        info->p+=2;
+        
+        while(1) {
+            if(*info->p == '\n') {
+                info->p++;
+                info->sline++;
+                if(skip_space_after) {
+                    skip_spaces_and_lf2();
+                }
+                break;
+            }
+            else if(*info->p == '\r') {
+                info->p++;
+                if(*info->p == '\n') {
+                    info->p++;
+                }
+                info->sline++;
+                if(skip_space_after) {
+                    skip_spaces_and_lf2();
+                }
+                break;
+            }
+            else if(*info->p == '\0') {
+                break;
+            }
+            else { 
+                info->p++;
+            }
+        }
+        
+        return true;
+    }
+    
+    return false;
+}
+
 void skip_spaces_and_lf(sInfo* info=info)
 {
     while(true) {
@@ -152,12 +249,19 @@ void skip_spaces_and_lf(sInfo* info=info)
             info->p++;
             info->sline++;
         }
+        else if(skip_comment(info, false)) {
+        }
         else {
             break;
         }
     }
     
-    parse_sharp();
+    if(*info->p == '#') {
+        parse_sharp();
+    }
+    else if(*info->p == '_' && parsecmp("__extension__")) {
+        parse_sharp();
+    }
 }
 
 void skip_spaces_and_lf2(sInfo* info=info)
@@ -177,6 +281,8 @@ void skip_spaces_and_lf2(sInfo* info=info)
             info->p++;
             info->sline++;
         }
+        else if(skip_comment(info, false)) {
+        }
         else {
             break;
         }
@@ -185,8 +291,30 @@ void skip_spaces_and_lf2(sInfo* info=info)
 
 void parse_sharp(sInfo* info=info) version 5
 {
+    static sInfo* last_info = null;
+    static char* last_p = null;
+    
+    if(info == last_info && info->p == last_p) {
+        return;
+    }
+    
+    char c = *info->p;
+    if(c != '#' && c != '/' && c != '_') {
+        last_info = info;
+        last_p = info->p;
+        return;
+    }
+    if(c == '#' && !is_line_head(info)) {
+        last_info = info;
+        last_p = info->p;
+        return;
+    }
+    
     while(1) {
         if(*info->p == '#') {
+            if(!is_line_head(info)) {
+                break;
+            }
             skip_spaces_and_lf2();
         
             info->p++;
@@ -334,69 +462,7 @@ void parse_sharp(sInfo* info=info) version 5
         
             skip_spaces_and_lf2();
         }
-        else if(*info->p == '/' && *(info->p+1) == '*') {
-            int nest = 0;
-            while(1) {
-                if(*info->p == '/' && *(info->p+1) == '*') {
-                    info->p +=2;
-                    nest++;
-                }
-                else if(*info->p == '*' && *(info->p+1) == '/') {
-                    info->p +=2;
-                    nest--;
-                    
-                    if(nest == 0) {
-                        skip_spaces_and_lf2();
-                        break;
-                    }
-                }
-                else if(*info->p == '\n') {
-                    info->p++;
-                    info->sline++;
-                }
-                else if(*info->p == '\r') {
-                    info->p++;
-                    if(*info->p == '\n') {
-                        info->p++;
-                    }
-                    info->sline++;
-                }
-                else if(*info->p == '\0') {
-                    err_msg(info, "unterminated comment");
-                    break;
-                }
-                else {
-                    info->p++;
-                }
-            }
-        }
-        /// comment
-        else if(*info->p == '/' && *(info->p+1) == '/') {
-            info->p+=2;
-            
-            while(1) {
-                if(*info->p == '\n') {
-                    info->p++;
-                    info->sline++;
-                    skip_spaces_and_lf2();
-                    break;
-                }
-                else if(*info->p == '\r') {
-                    info->p++;
-                    if(*info->p == '\n') {
-                        info->p++;
-                    }
-                    info->sline++;
-                    skip_spaces_and_lf2();
-                    break;
-                }
-                else if(*info->p == '\0') {
-                    break;
-                }
-                else { 
-                    info->p++;
-                }
-            }
+        else if(skip_comment(info, true)) {
         }
         else if(parsecmp("__extension__")) {
             info->p += strlen("__extension__");
@@ -406,6 +472,9 @@ void parse_sharp(sInfo* info=info) version 5
             break;
         }
     }
+    
+    last_info = info;
+    last_p = info->p;
     
 }
 

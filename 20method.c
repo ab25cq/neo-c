@@ -1052,7 +1052,7 @@ sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info) version 20
         method_block.append_str("\n");
     }
     
-    parse_sharp();
+    skip_spaces_and_lf();
     
     sNode*% node = new sMethodCallNode(fun_name, clone obj, params, method_block, method_block_sline, method_generics_types, no_infference_method_generics:false, recursive:true, info) implements sNode;
     

@@ -334,7 +334,7 @@ sNode*% parse_struct(string type_name, string struct_attribute, sInfo* info)
     expected_next_character('{');
     
     while(true) {
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(*info->p == '}') {
             info->p++;
@@ -342,7 +342,7 @@ sNode*% parse_struct(string type_name, string struct_attribute, sInfo* info)
             break;
         }
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         bool multiple_declare = false;
         {
@@ -376,7 +376,7 @@ sNode*% parse_struct(string type_name, string struct_attribute, sInfo* info)
             }
         }
         else {
-            parse_sharp();
+            skip_spaces_and_lf();
             var type2, name, err = parse_type(parse_variable_name:true);
             if(!err) {
                 printf("%s %d: parse_type failed\n", info->sname, info->sline);
@@ -390,14 +390,14 @@ sNode*% parse_struct(string type_name, string struct_attribute, sInfo* info)
             skip_spaces_and_lf();
         }
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(*info->p == '}') {
             info->p++;
             skip_spaces_and_lf();
             break;
         }
-        parse_sharp();
+        skip_spaces_and_lf();
     }
     
     string struct_attribute2 = parse_struct_attribute();
@@ -512,7 +512,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
             expected_next_character('{') ;
             
             while(true) {
-                parse_sharp();
+                skip_spaces_and_lf();
                 
                 if(*info->p == '}') {
                     info->p++;
@@ -520,7 +520,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                     break;
                 }
         
-                parse_sharp();
+                skip_spaces_and_lf();
                 
                 var type2, name, err = parse_type(parse_variable_name:true);
                 
@@ -564,17 +564,17 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                     skip_spaces_and_lf();
                 }
                 
-                parse_sharp();
+                skip_spaces_and_lf();
                 
                 if(*info->p == '}') {
                     info->p++;
                     skip_spaces_and_lf();
                     break;
                 }
-                parse_sharp();
+                skip_spaces_and_lf();
             }
             
-            parse_sharp();
+            skip_spaces_and_lf();
             
             info.generics_type_names.reset();
             
@@ -628,13 +628,13 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
             expected_next_character('{') ;
            
             while(true) {
-                parse_sharp();
+                skip_spaces_and_lf();
                 if(*info->p == '}') {
                     info->p++;
                     skip_spaces_and_lf();
                     break;
                 }
-                parse_sharp();
+                skip_spaces_and_lf();
                     
                 bool multiple_declare = false;
                 {
@@ -683,14 +683,14 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                 }
                 //expected_next_character(';') ;
                 
-                parse_sharp();
+                skip_spaces_and_lf();
                 
                 if(*info->p == '}') {
                     info->p++;
                     skip_spaces_and_lf();
                     break;
                 }
-                parse_sharp();
+                skip_spaces_and_lf();
             }
             
             string struct_attribute2 = parse_struct_attribute();
@@ -803,14 +803,14 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                 }
             }
             
-            parse_sharp();
+            skip_spaces_and_lf();
             
             if(*info->p == '}') {
                 info->p++;
                 skip_spaces_and_lf();
                 break;
             }
-            parse_sharp();
+            skip_spaces_and_lf();
             
             bool include_ = parsecmp("include");
                 
@@ -1015,14 +1015,14 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                 //expected_next_character(';') ;
             }
             
-            parse_sharp();
+            skip_spaces_and_lf();
             
             if(*info->p == '}') {
                 info->p++;
                 skip_spaces_and_lf();
                 break;
             }
-            parse_sharp();
+            skip_spaces_and_lf();
         }
         
         if(p_saved) {

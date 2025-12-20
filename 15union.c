@@ -113,7 +113,7 @@ sNode*% parse_union(string type_name, string union_attribute, sInfo* info)
         }
         info.types.insert(type_name, clone type);
     }
-    parse_sharp();
+    skip_spaces_and_lf();
     
     if(union_attribute === "") {
     }
@@ -126,14 +126,14 @@ sNode*% parse_union(string type_name, string union_attribute, sInfo* info)
     while(true) {
         var type2, name, err = parse_type(parse_variable_name:true);
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(!err) {
             printf("%s %d: parse_type failed\n", info->sname, info->sline);
             exit(2);
         }
         if(*info->p == ',') {
-            parse_sharp();
+            skip_spaces_and_lf();
             while(*info->p == ',') {
                 info->p++;
                 skip_spaces_and_lf();
@@ -142,19 +142,17 @@ sNode*% parse_union(string type_name, string union_attribute, sInfo* info)
                 
                 klass.mFields.push_back((name2, type2));
             }
-            parse_sharp();
             
             expected_next_character(';');
         }
         else {
-            parse_sharp();
             expected_next_character(';');
-            parse_sharp();
+            skip_spaces_and_lf();
             
             klass.mFields.push_back((name, type2));
         }
         
-        parse_sharp();
+        skip_spaces_and_lf();
         
         if(*info->p == '}') {
             info->p++;
@@ -162,7 +160,7 @@ sNode*% parse_union(string type_name, string union_attribute, sInfo* info)
             break;
         }
     
-        parse_sharp();
+        skip_spaces_and_lf();
     }
     
     string struct_attribute = parse_struct_attribute();
@@ -238,7 +236,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 97
                 exit(2);
             }
             
-            parse_sharp();
+            skip_spaces_and_lf();
             
             if(*info->p == ',') {
                 while(*info->p == ',') {
@@ -250,16 +248,14 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 97
                     klass.mFields.push_back((name2, type2));
                 }
             
-                parse_sharp();
                 
                 expected_next_character(';');
             
-                parse_sharp();
+                skip_spaces_and_lf();
             }
             else {
-                parse_sharp();
                 expected_next_character(';');
-                parse_sharp();
+                skip_spaces_and_lf();
                 
                 klass.mFields.push_back((name, type2));
             }

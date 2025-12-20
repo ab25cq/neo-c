@@ -1500,7 +1500,7 @@ sNode*% mult_exp(sInfo* info)
         }
     }
     
-    parse_sharp();
+    skip_spaces_and_lf();
     
     return node;
 }
@@ -1565,14 +1565,14 @@ sNode*% add_exp(sInfo* info)
         }
     }
     
-    parse_sharp();
+    skip_spaces_and_lf();
     
     return node;
 }
 
 sNode*% shift_exp(sInfo* info)
 {
-    parse_sharp();
+    skip_spaces_and_lf();
     
     sNode*% node = add_exp(info);
     
@@ -1628,14 +1628,14 @@ sNode*% shift_exp(sInfo* info)
         }
     }
     
-    parse_sharp();
+    skip_spaces_and_lf();
     
     return node;
 }
 
 sNode*% comparison_exp(sInfo* info)
 {
-    parse_sharp();
+    skip_spaces_and_lf();
     
     sNode*% node = shift_exp(info);
     
@@ -1735,14 +1735,14 @@ sNode*% comparison_exp(sInfo* info)
         }
     }
     
-    parse_sharp();
+    skip_spaces_and_lf();
     
     return node;
 }
 
 sNode*% eq_exp(sInfo* info)
 {
-    parse_sharp();
+    skip_spaces_and_lf();
     
     sNode*% node = comparison_exp(info);
     
@@ -1842,18 +1842,18 @@ sNode*% eq_exp(sInfo* info)
         }
     }
     
-    parse_sharp();
+    skip_spaces_and_lf();
     
     return node;
 }
 
 sNode*% and_exp(sInfo* info)
 {
-    parse_sharp();
+    skip_spaces_and_lf();
     
     sNode*% node = eq_exp(info);
 
-    parse_sharp();
+    skip_spaces_and_lf();
 
     while(*info->p) {
         if(!node->terminated() && *info->p == '&' && *(info->p+1) != '&' && *(info->p+1) != '=') {
@@ -1883,18 +1883,18 @@ sNode*% and_exp(sInfo* info)
         }
     }
     
-    parse_sharp();
+    skip_spaces_and_lf();
 
     return node;
 }
 
 sNode*% xor_exp(sInfo* info)
 {
-    parse_sharp();
+    skip_spaces_and_lf();
     
     sNode*% node = and_exp(info);
 
-    parse_sharp();
+    skip_spaces_and_lf();
 
     while(*info->p) {
         if(*info->p == '^' && *(info->p+1) != '=') {
@@ -1924,18 +1924,18 @@ sNode*% xor_exp(sInfo* info)
         }
     }
     
-    parse_sharp();
+    skip_spaces_and_lf();
 
     return node;
 }
 
 sNode*% or_exp(sInfo* info)
 {
-    parse_sharp();
+    skip_spaces_and_lf();
     
     sNode*% node = xor_exp(info);
 
-    parse_sharp();
+    skip_spaces_and_lf();
 
     while(*info->p) {
         if(*info->p == '|' && *(info->p+1) != '=' && *(info->p+1) != '|') {
@@ -1965,18 +1965,18 @@ sNode*% or_exp(sInfo* info)
         }
     }
     
-    parse_sharp();
+    skip_spaces_and_lf();
 
     return node;
 }
 
 sNode*% andand_exp(sInfo* info)
 {
-    parse_sharp();
+    skip_spaces_and_lf();
     
     sNode*% node = or_exp(info);
 
-    parse_sharp();
+    skip_spaces_and_lf();
 
     while(*info->p) {
         if(*info->p == '&' && *(info->p+1) == '&') {
@@ -2006,18 +2006,18 @@ sNode*% andand_exp(sInfo* info)
         }
     }
     
-    parse_sharp();
+    skip_spaces_and_lf();
 
     return node;
 }
 
 sNode*% oror_exp(sInfo* info)
 {
-    parse_sharp();
+    skip_spaces_and_lf();
     
     sNode*% node = andand_exp(info);
 
-    parse_sharp();
+    skip_spaces_and_lf();
 
     while(*info->p) {
         if(*info->p == '|' && *(info->p+1) == '|') {
@@ -2047,7 +2047,7 @@ sNode*% oror_exp(sInfo* info)
         }
     }
     
-    parse_sharp();
+    skip_spaces_and_lf();
 
     return node;
 }
@@ -2059,11 +2059,11 @@ sNode*% create_comma_exp(sNode*% node, sNode*% node2, sInfo* info)
 
 sNode*% comma_exp(sInfo* info)
 {
-    parse_sharp();
+    skip_spaces_and_lf();
     
     sNode*% node = oror_exp(info);
     
-    parse_sharp();
+    skip_spaces_and_lf();
 
     while(*info->p) {
         if(!info.no_comma && *info->p == ',') {
@@ -2082,18 +2082,18 @@ sNode*% comma_exp(sInfo* info)
         }
     }
     
-    parse_sharp();
+    skip_spaces_and_lf();
 
     return node;
 }
 
 sNode*% conditional_exp(sInfo* info)
 {
-    parse_sharp();
+    skip_spaces_and_lf();
     
     sNode*% node = comma_exp(info);
     
-    parse_sharp();
+    skip_spaces_and_lf();
 
     while(*info->p) {
         if(*info->p == '?') {
@@ -2101,8 +2101,6 @@ sNode*% conditional_exp(sInfo* info)
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
-
-            parse_sharp();
 
             sNode*% value1;
             if(*info->p == ':') {
@@ -2115,13 +2113,12 @@ sNode*% conditional_exp(sInfo* info)
                 info->no_label = no_label;
             }
 
-            parse_sharp();
 
             expected_next_character(':');
 
             sNode*% value2 = conditional_exp(info);
 
-            parse_sharp();
+            skip_spaces_and_lf();
             info.sline_real = sline_real;
 
             node = new sConditionalNode(node, value1, value2, info) implements sNode;
@@ -2131,7 +2128,7 @@ sNode*% conditional_exp(sInfo* info)
         }
     }
 
-    parse_sharp();
+    skip_spaces_and_lf();
     
     return node;
 }
@@ -2167,7 +2164,7 @@ class sTypeNode extends sNodeBase
 sNode*% expression(sInfo* info=info, bool type_name_exp=false) version 13
 {
     sNode*% node = null;
-    parse_sharp();
+    skip_spaces_and_lf();
     
     /// backtrace ///
     if(type_name_exp && (*info->p == '_' || xisalpha(*info->p))) {

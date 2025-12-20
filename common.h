@@ -909,6 +909,7 @@ bool parsecmp(char* p2, sInfo* info=info)
 string parse_word(bool digits=false, sInfo* info=info);
 string backtrace_parse_word(sInfo* info=info);
 void skip_spaces_and_lf(sInfo* info=info);
+void skip_spaces_and_lf2(sInfo* info=info);
 string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sType*% generics_type, sInfo* info);
 
 record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_name=false, bool parse_multiple_type=true, bool in_function_parametor=false)

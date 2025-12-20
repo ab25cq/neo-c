@@ -722,7 +722,7 @@ sNode*% pre_position_operator(sInfo* info=info)
     }
     
     
-    parse_sharp();
+    skip_spaces_and_lf();
     
     if(*info->p == '{') {
         if(info.array_initializer) {
@@ -891,7 +891,7 @@ sNode*% pre_position_operator(sInfo* info=info)
             char* p = info.p;
             int sline = info.sline;
             
-            parse_sharp();
+            skip_spaces_and_lf();
             
             char* p2 = info.p;
             int sline2 = info.sline;
@@ -918,7 +918,7 @@ sNode*% pre_position_operator(sInfo* info=info)
                 }
             }
             
-            parse_sharp();
+            skip_spaces_and_lf();
             
             info.p = p;
             info.sline = sline;
@@ -932,7 +932,7 @@ sNode*% pre_position_operator(sInfo* info=info)
             char* p = info.p;
             int sline = info.sline;
             
-            parse_sharp();
+            skip_spaces_and_lf();
             
             {
                 char* p = info.p;
@@ -960,7 +960,7 @@ sNode*% pre_position_operator(sInfo* info=info)
             sNode*% node = expression();
             sNode*% node2 = node;
             
-            parse_sharp();
+            skip_spaces_and_lf();
             
             info.no_comma = no_comma;
             info.no_output_come_code = no_output_come_code;
@@ -969,7 +969,7 @@ sNode*% pre_position_operator(sInfo* info=info)
                 tuple_expression_flag = true;
             }
             
-            parse_sharp();
+            skip_spaces_and_lf();
             
             info.p = p;
             info.sline = sline;
@@ -982,11 +982,11 @@ sNode*% pre_position_operator(sInfo* info=info)
             list<sNode*%>*% paren_block = new list<sNode*%>();
             
             while(true) {
-                parse_sharp();
+                skip_spaces_and_lf();
                 
                 sNode*% node2 = expression();
                 
-                parse_sharp();
+                skip_spaces_and_lf();
                 
                 paren_block.add(node2);
                 
@@ -1010,21 +1010,21 @@ sNode*% pre_position_operator(sInfo* info=info)
             
             sNode*% node = new sParenBlockNode(paren_block, info) implements sNode;
             
-            parse_sharp();
+            skip_spaces_and_lf();
             
             return node;
         }
         else if(!gComeC && tuple_expression_flag) {
-            parse_sharp();
+            skip_spaces_and_lf();
             
             sNode*% node = parse_tuple(info, named_tuple_expression_flag);
             
-            parse_sharp();
+            skip_spaces_and_lf();
             
             return node;
         }
         else if(struct_initializer_flag) {
-            parse_sharp();
+            skip_spaces_and_lf();
             var type, name, err = parse_type();
             
             if(!err) {
@@ -1032,9 +1032,8 @@ sNode*% pre_position_operator(sInfo* info=info)
                 exit(2);
             }
             
-            parse_sharp();
             expected_next_character(')');
-            parse_sharp();
+            skip_spaces_and_lf();
             
             buffer*% buf = new buffer();
             
@@ -1103,7 +1102,7 @@ sNode*% pre_position_operator(sInfo* info=info)
             return new sArrayInitializer(type, buf.to_string(), info) implements sNode;
         }
         else if(cast_expression_flag) {
-            parse_sharp();
+            skip_spaces_and_lf();
             var type, name, err = parse_type();
             
             if(!err) {
@@ -1111,9 +1110,8 @@ sNode*% pre_position_operator(sInfo* info=info)
                 exit(2);
             }
             
-            parse_sharp();
             expected_next_character(')');
-            parse_sharp();
+            skip_spaces_and_lf();
             
             sNode*% node = expression_node();
             
@@ -1127,21 +1125,21 @@ sNode*% pre_position_operator(sInfo* info=info)
             if(gComeC && info.in_fun_param) {
                 bool no_comma = info.no_comma;
                 info.no_comma = false;
-                parse_sharp();
+                skip_spaces_and_lf();
                 node = expression();
-                parse_sharp();
+                skip_spaces_and_lf();
                 info.no_comma = no_comma;
             }
             else {
-                parse_sharp();
+                skip_spaces_and_lf();
                 node = expression();
-                parse_sharp();
+                skip_spaces_and_lf();
             }
             
             info.no_assign = no_assign;
             
             expected_next_character(')');
-            parse_sharp();
+            skip_spaces_and_lf();
             
             node = new sParenNode(node, info) implements sNode;
             

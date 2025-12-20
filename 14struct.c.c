@@ -2901,6 +2901,7 @@ _Bool parsecmp(char* p2, struct sInfo* info);
 char* parse_word(_Bool digits, struct sInfo* info);
 char* backtrace_parse_word(struct sInfo* info);
 void skip_spaces_and_lf(struct sInfo* info);
+void skip_spaces_and_lf2(struct sInfo* info);
 struct tuple2$2char$ph_Bool$* create_generics_fun(char* fun_name, struct sGenericsFun* generics_fun, struct sType* generics_type, struct sInfo* info);
 struct tuple3$3sType$phchar$ph_Bool$* parse_type(struct sInfo* info, _Bool parse_variable_name, _Bool parse_multiple_type, _Bool in_function_parametor);
 struct tuple2$2sType$phchar$ph* parse_variable_name_on_multiple_declare(struct sType* base_type_name, _Bool first, struct sInfo* info);
@@ -6471,13 +6472,13 @@ memset(&klass, 0, sizeof(klass));
     }
     (come_push_stackframe("14struct.c", 333, 6),__exception_result_var_b7=expected_next_character(123,info), come_pop_stackframe(), __exception_result_var_b7);
     while(    1    ) {
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         if(        *info->p==125        ) {
             info->p++;
             skip_spaces_and_lf(info);
             break;
         }
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         multiple_declare=0;
         {
             p=info->p;
@@ -6531,7 +6532,7 @@ memset(&klass, 0, sizeof(klass));
             (name2 = come_decrement_ref_count(name2, (void*)0, (void*)0, 0, 0, (void*)0));
         }
         else {
-            parse_sharp_v5(info);
+            skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             multiple_assign_var8=(come_push_stackframe("14struct.c", 379, 10),__exception_result_var_b11=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=parse_type(info,1,1,0))), come_pop_stackframe(), __exception_result_var_b11);
             type2_44=(struct sType*)come_increment_ref_count(multiple_assign_var8->v1);
@@ -6552,13 +6553,13 @@ memset(&klass, 0, sizeof(klass));
             info->p++;
             skip_spaces_and_lf(info);
         }
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
         if(        *info->p==125        ) {
             info->p++;
             skip_spaces_and_lf(info);
             break;
         }
-        parse_sharp_v5(info);
+        skip_spaces_and_lf(info);
     }
     __right_value0 = (void*)0;
     struct_attribute2=(char*)come_increment_ref_count(parse_struct_attribute(info));
@@ -7045,13 +7046,13 @@ memset(&struct_class_49, 0, sizeof(struct_class_49));
             map$2char$phsClass$ph_insert(info->generics_classes,(char*)come_increment_ref_count(__builtin_string(type_name)),(struct sClass*)come_increment_ref_count(generics_class));
             (come_push_stackframe("14struct.c", 511, 14),__exception_result_var_b15=expected_next_character(123,info), come_pop_stackframe(), __exception_result_var_b15);
             while(            1            ) {
-                parse_sharp_v5(info);
+                skip_spaces_and_lf(info);
                 if(                *info->p==125                ) {
                     info->p++;
                     skip_spaces_and_lf(info);
                     break;
                 }
-                parse_sharp_v5(info);
+                skip_spaces_and_lf(info);
                 __right_value0 = (void*)0;
                 multiple_assign_var9=(come_push_stackframe("14struct.c", 524, 16),__exception_result_var_b17=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=parse_type(info,1,1,0))), come_pop_stackframe(), __exception_result_var_b17);
                 type2=(struct sType*)come_increment_ref_count(multiple_assign_var9->v1);
@@ -7102,7 +7103,7 @@ memset(&struct_class_49, 0, sizeof(struct_class_49));
                     info->p++;
                     skip_spaces_and_lf(info);
                 }
-                parse_sharp_v5(info);
+                skip_spaces_and_lf(info);
                 if(                *info->p==125                ) {
                     info->p++;
                     skip_spaces_and_lf(info);
@@ -7110,11 +7111,11 @@ memset(&struct_class_49, 0, sizeof(struct_class_49));
                     (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0));
                     break;
                 }
-                parse_sharp_v5(info);
+                skip_spaces_and_lf(info);
                 come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0));
             }
-            parse_sharp_v5(info);
+            skip_spaces_and_lf(info);
             list$1char$ph_reset(info->generics_type_names);
             source_tail_47=info->p;
             __right_value0 = (void*)0;
@@ -7206,13 +7207,13 @@ memset(&struct_class_49, 0, sizeof(struct_class_49));
             }
             (come_push_stackframe("14struct.c", 627, 20),__exception_result_var_b21=expected_next_character(123,info), come_pop_stackframe(), __exception_result_var_b21);
             while(            1            ) {
-                parse_sharp_v5(info);
+                skip_spaces_and_lf(info);
                 if(                *info->p==125                ) {
                     info->p++;
                     skip_spaces_and_lf(info);
                     break;
                 }
-                parse_sharp_v5(info);
+                skip_spaces_and_lf(info);
                 multiple_declare=0;
                 {
                     p=info->p;
@@ -7286,13 +7287,13 @@ memset(&struct_class_49, 0, sizeof(struct_class_49));
                     info->p++;
                     skip_spaces_and_lf(info);
                 }
-                parse_sharp_v5(info);
+                skip_spaces_and_lf(info);
                 if(                *info->p==125                ) {
                     info->p++;
                     skip_spaces_and_lf(info);
                     break;
                 }
-                parse_sharp_v5(info);
+                skip_spaces_and_lf(info);
             }
             __right_value0 = (void*)0;
             struct_attribute2=(char*)come_increment_ref_count(parse_struct_attribute(info));
@@ -7465,13 +7466,13 @@ memset(&struct_class_49, 0, sizeof(struct_class_49));
                     come_call_finalizer(map$2char$phchar$ph_finalize, __dec_obj86,(void*)0, (void*)0, 0, 0, 0, (void*)0);
                 }
             }
-            parse_sharp_v5(info);
+            skip_spaces_and_lf(info);
             if(            *info->p==125            ) {
                 info->p++;
                 skip_spaces_and_lf(info);
                 break;
             }
-            parse_sharp_v5(info);
+            skip_spaces_and_lf(info);
             include_=parsecmp("include",info);
             multiple_declare_80=0;
             if(            include_==0            ) {
@@ -7737,13 +7738,13 @@ memset(&struct_class_49, 0, sizeof(struct_class_49));
                 come_call_finalizer(sType_finalize, type2_107, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 (name_108 = come_decrement_ref_count(name_108, (void*)0, (void*)0, 0, 0, (void*)0));
             }
-            parse_sharp_v5(info);
+            skip_spaces_and_lf(info);
             if(            *info->p==125            ) {
                 info->p++;
                 skip_spaces_and_lf(info);
                 break;
             }
-            parse_sharp_v5(info);
+            skip_spaces_and_lf(info);
         }
         if(        p_saved        ) {
             if(            info->p==0            ) {

@@ -123,21 +123,20 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 92
                 skip_spaces_and_lf();
                 break;
             }
-            parse_sharp();
-            parse_sharp();
+            skip_spaces_and_lf();
             var type2, name = parse_interface_function(info);
             expected_next_character(';');
             
             klass.mFields.push_back((name, type2));
             
-            parse_sharp();
+            skip_spaces_and_lf();
             
             if(*info->p == '}') {
                 info->p++;
                 skip_spaces_and_lf();
                 break;
             }
-            parse_sharp();
+            skip_spaces_and_lf();
         }
         
         char* source_tail = info.p;

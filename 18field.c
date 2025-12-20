@@ -1098,11 +1098,10 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                 info->p++;
                 skip_spaces_and_lf();
                 
-                parse_sharp();
                 
                 sNode*% right_node = expression();
                 
-                parse_sharp();
+                skip_spaces_and_lf();
                 
                 node = new sStoreArrayNode(node, right_node, array_num, quote, info) implements sNode;
             }
@@ -1114,7 +1113,6 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
             info->p+=2;
             skip_spaces_and_lf();
             
-            parse_sharp();
         }
         else if((*info->p == '.' && *(info->p+1) != '.') || (*info->p == '-' && *(info->p+1) == '>')) {
             if(*info->p == '.') {
@@ -1126,11 +1124,11 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                 skip_spaces_and_lf();
             }
             
-            parse_sharp();
+            skip_spaces_and_lf();
             
             string field_name = parse_word();
             
-            parse_sharp();
+            skip_spaces_and_lf();
             
             bool parse_method_generics_type = false;
             {
@@ -1158,7 +1156,6 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                 info->p++;
                 skip_spaces_and_lf();
                 
-                parse_sharp();
                 
                 sNode*% right_node = expression();
                 
