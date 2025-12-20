@@ -3453,7 +3453,7 @@ memset(&is_raspi, 0, sizeof(is_raspi));
     }
     if(    is_android    ) {
         __right_value0 = (void*)0;
-        cmd3=(char*)come_increment_ref_count(xsprintf("cpp %s -lang-c %s -I. -I\"%s\"/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -I/data/data/com.termux/files/usr/include/mariadb -D__ANDROID__ \"%s\" \"%s\" > \"%s\" 2> \"%s\".cpp.out",(((info->remove_comment)?(""):(" -C"))),info->cpp_option,getenv("HOME"),"/usr/local/","/usr/local/","",input_file_name,output_file_name,output_file_name));
+        cmd3=(char*)come_increment_ref_count(xsprintf("cpp %s -lang-c %s -I. -I\"%s\"/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -I/data/data/com.termux/files/usr/include/mariadb -D__ANDROID__ \"%s\" > \"%s\" 2> \"%s\".cpp.out",(((info->remove_comment)?(""):(" -C"))),info->cpp_option,getenv("HOME"),"/usr/local/","/usr/local/",input_file_name,output_file_name,output_file_name));
         if(        info->verbose        ) {
             puts(cmd3);
         }
@@ -3473,7 +3473,7 @@ memset(&is_raspi, 0, sizeof(is_raspi));
     }
     else if(    is_m5stack    ) {
         __right_value0 = (void*)0;
-        cmd2=(char*)come_increment_ref_count(xsprintf("xtensa-esp-elf-cpp -E %s -lang-c %s -I. -I/usr/local/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -DNEO_C -D__M5STACK__ \"%s\" \"%s\" > \"%s\" 2> \"%s\".cpp.out",((info->remove_comment)?(""):(" -C")),info->cpp_option,"/usr/local/","/usr/local/","",input_file_name,output_file_name,output_file_name));
+        cmd2=(char*)come_increment_ref_count(xsprintf("xtensa-esp-elf-cpp -E %s -lang-c %s -I. -I/usr/local/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -DNEO_C -D__M5STACK__ \"%s\" > \"%s\" 2> \"%s\".cpp.out",((info->remove_comment)?(""):(" -C")),info->cpp_option,"/usr/local/","/usr/local/",input_file_name,output_file_name,output_file_name));
         if(        info->verbose        ) {
             puts(cmd2);
         }
@@ -3500,7 +3500,7 @@ memset(&is_raspi, 0, sizeof(is_raspi));
     }
     else if(    is_pico    ) {
         __right_value0 = (void*)0;
-        cmd2_3=(char*)come_increment_ref_count(xsprintf("arm-none-eabi-gcc -E %s -lang-c %s -I. -I/usr/local/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -DNEO_C -D__PICO__ \"%s\" \"%s\" > \"%s\" 2> \"%s\".cpp.out",((info->remove_comment)?(""):(" -C")),info->cpp_option,"/usr/local/","/usr/local/","",input_file_name,output_file_name,output_file_name));
+        cmd2_3=(char*)come_increment_ref_count(xsprintf("arm-none-eabi-gcc -E %s -lang-c %s -I. -I/usr/local/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -DNEO_C -D__PICO__ \"%s\" > \"%s\" 2> \"%s\".cpp.out",((info->remove_comment)?(""):(" -C")),info->cpp_option,"/usr/local/","/usr/local/",input_file_name,output_file_name,output_file_name));
         if(        info->verbose        ) {
             puts(cmd2_3);
         }
@@ -3527,7 +3527,7 @@ memset(&is_raspi, 0, sizeof(is_raspi));
     }
     else if(    is_mac    ) {
         __right_value0 = (void*)0;
-        cmd2_7=(char*)come_increment_ref_count(xsprintf("gcc -E %s -lang-c %s -I. -I/usr/local/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -DNEO_C -D__MAC__ -I/opt/homebrew/opt/boehmgc/include/ -I/opt/homebrew/opt/openssl/include \"%s\" \"%s\" > \"%s\" 2> \"%s\".cpp.out",(((info->remove_comment)?(""):(" -C"))),info->cpp_option,"/usr/local/","/usr/local/","",input_file_name,output_file_name,output_file_name));
+        cmd2_7=(char*)come_increment_ref_count(xsprintf("gcc -E %s -lang-c %s -I. -I/usr/local/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -DNEO_C -D__MAC__ -I/opt/homebrew/opt/boehmgc/include/ -I/opt/homebrew/opt/openssl/include \"%s\" > \"%s\" 2> \"%s\".cpp.out",(((info->remove_comment)?(""):(" -C"))),info->cpp_option,"/usr/local/","/usr/local/",input_file_name,output_file_name,output_file_name));
         if(        info->verbose        ) {
             puts(cmd2_7);
         }
@@ -3554,7 +3554,7 @@ memset(&is_raspi, 0, sizeof(is_raspi));
     }
     else if(    is_emb    ) {
         __right_value0 = (void*)0;
-        cmd3_11=(char*)come_increment_ref_count(xsprintf("clang -E %s -lang-c %s -I. -I\"%s\"/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -D__EMB__ \"%s\" \"%s\" > \"%s\" 2> \"%s\".cpp.out",(((info->remove_comment)?(""):(" -C"))),info->cpp_option,getenv("HOME"),"/usr/local/","/usr/local/","",input_file_name,output_file_name,output_file_name));
+        cmd3_11=(char*)come_increment_ref_count(xsprintf("clang -E %s -lang-c %s -I. -I\"%s\"/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -D__EMB__ \"%s\" > \"%s\" 2> \"%s\".cpp.out",(((info->remove_comment)?(""):(" -C"))),info->cpp_option,getenv("HOME"),"/usr/local/","/usr/local/",input_file_name,output_file_name,output_file_name));
         if(        info->verbose        ) {
             puts(cmd3_11);
         }
@@ -3567,7 +3567,7 @@ memset(&is_raspi, 0, sizeof(is_raspi));
         (void)system(command2_13);
         if(        rc_12!=0        ) {
             __right_value0 = (void*)0;
-            cmd4=(char*)come_increment_ref_count(xsprintf("clang -E %s -I. %s -DPREFIX=\"%s\" -I\"%s\"/include -D__EMB__ \"%s\" \"%s\" > \"%s\" 2> \"%s\".cpp.out",((info->remove_comment)?(""):(" -C")),info->cpp_option,"/usr/local/","/usr/local/","",input_file_name,output_file_name,output_file_name));
+            cmd4=(char*)come_increment_ref_count(xsprintf("clang -E %s -I. %s -DPREFIX=\"%s\" -I\"%s\"/include -D__EMB__ \"%s\" > \"%s\" 2> \"%s\".cpp.out",((info->remove_comment)?(""):(" -C")),info->cpp_option,"/usr/local/","/usr/local/",input_file_name,output_file_name,output_file_name));
             __right_value0 = (void*)0;
             command2_14=(char*)come_increment_ref_count(xsprintf("grep error\\: \"%s\".cpp.out 2>/dev/null",output_file_name));
             if(            info->verbose            ) {
@@ -3586,7 +3586,7 @@ memset(&is_raspi, 0, sizeof(is_raspi));
     }
     else if(    is_raspi    ) {
         __right_value0 = (void*)0;
-        cmd3_15=(char*)come_increment_ref_count(xsprintf("cpp %s -lang-c %s -I. -I\"%s\"/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -D__RASPBERRY_PI__ \"%s\" \"%s\" > \"%s\" 2> \"%s\".cpp.out",(((info->remove_comment)?(""):(" -C"))),info->cpp_option,getenv("HOME"),"/usr/local/","/usr/local/","",input_file_name,output_file_name,output_file_name));
+        cmd3_15=(char*)come_increment_ref_count(xsprintf("cpp %s -lang-c %s -I. -I\"%s\"/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -D__RASPBERRY_PI__ \"%s\" > \"%s\" 2> \"%s\".cpp.out",(((info->remove_comment)?(""):(" -C"))),info->cpp_option,getenv("HOME"),"/usr/local/","/usr/local/",input_file_name,output_file_name,output_file_name));
         if(        info->verbose        ) {
             puts(cmd3_15);
         }
@@ -3599,7 +3599,7 @@ memset(&is_raspi, 0, sizeof(is_raspi));
         (void)system(command2_17);
         if(        rc_16!=0        ) {
             __right_value0 = (void*)0;
-            cmd4_18=(char*)come_increment_ref_count(xsprintf("cpp %s -I. %s -DPREFIX=\"%s\" -I\"%s\"/include -D__RASPBERRY_PI__ \"%s\" \"%s\" > \"%s\" 2> \"%s\".cpp.out",((info->remove_comment)?(""):(" -C")),info->cpp_option,"/usr/local/","/usr/local/","",input_file_name,output_file_name,output_file_name));
+            cmd4_18=(char*)come_increment_ref_count(xsprintf("cpp %s -I. %s -DPREFIX=\"%s\" -I\"%s\"/include -D__RASPBERRY_PI__ \"%s\" > \"%s\" 2> \"%s\".cpp.out",((info->remove_comment)?(""):(" -C")),info->cpp_option,"/usr/local/","/usr/local/",input_file_name,output_file_name,output_file_name));
             __right_value0 = (void*)0;
             command2_19=(char*)come_increment_ref_count(xsprintf("grep error\\: %s.cpp.out 2>/dev/null",output_file_name));
             if(            info->verbose            ) {
@@ -3623,7 +3623,7 @@ memset(&is_raspi, 0, sizeof(is_raspi));
             __dec_obj6 = come_decrement_ref_count(__dec_obj6, (void*)0, (void*)0, 0,0, (void*)0);
         }
         __right_value0 = (void*)0;
-        cmd3_20=(char*)come_increment_ref_count(xsprintf("clang -E %s -lang-c %s -I. -I\"%s\"/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -D__LINUX__ \"%s\" \"%s\" > \"%s\" 2> \"%s\".cpp.out",(((info->remove_comment)?(""):(" -C"))),info->cpp_option,getenv("HOME"),"/usr/local/","/usr/local/","",input_file_name,output_file_name,output_file_name));
+        cmd3_20=(char*)come_increment_ref_count(xsprintf("clang -E %s -lang-c %s -I. -I\"%s\"/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -D__LINUX__ \"%s\" > \"%s\" 2> \"%s\".cpp.out",(((info->remove_comment)?(""):(" -C"))),info->cpp_option,getenv("HOME"),"/usr/local/","/usr/local/",input_file_name,output_file_name,output_file_name));
         if(        info->verbose        ) {
             puts(cmd3_20);
         }
@@ -3636,7 +3636,7 @@ memset(&is_raspi, 0, sizeof(is_raspi));
         (void)system(command2_22);
         if(        rc_21!=0        ) {
             __right_value0 = (void*)0;
-            cmd4_23=(char*)come_increment_ref_count(xsprintf("cpp %s -I. %s -DPREFIX=\"%s\" -I\"%s\"/include -D__LINUX__ \"%s\" \"%s\" > \"%s\" 2> \"%s\".cpp.out",((info->remove_comment)?(""):(" -C")),info->cpp_option,"/usr/local/","/usr/local/","",input_file_name,output_file_name,output_file_name));
+            cmd4_23=(char*)come_increment_ref_count(xsprintf("cpp %s -I. %s -DPREFIX=\"%s\" -I\"%s\"/include -D__LINUX__ \"%s\" > \"%s\" 2> \"%s\".cpp.out",((info->remove_comment)?(""):(" -C")),info->cpp_option,"/usr/local/","/usr/local/",input_file_name,output_file_name,output_file_name));
             __right_value0 = (void*)0;
             command2_24=(char*)come_increment_ref_count(xsprintf("grep error\\: \"%s\".cpp.out 2>/dev/null",output_file_name));
             if(            info->verbose            ) {
