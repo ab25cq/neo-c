@@ -533,6 +533,7 @@ string skip_block(sInfo* info=info, bool return_self_at_last=false)
         int sline = 0;
         int nest = 0;
         while(1) {
+            parse_sharp();
             if(dquort) {
                 if(*info->p == '\\') {
                     info->p++;

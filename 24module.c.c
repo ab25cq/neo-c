@@ -6852,7 +6852,7 @@ struct sNode* __result_obj__225;
         __right_value0 = (void*)0;
         block_text=(char*)come_increment_ref_count(skip_block(info,0));
         p=block_text+strlen(block_text);
-        while(        p>=block_text&&*p!=125        ) {
+        while(        *p&&p>=block_text&&*p!=125        ) {
             p--;
         }
         __right_value0 = (void*)0;

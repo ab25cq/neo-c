@@ -1156,7 +1156,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
         
         char* p = block_text + strlen(block_text);
         
-        while(p >= block_text && *p != '}') {
+        while(*p && p >= block_text && *p != '}') {
             p--;
         }
         
