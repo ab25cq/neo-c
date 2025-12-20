@@ -3016,7 +3016,7 @@ memset(&args, 0, sizeof(args));
             }
             p--;
         }
-        buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 38, "struct buffer*"))));
+        buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 37, "struct buffer*"))));
         if(        last_lf        ) {
             col=info->p-last_lf;
             buffer_append_format(buf,"%s %d(real %d)(block %d) %d: %s",info->sname,info->sline,info->sline_real,info->sline_block,col,msg2);
@@ -3066,7 +3066,7 @@ void* __right_value2 = (void*)0;
 void* __right_value3 = (void*)0;
 char* __result_obj__13;
 char* __result_obj__14;
-    buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 81, "struct buffer*"))));
+    buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 80, "struct buffer*"))));
     parse_sharp_v5(info);
     if(    digits    ) {
         while(        (*info->p>=97&&*info->p<=122)||(*info->p>=65&&*info->p<=90)||*info->p==95||(*info->p>=48&&*info->p<=57)||(*info->p==36)        ) {
@@ -3304,7 +3304,12 @@ _Bool _conditional_value_X0;
 char* __dec_obj3;
 int line;
 struct buffer* fname;
+char* fname_str;
 char* __dec_obj4;
+int line_1;
+struct buffer* fname_2;
+char* fname_str_3;
+char* __dec_obj5;
 int nest;
     while(    1    ) {
         if(        *info->p==35        ) {
@@ -3312,7 +3317,7 @@ int nest;
             info->p++;
             skip_spaces_and_lf2(info);
             if(            parsecmp("pragma",info)            ) {
-                buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 196, "struct buffer*"))));
+                buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 195, "struct buffer*"))));
                 buffer_append_str(buf,"#");
                 while(                *info->p                ) {
                     if(                    *info->p==10                    ) {
@@ -3337,11 +3342,18 @@ int nest;
                 }
                 come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             }
-            else if(            isdigit(*info->p)            ) {
+            else if(            parsecmp("line",info)            ) {
+                info->p+=strlen("line");
+                skip_spaces_and_lf2(info);
                 line=0;
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
-                fname=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 219, "struct buffer*"))));
+                fname=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 221, "struct buffer*"))));
+                if(                !isdigit(*info->p)                ) {
+                    err_msg(info,"invalid #line directive");
+                    come_call_finalizer(buffer_finalize, fname, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                    return;
+                }
                 while(                isdigit(*info->p)                ) {
                     line=line*10+(*info->p-48);
                     info->p++;
@@ -3366,13 +3378,68 @@ int nest;
                         info->p++;
                     }
                 }
-                info->sline=line;
+                if(                line>0                ) {
+                    info->sline=line-1;
+                }
+                else {
+                    info->sline=line;
+                }
                 __right_value0 = (void*)0;
-                __dec_obj4=info->sname,
-                info->sname=(char*)come_increment_ref_count(buffer_to_string(fname));
-                __dec_obj4 = come_decrement_ref_count(__dec_obj4, (void*)0, (void*)0, 0,0, (void*)0);
+                fname_str=(char*)come_increment_ref_count(buffer_to_string(fname));
+                if(                string_length(fname_str)>0                ) {
+                    __dec_obj4=info->sname,
+                    info->sname=(char*)come_increment_ref_count(fname_str);
+                    __dec_obj4 = come_decrement_ref_count(__dec_obj4, (void*)0, (void*)0, 0,0, (void*)0);
+                }
                 skip_spaces_and_lf2(info);
                 come_call_finalizer(buffer_finalize, fname, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                (fname_str = come_decrement_ref_count(fname_str, (void*)0, (void*)0, 0, 0, (void*)0));
+            }
+            else if(            isdigit(*info->p)            ) {
+                line_1=0;
+                __right_value0 = (void*)0;
+                __right_value1 = (void*)0;
+                fname_2=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 271, "struct buffer*"))));
+                while(                isdigit(*info->p)                ) {
+                    line_1=line_1*10+(*info->p-48);
+                    info->p++;
+                }
+                skip_spaces_and_lf2(info);
+                if(                *info->p==34                ) {
+                    info->p++;
+                    while(                    *info->p&&*info->p!=34                    ) {
+                        buffer_append_char(fname_2,*info->p);
+                        info->p++;
+                    }
+                    if(                    *info->p==0                    ) {
+                        err_msg(info,"unterminated #line file name");
+                        come_call_finalizer(buffer_finalize, fname_2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                        return;
+                    }
+                    info->p++;
+                    while(                    *info->p&&*info->p!=10                    ) {
+                        info->p++;
+                    }
+                    if(                    *info->p==10                    ) {
+                        info->p++;
+                    }
+                }
+                if(                line_1>0                ) {
+                    info->sline=line_1-1;
+                }
+                else {
+                    info->sline=line_1;
+                }
+                __right_value0 = (void*)0;
+                fname_str_3=(char*)come_increment_ref_count(buffer_to_string(fname_2));
+                if(                string_length(fname_str_3)>0                ) {
+                    __dec_obj5=info->sname,
+                    info->sname=(char*)come_increment_ref_count(fname_str_3);
+                    __dec_obj5 = come_decrement_ref_count(__dec_obj5, (void*)0, (void*)0, 0,0, (void*)0);
+                }
+                skip_spaces_and_lf2(info);
+                come_call_finalizer(buffer_finalize, fname_2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                (fname_str_3 = come_decrement_ref_count(fname_str_3, (void*)0, (void*)0, 0, 0, (void*)0));
             }
             else if(            *info->p==34            ) {
                 info->p++;
@@ -3433,6 +3500,15 @@ int nest;
             while(            1            ) {
                 if(                *info->p==10                ) {
                     info->p++;
+                    info->sline++;
+                    skip_spaces_and_lf2(info);
+                    break;
+                }
+                else if(                *info->p==13                ) {
+                    info->p++;
+                    if(                    *info->p==10                    ) {
+                        info->p++;
+                    }
                     info->sline++;
                     skip_spaces_and_lf2(info);
                     break;

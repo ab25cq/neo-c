@@ -214,6 +214,59 @@ void parse_sharp(sInfo* info=info) version 5
                     info.pragma = buf.to_string();
                 }
             }
+            else if(parsecmp("line")) {
+                info->p += strlen("line");
+                skip_spaces_and_lf2();
+                
+                int line = 0;
+                buffer*% fname = new buffer();
+    
+                if(!xisdigit(*info->p)) {
+                    err_msg(info, "invalid #line directive");
+                    return;
+                }
+                
+                while(xisdigit(*info->p)) {
+                    line = line * 10 + (*info->p - '0');
+                    info->p++;
+                }
+                skip_spaces_and_lf2();
+    
+                if(*info->p == '"') {
+                    info->p++;
+    
+                    while(*info->p && *info->p != '"') {
+                        fname.append_char(*info->p);
+                        info->p++;
+                    }
+                    if(*info->p == '\0') {
+                        err_msg(info, "unterminated #line file name");
+                        return;
+                    }
+                    info->p++;
+    
+                    while(*info->p && *info->p != '\n') {
+                        info->p++;
+                    }
+                    if(*info->p == '\n') {
+                        info->p++;
+                    }
+                }
+    
+                if(line > 0) {
+                    info->sline = line - 1;
+                }
+                else {
+                    info->sline = line;
+                }
+                
+                string fname_str = fname.to_string();
+                if(fname_str.length() > 0) {
+                    info->sname = fname_str;
+                }
+    
+                skip_spaces_and_lf2();
+            }
             else if(xisdigit(*info->p)) {
                 int line = 0;
                 buffer*% fname = new buffer();
@@ -245,8 +298,17 @@ void parse_sharp(sInfo* info=info) version 5
                     }
                 }
     
-                info->sline = line;
-                info->sname = fname.to_string();
+                if(line > 0) {
+                    info->sline = line - 1;
+                }
+                else {
+                    info->sline = line;
+                }
+                
+                string fname_str = fname.to_string();
+                if(fname_str.length() > 0) {
+                    info->sname = fname_str;
+                }
     
                 skip_spaces_and_lf2();
             }
@@ -315,6 +377,15 @@ void parse_sharp(sInfo* info=info) version 5
             while(1) {
                 if(*info->p == '\n') {
                     info->p++;
+                    info->sline++;
+                    skip_spaces_and_lf2();
+                    break;
+                }
+                else if(*info->p == '\r') {
+                    info->p++;
+                    if(*info->p == '\n') {
+                        info->p++;
+                    }
                     info->sline++;
                     skip_spaces_and_lf2();
                     break;
