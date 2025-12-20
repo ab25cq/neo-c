@@ -11,6 +11,8 @@ all: test
 
 # Run tests that validate common C syntax
 test: *.c
+	neo-c test_nums.c
+	./test_nums
 	neo-c test_comelang.c
 	./test_comelang
 	neo-c test_comelang2.c

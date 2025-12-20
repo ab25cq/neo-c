@@ -3256,8 +3256,11 @@ void skip_spaces_and_lf(struct sInfo* info){
         if(        *info->p==32||*info->p==9        ) {
             info->p++;
         }
-        else if(        *info->p==13&&*(info->p+1)==10        ) {
-            info->p+=2;
+        else if(        *info->p==13        ) {
+            info->p++;
+            if(            *info->p==10            ) {
+                info->p++;
+            }
             info->sline++;
         }
         else if(        *info->p==10        ) {
@@ -3275,6 +3278,13 @@ void skip_spaces_and_lf2(struct sInfo* info){
     while(    1    ) {
         if(        *info->p==32||*info->p==9        ) {
             info->p++;
+        }
+        else if(        *info->p==13        ) {
+            info->p++;
+            if(            *info->p==10            ) {
+                info->p++;
+            }
+            info->sline++;
         }
         else if(        *info->p==10        ) {
             info->p++;
@@ -3302,7 +3312,7 @@ int nest;
             info->p++;
             skip_spaces_and_lf2(info);
             if(            parsecmp("pragma",info)            ) {
-                buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 186, "struct buffer*"))));
+                buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 196, "struct buffer*"))));
                 buffer_append_str(buf,"#");
                 while(                *info->p                ) {
                     if(                    *info->p==10                    ) {
@@ -3331,7 +3341,7 @@ int nest;
                 line=0;
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
-                fname=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 209, "struct buffer*"))));
+                fname=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 219, "struct buffer*"))));
                 while(                isdigit(*info->p)                ) {
                     line=line*10+(*info->p-48);
                     info->p++;
@@ -3343,10 +3353,18 @@ int nest;
                         buffer_append_char(fname,*info->p);
                         info->p++;
                     }
+                    if(                    *info->p==0                    ) {
+                        err_msg(info,"unterminated #line file name");
+                        come_call_finalizer(buffer_finalize, fname, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                        return;
+                    }
+                    info->p++;
                     while(                    *info->p&&*info->p!=10                    ) {
                         info->p++;
                     }
-                    info->p++;
+                    if(                    *info->p==10                    ) {
+                        info->p++;
+                    }
                 }
                 info->sline=line;
                 __right_value0 = (void*)0;
@@ -3358,13 +3376,20 @@ int nest;
             }
             else if(            *info->p==34            ) {
                 info->p++;
-                while(                *info->p!=34                ) {
+                while(                *info->p&&*info->p!=34                ) {
                     info->p++;
                 }
-                while(                *info->p!=10                ) {
-                    info->p++;
+                if(                *info->p==0                ) {
+                    err_msg(info,"unterminated #include file name");
+                    return;
                 }
                 info->p++;
+                while(                *info->p&&*info->p!=10                ) {
+                    info->p++;
+                }
+                if(                *info->p==10                ) {
+                    info->p++;
+                }
             }
             skip_spaces_and_lf2(info);
         }
@@ -3387,7 +3412,15 @@ int nest;
                     info->p++;
                     info->sline++;
                 }
+                else if(                *info->p==13                ) {
+                    info->p++;
+                    if(                    *info->p==10                    ) {
+                        info->p++;
+                    }
+                    info->sline++;
+                }
                 else if(                *info->p==0                ) {
+                    err_msg(info,"unterminated comment");
                     break;
                 }
                 else {

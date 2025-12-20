@@ -141,8 +141,11 @@ void skip_spaces_and_lf(sInfo* info=info)
         if(*info->p == ' ' || *info->p == '\t') {
             info->p++;
         }
-        else if(*info->p == '\r' && *(info->p + 1) == '\n') {
-            info->p+=2;
+        else if(*info->p == '\r') {
+            info->p++;
+            if(*info->p == '\n') {
+                info->p++;
+            }
             info->sline++;
         }
         else if(*info->p == '\n') {
@@ -162,6 +165,13 @@ void skip_spaces_and_lf2(sInfo* info=info)
     while(true) {
         if(*info->p == ' ' || *info->p == '\t') {
             info->p++;
+        }
+        else if(*info->p == '\r') {
+            info->p++;
+            if(*info->p == '\n') {
+                info->p++;
+            }
+            info->sline++;
         }
         else if(*info->p == '\n') {
             info->p++;
@@ -221,11 +231,18 @@ void parse_sharp(sInfo* info=info) version 5
                         fname.append_char(*info->p);
                         info->p++;
                     }
+                    if(*info->p == '\0') {
+                        err_msg(info, "unterminated #line file name");
+                        return;
+                    }
+                    info->p++;
     
                     while(*info->p && *info->p != '\n') {
                         info->p++;
                     }
-                    info->p++;
+                    if(*info->p == '\n') {
+                        info->p++;
+                    }
                 }
     
                 info->sline = line;
@@ -236,14 +253,21 @@ void parse_sharp(sInfo* info=info) version 5
             else if(*info->p == '"') {
                 info->p++;
     
-                while(*info->p != '"') {
+                while(*info->p && *info->p != '"') {
                     info->p++;
                 }
-    
-                while(*info->p != '\n') {
-                    info->p++;
+                if(*info->p == '\0') {
+                    err_msg(info, "unterminated #include file name");
+                    return;
                 }
                 info->p++;
+    
+                while(*info->p && *info->p != '\n') {
+                    info->p++;
+                }
+                if(*info->p == '\n') {
+                    info->p++;
+                }
             }
         
             skip_spaces_and_lf2();
@@ -268,7 +292,15 @@ void parse_sharp(sInfo* info=info) version 5
                     info->p++;
                     info->sline++;
                 }
+                else if(*info->p == '\r') {
+                    info->p++;
+                    if(*info->p == '\n') {
+                        info->p++;
+                    }
+                    info->sline++;
+                }
                 else if(*info->p == '\0') {
+                    err_msg(info, "unterminated comment");
                     break;
                 }
                 else {

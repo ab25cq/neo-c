@@ -332,139 +332,101 @@ sNode*% get_number(bool minus, sInfo* info)
         p++;
     }
 
-    if(xisdigit(*info->p)) {
-        while(xisdigit(*info->p) || *info->p == '\'' || *info->p == 'e' || *info->p == 'E') {
-            if(*info->p ==  '\'') {
-                info->p++;
-            }
-            else if(*info->p == 'e' || *info->p == 'E') {
-                *p++ = *info->p;
-                info->p++;
-                
-                if(*info->p == '+' || *info->p == '-') {
-                    *p++ = *info->p;
-                    info->p++;
-                }
-            }
-            else {
-                *p++ = *info->p;
-                info->p++;
-            }
-
-            if(p - buf >= buf_size) {
-                printf("%s %d: overflow node of number\n", info->sname, info->sline);
-                exit(5);
-            }
-        };
-        *p = 0;
-        skip_spaces_and_lf();
-        
-        char c = *(info->p+1);
-
-        if(*info->p == '.' && xisdigit(c)) {
-            *p++ = *info->p;
-            
-            if(p - buf >= buf_size) {
-                printf("%s %d: overflow node of number", info->sname, info->sline);
-                exit(11);
-            }
-            
+    if(!xisdigit(*info->p)) {
+        err_msg(info, "require digits after + or -");
+        exit(2);
+    }
+    
+    while(xisdigit(*info->p) || *info->p == '\'') {
+        if(*info->p == '\'') {
             info->p++;
-            skip_spaces_and_lf();
-            
-            while(xisdigit(*info->p) || *info->p == '\'') {
-                if(*info->p ==  '\'') {
-                    info->p++;
-                }
-                else {
-                    *p++ = *info->p;
-                    info->p++;
-                }
+        }
+        else {
+            *p++ = *info->p;
+            info->p++;
+        }
+
+        if(p - buf >= buf_size) {
+            printf("%s %d: overflow node of number\n", info->sname, info->sline);
+            exit(5);
+        }
+    };
     
-                if(p - buf >= buf_size) {
-                    err_msg(info, "overflow node of number");
-                    exit(2);
-                }
-            }
-            
-            if(*info->p == 'e') {
-                *p++ = *info->p;
-                info->p++;
+    bool is_float = false;
     
-                if(p - buf >= buf_size) {
-                    err_msg(info, "overflow node of number");
-                    exit(2);
-                }
-                
-                if(*info->p == '+') {
-                    *p++ = *info->p;
-                    info->p++;
+    if(*info->p == '.' && xisdigit(*(info->p+1))) {
+        is_float = true;
+        *p++ = *info->p;
         
-                    if(p - buf >= buf_size) {
-                        err_msg(info, "overflow node of number");
-                        exit(2);
-                    }
-                }
-                else if(*info->p == '-') {
-                    *p++ = *info->p;
-                    info->p++;
+        if(p - buf >= buf_size) {
+            printf("%s %d: overflow node of number", info->sname, info->sline);
+            exit(11);
+        }
         
-                    if(p - buf >= buf_size) {
-                        err_msg(info, "overflow node of number");
-                        exit(2);
-                    }
-                }
-            
-                while(xisdigit(*info->p) || *info->p == '\'') {
-                    if(*info->p ==  '\'') {
-                        info->p++;
-                    }
-                    else {
-                        *p++ = *info->p;
-                        info->p++;
-                    }
+        info->p++;
         
-                    if(p - buf >= buf_size) {
-                        err_msg(info, "overflow node of number");
-                        exit(2);
-                    }
-                };
-            }
-            skip_spaces_and_lf();
-            
-            if(*info->p == 'f' || *info->p == 'F') {
-                *p++ = *info->p;
-                *p = 0;
-                
+        while(xisdigit(*info->p) || *info->p == '\'') {
+            if(*info->p == '\'') {
                 info->p++;
-                skip_spaces_and_lf();
-                
-                return new sFloatNode(string(buf), info) implements sNode;
-            }
-            else if(*info->p == 'l' || *info->p == 'L') {
-                *p++ = *info->p;
-                *p = 0;
-                
-                info->p++;
-                skip_spaces_and_lf();
-                
-                return new sDoubleNode(string(buf), info) implements sNode;
-            }
-            else if(*info->p == 'i' || *info->p == 'I') {
-                *p++ = *info->p;
-                *p = 0;
-                
-                info->p++;
-                skip_spaces_and_lf();
-                
-                return new sComplexNode(string(buf), info) implements sNode;
             }
             else {
-                *p = 0;
-                return new sDoubleNode(string(buf), info) implements sNode;
+                *p++ = *info->p;
+                info->p++;
+            }
+
+            if(p - buf >= buf_size) {
+                err_msg(info, "overflow node of number");
+                exit(2);
             }
         }
-        else if(*info->p == 'f' || *info->p == 'F') {
+    }
+    
+    if(*info->p == 'e' || *info->p == 'E') {
+        is_float = true;
+        *p++ = *info->p;
+        info->p++;
+
+        if(p - buf >= buf_size) {
+            err_msg(info, "overflow node of number");
+            exit(2);
+        }
+        
+        if(*info->p == '+' || *info->p == '-') {
+            *p++ = *info->p;
+            info->p++;
+
+            if(p - buf >= buf_size) {
+                err_msg(info, "overflow node of number");
+                exit(2);
+            }
+        }
+        
+        if(!xisdigit(*info->p)) {
+            err_msg(info, "require digits after exponent");
+            exit(2);
+        }
+        
+        while(xisdigit(*info->p) || *info->p == '\'') {
+            if(*info->p == '\'') {
+                info->p++;
+            }
+            else {
+                *p++ = *info->p;
+                info->p++;
+            }
+
+            if(p - buf >= buf_size) {
+                err_msg(info, "overflow node of number");
+                exit(2);
+            }
+        };
+    }
+    
+    *p = 0;
+    skip_spaces_and_lf();
+    
+    if(is_float) {
+        if(*info->p == 'f' || *info->p == 'F') {
             *p++ = *info->p;
             *p = 0;
             
@@ -472,6 +434,15 @@ sNode*% get_number(bool minus, sInfo* info)
             skip_spaces_and_lf();
             
             return new sFloatNode(string(buf), info) implements sNode;
+        }
+        else if(*info->p == 'l' || *info->p == 'L') {
+            *p++ = *info->p;
+            *p = 0;
+            
+            info->p++;
+            skip_spaces_and_lf();
+            
+            return new sDoubleNode(string(buf), info) implements sNode;
         }
         else if(*info->p == 'i' || *info->p == 'I') {
             *p++ = *info->p;
@@ -483,15 +454,12 @@ sNode*% get_number(bool minus, sInfo* info)
             return new sComplexNode(string(buf), info) implements sNode;
         }
         else {
-            return get_suffix(buf, p);
+            return new sDoubleNode(string(buf), info) implements sNode;
         }
     }
     else {
-        err_msg(info, "require digits after + or -");
-        exit(2);
+        return get_suffix(buf, p);
     }
-    
-    return (sNode*%)null;
 }
 
 sNode*% get_hex_number(bool minus, sInfo* info)
@@ -508,6 +476,7 @@ sNode*% get_hex_number(bool minus, sInfo* info)
     *p++ = '0';
     *p++ = 'x';
 
+    bool has_digit = false;
     while((*info->p >= '0' && *info->p <= '9') || (*info->p >= 'a' && *info->p <= 'f') || (*info->p >= 'A' && *info->p <= 'F') || *info->p == '\'') 
     {
         if(*info->p == '\'') {
@@ -516,6 +485,7 @@ sNode*% get_hex_number(bool minus, sInfo* info)
         else {
             *p++ = *info->p;
             info->p++;
+            has_digit = true;
         }
 
         if(p - buf >= buf_size-1) {
@@ -523,6 +493,10 @@ sNode*% get_hex_number(bool minus, sInfo* info)
             exit(2);
         }
     };
+    if(!has_digit) {
+        err_msg(info, "require digits after 0x");
+        exit(2);
+    }
     *p = 0;
     skip_spaces_and_lf();
     
@@ -538,6 +512,7 @@ sNode*% get_digits(sInfo* info)
     *p++ = '0';
     *p++ = 'b';
 
+    bool has_digit = false;
     while(*info->p == '0' || *info->p == '1' || *info->p == '\'') {
         if(*info->p == '\'') {
             info->p++;
@@ -545,12 +520,21 @@ sNode*% get_digits(sInfo* info)
         else {
             *p++ = *info->p;
             info->p++;
+            has_digit = true;
         }
 
         if(p - buf >= buf_size-1) {
             err_msg(info, "overflow node of number");
             exit(2);
         }
+    }
+    if(!has_digit) {
+        err_msg(info, "require digits after 0b");
+        exit(2);
+    }
+    if(xisdigit(*info->p)) {
+        err_msg(info, "invalid binary digit");
+        exit(2);
     }
     *p = 0;
     skip_spaces_and_lf();
@@ -569,6 +553,7 @@ sNode*% get_oct_number(bool minus, sInfo* info)
     }
     *p++ = '0';
 
+    bool has_digit = false;
     while((*info->p >= '0' && *info->p <= '7') || *info->p == '\'') {
         if(*info->p == '\'') {
             info->p++;
@@ -577,6 +562,7 @@ sNode*% get_oct_number(bool minus, sInfo* info)
             *p = *info->p;
             p++;
             info->p++;
+            has_digit = true;
         }
 
         if(p - buf >= buf_size-1) {
@@ -584,6 +570,14 @@ sNode*% get_oct_number(bool minus, sInfo* info)
             exit(2);
         }
     };
+    if(!has_digit) {
+        err_msg(info, "invalid octal digit");
+        exit(2);
+    }
+    if(*info->p >= '8' && *info->p <= '9') {
+        err_msg(info, "invalid octal digit");
+        exit(2);
+    }
 
     *p = 0;
     skip_spaces_and_lf();
@@ -669,4 +663,3 @@ sNode*% expression_node(sInfo* info=info) version 99
         return node;
     }
 }
-
