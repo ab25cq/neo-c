@@ -631,6 +631,680 @@ module MEvalOptions<T, T2>
             i++;
         }
         else if(argv[i] === "-e" && i+1 < argc) {
+            linker_option.append_str(s" -e \{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-B" && i+1 < argc) {
+            clang_option.append_str(s" -B\{argv[i+1]} ");
+            i++;
+        }
+        else if(strlen(argv[i]) >= 2 && memcmp(argv[i], "-B", strlen("-B")) == 0) {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(argv[i] === "-L" && i+1 < argc) {
+            linker_option.append_str(s" -L\{argv[i+1]} ");
+            i++;
+        }
+        else if(strlen(argv[i]) >= 2 && memcmp(argv[i], "-L", strlen("-L")) == 0) {
+            linker_option.append_str(s" \{argv[i]} ");
+        }
+        else if(argv[i] === "-l" && i+1 < argc) {
+            linker_option.append_str(s" -l\{argv[i+1]} ");
+            i++;
+        }
+        else if(strlen(argv[i]) >= 2 && memcmp(argv[i], "-l", strlen("-l")) == 0) {
+            linker_option.append_str(s" \{argv[i]} ");
+        }
+        else if(strlen(argv[i]) >= 4 && memcmp(argv[i], "-Wl,", strlen("-Wl,")) == 0) {
+            linker_option.append_str(s" \{argv[i]} ");
+        }
+        else if(argv[i] === "-Xlinker" && i+1 < argc) {
+            linker_option.append_str(s" -Xlinker \{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-rpath" && i+1 < argc) {
+            linker_option.append_str(s" -Wl,-rpath,\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-rpath-link" && i+1 < argc) {
+            linker_option.append_str(s" -Wl,-rpath-link,\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "--gc-sections" || argv[i] === "--no-undefined" || argv[i] === "-dead_strip") {
+            linker_option.append_str(s" \{argv[i]} ");
+        }
+        else if(argv[i] === "-framework" && i+1 < argc) {
+            linker_option.append_str(s" -framework \{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-shared") {
+            linker_option.append_str(" -shared ");
+        }
+        else if(argv[i] === "-static") {
+            linker_option.append_str(" -static ");
+        }
+        else if(argv[i] === "-rdynamic") {
+            linker_option.append_str(" -rdynamic ");
+        }
+        else if(argv[i] === "-pie") {
+            linker_option.append_str(" -pie ");
+        }
+        else if(argv[i] === "-static-libgcc") {
+            linker_option.append_str(" -static-libgcc ");
+        }
+        else if(argv[i] === "-static-libstdc++") {
+            linker_option.append_str(" -static-libstdc++ ");
+        }
+        else if(argv[i] === "-nostdlib") {
+            clang_option.append_str(" -nostdlib ");
+            linker_option.append_str(" -nostdlib ");
+        }
+        else if(argv[i] === "-nostartfiles") {
+            clang_option.append_str(" -nostartfiles ");
+            linker_option.append_str(" -nostartfiles ");
+        }
+        else if(argv[i] === "-nodefaultlibs") {
+            clang_option.append_str(" -nodefaultlibs ");
+            linker_option.append_str(" -nodefaultlibs ");
+        }
+        else if(argv[i] === "-stdlib" && i+1 < argc) {
+            clang_option.append_str(s" -stdlib=\{argv[i+1]} ");
+            linker_option.append_str(s" -stdlib=\{argv[i+1]} ");
+            i++;
+        }
+        else if(strlen(argv[i]) >= 8 && memcmp(argv[i], "-stdlib", strlen("-stdlib")) == 0) {
+            clang_option.append_str(s" \{argv[i]} ");
+            linker_option.append_str(s" \{argv[i]} ");
+        }
+        else if(argv[i] === "-pthread") {
+            gComePthread = true;
+            cpp_option.append_str(" -pthread ");
+            clang_option.append_str(" -pthread ");
+            linker_option.append_str(" -pthread ");
+        }
+        else if(argv[i] === "-gcc") {
+            gcc_compiler = true;
+            CC="gcc";
+        }
+        else if(argv[i] === "-riscv") {
+            gcc_compiler = true;
+            output_object_file_flag = false;
+            CC="riscv64-unknown-elf-gcc"
+            cpp_option.append_format(s" -D__BARE_METAL__ -D__RISCV__ ");
+            clang_option.append_str(s" -nostdlib -ffreestanding -D__RISCV__");
+            gComeBareMetal = true;
+        }
+        else if(argv[i] === "-bare") {
+            output_source_file_flag = true;
+            gcc_compiler = true;
+            output_object_file_flag = false;
+            gComeOriginalSourcePosition = false;
+            CC="gcc";
+            gComeBareMetal = true;
+            cpp_option.append_format(s" -D__BARE_METAL__ ");
+            clang_option.append_str(s" -nostdlib -ffreestanding ");
+        }
+#ifndef __MINUX__
+        else if(argv[i] === "-pico") {
+            output_source_file_flag = true;
+            output_object_file_flag = false;
+            gComeOriginalSourcePosition = false;
+            char* env = getenv("PICO_SDK_PATH");
+            cpp_option = new buffer();
+            cpp_option.append_format(s" -I $PICO_SDK_PATH/src/common/pico_stdlib_headers/include/ -I$PICO_SDK_PATH/src/common/pico_base_headers/include/ -I \{env}/src/rp2_common/hardware_sync/include \$(find \{env} -type d -name include | sed 's/^/ -I/g') -I$PICO_SDK_PATH/src/boards/include -I$PICO_SDK_PATH/src/rp2040/pico_platform/include/ -I$PICO_SDK_PATH/src/rp2040/hardware_regs/include/ -I$PICO_SDK_PATH/src/rp2040/hardware_structs/include -I$PICO_SDK_PATH/src/rp2350/hardware_structs/include/ -I build/generated/pico_base/ -D__PICO__");
+            create_pico_version_header();
+            pico_cpp = true;
+        }
+#endif
+        else if(argv[i] === "-emb") {
+            output_source_file_flag = true;
+            output_object_file_flag = false;
+            gComeOriginalSourcePosition = false;
+            emb_cpp = true;
+        }
+#ifndef __MINUX__
+        else if(argv[i] === "-m5stack") {
+            m5stack_cpp = true;
+            output_source_file_flag = true;
+            output_object_file_flag = false;
+            gComeOriginalSourcePosition = false;
+            char* env = getenv("IDF_PATH");
+            cpp_option = new buffer();
+            cpp_option.append_format(s" -I\{getenv("HOME")}/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/xtensa-esp-elf/include -I\{env}/components/freertos/include -I\{env}/components/esp32/include -I\{env}/components/driver/include -I\{env}/components/lwip/include -I\{env}/components/freertos/FreeRTOS-Kernel/include -I\{env}/components/freertos/config/include/freertos -I\{env}/components/freertos/config/xtensa/include -I\{env}/components/xtensa/include -I\{env}/components/xtensa/esp32/include -I\{env}/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos -I\{env}/components/esp_hw_support/include -I\{env}/components/soc/esp32/include/ -I\{env}/components/esp_common/include/components $(find \{env}/components -type d -name include | grep esp_ | sed 's/^/ -I/g') -I\{env}/components/esp_common/include/ -I\{env}/components/soc/esp32/register/soc/ -I\{env}/components/soc/esp32/register -I\{env}/components/heap/include -I\{env}/components/hal/include -I\{env}/components/newlib/platform_include -D__M5STACK__", PREFIX);
+        }
+#endif
+        else if(i + 1 < argc && argv[i] === "-target") {
+            clang_option.append_str(s" -target \{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-std" && i+1 < argc) {
+            clang_option.append_str(s" \{argv[i]} \{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i][0..4] === "-std") {
+            clang_option.append_str(s" \{argv[i]}");
+        }
+        else if(i + 1 < argc && argv[i] === "-T") {
+            clang_option.append_str(s" -T \{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-net") {
+            gComeNet = true;
+        }
+        else if(argv[i] === "-cg") {
+            come_debug = true;
+            clang_option.append_str("-g ");
+        }
+        else if(argv[i] === "-cg2") {
+            clang_option.append_str(" -fsanitize=address,undefined -g ");
+            linker_option.append_str(" -fsanitize=address,undefined -g ");
+        }
+        else if(argv[i] === "-C") {
+            cpp_option.append_str(s"\{argv[i]} ");
+        }
+        else if(argv[i] === "-M") {
+            cpp_option.append_str(s"\{argv[i]} ");
+        }
+        else if(argv[i] === "-MM") {
+            cpp_option.append_str(s"\{argv[i]} ");
+        }
+        else if(argv[i] === "-MD" || argv[i] === "-MMD" || argv[i] === "-MP" || argv[i] === "-MG") {
+            cpp_option.append_str(s"\{argv[i]} ");
+        }
+        else if(argv[i] === "-MF" && i+1 < argc) {
+            cpp_option.append_str(s"-MF \{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-MT" && i+1 < argc) {
+            cpp_option.append_str(s"-MT \{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-MQ" && i+1 < argc) {
+            cpp_option.append_str(s"-MQ \{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-dM") {
+            cpp_option.append_str(s"\{argv[i]} ");
+        }
+        else if(argv[i] === "-dD") {
+            cpp_option.append_str(s"\{argv[i]} ");
+        }
+        else if(argv[i] === "-dI") {
+            cpp_option.append_str(s"\{argv[i]} ");
+        }
+        else if(argv[i] === "-traditional-cpp") {
+            cpp_option.append_str(s"\{argv[i]} ");
+        }
+        else if(argv[i] === "-H") {
+            cpp_option.append_str(s"\{argv[i]} ");
+        }
+        else if(argv[i] === "-P") {
+            cpp_option.append_str(s"\{argv[i]} ");
+        }
+        else if(argv[i] === "-fdirectives-only") {
+            cpp_option.append_str(s"\{argv[i]} ");
+        }
+        else if(argv[i] === "-frewrite-includes") {
+            cpp_option.append_str(s"\{argv[i]} ");
+        }
+        else if(argv[i] === "-nostdinc") {
+            cpp_option.append_str(s"\{argv[i]} ");
+            clang_option.append_str(s"\{argv[i]} ");
+        }
+        else if(argv[i] === "-nostdinc++") {
+            cpp_option.append_str(s"\{argv[i]} ");
+            clang_option.append_str(s"\{argv[i]} ");
+        }
+        else if(argv[i] === "-nobuiltininc" || argv[i] === "-nostdlibinc") {
+            cpp_option.append_str(s"\{argv[i]} ");
+            clang_option.append_str(s"\{argv[i]} ");
+        }
+        else if(argv[i] === "-CC") {
+            cpp_option.append_str(s"\{argv[i]} ");
+        }
+        else if(strlen(argv[i]) >= 4 && memcmp(argv[i], "-Wp,", strlen("-Wp,")) == 0) {
+            cpp_option.append_str(s" \{argv[i]} ");
+        }
+        else if(argv[i] === "-Xpreprocessor" && i+1 < argc) {
+            cpp_option.append_str(s" -Xpreprocessor \{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-Xclang" && i+1 < argc) {
+            clang_option.append_str(s" -Xclang \{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-mllvm" && i+1 < argc) {
+            clang_option.append_str(s" -mllvm \{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-resource-dir" && i+1 < argc) {
+            clang_option.append_str(s" -resource-dir \{argv[i+1]} ");
+            i++;
+        }
+        else if(i + 1 < argc && argv[i] === "-target") {
+            clang_option.append_str(s" -target \{argv[i+1]} ");
+            i++;
+        }
+        else if(i + 1 < argc && argv[i] === "-include") {
+            cpp_option.append_str(s" -include \{argv[i+1]} ");
+            clang_option.append_str(s" -include \{argv[i+1]} ");
+            i++;
+        }
+        else if(i + 1 < argc && argv[i] === "-include-pch") {
+            cpp_option.append_str(s" -include-pch \{argv[i+1]} ");
+            clang_option.append_str(s" -include-pch \{argv[i+1]} ");
+            i++;
+        }
+        else if(strlen(argv[i]) > strlen("-include-pch") && memcmp(argv[i], "-include-pch", strlen("-include-pch")) == 0) {
+            cpp_option.append_str(s" \{argv[i]} ");
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(argv[i] === "-fpch-preprocess") {
+            cpp_option.append_str(s" \{argv[i]} ");
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(argv[i] === "-Winvalid-pch") {
+            cpp_option.append_str(s" \{argv[i]} ");
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(argv[i] === "-fmodules") {
+            cpp_option.append_str(s" \{argv[i]} ");
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(i + 1 < argc && argv[i] === "-fmodules-cache-path") {
+            cpp_option.append_str(s" -fmodules-cache-path=\{argv[i+1]} ");
+            clang_option.append_str(s" -fmodules-cache-path=\{argv[i+1]} ");
+            i++;
+        }
+        else if(strlen(argv[i]) > strlen("-fmodules-cache-path") && memcmp(argv[i], "-fmodules-cache-path", strlen("-fmodules-cache-path")) == 0) {
+            cpp_option.append_str(s" \{argv[i]} ");
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(i + 1 < argc && argv[i] === "-fmodule-map-file") {
+            cpp_option.append_str(s" -fmodule-map-file=\{argv[i+1]} ");
+            clang_option.append_str(s" -fmodule-map-file=\{argv[i+1]} ");
+            i++;
+        }
+        else if(strlen(argv[i]) > strlen("-fmodule-map-file") && memcmp(argv[i], "-fmodule-map-file", strlen("-fmodule-map-file")) == 0) {
+            cpp_option.append_str(s" \{argv[i]} ");
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(i + 1 < argc && argv[i] === "-fmodule-name") {
+            cpp_option.append_str(s" -fmodule-name=\{argv[i+1]} ");
+            clang_option.append_str(s" -fmodule-name=\{argv[i+1]} ");
+            i++;
+        }
+        else if(strlen(argv[i]) > strlen("-fmodule-name") && memcmp(argv[i], "-fmodule-name", strlen("-fmodule-name")) == 0) {
+            cpp_option.append_str(s" \{argv[i]} ");
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(i + 1 < argc && argv[i] === "-imacro") {
+            cpp_option.append_str(s" -imacros \{argv[i+1]} ");
+            clang_option.append_str(s" -imacros \{argv[i+1]} ");
+            i++;
+        }
+        else if(i + 1 < argc && argv[i] === "-imacros") {
+            cpp_option.append_str(s" -imacros \{argv[i+1]} ");
+            clang_option.append_str(s" -imacros \{argv[i+1]} ");
+            i++;
+        }
+        else if(i + 1 < argc && argv[i] === "-idirafter") {
+            cpp_option.append_str(s" -idirafter \{argv[i+1]} ");
+            clang_option.append_str(s" -idirafter \{argv[i+1]} ");
+            i++;
+        }
+        else if(i + 1 < argc && argv[i] === "-isystem") {
+            cpp_option.append_str(s" -isystem \{argv[i+1]} ");
+            clang_option.append_str(s" -isystem \{argv[i+1]} ");
+            i++;
+        }
+        else if(i + 1 < argc && argv[i] === "-iquote") {
+            cpp_option.append_str(s" -iquote \{argv[i+1]} ");
+            clang_option.append_str(s" -iquote \{argv[i+1]} ");
+            i++;
+        }
+        else if(i + 1 < argc && argv[i] === "-iprefix") {
+            cpp_option.append_str(s" -iprefix \{argv[i+1]} ");
+            clang_option.append_str(s" -iprefix \{argv[i+1]} ");
+            i++;
+        }
+        else if(i + 1 < argc && argv[i] === "-iwithprefix") {
+            cpp_option.append_str(s" -iwithprefix \{argv[i+1]} ");
+            clang_option.append_str(s" -iwithprefix \{argv[i+1]} ");
+            i++;
+        }
+        else if(i + 1 < argc && argv[i] === "-iwithprefixbefore") {
+            cpp_option.append_str(s" -iwithprefixbefore \{argv[i+1]} ");
+            clang_option.append_str(s" -iwithprefixbefore \{argv[i+1]} ");
+            i++;
+        }
+        else if(i + 1 < argc && argv[i] === "-iframework") {
+            cpp_option.append_str(s" -iframework \{argv[i+1]} ");
+            clang_option.append_str(s" -iframework \{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-F" && i+1 < argc) {
+            cpp_option.append_str(s" -F\{argv[i+1]} ");
+            clang_option.append_str(s" -F\{argv[i+1]} ");
+            i++;
+        }
+        else if(strlen(argv[i]) >= 2 && memcmp(argv[i], "-F", strlen("-F")) == 0) {
+            cpp_option.append_str(s" \{argv[i]} ");
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(i + 1 < argc && argv[i] === "-isysroot") {
+            cpp_option.append_str(s" -isysroot \{argv[i+1]} ");
+            clang_option.append_str(s" -isysroot \{argv[i+1]} ");
+            i++;
+        }
+        else if(i + 1 < argc && argv[i] === "-sysroot") {
+            cpp_option.append_str(s" -sysroot \{argv[i+1]} ");
+            clang_option.append_str(s" -sysroot \{argv[i+1]} ");
+            i++;
+        }
+        else if(strlen(argv[i]) >= 10 && memcmp(argv[i], "--sysroot", strlen("--sysroot")) == 0) {
+            cpp_option.append_str(s" \{argv[i]} ");
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(i + 1 < argc && argv[i] === "-T") {
+            clang_option.append_str(s" -T \{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-original-position") {
+            gComeOriginalSourcePosition = false;
+        }
+        else if(argv[i][0..2] === "-O") {
+            clang_option.append_str(s" \{argv[i]} ");
+            come_debug = false;
+        }
+        else if(argv[i] === "-D" && i+1 < argc) {
+            cpp_option.append_str(s" -D\{argv[i+1]} ");
+            clang_option.append_str(s" -D\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i][0..2] === "-D") {
+            cpp_option.append_str(s" \{argv[i]} ");
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(argv[i] === "-U" && i+1 < argc) {
+            cpp_option.append_str(s" -U\{argv[i+1]} ");
+            clang_option.append_str(s" -U\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i][0..2] === "-U") {
+            cpp_option.append_str(s" \{argv[i]} ");
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(argv[i] === "-undef") {
+            cpp_option.append_str(" -undef ");
+            clang_option.append_str(" -undef ");
+        }
+        else if(argv[i] === "-fdiagnostics-color" || argv[i] === "-fno-diagnostics-color") {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(strlen(argv[i]) >= 20 && memcmp(argv[i], "-fdiagnostics-color", strlen("-fdiagnostics-color")) == 0) {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(argv[i] === "-fcolor-diagnostics" || argv[i] === "-fno-color-diagnostics") {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(argv[i] === "-pipe") {
+            clang_option.append_str(" -pipe ");
+        }
+        else if(argv[i] === "-march" && i+1 < argc) {
+            clang_option.append_str(s" -march=\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-mtune" && i+1 < argc) {
+            clang_option.append_str(s" -mtune=\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-mcpu" && i+1 < argc) {
+            clang_option.append_str(s" -mcpu=\{argv[i+1]} ");
+            i++;
+        }
+        else if(strlen(argv[i]) >= 2 && (memcmp(argv[i], "-march", strlen("-march")) == 0 || memcmp(argv[i], "-mtune", strlen("-mtune")) == 0 || memcmp(argv[i], "-mcpu", strlen("-mcpu")) == 0)) {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(argv[i] === "-m32" || argv[i] === "-m64") {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(argv[i] === "-fPIC" || argv[i] === "-fpic" || argv[i] === "-fPIE" || argv[i] === "-fpie") {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(argv[i] === "-fno-pic" || argv[i] === "-fno-pie") {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(argv[i] === "-ffunction-sections" || argv[i] === "-fdata-sections") {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(strlen(argv[i]) >= 13 && memcmp(argv[i], "-fvisibility", strlen("-fvisibility")) == 0) {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(argv[i] === "-fno-common" || argv[i] === "-fcommon") {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(argv[i] === "-fwrapv" || argv[i] === "-fno-wrapv") {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(argv[i] === "-fstrict-aliasing" || argv[i] === "-fno-strict-aliasing") {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(argv[i] === "-fstack-protector" || argv[i] === "-fstack-protector-strong" || argv[i] === "-fstack-protector-all") {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(argv[i] === "-fno-stack-protector") {
+            clang_option.append_str(" -fno-stack-protector ");
+        }
+        else if(strlen(argv[i]) >= 12 && memcmp(argv[i], "-fno-builtin", strlen("-fno-builtin")) == 0) {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(i + 1 < argc && argv[i] === "-fmacro-prefix-map") {
+            cpp_option.append_str(s" -fmacro-prefix-map=\{argv[i+1]} ");
+            clang_option.append_str(s" -fmacro-prefix-map=\{argv[i+1]} ");
+            i++;
+        }
+        else if(strlen(argv[i]) > strlen("-fmacro-prefix-map") && memcmp(argv[i], "-fmacro-prefix-map", strlen("-fmacro-prefix-map")) == 0) {
+            cpp_option.append_str(s" \{argv[i]} ");
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(i + 1 < argc && argv[i] === "-ffile-prefix-map") {
+            cpp_option.append_str(s" -ffile-prefix-map=\{argv[i+1]} ");
+            clang_option.append_str(s" -ffile-prefix-map=\{argv[i+1]} ");
+            i++;
+        }
+        else if(strlen(argv[i]) > strlen("-ffile-prefix-map") && memcmp(argv[i], "-ffile-prefix-map", strlen("-ffile-prefix-map")) == 0) {
+            cpp_option.append_str(s" \{argv[i]} ");
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(i + 1 < argc && argv[i] === "-fdebug-prefix-map") {
+            cpp_option.append_str(s" -fdebug-prefix-map=\{argv[i+1]} ");
+            clang_option.append_str(s" -fdebug-prefix-map=\{argv[i+1]} ");
+            i++;
+        }
+        else if(strlen(argv[i]) > strlen("-fdebug-prefix-map") && memcmp(argv[i], "-fdebug-prefix-map", strlen("-fdebug-prefix-map")) == 0) {
+            cpp_option.append_str(s" \{argv[i]} ");
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(i + 1 < argc && argv[i] === "-ftrack-macro-expansion") {
+            cpp_option.append_str(s" -ftrack-macro-expansion=\{argv[i+1]} ");
+            clang_option.append_str(s" -ftrack-macro-expansion=\{argv[i+1]} ");
+            i++;
+        }
+        else if(strlen(argv[i]) > strlen("-ftrack-macro-expansion") && memcmp(argv[i], "-ftrack-macro-expansion", strlen("-ftrack-macro-expansion")) == 0) {
+            cpp_option.append_str(s" \{argv[i]} ");
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(i + 1 < argc && argv[i] === "-fmacro-backtrace-limit") {
+            cpp_option.append_str(s" -fmacro-backtrace-limit=\{argv[i+1]} ");
+            clang_option.append_str(s" -fmacro-backtrace-limit=\{argv[i+1]} ");
+            i++;
+        }
+        else if(strlen(argv[i]) > strlen("-fmacro-backtrace-limit") && memcmp(argv[i], "-fmacro-backtrace-limit", strlen("-fmacro-backtrace-limit")) == 0) {
+            cpp_option.append_str(s" \{argv[i]} ");
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(argv[i] === "-fno-plt") {
+            clang_option.append_str(" -fno-plt ");
+        }
+        else if(argv[i] === "-fno-exceptions" || argv[i] === "-fno-unwind-tables" || argv[i] === "-fno-asynchronous-unwind-tables") {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(argv[i] === "-fuse-ld" && i+1 < argc) {
+            clang_option.append_str(s" -fuse-ld=\{argv[i+1]} ");
+            i++;
+        }
+        else if(strlen(argv[i]) >= 8 && memcmp(argv[i], "-fuse-ld", strlen("-fuse-ld")) == 0) {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(argv[i] === "--analyze" || argv[i] === "-analyze") {
+            clang_option.append_str(s" \{argv[i]} ");
+            output_object_file = true;
+        }
+        else if(argv[i] === "-fsyntax-only") {
+            clang_option.append_str(" -fsyntax-only ");
+            output_object_file = true;
+        }
+        else if(strlen(argv[i]) >= 10 && memcmp(argv[i], "-fsanitize", strlen("-fsanitize")) == 0) {
+            clang_option.append_str(s" \{argv[i]} ");
+            linker_option.append_str(s" \{argv[i]} ");
+        }
+        else if(strlen(argv[i]) >= 14 && memcmp(argv[i], "-fno-sanitize", strlen("-fno-sanitize")) == 0) {
+            clang_option.append_str(s" \{argv[i]} ");
+            linker_option.append_str(s" \{argv[i]} ");
+        }
+        else if(strlen(argv[i]) >= 20 && memcmp(argv[i], "-fsanitize-recover", strlen("-fsanitize-recover")) == 0) {
+            clang_option.append_str(s" \{argv[i]} ");
+            linker_option.append_str(s" \{argv[i]} ");
+        }
+        else if(strlen(argv[i]) >= 22 && memcmp(argv[i], "-fno-sanitize-recover", strlen("-fno-sanitize-recover")) == 0) {
+            clang_option.append_str(s" \{argv[i]} ");
+            linker_option.append_str(s" \{argv[i]} ");
+        }
+        else if(strlen(argv[i]) >= 13 && memcmp(argv[i], "-fsanitize-trap", strlen("-fsanitize-trap")) == 0) {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(argv[i] === "-fprofile-arcs" || argv[i] === "-ftest-coverage" || argv[i] === "-coverage") {
+            clang_option.append_str(s" \{argv[i]} ");
+            linker_option.append_str(s" \{argv[i]} ");
+        }
+        else if(argv[i] === "-fprofile-instr-generate" || argv[i] === "-fcoverage-mapping") {
+            clang_option.append_str(s" \{argv[i]} ");
+            linker_option.append_str(s" \{argv[i]} ");
+        }
+        else if(strlen(argv[i]) >= 5 && memcmp(argv[i], "-flto", strlen("-flto")) == 0) {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(strlen(argv[i]) >= 9 && memcmp(argv[i], "-fno-lto", strlen("-fno-lto")) == 0) {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(argv[i] === "-fomit-frame-pointer") {
+            clang_option.append_str(" -fomit-frame-pointer ");
+        }
+        else if(argv[i] === "-fno-omit-frame-pointer") {
+            clang_option.append_str(" -fno-omit-frame-pointer ");
+        }
+        else if(argv[i] === "-ffast-math") {
+            clang_option.append_str(" -ffast-math ");
+        }
+        else if(argv[i] === "-fno-fast-math") {
+            clang_option.append_str(" -fno-fast-math ");
+        }
+        else if(argv[i] === "-g") {
+            clang_option.append_str("-g ");
+        }
+        else if(argv[i] === "-v") {
+            clang_option.append_str("-v ");
+            cpp_option.append_str("-v ");
+            verbose = true;
+        }
+        else if(argv[i] === "-I" && i+1 < argc) {
+            cpp_option.append_str(s" -I\{argv[i+1]} ");
+            clang_option.append_str(s" -I\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-I-") {
+            cpp_option.append_str(" -I- ");
+            clang_option.append_str(" -I- ");
+        }
+        else if(strlen(argv[i]) >= 2 && memcmp(argv[i], "-I", strlen("-I")) == 0) {
+            cpp_option.append_str(" " + argv[i] + " ");
+            clang_option.append_str(" " + argv[i] + " ");
+        }
+        else if(argv[i] === "-gdwarf-4") {
+            clang_option.append_str("-gdwarf-4 ");
+        }
+        else if(argv[i] === "-S") {
+            output_source_file_flag = true;
+            output_object_file_flag = false;
+            gComeOriginalSourcePosition = false;
+        }
+        else if(argv[i] === "-s") {
+            output_source_file_flag = true;
+            output_object_file_flag = true;
+            gComeOriginalSourcePosition = false;
+        }
+        else if(argv[i] === "-c") {
+            output_object_file = true;
+        }
+        else if(argv[i] === "-E") {
+            output_cpp_file = true;
+        }
+        else if(argv[i][0] == '-') {
+            clang_option.append_str(argv[i] + " ");
+        }
+        else if(strlen(argv[i]) > 2 && memcmp(argv[i] + strlen(argv[i]) -2, ".o", 2) == 0) {
+            object_files.push_back(string(argv[i]));
+        }
+        else if(strlen(argv[i]) > 2 && memcmp(argv[i] + strlen(argv[i]) -2, ".a", 2) == 0) {
+            object_files.push_back(string(argv[i]));
+        }
+        else if(ext_name === "c") {
+            files.push_back(string(argv[i]));
+        }
+        else {
+            clang_option.append_str(argv[i] + " ");
+        }
+    }
+#ifdef __MAC__ // for lldb
+    output_source_file_flag = true;
+    gComeOriginalSourcePosition = false;
+#endif
+        
+    gComeDebug = come_debug;
+}
+
+/*
+module MEvalOptions<T, T2>
+{
+    var clang_option = new buffer();
+    //clang_option.append_str(" -std=c99 ");
+    clang_option.append_str(" -std=c11 ");
+    var linker_option = new buffer();
+    var cpp_option = new buffer();
+    cpp_option.append_str("-U__GNUC__");
+    cpp_option.append_str(" -std=c11 ");
+    var files = new list<string>();
+    var object_files = new list<string>();
+    bool output_object_file = false;
+    bool output_cpp_file = false;
+    bool output_source_file_flag = false;
+    bool output_object_file_flag = true;
+    string output_file_name = T2;
+    bool verbose = false;
+    bool come_debug = false;
+    bool m5stack_cpp = false;
+    bool pico_cpp = false;
+    bool emb_cpp = false;
+    bool gcc_compiler = false;
+    for(int i=T; i<argc; i++) {
+        string ext_name = xextname(argv[i]);
+        
+        if(argv[i] === "-o" && i+1 < argc) {
+            output_file_name = string(argv[i+1]);
+            i++;
+        }
+        else if(argv[i] === "-e" && i+1 < argc) {
             linker_option.append_str(s"-e \{argv[i+1]");
             i++;
         }
@@ -831,6 +1505,7 @@ module MEvalOptions<T, T2>
         
     gComeDebug = come_debug;
 }
+*/
 
 int come_main(int argc, char** argv)
 {
