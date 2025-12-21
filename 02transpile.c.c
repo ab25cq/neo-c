@@ -3944,13 +3944,6 @@ _Bool __result_obj__20;
     for(    o2_saved=object_files,it=list$1char$ph_begin(o2_saved)    ;    !list$1char$ph_end(o2_saved)    ;    it=list$1char$ph_next(o2_saved)    ){
         buffer_append_format(command,"%s ",it);
     }
-    __right_value0 = (void*)0;
-    __right_value1 = (void*)0;
-    __right_value2 = (void*)0;
-    buffer_append_str(command,((char*)(__right_value2=string_operator_add(((char*)(__right_value1=charp_operator_add(" ",info->linker_option2)))," "))));
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
-    (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0));
     is_mac_32=system("uname -a | grep Darwin 1> /dev/null 2>/dev/null")==0;
     if(    is_mac_32    ) {
         buffer_append_str(command," -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib ");
@@ -3975,6 +3968,13 @@ _Bool __result_obj__20;
     if(    rc_36==0    ) {
         buffer_append_format(command," -L\"%s\"/lib ","/usr/local/");
     }
+    __right_value0 = (void*)0;
+    __right_value1 = (void*)0;
+    __right_value2 = (void*)0;
+    buffer_append_str(command,((char*)(__right_value2=string_operator_add(((char*)(__right_value1=charp_operator_add(" ",info->linker_option2)))," "))));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
+    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
+    (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0));
     buffer_append_format(command," %s ",info->clang_option);
     if(    gComePthread    ) {
         buffer_append_str(command," -lpthread ");
@@ -5274,6 +5274,7 @@ char* __dec_obj62;
 char* __dec_obj63;
 char* __dec_obj64;
 char* __dec_obj65;
+char* __dec_obj66;
 _Bool Value_82;
 int __result_obj__74;
 memset(&info, 0, sizeof(info));
@@ -5353,7 +5354,7 @@ memset(&info_79, 0, sizeof(info_79));
         else if(        charp_operator_equals(argv[i],"-L")&&i+1<argc        ) {
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
-            buffer_append_str(linker_option2,((char*)(__right_value1=xsprintf(" -L\%s ",((char*)(__right_value0=charp_to_string(argv[i+1])))))));
+            buffer_append_str(linker_option,((char*)(__right_value1=xsprintf(" -L\%s ",((char*)(__right_value0=charp_to_string(argv[i+1])))))));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
             i++;
@@ -5368,7 +5369,7 @@ memset(&info_79, 0, sizeof(info_79));
         else if(        charp_operator_equals(argv[i],"-l")&&i+1<argc        ) {
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
-            buffer_append_str(linker_option,((char*)(__right_value1=xsprintf(" -l\%s ",((char*)(__right_value0=charp_to_string(argv[i+1])))))));
+            buffer_append_str(linker_option2,((char*)(__right_value1=xsprintf(" -l\%s ",((char*)(__right_value0=charp_to_string(argv[i+1])))))));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
             i++;
@@ -5376,7 +5377,7 @@ memset(&info_79, 0, sizeof(info_79));
         else if(        strlen(argv[i])>=2&&memcmp(argv[i],"-l",strlen("-l"))==0        ) {
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
-            buffer_append_str(linker_option,((char*)(__right_value1=xsprintf(" \%s ",((char*)(__right_value0=charp_to_string(argv[i])))))));
+            buffer_append_str(linker_option2,((char*)(__right_value1=xsprintf(" \%s ",((char*)(__right_value0=charp_to_string(argv[i])))))));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
         }
@@ -7599,17 +7600,21 @@ memset(&info_79, 0, sizeof(info_79));
         __dec_obj63=info_79.linker_option,
         info_79.linker_option=(char*)come_increment_ref_count(buffer_to_string(linker_option));
         __dec_obj63 = come_decrement_ref_count(__dec_obj63, (void*)0, (void*)0, 0,0, (void*)0);
+        __right_value0 = (void*)0;
+        __dec_obj64=info_79.linker_option2,
+        info_79.linker_option2=(char*)come_increment_ref_count(buffer_to_string(linker_option2));
+        __dec_obj64 = come_decrement_ref_count(__dec_obj64, (void*)0, (void*)0, 0,0, (void*)0);
         info_79.verbose=verbose;
         if(        output_file_name        ) {
             __right_value0 = (void*)0;
-            __dec_obj64=info_79.output_file_name,
+            __dec_obj65=info_79.output_file_name,
             info_79.output_file_name=(char*)come_increment_ref_count(__builtin_string(output_file_name));
-            __dec_obj64 = come_decrement_ref_count(__dec_obj64, (void*)0, (void*)0, 0,0, (void*)0);
+            __dec_obj65 = come_decrement_ref_count(__dec_obj65, (void*)0, (void*)0, 0,0, (void*)0);
         }
         else {
-            __dec_obj65=info_79.output_file_name,
+            __dec_obj66=info_79.output_file_name,
             info_79.output_file_name=((void*)0);
-            __dec_obj65 = come_decrement_ref_count(__dec_obj65, (void*)0, (void*)0, 0,0, (void*)0);
+            __dec_obj66 = come_decrement_ref_count(__dec_obj66, (void*)0, (void*)0, 0,0, (void*)0);
         }
         if(        output_object_file_flag        ) {
             Value_82=linker(&info_79,object_files);

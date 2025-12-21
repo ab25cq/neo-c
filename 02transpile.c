@@ -426,8 +426,6 @@ static bool linker(sInfo* info, list<string>* object_files)
         command.append_format("%s ", it);
     }
     
-    command.append_str(" " + info.linker_option2 +" ");
-    
     int is_mac = system("uname -a | grep Darwin 1> /dev/null 2>/dev/null") == 0;
     if(is_mac) {
         command.append_str(" -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib ");
@@ -450,6 +448,8 @@ static bool linker(sInfo* info, list<string>* object_files)
     if(rc == 0) {
         command.append_format(" -L\"%s\"/lib ", PREFIX);
     }
+    
+    command.append_str(" " + info.linker_option2 +" ");
     
     command.append_format(" %s ", info.clang_option);
     
@@ -681,18 +681,18 @@ module MEvalOptions<T, T2>
             clang_option.append_str(s" \{argv[i]} ");
         }
         else if(argv[i] === "-L" && i+1 < argc) {
-            linker_option2.append_str(s" -L\{argv[i+1]} ");
+            linker_option.append_str(s" -L\{argv[i+1]} ");
             i++;
         }
         else if(strlen(argv[i]) >= 2 && memcmp(argv[i], "-L", strlen("-L")) == 0) {
             linker_option.append_str(s" \{argv[i]} ");
         }
         else if(argv[i] === "-l" && i+1 < argc) {
-            linker_option.append_str(s" -l\{argv[i+1]} ");
+            linker_option2.append_str(s" -l\{argv[i+1]} ");
             i++;
         }
         else if(strlen(argv[i]) >= 2 && memcmp(argv[i], "-l", strlen("-l")) == 0) {
-            linker_option.append_str(s" \{argv[i]} ");
+            linker_option2.append_str(s" \{argv[i]} ");
         }
         else if(strlen(argv[i]) >= 4 && memcmp(argv[i], "-Wl,", strlen("-Wl,")) == 0) {
             linker_option.append_str(s" \{argv[i]} ");
@@ -1727,6 +1727,7 @@ int come_main(int argc, char** argv)
         info.sname = clone files[0];
         info.clang_option = clang_option.to_string();
         info.linker_option = linker_option.to_string();
+        info.linker_option2 = linker_option2.to_string();
         info.verbose = verbose;
         
         if(output_file_name) {
