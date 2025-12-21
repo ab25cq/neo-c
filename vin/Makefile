@@ -20,7 +20,7 @@ CC=clang
 NCC=@NCC@
 INSTALL=/usr/bin/install -c
 CFLAGS=-I$(HOME)/include -I.  -gdwarf-4 -O2 -I/opt/homebrew/opt/ncurses/include -L/opt/homebrew/opt/ncurses/lib -s -I/usr/local/opt/ncurses/include -L/usr/local/opt/ncurses/lib
-LIBS= -ldl -lm -lncursesw -lreadline -lpthread
+LIBS= -ldl -lm  -lreadline -lncursesw -lpthread
 OS=
 DESTDIR=/usr/local
 
