@@ -121,14 +121,14 @@ test: *.c
 	./c_test_compat21
 	neo-c c_test_compat22.c
 	./c_test_compat22
-#	neo-c c_test_compat23.c
-#	./c_test_compat23
+	neo-c c_test_compat23.c
+	./c_test_compat23
 	neo-c c_test_compat24.c
 	./c_test_compat24
 	neo-c c_test_compat25.c
 	./c_test_compat25
-#	neo-c c_test_compat26.c
-#	./c_test_compat26
+	neo-c c_test_compat26.c
+	./c_test_compat26
 	neo-c c_test_compat27.c
 	./c_test_compat27
 	neo-c c_test_compat28.c

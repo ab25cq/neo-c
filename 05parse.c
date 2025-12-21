@@ -278,6 +278,16 @@ void skip_spaces_and_tabs(sInfo* info=info)
         if(*info->p == ' ' || *info->p == '\t') {
             info->p++;
         }
+        else if(*info->p == '/' && *(info->p+1) == '*') {
+            (void)skip_comment(info, false);
+        }
+        else if(*info->p == '/' && *(info->p+1) == '/') {
+            info->p += 2;
+            while(*info->p && *info->p != '\n' && *info->p != '\r') {
+                info->p++;
+            }
+            break;
+        }
         else {
             break;
         }
