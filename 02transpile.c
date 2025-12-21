@@ -457,13 +457,46 @@ static bool linker(sInfo* info, list<string>* object_files)
     if(gComeNet) {
         command.append_str(" -lssl ");
     }
+
+    int is_mac2 = system("uname -a | grep Darwin 1> /dev/null 2>/dev/null") == 0;
+    if(!is_mac2) {
+        command.append_str(" -latomic ");
+    }
     
     if(info.verbose) puts(command.to_string());
     
     system(command.to_string()).if {
+        int is_mac3 = system("uname -a | grep Darwin 1> /dev/null 2>/dev/null") == 0;
+        if(!is_mac3) {
+            buffer* retry = new buffer();
+            retry.append_str(command.to_string());
+            retry.append_str(" -latomic ");
+            
+            if(info.verbose) puts(retry.to_string());
+            
+            system(retry.to_string()).if {
+            }
+            else {
+                return true;
+            }
+        }
         string str = s"gcc" + command.to_string().substring(strlen(CC), -1);
         
         system(str).if { 
+            if(!is_mac3) {
+                string str2 = str + s" -latomic ";
+                
+                if(info.verbose) puts(str2);
+                
+                system(str2).if {
+                    printf("%s is failed\n", CC);
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
+            
             printf("%s is failed\n", CC);
             return false;
         }

@@ -1,5 +1,17 @@
 #include "common.h"
 
+bool is_gcc_builtin_float_typedef(string type_name, sInfo* info)
+{
+    if(!info.gcc_compiler) {
+        return false;
+    }
+    return type_name === "_Float128"
+        || type_name === "_Float32"
+        || type_name === "_Float64"
+        || type_name === "_Float32x"
+        || type_name === "_Float64x";
+}
+
 class sTypedefNode extends sNodeBase
 {
     new(string type_name, sType*% type, list<tup: sType*%, string>*% multiple_declare, sInfo* info)
@@ -54,11 +66,13 @@ class sTypedefNode extends sNodeBase
                 info.types.insert(string(type_name), clone type);
                 
             
-                if(type->mArrayNum.length() > 0 || type->mAtomic) {
-                    info.struct_definition.insert(string(type_name), xsprintf("typedef %s;\n", make_define_var(type, type_name, in_typedef:true)).to_buffer());
-                }
-                else {
-                    info.typedef_definition.insert(string(type_name), xsprintf("typedef %s;\n", make_define_var(type, type_name, in_typedef:true)).to_buffer());
+                if(!is_gcc_builtin_float_typedef(type_name, info)) {
+                    if(type->mArrayNum.length() > 0 || type->mAtomic) {
+                        info.struct_definition.insert(string(type_name), xsprintf("typedef %s;\n", make_define_var(type, type_name, in_typedef:true)).to_buffer());
+                    }
+                    else {
+                        info.typedef_definition.insert(string(type_name), xsprintf("typedef %s;\n", make_define_var(type, type_name, in_typedef:true)).to_buffer());
+                    }
                 }
             }
         }
@@ -72,11 +86,13 @@ class sTypedefNode extends sNodeBase
             type->mTypedef = true;
             info.types.insert(string(type_name), clone type);
             
-            if(type->mArrayNum.length() > 0 || type->mAtomic) {
-                info.struct_definition.insert(string(type_name), xsprintf("typedef %s;\n", make_define_var(type, type_name, in_typedef:true)).to_buffer());
-            }
-            else {
-                info.typedef_definition.insert(string(type_name), xsprintf("typedef %s;\n", make_define_var(type, type_name, in_typedef:true)).to_buffer());
+            if(!is_gcc_builtin_float_typedef(type_name, info)) {
+                if(type->mArrayNum.length() > 0 || type->mAtomic) {
+                    info.struct_definition.insert(string(type_name), xsprintf("typedef %s;\n", make_define_var(type, type_name, in_typedef:true)).to_buffer());
+                }
+                else {
+                    info.typedef_definition.insert(string(type_name), xsprintf("typedef %s;\n", make_define_var(type, type_name, in_typedef:true)).to_buffer());
+                }
             }
         }
     
