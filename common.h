@@ -494,6 +494,7 @@ struct sInfo
     string clang_option;
     string cpp_option;
     string linker_option;
+    string linker_option2;
     bool no_output_err;
     bool no_output_come_code;
     bool undefined_array_num_var;

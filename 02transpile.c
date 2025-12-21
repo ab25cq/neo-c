@@ -426,6 +426,8 @@ static bool linker(sInfo* info, list<string>* object_files)
         command.append_format("%s ", it);
     }
     
+    command.append_str(" " + info.linker_option2 +" ");
+    
     int is_mac = system("uname -a | grep Darwin 1> /dev/null 2>/dev/null") == 0;
     if(is_mac) {
         command.append_str(" -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib ");
@@ -640,6 +642,7 @@ module MEvalOptions<T, T2>
     //clang_option.append_str(" -std=c99 ");
     clang_option.append_str(" -std=c11 ");
     var linker_option = new buffer();
+    var linker_option2 = new buffer();
     var cpp_option = new buffer();
     cpp_option.append_str("-U__GNUC__");
     cpp_option.append_str(" -std=c11 ");
@@ -678,7 +681,7 @@ module MEvalOptions<T, T2>
             clang_option.append_str(s" \{argv[i]} ");
         }
         else if(argv[i] === "-L" && i+1 < argc) {
-            linker_option.append_str(s" -L\{argv[i+1]} ");
+            linker_option2.append_str(s" -L\{argv[i+1]} ");
             i++;
         }
         else if(strlen(argv[i]) >= 2 && memcmp(argv[i], "-L", strlen("-L")) == 0) {
@@ -1630,6 +1633,7 @@ int come_main(int argc, char** argv)
         info.clang_option = clang_option.to_string();
         info.cpp_option = cpp_option.to_string();
         info.linker_option = linker_option.to_string();
+        info.linker_option2 = linker_option2.to_string();
         info.funcs = new map<string, sFun*%>();
         info.uniq_funcs = new map<string, sFun*%>();
         info.struct_definition = new map<string, buffer*%>();

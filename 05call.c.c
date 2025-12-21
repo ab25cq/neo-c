@@ -1802,6 +1802,7 @@ struct sInfo
     char* clang_option;
     char* cpp_option;
     char* linker_option;
+    char* linker_option2;
     _Bool no_output_err;
     _Bool no_output_come_code;
     _Bool undefined_array_num_var;
