@@ -339,3 +339,6 @@ uninstall:
 	rm -f "$(DESTDIR)"/include/neo-c-net.h
 	rm -f "$(DESTDIR)"/include/neo-c-pthread.h
 	rm -f "$(DESTDIR)/share/doc/neo-c/README.md
+
+test:
+	(cd code && make test)
