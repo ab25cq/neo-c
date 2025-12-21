@@ -888,6 +888,7 @@ sNode*% parse_normal_block(bool clang=false, sInfo* info=info);
 bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* come_value, bool check_no_pointer=false, bool print_err_msg=true, bool pointer_massive=true, sInfo* info=info);
 void cast_type(sType* left_type, sType* right_type, CVALUE* come_value, sInfo* info=info);
 string,string parse_attribute(sInfo* info=info,bool parse_function_attribute=false);
+string,string parse_function_attribute(sInfo* info=info);
 sNode*% get_number(bool minus, sInfo* info);
 sNode*% get_oct_number(sInfo* info);
 sNode*% get_hex_number(bool minus, sInfo* info);

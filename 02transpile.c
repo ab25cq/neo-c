@@ -1555,6 +1555,12 @@ module MEvalOptions<T, T2>
             clang_option.append_str(argv[i] + " ");
         }
     }
+    if(gcc_compiler) {
+        cpp_option.append_str(" -U__clang__ ");
+    }
+    else {
+        cpp_option.append_str(" -D__clang__ ");
+    }
 #ifdef __MAC__ // for lldb
     output_source_file_flag = true;
     gComeOriginalSourcePosition = false;

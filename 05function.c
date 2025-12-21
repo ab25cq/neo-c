@@ -77,6 +77,32 @@ class sLambdaNode extends sNodeBase
     }
 };
 
+class sRawCodeNode extends sNodeBase
+{
+    new(string code, sInfo* info=info)
+    {
+        self.super();
+        string self.mCode = string(code);
+    }
+    
+    bool terminated()
+    {
+        return true;
+    }
+    
+    string kind()
+    {
+        return string("sRawCodeNode");
+    }
+    
+    bool compile(sInfo* info)
+    {
+        add_come_code(info, "%s\n", self.mCode);
+        
+        return true;
+    }
+};
+
 class sFunNode extends sNodeBase
 {
     new(sFun*% fun, sInfo* info)
@@ -259,7 +285,61 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
             }
         
             
-            sNode*% node = statment();
+            sNode*% node = null;
+            if(in_function) {
+                sNode*% nested_fun = null;
+                char* head = info->p;
+                int head_sline = info->sline;
+                string head_sname = string(info->sname);
+                
+                if(xisalpha(*info->p) || *info->p == '_') {
+                    char* p0 = info->p;
+                    int sline0 = info->sline;
+                    string word = parse_word();
+                    bool is_type = is_type_name(word);
+                    info->p = p0;
+                    info->sline = sline0;
+                    
+                    if(is_type) {
+                        bool no_output_come_code = info.no_output_come_code;
+                        info.no_output_come_code = true;
+                        
+                        var type, name, err = parse_type(parse_variable_name:true);
+                        skip_spaces_and_lf();
+                        
+                        if(err && *info->p == '(') {
+                            skip_paren(info);
+                            skip_spaces_and_lf();
+                            var asm_name, fun_attr = parse_function_attribute();
+                            skip_spaces_and_lf();
+                            
+                            if(*info->p == '{') {
+                                string block = skip_block(info);
+                                char* tail = info->p;
+                                
+                                buffer*% buf = new buffer();
+                                buf.append(head, tail - head);
+                                
+                                nested_fun = new sRawCodeNode(buf.to_string(), info) implements sNode;
+                            }
+                        }
+                        
+                        info.no_output_come_code = no_output_come_code;
+                    }
+                }
+                
+                if(nested_fun) {
+                    node = nested_fun;
+                }
+                else {
+                    info->p = head;
+                    info->sline = head_sline;
+                    info->sname = string(head_sname);
+                }
+            }
+            if(node == null) {
+                node = statment();
+            }
             
             info->sname = node.sname();
             info->sline = node.sline();

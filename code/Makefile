@@ -57,7 +57,7 @@ test: *.c
 	./comelang9
 	neo-c labels_as_values.c
 	./labels_as_values
-	neo-c nested_functions.c
+	neo-c -gcc nested_functions.c
 	./nested_functions
 #	neo-c runner.c
 #	./runner
