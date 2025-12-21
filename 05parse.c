@@ -272,14 +272,24 @@ void skip_spaces_and_lf2(sInfo* info=info)
     }
 }
 
+void skip_spaces_and_tabs(sInfo* info=info)
+{
+    while(true) {
+        if(*info->p == ' ' || *info->p == '\t') {
+            info->p++;
+        }
+        else {
+            break;
+        }
+    }
+}
+
 void parse_sharp(sInfo* info=info) version 5
 {
     while(1) {
         if(*info->p == '#') {
-            skip_spaces_and_lf2();
-        
             info->p++;
-            skip_spaces_and_lf2();
+            skip_spaces_and_tabs();
             
             if(parsecmp("pragma")) {
                 buffer*% buf = new buffer();
@@ -305,7 +315,7 @@ void parse_sharp(sInfo* info=info) version 5
             }
             else if(parsecmp("line")) {
                 info->p += strlen("line");
-                skip_spaces_and_lf2();
+                skip_spaces_and_tabs();
                 
                 int line = 0;
                 buffer*% fname = new buffer();
@@ -319,7 +329,7 @@ void parse_sharp(sInfo* info=info) version 5
                     line = line * 10 + (*info->p - '0');
                     info->p++;
                 }
-                skip_spaces_and_lf2();
+                skip_spaces_and_tabs();
     
                 if(*info->p == '"') {
                     info->p++;
@@ -354,7 +364,7 @@ void parse_sharp(sInfo* info=info) version 5
                     info->sname = fname_str;
                 }
     
-                skip_spaces_and_lf2();
+                skip_spaces_and_tabs();
             }
             else if(xisdigit(*info->p)) {
                 int line = 0;
@@ -364,7 +374,7 @@ void parse_sharp(sInfo* info=info) version 5
                     line = line * 10 + (*info->p - '0');
                     info->p++;
                 }
-                skip_spaces_and_lf2();
+                skip_spaces_and_tabs();
     
                 if(*info->p == '"') {
                     info->p++;
@@ -399,7 +409,7 @@ void parse_sharp(sInfo* info=info) version 5
                     info->sname = fname_str;
                 }
     
-                skip_spaces_and_lf2();
+                skip_spaces_and_tabs();
             }
             else if(*info->p == '"') {
                 info->p++;
