@@ -417,7 +417,7 @@ static bool linker(sInfo* info, list<string>* object_files)
     
     int is_mac = system("uname -a | grep Darwin 1> /dev/null 2>/dev/null") == 0;
     if(is_mac) {
-        info.linker_option = info.clang_option + s" -std=gnu17 ";
+        info.linker_option = info.linker_option + s" -std=gnu17 ";
     }
     
     command.append_str(" " + info.linker_option +" ");
@@ -634,6 +634,9 @@ module MEvalOptions<T, T2>
             linker_option.append_str(s" -e \{argv[i+1]} ");
             i++;
         }
+        else if(argv[i] === "-Bstatic" || argv[i] === "-Bdynamic" || argv[i] === "-Bsymbolic" || argv[i] === "-Bsymbolic-functions") {
+            linker_option.append_str(s" \{argv[i]} ");
+        }
         else if(argv[i] === "-B" && i+1 < argc) {
             clang_option.append_str(s" -B\{argv[i+1]} ");
             i++;
@@ -670,12 +673,111 @@ module MEvalOptions<T, T2>
             linker_option.append_str(s" -Wl,-rpath-link,\{argv[i+1]} ");
             i++;
         }
-        else if(argv[i] === "--gc-sections" || argv[i] === "--no-undefined" || argv[i] === "-dead_strip") {
+        else if(argv[i] === "-u" && i+1 < argc) {
+            linker_option.append_str(s" -u \{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-Map" && i+1 < argc) {
+            linker_option.append_str(s" -Wl,-Map,\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-z" && i+1 < argc) {
+            linker_option.append_str(s" -Wl,-z,\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-soname" && i+1 < argc) {
+            linker_option.append_str(s" -Wl,-soname,\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "--soname" && i+1 < argc) {
+            linker_option.append_str(s" -Wl,--soname,\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "--version-script" && i+1 < argc) {
+            linker_option.append_str(s" -Wl,--version-script,\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "--dynamic-list" && i+1 < argc) {
+            linker_option.append_str(s" -Wl,--dynamic-list,\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "--defsym" && i+1 < argc) {
+            linker_option.append_str(s" -Wl,--defsym,\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "--wrap" && i+1 < argc) {
+            linker_option.append_str(s" -Wl,--wrap,\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "--exclude-libs" && i+1 < argc) {
+            linker_option.append_str(s" -Wl,--exclude-libs,\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "--export-dynamic" || argv[i] === "-export-dynamic") {
+            linker_option.append_str(" -Wl,--export-dynamic ");
+        }
+        else if(argv[i] === "--print-gc-sections") {
+            linker_option.append_str(" -Wl,--print-gc-sections ");
+        }
+        else if(argv[i] === "--strip-all" || argv[i] === "--strip-debug") {
+            linker_option.append_str(s" -Wl,\{argv[i]} ");
+        }
+        else if(strlen(argv[i]) > strlen("--soname") && memcmp(argv[i], "--soname", strlen("--soname")) == 0) {
+            linker_option.append_str(s" -Wl,\{argv[i]} ");
+        }
+        else if(strlen(argv[i]) > strlen("--version-script") && memcmp(argv[i], "--version-script", strlen("--version-script")) == 0) {
+            linker_option.append_str(s" -Wl,\{argv[i]} ");
+        }
+        else if(strlen(argv[i]) > strlen("--dynamic-list") && memcmp(argv[i], "--dynamic-list", strlen("--dynamic-list")) == 0) {
+            linker_option.append_str(s" -Wl,\{argv[i]} ");
+        }
+        else if(strlen(argv[i]) > strlen("--defsym") && memcmp(argv[i], "--defsym", strlen("--defsym")) == 0) {
+            linker_option.append_str(s" -Wl,\{argv[i]} ");
+        }
+        else if(strlen(argv[i]) > strlen("--wrap") && memcmp(argv[i], "--wrap", strlen("--wrap")) == 0) {
+            linker_option.append_str(s" -Wl,\{argv[i]} ");
+        }
+        else if(strlen(argv[i]) > strlen("--exclude-libs") && memcmp(argv[i], "--exclude-libs", strlen("--exclude-libs")) == 0) {
+            linker_option.append_str(s" -Wl,\{argv[i]} ");
+        }
+        else if(argv[i] === "-r") {
+            linker_option.append_str(" -r ");
+        }
+        else if(argv[i] === "--gc-sections" || argv[i] === "--no-undefined" || argv[i] === "-dead_strip" || argv[i] === "--start-group" || argv[i] === "--end-group" || argv[i] === "--whole-archive" || argv[i] === "--no-whole-archive" || argv[i] === "--as-needed" || argv[i] === "--no-as-needed") {
+            linker_option.append_str(s" \{argv[i]} ");
+        }
+        else if(strlen(argv[i]) >= strlen("--build-id") && memcmp(argv[i], "--build-id", strlen("--build-id")) == 0) {
             linker_option.append_str(s" \{argv[i]} ");
         }
         else if(argv[i] === "-framework" && i+1 < argc) {
             linker_option.append_str(s" -framework \{argv[i+1]} ");
             i++;
+        }
+        else if(argv[i] === "-dynamiclib" || argv[i] === "-bundle") {
+            linker_option.append_str(s" \{argv[i]} ");
+        }
+        else if(argv[i] === "-install_name" && i+1 < argc) {
+            linker_option.append_str(s" -Wl,-install_name,\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-compatibility_version" && i+1 < argc) {
+            linker_option.append_str(s" -Wl,-compatibility_version,\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-current_version" && i+1 < argc) {
+            linker_option.append_str(s" -Wl,-current_version,\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-exported_symbols_list" && i+1 < argc) {
+            linker_option.append_str(s" -Wl,-exported_symbols_list,\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-unexported_symbols_list" && i+1 < argc) {
+            linker_option.append_str(s" -Wl,-unexported_symbols_list,\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-dead_strip_dylibs") {
+            linker_option.append_str(" -Wl,-dead_strip_dylibs ");
         }
         else if(argv[i] === "-shared") {
             linker_option.append_str(" -shared ");
@@ -688,6 +790,9 @@ module MEvalOptions<T, T2>
         }
         else if(argv[i] === "-pie") {
             linker_option.append_str(" -pie ");
+        }
+        else if(argv[i] === "-no-pie") {
+            linker_option.append_str(" -no-pie ");
         }
         else if(argv[i] === "-static-libgcc") {
             linker_option.append_str(" -static-libgcc ");
@@ -777,11 +882,18 @@ module MEvalOptions<T, T2>
             clang_option.append_str(s" -target \{argv[i+1]} ");
             i++;
         }
+        else if(argv[i] === "-x" && i+1 < argc) {
+            cpp_option.append_str(s" -x \{argv[i+1]} ");
+            clang_option.append_str(s" -x \{argv[i+1]} ");
+            i++;
+        }
         else if(argv[i] === "-std" && i+1 < argc) {
+            cpp_option.append_str(s" \{argv[i]} \{argv[i+1]} ");
             clang_option.append_str(s" \{argv[i]} \{argv[i+1]} ");
             i++;
         }
         else if(argv[i][0..4] === "-std") {
+            cpp_option.append_str(s" \{argv[i]} ");
             clang_option.append_str(s" \{argv[i]}");
         }
         else if(i + 1 < argc && argv[i] === "-T") {
@@ -823,6 +935,10 @@ module MEvalOptions<T, T2>
             cpp_option.append_str(s"-MQ \{argv[i+1]} ");
             i++;
         }
+        else if(argv[i] === "-MJ" && i+1 < argc) {
+            clang_option.append_str(s" -MJ \{argv[i+1]} ");
+            i++;
+        }
         else if(argv[i] === "-dM") {
             cpp_option.append_str(s"\{argv[i]} ");
         }
@@ -835,6 +951,10 @@ module MEvalOptions<T, T2>
         else if(argv[i] === "-traditional-cpp") {
             cpp_option.append_str(s"\{argv[i]} ");
         }
+        else if(argv[i] === "-trigraphs") {
+            cpp_option.append_str(s"\{argv[i]} ");
+            clang_option.append_str(s"\{argv[i]} ");
+        }
         else if(argv[i] === "-H") {
             cpp_option.append_str(s"\{argv[i]} ");
         }
@@ -846,6 +966,37 @@ module MEvalOptions<T, T2>
         }
         else if(argv[i] === "-frewrite-includes") {
             cpp_option.append_str(s"\{argv[i]} ");
+        }
+        else if(argv[i] === "-fworking-directory" || argv[i] === "-fno-working-directory") {
+            cpp_option.append_str(s"\{argv[i]} ");
+            clang_option.append_str(s"\{argv[i]} ");
+        }
+        else if(argv[i] === "-finput-charset" && i+1 < argc) {
+            cpp_option.append_str(s" -finput-charset=\{argv[i+1]} ");
+            clang_option.append_str(s" -finput-charset=\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-fexec-charset" && i+1 < argc) {
+            cpp_option.append_str(s" -fexec-charset=\{argv[i+1]} ");
+            clang_option.append_str(s" -fexec-charset=\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-fwide-exec-charset" && i+1 < argc) {
+            cpp_option.append_str(s" -fwide-exec-charset=\{argv[i+1]} ");
+            clang_option.append_str(s" -fwide-exec-charset=\{argv[i+1]} ");
+            i++;
+        }
+        else if(strlen(argv[i]) > strlen("-finput-charset") && memcmp(argv[i], "-finput-charset", strlen("-finput-charset")) == 0) {
+            cpp_option.append_str(s" \{argv[i]} ");
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(strlen(argv[i]) > strlen("-fexec-charset") && memcmp(argv[i], "-fexec-charset", strlen("-fexec-charset")) == 0) {
+            cpp_option.append_str(s" \{argv[i]} ");
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(strlen(argv[i]) > strlen("-fwide-exec-charset") && memcmp(argv[i], "-fwide-exec-charset", strlen("-fwide-exec-charset")) == 0) {
+            cpp_option.append_str(s" \{argv[i]} ");
+            clang_option.append_str(s" \{argv[i]} ");
         }
         else if(argv[i] === "-nostdinc") {
             cpp_option.append_str(s"\{argv[i]} ");
@@ -867,6 +1018,10 @@ module MEvalOptions<T, T2>
         }
         else if(argv[i] === "-Xpreprocessor" && i+1 < argc) {
             cpp_option.append_str(s" -Xpreprocessor \{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-Xassembler" && i+1 < argc) {
+            clang_option.append_str(s" -Xassembler \{argv[i+1]} ");
             i++;
         }
         else if(argv[i] === "-Xclang" && i+1 < argc) {
@@ -1002,6 +1157,11 @@ module MEvalOptions<T, T2>
             clang_option.append_str(s" -sysroot \{argv[i+1]} ");
             i++;
         }
+        else if(i + 1 < argc && argv[i] === "--sysroot") {
+            cpp_option.append_str(s" --sysroot=\{argv[i+1]} ");
+            clang_option.append_str(s" --sysroot=\{argv[i+1]} ");
+            i++;
+        }
         else if(strlen(argv[i]) >= 10 && memcmp(argv[i], "--sysroot", strlen("--sysroot")) == 0) {
             cpp_option.append_str(s" \{argv[i]} ");
             clang_option.append_str(s" \{argv[i]} ");
@@ -1052,21 +1212,62 @@ module MEvalOptions<T, T2>
             clang_option.append_str(" -pipe ");
         }
         else if(argv[i] === "-march" && i+1 < argc) {
+            cpp_option.append_str(s" -march=\{argv[i+1]} ");
             clang_option.append_str(s" -march=\{argv[i+1]} ");
             i++;
         }
         else if(argv[i] === "-mtune" && i+1 < argc) {
+            cpp_option.append_str(s" -mtune=\{argv[i+1]} ");
             clang_option.append_str(s" -mtune=\{argv[i+1]} ");
             i++;
         }
         else if(argv[i] === "-mcpu" && i+1 < argc) {
+            cpp_option.append_str(s" -mcpu=\{argv[i+1]} ");
             clang_option.append_str(s" -mcpu=\{argv[i+1]} ");
             i++;
         }
+        else if(argv[i] === "-mabi" && i+1 < argc) {
+            cpp_option.append_str(s" -mabi=\{argv[i+1]} ");
+            clang_option.append_str(s" -mabi=\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-mfloat-abi" && i+1 < argc) {
+            cpp_option.append_str(s" -mfloat-abi=\{argv[i+1]} ");
+            clang_option.append_str(s" -mfloat-abi=\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-mfpu" && i+1 < argc) {
+            cpp_option.append_str(s" -mfpu=\{argv[i+1]} ");
+            clang_option.append_str(s" -mfpu=\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-mcmodel" && i+1 < argc) {
+            cpp_option.append_str(s" -mcmodel=\{argv[i+1]} ");
+            clang_option.append_str(s" -mcmodel=\{argv[i+1]} ");
+            i++;
+        }
+        else if(strlen(argv[i]) >= strlen("-mabi") && memcmp(argv[i], "-mabi", strlen("-mabi")) == 0) {
+            cpp_option.append_str(s" \{argv[i]} ");
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(strlen(argv[i]) >= strlen("-mfloat-abi") && memcmp(argv[i], "-mfloat-abi", strlen("-mfloat-abi")) == 0) {
+            cpp_option.append_str(s" \{argv[i]} ");
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(strlen(argv[i]) >= strlen("-mfpu") && memcmp(argv[i], "-mfpu", strlen("-mfpu")) == 0) {
+            cpp_option.append_str(s" \{argv[i]} ");
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(strlen(argv[i]) >= strlen("-mcmodel") && memcmp(argv[i], "-mcmodel", strlen("-mcmodel")) == 0) {
+            cpp_option.append_str(s" \{argv[i]} ");
+            clang_option.append_str(s" \{argv[i]} ");
+        }
         else if(strlen(argv[i]) >= 2 && (memcmp(argv[i], "-march", strlen("-march")) == 0 || memcmp(argv[i], "-mtune", strlen("-mtune")) == 0 || memcmp(argv[i], "-mcpu", strlen("-mcpu")) == 0)) {
+            cpp_option.append_str(s" \{argv[i]} ");
             clang_option.append_str(s" \{argv[i]} ");
         }
         else if(argv[i] === "-m32" || argv[i] === "-m64") {
+            cpp_option.append_str(s" \{argv[i]} ");
             clang_option.append_str(s" \{argv[i]} ");
         }
         else if(argv[i] === "-fPIC" || argv[i] === "-fpic" || argv[i] === "-fPIE" || argv[i] === "-fpie") {
@@ -1144,6 +1345,55 @@ module MEvalOptions<T, T2>
             cpp_option.append_str(s" \{argv[i]} ");
             clang_option.append_str(s" \{argv[i]} ");
         }
+        else if(argv[i] === "-fprofile-use" && i+1 < argc) {
+            clang_option.append_str(s" -fprofile-use=\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-fprofile-instr-use" && i+1 < argc) {
+            clang_option.append_str(s" -fprofile-instr-use=\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-fprofile-dir" && i+1 < argc) {
+            clang_option.append_str(s" -fprofile-dir=\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-fdebug-compilation-dir" && i+1 < argc) {
+            clang_option.append_str(s" -fdebug-compilation-dir=\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-serialize-diagnostics" && i+1 < argc) {
+            clang_option.append_str(s" -serialize-diagnostics \{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-fsanitize-blacklist" && i+1 < argc) {
+            clang_option.append_str(s" -fsanitize-blacklist=\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-fsanitize-ignorelist" && i+1 < argc) {
+            clang_option.append_str(s" -fsanitize-ignorelist=\{argv[i+1]} ");
+            i++;
+        }
+        else if(strlen(argv[i]) > strlen("-fprofile-use") && memcmp(argv[i], "-fprofile-use", strlen("-fprofile-use")) == 0) {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(strlen(argv[i]) > strlen("-fprofile-instr-use") && memcmp(argv[i], "-fprofile-instr-use", strlen("-fprofile-instr-use")) == 0) {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(strlen(argv[i]) > strlen("-fprofile-dir") && memcmp(argv[i], "-fprofile-dir", strlen("-fprofile-dir")) == 0) {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(strlen(argv[i]) > strlen("-fdebug-compilation-dir") && memcmp(argv[i], "-fdebug-compilation-dir", strlen("-fdebug-compilation-dir")) == 0) {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(strlen(argv[i]) > strlen("-serialize-diagnostics") && memcmp(argv[i], "-serialize-diagnostics", strlen("-serialize-diagnostics")) == 0) {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(strlen(argv[i]) > strlen("-fsanitize-blacklist") && memcmp(argv[i], "-fsanitize-blacklist", strlen("-fsanitize-blacklist")) == 0) {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(strlen(argv[i]) > strlen("-fsanitize-ignorelist") && memcmp(argv[i], "-fsanitize-ignorelist", strlen("-fsanitize-ignorelist")) == 0) {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
         else if(argv[i] === "-fno-plt") {
             clang_option.append_str(" -fno-plt ");
         }
@@ -1155,6 +1405,44 @@ module MEvalOptions<T, T2>
             i++;
         }
         else if(strlen(argv[i]) >= 8 && memcmp(argv[i], "-fuse-ld", strlen("-fuse-ld")) == 0) {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(argv[i] === "-fanalyzer") {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(argv[i] === "-Xanalyzer" && i+1 < argc) {
+            clang_option.append_str(s" -Xanalyzer \{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-analyzer-config" && i+1 < argc) {
+            clang_option.append_str(s" -analyzer-config=\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-analyzer-output" && i+1 < argc) {
+            clang_option.append_str(s" -analyzer-output=\{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-analyzer-checker" && i+1 < argc) {
+            clang_option.append_str(s" -analyzer-checker \{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-analyzer-disable-checker" && i+1 < argc) {
+            clang_option.append_str(s" -analyzer-disable-checker \{argv[i+1]} ");
+            i++;
+        }
+        else if(argv[i] === "-analyzer-checker-help" || argv[i] === "-analyzer-checker-help-alpha" || argv[i] === "-analyzer-checker-help-developer" || argv[i] === "-analyzer-config-help") {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(strlen(argv[i]) > strlen("-analyzer-config") && memcmp(argv[i], "-analyzer-config", strlen("-analyzer-config")) == 0) {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(strlen(argv[i]) > strlen("-analyzer-output") && memcmp(argv[i], "-analyzer-output", strlen("-analyzer-output")) == 0) {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(strlen(argv[i]) > strlen("-analyzer-checker") && memcmp(argv[i], "-analyzer-checker", strlen("-analyzer-checker")) == 0) {
+            clang_option.append_str(s" \{argv[i]} ");
+        }
+        else if(strlen(argv[i]) > strlen("-analyzer-disable-checker") && memcmp(argv[i], "-analyzer-disable-checker", strlen("-analyzer-disable-checker")) == 0) {
             clang_option.append_str(s" \{argv[i]} ");
         }
         else if(argv[i] === "--analyze" || argv[i] === "-analyze") {
@@ -1243,6 +1531,7 @@ module MEvalOptions<T, T2>
             output_source_file_flag = true;
             output_object_file_flag = true;
             gComeOriginalSourcePosition = false;
+            linker_option.append_str(" -s ");
         }
         else if(argv[i] === "-c") {
             output_object_file = true;
@@ -1273,239 +1562,6 @@ module MEvalOptions<T, T2>
         
     gComeDebug = come_debug;
 }
-
-/*
-module MEvalOptions<T, T2>
-{
-    var clang_option = new buffer();
-    //clang_option.append_str(" -std=c99 ");
-    clang_option.append_str(" -std=c11 ");
-    var linker_option = new buffer();
-    var cpp_option = new buffer();
-    cpp_option.append_str("-U__GNUC__");
-    cpp_option.append_str(" -std=c11 ");
-    var files = new list<string>();
-    var object_files = new list<string>();
-    bool output_object_file = false;
-    bool output_cpp_file = false;
-    bool output_source_file_flag = false;
-    bool output_object_file_flag = true;
-    string output_file_name = T2;
-    bool verbose = false;
-    bool come_debug = false;
-    bool m5stack_cpp = false;
-    bool pico_cpp = false;
-    bool emb_cpp = false;
-    bool gcc_compiler = false;
-    for(int i=T; i<argc; i++) {
-        string ext_name = xextname(argv[i]);
-        
-        if(argv[i] === "-o" && i+1 < argc) {
-            output_file_name = string(argv[i+1]);
-            i++;
-        }
-        else if(argv[i] === "-e" && i+1 < argc) {
-            linker_option.append_str(s"-e \{argv[i+1]");
-            i++;
-        }
-        else if(argv[i] === "-pthread") {
-            gComePthread = true;
-        }
-        else if(argv[i] === "-gcc") {
-            gcc_compiler = true;
-            CC="gcc";
-        }
-        else if(argv[i] === "-riscv") {
-            gcc_compiler = true;
-            output_object_file_flag = false;
-            CC="riscv64-unknown-elf-gcc"
-            cpp_option.append_format(s" -D__BARE_METAL__ -D__RISCV__ ");
-            clang_option.append_str(s" -nostdlib -ffreestanding -D__RISCV__");
-            gComeBareMetal = true;
-        }
-        else if(argv[i] === "-bare") {
-            output_source_file_flag = true;
-            gcc_compiler = true;
-            output_object_file_flag = false;
-            gComeOriginalSourcePosition = false;
-            CC="gcc";
-            gComeBareMetal = true;
-            cpp_option.append_format(s" -D__BARE_METAL__ ");
-            clang_option.append_str(s" -nostdlib -ffreestanding ");
-        }
-#ifndef __MINUX__
-        else if(argv[i] === "-pico") {
-            output_source_file_flag = true;
-            output_object_file_flag = false;
-            gComeOriginalSourcePosition = false;
-            char* env = getenv("PICO_SDK_PATH");
-            cpp_option = new buffer();
-            cpp_option.append_format(s" -I $PICO_SDK_PATH/src/common/pico_stdlib_headers/include/ -I$PICO_SDK_PATH/src/common/pico_base_headers/include/ -I \{env}/src/rp2_common/hardware_sync/include \$(find \{env} -type d -name include | sed 's/^/ -I/g') -I$PICO_SDK_PATH/src/boards/include -I$PICO_SDK_PATH/src/rp2040/pico_platform/include/ -I$PICO_SDK_PATH/src/rp2040/hardware_regs/include/ -I$PICO_SDK_PATH/src/rp2040/hardware_structs/include -I$PICO_SDK_PATH/src/rp2350/hardware_structs/include/ -I build/generated/pico_base/ -D__PICO__");
-            create_pico_version_header();
-            pico_cpp = true;
-        }
-#endif
-        else if(argv[i] === "-emb") {
-            output_source_file_flag = true;
-            output_object_file_flag = false;
-            gComeOriginalSourcePosition = false;
-            emb_cpp = true;
-        }
-#ifndef __MINUX__
-        else if(argv[i] === "-m5stack") {
-            m5stack_cpp = true;
-            output_source_file_flag = true;
-            output_object_file_flag = false;
-            gComeOriginalSourcePosition = false;
-            char* env = getenv("IDF_PATH");
-            cpp_option = new buffer();
-            cpp_option.append_format(s" -I\{getenv("HOME")}/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/xtensa-esp-elf/include -I\{env}/components/freertos/include -I\{env}/components/esp32/include -I\{env}/components/driver/include -I\{env}/components/lwip/include -I\{env}/components/freertos/FreeRTOS-Kernel/include -I\{env}/components/freertos/config/include/freertos -I\{env}/components/freertos/config/xtensa/include -I\{env}/components/xtensa/include -I\{env}/components/xtensa/esp32/include -I\{env}/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos -I\{env}/components/esp_hw_support/include -I\{env}/components/soc/esp32/include/ -I\{env}/components/esp_common/include/components $(find \{env}/components -type d -name include | grep esp_ | sed 's/^/ -I/g') -I\{env}/components/esp_common/include/ -I\{env}/components/soc/esp32/register/soc/ -I\{env}/components/soc/esp32/register -I\{env}/components/heap/include -I\{env}/components/hal/include -I\{env}/components/newlib/platform_include -D__M5STACK__", PREFIX);
-        }
-#endif
-        else if(i + 1 < argc && argv[i] === "-target") {
-            clang_option.append_str(s"-target \{argv[i+1]}");
-            i++;
-        }
-        else if(argv[i][0..4] === "-std") {
-            clang_option.append_str(s" \{argv[i]}");
-            i++;
-        }
-        else if(i + 1 < argc && argv[i] === "-T") {
-            clang_option.append_str(s" -T \{argv[i+1]} ");
-            i++;
-        }
-        else if(argv[i] === "-net") {
-            gComeNet = true;
-        }
-        else if(argv[i] === "-cg") {
-            come_debug = true;
-            clang_option.append_str("-g ");
-        }
-        else if(argv[i] === "-cg2") {
-            clang_option.append_str(" -fsanitize=address,undefined -g ");
-            linker_option.append_str(" -fsanitize=address,undefined -g ");
-        }
-        else if(argv[i] === "-C") {
-            cpp_option.append_str(s"\{argv[i]} ");
-        }
-        else if(argv[i] === "-M") {
-            cpp_option.append_str(s"\{argv[i]} ");
-        }
-        else if(argv[i] === "-MM") {
-            cpp_option.append_str(s"\{argv[i]} ");
-        }
-        else if(argv[i] === "-dM") {
-            cpp_option.append_str(s"\{argv[i]} ");
-        }
-        else if(argv[i] === "-dD") {
-            cpp_option.append_str(s"\{argv[i]} ");
-        }
-        else if(argv[i] === "-H") {
-            cpp_option.append_str(s"\{argv[i]} ");
-        }
-        else if(argv[i] === "-P") {
-            cpp_option.append_str(s"\{argv[i]} ");
-        }
-        else if(argv[i] === "-nostdinc") {
-            cpp_option.append_str(s"\{argv[i]} ");
-        }
-        else if(argv[i] === "-CC") {
-            cpp_option.append_str(s"\{argv[i]} ");
-        }
-        else if(i + 1 < argc && argv[i] === "-target") {
-            clang_option.append_str(s"-target \{argv[i+1]}");
-            i++;
-        }
-        else if(i + 1 < argc && argv[i] === "-include") {
-            cpp_option.append_str(s"-include \{argv[i+1]}");
-            i++;
-        }
-        else if(i + 1 < argc && argv[i] === "-imacro") {
-            cpp_option.append_str(s"-imacro \{argv[i+1]}");
-            i++;
-        }
-        else if(i + 1 < argc && argv[i] === "-idirafter") {
-            cpp_option.append_str(s"-idirafter \{argv[i+1]}");
-            i++;
-        }
-        else if(i + 1 < argc && argv[i] === "-isystem") {
-            cpp_option.append_str(s"-isystem \{argv[i+1]}");
-            clang_option.append_str(s"-isystem \{argv[i+1]}");
-            i++;
-        }
-        else if(i + 1 < argc && argv[i] === "-T") {
-            clang_option.append_str(s" -T \{argv[i+1]} ");
-            i++;
-        }
-        else if(argv[i] === "-original-position") {
-            gComeOriginalSourcePosition = false;
-        }
-        else if(argv[i][0..2] === "-O") {
-            clang_option.append_str(s" \{argv[i]} ");
-            come_debug = false;
-        }
-        else if(argv[i][0..2] === "-D") {
-            cpp_option.append_str(s" \{argv[i]} ");
-            clang_option.append_str(s" \{argv[i]} ");
-        }
-        else if(argv[i][0..2] === "-U") {
-            cpp_option.append_str(s" \{argv[i]} ");
-            clang_option.append_str(s" \{argv[i]} ");
-        }
-        else if(argv[i] === "-g") {
-            clang_option.append_str("-g ");
-        }
-        else if(argv[i] === "-v") {
-            clang_option.append_str("-v ");
-            cpp_option.append_str("-v ");
-            verbose = true;
-        }
-        else if(strlen(argv[i]) >= 2 && memcmp(argv[i], "-I", strlen("-I")) == 0) {
-            cpp_option.append_str(" " + argv[i] + " ");
-        }
-        else if(argv[i] === "-gdwarf-4") {
-            clang_option.append_str("-gdwarf-4 ");
-        }
-        else if(argv[i] === "-S") {
-            output_source_file_flag = true;
-            output_object_file_flag = false;
-            gComeOriginalSourcePosition = false;
-        }
-        else if(argv[i] === "-s") {
-            output_source_file_flag = true;
-            output_object_file_flag = true;
-            gComeOriginalSourcePosition = false;
-        }
-        else if(argv[i] === "-c") {
-            output_object_file = true;
-        }
-        else if(argv[i] === "-E") {
-            output_cpp_file = true;
-        }
-        else if(argv[i][0] == '-') {
-            clang_option.append_str(argv[i] + " ");
-        }
-        else if(strlen(argv[i]) > 2 && memcmp(argv[i] + strlen(argv[i]) -2, ".o", 2) == 0) {
-            object_files.push_back(string(argv[i]));
-        }
-        else if(strlen(argv[i]) > 2 && memcmp(argv[i] + strlen(argv[i]) -2, ".a", 2) == 0) {
-            object_files.push_back(string(argv[i]));
-        }
-        else if(ext_name === "c") {
-            files.push_back(string(argv[i]));
-        }
-        else {
-            clang_option.append_str(argv[i] + " ");
-        }
-    }
-#ifdef __MAC__ // for lldb
-    output_source_file_flag = true;
-    gComeOriginalSourcePosition = false;
-#endif
-        
-    gComeDebug = come_debug;
-}
-*/
 
 int come_main(int argc, char** argv)
 {
