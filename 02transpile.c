@@ -1589,7 +1589,11 @@ module MEvalOptions<T, T2>
         }
     }
     if(gcc_compiler) {
+#if defined(__MAC__) || defined(__APPLE__)
+        // On macOS, "gcc" is usually clang; keep __clang__ defined.
+#else
         cpp_option.append_str(" -U__clang__ ");
+#endif
     }
     else {
         cpp_option.append_str(" -D__clang__ ");
