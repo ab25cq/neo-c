@@ -1563,10 +1563,13 @@ module MEvalOptions<T, T2>
             output_object_file_flag = false;
             gComeOriginalSourcePosition = false;
         }
-        else if(argv[i] === "-s") {
+        else if(argv[i] === "-Sc") {
             output_source_file_flag = true;
             output_object_file_flag = true;
             gComeOriginalSourcePosition = false;
+            linker_option.append_str(" -s ");
+        }
+        else if(argv[i] === "-s") {
             linker_option.append_str(" -s ");
         }
         else if(argv[i] === "-c") {
