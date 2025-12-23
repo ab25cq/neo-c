@@ -3158,6 +3158,7 @@ struct sNode* top_level_v97(char* buf, char* head, int head_sline, struct sInfo*
 struct sNode* string_node_v16(char* buf, char* head, int head_sline, struct sInfo* info);
 struct sNode* parse_enum(char* type_name, char* attribute, struct sInfo* info);
 struct sNode* top_level_v96(char* buf, char* head, int head_sline, struct sInfo* info);
+_Bool add_typedef(char* type_name, struct sType* type, struct sInfo* info);
 struct sNode* top_level_v95(char* buf, char* head, int head_sline, struct sInfo* info);
 struct sNode* string_node_v17(char* buf, char* head, int head_sline, struct sInfo* info);
 struct sNode* create_nullable_node(struct sNode* left, struct sInfo* info);

@@ -9,9 +9,9 @@ elif uname -a | grep Raspbian
 then
     if getconf LONG_BIT | grep 32
     then
-	    make CC=clang CFLAGS_OPT="-O2 -D__LINUX__ -D__32BIT_CPU__" && sudo make install
+        make CC=clang CFLAGS_OPT="-O2 -D__LINUX__ -D__32BIT_CPU__" && sudo make install
     else
-	    make CC=clang CFLAGS_OPT="-O2 -D__LINUX__" && sudo make install
+        make CC=clang CFLAGS_OPT="-O2 -D__LINUX__" && sudo make install
     fi
 elif uname -a | grep Darwin
 then

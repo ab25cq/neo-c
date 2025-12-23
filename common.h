@@ -1040,6 +1040,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 96
 /////////////////////////////////////////////////////////////////////
 /// 17typedef.c
 /////////////////////////////////////////////////////////////////////
+bool add_typedef(string type_name, sType*% type, sInfo* info=info);
 sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 95;
 sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 17;
 

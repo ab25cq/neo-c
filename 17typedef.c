@@ -171,6 +171,12 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 95
     return inherit(buf, head, head_sline, info);
 }
 
+bool add_typedef(string type_name, sType*% type, sInfo* info=info)
+{
+    sNode*% node =new sTypedefNode(type_name, type, multiple_declare:null, info) implements sNode;
+    
+    return node_compile(node);
+}
 
 sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 17
 {

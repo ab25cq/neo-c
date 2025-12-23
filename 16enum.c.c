@@ -2967,6 +2967,7 @@ void output_struct(struct sClass* klass, char* pragma, struct sInfo* info);
 struct sNode* string_node_v15(char* buf, char* head, int head_sline, struct sInfo* info);
 struct sNode* parse_union(char* type_name, char* union_attribute, struct sInfo* info);
 struct sNode* top_level_v97(char* buf, char* head, int head_sline, struct sInfo* info);
+_Bool add_typedef(char* type_name, struct sType* type, struct sInfo* info);
 struct sNode* top_level_v95(char* buf, char* head, int head_sline, struct sInfo* info);
 struct sNode* string_node_v17(char* buf, char* head, int head_sline, struct sInfo* info);
 struct sNode* create_nullable_node(struct sNode* left, struct sInfo* info);
