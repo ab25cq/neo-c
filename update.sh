@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export EDITOR=vin
+export EDITOR=vim
 git config --global user.email ab25cq@icloud.com
 git config --global user.name ab25cq
 
@@ -10,6 +10,6 @@ git add .
 git commit 
 git remote add origin git@github.com:ab25cq/neo-c.git
 git remote set-url origin git@github.com:ab25cq/neo-c.git
-git push --force origin master
+git push --force origin master 
 
 

@@ -11,6 +11,9 @@ then
 elif test `uname -o` = Android
 then
     apt install which clang readline ncurses make autoconf valgrind gdb lldb binutils libandroid-glob openssl libdwarf-dev libelf-dev libc6-dev
+elif uname -a | grep Raspbian
+then
+    sudo apt install clang gcc libreadline-dev ncurses-dev make autoconf gdb lldb libssl-dev 
 elif which pacman > /dev/null
 then
     sudo pacman -S make valgrind readline ncurses clang gcc which openssl
