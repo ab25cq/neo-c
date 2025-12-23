@@ -7,7 +7,12 @@ then
     make CC=gcc DESTDIR=$HOME CFLAGS_OPT="-O2 -D__ANDROID__" -j$(($(nproc) /2)) && make DESTDIR=$HOME install
 elif uname -a | grep Raspbian
 then
-    make CC=clang CFLAGS_OPT="-O2 -D__LINUX__" && sudo make install
+    if getconf LONG_BIT | grep 32
+    then
+	    make CC=clang CFLAGS_OPT="-O2 -D__LINUX__ -D__32BIT_CPU__" && sudo make install
+    else
+	    make CC=clang CFLAGS_OPT="-O2 -D__LINUX__" && sudo make install
+    fi
 elif uname -a | grep Darwin
 then
     make CC=clang CFLAGS_OPT="-O2 -D__MAC__" -j$(sysctl -n hw.logicalcpu) && sudo make install
