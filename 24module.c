@@ -1159,6 +1159,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
         while(*p && p >= block_text && *p != '}') {
             p--;
         }
+        p--;
         
         string contents = block_text.substring(1, p - (block_text + strlen(block_text))-1);
         

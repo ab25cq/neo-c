@@ -292,6 +292,9 @@ typedef unsigned int wctype_t;
 typedef int* wstring;
 
 /// previous struct definition ///
+#if defined(__32BIT_CPU__) && defined(__LINUX__)
+typedef __uint128_t long;
+#endif
 struct __sFILEX;
 
 struct _xlocale;

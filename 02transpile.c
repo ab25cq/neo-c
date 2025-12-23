@@ -534,9 +534,6 @@ static void init_classes(sInfo* info)
         string generics_type = xsprintf("__mgenerics_type%d", i);
         info.classes.insert(generics_type, new sClass(generics_type, method_generics:true, method_generics_num:i));
     }
-#if defined(__32BIT_CPU__) && defined(__LINUX__)
-    (void)add_typedef(s"__uint128_t", new sType("long"), info);
-#endif
     
 #ifndef __MINUX__
     int is_mac = system("uname -a | grep Darwin 1> /dev/null 2>/dev/null") == 0;
