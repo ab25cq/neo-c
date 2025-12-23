@@ -295,7 +295,7 @@ typedef unsigned int nfds_t;
 
 /// previous struct definition ///
 #if defined(__32BIT_CPU__) && defined(__LINUX__)
-typedef __uint128_t long;
+typedef long __uint128_t;
 #endif
 struct __sFILEX;
 
