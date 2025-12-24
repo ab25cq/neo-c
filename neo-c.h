@@ -19,9 +19,11 @@
 #define nullptr ((void*)0)
 typedef char*% string;
 
+/*
 __c__ {#if defined(__32BIT_CPU__) && defined(__LINUX__)}
 __c__ {typedef long __uint128_t;}
 __c__ {#endif}
+*/
 
 ///////////////////////////////////////////////////////////////////////////
 // PICO
