@@ -9,6 +9,9 @@ then
 elif uname -a | grep Darwin
 then
     make CFLAGS_OPT="-O2 -g" neo-c -j$(($(sysctl -n hw.logicalcpu) / 2)) && sudo make install
+elif uname -a | grep Raspbian
+then
+    make CFLAGS_OPT="-O2 -g" neo-c && sudo make install
 elif uname -m | grep aarch64
 then
     make CFLAGS_OPT="-O2 -g" neo-c && sudo make install
