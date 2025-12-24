@@ -16,6 +16,9 @@ then
 elif uname -a | grep Darwin
 then
     make CC=clang CFLAGS_OPT="-O2 -D__MAC__" -j$(sysctl -n hw.logicalcpu) && sudo make install
+elif uname -m | grep aarch64
+then
+    make CC=clang CFLAGS_OPT="-O2 -D__LINUX__" && sudo make install
 else
     make CC=clang CFLAGS_OPT="-O2 -D__LINUX__" -j$(($(nproc) / 2)) && sudo make install
 fi
