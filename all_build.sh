@@ -1,9 +1,6 @@
 sh remove_all_build.sh
 
-if uname -m | grep aarch64
-then
-    (echo vin && cd vin && sh fast_build.sh) && (echo zed && cd zed && make && sudo make install) && (echo shsh && cd shsh && make && sudo make install) && (echo mf && cd mf && make && sudo make install)
-elif uname -a | grep Raspbian
+if test -f /proc/device-tree/model && cat /proc/device-tree/model | grep "Raspberry Pi"
 then
     (echo vin && cd vin && sh fast_build.sh) && (echo zed && cd zed && make && sudo make install) && (echo shsh && cd shsh && make && sudo make install) && (echo mf && cd mf && make && sudo make install)
 else
