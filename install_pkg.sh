@@ -10,7 +10,7 @@ then
 # termux
 elif test `uname -o` = Android
 then
-    apt install which clang readline ncurses make autoconf valgrind gdb lldb binutils libandroid-glob openssl libdwarf-dev libelf-dev libc6-dev
+    apt install which clang readline ncurses make autoconf valgrind gdb lldb binutils libandroid-glob openssl
 elif uname -a | grep Raspbian
 then
     sudo apt install clang gcc libreadline-dev ncurses-dev make autoconf gdb lldb libssl-dev 
