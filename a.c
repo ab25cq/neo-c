@@ -1,15 +1,13 @@
-struct Flex {
-    int len;
-    struct {
-        char data[];
-    };
-};
+#include <neo-c.h>
+
+int*% aaa() 
+{
+    return new int(5);
+}
 
 
 int main(int argc, char** argv)
 {
-    struct Flex flex;
-    
-    char* a = flex.data;
+    int*% a = aaa();
     return 0;
 }
