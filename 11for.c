@@ -63,10 +63,16 @@ class sForNode extends sNodeBase
                 return false;
             }
             
+            bool in_conditional = info->in_conditional;
+            info->in_conditional = true;
             add_come_code(info, ";");
+            info->in_conditional = in_conditional;
         }
         else {
-            add_come_code(info, ";");
+            bool in_conditional = info->in_conditional;
+            info->in_conditional = true;
+            add_come_code(info, ";", in_conditional:true);
+            info->in_conditional = in_conditional;
         }
         
         /// compile expression ///
@@ -77,10 +83,13 @@ class sForNode extends sNodeBase
                 return false;
             }
             
+            bool in_conditional = info->in_conditional;
+            info->in_conditional = true;
             add_come_code(info, ";");
+            info->in_conditional = in_conditional;
         }
         else {
-            add_come_code(info, ";");
+            add_come_code(info, ";", in_conditional:true);
         }
         
         sNode* expression_node3 = self.mExpressionNode3;
@@ -91,7 +100,10 @@ class sForNode extends sNodeBase
             }
         }
         
+        bool in_conditional = info->in_conditional;
+        info->in_conditional = true;
         add_come_code(info, "){\n");
+        info->in_conditional = in_conditional;
     
         transpile_block(block, null, null, info, no_var_table:false, loop_block:true);
     

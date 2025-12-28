@@ -78,15 +78,24 @@ bool transpile_conditional_with_free_right_object_value(sNode* node, sInfo* info
     
     if(existance_right_value_object) {
         if(conditional_value.c_value !== "") {
+            bool in_conditional = info->in_conditional;
+            info->in_conditional = true;
             add_come_code(info, "({(_conditional_value_X%d=(%s));", num_conditional, conditional_value.c_value);
+            info->in_conditional = in_conditional;
         }
         free_right_value_objects(info);
         if(conditional_value.c_value !== "") {
+            bool in_conditional = info->in_conditional;
+            info->in_conditional = true;
             add_come_code(info, "_conditional_value_X%d;})", num_conditional);
+            info->in_conditional = in_conditional;
         }
     }
     else {
-        add_come_code(info, "%s", conditional_value.c_value);
+        bool in_conditional = info->in_conditional;
+        info->in_conditional = true;
+        add_come_code(info, "%s", conditional_value.c_value, in_conditional:true);
+        info->in_conditional = in_conditional;
     }
     
     return true;

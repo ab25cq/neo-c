@@ -54,7 +54,10 @@ class sIfNode extends sNodeBase
             return false;
         }
         
+        bool in_conditional = info->in_conditional;
+        info->in_conditional = true;
         add_come_code(info, ") {\n");
+        info->in_conditional = in_conditional;
     
         sBlock* if_block = self.mIfBlock;
     
@@ -73,7 +76,10 @@ class sIfNode extends sNodeBase
                     return false;
                 }
                 
+                bool in_conditional = info->in_conditional;
+                info->in_conditional = true;
                 add_come_code(info, ") {\n");
+                info->in_conditional = in_conditional;
                 
                 sBlock* elif_node_block = self.mElifBlocks[i];
                 
@@ -221,7 +227,11 @@ class sOrStatmentNode extends sNodeBase
             return false;
         }
         
+        bool in_conditional = info->in_conditional;
+        info->in_conditional = true;
         add_come_code(info, ")) {\n");
+        info->in_conditional = in_conditional;
+        
         sBlock* if_block = self.mIfBlock;
         transpile_block(if_block, null, null, info);
         add_come_code(info, "}\n");
@@ -267,7 +277,10 @@ class sAndStatmentNode extends sNodeBase
             return false;
         }
         
+        bool in_conditional = info->in_conditional;
+        info->in_conditional = true;
         add_come_code(info, ") {\n");
+        info->in_conditional = in_conditional;
     
         sBlock* if_block = self.mIfBlock;
         transpile_block(if_block, null, null, info);

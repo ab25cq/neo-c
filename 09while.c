@@ -35,7 +35,10 @@ class sWhileNode extends sNodeBase
             return false;
         }
         
+        bool in_conditional = info->in_conditional;
+        info->in_conditional = true;
         add_come_code(info, ") {\n");
+        info->in_conditional = in_conditional;
     
         sBlock* block = self.mBlock;
     

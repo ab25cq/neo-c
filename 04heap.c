@@ -363,11 +363,16 @@ void remove_object_from_right_values(int right_value_num, sInfo* info)
         return ;
     }
     int i = 0;
+    bool found = false;
     foreach(it, info->right_value_objects) {
         if(it->mID == right_value_num) {
+            found = true;
             break;
         }
         i++;
+    }
+    if(!found) {
+        return;
     }
     int id = right_value_num;
     if(id + 1 > info->right_value_max) {

@@ -1311,9 +1311,11 @@ void add_come_code(sInfo* info, const char* msg, ...)
         info->paren_block_buffer.append_str(xsprintf("%s", msg2));
     }
     else if(info->come_fun) {
-        int i;
-        for(i=0; i<info->block_level; i++) {
-            info.come_fun.mSource.append_str("    ");
+        if(!info.in_conditional) {
+            int i;
+            for(i=0; i<info->block_level; i++) {
+                info.come_fun.mSource.append_str("    ");
+            }
         }
         
         info.come_fun.mSource.append_str(xsprintf("%s", msg2));
