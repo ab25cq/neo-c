@@ -3032,8 +3032,6 @@ memset(&args, 0, sizeof(args));
         }
         info->err_num++;
         free(msg2);
-        __right_value0 = (void*)0;
-        __right_value1 = (void*)0;
         printf(((char*)(__right_value2=string_operator_add(((char*)(__right_value1=buffer_to_string(buf))),"\n"))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -3088,26 +3086,21 @@ char* __result_obj__14;
         }
     }
     skip_spaces_and_lf(info);
-    if(__right_value0 = (void*)0, ({(_conditional_value_X0=(string_length(((char*)(__right_value0=buffer_to_string(buf))))==0));    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
+    if(({(_conditional_value_X0=(string_length(((char*)(__right_value0=buffer_to_string(buf))))==0));    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
 _conditional_value_X0;})) {
         err_msg(info,"unexpected character(%c), expected word character, caller %s %d",*info->p,info->caller_sname,info->caller_line);
-        __right_value0 = (void*)0;
         __result_obj__2 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         (__result_obj__2 = come_decrement_ref_count(__result_obj__2, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__2;
     }
-    __right_value0 = (void*)0;
     result=(char*)come_increment_ref_count(buffer_to_string(buf));
     if(info->module_params) {
-        if(__right_value0 = (void*)0, __right_value1 = (void*)0, ({(_conditional_value_X0=(((char*)(__right_value2=map$2char$phchar$ph_operator_load_element(info->module_params,((char*)(__right_value1=__builtin_string(result))))))));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
+        if(({(_conditional_value_X0=(((char*)(__right_value2=map$2char$phchar$ph_operator_load_element(info->module_params,((char*)(__right_value1=__builtin_string(result))))))));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
         (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0));
 _conditional_value_X0;})) {
-            __right_value0 = (void*)0;
-            __right_value1 = (void*)0;
-            __right_value2 = (void*)0;
             __result_obj__13 = (char*)come_increment_ref_count(((char*)(__right_value3=__builtin_string(((char*)(__right_value2=map$2char$phchar$ph_operator_load_element(info->module_params,((char*)(__right_value1=__builtin_string(result))))))))));
             come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -3243,7 +3236,6 @@ memset(&buf, 0, sizeof(buf));
         __dec_obj1 = come_decrement_ref_count(__dec_obj1, (void*)0, (void*)0, 0,0, (void*)0);
     }
     else {
-        __right_value0 = (void*)0;
         __dec_obj2=buf,
         buf=(char*)come_increment_ref_count(__builtin_string(""));
         __dec_obj2 = come_decrement_ref_count(__dec_obj2, (void*)0, (void*)0, 0,0, (void*)0);
@@ -3440,9 +3432,8 @@ char* __dec_obj5;
                         info->p++;
                     }
                 }
-                if(__right_value0 = (void*)0, ({(_conditional_value_X0=(string_index(((char*)(__right_value0=buffer_to_string(buf))),"pack(",-1)!=-1));                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
+                if(({(_conditional_value_X0=(string_index(((char*)(__right_value0=buffer_to_string(buf))),"pack(",-1)!=-1));                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
 _conditional_value_X0;})) {
-                    __right_value0 = (void*)0;
                     __dec_obj3=info->pragma,
                     info->pragma=(char*)come_increment_ref_count(buffer_to_string(buf));
                     __dec_obj3 = come_decrement_ref_count(__dec_obj3, (void*)0, (void*)0, 0,0, (void*)0);
@@ -3453,8 +3444,6 @@ _conditional_value_X0;})) {
                 info->p+=strlen("line");
                 skip_spaces_and_tabs(info);
                 line=0;
-                __right_value0 = (void*)0;
-                __right_value1 = (void*)0;
                 fname=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 330, "struct buffer*"))));
                 if(!isdigit(*info->p)) {
                     err_msg(info,"invalid #line directive");
@@ -3491,7 +3480,6 @@ _conditional_value_X0;})) {
                 else {
                     info->sline=line;
                 }
-                __right_value0 = (void*)0;
                 fname_str=(char*)come_increment_ref_count(buffer_to_string(fname));
                 if(string_length(fname_str)>0) {
                     __dec_obj4=info->sname,
@@ -3504,8 +3492,6 @@ _conditional_value_X0;})) {
             }
             else if(isdigit(*info->p)) {
                 line_1=0;
-                __right_value0 = (void*)0;
-                __right_value1 = (void*)0;
                 fname_2=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 380, "struct buffer*"))));
                 while(isdigit(*info->p)) {
                     line_1=line_1*10+(*info->p-48);
@@ -3537,7 +3523,6 @@ _conditional_value_X0;})) {
                 else {
                     info->sline=line_1;
                 }
-                __right_value0 = (void*)0;
                 fname_str_3=(char*)come_increment_ref_count(buffer_to_string(fname_2));
                 if(string_length(fname_str_3)>0) {
                     __dec_obj5=info->sname,

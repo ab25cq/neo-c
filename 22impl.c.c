@@ -3016,9 +3016,7 @@ struct sNode* __result_obj__6;
             skip_spaces_and_lf(info);
             list$1char$ph_reset(info->generics_type_names);
             while(1) {
-                __right_value0 = (void*)0;
                 generics_name=(char*)come_increment_ref_count(parse_word(0,info));
-                __right_value0 = (void*)0;
                 list$1char$ph_push_back(info->generics_type_names,(char*)come_increment_ref_count((char*)come_memdup(generics_name, "22impl.c", 17, "char*")));
                 if(*info->p==44) {
                     info->p++;
@@ -3044,7 +3042,6 @@ struct sNode* __result_obj__6;
             pointer_num++;
         }
         (come_push_stackframe("22impl.c", 42, 0),__exception_result_var_b1=expected_next_character(123,info), come_pop_stackframe(), __exception_result_var_b1);
-        __right_value0 = (void*)0;
         __dec_obj4=info->impl_type,
         info->impl_type=(struct sType*)come_increment_ref_count((come_push_stackframe("22impl.c", 44, 1),__exception_result_var_b2=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "22impl.c", 44, "struct sType*")),(char*)come_increment_ref_count(word),0,info,0), come_pop_stackframe(), __exception_result_var_b2));
         come_call_finalizer(sType_finalize, __dec_obj4,(void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -3052,10 +3049,8 @@ struct sNode* __result_obj__6;
         while(*info->p!=125) {
             skip_spaces_and_lf(info);
             head_2=info->p;
-            __right_value0 = (void*)0;
             buf_3=(char*)come_increment_ref_count(parse_word(0,info));
             parse_sharp_v5(info);
-            __right_value0 = (void*)0;
             node=(struct sNode*)come_increment_ref_count(top_level_v99(buf_3,head_2,head_sline,info));
             parse_sharp_v5(info);
             while(*info->p==59) {
@@ -3091,8 +3086,6 @@ struct sNode* __result_obj__6;
         info->impl_type=((void*)0);
         come_call_finalizer(sType_finalize, __dec_obj7,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         source_tail=info->p;
-        __right_value0 = (void*)0;
-        __right_value1 = (void*)0;
         header=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "22impl.c", 86, "struct buffer*"))));
         buffer_append(header,source_head,source_tail-source_head);
         __result_obj__5 = (struct sNode*)come_increment_ref_count((struct sNode*)((void*)0));
@@ -3103,7 +3096,6 @@ struct sNode* __result_obj__6;
         (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0));
         come_call_finalizer(buffer_finalize, header, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    __right_value0 = (void*)0;
     __result_obj__6 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=top_level_v92(buf,head,head_sline,info))));
     ((__right_value0) ? __right_value0 = come_decrement_ref_count(__right_value0, ((struct sNode*)__right_value0)->finalize, ((struct sNode*)__right_value0)->_protocol_obj, 1, 0,(void*)0):(void*)0);
     ((__result_obj__6) ? __result_obj__6 = come_decrement_ref_count(__result_obj__6, ((struct sNode*)__result_obj__6)->finalize, ((struct sNode*)__result_obj__6)->_protocol_obj, 0, 1,(void*)0):(void*)0);
@@ -3164,7 +3156,6 @@ struct list$1char$ph* __result_obj__4;
         self->head=litem;
     }
     else if(self->len==1) {
-        __right_value0 = (void*)0;
         litem_0=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc_v2(1, sizeof(struct list_item$1char$ph)*(1), "/usr/local/include/neo-c.h", 1181, "struct list_item$1char$ph*"))));
         litem_0->prev=self->head;
         litem_0->next=((void*)0);
@@ -3175,7 +3166,6 @@ struct list$1char$ph* __result_obj__4;
         self->head->next=litem_0;
     }
     else {
-        __right_value0 = (void*)0;
         litem_1=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc_v2(1, sizeof(struct list_item$1char$ph)*(1), "/usr/local/include/neo-c.h", 1191, "struct list_item$1char$ph*"))));
         litem_1->prev=self->tail;
         litem_1->next=((void*)0);
