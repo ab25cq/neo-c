@@ -122,6 +122,8 @@ class sFunNode extends sNodeBase
         sFun* come_fun = info.come_fun;
         info.come_fun = self.mFun;
         
+        info.come_fun.mDefineReturnVar = false;
+        
         int right_value_num = info->right_value_num;
         info->right_value_num = 0;
         int right_value_max = info->right_value_max;

@@ -54,10 +54,11 @@ class sReturnNode extends sNodeBase
                 add_come_code(info, "return %s;\n", come_value.c_value);
             }
             else {
-                static int result_num = 0;
-                result_num++;
-                
-                add_come_code_at_function_head(info, "%s;\n", make_define_var(result_type2, s"__result_obj__\{result_num}"));
+                if(!info.come_fun.mDefineReturnVar) {
+                    info.come_fun.mDefineReturnVar = true;
+                    
+                    add_come_code_at_function_head(info, "%s;\n", make_define_var(result_type2, s"__result_obj__\{000}"));
+                }
                 
                 if(!info.come_fun.mNoResultType) {
                     if(!gComeC || !(strlen(result_type2->mClass->mName) > strlen("tuple") && memcmp(result_type2->mClass->mName, "tuple", strlen("tuple")) == 0)) {
@@ -67,14 +68,14 @@ class sReturnNode extends sNodeBase
                     if(result_type2.mHeap) {
                         string type_name = make_type_name_string(result_type2);
                         //come_value.type);
-                        add_come_code(info, s"__result_obj__\{result_num} = (%s)come_increment_ref_count(%s);\n", type_name, come_value.c_value);
+                        add_come_code(info, s"__result_obj__\{000} = (%s)come_increment_ref_count(%s);\n", type_name, come_value.c_value);
                     }
                     else {
-                        add_come_code(info, s"__result_obj__\{result_num} = %s;\n", come_value.c_value);
+                        add_come_code(info, s"__result_obj__\{000} = %s;\n", come_value.c_value);
                     }
                 }
                 else {
-                    add_come_code(info, s"__result_obj__\{result_num} = %s;\n", come_value.c_value);
+                    add_come_code(info, s"__result_obj__\{000} = %s;\n", come_value.c_value);
                 }
                 add_last_code_to_source(info);
         
@@ -98,10 +99,10 @@ class sReturnNode extends sNodeBase
                 }
                 
                 if(result_type2.mHeap) {
-                    free_object(result_type2, s"__result_obj__\{result_num}", false@no_decrement, true@no_free, info@info);
+                    free_object(result_type2, s"__result_obj__\{000}", false@no_decrement, true@no_free, info@info);
                 }
                 
-                add_come_code(info, s"return __result_obj__\{result_num};\n");
+                add_come_code(info, s"return __result_obj__\{000};\n");
             }
         }
         else {
