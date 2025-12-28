@@ -5245,7 +5245,6 @@ _conditional_value_X0;})) {
         for(i=128;i>=1;i--){
             new_fun_name=(char*)come_increment_ref_count(xsprintf("%s_v%d",generics_fun_name,i));
             fun=((struct sFun*)(__right_value2=map$2char$phsFun$ph_operator_load_element(info->funcs,((char*)(__right_value1=__builtin_string(new_fun_name))))));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
             come_call_finalizer(sFun_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0);
             if(fun!=((void*)0)) {
@@ -5825,7 +5824,6 @@ struct list$1sType$ph* __dec_obj94;
                     if(generics_fun_method_block_result_type->mClass->mMethodGenerics) {
                         method_generics_num=generics_fun_method_block_result_type->mClass->mMethodGenericsNum;
                         list$1sType$ph_operator_store_element(info->method_generics_types,method_generics_num,(struct sType*)come_increment_ref_count(sType_clone(method_block_result_type)));
-                        come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
                     }
                     n=0;
                     for(o2_saved=(struct list$1sType$ph*)come_increment_ref_count(generics_fun_method_block_lambda_type->mParamTypes),it=list$1sType$ph_begin(o2_saved);!list$1sType$ph_end(o2_saved);it=list$1sType$ph_next(o2_saved)){
@@ -5833,7 +5831,6 @@ struct list$1sType$ph* __dec_obj94;
                             method_generics_num_40=it->mClass->mMethodGenericsNum;
                             list$1sType$ph_operator_store_element(info->method_generics_types,method_generics_num_40,(struct sType*)come_increment_ref_count(sType_clone(((struct sType*)(__right_value2=list$1sType$ph_operator_load_element(method_block_lambda_type->mParamTypes,n))))));
                             come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-                            come_call_finalizer(sType_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
                             come_call_finalizer(sType_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0);
                         }
                         n++;
@@ -5892,7 +5889,6 @@ struct list$1sType$ph* __dec_obj94;
                         method_generics_num_47=generics_fun->mResultType->mClass->mMethodGenericsNum;
                         if(info->function_result_type) {
                             list$1sType$ph_operator_store_element(info->method_generics_types,method_generics_num_47,(struct sType*)come_increment_ref_count(sType_clone(info->function_result_type)));
-                            come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
                         }
                     }
                     n=0;
@@ -5902,7 +5898,6 @@ struct list$1sType$ph* __dec_obj94;
                             if(n<list$1CVALUE$ph_length(come_params_41)) {
                                 list$1sType$ph_operator_store_element(info->method_generics_types,method_generics_num_50,(struct sType*)come_increment_ref_count(sType_clone(((struct CVALUE*)(__right_value2=list$1CVALUE$ph_operator_load_element(come_params_41,n)))->type)));
                                 come_call_finalizer(CVALUE_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-                                come_call_finalizer(sType_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
                                 come_call_finalizer(CVALUE_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0);
                             }
                         }
@@ -5965,7 +5960,6 @@ struct list$1sType$ph* __dec_obj94;
                         method_generics_num_59=generics_fun->mResultType->mClass->mMethodGenericsNum;
                         if(info->function_result_type) {
                             list$1sType$ph_operator_store_element(info->method_generics_types,method_generics_num_59,(struct sType*)come_increment_ref_count(sType_clone(info->function_result_type)));
-                            come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
                         }
                     }
                     n_60=0;
@@ -5975,7 +5969,6 @@ struct list$1sType$ph* __dec_obj94;
                             if(n_60<list$1CVALUE$ph_length(come_params_51)) {
                                 list$1sType$ph_operator_store_element(info->method_generics_types,method_generics_num_63,(struct sType*)come_increment_ref_count(sType_clone(((struct CVALUE*)(__right_value2=list$1CVALUE$ph_operator_load_element(come_params_51,n_60)))->type)));
                                 come_call_finalizer(CVALUE_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-                                come_call_finalizer(sType_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
                                 come_call_finalizer(CVALUE_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0);
                             }
                         }

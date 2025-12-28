@@ -3729,7 +3729,6 @@ memset(&result, 0, sizeof(result));
     i=0;
     for(o2_saved=(struct list$1sType$ph*)come_increment_ref_count(type->mGenericsTypes),it=list$1sType$ph_begin(o2_saved);!list$1sType$ph_end(o2_saved);it=list$1sType$ph_next(o2_saved)){
         list$1sType$ph_operator_store_element(result->mGenericsTypes,i,(struct sType*)come_increment_ref_count(get_no_solved_type(it)));
-        come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         i++;
     }
     come_call_finalizer(list$1sType$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -6070,7 +6069,6 @@ char* __result_obj__0;
     come_call_finalizer(list$1sType$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     if(lambda_type->mAttribute) {
         buffer_append_str(output,((char*)(__right_value2=string_operator_add(((char*)(__right_value1=charp_operator_add(" ",lambda_type->mAttribute))),");\n"))));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
         (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0));
     }
@@ -6204,7 +6202,6 @@ _Bool contained_generics_135;
 char* output_136;
 _Bool __result_obj__0;
     main_fun=((struct sFun*)(__right_value2=map$2char$phsFun$ph_operator_load_element(info->funcs,((char*)(__right_value1=xsprintf("main"))))));
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
     come_call_finalizer(sFun_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0);
     main_module=0;
@@ -6216,7 +6213,6 @@ _Bool __result_obj__0;
     if(main_module) {
         for(o2_saved=(struct map$2char$phsFun$ph*)come_increment_ref_count(info->uniq_funcs),it=map$2char$phsFun$ph_begin(o2_saved);!map$2char$phsFun$ph_end(o2_saved);it=map$2char$phsFun$ph_next(o2_saved)){
             it2=((struct sFun*)(__right_value2=map$2char$phsFun$ph_operator_load_element(info->uniq_funcs,((char*)(__right_value1=__builtin_string(it))))));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
             come_call_finalizer(sFun_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0);
             new_fun=(struct sFun*)come_increment_ref_count(compile_uniq_function(it2,info));
@@ -6233,7 +6229,6 @@ _Bool __result_obj__0;
     fprintf(f,"/// typedef definition ///\n");
     for(o2_saved_109=(struct map$2char$phbuffer$ph*)come_increment_ref_count(info->typedef_definition),it_111=map$2char$phbuffer$ph_begin(o2_saved_109);!map$2char$phbuffer$ph_end(o2_saved_109);it_111=map$2char$phbuffer$ph_next(o2_saved_109)){
         buf=((struct buffer*)(__right_value2=map$2char$phbuffer$ph_operator_load_element(info->typedef_definition,((char*)(__right_value1=__builtin_string(it_111))))));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
         come_call_finalizer(buffer_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         fprintf(f,"%s\n",((char*)(__right_value0=buffer_to_string(buf))));
@@ -6243,7 +6238,6 @@ _Bool __result_obj__0;
     fprintf(f,"/// previous struct definition ///\n");
     for(o2_saved_114=(struct map$2char$phbuffer$ph*)come_increment_ref_count(info->previous_struct_definition),it_115=map$2char$phbuffer$ph_begin(o2_saved_114);!map$2char$phbuffer$ph_end(o2_saved_114);it_115=map$2char$phbuffer$ph_next(o2_saved_114)){
         buf_116=((struct buffer*)(__right_value2=map$2char$phbuffer$ph_operator_load_element(info->previous_struct_definition,((char*)(__right_value1=__builtin_string(it_115))))));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
         come_call_finalizer(buffer_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         fprintf(f,"%s\n",((char*)(__right_value0=buffer_to_string(buf_116))));
@@ -6253,7 +6247,6 @@ _Bool __result_obj__0;
     fprintf(f,"/// struct definition ///\n");
     for(o2_saved_117=(struct map$2char$phbuffer$ph*)come_increment_ref_count(info->struct_definition),it_118=map$2char$phbuffer$ph_begin(o2_saved_117);!map$2char$phbuffer$ph_end(o2_saved_117);it_118=map$2char$phbuffer$ph_next(o2_saved_117)){
         buf_119=((struct buffer*)(__right_value2=map$2char$phbuffer$ph_operator_load_element(info->struct_definition,((char*)(__right_value1=__builtin_string(it_118))))));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
         come_call_finalizer(buffer_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         fprintf(f,"%s\n",((char*)(__right_value0=buffer_to_string(buf_119))));
@@ -6266,7 +6259,6 @@ _Bool __result_obj__0;
     fprintf(f,"// header function\n");
     for(o2_saved_120=(struct map$2char$phsFun$ph*)come_increment_ref_count(info->funcs),it_121=map$2char$phsFun$ph_begin(o2_saved_120);!map$2char$phsFun$ph_end(o2_saved_120);it_121=map$2char$phsFun$ph_next(o2_saved_120)){
         it2_122=((struct sFun*)(__right_value2=map$2char$phsFun$ph_operator_load_element(info->funcs,((char*)(__right_value1=__builtin_string(it_121))))));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
         come_call_finalizer(sFun_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         contained_generics=is_contained_generics_funcstion(it2_122,info);
@@ -6285,7 +6277,6 @@ _Bool __result_obj__0;
     if(main_module) {
         for(o2_saved_123=(struct map$2char$phchar$ph*)come_increment_ref_count(info->uniq_definition),it_125=map$2char$phchar$ph_begin(o2_saved_123);!map$2char$phchar$ph_end(o2_saved_123);it_125=map$2char$phchar$ph_next(o2_saved_123)){
             str=((char*)(__right_value2=map$2char$phchar$ph_operator_load_element(info->uniq_definition,((char*)(__right_value1=__builtin_string(it_125))))));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
             (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0));
             fprintf(f,"%s\n",str);
@@ -6295,7 +6286,6 @@ _Bool __result_obj__0;
     fprintf(f,"// inline function\n");
     for(o2_saved_128=(struct map$2char$phsFun$ph*)come_increment_ref_count(info->funcs),it_129=map$2char$phsFun$ph_begin(o2_saved_128);!map$2char$phsFun$ph_end(o2_saved_128);it_129=map$2char$phsFun$ph_next(o2_saved_128)){
         it2_130=((struct sFun*)(__right_value2=map$2char$phsFun$ph_operator_load_element(info->funcs,((char*)(__right_value1=__builtin_string(it_129))))));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
         come_call_finalizer(sFun_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         contained_generics_131=is_contained_generics_funcstion(it2_130,info);
@@ -6312,7 +6302,6 @@ _Bool __result_obj__0;
     fprintf(f,"// body function\n");
     for(o2_saved_132=(struct map$2char$phsFun$ph*)come_increment_ref_count(info->funcs),it_133=map$2char$phsFun$ph_begin(o2_saved_132);!map$2char$phsFun$ph_end(o2_saved_132);it_133=map$2char$phsFun$ph_next(o2_saved_132)){
         it2_134=((struct sFun*)(__right_value2=map$2char$phsFun$ph_operator_load_element(info->funcs,((char*)(__right_value1=__builtin_string(it_133))))));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
         come_call_finalizer(sFun_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         contained_generics_135=is_contained_generics_funcstion(it2_134,info);

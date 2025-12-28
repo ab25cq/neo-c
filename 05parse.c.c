@@ -3034,7 +3034,6 @@ memset(&args, 0, sizeof(args));
         info->err_num++;
         free(msg2);
         printf(((char*)(__right_value2=string_operator_add(((char*)(__right_value1=buffer_to_string(buf))),"\n"))));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
         (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0));
         __result_obj__0 = 0;
@@ -3096,14 +3095,12 @@ _conditional_value_X0;})) {
     }
     result=(char*)come_increment_ref_count(buffer_to_string(buf));
     if(info->module_params) {
-        if(({(_conditional_value_X0=(((char*)(__right_value2=map$2char$phchar$ph_operator_load_element(info->module_params,((char*)(__right_value1=__builtin_string(result))))))));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
+        if(({(_conditional_value_X0=(((char*)(__right_value2=map$2char$phchar$ph_operator_load_element(info->module_params,((char*)(__right_value1=__builtin_string(result))))))));        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
         (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0));
 _conditional_value_X0;})) {
             __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value3=__builtin_string(((char*)(__right_value2=map$2char$phchar$ph_operator_load_element(info->module_params,((char*)(__right_value1=__builtin_string(result))))))))));
             come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 0, (void*)0));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
             (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0));
             (__right_value3 = come_decrement_ref_count(__right_value3, (void*)0, (void*)0, 1, 0, (void*)0));

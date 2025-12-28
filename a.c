@@ -1,13 +1,20 @@
 #include <neo-c.h>
 
-int*% aaa() 
+using neo-c;
+
+struct sInfo
 {
-    return new int(5);
-}
+    char*% clang_option;
+    char*% linker_option;
+};
 
 
 int main(int argc, char** argv)
 {
-    int*% a = aaa();
+    sInfo info;
+    bool is_mac = true;
+    if(is_mac) {
+        info.clang_option = info.clang_option + s" -std=gnu17 ";
+    }
     return 0;
 }

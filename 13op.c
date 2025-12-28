@@ -18,6 +18,21 @@ bool operator_overload_fun(sType*% type, char* fun_name, sNode*% left_node, sNod
     bool result = false;
     
     if(operator_fun && (type->mGenericsTypes.length() > 0 || (left_value.type.mClass.mName === right_value.type.mClass.mName && left_value.type.mPointerNum == right_value.type.mPointerNum) || fun_name === "operator_mult")) {
+        {
+            sRightValueObject* right_value_object = left_value.right_value_objects;
+            
+            if(right_value_object) {
+                right_value_object->mFreed = true;
+            }
+        }
+        {
+            sRightValueObject* right_value_object = right_value.right_value_objects;
+            
+            if(right_value_object) {
+                right_value_object->mFreed = true;
+            }
+        }
+        
         sNode*% obj = left_node;
         list<tup: string, sNode*%>*% params =  new list<tup: string, sNode*%>();
         

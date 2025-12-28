@@ -18,6 +18,12 @@ bool operator_overload_fun_self(sType*% type, char* fun_name, sNode*% node, CVAL
     bool result = false;
     
     if(operator_fun) {
+        sRightValueObject* right_value_object = left_value.right_value_objects;
+        
+        if(right_value_object) {
+            right_value_object->mFreed = true;
+        }
+        
         sNode*% obj = node;
         list<tuple2<string, sNode*%>*%>*% params =  new list<tuple2<string, sNode*%>*%>();
         

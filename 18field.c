@@ -16,6 +16,27 @@ bool operator_overload_fun2(sType*% type, char* fun_name, sNode*% left_node, sNo
     bool result = false;
     
     if(operator_fun) {
+        {
+            sRightValueObject* right_value_object = left_value.right_value_objects;
+            
+            if(right_value_object) {
+                right_value_object->mFreed = true;
+            }
+        }
+        {
+            sRightValueObject* right_value_object = middle_value.right_value_objects;
+            
+            if(right_value_object) {
+                right_value_object->mFreed = true;
+            }
+        }
+        {
+            sRightValueObject* right_value_object = right_value.right_value_objects;
+            
+            if(right_value_object) {
+                right_value_object->mFreed = true;
+            }
+        }
         sNode*% obj = left_node;
         list<tup: string, sNode*%>*% params =  new list<tup: string, sNode*%>();
         
