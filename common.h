@@ -784,16 +784,12 @@ uniq class sCurrentNode extends sNodeBase
             vtable = vtable->mParent;
         }
         add_come_code(info, "})");
-/*
         if(info->in_conditional) {
-*/
             add_come_code(info, ",");
-/*
         }
         else {
             add_come_code(info, ";");
         }
-*/
         
         CVALUE*% come_value = new CVALUE();
         

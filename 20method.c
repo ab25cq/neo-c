@@ -364,7 +364,7 @@ class sMethodCallNode extends sNodeBase
         
         list<sType*%>*% method_generics_types = info->method_generics_types;
         info->method_generics_types = clone self.method_generics_types;
-        
+
         node_compile(obj).elif {
             return false;
         }
