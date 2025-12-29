@@ -1083,7 +1083,7 @@ string output_function(sFun* fun, sInfo* info)
         }
     }
     
-    output.append_str("{\n");
+    output.append_str("\n{\n");
     
     output.append_str(fun->mSourceHead.to_string());
     output.append_str(fun->mSourceHead2.to_string());
@@ -1479,6 +1479,7 @@ void add_come_code_at_function_head(sInfo* info, char* code, ...)
     va_end(args);
     
     if(info.come_fun) {
+        info->come_fun->mSourceHead.append_str("    ");
         info->come_fun->mSourceHead.append_str(msg2);
     }
     
@@ -1498,6 +1499,7 @@ void add_come_code_at_function_head2(sInfo* info, char* code, ...)
     va_end(args);
     
     if(info.come_fun) {
+        info->come_fun->mSourceHead2.append_str("    ");
         info->come_fun->mSourceHead2.append_str(msg2);
     }
     

@@ -1661,6 +1661,8 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
     int right_value_num = info->right_value_num;
     int max_conditional = info->max_conditional;
     int num_conditional = info->num_conditional;
+    bool in_conditional = info->in_conditional;
+    info.in_conditional = false;
     
     string last_code = info.module.mLastCode;
     info.module.mLastCode = null;
@@ -1781,6 +1783,7 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
     info->right_value_num = right_value_num;
     info->num_conditional = num_conditional;
     info->max_conditional = max_conditional;
+    info.in_conditional = in_conditional;
     
     return (string(fun_name), true);
 }
@@ -1793,6 +1796,8 @@ bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sIn
     info->caller_line = info->sline;
     char* caller_sname = info->caller_sname;
     info->caller_sname = info->sname;
+    bool in_conditional = info->in_conditional;
+    info.in_conditional = false;
     
     string last_code = info.module.mLastCode;
     info.module.mLastCode = null;
@@ -1891,6 +1896,7 @@ bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sIn
     info->caller_fun = caller_fun;
     info->caller_line = caller_line;
     info->caller_sname = caller_sname;
+    info.in_conditional = in_conditional;
     
     return true;
 }

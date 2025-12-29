@@ -2985,29 +2985,30 @@ static void list$1char$ph$p_finalize(struct list$1char$ph* self);
 // inline function
 
 // body function
-struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo* info){
-char* source_head;
-void* __right_value0 = (void*)0;
-char* word;
-char* generics_name;
-int pointer_num;
-int __exception_result_var_b1;
-void* __right_value1 = (void*)0;
-struct sType* __exception_result_var_b2;
-struct sType* __exception_result_var_b3;
-struct sType* __dec_obj4;
-char* head_2;
-char* buf_3;
-struct sNode* node;
-struct sType* impl_type;
-struct sType* __dec_obj5;
-_Bool Value;
-struct sType* __dec_obj6;
-int __exception_result_var_b4;
-struct sType* __dec_obj7;
-char* source_tail;
-struct buffer* header;
-struct sNode* __result_obj__0;
+struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo* info)
+{
+    char* source_head;
+    void* __right_value0 = (void*)0;
+    char* word;
+    char* generics_name;
+    int pointer_num;
+    int __exception_result_var_b1;
+    void* __right_value1 = (void*)0;
+    struct sType* __exception_result_var_b2;
+    struct sType* __exception_result_var_b3;
+    struct sType* __dec_obj4;
+    char* head_2;
+    char* buf_3;
+    struct sNode* node;
+    struct sType* impl_type;
+    struct sType* __dec_obj5;
+    _Bool Value;
+    struct sType* __dec_obj6;
+    int __exception_result_var_b4;
+    struct sType* __dec_obj7;
+    char* source_tail;
+    struct buffer* header;
+    struct sNode* __result_obj__0;
     if(!gComeC&&charp_operator_equals(buf,"impl")) {
         source_head=info->p;
         word=(char*)come_increment_ref_count(parse_word(info,info));
@@ -3102,10 +3103,11 @@ struct sNode* __result_obj__0;
     return __result_obj__0;
 }
 
-static struct list$1char$ph* list$1char$ph_reset(struct list$1char$ph* self){
-struct list$1char$ph* __result_obj__0;
-struct list_item$1char$ph* it;
-struct list_item$1char$ph* prev_it;
+static struct list$1char$ph* list$1char$ph_reset(struct list$1char$ph* self)
+{
+    struct list$1char$ph* __result_obj__0;
+    struct list_item$1char$ph* it;
+    struct list_item$1char$ph* prev_it;
     if(self==((void*)0)) {
         __result_obj__0 = self;
         return __result_obj__0;
@@ -3123,21 +3125,23 @@ struct list_item$1char$ph* prev_it;
     return __result_obj__0;
 }
 
-static void list_item$1char$ph$p_finalize(struct list_item$1char$ph* self){
+static void list_item$1char$ph$p_finalize(struct list_item$1char$ph* self)
+{
     if(self!=((void*)0)&&self->item!=((void*)0)) {
         (self->item = come_decrement_ref_count(self->item, (void*)0, (void*)0, 0, 0, (void*)0));
     }
 }
 
-static struct list$1char$ph* list$1char$ph_push_back(struct list$1char$ph* self, char* item){
-struct list$1char$ph* __result_obj__0;
-void* __right_value0 = (void*)0;
-struct list_item$1char$ph* litem;
-char* __dec_obj1;
-struct list_item$1char$ph* litem_0;
-char* __dec_obj2;
-struct list_item$1char$ph* litem_1;
-char* __dec_obj3;
+static struct list$1char$ph* list$1char$ph_push_back(struct list$1char$ph* self, char* item)
+{
+    struct list$1char$ph* __result_obj__0;
+    void* __right_value0 = (void*)0;
+    struct list_item$1char$ph* litem;
+    char* __dec_obj1;
+    struct list_item$1char$ph* litem_0;
+    char* __dec_obj2;
+    struct list_item$1char$ph* litem_1;
+    char* __dec_obj3;
     if(self==((void*)0)) {
         __result_obj__0 = self;
         (item = come_decrement_ref_count(item, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -3179,7 +3183,8 @@ char* __dec_obj3;
     return __result_obj__0;
 }
 
-static void sType_finalize(struct sType* self){
+static void sType_finalize(struct sType* self)
+{
     if(self!=((void*)0)&&self->mOriginalLoadVarType!=((void*)0)) {
         come_call_finalizer(sType_finalize, self->mOriginalLoadVarType, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
@@ -3248,9 +3253,10 @@ static void sType_finalize(struct sType* self){
     }
 }
 
-static void list$1sType$ph$p_finalize(struct list$1sType$ph* self){
-struct list_item$1sType$ph* it;
-struct list_item$1sType$ph* prev_it;
+static void list$1sType$ph$p_finalize(struct list$1sType$ph* self)
+{
+    struct list_item$1sType$ph* it;
+    struct list_item$1sType$ph* prev_it;
     if(self==((void*)0)) {
         return;
     }
@@ -3262,15 +3268,17 @@ struct list_item$1sType$ph* prev_it;
     }
 }
 
-static void list_item$1sType$ph$p_finalize(struct list_item$1sType$ph* self){
+static void list_item$1sType$ph$p_finalize(struct list_item$1sType$ph* self)
+{
     if(self!=((void*)0)&&self->item!=((void*)0)) {
         come_call_finalizer(sType_finalize, self->item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
 }
 
-static void list$1sNode$ph$p_finalize(struct list$1sNode$ph* self){
-struct list_item$1sNode$ph* it;
-struct list_item$1sNode$ph* prev_it;
+static void list$1sNode$ph$p_finalize(struct list$1sNode$ph* self)
+{
+    struct list_item$1sNode$ph* it;
+    struct list_item$1sNode$ph* prev_it;
     if(self==((void*)0)) {
         return;
     }
@@ -3282,15 +3290,17 @@ struct list_item$1sNode$ph* prev_it;
     }
 }
 
-static void list_item$1sNode$ph$p_finalize(struct list_item$1sNode$ph* self){
+static void list_item$1sNode$ph$p_finalize(struct list_item$1sNode$ph* self)
+{
     if(self!=((void*)0)&&self->item!=((void*)0)) {
         ((self->item) ? self->item = come_decrement_ref_count(self->item, ((struct sNode*)self->item)->finalize, ((struct sNode*)self->item)->_protocol_obj, 0, 0,(void*)0):(void*)0);
     }
 }
 
-static void list$1int$$p_finalize(struct list$1int$* self){
-struct list_item$1int$* it;
-struct list_item$1int$* prev_it;
+static void list$1int$$p_finalize(struct list$1int$* self)
+{
+    struct list_item$1int$* it;
+    struct list_item$1int$* prev_it;
     if(self==((void*)0)) {
         return;
     }
@@ -3302,12 +3312,14 @@ struct list_item$1int$* prev_it;
     }
 }
 
-static void list_item$1int$$p_finalize(struct list_item$1int$* self){
+static void list_item$1int$$p_finalize(struct list_item$1int$* self)
+{
 }
 
-static void list$1char$ph$p_finalize(struct list$1char$ph* self){
-struct list_item$1char$ph* it;
-struct list_item$1char$ph* prev_it;
+static void list$1char$ph$p_finalize(struct list$1char$ph* self)
+{
+    struct list_item$1char$ph* it;
+    struct list_item$1char$ph* prev_it;
     if(self==((void*)0)) {
         return;
     }

@@ -3066,10 +3066,11 @@ static char* list$1char$ph_operator_load_element(struct list$1char$ph* self, int
 // inline function
 
 // body function
-static void write_source_file_position_to_source(struct sInfo* info){
-void* __right_value0 = (void*)0;
-void* __right_value1 = (void*)0;
-void* __right_value2 = (void*)0;
+static void write_source_file_position_to_source(struct sInfo* info)
+{
+    void* __right_value0 = (void*)0;
+    void* __right_value1 = (void*)0;
+    void* __right_value2 = (void*)0;
     if(gComeOriginalSourcePosition) {
         if(info->writing_source_file_position) {
             add_come_code(info,((char*)(__right_value2=xsprintf("# \%s \"\%s\"\n",((char*)(__right_value0=int_to_string(info->sline))),((char*)(__right_value1=string_to_string(info->sname)))))));
@@ -3081,16 +3082,17 @@ void* __right_value2 = (void*)0;
     }
 }
 
-_Bool node_compile(struct sNode* node, struct sInfo* info){
-void* __right_value0 = (void*)0;
-char* sname;
-int sline;
-int sline_real;
-void* __right_value1 = (void*)0;
-char* __dec_obj1;
-_Bool result;
-char* __dec_obj2;
-_Bool __result_obj__0;
+_Bool node_compile(struct sNode* node, struct sInfo* info)
+{
+    void* __right_value0 = (void*)0;
+    char* sname;
+    int sline;
+    int sline_real;
+    void* __right_value1 = (void*)0;
+    char* __dec_obj1;
+    _Bool result;
+    char* __dec_obj2;
+    _Bool __result_obj__0;
     sname=(char*)come_increment_ref_count(__builtin_string(info->sname));
     sline=info->sline;
     sline_real=info->sline_real;
@@ -3112,18 +3114,19 @@ _Bool __result_obj__0;
     return __result_obj__0;
 }
 
-_Bool transpile_conditional_with_free_right_object_value(struct sNode* node, struct sInfo* info){
-_Bool in_conditional;
-_Bool Value;
-_Bool existance_right_value_object;
-void* __right_value0 = (void*)0;
-struct CVALUE* conditional_value;
-_Bool already_defined;
-int num_conditional;
-_Bool in_conditional_0;
-_Bool in_conditional_1;
-_Bool in_conditional_2;
-_Bool __result_obj__0;
+_Bool transpile_conditional_with_free_right_object_value(struct sNode* node, struct sInfo* info)
+{
+    _Bool in_conditional;
+    _Bool Value;
+    _Bool existance_right_value_object;
+    void* __right_value0 = (void*)0;
+    struct CVALUE* conditional_value;
+    _Bool already_defined;
+    int num_conditional;
+    _Bool in_conditional_0;
+    _Bool in_conditional_1;
+    _Bool in_conditional_2;
+    _Bool __result_obj__0;
     in_conditional=info->in_conditional;
     info->in_conditional=1;
     Value=node_compile(node,info);
@@ -3176,7 +3179,8 @@ _Bool __result_obj__0;
     return __result_obj__0;
 }
 
-static void CVALUE_finalize(struct CVALUE* self){
+static void CVALUE_finalize(struct CVALUE* self)
+{
     if(self!=((void*)0)&&self->c_value!=((void*)0)) {
         (self->c_value = come_decrement_ref_count(self->c_value, (void*)0, (void*)0, 0, 0, (void*)0));
     }
@@ -3191,7 +3195,8 @@ static void CVALUE_finalize(struct CVALUE* self){
     }
 }
 
-static void sType_finalize(struct sType* self){
+static void sType_finalize(struct sType* self)
+{
     if(self!=((void*)0)&&self->mOriginalLoadVarType!=((void*)0)) {
         come_call_finalizer(sType_finalize, self->mOriginalLoadVarType, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
@@ -3260,9 +3265,10 @@ static void sType_finalize(struct sType* self){
     }
 }
 
-static void list$1sType$ph$p_finalize(struct list$1sType$ph* self){
-struct list_item$1sType$ph* it;
-struct list_item$1sType$ph* prev_it;
+static void list$1sType$ph$p_finalize(struct list$1sType$ph* self)
+{
+    struct list_item$1sType$ph* it;
+    struct list_item$1sType$ph* prev_it;
     if(self==((void*)0)) {
         return;
     }
@@ -3274,15 +3280,17 @@ struct list_item$1sType$ph* prev_it;
     }
 }
 
-static void list_item$1sType$ph$p_finalize(struct list_item$1sType$ph* self){
+static void list_item$1sType$ph$p_finalize(struct list_item$1sType$ph* self)
+{
     if(self!=((void*)0)&&self->item!=((void*)0)) {
         come_call_finalizer(sType_finalize, self->item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
 }
 
-static void list$1sNode$ph$p_finalize(struct list$1sNode$ph* self){
-struct list_item$1sNode$ph* it;
-struct list_item$1sNode$ph* prev_it;
+static void list$1sNode$ph$p_finalize(struct list$1sNode$ph* self)
+{
+    struct list_item$1sNode$ph* it;
+    struct list_item$1sNode$ph* prev_it;
     if(self==((void*)0)) {
         return;
     }
@@ -3294,15 +3302,17 @@ struct list_item$1sNode$ph* prev_it;
     }
 }
 
-static void list_item$1sNode$ph$p_finalize(struct list_item$1sNode$ph* self){
+static void list_item$1sNode$ph$p_finalize(struct list_item$1sNode$ph* self)
+{
     if(self!=((void*)0)&&self->item!=((void*)0)) {
         ((self->item) ? self->item = come_decrement_ref_count(self->item, ((struct sNode*)self->item)->finalize, ((struct sNode*)self->item)->_protocol_obj, 0, 0,(void*)0):(void*)0);
     }
 }
 
-static void list$1int$$p_finalize(struct list$1int$* self){
-struct list_item$1int$* it;
-struct list_item$1int$* prev_it;
+static void list$1int$$p_finalize(struct list$1int$* self)
+{
+    struct list_item$1int$* it;
+    struct list_item$1int$* prev_it;
     if(self==((void*)0)) {
         return;
     }
@@ -3314,12 +3324,14 @@ struct list_item$1int$* prev_it;
     }
 }
 
-static void list_item$1int$$p_finalize(struct list_item$1int$* self){
+static void list_item$1int$$p_finalize(struct list_item$1int$* self)
+{
 }
 
-static void list$1char$ph$p_finalize(struct list$1char$ph* self){
-struct list_item$1char$ph* it;
-struct list_item$1char$ph* prev_it;
+static void list$1char$ph$p_finalize(struct list$1char$ph* self)
+{
+    struct list_item$1char$ph* it;
+    struct list_item$1char$ph* prev_it;
     if(self==((void*)0)) {
         return;
     }
@@ -3331,15 +3343,17 @@ struct list_item$1char$ph* prev_it;
     }
 }
 
-static void list_item$1char$ph$p_finalize(struct list_item$1char$ph* self){
+static void list_item$1char$ph$p_finalize(struct list_item$1char$ph* self)
+{
     if(self!=((void*)0)&&self->item!=((void*)0)) {
         (self->item = come_decrement_ref_count(self->item, (void*)0, (void*)0, 0, 0, (void*)0));
     }
 }
 
-static void clear_tmp_file(struct sInfo* info){
-char* input_file_name;
-void* __right_value0 = (void*)0;
+static void clear_tmp_file(struct sInfo* info)
+{
+    char* input_file_name;
+    void* __right_value0 = (void*)0;
     input_file_name=(char*)come_increment_ref_count(info->sname);
     if(input_file_name!=((void*)0)&&string_operator_not_equals(input_file_name,"")) {
         (void)system(((char*)(__right_value0=xsprintf("%s \"%s\".*",RM,input_file_name))));
@@ -3348,9 +3362,10 @@ void* __right_value0 = (void*)0;
     (input_file_name = come_decrement_ref_count(input_file_name, (void*)0, (void*)0, 0, 0, (void*)0));
 }
 
-static void clear_tmp_file_without_object_file(struct sInfo* info){
-char* input_file_name;
-void* __right_value0 = (void*)0;
+static void clear_tmp_file_without_object_file(struct sInfo* info)
+{
+    char* input_file_name;
+    void* __right_value0 = (void*)0;
     input_file_name=(char*)come_increment_ref_count(info->sname);
     if(input_file_name!=((void*)0)&&string_operator_not_equals(input_file_name,"")) {
         (void)system(((char*)(__right_value0=xsprintf("%s \"%s\".i* \"%s\".c*",RM,input_file_name,input_file_name))));
@@ -3359,9 +3374,10 @@ void* __right_value0 = (void*)0;
     (input_file_name = come_decrement_ref_count(input_file_name, (void*)0, (void*)0, 0, 0, (void*)0));
 }
 
-static void clear_tmp_file_without_object_file_and_ccfile(struct sInfo* info){
-char* input_file_name;
-void* __right_value0 = (void*)0;
+static void clear_tmp_file_without_object_file_and_ccfile(struct sInfo* info)
+{
+    char* input_file_name;
+    void* __right_value0 = (void*)0;
     input_file_name=(char*)come_increment_ref_count(info->sname);
     if(input_file_name!=((void*)0)&&string_operator_not_equals(input_file_name,"")) {
         (void)system(((char*)(__right_value0=xsprintf("%s \"%s\".i* \"%s\".c.out",RM,input_file_name,input_file_name))));
@@ -3370,59 +3386,60 @@ void* __right_value0 = (void*)0;
     (input_file_name = come_decrement_ref_count(input_file_name, (void*)0, (void*)0, 0, 0, (void*)0));
 }
 
-static _Bool cpp(struct sInfo* info){
-char* input_file_name;
-char* output_file_name;
-void* __right_value0 = (void*)0;
-char* __dec_obj3;
-char* __dec_obj4;
-int is_mac;
-int is_android;
-int is_linux;
-int is_arm64;
-int is_m5stack;
-int is_pico;
-int is_emb;
-_Bool _32bit;
-struct __sFILE* f;
-int is_raspi;
-void* __right_value1 = (void*)0;
-void* __right_value2 = (void*)0;
-char* __dec_obj5;
-char* cmd3;
-int rc;
-char* command2;
-char* cmd2;
-int rc_3;
-char* command2_4;
-char* command2_5;
-char* cmd2_6;
-char* command2_7;
-int rc_8;
-char* command2_9;
-char* cmd2_10;
-char* command2_11;
-int rc_12;
-char* command2_13;
-char* cmd3_14;
-int rc_15;
-char* command2_16;
-char* cmd4;
-char* command2_17;
-char* cmd3_18;
-int rc_19;
-char* command2_20;
-char* cmd4_21;
-char* command2_22;
-char* __dec_obj6;
-char* cmd3_23;
-int rc_24;
-char* command2_25;
-char* cmd4_26;
-char* command2_27;
-_Bool __result_obj__0;
-memset(&output_file_name, 0, sizeof(output_file_name));
-memset(&is_raspi, 0, sizeof(is_raspi));
+static _Bool cpp(struct sInfo* info)
+{
+    char* input_file_name;
+    char* output_file_name;
+    void* __right_value0 = (void*)0;
+    char* __dec_obj3;
+    char* __dec_obj4;
+    int is_mac;
+    int is_android;
+    int is_linux;
+    int is_arm64;
+    int is_m5stack;
+    int is_pico;
+    int is_emb;
+    _Bool _32bit;
+    struct __sFILE* f;
+    int is_raspi;
+    void* __right_value1 = (void*)0;
+    void* __right_value2 = (void*)0;
+    char* __dec_obj5;
+    char* cmd3;
+    int rc;
+    char* command2;
+    char* cmd2;
+    int rc_3;
+    char* command2_4;
+    char* command2_5;
+    char* cmd2_6;
+    char* command2_7;
+    int rc_8;
+    char* command2_9;
+    char* cmd2_10;
+    char* command2_11;
+    int rc_12;
+    char* command2_13;
+    char* cmd3_14;
+    int rc_15;
+    char* command2_16;
+    char* cmd4;
+    char* command2_17;
+    char* cmd3_18;
+    int rc_19;
+    char* command2_20;
+    char* cmd4_21;
+    char* command2_22;
+    char* __dec_obj6;
+    char* cmd3_23;
+    int rc_24;
+    char* command2_25;
+    char* cmd4_26;
+    char* command2_27;
+    _Bool __result_obj__0;
+    memset(&output_file_name, 0, sizeof(output_file_name));
+    memset(&is_raspi, 0, sizeof(is_raspi));
     input_file_name=(char*)come_increment_ref_count(info->sname);
     if(info->output_file_name) {
         __dec_obj3=output_file_name,
@@ -3647,21 +3664,22 @@ memset(&is_raspi, 0, sizeof(is_raspi));
     return __result_obj__0;
 }
 
-static _Bool compile(struct sInfo* info, _Bool output_object_file, struct list$1char$ph* object_files){
-void* __right_value0 = (void*)0;
-char* input_file_name;
-char* output_file_name;
-char* __dec_obj7;
-char* __dec_obj8;
-int is_mac;
-int is_arm64;
-char* __dec_obj9;
-char* __dec_obj10;
-char* command;
-int rc;
-char* command2;
-_Bool __result_obj__0;
-memset(&output_file_name, 0, sizeof(output_file_name));
+static _Bool compile(struct sInfo* info, _Bool output_object_file, struct list$1char$ph* object_files)
+{
+    void* __right_value0 = (void*)0;
+    char* input_file_name;
+    char* output_file_name;
+    char* __dec_obj7;
+    char* __dec_obj8;
+    int is_mac;
+    int is_arm64;
+    char* __dec_obj9;
+    char* __dec_obj10;
+    char* command;
+    int rc;
+    char* command2;
+    _Bool __result_obj__0;
+    memset(&output_file_name, 0, sizeof(output_file_name));
     input_file_name=(char*)come_increment_ref_count(string_operator_add(info->sname,".c"));
     if(info->output_file_name&&output_object_file) {
         __dec_obj7=output_file_name,
@@ -3710,20 +3728,21 @@ memset(&output_file_name, 0, sizeof(output_file_name));
     return __result_obj__0;
 }
 
-static struct list$1char$ph* list$1char$ph_insert(struct list$1char$ph* self, int position, char* item){
-struct list$1char$ph* __result_obj__0;
-int len;
-int i;
-char* default_value;
-void* __right_value0 = (void*)0;
-struct list_item$1char$ph* litem;
-char* __dec_obj14;
-struct list_item$1char$ph* litem_30;
-char* __dec_obj15;
-struct list_item$1char$ph* it;
-int i_31;
-struct list_item$1char$ph* litem_32;
-char* __dec_obj16;
+static struct list$1char$ph* list$1char$ph_insert(struct list$1char$ph* self, int position, char* item)
+{
+    struct list$1char$ph* __result_obj__0;
+    int len;
+    int i;
+    char* default_value;
+    void* __right_value0 = (void*)0;
+    struct list_item$1char$ph* litem;
+    char* __dec_obj14;
+    struct list_item$1char$ph* litem_30;
+    char* __dec_obj15;
+    struct list_item$1char$ph* it;
+    int i_31;
+    struct list_item$1char$ph* litem_32;
+    char* __dec_obj16;
     if(self==((void*)0)) {
         __result_obj__0 = ((void*)0);
         (item = come_decrement_ref_count(item, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -3793,15 +3812,16 @@ char* __dec_obj16;
     return __result_obj__0;
 }
 
-static struct list$1char$ph* list$1char$ph_push_back(struct list$1char$ph* self, char* item){
-struct list$1char$ph* __result_obj__0;
-void* __right_value0 = (void*)0;
-struct list_item$1char$ph* litem;
-char* __dec_obj11;
-struct list_item$1char$ph* litem_28;
-char* __dec_obj12;
-struct list_item$1char$ph* litem_29;
-char* __dec_obj13;
+static struct list$1char$ph* list$1char$ph_push_back(struct list$1char$ph* self, char* item)
+{
+    struct list$1char$ph* __result_obj__0;
+    void* __right_value0 = (void*)0;
+    struct list_item$1char$ph* litem;
+    char* __dec_obj11;
+    struct list_item$1char$ph* litem_28;
+    char* __dec_obj12;
+    struct list_item$1char$ph* litem_29;
+    char* __dec_obj13;
     if(self==((void*)0)) {
         __result_obj__0 = self;
         (item = come_decrement_ref_count(item, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -3843,41 +3863,42 @@ char* __dec_obj13;
     return __result_obj__0;
 }
 
-static _Bool linker(struct sInfo* info, struct list$1char$ph* object_files){
-char* output_file_name;
-void* __right_value0 = (void*)0;
-char* __dec_obj17;
-char* __dec_obj18;
-void* __right_value1 = (void*)0;
-struct buffer* command;
-int is_mac;
-void* __right_value2 = (void*)0;
-char* __dec_obj19;
-struct list$1char$ph* o2_saved;
-char* it;
-int is_mac_35;
-char* cmd;
-int rc;
-char* cmd_36;
-int rc_37;
-char* cmd_38;
-int rc_39;
-int is_mac2;
-int Value;
-_Bool _conditional_value_X0;
-int is_mac3;
-struct buffer* retry;
-int Value_40;
-_Bool _conditional_value_X1;
-_Bool __result_obj__0;
-void* __right_value3 = (void*)0;
-void* __right_value4 = (void*)0;
-void* __right_value5 = (void*)0;
-void* __right_value6 = (void*)0;
-char* str;
-int Value_41;
-char* str2;
-int Value_42;
+static _Bool linker(struct sInfo* info, struct list$1char$ph* object_files)
+{
+    char* output_file_name;
+    void* __right_value0 = (void*)0;
+    char* __dec_obj17;
+    char* __dec_obj18;
+    void* __right_value1 = (void*)0;
+    struct buffer* command;
+    int is_mac;
+    void* __right_value2 = (void*)0;
+    char* __dec_obj19;
+    struct list$1char$ph* o2_saved;
+    char* it;
+    int is_mac_35;
+    char* cmd;
+    int rc;
+    char* cmd_36;
+    int rc_37;
+    char* cmd_38;
+    int rc_39;
+    int is_mac2;
+    int Value;
+    _Bool _conditional_value_X0;
+    int is_mac3;
+    struct buffer* retry;
+    int Value_40;
+    _Bool _conditional_value_X1;
+    _Bool __result_obj__0;
+    void* __right_value3 = (void*)0;
+    void* __right_value4 = (void*)0;
+    void* __right_value5 = (void*)0;
+    void* __right_value6 = (void*)0;
+    char* str;
+    int Value_41;
+    char* str2;
+    int Value_42;
     output_file_name=((void*)0);
     if(info->output_file_name) {
         __dec_obj17=output_file_name,
@@ -4025,82 +4046,86 @@ _conditional_value_X1;})) {
     return __result_obj__0;
 }
 
-static char* list$1char$ph_begin(struct list$1char$ph* self){
-char* result;
-char* __result_obj__0;
-char* result_33;
-if(self==((void*)0)) {
-memset(&result,0,sizeof(char*));
-__result_obj__0 = result;
-return __result_obj__0;
-}
-self->it=self->head;
-if(self->it) {
-__result_obj__0 = self->it->item;
-return __result_obj__0;
-}
-memset(&result_33,0,sizeof(char*));
-__result_obj__0 = result_33;
-return __result_obj__0;
-}
-
-static _Bool list$1char$ph_end(struct list$1char$ph* self){
-return self==((void*)0)||self->it==((void*)0);
+static char* list$1char$ph_begin(struct list$1char$ph* self)
+{
+    char* result;
+    char* __result_obj__0;
+    char* result_33;
+    if(self==((void*)0)) {
+        memset(&result,0,sizeof(char*));
+        __result_obj__0 = result;
+        return __result_obj__0;
+    }
+    self->it=self->head;
+    if(self->it) {
+        __result_obj__0 = self->it->item;
+        return __result_obj__0;
+    }
+    memset(&result_33,0,sizeof(char*));
+    __result_obj__0 = result_33;
+    return __result_obj__0;
 }
 
-static char* list$1char$ph_next(struct list$1char$ph* self){
-char* result;
-char* __result_obj__0;
-char* result_34;
-if(self==((void*)0)||self->it==((void*)0)) {
-memset(&result,0,sizeof(char*));
-__result_obj__0 = result;
-return __result_obj__0;
-}
-self->it=self->it->next;
-if(self->it) {
-__result_obj__0 = self->it->item;
-return __result_obj__0;
-}
-memset(&result_34,0,sizeof(char*));
-__result_obj__0 = result_34;
-return __result_obj__0;
+static _Bool list$1char$ph_end(struct list$1char$ph* self)
+{
+    return self==((void*)0)||self->it==((void*)0);
 }
 
-static void init_classes(struct sInfo* info){
-void* __right_value0 = (void*)0;
-void* __right_value1 = (void*)0;
-void* __right_value2 = (void*)0;
-void* __right_value3 = (void*)0;
-int i;
-char* generics_type;
-int i_52;
-char* generics_type_53;
-int is_mac;
-char* type_name;
-struct sType* __exception_result_var_b1;
-struct sType* __exception_result_var_b2;
-struct sType* __exception_result_var_b3;
-struct sType* type;
-char* __dec_obj20;
-struct sClass* klass;
-struct sType* __exception_result_var_b4;
-struct sType* __exception_result_var_b5;
-void* __right_value4 = (void*)0;
-struct sType* __exception_result_var_b6;
-void* __right_value5 = (void*)0;
-struct sType* __exception_result_var_b7;
-struct sType* __exception_result_var_b8;
-struct sType* __exception_result_var_b9;
-struct sType* __exception_result_var_b10;
-struct sType* __exception_result_var_b11;
-struct sType* __exception_result_var_b12;
-struct sType* __exception_result_var_b13;
-struct sType* __exception_result_var_b14;
-struct sType* __exception_result_var_b15;
-struct sType* __exception_result_var_b16;
-struct sType* __exception_result_var_b17;
-struct sType* __exception_result_var_b18;
+static char* list$1char$ph_next(struct list$1char$ph* self)
+{
+    char* result;
+    char* __result_obj__0;
+    char* result_34;
+    if(self==((void*)0)||self->it==((void*)0)) {
+        memset(&result,0,sizeof(char*));
+        __result_obj__0 = result;
+        return __result_obj__0;
+    }
+    self->it=self->it->next;
+    if(self->it) {
+        __result_obj__0 = self->it->item;
+        return __result_obj__0;
+    }
+    memset(&result_34,0,sizeof(char*));
+    __result_obj__0 = result_34;
+    return __result_obj__0;
+}
+
+static void init_classes(struct sInfo* info)
+{
+    void* __right_value0 = (void*)0;
+    void* __right_value1 = (void*)0;
+    void* __right_value2 = (void*)0;
+    void* __right_value3 = (void*)0;
+    int i;
+    char* generics_type;
+    int i_52;
+    char* generics_type_53;
+    int is_mac;
+    char* type_name;
+    struct sType* __exception_result_var_b1;
+    struct sType* __exception_result_var_b2;
+    struct sType* __exception_result_var_b3;
+    struct sType* type;
+    char* __dec_obj20;
+    struct sClass* klass;
+    struct sType* __exception_result_var_b4;
+    struct sType* __exception_result_var_b5;
+    void* __right_value4 = (void*)0;
+    struct sType* __exception_result_var_b6;
+    void* __right_value5 = (void*)0;
+    struct sType* __exception_result_var_b7;
+    struct sType* __exception_result_var_b8;
+    struct sType* __exception_result_var_b9;
+    struct sType* __exception_result_var_b10;
+    struct sType* __exception_result_var_b11;
+    struct sType* __exception_result_var_b12;
+    struct sType* __exception_result_var_b13;
+    struct sType* __exception_result_var_b14;
+    struct sType* __exception_result_var_b15;
+    struct sType* __exception_result_var_b16;
+    struct sType* __exception_result_var_b17;
+    struct sType* __exception_result_var_b18;
     map$2char$phsClass$ph_insert(info->classes,(char*)come_increment_ref_count(__builtin_string("int")),(struct sClass*)come_increment_ref_count(sClass_initialize((struct sClass*)come_increment_ref_count((struct sClass*)come_calloc_v2(1, sizeof(struct sClass)*(1), "02transpile.c", 521, "struct sClass*")),(char*)come_increment_ref_count(xsprintf("int")),1,0,0,0,0,0,0,-1,-1,0,0,0,info)));
     map$2char$phsClass$ph_insert(info->classes,(char*)come_increment_ref_count(__builtin_string("short")),(struct sClass*)come_increment_ref_count(sClass_initialize((struct sClass*)come_increment_ref_count((struct sClass*)come_calloc_v2(1, sizeof(struct sClass)*(1), "02transpile.c", 522, "struct sClass*")),(char*)come_increment_ref_count(xsprintf("short")),1,0,0,0,0,0,0,-1,-1,0,0,0,info)));
     map$2char$phsClass$ph_insert(info->classes,(char*)come_increment_ref_count(__builtin_string("long")),(struct sClass*)come_increment_ref_count(sClass_initialize((struct sClass*)come_increment_ref_count((struct sClass*)come_calloc_v2(1, sizeof(struct sClass)*(1), "02transpile.c", 523, "struct sClass*")),(char*)come_increment_ref_count(xsprintf("long")),1,0,0,0,0,0,0,-1,-1,0,0,0,info)));
@@ -4151,12 +4176,13 @@ struct sType* __exception_result_var_b18;
     }
 }
 
-static struct map$2char$phsClass$ph* map$2char$phsClass$ph_insert(struct map$2char$phsClass$ph* self, char* key, struct sClass* item){
-struct map$2char$phsClass$ph* __result_obj__0;
-unsigned int hash;
-unsigned int it;
-_Bool same_key_exist;
-char* it2;
+static struct map$2char$phsClass$ph* map$2char$phsClass$ph_insert(struct map$2char$phsClass$ph* self, char* key, struct sClass* item)
+{
+    struct map$2char$phsClass$ph* __result_obj__0;
+    unsigned int hash;
+    unsigned int it;
+    _Bool same_key_exist;
+    char* it2;
     if(self==((void*)0)) {
         __result_obj__0 = self;
         (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -4232,7 +4258,8 @@ char* it2;
     return __result_obj__0;
 }
 
-static void sClass_finalize(struct sClass* self){
+static void sClass_finalize(struct sClass* self)
+{
     if(self!=((void*)0)&&self->mName!=((void*)0)) {
         (self->mName = come_decrement_ref_count(self->mName, (void*)0, (void*)0, 0, 0, (void*)0));
     }
@@ -4247,9 +4274,10 @@ static void sClass_finalize(struct sClass* self){
     }
 }
 
-static void list$1tuple2$2char$phsType$ph$ph$p_finalize(struct list$1tuple2$2char$phsType$ph$ph* self){
-struct list_item$1tuple2$2char$phsType$ph$ph* it;
-struct list_item$1tuple2$2char$phsType$ph$ph* prev_it;
+static void list$1tuple2$2char$phsType$ph$ph$p_finalize(struct list$1tuple2$2char$phsType$ph$ph* self)
+{
+    struct list_item$1tuple2$2char$phsType$ph$ph* it;
+    struct list_item$1tuple2$2char$phsType$ph$ph* prev_it;
     if(self==((void*)0)) {
         return;
     }
@@ -4261,13 +4289,15 @@ struct list_item$1tuple2$2char$phsType$ph$ph* prev_it;
     }
 }
 
-static void list_item$1tuple2$2char$phsType$ph$ph$p_finalize(struct list_item$1tuple2$2char$phsType$ph$ph* self){
+static void list_item$1tuple2$2char$phsType$ph$ph$p_finalize(struct list_item$1tuple2$2char$phsType$ph$ph* self)
+{
     if(self!=((void*)0)&&self->item!=((void*)0)) {
         come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, self->item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
 }
 
-static void tuple2$2char$phsType$ph$p_finalize(struct tuple2$2char$phsType$ph* self){
+static void tuple2$2char$phsType$ph$p_finalize(struct tuple2$2char$phsType$ph* self)
+{
     if(self!=((void*)0)&&self->v1!=((void*)0)) {
         (self->v1 = come_decrement_ref_count(self->v1, (void*)0, (void*)0, 0, 0, (void*)0));
     }
@@ -4276,19 +4306,20 @@ static void tuple2$2char$phsType$ph$p_finalize(struct tuple2$2char$phsType$ph* s
     }
 }
 
-static void map$2char$phsClass$ph_rehash(struct map$2char$phsClass$ph* self){
-int size;
-void* __right_value0 = (void*)0;
-char** keys;
-struct sClass** items;
-_Bool* item_existance;
-int len;
-char* it;
-struct sClass* default_value;
-struct sClass* it2;
-unsigned int hash;
-int n;
-struct sClass* default_value_45;
+static void map$2char$phsClass$ph_rehash(struct map$2char$phsClass$ph* self)
+{
+    int size;
+    void* __right_value0 = (void*)0;
+    char** keys;
+    struct sClass** items;
+    _Bool* item_existance;
+    int len;
+    char* it;
+    struct sClass* default_value;
+    struct sClass* it2;
+    unsigned int hash;
+    int n;
+    struct sClass* default_value_45;
     size=self->size*10;
     keys=(char**)come_increment_ref_count(((char**)(__right_value0=(char**)come_calloc_v2(1, sizeof(char*)*(1*(size)), "/usr/local/include/neo-c.h", 2431, "char**"))));
     items=(struct sClass**)come_increment_ref_count(((struct sClass**)(__right_value0=(struct sClass**)come_calloc_v2(1, sizeof(struct sClass*)*(1*(size)), "/usr/local/include/neo-c.h", 2432, "struct sClass**"))));
@@ -4336,52 +4367,56 @@ struct sClass* default_value_45;
     self->len=len;
 }
 
-static char* map$2char$phsClass$ph_begin(struct map$2char$phsClass$ph* self){
-char* result;
-char* __result_obj__0;
-char* result_43;
-if(self==((void*)0)) {
-memset(&result,0,sizeof(char*));
-__result_obj__0 = result;
-return __result_obj__0;
-}
-self->key_list->it=self->key_list->head;
-if(self->key_list->it) {
-__result_obj__0 = self->key_list->it->item;
-return __result_obj__0;
-}
-memset(&result_43,0,sizeof(char*));
-__result_obj__0 = result_43;
-return __result_obj__0;
-}
-
-static _Bool map$2char$phsClass$ph_end(struct map$2char$phsClass$ph* self){
-return self==((void*)0)||self->key_list==((void*)0)||self->key_list->it==((void*)0);
+static char* map$2char$phsClass$ph_begin(struct map$2char$phsClass$ph* self)
+{
+    char* result;
+    char* __result_obj__0;
+    char* result_43;
+    if(self==((void*)0)) {
+        memset(&result,0,sizeof(char*));
+        __result_obj__0 = result;
+        return __result_obj__0;
+    }
+    self->key_list->it=self->key_list->head;
+    if(self->key_list->it) {
+        __result_obj__0 = self->key_list->it->item;
+        return __result_obj__0;
+    }
+    memset(&result_43,0,sizeof(char*));
+    __result_obj__0 = result_43;
+    return __result_obj__0;
 }
 
-static char* map$2char$phsClass$ph_next(struct map$2char$phsClass$ph* self){
-char* result;
-char* __result_obj__0;
-char* result_44;
-if(self==((void*)0)||self->key_list->it==((void*)0)) {
-memset(&result,0,sizeof(char*));
-__result_obj__0 = result;
-return __result_obj__0;
-}
-self->key_list->it=self->key_list->it->next;
-if(self->key_list->it) {
-__result_obj__0 = self->key_list->it->item;
-return __result_obj__0;
-}
-memset(&result_44,0,sizeof(char*));
-__result_obj__0 = result_44;
-return __result_obj__0;
+static _Bool map$2char$phsClass$ph_end(struct map$2char$phsClass$ph* self)
+{
+    return self==((void*)0)||self->key_list==((void*)0)||self->key_list->it==((void*)0);
 }
 
-static struct sClass* map$2char$phsClass$ph_at(struct map$2char$phsClass$ph* self, char* key, struct sClass* default_value){
-struct sClass* __result_obj__0;
-unsigned int hash;
-unsigned int it;
+static char* map$2char$phsClass$ph_next(struct map$2char$phsClass$ph* self)
+{
+    char* result;
+    char* __result_obj__0;
+    char* result_44;
+    if(self==((void*)0)||self->key_list->it==((void*)0)) {
+        memset(&result,0,sizeof(char*));
+        __result_obj__0 = result;
+        return __result_obj__0;
+    }
+    self->key_list->it=self->key_list->it->next;
+    if(self->key_list->it) {
+        __result_obj__0 = self->key_list->it->item;
+        return __result_obj__0;
+    }
+    memset(&result_44,0,sizeof(char*));
+    __result_obj__0 = result_44;
+    return __result_obj__0;
+}
+
+static struct sClass* map$2char$phsClass$ph_at(struct map$2char$phsClass$ph* self, char* key, struct sClass* default_value)
+{
+    struct sClass* __result_obj__0;
+    unsigned int hash;
+    unsigned int it;
     if(self==((void*)0)) {
         __result_obj__0 = (struct sClass*)come_increment_ref_count(default_value);
         come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -4422,10 +4457,11 @@ unsigned int it;
     return __result_obj__0;
 }
 
-static struct list$1char$ph* list$1char$ph_remove(struct list$1char$ph* self, char* item){
-struct list$1char$ph* __result_obj__0;
-int it2;
-struct list_item$1char$ph* it;
+static struct list$1char$ph* list$1char$ph_remove(struct list$1char$ph* self, char* item)
+{
+    struct list$1char$ph* __result_obj__0;
+    int it2;
+    struct list_item$1char$ph* it;
     if(self==((void*)0)) {
         __result_obj__0 = self;
         return __result_obj__0;
@@ -4444,20 +4480,21 @@ struct list_item$1char$ph* it;
     return __result_obj__0;
 }
 
-static struct list$1char$ph* list$1char$ph_delete(struct list$1char$ph* self, int head, int tail){
-struct list$1char$ph* __result_obj__0;
-int tmp;
-struct list_item$1char$ph* it;
-int i;
-struct list_item$1char$ph* prev_it;
-struct list_item$1char$ph* it_46;
-int i_47;
-struct list_item$1char$ph* prev_it_48;
-struct list_item$1char$ph* it_49;
-struct list_item$1char$ph* head_prev_it;
-struct list_item$1char$ph* tail_it;
-int i_50;
-struct list_item$1char$ph* prev_it_51;
+static struct list$1char$ph* list$1char$ph_delete(struct list$1char$ph* self, int head, int tail)
+{
+    struct list$1char$ph* __result_obj__0;
+    int tmp;
+    struct list_item$1char$ph* it;
+    int i;
+    struct list_item$1char$ph* prev_it;
+    struct list_item$1char$ph* it_46;
+    int i_47;
+    struct list_item$1char$ph* prev_it_48;
+    struct list_item$1char$ph* it_49;
+    struct list_item$1char$ph* head_prev_it;
+    struct list_item$1char$ph* tail_it;
+    int i_50;
+    struct list_item$1char$ph* prev_it_51;
     if(self==((void*)0)) {
         __result_obj__0 = self;
         return __result_obj__0;
@@ -4568,10 +4605,11 @@ struct list_item$1char$ph* prev_it_51;
     return __result_obj__0;
 }
 
-static struct list$1char$ph* list$1char$ph_reset(struct list$1char$ph* self){
-struct list$1char$ph* __result_obj__0;
-struct list_item$1char$ph* it;
-struct list_item$1char$ph* prev_it;
+static struct list$1char$ph* list$1char$ph_reset(struct list$1char$ph* self)
+{
+    struct list$1char$ph* __result_obj__0;
+    struct list_item$1char$ph* it;
+    struct list_item$1char$ph* prev_it;
     if(self==((void*)0)) {
         __result_obj__0 = self;
         return __result_obj__0;
@@ -4589,12 +4627,13 @@ struct list_item$1char$ph* prev_it;
     return __result_obj__0;
 }
 
-static struct map$2char$phsType$ph* map$2char$phsType$ph_insert(struct map$2char$phsType$ph* self, char* key, struct sType* item){
-struct map$2char$phsType$ph* __result_obj__0;
-unsigned int hash;
-unsigned int it;
-_Bool same_key_exist;
-char* it2;
+static struct map$2char$phsType$ph* map$2char$phsType$ph_insert(struct map$2char$phsType$ph* self, char* key, struct sType* item)
+{
+    struct map$2char$phsType$ph* __result_obj__0;
+    unsigned int hash;
+    unsigned int it;
+    _Bool same_key_exist;
+    char* it2;
     if(self==((void*)0)) {
         __result_obj__0 = self;
         (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -4670,19 +4709,20 @@ char* it2;
     return __result_obj__0;
 }
 
-static void map$2char$phsType$ph_rehash(struct map$2char$phsType$ph* self){
-int size;
-void* __right_value0 = (void*)0;
-char** keys;
-struct sType** items;
-_Bool* item_existance;
-int len;
-char* it;
-struct sType* default_value;
-struct sType* it2;
-unsigned int hash;
-int n;
-struct sType* default_value_56;
+static void map$2char$phsType$ph_rehash(struct map$2char$phsType$ph* self)
+{
+    int size;
+    void* __right_value0 = (void*)0;
+    char** keys;
+    struct sType** items;
+    _Bool* item_existance;
+    int len;
+    char* it;
+    struct sType* default_value;
+    struct sType* it2;
+    unsigned int hash;
+    int n;
+    struct sType* default_value_56;
     size=self->size*10;
     keys=(char**)come_increment_ref_count(((char**)(__right_value0=(char**)come_calloc_v2(1, sizeof(char*)*(1*(size)), "/usr/local/include/neo-c.h", 2431, "char**"))));
     items=(struct sType**)come_increment_ref_count(((struct sType**)(__right_value0=(struct sType**)come_calloc_v2(1, sizeof(struct sType*)*(1*(size)), "/usr/local/include/neo-c.h", 2432, "struct sType**"))));
@@ -4730,52 +4770,56 @@ struct sType* default_value_56;
     self->len=len;
 }
 
-static char* map$2char$phsType$ph_begin(struct map$2char$phsType$ph* self){
-char* result;
-char* __result_obj__0;
-char* result_54;
-if(self==((void*)0)) {
-memset(&result,0,sizeof(char*));
-__result_obj__0 = result;
-return __result_obj__0;
-}
-self->key_list->it=self->key_list->head;
-if(self->key_list->it) {
-__result_obj__0 = self->key_list->it->item;
-return __result_obj__0;
-}
-memset(&result_54,0,sizeof(char*));
-__result_obj__0 = result_54;
-return __result_obj__0;
-}
-
-static _Bool map$2char$phsType$ph_end(struct map$2char$phsType$ph* self){
-return self==((void*)0)||self->key_list==((void*)0)||self->key_list->it==((void*)0);
+static char* map$2char$phsType$ph_begin(struct map$2char$phsType$ph* self)
+{
+    char* result;
+    char* __result_obj__0;
+    char* result_54;
+    if(self==((void*)0)) {
+        memset(&result,0,sizeof(char*));
+        __result_obj__0 = result;
+        return __result_obj__0;
+    }
+    self->key_list->it=self->key_list->head;
+    if(self->key_list->it) {
+        __result_obj__0 = self->key_list->it->item;
+        return __result_obj__0;
+    }
+    memset(&result_54,0,sizeof(char*));
+    __result_obj__0 = result_54;
+    return __result_obj__0;
 }
 
-static char* map$2char$phsType$ph_next(struct map$2char$phsType$ph* self){
-char* result;
-char* __result_obj__0;
-char* result_55;
-if(self==((void*)0)||self->key_list->it==((void*)0)) {
-memset(&result,0,sizeof(char*));
-__result_obj__0 = result;
-return __result_obj__0;
-}
-self->key_list->it=self->key_list->it->next;
-if(self->key_list->it) {
-__result_obj__0 = self->key_list->it->item;
-return __result_obj__0;
-}
-memset(&result_55,0,sizeof(char*));
-__result_obj__0 = result_55;
-return __result_obj__0;
+static _Bool map$2char$phsType$ph_end(struct map$2char$phsType$ph* self)
+{
+    return self==((void*)0)||self->key_list==((void*)0)||self->key_list->it==((void*)0);
 }
 
-static struct sType* map$2char$phsType$ph_at(struct map$2char$phsType$ph* self, char* key, struct sType* default_value){
-struct sType* __result_obj__0;
-unsigned int hash;
-unsigned int it;
+static char* map$2char$phsType$ph_next(struct map$2char$phsType$ph* self)
+{
+    char* result;
+    char* __result_obj__0;
+    char* result_55;
+    if(self==((void*)0)||self->key_list->it==((void*)0)) {
+        memset(&result,0,sizeof(char*));
+        __result_obj__0 = result;
+        return __result_obj__0;
+    }
+    self->key_list->it=self->key_list->it->next;
+    if(self->key_list->it) {
+        __result_obj__0 = self->key_list->it->item;
+        return __result_obj__0;
+    }
+    memset(&result_55,0,sizeof(char*));
+    __result_obj__0 = result_55;
+    return __result_obj__0;
+}
+
+static struct sType* map$2char$phsType$ph_at(struct map$2char$phsType$ph* self, char* key, struct sType* default_value)
+{
+    struct sType* __result_obj__0;
+    unsigned int hash;
+    unsigned int it;
     if(self==((void*)0)) {
         __result_obj__0 = (struct sType*)come_increment_ref_count(default_value);
         come_call_finalizer(sType_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -4816,15 +4860,16 @@ unsigned int it;
     return __result_obj__0;
 }
 
-static struct list$1tuple2$2char$phsType$ph$ph* list$1tuple2$2char$phsType$ph$ph_push_back(struct list$1tuple2$2char$phsType$ph$ph* self, struct tuple2$2char$phsType$ph* item){
-struct list$1tuple2$2char$phsType$ph$ph* __result_obj__0;
-void* __right_value0 = (void*)0;
-struct list_item$1tuple2$2char$phsType$ph$ph* litem;
-struct tuple2$2char$phsType$ph* __dec_obj21;
-struct list_item$1tuple2$2char$phsType$ph$ph* litem_57;
-struct tuple2$2char$phsType$ph* __dec_obj22;
-struct list_item$1tuple2$2char$phsType$ph$ph* litem_58;
-struct tuple2$2char$phsType$ph* __dec_obj23;
+static struct list$1tuple2$2char$phsType$ph$ph* list$1tuple2$2char$phsType$ph$ph_push_back(struct list$1tuple2$2char$phsType$ph$ph* self, struct tuple2$2char$phsType$ph* item)
+{
+    struct list$1tuple2$2char$phsType$ph$ph* __result_obj__0;
+    void* __right_value0 = (void*)0;
+    struct list_item$1tuple2$2char$phsType$ph$ph* litem;
+    struct tuple2$2char$phsType$ph* __dec_obj21;
+    struct list_item$1tuple2$2char$phsType$ph$ph* litem_57;
+    struct tuple2$2char$phsType$ph* __dec_obj22;
+    struct list_item$1tuple2$2char$phsType$ph$ph* litem_58;
+    struct tuple2$2char$phsType$ph* __dec_obj23;
     if(self==((void*)0)) {
         __result_obj__0 = self;
         come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -4866,10 +4911,11 @@ struct tuple2$2char$phsType$ph* __dec_obj23;
     return __result_obj__0;
 }
 
-static struct tuple2$2char$phsType$ph* tuple2$2char$phsType$ph_initialize(struct tuple2$2char$phsType$ph* self, char* v1, struct sType* v2){
-char* __dec_obj24;
-struct sType* __dec_obj25;
-struct tuple2$2char$phsType$ph* __result_obj__0;
+static struct tuple2$2char$phsType$ph* tuple2$2char$phsType$ph_initialize(struct tuple2$2char$phsType$ph* self, char* v1, struct sType* v2)
+{
+    char* __dec_obj24;
+    struct sType* __dec_obj25;
+    struct tuple2$2char$phsType$ph* __result_obj__0;
     __dec_obj24=self->v1,
     self->v1=(char*)come_increment_ref_count(v1);
     __dec_obj24 = come_decrement_ref_count(__dec_obj24, (void*)0, (void*)0, 0,0, (void*)0);
@@ -4884,22 +4930,23 @@ struct tuple2$2char$phsType$ph* __result_obj__0;
     return __result_obj__0;
 }
 
-void create_pico_version_header(){
-void* __right_value0 = (void*)0;
-void* __right_value1 = (void*)0;
-char* Value;
-_Bool _conditional_value_X0;
-int version_major;
-char* p;
-int version_miner;
-char* p_59;
-int version_revision;
-char* p_60;
-void* __right_value2 = (void*)0;
-void* __right_value3 = (void*)0;
-char* version_string;
-int Value_61;
-void* __right_value4 = (void*)0;
+void create_pico_version_header()
+{
+    void* __right_value0 = (void*)0;
+    void* __right_value1 = (void*)0;
+    char* Value;
+    _Bool _conditional_value_X0;
+    int version_major;
+    char* p;
+    int version_miner;
+    char* p_59;
+    int version_revision;
+    char* p_60;
+    void* __right_value2 = (void*)0;
+    void* __right_value3 = (void*)0;
+    char* version_string;
+    int Value_61;
+    void* __right_value4 = (void*)0;
     if(getenv("PICO_SDK_PATH")) {
         Value=(char*)come_increment_ref_count(charp_read((((char*)(__right_value0=charp_operator_add(getenv("PICO_SDK_PATH"),"/pico_sdk_version.cmake"))))));
         if(({(_conditional_value_X0=(Value));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -4965,105 +5012,106 @@ _conditional_value_X0;})) {
     (void)system("touch pico_config_platform_headers.h");
 }
 
-int come_main(int argc, char** argv){
-int start_num;
-char* output_file_name_str;
-void* __right_value0 = (void*)0;
-void* __right_value1 = (void*)0;
-struct buffer* clang_option;
-struct buffer* linker_option;
-struct buffer* linker_option2;
-struct buffer* cpp_option;
-struct list$1char$ph* files;
-struct list$1char$ph* object_files;
-_Bool output_object_file;
-_Bool output_cpp_file;
-_Bool output_source_file_flag;
-_Bool output_object_file_flag;
-char* output_file_name;
-_Bool verbose;
-_Bool come_debug;
-_Bool m5stack_cpp;
-_Bool pico_cpp;
-_Bool emb_cpp;
-_Bool gcc_compiler;
-int i;
-char* ext_name;
-char* __dec_obj26;
-char* env;
-struct buffer* __dec_obj27;
-void* __right_value2 = (void*)0;
-char* env_62;
-struct buffer* __dec_obj28;
-void* __right_value3 = (void*)0;
-void* __right_value4 = (void*)0;
-void* __right_value5 = (void*)0;
-void* __right_value6 = (void*)0;
-void* __right_value7 = (void*)0;
-void* __right_value8 = (void*)0;
-void* __right_value9 = (void*)0;
-void* __right_value10 = (void*)0;
-void* __right_value11 = (void*)0;
-void* __right_value12 = (void*)0;
-void* __right_value13 = (void*)0;
-void* __right_value14 = (void*)0;
-void* __right_value15 = (void*)0;
-void* __right_value16 = (void*)0;
-void* __right_value17 = (void*)0;
-void* __right_value18 = (void*)0;
-void* __right_value19 = (void*)0;
-void* __right_value20 = (void*)0;
-void* __right_value21 = (void*)0;
-_Bool _conditional_value_X0;
-_Bool _conditional_value_X1;
-_Bool _conditional_value_X2;
-_Bool _conditional_value_X3;
-struct list$1char$ph* o2_saved;
-char* it;
-struct sInfo info;
-struct __sFILE* Value;
-char* __dec_obj29;
-char* __dec_obj30;
-char* __dec_obj31;
-char* __dec_obj32;
-char* __dec_obj33;
-struct map$2char$phsFun$ph* __dec_obj35;
-struct map$2char$phsFun$ph* __dec_obj36;
-struct map$2char$phbuffer$ph* __dec_obj38;
-struct map$2char$phchar$ph* __dec_obj40;
-struct map$2char$phbuffer$ph* __dec_obj41;
-struct map$2char$phbuffer$ph* __dec_obj42;
-struct map$2char$phsGenericsFun$ph* __dec_obj44;
-struct map$2char$phsClass$ph* __dec_obj46;
-struct map$2char$phsClassModule$ph* __dec_obj48;
-struct map$2char$phsType$ph* __dec_obj50;
-struct sModule* __dec_obj51;
-struct list$1sRightValueObject$ph* __dec_obj52;
-struct list$1CVALUE$ph* __dec_obj53;
-struct sVarTable* __dec_obj54;
-struct sVarTable* lv_table;
-struct list$1char$ph* __dec_obj55;
-struct list$1char$ph* __dec_obj56;
-struct map$2char$phsClass$ph* __dec_obj57;
-_Bool Value_77;
-struct buffer* __dec_obj58;
-char* __dec_obj59;
-char* __dec_obj60;
-_Bool Value_78;
-_Bool Value_79;
-_Bool Value_80;
-_Bool Value_81;
-struct sInfo info_82;
-char* __dec_obj61;
-char* __dec_obj62;
-char* __dec_obj63;
-char* __dec_obj64;
-char* __dec_obj65;
-char* __dec_obj66;
-_Bool Value_85;
-int __result_obj__0;
-memset(&info, 0, sizeof(info));
-memset(&info_82, 0, sizeof(info_82));
+int come_main(int argc, char** argv)
+{
+    int start_num;
+    char* output_file_name_str;
+    void* __right_value0 = (void*)0;
+    void* __right_value1 = (void*)0;
+    struct buffer* clang_option;
+    struct buffer* linker_option;
+    struct buffer* linker_option2;
+    struct buffer* cpp_option;
+    struct list$1char$ph* files;
+    struct list$1char$ph* object_files;
+    _Bool output_object_file;
+    _Bool output_cpp_file;
+    _Bool output_source_file_flag;
+    _Bool output_object_file_flag;
+    char* output_file_name;
+    _Bool verbose;
+    _Bool come_debug;
+    _Bool m5stack_cpp;
+    _Bool pico_cpp;
+    _Bool emb_cpp;
+    _Bool gcc_compiler;
+    int i;
+    char* ext_name;
+    char* __dec_obj26;
+    char* env;
+    struct buffer* __dec_obj27;
+    void* __right_value2 = (void*)0;
+    char* env_62;
+    struct buffer* __dec_obj28;
+    void* __right_value3 = (void*)0;
+    void* __right_value4 = (void*)0;
+    void* __right_value5 = (void*)0;
+    void* __right_value6 = (void*)0;
+    void* __right_value7 = (void*)0;
+    void* __right_value8 = (void*)0;
+    void* __right_value9 = (void*)0;
+    void* __right_value10 = (void*)0;
+    void* __right_value11 = (void*)0;
+    void* __right_value12 = (void*)0;
+    void* __right_value13 = (void*)0;
+    void* __right_value14 = (void*)0;
+    void* __right_value15 = (void*)0;
+    void* __right_value16 = (void*)0;
+    void* __right_value17 = (void*)0;
+    void* __right_value18 = (void*)0;
+    void* __right_value19 = (void*)0;
+    void* __right_value20 = (void*)0;
+    void* __right_value21 = (void*)0;
+    _Bool _conditional_value_X0;
+    _Bool _conditional_value_X1;
+    _Bool _conditional_value_X2;
+    _Bool _conditional_value_X3;
+    struct list$1char$ph* o2_saved;
+    char* it;
+    struct sInfo info;
+    struct __sFILE* Value;
+    char* __dec_obj29;
+    char* __dec_obj30;
+    char* __dec_obj31;
+    char* __dec_obj32;
+    char* __dec_obj33;
+    struct map$2char$phsFun$ph* __dec_obj35;
+    struct map$2char$phsFun$ph* __dec_obj36;
+    struct map$2char$phbuffer$ph* __dec_obj38;
+    struct map$2char$phchar$ph* __dec_obj40;
+    struct map$2char$phbuffer$ph* __dec_obj41;
+    struct map$2char$phbuffer$ph* __dec_obj42;
+    struct map$2char$phsGenericsFun$ph* __dec_obj44;
+    struct map$2char$phsClass$ph* __dec_obj46;
+    struct map$2char$phsClassModule$ph* __dec_obj48;
+    struct map$2char$phsType$ph* __dec_obj50;
+    struct sModule* __dec_obj51;
+    struct list$1sRightValueObject$ph* __dec_obj52;
+    struct list$1CVALUE$ph* __dec_obj53;
+    struct sVarTable* __dec_obj54;
+    struct sVarTable* lv_table;
+    struct list$1char$ph* __dec_obj55;
+    struct list$1char$ph* __dec_obj56;
+    struct map$2char$phsClass$ph* __dec_obj57;
+    _Bool Value_77;
+    struct buffer* __dec_obj58;
+    char* __dec_obj59;
+    char* __dec_obj60;
+    _Bool Value_78;
+    _Bool Value_79;
+    _Bool Value_80;
+    _Bool Value_81;
+    struct sInfo info_82;
+    char* __dec_obj61;
+    char* __dec_obj62;
+    char* __dec_obj63;
+    char* __dec_obj64;
+    char* __dec_obj65;
+    char* __dec_obj66;
+    _Bool Value_85;
+    int __result_obj__0;
+    memset(&info, 0, sizeof(info));
+    memset(&info_82, 0, sizeof(info_82));
     start_num=1;
     output_file_name_str=((void*)0);
     clang_option=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "02transpile.c", 647, "struct buffer*"))));
@@ -6807,8 +6855,9 @@ _conditional_value_X3;})) {
     return __result_obj__0;
 }
 
-static struct list$1char$ph* list$1char$ph_initialize(struct list$1char$ph* self){
-struct list$1char$ph* __result_obj__0;
+static struct list$1char$ph* list$1char$ph_initialize(struct list$1char$ph* self)
+{
+    struct list$1char$ph* __result_obj__0;
     self->head=((void*)0);
     self->tail=((void*)0);
     self->len=0;
@@ -6818,7 +6867,8 @@ struct list$1char$ph* __result_obj__0;
     return __result_obj__0;
 }
 
-static void sInfo_finalize(struct sInfo* self){
+static void sInfo_finalize(struct sInfo* self)
+{
     if(self!=((void*)0)&&self->source!=((void*)0)) {
         come_call_finalizer(buffer_finalize, self->source, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
@@ -6935,9 +6985,10 @@ static void sInfo_finalize(struct sInfo* self){
     }
 }
 
-static void map$2char$phsFun$ph$p_finalize(struct map$2char$phsFun$ph* self){
-int i;
-int i_63;
+static void map$2char$phsFun$ph$p_finalize(struct map$2char$phsFun$ph* self)
+{
+    int i;
+    int i_63;
     for(i=0;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
@@ -6958,7 +7009,8 @@ int i_63;
     (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
 }
 
-static void sFun_finalize(struct sFun* self){
+static void sFun_finalize(struct sFun* self)
+{
     if(self!=((void*)0)&&self->mName!=((void*)0)) {
         (self->mName = come_decrement_ref_count(self->mName, (void*)0, (void*)0, 0, 0, (void*)0));
     }
@@ -7009,9 +7061,10 @@ static void sFun_finalize(struct sFun* self){
     }
 }
 
-static void list$1sVar$ph$p_finalize(struct list$1sVar$ph* self){
-struct list_item$1sVar$ph* it;
-struct list_item$1sVar$ph* prev_it;
+static void list$1sVar$ph$p_finalize(struct list$1sVar$ph* self)
+{
+    struct list_item$1sVar$ph* it;
+    struct list_item$1sVar$ph* prev_it;
     if(self==((void*)0)) {
         return;
     }
@@ -7023,13 +7076,15 @@ struct list_item$1sVar$ph* prev_it;
     }
 }
 
-static void list_item$1sVar$ph$p_finalize(struct list_item$1sVar$ph* self){
+static void list_item$1sVar$ph$p_finalize(struct list_item$1sVar$ph* self)
+{
     if(self!=((void*)0)&&self->item!=((void*)0)) {
         come_call_finalizer(sVar_finalize, self->item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
 }
 
-static void sVar_finalize(struct sVar* self){
+static void sVar_finalize(struct sVar* self)
+{
     if(self!=((void*)0)&&self->mName!=((void*)0)) {
         (self->mName = come_decrement_ref_count(self->mName, (void*)0, (void*)0, 0, 0, (void*)0));
     }
@@ -7044,7 +7099,8 @@ static void sVar_finalize(struct sVar* self){
     }
 }
 
-static void sBlock_finalize(struct sBlock* self){
+static void sBlock_finalize(struct sBlock* self)
+{
     if(self!=((void*)0)&&self->mNodes!=((void*)0)) {
         come_call_finalizer(list$1sNode$ph$p_finalize, self->mNodes, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
@@ -7053,9 +7109,10 @@ static void sBlock_finalize(struct sBlock* self){
     }
 }
 
-static void map$2char$phsGenericsFun$ph$p_finalize(struct map$2char$phsGenericsFun$ph* self){
-int i;
-int i_64;
+static void map$2char$phsGenericsFun$ph$p_finalize(struct map$2char$phsGenericsFun$ph* self)
+{
+    int i;
+    int i_64;
     for(i=0;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
@@ -7076,7 +7133,8 @@ int i_64;
     (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
 }
 
-static void sGenericsFun_finalize(struct sGenericsFun* self){
+static void sGenericsFun_finalize(struct sGenericsFun* self)
+{
     if(self!=((void*)0)&&self->mImplType!=((void*)0)) {
         come_call_finalizer(sType_finalize, self->mImplType, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
@@ -7109,9 +7167,10 @@ static void sGenericsFun_finalize(struct sGenericsFun* self){
     }
 }
 
-static void map$2char$phsClass$ph$p_finalize(struct map$2char$phsClass$ph* self){
-int i;
-int i_65;
+static void map$2char$phsClass$ph$p_finalize(struct map$2char$phsClass$ph* self)
+{
+    int i;
+    int i_65;
     for(i=0;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
@@ -7132,9 +7191,10 @@ int i_65;
     (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
 }
 
-static void map$2char$phsClassModule$ph$p_finalize(struct map$2char$phsClassModule$ph* self){
-int i;
-int i_66;
+static void map$2char$phsClassModule$ph$p_finalize(struct map$2char$phsClassModule$ph* self)
+{
+    int i;
+    int i_66;
     for(i=0;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
@@ -7155,7 +7215,8 @@ int i_66;
     (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
 }
 
-static void sClassModule_finalize(struct sClassModule* self){
+static void sClassModule_finalize(struct sClassModule* self)
+{
     if(self!=((void*)0)&&self->mName!=((void*)0)) {
         (self->mName = come_decrement_ref_count(self->mName, (void*)0, (void*)0, 0, 0, (void*)0));
     }
@@ -7170,9 +7231,10 @@ static void sClassModule_finalize(struct sClassModule* self){
     }
 }
 
-static void map$2char$phsType$ph$p_finalize(struct map$2char$phsType$ph* self){
-int i;
-int i_67;
+static void map$2char$phsType$ph$p_finalize(struct map$2char$phsType$ph* self)
+{
+    int i;
+    int i_67;
     for(i=0;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
@@ -7193,9 +7255,10 @@ int i_67;
     (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
 }
 
-static void map$2char$phbuffer$ph$p_finalize(struct map$2char$phbuffer$ph* self){
-int i;
-int i_68;
+static void map$2char$phbuffer$ph$p_finalize(struct map$2char$phbuffer$ph* self)
+{
+    int i;
+    int i_68;
     for(i=0;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
@@ -7216,7 +7279,8 @@ int i_68;
     (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
 }
 
-static void sModule_finalize(struct sModule* self){
+static void sModule_finalize(struct sModule* self)
+{
     if(self!=((void*)0)&&self->mSourceHead!=((void*)0)) {
         come_call_finalizer(buffer_finalize, self->mSourceHead, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
@@ -7234,9 +7298,10 @@ static void sModule_finalize(struct sModule* self){
     }
 }
 
-static void map$2char$phchar$ph$p_finalize(struct map$2char$phchar$ph* self){
-int i;
-int i_69;
+static void map$2char$phchar$ph$p_finalize(struct map$2char$phchar$ph* self)
+{
+    int i;
+    int i_69;
     for(i=0;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
@@ -7257,9 +7322,10 @@ int i_69;
     (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
 }
 
-static void list$1sRightValueObject$ph$p_finalize(struct list$1sRightValueObject$ph* self){
-struct list_item$1sRightValueObject$ph* it;
-struct list_item$1sRightValueObject$ph* prev_it;
+static void list$1sRightValueObject$ph$p_finalize(struct list$1sRightValueObject$ph* self)
+{
+    struct list_item$1sRightValueObject$ph* it;
+    struct list_item$1sRightValueObject$ph* prev_it;
     if(self==((void*)0)) {
         return;
     }
@@ -7271,13 +7337,15 @@ struct list_item$1sRightValueObject$ph* prev_it;
     }
 }
 
-static void list_item$1sRightValueObject$ph$p_finalize(struct list_item$1sRightValueObject$ph* self){
+static void list_item$1sRightValueObject$ph$p_finalize(struct list_item$1sRightValueObject$ph* self)
+{
     if(self!=((void*)0)&&self->item!=((void*)0)) {
         come_call_finalizer(sRightValueObject_finalize, self->item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
 }
 
-static void sRightValueObject_finalize(struct sRightValueObject* self){
+static void sRightValueObject_finalize(struct sRightValueObject* self)
+{
     if(self!=((void*)0)&&self->mType!=((void*)0)) {
         come_call_finalizer(sType_finalize, self->mType, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
@@ -7295,9 +7363,10 @@ static void sRightValueObject_finalize(struct sRightValueObject* self){
     }
 }
 
-static void list$1CVALUE$ph$p_finalize(struct list$1CVALUE$ph* self){
-struct list_item$1CVALUE$ph* it;
-struct list_item$1CVALUE$ph* prev_it;
+static void list$1CVALUE$ph$p_finalize(struct list$1CVALUE$ph* self)
+{
+    struct list_item$1CVALUE$ph* it;
+    struct list_item$1CVALUE$ph* prev_it;
     if(self==((void*)0)) {
         return;
     }
@@ -7309,18 +7378,20 @@ struct list_item$1CVALUE$ph* prev_it;
     }
 }
 
-static void list_item$1CVALUE$ph$p_finalize(struct list_item$1CVALUE$ph* self){
+static void list_item$1CVALUE$ph$p_finalize(struct list_item$1CVALUE$ph* self)
+{
     if(self!=((void*)0)&&self->item!=((void*)0)) {
         come_call_finalizer(CVALUE_finalize, self->item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
 }
 
-static struct map$2char$phsFun$ph* map$2char$phsFun$ph_initialize(struct map$2char$phsFun$ph* self){
-void* __right_value0 = (void*)0;
-int i;
-void* __right_value1 = (void*)0;
-struct list$1char$ph* __dec_obj34;
-struct map$2char$phsFun$ph* __result_obj__0;
+static struct map$2char$phsFun$ph* map$2char$phsFun$ph_initialize(struct map$2char$phsFun$ph* self)
+{
+    void* __right_value0 = (void*)0;
+    int i;
+    void* __right_value1 = (void*)0;
+    struct list$1char$ph* __dec_obj34;
+    struct map$2char$phsFun$ph* __result_obj__0;
     self->keys=(char**)come_increment_ref_count(((char**)(__right_value0=(char**)come_calloc_v2(1, sizeof(char*)*(1*(128)), "/usr/local/include/neo-c.h", 2131, "char**"))));
     self->items=(struct sFun**)come_increment_ref_count(((struct sFun**)(__right_value0=(struct sFun**)come_calloc_v2(1, sizeof(struct sFun*)*(1*(128)), "/usr/local/include/neo-c.h", 2132, "struct sFun**"))));
     self->item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc_v2(1, sizeof(_Bool)*(1*(128)), "/usr/local/include/neo-c.h", 2133, "_Bool*"))));
@@ -7339,9 +7410,10 @@ struct map$2char$phsFun$ph* __result_obj__0;
     return __result_obj__0;
 }
 
-static void list$1char$ph_finalize(struct list$1char$ph* self){
-struct list_item$1char$ph* it;
-struct list_item$1char$ph* prev_it;
+static void list$1char$ph_finalize(struct list$1char$ph* self)
+{
+    struct list_item$1char$ph* it;
+    struct list_item$1char$ph* prev_it;
     if(self==((void*)0)) {
         return;
     }
@@ -7353,9 +7425,10 @@ struct list_item$1char$ph* prev_it;
     }
 }
 
-static void map$2char$phsFun$ph_finalize(struct map$2char$phsFun$ph* self){
-int i;
-int i_70;
+static void map$2char$phsFun$ph_finalize(struct map$2char$phsFun$ph* self)
+{
+    int i;
+    int i_70;
     for(i=0;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
@@ -7376,12 +7449,13 @@ int i_70;
     (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
 }
 
-static struct map$2char$phbuffer$ph* map$2char$phbuffer$ph_initialize(struct map$2char$phbuffer$ph* self){
-void* __right_value0 = (void*)0;
-int i;
-void* __right_value1 = (void*)0;
-struct list$1char$ph* __dec_obj37;
-struct map$2char$phbuffer$ph* __result_obj__0;
+static struct map$2char$phbuffer$ph* map$2char$phbuffer$ph_initialize(struct map$2char$phbuffer$ph* self)
+{
+    void* __right_value0 = (void*)0;
+    int i;
+    void* __right_value1 = (void*)0;
+    struct list$1char$ph* __dec_obj37;
+    struct map$2char$phbuffer$ph* __result_obj__0;
     self->keys=(char**)come_increment_ref_count(((char**)(__right_value0=(char**)come_calloc_v2(1, sizeof(char*)*(1*(128)), "/usr/local/include/neo-c.h", 2131, "char**"))));
     self->items=(struct buffer**)come_increment_ref_count(((struct buffer**)(__right_value0=(struct buffer**)come_calloc_v2(1, sizeof(struct buffer*)*(1*(128)), "/usr/local/include/neo-c.h", 2132, "struct buffer**"))));
     self->item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc_v2(1, sizeof(_Bool)*(1*(128)), "/usr/local/include/neo-c.h", 2133, "_Bool*"))));
@@ -7400,9 +7474,10 @@ struct map$2char$phbuffer$ph* __result_obj__0;
     return __result_obj__0;
 }
 
-static void map$2char$phbuffer$ph_finalize(struct map$2char$phbuffer$ph* self){
-int i;
-int i_71;
+static void map$2char$phbuffer$ph_finalize(struct map$2char$phbuffer$ph* self)
+{
+    int i;
+    int i_71;
     for(i=0;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
@@ -7423,12 +7498,13 @@ int i_71;
     (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
 }
 
-static struct map$2char$phchar$ph* map$2char$phchar$ph_initialize(struct map$2char$phchar$ph* self){
-void* __right_value0 = (void*)0;
-int i;
-void* __right_value1 = (void*)0;
-struct list$1char$ph* __dec_obj39;
-struct map$2char$phchar$ph* __result_obj__0;
+static struct map$2char$phchar$ph* map$2char$phchar$ph_initialize(struct map$2char$phchar$ph* self)
+{
+    void* __right_value0 = (void*)0;
+    int i;
+    void* __right_value1 = (void*)0;
+    struct list$1char$ph* __dec_obj39;
+    struct map$2char$phchar$ph* __result_obj__0;
     self->keys=(char**)come_increment_ref_count(((char**)(__right_value0=(char**)come_calloc_v2(1, sizeof(char*)*(1*(128)), "/usr/local/include/neo-c.h", 2131, "char**"))));
     self->items=(char**)come_increment_ref_count(((char**)(__right_value0=(char**)come_calloc_v2(1, sizeof(char*)*(1*(128)), "/usr/local/include/neo-c.h", 2132, "char**"))));
     self->item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc_v2(1, sizeof(_Bool)*(1*(128)), "/usr/local/include/neo-c.h", 2133, "_Bool*"))));
@@ -7447,9 +7523,10 @@ struct map$2char$phchar$ph* __result_obj__0;
     return __result_obj__0;
 }
 
-static void map$2char$phchar$ph_finalize(struct map$2char$phchar$ph* self){
-int i;
-int i_72;
+static void map$2char$phchar$ph_finalize(struct map$2char$phchar$ph* self)
+{
+    int i;
+    int i_72;
     for(i=0;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
@@ -7470,12 +7547,13 @@ int i_72;
     (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
 }
 
-static struct map$2char$phsGenericsFun$ph* map$2char$phsGenericsFun$ph_initialize(struct map$2char$phsGenericsFun$ph* self){
-void* __right_value0 = (void*)0;
-int i;
-void* __right_value1 = (void*)0;
-struct list$1char$ph* __dec_obj43;
-struct map$2char$phsGenericsFun$ph* __result_obj__0;
+static struct map$2char$phsGenericsFun$ph* map$2char$phsGenericsFun$ph_initialize(struct map$2char$phsGenericsFun$ph* self)
+{
+    void* __right_value0 = (void*)0;
+    int i;
+    void* __right_value1 = (void*)0;
+    struct list$1char$ph* __dec_obj43;
+    struct map$2char$phsGenericsFun$ph* __result_obj__0;
     self->keys=(char**)come_increment_ref_count(((char**)(__right_value0=(char**)come_calloc_v2(1, sizeof(char*)*(1*(128)), "/usr/local/include/neo-c.h", 2131, "char**"))));
     self->items=(struct sGenericsFun**)come_increment_ref_count(((struct sGenericsFun**)(__right_value0=(struct sGenericsFun**)come_calloc_v2(1, sizeof(struct sGenericsFun*)*(1*(128)), "/usr/local/include/neo-c.h", 2132, "struct sGenericsFun**"))));
     self->item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc_v2(1, sizeof(_Bool)*(1*(128)), "/usr/local/include/neo-c.h", 2133, "_Bool*"))));
@@ -7494,9 +7572,10 @@ struct map$2char$phsGenericsFun$ph* __result_obj__0;
     return __result_obj__0;
 }
 
-static void map$2char$phsGenericsFun$ph_finalize(struct map$2char$phsGenericsFun$ph* self){
-int i;
-int i_73;
+static void map$2char$phsGenericsFun$ph_finalize(struct map$2char$phsGenericsFun$ph* self)
+{
+    int i;
+    int i_73;
     for(i=0;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
@@ -7517,12 +7596,13 @@ int i_73;
     (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
 }
 
-static struct map$2char$phsClass$ph* map$2char$phsClass$ph_initialize(struct map$2char$phsClass$ph* self){
-void* __right_value0 = (void*)0;
-int i;
-void* __right_value1 = (void*)0;
-struct list$1char$ph* __dec_obj45;
-struct map$2char$phsClass$ph* __result_obj__0;
+static struct map$2char$phsClass$ph* map$2char$phsClass$ph_initialize(struct map$2char$phsClass$ph* self)
+{
+    void* __right_value0 = (void*)0;
+    int i;
+    void* __right_value1 = (void*)0;
+    struct list$1char$ph* __dec_obj45;
+    struct map$2char$phsClass$ph* __result_obj__0;
     self->keys=(char**)come_increment_ref_count(((char**)(__right_value0=(char**)come_calloc_v2(1, sizeof(char*)*(1*(128)), "/usr/local/include/neo-c.h", 2131, "char**"))));
     self->items=(struct sClass**)come_increment_ref_count(((struct sClass**)(__right_value0=(struct sClass**)come_calloc_v2(1, sizeof(struct sClass*)*(1*(128)), "/usr/local/include/neo-c.h", 2132, "struct sClass**"))));
     self->item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc_v2(1, sizeof(_Bool)*(1*(128)), "/usr/local/include/neo-c.h", 2133, "_Bool*"))));
@@ -7541,9 +7621,10 @@ struct map$2char$phsClass$ph* __result_obj__0;
     return __result_obj__0;
 }
 
-static void map$2char$phsClass$ph_finalize(struct map$2char$phsClass$ph* self){
-int i;
-int i_74;
+static void map$2char$phsClass$ph_finalize(struct map$2char$phsClass$ph* self)
+{
+    int i;
+    int i_74;
     for(i=0;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
@@ -7564,12 +7645,13 @@ int i_74;
     (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
 }
 
-static struct map$2char$phsClassModule$ph* map$2char$phsClassModule$ph_initialize(struct map$2char$phsClassModule$ph* self){
-void* __right_value0 = (void*)0;
-int i;
-void* __right_value1 = (void*)0;
-struct list$1char$ph* __dec_obj47;
-struct map$2char$phsClassModule$ph* __result_obj__0;
+static struct map$2char$phsClassModule$ph* map$2char$phsClassModule$ph_initialize(struct map$2char$phsClassModule$ph* self)
+{
+    void* __right_value0 = (void*)0;
+    int i;
+    void* __right_value1 = (void*)0;
+    struct list$1char$ph* __dec_obj47;
+    struct map$2char$phsClassModule$ph* __result_obj__0;
     self->keys=(char**)come_increment_ref_count(((char**)(__right_value0=(char**)come_calloc_v2(1, sizeof(char*)*(1*(128)), "/usr/local/include/neo-c.h", 2131, "char**"))));
     self->items=(struct sClassModule**)come_increment_ref_count(((struct sClassModule**)(__right_value0=(struct sClassModule**)come_calloc_v2(1, sizeof(struct sClassModule*)*(1*(128)), "/usr/local/include/neo-c.h", 2132, "struct sClassModule**"))));
     self->item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc_v2(1, sizeof(_Bool)*(1*(128)), "/usr/local/include/neo-c.h", 2133, "_Bool*"))));
@@ -7588,9 +7670,10 @@ struct map$2char$phsClassModule$ph* __result_obj__0;
     return __result_obj__0;
 }
 
-static void map$2char$phsClassModule$ph_finalize(struct map$2char$phsClassModule$ph* self){
-int i;
-int i_75;
+static void map$2char$phsClassModule$ph_finalize(struct map$2char$phsClassModule$ph* self)
+{
+    int i;
+    int i_75;
     for(i=0;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
@@ -7611,12 +7694,13 @@ int i_75;
     (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
 }
 
-static struct map$2char$phsType$ph* map$2char$phsType$ph_initialize(struct map$2char$phsType$ph* self){
-void* __right_value0 = (void*)0;
-int i;
-void* __right_value1 = (void*)0;
-struct list$1char$ph* __dec_obj49;
-struct map$2char$phsType$ph* __result_obj__0;
+static struct map$2char$phsType$ph* map$2char$phsType$ph_initialize(struct map$2char$phsType$ph* self)
+{
+    void* __right_value0 = (void*)0;
+    int i;
+    void* __right_value1 = (void*)0;
+    struct list$1char$ph* __dec_obj49;
+    struct map$2char$phsType$ph* __result_obj__0;
     self->keys=(char**)come_increment_ref_count(((char**)(__right_value0=(char**)come_calloc_v2(1, sizeof(char*)*(1*(128)), "/usr/local/include/neo-c.h", 2131, "char**"))));
     self->items=(struct sType**)come_increment_ref_count(((struct sType**)(__right_value0=(struct sType**)come_calloc_v2(1, sizeof(struct sType*)*(1*(128)), "/usr/local/include/neo-c.h", 2132, "struct sType**"))));
     self->item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc_v2(1, sizeof(_Bool)*(1*(128)), "/usr/local/include/neo-c.h", 2133, "_Bool*"))));
@@ -7635,9 +7719,10 @@ struct map$2char$phsType$ph* __result_obj__0;
     return __result_obj__0;
 }
 
-static void map$2char$phsType$ph_finalize(struct map$2char$phsType$ph* self){
-int i;
-int i_76;
+static void map$2char$phsType$ph_finalize(struct map$2char$phsType$ph* self)
+{
+    int i;
+    int i_76;
     for(i=0;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
@@ -7658,8 +7743,9 @@ int i_76;
     (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
 }
 
-static struct list$1sRightValueObject$ph* list$1sRightValueObject$ph_initialize(struct list$1sRightValueObject$ph* self){
-struct list$1sRightValueObject$ph* __result_obj__0;
+static struct list$1sRightValueObject$ph* list$1sRightValueObject$ph_initialize(struct list$1sRightValueObject$ph* self)
+{
+    struct list$1sRightValueObject$ph* __result_obj__0;
     self->head=((void*)0);
     self->tail=((void*)0);
     self->len=0;
@@ -7669,9 +7755,10 @@ struct list$1sRightValueObject$ph* __result_obj__0;
     return __result_obj__0;
 }
 
-static void list$1sRightValueObject$ph_finalize(struct list$1sRightValueObject$ph* self){
-struct list_item$1sRightValueObject$ph* it;
-struct list_item$1sRightValueObject$ph* prev_it;
+static void list$1sRightValueObject$ph_finalize(struct list$1sRightValueObject$ph* self)
+{
+    struct list_item$1sRightValueObject$ph* it;
+    struct list_item$1sRightValueObject$ph* prev_it;
     if(self==((void*)0)) {
         return;
     }
@@ -7683,8 +7770,9 @@ struct list_item$1sRightValueObject$ph* prev_it;
     }
 }
 
-static struct list$1CVALUE$ph* list$1CVALUE$ph_initialize(struct list$1CVALUE$ph* self){
-struct list$1CVALUE$ph* __result_obj__0;
+static struct list$1CVALUE$ph* list$1CVALUE$ph_initialize(struct list$1CVALUE$ph* self)
+{
+    struct list$1CVALUE$ph* __result_obj__0;
     self->head=((void*)0);
     self->tail=((void*)0);
     self->len=0;
@@ -7694,9 +7782,10 @@ struct list$1CVALUE$ph* __result_obj__0;
     return __result_obj__0;
 }
 
-static void list$1CVALUE$ph_finalize(struct list$1CVALUE$ph* self){
-struct list_item$1CVALUE$ph* it;
-struct list_item$1CVALUE$ph* prev_it;
+static void list$1CVALUE$ph_finalize(struct list$1CVALUE$ph* self)
+{
+    struct list_item$1CVALUE$ph* it;
+    struct list_item$1CVALUE$ph* prev_it;
     if(self==((void*)0)) {
         return;
     }
@@ -7708,19 +7797,21 @@ struct list_item$1CVALUE$ph* prev_it;
     }
 }
 
-static int list$1char$ph_length(struct list$1char$ph* self){
-if(self==((void*)0)) {
-return 0;
-}
-return self->len;
+static int list$1char$ph_length(struct list$1char$ph* self)
+{
+    if(self==((void*)0)) {
+        return 0;
+    }
+    return self->len;
 }
 
-static char* list$1char$ph$p_operator_load_element(struct list$1char$ph* self, int position){
-char* default_value;
-char* __result_obj__0;
-struct list_item$1char$ph* it;
-int i;
-char* default_value_83;
+static char* list$1char$ph$p_operator_load_element(struct list$1char$ph* self, int position)
+{
+    char* default_value;
+    char* __result_obj__0;
+    struct list_item$1char$ph* it;
+    int i;
+    char* default_value_83;
     if(self==((void*)0)) {
         memset(&default_value,0,sizeof(char*));
         __result_obj__0 = (char*)come_increment_ref_count(default_value);
@@ -7750,12 +7841,13 @@ char* default_value_83;
     return __result_obj__0;
 }
 
-static char* list$1char$ph_operator_load_element(struct list$1char$ph* self, int position){
-char* default_value;
-char* __result_obj__0;
-struct list_item$1char$ph* it;
-int i;
-char* default_value_84;
+static char* list$1char$ph_operator_load_element(struct list$1char$ph* self, int position)
+{
+    char* default_value;
+    char* __result_obj__0;
+    struct list_item$1char$ph* it;
+    int i;
+    char* default_value_84;
     if(self==((void*)0)) {
         memset(&default_value,0,sizeof(char*));
         __result_obj__0 = (char*)come_increment_ref_count(default_value);

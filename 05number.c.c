@@ -3091,10 +3091,11 @@ struct sNode* expression_node_v99(struct sInfo* info);
 // inline function
 
 // body function
-struct sIntNode* sIntNode_initialize(struct sIntNode* self, char* value, struct sInfo* info){
-void* __right_value0 = (void*)0;
-char* __dec_obj1;
-struct sIntNode* __result_obj__0;
+struct sIntNode* sIntNode_initialize(struct sIntNode* self, char* value, struct sInfo* info)
+{
+    void* __right_value0 = (void*)0;
+    char* __dec_obj1;
+    struct sIntNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count((struct sNodeBase*)self),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
     __dec_obj1=self->value,
@@ -3107,25 +3108,27 @@ struct sIntNode* __result_obj__0;
     return __result_obj__0;
 }
 
-char* sIntNode_kind(struct sIntNode* self){
-void* __right_value0 = (void*)0;
-char* __result_obj__0;
+char* sIntNode_kind(struct sIntNode* self)
+{
+    void* __right_value0 = (void*)0;
+    char* __result_obj__0;
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string("sIntNode"))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
 }
 
-_Bool sIntNode_compile(struct sIntNode* self, struct sInfo* info){
-void* __right_value0 = (void*)0;
-void* __right_value1 = (void*)0;
-struct CVALUE* come_value;
-char* __dec_obj2;
-void* __right_value2 = (void*)0;
-struct sType* __exception_result_var_b1;
-struct sType* __exception_result_var_b2;
-struct sType* __dec_obj3;
-_Bool __result_obj__0;
+_Bool sIntNode_compile(struct sIntNode* self, struct sInfo* info)
+{
+    void* __right_value0 = (void*)0;
+    void* __right_value1 = (void*)0;
+    struct CVALUE* come_value;
+    char* __dec_obj2;
+    void* __right_value2 = (void*)0;
+    struct sType* __exception_result_var_b1;
+    struct sType* __exception_result_var_b2;
+    struct sType* __dec_obj3;
+    _Bool __result_obj__0;
     come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc_v2(1, sizeof(struct CVALUE)*(1), "05number.c", 18, "struct CVALUE*"))));
     __dec_obj2=come_value->c_value,
     come_value->c_value=(char*)come_increment_ref_count(xsprintf("%s",self->value));
@@ -3141,13 +3144,15 @@ _Bool __result_obj__0;
     return __result_obj__0;
 }
 
-static void sNodeBase_finalize(struct sNodeBase* self){
+static void sNodeBase_finalize(struct sNodeBase* self)
+{
     if(self!=((void*)0)&&self->sname!=((void*)0)) {
         (self->sname = come_decrement_ref_count(self->sname, (void*)0, (void*)0, 0, 0, (void*)0));
     }
 }
 
-static void sIntNode_finalize(struct sIntNode* self){
+static void sIntNode_finalize(struct sIntNode* self)
+{
     if(self!=((void*)0)&&self->sname!=((void*)0)) {
         (self->sname = come_decrement_ref_count(self->sname, (void*)0, (void*)0, 0, 0, (void*)0));
     }
@@ -3156,7 +3161,8 @@ static void sIntNode_finalize(struct sIntNode* self){
     }
 }
 
-static void sType_finalize(struct sType* self){
+static void sType_finalize(struct sType* self)
+{
     if(self!=((void*)0)&&self->mOriginalLoadVarType!=((void*)0)) {
         come_call_finalizer(sType_finalize, self->mOriginalLoadVarType, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
@@ -3225,9 +3231,10 @@ static void sType_finalize(struct sType* self){
     }
 }
 
-static void list$1sType$ph$p_finalize(struct list$1sType$ph* self){
-struct list_item$1sType$ph* it;
-struct list_item$1sType$ph* prev_it;
+static void list$1sType$ph$p_finalize(struct list$1sType$ph* self)
+{
+    struct list_item$1sType$ph* it;
+    struct list_item$1sType$ph* prev_it;
     if(self==((void*)0)) {
         return;
     }
@@ -3239,15 +3246,17 @@ struct list_item$1sType$ph* prev_it;
     }
 }
 
-static void list_item$1sType$ph$p_finalize(struct list_item$1sType$ph* self){
+static void list_item$1sType$ph$p_finalize(struct list_item$1sType$ph* self)
+{
     if(self!=((void*)0)&&self->item!=((void*)0)) {
         come_call_finalizer(sType_finalize, self->item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
 }
 
-static void list$1sNode$ph$p_finalize(struct list$1sNode$ph* self){
-struct list_item$1sNode$ph* it;
-struct list_item$1sNode$ph* prev_it;
+static void list$1sNode$ph$p_finalize(struct list$1sNode$ph* self)
+{
+    struct list_item$1sNode$ph* it;
+    struct list_item$1sNode$ph* prev_it;
     if(self==((void*)0)) {
         return;
     }
@@ -3259,15 +3268,17 @@ struct list_item$1sNode$ph* prev_it;
     }
 }
 
-static void list_item$1sNode$ph$p_finalize(struct list_item$1sNode$ph* self){
+static void list_item$1sNode$ph$p_finalize(struct list_item$1sNode$ph* self)
+{
     if(self!=((void*)0)&&self->item!=((void*)0)) {
         ((self->item) ? self->item = come_decrement_ref_count(self->item, ((struct sNode*)self->item)->finalize, ((struct sNode*)self->item)->_protocol_obj, 0, 0,(void*)0):(void*)0);
     }
 }
 
-static void list$1int$$p_finalize(struct list$1int$* self){
-struct list_item$1int$* it;
-struct list_item$1int$* prev_it;
+static void list$1int$$p_finalize(struct list$1int$* self)
+{
+    struct list_item$1int$* it;
+    struct list_item$1int$* prev_it;
     if(self==((void*)0)) {
         return;
     }
@@ -3279,12 +3290,14 @@ struct list_item$1int$* prev_it;
     }
 }
 
-static void list_item$1int$$p_finalize(struct list_item$1int$* self){
+static void list_item$1int$$p_finalize(struct list_item$1int$* self)
+{
 }
 
-static void list$1char$ph$p_finalize(struct list$1char$ph* self){
-struct list_item$1char$ph* it;
-struct list_item$1char$ph* prev_it;
+static void list$1char$ph$p_finalize(struct list$1char$ph* self)
+{
+    struct list_item$1char$ph* it;
+    struct list_item$1char$ph* prev_it;
     if(self==((void*)0)) {
         return;
     }
@@ -3296,21 +3309,23 @@ struct list_item$1char$ph* prev_it;
     }
 }
 
-static void list_item$1char$ph$p_finalize(struct list_item$1char$ph* self){
+static void list_item$1char$ph$p_finalize(struct list_item$1char$ph* self)
+{
     if(self!=((void*)0)&&self->item!=((void*)0)) {
         (self->item = come_decrement_ref_count(self->item, (void*)0, (void*)0, 0, 0, (void*)0));
     }
 }
 
-static struct list$1CVALUE$ph* list$1CVALUE$ph_push_back(struct list$1CVALUE$ph* self, struct CVALUE* item){
-struct list$1CVALUE$ph* __result_obj__0;
-void* __right_value0 = (void*)0;
-struct list_item$1CVALUE$ph* litem;
-struct CVALUE* __dec_obj4;
-struct list_item$1CVALUE$ph* litem_0;
-struct CVALUE* __dec_obj5;
-struct list_item$1CVALUE$ph* litem_1;
-struct CVALUE* __dec_obj6;
+static struct list$1CVALUE$ph* list$1CVALUE$ph_push_back(struct list$1CVALUE$ph* self, struct CVALUE* item)
+{
+    struct list$1CVALUE$ph* __result_obj__0;
+    void* __right_value0 = (void*)0;
+    struct list_item$1CVALUE$ph* litem;
+    struct CVALUE* __dec_obj4;
+    struct list_item$1CVALUE$ph* litem_0;
+    struct CVALUE* __dec_obj5;
+    struct list_item$1CVALUE$ph* litem_1;
+    struct CVALUE* __dec_obj6;
     if(self==((void*)0)) {
         __result_obj__0 = self;
         come_call_finalizer(CVALUE_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -3352,7 +3367,8 @@ struct CVALUE* __dec_obj6;
     return __result_obj__0;
 }
 
-static void CVALUE_finalize(struct CVALUE* self){
+static void CVALUE_finalize(struct CVALUE* self)
+{
     if(self!=((void*)0)&&self->c_value!=((void*)0)) {
         (self->c_value = come_decrement_ref_count(self->c_value, (void*)0, (void*)0, 0, 0, (void*)0));
     }
@@ -3367,10 +3383,11 @@ static void CVALUE_finalize(struct CVALUE* self){
     }
 }
 
-struct sUIntNode* sUIntNode_initialize(struct sUIntNode* self, char* value, struct sInfo* info){
-void* __right_value0 = (void*)0;
-char* __dec_obj7;
-struct sUIntNode* __result_obj__0;
+struct sUIntNode* sUIntNode_initialize(struct sUIntNode* self, char* value, struct sInfo* info)
+{
+    void* __right_value0 = (void*)0;
+    char* __dec_obj7;
+    struct sUIntNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count((struct sNodeBase*)self),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
     __dec_obj7=self->value,
@@ -3383,25 +3400,27 @@ struct sUIntNode* __result_obj__0;
     return __result_obj__0;
 }
 
-char* sUIntNode_kind(struct sUIntNode* self){
-void* __right_value0 = (void*)0;
-char* __result_obj__0;
+char* sUIntNode_kind(struct sUIntNode* self)
+{
+    void* __right_value0 = (void*)0;
+    char* __result_obj__0;
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string("sUIntNode"))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
 }
 
-_Bool sUIntNode_compile(struct sUIntNode* self, struct sInfo* info){
-void* __right_value0 = (void*)0;
-void* __right_value1 = (void*)0;
-struct CVALUE* come_value;
-char* __dec_obj8;
-void* __right_value2 = (void*)0;
-struct sType* __exception_result_var_b3;
-struct sType* __exception_result_var_b4;
-struct sType* __dec_obj9;
-_Bool __result_obj__0;
+_Bool sUIntNode_compile(struct sUIntNode* self, struct sInfo* info)
+{
+    void* __right_value0 = (void*)0;
+    void* __right_value1 = (void*)0;
+    struct CVALUE* come_value;
+    char* __dec_obj8;
+    void* __right_value2 = (void*)0;
+    struct sType* __exception_result_var_b3;
+    struct sType* __exception_result_var_b4;
+    struct sType* __dec_obj9;
+    _Bool __result_obj__0;
     come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc_v2(1, sizeof(struct CVALUE)*(1), "05number.c", 48, "struct CVALUE*"))));
     __dec_obj8=come_value->c_value,
     come_value->c_value=(char*)come_increment_ref_count(xsprintf("%s",self->value));
@@ -3417,7 +3436,8 @@ _Bool __result_obj__0;
     return __result_obj__0;
 }
 
-static void sUIntNode_finalize(struct sUIntNode* self){
+static void sUIntNode_finalize(struct sUIntNode* self)
+{
     if(self!=((void*)0)&&self->sname!=((void*)0)) {
         (self->sname = come_decrement_ref_count(self->sname, (void*)0, (void*)0, 0, 0, (void*)0));
     }
@@ -3426,10 +3446,11 @@ static void sUIntNode_finalize(struct sUIntNode* self){
     }
 }
 
-struct sLongNode* sLongNode_initialize(struct sLongNode* self, char* value, struct sInfo* info){
-void* __right_value0 = (void*)0;
-char* __dec_obj10;
-struct sLongNode* __result_obj__0;
+struct sLongNode* sLongNode_initialize(struct sLongNode* self, char* value, struct sInfo* info)
+{
+    void* __right_value0 = (void*)0;
+    char* __dec_obj10;
+    struct sLongNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count((struct sNodeBase*)self),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
     __dec_obj10=self->value,
@@ -3442,25 +3463,27 @@ struct sLongNode* __result_obj__0;
     return __result_obj__0;
 }
 
-char* sLongNode_kind(struct sLongNode* self){
-void* __right_value0 = (void*)0;
-char* __result_obj__0;
+char* sLongNode_kind(struct sLongNode* self)
+{
+    void* __right_value0 = (void*)0;
+    char* __result_obj__0;
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string("sLongNode"))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
 }
 
-_Bool sLongNode_compile(struct sLongNode* self, struct sInfo* info){
-void* __right_value0 = (void*)0;
-void* __right_value1 = (void*)0;
-struct CVALUE* come_value;
-char* __dec_obj11;
-void* __right_value2 = (void*)0;
-struct sType* __exception_result_var_b5;
-struct sType* __exception_result_var_b6;
-struct sType* __dec_obj12;
-_Bool __result_obj__0;
+_Bool sLongNode_compile(struct sLongNode* self, struct sInfo* info)
+{
+    void* __right_value0 = (void*)0;
+    void* __right_value1 = (void*)0;
+    struct CVALUE* come_value;
+    char* __dec_obj11;
+    void* __right_value2 = (void*)0;
+    struct sType* __exception_result_var_b5;
+    struct sType* __exception_result_var_b6;
+    struct sType* __dec_obj12;
+    _Bool __result_obj__0;
     come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc_v2(1, sizeof(struct CVALUE)*(1), "05number.c", 78, "struct CVALUE*"))));
     __dec_obj11=come_value->c_value,
     come_value->c_value=(char*)come_increment_ref_count(xsprintf("%s",self->value));
@@ -3476,7 +3499,8 @@ _Bool __result_obj__0;
     return __result_obj__0;
 }
 
-static void sLongNode_finalize(struct sLongNode* self){
+static void sLongNode_finalize(struct sLongNode* self)
+{
     if(self!=((void*)0)&&self->sname!=((void*)0)) {
         (self->sname = come_decrement_ref_count(self->sname, (void*)0, (void*)0, 0, 0, (void*)0));
     }
@@ -3485,10 +3509,11 @@ static void sLongNode_finalize(struct sLongNode* self){
     }
 }
 
-struct sULongNode* sULongNode_initialize(struct sULongNode* self, char* value, struct sInfo* info){
-void* __right_value0 = (void*)0;
-char* __dec_obj13;
-struct sULongNode* __result_obj__0;
+struct sULongNode* sULongNode_initialize(struct sULongNode* self, char* value, struct sInfo* info)
+{
+    void* __right_value0 = (void*)0;
+    char* __dec_obj13;
+    struct sULongNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count((struct sNodeBase*)self),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
     __dec_obj13=self->value,
@@ -3501,25 +3526,27 @@ struct sULongNode* __result_obj__0;
     return __result_obj__0;
 }
 
-char* sULongNode_kind(struct sULongNode* self){
-void* __right_value0 = (void*)0;
-char* __result_obj__0;
+char* sULongNode_kind(struct sULongNode* self)
+{
+    void* __right_value0 = (void*)0;
+    char* __result_obj__0;
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string("sULongNode"))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
 }
 
-_Bool sULongNode_compile(struct sULongNode* self, struct sInfo* info){
-void* __right_value0 = (void*)0;
-void* __right_value1 = (void*)0;
-struct CVALUE* come_value;
-char* __dec_obj14;
-void* __right_value2 = (void*)0;
-struct sType* __exception_result_var_b7;
-struct sType* __exception_result_var_b8;
-struct sType* __dec_obj15;
-_Bool __result_obj__0;
+_Bool sULongNode_compile(struct sULongNode* self, struct sInfo* info)
+{
+    void* __right_value0 = (void*)0;
+    void* __right_value1 = (void*)0;
+    struct CVALUE* come_value;
+    char* __dec_obj14;
+    void* __right_value2 = (void*)0;
+    struct sType* __exception_result_var_b7;
+    struct sType* __exception_result_var_b8;
+    struct sType* __dec_obj15;
+    _Bool __result_obj__0;
     come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc_v2(1, sizeof(struct CVALUE)*(1), "05number.c", 108, "struct CVALUE*"))));
     __dec_obj14=come_value->c_value,
     come_value->c_value=(char*)come_increment_ref_count(self->value);
@@ -3535,7 +3562,8 @@ _Bool __result_obj__0;
     return __result_obj__0;
 }
 
-static void sULongNode_finalize(struct sULongNode* self){
+static void sULongNode_finalize(struct sULongNode* self)
+{
     if(self!=((void*)0)&&self->sname!=((void*)0)) {
         (self->sname = come_decrement_ref_count(self->sname, (void*)0, (void*)0, 0, 0, (void*)0));
     }
@@ -3544,10 +3572,11 @@ static void sULongNode_finalize(struct sULongNode* self){
     }
 }
 
-struct sFloatNode* sFloatNode_initialize(struct sFloatNode* self, char* value, struct sInfo* info){
-void* __right_value0 = (void*)0;
-char* __dec_obj16;
-struct sFloatNode* __result_obj__0;
+struct sFloatNode* sFloatNode_initialize(struct sFloatNode* self, char* value, struct sInfo* info)
+{
+    void* __right_value0 = (void*)0;
+    char* __dec_obj16;
+    struct sFloatNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count((struct sNodeBase*)self),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
     __dec_obj16=self->value,
@@ -3560,25 +3589,27 @@ struct sFloatNode* __result_obj__0;
     return __result_obj__0;
 }
 
-char* sFloatNode_kind(struct sFloatNode* self){
-void* __right_value0 = (void*)0;
-char* __result_obj__0;
+char* sFloatNode_kind(struct sFloatNode* self)
+{
+    void* __right_value0 = (void*)0;
+    char* __result_obj__0;
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string("sFloatNode"))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
 }
 
-_Bool sFloatNode_compile(struct sFloatNode* self, struct sInfo* info){
-void* __right_value0 = (void*)0;
-void* __right_value1 = (void*)0;
-struct CVALUE* come_value;
-char* __dec_obj17;
-void* __right_value2 = (void*)0;
-struct sType* __exception_result_var_b9;
-struct sType* __exception_result_var_b10;
-struct sType* __dec_obj18;
-_Bool __result_obj__0;
+_Bool sFloatNode_compile(struct sFloatNode* self, struct sInfo* info)
+{
+    void* __right_value0 = (void*)0;
+    void* __right_value1 = (void*)0;
+    struct CVALUE* come_value;
+    char* __dec_obj17;
+    void* __right_value2 = (void*)0;
+    struct sType* __exception_result_var_b9;
+    struct sType* __exception_result_var_b10;
+    struct sType* __dec_obj18;
+    _Bool __result_obj__0;
     come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc_v2(1, sizeof(struct CVALUE)*(1), "05number.c", 138, "struct CVALUE*"))));
     __dec_obj17=come_value->c_value,
     come_value->c_value=(char*)come_increment_ref_count(xsprintf("%s",self->value));
@@ -3594,7 +3625,8 @@ _Bool __result_obj__0;
     return __result_obj__0;
 }
 
-static void sFloatNode_finalize(struct sFloatNode* self){
+static void sFloatNode_finalize(struct sFloatNode* self)
+{
     if(self!=((void*)0)&&self->sname!=((void*)0)) {
         (self->sname = come_decrement_ref_count(self->sname, (void*)0, (void*)0, 0, 0, (void*)0));
     }
@@ -3603,10 +3635,11 @@ static void sFloatNode_finalize(struct sFloatNode* self){
     }
 }
 
-struct sComplexNode* sComplexNode_initialize(struct sComplexNode* self, char* value, struct sInfo* info){
-void* __right_value0 = (void*)0;
-char* __dec_obj19;
-struct sComplexNode* __result_obj__0;
+struct sComplexNode* sComplexNode_initialize(struct sComplexNode* self, char* value, struct sInfo* info)
+{
+    void* __right_value0 = (void*)0;
+    char* __dec_obj19;
+    struct sComplexNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count((struct sNodeBase*)self),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
     __dec_obj19=self->value,
@@ -3619,25 +3652,27 @@ struct sComplexNode* __result_obj__0;
     return __result_obj__0;
 }
 
-char* sComplexNode_kind(struct sComplexNode* self){
-void* __right_value0 = (void*)0;
-char* __result_obj__0;
+char* sComplexNode_kind(struct sComplexNode* self)
+{
+    void* __right_value0 = (void*)0;
+    char* __result_obj__0;
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string("sComplexNode"))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
 }
 
-_Bool sComplexNode_compile(struct sComplexNode* self, struct sInfo* info){
-void* __right_value0 = (void*)0;
-void* __right_value1 = (void*)0;
-struct CVALUE* come_value;
-char* __dec_obj20;
-void* __right_value2 = (void*)0;
-struct sType* __exception_result_var_b11;
-struct sType* __exception_result_var_b12;
-struct sType* __dec_obj21;
-_Bool __result_obj__0;
+_Bool sComplexNode_compile(struct sComplexNode* self, struct sInfo* info)
+{
+    void* __right_value0 = (void*)0;
+    void* __right_value1 = (void*)0;
+    struct CVALUE* come_value;
+    char* __dec_obj20;
+    void* __right_value2 = (void*)0;
+    struct sType* __exception_result_var_b11;
+    struct sType* __exception_result_var_b12;
+    struct sType* __dec_obj21;
+    _Bool __result_obj__0;
     come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc_v2(1, sizeof(struct CVALUE)*(1), "05number.c", 168, "struct CVALUE*"))));
     __dec_obj20=come_value->c_value,
     come_value->c_value=(char*)come_increment_ref_count(xsprintf("%s",self->value));
@@ -3653,7 +3688,8 @@ _Bool __result_obj__0;
     return __result_obj__0;
 }
 
-static void sComplexNode_finalize(struct sComplexNode* self){
+static void sComplexNode_finalize(struct sComplexNode* self)
+{
     if(self!=((void*)0)&&self->sname!=((void*)0)) {
         (self->sname = come_decrement_ref_count(self->sname, (void*)0, (void*)0, 0, 0, (void*)0));
     }
@@ -3662,10 +3698,11 @@ static void sComplexNode_finalize(struct sComplexNode* self){
     }
 }
 
-struct sDoubleNode* sDoubleNode_initialize(struct sDoubleNode* self, char* value, struct sInfo* info){
-void* __right_value0 = (void*)0;
-char* __dec_obj22;
-struct sDoubleNode* __result_obj__0;
+struct sDoubleNode* sDoubleNode_initialize(struct sDoubleNode* self, char* value, struct sInfo* info)
+{
+    void* __right_value0 = (void*)0;
+    char* __dec_obj22;
+    struct sDoubleNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count((struct sNodeBase*)self),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
     __dec_obj22=self->value,
@@ -3678,25 +3715,27 @@ struct sDoubleNode* __result_obj__0;
     return __result_obj__0;
 }
 
-char* sDoubleNode_kind(struct sDoubleNode* self){
-void* __right_value0 = (void*)0;
-char* __result_obj__0;
+char* sDoubleNode_kind(struct sDoubleNode* self)
+{
+    void* __right_value0 = (void*)0;
+    char* __result_obj__0;
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string("sDoubleNode"))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
 }
 
-_Bool sDoubleNode_compile(struct sDoubleNode* self, struct sInfo* info){
-void* __right_value0 = (void*)0;
-void* __right_value1 = (void*)0;
-struct CVALUE* come_value;
-char* __dec_obj23;
-void* __right_value2 = (void*)0;
-struct sType* __exception_result_var_b13;
-struct sType* __exception_result_var_b14;
-struct sType* __dec_obj24;
-_Bool __result_obj__0;
+_Bool sDoubleNode_compile(struct sDoubleNode* self, struct sInfo* info)
+{
+    void* __right_value0 = (void*)0;
+    void* __right_value1 = (void*)0;
+    struct CVALUE* come_value;
+    char* __dec_obj23;
+    void* __right_value2 = (void*)0;
+    struct sType* __exception_result_var_b13;
+    struct sType* __exception_result_var_b14;
+    struct sType* __dec_obj24;
+    _Bool __result_obj__0;
     come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc_v2(1, sizeof(struct CVALUE)*(1), "05number.c", 198, "struct CVALUE*"))));
     __dec_obj23=come_value->c_value,
     come_value->c_value=(char*)come_increment_ref_count(xsprintf("%s",self->value));
@@ -3712,7 +3751,8 @@ _Bool __result_obj__0;
     return __result_obj__0;
 }
 
-static void sDoubleNode_finalize(struct sDoubleNode* self){
+static void sDoubleNode_finalize(struct sDoubleNode* self)
+{
     if(self!=((void*)0)&&self->sname!=((void*)0)) {
         (self->sname = come_decrement_ref_count(self->sname, (void*)0, (void*)0, 0, 0, (void*)0));
     }
@@ -3721,10 +3761,11 @@ static void sDoubleNode_finalize(struct sDoubleNode* self){
     }
 }
 
-struct sDigitNode* sDigitNode_initialize(struct sDigitNode* self, char* value, struct sInfo* info){
-void* __right_value0 = (void*)0;
-char* __dec_obj25;
-struct sDigitNode* __result_obj__0;
+struct sDigitNode* sDigitNode_initialize(struct sDigitNode* self, char* value, struct sInfo* info)
+{
+    void* __right_value0 = (void*)0;
+    char* __dec_obj25;
+    struct sDigitNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count((struct sNodeBase*)self),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
     __dec_obj25=self->value,
@@ -3736,25 +3777,27 @@ struct sDigitNode* __result_obj__0;
     return __result_obj__0;
 }
 
-char* sDigitNode_kind(struct sDigitNode* self){
-void* __right_value0 = (void*)0;
-char* __result_obj__0;
+char* sDigitNode_kind(struct sDigitNode* self)
+{
+    void* __right_value0 = (void*)0;
+    char* __result_obj__0;
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string("sDigitNode"))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
 }
 
-_Bool sDigitNode_compile(struct sDigitNode* self, struct sInfo* info){
-void* __right_value0 = (void*)0;
-void* __right_value1 = (void*)0;
-struct CVALUE* come_value;
-char* __dec_obj26;
-void* __right_value2 = (void*)0;
-struct sType* __exception_result_var_b15;
-struct sType* __exception_result_var_b16;
-struct sType* __dec_obj27;
-_Bool __result_obj__0;
+_Bool sDigitNode_compile(struct sDigitNode* self, struct sInfo* info)
+{
+    void* __right_value0 = (void*)0;
+    void* __right_value1 = (void*)0;
+    struct CVALUE* come_value;
+    char* __dec_obj26;
+    void* __right_value2 = (void*)0;
+    struct sType* __exception_result_var_b15;
+    struct sType* __exception_result_var_b16;
+    struct sType* __dec_obj27;
+    _Bool __result_obj__0;
     come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc_v2(1, sizeof(struct CVALUE)*(1), "05number.c", 228, "struct CVALUE*"))));
     __dec_obj26=come_value->c_value,
     come_value->c_value=(char*)come_increment_ref_count(xsprintf("%s",self->value));
@@ -3770,7 +3813,8 @@ _Bool __result_obj__0;
     return __result_obj__0;
 }
 
-static void sDigitNode_finalize(struct sDigitNode* self){
+static void sDigitNode_finalize(struct sDigitNode* self)
+{
     if(self!=((void*)0)&&self->sname!=((void*)0)) {
         (self->sname = come_decrement_ref_count(self->sname, (void*)0, (void*)0, 0, 0, (void*)0));
     }
@@ -3779,13 +3823,14 @@ static void sDigitNode_finalize(struct sDigitNode* self){
     }
 }
 
-struct sNode* create_int_node(char* value, struct sInfo* info){
-void* __right_value0 = (void*)0;
-void* __right_value1 = (void*)0;
-struct sNode* _inf_value1;
-struct sIntNode* _inf_obj_value1;
-void* __right_value2 = (void*)0;
-struct sNode* __result_obj__0;
+struct sNode* create_int_node(char* value, struct sInfo* info)
+{
+    void* __right_value0 = (void*)0;
+    void* __right_value1 = (void*)0;
+    struct sNode* _inf_value1;
+    struct sIntNode* _inf_obj_value1;
+    void* __right_value2 = (void*)0;
+    struct sNode* __result_obj__0;
     _inf_value1=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "05number.c", 244, "struct sNode");
     _inf_obj_value1=(struct sIntNode*)come_increment_ref_count(((struct sIntNode*)(__right_value1=sIntNode_initialize((struct sIntNode*)come_increment_ref_count((struct sIntNode*)come_calloc_v2(1, sizeof(struct sIntNode)*(1), "05number.c", 244, "struct sIntNode*")),(char*)come_increment_ref_count(value),info))));
     _inf_value1->_protocol_obj=_inf_obj_value1;
@@ -3806,12 +3851,13 @@ struct sNode* __result_obj__0;
     return __result_obj__0;
 }
 
-static struct sIntNode* sIntNode_clone(struct sIntNode* self){
-struct sIntNode* __result_obj__0;
-void* __right_value0 = (void*)0;
-struct sIntNode* result;
-char* __dec_obj28;
-char* __dec_obj29;
+static struct sIntNode* sIntNode_clone(struct sIntNode* self)
+{
+    struct sIntNode* __result_obj__0;
+    void* __right_value0 = (void*)0;
+    struct sIntNode* result;
+    char* __dec_obj28;
+    char* __dec_obj29;
     if(self==(void*)0) {
         __result_obj__0 = (void*)0;
         return __result_obj__0;
@@ -3838,28 +3884,29 @@ char* __dec_obj29;
     return __result_obj__0;
 }
 
-struct sNode* get_suffix(char* buf, char* p2, struct sInfo* info){
-void* __right_value0 = (void*)0;
-void* __right_value1 = (void*)0;
-void* __right_value2 = (void*)0;
-struct sNode* _inf_value2;
-struct sULongNode* _inf_obj_value2;
-void* __right_value3 = (void*)0;
-struct sNode* __result_obj__0;
-struct sNode* _inf_value3;
-struct sULongNode* _inf_obj_value3;
-struct sNode* _inf_value4;
-struct sUIntNode* _inf_obj_value4;
-struct sNode* _inf_value5;
-struct sLongNode* _inf_obj_value5;
-struct sNode* _inf_value6;
-struct sLongNode* _inf_obj_value6;
-struct sNode* _inf_value7;
-struct sULongNode* _inf_obj_value7;
-struct sNode* _inf_value8;
-struct sLongNode* _inf_obj_value8;
-struct sNode* _inf_value9;
-struct sIntNode* _inf_obj_value9;
+struct sNode* get_suffix(char* buf, char* p2, struct sInfo* info)
+{
+    void* __right_value0 = (void*)0;
+    void* __right_value1 = (void*)0;
+    void* __right_value2 = (void*)0;
+    struct sNode* _inf_value2;
+    struct sULongNode* _inf_obj_value2;
+    void* __right_value3 = (void*)0;
+    struct sNode* __result_obj__0;
+    struct sNode* _inf_value3;
+    struct sULongNode* _inf_obj_value3;
+    struct sNode* _inf_value4;
+    struct sUIntNode* _inf_obj_value4;
+    struct sNode* _inf_value5;
+    struct sLongNode* _inf_obj_value5;
+    struct sNode* _inf_value6;
+    struct sLongNode* _inf_obj_value6;
+    struct sNode* _inf_value7;
+    struct sULongNode* _inf_obj_value7;
+    struct sNode* _inf_value8;
+    struct sLongNode* _inf_obj_value8;
+    struct sNode* _inf_value9;
+    struct sIntNode* _inf_obj_value9;
     if(*info->p==117||*info->p==85) {
         *p2++=*info->p;
         *p2=0;
@@ -4050,12 +4097,13 @@ struct sIntNode* _inf_obj_value9;
     }
 }
 
-static struct sULongNode* sULongNode_clone(struct sULongNode* self){
-struct sULongNode* __result_obj__0;
-void* __right_value0 = (void*)0;
-struct sULongNode* result;
-char* __dec_obj30;
-char* __dec_obj31;
+static struct sULongNode* sULongNode_clone(struct sULongNode* self)
+{
+    struct sULongNode* __result_obj__0;
+    void* __right_value0 = (void*)0;
+    struct sULongNode* result;
+    char* __dec_obj30;
+    char* __dec_obj31;
     if(self==(void*)0) {
         __result_obj__0 = (void*)0;
         return __result_obj__0;
@@ -4082,12 +4130,13 @@ char* __dec_obj31;
     return __result_obj__0;
 }
 
-static struct sUIntNode* sUIntNode_clone(struct sUIntNode* self){
-struct sUIntNode* __result_obj__0;
-void* __right_value0 = (void*)0;
-struct sUIntNode* result;
-char* __dec_obj32;
-char* __dec_obj33;
+static struct sUIntNode* sUIntNode_clone(struct sUIntNode* self)
+{
+    struct sUIntNode* __result_obj__0;
+    void* __right_value0 = (void*)0;
+    struct sUIntNode* result;
+    char* __dec_obj32;
+    char* __dec_obj33;
     if(self==(void*)0) {
         __result_obj__0 = (void*)0;
         return __result_obj__0;
@@ -4114,12 +4163,13 @@ char* __dec_obj33;
     return __result_obj__0;
 }
 
-static struct sLongNode* sLongNode_clone(struct sLongNode* self){
-struct sLongNode* __result_obj__0;
-void* __right_value0 = (void*)0;
-struct sLongNode* result;
-char* __dec_obj34;
-char* __dec_obj35;
+static struct sLongNode* sLongNode_clone(struct sLongNode* self)
+{
+    struct sLongNode* __result_obj__0;
+    void* __right_value0 = (void*)0;
+    struct sLongNode* result;
+    char* __dec_obj34;
+    char* __dec_obj35;
     if(self==(void*)0) {
         __result_obj__0 = (void*)0;
         return __result_obj__0;
@@ -4146,22 +4196,23 @@ char* __dec_obj35;
     return __result_obj__0;
 }
 
-struct sNode* get_number(_Bool minus, struct sInfo* info){
-char* p;
-_Bool is_float;
-void* __right_value0 = (void*)0;
-void* __right_value1 = (void*)0;
-void* __right_value2 = (void*)0;
-struct sNode* _inf_value10;
-struct sFloatNode* _inf_obj_value10;
-void* __right_value3 = (void*)0;
-struct sNode* __result_obj__0;
-struct sNode* _inf_value11;
-struct sDoubleNode* _inf_obj_value11;
-struct sNode* _inf_value12;
-struct sComplexNode* _inf_obj_value12;
-struct sNode* _inf_value13;
-struct sDoubleNode* _inf_obj_value13;
+struct sNode* get_number(_Bool minus, struct sInfo* info)
+{
+    char* p;
+    _Bool is_float;
+    void* __right_value0 = (void*)0;
+    void* __right_value1 = (void*)0;
+    void* __right_value2 = (void*)0;
+    struct sNode* _inf_value10;
+    struct sFloatNode* _inf_obj_value10;
+    void* __right_value3 = (void*)0;
+    struct sNode* __result_obj__0;
+    struct sNode* _inf_value11;
+    struct sDoubleNode* _inf_obj_value11;
+    struct sNode* _inf_value12;
+    struct sComplexNode* _inf_obj_value12;
+    struct sNode* _inf_value13;
+    struct sDoubleNode* _inf_obj_value13;
     const int buf_size=128;
     char buf[128+1];
     memset(&buf, 0, sizeof(buf));
@@ -4344,12 +4395,13 @@ struct sDoubleNode* _inf_obj_value13;
     }
 }
 
-static struct sFloatNode* sFloatNode_clone(struct sFloatNode* self){
-struct sFloatNode* __result_obj__0;
-void* __right_value0 = (void*)0;
-struct sFloatNode* result;
-char* __dec_obj36;
-char* __dec_obj37;
+static struct sFloatNode* sFloatNode_clone(struct sFloatNode* self)
+{
+    struct sFloatNode* __result_obj__0;
+    void* __right_value0 = (void*)0;
+    struct sFloatNode* result;
+    char* __dec_obj36;
+    char* __dec_obj37;
     if(self==(void*)0) {
         __result_obj__0 = (void*)0;
         return __result_obj__0;
@@ -4376,12 +4428,13 @@ char* __dec_obj37;
     return __result_obj__0;
 }
 
-static struct sDoubleNode* sDoubleNode_clone(struct sDoubleNode* self){
-struct sDoubleNode* __result_obj__0;
-void* __right_value0 = (void*)0;
-struct sDoubleNode* result;
-char* __dec_obj38;
-char* __dec_obj39;
+static struct sDoubleNode* sDoubleNode_clone(struct sDoubleNode* self)
+{
+    struct sDoubleNode* __result_obj__0;
+    void* __right_value0 = (void*)0;
+    struct sDoubleNode* result;
+    char* __dec_obj38;
+    char* __dec_obj39;
     if(self==(void*)0) {
         __result_obj__0 = (void*)0;
         return __result_obj__0;
@@ -4408,12 +4461,13 @@ char* __dec_obj39;
     return __result_obj__0;
 }
 
-static struct sComplexNode* sComplexNode_clone(struct sComplexNode* self){
-struct sComplexNode* __result_obj__0;
-void* __right_value0 = (void*)0;
-struct sComplexNode* result;
-char* __dec_obj40;
-char* __dec_obj41;
+static struct sComplexNode* sComplexNode_clone(struct sComplexNode* self)
+{
+    struct sComplexNode* __result_obj__0;
+    void* __right_value0 = (void*)0;
+    struct sComplexNode* result;
+    char* __dec_obj40;
+    char* __dec_obj41;
     if(self==(void*)0) {
         __result_obj__0 = (void*)0;
         return __result_obj__0;
@@ -4440,12 +4494,13 @@ char* __dec_obj41;
     return __result_obj__0;
 }
 
-struct sNode* get_hex_number(_Bool minus, struct sInfo* info){
-int buf_size;
-char* p;
-_Bool has_digit;
-void* __right_value0 = (void*)0;
-struct sNode* __result_obj__0;
+struct sNode* get_hex_number(_Bool minus, struct sInfo* info)
+{
+    int buf_size;
+    char* p;
+    _Bool has_digit;
+    void* __right_value0 = (void*)0;
+    struct sNode* __result_obj__0;
     buf_size=128;
     char buf[128+1];
     memset(&buf, 0, sizeof(buf));
@@ -4483,12 +4538,13 @@ struct sNode* __result_obj__0;
     return __result_obj__0;
 }
 
-struct sNode* get_digits(struct sInfo* info){
-int buf_size;
-char* p;
-_Bool has_digit;
-void* __right_value0 = (void*)0;
-struct sNode* __result_obj__0;
+struct sNode* get_digits(struct sInfo* info)
+{
+    int buf_size;
+    char* p;
+    _Bool has_digit;
+    void* __right_value0 = (void*)0;
+    struct sNode* __result_obj__0;
     buf_size=128;
     char buf[128+1];
     memset(&buf, 0, sizeof(buf));
@@ -4526,12 +4582,13 @@ struct sNode* __result_obj__0;
     return __result_obj__0;
 }
 
-struct sNode* get_oct_number(_Bool minus, struct sInfo* info){
-int buf_size;
-char* p;
-_Bool has_digit;
-void* __right_value0 = (void*)0;
-struct sNode* __result_obj__0;
+struct sNode* get_oct_number(_Bool minus, struct sInfo* info)
+{
+    int buf_size;
+    char* p;
+    _Bool has_digit;
+    void* __right_value0 = (void*)0;
+    struct sNode* __result_obj__0;
     buf_size=128;
     char buf[128+1];
     memset(&buf, 0, sizeof(buf));
@@ -4572,27 +4629,28 @@ struct sNode* __result_obj__0;
     return __result_obj__0;
 }
 
-struct sNode* expression_node_v99(struct sInfo* info){
-void* __right_value0 = (void*)0;
-struct sNode* node;
-struct sNode* __dec_obj42;
-struct sNode* __result_obj__0;
-struct sNode* node_2;
-struct sNode* __dec_obj43;
-struct sNode* node_3;
-struct sNode* __dec_obj44;
-struct sNode* node_4;
-struct sNode* __dec_obj45;
-struct sNode* node_5;
-struct sNode* __dec_obj46;
-struct sNode* __dec_obj47;
-struct sNode* __dec_obj48;
-struct sNode* __dec_obj49;
-struct sNode* __dec_obj50;
-struct sNode* __dec_obj51;
-struct sNode* node_6;
-struct sNode* __dec_obj52;
-memset(&node_5, 0, sizeof(node_5));
+struct sNode* expression_node_v99(struct sInfo* info)
+{
+    void* __right_value0 = (void*)0;
+    struct sNode* node;
+    struct sNode* __dec_obj42;
+    struct sNode* __result_obj__0;
+    struct sNode* node_2;
+    struct sNode* __dec_obj43;
+    struct sNode* node_3;
+    struct sNode* __dec_obj44;
+    struct sNode* node_4;
+    struct sNode* __dec_obj45;
+    struct sNode* node_5;
+    struct sNode* __dec_obj46;
+    struct sNode* __dec_obj47;
+    struct sNode* __dec_obj48;
+    struct sNode* __dec_obj49;
+    struct sNode* __dec_obj50;
+    struct sNode* __dec_obj51;
+    struct sNode* node_6;
+    struct sNode* __dec_obj52;
+    memset(&node_5, 0, sizeof(node_5));
     skip_spaces_and_lf(info);
     if(*info->p==48&&(*(info->p+1)==120||*(info->p+1)==88)) {
         info->p+=2;

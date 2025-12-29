@@ -2978,11 +2978,12 @@ void skip_paren(struct sInfo* info);
 // inline function
 
 // body function
-_Bool parsecmp(char* p2, struct sInfo* info){
-_Bool terminated;
-char* p3;
-int i;
-unsigned char c;
+_Bool parsecmp(char* p2, struct sInfo* info)
+{
+    _Bool terminated;
+    char* p3;
+    int i;
+    unsigned char c;
     terminated=0;
     p3=info->p;
     for(i=0;i<strlen(p2);i++){
@@ -2995,20 +2996,21 @@ unsigned char c;
     return memcmp(info->p,p2,strlen(p2))==0&&(xispunct(c)||c==32||c==9||c==10||c==0||c==13)&&c!=95;
 }
 
-int err_msg(struct sInfo* info, char* msg, ...){
-char* msg2;
-__builtin_va_list args;
-char* p;
-char* last_lf;
-void* __right_value0 = (void*)0;
-void* __right_value1 = (void*)0;
-struct buffer* buf;
-int col;
-int col_0;
-void* __right_value2 = (void*)0;
-int __result_obj__0;
-memset(&msg2, 0, sizeof(msg2));
-memset(&args, 0, sizeof(args));
+int err_msg(struct sInfo* info, char* msg, ...)
+{
+    char* msg2;
+    __builtin_va_list args;
+    char* p;
+    char* last_lf;
+    void* __right_value0 = (void*)0;
+    void* __right_value1 = (void*)0;
+    struct buffer* buf;
+    int col;
+    int col_0;
+    void* __right_value2 = (void*)0;
+    int __result_obj__0;
+    memset(&msg2, 0, sizeof(msg2));
+    memset(&args, 0, sizeof(args));
     if(!info->no_output_come_code) {
         __builtin_va_start(args,msg);
         vasprintf(&msg2,msg,args);
@@ -3044,7 +3046,8 @@ memset(&args, 0, sizeof(args));
     return 0;
 }
 
-int expected_next_character(char c, struct sInfo* info){
+int expected_next_character(char c, struct sInfo* info)
+{
     parse_sharp_v5(info);
     if(*info->p!=c) {
         if(!info->no_output_come_code) {
@@ -3058,15 +3061,16 @@ int expected_next_character(char c, struct sInfo* info){
     return 0;
 }
 
-char* parse_word(_Bool digits, struct sInfo* info){
-void* __right_value0 = (void*)0;
-void* __right_value1 = (void*)0;
-struct buffer* buf;
-_Bool _conditional_value_X0;
-char* __result_obj__0;
-char* result;
-void* __right_value2 = (void*)0;
-void* __right_value3 = (void*)0;
+char* parse_word(_Bool digits, struct sInfo* info)
+{
+    void* __right_value0 = (void*)0;
+    void* __right_value1 = (void*)0;
+    struct buffer* buf;
+    _Bool _conditional_value_X0;
+    char* __result_obj__0;
+    char* result;
+    void* __right_value2 = (void*)0;
+    void* __right_value3 = (void*)0;
     buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 80, "struct buffer*"))));
     parse_sharp_v5(info);
     if(digits) {
@@ -3115,107 +3119,110 @@ _conditional_value_X0;})) {
     return __result_obj__0;
 }
 
-static char* map$2char$phchar$ph$p_operator_load_element(struct map$2char$phchar$ph* self, char* key){
-char* default_value;
-char* __result_obj__0;
-unsigned int hash;
-unsigned int it;
-memset(&default_value,0,sizeof(char*));
-if(self==((void*)0)) {
-__result_obj__0 = (char*)come_increment_ref_count(default_value);
-(default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
-(__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
-return __result_obj__0;
-}
-hash=string_get_hash_key(((char*)key))%self->size;
-it=hash;
-while(1) {
-if(self->item_existance[it]) {
-if(string_equals(self->keys[it],key)) {
-__result_obj__0 = (char*)come_increment_ref_count(self->items[it]);
-(default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 0, (void*)0));
-(__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
-return __result_obj__0;
-}
-it++;
-if(it>=self->size) {
-it=0;
-}
-else if(it==hash) {
-__result_obj__0 = (char*)come_increment_ref_count(default_value);
-(default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
-(__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
-return __result_obj__0;
-}
-}
-else {
-__result_obj__0 = (char*)come_increment_ref_count(default_value);
-(default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
-(__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
-return __result_obj__0;
-}
-}
-__result_obj__0 = (char*)come_increment_ref_count(default_value);
-(default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
-(__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
-return __result_obj__0;
-}
-
-static char* map$2char$phchar$ph_operator_load_element(struct map$2char$phchar$ph* self, char* key){
-char* default_value;
-char* __result_obj__0;
-unsigned int hash;
-unsigned int it;
-memset(&default_value,0,sizeof(char*));
-if(self==((void*)0)) {
-__result_obj__0 = (char*)come_increment_ref_count(default_value);
-(default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
-(__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
-return __result_obj__0;
-}
-hash=string_get_hash_key(((char*)key))%self->size;
-it=hash;
-while(1) {
-if(self->item_existance[it]) {
-if(string_equals(self->keys[it],key)) {
-__result_obj__0 = (char*)come_increment_ref_count(self->items[it]);
-(default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 0, (void*)0));
-(__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
-return __result_obj__0;
-}
-it++;
-if(it>=self->size) {
-it=0;
-}
-else if(it==hash) {
-__result_obj__0 = (char*)come_increment_ref_count(default_value);
-(default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
-(__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
-return __result_obj__0;
-}
-}
-else {
-__result_obj__0 = (char*)come_increment_ref_count(default_value);
-(default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
-(__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
-return __result_obj__0;
-}
-}
-__result_obj__0 = (char*)come_increment_ref_count(default_value);
-(default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
-(__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
-return __result_obj__0;
+static char* map$2char$phchar$ph$p_operator_load_element(struct map$2char$phchar$ph* self, char* key)
+{
+    char* default_value;
+    char* __result_obj__0;
+    unsigned int hash;
+    unsigned int it;
+    memset(&default_value,0,sizeof(char*));
+    if(self==((void*)0)) {
+        __result_obj__0 = (char*)come_increment_ref_count(default_value);
+        (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        return __result_obj__0;
+    }
+    hash=string_get_hash_key(((char*)key))%self->size;
+    it=hash;
+    while(1) {
+        if(self->item_existance[it]) {
+            if(string_equals(self->keys[it],key)) {
+                __result_obj__0 = (char*)come_increment_ref_count(self->items[it]);
+                (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 0, (void*)0));
+                (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+                return __result_obj__0;
+            }
+            it++;
+            if(it>=self->size) {
+                it=0;
+            }
+            else if(it==hash) {
+                __result_obj__0 = (char*)come_increment_ref_count(default_value);
+                (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
+                (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+                return __result_obj__0;
+            }
+        }
+        else {
+            __result_obj__0 = (char*)come_increment_ref_count(default_value);
+            (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
+            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+            return __result_obj__0;
+        }
+    }
+    __result_obj__0 = (char*)come_increment_ref_count(default_value);
+    (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    return __result_obj__0;
 }
 
-char* backtrace_parse_word(struct sInfo* info){
-char* p;
-int sline;
-char* buf;
-void* __right_value0 = (void*)0;
-char* __dec_obj1;
-char* __dec_obj2;
-char* __result_obj__0;
-memset(&buf, 0, sizeof(buf));
+static char* map$2char$phchar$ph_operator_load_element(struct map$2char$phchar$ph* self, char* key)
+{
+    char* default_value;
+    char* __result_obj__0;
+    unsigned int hash;
+    unsigned int it;
+    memset(&default_value,0,sizeof(char*));
+    if(self==((void*)0)) {
+        __result_obj__0 = (char*)come_increment_ref_count(default_value);
+        (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        return __result_obj__0;
+    }
+    hash=string_get_hash_key(((char*)key))%self->size;
+    it=hash;
+    while(1) {
+        if(self->item_existance[it]) {
+            if(string_equals(self->keys[it],key)) {
+                __result_obj__0 = (char*)come_increment_ref_count(self->items[it]);
+                (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 0, (void*)0));
+                (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+                return __result_obj__0;
+            }
+            it++;
+            if(it>=self->size) {
+                it=0;
+            }
+            else if(it==hash) {
+                __result_obj__0 = (char*)come_increment_ref_count(default_value);
+                (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
+                (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+                return __result_obj__0;
+            }
+        }
+        else {
+            __result_obj__0 = (char*)come_increment_ref_count(default_value);
+            (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
+            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+            return __result_obj__0;
+        }
+    }
+    __result_obj__0 = (char*)come_increment_ref_count(default_value);
+    (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    return __result_obj__0;
+}
+
+char* backtrace_parse_word(struct sInfo* info)
+{
+    char* p;
+    int sline;
+    char* buf;
+    void* __right_value0 = (void*)0;
+    char* __dec_obj1;
+    char* __dec_obj2;
+    char* __result_obj__0;
+    memset(&buf, 0, sizeof(buf));
     p=info->p;
     sline=info->sline;
     if(isalpha(*info->p)||*info->p==95) {
@@ -3236,8 +3243,9 @@ memset(&buf, 0, sizeof(buf));
     return __result_obj__0;
 }
 
-static _Bool skip_comment(struct sInfo* info, _Bool skip_space_after){
-int nest;
+static _Bool skip_comment(struct sInfo* info, _Bool skip_space_after)
+{
+    int nest;
     if(*info->p==47&&*(info->p+1)==42) {
         nest=0;
         while(1) {
@@ -3310,7 +3318,8 @@ int nest;
     return 0;
 }
 
-void skip_spaces_and_lf(struct sInfo* info){
+void skip_spaces_and_lf(struct sInfo* info)
+{
     while(1) {
         if(*info->p==32||*info->p==9) {
             info->p++;
@@ -3340,7 +3349,8 @@ void skip_spaces_and_lf(struct sInfo* info){
     }
 }
 
-void skip_spaces_and_lf2(struct sInfo* info){
+void skip_spaces_and_lf2(struct sInfo* info)
+{
     while(1) {
         if(*info->p==32||*info->p==9) {
             info->p++;
@@ -3364,7 +3374,8 @@ void skip_spaces_and_lf2(struct sInfo* info){
     }
 }
 
-void skip_spaces_and_tabs(struct sInfo* info){
+void skip_spaces_and_tabs(struct sInfo* info)
+{
     while(1) {
         if(*info->p==32||*info->p==9) {
             info->p++;
@@ -3385,20 +3396,21 @@ void skip_spaces_and_tabs(struct sInfo* info){
     }
 }
 
-void parse_sharp_v5(struct sInfo* info){
-void* __right_value0 = (void*)0;
-void* __right_value1 = (void*)0;
-struct buffer* buf;
-_Bool _conditional_value_X0;
-char* __dec_obj3;
-int line;
-struct buffer* fname;
-char* fname_str;
-char* __dec_obj4;
-int line_1;
-struct buffer* fname_2;
-char* fname_str_3;
-char* __dec_obj5;
+void parse_sharp_v5(struct sInfo* info)
+{
+    void* __right_value0 = (void*)0;
+    void* __right_value1 = (void*)0;
+    struct buffer* buf;
+    _Bool _conditional_value_X0;
+    char* __dec_obj3;
+    int line;
+    struct buffer* fname;
+    char* fname_str;
+    char* __dec_obj4;
+    int line_1;
+    struct buffer* fname_2;
+    char* fname_str_3;
+    char* __dec_obj5;
     while(1) {
         if(*info->p==35) {
             info->p++;
@@ -3552,8 +3564,9 @@ _conditional_value_X0;})) {
     }
 }
 
-void skip_paren(struct sInfo* info){
-int nest;
+void skip_paren(struct sInfo* info)
+{
+    int nest;
     nest=0;
     while(1) {
         if(*info->p==40) {
