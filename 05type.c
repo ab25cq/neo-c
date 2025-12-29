@@ -458,7 +458,7 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
         }
         else {
             string left_type3 = make_type_name_string(left_type2);
-            come_value.c_value = xsprintf("/*b*/(%s)%s", left_type3, come_value.c_value);
+            come_value.c_value = xsprintf("(%s)%s", left_type3, come_value.c_value);
             come_value.type = clone left_type2;
             come_value.var = null;
             

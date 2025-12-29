@@ -671,18 +671,6 @@ class sLoadNode extends sNodeBase
         
         sVar* var_ = get_variable_from_table(info.lv_table, self.name);
         
-        if(var_ == null && info.undefined_array_num_var) {
-            CVALUE*% come_value = new CVALUE();
-            
-            come_value.c_value = xsprintf("%s", self.name);
-            come_value.type = new sType(s"void");
-            come_value.type.mPointerNum = 1;
-            come_value.var = null;
-            
-            info.stack.push_back(come_value);
-            
-            return true;
-        }
         
         if(var_ == null) {
             var_ = get_variable_from_table(info.gv_table, self.name);
@@ -702,8 +690,23 @@ class sLoadNode extends sNodeBase
                     return true;
                 }
                 else {
-                    err_msg(info, "var not found(%s)(Z) at loading variable", self.name);
-                    return true;
+                    if(var_ == null) {
+                        printf("The type of %s is not found. so can't check the heap type\n", self.name);
+                        CVALUE*% come_value = new CVALUE();
+                        
+                        come_value.c_value = xsprintf("%s", self.name);
+                        come_value.type = new sType(s"void");
+                        come_value.type.mPointerNum = 1;
+                        come_value.var = null;
+                        
+                        info.stack.push_back(come_value);
+                        
+                        return true;
+                    }
+                    else {
+                        err_msg(info, "var not found(%s)(Z) at loading variable", self.name);
+                        return true;
+                    }
                 }
             }
         }

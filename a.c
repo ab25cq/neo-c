@@ -1,20 +1,12 @@
-#include <neo-c.h>
-
-using neo-c;
-
-struct sInfo
-{
-    char*% clang_option;
-    char*% linker_option;
-};
-
+__c__ {#include <stdio.h>}
+__c__ {int X=123;}
+__c__ {struct sData { int a; }; struct sData data;}
+__c__ {int XXX[123];}
+__c__ {enum { X1, Y1, Z1 };}
 
 int main(int argc, char** argv)
 {
-    sInfo info;
-    bool is_mac = true;
-    if(is_mac) {
-        info.clang_option = info.clang_option + s" -std=gnu17 ";
-    }
+    printf("HELLO WORLD %d %d %d %d %d\n", X, data.a, XXX[0], X1, data.a.b);
+    a.method();
     return 0;
 }

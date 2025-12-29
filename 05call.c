@@ -1823,7 +1823,54 @@ class sLambdaCall extends sNodeBase
         sType* lambda_type = come_value.type;
         
         if(lambda_type->mResultType == null) {
-            err_msg(info, "invalid lambda type");
+            printf("no type check lambda type\n");
+            list<CVALUE*%>*% come_params = new list<CVALUE*%>();
+            int i = 0;
+            foreach(it, params) {
+                var label, node = it;
+                
+                node_compile(node).elif {
+                    return false;
+                }
+                
+                CVALUE*% come_value = get_value_from_stack(-1, info);
+                
+                come_params.push_back(come_value);
+                
+                i++;
+            }
+            
+            buffer*% buf = new buffer();
+            
+            buf.append_str("(");
+            buf.append_str(come_value.c_value);
+            buf.append_str(")");
+            buf.append_str("(");
+            
+            int j = 0;
+            foreach(it, come_params) {
+                buf.append_str(it.c_value);
+                
+                if(j != come_params.length()-1) {
+                    buf.append_str(",");
+                }
+                
+                j++;
+            }
+            buf.append_str(")");
+            
+            CVALUE*% come_value2 = new CVALUE();
+            come_value2.c_value = buf.to_string();
+            
+            come_value2.type = clone result_type;
+            if(come_value2.type) {
+                come_value2.type->mStatic = false;
+            }
+            come_value2.var = null;
+            
+            add_come_last_code(info, "%s", come_value2.c_value);
+            
+            info.stack.push_back(come_value2);
             return true;
         }
         

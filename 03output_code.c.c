@@ -3265,9 +3265,7 @@ char* make_type_name_string(struct sType* type, struct sInfo* info, _Bool no_sta
         buffer_append_str(buf,")(");
         j=0;
         for(o2_saved=(struct list$1sType$ph*)come_increment_ref_count(type->mParamTypes),it=list$1sType$ph_begin(o2_saved);!list$1sType$ph_end(o2_saved);it=list$1sType$ph_next(o2_saved)){
-            info->undefined_array_num_var=1;
             param_type_str=(char*)come_increment_ref_count(make_type_name_string(it,info,1,0,0));
-            info->undefined_array_num_var=0;
             buffer_append_str(buf,param_type_str);
             if(j!=list$1sType$ph_length(type->mParamTypes)-1) {
                 buffer_append_str(buf,",");
@@ -4614,11 +4612,11 @@ char* make_come_type_name_string(struct sType* type, struct sInfo* info)
     struct sType* gtype;
     int i_34;
     int i_35;
-    buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "03output_code.c", 247, "struct buffer*"))));
+    buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "03output_code.c", 245, "struct buffer*"))));
     type2=(struct sType*)come_increment_ref_count(get_no_solved_type(type));
     class_name=type2->mClass->mName;
     if(type->mOriginalTypeName&&string_operator_not_equals(type->mOriginalTypeName,"")) {
-        buf_30=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "03output_code.c", 254, "struct buffer*"))));
+        buf_30=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "03output_code.c", 252, "struct buffer*"))));
         buffer_append_str(buf_30,type->mOriginalTypeName);
         if(type->mTypedefOriginalType) {
             for(i=0;i<type->mOriginalTypePointerNum;i++){
@@ -4773,7 +4771,7 @@ static char* make_lambda_type_name_string(struct sType* type, char* var_name, st
     int i_44;
     struct list$1sType$ph* o2_saved_45;
     struct sType* it_46;
-    buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "03output_code.c", 312, "struct buffer*"))));
+    buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "03output_code.c", 310, "struct buffer*"))));
     if(type->mResultType==((void*)0)) {
         err_msg(info,"invalid lambda type");
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
@@ -4805,10 +4803,8 @@ static char* make_lambda_type_name_string(struct sType* type, char* var_name, st
         buffer_append_format(buf,")(",var_name);
         i_36=0;
         for(o2_saved=(struct list$1sType$ph*)come_increment_ref_count(type->mParamTypes),it=list$1sType$ph_begin(o2_saved);!list$1sType$ph_end(o2_saved);it=list$1sType$ph_next(o2_saved)){
-            info->undefined_array_num_var=1;
             buffer_append_str(buf,((char*)(__right_value0=make_type_name_string(it,info,1,0,0))));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-            info->undefined_array_num_var=0;
             if(i_36!=list$1sType$ph_length(type->mParamTypes)-1) {
                 buffer_append_str(buf,",");
             }
@@ -4880,10 +4876,8 @@ static char* make_lambda_type_name_string(struct sType* type, char* var_name, st
         buffer_append_format(buf,")(");
         i_44=0;
         for(o2_saved_45=(struct list$1sType$ph*)come_increment_ref_count(type->mParamTypes),it_46=list$1sType$ph_begin(o2_saved_45);!list$1sType$ph_end(o2_saved_45);it_46=list$1sType$ph_next(o2_saved_45)){
-            info->undefined_array_num_var=1;
             buffer_append_str(buf,((char*)(__right_value0=make_type_name_string(it_46,info,1,0,0))));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-            info->undefined_array_num_var=0;
             if(i_44!=list$1sType$ph_length(type->mParamTypes)-1) {
                 buffer_append_str(buf,",");
             }
@@ -4920,7 +4914,7 @@ char* output_lambda_original_type(struct sType* type2, char* name, struct sInfo*
     char* __result_obj__0;
     struct CVALUE* cvalue;
     memset(&__current_stack1__, 0, sizeof(struct __current_stack1__));
-    buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "03output_code.c", 437, "struct buffer*"))));
+    buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "03output_code.c", 431, "struct buffer*"))));
     if(type2->mArrayPointerType) {
         buffer_append_str(buf,type2->mOriginalTypeName);
         buffer_append_str(buf," ");
@@ -5074,7 +5068,7 @@ char* make_define_var(struct sType* type, char* name, struct sInfo* info, _Bool 
     struct sNode* it_53;
     struct CVALUE* cvalue_54;
     memset(&__current_stack2__, 0, sizeof(struct __current_stack2__));
-    buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "03output_code.c", 514, "struct buffer*"))));
+    buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "03output_code.c", 508, "struct buffer*"))));
     type2=(struct sType*)come_increment_ref_count(sType_clone(type));
     if(string_operator_equals(type2->mClass->mName,"lambda")&&type2->mAsmName!=((void*)0)&&string_operator_not_equals(type2->mAsmName,"")) {
         if(!in_typedef&&string_operator_not_equals(type2->mOriginalTypeName,"")&&(list$1sNode$ph_length(type2->mArrayNum)>0||type2->mArrayPointerType)) {
@@ -5240,7 +5234,7 @@ char* make_var_name(struct sType* type, char* name, struct sInfo* info, _Bool no
     struct CVALUE* cvalue_59;
     int i_60;
     memset(&__current_stack3__, 0, sizeof(struct __current_stack3__));
-    buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "03output_code.c", 637, "struct buffer*"))));
+    buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "03output_code.c", 631, "struct buffer*"))));
     type2=(struct sType*)come_increment_ref_count(sType_clone(type));
     if(type2->mArrayPointerType) {
         type2->mPointerNum--;
@@ -5443,7 +5437,7 @@ char* make_come_define_var(struct sType* type, char* name, struct sInfo* info)
     memset(&type_str, 0, sizeof(type_str));
     memset(&type_str_62, 0, sizeof(type_str_62));
     memset(&type_str_66, 0, sizeof(type_str_66));
-    buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "03output_code.c", 787, "struct buffer*"))));
+    buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "03output_code.c", 781, "struct buffer*"))));
     type2=(struct sType*)come_increment_ref_count(sType_clone(type));
     if(type2->mArrayPointerType) {
         type2->mPointerNum--;
@@ -5630,14 +5624,13 @@ char* output_function(struct sFun* fun, struct sInfo* info)
     struct sType* it_78;
     char* name_79;
     char* str_80;
-    output=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "03output_code.c", 922, "struct buffer*"))));
+    output=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "03output_code.c", 916, "struct buffer*"))));
     if(fun->mResultType->mResultType) {
-        output2=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "03output_code.c", 924, "struct buffer*"))));
+        output2=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "03output_code.c", 918, "struct buffer*"))));
         buffer_append_str(output2,fun->mName);
         buffer_append_str(output2,"(");
         i=0;
         for(o2_saved=(struct list$1sType$ph*)come_increment_ref_count(fun->mParamTypes),it=list$1sType$ph_begin(o2_saved);!list$1sType$ph_end(o2_saved);it=list$1sType$ph_next(o2_saved)){
-            info->undefined_array_num_var=1;
             name=((char*)(__right_value0=list$1char$ph_operator_load_element(fun->mParamNames,i)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             str=(char*)come_increment_ref_count(make_define_var(it,name,info,1,0));
@@ -5651,7 +5644,6 @@ char* output_function(struct sFun* fun, struct sInfo* info)
                 buffer_append_str(output2,", ");
             }
             i++;
-            info->undefined_array_num_var=0;
             (str = come_decrement_ref_count(str, (void*)0, (void*)0, 0, 0, (void*)0));
         }
         come_call_finalizer(list$1sType$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -5686,7 +5678,7 @@ char* output_function(struct sFun* fun, struct sInfo* info)
     else if(list$1sNode$ph_length(fun->mResultType->mArrayNum)>0) {
         base_result_type=(struct sType*)come_increment_ref_count(sType_clone(fun->mResultType));
         __dec_obj41=base_result_type->mArrayNum,
-        base_result_type->mArrayNum=(struct list$1sNode$ph*)come_increment_ref_count(list$1sNode$ph_initialize((struct list$1sNode$ph*)come_increment_ref_count((struct list$1sNode$ph*)come_calloc_v2(1, sizeof(struct list$1sNode$ph)*(1), "03output_code.c", 976, "struct list$1sNode$ph*"))));
+        base_result_type->mArrayNum=(struct list$1sNode$ph*)come_increment_ref_count(list$1sNode$ph_initialize((struct list$1sNode$ph*)come_increment_ref_count((struct list$1sNode$ph*)come_calloc_v2(1, sizeof(struct list$1sNode$ph)*(1), "03output_code.c", 968, "struct list$1sNode$ph*"))));
         come_call_finalizer(list$1sNode$ph_finalize, __dec_obj41,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         result_type_str=(char*)come_increment_ref_count(make_type_name_string(base_result_type,info,1,0,0));
         if(string_operator_not_equals(fun->mAttribute,"")&&gComeBareMetal) {
@@ -5706,7 +5698,6 @@ char* output_function(struct sFun* fun, struct sInfo* info)
         buffer_append_str(output,"(");
         i_70=0;
         for(o2_saved_71=(struct list$1sType$ph*)come_increment_ref_count(fun->mParamTypes),it_72=list$1sType$ph_begin(o2_saved_71);!list$1sType$ph_end(o2_saved_71);it_72=list$1sType$ph_next(o2_saved_71)){
-            info->undefined_array_num_var=1;
             name_73=((char*)(__right_value0=list$1char$ph_operator_load_element(fun->mParamNames,i_70)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             str_74=(char*)come_increment_ref_count(make_define_var(it_72,name_73,info,1,0));
@@ -5720,7 +5711,6 @@ char* output_function(struct sFun* fun, struct sInfo* info)
                 buffer_append_str(output,", ");
             }
             i_70++;
-            info->undefined_array_num_var=0;
             (str_74 = come_decrement_ref_count(str_74, (void*)0, (void*)0, 0, 0, (void*)0));
         }
         come_call_finalizer(list$1sType$ph$p_finalize, o2_saved_71, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -5771,7 +5761,6 @@ char* output_function(struct sFun* fun, struct sInfo* info)
         buffer_append_str(output,"(");
         i_76=0;
         for(o2_saved_77=(struct list$1sType$ph*)come_increment_ref_count(fun->mParamTypes),it_78=list$1sType$ph_begin(o2_saved_77);!list$1sType$ph_end(o2_saved_77);it_78=list$1sType$ph_next(o2_saved_77)){
-            info->undefined_array_num_var=1;
             name_79=((char*)(__right_value0=list$1char$ph_operator_load_element(fun->mParamNames,i_76)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             str_80=(char*)come_increment_ref_count(make_define_var(it_78,name_79,info,1,0));
@@ -5785,7 +5774,6 @@ char* output_function(struct sFun* fun, struct sInfo* info)
                 buffer_append_str(output,", ");
             }
             i_76++;
-            info->undefined_array_num_var=0;
             (str_80 = come_decrement_ref_count(str_80, (void*)0, (void*)0, 0, 0, (void*)0));
         }
         come_call_finalizer(list$1sType$ph$p_finalize, o2_saved_77, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -5918,14 +5906,13 @@ char* header_function(struct sFun* fun, struct sInfo* info)
     struct sType* it_90;
     char* name_91;
     char* str_92;
-    output=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "03output_code.c", 1098, "struct buffer*"))));
+    output=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "03output_code.c", 1086, "struct buffer*"))));
     if(fun->mResultType->mResultType) {
-        output2=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "03output_code.c", 1101, "struct buffer*"))));
+        output2=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "03output_code.c", 1089, "struct buffer*"))));
         buffer_append_str(output2,fun->mName);
         buffer_append_str(output2,"(");
         i=0;
         for(o2_saved=(struct list$1sType$ph*)come_increment_ref_count(fun->mParamTypes),it=list$1sType$ph_begin(o2_saved);!list$1sType$ph_end(o2_saved);it=list$1sType$ph_next(o2_saved)){
-            info->undefined_array_num_var=1;
             name=((char*)(__right_value0=list$1char$ph_operator_load_element(fun->mParamNames,i)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             str=(char*)come_increment_ref_count(make_define_var(it,name,info,1,0));
@@ -5934,7 +5921,6 @@ char* header_function(struct sFun* fun, struct sInfo* info)
                 buffer_append_str(output2,", ");
             }
             i++;
-            info->undefined_array_num_var=0;
             (str = come_decrement_ref_count(str, (void*)0, (void*)0, 0, 0, (void*)0));
         }
         come_call_finalizer(list$1sType$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -5960,7 +5946,7 @@ char* header_function(struct sFun* fun, struct sInfo* info)
     else if(list$1sNode$ph_length(fun->mResultType->mArrayNum)>0) {
         base_result_type=(struct sType*)come_increment_ref_count(sType_clone(fun->mResultType));
         __dec_obj42=base_result_type->mArrayNum,
-        base_result_type->mArrayNum=(struct list$1sNode$ph*)come_increment_ref_count(list$1sNode$ph_initialize((struct list$1sNode$ph*)come_increment_ref_count((struct list$1sNode$ph*)come_calloc_v2(1, sizeof(struct list$1sNode$ph)*(1), "03output_code.c", 1140, "struct list$1sNode$ph*"))));
+        base_result_type->mArrayNum=(struct list$1sNode$ph*)come_increment_ref_count(list$1sNode$ph_initialize((struct list$1sNode$ph*)come_increment_ref_count((struct list$1sNode$ph*)come_calloc_v2(1, sizeof(struct list$1sNode$ph)*(1), "03output_code.c", 1126, "struct list$1sNode$ph*"))));
         come_call_finalizer(list$1sNode$ph_finalize, __dec_obj42,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         result_type_str=(char*)come_increment_ref_count(make_type_name_string(base_result_type,info,1,0,0));
         if(fun->mStatic) {
@@ -5975,7 +5961,6 @@ char* header_function(struct sFun* fun, struct sInfo* info)
         buffer_append_str(output,"(");
         i_82=0;
         for(o2_saved_83=(struct list$1sType$ph*)come_increment_ref_count(fun->mParamTypes),it_84=list$1sType$ph_begin(o2_saved_83);!list$1sType$ph_end(o2_saved_83);it_84=list$1sType$ph_next(o2_saved_83)){
-            info->undefined_array_num_var=1;
             name_85=((char*)(__right_value0=list$1char$ph_operator_load_element(fun->mParamNames,i_82)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             str_86=(char*)come_increment_ref_count(make_define_var(it_84,name_85,info,1,0));
@@ -5989,7 +5974,6 @@ char* header_function(struct sFun* fun, struct sInfo* info)
                 buffer_append_str(output,", ");
             }
             i_82++;
-            info->undefined_array_num_var=0;
             (str_86 = come_decrement_ref_count(str_86, (void*)0, (void*)0, 0, 0, (void*)0));
         }
         come_call_finalizer(list$1sType$ph$p_finalize, o2_saved_83, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -6031,12 +6015,9 @@ char* header_function(struct sFun* fun, struct sInfo* info)
         buffer_append_str(output,"(");
         i_88=0;
         for(o2_saved_89=(struct list$1sType$ph*)come_increment_ref_count(fun->mParamTypes),it_90=list$1sType$ph_begin(o2_saved_89);!list$1sType$ph_end(o2_saved_89);it_90=list$1sType$ph_next(o2_saved_89)){
-            info->undefined_array_num_var=1;
             name_91=((char*)(__right_value0=list$1char$ph_operator_load_element(fun->mParamNames,i_88)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-            info->undefined_array_num_var=1;
             str_92=(char*)come_increment_ref_count(make_define_var(it_90,name_91,info,1,0));
-            info->undefined_array_num_var=0;
             buffer_append_str(output,str_92);
             if(i_88==list$1sType$ph_length(fun->mParamTypes)-1) {
                 if(fun->mVarArgs) {
@@ -6047,7 +6028,6 @@ char* header_function(struct sFun* fun, struct sInfo* info)
                 buffer_append_str(output,", ");
             }
             i_88++;
-            info->undefined_array_num_var=0;
             (str_92 = come_decrement_ref_count(str_92, (void*)0, (void*)0, 0, 0, (void*)0));
         }
         come_call_finalizer(list$1sType$ph$p_finalize, o2_saved_89, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -6085,7 +6065,7 @@ static char* header_lambda(struct sType* lambda_type, char* name, struct sInfo* 
     char* str;
     void* __right_value2 = (void*)0;
     char* __result_obj__0;
-    output=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "03output_code.c", 1241, "struct buffer*"))));
+    output=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "03output_code.c", 1221, "struct buffer*"))));
     result_type_str=(char*)come_increment_ref_count(make_type_name_string(lambda_type->mResultType,info,1,0,0));
     buffer_append_str(output,result_type_str);
     buffer_append_str(output," ");
@@ -6111,7 +6091,6 @@ static char* header_lambda(struct sType* lambda_type, char* name, struct sInfo* 
     buffer_append_str(output,"(");
     i_93=0;
     for(o2_saved=(struct list$1sType$ph*)come_increment_ref_count(lambda_type->mParamTypes),it=list$1sType$ph_begin(o2_saved);!list$1sType$ph_end(o2_saved);it=list$1sType$ph_next(o2_saved)){
-        info->undefined_array_num_var=1;
         name_94=((char*)(__right_value0=list$1char$ph_operator_load_element(lambda_type->mParamNames,i_93)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         str=(char*)come_increment_ref_count(make_define_var(it,name_94,info,1,0));
@@ -6125,7 +6104,6 @@ static char* header_lambda(struct sType* lambda_type, char* name, struct sInfo* 
             buffer_append_str(output,", ");
         }
         i_93++;
-        info->undefined_array_num_var=0;
         (str = come_decrement_ref_count(str, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     come_call_finalizer(list$1sType$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -6289,7 +6267,7 @@ _Bool output_source_file(struct sInfo* info)
     output_file_name=(char*)come_increment_ref_count(xsprintf("%s.c",info->sname));
     f=fopen(output_file_name,"w");
     if(f==((void*)0)) {
-        (come_push_stackframe("03output_code.c", 1377, 0),__exception_result_var_b1=die("fopen"), come_pop_stackframe(), __exception_result_var_b1);
+        (come_push_stackframe("03output_code.c", 1355, 0),__exception_result_var_b1=die("fopen"), come_pop_stackframe(), __exception_result_var_b1);
     }
     fprintf(f,"/// typedef definition ///\n");
     for(o2_saved_109=(struct map$2char$phbuffer$ph*)come_increment_ref_count(info->typedef_definition),it_111=map$2char$phbuffer$ph_begin(o2_saved_109);!map$2char$phbuffer$ph_end(o2_saved_109);it_111=map$2char$phbuffer$ph_next(o2_saved_109)){

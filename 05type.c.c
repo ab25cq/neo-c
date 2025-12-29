@@ -5183,7 +5183,7 @@ _Bool check_assign_type(char* msg, struct sType* left_type, struct sType* right_
         else {
             left_type3_20=(char*)come_increment_ref_count(make_type_name_string(left_type2,info,0,0,0));
             __dec_obj52=come_value->c_value,
-            come_value->c_value=(char*)come_increment_ref_count(xsprintf("/*b*/(%s)%s",left_type3_20,come_value->c_value));
+            come_value->c_value=(char*)come_increment_ref_count(xsprintf("(%s)%s",left_type3_20,come_value->c_value));
             __dec_obj52 = come_decrement_ref_count(__dec_obj52, (void*)0, (void*)0, 0,0, (void*)0);
             __dec_obj53=come_value->type,
             come_value->type=(struct sType*)come_increment_ref_count(sType_clone(left_type2));
