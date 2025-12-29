@@ -331,16 +331,6 @@ void append_object_to_right_values(CVALUE* come_value, sType*% type, sInfo* info
         bool already_defined = info->right_value_num-1 < info->right_value_max && info->right_value_max > 0;
         
         if(already_defined) {
-/*
-            if(info->in_conditional ){
-                string buf = xsprintf("__right_value%d = (void*)0, ", info->right_value_num-1);
-                add_come_code(info, buf);
-            }
-            else {
-                string buf = xsprintf("__right_value%d = (void*)0;\n", info->right_value_num-1);
-                add_come_code(info, buf);
-            }
-*/
         }
         else {
             string buf = xsprintf("void* __right_value%d = (void*)0;\n", info->right_value_num-1);

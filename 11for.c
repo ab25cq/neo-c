@@ -71,7 +71,7 @@ class sForNode extends sNodeBase
         else {
             bool in_conditional = info->in_conditional;
             info->in_conditional = true;
-            add_come_code(info, ";", in_conditional:true);
+            add_come_code(info, ";");
             info->in_conditional = in_conditional;
         }
         
@@ -89,7 +89,10 @@ class sForNode extends sNodeBase
             info->in_conditional = in_conditional;
         }
         else {
-            add_come_code(info, ";", in_conditional:true);
+            bool in_conditional = info->in_conditional;
+            info->in_conditional = true;
+            add_come_code(info, ";");
+            info->in_conditional = in_conditional;
         }
         
         sNode* expression_node3 = self.mExpressionNode3;

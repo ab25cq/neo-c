@@ -691,7 +691,8 @@ class sLoadNode extends sNodeBase
                 }
                 else {
                     if(var_ == null) {
-                        printf("The type of %s is not found. so can't check the heap type\n", self.name);
+                        printf("%s %d: The type of %s is not found. so can't check the heap type\n", info.sname, info.sline, self.name);
+                        
                         CVALUE*% come_value = new CVALUE();
                         
                         come_value.c_value = xsprintf("%s", self.name);

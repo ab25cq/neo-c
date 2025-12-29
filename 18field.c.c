@@ -5224,7 +5224,7 @@ _conditional_value_X0;})) {
     }
     field_type=(struct sType*)come_increment_ref_count(get_field_type(klass,(char*)come_increment_ref_count(name),info));
     if(field_type==((void*)0)) {
-        printf("The type of %s.%s is not found. so can't check the heap type\n",left_value->c_value,name);
+        printf("%s %d: The type of %s.%s is not found. so can't check the heap type\n",info->sname,info->sline,left_value->c_value,name);
         come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc_v2(1, sizeof(struct CVALUE)*(1), "18field.c", 402, "struct CVALUE*"))));
         __dec_obj83=come_value->c_value,
         come_value->c_value=(char*)come_increment_ref_count(xsprintf("%s.%s",left_value->c_value,name));

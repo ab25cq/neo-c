@@ -1097,7 +1097,7 @@ class sFunCallNode extends sNodeBase
         sFun* fun = info.funcs.at(fun_name, null);
         
         if(fun == null) {
-            printf("function not found(%s) at function call(1), so no check types and no heap management\n", fun_name);
+            printf("%s %d: function not found(%s) at function call(1), so no check types and no heap management\n", info.sname, info.sline, fun_name);
             
             list<CVALUE*%>*% come_params = new list<CVALUE*%>();
             

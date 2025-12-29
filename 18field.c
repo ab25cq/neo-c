@@ -398,7 +398,7 @@ class sLoadFieldNode extends sNodeBase
         sType*% field_type = get_field_type(klass, name, info);
         
         if(field_type == null) {
-            printf("The type of %s.%s is not found. so can't check the heap type\n", left_value.c_value, name);
+            printf("%s %d: The type of %s.%s is not found. so can't check the heap type\n", info.sname, info.sline, left_value.c_value, name);
             
             CVALUE*% come_value = new CVALUE();
             

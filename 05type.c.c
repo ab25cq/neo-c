@@ -8425,7 +8425,7 @@ _conditional_value_X2;})) {
             __current_stack1__.function_pointer_flag = &function_pointer_flag;
             __current_stack1__.pointer_to_array_flag = &pointer_to_array_flag;
             __current_stack1__.var_name_between_brace = &var_name_between_brace;
-            })            ;            list$1sNode$ph_each(array,&__current_stack1__,(void*)method_block1_05typec);
+            })            ,            list$1sNode$ph_each(array,&__current_stack1__,(void*)method_block1_05typec);
         }
         while(*info->p==91) {
             info->p++;
@@ -9287,7 +9287,7 @@ _conditional_value_X9;})) {
         __current_stack2__.pointer_to_array_flag = &pointer_to_array_flag;
         __current_stack2__.var_name_between_brace = &var_name_between_brace;
         __current_stack2__.array_num_typedef = &array_num_typedef;
-        })        ;        list$1sNode$ph_each(type_77->mArrayNum,&__current_stack2__,(void*)method_block2_05typec);
+        })        ,        list$1sNode$ph_each(type_77->mArrayNum,&__current_stack2__,(void*)method_block2_05typec);
         list$1sNode$ph_reset(type_77->mArrayNum);
         ({        __current_stack3__.info = &info;
         __current_stack3__.parse_variable_name = &parse_variable_name;
@@ -9340,7 +9340,7 @@ _conditional_value_X9;})) {
         __current_stack3__.pointer_to_array_flag = &pointer_to_array_flag;
         __current_stack3__.var_name_between_brace = &var_name_between_brace;
         __current_stack3__.array_num_typedef = &array_num_typedef;
-        })        ;        list$1sNode$ph_each(array_num_typedef,&__current_stack3__,(void*)method_block3_05typec);
+        })        ,        list$1sNode$ph_each(array_num_typedef,&__current_stack3__,(void*)method_block3_05typec);
     }
     multiple_assign_var10=((struct tuple2$2char$phchar$ph*)(__right_value0=parse_attribute(info)));
     asm_name=(char*)come_increment_ref_count(multiple_assign_var10->v1);
