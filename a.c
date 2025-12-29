@@ -1,12 +1,37 @@
-__c__ {#include <stdio.h>}
-__c__ {int X=123;}
-__c__ {struct sData { int a; }; struct sData data;}
-__c__ {int XXX[123];}
-__c__ {enum { X1, Y1, Z1 };}
+#include <neo-c.h>
 
 int main(int argc, char** argv)
 {
-    printf("HELLO WORLD %d %d %d %d %d\n", X, data.a, XXX[0], X1, data.a.b);
-    a.method();
+    var li = [1,2,3,4,5];
+    
+    int x = false;
+    
+    if(false) {
+    }
+    else if(li.filter { it > 4 }.length() > 0) {
+        x = true;
+    }
+    
+    int y = false;
+    for(int i=0; li.filter { it > 4 }.length() > 0; i++) {
+        y = true;
+        break;
+    }
+    
+    xassert("method block at conditional test", x == true && y == true);
+    
+    int a = 0;
+    false or (a = 111);
+    true or (a = 222);
+    
+    xassert("or test", a == 111);
+    
+    int b = 0;
+    true and (b = 111);
+    false and (b = 222);
+    
+    xassert("and test", b == 111);
+    
+    (int a = 111);
     return 0;
 }

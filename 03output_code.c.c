@@ -4930,7 +4930,7 @@ char* output_lambda_original_type(struct sType* type2, char* name, struct sInfo*
             __current_stack1__.name = &name;
             __current_stack1__.info = &info;
             __current_stack1__.buf = &buf;
-            })            ;            int_times(type2->mArrayPointerNum,&__current_stack1__,(void*)method_block1_03outputcodec);
+            })            ,            int_times(type2->mArrayPointerNum,&__current_stack1__,(void*)method_block1_03outputcodec);
         }
         buffer_append_str(buf,name);
         if(type2->mArrayPointerNum>0) {
@@ -5111,7 +5111,7 @@ char* make_define_var(struct sType* type, char* name, struct sInfo* info, _Bool 
         __current_stack2__.in_typedef = &in_typedef;
         __current_stack2__.buf = &buf;
         __current_stack2__.type2 = &type2;
-        })        ;        int_times(type2->mArrayPointerNum,&__current_stack2__,(void*)method_block2_03outputcodec);
+        })        ,        int_times(type2->mArrayPointerNum,&__current_stack2__,(void*)method_block2_03outputcodec);
         if(!type2->mAnonymousVarName) {
             buffer_append_format(buf,"%s",name);
         }
@@ -5265,7 +5265,7 @@ char* make_var_name(struct sType* type, char* name, struct sInfo* info, _Bool no
         __current_stack3__.no_static = &no_static;
         __current_stack3__.buf = &buf;
         __current_stack3__.type2 = &type2;
-        })        ;        int_times(type2->mArrayPointerNum,&__current_stack3__,(void*)method_block3_03outputcodec);
+        })        ,        int_times(type2->mArrayPointerNum,&__current_stack3__,(void*)method_block3_03outputcodec);
         buffer_append_format(buf,"%s)",name);
         n=0;
         for(o2_saved=(struct list$1sNode$ph*)come_increment_ref_count(type2->mArrayNum),it=list$1sNode$ph_begin(o2_saved);!list$1sNode$ph_end(o2_saved);it=list$1sNode$ph_next(o2_saved)){
@@ -5461,7 +5461,7 @@ char* make_come_define_var(struct sType* type, char* name, struct sInfo* info)
         __current_stack4__.info = &info;
         __current_stack4__.buf = &buf;
         __current_stack4__.type2 = &type2;
-        })        ;        int_times(type2->mArrayPointerNum,&__current_stack4__,(void*)method_block4_03outputcodec);
+        })        ,        int_times(type2->mArrayPointerNum,&__current_stack4__,(void*)method_block4_03outputcodec);
         buffer_append_format(buf,"%s)",name);
         for(o2_saved=(struct list$1sNode$ph*)come_increment_ref_count(type2->mArrayNum),it=list$1sNode$ph_begin(o2_saved);!list$1sNode$ph_end(o2_saved);it=list$1sNode$ph_next(o2_saved)){
             if(!node_compile(it,info)) {
