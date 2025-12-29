@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.8.1.1
+version 0.8.1.2
 
 ``` C
 #include <neo-c.h>
@@ -77,6 +77,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.8.1.2 no type check field, variable, and function. More optimized the output C source
 0.8.1.1 clang like option implemented.
 0.8.1 Object initializer and number object initializer
 0.8.0 Tested on x86 Fedora. There are some bugs. Fixed it.
