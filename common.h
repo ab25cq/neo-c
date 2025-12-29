@@ -520,6 +520,8 @@ struct sInfo
     map<string, buffer*%>*% previous_struct_definition;
     map<string, buffer*%>*% typedef_definition;
     
+    map<string, string>*% reflection_vars;
+    
     sModule*% module;
     
     sType*% type;

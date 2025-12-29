@@ -1652,6 +1652,7 @@ int come_main(int argc, char** argv)
         info.uniq_definition = new map<string, string>();
         info.previous_struct_definition = new map<string, buffer*%>();
         info.typedef_definition = new map<string, buffer*%>();
+        info.reflection_vars = new map<string, string>();
         info.generics_funcs = new map<string, sGenericsFun*%>();
         info.classes = new map<string, sClass*%>();
         info.modules = new map<string, sClassModule*%>();

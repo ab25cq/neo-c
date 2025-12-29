@@ -1822,6 +1822,7 @@ struct sInfo
     struct map$2char$phbuffer$ph* struct_definition;
     struct map$2char$phbuffer$ph* previous_struct_definition;
     struct map$2char$phbuffer$ph* typedef_definition;
+    struct map$2char$phchar$ph* reflection_vars;
     struct sModule* module;
     struct sType* type;
     struct list$1sRightValueObject$ph* right_value_objects;

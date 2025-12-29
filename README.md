@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.8.1.3
+version 0.8.1.4
 
 ``` C
 #include <neo-c.h>
@@ -77,6 +77,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.8.1.4 Compiletime Reflection
 0.8.1.3 More readable output c source. And encount a bug fixed.
 0.8.1.2 no type check field, variable, and function. More optimized the output C source
 0.8.1.1 clang like option implemented.
@@ -2434,6 +2435,27 @@ else {
 
 int main(void) {
     printf("a %d\n", a);
+    return 0;
+}
+```
+
+```
+#include <stdio.h>
+
+var a = "int a;"
+var b = "int b;"
+var c = "1"
+
+if(@c == 1){
+    int c;
+}
+
+eval "long \{@a + @b}"
+
+int main(int argc, char** argv)
+{
+    printf("a %d b %d c %d\n", a, b, c);
+    
     return 0;
 }
 ```

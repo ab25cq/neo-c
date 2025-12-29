@@ -113,7 +113,9 @@ sNode*% static_assert_node(sNode*% exp, sNode*% exp2, sInfo* info=info)
     return new sStaticAssert(exp, exp2, info) implements sNode;
 }
 
-string refrection_node(sInfo* info=info)
+string reflection_expression(sInfo* info=info);
+
+string reflection_node(sInfo* info=info)
 {
     if(parsecmp("defined")) {
         (void)parse_word();
@@ -125,7 +127,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = refrection_node();
+        string exp = reflection_node();
         
         if(*info->p == ')') {
             info->p++;
@@ -171,7 +173,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = refrection_node();
+        string exp = reflection_node();
         
         if(*info->p == ')') {
             info->p++;
@@ -211,7 +213,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = refrection_node();
+        string exp = reflection_node();
         
         if(*info->p == ')') {
             info->p++;
@@ -251,7 +253,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = refrection_node();
+        string exp = reflection_node();
         
         if(*info->p == ')') {
             info->p++;
@@ -291,7 +293,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = refrection_node();
+        string exp = reflection_node();
         
         if(*info->p == ')') {
             info->p++;
@@ -328,7 +330,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = refrection_node();
+        string exp = reflection_node();
         
         if(*info->p == ')') {
             info->p++;
@@ -360,7 +362,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = refrection_node();
+        string exp = reflection_node();
         
         if(*info->p == ')') {
             info->p++;
@@ -396,14 +398,14 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = refrection_node();
+        string exp = reflection_node();
         
         if(*info->p == ',') {
             info->p++;
             skip_spaces_and_lf();
         }
         
-        string exp2 = refrection_node();
+        string exp2 = reflection_node();
         
         if(*info->p == ')') {
             info->p++;
@@ -438,7 +440,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = refrection_node();
+        string exp = reflection_node();
         
         if(*info->p == ')') {
             info->p++;
@@ -470,7 +472,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = refrection_node();
+        string exp = reflection_node();
         
         if(*info->p == ')') {
             info->p++;
@@ -504,14 +506,14 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = refrection_node();
+        string exp = reflection_node();
         
         if(*info->p == ',') {
             info->p++;
             skip_spaces_and_lf();
         }
         
-        string exp2 = refrection_node();
+        string exp2 = reflection_node();
         
         if(*info->p == ')') {
             info->p++;
@@ -551,7 +553,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = refrection_node();
+        string exp = reflection_node();
         
         if(*info->p == ')') {
             info->p++;
@@ -576,7 +578,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = refrection_node();
+        string exp = reflection_node();
         
         puts(exp);
         
@@ -597,7 +599,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = refrection_node();
+        string exp = reflection_node();
         
         if(*info->p == ')') {
             info->p++;
@@ -631,7 +633,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = refrection_node();
+        string exp = reflection_node();
         
         if(*info->p == ')') {
             info->p++;
@@ -665,7 +667,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = refrection_node();
+        string exp = reflection_node();
         
         if(*info->p == ')') {
             info->p++;
@@ -699,7 +701,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = refrection_node();
+        string exp = reflection_node();
         
         if(*info->p == ')') {
             info->p++;
@@ -733,7 +735,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = refrection_node();
+        string exp = reflection_node();
         
         if(*info->p == ')') {
             info->p++;
@@ -767,7 +769,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = refrection_node();
+        string exp = reflection_node();
         
         if(*info->p == ')') {
             info->p++;
@@ -801,7 +803,7 @@ string refrection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = refrection_node();
+        string exp = reflection_node();
         
         if(*info->p == ')') {
             info->p++;
@@ -822,6 +824,92 @@ string refrection_node(sInfo* info=info)
         else {
             return s"false";
         }
+    }
+    else if(*info->p == '"') 
+    {
+        int sline_real = info.sline_real;
+        info.sline_real = info.sline;
+        info->p++;
+
+        int sline = info->sline;
+
+        buffer*% value = new buffer();
+
+        while(1) {
+            if(*info->p == '"') {
+                info->p++;
+                
+                char* p = info->p;
+                int sline = info->sline;
+                
+                skip_spaces_and_lf();
+                
+                parse_sharp()
+                
+                if(*info->p == '"') {
+                    info->p++;
+                }
+                else {
+                    info->p = p;
+                    info->sline = sline;
+                    break;
+                }
+            }
+            else if(*info->p == '\\') {
+                info->p++;
+                
+                if(*info->p == '{') {
+                    info->p++;
+                    
+                    string exp = reflection_expression();
+                    
+                    expected_next_character('}');
+                    
+                    value.append_str(exp);
+                }
+                else if(*info->p == '"') {
+                    value.append_char('\\');
+                    value.append_char('"');
+                    info->p++;
+                }
+                else {
+                    value.append_char('\\');
+                    value.append_char(*info->p);
+                    info->p++;
+                }
+            }
+            else if(*info->p == '\0') {
+                int sline2 = info->sline;
+                info->sline = sline;
+                err_msg(info, "close \" to make c string value");
+                info->sline = sline2;
+                exit(2);
+            }
+            else {
+                if(*info->p == '\n') info->sline++;
+
+                value.append_char(*info->p);
+                info->p++;
+            }
+        }
+
+        skip_spaces_and_lf();
+        
+        info.sline_real = sline_real;
+        return value.to_string();
+    }
+    else if(*info->p == '@') {
+        info->p++;
+        string var_name = parse_word();
+        
+        string value = info.reflection_vars[var_name];
+        
+        if(value == null) {
+            err_msg(info, "no declare compile time var %s\n", var_name);
+            return s"";
+        }
+        
+        return value;
     }
     else if(xisalpha(*info->p) || *info->p == '_') {
         buffer*% buf = new buffer();
@@ -846,7 +934,7 @@ string refrection_node(sInfo* info=info)
         info->p++;
         skip_spaces_and_lf();
         
-        string exp = refrection_node();
+        string exp = reflection_node();
         
         if(exp === "true") {
             return s"false";
@@ -864,9 +952,32 @@ string refrection_node(sInfo* info=info)
     return s"";
 }
 
-string refrection_expression_comp(sInfo* info=info)
+string reflection_expression_add(sInfo* info=info)
 {
-    string node = refrection_node();
+    string node = reflection_node();
+    
+    skip_spaces_and_lf();
+    
+    while(*info->p) {
+        if(*info->p == '+') {
+            info->p ++;
+            skip_spaces_and_lf();
+            
+            string right = reflection_node();
+            
+            return node + right;
+        }
+        else {
+            break;
+        }
+    }
+    
+    return node;
+}
+
+string reflection_expression_comp(sInfo* info=info)
+{
+    string node = reflection_expression_add();
     
     skip_spaces_and_lf();
     
@@ -875,7 +986,7 @@ string refrection_expression_comp(sInfo* info=info)
             info->p += 2;
             skip_spaces_and_lf();
             
-            string right = refrection_node();
+            string right = reflection_expression_add();
             
             if(atoi(node) >= atoi(right)) {
                 return s"true";
@@ -888,7 +999,7 @@ string refrection_expression_comp(sInfo* info=info)
             info->p += 2;
             skip_spaces_and_lf();
             
-            string right = refrection_node();
+            string right = reflection_expression_add();
             
             if(atoi(node) <= atoi(right)) {
                 return s"true";
@@ -901,7 +1012,7 @@ string refrection_expression_comp(sInfo* info=info)
             info->p += 1;
             skip_spaces_and_lf();
             
-            string right = refrection_node();
+            string right = reflection_expression_add();
             
             if(atoi(node) > atoi(right)) {
                 return s"true";
@@ -914,7 +1025,7 @@ string refrection_expression_comp(sInfo* info=info)
             info->p += 1;
             skip_spaces_and_lf();
             
-            string right = refrection_node();
+            string right = reflection_expression_add();
             
             if(atoi(node) < atoi(right)) {
                 return s"true";
@@ -931,9 +1042,9 @@ string refrection_expression_comp(sInfo* info=info)
     return node;
 }
 
-string refrection_expression_eq(sInfo* info=info)
+string reflection_expression_eq(sInfo* info=info)
 {
-    string node = refrection_expression_comp();
+    string node = reflection_expression_comp();
     
     skip_spaces_and_lf();
     
@@ -942,7 +1053,7 @@ string refrection_expression_eq(sInfo* info=info)
             info->p += 2;
             skip_spaces_and_lf();
             
-            string right = refrection_expression_comp();
+            string right = reflection_expression_comp();
             
             if(node === right) {
                 return s"true";
@@ -955,7 +1066,7 @@ string refrection_expression_eq(sInfo* info=info)
             info->p += 2;
             skip_spaces_and_lf();
             
-            string right = refrection_expression_comp();
+            string right = reflection_expression_comp();
             
             if(node === right) {
                 return s"false";
@@ -972,9 +1083,9 @@ string refrection_expression_eq(sInfo* info=info)
     return node;
 }
 
-string refrection_expression_oror(sInfo* info=info)
+string reflection_expression_oror(sInfo* info=info)
 {
-    string node = refrection_expression_eq();
+    string node = reflection_expression_eq();
     
     skip_spaces_and_lf();
     
@@ -983,7 +1094,7 @@ string refrection_expression_oror(sInfo* info=info)
             info->p += 2;
             skip_spaces_and_lf();
             
-            string right = refrection_expression_eq();
+            string right = reflection_expression_eq();
             
             if(node === "true" || right === "true") {
                 return s"true";
@@ -1000,9 +1111,9 @@ string refrection_expression_oror(sInfo* info=info)
     return node;
 }
 
-string refrection_expression_andand(sInfo* info=info)
+string reflection_expression_andand(sInfo* info=info)
 {
-    string node = refrection_expression_oror();
+    string node = reflection_expression_oror();
     
     skip_spaces_and_lf();
     
@@ -1011,7 +1122,7 @@ string refrection_expression_andand(sInfo* info=info)
             info->p += 2;
             skip_spaces_and_lf();
             
-            string right = refrection_expression_oror();
+            string right = reflection_expression_oror();
             
             if(node === "true" && right === "true") {
                 return s"true";
@@ -1028,9 +1139,9 @@ string refrection_expression_andand(sInfo* info=info)
     return node;
 }
 
-string refrection_expression(sInfo* info=info)
+string reflection_expression(sInfo* info=info)
 {
-    return refrection_expression_andand();
+    return reflection_expression_andand();
 }
 
 sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
@@ -1201,14 +1312,14 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
             info->p++;
             skip_spaces_and_lf();
         }
-        string refrection_condtional = refrection_expression();
+        string reflection_condtional = reflection_expression();
         if(*info->p == ')') {
             info->p++;
             skip_spaces_and_lf();
         }
         
         bool match_ = false;
-        if(refrection_condtional === "true") {
+        if(reflection_condtional === "true") {
             expected_next_character('{');
             transpile_toplevel(block:true);
             match_ = true;
@@ -1228,14 +1339,14 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
                     skip_spaces_and_lf();
                 }
                 
-                string refrection_condtional = refrection_expression();
+                string reflection_condtional = reflection_expression();
                 
                 if(*info->p == ')') {
                     info->p++;
                     skip_spaces_and_lf();
                 }
                 
-                if(!match_ && refrection_condtional === "true") {
+                if(!match_ && reflection_condtional === "true") {
                     expected_next_character('{');
                     transpile_toplevel(block:true);
                     match_ = true;
@@ -1260,6 +1371,49 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
                 skip_block();
             }
         }
+        
+        return new sNothingNode(info) implements sNode;
+    }
+    else if(buf === "eval") {
+        string value = reflection_expression();
+        
+        buffer*% source2 = value.to_buffer();
+        
+        char* p = info.p;
+        buffer*% source = info.source;
+        char* head = info.head;
+        char* end = info.end;
+        string sname = info.sname;
+        int sline = info.sline;
+        
+        info.p = source2.buf;
+        info.source = source2;
+        info.head = source2.buf;
+        info.end = source2.buf + source2.len;
+        
+        info.sname = string("eval");
+        info.sline = 1;
+        
+        transpile_toplevel();
+        
+        info.p = p;
+        info.source = source;
+        info.head = head;
+        info.end = end;
+        
+        info.sname = sname;
+        info.sline = sline;
+        
+        return new sNothingNode(info) implements sNode;
+    }
+    else if(buf === "var") {
+        string var_name = parse_word();
+        
+        expected_next_character('=');
+        
+        string value = reflection_expression();
+        
+        info.reflection_vars.insert(var_name, value);
         
         return new sNothingNode(info) implements sNode;
     }
