@@ -707,20 +707,6 @@ struct lconv
 
 extern char* program_invocation_name;
 extern char* program_invocation_short_name;
-enum { _ISupper=(((((0)<8)?(((1<<(0))<<8)):(((1<<(0))>>8))))),
-_ISlower=(((((1)<8)?(((1<<(1))<<8)):(((1<<(1))>>8))))),
-_ISalpha=(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))),
-_ISdigit=(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))),
-_ISxdigit=(((((4)<8)?(((1<<(4))<<8)):(((1<<(4))>>8))))),
-_ISspace=(((((5)<8)?(((1<<(5))<<8)):(((1<<(5))>>8))))),
-_ISprint=(((((6)<8)?(((1<<(6))<<8)):(((1<<(6))>>8))))),
-_ISgraph=(((((7)<8)?(((1<<(7))<<8)):(((1<<(7))>>8))))),
-_ISblank=(((((8)<8)?(((1<<(8))<<8)):(((1<<(8))>>8))))),
-_IScntrl=(((((9)<8)?(((1<<(9))<<8)):(((1<<(9))>>8))))),
-_ISpunct=(((((10)<8)?(((1<<(10))<<8)):(((1<<(10))>>8))))),
-_ISalnum=(((((11)<8)?(((1<<(11))<<8)):(((1<<(11))>>8)))))
-};
-
 struct buffer
 {
     char* buf;
@@ -2050,44 +2036,6 @@ int* __errno_location();
 void __assert_fail(const char* __assertion, const char* __file, unsigned int __line, const char* __function);
 void __assert_perror_fail(int __errnum, const char* __file, unsigned int __line, const char* __function);
 void __assert(const char* __assertion, const char* __file, int __line);
-const unsigned short int** __ctype_b_loc();
-const int** __ctype_tolower_loc();
-const int** __ctype_toupper_loc();
-int isalnum(int );
-int isalpha(int );
-int iscntrl(int );
-int isdigit(int );
-int islower(int );
-int isgraph(int );
-int isprint(int );
-int ispunct(int );
-int isspace(int );
-int isupper(int );
-int isxdigit(int );
-int tolower(int __c);
-int toupper(int __c);
-int isblank(int );
-int isctype(int __c, int __mask);
-int isascii(int __c);
-int toascii(int __c);
-int _toupper(int );
-int _tolower(int );
-int isalnum_l(int , struct __locale_struct* );
-int isalpha_l(int , struct __locale_struct* );
-int iscntrl_l(int , struct __locale_struct* );
-int isdigit_l(int , struct __locale_struct* );
-int islower_l(int , struct __locale_struct* );
-int isgraph_l(int , struct __locale_struct* );
-int isprint_l(int , struct __locale_struct* );
-int ispunct_l(int , struct __locale_struct* );
-int isspace_l(int , struct __locale_struct* );
-int isupper_l(int , struct __locale_struct* );
-int isxdigit_l(int , struct __locale_struct* );
-int isblank_l(int , struct __locale_struct* );
-int __tolower_l(int __c, struct __locale_struct* __l);
-int tolower_l(int __c, struct __locale_struct* __l);
-int __toupper_l(int __c, struct __locale_struct* __l);
-int toupper_l(int __c, struct __locale_struct* __l);
 void come_push_stackframe(char* sname, int sline, int id);
 void come_pop_stackframe();
 void come_save_stackframe(char* sname, int sline);
@@ -3939,11 +3887,11 @@ struct sNode* get_number(_Bool minus, struct sInfo* info)
         *p=45;
         p++;
     }
-    if(!((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))))) {
+    if(!xisdigit(*info->p)) {
         err_msg(info,"require digits after + or -");
         exit(2);
     }
-    while(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))))||*info->p==39) {
+    while(xisdigit(*info->p)||*info->p==39) {
         if(*info->p==39) {
             info->p++;
         }
@@ -3957,7 +3905,7 @@ struct sNode* get_number(_Bool minus, struct sInfo* info)
         }
     }
     is_float=0;
-    if(*info->p==46&&((*__ctype_b_loc())[(int)((*(info->p+1)))]&(unsigned short int)(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))))) {
+    if(*info->p==46&&xisdigit(*(info->p+1))) {
         is_float=1;
         *p++=*info->p;
         if(p-buf>=buf_size) {
@@ -3965,7 +3913,7 @@ struct sNode* get_number(_Bool minus, struct sInfo* info)
             exit(11);
         }
         info->p++;
-        while(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))))||*info->p==39) {
+        while(xisdigit(*info->p)||*info->p==39) {
             if(*info->p==39) {
                 info->p++;
             }
@@ -3995,11 +3943,11 @@ struct sNode* get_number(_Bool minus, struct sInfo* info)
                 exit(2);
             }
         }
-        if(!((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))))) {
+        if(!xisdigit(*info->p)) {
             err_msg(info,"require digits after exponent");
             exit(2);
         }
-        while(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))))||*info->p==39) {
+        while(xisdigit(*info->p)||*info->p==39) {
             if(*info->p==39) {
                 info->p++;
             }
@@ -4288,7 +4236,7 @@ struct sNode* get_digits(struct sInfo* info)
         err_msg(info,"require digits after 0b");
         exit(2);
     }
-    if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))))) {
+    if(xisdigit(*info->p)) {
         err_msg(info,"invalid binary digit");
         exit(2);
     }
@@ -4394,7 +4342,7 @@ struct sNode* expression_node_v99(struct sInfo* info)
         return __result_obj__0;
         ((node_2) ? node_2 = come_decrement_ref_count(node_2, ((struct sNode*)node_2)->finalize, ((struct sNode*)node_2)->_protocol_obj, 0, 0,(void*)0):(void*)0);
     }
-    else if(*info->p==48&&((*__ctype_b_loc())[(int)((*(info->p+1)))]&(unsigned short int)(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))))) {
+    else if(*info->p==48&&xisdigit(*(info->p+1))) {
         info->p++;
         node_3=(struct sNode*)come_increment_ref_count(get_oct_number(0,info));
         __dec_obj44=node_3,
@@ -4406,7 +4354,7 @@ struct sNode* expression_node_v99(struct sInfo* info)
         return __result_obj__0;
         ((node_3) ? node_3 = come_decrement_ref_count(node_3, ((struct sNode*)node_3)->finalize, ((struct sNode*)node_3)->_protocol_obj, 0, 0,(void*)0):(void*)0);
     }
-    else if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))))) {
+    else if(xisdigit(*info->p)) {
         node_4=(struct sNode*)come_increment_ref_count(get_number(0,info));
         __dec_obj45=node_4,
         node_4=(struct sNode*)come_increment_ref_count(post_position_operator_v99((struct sNode*)come_increment_ref_count(node_4),info));
@@ -4417,7 +4365,7 @@ struct sNode* expression_node_v99(struct sInfo* info)
         return __result_obj__0;
         ((node_4) ? node_4 = come_decrement_ref_count(node_4, ((struct sNode*)node_4)->finalize, ((struct sNode*)node_4)->_protocol_obj, 0, 0,(void*)0):(void*)0);
     }
-    else if(*info->p==45&&(((*__ctype_b_loc())[(int)((*(info->p+1)))]&(unsigned short int)(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))))||(*info->p==48&&*(info->p+1)==120||*(info->p+1)==88)||(*info->p==48&&((*__ctype_b_loc())[(int)((*(info->p+1)))]&(unsigned short int)(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))))))) {
+    else if(*info->p==45&&(xisdigit(*(info->p+1))||(*info->p==48&&*(info->p+1)==120||*(info->p+1)==88)||(*info->p==48&&xisdigit(*(info->p+1))))) {
         info->p++;
         if(*info->p==48&&(*(info->p+1)==120||*(info->p+1)==88)) {
             info->p+=2;
@@ -4432,7 +4380,7 @@ struct sNode* expression_node_v99(struct sInfo* info)
             ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0):(void*)0);
             return __result_obj__0;
         }
-        else if(*info->p==48&&((*__ctype_b_loc())[(int)((*(info->p+1)))]&(unsigned short int)(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))))) {
+        else if(*info->p==48&&xisdigit(*(info->p+1))) {
             info->p++;
             __dec_obj48=node_5,
             node_5=(struct sNode*)come_increment_ref_count(get_oct_number(1,info));

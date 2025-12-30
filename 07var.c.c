@@ -707,20 +707,6 @@ struct lconv
 
 extern char* program_invocation_name;
 extern char* program_invocation_short_name;
-enum { _ISupper=(((((0)<8)?(((1<<(0))<<8)):(((1<<(0))>>8))))),
-_ISlower=(((((1)<8)?(((1<<(1))<<8)):(((1<<(1))>>8))))),
-_ISalpha=(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))),
-_ISdigit=(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))),
-_ISxdigit=(((((4)<8)?(((1<<(4))<<8)):(((1<<(4))>>8))))),
-_ISspace=(((((5)<8)?(((1<<(5))<<8)):(((1<<(5))>>8))))),
-_ISprint=(((((6)<8)?(((1<<(6))<<8)):(((1<<(6))>>8))))),
-_ISgraph=(((((7)<8)?(((1<<(7))<<8)):(((1<<(7))>>8))))),
-_ISblank=(((((8)<8)?(((1<<(8))<<8)):(((1<<(8))>>8))))),
-_IScntrl=(((((9)<8)?(((1<<(9))<<8)):(((1<<(9))>>8))))),
-_ISpunct=(((((10)<8)?(((1<<(10))<<8)):(((1<<(10))>>8))))),
-_ISalnum=(((((11)<8)?(((1<<(11))<<8)):(((1<<(11))>>8)))))
-};
-
 struct buffer
 {
     char* buf;
@@ -2040,44 +2026,6 @@ int* __errno_location();
 void __assert_fail(const char* __assertion, const char* __file, unsigned int __line, const char* __function);
 void __assert_perror_fail(int __errnum, const char* __file, unsigned int __line, const char* __function);
 void __assert(const char* __assertion, const char* __file, int __line);
-const unsigned short int** __ctype_b_loc();
-const int** __ctype_tolower_loc();
-const int** __ctype_toupper_loc();
-int isalnum(int );
-int isalpha(int );
-int iscntrl(int );
-int isdigit(int );
-int islower(int );
-int isgraph(int );
-int isprint(int );
-int ispunct(int );
-int isspace(int );
-int isupper(int );
-int isxdigit(int );
-int tolower(int __c);
-int toupper(int __c);
-int isblank(int );
-int isctype(int __c, int __mask);
-int isascii(int __c);
-int toascii(int __c);
-int _toupper(int );
-int _tolower(int );
-int isalnum_l(int , struct __locale_struct* );
-int isalpha_l(int , struct __locale_struct* );
-int iscntrl_l(int , struct __locale_struct* );
-int isdigit_l(int , struct __locale_struct* );
-int islower_l(int , struct __locale_struct* );
-int isgraph_l(int , struct __locale_struct* );
-int isprint_l(int , struct __locale_struct* );
-int ispunct_l(int , struct __locale_struct* );
-int isspace_l(int , struct __locale_struct* );
-int isupper_l(int , struct __locale_struct* );
-int isxdigit_l(int , struct __locale_struct* );
-int isblank_l(int , struct __locale_struct* );
-int __tolower_l(int __c, struct __locale_struct* __l);
-int tolower_l(int __c, struct __locale_struct* __l);
-int __toupper_l(int __c, struct __locale_struct* __l);
-int toupper_l(int __c, struct __locale_struct* __l);
 void come_push_stackframe(char* sname, int sline, int id);
 void come_pop_stackframe();
 void come_save_stackframe(char* sname, int sline);
@@ -6832,7 +6780,7 @@ struct sNode* string_node_v7(char* buf, char* head, int head_sline, struct sInfo
         sline=info->sline;
         info->p=head;
         info->sline=head_sline;
-        if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+        if(xisalpha(*info->p)||*info->p==95) {
             skip_spaces_and_lf(info);
             multiple_assign_var2=(come_push_stackframe("07var.c", 888, 11),__exception_result_var_b12=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=parse_type(info,0,1,0))), come_pop_stackframe(), __exception_result_var_b12);
             type=(struct sType*)come_increment_ref_count(multiple_assign_var2->v1);
@@ -7264,7 +7212,7 @@ _conditional_value_X0;})) {
     else {
         info->p=head;
         info->sline=head_sline;
-        if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+        if(xisalpha(*info->p)||*info->p==95) {
             __dec_obj144=word,
             word=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj144 = come_decrement_ref_count(__dec_obj144, (void*)0, (void*)0, 0,0, (void*)0);

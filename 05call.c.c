@@ -709,20 +709,6 @@ struct lconv
 
 extern char* program_invocation_name;
 extern char* program_invocation_short_name;
-enum { _ISupper=(((((0)<8)?(((1<<(0))<<8)):(((1<<(0))>>8))))),
-_ISlower=(((((1)<8)?(((1<<(1))<<8)):(((1<<(1))>>8))))),
-_ISalpha=(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))),
-_ISdigit=(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))),
-_ISxdigit=(((((4)<8)?(((1<<(4))<<8)):(((1<<(4))>>8))))),
-_ISspace=(((((5)<8)?(((1<<(5))<<8)):(((1<<(5))>>8))))),
-_ISprint=(((((6)<8)?(((1<<(6))<<8)):(((1<<(6))>>8))))),
-_ISgraph=(((((7)<8)?(((1<<(7))<<8)):(((1<<(7))>>8))))),
-_ISblank=(((((8)<8)?(((1<<(8))<<8)):(((1<<(8))>>8))))),
-_IScntrl=(((((9)<8)?(((1<<(9))<<8)):(((1<<(9))>>8))))),
-_ISpunct=(((((10)<8)?(((1<<(10))<<8)):(((1<<(10))>>8))))),
-_ISalnum=(((((11)<8)?(((1<<(11))<<8)):(((1<<(11))>>8)))))
-};
-
 struct buffer
 {
     char* buf;
@@ -2143,44 +2129,6 @@ int* __errno_location();
 void __assert_fail(const char* __assertion, const char* __file, unsigned int __line, const char* __function);
 void __assert_perror_fail(int __errnum, const char* __file, unsigned int __line, const char* __function);
 void __assert(const char* __assertion, const char* __file, int __line);
-const unsigned short int** __ctype_b_loc();
-const int** __ctype_tolower_loc();
-const int** __ctype_toupper_loc();
-int isalnum(int );
-int isalpha(int );
-int iscntrl(int );
-int isdigit(int );
-int islower(int );
-int isgraph(int );
-int isprint(int );
-int ispunct(int );
-int isspace(int );
-int isupper(int );
-int isxdigit(int );
-int tolower(int __c);
-int toupper(int __c);
-int isblank(int );
-int isctype(int __c, int __mask);
-int isascii(int __c);
-int toascii(int __c);
-int _toupper(int );
-int _tolower(int );
-int isalnum_l(int , struct __locale_struct* );
-int isalpha_l(int , struct __locale_struct* );
-int iscntrl_l(int , struct __locale_struct* );
-int isdigit_l(int , struct __locale_struct* );
-int islower_l(int , struct __locale_struct* );
-int isgraph_l(int , struct __locale_struct* );
-int isprint_l(int , struct __locale_struct* );
-int ispunct_l(int , struct __locale_struct* );
-int isspace_l(int , struct __locale_struct* );
-int isupper_l(int , struct __locale_struct* );
-int isxdigit_l(int , struct __locale_struct* );
-int isblank_l(int , struct __locale_struct* );
-int __tolower_l(int __c, struct __locale_struct* __l);
-int tolower_l(int __c, struct __locale_struct* __l);
-int __toupper_l(int __c, struct __locale_struct* __l);
-int toupper_l(int __c, struct __locale_struct* __l);
 void come_push_stackframe(char* sname, int sline, int id);
 void come_pop_stackframe();
 void come_save_stackframe(char* sname, int sline);
@@ -6197,10 +6145,10 @@ _conditional_value_X1;})) {
         p=info->come_fun->mName;
         version=0;
         while(*p) {
-            if(*p==95&&*(p+1)==118&&((*__ctype_b_loc())[(int)((*(p+2)))]&(unsigned short int)(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))))) {
+            if(*p==95&&*(p+1)==118&&xisdigit(*(p+2))) {
                 p2=p+2;
                 version=0;
-                while(((*__ctype_b_loc())[(int)((*p2))]&(unsigned short int)(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))))) {
+                while(xisdigit(*p2)) {
                     version=version*10+(*p2-48);
                     p2++;
                 }
@@ -9582,7 +9530,7 @@ struct sNode* parse_function_call(char* fun_name, struct sInfo* info, _Bool come
         sline=info->sline;
         err_flag=0;
         label=(char*)come_increment_ref_count(__builtin_string(""));
-        if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+        if(xisalpha(*info->p)||*info->p==95) {
             __dec_obj197=label,
             label=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj197 = come_decrement_ref_count(__dec_obj197, (void*)0, (void*)0, 0,0, (void*)0);
@@ -10105,7 +10053,7 @@ struct sNode* expression_node_v98(struct sInfo* info)
             }
         }
     }
-    else if((((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95)&&!((*info->p==76||*info->p==108||*info->p==115||*info->p==83||*info->p==98||*info->p==66||*info->p==104||*info->p==72)&&*(info->p+1)==34||(*info->p==76&&*(info->p+1)==39))) {
+    else if((xisalpha(*info->p)||*info->p==95)&&!((*info->p==76||*info->p==108||*info->p==115||*info->p==83||*info->p==98||*info->p==66||*info->p==104||*info->p==72)&&*(info->p+1)==34||(*info->p==76&&*(info->p+1)==39))) {
         head_225=info->p;
         head_sline=info->sline;
         sline_real=info->sline_real;
@@ -10153,7 +10101,7 @@ struct sNode* expression_node_v98(struct sInfo* info)
             no_output_come_code=info->no_output_come_code;
             info->no_output_come_code=1;
             flag=0;
-            while(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+            while(xisalpha(*info->p)||*info->p==95) {
                 flag=1;
                 word2_227=(char*)come_increment_ref_count(parse_word(0,info));
                 (word2_227 = come_decrement_ref_count(word2_227, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -10169,7 +10117,7 @@ struct sNode* expression_node_v98(struct sInfo* info)
             if(flag&&*info->p==58&&*(info->p+1)==58) {
                 info->p+=2;
                 skip_spaces_and_lf(info);
-                if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+                if(xisalpha(*info->p)||*info->p==95) {
                     fun_name_with_type_name=1;
                 }
             }
@@ -10181,7 +10129,7 @@ struct sNode* expression_node_v98(struct sInfo* info)
         if(!is_special_word) {
             info->p=head_225;
             info->sline=head_sline;
-            if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+            if(xisalpha(*info->p)||*info->p==95) {
                 __dec_obj213=buf_226,
                 buf_226=(char*)come_increment_ref_count(parse_word(0,info));
                 __dec_obj213 = come_decrement_ref_count(__dec_obj213, (void*)0, (void*)0, 0,0, (void*)0);
@@ -10229,7 +10177,7 @@ _conditional_value_X0;})) {
                     inline_asm=1;
                 }
                 else {
-                    if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+                    if(xisalpha(*info->p)||*info->p==95) {
                         __dec_obj215=buf_226,
                         buf_226=(char*)come_increment_ref_count(parse_word(0,info));
                         __dec_obj215 = come_decrement_ref_count(__dec_obj215, (void*)0, (void*)0, 0,0, (void*)0);
@@ -10457,7 +10405,7 @@ _conditional_value_X0;})) {
             time_out=1;
             if(*info->p==40) {
                 info->p++;
-                while(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))))) {
+                while(xisdigit(*info->p)) {
                     time_out=time_out*10+(*info->p-48);
                     info->p++;
                     skip_spaces_and_lf(info);
@@ -12385,7 +12333,7 @@ struct sNode* post_position_operator(struct sNode* node, struct sInfo* info)
             sline=info->sline;
             err_flag=0;
             label=(char*)come_increment_ref_count(__builtin_string(""));
-            if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+            if(xisalpha(*info->p)||*info->p==95) {
                 __dec_obj275=label,
                 label=(char*)come_increment_ref_count(parse_word(0,info));
                 __dec_obj275 = come_decrement_ref_count(__dec_obj275, (void*)0, (void*)0, 0,0, (void*)0);

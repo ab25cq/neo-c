@@ -707,20 +707,6 @@ struct lconv
 
 extern char* program_invocation_name;
 extern char* program_invocation_short_name;
-enum { _ISupper=(((((0)<8)?(((1<<(0))<<8)):(((1<<(0))>>8))))),
-_ISlower=(((((1)<8)?(((1<<(1))<<8)):(((1<<(1))>>8))))),
-_ISalpha=(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))),
-_ISdigit=(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))),
-_ISxdigit=(((((4)<8)?(((1<<(4))<<8)):(((1<<(4))>>8))))),
-_ISspace=(((((5)<8)?(((1<<(5))<<8)):(((1<<(5))>>8))))),
-_ISprint=(((((6)<8)?(((1<<(6))<<8)):(((1<<(6))>>8))))),
-_ISgraph=(((((7)<8)?(((1<<(7))<<8)):(((1<<(7))>>8))))),
-_ISblank=(((((8)<8)?(((1<<(8))<<8)):(((1<<(8))>>8))))),
-_IScntrl=(((((9)<8)?(((1<<(9))<<8)):(((1<<(9))>>8))))),
-_ISpunct=(((((10)<8)?(((1<<(10))<<8)):(((1<<(10))>>8))))),
-_ISalnum=(((((11)<8)?(((1<<(11))<<8)):(((1<<(11))>>8)))))
-};
-
 struct buffer
 {
     char* buf;
@@ -2023,44 +2009,6 @@ int* __errno_location();
 void __assert_fail(const char* __assertion, const char* __file, unsigned int __line, const char* __function);
 void __assert_perror_fail(int __errnum, const char* __file, unsigned int __line, const char* __function);
 void __assert(const char* __assertion, const char* __file, int __line);
-const unsigned short int** __ctype_b_loc();
-const int** __ctype_tolower_loc();
-const int** __ctype_toupper_loc();
-int isalnum(int );
-int isalpha(int );
-int iscntrl(int );
-int isdigit(int );
-int islower(int );
-int isgraph(int );
-int isprint(int );
-int ispunct(int );
-int isspace(int );
-int isupper(int );
-int isxdigit(int );
-int tolower(int __c);
-int toupper(int __c);
-int isblank(int );
-int isctype(int __c, int __mask);
-int isascii(int __c);
-int toascii(int __c);
-int _toupper(int );
-int _tolower(int );
-int isalnum_l(int , struct __locale_struct* );
-int isalpha_l(int , struct __locale_struct* );
-int iscntrl_l(int , struct __locale_struct* );
-int isdigit_l(int , struct __locale_struct* );
-int islower_l(int , struct __locale_struct* );
-int isgraph_l(int , struct __locale_struct* );
-int isprint_l(int , struct __locale_struct* );
-int ispunct_l(int , struct __locale_struct* );
-int isspace_l(int , struct __locale_struct* );
-int isupper_l(int , struct __locale_struct* );
-int isxdigit_l(int , struct __locale_struct* );
-int isblank_l(int , struct __locale_struct* );
-int __tolower_l(int __c, struct __locale_struct* __l);
-int tolower_l(int __c, struct __locale_struct* __l);
-int __toupper_l(int __c, struct __locale_struct* __l);
-int toupper_l(int __c, struct __locale_struct* __l);
 void come_push_stackframe(char* sname, int sline, int id);
 void come_pop_stackframe();
 void come_save_stackframe(char* sname, int sline);
@@ -4416,7 +4364,7 @@ _conditional_value_X0;})) {
                 head=info->p;
                 head_sline=info->sline;
                 head_sname=(char*)come_increment_ref_count(__builtin_string(info->sname));
-                if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+                if(xisalpha(*info->p)||*info->p==95) {
                     p0=info->p;
                     sline0=info->sline;
                     word_27=(char*)come_increment_ref_count(parse_word(0,info));
@@ -7031,7 +6979,7 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
         p=info->p;
         sline_95=info->sline;
         if(charp_operator_equals(buf,"struct")) {
-            if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+            if(xisalpha(*info->p)||*info->p==95) {
                 word=(char*)come_increment_ref_count(parse_word(0,info));
                 if(*info->p==59) {
                     define_struct_nobody=1;
@@ -7051,7 +6999,7 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
         info->p=head;
         (void)((char*)(__right_value0=parse_word(0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+        if(xisalpha(*info->p)||*info->p==95) {
             buf2=(char*)come_increment_ref_count(parse_word(0,info));
             if(string_operator_equals(buf2,"class")) {
                 uniq_class=1;
@@ -7069,7 +7017,7 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
         info->no_output_come_code=1;
         p_99=info->p;
         info->p=head;
-        if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+        if(xisalpha(*info->p)||*info->p==95) {
             multiple_assign_var3=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=backtrace_parse_type(0,info)));
             result_type=(struct sType*)come_increment_ref_count(multiple_assign_var3->v1);
             fun_name=(char*)come_increment_ref_count(multiple_assign_var3->v2);
@@ -7080,7 +7028,7 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
                 skip_spaces_and_lf(info);
                 if(*info->p!=42) {
                     define_function_pointer_result_function=1;
-                    if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+                    if(xisalpha(*info->p)||*info->p==95) {
                         word_100=(char*)come_increment_ref_count(parse_word(0,info));
                         if(!is_type_name(word_100,info)&&*info->p==41) {
                             info->p++;
@@ -7108,7 +7056,7 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
         info->no_output_come_code=1;
         p_102=info->p;
         info->p=head;
-        if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+        if(xisalpha(*info->p)||*info->p==95) {
             multiple_assign_var4=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=backtrace_parse_type(0,info)));
             result_type_103=(struct sType*)come_increment_ref_count(multiple_assign_var4->v1);
             fun_name_104=(char*)come_increment_ref_count(multiple_assign_var4->v2);
@@ -7180,7 +7128,7 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
         if(!is_type_name_flag) {
             define_variable=0;
         }
-        if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+        if(xisalpha(*info->p)||*info->p==95) {
             multiple_assign_var5=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=backtrace_parse_type(0,info)));
             result_type_109=(struct sType*)come_increment_ref_count(multiple_assign_var5->v1);
             fun_name_110=(char*)come_increment_ref_count(multiple_assign_var5->v2);
@@ -7192,7 +7140,7 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
                 if(*info->p==42) {
                     info->p++;
                     skip_spaces_and_lf(info);
-                    if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+                    if(xisalpha(*info->p)||*info->p==95) {
                         word_112=(char*)come_increment_ref_count(parse_word(0,info));
                         if(*info->p==41) {
                             info->p++;
@@ -7204,7 +7152,7 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
                         (word_112 = come_decrement_ref_count(word_112, (void*)0, (void*)0, 0, 0, (void*)0));
                     }
                 }
-                else if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+                else if(xisalpha(*info->p)||*info->p==95) {
                     word_113=(char*)come_increment_ref_count(parse_word(0,info));
                     if(*info->p==41) {
                         info->p++;
@@ -7226,10 +7174,10 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
         else if(define_variable) {
         }
         else {
-            if(!(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95)) {
+            if(!(xisalpha(*info->p)||*info->p==95)) {
                 define_variable=0;
             }
-            while(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+            while(xisalpha(*info->p)||*info->p==95) {
                 info->p++;
             }
             skip_spaces_and_lf(info);
@@ -7252,12 +7200,12 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
         if(charp_operator_equals(buf,"struct")) {
             ((char*)(__right_value0=parse_struct_attribute(info)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-            if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+            if(xisalpha(*info->p)||*info->p==95) {
                 ((char*)(__right_value0=parse_word(0,info)));
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-                if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+                if(xisalpha(*info->p)||*info->p==95) {
                     word_116=(char*)come_increment_ref_count(parse_word(0,info));
-                    if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+                    if(xisalpha(*info->p)||*info->p==95) {
                         __dec_obj81=word_116,
                         word_116=(char*)come_increment_ref_count(parse_word(0,info));
                         __dec_obj81 = come_decrement_ref_count(__dec_obj81, (void*)0, (void*)0, 0,0, (void*)0);
@@ -7276,10 +7224,10 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
         else if(define_variable) {
         }
         else {
-            if(!(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95)) {
+            if(!(xisalpha(*info->p)||*info->p==95)) {
                 define_variable=0;
             }
-            while(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+            while(xisalpha(*info->p)||*info->p==95) {
                 info->p++;
             }
             skip_spaces_and_lf(info);
@@ -7381,7 +7329,7 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
                     list$1sType$ph_push_back(param_types,(struct sType*)come_increment_ref_count(param_type));
                     static int num_function_pointer_result_var_name_a=0;
                     list$1char$ph_push_back(param_names,(char*)come_increment_ref_count(xsprintf("_function_pointer_result_var_name_a%d",++num_function_pointer_result_var_name_a)));
-                    if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+                    if(xisalpha(*info->p)||*info->p==95) {
                         (void)((char*)(__right_value0=parse_word(0,info)));
                         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                     }
@@ -7428,7 +7376,7 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
                         list$1sType$ph_push_back(param_types2,(struct sType*)come_increment_ref_count(param_type_126));
                         static int num_function_pointer_result_var_name_b=0;
                         list$1char$ph_push_back(param_names2,(char*)come_increment_ref_count(xsprintf("_function_pointer_result_var_name_b%d",++num_function_pointer_result_var_name_b)));
-                        if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+                        if(xisalpha(*info->p)||*info->p==95) {
                             (void)((char*)(__right_value0=parse_word(0,info)));
                             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                         }
@@ -7516,7 +7464,7 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
         info->p=head;
         info->sline=sline;
         struct_attribute0=(char*)come_increment_ref_count(parse_struct_attribute(info));
-        if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+        if(xisalpha(*info->p)||*info->p==95) {
             word_136=(char*)come_increment_ref_count(parse_word(0,info));
             if(string_operator_equals(word_136,"struct")) {
                 struct_attribute=(char*)come_increment_ref_count(string_operator_add(((char*)(__right_value5=string_operator_add(((char*)(__right_value4=parse_struct_attribute(info)))," "))),struct_attribute0));
@@ -9344,7 +9292,7 @@ struct sNode* parse_function(struct sInfo* info)
         info->p+=strlen("version");
         skip_spaces_and_lf(info);
         n=0;
-        while(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))))) {
+        while(xisdigit(*info->p)) {
             n=n*10+(*info->p-48);
             info->p++;
         }
@@ -9629,7 +9577,7 @@ struct sNode* parse_function(struct sInfo* info)
             come_call_finalizer(sFun_finalize, fun_165, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         }
     }
-    else if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95||*info->p==59) {
+    else if(xisalpha(*info->p)||*info->p==95||*info->p==59) {
         if(version>0) {
             new_fun_name_166=(char*)come_increment_ref_count(xsprintf("%s_v%d",fun_name,version));
             __dec_obj178=fun_name,

@@ -92,7 +92,7 @@ using C
 #include <locale.h>
 #include <errno.h>
 #include <assert.h>
-#include <ctype.h>
+//#include <ctype.h>
 #include <stdbool.h>
 }
 
@@ -5135,18 +5135,6 @@ uniq void int::times(int self, void* parent, void (*block)(void* parent, int it)
 #ifndef RE_DOT_MATCHES_NEWLINE
 // Define to 0 if you DON'T want '.' to match '\r' + '\n' 
 #define RE_DOT_MATCHES_NEWLINE 0
-#endif
-
-#ifndef xisdigit
-#define xisdigit isdigit
-#endif
-
-#ifndef xisalpha
-#define xisalpha isalpha
-#endif
-
-#ifndef xisspace
-#define xisspace isspace
 #endif
 
 // Typedef'd pointer to get abstract datatype. 

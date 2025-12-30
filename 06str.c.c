@@ -707,20 +707,6 @@ struct lconv
 
 extern char* program_invocation_name;
 extern char* program_invocation_short_name;
-enum { _ISupper=(((((0)<8)?(((1<<(0))<<8)):(((1<<(0))>>8))))),
-_ISlower=(((((1)<8)?(((1<<(1))<<8)):(((1<<(1))>>8))))),
-_ISalpha=(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))),
-_ISdigit=(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))),
-_ISxdigit=(((((4)<8)?(((1<<(4))<<8)):(((1<<(4))>>8))))),
-_ISspace=(((((5)<8)?(((1<<(5))<<8)):(((1<<(5))>>8))))),
-_ISprint=(((((6)<8)?(((1<<(6))<<8)):(((1<<(6))>>8))))),
-_ISgraph=(((((7)<8)?(((1<<(7))<<8)):(((1<<(7))>>8))))),
-_ISblank=(((((8)<8)?(((1<<(8))<<8)):(((1<<(8))>>8))))),
-_IScntrl=(((((9)<8)?(((1<<(9))<<8)):(((1<<(9))>>8))))),
-_ISpunct=(((((10)<8)?(((1<<(10))<<8)):(((1<<(10))>>8))))),
-_ISalnum=(((((11)<8)?(((1<<(11))<<8)):(((1<<(11))>>8)))))
-};
-
 struct buffer
 {
     char* buf;
@@ -2062,44 +2048,6 @@ int* __errno_location();
 void __assert_fail(const char* __assertion, const char* __file, unsigned int __line, const char* __function);
 void __assert_perror_fail(int __errnum, const char* __file, unsigned int __line, const char* __function);
 void __assert(const char* __assertion, const char* __file, int __line);
-const unsigned short int** __ctype_b_loc();
-const int** __ctype_tolower_loc();
-const int** __ctype_toupper_loc();
-int isalnum(int );
-int isalpha(int );
-int iscntrl(int );
-int isdigit(int );
-int islower(int );
-int isgraph(int );
-int isprint(int );
-int ispunct(int );
-int isspace(int );
-int isupper(int );
-int isxdigit(int );
-int tolower(int __c);
-int toupper(int __c);
-int isblank(int );
-int isctype(int __c, int __mask);
-int isascii(int __c);
-int toascii(int __c);
-int _toupper(int );
-int _tolower(int );
-int isalnum_l(int , struct __locale_struct* );
-int isalpha_l(int , struct __locale_struct* );
-int iscntrl_l(int , struct __locale_struct* );
-int isdigit_l(int , struct __locale_struct* );
-int islower_l(int , struct __locale_struct* );
-int isgraph_l(int , struct __locale_struct* );
-int isprint_l(int , struct __locale_struct* );
-int ispunct_l(int , struct __locale_struct* );
-int isspace_l(int , struct __locale_struct* );
-int isupper_l(int , struct __locale_struct* );
-int isxdigit_l(int , struct __locale_struct* );
-int isblank_l(int , struct __locale_struct* );
-int __tolower_l(int __c, struct __locale_struct* __l);
-int tolower_l(int __c, struct __locale_struct* __l);
-int __toupper_l(int __c, struct __locale_struct* __l);
-int toupper_l(int __c, struct __locale_struct* __l);
 void come_push_stackframe(char* sname, int sline, int id);
 void come_pop_stackframe();
 void come_save_stackframe(char* sname, int sline);
@@ -6417,9 +6365,9 @@ struct sNode* expression_node_v96(struct sInfo* info)
             else if(*info->p==92) {
                 buffer_append_char(value,92);
                 info->p++;
-                if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))))) {
+                if(xisdigit(*info->p)) {
                     len=0;
-                    while(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))))&&len<3) {
+                    while(xisdigit(*info->p)&&len<3) {
                         buffer_append_char(value,*info->p);
                         info->p++;
                         len++;
@@ -6628,9 +6576,9 @@ struct sNode* expression_node_v96(struct sInfo* info)
             else if(*info->p==92) {
                 buffer_append_char(value_55,92);
                 info->p++;
-                if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))))) {
+                if(xisdigit(*info->p)) {
                     len_58=0;
-                    while(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))))&&len_58<3) {
+                    while(xisdigit(*info->p)&&len_58<3) {
                         buffer_append_char(value_55,*info->p);
                         info->p++;
                         len_58++;
@@ -6850,9 +6798,9 @@ struct sNode* expression_node_v96(struct sInfo* info)
             else if(*info->p==92) {
                 buffer_append_char(value_64,92);
                 info->p++;
-                if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))))) {
+                if(xisdigit(*info->p)) {
                     len_67=0;
-                    while(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))))&&len_67<3) {
+                    while(xisdigit(*info->p)&&len_67<3) {
                         buffer_append_char(value_64,*info->p);
                         info->p++;
                         len_67++;
@@ -6994,9 +6942,9 @@ struct sNode* expression_node_v96(struct sInfo* info)
         info->p++;
         if(*info->p==92) {
             info->p++;
-            if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))))) {
+            if(xisdigit(*info->p)) {
                 n=0;
-                while(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))))) {
+                while(xisdigit(*info->p)) {
                     n=n*8+*info->p-48;
                     info->p++;
                 }
@@ -7039,9 +6987,9 @@ struct sNode* expression_node_v96(struct sInfo* info)
                     case 48:
                     c=0;
                     info->p++;
-                    if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))))) {
+                    if(xisdigit(*info->p)) {
                         n_78=0;
-                        while(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))))) {
+                        while(xisdigit(*info->p)) {
                             n_78=n_78*8+*info->p-48;
                             info->p++;
                             skip_spaces_and_lf(info);
@@ -7113,9 +7061,9 @@ struct sNode* expression_node_v96(struct sInfo* info)
         if(*info->p==92) {
             quote=1;
             info->p++;
-            if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))))) {
+            if(xisdigit(*info->p)) {
                 n_83=0;
-                while(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))))) {
+                while(xisdigit(*info->p)) {
                     n_83=n_83*8+*info->p-48;
                     info->p++;
                 }
@@ -7146,9 +7094,9 @@ struct sNode* expression_node_v96(struct sInfo* info)
                     case 48:
                     c_82=0;
                     info->p++;
-                    if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))))) {
+                    if(xisdigit(*info->p)) {
                         n_84=0;
-                        while(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))))) {
+                        while(xisdigit(*info->p)) {
                             n_84=n_84*8+*info->p-48;
                             info->p++;
                             skip_spaces_and_lf(info);
@@ -7350,9 +7298,9 @@ struct sNode* expression_node_v96(struct sInfo* info)
             else if(*info->p==92) {
                 buffer_append_char(value_100,92);
                 info->p++;
-                if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))))) {
+                if(xisdigit(*info->p)) {
                     len_103=0;
-                    while(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))))&&len_103<3) {
+                    while(xisdigit(*info->p)&&len_103<3) {
                         buffer_append_char(value_100,*info->p);
                         info->p++;
                         len_103++;

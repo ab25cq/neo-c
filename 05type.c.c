@@ -707,20 +707,6 @@ struct lconv
 
 extern char* program_invocation_name;
 extern char* program_invocation_short_name;
-enum { _ISupper=(((((0)<8)?(((1<<(0))<<8)):(((1<<(0))>>8))))),
-_ISlower=(((((1)<8)?(((1<<(1))<<8)):(((1<<(1))>>8))))),
-_ISalpha=(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))),
-_ISdigit=(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))),
-_ISxdigit=(((((4)<8)?(((1<<(4))<<8)):(((1<<(4))>>8))))),
-_ISspace=(((((5)<8)?(((1<<(5))<<8)):(((1<<(5))>>8))))),
-_ISprint=(((((6)<8)?(((1<<(6))<<8)):(((1<<(6))>>8))))),
-_ISgraph=(((((7)<8)?(((1<<(7))<<8)):(((1<<(7))>>8))))),
-_ISblank=(((((8)<8)?(((1<<(8))<<8)):(((1<<(8))>>8))))),
-_IScntrl=(((((9)<8)?(((1<<(9))<<8)):(((1<<(9))>>8))))),
-_ISpunct=(((((10)<8)?(((1<<(10))<<8)):(((1<<(10))>>8))))),
-_ISalnum=(((((11)<8)?(((1<<(11))<<8)):(((1<<(11))>>8)))))
-};
-
 struct buffer
 {
     char* buf;
@@ -2169,44 +2155,6 @@ int* __errno_location();
 void __assert_fail(const char* __assertion, const char* __file, unsigned int __line, const char* __function);
 void __assert_perror_fail(int __errnum, const char* __file, unsigned int __line, const char* __function);
 void __assert(const char* __assertion, const char* __file, int __line);
-const unsigned short int** __ctype_b_loc();
-const int** __ctype_tolower_loc();
-const int** __ctype_toupper_loc();
-int isalnum(int );
-int isalpha(int );
-int iscntrl(int );
-int isdigit(int );
-int islower(int );
-int isgraph(int );
-int isprint(int );
-int ispunct(int );
-int isspace(int );
-int isupper(int );
-int isxdigit(int );
-int tolower(int __c);
-int toupper(int __c);
-int isblank(int );
-int isctype(int __c, int __mask);
-int isascii(int __c);
-int toascii(int __c);
-int _toupper(int );
-int _tolower(int );
-int isalnum_l(int , struct __locale_struct* );
-int isalpha_l(int , struct __locale_struct* );
-int iscntrl_l(int , struct __locale_struct* );
-int isdigit_l(int , struct __locale_struct* );
-int islower_l(int , struct __locale_struct* );
-int isgraph_l(int , struct __locale_struct* );
-int isprint_l(int , struct __locale_struct* );
-int ispunct_l(int , struct __locale_struct* );
-int isspace_l(int , struct __locale_struct* );
-int isupper_l(int , struct __locale_struct* );
-int isxdigit_l(int , struct __locale_struct* );
-int isblank_l(int , struct __locale_struct* );
-int __tolower_l(int __c, struct __locale_struct* __l);
-int tolower_l(int __c, struct __locale_struct* __l);
-int __toupper_l(int __c, struct __locale_struct* __l);
-int toupper_l(int __c, struct __locale_struct* __l);
 void come_push_stackframe(char* sname, int sline, int id);
 void come_pop_stackframe();
 void come_save_stackframe(char* sname, int sline);
@@ -5761,7 +5709,7 @@ char* parse_struct_attribute(struct sInfo* info)
     skip_spaces_and_lf(info);
     result=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05type.c", 1079, "struct buffer*"))));
     while(1) {
-        if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+        if(xisalpha(*info->p)||*info->p==95) {
         }
         else {
             break;
@@ -5854,7 +5802,7 @@ struct tuple2$2sType$phchar$ph* parse_variable_name_on_multiple_declare(struct s
     {
         p=info->p;
         sline=info->sline;
-        if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+        if(xisalpha(*info->p)||*info->p==95) {
             word=(char*)come_increment_ref_count(parse_word(0,info));
             if(string_operator_equals(word,"const")||string_operator_equals(word,"__restrict")||string_operator_equals(word,"restrict")||string_operator_equals(word,"__user")||string_operator_equals(word,"volatile")||string_operator_equals(word,"_Nonnull")||string_operator_equals(word,"_Nullable")||string_operator_equals(word,"_Null_unspecified")||string_operator_equals(word,"__user")||string_operator_equals(word,"_Addr")) {
             }
@@ -5876,7 +5824,7 @@ struct tuple2$2sType$phchar$ph* parse_variable_name_on_multiple_declare(struct s
         if(*info->p==40) {
             info->p++;
             skip_spaces_and_lf(info);
-            if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+            if(xisalpha(*info->p)||*info->p==95) {
                 word_33=(char*)come_increment_ref_count(parse_word(0,info));
                 if(is_type_name(word_33,info)) {
                 }
@@ -5903,7 +5851,7 @@ struct tuple2$2sType$phchar$ph* parse_variable_name_on_multiple_declare(struct s
             if(*info->p==42) {
                 info->p++;
                 skip_spaces_and_lf(info);
-                if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+                if(xisalpha(*info->p)||*info->p==95) {
                     word_36=(char*)come_increment_ref_count(parse_word(0,info));
                     if(is_type_name(word_36,info)) {
                     }
@@ -6010,7 +5958,7 @@ struct tuple2$2sType$phchar$ph* parse_variable_name_on_multiple_declare(struct s
         {
             p_38=info->p;
             sline_39=info->sline;
-            if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+            if(xisalpha(*info->p)||*info->p==95) {
                 word_40=(char*)come_increment_ref_count(parse_word(0,info));
                 if(string_operator_equals(word_40,"const")||string_operator_equals(word_40,"__restrict")||string_operator_equals(word_40,"restrict")||string_operator_equals(word_40,"__user")||string_operator_equals(word_40,"volatile")||string_operator_equals(word_40,"_Nonnull")||string_operator_equals(word_40,"_Nullable")||string_operator_equals(word_40,"_Null_unspecified")||string_operator_equals(word_40,"__user")||string_operator_equals(word_40,"_Addr")) {
                 }
@@ -6152,7 +6100,7 @@ void skip_pointer_attribute(struct sInfo* info)
     int nest;
     p=info->p;
     sline=info->sline;
-    if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+    if(xisalpha(*info->p)||*info->p==95) {
         word=(char*)come_increment_ref_count(parse_word(0,info));
         if((string_operator_equals(word,"__attribute")||string_operator_equals(word,"__attribute__"))&&*info->p==40) {
             nest=0;
@@ -7109,7 +7057,7 @@ struct tuple3$3sType$phchar$ph_Bool$* parse_type(struct sInfo* info, _Bool parse
             {
                 p_59=info->p;
                 sline_60=info->sline;
-                if(!(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95)) {
+                if(!(xisalpha(*info->p)||*info->p==95)) {
                     __dec_obj122=type_name,
                     type_name=(char*)come_increment_ref_count(__builtin_string("long"));
                     __dec_obj122 = come_decrement_ref_count(__dec_obj122, (void*)0, (void*)0, 0,0, (void*)0);
@@ -7148,7 +7096,7 @@ struct tuple3$3sType$phchar$ph_Bool$* parse_type(struct sInfo* info, _Bool parse
                     else if(string_operator_equals(type_name,"long")) {
                         p_59=info->p;
                         sline_60=info->sline;
-                        if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+                        if(xisalpha(*info->p)||*info->p==95) {
                             long_long=1;
                             __dec_obj126=type_name,
                             type_name=(char*)come_increment_ref_count(parse_word(0,info));
@@ -7203,7 +7151,7 @@ struct tuple3$3sType$phchar$ph_Bool$* parse_type(struct sInfo* info, _Bool parse
         }
         else if(string_operator_equals(type_name,"signed")) {
             unsigned_=0;
-            if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+            if(xisalpha(*info->p)||*info->p==95) {
                 p_61=info->p;
                 sline_62=info->sline;
                 __dec_obj130=type_name,
@@ -7229,14 +7177,14 @@ struct tuple3$3sType$phchar$ph_Bool$* parse_type(struct sInfo* info, _Bool parse
         }
         else if(string_operator_equals(type_name,"unsigned")) {
             unsigned_=1;
-            if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+            if(xisalpha(*info->p)||*info->p==95) {
                 p_63=info->p;
                 sline_64=info->sline;
                 __dec_obj133=type_name,
                 type_name=(char*)come_increment_ref_count(parse_word(0,info));
                 __dec_obj133 = come_decrement_ref_count(__dec_obj133, (void*)0, (void*)0, 0,0, (void*)0);
                 if(string_operator_equals(type_name,"short")) {
-                    if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+                    if(xisalpha(*info->p)||*info->p==95) {
                         p_65=info->p;
                         sline_66=info->sline;
                         __dec_obj134=type_name,
@@ -7263,7 +7211,7 @@ struct tuple3$3sType$phchar$ph_Bool$* parse_type(struct sInfo* info, _Bool parse
                     }
                 }
                 else if(string_operator_equals(type_name,"long")) {
-                    if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+                    if(xisalpha(*info->p)||*info->p==95) {
                         p_67=info->p;
                         sline_68=info->sline;
                         __dec_obj137=type_name,
@@ -7549,7 +7497,7 @@ struct tuple3$3sType$phchar$ph_Bool$* parse_type(struct sInfo* info, _Bool parse
     {
         pX=info->p;
         slineX=info->sline;
-        if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+        if(xisalpha(*info->p)||*info->p==95) {
             (void)((char*)(__right_value0=parse_word(0,info)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             if(*info->p==40&&info->in_typedef) {
@@ -7579,7 +7527,7 @@ struct tuple3$3sType$phchar$ph_Bool$* parse_type(struct sInfo* info, _Bool parse
                 }
                 function_pointer_flag=1;
                 word=((void*)0);
-                if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+                if(xisalpha(*info->p)||*info->p==95) {
                     __dec_obj160=word,
                     word=(char*)come_increment_ref_count(parse_word(0,info));
                     __dec_obj160 = come_decrement_ref_count(__dec_obj160, (void*)0, (void*)0, 0,0, (void*)0);
@@ -7636,7 +7584,7 @@ struct tuple3$3sType$phchar$ph_Bool$* parse_type(struct sInfo* info, _Bool parse
                 }
                 (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0));
             }
-            else if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+            else if(xisalpha(*info->p)||*info->p==95) {
                 word_82=(char*)come_increment_ref_count(parse_word(0,info));
                 if(*info->p==41) {
                     info->p++;
@@ -7659,7 +7607,7 @@ struct tuple3$3sType$phchar$ph_Bool$* parse_type(struct sInfo* info, _Bool parse
             info->p++;
             skip_spaces_and_lf(info);
             skip_pointer_attribute(info);
-            if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+            if(xisalpha(*info->p)||*info->p==95) {
                 word_85=(char*)come_increment_ref_count(parse_word(0,info));
                 if(is_type_name(word_85,info)) {
                 }
@@ -8054,7 +8002,7 @@ _conditional_value_X2;})) {
         type_77->mTupleName=(char*)come_increment_ref_count(tuple_name);
         __dec_obj195 = come_decrement_ref_count(__dec_obj195, (void*)0, (void*)0, 0,0, (void*)0);
         type_77->mDefferRightValue=type_77->mDefferRightValue||deffer_;
-        if(((*__ctype_b_loc())[(int)((*info->p))]&(unsigned short int)(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))))||*info->p==95) {
+        if(xisalpha(*info->p)||*info->p==95) {
             __dec_obj196=var_name_78,
             var_name_78=(char*)come_increment_ref_count(parse_word(0,info));
             __dec_obj196 = come_decrement_ref_count(__dec_obj196, (void*)0, (void*)0, 0,0, (void*)0);
