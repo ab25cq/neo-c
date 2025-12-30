@@ -5,11 +5,14 @@ bool is_gcc_builtin_float_typedef(string type_name, sInfo* info)
     if(!info.gcc_compiler) {
         return false;
     }
+    return true;
+/*
     return type_name === "_Float128"
         || type_name === "_Float32"
         || type_name === "_Float64"
         || type_name === "_Float32x"
         || type_name === "_Float64x";
+*/
 }
 
 class sTypedefNode extends sNodeBase

@@ -6,6 +6,13 @@
 
 #undef __cplusplus
 
+/*
+__c__ {#if defined(__MAC__)}
+__c__ {typedef long double float128_t;}
+__c__ {typedef long double _Float128;}
+__c__ {#endif}
+*/
+
 #ifdef __STDC__
 #define __P(protos) protos
 #else

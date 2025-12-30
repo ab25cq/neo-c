@@ -1862,7 +1862,8 @@ class sLambdaCall extends sNodeBase
             CVALUE*% come_value2 = new CVALUE();
             come_value2.c_value = buf.to_string();
             
-            come_value2.type = clone result_type;
+            come_value2.type = new sType(s"void");
+            come_value2.type.mPointerNum = 1;
             if(come_value2.type) {
                 come_value2.type->mStatic = false;
             }
