@@ -898,7 +898,7 @@ string reflection_node(sInfo* info=info)
         info.sline_real = sline_real;
         return value.to_string();
     }
-    else if(*info->p == '@') {
+    else if(*info->p == '$') {
         info->p++;
         string var_name = parse_word();
         
@@ -920,6 +920,15 @@ string reflection_node(sInfo* info=info)
         }
         skip_spaces_and_lf();
         return buf.to_string();
+    }
+    else if(*info->p == '-' && xisdigit(*(info->p+1))) {
+        int n = 0;
+        while(xisdigit(*info->p)) {
+            n = n * 10 + (*info.p - '0');
+            info.p++;
+        }
+        skip_spaces_and_lf();
+        return xsprintf("-%d", n);
     }
     else if(xisdigit(*info->p)) {
         int n = 0;
@@ -952,20 +961,75 @@ string reflection_node(sInfo* info=info)
     return s"";
 }
 
-string reflection_expression_add(sInfo* info=info)
+string reflection_expression_mult(sInfo* info=info)
 {
     string node = reflection_node();
     
     skip_spaces_and_lf();
     
     while(*info->p) {
-        if(*info->p == '+') {
+        if(*info->p == '*') {
             info->p ++;
             skip_spaces_and_lf();
             
             string right = reflection_node();
             
+            return (atoi(node) * atoi(right)).to_string();
+        }
+        else if(*info->p == '/') {
+            info->p ++;
+            skip_spaces_and_lf();
+            
+            string right = reflection_node();
+            
+            return (atoi(node) / atoi(right)).to_string();
+        }
+        else if(*info->p == '%') {
+            info->p ++;
+            skip_spaces_and_lf();
+            
+            string right = reflection_node();
+            
+            return (atoi(node) % atoi(right)).to_string();
+        }
+        else {
+            break;
+        }
+    }
+    
+    return node;
+}
+
+string reflection_expression_add(sInfo* info=info)
+{
+    string node = reflection_expression_mult();
+    
+    skip_spaces_and_lf();
+    
+    while(*info->p) {
+        if(*info->p == '.') {
+            info->p ++;
+            skip_spaces_and_lf();
+            
+            string right = reflection_expression_mult();
+            
             return node + right;
+        }
+        else if(*info->p == '+') {
+            info->p ++;
+            skip_spaces_and_lf();
+            
+            string right = reflection_expression_mult();
+            
+            return (atoi(node) + atoi(right)).to_string();
+        }
+        else if(*info->p == '-') {
+            info->p ++;
+            skip_spaces_and_lf();
+            
+            string right = reflection_expression_mult();
+            
+            return (atoi(node) - atoi(right)).to_string();
         }
         else {
             break;

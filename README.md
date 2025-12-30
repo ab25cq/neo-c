@@ -2446,15 +2446,18 @@ var a = "int a;"
 var b = "int b;"
 var c = "1"
 
-if(@c == 1){
+if($c * 5 == 5){
     int c;
 }
+if($c . 1 == 11){
+    int d;
+}
 
-eval "long \{@a + @b}"
+eval "long \{$a . $b}"
 
 int main(int argc, char** argv)
 {
-    printf("a %d b %d c %d\n", a, b, c);
+    printf("a %d b %d c %d d %d\n", a, b, c, d);
     
     return 0;
 }
