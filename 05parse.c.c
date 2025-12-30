@@ -354,11 +354,6 @@ typedef struct anonymous_typeX2 mbstate_t;
 typedef int* wstring;
 
 /// previous struct definition ///
-#if defined(__MAC__)
-typedef long double float128_t;
-typedef long double _Float128;
-typedef long double __float128;
-#endif
 struct _IO_FILE;
 
 struct _IO_marker;
@@ -1782,7 +1777,6 @@ float strtof(const char* __nptr, char** __endptr);
 long  double strtold(const char* __nptr, char** __endptr);
 float strtof32(const char* __nptr, char** __endptr);
 double strtof64(const char* __nptr, char** __endptr);
-__float128 strtof128(const char* __nptr, char** __endptr);
 double strtof32x(const char* __nptr, char** __endptr);
 long  double strtof64x(const char* __nptr, char** __endptr);
 long  int strtol(const char* __nptr, char** __endptr, int __base);
@@ -1800,7 +1794,6 @@ int strfromf(char* __dest, unsigned long  int __size, const char* __format, floa
 int strfroml(char* __dest, unsigned long  int __size, const char* __format, long  double __f);
 int strfromf32(char* __dest, unsigned long  int __size, const char* __format, float __f);
 int strfromf64(char* __dest, unsigned long  int __size, const char* __format, double __f);
-int strfromf128(char* __dest, unsigned long  int __size, const char* __format, __float128 __f);
 int strfromf32x(char* __dest, unsigned long  int __size, const char* __format, double __f);
 int strfromf64x(char* __dest, unsigned long  int __size, const char* __format, long  double __f);
 long  int strtol_l(const char* __nptr, char** __endptr, int __base, struct __locale_struct* __loc);
@@ -1816,7 +1809,6 @@ float strtof_l(const char* __nptr, char** __endptr, struct __locale_struct* __lo
 long  double strtold_l(const char* __nptr, char** __endptr, struct __locale_struct* __loc);
 float strtof32_l(const char* __nptr, char** __endptr, struct __locale_struct* __loc);
 double strtof64_l(const char* __nptr, char** __endptr, struct __locale_struct* __loc);
-__float128 strtof128_l(const char* __nptr, char** __endptr, struct __locale_struct* __loc);
 double strtof32x_l(const char* __nptr, char** __endptr, struct __locale_struct* __loc);
 long  double strtof64x_l(const char* __nptr, char** __endptr, struct __locale_struct* __loc);
 char* l64a(long  int __n);
@@ -2314,7 +2306,6 @@ float wcstof(const int* __nptr, int** __endptr);
 long  double wcstold(const int* __nptr, int** __endptr);
 float wcstof32(const int* __nptr, int** __endptr);
 double wcstof64(const int* __nptr, int** __endptr);
-__float128 wcstof128(const int* __nptr, int** __endptr);
 double wcstof32x(const int* __nptr, int** __endptr);
 long  double wcstof64x(const int* __nptr, int** __endptr);
 long  int wcstol(const int* __nptr, int** __endptr, int __base);
@@ -2340,7 +2331,6 @@ float wcstof_l(const int* __nptr, int** __endptr, struct __locale_struct* __loc)
 long  double wcstold_l(const int* __nptr, int** __endptr, struct __locale_struct* __loc);
 float wcstof32_l(const int* __nptr, int** __endptr, struct __locale_struct* __loc);
 double wcstof64_l(const int* __nptr, int** __endptr, struct __locale_struct* __loc);
-__float128 wcstof128_l(const int* __nptr, int** __endptr, struct __locale_struct* __loc);
 double wcstof32x_l(const int* __nptr, int** __endptr, struct __locale_struct* __loc);
 long  double wcstof64x_l(const int* __nptr, int** __endptr, struct __locale_struct* __loc);
 int* wcpcpy(int* __dest, const int* __src);

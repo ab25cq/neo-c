@@ -1082,6 +1082,17 @@ string output_function(sFun* fun, sInfo* info)
     return output.to_string();
 }
 
+bool is_gcc_builtin_float_type(sType* type, sInfo* info=info)
+{
+/*
+#ifdef __LINUX__
+    return false;
+#endif
+*/
+    return type.mClass.mName === "_Float128"
+            || type.mClass.mName === "__float128";
+}
+
 string header_function(sFun* fun, sInfo* info)
 {
     var output = new buffer();
@@ -1173,6 +1184,9 @@ string header_function(sFun* fun, sInfo* info)
         output.append_format(";\n");
     }
     else {
+        if(is_gcc_builtin_float_type(fun->mResultType)) {
+            return s"";
+        }
         string result_type_str = make_type_name_string(fun->mResultType, no_static:true);
         
         if(fun->mStatic) {
@@ -1191,6 +1205,10 @@ string header_function(sFun* fun, sInfo* info)
         int i = 0;
         foreach(it, fun->mParamTypes) {
             char* name = fun->mParamNames[i];
+            
+            if(is_gcc_builtin_float_type(it)) {
+                return s"";
+            }
             
             string str = make_define_var(it, name, no_static:true);
             output.append_str(str);
