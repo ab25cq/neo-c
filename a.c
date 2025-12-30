@@ -18,7 +18,15 @@ if($c . 1 == 11){
     int d;
 }
 
+static int** aaaa[128];
+
+puts(is_static(type(aaaa)));
+
+puts("HELLO REFLECTION");
 puts(sizeof(sData));
+
+int funX() { }
+puts(result_type(funX));
 
 eval "long \{$a . $b}"
 
