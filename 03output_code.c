@@ -265,6 +265,37 @@ string make_come_type_name_string(sType* type, sInfo* info=info)
         return buf.to_string();
     }
     else {
+        if(type->mStatic) {
+            buf.append_str("static ");
+        }
+        if(type->mAtomic) {
+            buf.append_str("_Atomic(");
+        }
+        if(type->mThreadLocal) {
+            buf.append_str("_Thread_local ");
+        }
+        
+        if(type->mConstant) {
+            buf.append_str("const ");
+        }
+        if(type->mComplex) {
+            buf.append_str("_Complex ");
+        }
+        if(type->mRegister) {
+            buf.append_str("register ");
+        }
+        if(type->mUniq) {
+            buf.append_str("uniq ");
+        }
+        
+        if(type->mUnsigned) {
+            buf.append_str("unsigned ");
+        }
+        
+        if(type->mShort) {
+            buf.append_str("short ");
+        }
+        
         buf.append_str(class_name);
         
         if(type2->mGenericsTypes.length() > 0) {
@@ -287,6 +318,10 @@ string make_come_type_name_string(sType* type, sInfo* info=info)
                 buf.append_str("*");
             }
         }
+        
+        if(type->mAtomic) {
+            buf.append_str(")");
+        }
             
         if(type2->mArrayNum.length() > 0) {
             for(int i=0; i<type2->mArrayNum.length(); i++) {
@@ -296,6 +331,9 @@ string make_come_type_name_string(sType* type, sInfo* info=info)
             
         if(type2->mHeap) {
             buf.append_str("%");
+        }
+        if(type2->mNoHeap) {
+            buf.append_str("&");
         }
         
         if(type2->mAttribute) {

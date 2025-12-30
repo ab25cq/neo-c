@@ -115,9 +115,141 @@ sNode*% static_assert_node(sNode*% exp, sNode*% exp2, sInfo* info=info)
 
 string reflection_expression(sInfo* info=info);
 
+static inline int align_up(int x, int align)
+{
+    return (x + align - 1) & ~(align - 1);
+}
+
+int sizeof_struct(sType*% type, sInfo* info=info);
+int sizeof_union(sType*% type, sInfo* info=info);
+int sizeof_type(sType*% type, sInfo* info=info);
+int alignof_type(sType*% type, sInfo* info=info);
+
+int sizeof_struct(sType*% type, sInfo* info=info)
+{
+    int offset = 0;
+    int max_align = 1;
+
+    int n = type->mClass->mFields.length();
+    for (int i = 0; i < n; i++) {
+        var name, field_type = type->mClass->mFields[i];
+
+        int align = alignof_type(field_type, info);
+        int size  = sizeof_type(field_type, info);
+
+        offset = align_up(offset, align);
+        offset += size;
+
+        if (align > max_align) {
+            max_align = align;
+        }
+    }
+
+    offset = align_up(offset, max_align);
+    return offset;
+}
+
+int sizeof_union(sType*% type, sInfo* info=info)
+{
+    int max_size  = 0;
+    int max_align = 1;
+
+    int n = type->mClass->mFields.length();
+    for (int i = 0; i < n; i++) {
+        var name, field_type = type->mClass.mFields[i];
+
+        int size  = sizeof_type(field_type, info);
+        int align = alignof_type(field_type, info);
+
+        if (size > max_size) {
+            max_size = size;
+        }
+        if (align > max_align) {
+            max_align = align;
+        }
+    }
+
+    return align_up(max_size, max_align);
+}
+
+
+int sizeof_type(sType*% type, sInfo* info=info)
+{
+    if (type->mArrayNum.length() > 0) {
+        int element_num = 0;
+        for(int i=0; i<type->mArrayNum.length(); i++ ){
+            sNode*% node = type->mArrayNum[i];
+            
+            bool no_output_come_code = info.no_output_come_code;
+            info.no_output_come_code = true;
+            node_compile(node).elif {
+                err_msg(info, "invalid array num");
+                exit(2);
+            }
+            info.no_output_come_code = no_output_come_code;
+        
+            CVALUE*% cvalue = get_value_from_stack(-1, info);
+            
+            element_num += atoi(cvalue.c_value);
+        }
+        sType*% element_type = clone type;
+        element_type->mArrayNum.reset();
+        
+        return sizeof_type(element_type, info) * element_num;
+    }
+    
+    if (type->mPointerNum > 0) {
+        return 8;
+    }
+    if (type->mClass->mStruct) {
+        return sizeof_struct(type, info);
+    }
+
+    if (type->mClass->mUnion) {
+        return sizeof_union(type, info);
+    }
+
+    if (type->mClass->mName === "char") return 1;
+    if (type->mClass->mName === "short") return 2;
+    if (type->mClass->mName === "int") return 4;
+    if (type->mClass->mName === "long") return 8;
+
+    err_msg(info, "sizeof: unsupported type");
+    exit(2);
+}
+
+int alignof_type(sType*% type, sInfo* info=info)
+{
+    if (type->mPointerNum > 0) {
+        return 8;
+    }
+    
+    if (type->mClass->mStruct || type->mClass->mUnion) {
+        int max_align = 1;
+        int n = type->mClass.mFields.length();
+        for (int i = 0; i < n; i++) {
+            var name, field_type = type->mClass.mFields[i];
+            
+            int a = alignof_type(field_type, info);
+            if (a > max_align) {
+                max_align = a;
+            }
+        }
+        return max_align;
+    }
+
+    if (type->mClass->mName === "char") return 1;
+    if (type->mClass->mName === "short")  return 2;
+    if (type->mClass->mName === "int") return 4;
+    if (type->mClass->mName === "long")   return 8;
+
+    err_msg(info, "sizeof: unsupported type");
+    exit(2);
+}
+
 string reflection_node(sInfo* info=info)
 {
-    if(parsecmp("defined")) {
+    if(parsecmp("sizeof")) {
         (void)parse_word();
         
         skip_spaces_and_lf();
@@ -127,7 +259,40 @@ string reflection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = reflection_node();
+        string exp = reflection_expression();
+        
+        if(*info->p == ')') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+        
+        skip_spaces_and_lf();
+        
+        string result = null;
+        
+        info.types[exp].if {
+            size_t size = sizeof_type(Value, info);
+            result = size.to_string();
+        }
+        
+        if(result) {
+            return result;
+        }
+        else {
+            return s"false";
+        }
+    }
+    else if(parsecmp("defined")) {
+        (void)parse_word();
+        
+        skip_spaces_and_lf();
+        
+        if(*info->p == '(') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+        
+        string exp = reflection_expression();
         
         if(*info->p == ')') {
             info->p++;
@@ -173,7 +338,7 @@ string reflection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = reflection_node();
+        string exp = reflection_expression();
         
         if(*info->p == ')') {
             info->p++;
@@ -182,21 +347,7 @@ string reflection_node(sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        bool defined = false;
-        
-        info.funcs[exp].if {
-            if(Value->mStatic) {
-                defined = true;
-            }
-        }
-        //sGeneicsFun* gfun = info.generics_funcs[exp];
-        get_variable_from_table(info.gv_table, exp).if {
-            if(Value.mType.mStatic) {
-                defined = true;
-            }
-        }
-        
-        if(defined) {
+        if(strstr(exp, "static ")) {
             return s"true";
         }
         else {
@@ -213,7 +364,7 @@ string reflection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = reflection_node();
+        string exp = reflection_expression();
         
         if(*info->p == ')') {
             info->p++;
@@ -222,21 +373,7 @@ string reflection_node(sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        bool defined = false;
-        
-        info.funcs[exp].if {
-            if(Value->mResultType.mHeap) {
-                defined = true;
-            }
-        }
-        //sGeneicsFun* gfun = info.generics_funcs[exp];
-        get_variable_from_table(info.gv_table, exp).if {
-            if(Value.mType.mHeap) {
-                defined = true;
-            }
-        }
-        
-        if(defined) {
+        if(strstr(exp, "%")) {
             return s"true";
         }
         else {
@@ -253,7 +390,7 @@ string reflection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = reflection_node();
+        string exp = reflection_expression();
         
         if(*info->p == ')') {
             info->p++;
@@ -262,21 +399,7 @@ string reflection_node(sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        bool defined = false;
-        
-        info.funcs[exp].if {
-            if(Value->mResultType.mConstant) {
-                defined = true;
-            }
-        }
-        //sGeneicsFun* gfun = info.generics_funcs[exp];
-        get_variable_from_table(info.gv_table, exp).if {
-            if(Value.mType.mConstant) {
-                defined = true;
-            }
-        }
-        
-        if(defined) {
+        if(strstr(exp, "const ")) {
             return s"true";
         }
         else {
@@ -293,7 +416,7 @@ string reflection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = reflection_node();
+        string exp = reflection_expression();
         
         if(*info->p == ')') {
             info->p++;
@@ -302,18 +425,7 @@ string reflection_node(sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        bool defined = false;
-        
-        info.uniq_funcs[exp].if {
-            defined = true;
-        }
-        get_variable_from_table(info.gv_table, exp).if {
-            if(Value.mType.mUniq) {
-                defined = true;
-            }
-        }
-        
-        if(defined) {
+        if(strstr(exp, "uniq ")) {
             return s"true";
         }
         else {
@@ -330,7 +442,7 @@ string reflection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = reflection_node();
+        string exp = reflection_expression();
         
         if(*info->p == ')') {
             info->p++;
@@ -362,7 +474,7 @@ string reflection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = reflection_node();
+        string exp = reflection_expression();
         
         if(*info->p == ')') {
             info->p++;
@@ -388,6 +500,38 @@ string reflection_node(sInfo* info=info)
             return s"false";
         }
     }
+    else if(parsecmp("result_type")) {
+        (void)parse_word();
+        
+        skip_spaces_and_lf();
+        
+        if(*info->p == '(') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+        
+        string exp = reflection_expression();
+        
+        if(*info->p == ')') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+        
+        skip_spaces_and_lf();
+        
+        string result = null;
+        
+        info.funcs[exp].if {
+            result = make_come_type_name_string(Value->mResultType);
+        }
+        
+        if(result) {
+            return result;
+        }
+        else {
+            return s"false";
+        }
+    }
     else if(parsecmp("param_types")) {
         (void)parse_word();
         
@@ -398,14 +542,14 @@ string reflection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = reflection_node();
+        string exp = reflection_expression();
         
         if(*info->p == ',') {
             info->p++;
             skip_spaces_and_lf();
         }
         
-        string exp2 = reflection_node();
+        string exp2 = reflection_expression();
         
         if(*info->p == ')') {
             info->p++;
@@ -430,6 +574,45 @@ string reflection_node(sInfo* info=info)
             return s"false";
         }
     }
+    else if(parsecmp("param_names")) {
+        (void)parse_word();
+        
+        skip_spaces_and_lf();
+        
+        if(*info->p == '(') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+        
+        string exp = reflection_expression();
+        
+        if(*info->p == ',') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+        
+        string exp2 = reflection_expression();
+        
+        if(*info->p == ')') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+        
+        skip_spaces_and_lf();
+        
+        string result = null;
+        
+        info.funcs[exp].if {
+            result = Value->mParamNames[atoi(exp2)];
+        }
+        
+        if(result) {
+            return result;
+        }
+        else {
+            return s"false";
+        }
+    }
     else if(parsecmp("num_param_types")) {
         (void)parse_word();
         
@@ -440,7 +623,7 @@ string reflection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = reflection_node();
+        string exp = reflection_expression();
         
         if(*info->p == ')') {
             info->p++;
@@ -472,7 +655,7 @@ string reflection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = reflection_node();
+        string exp = reflection_expression();
         
         if(*info->p == ')') {
             info->p++;
@@ -506,14 +689,14 @@ string reflection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = reflection_node();
+        string exp = reflection_expression();
         
         if(*info->p == ',') {
             info->p++;
             skip_spaces_and_lf();
         }
         
-        string exp2 = reflection_node();
+        string exp2 = reflection_expression();
         
         if(*info->p == ')') {
             info->p++;
@@ -543,52 +726,6 @@ string reflection_node(sInfo* info=info)
             return s"false";
         }
     }
-    else if(parsecmp("type")) {
-        (void)parse_word();
-        
-        skip_spaces_and_lf();
-        
-        if(*info->p == '(') {
-            info->p++;
-            skip_spaces_and_lf();
-        }
-        
-        string exp = reflection_node();
-        
-        if(*info->p == ')') {
-            info->p++;
-            skip_spaces_and_lf();
-        }
-        
-        skip_spaces_and_lf();
-        
-        bool defined = false;
-        
-        info.types[exp].if {
-            return make_come_type_name_string(Value);
-        }
-    }
-    else if(parsecmp("puts")) {
-        (void)parse_word();
-        
-        skip_spaces_and_lf();
-        
-        if(*info->p == '(') {
-            info->p++;
-            skip_spaces_and_lf();
-        }
-        
-        string exp = reflection_node();
-        
-        puts(exp);
-        
-        if(*info->p == ')') {
-            info->p++;
-            skip_spaces_and_lf();
-        }
-        
-        return s"true";
-    }
     else if(parsecmp("is_inline")) {
         (void)parse_word();
         
@@ -599,7 +736,7 @@ string reflection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = reflection_node();
+        string exp = reflection_expression();
         
         if(*info->p == ')') {
             info->p++;
@@ -633,7 +770,7 @@ string reflection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = reflection_node();
+        string exp = reflection_expression();
         
         if(*info->p == ')') {
             info->p++;
@@ -667,7 +804,7 @@ string reflection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = reflection_node();
+        string exp = reflection_expression();
         
         if(*info->p == ')') {
             info->p++;
@@ -701,7 +838,7 @@ string reflection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = reflection_node();
+        string exp = reflection_expression();
         
         if(*info->p == ')') {
             info->p++;
@@ -735,7 +872,7 @@ string reflection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = reflection_node();
+        string exp = reflection_expression();
         
         if(*info->p == ')') {
             info->p++;
@@ -769,7 +906,7 @@ string reflection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = reflection_node();
+        string exp = reflection_expression();
         
         if(*info->p == ')') {
             info->p++;
@@ -803,7 +940,7 @@ string reflection_node(sInfo* info=info)
             skip_spaces_and_lf();
         }
         
-        string exp = reflection_node();
+        string exp = reflection_expression();
         
         if(*info->p == ')') {
             info->p++;
@@ -943,7 +1080,7 @@ string reflection_node(sInfo* info=info)
         info->p++;
         skip_spaces_and_lf();
         
-        string exp = reflection_node();
+        string exp = reflection_expression();
         
         if(exp === "true") {
             return s"false";
@@ -1478,6 +1615,23 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
         string value = reflection_expression();
         
         info.reflection_vars.insert(var_name, value);
+        
+        return new sNothingNode(info) implements sNode;
+    }
+    else if(buf === "puts") {
+        if(*info->p == '(') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+        
+        string exp = reflection_expression();
+        
+        puts(exp);
+        
+        if(*info->p == ')') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
         
         return new sNothingNode(info) implements sNode;
     }
