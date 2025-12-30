@@ -165,18 +165,6 @@ typedef struct _G_fpos_t fpos_t;
 
 typedef struct _G_fpos64_t fpos64_t;
 
-typedef _Complex float __cfloat128 __attribute__ ((__mode__ (__TC__)));
-
-typedef __float128 _Float128;
-
-typedef float _Float32;
-
-typedef double _Float64;
-
-typedef double _Float32x;
-
-typedef long  double _Float64x;
-
 typedef int wchar_t;
 
 typedef struct anonymous_typeX5 div_t;
@@ -2812,12 +2800,7 @@ static inline unsigned long  int __uint64_identity(unsigned long  int __x)
 _Bool is_gcc_builtin_float_typedef(char* type_name, struct sInfo* info)
 {
     _Bool __result_obj__0;
-    if(!info->gcc_compiler) {
-        __result_obj__0 = 0;
-        (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0));
-        return __result_obj__0;
-    }
-    __result_obj__0 = string_operator_equals(type_name,"_Float128")||string_operator_equals(type_name,"_Float32")||string_operator_equals(type_name,"_Float64")||string_operator_equals(type_name,"_Float32x")||string_operator_equals(type_name,"_Float64x");
+    __result_obj__0 = string_operator_equals(type_name,"_Float128")||string_operator_equals(type_name,"_Float32")||string_operator_equals(type_name,"_Float64")||string_operator_equals(type_name,"_Float32x")||string_operator_equals(type_name,"_Float64x")||string_operator_equals(type_name,"__float128")||string_operator_equals(type_name,"__cfloat128");
     (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0));
     return __result_obj__0;
 }
@@ -2887,8 +2870,8 @@ _Bool sTypedefNode_compile(struct sTypedefNode* self, struct sInfo* info)
     _Bool __result_obj__0;
     type_name=(char*)come_increment_ref_count(__builtin_string(self->mTypeName));
     if(string_operator_equals(type_name,"__darwin_va_list")) {
-        map$2char$phsClass$ph_insert(info->classes,(char*)come_increment_ref_count(__builtin_string("__darwin_va_list")),(struct sClass*)come_increment_ref_count(sClass_initialize((struct sClass*)come_increment_ref_count((struct sClass*)come_calloc_v2(1, sizeof(struct sClass)*(1), "17typedef.c", 41, "struct sClass*")),(char*)come_increment_ref_count(xsprintf("__darwin_va_list")),1,0,0,0,0,0,0,-1,-1,0,0,0,info)));
-        type=(struct sType*)come_increment_ref_count((come_push_stackframe("17typedef.c", 43, 2),__exception_result_var_b3=(come_push_stackframe("17typedef.c", 43, 0),__exception_result_var_b1=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "17typedef.c", 43, "struct sType*")),(char*)come_increment_ref_count(xsprintf("__darwin_va_list")),0,info,0), come_pop_stackframe(), __exception_result_var_b1), come_pop_stackframe(), __exception_result_var_b3));
+        map$2char$phsClass$ph_insert(info->classes,(char*)come_increment_ref_count(__builtin_string("__darwin_va_list")),(struct sClass*)come_increment_ref_count(sClass_initialize((struct sClass*)come_increment_ref_count((struct sClass*)come_calloc_v2(1, sizeof(struct sClass)*(1), "17typedef.c", 45, "struct sClass*")),(char*)come_increment_ref_count(xsprintf("__darwin_va_list")),1,0,0,0,0,0,0,-1,-1,0,0,0,info)));
+        type=(struct sType*)come_increment_ref_count((come_push_stackframe("17typedef.c", 47, 2),__exception_result_var_b3=(come_push_stackframe("17typedef.c", 47, 0),__exception_result_var_b1=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "17typedef.c", 47, "struct sType*")),(char*)come_increment_ref_count(xsprintf("__darwin_va_list")),0,info,0), come_pop_stackframe(), __exception_result_var_b1), come_pop_stackframe(), __exception_result_var_b3));
         __dec_obj43=type->mOriginalTypeName,
         type->mOriginalTypeName=(char*)come_increment_ref_count(__builtin_string("__darwin_va_list"));
         __dec_obj43 = come_decrement_ref_count(__dec_obj43, (void*)0, (void*)0, 0,0, (void*)0);
@@ -5152,7 +5135,7 @@ struct sNode* top_level_v95(char* buf, char* head, int head_sline, struct sInfo*
     if(charp_operator_equals(buf,"typedef")) {
         in_typedef=info->in_typedef;
         info->in_typedef=1;
-        multiple_assign_var2=(come_push_stackframe("17typedef.c", 109, 4),__exception_result_var_b5=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=parse_type(info,1,1,0))), come_pop_stackframe(), __exception_result_var_b5);
+        multiple_assign_var2=(come_push_stackframe("17typedef.c", 113, 4),__exception_result_var_b5=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=parse_type(info,1,1,0))), come_pop_stackframe(), __exception_result_var_b5);
         type=(struct sType*)come_increment_ref_count(multiple_assign_var2->v1);
         type_name=(char*)come_increment_ref_count(multiple_assign_var2->v2);
         err=multiple_assign_var2->v3;
@@ -5166,8 +5149,8 @@ struct sNode* top_level_v95(char* buf, char* head, int head_sline, struct sInfo*
             info->p++;
             skip_spaces_and_lf(info);
             base_type=(struct sType*)come_increment_ref_count(sType_clone(type));
-            multiple_declare=(struct list$1tuple2$2sType$phchar$ph$ph*)come_increment_ref_count(list$1tuple2$2sType$phchar$ph$ph_initialize((struct list$1tuple2$2sType$phchar$ph$ph*)come_increment_ref_count((struct list$1tuple2$2sType$phchar$ph$ph*)come_calloc_v2(1, sizeof(struct list$1tuple2$2sType$phchar$ph$ph)*(1), "17typedef.c", 122, "struct list$1tuple2$2sType$phchar$ph$ph*"))));
-            variable_name=(struct tuple2$2sType$phchar$ph*)come_increment_ref_count(tuple2$2sType$phchar$ph_initialize((struct tuple2$2sType$phchar$ph*)come_increment_ref_count((struct tuple2$2sType$phchar$ph*)come_calloc_v2(1, sizeof(struct tuple2$2sType$phchar$ph)*(1), "17typedef.c", 124, "struct tuple2$2sType$phchar$ph")),(struct sType*)come_increment_ref_count(base_type),(char*)come_increment_ref_count(type_name)));
+            multiple_declare=(struct list$1tuple2$2sType$phchar$ph$ph*)come_increment_ref_count(list$1tuple2$2sType$phchar$ph$ph_initialize((struct list$1tuple2$2sType$phchar$ph$ph*)come_increment_ref_count((struct list$1tuple2$2sType$phchar$ph$ph*)come_calloc_v2(1, sizeof(struct list$1tuple2$2sType$phchar$ph$ph)*(1), "17typedef.c", 126, "struct list$1tuple2$2sType$phchar$ph$ph*"))));
+            variable_name=(struct tuple2$2sType$phchar$ph*)come_increment_ref_count(tuple2$2sType$phchar$ph_initialize((struct tuple2$2sType$phchar$ph*)come_increment_ref_count((struct tuple2$2sType$phchar$ph*)come_calloc_v2(1, sizeof(struct tuple2$2sType$phchar$ph)*(1), "17typedef.c", 128, "struct tuple2$2sType$phchar$ph")),(struct sType*)come_increment_ref_count(base_type),(char*)come_increment_ref_count(type_name)));
             list$1tuple2$2sType$phchar$ph$ph_push_back(multiple_declare,(struct tuple2$2sType$phchar$ph*)come_increment_ref_count(variable_name));
             variable_name2=(struct tuple2$2sType$phchar$ph*)come_increment_ref_count(parse_variable_name_on_multiple_declare((struct sType*)come_increment_ref_count(base_type),1,info));
             list$1tuple2$2sType$phchar$ph$ph_push_back(multiple_declare,(struct tuple2$2sType$phchar$ph*)come_increment_ref_count(variable_name2));
@@ -5179,11 +5162,11 @@ struct sNode* top_level_v95(char* buf, char* head, int head_sline, struct sInfo*
                 come_call_finalizer(tuple2$2sType$phchar$ph$p_finalize, variable_name_36, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             }
             source_tail=info->p;
-            header=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "17typedef.c", 141, "struct buffer*"))));
+            header=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "17typedef.c", 145, "struct buffer*"))));
             buffer_append_str(header,"typedef ");
             buffer_append(header,source_head,source_tail-source_head);
-            _inf_value1=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "17typedef.c", 145, "struct sNode");
-            _inf_obj_value1=(struct sTypedefNode*)come_increment_ref_count(((struct sTypedefNode*)(__right_value1=sTypedefNode_initialize((struct sTypedefNode*)come_increment_ref_count((struct sTypedefNode*)come_calloc_v2(1, sizeof(struct sTypedefNode)*(1), "17typedef.c", 145, "struct sTypedefNode*")),(char*)come_increment_ref_count(type_name),(struct sType*)come_increment_ref_count(type),(struct list$1tuple2$2sType$phchar$ph$ph*)come_increment_ref_count(multiple_declare),info))));
+            _inf_value1=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "17typedef.c", 149, "struct sNode");
+            _inf_obj_value1=(struct sTypedefNode*)come_increment_ref_count(((struct sTypedefNode*)(__right_value1=sTypedefNode_initialize((struct sTypedefNode*)come_increment_ref_count((struct sTypedefNode*)come_calloc_v2(1, sizeof(struct sTypedefNode)*(1), "17typedef.c", 149, "struct sTypedefNode*")),(char*)come_increment_ref_count(type_name),(struct sType*)come_increment_ref_count(type),(struct list$1tuple2$2sType$phchar$ph$ph*)come_increment_ref_count(multiple_declare),info))));
             _inf_value1->_protocol_obj=_inf_obj_value1;
             _inf_value1->finalize=(void*)sTypedefNode_finalize;
             _inf_value1->clone=(void*)sTypedefNode_clone;
@@ -5233,11 +5216,11 @@ struct sNode* top_level_v95(char* buf, char* head, int head_sline, struct sInfo*
         }
         else {
             source_tail_37=info->p;
-            header_38=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "17typedef.c", 156, "struct buffer*"))));
+            header_38=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "17typedef.c", 160, "struct buffer*"))));
             buffer_append_str(header_38,"typedef ");
             buffer_append(header_38,source_head,source_tail_37-source_head);
-            _inf_value2=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "17typedef.c", 160, "struct sNode");
-            _inf_obj_value2=(struct sTypedefNode*)come_increment_ref_count(((struct sTypedefNode*)(__right_value1=sTypedefNode_initialize((struct sTypedefNode*)come_increment_ref_count((struct sTypedefNode*)come_calloc_v2(1, sizeof(struct sTypedefNode)*(1), "17typedef.c", 160, "struct sTypedefNode*")),(char*)come_increment_ref_count(type_name),(struct sType*)come_increment_ref_count(type),((void*)0),info))));
+            _inf_value2=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "17typedef.c", 164, "struct sNode");
+            _inf_obj_value2=(struct sTypedefNode*)come_increment_ref_count(((struct sTypedefNode*)(__right_value1=sTypedefNode_initialize((struct sTypedefNode*)come_increment_ref_count((struct sTypedefNode*)come_calloc_v2(1, sizeof(struct sTypedefNode)*(1), "17typedef.c", 164, "struct sTypedefNode*")),(char*)come_increment_ref_count(type_name),(struct sType*)come_increment_ref_count(type),((void*)0),info))));
             _inf_value2->_protocol_obj=_inf_obj_value2;
             _inf_value2->finalize=(void*)sTypedefNode_finalize;
             _inf_value2->clone=(void*)sTypedefNode_clone;
@@ -5416,8 +5399,8 @@ _Bool add_typedef(char* type_name, struct sType* type, struct sInfo* info)
     void* __right_value2 = (void*)0;
     struct sNode* node;
     _Bool __result_obj__0;
-    _inf_value3=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "17typedef.c", 175, "struct sNode");
-    _inf_obj_value3=(struct sTypedefNode*)come_increment_ref_count(((struct sTypedefNode*)(__right_value1=sTypedefNode_initialize((struct sTypedefNode*)come_increment_ref_count((struct sTypedefNode*)come_calloc_v2(1, sizeof(struct sTypedefNode)*(1), "17typedef.c", 175, "struct sTypedefNode*")),(char*)come_increment_ref_count(type_name),(struct sType*)come_increment_ref_count(type),((void*)0),info))));
+    _inf_value3=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "17typedef.c", 179, "struct sNode");
+    _inf_obj_value3=(struct sTypedefNode*)come_increment_ref_count(((struct sTypedefNode*)(__right_value1=sTypedefNode_initialize((struct sTypedefNode*)come_increment_ref_count((struct sTypedefNode*)come_calloc_v2(1, sizeof(struct sTypedefNode)*(1), "17typedef.c", 179, "struct sTypedefNode*")),(char*)come_increment_ref_count(type_name),(struct sType*)come_increment_ref_count(type),((void*)0),info))));
     _inf_value3->_protocol_obj=_inf_obj_value3;
     _inf_value3->finalize=(void*)sTypedefNode_finalize;
     _inf_value3->clone=(void*)sTypedefNode_clone;
@@ -5470,7 +5453,7 @@ struct sNode* string_node_v17(char* buf, char* head, int head_sline, struct sInf
     if(charp_operator_equals(buf,"typedef")) {
         in_typedef=info->in_typedef;
         info->in_typedef=1;
-        multiple_assign_var3=(come_push_stackframe("17typedef.c", 185, 6),__exception_result_var_b7=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=parse_type(info,1,1,0))), come_pop_stackframe(), __exception_result_var_b7);
+        multiple_assign_var3=(come_push_stackframe("17typedef.c", 189, 6),__exception_result_var_b7=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=parse_type(info,1,1,0))), come_pop_stackframe(), __exception_result_var_b7);
         type=(struct sType*)come_increment_ref_count(multiple_assign_var3->v1);
         type_name=(char*)come_increment_ref_count(multiple_assign_var3->v2);
         err=multiple_assign_var3->v3;
@@ -5484,8 +5467,8 @@ struct sNode* string_node_v17(char* buf, char* head, int head_sline, struct sInf
             info->p++;
             skip_spaces_and_lf(info);
             base_type=(struct sType*)come_increment_ref_count(sType_clone(type));
-            multiple_declare=(struct list$1tuple2$2sType$phchar$ph$ph*)come_increment_ref_count(list$1tuple2$2sType$phchar$ph$ph_initialize((struct list$1tuple2$2sType$phchar$ph$ph*)come_increment_ref_count((struct list$1tuple2$2sType$phchar$ph$ph*)come_calloc_v2(1, sizeof(struct list$1tuple2$2sType$phchar$ph$ph)*(1), "17typedef.c", 198, "struct list$1tuple2$2sType$phchar$ph$ph*"))));
-            variable_name=(struct tuple2$2sType$phchar$ph*)come_increment_ref_count(tuple2$2sType$phchar$ph_initialize((struct tuple2$2sType$phchar$ph*)come_increment_ref_count((struct tuple2$2sType$phchar$ph*)come_calloc_v2(1, sizeof(struct tuple2$2sType$phchar$ph)*(1), "17typedef.c", 200, "struct tuple2$2sType$phchar$ph")),(struct sType*)come_increment_ref_count(base_type),(char*)come_increment_ref_count(type_name)));
+            multiple_declare=(struct list$1tuple2$2sType$phchar$ph$ph*)come_increment_ref_count(list$1tuple2$2sType$phchar$ph$ph_initialize((struct list$1tuple2$2sType$phchar$ph$ph*)come_increment_ref_count((struct list$1tuple2$2sType$phchar$ph$ph*)come_calloc_v2(1, sizeof(struct list$1tuple2$2sType$phchar$ph$ph)*(1), "17typedef.c", 202, "struct list$1tuple2$2sType$phchar$ph$ph*"))));
+            variable_name=(struct tuple2$2sType$phchar$ph*)come_increment_ref_count(tuple2$2sType$phchar$ph_initialize((struct tuple2$2sType$phchar$ph*)come_increment_ref_count((struct tuple2$2sType$phchar$ph*)come_calloc_v2(1, sizeof(struct tuple2$2sType$phchar$ph)*(1), "17typedef.c", 204, "struct tuple2$2sType$phchar$ph")),(struct sType*)come_increment_ref_count(base_type),(char*)come_increment_ref_count(type_name)));
             list$1tuple2$2sType$phchar$ph$ph_push_back(multiple_declare,(struct tuple2$2sType$phchar$ph*)come_increment_ref_count(variable_name));
             variable_name2=(struct tuple2$2sType$phchar$ph*)come_increment_ref_count(parse_variable_name_on_multiple_declare((struct sType*)come_increment_ref_count(base_type),1,info));
             list$1tuple2$2sType$phchar$ph$ph_push_back(multiple_declare,(struct tuple2$2sType$phchar$ph*)come_increment_ref_count(variable_name2));
@@ -5497,11 +5480,11 @@ struct sNode* string_node_v17(char* buf, char* head, int head_sline, struct sInf
                 come_call_finalizer(tuple2$2sType$phchar$ph$p_finalize, variable_name_41, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             }
             source_tail=info->p;
-            header=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "17typedef.c", 217, "struct buffer*"))));
+            header=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "17typedef.c", 221, "struct buffer*"))));
             buffer_append_str(header,"typedef ");
             buffer_append(header,head,source_tail-head);
-            _inf_value4=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "17typedef.c", 221, "struct sNode");
-            _inf_obj_value4=(struct sTypedefNode*)come_increment_ref_count(((struct sTypedefNode*)(__right_value1=sTypedefNode_initialize((struct sTypedefNode*)come_increment_ref_count((struct sTypedefNode*)come_calloc_v2(1, sizeof(struct sTypedefNode)*(1), "17typedef.c", 221, "struct sTypedefNode*")),(char*)come_increment_ref_count(type_name),(struct sType*)come_increment_ref_count(type),(struct list$1tuple2$2sType$phchar$ph$ph*)come_increment_ref_count(multiple_declare),info))));
+            _inf_value4=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "17typedef.c", 225, "struct sNode");
+            _inf_obj_value4=(struct sTypedefNode*)come_increment_ref_count(((struct sTypedefNode*)(__right_value1=sTypedefNode_initialize((struct sTypedefNode*)come_increment_ref_count((struct sTypedefNode*)come_calloc_v2(1, sizeof(struct sTypedefNode)*(1), "17typedef.c", 225, "struct sTypedefNode*")),(char*)come_increment_ref_count(type_name),(struct sType*)come_increment_ref_count(type),(struct list$1tuple2$2sType$phchar$ph$ph*)come_increment_ref_count(multiple_declare),info))));
             _inf_value4->_protocol_obj=_inf_obj_value4;
             _inf_value4->finalize=(void*)sTypedefNode_finalize;
             _inf_value4->clone=(void*)sTypedefNode_clone;
@@ -5551,11 +5534,11 @@ struct sNode* string_node_v17(char* buf, char* head, int head_sline, struct sInf
         }
         else {
             source_tail_42=info->p;
-            header_43=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "17typedef.c", 232, "struct buffer*"))));
+            header_43=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "17typedef.c", 236, "struct buffer*"))));
             buffer_append_str(header_43,"typedef ");
             buffer_append(header_43,head,source_tail_42-head);
-            _inf_value5=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "17typedef.c", 236, "struct sNode");
-            _inf_obj_value5=(struct sTypedefNode*)come_increment_ref_count(((struct sTypedefNode*)(__right_value1=sTypedefNode_initialize((struct sTypedefNode*)come_increment_ref_count((struct sTypedefNode*)come_calloc_v2(1, sizeof(struct sTypedefNode)*(1), "17typedef.c", 236, "struct sTypedefNode*")),(char*)come_increment_ref_count(type_name),(struct sType*)come_increment_ref_count(type),((void*)0),info))));
+            _inf_value5=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "17typedef.c", 240, "struct sNode");
+            _inf_obj_value5=(struct sTypedefNode*)come_increment_ref_count(((struct sTypedefNode*)(__right_value1=sTypedefNode_initialize((struct sTypedefNode*)come_increment_ref_count((struct sTypedefNode*)come_calloc_v2(1, sizeof(struct sTypedefNode)*(1), "17typedef.c", 240, "struct sTypedefNode*")),(char*)come_increment_ref_count(type_name),(struct sType*)come_increment_ref_count(type),((void*)0),info))));
             _inf_value5->_protocol_obj=_inf_obj_value5;
             _inf_value5->finalize=(void*)sTypedefNode_finalize;
             _inf_value5->clone=(void*)sTypedefNode_clone;

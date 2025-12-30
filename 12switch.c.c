@@ -165,18 +165,6 @@ typedef struct _G_fpos_t fpos_t;
 
 typedef struct _G_fpos64_t fpos64_t;
 
-typedef _Complex float __cfloat128 __attribute__ ((__mode__ (__TC__)));
-
-typedef __float128 _Float128;
-
-typedef float _Float32;
-
-typedef double _Float64;
-
-typedef double _Float32x;
-
-typedef long  double _Float64x;
-
 typedef int wchar_t;
 
 typedef struct anonymous_typeX5 div_t;
