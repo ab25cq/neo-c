@@ -354,6 +354,11 @@ typedef struct anonymous_typeX2 mbstate_t;
 typedef int* wstring;
 
 /// previous struct definition ///
+#if defined(__MAC__)
+typedef long double float128_t;
+typedef long double _Float128;
+typedef long double __float128;
+#endif
 struct _IO_FILE;
 
 struct _IO_marker;
