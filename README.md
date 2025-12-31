@@ -55,9 +55,9 @@ sh fast_build.shとすると自動的に必要なパッケージがインスト�
 
 LinuxとMacOS(Darwin), raspberry pi, ベアメタルをサポートしています。
 
-sudoとgitは事前にインストールしてください。
+sudoとgitとwhichは事前にインストールしてください。
 
-Please install sudo and git before the build.
+Please install sudo , git and which before the build.
 
 ```
 git clone https://github.com/ab25cq/neo-c
