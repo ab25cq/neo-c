@@ -282,6 +282,39 @@ string reflection_node(sInfo* info=info)
             return s"false";
         }
     }
+    else if(parsecmp("alignof")) {
+        (void)parse_word();
+        
+        skip_spaces_and_lf();
+        
+        if(*info->p == '(') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+        
+        string exp = reflection_expression();
+        
+        if(*info->p == ')') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+        
+        skip_spaces_and_lf();
+        
+        string result = null;
+        
+        info.types[exp].if {
+            size_t size = alignof_type(Value, info);
+            result = size.to_string();
+        }
+        
+        if(result) {
+            return result;
+        }
+        else {
+            return s"false";
+        }
+    }
     else if(parsecmp("defined")) {
         (void)parse_word();
         
