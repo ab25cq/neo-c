@@ -186,8 +186,8 @@ uniq class sType
         
         string name2 = string(name).substring(0, -pointer_num-1);
         
-        sClass* klass = info.classes[string(name2)]??;
-        sClass* generics_class = info.generics_classes[name2]??;
+        sClass* klass = borrow info.classes[string(name2)]??;
+        sClass* generics_class = borrow info.generics_classes[name2]??;
         
         if(klass == null && generics_class == null) {
 /*
@@ -208,7 +208,7 @@ uniq class sType
             
             info.classes.insert(string(name), klass2);
             
-            self.mClass = info.classes[string(name)]??;
+            self.mClass = borrow info.classes[string(name)]??;
         }
         
         self.mNoSolvedGenericsType = null;
@@ -684,7 +684,7 @@ uniq class sCurrentNode extends sNodeBase
         while(vtable) {
             foreach(it, vtable.mVars) {
                 char* key = it;
-                sVar* value = vtable.mVars[string(key)];
+                sVar* value = borrow vtable.mVars[string(key)];
                 
                 sType*% type2 = clone value.mType;
                 
@@ -743,7 +743,7 @@ uniq class sCurrentNode extends sNodeBase
         while(vtable) {
             foreach(it, vtable.mVars) {
                 char* key = it;
-                sVar* value = vtable.mVars[key];
+                sVar* value = borrow vtable.mVars[key];
                 
                 sType*% type2 = clone value.mType;
                 
@@ -892,7 +892,7 @@ tuple3<sType*%,string,bool>*% backtrace_parse_type(bool parse_variable_name=fals
 void skip_pointer_attribute(sInfo* info=info);
 void skip_paren(sInfo* info);
 sNode*% parse_normal_block(bool clang=false, sInfo* info=info);
-bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* come_value, bool check_no_pointer=false, bool print_err_msg=true, bool pointer_massive=true, sInfo* info=info);
+bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* come_value, bool check_no_pointer=false, bool print_err_msg=true, bool pointer_massive=true, bool check_params=false, sInfo* info=info);
 void cast_type(sType* left_type, sType* right_type, CVALUE* come_value, sInfo* info=info);
 string,string parse_attribute(sInfo* info=info,bool parse_function_attribute=false);
 string,string parse_function_attribute(sInfo* info=info);

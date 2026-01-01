@@ -18,7 +18,7 @@ class sListNode
         list<sNode*%>* list_ = self.value;
         
         for(int i=0; i<list_.length(); i++) {
-            sNode* node = list_[i];
+            sNode* node = borrow list_[i];
             
             if(!node.compile(info)) {
                 return false;

@@ -101,7 +101,7 @@ wchar_t* ViWin*::selector2(ViWin* self, list<wstring>* lines)
     }
 
     if(!canceled) {
-        result = lines.item(scrolltop+cursor, null);
+        result = borrow lines.item(scrolltop+cursor, null);
     }
 
     return result;

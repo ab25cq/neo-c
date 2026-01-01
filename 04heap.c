@@ -417,7 +417,7 @@ void decrement_ref_count_object(sType*% type, char* obj, sInfo* info, bool no_fr
         
         sClass* klass = type->mClass;
         
-        char* class_name = klass->mName;
+        char* class_name = borrow klass->mName;
 
         char* fun_name = "finalize";
         
@@ -432,13 +432,13 @@ void decrement_ref_count_object(sType*% type, char* obj, sInfo* info, bool no_fr
         
         sFun* finalizer = NULL;
         if(type->mGenericsTypes.length() > 0) {
-            finalizer = info->funcs[fun_name2];
+            finalizer = borrow info->funcs[fun_name2];
             
             if(finalizer == NULL) {
                 string none_generics_name = get_none_generics_name(type2.mClass.mName);
                 
                 string generics_fun_name = xsprintf("%s_%s", none_generics_name, fun_name);
-                sGenericsFun* generics_fun = info->generics_funcs[generics_fun_name]??;
+                sGenericsFun* generics_fun = borrow info->generics_funcs[generics_fun_name]??;
                 
                 if(generics_fun) {
                     var name, err = create_generics_fun(fun_name2, generics_fun, type, info);
@@ -447,7 +447,7 @@ void decrement_ref_count_object(sType*% type, char* obj, sInfo* info, bool no_fr
                         printf("%s %d: can't create generics finalizer\n", info->sname, info->sline);
                         exit(2);
                     }
-                    finalizer = info->funcs[name];
+                    finalizer = borrow info->funcs[name];
                 }
             }
         }
@@ -455,7 +455,7 @@ void decrement_ref_count_object(sType*% type, char* obj, sInfo* info, bool no_fr
             int i;
             for(i=FUN_VERSION_MAX-1; i>=1; i--) {
                 string new_fun_name = xsprintf("%s_v%d", fun_name2, i);
-                finalizer = info->funcs[new_fun_name];
+                finalizer = borrow info->funcs[new_fun_name];
                 
                 if(finalizer) {
                     fun_name2 = string(new_fun_name);
@@ -464,7 +464,7 @@ void decrement_ref_count_object(sType*% type, char* obj, sInfo* info, bool no_fr
             }
             
             if(finalizer == NULL) {
-                finalizer = info->funcs[fun_name2];
+                finalizer = borrow info->funcs[fun_name2];
             }
         }
         
@@ -533,13 +533,13 @@ void on_drop_object(sType*% type, char* obj, sInfo* info=info)
         
         sFun* dropper = NULL;
         if(type->mGenericsTypes.length() > 0) {
-            dropper = info->funcs[fun_name2];
+            dropper = borrow info->funcs[fun_name2];
             
             if(dropper == NULL) {
                 string none_generics_name = get_none_generics_name(type2.mClass.mName);
                 
                 string generics_fun_name = xsprintf("%s_%s", none_generics_name, fun_name);
-                sGenericsFun* generics_fun = info->generics_funcs[generics_fun_name]??;
+                sGenericsFun* generics_fun = borrow info->generics_funcs[generics_fun_name]??;
                 
                 if(generics_fun) {
                     var name, err = create_generics_fun(fun_name2, generics_fun, type, info);
@@ -548,7 +548,7 @@ void on_drop_object(sType*% type, char* obj, sInfo* info=info)
                         printf("%s %d: can't create generics dropper\n", info->sname, info->sline);
                         exit(2);
                     }
-                    dropper = info->funcs[name];
+                    dropper = borrow info->funcs[name];
                 }
             }
         }
@@ -556,7 +556,7 @@ void on_drop_object(sType*% type, char* obj, sInfo* info=info)
             int i;
             for(i=FUN_VERSION_MAX-1; i>=1; i--) {
                 string new_fun_name = xsprintf("%s_v%d", fun_name2, i);
-                dropper = info->funcs[new_fun_name];
+                dropper = borrow info->funcs[new_fun_name];
                 
                 if(dropper) {
                     fun_name2 = string(new_fun_name);
@@ -565,7 +565,7 @@ void on_drop_object(sType*% type, char* obj, sInfo* info=info)
             }
             
             if(dropper == NULL) {
-                dropper = info->funcs[fun_name2];
+                dropper = borrow info->funcs[fun_name2];
             }
         }
 
@@ -606,7 +606,7 @@ void free_object(sType*% type, char* obj, bool no_decrement, bool no_free, sInfo
         
         sClass* klass = type->mClass;
         
-        char* class_name = klass->mName;
+        char* class_name = borrow klass->mName;
 
         char* fun_name = "finalize";
         
@@ -617,13 +617,13 @@ void free_object(sType*% type, char* obj, bool no_decrement, bool no_free, sInfo
         
         sFun* finalizer = NULL;
         if(type->mGenericsTypes.length() > 0) {
-            finalizer = info->funcs[fun_name2];
+            finalizer = borrow info->funcs[fun_name2];
             
             if(finalizer == NULL) {
                 string none_generics_name = get_none_generics_name(type2.mClass.mName);
                 
                 string generics_fun_name = xsprintf("%s_%s", none_generics_name, fun_name);
-                sGenericsFun* generics_fun = info->generics_funcs[generics_fun_name]??;
+                sGenericsFun* generics_fun = borrow info->generics_funcs[generics_fun_name]??;
                 
                 if(generics_fun) {
                     var name, err = create_generics_fun(fun_name2, generics_fun, type, info);
@@ -632,8 +632,8 @@ void free_object(sType*% type, char* obj, bool no_decrement, bool no_free, sInfo
                         printf("%s %d: can't create generics finalizer\n", info->sname, info->sline);
                         exit(2);
                     }
-                    //finalizer = info->funcs[fun_name2];
-                    finalizer = info->funcs[name];
+                    //finalizer = borrow info->funcs[fun_name2];
+                    finalizer = borrow info->funcs[name];
                 }
             }
         }
@@ -641,7 +641,7 @@ void free_object(sType*% type, char* obj, bool no_decrement, bool no_free, sInfo
             int i;
             for(i=FUN_VERSION_MAX-1; i>=1; i--) {
                 string new_fun_name = xsprintf("%s_v%d", fun_name2, i);
-                finalizer = info->funcs[new_fun_name];
+                finalizer = borrow info->funcs[new_fun_name];
                 
                 if(finalizer) {
                     fun_name2 = string(new_fun_name);
@@ -650,7 +650,7 @@ void free_object(sType*% type, char* obj, bool no_decrement, bool no_free, sInfo
             }
             
             if(finalizer == NULL) {
-                finalizer = info->funcs[fun_name2];
+                finalizer = borrow info->funcs[fun_name2];
             }
         }
         
@@ -740,7 +740,7 @@ tuple2<sType*%, string>*% clone_object(sType*% type, char* obj, sInfo* info)
     
     sClass* klass = type->mClass;
     
-    char* class_name = klass->mName;
+    char* class_name = borrow klass->mName;
 
     char* fun_name = "clone";
     
@@ -754,7 +754,7 @@ tuple2<sType*%, string>*% clone_object(sType*% type, char* obj, sInfo* info)
         fun_name2 = create_method_name(obj_type, false@no_pointer_name, fun_name, info);
         string fun_name3 = xsprintf("%s_%s", none_generics_name, fun_name);
         
-        sGenericsFun* generics_fun = info.generics_funcs.at(fun_name3, null);
+        sGenericsFun* generics_fun = borrow info.generics_funcs.at(fun_name3, null);
         
         if(generics_fun) {
             var name, err = create_generics_fun(string(fun_name2), generics_fun, obj_type, info);
@@ -762,10 +762,10 @@ tuple2<sType*%, string>*% clone_object(sType*% type, char* obj, sInfo* info)
             if(!err) {
                 return (new sType(s"void"), string(""));
             }
-            cloner = info->funcs[name];
+            cloner = borrow info->funcs[name];
         }
         else {
-            cloner = info->funcs[fun_name2];
+            cloner = borrow info->funcs[fun_name2];
         }
     }
     else {
@@ -774,7 +774,7 @@ tuple2<sType*%, string>*% clone_object(sType*% type, char* obj, sInfo* info)
         int i;
         for(i=FUN_VERSION_MAX-1; i>=1; i--) {
             string new_fun_name = xsprintf("%s_v%d", fun_name2, i);
-            cloner = info->funcs[new_fun_name];
+            cloner = borrow info->funcs[new_fun_name];
             
             if(cloner) {
                 fun_name2 = string(new_fun_name);
@@ -783,7 +783,7 @@ tuple2<sType*%, string>*% clone_object(sType*% type, char* obj, sInfo* info)
         }
         
         if(cloner == NULL) {
-            cloner = info->funcs[fun_name2];
+            cloner = borrow info->funcs[fun_name2];
         }
     }
     
@@ -887,7 +887,7 @@ sVar* get_variable_from_table(sVarTable* table, char* name)
     sVarTable* it = table;
 
     while(it) {
-        sVar* var_ = it.mVars[string(name)]??;
+        sVar* var_ = borrow it.mVars[string(name)]??;
 
         if(var_) {
             return var_;
@@ -905,8 +905,8 @@ void free_objects(sVarTable* table, sVar* ret_value, sInfo* info)
         return;
     }
     foreach(it, table->mVars) {
-        sVar* p = table->mVars[string(it)];
-        sType* type = p->mType;
+        sVar* p = borrow table->mVars[string(it)];
+        sType* type = borrow p->mType;
         sClass* klass = type->mClass;
         
         if(type->mChannel) {
@@ -1006,8 +1006,8 @@ bool existance_free_objects(sVarTable* table, sVar* ret_value, sInfo* info)
         return true;
     }
     foreach(it, table->mVars) {
-        sVar* p = table->mVars[string(it)];
-        sType* type = p->mType;
+        sVar* p = borrow table->mVars[string(it)];
+        sType* type = borrow p->mType;
         sClass* klass = type->mClass;
         
         if(type->mChannel) {

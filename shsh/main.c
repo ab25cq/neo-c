@@ -893,7 +893,7 @@ bool run_command(int n, sInfo* info)
         char* argv[1024];
         int i;
         for(i=0; i<args.length(); i++) {
-            argv[i] = args[i];
+            argv[i] = borrow args[i];
         }
         argv[i] = NULL;
         
@@ -935,7 +935,7 @@ bool run_command(int n, sInfo* info)
             char* argv[1024];
             int i;
             for(i=0; i<args.length(); i++) {
-                argv[i] = args[i];
+                argv[i] = borrow args[i];
             }
             argv[i] = NULL;
             

@@ -8,7 +8,7 @@ string,sGenericsFun* make_generics_function(sType* type, string fun_name, sInfo*
     
     sType*% no_solved_type = clone type;
     
-    sGenericsFun* generics_fun = info.generics_funcs.at(fun_name3, null);
+    sGenericsFun* generics_fun = borrow info.generics_funcs.at(fun_name3, null);
     
     if(generics_fun) {
         sType*% type2 = no_solved_type;
@@ -38,7 +38,7 @@ string,sGenericsFun* make_method_generics_function(string fun_name, list<sType*%
     list<sType*%>*% method_generics_types_before = info.method_generics_types;
     info->method_generics_types= method_generics_types;
     
-    sGenericsFun* generics_fun = info.generics_funcs.at(fun_name, null);
+    sGenericsFun* generics_fun = borrow info.generics_funcs.at(fun_name, null);
     
     if(generics_fun) {
         if(!create_method_generics_fun(string(fun_name3), generics_fun, info)) {
@@ -68,9 +68,9 @@ bool compile_method_block(buffer* method_block, list<CVALUE*%>*% come_params, sF
     
     string class_name = xsprintf("__current_stack%d__", info->current_stack_num);
     
-    method_block_type.mParamTypes[0].mClass = info.classes[class_name];
-    sClass* current_stack_frame_struct = info.current_stack_frame_struct;
-    info->current_stack_frame_struct = info.classes[class_name];
+    method_block_type.mParamTypes[0].mClass = borrow info.classes[class_name];
+    sClass* current_stack_frame_struct = borrow info.current_stack_frame_struct;
+    info->current_stack_frame_struct = borrow info.classes[class_name];
     
     info->num_method_block++;
     
@@ -159,7 +159,7 @@ bool compile_method_block(buffer* method_block, list<CVALUE*%>*% come_params, sF
     
     CVALUE*% come_value2 = new CVALUE();
     
-    sFun* fun2 = info.funcs.at(string(method_block_name), null);
+    sFun* fun2 = borrow info.funcs.at(string(method_block_name), null);
     
     if(fun2 == null) {
         err_msg(info, "method block function not found(%s)", method_block_name);
@@ -200,10 +200,10 @@ string, sFun*,sGenericsFun* get_method(char* fun_name, sType*% obj_type, sInfo* 
         
         sClass* klass = obj_type->mClass;
         while(info.classes[klass->mParentClassName]) {
-            klass = info.classes[klass->mParentClassName];
+            klass = borrow info.classes[klass->mParentClassName];
             generics_fun_name = create_method_name_using_class(klass, fun_name2, info);
             
-            fun = info.funcs.at(string(generics_fun_name), null);
+            fun = borrow info.funcs.at(string(generics_fun_name), null);
             
             if(fun) {
                 break;
@@ -232,7 +232,7 @@ string, sFun*,sGenericsFun* get_method(char* fun_name, sType*% obj_type, sInfo* 
         for(int i=FUN_VERSION_MAX; i>=1; i--) {
             string new_fun_name = xsprintf("%s_v%d", generics_fun_name, i);
         
-            fun = info.funcs[string(new_fun_name)];
+            fun = borrow info.funcs[string(new_fun_name)];
             
             if(fun != null) {
                 generics_fun_name = string(new_fun_name);
@@ -246,17 +246,17 @@ string, sFun*,sGenericsFun* get_method(char* fun_name, sType*% obj_type, sInfo* 
             if(obj_array_type && obj_array_type.mArrayNum.length() > 0) {
                 string array_method_name = create_method_name(obj_array_type, false@no_pointer_name, fun_name, info, false@array_equal_pointer);
                 
-                fun = info.funcs.at(string(array_method_name), null);
+                fun = borrow info.funcs.at(string(array_method_name), null);
                 
                 if(fun) {
                     generics_fun_name = string(array_method_name);
                 }
                 else {
-                    fun = info.funcs.at(string(generics_fun_name), null);
+                    fun = borrow info.funcs.at(string(generics_fun_name), null);
                     
                     if(fun == null) {
                         generics_fun_name = create_method_name(obj_type, false@no_pointer_name, string(fun_name), info);
-                        fun = info.funcs.at(string(generics_fun_name), null);
+                        fun = borrow info.funcs.at(string(generics_fun_name), null);
                         if(fun == null) {
                             return ((string)null, (sFun*)null, (sGenericsFun*)null);
                         }
@@ -264,20 +264,20 @@ string, sFun*,sGenericsFun* get_method(char* fun_name, sType*% obj_type, sInfo* 
                 }
             }
             else {
-                fun = info.funcs.at(string(generics_fun_name), null);
+                fun = borrow info.funcs.at(string(generics_fun_name), null);
             
                 if(fun == null) {
                     generics_fun_name = create_method_name(obj_type, false@no_pointer_name, string(fun_name), info);
                     
-                    fun = info.funcs.at(string(generics_fun_name), null);
+                    fun = borrow info.funcs.at(string(generics_fun_name), null);
                     
                     if(fun == null) {
                         sClass* klass = obj_type->mClass;
                         while(info.classes[klass->mParentClassName]) {
-                            klass = info.classes[klass->mParentClassName];
+                            klass = borrow info.classes[klass->mParentClassName];
                             generics_fun_name = create_method_name_using_class(klass, fun_name, info);
                             
-                            fun = info.funcs.at(string(generics_fun_name), null);
+                            fun = borrow info.funcs.at(string(generics_fun_name), null);
                             
                             if(fun) {
                                 break;
@@ -294,12 +294,12 @@ string, sFun*,sGenericsFun* get_method(char* fun_name, sType*% obj_type, sInfo* 
                     if(fun == null && fun_name === "equals") {
                         var fun2, real_fun_name = create_equals_automatically(obj_type, fun_name, info);
                         
-                        fun = info.funcs[real_fun_name];
+                        fun = borrow info.funcs[real_fun_name];
                         generics_fun_name = real_fun_name;
                     }
                     if(fun == null) {
                         string original_obj_type_fun_name = create_method_name_original_obj_type(obj_type, false@no_pointer_name, string(fun_name), info);
-                        fun = info.funcs.at(string(original_obj_type_fun_name), null);
+                        fun = borrow info.funcs.at(string(original_obj_type_fun_name), null);
                         
                         if(fun) {
                             generics_fun_name = original_obj_type_fun_name;
@@ -385,7 +385,7 @@ class sMethodCallNode extends sNodeBase
             string fun_name2 = create_method_name(type, false@no_pointer_name, fun_name, info);
             string fun_name3 = xsprintf("%s_%s", none_generics_name, fun_name);
             
-            sGenericsFun* generics_fun = info.generics_funcs.at(fun_name3, null);
+            sGenericsFun* generics_fun = borrow info.generics_funcs.at(fun_name3, null);
             
             if(generics_fun) {
                 bool method_generics = generics_fun.mMethodGenericsTypeNames.length() > 0;
@@ -395,7 +395,7 @@ class sMethodCallNode extends sNodeBase
                     
                     string generics_fun_name = name;
                     
-                    sFun* fun = info.funcs.at(generics_fun_name, null);
+                    sFun* fun = borrow info.funcs.at(generics_fun_name, null);
                     
                     list<CVALUE*%>*% come_params = new list<CVALUE*%>();
                     if(method_block) {
@@ -405,12 +405,12 @@ class sMethodCallNode extends sNodeBase
                             return false;
                         }
                         info->no_output_come_code = no_output_come_code;
-                        CVALUE* method_block_node = come_params[-1];
+                        CVALUE* method_block_node = borrow come_params[-1];
                         
                         sType*% method_block_lambda_type = clone method_block_node.type;
                         sType*% method_block_result_type = clone info.come_method_block_function_result_type;
                         
-                        sType* generics_fun_method_block_lambda_type = generics_fun.mParamTypes[-1];
+                        sType* generics_fun_method_block_lambda_type = borrow generics_fun.mParamTypes[-1];
                         sType* generics_fun_method_block_result_type = generics_fun_method_block_lambda_type.mResultType;
                         
                         if(generics_fun_method_block_result_type.mClass.mMethodGenerics) {
@@ -547,7 +547,7 @@ class sMethodCallNode extends sNodeBase
                     
                     come_value.type = solve_generics(come_value.type, info->generics_type, info);
                     
-                    check_assign_type(s"(a). \{fun_name} param num \{i} is assinged to", lambda_type.mParamTypes[i-1], come_value.type, come_value);
+                    check_assign_type(s"(a). \{fun_name} param num \{i} is assinged to", lambda_type.mParamTypes[i-1], come_value.type, come_value, check_params:true);
                     if(lambda_type.mParamTypes[i-1].mHeap && come_value.type.mHeap) 
                     {
                         std_move(lambda_type.mParamTypes[i-1], come_value.type, come_value);
@@ -685,7 +685,7 @@ class sMethodCallNode extends sNodeBase
                     come_value.type = solve_generics(come_value.type, info->generics_type, info);
                     
                     if(param_types[n]) {
-                        check_assign_type(s"(b). \{fun_name} param num \{n} is assinged to", type_checking_param_types[n], come_value.type, come_value);
+                        check_assign_type(s"(b). \{fun_name} param num \{n} is assinged to", type_checking_param_types[n], come_value.type, come_value, check_params:true);
                     }
                     if(param_types[n] && param_types[n].mHeap && come_value.type.mHeap) {
                         std_move(param_types[n], come_value.type, come_value);
@@ -700,7 +700,7 @@ class sMethodCallNode extends sNodeBase
                 var label, node = it;
                 
                 if(i == 0) {
-                    check_assign_type(s"(c). \{fun_name} param num \{i} is assinged to", type_checking_param_types[i], obj_value.type, obj_value);
+                    check_assign_type(s"(c). \{fun_name} param num \{i} is assinged to", type_checking_param_types[i], obj_value.type, obj_value, check_params:true);
                     if(param_types[i].mHeap && obj_value.type.mHeap) {
                         std_move(param_types[i], obj_value.type, obj_value);
                     }
@@ -733,7 +733,7 @@ class sMethodCallNode extends sNodeBase
                     come_value.type = solve_generics(come_value.type, info->generics_type, info);
                     
                     if(param_types[i]) {
-                        check_assign_type(s"(d). \{fun_name} param num \{i} is assinged to", type_checking_param_types[i], come_value.type, come_value);
+                        check_assign_type(s"(d). \{fun_name} param num \{i} is assinged to", type_checking_param_types[i], come_value.type, come_value, check_params:true);
                     }
                     if(param_types[i] && param_types[i].mHeap && come_value.type.mHeap) {
                         std_move(param_types[i], come_value.type, come_value);
@@ -757,7 +757,7 @@ class sMethodCallNode extends sNodeBase
             {
                 for(; i<fun.mParamTypes.length()+(method_block?-2:0); i++) {
                     string default_param = clone fun.mParamDefaultParametors[i];
-                    char* param_name = fun.mParamNames[i];
+                    char* param_name = borrow fun.mParamNames[i];
                     
                     if(default_param && default_param !== "" && come_params[i] == null) {
                         buffer*% source = info.source;
@@ -788,7 +788,7 @@ class sMethodCallNode extends sNodeBase
                         CVALUE*% come_value = get_value_from_stack(-1, info);
                         come_value.type = solve_generics(come_value.type, info->generics_type, info);
                         if(param_types[i]) {
-                            check_assign_type(s"(e). \{fun_name} param num \{i} is assinged to", type_checking_param_types[i], come_value.type, come_value);
+                            check_assign_type(s"(e). \{fun_name} param num \{i} is assinged to", type_checking_param_types[i], come_value.type, come_value, check_params:true);
                         }
                         if(param_types[i] && param_types[i].mHeap && come_value.type.mHeap) {
                             std_move(param_types[i], come_value.type, come_value);

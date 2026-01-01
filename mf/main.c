@@ -254,7 +254,7 @@ void view(sInfo* info)
 
 string cursor_path(sInfo* info)
 {
-    char* file_name = info.files.item(info.cursor, null);
+    char* file_name = borrow info.files.item(info.cursor, null);
     return xsprintf("%s/%s", info.path, file_name);
 }
 

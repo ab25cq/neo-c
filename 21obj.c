@@ -325,7 +325,7 @@ class sImplementsNode extends sNodeBase
             
             string method_name = create_method_name(type, false@no_pointer_name, name, info);
             
-            sFun* fun = info.funcs.at(method_name, null);
+            sFun* fun = borrow info.funcs.at(method_name, null);
             
             if(fun == null && name === "to_string") {
                 sType*% type2 = clone type;
@@ -347,13 +347,13 @@ class sImplementsNode extends sNodeBase
             }
             
             if(fun == null) {
-                sClass* klass2 = info->classes[type->mClass->mName];
+                sClass* klass2 = borrow info->classes[type->mClass->mName];
                 while(info->classes[klass2->mParentClassName]) {
-                    klass2 = info->classes[klass2->mParentClassName];
+                    klass2 = borrow info->classes[klass2->mParentClassName];
                     
                     method_name = create_method_name_using_class(klass2, name, info);
                     
-                    fun = info.funcs.at(string(method_name), null);
+                    fun = borrow info.funcs.at(string(method_name), null);
                     
                     if(fun) {
                         break;

@@ -126,7 +126,7 @@ class sStoreFieldNode extends sNodeBase
         bool new_channel = right.kind() === "sNewChannel";
         
         CVALUE*% right_value = get_value_from_stack(-1, info);
-        sType* right_type = right_value.type;
+        sType*% right_type = right_value.type;
         
         sType*% left_type = left_value.type;
         sType*% left_type3 = left_type;
@@ -388,7 +388,7 @@ class sLoadFieldNode extends sNodeBase
         sType*% left_type3 = solve_generics(left_type, left_type, info);
         
         sClass* klass = left_type3->mClass;
-        klass = info.classes[string(klass->mName)]??;
+        klass = borrow info.classes[string(klass->mName)]??;
         
         if(klass == null || klass->mFields == null) {
             err_msg(info, "invalid class %s", klass->mName);
@@ -405,7 +405,7 @@ class sLoadFieldNode extends sNodeBase
             come_value.c_value = xsprintf("%s.%s", left_value.c_value, name);
             come_value.type = new sType(s"void");
             come_value.type.mPointerNum = 1;
-            come_value.var = null;
+            come_value.var = left_value.var;
             
             info.stack.push_back(come_value);
             
@@ -426,7 +426,7 @@ class sLoadFieldNode extends sNodeBase
         }
         come_value.type = clone field_type;
         come_value.type = solve_generics(come_value.type, info->generics_type, info);
-        come_value.var = null;
+        come_value.var = left_value.var;
         
         if(come_value.type->mArrayNum.length() > 0) {
             if(info.in_store_array) {
@@ -714,6 +714,7 @@ class sLoadArrayNode extends sNodeBase
             come_value.var = null;
             
             come_value.type = solve_generics(clone come_value.type, info->generics_type, info);
+            come_value.type.mHeap = false;
             
             info.stack.push_back(come_value);
             

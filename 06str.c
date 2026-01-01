@@ -337,12 +337,12 @@ class sListNode extends sNodeBase
         var name, generics_fun = make_generics_function(obj_type, string(fun_name), info);
         string generics_fun_name = name;
         
-        sFun* fun = info.funcs.at(generics_fun_name, null);
+        sFun* fun = borrow info.funcs.at(generics_fun_name, null);
         
         if(fun == null) {
             generics_fun_name = create_method_name(obj_type, false@no_pointer_name, string(fun_name), info);
             
-            fun = info.funcs.at(generics_fun_name, null);
+            fun = borrow info.funcs.at(generics_fun_name, null);
             
             if(fun == null) {
                 err_msg(info, "function not found(%s) at method(%s)(1)", generics_fun_name, info.come_fun.mName);
@@ -528,12 +528,12 @@ class sTupleNode extends sNodeBase
         var name, generics_fun = make_generics_function(obj_type, string(fun_name), info);
         string generics_fun_name = name;
         
-        sFun* fun = info.funcs.at(generics_fun_name, null);
+        sFun* fun = borrow info.funcs.at(generics_fun_name, null);
         
         if(fun == null) {
             generics_fun_name = create_method_name(obj_type, false@no_pointer_name, string(fun_name), info);
             
-            fun = info.funcs.at(generics_fun_name, null);
+            fun = borrow info.funcs.at(generics_fun_name, null);
             
             if(fun == null) {
                 err_msg(info, "function not found(%s) at method(%s)(2)", generics_fun_name, info.come_fun.mName);
@@ -626,8 +626,8 @@ class sMapNode extends sNodeBase
         sType*% map_element_type = null;
         
         for(int i=0; i<map_key_elements.length(); i++) {
-            sNode* key_elements = map_key_elements[i];
-            sNode* elements = map_elements[i];
+            sNode* key_elements = borrow map_key_elements[i];
+            sNode* elements = borrow map_elements[i];
             
             node_compile(key_elements).elif {
                 return false;
@@ -699,8 +699,8 @@ class sMapNode extends sNodeBase
         source.append_str("(");
         
         for(int i = 0; i<key_params.length(); i++) {
-            CVALUE* key_param = key_params[i];
-            CVALUE* element_param = element_params[i];
+            CVALUE* key_param = borrow key_params[i];
+            CVALUE* element_param = borrow element_params[i];
             
             if(map_key_type->mHeap) {
                 //string c_value = increment_ref_count_object(key_param.type, key_param.c_value, info);
@@ -729,12 +729,12 @@ class sMapNode extends sNodeBase
         var name, generics_fun = make_generics_function(obj_type, string(fun_name), info);
         string generics_fun_name = name;
         
-        sFun* fun = info.funcs.at(generics_fun_name, null);
+        sFun* fun = borrow info.funcs.at(generics_fun_name, null);
         
         if(fun == null) {
             generics_fun_name = create_method_name(obj_type, false@no_pointer_name, string(fun_name), info);
             
-            fun = info.funcs.at(generics_fun_name, null);
+            fun = borrow info.funcs.at(generics_fun_name, null);
             
             if(fun == null) {
                 err_msg(info, "function not found(%s) at method(%s)(3)", generics_fun_name, info.come_fun.mName);

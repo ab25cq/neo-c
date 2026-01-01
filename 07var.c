@@ -26,7 +26,7 @@ class sStoreNode extends sNodeBase
     bool compile(sInfo* info)
     {
         if(self.multiple_declare) {
-            sVar* var_ = info.lv_table.mVars.at(string(self.name), null);
+            sVar* var_ = borrow info.lv_table.mVars.at(string(self.name), null);
             if(var_) {
                 if(var_->mType->mHeap) {
                     free_object(clone var_->mType, var_->mCValueName, false@no_decrement, false@no_free, info);
@@ -50,7 +50,7 @@ class sStoreNode extends sNodeBase
             int n = 0;
             foreach(it, self.multiple_declare) {
                 var type, var_name, right_value = it;
-                var_ = info.lv_table.mVars.at(string(var_name), null);
+                var_ = borrow info.lv_table.mVars.at(string(var_name), null);
                 if(var_) {
                     if(var_->mType->mHeap) {
                         free_object(clone var_->mType, var_->mCValueName, false@no_decrement, false@no_free, info);
@@ -61,7 +61,7 @@ class sStoreNode extends sNodeBase
                 var type2 = solve_generics(type, info->generics_type, info);
                 add_variable_to_table(var_name, type2, info, false@function_param);
                 
-                var_ = get_variable_from_table(info.lv_table, var_name);
+                var_ = borrow get_variable_from_table(info.lv_table, var_name);
                 
                 if(var_ == null) {
                     err_msg(info, "var not found(%s)(ZY) at definition of variable", it);
@@ -122,7 +122,7 @@ class sStoreNode extends sNodeBase
             int i = 0;
             foreach(it, self.multiple_assign) {
                 if(i < right_type.mGenericsTypes.length()) {
-                    sVar*% var_ = info.lv_table.mVars.at(string(it), null);
+                    sVar* var_ = borrow info.lv_table.mVars.at(string(it), null);
                     if(var_) {
                         if(var_->mType->mHeap) {
                             free_object(clone var_->mType, var_->mCValueName, false@no_decrement, false@no_free, info);
@@ -152,7 +152,7 @@ class sStoreNode extends sNodeBase
                 if(i < right_type.mGenericsTypes.length()) {
                     sType*% right_type2 = clone right_type.mGenericsTypes[i];
                     
-                    sVar* var_ = get_variable_from_table(info.lv_table, it);
+                    sVar* var_ = borrow get_variable_from_table(info.lv_table, it);
                     
                     sType*% left_type = var_->mType;
                     
@@ -194,7 +194,7 @@ class sStoreNode extends sNodeBase
             }
         }
         else if(self.right_value == null) { // assert(self.alloc == true)
-            sVar* var_ = info.lv_table.mVars.at(string(self.name), null);
+            sVar* var_ = borrow info.lv_table.mVars.at(string(self.name), null);
             if(var_) {
                 if(var_->mType->mHeap) {
                     free_object(clone var_->mType, var_->mCValueName, false@no_decrement, false@no_free, info);
@@ -212,10 +212,10 @@ class sStoreNode extends sNodeBase
             
             add_variable_to_table(self.name, clone type, info, false@function_param);
         
-            var_ = get_variable_from_table(info.lv_table, self.name);
+            var_ = borrow get_variable_from_table(info.lv_table, self.name);
             
             if(var_ == null) {
-                var_ = get_variable_from_table(info.gv_table, self.name);
+                var_ = borrow get_variable_from_table(info.gv_table, self.name);
                 
                 if(var_ == null) {
                     err_msg(info, "var not found(%s)(Y) at definition of variable", self.name);
@@ -261,7 +261,7 @@ class sStoreNode extends sNodeBase
             }
         }
         else if(self.alloc) { // right_value != null
-            sVar* var_ = info.lv_table.mVars.at(string(self.name), null);
+            sVar* var_ = borrow info.lv_table.mVars.at(string(self.name), null);
             if(var_) {
                 if(var_->mType->mHeap) {
                     free_object(clone var_->mType, var_->mCValueName, false@no_decrement, false@no_free, info);
@@ -295,7 +295,7 @@ class sStoreNode extends sNodeBase
                 add_variable_to_table(self.name, type, info, false@function_param);
             }
             
-            var_ = get_variable_from_table(info.lv_table, self.name);
+            var_ = borrow get_variable_from_table(info.lv_table, self.name);
             
             sType*% left_type = clone var_->mType;
             
@@ -306,7 +306,7 @@ class sStoreNode extends sNodeBase
             else if(array_initializer || string_initializer || left_type->mStatic 
                 || left_type->mConstant || left_type->mRegister || left_type->mArrayNum.length() > 0 || left_type->mArrayPointerType) 
             {
-                sVar* var_ = info.lv_table.mVars.at(string(self.name), null);
+                sVar* var_ = borrow info.lv_table.mVars.at(string(self.name), null);
                 CVALUE*% come_value = new CVALUE();
                 
                 come_value.c_value = xsprintf("%s=%s", make_define_var(left_type, var_->mCValueName), right_value.c_value);
@@ -413,10 +413,10 @@ class sStoreNode extends sNodeBase
                 }
             }
             
-            sVar* var_ = get_variable_from_table(info.lv_table, self.name);
+            sVar* var_ = borrow get_variable_from_table(info.lv_table, self.name);
             
             if(var_ == null) {
-                var_ = get_variable_from_table(info.gv_table, self.name);
+                var_ = borrow get_variable_from_table(info.gv_table, self.name);
                 
                 if(var_ == null) {
                     err_msg(info, "var not found(%s)(X) at storing variable", self.name);
@@ -669,14 +669,14 @@ class sLoadNode extends sNodeBase
             }
         }
         
-        sVar* var_ = get_variable_from_table(info.lv_table, self.name);
+        sVar* var_ = borrow get_variable_from_table(info.lv_table, self.name);
         
         
         if(var_ == null) {
-            var_ = get_variable_from_table(info.gv_table, self.name);
+            var_ = borrow get_variable_from_table(info.gv_table, self.name);
             
             if(var_ == null) {
-                sFun* fun = info.funcs[string(self.name)];
+                sFun* fun = borrow info.funcs[string(self.name)];
                 
                 if(fun) {
                     CVALUE*% come_value = new CVALUE();
@@ -765,7 +765,7 @@ class sFunLoadNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        sFun* fun = info.funcs[string(self.name)];
+        sFun* fun = borrow info.funcs[string(self.name)];
         
         if(fun == null) {
             err_msg(info, "fun not found(%s) at loading variable", self.name);
@@ -949,7 +949,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
     }
     
     skip_spaces_and_lf();
-    sFun* fun = info.funcs[string(buf)];
+    sFun* fun = borrow info.funcs[string(buf)];
 
     
     if((!gComeC && buf === "var") || buf === "auto" || buf === "__auto_type") {
@@ -1204,7 +1204,6 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             else if(*info->p == '=' && *(info->p+1) != '=' && *(info->p+1) != '>' && !info->no_assign) {
                 info.p++;
                 skip_spaces_and_lf();
-                
                 
                 sNode*% right_value = null;
                 if((type->mClass->mStruct || type->mClass->mUnion ) && type->mArrayNum.length() == 0) {

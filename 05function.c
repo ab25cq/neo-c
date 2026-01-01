@@ -210,6 +210,7 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
             int sline = info.sline;
             string sname = string(info.sname);
             
+            
             if(*info->p == '{') {
                 info->sline_top = sline;
             }
@@ -266,7 +267,7 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
                     return null;
                 }
                 
-                sClassModule* module = info.modules[string(module_name)]??;
+                sClassModule* module = borrow info.modules[string(module_name)]??;
                 
                 if(module.mParams.length() != params.length()) {
                     err_msg(info, "invalid parametor number");
@@ -339,6 +340,7 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
                     info->sname = string(head_sname);
                 }
             }
+            
             if(node == null) {
                 node = statment();
             }
@@ -1807,7 +1809,7 @@ bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sIn
     string sname_top = string(info->sname);
     int sline_top = info->sline;
     
-    sFun* funX = info.funcs[string(fun_name)]??;
+    sFun* funX = borrow info.funcs[string(fun_name)]??;
     if(funX) {
         info->sname = string(sname_top);
         info->sline = sline_top;
@@ -2285,13 +2287,13 @@ sFun*,string create_finalizer_automatically(sType*% type, char* fun_name, sInfo*
     }
         
     if(type->mGenericsTypes.length() > 0) {
-        finalizer = info->funcs[fun_name2]??;
+        finalizer = borrow info->funcs[fun_name2]??;
         
         if(finalizer == NULL) {
             string none_generics_name = get_none_generics_name(type2.mClass.mName);
             
             string generics_fun_name = xsprintf("%s_%s", none_generics_name, fun_name);
-            sGenericsFun* generics_fun = info->generics_funcs[generics_fun_name]??;
+            sGenericsFun* generics_fun = borrow info->generics_funcs[generics_fun_name]??;
             
             if(generics_fun) {
                 var name, err = create_generics_fun(fun_name2, generics_fun, type, info);
@@ -2302,8 +2304,8 @@ sFun*,string create_finalizer_automatically(sType*% type, char* fun_name, sInfo*
                     exit(2);
                 }
                 
-                finalizer = info->funcs[name]??;
-                //finalizer = info->funcs[fun_name2];
+                finalizer = borrow info->funcs[name]??;
+                //finalizer = borrow info->funcs[fun_name2];
             }
         }
         
@@ -2313,7 +2315,7 @@ sFun*,string create_finalizer_automatically(sType*% type, char* fun_name, sInfo*
         int i;
         for(i=FUN_VERSION_MAX-1; i>=1; i--) {
             string new_fun_name = xsprintf("%s_v%d", fun_name2, i);
-            finalizer = info->funcs[new_fun_name]??;
+            finalizer = borrow info->funcs[new_fun_name]??;
             
             if(finalizer) {
                 fun_name2 = string(new_fun_name);
@@ -2322,7 +2324,7 @@ sFun*,string create_finalizer_automatically(sType*% type, char* fun_name, sInfo*
         }
         
         if(finalizer == NULL) {
-            finalizer = info->funcs[fun_name2]??;
+            finalizer = borrow info->funcs[fun_name2]??;
         }
         
         real_fun_name = fun_name2;
@@ -2334,7 +2336,7 @@ sFun*,string create_finalizer_automatically(sType*% type, char* fun_name, sInfo*
         real_fun_name = create_method_name(type, false@no_pointer_name, fun_name, info);
         
         string user_real_fun_name = create_method_name(type, false@no_pointer_name, "user_finalize", info);
-        sFun* user_finalizer = info->funcs[user_real_fun_name]??;
+        sFun* user_finalizer = borrow info->funcs[user_real_fun_name]??;
         
         sType*% type2 = solve_generics(type, type, info);
         
@@ -2356,7 +2358,7 @@ sFun*,string create_finalizer_automatically(sType*% type, char* fun_name, sInfo*
             }
 */
             
-            klass = info.classes[klass->mName]??;
+            klass = borrow info.classes[klass->mName]??;
             foreach(it, klass->mFields) {
                 var name, field_type = it;
                 
@@ -2485,7 +2487,7 @@ sFun*,string create_equals_automatically(sType*% type, char* fun_name, sInfo* in
             source.append_str(source2);
         }
         else {
-            klass = info.classes[klass->mName]??;
+            klass = borrow info.classes[klass->mName]??;
             foreach(it, klass->mFields) {
                 var name, field_type = it;
                 
@@ -2609,7 +2611,7 @@ sFun*,string create_operator_not_equals_automatically(sType*% type, char* fun_na
             source.append_str(source2);
             
             int i = 0;
-            klass = info.classes[klass->mName];
+            klass = borrow info.classes[klass->mName];
             foreach(it, klass->mFields) {
                 var name, field_type = it;
                 
@@ -2741,7 +2743,7 @@ sFun*,string create_not_equals_automatically(sType*% type, char* fun_name, sInfo
             source.append_str(source2);
             
             int i = 0;
-            klass = info.classes[klass->mName];
+            klass = borrow info.classes[klass->mName];
             foreach(it, klass->mFields) {
                 var name, field_type = it;
                 
@@ -2869,7 +2871,7 @@ sFun*,string create_operator_equals_automatically(sType*% type, char* fun_name, 
         else {
             char source2[1024];
             
-            klass = info.classes[klass->mName];
+            klass = borrow info.classes[klass->mName];
             foreach(it, klass->mFields) {
                 var name, field_type = it;
                 
@@ -2987,7 +2989,7 @@ sFun*,string create_cloner_automatically(sType*% type, char* fun_name, sInfo* in
         fun_name2 = create_method_name(obj_type, false@no_pointer_name, fun_name, info);
         string fun_name3 = xsprintf("%s_%s", none_generics_name, fun_name);
         
-        sGenericsFun* generics_fun = info.generics_funcs.at(fun_name3, null);
+        sGenericsFun* generics_fun = borrow info.generics_funcs.at(fun_name3, null);
         
         if(generics_fun) {
             var name, err = create_generics_fun(string(fun_name2), generics_fun, obj_type, info);
@@ -2998,10 +3000,10 @@ sFun*,string create_cloner_automatically(sType*% type, char* fun_name, sInfo* in
                 }
             }
             
-            cloner = info->funcs[name]??;
+            cloner = borrow info->funcs[name]??;
         }
         else {
-            cloner = info->funcs[fun_name2]??;
+            cloner = borrow info->funcs[fun_name2]??;
         }
         
         real_fun_name = fun_name2;
@@ -3012,7 +3014,7 @@ sFun*,string create_cloner_automatically(sType*% type, char* fun_name, sInfo* in
         int i;
         for(i=FUN_VERSION_MAX-1; i>=1; i--) {
             string new_fun_name = xsprintf("%s_v%d", fun_name2, i);
-            cloner = info->funcs[new_fun_name]??;
+            cloner = borrow info->funcs[new_fun_name]??;
             
             if(cloner) {
                 fun_name2 = string(new_fun_name);
@@ -3021,7 +3023,7 @@ sFun*,string create_cloner_automatically(sType*% type, char* fun_name, sInfo* in
         }
         
         if(cloner == NULL) {
-            cloner = info->funcs[fun_name2]??;
+            cloner = borrow info->funcs[fun_name2]??;
         }
         
         real_fun_name = fun_name2;
@@ -3045,7 +3047,7 @@ sFun*,string create_cloner_automatically(sType*% type, char* fun_name, sInfo* in
             
             source.append_str(source2);
             
-            klass = info.classes[klass->mName];
+            klass = borrow info.classes[klass->mName];
             foreach(it, klass->mFields) {
                 var name, field_type = it;
                 
@@ -3066,7 +3068,7 @@ sFun*,string create_cloner_automatically(sType*% type, char* fun_name, sInfo* in
             }
         }
         else {
-            klass = info.classes[klass->mName];
+            klass = borrow info.classes[klass->mName];
             foreach(it, klass->mFields) {
                 var name, field_type = it;
                 
@@ -3092,7 +3094,7 @@ sFun*,string create_cloner_automatically(sType*% type, char* fun_name, sInfo* in
         }
         
         string user_real_fun_name = create_method_name(type, false@no_pointer_name, "user_clone", info);
-        sFun* user_cloner = info->funcs[user_real_fun_name]??;
+        sFun* user_cloner = borrow info->funcs[user_real_fun_name]??;
         
 /*
         if(user_cloner) {
@@ -3204,7 +3206,7 @@ sFun*,string create_to_string_automatically(sType*% type, char* fun_name, sInfo*
         source.append_format("result.append_str(\"%s {\");\n", klass->mName);
         
         int i = 0;
-        klass = info.classes[klass->mName];
+        klass = borrow info.classes[klass->mName];
         foreach(it, klass->mFields) {
             var name, field_type = it;
             
@@ -3338,13 +3340,13 @@ sFun*,string create_to_string_automatically(sType*% type, char* fun_name, sInfo*
     }
         
     if(type->mGenericsTypes.length() > 0) {
-        to_string_fun = info->funcs[real_fun_name]??;
+        to_string_fun = borrow info->funcs[real_fun_name]??;
         
         if(to_string_fun == NULL) {
             string none_generics_name = get_none_generics_name(type2.mClass.mName);
             
             string generics_fun_name = xsprintf("%s_%s", none_generics_name, fun_name);
-            sGenericsFun* generics_fun = info->generics_funcs[generics_fun_name]??;
+            sGenericsFun* generics_fun = borrow info->generics_funcs[generics_fun_name]??;
             
             if(generics_fun) {
                 var name, err = create_generics_fun(real_fun_name, generics_fun, type, info);
@@ -3354,8 +3356,8 @@ sFun*,string create_to_string_automatically(sType*% type, char* fun_name, sInfo*
                     printf("%s %d: can't create generics to_string_fun\n", info->sname, info->sline);
                     exit(2);
                 }
-                to_string_fun = info->funcs[name]??;
-                //to_string_fun = info->funcs[real_fun_name]??;
+                to_string_fun = borrow info->funcs[name]??;
+                //to_string_fun = borrow info->funcs[real_fun_name]??;
             }
         }
     }
@@ -3363,7 +3365,7 @@ sFun*,string create_to_string_automatically(sType*% type, char* fun_name, sInfo*
         int i;
         for(i=FUN_VERSION_MAX-1; i>=1; i--) {
             string new_fun_name = xsprintf("%s_v%d", real_fun_name, i);
-            to_string_fun = info->funcs[new_fun_name]??;
+            to_string_fun = borrow info->funcs[new_fun_name]??;
             
             if(to_string_fun) {
                 real_fun_name = string(new_fun_name);
@@ -3372,7 +3374,7 @@ sFun*,string create_to_string_automatically(sType*% type, char* fun_name, sInfo*
         }
         
         if(to_string_fun == NULL) {
-            to_string_fun = info->funcs[real_fun_name]??;
+            to_string_fun = borrow info->funcs[real_fun_name]??;
         }
     }
     
@@ -3385,7 +3387,7 @@ sFun*,string create_to_string_automatically(sType*% type, char* fun_name, sInfo*
         source.append_format("result.append_str(\"%s {\");\n", klass->mName);
         
         int i = 0;
-        klass = info.classes[klass->mName];
+        klass = borrow info.classes[klass->mName];
         foreach(it, klass->mFields) {
             var name, field_type = it;
             
@@ -3529,13 +3531,13 @@ sFun*,string create_get_hash_key_automatically(sType*% type, char* fun_name, sIn
 */
         
     if(type->mGenericsTypes.length() > 0) {
-        get_hash_key_fun = info->funcs[real_fun_name]??;
+        get_hash_key_fun = borrow info->funcs[real_fun_name]??;
         
         if(get_hash_key_fun == NULL) {
             string none_generics_name = get_none_generics_name(type2.mClass.mName);
             
             string generics_fun_name = xsprintf("%s_%s", none_generics_name, fun_name);
-            sGenericsFun* generics_fun = info->generics_funcs[generics_fun_name]??;
+            sGenericsFun* generics_fun = borrow info->generics_funcs[generics_fun_name]??;
             
             if(generics_fun) {
                 var name, err = create_generics_fun(real_fun_name, generics_fun, type, info);
@@ -3545,8 +3547,8 @@ sFun*,string create_get_hash_key_automatically(sType*% type, char* fun_name, sIn
                     printf("%s %d: can't create generics get_hash_key_fun\n", info->sname, info->sline);
                     exit(2);
                 }
-                get_hash_key_fun = info->funcs[name]??;
-                //get_hash_key_fun = info->funcs[real_fun_name]??;
+                get_hash_key_fun = borrow info->funcs[name]??;
+                //get_hash_key_fun = borrow info->funcs[real_fun_name]??;
             }
         }
     }
@@ -3554,7 +3556,7 @@ sFun*,string create_get_hash_key_automatically(sType*% type, char* fun_name, sIn
         int i;
         for(i=FUN_VERSION_MAX-1; i>=1; i--) {
             string new_fun_name = xsprintf("%s_v%d", real_fun_name, i);
-            get_hash_key_fun = info->funcs[new_fun_name]??;
+            get_hash_key_fun = borrow info->funcs[new_fun_name]??;
             
             if(get_hash_key_fun) {
                 real_fun_name = string(new_fun_name);
@@ -3563,7 +3565,7 @@ sFun*,string create_get_hash_key_automatically(sType*% type, char* fun_name, sIn
         }
         
         if(get_hash_key_fun == NULL) {
-            get_hash_key_fun = info->funcs[real_fun_name]??;
+            get_hash_key_fun = borrow info->funcs[real_fun_name]??;
         }
     }
     
@@ -3574,7 +3576,7 @@ sFun*,string create_get_hash_key_automatically(sType*% type, char* fun_name, sIn
         source.append_str("unsigned int result = 0;\n");
         
         int i = 0;
-        klass = info.classes[klass->mName];
+        klass = borrow info.classes[klass->mName];
         foreach(it, klass->mFields) {
             var name, field_type = it;
             
@@ -3767,7 +3769,7 @@ bool create_equals_method(sType*% type, sInfo* info)
         fun_name2 = create_method_name(obj_type, false@no_pointer_name, fun_name, info);
         string fun_name3 = xsprintf("%s_%s", none_generics_name, fun_name);
         
-        sGenericsFun* generics_fun = info.generics_funcs.at(fun_name3, null);
+        sGenericsFun* generics_fun = borrow info.generics_funcs.at(fun_name3, null);
         
         if(generics_fun) {
             var name,err = create_generics_fun(string(fun_name2), generics_fun, obj_type, info);
@@ -3776,11 +3778,11 @@ bool create_equals_method(sType*% type, sInfo* info)
                 return false;
             }
             else {
-                cloner = info->funcs[name];
+                cloner = borrow info->funcs[name];
             }
         }
         else {
-            cloner = info->funcs[fun_name2];
+            cloner = borrow info->funcs[fun_name2];
         }
     }
     else {
@@ -3789,7 +3791,7 @@ bool create_equals_method(sType*% type, sInfo* info)
         int i;
         for(i=FUN_VERSION_MAX-1; i>=1; i--) {
             string new_fun_name = xsprintf("%s_v%d", fun_name2, i);
-            cloner = info->funcs[new_fun_name];
+            cloner = borrow info->funcs[new_fun_name];
             
             if(cloner) {
                 fun_name2 = string(new_fun_name);
@@ -3798,7 +3800,7 @@ bool create_equals_method(sType*% type, sInfo* info)
         }
         
         if(cloner == NULL) {
-            cloner = info->funcs[fun_name2];
+            cloner = borrow info->funcs[fun_name2];
         }
     }
     
@@ -3844,7 +3846,7 @@ bool create_operator_equals_method(sType*% type, sInfo* info)
         fun_name2 = create_method_name(obj_type, false@no_pointer_name, fun_name, info);
         string fun_name3 = xsprintf("%s_%s", none_generics_name, fun_name);
         
-        sGenericsFun* generics_fun = info.generics_funcs.at(fun_name3, null);
+        sGenericsFun* generics_fun = borrow info.generics_funcs.at(fun_name3, null);
         
         if(generics_fun) {
             var name,err = create_generics_fun(string(fun_name2), generics_fun, obj_type, info);
@@ -3852,10 +3854,10 @@ bool create_operator_equals_method(sType*% type, sInfo* info)
             if(!err) {
                 return false;
             }
-            cloner = info->funcs[name];
+            cloner = borrow info->funcs[name];
         }
         else {
-            cloner = info->funcs[fun_name2];
+            cloner = borrow info->funcs[fun_name2];
         }
     }
     else {
@@ -3864,7 +3866,7 @@ bool create_operator_equals_method(sType*% type, sInfo* info)
         int i;
         for(i=FUN_VERSION_MAX-1; i>=1; i--) {
             string new_fun_name = xsprintf("%s_v%d", fun_name2, i);
-            cloner = info->funcs[new_fun_name];
+            cloner = borrow info->funcs[new_fun_name];
             
             if(cloner) {
                 fun_name2 = string(new_fun_name);
@@ -3873,7 +3875,7 @@ bool create_operator_equals_method(sType*% type, sInfo* info)
         }
         
         if(cloner == NULL) {
-            cloner = info->funcs[fun_name2];
+            cloner = borrow info->funcs[fun_name2];
         }
     }
     
@@ -3919,7 +3921,7 @@ bool create_operator_not_equals_method(sType*% type, sInfo* info)
         fun_name2 = create_method_name(obj_type, false@no_pointer_name, fun_name, info);
         string fun_name3 = xsprintf("%s_%s", none_generics_name, fun_name);
         
-        sGenericsFun* generics_fun = info.generics_funcs.at(fun_name3, null);
+        sGenericsFun* generics_fun = borrow info.generics_funcs.at(fun_name3, null);
         
         if(generics_fun) {
             var name, err = create_generics_fun(string(fun_name2), generics_fun, obj_type, info);
@@ -3927,10 +3929,10 @@ bool create_operator_not_equals_method(sType*% type, sInfo* info)
             if(!err) {
                 return false;
             }
-            cloner = info->funcs[name];
+            cloner = borrow info->funcs[name];
         }
         else {
-            cloner = info->funcs[fun_name2];
+            cloner = borrow info->funcs[fun_name2];
         }
     }
     else {
@@ -3939,7 +3941,7 @@ bool create_operator_not_equals_method(sType*% type, sInfo* info)
         int i;
         for(i=FUN_VERSION_MAX-1; i>=1; i--) {
             string new_fun_name = xsprintf("%s_v%d", fun_name2, i);
-            cloner = info->funcs[new_fun_name];
+            cloner = borrow info->funcs[new_fun_name];
             
             if(cloner) {
                 fun_name2 = string(new_fun_name);
@@ -3948,7 +3950,7 @@ bool create_operator_not_equals_method(sType*% type, sInfo* info)
         }
         
         if(cloner == NULL) {
-            cloner = info->funcs[fun_name2];
+            cloner = borrow info->funcs[fun_name2];
         }
     }
     

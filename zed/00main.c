@@ -257,7 +257,7 @@ string ZVALUE*::to_string(ZVALUE* self)
             map<ZVALUE*%, ZVALUE*%>* map_ = self.mapValue;
             int n = 0;
             foreach(it, map_) {
-                ZVALUE* item = map_[it];
+                ZVALUE* item = borrow map_[it];
                 buf.append_str(it.to_string());
                 buf.append_str(":");
                 if(item == null) {

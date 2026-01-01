@@ -93,12 +93,12 @@ sNode*% parse_union(string type_name, string union_attribute, sInfo* info)
         
         info.types.insert(type_name, clone type);
         
-        klass = info.classes.at(type_name, null);
+        klass = borrow info.classes.at(type_name, null);
     }
     else {
-        klass = info.classes.at(type_name, null);
+        klass = borrow info.classes.at(type_name, null);
         klass.mFields.reset();
-        sType* override_ = info.types.at(type_name, null);
+        sType* override_ = borrow info.types.at(type_name, null);
         bool typedef_ = false;
         if(override_) {
             typedef_ = override_->mTypedef;
@@ -207,11 +207,11 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 97
             }
             info.types.insert(type_name, clone type);
             
-            klass = info.classes.at(type_name, null);
+            klass = borrow info.classes.at(type_name, null);
         }
         else {
-            klass = info.classes.at(type_name, null);
-            sType* override_ = info.types.at(type_name, null);
+            klass = borrow info.classes.at(type_name, null);
+            sType* override_ = borrow info.types.at(type_name, null);
             bool typedef_ = false;
             if(override_) {
                 typedef_ = override_->mTypedef;

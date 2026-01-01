@@ -13,7 +13,7 @@ void ViWin*::binaryModeView(ViWin* self, Vi* nvi)
         foreach(it, self.texts.sublist(self.scroll, self.scroll+maxy-1))
         {
             int len = self.texts_length.item(self.scroll + it2, -1);
-            wchar_t* line = self.texts.item(self.scroll + it2, null);
+            wchar_t* line = borrow self.texts.item(self.scroll + it2, null);
             
             if(line != null && len != -1) {
                 if(self.cursorY == it2 && nvi.activeWin.equals(self)) 
@@ -63,7 +63,7 @@ void ViWin*::insertBinary(ViWin* self, wchar_t c)
 //    self.pushUndo();
     
     int len = self.texts_length.item(self.scroll+self.cursorY, -1);
-    wchar_t* line = self.texts.item(self.scroll+self.cursorY, null);
+    wchar_t* line = borrow self.texts.item(self.scroll+self.cursorY, null);
     
     if(line == null || len == -1) {
         wchar_t*% new_line = new wchar_t[2];
@@ -190,7 +190,7 @@ void ViWin*::inputBinaryMode(ViWin* self, Vi* nvi)
         self.saveInputedKeyOnTheMovingCursor();
     }
     else if(key == KEY_RIGHT) {
-        wchar_t* line = self.texts.item(self.scroll + self.cursorY, null);
+        wchar_t* line = borrow self.texts.item(self.scroll + self.cursorY, null);
         if(line) {
             if(wcslen(line)-1 == self.cursorX) {
                 self.cursorX++;

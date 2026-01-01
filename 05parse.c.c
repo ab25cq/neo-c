@@ -2834,7 +2834,7 @@ struct sNode* craete_logical_denial(struct sNode* node, struct sInfo* info);
 struct tuple3$3sType$phchar$ph_Bool$* backtrace_parse_type(_Bool parse_variable_name, struct sInfo* info);
 void skip_pointer_attribute(struct sInfo* info);
 struct sNode* parse_normal_block(_Bool clang, struct sInfo* info);
-_Bool check_assign_type(char* msg, struct sType* left_type, struct sType* right_type, struct CVALUE* come_value, _Bool check_no_pointer, _Bool print_err_msg, _Bool pointer_massive, struct sInfo* info);
+_Bool check_assign_type(char* msg, struct sType* left_type, struct sType* right_type, struct CVALUE* come_value, _Bool check_no_pointer, _Bool print_err_msg, _Bool pointer_massive, _Bool check_params, struct sInfo* info);
 void cast_type(struct sType* left_type, struct sType* right_type, struct CVALUE* come_value, struct sInfo* info);
 struct tuple2$2char$phchar$ph* parse_attribute(struct sInfo* info, _Bool parse_function_attribute);
 struct tuple2$2char$phchar$ph* parse_function_attribute(struct sInfo* info);
@@ -3025,7 +3025,7 @@ int err_msg(struct sInfo* info, char* msg, ...)
             }
             p--;
         }
-        buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 37, "struct buffer*"))));
+        buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 38, "struct buffer*"))));
         if(last_lf) {
             col=info->p-last_lf;
             buffer_append_format(buf,"%s %d(real %d)(block %d) %d: %s",info->sname,info->sline,info->sline_real,info->sline_block,col,msg2);
@@ -3072,7 +3072,7 @@ char* parse_word(_Bool digits, struct sInfo* info)
     char* result;
     void* __right_value2 = (void*)0;
     void* __right_value3 = (void*)0;
-    buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 80, "struct buffer*"))));
+    buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 81, "struct buffer*"))));
     parse_sharp_v5(info);
     if(digits) {
         while((*info->p>=97&&*info->p<=122)||(*info->p>=65&&*info->p<=90)||*info->p==95||(*info->p>=48&&*info->p<=57)||(*info->p==36)) {
@@ -3417,7 +3417,7 @@ void parse_sharp_v5(struct sInfo* info)
             info->p++;
             skip_spaces_and_tabs(info);
             if(parsecmp("pragma",info)) {
-                buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 304, "struct buffer*"))));
+                buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 305, "struct buffer*"))));
                 buffer_append_str(buf,"#");
                 while(*info->p) {
                     if(*info->p==10) {
@@ -3445,7 +3445,7 @@ _conditional_value_X0;})) {
                 info->p+=strlen("line");
                 skip_spaces_and_tabs(info);
                 line=0;
-                fname=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 330, "struct buffer*"))));
+                fname=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 331, "struct buffer*"))));
                 if(!xisdigit(*info->p)) {
                     err_msg(info,"invalid #line directive");
                     come_call_finalizer(buffer_finalize, fname, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -3493,7 +3493,7 @@ _conditional_value_X0;})) {
             }
             else if(xisdigit(*info->p)) {
                 line_1=0;
-                fname_2=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 380, "struct buffer*"))));
+                fname_2=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 381, "struct buffer*"))));
                 while(xisdigit(*info->p)) {
                     line_1=line_1*10+(*info->p-48);
                     info->p++;
@@ -3518,12 +3518,7 @@ _conditional_value_X0;})) {
                         info->p++;
                     }
                 }
-                if(line_1>0) {
-                    info->sline=line_1-1;
-                }
-                else {
-                    info->sline=line_1;
-                }
+                info->sline=line_1;
                 fname_str_3=(char*)come_increment_ref_count(buffer_to_string(fname_2));
                 if(string_length(fname_str_3)>0) {
                     __dec_obj5=info->sname,

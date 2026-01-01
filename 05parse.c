@@ -407,12 +407,14 @@ void parse_sharp(sInfo* info=info) version 5
                     }
                 }
     
+/*
                 if(line > 0) {
                     info->sline = line - 1;
                 }
                 else {
+*/
                     info->sline = line;
-                }
+//                }
                 
                 string fname_str = fname.to_string();
                 if(fname_str.length() > 0) {

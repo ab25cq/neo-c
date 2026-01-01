@@ -479,7 +479,7 @@ static bool linker(sInfo* info, list<string>* object_files)
     system(command.to_string()).if {
         int is_mac3 = system("uname -a | grep Darwin 1> /dev/null 2>/dev/null") == 0;
         if(!is_mac3) {
-            buffer* retry = new buffer();
+            buffer*% retry = new buffer();
             retry.append_str(command.to_string());
             retry.append_str(" -latomic ");
             

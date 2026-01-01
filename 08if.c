@@ -68,7 +68,7 @@ class sIfNode extends sNodeBase
         //// elif ///
         if(elif_num > 0) {
             for(int i=0; i<elif_num; i++) {
-                sNode* expression_node2 = self.mElifExpressionNodes[i];
+                sNode* expression_node2 = borrow self.mElifExpressionNodes[i];
     
                 add_come_code(info, "else if(");
                 
@@ -81,7 +81,7 @@ class sIfNode extends sNodeBase
                 add_come_code(info, ") {\n");
                 info->in_conditional = in_conditional;
                 
-                sBlock* elif_node_block = self.mElifBlocks[i];
+                sBlock* elif_node_block = borrow self.mElifBlocks[i];
                 
                 transpile_block(elif_node_block, null, null, info);
                 

@@ -2,9 +2,9 @@
 
 bool is_type_name(char* buf, sInfo* info=info)
 {
-    sClass* klass = info.classes[buf];
-    sType* type = info.types[buf];
-    sClass* generics_class = info.generics_classes[string(buf)];
+    sClass* klass = borrow info.classes[buf];
+    sType* type = borrow info.types[buf];
+    sClass* generics_class = borrow info.generics_classes[string(buf)];
     bool generics_type_name = info.generics_type_names.contained(string(buf));
     bool mgenerics_type_name = info.method_generics_type_names.contained(string(buf));
     
@@ -205,7 +205,7 @@ tuple4<list<sType*%>*%, list<string>*%, list<string>*%, bool>*% parse_params(sIn
     return (param_types, param_names, param_default_parametors, var_args);
 }
 
-bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* come_value, bool check_no_pointer=false, bool print_err_msg=true, bool pointer_massive=true, sInfo* info=info)
+bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* come_value, bool check_no_pointer=false, bool print_err_msg=true, bool pointer_massive=true, bool check_params=false, sInfo* info=info)
 {
     if(info->no_output_come_code) {
         return true;
@@ -213,13 +213,17 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
     sType*% left_type2 = clone left_type;
     sType*% right_type2 = clone right_type;
     
+    if(come_value.var) {
+        check_params = true;
+    }
+    
     sType* left_no_solved_generics_type = null;
     if(left_type2->mNoSolvedGenericsType) {
-        left_no_solved_generics_type = left_type2->mNoSolvedGenericsType;
+        left_no_solved_generics_type = borrow left_type2->mNoSolvedGenericsType;
     }
     sType* right_no_solved_generics_type = null;
     if(right_type2->mNoSolvedGenericsType) {
-        right_no_solved_generics_type = right_type2->mNoSolvedGenericsType;
+        right_no_solved_generics_type = borrow right_type2->mNoSolvedGenericsType;
     }
     
     sClass* left_class = left_type2->mClass;
@@ -232,7 +236,7 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
                 parent_class = true;
             }
             if(right_class->mParentClassName) {
-                right_class = info.classes[right_class->mParentClassName];
+                right_class = borrow info.classes[right_class->mParentClassName];
             }
             else {
                 right_class = null;
@@ -281,7 +285,7 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
                     flag_ = true;
                 }
                 if(klass->mParentClassName) {
-                    klass = info.classes[klass->mParentClassName];
+                    klass = borrow info.classes[klass->mParentClassName];
                 }
                 else {
                     klass = null;
@@ -300,6 +304,13 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
             {
             }
             else if(right_type->mClass->mName === "void") {
+            }
+            else if(left_type2->mClass->mName === right_type2->mClass->mName && !left_type2->mHeap && right_type2->mHeap && !check_params) {
+                printf("class_name %s left is none heap, and right is heap\n", left_type2->mClass->mName);
+                        
+                info->err_num++;
+                
+                return false;
             }
             else if(left_type2->mClass->mName !== right_type->mClass->mName && !flag_) {
                 if(print_err_msg) {
@@ -384,16 +395,8 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
         }
         else if(left_type2->mClass->mName === "void" && left_type2->mPointerNum > 0 && left_type2->mClass->mName === right_type2->mClass->mName && (left_type2->mPointerNum != right_type2->mPointerNum || left_type2->mHeap != right_type2->mHeap)) {
         }
-        else if(left_type2->mClass->mName === right_type2->mClass->mName && (left_type2->mPointerNum != right_type2->mPointerNum || left_type2->mHeap != right_type2->mHeap)) {
-            printf("%s %d %s\n", info->sname, info->sline, msg);
-            printf("left type class_name %s\n", left_type2->mClass->mName);
-            printf("right type class_name %s\n", right_type2->mClass->mName);
-            printf("left type pointernum %d\n", left_type2->mPointerNum);
-            printf("right type pointernum %d\n", right_type->mPointerNum);
-            printf("left type heap %d\n", left_type2->mHeap);
-            printf("right type heap %d\n", right_type->mHeap);
-            printf("(1)left type generics type parametor number is %d(%s)(%s)\n", left_no_solved_generics_type->mGenericsTypes.length(), left_no_solved_generics_type->mClass->mName, left_type2->mClass->mName);
-            printf("right type generics type parametor number is %d(%s)(%s)\n", right_no_solved_generics_type->mGenericsTypes.length(), right_no_solved_generics_type->mClass->mName, right_type2->mClass->mName);
+        else if(left_type2->mClass->mName === right_type2->mClass->mName && !left_type2->mHeap && right_type2->mHeap && !check_params) {
+            printf("class_name %s left is none heap, and right is heap\n", left_type2->mClass->mName);
                     
             info->err_num++;
             
@@ -444,6 +447,14 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
             return false;
         }
     } 
+    else if(left_type2.mClass->mName === right_type2->mClass->mName && !left_type2.mHeap && right_type2->mHeap && !check_params) {
+        printf("%s %d %s\n", info->sname, info->sline, msg);
+        printf("class_name %s left is none heap, and right is heap\n", left_type2->mClass->mName);
+                
+        info->err_num++;
+        
+        return false;
+    }
     else if(right_type->mPointerNum > 0 && right_type->mClass->mName === "void" && left_type2->mClass->mNumber && left_type2->mPointerNum == 0 && left_type2->mArrayPointerNum == 0) {
         if(pointer_massive) {
             if(print_err_msg) {
@@ -2533,7 +2544,7 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
         sType*% result_type;
         if(info.types[type_name]) {
             result_type = clone info.types[type_name];
-            result_type->mClass = info.classes[result_type->mClass->mName];
+            result_type->mClass = borrow info.classes[result_type->mClass->mName];
         }
         else if(info.generics_type_names.contained(type_name)) {
             for(int i=0; i<info.generics_type_names.length(); i++) {
@@ -2728,7 +2739,7 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
         sType*% result_type;
         if(info.types[type_name]) {
             result_type = clone info.types[type_name];
-            result_type->mClass = info.classes[result_type->mClass->mName];
+            result_type->mClass = borrow info.classes[result_type->mClass->mName];
         }
         else if(info.generics_type_names.contained(type_name)) {
             for(int i=0; i<info.generics_type_names.length(); i++) {
@@ -2859,9 +2870,9 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
     else {
         if(info.types[type_name]) {
             type = clone info.types[type_name];
-            type->mClass = info.classes[type->mClass->mName];
+            type->mClass = borrow info.classes[type->mClass->mName];
             
-            buffer* t = info.typedef_definition[type_name];
+            buffer* t = borrow info.typedef_definition[type_name];
             
             type->mOriginalTypePointerNum = pointer_num;
             type->mOriginalTypePointerHeap = heap;
@@ -3042,14 +3053,14 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
         }
         else {
             if(struct_) {
-                sClass* klass = info.classes[type_name];
+                sClass* klass = borrow info.classes[type_name];
                 
                 if(klass == null && *info->p != '<') {
                     info.classes.insert(string(type_name), new sClass(name:string(type_name), struct_:true));
                 }
             }
             if(union_) {
-                sClass* klass = info.classes[type_name];
+                sClass* klass = borrow info.classes[type_name];
                 
                 if(klass == null && *info->p != '<') {
                     info.classes.insert(string(type_name), new sClass(name:string(type_name), union_:true));

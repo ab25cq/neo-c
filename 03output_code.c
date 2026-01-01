@@ -301,7 +301,7 @@ string make_come_type_name_string(sType* type, sInfo* info=info)
         if(type2->mGenericsTypes.length() > 0) {
             buf.append_str("<");
             for(int i=0; i<type2->mGenericsTypes.length(); i++) {
-                sType* gtype = type2->mGenericsTypes[i];
+                sType* gtype = borrow type2->mGenericsTypes[i];
                 
                 buf.append_str(make_come_type_name_string(gtype));
                 
@@ -961,7 +961,7 @@ string output_function(sFun* fun, sInfo* info)
         
         int i = 0;
         foreach(it, fun->mParamTypes) {
-            char* name = fun->mParamNames[i];
+            char* name = borrow fun->mParamNames[i];
             
             var str = make_define_var(it, name, no_static:true);
             output2.append_str(str);
@@ -1026,7 +1026,7 @@ string output_function(sFun* fun, sInfo* info)
         
         int i = 0;
         foreach(it, fun->mParamTypes) {
-            char* name = fun->mParamNames[i];
+            char* name = borrow fun->mParamNames[i];
             
             string str = make_define_var(it, name, no_static:true);
             output.append_str(str);
@@ -1043,7 +1043,7 @@ string output_function(sFun* fun, sInfo* info)
             i++;
         }
         
-        sNode* node = fun->mResultType->mArrayNum[0]??;
+        sNode* node = borrow fun->mResultType->mArrayNum[0]??;
         
         if(!node_compile(node)) {
             err_msg(info, "invalid array number");
@@ -1082,7 +1082,7 @@ string output_function(sFun* fun, sInfo* info)
         
         int i = 0;
         foreach(it, fun->mParamTypes) {
-            char* name = fun->mParamNames[i];
+            char* name = borrow fun->mParamNames[i];
             
             string str = make_define_var(it, name, no_static:true);
             output.append_str(str);
@@ -1143,7 +1143,7 @@ string header_function(sFun* fun, sInfo* info)
         
         int i = 0;
         foreach(it, fun->mParamTypes) {
-            char* name = fun->mParamNames[i];
+            char* name = borrow fun->mParamNames[i];
             
             string str = make_define_var(it, name, no_static:true);
             output2.append_str(str);
@@ -1192,7 +1192,7 @@ string header_function(sFun* fun, sInfo* info)
         
         int i = 0;
         foreach(it, fun->mParamTypes) {
-            char* name = fun->mParamNames[i];
+            char* name = borrow fun->mParamNames[i];
             
             string str = make_define_var(it, name, no_static:true);
             output.append_str(str);
@@ -1208,7 +1208,7 @@ string header_function(sFun* fun, sInfo* info)
             i++;
         }
         
-        sNode* node = fun->mResultType->mArrayNum[0]??;
+        sNode* node = borrow fun->mResultType->mArrayNum[0]??;
         if(!node_compile(node)) {
             err_msg(info, "invalid array number");
             return string("");
@@ -1242,7 +1242,7 @@ string header_function(sFun* fun, sInfo* info)
         
         int i = 0;
         foreach(it, fun->mParamTypes) {
-            char* name = fun->mParamNames[i];
+            char* name = borrow fun->mParamNames[i];
             
             if(is_gcc_builtin_float_type(it)) {
                 return s"";
@@ -1303,7 +1303,7 @@ static string header_lambda(sType* lambda_type, string name, sInfo* info)
     
     int i = 0;
     foreach(it, lambda_type->mParamTypes) {
-        char* name = lambda_type->mParamNames[i];
+        char* name = borrow lambda_type->mParamNames[i];
         
         string str = make_define_var(it, name, no_static:true);
         output.append_str(str);
@@ -1388,7 +1388,7 @@ bool is_contained_generics_funcstion(sFun* fun, sInfo* info=info)
 
 bool output_source_file(sInfo* info)
 {
-    sFun* main_fun = info->funcs[s"main"]??;
+    sFun* main_fun = borrow info->funcs[s"main"]??;
     bool main_module = false;
     if(main_fun) {
         if(!main_fun->mExternal) {
@@ -1398,7 +1398,7 @@ bool output_source_file(sInfo* info)
     
     if(main_module) {   // uniq function is compiled the last
         foreach(it, info.uniq_funcs) {
-            sFun* it2 = info.uniq_funcs[string(it)];
+            sFun* it2 = borrow info.uniq_funcs[string(it)];
             sFun*% new_fun = compile_uniq_function(it2, info);
             
             info.funcs.put(string(it), new_fun);
@@ -1413,19 +1413,19 @@ bool output_source_file(sInfo* info)
     
     fprintf(f, "/// typedef definition ///\n");
     foreach(it, info.typedef_definition) {
-        buffer* buf = info.typedef_definition[string(it)]??;
+        buffer* buf = borrow info.typedef_definition[string(it)]??;
         fprintf(f, "%s\n", buf.to_string());
     }
     
     fprintf(f, "/// previous struct definition ///\n");
     foreach(it, info.previous_struct_definition) {
-        buffer* buf = info.previous_struct_definition[string(it)]??;
+        buffer* buf = borrow info.previous_struct_definition[string(it)]??;
         fprintf(f, "%s\n", buf.to_string());
     }
     
     fprintf(f, "/// struct definition ///\n");
     foreach(it, info.struct_definition) {
-        buffer* buf = info.struct_definition[string(it)]??;
+        buffer* buf = borrow info.struct_definition[string(it)]??;
         fprintf(f, "%s\n", buf.to_string());
     }
     
@@ -1434,7 +1434,7 @@ bool output_source_file(sInfo* info)
     
     fprintf(f, "// header function\n");
     foreach(it, info.funcs) {
-        sFun* it2 = info.funcs[string(it)];
+        sFun* it2 = borrow info.funcs[string(it)];
         
         bool contained_generics = is_contained_generics_funcstion(it2);
 
@@ -1452,14 +1452,14 @@ bool output_source_file(sInfo* info)
     fprintf(f, "// uniq global variable\n");
     if(main_module) {
         foreach(it, info.uniq_definition) {
-            char* str = info.uniq_definition[string(it)]??;
+            char* str = borrow info.uniq_definition[string(it)]??;
             fprintf(f, "%s\n", str);
         }
     }
     
     fprintf(f, "// inline function\n");
     foreach(it, info.funcs) {
-        sFun* it2 = info.funcs[string(it)];
+        sFun* it2 = borrow info.funcs[string(it)];
         bool contained_generics = is_contained_generics_funcstion(it2);
 
         if(contained_generics) {
@@ -1474,7 +1474,7 @@ bool output_source_file(sInfo* info)
     
     fprintf(f, "// body function\n");
     foreach(it, info.funcs) {
-        sFun* it2 = info.funcs[string(it)];
+        sFun* it2 = borrow info.funcs[string(it)];
         
         bool contained_generics = is_contained_generics_funcstion(it2);
 

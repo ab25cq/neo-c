@@ -337,7 +337,7 @@ void Vi*::openNewFile(Vi* self, string file_name)
 
     self.wins.push_back(win);
 
-    self.activeWin = self.wins[-1];
+    self.activeWin = borrow self.wins[-1];
 
     self.repositionWindows();
 
@@ -359,7 +359,7 @@ void Vi*::closeActiveWin(Vi* self)
 
     self.repositionWindows();
 
-    self.activeWin = self.wins.item(0, null);
+    self.activeWin = borrow self.wins.item(0, null);
 }
 
 void Vi*::exitFromApp(Vi* self) version 6
@@ -374,7 +374,7 @@ void Vi*::exitFromApp(Vi* self) version 6
 void Vi*::toggleWin(Vi* self) {
     if(self.toggleWin >= 0 && self.toggleWin < self.wins.length()) {
         int toggle_win = self.wins.find(self.activeWin, -1);
-        self.activeWin = self.wins.item(self.toggleWin, null);
+        self.activeWin = borrow self.wins.item(self.toggleWin, null);
         self.toggleWin = toggle_win;
     }
 }
@@ -383,7 +383,7 @@ void Vi*::nextWin(Vi* self) {
     if(next_win >= 0 && next_win < self.wins.length()) 
     {
         int toggle_win = self.wins.find(self.activeWin, -1);
-        self.activeWin = self.wins.item(next_win, null);
+        self.activeWin = borrow self.wins.item(next_win, null);
         self.toggleWin = toggle_win;
     }
 }
@@ -392,7 +392,7 @@ void Vi*::prevWin(Vi* self) {
     int prev_win = self.wins.find(self.activeWin, -1) - 1;
     if(self.toggleWin >= 0 && self.toggleWin < self.wins.length()) {
         int toggle_win = self.wins.find(self.activeWin, -1);
-        self.activeWin = self.wins.item(prev_win, null);
+        self.activeWin = borrow self.wins.item(prev_win, null);
         self.toggleWin = toggle_win;
     }
 }
@@ -516,7 +516,7 @@ void Vi*::openFile(Vi* self, string file_name, int line_num, bool binary_mode=fa
             auto win = new ViWin.initialize(0,0, maxx-1, maxy, self);
     
             self.wins.push_back(win);
-            self.activeWin = self.wins[-1];
+            self.activeWin = borrow self.wins[-1];
             
             self.activeWin.openFile(file_name, line_num, binary_mode);
             self.saveLastOpenFile(file_name);

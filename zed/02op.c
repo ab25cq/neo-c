@@ -122,8 +122,8 @@ bool vm(sInfo* info) version 2
         case OP_IADD: {
             info->op++;
             
-            ZVALUE* left_value = info.stack[-2];
-            ZVALUE* right_value = info.stack[-1];
+            ZVALUE* left_value = borrow info.stack[-2];
+            ZVALUE* right_value = borrow info.stack[-1];
             
             if(left_value.kind == kIntValue && right_value.kind == kIntValue) {
                 int lvalue = left_value.intValue;
@@ -201,8 +201,8 @@ bool vm(sInfo* info) version 2
         case OP_ISUB: {
             info->op++;
             
-            ZVALUE* left_value = info.stack[-2];
-            ZVALUE* right_value = info.stack[-1];
+            ZVALUE* left_value = borrow info.stack[-2];
+            ZVALUE* right_value = borrow info.stack[-1];
             
             int lvalue = left_value.intValue;
             int rvalue = right_value.intValue;

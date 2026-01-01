@@ -65,7 +65,7 @@ class sIfNode
         *p = info.codes.len;
         
         for(int i= 0; i<elif_exps.length(); i++) {
-            sNode* elif_exp = elif_exps[i];
+            sNode* elif_exp = borrow elif_exps[i];
             list<sNode*%>* elif_block = elif_blocks[i];
             
             if(!elif_exp.compile(info)) {
@@ -177,7 +177,7 @@ bool vm(sInfo* info) version 8
             int value = *info->op;
             info->op++;
             
-            ZVALUE* conditional = info.stack[-1];
+            ZVALUE* conditional = borrow info.stack[-1];
             
             if(conditional.kind == kBoolValue) {
                 bool exp = conditional.boolValue;

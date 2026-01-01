@@ -62,7 +62,7 @@ class sReturnNode extends sNodeBase
                 
                 if(!info.come_fun.mNoResultType) {
                     if(!gComeC || !(strlen(result_type2->mClass->mName) > strlen("tuple") && memcmp(result_type2->mClass->mName, "tuple", strlen("tuple")) == 0)) {
-                        check_assign_type("result type", result_type2, come_value_type, come_value);
+                        check_assign_type("result type", result_type2, come_value_type, come_value, check_params:true);
                     }
                     
                     if(result_type2.mHeap) {
@@ -506,7 +506,7 @@ class sFunCallNode extends sNodeBase
                 if(lambda_type.mVarArgs && lambda_type.mParamTypes[i]?? == null) {
                 }
                 else {
-                    check_assign_type(s"\{fun_name} calling param #\{i}", lambda_type.mParamTypes[i], come_value.type, come_value);
+                    check_assign_type(s"\{fun_name} calling param #\{i}", lambda_type.mParamTypes[i], come_value.type, come_value, check_params:true);
                     
                     if(lambda_type.mParamTypes[i].mHeap && come_value.type.mHeap) {
                         std_move(lambda_type.mParamTypes[i], come_value.type, come_value);
@@ -556,7 +556,7 @@ class sFunCallNode extends sNodeBase
             
             return true;
         }
-        sGenericsFun* generics_fun = info.generics_funcs.at(string(fun_name), null);
+        sGenericsFun* generics_fun = borrow info.generics_funcs.at(string(fun_name), null);
         bool method_generics = false;
         if(generics_fun) {
             method_generics = generics_fun.mMethodGenericsTypeNames.length() > 0;
@@ -567,12 +567,12 @@ class sFunCallNode extends sNodeBase
                 var name, gfun = make_method_generics_function(fun_name, method_generics_types, info);
                 string generics_fun_name = name;
                 
-                sFun* fun = info.funcs.at(generics_fun_name, null);
+                sFun* fun = borrow info.funcs.at(generics_fun_name, null);
                 
                 if(method_block) {
                     list<CVALUE*%>*% come_params = new list<CVALUE*%>();
                     
-                    sFun* fun = info.funcs.at(generics_fun_name, null);
+                    sFun* fun = borrow info.funcs.at(generics_fun_name, null);
                     
                     bool no_output_come_code = info->no_output_come_code;
                     info->no_output_come_code = true;
@@ -580,12 +580,12 @@ class sFunCallNode extends sNodeBase
                         return false;
                     }
                     info->no_output_come_code = no_output_come_code;
-                    CVALUE* method_block_node = come_params[-1];
+                    CVALUE* method_block_node = borrow come_params[-1];
                     
                     sType*% method_block_lambda_type = clone method_block_node.type;
                     sType*% method_block_result_type = clone info.come_method_block_function_result_type;
                     
-                    sType* generics_fun_method_block_lambda_type = generics_fun.mParamTypes[-1]??;
+                    sType* generics_fun_method_block_lambda_type = borrow generics_fun.mParamTypes[-1]??;
                     sType* generics_fun_method_block_result_type = generics_fun_method_block_lambda_type.mResultType;
                     
                     if(generics_fun_method_block_result_type.mClass.mMethodGenerics) {
@@ -1094,7 +1094,7 @@ class sFunCallNode extends sNodeBase
         }
         
         /// normal function call ///
-        sFun* fun = info.funcs.at(fun_name, null);
+        sFun* fun = borrow info.funcs.at(fun_name, null);
         
         if(fun == null) {
             printf("%s %d: function not found(%s) at function call(1), so no check types and no heap management\n", info.sname, info.sline, fun_name);
@@ -1194,7 +1194,7 @@ class sFunCallNode extends sNodeBase
                 }
                 
                 if(param_types[n]) {
-                    check_assign_type(s"\{fun_name} param num \{n} is assinged to", param_types[n], come_value.type, come_value);
+                    check_assign_type(s"\{fun_name} param num \{n} is assinged to", param_types[n], come_value.type, come_value, check_params:true);
                 }
                 if(param_types[n] && param_types[n].mHeap && come_value.type.mHeap) {
                     std_move(param_types[n], come_value.type, come_value);
@@ -1250,7 +1250,7 @@ class sFunCallNode extends sNodeBase
                 }
                 
                 if(param_types[i]) {
-                    check_assign_type(s"\{fun_name} param num \{i} is assinged to", param_types[i], come_value.type, come_value);
+                    check_assign_type(s"\{fun_name} param num \{i} is assinged to", param_types[i], come_value.type, come_value, check_params:true);
                 }
                 if(param_types[i] && param_types[i].mHeap && come_value.type.mHeap) {
                     std_move(param_types[i], come_value.type, come_value);
@@ -1274,7 +1274,7 @@ class sFunCallNode extends sNodeBase
         {
             for(; i<fun.mParamTypes.length()-(method_block?2:0); i++) {
                 string default_param = clone fun.mParamDefaultParametors[i];
-                char* param_name = fun.mParamNames[i];
+                char* param_name = borrow fun.mParamNames[i];
                 
                 if(default_param && default_param !== "" && come_params[i] == null) {
                     buffer*% source = info.source;
@@ -1307,7 +1307,7 @@ class sFunCallNode extends sNodeBase
                     come_value.type = solve_generics(come_value.type, info->generics_type, info);
                     
                     if(param_types[i]) {
-                        check_assign_type(s"\{fun_name} param num \{i} is assinged to", param_types[i], come_value.type, come_value);
+                        check_assign_type(s"\{fun_name} param num \{i} is assinged to", param_types[i], come_value.type, come_value, check_params:true);
                     }
                     if(param_types[i] && param_types[i].mHeap && come_value.type.mHeap) {
                         std_move(param_types[i], come_value.type, come_value);
@@ -1345,9 +1345,9 @@ class sFunCallNode extends sNodeBase
             
             string class_name = xsprintf("__current_stack%d__", info->current_stack_num);
             
-            method_block_type.mParamTypes[0].mClass = info.classes[class_name];
+            method_block_type.mParamTypes[0].mClass = borrow info.classes[class_name];
             sClass* current_stack_frame_struct = info.current_stack_frame_struct;
-            info->current_stack_frame_struct = info.classes[class_name];
+            info->current_stack_frame_struct = borrow info.classes[class_name];
             
             info->num_method_block++;
             
@@ -1433,7 +1433,7 @@ class sFunCallNode extends sNodeBase
             
             CVALUE*% come_value2 = new CVALUE();
             
-            sFun* fun2 = info.funcs.at(string(method_block_name), null);
+            sFun* fun2 = borrow info.funcs.at(string(method_block_name), null);
             
             if(fun2 == null) {
                 err_msg(info, "method block function not found(%s)", method_block_name);
@@ -1598,7 +1598,7 @@ class sComeCallNode extends sNodeBase
         come_block2.append_str(come_block.to_string());
                         
         sClass* current_stack_frame_struct = info.current_stack_frame_struct;
-        info->current_stack_frame_struct = info.classes[class_name];
+        info->current_stack_frame_struct = borrow info.classes[class_name];
         
         buffer*% source3 = info.source;
         char* p = info.p;
@@ -1899,7 +1899,7 @@ class sLambdaCall extends sNodeBase
             if(lambda_type.mVarArgs && lambda_type.mParamTypes[i] == null) {
             }
             else {
-                check_assign_type(s"calling param #\{i}", lambda_type.mParamTypes[i], come_value.type, come_value);
+                check_assign_type(s"calling param #\{i}", lambda_type.mParamTypes[i], come_value.type, come_value, check_params:true);
                 if(lambda_type.mParamTypes[i].mHeap && come_value.type.mHeap) {
                     std_move(lambda_type.mParamTypes[i], come_value.type, come_value);
                 }
@@ -2834,7 +2834,7 @@ string create_generics_name(sType* generics_type, sInfo* info)
         buf.append_char(generics_type->mGenericsTypes.length()+'0');
         
         for(int i=0; i<generics_type->mGenericsTypes.length(); i++) {
-            sType* type = generics_type->mGenericsTypes[i];
+            sType* type = borrow generics_type->mGenericsTypes[i];
             string type_name = create_generics_name(type, info);
             
             buf.append_str(type_name);

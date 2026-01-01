@@ -594,7 +594,7 @@ string reflection_node(sInfo* info=info)
         string result = null;
         
         info.funcs[exp].if {
-            sType* type = Value->mParamTypes[atoi(exp2)];
+            sType* type = borrow Value->mParamTypes[atoi(exp2)];
             if(type) {
                 result = make_come_type_name_string(type);
             }

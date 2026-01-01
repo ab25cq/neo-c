@@ -151,7 +151,7 @@ bool vm(sInfo* info) version 7
             
             wstring var_name = get_str_from_codes(info);
             
-            ZVALUE* right_value = info.stack[-1];
+            ZVALUE* right_value = borrow info.stack[-1];
             
             gVars.insert(var_name, clone right_value);
             
@@ -164,7 +164,7 @@ bool vm(sInfo* info) version 7
             
             wstring var_name = get_str_from_codes(info);
             
-            ZVALUE* zvalue = gVars.at(var_name, null);
+            ZVALUE* zvalue = borrow gVars.at(var_name, null);
             
             if(zvalue == null) {
                 fprintf(stderr, "undeclared var(%ls)\n", var_name);
@@ -180,7 +180,7 @@ bool vm(sInfo* info) version 7
             
             wstring var_name = get_str_from_codes(info);
             
-            ZVALUE* map_ = gVars.at(var_name, null);
+            ZVALUE* map_ = borrow gVars.at(var_name, null);
             
             if(map_ == null || (map_.kind != kMapValue && map_.kind != kListValue && map_.kind != kStrValue)) {
                 fprintf(stderr, "invalid obj value for array index\n");
@@ -202,7 +202,7 @@ bool vm(sInfo* info) version 7
                         exit(2);
                     }
                     
-                    ZVALUE* result = map_.listValue[index_value];
+                    ZVALUE* result = borrow map_.listValue[index_value];
                     
                     if(result == null) {
                         fprintf(stderr, "invalid list index\n");
@@ -214,7 +214,7 @@ bool vm(sInfo* info) version 7
                     break;
                     
                 case kMapValue: {
-                    ZVALUE* result = map_.mapValue[index];
+                    ZVALUE* result = borrow map_.mapValue[index];
                     
                     if(result == null) {
                         fprintf(stderr, "invalid map index\n");
@@ -235,7 +235,7 @@ bool vm(sInfo* info) version 7
                         exit(2);
                     }
                     
-                    wchar_t result = map_.strValue[index_value];
+                    wchar_t result = borrow map_.strValue[index_value];
                     
                     if(result == '\0') {
                         fprintf(stderr, "invalid index\n");
@@ -258,7 +258,7 @@ bool vm(sInfo* info) version 7
             
             wstring var_name = get_str_from_codes(info);
             
-            ZVALUE* map_ = gVars.at(var_name, null);
+            ZVALUE* map_ = borrow gVars.at(var_name, null);
             
             if(map_ == null || (map_.kind != kMapValue && map_.kind != kListValue)) {
                 fprintf(stderr, "invalid obj value for array index\n");
@@ -284,7 +284,7 @@ bool vm(sInfo* info) version 7
                         exit(2);
                     }
                     
-                    ZVALUE* item = map_.listValue.item(index_value, null);
+                    ZVALUE* item = borrow map_.listValue.item(index_value, null);
                     
                     if(item == null) {
                         fprintf(stderr, "invalid list index\n");

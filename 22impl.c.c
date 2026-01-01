@@ -2837,7 +2837,7 @@ struct tuple3$3sType$phchar$ph_Bool$* backtrace_parse_type(_Bool parse_variable_
 void skip_pointer_attribute(struct sInfo* info);
 void skip_paren(struct sInfo* info);
 struct sNode* parse_normal_block(_Bool clang, struct sInfo* info);
-_Bool check_assign_type(char* msg, struct sType* left_type, struct sType* right_type, struct CVALUE* come_value, _Bool check_no_pointer, _Bool print_err_msg, _Bool pointer_massive, struct sInfo* info);
+_Bool check_assign_type(char* msg, struct sType* left_type, struct sType* right_type, struct CVALUE* come_value, _Bool check_no_pointer, _Bool print_err_msg, _Bool pointer_massive, _Bool check_params, struct sInfo* info);
 void cast_type(struct sType* left_type, struct sType* right_type, struct CVALUE* come_value, struct sInfo* info);
 struct tuple2$2char$phchar$ph* parse_attribute(struct sInfo* info, _Bool parse_function_attribute);
 struct tuple2$2char$phchar$ph* parse_function_attribute(struct sInfo* info);
@@ -2998,6 +2998,7 @@ struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo*
     struct sType* __exception_result_var_b2;
     struct sType* __exception_result_var_b3;
     struct sType* __dec_obj4;
+    struct sType* __exception_result_var_b4;
     char* head_2;
     char* buf_3;
     struct sNode* node;
@@ -3005,7 +3006,7 @@ struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo*
     struct sType* __dec_obj5;
     _Bool Value;
     struct sType* __dec_obj6;
-    int __exception_result_var_b4;
+    int __exception_result_var_b5;
     struct sType* __dec_obj7;
     char* source_tail;
     struct buffer* header;
@@ -3019,7 +3020,7 @@ struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo*
             list$1char$ph_reset(info->generics_type_names);
             while(1) {
                 generics_name=(char*)come_increment_ref_count(parse_word(0,info));
-                list$1char$ph_push_back(info->generics_type_names,(char*)come_increment_ref_count((char*)come_memdup(generics_name, "22impl.c", 17, "char*")));
+                list$1char$ph_push_back(info->generics_type_names,(char*)come_increment_ref_count((char*)come_memdup(generics_name, "22impl.c", 18, "char*")));
                 if(*info->p==44) {
                     info->p++;
                     skip_spaces_and_lf(info);
@@ -3043,9 +3044,9 @@ struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo*
             skip_spaces_and_lf(info);
             pointer_num++;
         }
-        (come_push_stackframe("22impl.c", 42, 0),__exception_result_var_b1=expected_next_character(123,info), come_pop_stackframe(), __exception_result_var_b1);
+        (come_push_stackframe("22impl.c", 43, 0),__exception_result_var_b1=expected_next_character(123,info), come_pop_stackframe(), __exception_result_var_b1);
         __dec_obj4=info->impl_type,
-        info->impl_type=(struct sType*)come_increment_ref_count((come_push_stackframe("22impl.c", 44, 1),__exception_result_var_b2=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "22impl.c", 44, "struct sType*")),(char*)come_increment_ref_count(word),0,info,0), come_pop_stackframe(), __exception_result_var_b2));
+        info->impl_type=(struct sType*)come_increment_ref_count((come_push_stackframe("22impl.c", 45, 3),__exception_result_var_b4=(come_push_stackframe("22impl.c", 45, 1),__exception_result_var_b2=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "22impl.c", 45, "struct sType*")),(char*)come_increment_ref_count(word),0,info,0), come_pop_stackframe(), __exception_result_var_b2), come_pop_stackframe(), __exception_result_var_b4));
         come_call_finalizer(sType_finalize, __dec_obj4,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         info->impl_type->mPointerNum=pointer_num;
         while(*info->p!=125) {
@@ -3082,13 +3083,13 @@ struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo*
             ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0):(void*)0);
             come_call_finalizer(sType_finalize, impl_type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         }
-        (come_push_stackframe("22impl.c", 80, 3),__exception_result_var_b4=expected_next_character(125,info), come_pop_stackframe(), __exception_result_var_b4);
+        (come_push_stackframe("22impl.c", 81, 4),__exception_result_var_b5=expected_next_character(125,info), come_pop_stackframe(), __exception_result_var_b5);
         list$1char$ph_reset(info->generics_type_names);
         __dec_obj7=info->impl_type,
         info->impl_type=((void*)0);
         come_call_finalizer(sType_finalize, __dec_obj7,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         source_tail=info->p;
-        header=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "22impl.c", 86, "struct buffer*"))));
+        header=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "22impl.c", 87, "struct buffer*"))));
         buffer_append(header,source_head,source_tail-source_head);
         __result_obj__0 = (struct sNode*)come_increment_ref_count((struct sNode*)((void*)0));
         (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -3149,7 +3150,7 @@ static struct list$1char$ph* list$1char$ph_push_back(struct list$1char$ph* self,
         return __result_obj__0;
     }
     if(self->len==0) {
-        litem=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc_v2(1, sizeof(struct list_item$1char$ph)*(1), "/usr/local/include/neo-c.h", 1179, "struct list_item$1char$ph*"))));
+        litem=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc_v2(1, sizeof(struct list_item$1char$ph)*(1), "/usr/local/include/neo-c.h", 1180, "struct list_item$1char$ph*"))));
         litem->prev=((void*)0);
         litem->next=((void*)0);
         __dec_obj1=litem->item,
@@ -3159,7 +3160,7 @@ static struct list$1char$ph* list$1char$ph_push_back(struct list$1char$ph* self,
         self->head=litem;
     }
     else if(self->len==1) {
-        litem_0=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc_v2(1, sizeof(struct list_item$1char$ph)*(1), "/usr/local/include/neo-c.h", 1189, "struct list_item$1char$ph*"))));
+        litem_0=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc_v2(1, sizeof(struct list_item$1char$ph)*(1), "/usr/local/include/neo-c.h", 1190, "struct list_item$1char$ph*"))));
         litem_0->prev=self->head;
         litem_0->next=((void*)0);
         __dec_obj2=litem_0->item,
@@ -3169,7 +3170,7 @@ static struct list$1char$ph* list$1char$ph_push_back(struct list$1char$ph* self,
         self->head->next=litem_0;
     }
     else {
-        litem_1=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc_v2(1, sizeof(struct list_item$1char$ph)*(1), "/usr/local/include/neo-c.h", 1199, "struct list_item$1char$ph*"))));
+        litem_1=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc_v2(1, sizeof(struct list_item$1char$ph)*(1), "/usr/local/include/neo-c.h", 1200, "struct list_item$1char$ph*"))));
         litem_1->prev=self->tail;
         litem_1->next=((void*)0);
         __dec_obj3=litem_1->item,

@@ -507,7 +507,7 @@ Vi*% Vi*::initialize(Vi*% self) version 2
 
     self.wins.push_back(win);
 
-    self.activeWin = self.wins[-1];
+    self.activeWin = borrow self.wins[-1];
 
     self.appEnd = false;
 

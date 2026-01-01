@@ -1,15 +1,8 @@
-#include <stdio.h>
-
-struct sData
-{
-    long buf2[4];
-};
-
-puts(alignof(sData));
+#include <neo-c.h>
 
 int main(int argc, char** argv)
 {
-    printf("size %ld\n", _Alignof(struct sData));
+    char* a = string("AAA");
     
     return 0;
 }

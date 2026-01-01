@@ -107,7 +107,7 @@ bool vm(sInfo* info) version 9
         case OP_PRINT: {
             info->op++;
             
-            ZVALUE* value = info.stack[-1];
+            ZVALUE* value = borrow info.stack[-1];
             
             puts(value.to_string());
             

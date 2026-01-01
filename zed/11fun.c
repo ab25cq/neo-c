@@ -28,7 +28,7 @@ class sFunNode
         }
         
         for(int i=0; i<params.length(); i++) {
-            sNode* node = params[i];
+            sNode* node = borrow params[i];
             
             if(!node.compile(info)) {
                 return false;
@@ -284,7 +284,7 @@ bool vm(sInfo* info) version 10
                     }
                     else if(fun_name === "find") {
                         if(params.length() == 1) {
-                            ZVALUE* param0 = params[0];
+                            ZVALUE* param0 = borrow params[0];
                             
                             list<ZVALUE*%>* list1 = obj.listValue;
                             
@@ -409,7 +409,7 @@ bool vm(sInfo* info) version 10
                     }
                     else if(fun_name === "add") {
                         if(params.length() == 1) {
-                            ZVALUE* param0 = params[0];
+                            ZVALUE* param0 = borrow params[0];
                             
                             list<ZVALUE*%>* list1 = obj.listValue;
                             
@@ -421,7 +421,7 @@ bool vm(sInfo* info) version 10
                     else if(fun_name === "insert") {
                         if(params.length() == 2 && params[0].kind == kIntValue) {
                             int param0 = params[0].intValue;
-                            ZVALUE* param1 = params[1];
+                            ZVALUE* param1 = borrow params[1];
                             
                             list<ZVALUE*%>* list1 = obj.listValue;
                             
@@ -445,7 +445,7 @@ bool vm(sInfo* info) version 10
                     else if(fun_name === "replace") {
                         if(params.length() == 2 && params[0].kind == kIntValue) {
                             int param0 = params[0].intValue;
-                            ZVALUE* param1 = params[1];
+                            ZVALUE* param1 = borrow params[1];
                             
                             list<ZVALUE*%>* list1 = obj.listValue;
                             
@@ -469,7 +469,7 @@ bool vm(sInfo* info) version 10
                     }
                     else if(fun_name === "find") {
                         if(params.length() == 1) {
-                            ZVALUE* param0 = params[0];
+                            ZVALUE* param0 = borrow params[0];
                             
                             map<ZVALUE*%, ZVALUE*%>* map1 = obj.mapValue;
                             

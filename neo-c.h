@@ -2446,7 +2446,7 @@ impl map <T, T2>
         for(var it = self.begin(); !self.end(); it = self.next()) {
             T2` default_value;
             memset(&default_value, 0, sizeof(T2));
-            T2& it2 = self.at(it, default_value);
+            T2& it2 = borrow self.at(it, default_value);
             unsigned int hash = ((T)it).get_hash_key() % size;
             int n = hash;
 
@@ -2468,8 +2468,8 @@ impl map <T, T2>
                     item_existance[n] = true;
                     keys\[n] = it;
                     T2` default_value;
-		    memset(&default_value, 0, sizeof(T2));
-                    items\[n] = self.at(it, default_value);
+                    memset(&default_value, 0, sizeof(T2));
+                    items\[n] = borrow self.at(it, default_value);
 
                     len++;
                     break;
@@ -2728,13 +2728,13 @@ impl map <T, T2>
         for(var it = left.key_list.begin(); !left.key_list.end(); it = left.key_list.next()) {
             T` default_value;
             memset(&default_value, 0, sizeof(T));
-            T& it2 = right.key_list.item(n, default_value);
+            T it2 = right.key_list.item(n, default_value);
             
             if(it.equals(it2)) {
                 T2` default_value2;
                 memset(&default_value2, 0, sizeof(T2));
-                T2& item = left.at(it, default_value2);
-                T2& item2 = right.at(it2, default_value2);
+                T2 item = left.at(it, default_value2);
+                T2 item2 = right.at(it2, default_value2);
                 
                 if(!item.equals(item2)) {
                     result = false;
@@ -2842,7 +2842,7 @@ impl map <T, T2>
         for(var it = left.key_list.begin(); !left.key_list.end(); it = left.key_list.next()) {
             T2` default_value;
             memset(&default_value, 0, sizeof(T2));
-            T2& it2 = left.at(it, default_value);
+            T2 it2 = left.at(it, default_value);
             
             if(isheap(T) && isheap(T2)) {
                 result.insert(clone it, clone it2);
@@ -2863,7 +2863,7 @@ impl map <T, T2>
         for(var it = right.key_list.begin(); !right.key_list.end(); it = right.key_list.next()) {
             T2` default_value;
             memset(&default_value, 0, sizeof(T2));
-            T2& it2 = left.at(it, default_value);
+            T2 it2 = left.at(it, default_value);
             
             if(isheap(T) && isheap(T2)) {
                 result.insert(clone it, clone it2);
@@ -2895,7 +2895,7 @@ impl map <T, T2>
                 T2` default_value;
                 memset(&default_value, 0, sizeof(T2));
                 
-                T2& it2 = left.at(it, default_value);
+                T2 it2 = left.at(it, default_value);
                 
                 if(isheap(T) && isheap(T2)) {
                     result.insert(clone it, clone it2);
