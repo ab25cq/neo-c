@@ -2854,7 +2854,7 @@ string create_generics_name(sType* generics_type, sInfo* info)
     return buf.to_string();
 }
 
-string create_method_name(sType* obj_type, bool no_pointer_name, char* fun_name, sInfo* info, bool array_equal_pointer=true)
+string create_method_name(sType*% obj_type, bool no_pointer_name, char* fun_name, sInfo* info, bool array_equal_pointer=true)
 {
     string struct_name;
     buffer*% buf = new buffer();
@@ -2864,7 +2864,7 @@ string create_method_name(sType* obj_type, bool no_pointer_name, char* fun_name,
             struct_name = s"bool";
         }
         if(!obj_type->mClass->mStruct) {
-            if(obj_type->mGenericsTypes.length() > 0 && obj_type->mTypedefOriginalType.mPointerNum > 0) {
+            if(obj_type->mGenericsTypes.length() > 0 && obj_type->mTypedefOriginalType && obj_type->mTypedefOriginalType.mPointerNum > 0) {
                 buf.append_str("$");
             }
             if(obj_type->mOriginalTypePointerNum)

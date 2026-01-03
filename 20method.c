@@ -244,7 +244,7 @@ string, sFun*,sGenericsFun* get_method(char* fun_name, sType*% obj_type, sInfo* 
             sType* obj_array_type = obj_type->mOriginalLoadVarType;
             
             if(obj_array_type && obj_array_type.mArrayNum.length() > 0) {
-                string array_method_name = create_method_name(obj_array_type, false@no_pointer_name, fun_name, info, false@array_equal_pointer);
+                string array_method_name = create_method_name(clone obj_array_type, false@no_pointer_name, fun_name, info, false@array_equal_pointer);
                 
                 fun = borrow info.funcs.at(string(array_method_name), null);
                 

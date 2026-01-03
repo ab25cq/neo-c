@@ -570,7 +570,7 @@ uniq void* come_alloc_mem_from_heap_pool(size_t size, char* sname=null, int slin
 {
     if(gComeDebugLib) {
         size_t size2 = size + sizeof(sMemHeader);
-        //size2 = round_up_class_size(size2);
+        size2 = round_up_class_size(size2);
 #ifdef __32BIT_CPU__
         size2 = (size2 + 3 & ~0x3);
 #else
@@ -623,7 +623,7 @@ uniq void* come_alloc_mem_from_heap_pool(size_t size, char* sname=null, int slin
     }
     else {
         size_t size2 = size + sizeof(sMemHeaderTiny);
-        //size2 = round_up_class_size(size2);
+        size2 = round_up_class_size(size2);
 #ifdef __32BIT_CPU__
         size2 = (size2 + 3 & ~0x3);
 #else

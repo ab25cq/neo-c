@@ -226,7 +226,7 @@ sType*% get_no_solved_type(sType* type)
 {
     sType*% result;
     if(type->mNoSolvedGenericsType) {
-        result = type->mNoSolvedGenericsType;
+        result = clone type->mNoSolvedGenericsType;
     }
     else {
         result = clone type;
@@ -245,7 +245,7 @@ sType*% get_no_solved_type2(sType* type)
 {
     sType*% result;
     if(type->mNoSolvedGenericsType) {
-        result = type->mNoSolvedGenericsType;
+        result = clone type->mNoSolvedGenericsType;
     }
     else {
         result = clone type;

@@ -13,5 +13,5 @@ elif test -f /proc/device-tree/model && cat /proc/device-tree/model | grep "Rasp
 then
     make CFLAGS_OPT="-O2 -g" neo-c && sudo make install
 else # Linux
-    make CFLAGS_OPT="-O2 -g" neo-c -j$(($(nproc) / 2)) && sudo make install
+    make CFLAGS_OPT="-O2 -g" neo-c && sudo make install
 fi
