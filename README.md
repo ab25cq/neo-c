@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.8.1.5
+version 0.8.1.6
 
 ``` C
 #include <neo-c.h>
@@ -77,6 +77,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.8.1.6 GC algorithm bug has been fixed. Some code can't be work maybe, but more properly heap algorith has come.
 0.8.1.5 Compiletime Reflection
 0.8.1.4 Compiletime Reflection
 0.8.1.3 More readable output c source. And encount a bug fixed.
