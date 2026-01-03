@@ -2318,6 +2318,7 @@ void xassert(char* msg, _Bool test);
 _Bool die(char* msg);
 void come_heap_init(int come_debug);
 void come_heap_final();
+unsigned long  int round_up_class_size(unsigned long  int size);
 void* alloc_from_pages(unsigned long  int size);
 void come_free_mem_of_heap_pool(void* mem);
 void* come_alloc_mem_from_heap_pool(unsigned long  int size, char* sname, int sline, char* class_name);

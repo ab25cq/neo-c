@@ -391,6 +391,32 @@ uniq void come_heap_final()
     free(gHeapPages.mPages);
 }
 
+uniq size_t round_up_class_size(size_t size)
+{
+    if(size < 16) return 16;
+    if(size < 32) return 32;
+    if(size < 64) return 64;
+    if(size < 128) return 128;
+    if(size < 256) return 256;
+    if(size < 512) return 512;
+    if(size < 1024) return 1024;
+    if(size < 2048) return 2048;
+    if(size < 4096) return 4096;
+    
+    return size;
+}
+
+/*
+uniq int class_id_from_size(size_t size)
+{
+    size_t cls = round_up_class_size(size);
+    if(cls == size) return -1;
+    int id = 0;
+    while((size_t)(16U << id) < cls) id++;
+    return id;
+}
+*/
+
 uniq void* alloc_from_pages(size_t size)
 {
     void* result = null;
@@ -544,6 +570,7 @@ uniq void* come_alloc_mem_from_heap_pool(size_t size, char* sname=null, int slin
 {
     if(gComeDebugLib) {
         size_t size2 = size + sizeof(sMemHeader);
+        //size2 = round_up_class_size(size2);
 #ifdef __32BIT_CPU__
         size2 = (size2 + 3 & ~0x3);
 #else
@@ -596,6 +623,7 @@ uniq void* come_alloc_mem_from_heap_pool(size_t size, char* sname=null, int slin
     }
     else {
         size_t size2 = size + sizeof(sMemHeaderTiny);
+        //size2 = round_up_class_size(size2);
 #ifdef __32BIT_CPU__
         size2 = (size2 + 3 & ~0x3);
 #else
