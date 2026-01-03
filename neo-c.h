@@ -883,13 +883,13 @@ uniq void* come_decrement_ref_count(void* mem, void* protocol_fun, void* protoco
         return NULL;
     }
     
-    size_t* ref_count = (size_t*)((char*)mem - sizeof(size_t) - sizeof(size_t));
+    long* ref_count = (long*)((char*)mem - sizeof(size_t) - sizeof(size_t));
     
     if(!no_decrement) {
         (*ref_count)--;
     }
     
-    size_t count = *ref_count;
+    long count = *ref_count;
     if(!no_free && count <= 0) {
         if(protocol_obj && protocol_fun) {
             void (*finalizer)(void*) = protocol_fun;
@@ -932,13 +932,13 @@ uniq void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* pr
         }
     }
     else {
-        size_t* ref_count = (size_t*)((char*)mem - sizeof(size_t) - sizeof(size_t));
+        long* ref_count = (long*)((char*)mem - sizeof(size_t) - sizeof(size_t));
         
         if(!no_decrement) {
             (*ref_count)--;
         }
         
-        size_t count = *ref_count;
+        long count = *ref_count;
         if(!no_free && count <= 0) {
             if(mem) {
                 if(fun) {

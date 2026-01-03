@@ -241,6 +241,19 @@ sType*% get_no_solved_type(sType* type)
     return result;
 }
 
+sType*% get_no_solved_type2(sType* type)
+{
+    sType*% result;
+    if(type->mNoSolvedGenericsType) {
+        result = type->mNoSolvedGenericsType;
+    }
+    else {
+        result = clone type;
+    }
+    
+    return result;
+}
+
 string make_come_type_name_string(sType* type, sInfo* info=info)
 {
     var buf = new buffer();
@@ -1366,20 +1379,28 @@ bool is_contained_generics_funcstion(sFun* fun, sInfo* info=info)
     foreach(it, fun->mParamTypes) {
         sType*% type = clone it;
         
+        sType*% type_;
         if(type->mNoSolvedGenericsType) {
-            type = type->mNoSolvedGenericsType;
+            type_ = clone type->mNoSolvedGenericsType;
         }
-        if(is_contained_generics_class(type, info)) {
+        else {
+            type_ = clone type;
+        }
+        if(is_contained_generics_class(type_, info)) {
             return true;
         }
     }
     sType*% result_type = clone fun->mResultType;
     
+    sType*% result_type2;
     if(result_type->mNoSolvedGenericsType) {
-        result_type = result_type->mNoSolvedGenericsType;
+        result_type2 = clone result_type->mNoSolvedGenericsType;
+    }
+    else {
+        result_type2 = clone result_type;
     }
     
-    if(is_contained_generics_class(result_type, info)) {
+    if(is_contained_generics_class(result_type2, info)) {
         return true;
     }
     

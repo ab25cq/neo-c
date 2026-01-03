@@ -67,7 +67,6 @@ class sReturnNode extends sNodeBase
                     
                     if(result_type2.mHeap) {
                         string type_name = make_type_name_string(result_type2);
-                        //come_value.type);
                         add_come_code(info, s"__result_obj__\{000} = (%s)come_increment_ref_count(%s);\n", type_name, come_value.c_value);
                     }
                     else {
@@ -501,7 +500,8 @@ class sFunCallNode extends sNodeBase
                 
                 CVALUE*% come_value = get_value_from_stack(-1, info);
                 
-                come_value.type = solve_generics(come_value.type, info->generics_type, info);
+                sType*% type_ = clone come_value.type;
+                come_value.type = solve_generics(type_, info->generics_type, info);
                 
                 if(lambda_type.mVarArgs && lambda_type.mParamTypes[i]?? == null) {
                 }
@@ -615,7 +615,8 @@ class sFunCallNode extends sNodeBase
                     
                     CVALUE*% come_value = get_value_from_stack(-1, info);
                     
-                    come_value.type = solve_generics(come_value.type, info->generics_type, info);
+                    sType*% type_ = clone come_value.type;
+                    come_value.type = solve_generics(type_, info->generics_type, info);
                     
                     come_params.add(come_value);
                 }

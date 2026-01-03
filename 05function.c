@@ -1674,9 +1674,7 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
     string sname_top = string(info->sname);
     int sline_top = info->sline;
     
-    if(generics_type->mNoSolvedGenericsType) {
-        generics_type = generics_type->mNoSolvedGenericsType;
-    }
+    sType*% generics_type_ = get_no_solved_type2(generics_type);
     
     sFun*% funX = info.funcs[string(fun_name)]??;
     if(funX) {
@@ -1692,11 +1690,11 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
         return (fun_name, true);
     }
     
-    sType*% result_type = solve_generics(generics_fun->mResultType, generics_type, info);
+    sType*% result_type = solve_generics(generics_fun->mResultType, generics_type_, info);
     
     list<sType*%>*% param_types = new list<sType*%>();
     foreach(it, generics_fun->mParamTypes) {
-        sType*% param_type = solve_generics(clone it, generics_type, info);
+        sType*% param_type = solve_generics(clone it, generics_type_, info);
         
         param_types.add(clone param_type);
     }
@@ -1715,10 +1713,8 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
     info.head = info.source.buf;
     
     sType*% generics_type_saved = info->generics_type;
-    if(generics_type->mNoSolvedGenericsType) {
-        generics_type = generics_type->mNoSolvedGenericsType;
-    }
-    info->generics_type = clone generics_type;
+    sType*% generics_type_ = get_no_solved_type2(generics_type);
+    info->generics_type = clone generics_type_;
     
     list<string>*% method_generics_type_names = info->method_generics_type_names;
     
@@ -2282,11 +2278,9 @@ sFun*,string create_finalizer_automatically(sType*% type, char* fun_name, sInfo*
     
     string fun_name2 = create_method_name(type, false@no_pointer_name, fun_name, info);
         
-    if(type->mNoSolvedGenericsType) {
-        type = type->mNoSolvedGenericsType;
-    }
+    sType*% type_ = get_no_solved_type2(type);
         
-    if(type->mGenericsTypes.length() > 0) {
+    if(type_->mGenericsTypes.length() > 0) {
         finalizer = borrow info->funcs[fun_name2]??;
         
         if(finalizer == NULL) {
@@ -2296,7 +2290,7 @@ sFun*,string create_finalizer_automatically(sType*% type, char* fun_name, sInfo*
             sGenericsFun* generics_fun = borrow info->generics_funcs[generics_fun_name]??;
             
             if(generics_fun) {
-                var name, err = create_generics_fun(fun_name2, generics_fun, type, info);
+                var name, err = create_generics_fun(fun_name2, generics_fun, type_, info);
                 
                 if(!err) 
                 {
@@ -2331,20 +2325,20 @@ sFun*,string create_finalizer_automatically(sType*% type, char* fun_name, sInfo*
     }
     
     if(finalizer == null) {
-        type = type_before;
+        type_ = type_before;
         
-        real_fun_name = create_method_name(type, false@no_pointer_name, fun_name, info);
+        real_fun_name = create_method_name(type_, false@no_pointer_name, fun_name, info);
         
-        string user_real_fun_name = create_method_name(type, false@no_pointer_name, "user_finalize", info);
+        string user_real_fun_name = create_method_name(type_, false@no_pointer_name, "user_finalize", info);
         sFun* user_finalizer = borrow info->funcs[user_real_fun_name]??;
         
-        sType*% type2 = solve_generics(type, type, info);
+        sType*% type2 = solve_generics(type_, type_, info);
         
-        type = type2;
+        type_ = type2;
         
-        sClass* klass = type->mClass;
+        sClass* klass = type_->mClass;
         
-        if(type->mPointerNum > 0 && klass->mStruct || type->mAllocaValue) {
+        if(type_->mPointerNum > 0 && klass->mStruct || type_->mAllocaValue) {
             var source = new buffer();
             
             source.append_char('{');
@@ -2398,7 +2392,7 @@ sFun*,string create_finalizer_automatically(sType*% type, char* fun_name, sInfo*
             
             var result_type = new sType(s"void");
             var name = clone real_fun_name;
-            var self_type = clone type;
+            var self_type = clone type_;
             self_type->mHeap = false;
             if(self_type->mPointerNum == 0) {
                 self_type->mPointerNum = 1;
@@ -3335,11 +3329,9 @@ sFun*,string create_to_string_automatically(sType*% type, char* fun_name, sInfo*
     
     sClass* klass = type->mClass;
         
-    if(type->mNoSolvedGenericsType) {
-        type = type->mNoSolvedGenericsType;
-    }
+    sType*% type_ = get_no_solved_type2(type);
         
-    if(type->mGenericsTypes.length() > 0) {
+    if(type_->mGenericsTypes.length() > 0) {
         to_string_fun = borrow info->funcs[real_fun_name]??;
         
         if(to_string_fun == NULL) {
@@ -3349,7 +3341,7 @@ sFun*,string create_to_string_automatically(sType*% type, char* fun_name, sInfo*
             sGenericsFun* generics_fun = borrow info->generics_funcs[generics_fun_name]??;
             
             if(generics_fun) {
-                var name, err = create_generics_fun(real_fun_name, generics_fun, type, info);
+                var name, err = create_generics_fun(real_fun_name, generics_fun, type_, info);
                 
                 if(!err)
                 {
@@ -3378,7 +3370,7 @@ sFun*,string create_to_string_automatically(sType*% type, char* fun_name, sInfo*
         }
     }
     
-    if(to_string_fun == null && type->mPointerNum > 0 && !klass->mNumber) {
+    if(to_string_fun == null && type_->mPointerNum > 0 && !klass->mNumber) {
         var source = new buffer();
         
         source.append_str("{\n");
@@ -3451,8 +3443,8 @@ sFun*,string create_to_string_automatically(sType*% type, char* fun_name, sInfo*
         var result_type = new sType(s"char*");
         result_type->mHeap = true;
         var name = clone real_fun_name;
-        var self_type = clone type;
-        self_type = solve_generics(type, type, info);
+        var self_type = clone type_;
+        self_type = solve_generics(type_, type_, info);
         self_type->mHeap = false;
         
         list<sType*%>*% param_types = [self_type];
@@ -3523,12 +3515,6 @@ sFun*,string create_get_hash_key_automatically(sType*% type, char* fun_name, sIn
     type = type2;
     
     sClass* klass = type->mClass;
-    
-/*
-    if(type->mNoSolvedGenericsType) {
-        type = type->mNoSolvedGenericsType;
-    }
-*/
         
     if(type->mGenericsTypes.length() > 0) {
         get_hash_key_fun = borrow info->funcs[real_fun_name]??;
@@ -3743,28 +3729,26 @@ sFun*% compile_uniq_function(sFun* fun, sInfo* info=info)
 
 bool create_equals_method(sType*% type, sInfo* info)
 {
-    if(type->mNoSolvedGenericsType) {
-        type = type->mNoSolvedGenericsType;
-    }
+    sType*% type_ = get_no_solved_type(type);
     string result = null
     var stack_saved = info.stack;
     list<sRightValueObject*%>* right_value_objects = info.right_value_objects;
     
-    sClass* klass = type->mClass;
+    sClass* klass = type_->mClass;
     
     char* class_name = klass->mName;
 
     char* fun_name = "equals";
     
-    sType*% type2 = clone type;
+    sType*% type2 = clone type_;
     type2->mHeap = false;
     
     sFun* cloner = NULL;
     string fun_name2;
-    if(type->mGenericsTypes.length() > 0) {
-        string none_generics_name = get_none_generics_name(type.mClass.mName);
+    if(type_->mGenericsTypes.length() > 0) {
+        string none_generics_name = get_none_generics_name(type_.mClass.mName);
         
-        sType*% obj_type = solve_generics(type, info.generics_type, info);
+        sType*% obj_type = solve_generics(type_, info.generics_type, info);
         
         fun_name2 = create_method_name(obj_type, false@no_pointer_name, fun_name, info);
         string fun_name3 = xsprintf("%s_%s", none_generics_name, fun_name);
@@ -3786,7 +3770,7 @@ bool create_equals_method(sType*% type, sInfo* info)
         }
     }
     else {
-        fun_name2 = create_method_name(type, false@no_pointer_name, fun_name, info);
+        fun_name2 = create_method_name(type_, false@no_pointer_name, fun_name, info);
         
         int i;
         for(i=FUN_VERSION_MAX-1; i>=1; i--) {
@@ -3804,9 +3788,9 @@ bool create_equals_method(sType*% type, sInfo* info)
         }
     }
     
-    if(cloner == NULL && !type->mClass->mProtocol && !type->mClass->mNumber)
+    if(cloner == NULL && !type_->mClass->mProtocol && !type_->mClass->mNumber)
     {
-        var fun,new_fun_name = create_equals_automatically(type, fun_name, info);
+        var fun,new_fun_name = create_equals_automatically(type_, fun_name, info);
         
         fun_name2 = new_fun_name;
         cloner = fun;
@@ -3820,28 +3804,26 @@ bool create_equals_method(sType*% type, sInfo* info)
 
 bool create_operator_equals_method(sType*% type, sInfo* info)
 {
-    if(type->mNoSolvedGenericsType) {
-        type = type->mNoSolvedGenericsType;
-    }
+    sType*% type_ = get_no_solved_type2(type);
     string result = null
     var stack_saved = info.stack;
     list<sRightValueObject*%>* right_value_objects = info.right_value_objects;
     
-    sClass* klass = type->mClass;
+    sClass* klass = type_->mClass;
     
     char* class_name = klass->mName;
 
     char* fun_name = "operator_equals";
     
-    sType*% type2 = clone type;
+    sType*% type2 = clone type_;
     type2->mHeap = false;
     
     sFun* cloner = NULL;
     string fun_name2;
-    if(type->mGenericsTypes.length() > 0) {
-        string none_generics_name = get_none_generics_name(type.mClass.mName);
+    if(type_->mGenericsTypes.length() > 0) {
+        string none_generics_name = get_none_generics_name(type_.mClass.mName);
         
-        sType*% obj_type = solve_generics(type, info.generics_type, info);
+        sType*% obj_type = solve_generics(type_, info.generics_type, info);
         
         fun_name2 = create_method_name(obj_type, false@no_pointer_name, fun_name, info);
         string fun_name3 = xsprintf("%s_%s", none_generics_name, fun_name);
@@ -3861,7 +3843,7 @@ bool create_operator_equals_method(sType*% type, sInfo* info)
         }
     }
     else {
-        fun_name2 = create_method_name(type, false@no_pointer_name, fun_name, info);
+        fun_name2 = create_method_name(type_, false@no_pointer_name, fun_name, info);
         
         int i;
         for(i=FUN_VERSION_MAX-1; i>=1; i--) {
@@ -3879,9 +3861,9 @@ bool create_operator_equals_method(sType*% type, sInfo* info)
         }
     }
     
-    if(cloner == NULL && !type->mClass->mProtocol && !type->mClass->mNumber)
+    if(cloner == NULL && !type_->mClass->mProtocol && !type_->mClass->mNumber)
     {
-        var fun,new_fun_name = create_operator_equals_automatically(type, fun_name, info);
+        var fun,new_fun_name = create_operator_equals_automatically(type_, fun_name, info);
         
         fun_name2 = new_fun_name;
         cloner = fun;
@@ -3895,28 +3877,26 @@ bool create_operator_equals_method(sType*% type, sInfo* info)
 
 bool create_operator_not_equals_method(sType*% type, sInfo* info)
 {
-    if(type->mNoSolvedGenericsType) {
-        type = type->mNoSolvedGenericsType;
-    }
+    sType*% type_ = get_no_solved_type2(type);
     string result = null
     var stack_saved = info.stack;
     list<sRightValueObject*%>* right_value_objects = info.right_value_objects;
     
-    sClass* klass = type->mClass;
+    sClass* klass = type_->mClass;
     
     char* class_name = klass->mName;
 
     char* fun_name = "operator_not_equals";
     
-    sType*% type2 = clone type;
+    sType*% type2 = clone type_;
     type2->mHeap = false;
     
     sFun* cloner = NULL;
     string fun_name2;
-    if(type->mGenericsTypes.length() > 0) {
-        string none_generics_name = get_none_generics_name(type.mClass.mName);
+    if(type_->mGenericsTypes.length() > 0) {
+        string none_generics_name = get_none_generics_name(type_.mClass.mName);
         
-        sType*% obj_type = solve_generics(type, info.generics_type, info);
+        sType*% obj_type = solve_generics(type_, info.generics_type, info);
         
         fun_name2 = create_method_name(obj_type, false@no_pointer_name, fun_name, info);
         string fun_name3 = xsprintf("%s_%s", none_generics_name, fun_name);
@@ -3936,7 +3916,7 @@ bool create_operator_not_equals_method(sType*% type, sInfo* info)
         }
     }
     else {
-        fun_name2 = create_method_name(type, false@no_pointer_name, fun_name, info);
+        fun_name2 = create_method_name(type_, false@no_pointer_name, fun_name, info);
         
         int i;
         for(i=FUN_VERSION_MAX-1; i>=1; i--) {
@@ -3954,9 +3934,9 @@ bool create_operator_not_equals_method(sType*% type, sInfo* info)
         }
     }
     
-    if(cloner == NULL && !type->mClass->mProtocol && !type->mClass->mNumber)
+    if(cloner == NULL && !type_->mClass->mProtocol && !type_->mClass->mNumber)
     {
-        var fun,new_fun_name = create_operator_not_equals_automatically(type, fun_name, info);
+        var fun,new_fun_name = create_operator_not_equals_automatically(type_, fun_name, info);
         
         fun_name2 = new_fun_name;
         cloner = fun;

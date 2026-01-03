@@ -307,7 +307,7 @@ void append_object_to_right_values(CVALUE* come_value, sType*% type, sInfo* info
     }
     
     var new_value = new sRightValueObject;
-    new_value.mType = type;
+    new_value.mType = clone type;
     new_value.mFreed = false;
     new_value.mID = info->right_value_num;
     new_value.mVarName = xsprintf("__right_value%d", info->right_value_num++);
@@ -426,12 +426,10 @@ void decrement_ref_count_object(sType*% type, char* obj, sInfo* info, bool no_fr
         
         string fun_name2 = create_method_name(type, false@no_pointer_name, fun_name, info);
         
-        if(type->mNoSolvedGenericsType) {
-            type = type->mNoSolvedGenericsType;
-        }
+        sType*% type_ = get_no_solved_type2(type);
         
         sFun* finalizer = NULL;
-        if(type->mGenericsTypes.length() > 0) {
+        if(type_->mGenericsTypes.length() > 0) {
             finalizer = borrow info->funcs[fun_name2];
             
             if(finalizer == NULL) {
@@ -441,7 +439,7 @@ void decrement_ref_count_object(sType*% type, char* obj, sInfo* info, bool no_fr
                 sGenericsFun* generics_fun = borrow info->generics_funcs[generics_fun_name]??;
                 
                 if(generics_fun) {
-                    var name, err = create_generics_fun(fun_name2, generics_fun, type, info);
+                    var name, err = create_generics_fun(fun_name2, generics_fun, type_, info);
                     
                     if(!err) {
                         printf("%s %d: can't create generics finalizer\n", info->sname, info->sline);
@@ -468,9 +466,9 @@ void decrement_ref_count_object(sType*% type, char* obj, sInfo* info, bool no_fr
             }
         }
         
-        if(finalizer == NULL && !type->mClass->mProtocol && !type->mClass->mNumber && type->mArrayNum.length() == 0)
+        if(finalizer == NULL && !type_->mClass->mProtocol && !type_->mClass->mNumber && type_->mArrayNum.length() == 0)
         {
-            var fun,new_fun_name = create_finalizer_automatically(type, fun_name, info);
+            var fun,new_fun_name = create_finalizer_automatically(type_, fun_name, info);
             
             fun_name2 = new_fun_name;
             finalizer = fun;
@@ -478,21 +476,21 @@ void decrement_ref_count_object(sType*% type, char* obj, sInfo* info, bool no_fr
 
         /// call finalizer ///
         if(finalizer != null) {
-            if(klass->mProtocol && type->mPointerNum == 1) {
-                string type_name = make_type_name_string(type);
+            if(klass->mProtocol && type_->mPointerNum == 1) {
+                string type_name = make_type_name_string(type_);
                 if(c_value) {
-                    add_come_last_code2(info, s"come_call_finalizer(\{fun_name2}, \{c_value}, \{c_value} ? ((\{type_name})\{c_value})->finalize:(void*)0, \{c_value} ? ((\{type_name})\{c_value})->_protocol_obj:(void*)0, \{type->mAllocaValue?1:0}, \{no_decrement?1:0}, \{no_free?1:0}, (void*)0)");
+                    add_come_last_code2(info, s"come_call_finalizer(\{fun_name2}, \{c_value}, \{c_value} ? ((\{type_name})\{c_value})->finalize:(void*)0, \{c_value} ? ((\{type_name})\{c_value})->_protocol_obj:(void*)0, \{type_->mAllocaValue?1:0}, \{no_decrement?1:0}, \{no_free?1:0}, (void*)0)");
                 }
             }
             else {
                 if(c_value) {
-                    add_come_last_code2(info, s"come_call_finalizer(\{fun_name2}, \{c_value},(void*)0, (void*)0, \{type->mAllocaValue?1:0}, \{no_decrement?1:0}, \{no_free?1:0}, (void*)0)");
+                    add_come_last_code2(info, s"come_call_finalizer(\{fun_name2}, \{c_value},(void*)0, (void*)0, \{type_->mAllocaValue?1:0}, \{no_decrement?1:0}, \{no_free?1:0}, (void*)0)");
                 }
             }
         }
         else {
-            if(klass->mProtocol && type->mPointerNum == 1) {
-                string type_name = make_type_name_string(type);
+            if(klass->mProtocol && type_->mPointerNum == 1) {
+                string type_name = make_type_name_string(type_);
                 string str = s"(\{name} ? \{name} = come_decrement_ref_count(\{name}, ((\{type_name})\{name})->finalize, ((\{type_name})\{name})->_protocol_obj, 0,\{no_free ? 1:0}, (void*)0) :0)";
                 add_come_last_code2(info, str);
             }
@@ -516,23 +514,21 @@ void on_drop_object(sType*% type, char* obj, sInfo* info=info)
         return ;
     }
 
-    if(type->mNoSolvedGenericsType) {
-        type = type->mNoSolvedGenericsType;
-    }
+    sType*% type_ = get_no_solved_type2(type);
 
-    if(type->mClass->mStruct || type->mGenericsTypes.length() > 0) 
+    if(type_->mClass->mStruct || type_->mGenericsTypes.length() > 0) 
     {
         string c_value = string(obj);
         
         char* fun_name = "on_drop";
         
-        sType*% type2 = clone type;
+        sType*% type2 = clone type_;
         type2->mHeap = false;
         
-        string fun_name2 = create_method_name(type, false@no_pointer_name, fun_name, info);
+        string fun_name2 = create_method_name(type_, false@no_pointer_name, fun_name, info);
         
         sFun* dropper = NULL;
-        if(type->mGenericsTypes.length() > 0) {
+        if(type_->mGenericsTypes.length() > 0) {
             dropper = borrow info->funcs[fun_name2];
             
             if(dropper == NULL) {
@@ -542,7 +538,7 @@ void on_drop_object(sType*% type, char* obj, sInfo* info=info)
                 sGenericsFun* generics_fun = borrow info->generics_funcs[generics_fun_name]??;
                 
                 if(generics_fun) {
-                    var name, err = create_generics_fun(fun_name2, generics_fun, type, info);
+                    var name, err = create_generics_fun(fun_name2, generics_fun, type_, info);
                     
                     if(!err) {
                         printf("%s %d: can't create generics dropper\n", info->sname, info->sline);
@@ -594,29 +590,25 @@ void free_object(sType*% type, char* obj, bool no_decrement, bool no_free, sInfo
 
     sType* type_before = type;
 
-    if(type->mNoSolvedGenericsType) {
-        //bool alloca_value = type->mAllocaValue;
-        type = type->mNoSolvedGenericsType;
-        //type->mAllocaValue = alloca_value;
-    }
+    sType*% type_ = get_no_solved_type2(type);
 
-    if(type->mPointerNum > 0 || type->mClass->mProtocol || type->mGenericsTypes.length() > 0) 
+    if(type_->mPointerNum > 0 || type_->mClass->mProtocol || type_->mGenericsTypes.length() > 0) 
     {
         string c_value = string(obj);
         
-        sClass* klass = type->mClass;
+        sClass* klass = type_->mClass;
         
         char* class_name = borrow klass->mName;
 
         char* fun_name = "finalize";
         
-        sType*% type2 = clone type;
+        sType*% type2 = clone type_;
         type2->mHeap = false;
         
-        string fun_name2 = create_method_name(type, false@no_pointer_name, fun_name, info);
+        string fun_name2 = create_method_name(type_, false@no_pointer_name, fun_name, info);
         
         sFun* finalizer = NULL;
-        if(type->mGenericsTypes.length() > 0) {
+        if(type_->mGenericsTypes.length() > 0) {
             finalizer = borrow info->funcs[fun_name2];
             
             if(finalizer == NULL) {
@@ -626,7 +618,7 @@ void free_object(sType*% type, char* obj, bool no_decrement, bool no_free, sInfo
                 sGenericsFun* generics_fun = borrow info->generics_funcs[generics_fun_name]??;
                 
                 if(generics_fun) {
-                    var name, err = create_generics_fun(fun_name2, generics_fun, type, info);
+                    var name, err = create_generics_fun(fun_name2, generics_fun, type_, info);
                     
                     if(!err) {
                         printf("%s %d: can't create generics finalizer\n", info->sname, info->sline);
@@ -654,9 +646,9 @@ void free_object(sType*% type, char* obj, bool no_decrement, bool no_free, sInfo
             }
         }
         
-        if(finalizer == NULL && !type->mClass->mProtocol && !type->mClass->mNumber && type->mArrayNum.length() == 0)
+        if(finalizer == NULL && !type_->mClass->mProtocol && !type_->mClass->mNumber && type_->mArrayNum.length() == 0)
         {
-            var fun,new_fun_name = create_finalizer_automatically(type, fun_name, info);
+            var fun,new_fun_name = create_finalizer_automatically(type_, fun_name, info);
             
             fun_name2 = new_fun_name;
             finalizer = fun;
@@ -664,47 +656,47 @@ void free_object(sType*% type, char* obj, bool no_decrement, bool no_free, sInfo
 
         /// call finalizer ///
         if(finalizer != null) {
-            if(klass->mProtocol && type->mPointerNum == 1) {
-                string type_name = make_type_name_string(type);
+            if(klass->mProtocol && type_->mPointerNum == 1) {
+                string type_name = make_type_name_string(type_);
                 if(c_value) {
-                    add_come_code(info, s"come_call_finalizer(\{fun_name2}, \{c_value}, \{c_value} ? ((\{type_name})\{c_value})->finalize :(void*)0, \{c_value} ? ((\{type_name})\{c_value})->_protocol_obj :(void*)0, \{type->mAllocaValue?1:0} , \{no_decrement?1:0}, \{no_free?1:0}, (void*)0)\{(";\n")}");
+                    add_come_code(info, s"come_call_finalizer(\{fun_name2}, \{c_value}, \{c_value} ? ((\{type_name})\{c_value})->finalize :(void*)0, \{c_value} ? ((\{type_name})\{c_value})->_protocol_obj :(void*)0, \{type_->mAllocaValue?1:0} , \{no_decrement?1:0}, \{no_free?1:0}, (void*)0)\{(";\n")}");
                 }
             }
             else {
                 if(c_value) {
-                    add_come_code(info, s"come_call_finalizer(\{fun_name2}, \{c_value}, (void*)0, (void*)0, \{type->mAllocaValue?1:0}, \{no_decrement?1:0}, \{no_free?1:0}, (void*)0)\{(";\n")}");
+                    add_come_code(info, s"come_call_finalizer(\{fun_name2}, \{c_value}, (void*)0, (void*)0, \{type_->mAllocaValue?1:0}, \{no_decrement?1:0}, \{no_free?1:0}, (void*)0)\{(";\n")}");
                 }
             }
         }
         else {
-            if(klass->mStruct && type->mPointerNum == 0) {
+            if(klass->mStruct && type_->mPointerNum == 0) {
                 //klass = info.classes[klass->mName];
                 foreach(it, klass->mFields) {
                     var name, field_type = it;
                     
                     if(field_type->mHeap && field_type->mPointerNum > 0) {
-                        string obj = xsprintf("(((%s)%s).%s)", make_type_name_string(type), c_value, name);
+                        string obj = xsprintf("(((%s)%s).%s)", make_type_name_string(type_), c_value, name);
                         free_object(clone field_type, obj, no_decrement, no_free, info);
                     }
                 }
             }
-            else if(klass->mStruct && type->mPointerNum == 1) {
+            else if(klass->mStruct && type_->mPointerNum == 1) {
                 //klass = info.classes[klass->mName];
                 foreach(it, klass->mFields) {
                     var name, field_type = it;
                     
                     if(field_type->mHeap && field_type->mPointerNum > 0) {
-                        string obj = xsprintf("(((%s)%s)->%s)", make_type_name_string(type), c_value, name);
+                        string obj = xsprintf("(((%s)%s)->%s)", make_type_name_string(type_), c_value, name);
                         free_object(clone field_type, obj, no_decrement, no_free, info);
                     }
                 }
             }
             
             /// free memory ///
-            if(!type->mAllocaValue) {
-                if(klass->mProtocol && type->mPointerNum == 1) {
+            if(!type_->mAllocaValue) {
+                if(klass->mProtocol && type_->mPointerNum == 1) {
                     if(c_value) {
-                        string type_name = make_type_name_string(type);
+                        string type_name = make_type_name_string(type_);
                         add_come_code(info, s"((\{c_value}) ? \{c_value} = come_decrement_ref_count(\{c_value}, ((\{type_name})\{c_value})->finalize, ((\{type_name})\{c_value})->_protocol_obj, \{no_decrement?1:0}, \{no_free?1:0},(void*)0):(void*)0)\{(";\n")}");
                     }
                 }
@@ -727,9 +719,8 @@ tuple2<sType*%, string>*% clone_object(sType*% type, char* obj, sInfo* info)
     info.in_clone_object = true;
     
     sType*% type2 = clone type;
-    if(type->mNoSolvedGenericsType) {
-        type = type->mNoSolvedGenericsType;
-    }
+    
+    sType*% type_ = get_no_solved_type2(type);
     
     string result = null;
     sType*% result_type = null;
@@ -738,7 +729,7 @@ tuple2<sType*%, string>*% clone_object(sType*% type, char* obj, sInfo* info)
     
     string c_value = string(obj);
     
-    sClass* klass = type->mClass;
+    sClass* klass = type_->mClass;
     
     char* class_name = borrow klass->mName;
 
@@ -746,10 +737,10 @@ tuple2<sType*%, string>*% clone_object(sType*% type, char* obj, sInfo* info)
     
     sFun* cloner = NULL;
     string fun_name2;
-    if(type->mGenericsTypes.length() > 0) {
-        string none_generics_name = get_none_generics_name(type.mClass.mName);
+    if(type_->mGenericsTypes.length() > 0) {
+        string none_generics_name = get_none_generics_name(type_.mClass.mName);
         
-        sType*% obj_type = solve_generics(type, info.generics_type, info);
+        sType*% obj_type = solve_generics(type_, info.generics_type, info);
         
         fun_name2 = create_method_name(obj_type, false@no_pointer_name, fun_name, info);
         string fun_name3 = xsprintf("%s_%s", none_generics_name, fun_name);
@@ -769,7 +760,7 @@ tuple2<sType*%, string>*% clone_object(sType*% type, char* obj, sInfo* info)
         }
     }
     else {
-        fun_name2 = create_method_name(type, false@no_pointer_name, fun_name, info);
+        fun_name2 = create_method_name(type_, false@no_pointer_name, fun_name, info);
         
         int i;
         for(i=FUN_VERSION_MAX-1; i>=1; i--) {
@@ -787,9 +778,9 @@ tuple2<sType*%, string>*% clone_object(sType*% type, char* obj, sInfo* info)
         }
     }
     
-    if(cloner == NULL && !type->mClass->mNumber)
+    if(cloner == NULL && !type_->mClass->mNumber)
     {
-        var fun,new_fun_name = create_cloner_automatically(type, fun_name, info);
+        var fun,new_fun_name = create_cloner_automatically(type_, fun_name, info);
         
         fun_name2 = new_fun_name;
         cloner = fun;
@@ -798,7 +789,7 @@ tuple2<sType*%, string>*% clone_object(sType*% type, char* obj, sInfo* info)
     /// call cloner ///
     if(cloner != null) {
         result_type = cloner->mResultType;
-        result_type = solve_generics(result_type, type, info);
+        result_type = solve_generics(result_type, type_, info);
         
         result = xsprintf("%s(%s)", fun_name2, c_value);
         
@@ -807,7 +798,7 @@ tuple2<sType*%, string>*% clone_object(sType*% type, char* obj, sInfo* info)
         }
     }
     else {
-        result_type = clone type;
+        result_type = clone type_;
         type2->mHeap = true;
         string type_name = make_type_name_string(type2);
         

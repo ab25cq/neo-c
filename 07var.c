@@ -113,10 +113,13 @@ class sStoreNode extends sNodeBase
             }
             
             CVALUE*% right_value = get_value_from_stack(-1, info);
-            sType*% right_type = right_value.type;
+            sType*% right_type;
             
-            if(right_type->mNoSolvedGenericsType) {
-                right_type = right_type->mNoSolvedGenericsType;
+            if(right_value.type->mNoSolvedGenericsType) {
+                right_type = clone right_value.type->mNoSolvedGenericsType;
+            }
+            else {
+                right_type = clone right_value.type;
             }
             
             int i = 0;

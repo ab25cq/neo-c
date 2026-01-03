@@ -825,6 +825,8 @@ string make_come_define_var(sType* type, char* name, sInfo* info=info);
 /////////////////////////////////////////////////////////////////////
 /// 03output_code.c ///
 /////////////////////////////////////////////////////////////////////
+sType*% get_no_solved_type(sType* type);
+sType*% get_no_solved_type2(sType* type);
 string header_function(sFun* fun, sInfo* info);
 bool output_source_file(sInfo* info);
 void show_type(sType* type, sInfo* info);

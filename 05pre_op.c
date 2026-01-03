@@ -2,18 +2,25 @@
 
 bool operator_overload_fun_self(sType*% type, char* fun_name, sNode*% node, CVALUE* left_value, sInfo* info)
 {
-    sType*% generics_type = clone type;
-    if(generics_type->mNoSolvedGenericsType) {
-        generics_type = generics_type->mNoSolvedGenericsType;
+    sType*% generics_type;
+    if(type->mNoSolvedGenericsType) {
+        generics_type = type->mNoSolvedGenericsType;
+    }
+    else {
+        generics_type = clone type;
     }
     
+    sType*% type_;
     if(type->mNoSolvedGenericsType) {
-        type = type->mNoSolvedGenericsType;
+        type_ = clone type->mNoSolvedGenericsType;
     }
-    sClass* klass = type->mClass;
+    else {
+        type_ = clone type;
+    }
+    sClass* klass = type_->mClass;
     char* class_name = klass->mName;
     
-    var fun_name2, operator_fun, generics_fun = get_method(fun_name, type, info);
+    var fun_name2, operator_fun, generics_fun = get_method(fun_name, type_, info);
     
     bool result = false;
     

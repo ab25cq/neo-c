@@ -2,22 +2,29 @@
 
 bool operator_overload_fun(sType*% type, char* fun_name, sNode*% left_node, sNode*% right_node, CVALUE*% left_value, CVALUE*% right_value, bool break_guard, sInfo* info)
 {
-    sType*% generics_type = clone type;
-    if(generics_type->mNoSolvedGenericsType) {
-        generics_type = generics_type->mNoSolvedGenericsType;
+    sType*% generics_type;
+    if(type->mNoSolvedGenericsType) {
+        generics_type = type->mNoSolvedGenericsType;
+    }
+    else {
+        generics_type = type;
     }
     
+    sType*% type2;
     if(type->mNoSolvedGenericsType) {
-        type = type->mNoSolvedGenericsType;
+        type2 = type.mNoSolvedGenericsType;
     }
-    sClass* klass = type->mClass;
+    else {
+        type2 = type;
+    }
+    sClass* klass = type2->mClass;
     char* class_name = klass->mName;
     
-    var fun_name2, operator_fun, generics_fun = get_method(fun_name, type, info);
+    var fun_name2, operator_fun, generics_fun = get_method(fun_name, type2, info);
     
     bool result = false;
     
-    if(operator_fun && (type->mGenericsTypes.length() > 0 || (left_value.type.mClass.mName === right_value.type.mClass.mName && left_value.type.mPointerNum == right_value.type.mPointerNum) || fun_name === "operator_mult")) {
+    if(operator_fun && (type2->mGenericsTypes.length() > 0 || (left_value.type.mClass.mName === right_value.type.mClass.mName && left_value.type.mPointerNum == right_value.type.mPointerNum) || fun_name === "operator_mult")) {
         {
             sRightValueObject* right_value_object = left_value.right_value_objects;
             

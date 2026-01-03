@@ -2,10 +2,13 @@
 
 bool operator_overload_fun2(sType*% type, char* fun_name, sNode*% left_node, sNode*% middle_node, sNode*% right_node, CVALUE* left_value, CVALUE* middle_value, CVALUE* right_value, sInfo* info)
 {
-    sType*% generics_type = clone type;
+    sType*% generics_type;
     
-    if(generics_type->mNoSolvedGenericsType) {
-        generics_type = generics_type->mNoSolvedGenericsType;
+    if(type->mNoSolvedGenericsType) {
+        generics_type = clone type->mNoSolvedGenericsType;
+    }
+    else {
+        generics_type = clone type;
     }
     
     sClass* klass = type->mClass;
@@ -105,10 +108,13 @@ class sStoreFieldNode extends sNodeBase
         
         CVALUE*% left_value = get_value_from_stack(-1, info);
         
-        sType*% left_type2 = left_value.type;
+        sType*% left_type2;
         
-        if(left_type2.mNoSolvedGenericsType) {
-            left_type2 = left_type2.mNoSolvedGenericsType;
+        if(left_value.type.mNoSolvedGenericsType) {
+            left_type2 = left_value.type.mNoSolvedGenericsType;
+        }
+        else {
+            left_type2 = left_value.type;
         }
         if(left_type2.mClass.mName === "tuple1" || left_type2.mClass.mName === "tuple2" || left_type2.mClass.mName === "tuple3" || left_type2.mClass.mName === "tuple3" || left_type2.mClass.mName === "tuple4" || left_type2.mClass.mName === "tuple5")
         {
@@ -153,7 +159,7 @@ class sStoreFieldNode extends sNodeBase
         
         CVALUE*% come_value = new CVALUE();
         
-        right_type = clone right_value.type;
+        right_type = right_value.type;
         
         check_assign_type(s"\{name} is assigned to(1)", field_type, right_type, right_value);
         
@@ -713,7 +719,8 @@ class sLoadArrayNode extends sNodeBase
             
             come_value.var = null;
             
-            come_value.type = solve_generics(clone come_value.type, info->generics_type, info);
+
+            come_value.type = solve_generics(come_value.type, info->generics_type, info);
             come_value.type.mHeap = false;
             
             info.stack.push_back(come_value);
