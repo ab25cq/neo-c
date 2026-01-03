@@ -140,7 +140,7 @@ sNode*% parse_union(string type_name, string union_attribute, sInfo* info)
                 
                 string name2 = parse_word();
                 
-                klass.mFields.push_back((name2, type2));
+                klass.mFields.push_back(new tuple2<string, sType*%>(name2, type2));
             }
             
             expected_next_character(';');
@@ -149,7 +149,7 @@ sNode*% parse_union(string type_name, string union_attribute, sInfo* info)
             expected_next_character(';');
             skip_spaces_and_lf();
             
-            klass.mFields.push_back((name, type2));
+            klass.mFields.push_back(new tuple2<string, sType*%>(name, type2));
         }
         
         skip_spaces_and_lf();
@@ -245,7 +245,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 97
                     
                     string name2 = parse_word();
                     
-                    klass.mFields.push_back((name2, type2));
+                    klass.mFields.push_back(new tuple2<string, sType*%>(name2, type2));
                 }
             
                 
@@ -257,7 +257,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 97
                 expected_next_character(';');
                 skip_spaces_and_lf();
                 
-                klass.mFields.push_back((name, type2));
+                klass.mFields.push_back(new tuple2<string, sType*%>(name, type2));
             }
             
             if(*info->p == '}') {

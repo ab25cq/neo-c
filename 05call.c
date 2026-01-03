@@ -2098,7 +2098,7 @@ sNode*% parse_function_call(char* fun_name, sInfo* info, bool come_=false)
         info.no_comma = no_comma;
         info.in_fun_param = in_fun_param;
         
-        params.push_back((label, node));
+        params.push_back(new tuple2<string, sNode*%>(label, node));
         
         skip_spaces_and_lf();
         
@@ -3062,7 +3062,7 @@ sNode*% post_position_operator(sNode*% node, sInfo* info)
             info.no_comma = no_comma;
             info.in_fun_param = in_fun_param;
             
-            params.push_back((label, node));
+            params.push_back(new tuple2<string, sNode*%>(label, node));
             
             skip_spaces_and_lf();
             

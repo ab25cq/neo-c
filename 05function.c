@@ -1012,7 +1012,7 @@ string,string parse_function_attribute(sInfo* info=info)
         }
     }
 
-    return (asm_fun_name.to_string(), result.to_string());
+    return new tuple2<string, string>(asm_fun_name.to_string(), result.to_string());
 }
 
 
@@ -1687,7 +1687,7 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
         info->caller_fun = caller_fun;
         info->caller_line = caller_line;
         info->caller_sname = caller_sname;
-        return (fun_name, true);
+        return new tuple2<string, bool>(fun_name, true);
     }
     
     sType*% result_type = solve_generics(generics_fun->mResultType, generics_type_, info);
@@ -1758,7 +1758,7 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
     bool in_generics_fun = info.in_generics_fun;
     info.in_generics_fun = true;
     node_compile(node).elif {
-        return (s"", false);
+        return new tuple2<string, bool>(s"", false);
     }
     info.in_generics_fun = in_generics_fun;
     
@@ -1783,7 +1783,7 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
     info->max_conditional = max_conditional;
     info.in_conditional = in_conditional;
     
-    return (string(fun_name), true);
+    return new tuple2<string, bool>(string(fun_name), true);
 }
 
 bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sInfo* info)
@@ -2446,7 +2446,7 @@ sFun*,string create_finalizer_automatically(sType*% type, char* fun_name, sInfo*
     info.module.mLastCode = last_code;
     info.module.mLastCode2 = last_code2;
     
-    return (finalizer, real_fun_name);
+    return new tuple2<sFun*,string>(finalizer, real_fun_name);
 }
 
 
@@ -2562,7 +2562,7 @@ sFun*,string create_equals_automatically(sType*% type, char* fun_name, sInfo* in
     info.module.mLastCode = last_code;
     info.module.mLastCode2 = last_code2;
     
-    return (equaler, real_fun_name);
+    return new tuple2<sFun*, string>(equaler, real_fun_name);
 }
 
 sFun*,string create_operator_not_equals_automatically(sType*% type, char* fun_name, sInfo* info)
@@ -2697,7 +2697,7 @@ sFun*,string create_operator_not_equals_automatically(sType*% type, char* fun_na
     info.module.mLastCode = last_code;
     info.module.mLastCode2 = last_code2;
     
-    return (equaler, real_fun_name);
+    return new tuple2<sFun*, string>(equaler, real_fun_name);
 }
 
 sFun*,string create_not_equals_automatically(sType*% type, char* fun_name, sInfo* info)
@@ -2829,7 +2829,7 @@ sFun*,string create_not_equals_automatically(sType*% type, char* fun_name, sInfo
     info.module.mLastCode = last_code;
     info.module.mLastCode2 = last_code2;
     
-    return (equaler, real_fun_name);
+    return new tuple2<sFun*, string>(equaler, real_fun_name);
 }
 
 sFun*,string create_operator_equals_automatically(sType*% type, char* fun_name, sInfo* info)
@@ -2946,13 +2946,13 @@ sFun*,string create_operator_equals_automatically(sType*% type, char* fun_name, 
     info.module.mLastCode = last_code;
     info.module.mLastCode2 = last_code2;
     
-    return (equaler, real_fun_name);
+    return new tuple2<sFun*, string>(equaler, real_fun_name);
 }
 
 sFun*,string create_cloner_automatically(sType*% type, char* fun_name, sInfo* info)
 {
     if(type->mClass->mName === "void") {
-        return ((sFun*)null, (string)null);
+        return new tuple2<sFun*, string>((sFun*)null, (string)null);
     }
     string last_code = info.module.mLastCode;
     info.module.mLastCode = null;
@@ -2990,7 +2990,7 @@ sFun*,string create_cloner_automatically(sType*% type, char* fun_name, sInfo* in
             
             if(!err) {
                 if(type->mClass->mName === "void") {
-                    return ((sFun*)null, (string)null);
+                    return new tuple2<sFun*, string>((sFun*)null, (string)null);
                 }
             }
             
@@ -3169,7 +3169,7 @@ sFun*,string create_cloner_automatically(sType*% type, char* fun_name, sInfo* in
     info.module.mLastCode = last_code;
     info.module.mLastCode2 = last_code2;
     
-    return (cloner, real_fun_name);
+    return new tuple2<sFun*, string>(cloner, real_fun_name);
 }
 
 sFun*,string create_to_string_automatically(sType*% type, char* fun_name, sInfo* info)
@@ -3305,7 +3305,7 @@ sFun*,string create_to_string_automatically(sType*% type, char* fun_name, sInfo*
     info.module.mLastCode = last_code;
     info.module.mLastCode2 = last_code2;
     
-    return (cloner, real_fun_name);
+    return new tuple2<sFun*, string>(cloner, real_fun_name);
 }
 
 sFun*,string create_to_string_automatically(sType*% type, char* fun_name, sInfo* info)
@@ -3494,7 +3494,7 @@ sFun*,string create_to_string_automatically(sType*% type, char* fun_name, sInfo*
     info.module.mLastCode = last_code;
     info.module.mLastCode2 = last_code2;
     
-    return (to_string_fun, real_fun_name);
+    return new tuple2<sFun*, string>(to_string_fun, real_fun_name);
 }
 
 sFun*,string create_get_hash_key_automatically(sType*% type, char* fun_name, sInfo* info)
@@ -3645,7 +3645,7 @@ sFun*,string create_get_hash_key_automatically(sType*% type, char* fun_name, sIn
     info.module.mLastCode = last_code;
     info.module.mLastCode2 = last_code2;
     
-    return (get_hash_key_fun, real_fun_name);
+    return new tuple2<sFun*, string>(get_hash_key_fun, real_fun_name);
 }
 
 sFun*% compile_uniq_function(sFun* fun, sInfo* info=info)

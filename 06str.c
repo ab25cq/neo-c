@@ -116,7 +116,7 @@ class sSStringNode extends sNodeBase
                 sNode*% obj = clone it;
                 
                 list<tup: string, sNode*%>*% params = new list<tup: string, sNode*%>();
-                params.add((s"self", clone it));
+                params.add(new tuple2<string, sNode*%>(s"self", clone it));
                 
                 sNode*% node = create_method_call("to_string", obj, params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
                 
@@ -1249,15 +1249,15 @@ sNode*% expression_node(sInfo* info) version 96
         
         list<tup: string, sNode*%>*% params = new list<tup: string, sNode*%>();
         
-        params.add((s"self", obj));
-        params.add((s"ignore_case", ignore_case ? create_int_node(1.to_string(), info) : create_int_node(0.to_string(), info)));
-        params.add((s"multiline", create_int_node(0.to_string(), info)));
-        params.add((s"global", global ? create_int_node(1.to_string(), info) : create_int_node(0.to_string(), info)));
-        params.add((s"extended", create_int_node(0.to_string(), info)));
-        params.add((s"dotall", create_int_node(0.to_string(), info)));
-        params.add((s"anchored", create_int_node(0.to_string(), info)));
-        params.add((s"dollar_endonly", create_int_node(0.to_string(), info)));
-        params.add((s"ungreedy", create_int_node(0.to_string(), info)));
+        params.add(new tuple2<string, sNode*%>(s"self", obj));
+        params.add(new tuple2<string, sNode*%>(s"ignore_case", ignore_case ? create_int_node(1.to_string(), info) : create_int_node(0.to_string(), info)));
+        params.add(new tuple2<string, sNode*%>(s"multiline", create_int_node(0.to_string(), info)));
+        params.add(new tuple2<string, sNode*%>(s"global", global ? create_int_node(1.to_string(), info) : create_int_node(0.to_string(), info)));
+        params.add(new tuple2<string, sNode*%>(s"extended", create_int_node(0.to_string(), info)));
+        params.add(new tuple2<string, sNode*%>(s"dotall", create_int_node(0.to_string(), info)));
+        params.add(new tuple2<string, sNode*%>(s"anchored", create_int_node(0.to_string(), info)));
+        params.add(new tuple2<string, sNode*%>(s"dollar_endonly", create_int_node(0.to_string(), info)));
+        params.add(new tuple2<string, sNode*%>(s"ungreedy", create_int_node(0.to_string(), info)));
         
         buffer* method_block = null;
         
@@ -1407,15 +1407,15 @@ sNode*% expression_node(sInfo* info) version 96
         
         list<tup: string, sNode*%>*% params = new list<tup: string, sNode*%>();
         
-        params.add((s"self", obj));
-        params.add((s"ignore_case", ignore_case ? create_int_node(1.to_string(), info) : create_int_node(0.to_string(), info)));
-        params.add((s"multiline", create_int_node(0.to_string(), info)));
-        params.add((s"global", global ? create_int_node(1.to_string(), info) : create_int_node(0.to_string(), info)));
-        params.add((s"extended", create_int_node(0.to_string(), info)));
-        params.add((s"dotall", create_int_node(0.to_string(), info)));
-        params.add((s"anchored", create_int_node(0.to_string(), info)));
-        params.add((s"dollar_endonly", create_int_node(0.to_string(), info)));
-        params.add((s"ungreedy", create_int_node(0.to_string(), info)));
+        params.add(new tuple2<string, sNode*%>(s"self", obj));
+        params.add(new tuple2<string, sNode*%>(s"ignore_case", ignore_case ? create_int_node(1.to_string(), info) : create_int_node(0.to_string(), info)));
+        params.add(new tuple2<string, sNode*%>(s"multiline", create_int_node(0.to_string(), info)));
+        params.add(new tuple2<string, sNode*%>(s"global", global ? create_int_node(1.to_string(), info) : create_int_node(0.to_string(), info)));
+        params.add(new tuple2<string, sNode*%>(s"extended", create_int_node(0.to_string(), info)));
+        params.add(new tuple2<string, sNode*%>(s"dotall", create_int_node(0.to_string(), info)));
+        params.add(new tuple2<string, sNode*%>(s"anchored", create_int_node(0.to_string(), info)));
+        params.add(new tuple2<string, sNode*%>(s"dollar_endonly", create_int_node(0.to_string(), info)));
+        params.add(new tuple2<string, sNode*%>(s"ungreedy", create_int_node(0.to_string(), info)));
         
         buffer* method_block = null;
         
@@ -2085,47 +2085,6 @@ sNode*% expression_node(sInfo* info) version 96
     }
     
     return (sNode*%)null;
-}
-
-sNode*% parse_tuple(sInfo* info, bool named_tuple=false)
-{
-    list<tup: string, sNode*%>*% tuple_elements = new list<tup: string, sNode*%>();
-    while(true) {
-        char* p = info.p;
-        
-        string name;
-        if(named_tuple) {
-            name = parse_word();
-            
-            expected_next_character(':', info);
-        }
-        
-        bool no_comma = info.no_comma;
-        info.no_comma = true;
-        
-        sNode*% node = expression();
-        node = post_position_operator(node, info);
-        
-        info.no_comma = no_comma;
-        
-        tuple_elements.push_back((clone name, node));
-        
-        if(*info->p == ',') {
-            info->p++;
-            skip_spaces_and_lf();
-        }
-        else if(*info->p == ')') {
-            info->p++;
-            skip_spaces_and_lf();
-            break;
-        }
-        else {
-            err_msg(info, "invalid character in tuple expression (%c)", *info->p);
-            exit(2);
-        }
-    }
-    
-    return new sTupleNode(tuple_elements, info) implements sNode;
 }
 
 

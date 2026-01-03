@@ -1490,12 +1490,12 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
                     sNode*% exp = expression();
                     info->no_comma = no_comma;
                     
-                    initializer.add((word, exp));
+                    initializer.add(new tuple2<string, sNode*%>(word, exp));
                 }
                 else if(*info->p == ',') {
                     sNode*% exp = create_load_var(word);
                     
-                    initializer.add((word, exp));
+                    initializer.add(new tuple2<string, sNode*%>(word, exp));
                 }
                 else {
                     err_msg(info, "invalid character(21) %c", *info->p);
