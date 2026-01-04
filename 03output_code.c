@@ -1377,14 +1377,12 @@ void add_come_code(sInfo* info, const char* msg, ...)
 bool is_contained_generics_funcstion(sFun* fun, sInfo* info=info)
 {
     foreach(it, fun->mParamTypes) {
-        sType*% type = clone it;
-        
-        sType*% type_;
-        if(type->mNoSolvedGenericsType) {
-            type_ = clone type->mNoSolvedGenericsType;
+        sType* type_;
+        if(it->mNoSolvedGenericsType) {
+            type_ = it->mNoSolvedGenericsType;
         }
         else {
-            type_ = clone type;
+            type_ = it;
         }
         if(is_contained_generics_class(type_, info)) {
             return true;

@@ -68,8 +68,8 @@ void output_struct(sClass* klass, string pragma, sInfo* info)
         return;
     }
     
-    string name = klass.mName;
-    bool current_stack = memcmp(name,"__current_stack", strlen("__current_stack")) == 0;
+    char* name = klass.mName;
+    bool current_stack = strlen(name) > strlen("__current_stack") && memcmp(name,"__current_stack", strlen("__current_stack")) == 0;
     
     buffer*% buf = new buffer();
         
@@ -172,7 +172,7 @@ class sStructNode extends sNodeBase
         self.super();
     
         string self.mName = string(name);
-        sClass*% self.mClass = clone klass;
+        sClass* self.mClass = klass;
         string self.pragma = info.pragma;
     }
     
@@ -188,7 +188,7 @@ class sStructNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        sClass*% klass = self.mClass;
+        sClass* klass = self.mClass;
         string name = string(self.mName);
         string pragma = self.pragma;
         
@@ -294,13 +294,15 @@ sNode*% parse_struct(string type_name, string struct_attribute, sInfo* info)
 {
     info.parse_struct_recursive_count++;
     
-    sClass*% klass;
+    sClass* klass;
     if(info.classes.at(type_name, null) == null) {
-        klass = new sClass(name:string(type_name), struct_:true);
-        info.classes.insert(string(type_name), klass);
+        sClass*% klass_ = new sClass(name:type_name, struct_:true);
+        info.classes.insert(string(type_name), klass_);
+        
+        klass = borrow info.classes[string(type_name)];
     }
     else {
-        klass = info.classes.at(type_name, null);
+        klass = borrow info.classes.at(type_name, null);
         klass.mFields.reset();
     }
     
@@ -404,7 +406,7 @@ sNode*% parse_struct(string type_name, string struct_attribute, sInfo* info)
     
     if(parent_class) {
         klass->mParentClassName = clone parent_class->mName;
-        info.classes.insert(string(klass->mName), clone klass);
+        //info.classes.insert(string(klass->mName), clone klass);
     }
     
     if(struct_attribute === "" && struct_attribute2 === "") {
@@ -447,7 +449,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
             
             sClass*% struct_class;
             if(info.classes.at(type_name, null) == null) {
-                struct_class = new sClass(name:string(type_name), struct_:true);
+                struct_class = new sClass(name:type_name, struct_:true);
                 
                 info.classes.insert(type_name, new sClass(name:type_name, struct_:true));
             }
@@ -590,7 +592,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
         else {
             sClass*% struct_class;
             if(info.classes.at(type_name, null) == null) {
-                struct_class = new sClass(name:string(type_name), struct_:true);
+                struct_class = new sClass(name:type_name, struct_:true);
                 info.classes.insert(string(type_name), struct_class);
             }
             else {

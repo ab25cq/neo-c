@@ -297,26 +297,6 @@ uniq int gComeDebugLib = 0;
 uniq int gNumAlloc = 0;
 uniq int gNumFree = 0;
 
-#define HEAP_POOL_PAGE_SIZE 4096
-
-#if !defined(__MINUX__) && !defined(__BARE_METAL__) && !defined(__PICO__)
-
-#define INIT_PAGE_PAGE_SIZE 4
-#define NEW_ALLOC_SIZE 2
-
-struct sHeapPage
-{
-    char** mPages;
-    int mSizePages;
-    
-    char* mTop;
-    int mCurrentPages;
-    
-    sMemHeaderTiny* mFreeMem[HEAP_POOL_PAGE_SIZE];
-};
-
-uniq struct sHeapPage gHeapPages;
-
 uniq void come_heap_init(int come_debug)
 {
     gComeDebugLib = come_debug
@@ -325,18 +305,6 @@ uniq void come_heap_init(int come_debug)
     memset(gComeStackFrameSName, 0, sizeof(char*)*COME_STACKFRAME_MAX_GLOBAL);
     memset(gComeStackFrameSLine, 0, sizeof(int)*COME_STACKFRAME_MAX_GLOBAL);
     memset(gComeStackFrameID, 0, sizeof(int)*COME_STACKFRAME_MAX_GLOBAL);
-    
-    gHeapPages.mSizePages = INIT_PAGE_PAGE_SIZE;
-    
-    gHeapPages.mPages = calloc(1, sizeof(char**)*gHeapPages.mSizePages);
-    for(int i=0; i<gHeapPages.mSizePages; i++) {
-        gHeapPages.mPages[i] = calloc(1, sizeof(char)*HEAP_POOL_PAGE_SIZE);
-    }
-    
-    gHeapPages.mTop = gHeapPages.mPages[0];
-    gHeapPages.mCurrentPages = 0;
-    
-    memset(gHeapPages.mFreeMem, 0, sizeof(sMemHeaderTiny*)*HEAP_POOL_PAGE_SIZE);
     
     gAllocMem = NULL;
 }
@@ -385,87 +353,11 @@ uniq void come_heap_final()
             printf("%d memory leaks. %d alloc, %d free.If you require debugging, copmpile with -cg option\n", n, gNumAlloc, gNumFree);
         }
     }
-    for(int i=0; i<gHeapPages.mSizePages; i++) {
-        free(gHeapPages.mPages[i]);
-    }
-    free(gHeapPages.mPages);
 }
-
-uniq size_t round_up_class_size(size_t size)
-{
-    if(size < 16) return 16;
-    if(size < 32) return 32;
-    if(size < 64) return 64;
-    if(size < 128) return 128;
-    if(size < 256) return 256;
-    if(size < 512) return 512;
-    if(size < 1024) return 1024;
-    if(size < 2048) return 2048;
-    if(size < 4096) return 4096;
-    
-    return size;
-}
-
-/*
-uniq int class_id_from_size(size_t size)
-{
-    size_t cls = round_up_class_size(size);
-    if(cls == size) return -1;
-    int id = 0;
-    while((size_t)(16U << id) < cls) id++;
-    return id;
-}
-*/
 
 uniq void* alloc_from_pages(size_t size)
 {
-    void* result = null;
-    
-    if(size < HEAP_POOL_PAGE_SIZE) {
-        if(gHeapPages.mFreeMem[size]) {
-            result = gHeapPages.mFreeMem[size];
-            
-            gHeapPages.mFreeMem[size] = gHeapPages.mFreeMem[size]->free_next;
-            memset(result, 0, size);
-        }
-
-        if(result == null) {
-            size_t free_area = gHeapPages.mPages[gHeapPages.mCurrentPages] + HEAP_POOL_PAGE_SIZE - gHeapPages.mTop;
-            
-            if(size >= free_area) {
-                gHeapPages.mCurrentPages++;
-                
-                if(gHeapPages.mCurrentPages == gHeapPages.mSizePages) {
-                    int new_size_pages = gHeapPages.mSizePages * NEW_ALLOC_SIZE;
-                    char** new_pages = calloc(1, sizeof(char*)*new_size_pages);
-                    
-                    int i=0;
-                    for(; i<gHeapPages.mSizePages; i++) {
-                        new_pages[i] = gHeapPages.mPages[i];
-                    }
-                    
-                    for(; i<new_size_pages; i++) {
-                        new_pages[i] = calloc(1, sizeof(char)*HEAP_POOL_PAGE_SIZE);
-                    }
-                    
-                    free(gHeapPages.mPages);
-                    
-                    gHeapPages.mPages = new_pages;
-                    gHeapPages.mSizePages = new_size_pages;
-                }
-                
-                gHeapPages.mTop = gHeapPages.mPages[gHeapPages.mCurrentPages];
-            }
-            
-            result = gHeapPages.mTop;
-            gHeapPages.mTop += size;
-        }
-    }
-    else {
-        result = calloc(1, size);
-    }
-    
-    return result;
+    return calloc(1, size);
 }
 
 uniq void come_free_mem_of_heap_pool(void* mem)
@@ -501,19 +393,7 @@ uniq void come_free_mem_of_heap_pool(void* mem)
             
             size_t size = it->size;
             
-            if(size < HEAP_POOL_PAGE_SIZE) {
-                if(gHeapPages.mFreeMem[size] == NULL) {
-                    it->free_next = NULL;
-                    gHeapPages.mFreeMem[size] = (sMemHeaderTiny*)it;
-                }
-                else {
-                    it->free_next = (sMemHeader*)gHeapPages.mFreeMem[size];
-                    gHeapPages.mFreeMem[size] = (sMemHeaderTiny*)it;
-                }
-            }
-            else {
-                free(it);
-            }
+            free(it);
             
             gNumFree++;
         }
@@ -547,19 +427,7 @@ uniq void come_free_mem_of_heap_pool(void* mem)
             
             size_t size = it->size;
             
-            if(size < HEAP_POOL_PAGE_SIZE) {
-                if(gHeapPages.mFreeMem[size] == NULL) {
-                    it->free_next = NULL;
-                    gHeapPages.mFreeMem[size] = it;
-                }
-                else {
-                    it->free_next = gHeapPages.mFreeMem[size];
-                    gHeapPages.mFreeMem[size] = it;
-                }
-            }
-            else {
-                free(it);
-            }
+            free(it);
             
             gNumFree++;
         }
@@ -570,7 +438,6 @@ uniq void* come_alloc_mem_from_heap_pool(size_t size, char* sname=null, int slin
 {
     if(gComeDebugLib) {
         size_t size2 = size + sizeof(sMemHeader);
-        size2 = round_up_class_size(size2);
 #ifdef __32BIT_CPU__
         size2 = (size2 + 3 & ~0x3);
 #else
@@ -623,137 +490,6 @@ uniq void* come_alloc_mem_from_heap_pool(size_t size, char* sname=null, int slin
     }
     else {
         size_t size2 = size + sizeof(sMemHeaderTiny);
-        size2 = round_up_class_size(size2);
-#ifdef __32BIT_CPU__
-        size2 = (size2 + 3 & ~0x3);
-#else
-        size2 = (size2 + 7 & ~0x7);
-#endif
-        void* result = alloc_from_pages(size2);
-        
-        sMemHeaderTiny* it = result;
-        
-        it->allocated = ALLOCATED_MAGIC_NUM;
-        
-        it->class_name = class_name; 
-        
-        it->sname = sname;
-        it->sline = sline;
-        
-        it->size = size2;
-        it->free_next = NULL;
-        
-        it->next = (sMemHeaderTiny*)gAllocMem;
-        it->prev = null;
-        
-        if(gAllocMem) {
-            ((sMemHeaderTiny*)gAllocMem)->prev = it;
-        }
-        
-        gAllocMem = (sMemHeader*)it;
-        
-        gNumAlloc++;
-        
-        return (char*)result + sizeof(sMemHeaderTiny);
-    }
-}
-
-uniq void come_print_heap_info(void* mem)
-{
-    if(gComeDebugLib) {
-        sMemHeader* it = (sMemHeader*)((char*)mem - sizeof(size_t) - sizeof(size_t) - sizeof(sMemHeader));
-        
-        if(it->allocated != ALLOCATED_MAGIC_NUM) {
-            return;
-        }
-        
-        printf("%p ", mem);
-        if(it->class_name) {
-            printf("(%s): ", it->class_name);
-        }
-        for(int i=0; i<COME_STACKFRAME_MAX; i++) {
-            if(it->sname[i]) {
-                printf("%s %d #%d, ", it->sname[i], it->sline[i], it->id[i]);
-            }
-        }
-        puts("");
-    }
-    else {
-        sMemHeaderTiny* it = (sMemHeaderTiny*)((char*)mem - sizeof(size_t) - sizeof(size_t) - sizeof(sMemHeaderTiny));
-        
-        if(it->allocated != ALLOCATED_MAGIC_NUM) {
-            return;
-        }
-        printf("%p (%s) %s %d\n", mem, it->class_name, it->sname , it->sline);
-    }
-}
-
-#else
-
-uniq void come_heap_init(int come_debug)
-{
-}
-
-uniq void come_heap_final()
-{
-}
-
-uniq void* alloc_from_pages(size_t size)
-{
-    void* result = null;
-    result = calloc(1, size);
-
-    return result;
-}
-
-uniq void come_free_mem_of_heap_pool(void* mem)
-{
-    if(mem) {
-        if(gComeDebugLib) {
-        }
-        else {
-            sMemHeaderTiny* it = (sMemHeaderTiny*)((char*)mem - sizeof(sMemHeaderTiny));
-            
-            if(it->allocated != ALLOCATED_MAGIC_NUM) {
-                return;
-            }
-            
-            it->allocated = 0;
-            
-            sMemHeaderTiny* prev_it = it->prev;
-            sMemHeaderTiny* next_it = it->next;
-            
-            if(gAllocMem == it) {
-                gAllocMem = (sMemHeader*)next_it;
-                
-                if(gAllocMem) {
-                    gAllocMem->prev = null;
-                }
-            }
-            else {
-                if(prev_it) {
-                    prev_it->next = next_it;
-                }
-                if(next_it) {
-                    next_it->prev = prev_it;
-                }
-            }
-            
-            size_t size = it->size;
-            
-            free(it);
-            
-            gNumFree++;
-        }
-    }
-}
-
-uniq void* come_alloc_mem_from_heap_pool(size_t size, char* sname=null, int sline=0, char* class_name="")
-{
-    if(gComeDebugLib) {
-    }
-    else {
-        size_t size2 = size + sizeof(sMemHeaderTiny);
 #ifdef __32BIT_CPU__
         size2 = (size2 + 3 & ~0x3);
 #else
@@ -788,11 +524,6 @@ uniq void* come_alloc_mem_from_heap_pool(size_t size, char* sname=null, int slin
         return (char*)result + sizeof(sMemHeaderTiny);
     }
 }
-
-uniq void come_print_heap_info(void* mem)
-{
-}
-#endif
 
 uniq char* come_dynamic_typeof(void* mem)
 {
