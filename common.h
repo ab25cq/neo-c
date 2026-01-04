@@ -617,6 +617,7 @@ struct sInfo
     bool in_typeof;
     bool in_store_array;
     int parse_struct_recursive_count;
+    bool exp_value;
 };
 
 uniq class sNodeBase

@@ -267,6 +267,12 @@ class sListNode extends sNodeBase
         list<CVALUE*%>*% params = new list<CVALUE*%>();
         sType*% list_element_type = null;
         
+        if(info.exp_value) {
+            err_msg(info, "nest value expression is prohibited");
+            return false;
+        }
+        info.exp_value = true;
+        
         int n = 0;
         foreach(it, list_elements) {
             node_compile(it).elif {
@@ -294,6 +300,7 @@ class sListNode extends sNodeBase
             
             n++;
         }
+        info.exp_value = false;
         
         sType*% type_values = clone list_element_type;
         type_values.mArrayNum.push_back(create_int_node(params.length().to_string(), info));
@@ -467,6 +474,12 @@ class sTupleNode extends sNodeBase
         list<sType*%>*% tuple_types = new list<sType*%>();
         list<CVALUE*%>*% tuple_values = new list<CVALUE*%>();
         
+        if(info.exp_value) {
+            err_msg(info, "nest value expression is prohibited");
+            return false;
+        }
+        info.exp_value = true;
+        
         int n = 0;
         foreach(it, tuple_elements) {
             var name, node = it;
@@ -484,6 +497,8 @@ class sTupleNode extends sNodeBase
             
             n++;
         }
+        
+        info.exp_value = false;
         
         sType*% type = new sType(xsprintf("tuple%d", tuple_types.length()));
         
@@ -625,6 +640,12 @@ class sMapNode extends sNodeBase
         sType*% map_key_type = null;
         sType*% map_element_type = null;
         
+        if(info.exp_value) {
+            err_msg(info, "nest value expression is prohibited");
+            return false;
+        }
+        info.exp_value = true;
+        
         for(int i=0; i<map_key_elements.length(); i++) {
             sNode* key_elements = borrow map_key_elements[i];
             sNode* elements = borrow map_elements[i];
@@ -667,6 +688,7 @@ class sMapNode extends sNodeBase
             element_params.push_back(come_value2);
             map_element_type = clone come_value2.type;
         }
+        info.exp_value = false;
         
         static int map_value_num = 0;
         
