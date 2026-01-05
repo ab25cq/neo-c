@@ -11,7 +11,7 @@ then
     make CFLAGS_OPT="-O2 -g" neo-c -j$(($(sysctl -n hw.logicalcpu) / 2)) && sudo make install
 elif test -f /proc/device-tree/model && cat /proc/device-tree/model | grep "Raspberry Pi"
 then
-    make CFLAGS_OPT="-O2 -g" neo-c && sudo make install
+    make CFLAGS_OPT="-O2 -g" neo-c -j$(sysctl -n hw.logicalcpu) && sudo make install
 else # Linux
-    make CFLAGS_OPT="-O2 -g" neo-c && sudo make install
+    make CFLAGS_OPT="-O2 -g" neo-c -j$(($(nproc) / 2)) && sudo make install
 fi

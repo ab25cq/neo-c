@@ -5,7 +5,7 @@ DESTDIR=/usr/local
 CFLAGS_OPT=
 CC=clang
 INSTALL=/usr/bin/install -c
-CFLAGS=-DPREFIX="\"${DESTDIR}/\""  -I/usr/local/include $(CFLAGS_OPT) -std=c11 -O2
+CFLAGS=-DPREFIX="\"${DESTDIR}/\""  -I/usr/local/include $(CFLAGS_OPT) -std=c11 -g -O2 #-O1 -fsanitize=address,undefined -fno-omit-frame-pointer
 LIBS= -lutil -ldl -lm -lrt
 
 #########################################
@@ -188,7 +188,7 @@ valgrind:  01main.valgrind  02transpile.valgrind  03output_code.valgrind  04heap
 	valgrind neo-c -Sc -C -o 16enum.c.o -c 16enum.c $(CFLAGS) 2> 16enum.valgrind
 
 17typedef.valgrind: 17typedef.c
-	valgrind neo-c -Sc -C -o 17typedef.c.o -c 17typedef.c $(CLAGS) 2> 17typedef.valgrind
+	valgrind neo-c -Sc -C -o 17typedef.c.o -c 17typedef.c $(CFLAGS) 2> 17typedef.valgrind
 
 18field.valgrind: 18field.c
 	valgrind neo-c -Sc -C -o 18field.c.o -c 18field.c $(CFLAGS) 2> 18field.valgrind
@@ -212,7 +212,8 @@ valgrind:  01main.valgrind  02transpile.valgrind  03output_code.valgrind  04heap
 	valgrind neo-c -Sc -C -o 24module.c.o -c 24module.c $(CFLAGS) 2> 24module.valgrind
 
 neo-c-Sch: 01main.c.o.tmp 02transpile.c.o.tmp 03output_code.c.o.tmp 04heap.c.o.tmp 05pre_op.c.o.tmp 05call.c.o.tmp 05function.c.o.tmp 05number.c.o.tmp 05type.c.o.tmp 05parse.c.o.tmp 06str.c.o.tmp 07var.c.o.tmp 07gvar.c.o.tmp 08if.c.o.tmp 09while.c.o.tmp 10do_while.c.o.tmp 11for.c.o.tmp 12switch.c.o.tmp 13op.c.o.tmp 14struct.c.o.tmp 15union.c.o.tmp 16enum.c.o.tmp 17typedef.c.o.tmp 18field.c.o.tmp 19eq.c.o.tmp 20method.c.o.tmp 21obj.c.o.tmp 22impl.c.o.tmp 23interface.c.o.tmp 24module.c.o.tmp 
-	$(CC) -o neo-c-Sch  01main.c.o.tmp 02transpile.c.o.tmp 03output_code.c.o.tmp 04heap.c.o.tmp 05call.c.o.tmp 05pre_op.c.o.tmp 05function.c.o.tmp 05number.c.o.tmp 05type.c.o.tmp 05parse.c.o.tmp 06str.c.o.tmp 07var.c.o.tmp 07gvar.c.o.tmp 08if.c.o.tmp 09while.c.o.tmp 10do_while.c.o.tmp 11for.c.o.tmp 12switch.c.o.tmp 13op.c.o.tmp 14struct.c.o.tmp 15union.c.o.tmp 16enum.c.o.tmp 17typedef.c.o.tmp 18field.c.o.tmp 19eq.c.o.tmp 20method.c.o.tmp 21obj.c.o.tmp 22impl.c.o.tmp 23interface.c.o.tmp 24module.c.o.tmp
+	$(CC) -o neo-c-Sch  01main.c.o.tmp 02transpile.c.o.tmp 03output_code.c.o.tmp 04heap.c.o.tmp 05call.c.o.tmp 05pre_op.c.o.tmp 05function.c.o.tmp 05number.c.o.tmp 05type.c.o.tmp 05parse.c.o.tmp 06str.c.o.tmp 07var.c.o.tmp 07gvar.c.o.tmp 08if.c.o.tmp 09while.c.o.tmp 10do_while.c.o.tmp 11for.c.o.tmp 12switch.c.o.tmp 13op.c.o.tmp 14struct.c.o.tmp 15union.c.o.tmp 16enum.c.o.tmp 17typedef.c.o.tmp 18field.c.o.tmp 19eq.c.o.tmp 20method.c.o.tmp 21obj.c.o.tmp 22impl.c.o.tmp 23interface.c.o.tmp 24module.c.o.tmp $(CFLAGS)
+
 	cp -p neo-c-Sch neo-c
 
 01main.c.o.tmp: 01main.c.c

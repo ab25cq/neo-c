@@ -19,8 +19,9 @@ libdir=${exec_prefix}/lib
 CC=clang
 NCC=@NCC@
 INSTALL=/usr/bin/install -c
-CFLAGS=-I$(HOME)/include -I.  -gdwarf-4 -O2 -I/opt/homebrew/opt/ncurses/include -L/opt/homebrew/opt/ncurses/lib -s -I/usr/local/opt/ncurses/include -L/usr/local/opt/ncurses/lib
-LIBS= -ldl -lm  -lreadline -lncursesw -lpthread
+CFLAGS=-I$(HOME)/include -I. -I/opt/homebrew/opt/ncurses/include -L/opt/homebrew/opt/ncurses/lib -I/usr/local/opt/ncurses/include -L/usr/local/opt/ncurses/lib -g -s -O2 #-O1 -fsanitize=address,undefined -fno-omit-frame-pointer 
+CFLAGS2=-I$(HOME)/include -I. -I/opt/homebrew/opt/ncurses/include -L/opt/homebrew/opt/ncurses/lib -I/usr/local/opt/ncurses/include -L/usr/local/opt/ncurses/lib -g -O1 -fsanitize=address,undefined -fno-omit-frame-pointer
+LIBS= -ldl -lm  -lncursesw 
 OS=
 DESTDIR=/usr/local
 
@@ -30,7 +31,7 @@ DESTDIR=/usr/local
 all: vin
 
 vin: main.c.o main.c 01init.c.o 01init.c 02base.c.o 02base.c 03insert_mode.c.o 03insert_mode.c 04word.c 04word.c.o 05undo.c 05undo.c.o 06file.c.o 07yank.c.o 08visual.c.o 09search.c.o 10edit.c.o 11move.c.o 12command.c.o 13completion.c.o 14dot.c.o 16mark.c.o 17hvisual.c.o 18vvisual.c.o 19rewrite_mode.c.o 20shell_mode.c.o 21binary_mode.c.o
-	neo-c -o vin main.c.o 01init.c.o 02base.c.o 03insert_mode.c.o 04word.c.o 05undo.c.o 06file.c.o 07yank.c.o 08visual.c.o 09search.c.o 10edit.c.o 11move.c.o 12command.c.o 13completion.c.o 14dot.c.o 16mark.c.o 17hvisual.c.o 18vvisual.c.o 19rewrite_mode.c.o 20shell_mode.c.o 21binary_mode.c.o -L/opt/local/lib -L/usr/local/lib $(CFLAGS) $(LIBS) -v
+	neo-c -o vin main.c.o 01init.c.o 02base.c.o 03insert_mode.c.o 04word.c.o 05undo.c.o 06file.c.o 07yank.c.o 08visual.c.o 09search.c.o 10edit.c.o 11move.c.o 12command.c.o 13completion.c.o 14dot.c.o 16mark.c.o 17hvisual.c.o 18vvisual.c.o 19rewrite_mode.c.o 20shell_mode.c.o 21binary_mode.c.o -L/opt/local/lib -L/usr/local/lib $(CFLAGS2) $(LIBS) -v
 
 main.c.o: main.c common.h
 	neo-c -c  main.c -Isrc $(CFLAGS) -I/usr/local/include -I. -s

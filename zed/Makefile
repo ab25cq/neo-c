@@ -18,7 +18,7 @@ libdir=${exec_prefix}/lib
 #########################################
 CC=neo-c
 INSTALL=install
-CFLAGS= -O2 -g -s
+CFLAGS= -g -s -O2 #-O1 -fsanitize=address,undefined -fno-omit-frame-pointer
 CFLAGS_DEBUG= -gdwarf-4 -cg 
 LIBS=
 OS=linux
