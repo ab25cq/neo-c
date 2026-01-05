@@ -599,7 +599,7 @@ class sMethodCallNode extends sNodeBase
             
             info.stack.push_back(come_value2);
             
-            delete info->method_generics_types;
+            //delete info->method_generics_types;
             info->method_generics_types = method_generics_types;
             
             info.calling_fun = null;
@@ -887,7 +887,7 @@ class sMethodCallNode extends sNodeBase
             
             info.stack.push_back(come_value2);
             
-            delete info->method_generics_types;
+            //delete info->method_generics_types;
             info->method_generics_types = method_generics_types;
             
             info.calling_fun = fun;

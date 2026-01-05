@@ -610,7 +610,8 @@ sNode*% parse_if_method_call(sNode*% expression_node, sInfo* info)
         else_block.mNodes.push_back(create_load_var("Value"));
     }
 
-    sNode*% result = new sIfMethodNode(it_node, new sIfNode(conditional_node, if_block, elif_expression_nodes, elif_blocks, elif_num, else_block, false@guard, info) implements sNode, info) implements sNode;
+    sNode*% if_node = new sIfNode(conditional_node, if_block, elif_expression_nodes, elif_blocks, elif_num, else_block, false@guard, info) implements sNode;
+    sNode*% result = new sIfMethodNode(it_node, if_node, info) implements sNode;
     
     return result;
 }
@@ -715,7 +716,8 @@ sNode*% parse_elif_method_call(sNode*% expression_node, sInfo* info)
         else_block.mNodes.push_back(create_load_var("Value"));
     }
 
-    sNode*% result = new sIfMethodNode(it_node, new sIfNode(conditional_node2, if_block, elif_expression_nodes, elif_blocks, elif_num, else_block, false@guard, info) implements sNode, info) implements sNode;
+    sNode*% if_node = new sIfNode(conditional_node2, if_block, elif_expression_nodes, elif_blocks, elif_num, else_block, false@guard, info) implements sNode;
+    sNode*% result = new sIfMethodNode(it_node, if_node, info) implements sNode;
     
     return result;
 }
@@ -820,7 +822,8 @@ sNode*% parse_less_method_call(sNode*% expression_node, sInfo* info)
         else_block.mNodes.push_back(create_load_var("Value"));
     }
 
-    sNode*% result = new sIfMethodNode(it_node, new sIfNode(conditional_node2, if_block, elif_expression_nodes, elif_blocks, elif_num, else_block, false@guard, info) implements sNode, info) implements sNode;
+    sNode*% if_node = new sIfNode(conditional_node2, if_block, elif_expression_nodes, elif_blocks, elif_num, else_block, false@guard, info) implements sNode;
+    sNode*% result = new sIfMethodNode(it_node, if_node, info) implements sNode;
     
     return result;
 }
