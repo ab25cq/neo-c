@@ -1,6 +1,6 @@
 #include "common.h"
 
-string,sGenericsFun* make_generics_function(sType*% type, string fun_name, sInfo* info, bool array_equal_pointer=true)
+string,sGenericsFun* make_generics_function(sType* type, string fun_name, sInfo* info, bool array_equal_pointer=true)
 {
     string none_generics_name = get_none_generics_name(type.mClass.mName);
     string fun_name2 = create_method_name(type, false@no_pointer_name, fun_name, info, array_equal_pointer);
@@ -189,7 +189,7 @@ bool compile_method_block(buffer* method_block, list<CVALUE*%>*% come_params, sF
     return true;
 }
 
-string, sFun*,sGenericsFun* get_method(char* fun_name, sType*% obj_type, sInfo* info) 
+string, sFun*,sGenericsFun* get_method(char* fun_name, sType* obj_type, sInfo* info) 
 {
     string generics_fun_name = null;
     sFun* fun = null;

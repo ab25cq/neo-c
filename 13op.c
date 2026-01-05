@@ -1,8 +1,8 @@
 #include "common.h"
 
-bool operator_overload_fun(sType*% type, char* fun_name, sNode*% left_node, sNode*% right_node, CVALUE*% left_value, CVALUE*% right_value, bool break_guard, sInfo* info)
+bool operator_overload_fun(sType* type, char* fun_name, sNode*% left_node, sNode*% right_node, CVALUE*% left_value, CVALUE*% right_value, bool break_guard, sInfo* info)
 {
-    sType*% generics_type;
+    sType* generics_type;
     if(type->mNoSolvedGenericsType) {
         generics_type = type->mNoSolvedGenericsType;
     }
@@ -10,7 +10,7 @@ bool operator_overload_fun(sType*% type, char* fun_name, sNode*% left_node, sNod
         generics_type = type;
     }
     
-    sType*% type2;
+    sType* type2;
     if(type->mNoSolvedGenericsType) {
         type2 = type.mNoSolvedGenericsType;
     }

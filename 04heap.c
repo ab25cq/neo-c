@@ -23,7 +23,7 @@ void std_move(sType* left_type, sType* right_type, CVALUE* right_value, sInfo* i
     right_value.c_value = increment_ref_count_object(right_value.type, right_value.c_value, info);
 }
 
-sType*% solve_generics(sType*% type, sType*% generics_type, sInfo* info)
+sType*% solve_generics(sType* type, sType* generics_type, sInfo* info)
 {
     sType*% result = clone type;
     
@@ -31,7 +31,7 @@ sType*% solve_generics(sType*% type, sType*% generics_type, sInfo* info)
         int pointer_num = type->mPointerNum;
         bool heap = type->mHeap;
         
-        sNode*% node = type->mTypeOfNode;
+        sNode*% node = clone type->mTypeOfNode;
         
         bool no_output_come_code = info.no_output_come_code;
         info.no_output_come_code = true;

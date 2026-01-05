@@ -1,6 +1,6 @@
 #include "common.h"
 
-bool operator_overload_fun2(sType*% type, char* fun_name, sNode*% left_node, sNode*% middle_node, sNode*% right_node, CVALUE* left_value, CVALUE* middle_value, CVALUE* right_value, sInfo* info)
+bool operator_overload_fun2(sType* type, char* fun_name, sNode*% left_node, sNode*% middle_node, sNode*% right_node, CVALUE* left_value, CVALUE* middle_value, CVALUE* right_value, sInfo* info)
 {
     sType*% generics_type;
     
@@ -681,30 +681,33 @@ class sLoadArrayNode extends sNodeBase
             
             come_value.c_value = xsprintf("%s", left_value_code);
             
-            sType*% result_type = clone left_type;
+            sType*% result_type;
             
-            if(result_type->mOriginalLoadVarType) {
-                result_type = result_type->mOriginalLoadVarType;
+            if(left_type->mOriginalLoadVarType) {
+                result_type = clone left_type->mOriginalLoadVarType;
             }
+            else {
+                result_type = clone left_type;
+             }
             
             come_value.type = result_type;
             
             if(come_value.type->mArrayNum.length() > 0) {
                 if(info.in_store_array) {
-                    come_value.type->mOriginalLoadVarType = clone come_value.type;
+                    come_value.type->mOriginalLoadVarType = clone result_type;
                     come_value.type->mArrayNum.delete(0, array_num.length());
                 }
                 else if(info.in_typeof) {
-                    come_value.type->mOriginalLoadVarType = clone come_value.type;
+                    come_value.type->mOriginalLoadVarType = clone result_type;
                 }
                 else if(info.in_refference) {
-                    come_value.type->mOriginalLoadVarType = clone come_value.type;
+                    come_value.type->mOriginalLoadVarType = clone result_type;
                     
                     /// no decay ///
                     come_value.type->mArrayPointerNum++;
                 }
                 else {
-                    come_value.type->mOriginalLoadVarType = clone come_value.type;
+                    come_value.type->mOriginalLoadVarType = clone result_type;
                     
                     /// decay ///
                     come_value.type->mArrayNum.delete(0, 1);
@@ -719,8 +722,10 @@ class sLoadArrayNode extends sNodeBase
             
             come_value.var = null;
             
+            sType*% type2_ = clone come_value.type;
+            sType*% type_ = solve_generics(type2_, info->generics_type, info);
 
-            come_value.type = solve_generics(come_value.type, info->generics_type, info);
+            come_value.type = type_;
             come_value.type.mHeap = false;
             
             info.stack.push_back(come_value);
@@ -731,151 +736,6 @@ class sLoadArrayNode extends sNodeBase
         return true;
     }
 };
-
-/*
-class sLoadArrayNode extends sNodeBase
-{
-    new(sNode* left, list<sNode*%>*% array_num, bool quote, bool break_guard, sInfo* info)
-    {
-        self.super();
-        
-        list<sNode*%>*% self.mArrayNum = clone array_num;
-        bool self.mBreakGuard = break_guard;
-    
-        sNode*% self.mLeft = clone left;
-        bool self.mQuote = quote;
-    }
-    
-    string kind()
-    {
-        return string("sLoadArrayNode");
-    }
-    
-    bool compile(sInfo* info)
-    {
-        sNode*% left = self.mLeft;
-        list<sNode*%>* array_num_nodes = self.mArrayNum;
-        
-        node_compile(left).elif {
-            return false;
-        }
-        
-        CVALUE*% left_value = get_value_from_stack(-1, info);
-        
-        sType*% left_type = clone left_value.type;
-        
-        list<CVALUE*%>*% array_num = new list<CVALUE*%>();
-        
-        foreach(it, array_num_nodes) {
-            node_compile(it).elif {
-                return false;
-            }
-            
-            CVALUE*% c_value = get_value_from_stack(-1, info);
-            
-            array_num.push_back(c_value);
-        }
-        
-        sType*% type = clone left_value.type;
-        
-        char* fun_name = "operator_load_element";
-        bool calling_fun;
-        if(self.mQuote) {
-            calling_fun = false;
-        }
-        else {
-            calling_fun = operator_overload_fun(type, fun_name, left, array_num_nodes[0], left_value, array_num[0], self.mBreakGuard, info);
-        }
-        
-        if(!calling_fun) {
-            CVALUE*% come_value = new CVALUE();
-            
-            buffer*% buf = new buffer();
-            
-            buf.append_str(left_value.c_value);
-            
-            foreach(it, array_num) {
-                buf.append_format("[%s]", it.c_value);
-            }
-            
-            string left_value_code = buf.to_string();
-            
-            come_value.c_value = xsprintf("%s", left_value_code);
-            
-            sType*% result_type = clone left_type;
-            
-            if(result_type->mOriginalLoadVarType) {
-                result_type = result_type->mOriginalLoadVarType;
-            }
-/*
-            come_value.type = clone result_type;
-            
-            if(come_value.type->mArrayNum.length() > 0) {
-                if(info.in_typeof) {
-                }
-                else if(info.in_refference) {
-                    come_value.type->mOriginalLoadVarType = clone come_value.type;
-                    
-                    /// no decay ///
-                    come_value.type->mArrayPointerNum++;
-                }
-                else {
-                    come_value.type->mOriginalLoadVarType = clone come_value.type;
-                    
-                    /// decay ///
-                    come_value.type->mArrayNum.delete(0, 1);
-                    come_value.type->mArrayPointerNum++;
-                }
-            }
-*/
-            if(result_type.mArrayNum.length() > 0) {
-                int n = result_type.mArrayNum.length() - array_num.length();
-                
-                if(n == 0) {
-                    result_type = clone left_type;
-                    if(left_type->mOriginalLoadVarType) {
-                        result_type = clone left_type->mOriginalLoadVarType;
-                    }
-                    result_type->mArrayNum.reset();
-                }
-                else if(n > 0) {
-                    for(int i=0; i<n; i++) {
-                        result_type.mArrayNum.delete(-1, -1);
-                    }
-                    result_type.mPointerNum++;
-                }
-                else if(n < 0) {
-                    result_type.mArrayNum.reset();
-                    result_type.mPointerNum += n;
-                    
-                    if(result_type.mPointerNum < 0) {
-                        result_type.mPointerNum = 0;
-                    }
-                }
-            }
-            else {
-                if(result_type->mPointerNum > 0) {
-                    result_type->mPointerNum -= array_num.length();
-                    
-                    if(result_type->mPointerNum < 0) {
-                        result_type->mPointerNum = 0;
-                    }
-                }
-            }
-            
-            come_value.var = null;
-            
-            come_value.type = solve_generics(clone come_value.type, info->generics_type, info);
-            
-            info.stack.push_back(come_value);
-            
-            add_come_last_code(info, "%s", come_value.c_value);
-        }
-    
-        return true;
-    }
-};
-*/
 
 class sLoadRangeArrayNode extends sNodeBase
 {

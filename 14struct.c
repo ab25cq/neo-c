@@ -120,7 +120,7 @@ void output_struct(sClass* klass, string pragma, sInfo* info)
     }
 }
 
-bool output_generics_struct(sType*% type, sType*% generics_type, sInfo* info)
+bool output_generics_struct(sType* type, sType* generics_type, sInfo* info)
 {
     string new_name = create_generics_name(type, info);
     

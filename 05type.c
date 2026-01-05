@@ -2877,7 +2877,8 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
             type->mOriginalTypePointerNum = pointer_num;
             type->mOriginalTypePointerHeap = heap;
             if(type->mTypedef || t) {
-                type.mTypedefOriginalType = clone type;
+                sType*% type_ = clone type;
+                type.mTypedefOriginalType = clone type_;
             }
             
             type->mConstant = type->mConstant || constant;

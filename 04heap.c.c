@@ -3046,7 +3046,7 @@ struct sType* solve_generics(struct sType* type, struct sType* generics_type, st
     if(type->mTypeOfNode) {
         pointer_num=type->mPointerNum;
         heap=type->mHeap;
-        node=(struct sNode*)come_increment_ref_count(type->mTypeOfNode);
+        node=(struct sNode*)come_increment_ref_count(sNode_clone(type->mTypeOfNode));
         no_output_come_code=info->no_output_come_code;
         info->no_output_come_code=1;
         info->in_typeof=1;
@@ -3054,8 +3054,6 @@ struct sType* solve_generics(struct sType* type, struct sType* generics_type, st
         if(!Value) {
             __result_obj__0 = (struct sType*)come_increment_ref_count(result);
             ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0):(void*)0);
-            come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-            come_call_finalizer(sType_finalize, generics_type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             come_call_finalizer(sType_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
             come_call_finalizer(sType_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
             return __result_obj__0;
@@ -3086,29 +3084,25 @@ struct sType* solve_generics(struct sType* type, struct sType* generics_type, st
     }
     if(generics_type==((void*)0)) {
         __result_obj__0 = (struct sType*)come_increment_ref_count(result);
-        come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        come_call_finalizer(sType_finalize, generics_type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_call_finalizer(sType_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         come_call_finalizer(sType_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
     if(list$1sType$ph_length(generics_type->mGenericsTypes)==0) {
         __result_obj__0 = (struct sType*)come_increment_ref_count(result);
-        come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        come_call_finalizer(sType_finalize, generics_type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_call_finalizer(sType_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         come_call_finalizer(sType_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
     klass=type->mClass;
     if(string_operator_equals(klass->mName,"lambda")) {
-        result_type=(struct sType*)come_increment_ref_count(solve_generics((struct sType*)come_increment_ref_count(type->mResultType),(struct sType*)come_increment_ref_count(generics_type),info));
+        result_type=(struct sType*)come_increment_ref_count(solve_generics(type->mResultType,generics_type,info));
         __dec_obj36=result->mResultType,
         result->mResultType=(struct sType*)come_increment_ref_count(result_type);
         come_call_finalizer(sType_finalize, __dec_obj36,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         list$1sType$ph_reset(result->mParamTypes);
         for(o2_saved=(struct list$1sType$ph*)come_increment_ref_count(type->mParamTypes),it=list$1sType$ph_begin(o2_saved);!list$1sType$ph_end(o2_saved);it=list$1sType$ph_next(o2_saved)){
-            new_param_type=(struct sType*)come_increment_ref_count(solve_generics((struct sType*)come_increment_ref_count(it),(struct sType*)come_increment_ref_count(generics_type),info));
+            new_param_type=(struct sType*)come_increment_ref_count(solve_generics(it,generics_type,info));
             list$1sType$ph_push_back(result->mParamTypes,(struct sType*)come_increment_ref_count(new_param_type));
             come_call_finalizer(sType_finalize, new_param_type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         }
@@ -3232,12 +3226,12 @@ struct sType* solve_generics(struct sType* type, struct sType* generics_type, st
     else {
         list$1sType$ph_reset(result->mGenericsTypes);
         for(o2_saved_28=(struct list$1sType$ph*)come_increment_ref_count(type->mGenericsTypes),it_29=list$1sType$ph_begin(o2_saved_28);!list$1sType$ph_end(o2_saved_28);it_29=list$1sType$ph_next(o2_saved_28)){
-            type_30=(struct sType*)come_increment_ref_count(solve_generics((struct sType*)come_increment_ref_count(it_29),(struct sType*)come_increment_ref_count(generics_type),info));
+            type_30=(struct sType*)come_increment_ref_count(solve_generics(it_29,generics_type,info));
             list$1sType$ph_push_back(result->mGenericsTypes,(struct sType*)come_increment_ref_count(type_30));
             come_call_finalizer(sType_finalize, type_30, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         }
         come_call_finalizer(list$1sType$ph$p_finalize, o2_saved_28, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        if(!output_generics_struct((struct sType*)come_increment_ref_count(result),(struct sType*)come_increment_ref_count(generics_type),info)) {
+        if(!output_generics_struct(result,generics_type,info)) {
             new_name=(char*)come_increment_ref_count(create_generics_name(type,info));
             printf("output generics is failed(%s)",new_name);
             exit(1);
@@ -3245,8 +3239,6 @@ struct sType* solve_generics(struct sType* type, struct sType* generics_type, st
         }
     }
     __result_obj__0 = (struct sType*)come_increment_ref_count(result);
-    come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-    come_call_finalizer(sType_finalize, generics_type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(sType_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     come_call_finalizer(sType_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
@@ -3280,8 +3272,7 @@ static struct sType* sType_clone(struct sType* self)
     struct sType* __dec_obj33;
     struct sNode* __dec_obj34;
     if(self==(void*)0) {
-        __result_obj__0 = (struct sType*)come_increment_ref_count((void*)0);
-        come_call_finalizer(sType_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+        __result_obj__0 = (void*)0;
         return __result_obj__0;
     }
     result=(struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "sType_clone", 3, "struct sType*"));
@@ -3518,9 +3509,8 @@ static struct sType* sType_clone(struct sType* self)
         result->mTypeOfNode=(struct sNode*)come_increment_ref_count(sNode_clone(self->mTypeOfNode));
         (__dec_obj34 ? __dec_obj34 = come_decrement_ref_count(__dec_obj34, ((struct sNode*)__dec_obj34)->finalize, ((struct sNode*)__dec_obj34)->_protocol_obj, 0,0, (void*)0) :0);
     }
-    __result_obj__0 = (struct sType*)come_increment_ref_count(result);
+    __result_obj__0 = result;
     come_call_finalizer(sType_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    come_call_finalizer(sType_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
 }
 
@@ -4775,7 +4765,7 @@ void decrement_ref_count_object(struct sType* type, char* obj, struct sInfo* inf
         char* fun_name="finalize";
         type2=(struct sType*)come_increment_ref_count(sType_clone(type));
         type2->mHeap=0;
-        fun_name2=(char*)come_increment_ref_count(create_method_name((struct sType*)come_increment_ref_count(type),0,fun_name,info,1));
+        fun_name2=(char*)come_increment_ref_count(create_method_name(type,0,fun_name,info,1));
         type_=(struct sType*)come_increment_ref_count(get_no_solved_type2(type));
         finalizer=((void*)0);
         if(list$1sType$ph_length(type_->mGenericsTypes)>0) {
@@ -5322,7 +5312,7 @@ void on_drop_object(struct sType* type, char* obj, struct sInfo* info)
         char* fun_name="on_drop";
         type2=(struct sType*)come_increment_ref_count(sType_clone(type_));
         type2->mHeap=0;
-        fun_name2=(char*)come_increment_ref_count(create_method_name((struct sType*)come_increment_ref_count(type_),0,fun_name,info,1));
+        fun_name2=(char*)come_increment_ref_count(create_method_name(type_,0,fun_name,info,1));
         dropper=((void*)0);
         if(list$1sType$ph_length(type_->mGenericsTypes)>0) {
             dropper=((struct sFun*)(__right_value0=map$2char$phsFun$ph_operator_load_element(info->funcs,fun_name2)));
@@ -5456,7 +5446,7 @@ void free_object(struct sType* type, char* obj, _Bool no_decrement, _Bool no_fre
         char* fun_name="finalize";
         type2=(struct sType*)come_increment_ref_count(sType_clone(type_));
         type2->mHeap=0;
-        fun_name2=(char*)come_increment_ref_count(create_method_name((struct sType*)come_increment_ref_count(type_),0,fun_name,info,1));
+        fun_name2=(char*)come_increment_ref_count(create_method_name(type_,0,fun_name,info,1));
         finalizer=((void*)0);
         if(list$1sType$ph_length(type_->mGenericsTypes)>0) {
             finalizer=((struct sFun*)(__right_value0=map$2char$phsFun$ph_operator_load_element(info->funcs,fun_name2)));
@@ -5766,9 +5756,9 @@ struct tuple2$2sType$phchar$ph* clone_object(struct sType* type, char* obj, stru
     cloner=((void*)0);
     if(list$1sType$ph_length(type_->mGenericsTypes)>0) {
         none_generics_name=(char*)come_increment_ref_count(get_none_generics_name(type_->mClass->mName));
-        obj_type=(struct sType*)come_increment_ref_count(solve_generics((struct sType*)come_increment_ref_count(type_),(struct sType*)come_increment_ref_count(info->generics_type),info));
+        obj_type=(struct sType*)come_increment_ref_count(solve_generics(type_,info->generics_type,info));
         __dec_obj68=fun_name2,
-        fun_name2=(char*)come_increment_ref_count(create_method_name((struct sType*)come_increment_ref_count(obj_type),0,fun_name,info,1));
+        fun_name2=(char*)come_increment_ref_count(create_method_name(obj_type,0,fun_name,info,1));
         __dec_obj68 = come_decrement_ref_count(__dec_obj68, (void*)0, (void*)0, 0,0, (void*)0);
         fun_name3=(char*)come_increment_ref_count(xsprintf("%s_%s",none_generics_name,fun_name));
         generics_fun=((struct sGenericsFun*)(__right_value0=map$2char$phsGenericsFun$ph_at(info->generics_funcs,fun_name3,((void*)0))));
@@ -5807,7 +5797,7 @@ struct tuple2$2sType$phchar$ph* clone_object(struct sType* type, char* obj, stru
     }
     else {
         __dec_obj71=fun_name2,
-        fun_name2=(char*)come_increment_ref_count(create_method_name((struct sType*)come_increment_ref_count(type_),0,fun_name,info,1));
+        fun_name2=(char*)come_increment_ref_count(create_method_name(type_,0,fun_name,info,1));
         __dec_obj71 = come_decrement_ref_count(__dec_obj71, (void*)0, (void*)0, 0,0, (void*)0);
         for(i=128-1;i>=1;i--){
             new_fun_name=(char*)come_increment_ref_count(xsprintf("%s_v%d",fun_name2,i));
@@ -5841,7 +5831,7 @@ struct tuple2$2sType$phchar$ph* clone_object(struct sType* type, char* obj, stru
         result_type=(struct sType*)come_increment_ref_count(cloner->mResultType);
         come_call_finalizer(sType_finalize, __dec_obj74,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         __dec_obj75=result_type,
-        result_type=(struct sType*)come_increment_ref_count(solve_generics((struct sType*)come_increment_ref_count(result_type),(struct sType*)come_increment_ref_count(type_),info));
+        result_type=(struct sType*)come_increment_ref_count(solve_generics(result_type,type_,info));
         come_call_finalizer(sType_finalize, __dec_obj75,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         __dec_obj76=result,
         result=(char*)come_increment_ref_count(xsprintf("%s(%s)",fun_name2,c_value));
@@ -6008,7 +5998,7 @@ void free_right_value_objects(struct sInfo* info)
                 type2=(struct sType*)come_increment_ref_count(sType_clone(type));
                 if(info->generics_type) {
                     __dec_obj84=type,
-                    type=(struct sType*)come_increment_ref_count(solve_generics((struct sType*)come_increment_ref_count(type2),(struct sType*)come_increment_ref_count(info->generics_type),info));
+                    type=(struct sType*)come_increment_ref_count(solve_generics(type2,info->generics_type,info));
                     come_call_finalizer(sType_finalize, __dec_obj84,(void*)0, (void*)0, 0, 0, 0, (void*)0);
                 }
                 free_object((struct sType*)come_increment_ref_count(sType_clone(type)),it_60->mVarName,!it_60->mDecrementRefCount,0,info,0);

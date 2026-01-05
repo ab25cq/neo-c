@@ -860,7 +860,7 @@ string append_stackframe(char* c_value, sType* type, sInfo* info);
 bool create_equals_method(sType*% type, sInfo* info);
 bool create_operator_equals_method(sType*% type, sInfo* info);
 bool create_operator_not_equals_method(sType*% type, sInfo* info);
-sType*% solve_generics(sType*% type, sType*% generics_type, sInfo* info);
+sType*% solve_generics(sType* type, sType* generics_type, sInfo* info);
 sVar* get_variable_from_table(sVarTable* table, char* name);
 void free_objects_on_return(sBlock* current_block, sInfo* info, sVar* ret_value, bool top_block);
 void free_objects_of_match_lv_tables(sInfo* info);
@@ -906,9 +906,9 @@ sNode*% create_int_node(string value, sInfo* info);
 list<sType*%>*%, list<string>*%, list<string>*%, bool parse_params(sInfo* info, bool in_constructor_=false);
 sFun*,string create_pthread_fun(sType*% type, char* fun_name, sInfo* info);
 sFun*,string create_finalizer_automatically(sType*% type, char* fun_name, sInfo* info);
-sFun*,string create_to_string_automatically(sType*% type, char* fun_name, sInfo* info);
+sFun*,string create_to_string_automatically(sType* type, char* fun_name, sInfo* info);
 sFun*,string create_cloner_automatically(sType*% type, char* fun_name, sInfo* info);
-sFun*,string create_equals_automatically(sType*% type, char* fun_name, sInfo* info);
+sFun*,string create_equals_automatically(sType* type, char* fun_name, sInfo* info);
 sFun*,string create_operator_equals_automatically(sType*% type, char* fun_name, sInfo* info);
 sFun*,string create_operator_not_equals_automatically(sType*% type, char* fun_name, sInfo* info);
 sFun*,string create_not_equals_automatically(sType*% type, char* fun_name, sInfo* info);
@@ -940,7 +940,7 @@ sNode*% expression_node(sInfo* info=info) version 97;
 
 int transpile(sInfo* info);
 void parse_sharp(sInfo* info=info) version 5;
-string create_method_name(sType*% obj_type, bool no_pointer_name, char* fun_name, sInfo* info, bool array_equal_pointer=true);
+string create_method_name(sType* obj_type, bool no_pointer_name, char* fun_name, sInfo* info, bool array_equal_pointer=true);
 string create_method_name_original_obj_type(sType* obj_type, bool no_pointer_name, char* fun_name, sInfo* info, bool array_equal_pointer=true);
 string create_non_method_name(sType* obj_type, bool no_pointer_name, char* fun_name, sInfo* info, bool array_equal_pointer=true);
 string create_method_name_using_class(sClass* obj_class, char* fun_name, sInfo* info);
@@ -1029,7 +1029,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
 sNode*% parse_struct(string type_name, string struct_attribute, sInfo* info);
 string get_none_generics_name(char* class_name);
 sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98;
-bool output_generics_struct(sType*% type, sType*% generics_type, sInfo* info);
+bool output_generics_struct(sType* type, sType* generics_type, sInfo* info);
 void output_struct(sClass* klass, string pragma, sInfo* info);
 
 /////////////////////////////////////////////////////////////////////
@@ -1071,7 +1071,7 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 19;
 /////////////////////////////////////////////////////////////////////
 /// 20method.c
 /////////////////////////////////////////////////////////////////////
-string, sFun*,sGenericsFun* get_method(char* fun_name, sType*% obj_type, sInfo* info);
+string, sFun*,sGenericsFun* get_method(char* fun_name, sType* obj_type, sInfo* info);
 sNode*% create_method_call(char* fun_name,sNode*% obj, list<tup: string,sNode*%>*% params, buffer* method_block, int method_block_sline, list<sType*%>* method_generics_types, sInfo* info);
 sNode*% create_guard_break_method_call(sNode*% expression_node, sInfo* info);
 bool compile_method_block(buffer* method_block, list<CVALUE*%>*% come_params, sFun* fun, char* fun_name, int method_block_sline, sInfo* info, bool no_create_current_stack=false) ;

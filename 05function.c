@@ -135,7 +135,7 @@ class sFunNode extends sNodeBase
         //info.come_fun_name = string(info.come_fun.mName);
         
         if(self.mFun.mBlock) {
-            if(!gComeC && info.come_fun.mName === "main") {
+            if(!gComeC && info.come_fun.mName === "main" && info.funcs["come_heap_init"]) {
                 add_come_code(info, "    come_heap_init(%d);\n", gComeDebug);
             }
             
@@ -146,7 +146,7 @@ class sFunNode extends sNodeBase
             
             info->block_level = block_level;
             
-            if(!gComeC && info.come_fun.mName === "main" && !info.inhibits_output_code2) {
+            if(!gComeC && info.come_fun.mName === "main" && !info.inhibits_output_code2 && info.funcs["come_heap_final"]) {
                 free_objects(info->gv_table, null@ret_value, info);
                 add_come_code(info, xsprintf("come_heap_final();\n"));
             }
@@ -2450,7 +2450,7 @@ sFun*,string create_finalizer_automatically(sType*% type, char* fun_name, sInfo*
 }
 
 
-sFun*,string create_equals_automatically(sType*% type, char* fun_name, sInfo* info)
+sFun*,string create_equals_automatically(sType* type, char* fun_name, sInfo* info)
 {
     string last_code = info.module.mLastCode;
     info.module.mLastCode = null;
@@ -3172,7 +3172,7 @@ sFun*,string create_cloner_automatically(sType*% type, char* fun_name, sInfo* in
     return (cloner, real_fun_name);
 }
 
-sFun*,string create_to_string_automatically(sType*% type, char* fun_name, sInfo* info)
+sFun*,string create_to_string_automatically(sType* type, char* fun_name, sInfo* info)
 {
     string last_code = info.module.mLastCode;
     info.module.mLastCode = null;

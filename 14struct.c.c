@@ -3859,8 +3859,6 @@ _Bool output_generics_struct(struct sType* type, struct sType* generics_type, st
             err_msg(info,"generics_class(%s) is null",type->mClass->mName);
             __result_obj__0 = 0;
             come_call_finalizer(sClass_finalize, generics_class, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-            come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-            come_call_finalizer(sType_finalize, generics_type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             (new_name = come_decrement_ref_count(new_name, (void*)0, (void*)0, 0, 0, (void*)0));
             return __result_obj__0;
         }
@@ -3872,7 +3870,7 @@ _Bool output_generics_struct(struct sType* type, struct sType* generics_type, st
             multiple_assign_var3=it;
             name=(char*)come_increment_ref_count(multiple_assign_var3->v1);
             type_21=(struct sType*)come_increment_ref_count(multiple_assign_var3->v2);
-            new_type=(struct sType*)come_increment_ref_count(solve_generics((struct sType*)come_increment_ref_count(type_21),(struct sType*)come_increment_ref_count(generics_type),info));
+            new_type=(struct sType*)come_increment_ref_count(solve_generics(type_21,generics_type,info));
             list$1tuple2$2char$phsType$ph$ph_push_back(new_class->mFields,(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_initialize((struct tuple2$2char$phsType$ph*)come_increment_ref_count((struct tuple2$2char$phsType$ph*)come_calloc_v2(1, sizeof(struct tuple2$2char$phsType$ph)*(1), "14struct.c", 145, "struct tuple2$2char$phsType$ph")),(char*)come_increment_ref_count((char*)come_memdup(name, "14struct.c", 145, "char*")),(struct sType*)come_increment_ref_count(sType_clone(new_type)))));
             (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0));
             come_call_finalizer(sType_finalize, type_21, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -3900,8 +3898,6 @@ _Bool output_generics_struct(struct sType* type, struct sType* generics_type, st
         list$1sType$ph_reset(type->mGenericsTypes);
     }
     __result_obj__0 = 1;
-    come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-    come_call_finalizer(sType_finalize, generics_type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (new_name = come_decrement_ref_count(new_name, (void*)0, (void*)0, 0, 0, (void*)0));
     return __result_obj__0;
 }

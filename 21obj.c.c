@@ -3204,7 +3204,7 @@ _Bool sNewNode_compile(struct sNewNode* self, struct sInfo* info)
         come_call_finalizer(CVALUE_finalize, cvalue, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     come_call_finalizer(list$1sNode$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-    type2=(struct sType*)come_increment_ref_count(solve_generics((struct sType*)come_increment_ref_count(type),(struct sType*)come_increment_ref_count(info->generics_type),info));
+    type2=(struct sType*)come_increment_ref_count(solve_generics(type,info->generics_type,info));
     list$1sNode$ph_reset(type2->mArrayNum);
     type_name=(char*)come_increment_ref_count(make_type_name_string(type2,info,1,1,0));
     type_name2=(char*)come_increment_ref_count(make_come_type_name_string(type2,info));
@@ -5031,12 +5031,12 @@ _conditional_value_X0;})) {
         name=(char*)come_increment_ref_count(multiple_assign_var3->v1);
         field_type=(struct sType*)come_increment_ref_count(multiple_assign_var3->v2);
         come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-        method_name=(char*)come_increment_ref_count(create_method_name((struct sType*)come_increment_ref_count(type),0,name,info,1));
+        method_name=(char*)come_increment_ref_count(create_method_name(type,0,name,info,1));
         fun=((struct sFun*)(__right_value0=map$2char$phsFun$ph_at(info->funcs,method_name,((void*)0))));
         if(fun==((void*)0)&&string_operator_equals(name,"to_string")) {
             type2_34=(struct sType*)come_increment_ref_count(sType_clone(type));
             type2_34->mPointerNum++;
-            multiple_assign_var4=((struct tuple2$2sFun$pchar$ph*)(__right_value0=create_to_string_automatically((struct sType*)come_increment_ref_count(type2_34),name,info)));
+            multiple_assign_var4=((struct tuple2$2sFun$pchar$ph*)(__right_value0=create_to_string_automatically(type2_34,name,info)));
             fun2=multiple_assign_var4->v1;
             real_fun_name=(char*)come_increment_ref_count(multiple_assign_var4->v2);
             come_call_finalizer(tuple2$2sFun$pchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
@@ -5050,7 +5050,7 @@ _conditional_value_X0;})) {
         if(fun==((void*)0)&&string_operator_equals(name,"equals")) {
             type2_35=(struct sType*)come_increment_ref_count(sType_clone(type));
             type2_35->mPointerNum++;
-            multiple_assign_var5=((struct tuple2$2sFun$pchar$ph*)(__right_value0=create_equals_automatically((struct sType*)come_increment_ref_count(type2_35),name,info)));
+            multiple_assign_var5=((struct tuple2$2sFun$pchar$ph*)(__right_value0=create_equals_automatically(type2_35,name,info)));
             fun2_36=multiple_assign_var5->v1;
             real_fun_name_37=(char*)come_increment_ref_count(multiple_assign_var5->v2);
             come_call_finalizer(tuple2$2sFun$pchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
@@ -5939,7 +5939,7 @@ _Bool sSizeOfNode_compile(struct sSizeOfNode* self, struct sInfo* info)
     _Bool __result_obj__0;
     type=(struct sType*)come_increment_ref_count(self->type);
     come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc_v2(1, sizeof(struct CVALUE)*(1), "21obj.c", 580, "struct CVALUE*"))));
-    type2=(struct sType*)come_increment_ref_count(solve_generics((struct sType*)come_increment_ref_count(type),(struct sType*)come_increment_ref_count(info->generics_type),info));
+    type2=(struct sType*)come_increment_ref_count(solve_generics(type,info->generics_type,info));
     type_name=(char*)come_increment_ref_count(make_type_name_string(type2,info,1,0,1));
     __dec_obj75=come_value->c_value,
     come_value->c_value=(char*)come_increment_ref_count(xsprintf("sizeof(%s)",type_name));
@@ -6016,7 +6016,7 @@ _Bool sOffsetOf_compile(struct sOffsetOf* self, struct sInfo* info)
     type=(struct sType*)come_increment_ref_count(self->type);
     name=(char*)come_increment_ref_count(self->name);
     come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc_v2(1, sizeof(struct CVALUE)*(1), "21obj.c", 619, "struct CVALUE*"))));
-    type2=(struct sType*)come_increment_ref_count(solve_generics((struct sType*)come_increment_ref_count(type),(struct sType*)come_increment_ref_count(info->generics_type),info));
+    type2=(struct sType*)come_increment_ref_count(solve_generics(type,info->generics_type,info));
     type_name=(char*)come_increment_ref_count(make_type_name_string(type2,info,1,0,0));
     __dec_obj79=come_value->c_value,
     come_value->c_value=(char*)come_increment_ref_count(xsprintf("__builtin_offsetof(%s, %s)",type_name,name));
@@ -6178,7 +6178,7 @@ _Bool sTypeOfNode_compile(struct sTypeOfNode* self, struct sInfo* info)
     _Bool __result_obj__0;
     type=(struct sType*)come_increment_ref_count(self->type);
     come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc_v2(1, sizeof(struct CVALUE)*(1), "21obj.c", 696, "struct CVALUE*"))));
-    type2=(struct sType*)come_increment_ref_count(solve_generics((struct sType*)come_increment_ref_count(type),(struct sType*)come_increment_ref_count(info->generics_type),info));
+    type2=(struct sType*)come_increment_ref_count(solve_generics(type,info->generics_type,info));
     type_name=(char*)come_increment_ref_count(make_type_name_string(type2,info,0,0,0));
     __dec_obj85=come_value->c_value,
     come_value->c_value=(char*)come_increment_ref_count(xsprintf("\"%s\"",type_name));
@@ -6262,7 +6262,7 @@ _Bool sTypeOfExpNode_compile(struct sTypeOfExpNode* self, struct sInfo* info)
     }
     come_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(sType_clone(come_value->type));
-    type2=(struct sType*)come_increment_ref_count(solve_generics((struct sType*)come_increment_ref_count(type),(struct sType*)come_increment_ref_count(info->generics_type),info));
+    type2=(struct sType*)come_increment_ref_count(solve_generics(type,info->generics_type,info));
     type_name=(char*)come_increment_ref_count(make_type_name_string(type2,info,0,0,0));
     __dec_obj88=come_value->c_value,
     come_value->c_value=(char*)come_increment_ref_count(xsprintf("\"%s\"",type_name));
@@ -6442,7 +6442,7 @@ _Bool sAlignOfNode_compile(struct sAlignOfNode* self, struct sInfo* info)
     _Bool __result_obj__0;
     type=(struct sType*)come_increment_ref_count(self->type);
     come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc_v2(1, sizeof(struct CVALUE)*(1), "21obj.c", 829, "struct CVALUE*"))));
-    type2=(struct sType*)come_increment_ref_count(solve_generics((struct sType*)come_increment_ref_count(type),(struct sType*)come_increment_ref_count(info->generics_type),info));
+    type2=(struct sType*)come_increment_ref_count(solve_generics(type,info->generics_type,info));
     type_name=(char*)come_increment_ref_count(make_type_name_string(type2,info,0,0,0));
     __dec_obj96=come_value->c_value,
     come_value->c_value=(char*)come_increment_ref_count(xsprintf("_Alignof(%s)",type_name));
@@ -6596,7 +6596,7 @@ _Bool sAlignOfNode2_compile(struct sAlignOfNode2* self, struct sInfo* info)
     _Bool __result_obj__0;
     type=(struct sType*)come_increment_ref_count(self->type);
     come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc_v2(1, sizeof(struct CVALUE)*(1), "21obj.c", 905, "struct CVALUE*"))));
-    type2=(struct sType*)come_increment_ref_count(solve_generics((struct sType*)come_increment_ref_count(type),(struct sType*)come_increment_ref_count(info->generics_type),info));
+    type2=(struct sType*)come_increment_ref_count(solve_generics(type,info->generics_type,info));
     type_name=(char*)come_increment_ref_count(make_type_name_string(type2,info,0,0,0));
     __dec_obj102=come_value->c_value,
     come_value->c_value=(char*)come_increment_ref_count(xsprintf("__alignof__(%s)",type_name));
@@ -6750,7 +6750,7 @@ _Bool sAlignAsNode_compile(struct sAlignAsNode* self, struct sInfo* info)
     _Bool __result_obj__0;
     type=(struct sType*)come_increment_ref_count(self->type);
     come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc_v2(1, sizeof(struct CVALUE)*(1), "21obj.c", 981, "struct CVALUE*"))));
-    type2=(struct sType*)come_increment_ref_count(solve_generics((struct sType*)come_increment_ref_count(type),(struct sType*)come_increment_ref_count(info->generics_type),info));
+    type2=(struct sType*)come_increment_ref_count(solve_generics(type,info->generics_type,info));
     type_name=(char*)come_increment_ref_count(make_type_name_string(type2,info,0,0,0));
     __dec_obj108=come_value->c_value,
     come_value->c_value=(char*)come_increment_ref_count(xsprintf("_Alignas(%s)",type_name));
@@ -8218,7 +8218,7 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
             err_msg(info,"parse_type failed");
             exit(2);
         }
-        type2=(struct sType*)come_increment_ref_count(solve_generics((struct sType*)come_increment_ref_count(param_type),(struct sType*)come_increment_ref_count(info->generics_type),info));
+        type2=(struct sType*)come_increment_ref_count(solve_generics(param_type,info->generics_type,info));
         (come_push_stackframe("21obj.c", 1608, 63),__exception_result_var_b64=expected_next_character(41,info), come_pop_stackframe(), __exception_result_var_b64);
         _inf_value18=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "21obj.c", 1610, "struct sNode");
         _inf_obj_value18=(struct sIsHeap*)come_increment_ref_count(((struct sIsHeap*)(__right_value1=sIsHeap_initialize((struct sIsHeap*)come_increment_ref_count((struct sIsHeap*)come_calloc_v2(1, sizeof(struct sIsHeap)*(1), "21obj.c", 1610, "struct sIsHeap*")),(struct sType*)come_increment_ref_count(type2),info))));
@@ -8256,7 +8256,7 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
             err_msg(info,"parse_type failed");
             exit(2);
         }
-        type2_69=(struct sType*)come_increment_ref_count(solve_generics((struct sType*)come_increment_ref_count(param_type_66),(struct sType*)come_increment_ref_count(info->generics_type),info));
+        type2_69=(struct sType*)come_increment_ref_count(solve_generics(param_type_66,info->generics_type,info));
         (come_push_stackframe("21obj.c", 1624, 66),__exception_result_var_b67=expected_next_character(41,info), come_pop_stackframe(), __exception_result_var_b67);
         _inf_value19=(struct sNode*)come_calloc_v2(1, sizeof(struct sNode), "21obj.c", 1626, "struct sNode");
         _inf_obj_value19=(struct sIsPointer*)come_increment_ref_count(((struct sIsPointer*)(__right_value1=sIsPointer_initialize((struct sIsPointer*)come_increment_ref_count((struct sIsPointer*)come_calloc_v2(1, sizeof(struct sIsPointer)*(1), "21obj.c", 1626, "struct sIsPointer*")),(struct sType*)come_increment_ref_count(type2_69),info))));

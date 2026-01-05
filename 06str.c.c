@@ -4800,7 +4800,7 @@ _Bool sListNode_compile(struct sListNode* self, struct sInfo* info)
     fun=((struct sFun*)(__right_value0=map$2char$phsFun$ph_at(info->funcs,generics_fun_name,((void*)0))));
     if(fun==((void*)0)) {
         __dec_obj66=generics_fun_name,
-        generics_fun_name=(char*)come_increment_ref_count(create_method_name((struct sType*)come_increment_ref_count(obj_type),0,((char*)(__right_value0=__builtin_string(fun_name))),info,1));
+        generics_fun_name=(char*)come_increment_ref_count(create_method_name(obj_type,0,((char*)(__right_value0=__builtin_string(fun_name))),info,1));
         __dec_obj66 = come_decrement_ref_count(__dec_obj66, (void*)0, (void*)0, 0,0, (void*)0);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         fun=((struct sFun*)(__right_value0=map$2char$phsFun$ph_at(info->funcs,generics_fun_name,((void*)0))));
@@ -4825,7 +4825,7 @@ _Bool sListNode_compile(struct sListNode* self, struct sInfo* info)
     obj_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc_v2(1, sizeof(struct CVALUE)*(1), "06str.c", 365, "struct CVALUE*"))));
     num_string=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "06str.c", 367, "struct buffer*"))));
     buffer_append_str(num_string,"1");
-    type2=(struct sType*)come_increment_ref_count(solve_generics((struct sType*)come_increment_ref_count(type),(struct sType*)come_increment_ref_count(type),info));
+    type2=(struct sType*)come_increment_ref_count(solve_generics(type,type,info));
     type_name=(char*)come_increment_ref_count(make_type_name_string(type2,info,0,1,0));
     any_type=(struct sType*)come_increment_ref_count(type2);
     any_type->mPointerNum=1;
@@ -5456,7 +5456,7 @@ _Bool sTupleNode_compile(struct sTupleNode* self, struct sInfo* info)
     obj_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc_v2(1, sizeof(struct CVALUE)*(1), "06str.c", 509, "struct CVALUE*"))));
     num_string=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "06str.c", 511, "struct buffer*"))));
     buffer_append_str(num_string,"1");
-    type2=(struct sType*)come_increment_ref_count(solve_generics((struct sType*)come_increment_ref_count(type_32),(struct sType*)come_increment_ref_count(type_32),info));
+    type2=(struct sType*)come_increment_ref_count(solve_generics(type_32,type_32,info));
     type_name=(char*)come_increment_ref_count(make_type_name_string(type2,info,0,1,0));
     any_type=(struct sType*)come_increment_ref_count(type2);
     any_type->mPointerNum=1;
@@ -5493,7 +5493,7 @@ _conditional_value_X0;})) {
     fun=((struct sFun*)(__right_value0=map$2char$phsFun$ph_at(info->funcs,generics_fun_name,((void*)0))));
     if(fun==((void*)0)) {
         __dec_obj85=generics_fun_name,
-        generics_fun_name=(char*)come_increment_ref_count(create_method_name((struct sType*)come_increment_ref_count(obj_type),0,((char*)(__right_value0=__builtin_string(fun_name))),info,1));
+        generics_fun_name=(char*)come_increment_ref_count(create_method_name(obj_type,0,((char*)(__right_value0=__builtin_string(fun_name))),info,1));
         __dec_obj85 = come_decrement_ref_count(__dec_obj85, (void*)0, (void*)0, 0,0, (void*)0);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         fun=((struct sFun*)(__right_value0=map$2char$phsFun$ph_at(info->funcs,generics_fun_name,((void*)0))));
@@ -5983,7 +5983,7 @@ _Bool sMapNode_compile(struct sMapNode* self, struct sInfo* info)
     fun=((struct sFun*)(__right_value0=map$2char$phsFun$ph_at(info->funcs,generics_fun_name,((void*)0))));
     if(fun==((void*)0)) {
         __dec_obj92=generics_fun_name,
-        generics_fun_name=(char*)come_increment_ref_count(create_method_name((struct sType*)come_increment_ref_count(obj_type),0,((char*)(__right_value0=__builtin_string(fun_name))),info,1));
+        generics_fun_name=(char*)come_increment_ref_count(create_method_name(obj_type,0,((char*)(__right_value0=__builtin_string(fun_name))),info,1));
         __dec_obj92 = come_decrement_ref_count(__dec_obj92, (void*)0, (void*)0, 0,0, (void*)0);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         fun=((struct sFun*)(__right_value0=map$2char$phsFun$ph_at(info->funcs,generics_fun_name,((void*)0))));
@@ -6012,7 +6012,7 @@ _Bool sMapNode_compile(struct sMapNode* self, struct sInfo* info)
     obj_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc_v2(1, sizeof(struct CVALUE)*(1), "06str.c", 772, "struct CVALUE*"))));
     num_string=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "06str.c", 774, "struct buffer*"))));
     buffer_append_str(num_string,"1");
-    type2=(struct sType*)come_increment_ref_count(solve_generics((struct sType*)come_increment_ref_count(type),(struct sType*)come_increment_ref_count(type),info));
+    type2=(struct sType*)come_increment_ref_count(solve_generics(type,type,info));
     type_name=(char*)come_increment_ref_count(make_type_name_string(type2,info,0,1,0));
     any_type=(struct sType*)come_increment_ref_count(type2);
     any_type->mPointerNum=1;

@@ -92,7 +92,7 @@ class sReturnNode extends sNodeBase
                     }
                 }
                 
-                if(!gComeC && info.come_fun.mName === "main") {
+                if(!gComeC && info.come_fun.mName === "main" && info.funcs["come_heap_final"]) {
                     free_objects(info->gv_table, null@ret_value, info);
                     add_come_code(info, xsprintf("come_heap_final();\n"));
                 }
@@ -2854,7 +2854,7 @@ string create_generics_name(sType* generics_type, sInfo* info)
     return buf.to_string();
 }
 
-string create_method_name(sType*% obj_type, bool no_pointer_name, char* fun_name, sInfo* info, bool array_equal_pointer=true)
+string create_method_name(sType* obj_type, bool no_pointer_name, char* fun_name, sInfo* info, bool array_equal_pointer=true)
 {
     string struct_name;
     buffer*% buf = new buffer();
