@@ -436,19 +436,23 @@ class sLoadFieldNode extends sNodeBase
         
         if(come_value.type->mArrayNum.length() > 0) {
             if(info.in_store_array) {
-                come_value.type->mOriginalLoadVarType = clone come_value.type;
+                sType*% original_load_var_type = clone come_value.type;
+                come_value.type->mOriginalLoadVarType = original_load_var_type;
             }
             else if(info.in_typeof) {
-                come_value.type->mOriginalLoadVarType = clone come_value.type;
+                sType*% original_load_var_type = clone come_value.type;
+                come_value.type->mOriginalLoadVarType = original_load_var_type;
             }
             else if(info.in_refference) {
-                come_value.type->mOriginalLoadVarType = clone come_value.type;
+                sType*% original_load_var_type = clone come_value.type;
+                come_value.type->mOriginalLoadVarType = original_load_var_type;
                 
                 /// no decay ///
                 come_value.type->mArrayPointerNum++;
             }
             else {
-                come_value.type->mOriginalLoadVarType = clone come_value.type;
+                sType*% original_load_var_type = clone come_value.type;
+                come_value.type->mOriginalLoadVarType = original_load_var_type;
                 
                 /// decay ///
                 come_value.type->mArrayNum.delete(0, 1);
@@ -810,7 +814,8 @@ class sLoadRangeArrayNode extends sNodeBase
             sType*% result_type = clone left_type;
             
             if(result_type->mOriginalLoadVarType) {
-                result_type = result_type->mOriginalLoadVarType;
+                sType*% original_load_var_type = clone result_type->mOriginalLoadVarType;
+                result_type = original_load_var_type;
             }
             
             if(result_type.mArrayNum.length() > 0) {

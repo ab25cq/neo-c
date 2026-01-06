@@ -58,7 +58,7 @@ bool is_contained_generics_class(sType* type, sInfo* info)
 {
     sType*% type2;
     if(type->mNoSolvedGenericsType) {
-        type2 = type->mNoSolvedGenericsType;
+        type2 = clone type->mNoSolvedGenericsType;
     }
     else {
         type2 = clone type;

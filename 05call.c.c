@@ -3054,6 +3054,7 @@ _Bool sReturnNode_compile(struct sReturnNode* self, struct sInfo* info)
     struct list$1sVar$ph* o2_saved_11;
     struct sVar* it_12;
     struct list$1sVar$ph* __dec_obj37;
+    memset(&result_type3, 0, sizeof(result_type3));
     if(self->value) {
         come_fun=info->come_fun;
         result_type=(struct sType*)come_increment_ref_count(sType_clone(come_fun->mResultType));
@@ -3061,7 +3062,6 @@ _Bool sReturnNode_compile(struct sReturnNode* self, struct sInfo* info)
         __dec_obj34=result_type2,
         result_type2=(struct sType*)come_increment_ref_count(solve_method_generics(result_type2,info));
         come_call_finalizer(sType_finalize, __dec_obj34,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-        result_type3=result_type2->mNoSolvedGenericsType;
         if(result_type2->mNoSolvedGenericsType) {
             result_type3=result_type2->mNoSolvedGenericsType;
         }

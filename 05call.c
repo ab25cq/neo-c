@@ -29,7 +29,7 @@ class sReturnNode extends sNodeBase
             sType*% result_type2 = solve_generics(result_type, info.generics_type, info);
             result_type2 = solve_method_generics(result_type2, info);
             
-            sType* result_type3 = result_type2->mNoSolvedGenericsType;
+            sType* result_type3;
             if(result_type2->mNoSolvedGenericsType) {
                 result_type3 = result_type2->mNoSolvedGenericsType;
             }
