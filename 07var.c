@@ -61,7 +61,7 @@ class sStoreNode extends sNodeBase
                 var_ = borrow get_variable_from_table(info.lv_table, var_name);
                 
                 if(var_ == null) {
-                    err_msg(info, "var not found(%s)(ZY) at definition of variable", it);
+                    err_msg2(info, "var not found(%s)(ZY) at definition of variable", it);
                     return true;
                 }
                 
@@ -419,7 +419,18 @@ class sStoreNode extends sNodeBase
                 var_ = borrow get_variable_from_table(info.gv_table, self.name);
                 
                 if(var_ == null) {
-                    err_msg(info, "var not found(%s)(X) at storing variable", self.name);
+                    err_msg2(info, "var not found(%s)(X) at storing variable", self.name);
+                    
+                    CVALUE*% come_value = new CVALUE();
+                    
+                    come_value.c_value = xsprintf("%s=%s", self.name, right_value.c_value);
+                    come_value.type = clone right_type;
+                    come_value.var = var_;
+                    
+                    info.stack.push_back(come_value);
+                    
+                    add_come_last_code(info, "%s", come_value.c_value);
+                    
                     return true;
                 }
             }
