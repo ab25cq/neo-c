@@ -951,7 +951,7 @@ module MEvalOptions<T, T2>
         }
         else if(argv[i] === "-cg") {
             come_debug = true;
-            clang_option.append_str("-g ");
+            clang_option.append_str(" -g ");
         }
         else if(argv[i] === "-cg2") {
             clang_option.append_str(" -fsanitize=address,undefined -g ");
@@ -1545,11 +1545,11 @@ module MEvalOptions<T, T2>
             clang_option.append_str(" -fno-fast-math ");
         }
         else if(argv[i] === "-g") {
-            clang_option.append_str("-g ");
+            clang_option.append_str(" -g ");
         }
         else if(argv[i] === "-v") {
-            clang_option.append_str("-v ");
-            cpp_option.append_str("-v ");
+            clang_option.append_str(" -v ");
+            cpp_option.append_str(" -v ");
             verbose = true;
         }
         else if(argv[i] === "-I" && i+1 < argc) {
@@ -1566,7 +1566,7 @@ module MEvalOptions<T, T2>
             clang_option.append_str(" " + argv[i] + " ");
         }
         else if(argv[i] === "-gdwarf-4") {
-            clang_option.append_str("-gdwarf-4 ");
+            clang_option.append_str(" -gdwarf-4 ");
         }
         else if(argv[i] === "-S") {
             output_source_file_flag = true;
