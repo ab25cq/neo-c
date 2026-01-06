@@ -257,7 +257,7 @@ class sNewNode extends sNodeBase
 
 class sImplementsNode extends sNodeBase
 {
-    new(sNode*% obj_exp, sType*% inf_type, sInfo* info)
+    new(sNode*% obj_exp, sType* inf_type, sInfo* info)
     {
         self.super();
         
@@ -2126,7 +2126,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 94
     return inherit(buf, head, head_sline, info);
 }
 
-sNode*% create_implements(sNode*% node, sType*% inf_type, sInfo* info=info)
+sNode*% create_implements(sNode*% node, sType* inf_type, sInfo* info=info)
 {
     return new sImplementsNode(node, inf_type, info) implements sNode;
 }

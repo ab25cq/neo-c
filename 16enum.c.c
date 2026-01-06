@@ -1990,14 +1990,6 @@ struct list$1tuple2$2char$phsNode$ph$ph
     struct list_item$1tuple2$2char$phsNode$ph$ph* it;
 };
 
-struct tuple4$4char$phchar$phchar$phchar$ph
-{
-    char* v1;
-    char* v2;
-    char* v3;
-    char* v4;
-};
-
 struct sNothingNode
 {
     int sline;
@@ -2907,7 +2899,6 @@ char* create_method_name(struct sType* obj_type, _Bool no_pointer_name, char* fu
 char* create_method_name_original_obj_type(struct sType* obj_type, _Bool no_pointer_name, char* fun_name, struct sInfo* info, _Bool array_equal_pointer);
 char* create_non_method_name(struct sType* obj_type, _Bool no_pointer_name, char* fun_name, struct sInfo* info, _Bool array_equal_pointer);
 char* create_method_name_using_class(struct sClass* obj_class, char* fun_name, struct sInfo* info);
-struct sNode* create_null_value(struct sType* type, struct sInfo* info);
 struct sNode* create_null_return_value(struct sInfo* info);
 struct sNode* create_some(struct sNode* exp, struct sInfo* info);
 struct sNode* expression_node_v96(struct sInfo* info);
@@ -2977,13 +2968,11 @@ struct tuple2$2char$phsGenericsFun$p* make_generics_function(struct sType* type,
 struct sNode* parse_method_call_v20(struct sNode* obj, char* fun_name, struct sInfo* info);
 struct sNode* string_node_v20(char* buf, char* head, int head_sline, struct sInfo* info);
 struct sNode* create_implements(struct sNode* node, struct sType* inf_type, struct sInfo* info);
-struct sNode* create_object(struct sType* type, struct sInfo* info);
 struct sNode* create_true_object(struct sInfo* info);
 struct sNode* create_false_object(struct sInfo* info);
 struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInfo* info);
 struct sNode* top_level_v94(char* buf, char* head, int head_sline, struct sInfo* info);
 struct sNode* post_position_operator_v21(struct sNode* node, struct sInfo* info);
-struct tuple4$4char$phchar$phchar$phchar$ph* create_vtable(struct sType* any_type, struct sInfo* info);
 struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo* info);
 struct sNode* top_level_v92(char* buf, char* head, int head_sline, struct sInfo* info);
 struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo* info);
@@ -3151,14 +3140,12 @@ _Bool sEnumNode_compile(struct sEnumNode* self, struct sInfo* info)
     void* __right_value2 = (void*)0;
     struct sType* __exception_result_var_b1;
     struct sType* __exception_result_var_b2;
-    struct sType* __exception_result_var_b3;
     _Bool Value;
     _Bool __result_obj__0;
     struct CVALUE* right_value;
     char* c_value_5;
+    struct sType* __exception_result_var_b3;
     struct sType* __exception_result_var_b4;
-    struct sType* __exception_result_var_b5;
-    struct sType* __exception_result_var_b6;
     char* __dec_obj13;
     _Bool _conditional_value_X0;
     char* __dec_obj14;
@@ -3209,7 +3196,8 @@ _Bool sEnumNode_compile(struct sEnumNode* self, struct sInfo* info)
                 c_value=(char*)come_increment_ref_count(xsprintf("(%d)",n));
                 __dec_obj12 = come_decrement_ref_count(__dec_obj12, (void*)0, (void*)0, 0,0, (void*)0);
             }
-            add_variable_to_global_table_with_int_value(name,(struct sType*)come_increment_ref_count((come_push_stackframe("16enum.c", 75, 2),__exception_result_var_b3=(come_push_stackframe("16enum.c", 75, 0),__exception_result_var_b1=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "16enum.c", 75, "struct sType*")),(char*)come_increment_ref_count(xsprintf("int")),0,info,0), come_pop_stackframe(), __exception_result_var_b1), come_pop_stackframe(), __exception_result_var_b3)),c_value,info);
+            add_variable_to_global_table_with_int_value(name,(come_push_stackframe("16enum.c", 75, 1),__exception_result_var_b2=((struct sType*)(__right_value2=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "16enum.c", 75, "struct sType*")),(char*)come_increment_ref_count(xsprintf("int")),0,info,0))), come_pop_stackframe(), __exception_result_var_b2),c_value,info);
+            come_call_finalizer(sType_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0);
             (c_value = come_decrement_ref_count(c_value, (void*)0, (void*)0, 0, 0, (void*)0));
         }
         else {
@@ -3229,7 +3217,8 @@ _Bool sEnumNode_compile(struct sEnumNode* self, struct sInfo* info)
             }
             right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
             c_value_5=(char*)come_increment_ref_count(xsprintf("(%s)",right_value->c_value));
-            add_variable_to_global_table_with_int_value(name,(struct sType*)come_increment_ref_count((come_push_stackframe("16enum.c", 86, 5),__exception_result_var_b6=(come_push_stackframe("16enum.c", 86, 3),__exception_result_var_b4=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "16enum.c", 86, "struct sType*")),(char*)come_increment_ref_count(xsprintf("int")),0,info,0), come_pop_stackframe(), __exception_result_var_b4), come_pop_stackframe(), __exception_result_var_b6)),c_value_5,info);
+            add_variable_to_global_table_with_int_value(name,(come_push_stackframe("16enum.c", 86, 3),__exception_result_var_b4=((struct sType*)(__right_value2=sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "16enum.c", 86, "struct sType*")),(char*)come_increment_ref_count(xsprintf("int")),0,info,0))), come_pop_stackframe(), __exception_result_var_b4),c_value_5,info);
+            come_call_finalizer(sType_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0);
             buffer_append_format(buf,"%s=(%s)",name,right_value->c_value);
             if(i!=list$1tuple3$3char$phsNode$phchar$ph$ph_length(elements)-1) {
                 buffer_append_str(buf,",");
@@ -4360,14 +4349,14 @@ struct sNode* parse_enum(char* type_name, char* attribute, struct sInfo* info)
     struct sClass* __dec_obj18;
     struct sClass* __dec_obj19;
     struct sType* type_elements;
-    struct tuple3$3sType$phchar$ph_Bool$* __exception_result_var_b7;
-    struct tuple3$3sType$phchar$ph_Bool$* __exception_result_var_b8;
+    struct tuple3$3sType$phchar$ph_Bool$* __exception_result_var_b5;
+    struct tuple3$3sType$phchar$ph_Bool$* __exception_result_var_b6;
     struct tuple3$3sType$phchar$ph_Bool$* multiple_assign_var2
 ;    struct sType* type=0;
     char* name=0;
     _Bool err=0;
     struct sType* __dec_obj20;
-    int __exception_result_var_b9;
+    int __exception_result_var_b7;
     struct list$1tuple3$3char$phsNode$phchar$ph$ph* elements;
     char* element_name;
     char* attribute_22;
@@ -4399,7 +4388,7 @@ _conditional_value_X0;})) {
     if(*info->p==58) {
         info->p++;
         skip_spaces_and_lf(info);
-        multiple_assign_var2=(come_push_stackframe("16enum.c", 137, 7),__exception_result_var_b8=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=parse_type(info,0,1,0))), come_pop_stackframe(), __exception_result_var_b8);
+        multiple_assign_var2=(come_push_stackframe("16enum.c", 137, 5),__exception_result_var_b6=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=parse_type(info,0,1,0))), come_pop_stackframe(), __exception_result_var_b6);
         type=(struct sType*)come_increment_ref_count(multiple_assign_var2->v1);
         name=(char*)come_increment_ref_count(multiple_assign_var2->v2);
         err=multiple_assign_var2->v3;
@@ -4410,7 +4399,7 @@ _conditional_value_X0;})) {
         come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    (come_push_stackframe("16enum.c", 142, 8),__exception_result_var_b9=expected_next_character(123,info), come_pop_stackframe(), __exception_result_var_b9);
+    (come_push_stackframe("16enum.c", 142, 6),__exception_result_var_b7=expected_next_character(123,info), come_pop_stackframe(), __exception_result_var_b7);
     ((char*)(__right_value0=parse_struct_attribute(info)));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     elements=(struct list$1tuple3$3char$phsNode$phchar$ph$ph*)come_increment_ref_count(list$1tuple3$3char$phsNode$phchar$ph$ph_initialize((struct list$1tuple3$3char$phsNode$phchar$ph$ph*)come_increment_ref_count((struct list$1tuple3$3char$phsNode$phchar$ph$ph*)come_calloc_v2(1, sizeof(struct list$1tuple3$3char$phsNode$phchar$ph$ph)*(1), "16enum.c", 146, "struct list$1tuple3$3char$phsNode$phchar$ph$ph*"))));
@@ -5592,8 +5581,8 @@ struct sNode* top_level_v96(char* buf, char* head, int head_sline, struct sInfo*
     struct sType* type_elements;
     void* __right_value0 = (void*)0;
     char* attribute;
-    struct tuple3$3sType$phchar$ph_Bool$* __exception_result_var_b10;
-    struct tuple3$3sType$phchar$ph_Bool$* __exception_result_var_b11;
+    struct tuple3$3sType$phchar$ph_Bool$* __exception_result_var_b8;
+    struct tuple3$3sType$phchar$ph_Bool$* __exception_result_var_b9;
     struct tuple3$3sType$phchar$ph_Bool$* multiple_assign_var3
 ;    struct sType* type=0;
     char* name=0;
@@ -5604,14 +5593,14 @@ struct sNode* top_level_v96(char* buf, char* head, int head_sline, struct sInfo*
     void* __right_value1 = (void*)0;
     void* __right_value2 = (void*)0;
     void* __right_value3 = (void*)0;
-    struct tuple3$3sType$phchar$ph_Bool$* __exception_result_var_b12;
-    struct tuple3$3sType$phchar$ph_Bool$* __exception_result_var_b13;
+    struct tuple3$3sType$phchar$ph_Bool$* __exception_result_var_b10;
+    struct tuple3$3sType$phchar$ph_Bool$* __exception_result_var_b11;
     struct tuple3$3sType$phchar$ph_Bool$* multiple_assign_var4
 ;    struct sType* type_33=0;
     char* name_34=0;
     _Bool err_35=0;
     struct sType* __dec_obj66;
-    int __exception_result_var_b14;
+    int __exception_result_var_b12;
     struct list$1tuple3$3char$phsNode$phchar$ph$ph* elements;
     char* element_name;
     char* attribute_36;
@@ -5630,7 +5619,7 @@ struct sNode* top_level_v96(char* buf, char* head, int head_sline, struct sInfo*
         if(*info->p==58) {
             info->p++;
             skip_spaces_and_lf(info);
-            multiple_assign_var3=(come_push_stackframe("16enum.c", 208, 10),__exception_result_var_b11=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=parse_type(info,0,1,0))), come_pop_stackframe(), __exception_result_var_b11);
+            multiple_assign_var3=(come_push_stackframe("16enum.c", 208, 8),__exception_result_var_b9=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=parse_type(info,0,1,0))), come_pop_stackframe(), __exception_result_var_b9);
             type=(struct sType*)come_increment_ref_count(multiple_assign_var3->v1);
             name=(char*)come_increment_ref_count(multiple_assign_var3->v2);
             err=multiple_assign_var3->v3;
@@ -5661,7 +5650,7 @@ struct sNode* top_level_v96(char* buf, char* head, int head_sline, struct sInfo*
             if(*info->p==58) {
                 info->p++;
                 skip_spaces_and_lf(info);
-                multiple_assign_var4=(come_push_stackframe("16enum.c", 228, 12),__exception_result_var_b13=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=parse_type(info,0,1,0))), come_pop_stackframe(), __exception_result_var_b13);
+                multiple_assign_var4=(come_push_stackframe("16enum.c", 228, 10),__exception_result_var_b11=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=parse_type(info,0,1,0))), come_pop_stackframe(), __exception_result_var_b11);
                 type_33=(struct sType*)come_increment_ref_count(multiple_assign_var4->v1);
                 name_34=(char*)come_increment_ref_count(multiple_assign_var4->v2);
                 err_35=multiple_assign_var4->v3;
@@ -5675,7 +5664,7 @@ struct sNode* top_level_v96(char* buf, char* head, int head_sline, struct sInfo*
         }
         ((char*)(__right_value0=parse_struct_attribute(info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        (come_push_stackframe("16enum.c", 235, 13),__exception_result_var_b14=expected_next_character(123,info), come_pop_stackframe(), __exception_result_var_b14);
+        (come_push_stackframe("16enum.c", 235, 11),__exception_result_var_b12=expected_next_character(123,info), come_pop_stackframe(), __exception_result_var_b12);
         ((char*)(__right_value0=parse_struct_attribute(info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         elements=(struct list$1tuple3$3char$phsNode$phchar$ph$ph*)come_increment_ref_count(list$1tuple3$3char$phsNode$phchar$ph$ph_initialize((struct list$1tuple3$3char$phsNode$phchar$ph$ph*)come_increment_ref_count((struct list$1tuple3$3char$phsNode$phchar$ph$ph*)come_calloc_v2(1, sizeof(struct list$1tuple3$3char$phsNode$phchar$ph$ph)*(1), "16enum.c", 238, "struct list$1tuple3$3char$phsNode$phchar$ph$ph*"))));

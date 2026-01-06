@@ -1992,14 +1992,6 @@ struct list$1tuple2$2char$phsNode$ph$ph
     struct list_item$1tuple2$2char$phsNode$ph$ph* it;
 };
 
-struct tuple4$4char$phchar$phchar$phchar$ph
-{
-    char* v1;
-    char* v2;
-    char* v3;
-    char* v4;
-};
-
 struct sNothingNode
 {
     int sline;
@@ -3020,7 +3012,6 @@ struct sNode* expression_node_v99(struct sInfo* info);
 struct sNode* expression_node_v97(struct sInfo* info);
 int transpile(struct sInfo* info);
 void parse_sharp_v5(struct sInfo* info);
-struct sNode* create_null_value(struct sType* type, struct sInfo* info);
 struct sNode* create_null_return_value(struct sInfo* info);
 struct sNode* create_some(struct sNode* exp, struct sInfo* info);
 struct sNode* expression_node_v96(struct sInfo* info);
@@ -3092,13 +3083,11 @@ struct tuple2$2char$phsGenericsFun$p* make_generics_function(struct sType* type,
 struct sNode* parse_method_call_v20(struct sNode* obj, char* fun_name, struct sInfo* info);
 struct sNode* string_node_v20(char* buf, char* head, int head_sline, struct sInfo* info);
 struct sNode* create_implements(struct sNode* node, struct sType* inf_type, struct sInfo* info);
-struct sNode* create_object(struct sType* type, struct sInfo* info);
 struct sNode* create_true_object(struct sInfo* info);
 struct sNode* create_false_object(struct sInfo* info);
 struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInfo* info);
 struct sNode* top_level_v94(char* buf, char* head, int head_sline, struct sInfo* info);
 struct sNode* post_position_operator_v21(struct sNode* node, struct sInfo* info);
-struct tuple4$4char$phchar$phchar$phchar$ph* create_vtable(struct sType* any_type, struct sInfo* info);
 struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo* info);
 struct sNode* top_level_v92(char* buf, char* head, int head_sline, struct sInfo* info);
 struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo* info);
@@ -6029,7 +6018,7 @@ _conditional_value_X1;})) {
     if(list$1sType$ph_length(self->method_generics_types)>0||method_generics) {
         if(list$1sType$ph_length(self->method_generics_types)==0) {
             method_generics_types=(struct list$1sType$ph*)come_increment_ref_count(list$1sType$ph_initialize((struct list$1sType$ph*)come_increment_ref_count((struct list$1sType$ph*)come_calloc_v2(1, sizeof(struct list$1sType$ph)*(1), "05call.c", 566, "struct list$1sType$ph*"))));
-            multiple_assign_var2=((struct tuple2$2char$phsGenericsFun$p*)(__right_value0=make_method_generics_function((char*)come_increment_ref_count(fun_name),(struct list$1sType$ph*)come_increment_ref_count(method_generics_types),info)));
+            multiple_assign_var2=((struct tuple2$2char$phsGenericsFun$p*)(__right_value0=make_method_generics_function((char*)come_increment_ref_count(fun_name),method_generics_types,info)));
             name=(char*)come_increment_ref_count(multiple_assign_var2->v1);
             gfun=multiple_assign_var2->v2;
             come_call_finalizer(tuple2$2char$phsGenericsFun$p$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
@@ -6040,7 +6029,7 @@ _conditional_value_X1;})) {
                 fun_30=((struct sFun*)(__right_value0=map$2char$phsFun$ph_at(info->funcs,generics_fun_name,((void*)0))));
                 no_output_come_code=info->no_output_come_code;
                 info->no_output_come_code=1;
-                if(!compile_method_block(method_block,(struct list$1CVALUE$ph*)come_increment_ref_count(come_params_29),fun_30,fun_name,method_block_sline,info,1)) {
+                if(!compile_method_block(method_block,come_params_29,fun_30,fun_name,method_block_sline,info,1)) {
                     __result_obj__0 = 0;
                     come_call_finalizer(list$1CVALUE$ph$p_finalize, come_params_29, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                     come_call_finalizer(list$1sType$ph$p_finalize, method_generics_types, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -6128,7 +6117,7 @@ _conditional_value_X1;})) {
             come_call_finalizer(list$1sType$ph$p_finalize, o2_saved_55, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             map$2char$phsFun$ph_remove(info->funcs,(char*)come_increment_ref_count(generics_fun_name));
             (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0));
-            multiple_assign_var4=((struct tuple2$2char$phsGenericsFun$p*)(__right_value0=make_method_generics_function((char*)come_increment_ref_count(fun_name),(struct list$1sType$ph*)come_increment_ref_count(method_generics_types),info)));
+            multiple_assign_var4=((struct tuple2$2char$phsGenericsFun$p*)(__right_value0=make_method_generics_function((char*)come_increment_ref_count(fun_name),method_generics_types,info)));
             name_64=(char*)come_increment_ref_count(multiple_assign_var4->v1);
             gfun_65=multiple_assign_var4->v2;
             come_call_finalizer(tuple2$2char$phsGenericsFun$p$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
@@ -6142,7 +6131,7 @@ _conditional_value_X1;})) {
             (name_64 = come_decrement_ref_count(name_64, (void*)0, (void*)0, 0, 0, (void*)0));
         }
         else {
-            multiple_assign_var5=((struct tuple2$2char$phsGenericsFun$p*)(__right_value0=make_method_generics_function((char*)come_increment_ref_count(fun_name),(struct list$1sType$ph*)come_increment_ref_count(self->method_generics_types),info)));
+            multiple_assign_var5=((struct tuple2$2char$phsGenericsFun$p*)(__right_value0=make_method_generics_function((char*)come_increment_ref_count(fun_name),self->method_generics_types,info)));
             name_66=(char*)come_increment_ref_count(multiple_assign_var5->v1);
             gfun_67=multiple_assign_var5->v2;
             come_call_finalizer(tuple2$2char$phsGenericsFun$p$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);

@@ -1990,14 +1990,6 @@ struct list$1tuple2$2char$phsNode$ph$ph
     struct list_item$1tuple2$2char$phsNode$ph$ph* it;
 };
 
-struct tuple4$4char$phchar$phchar$phchar$ph
-{
-    char* v1;
-    char* v2;
-    char* v3;
-    char* v4;
-};
-
 struct sNothingNode
 {
     int sline;
@@ -2950,7 +2942,6 @@ char* create_method_name(struct sType* obj_type, _Bool no_pointer_name, char* fu
 char* create_method_name_original_obj_type(struct sType* obj_type, _Bool no_pointer_name, char* fun_name, struct sInfo* info, _Bool array_equal_pointer);
 char* create_non_method_name(struct sType* obj_type, _Bool no_pointer_name, char* fun_name, struct sInfo* info, _Bool array_equal_pointer);
 char* create_method_name_using_class(struct sClass* obj_class, char* fun_name, struct sInfo* info);
-struct sNode* create_null_value(struct sType* type, struct sInfo* info);
 struct sNode* create_null_return_value(struct sInfo* info);
 struct sNode* create_some(struct sNode* exp, struct sInfo* info);
 struct sNode* parse_some(struct sInfo* info);
@@ -3021,13 +3012,11 @@ struct tuple2$2char$phsGenericsFun$p* make_generics_function(struct sType* type,
 struct sNode* parse_method_call_v20(struct sNode* obj, char* fun_name, struct sInfo* info);
 struct sNode* string_node_v20(char* buf, char* head, int head_sline, struct sInfo* info);
 struct sNode* create_implements(struct sNode* node, struct sType* inf_type, struct sInfo* info);
-struct sNode* create_object(struct sType* type, struct sInfo* info);
 struct sNode* create_true_object(struct sInfo* info);
 struct sNode* create_false_object(struct sInfo* info);
 struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInfo* info);
 struct sNode* top_level_v94(char* buf, char* head, int head_sline, struct sInfo* info);
 struct sNode* post_position_operator_v21(struct sNode* node, struct sInfo* info);
-struct tuple4$4char$phchar$phchar$phchar$ph* create_vtable(struct sType* any_type, struct sInfo* info);
 struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo* info);
 struct sNode* top_level_v92(char* buf, char* head, int head_sline, struct sInfo* info);
 struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo* info);
@@ -4554,7 +4543,7 @@ _Bool sSStringNode_compile(struct sSStringNode* self, struct sInfo* info)
             obj=(struct sNode*)come_increment_ref_count(sNode_clone(it));
             params=(struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(list$1tuple2$2char$phsNode$ph$ph_initialize((struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count((struct list$1tuple2$2char$phsNode$ph$ph*)come_calloc_v2(1, sizeof(struct list$1tuple2$2char$phsNode$ph$ph)*(1), "06str.c", 118, "struct list$1tuple2$2char$phsNode$ph$ph*"))));
             list$1tuple2$2char$phsNode$ph$ph_add(params,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc_v2(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "06str.c", 119, "struct tuple2$2char$phsNode$ph")),(char*)come_increment_ref_count(xsprintf("self")),(struct sNode*)come_increment_ref_count(sNode_clone(it)))));
-            node=(struct sNode*)come_increment_ref_count(create_method_call("to_string",(struct sNode*)come_increment_ref_count(obj),(struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(params),((void*)0),0,((void*)0),info));
+            node=(struct sNode*)come_increment_ref_count(create_method_call("to_string",(struct sNode*)come_increment_ref_count(obj),params,((void*)0),0,((void*)0),info));
             Value=node_compile(node,info);
             if(!Value) {
                 __result_obj__0 = 0;
@@ -5100,7 +5089,8 @@ _Bool sListNode_compile(struct sListNode* self, struct sInfo* info)
     type_values->mHeap=0;
     static int list_value_num=0;
     var_name=(char*)come_increment_ref_count(xsprintf("__list_values%d__",++list_value_num));
-    add_variable_to_table(var_name,(struct sType*)come_increment_ref_count(sType_clone(type_values)),info,0,0);
+    add_variable_to_table(var_name,((struct sType*)(__right_value0=sType_clone(type_values))),info,0,0);
+    come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
     var_=get_variable_from_table(info->lv_table,var_name);
     add_come_code_at_function_head(info,"%s;\n",((char*)(__right_value0=make_define_var(type_values,var_->mCValueName,info,0,0))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -6270,7 +6260,8 @@ _Bool sMapNode_compile(struct sMapNode* self, struct sInfo* info)
     list$1sNode$ph_push_back(key_type_values->mArrayNum,(struct sNode*)come_increment_ref_count(create_int_node((char*)come_increment_ref_count(int_to_string(list$1CVALUE$ph_length(key_params))),info)));
     key_type_values->mHeap=0;
     var_name=(char*)come_increment_ref_count(xsprintf("__map_keys%d__",++map_value_num));
-    add_variable_to_table(var_name,(struct sType*)come_increment_ref_count(sType_clone(key_type_values)),info,0,0);
+    add_variable_to_table(var_name,((struct sType*)(__right_value0=sType_clone(key_type_values))),info,0,0);
+    come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
     var_=get_variable_from_table(info->lv_table,var_name);
     add_come_code_at_function_head(info,"%s;\n",((char*)(__right_value0=make_define_var(key_type_values,var_->mCValueName,info,0,0))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -6278,7 +6269,8 @@ _Bool sMapNode_compile(struct sMapNode* self, struct sInfo* info)
     list$1sNode$ph_push_back(element_type_values->mArrayNum,(struct sNode*)come_increment_ref_count(create_int_node((char*)come_increment_ref_count(int_to_string(list$1CVALUE$ph_length(element_params))),info)));
     element_type_values->mHeap=0;
     var_name2=(char*)come_increment_ref_count(xsprintf("__map_element%d__",map_value_num));
-    add_variable_to_table(var_name2,(struct sType*)come_increment_ref_count(sType_clone(element_type_values)),info,0,0);
+    add_variable_to_table(var_name2,((struct sType*)(__right_value0=sType_clone(element_type_values))),info,0,0);
+    come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
     var2_=get_variable_from_table(info->lv_table,var_name2);
     add_come_code_at_function_head(info,"%s;\n",((char*)(__right_value0=make_define_var(element_type_values,var2_->mCValueName,info,0,0))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -7107,7 +7099,7 @@ struct sNode* expression_node_v96(struct sInfo* info)
         method_block=((void*)0);
         method_block_sline=info->sline;
         method_generics_types=(struct list$1sType$ph*)come_increment_ref_count(list$1sType$ph_initialize((struct list$1sType$ph*)come_increment_ref_count((struct list$1sType$ph*)come_calloc_v2(1, sizeof(struct list$1sType$ph)*(1), "06str.c", 1288, "struct list$1sType$ph*"))));
-        node=(struct sNode*)come_increment_ref_count(create_method_call("to_regex",(struct sNode*)come_increment_ref_count(obj),(struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(params),method_block,method_block_sline,method_generics_types,info));
+        node=(struct sNode*)come_increment_ref_count(create_method_call("to_regex",(struct sNode*)come_increment_ref_count(obj),params,method_block,method_block_sline,method_generics_types,info));
         info->sline_real=sline_real_60;
         __result_obj__0 = (struct sNode*)come_increment_ref_count(node);
         come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -7269,7 +7261,7 @@ struct sNode* expression_node_v96(struct sInfo* info)
         method_block_73=((void*)0);
         method_block_sline_74=info->sline;
         method_generics_types_75=(struct list$1sType$ph*)come_increment_ref_count(list$1sType$ph_initialize((struct list$1sType$ph*)come_increment_ref_count((struct list$1sType$ph*)come_calloc_v2(1, sizeof(struct list$1sType$ph)*(1), "06str.c", 1446, "struct list$1sType$ph*"))));
-        node_76=(struct sNode*)come_increment_ref_count(create_method_call("to_regex",(struct sNode*)come_increment_ref_count(obj_71),(struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(params_72),method_block_73,method_block_sline_74,method_generics_types_75,info));
+        node_76=(struct sNode*)come_increment_ref_count(create_method_call("to_regex",(struct sNode*)come_increment_ref_count(obj_71),params_72,method_block_73,method_block_sline_74,method_generics_types_75,info));
         info->sline_real=sline_real_62;
         __result_obj__0 = (struct sNode*)come_increment_ref_count(node_76);
         come_call_finalizer(buffer_finalize, value_64, (void*)0, (void*)0, 0, 0, 0, (void*)0);

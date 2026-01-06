@@ -30,13 +30,13 @@ string,sGenericsFun* make_generics_function(sType* type, string fun_name, sInfo*
     return (clone fun_name2, generics_fun);
 }
 
-string,sGenericsFun* make_method_generics_function(string fun_name, list<sType*%>*% method_generics_types, sInfo* info)
+string,sGenericsFun* make_method_generics_function(string fun_name, list<sType*%>* method_generics_types, sInfo* info)
 {
     static int num_method_generics = 0;
     string fun_name3 = xsprintf("%s_method_generics%d", fun_name, num_method_generics++);
     
     list<sType*%>*% method_generics_types_before = info.method_generics_types;
-    info->method_generics_types= method_generics_types;
+    info->method_generics_types= clone method_generics_types;
     
     sGenericsFun* generics_fun = borrow info.generics_funcs.at(fun_name, null);
     
@@ -52,7 +52,7 @@ string,sGenericsFun* make_method_generics_function(string fun_name, list<sType*%
     return (clone fun_name3, generics_fun);
 }
 
-bool compile_method_block(buffer* method_block, list<CVALUE*%>*% come_params, sFun* fun, char* fun_name, int method_block_sline, sInfo* info, bool no_create_current_stack=false) 
+bool compile_method_block(buffer* method_block, list<CVALUE*%>* come_params, sFun* fun, char* fun_name, int method_block_sline, sInfo* info, bool no_create_current_stack=false) 
 {
     sNode*% current_stack_frame_node = new sCurrentNode(info) implements sNode;
     
@@ -320,7 +320,7 @@ string, sFun*,sGenericsFun* get_method(char* fun_name, sType* obj_type, sInfo* i
 
 class sMethodCallNode extends sNodeBase
 {
-    new(char* fun_name,sNode*% obj, list<tup: string,sNode*%>*% params, buffer* method_block, int method_block_sline
+    new(char* fun_name,sNode*% obj, list<tup: string,sNode*%>* params, buffer* method_block, int method_block_sline
         , list<sType*%>* method_generics_types, bool no_infference_method_generics, bool recursive, sInfo* info)
     {
         self.super();
@@ -897,7 +897,7 @@ class sMethodCallNode extends sNodeBase
     }
 };
 
-sNode*% create_method_call(char* fun_name,sNode*% obj, list<tup: string,sNode*%>*% params, buffer* method_block, int method_block_sline, list<sType*%>* method_generics_types, sInfo* info)
+sNode*% create_method_call(char* fun_name,sNode*% obj, list<tup: string,sNode*%>* params, buffer* method_block, int method_block_sline, list<sType*%>* method_generics_types, sInfo* info)
 {
     sNode*% node = new sMethodCallNode(fun_name, obj, params, method_block, method_block_sline, method_generics_types, no_infference_method_generics:true, false@recursive, info) implements sNode;
         

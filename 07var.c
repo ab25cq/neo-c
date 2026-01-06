@@ -788,7 +788,7 @@ class sFunLoadNode extends sNodeBase
     }
 };
 
-void add_variable_to_table(char* name, sType*% type, sInfo* info, bool function_param, bool comma=false)
+void add_variable_to_table(char* name, sType* type, sInfo* info, bool function_param, bool comma=false)
 {
     sVar*% self = new sVar;
     
@@ -834,7 +834,7 @@ void add_variable_to_table(char* name, sType*% type, sInfo* info, bool function_
     }
 }
 
-void add_variable_to_global_table(char* name, sType*% type, sInfo* info)
+void add_variable_to_global_table(char* name, sType* type, sInfo* info)
 {
     sVar*% self = new sVar;
     
@@ -851,7 +851,7 @@ void add_variable_to_global_table(char* name, sType*% type, sInfo* info)
     info.gv_table.mVars.insert(string(name), self);
 }
 
-void add_variable_to_global_table_with_int_value(char* name, sType*% type, char* c_value, sInfo* info)
+void add_variable_to_global_table_with_int_value(char* name, sType* type, char* c_value, sInfo* info)
 {
     sVar*% self = new sVar;
     

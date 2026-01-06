@@ -297,7 +297,7 @@ sType*% solve_method_generics(sType* type, sInfo* info)
     return result;
 }
 
-void append_object_to_right_values(CVALUE* come_value, sType* type, sInfo* info, bool decrement_ref_count=false, sType*% obj_type=null, char* obj_value=null, sVar* obj_var=null)
+void append_object_to_right_values(CVALUE* come_value, sType* type, sInfo* info, bool decrement_ref_count=false, sType* obj_type=null, char* obj_value=null, sVar* obj_var=null)
 {
     if(gComeC) {
         return ;
@@ -316,7 +316,7 @@ void append_object_to_right_values(CVALUE* come_value, sType* type, sInfo* info,
     new_value.mDecrementRefCount = decrement_ref_count;
     
     if(obj_value) {
-        new_value.mObjType = obj_type;
+        new_value.mObjType = clone obj_type;
         new_value.mObjValue = string(obj_value);
         new_value.mObjVar = obj_var;
         

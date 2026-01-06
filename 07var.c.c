@@ -1990,14 +1990,6 @@ struct list$1tuple2$2char$phsNode$ph$ph
     struct list_item$1tuple2$2char$phsNode$ph$ph* it;
 };
 
-struct tuple4$4char$phchar$phchar$phchar$ph
-{
-    char* v1;
-    char* v2;
-    char* v3;
-    char* v4;
-};
-
 struct sNothingNode
 {
     int sline;
@@ -2928,7 +2920,6 @@ char* create_method_name(struct sType* obj_type, _Bool no_pointer_name, char* fu
 char* create_method_name_original_obj_type(struct sType* obj_type, _Bool no_pointer_name, char* fun_name, struct sInfo* info, _Bool array_equal_pointer);
 char* create_non_method_name(struct sType* obj_type, _Bool no_pointer_name, char* fun_name, struct sInfo* info, _Bool array_equal_pointer);
 char* create_method_name_using_class(struct sClass* obj_class, char* fun_name, struct sInfo* info);
-struct sNode* create_null_value(struct sType* type, struct sInfo* info);
 struct sNode* create_null_return_value(struct sInfo* info);
 struct sNode* create_some(struct sNode* exp, struct sInfo* info);
 struct sNode* expression_node_v96(struct sInfo* info);
@@ -2993,13 +2984,11 @@ struct tuple2$2char$phsGenericsFun$p* make_generics_function(struct sType* type,
 struct sNode* parse_method_call_v20(struct sNode* obj, char* fun_name, struct sInfo* info);
 struct sNode* string_node_v20(char* buf, char* head, int head_sline, struct sInfo* info);
 struct sNode* create_implements(struct sNode* node, struct sType* inf_type, struct sInfo* info);
-struct sNode* create_object(struct sType* type, struct sInfo* info);
 struct sNode* create_true_object(struct sInfo* info);
 struct sNode* create_false_object(struct sInfo* info);
 struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInfo* info);
 struct sNode* top_level_v94(char* buf, char* head, int head_sline, struct sInfo* info);
 struct sNode* post_position_operator_v21(struct sNode* node, struct sInfo* info);
-struct tuple4$4char$phchar$phchar$phchar$ph* create_vtable(struct sType* any_type, struct sInfo* info);
 struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo* info);
 struct sNode* top_level_v92(char* buf, char* head, int head_sline, struct sInfo* info);
 struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo* info);
@@ -3332,7 +3321,7 @@ _Bool sStoreNode_compile(struct sStoreNode* self, struct sInfo* info)
                 map$2char$phsVar$ph_remove(info->lv_table->mVars,(char*)come_increment_ref_count(__builtin_string(var_name)));
             }
             type2=(struct sType*)come_increment_ref_count(solve_generics(type_18,info->generics_type,info));
-            add_variable_to_table(var_name,(struct sType*)come_increment_ref_count(type2),info,0,0);
+            add_variable_to_table(var_name,type2,info,0,0);
             var_=get_variable_from_table(info->lv_table,var_name);
             if(var_==((void*)0)) {
                 err_msg(info,"var not found(%s)(ZY) at definition of variable",it);
@@ -3439,7 +3428,7 @@ _conditional_value_X0;})) {
                 right_type2=(struct sType*)come_increment_ref_count(sType_clone(((struct sType*)(__right_value0=list$1sType$ph_operator_load_element(right_type->mGenericsTypes,i)))));
                 come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
                 right_type2->mStatic=0;
-                add_variable_to_table(it_28,(struct sType*)come_increment_ref_count(right_type2),info,0,0);
+                add_variable_to_table(it_28,right_type2,info,0,0);
                 come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             }
             i++;
@@ -3527,7 +3516,8 @@ _conditional_value_X1;})) {
             return 1;
         }
         type_43=(struct sType*)come_increment_ref_count(solve_generics(self->type,info->generics_type,info));
-        add_variable_to_table(self->name,(struct sType*)come_increment_ref_count(sType_clone(type_43)),info,0,0);
+        add_variable_to_table(self->name,((struct sType*)(__right_value0=sType_clone(type_43))),info,0,0);
+        come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         var__42=get_variable_from_table(info->lv_table,self->name);
         if(var__42==((void*)0)) {
             var__42=get_variable_from_table(info->gv_table,self->name);
@@ -3594,7 +3584,7 @@ _conditional_value_X4;})) {
         }
         else {
             type_47=(struct sType*)come_increment_ref_count(solve_generics(self->type,info->generics_type,info));
-            add_variable_to_table(self->name,(struct sType*)come_increment_ref_count(type_47),info,0,0);
+            add_variable_to_table(self->name,type_47,info,0,0);
             come_call_finalizer(sType_finalize, type_47, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         }
         Value_48=node_compile(self->right_value,info);
@@ -3614,7 +3604,7 @@ _conditional_value_X4;})) {
         right_type_50->mStatic=0;
         if(self->type==((void*)0)) {
             type_51=(struct sType*)come_increment_ref_count(solve_generics(right_type_50,info->generics_type,info));
-            add_variable_to_table(self->name,(struct sType*)come_increment_ref_count(type_51),info,0,0);
+            add_variable_to_table(self->name,type_51,info,0,0);
             come_call_finalizer(sType_finalize, type_51, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         }
         var__46=get_variable_from_table(info->lv_table,self->name);
@@ -6583,7 +6573,6 @@ void add_variable_to_table(char* name, struct sType* type, struct sInfo* info, _
     if(info->come_fun) {
         list$1sVar$ph_add(info->come_fun->mAllVar,(struct sVar*)come_increment_ref_count(self));
     }
-    come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(sVar_finalize, self, (void*)0, (void*)0, 0, 0, 0, (void*)0);
 }
 
@@ -6941,7 +6930,6 @@ void add_variable_to_global_table(char* name, struct sType* type, struct sInfo* 
     self->mAllocaValue=0;
     self->mNoFree=0;
     map$2char$phsVar$ph_insert(info->gv_table->mVars,(char*)come_increment_ref_count(__builtin_string(name)),(struct sVar*)come_increment_ref_count(self));
-    come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(sVar_finalize, self, (void*)0, (void*)0, 0, 0, 0, (void*)0);
 }
 
@@ -6966,7 +6954,6 @@ void add_variable_to_global_table_with_int_value(char* name, struct sType* type,
     self->mAllocaValue=0;
     self->mNoFree=0;
     map$2char$phsVar$ph_insert(info->gv_table->mVars,(char*)come_increment_ref_count(__builtin_string(name)),(struct sVar*)come_increment_ref_count(self));
-    come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(sVar_finalize, self, (void*)0, (void*)0, 0, 0, 0, (void*)0);
 }
 

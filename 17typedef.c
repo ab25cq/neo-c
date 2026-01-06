@@ -18,7 +18,7 @@ bool is_gcc_builtin_float_typedef(string type_name, sInfo* info)
 
 class sTypedefNode extends sNodeBase
 {
-    new(string type_name, sType*% type, list<tup: sType*%, string>*% multiple_declare, sInfo* info)
+    new(string type_name, sType* type, list<tup: sType*%, string>* multiple_declare, sInfo* info)
     {
         self.super();
     
@@ -175,7 +175,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 95
     return inherit(buf, head, head_sline, info);
 }
 
-bool add_typedef(string type_name, sType*% type, sInfo* info=info)
+bool add_typedef(string type_name, sType* type, sInfo* info=info)
 {
     sNode*% node =new sTypedefNode(type_name, type, multiple_declare:null, info) implements sNode;
     

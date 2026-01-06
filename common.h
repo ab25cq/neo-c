@@ -869,7 +869,7 @@ void free_object(sType* type, char* obj, bool no_decrement, bool no_free, sInfo*
 sType*%, string clone_object(sType* type, char* obj, sInfo* info);
 void free_right_value_objects(sInfo* info);
 void free_objects(sVarTable* table, sVar* ret_value, sInfo* info);
-void append_object_to_right_values(CVALUE* come_value, sType* type, sInfo* info, bool decrement_ref_count=false, sType*% obj_type=null, char* obj_value=null, sVar* obj_var=null);
+void append_object_to_right_values(CVALUE* come_value, sType* type, sInfo* info, bool decrement_ref_count=false, sType* obj_type=null, char* obj_value=null, sVar* obj_var=null);
         
 void remove_object_from_right_values(int right_value_num, sInfo* info);
 string increment_ref_count_object(sType* type, char* obj, sInfo* info);
@@ -883,7 +883,7 @@ sNode*% reverse_node(sNode*% value, sInfo* info);
 sFun*% compile_uniq_function(sFun* fun, sInfo* info=info);
 sNode*% cast_node(sType* type, sNode*% node, sInfo* info=info);
 sNode*% reffence_node(sNode*% value, sInfo* info);
-string,sGenericsFun* make_method_generics_function(string fun_name, list<sType*%>*% method_generics_types, sInfo* info);
+string,sGenericsFun* make_method_generics_function(string fun_name, list<sType*%>* method_generics_types, sInfo* info);
 sNode*% create_return_node(sNode*% value, string value_source, sInfo* info=info);
 sNode*% post_position_operator(sNode*% node, sInfo* info);
 bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sInfo* info);
@@ -948,7 +948,6 @@ string create_method_name_using_class(sClass* obj_class, char* fun_name, sInfo* 
 /////////////////////////////////////////////////////////////////////
 /// 06str.c ///
 /////////////////////////////////////////////////////////////////////
-sNode*% create_null_value(sType*% type, sInfo* info=info);
 sNode*% create_null_return_value(sInfo* info=info);
 sNode*% create_some(sNode*% exp, sInfo* info);
 sNode*% expression_node(sInfo* info=info) version 96;
@@ -969,9 +968,9 @@ sNode*% parse_struct_initializer(sInfo* info=info);
 sNode*% parse_global_variable(sInfo* info);
 sNode*% load_var(string name, sInfo* info);
 sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 7;
-void add_variable_to_table(char* name, sType*% type, sInfo* info, bool function_param, bool comma=false);
-void add_variable_to_global_table(char* name, sType*% type, sInfo* info);
-void add_variable_to_global_table_with_int_value(char* name, sType*% type, char* c_value, sInfo* info);
+void add_variable_to_table(char* name, sType* type, sInfo* info, bool function_param, bool comma=false);
+void add_variable_to_global_table(char* name, sType* type, sInfo* info);
+void add_variable_to_global_table_with_int_value(char* name, sType* type, char* c_value, sInfo* info);
 
 /////////////////////////////////////////////////////////////////////
 /// 08if.c
@@ -1012,7 +1011,7 @@ sNode*% create_comma_exp(sNode*% node, sNode*% node2, sInfo* info);
 sNode*% create_less(sNode*% node, sNode*% right, sInfo* info);
 sNode*% create_null_node(sInfo* info=info);
 sNode*% conditional_node(sNode*% value1, sNode*% value2, sNode*% value3, sInfo* info);
-bool operator_overload_fun(sType* type, char* fun_name, sNode*% left_node, sNode*% right_node, CVALUE*% left_value, CVALUE*% right_value, bool break_guard, sInfo* info);
+bool operator_overload_fun(sType* type, char* fun_name, sNode*% left_node, sNode*% right_node, CVALUE* left_value, CVALUE* right_value, bool break_guard, sInfo* info);
 sNode*% expression(sInfo* info=info, bool type_name_exp=false) version 13;
 sNode*% post_op(sNode*% node, sInfo* info) version 13;
 sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 13;
@@ -1049,7 +1048,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 96
 /////////////////////////////////////////////////////////////////////
 /// 17typedef.c
 /////////////////////////////////////////////////////////////////////
-bool add_typedef(string type_name, sType*% type, sInfo* info=info);
+bool add_typedef(string type_name, sType* type, sInfo* info=info);
 sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 95;
 sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 17;
 
@@ -1072,9 +1071,9 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 19;
 /// 20method.c
 /////////////////////////////////////////////////////////////////////
 string, sFun*,sGenericsFun* get_method(char* fun_name, sType* obj_type, sInfo* info);
-sNode*% create_method_call(char* fun_name,sNode*% obj, list<tup: string,sNode*%>*% params, buffer* method_block, int method_block_sline, list<sType*%>* method_generics_types, sInfo* info);
+sNode*% create_method_call(char* fun_name,sNode*% obj, list<tup: string,sNode*%>* params, buffer* method_block, int method_block_sline, list<sType*%>* method_generics_types, sInfo* info);
 sNode*% create_guard_break_method_call(sNode*% expression_node, sInfo* info);
-bool compile_method_block(buffer* method_block, list<CVALUE*%>*% come_params, sFun* fun, char* fun_name, int method_block_sline, sInfo* info, bool no_create_current_stack=false) ;
+bool compile_method_block(buffer* method_block, list<CVALUE*%>* come_params, sFun* fun, char* fun_name, int method_block_sline, sInfo* info, bool no_create_current_stack=false) ;
 string,sGenericsFun* make_generics_function(sType* type, string fun_name, sInfo* info, bool array_equal_pointer=true);
  sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info) version 20;
 sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 20;
@@ -1082,15 +1081,13 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
 /////////////////////////////////////////////////////////////////////
 /// 21obj.c
 /////////////////////////////////////////////////////////////////////
-sNode*% create_implements(sNode*% node, sType*% inf_type, sInfo* info=info);
-sNode*% create_object(sType*% type, sInfo* info);
+sNode*% create_implements(sNode*% node, sType* inf_type, sInfo* info=info);
 sNode*% create_true_object(sInfo* info);
 sNode*% create_false_object(sInfo* info);
 
 sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 21;
 sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 94;
 sNode*% post_position_operator(sNode*% node, sInfo* info) version 21;
-string, string, string, string create_vtable(sType*% any_type, sInfo* info=info);
 
 /////////////////////////////////////////////////////////////////////
 /// 22impl.c
