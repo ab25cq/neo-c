@@ -6203,7 +6203,8 @@ int transpile_block(struct sBlock* block, struct list$1sType$ph* param_types, st
         free_objects(info->lv_table,((void*)0),info);
         if(info->match_it_var&&block_level==0) {
             for(o2_saved_51=(struct list$1sVar$ph*)come_increment_ref_count(info->match_it_var),it=list$1sVar$ph_begin(o2_saved_51);!list$1sVar$ph_end(o2_saved_51);it=list$1sVar$ph_next(o2_saved_51)){
-                free_object((struct sType*)come_increment_ref_count(sType_clone(it->mType)),it->mCValueName,0,0,info,0);
+                free_object(((struct sType*)(__right_value0=sType_clone(it->mType))),it->mCValueName,0,0,info,0);
+                come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
             }
             come_call_finalizer(list$1sVar$ph$p_finalize, o2_saved_51, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             __dec_obj73=info->match_it_var,

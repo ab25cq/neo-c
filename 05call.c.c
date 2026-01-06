@@ -3470,7 +3470,7 @@ _Bool sReturnNode_compile(struct sReturnNode* self, struct sInfo* info)
                 info->inhibits_output_code=1;
                 if(info->match_it_var) {
                     for(o2_saved=(struct list$1sVar$ph*)come_increment_ref_count(info->match_it_var),it=list$1sVar$ph_begin(o2_saved);!list$1sVar$ph_end(o2_saved);it=list$1sVar$ph_next(o2_saved)){
-                        free_object((struct sType*)come_increment_ref_count(sType_clone(it->mType)),it->mCValueName,0,0,info,0);
+                        free_object(it->mType,it->mCValueName,0,0,info,0);
                     }
                     come_call_finalizer(list$1sVar$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                     __dec_obj36=info->match_it_var,
@@ -3485,7 +3485,7 @@ _conditional_value_X0;})) {
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             }
             if(result_type2->mHeap) {
-                free_object((struct sType*)come_increment_ref_count(result_type2),((char*)(__right_value1=xsprintf("__result_obj__\%s",((char*)(__right_value0=int_to_string(000)))))),0,1,info,0);
+                free_object(result_type2,((char*)(__right_value1=xsprintf("__result_obj__\%s",((char*)(__right_value0=int_to_string(000)))))),0,1,info,0);
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                 (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
             }
@@ -3507,7 +3507,7 @@ _conditional_value_X0;})) {
             info->inhibits_output_code=1;
             if(info->match_it_var) {
                 for(o2_saved_11=(struct list$1sVar$ph*)come_increment_ref_count(info->match_it_var),it_12=list$1sVar$ph_begin(o2_saved_11);!list$1sVar$ph_end(o2_saved_11);it_12=list$1sVar$ph_next(o2_saved_11)){
-                    free_object((struct sType*)come_increment_ref_count(sType_clone(it_12->mType)),it_12->mCValueName,0,0,info,0);
+                    free_object(it_12->mType,it_12->mCValueName,0,0,info,0);
                 }
                 come_call_finalizer(list$1sVar$ph$p_finalize, o2_saved_11, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 __dec_obj37=info->match_it_var,

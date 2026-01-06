@@ -505,7 +505,7 @@ void decrement_ref_count_object(sType*% type, char* obj, sInfo* info, bool no_fr
     info.stack = stack_saved;
 }
 
-void on_drop_object(sType*% type, char* obj, sInfo* info=info)
+void on_drop_object(sType* type, char* obj, sInfo* info=info)
 {
     if(gComeC) {
         return;
@@ -574,7 +574,7 @@ void on_drop_object(sType*% type, char* obj, sInfo* info=info)
     }
 }
 
-void free_object(sType*% type, char* obj, bool no_decrement, bool no_free, sInfo* info, bool ret_value=false)
+void free_object(sType* type, char* obj, bool no_decrement, bool no_free, sInfo* info, bool ret_value=false)
 {
     if(gComeC) {
         return;
@@ -676,7 +676,7 @@ void free_object(sType*% type, char* obj, bool no_decrement, bool no_free, sInfo
                     
                     if(field_type->mHeap && field_type->mPointerNum > 0) {
                         string obj = xsprintf("(((%s)%s).%s)", make_type_name_string(type_), c_value, name);
-                        free_object(clone field_type, obj, no_decrement, no_free, info);
+                        free_object(field_type, obj, no_decrement, no_free, info);
                     }
                 }
             }
@@ -687,7 +687,7 @@ void free_object(sType*% type, char* obj, bool no_decrement, bool no_free, sInfo
                     
                     if(field_type->mHeap && field_type->mPointerNum > 0) {
                         string obj = xsprintf("(((%s)%s)->%s)", make_type_name_string(type_), c_value, name);
-                        free_object(clone field_type, obj, no_decrement, no_free, info);
+                        free_object(field_type, obj, no_decrement, no_free, info);
                     }
                 }
             }
@@ -851,7 +851,7 @@ void free_right_value_objects(sInfo* info)
                     type = solve_generics(type2, info->generics_type, info);
                 }
                 
-                free_object(clone type, it->mVarName, !it->mDecrementRefCount@no_decrement, false@no_free, info);
+                free_object(type, it->mVarName, !it->mDecrementRefCount@no_decrement, false@no_free, info);
                 
                 it->mFreed = true;
                 free_right_value = true;
@@ -906,12 +906,10 @@ void free_objects(sVarTable* table, sVar* ret_value, sInfo* info)
         }
         else if(ret_value != null && p->mCValueName != null && p->mCValueName === ret_value->mCValueName && type->mHeap) 
         {
-            sType*% type2 = clone type;
-            free_object(type2, p->mCValueName, false@no_decrement, true@no_free, info, true);
+            free_object(type, p->mCValueName, false@no_decrement, true@no_free, info, true);
         }
         else if(type->mHeap && p->mCValueName) {
-            sType*% type2 = clone type;
-            free_object(type2, p->mCValueName, false@no_decrement, false@no_free, info);
+            free_object(type, p->mCValueName, false@no_decrement, false@no_free, info);
         }
         else if(klass->mStruct && p->mCValueName && type->mAllocaValue && !type->mNoCallingDestructor) {
             string c_value = xsprintf("(&%s)", p->mCValueName);

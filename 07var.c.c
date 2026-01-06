@@ -3309,7 +3309,8 @@ _Bool sStoreNode_compile(struct sStoreNode* self, struct sInfo* info)
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         if(var_) {
             if(var_->mType->mHeap) {
-                free_object((struct sType*)come_increment_ref_count(sType_clone(var_->mType)),var_->mCValueName,0,0,info,0);
+                free_object(((struct sType*)(__right_value0=sType_clone(var_->mType))),var_->mCValueName,0,0,info,0);
+                come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
             }
             map$2char$phsVar$ph_remove(info->lv_table->mVars,(char*)come_increment_ref_count(__builtin_string(self->name)));
         }
@@ -3332,7 +3333,8 @@ _Bool sStoreNode_compile(struct sStoreNode* self, struct sInfo* info)
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             if(var_) {
                 if(var_->mType->mHeap) {
-                    free_object((struct sType*)come_increment_ref_count(sType_clone(var_->mType)),var_->mCValueName,0,0,info,0);
+                    free_object(((struct sType*)(__right_value0=sType_clone(var_->mType))),var_->mCValueName,0,0,info,0);
+                    come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
                 }
                 map$2char$phsVar$ph_remove(info->lv_table->mVars,(char*)come_increment_ref_count(__builtin_string(var_name)));
             }
@@ -3436,7 +3438,8 @@ _conditional_value_X0;})) {
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                 if(var__30) {
                     if(var__30->mType->mHeap) {
-                        free_object((struct sType*)come_increment_ref_count(sType_clone(var__30->mType)),var__30->mCValueName,0,0,info,0);
+                        free_object(((struct sType*)(__right_value0=sType_clone(var__30->mType))),var__30->mCValueName,0,0,info,0);
+                        come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
                     }
                     map$2char$phsVar$ph_remove(info->lv_table->mVars,(char*)come_increment_ref_count(__builtin_string(it_28)));
                 }
@@ -3521,7 +3524,8 @@ _conditional_value_X1;})) {
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         if(var__42) {
             if(var__42->mType->mHeap) {
-                free_object((struct sType*)come_increment_ref_count(sType_clone(var__42->mType)),var__42->mCValueName,0,0,info,0);
+                free_object(((struct sType*)(__right_value0=sType_clone(var__42->mType))),var__42->mCValueName,0,0,info,0);
+                come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
             }
             map$2char$phsVar$ph_remove(info->lv_table->mVars,(char*)come_increment_ref_count(__builtin_string(self->name)));
         }
@@ -3588,7 +3592,8 @@ _conditional_value_X4;})) {
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         if(var__46) {
             if(var__46->mType->mHeap) {
-                free_object((struct sType*)come_increment_ref_count(sType_clone(var__46->mType)),var__46->mCValueName,0,0,info,0);
+                free_object(((struct sType*)(__right_value0=sType_clone(var__46->mType))),var__46->mCValueName,0,0,info,0);
+                come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
             }
             map$2char$phsVar$ph_remove(info->lv_table->mVars,(char*)come_increment_ref_count(__builtin_string(self->name)));
         }

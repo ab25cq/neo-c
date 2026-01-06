@@ -86,7 +86,7 @@ class sReturnNode extends sNodeBase
                     
                     if(info->match_it_var) {
                         foreach(it, info->match_it_var) {
-                            free_object(clone it->mType, it->mCValueName, false@no_decrement, false@no_free, info);
+                            free_object(it->mType, it->mCValueName, false@no_decrement, false@no_free, info);
                         }
                         info->match_it_var = null;
                     }
@@ -116,7 +116,7 @@ class sReturnNode extends sNodeBase
                 
                 if(info->match_it_var) {
                     foreach(it, info->match_it_var) {
-                        free_object(clone it->mType, it->mCValueName, false@no_decrement, false@no_free, info);
+                        free_object(it->mType, it->mCValueName, false@no_decrement, false@no_free, info);
                     }
                     info->match_it_var = null;
                 }

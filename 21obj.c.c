@@ -7235,7 +7235,8 @@ _Bool sDeleteNode_compile(struct sDeleteNode* self, struct sInfo* info)
     }
     come_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     if(come_value->type->mPointerNum>0) {
-        free_object((struct sType*)come_increment_ref_count(sType_clone(come_value->type)),come_value->c_value,0,0,info,0);
+        free_object(((struct sType*)(__right_value0=sType_clone(come_value->type))),come_value->c_value,0,0,info,0);
+        come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
     }
     __result_obj__0 = 1;
     come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);

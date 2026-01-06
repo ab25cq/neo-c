@@ -5631,11 +5631,9 @@ void on_drop_object(struct sType* type, char* obj, struct sInfo* info)
     void* __right_value2 = (void*)0;
     memset(&i, 0, sizeof(i));
     if(gComeC) {
-        come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         return;
     }
     if(info->no_output_come_code) {
-        come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         return;
     }
     type_=(struct sType*)come_increment_ref_count(get_no_solved_type2(type));
@@ -5697,7 +5695,6 @@ void on_drop_object(struct sType* type, char* obj, struct sInfo* info)
         come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         (fun_name2 = come_decrement_ref_count(fun_name2, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(sType_finalize, type_, (void*)0, (void*)0, 0, 0, 0, (void*)0);
 }
 
@@ -5757,15 +5754,13 @@ void free_object(struct sType* type, char* obj, _Bool no_decrement, _Bool no_fre
     struct list$1CVALUE$ph* __dec_obj67;
     memset(&i, 0, sizeof(i));
     if(gComeC) {
-        come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         return;
     }
     if(info->no_output_come_code) {
-        come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         return;
     }
     if(type->mDefferRightValue) {
-        on_drop_object((struct sType*)come_increment_ref_count(type),obj,info);
+        on_drop_object(type,obj,info);
     }
     stack_saved=(struct list$1CVALUE$ph*)come_increment_ref_count(info->stack);
     right_value_objects=info->right_value_objects;
@@ -5873,7 +5868,7 @@ void free_object(struct sType* type, char* obj, _Bool no_decrement, _Bool no_fre
                     if(field_type->mHeap&&field_type->mPointerNum>0) {
                         obj_51=(char*)come_increment_ref_count(xsprintf("(((%s)%s).%s)",((char*)(__right_value0=make_type_name_string(type_,info,0,0,0))),c_value,name_50));
                         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-                        free_object((struct sType*)come_increment_ref_count(sType_clone(field_type)),obj_51,no_decrement,no_free,info,0);
+                        free_object(field_type,obj_51,no_decrement,no_free,info,0);
                         (obj_51 = come_decrement_ref_count(obj_51, (void*)0, (void*)0, 0, 0, (void*)0));
                     }
                     (name_50 = come_decrement_ref_count(name_50, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -5889,7 +5884,7 @@ void free_object(struct sType* type, char* obj, _Bool no_decrement, _Bool no_fre
                     if(field_type_55->mHeap&&field_type_55->mPointerNum>0) {
                         obj_56=(char*)come_increment_ref_count(xsprintf("(((%s)%s)->%s)",((char*)(__right_value0=make_type_name_string(type_,info,0,0,0))),c_value,name_54));
                         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-                        free_object((struct sType*)come_increment_ref_count(sType_clone(field_type_55)),obj_56,no_decrement,no_free,info,0);
+                        free_object(field_type_55,obj_56,no_decrement,no_free,info,0);
                         (obj_56 = come_decrement_ref_count(obj_56, (void*)0, (void*)0, 0, 0, (void*)0));
                     }
                     (name_54 = come_decrement_ref_count(name_54, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -5939,7 +5934,6 @@ void free_object(struct sType* type, char* obj, _Bool no_decrement, _Bool no_fre
     __dec_obj67=info->stack,
     info->stack=(struct list$1CVALUE$ph*)come_increment_ref_count(stack_saved);
     come_call_finalizer(list$1CVALUE$ph_finalize, __dec_obj67,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-    come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(list$1CVALUE$ph$p_finalize, stack_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(sType_finalize, type_, (void*)0, (void*)0, 0, 0, 0, (void*)0);
 }
@@ -6313,7 +6307,7 @@ void free_right_value_objects(struct sInfo* info)
         if(it&&!it->mFreed) {
             if(string_operator_equals(it->mFunName,info->come_fun->mName)&&it->mBlockLevel==info->block_level&&!it->mStored) {
                 if(it->mObjType) {
-                    on_drop_object((struct sType*)come_increment_ref_count(it->mObjType),it->mObjValue,info);
+                    on_drop_object(it->mObjType,it->mObjValue,info);
                     var_=it->mObjVar;
                     __dec_obj83=var_->mCValueName,
                     var_->mCValueName=((void*)0);
@@ -6333,7 +6327,7 @@ void free_right_value_objects(struct sInfo* info)
                     type=(struct sType*)come_increment_ref_count(solve_generics(type2,info->generics_type,info));
                     come_call_finalizer(sType_finalize, __dec_obj84,(void*)0, (void*)0, 0, 0, 0, (void*)0);
                 }
-                free_object((struct sType*)come_increment_ref_count(sType_clone(type)),it_60->mVarName,!it_60->mDecrementRefCount,0,info,0);
+                free_object(type,it_60->mVarName,!it_60->mDecrementRefCount,0,info,0);
                 it_60->mFreed=1;
                 free_right_value=1;
                 come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -6480,10 +6474,8 @@ void free_objects(struct sVarTable* table, struct sVar* ret_value, struct sInfo*
     struct sVar* p;
     struct sType* type;
     struct sClass* klass;
-    struct sType* type2;
-    struct sType* type2_65;
     char* c_value;
-    struct sType* type2_66;
+    struct sType* type2;
     if(gComeC) {
         return;
     }
@@ -6497,22 +6489,18 @@ void free_objects(struct sVarTable* table, struct sVar* ret_value, struct sInfo*
             add_come_code(info,"(%s[1]) ? close(%s[1]):0;\n",p->mCValueName,p->mCValueName);
         }
         else if(ret_value!=((void*)0)&&p->mCValueName!=((void*)0)&&string_operator_equals(p->mCValueName,ret_value->mCValueName)&&type->mHeap) {
-            type2=(struct sType*)come_increment_ref_count(sType_clone(type));
-            free_object((struct sType*)come_increment_ref_count(type2),p->mCValueName,0,1,info,1);
-            come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+            free_object(type,p->mCValueName,0,1,info,1);
         }
         else if(type->mHeap&&p->mCValueName) {
-            type2_65=(struct sType*)come_increment_ref_count(sType_clone(type));
-            free_object((struct sType*)come_increment_ref_count(type2_65),p->mCValueName,0,0,info,0);
-            come_call_finalizer(sType_finalize, type2_65, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+            free_object(type,p->mCValueName,0,0,info,0);
         }
         else if(klass->mStruct&&p->mCValueName&&type->mAllocaValue&&!type->mNoCallingDestructor) {
             c_value=(char*)come_increment_ref_count(xsprintf("(&%s)",p->mCValueName));
-            type2_66=(struct sType*)come_increment_ref_count(sType_clone(type));
-            type2_66->mPointerNum++;
-            free_object((struct sType*)come_increment_ref_count(type2_66),c_value,0,0,info,0);
+            type2=(struct sType*)come_increment_ref_count(sType_clone(type));
+            type2->mPointerNum++;
+            free_object(type2,c_value,0,0,info,0);
             (c_value = come_decrement_ref_count(c_value, (void*)0, (void*)0, 0, 0, (void*)0));
-            come_call_finalizer(sType_finalize, type2_66, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+            come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         }
     }
     come_call_finalizer(map$2char$phsVar$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -6566,7 +6554,7 @@ static char* map$2char$phsVar$ph_next(struct map$2char$phsVar$ph* self)
 static void map$2char$phsVar$ph$p_finalize(struct map$2char$phsVar$ph* self)
 {
     int i;
-    int i_67;
+    int i_65;
     for(i=0;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
@@ -6575,10 +6563,10 @@ static void map$2char$phsVar$ph$p_finalize(struct map$2char$phsVar$ph* self)
         }
     }
     come_free_v2((char*)self->items);
-    for(i_67=0;i_67<self->size;i_67++){
-        if(self->item_existance[i_67]) {
+    for(i_65=0;i_65<self->size;i_65++){
+        if(self->item_existance[i_65]) {
             if(1) {
-                (self->keys[i_67] = come_decrement_ref_count(self->keys[i_67], (void*)0, (void*)0, 0, 0, (void*)0));
+                (self->keys[i_65] = come_decrement_ref_count(self->keys[i_65], (void*)0, (void*)0, 0, 0, (void*)0));
             }
         }
     }
