@@ -1,6 +1,6 @@
 #include "common.h"
 
-bool operator_overload_fun_self(sType*% type, char* fun_name, sNode*% node, CVALUE* left_value, sInfo* info)
+bool operator_overload_fun_self(sType* type, char* fun_name, sNode*% node, CVALUE* left_value, sInfo* info)
 {
     sType*% generics_type;
     if(type->mNoSolvedGenericsType) {
@@ -635,7 +635,7 @@ sNode*% craete_logical_denial(sNode*% node, sInfo* info)
     return new sLogicalDenial(clone node, info) implements sNode;
 }
 
-sNode*% cast_node(sType*% type, sNode*% node, sInfo* info=info)
+sNode*% cast_node(sType* type, sNode*% node, sInfo* info=info)
 {
     return new sCastNode(type, node, info) implements sNode;
 }
@@ -652,12 +652,12 @@ sNode*% reverse_node(sNode*% value, sInfo* info)
 
 class sArrayInitializer extends sNodeBase
 {
-    new(sType*% type_, string initializer, sInfo* info)
+    new(sType* type_, string initializer, sInfo* info)
     {
         self.super();
        
         string self.initializer = clone initializer;
-        sType*% self.type_ = type_;
+        sType*% self.type_ = clone type_;
     }
     
     string kind()

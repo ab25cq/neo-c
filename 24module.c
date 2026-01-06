@@ -120,12 +120,12 @@ static inline int align_up(int x, int align)
     return (x + align - 1) & ~(align - 1);
 }
 
-int sizeof_struct(sType*% type, sInfo* info=info);
-int sizeof_union(sType*% type, sInfo* info=info);
-int sizeof_type(sType*% type, sInfo* info=info);
-int alignof_type(sType*% type, sInfo* info=info);
+int sizeof_struct(sType* type, sInfo* info=info);
+int sizeof_union(sType* type, sInfo* info=info);
+int sizeof_type(sType* type, sInfo* info=info);
+int alignof_type(sType* type, sInfo* info=info);
 
-int sizeof_struct(sType*% type, sInfo* info=info)
+int sizeof_struct(sType* type, sInfo* info=info)
 {
     int offset = 0;
     int max_align = 1;
@@ -149,7 +149,7 @@ int sizeof_struct(sType*% type, sInfo* info=info)
     return offset;
 }
 
-int sizeof_union(sType*% type, sInfo* info=info)
+int sizeof_union(sType* type, sInfo* info=info)
 {
     int max_size  = 0;
     int max_align = 1;
@@ -173,7 +173,7 @@ int sizeof_union(sType*% type, sInfo* info=info)
 }
 
 
-int sizeof_type(sType*% type, sInfo* info=info)
+int sizeof_type(sType* type, sInfo* info=info)
 {
     if (type->mArrayNum.length() > 0) {
         int element_num = 0;
@@ -218,7 +218,7 @@ int sizeof_type(sType*% type, sInfo* info=info)
     exit(2);
 }
 
-int alignof_type(sType*% type, sInfo* info=info)
+int alignof_type(sType* type, sInfo* info=info)
 {
     if (type->mPointerNum > 0) {
         return 8;

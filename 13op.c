@@ -2157,11 +2157,11 @@ sNode*% conditional_exp(sInfo* info)
 
 class sTypeNode extends sNodeBase
 {
-    new(sType*% type, sInfo* info=info)
+    new(sType* type, sInfo* info=info)
     {
         self.super();
         
-        sType*% self.type = type;
+        sType*% self.type = clone type;
     }
     
     string kind()

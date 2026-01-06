@@ -4383,7 +4383,6 @@ int sizeof_struct(struct sType* type, struct sInfo* info)
     struct sType* field_type=0;
     int align;
     int size;
-    int __result_obj__0;
     offset=0;
     max_align=1;
     n=list$1tuple2$2char$phsType$ph$ph_length(type->mClass->mFields);
@@ -4392,8 +4391,8 @@ int sizeof_struct(struct sType* type, struct sInfo* info)
         name=(char*)come_increment_ref_count(multiple_assign_var1->v1);
         field_type=(struct sType*)come_increment_ref_count(multiple_assign_var1->v2);
         come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-        align=alignof_type((struct sType*)come_increment_ref_count(field_type),info);
-        size=(sizeof_type)((struct sType*)come_increment_ref_count(field_type),info);
+        align=alignof_type(field_type,info);
+        size=(sizeof_type)(field_type,info);
         offset=align_up(offset,align);
         offset+=size;
         if(align>max_align) {
@@ -4403,9 +4402,7 @@ int sizeof_struct(struct sType* type, struct sInfo* info)
         come_call_finalizer(sType_finalize, field_type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     offset=align_up(offset,max_align);
-    __result_obj__0 = offset;
-    come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-    return __result_obj__0;
+    return offset;
 }
 
 static int list$1tuple2$2char$phsType$ph$ph_length(struct list$1tuple2$2char$phsType$ph$ph* self)
@@ -4510,7 +4507,6 @@ int sizeof_union(struct sType* type, struct sInfo* info)
     struct sType* field_type=0;
     int size;
     int align;
-    int __result_obj__0;
     max_size=0;
     max_align=1;
     n=list$1tuple2$2char$phsType$ph$ph_length(type->mClass->mFields);
@@ -4519,8 +4515,8 @@ int sizeof_union(struct sType* type, struct sInfo* info)
         name=(char*)come_increment_ref_count(multiple_assign_var2->v1);
         field_type=(struct sType*)come_increment_ref_count(multiple_assign_var2->v2);
         come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-        size=(sizeof_type)((struct sType*)come_increment_ref_count(field_type),info);
-        align=alignof_type((struct sType*)come_increment_ref_count(field_type),info);
+        size=(sizeof_type)(field_type,info);
+        align=alignof_type(field_type,info);
         if(size>max_size) {
             max_size=size;
         }
@@ -4530,9 +4526,7 @@ int sizeof_union(struct sType* type, struct sInfo* info)
         (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0));
         come_call_finalizer(sType_finalize, field_type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    __result_obj__0 = align_up(max_size,max_align);
-    come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-    return __result_obj__0;
+    return align_up(max_size,max_align);
 }
 
 int sizeof_type(struct sType* type, struct sInfo* info)
@@ -4567,50 +4561,34 @@ int sizeof_type(struct sType* type, struct sInfo* info)
         }
         element_type=(struct sType*)come_increment_ref_count(sType_clone(type));
         list$1sNode$ph_reset(element_type->mArrayNum);
-        __result_obj__0 = (sizeof_type)((struct sType*)come_increment_ref_count(element_type),info)*element_num;
+        __result_obj__0 = (sizeof_type)(element_type,info)*element_num;
         come_call_finalizer(sType_finalize, element_type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         return __result_obj__0;
         come_call_finalizer(sType_finalize, element_type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     if(type->mPointerNum>0) {
-        __result_obj__0 = 8;
-        come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        return __result_obj__0;
+        return 8;
     }
     if(type->mClass->mStruct) {
-        __result_obj__0 = (sizeof_struct)((struct sType*)come_increment_ref_count(type),info);
-        come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        return __result_obj__0;
+        return (sizeof_struct)(type,info);
     }
     if(type->mClass->mUnion) {
-        __result_obj__0 = (sizeof_union)((struct sType*)come_increment_ref_count(type),info);
-        come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        return __result_obj__0;
+        return (sizeof_union)(type,info);
     }
     if(string_operator_equals(type->mClass->mName,"char")) {
-        __result_obj__0 = 1;
-        come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        return __result_obj__0;
+        return 1;
     }
     if(string_operator_equals(type->mClass->mName,"short")) {
-        __result_obj__0 = 2;
-        come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        return __result_obj__0;
+        return 2;
     }
     if(string_operator_equals(type->mClass->mName,"int")) {
-        __result_obj__0 = 4;
-        come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        return __result_obj__0;
+        return 4;
     }
     if(string_operator_equals(type->mClass->mName,"long")) {
-        __result_obj__0 = 8;
-        come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        return __result_obj__0;
+        return 8;
     }
     err_msg(info,"sizeof: unsupported type");
     exit(2);
-    come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
 }
 
 static int list$1sNode$ph_length(struct list$1sNode$ph* self)
@@ -4721,8 +4699,7 @@ static struct sType* sType_clone(struct sType* self)
     struct sType* __dec_obj44;
     struct sNode* __dec_obj45;
     if(self==(void*)0) {
-        __result_obj__0 = (struct sType*)come_increment_ref_count((void*)0);
-        come_call_finalizer(sType_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+        __result_obj__0 = (void*)0;
         return __result_obj__0;
     }
     result=(struct sType*)come_increment_ref_count((struct sType*)come_calloc_v2(1, sizeof(struct sType)*(1), "sType_clone", 3, "struct sType*"));
@@ -4959,9 +4936,8 @@ static struct sType* sType_clone(struct sType* self)
         result->mTypeOfNode=(struct sNode*)come_increment_ref_count(sNode_clone(self->mTypeOfNode));
         (__dec_obj45 ? __dec_obj45 = come_decrement_ref_count(__dec_obj45, ((struct sNode*)__dec_obj45)->finalize, ((struct sNode*)__dec_obj45)->_protocol_obj, 0,0, (void*)0) :0);
     }
-    __result_obj__0 = (struct sType*)come_increment_ref_count(result);
+    __result_obj__0 = result;
     come_call_finalizer(sType_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    come_call_finalizer(sType_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
 }
 
@@ -5299,7 +5275,6 @@ static struct list$1sNode$ph* list$1sNode$ph_reset(struct list$1sNode$ph* self)
 
 int alignof_type(struct sType* type, struct sInfo* info)
 {
-    int __result_obj__0;
     int max_align;
     int n;
     int i;
@@ -5309,9 +5284,7 @@ int alignof_type(struct sType* type, struct sInfo* info)
     struct sType* field_type=0;
     int a;
     if(type->mPointerNum>0) {
-        __result_obj__0 = 8;
-        come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        return __result_obj__0;
+        return 8;
     }
     if(type->mClass->mStruct||type->mClass->mUnion) {
         max_align=1;
@@ -5321,40 +5294,29 @@ int alignof_type(struct sType* type, struct sInfo* info)
             name=(char*)come_increment_ref_count(multiple_assign_var3->v1);
             field_type=(struct sType*)come_increment_ref_count(multiple_assign_var3->v2);
             come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-            a=alignof_type((struct sType*)come_increment_ref_count(field_type),info);
+            a=alignof_type(field_type,info);
             if(a>max_align) {
                 max_align=a;
             }
             (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0));
             come_call_finalizer(sType_finalize, field_type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         }
-        __result_obj__0 = max_align;
-        come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        return __result_obj__0;
+        return max_align;
     }
     if(string_operator_equals(type->mClass->mName,"char")) {
-        __result_obj__0 = 1;
-        come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        return __result_obj__0;
+        return 1;
     }
     if(string_operator_equals(type->mClass->mName,"short")) {
-        __result_obj__0 = 2;
-        come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        return __result_obj__0;
+        return 2;
     }
     if(string_operator_equals(type->mClass->mName,"int")) {
-        __result_obj__0 = 4;
-        come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        return __result_obj__0;
+        return 4;
     }
     if(string_operator_equals(type->mClass->mName,"long")) {
-        __result_obj__0 = 8;
-        come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        return __result_obj__0;
+        return 8;
     }
     err_msg(info,"sizeof: unsupported type");
     exit(2);
-    come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
 }
 
 char* reflection_node(struct sInfo* info)
@@ -5499,7 +5461,7 @@ char* reflection_node(struct sInfo* info)
         result=((void*)0);
         Value=(struct sType*)come_increment_ref_count(map$2char$phsType$ph_operator_load_element(info->types,exp));
         if(({(_conditional_value_X0=(Value));_conditional_value_X0;})) {
-            size=(sizeof_type)((struct sType*)come_increment_ref_count(Value),info);
+            size=(sizeof_type)(Value,info);
             __dec_obj46=result,
             result=(char*)come_increment_ref_count(size_t_to_string(size));
             __dec_obj46 = come_decrement_ref_count(__dec_obj46, (void*)0, (void*)0, 0,0, (void*)0);
@@ -5544,7 +5506,7 @@ char* reflection_node(struct sInfo* info)
         result_20=((void*)0);
         Value_21=(struct sType*)come_increment_ref_count(map$2char$phsType$ph_operator_load_element(info->types,exp_19));
         if(({(_conditional_value_X1=(Value_21));_conditional_value_X1;})) {
-            size_22=alignof_type((struct sType*)come_increment_ref_count(Value_21),info);
+            size_22=alignof_type(Value_21,info);
             __dec_obj47=result_20,
             result_20=(char*)come_increment_ref_count(size_t_to_string(size_22));
             __dec_obj47 = come_decrement_ref_count(__dec_obj47, (void*)0, (void*)0, 0,0, (void*)0);

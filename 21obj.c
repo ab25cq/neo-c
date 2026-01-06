@@ -2,7 +2,7 @@
 
 class sNewNode extends sNodeBase
 {
-    new(sType*% type, list<tup: string, sNode*%>*% initializer, sNode*% initializer_num, sInfo* info)
+    new(sType* type, list<tup: string, sNode*%>*% initializer, sNode*% initializer_num, sInfo* info)
     {
         self.super();
         
@@ -561,7 +561,7 @@ class sGeneric extends sNodeBase
 
 class sSizeOfNode extends sNodeBase
 {
-    new(sType*% type, sInfo* info)
+    new(sType* type, sInfo* info)
     {
         self.super();
         
@@ -598,7 +598,7 @@ class sSizeOfNode extends sNodeBase
 
 class sOffsetOf extends sNodeBase
 {
-    new(sType*% type, string name, sInfo* info)
+    new(sType* type, string name, sInfo* info)
     {
         self.super();
         
@@ -677,7 +677,7 @@ class sSizeOfExpNode extends sNodeBase
 
 class sTypeOfNode extends sNodeBase
 {
-    new(sType*% type, sInfo* info)
+    new(sType* type, sInfo* info)
     {
         self.super();
         
@@ -808,7 +808,7 @@ class sDynamicTypeOf extends sNodeBase
 
 class sAlignOfNode extends sNodeBase
 {
-    new(sType*% type, sInfo* info)
+    new(sType* type, sInfo* info)
     {
         self.super();
         
@@ -886,7 +886,7 @@ class sAlignOfExpNode extends sNodeBase
 
 class sAlignOfNode2 extends sNodeBase
 {
-    new(sType*% type, sInfo* info)
+    new(sType* type, sInfo* info)
     {
         self.super();
         
@@ -962,7 +962,7 @@ class sAlignOfExpNode2 extends sNodeBase
 
 class sAlignAsNode extends sNodeBase
 {
-    new(sType*% type, sInfo* info)
+    new(sType* type, sInfo* info)
     {
         self.super();
         
@@ -1322,7 +1322,7 @@ class sGCDecNode extends sNodeBase
 
 class sIsHeap extends sNodeBase
 {
-    new(sType*% type, sInfo* info)
+    new(sType* type, sInfo* info)
     {
         self.super();
         
@@ -1367,7 +1367,7 @@ class sIsHeap extends sNodeBase
 
 class sIsPointer extends sNodeBase
 {
-    new(sType*% type, sInfo* info)
+    new(sType* type, sInfo* info)
     {
         self.super();
         

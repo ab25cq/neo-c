@@ -3729,13 +3729,13 @@ _conditional_value_X6;})) {
                     (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
                     if(left_type_61->mPointerNum>0&&right_type_60->mPointerNum>0&&right_type_60->mHeap&&left_type_61->mHeap) {
                         c_value=(char*)come_increment_ref_count(xsprintf("*(parent->%s)",parent_var->mCValueName));
-                        decrement_ref_count_object((struct sType*)come_increment_ref_count(parent_var->mType),c_value,info,0);
+                        decrement_ref_count_object(parent_var->mType,c_value,info,0);
                         std_move(left_type_61,right_type_60,right_value_59,info);
                         (c_value = come_decrement_ref_count(c_value, (void*)0, (void*)0, 0, 0, (void*)0));
                     }
                     else if(left_type_61->mPointerNum>0&&right_type_60->mPointerNum>0&&string_operator_equals(right_type_60->mClass->mName,"void")&&left_type_61->mHeap) {
                         c_value_62=(char*)come_increment_ref_count(xsprintf("*(parent->%s)",parent_var->mCValueName));
-                        decrement_ref_count_object((struct sType*)come_increment_ref_count(parent_var->mType),c_value_62,info,0);
+                        decrement_ref_count_object(parent_var->mType,c_value_62,info,0);
                         (c_value_62 = come_decrement_ref_count(c_value_62, (void*)0, (void*)0, 0, 0, (void*)0));
                     }
                     else if(left_type_61->mHeap&&!right_value_59->type->mHeap) {
@@ -3797,11 +3797,11 @@ _conditional_value_X6;})) {
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
             if(right_type_60->mHeap&&left_type_65->mHeap&&left_type_65->mPointerNum>0&&right_type_60->mPointerNum>0) {
-                decrement_ref_count_object((struct sType*)come_increment_ref_count(left_type_65),var__64->mCValueName,info,0);
+                decrement_ref_count_object(left_type_65,var__64->mCValueName,info,0);
                 std_move(left_type_65,right_type_60,right_value_59,info);
             }
             else if(left_type_65->mPointerNum>0&&left_type_65->mHeap&&string_operator_equals(right_type_60->mClass->mName,"void")&&right_type_60->mPointerNum>0) {
-                decrement_ref_count_object((struct sType*)come_increment_ref_count(left_type_65),var__64->mCValueName,info,0);
+                decrement_ref_count_object(left_type_65,var__64->mCValueName,info,0);
             }
             else if(left_type_65->mHeap&&!right_value_59->type->mHeap) {
                 err_msg(info,"require right value as heap object(%s)",self->name);
@@ -7131,7 +7131,7 @@ struct sNode* string_node_v7(char* buf, char* head, int head_sline, struct sInfo
             skip_spaces_and_lf(info);
             if(err) {
                 skip_spaces_and_lf(info);
-                multiple_assign_var3=((struct tuple2$2sType$phchar$ph*)(__right_value0=parse_variable_name_on_multiple_declare((struct sType*)come_increment_ref_count(type),1,info)));
+                multiple_assign_var3=((struct tuple2$2sType$phchar$ph*)(__right_value0=parse_variable_name_on_multiple_declare(type,1,info)));
                 type_89=(struct sType*)come_increment_ref_count(multiple_assign_var3->v1);
                 name_90=(char*)come_increment_ref_count(multiple_assign_var3->v2);
                 come_call_finalizer(tuple2$2sType$phchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
@@ -7295,7 +7295,7 @@ struct sNode* string_node_v7(char* buf, char* head, int head_sline, struct sInfo
             exit(2);
         }
         skip_spaces_and_lf(info);
-        multiple_assign_var6=((struct tuple2$2sType$phchar$ph*)(__right_value0=parse_variable_name_on_multiple_declare((struct sType*)come_increment_ref_count(base_type),1,info)));
+        multiple_assign_var6=((struct tuple2$2sType$phchar$ph*)(__right_value0=parse_variable_name_on_multiple_declare(base_type,1,info)));
         type2=(struct sType*)come_increment_ref_count(multiple_assign_var6->v1);
         var_name=(char*)come_increment_ref_count(multiple_assign_var6->v2);
         come_call_finalizer(tuple2$2sType$phchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
@@ -7330,7 +7330,7 @@ struct sNode* string_node_v7(char* buf, char* head, int head_sline, struct sInfo
         while(*info->p==44) {
             info->p++;
             skip_spaces_and_lf(info);
-            multiple_assign_var7=((struct tuple2$2sType$phchar$ph*)(__right_value0=parse_variable_name_on_multiple_declare((struct sType*)come_increment_ref_count(base_type),0,info)));
+            multiple_assign_var7=((struct tuple2$2sType$phchar$ph*)(__right_value0=parse_variable_name_on_multiple_declare(base_type,0,info)));
             type2_109=(struct sType*)come_increment_ref_count(multiple_assign_var7->v1);
             var_name_110=(char*)come_increment_ref_count(multiple_assign_var7->v2);
             come_call_finalizer(tuple2$2sType$phchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);

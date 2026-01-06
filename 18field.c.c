@@ -4569,7 +4569,7 @@ _conditional_value_X0;})) {
                     c_value=(char*)come_increment_ref_count(xsprintf("%s->%s.%s",left_value->c_value,child_field_name,name));
                     __dec_obj50 = come_decrement_ref_count(__dec_obj50, (void*)0, (void*)0, 0,0, (void*)0);
                 }
-                decrement_ref_count_object((struct sType*)come_increment_ref_count(field_type_17),c_value,info,0);
+                decrement_ref_count_object(field_type_17,c_value,info,0);
                 std_move(field_type_17,right_type,right_value,info);
                 if(child_field_is_pointer) {
                     __dec_obj51=come_value->c_value,
@@ -4585,7 +4585,7 @@ _conditional_value_X0;})) {
             }
             else {
                 c_value_18=(char*)come_increment_ref_count(xsprintf("%s->%s",left_value->c_value,name));
-                decrement_ref_count_object((struct sType*)come_increment_ref_count(field_type_17),c_value_18,info,0);
+                decrement_ref_count_object(field_type_17,c_value_18,info,0);
                 std_move(field_type_17,right_type,right_value,info);
                 __dec_obj53=come_value->c_value,
                 come_value->c_value=(char*)come_increment_ref_count(xsprintf("%s->%s=%s",left_value->c_value,name,right_value->c_value));
@@ -4605,7 +4605,7 @@ _conditional_value_X0;})) {
                     c_value_19=(char*)come_increment_ref_count(xsprintf("%s.%s.%s",left_value->c_value,child_field_name,name));
                     __dec_obj55 = come_decrement_ref_count(__dec_obj55, (void*)0, (void*)0, 0,0, (void*)0);
                 }
-                decrement_ref_count_object((struct sType*)come_increment_ref_count(field_type_17),c_value_19,info,0);
+                decrement_ref_count_object(field_type_17,c_value_19,info,0);
                 std_move(field_type_17,right_type,right_value,info);
                 if(child_field_is_pointer) {
                     __dec_obj56=come_value->c_value,
@@ -4621,7 +4621,7 @@ _conditional_value_X0;})) {
             }
             else {
                 c_value_20=(char*)come_increment_ref_count(xsprintf("%s.%s",left_value->c_value,name));
-                decrement_ref_count_object((struct sType*)come_increment_ref_count(field_type_17),c_value_20,info,0);
+                decrement_ref_count_object(field_type_17,c_value_20,info,0);
                 std_move(field_type_17,right_value->type,right_value,info);
                 __dec_obj58=come_value->c_value,
                 come_value->c_value=(char*)come_increment_ref_count(xsprintf("%s.%s=%s",left_value->c_value,name,right_value->c_value));
@@ -4659,7 +4659,7 @@ _conditional_value_X0;})) {
                     c_value_21=(char*)come_increment_ref_count(xsprintf("%s->%s.%s",left_value->c_value,child_field_name,name));
                     __dec_obj60 = come_decrement_ref_count(__dec_obj60, (void*)0, (void*)0, 0,0, (void*)0);
                 }
-                decrement_ref_count_object((struct sType*)come_increment_ref_count(field_type_17),c_value_21,info,0);
+                decrement_ref_count_object(field_type_17,c_value_21,info,0);
                 if(child_field_is_pointer) {
                     __dec_obj61=come_value->c_value,
                     come_value->c_value=(char*)come_increment_ref_count(xsprintf("%s->%s->%s=%s",left_value->c_value,child_field_name,name,right_value->c_value));
@@ -4674,7 +4674,7 @@ _conditional_value_X0;})) {
             }
             else {
                 c_value_22=(char*)come_increment_ref_count(xsprintf("%s->%s",left_value->c_value,name));
-                decrement_ref_count_object((struct sType*)come_increment_ref_count(field_type_17),c_value_22,info,0);
+                decrement_ref_count_object(field_type_17,c_value_22,info,0);
                 __dec_obj63=come_value->c_value,
                 come_value->c_value=(char*)come_increment_ref_count(xsprintf("%s->%s=%s",left_value->c_value,name,right_value->c_value));
                 __dec_obj63 = come_decrement_ref_count(__dec_obj63, (void*)0, (void*)0, 0,0, (void*)0);
@@ -4693,7 +4693,7 @@ _conditional_value_X0;})) {
                     c_value_23=(char*)come_increment_ref_count(xsprintf("%s.%s.%s",left_value->c_value,child_field_name,name));
                     __dec_obj65 = come_decrement_ref_count(__dec_obj65, (void*)0, (void*)0, 0,0, (void*)0);
                 }
-                decrement_ref_count_object((struct sType*)come_increment_ref_count(field_type_17),c_value_23,info,0);
+                decrement_ref_count_object(field_type_17,c_value_23,info,0);
                 if(child_field_is_pointer) {
                     __dec_obj66=come_value->c_value,
                     come_value->c_value=(char*)come_increment_ref_count(xsprintf("%s.%s->%s=%s",left_value->c_value,child_field_name,name,right_value->c_value));
@@ -4708,7 +4708,7 @@ _conditional_value_X0;})) {
             }
             else {
                 c_value_24=(char*)come_increment_ref_count(xsprintf("%s.%s",left_value->c_value,name));
-                decrement_ref_count_object((struct sType*)come_increment_ref_count(field_type_17),c_value_24,info,0);
+                decrement_ref_count_object(field_type_17,c_value_24,info,0);
                 __dec_obj68=come_value->c_value,
                 come_value->c_value=(char*)come_increment_ref_count(xsprintf("%s.%s=%s",left_value->c_value,name,right_value->c_value));
                 __dec_obj68 = come_decrement_ref_count(__dec_obj68, (void*)0, (void*)0, 0,0, (void*)0);
@@ -5723,21 +5723,21 @@ _Bool sStoreArrayNode_compile(struct sStoreArrayNode* self, struct sInfo* info)
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         if(left_type->mHeap&&right_type->mHeap&&left_type->mPointerNum>0&&right_type->mPointerNum>0) {
             if(left_value->type->mPointerNum>=1) {
-                decrement_ref_count_object((struct sType*)come_increment_ref_count(left_type),left_value_code,info,0);
+                decrement_ref_count_object(left_type,left_value_code,info,0);
                 std_move(left_type,right_type,right_value,info);
                 __dec_obj103=come_value->c_value,
                 come_value->c_value=(char*)come_increment_ref_count(xsprintf("%s=%s",left_value_code,right_value->c_value));
                 __dec_obj103 = come_decrement_ref_count(__dec_obj103, (void*)0, (void*)0, 0,0, (void*)0);
             }
             else if(left_value->type->mPointerNum==0) {
-                decrement_ref_count_object((struct sType*)come_increment_ref_count(left_type),left_value_code,info,0);
+                decrement_ref_count_object(left_type,left_value_code,info,0);
                 std_move(left_type,right_type,right_value,info);
                 __dec_obj104=come_value->c_value,
                 come_value->c_value=(char*)come_increment_ref_count(xsprintf("%s=%s",left_value_code,right_value->c_value));
                 __dec_obj104 = come_decrement_ref_count(__dec_obj104, (void*)0, (void*)0, 0,0, (void*)0);
             }
             else {
-                decrement_ref_count_object((struct sType*)come_increment_ref_count(left_type),left_value_code,info,0);
+                decrement_ref_count_object(left_type,left_value_code,info,0);
                 std_move(left_type,right_type,right_value,info);
                 __dec_obj105=come_value->c_value,
                 come_value->c_value=(char*)come_increment_ref_count(xsprintf("%s=%s",left_value_code,right_value->c_value));

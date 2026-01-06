@@ -1147,7 +1147,7 @@ string parse_struct_attribute(sInfo* info=info)
     return result.to_string();
 }
 
-sType*%, string parse_variable_name_on_multiple_declare(sType*% base_type_name, bool first, sInfo* info)
+sType*%, string parse_variable_name_on_multiple_declare(sType* base_type_name, bool first, sInfo* info)
 {
     sType*% result_type = clone base_type_name;
     if(!first) {

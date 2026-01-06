@@ -389,7 +389,7 @@ string increment_ref_count_object(sType* type, char* obj, sInfo* info)
     return xsprintf("(%s)come_increment_ref_count(%s)", type_name, obj);
 }
 
-void decrement_ref_count_object(sType*% type, char* obj, sInfo* info, bool no_free=false)
+void decrement_ref_count_object(sType* type, char* obj, sInfo* info, bool no_free=false)
 {
     if(gComeC) {
         return;
@@ -713,7 +713,7 @@ void free_object(sType* type, char* obj, bool no_decrement, bool no_free, sInfo*
     info.stack = stack_saved;
 }
 
-tuple2<sType*%, string>*% clone_object(sType*% type, char* obj, sInfo* info)
+tuple2<sType*%, string>*% clone_object(sType* type, char* obj, sInfo* info)
 {
     bool in_clone_object = info.in_clone_object;
     info.in_clone_object = true;
