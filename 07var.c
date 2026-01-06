@@ -2,19 +2,16 @@
 
 class sStoreNode extends sNodeBase
 {
-    new(string name, list<string>*% multiple_assign, list<tup: sType*%, string, sNode*%>*% multiple_declare, sType*% type, bool alloc, sNode*% right_value, sInfo* info, string attribute=s"")
+    new(string name, list<string>* multiple_assign, list<tup: sType*%, string, sNode*%>* multiple_declare, sType* type, bool alloc, sNode* right_value, sInfo* info, string attribute=s"")
     {
         self.super();
         
         string self.name = string(name);
         bool self.alloc = alloc;
-        sType*% self.type;
-        self.type = dupe type;
-        sNode*% self.right_value = right_value;
-        list<string>*% self.multiple_assign;
-        self.multiple_assign = dupe multiple_assign;
-        list<tup: sType*%,string,sNode*%>*% self.multiple_declare;
-        self.multiple_declare = dupe multiple_declare;
+        sType*% self.type = clone type;
+        sNode*% self.right_value = clone right_value;
+        list<string>*% self.multiple_assign = clone multiple_assign;
+        list<tup: sType*%,string,sNode*%>*% self.multiple_declare= clone multiple_declare;
         string self.attribute = attribute;
     }
     
@@ -623,7 +620,7 @@ class sReadChannelNode extends sNodeBase
     
 };
 
-sNode*% store_var(string name, list<string>*% multiple_assign, list<tup: sType*%, string, sNode*%>*% multiple_declare, sType*% type, bool alloc, sNode*% right_value, sInfo* info)
+sNode*% store_var(string name, list<string>* multiple_assign, list<tup: sType*%, string, sNode*%>* multiple_declare, sType* type, bool alloc, sNode* right_value, sInfo* info)
 {
     return new sStoreNode(name, multiple_assign, multiple_declare, type, alloc, right_value, info) implements sNode;
 }

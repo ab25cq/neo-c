@@ -869,7 +869,7 @@ void free_object(sType* type, char* obj, bool no_decrement, bool no_free, sInfo*
 sType*%, string clone_object(sType* type, char* obj, sInfo* info);
 void free_right_value_objects(sInfo* info);
 void free_objects(sVarTable* table, sVar* ret_value, sInfo* info);
-void append_object_to_right_values(CVALUE* come_value, sType*% type, sInfo* info, bool decrement_ref_count=false, sType*% obj_type=null, char* obj_value=null, sVar* obj_var=null);
+void append_object_to_right_values(CVALUE* come_value, sType* type, sInfo* info, bool decrement_ref_count=false, sType*% obj_type=null, char* obj_value=null, sVar* obj_var=null);
         
 void remove_object_from_right_values(int right_value_num, sInfo* info);
 string increment_ref_count_object(sType* type, char* obj, sInfo* info);
@@ -962,7 +962,7 @@ sNode*% parse_none(sInfo* info);
 bool is_inner_calling(sNode* node, sInfo* info);
 sNode*% post_position_operator(sNode*% node, sInfo* info) version 07;
 sNode*% expression_node(sInfo* info=info) version 95;
-sNode*% store_var(string name, list<string>*% multiple_assign, list<tup: sType*%, string, sNode*%>*% multiple_declare, sType*% type, bool alloc, sNode*% right_value, sInfo* info);
+sNode*% store_var(string name, list<string>* multiple_assign, list<tup: sType*%, string, sNode*%>* multiple_declare, sType* type, bool alloc, sNode* right_value, sInfo* info);
 sNode*% create_load_var(char* var_name, sInfo* info=info);
 sNode*% parse_array_initializer(sInfo* info=info);
 sNode*% parse_struct_initializer(sInfo* info=info);

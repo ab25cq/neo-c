@@ -6136,7 +6136,7 @@ _conditional_value_X0;})) {
         }
         come_value2->var=((void*)0);
         if(result_type2->mHeap) {
-            append_object_to_right_values(come_value2,(struct sType*)come_increment_ref_count(result_type2),info,0,((void*)0),((void*)0),((void*)0));
+            append_object_to_right_values(come_value2,result_type2,info,0,((void*)0),((void*)0),((void*)0));
         }
         add_come_last_code(info,"%s",come_value2->c_value);
         list$1CVALUE$ph_push_back(info->stack,(struct CVALUE*)come_increment_ref_count(come_value2));
@@ -6572,10 +6572,10 @@ _conditional_value_X12;})) {
             come_value2_129->type->mStatic=0;
         }
         if(result_type_83->mHeap) {
-            append_object_to_right_values(come_value2_129,(struct sType*)come_increment_ref_count(result_type_83),info,0,(struct sType*)come_increment_ref_count(obj_type),saved_obj_value,saved_var);
+            append_object_to_right_values(come_value2_129,result_type_83,info,0,(struct sType*)come_increment_ref_count(obj_type),saved_obj_value,saved_var);
         }
         else if(saved_obj_value) {
-            append_object_to_right_values(come_value2_129,(struct sType*)come_increment_ref_count(result_type_83),info,0,(struct sType*)come_increment_ref_count(obj_type),saved_obj_value,saved_var);
+            append_object_to_right_values(come_value2_129,result_type_83,info,0,(struct sType*)come_increment_ref_count(obj_type),saved_obj_value,saved_var);
         }
         __dec_obj93=come_value2_129->c_value,
         come_value2_129->c_value=(char*)come_increment_ref_count(append_stackframe(come_value2_129->c_value,come_value2_129->type,info));

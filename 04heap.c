@@ -297,7 +297,7 @@ sType*% solve_method_generics(sType* type, sInfo* info)
     return result;
 }
 
-void append_object_to_right_values(CVALUE* come_value, sType*% type, sInfo* info, bool decrement_ref_count=false, sType*% obj_type=null, char* obj_value=null, sVar* obj_var=null)
+void append_object_to_right_values(CVALUE* come_value, sType* type, sInfo* info, bool decrement_ref_count=false, sType*% obj_type=null, char* obj_value=null, sVar* obj_var=null)
 {
     if(gComeC) {
         return ;

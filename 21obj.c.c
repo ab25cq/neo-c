@@ -3615,7 +3615,7 @@ _conditional_value_X0;})) {
         come_value_11->type=(struct sType*)come_increment_ref_count(sType_clone(type2));
         come_call_finalizer(sType_finalize, __dec_obj38,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_value_11->var=((void*)0);
-        append_object_to_right_values(come_value_11,(struct sType*)come_increment_ref_count(type2),info,0,((void*)0),((void*)0),((void*)0));
+        append_object_to_right_values(come_value_11,type2,info,0,((void*)0),((void*)0),((void*)0));
         __dec_obj39=come_value_11->c_value,
         come_value_11->c_value=(char*)come_increment_ref_count(append_stackframe(come_value_11->c_value,come_value_11->type,info));
         __dec_obj39 = come_decrement_ref_count(__dec_obj39, (void*)0, (void*)0, 0,0, (void*)0);
@@ -3767,7 +3767,7 @@ _conditional_value_X1;})) {
         come_value->type=(struct sType*)come_increment_ref_count(sType_clone(type2));
         come_call_finalizer(sType_finalize, __dec_obj48,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_value->var=((void*)0);
-        append_object_to_right_values(come_value,(struct sType*)come_increment_ref_count(type2),info,0,((void*)0),((void*)0),((void*)0));
+        append_object_to_right_values(come_value,type2,info,0,((void*)0),((void*)0),((void*)0));
         __dec_obj49=come_value->c_value,
         come_value->c_value=(char*)come_increment_ref_count(append_stackframe(come_value->c_value,come_value->type,info));
         __dec_obj49 = come_decrement_ref_count(__dec_obj49, (void*)0, (void*)0, 0,0, (void*)0);
@@ -3811,7 +3811,7 @@ _conditional_value_X2;})) {
         come_value->type=(struct sType*)come_increment_ref_count(sType_clone(type2));
         come_call_finalizer(sType_finalize, __dec_obj52,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_value->var=((void*)0);
-        append_object_to_right_values(come_value,(struct sType*)come_increment_ref_count(type2),info,0,((void*)0),((void*)0),((void*)0));
+        append_object_to_right_values(come_value,type2,info,0,((void*)0),((void*)0),((void*)0));
         add_come_last_code(info,"%s",come_value->c_value);
         list$1CVALUE$ph_push_back(info->stack,(struct CVALUE*)come_increment_ref_count(come_value));
         come_call_finalizer(sType_finalize, type3_30, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -5425,7 +5425,7 @@ _conditional_value_X0;})) {
     come_call_finalizer(sType_finalize, __dec_obj59,(void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_value2->type->mPointerNum++;
     come_value2->var=((void*)0);
-    append_object_to_right_values(come_value2,(struct sType*)come_increment_ref_count(type3),info,0,((void*)0),((void*)0),((void*)0));
+    append_object_to_right_values(come_value2,type3,info,0,((void*)0),((void*)0),((void*)0));
     add_come_last_code(info,"%s",come_value2->c_value);
     list$1CVALUE$ph_push_back(info->stack,(struct CVALUE*)come_increment_ref_count(come_value2));
     __result_obj__0 = 1;
@@ -6699,7 +6699,7 @@ _Bool sDynamicTypeOf_compile(struct sDynamicTypeOf* self, struct sInfo* info)
         come_call_finalizer(sType_finalize, __dec_obj94,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_value2_50->var=((void*)0);
         add_come_last_code(info,"%s",come_value2_50->c_value);
-        append_object_to_right_values(come_value2_50,(struct sType*)come_increment_ref_count(come_value2_50->type),info,0,((void*)0),((void*)0),((void*)0));
+        append_object_to_right_values(come_value2_50,come_value2_50->type,info,0,((void*)0),((void*)0),((void*)0));
         list$1CVALUE$ph_push_back(info->stack,(struct CVALUE*)come_increment_ref_count(come_value2_50));
         come_call_finalizer(CVALUE_finalize, come_value2_50, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
@@ -7389,7 +7389,7 @@ _Bool sCloneNode_compile(struct sCloneNode* self, struct sInfo* info)
         come_call_finalizer(sType_finalize, __dec_obj117,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_value->type->mHeap=1;
         come_value->var=((void*)0);
-        append_object_to_right_values(come_value,(struct sType*)come_increment_ref_count(left_type),info,0,((void*)0),((void*)0),((void*)0));
+        append_object_to_right_values(come_value,left_type,info,0,((void*)0),((void*)0),((void*)0));
         list$1CVALUE$ph_push_back(info->stack,(struct CVALUE*)come_increment_ref_count(come_value));
         come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_call_finalizer(sType_finalize, result_type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -7492,7 +7492,7 @@ _Bool sDupeNode_compile(struct sDupeNode* self, struct sInfo* info)
         come_call_finalizer(sType_finalize, __dec_obj120,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_value->type->mHeap=1;
         come_value->var=((void*)0);
-        append_object_to_right_values(come_value,(struct sType*)come_increment_ref_count(left_type),info,0,((void*)0),((void*)0),((void*)0));
+        append_object_to_right_values(come_value,left_type,info,0,((void*)0),((void*)0),((void*)0));
         list$1CVALUE$ph_push_back(info->stack,(struct CVALUE*)come_increment_ref_count(come_value));
         come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_call_finalizer(sType_finalize, result_type, (void*)0, (void*)0, 0, 0, 0, (void*)0);

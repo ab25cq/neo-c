@@ -6073,7 +6073,7 @@ struct sNode* parse_match(struct sNode* expression_node, struct sInfo* info)
     sname=(char*)come_increment_ref_count((char*)come_memdup(info->sname, "08if.c", 432, "char*"));
     sline=info->sline;
     (come_push_stackframe("08if.c", 435, 4),__exception_result_var_b5=expected_next_character(123,info), come_pop_stackframe(), __exception_result_var_b5);
-    it_node=(struct sNode*)come_increment_ref_count(store_var((char*)come_increment_ref_count(xsprintf("Value")),((void*)0),((void*)0),((void*)0),1,(struct sNode*)come_increment_ref_count(expression_node),info));
+    it_node=(struct sNode*)come_increment_ref_count(store_var((char*)come_increment_ref_count(xsprintf("Value")),((void*)0),((void*)0),((void*)0),1,expression_node,info));
     (come_push_stackframe("08if.c", 439, 5),__exception_result_var_b6=expected_next_character(40,info), come_pop_stackframe(), __exception_result_var_b6);
     conditional_value=(struct sNode*)come_increment_ref_count(expression_v13(info,0));
     (come_push_stackframe("08if.c", 443, 6),__exception_result_var_b7=expected_next_character(41,info), come_pop_stackframe(), __exception_result_var_b7);
@@ -6228,7 +6228,7 @@ struct sNode* parse_if_method_call(struct sNode* expression_node, struct sInfo* 
     struct sNode* __result_obj__0;
     sname=(char*)come_increment_ref_count((char*)come_memdup(info->sname, "08if.c", 516, "char*"));
     sline=info->sline;
-    it_node=(struct sNode*)come_increment_ref_count(store_var((char*)come_increment_ref_count(xsprintf("Value")),((void*)0),((void*)0),((void*)0),1,(struct sNode*)come_increment_ref_count(expression_node),info));
+    it_node=(struct sNode*)come_increment_ref_count(store_var((char*)come_increment_ref_count(xsprintf("Value")),((void*)0),((void*)0),((void*)0),1,expression_node,info));
     conditional_node=(struct sNode*)come_increment_ref_count(create_load_var("Value",info));
     skip_spaces_and_lf(info);
     if_block=(struct sBlock*)come_increment_ref_count(parse_block(info,0,0));
@@ -6404,7 +6404,7 @@ struct sNode* parse_elif_method_call(struct sNode* expression_node, struct sInfo
     struct sNode* __result_obj__0;
     sname=(char*)come_increment_ref_count((char*)come_memdup(info->sname, "08if.c", 621, "char*"));
     sline=info->sline;
-    it_node=(struct sNode*)come_increment_ref_count(store_var((char*)come_increment_ref_count(xsprintf("Value")),((void*)0),((void*)0),((void*)0),1,(struct sNode*)come_increment_ref_count(expression_node),info));
+    it_node=(struct sNode*)come_increment_ref_count(store_var((char*)come_increment_ref_count(xsprintf("Value")),((void*)0),((void*)0),((void*)0),1,expression_node,info));
     conditional_node=(struct sNode*)come_increment_ref_count(create_load_var("Value",info));
     conditional_node2=(struct sNode*)come_increment_ref_count(craete_logical_denial((struct sNode*)come_increment_ref_count(conditional_node),info));
     skip_spaces_and_lf(info);
@@ -6543,7 +6543,7 @@ struct sNode* parse_less_method_call(struct sNode* expression_node, struct sInfo
     struct sNode* __result_obj__0;
     sname=(char*)come_increment_ref_count((char*)come_memdup(info->sname, "08if.c", 727, "char*"));
     sline=info->sline;
-    it_node=(struct sNode*)come_increment_ref_count(store_var((char*)come_increment_ref_count(xsprintf("Value")),((void*)0),((void*)0),((void*)0),1,(struct sNode*)come_increment_ref_count(expression_node),info));
+    it_node=(struct sNode*)come_increment_ref_count(store_var((char*)come_increment_ref_count(xsprintf("Value")),((void*)0),((void*)0),((void*)0),1,expression_node,info));
     conditional_node=(struct sNode*)come_increment_ref_count(create_load_var("Value",info));
     conditional_node2=(struct sNode*)come_increment_ref_count(create_less((struct sNode*)come_increment_ref_count(conditional_node),(struct sNode*)come_increment_ref_count(create_int_node((char*)come_increment_ref_count(int_to_string(0)),info)),info));
     skip_spaces_and_lf(info);

@@ -6003,7 +6003,7 @@ _conditional_value_X1;})) {
         }
         come_value_28->var=((void*)0);
         if(lambda_type->mResultType->mHeap) {
-            append_object_to_right_values(come_value_28,(struct sType*)come_increment_ref_count(lambda_type->mResultType),info,0,((void*)0),((void*)0),((void*)0));
+            append_object_to_right_values(come_value_28,lambda_type->mResultType,info,0,((void*)0),((void*)0),((void*)0));
         }
         add_come_last_code(info,"%s",come_value_28->c_value);
         list$1CVALUE$ph_push_back(info->stack,(struct CVALUE*)come_increment_ref_count(come_value_28));
@@ -7293,7 +7293,7 @@ _conditional_value_X3;})) {
     }
     come_value_191->var=((void*)0);
     if(fun_123->mResultType->mHeap) {
-        append_object_to_right_values(come_value_191,(struct sType*)come_increment_ref_count(result_type_138),info,0,((void*)0),((void*)0),((void*)0));
+        append_object_to_right_values(come_value_191,result_type_138,info,0,((void*)0),((void*)0),((void*)0));
     }
     if(string_operator_equals(info->come_fun->mName,"come_alloc_mem_from_heap_pool")||string_operator_equals(info->come_fun->mName,"come_calloc")||string_operator_equals(info->come_fun->mName,"come_calloc_v2")||string_operator_equals(info->come_fun->mName,"come_free_mem_of_heap_pool")||string_operator_equals(info->come_fun->mName,"come_free")||string_operator_equals(info->come_fun->mName,"come_free_v2")) {
     }
@@ -8806,7 +8806,7 @@ _Bool sComeCallNode_compile(struct sComeCallNode* self, struct sInfo* info)
         come_call_finalizer(sType_finalize, type_, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         return __result_obj__0;
     }
-    var_node=(struct sNode*)come_increment_ref_count(store_var((char*)come_increment_ref_count(var_name),((void*)0),((void*)0),(struct sType*)come_increment_ref_count(type_),1,((void*)0),info));
+    var_node=(struct sNode*)come_increment_ref_count(store_var((char*)come_increment_ref_count(var_name),((void*)0),((void*)0),type_,1,((void*)0),info));
     Value=node_compile(var_node,info);
     if(!Value) {
         __result_obj__0 = 0;
@@ -9663,7 +9663,7 @@ _conditional_value_X1;})) {
     come_value2_222->c_value=(char*)come_increment_ref_count(buffer_to_string(buf_218));
     __dec_obj191 = come_decrement_ref_count(__dec_obj191, (void*)0, (void*)0, 0,0, (void*)0);
     if(lambda_type->mResultType->mHeap) {
-        append_object_to_right_values(come_value2_222,(struct sType*)come_increment_ref_count(lambda_type->mResultType),info,0,((void*)0),((void*)0),((void*)0));
+        append_object_to_right_values(come_value2_222,lambda_type->mResultType,info,0,((void*)0),((void*)0),((void*)0));
     }
     __dec_obj192=come_value2_222->type,
     come_value2_222->type=(struct sType*)come_increment_ref_count(sType_clone(result_type));
