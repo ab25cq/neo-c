@@ -1402,6 +1402,7 @@ struct sInfo
     char* base_sname;
     int sline;
     int err_num;
+    int err_num2;
     char* clang_option;
     char* cpp_option;
     char* linker_option;
@@ -2510,6 +2511,7 @@ char* sCurrentNode_kind(struct sCurrentNode* self);
 _Bool sCurrentNode_compile(struct sCurrentNode* self, struct sInfo* info);
 _Bool transpile_conditional_with_free_right_object_value(struct sNode* node, struct sInfo* info);
 int err_msg(struct sInfo* info, char* msg, ...);
+int err_msg2(struct sInfo* info, char* msg, ...);
 int expected_next_character(char c, struct sInfo* info);
 _Bool node_compile(struct sNode* node, struct sInfo* info);
 _Bool node_conditional_compile(struct sNode* node, struct sInfo* info);

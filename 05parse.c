@@ -59,6 +59,51 @@ int err_msg(sInfo* info, char* msg, ...)
     return 0;
 }
 
+int err_msg2(sInfo* info, char* msg, ...)
+{
+    if(!info.no_output_come_code) {
+        char* msg2;
+    
+        va_list args;
+        va_start(args, msg);
+        vasprintf(&msg2,msg,args);
+        va_end(args);
+        
+        char* p = info.p;
+        
+        char* last_lf = null;
+        while(p >= info.head) {
+            if(*p == '\n') {
+                last_lf = p;
+                break;
+            }
+            p--;
+        }
+        
+        buffer*% buf = new buffer();
+        
+        if(last_lf) {
+            int col = info.p - last_lf;
+        
+            buf.append_format("%s %d(real %d)(block %d) %d: %s", info.sname, info.sline, info.sline_real, info.sline_block, col, msg2);
+        }
+        else {
+            int col = info.p - info.head;
+        
+            buf.append_format("%s %d(real %d)(block %d) %d: %s", info.sname, info.sline, info.sline_real, info.sline_block, col, msg2);
+        }
+        
+        info.err_num2++;
+
+        free(msg2);
+        
+        printf(buf.to_string() + "\n");
+        return 0;
+    }
+    
+    return 0;
+}
+
 record int expected_next_character(char c, sInfo* info=info)
 {
     parse_sharp();

@@ -691,7 +691,7 @@ class sLoadNode extends sNodeBase
                 }
                 else {
                     if(var_ == null) {
-                        printf("%s %d: The type of %s is not found. so can't check the heap type\n", info.sname, info.sline, self.name);
+                        err_msg2(info, "The type of %s is not found. so can't check the heap type\n", self.name);
                         
                         CVALUE*% come_value = new CVALUE();
                         
@@ -701,6 +701,8 @@ class sLoadNode extends sNodeBase
                         come_value.var = null;
                         
                         info.stack.push_back(come_value);
+                        
+                        add_come_last_code(info, "%s;\n", come_value.c_value);
                         
                         return true;
                     }

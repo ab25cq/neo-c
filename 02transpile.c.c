@@ -1396,6 +1396,7 @@ struct sInfo
     char* base_sname;
     int sline;
     int err_num;
+    int err_num2;
     char* clang_option;
     char* cpp_option;
     char* linker_option;
@@ -2396,6 +2397,7 @@ char* sCurrentNode_sname(struct sCurrentNode* self, struct sInfo* info);
 char* sCurrentNode_kind(struct sCurrentNode* self);
 _Bool sCurrentNode_compile(struct sCurrentNode* self, struct sInfo* info);
 int err_msg(struct sInfo* info, char* msg, ...);
+int err_msg2(struct sInfo* info, char* msg, ...);
 int expected_next_character(char c, struct sInfo* info);
 _Bool node_conditional_compile(struct sNode* node, struct sInfo* info);
 char* make_type_name_string(struct sType* type, struct sInfo* info, _Bool no_static, _Bool cast_type, _Bool typedef_extended);
@@ -6440,6 +6442,9 @@ _conditional_value_X3;})) {
                 printf("transpile error. err num %d\n",info.err_num);
                 exit(2);
             }
+            if(info.err_num2>0) {
+                printf("transpile error. err num %d\n",info.err_num2);
+            }
             Value_80=output_object_file_flag;
             if(Value_80) {
                 Value_81=compile(&info,output_object_file,object_files);
@@ -6472,7 +6477,7 @@ _conditional_value_X3;})) {
     if(!output_object_file&&!output_cpp_file&&(list$1char$ph_length(files)>0||list$1char$ph_length(object_files)>0)) {
         memset(&info_82,0,sizeof(struct sInfo));
         __dec_obj62=info_82.sname,
-        info_82.sname=(char*)come_increment_ref_count((char*)come_memdup(((char*)(__right_value0=list$1char$ph_operator_load_element(files,0))), "02transpile.c", 1741, "char*"));
+        info_82.sname=(char*)come_increment_ref_count((char*)come_memdup(((char*)(__right_value0=list$1char$ph_operator_load_element(files,0))), "02transpile.c", 1744, "char*"));
         __dec_obj62 = come_decrement_ref_count(__dec_obj62, (void*)0, (void*)0, 0,0, (void*)0);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         __dec_obj63=info_82.clang_option,

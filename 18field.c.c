@@ -1402,6 +1402,7 @@ struct sInfo
     char* base_sname;
     int sline;
     int err_num;
+    int err_num2;
     char* clang_option;
     char* cpp_option;
     char* linker_option;
@@ -2445,6 +2446,7 @@ char* sCurrentNode_kind(struct sCurrentNode* self);
 _Bool sCurrentNode_compile(struct sCurrentNode* self, struct sInfo* info);
 _Bool transpile_conditional_with_free_right_object_value(struct sNode* node, struct sInfo* info);
 int err_msg(struct sInfo* info, char* msg, ...);
+int err_msg2(struct sInfo* info, char* msg, ...);
 int expected_next_character(char c, struct sInfo* info);
 _Bool node_compile(struct sNode* node, struct sInfo* info);
 _Bool node_conditional_compile(struct sNode* node, struct sInfo* info);
@@ -4897,7 +4899,7 @@ _conditional_value_X0;})) {
     }
     field_type=(struct sType*)come_increment_ref_count(get_field_type(klass,(char*)come_increment_ref_count(name),info));
     if(field_type==((void*)0)) {
-        printf("%s %d: The type of %s.%s is not found. so can't check the heap type\n",info->sname,info->sline,left_value->c_value,name);
+        err_msg2(info,"type of %s.%s is not found. so can't check the heap type\n",left_value->c_value,name);
         come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc_v2(1, sizeof(struct CVALUE)*(1), "18field.c", 409, "struct CVALUE*"))));
         __dec_obj87=come_value->c_value,
         come_value->c_value=(char*)come_increment_ref_count(xsprintf("%s.%s",left_value->c_value,name));

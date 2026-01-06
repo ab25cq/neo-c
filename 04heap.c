@@ -71,7 +71,7 @@ sType*% solve_generics(sType* type, sType* generics_type, sInfo* info)
     if(klass->mName === "lambda") {
         var result_type = solve_generics(type->mResultType, generics_type, info);
         
-        result->mResultType = result_type;
+        result->mResultType = clone result_type;
         
         result.mParamTypes.reset();
 
@@ -788,8 +788,8 @@ tuple2<sType*%, string>*% clone_object(sType* type, char* obj, sInfo* info)
 
     /// call cloner ///
     if(cloner != null) {
-        result_type = cloner->mResultType;
-        result_type = solve_generics(result_type, type_, info);
+        sType*% type_ = clone cloner->mResultType;
+        result_type = solve_generics(type_, type_, info);
         
         result = xsprintf("%s(%s)", fun_name2, c_value);
         

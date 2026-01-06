@@ -1,9 +1,10 @@
 
+
+
+
 int main(int argc, char** argv)
 {
-    int a = 1;
-    int b = 0;
-    int c = a/b;
+    a.d + 1;
     
     return 0;
 }

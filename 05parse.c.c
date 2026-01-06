@@ -1402,6 +1402,7 @@ struct sInfo
     char* base_sname;
     int sline;
     int err_num;
+    int err_num2;
     char* clang_option;
     char* cpp_option;
     char* linker_option;
@@ -2586,6 +2587,7 @@ _Bool sNothingNode_compile(struct sNothingNode* self, struct sInfo* info);
 _Bool parsecmp(char* p2, struct sInfo* info);
 int err_msg(struct sInfo* info, char* msg, ...);
 static void __builtin_va_list_finalize(__builtin_va_list* self);
+int err_msg2(struct sInfo* info, char* msg, ...);
 int expected_next_character(char c, struct sInfo* info);
 char* parse_word(_Bool digits, struct sInfo* info);
 static char* map$2char$phchar$ph$p_operator_load_element(struct map$2char$phchar$ph* self, char* key);
@@ -2699,6 +2701,58 @@ static void __builtin_va_list_finalize(__builtin_va_list* self)
 {
 }
 
+int err_msg2(struct sInfo* info, char* msg, ...)
+{
+    char* msg2;
+    __builtin_va_list args;
+    char* p;
+    char* last_lf;
+    void* __right_value0 = (void*)0;
+    void* __right_value1 = (void*)0;
+    struct buffer* buf;
+    int col;
+    int col_1;
+    void* __right_value2 = (void*)0;
+    int __result_obj__0;
+    memset(&msg2, 0, sizeof(msg2));
+    memset(&args, 0, sizeof(args));
+    if(!info->no_output_come_code) {
+        __builtin_va_start(args,msg);
+        vasprintf(&msg2,msg,args);
+        __builtin_va_end(args);
+        p=info->p;
+        last_lf=((void*)0);
+        while(p>=info->head) {
+            if(*p==10) {
+                last_lf=p;
+                break;
+            }
+            p--;
+        }
+        buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 83, "struct buffer*"))));
+        if(last_lf) {
+            col=info->p-last_lf;
+            buffer_append_format(buf,"%s %d(real %d)(block %d) %d: %s",info->sname,info->sline,info->sline_real,info->sline_block,col,msg2);
+        }
+        else {
+            col_1=info->p-info->head;
+            buffer_append_format(buf,"%s %d(real %d)(block %d) %d: %s",info->sname,info->sline,info->sline_real,info->sline_block,col_1,msg2);
+        }
+        info->err_num2++;
+        free(msg2);
+        printf(((char*)(__right_value2=string_operator_add(((char*)(__right_value1=buffer_to_string(buf))),"\n"))));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
+        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0));
+        __result_obj__0 = 0;
+        come_call_finalizer(__builtin_va_list_finalize, (&args), (void*)0, (void*)0, 1, 0, 0, (void*)0);
+        come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+        return __result_obj__0;
+        come_call_finalizer(__builtin_va_list_finalize, (&args), (void*)0, (void*)0, 1, 0, 0, (void*)0);
+        come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    }
+    return 0;
+}
+
 int expected_next_character(char c, struct sInfo* info)
 {
     parse_sharp_v5(info);
@@ -2724,7 +2778,7 @@ char* parse_word(_Bool digits, struct sInfo* info)
     char* result;
     void* __right_value2 = (void*)0;
     void* __right_value3 = (void*)0;
-    buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 81, "struct buffer*"))));
+    buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 126, "struct buffer*"))));
     parse_sharp_v5(info);
     if(digits) {
         while((*info->p>=97&&*info->p<=122)||(*info->p>=65&&*info->p<=90)||*info->p==95||(*info->p>=48&&*info->p<=57)||(*info->p==36)) {
@@ -3060,16 +3114,16 @@ void parse_sharp_v5(struct sInfo* info)
     struct buffer* fname;
     char* fname_str;
     char* __dec_obj4;
-    int line_1;
-    struct buffer* fname_2;
-    char* fname_str_3;
+    int line_2;
+    struct buffer* fname_3;
+    char* fname_str_4;
     char* __dec_obj5;
     while(1) {
         if(*info->p==35) {
             info->p++;
             skip_spaces_and_tabs(info);
             if(parsecmp("pragma",info)) {
-                buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 305, "struct buffer*"))));
+                buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 350, "struct buffer*"))));
                 buffer_append_str(buf,"#");
                 while(*info->p) {
                     if(*info->p==10) {
@@ -3097,7 +3151,7 @@ _conditional_value_X0;})) {
                 info->p+=strlen("line");
                 skip_spaces_and_tabs(info);
                 line=0;
-                fname=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 331, "struct buffer*"))));
+                fname=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 376, "struct buffer*"))));
                 if(!xisdigit(*info->p)) {
                     err_msg(info,"invalid #line directive");
                     come_call_finalizer(buffer_finalize, fname, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -3144,22 +3198,22 @@ _conditional_value_X0;})) {
                 (fname_str = come_decrement_ref_count(fname_str, (void*)0, (void*)0, 0, 0, (void*)0));
             }
             else if(xisdigit(*info->p)) {
-                line_1=0;
-                fname_2=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 381, "struct buffer*"))));
+                line_2=0;
+                fname_3=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "05parse.c", 426, "struct buffer*"))));
                 while(xisdigit(*info->p)) {
-                    line_1=line_1*10+(*info->p-48);
+                    line_2=line_2*10+(*info->p-48);
                     info->p++;
                 }
                 skip_spaces_and_tabs(info);
                 if(*info->p==34) {
                     info->p++;
                     while(*info->p&&*info->p!=34) {
-                        buffer_append_char(fname_2,*info->p);
+                        buffer_append_char(fname_3,*info->p);
                         info->p++;
                     }
                     if(*info->p==0) {
                         err_msg(info,"unterminated #line file name");
-                        come_call_finalizer(buffer_finalize, fname_2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                        come_call_finalizer(buffer_finalize, fname_3, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                         return;
                     }
                     info->p++;
@@ -3170,16 +3224,16 @@ _conditional_value_X0;})) {
                         info->p++;
                     }
                 }
-                info->sline=line_1;
-                fname_str_3=(char*)come_increment_ref_count(buffer_to_string(fname_2));
-                if(string_length(fname_str_3)>0) {
+                info->sline=line_2;
+                fname_str_4=(char*)come_increment_ref_count(buffer_to_string(fname_3));
+                if(string_length(fname_str_4)>0) {
                     __dec_obj5=info->sname,
-                    info->sname=(char*)come_increment_ref_count(fname_str_3);
+                    info->sname=(char*)come_increment_ref_count(fname_str_4);
                     __dec_obj5 = come_decrement_ref_count(__dec_obj5, (void*)0, (void*)0, 0,0, (void*)0);
                 }
                 skip_spaces_and_tabs(info);
-                come_call_finalizer(buffer_finalize, fname_2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-                (fname_str_3 = come_decrement_ref_count(fname_str_3, (void*)0, (void*)0, 0, 0, (void*)0));
+                come_call_finalizer(buffer_finalize, fname_3, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                (fname_str_4 = come_decrement_ref_count(fname_str_4, (void*)0, (void*)0, 0, 0, (void*)0));
             }
             else if(*info->p==34) {
                 info->p++;

@@ -3665,7 +3665,7 @@ sFun*% compile_uniq_function(sFun* fun, sInfo* info=info)
     string sname_top = string(info->sname);
     int sline_top = info->sline;
     
-    sType*% result_type = fun->mResultType;
+    sType*% result_type = clone fun->mResultType;
     
     list<sType*%>*% param_types = new list<sType*%>();
     foreach(it, fun->mParamTypes) {

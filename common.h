@@ -493,6 +493,7 @@ struct sInfo
     string base_sname;
     int sline;
     int err_num;
+    int err_num2;
     string clang_option;
     string cpp_option;
     string linker_option;
@@ -815,6 +816,7 @@ uniq class sCurrentNode extends sNodeBase
 /////////////////////////////////////////////////////////////////////
 bool transpile_conditional_with_free_right_object_value(sNode* node, sInfo* info=info);
 int err_msg(sInfo* info, char* msg, ...);
+int err_msg2(sInfo* info, char* msg, ...);
 record int expected_next_character(char c, sInfo* info=info);;
 bool node_compile(sNode* node, sInfo* info=info);
 bool node_conditional_compile(sNode* node, sInfo* info=info);
