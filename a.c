@@ -4,7 +4,7 @@
 
 int main(int argc, char** argv)
 {
-    a = 1;
+    a.a[1] = 1;
     
     return 0;
 }

@@ -147,13 +147,24 @@ class sStoreFieldNode extends sNodeBase
         bool child_field_is_pointer = false;
         
         if(klass->mFields == null) {
-            err_msg(info, "%s fields are null", klass->mName);
+            err_msg2(info, "%s fields are null", klass->mName);
             return true;
         }
         
         sType*% field_type = get_field_type(klass, name, info);
         
         if(field_type == null) {
+            err_msg2(info, "field %s is not found", name);
+            
+            CVALUE*% come_value = new CVALUE();
+            
+            come_value.c_value = xsprintf("%s.%s=%s", left_value.c_value, name, right_value.c_value);
+            come_value.type = clone right_value.type;
+            come_value.var = right_value.var;
+            
+            info.stack.push_back(come_value);
+            
+            add_come_last_code(info, "%s", come_value.c_value);
             return true;
         }
         
@@ -415,11 +426,9 @@ class sLoadFieldNode extends sNodeBase
             
             info.stack.push_back(come_value);
             
+            add_come_last_code(info, "%s", come_value.c_value);
+            
             return true;
-/*
-            err_msg(info, "no field(%s) in klass(%s)", name, klass->mName);
-            return true;
-*/
         }
         
         CVALUE*% come_value = new CVALUE();
