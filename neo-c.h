@@ -6343,7 +6343,7 @@ uniq bool string::match(char* self, char* reg)
     return char*::match(self, reg);
 }
 
-uniq string char*::sub(char* self, char* reg, char* replace)
+uniq string char*::sub(char* self, char* reg, char* replace, bool global=true)
 {
     if(self == null || reg == null) {
         return string("");
@@ -6383,6 +6383,12 @@ uniq string char*::sub(char* self, char* reg, char* replace)
             else {
                 offset = offset + regex_result + matchlength;
             }
+            
+            if(!global) {
+                string str = self.substring(offset, -1);
+                result.append_str(str);
+                break;
+            }
         }
         /// no match ///
         else {
@@ -6395,7 +6401,7 @@ uniq string char*::sub(char* self, char* reg, char* replace)
     return result.to_string();
 }
 
-uniq string char*::sub_block(char* self, char* reg, void* parent, string (*block)(void* parent, char* match_string, list<string>* group_strings))
+uniq string char*::sub_block(char* self, char* reg, bool global=true, void* parent, string (*block)(void* parent, char* match_string, list<string>* group_strings))
 {
     if(self == null || reg == null) {
         return string("");
@@ -6441,6 +6447,12 @@ uniq string char*::sub_block(char* self, char* reg, void* parent, string (*block
             }
             else {
                 offset = offset + regex_result + matchlength;
+            }
+            
+            if(!global) {
+                string str = self.substring(offset, -1);
+                result.append_str(str);
+                break;
             }
         }
 
@@ -6556,9 +6568,9 @@ uniq list<string>*% char*::scan_block(char* self, char* reg, void* parent, strin
     return result;
 }
 
-uniq string string::sub_block(char* self, char* reg, void* parent, string (*block)(void* parent, char* match_string, list<string>* group_strings))
+uniq string string::sub_block(char* self, char* reg, bool global=true, void* parent, string (*block)(void* parent, char* match_string, list<string>* group_strings))
 {
-    return char*::sub_block(self, reg, parent, block);
+    return char*::sub_block(self, reg, global, parent, block);
 }
 
 #if defined(__LINUX__) || defined(__ANDROID__) || defined(__RASPBERRY_PI__) || defined(__MAC__)
