@@ -974,6 +974,7 @@ struct anonymous_typeX26
     struct re_capture* captures;
     int capture_capacity;
     int total_groups;
+    _Bool ignore_case;
 };
 
 extern _Bool gComeDebug;
@@ -2478,6 +2479,7 @@ int int_printf(int self, char* msg);
 long long_printf(long self, char* msg);
 void int_times(int self, void* parent, void (*block)(void*,int));
 static void match_context_finalize(struct anonymous_typeX26* self);
+int re_matchp_ex(struct re_program* pattern, const char* text, int* matchlength, struct re_capture* captures, int max_captures, _Bool ignore_case);
 int re_matchp(struct re_program* pattern, const char* text, int* matchlength, struct re_capture* captures, int max_captures);
 int re_match(const char* pattern, const char* text, int* matchlength);
 static void regex_program_t_finalize(struct re_program* self);
@@ -2495,35 +2497,36 @@ const char* matchgroup(struct regex_t* token, struct regex_t* rest, const char* 
 const char* matchstar(struct regex_t* token, struct regex_t* rest, const char* text, struct anonymous_typeX26* ctx);
 const char* matchplus(struct regex_t* token, struct regex_t* rest, const char* text, struct anonymous_typeX26* ctx);
 const char* matchquestion(struct regex_t* token, struct regex_t* rest, const char* text, struct anonymous_typeX26* ctx);
+unsigned char re_fold_char(unsigned char c, _Bool ignore_case);
 const char* matchtoken(struct regex_t* token, const char* text, struct anonymous_typeX26* ctx);
 int matchdigit(char c);
 int matchalpha(char c);
 int matchwhitespace(char c);
 int matchalphanum(char c);
-int matchrange(char c, const char* str);
+int matchrange(char c, const char* str, _Bool ignore_case);
 int matchdot(char c);
 int ismetachar(char c);
 int matchmetachar(char c, const char* str);
-int matchcharclass(char c, const char* str);
+int matchcharclass(char c, const char* str, _Bool ignore_case);
 void re_print_internal(struct regex_t* pattern, int depth);
 int re_get_group_count(struct re_program* pattern);
-int charp_index_regex(char* self, char* reg, int default_value);
-int charp_rindex_regex(char* self, char* reg, int default_value);
+int charp_index_regex(char* self, char* reg, int default_value, _Bool ignore_case);
+int charp_rindex_regex(char* self, char* reg, int default_value, _Bool ignore_case);
 char* string_chomp(char* str);
-int string_rindex_regex(char* self, char* reg, int default_value);
-int string_index_regex(char* self, char* reg, int default_value);
-_Bool charp_match(char* self, char* reg);
+int string_rindex_regex(char* self, char* reg, int default_value, _Bool ignore_case);
+int string_index_regex(char* self, char* reg, int default_value, _Bool ignore_case);
+_Bool charp_match(char* self, char* reg, _Bool ignore_case);
 static struct list$1char$ph* list$1char$ph_add(struct list$1char$ph* self, char* item);
-struct list$1char$ph* charp_scan(char* self, char* reg);
-struct list$1char$ph* charp_split(char* self, char* reg);
-char* string_sub(char* self, char* reg, char* replace);
-struct list$1char$ph* string_scan(char* self, char* reg);
-struct list$1char$ph* string_split(char* self, char* reg);
-_Bool string_match(char* self, char* reg);
-char* charp_sub(char* self, char* reg, char* replace, _Bool global);
-char* charp_sub_block(char* self, char* reg, _Bool global, void* parent, char* (*block)(void*,char*,struct list$1char$ph*));
-struct list$1char$ph* charp_scan_block(char* self, char* reg, void* parent, char* (*block)(void*,char*,struct list$1char$ph*));
-char* string_sub_block(char* self, char* reg, _Bool global, void* parent, char* (*block)(void*,char*,struct list$1char$ph*));
+struct list$1char$ph* charp_scan(char* self, char* reg, _Bool ignore_case);
+struct list$1char$ph* charp_split(char* self, char* reg, _Bool ignore_case);
+char* string_sub(char* self, char* reg, char* replace, _Bool ignore_case);
+struct list$1char$ph* string_scan(char* self, char* reg, _Bool ignore_case);
+struct list$1char$ph* string_split(char* self, char* reg, _Bool ignore_case);
+_Bool string_match(char* self, char* reg, _Bool ignore_case);
+char* charp_sub(char* self, char* reg, char* replace, _Bool global, _Bool ignore_case);
+char* charp_sub_block(char* self, char* reg, _Bool global, _Bool ignore_case, void* parent, char* (*block)(void*,char*,struct list$1char$ph*));
+struct list$1char$ph* charp_scan_block(char* self, char* reg, _Bool ignore_case, void* parent, char* (*block)(void*,char*,struct list$1char$ph*));
+char* string_sub_block(char* self, char* reg, _Bool global, _Bool ignore_case, void* parent, char* (*block)(void*,char*,struct list$1char$ph*));
 int* __builtin_wstring(char* str);
 int wchar_tp_length(int* str);
 int wchar_ta_length(int* str);
@@ -5942,7 +5945,7 @@ static void match_context_finalize(struct anonymous_typeX26* self)
 {
 }
 
-int re_matchp(struct re_program* pattern, const char* text, int* matchlength, struct re_capture* captures, int max_captures)
+int re_matchp_ex(struct re_program* pattern, const char* text, int* matchlength, struct re_capture* captures, int max_captures, _Bool ignore_case)
 {
     struct re_program* program;
     struct regex_t* start;
@@ -5965,6 +5968,7 @@ int re_matchp(struct re_program* pattern, const char* text, int* matchlength, st
         ctx.capture_capacity=64;
     }
     ctx.total_groups=program->group_count;
+    ctx.ignore_case=ignore_case;
     if(ctx.captures!=0) {
         clear_captures(&ctx);
     }
@@ -6009,6 +6013,11 @@ int re_matchp(struct re_program* pattern, const char* text, int* matchlength, st
     __result_obj__0 = -1;
     come_call_finalizer(match_context_finalize, (&ctx), (void*)0, (void*)0, 1, 0, 0, (void*)0);
     return __result_obj__0;
+}
+
+int re_matchp(struct re_program* pattern, const char* text, int* matchlength, struct re_capture* captures, int max_captures)
+{
+    return re_matchp_ex(pattern,text,matchlength,captures,max_captures,0);
 }
 
 int re_match(const char* pattern, const char* text, int* matchlength)
@@ -6612,6 +6621,14 @@ const char* matchquestion(struct regex_t* token, struct regex_t* rest, const cha
     return __result_obj__0;
 }
 
+unsigned char re_fold_char(unsigned char c, _Bool ignore_case)
+{
+    if(ignore_case&&c>=65&&c<=90) {
+        return (unsigned char)(c-65+97);
+    }
+    return c;
+}
+
 const char* matchtoken(struct regex_t* token, const char* text, struct anonymous_typeX26* ctx)
 {
     const char* __result_obj__0;
@@ -6620,13 +6637,13 @@ const char* matchtoken(struct regex_t* token, const char* text, struct anonymous
         __result_obj__0 = (((*text!=0&&matchdot(*text)))?(text+1):(0));
         return __result_obj__0;
         case (7):
-        __result_obj__0 = (((*text!=0&&token->u.ch==(unsigned char)*text))?(text+1):(0));
+        __result_obj__0 = (((*text!=0&&re_fold_char(token->u.ch,ctx->ignore_case)==re_fold_char((unsigned char)*text,ctx->ignore_case)))?(text+1):(0));
         return __result_obj__0;
         case (8):
-        __result_obj__0 = (((*text!=0&&matchcharclass(*text,(const char*)token->u.ccl)))?(text+1):(0));
+        __result_obj__0 = (((*text!=0&&matchcharclass(*text,(const char*)token->u.ccl,ctx->ignore_case)))?(text+1):(0));
         return __result_obj__0;
         case (9):
-        __result_obj__0 = (((*text!=0&&!matchcharclass(*text,(const char*)token->u.ccl)))?(text+1):(0));
+        __result_obj__0 = (((*text!=0&&!matchcharclass(*text,(const char*)token->u.ccl,ctx->ignore_case)))?(text+1):(0));
         return __result_obj__0;
         case (10):
         __result_obj__0 = (((*text!=0&&matchdigit(*text)))?(text+1):(0));
@@ -6682,9 +6699,20 @@ int matchalphanum(char c)
     return ((c==95)||matchalpha(c)||matchdigit(c));
 }
 
-int matchrange(char c, const char* str)
+int matchrange(char c, const char* str, _Bool ignore_case)
 {
-    return ((c!=45)&&(str[0]!=0)&&(str[0]!=45)&&(str[1]==45)&&(str[2]!=0)&&((c>=str[0])&&(c<=str[2])));
+    unsigned char needle;
+    unsigned char start;
+    unsigned char end;
+    needle=(unsigned char)c;
+    start=(unsigned char)str[0];
+    end=(unsigned char)str[2];
+    if(ignore_case) {
+        needle=re_fold_char(needle,1);
+        start=re_fold_char(start,1);
+        end=re_fold_char(end,1);
+    }
+    return ((needle!=45)&&(str[0]!=0)&&(str[0]!=45)&&(str[1]==45)&&(str[2]!=0)&&((needle>=start)&&(needle<=end)));
 }
 
 int matchdot(char c)
@@ -6717,23 +6745,25 @@ int matchmetachar(char c, const char* str)
     }
 }
 
-int matchcharclass(char c, const char* str)
+int matchcharclass(char c, const char* str, _Bool ignore_case)
 {
+    unsigned char needle;
+    needle=re_fold_char((unsigned char)c,ignore_case);
     do {
-        if(matchrange(c,str)) {
+        if(matchrange((char)needle,str,ignore_case)) {
             return 1;
         }
         else if(str[0]==92) {
             str+=1;
-            if(matchmetachar(c,str)) {
+            if(matchmetachar((char)needle,str)) {
                 return 1;
             }
-            else if((c==str[0])&&!ismetachar(c)) {
+            else if((needle==re_fold_char((unsigned char)str[0],ignore_case))&&!ismetachar((char)needle)) {
                 return 1;
             }
         }
-        else if(c==str[0]) {
-            if(c==45) {
+        else if(needle==re_fold_char((unsigned char)str[0],ignore_case)) {
+            if(needle==45) {
                 return ((str[-1]==0)||(str[1]==0));
             }
             else {
@@ -6790,7 +6820,7 @@ int re_get_group_count(struct re_program* pattern)
     return program->group_count;
 }
 
-int charp_index_regex(char* self, char* reg, int default_value)
+int charp_index_regex(char* self, char* reg, int default_value, _Bool ignore_case)
 {
     struct re_program* re;
     int result;
@@ -6816,7 +6846,7 @@ int charp_index_regex(char* self, char* reg, int default_value)
         max_captures=8;
         struct re_capture captures[max_captures];
         memset(&captures, 0, sizeof(captures));
-        regex_result=re_matchp(re,self,&matchlength,captures,max_captures);
+        regex_result=re_matchp_ex(re,self,&matchlength,captures,max_captures,ignore_case);
         if(regex_result>=0) {
             result_26=regex_result;
             break;
@@ -6828,7 +6858,7 @@ int charp_index_regex(char* self, char* reg, int default_value)
     return result_26;
 }
 
-int charp_rindex_regex(char* self, char* reg, int default_value)
+int charp_rindex_regex(char* self, char* reg, int default_value, _Bool ignore_case)
 {
     struct re_program* re;
     int result;
@@ -6858,7 +6888,7 @@ int charp_rindex_regex(char* self, char* reg, int default_value)
         max_captures=8;
         struct re_capture captures[max_captures];
         memset(&captures, 0, sizeof(captures));
-        regex_result=re_matchp(re,self2,&matchlength,captures,max_captures);
+        regex_result=re_matchp_ex(re,self2,&matchlength,captures,max_captures,ignore_case);
         if(regex_result>=0) {
             result_27=strlen(self)-matchlength;
             break;
@@ -6897,17 +6927,17 @@ char* string_chomp(char* str)
     return __result_obj__0;
 }
 
-int string_rindex_regex(char* self, char* reg, int default_value)
+int string_rindex_regex(char* self, char* reg, int default_value, _Bool ignore_case)
 {
-    return charp_rindex_regex(self,reg,default_value);
+    return charp_rindex_regex(self,reg,default_value,ignore_case);
 }
 
-int string_index_regex(char* self, char* reg, int default_value)
+int string_index_regex(char* self, char* reg, int default_value, _Bool ignore_case)
 {
-    return charp_index_regex(self,reg,default_value);
+    return charp_index_regex(self,reg,default_value,ignore_case);
 }
 
-_Bool charp_match(char* self, char* reg)
+_Bool charp_match(char* self, char* reg, _Bool ignore_case)
 {
     struct re_program* re;
     int offset;
@@ -6929,7 +6959,7 @@ _Bool charp_match(char* self, char* reg)
     max_captures=8;
     struct re_capture captures[max_captures];
     memset(&captures, 0, sizeof(captures));
-    regex_result=re_matchp(re,self,&matchlength,captures,max_captures);
+    regex_result=re_matchp_ex(re,self,&matchlength,captures,max_captures,ignore_case);
     if(regex_result>=0) {
         __result_obj__0 = 1;
         return __result_obj__0;
@@ -6991,7 +7021,7 @@ static struct list$1char$ph* list$1char$ph_add(struct list$1char$ph* self, char*
     return __result_obj__0;
 }
 
-struct list$1char$ph* charp_scan(char* self, char* reg)
+struct list$1char$ph* charp_scan(char* self, char* reg, _Bool ignore_case)
 {
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
@@ -7009,15 +7039,15 @@ struct list$1char$ph* charp_scan(char* self, char* reg)
     struct re_capture cp;
     char* match_string;
     if(self==((void*)0)||reg==((void*)0)) {
-        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 6207, "struct list$1char$ph*"))))));
+        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 6235, "struct list$1char$ph*"))))));
         come_call_finalizer(list$1char$ph$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
-    result=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 6209, "struct list$1char$ph*"))));
+    result=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 6237, "struct list$1char$ph*"))));
     re=re_compile(reg);
     if(re==((void*)0)) {
-        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 6214, "struct list$1char$ph*"))))));
+        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 6242, "struct list$1char$ph*"))))));
         come_call_finalizer(list$1char$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_call_finalizer(list$1char$ph$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -7031,7 +7061,7 @@ struct list$1char$ph* charp_scan(char* self, char* reg)
         max_captures=8;
         struct re_capture captures[max_captures];
         memset(&captures, 0, sizeof(captures));
-        regex_result=re_matchp(re,self+offset,&matchlength,captures,max_captures);
+        regex_result=re_matchp_ex(re,self+offset,&matchlength,captures,max_captures,ignore_case);
         if(regex_result>=0&&group_count==0) {
             str=(char*)come_increment_ref_count(charp_substring(self,offset+regex_result,offset+regex_result+matchlength));
             list$1char$ph_add(result,(char*)come_increment_ref_count(str));
@@ -7067,7 +7097,7 @@ struct list$1char$ph* charp_scan(char* self, char* reg)
     return __result_obj__0;
 }
 
-struct list$1char$ph* charp_split(char* self, char* reg)
+struct list$1char$ph* charp_split(char* self, char* reg, _Bool ignore_case)
 {
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
@@ -7083,15 +7113,15 @@ struct list$1char$ph* charp_split(char* self, char* reg)
     char* str;
     char* str_30;
     if(self==((void*)0)||reg==((void*)0)) {
-        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 6270, "struct list$1char$ph*"))))));
+        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 6298, "struct list$1char$ph*"))))));
         come_call_finalizer(list$1char$ph$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
-    result=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 6273, "struct list$1char$ph*"))));
+    result=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 6301, "struct list$1char$ph*"))));
     re=re_compile(reg);
     if(re==((void*)0)) {
-        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 6278, "struct list$1char$ph*"))))));
+        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 6306, "struct list$1char$ph*"))))));
         come_call_finalizer(list$1char$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_call_finalizer(list$1char$ph$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -7105,7 +7135,7 @@ struct list$1char$ph* charp_split(char* self, char* reg)
         max_captures=8;
         struct re_capture captures[max_captures];
         memset(&captures, 0, sizeof(captures));
-        regex_result=re_matchp(re,self+offset,&matchlength,captures,max_captures);
+        regex_result=re_matchp_ex(re,self+offset,&matchlength,captures,max_captures,ignore_case);
         if(regex_result>=0&&group_count==0) {
             str=(char*)come_increment_ref_count(charp_substring(self,offset,offset+regex_result));
             list$1char$ph_add(result,(char*)come_increment_ref_count(str));
@@ -7132,42 +7162,42 @@ struct list$1char$ph* charp_split(char* self, char* reg)
     return __result_obj__0;
 }
 
-char* string_sub(char* self, char* reg, char* replace)
+char* string_sub(char* self, char* reg, char* replace, _Bool ignore_case)
 {
     void* __right_value0 = (void*)0;
     char* __result_obj__0;
-    __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=charp_sub(self,reg,replace,1))));
+    __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=charp_sub(self,reg,replace,1,ignore_case))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
 }
 
-struct list$1char$ph* string_scan(char* self, char* reg)
+struct list$1char$ph* string_scan(char* self, char* reg, _Bool ignore_case)
 {
     void* __right_value0 = (void*)0;
     struct list$1char$ph* __result_obj__0;
-    __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value0=charp_scan(self,reg))));
+    __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value0=charp_scan(self,reg,ignore_case))));
     come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
     come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
 }
 
-struct list$1char$ph* string_split(char* self, char* reg)
+struct list$1char$ph* string_split(char* self, char* reg, _Bool ignore_case)
 {
     void* __right_value0 = (void*)0;
     struct list$1char$ph* __result_obj__0;
-    __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value0=charp_split(self,reg))));
+    __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value0=charp_split(self,reg,ignore_case))));
     come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
     come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
 }
 
-_Bool string_match(char* self, char* reg)
+_Bool string_match(char* self, char* reg, _Bool ignore_case)
 {
-    return charp_match(self,reg);
+    return charp_match(self,reg,ignore_case);
 }
 
-char* charp_sub(char* self, char* reg, char* replace, _Bool global)
+char* charp_sub(char* self, char* reg, char* replace, _Bool global, _Bool ignore_case)
 {
     void* __right_value0 = (void*)0;
     char* __result_obj__0;
@@ -7198,14 +7228,14 @@ char* charp_sub(char* self, char* reg, char* replace, _Bool global)
     }
     offset=0;
     n=0;
-    result=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "./neo-c.h", 6363, "struct buffer*"))));
+    result=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "./neo-c.h", 6391, "struct buffer*"))));
     group_count=re_get_group_count(re);
     while(1) {
         matchlength=0;
         max_captures=8;
         struct re_capture captures[max_captures];
         memset(&captures, 0, sizeof(captures));
-        regex_result=re_matchp(re,self+offset,&matchlength,captures,max_captures);
+        regex_result=re_matchp_ex(re,self+offset,&matchlength,captures,max_captures,ignore_case);
         if(regex_result>=0&&group_count==0) {
             str=(char*)come_increment_ref_count(charp_substring(self,offset,offset+regex_result));
             buffer_append_str(result,str);
@@ -7241,7 +7271,7 @@ char* charp_sub(char* self, char* reg, char* replace, _Bool global)
     return __result_obj__0;
 }
 
-char* charp_sub_block(char* self, char* reg, _Bool global, void* parent, char* (*block)(void*,char*,struct list$1char$ph*))
+char* charp_sub_block(char* self, char* reg, _Bool global, _Bool ignore_case, void* parent, char* (*block)(void*,char*,struct list$1char$ph*))
 {
     void* __right_value0 = (void*)0;
     char* __result_obj__0;
@@ -7273,7 +7303,7 @@ char* charp_sub_block(char* self, char* reg, _Bool global, void* parent, char* (
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    result=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "./neo-c.h", 6411, "struct buffer*"))));
+    result=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "./neo-c.h", 6439, "struct buffer*"))));
     re=re_compile(reg);
     if(re==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
@@ -7290,11 +7320,11 @@ char* charp_sub_block(char* self, char* reg, _Bool global, void* parent, char* (
         max_captures=8;
         struct re_capture captures[max_captures];
         memset(&captures, 0, sizeof(captures));
-        regex_result=re_matchp(re,self+offset,&matchlength,captures,max_captures);
+        regex_result=re_matchp_ex(re,self+offset,&matchlength,captures,max_captures,ignore_case);
         if(regex_result>=0&&group_count==0) {
             str=(char*)come_increment_ref_count(charp_substring(self,offset,offset+regex_result));
             buffer_append_str(result,str);
-            group_strings=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 6438, "struct list$1char$ph*"))));
+            group_strings=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 6466, "struct list$1char$ph*"))));
             match_string=(char*)come_increment_ref_count(charp_substring(self,offset+regex_result,offset+regex_result+matchlength));
             block_result=(char*)come_increment_ref_count(block(parent,match_string,group_strings));
             buffer_append_str(result,block_result);
@@ -7323,7 +7353,7 @@ char* charp_sub_block(char* self, char* reg, _Bool global, void* parent, char* (
         else if(regex_result>=0&&group_count>0) {
             str_34=(char*)come_increment_ref_count(charp_substring(self,offset,offset+regex_result));
             buffer_append_str(result,str_34);
-            group_strings_35=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 6466, "struct list$1char$ph*"))));
+            group_strings_35=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 6494, "struct list$1char$ph*"))));
             for(i=0;i<group_count;i++){
                 cp=captures[i];
                 match_string_36=(char*)come_increment_ref_count(charp_substring((self+offset),cp.start,cp.start+cp.length));
@@ -7359,7 +7389,7 @@ char* charp_sub_block(char* self, char* reg, _Bool global, void* parent, char* (
     return __result_obj__0;
 }
 
-struct list$1char$ph* charp_scan_block(char* self, char* reg, void* parent, char* (*block)(void*,char*,struct list$1char$ph*))
+struct list$1char$ph* charp_scan_block(char* self, char* reg, _Bool ignore_case, void* parent, char* (*block)(void*,char*,struct list$1char$ph*))
 {
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
@@ -7382,15 +7412,15 @@ struct list$1char$ph* charp_scan_block(char* self, char* reg, void* parent, char
     char* match_string_42;
     char* block_result_43;
     if(self==((void*)0)||reg==((void*)0)) {
-        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 6500, "struct list$1char$ph*"))))));
+        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 6528, "struct list$1char$ph*"))))));
         come_call_finalizer(list$1char$ph$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
-    result=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 6502, "struct list$1char$ph*"))));
+    result=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 6530, "struct list$1char$ph*"))));
     re=re_compile(reg);
     if(re==((void*)0)) {
-        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 6507, "struct list$1char$ph*"))))));
+        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 6535, "struct list$1char$ph*"))))));
         come_call_finalizer(list$1char$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_call_finalizer(list$1char$ph$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -7404,9 +7434,9 @@ struct list$1char$ph* charp_scan_block(char* self, char* reg, void* parent, char
         max_captures=8;
         struct re_capture captures[max_captures];
         memset(&captures, 0, sizeof(captures));
-        regex_result=re_matchp(re,self+offset,&matchlength,captures,max_captures);
+        regex_result=re_matchp_ex(re,self+offset,&matchlength,captures,max_captures,ignore_case);
         if(regex_result>=0&&group_count==0) {
-            group_strings=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 6525, "struct list$1char$ph*"))));
+            group_strings=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 6553, "struct list$1char$ph*"))));
             match_string=(char*)come_increment_ref_count(charp_substring(self,offset+regex_result,offset+regex_result+matchlength));
             block_result=(char*)come_increment_ref_count(block(parent,match_string,group_strings));
             list$1char$ph_add(result,(char*)come_increment_ref_count(block_result));
@@ -7421,7 +7451,7 @@ struct list$1char$ph* charp_scan_block(char* self, char* reg, void* parent, char
             (block_result = come_decrement_ref_count(block_result, (void*)0, (void*)0, 0, 0, (void*)0));
         }
         else if(regex_result>=0&&group_count>0) {
-            group_strings_40=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 6542, "struct list$1char$ph*"))));
+            group_strings_40=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 6570, "struct list$1char$ph*"))));
             for(i=0;i<group_count;i++){
                 cp=captures[i];
                 match_string_41=(char*)come_increment_ref_count(charp_substring((self+offset),cp.start,cp.start+cp.length));
@@ -7451,11 +7481,11 @@ struct list$1char$ph* charp_scan_block(char* self, char* reg, void* parent, char
     return __result_obj__0;
 }
 
-char* string_sub_block(char* self, char* reg, _Bool global, void* parent, char* (*block)(void*,char*,struct list$1char$ph*))
+char* string_sub_block(char* self, char* reg, _Bool global, _Bool ignore_case, void* parent, char* (*block)(void*,char*,struct list$1char$ph*))
 {
     void* __right_value0 = (void*)0;
     char* __result_obj__0;
-    __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=charp_sub_block(self,reg,global,parent,block))));
+    __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=charp_sub_block(self,reg,global,ignore_case,parent,block))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
@@ -7474,7 +7504,7 @@ int* __builtin_wstring(char* str)
         return __result_obj__0;
     }
     len=strlen(str);
-    wstr=(int*)come_increment_ref_count((int*)come_calloc_v2(1, sizeof(int)*(1*(len+1)), "./neo-c.h", 6594, "int*"));
+    wstr=(int*)come_increment_ref_count((int*)come_calloc_v2(1, sizeof(int)*(1*(len+1)), "./neo-c.h", 6622, "int*"));
     ret=mbstowcs(wstr,str,len+1);
     wstr[ret]=0;
     if(ret<0) {
@@ -7604,7 +7634,7 @@ int* wchar_tp_substring(int* str, int head, int tail)
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    result=(int*)come_increment_ref_count((int*)come_calloc_v2(1, sizeof(int)*(1*(tail-head+1)), "./neo-c.h", 6696, "int*"));
+    result=(int*)come_increment_ref_count((int*)come_calloc_v2(1, sizeof(int)*(1*(tail-head+1)), "./neo-c.h", 6724, "int*"));
     memcpy(result,str+head,sizeof(int)*(tail-head));
     result[tail-head]=0;
     __result_obj__0 = (int*)come_increment_ref_count(result);
@@ -7726,7 +7756,7 @@ char* wchar_tp_to_string(int* wstr)
         return __result_obj__0;
     }
     len=16*(wcslen(wstr)+1);
-    result=(char*)come_increment_ref_count((char*)come_calloc_v2(1, sizeof(char)*(1*(len)), "./neo-c.h", 6815, "char*"));
+    result=(char*)come_increment_ref_count((char*)come_calloc_v2(1, sizeof(char)*(1*(len)), "./neo-c.h", 6843, "char*"));
     if(wcstombs(result,wstr,len)<0) {
         strncpy(result,"",len);
     }
@@ -7890,7 +7920,7 @@ int* wchar_tp_reverse(int* str)
         return __result_obj__0;
     }
     len=wcslen(str);
-    result=(int*)come_increment_ref_count((int*)come_calloc_v2(1, sizeof(int)*(1*(len+1)), "./neo-c.h", 6938, "int*"));
+    result=(int*)come_increment_ref_count((int*)come_calloc_v2(1, sizeof(int)*(1*(len+1)), "./neo-c.h", 6966, "int*"));
     for(i=0;i<len;i++){
         result[i]=str[len-i-1];
     }
@@ -7915,7 +7945,7 @@ int* wchar_tp_multiply(int* str, int n)
         return __result_obj__0;
     }
     len=wcslen(str)*n+1;
-    result=(int*)come_increment_ref_count((int*)come_calloc_v2(1, sizeof(int)*(1*(len)), "./neo-c.h", 6957, "int*"));
+    result=(int*)come_increment_ref_count((int*)come_calloc_v2(1, sizeof(int)*(1*(len)), "./neo-c.h", 6985, "int*"));
     result[0]=0;
     for(i=0;i<n;i++){
         wcscat(result,str);
@@ -7942,7 +7972,7 @@ int* wchar_tp_printable(int* str)
         return __result_obj__0;
     }
     len=wchar_tp_length(str);
-    result=(int*)come_increment_ref_count((int*)come_calloc_v2(1, sizeof(int)*(1*(len*2+1)), "./neo-c.h", 6974, "int*"));
+    result=(int*)come_increment_ref_count((int*)come_calloc_v2(1, sizeof(int)*(1*(len*2+1)), "./neo-c.h", 7002, "int*"));
     n=0;
     for(i=0;i<len;i++){
         c=str[i];
@@ -8044,7 +8074,7 @@ int* wchar_tp_operator_add(int* left, int* right)
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    result=(int*)come_increment_ref_count((int*)come_calloc_v2(1, sizeof(int)*(1*(wcslen(left)+wcslen(right)+1)), "./neo-c.h", 7082, "int*"));
+    result=(int*)come_increment_ref_count((int*)come_calloc_v2(1, sizeof(int)*(1*(wcslen(left)+wcslen(right)+1)), "./neo-c.h", 7110, "int*"));
     wcscpy(result,left);
     wcscat(result,right);
     __result_obj__0 = (int*)come_increment_ref_count(result);
@@ -8064,7 +8094,7 @@ int* wstring_operator_add(int* left, int* right)
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    result=(int*)come_increment_ref_count((int*)come_calloc_v2(1, sizeof(int)*(1*(wcslen(left)+wcslen(right)+1)), "./neo-c.h", 7095, "int*"));
+    result=(int*)come_increment_ref_count((int*)come_calloc_v2(1, sizeof(int)*(1*(wcslen(left)+wcslen(right)+1)), "./neo-c.h", 7123, "int*"));
     wcscpy(result,left);
     wcscat(result,right);
     __result_obj__0 = (int*)come_increment_ref_count(result);
@@ -8134,7 +8164,7 @@ char* charp_multiply(char* str, int n)
         return __result_obj__0;
     }
     len=strlen(str)*n+1;
-    result=(char*)come_increment_ref_count((char*)come_calloc_v2(1, sizeof(char)*(1*(len)), "./neo-c.h", 7155, "char*"));
+    result=(char*)come_increment_ref_count((char*)come_calloc_v2(1, sizeof(char)*(1*(len)), "./neo-c.h", 7183, "char*"));
     result[0]=0;
     for(i=0;i<n;i++){
         strcat(result,str);
@@ -8154,13 +8184,13 @@ struct list$1char$ph* charp_split_str(char* self, char* str)
     struct buffer* buf;
     int i;
     if(self==((void*)0)||str==((void*)0)) {
-        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 7172, "struct list$1char$ph*"))))));
+        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 7200, "struct list$1char$ph*"))))));
         come_call_finalizer(list$1char$ph$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
-    result=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 7174, "struct list$1char$ph*"))));
-    buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "./neo-c.h", 7176, "struct buffer*"))));
+    result=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 7202, "struct list$1char$ph*"))));
+    buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "./neo-c.h", 7204, "struct buffer*"))));
     for(i=0;i<charp_length(self);i++){
         if(strstr(self+i,str)==self+i) {
             list$1char$ph_push_back(result,(char*)come_increment_ref_count(__builtin_string(buf->buf)));
@@ -8488,7 +8518,7 @@ char* FILE_read(struct _IO_FILE* f)
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "./neo-c.h", 7445, "struct buffer*"))));
+    buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "./neo-c.h", 7473, "struct buffer*"))));
     while(1) {
         char buf2[8192];
         memset(&buf2, 0, sizeof(buf2));
@@ -8601,7 +8631,7 @@ char* charp_read(char* file_name)
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "./neo-c.h", 7552, "struct buffer*"))));
+    buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "./neo-c.h", 7580, "struct buffer*"))));
     while(1) {
         char buf2[8192];
         memset(&buf2, 0, sizeof(buf2));
@@ -8634,7 +8664,7 @@ struct list$1char$ph* FILE_readlines(struct _IO_FILE* f)
     void* __right_value1 = (void*)0;
     struct list$1char$ph* result;
     struct list$1char$ph* __result_obj__0;
-    result=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 7579, "struct list$1char$ph*"))));
+    result=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 7607, "struct list$1char$ph*"))));
     if(f==((void*)0)) {
         __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(result);
         come_call_finalizer(list$1char$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);

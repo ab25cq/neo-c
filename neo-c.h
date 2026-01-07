@@ -4981,12 +4981,13 @@ typedef struct
   re_capture* captures;
   int         capture_capacity;   // Slots provided by caller 
   int         total_groups;       // Groups present in pattern
+  bool        ignore_case;
 } match_context;
 
 
 
 // Public functions: 
-uniq int re_matchp(re_t pattern, const char* text, int* matchlength, re_capture* captures, int max_captures)
+uniq int re_matchp_ex(re_t pattern, const char* text, int* matchlength, re_capture* captures, int max_captures, bool ignore_case)
 {
   *matchlength = 0;
   if (pattern == 0)
@@ -5010,6 +5011,7 @@ uniq int re_matchp(re_t pattern, const char* text, int* matchlength, re_capture*
     ctx.capture_capacity = MAX_CAPTURE_SLOTS;
   }
   ctx.total_groups = program->group_count;
+  ctx.ignore_case = ignore_case;
 
   if (ctx.captures != 0)
   {
@@ -5059,6 +5061,11 @@ uniq int re_matchp(re_t pattern, const char* text, int* matchlength, re_capture*
   }
 
   return -1;
+}
+
+uniq int re_matchp(re_t pattern, const char* text, int* matchlength, re_capture* captures, int max_captures)
+{
+  return re_matchp_ex(pattern, text, matchlength, captures, max_captures, false);
 }
 
 uniq int re_match(const char* pattern, const char* text, int* matchlength)
@@ -5651,6 +5658,15 @@ uniq const char* matchquestion(regex_t* token, regex_t* rest, const char* text, 
   return NULL;
 }
 
+uniq unsigned char re_fold_char(unsigned char c, bool ignore_case)
+{
+  if (ignore_case && c >= 'A' && c <= 'Z')
+  {
+    return (unsigned char)(c - 'A' + 'a');
+  }
+  return c;
+}
+
 uniq const char* matchtoken(regex_t* token, const char* text, match_context* ctx)
 {
   switch (token->type)
@@ -5659,13 +5675,15 @@ uniq const char* matchtoken(regex_t* token, const char* text, match_context* ctx
       return (*text != '\0' && matchdot(*text)) ? text + 1 : 0;
 
     case RE_CHAR:
-      return (*text != '\0' && token->u.ch == (unsigned char)*text) ? text + 1 : 0;
+      return (*text != '\0'
+        && re_fold_char(token->u.ch, ctx->ignore_case) == re_fold_char((unsigned char)*text, ctx->ignore_case))
+        ? text + 1 : 0;
 
     case RE_CHAR_CLASS:
-      return (*text != '\0' && matchcharclass(*text, (const char*)token->u.ccl)) ? text + 1 : 0;
+      return (*text != '\0' && matchcharclass(*text, (const char*)token->u.ccl, ctx->ignore_case)) ? text + 1 : 0;
 
     case RE_INV_CHAR_CLASS:
-      return (*text != '\0' && !matchcharclass(*text, (const char*)token->u.ccl)) ? text + 1 : 0;
+      return (*text != '\0' && !matchcharclass(*text, (const char*)token->u.ccl, ctx->ignore_case)) ? text + 1 : 0;
 
     case RE_DIGIT:
       return (*text != '\0' && matchdigit(*text)) ? text + 1 : 0;
@@ -5718,15 +5736,24 @@ uniq int matchalphanum(char c)
 {
   return ((c == '_') || matchalpha(c) || matchdigit(c));
 }
-uniq int matchrange(char c, const char* str)
+uniq int matchrange(char c, const char* str, bool ignore_case)
 {
-  return (    (c != '-')
+  unsigned char needle = (unsigned char)c;
+  unsigned char start = (unsigned char)str[0];
+  unsigned char end = (unsigned char)str[2];
+  if (ignore_case)
+  {
+    needle = re_fold_char(needle, true);
+    start = re_fold_char(start, true);
+    end = re_fold_char(end, true);
+  }
+  return (    (needle != '-')
            && (str[0] != '\0')
            && (str[0] != '-')
            && (str[1] == '-')
            && (str[2] != '\0')
-           && (    (c >= str[0])
-                && (c <= str[2])));
+           && (    (needle >= start)
+                && (needle <= end)));
 }
 uniq int matchdot(char c)
 {
@@ -5756,29 +5783,30 @@ uniq int matchmetachar(char c, const char* str)
   }
 }
 
-uniq int matchcharclass(char c, const char* str)
+uniq int matchcharclass(char c, const char* str, bool ignore_case)
 {
+  unsigned char needle = re_fold_char((unsigned char)c, ignore_case);
   do
   {
-    if (matchrange(c, str))
+    if (matchrange((char)needle, str, ignore_case))
     {
       return 1;
     }
     else if (str[0] == '\\')
     {
       str += 1;
-      if (matchmetachar(c, str))
+      if (matchmetachar((char)needle, str))
       {
         return 1;
       }
-      else if ((c == str[0]) && !ismetachar(c))
+      else if ((needle == re_fold_char((unsigned char)str[0], ignore_case)) && !ismetachar((char)needle))
       {
         return 1;
       }
     }
-    else if (c == str[0])
+    else if (needle == re_fold_char((unsigned char)str[0], ignore_case))
     {
-      if (c == '-')
+      if (needle == '-')
       {
         return ((str[-1] == '\0') || (str[1] == '\0'));
       }
@@ -5885,7 +5913,7 @@ uniq string string::upper_case(char* str)
     return result;
 }
 
-uniq int char*::index_regex(char* self, char* reg, int default_value)
+uniq int char*::index_regex(char* self, char* reg, int default_value, bool ignore_case=false)
 {
     if(self == null || reg == null) {
         return default_value;
@@ -5909,7 +5937,7 @@ uniq int char*::index_regex(char* self, char* reg, int default_value)
         int matchlength = 0;
         int max_captures = 8;
         re_capture captures[max_captures];
-        int regex_result = re_matchp(re, self, &matchlength, captures, max_captures);
+        int regex_result = re_matchp_ex(re, self, &matchlength, captures, max_captures, ignore_case);
 
         /// match and no group strings ///
         if(regex_result >= 0) 
@@ -5946,7 +5974,7 @@ uniq int char*::rindex(char* str, char* search_str, int default_value)
     return default_value;
 }
 
-uniq int char*::rindex_regex(char* self, char* reg, int default_value)
+uniq int char*::rindex_regex(char* self, char* reg, int default_value, bool ignore_case=false)
 {
     if(self == null || reg == null) {
         return default_value;
@@ -5972,7 +6000,7 @@ uniq int char*::rindex_regex(char* self, char* reg, int default_value)
         int matchlength = 0;
         int max_captures = 8;
         re_capture captures[max_captures];
-        int regex_result = re_matchp(re, self2, &matchlength, captures, max_captures);
+        int regex_result = re_matchp_ex(re, self2, &matchlength, captures, max_captures, ignore_case);
 
         /// match and no group strings ///
         if(regex_result >= 0) 
@@ -6137,9 +6165,9 @@ uniq int string::rindex(char* str, char* search_str, int default_value=-1)
     return char*::rindex(str, search_str, default_value);
 }
 
-uniq int string::rindex_regex(char* self, char* reg, int default_value=-1)
+uniq int string::rindex_regex(char* self, char* reg, int default_value=-1, bool ignore_case=false)
 {
-    return char*::rindex_regex(self, reg, default_value);
+    return char*::rindex_regex(self, reg, default_value, ignore_case);
 }
 
 uniq string string::strip(char* self)
@@ -6152,9 +6180,9 @@ uniq int string::index(char* str, char* search_str, int default_value=-1)
     return char*::index(str, search_str, default_value);
 }
 
-uniq int string::index_regex(char* self, char* reg, int default_value=-1)
+uniq int string::index_regex(char* self, char* reg, int default_value=-1, bool ignore_case=false)
 {
-    return char*::index_regex(self, reg, default_value);
+    return char*::index_regex(self, reg, default_value, ignore_case);
 }
 
 uniq string string::replace(char* self, int index, char c)
@@ -6167,7 +6195,7 @@ uniq string string::multiply(char* str, int n)
     return char*::multiply(str, n);
 }
 
-uniq bool char*::match(char* self, char* reg)
+uniq bool char*::match(char* self, char* reg, bool ignore_case=false)
 {
     if(self == null || reg == null) {
         return false;
@@ -6186,7 +6214,7 @@ uniq bool char*::match(char* self, char* reg)
     int matchlength = 0;
     int max_captures = 8;
     re_capture captures[max_captures];
-    int regex_result = re_matchp(re, self, &matchlength, captures, max_captures);
+    int regex_result = re_matchp_ex(re, self, &matchlength, captures, max_captures, ignore_case);
 
     /// match and no group strings ///
     if(regex_result >= 0)
@@ -6200,7 +6228,7 @@ uniq bool char*::match(char* self, char* reg)
     }
 }
 
-uniq list<string>*% char*::scan(char* self, char* reg)
+uniq list<string>*% char*::scan(char* self, char* reg, bool ignore_case=false)
 {
     if(self == null || reg == null) {
         return new list<string>();
@@ -6223,7 +6251,7 @@ uniq list<string>*% char*::scan(char* self, char* reg)
         int matchlength = 0;
         int max_captures = 8;
         re_capture captures[max_captures];
-        int regex_result = re_matchp(re, self + offset, &matchlength, captures, max_captures);
+        int regex_result = re_matchp_ex(re, self + offset, &matchlength, captures, max_captures, ignore_case);
 
         /// match and no group strings ///
         if(regex_result >= 0 && group_count == 0)
@@ -6263,7 +6291,7 @@ uniq list<string>*% char*::scan(char* self, char* reg)
     return result;
 }
 
-uniq list<string>*% char*::split(char* self, char* reg)
+uniq list<string>*% char*::split(char* self, char* reg, bool ignore_case=false)
 {
     if(self == null || reg == null) {
         return new list<string>();
@@ -6287,7 +6315,7 @@ uniq list<string>*% char*::split(char* self, char* reg)
         int matchlength = 0;
         int max_captures = 8;
         re_capture captures[max_captures];
-        int regex_result = re_matchp(re, self + offset, &matchlength, captures, max_captures);
+        int regex_result = re_matchp_ex(re, self + offset, &matchlength, captures, max_captures, ignore_case);
 
         /// match and no group strings ///
         if(regex_result >= 0 && group_count == 0)
@@ -6318,9 +6346,9 @@ uniq list<string>*% char*::split(char* self, char* reg)
     return result;
 }
 
-uniq string string::sub(char* self, char* reg, char* replace)
+uniq string string::sub(char* self, char* reg, char* replace, bool ignore_case=false)
 {
-    return char*::sub(self, reg, replace);
+    return char*::sub(self, reg, replace, true, ignore_case);
 }
 
 uniq list<string>*% string::split_str(char* self, char* str)
@@ -6328,22 +6356,22 @@ uniq list<string>*% string::split_str(char* self, char* str)
     return char*::split_str(self, str);
 }
 
-uniq list<string>*% string::scan(char* self, char* reg)
+uniq list<string>*% string::scan(char* self, char* reg, bool ignore_case=false)
 {
-    return char*::scan(self, reg);
+    return char*::scan(self, reg, ignore_case);
 }
 
-uniq list<string>*% string::split(char* self, char* reg)
+uniq list<string>*% string::split(char* self, char* reg, bool ignore_case=false)
 {
-    return char*::split(self, reg);
+    return char*::split(self, reg, ignore_case);
 }
 
-uniq bool string::match(char* self, char* reg)
+uniq bool string::match(char* self, char* reg, bool ignore_case=false)
 {
-    return char*::match(self, reg);
+    return char*::match(self, reg, ignore_case);
 }
 
-uniq string char*::sub(char* self, char* reg, char* replace, bool global=true)
+uniq string char*::sub(char* self, char* reg, char* replace, bool global=true, bool ignore_case=false)
 {
     if(self == null || reg == null) {
         return string("");
@@ -6367,7 +6395,7 @@ uniq string char*::sub(char* self, char* reg, char* replace, bool global=true)
         int matchlength = 0;
         int max_captures = 8;
         re_capture captures[max_captures];
-        int regex_result = re_matchp(re, self + offset, &matchlength, captures, max_captures);
+        int regex_result = re_matchp_ex(re, self + offset, &matchlength, captures, max_captures, ignore_case);
 
         /// match and no group strings ///
         if(regex_result >= 0 && group_count == 0)
@@ -6401,7 +6429,7 @@ uniq string char*::sub(char* self, char* reg, char* replace, bool global=true)
     return result.to_string();
 }
 
-uniq string char*::sub_block(char* self, char* reg, bool global=true, void* parent, string (*block)(void* parent, char* match_string, list<string>* group_strings))
+uniq string char*::sub_block(char* self, char* reg, bool global=true, bool ignore_case=false, void* parent, string (*block)(void* parent, char* match_string, list<string>* group_strings))
 {
     if(self == null || reg == null) {
         return string("");
@@ -6425,7 +6453,7 @@ uniq string char*::sub_block(char* self, char* reg, bool global=true, void* pare
         int matchlength = 0;
         int max_captures = 8;
         re_capture captures[max_captures];
-        int regex_result = re_matchp(re, self + offset, &matchlength, captures, max_captures);
+        int regex_result = re_matchp_ex(re, self + offset, &matchlength, captures, max_captures, ignore_case);
 
         /// match and no group strings ///
         if(regex_result >= 0 && group_count == 0)
@@ -6493,7 +6521,7 @@ uniq string char*::sub_block(char* self, char* reg, bool global=true, void* pare
     return result.to_string();
 }
 
-uniq list<string>*% char*::scan_block(char* self, char* reg, void* parent, string (*block)(void* parent, char* match_string, list<string>* group_strings))
+uniq list<string>*% char*::scan_block(char* self, char* reg, bool ignore_case=false, void* parent, string (*block)(void* parent, char* match_string, list<string>* group_strings))
 {
     if(self == null || reg == null) {
         return new list<string>();
@@ -6516,7 +6544,7 @@ uniq list<string>*% char*::scan_block(char* self, char* reg, void* parent, strin
         int matchlength = 0;
         int max_captures = 8;
         re_capture captures[max_captures];
-        int regex_result = re_matchp(re, self + offset, &matchlength, captures, max_captures);
+        int regex_result = re_matchp_ex(re, self + offset, &matchlength, captures, max_captures, ignore_case);
 
         /// match and no group strings ///
         if(regex_result >= 0 && group_count == 0)
@@ -6568,9 +6596,9 @@ uniq list<string>*% char*::scan_block(char* self, char* reg, void* parent, strin
     return result;
 }
 
-uniq string string::sub_block(char* self, char* reg, bool global=true, void* parent, string (*block)(void* parent, char* match_string, list<string>* group_strings))
+uniq string string::sub_block(char* self, char* reg, bool global=true, bool ignore_case=false, void* parent, string (*block)(void* parent, char* match_string, list<string>* group_strings))
 {
-    return char*::sub_block(self, reg, global, parent, block);
+    return char*::sub_block(self, reg, global, ignore_case, parent, block);
 }
 
 #if defined(__LINUX__) || defined(__ANDROID__) || defined(__RASPBERRY_PI__) || defined(__MAC__)

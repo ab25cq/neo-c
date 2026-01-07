@@ -1,10 +1,8 @@
 
-
-
-
 int main(int argc, char** argv)
 {
-    a.a[1] = 1;
+    fun(1, 3);
+    b.a[1];
     
     return 0;
 }
