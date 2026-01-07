@@ -49,8 +49,8 @@ int main()
 int main(int argc,char** argv)
 {
     "ABC".scan("."); // [A,B,C]
-    "ABC".index_regex("b", -1, true); // 1
-    "fooBAR".match("bar", true); // true
+    "ABC".index_regex("b", -1, ignore_case:true); // 1
+    "fooBAR".match("bar", ignore_case:true); // true
     "a1b2c3".split("\\d+"); // [a,b,c]
     "Hello".sub("l+", "L"); // HeLo
     "ABCABC".sub_block("ABC") { string("X") }; // XX
