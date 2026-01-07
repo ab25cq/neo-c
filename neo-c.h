@@ -6,14 +6,6 @@
 
 #undef __cplusplus
 
-/*
-__c__ {#if defined(__MAC__)}
-__c__ {typedef long double float128_t;}
-__c__ {typedef long double _Float128;}
-__c__ {typedef long double __float128;}
-__c__ {#endif}
-*/
-
 #ifdef __STDC__
 #define __P(protos) protos
 #else
@@ -27,20 +19,17 @@ __c__ {#endif}
 #define nullptr ((void*)0)
 typedef char*% string;
 
-/*
-__c__ {#if defined(__32BIT_CPU__) && defined(__LINUX__)}
-__c__ {typedef long __uint128_t;}
-__c__ {#endif}
-*/
+#if defined(__MINUX__) || defined(__BARE_METAL__) || defined(__PICO__)
+#else
+#define __UNIX__
+#endif
 
 ///////////////////////////////////////////////////////////////////////////
 // PICO
 ///////////////////////////////////////////////////////////////////////////
 
 #ifdef __PICO__
-#undef _GNU_SOURCE
 __c__ {#define _GNU_SOURCE}
-#define _GNU_SOURCE
 __c__ {#include "stdarg.h"}
 __c__ {#include "stdlib.h"}
 __c__ {#include "stdint.h"}
@@ -72,13 +61,12 @@ using neo-c;
 
 #include "neo-c-libc.h"
 
+using neo-c;
+
 ///////////////////////////////////////////////////////////////////////////
 // UNIX
 ///////////////////////////////////////////////////////////////////////////
 #else
-
-#define COME_STACKFRAME_MAX 16
-#define COME_STACKFRAME_MAX_GLOBAL 128
 
 using C
 {
@@ -92,7 +80,6 @@ using C
 #include <locale.h>
 #include <errno.h>
 #include <assert.h>
-//#include <ctype.h>
 #include <stdbool.h>
 }
 
@@ -151,9 +138,9 @@ uniq bool string::equals(char* self, char* right);
 
 
 ///////////////////////////////////////////////////////////////////////////
-// DEBUG FUNCTIONS
+// NONE UNIX
 ///////////////////////////////////////////////////////////////////////////
-#if defined(__MINUX__) || defined(__BARE_METAL__) || defined(__PICO__)
+#if !defined(__UNIX__)
 uniq void come_push_stackframe(char* sname, int sline, int id)
 {
 }
@@ -175,7 +162,34 @@ uniq string come_get_stackframe()
     return string("");
 }
 
+uniq bool die(char* msg)
+{
+    puts(msg);
+    exit(4);
+    
+    return false;
+}
+
+#undef assert
+
+uniq record int assert(int exp) version 2
+{
+    if(exp) {
+    }
+    else {
+        puts("assert failure");
+        stackframe();
+        exit(2);
+    }
+}
+
+///////////////////////////////////////////////////////////////////////////
+// UNIX
+///////////////////////////////////////////////////////////////////////////
 #else
+#define COME_STACKFRAME_MAX 16
+#define COME_STACKFRAME_MAX_GLOBAL 128
+
 uniq char* gComeStackFrameSName[COME_STACKFRAME_MAX_GLOBAL];
 uniq int gComeStackFrameSLine[COME_STACKFRAME_MAX_GLOBAL];
 uniq int gComeStackFrameID[COME_STACKFRAME_MAX_GLOBAL];
@@ -226,19 +240,7 @@ uniq string come_get_stackframe()
 {
     return string(gComeStackFrameBuffer);
 }
-#endif
 
-uniq void xassert(char* msg, bool test)
-{
-    printf("%s...", msg);
-    if(!test) {
-        puts("false");
-        exit(2);
-    }
-    puts("ok");
-}
-
-#if !defined(__MINUX__) && !defined(__BARE_METAL__) && !defined(__PICO__)
 record uniq bool die(char* msg)
 {
     perror(msg);
@@ -247,19 +249,11 @@ record uniq bool die(char* msg)
     
     return false;
 }
-#else
-uniq bool die(char* msg)
-{
-    puts(msg);
-    //stackframe();
-    exit(4);
-    
-    return false;
-}
 #endif
 
+
 //////////////////////////////
-/// heap
+/// HEAP
 //////////////////////////////
 struct sMemHeaderTiny
 {
@@ -281,7 +275,7 @@ struct sMemHeader
     struct sMemHeader* prev;
     struct sMemHeader* free_next;
     
-#if !defined(__MINUX__) && !defined(__BARE_METAL__) && !defined(__PICO__)
+#if !defined(__UNIX__)
     char* sname[COME_STACKFRAME_MAX];
     int sline[COME_STACKFRAME_MAX];
     int id[COME_STACKFRAME_MAX];
@@ -311,11 +305,14 @@ uniq void come_heap_init(int come_debug)
 
 uniq void come_heap_final()
 {
+#if !defined(__UNIX__)
     if(gComeStackFrameBuffer) {
         free(gComeStackFrameBuffer);
     }
+#endif
     
     if(gComeDebugLib) {
+#if !defined(__UNIX__)
         sMemHeader* it = gAllocMem;
         int n = 0;
         while(it) {
@@ -338,6 +335,7 @@ uniq void come_heap_final()
             it = it->next;
         }
         printf("%d memory leaks. %d alloc, %d free.\n", n, gNumAlloc, gNumFree);
+#endif
     }
     else {
         sMemHeaderTiny* it = (sMemHeaderTiny*)gAllocMem;
@@ -364,6 +362,7 @@ uniq void come_free_mem_of_heap_pool(void* mem)
 {
     if(mem) {
         if(gComeDebugLib) {
+#if !defined(__UNIX__)
             sMemHeader* it = (sMemHeader*)((char*)mem - sizeof(sMemHeader));
             
             if(it->allocated != ALLOCATED_MAGIC_NUM) {
@@ -396,6 +395,7 @@ uniq void come_free_mem_of_heap_pool(void* mem)
             free(it);
             
             gNumFree++;
+#endif
         }
         else {
             sMemHeaderTiny* it = (sMemHeaderTiny*)((char*)mem - sizeof(sMemHeaderTiny));
@@ -437,6 +437,7 @@ uniq void come_free_mem_of_heap_pool(void* mem)
 uniq void* come_alloc_mem_from_heap_pool(size_t size, char* sname=null, int sline=0, char* class_name="")
 {
     if(gComeDebugLib) {
+#if !defined(__UNIX__)
         size_t size2 = size + sizeof(sMemHeader);
 #ifdef __32BIT_CPU__
         size2 = (size2 + 3 & ~0x3);
@@ -487,6 +488,7 @@ uniq void* come_alloc_mem_from_heap_pool(size_t size, char* sname=null, int slin
         gNumAlloc++;
         
         return (char*)result + sizeof(sMemHeader);
+#endif
     }
     else {
         size_t size2 = size + sizeof(sMemHeaderTiny);
@@ -528,6 +530,7 @@ uniq void* come_alloc_mem_from_heap_pool(size_t size, char* sname=null, int slin
 uniq char* come_dynamic_typeof(void* mem)
 {
     if(gComeDebugLib) {
+#if !defined(__UNIX__)
         sMemHeader* it = (sMemHeader*)((char*)mem - sizeof(size_t) - sizeof(size_t) - sizeof(sMemHeader));
         
         if(it->allocated != ALLOCATED_MAGIC_NUM) {
@@ -536,6 +539,7 @@ uniq char* come_dynamic_typeof(void* mem)
         }
         
         return it->class_name;
+#endif
     }
     else {
         sMemHeaderTiny* it = (sMemHeaderTiny*)((char*)mem - sizeof(size_t) - sizeof(size_t) - sizeof(sMemHeaderTiny));
@@ -722,6 +726,16 @@ uniq void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* pr
             }
         }
     }
+}
+
+uniq void xassert(char* msg, bool test)
+{
+    printf("%s...", msg);
+    if(!test) {
+        puts("false");
+        exit(2);
+    }
+    puts("ok");
 }
 
 uniq string __builtin_string(char* str)
@@ -4838,21 +4852,6 @@ uniq long long::printf(long self, char* msg)
 //////////////////////////////
 /// base library(assert)
 //////////////////////////////
-#if !defined(__MINUX__) && !defined(__BARE_METAL__) && !defined(__PICO__)
-#undef assert
-
-uniq record int assert(int exp) version 2
-{
-    if(exp) {
-    }
-    else {
-        puts("assert failure");
-        stackframe();
-        exit(2);
-    }
-}
-#endif
-
 uniq void int::times(int self, void* parent, void (*block)(void* parent, int it))
 {
     for(int i = 0; i < self; i++) {
