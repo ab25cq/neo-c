@@ -43,6 +43,23 @@ int main()
 }
 ```
 
+```
+#include <neo-c.h>
+
+int main(int argc,char** argv)
+{
+    "ABC".scan("."); // [A,B,C]
+    "ABC".index_regex("b", -1, true); // 1
+    "fooBAR".match("bar", true); // true
+    "a1b2c3".split("\\d+"); // [a,b,c]
+    "Hello".sub("l+", "L"); // HeLo
+    "ABCABC".sub_block("ABC") { string("X") }; // XX
+    "123 456 789".scan_block("[0-9][0-9][0-9]") { it.substring(0, 1) }; // [1,4,7]
+
+    return 0;
+}
+```
+
 neo-c outputs c source with standard C libraries only. So you can use this for micro computer or other system working c language.
 
 # インストール
@@ -2747,4 +2764,3 @@ int main(int argc,char** argv)
     return 0;
 }
 ```
-
