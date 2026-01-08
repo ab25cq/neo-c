@@ -1,8 +1,7 @@
 
 int main(int argc, char** argv)
 {
-    fun(1, 3);
-    b.a[1];
+    gAllocMem = (sMemHeader*)it;
     
     return 0;
 }

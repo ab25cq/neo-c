@@ -181,12 +181,12 @@ static bool cpp(sInfo* info)
     }
     
     if(_32bit) {
-        info.cpp_option = info.cpp_option + s" -D__32BIT_CPU__ ";
+        info.cpp_option = info.cpp_option + s" -D__32BIT_CPU__=1 ";
     }
     
     /// Android ///
     if(is_android) {
-        string cmd3 = xsprintf("cpp %s -lang-c %s -I. -I\"%s\"/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -I/data/data/com.termux/files/usr/include/mariadb -D__ANDROID__ \"%s\" > \"%s\" 2> \"%s\".cpp.out", (info.remove_comment ? "": " -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, input_file_name, output_file_name, output_file_name);
+        string cmd3 = xsprintf("cpp %s -lang-c %s -I. -I\"%s\"/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -I/data/data/com.termux/files/usr/include/mariadb -D__ANDROID__=1 \"%s\" > \"%s\" 2> \"%s\".cpp.out", (info.remove_comment ? "": " -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, input_file_name, output_file_name, output_file_name);
         
         if(info.verbose) puts(cmd3);
         int rc = system(cmd3);
@@ -202,7 +202,7 @@ static bool cpp(sInfo* info)
         }
     }
     else if(is_m5stack) {
-        string cmd2 = xsprintf("xtensa-esp-elf-cpp -E %s -lang-c %s -I. -I/usr/local/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -DNEO_C -D__M5STACK__ \"%s\" > \"%s\" 2> \"%s\".cpp.out", info.remove_comment ? "":" -C", info.cpp_option, PREFIX, PREFIX, input_file_name, output_file_name, output_file_name);
+        string cmd2 = xsprintf("xtensa-esp-elf-cpp -E %s -lang-c %s -I. -I/usr/local/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -DNEO_C=1 -D__M5STACK__=1 \"%s\" > \"%s\" 2> \"%s\".cpp.out", info.remove_comment ? "":" -C", info.cpp_option, PREFIX, PREFIX, input_file_name, output_file_name, output_file_name);
         
         if(info.verbose) puts(cmd2);
         
@@ -224,7 +224,7 @@ static bool cpp(sInfo* info)
         (void)system(command2);
     }
     else if(is_pico) {
-        string cmd2 = xsprintf("arm-none-eabi-gcc -E %s -lang-c %s -I. -I/usr/local/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -DNEO_C -D__PICO__ \"%s\" > \"%s\" 2> \"%s\".cpp.out", info.remove_comment ? "":" -C", info.cpp_option, PREFIX, PREFIX, input_file_name, output_file_name, output_file_name);
+        string cmd2 = xsprintf("arm-none-eabi-gcc -E %s -lang-c %s -I. -I/usr/local/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -DNEO_C=1 -D__PICO__=1 \"%s\" > \"%s\" 2> \"%s\".cpp.out", info.remove_comment ? "":" -C", info.cpp_option, PREFIX, PREFIX, input_file_name, output_file_name, output_file_name);
         
         if(info.verbose) puts(cmd2);
         
@@ -247,7 +247,7 @@ static bool cpp(sInfo* info)
     }
     /// Mac ///
     else if(is_mac) {
-        string cmd2 = xsprintf("gcc -E %s -lang-c %s -I. -I/usr/local/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -DNEO_C -D__MAC__ -I/opt/homebrew/opt/boehmgc/include/ -I/opt/homebrew/opt/openssl/include \"%s\" > \"%s\" 2> \"%s\".cpp.out", (info.remove_comment ? "":" -C"), info.cpp_option, PREFIX, PREFIX, input_file_name, output_file_name, output_file_name);
+        string cmd2 = xsprintf("gcc -E %s -lang-c %s -I. -I/usr/local/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -DNEO_C=1 -D__MAC__=1 -I/opt/homebrew/opt/boehmgc/include/ -I/opt/homebrew/opt/openssl/include \"%s\" > \"%s\" 2> \"%s\".cpp.out", (info.remove_comment ? "":" -C"), info.cpp_option, PREFIX, PREFIX, input_file_name, output_file_name, output_file_name);
         
         if(info.verbose) puts(cmd2);
         
@@ -270,7 +270,7 @@ static bool cpp(sInfo* info)
     }
     /// EMBBEDED ///
     else if(is_emb) {
-        string cmd3 = xsprintf("clang -E %s -lang-c %s -I. -I\"%s\"/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -D__EMB__ \"%s\" > \"%s\" 2> \"%s\".cpp.out", (info->remove_comment ? "":" -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, input_file_name, output_file_name, output_file_name);
+        string cmd3 = xsprintf("clang -E %s -lang-c %s -I. -I\"%s\"/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -D__EMB__=1 \"%s\" > \"%s\" 2> \"%s\".cpp.out", (info->remove_comment ? "":" -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, input_file_name, output_file_name, output_file_name);
 
         if(info.verbose) puts(cmd3);
         int rc = system(cmd3);
@@ -281,7 +281,7 @@ static bool cpp(sInfo* info)
         (void)system(command2);
         
         if(rc != 0) {
-            string cmd4 = xsprintf("clang -E %s -I. %s -DPREFIX=\"%s\" -I\"%s\"/include -D__EMB__ \"%s\" > \"%s\" 2> \"%s\".cpp.out", info->remove_comment ? "": " -C", info.cpp_option, PREFIX, PREFIX, input_file_name, output_file_name, output_file_name);
+            string cmd4 = xsprintf("clang -E %s -I. %s -DPREFIX=\"%s\" -I\"%s\"/include -D__EMB__=1 \"%s\" > \"%s\" 2> \"%s\".cpp.out", info->remove_comment ? "": " -C", info.cpp_option, PREFIX, PREFIX, input_file_name, output_file_name, output_file_name);
 
             
             var command2 = xsprintf("grep error\\: \"%s\".cpp.out 2>/dev/null", output_file_name);
@@ -297,7 +297,7 @@ static bool cpp(sInfo* info)
     }
     /// __RASPIBERRY_PI__ ///
     else if(is_raspi) {
-        string cmd3 = xsprintf("cpp %s -lang-c %s -I. -I\"%s\"/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -D__RASPBERRY_PI__ \"%s\" > \"%s\" 2> \"%s\".cpp.out", (info->remove_comment ? "":" -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, input_file_name, output_file_name, output_file_name);
+        string cmd3 = xsprintf("cpp %s -lang-c %s -I. -I\"%s\"/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -D__RASPBERRY_PI__=1 \"%s\" > \"%s\" 2> \"%s\".cpp.out", (info->remove_comment ? "":" -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, input_file_name, output_file_name, output_file_name);
 
         if(info.verbose) puts(cmd3);
         int rc = system(cmd3);
@@ -308,7 +308,7 @@ static bool cpp(sInfo* info)
         (void)system(command2);
         
         if(rc != 0) {
-            string cmd4 = xsprintf("cpp %s -I. %s -DPREFIX=\"%s\" -I\"%s\"/include -D__RASPBERRY_PI__ \"%s\" > \"%s\" 2> \"%s\".cpp.out", info->remove_comment ? "": " -C", info.cpp_option, PREFIX, PREFIX, input_file_name, output_file_name, output_file_name);
+            string cmd4 = xsprintf("cpp %s -I. %s -DPREFIX=\"%s\" -I\"%s\"/include -D__RASPBERRY_PI__=1 \"%s\" > \"%s\" 2> \"%s\".cpp.out", info->remove_comment ? "": " -C", info.cpp_option, PREFIX, PREFIX, input_file_name, output_file_name, output_file_name);
             
             var command2 = xsprintf("grep error\\: %s.cpp.out 2>/dev/null", output_file_name);
             
@@ -325,7 +325,7 @@ static bool cpp(sInfo* info)
         if(is_arm64) {
             info.cpp_option = info.cpp_option; // + " -march=armv8-a+sve";
         }
-        string cmd3 = xsprintf("clang -E %s -lang-c %s -I. -I\"%s\"/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -D__LINUX__ \"%s\" > \"%s\" 2> \"%s\".cpp.out", (info->remove_comment ? "":" -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, input_file_name, output_file_name, output_file_name);
+        string cmd3 = xsprintf("clang -E %s -lang-c %s -I. -I\"%s\"/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -D__LINUX__=1 \"%s\" > \"%s\" 2> \"%s\".cpp.out", (info->remove_comment ? "":" -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, input_file_name, output_file_name, output_file_name);
 
         if(info.verbose) puts(cmd3);
         int rc = system(cmd3);
@@ -336,7 +336,7 @@ static bool cpp(sInfo* info)
         (void)system(command2);
         
         if(rc != 0) {
-            string cmd4 = xsprintf("cpp %s -I. %s -DPREFIX=\"%s\" -I\"%s\"/include -D__LINUX__ \"%s\" > \"%s\" 2> \"%s\".cpp.out", info->remove_comment ? "": " -C", info.cpp_option, PREFIX, PREFIX, input_file_name, output_file_name, output_file_name);
+            string cmd4 = xsprintf("cpp %s -I. %s -DPREFIX=\"%s\" -I\"%s\"/include -D__LINUX__=1 \"%s\" > \"%s\" 2> \"%s\".cpp.out", info->remove_comment ? "": " -C", info.cpp_option, PREFIX, PREFIX, input_file_name, output_file_name, output_file_name);
 
             var command2 = xsprintf("grep error\\: \"%s\".cpp.out 2>/dev/null", output_file_name);
             
@@ -881,8 +881,8 @@ module MEvalOptions<T, T2>
             gcc_compiler = true;
             output_object_file_flag = false;
             CC="riscv64-unknown-elf-gcc"
-            cpp_option.append_format(s" -D__BARE_METAL__ -D__RISCV__ ");
-            clang_option.append_str(s" -nostdlib -ffreestanding -D__RISCV__");
+            cpp_option.append_format(s" -D__BARE_METAL__=1 -D__RISCV__=1 ");
+            clang_option.append_str(s" -nostdlib -ffreestanding -D__RISCV__=1");
             gComeBareMetal = true;
         }
         else if(argv[i] === "-bare") {
@@ -892,7 +892,7 @@ module MEvalOptions<T, T2>
             gComeOriginalSourcePosition = false;
             CC="gcc";
             gComeBareMetal = true;
-            cpp_option.append_format(s" -D__BARE_METAL__ ");
+            cpp_option.append_format(s" -D__BARE_METAL__=1 ");
             clang_option.append_str(s" -nostdlib -ffreestanding ");
         }
 #ifndef __MINUX__
@@ -902,7 +902,7 @@ module MEvalOptions<T, T2>
             gComeOriginalSourcePosition = false;
             char* env = getenv("PICO_SDK_PATH");
             cpp_option = new buffer();
-            cpp_option.append_format(s" -I $PICO_SDK_PATH/src/common/pico_stdlib_headers/include/ -I$PICO_SDK_PATH/src/common/pico_base_headers/include/ -I \{env}/src/rp2_common/hardware_sync/include \$(find \{env} -type d -name include | sed 's/^/ -I/g') -I$PICO_SDK_PATH/src/boards/include -I$PICO_SDK_PATH/src/rp2040/pico_platform/include/ -I$PICO_SDK_PATH/src/rp2040/hardware_regs/include/ -I$PICO_SDK_PATH/src/rp2040/hardware_structs/include -I$PICO_SDK_PATH/src/rp2350/hardware_structs/include/ -I build/generated/pico_base/ -D__PICO__");
+            cpp_option.append_format(s" -I $PICO_SDK_PATH/src/common/pico_stdlib_headers/include/ -I$PICO_SDK_PATH/src/common/pico_base_headers/include/ -I \{env}/src/rp2_common/hardware_sync/include \$(find \{env} -type d -name include | sed 's/^/ -I/g') -I$PICO_SDK_PATH/src/boards/include -I$PICO_SDK_PATH/src/rp2040/pico_platform/include/ -I$PICO_SDK_PATH/src/rp2040/hardware_regs/include/ -I$PICO_SDK_PATH/src/rp2040/hardware_structs/include -I$PICO_SDK_PATH/src/rp2350/hardware_structs/include/ -I build/generated/pico_base/ -D__PICO__=1");
             create_pico_version_header();
             pico_cpp = true;
         }
@@ -921,7 +921,7 @@ module MEvalOptions<T, T2>
             gComeOriginalSourcePosition = false;
             char* env = getenv("IDF_PATH");
             cpp_option = new buffer();
-            cpp_option.append_format(s" -I\{getenv("HOME")}/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/xtensa-esp-elf/include -I\{env}/components/freertos/include -I\{env}/components/esp32/include -I\{env}/components/driver/include -I\{env}/components/lwip/include -I\{env}/components/freertos/FreeRTOS-Kernel/include -I\{env}/components/freertos/config/include/freertos -I\{env}/components/freertos/config/xtensa/include -I\{env}/components/xtensa/include -I\{env}/components/xtensa/esp32/include -I\{env}/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos -I\{env}/components/esp_hw_support/include -I\{env}/components/soc/esp32/include/ -I\{env}/components/esp_common/include/components $(find \{env}/components -type d -name include | grep esp_ | sed 's/^/ -I/g') -I\{env}/components/esp_common/include/ -I\{env}/components/soc/esp32/register/soc/ -I\{env}/components/soc/esp32/register -I\{env}/components/heap/include -I\{env}/components/hal/include -I\{env}/components/newlib/platform_include -D__M5STACK__", PREFIX);
+            cpp_option.append_format(s" -I\{getenv("HOME")}/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/xtensa-esp-elf/include -I\{env}/components/freertos/include -I\{env}/components/esp32/include -I\{env}/components/driver/include -I\{env}/components/lwip/include -I\{env}/components/freertos/FreeRTOS-Kernel/include -I\{env}/components/freertos/config/include/freertos -I\{env}/components/freertos/config/xtensa/include -I\{env}/components/xtensa/include -I\{env}/components/xtensa/esp32/include -I\{env}/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos -I\{env}/components/esp_hw_support/include -I\{env}/components/soc/esp32/include/ -I\{env}/components/esp_common/include/components $(find \{env}/components -type d -name include | grep esp_ | sed 's/^/ -I/g') -I\{env}/components/esp_common/include/ -I\{env}/components/soc/esp32/register/soc/ -I\{env}/components/soc/esp32/register -I\{env}/components/heap/include -I\{env}/components/hal/include -I\{env}/components/newlib/platform_include -D__M5STACK__=1", PREFIX);
         }
 #endif
         else if(i + 1 < argc && argv[i] === "-target") {
@@ -1612,7 +1612,7 @@ module MEvalOptions<T, T2>
 #endif
     }
     else {
-        cpp_option.append_str(" -D__clang__ ");
+        cpp_option.append_str(" -D__clang__=1 ");
     }
 #ifdef __MAC__ // for lldb
     output_source_file_flag = true;
@@ -1681,7 +1681,6 @@ int come_main(int argc, char** argv)
             printf("transpile failed\n");
             exit(2);
         }
-        
 
 #ifndef __MINUX__
         info.source = xsprintf("%s.i", it).read().to_buffer();

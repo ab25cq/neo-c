@@ -1075,7 +1075,7 @@ string reflection_node(sInfo* info=info)
         string value = info.reflection_vars[var_name];
         
         if(value == null) {
-            err_msg(info, "no declare compile time var %s\n", var_name);
+//            err_msg(info, "no declare compile time var %s\n", var_name);
             return s"";
         }
         

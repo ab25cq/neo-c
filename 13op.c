@@ -1456,6 +1456,10 @@ sNode*% mult_exp(sInfo* info)
             info.sline_real = info.sline;
             skip_spaces_and_lf();
 
+            if(*info->p == ')') {
+                err_msg(info, "invalid )");
+                return create_nothing_node();
+            }
             sNode*% right = expression_node(info);
             
             info.sline_real = sline_real;

@@ -940,7 +940,7 @@ sNode*% pre_position_operator(sInfo* info=info)
         /// backtrace ///
         bool tuple_expression_flag = false;
         bool named_tuple_expression_flag = false;
-        if(!gComeC)
+        if(!gComeC && !cast_expression_flag && !struct_initializer_flag)
         {
             char* p = info.p;
             int sline = info.sline;

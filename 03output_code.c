@@ -1420,6 +1420,11 @@ bool output_source_file(sInfo* info)
             sFun* it2 = borrow info.uniq_funcs[string(it)];
             sFun*% new_fun = compile_uniq_function(it2, info);
             
+            if(new_fun == null) {
+                err_msg(info, "compile %s failed");
+                exit(3);
+            }
+            
             info.funcs.put(string(it), new_fun);
         }
     }
