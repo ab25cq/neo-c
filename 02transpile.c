@@ -1712,7 +1712,7 @@ int come_main(int argc, char** argv)
                 exit(2);
             }
             if(info.err_num2 > 0) {
-                printf("transpile error. err num %d\n", info->err_num2);
+                printf("transpile warning. warning num %d\n", info->err_num2);
             }
             
             output_object_file_flag.if {

@@ -1553,7 +1553,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
         }
         
         bool match_ = false;
-        if(reflection_condtional === "true") {
+        if(reflection_condtional !== "false") {
             expected_next_character('{');
             transpile_toplevel(block:true);
             match_ = true;
@@ -1580,7 +1580,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
                     skip_spaces_and_lf();
                 }
                 
-                if(!match_ && reflection_condtional === "true") {
+                if(!match_ && reflection_condtional !== "false") {
                     expected_next_character('{');
                     transpile_toplevel(block:true);
                     match_ = true;

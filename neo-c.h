@@ -19,39 +19,20 @@
 #define nullptr ((void*)0)
 typedef char*% string;
 
-if(__MINUX__ == 1)
-{
-    var EMBBEDED=1
-    var MINUX=1
+#if defined(__MINUX__)
     var UNIX=0
-}
-elif(__BARE_METAL__ == 1) 
-{
-    var EMBBEDED=1
-    var BARE_METAL=1
+#elif defined(__BARE_METAL__)
     var UNIX=0
-}
-elif(__PICO__ == 1)
-{
-    var PICO=1
-    var EMBBEDED=1
+#elif defined(__PICO__)
     var UNIX=0
-}
-else {
-    var EMBBEDED=0
+#else
     var UNIX=1
-}
+#endif
 
 ///////////////////////////////////////////////////////////////////////////
 // PICO
 ///////////////////////////////////////////////////////////////////////////
 #ifdef __PICO__
-
-/*
-typedef unsigned int size_t;
-typedef int uint32_t;
-*/
-
 __c__ {#define _GNU_SOURCE}
 __c__ {#include "stdarg.h"}
 __c__ {#include "stdlib.h"}
@@ -91,8 +72,8 @@ using neo-c;
 ///////////////////////////////////////////////////////////////////////////
 #else
 
-using C
-{
+using C;
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -102,9 +83,8 @@ using C
 #include <limits.h>
 #include <locale.h>
 #include <errno.h>
-#include <assert.h>
+__c__ {#include <assert.h>}
 #include <stdbool.h>
-}
 
 using neo-c;
 
@@ -160,9 +140,6 @@ uniq string _Bool::to_string(bool self);
 uniq bool string::equals(char* self, char* right);
 
 
-///////////////////////////////////////////////////////////////////////////
-// NONE UNIX
-///////////////////////////////////////////////////////////////////////////
 #define COME_STACKFRAME_MAX 16
 #define COME_STACKFRAME_MAX_GLOBAL 128
 
@@ -196,24 +173,7 @@ if($UNIX == 0)
         
         return false;
     }
-    
-    #undef assert
-    
-    uniq record int assert(int exp) version 2
-    {
-        if(exp) {
-        }
-        else {
-            puts("assert failure");
-            stackframe();
-            exit(2);
-        }
-    }
 }
-
-///////////////////////////////////////////////////////////////////////////
-// UNIX
-///////////////////////////////////////////////////////////////////////////
 else 
 {
     uniq char* gComeStackFrameSName[COME_STACKFRAME_MAX_GLOBAL];
@@ -887,43 +847,42 @@ uniq string __builtin_string(char* str)
     return result;
 }
 
-#ifndef __RISCV__
-uniq void come_push_stackframe(char* sname, int sline, int id) version 2
-{
-    inherit(sname, sline, id);
+if($UNIX == 0) {
+    uniq void come_push_stackframe(char* sname, int sline, int id) version 2
+    {
+        inherit(sname, sline, id);
+    }
+    
+    uniq void come_pop_stackframe() version 2
+    {
+        inherit();
+    }
+    
+    uniq void come_save_stackframe(char* sname, int sline) version 2
+    {
+        inherit(sname, sline);
+    }
+    
+    uniq void stackframe() version 2
+    {
+        inherit();
+    }
+    
+    uniq string come_get_stackframe() version 2
+    {
+        return inherit();
+    }
+    
+    uniq void* come_calloc(size_t count, size_t size, char* sname=null, int sline=0, char* class_name="") version 2
+    {
+        return inherit(count, size, sname, sline, class_name);
+    }
+    
+    uniq void come_free(void* mem) version 2
+    {
+        inherit(mem);
+    }
 }
-
-uniq void come_pop_stackframe() version 2
-{
-    inherit();
-}
-
-uniq void come_save_stackframe(char* sname, int sline) version 2
-{
-    inherit(sname, sline);
-}
-
-uniq void stackframe() version 2
-{
-    inherit();
-}
-
-uniq string come_get_stackframe() version 2
-{
-    return inherit();
-}
-
-uniq void* come_calloc(size_t count, size_t size, char* sname=null, int sline=0, char* class_name="") version 2
-{
-    return inherit(count, size, sname, sline, class_name);
-}
-
-uniq void come_free(void* mem) version 2
-{
-    inherit(mem);
-}
-
-#endif
 
 //////////////////////////////
 // list
@@ -3386,54 +3345,84 @@ uniq buffer* buffer*::append_str(buffer* self, char* mem)
     return self;
 }
 
-uniq buffer* buffer*::append_format(buffer* self, char* msg, ...)
-{
-    if(self == null || msg == null) {
+if($UNIX == 0) {
+    uniq buffer* buffer*::append_format(buffer* self, char* msg, ...)
+    {
+        if(self == null || msg == null) {
+            return self;
+        }
+        
+        char result[128];
+        
+        va_list` args;
+        va_start(args, msg);
+        vsnprintf(result, 128, msg, args);
+        va_end(args);
+        
+        int len = strlen(result);
+        
+        string mem = string(result);
+        
+        int size = strlen(mem);
+        if(self.len + size + 1 + 1 >= self.size) {
+            char*% old_buf = new char[self.size];
+            memcpy(old_buf, self.buf, self.size);
+            int old_len = self.len;
+            int new_size = (self.size + size + 1) * 2;
+            self.buf = new char[new_size];
+            memcpy(self.buf, old_buf, old_len);
+            self.buf[old_len] = '\0';
+            self.size = new_size;
+        }
+    
+        memcpy(self.buf + self.len, mem, size);
+        self.len += size;
+        self.buf[self.len] = '\0';
+        
+        free(result);
+        
         return self;
     }
+}
+else {
+    uniq buffer* buffer*::append_format(buffer* self, char* msg, ...)
+    {
+        if(self == null || msg == null) {
+            return self;
+        }
+        
+        va_list` args;
+        va_start(args, msg);
+        char* result;
+        int len = vasprintf(&result, msg, args);
+        va_end(args);
+        
+        if(len < 0) {
+            return self;
+        }
+        
+        string mem = string(result);
+        
+        int size = strlen(mem);
+        if(self.len + size + 1 + 1 >= self.size) {
+            char*% old_buf = new char[self.size];
+            memcpy(old_buf, self.buf, self.size);
+            int old_len = self.len;
+            int new_size = (self.size + size + 1) * 2;
+            self.buf = new char[new_size];
+            memcpy(self.buf, old_buf, old_len);
+            self.buf[old_len] = '\0';
+            self.size = new_size;
+        }
     
-#ifdef __RISCV__
-    char result[128];
-    
-    va_list` args;
-    va_start(args, msg);
-    vsnprintf(result, 128, msg, args);
-    va_end(args);
-    
-    int len = strlen(result);
-#else
-    va_list` args;
-    va_start(args, msg);
-    char* result;
-    int len = vasprintf(&result, msg, args);
-    va_end(args);
-    
-    if(len < 0) {
+        memcpy(self.buf + self.len, mem, size);
+        self.len += size;
+        self.buf[self.len] = '\0';
+        
+        free(result);
+        
         return self;
     }
-#endif
-    
-    string mem = string(result);
-    
-    int size = strlen(mem);
-    if(self.len + size + 1 + 1 >= self.size) {
-        char*% old_buf = new char[self.size];
-        memcpy(old_buf, self.buf, self.size);
-        int old_len = self.len;
-        int new_size = (self.size + size + 1) * 2;
-        self.buf = new char[new_size];
-        memcpy(self.buf, old_buf, old_len);
-        self.buf[old_len] = '\0';
-        self.size = new_size;
-    }
-
-    memcpy(self.buf + self.len, mem, size);
-    self.len += size;
-    self.buf[self.len] = '\0';
-    
-    free(result);
-    
-    return self;
 }
 
 uniq buffer* buffer*::append_nullterminated_str(buffer* self, char* mem)
@@ -4936,32 +4925,49 @@ uniq string char*::print(char* self)
     return string(self);
 }
 
-uniq string char*::printf(char* self, ...)
-{
-    if(self == null) {
-        return string("");
+if($UNIX == 0) {
+    uniq string char*::printf(char* self, ...)
+    {
+        if(self == null) {
+            return string("");
+        }
+        char* msg2;
+    
+        char msg2[128];
+        
+        va_list` args;
+        va_start(args, self);
+        int len = snprintf(msg2, 128, self, args);
+        va_end(args);
+        
+        printf("%s", msg2);
+    
+        free(msg2);
+        
+        return string(self);
     }
-    char* msg2;
-
-#ifdef __RISCV__
-    char msg2[128];
+}
+else {
+    uniq string char*::printf(char* self, ...)
+    {
+        if(self == null) {
+            return string("");
+        }
+        char* msg2;
     
-    va_list` args;
-    va_start(args, self);
-    int len = snprintf(msg2, 128, self, args);
-    va_end(args);
-#else
-    va_list` args;
-    va_start(args, self);
-    vasprintf(&msg2,self,args);
-    va_end(args);
-#endif
+        char msg2[128];
+        
+        va_list` args;
+        va_start(args, self);
+        int len = snprintf(msg2, 128, self, args);
+        va_end(args);
+        
+        printf("%s", msg2);
     
-    printf("%s", msg2);
-
-    free(msg2);
-    
-    return string(self);
+        free(msg2);
+        
+        return string(self);
+    }
 }
 
 uniq int int::printf(int self, char* msg)
