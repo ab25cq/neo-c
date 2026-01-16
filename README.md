@@ -96,7 +96,7 @@ sh all_build.sh
 ```
 0.8.2.5 CPP has been wrritten by codex. And more compatibilities C lang. Almost C header can be work.
 0.8.2.1 Refactoring
-0.8.2.0 remove GC. This system use calloc and free only. So you can debug with valgrind.
+0.8.2.0 remove GC heap area. This system use calloc and free only. So you can debug with valgrind.
 0.8.1.6 GC algorithm bug has been fixed. Some code can't be work maybe, but more properly heap algorith has come.
 0.8.1.5 Compiletime Reflection
 0.8.1.4 Compiletime Reflection
