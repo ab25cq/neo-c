@@ -3386,7 +3386,7 @@ void child_output_struct(struct sType* type  , char* struct_name  , struct buffe
         }
         type2->mStatic=0;
         klass_2=type2->mClass;
-        if(type2->mAnonymous) {
+        if(type2->mAnonymous&&string_operator_not_equals(name,name2)) {
             child_output_struct(type2,(char*)come_increment_ref_count(xsprintf("")),buf,existance_generics,(char*)come_increment_ref_count(name2),indent,info,named_child);
         }
         else if(type2->mInnerStruct) {

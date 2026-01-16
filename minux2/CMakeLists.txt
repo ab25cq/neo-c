@@ -9,7 +9,7 @@ set(CMAKE_CXX_STANDARD 17)
 pico_sdk_init()
 
 add_executable(minux2
-    main.C
+    main_.c
     timer.c
 )
 

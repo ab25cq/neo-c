@@ -39,7 +39,7 @@ typedef int __darwin_ct_rune_t;
 
 typedef union anonymous_typeZ1 __mbstate_t;
 
-typedef union anonymous_typeZ1 __darwin_mbstate_t  ;
+typedef union anonymous_typeZ1 __darwin_mbstate_t;
 
 typedef long __darwin_ptrdiff_t;
 
@@ -49,85 +49,85 @@ typedef __builtin_va_list __darwin_va_list;
 
 typedef int __darwin_wchar_t;
 
-typedef int __darwin_rune_t  ;
+typedef int __darwin_rune_t;
 
 typedef unsigned int __darwin_wint_t;
 
 typedef unsigned long  int __darwin_clock_t;
 
-typedef unsigned int __darwin_socklen_t  ;
+typedef unsigned int __darwin_socklen_t;
 
 typedef long __darwin_ssize_t;
 
 typedef long __darwin_time_t;
 
-typedef long long __darwin_blkcnt_t  ;
+typedef long long __darwin_blkcnt_t;
 
-typedef int __darwin_blksize_t  ;
+typedef int __darwin_blksize_t;
 
-typedef int __darwin_dev_t  ;
+typedef int __darwin_dev_t;
 
 typedef unsigned int __darwin_fsblkcnt_t;
 
 typedef unsigned int __darwin_fsfilcnt_t;
 
-typedef unsigned int __darwin_gid_t  ;
+typedef unsigned int __darwin_gid_t;
 
-typedef unsigned int __darwin_id_t  ;
+typedef unsigned int __darwin_id_t;
 
-typedef unsigned long  long __darwin_ino64_t  ;
+typedef unsigned long  long __darwin_ino64_t;
 
-typedef unsigned long  long __darwin_ino_t  ;
+typedef unsigned long  long __darwin_ino_t;
 
-typedef unsigned int __darwin_mach_port_name_t  ;
+typedef unsigned int __darwin_mach_port_name_t;
 
-typedef unsigned int __darwin_mach_port_t  ;
+typedef unsigned int __darwin_mach_port_t;
 
-typedef unsigned short int __darwin_mode_t  ;
+typedef unsigned short int __darwin_mode_t;
 
-typedef long long __darwin_off_t  ;
+typedef long long __darwin_off_t;
 
-typedef int __darwin_pid_t  ;
+typedef int __darwin_pid_t;
 
-typedef unsigned int __darwin_sigset_t  ;
+typedef unsigned int __darwin_sigset_t;
 
-typedef int __darwin_suseconds_t  ;
+typedef int __darwin_suseconds_t;
 
-typedef unsigned int __darwin_uid_t  ;
+typedef unsigned int __darwin_uid_t;
 
-typedef unsigned int __darwin_useconds_t  ;
+typedef unsigned int __darwin_useconds_t;
 
-typedef struct _opaque_pthread_attr_t __darwin_pthread_attr_t  ;
+typedef struct _opaque_pthread_attr_t __darwin_pthread_attr_t;
 
-typedef struct _opaque_pthread_cond_t __darwin_pthread_cond_t  ;
+typedef struct _opaque_pthread_cond_t __darwin_pthread_cond_t;
 
-typedef struct _opaque_pthread_condattr_t __darwin_pthread_condattr_t  ;
+typedef struct _opaque_pthread_condattr_t __darwin_pthread_condattr_t;
 
 typedef unsigned long  int __darwin_pthread_key_t;
 
-typedef struct _opaque_pthread_mutex_t __darwin_pthread_mutex_t  ;
+typedef struct _opaque_pthread_mutex_t __darwin_pthread_mutex_t;
 
-typedef struct _opaque_pthread_mutexattr_t __darwin_pthread_mutexattr_t  ;
+typedef struct _opaque_pthread_mutexattr_t __darwin_pthread_mutexattr_t;
 
-typedef struct _opaque_pthread_once_t __darwin_pthread_once_t  ;
+typedef struct _opaque_pthread_once_t __darwin_pthread_once_t;
 
-typedef struct _opaque_pthread_rwlock_t __darwin_pthread_rwlock_t  ;
+typedef struct _opaque_pthread_rwlock_t __darwin_pthread_rwlock_t;
 
-typedef struct _opaque_pthread_rwlockattr_t __darwin_pthread_rwlockattr_t  ;
+typedef struct _opaque_pthread_rwlockattr_t __darwin_pthread_rwlockattr_t;
 
-typedef struct _opaque_pthread_t* __darwin_pthread_t  ;
+typedef struct _opaque_pthread_t* __darwin_pthread_t;
 
 typedef int __darwin_nl_item;
 
 typedef int __darwin_wctrans_t;
 
-typedef unsigned int __darwin_wctype_t  ;
+typedef unsigned int __darwin_wctype_t;
 
-typedef enum anonymous_typeY1 idtype_t;
+typedef anonymous_typeY1 idtype_t;
 
-typedef int pid_t  ;
+typedef int pid_t;
 
-typedef unsigned int id_t  ;
+typedef unsigned int id_t;
 
 typedef int sig_atomic_t;
 
@@ -147,43 +147,43 @@ typedef unsigned int u_int32_t;
 
 typedef unsigned long  long u_int64_t;
 
-typedef long long register_t  ;
+typedef long long register_t;
 
-typedef long intptr_t  ;
+typedef long intptr_t;
 
 typedef unsigned long  int uintptr_t;
 
-typedef unsigned long  long user_addr_t  ;
+typedef unsigned long  long user_addr_t;
 
-typedef unsigned long  long user_size_t  ;
+typedef unsigned long  long user_size_t;
 
-typedef long long user_ssize_t  ;
+typedef long long user_ssize_t;
 
-typedef long long user_long_t  ;
+typedef long long user_long_t;
 
-typedef unsigned long  long user_ulong_t  ;
+typedef unsigned long  long user_ulong_t;
 
-typedef long long user_time_t  ;
+typedef long long user_time_t;
 
-typedef long long user_off_t  ;
+typedef long long user_off_t;
 
-typedef unsigned long  long syscall_arg_t  ;
+typedef unsigned long  long syscall_arg_t;
 
-typedef struct __darwin_mcontext64* mcontext_t  ;
+typedef struct __darwin_mcontext64* mcontext_t;
 
-typedef struct _opaque_pthread_attr_t pthread_attr_t  ;
+typedef struct _opaque_pthread_attr_t pthread_attr_t;
 
-typedef struct __darwin_sigaltstack stack_t  ;
+typedef struct __darwin_sigaltstack stack_t;
 
-typedef struct __darwin_ucontext ucontext_t  ;
+typedef struct __darwin_ucontext ucontext_t;
 
-typedef unsigned int sigset_t  ;
+typedef unsigned int sigset_t;
 
-typedef unsigned long  int size_t  ;
+typedef unsigned long  int size_t;
 
-typedef unsigned int uid_t  ;
+typedef unsigned int uid_t;
 
-typedef struct __siginfo siginfo_t  ;
+typedef struct __siginfo siginfo_t;
 
 typedef void (*sig_t)(int);
 
@@ -195,53 +195,53 @@ typedef unsigned int uint32_t;
 
 typedef unsigned long  long uint64_t;
 
-typedef char int_least8_t  ;
+typedef char int_least8_t;
 
-typedef short int_least16_t  ;
+typedef short int_least16_t;
 
-typedef int int_least32_t  ;
+typedef int int_least32_t;
 
-typedef long long int_least64_t  ;
+typedef long long int_least64_t;
 
-typedef unsigned char uint_least8_t  ;
+typedef unsigned char uint_least8_t;
 
-typedef unsigned short int uint_least16_t  ;
+typedef unsigned short int uint_least16_t;
 
-typedef unsigned int uint_least32_t  ;
+typedef unsigned int uint_least32_t;
 
-typedef unsigned long  long uint_least64_t  ;
+typedef unsigned long  long uint_least64_t;
 
-typedef char int_fast8_t  ;
+typedef char int_fast8_t;
 
-typedef short int_fast16_t  ;
+typedef short int_fast16_t;
 
-typedef int int_fast32_t  ;
+typedef int int_fast32_t;
 
-typedef long long int_fast64_t  ;
+typedef long long int_fast64_t;
 
-typedef unsigned char uint_fast8_t  ;
+typedef unsigned char uint_fast8_t;
 
-typedef unsigned short int uint_fast16_t  ;
+typedef unsigned short int uint_fast16_t;
 
-typedef unsigned int uint_fast32_t  ;
+typedef unsigned int uint_fast32_t;
 
-typedef unsigned long  long uint_fast64_t  ;
+typedef unsigned long  long uint_fast64_t;
 
 typedef long  int intmax_t;
 
 typedef unsigned long  int uintmax_t;
 
-typedef unsigned long  long rlim_t  ;
+typedef unsigned long  long rlim_t;
 
 typedef void* rusage_info_t;
 
-typedef struct rusage_info_v6 rusage_info_current  ;
+typedef struct rusage_info_v6 rusage_info_current;
 
-typedef int ct_rune_t  ;
+typedef int ct_rune_t;
 
-typedef int rune_t  ;
+typedef int rune_t;
 
-typedef int wchar_t  ;
+typedef int wchar_t;
 
 typedef struct anonymous_typeX8 div_t;
 
@@ -253,25 +253,25 @@ typedef unsigned long  long malloc_type_id_t;
 
 typedef struct _malloc_zone_t malloc_zone_t;
 
-typedef int dev_t  ;
+typedef int dev_t;
 
-typedef unsigned short int mode_t  ;
+typedef unsigned short int mode_t;
 
-typedef unsigned long  int rsize_t  ;
+typedef unsigned long  int rsize_t;
 
 typedef int errno_t;
 
-typedef long ssize_t  ;
+typedef long ssize_t;
 
 typedef __darwin_va_list va_list  ;
 
-typedef long long fpos_t  ;
+typedef long long fpos_t;
 
-typedef struct __sFILE FILE  ;
+typedef struct __sFILE FILE;
 
-typedef long long off_t  ;
+typedef long long off_t;
 
-typedef unsigned int wint_t  ;
+typedef unsigned int wint_t;
 
 typedef struct anonymous_typeX11 _RuneEntry;
 
@@ -281,15 +281,15 @@ typedef struct anonymous_typeX13 _RuneCharClass;
 
 typedef struct anonymous_typeX14 _RuneLocale;
 
-typedef union anonymous_typeZ1 mbstate_t  ;
+typedef union anonymous_typeZ1 mbstate_t;
 
-typedef unsigned long  int clock_t  ;
+typedef unsigned long  int clock_t;
 
-typedef long time_t  ;
+typedef long time_t;
 
-typedef enum anonymous_typeY14 clockid_t;
+typedef anonymous_typeY14 clockid_t;
 
-typedef unsigned int wctype_t  ;
+typedef unsigned int wctype_t;
 
 /// previous struct definition ///
 struct __sFILEX;
@@ -369,69 +369,69 @@ struct _opaque_pthread_t
     char __opaque[8176];
 };
 
-enum   anonymous_typeY1 { P_ALL 
+enum  anonymous_typeY1 { P_ALL 
 ,P_PID 
 ,P_PGID 
 };
 
 struct __darwin_arm_exception_state
 {
-    unsigned int __exception  ;
-    unsigned int __fsr  ;
-    unsigned int __far  ;
+    unsigned int __exception;
+    unsigned int __fsr;
+    unsigned int __far;
 };
 
 struct __darwin_arm_exception_state64
 {
-    unsigned long  long __far  ;
-    unsigned int __esr  ;
-    unsigned int __exception  ;
+    unsigned long  long __far;
+    unsigned int __esr;
+    unsigned int __exception;
 };
 
 struct __darwin_arm_exception_state64_v2
 {
-    unsigned long  long __far  ;
-    unsigned long  long __esr  ;
+    unsigned long  long __far;
+    unsigned long  long __esr;
 };
 
 struct __darwin_arm_thread_state
 {
-    unsigned int __r[13]  ;
-    unsigned int __sp  ;
-    unsigned int __lr  ;
-    unsigned int __pc  ;
-    unsigned int __cpsr  ;
+    unsigned int __r[13];
+    unsigned int __sp;
+    unsigned int __lr;
+    unsigned int __pc;
+    unsigned int __cpsr;
 };
 
 struct __darwin_arm_thread_state64
 {
-    unsigned long  long __x[29]  ;
-    unsigned long  long __fp  ;
-    unsigned long  long __lr  ;
-    unsigned long  long __sp  ;
-    unsigned long  long __pc  ;
-    unsigned int __cpsr  ;
-    unsigned int __pad  ;
+    unsigned long  long __x[29];
+    unsigned long  long __fp;
+    unsigned long  long __lr;
+    unsigned long  long __sp;
+    unsigned long  long __pc;
+    unsigned int __cpsr;
+    unsigned int __pad;
 };
 
 struct __darwin_arm_vfp_state
 {
-    unsigned int __r[64]  ;
-    unsigned int __fpscr  ;
+    unsigned int __r[64];
+    unsigned int __fpscr;
 };
 
 struct __darwin_arm_neon_state64
 {
     __uint128_t __v[32];
-    unsigned int __fpsr  ;
-    unsigned int __fpcr  ;
+    unsigned int __fpsr;
+    unsigned int __fpcr;
 };
 
 struct __darwin_arm_neon_state
 {
     __uint128_t __v[16];
-    unsigned int __fpsr  ;
-    unsigned int __fpcr  ;
+    unsigned int __fpsr;
+    unsigned int __fpcr;
 };
 
 struct __arm_pagein_state
@@ -441,9 +441,9 @@ struct __arm_pagein_state
 
 struct __darwin_arm_sme_state
 {
-    unsigned long  long __svcr  ;
-    unsigned long  long __tpidr2_el0  ;
-    unsigned short int __svl_b  ;
+    unsigned long  long __svcr;
+    unsigned long  long __tpidr2_el0;
+    unsigned short int __svl_b;
 };
 
 struct __darwin_arm_sve_z_state
@@ -468,33 +468,33 @@ struct __darwin_arm_sme2_state
 
 struct __arm_legacy_debug_state
 {
-    unsigned int __bvr[16]  ;
-    unsigned int __bcr[16]  ;
-    unsigned int __wvr[16]  ;
-    unsigned int __wcr[16]  ;
+    unsigned int __bvr[16];
+    unsigned int __bcr[16];
+    unsigned int __wvr[16];
+    unsigned int __wcr[16];
 };
 
 struct __darwin_arm_debug_state32
 {
-    unsigned int __bvr[16]  ;
-    unsigned int __bcr[16]  ;
-    unsigned int __wvr[16]  ;
-    unsigned int __wcr[16]  ;
-    unsigned long  long __mdscr_el1  ;
+    unsigned int __bvr[16];
+    unsigned int __bcr[16];
+    unsigned int __wvr[16];
+    unsigned int __wcr[16];
+    unsigned long  long __mdscr_el1;
 };
 
 struct __darwin_arm_debug_state64
 {
-    unsigned long  long __bvr[16]  ;
-    unsigned long  long __bcr[16]  ;
-    unsigned long  long __wvr[16]  ;
-    unsigned long  long __wcr[16]  ;
-    unsigned long  long __mdscr_el1  ;
+    unsigned long  long __bvr[16];
+    unsigned long  long __bcr[16];
+    unsigned long  long __wvr[16];
+    unsigned long  long __wcr[16];
+    unsigned long  long __mdscr_el1;
 };
 
 struct __darwin_arm_cpmu_state64
 {
-    unsigned long  long __ctrs[16]  ;
+    unsigned long  long __ctrs[16];
 };
 
 struct __darwin_mcontext32
@@ -514,17 +514,17 @@ struct __darwin_mcontext64
 struct __darwin_sigaltstack
 {
     void* ss_sp;
-    unsigned long  int ss_size  ;
+    unsigned long  int ss_size;
     int ss_flags;
 };
 
 struct __darwin_ucontext
 {
     int uc_onstack;
-    unsigned int uc_sigmask  ;
+    unsigned int uc_sigmask;
     struct __darwin_sigaltstack uc_stack  ;
     struct __darwin_ucontext* uc_link  ;
-    unsigned long  int uc_mcsize  ;
+    unsigned long  int uc_mcsize;
     struct __darwin_mcontext64* uc_mcontext  ;
 };
 
@@ -548,8 +548,8 @@ struct __siginfo
     int si_signo;
     int si_errno;
     int si_code;
-    int si_pid  ;
-    unsigned int si_uid  ;
+    int si_pid;
+    unsigned int si_uid;
     int si_status;
     void* si_addr;
     union sigval si_value  ;
@@ -567,14 +567,14 @@ struct __sigaction
 {
     union __sigaction_u __sigaction_u  ;
     void (*sa_tramp)(void*,int,int,struct __siginfo*,void*);
-    unsigned int sa_mask  ;
+    unsigned int sa_mask;
     int sa_flags;
 };
 
 struct sigaction
 {
     union __sigaction_u __sigaction_u  ;
-    unsigned int sa_mask  ;
+    unsigned int sa_mask;
     int sa_flags;
 };
 
@@ -593,8 +593,8 @@ struct sigstack
 
 struct timeval
 {
-    long tv_sec  ;
-    int tv_usec  ;
+    long tv_sec;
+    int tv_usec;
 };
 
 struct rusage
@@ -619,263 +619,263 @@ struct rusage
 
 struct rusage_info_v0
 {
-    unsigned char ri_uuid[16]  ;
-    unsigned long  long ri_user_time  ;
-    unsigned long  long ri_system_time  ;
-    unsigned long  long ri_pkg_idle_wkups  ;
-    unsigned long  long ri_interrupt_wkups  ;
-    unsigned long  long ri_pageins  ;
-    unsigned long  long ri_wired_size  ;
-    unsigned long  long ri_resident_size  ;
-    unsigned long  long ri_phys_footprint  ;
-    unsigned long  long ri_proc_start_abstime  ;
-    unsigned long  long ri_proc_exit_abstime  ;
+    unsigned char ri_uuid[16];
+    unsigned long  long ri_user_time;
+    unsigned long  long ri_system_time;
+    unsigned long  long ri_pkg_idle_wkups;
+    unsigned long  long ri_interrupt_wkups;
+    unsigned long  long ri_pageins;
+    unsigned long  long ri_wired_size;
+    unsigned long  long ri_resident_size;
+    unsigned long  long ri_phys_footprint;
+    unsigned long  long ri_proc_start_abstime;
+    unsigned long  long ri_proc_exit_abstime;
 };
 
 struct rusage_info_v1
 {
-    unsigned char ri_uuid[16]  ;
-    unsigned long  long ri_user_time  ;
-    unsigned long  long ri_system_time  ;
-    unsigned long  long ri_pkg_idle_wkups  ;
-    unsigned long  long ri_interrupt_wkups  ;
-    unsigned long  long ri_pageins  ;
-    unsigned long  long ri_wired_size  ;
-    unsigned long  long ri_resident_size  ;
-    unsigned long  long ri_phys_footprint  ;
-    unsigned long  long ri_proc_start_abstime  ;
-    unsigned long  long ri_proc_exit_abstime  ;
-    unsigned long  long ri_child_user_time  ;
-    unsigned long  long ri_child_system_time  ;
-    unsigned long  long ri_child_pkg_idle_wkups  ;
-    unsigned long  long ri_child_interrupt_wkups  ;
-    unsigned long  long ri_child_pageins  ;
-    unsigned long  long ri_child_elapsed_abstime  ;
+    unsigned char ri_uuid[16];
+    unsigned long  long ri_user_time;
+    unsigned long  long ri_system_time;
+    unsigned long  long ri_pkg_idle_wkups;
+    unsigned long  long ri_interrupt_wkups;
+    unsigned long  long ri_pageins;
+    unsigned long  long ri_wired_size;
+    unsigned long  long ri_resident_size;
+    unsigned long  long ri_phys_footprint;
+    unsigned long  long ri_proc_start_abstime;
+    unsigned long  long ri_proc_exit_abstime;
+    unsigned long  long ri_child_user_time;
+    unsigned long  long ri_child_system_time;
+    unsigned long  long ri_child_pkg_idle_wkups;
+    unsigned long  long ri_child_interrupt_wkups;
+    unsigned long  long ri_child_pageins;
+    unsigned long  long ri_child_elapsed_abstime;
 };
 
 struct rusage_info_v2
 {
-    unsigned char ri_uuid[16]  ;
-    unsigned long  long ri_user_time  ;
-    unsigned long  long ri_system_time  ;
-    unsigned long  long ri_pkg_idle_wkups  ;
-    unsigned long  long ri_interrupt_wkups  ;
-    unsigned long  long ri_pageins  ;
-    unsigned long  long ri_wired_size  ;
-    unsigned long  long ri_resident_size  ;
-    unsigned long  long ri_phys_footprint  ;
-    unsigned long  long ri_proc_start_abstime  ;
-    unsigned long  long ri_proc_exit_abstime  ;
-    unsigned long  long ri_child_user_time  ;
-    unsigned long  long ri_child_system_time  ;
-    unsigned long  long ri_child_pkg_idle_wkups  ;
-    unsigned long  long ri_child_interrupt_wkups  ;
-    unsigned long  long ri_child_pageins  ;
-    unsigned long  long ri_child_elapsed_abstime  ;
-    unsigned long  long ri_diskio_bytesread  ;
-    unsigned long  long ri_diskio_byteswritten  ;
+    unsigned char ri_uuid[16];
+    unsigned long  long ri_user_time;
+    unsigned long  long ri_system_time;
+    unsigned long  long ri_pkg_idle_wkups;
+    unsigned long  long ri_interrupt_wkups;
+    unsigned long  long ri_pageins;
+    unsigned long  long ri_wired_size;
+    unsigned long  long ri_resident_size;
+    unsigned long  long ri_phys_footprint;
+    unsigned long  long ri_proc_start_abstime;
+    unsigned long  long ri_proc_exit_abstime;
+    unsigned long  long ri_child_user_time;
+    unsigned long  long ri_child_system_time;
+    unsigned long  long ri_child_pkg_idle_wkups;
+    unsigned long  long ri_child_interrupt_wkups;
+    unsigned long  long ri_child_pageins;
+    unsigned long  long ri_child_elapsed_abstime;
+    unsigned long  long ri_diskio_bytesread;
+    unsigned long  long ri_diskio_byteswritten;
 };
 
 struct rusage_info_v3
 {
-    unsigned char ri_uuid[16]  ;
-    unsigned long  long ri_user_time  ;
-    unsigned long  long ri_system_time  ;
-    unsigned long  long ri_pkg_idle_wkups  ;
-    unsigned long  long ri_interrupt_wkups  ;
-    unsigned long  long ri_pageins  ;
-    unsigned long  long ri_wired_size  ;
-    unsigned long  long ri_resident_size  ;
-    unsigned long  long ri_phys_footprint  ;
-    unsigned long  long ri_proc_start_abstime  ;
-    unsigned long  long ri_proc_exit_abstime  ;
-    unsigned long  long ri_child_user_time  ;
-    unsigned long  long ri_child_system_time  ;
-    unsigned long  long ri_child_pkg_idle_wkups  ;
-    unsigned long  long ri_child_interrupt_wkups  ;
-    unsigned long  long ri_child_pageins  ;
-    unsigned long  long ri_child_elapsed_abstime  ;
-    unsigned long  long ri_diskio_bytesread  ;
-    unsigned long  long ri_diskio_byteswritten  ;
-    unsigned long  long ri_cpu_time_qos_default  ;
-    unsigned long  long ri_cpu_time_qos_maintenance  ;
-    unsigned long  long ri_cpu_time_qos_background  ;
-    unsigned long  long ri_cpu_time_qos_utility  ;
-    unsigned long  long ri_cpu_time_qos_legacy  ;
-    unsigned long  long ri_cpu_time_qos_user_initiated  ;
-    unsigned long  long ri_cpu_time_qos_user_interactive  ;
-    unsigned long  long ri_billed_system_time  ;
-    unsigned long  long ri_serviced_system_time  ;
+    unsigned char ri_uuid[16];
+    unsigned long  long ri_user_time;
+    unsigned long  long ri_system_time;
+    unsigned long  long ri_pkg_idle_wkups;
+    unsigned long  long ri_interrupt_wkups;
+    unsigned long  long ri_pageins;
+    unsigned long  long ri_wired_size;
+    unsigned long  long ri_resident_size;
+    unsigned long  long ri_phys_footprint;
+    unsigned long  long ri_proc_start_abstime;
+    unsigned long  long ri_proc_exit_abstime;
+    unsigned long  long ri_child_user_time;
+    unsigned long  long ri_child_system_time;
+    unsigned long  long ri_child_pkg_idle_wkups;
+    unsigned long  long ri_child_interrupt_wkups;
+    unsigned long  long ri_child_pageins;
+    unsigned long  long ri_child_elapsed_abstime;
+    unsigned long  long ri_diskio_bytesread;
+    unsigned long  long ri_diskio_byteswritten;
+    unsigned long  long ri_cpu_time_qos_default;
+    unsigned long  long ri_cpu_time_qos_maintenance;
+    unsigned long  long ri_cpu_time_qos_background;
+    unsigned long  long ri_cpu_time_qos_utility;
+    unsigned long  long ri_cpu_time_qos_legacy;
+    unsigned long  long ri_cpu_time_qos_user_initiated;
+    unsigned long  long ri_cpu_time_qos_user_interactive;
+    unsigned long  long ri_billed_system_time;
+    unsigned long  long ri_serviced_system_time;
 };
 
 struct rusage_info_v4
 {
-    unsigned char ri_uuid[16]  ;
-    unsigned long  long ri_user_time  ;
-    unsigned long  long ri_system_time  ;
-    unsigned long  long ri_pkg_idle_wkups  ;
-    unsigned long  long ri_interrupt_wkups  ;
-    unsigned long  long ri_pageins  ;
-    unsigned long  long ri_wired_size  ;
-    unsigned long  long ri_resident_size  ;
-    unsigned long  long ri_phys_footprint  ;
-    unsigned long  long ri_proc_start_abstime  ;
-    unsigned long  long ri_proc_exit_abstime  ;
-    unsigned long  long ri_child_user_time  ;
-    unsigned long  long ri_child_system_time  ;
-    unsigned long  long ri_child_pkg_idle_wkups  ;
-    unsigned long  long ri_child_interrupt_wkups  ;
-    unsigned long  long ri_child_pageins  ;
-    unsigned long  long ri_child_elapsed_abstime  ;
-    unsigned long  long ri_diskio_bytesread  ;
-    unsigned long  long ri_diskio_byteswritten  ;
-    unsigned long  long ri_cpu_time_qos_default  ;
-    unsigned long  long ri_cpu_time_qos_maintenance  ;
-    unsigned long  long ri_cpu_time_qos_background  ;
-    unsigned long  long ri_cpu_time_qos_utility  ;
-    unsigned long  long ri_cpu_time_qos_legacy  ;
-    unsigned long  long ri_cpu_time_qos_user_initiated  ;
-    unsigned long  long ri_cpu_time_qos_user_interactive  ;
-    unsigned long  long ri_billed_system_time  ;
-    unsigned long  long ri_serviced_system_time  ;
-    unsigned long  long ri_logical_writes  ;
-    unsigned long  long ri_lifetime_max_phys_footprint  ;
-    unsigned long  long ri_instructions  ;
-    unsigned long  long ri_cycles  ;
-    unsigned long  long ri_billed_energy  ;
-    unsigned long  long ri_serviced_energy  ;
-    unsigned long  long ri_interval_max_phys_footprint  ;
-    unsigned long  long ri_runnable_time  ;
+    unsigned char ri_uuid[16];
+    unsigned long  long ri_user_time;
+    unsigned long  long ri_system_time;
+    unsigned long  long ri_pkg_idle_wkups;
+    unsigned long  long ri_interrupt_wkups;
+    unsigned long  long ri_pageins;
+    unsigned long  long ri_wired_size;
+    unsigned long  long ri_resident_size;
+    unsigned long  long ri_phys_footprint;
+    unsigned long  long ri_proc_start_abstime;
+    unsigned long  long ri_proc_exit_abstime;
+    unsigned long  long ri_child_user_time;
+    unsigned long  long ri_child_system_time;
+    unsigned long  long ri_child_pkg_idle_wkups;
+    unsigned long  long ri_child_interrupt_wkups;
+    unsigned long  long ri_child_pageins;
+    unsigned long  long ri_child_elapsed_abstime;
+    unsigned long  long ri_diskio_bytesread;
+    unsigned long  long ri_diskio_byteswritten;
+    unsigned long  long ri_cpu_time_qos_default;
+    unsigned long  long ri_cpu_time_qos_maintenance;
+    unsigned long  long ri_cpu_time_qos_background;
+    unsigned long  long ri_cpu_time_qos_utility;
+    unsigned long  long ri_cpu_time_qos_legacy;
+    unsigned long  long ri_cpu_time_qos_user_initiated;
+    unsigned long  long ri_cpu_time_qos_user_interactive;
+    unsigned long  long ri_billed_system_time;
+    unsigned long  long ri_serviced_system_time;
+    unsigned long  long ri_logical_writes;
+    unsigned long  long ri_lifetime_max_phys_footprint;
+    unsigned long  long ri_instructions;
+    unsigned long  long ri_cycles;
+    unsigned long  long ri_billed_energy;
+    unsigned long  long ri_serviced_energy;
+    unsigned long  long ri_interval_max_phys_footprint;
+    unsigned long  long ri_runnable_time;
 };
 
 struct rusage_info_v5
 {
-    unsigned char ri_uuid[16]  ;
-    unsigned long  long ri_user_time  ;
-    unsigned long  long ri_system_time  ;
-    unsigned long  long ri_pkg_idle_wkups  ;
-    unsigned long  long ri_interrupt_wkups  ;
-    unsigned long  long ri_pageins  ;
-    unsigned long  long ri_wired_size  ;
-    unsigned long  long ri_resident_size  ;
-    unsigned long  long ri_phys_footprint  ;
-    unsigned long  long ri_proc_start_abstime  ;
-    unsigned long  long ri_proc_exit_abstime  ;
-    unsigned long  long ri_child_user_time  ;
-    unsigned long  long ri_child_system_time  ;
-    unsigned long  long ri_child_pkg_idle_wkups  ;
-    unsigned long  long ri_child_interrupt_wkups  ;
-    unsigned long  long ri_child_pageins  ;
-    unsigned long  long ri_child_elapsed_abstime  ;
-    unsigned long  long ri_diskio_bytesread  ;
-    unsigned long  long ri_diskio_byteswritten  ;
-    unsigned long  long ri_cpu_time_qos_default  ;
-    unsigned long  long ri_cpu_time_qos_maintenance  ;
-    unsigned long  long ri_cpu_time_qos_background  ;
-    unsigned long  long ri_cpu_time_qos_utility  ;
-    unsigned long  long ri_cpu_time_qos_legacy  ;
-    unsigned long  long ri_cpu_time_qos_user_initiated  ;
-    unsigned long  long ri_cpu_time_qos_user_interactive  ;
-    unsigned long  long ri_billed_system_time  ;
-    unsigned long  long ri_serviced_system_time  ;
-    unsigned long  long ri_logical_writes  ;
-    unsigned long  long ri_lifetime_max_phys_footprint  ;
-    unsigned long  long ri_instructions  ;
-    unsigned long  long ri_cycles  ;
-    unsigned long  long ri_billed_energy  ;
-    unsigned long  long ri_serviced_energy  ;
-    unsigned long  long ri_interval_max_phys_footprint  ;
-    unsigned long  long ri_runnable_time  ;
-    unsigned long  long ri_flags  ;
+    unsigned char ri_uuid[16];
+    unsigned long  long ri_user_time;
+    unsigned long  long ri_system_time;
+    unsigned long  long ri_pkg_idle_wkups;
+    unsigned long  long ri_interrupt_wkups;
+    unsigned long  long ri_pageins;
+    unsigned long  long ri_wired_size;
+    unsigned long  long ri_resident_size;
+    unsigned long  long ri_phys_footprint;
+    unsigned long  long ri_proc_start_abstime;
+    unsigned long  long ri_proc_exit_abstime;
+    unsigned long  long ri_child_user_time;
+    unsigned long  long ri_child_system_time;
+    unsigned long  long ri_child_pkg_idle_wkups;
+    unsigned long  long ri_child_interrupt_wkups;
+    unsigned long  long ri_child_pageins;
+    unsigned long  long ri_child_elapsed_abstime;
+    unsigned long  long ri_diskio_bytesread;
+    unsigned long  long ri_diskio_byteswritten;
+    unsigned long  long ri_cpu_time_qos_default;
+    unsigned long  long ri_cpu_time_qos_maintenance;
+    unsigned long  long ri_cpu_time_qos_background;
+    unsigned long  long ri_cpu_time_qos_utility;
+    unsigned long  long ri_cpu_time_qos_legacy;
+    unsigned long  long ri_cpu_time_qos_user_initiated;
+    unsigned long  long ri_cpu_time_qos_user_interactive;
+    unsigned long  long ri_billed_system_time;
+    unsigned long  long ri_serviced_system_time;
+    unsigned long  long ri_logical_writes;
+    unsigned long  long ri_lifetime_max_phys_footprint;
+    unsigned long  long ri_instructions;
+    unsigned long  long ri_cycles;
+    unsigned long  long ri_billed_energy;
+    unsigned long  long ri_serviced_energy;
+    unsigned long  long ri_interval_max_phys_footprint;
+    unsigned long  long ri_runnable_time;
+    unsigned long  long ri_flags;
 };
 
 struct rusage_info_v6
 {
-    unsigned char ri_uuid[16]  ;
-    unsigned long  long ri_user_time  ;
-    unsigned long  long ri_system_time  ;
-    unsigned long  long ri_pkg_idle_wkups  ;
-    unsigned long  long ri_interrupt_wkups  ;
-    unsigned long  long ri_pageins  ;
-    unsigned long  long ri_wired_size  ;
-    unsigned long  long ri_resident_size  ;
-    unsigned long  long ri_phys_footprint  ;
-    unsigned long  long ri_proc_start_abstime  ;
-    unsigned long  long ri_proc_exit_abstime  ;
-    unsigned long  long ri_child_user_time  ;
-    unsigned long  long ri_child_system_time  ;
-    unsigned long  long ri_child_pkg_idle_wkups  ;
-    unsigned long  long ri_child_interrupt_wkups  ;
-    unsigned long  long ri_child_pageins  ;
-    unsigned long  long ri_child_elapsed_abstime  ;
-    unsigned long  long ri_diskio_bytesread  ;
-    unsigned long  long ri_diskio_byteswritten  ;
-    unsigned long  long ri_cpu_time_qos_default  ;
-    unsigned long  long ri_cpu_time_qos_maintenance  ;
-    unsigned long  long ri_cpu_time_qos_background  ;
-    unsigned long  long ri_cpu_time_qos_utility  ;
-    unsigned long  long ri_cpu_time_qos_legacy  ;
-    unsigned long  long ri_cpu_time_qos_user_initiated  ;
-    unsigned long  long ri_cpu_time_qos_user_interactive  ;
-    unsigned long  long ri_billed_system_time  ;
-    unsigned long  long ri_serviced_system_time  ;
-    unsigned long  long ri_logical_writes  ;
-    unsigned long  long ri_lifetime_max_phys_footprint  ;
-    unsigned long  long ri_instructions  ;
-    unsigned long  long ri_cycles  ;
-    unsigned long  long ri_billed_energy  ;
-    unsigned long  long ri_serviced_energy  ;
-    unsigned long  long ri_interval_max_phys_footprint  ;
-    unsigned long  long ri_runnable_time  ;
-    unsigned long  long ri_flags  ;
-    unsigned long  long ri_user_ptime  ;
-    unsigned long  long ri_system_ptime  ;
-    unsigned long  long ri_pinstructions  ;
-    unsigned long  long ri_pcycles  ;
-    unsigned long  long ri_energy_nj  ;
-    unsigned long  long ri_penergy_nj  ;
-    unsigned long  long ri_secure_time_in_system  ;
-    unsigned long  long ri_secure_ptime_in_system  ;
-    unsigned long  long ri_neural_footprint  ;
-    unsigned long  long ri_lifetime_max_neural_footprint  ;
-    unsigned long  long ri_interval_max_neural_footprint  ;
-    unsigned long  long ri_reserved[9]  ;
+    unsigned char ri_uuid[16];
+    unsigned long  long ri_user_time;
+    unsigned long  long ri_system_time;
+    unsigned long  long ri_pkg_idle_wkups;
+    unsigned long  long ri_interrupt_wkups;
+    unsigned long  long ri_pageins;
+    unsigned long  long ri_wired_size;
+    unsigned long  long ri_resident_size;
+    unsigned long  long ri_phys_footprint;
+    unsigned long  long ri_proc_start_abstime;
+    unsigned long  long ri_proc_exit_abstime;
+    unsigned long  long ri_child_user_time;
+    unsigned long  long ri_child_system_time;
+    unsigned long  long ri_child_pkg_idle_wkups;
+    unsigned long  long ri_child_interrupt_wkups;
+    unsigned long  long ri_child_pageins;
+    unsigned long  long ri_child_elapsed_abstime;
+    unsigned long  long ri_diskio_bytesread;
+    unsigned long  long ri_diskio_byteswritten;
+    unsigned long  long ri_cpu_time_qos_default;
+    unsigned long  long ri_cpu_time_qos_maintenance;
+    unsigned long  long ri_cpu_time_qos_background;
+    unsigned long  long ri_cpu_time_qos_utility;
+    unsigned long  long ri_cpu_time_qos_legacy;
+    unsigned long  long ri_cpu_time_qos_user_initiated;
+    unsigned long  long ri_cpu_time_qos_user_interactive;
+    unsigned long  long ri_billed_system_time;
+    unsigned long  long ri_serviced_system_time;
+    unsigned long  long ri_logical_writes;
+    unsigned long  long ri_lifetime_max_phys_footprint;
+    unsigned long  long ri_instructions;
+    unsigned long  long ri_cycles;
+    unsigned long  long ri_billed_energy;
+    unsigned long  long ri_serviced_energy;
+    unsigned long  long ri_interval_max_phys_footprint;
+    unsigned long  long ri_runnable_time;
+    unsigned long  long ri_flags;
+    unsigned long  long ri_user_ptime;
+    unsigned long  long ri_system_ptime;
+    unsigned long  long ri_pinstructions;
+    unsigned long  long ri_pcycles;
+    unsigned long  long ri_energy_nj;
+    unsigned long  long ri_penergy_nj;
+    unsigned long  long ri_secure_time_in_system;
+    unsigned long  long ri_secure_ptime_in_system;
+    unsigned long  long ri_neural_footprint;
+    unsigned long  long ri_lifetime_max_neural_footprint;
+    unsigned long  long ri_interval_max_neural_footprint;
+    unsigned long  long ri_reserved[9];
 };
 
 struct rlimit
 {
-    unsigned long  long rlim_cur  ;
-    unsigned long  long rlim_max  ;
+    unsigned long  long rlim_cur;
+    unsigned long  long rlim_max;
 };
 
 struct proc_rlimit_control_wakeupmon
 {
-    unsigned int wm_flags  ;
-    int wm_rate  ;
+    unsigned int wm_flags;
+    int wm_rate;
 };
 
 union anonymous_typeZ2
 {
-unsigned long  long _ull  ;
-unsigned int _ul[2]  ;
+unsigned long  long _ull;
+unsigned int _ul[2];
 };
 
 union anonymous_typeZ3
 {
-unsigned long  long _ull  ;
-unsigned int _ul[2]  ;
+unsigned long  long _ull;
+unsigned int _ul[2];
 };
 
 union anonymous_typeZ4
 {
-unsigned long  long _ull  ;
-unsigned int _ul[2]  ;
+unsigned long  long _ull;
+unsigned int _ul[2];
 };
 
 union anonymous_typeZ5
 {
-unsigned long  long _ull  ;
-unsigned int _ul[2]  ;
+unsigned long  long _ull;
+unsigned int _ul[2];
 };
 
 struct anonymous_typeX6
@@ -887,6 +887,21 @@ struct anonymous_typeX6
 };
 
 struct anonymous_typeX7
+{
+    unsigned int w_Stopval:8;
+    unsigned int w_Stopsig:8;
+    unsigned int w_Filler:16;
+};
+
+struct anonymous_typeX1
+{
+    unsigned int w_Termsig:7;
+    unsigned int w_Coredump:1;
+    unsigned int w_Retcode:8;
+    unsigned int w_Filler:16;
+};
+
+struct anonymous_typeX2
 {
     unsigned int w_Stopval:8;
     unsigned int w_Stopsig:8;
@@ -945,7 +960,7 @@ struct __sFILE
     void* _cookie;
     int (*_close)(void*);
     int (*_read)(void*,char*,int);
-    long long (*_seek)(void*,long long,int);
+    long  long (*_seek)(void*,long  long,int);
     int (*_write)(void*,const char*,int);
     struct __sbuf _ub  ;
     struct __sFILEX* _extra  ;
@@ -954,83 +969,192 @@ struct __sFILE
     unsigned char _nbuf[1];
     struct __sbuf _lb  ;
     int _blksize;
-    long long _offset  ;
+    long long _offset;
 };
 
 struct anonymous_typeX11
 {
-    int __min  ;
-    int __max  ;
-    int __map  ;
-    unsigned int* __types  ;
+    int __min;
+    int __max;
+    int __map;
+    unsigned int* __types;
+};
+
+struct anonymous_typeX3
+{
+    int __min;
+    int __max;
+    int __map;
+    unsigned int* __types;
+};
+
+struct anonymous_typeX4
+{
+    int __min;
+    int __max;
+    int __map;
+    unsigned int* __types;
 };
 
 struct anonymous_typeX12
 {
     int __nranges;
     struct {
-        int __min  ;
-        int __max  ;
-        int __map  ;
-        unsigned int* __types  ;
+        int __min;
+        int __max;
+        int __map;
+        unsigned int* __types;
     } __ranges;
 };
 
 struct anonymous_typeX13
 {
     char __name[14];
-    unsigned int __mask  ;
+    unsigned int __mask;
+};
+
+struct anonymous_typeX5
+{
+    int __nranges;
+    struct {
+        int __min;
+        int __max;
+        int __map;
+        unsigned int* __types;
+    } __ranges;
+};
+
+struct anonymous_typeX15
+{
+    int __min;
+    int __max;
+    int __map;
+    unsigned int* __types;
+};
+
+struct anonymous_typeX16
+{
+    int __min;
+    int __max;
+    int __map;
+    unsigned int* __types;
+};
+
+struct anonymous_typeX18
+{
+    int __min;
+    int __max;
+    int __map;
+    unsigned int* __types;
+};
+
+struct anonymous_typeX19
+{
+    int __min;
+    int __max;
+    int __map;
+    unsigned int* __types;
+};
+
+struct anonymous_typeX17
+{
+    int __nranges;
+    struct {
+        int __min;
+        int __max;
+        int __map;
+        unsigned int* __types;
+    } __ranges;
+};
+
+struct anonymous_typeX21
+{
+    int __min;
+    int __max;
+    int __map;
+    unsigned int* __types;
+};
+
+struct anonymous_typeX22
+{
+    int __min;
+    int __max;
+    int __map;
+    unsigned int* __types;
+};
+
+struct anonymous_typeX20
+{
+    int __nranges;
+    struct {
+        int __min;
+        int __max;
+        int __map;
+        unsigned int* __types;
+    } __ranges;
+};
+
+struct anonymous_typeX23
+{
+    char __name[14];
+    unsigned int __mask;
+};
+
+struct anonymous_typeX24
+{
+    char __name[14];
+    unsigned int __mask;
 };
 
 struct anonymous_typeX14
 {
-    char __magic[8];
-    char __encoding[32];
-    int (*__sgetrune)(const char*,unsigned long  int,char**);
-    int (*__sputrune)(int,char*,unsigned long  int,char**);
-    int __invalid_rune  ;
-    unsigned int __runetype[(1<<8)]  ;
-    int __maplower[(1<<8)]  ;
-    int __mapupper[(1<<8)]  ;
+    int __nranges;
+    struct {
+        int __min;
+        int __max;
+        int __map;
+        unsigned int* __types;
+    } __ranges;
     struct {
         int __nranges;
         struct {
-            int __min  ;
-            int __max  ;
-            int __map  ;
-            unsigned int* __types  ;
+            int __min;
+            int __max;
+            int __map;
+            unsigned int* __types;
         } __ranges;
-    } __runetype_ext;
-    struct {
-        int __nranges;
-        struct {
-            int __min  ;
-            int __max  ;
-            int __map  ;
-            unsigned int* __types  ;
-        } __ranges;
+        struct anonymous_typeX14 {
+            int __nranges;
+            struct {
+                int __min;
+                int __max;
+                int __map;
+                unsigned int* __types;
+            } __ranges;
+            struct anonymous_typeX14 __maplower_ext;
+            struct {
+                int __nranges;
+                struct {
+                    int __min;
+                    int __max;
+                    int __map;
+                    unsigned int* __types;
+                } __ranges;
+            } __mapupper_ext;
+            void* __variable;
+            int __variable_len;
+            int __ncharclasses;
+            struct {
+                char __name[14];
+                unsigned int __mask;
+            } __charclasses;
+        } __maplower_ext;
     } __maplower_ext;
-    struct {
-        int __nranges;
-        struct {
-            int __min  ;
-            int __max  ;
-            int __map  ;
-            unsigned int* __types  ;
-        } __ranges;
-    } __mapupper_ext;
-    void* __variable;
-    int __variable_len;
-    int __ncharclasses;
-    struct {
-        char __name[14];
-        unsigned int __mask  ;
-    } __charclasses;
 };
 
 struct timespec
 {
-    long tv_sec  ;
+    long tv_sec;
     long tv_nsec;
 };
 
@@ -1049,14 +1173,14 @@ struct tm
     char* tm_zone;
 };
 
-enum   anonymous_typeY14 { _CLOCK_REALTIME=(0),
-_CLOCK_MONOTONIC=(6),
-_CLOCK_MONOTONIC_RAW=(4),
-_CLOCK_MONOTONIC_RAW_APPROX=(5),
-_CLOCK_UPTIME_RAW=(8),
-_CLOCK_UPTIME_RAW_APPROX=(9),
-_CLOCK_PROCESS_CPUTIME_ID=(12),
-_CLOCK_THREAD_CPUTIME_ID=(16)
+enum  anonymous_typeY14 { _CLOCK_REALTIME=((0)),
+_CLOCK_MONOTONIC=((6)),
+_CLOCK_MONOTONIC_RAW=((4)),
+_CLOCK_MONOTONIC_RAW_APPROX=((5)),
+_CLOCK_UPTIME_RAW=((8)),
+_CLOCK_UPTIME_RAW_APPROX=((9)),
+_CLOCK_PROCESS_CPUTIME_ID=((12)),
+_CLOCK_THREAD_CPUTIME_ID=((16))
 };
 
 struct buffer
@@ -1224,35 +1348,7 @@ enum { RE_UNUSED
 ,RE_GROUP_END 
 };
 
-struct anonymous_typeX2
-{
-    struct regex_t* first  ;
-    struct regex_t* last  ;
-    int id;
-};
-
-struct anonymous_typeX15
-{
-    struct regex_t* first  ;
-    struct regex_t* last  ;
-    int id;
-};
-
-struct anonymous_typeX4
-{
-    struct regex_t* first  ;
-    struct regex_t* last  ;
-    int id;
-};
-
-struct anonymous_typeX16
-{
-    struct regex_t* first  ;
-    struct regex_t* last  ;
-    int id;
-};
-
-struct anonymous_typeX18
+struct anonymous_typeX25
 {
     struct regex_t* first  ;
     struct regex_t* last  ;
@@ -1270,7 +1366,7 @@ unsigned char* ccl;
     } group;
 };
 
-struct anonymous_typeX20
+struct anonymous_typeX26
 {
     struct regex_t* first  ;
     struct regex_t* last  ;
@@ -1278,6 +1374,42 @@ struct anonymous_typeX20
 };
 
 union anonymous_typeZ19
+{
+unsigned char ch;
+unsigned char* ccl;
+    struct {
+        struct regex_t* first  ;
+        struct regex_t* last  ;
+        int id;
+    } group;
+};
+
+struct anonymous_typeX28
+{
+    struct regex_t* first  ;
+    struct regex_t* last  ;
+    int id;
+};
+
+union anonymous_typeZ27
+{
+unsigned char ch;
+unsigned char* ccl;
+    struct {
+        struct regex_t* first  ;
+        struct regex_t* last  ;
+        int id;
+    } group;
+};
+
+struct anonymous_typeX30
+{
+    struct regex_t* first  ;
+    struct regex_t* last  ;
+    int id;
+};
+
+union anonymous_typeZ29
 {
 unsigned char ch;
 unsigned char* ccl;
@@ -1309,29 +1441,18 @@ struct re_program
     int group_count;
 };
 
-struct anonymous_typeX5
-{
-    struct regex_t* pool  ;
-    int pool_capacity;
-    int pool_size;
-    unsigned char* ccl_buf;
-    int ccl_capacity;
-    int ccl_idx;
-    int group_count;
-};
-
 struct sTask
 {
-    unsigned int sp  ;
-    unsigned int pc  ;
-    unsigned int r4  ;
-    unsigned int r5  ;
-    unsigned int r6  ;
-    unsigned int r7  ;
-    unsigned int r8  ;
-    unsigned int r9  ;
-    unsigned int r10  ;
-    unsigned int r11  ;
+    unsigned int sp;
+    unsigned int pc;
+    unsigned int r4;
+    unsigned int r5;
+    unsigned int r6;
+    unsigned int r7;
+    unsigned int r8;
+    unsigned int r9;
+    unsigned int r10;
+    unsigned int r11;
 };
 
 struct list_item$1sTask$ph
@@ -1363,19 +1484,19 @@ extern char* tzname[];
 extern int getdate_err;
 extern long timezone;
 extern int daylight;
-unsigned int SP  ;
-unsigned int PC  ;
-unsigned int R4  ;
-unsigned int R5  ;
-unsigned int R6  ;
-unsigned int R7  ;
-unsigned int R8  ;
-unsigned int R9  ;
-unsigned int R10  ;
-unsigned int R11  ;
-unsigned int* O  ;
-unsigned int** P  ;
-unsigned int** Q  ;
+unsigned int SP;
+unsigned int PC;
+unsigned int R4;
+unsigned int R5;
+unsigned int R6;
+unsigned int R7;
+unsigned int R8;
+unsigned int R9;
+unsigned int R10;
+unsigned int R11;
+unsigned int* O;
+unsigned int** P;
+unsigned int** Q;
 struct list$1sTask$ph* gTasks  ;
 int gCurrentTask=0;
 struct sMemHeaderTiny* gAllocMem  ;
@@ -1386,40 +1507,40 @@ int gNumFree=0;
 
 // header function
 void (*signal(int _function_pointer_result_var_name_a1, void (*_function_pointer_result_var_name_a2)(int)))(int);
-int getpriority(int , unsigned int   );
+int getpriority(int , unsigned int );
 int getiopolicy_np(int , int );
 int getrlimit(int , struct rlimit*   );
 int getrusage(int , struct rusage*   );
-int setpriority(int , unsigned int   , int );
+int setpriority(int , unsigned int , int );
 int setiopolicy_np(int , int , int );
 int setrlimit(int , const struct rlimit*   );
 int wait(int* );
-int waitpid(int   , int* , int );
-int waitid(enum anonymous_typeY1   , unsigned int   , struct __siginfo*   , int );
+int waitpid(int , int* , int );
+int waitid(enum anonymous_typeY1 , unsigned int , struct __siginfo*   , int );
 int wait3(int* , int , struct rusage*   );
-int wait4(int   , int* , int , struct rusage*   );
-void* alloca(unsigned long  int __size  );
-void* malloc_type_malloc(unsigned long  int size  , unsigned long  long type_id  );
-void* malloc_type_calloc(unsigned long  int count  , unsigned long  int size  , unsigned long  long type_id  );
-void malloc_type_free(void* ptr, unsigned long  long type_id  );
-void* malloc_type_realloc(void* ptr, unsigned long  int size  , unsigned long  long type_id  );
-void* malloc_type_valloc(unsigned long  int size  , unsigned long  long type_id  );
-void* malloc_type_aligned_alloc(unsigned long  int alignment  , unsigned long  int size  , unsigned long  long type_id  );
-int malloc_type_posix_memalign(void** memptr, unsigned long  int alignment  , unsigned long  int size  , unsigned long  long type_id  );
-void* malloc_type_zone_malloc(struct _malloc_zone_t* zone  , unsigned long  int size  , unsigned long  long type_id  );
-void* malloc_type_zone_calloc(struct _malloc_zone_t* zone  , unsigned long  int count  , unsigned long  int size  , unsigned long  long type_id  );
-void malloc_type_zone_free(struct _malloc_zone_t* zone  , void* ptr, unsigned long  long type_id  );
-void* malloc_type_zone_realloc(struct _malloc_zone_t* zone  , void* ptr, unsigned long  int size  , unsigned long  long type_id  );
-void* malloc_type_zone_valloc(struct _malloc_zone_t* zone  , unsigned long  int size  , unsigned long  long type_id  );
-void* malloc_type_zone_memalign(struct _malloc_zone_t* zone  , unsigned long  int alignment  , unsigned long  int size  , unsigned long  long type_id  );
-void* malloc(unsigned long  int __size  );
-void* calloc(unsigned long  int __count  , unsigned long  int __size  );
+int wait4(int , int* , int , struct rusage*   );
+void* alloca(unsigned long  int __size);
+void* malloc_type_malloc(unsigned long  int size, unsigned long  long type_id);
+void* malloc_type_calloc(unsigned long  int count, unsigned long  int size, unsigned long  long type_id);
+void malloc_type_free(void* ptr, unsigned long  long type_id);
+void* malloc_type_realloc(void* ptr, unsigned long  int size, unsigned long  long type_id);
+void* malloc_type_valloc(unsigned long  int size, unsigned long  long type_id);
+void* malloc_type_aligned_alloc(unsigned long  int alignment, unsigned long  int size, unsigned long  long type_id);
+int malloc_type_posix_memalign(void** memptr, unsigned long  int alignment, unsigned long  int size, unsigned long  long type_id);
+void* malloc_type_zone_malloc(struct _malloc_zone_t* zone, unsigned long  int size, unsigned long  long type_id);
+void* malloc_type_zone_calloc(struct _malloc_zone_t* zone, unsigned long  int count, unsigned long  int size, unsigned long  long type_id);
+void malloc_type_zone_free(struct _malloc_zone_t* zone, void* ptr, unsigned long  long type_id);
+void* malloc_type_zone_realloc(struct _malloc_zone_t* zone, void* ptr, unsigned long  int size, unsigned long  long type_id);
+void* malloc_type_zone_valloc(struct _malloc_zone_t* zone, unsigned long  int size, unsigned long  long type_id);
+void* malloc_type_zone_memalign(struct _malloc_zone_t* zone, unsigned long  int alignment, unsigned long  int size, unsigned long  long type_id);
+void* malloc(unsigned long  int __size);
+void* calloc(unsigned long  int __count, unsigned long  int __size);
 void free(void* );
-void* realloc(void* __ptr, unsigned long  int __size  );
-void* reallocf(void* __ptr, unsigned long  int __size  );
-void* valloc(unsigned long  int __size  );
-void* aligned_alloc(unsigned long  int __alignment  , unsigned long  int __size  );
-int posix_memalign(void** __memptr, unsigned long  int __alignment  , unsigned long  int __size  );
+void* realloc(void* __ptr, unsigned long  int __size);
+void* reallocf(void* __ptr, unsigned long  int __size);
+void* valloc(unsigned long  int __size);
+void* aligned_alloc(unsigned long  int __alignment, unsigned long  int __size);
+int posix_memalign(void** __memptr, unsigned long  int __alignment, unsigned long  int __size);
 void abort();
 int abs(int );
 int atexit(void (*anonymous_lambda_var_nameZ2)());
@@ -1428,7 +1549,7 @@ double atof(const char* );
 int atoi(const char* );
 long atol(const char* );
 long long atoll(const char* );
-void* bsearch(const void* __key, const void* __base, unsigned long  int __nel  , unsigned long  int __width  , int (*__compar)(const void*,const void*));
+void* bsearch(const void* __key, const void* __base, unsigned long  int __nel, unsigned long  int __width, int (*__compar)(const void*,const void*));
 struct anonymous_typeX8 div(int , int );
 void exit(int );
 char* getenv(const char* );
@@ -1436,10 +1557,10 @@ long labs(long );
 struct anonymous_typeX9 ldiv(long , long );
 long long llabs(long  long );
 struct anonymous_typeX10 lldiv(long  long , long  long );
-int mblen(const char* __s, unsigned long  int __n  );
-unsigned long  int mbstowcs(int*   , const char* , unsigned long  int __n  );
-int mbtowc(int*   , const char* , unsigned long  int __n  );
-void qsort(void* __base, unsigned long  int __nel  , unsigned long  int __width  , int (*__compar)(const void*,const void*));
+int mblen(const char* __s, unsigned long  int __n);
+unsigned long  int mbstowcs(int* , const char* , unsigned long  int __n);
+int mbtowc(int* , const char* , unsigned long  int __n);
+void qsort(void* __base, unsigned long  int __nel, unsigned long  int __width, int (*__compar)(const void*,const void*));
 void quick_exit(int );
 int rand();
 void srand(unsigned int );
@@ -1451,8 +1572,8 @@ long long strtoll(const char* __str, char** __endptr, int __base);
 unsigned long  int strtoul(const char* __str, char** __endptr, int __base);
 unsigned long  long strtoull(const char* __str, char** __endptr, int __base);
 int system(const char* );
-unsigned long  int wcstombs(char* , const int*   , unsigned long  int __n  );
-int wctomb(char* , int   );
+unsigned long  int wcstombs(char* , const int* , unsigned long  int __n);
+int wctomb(char* , int );
 void _Exit(int );
 long a64l(const char* );
 double drand48();
@@ -1462,7 +1583,7 @@ char* fcvt(double , int , int* , int* );
 char* gcvt(double , int , char* );
 int getsubopt(char** , char** , char** );
 int grantpt(int );
-char* initstate(unsigned int , char* , unsigned long  int __size  );
+char* initstate(unsigned int , char* , unsigned long  int __size);
 long jrand48(unsigned short int [3]);
 char* l64a(long );
 void lcong48(unsigned short int [7]);
@@ -1473,7 +1594,7 @@ long mrand48();
 long nrand48(unsigned short int [3]);
 int posix_openpt(int );
 char* ptsname(int );
-int ptsname_r(int fildes, char* buffer, unsigned long  int buflen  );
+int ptsname_r(int fildes, char* buffer, unsigned long  int buflen);
 int putenv(char* );
 long random();
 int rand_r(unsigned int* );
@@ -1488,9 +1609,9 @@ int unlockpt(int );
 int unsetenv(const char* );
 unsigned int arc4random();
 void arc4random_addrandom(unsigned char* , int __datlen);
-void arc4random_buf(void* __buf, unsigned long  int __nbytes  );
+void arc4random_buf(void* __buf, unsigned long  int __nbytes);
 void arc4random_stir();
-unsigned int arc4random_uniform(unsigned int __upper_bound  );
+unsigned int arc4random_uniform(unsigned int __upper_bound);
 char* cgetcap(char* , const char* , int );
 int cgetclose();
 int cgetent(char** , char** , const char* );
@@ -1502,17 +1623,17 @@ int cgetset(const char* );
 int cgetstr(char* , const char* , char** );
 int cgetustr(char* , const char* , char** );
 int daemon(int , int );
-char* devname(int   , unsigned short int   );
-char* devname_r(int   , unsigned short int   , char* buf, int len);
+char* devname(int , unsigned short int );
+char* devname_r(int , unsigned short int , char* buf, int len);
 char* getbsize(int* , long* );
 int getloadavg(double [], int __nelem);
 const char* getprogname();
 void setprogname(const char* );
-int heapsort(void* __base, unsigned long  int __nel  , unsigned long  int __width  , int (*__compar)(const void*,const void*));
-int mergesort(void* __base, unsigned long  int __nel  , unsigned long  int __width  , int (*__compar)(const void*,const void*));
-void psort(void* __base, unsigned long  int __nel  , unsigned long  int __width  , int (*__compar)(const void*,const void*));
-void psort_r(void* __base, unsigned long  int __nel  , unsigned long  int __width  , void* , int (*__compar)(void*,const void*,const void*));
-void qsort_r(void* __base, unsigned long  int __nel  , unsigned long  int __width  , void* , int (*__compar)(void*,const void*,const void*));
+int heapsort(void* __base, unsigned long  int __nel, unsigned long  int __width, int (*__compar)(const void*,const void*));
+int mergesort(void* __base, unsigned long  int __nel, unsigned long  int __width, int (*__compar)(const void*,const void*));
+void psort(void* __base, unsigned long  int __nel, unsigned long  int __width, int (*__compar)(const void*,const void*));
+void psort_r(void* __base, unsigned long  int __nel, unsigned long  int __width, void* , int (*__compar)(void*,const void*,const void*));
+void qsort_r(void* __base, unsigned long  int __nel, unsigned long  int __width, void* , int (*__compar)(void*,const void*,const void*));
 int radixsort(const unsigned char** __base, int __nel, const unsigned char* __table, unsigned int __endbyte);
 int rpmatch(const char* );
 int sradixsort(const unsigned char** __base, int __nel, const unsigned char* __table, unsigned int __endbyte);
@@ -1521,11 +1642,11 @@ void srandomdev();
 long long strtonum(const char* __numstr, long long __minval, long long __maxval, const char** __errstrp);
 long long strtoq(const char* __str, char** __endptr, int __base);
 unsigned long  long strtouq(const char* __str, char** __endptr, int __base);
-void* memchr(const void* __s, int __c, unsigned long  int __n  );
-int memcmp(const void* __s1, const void* __s2, unsigned long  int __n  );
-void* memcpy(void* __dst, const void* __src, unsigned long  int __n  );
-void* memmove(void* __dst, const void* __src, unsigned long  int __len  );
-void* memset(void* __b, int __c, unsigned long  int __len  );
+void* memchr(const void* __s, int __c, unsigned long  int __n);
+int memcmp(const void* __s1, const void* __s2, unsigned long  int __n);
+void* memcpy(void* __dst, const void* __src, unsigned long  int __n);
+void* memmove(void* __dst, const void* __src, unsigned long  int __len);
+void* memset(void* __b, int __c, unsigned long  int __len);
 char* strcat(char* __s1, const char* __s2);
 char* strchr(const char* __s, int __c);
 int strcmp(const char* __s1, const char* __s2);
@@ -1534,42 +1655,42 @@ char* strcpy(char* __dst, const char* __src);
 unsigned long  int strcspn(const char* __s, const char* __charset);
 char* strerror(int __errnum);
 unsigned long  int strlen(const char* __s);
-char* strncat(char* __s1, const char* __s2, unsigned long  int __n  );
-int strncmp(const char* __s1, const char* __s2, unsigned long  int __n  );
-char* strncpy(char* __dst, const char* __src, unsigned long  int __n  );
+char* strncat(char* __s1, const char* __s2, unsigned long  int __n);
+int strncmp(const char* __s1, const char* __s2, unsigned long  int __n);
+char* strncpy(char* __dst, const char* __src, unsigned long  int __n);
 char* strpbrk(const char* __s, const char* __charset);
 char* strrchr(const char* __s, int __c);
 unsigned long  int strspn(const char* __s, const char* __charset);
 char* strstr(const char* __big, const char* __little);
 char* strtok(char* __str, const char* __sep);
-unsigned long  int strxfrm(char* __s1, const char* __s2, unsigned long  int __n  );
+unsigned long  int strxfrm(char* __s1, const char* __s2, unsigned long  int __n);
 char* strtok_r(char* __str, const char* __sep, char** __lasts);
-int strerror_r(int __errnum, char* __strerrbuf, unsigned long  int __buflen  );
+int strerror_r(int __errnum, char* __strerrbuf, unsigned long  int __buflen);
 char* strdup(const char* __s1);
-void* memccpy(void* __dst, const void* __src, int __c, unsigned long  int __n  );
+void* memccpy(void* __dst, const void* __src, int __c, unsigned long  int __n);
 char* stpcpy(char* __dst, const char* __src);
-char* stpncpy(char* __dst, const char* __src, unsigned long  int __n  );
-char* strndup(const char* __s1, unsigned long  int __n  );
-unsigned long  int strnlen(const char* __s1, unsigned long  int __n  );
+char* stpncpy(char* __dst, const char* __src, unsigned long  int __n);
+char* strndup(const char* __s1, unsigned long  int __n);
+unsigned long  int strnlen(const char* __s1, unsigned long  int __n);
 char* strsignal(int __sig);
-int memset_s(void* __s, unsigned long  int __smax  , int __c, unsigned long  int __n  );
-void* memmem(const void* __big, unsigned long  int __big_len  , const void* __little, unsigned long  int __little_len  );
-void memset_pattern4(void* __b, const void* __pattern4, unsigned long  int __len  );
-void memset_pattern8(void* __b, const void* __pattern8, unsigned long  int __len  );
-void memset_pattern16(void* __b, const void* __pattern16, unsigned long  int __len  );
+int memset_s(void* __s, unsigned long  int __smax, int __c, unsigned long  int __n);
+void* memmem(const void* __big, unsigned long  int __big_len, const void* __little, unsigned long  int __little_len);
+void memset_pattern4(void* __b, const void* __pattern4, unsigned long  int __len);
+void memset_pattern8(void* __b, const void* __pattern8, unsigned long  int __len);
+void memset_pattern16(void* __b, const void* __pattern16, unsigned long  int __len);
 char* strcasestr(const char* __big, const char* __little);
 char* strchrnul(const char* __s, int __c);
-char* strnstr(const char* __big, const char* __little, unsigned long  int __len  );
-unsigned long  int strlcat(char* __dst, const char* __source, unsigned long  int __size  );
-unsigned long  int strlcpy(char* __dst, const char* __source, unsigned long  int __size  );
+char* strnstr(const char* __big, const char* __little, unsigned long  int __len);
+unsigned long  int strlcat(char* __dst, const char* __source, unsigned long  int __size);
+unsigned long  int strlcpy(char* __dst, const char* __source, unsigned long  int __size);
 void strmode(int __mode, char* __bp);
 char* strsep(char** __stringp, const char* __delim);
-void swab(const void* , void* , long __len  );
-int timingsafe_bcmp(const void* __b1, const void* __b2, unsigned long  int __len  );
-int strsignal_r(int __sig, char* __strsignalbuf, unsigned long  int __buflen  );
+void swab(const void* , void* , long __len);
+int timingsafe_bcmp(const void* __b1, const void* __b2, unsigned long  int __len);
+int strsignal_r(int __sig, char* __strsignalbuf, unsigned long  int __buflen);
 int ffs(int );
 int strcasecmp(const char* , const char* );
-int strncasecmp(const char* , const char* , unsigned long  int   );
+int strncasecmp(const char* , const char* , unsigned long  int );
 int ffsl(long );
 int ffsll(long  long );
 int fls(int );
@@ -1585,19 +1706,19 @@ int feof(struct __sFILE*   );
 int ferror(struct __sFILE*   );
 int fflush(struct __sFILE*   );
 int fgetc(struct __sFILE*   );
-int fgetpos(struct __sFILE*   , long long*   );
+int fgetpos(struct __sFILE*   , long  long* );
 char* fgets(char* , int __size, struct __sFILE*   );
 struct __sFILE* fopen(const char* __filename, const char* __mode);
 int fprintf(struct __sFILE*   , const char* , ...);
 int fputc(int , struct __sFILE*   );
 int fputs(const char* , struct __sFILE*   );
-unsigned long  int fread(void* __ptr, unsigned long  int __size  , unsigned long  int __nitems  , struct __sFILE* __stream  );
+unsigned long  int fread(void* __ptr, unsigned long  int __size, unsigned long  int __nitems, struct __sFILE* __stream  );
 struct __sFILE* freopen(const char* , const char* , struct __sFILE*   );
 int fscanf(struct __sFILE*   , const char* , ...);
 int fseek(struct __sFILE*   , long , int );
-int fsetpos(struct __sFILE*   , const long long*   );
+int fsetpos(struct __sFILE*   , const long  long* );
 long ftell(struct __sFILE*   );
-unsigned long  int fwrite(const void* __ptr, unsigned long  int __size  , unsigned long  int __nitems  , struct __sFILE* __stream  );
+unsigned long  int fwrite(const void* __ptr, unsigned long  int __size, unsigned long  int __nitems, struct __sFILE* __stream  );
 int getc(struct __sFILE*   );
 int getchar();
 char* gets(char* );
@@ -1610,7 +1731,7 @@ int rename(const char* __old, const char* __new);
 void rewind(struct __sFILE*   );
 int scanf(const char* , ...);
 void setbuf(struct __sFILE*   , char* );
-int setvbuf(struct __sFILE*   , char* , int , unsigned long  int __size  );
+int setvbuf(struct __sFILE*   , char* , int , unsigned long  int __size);
 int sprintf(char* , const char* , ...);
 int sscanf(const char* , const char* , ...);
 struct __sFILE* tmpfile();
@@ -1635,139 +1756,139 @@ int getchar_unlocked();
 int putc_unlocked(int , struct __sFILE*   );
 int putchar_unlocked(int );
 char* tempnam(const char* __dir, const char* __prefix);
-int fseeko(struct __sFILE* __stream  , long long __offset  , int __whence);
+int fseeko(struct __sFILE* __stream  , long long __offset, int __whence);
 long long ftello(struct __sFILE* __stream  );
-int snprintf(char* __str, unsigned long  int __size  , const char* __format, ...);
+int snprintf(char* __str, unsigned long  int __size, const char* __format, ...);
 int vfscanf(struct __sFILE* __stream  , const char* __format, __darwin_va_list   );
 int vscanf(const char* __format, __darwin_va_list   );
-int vsnprintf(char* __str, unsigned long  int __size  , const char* __format, __darwin_va_list   );
+int vsnprintf(char* __str, unsigned long  int __size, const char* __format, __darwin_va_list   );
 int vsscanf(const char* __str, const char* __format, __darwin_va_list   );
 int dprintf(int , const char* , ...);
 int vdprintf(int , const char* , __darwin_va_list   );
-long getdelim(char** __linep, unsigned long  int* __linecapp  , int __delimiter, struct __sFILE* __stream  );
-long getline(char** __linep, unsigned long  int* __linecapp  , struct __sFILE* __stream  );
-struct __sFILE* fmemopen(void* __buf, unsigned long  int __size  , const char* __mode);
-struct __sFILE* open_memstream(char** __bufp, unsigned long  int* __sizep  );
+long getdelim(char** __linep, unsigned long  int* __linecapp, int __delimiter, struct __sFILE* __stream  );
+long getline(char** __linep, unsigned long  int* __linecapp, struct __sFILE* __stream  );
+struct __sFILE* fmemopen(void* __buf, unsigned long  int __size, const char* __mode);
+struct __sFILE* open_memstream(char** __bufp, unsigned long  int* __sizep);
 int asprintf(char** , const char* , ...);
 char* ctermid_r(char* );
-char* fgetln(struct __sFILE*   , unsigned long  int* __len  );
+char* fgetln(struct __sFILE*   , unsigned long  int* __len);
 const char* fmtcheck(const char* , const char* );
 int fpurge(struct __sFILE*   );
 void setbuffer(struct __sFILE*   , char* , int __size);
 int setlinebuf(struct __sFILE*   );
 int vasprintf(char** , const char* , __darwin_va_list   );
-struct __sFILE* funopen(const void* , int (*anonymous_lambda_var_nameZ4)(void*,char*,int), int (*anonymous_lambda_var_nameZ5)(void*,const char*,int), long long (*anonymous_lambda_var_nameZ6)(void*,long long,int), int (*anonymous_lambda_var_nameZ7)(void*));
-int __snprintf_chk(char* , unsigned long  int __maxlen  , int , unsigned long  int   , const char* , ...);
-int __vsnprintf_chk(char* , unsigned long  int __maxlen  , int , unsigned long  int   , const char* , __darwin_va_list   );
-int __sprintf_chk(char* , int , unsigned long  int   , const char* , ...);
-int __vsprintf_chk(char* , int , unsigned long  int   , const char* , __darwin_va_list   );
-unsigned long  int ___runetype(int   );
-int ___tolower(int   );
-int ___toupper(int   );
-int __maskrune(int   , unsigned long  int );
-int __toupper(int   );
-int __tolower(int   );
+struct __sFILE* funopen(const void* , int (*anonymous_lambda_var_nameZ4)(void*,char*,int), int (*anonymous_lambda_var_nameZ5)(void*,const char*,int), long  long (*anonymous_lambda_var_nameZ6)(void*,long  long,int), int (*anonymous_lambda_var_nameZ7)(void*));
+int __snprintf_chk(char* , unsigned long  int __maxlen, int , unsigned long  int , const char* , ...);
+int __vsnprintf_chk(char* , unsigned long  int __maxlen, int , unsigned long  int , const char* , __darwin_va_list   );
+int __sprintf_chk(char* , int , unsigned long  int , const char* , ...);
+int __vsprintf_chk(char* , int , unsigned long  int , const char* , __darwin_va_list   );
+unsigned long  int ___runetype(int );
+int ___tolower(int );
+int ___toupper(int );
+int __maskrune(int , unsigned long  int );
+int __toupper(int );
+int __tolower(int );
 char* asctime(const struct tm*   );
 unsigned long  int clock();
-char* ctime(const long*   );
-double difftime(long   , long   );
+char* ctime(const long* );
+double difftime(long , long );
 struct tm* getdate(const char* );
-struct tm* gmtime(const long*   );
-struct tm* localtime(const long*   );
+struct tm* gmtime(const long* );
+struct tm* localtime(const long* );
 long mktime(struct tm*   );
-unsigned long  int strftime(char* , unsigned long  int __maxsize  , const char* , const struct tm*   );
+unsigned long  int strftime(char* , unsigned long  int __maxsize, const char* , const struct tm*   );
 char* strptime(const char* , const char* , struct tm*   );
-long time(long*   );
+long time(long* );
 void tzset();
 char* asctime_r(const struct tm*   , char* );
-char* ctime_r(const long*   , char* );
-struct tm* gmtime_r(const long*   , struct tm*   );
-struct tm* localtime_r(const long*   , struct tm*   );
-long posix2time(long   );
+char* ctime_r(const long* , char* );
+struct tm* gmtime_r(const long* , struct tm*   );
+struct tm* localtime_r(const long* , struct tm*   );
+long posix2time(long );
 void tzsetwall();
-long time2posix(long   );
+long time2posix(long );
 long timelocal(struct tm*   );
 long timegm(struct tm*   );
 int nanosleep(const struct timespec* __rqtp  , struct timespec* __rmtp  );
-int clock_getres(enum anonymous_typeY14 __clock_id  , struct timespec* __res  );
-int clock_gettime(enum anonymous_typeY14 __clock_id  , struct timespec* __tp  );
-unsigned long  long clock_gettime_nsec_np(enum anonymous_typeY14 __clock_id  );
-int clock_settime(enum anonymous_typeY14 __clock_id  , const struct timespec* __tp  );
+int clock_getres(enum anonymous_typeY14 __clock_id, struct timespec* __res  );
+int clock_gettime(enum anonymous_typeY14 __clock_id, struct timespec* __tp  );
+unsigned long  long clock_gettime_nsec_np(enum anonymous_typeY14 __clock_id);
+int clock_settime(enum anonymous_typeY14 __clock_id, const struct timespec* __tp  );
 int timespec_get(struct timespec* ts  , int base);
 unsigned int wctype(const char* );
 unsigned int btowc(int );
 unsigned int fgetwc(struct __sFILE*   );
-int* fgetws(int*   , int __n, struct __sFILE*   );
-unsigned int fputwc(int   , struct __sFILE*   );
-int fputws(const int*   , struct __sFILE*   );
+int* fgetws(int* , int __n, struct __sFILE*   );
+unsigned int fputwc(int , struct __sFILE*   );
+int fputws(const int* , struct __sFILE*   );
 int fwide(struct __sFILE*   , int );
-int fwprintf(struct __sFILE*   , const int*   , ...);
-int fwscanf(struct __sFILE*   , const int*   , ...);
+int fwprintf(struct __sFILE*   , const int* , ...);
+int fwscanf(struct __sFILE*   , const int* , ...);
 unsigned int getwc(struct __sFILE*   );
 unsigned int getwchar();
-unsigned long  int mbrlen(const char* , unsigned long  int __n  , union anonymous_typeZ1*   );
-unsigned long  int mbrtowc(int*   , const char* , unsigned long  int __n  , union anonymous_typeZ1*   );
+unsigned long  int mbrlen(const char* , unsigned long  int __n, union anonymous_typeZ1*   );
+unsigned long  int mbrtowc(int* , const char* , unsigned long  int __n, union anonymous_typeZ1*   );
 int mbsinit(const union anonymous_typeZ1*   );
-unsigned long  int mbsrtowcs(int*   , const char** , unsigned long  int __len  , union anonymous_typeZ1*   );
-unsigned int putwc(int   , struct __sFILE*   );
-unsigned int putwchar(int   );
-int swprintf(int*   , unsigned long  int __maxlen  , const int*   , ...);
-int swscanf(const int*   , const int*   , ...);
-unsigned int ungetwc(unsigned int   , struct __sFILE*   );
-int vfwprintf(struct __sFILE*   , const int*   , __darwin_va_list   );
-int vswprintf(int*   , unsigned long  int __maxlen  , const int*   , __darwin_va_list   );
-int vwprintf(const int*   , __darwin_va_list   );
-unsigned long  int wcrtomb(char* , int   , union anonymous_typeZ1*   );
-int* wcscat(int*   , const int*   );
-int* wcschr(const int*   , int   );
-int wcscmp(const int*   , const int*   );
-int wcscoll(const int*   , const int*   );
-int* wcscpy(int*   , const int*   );
-unsigned long  int wcscspn(const int*   , const int*   );
-unsigned long  int wcsftime(int*   , unsigned long  int __maxlen  , const int*   , const struct tm*   );
-unsigned long  int wcslen(const int*   );
-int* wcsncat(int*   , const int*   , unsigned long  int __n  );
-int wcsncmp(const int*   , const int*   , unsigned long  int   );
-int* wcsncpy(int*   , const int*   , unsigned long  int __n  );
-int* wcspbrk(const int*   , const int*   );
-int* wcsrchr(const int*   , int   );
-unsigned long  int wcsrtombs(char* , const int**   , unsigned long  int __len  , union anonymous_typeZ1*   );
-unsigned long  int wcsspn(const int*   , const int*   );
-int* wcsstr(const int*   , const int*   );
-unsigned long  int wcsxfrm(int*   , const int*   , unsigned long  int __n  );
-int wctob(unsigned int   );
-double wcstod(const int*   , int**   );
-int* wcstok(int*   , const int*   , int**   );
-long wcstol(const int*   , int**   , int );
-unsigned long  int wcstoul(const int*   , int**   , int );
-int* wmemchr(const int*   , int   , unsigned long  int __n  );
-int wmemcmp(const int*   , const int*   , unsigned long  int __n  );
-int* wmemcpy(int*   , const int*   , unsigned long  int __n  );
-int* wmemmove(int*   , const int*   , unsigned long  int __n  );
-int* wmemset(int*   , int   , unsigned long  int __n  );
-int wprintf(const int*   , ...);
-int wscanf(const int*   , ...);
-int wcswidth(const int*   , unsigned long  int __n  );
-int wcwidth(int   );
-int vfwscanf(struct __sFILE*   , const int*   , __darwin_va_list   );
-int vswscanf(const int*   , const int*   , __darwin_va_list   );
-int vwscanf(const int*   , __darwin_va_list   );
-float wcstof(const int*   , int**   );
-long  double wcstold(const int*   , int**   );
-long long wcstoll(const int*   , int**   , int );
-unsigned long  long wcstoull(const int*   , int**   , int );
-unsigned long  int mbsnrtowcs(int*   , const char** , unsigned long  int   , unsigned long  int __len  , union anonymous_typeZ1*   );
-int* wcpcpy(int*   , const int*   );
-int* wcpncpy(int*   , const int*   , unsigned long  int __n  );
-int* wcsdup(const int*   );
-int wcscasecmp(const int*   , const int*   );
-int wcsncasecmp(const int*   , const int*   , unsigned long  int n  );
-unsigned long  int wcsnlen(const int*   , unsigned long  int __n  );
-unsigned long  int wcsnrtombs(char* , const int**   , unsigned long  int   , unsigned long  int __len  , union anonymous_typeZ1*   );
-struct __sFILE* open_wmemstream(int** __bufp  , unsigned long  int* __sizep  );
-int* fgetwln(struct __sFILE*   , unsigned long  int* __len  );
-unsigned long  int wcslcat(int*   , const int*   , unsigned long  int __len  );
-unsigned long  int wcslcpy(int*   , const int*   , unsigned long  int __len  );
+unsigned long  int mbsrtowcs(int* , const char** , unsigned long  int __len, union anonymous_typeZ1*   );
+unsigned int putwc(int , struct __sFILE*   );
+unsigned int putwchar(int );
+int swprintf(int* , unsigned long  int __maxlen, const int* , ...);
+int swscanf(const int* , const int* , ...);
+unsigned int ungetwc(unsigned int , struct __sFILE*   );
+int vfwprintf(struct __sFILE*   , const int* , __darwin_va_list   );
+int vswprintf(int* , unsigned long  int __maxlen, const int* , __darwin_va_list   );
+int vwprintf(const int* , __darwin_va_list   );
+unsigned long  int wcrtomb(char* , int , union anonymous_typeZ1*   );
+int* wcscat(int* , const int* );
+int* wcschr(const int* , int );
+int wcscmp(const int* , const int* );
+int wcscoll(const int* , const int* );
+int* wcscpy(int* , const int* );
+unsigned long  int wcscspn(const int* , const int* );
+unsigned long  int wcsftime(int* , unsigned long  int __maxlen, const int* , const struct tm*   );
+unsigned long  int wcslen(const int* );
+int* wcsncat(int* , const int* , unsigned long  int __n);
+int wcsncmp(const int* , const int* , unsigned long  int );
+int* wcsncpy(int* , const int* , unsigned long  int __n);
+int* wcspbrk(const int* , const int* );
+int* wcsrchr(const int* , int );
+unsigned long  int wcsrtombs(char* , const int** , unsigned long  int __len, union anonymous_typeZ1*   );
+unsigned long  int wcsspn(const int* , const int* );
+int* wcsstr(const int* , const int* );
+unsigned long  int wcsxfrm(int* , const int* , unsigned long  int __n);
+int wctob(unsigned int );
+double wcstod(const int* , int** );
+int* wcstok(int* , const int* , int** );
+long wcstol(const int* , int** , int );
+unsigned long  int wcstoul(const int* , int** , int );
+int* wmemchr(const int* , int , unsigned long  int __n);
+int wmemcmp(const int* , const int* , unsigned long  int __n);
+int* wmemcpy(int* , const int* , unsigned long  int __n);
+int* wmemmove(int* , const int* , unsigned long  int __n);
+int* wmemset(int* , int , unsigned long  int __n);
+int wprintf(const int* , ...);
+int wscanf(const int* , ...);
+int wcswidth(const int* , unsigned long  int __n);
+int wcwidth(int );
+int vfwscanf(struct __sFILE*   , const int* , __darwin_va_list   );
+int vswscanf(const int* , const int* , __darwin_va_list   );
+int vwscanf(const int* , __darwin_va_list   );
+float wcstof(const int* , int** );
+long  double wcstold(const int* , int** );
+long long wcstoll(const int* , int** , int );
+unsigned long  long wcstoull(const int* , int** , int );
+unsigned long  int mbsnrtowcs(int* , const char** , unsigned long  int , unsigned long  int __len, union anonymous_typeZ1*   );
+int* wcpcpy(int* , const int* );
+int* wcpncpy(int* , const int* , unsigned long  int __n);
+int* wcsdup(const int* );
+int wcscasecmp(const int* , const int* );
+int wcsncasecmp(const int* , const int* , unsigned long  int n);
+unsigned long  int wcsnlen(const int* , unsigned long  int __n);
+unsigned long  int wcsnrtombs(char* , const int** , unsigned long  int , unsigned long  int __len, union anonymous_typeZ1*   );
+struct __sFILE* open_wmemstream(int** __bufp, unsigned long  int* __sizep);
+int* fgetwln(struct __sFILE*   , unsigned long  int* __len);
+unsigned long  int wcslcat(int* , const int* , unsigned long  int __len);
+unsigned long  int wcslcpy(int* , const int* , unsigned long  int __len);
 void init_task(void (*fun)());
 static struct list$1sTask$ph* list$1sTask$ph_add(struct list$1sTask$ph* self  , struct sTask* item  );
 static void sTask_finalize(struct sTask* self  );
@@ -1794,11 +1915,11 @@ _Bool die(char* msg);
 int assert_v2(int exp);
 void come_heap_init(int come_debug);
 void come_heap_final();
-void* alloc_from_pages(unsigned long  int size  );
+void* alloc_from_pages(unsigned long  int size);
 void come_free_mem_of_heap_pool(void* mem);
-void* come_alloc_mem_from_heap_pool(unsigned long  int size  , char* sname, int sline, char* class_name);
+void* come_alloc_mem_from_heap_pool(unsigned long  int size, char* sname, int sline, char* class_name);
 char* come_dynamic_typeof(void* mem);
-void* come_calloc(unsigned long  int count  , unsigned long  int size  , char* sname, int sline, char* class_name);
+void* come_calloc(unsigned long  int count, unsigned long  int size, char* sname, int sline, char* class_name);
 void come_free(void* mem);
 void* come_memdup(void* block, char* sname, int sline, char* class_name);
 void* come_increment_ref_count(void* mem);
@@ -1813,17 +1934,17 @@ void come_pop_stackframe_v2();
 void come_save_stackframe_v2(char* sname, int sline);
 void stackframe_v2();
 char* come_get_stackframe_v2();
-void* come_calloc_v2(unsigned long  int count  , unsigned long  int size  , char* sname, int sline, char* class_name);
+void* come_calloc_v2(unsigned long  int count, unsigned long  int size, char* sname, int sline, char* class_name);
 void come_free_v2(void* mem);
 struct buffer* buffer_initialize(struct buffer* self  );
-struct buffer* buffer_initialize_with_value(struct buffer* self  , char* mem, unsigned long  int size  );
+struct buffer* buffer_initialize_with_value(struct buffer* self  , char* mem, unsigned long  int size);
 void buffer_finalize(struct buffer* self  );
 struct buffer* buffer_clone(struct buffer* self  );
 _Bool buffer_equals(struct buffer* left  , struct buffer* right  );
 int buffer_length(struct buffer* self  );
 void buffer_reset(struct buffer* self  );
 void buffer_trim(struct buffer* self  , int len);
-struct buffer* buffer_append(struct buffer* self  , char* mem, unsigned long  int size  );
+struct buffer* buffer_append(struct buffer* self  , char* mem, unsigned long  int size);
 struct buffer* buffer_append_char(struct buffer* self  , char c);
 struct buffer* buffer_append_str(struct buffer* self  , char* mem);
 struct buffer* buffer_append_format(struct buffer* self  , char* msg, ...);
@@ -1836,56 +1957,56 @@ int buffer_compare(struct buffer* left  , struct buffer* right  );
 struct buffer* charp_to_buffer(char* self);
 char* buffer_to_string(struct buffer* self  );
 unsigned char* buffer_head_pointer(struct buffer* self  );
-struct buffer* chara_to_buffer(char* self, unsigned long  int len  );
-struct buffer* charpa_to_buffer(char** self, unsigned long  int len  );
-struct buffer* shorta_to_buffer(short* self, unsigned long  int len  );
-struct buffer* inta_to_buffer(int* self, unsigned long  int len  );
-struct buffer* longa_to_buffer(long* self, unsigned long  int len  );
-struct buffer* floata_to_buffer(float* self, unsigned long  int len  );
-struct buffer* doublea_to_buffer(double* self, unsigned long  int len  );
+struct buffer* chara_to_buffer(char* self, unsigned long  int len);
+struct buffer* charpa_to_buffer(char** self, unsigned long  int len);
+struct buffer* shorta_to_buffer(short* self, unsigned long  int len);
+struct buffer* inta_to_buffer(int* self, unsigned long  int len);
+struct buffer* longa_to_buffer(long* self, unsigned long  int len);
+struct buffer* floata_to_buffer(float* self, unsigned long  int len);
+struct buffer* doublea_to_buffer(double* self, unsigned long  int len);
 char* buffer_printable(struct buffer* self  );
 static struct list$1char$* list$1char$_initialize_with_values(struct list$1char$* self  , int num_value, char* values);
 static struct list$1char$* list$1char$_push_back(struct list$1char$* self  , char item);
 static void list$1char$$p_finalize(struct list$1char$* self  );
 static void list_item$1char$$p_finalize(struct list_item$1char$* self  );
-struct list$1char$* chara_to_list(char* self, unsigned long  int len  );
+struct list$1char$* chara_to_list(char* self, unsigned long  int len);
 static struct list$1char$p* list$1char$p_initialize_with_values(struct list$1char$p* self  , int num_value, char** values);
 static struct list$1char$p* list$1char$p_push_back(struct list$1char$p* self  , char* item);
 static void list$1char$p$p_finalize(struct list$1char$p* self  );
 static void list_item$1char$p$p_finalize(struct list_item$1char$p* self  );
-struct list$1char$p* charpa_to_list(char** self, unsigned long  int len  );
+struct list$1char$p* charpa_to_list(char** self, unsigned long  int len);
 static struct list$1short$* list$1short$_initialize_with_values(struct list$1short$* self  , int num_value, short* values);
 static struct list$1short$* list$1short$_push_back(struct list$1short$* self  , short item);
 static void list$1short$$p_finalize(struct list$1short$* self  );
 static void list_item$1short$$p_finalize(struct list_item$1short$* self  );
-struct list$1short$* shorta_to_list(short* self, unsigned long  int len  );
+struct list$1short$* shorta_to_list(short* self, unsigned long  int len);
 static struct list$1int$* list$1int$_initialize_with_values(struct list$1int$* self  , int num_value, int* values);
 static struct list$1int$* list$1int$_push_back(struct list$1int$* self  , int item);
 static void list$1int$$p_finalize(struct list$1int$* self  );
 static void list_item$1int$$p_finalize(struct list_item$1int$* self  );
-struct list$1int$* inta_to_list(int* self, unsigned long  int len  );
+struct list$1int$* inta_to_list(int* self, unsigned long  int len);
 static struct list$1long$* list$1long$_initialize_with_values(struct list$1long$* self  , int num_value, long* values);
 static struct list$1long$* list$1long$_push_back(struct list$1long$* self  , long item);
 static void list$1long$$p_finalize(struct list$1long$* self  );
 static void list_item$1long$$p_finalize(struct list_item$1long$* self  );
-struct list$1long$* longa_to_list(long* self, unsigned long  int len  );
+struct list$1long$* longa_to_list(long* self, unsigned long  int len);
 static struct list$1float$* list$1float$_initialize_with_values(struct list$1float$* self  , int num_value, float* values);
 static struct list$1float$* list$1float$_push_back(struct list$1float$* self  , float item);
 static void list$1float$$p_finalize(struct list$1float$* self  );
 static void list_item$1float$$p_finalize(struct list_item$1float$* self  );
-struct list$1float$* floata_to_list(float* self, unsigned long  int len  );
+struct list$1float$* floata_to_list(float* self, unsigned long  int len);
 static struct list$1double$* list$1double$_initialize_with_values(struct list$1double$* self  , int num_value, double* values);
 static struct list$1double$* list$1double$_push_back(struct list$1double$* self  , double item);
 static void list$1double$$p_finalize(struct list$1double$* self  );
 static void list_item$1double$$p_finalize(struct list_item$1double$* self  );
-struct list$1double$* doublea_to_list(double* self, unsigned long  int len  );
+struct list$1double$* doublea_to_list(double* self, unsigned long  int len);
 _Bool bool_equals(_Bool self, _Bool right);
 _Bool _Bool_equals(_Bool self, _Bool right);
 _Bool char_equals(char self, char right);
 _Bool short_equals(short self, short right);
 _Bool int_equals(int self, int right);
 _Bool long_equals(long self, long right);
-_Bool size_t_equals(unsigned long  int self  , unsigned long  int right  );
+_Bool size_t_equals(unsigned long  int self, unsigned long  int right);
 _Bool float_equals(float self, float right);
 _Bool double_equals(double self, double right);
 _Bool bool_operator_equals(_Bool self, _Bool right);
@@ -1914,19 +2035,19 @@ char* charp_operator_add(char* self, char* right);
 char* string_operator_add(char* self, char* right);
 char* charp_operator_mult(char* self, int right);
 char* string_operator_mult(char* self, int right);
-_Bool charpa_contained(char** self, unsigned long  int len  , char* str);
-unsigned long  int shorta_length(short* self, unsigned long  int len  );
-unsigned long  int inta_length(int* self, unsigned long  int len  );
-unsigned long  int longa_length(long* self, unsigned long  int len  );
-unsigned long  int floata_length(float* self, unsigned long  int len  );
-unsigned long  int doublea_length(double* self, unsigned long  int len  );
+_Bool charpa_contained(char** self, unsigned long  int len, char* str);
+unsigned long  int shorta_length(short* self, unsigned long  int len);
+unsigned long  int inta_length(int* self, unsigned long  int len);
+unsigned long  int longa_length(long* self, unsigned long  int len);
+unsigned long  int floata_length(float* self, unsigned long  int len);
+unsigned long  int doublea_length(double* self, unsigned long  int len);
 unsigned int bool_get_hash_key(_Bool value);
 unsigned int _Bool_get_hash_key(_Bool value);
 unsigned int char_get_hash_key(char value);
 unsigned int short_get_hash_key(short int value);
 unsigned int int_get_hash_key(int value);
 unsigned int long_get_hash_key(long value);
-unsigned int size_t_get_hash_key(unsigned long  int value  );
+unsigned int size_t_get_hash_key(unsigned long  int value);
 unsigned int float_get_hash_key(float value);
 unsigned int double_get_hash_key(double value);
 unsigned int charp_get_hash_key(char* value);
@@ -1938,7 +2059,7 @@ char char_clone(char self);
 short int short_clone(short self);
 int int_clone(int self);
 long  int long_clone(long self);
-unsigned long  int size_t_clone(unsigned long  int self  );
+unsigned long  int size_t_clone(unsigned long  int self);
 double double_clone(double self);
 float float_clone(float self);
 _Bool xisalpha(char c);
@@ -1976,7 +2097,7 @@ char* char_to_string(char self);
 char* short_to_string(short self);
 char* int_to_string(int self);
 char* long_to_string(long self);
-char* size_t_to_string(unsigned long  int self  );
+char* size_t_to_string(unsigned long  int self);
 char* float_to_string(float self);
 char* double_to_string(double self);
 char* string_to_string(char* self);
@@ -1987,7 +2108,7 @@ int char_compare(char left, char right);
 int short_compare(short left, short right);
 int int_compare(int left, int right);
 int long_compare(long left, long right);
-int size_t_compare(unsigned long  int left  , unsigned long  int right  );
+int size_t_compare(unsigned long  int left, unsigned long  int right);
 int float_compare(float left, float right);
 int double_compare(double left, double right);
 int string_compare(char* left, char* right);
@@ -2063,18 +2184,19 @@ struct list$1char$ph* charp_scan_block(char* self, char* reg, _Bool ignore_case,
 char* string_sub_block(char* self, char* reg, _Bool global, _Bool ignore_case, void* parent, char* (*block)(void*,char*,struct list$1char$ph*));
 // uniq global variable
 // inline function
-static inline unsigned short int _OSSwapInt16(unsigned short int _data  )
+static inline unsigned short int _OSSwapInt16(unsigned short int _data)
 {
     return (unsigned short int)(_data<<8|_data>>8);
 }
-static inline unsigned int _OSSwapInt32(unsigned int _data  )
+static inline unsigned int _OSSwapInt32(unsigned int _data)
 {
     _data=(((_data^(_data>>16|(_data<<16)))&0xFF00FFFF)>>8)^(_data>>8|_data<<24);
     return _data;
 }
-static inline unsigned long  long _OSSwapInt64(unsigned long  long _data  )
+static inline unsigned long  long _OSSwapInt64(unsigned long  long _data)
 {
-    union anonymous_typeZ5 _u;
+    union anonymous_typeZ5 _u  ;
+    memset(&_u, 0, sizeof(_u));
     _u._ul[0]=(unsigned int)(_data>>32);
     _u._ul[1]=(unsigned int)(_data&0xffffffff);
     _u._ul[0]=_OSSwapInt32(_u._ul[0]);
@@ -2094,18 +2216,19 @@ inline int isascii(int _c)
 {
     return ((_c&~0x7F)==0);
 }
-inline int __istype(int _c  , unsigned long  int _f)
+inline int __istype(int _c, unsigned long  int _f)
 {
-    return (((isascii(_c))?(!!(_DefaultRuneLocale.__runetype[_c]&_f)):(!!__maskrune(_c,_f))));
+    return (((((isascii(_c)))?((!!(_DefaultRuneLocale.__runetype[_c]&_f))):((!!__maskrune(_c,_f))))));
 }
-inline int __isctype(int _c  , unsigned long  int _f)
+inline int __isctype(int _c, unsigned long  int _f)
 {
-    return (((_c<0||_c>=(1<<8)))?(0):(!!(_DefaultRuneLocale.__runetype[_c]&_f)));
+    return (((((_c<0||_c>=(1<<8))))?((0)):((!!(_DefaultRuneLocale.__runetype[_c]&_f)))));
 }
-inline int __wcwidth(int _c  )
+inline int __wcwidth(int _c)
 {
     unsigned int _x;
     memset(&_x, 0, sizeof(_x));
+    memset(&_x,0,sizeof(_x));
     if(_c==0) {
         return (0);
     }
@@ -2113,7 +2236,7 @@ inline int __wcwidth(int _c  )
     if((_x&0xe0000000L)!=0) {
         return ((_x&0xe0000000L)>>30);
     }
-    return ((((_x&0x00040000L)!=0)?(1):(-1)));
+    return ((((((_x&0x00040000L)!=0))?((1)):((-1)))));
 }
 inline int isalnum(int _c)
 {
@@ -2203,59 +2326,59 @@ inline int isspecial(int _c)
 {
     return (__istype(_c,0x00100000L));
 }
-inline int iswalnum(unsigned int _wc  )
+inline int iswalnum(unsigned int _wc)
 {
     return (__istype(_wc,0x00000100L|0x00000400L));
 }
-inline int iswalpha(unsigned int _wc  )
+inline int iswalpha(unsigned int _wc)
 {
     return (__istype(_wc,0x00000100L));
 }
-inline int iswcntrl(unsigned int _wc  )
+inline int iswcntrl(unsigned int _wc)
 {
     return (__istype(_wc,0x00000200L));
 }
-inline int iswctype(unsigned int _wc  , unsigned int _charclass  )
+inline int iswctype(unsigned int _wc, unsigned int _charclass)
 {
     return (__istype(_wc,_charclass));
 }
-inline int iswdigit(unsigned int _wc  )
+inline int iswdigit(unsigned int _wc)
 {
     return (__isctype(_wc,0x00000400L));
 }
-inline int iswgraph(unsigned int _wc  )
+inline int iswgraph(unsigned int _wc)
 {
     return (__istype(_wc,0x00000800L));
 }
-inline int iswlower(unsigned int _wc  )
+inline int iswlower(unsigned int _wc)
 {
     return (__istype(_wc,0x00001000L));
 }
-inline int iswprint(unsigned int _wc  )
+inline int iswprint(unsigned int _wc)
 {
     return (__istype(_wc,0x00040000L));
 }
-inline int iswpunct(unsigned int _wc  )
+inline int iswpunct(unsigned int _wc)
 {
     return (__istype(_wc,0x00002000L));
 }
-inline int iswspace(unsigned int _wc  )
+inline int iswspace(unsigned int _wc)
 {
     return (__istype(_wc,0x00004000L));
 }
-inline int iswupper(unsigned int _wc  )
+inline int iswupper(unsigned int _wc)
 {
     return (__istype(_wc,0x00008000L));
 }
-inline int iswxdigit(unsigned int _wc  )
+inline int iswxdigit(unsigned int _wc)
 {
     return (__isctype(_wc,0x00010000L));
 }
-inline unsigned int towlower(unsigned int _wc  )
+inline unsigned int towlower(unsigned int _wc)
 {
     return (__tolower(_wc));
 }
-inline unsigned int towupper(unsigned int _wc  )
+inline unsigned int towupper(unsigned int _wc)
 {
     return (__toupper(_wc));
 }
@@ -2263,15 +2386,20 @@ inline unsigned int towupper(unsigned int _wc  )
 // body function
 void init_task(void (*fun)())
 {
-    unsigned int* stack  ;
-    unsigned int* stack_end  ;
+    unsigned int* stack;
+    unsigned int* stack_end;
     int i;
     void* __right_value0;
     struct sTask* task  ;
     memset(&stack, 0, sizeof(stack));
     memset(&stack_end, 0, sizeof(stack_end));
     memset(&i, 0, sizeof(i));
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&task, 0, sizeof(task));
+    memset(&stack,0,sizeof(stack));
+    memset(&stack_end,0,sizeof(stack_end));
+    memset(&i,0,sizeof(i));
+    memset(&task,0,sizeof(task));
     __right_value0=(void*)0;
     stack=(unsigned int*)calloc(1,sizeof(unsigned int)*1024);
     stack_end=(unsigned int*)(&stack[1024-1]);
@@ -2298,12 +2426,20 @@ static struct list$1sTask$ph* list$1sTask$ph_add(struct list$1sTask$ph* self  , 
     struct list_item$1sTask$ph* litem_1  ;
     struct sTask* __dec_obj3  ;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&litem, 0, sizeof(litem));
     memset(&__dec_obj1, 0, sizeof(__dec_obj1));
     memset(&litem_0, 0, sizeof(litem_0));
     memset(&__dec_obj2, 0, sizeof(__dec_obj2));
     memset(&litem_1, 0, sizeof(litem_1));
     memset(&__dec_obj3, 0, sizeof(__dec_obj3));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&litem,0,sizeof(litem));
+    memset(&__dec_obj1,0,sizeof(__dec_obj1));
+    memset(&litem_0,0,sizeof(litem_0));
+    memset(&__dec_obj2,0,sizeof(__dec_obj2));
+    memset(&litem_1,0,sizeof(litem_1));
+    memset(&__dec_obj3,0,sizeof(__dec_obj3));
     __right_value0=(void*)0;
     if(self==((void*)0)) {
         __result_obj__0=self;
@@ -2495,6 +2631,7 @@ void restore_context(struct sTask* task  )
 _Bool timer_callback(struct repeating_timer* t)
 {
     void* __right_value0;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     __right_value0=(void*)0;
     save_context(((struct sTask*)(__right_value0=list$1sTask$ph_operator_load_element(gTasks,gCurrentTask))));
     come_call_finalizer(sTask_finalize,__right_value0,(void*)0,(void*)0,0,1,0,(void*)0);
@@ -2516,6 +2653,11 @@ static struct sTask* list$1sTask$ph$p_operator_load_element(struct list$1sTask$p
     memset(&it, 0, sizeof(it));
     memset(&i, 0, sizeof(i));
     memset(&default_value_2, 0, sizeof(default_value_2));
+    memset(&default_value,0,sizeof(default_value));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&it,0,sizeof(it));
+    memset(&i,0,sizeof(i));
+    memset(&default_value_2,0,sizeof(default_value_2));
     if(self==((void*)0)) {
         memset(&default_value,0,sizeof(struct sTask*));
         __result_obj__0=(struct sTask*)come_increment_ref_count(default_value);
@@ -2557,6 +2699,11 @@ static struct sTask* list$1sTask$ph_operator_load_element(struct list$1sTask$ph*
     memset(&it, 0, sizeof(it));
     memset(&i, 0, sizeof(i));
     memset(&default_value_3, 0, sizeof(default_value_3));
+    memset(&default_value,0,sizeof(default_value));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&it,0,sizeof(it));
+    memset(&i,0,sizeof(i));
+    memset(&default_value_3,0,sizeof(default_value_3));
     if(self==((void*)0)) {
         memset(&default_value,0,sizeof(struct sTask*));
         __result_obj__0=(struct sTask*)come_increment_ref_count(default_value);
@@ -2621,9 +2768,14 @@ int main()
     struct list$1sTask$ph* __dec_obj4  ;
     struct repeating_timer timer;
     int __result_obj__0;
+    memset(&__right_value0, 0, sizeof(__right_value0));
+    memset(&__right_value1, 0, sizeof(__right_value1));
     memset(&__dec_obj4, 0, sizeof(__dec_obj4));
     memset(&timer, 0, sizeof(timer));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__dec_obj4,0,sizeof(__dec_obj4));
+    memset(&timer,0,sizeof(timer));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __right_value1=(void*)0;
     come_heap_init(0);
@@ -2660,6 +2812,7 @@ static struct list$1sTask$ph* list$1sTask$ph_initialize(struct list$1sTask$ph* s
 {
     struct list$1sTask$ph* __result_obj__0  ;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     self->head=((void*)0);
     self->tail=((void*)0);
     self->len=0;
@@ -2675,6 +2828,8 @@ static void list$1sTask$ph$p_finalize(struct list$1sTask$ph* self  )
     struct list_item$1sTask$ph* prev_it  ;
     memset(&it, 0, sizeof(it));
     memset(&prev_it, 0, sizeof(prev_it));
+    memset(&it,0,sizeof(it));
+    memset(&prev_it,0,sizeof(prev_it));
     if(self==((void*)0)) {
         return;
     }
@@ -2699,6 +2854,8 @@ static void list$1sTask$ph_finalize(struct list$1sTask$ph* self  )
     struct list_item$1sTask$ph* prev_it  ;
     memset(&it, 0, sizeof(it));
     memset(&prev_it, 0, sizeof(prev_it));
+    memset(&it,0,sizeof(it));
+    memset(&prev_it,0,sizeof(prev_it));
     if(self==((void*)0)) {
         return;
     }
@@ -2734,7 +2891,9 @@ char* come_get_stackframe()
 {
     void* __right_value0;
     char* __result_obj__0;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
     (__right_value0=come_decrement_ref_count(__right_value0,(void*)0,(void*)0,1,0,(void*)0));
@@ -2772,6 +2931,8 @@ void come_heap_final()
     int n;
     memset(&it, 0, sizeof(it));
     memset(&n, 0, sizeof(n));
+    memset(&it,0,sizeof(it));
+    memset(&n,0,sizeof(n));
     it=(struct sMemHeaderTiny*)gAllocMem;
     n=0;
     while(it) {
@@ -2786,10 +2947,11 @@ void come_heap_final()
     }
 }
 
-void* alloc_from_pages(unsigned long  int size  )
+void* alloc_from_pages(unsigned long  int size)
 {
     void* __result_obj__0;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __result_obj__0=calloc(1,size);
     return __result_obj__0;
 }
@@ -2799,11 +2961,15 @@ void come_free_mem_of_heap_pool(void* mem)
     struct sMemHeaderTiny* it  ;
     struct sMemHeaderTiny* prev_it  ;
     struct sMemHeaderTiny* next_it  ;
-    unsigned long  int size  ;
+    unsigned long  int size;
     memset(&it, 0, sizeof(it));
     memset(&prev_it, 0, sizeof(prev_it));
     memset(&next_it, 0, sizeof(next_it));
     memset(&size, 0, sizeof(size));
+    memset(&it,0,sizeof(it));
+    memset(&prev_it,0,sizeof(prev_it));
+    memset(&next_it,0,sizeof(next_it));
+    memset(&size,0,sizeof(size));
     if(mem) {
         it=(struct sMemHeaderTiny*)((char*)mem-sizeof(struct sMemHeaderTiny));
         if(it->allocated!=177783) {
@@ -2832,9 +2998,9 @@ void come_free_mem_of_heap_pool(void* mem)
     }
 }
 
-void* come_alloc_mem_from_heap_pool(unsigned long  int size  , char* sname, int sline, char* class_name)
+void* come_alloc_mem_from_heap_pool(unsigned long  int size, char* sname, int sline, char* class_name)
 {
-    unsigned long  int size2  ;
+    unsigned long  int size2;
     void* result;
     struct sMemHeaderTiny* it  ;
     void* __result_obj__0;
@@ -2842,6 +3008,10 @@ void* come_alloc_mem_from_heap_pool(unsigned long  int size  , char* sname, int 
     memset(&result, 0, sizeof(result));
     memset(&it, 0, sizeof(it));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&size2,0,sizeof(size2));
+    memset(&result,0,sizeof(result));
+    memset(&it,0,sizeof(it));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     size2=size+sizeof(struct sMemHeaderTiny);
     size2=(size2+3&~0x3);
     result=alloc_from_pages(size2);
@@ -2869,6 +3039,8 @@ char* come_dynamic_typeof(void* mem)
     char* __result_obj__0;
     memset(&it, 0, sizeof(it));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&it,0,sizeof(it));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     it=(struct sMemHeaderTiny*)((char*)mem-sizeof(unsigned long  int)-sizeof(unsigned long  int)-sizeof(struct sMemHeaderTiny));
     if(it->allocated!=177783) {
         printf("invalid heap object(%p)(2)\n",it);
@@ -2878,16 +3050,20 @@ char* come_dynamic_typeof(void* mem)
     return __result_obj__0;
 }
 
-void* come_calloc(unsigned long  int count  , unsigned long  int size  , char* sname, int sline, char* class_name)
+void* come_calloc(unsigned long  int count, unsigned long  int size, char* sname, int sline, char* class_name)
 {
     char* mem;
-    unsigned long  int* ref_count  ;
-    unsigned long  int* size2  ;
+    unsigned long  int* ref_count;
+    unsigned long  int* size2;
     void* __result_obj__0;
     memset(&mem, 0, sizeof(mem));
     memset(&ref_count, 0, sizeof(ref_count));
     memset(&size2, 0, sizeof(size2));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&mem,0,sizeof(mem));
+    memset(&ref_count,0,sizeof(ref_count));
+    memset(&size2,0,sizeof(size2));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     mem=come_alloc_mem_from_heap_pool(sizeof(unsigned long  int)+sizeof(unsigned long  int)+count*size,sname,sline,class_name);
     ref_count=(unsigned long  int*)mem;
     *ref_count=0;
@@ -2899,8 +3075,9 @@ void* come_calloc(unsigned long  int count  , unsigned long  int size  , char* s
 
 void come_free(void* mem)
 {
-    unsigned long  int* ref_count  ;
+    unsigned long  int* ref_count;
     memset(&ref_count, 0, sizeof(ref_count));
+    memset(&ref_count,0,sizeof(ref_count));
     if(mem==((void*)0)) {
         return;
     }
@@ -2912,14 +3089,19 @@ void* come_memdup(void* block, char* sname, int sline, char* class_name)
 {
     void* __result_obj__0;
     char* mem;
-    unsigned long  int* size_p  ;
-    unsigned long  int size  ;
+    unsigned long  int* size_p;
+    unsigned long  int size;
     void* result;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&mem, 0, sizeof(mem));
     memset(&size_p, 0, sizeof(size_p));
     memset(&size, 0, sizeof(size));
     memset(&result, 0, sizeof(result));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&mem,0,sizeof(mem));
+    memset(&size_p,0,sizeof(size_p));
+    memset(&size,0,sizeof(size));
+    memset(&result,0,sizeof(result));
     if(!block) {
         __result_obj__0=((void*)0);
         return __result_obj__0;
@@ -2936,9 +3118,11 @@ void* come_memdup(void* block, char* sname, int sline, char* class_name)
 void* come_increment_ref_count(void* mem)
 {
     void* __result_obj__0;
-    unsigned long  int* ref_count  ;
+    unsigned long  int* ref_count;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&ref_count, 0, sizeof(ref_count));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&ref_count,0,sizeof(ref_count));
     if(mem==((void*)0)) {
         __result_obj__0=mem;
         return __result_obj__0;
@@ -2952,9 +3136,11 @@ void* come_increment_ref_count(void* mem)
 void* come_print_ref_count(void* mem)
 {
     void* __result_obj__0;
-    unsigned long  int* ref_count  ;
+    unsigned long  int* ref_count;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&ref_count, 0, sizeof(ref_count));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&ref_count,0,sizeof(ref_count));
     if(mem==((void*)0)) {
         __result_obj__0=mem;
         return __result_obj__0;
@@ -2967,8 +3153,9 @@ void* come_print_ref_count(void* mem)
 
 int come_get_ref_count(void* mem)
 {
-    unsigned long  int* ref_count  ;
+    unsigned long  int* ref_count;
     memset(&ref_count, 0, sizeof(ref_count));
+    memset(&ref_count,0,sizeof(ref_count));
     if(mem==((void*)0)) {
         return 0;
     }
@@ -2986,6 +3173,10 @@ void* come_decrement_ref_count(void* mem, void* protocol_fun, void* protocol_obj
     memset(&ref_count, 0, sizeof(ref_count));
     memset(&count, 0, sizeof(count));
     memset(&finalizer, 0, sizeof(finalizer));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&ref_count,0,sizeof(ref_count));
+    memset(&count,0,sizeof(count));
+    memset(&finalizer,0,sizeof(finalizer));
     if(result_obj) {
         if(mem==result_obj) {
             __result_obj__0=mem;
@@ -3033,6 +3224,14 @@ void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* protoco
     memset(&finalizer_6, 0, sizeof(finalizer_6));
     memset(&finalizer_7, 0, sizeof(finalizer_7));
     memset(&finalizer_8, 0, sizeof(finalizer_8));
+    memset(&finalizer,0,sizeof(finalizer));
+    memset(&finalizer_4,0,sizeof(finalizer_4));
+    memset(&finalizer_5,0,sizeof(finalizer_5));
+    memset(&ref_count,0,sizeof(ref_count));
+    memset(&count,0,sizeof(count));
+    memset(&finalizer_6,0,sizeof(finalizer_6));
+    memset(&finalizer_7,0,sizeof(finalizer_7));
+    memset(&finalizer_8,0,sizeof(finalizer_8));
     if(result_obj) {
         if(mem==result_obj) {
             return;
@@ -3107,7 +3306,11 @@ char* __builtin_string(char* str)
     char* result;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&len, 0, sizeof(len));
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&result, 0, sizeof(result));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&len,0,sizeof(len));
+    memset(&result,0,sizeof(result));
     __right_value0=(void*)0;
     if(str==((void*)0)) {
         __result_obj__0=(char*)come_increment_ref_count(((void*)0));
@@ -3147,7 +3350,9 @@ char* come_get_stackframe_v2()
 {
     void* __right_value0;
     char* __result_obj__0;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=come_get_stackframe_v2())));
     (__right_value0=come_decrement_ref_count(__right_value0,(void*)0,(void*)0,1,0,(void*)0));
@@ -3155,10 +3360,11 @@ char* come_get_stackframe_v2()
     return __result_obj__0;
 }
 
-void* come_calloc_v2(unsigned long  int count  , unsigned long  int size  , char* sname, int sline, char* class_name)
+void* come_calloc_v2(unsigned long  int count, unsigned long  int size, char* sname, int sline, char* class_name)
 {
     void* __result_obj__0;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __result_obj__0=come_calloc_v2(count,size,sname,sline,class_name);
     return __result_obj__0;
 }
@@ -3173,8 +3379,11 @@ struct buffer* buffer_initialize(struct buffer* self  )
     void* __right_value0;
     char* __dec_obj5;
     struct buffer* __result_obj__0  ;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__dec_obj5, 0, sizeof(__dec_obj5));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__dec_obj5,0,sizeof(__dec_obj5));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     self->size=128;
     __dec_obj5=self->buf,self->buf=(char*)come_increment_ref_count((char*)come_calloc_v2(1,sizeof(char)*(1*(self->size)),"/usr/local/include/neo-c.h",3127,"char*"));
@@ -3187,13 +3396,16 @@ struct buffer* buffer_initialize(struct buffer* self  )
     return __result_obj__0;
 }
 
-struct buffer* buffer_initialize_with_value(struct buffer* self  , char* mem, unsigned long  int size  )
+struct buffer* buffer_initialize_with_value(struct buffer* self  , char* mem, unsigned long  int size)
 {
     void* __right_value0;
     char* __dec_obj6;
     struct buffer* __result_obj__0  ;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__dec_obj6, 0, sizeof(__dec_obj6));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__dec_obj6,0,sizeof(__dec_obj6));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     self->size=128;
     __dec_obj6=self->buf,self->buf=(char*)come_increment_ref_count((char*)come_calloc_v2(1,sizeof(char)*(1*(self->size)),"/usr/local/include/neo-c.h",3137,"char*"));
@@ -3221,8 +3433,12 @@ struct buffer* buffer_clone(struct buffer* self  )
     struct buffer* result  ;
     char* __dec_obj7;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&result, 0, sizeof(result));
     memset(&__dec_obj7, 0, sizeof(__dec_obj7));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&result,0,sizeof(result));
+    memset(&__dec_obj7,0,sizeof(__dec_obj7));
     __right_value0=(void*)0;
     if(self==((void*)0)) {
         __result_obj__0=(struct buffer*)come_increment_ref_count(((void*)0));
@@ -3246,7 +3462,10 @@ _Bool buffer_equals(struct buffer* left  , struct buffer* right  )
     void* __right_value0;
     void* __right_value1;
     _Bool __result_obj__0;
+    memset(&__right_value0, 0, sizeof(__right_value0));
+    memset(&__right_value1, 0, sizeof(__right_value1));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __right_value1=(void*)0;
     if(left==((void*)0)&&right==((void*)0)) {
@@ -3293,7 +3512,7 @@ void buffer_trim(struct buffer* self  , int len)
     }
 }
 
-struct buffer* buffer_append(struct buffer* self  , char* mem, unsigned long  int size  )
+struct buffer* buffer_append(struct buffer* self  , char* mem, unsigned long  int size)
 {
     struct buffer* __result_obj__0  ;
     void* __right_value0;
@@ -3302,10 +3521,16 @@ struct buffer* buffer_append(struct buffer* self  , char* mem, unsigned long  in
     int new_size;
     char* __dec_obj8;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&old_buf, 0, sizeof(old_buf));
     memset(&old_len, 0, sizeof(old_len));
     memset(&new_size, 0, sizeof(new_size));
     memset(&__dec_obj8, 0, sizeof(__dec_obj8));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&old_buf,0,sizeof(old_buf));
+    memset(&old_len,0,sizeof(old_len));
+    memset(&new_size,0,sizeof(new_size));
+    memset(&__dec_obj8,0,sizeof(__dec_obj8));
     __right_value0=(void*)0;
     if(self==((void*)0)||mem==((void*)0)) {
         __result_obj__0=self;
@@ -3339,10 +3564,16 @@ struct buffer* buffer_append_char(struct buffer* self  , char c)
     int new_size;
     char* __dec_obj9;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&old_buf, 0, sizeof(old_buf));
     memset(&old_len, 0, sizeof(old_len));
     memset(&new_size, 0, sizeof(new_size));
     memset(&__dec_obj9, 0, sizeof(__dec_obj9));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&old_buf,0,sizeof(old_buf));
+    memset(&old_len,0,sizeof(old_len));
+    memset(&new_size,0,sizeof(new_size));
+    memset(&__dec_obj9,0,sizeof(__dec_obj9));
     __right_value0=(void*)0;
     if(self==((void*)0)) {
         __result_obj__0=((void*)0);
@@ -3378,10 +3609,17 @@ struct buffer* buffer_append_str(struct buffer* self  , char* mem)
     char* __dec_obj10;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&size, 0, sizeof(size));
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&old_buf, 0, sizeof(old_buf));
     memset(&old_len, 0, sizeof(old_len));
     memset(&new_size, 0, sizeof(new_size));
     memset(&__dec_obj10, 0, sizeof(__dec_obj10));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&size,0,sizeof(size));
+    memset(&old_buf,0,sizeof(old_buf));
+    memset(&old_len,0,sizeof(old_len));
+    memset(&new_size,0,sizeof(new_size));
+    memset(&__dec_obj10,0,sizeof(__dec_obj10));
     __right_value0=(void*)0;
     if(self==((void*)0)||mem==((void*)0)) {
         __result_obj__0=self;
@@ -3422,12 +3660,22 @@ struct buffer* buffer_append_format(struct buffer* self  , char* msg, ...)
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&args, 0, sizeof(args));
     memset(&len, 0, sizeof(len));
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&mem, 0, sizeof(mem));
     memset(&size, 0, sizeof(size));
     memset(&old_buf, 0, sizeof(old_buf));
     memset(&old_len, 0, sizeof(old_len));
     memset(&new_size, 0, sizeof(new_size));
     memset(&__dec_obj11, 0, sizeof(__dec_obj11));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&args,0,sizeof(args));
+    memset(&len,0,sizeof(len));
+    memset(&mem,0,sizeof(mem));
+    memset(&size,0,sizeof(size));
+    memset(&old_buf,0,sizeof(old_buf));
+    memset(&old_len,0,sizeof(old_len));
+    memset(&new_size,0,sizeof(new_size));
+    memset(&__dec_obj11,0,sizeof(__dec_obj11));
     __right_value0=(void*)0;
     if(self==((void*)0)||msg==((void*)0)) {
         __result_obj__0=self;
@@ -3435,6 +3683,7 @@ struct buffer* buffer_append_format(struct buffer* self  , char* msg, ...)
     }
     char result[128];
     memset(&result, 0, sizeof(result));
+    memset(&result,0,sizeof(result));
     __builtin_va_start(args,msg);
     vsnprintf(result,128,msg,args);
     __builtin_va_end(args);
@@ -3473,10 +3722,17 @@ struct buffer* buffer_append_nullterminated_str(struct buffer* self  , char* mem
     char* __dec_obj12;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&size, 0, sizeof(size));
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&old_buf, 0, sizeof(old_buf));
     memset(&old_len, 0, sizeof(old_len));
     memset(&new_size, 0, sizeof(new_size));
     memset(&__dec_obj12, 0, sizeof(__dec_obj12));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&size,0,sizeof(size));
+    memset(&old_buf,0,sizeof(old_buf));
+    memset(&old_len,0,sizeof(old_len));
+    memset(&new_size,0,sizeof(new_size));
+    memset(&__dec_obj12,0,sizeof(__dec_obj12));
     __right_value0=(void*)0;
     if(self==((void*)0)||mem==((void*)0)) {
         __result_obj__0=self;
@@ -3516,10 +3772,18 @@ struct buffer* buffer_append_int(struct buffer* self  , int value)
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&mem, 0, sizeof(mem));
     memset(&size, 0, sizeof(size));
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&old_buf, 0, sizeof(old_buf));
     memset(&old_len, 0, sizeof(old_len));
     memset(&new_size, 0, sizeof(new_size));
     memset(&__dec_obj13, 0, sizeof(__dec_obj13));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&mem,0,sizeof(mem));
+    memset(&size,0,sizeof(size));
+    memset(&old_buf,0,sizeof(old_buf));
+    memset(&old_len,0,sizeof(old_len));
+    memset(&new_size,0,sizeof(new_size));
+    memset(&__dec_obj13,0,sizeof(__dec_obj13));
     __right_value0=(void*)0;
     if(self==((void*)0)) {
         __result_obj__0=((void*)0);
@@ -3559,10 +3823,18 @@ struct buffer* buffer_append_long(struct buffer* self  , long value)
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&mem, 0, sizeof(mem));
     memset(&size, 0, sizeof(size));
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&old_buf, 0, sizeof(old_buf));
     memset(&old_len, 0, sizeof(old_len));
     memset(&new_size, 0, sizeof(new_size));
     memset(&__dec_obj14, 0, sizeof(__dec_obj14));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&mem,0,sizeof(mem));
+    memset(&size,0,sizeof(size));
+    memset(&old_buf,0,sizeof(old_buf));
+    memset(&old_len,0,sizeof(old_len));
+    memset(&new_size,0,sizeof(new_size));
+    memset(&__dec_obj14,0,sizeof(__dec_obj14));
     __right_value0=(void*)0;
     if(self==((void*)0)) {
         __result_obj__0=((void*)0);
@@ -3602,10 +3874,18 @@ struct buffer* buffer_append_short(struct buffer* self  , short value)
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&mem, 0, sizeof(mem));
     memset(&size, 0, sizeof(size));
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&old_buf, 0, sizeof(old_buf));
     memset(&old_len, 0, sizeof(old_len));
     memset(&new_size, 0, sizeof(new_size));
     memset(&__dec_obj15, 0, sizeof(__dec_obj15));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&mem,0,sizeof(mem));
+    memset(&size,0,sizeof(size));
+    memset(&old_buf,0,sizeof(old_buf));
+    memset(&old_len,0,sizeof(old_len));
+    memset(&new_size,0,sizeof(new_size));
+    memset(&__dec_obj15,0,sizeof(__dec_obj15));
     __right_value0=(void*)0;
     if(self==((void*)0)) {
         __result_obj__0=((void*)0);
@@ -3644,11 +3924,19 @@ struct buffer* buffer_alignment(struct buffer* self  )
     int i;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&len, 0, sizeof(len));
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&old_buf, 0, sizeof(old_buf));
     memset(&old_len, 0, sizeof(old_len));
     memset(&new_size, 0, sizeof(new_size));
     memset(&__dec_obj16, 0, sizeof(__dec_obj16));
     memset(&i, 0, sizeof(i));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&len,0,sizeof(len));
+    memset(&old_buf,0,sizeof(old_buf));
+    memset(&old_len,0,sizeof(old_len));
+    memset(&new_size,0,sizeof(new_size));
+    memset(&__dec_obj16,0,sizeof(__dec_obj16));
+    memset(&i,0,sizeof(i));
     __right_value0=(void*)0;
     if(self==((void*)0)) {
         __result_obj__0=((void*)0);
@@ -3696,8 +3984,12 @@ struct buffer* charp_to_buffer(char* self)
     void* __right_value1;
     struct buffer* result  ;
     struct buffer* __result_obj__0  ;
+    memset(&__right_value0, 0, sizeof(__right_value0));
+    memset(&__right_value1, 0, sizeof(__right_value1));
     memset(&result, 0, sizeof(result));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&result,0,sizeof(result));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __right_value1=(void*)0;
     result=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1,sizeof(struct buffer)*(1),"/usr/local/include/neo-c.h",3515,"struct buffer*"))));
@@ -3718,7 +4010,9 @@ char* buffer_to_string(struct buffer* self  )
 {
     void* __right_value0;
     char* __result_obj__0;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     if(self==((void*)0)) {
         __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
@@ -3736,6 +4030,7 @@ unsigned char* buffer_head_pointer(struct buffer* self  )
 {
     unsigned char* __result_obj__0;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     if(self==((void*)0)) {
         __result_obj__0=((void*)0);
         return __result_obj__0;
@@ -3744,14 +4039,18 @@ unsigned char* buffer_head_pointer(struct buffer* self  )
     return __result_obj__0;
 }
 
-struct buffer* chara_to_buffer(char* self, unsigned long  int len  )
+struct buffer* chara_to_buffer(char* self, unsigned long  int len)
 {
     void* __right_value0;
     void* __right_value1;
     struct buffer* result  ;
     struct buffer* __result_obj__0  ;
+    memset(&__right_value0, 0, sizeof(__right_value0));
+    memset(&__right_value1, 0, sizeof(__right_value1));
     memset(&result, 0, sizeof(result));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&result,0,sizeof(result));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __right_value1=(void*)0;
     result=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1,sizeof(struct buffer)*(1),"/usr/local/include/neo-c.h",3545,"struct buffer*"))));
@@ -3768,16 +4067,21 @@ struct buffer* chara_to_buffer(char* self, unsigned long  int len  )
     return __result_obj__0;
 }
 
-struct buffer* charpa_to_buffer(char** self, unsigned long  int len  )
+struct buffer* charpa_to_buffer(char** self, unsigned long  int len)
 {
     void* __right_value0;
     void* __right_value1;
     struct buffer* result  ;
     struct buffer* __result_obj__0  ;
     int i;
+    memset(&__right_value0, 0, sizeof(__right_value0));
+    memset(&__right_value1, 0, sizeof(__right_value1));
     memset(&result, 0, sizeof(result));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&i, 0, sizeof(i));
+    memset(&result,0,sizeof(result));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&i,0,sizeof(i));
     __right_value0=(void*)0;
     __right_value1=(void*)0;
     result=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1,sizeof(struct buffer)*(1),"/usr/local/include/neo-c.h",3555,"struct buffer*"))));
@@ -3796,14 +4100,18 @@ struct buffer* charpa_to_buffer(char** self, unsigned long  int len  )
     return __result_obj__0;
 }
 
-struct buffer* shorta_to_buffer(short* self, unsigned long  int len  )
+struct buffer* shorta_to_buffer(short* self, unsigned long  int len)
 {
     void* __right_value0;
     void* __right_value1;
     struct buffer* result  ;
     struct buffer* __result_obj__0  ;
+    memset(&__right_value0, 0, sizeof(__right_value0));
+    memset(&__right_value1, 0, sizeof(__right_value1));
     memset(&result, 0, sizeof(result));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&result,0,sizeof(result));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __right_value1=(void*)0;
     result=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1,sizeof(struct buffer)*(1),"/usr/local/include/neo-c.h",3567,"struct buffer*"))));
@@ -3820,14 +4128,18 @@ struct buffer* shorta_to_buffer(short* self, unsigned long  int len  )
     return __result_obj__0;
 }
 
-struct buffer* inta_to_buffer(int* self, unsigned long  int len  )
+struct buffer* inta_to_buffer(int* self, unsigned long  int len)
 {
     void* __right_value0;
     void* __right_value1;
     struct buffer* result  ;
     struct buffer* __result_obj__0  ;
+    memset(&__right_value0, 0, sizeof(__right_value0));
+    memset(&__right_value1, 0, sizeof(__right_value1));
     memset(&result, 0, sizeof(result));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&result,0,sizeof(result));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __right_value1=(void*)0;
     result=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1,sizeof(struct buffer)*(1),"/usr/local/include/neo-c.h",3577,"struct buffer*"))));
@@ -3844,14 +4156,18 @@ struct buffer* inta_to_buffer(int* self, unsigned long  int len  )
     return __result_obj__0;
 }
 
-struct buffer* longa_to_buffer(long* self, unsigned long  int len  )
+struct buffer* longa_to_buffer(long* self, unsigned long  int len)
 {
     void* __right_value0;
     void* __right_value1;
     struct buffer* result  ;
     struct buffer* __result_obj__0  ;
+    memset(&__right_value0, 0, sizeof(__right_value0));
+    memset(&__right_value1, 0, sizeof(__right_value1));
     memset(&result, 0, sizeof(result));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&result,0,sizeof(result));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __right_value1=(void*)0;
     result=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1,sizeof(struct buffer)*(1),"/usr/local/include/neo-c.h",3587,"struct buffer*"))));
@@ -3868,14 +4184,18 @@ struct buffer* longa_to_buffer(long* self, unsigned long  int len  )
     return __result_obj__0;
 }
 
-struct buffer* floata_to_buffer(float* self, unsigned long  int len  )
+struct buffer* floata_to_buffer(float* self, unsigned long  int len)
 {
     void* __right_value0;
     void* __right_value1;
     struct buffer* result  ;
     struct buffer* __result_obj__0  ;
+    memset(&__right_value0, 0, sizeof(__right_value0));
+    memset(&__right_value1, 0, sizeof(__right_value1));
     memset(&result, 0, sizeof(result));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&result,0,sizeof(result));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __right_value1=(void*)0;
     result=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1,sizeof(struct buffer)*(1),"/usr/local/include/neo-c.h",3597,"struct buffer*"))));
@@ -3892,14 +4212,18 @@ struct buffer* floata_to_buffer(float* self, unsigned long  int len  )
     return __result_obj__0;
 }
 
-struct buffer* doublea_to_buffer(double* self, unsigned long  int len  )
+struct buffer* doublea_to_buffer(double* self, unsigned long  int len)
 {
     void* __right_value0;
     void* __right_value1;
     struct buffer* result  ;
     struct buffer* __result_obj__0  ;
+    memset(&__right_value0, 0, sizeof(__right_value0));
+    memset(&__right_value1, 0, sizeof(__right_value1));
     memset(&result, 0, sizeof(result));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&result,0,sizeof(result));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __right_value1=(void*)0;
     result=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1,sizeof(struct buffer)*(1),"/usr/local/include/neo-c.h",3607,"struct buffer*"))));
@@ -3926,11 +4250,18 @@ char* buffer_printable(struct buffer* self  )
     int i;
     unsigned char c;
     memset(&len, 0, sizeof(len));
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&result, 0, sizeof(result));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&n, 0, sizeof(n));
     memset(&i, 0, sizeof(i));
     memset(&c, 0, sizeof(c));
+    memset(&len,0,sizeof(len));
+    memset(&result,0,sizeof(result));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&n,0,sizeof(n));
+    memset(&i,0,sizeof(i));
+    memset(&c,0,sizeof(c));
     __right_value0=(void*)0;
     len=self->len;
     result=(char*)come_increment_ref_count((char*)come_calloc_v2(1,sizeof(char)*(1*(len*2+1)),"/usr/local/include/neo-c.h",3618,"char*"));
@@ -3967,6 +4298,8 @@ static struct list$1char$* list$1char$_initialize_with_values(struct list$1char$
     struct list$1char$* __result_obj__0  ;
     memset(&i, 0, sizeof(i));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&i,0,sizeof(i));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     self->head=((void*)0);
     self->tail=((void*)0);
     self->len=0;
@@ -3987,9 +4320,14 @@ static struct list$1char$* list$1char$_push_back(struct list$1char$* self  , cha
     struct list_item$1char$* litem_9  ;
     struct list_item$1char$* litem_10  ;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&litem, 0, sizeof(litem));
     memset(&litem_9, 0, sizeof(litem_9));
     memset(&litem_10, 0, sizeof(litem_10));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&litem,0,sizeof(litem));
+    memset(&litem_9,0,sizeof(litem_9));
+    memset(&litem_10,0,sizeof(litem_10));
     __right_value0=(void*)0;
     if(self==((void*)0)) {
         __result_obj__0=self;
@@ -4030,6 +4368,8 @@ static void list$1char$$p_finalize(struct list$1char$* self  )
     struct list_item$1char$* prev_it  ;
     memset(&it, 0, sizeof(it));
     memset(&prev_it, 0, sizeof(prev_it));
+    memset(&it,0,sizeof(it));
+    memset(&prev_it,0,sizeof(prev_it));
     if(self==((void*)0)) {
         return;
     }
@@ -4045,12 +4385,15 @@ static void list_item$1char$$p_finalize(struct list_item$1char$* self  )
 {
 }
 
-struct list$1char$* chara_to_list(char* self, unsigned long  int len  )
+struct list$1char$* chara_to_list(char* self, unsigned long  int len)
 {
     void* __right_value0;
     void* __right_value1;
     struct list$1char$* __result_obj__0  ;
+    memset(&__right_value0, 0, sizeof(__right_value0));
+    memset(&__right_value1, 0, sizeof(__right_value1));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __right_value1=(void*)0;
     __result_obj__0=(struct list$1char$*)come_increment_ref_count(((struct list$1char$*)(__right_value1=list$1char$_initialize_with_values((struct list$1char$*)come_increment_ref_count((struct list$1char$*)come_calloc_v2(1,sizeof(struct list$1char$)*(1),"/usr/local/include/neo-c.h",3666,"struct list$1char$*")),len,self))));
@@ -4065,6 +4408,8 @@ static struct list$1char$p* list$1char$p_initialize_with_values(struct list$1cha
     struct list$1char$p* __result_obj__0  ;
     memset(&i, 0, sizeof(i));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&i,0,sizeof(i));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     self->head=((void*)0);
     self->tail=((void*)0);
     self->len=0;
@@ -4085,9 +4430,14 @@ static struct list$1char$p* list$1char$p_push_back(struct list$1char$p* self  , 
     struct list_item$1char$p* litem_11  ;
     struct list_item$1char$p* litem_12  ;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&litem, 0, sizeof(litem));
     memset(&litem_11, 0, sizeof(litem_11));
     memset(&litem_12, 0, sizeof(litem_12));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&litem,0,sizeof(litem));
+    memset(&litem_11,0,sizeof(litem_11));
+    memset(&litem_12,0,sizeof(litem_12));
     __right_value0=(void*)0;
     if(self==((void*)0)) {
         __result_obj__0=self;
@@ -4128,6 +4478,8 @@ static void list$1char$p$p_finalize(struct list$1char$p* self  )
     struct list_item$1char$p* prev_it  ;
     memset(&it, 0, sizeof(it));
     memset(&prev_it, 0, sizeof(prev_it));
+    memset(&it,0,sizeof(it));
+    memset(&prev_it,0,sizeof(prev_it));
     if(self==((void*)0)) {
         return;
     }
@@ -4143,12 +4495,15 @@ static void list_item$1char$p$p_finalize(struct list_item$1char$p* self  )
 {
 }
 
-struct list$1char$p* charpa_to_list(char** self, unsigned long  int len  )
+struct list$1char$p* charpa_to_list(char** self, unsigned long  int len)
 {
     void* __right_value0;
     void* __right_value1;
     struct list$1char$p* __result_obj__0  ;
+    memset(&__right_value0, 0, sizeof(__right_value0));
+    memset(&__right_value1, 0, sizeof(__right_value1));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __right_value1=(void*)0;
     __result_obj__0=(struct list$1char$p*)come_increment_ref_count(((struct list$1char$p*)(__right_value1=list$1char$p_initialize_with_values((struct list$1char$p*)come_increment_ref_count((struct list$1char$p*)come_calloc_v2(1,sizeof(struct list$1char$p)*(1),"/usr/local/include/neo-c.h",3671,"struct list$1char$p*")),len,self))));
@@ -4163,6 +4518,8 @@ static struct list$1short$* list$1short$_initialize_with_values(struct list$1sho
     struct list$1short$* __result_obj__0  ;
     memset(&i, 0, sizeof(i));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&i,0,sizeof(i));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     self->head=((void*)0);
     self->tail=((void*)0);
     self->len=0;
@@ -4183,9 +4540,14 @@ static struct list$1short$* list$1short$_push_back(struct list$1short$* self  , 
     struct list_item$1short$* litem_13  ;
     struct list_item$1short$* litem_14  ;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&litem, 0, sizeof(litem));
     memset(&litem_13, 0, sizeof(litem_13));
     memset(&litem_14, 0, sizeof(litem_14));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&litem,0,sizeof(litem));
+    memset(&litem_13,0,sizeof(litem_13));
+    memset(&litem_14,0,sizeof(litem_14));
     __right_value0=(void*)0;
     if(self==((void*)0)) {
         __result_obj__0=self;
@@ -4226,6 +4588,8 @@ static void list$1short$$p_finalize(struct list$1short$* self  )
     struct list_item$1short$* prev_it  ;
     memset(&it, 0, sizeof(it));
     memset(&prev_it, 0, sizeof(prev_it));
+    memset(&it,0,sizeof(it));
+    memset(&prev_it,0,sizeof(prev_it));
     if(self==((void*)0)) {
         return;
     }
@@ -4241,12 +4605,15 @@ static void list_item$1short$$p_finalize(struct list_item$1short$* self  )
 {
 }
 
-struct list$1short$* shorta_to_list(short* self, unsigned long  int len  )
+struct list$1short$* shorta_to_list(short* self, unsigned long  int len)
 {
     void* __right_value0;
     void* __right_value1;
     struct list$1short$* __result_obj__0  ;
+    memset(&__right_value0, 0, sizeof(__right_value0));
+    memset(&__right_value1, 0, sizeof(__right_value1));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __right_value1=(void*)0;
     __result_obj__0=(struct list$1short$*)come_increment_ref_count(((struct list$1short$*)(__right_value1=list$1short$_initialize_with_values((struct list$1short$*)come_increment_ref_count((struct list$1short$*)come_calloc_v2(1,sizeof(struct list$1short$)*(1),"/usr/local/include/neo-c.h",3676,"struct list$1short$*")),len,self))));
@@ -4261,6 +4628,8 @@ static struct list$1int$* list$1int$_initialize_with_values(struct list$1int$* s
     struct list$1int$* __result_obj__0  ;
     memset(&i, 0, sizeof(i));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&i,0,sizeof(i));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     self->head=((void*)0);
     self->tail=((void*)0);
     self->len=0;
@@ -4281,9 +4650,14 @@ static struct list$1int$* list$1int$_push_back(struct list$1int$* self  , int it
     struct list_item$1int$* litem_15  ;
     struct list_item$1int$* litem_16  ;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&litem, 0, sizeof(litem));
     memset(&litem_15, 0, sizeof(litem_15));
     memset(&litem_16, 0, sizeof(litem_16));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&litem,0,sizeof(litem));
+    memset(&litem_15,0,sizeof(litem_15));
+    memset(&litem_16,0,sizeof(litem_16));
     __right_value0=(void*)0;
     if(self==((void*)0)) {
         __result_obj__0=self;
@@ -4324,6 +4698,8 @@ static void list$1int$$p_finalize(struct list$1int$* self  )
     struct list_item$1int$* prev_it  ;
     memset(&it, 0, sizeof(it));
     memset(&prev_it, 0, sizeof(prev_it));
+    memset(&it,0,sizeof(it));
+    memset(&prev_it,0,sizeof(prev_it));
     if(self==((void*)0)) {
         return;
     }
@@ -4339,12 +4715,15 @@ static void list_item$1int$$p_finalize(struct list_item$1int$* self  )
 {
 }
 
-struct list$1int$* inta_to_list(int* self, unsigned long  int len  )
+struct list$1int$* inta_to_list(int* self, unsigned long  int len)
 {
     void* __right_value0;
     void* __right_value1;
     struct list$1int$* __result_obj__0  ;
+    memset(&__right_value0, 0, sizeof(__right_value0));
+    memset(&__right_value1, 0, sizeof(__right_value1));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __right_value1=(void*)0;
     __result_obj__0=(struct list$1int$*)come_increment_ref_count(((struct list$1int$*)(__right_value1=list$1int$_initialize_with_values((struct list$1int$*)come_increment_ref_count((struct list$1int$*)come_calloc_v2(1,sizeof(struct list$1int$)*(1),"/usr/local/include/neo-c.h",3681,"struct list$1int$*")),len,self))));
@@ -4359,6 +4738,8 @@ static struct list$1long$* list$1long$_initialize_with_values(struct list$1long$
     struct list$1long$* __result_obj__0  ;
     memset(&i, 0, sizeof(i));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&i,0,sizeof(i));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     self->head=((void*)0);
     self->tail=((void*)0);
     self->len=0;
@@ -4379,9 +4760,14 @@ static struct list$1long$* list$1long$_push_back(struct list$1long$* self  , lon
     struct list_item$1long$* litem_17  ;
     struct list_item$1long$* litem_18  ;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&litem, 0, sizeof(litem));
     memset(&litem_17, 0, sizeof(litem_17));
     memset(&litem_18, 0, sizeof(litem_18));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&litem,0,sizeof(litem));
+    memset(&litem_17,0,sizeof(litem_17));
+    memset(&litem_18,0,sizeof(litem_18));
     __right_value0=(void*)0;
     if(self==((void*)0)) {
         __result_obj__0=self;
@@ -4422,6 +4808,8 @@ static void list$1long$$p_finalize(struct list$1long$* self  )
     struct list_item$1long$* prev_it  ;
     memset(&it, 0, sizeof(it));
     memset(&prev_it, 0, sizeof(prev_it));
+    memset(&it,0,sizeof(it));
+    memset(&prev_it,0,sizeof(prev_it));
     if(self==((void*)0)) {
         return;
     }
@@ -4437,12 +4825,15 @@ static void list_item$1long$$p_finalize(struct list_item$1long$* self  )
 {
 }
 
-struct list$1long$* longa_to_list(long* self, unsigned long  int len  )
+struct list$1long$* longa_to_list(long* self, unsigned long  int len)
 {
     void* __right_value0;
     void* __right_value1;
     struct list$1long$* __result_obj__0  ;
+    memset(&__right_value0, 0, sizeof(__right_value0));
+    memset(&__right_value1, 0, sizeof(__right_value1));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __right_value1=(void*)0;
     __result_obj__0=(struct list$1long$*)come_increment_ref_count(((struct list$1long$*)(__right_value1=list$1long$_initialize_with_values((struct list$1long$*)come_increment_ref_count((struct list$1long$*)come_calloc_v2(1,sizeof(struct list$1long$)*(1),"/usr/local/include/neo-c.h",3686,"struct list$1long$*")),len,self))));
@@ -4457,6 +4848,8 @@ static struct list$1float$* list$1float$_initialize_with_values(struct list$1flo
     struct list$1float$* __result_obj__0  ;
     memset(&i, 0, sizeof(i));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&i,0,sizeof(i));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     self->head=((void*)0);
     self->tail=((void*)0);
     self->len=0;
@@ -4477,9 +4870,14 @@ static struct list$1float$* list$1float$_push_back(struct list$1float$* self  , 
     struct list_item$1float$* litem_19  ;
     struct list_item$1float$* litem_20  ;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&litem, 0, sizeof(litem));
     memset(&litem_19, 0, sizeof(litem_19));
     memset(&litem_20, 0, sizeof(litem_20));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&litem,0,sizeof(litem));
+    memset(&litem_19,0,sizeof(litem_19));
+    memset(&litem_20,0,sizeof(litem_20));
     __right_value0=(void*)0;
     if(self==((void*)0)) {
         __result_obj__0=self;
@@ -4520,6 +4918,8 @@ static void list$1float$$p_finalize(struct list$1float$* self  )
     struct list_item$1float$* prev_it  ;
     memset(&it, 0, sizeof(it));
     memset(&prev_it, 0, sizeof(prev_it));
+    memset(&it,0,sizeof(it));
+    memset(&prev_it,0,sizeof(prev_it));
     if(self==((void*)0)) {
         return;
     }
@@ -4535,12 +4935,15 @@ static void list_item$1float$$p_finalize(struct list_item$1float$* self  )
 {
 }
 
-struct list$1float$* floata_to_list(float* self, unsigned long  int len  )
+struct list$1float$* floata_to_list(float* self, unsigned long  int len)
 {
     void* __right_value0;
     void* __right_value1;
     struct list$1float$* __result_obj__0  ;
+    memset(&__right_value0, 0, sizeof(__right_value0));
+    memset(&__right_value1, 0, sizeof(__right_value1));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __right_value1=(void*)0;
     __result_obj__0=(struct list$1float$*)come_increment_ref_count(((struct list$1float$*)(__right_value1=list$1float$_initialize_with_values((struct list$1float$*)come_increment_ref_count((struct list$1float$*)come_calloc_v2(1,sizeof(struct list$1float$)*(1),"/usr/local/include/neo-c.h",3691,"struct list$1float$*")),len,self))));
@@ -4555,6 +4958,8 @@ static struct list$1double$* list$1double$_initialize_with_values(struct list$1d
     struct list$1double$* __result_obj__0  ;
     memset(&i, 0, sizeof(i));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&i,0,sizeof(i));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     self->head=((void*)0);
     self->tail=((void*)0);
     self->len=0;
@@ -4575,9 +4980,14 @@ static struct list$1double$* list$1double$_push_back(struct list$1double$* self 
     struct list_item$1double$* litem_21  ;
     struct list_item$1double$* litem_22  ;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&litem, 0, sizeof(litem));
     memset(&litem_21, 0, sizeof(litem_21));
     memset(&litem_22, 0, sizeof(litem_22));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&litem,0,sizeof(litem));
+    memset(&litem_21,0,sizeof(litem_21));
+    memset(&litem_22,0,sizeof(litem_22));
     __right_value0=(void*)0;
     if(self==((void*)0)) {
         __result_obj__0=self;
@@ -4618,6 +5028,8 @@ static void list$1double$$p_finalize(struct list$1double$* self  )
     struct list_item$1double$* prev_it  ;
     memset(&it, 0, sizeof(it));
     memset(&prev_it, 0, sizeof(prev_it));
+    memset(&it,0,sizeof(it));
+    memset(&prev_it,0,sizeof(prev_it));
     if(self==((void*)0)) {
         return;
     }
@@ -4633,12 +5045,15 @@ static void list_item$1double$$p_finalize(struct list_item$1double$* self  )
 {
 }
 
-struct list$1double$* doublea_to_list(double* self, unsigned long  int len  )
+struct list$1double$* doublea_to_list(double* self, unsigned long  int len)
 {
     void* __right_value0;
     void* __right_value1;
     struct list$1double$* __result_obj__0  ;
+    memset(&__right_value0, 0, sizeof(__right_value0));
+    memset(&__right_value1, 0, sizeof(__right_value1));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __right_value1=(void*)0;
     __result_obj__0=(struct list$1double$*)come_increment_ref_count(((struct list$1double$*)(__right_value1=list$1double$_initialize_with_values((struct list$1double$*)come_increment_ref_count((struct list$1double$*)come_calloc_v2(1,sizeof(struct list$1double$)*(1),"/usr/local/include/neo-c.h",3696,"struct list$1double$*")),len,self))));
@@ -4677,7 +5092,7 @@ _Bool long_equals(long self, long right)
     return self==right;
 }
 
-_Bool size_t_equals(unsigned long  int self  , unsigned long  int right  )
+_Bool size_t_equals(unsigned long  int self, unsigned long  int right)
 {
     return self==right;
 }
@@ -4844,9 +5259,13 @@ char* charp_operator_add(char* self, char* right)
     char* __result_obj__0;
     int len;
     char* result;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&len, 0, sizeof(len));
     memset(&result, 0, sizeof(result));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&len,0,sizeof(len));
+    memset(&result,0,sizeof(result));
     __right_value0=(void*)0;
     if(self==((void*)0)||right==((void*)0)) {
         __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
@@ -4870,9 +5289,13 @@ char* string_operator_add(char* self, char* right)
     char* __result_obj__0;
     int len;
     char* result;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&len, 0, sizeof(len));
     memset(&result, 0, sizeof(result));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&len,0,sizeof(len));
+    memset(&result,0,sizeof(result));
     __right_value0=(void*)0;
     if(self==((void*)0)||right==((void*)0)) {
         __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
@@ -4897,9 +5320,14 @@ char* charp_operator_mult(char* self, int right)
     void* __right_value1;
     struct buffer* buf  ;
     int i;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__right_value1, 0, sizeof(__right_value1));
     memset(&buf, 0, sizeof(buf));
     memset(&i, 0, sizeof(i));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&buf,0,sizeof(buf));
+    memset(&i,0,sizeof(i));
     __right_value0=(void*)0;
     __right_value1=(void*)0;
     if(self==((void*)0)) {
@@ -4926,9 +5354,14 @@ char* string_operator_mult(char* self, int right)
     void* __right_value1;
     struct buffer* buf  ;
     int i;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__right_value1, 0, sizeof(__right_value1));
     memset(&buf, 0, sizeof(buf));
     memset(&i, 0, sizeof(i));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&buf,0,sizeof(buf));
+    memset(&i,0,sizeof(i));
     __right_value0=(void*)0;
     __right_value1=(void*)0;
     if(self==((void*)0)) {
@@ -4948,12 +5381,14 @@ char* string_operator_mult(char* self, int right)
     return __result_obj__0;
 }
 
-_Bool charpa_contained(char** self, unsigned long  int len  , char* str)
+_Bool charpa_contained(char** self, unsigned long  int len, char* str)
 {
     _Bool result;
     int i;
     memset(&result, 0, sizeof(result));
     memset(&i, 0, sizeof(i));
+    memset(&result,0,sizeof(result));
+    memset(&i,0,sizeof(i));
     result=0;
     if(self==((void*)0)) {
         return result;
@@ -4967,42 +5402,47 @@ _Bool charpa_contained(char** self, unsigned long  int len  , char* str)
     return result;
 }
 
-unsigned long  int shorta_length(short* self, unsigned long  int len  )
+unsigned long  int shorta_length(short* self, unsigned long  int len)
 {
-    unsigned long  int __result_obj__0  ;
+    unsigned long  int __result_obj__0;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __result_obj__0=len;
     return __result_obj__0;
 }
 
-unsigned long  int inta_length(int* self, unsigned long  int len  )
+unsigned long  int inta_length(int* self, unsigned long  int len)
 {
-    unsigned long  int __result_obj__0  ;
+    unsigned long  int __result_obj__0;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __result_obj__0=len;
     return __result_obj__0;
 }
 
-unsigned long  int longa_length(long* self, unsigned long  int len  )
+unsigned long  int longa_length(long* self, unsigned long  int len)
 {
-    unsigned long  int __result_obj__0  ;
+    unsigned long  int __result_obj__0;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __result_obj__0=len;
     return __result_obj__0;
 }
 
-unsigned long  int floata_length(float* self, unsigned long  int len  )
+unsigned long  int floata_length(float* self, unsigned long  int len)
 {
-    unsigned long  int __result_obj__0  ;
+    unsigned long  int __result_obj__0;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __result_obj__0=len;
     return __result_obj__0;
 }
 
-unsigned long  int doublea_length(double* self, unsigned long  int len  )
+unsigned long  int doublea_length(double* self, unsigned long  int len)
 {
-    unsigned long  int __result_obj__0  ;
+    unsigned long  int __result_obj__0;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __result_obj__0=len;
     return __result_obj__0;
 }
@@ -5037,7 +5477,7 @@ unsigned int long_get_hash_key(long value)
     return value;
 }
 
-unsigned int size_t_get_hash_key(unsigned long  int value  )
+unsigned int size_t_get_hash_key(unsigned long  int value)
 {
     return value;
 }
@@ -5058,6 +5498,8 @@ unsigned int charp_get_hash_key(char* value)
     char* p;
     memset(&result, 0, sizeof(result));
     memset(&p, 0, sizeof(p));
+    memset(&result,0,sizeof(result));
+    memset(&p,0,sizeof(p));
     if(value==((void*)0)) {
         return 0;
     }
@@ -5076,6 +5518,8 @@ unsigned int string_get_hash_key(char* value)
     char* p;
     memset(&result, 0, sizeof(result));
     memset(&p, 0, sizeof(p));
+    memset(&result,0,sizeof(result));
+    memset(&p,0,sizeof(p));
     if(value==((void*)0)) {
         return 0;
     }
@@ -5123,10 +5567,11 @@ long  int long_clone(long self)
     return self;
 }
 
-unsigned long  int size_t_clone(unsigned long  int self  )
+unsigned long  int size_t_clone(unsigned long  int self)
 {
-    unsigned long  int __result_obj__0  ;
+    unsigned long  int __result_obj__0;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __result_obj__0=self;
     return __result_obj__0;
 }
@@ -5145,6 +5590,7 @@ _Bool xisalpha(char c)
 {
     _Bool result;
     memset(&result, 0, sizeof(result));
+    memset(&result,0,sizeof(result));
     result=(c>=97&&c<=122)||(c>=65&&c<=90);
     return result;
 }
@@ -5173,6 +5619,7 @@ _Bool xisascii(char c)
 {
     _Bool result;
     memset(&result, 0, sizeof(result));
+    memset(&result,0,sizeof(result));
     result=(c>=32&&c<=126);
     return result;
 }
@@ -5213,10 +5660,15 @@ char* charp_reverse(char* str)
     int len;
     char* result;
     int i;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&len, 0, sizeof(len));
     memset(&result, 0, sizeof(result));
     memset(&i, 0, sizeof(i));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&len,0,sizeof(len));
+    memset(&result,0,sizeof(result));
+    memset(&i,0,sizeof(i));
     __right_value0=(void*)0;
     if(str==((void*)0)) {
         __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
@@ -5243,9 +5695,14 @@ char* string_operator_load_range_element(char* str, int head, int tail)
     int len;
     void* __right_value1;
     char* result;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&len, 0, sizeof(len));
+    memset(&__right_value1, 0, sizeof(__right_value1));
     memset(&result, 0, sizeof(result));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&len,0,sizeof(len));
+    memset(&result,0,sizeof(result));
     __right_value0=(void*)0;
     __right_value1=(void*)0;
     if(str==((void*)0)) {
@@ -5302,9 +5759,14 @@ char* charp_operator_load_range_element(char* str, int head, int tail)
     int len;
     void* __right_value1;
     char* result;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&len, 0, sizeof(len));
+    memset(&__right_value1, 0, sizeof(__right_value1));
     memset(&result, 0, sizeof(result));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&len,0,sizeof(len));
+    memset(&result,0,sizeof(result));
     __right_value0=(void*)0;
     __right_value1=(void*)0;
     if(str==((void*)0)) {
@@ -5361,9 +5823,14 @@ char* charp_substring(char* str, int head, int tail)
     int len;
     void* __right_value1;
     char* result;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&len, 0, sizeof(len));
+    memset(&__right_value1, 0, sizeof(__right_value1));
     memset(&result, 0, sizeof(result));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&len,0,sizeof(len));
+    memset(&result,0,sizeof(result));
     __right_value0=(void*)0;
     __right_value1=(void*)0;
     if(str==((void*)0)) {
@@ -5421,11 +5888,17 @@ char* xsprintf(char* msg, ...)
     char* result;
     int len;
     char* result2;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&args, 0, sizeof(args));
     memset(&result, 0, sizeof(result));
     memset(&len, 0, sizeof(len));
     memset(&result2, 0, sizeof(result2));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&args,0,sizeof(args));
+    memset(&result,0,sizeof(result));
+    memset(&len,0,sizeof(len));
+    memset(&result2,0,sizeof(result2));
     __right_value0=(void*)0;
     if(msg==((void*)0)) {
         __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
@@ -5456,9 +5929,13 @@ char* charp_delete(char* str, int head, int tail)
     char* __result_obj__0;
     int len;
     char* result;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&len, 0, sizeof(len));
     memset(&result, 0, sizeof(result));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&len,0,sizeof(len));
+    memset(&result,0,sizeof(result));
     __right_value0=(void*)0;
     if(str==((void*)0)) {
         __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
@@ -5511,6 +5988,7 @@ static struct list$1char$ph* list$1char$ph_initialize(struct list$1char$ph* self
 {
     struct list$1char$ph* __result_obj__0  ;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     self->head=((void*)0);
     self->tail=((void*)0);
     self->len=0;
@@ -5526,6 +6004,8 @@ static void list$1char$ph$p_finalize(struct list$1char$ph* self  )
     struct list_item$1char$ph* prev_it  ;
     memset(&it, 0, sizeof(it));
     memset(&prev_it, 0, sizeof(prev_it));
+    memset(&it,0,sizeof(it));
+    memset(&prev_it,0,sizeof(prev_it));
     if(self==((void*)0)) {
         return;
     }
@@ -5555,12 +6035,20 @@ static struct list$1char$ph* list$1char$ph_push_back(struct list$1char$ph* self 
     struct list_item$1char$ph* litem_24  ;
     char* __dec_obj19;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&litem, 0, sizeof(litem));
     memset(&__dec_obj17, 0, sizeof(__dec_obj17));
     memset(&litem_23, 0, sizeof(litem_23));
     memset(&__dec_obj18, 0, sizeof(__dec_obj18));
     memset(&litem_24, 0, sizeof(litem_24));
     memset(&__dec_obj19, 0, sizeof(__dec_obj19));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&litem,0,sizeof(litem));
+    memset(&__dec_obj17,0,sizeof(__dec_obj17));
+    memset(&litem_23,0,sizeof(litem_23));
+    memset(&__dec_obj18,0,sizeof(__dec_obj18));
+    memset(&litem_24,0,sizeof(litem_24));
+    memset(&__dec_obj19,0,sizeof(__dec_obj19));
     __right_value0=(void*)0;
     if(self==((void*)0)) {
         __result_obj__0=self;
@@ -5608,10 +6096,16 @@ struct list$1char$ph* charp_split_char(char* self, char c)
     struct list$1char$ph* result  ;
     struct buffer* str  ;
     int i;
+    memset(&__right_value0, 0, sizeof(__right_value0));
+    memset(&__right_value1, 0, sizeof(__right_value1));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&result, 0, sizeof(result));
     memset(&str, 0, sizeof(str));
     memset(&i, 0, sizeof(i));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&result,0,sizeof(result));
+    memset(&str,0,sizeof(str));
+    memset(&i,0,sizeof(i));
     __right_value0=(void*)0;
     __right_value1=(void*)0;
     if(self==((void*)0)) {
@@ -5645,7 +6139,9 @@ char* charp_xsprintf(char* self, char* msg, ...)
 {
     void* __right_value0;
     char* __result_obj__0;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=xsprintf(msg,self))));
     (__right_value0=come_decrement_ref_count(__right_value0,(void*)0,(void*)0,1,0,(void*)0));
@@ -5657,7 +6153,9 @@ char* int_xsprintf(int self, char* msg, ...)
 {
     void* __right_value0;
     char* __result_obj__0;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=xsprintf(msg,self))));
     (__right_value0=come_decrement_ref_count(__right_value0,(void*)0,(void*)0,1,0,(void*)0));
@@ -5674,12 +6172,19 @@ char* charp_printable(char* str)
     int n;
     int i;
     char c;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&len, 0, sizeof(len));
     memset(&result, 0, sizeof(result));
     memset(&n, 0, sizeof(n));
     memset(&i, 0, sizeof(i));
     memset(&c, 0, sizeof(c));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&len,0,sizeof(len));
+    memset(&result,0,sizeof(result));
+    memset(&n,0,sizeof(n));
+    memset(&i,0,sizeof(i));
+    memset(&c,0,sizeof(c));
     __right_value0=(void*)0;
     if(str==((void*)0)) {
         __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
@@ -5711,7 +6216,9 @@ char* chara_printable(char* str)
 {
     void* __right_value0;
     char* __result_obj__0;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=charp_printable(str))));
     (__right_value0=come_decrement_ref_count(__right_value0,(void*)0,(void*)0,1,0,(void*)0));
@@ -5727,10 +6234,16 @@ char* charp_sub_plain(char* self, char* str, char* replace)
     struct buffer* result  ;
     char* p;
     char* p2;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__right_value1, 0, sizeof(__right_value1));
     memset(&result, 0, sizeof(result));
     memset(&p, 0, sizeof(p));
     memset(&p2, 0, sizeof(p2));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&result,0,sizeof(result));
+    memset(&p,0,sizeof(p));
+    memset(&p2,0,sizeof(p2));
     __right_value0=(void*)0;
     __right_value1=(void*)0;
     if(self==((void*)0)||str==((void*)0)||replace==((void*)0)) {
@@ -5767,8 +6280,11 @@ char* xbasename(char* path)
     void* __right_value0;
     char* __result_obj__0;
     char* p;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&p, 0, sizeof(p));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&p,0,sizeof(p));
     __right_value0=(void*)0;
     if(path==((void*)0)) {
         __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
@@ -5809,9 +6325,13 @@ char* xnoextname(char* path)
     char* __result_obj__0;
     char* path2;
     char* p;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&path2, 0, sizeof(path2));
     memset(&p, 0, sizeof(p));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&path2,0,sizeof(path2));
+    memset(&p,0,sizeof(p));
     __right_value0=(void*)0;
     if(path==((void*)0)) {
         __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
@@ -5855,8 +6375,11 @@ char* xextname(char* path)
     void* __right_value0;
     char* __result_obj__0;
     char* p;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&p, 0, sizeof(p));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&p,0,sizeof(p));
     __right_value0=(void*)0;
     if(path==((void*)0)) {
         __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
@@ -5895,7 +6418,9 @@ char* bool_to_string(_Bool self)
 {
     void* __right_value0;
     char* __result_obj__0;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     if(self) {
         __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string("true"))));
@@ -5915,7 +6440,9 @@ char* _Bool_to_string(_Bool self)
 {
     void* __right_value0;
     char* __result_obj__0;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     if(self) {
         __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string("true"))));
@@ -5935,7 +6462,9 @@ char* char_to_string(char self)
 {
     void* __right_value0;
     char* __result_obj__0;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=xsprintf("%c",self))));
     (__right_value0=come_decrement_ref_count(__right_value0,(void*)0,(void*)0,1,0,(void*)0));
@@ -5947,7 +6476,9 @@ char* short_to_string(short self)
 {
     void* __right_value0;
     char* __result_obj__0;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=xsprintf("%d",self))));
     (__right_value0=come_decrement_ref_count(__right_value0,(void*)0,(void*)0,1,0,(void*)0));
@@ -5959,7 +6490,9 @@ char* int_to_string(int self)
 {
     void* __right_value0;
     char* __result_obj__0;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=xsprintf("%d",self))));
     (__right_value0=come_decrement_ref_count(__right_value0,(void*)0,(void*)0,1,0,(void*)0));
@@ -5971,7 +6504,9 @@ char* long_to_string(long self)
 {
     void* __right_value0;
     char* __result_obj__0;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=xsprintf("%ld",self))));
     (__right_value0=come_decrement_ref_count(__right_value0,(void*)0,(void*)0,1,0,(void*)0));
@@ -5979,11 +6514,13 @@ char* long_to_string(long self)
     return __result_obj__0;
 }
 
-char* size_t_to_string(unsigned long  int self  )
+char* size_t_to_string(unsigned long  int self)
 {
     void* __right_value0;
     char* __result_obj__0;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=xsprintf("%ld",self))));
     (__right_value0=come_decrement_ref_count(__right_value0,(void*)0,(void*)0,1,0,(void*)0));
@@ -5995,7 +6532,9 @@ char* float_to_string(float self)
 {
     void* __right_value0;
     char* __result_obj__0;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=xsprintf("%f",self))));
     (__right_value0=come_decrement_ref_count(__right_value0,(void*)0,(void*)0,1,0,(void*)0));
@@ -6007,7 +6546,9 @@ char* double_to_string(double self)
 {
     void* __right_value0;
     char* __result_obj__0;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=xsprintf("%lf",self))));
     (__right_value0=come_decrement_ref_count(__right_value0,(void*)0,(void*)0,1,0,(void*)0));
@@ -6019,7 +6560,9 @@ char* string_to_string(char* self)
 {
     void* __right_value0;
     char* __result_obj__0;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     if(self==((void*)0)) {
         __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
@@ -6037,7 +6580,9 @@ char* charp_to_string(char* self)
 {
     void* __right_value0;
     char* __result_obj__0;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     if(self==((void*)0)) {
         __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
@@ -6141,7 +6686,7 @@ int long_compare(long left, long right)
     return 0;
 }
 
-int size_t_compare(unsigned long  int left  , unsigned long  int right  )
+int size_t_compare(unsigned long  int left, unsigned long  int right)
 {
     if(left<right) {
         return -1;
@@ -6215,7 +6760,9 @@ char* charp_puts(char* self)
 {
     void* __right_value0;
     char* __result_obj__0;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     if(self==((void*)0)) {
         __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
@@ -6234,7 +6781,9 @@ char* charp_print(char* self)
 {
     void* __right_value0;
     char* __result_obj__0;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     if(self==((void*)0)) {
         __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
@@ -6256,10 +6805,15 @@ char* charp_printf(char* self, ...)
     char* msg2;
     __builtin_va_list args  ;
     int len;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&msg2, 0, sizeof(msg2));
     memset(&args, 0, sizeof(args));
     memset(&len, 0, sizeof(len));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&msg2,0,sizeof(msg2));
+    memset(&args,0,sizeof(args));
+    memset(&len,0,sizeof(len));
     __right_value0=(void*)0;
     if(self==((void*)0)) {
         __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
@@ -6269,6 +6823,7 @@ char* charp_printf(char* self, ...)
     }
     char msg2_25[128];
     memset(&msg2_25, 0, sizeof(msg2_25));
+    memset(&msg2_25,0,sizeof(msg2_25));
     __builtin_va_start(args,self);
     len=snprintf(msg2_25,128,self,args);
     __builtin_va_end(args);
@@ -6302,6 +6857,7 @@ void int_times(int self, void* parent, void (*block)(void*,int))
 {
     int i;
     memset(&i, 0, sizeof(i));
+    memset(&i,0,sizeof(i));
     for(i=0;i<self;i++){
         block(parent,i);
     }
@@ -6321,6 +6877,10 @@ int re_matchp_ex(struct re_program* pattern  , const char* text, int* matchlengt
     memset(&start, 0, sizeof(start));
     memset(&ctx, 0, sizeof(ctx));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&program,0,sizeof(program));
+    memset(&start,0,sizeof(start));
+    memset(&ctx,0,sizeof(ctx));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     *matchlength=0;
     if(pattern==0) {
         return -1;
@@ -6331,8 +6891,8 @@ int re_matchp_ex(struct re_program* pattern  , const char* text, int* matchlengt
         return -1;
     }
     ctx.base=text;
-    ctx.captures=(((((captures!=0&&max_captures>0)))?((captures)):((0))));
-    ctx.capture_capacity=(((((captures!=0&&max_captures>0)))?((max_captures)):((0))));
+    ctx.captures=(((((((captures!=0&&max_captures>0))))?(((captures))):(((0))))));
+    ctx.capture_capacity=(((((((captures!=0&&max_captures>0))))?(((max_captures))):(((0))))));
     if(ctx.capture_capacity>64) {
         ctx.capture_capacity=64;
     }
@@ -6414,10 +6974,17 @@ struct re_program* re_compile(const char* pattern)
     memset(&pos, 0, sizeof(pos));
     memset(&head, 0, sizeof(head));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&program,0,sizeof(program));
+    memset(&state,0,sizeof(state));
+    memset(&pos,0,sizeof(pos));
+    memset(&head,0,sizeof(head));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     static struct regex_t re_compiled[64]  ;
     memset(&re_compiled, 0, sizeof(re_compiled));
+    memset(&re_compiled,0,sizeof(re_compiled));
     static unsigned char ccl_buf[40];
     memset(&ccl_buf, 0, sizeof(ccl_buf));
+    memset(&ccl_buf,0,sizeof(ccl_buf));
     state.pool=re_compiled;
     state.pool_capacity=64;
     state.pool_size=0;
@@ -6448,6 +7015,7 @@ void re_print(struct re_program* pattern  )
 {
     struct re_program* program  ;
     memset(&program, 0, sizeof(program));
+    memset(&program,0,sizeof(program));
     if(pattern==0) {
         return;
     }
@@ -6462,29 +7030,30 @@ void clear_captures(struct anonymous_typeX6* ctx  )
 {
     int i;
     memset(&i, 0, sizeof(i));
-    if((ctx->captures==0)||(ctx->capture_capacity<=0)) {
+    memset(&i,0,sizeof(i));
+    if((ctx.captures==0)||(ctx.capture_capacity<=0)) {
         return;
     }
-    for(i=0;i<ctx->capture_capacity;++i){
-        ctx->captures[i].start=-1;
-        ctx->captures[i].length=0;
+    for(i=0;i<ctx.capture_capacity;++i){
+        ctx.captures[i].start=-1;
+        ctx.captures[i].length=0;
     }
 }
 
 void snapshot_captures(const struct anonymous_typeX6* ctx  , struct re_capture* buffer_  )
 {
-    if((ctx->captures==0)||(ctx->capture_capacity<=0)) {
+    if((ctx.captures==0)||(ctx.capture_capacity<=0)) {
         return;
     }
-    memcpy(buffer_,ctx->captures,sizeof(struct re_capture)*ctx->capture_capacity);
+    memcpy(buffer_,ctx.captures,sizeof(struct re_capture)*ctx.capture_capacity);
 }
 
 void restore_captures(struct anonymous_typeX6* ctx  , const struct re_capture* buffer_  )
 {
-    if((ctx->captures==0)||(ctx->capture_capacity<=0)) {
+    if((ctx.captures==0)||(ctx.capture_capacity<=0)) {
         return;
     }
-    memcpy(ctx->captures,buffer_,sizeof(struct re_capture)*ctx->capture_capacity);
+    memcpy(ctx.captures,buffer_,sizeof(struct re_capture)*ctx.capture_capacity);
 }
 
 struct regex_t* new_token(struct anonymous_typeX5* st  )
@@ -6493,6 +7062,8 @@ struct regex_t* new_token(struct anonymous_typeX5* st  )
     struct regex_t* token  ;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&token, 0, sizeof(token));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&token,0,sizeof(token));
     if(st->pool_size>=st->pool_capacity) {
         __result_obj__0=((void*)0);
         return __result_obj__0;
@@ -6545,6 +7116,16 @@ struct regex_t* compile_sequence(struct anonymous_typeX5* st  , const char* patt
     memset(&inner, 0, sizeof(inner));
     memset(&tail_27, 0, sizeof(tail_27));
     memset(&sentinel, 0, sizeof(sentinel));
+    memset(&head,0,sizeof(head));
+    memset(&tail,0,sizeof(tail));
+    memset(&c,0,sizeof(c));
+    memset(&token,0,sizeof(token));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&buf_begin,0,sizeof(buf_begin));
+    memset(&negated,0,sizeof(negated));
+    memset(&inner,0,sizeof(inner));
+    memset(&tail_27,0,sizeof(tail_27));
+    memset(&sentinel,0,sizeof(sentinel));
     head=(struct regex_t*)0;
     tail=(struct regex_t*)0;
     while(pattern[*pos]!=0) {
@@ -6712,7 +7293,7 @@ struct regex_t* compile_sequence(struct anonymous_typeX5* st  , const char* patt
                     __result_obj__0=((void*)0);
                     return __result_obj__0;
                 }
-                token->type=((((negated))?(((9))):(((8)))));
+                token->type=((((((negated)))?((((9)))):((((8)))))));
                 token->u.ccl=&st->ccl_buf[buf_begin];
                 (*pos)++;
             }
@@ -6812,6 +7393,12 @@ const char* matchpattern(struct regex_t* pattern  , const char* text, struct ano
     memset(&owner, 0, sizeof(owner));
     memset(&idx, 0, sizeof(idx));
     memset(&start, 0, sizeof(start));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&current,0,sizeof(current));
+    memset(&next,0,sizeof(next));
+    memset(&owner,0,sizeof(owner));
+    memset(&idx,0,sizeof(idx));
+    memset(&start,0,sizeof(start));
     if(pattern==0) {
         __result_obj__0=text;
         return __result_obj__0;
@@ -6822,6 +7409,7 @@ const char* matchpattern(struct regex_t* pattern  , const char* text, struct ano
     }
     struct re_capture snapshot[64]  ;
     memset(&snapshot, 0, sizeof(snapshot));
+    memset(&snapshot,0,sizeof(snapshot));
     snapshot_captures(ctx,snapshot);
     current=pattern;
     const char* cursor=text;
@@ -6829,14 +7417,14 @@ const char* matchpattern(struct regex_t* pattern  , const char* text, struct ano
         next=current->next;
         if(current->type==(17)) {
             owner=current->u.group.first;
-            if((owner!=0)&&(owner->u.group.id>0)&&(ctx->captures!=0)) {
+            if((owner!=0)&&(owner->u.group.id>0)&&(ctx.captures!=0)) {
                 idx=owner->u.group.id-1;
-                if(idx<ctx->capture_capacity) {
-                    start=ctx->captures[idx].start;
+                if(idx<ctx.capture_capacity) {
+                    start=(int)ctx.captures[idx].start;
                     if(start>=0) {
-                        ctx->captures[idx].length=(int)(cursor-ctx->base)-start;
-                        if(ctx->captures[idx].length<0) {
-                            ctx->captures[idx].length=0;
+                        ctx.captures[idx].length=(int)(cursor-ctx.base)-start;
+                        if(ctx.captures[idx].length<0) {
+                            ctx.captures[idx].length=0;
                         }
                     }
                 }
@@ -6917,19 +7505,24 @@ const char* matchgroup(struct regex_t* token  , struct regex_t* rest  , const ch
     memset(&saved_next, 0, sizeof(saved_next));
     memset(&idx, 0, sizeof(idx));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&end_token,0,sizeof(end_token));
+    memset(&saved_next,0,sizeof(saved_next));
+    memset(&idx,0,sizeof(idx));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     struct re_capture snapshot_entry[64]  ;
     memset(&snapshot_entry, 0, sizeof(snapshot_entry));
+    memset(&snapshot_entry,0,sizeof(snapshot_entry));
     snapshot_captures(ctx,snapshot_entry);
     end_token=token->u.group.last;
-    saved_next=((((end_token!=0))?((end_token->next)):((0))));
+    saved_next=((((((end_token!=0)))?(((end_token->next))):(((0))))));
     if(end_token!=0) {
         end_token->next=rest;
     }
-    if(token->u.group.id>0&&ctx->captures!=0) {
+    if(token->u.group.id>0&&ctx.captures!=0) {
         idx=token->u.group.id-1;
-        if(idx<ctx->capture_capacity) {
-            ctx->captures[idx].start=(int)(text-ctx->base);
-            ctx->captures[idx].length=0;
+        if(idx<ctx.capture_capacity) {
+            ctx.captures[idx].start=(int)(text-ctx.base);
+            ctx.captures[idx].length=0;
         }
     }
     const char* result=matchpattern(token->u.group.first,text,ctx);
@@ -6947,13 +7540,16 @@ const char* matchstar(struct regex_t* token  , struct regex_t* rest  , const cha
 {
     const char* __result_obj__0;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     struct re_capture snapshot_entry[64]  ;
     memset(&snapshot_entry, 0, sizeof(snapshot_entry));
+    memset(&snapshot_entry,0,sizeof(snapshot_entry));
     snapshot_captures(ctx,snapshot_entry);
     const char* consume=matchtoken(token,text,ctx);
     while((consume!=0)&&(consume!=text)) {
         struct re_capture snapshot_after_token[64]  ;
         memset(&snapshot_after_token, 0, sizeof(snapshot_after_token));
+        memset(&snapshot_after_token,0,sizeof(snapshot_after_token));
         snapshot_captures(ctx,snapshot_after_token);
         const char* recursive=matchstar(token,rest,consume,ctx);
         if(recursive!=0) {
@@ -6972,8 +7568,10 @@ const char* matchplus(struct regex_t* token  , struct regex_t* rest  , const cha
 {
     const char* __result_obj__0;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     struct re_capture snapshot_entry[64]  ;
     memset(&snapshot_entry, 0, sizeof(snapshot_entry));
+    memset(&snapshot_entry,0,sizeof(snapshot_entry));
     snapshot_captures(ctx,snapshot_entry);
     const char* first=matchtoken(token,text,ctx);
     if((first==0)||(first==text)) {
@@ -6995,8 +7593,10 @@ const char* matchquestion(struct regex_t* token  , struct regex_t* rest  , const
 {
     const char* __result_obj__0;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     struct re_capture snapshot_entry[64]  ;
     memset(&snapshot_entry, 0, sizeof(snapshot_entry));
+    memset(&snapshot_entry,0,sizeof(snapshot_entry));
     snapshot_captures(ctx,snapshot_entry);
     const char* skipped=matchpattern(rest,text,ctx);
     if(skipped!=0) {
@@ -7032,45 +7632,46 @@ const char* matchtoken(struct regex_t* token  , const char* text, struct anonymo
 {
     const char* __result_obj__0;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     switch (    token->type) {
         case (1):
-        __result_obj__0=(((((*text!=0&&matchdot(*text))))?((text+1)):((0))));
+        __result_obj__0=(((((((*text!=0&&matchdot(*text)))))?(((text+1))):(((0))))));
         return __result_obj__0;
         case (7):
-        __result_obj__0=(((((*text!=0&&re_fold_char(token->u.ch,ctx->ignore_case)==re_fold_char((unsigned char)*text,ctx->ignore_case))))?((text+1)):((0))));
+        __result_obj__0=(((((((*text!=0&&re_fold_char(token->u.ch,(_Bool)ctx.ignore_case)==re_fold_char((unsigned char)*text,(_Bool)ctx.ignore_case)))))?(((text+1))):(((0))))));
         return __result_obj__0;
         case (8):
-        __result_obj__0=(((((*text!=0&&matchcharclass(*text,(const char*)token->u.ccl,ctx->ignore_case))))?((text+1)):((0))));
+        __result_obj__0=(((((((*text!=0&&matchcharclass(*text,(const char*)token->u.ccl,(_Bool)ctx.ignore_case)))))?(((text+1))):(((0))))));
         return __result_obj__0;
         case (9):
-        __result_obj__0=(((((*text!=0&&!matchcharclass(*text,(const char*)token->u.ccl,ctx->ignore_case))))?((text+1)):((0))));
+        __result_obj__0=(((((((*text!=0&&!matchcharclass(*text,(const char*)token->u.ccl,(_Bool)ctx.ignore_case)))))?(((text+1))):(((0))))));
         return __result_obj__0;
         case (10):
-        __result_obj__0=(((((*text!=0&&matchdigit(*text))))?((text+1)):((0))));
+        __result_obj__0=(((((((*text!=0&&matchdigit(*text)))))?(((text+1))):(((0))))));
         return __result_obj__0;
         case (11):
-        __result_obj__0=(((((*text!=0&&!matchdigit(*text))))?((text+1)):((0))));
+        __result_obj__0=(((((((*text!=0&&!matchdigit(*text)))))?(((text+1))):(((0))))));
         return __result_obj__0;
         case (12):
-        __result_obj__0=(((((*text!=0&&matchalphanum(*text))))?((text+1)):((0))));
+        __result_obj__0=(((((((*text!=0&&matchalphanum(*text)))))?(((text+1))):(((0))))));
         return __result_obj__0;
         case (13):
-        __result_obj__0=(((((*text!=0&&!matchalphanum(*text))))?((text+1)):((0))));
+        __result_obj__0=(((((((*text!=0&&!matchalphanum(*text)))))?(((text+1))):(((0))))));
         return __result_obj__0;
         case (14):
-        __result_obj__0=(((((*text!=0&&matchwhitespace(*text))))?((text+1)):((0))));
+        __result_obj__0=(((((((*text!=0&&matchwhitespace(*text)))))?(((text+1))):(((0))))));
         return __result_obj__0;
         case (15):
-        __result_obj__0=(((((*text!=0&&!matchwhitespace(*text))))?((text+1)):((0))));
+        __result_obj__0=(((((((*text!=0&&!matchwhitespace(*text)))))?(((text+1))):(((0))))));
         return __result_obj__0;
         case (16):
         __result_obj__0=matchgroup(token,(struct regex_t*)0,text,ctx);
         return __result_obj__0;
         case (2):
-        __result_obj__0=(((((text==ctx->base)))?((text)):((0))));
+        __result_obj__0=(((((((text==ctx.base))))?(((text))):(((0))))));
         return __result_obj__0;
         case (3):
-        __result_obj__0=(((((*text==0)))?((text)):((0))));
+        __result_obj__0=(((((((*text==0))))?(((text))):(((0))))));
         return __result_obj__0;
         default:
         break;
@@ -7107,6 +7708,9 @@ int matchrange(char c, const char* str, _Bool ignore_case)
     memset(&needle, 0, sizeof(needle));
     memset(&start, 0, sizeof(start));
     memset(&end, 0, sizeof(end));
+    memset(&needle,0,sizeof(needle));
+    memset(&start,0,sizeof(start));
+    memset(&end,0,sizeof(end));
     needle=(unsigned char)c;
     start=(unsigned char)str[0];
     end=(unsigned char)str[2];
@@ -7152,6 +7756,7 @@ int matchcharclass(char c, const char* str, _Bool ignore_case)
 {
     unsigned char needle;
     memset(&needle, 0, sizeof(needle));
+    memset(&needle,0,sizeof(needle));
     needle=re_fold_char((unsigned char)c,ignore_case);
     do {
         if(matchrange((char)needle,str,ignore_case)) {
@@ -7182,6 +7787,7 @@ void re_print_internal(struct regex_t* pattern  , int depth)
 {
     int i;
     memset(&i, 0, sizeof(i));
+    memset(&i,0,sizeof(i));
     const char* types[]={
     "RE_UNUSED", "RE_DOT", "RE_BEGIN", "RE_END", "RE_QUESTIONMARK", "RE_STAR", "RE_PLUS", "RE_CHAR",
     "RE_CHAR_CLASS", "RE_INV_CHAR_CLASS", "RE_DIGIT", "RE_NOT_DIGIT", "RE_ALPHA", "RE_NOT_ALPHA",
@@ -7219,6 +7825,7 @@ int re_get_group_count(struct re_program* pattern  )
 {
     struct re_program* program  ;
     memset(&program, 0, sizeof(program));
+    memset(&program,0,sizeof(program));
     if(pattern==0) {
         return 0;
     }
@@ -7232,9 +7839,13 @@ char* string_lower_case(char* str)
     char* __result_obj__0;
     char* result;
     int i;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&result, 0, sizeof(result));
     memset(&i, 0, sizeof(i));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&result,0,sizeof(result));
+    memset(&i,0,sizeof(i));
     __right_value0=(void*)0;
     if(str==((void*)0)) {
         __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
@@ -7260,9 +7871,13 @@ char* string_upper_case(char* str)
     char* __result_obj__0;
     char* result;
     int i;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&result, 0, sizeof(result));
     memset(&i, 0, sizeof(i));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&result,0,sizeof(result));
+    memset(&i,0,sizeof(i));
     __right_value0=(void*)0;
     if(str==((void*)0)) {
         __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
@@ -7300,6 +7915,14 @@ int charp_index_regex(char* self, char* reg, int default_value, _Bool ignore_cas
     memset(&matchlength, 0, sizeof(matchlength));
     memset(&max_captures, 0, sizeof(max_captures));
     memset(&regex_result, 0, sizeof(regex_result));
+    memset(&re,0,sizeof(re));
+    memset(&result,0,sizeof(result));
+    memset(&offset,0,sizeof(offset));
+    memset(&n,0,sizeof(n));
+    memset(&result_31,0,sizeof(result_31));
+    memset(&matchlength,0,sizeof(matchlength));
+    memset(&max_captures,0,sizeof(max_captures));
+    memset(&regex_result,0,sizeof(regex_result));
     if(self==((void*)0)||reg==((void*)0)) {
         return default_value;
     }
@@ -7316,6 +7939,7 @@ int charp_index_regex(char* self, char* reg, int default_value, _Bool ignore_cas
         max_captures=8;
         struct re_capture captures[max_captures]  ;
         memset(&captures, 0, sizeof(captures));
+        memset(&captures,0,sizeof(captures));
         regex_result=re_matchp_ex(re,self,&matchlength,captures,max_captures,ignore_case);
         if(regex_result>=0) {
             result_31=regex_result;
@@ -7334,6 +7958,8 @@ int charp_rindex(char* str, char* search_str, int default_value)
     char* p;
     memset(&len, 0, sizeof(len));
     memset(&p, 0, sizeof(p));
+    memset(&len,0,sizeof(len));
+    memset(&p,0,sizeof(p));
     if(str==((void*)0)||search_str==((void*)0)) {
         return default_value;
     }
@@ -7365,12 +7991,23 @@ int charp_rindex_regex(char* self, char* reg, int default_value, _Bool ignore_ca
     memset(&result, 0, sizeof(result));
     memset(&offset, 0, sizeof(offset));
     memset(&n, 0, sizeof(n));
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&self2, 0, sizeof(self2));
     memset(&result_32, 0, sizeof(result_32));
     memset(&matchlength, 0, sizeof(matchlength));
     memset(&max_captures, 0, sizeof(max_captures));
     memset(&regex_result, 0, sizeof(regex_result));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&re,0,sizeof(re));
+    memset(&result,0,sizeof(result));
+    memset(&offset,0,sizeof(offset));
+    memset(&n,0,sizeof(n));
+    memset(&self2,0,sizeof(self2));
+    memset(&result_32,0,sizeof(result_32));
+    memset(&matchlength,0,sizeof(matchlength));
+    memset(&max_captures,0,sizeof(max_captures));
+    memset(&regex_result,0,sizeof(regex_result));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     if(self==((void*)0)||reg==((void*)0)) {
         return default_value;
@@ -7389,6 +8026,7 @@ int charp_rindex_regex(char* self, char* reg, int default_value, _Bool ignore_ca
         max_captures=8;
         struct re_capture captures[max_captures]  ;
         memset(&captures, 0, sizeof(captures));
+        memset(&captures,0,sizeof(captures));
         regex_result=re_matchp_ex(re,self2,&matchlength,captures,max_captures,ignore_case);
         if(regex_result>=0) {
             result_32=strlen(self)-matchlength;
@@ -7409,9 +8047,13 @@ char* charp_strip(char* self)
     char* __result_obj__0;
     char* result;
     int len;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&result, 0, sizeof(result));
     memset(&len, 0, sizeof(len));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&result,0,sizeof(result));
+    memset(&len,0,sizeof(len));
     __right_value0=(void*)0;
     if(self==((void*)0)) {
         __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
@@ -7440,6 +8082,7 @@ int charp_index(char* str, char* search_str, int default_value)
 {
     char* head;
     memset(&head, 0, sizeof(head));
+    memset(&head,0,sizeof(head));
     if(str==((void*)0)||search_str==((void*)0)) {
         return default_value;
     }
@@ -7455,8 +8098,11 @@ char* string_chomp(char* str)
     void* __right_value0;
     char* __result_obj__0;
     char* result;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&result, 0, sizeof(result));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&result,0,sizeof(result));
     __right_value0=(void*)0;
     if(str==((void*)0)) {
         __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
@@ -7483,8 +8129,11 @@ char* charp_replace(char* self, int index, char c)
     void* __right_value0;
     char* __result_obj__0;
     int len;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&len, 0, sizeof(len));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&len,0,sizeof(len));
     __right_value0=(void*)0;
     if(self==((void*)0)) {
         __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
@@ -7522,10 +8171,15 @@ char* charp_multiply(char* str, int n)
     int len;
     char* result;
     int i;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&len, 0, sizeof(len));
     memset(&result, 0, sizeof(result));
     memset(&i, 0, sizeof(i));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&len,0,sizeof(len));
+    memset(&result,0,sizeof(result));
+    memset(&i,0,sizeof(i));
     __right_value0=(void*)0;
     if(str==((void*)0)) {
         __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
@@ -7553,10 +8207,16 @@ struct list$1char$ph* charp_split_str(char* self, char* str)
     struct list$1char$ph* result  ;
     struct buffer* buf  ;
     int i;
+    memset(&__right_value0, 0, sizeof(__right_value0));
+    memset(&__right_value1, 0, sizeof(__right_value1));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&result, 0, sizeof(result));
     memset(&buf, 0, sizeof(buf));
     memset(&i, 0, sizeof(i));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&result,0,sizeof(result));
+    memset(&buf,0,sizeof(buf));
+    memset(&i,0,sizeof(i));
     __right_value0=(void*)0;
     __right_value1=(void*)0;
     if(self==((void*)0)||str==((void*)0)) {
@@ -7601,7 +8261,9 @@ char* string_strip(char* self)
 {
     void* __right_value0;
     char* __result_obj__0;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=charp_strip(self))));
     (__right_value0=come_decrement_ref_count(__right_value0,(void*)0,(void*)0,1,0,(void*)0));
@@ -7623,7 +8285,9 @@ char* string_replace(char* self, int index, char c)
 {
     void* __right_value0;
     char* __result_obj__0;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=charp_replace(self,index,c))));
     (__right_value0=come_decrement_ref_count(__right_value0,(void*)0,(void*)0,1,0,(void*)0));
@@ -7635,7 +8299,9 @@ char* string_multiply(char* str, int n)
 {
     void* __right_value0;
     char* __result_obj__0;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=charp_multiply(str,n))));
     (__right_value0=come_decrement_ref_count(__right_value0,(void*)0,(void*)0,1,0,(void*)0));
@@ -7659,6 +8325,13 @@ _Bool charp_match(char* self, char* reg, _Bool ignore_case)
     memset(&max_captures, 0, sizeof(max_captures));
     memset(&regex_result, 0, sizeof(regex_result));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&re,0,sizeof(re));
+    memset(&offset,0,sizeof(offset));
+    memset(&n,0,sizeof(n));
+    memset(&matchlength,0,sizeof(matchlength));
+    memset(&max_captures,0,sizeof(max_captures));
+    memset(&regex_result,0,sizeof(regex_result));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     if(self==((void*)0)||reg==((void*)0)) {
         return 0;
     }
@@ -7672,6 +8345,7 @@ _Bool charp_match(char* self, char* reg, _Bool ignore_case)
     max_captures=8;
     struct re_capture captures[max_captures]  ;
     memset(&captures, 0, sizeof(captures));
+    memset(&captures,0,sizeof(captures));
     regex_result=re_matchp_ex(re,self,&matchlength,captures,max_captures,ignore_case);
     if(regex_result>=0) {
         __result_obj__0=1;
@@ -7694,12 +8368,20 @@ static struct list$1char$ph* list$1char$ph_add(struct list$1char$ph* self  , cha
     struct list_item$1char$ph* litem_34  ;
     char* __dec_obj22;
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&litem, 0, sizeof(litem));
     memset(&__dec_obj20, 0, sizeof(__dec_obj20));
     memset(&litem_33, 0, sizeof(litem_33));
     memset(&__dec_obj21, 0, sizeof(__dec_obj21));
     memset(&litem_34, 0, sizeof(litem_34));
     memset(&__dec_obj22, 0, sizeof(__dec_obj22));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&litem,0,sizeof(litem));
+    memset(&__dec_obj20,0,sizeof(__dec_obj20));
+    memset(&litem_33,0,sizeof(litem_33));
+    memset(&__dec_obj21,0,sizeof(__dec_obj21));
+    memset(&litem_34,0,sizeof(litem_34));
+    memset(&__dec_obj22,0,sizeof(__dec_obj22));
     __right_value0=(void*)0;
     if(self==((void*)0)) {
         __result_obj__0=self;
@@ -7756,6 +8438,8 @@ struct list$1char$ph* charp_scan(char* self, char* reg, _Bool ignore_case)
     int i;
     struct re_capture cp  ;
     char* match_string;
+    memset(&__right_value0, 0, sizeof(__right_value0));
+    memset(&__right_value1, 0, sizeof(__right_value1));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&result, 0, sizeof(result));
     memset(&re, 0, sizeof(re));
@@ -7769,6 +8453,19 @@ struct list$1char$ph* charp_scan(char* self, char* reg, _Bool ignore_case)
     memset(&i, 0, sizeof(i));
     memset(&cp, 0, sizeof(cp));
     memset(&match_string, 0, sizeof(match_string));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&result,0,sizeof(result));
+    memset(&re,0,sizeof(re));
+    memset(&offset,0,sizeof(offset));
+    memset(&n,0,sizeof(n));
+    memset(&group_count,0,sizeof(group_count));
+    memset(&matchlength,0,sizeof(matchlength));
+    memset(&max_captures,0,sizeof(max_captures));
+    memset(&regex_result,0,sizeof(regex_result));
+    memset(&str,0,sizeof(str));
+    memset(&i,0,sizeof(i));
+    memset(&cp,0,sizeof(cp));
+    memset(&match_string,0,sizeof(match_string));
     __right_value0=(void*)0;
     __right_value1=(void*)0;
     if(self==((void*)0)||reg==((void*)0)) {
@@ -7794,6 +8491,7 @@ struct list$1char$ph* charp_scan(char* self, char* reg, _Bool ignore_case)
         max_captures=8;
         struct re_capture captures[max_captures]  ;
         memset(&captures, 0, sizeof(captures));
+        memset(&captures,0,sizeof(captures));
         regex_result=re_matchp_ex(re,self+offset,&matchlength,captures,max_captures,ignore_case);
         if(regex_result>=0&&group_count==0) {
             str=(char*)come_increment_ref_count(charp_substring(self,offset+regex_result,offset+regex_result+matchlength));
@@ -7845,6 +8543,8 @@ struct list$1char$ph* charp_split(char* self, char* reg, _Bool ignore_case)
     int regex_result;
     char* str;
     char* str_35;
+    memset(&__right_value0, 0, sizeof(__right_value0));
+    memset(&__right_value1, 0, sizeof(__right_value1));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&result, 0, sizeof(result));
     memset(&re, 0, sizeof(re));
@@ -7856,6 +8556,17 @@ struct list$1char$ph* charp_split(char* self, char* reg, _Bool ignore_case)
     memset(&regex_result, 0, sizeof(regex_result));
     memset(&str, 0, sizeof(str));
     memset(&str_35, 0, sizeof(str_35));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&result,0,sizeof(result));
+    memset(&re,0,sizeof(re));
+    memset(&offset,0,sizeof(offset));
+    memset(&n,0,sizeof(n));
+    memset(&group_count,0,sizeof(group_count));
+    memset(&matchlength,0,sizeof(matchlength));
+    memset(&max_captures,0,sizeof(max_captures));
+    memset(&regex_result,0,sizeof(regex_result));
+    memset(&str,0,sizeof(str));
+    memset(&str_35,0,sizeof(str_35));
     __right_value0=(void*)0;
     __right_value1=(void*)0;
     if(self==((void*)0)||reg==((void*)0)) {
@@ -7881,6 +8592,7 @@ struct list$1char$ph* charp_split(char* self, char* reg, _Bool ignore_case)
         max_captures=8;
         struct re_capture captures[max_captures]  ;
         memset(&captures, 0, sizeof(captures));
+        memset(&captures,0,sizeof(captures));
         regex_result=re_matchp_ex(re,self+offset,&matchlength,captures,max_captures,ignore_case);
         if(regex_result>=0&&group_count==0) {
             str=(char*)come_increment_ref_count(charp_substring(self,offset,offset+regex_result));
@@ -7912,7 +8624,9 @@ char* string_sub(char* self, char* reg, char* replace, _Bool ignore_case)
 {
     void* __right_value0;
     char* __result_obj__0;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=charp_sub(self,reg,replace,1,ignore_case))));
     (__right_value0=come_decrement_ref_count(__right_value0,(void*)0,(void*)0,1,0,(void*)0));
@@ -7924,7 +8638,9 @@ struct list$1char$ph* string_split_str(char* self, char* str)
 {
     void* __right_value0;
     struct list$1char$ph* __result_obj__0  ;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __result_obj__0=(struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value0=charp_split_str(self,str))));
     come_call_finalizer(list$1char$ph$p_finalize,__right_value0,(void*)0,(void*)0,0,1,0,(void*)0);
@@ -7936,7 +8652,9 @@ struct list$1char$ph* string_scan(char* self, char* reg, _Bool ignore_case)
 {
     void* __right_value0;
     struct list$1char$ph* __result_obj__0  ;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __result_obj__0=(struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value0=charp_scan(self,reg,ignore_case))));
     come_call_finalizer(list$1char$ph$p_finalize,__right_value0,(void*)0,(void*)0,0,1,0,(void*)0);
@@ -7948,7 +8666,9 @@ struct list$1char$ph* string_split(char* self, char* reg, _Bool ignore_case)
 {
     void* __right_value0;
     struct list$1char$ph* __result_obj__0  ;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __result_obj__0=(struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value0=charp_split(self,reg,ignore_case))));
     come_call_finalizer(list$1char$ph$p_finalize,__right_value0,(void*)0,(void*)0,0,1,0,(void*)0);
@@ -7977,10 +8697,12 @@ char* charp_sub(char* self, char* reg, char* replace, _Bool global, _Bool ignore
     char* str;
     char* str_36;
     char* str_37;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&re, 0, sizeof(re));
     memset(&offset, 0, sizeof(offset));
     memset(&n, 0, sizeof(n));
+    memset(&__right_value1, 0, sizeof(__right_value1));
     memset(&result, 0, sizeof(result));
     memset(&group_count, 0, sizeof(group_count));
     memset(&matchlength, 0, sizeof(matchlength));
@@ -7989,6 +8711,18 @@ char* charp_sub(char* self, char* reg, char* replace, _Bool global, _Bool ignore
     memset(&str, 0, sizeof(str));
     memset(&str_36, 0, sizeof(str_36));
     memset(&str_37, 0, sizeof(str_37));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&re,0,sizeof(re));
+    memset(&offset,0,sizeof(offset));
+    memset(&n,0,sizeof(n));
+    memset(&result,0,sizeof(result));
+    memset(&group_count,0,sizeof(group_count));
+    memset(&matchlength,0,sizeof(matchlength));
+    memset(&max_captures,0,sizeof(max_captures));
+    memset(&regex_result,0,sizeof(regex_result));
+    memset(&str,0,sizeof(str));
+    memset(&str_36,0,sizeof(str_36));
+    memset(&str_37,0,sizeof(str_37));
     __right_value0=(void*)0;
     __right_value1=(void*)0;
     if(self==((void*)0)||reg==((void*)0)) {
@@ -8013,6 +8747,7 @@ char* charp_sub(char* self, char* reg, char* replace, _Bool global, _Bool ignore
         max_captures=8;
         struct re_capture captures[max_captures]  ;
         memset(&captures, 0, sizeof(captures));
+        memset(&captures,0,sizeof(captures));
         regex_result=re_matchp_ex(re,self+offset,&matchlength,captures,max_captures,ignore_case);
         if(regex_result>=0&&group_count==0) {
             str=(char*)come_increment_ref_count(charp_substring(self,offset,offset+regex_result));
@@ -8075,7 +8810,9 @@ char* charp_sub_block(char* self, char* reg, _Bool global, _Bool ignore_case, vo
     char* match_string_42;
     char* block_result_43;
     char* str_44;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__right_value1, 0, sizeof(__right_value1));
     memset(&result, 0, sizeof(result));
     memset(&re, 0, sizeof(re));
     memset(&offset, 0, sizeof(offset));
@@ -8097,6 +8834,28 @@ char* charp_sub_block(char* self, char* reg, _Bool global, _Bool ignore_case, vo
     memset(&match_string_42, 0, sizeof(match_string_42));
     memset(&block_result_43, 0, sizeof(block_result_43));
     memset(&str_44, 0, sizeof(str_44));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&result,0,sizeof(result));
+    memset(&re,0,sizeof(re));
+    memset(&offset,0,sizeof(offset));
+    memset(&n,0,sizeof(n));
+    memset(&group_count,0,sizeof(group_count));
+    memset(&matchlength,0,sizeof(matchlength));
+    memset(&max_captures,0,sizeof(max_captures));
+    memset(&regex_result,0,sizeof(regex_result));
+    memset(&str,0,sizeof(str));
+    memset(&group_strings,0,sizeof(group_strings));
+    memset(&match_string,0,sizeof(match_string));
+    memset(&block_result,0,sizeof(block_result));
+    memset(&str_38,0,sizeof(str_38));
+    memset(&str_39,0,sizeof(str_39));
+    memset(&group_strings_40,0,sizeof(group_strings_40));
+    memset(&i,0,sizeof(i));
+    memset(&cp,0,sizeof(cp));
+    memset(&match_string_41,0,sizeof(match_string_41));
+    memset(&match_string_42,0,sizeof(match_string_42));
+    memset(&block_result_43,0,sizeof(block_result_43));
+    memset(&str_44,0,sizeof(str_44));
     __right_value0=(void*)0;
     __right_value1=(void*)0;
     if(self==((void*)0)||reg==((void*)0)) {
@@ -8122,6 +8881,7 @@ char* charp_sub_block(char* self, char* reg, _Bool global, _Bool ignore_case, vo
         max_captures=8;
         struct re_capture captures[max_captures]  ;
         memset(&captures, 0, sizeof(captures));
+        memset(&captures,0,sizeof(captures));
         regex_result=re_matchp_ex(re,self+offset,&matchlength,captures,max_captures,ignore_case);
         if(regex_result>=0&&group_count==0) {
             str=(char*)come_increment_ref_count(charp_substring(self,offset,offset+regex_result));
@@ -8213,6 +8973,8 @@ struct list$1char$ph* charp_scan_block(char* self, char* reg, _Bool ignore_case,
     char* match_string_46;
     char* match_string_47;
     char* block_result_48;
+    memset(&__right_value0, 0, sizeof(__right_value0));
+    memset(&__right_value1, 0, sizeof(__right_value1));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
     memset(&result, 0, sizeof(result));
     memset(&re, 0, sizeof(re));
@@ -8231,6 +8993,24 @@ struct list$1char$ph* charp_scan_block(char* self, char* reg, _Bool ignore_case,
     memset(&match_string_46, 0, sizeof(match_string_46));
     memset(&match_string_47, 0, sizeof(match_string_47));
     memset(&block_result_48, 0, sizeof(block_result_48));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
+    memset(&result,0,sizeof(result));
+    memset(&re,0,sizeof(re));
+    memset(&offset,0,sizeof(offset));
+    memset(&n,0,sizeof(n));
+    memset(&group_count,0,sizeof(group_count));
+    memset(&matchlength,0,sizeof(matchlength));
+    memset(&max_captures,0,sizeof(max_captures));
+    memset(&regex_result,0,sizeof(regex_result));
+    memset(&group_strings,0,sizeof(group_strings));
+    memset(&match_string,0,sizeof(match_string));
+    memset(&block_result,0,sizeof(block_result));
+    memset(&group_strings_45,0,sizeof(group_strings_45));
+    memset(&i,0,sizeof(i));
+    memset(&cp,0,sizeof(cp));
+    memset(&match_string_46,0,sizeof(match_string_46));
+    memset(&match_string_47,0,sizeof(match_string_47));
+    memset(&block_result_48,0,sizeof(block_result_48));
     __right_value0=(void*)0;
     __right_value1=(void*)0;
     if(self==((void*)0)||reg==((void*)0)) {
@@ -8256,6 +9036,7 @@ struct list$1char$ph* charp_scan_block(char* self, char* reg, _Bool ignore_case,
         max_captures=8;
         struct re_capture captures[max_captures]  ;
         memset(&captures, 0, sizeof(captures));
+        memset(&captures,0,sizeof(captures));
         regex_result=re_matchp_ex(re,self+offset,&matchlength,captures,max_captures,ignore_case);
         if(regex_result>=0&&group_count==0) {
             group_strings=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1,sizeof(struct list$1char$ph)*(1),"/usr/local/include/neo-c.h",6614,"struct list$1char$ph*"))));
@@ -8307,7 +9088,9 @@ char* string_sub_block(char* self, char* reg, _Bool global, _Bool ignore_case, v
 {
     void* __right_value0;
     char* __result_obj__0;
+    memset(&__right_value0, 0, sizeof(__right_value0));
     memset(&__result_obj__0, 0, sizeof(__result_obj__0));
+    memset(&__result_obj__0,0,sizeof(__result_obj__0));
     __right_value0=(void*)0;
     __result_obj__0=(char*)come_increment_ref_count(((char*)(__right_value0=charp_sub_block(self,reg,global,ignore_case,parent,block))));
     (__right_value0=come_decrement_ref_count(__right_value0,(void*)0,(void*)0,1,0,(void*)0));
