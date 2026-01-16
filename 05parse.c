@@ -26,27 +26,9 @@ int err_msg(sInfo* info, char* msg, ...)
         
         char* p = info.p;
         
-        char* last_lf = null;
-        while(p >= info.head) {
-            if(*p == '\n') {
-                last_lf = p;
-                break;
-            }
-            p--;
-        }
-        
         buffer*% buf = new buffer();
         
-        if(last_lf) {
-            int col = info.p - last_lf;
-        
-            buf.append_format("%s %d(real %d)(block %d) %d: %s", info.sname, info.sline, info.sline_real, info.sline_block, col, msg2);
-        }
-        else {
-            int col = info.p - info.head;
-        
-            buf.append_format("%s %d(real %d)(block %d) %d: %s", info.sname, info.sline, info.sline_real, info.sline_block, col, msg2);
-        }
+        buf.append_format("%s %d(real %d)(block %d): %s", info.sname, info.sline, info.sline_real, info.sline_block, msg2);
         
         info.err_num++;
 
@@ -71,27 +53,9 @@ int err_msg2(sInfo* info, char* msg, ...)
         
         char* p = info.p;
         
-        char* last_lf = null;
-        while(p >= info.head) {
-            if(*p == '\n') {
-                last_lf = p;
-                break;
-            }
-            p--;
-        }
-        
         buffer*% buf = new buffer();
         
-        if(last_lf) {
-            int col = info.p - last_lf;
-        
-            buf.append_format("%s %d(real %d)(block %d) %d: %s", info.sname, info.sline, info.sline_real, info.sline_block, col, msg2);
-        }
-        else {
-            int col = info.p - info.head;
-        
-            buf.append_format("%s %d(real %d)(block %d) %d: %s", info.sname, info.sline, info.sline_real, info.sline_block, col, msg2);
-        }
+        buf.append_format("%s %d(real %d)(block %d): %s", info.sname, info.sline, info.sline_real, info.sline_block, msg2);
         
         info.err_num2++;
 

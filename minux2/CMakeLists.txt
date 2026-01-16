@@ -9,7 +9,7 @@ set(CMAKE_CXX_STANDARD 17)
 pico_sdk_init()
 
 add_executable(minux2
-    main.c.c
+    main.C
     timer.c
 )
 
@@ -20,6 +20,4 @@ pico_enable_stdio_usb(minux2 1)
 pico_enable_stdio_uart(minux2 0)
 
 pico_add_extra_outputs(minux2)
-
-
 
