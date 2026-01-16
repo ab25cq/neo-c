@@ -61,7 +61,7 @@ var UNIX=1
 ///////////////////////////////////////////////////////////////////////////
 // BARE METAL 
 ///////////////////////////////////////////////////////////////////////////
-#elif defined(__BARE_METAL__)
+#elif defined(__BAREMETAL__)
     #include "neo-c-libc.h"
 
     using neo-c;
@@ -851,7 +851,7 @@ uniq string __builtin_string(char* str)
     return result;
 }
 
-#if !defined(__RISCV__)
+#if defined(__BAREMETAL__)
 uniq void come_push_stackframe(char* sname, int sline, int id) version 2
 {
     inherit(sname, sline, id);
@@ -887,6 +887,7 @@ uniq void come_free(void* mem) version 2
     inherit(mem);
 }
 #endif
+
 //////////////////////////////
 // list
 //////////////////////////////

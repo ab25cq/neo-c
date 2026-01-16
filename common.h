@@ -601,7 +601,7 @@ struct sInfo
     int sline_block;
     bool m5stack_cpp;
     bool pico_cpp;
-    bool emb_cpp;
+    bool baremetal_cpp;
     bool gcc_compiler;
     bool in_method_block;
     

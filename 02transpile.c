@@ -165,6 +165,7 @@ static bool cpp(sInfo* info)
     int is_arm64 = system("uname -a | grep arm64 1> /dev/null 2> /dev/null") == 0;
     int is_m5stack = info.m5stack_cpp; // M5Stack?
     int is_pico = info.pico_cpp; // PICO?
+    int is_baremetal = info.baremetal_cpp; // BAREMETAL?
     int is_linux = 1;
     
     bool _32bit = false;
@@ -194,6 +195,9 @@ static bool cpp(sInfo* info)
     }
     else if(is_m5stack) {
         set_macro("__M5STACK__", "1");
+    }
+    else if(gComeBareMetal) {
+        set_macro("__BAREMETAL__", "1");
     }
     else if(is_mac) {
         set_macro("__APPLE__", "1");
@@ -714,7 +718,6 @@ module MEvalOptions<T, T2>
     bool come_debug = false;
     bool m5stack_cpp = false;
     bool pico_cpp = false;
-    bool emb_cpp = false;
     bool gcc_compiler = false;
     for(int i=T; i<argc; i++) {
         string ext_name = xextname(argv[i]);
@@ -928,35 +931,23 @@ module MEvalOptions<T, T2>
             gcc_compiler = true;
             output_object_file_flag = false;
             CC="riscv64-unknown-elf-gcc"
-            cpp_option.append_format(s" -D__BARE_METAL__=1 -D__RISCV__=1 ");
-            clang_option.append_str(s" -nostdlib -ffreestanding -D__RISCV__=1");
+            clang_option.append_str(s" -nostdlib -ffreestanding ");
             gComeBareMetal = true;
         }
-        else if(argv[i] === "-bare") {
+        else if(argv[i] === "-baremetal") {
             output_source_file_flag = true;
             gcc_compiler = true;
             output_object_file_flag = false;
             gComeOriginalSourcePosition = false;
             CC="gcc";
             gComeBareMetal = true;
-            cpp_option.append_format(s" -D__BARE_METAL__=1 ");
-            clang_option.append_str(s" -nostdlib -ffreestanding ");
         }
-#ifndef __MINUX__
         else if(argv[i] === "-pico") {
             output_source_file_flag = true;
             output_object_file_flag = false;
             gComeOriginalSourcePosition = false;
             pico_cpp = true;
         }
-#endif
-        else if(argv[i] === "-emb") {
-            output_source_file_flag = true;
-            output_object_file_flag = false;
-            gComeOriginalSourcePosition = false;
-            emb_cpp = true;
-        }
-#ifndef __MINUX__
         else if(argv[i] === "-m5stack") {
             m5stack_cpp = true;
             output_source_file_flag = true;
@@ -966,7 +957,6 @@ module MEvalOptions<T, T2>
             cpp_option = new buffer();
             cpp_option.append_format(s" -I\{getenv("HOME")}/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/xtensa-esp-elf/include -I\{env}/components/freertos/include -I\{env}/components/esp32/include -I\{env}/components/driver/include -I\{env}/components/lwip/include -I\{env}/components/freertos/FreeRTOS-Kernel/include -I\{env}/components/freertos/config/include/freertos -I\{env}/components/freertos/config/xtensa/include -I\{env}/components/xtensa/include -I\{env}/components/xtensa/esp32/include -I\{env}/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos -I\{env}/components/esp_hw_support/include -I\{env}/components/soc/esp32/include/ -I\{env}/components/esp_common/include/components $(find \{env}/components -type d -name include | grep esp_ | sed 's/^/ -I/g') -I\{env}/components/esp_common/include/ -I\{env}/components/soc/esp32/register/soc/ -I\{env}/components/soc/esp32/register -I\{env}/components/heap/include -I\{env}/components/hal/include -I\{env}/components/newlib/platform_include -D__M5STACK__=1", PREFIX);
         }
-#endif
         else if(i + 1 < argc && argv[i] === "-target") {
             clang_option.append_str(s" -target \{argv[i+1]} ");
             i++;
@@ -1717,7 +1707,6 @@ int come_main(int argc, char** argv)
         info.verbose = verbose;
         info.m5stack_cpp = m5stack_cpp;
         info.pico_cpp = pico_cpp;
-        info.emb_cpp = emb_cpp;
         info.gcc_compiler = gcc_compiler;
         info.original_source = it.read();
         
