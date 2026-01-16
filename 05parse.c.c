@@ -1092,6 +1092,7 @@ struct sType
     _Bool mShort;
     _Bool mLong;
     _Bool mLongLong;
+    _Bool mDouble;
     _Bool mConstant;
     _Bool mAtomic;
     _Bool mThreadLocal;

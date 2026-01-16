@@ -80,6 +80,11 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
             buf.append_str("long long");
         }
     }
+    else if(type->mDouble) {
+        if(class_name === "_Complex") {
+            buf.append_str("double _Complex");
+        }
+    }
     else if(type->mLong) {
         buf.append_str("long ");
         

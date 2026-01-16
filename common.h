@@ -107,6 +107,7 @@ uniq class sType
     bool mShort;
     bool mLong;
     bool mLongLong;
+    bool mDouble;
     bool mConstant;
     bool mAtomic;
     bool mThreadLocal;
