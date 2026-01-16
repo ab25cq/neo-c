@@ -947,7 +947,6 @@ module MEvalOptions<T, T2>
             output_source_file_flag = true;
             output_object_file_flag = false;
             gComeOriginalSourcePosition = false;
-            char* env = getenv("PICO_SDK_PATH");
             cpp_option = new buffer();
             pico_cpp = true;
         }
