@@ -1120,17 +1120,6 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
     info.in_top_level = true;
     char* source_head = info->p;
     
-    char* special_words[17] = {
-        "module", "__c__", "_Static_assert", "static_assert", "undef", "macro_include", "if", "eval", "var", "puts", "macro_define", "macro_undef", "interface", "impl", "using", "typedef", "class"
-    };
-    
-    bool is_special_words = false;
-    for(int i =0; i<17; i++) {
-        if(buf === special_words[i]) {
-            is_special_words = true;
-        }
-    }
-    
     bool is_type_name_flag = is_type_name(buf);
     int sline = info.sline;
     
@@ -1175,25 +1164,6 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
             if(buf2 === "class") {
                 uniq_class = true;
             }
-        }
-        
-        info.p = p;
-        info.sline = sline;
-        info.no_output_come_code = no_output_come_code;
-    }
-    
-    bool struct_definition = false;
-    if(buf === "struct") {
-        bool no_output_come_code = info.no_output_come_code;
-        info.no_output_come_code = true;
-        
-        char* p = info.p;
-        info.p = head;
-        
-        (void)parse_word();
-        
-        if(*info->p == '{') {
-            struct_definition = true;
         }
         
         info.p = p;
@@ -1247,7 +1217,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
     
     /// backtrace ///
     bool define_function_flag = false;
-    if(!is_special_words && !define_function_pointer_result_function && buf !== "__typeof__" && !uniq_class && !struct_definition)
+    if(is_type_name_flag && !define_function_pointer_result_function && buf !== "__typeof__" && !uniq_class)
     {
         bool no_output_come_code = info.no_output_come_code;
         info.no_output_come_code = true;
@@ -1274,32 +1244,31 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
             }
             
             if(word) {
-                bool flag = false;
-                while(*info->p == '*') {
-                    info->p++;
-                    skip_spaces_and_lf();
+                if(is_type_name(word)) {
+                    while(*info->p == '*') {
+                        info->p++;
+                        skip_spaces_and_lf();
+                    }
+                    if(*info->p == '[' && *(info->p+1) == ']') {
+                        info->p += 2;
+                        skip_spaces_and_lf();
+                    }
+                    if(*info->p == ':') {
+                        info->p++;
+                        skip_spaces_and_lf();
+                    }
+                    if(*info->p == ':') {
+                        info->p++;
+                        skip_spaces_and_lf();
+                    }
+                    if(xisalnum(*info.p) || *info->p == '_') {
+                        word = parse_word();
+                    }
                 }
-                if(*info->p == '[' && *(info->p+1) == ']') {
-                    info->p += 2;
-                    skip_spaces_and_lf();
-                }
-                if(*info->p == ':') {
-                    flag = true
-                    info->p++;
-                    skip_spaces_and_lf();
-                }
-                if(*info->p == ':') {
-                    info->p++;
-                    skip_spaces_and_lf();
-                }
-                if(xisalnum(*info.p) || *info->p == '_') {
-                    word = parse_word();
-                }
-                //}
                 
                 /// fun name ///
                 if(strlen(word) > 0 && (*info->p == '(' || (*info->p == ':' && *(info->p+1) == ':'))) {
-                    if(is_type_name_flag || flag) {
+                    if(is_type_name_flag) {
                         define_function_flag = true;
                     }
                 }

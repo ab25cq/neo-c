@@ -1726,6 +1726,84 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
         
         return new sUndefNode(word, info) implements sNode;
     }
+    else if(buf === "macro_include") {
+        int quoted = 0;
+        if(*info->p == '"') {
+            quoted = 1;
+            info->p++;
+        }
+        else if(*info->p == '<') {
+            info->p++;
+        }
+        
+        var buf = new buffer();
+        while(*info->p) {
+            if(*info->p == '\\') {
+                info->p++;
+                buf.append_char(*info->p);
+                info->p++;
+            }
+            else if(*info->p == '"') {
+                info->p++;
+                break;
+            }
+            else if(*info->p == '>') {
+                info->p++;
+                break;
+            }
+            else {
+                buf.append_char(*info->p);
+                info->p++;
+            }
+        }
+        
+        string path = buf.to_string();
+        
+        static int macro_include_id = 0;
+        MacroSnapshot* snap = macro_snapshot_create();
+        FILE* out = fopen("__ccpp_tmp", "w");
+        
+        incldue_file_neo_c(path, quoted, out);
+        
+        fclose(out);
+        
+        char* macro_defines = macro_snapshot_diff_defines(snap);
+        macro_snapshot_free(snap);
+        if(macro_defines && *macro_defines) {
+            macro_include_id++;
+            info.previous_struct_definition.insert(s"__macro_include__\{macro_include_id}", macro_defines.to_buffer());
+        }
+        if(macro_defines) {
+            free(macro_defines);
+        }
+        
+        buffer*% source = info.source;
+        char* p = info.p;
+        char* head = info.head;
+        char* end = info.end;
+        string sname = info.sname;
+        int sline = info.sline;
+        
+        info.source = "__ccpp_tmp".read().to_buffer();
+        info.p = info.source.buf;
+        info.head = info.source.buf;
+        info.end = info.source.buf + info.source.len;
+        info.sname = string(path);
+        info.sline = 1;
+        
+        transpile_toplevel(block:false);
+        
+        info.source = source;
+        info.p = p;
+        info.head = head;
+        info.end = end;
+        info.sname = sname;
+        info.sline = sline;
+        
+        remove("__ccpp_tmp");
+        
+        return new sNothingNode(info) implements sNode;
+    }
     else if(buf === "if") {
         if(*info->p == '(') {
             info->p++;
@@ -1852,6 +1930,60 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
         if(*info->p == ')') {
             info->p++;
             skip_spaces_and_lf();
+        }
+        
+        return new sNothingNode(info) implements sNode;
+    }
+    else if(buf === "macro_define") {
+        if(*info->p == '(') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+        
+        string exp = reflection_expression();
+        string exp2 = null;
+        
+        if(*info->p == ',') {
+            info->p++;
+            skip_spaces_and_lf();
+            exp2 = reflection_expression();
+        }
+        
+        if(*info->p == ')') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+        
+        skip_spaces_and_lf();
+        
+        string def = exp;
+        if(exp2) {
+            def = exp + s" " + exp2;
+        }
+        
+        if(def) {
+            macro_define(def);
+        }
+        
+        return new sNothingNode(info) implements sNode;
+    }
+    else if(buf === "macro_undef") {
+        if(*info->p == '(') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+        
+        string exp = reflection_expression();
+        
+        if(*info->p == ')') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+        
+        skip_spaces_and_lf();
+        
+        if(exp) {
+            macro_undef(exp);
         }
         
         return new sNothingNode(info) implements sNode;

@@ -1098,7 +1098,7 @@ class sFunCallNode extends sNodeBase
         sFun* fun = borrow info.funcs.at(fun_name, null);
         
         if(fun == null) {
-            //printf("%s %d: function not found(%s) at function call(1), so no check types and no heap management\n", info.sname, info.sline, fun_name);
+            printf("%s %d: function not found(%s) at function call(1), so no check types and no heap management\n", info.sname, info.sline, fun_name);
             
             list<CVALUE*%>*% come_params = new list<CVALUE*%>();
             
@@ -2445,7 +2445,7 @@ sNode*% expression_node(sInfo* info=info) version 98
             info.p = head;
             info.sline = head_sline;
             
-            sNode*% node = parse_function(info);
+            sNode*% node =  parse_function(info);
             info.sline_real = sline_real;
             return node;
         }

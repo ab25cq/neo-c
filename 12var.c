@@ -702,7 +702,7 @@ class sLoadNode extends sNodeBase
                 }
                 else {
                     if(var_ == null) {
-                        //err_msg2(info, "The type of %s is not found. so can't check the heap type\n", self.name);
+                        err_msg2(info, "The type of %s is not found. so can't check the heap type\n", self.name);
                         
                         CVALUE*% come_value = new CVALUE();
                         
