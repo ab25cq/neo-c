@@ -624,9 +624,9 @@ static void init_classes(sInfo* info)
         info.classes.insert(generics_type, new sClass(generics_type, method_generics:true, method_generics_num:i));
     }
     
-    sType*% type__ = new sType(s"long");
-    type__->mUnsigned = true;
-    (void)add_typedef(s"uint64_t", type__, info);
+    //sType*% type__ = new sType(s"long");
+    //type__->mUnsigned = true;
+    //(void)add_typedef(s"uint64_t", type__, info);
     
     int is_mac = system("uname -a | grep Darwin 1> /dev/null 2>/dev/null") == 0;
     if(is_mac) {
