@@ -189,7 +189,13 @@ static bool cpp(sInfo* info)
         set_macro("__32BIT_CPU__", "1");
     }
     
-    if(is_mac) {
+    if(is_pico) {
+        set_macro("__PICO__", "1");
+    }
+    else if(is_m5stack) {
+        set_macro("__M5STACK__", "1");
+    }
+    else if(is_mac) {
         set_macro("__APPLE__", "1");
     }
     else if(is_android) {
@@ -197,12 +203,6 @@ static bool cpp(sInfo* info)
     }
     else if(is_raspi) {
         set_macro("__RASPBERRY_PI__", "1");
-    }
-    else if(is_pico) {
-        set_macro("__PICO__", "1");
-    }
-    else if(is_m5stack) {
-        set_macro("__M5STACK__", "1");
     }
     else {
         set_macro("__linux__", "1");
