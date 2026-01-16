@@ -2666,7 +2666,6 @@ static char* map$2char$phsType$ph_next(struct map$2char$phsType$ph* self);
 static struct sType* map$2char$phsType$ph_at(struct map$2char$phsType$ph* self, char* key  , struct sType* default_value  );
 static struct list$1tuple2$2char$phsType$ph$ph* list$1tuple2$2char$phsType$ph$ph_push_back(struct list$1tuple2$2char$phsType$ph$ph* self, struct tuple2$2char$phsType$ph* item);
 static struct tuple2$2char$phsType$ph* tuple2$2char$phsType$ph_initialize(struct tuple2$2char$phsType$ph* self, char* v1  , struct sType* v2);
-void create_pico_version_header();
 int come_main(int argc, char** argv);
 static struct list$1char$ph* list$1char$ph_initialize(struct list$1char$ph* self);
 static void sInfo_finalize(struct sInfo* self  );
@@ -4498,88 +4497,6 @@ static struct tuple2$2char$phsType$ph* tuple2$2char$phsType$ph_initialize(struct
     return __result_obj__0;
 }
 
-void create_pico_version_header()
-{
-    void* __right_value0 = (void*)0;
-    void* __right_value1 = (void*)0;
-    char* Value  ;
-    _Bool _conditional_value_X0;
-    int version_major;
-    char* p;
-    int version_miner;
-    char* p_37;
-    int version_revision;
-    char* p_38;
-    void* __right_value2 = (void*)0;
-    void* __right_value3 = (void*)0;
-    char* version_string  ;
-    int Value_39;
-    void* __right_value4 = (void*)0;
-    if(getenv("PICO_SDK_PATH")) {
-        Value=(char*)come_increment_ref_count(charp_read((((char*)(__right_value0=charp_operator_add(getenv("PICO_SDK_PATH"),"/pico_sdk_version.cmake"))))));
-        if(({(_conditional_value_X0=(Value));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-_conditional_value_X0;})) {
-            version_major=0;
-            p=strstr(Value,"set(PICO_SDK_VERSION_MAJOR");
-            if(p) {
-                p+=strlen("set(PICO_SDK_VERSION_MAJOR");
-                while(*p==32||*p==9) {
-                    p++;
-                }
-                while(xisdigit(*p)) {
-                    version_major=version_major*10+(*p-48);
-                    p++;
-                }
-            }
-            version_miner=0;
-            p_37=strstr(Value,"set(PICO_SDK_VERSION_MINOR");
-            if(p_37) {
-                p_37+=strlen("set(PICO_SDK_VERSION_MINOR");
-                while(*p_37==32||*p_37==9) {
-                    p_37++;
-                }
-                while(xisdigit(*p_37)) {
-                    version_miner=version_miner*10+*p_37-48;
-                    p_37++;
-                }
-            }
-            version_revision=0;
-            p_38=strstr(Value,"set(PICO_SDK_VERSION_REVISION");
-            if(p_38) {
-                p_38+=strlen("set(PICO_SDK_VERSION_REVISION");
-                while(*p_38==32||*p_38==9) {
-                    p_38++;
-                }
-                while(xisdigit(*p_38)) {
-                    version_revision=version_revision*10+*p_38-48;
-                    p_38++;
-                }
-            }
-            version_string=(char*)come_increment_ref_count(xsprintf("\%s.\%s.\%s",((char*)(__right_value0=int_to_string(version_major))),((char*)(__right_value1=int_to_string(version_miner))),((char*)(__right_value2=int_to_string(version_revision)))));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
-            (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0));
-            Value_39=system("mkdir -p pico");
-            if(!Value_39) {
-                charp_write(((char*)(__right_value4=xsprintf("\#ifndef _PICO_VERSION_H\n\#define _PICO_VERSION_H\n\n\#define PICO_SDK_VERSION_MAJOR    \%s\n\#define PICO_SDK_VERSION_MINOR    \%s\n\#define PICO_SDK_VERSION_REVISION \%s\n\#define PICO_SDK_VERSION_STRING   \"\%s\"\n\n\#endif\n",((char*)(__right_value0=int_to_string(version_major))),((char*)(__right_value1=int_to_string(version_miner))),((char*)(__right_value2=int_to_string(version_revision))),((char*)(__right_value3=string_to_string(version_string)))))),"pico/version.h",0);
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
-                (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0));
-                (__right_value3 = come_decrement_ref_count(__right_value3, (void*)0, (void*)0, 1, 0, (void*)0));
-                (__right_value4 = come_decrement_ref_count(__right_value4, (void*)0, (void*)0, 1, 0, (void*)0));
-            }
-            else {
-            }
-            (version_string = come_decrement_ref_count(version_string, (void*)0, (void*)0, 0, 0, (void*)0));
-        }
-        else {
-        }
-        (Value = come_decrement_ref_count(Value, (void*)0, (void*)0, 0, 0, (void*)0));
-    }
-    (void)system("touch pico_config_extra_headers.h");
-    (void)system("touch pico_config_platform_headers.h");
-}
-
 int come_main(int argc, char** argv)
 {
     int start_num;
@@ -4608,9 +4525,9 @@ int come_main(int argc, char** argv)
     char* __dec_obj26  ;
     char* env;
     struct buffer* __dec_obj27  ;
-    void* __right_value2 = (void*)0;
-    char* env_40;
+    char* env_37;
     struct buffer* __dec_obj28  ;
+    void* __right_value2 = (void*)0;
     void* __right_value3 = (void*)0;
     void* __right_value4 = (void*)0;
     void* __right_value5 = (void*)0;
@@ -4665,36 +4582,36 @@ int come_main(int argc, char** argv)
     struct list$1char$ph* __dec_obj59;
     struct map$2char$phsClass$ph* __dec_obj60;
     char* __dec_obj61  ;
-    _Bool Value_55;
+    _Bool Value_52;
     struct buffer* __dec_obj62  ;
     char* __dec_obj63  ;
     char* __dec_obj64  ;
+    _Bool Value_53;
+    _Bool Value_54;
+    _Bool Value_55;
     _Bool Value_56;
-    _Bool Value_57;
-    _Bool Value_58;
-    _Bool Value_59;
-    struct sInfo info_60  ;
+    struct sInfo info_57  ;
     char* __dec_obj65  ;
     char* __dec_obj66  ;
     char* __dec_obj67  ;
     char* __dec_obj68  ;
     char* __dec_obj69  ;
     char* __dec_obj70  ;
-    _Bool Value_63;
+    _Bool Value_60;
     int __result_obj__0;
     memset(&info, 0, sizeof(info));
-    memset(&info_60, 0, sizeof(info_60));
+    memset(&info_57, 0, sizeof(info_57));
     start_num=1;
     output_file_name_str=((void*)0);
-    clang_option=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "02transpile.c", 741, "struct buffer*"))));
+    clang_option=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "02transpile.c", 678, "struct buffer*"))));
     buffer_append_str(clang_option," -std=c11 ");
-    linker_option=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "02transpile.c", 744, "struct buffer*"))));
-    linker_option2=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "02transpile.c", 745, "struct buffer*"))));
-    cpp_option=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "02transpile.c", 746, "struct buffer*"))));
+    linker_option=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "02transpile.c", 681, "struct buffer*"))));
+    linker_option2=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "02transpile.c", 682, "struct buffer*"))));
+    cpp_option=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "02transpile.c", 683, "struct buffer*"))));
     buffer_append_str(cpp_option,"-U__GNUC__");
     buffer_append_str(cpp_option," -std=c11 ");
-    files=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "02transpile.c", 749, "struct list$1char$ph*"))));
-    object_files=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "02transpile.c", 750, "struct list$1char$ph*"))));
+    files=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "02transpile.c", 686, "struct list$1char$ph*"))));
+    object_files=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "02transpile.c", 687, "struct list$1char$ph*"))));
     output_object_file=0;
     output_cpp_file=0;
     output_source_file_flag=0;
@@ -5027,13 +4944,8 @@ int come_main(int argc, char** argv)
             gComeOriginalSourcePosition=0;
             env=getenv("PICO_SDK_PATH");
             __dec_obj27=cpp_option,
-            cpp_option=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "02transpile.c", 993, "struct buffer*"))));
+            cpp_option=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "02transpile.c", 930, "struct buffer*"))));
             come_call_finalizer(buffer_finalize, __dec_obj27,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-            buffer_append_format(cpp_option,((char*)(__right_value2=xsprintf(" -I $PICO_SDK_PATH/src/common/pico_stdlib_headers/include/ -I$PICO_SDK_PATH/src/common/pico_base_headers/include/ -I \%s/src/rp2_common/hardware_sync/include \$(find \%s -type d -name include | sed 's/^/ -I/g') -I$PICO_SDK_PATH/src/boards/include -I$PICO_SDK_PATH/src/rp2040/pico_platform/include/ -I$PICO_SDK_PATH/src/rp2040/hardware_regs/include/ -I$PICO_SDK_PATH/src/rp2040/hardware_structs/include -I$PICO_SDK_PATH/src/rp2350/hardware_structs/include/ -I build/generated/pico_base/ -D__PICO__=1",((char*)(__right_value0=charp_to_string(env))),((char*)(__right_value1=charp_to_string(env)))))));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
-            (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0));
-            create_pico_version_header();
             pico_cpp=1;
         }
         else if(charp_operator_equals(argv[i],"-emb")) {
@@ -5047,11 +4959,11 @@ int come_main(int argc, char** argv)
             output_source_file_flag=1;
             output_object_file_flag=0;
             gComeOriginalSourcePosition=0;
-            env_40=getenv("IDF_PATH");
+            env_37=getenv("IDF_PATH");
             __dec_obj28=cpp_option,
-            cpp_option=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "02transpile.c", 1010, "struct buffer*"))));
+            cpp_option=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc_v2(1, sizeof(struct buffer)*(1), "02transpile.c", 945, "struct buffer*"))));
             come_call_finalizer(buffer_finalize, __dec_obj28,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-            buffer_append_format(cpp_option,((char*)(__right_value21=xsprintf(" -I\%s/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/xtensa-esp-elf/include -I\%s/components/freertos/include -I\%s/components/esp32/include -I\%s/components/driver/include -I\%s/components/lwip/include -I\%s/components/freertos/FreeRTOS-Kernel/include -I\%s/components/freertos/config/include/freertos -I\%s/components/freertos/config/xtensa/include -I\%s/components/xtensa/include -I\%s/components/xtensa/esp32/include -I\%s/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos -I\%s/components/esp_hw_support/include -I\%s/components/soc/esp32/include/ -I\%s/components/esp_common/include/components $(find \%s/components -type d -name include | grep esp_ | sed 's/^/ -I/g') -I\%s/components/esp_common/include/ -I\%s/components/soc/esp32/register/soc/ -I\%s/components/soc/esp32/register -I\%s/components/heap/include -I\%s/components/hal/include -I\%s/components/newlib/platform_include -D__M5STACK__=1",((char*)(__right_value0=charp_to_string(getenv("HOME")))),((char*)(__right_value1=charp_to_string(env_40))),((char*)(__right_value2=charp_to_string(env_40))),((char*)(__right_value3=charp_to_string(env_40))),((char*)(__right_value4=charp_to_string(env_40))),((char*)(__right_value5=charp_to_string(env_40))),((char*)(__right_value6=charp_to_string(env_40))),((char*)(__right_value7=charp_to_string(env_40))),((char*)(__right_value8=charp_to_string(env_40))),((char*)(__right_value9=charp_to_string(env_40))),((char*)(__right_value10=charp_to_string(env_40))),((char*)(__right_value11=charp_to_string(env_40))),((char*)(__right_value12=charp_to_string(env_40))),((char*)(__right_value13=charp_to_string(env_40))),((char*)(__right_value14=charp_to_string(env_40))),((char*)(__right_value15=charp_to_string(env_40))),((char*)(__right_value16=charp_to_string(env_40))),((char*)(__right_value17=charp_to_string(env_40))),((char*)(__right_value18=charp_to_string(env_40))),((char*)(__right_value19=charp_to_string(env_40))),((char*)(__right_value20=charp_to_string(env_40)))))),"/usr/local/");
+            buffer_append_format(cpp_option,((char*)(__right_value21=xsprintf(" -I\%s/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/xtensa-esp-elf/include -I\%s/components/freertos/include -I\%s/components/esp32/include -I\%s/components/driver/include -I\%s/components/lwip/include -I\%s/components/freertos/FreeRTOS-Kernel/include -I\%s/components/freertos/config/include/freertos -I\%s/components/freertos/config/xtensa/include -I\%s/components/xtensa/include -I\%s/components/xtensa/esp32/include -I\%s/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos -I\%s/components/esp_hw_support/include -I\%s/components/soc/esp32/include/ -I\%s/components/esp_common/include/components $(find \%s/components -type d -name include | grep esp_ | sed 's/^/ -I/g') -I\%s/components/esp_common/include/ -I\%s/components/soc/esp32/register/soc/ -I\%s/components/soc/esp32/register -I\%s/components/heap/include -I\%s/components/hal/include -I\%s/components/newlib/platform_include -D__M5STACK__=1",((char*)(__right_value0=charp_to_string(getenv("HOME")))),((char*)(__right_value1=charp_to_string(env_37))),((char*)(__right_value2=charp_to_string(env_37))),((char*)(__right_value3=charp_to_string(env_37))),((char*)(__right_value4=charp_to_string(env_37))),((char*)(__right_value5=charp_to_string(env_37))),((char*)(__right_value6=charp_to_string(env_37))),((char*)(__right_value7=charp_to_string(env_37))),((char*)(__right_value8=charp_to_string(env_37))),((char*)(__right_value9=charp_to_string(env_37))),((char*)(__right_value10=charp_to_string(env_37))),((char*)(__right_value11=charp_to_string(env_37))),((char*)(__right_value12=charp_to_string(env_37))),((char*)(__right_value13=charp_to_string(env_37))),((char*)(__right_value14=charp_to_string(env_37))),((char*)(__right_value15=charp_to_string(env_37))),((char*)(__right_value16=charp_to_string(env_37))),((char*)(__right_value17=charp_to_string(env_37))),((char*)(__right_value18=charp_to_string(env_37))),((char*)(__right_value19=charp_to_string(env_37))),((char*)(__right_value20=charp_to_string(env_37)))))),"/usr/local/");
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
             (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -6248,66 +6160,66 @@ _conditional_value_X3;})) {
         info.linker_option2=(char*)come_increment_ref_count(buffer_to_string(linker_option2));
         __dec_obj33 = come_decrement_ref_count(__dec_obj33, (void*)0, (void*)0, 0,0, (void*)0);
         __dec_obj35=info.funcs,
-        info.funcs=(struct map$2char$phsFun$ph*)come_increment_ref_count(map$2char$phsFun$ph_initialize((struct map$2char$phsFun$ph*)come_increment_ref_count((struct map$2char$phsFun$ph*)come_calloc_v2(1, sizeof(struct map$2char$phsFun$ph)*(1), "02transpile.c", 1732, "struct map$2char$phsFun$ph*"))));
+        info.funcs=(struct map$2char$phsFun$ph*)come_increment_ref_count(map$2char$phsFun$ph_initialize((struct map$2char$phsFun$ph*)come_increment_ref_count((struct map$2char$phsFun$ph*)come_calloc_v2(1, sizeof(struct map$2char$phsFun$ph)*(1), "02transpile.c", 1667, "struct map$2char$phsFun$ph*"))));
         come_call_finalizer(map$2char$phsFun$ph_finalize, __dec_obj35,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         __dec_obj36=info.uniq_funcs,
-        info.uniq_funcs=(struct map$2char$phsFun$ph*)come_increment_ref_count(map$2char$phsFun$ph_initialize((struct map$2char$phsFun$ph*)come_increment_ref_count((struct map$2char$phsFun$ph*)come_calloc_v2(1, sizeof(struct map$2char$phsFun$ph)*(1), "02transpile.c", 1733, "struct map$2char$phsFun$ph*"))));
+        info.uniq_funcs=(struct map$2char$phsFun$ph*)come_increment_ref_count(map$2char$phsFun$ph_initialize((struct map$2char$phsFun$ph*)come_increment_ref_count((struct map$2char$phsFun$ph*)come_calloc_v2(1, sizeof(struct map$2char$phsFun$ph)*(1), "02transpile.c", 1668, "struct map$2char$phsFun$ph*"))));
         come_call_finalizer(map$2char$phsFun$ph_finalize, __dec_obj36,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         __dec_obj38=info.struct_definition,
-        info.struct_definition=(struct map$2char$phbuffer$ph*)come_increment_ref_count(map$2char$phbuffer$ph_initialize((struct map$2char$phbuffer$ph*)come_increment_ref_count((struct map$2char$phbuffer$ph*)come_calloc_v2(1, sizeof(struct map$2char$phbuffer$ph)*(1), "02transpile.c", 1734, "struct map$2char$phbuffer$ph*"))));
+        info.struct_definition=(struct map$2char$phbuffer$ph*)come_increment_ref_count(map$2char$phbuffer$ph_initialize((struct map$2char$phbuffer$ph*)come_increment_ref_count((struct map$2char$phbuffer$ph*)come_calloc_v2(1, sizeof(struct map$2char$phbuffer$ph)*(1), "02transpile.c", 1669, "struct map$2char$phbuffer$ph*"))));
         come_call_finalizer(map$2char$phbuffer$ph_finalize, __dec_obj38,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         __dec_obj39=info.var_definition,
-        info.var_definition=(struct map$2char$phbuffer$ph*)come_increment_ref_count(map$2char$phbuffer$ph_initialize((struct map$2char$phbuffer$ph*)come_increment_ref_count((struct map$2char$phbuffer$ph*)come_calloc_v2(1, sizeof(struct map$2char$phbuffer$ph)*(1), "02transpile.c", 1735, "struct map$2char$phbuffer$ph*"))));
+        info.var_definition=(struct map$2char$phbuffer$ph*)come_increment_ref_count(map$2char$phbuffer$ph_initialize((struct map$2char$phbuffer$ph*)come_increment_ref_count((struct map$2char$phbuffer$ph*)come_calloc_v2(1, sizeof(struct map$2char$phbuffer$ph)*(1), "02transpile.c", 1670, "struct map$2char$phbuffer$ph*"))));
         come_call_finalizer(map$2char$phbuffer$ph_finalize, __dec_obj39,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         __dec_obj41=info.uniq_definition,
-        info.uniq_definition=(struct map$2char$phchar$ph*)come_increment_ref_count(map$2char$phchar$ph_initialize((struct map$2char$phchar$ph*)come_increment_ref_count((struct map$2char$phchar$ph*)come_calloc_v2(1, sizeof(struct map$2char$phchar$ph)*(1), "02transpile.c", 1736, "struct map$2char$phchar$ph*"))));
+        info.uniq_definition=(struct map$2char$phchar$ph*)come_increment_ref_count(map$2char$phchar$ph_initialize((struct map$2char$phchar$ph*)come_increment_ref_count((struct map$2char$phchar$ph*)come_calloc_v2(1, sizeof(struct map$2char$phchar$ph)*(1), "02transpile.c", 1671, "struct map$2char$phchar$ph*"))));
         come_call_finalizer(map$2char$phchar$ph_finalize, __dec_obj41,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         __dec_obj42=info.previous_struct_definition,
-        info.previous_struct_definition=(struct map$2char$phbuffer$ph*)come_increment_ref_count(map$2char$phbuffer$ph_initialize((struct map$2char$phbuffer$ph*)come_increment_ref_count((struct map$2char$phbuffer$ph*)come_calloc_v2(1, sizeof(struct map$2char$phbuffer$ph)*(1), "02transpile.c", 1737, "struct map$2char$phbuffer$ph*"))));
+        info.previous_struct_definition=(struct map$2char$phbuffer$ph*)come_increment_ref_count(map$2char$phbuffer$ph_initialize((struct map$2char$phbuffer$ph*)come_increment_ref_count((struct map$2char$phbuffer$ph*)come_calloc_v2(1, sizeof(struct map$2char$phbuffer$ph)*(1), "02transpile.c", 1672, "struct map$2char$phbuffer$ph*"))));
         come_call_finalizer(map$2char$phbuffer$ph_finalize, __dec_obj42,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         __dec_obj43=info.typedef_definition,
-        info.typedef_definition=(struct map$2char$phbuffer$ph*)come_increment_ref_count(map$2char$phbuffer$ph_initialize((struct map$2char$phbuffer$ph*)come_increment_ref_count((struct map$2char$phbuffer$ph*)come_calloc_v2(1, sizeof(struct map$2char$phbuffer$ph)*(1), "02transpile.c", 1738, "struct map$2char$phbuffer$ph*"))));
+        info.typedef_definition=(struct map$2char$phbuffer$ph*)come_increment_ref_count(map$2char$phbuffer$ph_initialize((struct map$2char$phbuffer$ph*)come_increment_ref_count((struct map$2char$phbuffer$ph*)come_calloc_v2(1, sizeof(struct map$2char$phbuffer$ph)*(1), "02transpile.c", 1673, "struct map$2char$phbuffer$ph*"))));
         come_call_finalizer(map$2char$phbuffer$ph_finalize, __dec_obj43,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         __dec_obj45=info.named_child_struct,
-        info.named_child_struct=(struct map$2char$phsType$ph*)come_increment_ref_count(map$2char$phsType$ph_initialize((struct map$2char$phsType$ph*)come_increment_ref_count((struct map$2char$phsType$ph*)come_calloc_v2(1, sizeof(struct map$2char$phsType$ph)*(1), "02transpile.c", 1739, "struct map$2char$phsType$ph*"))));
+        info.named_child_struct=(struct map$2char$phsType$ph*)come_increment_ref_count(map$2char$phsType$ph_initialize((struct map$2char$phsType$ph*)come_increment_ref_count((struct map$2char$phsType$ph*)come_calloc_v2(1, sizeof(struct map$2char$phsType$ph)*(1), "02transpile.c", 1674, "struct map$2char$phsType$ph*"))));
         come_call_finalizer(map$2char$phsType$ph_finalize, __dec_obj45,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         __dec_obj46=info.reflection_vars,
-        info.reflection_vars=(struct map$2char$phchar$ph*)come_increment_ref_count(map$2char$phchar$ph_initialize((struct map$2char$phchar$ph*)come_increment_ref_count((struct map$2char$phchar$ph*)come_calloc_v2(1, sizeof(struct map$2char$phchar$ph)*(1), "02transpile.c", 1740, "struct map$2char$phchar$ph*"))));
+        info.reflection_vars=(struct map$2char$phchar$ph*)come_increment_ref_count(map$2char$phchar$ph_initialize((struct map$2char$phchar$ph*)come_increment_ref_count((struct map$2char$phchar$ph*)come_calloc_v2(1, sizeof(struct map$2char$phchar$ph)*(1), "02transpile.c", 1675, "struct map$2char$phchar$ph*"))));
         come_call_finalizer(map$2char$phchar$ph_finalize, __dec_obj46,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         __dec_obj48=info.generics_funcs,
-        info.generics_funcs=(struct map$2char$phsGenericsFun$ph*)come_increment_ref_count(map$2char$phsGenericsFun$ph_initialize((struct map$2char$phsGenericsFun$ph*)come_increment_ref_count((struct map$2char$phsGenericsFun$ph*)come_calloc_v2(1, sizeof(struct map$2char$phsGenericsFun$ph)*(1), "02transpile.c", 1741, "struct map$2char$phsGenericsFun$ph*"))));
+        info.generics_funcs=(struct map$2char$phsGenericsFun$ph*)come_increment_ref_count(map$2char$phsGenericsFun$ph_initialize((struct map$2char$phsGenericsFun$ph*)come_increment_ref_count((struct map$2char$phsGenericsFun$ph*)come_calloc_v2(1, sizeof(struct map$2char$phsGenericsFun$ph)*(1), "02transpile.c", 1676, "struct map$2char$phsGenericsFun$ph*"))));
         come_call_finalizer(map$2char$phsGenericsFun$ph_finalize, __dec_obj48,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         __dec_obj50=info.classes,
-        info.classes=(struct map$2char$phsClass$ph*)come_increment_ref_count(map$2char$phsClass$ph_initialize((struct map$2char$phsClass$ph*)come_increment_ref_count((struct map$2char$phsClass$ph*)come_calloc_v2(1, sizeof(struct map$2char$phsClass$ph)*(1), "02transpile.c", 1742, "struct map$2char$phsClass$ph*"))));
+        info.classes=(struct map$2char$phsClass$ph*)come_increment_ref_count(map$2char$phsClass$ph_initialize((struct map$2char$phsClass$ph*)come_increment_ref_count((struct map$2char$phsClass$ph*)come_calloc_v2(1, sizeof(struct map$2char$phsClass$ph)*(1), "02transpile.c", 1677, "struct map$2char$phsClass$ph*"))));
         come_call_finalizer(map$2char$phsClass$ph_finalize, __dec_obj50,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         __dec_obj52=info.modules,
-        info.modules=(struct map$2char$phsClassModule$ph*)come_increment_ref_count(map$2char$phsClassModule$ph_initialize((struct map$2char$phsClassModule$ph*)come_increment_ref_count((struct map$2char$phsClassModule$ph*)come_calloc_v2(1, sizeof(struct map$2char$phsClassModule$ph)*(1), "02transpile.c", 1743, "struct map$2char$phsClassModule$ph*"))));
+        info.modules=(struct map$2char$phsClassModule$ph*)come_increment_ref_count(map$2char$phsClassModule$ph_initialize((struct map$2char$phsClassModule$ph*)come_increment_ref_count((struct map$2char$phsClassModule$ph*)come_calloc_v2(1, sizeof(struct map$2char$phsClassModule$ph)*(1), "02transpile.c", 1678, "struct map$2char$phsClassModule$ph*"))));
         come_call_finalizer(map$2char$phsClassModule$ph_finalize, __dec_obj52,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         __dec_obj53=info.types,
-        info.types=(struct map$2char$phsType$ph*)come_increment_ref_count(map$2char$phsType$ph_initialize((struct map$2char$phsType$ph*)come_increment_ref_count((struct map$2char$phsType$ph*)come_calloc_v2(1, sizeof(struct map$2char$phsType$ph)*(1), "02transpile.c", 1744, "struct map$2char$phsType$ph*"))));
+        info.types=(struct map$2char$phsType$ph*)come_increment_ref_count(map$2char$phsType$ph_initialize((struct map$2char$phsType$ph*)come_increment_ref_count((struct map$2char$phsType$ph*)come_calloc_v2(1, sizeof(struct map$2char$phsType$ph)*(1), "02transpile.c", 1679, "struct map$2char$phsType$ph*"))));
         come_call_finalizer(map$2char$phsType$ph_finalize, __dec_obj53,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         __dec_obj54=info.module,
-        info.module=(struct sModule*)come_increment_ref_count(sModule_initialize((struct sModule*)come_increment_ref_count((struct sModule*)come_calloc_v2(1, sizeof(struct sModule)*(1), "02transpile.c", 1745, "struct sModule*"))));
+        info.module=(struct sModule*)come_increment_ref_count(sModule_initialize((struct sModule*)come_increment_ref_count((struct sModule*)come_calloc_v2(1, sizeof(struct sModule)*(1), "02transpile.c", 1680, "struct sModule*"))));
         come_call_finalizer(sModule_finalize, __dec_obj54,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         __dec_obj55=info.right_value_objects,
-        info.right_value_objects=(struct list$1sRightValueObject$ph*)come_increment_ref_count(list$1sRightValueObject$ph_initialize((struct list$1sRightValueObject$ph*)come_increment_ref_count((struct list$1sRightValueObject$ph*)come_calloc_v2(1, sizeof(struct list$1sRightValueObject$ph)*(1), "02transpile.c", 1746, "struct list$1sRightValueObject$ph*"))));
+        info.right_value_objects=(struct list$1sRightValueObject$ph*)come_increment_ref_count(list$1sRightValueObject$ph_initialize((struct list$1sRightValueObject$ph*)come_increment_ref_count((struct list$1sRightValueObject$ph*)come_calloc_v2(1, sizeof(struct list$1sRightValueObject$ph)*(1), "02transpile.c", 1681, "struct list$1sRightValueObject$ph*"))));
         come_call_finalizer(list$1sRightValueObject$ph_finalize, __dec_obj55,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         __dec_obj56=info.stack,
-        info.stack=(struct list$1CVALUE$ph*)come_increment_ref_count(list$1CVALUE$ph_initialize((struct list$1CVALUE$ph*)come_increment_ref_count((struct list$1CVALUE$ph*)come_calloc_v2(1, sizeof(struct list$1CVALUE$ph)*(1), "02transpile.c", 1747, "struct list$1CVALUE$ph*"))));
+        info.stack=(struct list$1CVALUE$ph*)come_increment_ref_count(list$1CVALUE$ph_initialize((struct list$1CVALUE$ph*)come_increment_ref_count((struct list$1CVALUE$ph*)come_calloc_v2(1, sizeof(struct list$1CVALUE$ph)*(1), "02transpile.c", 1682, "struct list$1CVALUE$ph*"))));
         come_call_finalizer(list$1CVALUE$ph_finalize, __dec_obj56,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         __dec_obj57=info.gv_table,
-        info.gv_table=(struct sVarTable*)come_increment_ref_count(sVarTable_initialize((struct sVarTable*)come_increment_ref_count((struct sVarTable*)come_calloc_v2(1, sizeof(struct sVarTable)*(1), "02transpile.c", 1748, "struct sVarTable*")),1,((void*)0)));
+        info.gv_table=(struct sVarTable*)come_increment_ref_count(sVarTable_initialize((struct sVarTable*)come_increment_ref_count((struct sVarTable*)come_calloc_v2(1, sizeof(struct sVarTable)*(1), "02transpile.c", 1683, "struct sVarTable*")),1,((void*)0)));
         come_call_finalizer(sVarTable_finalize, __dec_obj57,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-        lv_table=(struct sVarTable*)come_increment_ref_count(sVarTable_initialize((struct sVarTable*)come_increment_ref_count((struct sVarTable*)come_calloc_v2(1, sizeof(struct sVarTable)*(1), "02transpile.c", 1749, "struct sVarTable*")),0,((void*)0)));
+        lv_table=(struct sVarTable*)come_increment_ref_count(sVarTable_initialize((struct sVarTable*)come_increment_ref_count((struct sVarTable*)come_calloc_v2(1, sizeof(struct sVarTable)*(1), "02transpile.c", 1684, "struct sVarTable*")),0,((void*)0)));
         info.lv_table=lv_table;
         __dec_obj58=info.generics_type_names,
-        info.generics_type_names=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "02transpile.c", 1751, "struct list$1char$ph*"))));
+        info.generics_type_names=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "02transpile.c", 1686, "struct list$1char$ph*"))));
         come_call_finalizer(list$1char$ph_finalize, __dec_obj58,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         __dec_obj59=info.method_generics_type_names,
-        info.method_generics_type_names=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "02transpile.c", 1752, "struct list$1char$ph*"))));
+        info.method_generics_type_names=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc_v2(1, sizeof(struct list$1char$ph)*(1), "02transpile.c", 1687, "struct list$1char$ph*"))));
         come_call_finalizer(list$1char$ph_finalize, __dec_obj59,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         __dec_obj60=info.generics_classes,
-        info.generics_classes=(struct map$2char$phsClass$ph*)come_increment_ref_count(map$2char$phsClass$ph_initialize((struct map$2char$phsClass$ph*)come_increment_ref_count((struct map$2char$phsClass$ph*)come_calloc_v2(1, sizeof(struct map$2char$phsClass$ph)*(1), "02transpile.c", 1753, "struct map$2char$phsClass$ph*"))));
+        info.generics_classes=(struct map$2char$phsClass$ph*)come_increment_ref_count(map$2char$phsClass$ph_initialize((struct map$2char$phsClass$ph*)come_increment_ref_count((struct map$2char$phsClass$ph*)come_calloc_v2(1, sizeof(struct map$2char$phsClass$ph)*(1), "02transpile.c", 1688, "struct map$2char$phsClass$ph*"))));
         come_call_finalizer(map$2char$phsClass$ph_finalize, __dec_obj60,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         info.verbose=verbose;
         info.m5stack_cpp=m5stack_cpp;
@@ -6319,8 +6231,8 @@ _conditional_value_X3;})) {
         __dec_obj61 = come_decrement_ref_count(__dec_obj61, (void*)0, (void*)0, 0,0, (void*)0);
         init_classes(&info);
         clear_tmp_file(&info);
-        Value_55=cpp(&info);
-        if(!Value_55) {
+        Value_52=cpp(&info);
+        if(!Value_52) {
             printf("transpile failed\n");
             exit(2);
         }
@@ -6344,11 +6256,11 @@ _conditional_value_X3;})) {
             info.output_file_name=((void*)0);
             __dec_obj64 = come_decrement_ref_count(__dec_obj64, (void*)0, (void*)0, 0,0, (void*)0);
         }
-        Value_56=output_cpp_file;
-        if(!Value_56) {
+        Value_53=output_cpp_file;
+        if(!Value_53) {
             transpile(&info);
-            Value_57=output_source_file(&info);
-            if(!Value_57) {
+            Value_54=output_source_file(&info);
+            if(!Value_54) {
                 printf("output source file faield\n");
                 exit(2);
             }
@@ -6359,12 +6271,12 @@ _conditional_value_X3;})) {
                 exit(2);
             }
             if(info.err_num2>0) {
-                printf("transpile error. err num %d\n",info.err_num2);
+                printf("transpile warning. err num %d\n",info.err_num2);
             }
-            Value_58=output_object_file_flag;
-            if(Value_58) {
-                Value_59=compile(&info,output_object_file,object_files);
-                if(!Value_59) {
+            Value_55=output_object_file_flag;
+            if(Value_55) {
+                Value_56=compile(&info,output_object_file,object_files);
+                if(!Value_56) {
                     printf("compile faield\n");
                     exit(27);
                 }
@@ -6391,34 +6303,34 @@ _conditional_value_X3;})) {
     }
     come_call_finalizer(list$1char$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     if(!output_object_file&&!output_cpp_file&&(list$1char$ph_length(files)>0||list$1char$ph_length(object_files)>0)) {
-        memset(&info_60,0,sizeof(struct sInfo));
-        __dec_obj65=info_60.sname,
-        info_60.sname=(char*)come_increment_ref_count((char*)come_memdup(((char*)(__right_value0=list$1char$ph_operator_load_element(files,0))), "02transpile.c", 1824, "char*"));
+        memset(&info_57,0,sizeof(struct sInfo));
+        __dec_obj65=info_57.sname,
+        info_57.sname=(char*)come_increment_ref_count((char*)come_memdup(((char*)(__right_value0=list$1char$ph_operator_load_element(files,0))), "02transpile.c", 1759, "char*"));
         __dec_obj65 = come_decrement_ref_count(__dec_obj65, (void*)0, (void*)0, 0,0, (void*)0);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        __dec_obj66=info_60.clang_option,
-        info_60.clang_option=(char*)come_increment_ref_count(buffer_to_string(clang_option));
+        __dec_obj66=info_57.clang_option,
+        info_57.clang_option=(char*)come_increment_ref_count(buffer_to_string(clang_option));
         __dec_obj66 = come_decrement_ref_count(__dec_obj66, (void*)0, (void*)0, 0,0, (void*)0);
-        __dec_obj67=info_60.linker_option,
-        info_60.linker_option=(char*)come_increment_ref_count(buffer_to_string(linker_option));
+        __dec_obj67=info_57.linker_option,
+        info_57.linker_option=(char*)come_increment_ref_count(buffer_to_string(linker_option));
         __dec_obj67 = come_decrement_ref_count(__dec_obj67, (void*)0, (void*)0, 0,0, (void*)0);
-        __dec_obj68=info_60.linker_option2,
-        info_60.linker_option2=(char*)come_increment_ref_count(buffer_to_string(linker_option2));
+        __dec_obj68=info_57.linker_option2,
+        info_57.linker_option2=(char*)come_increment_ref_count(buffer_to_string(linker_option2));
         __dec_obj68 = come_decrement_ref_count(__dec_obj68, (void*)0, (void*)0, 0,0, (void*)0);
-        info_60.verbose=verbose;
+        info_57.verbose=verbose;
         if(output_file_name) {
-            __dec_obj69=info_60.output_file_name,
-            info_60.output_file_name=(char*)come_increment_ref_count(__builtin_string(output_file_name));
+            __dec_obj69=info_57.output_file_name,
+            info_57.output_file_name=(char*)come_increment_ref_count(__builtin_string(output_file_name));
             __dec_obj69 = come_decrement_ref_count(__dec_obj69, (void*)0, (void*)0, 0,0, (void*)0);
         }
         else {
-            __dec_obj70=info_60.output_file_name,
-            info_60.output_file_name=((void*)0);
+            __dec_obj70=info_57.output_file_name,
+            info_57.output_file_name=((void*)0);
             __dec_obj70 = come_decrement_ref_count(__dec_obj70, (void*)0, (void*)0, 0,0, (void*)0);
         }
         if(output_object_file_flag) {
-            Value_63=linker(&info_60,object_files);
-            if(!Value_63) {
+            Value_60=linker(&info_57,object_files);
+            if(!Value_60) {
                 printf("linker faield\n");
                 exit(13);
             }
@@ -6426,9 +6338,9 @@ _conditional_value_X3;})) {
             }
         }
         if(!output_cpp_file&&!output_source_file_flag) {
-            clear_tmp_file(&info_60);
+            clear_tmp_file(&info_57);
         }
-        come_call_finalizer(sInfo_finalize, (&info_60), (void*)0, (void*)0, 1, 0, 0, (void*)0);
+        come_call_finalizer(sInfo_finalize, (&info_57), (void*)0, (void*)0, 1, 0, 0, (void*)0);
     }
     __result_obj__0 = 0;
     (output_file_name_str = come_decrement_ref_count(output_file_name_str, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -6590,7 +6502,7 @@ static void sInfo_finalize(struct sInfo* self  )
 static void map$2char$phsFun$ph$p_finalize(struct map$2char$phsFun$ph* self)
 {
     int i;
-    int i_41;
+    int i_38;
     for(i=0;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
@@ -6599,10 +6511,10 @@ static void map$2char$phsFun$ph$p_finalize(struct map$2char$phsFun$ph* self)
         }
     }
     come_free_v2((char*)self->items);
-    for(i_41=0;i_41<self->size;i_41++){
-        if(self->item_existance[i_41]) {
+    for(i_38=0;i_38<self->size;i_38++){
+        if(self->item_existance[i_38]) {
             if(1) {
-                (self->keys[i_41] = come_decrement_ref_count(self->keys[i_41], (void*)0, (void*)0, 0, 0, (void*)0));
+                (self->keys[i_38] = come_decrement_ref_count(self->keys[i_38], (void*)0, (void*)0, 0, 0, (void*)0));
             }
         }
     }
@@ -6714,7 +6626,7 @@ static void sBlock_finalize(struct sBlock* self  )
 static void map$2char$phsGenericsFun$ph$p_finalize(struct map$2char$phsGenericsFun$ph* self)
 {
     int i;
-    int i_42;
+    int i_39;
     for(i=0;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
@@ -6723,10 +6635,10 @@ static void map$2char$phsGenericsFun$ph$p_finalize(struct map$2char$phsGenericsF
         }
     }
     come_free_v2((char*)self->items);
-    for(i_42=0;i_42<self->size;i_42++){
-        if(self->item_existance[i_42]) {
+    for(i_39=0;i_39<self->size;i_39++){
+        if(self->item_existance[i_39]) {
             if(1) {
-                (self->keys[i_42] = come_decrement_ref_count(self->keys[i_42], (void*)0, (void*)0, 0, 0, (void*)0));
+                (self->keys[i_39] = come_decrement_ref_count(self->keys[i_39], (void*)0, (void*)0, 0, 0, (void*)0));
             }
         }
     }
@@ -6772,7 +6684,7 @@ static void sGenericsFun_finalize(struct sGenericsFun* self  )
 static void map$2char$phsClass$ph$p_finalize(struct map$2char$phsClass$ph* self)
 {
     int i;
-    int i_43;
+    int i_40;
     for(i=0;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
@@ -6781,10 +6693,10 @@ static void map$2char$phsClass$ph$p_finalize(struct map$2char$phsClass$ph* self)
         }
     }
     come_free_v2((char*)self->items);
-    for(i_43=0;i_43<self->size;i_43++){
-        if(self->item_existance[i_43]) {
+    for(i_40=0;i_40<self->size;i_40++){
+        if(self->item_existance[i_40]) {
             if(1) {
-                (self->keys[i_43] = come_decrement_ref_count(self->keys[i_43], (void*)0, (void*)0, 0, 0, (void*)0));
+                (self->keys[i_40] = come_decrement_ref_count(self->keys[i_40], (void*)0, (void*)0, 0, 0, (void*)0));
             }
         }
     }
@@ -6796,7 +6708,7 @@ static void map$2char$phsClass$ph$p_finalize(struct map$2char$phsClass$ph* self)
 static void map$2char$phsClassModule$ph$p_finalize(struct map$2char$phsClassModule$ph* self)
 {
     int i;
-    int i_44;
+    int i_41;
     for(i=0;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
@@ -6805,10 +6717,10 @@ static void map$2char$phsClassModule$ph$p_finalize(struct map$2char$phsClassModu
         }
     }
     come_free_v2((char*)self->items);
-    for(i_44=0;i_44<self->size;i_44++){
-        if(self->item_existance[i_44]) {
+    for(i_41=0;i_41<self->size;i_41++){
+        if(self->item_existance[i_41]) {
             if(1) {
-                (self->keys[i_44] = come_decrement_ref_count(self->keys[i_44], (void*)0, (void*)0, 0, 0, (void*)0));
+                (self->keys[i_41] = come_decrement_ref_count(self->keys[i_41], (void*)0, (void*)0, 0, 0, (void*)0));
             }
         }
     }
@@ -6836,7 +6748,7 @@ static void sClassModule_finalize(struct sClassModule* self  )
 static void map$2char$phsType$ph$p_finalize(struct map$2char$phsType$ph* self)
 {
     int i;
-    int i_45;
+    int i_42;
     for(i=0;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
@@ -6845,10 +6757,10 @@ static void map$2char$phsType$ph$p_finalize(struct map$2char$phsType$ph* self)
         }
     }
     come_free_v2((char*)self->items);
-    for(i_45=0;i_45<self->size;i_45++){
-        if(self->item_existance[i_45]) {
+    for(i_42=0;i_42<self->size;i_42++){
+        if(self->item_existance[i_42]) {
             if(1) {
-                (self->keys[i_45] = come_decrement_ref_count(self->keys[i_45], (void*)0, (void*)0, 0, 0, (void*)0));
+                (self->keys[i_42] = come_decrement_ref_count(self->keys[i_42], (void*)0, (void*)0, 0, 0, (void*)0));
             }
         }
     }
@@ -6860,7 +6772,7 @@ static void map$2char$phsType$ph$p_finalize(struct map$2char$phsType$ph* self)
 static void map$2char$phbuffer$ph$p_finalize(struct map$2char$phbuffer$ph* self)
 {
     int i;
-    int i_46;
+    int i_43;
     for(i=0;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
@@ -6869,10 +6781,10 @@ static void map$2char$phbuffer$ph$p_finalize(struct map$2char$phbuffer$ph* self)
         }
     }
     come_free_v2((char*)self->items);
-    for(i_46=0;i_46<self->size;i_46++){
-        if(self->item_existance[i_46]) {
+    for(i_43=0;i_43<self->size;i_43++){
+        if(self->item_existance[i_43]) {
             if(1) {
-                (self->keys[i_46] = come_decrement_ref_count(self->keys[i_46], (void*)0, (void*)0, 0, 0, (void*)0));
+                (self->keys[i_43] = come_decrement_ref_count(self->keys[i_43], (void*)0, (void*)0, 0, 0, (void*)0));
             }
         }
     }
@@ -6884,7 +6796,7 @@ static void map$2char$phbuffer$ph$p_finalize(struct map$2char$phbuffer$ph* self)
 static void map$2char$phchar$ph$p_finalize(struct map$2char$phchar$ph* self)
 {
     int i;
-    int i_47;
+    int i_44;
     for(i=0;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
@@ -6893,10 +6805,10 @@ static void map$2char$phchar$ph$p_finalize(struct map$2char$phchar$ph* self)
         }
     }
     come_free_v2((char*)self->items);
-    for(i_47=0;i_47<self->size;i_47++){
-        if(self->item_existance[i_47]) {
+    for(i_44=0;i_44<self->size;i_44++){
+        if(self->item_existance[i_44]) {
             if(1) {
-                (self->keys[i_47] = come_decrement_ref_count(self->keys[i_47], (void*)0, (void*)0, 0, 0, (void*)0));
+                (self->keys[i_44] = come_decrement_ref_count(self->keys[i_44], (void*)0, (void*)0, 0, 0, (void*)0));
             }
         }
     }
@@ -7030,7 +6942,7 @@ static void list$1char$ph_finalize(struct list$1char$ph* self)
 static void map$2char$phsFun$ph_finalize(struct map$2char$phsFun$ph* self)
 {
     int i;
-    int i_48;
+    int i_45;
     for(i=0;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
@@ -7039,10 +6951,10 @@ static void map$2char$phsFun$ph_finalize(struct map$2char$phsFun$ph* self)
         }
     }
     come_free_v2((char*)self->items);
-    for(i_48=0;i_48<self->size;i_48++){
-        if(self->item_existance[i_48]) {
+    for(i_45=0;i_45<self->size;i_45++){
+        if(self->item_existance[i_45]) {
             if(1) {
-                (self->keys[i_48] = come_decrement_ref_count(self->keys[i_48], (void*)0, (void*)0, 0, 0, (void*)0));
+                (self->keys[i_45] = come_decrement_ref_count(self->keys[i_45], (void*)0, (void*)0, 0, 0, (void*)0));
             }
         }
     }
@@ -7079,7 +6991,7 @@ static struct map$2char$phbuffer$ph* map$2char$phbuffer$ph_initialize(struct map
 static void map$2char$phbuffer$ph_finalize(struct map$2char$phbuffer$ph* self)
 {
     int i;
-    int i_49;
+    int i_46;
     for(i=0;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
@@ -7088,10 +7000,10 @@ static void map$2char$phbuffer$ph_finalize(struct map$2char$phbuffer$ph* self)
         }
     }
     come_free_v2((char*)self->items);
-    for(i_49=0;i_49<self->size;i_49++){
-        if(self->item_existance[i_49]) {
+    for(i_46=0;i_46<self->size;i_46++){
+        if(self->item_existance[i_46]) {
             if(1) {
-                (self->keys[i_49] = come_decrement_ref_count(self->keys[i_49], (void*)0, (void*)0, 0, 0, (void*)0));
+                (self->keys[i_46] = come_decrement_ref_count(self->keys[i_46], (void*)0, (void*)0, 0, 0, (void*)0));
             }
         }
     }
@@ -7128,7 +7040,7 @@ static struct map$2char$phchar$ph* map$2char$phchar$ph_initialize(struct map$2ch
 static void map$2char$phchar$ph_finalize(struct map$2char$phchar$ph* self)
 {
     int i;
-    int i_50;
+    int i_47;
     for(i=0;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
@@ -7137,10 +7049,10 @@ static void map$2char$phchar$ph_finalize(struct map$2char$phchar$ph* self)
         }
     }
     come_free_v2((char*)self->items);
-    for(i_50=0;i_50<self->size;i_50++){
-        if(self->item_existance[i_50]) {
+    for(i_47=0;i_47<self->size;i_47++){
+        if(self->item_existance[i_47]) {
             if(1) {
-                (self->keys[i_50] = come_decrement_ref_count(self->keys[i_50], (void*)0, (void*)0, 0, 0, (void*)0));
+                (self->keys[i_47] = come_decrement_ref_count(self->keys[i_47], (void*)0, (void*)0, 0, 0, (void*)0));
             }
         }
     }
@@ -7177,7 +7089,7 @@ static struct map$2char$phsType$ph* map$2char$phsType$ph_initialize(struct map$2
 static void map$2char$phsType$ph_finalize(struct map$2char$phsType$ph* self)
 {
     int i;
-    int i_51;
+    int i_48;
     for(i=0;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
@@ -7186,10 +7098,10 @@ static void map$2char$phsType$ph_finalize(struct map$2char$phsType$ph* self)
         }
     }
     come_free_v2((char*)self->items);
-    for(i_51=0;i_51<self->size;i_51++){
-        if(self->item_existance[i_51]) {
+    for(i_48=0;i_48<self->size;i_48++){
+        if(self->item_existance[i_48]) {
             if(1) {
-                (self->keys[i_51] = come_decrement_ref_count(self->keys[i_51], (void*)0, (void*)0, 0, 0, (void*)0));
+                (self->keys[i_48] = come_decrement_ref_count(self->keys[i_48], (void*)0, (void*)0, 0, 0, (void*)0));
             }
         }
     }
@@ -7226,7 +7138,7 @@ static struct map$2char$phsGenericsFun$ph* map$2char$phsGenericsFun$ph_initializ
 static void map$2char$phsGenericsFun$ph_finalize(struct map$2char$phsGenericsFun$ph* self)
 {
     int i;
-    int i_52;
+    int i_49;
     for(i=0;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
@@ -7235,10 +7147,10 @@ static void map$2char$phsGenericsFun$ph_finalize(struct map$2char$phsGenericsFun
         }
     }
     come_free_v2((char*)self->items);
-    for(i_52=0;i_52<self->size;i_52++){
-        if(self->item_existance[i_52]) {
+    for(i_49=0;i_49<self->size;i_49++){
+        if(self->item_existance[i_49]) {
             if(1) {
-                (self->keys[i_52] = come_decrement_ref_count(self->keys[i_52], (void*)0, (void*)0, 0, 0, (void*)0));
+                (self->keys[i_49] = come_decrement_ref_count(self->keys[i_49], (void*)0, (void*)0, 0, 0, (void*)0));
             }
         }
     }
@@ -7275,7 +7187,7 @@ static struct map$2char$phsClass$ph* map$2char$phsClass$ph_initialize(struct map
 static void map$2char$phsClass$ph_finalize(struct map$2char$phsClass$ph* self)
 {
     int i;
-    int i_53;
+    int i_50;
     for(i=0;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
@@ -7284,10 +7196,10 @@ static void map$2char$phsClass$ph_finalize(struct map$2char$phsClass$ph* self)
         }
     }
     come_free_v2((char*)self->items);
-    for(i_53=0;i_53<self->size;i_53++){
-        if(self->item_existance[i_53]) {
+    for(i_50=0;i_50<self->size;i_50++){
+        if(self->item_existance[i_50]) {
             if(1) {
-                (self->keys[i_53] = come_decrement_ref_count(self->keys[i_53], (void*)0, (void*)0, 0, 0, (void*)0));
+                (self->keys[i_50] = come_decrement_ref_count(self->keys[i_50], (void*)0, (void*)0, 0, 0, (void*)0));
             }
         }
     }
@@ -7324,7 +7236,7 @@ static struct map$2char$phsClassModule$ph* map$2char$phsClassModule$ph_initializ
 static void map$2char$phsClassModule$ph_finalize(struct map$2char$phsClassModule$ph* self)
 {
     int i;
-    int i_54;
+    int i_51;
     for(i=0;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
@@ -7333,10 +7245,10 @@ static void map$2char$phsClassModule$ph_finalize(struct map$2char$phsClassModule
         }
     }
     come_free_v2((char*)self->items);
-    for(i_54=0;i_54<self->size;i_54++){
-        if(self->item_existance[i_54]) {
+    for(i_51=0;i_51<self->size;i_51++){
+        if(self->item_existance[i_51]) {
             if(1) {
-                (self->keys[i_54] = come_decrement_ref_count(self->keys[i_54], (void*)0, (void*)0, 0, 0, (void*)0));
+                (self->keys[i_51] = come_decrement_ref_count(self->keys[i_51], (void*)0, (void*)0, 0, 0, (void*)0));
             }
         }
     }
@@ -7413,7 +7325,7 @@ static char* list$1char$ph$p_operator_load_element(struct list$1char$ph* self, i
     char* __result_obj__0  ;
     struct list_item$1char$ph* it;
     int i;
-    char* default_value_61  ;
+    char* default_value_58  ;
     if(self==((void*)0)) {
         memset(&default_value,0,sizeof(char*));
         __result_obj__0 = (char*)come_increment_ref_count(default_value);
@@ -7436,9 +7348,9 @@ static char* list$1char$ph$p_operator_load_element(struct list$1char$ph* self, i
         it=it->next;
         i++;
     }
-    memset(&default_value_61,0,sizeof(char*));
-    __result_obj__0 = (char*)come_increment_ref_count(default_value_61);
-    (default_value_61 = come_decrement_ref_count(default_value_61, (void*)0, (void*)0, 0, 1, (void*)0));
+    memset(&default_value_58,0,sizeof(char*));
+    __result_obj__0 = (char*)come_increment_ref_count(default_value_58);
+    (default_value_58 = come_decrement_ref_count(default_value_58, (void*)0, (void*)0, 0, 1, (void*)0));
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
 }
@@ -7449,7 +7361,7 @@ static char* list$1char$ph_operator_load_element(struct list$1char$ph* self, int
     char* __result_obj__0  ;
     struct list_item$1char$ph* it;
     int i;
-    char* default_value_62  ;
+    char* default_value_59  ;
     if(self==((void*)0)) {
         memset(&default_value,0,sizeof(char*));
         __result_obj__0 = (char*)come_increment_ref_count(default_value);
@@ -7472,9 +7384,9 @@ static char* list$1char$ph_operator_load_element(struct list$1char$ph* self, int
         it=it->next;
         i++;
     }
-    memset(&default_value_62,0,sizeof(char*));
-    __result_obj__0 = (char*)come_increment_ref_count(default_value_62);
-    (default_value_62 = come_decrement_ref_count(default_value_62, (void*)0, (void*)0, 0, 1, (void*)0));
+    memset(&default_value_59,0,sizeof(char*));
+    __result_obj__0 = (char*)come_increment_ref_count(default_value_59);
+    (default_value_59 = come_decrement_ref_count(default_value_59, (void*)0, (void*)0, 0, 1, (void*)0));
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
 }
