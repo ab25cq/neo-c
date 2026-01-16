@@ -14,7 +14,7 @@ struct sTask
 };
 
 struct sTask gTask[TASK_MAX];
-uint16_t gStackArea[TASK_MAX][STACK_SIZE];
+__type__(uint16_t) gStackArea[TASK_MAX][STACK_SIZE];
 
 int gNumTasks = 0;
 int gCurrentTask = 0;

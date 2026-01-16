@@ -37,7 +37,8 @@ void child_output_struct(sType* type, string struct_name, buffer* buf, bool* exi
         
         sClass* klass = type2->mClass;
         
-        if(type2->mAnonymous && name !== name2) {
+        if(type2->mAnonymous) {
+        //if(type2->mAnonymous && name !== name2) {
             //info.struct_definition.remove(type2->mAnonymousName);
             child_output_struct(type2, s"", buf, existance_generics, name2, indent, info, named_child);
         }

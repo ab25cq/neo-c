@@ -10,7 +10,6 @@ pico_sdk_init()
 
 add_executable(minux2
     main_.c
-    timer.c
 )
 
 target_link_libraries(minux2 pico_stdlib)
