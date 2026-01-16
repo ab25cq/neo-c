@@ -212,7 +212,7 @@ valgrind:  01main.valgrind  02transpile.valgrind  03output_code.valgrind  04heap
 29module.valgrind: 29module.c
 	valgrind neo-c -Sc -C -o 29module.c.o -c 29module.c $(CFLAGS) 2> 29module.valgrind
 
-neo-c-Sch: 01main.c.o.tmp 02transpile.c.o.tmp 03output_code.c.o.tmp 04heap.c.o.tmp 09pre_op.c.o.tmp 08call.c.o.tmp 07function.c.o.tmp 11number.c.o.tmp 06type.c.o.tmp 05parse.c.o.tmp 10str.c.o.tmp 12var.c.o.tmp 13gvar.c.o.tmp 14if.c.o.tmp 15while.c.o.tmp 17do_while.c.o.tmp 16for.c.o.tmp 18switch.c.o.tmp 30op.c.o.tmp 19structc.o.tmp 20union.c.o.tmp 21enum.c.o.tmp 22typedef.c.o.tmp 23field.c.o.tmp 26eq.c.o.tmp 24method.c.o.tmp 25obj.c.o.tmp 27impl.c.o.tmp 28interface.c.o.tmp 29module.c.o.tmp  ccpp.o
+neo-c-Sch: 01main.c.o.tmp 02transpile.c.o.tmp 03output_code.c.o.tmp 04heap.c.o.tmp 09pre_op.c.o.tmp 08call.c.o.tmp 07function.c.o.tmp 11number.c.o.tmp 06type.c.o.tmp 05parse.c.o.tmp 10str.c.o.tmp 12var.c.o.tmp 13gvar.c.o.tmp 14if.c.o.tmp 15while.c.o.tmp 17do_while.c.o.tmp 16for.c.o.tmp 18switch.c.o.tmp 30op.c.o.tmp 19structs.o.tmp 20union.c.o.tmp 21enum.c.o.tmp 22typedef.c.o.tmp 23field.c.o.tmp 26eq.c.o.tmp 24method.c.o.tmp 25obj.c.o.tmp 27impl.c.o.tmp 28interface.c.o.tmp 29module.c.o.tmp  ccpp.o
 	$(CC) -o neo-c-Sch  01main.c.o.tmp 02transpile.c.o.tmp 03output_code.c.o.tmp 04heap.c.o.tmp 08call.c.o.tmp 09pre_op.c.o.tmp 07function.c.o.tmp 11number.c.o.tmp 06type.c.o.tmp 05parse.c.o.tmp 10str.c.o.tmp 12var.c.o.tmp 13gvar.c.o.tmp 14if.c.o.tmp 15while.c.o.tmp 17do_while.c.o.tmp 16for.c.o.tmp 18switch.c.o.tmp 30op.c.o.tmp 19struct.c.o.tmp 20union.c.o.tmp 21enum.c.o.tmp 22typedef.c.o.tmp 23field.c.o.tmp 26eq.c.o.tmp 24method.c.o.tmp 25obj.c.o.tmp 27impl.c.o.tmp 28interface.c.o.tmp 29module.c.o.tmp ccpp.o $(CFLAGS) 
 
 	cp -p neo-c-Sch neo-c
