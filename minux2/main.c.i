@@ -1,38 +1,18 @@
-#ifndef NEO_C_DEVEL_H
-#define NEO_C_DEVEL_H
+#line 1 "main.c"
+#line 1 "/usr/local/include/neo-c.h"
 
-#define __BEGIN_DECLS
-#define __END_DECLS
 
-#undef __cplusplus
 
-#ifdef __STDC__
-#define __P(protos) protos
-#else
-#define __P(protos) ()
-#endif
 
-#define _GNU_SOURCE _GNU_SOURCE
 
-#define ALLOCATED_MAGIC_NUM 177783
 
-#define nullptr ((void*)0)
 typedef char*% string;
 
-#if defined(__MINUX__)
-var UNIX=1
-#elif defined(__BARE_METAL__)
 var UNIX=0
-#elif defined(__PICO__)
-var UNIX=0
-#else
-var UNIX=1
-#endif
 
-///////////////////////////////////////////////////////////////////////////
-// PICO
-///////////////////////////////////////////////////////////////////////////
-#if defined(__PICO__)
+
+
+
     __c__ {#define _GNU_SOURCE}
     __c__ {#include "stdarg.h"}
     __c__ {#include "stdlib.h"}
@@ -51,45 +31,19 @@ var UNIX=1
     __c__ {#include "pico/mutex.h"}
     __c__ {#include "pico/multicore.h"}
 
-    #define MUTEX_INITIALIZER (mutex_t){ .locked = false, .core = NULL }
-    #define NULL ((void*)0)
 
     typedef __builtin_va_list va_list;
 
     using neo-c;
 
-///////////////////////////////////////////////////////////////////////////
-// BARE METAL 
-///////////////////////////////////////////////////////////////////////////
-#elif defined(__BAREMETAL__)
-    #include "neo-c-libc.h"
-
-    using neo-c;
-///////////////////////////////////////////////////////////////////////////
-// UNIX
-///////////////////////////////////////////////////////////////////////////
-#else
-    using C;
-    
-    #include <stdio.h>
-    #include <stdlib.h>
-    #include <string.h>
-    #include <stdarg.h>
-    #undef va_start
-    #define va_start(ap, last)  __builtin_va_start(ap, last)
-    #include <limits.h>
-    #include <locale.h>
-    #include <errno.h>
-    __c__ {#include <assert.h>}
-    #include <stdbool.h>
-    
-    using neo-c;
-#endif
 
 
-///////////////////////////////////////////////////////////////////////////
-// PREVIOUS DEFINITIONS
-///////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
 struct buffer 
 {
     char*% buf;
@@ -135,8 +89,6 @@ uniq string _Bool::to_string(bool self);
 uniq bool string::equals(char* self, char* right);
 
 
-#define COME_STACKFRAME_MAX 16
-#define COME_STACKFRAME_MAX_GLOBAL 128
 
 if($UNIX == 0) {
     uniq void come_push_stackframe(char* sname, int sline, int id)
@@ -165,21 +117,21 @@ if($UNIX == 0) {
         puts(msg);
         exit(4);
         
-        return false;
+        return 0;
     }
 }
 else  {
-    uniq char* gComeStackFrameSName[COME_STACKFRAME_MAX_GLOBAL];
-    uniq int gComeStackFrameSLine[COME_STACKFRAME_MAX_GLOBAL];
-    uniq int gComeStackFrameID[COME_STACKFRAME_MAX_GLOBAL];
+    uniq char* gComeStackFrameSName[128];
+    uniq int gComeStackFrameSLine[128];
+    uniq int gComeStackFrameID[128];
     uniq int gNumComeStackFrame = 0;
     
-    uniq char* gComeStackFrameBuffer = NULL;
+    uniq char* gComeStackFrameBuffer = ((void*)0);
     
     uniq void come_push_stackframe(char* sname, int sline, int id)
     {
-        if(gNumComeStackFrame < COME_STACKFRAME_MAX_GLOBAL) {
-            gComeStackFrameSName[gNumComeStackFrame] = sname;  // const string
+        if(gNumComeStackFrame < 128) {
+            gComeStackFrameSName[gNumComeStackFrame] = sname;  
             gComeStackFrameSLine[gNumComeStackFrame] = sline;
             gComeStackFrameID[gNumComeStackFrame] = id;
         
@@ -226,17 +178,17 @@ else  {
         stackframe();
         exit(4);
         
-        return false;
+        return 0;
     }
 }
 
-//////////////////////////////
-/// HEAP
-//////////////////////////////
+
+
+
 struct sMemHeaderTiny
 {
     long size;
-    int allocated;   //ALLOCATED_MAGIC_NUM
+    int allocated;   
     struct sMemHeaderTiny* next;
     struct sMemHeaderTiny* prev;
     struct sMemHeaderTiny* free_next;
@@ -249,14 +201,14 @@ if($UNIX == 1) {
     struct sMemHeader
     {
         long size;
-        int allocated;            /// ALLOCATED_MAGIC_NUM 
+        int allocated;            
         struct sMemHeader* next;
         struct sMemHeader* prev;
         struct sMemHeader* free_next;
         
-        char* sname[COME_STACKFRAME_MAX];
-        int sline[COME_STACKFRAME_MAX];
-        int id[COME_STACKFRAME_MAX];
+        char* sname[16];
+        int sline[16];
+        int id[16];
         
         char* class_name;
     };
@@ -267,12 +219,12 @@ if($UNIX == 1) {
     {
         gComeDebugLib = come_debug
         
-        gComeStackFrameBuffer = NULL;
-        memset(gComeStackFrameSName, 0, sizeof(char*)*COME_STACKFRAME_MAX_GLOBAL);
-        memset(gComeStackFrameSLine, 0, sizeof(int)*COME_STACKFRAME_MAX_GLOBAL);
-        memset(gComeStackFrameID, 0, sizeof(int)*COME_STACKFRAME_MAX_GLOBAL);
+        gComeStackFrameBuffer = ((void*)0);
+        memset(gComeStackFrameSName, 0, sizeof(char*)*128);
+        memset(gComeStackFrameSLine, 0, sizeof(int)*128);
+        memset(gComeStackFrameID, 0, sizeof(int)*128);
         
-        gAllocMem = NULL;
+        gAllocMem = ((void*)0);
     }
     
     uniq void come_heap_final()
@@ -287,15 +239,15 @@ if($UNIX == 1) {
             while(it) {
                 n++;
                 
-                bool flag = false;
+                bool flag = 0;
                 printf("#%d ", n);
                 if(it->class_name) {
                     printf("%p (%s): ", (char*)it + sizeof(sMemHeader) + sizeof(size_t) + sizeof(size_t), it->class_name);
                 }
-                for(int i=0; i<COME_STACKFRAME_MAX; i++) {
+                for(int i=0; i<16; i++) {
                     if(it->sname[i]) {
                         printf("%s %d #%d, ", it->sname[i], it->sline[i], it->id[i]);
-                        flag = true;
+                        flag = 1;
                     }
                 }
                 if(flag) {
@@ -332,7 +284,7 @@ if($UNIX == 1) {
             if(gComeDebugLib) {
                 sMemHeader* it = (sMemHeader*)((char*)mem - sizeof(sMemHeader));
                 
-                if(it->allocated != ALLOCATED_MAGIC_NUM) {
+                if(it->allocated != 177783) {
                     return;
                 }
                 
@@ -366,7 +318,7 @@ if($UNIX == 1) {
             else {
                 sMemHeaderTiny* it = (sMemHeaderTiny*)((char*)mem - sizeof(sMemHeaderTiny));
                 
-                if(it->allocated != ALLOCATED_MAGIC_NUM) {
+                if(it->allocated != 177783) {
                     return;
                 }
                 
@@ -404,23 +356,19 @@ if($UNIX == 1) {
     {
         if(gComeDebugLib) {
             size_t size2 = size + sizeof(sMemHeader);
-#ifdef __32BIT_CPU__
             size2 = (size2 + 3 & ~0x3);
-#else
-            size2 = (size2 + 7 & ~0x7);
-#endif
             void* result = alloc_from_pages(size2);
             
             sMemHeader* it = result;
             
-            it->allocated = ALLOCATED_MAGIC_NUM;
+            it->allocated = 177783;
             
             it->size = size2;
-            it->free_next = NULL;
+            it->free_next = ((void*)0);
             
             come_push_stackframe(sname, sline, 0);
     
-            if(gNumComeStackFrame < COME_STACKFRAME_MAX) {
+            if(gNumComeStackFrame < 16) {
                 int i;
                 for(i=0; i<gNumComeStackFrame; i++) {
                     it.sname[i] = gComeStackFrameSName[i];
@@ -430,7 +378,7 @@ if($UNIX == 1) {
             }
             else {
                 int i;
-                for(i=0; i<COME_STACKFRAME_MAX; i++) {
+                for(i=0; i<16; i++) {
                     it.sname[i] = gComeStackFrameSName[gNumComeStackFrame -1 - i];
                     it.sline[i] = gComeStackFrameSLine[gNumComeStackFrame -1 - i];
                     it.id[i] = gComeStackFrameID[gNumComeStackFrame -1 - i];
@@ -456,17 +404,13 @@ if($UNIX == 1) {
         }
         else {
             size_t size2 = size + sizeof(sMemHeaderTiny);
-#ifdef __32BIT_CPU__
             size2 = (size2 + 3 & ~0x3);
-#else
-            size2 = (size2 + 7 & ~0x7);
-#endif
             
             void* result = alloc_from_pages(size2);
             
             sMemHeaderTiny* it = result;
             
-            it->allocated = ALLOCATED_MAGIC_NUM;
+            it->allocated = 177783;
             
             it->class_name = class_name; 
             
@@ -474,7 +418,7 @@ if($UNIX == 1) {
             it->sline = sline;
             
             it->size = size2;
-            it->free_next = NULL;
+            it->free_next = ((void*)0);
             
             it->next = (sMemHeaderTiny*)gAllocMem;
             it->prev = null;
@@ -496,7 +440,7 @@ if($UNIX == 1) {
         if(gComeDebugLib) {
             sMemHeader* it = (sMemHeader*)((char*)mem - sizeof(size_t) - sizeof(size_t) - sizeof(sMemHeader));
             
-            if(it->allocated != ALLOCATED_MAGIC_NUM) {
+            if(it->allocated != 177783) {
                 printf("invalid heap object(%p)(1)\n", it);
                 exit(2);
             }
@@ -506,7 +450,7 @@ if($UNIX == 1) {
         else {
             sMemHeaderTiny* it = (sMemHeaderTiny*)((char*)mem - sizeof(size_t) - sizeof(size_t) - sizeof(sMemHeaderTiny));
             
-            if(it->allocated != ALLOCATED_MAGIC_NUM) {
+            if(it->allocated != 177783) {
                 printf("invalid heap object(%p)(2)\n", it);
                 exit(2);
             }
@@ -522,7 +466,7 @@ else {
     {
         gComeDebugLib = come_debug
         
-        gAllocMem = NULL;
+        gAllocMem = ((void*)0);
     }
     
     uniq void come_heap_final()
@@ -551,7 +495,7 @@ else {
         if(mem) {
             sMemHeaderTiny* it = (sMemHeaderTiny*)((char*)mem - sizeof(sMemHeaderTiny));
             
-            if(it->allocated != ALLOCATED_MAGIC_NUM) {
+            if(it->allocated != 177783) {
                 return;
             }
             
@@ -587,17 +531,13 @@ else {
     uniq void* come_alloc_mem_from_heap_pool(size_t size, char* sname=null, int sline=0, char* class_name="")
     {
         size_t size2 = size + sizeof(sMemHeaderTiny);
-#ifdef __32BIT_CPU__
         size2 = (size2 + 3 & ~0x3);
-#else
-        size2 = (size2 + 7 & ~0x7);
-#endif
         
         void* result = alloc_from_pages(size2);
         
         sMemHeaderTiny* it = result;
         
-        it->allocated = ALLOCATED_MAGIC_NUM;
+        it->allocated = 177783;
         
         it->class_name = class_name; 
         
@@ -605,7 +545,7 @@ else {
         it->sline = sline;
         
         it->size = size2;
-        it->free_next = NULL;
+        it->free_next = ((void*)0);
         
         it->next = (sMemHeaderTiny*)gAllocMem;
         it->prev = null;
@@ -625,7 +565,7 @@ else {
     {
         sMemHeaderTiny* it = (sMemHeaderTiny*)((char*)mem - sizeof(size_t) - sizeof(size_t) - sizeof(sMemHeaderTiny));
         
-        if(it->allocated != ALLOCATED_MAGIC_NUM) {
+        if(it->allocated != 177783) {
             printf("invalid heap object(%p)(2)\n", it);
             exit(2);
         }
@@ -656,7 +596,7 @@ uniq void* come_calloc(size_t count, size_t size, char* sname=null, int sline=0,
 
 uniq void come_free(void* mem)
 {
-    if(mem == NULL) {
+    if(mem == ((void*)0)) {
         return;
     }
     
@@ -686,7 +626,7 @@ uniq void* come_memdup(void* block, char* sname=null, int sline=0, char* class_n
 
 uniq void* come_increment_ref_count(void* mem)
 {
-    if(mem == NULL) {
+    if(mem == ((void*)0)) {
         return mem;
     }
     
@@ -699,7 +639,7 @@ uniq void* come_increment_ref_count(void* mem)
 
 uniq void* come_print_ref_count(void* mem)
 {
-    if(mem == NULL) {
+    if(mem == ((void*)0)) {
         return mem;
     }
     
@@ -712,7 +652,7 @@ uniq void* come_print_ref_count(void* mem)
 
 uniq int come_get_ref_count(void* mem)
 {
-    if(mem == NULL) {
+    if(mem == ((void*)0)) {
         return 0;
     }
     
@@ -728,8 +668,8 @@ uniq void* come_decrement_ref_count(void* mem, void* protocol_fun, void* protoco
             return mem;
         }
     }
-    if(mem == NULL) {
-        return NULL;
+    if(mem == ((void*)0)) {
+        return ((void*)0);
     }
     
     long* ref_count = (long*)((char*)mem - sizeof(size_t) - sizeof(size_t));
@@ -747,7 +687,7 @@ uniq void* come_decrement_ref_count(void* mem, void* protocol_fun, void* protoco
             come_free(protocol_obj);
         }
         come_free(mem);
-        return NULL;
+        return ((void*)0);
     }
     
     return mem;
@@ -760,7 +700,7 @@ uniq void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* pr
             return;
         }
     }
-    if(mem == NULL) {
+    if(mem == ((void*)0)) {
         return;
     }
     
@@ -838,46 +778,10 @@ uniq string __builtin_string(char* str)
     return result;
 }
 
-#if defined(__BAREMETAL__)
-uniq void come_push_stackframe(char* sname, int sline, int id) version 2
-{
-    inherit(sname, sline, id);
-}
 
-uniq void come_pop_stackframe() version 2
-{
-    inherit();
-}
 
-uniq void come_save_stackframe(char* sname, int sline) version 2
-{
-    inherit(sname, sline);
-}
 
-uniq void stackframe() version 2
-{
-    inherit();
-}
 
-uniq string come_get_stackframe() version 2
-{
-    return inherit();
-}
-
-uniq void* come_calloc(size_t count, size_t size, char* sname=null, int sline=0, char* class_name="") version 2
-{
-    return inherit(count, size, sname, sline, class_name);
-}
-
-uniq void come_free(void* mem) version 2
-{
-    inherit(mem);
-}
-#endif
-
-//////////////////////////////
-// list
-//////////////////////////////
 struct list_item<T>
 {
     T item;
@@ -1144,10 +1048,10 @@ impl list <T>
         list_item<T>* it = self.head;
         int i = 0;
         while(it != null) {
-            bool end_flag = false;
+            bool end_flag = 0;
             block(parent, it.item, i, &end_flag);
 
-            if(end_flag == true) {
+            if(end_flag == 1) {
                 break;
             }
             it = it.next;
@@ -1523,14 +1427,14 @@ impl list <T>
     bool equals(list<T>* left, list<T>* right)
     {
         if(left == null && right == null) {
-            return true;
+            return 1;
         }
         else if(left == null || right == null) {
-            return false;
+            return 0;
         }
         
         if(left.len != right.len) {
-            return false;
+            return 0;
         }
 
         list_item<T>* it = left.head;
@@ -1538,14 +1442,14 @@ impl list <T>
 
         while(it != null) {
             if(!it.item.equals(it2.item)) {
-                return false;
+                return 0;
             }
 
             it = it.next;
             it2 = it2.next;
         }
 
-        return true;
+        return 1;
     }
     list<T>*% sublist(list<T>* self, int begin, int tail) {
         if(self == null) {
@@ -1656,14 +1560,14 @@ impl list <T>
     bool operator_equals(list<T>* left, list<T>* right) 
     {
         if(left == null && right == null) {
-            return true;
+            return 1;
         }
         else if(left == null || right == null) {
-            return false;
+            return 0;
         }
         
         if(left.len != right.len) {
-            return false;
+            return 0;
         }
 
         list_item<T>* it = left.head;
@@ -1671,42 +1575,42 @@ impl list <T>
 
         while(it != null) {
             if(!(it.item === it2.item)) {
-                return false;
+                return 0;
             }
 
             it = it.next;
             it2 = it2.next;
         }
 
-        return true;
+        return 1;
     }
     bool operator_not_equals(list<T>* left, list<T>* right) {
         return !left.operator_equals(right);
     }
     bool contained(list<T>* self, T& item) {
         if(self == null) {
-            return false;
+            return 0;
         }
         
         for(var it = self.begin(); !self.end(); it = self.next()) {
             if(it.equals(item)) {
-                return true;
+                return 1;
             }
         }
         
-        return false;
+        return 0;
     }
     bool contained_by_pointer(list<T>* self, T& item) {
         if(self == null) {
-            return false;
+            return 0;
         }
         for(var it = self.begin(); !self.end(); it = self.next()) {
             if(it == item) {
-                return true;
+                return 1;
             }
         }
         
-        return false;
+        return 0;
     }
     list<T>*% merge_list_with_lambda(list<T>* left, list<T>* right, int (*compare)(T&,T&)) {
         auto result = new list<T>.initialize();
@@ -1714,7 +1618,7 @@ impl list <T>
         list_item<T>* it = left.head;
         list_item<T>* it2= right.head;
 
-        while(true) {
+        while(1) {
             if(it && it2) {
                 if(it.item == null) {
                     it = it.next;
@@ -1793,7 +1697,7 @@ impl list <T>
 
         list_item<T>* it = self.head;
 
-        while(true) {
+        while(1) {
             list1.push_back(dupe it.item);
             list2.push_back(dupe it.next.item);
 
@@ -1974,9 +1878,9 @@ impl list <T>
     }
 }
 
-//////////////////////////////
-// map
-//////////////////////////////
+
+
+
 struct map<T, T2>
 {
     T*& keys;
@@ -1990,21 +1894,20 @@ struct map<T, T2>
     int it;
 };
 
-#define MAP_TABLE_DEFAULT_SIZE 128
 
 impl map <T, T2>
 {
     map<T,T2>*% initialize(map<T,T2>*% self) {
-        self.keys = borrow gc_inc(new T[MAP_TABLE_DEFAULT_SIZE]);
-        self.items = borrow gc_inc(new T2[MAP_TABLE_DEFAULT_SIZE]);
-        self.item_existance = borrow gc_inc(new bool[MAP_TABLE_DEFAULT_SIZE]);
+        self.keys = borrow gc_inc(new T[128]);
+        self.items = borrow gc_inc(new T2[128]);
+        self.item_existance = borrow gc_inc(new bool[128]);
 
-        for(int i=0; i<MAP_TABLE_DEFAULT_SIZE; i++)
+        for(int i=0; i<128; i++)
         {
-            self.item_existance[i] = false;
+            self.item_existance[i] = 0;
         }
 
-        self.size = MAP_TABLE_DEFAULT_SIZE;
+        self.size = 128;
         self.len = 0;
         
         self.key_list = new list<T>();
@@ -2015,16 +1918,16 @@ impl map <T, T2>
     }
     map<T,T2>*% initialize_with_values(map<T,T2>*% self, int num_keys, T&* keys, T2&* values) 
     {
-        self.keys = borrow gc_inc(new T[MAP_TABLE_DEFAULT_SIZE]);
-        self.items = borrow gc_inc(new T2[MAP_TABLE_DEFAULT_SIZE]);
-        self.item_existance = borrow gc_inc(new bool[MAP_TABLE_DEFAULT_SIZE]);
+        self.keys = borrow gc_inc(new T[128]);
+        self.items = borrow gc_inc(new T2[128]);
+        self.item_existance = borrow gc_inc(new bool[128]);
 
-        for(int i=0; i<MAP_TABLE_DEFAULT_SIZE; i++)
+        for(int i=0; i<128; i++)
         {
-            self.item_existance[i] = false;
+            self.item_existance[i] = 0;
         }
 
-        self.size = MAP_TABLE_DEFAULT_SIZE;
+        self.size = 128;
         self.len = 0;
 
         self.it = 0;
@@ -2133,7 +2036,7 @@ impl map <T, T2>
         unsigned int hash = ((T)key).get_hash_key() % self.size;
         unsigned int it = hash;
         
-        while(true) {
+        while(1) {
             if(self.item_existance[it])
             {
                 if(self.keys\[it].equals(key))
@@ -2165,14 +2068,14 @@ impl map <T, T2>
         unsigned int hash = ((T)key).get_hash_key() % self.size;
         unsigned int it = hash;
         
-        while(true) {
+        while(1) {
             if(self.item_existance[it])
             {
                 if(self.keys\[it].equals(key))
                 {
                     self.key_list.remove(self.keys\[it]);
                     
-                    self.item_existance[it] = false;
+                    self.item_existance[it] = 0;
                     if(isheap(T)) {
                         delete borrow self.keys\[it];
                     }
@@ -2211,14 +2114,14 @@ impl map <T, T2>
         unsigned int hash = ((T)key).get_hash_key() % self.size;
         unsigned int it = hash;
         
-        while(true) {
+        while(1) {
             if(self.item_existance[it])
             {
                 if(self.keys\[it] == key) 
                 {
                     self.key_list.remove(self.keys\[it]);
                     
-                    self.item_existance[it] = false;
+                    self.item_existance[it] = 0;
                     if(isheap(T)) {
                         delete borrow self.keys\[it];
                     }
@@ -2308,7 +2211,7 @@ impl map <T, T2>
             unsigned int hash = ((T)it).get_hash_key() % size;
             int n = hash;
 
-            while(true) {
+            while(1) {
                 if(item_existance[n])
                 {
                     n++;
@@ -2323,7 +2226,7 @@ impl map <T, T2>
                     }
                 }
                 else {
-                    item_existance[n] = true;
+                    item_existance[n] = 1;
                     keys\[n] = it;
                     T2` default_value;
                     memset(&default_value, 0, sizeof(T2));
@@ -2376,7 +2279,7 @@ impl map <T, T2>
         unsigned int hash = ((T)key).get_hash_key() % self.size;
         unsigned int it = hash;
         
-        while(true) {
+        while(1) {
             if(self.item_existance[it])
             {
                 if(self.keys\[it].equals(key)) 
@@ -2412,7 +2315,7 @@ impl map <T, T2>
                 }
             }
             else {
-                self.item_existance[it] = true;
+                self.item_existance[it] = 1;
                 if(isheap(T)) {
                     self.keys\[it] = borrow gc_inc(key);
                 }
@@ -2432,10 +2335,10 @@ impl map <T, T2>
             }
         }
         
-        bool same_key_exist = false;
+        bool same_key_exist = 0;
         for(var it2 = self.key_list.begin(); !self.key_list.end(); it2 = self.key_list.next()) {
             if(it2.equals(key)) {
-                same_key_exist = true;
+                same_key_exist = 1;
             }
         }
         
@@ -2456,7 +2359,7 @@ impl map <T, T2>
         unsigned int hash = ((T)key).get_hash_key() % self.size;
         int it = hash;
 
-        while(true) {
+        while(1) {
             if(self.item_existance[it])
             {
                 if(self.keys\[it].equals(key)) 
@@ -2492,7 +2395,7 @@ impl map <T, T2>
                 }
             }
             else {
-                self.item_existance[it] = true;
+                self.item_existance[it] = 1;
                 if(isheap(T)) {
                     self.keys\[it] = borrow gc_inc(key);
                 }
@@ -2512,10 +2415,10 @@ impl map <T, T2>
             }
         }
         
-        bool same_key_exist = false;
+        bool same_key_exist = 0;
         for(var it2 = self.key_list.begin(); !self.key_list.end(); it2 = self.key_list.next()) {
             if(it2.equals(key)) {
-                same_key_exist = true;
+                same_key_exist = 1;
             }
         }
         
@@ -2536,7 +2439,7 @@ impl map <T, T2>
         unsigned int hash = ((T)key).get_hash_key() % self.size;
         unsigned int it = hash;
         
-        while(true) {
+        while(1) {
             if(self.item_existance[it])
             {
                 if(self.keys\[it].equals(key))
@@ -2571,18 +2474,18 @@ impl map <T, T2>
     bool equals(map<T, T2>* left, map<T, T2>* right)
     {
         if(left == null && right == null) {
-            return true;
+            return 1;
         }
         else if(left == null || right == null) {
-            return false;
+            return 0;
         }
         
         if(left.len != right.len) {
-            return false;
+            return 0;
         }
 
         int n = 0;
-        bool result = true;
+        bool result = 1;
         for(var it = left.key_list.begin(); !left.key_list.end(); it = left.key_list.next()) {
             T` default_value;
             memset(&default_value, 0, sizeof(T));
@@ -2595,11 +2498,11 @@ impl map <T, T2>
                 T2 item2 = right.at(it2, default_value2);
                 
                 if(!item.equals(item2)) {
-                    result = false;
+                    result = 0;
                 }
             }
             else {
-                result = false;
+                result = 0;
             }
             
             n++;
@@ -2610,17 +2513,17 @@ impl map <T, T2>
     
     bool operator_equals(map<T, T2>* left, map<T,T2>* right) {
         if(left == null && right == null) {
-            return true;
+            return 1;
         }
         else if(left == null || right == null) {
-            return false;
+            return 0;
         }
         if(left.len != right.len) {
-            return false;
+            return 0;
         }
 
         int n = 0;
-        bool result = true;
+        bool result = 1;
         for(var it = left.key_list.begin(); !left.key_list.end(); it = left.key_list.next()) {
             T` default_value;
             memset(&default_value, 0, sizeof(T));
@@ -2633,11 +2536,11 @@ impl map <T, T2>
                 T2& item2 = right.at(it2, default_value2);
                 
                 if(!(item === item2)) {
-                    result = false;
+                    result = 0;
                 }
             }
             else {
-                result = false;
+                result = 0;
             }
             
             n++;
@@ -2648,10 +2551,10 @@ impl map <T, T2>
     
     bool operator_not_equals(map<T, T2>* left, map<T,T2>* right) {
         if(left == null && right == null) {
-            return false;
+            return 0;
         }
         else if(left == null || right == null) {
-            return true;
+            return 1;
         }
         
         return !(left.operator_equals(right));
@@ -2659,18 +2562,18 @@ impl map <T, T2>
     
     bool find(map<T, T2>* self, T& key) {
         if(self == null) {
-            return false;
+            return 0;
         }
         
         unsigned int hash = ((T)key).get_hash_key() % self.size;
         int it = hash;
 
-        while(true) {
+        while(1) {
             if(self.item_existance[it])
             {
                 if(self.keys\[it].equals(key))
                 {
-                    return true;
+                    return 1;
                 }
 
                 it++;
@@ -2679,15 +2582,15 @@ impl map <T, T2>
                     it = 0;
                 }
                 else if(it == hash) {
-                    return false;
+                    return 0;
                 }
             }
             else {
-                return false;
+                return 0;
             }
         }
 
-        return false;
+        return 0;
     }
     map<T,T2>*% operator_add(map<T,T2>* left, map<T,T2>* right) {
         map<T,T2>*% result = new map<T,T2>();
@@ -2817,9 +2720,9 @@ impl map <T, T2>
     }
 }
 
-//////////////////////////////
-// tuple
-//////////////////////////////
+
+
+
 struct tuple1<T>
 {
     T v1;
@@ -2837,30 +2740,30 @@ impl tuple1 <T>
     bool equals(tuple1<T>* self, tuple1<T>* right)
     {
         if(self == null && right == null) {
-            return true;
+            return 1;
         }
         else if(self == null || right == null) {
-            return false;
+            return 0;
         }
         if(!self.v1.equals(right.v1)) {
-            return false;
+            return 0;
         }
         
-        return true;
+        return 1;
     }
     bool operator_equals(tuple1<T>* self, tuple1<T>* right) 
     {
         if(self == null && right == null) {
-            return true;
+            return 1;
         }
         else if(self == null || right == null) {
-            return false;
+            return 0;
         }
         if(!(self.v1 === right.v1)) {
-            return false;
+            return 0;
         }
         
-        return true;
+        return 1;
     }
     bool operator_not_equals(tuple1<T>* left, tuple1<T>* right) {
         return !left.operator_equals(right);
@@ -2901,36 +2804,36 @@ impl tuple2 <T, T2>
     bool equals(tuple2<T,T2>* self, tuple2<T,T2>* right)
     {
         if(self == null && right == null) {
-            return true;
+            return 1;
         }
         else if(self == null || right == null) {
-            return false;
+            return 0;
         }
         if(!self.v1.equals(right.v1)) {
-            return false;
+            return 0;
         }
         if(!self.v2.equals(right.v2)) {
-            return false;
+            return 0;
         }
         
-        return true;
+        return 1;
     }
     bool operator_equals(tuple2<T,T2>* self, tuple2<T,T2>* right) 
     {
         if(self == null && right == null) {
-            return true;
+            return 1;
         }
         else if(self == null || right == null) {
-            return false;
+            return 0;
         }
         if(!(self.v1 === right.v1)) {
-            return false;
+            return 0;
         }
         if(!(self.v2 === right.v2)) {
-            return false;
+            return 0;
         }
         
-        return true;
+        return 1;
     }
     bool operator_not_equals(tuple2<T,T2>* left, tuple2<T,T2>* right) {
         return !left.operator_equals(right);
@@ -2966,42 +2869,42 @@ impl tuple3 <T, T2, T3>
     bool equals(tuple3<T,T2,T3>* self, tuple3<T,T2,T3>* right)
     {
         if(self == null && right == null) {
-            return true;
+            return 1;
         }
         else if(self == null || right == null) {
-            return false;
+            return 0;
         }
         if(!self.v1.equals(right.v1)) {
-            return false;
+            return 0;
         }
         if(!self.v2.equals(right.v2)) {
-            return false;
+            return 0;
         }
         if(!self.v3.equals(right.v3)) {
-            return false;
+            return 0;
         }
         
-        return true;
+        return 1;
     }
     bool operator_equals(tuple3<T,T2,T3>* self, tuple3<T,T2,T3>* right) 
     {
         if(self == null && right == null) {
-            return true;
+            return 1;
         }
         else if(self == null || right == null) {
-            return false;
+            return 0;
         }
         if(!(self.v1 === right.v1)) {
-            return false;
+            return 0;
         }
         if(!(self.v2 === right.v2)) {
-            return false;
+            return 0;
         }
         if(!(self.v3 === right.v3)) {
-            return false;
+            return 0;
         }
         
-        return true;
+        return 1;
     }
     bool operator_not_equals(tuple3<T,T2,T3>* left, tuple3<T,T2,T3>* right) {
         return !left.operator_equals(right);
@@ -3038,48 +2941,48 @@ impl tuple4 <T, T2, T3, T4>
     bool equals(tuple4<T,T2,T3,T4>* self, tuple4<T,T2,T3,T4>* right)
     {
         if(self == null && right == null) {
-            return true;
+            return 1;
         }
         else if(self == null || right == null) {
-            return false;
+            return 0;
         }
         if(!self.v1.equals(right.v1)) {
-            return false;
+            return 0;
         }
         if(!self.v2.equals(right.v2)) {
-            return false;
+            return 0;
         }
         if(!self.v3.equals(right.v3)) {
-            return false;
+            return 0;
         }
         if(!self.v4.equals(right.v4)) {
-            return false;
+            return 0;
         }
         
-        return true;
+        return 1;
     }
     bool operator_equals(tuple4<T,T2,T3,T4>* self, tuple4<T,T2,T3,T4>* right) 
     {
         if(self == null && right == null) {
-            return true;
+            return 1;
         }
         else if(self == null || right == null) {
-            return false;
+            return 0;
         }
         if(!(self.v1 === right.v1)) {
-            return false;
+            return 0;
         }
         if(!(self.v2 === right.v2)) {
-            return false;
+            return 0;
         }
         if(!(self.v3 === right.v3)) {
-            return false;
+            return 0;
         }
         if(!(self.v4 === right.v4)) {
-            return false;
+            return 0;
         }
         
-        return true;
+        return 1;
     }
     bool operator_not_equals(tuple4<T,T2,T3,T4>* left, tuple4<T,T2,T3,T4>* right) {
         return !left.operator_equals(right);
@@ -3118,63 +3021,63 @@ impl tuple5 <T, T2, T3, T4, T5>
     bool equals(tuple5<T,T2,T3,T4,T5>* self, tuple5<T,T2,T3,T4,T5>* right)
     {
         if(self == null && right == null) {
-            return true;
+            return 1;
         }
         else if(self == null || right == null) {
-            return false;
+            return 0;
         }
         if(!self.v1.equals(right.v1)) {
-            return false;
+            return 0;
         }
         if(!self.v2.equals(right.v2)) {
-            return false;
+            return 0;
         }
         if(!self.v3.equals(right.v3)) {
-            return false;
+            return 0;
         }
         if(!self.v4.equals(right.v4)) {
-            return false;
+            return 0;
         }
         if(!self.v5.equals(right.v5)) {
-            return false;
+            return 0;
         }
         
-        return true;
+        return 1;
     }
     bool operator_equals(tuple5<T,T2,T3,T4,T5>* self, tuple5<T,T2,T3,T4,T5>* right) 
     {
         if(self == null && right == null) {
-            return true;
+            return 1;
         }
         else if(self == null || right == null) {
-            return false;
+            return 0;
         }
         if(!(self.v1 === right.v1)) {
-            return false;
+            return 0;
         }
         if(!(self.v2 === right.v2)) {
-            return false;
+            return 0;
         }
         if(!(self.v3 === right.v3)) {
-            return false;
+            return 0;
         }
         if(!(self.v4 === right.v4)) {
-            return false;
+            return 0;
         }
         if(!(self.v5 === right.v5)) {
-            return false;
+            return 0;
         }
         
-        return true;
+        return 1;
     }
     bool operator_not_equals(tuple5<T,T2,T3,T4,T5>* left, tuple5<T,T2,T3,T4,T5>* right) {
         return !left.operator_equals(right);
     }
 }
 
-//////////////////////////////
-// buffer
-//////////////////////////////
+
+
+
 uniq buffer*% buffer*::initialize(buffer*% self) 
 {
     self.size = 128;
@@ -3221,10 +3124,10 @@ uniq buffer*% buffer*::clone(buffer* self)
 uniq bool buffer*::equals(buffer* left, buffer* right)
 {
     if(left == null && right == null) {
-        return true;
+        return 1;
     }
     else if(left == null || right == null) {
-        return false;
+        return 0;
     }
     
     return left.to_string().equals(right.to_string());
@@ -3346,9 +3249,9 @@ if($UNIX == 0) {
         char result[128];
         
         va_list` args;
-        va_start(args, msg);
+        __builtin_va_start(args,msg);
         vsnprintf(result, 128, msg, args);
-        va_end(args);
+        __builtin_va_end(args);
         
         int len = strlen(result);
         
@@ -3383,10 +3286,10 @@ else {
         }
         
         va_list` args;
-        va_start(args, msg);
+        __builtin_va_start(args,msg);
         char* result;
         int len = vasprintf(&result, msg, args);
-        va_end(args);
+        __builtin_va_end(args);
         
         if(len < 0) {
             return self;
@@ -3712,9 +3615,9 @@ impl list <T>
     }
 }
 
-//////////////////////////////
-/// base library(primitive array)
-//////////////////////////////
+
+
+
 uniq list<char>*% char[]::to_list(char* self, size_t len) 
 {
     return new list<char>.initialize_with_values(len, self);
@@ -3750,9 +3653,9 @@ uniq list<double>*% double[]::to_list(double* self, size_t len)
     return new list<double>.initialize_with_values(len, self);
 }
 
-//////////////////////////////
-/// base library(equals)
-//////////////////////////////
+
+
+
 uniq bool bool::equals(bool self, bool right) 
 {
     return self == right;
@@ -3861,10 +3764,10 @@ uniq bool long::operator_not_equals(long self, long right)
 uniq bool char*::equals(char* self, char* right) 
 {
     if(self == null && right == null) {
-        return true;
+        return 1;
     }
     else if(self == null || right == null) {
-        return false;
+        return 0;
     }
     
     return strcmp(self, right) == 0;
@@ -3873,10 +3776,10 @@ uniq bool char*::equals(char* self, char* right)
 uniq bool string::equals(char* self, char* right) 
 {
     if(self == null && right == null) {
-        return true;
+        return 1;
     }
     else if(self == null || right == null) {
-        return false;
+        return 0;
     }
     
     return strcmp(self, right) == 0;
@@ -3895,10 +3798,10 @@ uniq bool bool*::equals(bool* self, bool* right)
 uniq bool string::operator_equals(char* self, char* right) 
 {
     if(self == null && right == null) {
-        return true;
+        return 1;
     }
     else if(self == null || right == null) {
-        return false;
+        return 0;
     }
     
     return strcmp(self, right) == 0;
@@ -3907,10 +3810,10 @@ uniq bool string::operator_equals(char* self, char* right)
 uniq bool char*::operator_equals(char* self, char* right) 
 {
     if(self == null && right == null) {
-        return true;
+        return 1;
     }
     else if(self == null || right == null) {
-        return false;
+        return 0;
     }
     
     return strcmp(self, right) == 0;
@@ -3929,10 +3832,10 @@ uniq bool void*::operator_not_equals(char* self, char* right)
 uniq bool string::operator_not_equals(char* self, char* right) 
 {
     if(self == null && right == null) {
-        return false;
+        return 0;
     }
     else if(self == null || right == null) {
-        return true;
+        return 1;
     }
     
     return strcmp(self, right) != 0;
@@ -3941,10 +3844,10 @@ uniq bool string::operator_not_equals(char* self, char* right)
 uniq bool char*::operator_not_equals(char* self, char* right) 
 {
     if(self == null && right == null) {
-        return false;
+        return 0;
     }
     else if(self == null || right == null) {
-        return true;
+        return 1;
     }
     
     return strcmp(self, right) != 0;
@@ -4016,13 +3919,13 @@ uniq size_t char[]::length(char* self, size_t len)
 
 uniq bool char*[]::contained(char** self, size_t len, char* str) 
 {
-    bool result = false;
+    bool result = 0;
     if(self == null) {
         return result;
     }
     for(int i=0; i<len; i++) {
         if(strncmp(self[i], str, strlen(self[i])) == 0) {
-            result = true;
+            result = 1;
             break;
         }
     }
@@ -4054,9 +3957,9 @@ uniq size_t double[]::length(double* self, size_t len)
     return len;
 }
 
-//////////////////////////////
-/// base library(get_hash key)
-//////////////////////////////
+
+
+
 uniq unsigned int bool::get_hash_key(bool value)
 {
     return (((int)value).get_hash_key());
@@ -4135,9 +4038,9 @@ uniq unsigned int void*::get_hash_key(void* value)
     return (((int)value).get_hash_key());
 }
 
-//////////////////////////////
-/// base library(clone)
-//////////////////////////////
+
+
+
 uniq bool bool::clone(bool self)
 {
     return self;
@@ -4183,9 +4086,9 @@ uniq float float::clone(float self)
     return self;
 }
 
-//////////////////////////////
-/// base library(character code)
-//////////////////////////////
+
+
+
 
 uniq bool xisalpha(char c)
 {
@@ -4223,9 +4126,9 @@ uniq bool xispunct(char c) {
     return (c >= '!' && c <= '/') || (c >= ':' && c <= '@') || (c >= '[' && c <= '`') || (c >= '{' && c <= '~');
  }
 
-//////////////////////////////
-/// base library(simple string library)
-//////////////////////////////
+
+
+
 uniq int string::length(char* str)
 {
     if(str == null) {
@@ -4400,10 +4303,10 @@ uniq string xsprintf(char* msg, ...)
         return string("");
     }
     va_list` args;
-    va_start(args, msg);
+    __builtin_va_start(args,msg);
     char* result;
     int len = vasprintf(&result, msg, args);
-    va_end(args);
+    __builtin_va_end(args);
     
     if(len < 0) {
         return string("");
@@ -4541,7 +4444,7 @@ uniq string char*::sub_plain(char* self, char* str, char* replace)
     
     char* p = self;
     
-    while(true) {
+    while(1) {
         char* p2 = strstr(p, str);
         
         if(p2 == null) {
@@ -4562,9 +4465,9 @@ uniq string char*::sub_plain(char* self, char* str, char* replace)
     return result.to_string();
 }
 
-//////////////////////////////
-/// base library(path library)
-//////////////////////////////
+
+
+
 uniq string xbasename(char* path)
 {
     if(path == null) {
@@ -4645,9 +4548,9 @@ uniq string xextname(char* path)
     return string("");
 }
 
-//////////////////////////////
-/// base library(to_string)
-//////////////////////////////
+
+
+
 uniq string bool::to_string(bool self)
 {
     if(self) {
@@ -4719,9 +4622,9 @@ uniq string char*::to_string(char* self)
     return string(self);
 }
 
-//////////////////////////////
-/// base library(compare)
-//////////////////////////////
+
+
+
 uniq int bool::compare(bool left, bool right)
 {
     if(!left && right) {
@@ -4893,9 +4796,9 @@ uniq int char*::compare(char* left, char* right)
     return strcmp(left,right);
 }
 
-//////////////////////////////
-/// base library(STDOUT, STDIN)
-//////////////////////////////
+
+
+
 uniq string char*::puts(char* self)
 {
     if(self == null) {
@@ -4927,9 +4830,9 @@ if($UNIX == 0) {
         char msg2[128];
         
         va_list` args;
-        va_start(args, self);
+        __builtin_va_start(args,self);
         int len = snprintf(msg2, 128, self, args);
-        va_end(args);
+        __builtin_va_end(args);
         
         printf("%s", msg2);
     
@@ -4947,9 +4850,9 @@ else {
         char* msg2;
     
         va_list` args;
-        va_start(args, self);
+        __builtin_va_start(args,self);
         vasprintf(&msg2,self,args);
-        va_end(args);
+        __builtin_va_end(args);
         
         printf("%s", msg2);
     
@@ -4986,43 +4889,40 @@ uniq void int::times(int self, void* parent, void (*block)(void* parent, int it)
     }
 }
 
-/*
- *
- * Mini regex-module inspired by Rob Pike's regex code described in:
- *
- * http://www.cs.princeton.edu/courses/archive/spr09/cos333/beautiful.html
- *
- *
- *
- * Supports:
- * ---------
- *   '.'        Dot, matches any character
- *   '^'        Start anchor, matches beginning of string
- *   '$'        End anchor, matches end of string
- *   '*'        Asterisk, match zero or more (greedy)
- *   '+'        Plus, match one or more (greedy)
- *   '?'        Question, match zero or one (non-greedy)
- *   '[abc]'    Character class, match if one of {'a', 'b', 'c'}
- *   '[^abc]'   Inverted class, match if NOT one of {'a', 'b', 'c'} -- NOTE: feature is currently broken!
- *   '[a-zA-Z]' Character ranges, the character set of the ranges { a-z | A-Z }
- *   '\s'       Whitespace, \t \f \r \n \v and spaces
- *   '\S'       Non-whitespace
- *   '\w'       Alphanumeric, [a-zA-Z0-9_]
- *   '\W'       Non-alphanumeric
- *   '\d'       Digits, [0-9]
- *   '\D'       Non-digits
- *   '()'       Grouping, allowing quantifiers on sub-expressions and capturing
- *
- *
- */
 
 
-#ifndef RE_DOT_MATCHES_NEWLINE
-// Define to 0 if you DON'T want '.' to match '\r' + '\n' 
-#define RE_DOT_MATCHES_NEWLINE 0
-#endif
 
-// Typedef'd pointer to get abstract datatype. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 struct re_program;
 typedef struct re_program* re_t;
 
@@ -5034,11 +4934,8 @@ typedef struct re_capture
 } re_capture;
 
 
-// Definitions:
 
-#define MAX_REGEXP_OBJECTS   64   // Max number of regex symbols in expression, incl. groups. 
-#define MAX_CHAR_CLASS_LEN   40   // Max length of character-class buffer.                   
-#define MAX_CAPTURE_SLOTS    MAX_REGEXP_OBJECTS
+
 
 enum
 {
@@ -5067,19 +4964,19 @@ typedef struct regex_t regex_t;
 
 struct regex_t
 {
-  unsigned char type;   // RE_CHAR, RE_STAR, RE_GROUP, etc. 
+  unsigned char type;   
   union
   {
-    unsigned char  ch;      // Literal character                
-    unsigned char* ccl;     // Pointer to characters in a class  
+    unsigned char  ch;      
+    unsigned char* ccl;     
     struct
     {
-      regex_t* first;       // First token inside the group      
-      regex_t* last;        // Sentinel token terminating group  
-      int      id;          // Capture index (1-based)          
+      regex_t* first;       
+      regex_t* last;        
+      int      id;          
     } group;
   } u;
-  regex_t* next;            // Linked list pointer for sequence 
+  regex_t* next;            
 };
 
 
@@ -5106,14 +5003,14 @@ typedef struct
 {
   const char* base;
   re_capture* captures;
-  int         capture_capacity;   // Slots provided by caller 
-  int         total_groups;       // Groups present in pattern
+  int         capture_capacity;   
+  int         total_groups;       
   bool        ignore_case;
 } match_context;
 
 
 
-// Public functions: 
+
 uniq int re_matchp_ex(re_t pattern, const char* text, int* matchlength, re_capture* captures, int max_captures, bool ignore_case)
 {
   *matchlength = 0;
@@ -5133,9 +5030,9 @@ uniq int re_matchp_ex(re_t pattern, const char* text, int* matchlength, re_captu
   ctx.base = text;
   ctx.captures = (captures != 0 && max_captures > 0) ? captures : 0;
   ctx.capture_capacity = (captures != 0 && max_captures > 0) ? max_captures : 0;
-  if (ctx.capture_capacity > MAX_CAPTURE_SLOTS)
+  if (ctx.capture_capacity > 64)
   {
-    ctx.capture_capacity = MAX_CAPTURE_SLOTS;
+    ctx.capture_capacity = 64;
   }
   ctx.total_groups = program->group_count;
   ctx.ignore_case = ignore_case;
@@ -5153,7 +5050,7 @@ uniq int re_matchp_ex(re_t pattern, const char* text, int* matchlength, re_captu
       *matchlength = (int)(end - text);
       if (ctx.captures != 0)
       {
-        // Groups already recorded relative to ctx.base 
+        
       }
       return 0;
     }
@@ -5173,7 +5070,7 @@ uniq int re_matchp_ex(re_t pattern, const char* text, int* matchlength, re_captu
       {
         if (*cursor == '\0' && cursor != text)
         {
-          return -1; // Preserve legacy behaviour
+          return -1; 
         }
         *matchlength = (int)(end - cursor);
         return (int)(cursor - text);
@@ -5192,7 +5089,7 @@ uniq int re_matchp_ex(re_t pattern, const char* text, int* matchlength, re_captu
 
 uniq int re_matchp(re_t pattern, const char* text, int* matchlength, re_capture* captures, int max_captures)
 {
-  return re_matchp_ex(pattern, text, matchlength, captures, max_captures, false);
+  return re_matchp_ex(pattern, text, matchlength, captures, max_captures, 0);
 }
 
 uniq int re_match(const char* pattern, const char* text, int* matchlength)
@@ -5202,17 +5099,17 @@ uniq int re_match(const char* pattern, const char* text, int* matchlength)
 
 uniq re_t re_compile(const char* pattern)
 {
-  static regex_t        re_compiled[MAX_REGEXP_OBJECTS];
-  static unsigned char  ccl_buf[MAX_CHAR_CLASS_LEN];
+  static regex_t        re_compiled[64];
+  static unsigned char  ccl_buf[40];
   static regex_program_t program;
 
   compiler_state state;
   state.pool = re_compiled;
-  state.pool_capacity = MAX_REGEXP_OBJECTS;
+  state.pool_capacity = 64;
   state.pool_size = 0;
   state.ccl_buf = ccl_buf;
-  state.ccl_capacity = MAX_CHAR_CLASS_LEN;
-  state.ccl_idx = 1; // leave first slot unused to mimic original behaviour 
+  state.ccl_capacity = 40;
+  state.ccl_idx = 1; 
   state.group_count = 0;
 
   if (state.ccl_capacity > 0)
@@ -5224,7 +5121,7 @@ uniq re_t re_compile(const char* pattern)
   regex_t* head = compile_sequence(&state, pattern, &pos, 0);
   if ((head == 0) || (pattern[pos] != '\0'))
   {
-    return NULL;
+    return ((void*)0);
   }
 
   program.start = head;
@@ -5250,7 +5147,7 @@ uniq void re_print(re_t pattern)
 }
 
 
-// Private helper implementations 
+
 uniq void clear_captures(match_context* ctx)
 {
   if ((ctx->captures == 0) || (ctx->capture_capacity <= 0))
@@ -5290,7 +5187,7 @@ uniq regex_t* new_token(compiler_state* st)
 {
   if (st->pool_size >= st->pool_capacity)
   {
-    return NULL;
+    return ((void*)0);
   }
 
   regex_t* token = &st->pool[st->pool_size++];
@@ -5343,7 +5240,7 @@ uniq regex_t* compile_sequence(compiler_state* st, const char* pattern, int* pos
       case '^':
       {
         token = new_token(st);
-        if (token == 0) return NULL;
+        if (token == 0) return ((void*)0);
         token->type = RE_BEGIN;
         (*pos)++;
       } break;
@@ -5351,7 +5248,7 @@ uniq regex_t* compile_sequence(compiler_state* st, const char* pattern, int* pos
       case '$':
       {
         token = new_token(st);
-        if (token == 0) return NULL;
+        if (token == 0) return ((void*)0);
         token->type = RE_END;
         (*pos)++;
       } break;
@@ -5359,7 +5256,7 @@ uniq regex_t* compile_sequence(compiler_state* st, const char* pattern, int* pos
       case '.':
       {
         token = new_token(st);
-        if (token == 0) return NULL;
+        if (token == 0) return ((void*)0);
         token->type = RE_DOT;
         (*pos)++;
       } break;
@@ -5367,7 +5264,7 @@ uniq regex_t* compile_sequence(compiler_state* st, const char* pattern, int* pos
       case '*':
       {
         token = new_token(st);
-        if (token == 0) return NULL;
+        if (token == 0) return ((void*)0);
         token->type = RE_STAR;
         (*pos)++;
       } break;
@@ -5375,7 +5272,7 @@ uniq regex_t* compile_sequence(compiler_state* st, const char* pattern, int* pos
       case '+':
       {
         token = new_token(st);
-        if (token == 0) return NULL;
+        if (token == 0) return ((void*)0);
         token->type = RE_PLUS;
         (*pos)++;
       } break;
@@ -5383,7 +5280,7 @@ uniq regex_t* compile_sequence(compiler_state* st, const char* pattern, int* pos
       case '?':
       {
         token = new_token(st);
-        if (token == 0) return NULL;
+        if (token == 0) return ((void*)0);
         token->type = RE_QUESTIONMARK;
         (*pos)++;
       } break;
@@ -5393,11 +5290,11 @@ uniq regex_t* compile_sequence(compiler_state* st, const char* pattern, int* pos
         (*pos)++;
         if (pattern[*pos] == '\0')
         {
-          return NULL;
+          return ((void*)0);
         }
 
         token = new_token(st);
-        if (token == 0) return NULL;
+        if (token == 0) return ((void*)0);
 
         switch (pattern[*pos])
         {
@@ -5428,13 +5325,13 @@ uniq regex_t* compile_sequence(compiler_state* st, const char* pattern, int* pos
           (*pos)++;
           if (pattern[*pos] == '\0')
           {
-            return NULL;
+            return ((void*)0);
           }
         }
 
         if (pattern[*pos] == '\0')
         {
-          return NULL;
+          return ((void*)0);
         }
 
         while ((pattern[*pos] != '\0') && (pattern[*pos] != ']'))
@@ -5443,19 +5340,19 @@ uniq regex_t* compile_sequence(compiler_state* st, const char* pattern, int* pos
           {
             if (st->ccl_idx >= (st->ccl_capacity - 1))
             {
-              return NULL;
+              return ((void*)0);
             }
             st->ccl_buf[st->ccl_idx++] = '\\';
             (*pos)++;
             if (pattern[*pos] == '\0')
             {
-              return NULL;
+              return ((void*)0);
             }
           }
 
           if (st->ccl_idx >= st->ccl_capacity)
           {
-            return NULL;
+            return ((void*)0);
           }
           st->ccl_buf[st->ccl_idx++] = (unsigned char)pattern[*pos];
           (*pos)++;
@@ -5463,17 +5360,17 @@ uniq regex_t* compile_sequence(compiler_state* st, const char* pattern, int* pos
 
         if (pattern[*pos] != ']')
         {
-          return NULL;
+          return ((void*)0);
         }
 
         if (st->ccl_idx >= st->ccl_capacity)
         {
-          return NULL;
+          return ((void*)0);
         }
         st->ccl_buf[st->ccl_idx++] = 0;
 
         token = new_token(st);
-        if (token == 0) return NULL;
+        if (token == 0) return ((void*)0);
         token->type = negated ? RE_INV_CHAR_CLASS : RE_CHAR_CLASS;
         token->u.ccl = &st->ccl_buf[buf_begin];
 
@@ -5486,11 +5383,11 @@ uniq regex_t* compile_sequence(compiler_state* st, const char* pattern, int* pos
         regex_t* inner = compile_sequence(st, pattern, pos, 1);
         if (inner == 0)
         {
-          return NULL;
+          return ((void*)0);
         }
         if (pattern[*pos] != ')')
         {
-          return NULL;
+          return ((void*)0);
         }
 
         regex_t* tail = inner;
@@ -5500,11 +5397,11 @@ uniq regex_t* compile_sequence(compiler_state* st, const char* pattern, int* pos
         }
         if (tail == 0)
         {
-          return NULL;
+          return ((void*)0);
         }
 
         token = new_token(st);
-        if (token == 0) return NULL;
+        if (token == 0) return ((void*)0);
         token->type = RE_GROUP;
         token->u.group.first = inner;
         token->u.group.last = tail;
@@ -5519,7 +5416,7 @@ uniq regex_t* compile_sequence(compiler_state* st, const char* pattern, int* pos
       case ')':
       {
         token = new_token(st);
-        if (token == 0) return NULL;
+        if (token == 0) return ((void*)0);
         token->type = RE_CHAR;
         token->u.ch = (unsigned char)c;
         (*pos)++;
@@ -5528,7 +5425,7 @@ uniq regex_t* compile_sequence(compiler_state* st, const char* pattern, int* pos
       default:
       {
         token = new_token(st);
-        if (token == 0) return NULL;
+        if (token == 0) return ((void*)0);
         token->type = RE_CHAR;
         token->u.ch = (unsigned char)c;
         (*pos)++;
@@ -5537,14 +5434,14 @@ uniq regex_t* compile_sequence(compiler_state* st, const char* pattern, int* pos
 
     if (!append_token(&head, &tail, token))
     {
-      return NULL;
+      return ((void*)0);
     }
   }
 
   regex_t* sentinel = new_token(st);
   if (sentinel == 0)
   {
-    return NULL;
+    return ((void*)0);
   }
   sentinel->type = RE_UNUSED;
   sentinel->next = 0;
@@ -5573,7 +5470,7 @@ uniq const char* matchpattern(regex_t* pattern, const char* text, match_context*
     return text;
   }
 
-  re_capture snapshot[MAX_CAPTURE_SLOTS];
+  re_capture snapshot[64];
   snapshot_captures(ctx, snapshot);
 
   regex_t* current = pattern;
@@ -5614,7 +5511,7 @@ uniq const char* matchpattern(regex_t* pattern, const char* text, match_context*
         return result;
       }
       restore_captures(ctx, snapshot);
-      return NULL;
+      return ((void*)0);
     }
     else if ((next != 0) && (next->type == RE_STAR))
     {
@@ -5624,7 +5521,7 @@ uniq const char* matchpattern(regex_t* pattern, const char* text, match_context*
         return result;
       }
       restore_captures(ctx, snapshot);
-      return NULL;
+      return ((void*)0);
     }
     else if ((next != 0) && (next->type == RE_PLUS))
     {
@@ -5634,7 +5531,7 @@ uniq const char* matchpattern(regex_t* pattern, const char* text, match_context*
         return result;
       }
       restore_captures(ctx, snapshot);
-      return NULL;
+      return ((void*)0);
     }
     else if (current->type == RE_GROUP)
     {
@@ -5644,14 +5541,14 @@ uniq const char* matchpattern(regex_t* pattern, const char* text, match_context*
         return result;
       }
       restore_captures(ctx, snapshot);
-      return NULL;
+      return ((void*)0);
     }
     else if (current->type == RE_END)
     {
       if (*cursor != '\0')
       {
         restore_captures(ctx, snapshot);
-        return NULL;
+        return ((void*)0);
       }
       current = current->next;
     }
@@ -5661,7 +5558,7 @@ uniq const char* matchpattern(regex_t* pattern, const char* text, match_context*
       if (after == 0)
       {
         restore_captures(ctx, snapshot);
-        return NULL;
+        return ((void*)0);
       }
       cursor = after;
       current = current->next;
@@ -5673,7 +5570,7 @@ uniq const char* matchpattern(regex_t* pattern, const char* text, match_context*
 
 uniq const char* matchgroup(regex_t* token, regex_t* rest, const char* text, match_context* ctx)
 {
-  re_capture snapshot_entry[MAX_CAPTURE_SLOTS];
+  re_capture snapshot_entry[64];
   snapshot_captures(ctx, snapshot_entry);
 
   regex_t* end_token = token->u.group.last;
@@ -5710,13 +5607,13 @@ uniq const char* matchgroup(regex_t* token, regex_t* rest, const char* text, mat
 
 uniq const char* matchstar(regex_t* token, regex_t* rest, const char* text, match_context* ctx)
 {
-  re_capture snapshot_entry[MAX_CAPTURE_SLOTS];
+  re_capture snapshot_entry[64];
   snapshot_captures(ctx, snapshot_entry);
 
   const char* consume = matchtoken(token, text, ctx);
   while ((consume != 0) && (consume != text))
   {
-    re_capture snapshot_after_token[MAX_CAPTURE_SLOTS];
+    re_capture snapshot_after_token[64];
     snapshot_captures(ctx, snapshot_after_token);
 
     const char* recursive = matchstar(token, rest, consume, ctx);
@@ -5735,14 +5632,14 @@ uniq const char* matchstar(regex_t* token, regex_t* rest, const char* text, matc
 
 uniq const char* matchplus(regex_t* token, regex_t* rest, const char* text, match_context* ctx)
 {
-  re_capture snapshot_entry[MAX_CAPTURE_SLOTS];
+  re_capture snapshot_entry[64];
   snapshot_captures(ctx, snapshot_entry);
 
   const char* first = matchtoken(token, text, ctx);
   if ((first == 0) || (first == text))
   {
     restore_captures(ctx, snapshot_entry);
-    return NULL;
+    return ((void*)0);
   }
 
   const char* result = matchstar(token, rest, first, ctx);
@@ -5752,12 +5649,12 @@ uniq const char* matchplus(regex_t* token, regex_t* rest, const char* text, matc
   }
 
   restore_captures(ctx, snapshot_entry);
-  return NULL;
+  return ((void*)0);
 }
 
 uniq const char* matchquestion(regex_t* token, regex_t* rest, const char* text, match_context* ctx)
 {
-  re_capture snapshot_entry[MAX_CAPTURE_SLOTS];
+  re_capture snapshot_entry[64];
   snapshot_captures(ctx, snapshot_entry);
 
   const char* skipped = matchpattern(rest, text, ctx);
@@ -5772,7 +5669,7 @@ uniq const char* matchquestion(regex_t* token, regex_t* rest, const char* text, 
   if ((consumed == 0) || (consumed == text))
   {
     restore_captures(ctx, snapshot_entry);
-    return NULL;
+    return ((void*)0);
   }
 
   const char* with = matchpattern(rest, consumed, ctx);
@@ -5782,7 +5679,7 @@ uniq const char* matchquestion(regex_t* token, regex_t* rest, const char* text, 
   }
 
   restore_captures(ctx, snapshot_entry);
-  return NULL;
+  return ((void*)0);
 }
 
 uniq unsigned char re_fold_char(unsigned char c, bool ignore_case)
@@ -5870,9 +5767,9 @@ uniq int matchrange(char c, const char* str, bool ignore_case)
   unsigned char end = (unsigned char)str[2];
   if (ignore_case)
   {
-    needle = re_fold_char(needle, true);
-    start = re_fold_char(start, true);
-    end = re_fold_char(end, true);
+    needle = re_fold_char(needle, 1);
+    start = re_fold_char(start, 1);
+    end = re_fold_char(end, 1);
   }
   return (    (needle != '-')
            && (str[0] != '\0')
@@ -5884,12 +5781,7 @@ uniq int matchrange(char c, const char* str, bool ignore_case)
 }
 uniq int matchdot(char c)
 {
-#if defined(RE_DOT_MATCHES_NEWLINE) && (RE_DOT_MATCHES_NEWLINE == 1)
-  (void)c;
-  return 1;
-#else
   return c != '\n' && c != '\r';
-#endif
 }
 uniq int ismetachar(char c)
 {
@@ -6004,9 +5896,6 @@ uniq int re_get_group_count(re_t pattern)
   return program->group_count;
 }
 
-#ifndef _XOPEN_SOURCE
-#define _XOPEN_SOURCE
-#endif
 
 uniq string string::lower_case(char* str)
 {
@@ -6040,7 +5929,7 @@ uniq string string::upper_case(char* str)
     return result;
 }
 
-uniq int char*::index_regex(char* self, char* reg, int default_value, bool ignore_case=false)
+uniq int char*::index_regex(char* self, char* reg, int default_value, bool ignore_case=0)
 {
     if(self == null || reg == null) {
         return default_value;
@@ -6048,7 +5937,7 @@ uniq int char*::index_regex(char* self, char* reg, int default_value, bool ignor
     
     re_t re = re_compile(reg);
     
-    if(re == NULL) {
+    if(re == ((void*)0)) {
         return default_value;
     }
     
@@ -6060,19 +5949,19 @@ uniq int char*::index_regex(char* self, char* reg, int default_value, bool ignor
     
     int result = default_value;
 
-    while(true) {
+    while(1) {
         int matchlength = 0;
         int max_captures = 8;
         re_capture captures[max_captures];
         int regex_result = re_matchp_ex(re, self, &matchlength, captures, max_captures, ignore_case);
 
-        /// match and no group strings ///
+        
         if(regex_result >= 0) 
         {
             result = regex_result;
             break;
         }
-        /// no match ///
+        
         {
             break;
         }
@@ -6101,7 +5990,7 @@ uniq int char*::rindex(char* str, char* search_str, int default_value)
     return default_value;
 }
 
-uniq int char*::rindex_regex(char* self, char* reg, int default_value, bool ignore_case=false)
+uniq int char*::rindex_regex(char* self, char* reg, int default_value, bool ignore_case=0)
 {
     if(self == null || reg == null) {
         return default_value;
@@ -6109,7 +5998,7 @@ uniq int char*::rindex_regex(char* self, char* reg, int default_value, bool igno
     
     re_t re = re_compile(reg);
     
-    if(re == NULL) {
+    if(re == ((void*)0)) {
         return default_value;
     }
     
@@ -6123,19 +6012,19 @@ uniq int char*::rindex_regex(char* self, char* reg, int default_value, bool igno
 
     int result = default_value;
 
-    while(true) {
+    while(1) {
         int matchlength = 0;
         int max_captures = 8;
         re_capture captures[max_captures];
         int regex_result = re_matchp_ex(re, self2, &matchlength, captures, max_captures, ignore_case);
 
-        /// match and no group strings ///
+        
         if(regex_result >= 0) 
         {
             result = strlen(self) -matchlength;
             break;
         }
-        /// no match ///
+        
         {
             break;
         }
@@ -6291,7 +6180,7 @@ uniq int string::rindex(char* str, char* search_str, int default_value=-1)
     return char*::rindex(str, search_str, default_value);
 }
 
-uniq int string::rindex_regex(char* self, char* reg, int default_value=-1, bool ignore_case=false)
+uniq int string::rindex_regex(char* self, char* reg, int default_value=-1, bool ignore_case=0)
 {
     return char*::rindex_regex(self, reg, default_value, ignore_case);
 }
@@ -6306,7 +6195,7 @@ uniq int string::index(char* str, char* search_str, int default_value=-1)
     return char*::index(str, search_str, default_value);
 }
 
-uniq int string::index_regex(char* self, char* reg, int default_value=-1, bool ignore_case=false)
+uniq int string::index_regex(char* self, char* reg, int default_value=-1, bool ignore_case=0)
 {
     return char*::index_regex(self, reg, default_value, ignore_case);
 }
@@ -6321,16 +6210,16 @@ uniq string string::multiply(char* str, int n)
     return char*::multiply(str, n);
 }
 
-uniq bool char*::match(char* self, char* reg, bool ignore_case=false)
+uniq bool char*::match(char* self, char* reg, bool ignore_case=0)
 {
     if(self == null || reg == null) {
-        return false;
+        return 0;
     }
     
     re_t re = re_compile(reg);
     
-    if(re == NULL) {
-        return false;
+    if(re == ((void*)0)) {
+        return 0;
     }
     
     int offset = 0;
@@ -6342,19 +6231,19 @@ uniq bool char*::match(char* self, char* reg, bool ignore_case=false)
     re_capture captures[max_captures];
     int regex_result = re_matchp_ex(re, self, &matchlength, captures, max_captures, ignore_case);
 
-    /// match and no group strings ///
+    
     if(regex_result >= 0)
     {
-        return true;
+        return 1;
     }
-    /// no match ///
+    
     else
     {
-        return false;
+        return 0;
     }
 }
 
-uniq list<string>*% char*::scan(char* self, char* reg, bool ignore_case=false)
+uniq list<string>*% char*::scan(char* self, char* reg, bool ignore_case=0)
 {
     if(self == null || reg == null) {
         return new list<string>();
@@ -6363,7 +6252,7 @@ uniq list<string>*% char*::scan(char* self, char* reg, bool ignore_case=false)
     
     re_t re = re_compile(reg);
     
-    if(re == NULL) {
+    if(re == ((void*)0)) {
         return new list<string>();
     }
     
@@ -6373,13 +6262,13 @@ uniq list<string>*% char*::scan(char* self, char* reg, bool ignore_case=false)
     
     int group_count = re_get_group_count(re);
 
-    while(true) {
+    while(1) {
         int matchlength = 0;
         int max_captures = 8;
         re_capture captures[max_captures];
         int regex_result = re_matchp_ex(re, self + offset, &matchlength, captures, max_captures, ignore_case);
 
-        /// match and no group strings ///
+        
         if(regex_result >= 0 && group_count == 0)
         {
             string str = self.substring(offset + regex_result, offset + regex_result + matchlength);
@@ -6393,7 +6282,7 @@ uniq list<string>*% char*::scan(char* self, char* reg, bool ignore_case=false)
                 offset = offset + regex_result + matchlength;
             }
         }
-        /// group strings ///
+        
         else if(regex_result >= 0 && group_count > 0) {
             for(int i=0; i<group_count; i++) {
                 re_capture cp = captures[i];
@@ -6408,7 +6297,7 @@ uniq list<string>*% char*::scan(char* self, char* reg, bool ignore_case=false)
                 offset = offset + regex_result + matchlength;
             }
         }
-        /// no match ///
+        
         else {
             break;
         }
@@ -6417,7 +6306,7 @@ uniq list<string>*% char*::scan(char* self, char* reg, bool ignore_case=false)
     return result;
 }
 
-uniq list<string>*% char*::split(char* self, char* reg, bool ignore_case=false)
+uniq list<string>*% char*::split(char* self, char* reg, bool ignore_case=0)
 {
     if(self == null || reg == null) {
         return new list<string>();
@@ -6427,7 +6316,7 @@ uniq list<string>*% char*::split(char* self, char* reg, bool ignore_case=false)
     
     re_t re = re_compile(reg);
     
-    if(re == NULL) {
+    if(re == ((void*)0)) {
         return new list<string>();
     }
     
@@ -6437,13 +6326,13 @@ uniq list<string>*% char*::split(char* self, char* reg, bool ignore_case=false)
     
     int group_count = re_get_group_count(re);
 
-    while(true) {
+    while(1) {
         int matchlength = 0;
         int max_captures = 8;
         re_capture captures[max_captures];
         int regex_result = re_matchp_ex(re, self + offset, &matchlength, captures, max_captures, ignore_case);
 
-        /// match and no group strings ///
+        
         if(regex_result >= 0 && group_count == 0)
         {
             string str = self.substring(offset, offset + regex_result);
@@ -6457,7 +6346,7 @@ uniq list<string>*% char*::split(char* self, char* reg, bool ignore_case=false)
                 offset = offset + regex_result + matchlength;
             }
         }
-        /// no match ///
+        
         else
         {
             break;
@@ -6472,9 +6361,9 @@ uniq list<string>*% char*::split(char* self, char* reg, bool ignore_case=false)
     return result;
 }
 
-uniq string string::sub(char* self, char* reg, char* replace, bool ignore_case=false)
+uniq string string::sub(char* self, char* reg, char* replace, bool ignore_case=0)
 {
-    return char*::sub(self, reg, replace, true, ignore_case);
+    return char*::sub(self, reg, replace, 1, ignore_case);
 }
 
 uniq list<string>*% string::split_str(char* self, char* str)
@@ -6482,22 +6371,22 @@ uniq list<string>*% string::split_str(char* self, char* str)
     return char*::split_str(self, str);
 }
 
-uniq list<string>*% string::scan(char* self, char* reg, bool ignore_case=false)
+uniq list<string>*% string::scan(char* self, char* reg, bool ignore_case=0)
 {
     return char*::scan(self, reg, ignore_case);
 }
 
-uniq list<string>*% string::split(char* self, char* reg, bool ignore_case=false)
+uniq list<string>*% string::split(char* self, char* reg, bool ignore_case=0)
 {
     return char*::split(self, reg, ignore_case);
 }
 
-uniq bool string::match(char* self, char* reg, bool ignore_case=false)
+uniq bool string::match(char* self, char* reg, bool ignore_case=0)
 {
     return char*::match(self, reg, ignore_case);
 }
 
-uniq string char*::sub(char* self, char* reg, char* replace, bool global=true, bool ignore_case=false)
+uniq string char*::sub(char* self, char* reg, char* replace, bool global=1, bool ignore_case=0)
 {
     if(self == null || reg == null) {
         return string("");
@@ -6505,7 +6394,7 @@ uniq string char*::sub(char* self, char* reg, char* replace, bool global=true, b
     
     re_t re = re_compile(reg);
     
-    if(re == NULL) {
+    if(re == ((void*)0)) {
         return string("");
     }
     
@@ -6517,13 +6406,13 @@ uniq string char*::sub(char* self, char* reg, char* replace, bool global=true, b
     
     int group_count = re_get_group_count(re);
 
-    while(true) {
+    while(1) {
         int matchlength = 0;
         int max_captures = 8;
         re_capture captures[max_captures];
         int regex_result = re_matchp_ex(re, self + offset, &matchlength, captures, max_captures, ignore_case);
 
-        /// match and no group strings ///
+        
         if(regex_result >= 0 && group_count == 0)
         {
             string str = self.substring(offset, offset + regex_result);
@@ -6544,7 +6433,7 @@ uniq string char*::sub(char* self, char* reg, char* replace, bool global=true, b
                 break;
             }
         }
-        /// no match ///
+        
         else {
             string str = self.substring(offset, -1);
             result.append_str(str);
@@ -6555,7 +6444,7 @@ uniq string char*::sub(char* self, char* reg, char* replace, bool global=true, b
     return result.to_string();
 }
 
-uniq string char*::sub_block(char* self, char* reg, bool global=true, bool ignore_case=false, void* parent, string (*block)(void* parent, char* match_string, list<string>* group_strings))
+uniq string char*::sub_block(char* self, char* reg, bool global=1, bool ignore_case=0, void* parent, string (*block)(void* parent, char* match_string, list<string>* group_strings))
 {
     if(self == null || reg == null) {
         return string("");
@@ -6565,7 +6454,7 @@ uniq string char*::sub_block(char* self, char* reg, bool global=true, bool ignor
     
     re_t re = re_compile(reg);
     
-    if(re == NULL) {
+    if(re == ((void*)0)) {
         return string("");
     }
     
@@ -6575,13 +6464,13 @@ uniq string char*::sub_block(char* self, char* reg, bool global=true, bool ignor
     
     int group_count = re_get_group_count(re);
 
-    while(true) {
+    while(1) {
         int matchlength = 0;
         int max_captures = 8;
         re_capture captures[max_captures];
         int regex_result = re_matchp_ex(re, self + offset, &matchlength, captures, max_captures, ignore_case);
 
-        /// match and no group strings ///
+        
         if(regex_result >= 0 && group_count == 0)
         {
             string str = self.substring(offset, offset + regex_result);
@@ -6610,7 +6499,7 @@ uniq string char*::sub_block(char* self, char* reg, bool global=true, bool ignor
             }
         }
 
-        /// group strings ///
+        
         else if(regex_result >= 0 && group_count > 0) {
             string str = self.substring(offset, offset + regex_result);
 
@@ -6637,7 +6526,7 @@ uniq string char*::sub_block(char* self, char* reg, bool global=true, bool ignor
                 offset = offset + regex_result + matchlength;
             }
         }
-        /// no match ///
+        
         else {
             string str = self.substring(offset, -1);
             result.append_str(str);
@@ -6647,7 +6536,7 @@ uniq string char*::sub_block(char* self, char* reg, bool global=true, bool ignor
     return result.to_string();
 }
 
-uniq list<string>*% char*::scan_block(char* self, char* reg, bool ignore_case=false, void* parent, string (*block)(void* parent, char* match_string, list<string>* group_strings))
+uniq list<string>*% char*::scan_block(char* self, char* reg, bool ignore_case=0, void* parent, string (*block)(void* parent, char* match_string, list<string>* group_strings))
 {
     if(self == null || reg == null) {
         return new list<string>();
@@ -6656,7 +6545,7 @@ uniq list<string>*% char*::scan_block(char* self, char* reg, bool ignore_case=fa
     
     re_t re = re_compile(reg);
     
-    if(re == NULL) {
+    if(re == ((void*)0)) {
         return new list<string>();
     }
     
@@ -6666,13 +6555,13 @@ uniq list<string>*% char*::scan_block(char* self, char* reg, bool ignore_case=fa
     
     int group_count = re_get_group_count(re);
 
-    while(true) {
+    while(1) {
         int matchlength = 0;
         int max_captures = 8;
         re_capture captures[max_captures];
         int regex_result = re_matchp_ex(re, self + offset, &matchlength, captures, max_captures, ignore_case);
 
-        /// match and no group strings ///
+        
         if(regex_result >= 0 && group_count == 0)
         {
             list<string>*% group_strings = new list<string>.initialize();
@@ -6690,7 +6579,7 @@ uniq list<string>*% char*::scan_block(char* self, char* reg, bool ignore_case=fa
                 offset = offset + regex_result + matchlength;
             }
         }
-        /// group strings ///
+        
         else if(regex_result >= 0 && group_count > 0) {
             list<string>*% group_strings = new list<string>.initialize();
 
@@ -6713,7 +6602,7 @@ uniq list<string>*% char*::scan_block(char* self, char* reg, bool ignore_case=fa
                 offset = offset + regex_result + matchlength;
             }
         }
-        /// no match ///
+        
         else {
             break;
         }
@@ -6722,18 +6611,6923 @@ uniq list<string>*% char*::scan_block(char* self, char* reg, bool ignore_case=fa
     return result;
 }
 
-uniq string string::sub_block(char* self, char* reg, bool global=true, bool ignore_case=false, void* parent, string (*block)(void* parent, char* match_string, list<string>* group_strings))
+uniq string string::sub_block(char* self, char* reg, bool global=1, bool ignore_case=0, void* parent, string (*block)(void* parent, char* match_string, list<string>* group_strings))
 {
     return char*::sub_block(self, reg, global, ignore_case, parent, block);
 }
 
-#ifndef _XOPEN_SOURCE
-#define _XOPEN_SOURCE
-#endif
 
 if($UNIX == 1) {
-    #include <wchar.h>
-    #include <libgen.h>
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/wchar.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_bounds.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_symbol_aliasing.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 795 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_posix_availability.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 861 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/usr/lib/clang/17/include/ptrcheck.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 973 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 28 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_bounds.h"
+
+
+
+
+
+#line 71 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 33 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_types.h"
+
+
+
+
+
+
+
+
+
+
+
+
+typedef signed char           __int8_t;
+typedef unsigned char           __uint8_t;
+typedef short                   __int16_t;
+typedef unsigned short          __uint16_t;
+typedef int                     __int32_t;
+typedef unsigned int            __uint32_t;
+typedef long long               __int64_t;
+typedef unsigned long long      __uint64_t;
+
+typedef long                    __darwin_intptr_t;
+typedef unsigned int            __darwin_natural_t;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef int                     __darwin_ct_rune_t;     
+
+
+
+
+
+typedef union {
+	char            __mbstate8[128];
+	long long       _mbstateL;                      
+} __mbstate_t;
+
+typedef __mbstate_t             __darwin_mbstate_t;     
+
+typedef long        __darwin_ptrdiff_t;     
+
+typedef unsigned long           __darwin_size_t;        
+
+typedef __builtin_va_list       __darwin_va_list;       
+
+typedef int          __darwin_wchar_t;       
+
+typedef __darwin_wchar_t        __darwin_rune_t;        
+
+typedef unsigned int           __darwin_wint_t;        
+
+typedef unsigned long           __darwin_clock_t;       
+typedef __uint32_t              __darwin_socklen_t;     
+typedef long                    __darwin_ssize_t;       
+typedef long                    __darwin_time_t;        
+
+
+#line 35 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h"
+#line 34 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types.h"
+
+
+
+
+
+
+
+
+
+
+typedef __int64_t       __darwin_blkcnt_t;      
+typedef __int32_t       __darwin_blksize_t;     
+typedef __int32_t       __darwin_dev_t;         
+typedef unsigned int    __darwin_fsblkcnt_t;    
+typedef unsigned int    __darwin_fsfilcnt_t;    
+typedef __uint32_t      __darwin_gid_t;         
+typedef __uint32_t      __darwin_id_t;          
+typedef __uint64_t      __darwin_ino64_t;       
+typedef __darwin_ino64_t __darwin_ino_t;        
+typedef __darwin_natural_t __darwin_mach_port_name_t; 
+typedef __darwin_mach_port_name_t __darwin_mach_port_t; 
+typedef __uint16_t      __darwin_mode_t;        
+typedef __int64_t       __darwin_off_t;         
+typedef __int32_t       __darwin_pid_t;         
+typedef __uint32_t      __darwin_sigset_t;      
+typedef __int32_t       __darwin_suseconds_t;   
+typedef __uint32_t      __darwin_uid_t;         
+typedef __uint32_t      __darwin_useconds_t;    
+typedef unsigned char   __darwin_uuid_t[16];
+typedef char    __darwin_uuid_string_t[37];
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_pthread/_pthread_types.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 33 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_pthread/_pthread_types.h"
+
+
+
+struct __darwin_pthread_handler_rec {
+	void (*__routine)(void *);	
+	void *__arg;			
+	struct __darwin_pthread_handler_rec *__next;
+};
+
+struct _opaque_pthread_attr_t {
+	long __sig;
+	char __opaque[56];
+};
+
+struct _opaque_pthread_cond_t {
+	long __sig;
+	char __opaque[40];
+};
+
+struct _opaque_pthread_condattr_t {
+	long __sig;
+	char __opaque[8];
+};
+
+struct _opaque_pthread_mutex_t {
+	long __sig;
+	char __opaque[56];
+};
+
+struct _opaque_pthread_mutexattr_t {
+	long __sig;
+	char __opaque[8];
+};
+
+struct _opaque_pthread_once_t {
+	long __sig;
+	char __opaque[8];
+};
+
+struct _opaque_pthread_rwlock_t {
+	long __sig;
+	char __opaque[192];
+};
+
+struct _opaque_pthread_rwlockattr_t {
+	long __sig;
+	char __opaque[16];
+};
+
+struct _opaque_pthread_t {
+	long __sig;
+	struct __darwin_pthread_handler_rec  *__cleanup_stack;
+	char __opaque[8176];
+};
+
+typedef struct _opaque_pthread_attr_t __darwin_pthread_attr_t;
+typedef struct _opaque_pthread_cond_t __darwin_pthread_cond_t;
+typedef struct _opaque_pthread_condattr_t __darwin_pthread_condattr_t;
+typedef unsigned long __darwin_pthread_key_t;
+typedef struct _opaque_pthread_mutex_t __darwin_pthread_mutex_t;
+typedef struct _opaque_pthread_mutexattr_t __darwin_pthread_mutexattr_t;
+typedef struct _opaque_pthread_once_t __darwin_pthread_once_t;
+typedef struct _opaque_pthread_rwlock_t __darwin_pthread_rwlock_t;
+typedef struct _opaque_pthread_rwlockattr_t __darwin_pthread_rwlockattr_t;
+typedef struct _opaque_pthread_t *__darwin_pthread_t;
+#line 95 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types.h"
+
+
+#line 28 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_bounds.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 29 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 30 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types.h"
+
+
+
+
+typedef	int		__darwin_nl_item;
+typedef	int		__darwin_wctrans_t;
+typedef	__uint32_t	__darwin_wctype_t;
+
+
+
+#line 72 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 73 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/Availability.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityVersions.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 197 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/Availability.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityInternal.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityVersions.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+#line 34 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityInternal.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+#line 198 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/Availability.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityInternalLegacy.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityInternal.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 35 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityInternalLegacy.h"
+
+
+
+
+#line 199 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/Availability.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 74 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h"
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_null.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 76 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_size_t.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 50 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_size_t.h"
+typedef __darwin_size_t        size_t;
+
+
+#line 77 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_mbstate_t.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/types.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_types.h"
+
+
+#line 50 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 51 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h"
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_int8_t.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef signed char           int8_t;
+#line 56 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_int16_t.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef short                   int16_t;
+#line 57 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_int32_t.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef int                     int32_t;
+#line 58 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_int64_t.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef long long               int64_t;
+#line 59 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h"
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_u_int8_t.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef unsigned char           u_int8_t;
+#line 61 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_u_int16_t.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef unsigned short                  u_int16_t;
+#line 62 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_u_int32_t.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef unsigned int            u_int32_t;
+#line 63 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_u_int64_t.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef unsigned long long      u_int64_t;
+#line 64 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h"
+
+typedef int64_t                 register_t;
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_intptr_t.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 31 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_intptr_t.h"
+
+typedef __darwin_intptr_t       intptr_t;
+#line 72 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_uintptr_t.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef unsigned long           uintptr_t;
+#line 73 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h"
+
+
+typedef u_int64_t               user_addr_t;
+typedef u_int64_t               user_size_t;
+typedef int64_t                 user_ssize_t;
+typedef int64_t                 user_long_t;
+typedef u_int64_t               user_ulong_t;
+typedef int64_t                 user_time_t;
+typedef int64_t                 user_off_t;
+
+
+
+
+
+
+typedef u_int64_t               syscall_arg_t;
+#line 38 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/types.h"
+#line 32 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_mbstate_t.h"
+typedef __darwin_mbstate_t mbstate_t;
+#line 78 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_ct_rune_t.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 32 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_ct_rune_t.h"
+typedef __darwin_ct_rune_t ct_rune_t;
+#line 79 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_rune_t.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 31 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_rune_t.h"
+typedef __darwin_rune_t rune_t;
+#line 80 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_wchar_t.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 53 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_wchar_t.h"
+typedef __darwin_wchar_t wchar_t;
+
+#line 81 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h"
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/usr/lib/clang/17/include/stdarg.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/usr/lib/clang/17/include/__stdarg_header_macro.h"
+
+
+
+
+
+
+
+
+#line 44 "/Library/Developer/CommandLineTools/usr/lib/clang/17/include/stdarg.h"
+
+#line 1 "/Library/Developer/CommandLineTools/usr/lib/clang/17/include/__stdarg___gnuc_va_list.h"
+
+
+
+
+
+
+
+
+
+typedef __builtin_va_list __gnuc_va_list;
+#line 48 "/Library/Developer/CommandLineTools/usr/lib/clang/17/include/stdarg.h"
+
+#line 1 "/Library/Developer/CommandLineTools/usr/lib/clang/17/include/__stdarg_va_list.h"
+
+
+
+
+
+
+
+
+
+typedef __builtin_va_list va_list;
+#line 53 "/Library/Developer/CommandLineTools/usr/lib/clang/17/include/stdarg.h"
+
+#line 1 "/Library/Developer/CommandLineTools/usr/lib/clang/17/include/__stdarg_va_arg.h"
+
+
+
+
+
+
+
+
+
+
+
+#line 58 "/Library/Developer/CommandLineTools/usr/lib/clang/17/include/stdarg.h"
+
+#line 1 "/Library/Developer/CommandLineTools/usr/lib/clang/17/include/__stdarg___va_copy.h"
+
+
+
+
+
+
+
+
+#line 63 "/Library/Developer/CommandLineTools/usr/lib/clang/17/include/stdarg.h"
+
+#line 1 "/Library/Developer/CommandLineTools/usr/lib/clang/17/include/__stdarg_va_copy.h"
+
+
+
+
+
+
+
+
+#line 68 "/Library/Developer/CommandLineTools/usr/lib/clang/17/include/stdarg.h"
+#line 91 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/stdio.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_bounds.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 70 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 71 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/Availability.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+#line 72 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h"
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 74 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h"
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_va_list.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/types.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 44 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_va_list.h"
+typedef __darwin_va_list va_list;
+
+#line 78 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_size_t.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 79 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_null.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 80 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h"
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stdio.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 33 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stdio.h"
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/Availability.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+#line 45 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stdio.h"
+
+
+
+int     renameat(int, const char *, int, const char *) ;
+
+
+int renamex_np(const char *, const char *, unsigned int)    ;
+int renameatx_np(int, const char *, int, const char *, unsigned int)    ;
+
+
+
+
+#line 82 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_printf.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 28 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_printf.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_bounds.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 29 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_printf.h"
+
+
+
+
+
+int	 printf(const char * restrict, ...) __attribute__((__format__ (__printf__, 1, 2)));
+
+
+#line 83 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h"
+
+
+
+typedef __darwin_off_t		fpos_t;
+
+
+
+
+
+
+
+
+
+struct __sbuf {
+	unsigned char *	_base;
+	int		_size;
+};
+
+
+struct __sFILEX;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef	struct __sFILE {
+	unsigned char *	_p;	
+	int	_r;		
+	int	_w;		
+	short	_flags;		
+	short	_file;		
+	struct	__sbuf _bf;	
+	int	_lbfsize;	
+
+	
+	void	*_cookie;	
+	int	(*  _close)(void *);
+	int	(*  _read) (void *, char *, int __n);
+	fpos_t	(*  _seek) (void *, fpos_t, int);
+	int	(*  _write)(void *, const char *, int __n);
+
+	
+	struct	__sbuf _ub;	
+	struct __sFILEX *_extra; 
+	int	_ur;		
+
+	
+	unsigned char _ubuf[3];	
+	unsigned char _nbuf[1];	
+
+	
+	struct	__sbuf _lb;	
+
+	
+	int	_blksize;	
+	fpos_t	_offset;	
+} FILE;
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_seek_set.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 33 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_seek_set.h"
+
+
+
+
+#line 165 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h"
+
+
+extern FILE *__stdinp ;
+extern FILE *__stdoutp ;
+extern FILE *__stderrp ;
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+				
+
+
+
+
+
+
+
+
+void	 clearerr(FILE *);
+int	 fclose(FILE *);
+int	 feof(FILE *);
+int	 ferror(FILE *);
+int	 fflush(FILE *);
+int	 fgetc(FILE *);
+int	 fgetpos(FILE * restrict, fpos_t *);
+char *	fgets(char * restrict , int __size, FILE *);
+FILE	*fopen(const char * restrict __filename, const char * restrict __mode) __asm("_" "fopen" "$DARWIN_EXTSN");
+int	 fprintf(FILE * restrict, const char * restrict, ...) __attribute__((__format__ (__printf__, 2, 3)));
+int	 fputc(int, FILE *);
+int	 fputs(const char * restrict, FILE * restrict) __asm("_" "fputs" );
+size_t	 fread(void * restrict  __ptr, size_t __size, size_t __nitems, FILE * restrict __stream);
+FILE	*freopen(const char * restrict, const char * restrict,
+				 FILE * restrict) __asm("_" "freopen" );
+int	 fscanf(FILE * restrict, const char * restrict, ...) __attribute__((__format__ (__scanf__, 2, 3)));
+int	 fseek(FILE *, long, int);
+int	 fsetpos(FILE *, const fpos_t *);
+long	 ftell(FILE *);
+size_t	 fwrite(const void * restrict  __ptr, size_t __size, size_t __nitems, FILE * restrict __stream) __asm("_" "fwrite" );
+int	 getc(FILE *);
+int	 getchar(void);
+
+char *	gets(char *) ;
+
+void	 perror(const char *) ;
+int	 putc(int, FILE *);
+int	 putchar(int);
+int	 puts(const char *);
+int	 remove(const char *);
+int	 rename (const char *__old, const char *__new);
+void	 rewind(FILE *);
+int	 scanf(const char * restrict, ...) __attribute__((__format__ (__scanf__, 1, 2)));
+void	 setbuf(FILE * restrict, char * restrict );
+int	 setvbuf(FILE * restrict, char * restrict , int, size_t __size);
+
+
+
+int	 sprintf(char * restrict , const char * restrict, ...) __attribute__((__format__ (__printf__, 2, 3))) ;
+
+int	 sscanf(const char * restrict, const char * restrict, ...) __attribute__((__format__ (__scanf__, 2, 3)));
+FILE	*tmpfile(void);
+
+
+char *	tmpnam(char *);
+
+int	 ungetc(int, FILE *);
+int	 vfprintf(FILE * restrict, const char * restrict, va_list) __attribute__((__format__ (__printf__, 2, 0)));
+int	 vprintf(const char * restrict, va_list) __attribute__((__format__ (__printf__, 1, 0)));
+
+
+
+int	 vsprintf(char * restrict , const char * restrict, va_list) __attribute__((__format__ (__printf__, 2, 0))) ;
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_ctermid.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 28 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_ctermid.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_bounds.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 29 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_ctermid.h"
+
+
+
+
+
+
+char *	ctermid(char *);
+
+
+#line 316 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h"
+
+
+
+FILE	*fdopen(int, const char *) __asm("_" "fdopen" "$DARWIN_EXTSN");
+int	 fileno(FILE *);
+
+
+
+
+
+
+
+
+int	 pclose(FILE *) ;
+FILE	*popen(const char *, const char *) __asm("_" "popen" "$DARWIN_EXTSN") ;
+
+
+
+
+
+
+
+
+
+
+
+int	__srget(FILE *);
+int	__svfscanf(FILE *, const char *, va_list) __attribute__((__format__ (__scanf__, 2, 0)));
+int	__swbuf(int, FILE *);
+
+
+
+
+
+
+inline __attribute__ ((__always_inline__)) int __sputc(int _c, FILE *_p) {
+	if (--_p->_w >= 0 || (_p->_w >= _p->_lbfsize && (char)_c != '\n'))
+		return (*_p->_p++ = _c);
+	else
+		return (__swbuf(_c, _p));
+}
+
+
+
+void	 flockfile(FILE *);
+int	 ftrylockfile(FILE *);
+void	 funlockfile(FILE *);
+int	 getc_unlocked(FILE *);
+int	 getchar_unlocked(void);
+int	 putc_unlocked(int, FILE *);
+int	 putchar_unlocked(int);
+
+
+
+
+char *	tempnam(const char *__dir, const char *__prefix) __asm("_" "tempnam" );
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_off_t.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 31 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_off_t.h"
+typedef __darwin_off_t          off_t;
+#line 423 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h"
+
+
+int	 fseeko(FILE * __stream, off_t __offset, int __whence);
+off_t	 ftello(FILE * __stream);
+
+
+
+int	 snprintf(char * restrict  __str, size_t __size, const char * restrict __format, ...) __attribute__((__format__ (__printf__, 3, 4)));
+int	 vfscanf(FILE * restrict __stream, const char * restrict __format, va_list) __attribute__((__format__ (__scanf__, 2, 0)));
+int	 vscanf(const char * restrict __format, va_list) __attribute__((__format__ (__scanf__, 1, 0)));
+int	 vsnprintf(char * restrict  __str, size_t __size, const char * restrict __format, va_list) __attribute__((__format__ (__printf__, 3, 0)));
+int	 vsscanf(const char * restrict __str, const char * restrict __format, va_list) __attribute__((__format__ (__scanf__, 2, 0)));
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_ssize_t.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/types.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 31 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_ssize_t.h"
+typedef __darwin_ssize_t        ssize_t;
+#line 448 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h"
+
+
+int	dprintf(int, const char * restrict, ...) __attribute__((__format__ (__printf__, 2, 3))) ;
+int	vdprintf(int, const char * restrict, va_list) __attribute__((__format__ (__printf__, 2, 0))) ;
+ssize_t getdelim(char * *restrict __linep, size_t * restrict __linecapp, int __delimiter, FILE * restrict __stream) ;
+ssize_t getline(char * *restrict __linep, size_t * restrict __linecapp, FILE * restrict __stream) ;
+FILE *fmemopen(void * restrict __buf , size_t __size, const char * restrict __mode) ;
+FILE *open_memstream(char * *__bufp, size_t *__sizep) ;
+
+
+
+
+
+
+
+extern const int sys_nerr;		
+extern const char *const sys_errlist[];
+
+int	 asprintf(char * *restrict, const char * restrict, ...) __attribute__((__format__ (__printf__, 2, 3)));
+char *	ctermid_r(char *);
+char *	fgetln(FILE *, size_t *__len);
+const char *fmtcheck(const char *, const char *) __attribute__((format_arg(2)));
+int	 fpurge(FILE *);
+void	 setbuffer(FILE *, char *, int __size);
+int	 setlinebuf(FILE *);
+int	 vasprintf(char * *restrict, const char * restrict, va_list) __attribute__((__format__ (__printf__, 2, 0)));
+
+
+
+
+
+FILE	*funopen(const void *,
+				 int (* )(void *, char *, int __n),
+				 int (* )(void *, const char *, int __n),
+				 fpos_t (* )(void *, fpos_t, int),
+				 int (* )(void *));
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/secure/_stdio.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_bounds.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 32 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/secure/_stdio.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/secure/_common.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 28 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/secure/_common.h"
+
+
+#line 33 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/secure/_stdio.h"
+
+
+
+
+extern int __snprintf_chk (char * restrict , size_t __maxlen, int, size_t,
+			  const char * restrict, ...);
+extern int __vsnprintf_chk (char * restrict , size_t __maxlen, int, size_t,
+			  const char * restrict, va_list);
+
+extern int __sprintf_chk (char * restrict , int, size_t,
+			  const char * restrict, ...);
+extern int __vsprintf_chk (char * restrict , int, size_t,
+			  const char * restrict, va_list);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 501 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h"
+#line 62 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/stdio.h"
+#line 92 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/time.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_time.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 67 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_time.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 68 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_time.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_bounds.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 69 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_time.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/Availability.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+#line 70 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_time.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_clock_t.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/types.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 31 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_clock_t.h"
+typedef __darwin_clock_t        clock_t;
+#line 71 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_time.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_null.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 72 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_time.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_size_t.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 73 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_time.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_time_t.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/types.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 31 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_time_t.h"
+typedef __darwin_time_t         time_t;
+#line 74 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_time.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_timespec.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/types.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 32 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_timespec.h"
+
+struct timespec
+{
+	__darwin_time_t tv_sec;
+	long            tv_nsec;
+};
+#line 75 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_time.h"
+
+
+
+struct tm {
+	int	tm_sec;		
+	int	tm_min;		
+	int	tm_hour;	
+	int	tm_mday;	
+	int	tm_mon;		
+	int	tm_year;	
+	int	tm_wday;	
+	int	tm_yday;	
+	int	tm_isdst;	
+	long	tm_gmtoff;	
+	char	*	tm_zone;	
+};
+
+
+extern char *	tzname[];
+
+extern int getdate_err;
+extern long timezone __asm("_" "timezone" );
+extern int daylight;
+
+
+char *	asctime(const struct tm *);
+clock_t clock(void) __asm("_" "clock" );
+char *	ctime(const time_t *);
+double difftime(time_t, time_t);
+struct tm *getdate(const char *);
+struct tm *gmtime(const time_t *);
+struct tm *localtime(const time_t *);
+time_t mktime(struct tm *) __asm("_" "mktime" );
+size_t strftime(char * restrict, size_t __maxsize, const char * restrict, const struct tm * restrict) __asm("_" "strftime" );
+char *	strptime(const char * restrict, const char * restrict, struct tm * restrict) __asm("_" "strptime" );
+time_t time(time_t *);
+
+void tzset(void);
+
+
+char * asctime_r(const struct tm * restrict, char * restrict );
+char * ctime_r(const time_t *, char *);
+struct tm *gmtime_r(const time_t * restrict, struct tm * restrict);
+struct tm *localtime_r(const time_t * restrict, struct tm * restrict);
+
+time_t posix2time(time_t);
+void tzsetwall(void);
+time_t time2posix(time_t);
+time_t timelocal(struct tm * const);
+time_t timegm(struct tm * const);
+
+int nanosleep(const struct timespec *__rqtp, struct timespec *__rmtp) __asm("_" "nanosleep"  );
+
+
+typedef enum {
+_CLOCK_REALTIME  = 0,
+_CLOCK_MONOTONIC  = 6,
+_CLOCK_MONOTONIC_RAW  = 4,
+_CLOCK_MONOTONIC_RAW_APPROX  = 5,
+_CLOCK_UPTIME_RAW  = 8,
+_CLOCK_UPTIME_RAW_APPROX  = 9,
+_CLOCK_PROCESS_CPUTIME_ID  = 12,
+_CLOCK_THREAD_CPUTIME_ID  = 16
+} clockid_t;
+
+
+int clock_getres(clockid_t __clock_id, struct timespec *__res);
+
+
+int clock_gettime(clockid_t __clock_id, struct timespec *__tp);
+
+
+__uint64_t clock_gettime_nsec_np(clockid_t __clock_id);
+
+ 
+ 
+int clock_settime(clockid_t __clock_id, const struct timespec *__tp);
+
+
+
+
+int timespec_get(struct timespec *ts, int base);
+
+
+#line 64 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/time.h"
+#line 93 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/__wctype.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/___wctype.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 59 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/___wctype.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_bounds.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 60 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/___wctype.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 61 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/___wctype.h"
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_wint_t.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 32 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_wint_t.h"
+typedef __darwin_wint_t wint_t;
+#line 63 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/___wctype.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_wctype_t.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 32 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_wctype_t.h"
+typedef __darwin_wctype_t wctype_t;
+#line 64 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/___wctype.h"
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/ctype.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_ctype.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 71 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_ctype.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_bounds.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 72 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_ctype.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/runetype.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_bounds.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 43 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/runetype.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 44 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/runetype.h"
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_size_t.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 50 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/runetype.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_ct_rune_t.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 51 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/runetype.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_rune_t.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 52 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/runetype.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_wchar_t.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 53 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/runetype.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_wint_t.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 54 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/runetype.h"
+
+
+
+
+
+
+typedef struct {
+	__darwin_rune_t	__min;		
+	__darwin_rune_t	__max;		
+	__darwin_rune_t	__map;		
+	__uint32_t *	__types;	
+} _RuneEntry;
+
+typedef struct {
+	int		__nranges;	
+	_RuneEntry *	__ranges;	
+} _RuneRange;
+
+typedef struct {
+	char		__name[14];	
+	__uint32_t	__mask;		
+} _RuneCharClass;
+
+typedef struct {
+	char		__magic[8];	
+	char		__encoding[32];	
+
+	__darwin_rune_t	(*__sgetrune)(const char * __string, __darwin_size_t __n, char const *  *);
+	int		(*__sputrune)(__darwin_rune_t, char * __string, __darwin_size_t __n, char *  *);
+	__darwin_rune_t	__invalid_rune;	
+
+	__uint32_t	__runetype[(1 <<8 )];
+	__darwin_rune_t	__maplower[(1 <<8 )];
+	__darwin_rune_t	__mapupper[(1 <<8 )];
+
+	
+
+
+
+
+	_RuneRange	__runetype_ext;
+	_RuneRange	__maplower_ext;
+	_RuneRange	__mapupper_ext;
+
+	void *	__variable;	
+	int		__variable_len;	
+
+	
+
+
+	int		__ncharclasses;
+	_RuneCharClass *	__charclasses;
+} _RuneLocale;
+
+
+
+extern _RuneLocale _DefaultRuneLocale;
+extern _RuneLocale *_CurrentRuneLocale;
+
+#line 73 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_ctype.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+unsigned long		___runetype(__darwin_ct_rune_t);
+__darwin_ct_rune_t	___tolower(__darwin_ct_rune_t);
+__darwin_ct_rune_t	___toupper(__darwin_ct_rune_t);
+
+
+inline int
+isascii(int _c)
+{
+	return ((_c & ~0x7F) == 0);
+}
+
+
+int             	__maskrune(__darwin_ct_rune_t, unsigned long);
+
+
+inline int
+__istype(__darwin_ct_rune_t _c, unsigned long _f)
+{
+	return (isascii(_c) ? !!(_DefaultRuneLocale.__runetype[_c] & _f)
+		: !!__maskrune(_c, _f));
+}
+
+inline __darwin_ct_rune_t
+__isctype(__darwin_ct_rune_t _c, unsigned long _f)
+{
+	return (_c < 0 || _c >= (1 <<8 )) ? 0 :
+		!!(_DefaultRuneLocale.__runetype[_c] & _f);
+}
+
+
+__darwin_ct_rune_t	__toupper(__darwin_ct_rune_t);
+__darwin_ct_rune_t	__tolower(__darwin_ct_rune_t);
+
+
+inline int
+__wcwidth(__darwin_ct_rune_t _c)
+{
+	unsigned int _x;
+
+	if (_c == 0)
+		return (0);
+	_x = (unsigned int)__maskrune(_c, 0xe0000000L|0x00040000L);
+	if ((_x & 0xe0000000L) != 0)
+		return ((_x & 0xe0000000L) >> 30);
+	return ((_x & 0x00040000L) != 0 ? 1 : -1);
+}
+
+
+
+inline int
+isalnum(int _c)
+{
+	return (__istype(_c, 0x00000100L|0x00000400L));
+}
+
+inline int
+isalpha(int _c)
+{
+	return (__istype(_c, 0x00000100L));
+}
+
+inline int
+isblank(int _c)
+{
+	return (__istype(_c, 0x00020000L));
+}
+
+inline int
+iscntrl(int _c)
+{
+	return (__istype(_c, 0x00000200L));
+}
+
+
+inline int
+isdigit(int _c)
+{
+	return (__isctype(_c, 0x00000400L));
+}
+
+inline int
+isgraph(int _c)
+{
+	return (__istype(_c, 0x00000800L));
+}
+
+inline int
+islower(int _c)
+{
+	return (__istype(_c, 0x00001000L));
+}
+
+inline int
+isprint(int _c)
+{
+	return (__istype(_c, 0x00040000L));
+}
+
+inline int
+ispunct(int _c)
+{
+	return (__istype(_c, 0x00002000L));
+}
+
+inline int
+isspace(int _c)
+{
+	return (__istype(_c, 0x00004000L));
+}
+
+inline int
+isupper(int _c)
+{
+	return (__istype(_c, 0x00008000L));
+}
+
+
+inline int
+isxdigit(int _c)
+{
+	return (__isctype(_c, 0x00010000L));
+}
+
+inline int
+toascii(int _c)
+{
+	return (_c & 0x7F);
+}
+
+inline int
+tolower(int _c)
+{
+        return (__tolower(_c));
+}
+
+inline int
+toupper(int _c)
+{
+        return (__toupper(_c));
+}
+
+inline int
+digittoint(int _c)
+{
+	return (__maskrune(_c, 0x0F));
+}
+
+inline int
+ishexnumber(int _c)
+{
+	return (__istype(_c, 0x00010000L));
+}
+
+inline int
+isideogram(int _c)
+{
+	return (__istype(_c, 0x00080000L));
+}
+
+inline int
+isnumber(int _c)
+{
+	return (__istype(_c, 0x00000400L));
+}
+
+inline int
+isphonogram(int _c)
+{
+	return (__istype(_c, 0x00200000L));
+}
+
+inline int
+isrune(int _c)
+{
+	return (__istype(_c, 0xFFFFFFF0L));
+}
+
+inline int
+isspecial(int _c)
+{
+	return (__istype(_c, 0x00100000L));
+}
+
+#line 67 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/ctype.h"
+#line 76 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/___wctype.h"
+
+
+
+
+
+inline int
+iswalnum(wint_t _wc)
+{
+	return (__istype(_wc, 0x00000100L|0x00000400L));
+}
+
+inline int
+iswalpha(wint_t _wc)
+{
+	return (__istype(_wc, 0x00000100L));
+}
+
+inline int
+iswcntrl(wint_t _wc)
+{
+	return (__istype(_wc, 0x00000200L));
+}
+
+inline int
+iswctype(wint_t _wc, wctype_t _charclass)
+{
+	return (__istype(_wc, _charclass));
+}
+
+inline int
+iswdigit(wint_t _wc)
+{
+	return (__isctype(_wc, 0x00000400L));
+}
+
+inline int
+iswgraph(wint_t _wc)
+{
+	return (__istype(_wc, 0x00000800L));
+}
+
+inline int
+iswlower(wint_t _wc)
+{
+	return (__istype(_wc, 0x00001000L));
+}
+
+inline int
+iswprint(wint_t _wc)
+{
+	return (__istype(_wc, 0x00040000L));
+}
+
+inline int
+iswpunct(wint_t _wc)
+{
+	return (__istype(_wc, 0x00002000L));
+}
+
+inline int
+iswspace(wint_t _wc)
+{
+	return (__istype(_wc, 0x00004000L));
+}
+
+inline int
+iswupper(wint_t _wc)
+{
+	return (__istype(_wc, 0x00008000L));
+}
+
+inline int
+iswxdigit(wint_t _wc)
+{
+	return (__isctype(_wc, 0x00010000L));
+}
+
+inline wint_t
+towlower(wint_t _wc)
+{
+		return (__tolower(_wc));
+}
+
+inline wint_t
+towupper(wint_t _wc)
+{
+		return (__toupper(_wc));
+}
+
+
+
+wctype_t
+	wctype(const char *);
+
+#line 40 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/__wctype.h"
+#line 94 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h"
+
+
+
+
+
+wint_t	btowc(int);
+wint_t	fgetwc(FILE *);
+wchar_t	*
+	fgetws(wchar_t * restrict , int __n,
+		FILE * restrict);
+wint_t	fputwc(wchar_t, FILE *);
+int	fputws(const wchar_t * restrict, FILE * restrict);
+int	fwide(FILE *, int);
+int	fwprintf(FILE * restrict, const wchar_t * restrict, ...);
+int	fwscanf(FILE * restrict, const wchar_t * restrict, ...);
+wint_t	getwc(FILE *);
+wint_t	getwchar(void);
+size_t	mbrlen(const char * restrict , size_t __n,
+		mbstate_t * restrict);
+size_t	mbrtowc(wchar_t * restrict, const char * restrict ,
+	    size_t __n, mbstate_t * restrict);
+int	mbsinit(const mbstate_t *);
+size_t	mbsrtowcs(wchar_t * restrict ,
+		const char ** restrict, size_t __len, mbstate_t * restrict);
+wint_t	putwc(wchar_t, FILE *);
+wint_t	putwchar(wchar_t);
+int	swprintf(wchar_t * restrict , size_t __maxlen,
+		const wchar_t * restrict, ...);
+int	swscanf(const wchar_t * restrict, const wchar_t * restrict, ...);
+wint_t	ungetwc(wint_t, FILE *);
+int	vfwprintf(FILE * restrict, const wchar_t * restrict,
+	    __darwin_va_list);
+int	vswprintf(wchar_t * restrict , size_t __maxlen,
+		const wchar_t * restrict, __darwin_va_list);
+int	vwprintf(const wchar_t * restrict, __darwin_va_list);
+size_t	wcrtomb(char * restrict, wchar_t, mbstate_t * restrict);
+wchar_t	*wcscat(wchar_t * restrict, const wchar_t * restrict);
+wchar_t	*wcschr(const wchar_t *, wchar_t);
+int	wcscmp(const wchar_t *, const wchar_t *);
+int	wcscoll(const wchar_t *, const wchar_t *);
+wchar_t	*wcscpy(wchar_t * restrict ,
+		const wchar_t * restrict) ;
+size_t	wcscspn(const wchar_t *, const wchar_t *);
+size_t	wcsftime(wchar_t * restrict , size_t __maxlen,
+		const wchar_t * restrict, const struct tm * restrict)
+		__asm("_" "wcsftime" );
+size_t	wcslen(const wchar_t *);
+wchar_t	*
+		wcsncat(wchar_t * restrict ,
+		const wchar_t * restrict , size_t __n)
+		;
+int	wcsncmp(const wchar_t *,
+		const wchar_t *, size_t);
+wchar_t	*
+		wcsncpy(wchar_t * restrict ,
+		const wchar_t * restrict , size_t __n)
+		;
+wchar_t	*wcspbrk(const wchar_t *, const wchar_t *);
+wchar_t	*wcsrchr(const wchar_t *, wchar_t);
+size_t	wcsrtombs(char * restrict ,
+		const wchar_t ** restrict, size_t __len, mbstate_t * restrict);
+size_t	wcsspn(const wchar_t *, const wchar_t *);
+wchar_t	*wcsstr(const wchar_t * restrict, const wchar_t * restrict);
+size_t	wcsxfrm(wchar_t * restrict ,
+		const wchar_t * restrict, size_t __n);
+int	wctob(wint_t);
+double	wcstod(const wchar_t * restrict, wchar_t ** restrict);
+wchar_t	*
+		wcstok(wchar_t * restrict , const wchar_t * restrict,
+	    wchar_t * * restrict);
+long	 wcstol(const wchar_t * restrict, wchar_t * * restrict,
+		int);
+unsigned long
+	 wcstoul(const wchar_t * restrict, wchar_t * * restrict, int);
+wchar_t	* 
+		wmemchr(const wchar_t * , wchar_t, size_t __n);
+int	wmemcmp(const wchar_t *, const wchar_t *,
+		size_t __n);
+wchar_t	*
+		wmemcpy(wchar_t * restrict ,
+		const wchar_t * restrict , size_t __n);
+wchar_t	*
+		wmemmove(wchar_t *, const wchar_t *,
+		size_t __n);
+wchar_t	*
+		wmemset(wchar_t *, wchar_t, size_t __n);
+int	wprintf(const wchar_t * restrict, ...);
+int	wscanf(const wchar_t * restrict, ...);
+int	wcswidth(const wchar_t *, size_t __n);
+int	wcwidth(wchar_t);
+
+
+
+
+
+
+
+
+
+
+int	vfwscanf(FILE * restrict, const wchar_t * restrict,
+	    __darwin_va_list);
+int	vswscanf(const wchar_t * restrict, const wchar_t * restrict,
+	    __darwin_va_list);
+int	vwscanf(const wchar_t * restrict, __darwin_va_list);
+float	wcstof(const wchar_t * restrict, wchar_t * * restrict);
+long double
+	wcstold(const wchar_t * restrict, wchar_t * * restrict);
+long long
+	wcstoll(const wchar_t * restrict, wchar_t * * restrict, int);
+unsigned long long
+	wcstoull(const wchar_t * restrict, wchar_t * * restrict, int);
+
+
+
+
+
+
+
+
+
+size_t  mbsnrtowcs(wchar_t * restrict ,
+		const char ** restrict, size_t, size_t __len,
+		mbstate_t * restrict);
+wchar_t *	wcpcpy(
+		wchar_t * restrict ,
+		const wchar_t * restrict) 
+		
+		;
+wchar_t *	wcpncpy(
+		wchar_t * restrict ,
+		const wchar_t * restrict , size_t __n)
+		
+		;
+wchar_t * wcsdup(const wchar_t *)
+		;
+int     wcscasecmp(const wchar_t *, const wchar_t *) ;
+int     wcsncasecmp(const wchar_t *, const wchar_t *, size_t n) ;
+size_t  wcsnlen(const wchar_t *, size_t __n)  ;
+size_t  wcsnrtombs(char * restrict , const wchar_t ** restrict, size_t,
+            size_t __len, mbstate_t * restrict);
+FILE *open_wmemstream(wchar_t * * __bufp, size_t * __sizep) ;
+
+
+
+
+
+
+
+wchar_t *
+		fgetwln(FILE * restrict, size_t *__len) ;
+size_t	wcslcat(wchar_t *, const wchar_t *, size_t __len);
+size_t	wcslcpy(wchar_t *, const wchar_t *, size_t __len);
+
+
+
+
+#line 68 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/wchar.h"
+#line 6736 "/usr/local/include/neo-c.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/libgen.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 35 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/libgen.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_bounds.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 36 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/libgen.h"
+
+
+
+
+
+
+char *	basename(char *);
+char *	dirname(char *);
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/Availability.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+#line 57 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/libgen.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/limits.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 64 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/limits.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/limits.h"
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 45 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_limits.h"
+
+
+
+
+
+
+#line 46 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 12 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/limits.h"
+#line 65 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/limits.h"
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/syslimits.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 69 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/syslimits.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        
+                                        
+                                        
+
+
+#line 66 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/limits.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 58 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/libgen.h"
+
+
+
+char *	basename_r(const char *, char *)
+		 
+		 ;
+
+char *	dirname_r(const char *, char *)
+		 
+		 ;
+
+
+
+#line 6737 "/usr/local/include/neo-c.h"
     
     typedef wchar_t*% wstring;
     
@@ -6957,7 +13751,7 @@ if($UNIX == 1) {
             return string("");
         }
         
-        int len = MB_LEN_MAX*(wcslen(wstr)+1);
+        int len = 6*(wcslen(wstr)+1);
     
         string result = new char[len];
     
@@ -7058,11 +13852,11 @@ if($UNIX == 1) {
     
         while(p >= str) {
             int len2 = wcslen(p);
-            bool result = true;
+            bool result = 1;
             int i;
             for(i=0; i<len && i < len2; i++) {
                 if(p[i] != search_str[i]) {
-                    result = false;
+                    result = 0;
                 }
             }
             if(result) {
@@ -7350,10 +14144,10 @@ if($UNIX == 1) {
     uniq bool wchar_t*::equals(wchar_t* left, wchar_t* right)
     {
         if(left == null && right == null) {
-            return true;
+            return 1;
         }
         else if(left == null || right == null) {
-            return false;
+            return 0;
         }
         return wcscmp(left, right) == 0;
     }
@@ -7361,10 +14155,10 @@ if($UNIX == 1) {
     uniq bool wstring::equals(wchar_t* left, wchar_t* right)
     {
         if(left == null && right == null) {
-            return true;
+            return 1;
         }
         else if(left == null || right == null) {
-            return false;
+            return 0;
         }
         return wcscmp(left, right) == 0;
     }
@@ -7556,9 +14350,9 @@ if($UNIX == 1) {
     }
 }
 
-//////////////////////////////
-/// base library(IO-FILE)
-//////////////////////////////
+
+
+
 if($UNIX == 1) {
     uniq string FILE*::read(FILE* f)
     {
@@ -7568,13 +14362,13 @@ if($UNIX == 1) {
         buffer*% buf = new buffer.initialize();
         
         while(1) {
-            char buf2[BUFSIZ];
+            char buf2[1024];
             
-            int size = fread(buf2, 1, BUFSIZ, f);
+            int size = fread(buf2, 1, 1024, f);
             
             buf.append(buf2, size);
     
-            if(size < BUFSIZ) {
+            if(size < 1024) {
                 break;
             }
         }
@@ -7614,9 +14408,9 @@ if($UNIX == 1) {
         char msg2[1024*2*2*2];
     
         va_list` args;
-        va_start(args, msg);
+        __builtin_va_start(args, msg);
         vsnprintf(msg2, 1024*2*2*2, msg, args);
-        va_end(args);
+        __builtin_va_end(args);
     
         int result = fprintf(f, "%s", msg2);
         
@@ -7627,7 +14421,7 @@ if($UNIX == 1) {
         return f;
     }
     
-    uniq int char*::write(char* self, char* file_name, bool append=false) 
+    uniq int char*::write(char* self, char* file_name, bool append=0) 
     {
         if(self == null || file_name == null) {
             return -1;
@@ -7641,7 +14435,7 @@ if($UNIX == 1) {
            f = fopen(file_name, "w");
         }
         
-        if(f == NULL) {
+        if(f == ((void*)0)) {
             return -1;
         }
         
@@ -7668,20 +14462,20 @@ if($UNIX == 1) {
         
         FILE* f = fopen(file_name, "r");
         
-        if(f == NULL) {
+        if(f == ((void*)0)) {
             return string("");
         }
         
         buffer*% buf = new buffer.initialize();
         
         while(1) {
-            char buf2[BUFSIZ];
+            char buf2[1024];
             
-            int size = fread(buf2, 1, BUFSIZ, f);
+            int size = fread(buf2, 1, 1024, f);
             
             buf.append(buf2, size);
     
-            if(size < BUFSIZ) {
+            if(size < 1024) {
                 break;
             }
         }
@@ -7706,9 +14500,9 @@ if($UNIX == 1) {
         }
         
         while(1) {
-            char buf[BUFSIZ];
+            char buf[1024];
             
-            if(fgets(buf, BUFSIZ, f) == NULL) {
+            if(fgets(buf, 1024, f) == ((void*)0)) {
                 break;
             }
             
@@ -7745,5 +14539,308 @@ if($UNIX == 1) {
         return result;
     }
 }
+#line 2 "main.c"
 
-#endif
+
+volatile uint32_t SP,PC, R4, R5, R6, R7, R8, R9, R10, R11;
+volatile uint32_t *O, *P, *Q;
+
+/*
+void putchar(char c)
+{
+    char buf[2];
+    buf[0] = c;
+    buf[1] = '\0';
+    
+    puts(buf);
+}
+*/
+
+struct sTask
+{
+    uint32_t sp;
+    uint32_t pc;
+    uint32_t r4;
+    uint32_t r5;
+    uint32_t r6;
+    uint32_t r7;
+    uint32_t r8;
+    uint32_t r9;
+    uint32_t r10;
+    uint32_t r11;
+};
+
+list<sTask*%>*% gTasks;
+int gCurrentTask = 0;
+
+void init_task(void (*fun)())
+{
+    uint32_t* stack = (uint32_t*)calloc(1, sizeof(uint32_t)*1024);
+    volatile uint32_t* stack_end = (uint32_t*)(&stack[1024-1]);
+
+    *(--stack_end) = 0x01000000;  // xPSR
+    *(--stack_end) = (uint32_t)fun; // PC
+    *(--stack_end) = 0xFFFFFFFD;  // LR (例外リターン)
+    int i;
+    for (i = 0; i < 5; i++) {
+        *(--stack_end) = 0;
+    }
+    
+    sTask*% task = new sTask;
+    task.sp = (uint32_t)stack_end;
+    
+    gTasks.add(task);
+}
+
+void save_context(sTask* task)
+{
+    asm volatile (
+        "ldr r0, =R4; \n"
+        "str r4, [r0];\n"
+        :
+        :
+        : "r0", "r4"
+    );
+    task.r4 = R4; 
+    asm volatile (
+        "ldr r0, =R5; \n"
+        "str r5, [r0];\n"
+        :
+        :
+        : "r0", "r5"
+    );
+    task.r5 = R5; 
+    asm volatile (
+        "ldr r0, =R6; \n"
+        "str r6, [r0];\n"
+        :
+        :
+        : "r0", "r6"
+    );
+    task.r6 = R6; 
+    asm volatile (
+        "ldr r0, =R7; \n"
+        "str r7, [r0];\n"
+        :
+        :
+        : "r0", "r7"
+    );
+    task.r7 = R7; 
+    asm volatile (
+        "ldr r0, =R8; \n"
+        "mov r3, r8;\n"
+        "str r3, [r0];\n"
+        :
+        :
+        : "r0", "r3", "r8"
+    );
+    task.r8 = R8; 
+    asm volatile (
+        "ldr r0, =R9; \n"
+        "mov r3, r9;\n"
+        "str r3, [r0];\n"
+        :
+        :
+        : "r0", "r3", "r9"
+    );
+    task.r9 = R9; 
+    asm volatile (
+        "ldr r0, =R10; \n"
+        "mov r3, r10;\n"
+        "str r3, [r0];\n"
+        :
+        :
+        : "r0", "r3", "r10"
+    );
+    task.r10 = R10; 
+    asm volatile (
+        "ldr r0, =R11; \n"
+        "mov r3, r11;\n"
+        "str r3, [r0];\n"
+        :
+        :
+        : "r0", "r3", "r11"
+    );
+    task.r11 = R11; 
+    
+    asm volatile (
+        "mrs r1, psp\n"
+        "ldr r0, =SP; \n"
+        "str r1, [r0]; \n"
+        : 
+        :
+        : "r0", "r1"
+    );
+    
+    task.sp = SP; 
+}
+    
+void restore_context(sTask* task)
+{
+    SP = task.sp;
+    
+    PC = *((uint32_t*)SP +6);
+    
+    asm volatile (
+        "ldr r0, =SP; \n"
+        "ldr r3, [r0]; \n"
+        "msr psp, r3; \n"
+        :
+        :
+        : "r0", "r3"
+    );
+    R11 = task.r11;
+    asm volatile (
+        "ldr r0, =R11; \n"
+        "ldr r4, [r0];\n"
+        "mov r11, r4;\n"
+        :
+        :
+        : "r0", "r4", "r11"
+    );
+    R10 = task.r10;
+    asm volatile (
+        "ldr r0, =R10; \n"
+        "ldr r4, [r0];\n"
+        "mov r10, r4;\n"
+        :
+        :
+        : "r0", "r4", "r10"
+    );
+    R9 = task.r9;
+    asm volatile (
+        "ldr r0, =R9; \n"
+        "ldr r4, [r0];\n"
+        "mov r9, r4;\n"
+        :
+        :
+        : "r0", "r4", "r9"
+    );
+    R8 = task.r8;
+    asm volatile (
+        "ldr r0, =R8; \n"
+        "ldr r4, [r0];\n"
+        "mov r8, r4;\n"
+        :
+        :
+        : "r0", "r4", "r8"
+    );
+    R7 = task.r7;
+    asm volatile (
+        "ldr r0, =R7; \n"
+        "ldr r7, [r0];\n"
+        :
+        :
+        : "r0", "r7"
+    );
+    R6 = task.r6;
+    asm volatile (
+        "ldr r0, =R6; \n"
+        "ldr r6, [r0];\n"
+        :
+        :
+        : "r0", "r6"
+    );
+    R5 = task.r5;
+    asm volatile (
+        "ldr r0, =R5; \n"
+        "ldr r5, [r0];\n"
+        :
+        :
+        : "r0", "r5"
+    );
+    R4 = task.r4;
+    asm volatile (
+        "ldr r0, =R4; \n"
+        "ldr r4, [r0];\n"
+        :
+        :
+        : "r0", "r4"
+    );
+}
+
+bool timer_callback(struct repeating_timer *t) 
+{
+    save_context(gTasks[gCurrentTask]);
+     
+    gCurrentTask = (gCurrentTask + 1) % gTasks.length();
+    
+    restore_context(gTasks[gCurrentTask]);
+    
+    return 1;
+}
+
+void task1()
+{
+    while(1) {
+        puts("TASK1");
+        sleep_ms(1000);
+        puts("TASK1-2");
+        sleep_ms(1000);
+    }
+}
+
+void task2()
+{
+    while(1) {
+        puts("TASK2");
+        sleep_ms(1000);
+        puts("TASK2-2");
+        sleep_ms(1000);
+    }
+}
+
+int main() 
+{
+    stdio_init_all();
+    sleep_ms(5000);
+    
+    gTasks = new list<sTask*%>();
+    
+    init_task(task1);
+    init_task(task2);
+    
+    SP = gTasks[gCurrentTask].sp;
+    
+    struct repeating_timer timer;
+    add_repeating_timer_ms(1000, timer_callback, ((void*)0), &timer);
+
+    asm volatile (
+        "ldr r0, =SP; \n"
+        "ldr r4, [r0]; \n"
+        "msr psp, r4\n"
+        "mov r0, #0x02\n"
+        "msr CONTROL, r0\n"
+        "isb\n"
+        :
+        : 
+        : "r0","r4"            // 使用するレジスタ
+    );
+    
+    task1();
+    
+
+/*
+リンクレジスタ（LR）の内容 割り込み時に LR には特別な値が設定されます：
+
+EXC_RETURN と呼ばれる特別な値で、割り込みから復帰するための情報を含みます。
+一般的な値：
+0xFFFFFFF9: メインスタックポインタ（MSP）を使用して復帰
+0xFFFFFFFD: プロセススタックポインタ（PSP）を使用して復帰
+このため、割り込み発生時点の PC（呼び出し元のアドレス） は、スタックに保存されますが、LR には保存されません。
+割り込みが発生すると、スタックには次のようにデータが保存されます（スタックトップから順に）：
+R0
+R1
+R2
+R3
+R12
+LR（呼び出し元の戻りアドレス）
+PC（割り込み発生時のプログラムカウンタ）
+xPSR
+*/
+    
+    while (1) {
+    }
+    
+    return 0;
+}

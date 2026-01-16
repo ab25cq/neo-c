@@ -191,8 +191,7 @@ uniq class sType
         sClass* generics_class = borrow info.generics_classes[name2]??;
         
         if(klass == null && generics_class == null) {
-            printf("%s %d: class not found(%s)(1)\n", info->sname, info->sline, name2);
-            info->err_num2++;
+            err_msg2("class not found(%s)(1)\n", name2);
             stackframe();
         }
         
