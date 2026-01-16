@@ -1,6 +1,6 @@
 #include "common.h"
 
-#if defined(__LINUX__) || defined(__MAC__) || defined(__ANDROID__)
+#if defined(__linux__) || defined(__APPLE__) || defined(__ANDROID__)
 #include <poll.h>
 #endif
 
@@ -1098,7 +1098,7 @@ class sFunCallNode extends sNodeBase
         sFun* fun = borrow info.funcs.at(fun_name, null);
         
         if(fun == null) {
-            err_msg2(info, "function not found(%s) at function call(1), so no check types and no heap management\n", fun_name);
+            //printf("%s %d: function not found(%s) at function call(1), so no check types and no heap management\n", info.sname, info.sline, fun_name);
             
             list<CVALUE*%>*% come_params = new list<CVALUE*%>();
             
@@ -1725,7 +1725,7 @@ class sComeJoinNode extends sNodeBase
     }
 };
 
-#if defined(__LINUX__) || defined(__MAC__) || defined(__ANDROID__)
+#if defined(__linux__) || defined(__APPLE__) || defined(__ANDROID__)
 class sComePollNode extends sNodeBase
 {
     new(list<sNode*%>*% vars, list<sBlock*%>*% blocks, sBlock*% else_block, int time_out, sInfo* info) {
@@ -2445,7 +2445,7 @@ sNode*% expression_node(sInfo* info=info) version 98
             info.p = head;
             info.sline = head_sline;
             
-            sNode*% node =  parse_function(info);
+            sNode*% node = parse_function(info);
             info.sline_real = sline_real;
             return node;
         }
@@ -2560,7 +2560,7 @@ sNode*% expression_node(sInfo* info=info) version 98
             info.sline_real = sline_real;
             return new sComeJoinNode(node, info) implements sNode;
         }
-#if defined(__LINUX__) || defined(__MAC__) || defined(__ANDROID__)
+#if defined(__linux__) || defined(__APPLE__) || defined(__ANDROID__)
         else if(gComePthread && buf === "come_poll" && (*info->p == '(' || *info->p == '{')) {
             int time_out = 1;
             if(*info->p == '(') {

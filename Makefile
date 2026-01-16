@@ -26,8 +26,9 @@ neo-c.c: $(SOURCES)
 # grammar generation (Flex + Bison)
 #########################################
 
-neo-c: 01main.c.o 02transpile.c.o 03output_code.c.o 04heap.c.o 05parse.c.o 06type.c.o 07function.c.o 08call.c.o 09pre_op.c.o 10str.c.o 11number.c.o 12var.c.o 13gvar.c.o 14if.c.o 15while.c.o 16for.c.o 17do_while.c.o 18switch.c.o 19struct.c.o 20union.c.o 21enum.c.o 22typedef.c.o 23field.c.o 24method.c.o 25obj.c.o 26eq.c.o 27impl.c.o 28interface.c.o 29module.c.o 30op.c.o
-	neo-c -o neo-c 01main.c.o 02transpile.c.o 03output_code.c.o 04heap.c.o 09pre_op.c.o 08call.c.o 07function.c.o 11number.c.o 06type.c.o 05parse.c.o 10str.c.o 12var.c.o 13gvar.c.o 14if.c.o 15while.c.o 17do_while.c.o 16for.c.o 18switch.c.o 19struct.c.o 20union.c.o 21enum.c.o 22typedef.c.o 23field.c.o 26eq.c.o 24method.c.o 25obj.c.o 27impl.c.o 28interface.c.o 29module.c.o 30op.c.o $(CFLAGS) 
+neo-c: 01main.c.o 02transpile.c.o 03output_code.c.o 04heap.c.o 05parse.c.o 06type.c.o 07function.c.o 08call.c.o 09pre_op.c.o 10str.c.o 11number.c.o 12var.c.o 13gvar.c.o 14if.c.o 15while.c.o 16for.c.o 17do_while.c.o 18switch.c.o 19struct.c.o 20union.c.o 21enum.c.o 22typedef.c.o 23field.c.o 24method.c.o 25obj.c.o 26eq.c.o 27impl.c.o 28interface.c.o 29module.c.o 30op.c.o ccpp.o
+	neo-c -o neo-c 01main.c.o 02transpile.c.o 03output_code.c.o 04heap.c.o 09pre_op.c.o 08call.c.o 07function.c.o 11number.c.o 06type.c.o 05parse.c.o 10str.c.o 12var.c.o 13gvar.c.o 14if.c.o 15while.c.o 17do_while.c.o 16for.c.o 18switch.c.o 19struct.c.o 20union.c.o 21enum.c.o 22typedef.c.o 23field.c.o 26eq.c.o 24method.c.o 25obj.c.o 27impl.c.o 28interface.c.o 29module.c.o 30op.c.o ccpp.o $(CFLAGS) 
+
 
 01main.c.o: 01main.c
 	neo-c -Sc -C -o 01main.c.o -c 01main.c $(CFLAGS) 
@@ -211,8 +212,8 @@ valgrind:  01main.valgrind  02transpile.valgrind  03output_code.valgrind  04heap
 29module.valgrind: 29module.c
 	valgrind neo-c -Sc -C -o 29module.c.o -c 29module.c $(CFLAGS) 2> 29module.valgrind
 
-neo-c-Sch: 01main.c.o.tmp 02transpile.c.o.tmp 03output_code.c.o.tmp 04heap.c.o.tmp 09pre_op.c.o.tmp 08call.c.o.tmp 07function.c.o.tmp 11number.c.o.tmp 06type.c.o.tmp 05parse.c.o.tmp 10str.c.o.tmp 12var.c.o.tmp 13gvar.c.o.tmp 14if.c.o.tmp 15while.c.o.tmp 17do_while.c.o.tmp 16for.c.o.tmp 18switch.c.o.tmp 30op.c.o.tmp 19structc.o.tmp 20union.c.o.tmp 21enum.c.o.tmp 22typedef.c.o.tmp 23field.c.o.tmp 26eq.c.o.tmp 24method.c.o.tmp 25obj.c.o.tmp 27impl.c.o.tmp 28interface.c.o.tmp 29module.c.o.tmp 
-	$(CC) -o neo-c-Sch  01main.c.o.tmp 02transpile.c.o.tmp 03output_code.c.o.tmp 04heap.c.o.tmp 08call.c.o.tmp 09pre_op.c.o.tmp 07function.c.o.tmp 11number.c.o.tmp 06type.c.o.tmp 05parse.c.o.tmp 10str.c.o.tmp 12var.c.o.tmp 13gvar.c.o.tmp 14if.c.o.tmp 15while.c.o.tmp 17do_while.c.o.tmp 16for.c.o.tmp 18switch.c.o.tmp 30op.c.o.tmp 19struct.c.o.tmp 20union.c.o.tmp 21enum.c.o.tmp 22typedef.c.o.tmp 23field.c.o.tmp 26eq.c.o.tmp 24method.c.o.tmp 25obj.c.o.tmp 27impl.c.o.tmp 28interface.c.o.tmp 29module.c.o.tmp $(CFLAGS)
+neo-c-Sch: 01main.c.o.tmp 02transpile.c.o.tmp 03output_code.c.o.tmp 04heap.c.o.tmp 09pre_op.c.o.tmp 08call.c.o.tmp 07function.c.o.tmp 11number.c.o.tmp 06type.c.o.tmp 05parse.c.o.tmp 10str.c.o.tmp 12var.c.o.tmp 13gvar.c.o.tmp 14if.c.o.tmp 15while.c.o.tmp 17do_while.c.o.tmp 16for.c.o.tmp 18switch.c.o.tmp 30op.c.o.tmp 19structc.o.tmp 20union.c.o.tmp 21enum.c.o.tmp 22typedef.c.o.tmp 23field.c.o.tmp 26eq.c.o.tmp 24method.c.o.tmp 25obj.c.o.tmp 27impl.c.o.tmp 28interface.c.o.tmp 29module.c.o.tmp  ccpp.o
+	$(CC) -o neo-c-Sch  01main.c.o.tmp 02transpile.c.o.tmp 03output_code.c.o.tmp 04heap.c.o.tmp 08call.c.o.tmp 09pre_op.c.o.tmp 07function.c.o.tmp 11number.c.o.tmp 06type.c.o.tmp 05parse.c.o.tmp 10str.c.o.tmp 12var.c.o.tmp 13gvar.c.o.tmp 14if.c.o.tmp 15while.c.o.tmp 17do_while.c.o.tmp 16for.c.o.tmp 18switch.c.o.tmp 30op.c.o.tmp 19struct.c.o.tmp 20union.c.o.tmp 21enum.c.o.tmp 22typedef.c.o.tmp 23field.c.o.tmp 26eq.c.o.tmp 24method.c.o.tmp 25obj.c.o.tmp 27impl.c.o.tmp 28interface.c.o.tmp 29module.c.o.tmp ccpp.o $(CFLAGS) 
 
 	cp -p neo-c-Sch neo-c
 
@@ -343,3 +344,6 @@ uninstall:
 
 test:
 	(cd code && make test)
+
+ccpp.o: ccpp.c
+	$(CC) -o ccpp.o -c ccpp.c $(CFLAGS)

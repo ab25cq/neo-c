@@ -361,7 +361,8 @@ string reflection_node(sInfo* info=info)
             return s"false";
         }
     }
-    else if(parsecmp("is_static")) {
+/*
+    else if(parsecmp("macro_defined")) {
         (void)parse_word();
         
         skip_spaces_and_lf();
@@ -372,6 +373,190 @@ string reflection_node(sInfo* info=info)
         }
         
         string exp = reflection_expression();
+        
+        if(*info->p == ')') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+        
+        skip_spaces_and_lf();
+        
+        bool defined = info.original_source.scan(s"(^|\\n)\\s*#define\\s+\{exp}").length() > 0;
+        
+        if(!defined) {
+            defined = info.cpp_option.scan(s"-D\{exp}").length() > 0;
+        }
+        
+        if(defined) {
+            return s"true";
+        }
+        else {
+            return s"false";
+        }
+    }
+    else if(parsecmp("macro_value")) {
+        (void)parse_word();
+        
+        skip_spaces_and_lf();
+        
+        if(*info->p == '(') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+        
+        string exp = reflection_expression();
+        
+        if(*info->p == ')') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+        
+        skip_spaces_and_lf();
+        
+        var result = null
+        
+        var values = info.original_source.scan(s"(^|\\n)#define\\s+\{exp}\\s+(.*)");
+        
+        if(values.length() == 0) {
+            var values2 = info.cpp_option.scan(s"-D\{exp}=(\\S+)");
+            result = values2[0];
+        }
+        else {
+            result = values[1];
+        }
+        
+        if(result) {
+            return result;
+        }
+        else {
+            return s"false";
+        }
+    }
+*/
+    else if(parsecmp("macro_defined")) {
+        (void)parse_word();
+        
+        skip_spaces_and_lf();
+        
+        if(*info->p == '(') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+        
+        string exp = reflection_expression();
+        
+        if(*info->p == ')') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+        
+        skip_spaces_and_lf();
+        
+        bool defined = get_macro(exp) != NULL;
+        
+        if(defined) {
+            return s"true";
+        }
+        else {
+            return s"false";
+        }
+    }
+    else if(parsecmp("macro_value")) {
+        (void)parse_word();
+        
+        skip_spaces_and_lf();
+        
+        if(*info->p == '(') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+        
+        string exp = reflection_expression();
+        
+        if(*info->p == ')') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+        
+        skip_spaces_and_lf();
+        
+        string result = null
+        
+        char* value = get_macro(exp);
+        
+        if(value) {
+            result = value.to_string();
+        }
+        
+        if(result) {
+            return result;
+        }
+        else {
+            return s"false";
+        }
+    }
+    else if(parsecmp("macro_call")) {
+        (void)parse_word();
+        
+        skip_spaces_and_lf();
+        
+        if(*info->p == '(') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+        
+        string exp = reflection_expression();
+        string args = s"";
+        
+        if(*info->p == ',') {
+            info->p++;
+            skip_spaces_and_lf();
+            args = reflection_expression();
+        }
+        
+        if(*info->p == ')') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+        
+        skip_spaces_and_lf();
+        
+        string result = null
+        
+        char* value = call_func_macro(exp, args, info->sname, info->sline);
+        
+        if(value) {
+            result = value.to_string();
+        }
+        
+        if(result) {
+            return result;
+        }
+        else {
+            return s"false";
+        }
+    }
+    else if(parsecmp("is_static")) {
+        (void)parse_word();
+        
+        skip_spaces_and_lf();
+        
+        if(*info->p == '(') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+        
+        if(*info->p == '"') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+        
+        string exp = reflection_expression();
+        
+        if(*info->p == '"') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
         
         if(*info->p == ')') {
             info->p++;
@@ -1563,6 +1748,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
         }
         
         skip_spaces_and_lf();
+        parse_sharp();
         
         while(1) {
             if(parsecmp("elif")) {
@@ -1587,6 +1773,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
                 }
                 else {
                     skip_block();
+                    parse_sharp();
                 }
             }
             else {
@@ -1603,6 +1790,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
             }
             else {
                 skip_block();
+                parse_sharp();
             }
         }
         

@@ -33,14 +33,14 @@ class sGlobalVariable extends sNodeBase
                 add_variable_to_global_table(name, clone type, info);
                 
                 if(type.mUniq) {
-                    if(!type.mConstant) info.struct_definition.insert(string(name), xsprintf("extern %s;\n", make_define_var(type, name)).to_buffer());
+                    if(!type.mConstant) info.var_definition.insert(string(name), xsprintf("extern %s;\n", make_define_var(type, name)).to_buffer());
                     info.uniq_definition.insert(string(name), xsprintf("%s;\n", make_define_var(type, name)));
                 }
                 else if(initializer) {
-                    info.struct_definition.insert(string(name), xsprintf("%s=%s;", make_define_var(type, name), initializer).to_buffer());
+                    info.var_definition.insert(string(name), xsprintf("%s=%s;", make_define_var(type, name), initializer).to_buffer());
                 }
                 else {
-                    info.struct_definition.insert(string(name), xsprintf("%s;", make_define_var(type, name)).to_buffer());
+                    info.var_definition.insert(string(name), xsprintf("%s;", make_define_var(type, name)).to_buffer());
                 }
             }
         }
@@ -49,11 +49,11 @@ class sGlobalVariable extends sNodeBase
             
             if(array_initializer) {
                 if(type.mUniq) {
-                    if(!type->mConstant) info.struct_definition.insert(string(name), xsprintf("extern %s;\n", make_define_var(type, name)).to_buffer());
+                    if(!type->mConstant) info.var_definition.insert(string(name), xsprintf("extern %s;\n", make_define_var(type, name)).to_buffer());
                     info.uniq_definition.insert(string(name), xsprintf("%s=%s;\n", make_define_var(type, name), array_initializer));
                 }
                 else {
-                    info.struct_definition.insert(string(name), xsprintf("%s=%s;", make_define_var(type, name), array_initializer).to_buffer());
+                    info.var_definition.insert(string(name), xsprintf("%s=%s;", make_define_var(type, name), array_initializer).to_buffer());
                 }
             }
             else if(right_node) {
@@ -64,20 +64,20 @@ class sGlobalVariable extends sNodeBase
                 CVALUE*% come_value = get_value_from_stack(-1, info);
                 
                 if(type.mUniq) {
-                    if(!type->mConstant) info.struct_definition.insert(string(name), xsprintf("extern %s;\n", make_define_var(type, name)).to_buffer());
+                    if(!type->mConstant) info.var_definition.insert(string(name), xsprintf("extern %s;\n", make_define_var(type, name)).to_buffer());
                     info.uniq_definition.insert(string(name), xsprintf("%s=%s;\n", make_define_var(type, name), come_value.c_value));
                 }
                 else {
-                    info.struct_definition.insert(string(name), xsprintf("%s=%s;", make_define_var(type, name), come_value.c_value).to_buffer());
+                    info.var_definition.insert(string(name), xsprintf("%s=%s;", make_define_var(type, name), come_value.c_value).to_buffer());
                 }
             }
             else {
                 if(type.mUniq) {
-                    if(!type->mConstant) info.struct_definition.insert(string(name), xsprintf("extern %s;\n", make_define_var(type, name)).to_buffer());
+                    if(!type->mConstant) info.var_definition.insert(string(name), xsprintf("extern %s;\n", make_define_var(type, name)).to_buffer());
                     info.uniq_definition.insert(string(name), xsprintf("%s;\n", make_define_var(type, name)));
                 }
                 else {
-                    info.struct_definition.insert(string(name), xsprintf("%s;", make_define_var(type, name)).to_buffer());
+                    info.var_definition.insert(string(name), xsprintf("%s;", make_define_var(type, name)).to_buffer());
                 }
             }
         }
@@ -112,12 +112,12 @@ class sExternalGlobalVariable extends sNodeBase
             foreach(it, self.multiple_declare) {
                 var type, name,initializer = it;
                 add_variable_to_global_table(name, clone type, info);
-                info.struct_definition.insert(string(name), xsprintf("extern %s;", make_define_var(type, name)).to_buffer());
+                info.var_definition.insert(string(name), xsprintf("extern %s;", make_define_var(type, name)).to_buffer());
             }
         }
         else {
             add_variable_to_global_table(name, clone type, info);
-            info.struct_definition.insert(string(name), xsprintf("extern %s;", make_define_var(type, name)).to_buffer());
+            info.var_definition.insert(string(name), xsprintf("extern %s;", make_define_var(type, name)).to_buffer());
         }
         
         return true;

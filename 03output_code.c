@@ -80,11 +80,6 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
             buf.append_str("long long");
         }
     }
-    else if(type->mDouble) {
-        if(class_name === "_Complex") {
-            buf.append_str("double _Complex");
-        }
-    }
     else if(type->mLong) {
         buf.append_str("long ");
         
@@ -1140,11 +1135,6 @@ string output_function(sFun* fun, sInfo* info)
 
 bool is_gcc_builtin_float_type(sType* type, sInfo* info=info)
 {
-/*
-#ifdef __LINUX__
-    return false;
-#endif
-*/
     return type.mClass.mName === "_Float128"
             || type.mClass.mName === "__float128";
 }
@@ -1440,6 +1430,12 @@ bool output_source_file(sInfo* info)
     FILE* f = fopen(output_file_name, "w");
     if(f == null) { die("fopen"); }
     
+    fprintf(f, "/// C include definition ///\n");
+    foreach(it, info.c_include_definition) {
+        buffer* buf = borrow info.c_include_definition[it];
+        fprintf(f, "%s\n", buf.to_string());
+    }
+    
     fprintf(f, "/// typedef definition ///\n");
     foreach(it, info.typedef_definition) {
         buffer* buf = borrow info.typedef_definition[string(it)]??;
@@ -1455,6 +1451,12 @@ bool output_source_file(sInfo* info)
     fprintf(f, "/// struct definition ///\n");
     foreach(it, info.struct_definition) {
         buffer* buf = borrow info.struct_definition[string(it)]??;
+        fprintf(f, "%s\n", buf.to_string());
+    }
+    
+    fprintf(f, "/// variable definition ///\n");
+    foreach(it, info.var_definition) {
+        buffer* buf = borrow info.var_definition[string(it)]??;
         fprintf(f, "%s\n", buf.to_string());
     }
     

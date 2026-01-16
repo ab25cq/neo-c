@@ -354,7 +354,7 @@ sNode*% get_number(bool minus, sInfo* info)
     
     bool is_float = false;
     
-    if(*info->p == '.' && xisdigit(*(info->p+1))) {
+    if(*info->p == '.' && (xisdigit(*(info->p+1)) || *(info->p+1) == 'F' || *(info->p+1) == 'L')) {
         is_float = true;
         *p++ = *info->p;
         

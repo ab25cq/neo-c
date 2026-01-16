@@ -1,6 +1,6 @@
 #include "common.h"
 
-void child_output_struct(sType* type, string struct_name, buffer* buf, bool* existance_generics, string name, int indent, sInfo* info)
+void child_output_struct(sType* type, string struct_name, buffer* buf, bool* existance_generics, string name, int indent, sInfo* info, bool* named_child)
 {
     sClass* klass = type->mClass;
     
@@ -39,11 +39,33 @@ void child_output_struct(sType* type, string struct_name, buffer* buf, bool* exi
         
         if(type2->mAnonymous) {
             //info.struct_definition.remove(type2->mAnonymousName);
-            child_output_struct(type2, s"", buf, existance_generics, name2, indent, info);
+            child_output_struct(type2, s"", buf, existance_generics, name2, indent, info, named_child);
         }
         else if(type2->mInnerStruct) {
-            info.struct_definition.remove(type2->mInnerStructName);
-            child_output_struct(type2, type2->mInnerStructName, buf, existance_generics, name2, indent, info);
+            sType*% already_defined_child_type = info.named_child_struct[type2->mInnerStructName];
+            
+            if(already_defined_child_type && ((already_defined_child_type->mClass->mStruct && type2->mClass->mStruct) || (already_defined_child_type->mClass->mUnion && type2->mClass->mUnion)))
+            {
+            //    info.struct_definition.remove(type2->mInnerStructName);
+                buf.append_str("    " * indent);
+                if(type2->mClass->mStruct) {
+                    buf.append_str("struct " + type2->mInnerStructName);
+                }
+                else {
+                    buf.append_str("union " + type2->mInnerStructName);
+                }
+                
+                buf.append_str(" " + name2);
+                
+                buf.append_str(";\n");
+            }
+            else {
+                info.named_child_struct.insert(string(type2->mInnerStructName), clone type2);
+                info.struct_definition.remove(type2->mInnerStructName);
+                child_output_struct(type2, type2->mInnerStructName, buf, existance_generics, name2, indent, info, named_child);
+            }
+            
+            *named_child = true;
         }
         else {
             buf.append_str("    " * indent);
@@ -62,7 +84,7 @@ void child_output_struct(sType* type, string struct_name, buffer* buf, bool* exi
     }
 }
 
-void output_struct(sClass* klass, string pragma, sInfo* info)
+void output_struct(sClass* klass, string pragma, sInfo* info, bool anonymous=false)
 {
     if(klass->mFields.length() == 0) {
         return;
@@ -79,6 +101,7 @@ void output_struct(sClass* klass, string pragma, sInfo* info)
     buf.append_format("struct %s\n{\n", klass.mName);
             
     bool existance_generics = false;
+    bool named_child = false;
     foreach(it, klass.mFields) {
         var name, type = it;
             
@@ -88,15 +111,34 @@ void output_struct(sClass* klass, string pragma, sInfo* info)
         
         type->mStatic = false;
         
-        sClass* klass = type->mClass;
-        
         if(type->mAnonymous && !current_stack) {
             //info.struct_definition.remove(type->mAnonymousName);
-            child_output_struct(type, s"", buf, &existance_generics, name, 1, info);
+            child_output_struct(type, s"", buf, &existance_generics, name, 1, info, &named_child);
         }
         else if(type->mInnerStruct && !current_stack) {
-            info.struct_definition.remove(type->mInnerStructName);
-            child_output_struct(type, type->mInnerStructName, buf, &existance_generics, name, 1, info);
+            sType*% already_defined_child_type = info.named_child_struct[type->mInnerStructName];
+            
+            if(already_defined_child_type && ((already_defined_child_type->mClass->mStruct && type->mClass->mStruct) || (already_defined_child_type->mClass->mUnion && type->mClass->mUnion)))
+            {
+ //               info.struct_definition.remove(type->mInnerStructName);
+                buf.append_str("    ");
+                if(type->mClass->mStruct) {
+                    buf.append_str("struct " + type->mInnerStructName);
+                }
+                else {
+                    buf.append_str("union " + type->mInnerStructName);
+                }
+                
+                buf.append_str(" " + name);
+                
+                buf.append_str(";\n");
+            }
+            else {
+                info.named_child_struct.insert(string(type->mInnerStructName), clone type);
+                info.struct_definition.remove(type->mInnerStructName);
+                child_output_struct(type, type->mInnerStructName, buf, &existance_generics, name, 1, info, &named_child);
+            }
+            named_child = true;
         }
         else {
             buf.append_str("    ");
@@ -114,6 +156,8 @@ void output_struct(sClass* klass, string pragma, sInfo* info)
     if(pragma) {
         buf.append_str("#pragma pack(pop)");
     }
+    
+    if(anonymous && named_child) return;
             
     if(info.struct_definition[string(name)] == null && !existance_generics) {
         info.struct_definition.insert(string(name), buf);
@@ -167,13 +211,14 @@ bool output_generics_struct(sType* type, sType* generics_type, sInfo* info)
 
 class sStructNode extends sNodeBase
 {
-    new(string name, sClass* klass, sInfo* info)
+    new(string name, sClass* klass, sInfo* info, bool anonymous=false)
     {
         self.super();
     
         string self.mName = string(name);
         sClass* self.mClass = klass;
         string self.pragma = info.pragma;
+        bool self.anonymous = anonymous;
     }
     
     bool terminated()
@@ -191,8 +236,9 @@ class sStructNode extends sNodeBase
         sClass* klass = self.mClass;
         string name = string(self.mName);
         string pragma = self.pragma;
+        bool anonymous = self.anonymous;
         
-        output_struct(klass, pragma, info);
+        output_struct(klass, pragma, info, anonymous);
     
         return true;
     }
@@ -290,7 +336,7 @@ class sClassNode extends sNodeBase
     }
 };
 
-sNode*% parse_struct(string type_name, string struct_attribute, sInfo* info)
+sNode*% parse_struct(string type_name, string struct_attribute, sInfo* info, bool anonymous=false)
 {
     info.parse_struct_recursive_count++;
     
@@ -421,7 +467,7 @@ sNode*% parse_struct(string type_name, string struct_attribute, sInfo* info)
         klass->mAttribute = struct_attribute + " " + struct_attribute2;
     }
     
-    sNode*% node = new sStructNode(string(type_name), klass, info) implements sNode;
+    sNode*% node = new sStructNode(string(type_name), klass, info, anonymous) implements sNode;
     
     node_compile(node, info).elif {
         info.parse_struct_recursive_count--;

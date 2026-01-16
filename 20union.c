@@ -1,6 +1,6 @@
 #include "common.h"
 
-void output_union(sClass* klass, sInfo* info)
+static void output_union(sClass* klass, sInfo* info, bool anonymous=false)
 {
 /*
     if(info->no_output_come_code) {
@@ -18,16 +18,38 @@ void output_union(sClass* klass, sInfo* info)
     buf.append_format("union %s\n{\n", klass.mName);
     
     bool existance_generics = false;
+    bool named_child = false;
     foreach(it, klass.mFields) {
         var name, type = it;
         
         if(type->mAnonymous) {
             //info.struct_definition.remove(type->mAnonymousName);
-            child_output_struct(type, s"", buf, &existance_generics, name, 1, info);
+            child_output_struct(type, s"", buf, &existance_generics, name, 1, info, &named_child);
         }
         else if(type->mInnerStruct) {
-            info.struct_definition.remove(type->mInnerStructName);
-            child_output_struct(type, type->mInnerStructName, buf, &existance_generics, name, 1, info);
+            sType*% already_defined_child_type = info.named_child_struct[type->mInnerStructName];
+            
+            if(already_defined_child_type && ((already_defined_child_type->mClass->mStruct && type->mClass->mStruct) || (already_defined_child_type->mClass->mUnion && type->mClass->mUnion)))
+            {
+            //    info.struct_definition.remove(type->mInnerStructName);
+                buf.append_str("    ");
+                if(type->mClass->mStruct) {
+                    buf.append_str("struct " + type->mInnerStructName);
+                }
+                else {
+                    buf.append_str("union " + type->mInnerStructName);
+                }
+                
+                buf.append_str(" " + name);
+                
+                buf.append_str(";\n");
+            }
+            else {
+                info.named_child_struct.insert(string(type->mInnerStructName), clone type);
+                info.struct_definition.remove(type->mInnerStructName);
+                child_output_struct(type, type->mInnerStructName, buf, &existance_generics, name, 1, info,  &named_child);
+            }
+            named_child = true;
         }
         else {
             buf.append_str(make_define_var(type, name));
@@ -42,6 +64,8 @@ void output_union(sClass* klass, sInfo* info)
         buf.append_format("} %s;\n", klass->mAttribute);
     }
     
+    if(anonymous && named_child) return;
+    
     if(info.struct_definition[string(name)]?? == null) {
         info.struct_definition.insert(string(name), clone buf);
     }
@@ -49,12 +73,13 @@ void output_union(sClass* klass, sInfo* info)
 
 class sUnionNode extends sNodeBase
 {
-    new(string name, sClass* klass, sInfo* info)
+    new(string name, sClass* klass, sInfo* info, bool anonymous=false)
     {
         self.super();
     
         string self.name = name;
         sClass* self.klass = klass;
+        bool self.anonymous = anonymous;
     }
     
     bool terminated()
@@ -71,14 +96,15 @@ class sUnionNode extends sNodeBase
     {
         sClass* klass = self.klass;
         string name = string(self.name);
+        bool anonymous = self.anonymous;
         
-        output_union(klass, info);
+        output_union(klass, info, anonymous);
     
         return true;
     }
 };
 
-sNode*% parse_union(string type_name, string union_attribute, sInfo* info)
+sNode*% parse_union(string type_name, string union_attribute, sInfo* info, bool anonymous=false)
 {
     info.parse_struct_recursive_count++;
     sClass* klass;
@@ -176,7 +202,7 @@ sNode*% parse_union(string type_name, string union_attribute, sInfo* info)
         }
     }
     
-    sNode*% node = new sUnionNode(type_name, klass, info) implements sNode;
+    sNode*% node = new sUnionNode(type_name, klass, info, anonymous) implements sNode;
     
     node_compile(node, info).elif {
         info.parse_struct_recursive_count--;

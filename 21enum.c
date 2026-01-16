@@ -31,6 +31,10 @@ class sEnumNode extends sNodeBase
         list<tup: string, sNode*%,string>* elements = self.mElements;
         string attribute = self.mAttribute;
         
+        if(elements.length() == 0) {
+            return true;
+        }
+        
         buffer*% buf = new buffer();
         
         if(type_name === "") {
@@ -146,6 +150,12 @@ sNode*% parse_enum(string type_name, string attribute, sInfo* info)
     list<tup: string,sNode*%,string>*% elements = new list<tup: string,sNode*%,string>();
     
     while(true) {
+        if(*info.p == '}') {
+            info.p ++;
+            skip_spaces_and_lf();
+            break;
+        }
+            
         parse_struct_attribute();
 
         string element_name = parse_word();
@@ -238,6 +248,12 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 96
         list<tup: string,sNode*%,string>*% elements = new list<tup: string,sNode*%, string>();
         
         while(true) {
+            if(*info.p == '}') {
+                info.p ++;
+                skip_spaces_and_lf();
+                break;
+            }
+            
             parse_struct_attribute();
             string element_name = parse_word();
             string attribute = parse_struct_attribute();

@@ -144,6 +144,82 @@ static void clear_tmp_file_without_object_file_and_ccfile(sInfo* info)
 
 static bool cpp(sInfo* info)
 {
+    init_global_opts();
+    
+    string input_file_name = info.sname;
+    
+    string output_file_name;
+    if(info.output_file_name) {
+        output_file_name = info.output_file_name + ".i";
+    }
+    else {
+        output_file_name = info.sname + ".i";
+    }
+    
+    FILE* out = fopen(output_file_name, "w");
+    if(out == null) {
+        puts(s"CAN'T OPEN CPP OUTPUT FILE \{output_file_name}");
+        exit(1);
+    }
+
+    int is_mac = system("uname -a | grep Darwin 1> /dev/null 2>/dev/null") == 0;
+    int is_android = system("uname -a | grep Android 1> /dev/null 2>/dev/null") == 0;
+    int is_arm64 = system("uname -a | grep arm64 1> /dev/null 2> /dev/null") == 0;
+    int is_m5stack = info.m5stack_cpp; // M5Stack?
+    int is_pico = info.pico_cpp; // PICO?
+    int is_linux = 1;
+    
+    bool _32bit = false;
+    FILE* f = fopen("/proc/cpuinfo", "r");
+    int is_raspi;
+    if(f) {
+        fclose(f);
+        is_raspi = system("cat /proc/cpuinfo | grep 'Model' | grep 'Raspberry Pi' > /dev/null 2> /dev/null ") == 0;
+        if(is_raspi) {
+            _32bit = system(" lscpu | grep armv7l > /dev/null 2> /dev/null ") == 0;
+        }
+    }
+    else {
+        is_raspi = 0;
+    }
+    
+    if(is_pico || is_m5stack) {
+        _32bit = true;
+    }
+    
+    if(_32bit) {
+        set_macro("__32BIT_CPU__", "1");
+    }
+    
+    if(is_mac) {
+        set_macro("__APPLE__", "1");
+    }
+    else if(is_android) {
+        set_macro("__ANDROID__", "1");
+    }
+    else if(is_raspi) {
+        set_macro("__RASPBERRY_PI__", "1");
+    }
+    else if(is_pico) {
+        set_macro("__PICO__", "1");
+    }
+    else if(is_m5stack) {
+        set_macro("__M5STACK__", "1");
+    }
+    else {
+        set_macro("__linux__", "1");
+    }
+
+    preprocess_file_neo_c(input_file_name, out);
+    
+    fclose(out);
+    
+    return true;
+}
+
+/*
+static bool cpp(sInfo* info)
+{
     string input_file_name = info.sname;
     
     string output_file_name;
@@ -161,7 +237,6 @@ static bool cpp(sInfo* info)
     int is_arm64 = system("uname -a | grep arm64 1> /dev/null 2> /dev/null") == 0;
     int is_m5stack = info.m5stack_cpp; // M5Stack?
     int is_pico = info.pico_cpp; // PICO?
-    int is_emb = info.emb_cpp; // EMBBEDED
     bool _32bit = false;
     FILE* f = fopen("/proc/cpuinfo", "r");
     int is_raspi;
@@ -186,7 +261,8 @@ static bool cpp(sInfo* info)
     
     /// Android ///
     if(is_android) {
-        string cmd3 = xsprintf("cpp %s -lang-c %s -I. -I\"%s\"/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -I/data/data/com.termux/files/usr/include/mariadb -D__ANDROID__=1 \"%s\" > \"%s\" 2> \"%s\".cpp.out", (info.remove_comment ? "": " -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, input_file_name, output_file_name, output_file_name);
+        info.cpp_option = info.cpp_option + xsprintf("%s -lang-c -I. -I\"%s\"/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -I/data/data/com.termux/files/usr/include/mariadb -D__ANDROID__=1", (info.remove_comment ? "": " -C"), getenv("HOME"), PREFIX, PREFIX);
+        string cmd3 = xsprintf("cpp %s \"%s\" > \"%s\" 2> \"%s\".cpp.out", info.cpp_option, input_file_name, output_file_name, output_file_name);
         
         if(info.verbose) puts(cmd3);
         int rc = system(cmd3);
@@ -202,7 +278,8 @@ static bool cpp(sInfo* info)
         }
     }
     else if(is_m5stack) {
-        string cmd2 = xsprintf("xtensa-esp-elf-cpp -E %s -lang-c %s -I. -I/usr/local/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -DNEO_C=1 -D__M5STACK__=1 \"%s\" > \"%s\" 2> \"%s\".cpp.out", info.remove_comment ? "":" -C", info.cpp_option, PREFIX, PREFIX, input_file_name, output_file_name, output_file_name);
+        info.cpp_option = info.cpp_option + xsprintf("%s -lang-c -I. -I/usr/local/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -D__M5STACK__=1", info.remove_comment ? "":" -C", PREFIX, PREFIX);
+        string cmd2 = xsprintf("xtensa-esp-elf-cpp -E %s \"%s\" > \"%s\" 2> \"%s\".cpp.out", info.cpp_option, input_file_name, output_file_name, output_file_name);
         
         if(info.verbose) puts(cmd2);
         
@@ -224,7 +301,8 @@ static bool cpp(sInfo* info)
         (void)system(command2);
     }
     else if(is_pico) {
-        string cmd2 = xsprintf("arm-none-eabi-gcc -E %s -lang-c %s -I. -I/usr/local/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -DNEO_C=1 -D__PICO__=1 \"%s\" > \"%s\" 2> \"%s\".cpp.out", info.remove_comment ? "":" -C", info.cpp_option, PREFIX, PREFIX, input_file_name, output_file_name, output_file_name);
+        info.cpp_option = info.cpp_option + xsprintf("%s -lang-c -I. -I/usr/local/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -DNEO_C=1 -D__PICO__=1", info.remove_comment ? "":" -C", PREFIX, PREFIX);
+        string cmd2 = xsprintf("arm-none-eabi-gcc -E %s \"%s\" > \"%s\" 2> \"%s\".cpp.out", info.cpp_option, input_file_name, output_file_name, output_file_name);
         
         if(info.verbose) puts(cmd2);
         
@@ -247,7 +325,8 @@ static bool cpp(sInfo* info)
     }
     /// Mac ///
     else if(is_mac) {
-        string cmd2 = xsprintf("gcc -E %s -lang-c %s -I. -I/usr/local/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -DNEO_C=1 -D__MAC__=1 -I/opt/homebrew/opt/boehmgc/include/ -I/opt/homebrew/opt/openssl/include \"%s\" > \"%s\" 2> \"%s\".cpp.out", (info.remove_comment ? "":" -C"), info.cpp_option, PREFIX, PREFIX, input_file_name, output_file_name, output_file_name);
+        info.cpp_option = info.cpp_option + xsprintf("%s -lang-c -I. -I/usr/local/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -D__APPLE__=1 -I/opt/homebrew/opt/boehmgc/include/ -I/opt/homebrew/opt/openssl/include", (info.remove_comment ? "":" -C"), PREFIX, PREFIX);
+        string cmd2 = xsprintf("gcc -E %s \"%s\" > \"%s\" 2> \"%s\".cpp.out", info.cpp_option, input_file_name, output_file_name, output_file_name);
         
         if(info.verbose) puts(cmd2);
         
@@ -270,7 +349,8 @@ static bool cpp(sInfo* info)
     }
     /// EMBBEDED ///
     else if(is_emb) {
-        string cmd3 = xsprintf("clang -E %s -lang-c %s -I. -I\"%s\"/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -D__EMB__=1 \"%s\" > \"%s\" 2> \"%s\".cpp.out", (info->remove_comment ? "":" -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, input_file_name, output_file_name, output_file_name);
+        info.cpp_option = info.cpp_option + xsprintf("%s -lang-c -I. -I\"%s\"/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -D__EMB__=1", (info->remove_comment ? "":" -C"), getenv("HOME"), PREFIX, PREFIX);
+        string cmd3 = xsprintf("clang -E %s \"%s\" > \"%s\" 2> \"%s\".cpp.out", info.cpp_option, input_file_name, output_file_name, output_file_name);
 
         if(info.verbose) puts(cmd3);
         int rc = system(cmd3);
@@ -281,7 +361,7 @@ static bool cpp(sInfo* info)
         (void)system(command2);
         
         if(rc != 0) {
-            string cmd4 = xsprintf("clang -E %s -I. %s -DPREFIX=\"%s\" -I\"%s\"/include -D__EMB__=1 \"%s\" > \"%s\" 2> \"%s\".cpp.out", info->remove_comment ? "": " -C", info.cpp_option, PREFIX, PREFIX, input_file_name, output_file_name, output_file_name);
+            string cmd4 = xsprintf("clang -E %s \"%s\" > \"%s\" 2> \"%s\".cpp.out", info.cpp_option, input_file_name, output_file_name, output_file_name);
 
             
             var command2 = xsprintf("grep error\\: \"%s\".cpp.out 2>/dev/null", output_file_name);
@@ -297,7 +377,8 @@ static bool cpp(sInfo* info)
     }
     /// __RASPIBERRY_PI__ ///
     else if(is_raspi) {
-        string cmd3 = xsprintf("cpp %s -lang-c %s -I. -I\"%s\"/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -D__RASPBERRY_PI__=1 \"%s\" > \"%s\" 2> \"%s\".cpp.out", (info->remove_comment ? "":" -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, input_file_name, output_file_name, output_file_name);
+        info.cpp_option = info.cpp_option + xsprintf("%s -lang-c -I. -I\"%s\"/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -D__RASPBERRY_PI__=1 ", (info->remove_comment ? "":" -C"), getenv("HOME"), PREFIX, PREFIX);
+        string cmd3 = xsprintf("cpp %s \"%s\" > \"%s\" 2> \"%s\".cpp.out", info.cpp_option, input_file_name, output_file_name, output_file_name);
 
         if(info.verbose) puts(cmd3);
         int rc = system(cmd3);
@@ -308,7 +389,7 @@ static bool cpp(sInfo* info)
         (void)system(command2);
         
         if(rc != 0) {
-            string cmd4 = xsprintf("cpp %s -I. %s -DPREFIX=\"%s\" -I\"%s\"/include -D__RASPBERRY_PI__=1 \"%s\" > \"%s\" 2> \"%s\".cpp.out", info->remove_comment ? "": " -C", info.cpp_option, PREFIX, PREFIX, input_file_name, output_file_name, output_file_name);
+            string cmd4 = xsprintf("cpp %s \"%s\" > \"%s\" 2> \"%s\".cpp.out", info.cpp_option, input_file_name, output_file_name, output_file_name);
             
             var command2 = xsprintf("grep error\\: %s.cpp.out 2>/dev/null", output_file_name);
             
@@ -322,10 +403,8 @@ static bool cpp(sInfo* info)
         }
     }
     else if(is_linux) {
-        if(is_arm64) {
-            info.cpp_option = info.cpp_option; // + " -march=armv8-a+sve";
-        }
-        string cmd3 = xsprintf("clang -E %s -lang-c %s -I. -I\"%s\"/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -D__LINUX__=1 \"%s\" > \"%s\" 2> \"%s\".cpp.out", (info->remove_comment ? "":" -C"), info.cpp_option, getenv("HOME"), PREFIX, PREFIX, input_file_name, output_file_name, output_file_name);
+        info.cpp_option = info.cpp_option + xsprintf("%s -lang-c -I. -I\"%s\"/include -DPREFIX=\"\\\"%s\\\"\" -I\"%s\"/include -D__linux__=1 ", (info->remove_comment ? "":" -C"), getenv("HOME"), PREFIX, PREFIX);
+        string cmd3 = xsprintf("clang -E %s \"%s\" > \"%s\" 2> \"%s\".cpp.out", info.cpp_option, input_file_name, output_file_name, output_file_name);
 
         if(info.verbose) puts(cmd3);
         int rc = system(cmd3);
@@ -336,7 +415,7 @@ static bool cpp(sInfo* info)
         (void)system(command2);
         
         if(rc != 0) {
-            string cmd4 = xsprintf("cpp %s -I. %s -DPREFIX=\"%s\" -I\"%s\"/include -D__LINUX__=1 \"%s\" > \"%s\" 2> \"%s\".cpp.out", info->remove_comment ? "": " -C", info.cpp_option, PREFIX, PREFIX, input_file_name, output_file_name, output_file_name);
+            string cmd4 = xsprintf("cpp %s \"%s\" > \"%s\" 2> \"%s\".cpp.out", info.cpp_option, input_file_name, output_file_name, output_file_name);
 
             var command2 = xsprintf("grep error\\: \"%s\".cpp.out 2>/dev/null", output_file_name);
             
@@ -353,6 +432,7 @@ static bool cpp(sInfo* info)
     
     return true;
 }
+*/
 
 static bool compile(sInfo* info, bool output_object_file, list<string>* object_files)
 {
@@ -536,6 +616,7 @@ static void init_classes(sInfo* info)
     info.classes.insert(string("__typename"), new sClass(s"__typename", typename:true));
     info.classes.insert(string("_Complex"), new sClass(s"_Complex", float_:true));
     info.classes.insert(string("__int128"), new sClass(s"__int128", number:true));
+    info.classes.insert(string("__int128_t"), new sClass(s"__int128_t", number:true));
     for(int i=0; i<GENERICS_TYPE_MAX; i++) {
         string generics_type = xsprintf("__generics_type%d", i);
         info.classes.insert(generics_type, new sClass(generics_type, generics:true, generics_num:i));
@@ -545,7 +626,10 @@ static void init_classes(sInfo* info)
         info.classes.insert(generics_type, new sClass(generics_type, method_generics:true, method_generics_num:i));
     }
     
-#ifndef __MINUX__
+    sType*% type__ = new sType(s"long");
+    type__->mUnsigned = true;
+    (void)add_typedef(s"uint64_t", type__, info);
+    
     int is_mac = system("uname -a | grep Darwin 1> /dev/null 2>/dev/null") == 0;
     if(is_mac) {
         info.classes.insert(string("__builtin_va_list"), new sClass(s"__builtin_va_list", number:true));
@@ -556,8 +640,19 @@ static void init_classes(sInfo* info)
         type->mOriginalTypeName = string("__builtin_va_list");
         
         info.types.insert(string(type_name), type);
+        
+        sClass*% klass = new sClass(s"__gnuc_va_list", struct_:true);
+        
+        klass.mFields.push_back((string("v1"), new sType(s"char*")));
+        klass.mFields.push_back((string("v2"), new sType(s"char*")));
+        klass.mFields.push_back((string("v3"), new sType(s"char*")));
+        klass.mFields.push_back((string("v4"), new sType(s"int")));
+        klass.mFields.push_back((string("v5"), new sType(s"int")));
+        
+        (void)add_typedef(s"__gnuc_va_list", type, info);
     }
     else { // Other
+        
         sClass*% klass = new sClass(s"__builtin_va_list", struct_:true);
         
         klass.mFields.push_back((string("v1"), new sType(s"char*")));
@@ -567,18 +662,37 @@ static void init_classes(sInfo* info)
         klass.mFields.push_back((string("v5"), new sType(s"int")));
         
         info.classes.insert(string("__builtin_va_list"), klass);
+        
+        string type_name = string("__builtin_va_list");
+        
+        sType*% type = new sType(s"__builtin_va_list");
+        type->mOriginalTypeName = string("__builtin_va_list");
+        
+/*
+        sClass*% klass = new sClass(s"__gnuc_va_list", struct_:true);
+        
+        klass.mFields.push_back((string("v1"), new sType(s"char*")));
+        klass.mFields.push_back((string("v2"), new sType(s"char*")));
+        klass.mFields.push_back((string("v3"), new sType(s"char*")));
+        klass.mFields.push_back((string("v4"), new sType(s"int")));
+        klass.mFields.push_back((string("v5"), new sType(s"int")));
+        
+        info.classes.insert(string("__gnuc_va_list"), klass);
+        
+        sType*% type_ = new sType(s"__gnuc_va_list");
+        output_struct(klass, s"", info);
+*/
+        (void)add_typedef(s"__gnuc_va_list", type, info);
+        
+        var type_ = new sType(s"long");
+        type_->mUnsigned = true;
+        (void)add_typedef(s"size_t", type_, info);
+        
+        type_ = new sType(s"int");
+        (void)add_typedef(s"wchar_t", type_, info);
+        
+        (void)add_typedef(s"__gnuc_va_list", type, info);
     }
-#else
-    sClass*% klass = new sClass(s"__builtin_va_list", struct_:true);
-    
-    klass.mFields.push_back((string("v1"), new sType(s"char*")));
-    klass.mFields.push_back((string("v2"), new sType(s"char*")));
-    klass.mFields.push_back((string("v3"), new sType(s"char*")));
-    klass.mFields.push_back((string("v4"), new sType(s"int")));
-    klass.mFields.push_back((string("v5"), new sType(s"int")));
-    
-    info.classes.insert(string("__builtin_va_list"), klass);
-#endif
 }
 
 void create_pico_version_header()
@@ -1605,7 +1719,7 @@ module MEvalOptions<T, T2>
         }
     }
     if(gcc_compiler) {
-#if defined(__MAC__) || defined(__APPLE__)
+#if defined(__APPLE__)
         // On macOS, "gcc" is usually clang; keep __clang__ defined.
 #else
         cpp_option.append_str(" -U__clang__ ");
@@ -1614,7 +1728,7 @@ module MEvalOptions<T, T2>
     else {
         cpp_option.append_str(" -D__clang__=1 ");
     }
-#ifdef __MAC__ // for lldb
+#ifdef __APPLE__ // for lldb
     output_source_file_flag = true;
     gComeOriginalSourcePosition = false;
 #endif
@@ -1627,6 +1741,8 @@ int come_main(int argc, char** argv)
     int start_num = 1;
     string output_file_name_str = null;
     include MEvalOptions<start_num, output_file_name_str>;
+    
+    init_ccpp(argc, argv);
     
     foreach(it, files) {
         sInfo info;
@@ -1650,9 +1766,12 @@ int come_main(int argc, char** argv)
         info.funcs = new map<string, sFun*%>();
         info.uniq_funcs = new map<string, sFun*%>();
         info.struct_definition = new map<string, buffer*%>();
+        info.var_definition = new map<string, buffer*%>();
         info.uniq_definition = new map<string, string>();
         info.previous_struct_definition = new map<string, buffer*%>();
+        info.c_include_definition = new map<string, buffer*%>();
         info.typedef_definition = new map<string, buffer*%>();
+        info.named_child_struct = new map<string, sType*%>();
         info.reflection_vars = new map<string, string>();
         info.generics_funcs = new map<string, sGenericsFun*%>();
         info.classes = new map<string, sClass*%>();
@@ -1672,6 +1791,7 @@ int come_main(int argc, char** argv)
         info.pico_cpp = pico_cpp;
         info.emb_cpp = emb_cpp;
         info.gcc_compiler = gcc_compiler;
+        info.original_source = it.read();
         
         init_classes(&info);
         
@@ -1712,7 +1832,7 @@ int come_main(int argc, char** argv)
                 exit(2);
             }
             if(info.err_num2 > 0) {
-                printf("transpile warning. warning num %d\n", info->err_num2);
+                printf("transpile error. err num %d\n", info->err_num2);
             }
             
             output_object_file_flag.if {

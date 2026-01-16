@@ -7,7 +7,7 @@
 #include <argz.h>
 #include <assert.h>
 #include <byteswap.h>
-//#include <complex.h>
+#include <complex.h>
 #include <cpio.h>
 #include <crypt.h>
 #include <ctype.h>
@@ -31,7 +31,6 @@
 #include <form.h>
 #include <fpu_control.h>
 #include <fts.h>
-/*
 #include <ftw.h>
 #include <gconv.h>
 #include <getopt.h>
@@ -75,7 +74,6 @@
 #include <re_comp.h>
 #include <regex.h>
 #include <regexp.h>
-*/
 #include <resolv.h>
 #include <sched.h>
 #include <search.h>
