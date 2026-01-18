@@ -1,0 +1,7 @@
+a.c.c:6:1: warning: typedef requires a name [-Wmissing-declarations]
+    6 | typedef unsigned long  long   ;
+      | ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+a.c.c:399:5: error: use of undeclared identifier 'a'
+  399 |     a;
+      |     ^
+1 warning and 1 error generated.

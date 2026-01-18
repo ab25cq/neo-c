@@ -1,0 +1,10 @@
+#base="${1}"
+base="${1%.c}"
+shift
+./ncc $@ ${base}.c
+if clang $@ -o ${base} ${base}.c.c 2> ${base}.c.error 
+then
+    rm ${base}.c.error
+else
+    cat ${base}.c.error | grep error; exit 3
+fi
