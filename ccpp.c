@@ -108,13 +108,14 @@ static Macro *mtable_find(MacroTable *t, const char *name) {
 static bool macro_value_contains_ident(const char *val, const char *name) {
     if (!val || !name || !*name) return false;
     enum { S_CODE, S_DQ, S_SQ, S_SL, S_BL } st = S_CODE;
+    int bl_depth = 0;
     for (size_t i = 0; val[i]; ++i) {
         char c = val[i];
         if (st == S_CODE) {
             if (c == '"') { st = S_DQ; continue; }
             if (c == '\'') { st = S_SQ; continue; }
             if (c == '/' && val[i+1] == '/') { st = S_SL; i++; continue; }
-            if (c == '/' && val[i+1] == '*') { st = S_BL; i++; continue; }
+            if (c == '/' && val[i+1] == '*') { st = S_BL; bl_depth = 1; i++; continue; }
             if (isalpha((unsigned char)c) || c == '_') {
                 char id[256]; size_t j = 0; size_t k = i;
                 while (val[k] && (isalnum((unsigned char)val[k]) || val[k] == '_')) {
@@ -132,7 +133,12 @@ static bool macro_value_contains_ident(const char *val, const char *name) {
         } else if (st == S_SL) {
             if (c == '\n' || c == '\r') st = S_CODE;
         } else if (st == S_BL) {
-            if (c == '/' && val[i-1] == '*') st = S_CODE;
+            if (c == '/' && val[i+1] == '*') { bl_depth++; i++; continue; }
+            if (c == '*' && val[i+1] == '/') {
+                bl_depth--; i++;
+                if (bl_depth <= 0) { bl_depth = 0; st = S_CODE; }
+                continue;
+            }
         }
     }
     return false;
@@ -561,6 +567,7 @@ static void scan_comment_depth(const char *s, int *depth) {
 static void strip_comments_inplace(char *s) {
     if (!s) return;
     enum { SC_CODE, SC_DQ, SC_SQ, SC_BL } st = SC_CODE;
+    int bl_depth = 0;
     size_t r = 0, w = 0;
     while (s[r]) {
         char c = s[r];
@@ -573,7 +580,7 @@ static void strip_comments_inplace(char *s) {
             }
             if (c == '/' && s[r+1] == '*') {
                 if (w > 0 && !isspace((unsigned char)s[w-1])) s[w++] = ' ';
-                st = SC_BL; r += 2; continue;
+                st = SC_BL; bl_depth = 1; r += 2; continue;
             }
             s[w++] = c; r++; continue;
         } else if (st == SC_DQ) {
@@ -585,7 +592,12 @@ static void strip_comments_inplace(char *s) {
             if (c == '\'' && s[r-1] != '\\') st = SC_CODE;
             r++;
         } else if (st == SC_BL) {
-            if (c == '*' && s[r+1] == '/') { st = SC_CODE; r += 2; continue; }
+            if (c == '/' && s[r+1] == '*') { bl_depth++; r += 2; continue; }
+            if (c == '*' && s[r+1] == '/') {
+                bl_depth--; r += 2;
+                if (bl_depth <= 0) { bl_depth = 0; st = SC_CODE; }
+                continue;
+            }
             r++;
         }
     }
@@ -962,6 +974,7 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
                     // parse arguments
                     size_t p = j2 + 1; int depthP = 1, depthB = 0, depthC = 0;
                     enum {AC_CODE, AC_DQ, AC_SQ, AC_SL, AC_BL} ast = AC_CODE;
+                    int ac_bl_depth = 0;
                     Str cur; sb_init(&cur);
                     char **args_raw = NULL; size_t argc=0, acc=0;
                     while (line[p] != '\0' && (depthP > 0 || depthB > 0 || depthC > 0)) {
@@ -977,6 +990,7 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
                             }
                             if (ch == '/' && line[p+1]=='*') { 
                                 ast = AC_BL; 
+                                ac_bl_depth = 1;
                                 if (g_keep_comments) sb_puts(&cur, "/*"); 
                                 p+=2; 
                                 continue; 
@@ -1019,8 +1033,18 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
                         } else if (ast == AC_SL) {
                             if (g_keep_comments) sb_putc(&cur, ch); p++;
                         } else if (ast == AC_BL) {
-                            if (ch == '/' && line[p-1]=='*') { if (g_keep_comments) sb_putc(&cur, ch); ast = AC_CODE; p++; }
-                            else { if (g_keep_comments) sb_putc(&cur, ch); p++; }
+                            if (ch == '/' && line[p+1] == '*') {
+                                if (g_keep_comments) sb_puts(&cur, "/*");
+                                ac_bl_depth++; p += 2; continue;
+                            }
+                            if (ch == '*' && line[p+1] == '/') {
+                                if (g_keep_comments) sb_puts(&cur, "*/");
+                                p += 2; ac_bl_depth--;
+                                if (ac_bl_depth <= 0) { ac_bl_depth = 0; ast = AC_CODE; }
+                                continue;
+                            }
+                            if (g_keep_comments) sb_putc(&cur, ch);
+                            p++;
                         }
                     }
                     // prescan/expand args (object-like & nested function-like calls on that text)
@@ -1071,6 +1095,7 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
                     // substitute params into function body
                     const char *body = fm->value ? fm->value : "";
                     enum {RB_CODE, RB_DQ, RB_SQ, RB_SL, RB_BL} rb = RB_CODE;
+                    int rb_bl_depth = 0;
                     // a small buffer to hold token we are about to paste
                     for (size_t bi=0; body[bi] != '\0'; ) {
                         char bc = body[bi];
@@ -1078,7 +1103,7 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
                             if (bc=='"') { rb=RB_DQ; sb_putc(out, bc); bi++; continue; }
                             if (bc=='\'') { rb=RB_SQ; sb_putc(out, bc); bi++; continue; }
                             if (bc=='/' && body[bi+1]=='/') { rb=RB_SL; sb_puts(out, "//"); bi+=2; continue; }
-                            if (bc=='/' && body[bi+1]=='*') { rb=RB_BL; sb_puts(out, "/*"); bi+=2; continue; }
+                            if (bc=='/' && body[bi+1]=='*') { rb=RB_BL; rb_bl_depth = 1; sb_puts(out, "/*"); bi+=2; continue; }
                             if (bc=='#') {
                                 if (body[bi+1]=='#') {
                                     // token pasting: remove trailing spaces from out, then append next token (param or ident) without spaces
@@ -1211,7 +1236,15 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
                         } else if (rb == RB_DQ) { sb_putc(out, bc); if (bc=='"' && body[bi-1] != '\\') rb=RB_CODE; bi++; }
                         else if (rb == RB_SQ) { sb_putc(out, bc); if (bc=='\'' && body[bi-1] != '\\') rb=RB_CODE; bi++; }
                         else if (rb == RB_SL) { sb_putc(out, bc); bi++; }
-                        else if (rb == RB_BL) { sb_putc(out, bc); if (bc=='/' && body[bi-1]=='*') rb=RB_CODE; bi++; }
+                        else if (rb == RB_BL) {
+                            if (bc=='/' && body[bi+1]=='*') { rb_bl_depth++; sb_puts(out, "/*"); bi+=2; continue; }
+                            if (bc=='*' && body[bi+1]=='/') {
+                                rb_bl_depth--; sb_puts(out, "*/"); bi+=2;
+                                if (rb_bl_depth <= 0) { rb_bl_depth = 0; rb = RB_CODE; }
+                                continue;
+                            }
+                            sb_putc(out, bc); bi++;
+                        }
                     }
                     // cleanup args
                     for (size_t ai=0; ai<argc; ++ai) { free(args[ai]); free(args_raw[ai]); }
@@ -1280,6 +1313,7 @@ static void expand_into_str_ifexpr(const MacroTable *t, const char *line, Str *o
 static void replace_ident_token(Str *line, const char *token, const char *repl) {
     if (!line || !line->buf || !token || !*token) return;
     enum { S_CODE, S_DQ, S_SQ, S_SL, S_BL } st = S_CODE;
+    int bl_depth = 0;
     Str out; sb_init(&out);
     const char *s = line->buf;
     for (size_t i = 0; s[i]; ) {
@@ -1288,7 +1322,7 @@ static void replace_ident_token(Str *line, const char *token, const char *repl) 
             if (c == '"') { st = S_DQ; sb_putc(&out, c); i++; continue; }
             if (c == '\'') { st = S_SQ; sb_putc(&out, c); i++; continue; }
             if (c == '/' && s[i+1] == '/') { st = S_SL; sb_puts(&out, "//"); i += 2; continue; }
-            if (c == '/' && s[i+1] == '*') { st = S_BL; sb_puts(&out, "/*"); i += 2; continue; }
+            if (c == '/' && s[i+1] == '*') { st = S_BL; bl_depth = 1; sb_puts(&out, "/*"); i += 2; continue; }
             if (isalpha((unsigned char)c) || c == '_') {
                 char id[256]; size_t j = 0; size_t k = i;
                 while (s[k] && (isalnum((unsigned char)s[k]) || s[k] == '_')) {
@@ -1316,9 +1350,13 @@ static void replace_ident_token(Str *line, const char *token, const char *repl) 
         } else if (st == S_SL) {
             sb_putc(&out, c); i++;
         } else if (st == S_BL) {
-            sb_putc(&out, c);
-            if (c == '/' && s[i-1] == '*') st = S_CODE;
-            i++;
+            if (c == '/' && s[i+1] == '*') { bl_depth++; sb_puts(&out, "/*"); i += 2; continue; }
+            if (c == '*' && s[i+1] == '/') {
+                bl_depth--; sb_puts(&out, "*/"); i += 2;
+                if (bl_depth <= 0) { bl_depth = 0; st = S_CODE; }
+                continue;
+            }
+            sb_putc(&out, c); i++;
         }
     }
     sb_free(line);
@@ -1328,6 +1366,7 @@ static void replace_ident_token(Str *line, const char *token, const char *repl) 
 static void rewrite_complex_postfix(Str *line) {
     if (!line || !line->buf) return;
     enum { S_CODE, S_DQ, S_SQ, S_SL, S_BL } st = S_CODE;
+    int bl_depth = 0;
     Str out; sb_init(&out);
     const char *s = line->buf;
     for (size_t i = 0; s[i]; ) {
@@ -1336,7 +1375,7 @@ static void rewrite_complex_postfix(Str *line) {
             if (c == '"') { st = S_DQ; sb_putc(&out, c); i++; continue; }
             if (c == '\'') { st = S_SQ; sb_putc(&out, c); i++; continue; }
             if (c == '/' && s[i+1] == '/') { st = S_SL; sb_puts(&out, "//"); i += 2; continue; }
-            if (c == '/' && s[i+1] == '*') { st = S_BL; sb_puts(&out, "/*"); i += 2; continue; }
+            if (c == '/' && s[i+1] == '*') { st = S_BL; bl_depth = 1; sb_puts(&out, "/*"); i += 2; continue; }
             if (isalpha((unsigned char)c) || c == '_') {
                 char id[64]; size_t j = 0; size_t k = i;
                 while (s[k] && (isalnum((unsigned char)s[k]) || s[k] == '_')) {
@@ -1405,9 +1444,13 @@ static void rewrite_complex_postfix(Str *line) {
         } else if (st == S_SL) {
             sb_putc(&out, c); i++;
         } else if (st == S_BL) {
-            sb_putc(&out, c);
-            if (c == '/' && s[i-1] == '*') st = S_CODE;
-            i++;
+            if (c == '/' && s[i+1] == '*') { bl_depth++; sb_puts(&out, "/*"); i += 2; continue; }
+            if (c == '*' && s[i+1] == '/') {
+                bl_depth--; sb_puts(&out, "*/"); i += 2;
+                if (bl_depth <= 0) { bl_depth = 0; st = S_CODE; }
+                continue;
+            }
+            sb_putc(&out, c); i++;
         }
     }
     sb_free(line);
@@ -1417,6 +1460,7 @@ static void rewrite_complex_postfix(Str *line) {
 static void rewrite_empty_array_dim(Str *line) {
     if (!line || !line->buf) return;
     enum { S_CODE, S_DQ, S_SQ, S_SL, S_BL } st = S_CODE;
+    int bl_depth = 0;
     Str out; sb_init(&out);
     const char *s = line->buf;
     for (size_t i = 0; s[i]; ) {
@@ -1425,7 +1469,7 @@ static void rewrite_empty_array_dim(Str *line) {
             if (c == '"') { st = S_DQ; sb_putc(&out, c); i++; continue; }
             if (c == '\'') { st = S_SQ; sb_putc(&out, c); i++; continue; }
             if (c == '/' && s[i+1] == '/') { st = S_SL; sb_puts(&out, "//"); i += 2; continue; }
-            if (c == '/' && s[i+1] == '*') { st = S_BL; sb_puts(&out, "/*"); i += 2; continue; }
+            if (c == '/' && s[i+1] == '*') { st = S_BL; bl_depth = 1; sb_puts(&out, "/*"); i += 2; continue; }
             if (c == '[' && s[i+1] == ']' && s[i+2] == '[') {
                 sb_puts(&out, "[1][");
                 i += 3;
@@ -1443,9 +1487,13 @@ static void rewrite_empty_array_dim(Str *line) {
         } else if (st == S_SL) {
             sb_putc(&out, c); i++;
         } else if (st == S_BL) {
-            sb_putc(&out, c);
-            if (c == '/' && s[i-1] == '*') st = S_CODE;
-            i++;
+            if (c == '/' && s[i+1] == '*') { bl_depth++; sb_puts(&out, "/*"); i += 2; continue; }
+            if (c == '*' && s[i+1] == '/') {
+                bl_depth--; sb_puts(&out, "*/"); i += 2;
+                if (bl_depth <= 0) { bl_depth = 0; st = S_CODE; }
+                continue;
+            }
+            sb_putc(&out, c); i++;
         }
     }
     sb_free(line);
@@ -1455,6 +1503,7 @@ static void rewrite_empty_array_dim(Str *line) {
 static void strip_struct_tag(Str *line, const char *tag) {
     if (!line || !line->buf || !tag || !*tag) return;
     enum { S_CODE, S_DQ, S_SQ, S_SL, S_BL } st = S_CODE;
+    int bl_depth = 0;
     Str out; sb_init(&out);
     const char *s = line->buf;
     for (size_t i = 0; s[i]; ) {
@@ -1463,7 +1512,7 @@ static void strip_struct_tag(Str *line, const char *tag) {
             if (c == '"') { st = S_DQ; sb_putc(&out, c); i++; continue; }
             if (c == '\'') { st = S_SQ; sb_putc(&out, c); i++; continue; }
             if (c == '/' && s[i+1] == '/') { st = S_SL; sb_puts(&out, "//"); i += 2; continue; }
-            if (c == '/' && s[i+1] == '*') { st = S_BL; sb_puts(&out, "/*"); i += 2; continue; }
+            if (c == '/' && s[i+1] == '*') { st = S_BL; bl_depth = 1; sb_puts(&out, "/*"); i += 2; continue; }
             if (isalpha((unsigned char)c) || c == '_') {
                 char id[256]; size_t j = 0; size_t k = i;
                 while (s[k] && (isalnum((unsigned char)s[k]) || s[k] == '_')) {
@@ -1505,9 +1554,13 @@ static void strip_struct_tag(Str *line, const char *tag) {
         } else if (st == S_SL) {
             sb_putc(&out, c); i++;
         } else if (st == S_BL) {
-            sb_putc(&out, c);
-            if (c == '/' && s[i-1] == '*') st = S_CODE;
-            i++;
+            if (c == '/' && s[i+1] == '*') { bl_depth++; sb_puts(&out, "/*"); i += 2; continue; }
+            if (c == '*' && s[i+1] == '/') {
+                bl_depth--; sb_puts(&out, "*/"); i += 2;
+                if (bl_depth <= 0) { bl_depth = 0; st = S_CODE; }
+                continue;
+            }
+            sb_putc(&out, c); i++;
         }
     }
     sb_free(line);
@@ -1517,6 +1570,7 @@ static void strip_struct_tag(Str *line, const char *tag) {
 static void strip_extension_tokens(Str *line) {
     if (!line || !line->buf) return;
     enum { S_CODE, S_DQ, S_SQ, S_SL, S_BL } st = S_CODE;
+    int bl_depth = 0;
     Str out; sb_init(&out);
     const char *s = line->buf;
     for (size_t i = 0; s[i]; ) {
@@ -1525,7 +1579,7 @@ static void strip_extension_tokens(Str *line) {
             if (c == '"') { st = S_DQ; sb_putc(&out, c); i++; continue; }
             if (c == '\'') { st = S_SQ; sb_putc(&out, c); i++; continue; }
             if (c == '/' && s[i+1] == '/') { st = S_SL; sb_puts(&out, "//"); i += 2; continue; }
-            if (c == '/' && s[i+1] == '*') { st = S_BL; sb_puts(&out, "/*"); i += 2; continue; }
+            if (c == '/' && s[i+1] == '*') { st = S_BL; bl_depth = 1; sb_puts(&out, "/*"); i += 2; continue; }
             if (isalpha((unsigned char)c) || c == '_') {
                 char id[256]; size_t j = 0; size_t k = i;
                 while (s[k] && (isalnum((unsigned char)s[k]) || s[k] == '_')) {
@@ -1558,9 +1612,13 @@ static void strip_extension_tokens(Str *line) {
         } else if (st == S_SL) {
             sb_putc(&out, c); i++;
         } else if (st == S_BL) {
-            sb_putc(&out, c);
-            if (c == '/' && s[i-1] == '*') st = S_CODE;
-            i++;
+            if (c == '/' && s[i+1] == '*') { bl_depth++; sb_puts(&out, "/*"); i += 2; continue; }
+            if (c == '*' && s[i+1] == '/') {
+                bl_depth--; sb_puts(&out, "*/"); i += 2;
+                if (bl_depth <= 0) { bl_depth = 0; st = S_CODE; }
+                continue;
+            }
+            sb_putc(&out, c); i++;
         }
     }
     sb_free(line);
@@ -1589,6 +1647,7 @@ static void rewrite_anonymous_typedef_tag(Str *line) {
     const char *brace_start = p;
     enum { S_CODE, S_DQ, S_SQ, S_SL, S_BL } st = S_CODE;
     int depth = 0;
+    int bl_depth = 0;
     const char *q = p;
     for (; *q; ++q) {
         char c = *q;
@@ -1596,7 +1655,7 @@ static void rewrite_anonymous_typedef_tag(Str *line) {
             if (c == '"') { st = S_DQ; continue; }
             if (c == '\'') { st = S_SQ; continue; }
             if (c == '/' && q[1] == '/') { st = S_SL; q++; continue; }
-            if (c == '/' && q[1] == '*') { st = S_BL; q++; continue; }
+            if (c == '/' && q[1] == '*') { st = S_BL; bl_depth = 1; q++; continue; }
             if (c == '{') { depth++; continue; }
             if (c == '}') {
                 depth--;
@@ -1609,7 +1668,12 @@ static void rewrite_anonymous_typedef_tag(Str *line) {
         } else if (st == S_SL) {
             if (c == '\n' || c == '\r') st = S_CODE;
         } else if (st == S_BL) {
-            if (c == '/' && q[-1] == '*') st = S_CODE;
+            if (c == '/' && q[1] == '*') { bl_depth++; q++; continue; }
+            if (c == '*' && q[1] == '/') {
+                bl_depth--; q++;
+                if (bl_depth <= 0) { bl_depth = 0; st = S_CODE; }
+                continue;
+            }
         }
     }
     if (depth != 0) return;
@@ -2001,28 +2065,29 @@ static void emit_line_directive(FILE *out, long line, const char *path) {
     fputs("\"\n", out);
 }
 
-static void maybe_inject_xen_types(FILE *out, const char *this_path,
+static bool maybe_inject_xen_types(FILE *out, const char *this_path,
                                    const char *curdir, const PPOpts *opts) {
-    if (!out || g_injected_xen_types) return;
-    if (!this_path || !strstr(this_path, "/xen/")) return;
+    if (!out || g_injected_xen_types) return false;
+    if (!this_path || !strstr(this_path, "/xen/")) return false;
     char *opened = NULL;
     FILE *fxen = open_in_search("xen/interface/xen.h", false, curdir, opts, &opened);
     if (fxen) {
         fclose(fxen);
         free(opened);
-        return;
+        return false;
     }
     fxen = open_in_search("xen/xen.h", false, curdir, opts, &opened);
     if (fxen) {
         fclose(fxen);
         free(opened);
-        return;
+        return false;
     }
     fputs("/* ccpp: xen typedefs */\n", out);
     fputs("typedef unsigned short domid_t;\n", out);
     fputs("typedef unsigned int grant_ref_t;\n", out);
     fputs("typedef unsigned long xen_pfn_t;\n", out);
     g_injected_xen_types = true;
+    return true;
 }
 
 static void preprocess_file(const char *path, FILE *in, const char *curdir, const PPOpts *opts, FILE *out, MacroTable *ptbl);
@@ -2062,7 +2127,11 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
     if (this_path && *this_path) {
         emit_line_directive(out, 1, this_path);
     }
-    maybe_inject_xen_types(out, this_path, curdir, opts);
+    if (maybe_inject_xen_types(out, this_path, curdir, opts)) {
+        if (this_path && *this_path) {
+            emit_line_directive(out, 1, this_path);
+        }
+    }
 
     // Apply predefined + command-line macros for top-level preprocess only
     if (!ptbl) {
@@ -2087,6 +2156,7 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
     bool sockaddr_union_const = false;
     IfCtx *istk = NULL; size_t ilen = 0, icap = 0;
     long line_no = 0;
+    bool need_line_directive = false;
     Str lookahead; bool has_lookahead = false; sb_init(&lookahead);
     while (1) {
         if (has_lookahead) {
@@ -2118,6 +2188,7 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
             }
         }
         raw = line.buf ? line.buf : "";
+        bool need_line_directive_after = false;
 
         if (!has_lookahead && line_ends_with_func_macro(raw, tbl)) {
             Str next; sb_init(&next);
@@ -2146,6 +2217,7 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
             p++; p = lskip(p);
             char kw[32]; size_t adv = 0; parse_ident(p, &adv, kw, sizeof kw); p += adv; p = lskip(p);
             bool emit_directive_line = false;
+            bool emitted_line_marker = false;
             if (strcmp(kw, "define") == 0) {
                 if (active) process_define(tbl, raw);
             } else if (strcmp(kw, "undef") == 0) {
@@ -2204,6 +2276,7 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                             free(ndir);
                             if (this_path && *this_path) {
                                 emit_line_directive(out, line_no + 1, this_path);
+                                emitted_line_marker = true;
                             }
                         }
                         free(opened_path);
@@ -2218,6 +2291,7 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                     }
                     fputs(raw, out); fputc('\n', out);
                     emit_directive_line = true;
+                    emitted_line_marker = true;
                 }
             } else if (strcmp(kw, "warning") == 0) {
                 if (active) {
@@ -2371,11 +2445,20 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                     sb_free(&sk);
                 }
             }
+            if (emitted_line_marker) {
+                need_line_directive = false;
+            } else {
+                need_line_directive = true;
+            }
             sb_free(&line);
             continue; // do not emit directive lines
         }
 
-        if (!active) { sb_free(&line); continue; }
+        if (!active) {
+            need_line_directive = true;
+            sb_free(&line);
+            continue;
+        }
 
         // Merge lines when parentheses stay open (macro calls can span newlines).
         int paren_depth = 0;
@@ -2427,6 +2510,7 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
         // with 256. We honor string/char/comment contexts.
         if (mtable_get(tbl, "__APPLE__") && outln.buf && strstr(outln.buf, "_CACHED_RUNES")) {
             enum { S_CODE, S_DQ, S_SQ, S_SL, S_BL } st = S_CODE;
+            int bl_depth = 0;
             Str rep; sb_init(&rep);
             for (size_t i=0; outln.buf[i]; ) {
                 char c = outln.buf[i];
@@ -2434,7 +2518,7 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                     if (c=='"') { st=S_DQ; sb_putc(&rep,c); i++; continue; }
                     if (c=='\'') { st=S_SQ; sb_putc(&rep,c); i++; continue; }
                     if (c=='/' && outln.buf[i+1]=='/') { st=S_SL; sb_puts(&rep,"//"); i+=2; continue; }
-                    if (c=='/' && outln.buf[i+1]=='*') { st=S_BL; sb_puts(&rep,"/*"); i+=2; continue; }
+                    if (c=='/' && outln.buf[i+1]=='*') { st=S_BL; bl_depth = 1; sb_puts(&rep,"/*"); i+=2; continue; }
                     if (isalpha((unsigned char)c) || c=='_') {
                         char id[256]; size_t j=0; size_t k=i;
                         while (outln.buf[k] && (isalnum((unsigned char)outln.buf[k]) || outln.buf[k]=='_')) { if (j+1<sizeof id) id[j++]=outln.buf[k]; k++; }
@@ -2450,7 +2534,15 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                 } else if (st == S_DQ) { sb_putc(&rep,c); if (c=='"' && outln.buf[i-1] != '\\') st=S_CODE; i++; }
                 else if (st == S_SQ) { sb_putc(&rep,c); if (c=='\'' && outln.buf[i-1] != '\\') st=S_CODE; i++; }
                 else if (st == S_SL) { sb_putc(&rep,c); i++; }
-                else if (st == S_BL) { sb_putc(&rep,c); if (c=='/' && outln.buf[i-1]=='*') st=S_CODE; i++; }
+                else if (st == S_BL) {
+                    if (c=='/' && outln.buf[i+1]=='*') { bl_depth++; sb_puts(&rep, "/*"); i+=2; continue; }
+                    if (c=='*' && outln.buf[i+1]=='/') {
+                        bl_depth--; sb_puts(&rep, "*/"); i+=2;
+                        if (bl_depth <= 0) { bl_depth = 0; st = S_CODE; }
+                        continue;
+                    }
+                    sb_putc(&rep, c); i++;
+                }
             }
             sb_free(&outln);
             outln = rep;
@@ -2490,6 +2582,7 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                 } else {
                     sb_free(&outln);
                     sb_free(&line);
+                    need_line_directive = true;
                     continue;
                 }
             } else if (starts_with(q, "typedef") && strstr(q, "union") &&
@@ -2498,6 +2591,7 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                 sockaddr_union_const = (strstr(q, "const struct sockaddr") != NULL);
                 sb_free(&outln);
                 sb_free(&line);
+                need_line_directive = true;
                 continue;
             }
         }
@@ -2519,6 +2613,7 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                         // skip emitting this line entirely
                         sb_free(&outln);
                         sb_free(&line);
+                        need_line_directive = true;
                         continue;
                     }
                 }
@@ -2547,6 +2642,7 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                                 "\nextern char *strdup(const char *);\n"
                                 "extern int vsnprintf(char *, unsigned long, const char *, __builtin_va_list);\n"
                                 "extern int snprintf(char *, unsigned long, const char *, ...);\n");
+                        need_line_directive_after = true;
                     }
                     injected_libc_protos = true;
                 }
@@ -2582,6 +2678,7 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                                 "typedef __int64_t __off64_t;\n"
                                 "typedef __off64_t __loff_t;\n"
                                 "typedef struct __fsid_t { int __val[2]; } __fsid_t;\n");
+                        need_line_directive_after = true;
                     }
                     injected_libc_typedefs = true;
                 }
@@ -2596,8 +2693,15 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
             sb_init(&prev);
             has_prev = false;
         }
+        if (need_line_directive && this_path && *this_path) {
+            emit_line_directive(out, base_line, this_path);
+            need_line_directive = false;
+        }
         prev = outln;
         has_prev = true;
+        if (need_line_directive_after) {
+            need_line_directive = true;
+        }
         sb_free(&line);
     }
     if (has_prev) {
