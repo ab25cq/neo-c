@@ -1,7 +1,7 @@
 #base="${1}"
 base="${1%.c}"
 shift
-./ncc $@ ${base}.c
+ncc $@ ${base}.c
 if clang $@ -o ${base} ${base}.c.c 2> ${base}.c.error 
 then
     rm ${base}.c.error
