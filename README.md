@@ -79,7 +79,6 @@ Please install sudo , git and which before the build.
 ```
 git clone https://github.com/ab25cq/neo-c
 cd neo-c
-sh fast_build.sh
 sh clean-self-host.sh
 ```
 
