@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+CC=clang
+
 files=()
 opts=()
 target=""
@@ -7,6 +9,7 @@ no_rm_pp=true
 
 expect_target=false
 compile_only=false
+all_object_file=true
 
 for arg in "$@"; do
   if [ "$expect_target" = true ]; then
@@ -19,6 +22,9 @@ for arg in "$@"; do
     -E)
       no_rm_pp=false
       ;;
+    -gcc)
+      CC=gcc
+      ;;
     -o)
       #opts+=("$arg")
       expect_target=true
@@ -30,20 +36,31 @@ for arg in "$@"; do
     -*)
       opts+=("$arg")
       ;;
+    *.o) 
+      files+=("$arg")
+      ;;
+    *.c)
+      files+=("$arg")
+      all_object_file=false
+      ;;
     *)
       files+=("$arg")
+      all_object_file=false
       ;;
   esac
 done
 
 #base="${1}"
 base="${files[0]%.nc}"
-shift
-
 
 ncc ${opts[@]} ${base}.nc
 
-if test $? = 0
+transpile_ok=$?
+
+if [ "$all_object_file" == true ]
+then
+    $CC ${opts[@]} -o ${target} ${files[@]}
+elif test $transpile_ok = 0
 then
     if test $compile_only = true
     then
@@ -52,8 +69,8 @@ then
             target=${base}.o
         fi
         
-#        echo clang -c ${opts[@]} -o ${target} ${base}.c 2> ${base}.c.error 
-        if clang -c ${opts[@]} -o ${target} ${base}.c 2> ${base}.c.error 
+        #echo $CC -c ${opts[@]} -o ${target} ${base}.c 2> ${base}.c.error 
+        if $CC -c ${opts[@]} -o ${target} ${base}.c 2> ${base}.c.error 
         then
             rm ${base}.c.error
             if test $no_rm_pp = true
@@ -69,8 +86,8 @@ then
             target=${base}
         fi
         
-#       echo clang ${opts[@]} -o ${target} ${base}.c 2> ${base}.c.error 
-        if clang ${opts[@]} -o ${target} ${base}.c 2> ${base}.c.error 
+        #echo $CC ${opts[@]} -o ${target} ${base}.c 2> ${base}.c.error 
+        if $CC ${opts[@]} -o ${target} ${base}.c 2> ${base}.c.error 
         then
             rm ${base}.c.error
             if test $no_rm_pp = true

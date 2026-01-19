@@ -7,13 +7,13 @@ endif
 CFLAGS ?= -O2
 
 SOURCES = \
-	mac_headers.c
+	mac_headers.nc
 
-OBJECTS = $(SOURCES:.c=.o)
+OBJECTS = $(SOURCES:.nc=.o)
 
 all: $(OBJECTS)
 
-%.o: %.c
+%.o: %.nc
 	$(NEO_C) $(CFLAGS) -c $< -o $@
 
 clean:

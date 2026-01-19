@@ -10,178 +10,178 @@ HOSTCFLAGS ?= -std=c11 -Wall -Wextra -O2
 all: test
 
 # Run tests that validate common C syntax
-test: *.c
-	neo-c test_nums.c
+test: *.nc
+	neo-c test_nums.nc
 	./test_nums
-	neo-c test_comelang.c
+	neo-c test_comelang.nc
 	./test_comelang
-	neo-c test_comelang2.c
+	neo-c test_comelang2.nc
 	./test_comelang2
-	neo-c test_comelang3.c
+	neo-c test_comelang3.nc
 	./test_comelang3
-	neo-c attrs.c
+	neo-c attrs.nc
 	./attrs
-	neo-c builtins.c
+	neo-c builtins.nc
 	./builtins
-	neo-c inline_asm.c
+	neo-c inline_asm.nc
 	./inline_asm
-	neo-c codex.c
+	neo-c codex.nc
 	./codex
-	neo-c comelang.c
+	neo-c comelang.nc
 	./comelang
-	neo-c comelang10.c
+	neo-c comelang10.nc
 	./comelang10
-	neo-c comelang11.c
+	neo-c comelang11.nc
 	./comelang11
-	neo-c comelang12.c
+	neo-c comelang12.nc
 	./comelang12
-	neo-c comelang13.c
+	neo-c comelang13.nc
 	./comelang13
-	neo-c comelang14.c
+	neo-c comelang14.nc
 	./comelang14
-	neo-c comelang2.c
+	neo-c comelang2.nc
 	./comelang2
-	neo-c comelang3.c
+	neo-c comelang3.nc
 	./comelang3
-	neo-c comelang4.c
+	neo-c comelang4.nc
 	./comelang4
-	neo-c comelang5.c
+	neo-c comelang5.nc
 	./comelang5
-	neo-c comelang6.c
+	neo-c comelang6.nc
 	./comelang6
-	neo-c comelang7.c
+	neo-c comelang7.nc
 	./comelang7
-	neo-c comelang8.c
+	neo-c comelang8.nc
 	./comelang8
-	neo-c comelang9.c
+	neo-c comelang9.nc
 	./comelang9
-	neo-c labels_as_values.c
+	neo-c labels_as_values.nc
 	./labels_as_values
-	neo-c -gcc nested_functions.c
+	neo-c -gcc nested_functions.nc
 	./nested_functions
-#	neo-c runner.c
+#	neo-c runner.nc
 #	./runner
-	neo-c statement_expr.c
+	neo-c statement_expr.nc
 	./statement_expr
-	neo-c test_arith.c
+	neo-c test_arith.nc
 	./test_arith
-	neo-c test_array_features.c
+	neo-c test_array_features.nc
 	./test_array_features
-	neo-c test_array_ptr.c
+	neo-c test_array_ptr.nc
 	./test_array_ptr
-	neo-c test_array_pointer_advanced.c
+	neo-c test_array_pointer_advanced.nc
 	./test_array_pointer_advanced
-	neo-c test_array_pointer_matrix.c
+	neo-c test_array_pointer_matrix.nc
 	./test_array_pointer_matrix
-	neo-c test_pointer_qualifiers.c
+	neo-c test_pointer_qualifiers.nc
 	./test_pointer_qualifiers
-	neo-c test_c_compat.c
+	neo-c test_c_compat.nc
 	./test_c_compat
-	neo-c test_typedefs.c
+	neo-c test_typedefs.nc
 	./test_typedefs
-	neo-c test_c_compat2.c
+	neo-c test_c_compat2.nc
 	./test_c_compat2
-	neo-c test_c_compat3.c
+	neo-c test_c_compat3.nc
 	./test_c_compat3
-	neo-c test_c_compat4.c
+	neo-c test_c_compat4.nc
 	./test_c_compat4
-	neo-c test_c_compat5.c
+	neo-c test_c_compat5.nc
 	./test_c_compat5
-	neo-c test_c_compat6.c
+	neo-c test_c_compat6.nc
 	./test_c_compat6
-	neo-c test_c_compat7.c -lm
+	neo-c test_c_compat7.nc -lm
 	./test_c_compat7
-	neo-c c_test_compat8.c
+	neo-c c_test_compat8.nc
 	./c_test_compat8
-	neo-c c_test_compat9.c
+	neo-c c_test_compat9.nc
 	./c_test_compat9
-	neo-c c_test_compat10.c -lm
+	neo-c c_test_compat10.nc -lm
 	./c_test_compat10
-	neo-c c_test_compat11.c
+	neo-c c_test_compat11.nc
 	./c_test_compat11
-	neo-c c_test_compat12.c
+	neo-c c_test_compat12.nc
 	./c_test_compat12
-	neo-c c_test_compat13.c
+	neo-c c_test_compat13.nc
 	./c_test_compat13
-	neo-c c_test_compat14.c
+	neo-c c_test_compat14.nc
 	./c_test_compat14
-	neo-c c_test_compat15.c
+	neo-c c_test_compat15.nc
 	./c_test_compat15
-	neo-c c_test_compat16.c
+	neo-c c_test_compat16.nc
 	./c_test_compat16
-	neo-c c_test_compat17.c
+	neo-c c_test_compat17.nc
 	./c_test_compat17
-	neo-c c_test_compat18.c
+	neo-c c_test_compat18.nc
 	./c_test_compat18
-	neo-c c_test_compat19.c
+	neo-c c_test_compat19.nc
 	./c_test_compat19
-	neo-c c_test_compat20.c
+	neo-c c_test_compat20.nc
 	./c_test_compat20
-	neo-c c_test_compat21.c
+	neo-c c_test_compat21.nc
 	./c_test_compat21
-	neo-c c_test_compat22.c
+	neo-c c_test_compat22.nc
 	./c_test_compat22
-#	neo-c c_test_compat23.c
+#	neo-c c_test_compat23.nc
 #	./c_test_compat23
-	neo-c c_test_compat24.c
+	neo-c c_test_compat24.nc
 	./c_test_compat24
-	neo-c c_test_compat25.c
+	neo-c c_test_compat25.nc
 	./c_test_compat25
-#	neo-c c_test_compat26.c
+#	neo-c c_test_compat26.nc
 #	./c_test_compat26
-	neo-c c_test_compat27.c
+	neo-c c_test_compat27.nc
 	./c_test_compat27
-	neo-c c_test_compat28.c
+	neo-c c_test_compat28.nc
 	./c_test_compat28
-	neo-c c_test_compat29.c
+	neo-c c_test_compat29.nc
 	./c_test_compat29
-	neo-c c_test_compat30.c
+	neo-c c_test_compat30.nc
 	./c_test_compat30
-	neo-c c_test_compat31.c
+	neo-c c_test_compat31.nc
 	./c_test_compat31
-	neo-c c_test_compat32.c
+	neo-c c_test_compat32.nc
 	./c_test_compat32
-	neo-c c_test_compat33.c
+	neo-c c_test_compat33.nc
 	./c_test_compat33
-	neo-c c_test_compat34.c
+	neo-c c_test_compat34.nc
 	./c_test_compat34
-	neo-c c_test_compat35.c
+	neo-c c_test_compat35.nc
 	./c_test_compat35
-	neo-c c_test_compat36.c
+	neo-c c_test_compat36.nc
 	./c_test_compat36
-	neo-c c_test_compat37.c
+	neo-c c_test_compat37.nc
 	./c_test_compat37
-	neo-c c_test_compat38.c
+	neo-c c_test_compat38.nc
 	./c_test_compat38
-	neo-c test_control_flow.c
+	neo-c test_control_flow.nc
 	./test_control_flow
-	neo-c test_control.c
+	neo-c test_control.nc
 	./test_control
-	neo-c test_functions.c
+	neo-c test_functions.nc
 	./test_functions
-	neo-c test_invalid_0888.c
+	neo-c test_invalid_0888.nc
 	./test_invalid_0888
-	neo-c test_ops.c
+	neo-c test_ops.nc
 	./test_ops
-	neo-c test_pointers_arrays.c
+	neo-c test_pointers_arrays.nc
 	./test_pointers_arrays
-	neo-c test_string_cast.c
+	neo-c test_string_cast.nc
 	./test_string_cast
-	neo-c test_struct_enum.c
+	neo-c test_struct_enum.nc
 	./test_struct_enum
-	neo-c test_struct_union_enum.c
+	neo-c test_struct_union_enum.nc
 	./test_struct_union_enum
-	neo-c test_switch_ternary.c
+	neo-c test_switch_ternary.nc
 	./test_switch_ternary
-	neo-c test_valid.c
+	neo-c test_valid.nc
 	./test_valid
-	neo-c typeof_auto.c
+	neo-c typeof_auto.nc
 	./typeof_auto
-	neo-c user.c
+	neo-c user.nc
 	./user
-#	neo-c vector_types.c
+#	neo-c vector_types.nc
 #	./vector_types
 
 clean:
 	rm -rf test_array_features test_array_pointer_advanced test_typedefs test_array_pointer_matrix test_array_views test_pointer_qualifiers test_comelang test_comelang2 test_comelang3 test_nums inline_asm
-	rm -rf .*.bin runner .valid_bin .invalid_bin .test_out *.c.c *.c.o ./attrs ./codex ./neo-c ./neo-c10 ./neo-c11 ./neo-c12 ./neo-c13 ./neo-c14 ./neo-c2 ./neo-c3 ./neo-c4 ./neo-c5 ./neo-c6 ./neo-c7 ./neo-c8 ./neo-c9 ./labels_as_values ./nested_functions ./statement_expr ./test_arith ./test_array_ptr ./test_c_compat ./test_c_compat2 ./test_c_compat3 ./test_c_compat4 ./test_c_compat5 ./test_c_compat6 ./test_c_compat7 ./c_test_compat8 ./c_test_compat9 ./c_test_compat38 ./c_test_compat10 ./c_test_compat11 ./c_test_compat12 ./c_test_compat13 ./c_test_compat14 ./c_test_compat15 ./c_test_compat16 ./c_test_compat17 ./c_test_compat18 ./c_test_compat19 ./c_test_compat20 ./c_test_compat21 ./c_test_compat22 ./c_test_compat23 ./c_test_compat24 ./c_test_compat25 ./c_test_compat26 ./c_test_compat27 ./c_test_compat28 ./c_test_compat29 ./c_test_compat30 ./c_test_compat31 ./c_test_compat32 ./c_test_compat33 ./c_test_compat34 ./c_test_compat35 ./c_test_compat36 ./c_test_compat37 ./test_control_flow ./test_control ./test_functions ./test_invalid_0888 ./test_ops ./test_pointers_arrays ./test_string_cast ./test_struct_enum ./test_struct_union_enum ./test_switch_ternary ./test_valid *.i* *.c.c* ./attrs ./builtins ./codex ./comelang ./comelang10 ./comelang11 ./comelang12 ./comelang13 ./comelang14 ./comelang2 ./comelang3 ./comelang4 ./comelang5 ./comelang6 ./comelang7 ./comelang8 ./comelang9 ./labels_as_values ./nested_functions ./runner ./statement_expr ./test_arith ./test_array_ptr ./test_c_compat ./test_c_compat2 ./test_c_compat3 ./test_c_compat4 ./test_c_compat5 ./test_c_compat6 ./test_c_compat7 ./c_test_compat8 ./c_test_compat9 ./c_test_compat10 ./c_test_compat11 ./c_test_compat12 ./c_test_compat13 ./c_test_compat14 ./c_test_compat15 ./c_test_compat16 ./c_test_compat17 ./c_test_compat18 ./c_test_compat19 ./c_test_compat20 ./c_test_compat21 ./c_test_compat22 ./c_test_compat23 ./c_test_compat24 ./c_test_compat25 ./c_test_compat26 ./c_test_compat27 ./c_test_compat28 ./c_test_compat29 ./c_test_compat30 ./c_test_compat31 ./c_test_compat32 ./c_test_compat33 ./c_test_compat34 ./c_test_compat35 ./c_test_compat36 ./c_test_compat37 ./test_control_flow ./test_control ./test_functions ./test_invalid_0888 ./test_ops ./test_pointers_arrays ./test_string_cast ./test_struct_enum ./test_struct_union_enum ./test_switch_ternary ./test_valid ./typeof_auto ./user ./vector_types test_c_compat_host test_c_compat2_host test_c_compat3_host test_c_compat4_host test_c_compat5_host test_c_compat6_host test_c_compat7_host c_test_compat8_host c_test_compat9_host c_test_compat10_host c_test_compat11_host c_test_compat12_host c_test_compat13_host c_test_compat14_host c_test_compat15_host c_test_compat16_host c_test_compat17_host c_test_compat18_host c_test_compat19_host c_test_compat20_host c_test_compat21_host c_test_compat22_host c_test_compat23_host c_test_compat24_host c_test_compat25_host c_test_compat26_host c_test_compat27_host c_test_compat28_host c_test_compat29_host c_test_compat30_host c_test_compat31_host c_test_compat32_host c_test_compat33_host c_test_compat34_host c_test_compat35_host c_test_compat36_host c_test_compat37_host
+	rm -rf *.c .*.bin runner .valid_bin .invalid_bin .test_out *.nc.nc *.nc.o ./attrs ./codex ./neo-c ./neo-c10 ./neo-c11 ./neo-c12 ./neo-c13 ./neo-c14 ./neo-c2 ./neo-c3 ./neo-c4 ./neo-c5 ./neo-c6 ./neo-c7 ./neo-c8 ./neo-c9 ./labels_as_values ./nested_functions ./statement_expr ./test_arith ./test_array_ptr ./test_c_compat ./test_c_compat2 ./test_c_compat3 ./test_c_compat4 ./test_c_compat5 ./test_c_compat6 ./test_c_compat7 ./c_test_compat8 ./c_test_compat9 ./c_test_compat38 ./c_test_compat10 ./c_test_compat11 ./c_test_compat12 ./c_test_compat13 ./c_test_compat14 ./c_test_compat15 ./c_test_compat16 ./c_test_compat17 ./c_test_compat18 ./c_test_compat19 ./c_test_compat20 ./c_test_compat21 ./c_test_compat22 ./c_test_compat23 ./c_test_compat24 ./c_test_compat25 ./c_test_compat26 ./c_test_compat27 ./c_test_compat28 ./c_test_compat29 ./c_test_compat30 ./c_test_compat31 ./c_test_compat32 ./c_test_compat33 ./c_test_compat34 ./c_test_compat35 ./c_test_compat36 ./c_test_compat37 ./test_control_flow ./test_control ./test_functions ./test_invalid_0888 ./test_ops ./test_pointers_arrays ./test_string_cast ./test_struct_enum ./test_struct_union_enum ./test_switch_ternary ./test_valid *.i* *.nc.nc* ./attrs ./builtins ./codex ./comelang ./comelang10 ./comelang11 ./comelang12 ./comelang13 ./comelang14 ./comelang2 ./comelang3 ./comelang4 ./comelang5 ./comelang6 ./comelang7 ./comelang8 ./comelang9 ./labels_as_values ./nested_functions ./runner ./statement_expr ./test_arith ./test_array_ptr ./test_c_compat ./test_c_compat2 ./test_c_compat3 ./test_c_compat4 ./test_c_compat5 ./test_c_compat6 ./test_c_compat7 ./c_test_compat8 ./c_test_compat9 ./c_test_compat10 ./c_test_compat11 ./c_test_compat12 ./c_test_compat13 ./c_test_compat14 ./c_test_compat15 ./c_test_compat16 ./c_test_compat17 ./c_test_compat18 ./c_test_compat19 ./c_test_compat20 ./c_test_compat21 ./c_test_compat22 ./c_test_compat23 ./c_test_compat24 ./c_test_compat25 ./c_test_compat26 ./c_test_compat27 ./c_test_compat28 ./c_test_compat29 ./c_test_compat30 ./c_test_compat31 ./c_test_compat32 ./c_test_compat33 ./c_test_compat34 ./c_test_compat35 ./c_test_compat36 ./c_test_compat37 ./test_control_flow ./test_control ./test_functions ./test_invalid_0888 ./test_ops ./test_pointers_arrays ./test_string_cast ./test_struct_enum ./test_struct_union_enum ./test_switch_ternary ./test_valid ./typeof_auto ./user ./vector_types test_c_compat_host test_c_compat2_host test_c_compat3_host test_c_compat4_host test_c_compat5_host test_c_compat6_host test_c_compat7_host c_test_compat8_host c_test_compat9_host c_test_compat10_host c_test_compat11_host c_test_compat12_host c_test_compat13_host c_test_compat14_host c_test_compat15_host c_test_compat16_host c_test_compat17_host c_test_compat18_host c_test_compat19_host c_test_compat20_host c_test_compat21_host c_test_compat22_host c_test_compat23_host c_test_compat24_host c_test_compat25_host c_test_compat26_host c_test_compat27_host c_test_compat28_host c_test_compat29_host c_test_compat30_host c_test_compat31_host c_test_compat32_host c_test_compat33_host c_test_compat34_host c_test_compat35_host c_test_compat36_host c_test_compat37_host

@@ -1,26 +1,27 @@
 NEO_C ?= neo-c
+CC=neo-c
 CFLAGS ?= -O2
 
 SOURCES = \
-	main.c \
-	headers_posix.c \
-	headers_net.c \
-	headers_ipc.c \
-	headers_thread.c \
-	headers_misc.c \
-	headers_linux.c \
-	headers_subdir.c \
-	all.c
+	main.nc \
+	headers_posix.nc \
+	headers_net.nc \
+	headers_ipc.nc \
+	headers_thread.nc \
+	headers_misc.nc \
+	headers_linux.nc \
+	headers_subdir.nc \
+	all.nc
 
-OBJECTS = $(SOURCES:.c=.o)
+OBJECTS = $(SOURCES:.nc=.o)
 
 all: $(OBJECTS)
 
-%.o: %.c
+%.o: %.nc
 	$(NEO_C) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJECTS)
 	rm -f all
 	rm -f *.out
-	rm -f *.c.c
+	rm -f *.
