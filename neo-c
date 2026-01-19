@@ -59,7 +59,7 @@ transpile_ok=$?
 
 if [ "$all_object_file" == true ]
 then
-    $CC ${opts[@]} -o ${target} ${files[@]}
+    $CC ${opts[@]} -o ${target} ${files[@]} -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include 
 elif test $transpile_ok = 0
 then
     if test $compile_only = true
@@ -70,7 +70,7 @@ then
         fi
         
         #echo $CC -c ${opts[@]} -o ${target} ${base}.c 2> ${base}.c.error 
-        if $CC -c ${opts[@]} -o ${target} ${base}.c 2> ${base}.c.error 
+        if $CC -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include -c ${opts[@]} -o ${target} ${base}.c 2> ${base}.c.error 
         then
             rm ${base}.c.error
             if test $no_rm_pp = true
@@ -87,7 +87,7 @@ then
         fi
         
         #echo $CC ${opts[@]} -o ${target} ${base}.c 2> ${base}.c.error 
-        if $CC ${opts[@]} -o ${target} ${base}.c 2> ${base}.c.error 
+        if $CC -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include ${opts[@]} -o ${target} ${base}.c 2> ${base}.c.error 
         then
             rm ${base}.c.error
             if test $no_rm_pp = true
