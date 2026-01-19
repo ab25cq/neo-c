@@ -3,7 +3,7 @@
 files=()
 opts=()
 target=""
-rm_pp=false
+no_rm_pp=true
 
 expect_target=false
 
@@ -16,7 +16,7 @@ for arg in "$@"; do
 
   case "$arg" in
     -E)
-      rm_pp=true
+      no_rm_pp=false
       ;;
     -o)
       #opts+=("$arg")
@@ -45,9 +45,9 @@ echo clang ${opts[@]} -o ${target} ${base}.c.c 2> ${base}.c.error
 if clang ${opts[@]} -o ${target} ${base}.c.c 2> ${base}.c.error 
 then
     rm ${base}.c.error
-    if test $rm_pp = true
+    if test $no_rm_pp = true
     then
-        rm ${base}.i
+        rm ${base}.c.i
     fi
 else
     cat ${base}.c.error | grep error; exit 3
