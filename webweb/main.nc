@@ -2,6 +2,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <signal.h>
+#include <stdint.h>
 
 static SSL* gSSL = NULL;
 
@@ -99,13 +100,13 @@ puts(header);
 puts(contents);
     setenv("REQUEST_METHOD", "POST", 1);
     
-    char* p = header.scan("Content-Length: ([0-9]+)")[0]??;
+    string p = header.scan("Content-Length: ([0-9]+)")[0]??;
     if(p) {
         int content_length = atoi(p);
         setenv("CONTENT_LENGTH", s"\{content_length}", 1);
     }
     
-    p = strstr(header, "Cookie: ");
+    p = strstr(header, "Cookie: ").to_string();
     if(p) {
 puts("SERVER COOKIE");
 puts(p);
@@ -143,14 +144,14 @@ puts(header);
 puts(contents);
     setenv("REQUEST_METHOD", "POST", 1);
     
-    char* p = header.scan("Content-Length: ([0-9]+)")[0]??;
+    string p = header.scan("Content-Length: ([0-9]+)")[0]??;
     if(p) {
         int content_length = atoi(p);
 printf("content_length %d\n", content_length);
         setenv("CONTENT_LENGTH", s"\{content_length}", 1);
     }
     
-    p = strstr(header, "Cookie: ");
+    p = strstr(header, "Cookie: ").to_string();
     if(p) {
 puts("SERVER COOKIE");
 puts(p);
@@ -186,7 +187,7 @@ void run_get_cgi(SSL* it, string cgi_path, string header, string contents, strin
     setenv("REQUEST_METHOD", "GET", 1);
     setenv("QUERY_STRING", query_string, 1);
     
-    char* p = header.scan("Content-Length: ([0-9]+)")??[0];
+    string p = header.scan("Content-Length: ([0-9]+)")??[0];
     if(p) {
         int content_length = atoi(p);
         setenv("CONTENT_LENGTH", s"\{content_length}", 1);
@@ -226,7 +227,7 @@ void run_get_cgi_http(int it, string cgi_path, string header, string contents, s
     setenv("REQUEST_METHOD", "GET", 1);
     setenv("QUERY_STRING", query_string, 1);
     
-    char* p = header.scan("Content-Length: ([0-9]+)")[0]??;
+    string p = header.scan("Content-Length: ([0-9]+)")[0]??;
     if(p) {
         int content_length = atoi(p);
         setenv("CONTENT_LENGTH", s"\{content_length}", 1);
@@ -330,11 +331,11 @@ puts("contents end");
         
                 if(header.match("^GET ") && header.match("Accept: text\/html")) {
 puts("GET");
-                    char* str = header.scan("GET (.+) HTTP")[0]??;
+                    string str = header.scan("GET (.+) HTTP")[0]??;
 puts(str);
                     
                     if(str === "/") {
-                        str = "/index.html";
+                        str = s"/index.html";
                     }
                     
                     string file_path = str.substring(1,-1);  // remove /
@@ -383,7 +384,7 @@ puts(file_path);
                 /// image ///
                 else if(header.match("^GET ") && header.match("Accept: image")) {
 puts("GET image");
-                    char* str = header.scan("GET (.+) HTTP")[0]??;
+                    string str = header.scan("GET (.+) HTTP")[0]??;
                     
                     string file_path = str.substring(1,-1);  // remove /
                     
@@ -431,10 +432,10 @@ printf("image_size %ld\n", image_size);
                 }
                 else if(header.match("^POST ")) {
 puts("POST");
-                    char* str = header.scan("POST (.+) ")[0]??;
+                    string str = header.scan("POST (.+) ")[0]??;
                     
                     if(str === "/") {
-                        str = "/index.html";
+                        str = s"/index.html";
                     }
                     
                     string file_path = str.substring(1,-1);
@@ -504,10 +505,10 @@ puts(contents);
 puts("contents end");
         
                 if(header.match("^GET ") && header.match("Accept: text\/html")) {
-                    char* str = header.scan("GET (.+) HTTP")[0]??;
+                    string str = header.scan("GET (.+) HTTP")[0]??;
                     
                     if(str === "/") {
-                        str = "/index.html";
+                        str = s"/index.html";
                     }
                     
                     string file_path = str.substring(1,-1);  // remove /
@@ -553,7 +554,7 @@ puts("contents end");
                 }
                 /// image ///
                 else if(header.match("^GET ") && header.match("Accept: image")) {
-                    char* str = header.scan("GET (.+) HTTP")[0]??;
+                    string str = header.scan("GET (.+) HTTP")[0]??;
                     
                     string file_path = str.substring(1,-1);  // remove /
                     
@@ -599,10 +600,10 @@ printf("image_size %ld\n", image_size);
                     }
                 }
                 else if(header.match("^POST ")) {
-                    char* str = header.scan("POST (.+) ")[0]??;
+                    string str = header.scan("POST (.+) ")[0]??;
                     
                     if(str === "/") {
-                        str = "/index.html";
+                        str = s"/index.html";
                     }
                     
                     string file_path = str.substring(1,-1);

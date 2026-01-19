@@ -1,5 +1,6 @@
 #include <neo-c.h>
 #include <neo-c-net.h>
+#include <stdint.h>
 
 int main(int argc, char** argv)
 {

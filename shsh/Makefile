@@ -18,15 +18,15 @@ libdir=${exec_prefix}/lib
 #########################################
 CC=neo-c
 INSTALL=install
-CFLAGS= -O2 -I/opt/homebrew/opt/readline/include -L/opt/homebrew/opt/readline/lib -lreadline
+CFLAGS= -Og -g -I/opt/homebrew/opt/readline/include -L/opt/homebrew/opt/readline/lib -lreadline
 CFLAGS_DEBUG= -gdwarf-4 -cg -lreadline 
 LIBS=
 OS=linux
 DESTDIR=/usr/local/
-SRCS=$(wildcard *.c)
-SINGLE_SRCS=$(filter-out %.c.c, $(SRCS))
-OBJS=$(SINGLE_SRCS:.c=.o)
-DEBUG_OBJS=$(SINGLE_SRCS:.c=.debug.o)
+SRCS=$(wildcard *.nc)
+SINGLE_SRCS=$(filter-out %.nc, $(SRCS))
+OBJS=$(SINGLE_SRCS:.nc=.o)
+DEBUG_OBJS=$(SINGLE_SRCS:.nc=.debug.o)
 TARGET=shsh
 TARGET_DEBUG=shsh-debug
 
@@ -35,16 +35,16 @@ TARGET_DEBUG=shsh-debug
 #########################################
 all: $(TARGET)
 
-$(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) $^ -o $@
+shsh: main.nc
+	$(CC) $(CFLAGS) -o shsh main.nc
 
 $(TARGET_DEBUG): $(DEBUG_OBJS)
 	$(CC) $(CFLAGS_DEBUG) $^ -o $@
 
-%.o: %.c
+%.o: %.nc
 	$(CC) $(CFLAGS) -c $< -o $@
 
-%.debug.o: %.c
+%.debug.o: %.nc
 	$(CC) $(CFLAGS_DEBUG) -c $< -o $@
 
 #########################################
@@ -62,7 +62,7 @@ install:
 # clean
 #########################################
 clean:
-	rm -fR *.o *.c.i *.c.out *.c.c shsh *.log *.out common.h shsh-debug tmp-common*.txt tmp-common-header*
+	rm -fR *.o *.c.i *.c.out *.c shsh *.log *.out common.h shsh-debug tmp-common*.txt tmp-common-header*
 
 #########################################
 # uninstall

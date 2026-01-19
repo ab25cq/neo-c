@@ -18,15 +18,15 @@ libdir=${exec_prefix}/lib
 #########################################
 CC=neo-c
 INSTALL=install
-CFLAGS= -g -s -O2 #-O1 -fsanitize=address,undefined -fno-omit-frame-pointer
+CFLAGS= -g -Og #-O1 -fsanitize=address,undefined -fno-omit-frame-pointer
 CFLAGS_DEBUG= -gdwarf-4 -cg 
 LIBS=
 OS=linux
 DESTDIR=/usr/local/
-SRCS=$(wildcard *.c)
-SINGLE_SRCS=$(filter-out %.c.c, $(SRCS))
-OBJS=$(SINGLE_SRCS:.c=.o)
-DEBUG_OBJS=$(SINGLE_SRCS:.c=.debug.o)
+SRCS=$(wildcard *.nc)
+SINGLE_SRCS=$(filter-out %.c, $(SRCS))
+OBJS=$(SINGLE_SRCS:.nc=.o)
+DEBUG_OBJS=$(SINGLE_SRCS:.nc=.debug.o)
 TARGET=zed
 TARGET_DEBUG=zed-debug
 
@@ -41,10 +41,10 @@ $(TARGET): $(OBJS)
 $(TARGET_DEBUG): $(DEBUG_OBJS)
 	$(CC) $(CFLAGS_DEBUG) $^ -o $@
 
-%.o: %.c
+%.o: %.nc
 	$(CC) $(CFLAGS) -c $< -o $@
 
-%.debug.o: %.c
+%.debug.o: %.nc
 	$(CC) $(CFLAGS_DEBUG) -c $< -o $@
 
 #########################################
@@ -66,7 +66,7 @@ install:
 # clean
 #########################################
 clean:
-	rm -fR *.o *.c.i *.c.out *.c.c zed *.log *.out zed-debug tmp-common*.txt
+	rm -fR *.o *.c.i *.c.out *.c zed *.log *.out zed-debug tmp-common*.txt
 
 #########################################
 # uninstall

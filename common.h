@@ -168,7 +168,7 @@ uniq class sType
     
     sNode*% mTypeOfNode;
     
-    new(string name, bool heap=false, sInfo* info=info, bool unsinged_=false) record
+    new(string name, bool heap=false, sInfo* info=info, bool unsinged_=false) 
     {
         int pointer_num = 0;
         char* p = name;

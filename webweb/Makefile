@@ -18,15 +18,15 @@ libdir=${exec_prefix}/lib
 #########################################
 CC=neo-c
 INSTALL=install
-CFLAGS= -O2 -net -g -s 
+CFLAGS= -Og -g 
 CFLAGS_DEBUG= -gdwarf-4 -cg -net 
-LIBS=-lpcre
+LIBS=-lssl
 OS=linux
 DESTDIR=/usr/local/
-SRCS=$(wildcard *.c)
-SINGLE_SRCS=$(filter-out %.c.c, $(SRCS))
-OBJS=$(SINGLE_SRCS:.c=.o)
-DEBUG_OBJS=$(SINGLE_SRCS:.c=.debug.o)
+SRCS=$(wildcard *.nc)
+SINGLE_SRCS=$(filter-out %.c, $(SRCS))
+OBJS=$(SINGLE_SRCS:.nc=.o)
+DEBUG_OBJS=$(SINGLE_SRCS:.nc=.debug.o)
 TARGET=webweb2
 TARGET_DEBUG=webweb2-debug
 
@@ -37,15 +37,15 @@ all: $(TARGET)
 	(cd cgi-bin && make)
 
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $^ -o $@ $(LIBS)
 
 $(TARGET_DEBUG): $(DEBUG_OBJS)
 	$(CC) $(CFLAGS_DEBUG) $^ -o $@
 
-%.o: %.c
+%.o: %.nc
 	$(CC) $(CFLAGS) -c $< -o $@
 
-%.debug.o: %.c
+%.debug.o: %.nc
 	$(CC) $(CFLAGS_DEBUG) -c $< -o $@
 
 #########################################
@@ -67,7 +67,8 @@ install:
 # clean
 #########################################
 clean:
-	rm -fR *.o *.c.i *.c.out *.c.c webweb2 *.log *.out webweb2-debug
+	rm -fR *.o *.c.i *.c.out *.c webweb2 *.log *.out webweb2-debug
+	(cd dbdb && make clean)
 
 #########################################
 # uninstall

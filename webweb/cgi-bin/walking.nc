@@ -1,5 +1,6 @@
 #include <neo-c.h>
 #include <neo-c-net.h>
+#include <stdint.h>
 
 int main(int argc, char** argv)
 {
@@ -28,9 +29,9 @@ int main(int argc, char** argv)
     </style>
 </head>
 <body>
-<p>撫でています</p>
+<p>散歩に行きました</p>
 
-<img src="/cgi-bin/images/pet.jpeg" alt="title" style="width: 30%; height: 30%;">
+<img src="/cgi-bin/images/walking.jpeg" alt="title" style="width: 30%; height: 30%;">
 
 <a href="/cgi-bin/main.cgi" rel="nofollow">戻る</a>
 

@@ -18,8 +18,8 @@ libdir=${exec_prefix}/lib
 #########################################
 CC=neo-c
 INSTALL=install
-CFLAGS= -common-header -O2 -net
-CFLAGS_DEBUG= -common-header -gdwarf-4 -cg 
+CFLAGS= -Og
+CFLAGS_DEBUG= -gdwarf-4 -cg 
 LIBS=-lpcre
 OS=linux
 DESTDIR=/usr/local/
@@ -35,14 +35,8 @@ TARGET_DEBUG=dbdb-client-debug
 #########################################
 all: $(TARGET)
 
-$(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) $^ -o $@
-
-$(TARGET_DEBUG): $(DEBUG_OBJS)
-	$(CC) $(CFLAGS_DEBUG) $^ -o $@
-
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+$(TARGET): 
+	$(CC) $(CFLAGS) -o dbdb-client main.nc -lssl
 
 %.debug.o: %.c
 	$(CC) $(CFLAGS_DEBUG) -c $< -o $@
@@ -66,7 +60,7 @@ install:
 # clean
 #########################################
 clean:
-	rm -fR *.o *.c.i *.c.out *.c.c dbdb-client *.log *.out dbdb-client-debug
+	rm -fR *.o *.c.i *.c.out *.c dbdb-client *.log *.out dbdb-client-debug
 
 #########################################
 # uninstall
