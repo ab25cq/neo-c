@@ -1,8 +1,44 @@
+#!/usr/bin/env bash
+
+files=()
+opts=()
+target=""
+
+expect_target=false
+
+for arg in "$@"; do
+  if [ "$expect_target" = true ]; then
+    target="$arg"
+    expect_target=false
+    continue
+  fi
+
+  case "$arg" in
+    -o)
+      #opts+=("$arg")
+      expect_target=true
+      ;;
+    -*)
+      opts+=("$arg")
+      ;;
+    *)
+      files+=("$arg")
+      ;;
+  esac
+done
+
 #base="${1}"
-base="${1%.c}"
+base="${files[0]%.c}"
 shift
-ncc $@ ${base}.c
-if clang $@ -o ${base} ${base}.c.c 2> ${base}.c.error 
+
+if test -z "$target"
+then
+    target=${base}
+fi
+
+ncc ${opts[@]} ${base}.c
+echo clang ${opts[@]} -o ${target} ${base}.c.c 2> ${base}.c.error 
+if clang ${opts[@]} -o ${target} ${base}.c.c 2> ${base}.c.error 
 then
     rm ${base}.c.error
 else
