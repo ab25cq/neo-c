@@ -62,7 +62,7 @@ install:
 # clean
 #########################################
 clean:
-	rm -fR *.o *.c.i *.c.out *.c.c mf *.log *.out mf-debug tmp-common*.txt tmp-common-header*
+	rm -fR *.error *.o *.c.i *.c.out *.c.c mf *.log *.out mf-debug tmp-common*.txt tmp-common-header*
 
 #########################################
 # uninstall
