@@ -6,6 +6,7 @@ target=""
 no_rm_pp=true
 
 expect_target=false
+compile_only=false
 
 for arg in "$@"; do
   if [ "$expect_target" = true ]; then
@@ -22,6 +23,10 @@ for arg in "$@"; do
       #opts+=("$arg")
       expect_target=true
       ;;
+    -c)
+      compile_only=true
+      #opts+=("$arg")
+      ;;
     -*)
       opts+=("$arg")
       ;;
@@ -32,23 +37,48 @@ for arg in "$@"; do
 done
 
 #base="${1}"
-base="${files[0]%.c}"
+base="${files[0]%.nc}"
 shift
 
-if test -z "$target"
-then
-    target=${base}
-fi
 
-ncc ${opts[@]} ${base}.c
-echo clang ${opts[@]} -o ${target} ${base}.c.c 2> ${base}.c.error 
-if clang ${opts[@]} -o ${target} ${base}.c.c 2> ${base}.c.error 
+ncc ${opts[@]} ${base}.nc
+
+if test $? = 0
 then
-    rm ${base}.c.error
-    if test $no_rm_pp = true
+    if test $compile_only = true
     then
-        rm ${base}.c.i
+        if test -z "$target"
+        then
+            target=${base}.o
+        fi
+        
+#        echo clang -c ${opts[@]} -o ${target} ${base}.c 2> ${base}.c.error 
+        if clang -c ${opts[@]} -o ${target} ${base}.c 2> ${base}.c.error 
+        then
+            rm ${base}.c.error
+            if test $no_rm_pp = true
+            then
+                rm ${base}.nc.i
+            fi
+        else
+            cat ${base}.c.error | grep error; exit 3
+        fi
+    else 
+        if test -z "$target"
+        then
+            target=${base}
+        fi
+        
+#       echo clang ${opts[@]} -o ${target} ${base}.c 2> ${base}.c.error 
+        if clang ${opts[@]} -o ${target} ${base}.c 2> ${base}.c.error 
+        then
+            rm ${base}.c.error
+            if test $no_rm_pp = true
+            then
+                rm ${base}.nc.i
+            fi
+        else
+            cat ${base}.c.error | grep error; exit 3
+        fi
     fi
-else
-    cat ${base}.c.error | grep error; exit 3
-fi
+fi    
