@@ -17,4 +17,4 @@ all: $(OBJECTS)
 	$(NEO_C) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJECTS)
+	rm -f $(OBJECTS) *.c

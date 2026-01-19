@@ -18,15 +18,15 @@ libdir=${exec_prefix}/lib
 #########################################
 CC=neo-c
 INSTALL=install
-CFLAGS=-O2
+CFLAGS=-Og -g
 CFLAGS_DEBUG=-gdwarf-4 -cg 
 LIBS=
 OS=linux
 DESTDIR=/usr/local/
-SRCS=$(wildcard *.c)
-SINGLE_SRCS=$(filter-out %.c.c, $(SRCS))
-OBJS=$(SINGLE_SRCS:.c=.o)
-DEBUG_OBJS=$(SINGLE_SRCS:.c=.debug.o)
+SRCS=$(wildcard *.nc)
+SINGLE_SRCS=$(filter-out %.c, $(SRCS))
+OBJS=$(SINGLE_SRCS:.nc=.o)
+DEBUG_OBJS=$(SINGLE_SRCS:.nc=.debug.o)
 TARGET=mf
 TARGET_DEBUG=mf-debug
 
@@ -36,12 +36,12 @@ TARGET_DEBUG=mf-debug
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) $^ -o $@ -v -lncurses -lreadline 
+	$(CC) $(CFLAGS) -o mf main.nc -lncurses -lreadline 
 
 $(TARGET_DEBUG): $(DEBUG_OBJS)
 	$(CC) $(CFLAGS_DEBUG) $^ -o $@ -lncurses -lreadline 
 
-%.o: %.c
+%.o: %.nc
 	$(CC) $(CFLAGS) -c $< -o $@
 
 %.debug.o: %.c
