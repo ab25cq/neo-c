@@ -729,7 +729,7 @@ static void process_define(MacroTable *t, char *line) {
         m->nparams = np;
         m->var_param = var_param;
         m->is_variadic = variadic;
-        m->self_ref = false;
+        m->self_ref = macro_value_contains_ident(m->value, namebuf);
         free(valbuf);
     } else {
         p = after_name;
@@ -1010,6 +1010,11 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
                 }
                 size_t j2 = j; while (line[j2] && isspace((unsigned char)line[j2])) j2++;
                 if (fm && line[j2] == '(') {
+                    if (g_expand_pass > 0 && fm->self_ref) {
+                        for (size_t q = i; q < j; ++q) sb_putc(out, line[q]);
+                        i = j;
+                        continue;
+                    }
                     // parse arguments
                     size_t p = j2 + 1; int depthP = 1, depthB = 0, depthC = 0;
                     enum {AC_CODE, AC_DQ, AC_SQ, AC_SL, AC_BL} ast = AC_CODE;

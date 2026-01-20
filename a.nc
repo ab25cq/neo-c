@@ -1,11 +1,11 @@
-#include <neo-c.h
+#define isdigit(a) (0 ? isdigit(a) : ((unsigned)(a)-'0') < 10)
+
 
 int main(int argc, char** argv)
 {
-    printf("""
-#include <stdlib.h>    
-###
-""");
-
-    return 0;
+    if(isdigit('9')) {
+        return 0;
+    }
+    
+    return 1;
 }
