@@ -68,7 +68,7 @@ sh fast_build.sh will automatically install the necessary packages.
 
 Supports Linux, MacOS (Darwin), raspberry pi, and baremetal.
 
-sh fast_build.shとすると自動的に必要なパッケージがインストールされます。
+sh clean-self-host.shとすると自動的に必要なパッケージがインストールされます。
 
 LinuxとMacOS(Darwin), raspberry pi, ベアメタルをサポートしています。
 
