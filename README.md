@@ -93,7 +93,7 @@ sh all_build.sh
 # Histories
 
 ```
-0.8.5.0 The extension of neo-c is changed from .c to .nc. And compiler drivers uses shell script. and you can write head of # in here document.
+0.8.5.0 The extension of neo-c is changed from .c to .nc. And compiler drivers uses shell script. and you can write # at head of line in here document.
 0.8.3.0 tested on PICO
 0.8.2.5 CPP has been wrritten by codex. And more compatibilities C lang. Almost C header can be work.
 0.8.2.1 Refactoring
