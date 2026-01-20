@@ -51,8 +51,6 @@ int err_msg2(sInfo* info, char* msg, ...)
         vasprintf(&msg2,msg,args);
         va_end(args);
         
-        char* p = info.p;
-        
         buffer*% buf = new buffer();
         
         buf.append_format("%s %d(real %d)(block %d): %s", info.sname, info.sline, info.sline_real, info.sline_block, msg2);
