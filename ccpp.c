@@ -564,6 +564,45 @@ static void scan_comment_depth(const char *s, int *depth) {
     }
 }
 
+static void scan_heredoc_state(const char *s, bool *in_heredoc, int *bl_depth, bool allow_start) {
+    if (!s || !in_heredoc || !bl_depth) return;
+    enum { HD_CODE, HD_DQ, HD_SQ, HD_SL, HD_BL } st = (*bl_depth > 0) ? HD_BL : HD_CODE;
+    bool hd = *in_heredoc;
+    for (size_t i = 0; s[i]; ++i) {
+        if (hd) {
+            if (s[i] == '"' && s[i+1] == '"' && s[i+2] == '"') {
+                hd = false;
+                i += 2;
+                st = (*bl_depth > 0) ? HD_BL : HD_CODE;
+            }
+            continue;
+        }
+        char c = s[i];
+        if (st == HD_CODE) {
+            if (allow_start && c == '"' && s[i+1] == '"' && s[i+2] == '"' && s[i+3] == '\0') {
+                hd = true;
+                break;
+            }
+            if (c == '"') { st = HD_DQ; continue; }
+            if (c == '\'') { st = HD_SQ; continue; }
+            if (c == '/' && s[i+1] == '/') { st = HD_SL; break; }
+            if (c == '/' && s[i+1] == '*') { (*bl_depth)++; st = HD_BL; i++; continue; }
+        } else if (st == HD_DQ) {
+            if (c == '"' && !is_escaped(s, i)) st = HD_CODE;
+        } else if (st == HD_SQ) {
+            if (c == '\'' && !is_escaped(s, i)) st = HD_CODE;
+        } else if (st == HD_BL) {
+            if (c == '/' && s[i+1] == '*') { (*bl_depth)++; i++; continue; }
+            if (c == '*' && s[i+1] == '/') {
+                (*bl_depth)--; i++;
+                if (*bl_depth <= 0) { *bl_depth = 0; st = HD_CODE; }
+                continue;
+            }
+        }
+    }
+    *in_heredoc = hd;
+}
+
 static void strip_comments_inplace(char *s) {
     if (!s) return;
     enum { SC_CODE, SC_DQ, SC_SQ, SC_BL } st = SC_CODE;
@@ -2154,6 +2193,8 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
     bool injected_libc_typedefs = false;
     bool skipping_sockaddr_union = false;
     bool sockaddr_union_const = false;
+    bool in_heredoc = false;
+    int heredoc_bl_depth = 0;
     IfCtx *istk = NULL; size_t ilen = 0, icap = 0;
     long line_no = 0;
     bool need_line_directive = false;
@@ -2169,7 +2210,7 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
         line_no++;
         g_cur_line = line_no;
         char *raw = line.buf ? line.buf : "";
-        if (line_ends_with_ident(raw, "__attribute_deprecated_msg__")) {
+        if (!in_heredoc && line_ends_with_ident(raw, "__attribute_deprecated_msg__")) {
             Str next; sb_init(&next);
             if (read_line(in, &next)) {
                 const char *q = next.buf ? next.buf : "";
@@ -2188,9 +2229,10 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
             }
         }
         raw = line.buf ? line.buf : "";
+        bool heredoc_active = in_heredoc;
         bool need_line_directive_after = false;
 
-        if (!has_lookahead && line_ends_with_func_macro(raw, tbl)) {
+        if (!in_heredoc && !has_lookahead && line_ends_with_func_macro(raw, tbl)) {
             Str next; sb_init(&next);
             if (read_line(in, &next)) {
                 const char *q = next.buf ? next.buf : "";
@@ -2213,7 +2255,10 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
         bool active = (ilen == 0) ? true : istk[ilen-1].current_active;
         bool in_block_comment = (g_block_comment_depth > 0);
 
-        if (!in_block_comment && *p == '#') {
+        bool is_directive_line = (!in_block_comment && *p == '#');
+        scan_heredoc_state(raw, &in_heredoc, &heredoc_bl_depth, !is_directive_line);
+
+        if (is_directive_line && !heredoc_active) {
             p++; p = lskip(p);
             char kw[32]; size_t adv = 0; parse_ident(p, &adv, kw, sizeof kw); p += adv; p = lskip(p);
             bool emit_directive_line = false;

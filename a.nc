@@ -1,7 +1,10 @@
-#include <stdio.h>
+#include <neo-c.h
 
 int main(int argc, char** argv)
 {
-    puts("HELLO WORLD");
+    puts("""
+#include <stdlib.h>    
+###""");
+
     return 0;
 }

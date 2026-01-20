@@ -838,42 +838,43 @@ uniq string __builtin_string(char* str)
     return result;
 }
 
-#if defined(__BAREMETAL__)
-uniq void come_push_stackframe(char* sname, int sline, int id) version 2
+if($UNIX == 0)
 {
-    inherit(sname, sline, id);
+    uniq void come_push_stackframe(char* sname, int sline, int id) version 2
+    {
+        inherit(sname, sline, id);
+    }
+    
+    uniq void come_pop_stackframe() version 2
+    {
+        inherit();
+    }
+    
+    uniq void come_save_stackframe(char* sname, int sline) version 2
+    {
+        inherit(sname, sline);
+    }
+    
+    uniq void stackframe() version 2
+    {
+        inherit();
+    }
+    
+    uniq string come_get_stackframe() version 2
+    {
+        return inherit();
+    }
+    
+    uniq void* come_calloc(size_t count, size_t size, char* sname=null, int sline=0, char* class_name="") version 2
+    {
+        return inherit(count, size, sname, sline, class_name);
+    }
+    
+    uniq void come_free(void* mem) version 2
+    {
+        inherit(mem);
+    }
 }
-
-uniq void come_pop_stackframe() version 2
-{
-    inherit();
-}
-
-uniq void come_save_stackframe(char* sname, int sline) version 2
-{
-    inherit(sname, sline);
-}
-
-uniq void stackframe() version 2
-{
-    inherit();
-}
-
-uniq string come_get_stackframe() version 2
-{
-    return inherit();
-}
-
-uniq void* come_calloc(size_t count, size_t size, char* sname=null, int sline=0, char* class_name="") version 2
-{
-    return inherit(count, size, sname, sline, class_name);
-}
-
-uniq void come_free(void* mem) version 2
-{
-    inherit(mem);
-}
-#endif
 
 //////////////////////////////
 // list
