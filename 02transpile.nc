@@ -1313,6 +1313,7 @@ int come_main(int argc, char** argv)
         info.var_definition = new map<string, buffer*%>();
         info.uniq_definition = new map<string, string>();
         info.previous_struct_definition = new map<string, buffer*%>();
+        info.c_include_definition = new map<string, buffer*%>();
         info.typedef_definition = new map<string, buffer*%>();
         info.named_child_struct = new map<string, sType*%>();
         info.reflection_vars = new map<string, string>();

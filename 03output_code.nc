@@ -1430,6 +1430,12 @@ bool output_source_file(sInfo* info)
     FILE* f = fopen(output_file_name, "w");
     if(f == null) { die("fopen"); }
     
+    fprintf(f, "/// c_include definition ///\n");
+    foreach(it, info.c_include_definition) {
+        buffer* buf = borrow info.c_include_definition[string(it)]??;
+        fprintf(f, "%s\n", buf.to_string());
+    }
+    
     fprintf(f, "/// typedef definition ///\n");
     foreach(it, info.typedef_definition) {
         buffer* buf = borrow info.typedef_definition[string(it)]??;

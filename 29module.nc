@@ -1700,6 +1700,25 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
         
         return new sNothingNode(info) implements sNode;
     }
+    else if(buf === "c_include" && *info->p == '{') {
+        string block_text = skip_block();
+        
+        char* p = block_text + strlen(block_text);
+        
+        while(*p && p >= block_text && *p != '}') {
+            p--;
+        }
+        p--;
+        
+        string contents = block_text.substring(1, p - (block_text + strlen(block_text))-1);
+        
+        //add_come_code(info, "%s\n", contents);
+        static int n = 0;
+        n++;
+        info.c_include_definition.insert(s"c_include\{n}", contents.to_buffer());
+        
+        return new sNothingNode(info) implements sNode;
+    }
     else if(buf === "_Static_assert" || buf === "static_assert" || buf === "__STATIC_ASSERT") {
         expected_next_character('(');
         

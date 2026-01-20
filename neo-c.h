@@ -33,23 +33,23 @@ var UNIX=1
 // PICO
 ///////////////////////////////////////////////////////////////////////////
 #if defined(__PICO__)
-    __c__ {#define _GNU_SOURCE}
-    __c__ {#include "stdarg.h"}
-    __c__ {#include "stdlib.h"}
-    __c__ {#include "stdint.h"}
-    __c__ {#include "string.h"}
-    __c__ {#include "stdio.h"}
-    __c__ {#include "ctype.h"}
-    __c__ {#include "wchar.h"}
-    __c__ {#include "pico/stdlib.h"}
-    __c__ {#include "pico/stdio.h"}
-    __c__ {#include "pico/time.h"}
-    __c__ {#include "hardware/irq.h"}
-    __c__ {#include "hardware/timer.h"}
-    __c__ {#include "hardware/uart.h"}
+    c_include {#define _GNU_SOURCE}
+    c_include {#include "stdarg.h"}
+    c_include {#include "stdlib.h"}
+    c_include {#include "stdint.h"}
+    c_include {#include "string.h"}
+    c_include {#include "stdio.h"}
+    c_include {#include "ctype.h"}
+    c_include {#include "wchar.h"}
+    c_include {#include "pico/stdlib.h"}
+    c_include {#include "pico/stdio.h"}
+    c_include {#include "pico/time.h"}
+    c_include {#include "hardware/irq.h"}
+    c_include {#include "hardware/timer.h"}
+    c_include {#include "hardware/uart.h"}
     
-    __c__ {#include "pico/mutex.h"}
-    __c__ {#include "pico/multicore.h"}
+    c_include {#include "pico/mutex.h"}
+    c_include {#include "pico/multicore.h"}
 
     #define MUTEX_INITIALIZER (mutex_t){ .locked = false, .core = NULL }
     #define NULL ((void*)0)
