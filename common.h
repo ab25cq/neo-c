@@ -192,7 +192,6 @@ uniq class sType
         
         if(klass == null && generics_class == null) {
             err_msg2(info, "class not found(%s)(1)\n", name2);
-            stackframe();
         }
         
         if(klass) {
