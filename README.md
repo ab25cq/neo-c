@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.8.5.4
+version 0.8.5.5
 
 ``` C
 #include <neo-c.h>
@@ -93,6 +93,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.8.5.5 More refine Makefile to parallel compile.
 0.8.5.4 Refine Makefile to parallel compile.
 0.8.5.3 no trim the last line of Here Document.
 0.8.5.2 tested on PICO
