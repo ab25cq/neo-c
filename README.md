@@ -64,7 +64,7 @@ neo-c outputs c source with standard C libraries only. So you can use this for m
 
 # インストール
 
-sh fast_build.sh will automatically install the necessary packages.
+sh clean-self-host.sh will automatically install the necessary packages.
 
 Supports Linux, MacOS (Darwin), raspberry pi, and baremetal.
 
