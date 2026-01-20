@@ -25,6 +25,9 @@ for arg in "$@"; do
     -gcc)
       CC=gcc
       ;;
+    -pico)
+      opts+=("-D__PICO__")
+      ;;
     -o)
       #opts+=("$arg")
       expect_target=true
