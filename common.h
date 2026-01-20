@@ -926,7 +926,7 @@ void skip_spaces_and_lf(sInfo* info=info);
 void skip_spaces_and_lf2(sInfo* info=info);
 string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sType* generics_type, sInfo* info);
 
-record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_name=false, bool parse_multiple_type=true, bool in_function_parametor=false)
+tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_name=false, bool parse_multiple_type=true, bool in_function_parametor=false)
 tup: sType*%, string parse_variable_name_on_multiple_declare(sType* base_type_name, bool first, sInfo* info);
 sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_function=false);
 int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* param_names, sInfo* info, bool no_var_table=false, bool loop_block=false);
