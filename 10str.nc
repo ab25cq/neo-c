@@ -887,9 +887,11 @@ sNode*% expression_node(sInfo* info) version 96
 
         while(1) {
             if(*info->p == '"' && *(info->p+1) == '"' && *(info->p+2) == '"') {
+/*
                 if(head_of_last_line) {
                     value.trim(info->p-head_of_last_line);
                 }
+*/
                 
                 info->p+=3;
                 

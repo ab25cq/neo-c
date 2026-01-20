@@ -2,9 +2,10 @@
 
 int main(int argc, char** argv)
 {
-    puts("""
+    printf("""
 #include <stdlib.h>    
-###""");
+###
+""");
 
     return 0;
 }

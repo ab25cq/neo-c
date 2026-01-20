@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.8.5.2
+version 0.8.5.3
 
 ``` C
 #include <neo-c.h>
@@ -93,6 +93,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.8.5.3 no trim the last line of Here Document.
 0.8.5.2 tested on PICO
 0.8.5.1 Fixed the bug when class not found.
 0.8.5.0 The extension of neo-c is changed from .c to .nc. And compiler drivers uses shell script. and you can write # at head of line in here document.
