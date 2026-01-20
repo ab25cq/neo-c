@@ -5,7 +5,7 @@ then
 # alpine linux
 elif command -v apk > /dev/null
 then
-    sudo apk add sudo git clang gcc readline-dev ncurses-dev make autoconf valgrind gdb lldb musl-dev readline-dev openssl-dev libdwarf-dev elfutils-dev
+    sudo apk add sudo git clang gcc readline-dev ncurses-dev make autoconf valgrind gdb lldb musl-dev readline-dev openssl-dev Dlibdwarf-dev elfutils-dev
 # termux
 elif test `uname -o` = Android
 then
