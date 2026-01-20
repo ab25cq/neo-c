@@ -9,7 +9,7 @@ set(CMAKE_CXX_STANDARD 17)
 pico_sdk_init()
 
 add_executable(minux2
-    main_.c
+    main.c
 )
 
 target_link_libraries(minux2 pico_stdlib)
