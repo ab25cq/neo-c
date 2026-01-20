@@ -19,8 +19,8 @@ libdir=${exec_prefix}/lib
 CC=clang
 NCC=@NCC@
 INSTALL=/usr/bin/install -c
-CFLAGS=-I$(HOME)/include -I. -I/opt/homebrew/opt/ncurses/include -L/opt/homebrew/opt/ncurses/lib -I/usr/local/opt/ncurses/include -L/usr/local/opt/ncurses/lib -g -s -O2 #-O1 -fsanitize=address,undefined -fno-omit-frame-pointer 
-CFLAGS2=-I$(HOME)/include -I. -I/opt/homebrew/opt/ncurses/include -L/opt/homebrew/opt/ncurses/lib -I/usr/local/opt/ncurses/include -L/usr/local/opt/ncurses/lib -g -O1 -fsanitize=address,undefined -fno-omit-frame-pointer
+CFLAGS=-I$(HOME)/include -I. -I/opt/homebrew/opt/ncurses/include -L/opt/homebrew/opt/ncurses/lib -I/usr/local/opt/ncurses/include -L/usr/local/opt/ncurses/lib -g -s -O2
+CFLAGS2=-I$(HOME)/include -I. -I/opt/homebrew/opt/ncurses/include -L/opt/homebrew/opt/ncurses/lib -I/usr/local/opt/ncurses/include -L/usr/local/opt/ncurses/lib -g -O1
 LIBS= -ldl -lm  -lncursesw 
 OS=
 DESTDIR=/usr/local
