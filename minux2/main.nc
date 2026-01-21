@@ -52,7 +52,6 @@ void init_task(void (*fun)())
     gTasks.add(task);
 }
 
-__attribute__((optimize("O0")))
 void save_context(sTask* task)
 {
     asm volatile (
@@ -136,7 +135,6 @@ void save_context(sTask* task)
     task.sp = SP; 
 }
     
-__attribute__((optimize("O0")))
 void restore_context(sTask* task)
 {
     SP = task.sp;
@@ -221,7 +219,6 @@ void restore_context(sTask* task)
     );
 }
 
-__attribute__((optimize("O0")))
 bool timer_callback(struct repeating_timer *t) 
 {
     save_context(gTasks[gCurrentTask]);

@@ -718,73 +718,23 @@ static void sTask_finalize(struct sTask* self  )
 
 void save_context(struct sTask* task  )
 {
-    __asm volatile("ldr r0, =R4; \n"
-        "str r4, [r0];\n"
-        :
-        :
-        : "r0", "r4"
-    );
+    __asm volatile("ldr r0, =R4; \n""str r4, [r0];\n":::"r0","r4");
     task->r4=R4;
-    __asm volatile("ldr r0, =R5; \n"
-        "str r5, [r0];\n"
-        :
-        :
-        : "r0", "r5"
-    );
+    __asm volatile("ldr r0, =R5; \n""str r5, [r0];\n":::"r0","r5");
     task->r5=R5;
-    __asm volatile("ldr r0, =R6; \n"
-        "str r6, [r0];\n"
-        :
-        :
-        : "r0", "r6"
-    );
+    __asm volatile("ldr r0, =R6; \n""str r6, [r0];\n":::"r0","r6");
     task->r6=R6;
-    __asm volatile("ldr r0, =R7; \n"
-        "str r7, [r0];\n"
-        :
-        :
-        : "r0", "r7"
-    );
+    __asm volatile("ldr r0, =R7; \n""str r7, [r0];\n":::"r0","r7");
     task->r7=R7;
-    __asm volatile("ldr r0, =R8; \n"
-        "mov r3, r8;\n"
-        "str r3, [r0];\n"
-        :
-        :
-        : "r0", "r3", "r8"
-    );
+    __asm volatile("ldr r0, =R8; \n""mov r3, r8;\n""str r3, [r0];\n":::"r0","r3","r8");
     task->r8=R8;
-    __asm volatile("ldr r0, =R9; \n"
-        "mov r3, r9;\n"
-        "str r3, [r0];\n"
-        :
-        :
-        : "r0", "r3", "r9"
-    );
+    __asm volatile("ldr r0, =R9; \n""mov r3, r9;\n""str r3, [r0];\n":::"r0","r3","r9");
     task->r9=R9;
-    __asm volatile("ldr r0, =R10; \n"
-        "mov r3, r10;\n"
-        "str r3, [r0];\n"
-        :
-        :
-        : "r0", "r3", "r10"
-    );
+    __asm volatile("ldr r0, =R10; \n""mov r3, r10;\n""str r3, [r0];\n":::"r0","r3","r10");
     task->r10=R10;
-    __asm volatile("ldr r0, =R11; \n"
-        "mov r3, r11;\n"
-        "str r3, [r0];\n"
-        :
-        :
-        : "r0", "r3", "r11"
-    );
+    __asm volatile("ldr r0, =R11; \n""mov r3, r11;\n""str r3, [r0];\n":::"r0","r3","r11");
     task->r11=R11;
-    __asm volatile("mrs r1, psp\n"
-        "ldr r0, =SP; \n"
-        "str r1, [r0]; \n"
-        : 
-        :
-        : "r0", "r1"
-    );
+    __asm volatile("mrs r1, psp\n""ldr r0, =SP; \n""str r1, [r0]; \n":::"r0","r1");
     task->sp=SP;
 }
 
@@ -792,73 +742,23 @@ void restore_context(struct sTask* task  )
 {
     SP=task->sp;
     PC=*((uint32_t*)SP+6);
-    __asm volatile("ldr r0, =SP; \n"
-        "ldr r3, [r0]; \n"
-        "msr psp, r3; \n"
-        :
-        :
-        : "r0", "r3"
-    );
+    __asm volatile("ldr r0, =SP; \n""ldr r3, [r0]; \n""msr psp, r3; \n":::"r0","r3");
     R11=task->r11;
-    __asm volatile("ldr r0, =R11; \n"
-        "ldr r4, [r0];\n"
-        "mov r11, r4;\n"
-        :
-        :
-        : "r0", "r4", "r11"
-    );
+    __asm volatile("ldr r0, =R11; \n""ldr r4, [r0];\n""mov r11, r4;\n":::"r0","r4","r11");
     R10=task->r10;
-    __asm volatile("ldr r0, =R10; \n"
-        "ldr r4, [r0];\n"
-        "mov r10, r4;\n"
-        :
-        :
-        : "r0", "r4", "r10"
-    );
+    __asm volatile("ldr r0, =R10; \n""ldr r4, [r0];\n""mov r10, r4;\n":::"r0","r4","r10");
     R9=task->r9;
-    __asm volatile("ldr r0, =R9; \n"
-        "ldr r4, [r0];\n"
-        "mov r9, r4;\n"
-        :
-        :
-        : "r0", "r4", "r9"
-    );
+    __asm volatile("ldr r0, =R9; \n""ldr r4, [r0];\n""mov r9, r4;\n":::"r0","r4","r9");
     R8=task->r8;
-    __asm volatile("ldr r0, =R8; \n"
-        "ldr r4, [r0];\n"
-        "mov r8, r4;\n"
-        :
-        :
-        : "r0", "r4", "r8"
-    );
+    __asm volatile("ldr r0, =R8; \n""ldr r4, [r0];\n""mov r8, r4;\n":::"r0","r4","r8");
     R7=task->r7;
-    __asm volatile("ldr r0, =R7; \n"
-        "ldr r7, [r0];\n"
-        :
-        :
-        : "r0", "r7"
-    );
+    __asm volatile("ldr r0, =R7; \n""ldr r7, [r0];\n":::"r0","r7");
     R6=task->r6;
-    __asm volatile("ldr r0, =R6; \n"
-        "ldr r6, [r0];\n"
-        :
-        :
-        : "r0", "r6"
-    );
+    __asm volatile("ldr r0, =R6; \n""ldr r6, [r0];\n":::"r0","r6");
     R5=task->r5;
-    __asm volatile("ldr r0, =R5; \n"
-        "ldr r5, [r0];\n"
-        :
-        :
-        : "r0", "r5"
-    );
+    __asm volatile("ldr r0, =R5; \n""ldr r5, [r0];\n":::"r0","r5");
     R4=task->r4;
-    __asm volatile("ldr r0, =R4; \n"
-        "ldr r4, [r0];\n"
-        :
-        :
-        : "r0", "r4"
-    );
+    __asm volatile("ldr r0, =R4; \n""ldr r4, [r0];\n":::"r0","r4");
 }
 
 _Bool timer_callback(struct repeating_timer* t)
@@ -996,16 +896,7 @@ int main()
     SP=((struct sTask*)(__right_value0=list$1sTask$ph_operator_load_element(gTasks,gCurrentTask)))->sp;
     come_call_finalizer(sTask_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
     add_repeating_timer_ms(1000,timer_callback,((void*)0),&timer);
-    __asm volatile("ldr r0, =SP; \n"
-        "ldr r4, [r0]; \n"
-        "msr psp, r4\n"
-        "mov r0, #0x02\n"
-        "msr CONTROL, r0\n"
-        "isb\n"
-        :
-        : 
-        : "r0","r4"            // 使用するレジスタ
-    );
+    __asm volatile("ldr r0, =SP; \n""ldr r4, [r0]; \n""msr psp, r4\n""mov r0, #0x02\n""msr CONTROL, r0\n""isb\n":::"r0","r4");
     task1();
     while(1) {
     }
