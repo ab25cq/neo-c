@@ -2663,8 +2663,31 @@ sNode*% expression_node(sInfo* info=info) version 98
             buf2.append_char('(');
             
             list<sNode*%>*% exps = new list<sNode*%>();
+            bool dquort = false;
             while(true) {
-                if(*info->p == '(') {
+                if(*info->p == '\\') {
+                    buf2.append_char(*info->p);
+                    info->p++;
+                    
+                    if(*info->p != '\0') {
+                        buf2.append_char(*info->p);
+                        info->p++;
+                    }
+                }
+                else if(*info->p == '"') {
+                    dquort = !dquort;
+                    buf2.append_char(*info->p);
+                    info->p++;
+                    
+                    if(!dquort) {
+                        skip_spaces_and_lf();
+                    }
+                }
+                else if(dquort) {
+                    buf2.append_char(*info->p);
+                    info->p++;
+                }
+                else if(*info->p == '(') {
                     buf2.append_char('(');
                     info->p++;
                     
@@ -2685,14 +2708,25 @@ sNode*% expression_node(sInfo* info=info) version 98
                     info->sline++;
                     buf2.append_char(*info->p);
                     info->p++;
+                    skip_spaces_and_lf();
+                }
+                else if(*info->p == ':') {
+                    buf2.append_char(*info->p);
+                    info->p++;
+                    skip_spaces_and_lf();
+                }
+                else if(*info->p == ',') {
+                    buf2.append_char(*info->p);
+                    info->p++;
+                    skip_spaces_and_lf();
                 }
                 else if(*info->p == '\0') {
                     err_msg(info, "invalid source end at inline assembler");
                     exit(2);
                 }
                 else {
-                    buf2.append_char(*info->p);
-                    info->p++;
+                    err_msg(info, "unexpected character(%c)", *info->p);
+                    exit(2);
                 }
             }
             skip_spaces_and_lf();
