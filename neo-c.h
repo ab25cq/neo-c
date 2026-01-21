@@ -41,6 +41,7 @@ var UNIX=1
     c_include {#include "stdio.h"}
     c_include {#include "ctype.h"}
     c_include {#include "wchar.h"}
+    c_include {#include "pico/stdlib.h"}
     c_include {#include "pico/stdio.h"}
     c_include {#include "pico/time.h"}
     c_include {#include "hardware/irq.h"}
