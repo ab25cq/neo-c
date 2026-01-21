@@ -66,12 +66,10 @@ transpile_ok=$?
 
 if [ "$all_object_file" == true ]
 then
-    echo all
     echo $CC ${opts[@]} -o ${target} ${files[@]} -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include ${libs[@]}
     $CC ${opts[@]} -o ${target} ${files[@]} -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include ${libs[@]}
 elif test $transpile_ok = 0
 then
-    echo no all
     if test $compile_only = true
     then
         if test -z "$target"
