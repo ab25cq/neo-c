@@ -233,9 +233,9 @@ bool timer_callback(struct repeating_timer *t)
 void task1()
 {
     while(1) {
-        puts("TASK1");
+        puts("TASK1" + " BY NEO-C");
         sleep_ms(1000);
-        puts("TASK1-2");
+        puts("TASK1-2" + " BY NEO-C");
         sleep_ms(1000);
     }
 }
@@ -243,9 +243,9 @@ void task1()
 void task2()
 {
     while(1) {
-        puts("TASK2");
+        puts("TASK2" + " BY NEO-C");
         sleep_ms(1000);
-        puts("TASK2-2");
+        puts("TASK2-2" + " BY NEO-C");
         sleep_ms(1000);
     }
 }

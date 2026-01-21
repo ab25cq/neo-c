@@ -954,20 +954,26 @@ static int list$1sTask$ph_length(struct list$1sTask$ph* self)
 
 void task1()
 {
+    void* __right_value0 = (void*)0;
     while(1) {
-        puts("TASK1");
+        puts(((char*)(__right_value0=charp_operator_add("TASK1"," BY NEO-C"))));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         sleep_ms(1000);
-        puts("TASK1-2");
+        puts(((char*)(__right_value0=charp_operator_add("TASK1-2"," BY NEO-C"))));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         sleep_ms(1000);
     }
 }
 
 void task2()
 {
+    void* __right_value0 = (void*)0;
     while(1) {
-        puts("TASK2");
+        puts(((char*)(__right_value0=charp_operator_add("TASK2"," BY NEO-C"))));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         sleep_ms(1000);
-        puts("TASK2-2");
+        puts(((char*)(__right_value0=charp_operator_add("TASK2-2"," BY NEO-C"))));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         sleep_ms(1000);
     }
 }
