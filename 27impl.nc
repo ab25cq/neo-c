@@ -5,7 +5,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 93
     if(!gComeC && buf === "impl") {
         char* source_head = info.p;
         
-        var word = parse_word(info);
+        var word = parse_word();
         
         if(*info->p == '<') {
             info->p++;

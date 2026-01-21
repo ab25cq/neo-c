@@ -83,6 +83,8 @@ var UNIX=1
     __c__ {#include <assert.h>}
     #include <stdbool.h>
     
+    #define NULL ((void*)0)
+    
     using neo-c;
 #endif
 
@@ -5296,10 +5298,10 @@ uniq regex_t* new_token(compiler_state* st)
 
   regex_t* token = &st->pool[st->pool_size++];
   token->type = RE_UNUSED;
-  token->u.ccl = 0;
-  token->next = 0;
-  token->u.group.first = 0;
-  token->u.group.last = 0;
+  token->u.ccl = NULL;
+  token->next = NULL;
+  token->u.group.first = NULL;
+  token->u.group.last = NULL;
   token->u.group.id = 0;
   return token;
 }
@@ -5548,7 +5550,7 @@ uniq regex_t* compile_sequence(compiler_state* st, const char* pattern, int* pos
     return NULL;
   }
   sentinel->type = RE_UNUSED;
-  sentinel->next = 0;
+  sentinel->next = NULL;
 
   if (head == 0)
   {

@@ -1,0 +1,95 @@
+Darwin
+Darwin ab25cqnoMacBook-Air.local 25.2.0 Darwin Kernel Version 25.2.0: Tue Nov 18 21:03:25 PST 2025; root:xnu-12377.61.12~1/RELEASE_ARM64_T8122 arm64
+./ncc -c 01main.nc 
+./ncc -c 02transpile.nc 
+./ncc -c 03output_code.nc
+./ncc -c 04heap.nc
+./ncc -c 05parse.nc
+./ncc -c 06type.nc
+type check error(2). /usr/local/include/neo-c.h 5302 ccl is assigned to(1)
+left type is char pointer num 1 array dimention 0
+right type is int pointer num 0 array dimention 0
+type check error(2). /usr/local/include/neo-c.h 5303 next is assigned to(1)
+left type is regex_t pointer num 1 array dimention 0
+right type is int pointer num 0 array dimention 0
+type check error(2). /usr/local/include/neo-c.h 5304 first is assigned to(1)
+left type is regex_t pointer num 1 array dimention 0
+right type is int pointer num 0 array dimention 0
+type check error(2). /usr/local/include/neo-c.h 5305 last is assigned to(1)
+left type is regex_t pointer num 1 array dimention 0
+right type is int pointer num 0 array dimention 0
+type check error(2). /usr/local/include/neo-c.h 5554 next is assigned to(1)
+left type is regex_t pointer num 1 array dimention 0
+right type is int pointer num 0 array dimention 0
+transpile warning. err num 5
+./ncc -c 07function.nc
+./ncc -c 08call.nc
+./ncc -c 09pre_op.nc
+./ncc -c 10str.nc
+./ncc -c 11number.nc
+./ncc -c 12var.nc
+./ncc -c 13gvar.nc
+./ncc -c 14if.nc
+./ncc -c 15while.nc
+./ncc -c 16for.nc
+./ncc -c 17do_while.nc
+./ncc -c 18switch.nc
+./ncc -c 19struct.nc
+./ncc -c 20union.nc
+./ncc -c 21enum.nc
+./ncc -c 22typedef.nc 
+./ncc -c 23field.nc
+./ncc -c 24method.nc
+./ncc -c 25obj.nc
+./ncc -c 26eq.nc
+./ncc -c 27impl.nc
+./ncc -c 28interface.nc
+./ncc -c 29module.nc
+./ncc -c 30op.nc
+type check error(3). 27impl.nc 8 parse_word param num 0 is assinged to
+left type is _Bool pointer num 0
+right type is sInfo pointer num 1
+transpile warning. err num 1
+clang -o 01main.o -c 01main.c -DPREFIX="\"/usr/local/\"" -I/usr/local/include -g -std=c11 -g -Og 2> /dev/null
+clang -o 02transpile.o -c 02transpile.c -DPREFIX="\"/usr/local/\"" -I/usr/local/include -g -std=c11 -g -Og 2> /dev/null
+clang -o 03output_code.o -c 03output_code.c -DPREFIX="\"/usr/local/\"" -I/usr/local/include -g -std=c11 -g -Og 2> /dev/null
+clang -o 04heap.o -c 04heap.c -DPREFIX="\"/usr/local/\"" -I/usr/local/include -g -std=c11 -g -Og 2> /dev/null
+clang -o 05parse.o -c 05parse.c -DPREFIX="\"/usr/local/\"" -I/usr/local/include -g -std=c11 -g -Og 2> /dev/null
+clang -o 06type.o -c 06type.c -DPREFIX="\"/usr/local/\"" -I/usr/local/include -g -std=c11 -g -Og 2> /dev/null
+clang -o 07function.o -c 07function.c -DPREFIX="\"/usr/local/\"" -I/usr/local/include -g -std=c11 -g -Og 2> /dev/null
+clang -o 08call.o -c 08call.c -DPREFIX="\"/usr/local/\"" -I/usr/local/include -g -std=c11 -g -Og 2> /dev/null
+clang -o 09pre_op.o -c 09pre_op.c -DPREFIX="\"/usr/local/\"" -I/usr/local/include -g -std=c11 -g -Og 2> /dev/null
+clang -o 10str.o -c 10str.c -DPREFIX="\"/usr/local/\"" -I/usr/local/include -g -std=c11 -g -Og 2> /dev/null
+clang -o 11number.o -c 11number.c -DPREFIX="\"/usr/local/\"" -I/usr/local/include -g -std=c11 -g -Og 2> /dev/null
+clang -o 12var.o -c 12var.c -DPREFIX="\"/usr/local/\"" -I/usr/local/include -g -std=c11 -g -Og 2> /dev/null
+clang -o 13gvar.o -c 13gvar.c -DPREFIX="\"/usr/local/\"" -I/usr/local/include -g -std=c11 -g -Og 2> /dev/null
+clang -o 14if.o -c 14if.c -DPREFIX="\"/usr/local/\"" -I/usr/local/include -g -std=c11 -g -Og 2> /dev/null
+clang -o 15while.o -c 15while.c -DPREFIX="\"/usr/local/\"" -I/usr/local/include -g -std=c11 -g -Og 2> /dev/null
+clang -o 16for.o -c 16for.c -DPREFIX="\"/usr/local/\"" -I/usr/local/include -g -std=c11 -g -Og 2> /dev/null
+clang -o 17do_while.o -c 17do_while.c -DPREFIX="\"/usr/local/\"" -I/usr/local/include -g -std=c11 -g -Og 2> /dev/null
+clang -o 18switch.o -c 18switch.c -DPREFIX="\"/usr/local/\"" -I/usr/local/include -g -std=c11 -g -Og 2> /dev/null
+clang -o 19struct.o -c 19struct.c -DPREFIX="\"/usr/local/\"" -I/usr/local/include -g -std=c11 -g -Og 2> /dev/null
+clang -o 20union.o -c 20union.c -DPREFIX="\"/usr/local/\"" -I/usr/local/include -g -std=c11 -g -Og 2> /dev/null
+clang -o 21enum.o -c 21enum.c -DPREFIX="\"/usr/local/\"" -I/usr/local/include -g -std=c11 -g -Og 2> /dev/null
+clang -o 22typedef.o -c 22typedef.c -DPREFIX="\"/usr/local/\"" -I/usr/local/include -g -std=c11 -g -Og 2> /dev/null
+clang -o 23field.o -c 23field.c -DPREFIX="\"/usr/local/\"" -I/usr/local/include -g -std=c11 -g -Og 2> /dev/null
+clang -o 24method.o -c 24method.c -DPREFIX="\"/usr/local/\"" -I/usr/local/include -g -std=c11 -g -Og 2> /dev/null
+clang -o 25obj.o -c 25obj.c -DPREFIX="\"/usr/local/\"" -I/usr/local/include -g -std=c11 -g -Og 2> /dev/null
+clang -o 26eq.o -c 26eq.c -DPREFIX="\"/usr/local/\"" -I/usr/local/include -g -std=c11 -g -Og 2> /dev/null
+clang -o 27impl.o -c 27impl.c -DPREFIX="\"/usr/local/\"" -I/usr/local/include -g -std=c11 -g -Og 2> /dev/null
+clang -o 28interface.o -c 28interface.c -DPREFIX="\"/usr/local/\"" -I/usr/local/include -g -std=c11 -g -Og 2> /dev/null
+clang -o 29module.o -c 29module.c -DPREFIX="\"/usr/local/\"" -I/usr/local/include -g -std=c11 -g -Og 2> /dev/null
+clang -o 30op.o -c 30op.c -DPREFIX="\"/usr/local/\"" -I/usr/local/include -g -std=c11 -g -Og 2> /dev/null
+clang -o ncc 01main.o 02transpile.o 03output_code.o 04heap.o 05parse.o 06type.o 07function.o 08call.o 09pre_op.o 10str.o 11number.o 12var.o 13gvar.o 14if.o 15while.o 16for.o 17do_while.o 18switch.o 19struct.o 20union.o 21enum.o 22typedef.o 23field.o 24method.o 25obj.o 26eq.o 27impl.o 28interface.o 29module.o 30op.o ccpp.o
+cat self-host.sh >self-host 
+chmod a+x self-host
+mkdir -p "/usr/local/bin"
+/usr/bin/install -c -m 755 ./neo-c "/usr/local/bin"
+/usr/bin/install -c -m 755 ./ncc "/usr/local/bin"
+mkdir -p "/usr/local/include"
+/usr/bin/install -c -m 644 ./neo-c.h "/usr/local/include"
+/usr/bin/install -c -m 644 ./neo-c-libc.h "/usr/local/include"
+/usr/bin/install -c -m 644 ./neo-c-net.h "/usr/local/include"
+/usr/bin/install -c -m 644 ./neo-c-pthread.h "/usr/local/include"
+mkdir -p "/usr/local/share/doc/neo-c"
+/usr/bin/install -c -m 644 README.md "/usr/local/share/doc/neo-c/README.md"

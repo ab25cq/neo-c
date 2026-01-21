@@ -1,14 +1,14 @@
-#include <neo-c.h>
+
+int fun(char* aaa)
+{
+    return aaa;
+}
 
 int main(int argc, char** argv)
 {
-    int a = 123;
+    char buf[123+1];
     
-    printf("""
-\{a == 123 ? "aaa":"bbb"} 
-bbbb
-ccc
-""");
+    char* a = buf;
     
     return 1;
 }

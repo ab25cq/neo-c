@@ -303,8 +303,7 @@ class sStoreNode extends sNodeBase
                 err_msg(info, "don't append heap with constant, static, register");
                 return true;
             }
-            else if(array_initializer || string_initializer || left_type->mStatic 
-                || left_type->mConstant || left_type->mRegister || left_type->mArrayNum.length() > 0 || left_type->mArrayPointerType) 
+            else if(array_initializer || (left_type->mClass->mName === "char" && (left_type->mArrayNum.length() > 0 || left_type->mArrayPointerType) && string_initializer) || left_type->mStatic || left_type->mConstant || left_type->mRegister || left_type->mArrayNum.length() > 0 || left_type->mArrayPointerType) 
             {
                 sVar* var_ = borrow info.lv_table.mVars.at(string(self.name), null);
                 CVALUE*% come_value = new CVALUE();

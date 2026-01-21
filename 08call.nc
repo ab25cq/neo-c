@@ -600,6 +600,7 @@ class sFunCallNode extends sNodeBase
             }
         }
         
+        
         /// builtin ///
         if(fun_name === "__builtin_types_compatible_p") {
             if(params.length() != 2) {
