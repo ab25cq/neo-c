@@ -227,6 +227,9 @@ install:
 #########################################
 clean:
 	rm -fR ncc *.log *.o *.i *.out a a.c b b.c c c.c *.valgrind aa aaa a.out *.error
+	rm -fR mf/mf.dSYM
+	rm -fR shsh/shsh.dSYM
+	rm -fR webweb/dbdb/dbdb.dSYM
 
 distclean: clean
 	rm -fR  config.h autom4te.cache 
