@@ -165,12 +165,12 @@ class sCSourceNode extends sNodeBase
 
 class sInlineAssembler extends sNodeBase
 {
-    new(string source, list<sNode*%>*% exps, sInfo* info)
+    new(string source, bool volatile_, sInfo* info)
     {
         self.super();
         
         string self.source = source;
-        list<sNode*%>*% self.exps = exps;
+        bool self.volatile_ = volatile_;
     }
     
     string kind()
@@ -181,66 +181,16 @@ class sInlineAssembler extends sNodeBase
     bool compile(sInfo* info)
     {
         string source = self.source;
+        bool volatile_ = self.volatile_;
         
+
         CVALUE*% come_value = new CVALUE();
         
-        var buf = new buffer();
-        char* p = source;
+        come_value.c_value = """
+__asm \{volatile_ ? "volatile":""}
+\{source}
+""";
         
-        while(*p != '(') {
-            buf.append_char(*p);
-            p++;
-        }
-        
-        if(*p == '(') {
-            buf.append_char(*p);
-            p++;
-            
-            while(*p == ' ' || *p == '\t' || *p == '\n') {
-                buf.append_char(*p);
-                p++;
-            }
-        }
-        
-        bool dquort = false;
-        int num_exp = 0;
-        while(*p) {
-            if(*p == '"'){ 
-                buf.append_char(*p);
-                p++;
-                
-                dquort = !dquort;
-            }
-            else if(dquort) {
-                buf.append_char(*p);
-                p++;
-            }
-            else if(*p == '(') {
-                buf.append_char(*p);
-                p++;
-                
-                sNode*% node = self.exps[num_exp++];
-                
-                node_compile(node, info).elif {
-                    return false;
-                }
-                
-                CVALUE*% come_value = get_value_from_stack(-1, info);
-                
-                buf.append_str(come_value.c_value);
-                
-                if(*p == ')') {
-                    buf.append_char(*p);
-                    p++;
-                }
-            }
-            else {
-                buf.append_char(*p);
-                p++;
-            }
-        }
-        
-        come_value.c_value = "__asm " + buf.to_string();
         come_value.type = new sType(s"void");
         come_value.var = null;
         
@@ -1141,11 +1091,6 @@ class sFunCallNode extends sNodeBase
             come_value.c_value = buf.to_string();
             come_value.type = new sType(s"int"); // result_type;
             come_value.var = null;
-/*
-            if(come_value.type) {
-                come_value.type.mStatic = false;
-            }
-*/
             
             add_come_last_code(info, "%s", come_value.c_value);
             
@@ -1225,6 +1170,10 @@ class sFunCallNode extends sNodeBase
                     else {
                         i++;
                     }
+                }
+                
+                if(param_types[i]) {
+                    check_assign_type(s"\{fun_name} param num \{i} is assinged to", param_types[i], come_value.type, come_value, check_params:true);
                 }
                 
                 come_params.replace(i, come_value);
@@ -2651,12 +2600,15 @@ sNode*% expression_node(sInfo* info=info) version 98
             return node;
         }
         else if(inline_asm) {
+            bool volatile_ = false;
             var buf2 = new buffer();
             
             if(*info->p != '(') {
                 string word = parse_word(); // volatile
                 
-                buf2.append_str(word);
+                if(word === "volatile") {
+                    volatile_ = true;
+                }
             }
             
             expected_next_character('(');
@@ -2665,25 +2617,35 @@ sNode*% expression_node(sInfo* info=info) version 98
             list<sNode*%>*% exps = new list<sNode*%>();
             bool dquort = false;
             while(true) {
-                if(*info->p == '\\') {
-                    buf2.append_char(*info->p);
-                    info->p++;
+                if(dquort) {
+                    if(*info->p == '\\') {
+                        buf2.append_char(*info->p);
+                        info->p++;
                     
-                    if(*info->p != '\0') {
+                        if(*info->p == '\0') {
+                            err_msg(info, "invalid source end");
+                            return null;
+                        }
+                        else {
+                            buf2.append_char(*info->p);
+                            info->p++;
+                        }
+                    }
+                    else if(*info->p == '"') {
+                        buf2.append_char(*info->p);
+                        info->p++;
+                        skip_spaces_and_lf();
+                        
+                        dquort = false;
+                    }
+                    else {
                         buf2.append_char(*info->p);
                         info->p++;
                     }
                 }
                 else if(*info->p == '"') {
-                    dquort = !dquort;
-                    buf2.append_char(*info->p);
-                    info->p++;
+                    dquort = true;
                     
-                    if(!dquort) {
-                        skip_spaces_and_lf();
-                    }
-                }
-                else if(dquort) {
                     buf2.append_char(*info->p);
                     info->p++;
                 }
@@ -2693,7 +2655,13 @@ sNode*% expression_node(sInfo* info=info) version 98
                     
                     sNode*% exp = expression();
                     
-                    exps.add(exp);
+                    node_compile(exp).elif {
+                        return null;
+                    }
+                    
+                    CVALUE*% come_value = get_value_from_stack(-1, info);
+                    
+                    buf2.append_str(come_value.c_value);
                     
                     expected_next_character(')');
                     buf2.append_char(')');
@@ -2732,7 +2700,7 @@ sNode*% expression_node(sInfo* info=info) version 98
             skip_spaces_and_lf();
             
             info.sline_real = sline_real;
-            return new sInlineAssembler(buf2.to_string(), exps, info) implements sNode;
+            return new sInlineAssembler(buf2.to_string(), volatile_, info) implements sNode;
         }
         else if(fun_name_with_type_name) {
             info.p = head;

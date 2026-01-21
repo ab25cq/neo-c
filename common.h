@@ -916,6 +916,7 @@ sFun*,string create_operator_not_equals_automatically(sType* type, char* fun_nam
 sFun*,string create_not_equals_automatically(sType* type, char* fun_name, sInfo* info);
 sFun*,string create_get_hash_key_automatically(sType* type, char* fun_name, sInfo* info);
 string skip_block(sInfo* info=info, bool return_self_at_last=false);
+string skip_paren(sInfo* info=info);
 bool is_contained_generics_class(sType* type, sInfo* info);
 bool is_type_name(char* buf, sInfo* info=info);
 bool parsecmp(char* p2, sInfo* info=info)

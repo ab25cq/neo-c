@@ -614,11 +614,46 @@ string skip_block(sInfo* info=info, bool return_self_at_last=false)
 
         bool dquort = false;
         bool squort = false;
+        bool here_document = false;
         int sline = 0;
         int nest = 0;
         while(1) {
             parse_sharp();
-            if(dquort) {
+            if(here_document) {
+                if(*info->p == '\\') {
+                    info->p++;
+                    if(*info->p == '\0') {
+                        err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
+                        exit(2);
+                    }
+                    if(*info->p == '\n') {
+                        info->p++;
+                    }
+                    info->p++;
+                }
+                else if((info->end - info->p) > 3 && *info->p == '"' &&  *(info->p+1) == '"' && *(info->p+2) == '"') {
+                    info->p+=3;
+                    here_document = !here_document;
+                }
+                else if(*info->p == '\n') {
+                    info->p++;
+                    info->sline++;
+
+                    if(*info->p == '\0') {
+                        err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
+                        exit(2);
+                    }
+                }
+                else {
+                    info->p++;
+
+                    if(*info->p == '\0') {
+                        err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
+                        exit(2);
+                    }
+                }
+            }
+            else if(dquort) {
                 if(*info->p == '\\') {
                     info->p++;
                     if(*info->p == '\0') {
@@ -754,6 +789,185 @@ string skip_block(sInfo* info=info, bool return_self_at_last=false)
     
     return buf.to_string();
 }
+
+/*
+string skip_paren(sInfo* info=info)
+{
+    char* head = info.p;
+    if(*info->p == '(') {
+        info->p++;
+
+        bool dquort = false;
+        bool squort = false;
+        bool here_document = false;
+        int sline = 0;
+        int nest = 0;
+        while(1) {
+            parse_sharp();
+            if(here_document) {
+                if(*info->p == '\\') {
+                    info->p++;
+                    if(*info->p == '\0') {
+                        err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
+                        exit(2);
+                    }
+                    if(*info->p == '\n') {
+                        info->p++;
+                    }
+                    info->p++;
+                }
+                else if((info->end - info->p) > 3 && *info->p == '"' &&  *(info->p+1) == '"' && *(info->p+2) == '"') {
+                    info->p+=3;
+                    here_document = !here_document;
+                }
+                else if(*info->p == '\n') {
+                    info->p++;
+                    info->sline++;
+
+                    if(*info->p == '\0') {
+                        err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
+                        exit(2);
+                    }
+                }
+                else {
+                    info->p++;
+
+                    if(*info->p == '\0') {
+                        err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
+                        exit(2);
+                    }
+                }
+            }
+            else if(dquort) {
+                if(*info->p == '\\') {
+                    info->p++;
+                    if(*info->p == '\0') {
+                        err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
+                        exit(2);
+                    }
+                    if(*info->p == '\n') {
+                        info->p++;
+                    }
+                    info->p++;
+                }
+                else if(*info->p == '"') {
+                    info->p++;
+                    dquort = !dquort;
+                }
+                else if(*info->p == '\n') {
+                    info->p++;
+                    info->sline++;
+
+                    if(*info->p == '\0') {
+                        err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
+                        exit(2);
+                    }
+                }
+                else {
+                    info->p++;
+
+                    if(*info->p == '\0') {
+                        err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
+                        exit(2);
+                    }
+                }
+            }
+            else if(squort) {
+                if(*info->p == '\\') {
+                    info->p++;
+                    if(*info->p == '\0') {
+                        err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
+                        exit(2);
+                    }
+                    if(*info->p == '\n') {
+                        info->sline++;
+                    }
+                    info->p++;
+                }
+                else if(*info->p == '\'') {
+                    info->p++;
+                    squort = !squort;
+                }
+                else if(*info->p == '\n') {
+                    info->p++;
+                    info->sline++;
+
+                    if(*info->p == '\0') {
+                        err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
+                        exit(2);
+                    }
+                }
+                else {
+                    info->p++;
+
+                    if(*info->p == '\0') {
+                        err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
+                        exit(2);
+                    }
+                }
+            }
+            else if(*info->p == '\'') {
+                sline = info->sline;
+                info->p++;
+                squort = !squort;
+            }
+            else if(*info->p == '"') {
+                sline = info->sline;
+                info->p++;
+                dquort = !dquort;
+            }
+            else if(*info->p == '#') {
+                skip_spaces_and_lf();
+            }
+            else if(*info->p == '/' && *(info->p+1) == '*') {
+                skip_spaces_and_lf();
+            }
+            else if(*info->p == '/' && *(info->p+1) == '/') {
+                skip_spaces_and_lf();
+            }
+            else if(*info->p == '(') {
+                info->p++;
+
+                nest++;
+            }
+            else if(*info->p == ')') {
+                info->p++;
+
+                if(nest == 0) {
+                    break;
+                }
+
+                nest--;
+            }
+            else if(*info->p == '\0') {
+                err_msg(info, "The block requires } character for closing block");
+                exit(2);
+            }
+            else if(*info->p == '\n') {
+                info->p++;
+                info->sline++;
+            }
+            else {
+                info->p++;
+            }
+        }
+    }
+    else {
+        err_msg(info, "Require block. This is %c", *info->p);
+        exit(1);
+    }
+    
+    char* tail = info.p;
+    
+    buffer*% buf = new buffer();
+    
+    buf.append(head, tail-head-1);
+    
+    skip_spaces_and_lf();
+    
+    return buf.to_string();
+}
+*/
 
 void parse_function_attribute_skip_paren(sInfo* info)
 {

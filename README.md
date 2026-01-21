@@ -1802,7 +1802,7 @@ AAA
 \{a}
 BBB
 CCC
-    """);
+""");
     
     return 0;
 }
