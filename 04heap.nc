@@ -342,7 +342,7 @@ void append_object_to_right_values(CVALUE* come_value, sType* type, sInfo* info,
             come_value.c_value_without_right_value_objects = append_stackframe(come_value.c_value_without_right_value_objects, type, info);
         }
         come_value.c_value = xsprintf("((%s)(%s=%s))", make_type_name_string(type, cast_type:true), new_value->mVarName, come_value.c_value);
-        come_value.right_value_objects = new_value;
+        come_value.right_value_objects = borrow new_value;
     }
 }
 
@@ -409,7 +409,7 @@ void decrement_ref_count_object(sType* type, char* obj, sInfo* info, bool no_fre
     
     add_come_code(info, "%s=%s,\n", name, obj);
     
-    obj = name;
+    obj = borrow name;
     bool no_decrement = false;
     
     if(type->mPointerNum > 0) {

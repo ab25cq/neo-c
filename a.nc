@@ -1,14 +1,22 @@
+#include <neo-c.h>
 
-int fun(char* aaa)
+class aaa
 {
-    return aaa;
+    int a;
+    int b;
+};
+
+class bbb extends aaa
+{
+    int c;
 }
+
 
 int main(int argc, char** argv)
 {
-    char buf[123+1];
+    bbb*% b = new bbb;
     
-    char* a = buf;
+    aaa*% a = b;
     
     return 1;
 }

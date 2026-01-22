@@ -762,6 +762,9 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
             else {
                 struct_class->mAttribute = struct_attribute + " " + struct_attribute2;
             }
+            if(parent_class) {
+                struct_class->mParentClassName = clone parent_class->mName;
+            }
             
             info.parse_struct_recursive_count--;
             return new sStructNode(string(type_name), struct_class, info) implements sNode;

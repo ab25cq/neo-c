@@ -60,7 +60,7 @@ done
 #base="${1}"
 base="${files[0]%.nc}"
 
-ncc ${opts[@]} ${base}.nc
+ncc ${opts[@]} ${files[0]}
 
 transpile_ok=$?
 

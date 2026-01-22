@@ -47,6 +47,8 @@ class sReturnNode extends sNodeBase
             
             info->function_result_type = clone come_value.type;
             
+            
+            check_assign_type("result type", result_type2, come_value_type, come_value, check_params:true);
             if(gComeC) {
                 add_come_code(info, "return %s;\n", come_value.c_value);
             }
@@ -61,10 +63,6 @@ class sReturnNode extends sNodeBase
                 }
                 
                 if(!info.come_fun.mNoResultType) {
-                    if(!gComeC || !(strlen(result_type2->mClass->mName) > strlen("tuple") && memcmp(result_type2->mClass->mName, "tuple", strlen("tuple")) == 0)) {
-                        check_assign_type("result type", result_type2, come_value_type, come_value, check_params:true);
-                    }
-                    
                     if(result_type2.mHeap) {
                         string type_name = make_type_name_string(result_type2);
                         add_come_code(info, s"__result_obj__\{000} = (%s)come_increment_ref_count(%s);\n", type_name, come_value.c_value);

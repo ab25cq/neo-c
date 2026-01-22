@@ -28,7 +28,12 @@ int err_msg(sInfo* info, char* msg, ...)
         
         buffer*% buf = new buffer();
         
-        buf.append_format("%s %d(real %d)(block %d): %s", info.sname, info.sline, info.sline_real, info.sline_block, msg2);
+        if(info.come_fun) {
+            buf.append_format("%s %d: %s in fun(%s)", info.sname, info.sline, msg2, info.come_fun.mName);
+        }
+        else {
+            buf.append_format("%s %d: %s", info.sname, info.sline, msg2);
+        }
         
         info.err_num++;
 
@@ -53,7 +58,12 @@ int err_msg2(sInfo* info, char* msg, ...)
         
         buffer*% buf = new buffer();
         
-        buf.append_format("%s %d(real %d)(block %d): %s", info.sname, info.sline, info.sline_real, info.sline_block, msg2);
+        if(info.come_fun) {
+            buf.append_format("%s %d: %s in fun(%s)", info.sname, info.sline, msg2, info.come_fun.mName);
+        }
+        else {
+            buf.append_format("%s %d: %s", info.sname, info.sline, msg2);
+        }
         
         info.err_num2++;
 

@@ -2426,7 +2426,7 @@ impl map <T, T2>
                     self.items\[it] = borrow gc_inc(item);
                 }
                 else {
-                    self.items\[it] = item;
+                    self.items\[it] = borrow item;
                 }
 
                 self.len++;
@@ -2506,7 +2506,7 @@ impl map <T, T2>
                     self.items\[it] = borrow gc_inc(item);
                 }
                 else {
-                    self.items\[it] = item;
+                    self.items\[it] = borrow item;
                 }
 
                 self.len++;

@@ -215,10 +215,6 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
     sType*% left_type2 = clone left_type;
     sType*% right_type2 = clone right_type;
     
-    if(come_value.var) {
-        check_params = true;
-    }
-    
     sType* left_no_solved_generics_type = null;
     if(left_type2->mNoSolvedGenericsType) {
         left_no_solved_generics_type = borrow left_type2->mNoSolvedGenericsType;
@@ -252,11 +248,7 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
         else if(left_type2->mClass->mName === "void") {
         }
         else {
-            printf("type check error(1). %s %d %s\n", info->sname, info->sline, msg);
-            printf("left type is %s pointer num %d\n", left_type2->mClass->mName, left_type2->mPointerNum);
-            printf("right type is %s pointer num %d\n", right_type2->mClass->mName, right_type2->mPointerNum);
-            
-            info->err_num2++;
+            err_msg2(info , "type check warning(1).");
         }
     }
     else if(left_type2->mPointerNum > 0 && right_type->mPointerNum == 0) {
@@ -267,13 +259,7 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
         else if(right_type->mArrayPointerNum > 0) {
         }
         else {
-            printf("type check error(2). %s %d %s\n", info->sname, info->sline, msg);
-            printf("left type is %s pointer num %d array dimention %d\n", left_type2->mClass->mName, left_type2->mPointerNum, left_type2->mArrayNum.length());
-            printf("right type is %s pointer num %d array dimention %d\n", right_type2->mClass->mName, right_type2->mPointerNum, right_type2->mArrayNum.length());
-            
-            info->err_num2++;
-            
-            return false;
+            err_msg2(info , "type check warning(2).");
         }
     }
     else if(left_type2->mPointerNum == 0 && right_type->mPointerNum > 0) {
@@ -284,13 +270,7 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
         else if(left_type2->mClass->mName === "lambda" || right_type->mClass->mName === "void") {
         }
         else {
-            printf("type check error(3). %s %d %s\n", info->sname, info->sline, msg);
-            printf("left type is %s pointer num %d\n", left_type2->mClass->mName, left_type2->mPointerNum);
-            printf("right type is %s pointer num %d\n", right_type2->mClass->mName, right_type2->mPointerNum);
-            
-            info->err_num2++;
-            
-            return false;
+            err_msg2(info, "type check warning(3). %s %d %s\n", info->sname, info->sline, msg);
         }
     }
     else if(left_type2->mPointerNum > 0 && right_type->mPointerNum > 0) {
@@ -321,20 +301,18 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
         }
         else if(right_type->mClass->mName === "void") {
         }
+        /*
         else if(left_type2->mClass->mName === right_type2->mClass->mName && !left_type2->mHeap && right_type2->mHeap && !check_params) {
-            printf("type check error(4). class_name %s left is none heap, and right is heap\n", left_type2->mClass->mName);
-                    
-            info->err_num2++;
-            
-            return false;
+            err_msg2(info, "type check warning(4). class_name %s left is none heap, and right is heap\n", left_type2->mClass->mName);
+        }
+        */
+        else if(left_type2->mClass->mName === right_type2->mClass->mName && left_type2->mHeap && !right_type2->mHeap && !check_params) {
+            err_msg2(info, "type check warning(4). class_name %s left is none heap, and right is heap\n", left_type2->mClass->mName);
+        }
+        else if(parent_class) {
         }
         else if(left_type2->mClass->mName !== right_type->mClass->mName && !flag_) {
-            printf("type check error(5). %s %d %s\n", info->sname, info->sline, msg);
-            
-            printf("left type is %s pointer num %d\n", left_type2->mClass->mName, left_type2->mPointerNum);
-            printf("right type is %s pointer num %d\n", right_type2->mClass->mName, right_type2->mPointerNum);
-        
-            info->err_num2++;
+            err_msg2(info, "type check warning(5). %s %d %s\n", info->sname, info->sline, msg);
             
             return false;
         }
