@@ -262,12 +262,12 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
                 info.sname = string(module_name);
                 info.sline = 0;
                 
-                if(info.modules[string(module_name)]?? == null) {
+                if(info.modules[string(module_name)] == null) {
                     err_msg(info, "module not found");
                     return null;
                 }
                 
-                sClassModule* module = borrow info.modules[string(module_name)]??;
+                sClassModule* module = borrow info.modules[string(module_name)];
                 
                 if(module.mParams.length() != params.length()) {
                     err_msg(info, "invalid parametor number");
@@ -1909,7 +1909,7 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
     
     sType*% generics_type_ = get_no_solved_type2(generics_type);
     
-    sFun*% funX = info.funcs[string(fun_name)]??;
+    sFun*% funX = info.funcs[string(fun_name)];
     if(funX) {
         info->sname = string(sname_top);
         info->sline = sline_top;
@@ -2038,7 +2038,7 @@ bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sIn
     string sname_top = string(info->sname);
     int sline_top = info->sline;
     
-    sFun* funX = borrow info.funcs[string(fun_name)]??;
+    sFun* funX = borrow info.funcs[string(fun_name)];
     if(funX) {
         info->sname = string(sname_top);
         info->sline = sline_top;
@@ -2306,7 +2306,7 @@ sNode*% parse_function(sInfo* info)
                             , false@external, var_args, block
                             , true@static_, info, false@inline_, false@uniq_, false@generate_, const_fun:const_fun);
         
-        var fun2 = info.funcs[string(fun_name)]??;
+        var fun2 = info.funcs[string(fun_name)];
         info.funcs.insert(string(fun_name), fun);
         
         return new sLambdaNode(fun, info) implements sNode;
@@ -2514,13 +2514,13 @@ sFun*,string create_finalizer_automatically(sType* type, char* fun_name, sInfo* 
     sType*% type_ = get_no_solved_type2(type);
         
     if(type_->mGenericsTypes.length() > 0) {
-        finalizer = borrow info->funcs[fun_name2]??;
+        finalizer = borrow info->funcs[fun_name2];
         
         if(finalizer == NULL) {
             string none_generics_name = get_none_generics_name(type2.mClass.mName);
             
             string generics_fun_name = xsprintf("%s_%s", none_generics_name, fun_name);
-            sGenericsFun* generics_fun = borrow info->generics_funcs[generics_fun_name]??;
+            sGenericsFun* generics_fun = borrow info->generics_funcs[generics_fun_name];
             
             if(generics_fun) {
                 var name, err = create_generics_fun(fun_name2, generics_fun, type_, info);
@@ -2531,7 +2531,7 @@ sFun*,string create_finalizer_automatically(sType* type, char* fun_name, sInfo* 
                     exit(2);
                 }
                 
-                finalizer = borrow info->funcs[name]??;
+                finalizer = borrow info->funcs[name];
                 //finalizer = borrow info->funcs[fun_name2];
             }
         }
@@ -2542,7 +2542,7 @@ sFun*,string create_finalizer_automatically(sType* type, char* fun_name, sInfo* 
         int i;
         for(i=FUN_VERSION_MAX-1; i>=1; i--) {
             string new_fun_name = xsprintf("%s_v%d", fun_name2, i);
-            finalizer = borrow info->funcs[new_fun_name]??;
+            finalizer = borrow info->funcs[new_fun_name];
             
             if(finalizer) {
                 fun_name2 = string(new_fun_name);
@@ -2551,7 +2551,7 @@ sFun*,string create_finalizer_automatically(sType* type, char* fun_name, sInfo* 
         }
         
         if(finalizer == NULL) {
-            finalizer = borrow info->funcs[fun_name2]??;
+            finalizer = borrow info->funcs[fun_name2];
         }
         
         real_fun_name = fun_name2;
@@ -2563,7 +2563,7 @@ sFun*,string create_finalizer_automatically(sType* type, char* fun_name, sInfo* 
         real_fun_name = create_method_name(type_, false@no_pointer_name, fun_name, info);
         
         string user_real_fun_name = create_method_name(type_, false@no_pointer_name, "user_finalize", info);
-        sFun* user_finalizer = borrow info->funcs[user_real_fun_name]??;
+        sFun* user_finalizer = borrow info->funcs[user_real_fun_name];
         
         sType*% type2 = solve_generics(type_, type_, info);
         
@@ -2585,7 +2585,7 @@ sFun*,string create_finalizer_automatically(sType* type, char* fun_name, sInfo* 
             }
 */
             
-            klass = borrow info.classes[klass->mName]??;
+            klass = borrow info.classes[klass->mName];
             foreach(it, klass->mFields) {
                 var name, field_type = it;
                 
@@ -2642,7 +2642,7 @@ sFun*,string create_finalizer_automatically(sType* type, char* fun_name, sInfo* 
             result_type->mUniq = false;
             result_type->mInline = false;
             
-            var fun2 = info.funcs[string(name)]??;
+            var fun2 = info.funcs[string(name)];
             if(fun2 == null || fun2.mExternal) {
                 var fun = new sFun(name, result_type, param_types, param_names
                             , param_default_parametors
@@ -2714,7 +2714,7 @@ sFun*,string create_equals_automatically(sType* type, char* fun_name, sInfo* inf
             source.append_str(source2);
         }
         else {
-            klass = borrow info.classes[klass->mName]??;
+            klass = borrow info.classes[klass->mName];
             foreach(it, klass->mFields) {
                 var name, field_type = it;
                 
@@ -2759,7 +2759,7 @@ sFun*,string create_equals_automatically(sType* type, char* fun_name, sInfo* inf
         result_type->mUniq = false;
         result_type->mInline = false;
         
-        var fun2 = info.funcs[string(name)]??;
+        var fun2 = info.funcs[string(name)];
         if(fun2 == null || fun2.mExternal) {
             var fun = new sFun(name, result_type, param_types, param_names
                         , param_default_parametors
@@ -2894,7 +2894,7 @@ sFun*,string create_operator_not_equals_automatically(sType* type, char* fun_nam
         result_type->mUniq = false;
         result_type->mInline = false;
         
-        var fun2 = info.funcs[string(name)]??;
+        var fun2 = info.funcs[string(name)];
         if(fun2 == null || fun2.mExternal) {
             var fun = new sFun(name, result_type, param_types, param_names
                             , param_default_parametors
@@ -3026,7 +3026,7 @@ sFun*,string create_not_equals_automatically(sType* type, char* fun_name, sInfo*
         result_type->mUniq = false;
         result_type->mInline = false;
         
-        var fun2 = info.funcs[string(name)]??;
+        var fun2 = info.funcs[string(name)];
         if(fun2 == null || fun2.mExternal) {
             var fun = new sFun(name, result_type, param_types, param_names
                         , param_default_parametors
@@ -3143,7 +3143,7 @@ sFun*,string create_operator_equals_automatically(sType* type, char* fun_name, s
         result_type->mUniq = false;
         result_type->mInline = false;
         
-        var fun2 = info.funcs[string(name)]??;
+        var fun2 = info.funcs[string(name)];
         if(fun2 == null || fun2.mExternal) {
             var fun = new sFun(name, result_type, param_types, param_names
                         , param_default_parametors
@@ -3227,10 +3227,10 @@ sFun*,string create_cloner_automatically(sType* type, char* fun_name, sInfo* inf
                 }
             }
             
-            cloner = borrow info->funcs[name]??;
+            cloner = borrow info->funcs[name];
         }
         else {
-            cloner = borrow info->funcs[fun_name2]??;
+            cloner = borrow info->funcs[fun_name2];
         }
         
         real_fun_name = fun_name2;
@@ -3241,7 +3241,7 @@ sFun*,string create_cloner_automatically(sType* type, char* fun_name, sInfo* inf
         int i;
         for(i=FUN_VERSION_MAX-1; i>=1; i--) {
             string new_fun_name = xsprintf("%s_v%d", fun_name2, i);
-            cloner = borrow info->funcs[new_fun_name]??;
+            cloner = borrow info->funcs[new_fun_name];
             
             if(cloner) {
                 fun_name2 = string(new_fun_name);
@@ -3250,7 +3250,7 @@ sFun*,string create_cloner_automatically(sType* type, char* fun_name, sInfo* inf
         }
         
         if(cloner == NULL) {
-            cloner = borrow info->funcs[fun_name2]??;
+            cloner = borrow info->funcs[fun_name2];
         }
         
         real_fun_name = fun_name2;
@@ -3321,7 +3321,7 @@ sFun*,string create_cloner_automatically(sType* type, char* fun_name, sInfo* inf
         }
         
         string user_real_fun_name = create_method_name(type, false@no_pointer_name, "user_clone", info);
-        sFun* user_cloner = borrow info->funcs[user_real_fun_name]??;
+        sFun* user_cloner = borrow info->funcs[user_real_fun_name];
         
 /*
         if(user_cloner) {
@@ -3363,7 +3363,7 @@ sFun*,string create_cloner_automatically(sType* type, char* fun_name, sInfo* inf
         result_type->mUniq = false;
         result_type->mInline = false;
         
-        var fun2 = info.funcs[string(name)]??;
+        var fun2 = info.funcs[string(name)];
         
         if(fun2 == null || fun2.mExternal) {
             var fun = new sFun(name, result_type, param_types, param_names
@@ -3500,7 +3500,7 @@ sFun*,string create_to_string_automatically(sType* type, char* fun_name, sInfo* 
         result_type->mUniq = false;
         result_type->mInline = false;
         
-        var fun2 = info.funcs[string(name)]??;
+        var fun2 = info.funcs[string(name)];
         if(fun2 == null || fun2.mExternal) {
             var fun = new sFun(name, result_type, param_types, param_names
                             , param_default_parametors
@@ -3565,13 +3565,13 @@ sFun*,string create_to_string_automatically(sType* type, char* fun_name, sInfo* 
     sType*% type_ = get_no_solved_type2(type);
         
     if(type_->mGenericsTypes.length() > 0) {
-        to_string_fun = borrow info->funcs[real_fun_name]??;
+        to_string_fun = borrow info->funcs[real_fun_name];
         
         if(to_string_fun == NULL) {
             string none_generics_name = get_none_generics_name(type2.mClass.mName);
             
             string generics_fun_name = xsprintf("%s_%s", none_generics_name, fun_name);
-            sGenericsFun* generics_fun = borrow info->generics_funcs[generics_fun_name]??;
+            sGenericsFun* generics_fun = borrow info->generics_funcs[generics_fun_name];
             
             if(generics_fun) {
                 var name, err = create_generics_fun(real_fun_name, generics_fun, type_, info);
@@ -3581,8 +3581,8 @@ sFun*,string create_to_string_automatically(sType* type, char* fun_name, sInfo* 
                     printf("%s %d: can't create generics to_string_fun\n", info->sname, info->sline);
                     exit(2);
                 }
-                to_string_fun = borrow info->funcs[name]??;
-                //to_string_fun = borrow info->funcs[real_fun_name]??;
+                to_string_fun = borrow info->funcs[name];
+                //to_string_fun = borrow info->funcs[real_fun_name];
             }
         }
     }
@@ -3590,7 +3590,7 @@ sFun*,string create_to_string_automatically(sType* type, char* fun_name, sInfo* 
         int i;
         for(i=FUN_VERSION_MAX-1; i>=1; i--) {
             string new_fun_name = xsprintf("%s_v%d", real_fun_name, i);
-            to_string_fun = borrow info->funcs[new_fun_name]??;
+            to_string_fun = borrow info->funcs[new_fun_name];
             
             if(to_string_fun) {
                 real_fun_name = string(new_fun_name);
@@ -3599,7 +3599,7 @@ sFun*,string create_to_string_automatically(sType* type, char* fun_name, sInfo* 
         }
         
         if(to_string_fun == NULL) {
-            to_string_fun = borrow info->funcs[real_fun_name]??;
+            to_string_fun = borrow info->funcs[real_fun_name];
         }
     }
     
@@ -3689,7 +3689,7 @@ sFun*,string create_to_string_automatically(sType* type, char* fun_name, sInfo* 
         result_type->mUniq = false;
         result_type->mInline = false;
         
-        var fun2 = info.funcs[string(name)]??;
+        var fun2 = info.funcs[string(name)];
         if(fun2 == null || fun2.mExternal) {
             var fun = new sFun(name, result_type, param_types, param_names
                             , param_default_parametors
@@ -3750,13 +3750,13 @@ sFun*,string create_get_hash_key_automatically(sType* type, char* fun_name, sInf
     sClass* klass = type->mClass;
         
     if(type->mGenericsTypes.length() > 0) {
-        get_hash_key_fun = borrow info->funcs[real_fun_name]??;
+        get_hash_key_fun = borrow info->funcs[real_fun_name];
         
         if(get_hash_key_fun == NULL) {
             string none_generics_name = get_none_generics_name(type2.mClass.mName);
             
             string generics_fun_name = xsprintf("%s_%s", none_generics_name, fun_name);
-            sGenericsFun* generics_fun = borrow info->generics_funcs[generics_fun_name]??;
+            sGenericsFun* generics_fun = borrow info->generics_funcs[generics_fun_name];
             
             if(generics_fun) {
                 var name, err = create_generics_fun(real_fun_name, generics_fun, type, info);
@@ -3766,8 +3766,8 @@ sFun*,string create_get_hash_key_automatically(sType* type, char* fun_name, sInf
                     printf("%s %d: can't create generics get_hash_key_fun\n", info->sname, info->sline);
                     exit(2);
                 }
-                get_hash_key_fun = borrow info->funcs[name]??;
-                //get_hash_key_fun = borrow info->funcs[real_fun_name]??;
+                get_hash_key_fun = borrow info->funcs[name];
+                //get_hash_key_fun = borrow info->funcs[real_fun_name];
             }
         }
     }
@@ -3775,7 +3775,7 @@ sFun*,string create_get_hash_key_automatically(sType* type, char* fun_name, sInf
         int i;
         for(i=FUN_VERSION_MAX-1; i>=1; i--) {
             string new_fun_name = xsprintf("%s_v%d", real_fun_name, i);
-            get_hash_key_fun = borrow info->funcs[new_fun_name]??;
+            get_hash_key_fun = borrow info->funcs[new_fun_name];
             
             if(get_hash_key_fun) {
                 real_fun_name = string(new_fun_name);
@@ -3784,7 +3784,7 @@ sFun*,string create_get_hash_key_automatically(sType* type, char* fun_name, sInf
         }
         
         if(get_hash_key_fun == NULL) {
-            get_hash_key_fun = borrow info->funcs[real_fun_name]??;
+            get_hash_key_fun = borrow info->funcs[real_fun_name];
         }
     }
     
@@ -3840,7 +3840,7 @@ sFun*,string create_get_hash_key_automatically(sType* type, char* fun_name, sInf
         result_type->mUniq = false;
         result_type->mInline = false;
         
-        var fun2 = info.funcs[string(name)]??;
+        var fun2 = info.funcs[string(name)];
         if(fun2 == null || fun2.mExternal) {
             var fun = new sFun(name, result_type, param_types, param_names
                             , param_default_parametors

@@ -170,7 +170,7 @@ bool output_generics_struct(sType* type, sType* generics_type, sInfo* info)
     string new_name = create_generics_name(type, info);
     
     if(!info.classes.find(new_name)) {
-        sClass*% generics_class = info.generics_classes[string(type.mClass.mName)]??;
+        sClass*% generics_class = info.generics_classes[string(type.mClass.mName)];
         
         if(generics_class == null) {
             err_msg(info, "generics_class(%s) is null", type.mClass.mName);
@@ -203,7 +203,7 @@ bool output_generics_struct(sType* type, sType* generics_type, sInfo* info)
             type->mNoSolvedGenericsType = clone type;
             type->mNoSolvedGenericsType.mPointerNum = type->mPointerNum;
         }
-        type->mClass = borrow info.classes[string(new_name)]??;
+        type->mClass = borrow info.classes[string(new_name)];
         type->mGenericsTypes.reset();
     }
     
@@ -372,7 +372,7 @@ sNode*% parse_struct(string type_name, string struct_attribute, sInfo* info, boo
         
         string parent_class_name = parse_word();
         
-        parent_class = borrow info.classes[parent_class_name]??;
+        parent_class = borrow info.classes[parent_class_name];
         
         if(parent_class == null) {
             err_msg(info, "invalid class name(%s)", parent_class_name);
@@ -666,7 +666,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                 
                 string parent_class_name = parse_word();
                 
-                parent_class = borrow info.classes[parent_class_name]??;
+                parent_class = borrow info.classes[parent_class_name];
                 
                 if(parent_class == null) {
                     err_msg(info, "invalid class name(%s)", parent_class_name);
@@ -790,7 +790,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
             
             string parent_class_name = parse_word();
             
-            parent_class = borrow info.classes[parent_class_name]??;
+            parent_class = borrow info.classes[parent_class_name];
             
             if(parent_class == null) {
                 err_msg(info, "invalid class name(%s)", parent_class_name);
@@ -804,7 +804,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
         while(parent_class2) {
             parent_classes.add(parent_class2);
             if(parent_class->mParentClassName) {
-                parent_class2 = borrow info.classes[string(parent_class->mParentClassName)]??;
+                parent_class2 = borrow info.classes[string(parent_class->mParentClassName)];
             }
             else {
                 parent_class2 = null;
@@ -1027,12 +1027,12 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                 info.sname = string(module_name);
                 info.sline = 0;
                 
-                if(info.modules[string(module_name)]?? == null) {
+                if(info.modules[string(module_name)] == null) {
                     err_msg(info, "module not found");
                     exit(1);
                 }
                 
-                sClassModule* module = borrow info.modules[string(module_name)]??;
+                sClassModule* module = borrow info.modules[string(module_name)];
                 
                 if(module.mParams.length() != params.length()) {
                     err_msg(info, "invalid parametor number");

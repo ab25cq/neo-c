@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.8.5.7
+version 0.8.5.8
 
 ``` C
 #include <neo-c.h>
@@ -93,6 +93,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.8.5.8 Refine the source.
 0.8.5.7 inline asm bug is fiexed.
 0.8.5.6 Tested arm, x86_64 many linux distribution.
 0.8.5.5 More refine Makefile to parallel compile.

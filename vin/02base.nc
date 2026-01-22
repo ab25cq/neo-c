@@ -385,7 +385,7 @@ void ViWin*::moveAtHead2(ViWin* self)
     self.cursorX = 0;
     auto cursor_line = self.texts.item(self.scroll+self.cursorY, wstring(""));
     
-    while(cursor_line[self.cursorX]?? == L' ' || cursor_line[self.cursorX]?? == L'\t') {
+    while(cursor_line[self.cursorX] == L' ' || cursor_line[self.cursorX] == L'\t') {
         self.cursorX++;
     }
 }

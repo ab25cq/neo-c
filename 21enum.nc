@@ -106,7 +106,7 @@ class sEnumNode extends sNodeBase
         }
         buf.append_format("};\n");
         
-        if(info.struct_definition[string(type_name)]?? == null || type_name === "") {
+        if(info.struct_definition[string(type_name)] == null || type_name === "") {
             if(type_name === "") {
                 static int type_name_num = 0;
                 type_name_num++;

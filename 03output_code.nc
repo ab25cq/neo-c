@@ -1056,7 +1056,7 @@ string output_function(sFun* fun, sInfo* info)
             i++;
         }
         
-        sNode* node = borrow fun->mResultType->mArrayNum[0]??;
+        sNode* node = borrow fun->mResultType->mArrayNum[0];
         
         if(!node_compile(node)) {
             err_msg(info, "invalid array number");
@@ -1216,7 +1216,7 @@ string header_function(sFun* fun, sInfo* info)
             i++;
         }
         
-        sNode* node = borrow fun->mResultType->mArrayNum[0]??;
+        sNode* node = borrow fun->mResultType->mArrayNum[0];
         if(!node_compile(node)) {
             err_msg(info, "invalid array number");
             return string("");
@@ -1402,7 +1402,7 @@ bool is_contained_generics_funcstion(sFun* fun, sInfo* info=info)
 
 bool output_source_file(sInfo* info)
 {
-    sFun* main_fun = borrow info->funcs[s"main"]??;
+    sFun* main_fun = borrow info->funcs[s"main"];
     bool main_module = false;
     if(main_fun) {
         if(!main_fun->mExternal) {
@@ -1432,31 +1432,31 @@ bool output_source_file(sInfo* info)
     
     fprintf(f, "/// c_include definition ///\n");
     foreach(it, info.c_include_definition) {
-        buffer* buf = borrow info.c_include_definition[string(it)]??;
+        buffer* buf = borrow info.c_include_definition[string(it)];
         fprintf(f, "%s\n", buf.to_string());
     }
     
     fprintf(f, "/// typedef definition ///\n");
     foreach(it, info.typedef_definition) {
-        buffer* buf = borrow info.typedef_definition[string(it)]??;
+        buffer* buf = borrow info.typedef_definition[string(it)];
         fprintf(f, "%s\n", buf.to_string());
     }
     
     fprintf(f, "/// previous struct definition ///\n");
     foreach(it, info.previous_struct_definition) {
-        buffer* buf = borrow info.previous_struct_definition[string(it)]??;
+        buffer* buf = borrow info.previous_struct_definition[string(it)];
         fprintf(f, "%s\n", buf.to_string());
     }
     
     fprintf(f, "/// struct definition ///\n");
     foreach(it, info.struct_definition) {
-        buffer* buf = borrow info.struct_definition[string(it)]??;
+        buffer* buf = borrow info.struct_definition[string(it)];
         fprintf(f, "%s\n", buf.to_string());
     }
     
     fprintf(f, "/// variable definition ///\n");
     foreach(it, info.var_definition) {
-        buffer* buf = borrow info.var_definition[string(it)]??;
+        buffer* buf = borrow info.var_definition[string(it)];
         fprintf(f, "%s\n", buf.to_string());
     }
     
@@ -1483,7 +1483,7 @@ bool output_source_file(sInfo* info)
     fprintf(f, "// uniq global variable\n");
     if(main_module) {
         foreach(it, info.uniq_definition) {
-            char* str = borrow info.uniq_definition[string(it)]??;
+            char* str = borrow info.uniq_definition[string(it)];
             fprintf(f, "%s\n", str);
         }
     }

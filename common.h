@@ -187,8 +187,8 @@ uniq class sType
         
         string name2 = string(name).substring(0, -pointer_num-1);
         
-        sClass* klass = borrow info.classes[string(name2)]??;
-        sClass* generics_class = borrow info.generics_classes[name2]??;
+        sClass* klass = borrow info.classes[string(name2)];
+        sClass* generics_class = borrow info.generics_classes[name2];
         
         if(klass == null && generics_class == null) {
             err_msg2(info, "class not found(%s)(1)\n", name2);
@@ -203,7 +203,7 @@ uniq class sType
             
             info.classes.insert(string(name), klass2);
             
-            self.mClass = borrow info.classes[string(name)]??;
+            self.mClass = borrow info.classes[string(name)];
         }
         
         self.mNoSolvedGenericsType = null;

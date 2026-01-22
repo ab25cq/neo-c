@@ -139,7 +139,7 @@ class sStoreFieldNode extends sNodeBase
         
 //        sType*% left_type2 = solve_generics(left_type, info.generics_type, info);
         
-        sClass*% klass = info.classes[left_type3->mClass->mName]??;
+        sClass*% klass = info.classes[left_type3->mClass->mName];
         
         sType*% field_type = null;
         int index = 0;
@@ -405,7 +405,7 @@ class sLoadFieldNode extends sNodeBase
         sType*% left_type3 = solve_generics(left_type, left_type, info);
         
         sClass* klass = left_type3->mClass;
-        klass = borrow info.classes[string(klass->mName)]??;
+        klass = borrow info.classes[string(klass->mName)];
         
         if(klass == null || klass->mFields == null) {
             err_msg(info, "invalid class %s", klass->mName);
@@ -1025,11 +1025,6 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
             else {
                 node = new sLoadArrayNode(node, array_num, quote, false@break_guard, info) implements sNode;
             }
-        }
-        else if(!node->terminated() && *info->p == '?' && *(info->p+1) == '?') {
-            info->p+=2;
-            skip_spaces_and_lf();
-            
         }
         else if((*info->p == '.' && *(info->p+1) != '.') || (*info->p == '-' && *(info->p+1) == '>')) {
             if(*info->p == '.') {

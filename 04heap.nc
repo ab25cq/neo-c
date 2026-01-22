@@ -436,7 +436,7 @@ void decrement_ref_count_object(sType* type, char* obj, sInfo* info, bool no_fre
                 string none_generics_name = get_none_generics_name(type2.mClass.mName);
                 
                 string generics_fun_name = xsprintf("%s_%s", none_generics_name, fun_name);
-                sGenericsFun* generics_fun = borrow info->generics_funcs[generics_fun_name]??;
+                sGenericsFun* generics_fun = borrow info->generics_funcs[generics_fun_name];
                 
                 if(generics_fun) {
                     var name, err = create_generics_fun(fun_name2, generics_fun, type_, info);
@@ -535,7 +535,7 @@ void on_drop_object(sType* type, char* obj, sInfo* info=info)
                 string none_generics_name = get_none_generics_name(type2.mClass.mName);
                 
                 string generics_fun_name = xsprintf("%s_%s", none_generics_name, fun_name);
-                sGenericsFun* generics_fun = borrow info->generics_funcs[generics_fun_name]??;
+                sGenericsFun* generics_fun = borrow info->generics_funcs[generics_fun_name];
                 
                 if(generics_fun) {
                     var name, err = create_generics_fun(fun_name2, generics_fun, type_, info);
@@ -615,7 +615,7 @@ void free_object(sType* type, char* obj, bool no_decrement, bool no_free, sInfo*
                 string none_generics_name = get_none_generics_name(type2.mClass.mName);
                 
                 string generics_fun_name = xsprintf("%s_%s", none_generics_name, fun_name);
-                sGenericsFun* generics_fun = borrow info->generics_funcs[generics_fun_name]??;
+                sGenericsFun* generics_fun = borrow info->generics_funcs[generics_fun_name];
                 
                 if(generics_fun) {
                     var name, err = create_generics_fun(fun_name2, generics_fun, type_, info);
@@ -878,7 +878,7 @@ sVar* get_variable_from_table(sVarTable* table, char* name)
     sVarTable* it = table;
 
     while(it) {
-        sVar* var_ = borrow it.mVars[string(name)]??;
+        sVar* var_ = borrow it.mVars[string(name)];
 
         if(var_) {
             return var_;

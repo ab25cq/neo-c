@@ -276,7 +276,7 @@ void ViWin*::writeFile(ViWin* self, bool binary_mode=false)
         if(f != null) {
             int i = 0;
             foreach(it, self.texts) {
-                int len = self.texts_length[i]??;
+                int len = self.texts_length[i];
                 
                 char*% buf = new char[len+1];
                 

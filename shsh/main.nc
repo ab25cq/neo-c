@@ -906,7 +906,7 @@ bool run_command(int n, sInfo* info)
         pid_t pid = fork();
         
         if(pid == 0) {
-            bool mix_stdout = info->commands[info->commands.length()-n-1]?? != null;
+            bool mix_stdout = info->commands[info->commands.length()-n-1] != null;
             
             if(mix_stdout) {
                 dup2(1, 2);

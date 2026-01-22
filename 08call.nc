@@ -373,7 +373,6 @@ class sCallerSNameNode extends sNodeBase
     }
 };
 
-
 class sFunCallNode extends sNodeBase
 {
     new(char* fun_name, list<tup:string,sNode*%>* params, list<sType*%>*% method_generics_types, buffer*% method_block, int method_block_sline, sInfo* info)
@@ -449,7 +448,7 @@ class sFunCallNode extends sNodeBase
                 sType*% type_ = clone come_value.type;
                 come_value.type = solve_generics(type_, info->generics_type, info);
                 
-                if(lambda_type.mVarArgs && lambda_type.mParamTypes[i]?? == null) {
+                if(lambda_type.mVarArgs && lambda_type.mParamTypes[i] == null) {
                 }
                 else {
                     check_assign_type(s"\{fun_name} calling param #\{i}", lambda_type.mParamTypes[i], come_value.type, come_value, check_params:true);
@@ -531,7 +530,7 @@ class sFunCallNode extends sNodeBase
                     sType*% method_block_lambda_type = clone method_block_node.type;
                     sType*% method_block_result_type = clone info.come_method_block_function_result_type;
                     
-                    sType* generics_fun_method_block_lambda_type = borrow generics_fun.mParamTypes[-1]??;
+                    sType* generics_fun_method_block_lambda_type = borrow generics_fun.mParamTypes[-1];
                     sType* generics_fun_method_block_result_type = generics_fun_method_block_lambda_type.mResultType;
                     
                     if(generics_fun_method_block_result_type.mClass.mMethodGenerics) {
@@ -542,7 +541,7 @@ class sFunCallNode extends sNodeBase
                     foreach(it, generics_fun_method_block_lambda_type.mParamTypes) {
                         if(it.mClass.mMethodGenerics) {
                             int method_generics_num = it.mClass.mMethodGenericsNum;
-                            method_generics_types[method_generics_num] = clone method_block_lambda_type.mParamTypes[n]??;
+                            method_generics_types[method_generics_num] = clone method_block_lambda_type.mParamTypes[n];
                         }
                         n++;
                     }
@@ -598,6 +597,7 @@ class sFunCallNode extends sNodeBase
         
         
         /// builtin ///
+        /*
         if(fun_name === "__builtin_types_compatible_p") {
             if(params.length() != 2) {
                 err_msg(info, "__builtin_types_compatible_p params error");
@@ -881,6 +881,7 @@ class sFunCallNode extends sNodeBase
             return true;
         }
         else 
+        */
         if(fun_name === "__builtin_va_arg") {
             list<CVALUE*%>*% come_params = new list<CVALUE*%>();
             
@@ -978,8 +979,7 @@ class sFunCallNode extends sNodeBase
             
             return true;
         }
-        
-        if(fun_name === "string") {
+        else if(fun_name === "string") {
             fun_name = string("__builtin_string");
         }
         else if(fun_name === "wstring") {
@@ -1443,10 +1443,11 @@ class sFunCallNode extends sNodeBase
             append_object_to_right_values(come_value, result_type, info);
         }
         
-        if(info.come_fun.mName === "come_alloc_mem_from_heap_pool" || info.come_fun.mName === "come_calloc" || info.come_fun.mName === "come_calloc_v2" || info.come_fun.mName === "come_free_mem_of_heap_pool" || info.come_fun.mName === "come_free" || info.come_fun.mName === "come_free_v2") 
+        if(info.come_fun.mName === "come_alloc_mem_from_heap_pool" || info.come_fun.mName === "come_calloc" || info.come_fun.mName === "come_calloc_v2" || info.come_fun.mName === "come_calloc" || info.come_fun.mName === "come_free_mem_of_heap_pool" || info.come_fun.mName === "come_free" || info.come_fun.mName === "come_free_v2" || info.come_fun.mName === "come_free") 
         {
         }
-        else if(fun_name === "come_alloc_mem_from_heap_pool" || fun_name === "null_check" || fun_name === "come_push_stackframe" || fun_name === "come_push_stackframe_v2" || fun_name === "come_pop_stackframe" || fun_name === "come_pop_stackframe_v2") {
+        else if(fun_name === "come_alloc_mem_from_heap_pool" || fun_name === "null_check" || fun_name === "come_push_stackframe" || fun_name === "come_push_stackframe_v2" || fun_name === "come_push_stackframe" || fun_name === "come_pop_stackframe" || fun_name === "come_pop_stackframe_v2" || fun_name === "come_pop_stackframe") 
+        {
         }
         else {
             come_value.c_value = append_stackframe(come_value.c_value, come_value.type, info);
@@ -1624,7 +1625,6 @@ class sComeCallNode extends sNodeBase
         return true;
     }
 };
-        
         
 class sComeJoinNode extends sNodeBase
 {

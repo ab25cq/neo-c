@@ -66,7 +66,7 @@ static void output_union(sClass* klass, sInfo* info, bool anonymous=false)
     
     if(anonymous && named_child) return;
     
-    if(info.struct_definition[string(name)]?? == null) {
+    if(info.struct_definition[string(name)] == null) {
         info.struct_definition.insert(string(name), clone buf);
     }
 }

@@ -6485,10 +6485,6 @@ struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo* info 
             }
             come_call_finalizer(list$1sNode$ph$p_finalize, array_num_60, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         }
-        else if(!node->terminated(node->_protocol_obj)&&*info->p==63&&*(info->p+1)==63) {
-            info->p+=2;
-            skip_spaces_and_lf(info);
-        }
         else if((*info->p==46&&*(info->p+1)!=46)||(*info->p==45&&*(info->p+1)==62)) {
             if(*info->p==46) {
                 info->p++;
@@ -6523,8 +6519,8 @@ struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo* info 
                 info->p++;
                 skip_spaces_and_lf(info);
                 right_node_69=(struct sNode*)come_increment_ref_count(expression_v13(info,0));
-                _inf_value6=(struct sNode*)come_calloc(1, sizeof(struct sNode), "23field.nc", 1079, "struct sNode");
-                _inf_obj_value6=(struct sStoreFieldNode*)come_increment_ref_count(((struct sStoreFieldNode*)(__right_value1=sStoreFieldNode_initialize((struct sStoreFieldNode*)come_increment_ref_count((struct sStoreFieldNode*)come_calloc(1, sizeof(struct sStoreFieldNode)*(1), "23field.nc", 1079, "struct sStoreFieldNode*")),node,(struct sNode*)come_increment_ref_count(right_node_69),(char*)come_increment_ref_count(field_name),info))));
+                _inf_value6=(struct sNode*)come_calloc(1, sizeof(struct sNode), "23field.nc", 1074, "struct sNode");
+                _inf_obj_value6=(struct sStoreFieldNode*)come_increment_ref_count(((struct sStoreFieldNode*)(__right_value1=sStoreFieldNode_initialize((struct sStoreFieldNode*)come_increment_ref_count((struct sStoreFieldNode*)come_calloc(1, sizeof(struct sStoreFieldNode)*(1), "23field.nc", 1074, "struct sStoreFieldNode*")),node,(struct sNode*)come_increment_ref_count(right_node_69),(char*)come_increment_ref_count(field_name),info))));
                 _inf_value6->_protocol_obj=_inf_obj_value6;
                 _inf_value6->finalize=(void*)sStoreFieldNode_finalize;
                 _inf_value6->clone=(void*)sStoreFieldNode_clone;
@@ -6569,8 +6565,8 @@ struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo* info 
                 }
             }
             else {
-                _inf_value7=(struct sNode*)come_calloc(1, sizeof(struct sNode), "23field.nc", 1100, "struct sNode");
-                _inf_obj_value7=(struct sLoadFieldNode*)come_increment_ref_count(((struct sLoadFieldNode*)(__right_value1=sLoadFieldNode_initialize((struct sLoadFieldNode*)come_increment_ref_count((struct sLoadFieldNode*)come_calloc(1, sizeof(struct sLoadFieldNode)*(1), "23field.nc", 1100, "struct sLoadFieldNode*")),node,(char*)come_increment_ref_count(field_name),info))));
+                _inf_value7=(struct sNode*)come_calloc(1, sizeof(struct sNode), "23field.nc", 1095, "struct sNode");
+                _inf_obj_value7=(struct sLoadFieldNode*)come_increment_ref_count(((struct sLoadFieldNode*)(__right_value1=sLoadFieldNode_initialize((struct sLoadFieldNode*)come_increment_ref_count((struct sLoadFieldNode*)come_calloc(1, sizeof(struct sLoadFieldNode)*(1), "23field.nc", 1095, "struct sLoadFieldNode*")),node,(char*)come_increment_ref_count(field_name),info))));
                 _inf_value7->_protocol_obj=_inf_obj_value7;
                 _inf_value7->finalize=(void*)sLoadFieldNode_finalize;
                 _inf_value7->clone=(void*)sLoadFieldNode_clone;
