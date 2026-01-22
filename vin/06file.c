@@ -3331,7 +3331,7 @@ static struct ViWin* list$1ViWin$ph_next(struct list$1ViWin$ph* self);
 static void list$1ViWin$ph$p_finalize(struct list$1ViWin$ph* self);
 static void list_item$1ViWin$ph$p_finalize(struct list_item$1ViWin$ph* self);
 void Vi_closeActiveWin(struct Vi* self  );
-static int list$1ViWin$ph_find(struct list$1ViWin$ph* self, struct ViWin* item  , int default_value);
+static int list$1ViWin$ph_find(struct list$1ViWin$ph* self, struct ViWin* item  , int default_value, _Bool by_pointer);
 static struct list$1ViWin$ph* list$1ViWin$ph_delete(struct list$1ViWin$ph* self, int head, int tail);
 static struct list$1ViWin$ph* list$1ViWin$ph_reset(struct list$1ViWin$ph* self);
 static struct ViWin* list$1ViWin$ph_item(struct list$1ViWin$ph* self, int position, struct ViWin* default_value  );
@@ -4363,13 +4363,13 @@ void Vi_closeActiveWin(struct Vi* self  )
     int active_pos;
     void* __right_value0 = (void*)0;
     ViWin_saveCursorPosition(self->activeWin,self->activeWin->fileName);
-    active_pos=list$1ViWin$ph_find(self->wins,self->activeWin,-1);
+    active_pos=list$1ViWin$ph_find(self->wins,self->activeWin,-1,0);
     list$1ViWin$ph_delete(self->wins,active_pos,active_pos+1);
     Vi_repositionWindows_v6(self);
     self->activeWin=((struct ViWin*)(__right_value0=list$1ViWin$ph_item(self->wins,0,((void*)0))));
 }
 
-static int list$1ViWin$ph_find(struct list$1ViWin$ph* self, struct ViWin* item  , int default_value)
+static int list$1ViWin$ph_find(struct list$1ViWin$ph* self, struct ViWin* item  , int default_value, _Bool by_pointer)
 {
     int it2;
     struct list_item$1ViWin$ph* it;
@@ -4379,7 +4379,7 @@ static int list$1ViWin$ph_find(struct list$1ViWin$ph* self, struct ViWin* item  
     it2=0;
     it=self->head;
     while(it!=((void*)0)) {
-        if(ViWin_equals(it->item,item)) {
+        if((!by_pointer&&ViWin_equals(it->item,item))||(by_pointer&&it->item==item)) {
             return it2;
         }
         it2++;
@@ -4581,7 +4581,7 @@ void Vi_toggleWin(struct Vi* self  )
     int toggle_win;
     void* __right_value0 = (void*)0;
     if(self->toggleWin>=0&&self->toggleWin<list$1ViWin$ph_length(self->wins)) {
-        toggle_win=list$1ViWin$ph_find(self->wins,self->activeWin,-1);
+        toggle_win=list$1ViWin$ph_find(self->wins,self->activeWin,-1,0);
         self->activeWin=((struct ViWin*)(__right_value0=list$1ViWin$ph_item(self->wins,self->toggleWin,((void*)0))));
         self->toggleWin=toggle_win;
     }
@@ -4592,9 +4592,9 @@ void Vi_nextWin(struct Vi* self  )
     int next_win;
     int toggle_win;
     void* __right_value0 = (void*)0;
-    next_win=list$1ViWin$ph_find(self->wins,self->activeWin,-1)+1;
+    next_win=list$1ViWin$ph_find(self->wins,self->activeWin,-1,0)+1;
     if(next_win>=0&&next_win<list$1ViWin$ph_length(self->wins)) {
-        toggle_win=list$1ViWin$ph_find(self->wins,self->activeWin,-1);
+        toggle_win=list$1ViWin$ph_find(self->wins,self->activeWin,-1,0);
         self->activeWin=((struct ViWin*)(__right_value0=list$1ViWin$ph_item(self->wins,next_win,((void*)0))));
         self->toggleWin=toggle_win;
     }
@@ -4605,9 +4605,9 @@ void Vi_prevWin(struct Vi* self  )
     int prev_win;
     int toggle_win;
     void* __right_value0 = (void*)0;
-    prev_win=list$1ViWin$ph_find(self->wins,self->activeWin,-1)-1;
+    prev_win=list$1ViWin$ph_find(self->wins,self->activeWin,-1,0)-1;
     if(self->toggleWin>=0&&self->toggleWin<list$1ViWin$ph_length(self->wins)) {
-        toggle_win=list$1ViWin$ph_find(self->wins,self->activeWin,-1);
+        toggle_win=list$1ViWin$ph_find(self->wins,self->activeWin,-1,0);
         self->activeWin=((struct ViWin*)(__right_value0=list$1ViWin$ph_item(self->wins,prev_win,((void*)0))));
         self->toggleWin=toggle_win;
     }
@@ -4867,7 +4867,7 @@ void Vi_openFile_v6(struct Vi* self  , char* file_name  , int line_num, _Bool bi
     char* __dec_obj15  ;
     if(file_name) {
         if(access(file_name,4)==0) {
-            active_pos=list$1ViWin$ph_find(self->wins,self->activeWin,-1);
+            active_pos=list$1ViWin$ph_find(self->wins,self->activeWin,-1,0);
             list$1ViWin$ph_delete(self->wins,active_pos,active_pos+1);
             maxx=xgetmaxx();
             maxy=xgetmaxy();

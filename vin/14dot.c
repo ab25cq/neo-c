@@ -4094,15 +4094,15 @@ static struct list$1list$1int$$ph* list$1list$1int$$ph_initialize(struct list$1l
 static struct list$1list$1int$$ph* list$1list$1int$$ph$p_clone(struct list$1list$1int$$ph* self);
 static struct list$1list$1int$$ph* list$1list$1int$$ph_add(struct list$1list$1int$$ph* self, struct list$1int$* item);
 static struct list$1int$* list$1int$_clone(struct list$1int$* self);
-static struct map$2int$list$1list$1int$$ph$ph* map$2int$list$1list$1int$$ph$ph_insert(struct map$2int$list$1list$1int$$ph$ph* self, int key, struct list$1list$1int$$ph* item);
+static struct map$2int$list$1list$1int$$ph$ph* map$2int$list$1list$1int$$ph$ph_insert(struct map$2int$list$1list$1int$$ph$ph* self, int key, struct list$1list$1int$$ph* item, _Bool by_pointer);
 static void map$2int$list$1list$1int$$ph$ph_rehash(struct map$2int$list$1list$1int$$ph$ph* self);
 static int map$2int$list$1list$1int$$ph$ph_begin(struct map$2int$list$1list$1int$$ph$ph* self);
 static _Bool map$2int$list$1list$1int$$ph$ph_end(struct map$2int$list$1list$1int$$ph$ph* self);
 static int map$2int$list$1list$1int$$ph$ph_next(struct map$2int$list$1list$1int$$ph$ph* self);
-static struct list$1list$1int$$ph* map$2int$list$1list$1int$$ph$ph_at(struct map$2int$list$1list$1int$$ph$ph* self, int key, struct list$1list$1int$$ph* default_value);
+static struct list$1list$1int$$ph* map$2int$list$1list$1int$$ph$ph_at(struct map$2int$list$1list$1int$$ph$ph* self, int key, struct list$1list$1int$$ph* default_value, _Bool by_pointer);
 static void list$1list$1int$$ph_operator_store_element(struct list$1list$1int$$ph* self, int position, struct list$1int$* item);
 static struct list$1list$1int$$ph* list$1list$1int$$ph_replace(struct list$1list$1int$$ph* self, int position, struct list$1int$* item);
-static struct list$1int$* list$1int$_remove(struct list$1int$* self, int item);
+static struct list$1int$* list$1int$_remove(struct list$1int$* self, int item, _Bool by_pointer);
 static struct list$1int$* list$1int$_delete(struct list$1int$* self, int head, int tail);
 void ViWin_runMacro(struct ViWin* self  );
 static void lambda1(struct Vi* self  , int key);
@@ -4237,16 +4237,16 @@ static struct map$2int$list$1list$1int$$ph$ph* map$2int$list$1list$1int$$ph$ph_i
     void* __right_value1 = (void*)0;
     struct list$1int$* __dec_obj2;
     struct map$2int$list$1list$1int$$ph$ph* __result_obj__0;
-    self->keys=(int*)come_increment_ref_count(((int*)(__right_value0=(int*)come_calloc(1, sizeof(int)*(1*(128)), "/usr/local/include/neo-c.h", 2001, "int*"))));
-    self->items=(struct list$1list$1int$$ph**)come_increment_ref_count(((struct list$1list$1int$$ph**)(__right_value0=(struct list$1list$1int$$ph**)come_calloc(1, sizeof(struct list$1list$1int$$ph*)*(1*(128)), "/usr/local/include/neo-c.h", 2002, "struct list$1list$1int$$ph**"))));
-    self->item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(128)), "/usr/local/include/neo-c.h", 2003, "_Bool*"))));
+    self->keys=(int*)come_increment_ref_count(((int*)(__right_value0=(int*)come_calloc(1, sizeof(int)*(1*(128)), "/usr/local/include/neo-c.h", 1952, "int*"))));
+    self->items=(struct list$1list$1int$$ph**)come_increment_ref_count(((struct list$1list$1int$$ph**)(__right_value0=(struct list$1list$1int$$ph**)come_calloc(1, sizeof(struct list$1list$1int$$ph*)*(1*(128)), "/usr/local/include/neo-c.h", 1953, "struct list$1list$1int$$ph**"))));
+    self->item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(128)), "/usr/local/include/neo-c.h", 1954, "_Bool*"))));
     for(i=0;i<128;i++){
         self->item_existance[i]=0;
     }
     self->size=128;
     self->len=0;
     __dec_obj2=self->key_list,
-    self->key_list=(struct list$1int$*)come_increment_ref_count(list$1int$_initialize((struct list$1int$*)come_increment_ref_count((struct list$1int$*)come_calloc(1, sizeof(struct list$1int$)*(1), "/usr/local/include/neo-c.h", 2013, "struct list$1int$*"))));
+    self->key_list=(struct list$1int$*)come_increment_ref_count(list$1int$_initialize((struct list$1int$*)come_increment_ref_count((struct list$1int$*)come_calloc(1, sizeof(struct list$1int$)*(1), "/usr/local/include/neo-c.h", 1964, "struct list$1int$*"))));
     come_call_finalizer(list$1int$_finalize, __dec_obj2,(void*)0, (void*)0, 0, 0, 0, (void*)0);
     self->it=0;
     __result_obj__0 = (struct map$2int$list$1list$1int$$ph$ph*)come_increment_ref_count(self);
@@ -5037,7 +5037,7 @@ void ViWin_recordMacro(struct ViWin* self  )
     }
     else {
         macro_=(struct list$1list$1int$$ph*)come_increment_ref_count(list$1list$1int$$ph$p_clone(self->recordingMacro));
-        map$2int$list$1list$1int$$ph$ph_insert(self->macro,self->recordingMacroKey,(struct list$1list$1int$$ph*)come_increment_ref_count(list$1list$1int$$ph$p_clone(macro_)));
+        map$2int$list$1list$1int$$ph$ph_insert(self->macro,self->recordingMacroKey,(struct list$1list$1int$$ph*)come_increment_ref_count(list$1list$1int$$ph$p_clone(macro_)),0);
         self->recordingMacroKey=-1;
         __dec_obj20=self->recordingMacro,
         self->recordingMacro=((void*)0);
@@ -5167,7 +5167,7 @@ static struct list$1int$* list$1int$_clone(struct list$1int$* self)
     return __result_obj__0;
 }
 
-static struct map$2int$list$1list$1int$$ph$ph* map$2int$list$1list$1int$$ph$ph_insert(struct map$2int$list$1list$1int$$ph$ph* self, int key, struct list$1list$1int$$ph* item)
+static struct map$2int$list$1list$1int$$ph$ph* map$2int$list$1list$1int$$ph$ph_insert(struct map$2int$list$1list$1int$$ph$ph* self, int key, struct list$1list$1int$$ph* item, _Bool by_pointer)
 {
     struct map$2int$list$1list$1int$$ph$ph* __result_obj__0;
     unsigned int hash;
@@ -5186,13 +5186,13 @@ static struct map$2int$list$1list$1int$$ph$ph* map$2int$list$1list$1int$$ph$ph_i
     it=hash;
     while(1) {
         if(self->item_existance[it]) {
-            if(int_equals(self->keys[it],key)) {
+            if((!by_pointer&&int_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
                 if(0) {
-                    list$1int$_remove(self->key_list,self->keys[it]);
+                    list$1int$_remove(self->key_list,self->keys[it],0);
                     self->keys[it]=key;
                 }
                 else {
-                    list$1int$_remove(self->key_list,self->keys[it]);
+                    list$1int$_remove(self->key_list,self->keys[it],0);
                     self->keys[it]=key;
                 }
                 if(1) {
@@ -5234,7 +5234,7 @@ static struct map$2int$list$1list$1int$$ph$ph* map$2int$list$1list$1int$$ph$ph_i
     }
     same_key_exist=0;
     for(it2=list$1int$_begin(self->key_list);!list$1int$_end(self->key_list);it2=list$1int$_next(self->key_list)){
-        if(int_equals(it2,key)) {
+        if((!by_pointer&&int_equals(it2,key))||(by_pointer&&it2==key)) {
             same_key_exist=1;
         }
     }
@@ -5261,13 +5261,13 @@ static void map$2int$list$1list$1int$$ph$ph_rehash(struct map$2int$list$1list$1i
     int n;
     struct list$1list$1int$$ph* default_value_18;
     size=self->size*10;
-    keys=(int*)come_increment_ref_count(((int*)(__right_value0=(int*)come_calloc(1, sizeof(int)*(1*(size)), "/usr/local/include/neo-c.h", 2301, "int*"))));
-    items=(struct list$1list$1int$$ph**)come_increment_ref_count(((struct list$1list$1int$$ph**)(__right_value0=(struct list$1list$1int$$ph**)come_calloc(1, sizeof(struct list$1list$1int$$ph*)*(1*(size)), "/usr/local/include/neo-c.h", 2302, "struct list$1list$1int$$ph**"))));
-    item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), "/usr/local/include/neo-c.h", 2303, "_Bool*"))));
+    keys=(int*)come_increment_ref_count(((int*)(__right_value0=(int*)come_calloc(1, sizeof(int)*(1*(size)), "/usr/local/include/neo-c.h", 2207, "int*"))));
+    items=(struct list$1list$1int$$ph**)come_increment_ref_count(((struct list$1list$1int$$ph**)(__right_value0=(struct list$1list$1int$$ph**)come_calloc(1, sizeof(struct list$1list$1int$$ph*)*(1*(size)), "/usr/local/include/neo-c.h", 2208, "struct list$1list$1int$$ph**"))));
+    item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), "/usr/local/include/neo-c.h", 2209, "_Bool*"))));
     len=0;
     for(it=map$2int$list$1list$1int$$ph$ph_begin(self);!map$2int$list$1list$1int$$ph$ph_end(self);it=map$2int$list$1list$1int$$ph$ph_next(self)){
         memset(&default_value,0,sizeof(struct list$1list$1int$$ph*));
-        it2=((struct list$1list$1int$$ph*)(__right_value0=map$2int$list$1list$1int$$ph$ph_at(self,it,(struct list$1list$1int$$ph*)come_increment_ref_count(default_value))));
+        it2=((struct list$1list$1int$$ph*)(__right_value0=map$2int$list$1list$1int$$ph$ph_at(self,it,(struct list$1list$1int$$ph*)come_increment_ref_count(default_value),0)));
         hash=int_get_hash_key(((int)it))%size;
         n=hash;
         while(1) {
@@ -5286,7 +5286,7 @@ static void map$2int$list$1list$1int$$ph$ph_rehash(struct map$2int$list$1list$1i
                 item_existance[n]=1;
                 keys[n]=it;
                 memset(&default_value_18,0,sizeof(struct list$1list$1int$$ph*));
-                items[n]=((struct list$1list$1int$$ph*)(__right_value0=map$2int$list$1list$1int$$ph$ph_at(self,it,(struct list$1list$1int$$ph*)come_increment_ref_count(default_value_18))));
+                items[n]=((struct list$1list$1int$$ph*)(__right_value0=map$2int$list$1list$1int$$ph$ph_at(self,it,(struct list$1list$1int$$ph*)come_increment_ref_count(default_value_18),0)));
                 len++;
                 come_call_finalizer(list$1list$1int$$ph$p_finalize, default_value_18, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 break;
@@ -5342,7 +5342,7 @@ static int map$2int$list$1list$1int$$ph$ph_next(struct map$2int$list$1list$1int$
     return result_17;
 }
 
-static struct list$1list$1int$$ph* map$2int$list$1list$1int$$ph$ph_at(struct map$2int$list$1list$1int$$ph$ph* self, int key, struct list$1list$1int$$ph* default_value)
+static struct list$1list$1int$$ph* map$2int$list$1list$1int$$ph$ph_at(struct map$2int$list$1list$1int$$ph$ph* self, int key, struct list$1list$1int$$ph* default_value, _Bool by_pointer)
 {
     struct list$1list$1int$$ph* __result_obj__0;
     unsigned int hash;
@@ -5357,7 +5357,7 @@ static struct list$1list$1int$$ph* map$2int$list$1list$1int$$ph$ph_at(struct map
     it=hash;
     while(1) {
         if(self->item_existance[it]) {
-            if(int_equals(self->keys[it],key)) {
+            if((!by_pointer&&int_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
                 __result_obj__0 = (struct list$1list$1int$$ph*)come_increment_ref_count(self->items[it]);
                 come_call_finalizer(list$1list$1int$$ph$p_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 come_call_finalizer(list$1list$1int$$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -5442,7 +5442,7 @@ static struct list$1list$1int$$ph* list$1list$1int$$ph_replace(struct list$1list
     return __result_obj__0;
 }
 
-static struct list$1int$* list$1int$_remove(struct list$1int$* self, int item)
+static struct list$1int$* list$1int$_remove(struct list$1int$* self, int item, _Bool by_pointer)
 {
     struct list$1int$* __result_obj__0;
     int it2;
@@ -5454,7 +5454,7 @@ static struct list$1int$* list$1int$_remove(struct list$1int$* self, int item)
     it2=0;
     it=self->head;
     while(it!=((void*)0)) {
-        if(int_equals(it->item,item)) {
+        if((!by_pointer&&int_equals(it->item,item))||(by_pointer&&it->item==item)) {
             list$1int$_delete(self,it2,it2+1);
             break;
         }
@@ -5597,7 +5597,7 @@ void ViWin_runMacro(struct ViWin* self  )
     struct list$1list$1int$$ph* macro_;
     struct list$1list$1int$$ph* __dec_obj21;
     key=ViWin_getKey_v14(self,0);
-    macro_=(struct list$1list$1int$$ph*)come_increment_ref_count(map$2int$list$1list$1int$$ph$ph_at(self->macro,key,((void*)0)));
+    macro_=(struct list$1list$1int$$ph*)come_increment_ref_count(map$2int$list$1list$1int$$ph$ph_at(self->macro,key,((void*)0),0));
     if(macro_) {
         __dec_obj21=self->runningMacro,
         self->runningMacro=(struct list$1list$1int$$ph*)come_increment_ref_count(list$1list$1int$$ph$p_clone(macro_));

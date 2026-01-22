@@ -1818,7 +1818,7 @@ impl list <T>
 
         return result;
     }
-    list<T>*% uniq(list<T>* self, bool by_pointer) {
+    list<T>*% uniq(list<T>* self, bool by_pointer=false) {
         list<T>*% result = new list<T>.initialize();
         
         if(self == null) {

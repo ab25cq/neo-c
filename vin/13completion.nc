@@ -142,7 +142,7 @@ void ViWin*::completion(ViWin* self, Vi* nvi) version 13
         }
     }
 
-    auto candidates2 = candidates.sort().uniq()
+    auto candidates2 = candidates.sort().uniq();
 
     auto candidate = self.selector2(candidates2);
     

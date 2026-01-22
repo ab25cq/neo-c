@@ -3323,13 +3323,13 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
 static void list$1list$1int$$ph$p_finalize(struct list$1list$1int$$ph* self);
 static void list_item$1list$1int$$ph$p_finalize(struct list_item$1list$1int$$ph* self);
 void ViWin_markAtCurrentPoint(struct ViWin* self  , int c  );
-static struct map$2int$tuple3$3int$int$int$$ph* map$2int$tuple3$3int$int$int$$ph_insert(struct map$2int$tuple3$3int$int$int$$ph* self, int key  , struct tuple3$3int$int$int$* item);
+static struct map$2int$tuple3$3int$int$int$$ph* map$2int$tuple3$3int$int$int$$ph_insert(struct map$2int$tuple3$3int$int$int$$ph* self, int key  , struct tuple3$3int$int$int$* item, _Bool by_pointer);
 static void map$2int$tuple3$3int$int$int$$ph_rehash(struct map$2int$tuple3$3int$int$int$$ph* self);
 static int map$2int$tuple3$3int$int$int$$ph_begin(struct map$2int$tuple3$3int$int$int$$ph* self);
 static _Bool map$2int$tuple3$3int$int$int$$ph_end(struct map$2int$tuple3$3int$int$int$$ph* self);
 static int map$2int$tuple3$3int$int$int$$ph_next(struct map$2int$tuple3$3int$int$int$$ph* self);
-static struct tuple3$3int$int$int$* map$2int$tuple3$3int$int$int$$ph_at(struct map$2int$tuple3$3int$int$int$$ph* self, int key  , struct tuple3$3int$int$int$* default_value);
-static struct list$1int$* list$1int$_remove(struct list$1int$* self, int item  );
+static struct tuple3$3int$int$int$* map$2int$tuple3$3int$int$int$$ph_at(struct map$2int$tuple3$3int$int$int$$ph* self, int key  , struct tuple3$3int$int$int$* default_value, _Bool by_pointer);
+static struct list$1int$* list$1int$_remove(struct list$1int$* self, int item  , _Bool by_pointer);
 static struct list$1int$* list$1int$_delete(struct list$1int$* self, int head, int tail);
 static struct list$1int$* list$1int$_reset(struct list$1int$* self);
 static int list$1int$_begin(struct list$1int$* self);
@@ -3407,16 +3407,16 @@ static struct map$2int$tuple3$3int$int$int$$ph* map$2int$tuple3$3int$int$int$$ph
     void* __right_value1 = (void*)0;
     struct list$1int$* __dec_obj1;
     struct map$2int$tuple3$3int$int$int$$ph* __result_obj__0;
-    self->keys=(int*)come_increment_ref_count(((int*)(__right_value0=(int*)come_calloc(1, sizeof(int)*(1*(128)), "/usr/local/include/neo-c.h", 2001, "int*"))));
-    self->items=(struct tuple3$3int$int$int$**)come_increment_ref_count(((struct tuple3$3int$int$int$**)(__right_value0=(struct tuple3$3int$int$int$**)come_calloc(1, sizeof(struct tuple3$3int$int$int$*)*(1*(128)), "/usr/local/include/neo-c.h", 2002, "struct tuple3$3int$int$int$**"))));
-    self->item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(128)), "/usr/local/include/neo-c.h", 2003, "_Bool*"))));
+    self->keys=(int*)come_increment_ref_count(((int*)(__right_value0=(int*)come_calloc(1, sizeof(int)*(1*(128)), "/usr/local/include/neo-c.h", 1952, "int*"))));
+    self->items=(struct tuple3$3int$int$int$**)come_increment_ref_count(((struct tuple3$3int$int$int$**)(__right_value0=(struct tuple3$3int$int$int$**)come_calloc(1, sizeof(struct tuple3$3int$int$int$*)*(1*(128)), "/usr/local/include/neo-c.h", 1953, "struct tuple3$3int$int$int$**"))));
+    self->item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(128)), "/usr/local/include/neo-c.h", 1954, "_Bool*"))));
     for(i=0;i<128;i++){
         self->item_existance[i]=0;
     }
     self->size=128;
     self->len=0;
     __dec_obj1=self->key_list,
-    self->key_list=(struct list$1int$*)come_increment_ref_count(list$1int$_initialize((struct list$1int$*)come_increment_ref_count((struct list$1int$*)come_calloc(1, sizeof(struct list$1int$)*(1), "/usr/local/include/neo-c.h", 2013, "struct list$1int$*"))));
+    self->key_list=(struct list$1int$*)come_increment_ref_count(list$1int$_initialize((struct list$1int$*)come_increment_ref_count((struct list$1int$*)come_calloc(1, sizeof(struct list$1int$)*(1), "/usr/local/include/neo-c.h", 1964, "struct list$1int$*"))));
     come_call_finalizer(list$1int$_finalize, __dec_obj1,(void*)0, (void*)0, 0, 0, 0, (void*)0);
     self->it=0;
     __result_obj__0 = (struct map$2int$tuple3$3int$int$int$$ph*)come_increment_ref_count(self);
@@ -3689,11 +3689,11 @@ void ViWin_markAtCurrentPoint(struct ViWin* self  , int c  )
     point->v1=self->scroll;
     point->v2=self->cursorY;
     point->v3=self->cursorX;
-    map$2int$tuple3$3int$int$int$$ph_insert(self->mark,c,(struct tuple3$3int$int$int$*)come_increment_ref_count(point));
+    map$2int$tuple3$3int$int$int$$ph_insert(self->mark,c,(struct tuple3$3int$int$int$*)come_increment_ref_count(point),0);
     come_call_finalizer(tuple3$3int$int$int$$p_finalize, point, (void*)0, (void*)0, 0, 0, 0, (void*)0);
 }
 
-static struct map$2int$tuple3$3int$int$int$$ph* map$2int$tuple3$3int$int$int$$ph_insert(struct map$2int$tuple3$3int$int$int$$ph* self, int key  , struct tuple3$3int$int$int$* item)
+static struct map$2int$tuple3$3int$int$int$$ph* map$2int$tuple3$3int$int$int$$ph_insert(struct map$2int$tuple3$3int$int$int$$ph* self, int key  , struct tuple3$3int$int$int$* item, _Bool by_pointer)
 {
     struct map$2int$tuple3$3int$int$int$$ph* __result_obj__0;
     unsigned int hash;
@@ -3712,13 +3712,13 @@ static struct map$2int$tuple3$3int$int$int$$ph* map$2int$tuple3$3int$int$int$$ph
     it=hash;
     while(1) {
         if(self->item_existance[it]) {
-            if(wchar_t_equals(self->keys[it],key)) {
+            if((!by_pointer&&wchar_t_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
                 if(0) {
-                    list$1int$_remove(self->key_list,self->keys[it]);
+                    list$1int$_remove(self->key_list,self->keys[it],0);
                     self->keys[it]=key;
                 }
                 else {
-                    list$1int$_remove(self->key_list,self->keys[it]);
+                    list$1int$_remove(self->key_list,self->keys[it],0);
                     self->keys[it]=key;
                 }
                 if(1) {
@@ -3760,7 +3760,7 @@ static struct map$2int$tuple3$3int$int$int$$ph* map$2int$tuple3$3int$int$int$$ph
     }
     same_key_exist=0;
     for(it2=list$1int$_begin(self->key_list);!list$1int$_end(self->key_list);it2=list$1int$_next(self->key_list)){
-        if(wchar_t_equals(it2,key)) {
+        if((!by_pointer&&wchar_t_equals(it2,key))||(by_pointer&&it2==key)) {
             same_key_exist=1;
         }
     }
@@ -3787,13 +3787,13 @@ static void map$2int$tuple3$3int$int$int$$ph_rehash(struct map$2int$tuple3$3int$
     int n;
     struct tuple3$3int$int$int$* default_value_5;
     size=self->size*10;
-    keys=(int*)come_increment_ref_count(((int*)(__right_value0=(int*)come_calloc(1, sizeof(int)*(1*(size)), "/usr/local/include/neo-c.h", 2301, "int*"))));
-    items=(struct tuple3$3int$int$int$**)come_increment_ref_count(((struct tuple3$3int$int$int$**)(__right_value0=(struct tuple3$3int$int$int$**)come_calloc(1, sizeof(struct tuple3$3int$int$int$*)*(1*(size)), "/usr/local/include/neo-c.h", 2302, "struct tuple3$3int$int$int$**"))));
-    item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), "/usr/local/include/neo-c.h", 2303, "_Bool*"))));
+    keys=(int*)come_increment_ref_count(((int*)(__right_value0=(int*)come_calloc(1, sizeof(int)*(1*(size)), "/usr/local/include/neo-c.h", 2207, "int*"))));
+    items=(struct tuple3$3int$int$int$**)come_increment_ref_count(((struct tuple3$3int$int$int$**)(__right_value0=(struct tuple3$3int$int$int$**)come_calloc(1, sizeof(struct tuple3$3int$int$int$*)*(1*(size)), "/usr/local/include/neo-c.h", 2208, "struct tuple3$3int$int$int$**"))));
+    item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), "/usr/local/include/neo-c.h", 2209, "_Bool*"))));
     len=0;
     for(it=map$2int$tuple3$3int$int$int$$ph_begin(self);!map$2int$tuple3$3int$int$int$$ph_end(self);it=map$2int$tuple3$3int$int$int$$ph_next(self)){
         memset(&default_value,0,sizeof(struct tuple3$3int$int$int$*));
-        it2=((struct tuple3$3int$int$int$*)(__right_value0=map$2int$tuple3$3int$int$int$$ph_at(self,it,(struct tuple3$3int$int$int$*)come_increment_ref_count(default_value))));
+        it2=((struct tuple3$3int$int$int$*)(__right_value0=map$2int$tuple3$3int$int$int$$ph_at(self,it,(struct tuple3$3int$int$int$*)come_increment_ref_count(default_value),0)));
         hash=wchar_t_get_hash_key(((int)it))%size;
         n=hash;
         while(1) {
@@ -3812,7 +3812,7 @@ static void map$2int$tuple3$3int$int$int$$ph_rehash(struct map$2int$tuple3$3int$
                 item_existance[n]=1;
                 keys[n]=it;
                 memset(&default_value_5,0,sizeof(struct tuple3$3int$int$int$*));
-                items[n]=((struct tuple3$3int$int$int$*)(__right_value0=map$2int$tuple3$3int$int$int$$ph_at(self,it,(struct tuple3$3int$int$int$*)come_increment_ref_count(default_value_5))));
+                items[n]=((struct tuple3$3int$int$int$*)(__right_value0=map$2int$tuple3$3int$int$int$$ph_at(self,it,(struct tuple3$3int$int$int$*)come_increment_ref_count(default_value_5),0)));
                 len++;
                 come_call_finalizer(tuple3$3int$int$int$$p_finalize, default_value_5, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 break;
@@ -3868,7 +3868,7 @@ static int map$2int$tuple3$3int$int$int$$ph_next(struct map$2int$tuple3$3int$int
     return result_4;
 }
 
-static struct tuple3$3int$int$int$* map$2int$tuple3$3int$int$int$$ph_at(struct map$2int$tuple3$3int$int$int$$ph* self, int key  , struct tuple3$3int$int$int$* default_value)
+static struct tuple3$3int$int$int$* map$2int$tuple3$3int$int$int$$ph_at(struct map$2int$tuple3$3int$int$int$$ph* self, int key  , struct tuple3$3int$int$int$* default_value, _Bool by_pointer)
 {
     struct tuple3$3int$int$int$* __result_obj__0;
     unsigned int hash;
@@ -3883,7 +3883,7 @@ static struct tuple3$3int$int$int$* map$2int$tuple3$3int$int$int$$ph_at(struct m
     it=hash;
     while(1) {
         if(self->item_existance[it]) {
-            if(wchar_t_equals(self->keys[it],key)) {
+            if((!by_pointer&&wchar_t_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
                 __result_obj__0 = (struct tuple3$3int$int$int$*)come_increment_ref_count(self->items[it]);
                 come_call_finalizer(tuple3$3int$int$int$$p_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 come_call_finalizer(tuple3$3int$int$int$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -3913,7 +3913,7 @@ static struct tuple3$3int$int$int$* map$2int$tuple3$3int$int$int$$ph_at(struct m
     return __result_obj__0;
 }
 
-static struct list$1int$* list$1int$_remove(struct list$1int$* self, int item  )
+static struct list$1int$* list$1int$_remove(struct list$1int$* self, int item  , _Bool by_pointer)
 {
     struct list$1int$* __result_obj__0;
     int it2;
@@ -3925,7 +3925,7 @@ static struct list$1int$* list$1int$_remove(struct list$1int$* self, int item  )
     it2=0;
     it=self->head;
     while(it!=((void*)0)) {
-        if(int_equals(it->item,item)) {
+        if((!by_pointer&&int_equals(it->item,item))||(by_pointer&&it->item==item)) {
             list$1int$_delete(self,it2,it2+1);
             break;
         }
@@ -4164,7 +4164,7 @@ void ViWin_returnAtMarkedPoint(struct ViWin* self  , int c  )
 {
     void* __right_value0 = (void*)0;
     struct tuple3$3int$int$int$* point;
-    point=(struct tuple3$3int$int$int$*)come_increment_ref_count(map$2int$tuple3$3int$int$int$$ph_at(self->mark,c,((void*)0)));
+    point=(struct tuple3$3int$int$int$*)come_increment_ref_count(map$2int$tuple3$3int$int$int$$ph_at(self->mark,c,((void*)0),0));
     if(point!=((void*)0)) {
         ViWin_saveReturnPoint(self);
         self->scroll=point->v1;
