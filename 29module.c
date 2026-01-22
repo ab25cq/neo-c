@@ -2670,20 +2670,20 @@ struct sUndefNode* sUndefNode_initialize(struct sUndefNode* self, char* str  , s
 char* sUndefNode_kind(struct sUndefNode* self);
 _Bool sUndefNode_compile(struct sUndefNode* self, struct sInfo* info  );
 static void sUndefNode_finalize(struct sUndefNode* self);
-static struct map$2char$phbuffer$ph* map$2char$phbuffer$ph_remove(struct map$2char$phbuffer$ph* self, char* key  );
-static struct list$1char$ph* list$1char$ph_remove(struct list$1char$ph* self, char* item  );
+static struct map$2char$phbuffer$ph* map$2char$phbuffer$ph_remove(struct map$2char$phbuffer$ph* self, char* key  , _Bool by_pointer);
+static struct list$1char$ph* list$1char$ph_remove(struct list$1char$ph* self, char* item  , _Bool by_pointer);
 static struct list$1char$ph* list$1char$ph_delete(struct list$1char$ph* self, int head, int tail);
 static struct list$1char$ph* list$1char$ph_reset(struct list$1char$ph* self);
-static struct map$2char$phsFun$ph* map$2char$phsFun$ph_remove(struct map$2char$phsFun$ph* self, char* key  );
+static struct map$2char$phsFun$ph* map$2char$phsFun$ph_remove(struct map$2char$phsFun$ph* self, char* key  , _Bool by_pointer);
 static void sFun_finalize(struct sFun* self  );
 static void list$1sVar$ph$p_finalize(struct list$1sVar$ph* self);
 static void list_item$1sVar$ph$p_finalize(struct list_item$1sVar$ph* self);
 static void sVar_finalize(struct sVar* self  );
 static void sBlock_finalize(struct sBlock* self  );
-static struct map$2char$phsGenericsFun$ph* map$2char$phsGenericsFun$ph_remove(struct map$2char$phsGenericsFun$ph* self, char* key  );
+static struct map$2char$phsGenericsFun$ph* map$2char$phsGenericsFun$ph_remove(struct map$2char$phsGenericsFun$ph* self, char* key  , _Bool by_pointer);
 static void sGenericsFun_finalize(struct sGenericsFun* self  );
-static struct map$2char$phsClassModule$ph* map$2char$phsClassModule$ph_remove(struct map$2char$phsClassModule$ph* self, char* key  );
-static struct map$2char$phsType$ph* map$2char$phsType$ph_remove(struct map$2char$phsType$ph* self, char* key  );
+static struct map$2char$phsClassModule$ph* map$2char$phsClassModule$ph_remove(struct map$2char$phsClassModule$ph* self, char* key  , _Bool by_pointer);
+static struct map$2char$phsType$ph* map$2char$phsType$ph_remove(struct map$2char$phsType$ph* self, char* key  , _Bool by_pointer);
 struct sNoneNode* sNoneNode_initialize(struct sNoneNode* self, struct sInfo* info  );
 char* sNoneNode_kind(struct sNoneNode* self);
 _Bool sNoneNode_compile(struct sNoneNode* self, struct sInfo* info  );
@@ -2748,32 +2748,32 @@ char* reflection_expression_andand(struct sInfo* info  );
 char* reflection_expression(struct sInfo* info  );
 struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo* info  );
 static void map$2char$phsClassModule$ph_operator_store_element(struct map$2char$phsClassModule$ph* self, char* key  , struct sClassModule* item  );
-static struct map$2char$phsClassModule$ph* map$2char$phsClassModule$ph_insert(struct map$2char$phsClassModule$ph* self, char* key  , struct sClassModule* item  );
+static struct map$2char$phsClassModule$ph* map$2char$phsClassModule$ph_insert(struct map$2char$phsClassModule$ph* self, char* key  , struct sClassModule* item  , _Bool by_pointer);
 static void map$2char$phsClassModule$ph_rehash(struct map$2char$phsClassModule$ph* self);
 static char* map$2char$phsClassModule$ph_begin(struct map$2char$phsClassModule$ph* self);
 static _Bool map$2char$phsClassModule$ph_end(struct map$2char$phsClassModule$ph* self);
 static char* map$2char$phsClassModule$ph_next(struct map$2char$phsClassModule$ph* self);
-static struct sClassModule* map$2char$phsClassModule$ph_at(struct map$2char$phsClassModule$ph* self, char* key  , struct sClassModule* default_value  );
+static struct sClassModule* map$2char$phsClassModule$ph_at(struct map$2char$phsClassModule$ph* self, char* key  , struct sClassModule* default_value  , _Bool by_pointer);
 static char* list$1char$ph_begin(struct list$1char$ph* self);
 static _Bool list$1char$ph_end(struct list$1char$ph* self);
 static char* list$1char$ph_next(struct list$1char$ph* self);
 static struct list$1char$ph* list$1char$ph_push_back(struct list$1char$ph* self, char* item  );
 static struct sModuleNode* sModuleNode_clone(struct sModuleNode* self);
-static struct map$2char$phbuffer$ph* map$2char$phbuffer$ph_insert(struct map$2char$phbuffer$ph* self, char* key  , struct buffer* item  );
+static struct map$2char$phbuffer$ph* map$2char$phbuffer$ph_insert(struct map$2char$phbuffer$ph* self, char* key  , struct buffer* item  , _Bool by_pointer);
 static void map$2char$phbuffer$ph_rehash(struct map$2char$phbuffer$ph* self);
 static char* map$2char$phbuffer$ph_begin(struct map$2char$phbuffer$ph* self);
 static _Bool map$2char$phbuffer$ph_end(struct map$2char$phbuffer$ph* self);
 static char* map$2char$phbuffer$ph_next(struct map$2char$phbuffer$ph* self);
-static struct buffer* map$2char$phbuffer$ph_at(struct map$2char$phbuffer$ph* self, char* key  , struct buffer* default_value  );
+static struct buffer* map$2char$phbuffer$ph_at(struct map$2char$phbuffer$ph* self, char* key  , struct buffer* default_value  , _Bool by_pointer);
 static void sNothingNode_finalize(struct sNothingNode* self);
 static struct sNothingNode* sNothingNode_clone(struct sNothingNode* self);
 static struct sUndefNode* sUndefNode_clone(struct sUndefNode* self);
-static struct map$2char$phchar$ph* map$2char$phchar$ph_insert(struct map$2char$phchar$ph* self, char* key  , char* item  );
+static struct map$2char$phchar$ph* map$2char$phchar$ph_insert(struct map$2char$phchar$ph* self, char* key  , char* item  , _Bool by_pointer);
 static void map$2char$phchar$ph_rehash(struct map$2char$phchar$ph* self);
 static char* map$2char$phchar$ph_begin(struct map$2char$phchar$ph* self);
 static _Bool map$2char$phchar$ph_end(struct map$2char$phchar$ph* self);
 static char* map$2char$phchar$ph_next(struct map$2char$phchar$ph* self);
-static char* map$2char$phchar$ph_at(struct map$2char$phchar$ph* self, char* key  , char* default_value  );
+static char* map$2char$phchar$ph_at(struct map$2char$phchar$ph* self, char* key  , char* default_value  , _Bool by_pointer);
 // uniq global variable
 // inline function
 static inline unsigned short int __bswap_16(unsigned short int __bsx  )
@@ -3341,12 +3341,12 @@ _Bool sUndefNode_compile(struct sUndefNode* self, struct sInfo* info  )
     char* str  ;
     _Bool __result_obj__0;
     str=(char*)come_increment_ref_count(self->str);
-    map$2char$phbuffer$ph_remove(info->struct_definition,(char*)come_increment_ref_count(str));
-    map$2char$phsFun$ph_remove(info->funcs,(char*)come_increment_ref_count(str));
-    map$2char$phsGenericsFun$ph_remove(info->generics_funcs,(char*)come_increment_ref_count(str));
-    map$2char$phsClassModule$ph_remove(info->modules,(char*)come_increment_ref_count(str));
-    map$2char$phsType$ph_remove(info->types,(char*)come_increment_ref_count(str));
-    map$2char$phbuffer$ph_remove(info->typedef_definition,(char*)come_increment_ref_count(str));
+    map$2char$phbuffer$ph_remove(info->struct_definition,(char*)come_increment_ref_count(str),0);
+    map$2char$phsFun$ph_remove(info->funcs,(char*)come_increment_ref_count(str),0);
+    map$2char$phsGenericsFun$ph_remove(info->generics_funcs,(char*)come_increment_ref_count(str),0);
+    map$2char$phsClassModule$ph_remove(info->modules,(char*)come_increment_ref_count(str),0);
+    map$2char$phsType$ph_remove(info->types,(char*)come_increment_ref_count(str),0);
+    map$2char$phbuffer$ph_remove(info->typedef_definition,(char*)come_increment_ref_count(str),0);
     __result_obj__0 = 1;
     (str = come_decrement_ref_count(str, (void*)0, (void*)0, 0, 0, (void*)0));
     return __result_obj__0;
@@ -3362,7 +3362,7 @@ static void sUndefNode_finalize(struct sUndefNode* self)
     }
 }
 
-static struct map$2char$phbuffer$ph* map$2char$phbuffer$ph_remove(struct map$2char$phbuffer$ph* self, char* key  )
+static struct map$2char$phbuffer$ph* map$2char$phbuffer$ph_remove(struct map$2char$phbuffer$ph* self, char* key  , _Bool by_pointer)
 {
     struct map$2char$phbuffer$ph* __result_obj__0;
     unsigned int hash;
@@ -3376,8 +3376,8 @@ static struct map$2char$phbuffer$ph* map$2char$phbuffer$ph_remove(struct map$2ch
     it=hash;
     while(1) {
         if(self->item_existance[it]) {
-            if(string_equals(self->keys[it],key)) {
-                list$1char$ph_remove(self->key_list,self->keys[it]);
+            if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
+                list$1char$ph_remove(self->key_list,self->keys[it],0);
                 self->item_existance[it]=0;
                 if(1) {
                     (self->keys[it] = come_decrement_ref_count(self->keys[it], (void*)0, (void*)0, 0, 0, (void*)0));
@@ -3407,7 +3407,7 @@ static struct map$2char$phbuffer$ph* map$2char$phbuffer$ph_remove(struct map$2ch
     return __result_obj__0;
 }
 
-static struct list$1char$ph* list$1char$ph_remove(struct list$1char$ph* self, char* item  )
+static struct list$1char$ph* list$1char$ph_remove(struct list$1char$ph* self, char* item  , _Bool by_pointer)
 {
     struct list$1char$ph* __result_obj__0;
     int it2;
@@ -3419,7 +3419,7 @@ static struct list$1char$ph* list$1char$ph_remove(struct list$1char$ph* self, ch
     it2=0;
     it=self->head;
     while(it!=((void*)0)) {
-        if(string_equals(it->item,item)) {
+        if((!by_pointer&&string_equals(it->item,item))||(by_pointer&&it->item==item)) {
             list$1char$ph_delete(self,it2,it2+1);
             break;
         }
@@ -3577,7 +3577,7 @@ static struct list$1char$ph* list$1char$ph_reset(struct list$1char$ph* self)
     return __result_obj__0;
 }
 
-static struct map$2char$phsFun$ph* map$2char$phsFun$ph_remove(struct map$2char$phsFun$ph* self, char* key  )
+static struct map$2char$phsFun$ph* map$2char$phsFun$ph_remove(struct map$2char$phsFun$ph* self, char* key  , _Bool by_pointer)
 {
     struct map$2char$phsFun$ph* __result_obj__0;
     unsigned int hash;
@@ -3591,8 +3591,8 @@ static struct map$2char$phsFun$ph* map$2char$phsFun$ph_remove(struct map$2char$p
     it=hash;
     while(1) {
         if(self->item_existance[it]) {
-            if(string_equals(self->keys[it],key)) {
-                list$1char$ph_remove(self->key_list,self->keys[it]);
+            if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
+                list$1char$ph_remove(self->key_list,self->keys[it],0);
                 self->item_existance[it]=0;
                 if(1) {
                     (self->keys[it] = come_decrement_ref_count(self->keys[it], (void*)0, (void*)0, 0, 0, (void*)0));
@@ -3722,7 +3722,7 @@ static void sBlock_finalize(struct sBlock* self  )
     }
 }
 
-static struct map$2char$phsGenericsFun$ph* map$2char$phsGenericsFun$ph_remove(struct map$2char$phsGenericsFun$ph* self, char* key  )
+static struct map$2char$phsGenericsFun$ph* map$2char$phsGenericsFun$ph_remove(struct map$2char$phsGenericsFun$ph* self, char* key  , _Bool by_pointer)
 {
     struct map$2char$phsGenericsFun$ph* __result_obj__0;
     unsigned int hash;
@@ -3736,8 +3736,8 @@ static struct map$2char$phsGenericsFun$ph* map$2char$phsGenericsFun$ph_remove(st
     it=hash;
     while(1) {
         if(self->item_existance[it]) {
-            if(string_equals(self->keys[it],key)) {
-                list$1char$ph_remove(self->key_list,self->keys[it]);
+            if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
+                list$1char$ph_remove(self->key_list,self->keys[it],0);
                 self->item_existance[it]=0;
                 if(1) {
                     (self->keys[it] = come_decrement_ref_count(self->keys[it], (void*)0, (void*)0, 0, 0, (void*)0));
@@ -3801,7 +3801,7 @@ static void sGenericsFun_finalize(struct sGenericsFun* self  )
     }
 }
 
-static struct map$2char$phsClassModule$ph* map$2char$phsClassModule$ph_remove(struct map$2char$phsClassModule$ph* self, char* key  )
+static struct map$2char$phsClassModule$ph* map$2char$phsClassModule$ph_remove(struct map$2char$phsClassModule$ph* self, char* key  , _Bool by_pointer)
 {
     struct map$2char$phsClassModule$ph* __result_obj__0;
     unsigned int hash;
@@ -3815,8 +3815,8 @@ static struct map$2char$phsClassModule$ph* map$2char$phsClassModule$ph_remove(st
     it=hash;
     while(1) {
         if(self->item_existance[it]) {
-            if(string_equals(self->keys[it],key)) {
-                list$1char$ph_remove(self->key_list,self->keys[it]);
+            if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
+                list$1char$ph_remove(self->key_list,self->keys[it],0);
                 self->item_existance[it]=0;
                 if(1) {
                     (self->keys[it] = come_decrement_ref_count(self->keys[it], (void*)0, (void*)0, 0, 0, (void*)0));
@@ -3846,7 +3846,7 @@ static struct map$2char$phsClassModule$ph* map$2char$phsClassModule$ph_remove(st
     return __result_obj__0;
 }
 
-static struct map$2char$phsType$ph* map$2char$phsType$ph_remove(struct map$2char$phsType$ph* self, char* key  )
+static struct map$2char$phsType$ph* map$2char$phsType$ph_remove(struct map$2char$phsType$ph* self, char* key  , _Bool by_pointer)
 {
     struct map$2char$phsType$ph* __result_obj__0;
     unsigned int hash;
@@ -3860,8 +3860,8 @@ static struct map$2char$phsType$ph* map$2char$phsType$ph_remove(struct map$2char
     it=hash;
     while(1) {
         if(self->item_existance[it]) {
-            if(string_equals(self->keys[it],key)) {
-                list$1char$ph_remove(self->key_list,self->keys[it]);
+            if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
+                list$1char$ph_remove(self->key_list,self->keys[it],0);
                 self->item_existance[it]=0;
                 if(1) {
                     (self->keys[it] = come_decrement_ref_count(self->keys[it], (void*)0, (void*)0, 0, 0, (void*)0));
@@ -7876,7 +7876,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         contents=(char*)come_increment_ref_count(charp_substring(block_text,1,p-(block_text+strlen(block_text))-1));
         static int n=0;
         n++;
-        map$2char$phbuffer$ph_insert(info->previous_struct_definition,(char*)come_increment_ref_count(xsprintf("__c__\%s",((char*)(__right_value0=int_to_string(n))))),(struct buffer*)come_increment_ref_count(charp_to_buffer(contents)));
+        map$2char$phbuffer$ph_insert(info->previous_struct_definition,(char*)come_increment_ref_count(xsprintf("__c__\%s",((char*)(__right_value0=int_to_string(n))))),(struct buffer*)come_increment_ref_count(charp_to_buffer(contents)),0);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         _inf_value3=(struct sNode*)come_calloc(1, sizeof(struct sNode), "29module.nc", 1701, "struct sNode");
         _inf_obj_value3=(struct sNothingNode*)come_increment_ref_count(((struct sNothingNode*)(__right_value1=sNothingNode_initialize((struct sNothingNode*)come_increment_ref_count((struct sNothingNode*)come_calloc(1, sizeof(struct sNothingNode)*(1), "29module.nc", 1701, "struct sNothingNode*")),info))));
@@ -7910,7 +7910,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         contents_122=(char*)come_increment_ref_count(charp_substring(block_text_120,1,p_121-(block_text_120+strlen(block_text_120))-1));
         static int n_123=0;
         n_123++;
-        map$2char$phbuffer$ph_insert(info->c_include_definition,(char*)come_increment_ref_count(xsprintf("c_include\%s",((char*)(__right_value0=int_to_string(n_123))))),(struct buffer*)come_increment_ref_count(charp_to_buffer(contents_122)));
+        map$2char$phbuffer$ph_insert(info->c_include_definition,(char*)come_increment_ref_count(xsprintf("c_include\%s",((char*)(__right_value0=int_to_string(n_123))))),(struct buffer*)come_increment_ref_count(charp_to_buffer(contents_122)),0);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         _inf_value4=(struct sNode*)come_calloc(1, sizeof(struct sNode), "29module.nc", 1720, "struct sNode");
         _inf_obj_value4=(struct sNothingNode*)come_increment_ref_count(((struct sNothingNode*)(__right_value1=sNothingNode_initialize((struct sNothingNode*)come_increment_ref_count((struct sNothingNode*)come_calloc(1, sizeof(struct sNothingNode)*(1), "29module.nc", 1720, "struct sNothingNode*")),info))));
@@ -8030,7 +8030,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         macro_snapshot_free(snap);
         if(macro_defines&&*macro_defines) {
             macro_include_id++;
-            map$2char$phbuffer$ph_insert(info->previous_struct_definition,(char*)come_increment_ref_count(xsprintf("__macro_include__\%s",((char*)(__right_value0=int_to_string(macro_include_id))))),(struct buffer*)come_increment_ref_count(charp_to_buffer(macro_defines)));
+            map$2char$phbuffer$ph_insert(info->previous_struct_definition,(char*)come_increment_ref_count(xsprintf("__macro_include__\%s",((char*)(__right_value0=int_to_string(macro_include_id))))),(struct buffer*)come_increment_ref_count(charp_to_buffer(macro_defines)),0);
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         }
         if(macro_defines) {
@@ -8235,7 +8235,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         var_name=(char*)come_increment_ref_count(parse_word(0,info));
         (come_push_stackframe("29module.nc", 1931, 35),__exception_result_var_b36=expected_next_character(61,info), come_pop_stackframe(), __exception_result_var_b36);
         value_137=(char*)come_increment_ref_count(reflection_expression(info));
-        map$2char$phchar$ph_insert(info->reflection_vars,(char*)come_increment_ref_count(var_name),(char*)come_increment_ref_count(value_137));
+        map$2char$phchar$ph_insert(info->reflection_vars,(char*)come_increment_ref_count(var_name),(char*)come_increment_ref_count(value_137),0);
         _inf_value10=(struct sNode*)come_calloc(1, sizeof(struct sNode), "29module.nc", 1937, "struct sNode");
         _inf_obj_value10=(struct sNothingNode*)come_increment_ref_count(((struct sNothingNode*)(__right_value1=sNothingNode_initialize((struct sNothingNode*)come_increment_ref_count((struct sNothingNode*)come_calloc(1, sizeof(struct sNothingNode)*(1), "29module.nc", 1937, "struct sNothingNode*")),info))));
         _inf_value10->_protocol_obj=_inf_obj_value10;
@@ -8391,12 +8391,12 @@ static void map$2char$phsClassModule$ph_operator_store_element(struct map$2char$
         come_call_finalizer(sClassModule_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         return;
     }
-    map$2char$phsClassModule$ph_insert(self,(char*)come_increment_ref_count(key),(struct sClassModule*)come_increment_ref_count(item));
+    map$2char$phsClassModule$ph_insert(self,(char*)come_increment_ref_count(key),(struct sClassModule*)come_increment_ref_count(item),0);
     (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0));
     come_call_finalizer(sClassModule_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
 }
 
-static struct map$2char$phsClassModule$ph* map$2char$phsClassModule$ph_insert(struct map$2char$phsClassModule$ph* self, char* key  , struct sClassModule* item  )
+static struct map$2char$phsClassModule$ph* map$2char$phsClassModule$ph_insert(struct map$2char$phsClassModule$ph* self, char* key  , struct sClassModule* item  , _Bool by_pointer)
 {
     struct map$2char$phsClassModule$ph* __result_obj__0;
     unsigned int hash;
@@ -8416,14 +8416,14 @@ static struct map$2char$phsClassModule$ph* map$2char$phsClassModule$ph_insert(st
     it=hash;
     while(1) {
         if(self->item_existance[it]) {
-            if(string_equals(self->keys[it],key)) {
+            if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
                 if(1) {
-                    list$1char$ph_remove(self->key_list,self->keys[it]);
+                    list$1char$ph_remove(self->key_list,self->keys[it],0);
                     (self->keys[it] = come_decrement_ref_count(self->keys[it], (void*)0, (void*)0, 0, 0, (void*)0));
                     self->keys[it]=(char*)come_increment_ref_count(key);
                 }
                 else {
-                    list$1char$ph_remove(self->key_list,self->keys[it]);
+                    list$1char$ph_remove(self->key_list,self->keys[it],0);
                     self->keys[it]=key;
                 }
                 if(1) {
@@ -8465,7 +8465,7 @@ static struct map$2char$phsClassModule$ph* map$2char$phsClassModule$ph_insert(st
     }
     same_key_exist=0;
     for(it2=list$1char$ph_begin(self->key_list);!list$1char$ph_end(self->key_list);it2=list$1char$ph_next(self->key_list)){
-        if(string_equals(it2,key)) {
+        if((!by_pointer&&string_equals(it2,key))||(by_pointer&&it2==key)) {
             same_key_exist=1;
         }
     }
@@ -8493,13 +8493,13 @@ static void map$2char$phsClassModule$ph_rehash(struct map$2char$phsClassModule$p
     int n;
     struct sClassModule* default_value_112  ;
     size=self->size*10;
-    keys=(char**)come_increment_ref_count(((char**)(__right_value0=(char**)come_calloc(1, sizeof(char*)*(1*(size)), "/usr/local/include/neo-c.h", 2301, "char**"))));
-    items=(struct sClassModule**)come_increment_ref_count(((struct sClassModule**)(__right_value0=(struct sClassModule**)come_calloc(1, sizeof(struct sClassModule*)*(1*(size)), "/usr/local/include/neo-c.h", 2302, "struct sClassModule**"))));
-    item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), "/usr/local/include/neo-c.h", 2303, "_Bool*"))));
+    keys=(char**)come_increment_ref_count(((char**)(__right_value0=(char**)come_calloc(1, sizeof(char*)*(1*(size)), "/usr/local/include/neo-c.h", 2207, "char**"))));
+    items=(struct sClassModule**)come_increment_ref_count(((struct sClassModule**)(__right_value0=(struct sClassModule**)come_calloc(1, sizeof(struct sClassModule*)*(1*(size)), "/usr/local/include/neo-c.h", 2208, "struct sClassModule**"))));
+    item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), "/usr/local/include/neo-c.h", 2209, "_Bool*"))));
     len=0;
     for(it=map$2char$phsClassModule$ph_begin(self);!map$2char$phsClassModule$ph_end(self);it=map$2char$phsClassModule$ph_next(self)){
         memset(&default_value,0,sizeof(struct sClassModule*));
-        it2=((struct sClassModule*)(__right_value0=map$2char$phsClassModule$ph_at(self,it,(struct sClassModule*)come_increment_ref_count(default_value))));
+        it2=((struct sClassModule*)(__right_value0=map$2char$phsClassModule$ph_at(self,it,(struct sClassModule*)come_increment_ref_count(default_value),0)));
         hash=string_get_hash_key(((char*)it))%size;
         n=hash;
         while(1) {
@@ -8518,7 +8518,7 @@ static void map$2char$phsClassModule$ph_rehash(struct map$2char$phsClassModule$p
                 item_existance[n]=1;
                 keys[n]=it;
                 memset(&default_value_112,0,sizeof(struct sClassModule*));
-                items[n]=((struct sClassModule*)(__right_value0=map$2char$phsClassModule$ph_at(self,it,(struct sClassModule*)come_increment_ref_count(default_value_112))));
+                items[n]=((struct sClassModule*)(__right_value0=map$2char$phsClassModule$ph_at(self,it,(struct sClassModule*)come_increment_ref_count(default_value_112),0)));
                 len++;
                 come_call_finalizer(sClassModule_finalize, default_value_112, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 break;
@@ -8582,7 +8582,7 @@ static char* map$2char$phsClassModule$ph_next(struct map$2char$phsClassModule$ph
     return __result_obj__0;
 }
 
-static struct sClassModule* map$2char$phsClassModule$ph_at(struct map$2char$phsClassModule$ph* self, char* key  , struct sClassModule* default_value  )
+static struct sClassModule* map$2char$phsClassModule$ph_at(struct map$2char$phsClassModule$ph* self, char* key  , struct sClassModule* default_value  , _Bool by_pointer)
 {
     struct sClassModule* __result_obj__0  ;
     unsigned int hash;
@@ -8597,7 +8597,7 @@ static struct sClassModule* map$2char$phsClassModule$ph_at(struct map$2char$phsC
     it=hash;
     while(1) {
         if(self->item_existance[it]) {
-            if(string_equals(self->keys[it],key)) {
+            if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
                 __result_obj__0 = (struct sClassModule*)come_increment_ref_count(self->items[it]);
                 come_call_finalizer(sClassModule_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 come_call_finalizer(sClassModule_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -8762,7 +8762,7 @@ static struct sModuleNode* sModuleNode_clone(struct sModuleNode* self)
     return __result_obj__0;
 }
 
-static struct map$2char$phbuffer$ph* map$2char$phbuffer$ph_insert(struct map$2char$phbuffer$ph* self, char* key  , struct buffer* item  )
+static struct map$2char$phbuffer$ph* map$2char$phbuffer$ph_insert(struct map$2char$phbuffer$ph* self, char* key  , struct buffer* item  , _Bool by_pointer)
 {
     struct map$2char$phbuffer$ph* __result_obj__0;
     unsigned int hash;
@@ -8782,14 +8782,14 @@ static struct map$2char$phbuffer$ph* map$2char$phbuffer$ph_insert(struct map$2ch
     it=hash;
     while(1) {
         if(self->item_existance[it]) {
-            if(string_equals(self->keys[it],key)) {
+            if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
                 if(1) {
-                    list$1char$ph_remove(self->key_list,self->keys[it]);
+                    list$1char$ph_remove(self->key_list,self->keys[it],0);
                     (self->keys[it] = come_decrement_ref_count(self->keys[it], (void*)0, (void*)0, 0, 0, (void*)0));
                     self->keys[it]=(char*)come_increment_ref_count(key);
                 }
                 else {
-                    list$1char$ph_remove(self->key_list,self->keys[it]);
+                    list$1char$ph_remove(self->key_list,self->keys[it],0);
                     self->keys[it]=key;
                 }
                 if(1) {
@@ -8831,7 +8831,7 @@ static struct map$2char$phbuffer$ph* map$2char$phbuffer$ph_insert(struct map$2ch
     }
     same_key_exist=0;
     for(it2=list$1char$ph_begin(self->key_list);!list$1char$ph_end(self->key_list);it2=list$1char$ph_next(self->key_list)){
-        if(string_equals(it2,key)) {
+        if((!by_pointer&&string_equals(it2,key))||(by_pointer&&it2==key)) {
             same_key_exist=1;
         }
     }
@@ -8859,13 +8859,13 @@ static void map$2char$phbuffer$ph_rehash(struct map$2char$phbuffer$ph* self)
     int n;
     struct buffer* default_value_119  ;
     size=self->size*10;
-    keys=(char**)come_increment_ref_count(((char**)(__right_value0=(char**)come_calloc(1, sizeof(char*)*(1*(size)), "/usr/local/include/neo-c.h", 2301, "char**"))));
-    items=(struct buffer**)come_increment_ref_count(((struct buffer**)(__right_value0=(struct buffer**)come_calloc(1, sizeof(struct buffer*)*(1*(size)), "/usr/local/include/neo-c.h", 2302, "struct buffer**"))));
-    item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), "/usr/local/include/neo-c.h", 2303, "_Bool*"))));
+    keys=(char**)come_increment_ref_count(((char**)(__right_value0=(char**)come_calloc(1, sizeof(char*)*(1*(size)), "/usr/local/include/neo-c.h", 2207, "char**"))));
+    items=(struct buffer**)come_increment_ref_count(((struct buffer**)(__right_value0=(struct buffer**)come_calloc(1, sizeof(struct buffer*)*(1*(size)), "/usr/local/include/neo-c.h", 2208, "struct buffer**"))));
+    item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), "/usr/local/include/neo-c.h", 2209, "_Bool*"))));
     len=0;
     for(it=map$2char$phbuffer$ph_begin(self);!map$2char$phbuffer$ph_end(self);it=map$2char$phbuffer$ph_next(self)){
         memset(&default_value,0,sizeof(struct buffer*));
-        it2=((struct buffer*)(__right_value0=map$2char$phbuffer$ph_at(self,it,(struct buffer*)come_increment_ref_count(default_value))));
+        it2=((struct buffer*)(__right_value0=map$2char$phbuffer$ph_at(self,it,(struct buffer*)come_increment_ref_count(default_value),0)));
         hash=string_get_hash_key(((char*)it))%size;
         n=hash;
         while(1) {
@@ -8884,7 +8884,7 @@ static void map$2char$phbuffer$ph_rehash(struct map$2char$phbuffer$ph* self)
                 item_existance[n]=1;
                 keys[n]=it;
                 memset(&default_value_119,0,sizeof(struct buffer*));
-                items[n]=((struct buffer*)(__right_value0=map$2char$phbuffer$ph_at(self,it,(struct buffer*)come_increment_ref_count(default_value_119))));
+                items[n]=((struct buffer*)(__right_value0=map$2char$phbuffer$ph_at(self,it,(struct buffer*)come_increment_ref_count(default_value_119),0)));
                 len++;
                 come_call_finalizer(buffer_finalize, default_value_119, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 break;
@@ -8948,7 +8948,7 @@ static char* map$2char$phbuffer$ph_next(struct map$2char$phbuffer$ph* self)
     return __result_obj__0;
 }
 
-static struct buffer* map$2char$phbuffer$ph_at(struct map$2char$phbuffer$ph* self, char* key  , struct buffer* default_value  )
+static struct buffer* map$2char$phbuffer$ph_at(struct map$2char$phbuffer$ph* self, char* key  , struct buffer* default_value  , _Bool by_pointer)
 {
     struct buffer* __result_obj__0  ;
     unsigned int hash;
@@ -8963,7 +8963,7 @@ static struct buffer* map$2char$phbuffer$ph_at(struct map$2char$phbuffer$ph* sel
     it=hash;
     while(1) {
         if(self->item_existance[it]) {
-            if(string_equals(self->keys[it],key)) {
+            if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
                 __result_obj__0 = (struct buffer*)come_increment_ref_count(self->items[it]);
                 come_call_finalizer(buffer_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -9060,7 +9060,7 @@ static struct sUndefNode* sUndefNode_clone(struct sUndefNode* self)
     return __result_obj__0;
 }
 
-static struct map$2char$phchar$ph* map$2char$phchar$ph_insert(struct map$2char$phchar$ph* self, char* key  , char* item  )
+static struct map$2char$phchar$ph* map$2char$phchar$ph_insert(struct map$2char$phchar$ph* self, char* key  , char* item  , _Bool by_pointer)
 {
     struct map$2char$phchar$ph* __result_obj__0;
     unsigned int hash;
@@ -9080,14 +9080,14 @@ static struct map$2char$phchar$ph* map$2char$phchar$ph_insert(struct map$2char$p
     it=hash;
     while(1) {
         if(self->item_existance[it]) {
-            if(string_equals(self->keys[it],key)) {
+            if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
                 if(1) {
-                    list$1char$ph_remove(self->key_list,self->keys[it]);
+                    list$1char$ph_remove(self->key_list,self->keys[it],0);
                     (self->keys[it] = come_decrement_ref_count(self->keys[it], (void*)0, (void*)0, 0, 0, (void*)0));
                     self->keys[it]=(char*)come_increment_ref_count(key);
                 }
                 else {
-                    list$1char$ph_remove(self->key_list,self->keys[it]);
+                    list$1char$ph_remove(self->key_list,self->keys[it],0);
                     self->keys[it]=key;
                 }
                 if(1) {
@@ -9129,7 +9129,7 @@ static struct map$2char$phchar$ph* map$2char$phchar$ph_insert(struct map$2char$p
     }
     same_key_exist=0;
     for(it2=list$1char$ph_begin(self->key_list);!list$1char$ph_end(self->key_list);it2=list$1char$ph_next(self->key_list)){
-        if(string_equals(it2,key)) {
+        if((!by_pointer&&string_equals(it2,key))||(by_pointer&&it2==key)) {
             same_key_exist=1;
         }
     }
@@ -9157,13 +9157,13 @@ static void map$2char$phchar$ph_rehash(struct map$2char$phchar$ph* self)
     int n;
     char* default_value_140  ;
     size=self->size*10;
-    keys=(char**)come_increment_ref_count(((char**)(__right_value0=(char**)come_calloc(1, sizeof(char*)*(1*(size)), "/usr/local/include/neo-c.h", 2301, "char**"))));
-    items=(char**)come_increment_ref_count(((char**)(__right_value0=(char**)come_calloc(1, sizeof(char*)*(1*(size)), "/usr/local/include/neo-c.h", 2302, "char**"))));
-    item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), "/usr/local/include/neo-c.h", 2303, "_Bool*"))));
+    keys=(char**)come_increment_ref_count(((char**)(__right_value0=(char**)come_calloc(1, sizeof(char*)*(1*(size)), "/usr/local/include/neo-c.h", 2207, "char**"))));
+    items=(char**)come_increment_ref_count(((char**)(__right_value0=(char**)come_calloc(1, sizeof(char*)*(1*(size)), "/usr/local/include/neo-c.h", 2208, "char**"))));
+    item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), "/usr/local/include/neo-c.h", 2209, "_Bool*"))));
     len=0;
     for(it=map$2char$phchar$ph_begin(self);!map$2char$phchar$ph_end(self);it=map$2char$phchar$ph_next(self)){
         memset(&default_value,0,sizeof(char*));
-        it2=((char*)(__right_value0=map$2char$phchar$ph_at(self,it,(char*)come_increment_ref_count(default_value))));
+        it2=((char*)(__right_value0=map$2char$phchar$ph_at(self,it,(char*)come_increment_ref_count(default_value),0)));
         hash=string_get_hash_key(((char*)it))%size;
         n=hash;
         while(1) {
@@ -9182,7 +9182,7 @@ static void map$2char$phchar$ph_rehash(struct map$2char$phchar$ph* self)
                 item_existance[n]=1;
                 keys[n]=it;
                 memset(&default_value_140,0,sizeof(char*));
-                items[n]=((char*)(__right_value0=map$2char$phchar$ph_at(self,it,(char*)come_increment_ref_count(default_value_140))));
+                items[n]=((char*)(__right_value0=map$2char$phchar$ph_at(self,it,(char*)come_increment_ref_count(default_value_140),0)));
                 len++;
                 (default_value_140 = come_decrement_ref_count(default_value_140, (void*)0, (void*)0, 0, 0, (void*)0));
                 break;
@@ -9246,7 +9246,7 @@ static char* map$2char$phchar$ph_next(struct map$2char$phchar$ph* self)
     return __result_obj__0;
 }
 
-static char* map$2char$phchar$ph_at(struct map$2char$phchar$ph* self, char* key  , char* default_value  )
+static char* map$2char$phchar$ph_at(struct map$2char$phchar$ph* self, char* key  , char* default_value  , _Bool by_pointer)
 {
     char* __result_obj__0  ;
     unsigned int hash;
@@ -9261,7 +9261,7 @@ static char* map$2char$phchar$ph_at(struct map$2char$phchar$ph* self, char* key 
     it=hash;
     while(1) {
         if(self->item_existance[it]) {
-            if(string_equals(self->keys[it],key)) {
+            if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
                 __result_obj__0 = (char*)come_increment_ref_count(self->items[it]);
                 (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 0, (void*)0));
                 (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));

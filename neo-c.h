@@ -1279,7 +1279,7 @@ impl list <T>
         
         return self;
     }
-    list<T>* remove(list<T>* self, T& item) {
+    list<T>* remove(list<T>* self, T& item, bool by_pointer=false) {
         if(self == null) {
             return self;
         }
@@ -1287,26 +1287,7 @@ impl list <T>
         int it2 = 0;
         list_item<T>* it = self.head;
         while(it != null) {
-            if(it.item.equals(item)) {
-                self.delete(it2, it2+1);
-                break;
-            }
-            it2++;
-            
-            it = it.next;
-        }
-        
-        return self;
-    }
-    list<T>* remove_by_pointer(list<T>* self, T& item) {
-        if(self == null) {
-            return self;
-        }
-        
-        int it2 = 0;
-        list_item<T>* it = self.head;
-        while(it != null) {
-            if(it->item == item) {
+            if((!by_pointer && it.item.equals(item)) || (by_pointer && it.item == item)) {
                 self.delete(it2, it2+1);
                 break;
             }
@@ -1487,7 +1468,7 @@ impl list <T>
         return self;
     }
 
-    int find(list<T>* self, T& item, int default_value) {
+    int find(list<T>* self, T& item, int default_value, bool by_pointer=false) {
         if(self == null) {
             return default_value;
         }
@@ -1495,25 +1476,7 @@ impl list <T>
         int it2 = 0;
         list_item<T>* it = self.head;
         while(it != null) {
-            if(it.item.equals(item)) {
-                return it2;
-            }
-            it2++;
-            
-            it = it.next;
-        }
-
-        return default_value;
-    }
-    int find_by_pointer(list<T>* self, T& item, int default_value) {
-        if(self == null) {
-            return default_value;
-        }
-        
-        int it2 = 0;
-        list_item<T>* it = self.head;
-        while(it != null) {
-            if(it.item == item) {
+            if((!by_pointer && it.item.equals(item)) || (by_pointer && it.item == item)) {
                 return it2;
             }
             it2++;
@@ -1686,25 +1649,13 @@ impl list <T>
     bool operator_not_equals(list<T>* left, list<T>* right) {
         return !left.operator_equals(right);
     }
-    bool contained(list<T>* self, T& item) {
+    bool contained(list<T>* self, T& item, bool by_pointer=false) {
         if(self == null) {
             return false;
         }
         
         for(var it = self.begin(); !self.end(); it = self.next()) {
-            if(it.equals(item)) {
-                return true;
-            }
-        }
-        
-        return false;
-    }
-    bool contained_by_pointer(list<T>* self, T& item) {
-        if(self == null) {
-            return false;
-        }
-        for(var it = self.begin(); !self.end(); it = self.next()) {
-            if(it == item) {
+            if((!by_pointer && it.equals(item)) || (by_pointer && it == item)) {
                 return true;
             }
         }
@@ -1867,7 +1818,7 @@ impl list <T>
 
         return result;
     }
-    list<T>*% uniq(list<T>* self) {
+    list<T>*% uniq(list<T>* self, bool by_pointer) {
         list<T>*% result = new list<T>.initialize();
         
         if(self == null) {
@@ -1882,7 +1833,7 @@ impl list <T>
             list_item<T>* it = self.head;
             it = it.next;
             while(it != null) {
-                if(!it.item.equals(item_before)) {
+                if(!((!by_pointer && it.item.equals(item_before)) || (by_pointer && it.item == item_before))) {
                     result.push_back(dupe it.item);
                 }
 
@@ -2128,7 +2079,7 @@ impl map <T, T2>
         return result.to_string();
     }
     
-    T2 at(map<T, T2>* self, T& key, T2 default_value) {
+    T2 at(map<T, T2>* self, T& key, T2 default_value, bool by_pointer=false) {
         if(self == null) {
             return default_value;
         }
@@ -2139,7 +2090,7 @@ impl map <T, T2>
         while(true) {
             if(self.item_existance[it])
             {
-                if(self.keys\[it].equals(key))
+                if((!by_pointer && self.keys\[it].equals(key)) || (by_pointer && self.keys\[it] == key))
                 {
                     return dummy_heap self.items\[it];
                 }
@@ -2160,7 +2111,7 @@ impl map <T, T2>
 
         return default_value;
     }
-    map<T,T2>* remove(map<T, T2>* self, T key) {
+    map<T,T2>* remove(map<T, T2>* self, T key, bool by_pointer=false) {
         if(self == null) {
             return self;
         }
@@ -2171,7 +2122,7 @@ impl map <T, T2>
         while(true) {
             if(self.item_existance[it])
             {
-                if(self.keys\[it].equals(key))
+                if((!by_pointer && self.keys\[it].equals(key)) || (by_pointer && self.keys\[it] == key))
                 {
                     self.key_list.remove(self.keys\[it]);
                     
@@ -2181,51 +2132,6 @@ impl map <T, T2>
                     }
                     self.keys\[it] = null;
    
-                    if(isheap(T2)) {
-                        delete borrow self.items\[it];
-                    }
-                    memset(self.items + it, 0, sizeof(T2));
-                    
-                    self.len--;
-                    break;
-                }
-
-                it++;
-
-                if(it >= self.size) {
-                    it = 0;
-                }
-                else if(it == hash) {
-                    break;
-                }
-            }
-            else {
-                break;
-            }
-        }
-        
-        return self;
-    }
-    map<T,T2>* remove_by_pointer(map<T, T2>* self, T& key) {
-        if(self == null) {
-            return self;
-        }
-        
-        unsigned int hash = ((T)key).get_hash_key() % self.size;
-        unsigned int it = hash;
-        
-        while(true) {
-            if(self.item_existance[it])
-            {
-                if(self.keys\[it] == key) 
-                {
-                    self.key_list.remove(self.keys\[it]);
-                    
-                    self.item_existance[it] = false;
-                    if(isheap(T)) {
-                        delete borrow self.keys\[it];
-                    }
-                    self.keys\[it] = null;
                     if(isheap(T2)) {
                         delete borrow self.items\[it];
                     }
@@ -2368,7 +2274,7 @@ impl map <T, T2>
         }
     }
     
-    map<T,T2>* insert(map<T,T2>* self, T key, T2 item) {
+    map<T,T2>* insert(map<T,T2>* self, T key, T2 item, bool by_pointer=false) {
         if(self == null) {
             return self;
         }
@@ -2382,7 +2288,7 @@ impl map <T, T2>
         while(true) {
             if(self.item_existance[it])
             {
-                if(self.keys\[it].equals(key)) 
+                if((!by_pointer && self.keys\[it].equals(key)) || (by_pointer && self.keys\[it] == key)) 
                 {
                     if(isheap(T)) {
                         self.key_list.remove(self.keys\[it]);
@@ -2437,7 +2343,7 @@ impl map <T, T2>
         
         bool same_key_exist = false;
         for(var it2 = self.key_list.begin(); !self.key_list.end(); it2 = self.key_list.next()) {
-            if(it2.equals(key)) {
+            if((!by_pointer && it2.equals(key)) || (by_pointer && it2 == key)) {
                 same_key_exist = true;
             }
         }
@@ -2448,7 +2354,7 @@ impl map <T, T2>
         
         return self;
     }
-    map<T,T2>* put(map<T,T2>* self, T key, T2 item) {
+    map<T,T2>* put(map<T,T2>* self, T key, T2 item, bool by_pointer=false) {
         if(self == null) {
             return self;
         }
@@ -2462,7 +2368,7 @@ impl map <T, T2>
         while(true) {
             if(self.item_existance[it])
             {
-                if(self.keys\[it].equals(key)) 
+                if((!by_pointer && self.keys\[it].equals(key)) || (by_pointer && self.keys\[it] == key))
                 {
                     if(isheap(T)) {
                         delete self.keys\[it];
@@ -2517,7 +2423,7 @@ impl map <T, T2>
         
         bool same_key_exist = false;
         for(var it2 = self.key_list.begin(); !self.key_list.end(); it2 = self.key_list.next()) {
-            if(it2.equals(key)) {
+            if((!by_pointer && it2.equals(key)) || (by_pointer && it2 == key)) {
                 same_key_exist = true;
             }
         }
@@ -2660,7 +2566,7 @@ impl map <T, T2>
         return !(left.operator_equals(right));
     }
     
-    bool find(map<T, T2>* self, T& key) {
+    bool find(map<T, T2>* self, T& key, bool by_pointer=false) {
         if(self == null) {
             return false;
         }
@@ -2671,7 +2577,7 @@ impl map <T, T2>
         while(true) {
             if(self.item_existance[it])
             {
-                if(self.keys\[it].equals(key))
+                if((!by_pointer && self.keys\[it].equals(key)) || (by_pointer && self.keys\[it] == key))
                 {
                     return true;
                 }

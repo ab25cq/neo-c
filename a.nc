@@ -1,31 +1,16 @@
 #include <neo-c.h>
 
-string funX() { return s"AAA"; }
-
-struct sData<X,Y>
-{
-    X aaa;
-    Y bbb;
-};
-
-impl sData<X,Y>
-{
-    template <R, T, V> R fun(sData<X,Y>* self, R a, T b, V c)
-    {
-        V d = funX();
-        X yyy = 123;
-        Y xxx = s"CCC";
-        return s"BBB";
-    }
-}
-
 int main(int argc, char** argv)
 {
-    var data = new sData<char*,string>;
+    char* a = "AAA";
     
-    string b = data.fun(s"AAA", 1.1, s"AAA");
+    char b[] = "AAA";
     
-    printf("b %s\n", b);
+    var l = new list<char*>();
+    
+    l.add(b);
+    
+    l.remove(b, by_pointer:true).to_string().puts();
 
     return 0;
 }
