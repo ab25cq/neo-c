@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.8.5.9
+version 0.8.6.0
 
 ``` C
 #include <neo-c.h>
@@ -93,6 +93,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.8.6.0 Fine working generics and method generics. Test and fix some bugs.
 0.8.5.9 Change here document spec and it's usefull.
 0.8.5.8 Refine the source.
 0.8.5.7 inline asm bug is fiexed.

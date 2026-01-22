@@ -48,7 +48,7 @@ class sReturnNode extends sNodeBase
             info->function_result_type = clone come_value.type;
             
             
-            check_assign_type("result type", result_type2, come_value_type, come_value, check_params:true);
+            check_assign_type("result type", result_type2, come_value_type, come_value);
             
             if(gComeC) {
                 add_come_code(info, "return %s;\n", come_value.c_value);
@@ -451,7 +451,7 @@ class sFunCallNode extends sNodeBase
                 if(lambda_type.mVarArgs && lambda_type.mParamTypes[i] == null) {
                 }
                 else {
-                    check_assign_type(s"\{fun_name} calling param #\{i}", lambda_type.mParamTypes[i], come_value.type, come_value, check_params:true);
+                    check_assign_type(s"\{fun_name} calling param #\{i}", lambda_type.mParamTypes[i], come_value.type, come_value);
                     
                     if(lambda_type.mParamTypes[i].mHeap && come_value.type.mHeap) {
                         std_move(lambda_type.mParamTypes[i], come_value.type, come_value);
@@ -1138,7 +1138,7 @@ class sFunCallNode extends sNodeBase
                 }
                 
                 if(param_types[n]) {
-                    check_assign_type(s"\{fun_name} param num \{n} is assinged to", param_types[n], come_value.type, come_value, check_params:true);
+                    check_assign_type(s"\{fun_name} param num \{n} is assinged to", param_types[n], come_value.type, come_value);
                 }
                 if(param_types[n] && param_types[n].mHeap && come_value.type.mHeap) {
                     std_move(param_types[n], come_value.type, come_value);
@@ -1171,7 +1171,7 @@ class sFunCallNode extends sNodeBase
                 }
                 
                 if(param_types[i]) {
-                    check_assign_type(s"\{fun_name} param num \{i} is assinged to", param_types[i], come_value.type, come_value, check_params:true);
+                    check_assign_type(s"\{fun_name} param num \{i} is assinged to", param_types[i], come_value.type, come_value);
                 }
                 
                 come_params.replace(i, come_value);
@@ -1198,7 +1198,7 @@ class sFunCallNode extends sNodeBase
                 }
                 
                 if(param_types[i]) {
-                    check_assign_type(s"\{fun_name} param num \{i} is assinged to", param_types[i], come_value.type, come_value, check_params:true);
+                    check_assign_type(s"\{fun_name} param num \{i} is assinged to", param_types[i], come_value.type, come_value);
                 }
                 if(param_types[i] && param_types[i].mHeap && come_value.type.mHeap) {
                     std_move(param_types[i], come_value.type, come_value);
@@ -1255,7 +1255,7 @@ class sFunCallNode extends sNodeBase
                     come_value.type = solve_generics(come_value.type, info->generics_type, info);
                     
                     if(param_types[i]) {
-                        check_assign_type(s"\{fun_name} param num \{i} is assinged to", param_types[i], come_value.type, come_value, check_params:true);
+                        check_assign_type(s"\{fun_name} param num \{i} is assinged to", param_types[i], come_value.type, come_value);
                     }
                     if(param_types[i] && param_types[i].mHeap && come_value.type.mHeap) {
                         std_move(param_types[i], come_value.type, come_value);
@@ -1847,7 +1847,7 @@ class sLambdaCall extends sNodeBase
             if(lambda_type.mVarArgs && lambda_type.mParamTypes[i] == null) {
             }
             else {
-                check_assign_type(s"calling param #\{i}", lambda_type.mParamTypes[i], come_value.type, come_value, check_params:true);
+                check_assign_type(s"calling param #\{i}", lambda_type.mParamTypes[i], come_value.type, come_value);
                 if(lambda_type.mParamTypes[i].mHeap && come_value.type.mHeap) {
                     std_move(lambda_type.mParamTypes[i], come_value.type, come_value);
                 }

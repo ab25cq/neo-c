@@ -2467,7 +2467,7 @@ struct tuple3$3sType$phchar$ph_Bool$* backtrace_parse_type(_Bool parse_variable_
 void skip_pointer_attribute(struct sInfo* info  );
 struct sNode* parse_normal_block(_Bool clang, struct sInfo* info  );
 void cast_type(struct sType* left_type  , struct sType* right_type  , struct CVALUE* come_value  , struct sInfo* info  );
-_Bool check_assign_type(char* msg, struct sType* left_type  , struct sType* right_type  , struct CVALUE* come_value  , _Bool check_no_pointer, _Bool check_params, struct sInfo* info  );
+_Bool check_assign_type(char* msg, struct sType* left_type  , struct sType* right_type  , struct CVALUE* come_value  , struct sInfo* info  );
 struct tuple2$2char$phchar$ph* parse_attribute(struct sInfo* info  , _Bool parse_function_attribute);
 struct tuple2$2char$phchar$ph* parse_function_attribute(struct sInfo* info  );
 struct sNode* get_number(_Bool minus, struct sInfo* info  );
@@ -4232,16 +4232,16 @@ int come_main(int argc, char** argv)
         info.output_file_name=((void*)0);
         __dec_obj47 = come_decrement_ref_count(__dec_obj47, (void*)0, (void*)0, 0,0, (void*)0);
         transpile(&info);
+        if(info.err_num>0) {
+            printf("transpile error num %d\n",info.err_num);
+            exit(2);
+        }
         Value_41=output_source_file(&info);
         if(!Value_41) {
             printf("output source file faield\n");
             exit(2);
         }
         else {
-        }
-        if(info.err_num>0) {
-            printf("transpile error num %d\n",info.err_num);
-            exit(2);
         }
         if(info.err_num2>0) {
             printf("transpile warning  num %d\n",info.err_num2);

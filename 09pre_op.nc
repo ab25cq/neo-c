@@ -603,12 +603,14 @@ class sCastNode extends sNodeBase
         
         sType*% type2 = solve_generics(clone type, info.generics_type, info);
         
+        sType*% type3 = solve_method_generics(type2, info);
+        
         CVALUE*% come_value = new CVALUE();
         
-        cast_type(type2, left_value.type, left_value);
+        cast_type(type3, left_value.type, left_value);
         
-        come_value.c_value = xsprintf("(%s)%s", make_type_name_string(type2, cast_type:true), left_value.c_value);
-        come_value.type = clone type2;
+        come_value.c_value = xsprintf("(%s)%s", make_type_name_string(type3, cast_type:true), left_value.c_value);
+        come_value.type = clone type3;
         come_value.var = null;
         
         add_come_last_code(info, "%s", come_value.c_value);

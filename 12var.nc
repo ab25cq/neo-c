@@ -37,7 +37,8 @@ class sStoreNode extends sNodeBase
                 return true;
             }
             
-            var type = solve_generics(self.type, info->generics_type, info);
+            var type_ = solve_generics(self.type, info->generics_type, info);
+            var type = solve_method_generics(type_, info);
             
             type->mPointerNum = 0;
             
@@ -55,7 +56,8 @@ class sStoreNode extends sNodeBase
                     
                     info.lv_table.mVars.remove(string(var_name));
                 }
-                var type2 = solve_generics(type, info->generics_type, info);
+                var type2_ = solve_generics(type, info->generics_type, info);
+                var type2 = solve_method_generics(type2_, info);
                 add_variable_to_table(var_name, type2, info, false@function_param);
                 
                 var_ = borrow get_variable_from_table(info.lv_table, var_name);
@@ -164,7 +166,7 @@ class sStoreNode extends sNodeBase
                     
                     CVALUE*% come_value = new CVALUE();
                     
-                    check_assign_type(s"\{self.name} is assining to}", left_type, right_type2, come_value);
+                    check_assign_type(s"\{self.name} is assigning to (1)", left_type, right_type2, come_value);
                     
                     if(right_type2->mHeap && left_type->mHeap && left_type->mPointerNum > 0 && right_type2->mPointerNum > 0)
                     {
@@ -208,7 +210,8 @@ class sStoreNode extends sNodeBase
                 return true;
             }
             
-            var type = solve_generics(self.type, info->generics_type, info);
+            var type_ = solve_generics(self.type, info->generics_type, info);
+            var type = solve_method_generics(type_, info);
             
             add_variable_to_table(self.name, clone type, info, false@function_param);
         
@@ -273,7 +276,8 @@ class sStoreNode extends sNodeBase
             if(self.type == null) {
             }
             else {
-                var type = solve_generics(self.type, info->generics_type, info);
+                var type_ = solve_generics(self.type, info->generics_type, info);
+                var type = solve_method_generics(type_, info);
                 
                 add_variable_to_table(self.name, type, info, false@function_param);
             }
@@ -291,7 +295,8 @@ class sStoreNode extends sNodeBase
             right_type->mStatic = false;
             
             if(self.type == null) {
-                var type = solve_generics(right_type, info->generics_type, info);
+                var type_ = solve_generics(right_type, info->generics_type, info);
+                var type = solve_method_generics(type_, info);
                 add_variable_to_table(self.name, type, info, false@function_param);
             }
             
@@ -334,7 +339,9 @@ class sStoreNode extends sNodeBase
                 add_come_last_code(info, "%s", come_value.c_value);
             }
             else {
-                check_assign_type(s"\{self.name} is assining to", left_type, right_type, right_value);
+                var type_ = solve_generics(left_type, info->generics_type, info);
+                var type = solve_method_generics(type_, info);
+                check_assign_type(s"\{self.name} is assigning to (2)", type, right_type, right_value);
                 
                 if(left_type->mPointerNum > 0 && left_type->mHeap && right_type->mClass->mName === "void" && right_type->mPointerNum > 0)
                 {
@@ -380,7 +387,7 @@ class sStoreNode extends sNodeBase
                     if(parent_var->mFunName !== info.come_fun.mName) {
                         sType* left_type = parent_var->mType;
                         
-                        check_assign_type(s"\{self.name} is assigning to", left_type, right_type, right_value);
+                        check_assign_type(s"\{self.name} is assigning to(3)", left_type, right_type, right_value);
                         
                         if(left_type->mPointerNum > 0 && right_type->mPointerNum > 0 && right_type->mHeap && left_type->mHeap) {
                             string c_value = xsprintf("*(parent->%s)", parent_var->mCValueName);
@@ -453,7 +460,7 @@ class sStoreNode extends sNodeBase
                 add_come_last_code(info, "%s", come_value.c_value);
             }
             else {
-                check_assign_type(s"\{self.name} is assining to", left_type, right_type, right_value);
+                check_assign_type(s"\{self.name} is assigning to(4)", left_type, right_type, right_value);
                 
                 if(right_type->mHeap && left_type->mHeap && left_type->mPointerNum > 0 && right_type->mPointerNum > 0)
                 {

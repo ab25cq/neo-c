@@ -359,16 +359,17 @@ int come_main(int argc, char** argv)
         
         transpile(&info);
         
-        output_source_file(&info).elif {
-            printf("output source file faield\n");
-            exit(2);
-        }
-        
         if(info.err_num > 0) {
             printf("transpile error num %d\n", info->err_num);
             
             exit(2);
         }
+        
+        output_source_file(&info).elif {
+            printf("output source file faield\n");
+            exit(2);
+        }
+        
         if(info.err_num2 > 0) {
             printf("transpile warning  num %d\n", info->err_num2);
         }

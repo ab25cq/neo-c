@@ -207,9 +207,12 @@ tuple4<list<sType*%>*%, list<string>*%, list<string>*%, bool>*% parse_params(sIn
     return (param_types, param_names, param_default_parametors, var_args);
 }
 
-bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* come_value, bool check_no_pointer=false, bool check_params=false, sInfo* info=info)
+bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* come_value, sInfo* info=info)
 {
     if(info->no_output_come_code) {
+        return true;
+    }
+    if(left_type->mClass->mMethodGenerics) { // precompile
         return true;
     }
     sType*% left_type2 = clone left_type;
@@ -248,7 +251,7 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
         else if(left_type2->mClass->mName === "void") {
         }
         else {
-            err_msg2(info , "type check warning(1).");
+            err_msg2(info , "type check warning(1).%s %s %d <- %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type->mClass->mName, right_type->mPointerNum);
         }
     }
     else if(left_type2->mPointerNum > 0 && right_type->mPointerNum == 0) {
@@ -259,7 +262,7 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
         else if(right_type->mArrayPointerNum > 0) {
         }
         else {
-            err_msg2(info , "type check warning(2).");
+            err_msg2(info , "type check warning(2).%s. %s %d <- %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type->mClass->mName, right_type->mPointerNum);
         }
     }
     else if(left_type2->mPointerNum == 0 && right_type->mPointerNum > 0) {
@@ -270,7 +273,7 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
         else if(left_type2->mClass->mName === "lambda" || right_type->mClass->mName === "void") {
         }
         else {
-            err_msg2(info, "type check warning(3). %s %d %s\n", info->sname, info->sline, msg);
+            err_msg2(info , "type check warning(3).%s. %s %d <- %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type->mClass->mName, right_type->mPointerNum);
         }
     }
     else if(left_type2->mPointerNum > 0 && right_type->mPointerNum > 0) {
@@ -301,18 +304,13 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
         }
         else if(right_type->mClass->mName === "void") {
         }
-        /*
-        else if(left_type2->mClass->mName === right_type2->mClass->mName && !left_type2->mHeap && right_type2->mHeap && !check_params) {
-            err_msg2(info, "type check warning(4). class_name %s left is none heap, and right is heap\n", left_type2->mClass->mName);
-        }
-        */
-        else if(left_type2->mClass->mName === right_type2->mClass->mName && left_type2->mHeap && !right_type2->mHeap && !check_params) {
-            err_msg2(info, "type check warning(4). class_name %s left is none heap, and right is heap\n", left_type2->mClass->mName);
+        else if(left_type2->mClass->mName === right_type2->mClass->mName && left_type2->mHeap && !right_type2->mHeap ) {
+            err_msg2(info , "type check warning(4).%s. %s %d <- %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type2->mClass->mName, right_type2->mPointerNum);
         }
         else if(parent_class) {
         }
         else if(left_type2->mClass->mName !== right_type->mClass->mName && !flag_) {
-            err_msg2(info, "type check warning(5). %s %d %s\n", info->sname, info->sline, msg);
+            err_msg2(info , "type check warning(5).%s. %s %d <- %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type->mClass->mName, right_type->mPointerNum);
         }
     }
     else if(left_type2->mPointerNum == 0 && right_type->mPointerNum == 0) {
@@ -323,7 +321,7 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
         else if(left_type2->mClass->mName === right_type->mClass->mName) {
         }
         else {
-            err_msg2(info, "type check warning(6). %s %d %s\n", info->sname, info->sline, msg);
+            err_msg2(info , "type check warning(6).%s. %s %d <- %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type->mClass->mName, right_type->mPointerNum);
         }
     }
     

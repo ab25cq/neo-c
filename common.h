@@ -898,7 +898,7 @@ void skip_pointer_attribute(sInfo* info=info);
 void skip_paren(sInfo* info);
 sNode*% parse_normal_block(bool clang=false, sInfo* info=info);
 void cast_type(sType* left_type, sType* right_type, CVALUE* come_value, sInfo* info=info);
-bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* come_value, bool check_no_pointer=false, bool check_params=false, sInfo* info=info);
+bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* come_value, sInfo* info=info);
 string,string parse_attribute(sInfo* info=info,bool parse_function_attribute=false);
 string,string parse_function_attribute(sInfo* info=info);
 sNode*% get_number(bool minus, sInfo* info);

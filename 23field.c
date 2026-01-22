@@ -2518,7 +2518,7 @@ struct tuple3$3sType$phchar$ph_Bool$* backtrace_parse_type(_Bool parse_variable_
 void skip_pointer_attribute(struct sInfo* info  );
 struct sNode* parse_normal_block(_Bool clang, struct sInfo* info  );
 void cast_type(struct sType* left_type  , struct sType* right_type  , struct CVALUE* come_value  , struct sInfo* info  );
-_Bool check_assign_type(char* msg, struct sType* left_type  , struct sType* right_type  , struct CVALUE* come_value  , _Bool check_no_pointer, _Bool check_params, struct sInfo* info  );
+_Bool check_assign_type(char* msg, struct sType* left_type  , struct sType* right_type  , struct CVALUE* come_value  , struct sInfo* info  );
 struct tuple2$2char$phchar$ph* parse_attribute(struct sInfo* info  , _Bool parse_function_attribute);
 struct tuple2$2char$phchar$ph* parse_function_attribute(struct sInfo* info  );
 struct sNode* get_number(_Bool minus, struct sInfo* info  );
@@ -4218,7 +4218,7 @@ _conditional_value_X0;})) {
     __dec_obj52=right_type,
     right_type=(struct sType*)come_increment_ref_count(right_value->type);
     come_call_finalizer(sType_finalize, __dec_obj52,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-    check_assign_type(((char*)(__right_value1=xsprintf("\%s is assigned to(1)",((char*)(__right_value0=string_to_string(name)))))),field_type_17,right_type,right_value,0,0,info);
+    check_assign_type(((char*)(__right_value1=xsprintf("\%s is assigned to(1)",((char*)(__right_value0=string_to_string(name)))))),field_type_17,right_type,right_value,info);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
     __dec_obj53=right_type,
@@ -5418,7 +5418,7 @@ _Bool sStoreArrayNode_compile(struct sStoreArrayNode* self, struct sInfo* info  
         }
         come_call_finalizer(list$1CVALUE$ph$p_finalize, o2_saved_47, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         left_value_code=(char*)come_increment_ref_count(buffer_to_string(buf));
-        check_assign_type(((char*)(__right_value0=xsprintf("array is assinged to(2)"))),left_type,right_type,right_value,0,0,info);
+        check_assign_type(((char*)(__right_value0=xsprintf("array is assinged to(2)"))),left_type,right_type,right_value,info);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         if(left_type->mHeap&&right_type->mHeap&&left_type->mPointerNum>0&&right_type->mPointerNum>0) {
             if(left_value->type->mPointerNum>=1) {

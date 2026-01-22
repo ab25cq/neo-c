@@ -547,7 +547,7 @@ class sMethodCallNode extends sNodeBase
                     
                     come_value.type = solve_generics(come_value.type, info->generics_type, info);
                     
-                    check_assign_type(s"(a). \{fun_name} param num \{i} is assinged to", lambda_type.mParamTypes[i-1], come_value.type, come_value, check_params:true);
+                    check_assign_type(s"(a). \{fun_name} param num \{i} is assinged to", lambda_type.mParamTypes[i-1], come_value.type, come_value);
                     if(lambda_type.mParamTypes[i-1].mHeap && come_value.type.mHeap) 
                     {
                         std_move(lambda_type.mParamTypes[i-1], come_value.type, come_value);
@@ -685,7 +685,7 @@ class sMethodCallNode extends sNodeBase
                     come_value.type = solve_generics(come_value.type, info->generics_type, info);
                     
                     if(param_types[n]) {
-                        check_assign_type(s"(b). \{fun_name} param num \{n} is assinged to", type_checking_param_types[n], come_value.type, come_value, check_params:true);
+                        check_assign_type(s"(b). \{fun_name} param num \{n} is assinged to", type_checking_param_types[n], come_value.type, come_value);
                     }
                     if(param_types[n] && param_types[n].mHeap && come_value.type.mHeap) {
                         std_move(param_types[n], come_value.type, come_value);
@@ -700,7 +700,7 @@ class sMethodCallNode extends sNodeBase
                 var label, node = it;
                 
                 if(i == 0) {
-                    check_assign_type(s"(c). \{fun_name} param num \{i} is assinged to", type_checking_param_types[i], obj_value.type, obj_value, check_params:true);
+                    check_assign_type(s"(c). \{fun_name} param num \{i} is assinged to", type_checking_param_types[i], obj_value.type, obj_value);
                     if(param_types[i].mHeap && obj_value.type.mHeap) {
                         std_move(param_types[i], obj_value.type, obj_value);
                     }
@@ -733,7 +733,7 @@ class sMethodCallNode extends sNodeBase
                     come_value.type = solve_generics(come_value.type, info->generics_type, info);
                     
                     if(param_types[i]) {
-                        check_assign_type(s"(d). \{fun_name} param num \{i} is assinged to", type_checking_param_types[i], come_value.type, come_value, check_params:true);
+                        check_assign_type(s"(d). \{fun_name} param num \{i} is assinged to", type_checking_param_types[i], come_value.type, come_value);
                     }
                     if(param_types[i] && param_types[i].mHeap && come_value.type.mHeap) {
                         std_move(param_types[i], come_value.type, come_value);
@@ -788,7 +788,7 @@ class sMethodCallNode extends sNodeBase
                         CVALUE*% come_value = get_value_from_stack(-1, info);
                         come_value.type = solve_generics(come_value.type, info->generics_type, info);
                         if(param_types[i]) {
-                            check_assign_type(s"(e). \{fun_name} param num \{i} is assinged to", type_checking_param_types[i], come_value.type, come_value, check_params:true);
+                            check_assign_type(s"(e). \{fun_name} param num \{i} is assinged to", type_checking_param_types[i], come_value.type, come_value);
                         }
                         if(param_types[i] && param_types[i].mHeap && come_value.type.mHeap) {
                             std_move(param_types[i], come_value.type, come_value);
