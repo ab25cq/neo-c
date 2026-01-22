@@ -886,8 +886,9 @@ sNode*% expression_node(sInfo* info) version 96
         
 
         while(1) {
-            if(*info->p == '"' && *(info->p+1) == '"' && *(info->p+2) == '"' && *(info->p+3) == '\n') {
-                info->p+=4;
+            if(*info->p == '"' && *(info->p+1) == '"' && *(info->p+2) == '"')
+            {
+                info->p+=3;
                 
                 skip_spaces_and_lf();
                 break;
@@ -1002,8 +1003,6 @@ sNode*% expression_node(sInfo* info) version 96
                     value.append_char('n');
                     info->p++;
                     info->sline++;
-                    
-                    head_of_last_line = info->p;
                 }
                 else {
                     value.append_char(*info->p);

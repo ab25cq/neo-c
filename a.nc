@@ -1,24 +1,12 @@
-int fun(int a, int b, ...)
-{
-    return a;
-}
-
-struct data
-{
-    int a;
-};
-
-struct data2
-{
-    int a;
-};
+#include <neo-c.h>
 
 int main(int argc, char** argv)
 {
-    struct data d;
-    struct data2 e;
-    
-    d = e;
+    puts("""
+aaa
+bbb
+cccc""");
+
     return 0;
 }
 
