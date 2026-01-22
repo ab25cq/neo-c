@@ -49,6 +49,7 @@ class sReturnNode extends sNodeBase
             
             
             check_assign_type("result type", result_type2, come_value_type, come_value, check_params:true);
+            
             if(gComeC) {
                 add_come_code(info, "return %s;\n", come_value.c_value);
             }
@@ -184,10 +185,7 @@ class sInlineAssembler extends sNodeBase
 
         CVALUE*% come_value = new CVALUE();
         
-        come_value.c_value = """
-__asm \{volatile_ ? "volatile":""}
-\{source}
-""";
+        come_value.c_value = s" __asm \{volatile_ ? "volatile":""} \{source}";
         
         come_value.type = new sType(s"void");
         come_value.var = null;
@@ -2611,7 +2609,7 @@ sNode*% expression_node(sInfo* info=info) version 98
             }
             
             expected_next_character('(');
-            buf2.append_char('(');
+            buf2.append_str("(\n");
             
             list<sNode*%>*% exps = new list<sNode*%>();
             bool dquort = false;
@@ -2633,6 +2631,7 @@ sNode*% expression_node(sInfo* info=info) version 98
                     else if(*info->p == '"') {
                         buf2.append_char(*info->p);
                         info->p++;
+                        buf2.append_char('\n');
                         skip_spaces_and_lf();
                         
                         dquort = false;
@@ -2645,6 +2644,9 @@ sNode*% expression_node(sInfo* info=info) version 98
                 else if(*info->p == '"') {
                     dquort = true;
                     
+                    for(int i=0; i<info->block_level+1; i++) {
+                        buf2.append_str("    ");
+                    }
                     buf2.append_char(*info->p);
                     info->p++;
                 }
@@ -2666,6 +2668,9 @@ sNode*% expression_node(sInfo* info=info) version 98
                     buf2.append_char(')');
                 }
                 else if(*info->p == ')') {
+                    for(int i=0; i<info->block_level; i++) {
+                        buf2.append_str("    ");
+                    }
                     buf2.append_char(')');
                     info->p++;
                     skip_spaces_and_lf();
@@ -2678,11 +2683,17 @@ sNode*% expression_node(sInfo* info=info) version 98
                     skip_spaces_and_lf();
                 }
                 else if(*info->p == ':') {
+                    for(int i=0; i<info->block_level+1; i++) {
+                        buf2.append_str("    ");
+                    }
                     buf2.append_char(*info->p);
                     info->p++;
                     skip_spaces_and_lf();
                 }
                 else if(*info->p == ',') {
+                    for(int i=0; i<info->block_level+1; i++) {
+                        buf2.append_str("    ");
+                    }
                     buf2.append_char(*info->p);
                     info->p++;
                     skip_spaces_and_lf();

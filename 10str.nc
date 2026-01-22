@@ -886,8 +886,8 @@ sNode*% expression_node(sInfo* info) version 96
         
 
         while(1) {
-            if(*info->p == '"' && *(info->p+1) == '"' && *(info->p+2) == '"') {
-                info->p+=3;
+            if(*info->p == '"' && *(info->p+1) == '"' && *(info->p+2) == '"' && *(info->p+3) == '\n') {
+                info->p+=4;
                 
                 skip_spaces_and_lf();
                 break;

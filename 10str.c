@@ -6338,8 +6338,8 @@ struct sNode* expression_node_v96(struct sInfo* info  )
         value=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), "10str.nc", 883, "struct buffer*"))));
         head_of_last_line=((void*)0);
         while(1) {
-            if(*info->p==34&&*(info->p+1)==34&&*(info->p+2)==34) {
-                info->p+=3;
+            if(*info->p==34&&*(info->p+1)==34&&*(info->p+2)==34&&*(info->p+3)==10) {
+                info->p+=4;
                 skip_spaces_and_lf(info);
                 break;
             }

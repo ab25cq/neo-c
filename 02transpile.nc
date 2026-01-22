@@ -278,22 +278,12 @@ static void init_classes(sInfo* info)
 
 module MEvalOptions<T, T2>
 {
-    var clang_option = new buffer();
-    //clang_option.append_str(" -std=c99 ");
-    clang_option.append_str(" -std=c11 ");
-    var linker_option = new buffer();
-    var linker_option2 = new buffer();
-    var cpp_option = new buffer();
-    cpp_option.append_str("-U__GNUC__");
-    cpp_option.append_str(" -std=c11 ");
     var files = new list<string>();
-    var object_files = new list<string>();
-    bool come_debug = false;
     for(int i=T; i<argc; i++) {
         string ext_name = xextname(argv[i]);
         
         if(argv[i] === "-cg") {
-            come_debug = true;
+            gComeDebug = true;
         }
         else if(ext_name === "nc") {
             files.push_back(string(argv[i]));
@@ -303,8 +293,6 @@ module MEvalOptions<T, T2>
             exit(1);
         }
     }
-        
-    gComeDebug = come_debug;
 }
 
 int come_main(int argc, char** argv)
@@ -330,10 +318,6 @@ int come_main(int argc, char** argv)
         info.sname = string(it);
         info.sline = 1;
         info.err_num = 0;
-        info.clang_option = clang_option.to_string();
-        info.cpp_option = cpp_option.to_string();
-        info.linker_option = linker_option.to_string();
-        info.linker_option2 = linker_option2.to_string();
         info.funcs = new map<string, sFun*%>();
         info.uniq_funcs = new map<string, sFun*%>();
         info.struct_definition = new map<string, buffer*%>();

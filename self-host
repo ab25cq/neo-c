@@ -1,6 +1,8 @@
 
 sh install_pkg.sh
 
+touch *.nc
+
 export RM="rm -rf"
 
 if uname -a | grep Android
