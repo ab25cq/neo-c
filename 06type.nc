@@ -313,8 +313,17 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
         }
         else if(left_type2->mClass->mName !== right_type->mClass->mName && !flag_) {
             err_msg2(info, "type check warning(5). %s %d %s\n", info->sname, info->sline, msg);
-            
-            return false;
+        }
+    }
+    else if(left_type2->mPointerNum == 0 && right_type->mPointerNum == 0) {
+        if(left_type2->mClass->mName === "lambda") {
+        }
+        else if(left_type2->mClass->mNumber && right_type->mClass->mNumber) {
+        }
+        else if(left_type2->mClass->mName === right_type->mClass->mName) {
+        }
+        else {
+            err_msg2(info, "type check warning(6). %s %d %s\n", info->sname, info->sline, msg);
         }
     }
     

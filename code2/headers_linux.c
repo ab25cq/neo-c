@@ -11508,16 +11508,20 @@ int test_headers_linux();
 // inline function
 static inline unsigned int __arch_swab32(unsigned int val  )
 {
-    __asm 
-("bswapl %0":"=r"(val):"0"(val))
-;
+     __asm  (
+        "bswapl %0"
+        :        "=r"
+(val)        :        "0"
+(val)    );
     return val;
 }
 static inline unsigned long  long __arch_swab64(unsigned long  long val  )
 {
-    __asm 
-("bswapq %0":"=r"(val):"0"(val))
-;
+     __asm  (
+        "bswapq %0"
+        :        "=r"
+(val)        :        "0"
+(val)    );
     return val;
 }
 static inline unsigned short int __fswab16(unsigned short int val  )

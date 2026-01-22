@@ -1,14 +1,24 @@
-#include <neo-c.h>
+int fun(int a, int b, ...)
+{
+    return a;
+}
+
+struct data
+{
+    int a;
+};
+
+struct data2
+{
+    int a;
+};
 
 int main(int argc, char** argv)
 {
-    asm volatile (
-        "ldr r0, =R4; \n"
-        "str r4, [r0];\n"
-        :
-        :
-        : "r0", "r4"
-    );
+    struct data d;
+    struct data2 e;
     
-    return 1;
+    d = e;
+    return 0;
 }
+
