@@ -26,8 +26,8 @@ class sReturnNode extends sNodeBase
             
             sType*% result_type = clone come_fun.mResultType;
             
-            sType*% result_type2 = solve_generics(result_type, info.generics_type, info);
-            result_type2 = solve_method_generics(result_type2, info);
+            sType*% result_type2_ = solve_generics(result_type, info.generics_type, info);
+            sType*% result_type2 = solve_method_generics(result_type2_, info);
             
             sType* result_type3;
             if(result_type2->mNoSolvedGenericsType) {
@@ -43,7 +43,8 @@ class sReturnNode extends sNodeBase
             
             CVALUE*% come_value = get_value_from_stack(-1, info);
             
-            sType*% come_value_type = solve_generics(come_value.type, info.generics_type, info);
+            sType*% come_value_type_ = solve_generics(come_value.type, info.generics_type, info);
+            sType*% come_value_type = solve_method_generics(come_value_type_, info);
             
             info->function_result_type = clone come_value.type;
             
@@ -446,7 +447,8 @@ class sFunCallNode extends sNodeBase
                 CVALUE*% come_value = get_value_from_stack(-1, info);
                 
                 sType*% type_ = clone come_value.type;
-                come_value.type = solve_generics(type_, info->generics_type, info);
+                sType*% type2_ = solve_generics(type_, info->generics_type, info);
+                come_value.type = solve_method_generics(type2_, info);
                 
                 if(lambda_type.mVarArgs && lambda_type.mParamTypes[i] == null) {
                 }
@@ -561,7 +563,9 @@ class sFunCallNode extends sNodeBase
                     CVALUE*% come_value = get_value_from_stack(-1, info);
                     
                     sType*% type_ = clone come_value.type;
-                    come_value.type = solve_generics(type_, info->generics_type, info);
+                    sType*% type2_ = solve_generics(type_, info->generics_type, info);
+                    sType*% type3_ = solve_method_generics(type2_, info);
+                    come_value.type = type3_;
                     
                     come_params.add(come_value);
                 }
@@ -614,7 +618,8 @@ class sFunCallNode extends sNodeBase
                 
                 CVALUE*% come_value = get_value_from_stack(-1, info);
                 
-                come_value.type = solve_generics(come_value.type, info->generics_type, info);
+                sType*% type_ = solve_generics(come_value.type, info->generics_type, info);
+                come_value.type = solve_method_generics(type_, info);
                 
                 come_params.push_back(come_value);
             }
@@ -700,7 +705,8 @@ class sFunCallNode extends sNodeBase
                 
                 CVALUE*% come_value = get_value_from_stack(-1, info);
                 
-                come_value.type = solve_generics(come_value.type, info->generics_type, info);
+                sType*% type_ = solve_generics(come_value.type, info->generics_type, info);
+                come_value.type = solve_method_generics(type_, info);
                 
                 come_params.push_back(come_value);
             }
@@ -896,7 +902,8 @@ class sFunCallNode extends sNodeBase
                 
                 CVALUE*% come_value = get_value_from_stack(-1, info);
                 
-                come_value.type = solve_generics(come_value.type, info->generics_type, info);
+                sType*% type_ = solve_generics(come_value.type, info->generics_type, info);
+                come_value.type = solve_method_generics(type_, info);
                 
                 come_params.add(come_value);
                 
@@ -944,7 +951,8 @@ class sFunCallNode extends sNodeBase
                 
                 CVALUE*% come_value = get_value_from_stack(-1, info);
                 
-                come_value.type = solve_generics(come_value.type, info->generics_type, info);
+                sType*% type_ solve_generics(come_value.type, info->generics_type, info);
+                come_value.type = solve_method_generics(type_, info);
                 
                 come_params.add(come_value);
             }
@@ -1061,7 +1069,8 @@ class sFunCallNode extends sNodeBase
                 
                 CVALUE*% come_value = get_value_from_stack(-1, info);
                 
-                come_value.type = solve_generics(come_value.type, info->generics_type, info);
+                sType*% type_ = solve_generics(come_value.type, info->generics_type, info);
+                come_value.type = solve_method_generics(type_, info);
                 
                 come_params.add(come_value);
                 
@@ -1102,11 +1111,13 @@ class sFunCallNode extends sNodeBase
         
         list<sType*%>*% param_types = new list<sType*%>();
         foreach(it, fun.mParamTypes) {
-            sType*% it2 = solve_generics(clone it, info.generics_type, info);
+            sType*% it2_ = solve_generics(clone it, info.generics_type, info);
+            sType*% it2 = solve_method_generics(it2_, info);
             param_types.push_back(clone it2);
         }
         
-        result_type = solve_generics(result_type, info.generics_type, info);
+        sType*% result_type_ = solve_generics(result_type, info.generics_type, info);
+        result_type = solve_method_generics(result_type_, info);
         
         list<CVALUE*%>*% come_params = new list<CVALUE*%>();
         
@@ -1126,7 +1137,8 @@ class sFunCallNode extends sNodeBase
                 
                 CVALUE*% come_value = get_value_from_stack(-1, info);
                 
-                come_value.type = solve_generics(come_value.type, info->generics_type, info);
+                sType*% type_ = solve_generics(come_value.type, info->generics_type, info);
+                come_value.type = solve_method_generics(type_, info);
                 
                 int n = 0;
                 foreach(it, fun.mParamNames) {
@@ -1159,7 +1171,8 @@ class sFunCallNode extends sNodeBase
                 
                 CVALUE*% come_value = get_value_from_stack(-1, info);
                 
-                come_value.type = solve_generics(come_value.type, info->generics_type, info);
+                sType*% type_ = solve_generics(come_value.type, info->generics_type, info);
+                come_value.type = solve_method_generics(type_, info);
                 
                 while(true) {
                     if(come_params[i] == null) {
@@ -1186,7 +1199,8 @@ class sFunCallNode extends sNodeBase
                 
                 CVALUE*% come_value = get_value_from_stack(-1, info);
                 
-                come_value.type = solve_generics(come_value.type, info->generics_type, info);
+                sType*% type_ = solve_generics(come_value.type, info->generics_type, info);
+                come_value.type = solve_method_generics(type_, info);
                 
                 while(true) {
                     if(come_params[i] == null) {
@@ -1252,7 +1266,8 @@ class sFunCallNode extends sNodeBase
             
                     CVALUE*% come_value = get_value_from_stack(-1, info);
                     
-                    come_value.type = solve_generics(come_value.type, info->generics_type, info);
+                    sType*% type_ = solve_generics(come_value.type, info->generics_type, info);
+                    come_value.type = solve_method_generics(type_, info);
                     
                     if(param_types[i]) {
                         check_assign_type(s"\{fun_name} param num \{i} is assinged to", param_types[i], come_value.type, come_value);
@@ -1285,7 +1300,8 @@ class sFunCallNode extends sNodeBase
             }
             
             CVALUE*% come_value = get_value_from_stack(-1, info);
-            come_value.type = solve_generics(come_value.type, info->generics_type, info);
+            sType*% type_ = solve_generics(come_value.type, info->generics_type, info);
+            come_value.type = solve_method_generics(type_, info);
             come_params.push_back(come_value);
             
             buffer*% method_block2 = new buffer();
@@ -1308,7 +1324,8 @@ class sFunCallNode extends sNodeBase
             
             sType*% result_type = clone method_block_type->mResultType;
             result_type->mStatic = false;
-            sType*% result_type2 = solve_generics(result_type, info->generics_type, info);
+            sType*% result_type2_ = solve_generics(result_type, info->generics_type, info);
+            sType*% result_type2 = solve_method_generics(result_type2_, info);
             list<sType*%>*% param_types = clone method_block_type->mParamTypes;
             list<string>* param_names = method_block_type->mParamNames;
             
@@ -1339,14 +1356,16 @@ class sFunCallNode extends sNodeBase
                 else if(i == 1) {
                     string param_name = xsprintf("it");
                     
-                    sType*% param_type2 = solve_generics(param_type, info->generics_type, info);
+                    sType*% param_type2_ = solve_generics(param_type, info->generics_type, info);
+                    sType*% param_type2 = solve_method_generics(param_type2_, info);
                     
                     method_block2.append_format("%s", make_come_define_var(param_type2, param_name));
                 }
                 else {
                     string param_name = xsprintf("it%d", i);
                     
-                    sType*% param_type2 = solve_generics(param_type, info->generics_type, info);
+                    sType*% param_type2_ = solve_generics(param_type, info->generics_type, info);
+                    sType*% param_type2 = solve_method_generics(param_type2_, info);
                     
                     method_block2.append_format("%s", make_come_define_var(param_type2, param_name));
                 }
@@ -1524,7 +1543,8 @@ class sComeCallNode extends sNodeBase
         
         come_value = get_value_from_stack(-1, info);
         
-        come_value.type = solve_generics(come_value.type, info->generics_type, info);
+        sType*% type_ = solve_generics(come_value.type, info->generics_type, info);
+        come_value.type = solve_method_generics(type_, info);
         
         come_params.push_back(come_value);
         
@@ -1843,7 +1863,8 @@ class sLambdaCall extends sNodeBase
             
             CVALUE*% come_value = get_value_from_stack(-1, info);
             
-            come_value.type = solve_generics(come_value.type, info->generics_type, info);
+            sType*% type_ = solve_generics(come_value.type, info->generics_type, info);
+            come_value.type = solve_method_generics(type_, info);
             if(lambda_type.mVarArgs && lambda_type.mParamTypes[i] == null) {
             }
             else {

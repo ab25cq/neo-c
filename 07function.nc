@@ -1923,11 +1923,15 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
         return (fun_name, true);
     }
     
-    sType*% result_type = solve_generics(generics_fun->mResultType, generics_type_, info);
+    sType*% result_type_ = solve_generics(generics_fun->mResultType, generics_type_, info);
+    
+    sType*% result_type = solve_method_generics(result_type_, info);
     
     list<sType*%>*% param_types = new list<sType*%>();
     foreach(it, generics_fun->mParamTypes) {
-        sType*% param_type = solve_generics(clone it, generics_type_, info);
+        sType*% param_type_ = solve_generics(clone it, generics_type_, info);
+    
+        sType*% param_type = solve_method_generics(param_type_, info);
         
         param_types.add(clone param_type);
     }

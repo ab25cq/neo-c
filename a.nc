@@ -1,17 +1,28 @@
 #include <neo-c.h>
 
+struct sData<T>
+{
+    T aaa;
+    T bbb
+};
+
+impl sData<T>
+{
+    template <R> R fun(sData<T>* self, T aaaa, T bbb)
+    {
+        R n = (int)"AAA";
+        return aaaa;
+    }
+}
+
 int main(int argc, char** argv)
 {
-    char* a = "AAA";
+    sData<int>*% data = new sData<int>;
     
-    char b[] = "AAA";
+    int x = data.fun(111, 222);
     
-    var l = new list<char*>();
+    x.to_string().puts();
     
-    l.add(b);
-    
-    l.remove(b, by_pointer:true).to_string().puts();
-
     return 0;
 }
 

@@ -368,7 +368,8 @@ class sListNode extends sNodeBase
         
         num_string.append_str("1");
         
-        sType*% type2 = solve_generics(type, type, info);
+        sType*% type2_ = solve_generics(type, type, info);
+        sType*% type2 = solve_method_generics(type2_, info);
         
         string type_name = make_type_name_string(type2, cast_type:true);
         
@@ -512,7 +513,8 @@ class sTupleNode extends sNodeBase
         
         num_string.append_str("1");
         
-        sType*% type2 = solve_generics(type, type, info);
+        sType*% type2_ = solve_generics(type, type, info);
+        sType*% type2 = solve_method_generics(type2_, info);
         
         string type_name = make_type_name_string(type2, cast_type:true);
         
@@ -775,7 +777,8 @@ class sMapNode extends sNodeBase
         
         num_string.append_str("1");
         
-        sType*% type2 = solve_generics(type, type, info);
+        sType*% type2_ = solve_generics(type, type, info);
+        sType*% type2 = solve_method_generics(type2_, info);
         
         string type_name = make_type_name_string(type2, cast_type:true);
         

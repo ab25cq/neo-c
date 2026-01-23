@@ -185,7 +185,8 @@ bool output_generics_struct(sType* type, sType* generics_type, sInfo* info)
         foreach(it, generics_class.mFields) {
             var name, type = it;
             
-            sType*% new_type = solve_generics(type, generics_type, info);
+            sType*% new_type_ = solve_generics(type, generics_type, info);
+            sType*% new_type = solve_method_generics(new_type_, info);
             
             new_class.mFields.push_back((clone name, clone new_type));
         }

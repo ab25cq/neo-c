@@ -402,7 +402,8 @@ class sLoadFieldNode extends sNodeBase
         
         sType*% left_type = left_value.type;
         
-        sType*% left_type3 = solve_generics(left_type, left_type, info);
+        sType*% left_type3_ = solve_generics(left_type, left_type, info);
+        sType*% left_type3 = solve_method_generics(left_type3_, info);
         
         sClass* klass = left_type3->mClass;
         klass = borrow info.classes[string(klass->mName)];
@@ -440,7 +441,8 @@ class sLoadFieldNode extends sNodeBase
             come_value.c_value = xsprintf("%s.%s", left_value.c_value, name);
         }
         come_value.type = clone field_type;
-        come_value.type = solve_generics(come_value.type, info->generics_type, info);
+        sType*% type_ = solve_generics(come_value.type, info->generics_type, info);
+        come_value.type = solve_method_generics(type_, info);
         come_value.var = left_value.var;
         
         if(come_value.type->mArrayNum.length() > 0) {
@@ -614,7 +616,8 @@ class sStoreArrayNode extends sNodeBase
             come_value.type = result_type;
             come_value.var = null;
             
-            come_value.type = solve_generics(come_value.type, info->generics_type, info);
+            sType*% type_ = solve_generics(come_value.type, info->generics_type, info);
+            come_value.type = solve_method_generics(type_, info);
             
             info.stack.push_back(come_value);
             
@@ -736,7 +739,8 @@ class sLoadArrayNode extends sNodeBase
             come_value.var = null;
             
             sType*% type2_ = clone come_value.type;
-            sType*% type_ = solve_generics(type2_, info->generics_type, info);
+            sType*% type3_ = solve_generics(type2_, info->generics_type, info);
+            sType*% type_ = solve_method_generics(type3_, info);
 
             come_value.type = type_;
             come_value.type.mHeap = false;
@@ -864,7 +868,8 @@ class sLoadRangeArrayNode extends sNodeBase
             come_value.type = clone result_type;
             come_value.var = null;
             
-            come_value.type = solve_generics(come_value.type, info->generics_type, info);
+            sType*% type_ = solve_generics(come_value.type, info->generics_type, info);
+            come_value.type = solve_method_generics(type_, info);
             
             info.stack.push_back(come_value);
             

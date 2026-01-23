@@ -38,7 +38,8 @@ class sNewNode extends sNodeBase
             num_string.append_format("*(%s)", cvalue.c_value);
         }
         
-        sType*% type2 = solve_generics(type, info->generics_type, info);
+        sType*% type2_ = solve_generics(type, info->generics_type, info);
+        sType*% type2 = solve_method_generics(type2_, info);
         
         type2->mArrayNum.reset();
         
@@ -579,7 +580,8 @@ class sSizeOfNode extends sNodeBase
         
         CVALUE*% come_value = new CVALUE();
         
-        var type2 = solve_generics(type, info->generics_type, info);
+        var type2_ = solve_generics(type, info->generics_type, info);
+        sType*% type2 = solve_method_generics(type2_, info);
         
         string type_name = make_type_name_string(type2, no_static:true, typedef_extended:true);
         
@@ -618,7 +620,8 @@ class sOffsetOf extends sNodeBase
         
         CVALUE*% come_value = new CVALUE();
         
-        var type2 = solve_generics(type, info->generics_type, info);
+        var type2_ = solve_generics(type, info->generics_type, info);
+        sType*% type2 = solve_method_generics(type2_, info);
         
         string type_name = make_type_name_string(type2, no_static:true);
         
@@ -695,7 +698,8 @@ class sTypeOfNode extends sNodeBase
         
         CVALUE*% come_value = new CVALUE();
     
-        var type2 = solve_generics(type, info->generics_type, info);
+        var type2_ = solve_generics(type, info->generics_type, info);
+        sType*% type2 = solve_method_generics(type2_, info);
         
         string type_name = make_type_name_string(type2);
         
@@ -737,7 +741,8 @@ class sTypeOfExpNode extends sNodeBase
         
         sType*% type = clone come_value.type;
         
-        var type2 = solve_generics(type, info->generics_type, info);
+        var type2_ = solve_generics(type, info->generics_type, info);
+        sType*% type2 = solve_method_generics(type2_, info);
         
         string type_name = make_type_name_string(type2);
         
@@ -828,7 +833,8 @@ class sAlignOfNode extends sNodeBase
         
         CVALUE*% come_value = new CVALUE();
         
-        var type2 = solve_generics(type, info->generics_type, info);
+        var type2_ = solve_generics(type, info->generics_type, info);
+        sType*% type2 = solve_method_generics(type2_, info);
         
         string type_name = make_type_name_string(type2);
         
@@ -904,7 +910,8 @@ class sAlignOfNode2 extends sNodeBase
         
         CVALUE*% come_value = new CVALUE();
         
-        var type2 = solve_generics(type, info->generics_type, info);
+        var type2_ = solve_generics(type, info->generics_type, info);
+        sType*% type2 = solve_method_generics(type2_, info);
         
         string type_name = make_type_name_string(type2);
         
@@ -980,7 +987,8 @@ class sAlignAsNode extends sNodeBase
         
         CVALUE*% come_value = new CVALUE();
         
-        var type2 = solve_generics(type, info->generics_type, info);
+        var type2_ = solve_generics(type, info->generics_type, info);
+        sType*% type2 = solve_method_generics(type2_, info);
         
         string type_name = make_type_name_string(type2);
         
@@ -1603,7 +1611,8 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             exit(2);
         }
         
-        var type2 = solve_generics(param_type, info->generics_type, info);
+        var type2_ = solve_generics(param_type, info->generics_type, info);
+        sType*% type2 = solve_method_generics(type2_, info);
         
         expected_next_character(')');
         
@@ -1619,7 +1628,8 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             exit(2);
         }
         
-        var type2 = solve_generics(param_type, info->generics_type, info);
+        var type2_ = solve_generics(param_type, info->generics_type, info);
+        sType*% type2 = solve_method_generics(type2_, info);
         
         expected_next_character(')');
         
