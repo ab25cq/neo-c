@@ -36,10 +36,10 @@ TARGET_DEBUG=mf-debug
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) -o mf main.nc -lncurses -lreadline 
+	$(CC) $(CFLAGS) -o mf main.nc -lncursesw -lreadline 
 
 $(TARGET_DEBUG): $(DEBUG_OBJS)
-	$(CC) $(CFLAGS_DEBUG) $^ -o $@ -lncurses -lreadline 
+	$(CC) $(CFLAGS_DEBUG) $^ -o $@ -lncursesw -lreadline 
 
 %.o: %.nc
 	$(CC) $(CFLAGS) -c $< -o $@
