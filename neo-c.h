@@ -3825,6 +3825,18 @@ uniq bool char*::operator_equals(char* self, char* right)
     return strcmp(self, right) == 0;
 }
 
+uniq bool char[]::operator_equals(char* self, char* right) 
+{
+    if(self == null && right == null) {
+        return true;
+    }
+    else if(self == null || right == null) {
+        return false;
+    }
+    
+    return strcmp(self, right) == 0;
+}
+
 uniq bool void*::operator_equals(char* self, char* right) 
 {
     return self == right;
@@ -3848,6 +3860,18 @@ uniq bool string::operator_not_equals(char* self, char* right)
 }
 
 uniq bool char*::operator_not_equals(char* self, char* right) 
+{
+    if(self == null && right == null) {
+        return false;
+    }
+    else if(self == null || right == null) {
+        return true;
+    }
+    
+    return strcmp(self, right) != 0;
+}
+
+uniq bool char[]::operator_not_equals(char* self, char* right) 
 {
     if(self == null && right == null) {
         return false;

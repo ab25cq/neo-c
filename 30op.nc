@@ -24,7 +24,7 @@ bool operator_overload_fun(sType* type, char* fun_name, sNode*% left_node, sNode
     
     bool result = false;
     
-    if(operator_fun && (type2->mGenericsTypes.length() > 0 || (left_value.type.mClass.mName === right_value.type.mClass.mName && left_value.type.mPointerNum == right_value.type.mPointerNum) || fun_name === "operator_mult")) {
+    if(operator_fun && (type2->mGenericsTypes.length() > 0 || (left_value.type.mClass.mName === right_value.type.mClass.mName && (left_value.type.mOriginalLoadVarType && left_value.type.mOriginalLoadVarType.mArrayNum.length() > 0 || left_value.type.mPointerNum == right_value.type.mPointerNum)) || fun_name === "operator_mult")) {
         {
             sRightValueObject* right_value_object = left_value.right_value_objects;
             

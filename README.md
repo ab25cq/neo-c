@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.8.6.1
+version 0.8.6.2
 
 ``` C
 #include <neo-c.h>
@@ -93,6 +93,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.8.6.2 mf has serious bug of deleting file. it occurs deleting all user files. Refine neo-c and get rid of the bug.
 0.8.6.1 Refine neo-c
 0.8.6.0 Fine working generics and method generics. Test and fix some bugs.
 0.8.5.9 Change here document spec and it's usefull.
