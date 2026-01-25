@@ -601,7 +601,7 @@ class sFunCallNode extends sNodeBase
         
         
         /// builtin ///
-        /*
+/*
         if(fun_name === "__builtin_types_compatible_p") {
             if(params.length() != 2) {
                 err_msg(info, "__builtin_types_compatible_p params error");
@@ -887,7 +887,7 @@ class sFunCallNode extends sNodeBase
             return true;
         }
         else 
-        */
+*/
         if(fun_name === "__builtin_va_arg") {
             list<CVALUE*%>*% come_params = new list<CVALUE*%>();
             

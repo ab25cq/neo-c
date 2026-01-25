@@ -1,27 +1,31 @@
 #include <neo-c.h>
 
+/*
+/*
+int, string fun()
+{
+    (1, s"AAA")  /* aaa */
+}
+*/
+*/
+
 struct sData<T>
 {
     T aaa;
-    T bbb
+    T bbb;
 };
 
-impl sData<T>
-{
-    template <R> R fun(sData<T>* self, T aaaa, T bbb)
-    {
-        R n = (int)"AAA";
-        return aaaa;
-    }
-}
+extern list<int>*% gLi;
+extern int fun();
 
 int main(int argc, char** argv)
 {
-    sData<int>*% data = new sData<int>;
+    fun();
+    sData<int>*% data = new sData<int> { aaa:111, bbb:222 };
     
-    int x = data.fun(111, 222);
+    var a = (1, s"AAA", "BBB");
     
-    x.to_string().puts();
+    printf(s"\{a.v1} \{a.v2} \{a.v3} \{data}\n");
     
     return 0;
 }

@@ -5,6 +5,7 @@ CC=clang
 files=()
 opts=()
 libs=()
+obj_files=()
 target=""
 no_rm_pp=true
 
@@ -44,7 +45,7 @@ for arg in "$@"; do
       opts+=("$arg")
       ;;
     *.o) 
-      files+=("$arg")
+      obj_files+=("$arg")
       ;;
     *.nc)
       files+=("$arg")
@@ -66,8 +67,7 @@ transpile_ok=$?
 
 if [ "$all_object_file" == true ]
 then
-    echo $CC ${opts[@]} -o ${target} ${files[@]} -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include ${libs[@]}
-    $CC ${opts[@]} -o ${target} ${files[@]} -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include ${libs[@]}
+    $CC ${opts[@]} -o ${target} ${files[@]} -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include ${libs[@]} ${obj_files[@]}
 elif test $transpile_ok = 0
 then
     if test $compile_only = true
@@ -95,7 +95,7 @@ then
         fi
         
         #echo $CC ${opts[@]} -o ${target} ${base}.c 2> ${base}.c.error 
-        if $CC -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include ${opts[@]} -o ${target} ${base}.c 2> ${base}.c.error ${libs[@]}
+        if $CC -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include ${opts[@]} -o ${target} ${base}.c ${obj_files[@]} 2> ${base}.c.error ${libs[@]}
         then
             rm ${base}.c.error
             if test $no_rm_pp = true

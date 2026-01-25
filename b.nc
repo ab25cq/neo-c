@@ -1,6 +1,9 @@
-int main(int argc, char** argv)
+#include <neo-c.h>
+
+list<int>*% gLi;
+
+int fun()
 {
-    int a = "AAA";
-    
+    gLi = new list<int>();
     return 0;
 }
