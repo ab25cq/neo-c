@@ -3518,9 +3518,11 @@ char* ViWin_selector(struct ViWin* self  , struct list$1char$ph* lines)
             cursor++;
             break;
             case 68-65+1:
+            case 0522:
             cursor+=10;
             break;
             case ((85-65)+1):
+            case 0523:
             cursor-=10;
             break;
             case (67-65)+1:
@@ -3671,7 +3673,7 @@ void ViWin_fileCompetion(struct ViWin* self  , struct Vi* nvi  )
         __dec_obj2 = come_decrement_ref_count(__dec_obj2, (void*)0, (void*)0, 0,0, (void*)0);
     }
     else {
-        tmp=(char*)come_increment_ref_count((char*)come_memdup(word, "12command.nc", 161, "char*"));
+        tmp=(char*)come_increment_ref_count((char*)come_memdup(word, "12command.nc", 163, "char*"));
         dname=dirname(tmp);
         if(strcmp(dname,"/")==0) {
             __dec_obj3=dir_name,
@@ -3685,7 +3687,7 @@ void ViWin_fileCompetion(struct ViWin* self  , struct Vi* nvi  )
         }
         (tmp = come_decrement_ref_count(tmp, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    words=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "12command.nc", 172, "struct list$1char$ph*"))));
+    words=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "12command.nc", 174, "struct list$1char$ph*"))));
     if(string_equals(dir_name,"./")) {
         cwd=getenv("PWD");
         if(cwd==((void*)0)) {
@@ -3784,10 +3786,10 @@ void ViWin_fileCompetion(struct ViWin* self  , struct Vi* nvi  )
         }
         closedir(dir_7);
     }
-    words2=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "12command.nc", 274, "struct list$1char$ph*"))));
+    words2=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "12command.nc", 276, "struct list$1char$ph*"))));
     for(o2_saved=(struct list$1char$ph*)come_increment_ref_count(words),it=list$1char$ph_begin(o2_saved);!list$1char$ph_end(o2_saved);it=list$1char$ph_next(o2_saved)){
         if(strcmp(word,"")!=0&&strstr(it,word)==it) {
-            list$1char$ph_push_back(words2,(char*)come_increment_ref_count((char*)come_memdup(it, "12command.nc", 278, "char*")));
+            list$1char$ph_push_back(words2,(char*)come_increment_ref_count((char*)come_memdup(it, "12command.nc", 280, "char*")));
         }
     }
     come_call_finalizer(list$1char$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);

@@ -3415,9 +3415,11 @@ int* ViWin_selector2(struct ViWin* self  , struct list$1int$ph* lines)
             cursor++;
             break;
             case 68-65+1:
+            case 0522:
             cursor+=10;
             break;
             case ((85-65)+1):
+            case 0523:
             cursor-=10;
             break;
             case (67-65)+1:
@@ -3529,7 +3531,7 @@ void ViWin_completion_v13(struct ViWin* self  , struct Vi* nvi  )
     p++;
     len=((int*)(line+self->cursorX)-p);
     word=(int*)come_increment_ref_count(wstring_substring(line,self->cursorX-len,self->cursorX));
-    candidates=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_initialize((struct list$1int$ph*)come_increment_ref_count((struct list$1int$ph*)come_calloc(1, sizeof(struct list$1int$ph)*(1), "13completion.nc", 132, "struct list$1int$ph*"))));
+    candidates=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_initialize((struct list$1int$ph*)come_increment_ref_count((struct list$1int$ph*)come_calloc(1, sizeof(struct list$1int$ph)*(1), "13completion.nc", 134, "struct list$1int$ph*"))));
     for(o2_saved=(struct list$1int$ph*)come_increment_ref_count(self->texts),it=list$1int$ph_begin(o2_saved);!list$1int$ph_end(o2_saved);it=list$1int$ph_next(o2_saved)){
         li=(struct list$1char$ph*)come_increment_ref_count(string_scan(((char*)(__right_value0=wstring_to_string(it))),"[a-zA-Z0-9_]+",0));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));

@@ -78,10 +78,12 @@ string ViWin*::selector(ViWin* self, list<string>* lines)
                 break;
 
             case 'D'-'A'+1:
+            case KEY_NPAGE:
                 cursor+=10;
                 break;
            
             case (('U'-'A')+1):
+            case KEY_PPAGE:
                 cursor-=10;
                 break;
 

@@ -634,7 +634,17 @@ Vi*% Vi*::initialize(Vi*% self) version 2
         self.activeWin.halfScrollDown();
         self.activeWin.saveInputedKeyOnTheMovingCursor();
     });
+    self.events.replace(KEY_NPAGE, void lambda(Vi* self, int key) 
+    {
+        self.activeWin.halfScrollDown();
+        self.activeWin.saveInputedKeyOnTheMovingCursor();
+    });
     self.events.replace('U'-'A'+1, void lambda(Vi* self, int key) 
+    {
+        self.activeWin.halfScrollUp();
+        self.activeWin.saveInputedKeyOnTheMovingCursor();
+    });
+    self.events.replace(KEY_PPAGE, void lambda(Vi* self, int key) 
     {
         self.activeWin.halfScrollUp();
         self.activeWin.saveInputedKeyOnTheMovingCursor();

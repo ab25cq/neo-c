@@ -3355,6 +3355,8 @@ static void lambda21(struct Vi* self  , int key);
 static void lambda22(struct Vi* self  , int key);
 static void lambda23(struct Vi* self  , int key);
 static void lambda24(struct Vi* self  , int key);
+static void lambda25(struct Vi* self  , int key);
+static void lambda26(struct Vi* self  , int key);
 struct Vi* Vi_initialize_v2(struct Vi* self  );
 static struct list$1ViWin$ph* list$1ViWin$ph_initialize(struct list$1ViWin$ph* self);
 static void list$1ViWin$ph$p_finalize(struct list$1ViWin$ph* self);
@@ -4580,29 +4582,41 @@ static void lambda18(struct Vi* self  , int key)
 
 static void lambda19(struct Vi* self  , int key)
 {
-    ViWin_halfScrollUp(self->activeWin);
+    ViWin_halfScrollDown(self->activeWin);
     ViWin_saveInputedKeyOnTheMovingCursor_v14(self->activeWin);
 }
 
 static void lambda20(struct Vi* self  , int key)
 {
-    Vi_clearView(self);
+    ViWin_halfScrollUp(self->activeWin);
     ViWin_saveInputedKeyOnTheMovingCursor_v14(self->activeWin);
 }
 
 static void lambda21(struct Vi* self  , int key)
 {
-    ViWin_keyG(self->activeWin,self);
+    ViWin_halfScrollUp(self->activeWin);
     ViWin_saveInputedKeyOnTheMovingCursor_v14(self->activeWin);
 }
 
 static void lambda22(struct Vi* self  , int key)
 {
-    ViWin_moveBottom(self->activeWin);
+    Vi_clearView(self);
     ViWin_saveInputedKeyOnTheMovingCursor_v14(self->activeWin);
 }
 
 static void lambda23(struct Vi* self  , int key)
+{
+    ViWin_keyG(self->activeWin,self);
+    ViWin_saveInputedKeyOnTheMovingCursor_v14(self->activeWin);
+}
+
+static void lambda24(struct Vi* self  , int key)
+{
+    ViWin_moveBottom(self->activeWin);
+    ViWin_saveInputedKeyOnTheMovingCursor_v14(self->activeWin);
+}
+
+static void lambda25(struct Vi* self  , int key)
 {
     int key2;
     key2=ViWin_getKey_v14(self->activeWin,0);
@@ -4620,7 +4634,7 @@ static void lambda23(struct Vi* self  , int key)
     }
 }
 
-static void lambda24(struct Vi* self  , int key)
+static void lambda26(struct Vi* self  , int key)
 {
     int key2;
     key2=ViWin_getKey_v14(self->activeWin,0);
@@ -4679,12 +4693,14 @@ struct Vi* Vi_initialize_v2(struct Vi* self  )
     list$1lambda$_replace(self->events,124,lambda16);
     list$1lambda$_replace(self->events,36,lambda17);
     list$1lambda$_replace(self->events,68-65+1,lambda18);
-    list$1lambda$_replace(self->events,85-65+1,lambda19);
-    list$1lambda$_replace(self->events,76-65+1,lambda20);
-    list$1lambda$_replace(self->events,103,lambda21);
-    list$1lambda$_replace(self->events,71,lambda22);
-    list$1lambda$_replace(self->events,122,lambda23);
-    list$1lambda$_replace(self->events,90,lambda24);
+    list$1lambda$_replace(self->events,0522,lambda19);
+    list$1lambda$_replace(self->events,85-65+1,lambda20);
+    list$1lambda$_replace(self->events,0523,lambda21);
+    list$1lambda$_replace(self->events,76-65+1,lambda22);
+    list$1lambda$_replace(self->events,103,lambda23);
+    list$1lambda$_replace(self->events,71,lambda24);
+    list$1lambda$_replace(self->events,122,lambda25);
+    list$1lambda$_replace(self->events,90,lambda26);
     __result_obj__0 = (struct Vi*)come_increment_ref_count(self);
     come_call_finalizer(Vi_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     come_call_finalizer(ViWin_finalize, win, (void*)0, (void*)0, 0, 0, 0, (void*)0);

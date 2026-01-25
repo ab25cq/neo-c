@@ -478,10 +478,10 @@ void input(sInfo* info)
             else {
                 endwin();
                 if(info.selected_files.length() > 0) {
-                    system(xsprintf("shsh -i ' %s' -n 0 -o", selected_files(info)));
+                    system(xsprintf("shsh -i ' \"%s\"' -n 0 -o", selected_files(info)));
                 }
                 else {
-                    system(xsprintf("shsh -i ' %s' -n 0 -o", cursor_file(info)));
+                    system(xsprintf("shsh -i ' \"%s\"' -n 0 -o", cursor_file(info)));
                 }
                 read_dir(info);
                 puts("HIT ANY KEY");
@@ -529,10 +529,10 @@ void input(sInfo* info)
         case 'c': {
             endwin();
             if(info.selected_files.length() > 0) {
-                system(xsprintf("shsh -i 'cp -r %s ' -o", selected_files(info)));
+                system(xsprintf("shsh -i 'cp -r \"%s\" ' -o", selected_files(info)));
             }
             else {
-                system(xsprintf("shsh -i 'cp -r %s ' -o", cursor_file(info)));
+                system(xsprintf("shsh -i 'cp -r \"%s\" ' -o", cursor_file(info)));
             }
             read_dir(info);
             puts("HIT ANY KEY");
@@ -547,10 +547,10 @@ void input(sInfo* info)
         case 'm': {
             endwin();
             if(info.selected_files.length() > 0) {
-                system(xsprintf("shsh -i 'mv %s ' -o", selected_files(info)));
+                system(xsprintf("shsh -i 'mv \"%s\" ' -o", selected_files(info)));
             }
             else {
-                system(xsprintf("shsh -i 'mv %s ' -o", cursor_file(info)));
+                system(xsprintf("shsh -i 'mv \"%s\" ' -o", cursor_file(info)));
             }
             read_dir(info);
             puts("HIT ANY KEY");
@@ -575,10 +575,10 @@ void input(sInfo* info)
         case 'x': {
             endwin();
             if(info.selected_files.length() > 0) {
-                system(xsprintf("shsh -i ' %s' -n 0 -o", selected_files(info)));
+                system(xsprintf("shsh -i ' \"%s\"' -n 0 -o", selected_files(info)));
             }
             else {
-                system(xsprintf("shsh -i ' ./%s' -n 0 -o", cursor_file(info)));
+                system(xsprintf("shsh -i ' ./\"%s\"' -n 0 -o", cursor_file(info)));
             }
             read_dir(info);
             puts("HIT ANY KEY");
@@ -659,17 +659,19 @@ void input(sInfo* info)
             }
             break;
 
-        case 0x04: {   // C-d
+        case 0x04:    // C-d
+        case KEY_NPAGE: {   // C-d
             info.cursor+=10;
             }
             break;
 
-        case ' ': {   // C-d
+        case ' ': {
             select_files(info);
             }
             break;
 
-        case 0x15: {   // C-u
+        case 0x15:    // C-u
+        case KEY_PPAGE: {
             info.cursor-=10;
             }
             break;

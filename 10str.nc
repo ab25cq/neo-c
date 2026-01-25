@@ -1570,7 +1570,7 @@ sNode*% expression_node(sInfo* info) version 96
             return new sCharNode(c, info) implements sNode;
         }
     }
-#ifndef __MINUX__
+#ifndef __BAREMETAL__
     /// wchararacter ///
     else if(*info->p == 'L' && *(info->p+1) == '\'') {
         int sline_real = info.sline_real;

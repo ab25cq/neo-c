@@ -5203,12 +5203,12 @@ void input(struct sInfo* info  )
             else {
                 endwin();
                 if(list$1char$ph_length(info->selected_files)>0) {
-                    system(((char*)(__right_value1=xsprintf("shsh -i ' %s' -n 0 -o",((char*)(__right_value0=selected_files(info)))))));
+                    system(((char*)(__right_value1=xsprintf("shsh -i ' \"%s\"' -n 0 -o",((char*)(__right_value0=selected_files(info)))))));
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                     (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
                 }
                 else {
-                    system(((char*)(__right_value1=xsprintf("shsh -i ' %s' -n 0 -o",((char*)(__right_value0=cursor_file(info)))))));
+                    system(((char*)(__right_value1=xsprintf("shsh -i ' \"%s\"' -n 0 -o",((char*)(__right_value0=cursor_file(info)))))));
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                     (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
                 }
@@ -5264,12 +5264,12 @@ void input(struct sInfo* info  )
         {
             endwin();
             if(list$1char$ph_length(info->selected_files)>0) {
-                system(((char*)(__right_value1=xsprintf("shsh -i 'cp -r %s ' -o",((char*)(__right_value0=selected_files(info)))))));
+                system(((char*)(__right_value1=xsprintf("shsh -i 'cp -r \"%s\" ' -o",((char*)(__right_value0=selected_files(info)))))));
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                 (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
             }
             else {
-                system(((char*)(__right_value1=xsprintf("shsh -i 'cp -r %s ' -o",((char*)(__right_value0=cursor_file(info)))))));
+                system(((char*)(__right_value1=xsprintf("shsh -i 'cp -r \"%s\" ' -o",((char*)(__right_value0=cursor_file(info)))))));
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                 (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
             }
@@ -5286,12 +5286,12 @@ void input(struct sInfo* info  )
         {
             endwin();
             if(list$1char$ph_length(info->selected_files)>0) {
-                system(((char*)(__right_value1=xsprintf("shsh -i 'mv %s ' -o",((char*)(__right_value0=selected_files(info)))))));
+                system(((char*)(__right_value1=xsprintf("shsh -i 'mv \"%s\" ' -o",((char*)(__right_value0=selected_files(info)))))));
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                 (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
             }
             else {
-                system(((char*)(__right_value1=xsprintf("shsh -i 'mv %s ' -o",((char*)(__right_value0=cursor_file(info)))))));
+                system(((char*)(__right_value1=xsprintf("shsh -i 'mv \"%s\" ' -o",((char*)(__right_value0=cursor_file(info)))))));
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                 (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
             }
@@ -5318,12 +5318,12 @@ void input(struct sInfo* info  )
         {
             endwin();
             if(list$1char$ph_length(info->selected_files)>0) {
-                system(((char*)(__right_value1=xsprintf("shsh -i ' %s' -n 0 -o",((char*)(__right_value0=selected_files(info)))))));
+                system(((char*)(__right_value1=xsprintf("shsh -i ' \"%s\"' -n 0 -o",((char*)(__right_value0=selected_files(info)))))));
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                 (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
             }
             else {
-                system(((char*)(__right_value1=xsprintf("shsh -i ' ./%s' -n 0 -o",((char*)(__right_value0=cursor_file(info)))))));
+                system(((char*)(__right_value1=xsprintf("shsh -i ' ./\"%s\"' -n 0 -o",((char*)(__right_value0=cursor_file(info)))))));
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                 (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
             }
@@ -5400,6 +5400,7 @@ void input(struct sInfo* info  )
         }
         break;
         case 0x04:
+        case 0522:
         {
             info->cursor+=10;
         }
@@ -5410,6 +5411,7 @@ void input(struct sInfo* info  )
         }
         break;
         case 0x15:
+        case 0523:
         {
             info->cursor-=10;
         }

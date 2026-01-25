@@ -319,10 +319,12 @@ void ViWin*::inputVerticalVisualMode(ViWin* self, Vi* nvi)
                 break;
     
             case 'D'-'A'+1:
+            case KEY_NPAGE:
                 self.halfScrollDown();
                 break;
     
             case 'U'-'A'+1:
+            case KEY_PPAGE:
                 self.halfScrollUp();
                 break;
                 

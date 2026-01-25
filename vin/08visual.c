@@ -4862,9 +4862,11 @@ void ViWin_inputVisualMode(struct ViWin* self  , struct Vi* nvi  )
         Vi_exitFromVisualMode(nvi);
         break;
         case 68-65+1:
+        case 0522:
         ViWin_halfScrollDown(self);
         break;
         case 85-65+1:
+        case 0523:
         ViWin_halfScrollUp(self);
         break;
         case 71:
