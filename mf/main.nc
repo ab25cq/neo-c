@@ -18,6 +18,7 @@ struct sInfo
     int page;
     string path;
     bool app_end;
+    bool virtual_dir;
     
     list<string>*% files;
     list<string>*% selected_files;
@@ -60,6 +61,7 @@ int xgetmaxy()
 
 void read_dir(sInfo* info)
 {
+    info.virtual_dir = false;
     info.files = new list<string>();
     info.selected_files = new list<string>();
 
@@ -84,6 +86,8 @@ void read_dir(sInfo* info)
 
 void vd(sInfo* info)
 {
+    info.virtual_dir = true;
+    info.selected_files = new list<string>();
     string history_fname = getenv("HOME") + "/mf_history";
     
     read_history(history_fname);
@@ -373,7 +377,14 @@ void manual(sInfo* info)
 void recursive_unlink(string path)
 {
     struct stat stat_;
-    (void)stat(path, &stat_);
+    if(lstat(path, &stat_) < 0) {
+        return;
+    }
+
+    if(S_ISLNK(stat_.st_mode)) {
+        unlink(path);
+        return;
+    }
 
     bool is_dir = S_ISDIR(stat_.st_mode);
 
@@ -400,7 +411,43 @@ void recursive_unlink(string path)
     }
 }
 
-void handmade_delete_file(char* path, sInfo* info=info)
+bool is_protected_entry(char* name)
+{
+    if(name == null) {
+        return false;
+    }
+    return strcmp(name, ".") == 0 || strcmp(name, "..") == 0 || strcmp(name, "NO FILES") == 0;
+}
+
+string resolve_item_path(sInfo* info, char* item)
+{
+    if(item == null) {
+        return string("");
+    }
+    if(item[0] == '/') {
+        return string(item);
+    }
+    else {
+        return info.path + string("/") + string(item);
+    }
+}
+
+string deletable_selected_files(sInfo* info)
+{
+    var buf = new buffer();
+    foreach(it, info.selected_files) {
+        if(is_protected_entry(it)) {
+            continue;
+        }
+        buf.append_str("\"");
+        buf.append_str(it);
+        buf.append_str("\"");
+        buf.append_str(" ");
+    }
+    return buf.to_string();
+}
+
+void handmade_delete_file(string path, sInfo* info=info)
 {
     erase();
     mvprintw(0, 0, "Is %s delete OK? (y,Y,ENTER/other", path);
@@ -410,7 +457,6 @@ void handmade_delete_file(char* path, sInfo* info=info)
         var key = getch();
         
         if(key == 'y' || key == 'Y' || key == 10) {
-            string path = info.path + string("/") + cursor_file(info);
             recursive_unlink(path);
             break;
         }
@@ -422,8 +468,17 @@ void handmade_delete_file(char* path, sInfo* info=info)
 
 void handmade_selected_delete_file(sInfo* info)
 {
+    string li = deletable_selected_files(info);
+    if(li.length() == 0) {
+        erase();
+        mvprintw(0, 0, "No deletable files selected");
+        refresh();
+        getch();
+        return;
+    }
+
     erase();
-    mvprintw(0, 0, "Are %s delete OK? (y,Y,ENTER/other", selected_files(info));
+    mvprintw(0, 0, "Are %s delete OK? (y,Y,ENTER/other", li);
     refresh();
     
     while(true) {
@@ -431,7 +486,11 @@ void handmade_selected_delete_file(sInfo* info)
         
         if(key == 'y' || key == 'Y' || key == 10) {
             foreach(it, info.selected_files) {
-                unlink(it);
+                if(is_protected_entry(it)) {
+                    continue;
+                }
+                string path = resolve_item_path(info, it);
+                recursive_unlink(path);
             }
             break;
         }
@@ -516,7 +575,16 @@ void input(sInfo* info)
                 handmade_selected_delete_file(info);
             }
             else {
-                handmade_delete_file(cursor_file(info));
+                string item = cursor_file(info);
+                if(is_protected_entry(item)) {
+                    erase();
+                    mvprintw(0, 0, "Refuse to delete %s", item);
+                    refresh();
+                    getch();
+                }
+                else {
+                    handmade_delete_file(resolve_item_path(info, item));
+                }
             }
             read_dir(info);
             initscr();
