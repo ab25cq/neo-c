@@ -93,7 +93,7 @@ record int expected_next_character(char c, sInfo* info=info)
     return 0;
 }
 
-string parse_word(bool digits=false, sInfo* info=info)
+record string parse_word(bool digits=false, sInfo* info=info)
 {
     var buf = new buffer();
     parse_sharp();
@@ -119,6 +119,7 @@ string parse_word(bool digits=false, sInfo* info=info)
     
     if(buf.to_string().length() == 0) {
         err_msg(info, "unexpected character(%c), expected word character, caller %s %d", *info->p, info->caller_sname, info->caller_line);
+        stackframe();
         return string("");
     }
     

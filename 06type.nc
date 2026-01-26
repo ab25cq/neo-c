@@ -13,6 +13,7 @@ bool is_type_name(char* buf, sInfo* info=info)
             || (klass && klass->mNumber) 
             || (klass && klass->mFloat) 
             || buf === "_Thread_local"
+            || buf === "__thread"
             || buf === "_Complex"
             || buf === "const" || buf === "register" || buf === "static" || buf === "volatile" || buf === "unsigned" || buf === "__volatile__"
             || buf === "signed" || buf === "struct" || buf === "enum" || buf === "union" || buf === "extern" 
@@ -38,6 +39,7 @@ bool is_type_name(char* buf, sInfo* info=info)
         || info->in_top_level && (buf === "inline" || buf === "__inline" || buf === "__always_inline" || buf === "__inline__" || buf === "__forceinline")
         || buf === "__extension__" 
         || buf === "_Thread_local"
+        || buf === "__thread"
         || buf === "_Complex"
         || (info->in_top_level && buf === "_Noreturn")
         || (info->in_top_level && buf === "__noreturn")
@@ -1016,6 +1018,7 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
     bool anonymous_name = false;
     bool atomic_ = false;
     bool thread_local = false;
+    bool thread_ = false;
     while(true) {
         if(type_name === "__type__") {
             if(*info->p == '(') {
@@ -1029,6 +1032,10 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
         else if(type_name === "_Thread_local") {
             type_name = parse_word();
             thread_local = true;
+        }
+        else if(type_name === "__thread") {
+            type_name = parse_word();
+            thread_ = true;
         }
         else if(type_name === "_Atomic") {
             if(*info->p == '(') {
@@ -2142,6 +2149,7 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
         
         result_type->mAtomic = result_type->mAtomic || atomic_;
         result_type->mThreadLocal = result_type->mThreadLocal || thread_local;
+        result_type->mThread = result_type->mThread || thread_;
         result_type->mConstant = result_type->mConstant || constant;
         result_type->mComplex = result_type->mComplex || complex_;
         result_type->mAlignas = alignas_;
@@ -2209,6 +2217,7 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
         type->mComplex = type->mComplex || complex_;
         type->mAtomic = type->mAtomic || atomic_;
         type->mThreadLocal = type->mThreadLocal || thread_local;
+        type->mThread = type->mThread || thread_;
         type->mAlignas = alignas_;
         type->mAlignasDouble = alignas_double;
         type->mRegister = register_;
@@ -2338,6 +2347,7 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
         result_type->mComplex = result_type->mComplex || complex_;
         result_type->mAtomic = result_type->mAtomic || atomic_;
         result_type->mThreadLocal = result_type->mThreadLocal || thread_local;
+        result_type->mThread = result_type->mThread || thread_;
         result_type->mAlignas = alignas_;
         result_type->mAlignasDouble = alignas_double;
         result_type->mRegister = register_;
@@ -2460,6 +2470,7 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
             type->mComplex = type->mComplex || complex_;
             type->mAtomic = type->mAtomic || atomic_;
             type->mThreadLocal = type->mThreadLocal || thread_local;
+            type->mThread = type->mThread || thread_;
             type->mAlignas = alignas_;
             type->mAlignasDouble = alignas_double;
             type->mRegister = register_;
@@ -2496,6 +2507,7 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
             type->mComplex = type->mComplex || complex_;
             type->mAtomic = type->mAtomic || atomic_;
             type->mThreadLocal = type->mThreadLocal || thread_local;
+            type->mThread = type->mThread || thread_;
             type->mAlignas = alignas_;
             type->mAlignasDouble = alignas_double;
             type->mRegister = register_;
@@ -2527,6 +2539,7 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
             type->mComplex = type->mComplex || complex_;
             type->mAtomic = type->mAtomic || atomic_;
             type->mThreadLocal = type->mThreadLocal || thread_local;
+            type->mThread = type->mThread || thread_;
             type->mAlignas = alignas_;
             type->mAlignasDouble = alignas_double;
             type->mRegister = register_;
@@ -2605,6 +2618,7 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
             type->mComplex = type->mComplex || complex_;
             type->mAtomic = type->mAtomic || atomic_;
             type->mThreadLocal = type->mThreadLocal || thread_local;
+            type->mThread = type->mThread || thread_;
             type->mAlignas = alignas_;
             type->mAlignasDouble = alignas_double;
             type->mRegister = register_;
@@ -2655,6 +2669,7 @@ record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_var
             type->mComplex = type->mComplex || complex_;
             type->mAtomic = type->mAtomic || atomic_;
             type->mThreadLocal = type->mThreadLocal || thread_local;
+            type->mThread = type->mThread || thread_;
             type->mAlignas = alignas_;
             type->mAlignasDouble = alignas_double;
             type->mRegister = register_;

@@ -138,6 +138,14 @@ class sFunNode extends sNodeBase
             if(!gComeC && info.come_fun.mName === "main" && info.funcs["come_heap_init"]) {
                 add_come_code(info, "    come_heap_init(%d);\n", gComeDebug);
             }
+/*
+            add_come_code(info, """
+struct neo_frame fr;
+fr.prev = neo_current;
+fr.ret  = __builtin_return_address(0);
+neo_current = &fr;
+"""); 
+*/
             
             int block_level = info->block_level;
             info->block_level = 0;
@@ -145,6 +153,11 @@ class sFunNode extends sNodeBase
             transpile_block(self.mFun.mBlock, self.mFun.mParamTypes, self.mFun.mParamNames, info);
             
             info->block_level = block_level;
+/*
+            add_come_code(info, """
+neo_current = fr.prev;
+""");
+*/
             
             if(!gComeC && info.come_fun.mName === "main" && !info.inhibits_output_code2 && info.funcs["come_heap_final"]) {
                 free_objects(info->gv_table, null@ret_value, info);

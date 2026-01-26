@@ -84,6 +84,14 @@ var UNIX=1
     #include <stdbool.h>
     
     #define NULL ((void*)0)
+
+    typedef struct neo_frame {
+        struct neo_frame *prev;
+        unsigned long ret_pc;   // return address (PC)
+    } neo_frame_t;
+        
+    extern __thread neo_frame_t neo_current_frame;  // 1スレッドなら普通のグローバルでもOK
+    //extern __thread neo_frame_t *neo_current_frame;  // 1スレッドなら普通のグローバルでもOK
     
     using neo-c;
 #endif
@@ -135,7 +143,6 @@ uniq string char::to_string(char self);
 uniq string bool::to_string(bool self);
 uniq string _Bool::to_string(bool self);
 uniq bool string::equals(char* self, char* right);
-
 
 #define COME_STACKFRAME_MAX 16
 #define COME_STACKFRAME_MAX_GLOBAL 128

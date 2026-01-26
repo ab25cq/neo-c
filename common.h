@@ -111,6 +111,7 @@ uniq class sType
     bool mConstant;
     bool mAtomic;
     bool mThreadLocal;
+    bool mThread;
     bool mComplex;
     bool mRegister;
     bool mVolatile;
