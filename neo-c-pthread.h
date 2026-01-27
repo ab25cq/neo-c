@@ -44,43 +44,6 @@ impl come_mutex<T>
 
 uniq pthread_mutex_t gComeHeapMutex = PTHREAD_MUTEX_INITIALIZER;
 
-uniq void come_push_stackframe(char* sname, int sline, int id) version 2
-{
-    pthread_mutex_lock(&gComeHeapMutex);
-    inherit(sname, sline, id);
-    pthread_mutex_unlock(&gComeHeapMutex);
-}
-
-uniq void come_pop_stackframe() version 2
-{
-    pthread_mutex_lock(&gComeHeapMutex);
-    inherit();
-    pthread_mutex_unlock(&gComeHeapMutex);
-}
-
-uniq void come_save_stackframe(char* sname, int sline) version 2
-{
-    pthread_mutex_lock(&gComeHeapMutex);
-    inherit(sname, sline);
-    pthread_mutex_unlock(&gComeHeapMutex);
-}
-
-uniq void stackframe() version 2
-{
-    pthread_mutex_lock(&gComeHeapMutex);
-    inherit();
-    pthread_mutex_unlock(&gComeHeapMutex);
-}
-
-uniq string come_get_stackframe() version 2
-{
-    pthread_mutex_lock(&gComeHeapMutex);
-    string result = inherit();
-    pthread_mutex_unlock(&gComeHeapMutex);
-    
-    return result;
-}
-
 uniq void* come_calloc(size_t count, size_t size, char* sname=null, int sline=0, char* class_name="") version 2
 {
     pthread_mutex_lock(&gComeHeapMutex);

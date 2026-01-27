@@ -979,7 +979,7 @@ tuple3<sType*%,string,bool>*% backtrace_parse_type(bool parse_variable_name=fals
     return (type, name, err);
 }
 
-record tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_name=false, bool parse_multiple_type=true, bool in_function_parametor=false)
+tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_name=false, bool parse_multiple_type=true, bool in_function_parametor=false)
 {
     char* head = info.p;
     int head_sline = info.sline;

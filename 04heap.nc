@@ -16,9 +16,6 @@ void std_move(sType* left_type, sType* right_type, CVALUE* right_value, sInfo* i
     }
     if(right_value.c_value_without_right_value_objects) {
         right_value.c_value = right_value.c_value_without_right_value_objects;
-        if(gComeDebug || right_type->mRecord) {
-            right_value.c_value = append_stackframe(right_value.c_value, right_value.type, info);
-        }
     }
     right_value.c_value = increment_ref_count_object(right_value.type, right_value.c_value, info);
 }
@@ -338,9 +335,6 @@ void append_object_to_right_values(CVALUE* come_value, sType* type, sInfo* info,
         }
         
         come_value.c_value_without_right_value_objects = clone come_value.c_value;
-        if(gComeDebug || type->mRecord) {
-            come_value.c_value_without_right_value_objects = append_stackframe(come_value.c_value_without_right_value_objects, type, info);
-        }
         come_value.c_value = xsprintf("((%s)(%s=%s))", make_type_name_string(type, cast_type:true), new_value->mVarName, come_value.c_value);
         come_value.right_value_objects = borrow new_value;
     }
@@ -792,10 +786,6 @@ tuple2<sType*%, string>*% clone_object(sType* type, char* obj, sInfo* info)
         result_type = solve_generics(type_, type_, info);
         
         result = xsprintf("%s(%s)", fun_name2, c_value);
-        
-        if(gComeDebug) {
-            result = append_stackframe(result, result_type, info);
-        }
     }
     else {
         result_type = clone type_;
@@ -803,9 +793,6 @@ tuple2<sType*%, string>*% clone_object(sType* type, char* obj, sInfo* info)
         string type_name = make_type_name_string(type2);
         
         result = xsprintf("(%s)come_memdup(%s, \"%s\", %d, \"%s\")", type_name, c_value, info.sname, info.sline, type_name);
-        if(gComeDebug) {
-            result = append_stackframe(result, result_type, info);
-        }
     }
     
     info.right_value_objects = dummy_heap right_value_objects;
@@ -958,35 +945,6 @@ void free_objects_on_break(sInfo* info)
          }
         free_objects(it, ret_value, info);
     }
-}
-
-string append_stackframe(char* c_value, sType* type, sInfo* info)
-{
-    if(type->mClass->mName === "void" && type->mPointerNum == 0) {
-        if(gComeDebug || type->mRecord) {
-            if(info.funcs["come_push_stack_frame_v2"]) {
-                return s"(come_push_stackframe_v2(\"\{info.sname}\", \{info.sline},\{gComeDebugStackFrameID++}),\{c_value},come_pop_stackframe_v2())";
-            }
-            else {
-                return s"(come_push_stackframe(\"\{info.sname}\", \{info.sline},\{gComeDebugStackFrameID++}),\{c_value},come_pop_stackframe())";
-            }
-        }
-    }
-    else if(gComeDebug || type->mRecord) {
-        static int n = 0;
-        ++n;
-        
-        string var_name = xsprintf("__exception_result_var_b%d", n);
-        add_come_code_at_function_head(info, "%s;\n", make_define_var(type, var_name));
-        if(info.funcs["come_push_stack_frame_v2"]) {
-            return s"(come_push_stackframe_v2(\"\{info.sname}\", \{info.sline}, \{gComeDebugStackFrameID++}),\{var_name}=\{c_value}, come_pop_stackframe_v2(), \{var_name})";
-        }
-        else {
-            return s"(come_push_stackframe(\"\{info.sname}\", \{info.sline}, \{gComeDebugStackFrameID++}),\{var_name}=\{c_value}, come_pop_stackframe(), \{var_name})";
-        }
-    }
-    
-    return string(c_value);
 }
 
 bool existance_free_objects(sVarTable* table, sVar* ret_value, sInfo* info)

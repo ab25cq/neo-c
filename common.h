@@ -817,7 +817,7 @@ uniq class sCurrentNode extends sNodeBase
 bool transpile_conditional_with_free_right_object_value(sNode* node, sInfo* info=info);
 int err_msg(sInfo* info, char* msg, ...);
 int err_msg2(sInfo* info, char* msg, ...);
-record int expected_next_character(char c, sInfo* info=info);;
+int expected_next_character(char c, sInfo* info=info);;
 bool node_compile(sNode* node, sInfo* info=info);
 bool node_conditional_compile(sNode* node, sInfo* info=info);
 int come_main(int argc, char** argv);
@@ -858,7 +858,6 @@ sType*% solve_method_generics(sType* type, sInfo* info);
 bool existance_free_right_value_objects(sInfo* info);
 bool existance_free_objects_on_return(sBlock* current_block, sInfo* info, sVar* ret_value, bool top_block);
 void std_move(sType* left_type, sType* right_type, CVALUE* right_value, sInfo* info=info);
-string append_stackframe(char* c_value, sType* type, sInfo* info);
 bool create_equals_method(sType* type, sInfo* info);
 bool create_operator_equals_method(sType* type, sInfo* info);
 bool create_operator_not_equals_method(sType* type, sInfo* info);
@@ -921,7 +920,7 @@ string skip_paren(sInfo* info=info);
 bool is_contained_generics_class(sType* type, sInfo* info);
 bool is_type_name(char* buf, sInfo* info=info);
 bool parsecmp(char* p2, sInfo* info=info)
-record string parse_word(bool digits=false, sInfo* info=info);
+string parse_word(bool digits=false, sInfo* info=info);
 string backtrace_parse_word(sInfo* info=info);
 void skip_spaces_and_lf(sInfo* info=info);
 void skip_spaces_and_lf2(sInfo* info=info);

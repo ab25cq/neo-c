@@ -51,8 +51,22 @@ class sLambdaNode extends sNodeBase
         int max_conditional = info->max_conditional;
         info->max_conditional = 0;
         
+        if(!gComeC) {
+            add_come_code_at_function_head(info, """
+    struct neo_frame fr;
+    fr.prev = neo_current_frame;
+    fr.fun_name  = "\{info.come_fun.mName}";
+    neo_current_frame = &fr;
+"""); 
+        }
+        
         if(self.mFun.mBlock) {
             transpile_block(self.mFun.mBlock, self.mFun.mParamTypes, self.mFun.mParamNames, info);
+        }
+        if(!gComeC) {
+            add_come_code(info, """
+    neo_current_frame = fr.prev;
+""");
         }
         
         info->block_level = block_level;
@@ -138,14 +152,21 @@ class sFunNode extends sNodeBase
             if(!gComeC && info.come_fun.mName === "main" && info.funcs["come_heap_init"]) {
                 add_come_code(info, "    come_heap_init(%d);\n", gComeDebug);
             }
-/*
-            add_come_code(info, """
-struct neo_frame fr;
-fr.prev = neo_current;
-fr.ret  = __builtin_return_address(0);
-neo_current = &fr;
+            
+            /*
+            if(gComeC || info.come_fun.mName === "stackframe" || info.come_fun.mName === "come_alloc_mem_from_heap_pool" || info.come_fun.mName === "come_calloc" || info.come_fun.mName === "come_calloc_v2" || info.come_fun.mName === "come_calloc" || info.come_fun.mName === "come_free_mem_of_heap_pool" || info.come_fun.mName === "come_free" || info.come_fun.mName === "come_free_v2" || info.come_fun.mName === "null_check" || info.come_fun.mName === "come_heap_init" || info.come_fun.mName === "come_heap_final") 
+            {
+            }
+            else {
+            */
+            if(!gComeC) {
+                add_come_code_at_function_head(info, """
+    struct neo_frame fr;
+    fr.prev = neo_current_frame;
+    fr.fun_name  = "\{info.come_fun.mName}";
+    neo_current_frame = &fr;
 """); 
-*/
+            }
             
             int block_level = info->block_level;
             info->block_level = 0;
@@ -153,11 +174,18 @@ neo_current = &fr;
             transpile_block(self.mFun.mBlock, self.mFun.mParamTypes, self.mFun.mParamNames, info);
             
             info->block_level = block_level;
-/*
-            add_come_code(info, """
-neo_current = fr.prev;
+            
+            /*
+            if(gComeC || info.come_fun.mName === "stackframe" || info.come_fun.mName === "come_alloc_mem_from_heap_pool" || info.come_fun.mName === "come_calloc" || info.come_fun.mName === "come_calloc_v2" || info.come_fun.mName === "come_calloc" || info.come_fun.mName === "come_free_mem_of_heap_pool" || info.come_fun.mName === "come_free" || info.come_fun.mName === "come_free_v2" || info.come_fun.mName === "null_check" || info.come_fun.mName === "come_heap_init" || info.come_fun.mName === "come_heap_final") 
+            {
+            }
+            else {
+            */
+            if(!gComeC) {
+                add_come_code(info, """
+    neo_current_frame = fr.prev;
 """);
-*/
+            }
             
             if(!gComeC && info.come_fun.mName === "main" && !info.inhibits_output_code2 && info.funcs["come_heap_final"]) {
                 free_objects(info->gv_table, null@ret_value, info);
@@ -743,6 +771,13 @@ string skip_block(sInfo* info=info, bool return_self_at_last=false)
                 sline = info->sline;
                 info->p++;
                 dquort = !dquort;
+            }
+            else if(((info->end -info->p) >= 3) && *info->p == '"' && *(info->p+1) == '"' 
+                    && *(info->p+2) == '"')
+            {
+                sline = info->sline;
+                info->p += 3;
+                here_document = !here_document;
             }
             else if(*info->p == '#') {
                 skip_spaces_and_lf();

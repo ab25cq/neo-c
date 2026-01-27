@@ -76,7 +76,7 @@ int err_msg2(sInfo* info, char* msg, ...)
     return 0;
 }
 
-record int expected_next_character(char c, sInfo* info=info)
+int expected_next_character(char c, sInfo* info=info)
 {
     parse_sharp();
     if(*info->p != c) {
@@ -93,7 +93,7 @@ record int expected_next_character(char c, sInfo* info=info)
     return 0;
 }
 
-record string parse_word(bool digits=false, sInfo* info=info)
+string parse_word(bool digits=false, sInfo* info=info)
 {
     var buf = new buffer();
     parse_sharp();

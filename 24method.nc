@@ -881,8 +881,6 @@ class sMethodCallNode extends sNodeBase
                 append_object_to_right_values(come_value2, result_type, info, obj_type:obj_type, obj_value:saved_obj_value, obj_var:saved_var);
             }
         
-            come_value2.c_value = append_stackframe(come_value2.c_value, come_value2.type, info);
-            
             add_come_last_code(info, "%s", come_value2.c_value);
             
             info.stack.push_back(come_value2);
