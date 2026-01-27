@@ -55,15 +55,6 @@ class sReturnNode extends sNodeBase
                 add_come_code(info, "return %s;\n", come_value.c_value);
             }
             else if(info.come_fun.mName !== "main" && info.come_fun.mNoResultType && !existance_free_objects_on_return(come_fun->mBlock, info, come_value.var, false@top_block) && !existance_free_right_value_objects(info)) {
-                /*
-                if(gComeC || info.come_fun.mName === "stackframe" || info.come_fun.mName === "come_alloc_mem_from_heap_pool" || info.come_fun.mName === "come_calloc" || info.come_fun.mName === "come_calloc_v2" || info.come_fun.mName === "come_calloc" || info.come_fun.mName === "come_free_mem_of_heap_pool" || info.come_fun.mName === "come_free" || info.come_fun.mName === "come_free_v2" || info.come_fun.mName === "null_check" || info.come_fun.mName === "come_heap_init" || info.come_fun.mName === "come_heap_final") 
-                {
-                }
-                else {
-                    add_come_code(info, "    neo_current_frame = fr.prev;");
-                }
-                add_come_code(info, "return %s;\n", come_value.c_value);
-                */
                 if(!gComeC) {
                     add_come_code(info, "   neo_current_frame = fr.prev;\n");
                 }
@@ -104,16 +95,8 @@ class sReturnNode extends sNodeBase
                     }
                 }
                 
-                /*
-                if(gComeC || info.come_fun.mName === "stackframe" || info.come_fun.mName === "come_alloc_mem_from_heap_pool" || info.come_fun.mName === "come_calloc" || info.come_fun.mName === "come_calloc_v2" || info.come_fun.mName === "come_calloc" || info.come_fun.mName === "come_free_mem_of_heap_pool" || info.come_fun.mName === "come_free" || info.come_fun.mName === "come_free_v2" || info.come_fun.mName === "null_check" || info.come_fun.mName === "come_heap_init" || info.come_fun.mName === "come_heap_final") 
-                {
-                }
-                else {
-                    add_come_code(info, "    neo_current_frame = fr.prev;");
-                }
-                */
-                if(!gComeC) {
-                    add_come_code(info, "neo_current_frame = fr.prev;\n");
+               if(!gComeC) {
+                    add_come_code(info, "neo_current_frame = fr.prev;");
                 }
                 
                 if(!gComeC && info.come_fun.mName === "main" && info.funcs["come_heap_final"]) {
@@ -146,14 +129,6 @@ class sReturnNode extends sNodeBase
                 }
             }
             
-            /*
-            if(gComeC || info.come_fun.mName === "stackframe" || info.come_fun.mName === "come_alloc_mem_from_heap_pool" || info.come_fun.mName === "come_calloc" || info.come_fun.mName === "come_calloc_v2" || info.come_fun.mName === "come_calloc" || info.come_fun.mName === "come_free_mem_of_heap_pool" || info.come_fun.mName === "come_free" || info.come_fun.mName === "come_free_v2" || info.come_fun.mName === "null_check" || info.come_fun.mName === "come_heap_init" || info.come_fun.mName === "come_heap_final") 
-            {
-            }
-            else {
-                add_come_code(info, "    neo_current_frame = fr.prev;");
-            }
-            */
             if(!gComeC) {
                 add_come_code(info, "neo_current_frame = fr.prev;\n");
             }

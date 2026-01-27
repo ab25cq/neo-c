@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.8.7.1
+version 0.8.7.2
 
 ``` C
 #include <neo-c.h>
@@ -93,6 +93,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.8.7.2 Remove here document. ccpp.c can't treat here document properly. In C level it's not required function, I think.
 0.8.7.1 You can get if result value.
 0.8.7.0 stackframe recording is allways enable. and optimize recording stackframe sysytem.
 0.8.6.2 mf has serious bug of deleting file. it occurs deleting all user files. Refine neo-c and get rid of the bug.
@@ -1795,25 +1796,6 @@ int main(int argc, char* argv)
 # System call errro handling like perl
 
 and or or is like perl
-
-# Here document
-
-```C
-#include <neo-c.h>
-
-int main(int argc, char** argv)
-{
-    int a = 123;
-    printf("""
-AAA
-\{a}
-BBB
-CCC
-""");
-    
-    return 0;
-}
-```
 
 # method block
 

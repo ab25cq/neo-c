@@ -114,9 +114,6 @@ self-host: 01main.c 02transpile.c 03output_code.c 04heap.c 05parse.c 06type.c 07
 ncc: 01main.o 02transpile.o 03output_code.o 04heap.o 05parse.o 06type.o 07function.o 08call.o 09pre_op.o 10str.o 11number.o 12var.o 13gvar.o 14if.o 15while.o 16for.o 17do_while.o 18switch.o 19struct.o 20union.o 21enum.o 22typedef.o 23field.o 24method.o 25obj.o 26eq.o 27impl.o 28interface.o 29module.o 30op.o ccpp.o 
 	$(CC) -o ncc 01main.o 02transpile.o 03output_code.o 04heap.o 05parse.o 06type.o 07function.o 08call.o 09pre_op.o 10str.o 11number.o 12var.o 13gvar.o 14if.o 15while.o 16for.o 17do_while.o 18switch.o 19struct.o 20union.o 21enum.o 22typedef.o 23field.o 24method.o 25obj.o 26eq.o 27impl.o 28interface.o 29module.o 30op.o ccpp.o 
 
-#neo_dump_pcs.o: neo_dump_pcs.c
-#	$(CC) -o neo_dump_pcs.o -c neo_dump_pcs.c
-
 01main.o: 01main.c
 	$(CC) -o 01main.o -c 01main.c $(CFLAGS) 2> /dev/null
 
@@ -208,7 +205,7 @@ ncc: 01main.o 02transpile.o 03output_code.o 04heap.o 05parse.o 06type.o 07functi
 	$(CC) -o 30op.o -c 30op.c $(CFLAGS) 2> /dev/null
 
 ccpp.o: ccpp.c
-	$(CC) -o ccpp.o -c ccpp.c $(CFLAGS) 2> /dev/null
+	$(CC) -o ccpp.o -c ccpp.c $(CFLAGS)
 
 #########################################
 # install
