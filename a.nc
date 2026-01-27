@@ -1,16 +1,10 @@
 #include <neo-c.h>
-
-void fun()
-{
-    int* a = borrow gc_inc(new int);
-    *a = 123;
-
-    printf("%d\n", *a);
-}
                             
 int main(int argc, char** argv) 
 {
-    fun();
+    (FILE* f = fopen("UHHHH", "r")).elif {
+        die("file not found");
+    }
                                     
     return 0;
 }
