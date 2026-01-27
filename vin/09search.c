@@ -3430,8 +3430,6 @@ _conditional_value_X0;})) {
                     x_4=string_index_regex(((char*)(__right_value0=wstring_to_string(it))),Value,-1,0);
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                 }
-                else {
-                }
                 (Value = come_decrement_ref_count(Value, (void*)0, (void*)0, 0, 0, (void*)0));
             }
             else {
@@ -3768,8 +3766,6 @@ _conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(o2_saved)))
                 if(({(_conditional_value_X3=(Value));_conditional_value_X3;})) {
                     x_5=string_index_regex(((char*)(__right_value0=wstring_to_string(it))),Value,-1,0);
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-                }
-                else {
                 }
                 (Value = come_decrement_ref_count(Value, (void*)0, (void*)0, 0, 0, (void*)0));
             }

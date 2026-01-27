@@ -807,7 +807,7 @@ class sFunLoadNode extends sNodeBase
     }
 };
 
-void add_variable_to_table(char* name, sType* type, sInfo* info, bool function_param, bool comma=false)
+void add_variable_to_table(char* name, sType* type, sInfo* info, bool function_param, bool comma=false, bool to_function_table=false)
 {
     sVar*% self = new sVar;
     
@@ -846,7 +846,13 @@ void add_variable_to_table(char* name, sType* type, sInfo* info, bool function_p
         self->mFunName = null;
     }
     
-    info.lv_table.mVars.insert(string(name), self);
+    
+    if(to_function_table) {
+        info.come_fun.mBlock.mVarTable.mVars.insert(string(name), self);
+    }
+    else {
+        info.lv_table.mVars.insert(string(name), self);
+    }
     
     if(info.come_fun) {
         info.come_fun.mAllVar.add(self);

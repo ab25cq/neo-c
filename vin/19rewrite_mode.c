@@ -3719,8 +3719,6 @@ _conditional_value_X0;})) {
                 ViWin_completion_v13(self,nvi);
             }
         }
-        else {
-        }
         (str = come_decrement_ref_count(str, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     else if(key>127) {

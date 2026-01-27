@@ -5,7 +5,7 @@ ZVALUE*%, bool str_method(string fun_name, ZVALUE* obj, list<ZVALUE*%>* params, 
     if(fun_name === "chomp") {
         if(params.length() == 0) {
             string str = obj.strValue.to_string().chomp();
-            return (new ZVALUE(kind:kStrValue, str_value:str.to_wstring()), true)
+            return (new ZVALUE(kind:kStrValue, str_value:str.to_wstring()), true);
         }
     }
     else if(fun_name === "lower_case") {

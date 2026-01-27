@@ -2,7 +2,7 @@
 
 class sIfNode extends sNodeBase
 {
-    new(sNode*% expression_node, sBlock* if_block, list<sNode*%>* elif_expression_nodes, list<sBlock*%>* elif_blocks, int elif_num, sBlock* else_block, bool guard_, sInfo* info)
+    new(sNode*% expression_node, sBlock* if_block, list<sNode*%>* elif_expression_nodes, list<sBlock*%>* elif_blocks, int elif_num, sBlock* else_block, bool guard_, bool existance_result_value, sInfo* info)
     {
         self.super();
     
@@ -12,6 +12,7 @@ class sIfNode extends sNodeBase
         list<sBlock*%>*% self.mElifBlocks = clone elif_blocks;
         int self.mElifNum = elif_num;
         bool self.mGuard = guard_;
+        bool self.existance_result_value = existance_result_value;
         
         sBlock*% self.mElseBlock;
         if(else_block) {
@@ -41,6 +42,28 @@ class sIfNode extends sNodeBase
         sBlock* else_block = self.mElseBlock;
         int elif_num = self.mElifNum;
         bool guard_ = self.mGuard;
+        bool existance_result_value = self.existance_result_value;
+        
+        buffer*% if_expression_buffer = clone info.if_expression_buffer;
+        string if_result_value_name = clone info.if_result_value_name;
+        bool if_result_value_name_defined = info.if_result_value_name_defined;
+        sType*% if_result_type = clone info.if_result_type;
+        
+        if(existance_result_value) {
+            info.if_expression_buffer = new buffer();
+            
+            static int n = 0;
+            n++;
+            info.if_result_value_name = s"_if_result_value\{n}";
+            
+            info.if_result_value_name_defined = false;
+            
+            info.if_result_type = null;
+        }
+        
+        if(existance_result_value) {
+            add_come_code(info, "({");
+        }
         
         /// compile expression ///
         sNode* expression_node = self.mExpressionNode;
@@ -61,7 +84,7 @@ class sIfNode extends sNodeBase
     
         sBlock* if_block = self.mIfBlock;
     
-        transpile_block(if_block, null, null, info);
+        transpile_block(if_block, null, null, info, if_result_value:existance_result_value);
         
         add_come_code(info, "}\n");
     
@@ -83,8 +106,7 @@ class sIfNode extends sNodeBase
                 
                 sBlock* elif_node_block = borrow self.mElifBlocks[i];
                 
-                transpile_block(elif_node_block, null, null, info);
-                
+                transpile_block(elif_node_block, null, null, info, if_result_value:existance_result_value);
     
                 add_come_code(info, "}\n");
             }
@@ -93,12 +115,31 @@ class sIfNode extends sNodeBase
         if(else_block) {
             add_come_code(info, "else {\n");
     
-            transpile_block(else_block, null, null, info);
+            transpile_block(else_block, null, null, info, if_result_value:existance_result_value);
             
             add_come_code(info, "}\n");
         }
         
         transpiler_clear_last_code(info);
+        
+        if(existance_result_value) {
+            add_come_code(info, s"\{info.if_result_value_name};})");
+            
+            CVALUE*% come_value = new CVALUE();
+            
+            come_value.c_value = info.if_expression_buffer.to_string();
+            come_value.type = clone info.if_result_type;
+            come_value.var = null;
+            
+            add_come_last_code(info, "%s", come_value.c_value);
+            
+            info.stack.push_back(come_value);
+            
+            info.if_expression_buffer = if_expression_buffer;
+            info.if_result_value_name = if_result_value_name;
+            info.if_result_value_name_defined = if_result_value_name_defined;
+            info.if_result_type = if_result_type;
+        }
         
         return true;
     }
@@ -299,7 +340,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         int sline = info->sline;
         int sline_real = info.sline_real;
         info.sline_real = info.sline;
-        
+        bool existance_result_value = true;
     
         expected_next_character('(');
     
@@ -311,12 +352,9 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
     
         sBlock*% if_block = parse_block();
         
-        /*
-        if(if_block.mOmitSemicolon) {
-            err_msg(info, "no omit semicolon");
-            exit(1);
+        if(!if_block.mOmitSemicolon) {
+            existance_result_value = false;
         }
-        */
         
         list<sNode*%>*% elif_expression_nodes = new list<sNode*%>();
     
@@ -364,12 +402,9 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
     
                     
                     sBlock*% elif_block = parse_block();
-                    /*
-                    if(elif_block.mOmitSemicolon) {
-                        err_msg(info, "no omit semicolon");
-                        exit(1);
+                    if(!elif_block.mOmitSemicolon) {
+                        existance_result_value = false;
                     }
-                    */
                     
                     elif_blocks.push_back(elif_block);
     
@@ -377,12 +412,11 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
                 }
                 else {
                     else_block = parse_block();
-                    /*
-                    if(else_block.mOmitSemicolon) {
-                        err_msg(info, "no omit semicolon");
-                        exit(1);
+                    
+                    if(!else_block.mOmitSemicolon) {
+                        existance_result_value = false;
                     }
-                    */
+                    
                     break;
                 }
                 info.sline_real = sline_real;
@@ -394,7 +428,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             }
         };
     
-        sNode*% result = new sIfNode(expression_node, if_block, elif_expression_nodes, elif_blocks, elif_num, else_block, false@guard, info) implements sNode;
+        sNode*% result = new sIfNode(expression_node, if_block, elif_expression_nodes, elif_blocks, elif_num, else_block, false@guard, existance_result_value, info) implements sNode;
         info.sline_real = sline_real;
         
         return result;
@@ -402,6 +436,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
     
     return inherit(buf, head,head_sline, info);
 }
+
 
 sNode*% parse_or_statment(sNode*% expression_node, sInfo* info)
 {
@@ -433,6 +468,7 @@ sNode*% parse_match(sNode*% expression_node, sInfo* info)
     int sline = info->sline;
     
     expected_next_character('{');
+    bool existance_result_value = true;
     
     sNode*% it_node = store_var(s"Value", null@multiple_assign, null@multiple_declare, null@type, true@alloc, expression_node@right_value, info);
     
@@ -445,12 +481,9 @@ sNode*% parse_match(sNode*% expression_node, sInfo* info)
     skip_spaces_and_lf();
     
     sBlock*% if_block = parse_block();
-    /*
-    if(if_block.mOmitSemicolon) {
-        err_msg(info, "no omit semicolon");
-        exit(1);
+    if(!if_block.mOmitSemicolon) {
+        existance_result_value = false;
     }
-    */
     list<sNode*%>*% elif_expression_nodes = new list<sNode*%>();
     list<sBlock*%>*% elif_blocks = new list<sBlock*%>();
     int elif_num = 0;
@@ -463,12 +496,9 @@ sNode*% parse_match(sNode*% expression_node, sInfo* info)
             skip_spaces_and_lf();
             
             else_block = parse_block();
-            /*
-            if(else_block.mOmitSemicolon) {
-                err_msg(info, "no omit semicolon");
-                exit(1);
+            if(!else_block.mOmitSemicolon) {
+                existance_result_value = false;
             }
-            */
         }
         else {
             expected_next_character('(');
@@ -482,12 +512,9 @@ sNode*% parse_match(sNode*% expression_node, sInfo* info)
             skip_spaces_and_lf();
             
             sBlock*% elif_block = parse_block();
-            /*
-            if(elif_block.mOmitSemicolon) {
-                err_msg(info, "no omit semicolon");
-                exit(1);
+            if(!elif_block.mOmitSemicolon) {
+                existance_result_value = false;
             }
-            */
             
             elif_blocks.add(elif_block);
             
@@ -501,14 +528,7 @@ sNode*% parse_match(sNode*% expression_node, sInfo* info)
         }
     }
     
-    if(else_block == null) {
-        else_block = new sBlock();
-        else_block.mOmitSemicolon = true;
-        
-        else_block.mNodes.push_back(create_load_var("Value"));
-    }
-    
-    return new sMatchNode(it_node, new sIfNode(conditional_value, if_block, elif_expression_nodes, elif_blocks, elif_num, else_block, false@guard, info) implements sNode, info) implements sNode;
+    return new sMatchNode(it_node, new sIfNode(conditional_value, if_block, elif_expression_nodes, elif_blocks, elif_num, else_block, false@guard, existance_result_value, info) implements sNode, info) implements sNode;
 }
 
 sNode*% parse_if_method_call(sNode*% expression_node, sInfo* info)
@@ -519,16 +539,15 @@ sNode*% parse_if_method_call(sNode*% expression_node, sInfo* info)
     sNode*% it_node = store_var(s"Value", null@multiple_assign, null@multiple_declare, null@type, true@alloc, expression_node@right_value, info);
     
     sNode*% conditional_node = create_load_var("Value");
+    bool existance_result_value = true;
     
     skip_spaces_and_lf();
 
     sBlock*% if_block = parse_block();
-    /*
-    if(if_block.mOmitSemicolon) {
-        err_msg(info, "no omit semicolon");
-        exit(1);
+    
+    if(!if_block.mOmitSemicolon) {
+        existance_result_value = false;
     }
-    */
     
     list<sNode*%>*% elif_expression_nodes = new list<sNode*%>();
 
@@ -574,12 +593,9 @@ sNode*% parse_if_method_call(sNode*% expression_node, sInfo* info)
 
                 
                 sBlock*% elif_block = parse_block();
-                /*
-                if(elif_block.mOmitSemicolon) {
-                    err_msg(info, "no omit semicolon");
-                    exit(1);
+                if(!elif_block.mOmitSemicolon) {
+                    existance_result_value = false;
                 }
-                */
                 
                 elif_blocks.push_back(elif_block);
 
@@ -587,12 +603,9 @@ sNode*% parse_if_method_call(sNode*% expression_node, sInfo* info)
             }
             else {
                 else_block = parse_block();
-                /*
-                if(else_block.mOmitSemicolon) {
-                    err_msg(info, "no omit semicolon");
-                    exit(1);
+                if(!else_block.mOmitSemicolon) {
+                    existance_result_value = false;
                 }
-                */
                 break;
             }
         }
@@ -602,15 +615,8 @@ sNode*% parse_if_method_call(sNode*% expression_node, sInfo* info)
             break;
         }
     };
-    
-    if(else_block == null) {
-        else_block = new sBlock();
-        else_block.mOmitSemicolon = true;
-        
-        else_block.mNodes.push_back(create_load_var("Value"));
-    }
 
-    sNode*% if_node = new sIfNode(conditional_node, if_block, elif_expression_nodes, elif_blocks, elif_num, else_block, false@guard, info) implements sNode;
+    sNode*% if_node = new sIfNode(conditional_node, if_block, elif_expression_nodes, elif_blocks, elif_num, else_block, false@guard, existance_result_value, info) implements sNode;
     sNode*% result = new sIfMethodNode(it_node, if_node, info) implements sNode;
     
     return result;
@@ -622,6 +628,7 @@ sNode*% parse_elif_method_call(sNode*% expression_node, sInfo* info)
     int sline = info->sline;
     
     sNode*% it_node = store_var(s"Value", null@multiple_assign, null@multiple_declare, null@type, true@alloc, expression_node@right_value, info);
+    bool existance_result_value = true;
     
     sNode*% conditional_node = create_load_var("Value");
     sNode*% conditional_node2 = craete_logical_denial(conditional_node, info);
@@ -629,12 +636,9 @@ sNode*% parse_elif_method_call(sNode*% expression_node, sInfo* info)
     skip_spaces_and_lf();
 
     sBlock*% if_block = parse_block();
-    /*
-    if(if_block.mOmitSemicolon) {
-        err_msg(info, "no omit semicolon");
-        exit(1);
+    if(!if_block.mOmitSemicolon) {
+        existance_result_value = false;
     }
-    */
     
     list<sNode*%>*% elif_expression_nodes = new list<sNode*%>();
 
@@ -680,12 +684,9 @@ sNode*% parse_elif_method_call(sNode*% expression_node, sInfo* info)
 
                 
                 sBlock*% elif_block = parse_block();
-                /*
-                if(elif_block.mOmitSemicolon) {
-                    err_msg(info, "no omit semicolon");
-                    exit(1);
+                if(!elif_block.mOmitSemicolon) {
+                    existance_result_value = false;
                 }
-                */
                 
                 elif_blocks.push_back(elif_block);
 
@@ -693,12 +694,9 @@ sNode*% parse_elif_method_call(sNode*% expression_node, sInfo* info)
             }
             else {
                 else_block = parse_block();
-                /*
-                if(else_block.mOmitSemicolon) {
-                    err_msg(info, "no omit semicolon");
-                    exit(1);
+                if(!else_block.mOmitSemicolon) {
+                    existance_result_value = false;
                 }
-                */
                 break;
             }
         }
@@ -708,15 +706,8 @@ sNode*% parse_elif_method_call(sNode*% expression_node, sInfo* info)
             break;
         }
     };
-    
-    if(else_block == null) {
-        else_block = new sBlock();
-        else_block.mOmitSemicolon = true;
-        
-        else_block.mNodes.push_back(create_load_var("Value"));
-    }
 
-    sNode*% if_node = new sIfNode(conditional_node2, if_block, elif_expression_nodes, elif_blocks, elif_num, else_block, false@guard, info) implements sNode;
+    sNode*% if_node = new sIfNode(conditional_node2, if_block, elif_expression_nodes, elif_blocks, elif_num, else_block, false@guard, existance_result_value, info) implements sNode;
     sNode*% result = new sIfMethodNode(it_node, if_node, info) implements sNode;
     
     return result;
@@ -731,16 +722,14 @@ sNode*% parse_less_method_call(sNode*% expression_node, sInfo* info)
     
     sNode*% conditional_node = create_load_var("Value");
     sNode*% conditional_node2 = create_less(conditional_node, create_int_node(0.to_string(), info), info);
+    bool existance_result_value = true;
     
     skip_spaces_and_lf();
 
     sBlock*% if_block = parse_block();
-    /*
-    if(if_block.mOmitSemicolon) {
-        err_msg(info, "no omit semicolon");
-        exit(1);
+    if(!if_block.mOmitSemicolon) {
+        existance_result_value = false;
     }
-    */
     
     list<sNode*%>*% elif_expression_nodes = new list<sNode*%>();
 
@@ -786,12 +775,9 @@ sNode*% parse_less_method_call(sNode*% expression_node, sInfo* info)
 
                 
                 sBlock*% elif_block = parse_block();
-                /*
-                if(elif_block.mOmitSemicolon) {
-                    err_msg(info, "no omit semicolon");
-                    exit(1);
+                if(!elif_block.mOmitSemicolon) {
+                    existance_result_value = false;
                 }
-                */
                 
                 elif_blocks.push_back(elif_block);
 
@@ -799,12 +785,9 @@ sNode*% parse_less_method_call(sNode*% expression_node, sInfo* info)
             }
             else {
                 else_block = parse_block();
-                /*
-                if(else_block.mOmitSemicolon) {
-                    err_msg(info, "no omit semicolon");
-                    exit(1);
+                if(!else_block.mOmitSemicolon) {
+                    existance_result_value = false;
                 }
-                */
                 break;
             }
         }
@@ -814,15 +797,8 @@ sNode*% parse_less_method_call(sNode*% expression_node, sInfo* info)
             break;
         }
     };
-    
-    if(else_block == null) {
-        else_block = new sBlock();
-        else_block.mOmitSemicolon = true;
-        
-        else_block.mNodes.push_back(create_load_var("Value"));
-    }
 
-    sNode*% if_node = new sIfNode(conditional_node2, if_block, elif_expression_nodes, elif_blocks, elif_num, else_block, false@guard, info) implements sNode;
+    sNode*% if_node = new sIfNode(conditional_node2, if_block, elif_expression_nodes, elif_blocks, elif_num, else_block, false@guard, existance_result_value, info) implements sNode;
     sNode*% result = new sIfMethodNode(it_node, if_node, info) implements sNode;
     
     return result;

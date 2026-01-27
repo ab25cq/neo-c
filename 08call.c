@@ -1471,6 +1471,10 @@ struct sInfo
     _Bool in_store_array;
     int parse_struct_recursive_count;
     _Bool exp_value;
+    struct buffer* if_expression_buffer  ;
+    char* if_result_value_name  ;
+    _Bool if_result_value_name_defined;
+    struct sType* if_result_type  ;
 };
 
 struct sNodeBase
@@ -2633,7 +2637,7 @@ struct tuple2$2char$ph_Bool$* create_generics_fun(char* fun_name  , struct sGene
 struct tuple3$3sType$phchar$ph_Bool$* parse_type(struct sInfo* info  , _Bool parse_variable_name, _Bool parse_multiple_type, _Bool in_function_parametor);
 struct tuple2$2sType$phchar$ph* parse_variable_name_on_multiple_declare(struct sType* base_type_name  , _Bool first, struct sInfo* info  );
 struct sBlock* parse_block(struct sInfo* info  , _Bool return_self_at_last, _Bool in_function);
-int transpile_block(struct sBlock* block  , struct list$1sType$ph* param_types, struct list$1char$ph* param_names, struct sInfo* info  , _Bool no_var_table, _Bool loop_block);
+int transpile_block(struct sBlock* block  , struct list$1sType$ph* param_types, struct list$1char$ph* param_names, struct sInfo* info  , _Bool no_var_table, _Bool loop_block, _Bool if_result_value);
 void arrange_stack(struct sInfo* info  , int top);
 struct sNode* parse_function(struct sInfo* info  );
 struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo* info  );
@@ -2657,7 +2661,7 @@ struct sNode* parse_struct_initializer(struct sInfo* info  );
 struct sNode* parse_global_variable(struct sInfo* info  );
 struct sNode* load_var(char* name  , struct sInfo* info  );
 struct sNode* string_node_v7(char* buf, char* head, int head_sline, struct sInfo* info  );
-void add_variable_to_table(char* name, struct sType* type  , struct sInfo* info  , _Bool function_param, _Bool comma);
+void add_variable_to_table(char* name, struct sType* type  , struct sInfo* info  , _Bool function_param, _Bool comma, _Bool to_function_table);
 void add_variable_to_global_table(char* name, struct sType* type  , struct sInfo* info  );
 void add_variable_to_global_table_with_int_value(char* name, struct sType* type  , char* c_value, struct sInfo* info  );
 struct sNode* parse_match(struct sNode* expression_node, struct sInfo* info  );
@@ -3089,8 +3093,6 @@ _Bool sReturnNode_compile(struct sReturnNode* self, struct sInfo* info  )
             come_call_finalizer(sType_finalize, result_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             neo_current_frame = fr.prev;
             return __result_obj__0;
-        }
-        else {
         }
         come_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
         come_value_type_=(struct sType*)come_increment_ref_count(solve_generics(come_value->type,info->generics_type,info));
@@ -5796,8 +5798,6 @@ _Bool sFunCallNode_compile(struct sFunCallNode* self, struct sInfo* info  )
                 neo_current_frame = fr.prev;
                 return __result_obj__0;
             }
-            else {
-            }
             come_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
             type_=(struct sType*)come_increment_ref_count(sType_clone(come_value->type));
             type2_=(struct sType*)come_increment_ref_count(solve_generics(type_,info->generics_type,info));
@@ -5946,8 +5946,6 @@ _conditional_value_X1;})) {
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
                 }
-                else {
-                }
                 come_value_46=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
                 type__47=(struct sType*)come_increment_ref_count(sType_clone(come_value_46->type));
                 type2__48=(struct sType*)come_increment_ref_count(solve_generics(type__47,info->generics_type,info));
@@ -6027,8 +6025,6 @@ _conditional_value_X1;})) {
                 neo_current_frame = fr.prev;
                 return __result_obj__0;
             }
-            else {
-            }
             come_value_74=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
             type__75=(struct sType*)come_increment_ref_count(solve_generics(come_value_74->type,info->generics_type,info));
             __dec_obj82=come_value_74->type,
@@ -6095,8 +6091,6 @@ _conditional_value_X1;})) {
                 (fun_name = come_decrement_ref_count(fun_name, (void*)0, (void*)0, 0, 0, (void*)0));
                 neo_current_frame = fr.prev;
                 return __result_obj__0;
-            }
-            else {
             }
             come_value_88=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
             ((struct sType*)(__right_value0=solve_generics(come_value_88->type,info->generics_type,info)));
@@ -6244,8 +6238,6 @@ _conditional_value_X2;})) {
                 neo_current_frame = fr.prev;
                 return __result_obj__0;
             }
-            else {
-            }
             come_value_109=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
             type__110=(struct sType*)come_increment_ref_count(solve_generics(come_value_109->type,info->generics_type,info));
             __dec_obj94=come_value_109->type,
@@ -6336,8 +6328,6 @@ _conditional_value_X2;})) {
                 neo_current_frame = fr.prev;
                 return __result_obj__0;
             }
-            else {
-            }
             come_value_126=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
             type__127=(struct sType*)come_increment_ref_count(solve_generics(come_value_126->type,info->generics_type,info));
             __dec_obj99=come_value_126->type,
@@ -6391,8 +6381,6 @@ _conditional_value_X1;})) {
                 neo_current_frame = fr.prev;
                 return __result_obj__0;
             }
-            else {
-            }
             come_value_140=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
             type__141=(struct sType*)come_increment_ref_count(solve_generics(come_value_140->type,info->generics_type,info));
             __dec_obj101=come_value_140->type,
@@ -6435,8 +6423,6 @@ _conditional_value_X1;})) {
                 come_call_finalizer(list$1CVALUE$ph$p_finalize, come_params_119, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 neo_current_frame = fr.prev;
                 return __result_obj__0;
-            }
-            else {
             }
             come_value_143=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
             type__144=(struct sType*)come_increment_ref_count(solve_generics(come_value_143->type,info->generics_type,info));
@@ -6515,8 +6501,6 @@ _conditional_value_X0;})) {
                     come_call_finalizer(list$1CVALUE$ph$p_finalize, come_params_119, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
-                }
-                else {
                 }
                 info->no_output_come_code=no_output_come_code_148;
                 __dec_obj104=info->source,
@@ -6605,8 +6589,6 @@ _conditional_value_X3;})) {
             come_call_finalizer(list$1CVALUE$ph$p_finalize, come_params_119, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             neo_current_frame = fr.prev;
             return __result_obj__0;
-        }
-        else {
         }
         come_value_154=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
         type__155=(struct sType*)come_increment_ref_count(solve_generics(come_value_154->type,info->generics_type,info));
@@ -6735,8 +6717,6 @@ _conditional_value_X3;})) {
             come_call_finalizer(list$1CVALUE$ph$p_finalize, come_params_119, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             neo_current_frame = fr.prev;
             return __result_obj__0;
-        }
-        else {
         }
         method_block_name=(char*)come_increment_ref_count(xsprintf("fun_block%d_%s",num_method_block,((char*)(__right_value0=buffer_to_string(all_alhabet_sname)))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -8772,8 +8752,6 @@ _Bool sComeCallNode_compile(struct sComeCallNode* self, struct sInfo* info  )
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    else {
-    }
     thread_var_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), (void*)0, 1557, "struct CVALUE*"))));
     __dec_obj118=come_value->c_value,
@@ -8798,8 +8776,6 @@ _Bool sComeCallNode_compile(struct sComeCallNode* self, struct sInfo* info  )
         ((null_node) ? null_node = come_decrement_ref_count(null_node, ((struct sNode*)null_node)->finalize, ((struct sNode*)null_node)->_protocol_obj, 0, 0,(void*)0):(void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
-    }
-    else {
     }
     __dec_obj120=come_value,
     come_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
@@ -8838,8 +8814,6 @@ _Bool sComeCallNode_compile(struct sComeCallNode* self, struct sInfo* info  )
         ((current_stack_frame_node) ? current_stack_frame_node = come_decrement_ref_count(current_stack_frame_node, ((struct sNode*)current_stack_frame_node)->finalize, ((struct sNode*)current_stack_frame_node)->_protocol_obj, 0, 0,(void*)0):(void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
-    }
-    else {
     }
     current_stack_frame_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     fun_name=(char*)come_increment_ref_count(xsprintf("__thread_fun%d",thread_num));
@@ -8883,8 +8857,6 @@ _Bool sComeCallNode_compile(struct sComeCallNode* self, struct sInfo* info  )
         ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0):(void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
-    }
-    else {
     }
     info->in_method_block=in_method_block;
     __dec_obj123=info->source,
@@ -9109,8 +9081,6 @@ _Bool sComeJoinNode_compile(struct sComeJoinNode* self, struct sInfo* info  )
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    else {
-    }
     come_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), (void*)0, 1703, "struct buffer*"))));
     buffer_append_str(buf,"pthread_join(");
@@ -9248,8 +9218,6 @@ _Bool sComePollNode_compile(struct sComePollNode* self, struct sInfo* info  )
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
-        else {
-        }
         come_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
         add_come_code(info,"fds%d[%d].fd = %s[0];\n",var_num,n,come_value->c_value);
         add_come_code(info,"fds%d[%d].events = %d;\n",var_num,n,0x001);
@@ -9262,7 +9230,7 @@ _Bool sComePollNode_compile(struct sComePollNode* self, struct sInfo* info  )
     n_185=0;
     for(o2_saved_186=(struct list$1sNode$ph*)come_increment_ref_count(self->vars),it_187=list$1sNode$ph_begin(o2_saved_186);!list$1sNode$ph_end(o2_saved_186);it_187=list$1sNode$ph_next(o2_saved_186)){
         add_come_code(info,"if(fds%d[%d].revents & %d) {\n",var_num,n_185,0x001);
-        transpile_block(((struct sBlock*)(__right_value0=list$1sBlock$ph_operator_load_element(blocks,n_185))),((void*)0),((void*)0),info,0,0);
+        transpile_block(((struct sBlock*)(__right_value0=list$1sBlock$ph_operator_load_element(blocks,n_185))),((void*)0),((void*)0),info,0,0,0);
         come_call_finalizer(sBlock_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         add_come_code(info,"}\n");
         n_185++;
@@ -9270,7 +9238,7 @@ _Bool sComePollNode_compile(struct sComePollNode* self, struct sInfo* info  )
     come_call_finalizer(list$1sNode$ph$p_finalize, o2_saved_186, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     add_come_code(info,"}\n");
     add_come_code(info,"else {\n",var_num);
-    transpile_block(self->else_block,((void*)0),((void*)0),info,0,0);
+    transpile_block(self->else_block,((void*)0),((void*)0),info,0,0,0);
     add_come_code(info,"}\n");
     __result_obj__0 = 1;
     come_call_finalizer(list$1sNode$ph$p_finalize, vars, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -9629,8 +9597,6 @@ _Bool sLambdaCall_compile(struct sLambdaCall* self, struct sInfo* info  )
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    else {
-    }
     come_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     lambda_type=come_value->type;
     if(lambda_type->mResultType==((void*)0)) {
@@ -9651,8 +9617,6 @@ _Bool sLambdaCall_compile(struct sLambdaCall* self, struct sInfo* info  )
                 come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 neo_current_frame = fr.prev;
                 return __result_obj__0;
-            }
-            else {
             }
             come_value_192=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
             list$1CVALUE$ph_push_back(come_params,(struct CVALUE*)come_increment_ref_count(come_value_192));
@@ -9731,8 +9695,6 @@ _Bool sLambdaCall_compile(struct sLambdaCall* self, struct sInfo* info  )
             come_call_finalizer(list$1CVALUE$ph$p_finalize, come_params_195, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             neo_current_frame = fr.prev;
             return __result_obj__0;
-        }
-        else {
         }
         come_value_202=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
         type_=(struct sType*)come_increment_ref_count(solve_generics(come_value_202->type,info->generics_type,info));
@@ -11295,8 +11257,6 @@ _conditional_value_X0;})) {
                         neo_current_frame = fr.prev;
                         ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0):(void*)0);
                         return __result_obj__0;
-                    }
-                    else {
                     }
                     come_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
                     buffer_append_str(buf2,come_value->c_value);

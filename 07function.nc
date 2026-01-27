@@ -535,10 +535,12 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
     return result;
 }
 
-int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* param_names, sInfo* info, bool no_var_table=false, bool loop_block=false)
+int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* param_names, sInfo* info, bool no_var_table=false, bool loop_block=false, bool if_result_value=false)
 {
     bool inhibits_output_code = info->inhibits_output_code;
     info->inhibits_output_code = false;
+    
+    bool omit_semicolon = block.mOmitSemicolon;
     
     sVarTable* old_table = info->lv_table;
     if(!no_var_table) {
@@ -599,9 +601,37 @@ int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* par
             info.sline = sline;
             info.sname = string(sname);
     
-            add_last_code_to_source(info);
-            
-            arrange_stack(info, stack_num_before);
+            if(omit_semicolon && if_result_value && i == block.mNodes.length()-1) {
+                //add_last_code_to_source(info);
+                
+                CVALUE*% come_value = get_value_from_stack(-1, info);
+                sType*% right_type__ = clone come_value.type;
+                var right_type_ = solve_generics(right_type__, info->generics_type, info);
+                var right_type2 = solve_method_generics(right_type_, info);
+                
+                if(!info.if_result_value_name_defined) {
+                    info.if_result_value_name_defined = true;
+                    string var_name = info.if_result_value_name;
+                    sType*% result_type = clone come_value.type;
+                    add_come_code_at_function_head(info, "%s;\n", make_define_var(result_type, var_name));
+                    if(info.come_fun.mName !== "memset" && info.funcs["memset"]) {
+                        add_come_code_at_function_head2(info, "memset(&%s, 0, sizeof(%s));\n", var_name, var_name);
+                    }
+                    add_variable_to_table(var_name, result_type, info, false@function_param, to_function_table:true);
+                    
+                    info.if_result_type = clone result_type;
+                }
+                if(come_value.type.mHeap) {
+                    sType*% left_type = clone right_type2
+                    std_move(left_type, right_type2, come_value);
+                }
+                add_come_code(info, s"\{info.if_result_value_name} = %s;\n", come_value.c_value);
+            }
+            else {
+                add_last_code_to_source(info);
+                
+                arrange_stack(info, stack_num_before);
+            }
 
             free_right_value_objects(info);
             

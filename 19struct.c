@@ -1469,6 +1469,10 @@ struct sInfo
     _Bool in_store_array;
     int parse_struct_recursive_count;
     _Bool exp_value;
+    struct buffer* if_expression_buffer  ;
+    char* if_result_value_name  ;
+    _Bool if_result_value_name_defined;
+    struct sType* if_result_type  ;
 };
 
 struct sNodeBase
@@ -2523,7 +2527,7 @@ struct tuple2$2char$ph_Bool$* create_generics_fun(char* fun_name  , struct sGene
 struct tuple3$3sType$phchar$ph_Bool$* parse_type(struct sInfo* info  , _Bool parse_variable_name, _Bool parse_multiple_type, _Bool in_function_parametor);
 struct tuple2$2sType$phchar$ph* parse_variable_name_on_multiple_declare(struct sType* base_type_name  , _Bool first, struct sInfo* info  );
 struct sBlock* parse_block(struct sInfo* info  , _Bool return_self_at_last, _Bool in_function);
-int transpile_block(struct sBlock* block  , struct list$1sType$ph* param_types, struct list$1char$ph* param_names, struct sInfo* info  , _Bool no_var_table, _Bool loop_block);
+int transpile_block(struct sBlock* block  , struct list$1sType$ph* param_types, struct list$1char$ph* param_names, struct sInfo* info  , _Bool no_var_table, _Bool loop_block, _Bool if_result_value);
 void arrange_stack(struct sInfo* info  , int top);
 struct sNode* parse_function(struct sInfo* info  );
 struct sNode* statment(struct sInfo* info  );
@@ -2555,7 +2559,7 @@ struct sNode* parse_struct_initializer(struct sInfo* info  );
 struct sNode* parse_global_variable(struct sInfo* info  );
 struct sNode* load_var(char* name  , struct sInfo* info  );
 struct sNode* string_node_v7(char* buf, char* head, int head_sline, struct sInfo* info  );
-void add_variable_to_table(char* name, struct sType* type  , struct sInfo* info  , _Bool function_param, _Bool comma);
+void add_variable_to_table(char* name, struct sType* type  , struct sInfo* info  , _Bool function_param, _Bool comma, _Bool to_function_table);
 void add_variable_to_global_table(char* name, struct sType* type  , struct sInfo* info  );
 void add_variable_to_global_table_with_int_value(char* name, struct sType* type  , char* c_value, struct sInfo* info  );
 struct sNode* parse_match(struct sNode* expression_node, struct sInfo* info  );
@@ -6392,8 +6396,6 @@ _conditional_value_X0;})) {
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
-        else {
-        }
     }
     come_call_finalizer(list$1sNode$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     __result_obj__0 = 1;
@@ -6985,8 +6987,6 @@ _conditional_value_X0;})) {
         neo_current_frame = fr.prev;
         ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0):(void*)0);
         return __result_obj__0;
-    }
-    else {
     }
     info->parse_struct_recursive_count--;
     _inf_value3=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 480, "struct sNode");

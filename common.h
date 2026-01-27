@@ -619,6 +619,10 @@ struct sInfo
     bool in_store_array;
     int parse_struct_recursive_count;
     bool exp_value;
+    buffer*% if_expression_buffer;
+    string if_result_value_name;
+    bool if_result_value_name_defined;
+    sType*% if_result_type;
 };
 
 uniq class sNodeBase
@@ -929,7 +933,7 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
 tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_name=false, bool parse_multiple_type=true, bool in_function_parametor=false)
 tup: sType*%, string parse_variable_name_on_multiple_declare(sType* base_type_name, bool first, sInfo* info);
 sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_function=false);
-int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* param_names, sInfo* info, bool no_var_table=false, bool loop_block=false);
+int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* param_names, sInfo* info, bool no_var_table=false, bool loop_block=false, bool if_result_value=false);
 void arrange_stack(sInfo* info, int top);
 sNode*% parse_function(sInfo* info);
 
@@ -971,7 +975,7 @@ sNode*% parse_struct_initializer(sInfo* info=info);
 sNode*% parse_global_variable(sInfo* info);
 sNode*% load_var(string name, sInfo* info);
 sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 7;
-void add_variable_to_table(char* name, sType* type, sInfo* info, bool function_param, bool comma=false);
+void add_variable_to_table(char* name, sType* type, sInfo* info, bool function_param, bool comma=false, bool to_function_table=false);
 void add_variable_to_global_table(char* name, sType* type, sInfo* info);
 void add_variable_to_global_table_with_int_value(char* name, sType* type, char* c_value, sInfo* info);
 

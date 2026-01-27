@@ -1469,6 +1469,10 @@ struct sInfo
     _Bool in_store_array;
     int parse_struct_recursive_count;
     _Bool exp_value;
+    struct buffer* if_expression_buffer  ;
+    char* if_result_value_name  ;
+    _Bool if_result_value_name_defined;
+    struct sType* if_result_type  ;
 };
 
 struct sNodeBase
@@ -2713,7 +2717,7 @@ struct tuple2$2char$ph_Bool$* create_generics_fun(char* fun_name  , struct sGene
 struct tuple3$3sType$phchar$ph_Bool$* parse_type(struct sInfo* info  , _Bool parse_variable_name, _Bool parse_multiple_type, _Bool in_function_parametor);
 struct tuple2$2sType$phchar$ph* parse_variable_name_on_multiple_declare(struct sType* base_type_name  , _Bool first, struct sInfo* info  );
 struct sBlock* parse_block(struct sInfo* info  , _Bool return_self_at_last, _Bool in_function);
-int transpile_block(struct sBlock* block  , struct list$1sType$ph* param_types, struct list$1char$ph* param_names, struct sInfo* info  , _Bool no_var_table, _Bool loop_block);
+int transpile_block(struct sBlock* block  , struct list$1sType$ph* param_types, struct list$1char$ph* param_names, struct sInfo* info  , _Bool no_var_table, _Bool loop_block, _Bool if_result_value);
 void arrange_stack(struct sInfo* info  , int top);
 struct sNode* parse_function(struct sInfo* info  );
 struct sNode* statment(struct sInfo* info  );
@@ -2745,7 +2749,7 @@ struct sNode* parse_struct_initializer(struct sInfo* info  );
 struct sNode* parse_global_variable(struct sInfo* info  );
 struct sNode* load_var(char* name  , struct sInfo* info  );
 struct sNode* string_node_v7(char* buf, char* head, int head_sline, struct sInfo* info  );
-void add_variable_to_table(char* name, struct sType* type  , struct sInfo* info  , _Bool function_param, _Bool comma);
+void add_variable_to_table(char* name, struct sType* type  , struct sInfo* info  , _Bool function_param, _Bool comma, _Bool to_function_table);
 void add_variable_to_global_table(char* name, struct sType* type  , struct sInfo* info  );
 void add_variable_to_global_table_with_int_value(char* name, struct sType* type  , char* c_value, struct sInfo* info  );
 struct sNode* parse_match(struct sNode* expression_node, struct sInfo* info  );
@@ -3093,8 +3097,6 @@ _Bool operator_overload_fun(struct sType* type  , char* fun_name, struct sNode* 
         Value=node_compile(node,info);
         if(Value) {
             result=1;
-        }
-        else {
         }
         ((obj) ? obj = come_decrement_ref_count(obj, ((struct sNode*)obj)->finalize, ((struct sNode*)obj)->_protocol_obj, 0, 0,(void*)0):(void*)0);
         come_call_finalizer(list$1tuple2$2char$phsNode$ph$ph$p_finalize, params, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -3815,8 +3817,6 @@ _Bool sAddNode_compile(struct sAddNode* self, struct sInfo* info  )
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    else {
-    }
     left_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     right_node=(struct sNode*)come_increment_ref_count(self->mRight);
     Value_5=node_compile(right_node,info);
@@ -3827,8 +3827,6 @@ _Bool sAddNode_compile(struct sAddNode* self, struct sInfo* info  )
         ((right_node) ? right_node = come_decrement_ref_count(right_node, ((struct sNode*)right_node)->finalize, ((struct sNode*)right_node)->_protocol_obj, 0, 0,(void*)0):(void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
-    }
-    else {
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
@@ -4824,8 +4822,6 @@ _Bool sSubNode_compile(struct sSubNode* self, struct sInfo* info  )
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    else {
-    }
     left_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     right_node=(struct sNode*)come_increment_ref_count(self->mRight);
     Value_14=node_compile(right_node,info);
@@ -4836,8 +4832,6 @@ _Bool sSubNode_compile(struct sSubNode* self, struct sInfo* info  )
         ((right_node) ? right_node = come_decrement_ref_count(right_node, ((struct sNode*)right_node)->finalize, ((struct sNode*)right_node)->_protocol_obj, 0, 0,(void*)0):(void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
-    }
-    else {
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
@@ -4973,8 +4967,6 @@ _Bool sMultNode_compile(struct sMultNode* self, struct sInfo* info  )
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    else {
-    }
     left_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     right_node=(struct sNode*)come_increment_ref_count(self->mRight);
     Value_15=node_compile(right_node,info);
@@ -4985,8 +4977,6 @@ _Bool sMultNode_compile(struct sMultNode* self, struct sInfo* info  )
         ((right_node) ? right_node = come_decrement_ref_count(right_node, ((struct sNode*)right_node)->finalize, ((struct sNode*)right_node)->_protocol_obj, 0, 0,(void*)0):(void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
-    }
-    else {
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
@@ -5115,8 +5105,6 @@ _Bool sDivNode_compile(struct sDivNode* self, struct sInfo* info  )
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    else {
-    }
     left_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     right_node=(struct sNode*)come_increment_ref_count(self->mRight);
     Value_16=node_compile(right_node,info);
@@ -5127,8 +5115,6 @@ _Bool sDivNode_compile(struct sDivNode* self, struct sInfo* info  )
         ((right_node) ? right_node = come_decrement_ref_count(right_node, ((struct sNode*)right_node)->finalize, ((struct sNode*)right_node)->_protocol_obj, 0, 0,(void*)0):(void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
-    }
-    else {
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
@@ -5257,8 +5243,6 @@ _Bool sModNode_compile(struct sModNode* self, struct sInfo* info  )
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    else {
-    }
     left_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     right_node=(struct sNode*)come_increment_ref_count(self->mRight);
     Value_17=node_compile(right_node,info);
@@ -5269,8 +5253,6 @@ _Bool sModNode_compile(struct sModNode* self, struct sInfo* info  )
         ((right_node) ? right_node = come_decrement_ref_count(right_node, ((struct sNode*)right_node)->finalize, ((struct sNode*)right_node)->_protocol_obj, 0, 0,(void*)0):(void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
-    }
-    else {
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
@@ -5399,8 +5381,6 @@ _Bool sLShiftNode_compile(struct sLShiftNode* self, struct sInfo* info  )
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    else {
-    }
     left_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     right_node=(struct sNode*)come_increment_ref_count(self->mRight);
     Value_18=node_compile(right_node,info);
@@ -5411,8 +5391,6 @@ _Bool sLShiftNode_compile(struct sLShiftNode* self, struct sInfo* info  )
         ((right_node) ? right_node = come_decrement_ref_count(right_node, ((struct sNode*)right_node)->finalize, ((struct sNode*)right_node)->_protocol_obj, 0, 0,(void*)0):(void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
-    }
-    else {
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
@@ -5541,8 +5519,6 @@ _Bool sRShiftNode_compile(struct sRShiftNode* self, struct sInfo* info  )
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    else {
-    }
     left_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     right_node=(struct sNode*)come_increment_ref_count(self->mRight);
     Value_19=node_compile(right_node,info);
@@ -5553,8 +5529,6 @@ _Bool sRShiftNode_compile(struct sRShiftNode* self, struct sInfo* info  )
         ((right_node) ? right_node = come_decrement_ref_count(right_node, ((struct sNode*)right_node)->finalize, ((struct sNode*)right_node)->_protocol_obj, 0, 0,(void*)0):(void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
-    }
-    else {
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
@@ -5684,8 +5658,6 @@ _Bool sGtEqNode_compile(struct sGtEqNode* self, struct sInfo* info  )
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    else {
-    }
     left_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     right_node=(struct sNode*)come_increment_ref_count(self->mRight);
     Value_20=node_compile(right_node,info);
@@ -5696,8 +5668,6 @@ _Bool sGtEqNode_compile(struct sGtEqNode* self, struct sInfo* info  )
         ((right_node) ? right_node = come_decrement_ref_count(right_node, ((struct sNode*)right_node)->finalize, ((struct sNode*)right_node)->_protocol_obj, 0, 0,(void*)0):(void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
-    }
-    else {
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
@@ -5826,8 +5796,6 @@ _Bool sLtEqNode_compile(struct sLtEqNode* self, struct sInfo* info  )
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    else {
-    }
     left_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     right_node=(struct sNode*)come_increment_ref_count(self->mRight);
     Value_21=node_compile(right_node,info);
@@ -5838,8 +5806,6 @@ _Bool sLtEqNode_compile(struct sLtEqNode* self, struct sInfo* info  )
         ((right_node) ? right_node = come_decrement_ref_count(right_node, ((struct sNode*)right_node)->finalize, ((struct sNode*)right_node)->_protocol_obj, 0, 0,(void*)0):(void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
-    }
-    else {
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
@@ -5968,8 +5934,6 @@ _Bool sLtNode_compile(struct sLtNode* self, struct sInfo* info  )
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    else {
-    }
     left_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     right_node=(struct sNode*)come_increment_ref_count(self->mRight);
     Value_22=node_compile(right_node,info);
@@ -5980,8 +5944,6 @@ _Bool sLtNode_compile(struct sLtNode* self, struct sInfo* info  )
         ((right_node) ? right_node = come_decrement_ref_count(right_node, ((struct sNode*)right_node)->finalize, ((struct sNode*)right_node)->_protocol_obj, 0, 0,(void*)0):(void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
-    }
-    else {
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
@@ -6110,8 +6072,6 @@ _Bool sGtNode_compile(struct sGtNode* self, struct sInfo* info  )
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    else {
-    }
     left_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     right_node=(struct sNode*)come_increment_ref_count(self->mRight);
     Value_23=node_compile(right_node,info);
@@ -6122,8 +6082,6 @@ _Bool sGtNode_compile(struct sGtNode* self, struct sInfo* info  )
         ((right_node) ? right_node = come_decrement_ref_count(right_node, ((struct sNode*)right_node)->finalize, ((struct sNode*)right_node)->_protocol_obj, 0, 0,(void*)0):(void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
-    }
-    else {
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
@@ -6246,8 +6204,6 @@ _Bool sEqNode_compile(struct sEqNode* self, struct sInfo* info  )
            neo_current_frame = fr.prev;
         return 0;
     }
-    else {
-    }
     left_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     right_node=self->mRight;
     Value_24=node_compile(right_node,info);
@@ -6256,8 +6212,6 @@ _Bool sEqNode_compile(struct sEqNode* self, struct sInfo* info  )
         come_call_finalizer(CVALUE_finalize, left_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
-    }
-    else {
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), (void*)0, 827, "struct CVALUE*"))));
@@ -6367,8 +6321,6 @@ _Bool sNotEqNode_compile(struct sNotEqNode* self, struct sInfo* info  )
            neo_current_frame = fr.prev;
         return 0;
     }
-    else {
-    }
     left_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     right_node=self->mRight;
     Value_25=node_compile(right_node,info);
@@ -6377,8 +6329,6 @@ _Bool sNotEqNode_compile(struct sNotEqNode* self, struct sInfo* info  )
         come_call_finalizer(CVALUE_finalize, left_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
-    }
-    else {
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), (void*)0, 876, "struct CVALUE*"))));
@@ -6494,8 +6444,6 @@ _Bool sEq2Node_compile(struct sEq2Node* self, struct sInfo* info  )
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    else {
-    }
     left_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     right_node=(struct sNode*)come_increment_ref_count(self->mRight);
     Value_26=node_compile(right_node,info);
@@ -6506,8 +6454,6 @@ _Bool sEq2Node_compile(struct sEq2Node* self, struct sInfo* info  )
         ((right_node) ? right_node = come_decrement_ref_count(right_node, ((struct sNode*)right_node)->finalize, ((struct sNode*)right_node)->_protocol_obj, 0, 0,(void*)0):(void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
-    }
-    else {
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
@@ -6636,8 +6582,6 @@ _Bool sNotEq2Node_compile(struct sNotEq2Node* self, struct sInfo* info  )
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    else {
-    }
     left_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     right_node=(struct sNode*)come_increment_ref_count(self->mRight);
     Value_27=node_compile(right_node,info);
@@ -6648,8 +6592,6 @@ _Bool sNotEq2Node_compile(struct sNotEq2Node* self, struct sInfo* info  )
         ((right_node) ? right_node = come_decrement_ref_count(right_node, ((struct sNode*)right_node)->finalize, ((struct sNode*)right_node)->_protocol_obj, 0, 0,(void*)0):(void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
-    }
-    else {
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
@@ -6777,8 +6719,6 @@ _Bool sAndNode_compile(struct sAndNode* self, struct sInfo* info  )
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    else {
-    }
     left_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     right_node=(struct sNode*)come_increment_ref_count(self->mRight);
     Value_28=node_compile(right_node,info);
@@ -6789,8 +6729,6 @@ _Bool sAndNode_compile(struct sAndNode* self, struct sInfo* info  )
         ((right_node) ? right_node = come_decrement_ref_count(right_node, ((struct sNode*)right_node)->finalize, ((struct sNode*)right_node)->_protocol_obj, 0, 0,(void*)0):(void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
-    }
-    else {
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
@@ -6919,8 +6857,6 @@ _Bool sXOrNode_compile(struct sXOrNode* self, struct sInfo* info  )
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    else {
-    }
     left_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     right_node=(struct sNode*)come_increment_ref_count(self->mRight);
     Value_29=node_compile(right_node,info);
@@ -6931,8 +6867,6 @@ _Bool sXOrNode_compile(struct sXOrNode* self, struct sInfo* info  )
         ((right_node) ? right_node = come_decrement_ref_count(right_node, ((struct sNode*)right_node)->finalize, ((struct sNode*)right_node)->_protocol_obj, 0, 0,(void*)0):(void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
-    }
-    else {
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
@@ -7061,8 +6995,6 @@ _Bool sOrNode_compile(struct sOrNode* self, struct sInfo* info  )
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    else {
-    }
     left_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     right_node=(struct sNode*)come_increment_ref_count(self->mRight);
     Value_30=node_compile(right_node,info);
@@ -7073,8 +7005,6 @@ _Bool sOrNode_compile(struct sOrNode* self, struct sInfo* info  )
         ((right_node) ? right_node = come_decrement_ref_count(right_node, ((struct sNode*)right_node)->finalize, ((struct sNode*)right_node)->_protocol_obj, 0, 0,(void*)0):(void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
-    }
-    else {
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
@@ -7204,8 +7134,6 @@ _Bool sAndAndNode_compile(struct sAndAndNode* self, struct sInfo* info  )
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    else {
-    }
     left_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     right_node=(struct sNode*)come_increment_ref_count(self->mRight);
     Value_31=node_compile(right_node,info);
@@ -7216,8 +7144,6 @@ _Bool sAndAndNode_compile(struct sAndAndNode* self, struct sInfo* info  )
         ((right_node) ? right_node = come_decrement_ref_count(right_node, ((struct sNode*)right_node)->finalize, ((struct sNode*)right_node)->_protocol_obj, 0, 0,(void*)0):(void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
-    }
-    else {
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
@@ -7346,8 +7272,6 @@ _Bool sOrOrNode_compile(struct sOrOrNode* self, struct sInfo* info  )
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    else {
-    }
     left_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     right_node=(struct sNode*)come_increment_ref_count(self->mRight);
     Value_32=node_compile(right_node,info);
@@ -7358,8 +7282,6 @@ _Bool sOrOrNode_compile(struct sOrOrNode* self, struct sInfo* info  )
         ((right_node) ? right_node = come_decrement_ref_count(right_node, ((struct sNode*)right_node)->finalize, ((struct sNode*)right_node)->_protocol_obj, 0, 0,(void*)0):(void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
-    }
-    else {
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
@@ -7480,8 +7402,6 @@ _Bool sCommaNode_compile(struct sCommaNode* self, struct sInfo* info  )
            neo_current_frame = fr.prev;
         return 0;
     }
-    else {
-    }
     left_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     right_node=self->mRight;
     Value_33=node_compile(right_node,info);
@@ -7490,8 +7410,6 @@ _Bool sCommaNode_compile(struct sCommaNode* self, struct sInfo* info  )
         come_call_finalizer(CVALUE_finalize, left_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
-    }
-    else {
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), (void*)0, 1365, "struct CVALUE*"))));
@@ -7610,8 +7528,6 @@ _Bool sConditionalNode_compile(struct sConditionalNode* self, struct sInfo* info
            neo_current_frame = fr.prev;
         return 0;
     }
-    else {
-    }
     value1_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     value2=self->mValue2;
     Value_34=node_compile(value2,info);
@@ -7620,8 +7536,6 @@ _Bool sConditionalNode_compile(struct sConditionalNode* self, struct sInfo* info
         come_call_finalizer(CVALUE_finalize, value1_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
-    }
-    else {
     }
     value2_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     value3=self->mValue3;
@@ -7632,8 +7546,6 @@ _Bool sConditionalNode_compile(struct sConditionalNode* self, struct sInfo* info
         come_call_finalizer(CVALUE_finalize, value2_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
-    }
-    else {
     }
     value3_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), (void*)0, 1425, "struct CVALUE*"))));

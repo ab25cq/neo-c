@@ -1,9 +1,15 @@
 #include <neo-c.h>
 
-list<int>*% gLi;
-
-int fun()
+int main(int argc, char** argv)
 {
-    gLi = new list<int>();
+    if(1) {
+        string a = if(1) {
+            puts("AAA");
+            s"ABC"
+        }
+        
+        puts(a);
+    }
+    
     return 0;
 }

@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.8.7.0
+version 0.8.7.1
 
 ``` C
 #include <neo-c.h>
@@ -93,6 +93,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.8.7.1 You can get if result value.
 0.8.7.0 stackframe recording is allways enable. and optimize recording stackframe sysytem.
 0.8.6.2 mf has serious bug of deleting file. it occurs deleting all user files. Refine neo-c and get rid of the bug.
 0.8.6.1 Refine neo-c

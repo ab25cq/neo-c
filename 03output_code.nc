@@ -1349,7 +1349,17 @@ void add_come_code(sInfo* info, const char* msg, ...)
     int len = vasprintf(&msg2, msg, args);
     va_end(args);
     
-    if(info->paren_block_buffer) {
+    if(info->if_expression_buffer) {
+        if(!info.in_conditional) {
+            int i;
+            for(i=0; i<info->block_level; i++) {
+                info.if_expression_buffer.append_str("    ");
+            }
+        }
+        
+        info->if_expression_buffer.append_str(xsprintf("%s", msg2));
+    }
+    else if(info->paren_block_buffer) {
         info->paren_block_buffer.append_str(xsprintf("%s", msg2));
     }
     else if(info->come_fun) {

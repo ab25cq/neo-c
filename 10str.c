@@ -1469,6 +1469,10 @@ struct sInfo
     _Bool in_store_array;
     int parse_struct_recursive_count;
     _Bool exp_value;
+    struct buffer* if_expression_buffer  ;
+    char* if_result_value_name  ;
+    _Bool if_result_value_name_defined;
+    struct sType* if_result_type  ;
 };
 
 struct sNodeBase
@@ -2555,7 +2559,7 @@ struct tuple2$2char$ph_Bool$* create_generics_fun(char* fun_name  , struct sGene
 struct tuple3$3sType$phchar$ph_Bool$* parse_type(struct sInfo* info  , _Bool parse_variable_name, _Bool parse_multiple_type, _Bool in_function_parametor);
 struct tuple2$2sType$phchar$ph* parse_variable_name_on_multiple_declare(struct sType* base_type_name  , _Bool first, struct sInfo* info  );
 struct sBlock* parse_block(struct sInfo* info  , _Bool return_self_at_last, _Bool in_function);
-int transpile_block(struct sBlock* block  , struct list$1sType$ph* param_types, struct list$1char$ph* param_names, struct sInfo* info  , _Bool no_var_table, _Bool loop_block);
+int transpile_block(struct sBlock* block  , struct list$1sType$ph* param_types, struct list$1char$ph* param_names, struct sInfo* info  , _Bool no_var_table, _Bool loop_block, _Bool if_result_value);
 void arrange_stack(struct sInfo* info  , int top);
 struct sNode* parse_function(struct sInfo* info  );
 struct sNode* statment(struct sInfo* info  );
@@ -2585,7 +2589,7 @@ struct sNode* parse_struct_initializer(struct sInfo* info  );
 struct sNode* parse_global_variable(struct sInfo* info  );
 struct sNode* load_var(char* name  , struct sInfo* info  );
 struct sNode* string_node_v7(char* buf, char* head, int head_sline, struct sInfo* info  );
-void add_variable_to_table(char* name, struct sType* type  , struct sInfo* info  , _Bool function_param, _Bool comma);
+void add_variable_to_table(char* name, struct sType* type  , struct sInfo* info  , _Bool function_param, _Bool comma, _Bool to_function_table);
 void add_variable_to_global_table(char* name, struct sType* type  , struct sInfo* info  );
 void add_variable_to_global_table_with_int_value(char* name, struct sType* type  , char* c_value, struct sInfo* info  );
 struct sNode* parse_match(struct sNode* expression_node, struct sInfo* info  );
@@ -4501,8 +4505,6 @@ _Bool sSStringNode_compile(struct sSStringNode* self, struct sInfo* info  )
                 neo_current_frame = fr.prev;
                 return __result_obj__0;
             }
-            else {
-            }
             come_value_15=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
             buffer_append_str(buf,",");
             buffer_append_str(buf,come_value_15->c_value);
@@ -5153,8 +5155,6 @@ _Bool sListNode_compile(struct sListNode* self, struct sInfo* info  )
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
-        else {
-        }
         come_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
         if(list_element_type) {
             check_assign_type(((char*)(__right_value0=xsprintf("invalid list element type"))),list_element_type,come_value->type,come_value,info);
@@ -5183,7 +5183,7 @@ _Bool sListNode_compile(struct sListNode* self, struct sInfo* info  )
     type_values->mHeap=0;
     static int list_value_num=0;
     var_name=(char*)come_increment_ref_count(xsprintf("__list_values%d__",++list_value_num));
-    add_variable_to_table(var_name,((struct sType*)(__right_value0=sType_clone(type_values))),info,0,0);
+    add_variable_to_table(var_name,((struct sType*)(__right_value0=sType_clone(type_values))),info,0,0,0);
     come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
     var_=get_variable_from_table(info->lv_table,var_name);
     add_come_code_at_function_head(info,"%s;\n",((char*)(__right_value0=make_define_var(type_values,var_->mCValueName,info,0,0))));
@@ -5981,8 +5981,6 @@ _Bool sTupleNode_compile(struct sTupleNode* self, struct sInfo* info  )
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
-        else {
-        }
         come_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
         list$1CVALUE$ph_push_back(tuple_values,(struct CVALUE*)come_increment_ref_count(CVALUE_clone(come_value)));
         type=(struct sType*)come_increment_ref_count(sType_clone(come_value->type));
@@ -6527,8 +6525,6 @@ _Bool sMapNode_compile(struct sMapNode* self, struct sInfo* info  )
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
-        else {
-        }
         come_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
         if(map_key_type) {
             if(map_key_type->mHeap!=come_value->type->mHeap) {
@@ -6555,8 +6551,6 @@ _Bool sMapNode_compile(struct sMapNode* self, struct sInfo* info  )
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
-        else {
-        }
         come_value2=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
         if(map_element_type) {
             if(map_element_type->mHeap!=come_value2->type->mHeap) {
@@ -6581,7 +6575,7 @@ _Bool sMapNode_compile(struct sMapNode* self, struct sInfo* info  )
     list$1sNode$ph_push_back(key_type_values->mArrayNum,(struct sNode*)come_increment_ref_count(create_int_node((char*)come_increment_ref_count(int_to_string(list$1CVALUE$ph_length(key_params))),info)));
     key_type_values->mHeap=0;
     var_name=(char*)come_increment_ref_count(xsprintf("__map_keys%d__",++map_value_num));
-    add_variable_to_table(var_name,((struct sType*)(__right_value0=sType_clone(key_type_values))),info,0,0);
+    add_variable_to_table(var_name,((struct sType*)(__right_value0=sType_clone(key_type_values))),info,0,0,0);
     come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
     var_=get_variable_from_table(info->lv_table,var_name);
     add_come_code_at_function_head(info,"%s;\n",((char*)(__right_value0=make_define_var(key_type_values,var_->mCValueName,info,0,0))));
@@ -6590,7 +6584,7 @@ _Bool sMapNode_compile(struct sMapNode* self, struct sInfo* info  )
     list$1sNode$ph_push_back(element_type_values->mArrayNum,(struct sNode*)come_increment_ref_count(create_int_node((char*)come_increment_ref_count(int_to_string(list$1CVALUE$ph_length(element_params))),info)));
     element_type_values->mHeap=0;
     var_name2=(char*)come_increment_ref_count(xsprintf("__map_element%d__",map_value_num));
-    add_variable_to_table(var_name2,((struct sType*)(__right_value0=sType_clone(element_type_values))),info,0,0);
+    add_variable_to_table(var_name2,((struct sType*)(__right_value0=sType_clone(element_type_values))),info,0,0,0);
     come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
     var2_=get_variable_from_table(info->lv_table,var_name2);
     add_come_code_at_function_head(info,"%s;\n",((char*)(__right_value0=make_define_var(element_type_values,var2_->mCValueName,info,0,0))));
