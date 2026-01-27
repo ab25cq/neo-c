@@ -1,19 +1,16 @@
 #include <neo-c.h>
 
-
-int fun()
+void fun()
 {
-    stackframe();
-}
+    int* a = borrow gc_inc(new int);
+    *a = 123;
 
-int fun2()
+    printf("%d\n", *a);
+}
+                            
+int main(int argc, char** argv) 
 {
     fun();
-}
-
-int main(int argc, char** argv)
-{
-    fun2();
-    
+                                    
     return 0;
 }

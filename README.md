@@ -178,7 +178,7 @@ The syntax is almost the same as C language. It may not be POSIX compliant. If y
 # HELLO WORLD
 
 ```
-> vim a.c
+> vim a.nc
 #include <stdio.h>
 
 int main()
@@ -186,7 +186,7 @@ int main()
     puts("HELLO WORLD");
     return 0;
 }
-> neo-c a.c
+> neo-c a.nc
 > ./a
 HELLO WORLD
 ```
@@ -1756,7 +1756,7 @@ static inline int fun()
 {
     return (1,2);
 }
-> vin a.c
+> vin a.nc
 using C
 {
 #include "a.h"
@@ -1930,7 +1930,7 @@ int main()
 # stackfame
 
 ```C
-> vin a.c
+> vin a.nc
 #include <neo-c.h>
 
 int fun()
@@ -1950,32 +1950,15 @@ int main(int argc, char** argv)
     
     return 0;
 }
-> neo-c -cg a.c
+> neo-c a.nc
 > ./a
-a.c 5
-a.c 11
-a.c 16
+stackframe
+fun
+fun2
+main
 ```
 
-for debugging.
-require -cg option.
-
-```C
-#include <neo-c.h>
-
-record void fun()
-{
-    stackframe();
-}
-
-int main(int argc, char** argv)
-{
-    fun();
-    return 0;
-}
-```
-
-append record attribute to show stackframe. It's not required -cg option
+trace stackframe always enabled frome version 0.8.7.0
 
 # Template
 
@@ -2013,11 +1996,9 @@ int main(int argc, char** argv)
 
 void fun()
 {
-    var a = gc_inc(new int);
+    int* a = borrow gc_inc(new int);
     *a = 123;
 
-    stackframe();
-                        
     printf("%d\n", *a);
 }
                             
@@ -2027,18 +2008,12 @@ int main(int argc, char** argv)
                                     
     return 0;
 }
-~/neo-c # neo-c a.c
+```
+~/neo-c # neo-c a.nc
 ~/neo-c # ./a
 123
-1 memory leaks. 1 alloc, 0 free.If you require debugging, copmpile with -cg option
-~/neo-c # neo-c -cg a.c
-~/neo-c # ./a
-a.c 9
-a.c 16
-123
-#1 (int): a.c 16, a.c 5, 
+#1 0x468d390 (int*): come_alloc_mem_from_heap_pool, come_calloc, fun, main,
 1 memory leaks. 1 alloc, 0 free.
-~/neo-c # 
 ```
 
 # Class
@@ -2247,7 +2222,7 @@ uniq void fun()
 {
     printf("%d\n", gGlobalVar);
 }
-> vin a.c
+> vin a.nc
 #include "a.h"
 
 int main(int argc, char** argv)
@@ -2256,15 +2231,15 @@ int main(int argc, char** argv)
     
     return 0;
 }
-> vin b.c
+> vin b.nc
 #include "a.h"
 
 void fun2()
 {
     fun();
 }
-> neo-c -c b.c
-> neo-c a.c b.c.o
+> neo-c -c b.nc
+> neo-c a.nc b.o
 > ./a
 777
 ```
@@ -2284,9 +2259,7 @@ Please use the C language extension library. The strength of neo-c is that the C
 
 # Net libraries
 
-See libneo-c-net.c and neo-c-net.h
-
-with -net option to comandline.
+See neo-c-net.h
 
 # Omit return statment
 
