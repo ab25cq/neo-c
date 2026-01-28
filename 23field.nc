@@ -578,25 +578,11 @@ class sStoreArrayNode extends sNodeBase
             string left_value_code = buf.to_string();
             
             check_assign_type(s"array is assinged to(2)", left_type, right_type, right_value);
-            if(left_type->mHeap && right_type->mHeap && left_type->mPointerNum > 0 && right_type->mPointerNum > 0) 
+            if(left_type->mHeap && right_type->mHeap && left_type->mArrayPointerNum > 0 && right_type->mPointerNum > 0) 
             {
-                if(left_value.type->mPointerNum >= 1) {
-                    decrement_ref_count_object(left_type,left_value_code, info);
-                    std_move(left_type, right_type, right_value);
-                    come_value.c_value = xsprintf("%s=%s", left_value_code, right_value.c_value);
-                }
-                else if(left_value.type->mPointerNum == 0) {
-                    decrement_ref_count_object(left_type,left_value_code, info);
-                    std_move(left_type, right_type, right_value);
-                    come_value.c_value = xsprintf("%s=%s", left_value_code, right_value.c_value);
-                }
-                else {
-                    decrement_ref_count_object(left_type,left_value_code, info);
-                    std_move(left_type, right_type, right_value);
-                    come_value.c_value = xsprintf("%s=%s", left_value_code, right_value.c_value);
-                    //err_msg(info, "Invalid left_type. The name is %s. The pointer num is %d.(1)", left_value_code, left_value.type->mPointerNum);
-                    //return true;
-                }
+                decrement_ref_count_object(left_type,left_value_code, info);
+                std_move(left_type, right_type, right_value);
+                come_value.c_value = xsprintf("%s=%s", left_value_code, right_value.c_value);
             }
             else {
                 if(left_value.type->mPointerNum >= 1) {

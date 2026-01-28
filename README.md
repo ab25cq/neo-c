@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.8.7.2
+version 0.8.7.3
 
 ``` C
 #include <neo-c.h>
@@ -93,6 +93,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.8.7.3 Array with heap object is freed from this version. 
 0.8.7.2 Remove here document. ccpp.c can't treat here document properly. In C level it's not required function, I think.
 0.8.7.1 You can get if result value.
 0.8.7.0 stackframe recording is allways enable. and optimize recording stackframe sysytem.

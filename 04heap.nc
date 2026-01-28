@@ -406,7 +406,7 @@ void decrement_ref_count_object(sType* type, char* obj, sInfo* info, bool no_fre
     obj = borrow name;
     bool no_decrement = false;
     
-    if(type->mPointerNum > 0) {
+    if(type->mPointerNum > 0 || type->mArrayPointerNum) {
         string c_value = string(obj);
         
         sClass* klass = type->mClass;
@@ -893,10 +893,123 @@ void free_objects(sVarTable* table, sVar* ret_value, sInfo* info)
         }
         else if(ret_value != null && p->mCValueName != null && p->mCValueName === ret_value->mCValueName && type->mHeap) 
         {
+            if(type->mArrayNum.length() > 0) {
+                err_msg(info, "no support array element with heap object result");
+                exit(1);
+            }
             free_object(type, p->mCValueName, false@no_decrement, true@no_free, info, true);
         }
         else if(type->mHeap && p->mCValueName) {
-            free_object(type, p->mCValueName, false@no_decrement, false@no_free, info);
+            if(type->mArrayNum.length() > 0) {
+                if(type->mArrayNum.length() == 1) {
+                    sNode*% node = type->mArrayNum[0];
+                    
+                    node_compile(node).elif {
+                        err_msg(info, "invalid array number");
+                        exit(1);
+                    }
+                    
+                    CVALUE*% come_value = get_value_from_stack(-1, info);
+                    
+                    int n = atoi(come_value.c_value);
+                    
+                    for(int i=0; i<n; i++) {
+                        string c_value = p->mCValueName + "[" + i.to_string() + "]";
+                        sType*% element_type = clone type;
+                        element_type.mArrayNum.reset();
+                        
+                        free_object(element_type, c_value, false@no_decrement, false@no_free, info);
+                    }
+                }
+                else if(type->mArrayNum.length() == 2) {
+                    sNode*% node = type->mArrayNum[0];
+                    
+                    node_compile(node).elif {
+                        err_msg(info, "invalid array number");
+                        exit(1);
+                    }
+                    
+                    CVALUE*% come_value = get_value_from_stack(-1, info);
+                    
+                    int n = atoi(come_value.c_value);
+                    
+                    sNode*% node2 = type->mArrayNum[1];
+                    
+                    node_compile(node2).elif {
+                        err_msg(info, "invalid array number");
+                        exit(1);
+                    }
+                    
+                    CVALUE*% come_value2 = get_value_from_stack(-1, info);
+                    
+                    int m = atoi(come_value2.c_value);
+                    
+                    for(int i=0; i<n; i++) {
+                        for(int j=0; j<m; j++) {
+                            string c_value = p->mCValueName + "[" + i.to_string() + "]" + "[" + j.to_string() + "]";
+                            
+                            sType*% element_type = clone type;
+                            element_type.mArrayNum.reset();
+                            
+                            free_object(element_type, c_value, false@no_decrement, false@no_free, info);
+                        }
+                    }
+                }
+                else if(type->mArrayNum.length() == 3) {
+                    sNode*% node = type->mArrayNum[0];
+                    
+                    node_compile(node).elif {
+                        err_msg(info, "invalid array number");
+                        exit(1);
+                    }
+                    
+                    CVALUE*% come_value = get_value_from_stack(-1, info);
+                    
+                    int n = atoi(come_value.c_value);
+                    
+                    sNode*% node2 = type->mArrayNum[1];
+                    
+                    node_compile(node2).elif {
+                        err_msg(info, "invalid array number");
+                        exit(1);
+                    }
+                    
+                    CVALUE*% come_value2 = get_value_from_stack(-1, info);
+                    
+                    int m = atoi(come_value2.c_value);
+                    
+                    sNode*% node3 = type->mArrayNum[2];
+                    
+                    node_compile(node3).elif {
+                        err_msg(info, "invalid array number");
+                        exit(1);
+                    }
+                    
+                    CVALUE*% come_value3 = get_value_from_stack(-1, info);
+                    
+                    int l = atoi(come_value3.c_value);
+                    
+                    for(int i=0; i<n; i++) {
+                        for(int j=0; j<m; j++) {
+                            for(int k=0; k<l; k++) {
+                                string c_value = p->mCValueName + "[" + i.to_string() + "]" + "[" + j.to_string() + "]" + "[" + k.to_string() + "]";
+                                
+                                sType*% element_type = clone type;
+                                element_type.mArrayNum.reset();
+                                
+                                free_object(element_type, c_value, false@no_decrement, false@no_free, info);
+                            }
+                        }
+                    }
+                }
+                else {
+                    err_msg(info, "no support more 4 dimention array with heap object");
+                    exit(1);
+                }
+            }
+            else {
+                free_object(type, p->mCValueName, false@no_decrement, false@no_free, info);
+            }
         }
         else if(klass->mStruct && p->mCValueName && type->mAllocaValue && !type->mNoCallingDestructor) {
             string c_value = xsprintf("(&%s)", p->mCValueName);
