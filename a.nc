@@ -8,7 +8,7 @@ int fun(int*% aaa)
 int main(int argc, char** argv)
 {
     int a = 111;
-    int* b = &a;
+    int*% b = new int;
     
     fun(b);
     
