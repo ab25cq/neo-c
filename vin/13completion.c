@@ -3344,7 +3344,7 @@ int* ViWin_selector2(struct ViWin* self  , struct list$1int$ph* lines)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = ViWin_selector2; neo_current_frame = &fr;    int* result  ;
+fr.fun_name = "ViWin_selector2"; neo_current_frame = &fr;    int* result  ;
     _Bool end_of_select;
     _Bool canceled;
     int maxx;
@@ -3450,7 +3450,7 @@ static int list$1int$ph_length(struct list$1int$ph* self)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1int$ph_length; neo_current_frame = &fr;    if(self==((void*)0)) {
+fr.fun_name = "list$1int$ph_length"; neo_current_frame = &fr;    if(self==((void*)0)) {
            neo_current_frame = fr.prev;
         return 0;
     }
@@ -3462,7 +3462,7 @@ static int* list$1int$ph_item(struct list$1int$ph* self, int position, int* defa
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1int$ph_item; neo_current_frame = &fr;    int* __result_obj__0  ;
+fr.fun_name = "list$1int$ph_item"; neo_current_frame = &fr;    int* __result_obj__0  ;
     struct list_item$1int$ph* it;
     int i;
     if(self==((void*)0)) {
@@ -3493,7 +3493,7 @@ void ViWin_completion_v13(struct ViWin* self  , struct Vi* nvi  )
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = ViWin_completion_v13; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+fr.fun_name = "ViWin_completion_v13"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
     int* line  ;
     int* p  ;
     int len;
@@ -3556,7 +3556,7 @@ static struct list$1int$ph* list$1int$ph_initialize(struct list$1int$ph* self)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1int$ph_initialize; neo_current_frame = &fr;    struct list$1int$ph* __result_obj__0;
+fr.fun_name = "list$1int$ph_initialize"; neo_current_frame = &fr;    struct list$1int$ph* __result_obj__0;
     self->head=((void*)0);
     self->tail=((void*)0);
     self->len=0;
@@ -3570,7 +3570,7 @@ static void list$1int$ph$p_finalize(struct list$1int$ph* self)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1int$ph$p_finalize; neo_current_frame = &fr;    struct list_item$1int$ph* it;
+fr.fun_name = "list$1int$ph$p_finalize"; neo_current_frame = &fr;    struct list_item$1int$ph* it;
     struct list_item$1int$ph* prev_it;
     if(self==((void*)0)) {
         neo_current_frame = fr.prev;
@@ -3588,7 +3588,7 @@ static void list_item$1int$ph$p_finalize(struct list_item$1int$ph* self)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list_item$1int$ph$p_finalize; neo_current_frame = &fr;    if(self!=((void*)0)&&self->item!=((void*)0)) {
+fr.fun_name = "list_item$1int$ph$p_finalize"; neo_current_frame = &fr;    if(self!=((void*)0)&&self->item!=((void*)0)) {
         (self->item = come_decrement_ref_count(self->item, (void*)0, (void*)0, 0, 0, (void*)0));
     }
         neo_current_frame = fr.prev;}
@@ -3597,7 +3597,7 @@ static int* list$1int$ph_begin(struct list$1int$ph* self)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1int$ph_begin; neo_current_frame = &fr;    int* result  ;
+fr.fun_name = "list$1int$ph_begin"; neo_current_frame = &fr;    int* result  ;
     int* __result_obj__0  ;
     int* result_1  ;
     if(self==((void*)0)) {
@@ -3619,7 +3619,7 @@ static _Bool list$1int$ph_end(struct list$1int$ph* self)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1int$ph_end; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+fr.fun_name = "list$1int$ph_end"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
     return self==((void*)0)||self->it==((void*)0);
     neo_current_frame = fr.prev;}
 
@@ -3627,7 +3627,7 @@ static int* list$1int$ph_next(struct list$1int$ph* self)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1int$ph_next; neo_current_frame = &fr;    int* result  ;
+fr.fun_name = "list$1int$ph_next"; neo_current_frame = &fr;    int* result  ;
     int* __result_obj__0  ;
     int* result_2  ;
     if(self==((void*)0)||self->it==((void*)0)) {
@@ -3649,7 +3649,7 @@ static char* list$1char$ph_begin(struct list$1char$ph* self)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1char$ph_begin; neo_current_frame = &fr;    char* result  ;
+fr.fun_name = "list$1char$ph_begin"; neo_current_frame = &fr;    char* result  ;
     char* __result_obj__0  ;
     char* result_4  ;
     if(self==((void*)0)) {
@@ -3671,7 +3671,7 @@ static _Bool list$1char$ph_end(struct list$1char$ph* self)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1char$ph_end; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+fr.fun_name = "list$1char$ph_end"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
     return self==((void*)0)||self->it==((void*)0);
         neo_current_frame = fr.prev;}
 
@@ -3679,7 +3679,7 @@ static char* list$1char$ph_next(struct list$1char$ph* self)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1char$ph_next; neo_current_frame = &fr;    char* result  ;
+fr.fun_name = "list$1char$ph_next"; neo_current_frame = &fr;    char* result  ;
     char* __result_obj__0  ;
     char* result_5  ;
     if(self==((void*)0)||self->it==((void*)0)) {
@@ -3701,7 +3701,7 @@ static struct list$1int$ph* list$1int$ph_push_back(struct list$1int$ph* self, in
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1int$ph_push_back; neo_current_frame = &fr;    struct list$1int$ph* __result_obj__0;
+fr.fun_name = "list$1int$ph_push_back"; neo_current_frame = &fr;    struct list$1int$ph* __result_obj__0;
     void* __right_value0 = (void*)0;
     struct list_item$1int$ph* litem;
     int* __dec_obj1  ;
@@ -3754,7 +3754,7 @@ static void list$1char$ph$p_finalize(struct list$1char$ph* self)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1char$ph$p_finalize; neo_current_frame = &fr;    struct list_item$1char$ph* it;
+fr.fun_name = "list$1char$ph$p_finalize"; neo_current_frame = &fr;    struct list_item$1char$ph* it;
     struct list_item$1char$ph* prev_it;
     if(self==((void*)0)) {
         neo_current_frame = fr.prev;
@@ -3772,7 +3772,7 @@ static void list_item$1char$ph$p_finalize(struct list_item$1char$ph* self)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list_item$1char$ph$p_finalize; neo_current_frame = &fr;    if(self!=((void*)0)&&self->item!=((void*)0)) {
+fr.fun_name = "list_item$1char$ph$p_finalize"; neo_current_frame = &fr;    if(self!=((void*)0)&&self->item!=((void*)0)) {
         (self->item = come_decrement_ref_count(self->item, (void*)0, (void*)0, 0, 0, (void*)0));
     }
         neo_current_frame = fr.prev;}
@@ -3781,7 +3781,8 @@ static int lambda1(int* left  , int* right  )
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = lambda1; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+fr.fun_name = "lambda1"; neo_current_frame = &fr;
+       neo_current_frame = fr.prev;
     return wstring_compare(left,right);
 neo_current_frame = fr.prev;}
 
@@ -3789,7 +3790,7 @@ static struct list$1int$ph* list$1int$ph_sort(struct list$1int$ph* self)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1int$ph_sort; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+fr.fun_name = "list$1int$ph_sort"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1int$ph* __result_obj__0;
     if(self==((void*)0)) {
@@ -3808,7 +3809,7 @@ static struct list$1int$ph* list$1int$ph_merge_sort_with_lambda(struct list$1int
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1int$ph_merge_sort_with_lambda; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+fr.fun_name = "list$1int$ph_merge_sort_with_lambda"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
     struct list$1int$ph* __result_obj__0;
     void* __right_value1 = (void*)0;
     struct list$1int$ph* list1;
@@ -3864,7 +3865,7 @@ static struct list$1int$ph* list$1int$ph_clone(struct list$1int$ph* self)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1int$ph_clone; neo_current_frame = &fr;    struct list$1int$ph* __result_obj__0;
+fr.fun_name = "list$1int$ph_clone"; neo_current_frame = &fr;    struct list$1int$ph* __result_obj__0;
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1int$ph* result;
@@ -3895,7 +3896,7 @@ static struct list$1int$ph* list$1int$ph_add(struct list$1int$ph* self, int* ite
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1int$ph_add; neo_current_frame = &fr;    struct list$1int$ph* __result_obj__0;
+fr.fun_name = "list$1int$ph_add"; neo_current_frame = &fr;    struct list$1int$ph* __result_obj__0;
     void* __right_value0 = (void*)0;
     struct list_item$1int$ph* litem;
     int* __dec_obj4  ;
@@ -3948,7 +3949,7 @@ static struct list$1int$ph* list$1int$ph_merge_list_with_lambda(struct list$1int
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1int$ph_merge_list_with_lambda; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+fr.fun_name = "list$1int$ph_merge_list_with_lambda"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1int$ph* result;
     struct list_item$1int$ph* it;
@@ -4023,7 +4024,7 @@ static struct list$1int$ph* list$1int$ph_uniq(struct list$1int$ph* self, _Bool b
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1int$ph_uniq; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+fr.fun_name = "list$1int$ph_uniq"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1int$ph* result;
     struct list$1int$ph* __result_obj__0;

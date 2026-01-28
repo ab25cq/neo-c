@@ -3382,7 +3382,7 @@ struct ViWin* ViWin_initialize_v10(struct ViWin* self  , int y, int x, int width
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = ViWin_initialize_v10; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+fr.fun_name = "ViWin_initialize_v10"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
     struct ViWin* result  ;
     struct ViWin* __result_obj__0  ;
     result=(struct ViWin*)come_increment_ref_count(ViWin_initialize_v8((struct ViWin*)come_increment_ref_count(self),y,x,width,height,vi));
@@ -3399,7 +3399,7 @@ static void ViWin_finalize(struct ViWin* self  )
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = ViWin_finalize; neo_current_frame = &fr;    if(self!=((void*)0)&&self->texts!=((void*)0)) {
+fr.fun_name = "ViWin_finalize"; neo_current_frame = &fr;    if(self!=((void*)0)&&self->texts!=((void*)0)) {
         come_call_finalizer(list$1int$ph$p_finalize, self->texts, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     if(self!=((void*)0)&&self->texts_length!=((void*)0)) {
@@ -3450,7 +3450,7 @@ static void list$1int$ph$p_finalize(struct list$1int$ph* self)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1int$ph$p_finalize; neo_current_frame = &fr;    struct list_item$1int$ph* it;
+fr.fun_name = "list$1int$ph$p_finalize"; neo_current_frame = &fr;    struct list_item$1int$ph* it;
     struct list_item$1int$ph* prev_it;
     if(self==((void*)0)) {
         neo_current_frame = fr.prev;
@@ -3468,7 +3468,7 @@ static void list_item$1int$ph$p_finalize(struct list_item$1int$ph* self)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list_item$1int$ph$p_finalize; neo_current_frame = &fr;    if(self!=((void*)0)&&self->item!=((void*)0)) {
+fr.fun_name = "list_item$1int$ph$p_finalize"; neo_current_frame = &fr;    if(self!=((void*)0)&&self->item!=((void*)0)) {
         (self->item = come_decrement_ref_count(self->item, (void*)0, (void*)0, 0, 0, (void*)0));
     }
         neo_current_frame = fr.prev;}
@@ -3477,7 +3477,7 @@ static void list$1int$$p_finalize(struct list$1int$* self)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1int$$p_finalize; neo_current_frame = &fr;    struct list_item$1int$* it;
+fr.fun_name = "list$1int$$p_finalize"; neo_current_frame = &fr;    struct list_item$1int$* it;
     struct list_item$1int$* prev_it;
     if(self==((void*)0)) {
         neo_current_frame = fr.prev;
@@ -3495,19 +3495,19 @@ static void list_item$1int$$p_finalize(struct list_item$1int$* self)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list_item$1int$$p_finalize; neo_current_frame = &fr;        neo_current_frame = fr.prev;}
+fr.fun_name = "list_item$1int$$p_finalize"; neo_current_frame = &fr;        neo_current_frame = fr.prev;}
 
 static void tuple3$3int$int$int$$p_finalize(struct tuple3$3int$int$int$* self)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = tuple3$3int$int$int$$p_finalize; neo_current_frame = &fr;        neo_current_frame = fr.prev;}
+fr.fun_name = "tuple3$3int$int$int$$p_finalize"; neo_current_frame = &fr;        neo_current_frame = fr.prev;}
 
 static void list$1tuple3$3int$int$int$$ph$p_finalize(struct list$1tuple3$3int$int$int$$ph* self)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1tuple3$3int$int$int$$ph$p_finalize; neo_current_frame = &fr;    struct list_item$1tuple3$3int$int$int$$ph* it;
+fr.fun_name = "list$1tuple3$3int$int$int$$ph$p_finalize"; neo_current_frame = &fr;    struct list_item$1tuple3$3int$int$int$$ph* it;
     struct list_item$1tuple3$3int$int$int$$ph* prev_it;
     if(self==((void*)0)) {
         neo_current_frame = fr.prev;
@@ -3525,7 +3525,7 @@ static void list_item$1tuple3$3int$int$int$$ph$p_finalize(struct list_item$1tupl
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list_item$1tuple3$3int$int$int$$ph$p_finalize; neo_current_frame = &fr;    if(self!=((void*)0)&&self->item!=((void*)0)) {
+fr.fun_name = "list_item$1tuple3$3int$int$int$$ph$p_finalize"; neo_current_frame = &fr;    if(self!=((void*)0)&&self->item!=((void*)0)) {
         come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
         neo_current_frame = fr.prev;}
@@ -3534,7 +3534,7 @@ static void list$1list$1int$ph$ph$p_finalize(struct list$1list$1int$ph$ph* self)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1list$1int$ph$ph$p_finalize; neo_current_frame = &fr;    struct list_item$1list$1int$ph$ph* it;
+fr.fun_name = "list$1list$1int$ph$ph$p_finalize"; neo_current_frame = &fr;    struct list_item$1list$1int$ph$ph* it;
     struct list_item$1list$1int$ph$ph* prev_it;
     if(self==((void*)0)) {
         neo_current_frame = fr.prev;
@@ -3552,7 +3552,7 @@ static void list_item$1list$1int$ph$ph$p_finalize(struct list_item$1list$1int$ph
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list_item$1list$1int$ph$ph$p_finalize; neo_current_frame = &fr;    if(self!=((void*)0)&&self->item!=((void*)0)) {
+fr.fun_name = "list_item$1list$1int$ph$ph$p_finalize"; neo_current_frame = &fr;    if(self!=((void*)0)&&self->item!=((void*)0)) {
         come_call_finalizer(list$1int$ph$p_finalize, self->item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
         neo_current_frame = fr.prev;}
@@ -3561,7 +3561,7 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = map$2int$list$1list$1int$$ph$ph$p_finalize; neo_current_frame = &fr;    int i;
+fr.fun_name = "map$2int$list$1list$1int$$ph$ph$p_finalize"; neo_current_frame = &fr;    int i;
     int i_0;
     for(i=0;i<self->size;i++){
         if(self->item_existance[i]) {
@@ -3586,7 +3586,7 @@ static void list$1list$1int$$ph$p_finalize(struct list$1list$1int$$ph* self)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1list$1int$$ph$p_finalize; neo_current_frame = &fr;    struct list_item$1list$1int$$ph* it;
+fr.fun_name = "list$1list$1int$$ph$p_finalize"; neo_current_frame = &fr;    struct list_item$1list$1int$$ph* it;
     struct list_item$1list$1int$$ph* prev_it;
     if(self==((void*)0)) {
         neo_current_frame = fr.prev;
@@ -3604,7 +3604,7 @@ static void list_item$1list$1int$$ph$p_finalize(struct list_item$1list$1int$$ph*
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list_item$1list$1int$$ph$p_finalize; neo_current_frame = &fr;    if(self!=((void*)0)&&self->item!=((void*)0)) {
+fr.fun_name = "list_item$1list$1int$$ph$p_finalize"; neo_current_frame = &fr;    if(self!=((void*)0)&&self->item!=((void*)0)) {
         come_call_finalizer(list$1int$$p_finalize, self->item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
         neo_current_frame = fr.prev;}
@@ -3613,7 +3613,7 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = map$2int$tuple3$3int$int$int$$ph$p_finalize; neo_current_frame = &fr;    int i;
+fr.fun_name = "map$2int$tuple3$3int$int$int$$ph$p_finalize"; neo_current_frame = &fr;    int i;
     int i_1;
     for(i=0;i<self->size;i++){
         if(self->item_existance[i]) {
@@ -3638,7 +3638,7 @@ void ViWin_modifyCursorOnDeleting(struct ViWin* self  )
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = ViWin_modifyCursorOnDeleting; neo_current_frame = &fr;    ViWin_modifyOverCursorYValue(self);
+fr.fun_name = "ViWin_modifyCursorOnDeleting"; neo_current_frame = &fr;    ViWin_modifyOverCursorYValue(self);
     ViWin_modifyOverCursorXValue2(self);
 neo_current_frame = fr.prev;}
 
@@ -3646,7 +3646,7 @@ void ViWin_deleteOneLine_v10(struct ViWin* self  , struct Vi* nvi  )
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = ViWin_deleteOneLine_v10; neo_current_frame = &fr;    int i;
+fr.fun_name = "ViWin_deleteOneLine_v10"; neo_current_frame = &fr;    int i;
     void* __right_value0 = (void*)0;
     int* line  ;
     int* line_16  ;
@@ -3687,7 +3687,7 @@ static struct list$1int$ph* list$1int$ph_reset(struct list$1int$ph* self)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1int$ph_reset; neo_current_frame = &fr;    struct list$1int$ph* __result_obj__0;
+fr.fun_name = "list$1int$ph_reset"; neo_current_frame = &fr;    struct list$1int$ph* __result_obj__0;
     struct list_item$1int$ph* it;
     struct list_item$1int$ph* prev_it;
     if(self==((void*)0)) {
@@ -3711,7 +3711,7 @@ static int* list$1int$ph_item(struct list$1int$ph* self, int position, int* defa
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1int$ph_item; neo_current_frame = &fr;    int* __result_obj__0  ;
+fr.fun_name = "list$1int$ph_item"; neo_current_frame = &fr;    int* __result_obj__0  ;
     struct list_item$1int$ph* it;
     int i;
     if(self==((void*)0)) {
@@ -3742,7 +3742,7 @@ static struct list$1int$ph* list$1int$ph_push_back(struct list$1int$ph* self, in
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1int$ph_push_back; neo_current_frame = &fr;    struct list$1int$ph* __result_obj__0;
+fr.fun_name = "list$1int$ph_push_back"; neo_current_frame = &fr;    struct list$1int$ph* __result_obj__0;
     void* __right_value0 = (void*)0;
     struct list_item$1int$ph* litem;
     int* __dec_obj1  ;
@@ -3795,7 +3795,7 @@ static struct list$1int$ph* list$1int$ph_delete(struct list$1int$ph* self, int h
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1int$ph_delete; neo_current_frame = &fr;    struct list$1int$ph* __result_obj__0;
+fr.fun_name = "list$1int$ph_delete"; neo_current_frame = &fr;    struct list$1int$ph* __result_obj__0;
     int tmp;
     struct list_item$1int$ph* it;
     int i;
@@ -3922,7 +3922,7 @@ static struct list$1int$* list$1int$_delete(struct list$1int$* self, int head, i
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1int$_delete; neo_current_frame = &fr;    struct list$1int$* __result_obj__0;
+fr.fun_name = "list$1int$_delete"; neo_current_frame = &fr;    struct list$1int$* __result_obj__0;
     int tmp;
     struct list_item$1int$* it;
     int i;
@@ -4049,7 +4049,7 @@ static struct list$1int$* list$1int$_reset(struct list$1int$* self)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1int$_reset; neo_current_frame = &fr;    struct list$1int$* __result_obj__0;
+fr.fun_name = "list$1int$_reset"; neo_current_frame = &fr;    struct list$1int$* __result_obj__0;
     struct list_item$1int$* it;
     struct list_item$1int$* prev_it;
     if(self==((void*)0)) {
@@ -4073,7 +4073,7 @@ void ViWin_deleteOneLine2(struct ViWin* self  , struct Vi* nvi  )
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = ViWin_deleteOneLine2; neo_current_frame = &fr;    int i;
+fr.fun_name = "ViWin_deleteOneLine2"; neo_current_frame = &fr;    int i;
     void* __right_value0 = (void*)0;
     int* line  ;
     int* line_17  ;
@@ -4112,7 +4112,7 @@ static struct list$1int$ph* list$1int$ph_insert(struct list$1int$ph* self, int p
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1int$ph_insert; neo_current_frame = &fr;    struct list$1int$ph* __result_obj__0;
+fr.fun_name = "list$1int$ph_insert"; neo_current_frame = &fr;    struct list$1int$ph* __result_obj__0;
     int len;
     int i;
     int* default_value  ;
@@ -4198,7 +4198,7 @@ static struct list$1int$* list$1int$_insert(struct list$1int$* self, int positio
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1int$_insert; neo_current_frame = &fr;    struct list$1int$* __result_obj__0;
+fr.fun_name = "list$1int$_insert"; neo_current_frame = &fr;    struct list$1int$* __result_obj__0;
     int len;
     int i;
     int default_value;
@@ -4271,7 +4271,7 @@ static struct list$1int$* list$1int$_push_back(struct list$1int$* self, int item
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1int$_push_back; neo_current_frame = &fr;    struct list$1int$* __result_obj__0;
+fr.fun_name = "list$1int$_push_back"; neo_current_frame = &fr;    struct list$1int$* __result_obj__0;
     void* __right_value0 = (void*)0;
     struct list_item$1int$* litem;
     struct list_item$1int$* litem_21;
@@ -4313,7 +4313,7 @@ void ViWin_deleteWord(struct ViWin* self  , struct Vi* nvi  )
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = ViWin_deleteWord; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+fr.fun_name = "ViWin_deleteWord"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     int* line  ;
     int count;
@@ -4444,7 +4444,7 @@ void ViWin_deleteForNextCharacter(struct ViWin* self  )
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = ViWin_deleteForNextCharacter; neo_current_frame = &fr;    int key;
+fr.fun_name = "ViWin_deleteForNextCharacter"; neo_current_frame = &fr;    int key;
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     int* line  ;
@@ -4513,7 +4513,7 @@ void ViWin_deleteForNextCharacter2(struct ViWin* self  )
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = ViWin_deleteForNextCharacter2; neo_current_frame = &fr;    int key;
+fr.fun_name = "ViWin_deleteForNextCharacter2"; neo_current_frame = &fr;    int key;
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     int* line  ;
@@ -4582,7 +4582,7 @@ void ViWin_deleteCursorCharactor(struct ViWin* self  )
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = ViWin_deleteCursorCharactor; neo_current_frame = &fr;    int num;
+fr.fun_name = "ViWin_deleteCursorCharactor"; neo_current_frame = &fr;    int num;
     void* __right_value0 = (void*)0;
     int* line  ;
     int i;
@@ -4636,7 +4636,7 @@ static int list$1int$_item(struct list$1int$* self, int position, int default_va
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1int$_item; neo_current_frame = &fr;    struct list_item$1int$* it;
+fr.fun_name = "list$1int$_item"; neo_current_frame = &fr;    struct list_item$1int$* it;
     int i;
     if(self==((void*)0)) {
            neo_current_frame = fr.prev;
@@ -4663,7 +4663,7 @@ static struct list$1int$* list$1int$_replace(struct list$1int$* self, int positi
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1int$_replace; neo_current_frame = &fr;    struct list$1int$* __result_obj__0;
+fr.fun_name = "list$1int$_replace"; neo_current_frame = &fr;    struct list$1int$* __result_obj__0;
     int len;
     int i;
     int default_value;
@@ -4707,7 +4707,7 @@ static struct list$1int$ph* list$1int$ph_replace(struct list$1int$ph* self, int 
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1int$ph_replace; neo_current_frame = &fr;    struct list$1int$ph* __result_obj__0;
+fr.fun_name = "list$1int$ph_replace"; neo_current_frame = &fr;    struct list$1int$ph* __result_obj__0;
     int len;
     int i;
     int* default_value  ;
@@ -4758,7 +4758,7 @@ void ViWin_deleteBack(struct ViWin* self  )
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = ViWin_deleteBack; neo_current_frame = &fr;    int num;
+fr.fun_name = "ViWin_deleteBack"; neo_current_frame = &fr;    int num;
     void* __right_value0 = (void*)0;
     int* line  ;
     int i;
@@ -4794,7 +4794,7 @@ void ViWin_getCursorNumber(struct ViWin* self  , int* head, int* tail)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = ViWin_getCursorNumber; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+fr.fun_name = "ViWin_getCursorNumber"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
     int* line  ;
     int c  ;
     int c_43  ;
@@ -4843,7 +4843,7 @@ void ViWin_incrementNumber(struct ViWin* self  )
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = ViWin_incrementNumber; neo_current_frame = &fr;    int num;
+fr.fun_name = "ViWin_incrementNumber"; neo_current_frame = &fr;    int num;
     void* __right_value0 = (void*)0;
     int* line  ;
     int head;
@@ -4913,7 +4913,7 @@ void ViWin_replaceCursorCharactor(struct ViWin* self  )
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = ViWin_replaceCursorCharactor; neo_current_frame = &fr;    int key;
+fr.fun_name = "ViWin_replaceCursorCharactor"; neo_current_frame = &fr;    int key;
     void* __right_value0 = (void*)0;
     int* line  ;
     ViWin_pushUndo_v5(self);
@@ -4927,7 +4927,7 @@ void ViWin_deleteUntilTail(struct ViWin* self  )
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = ViWin_deleteUntilTail; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+fr.fun_name = "ViWin_deleteUntilTail"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
     int* line  ;
     int num;
     int i;
@@ -4965,7 +4965,7 @@ void ViWin_joinLines(struct ViWin* self  )
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = ViWin_joinLines; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+fr.fun_name = "ViWin_joinLines"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
     int* line  ;
     int* next_line  ;
     void* __right_value1 = (void*)0;
@@ -4992,7 +4992,7 @@ static int list$1int$ph_length(struct list$1int$ph* self)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1int$ph_length; neo_current_frame = &fr;    if(self==((void*)0)) {
+fr.fun_name = "list$1int$ph_length"; neo_current_frame = &fr;    if(self==((void*)0)) {
            neo_current_frame = fr.prev;
         return 0;
     }
@@ -5004,7 +5004,7 @@ void ViWin_yankOneLine(struct ViWin* self  , struct Vi* nvi  )
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = ViWin_yankOneLine; neo_current_frame = &fr;    int i;
+fr.fun_name = "ViWin_yankOneLine"; neo_current_frame = &fr;    int i;
     void* __right_value0 = (void*)0;
     int* line  ;
     int* line_53  ;
@@ -5039,7 +5039,7 @@ void ViWin_joinLines2_v10(struct ViWin* self  )
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = ViWin_joinLines2_v10; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+fr.fun_name = "ViWin_joinLines2_v10"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
     int* line  ;
     void* __right_value1 = (void*)0;
     int* next_line  ;
@@ -5065,7 +5065,7 @@ void ViWin_forwardToNextCharacter1(struct ViWin* self  , int key)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = ViWin_forwardToNextCharacter1; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+fr.fun_name = "ViWin_forwardToNextCharacter1"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
     int* line  ;
     int i;
     void* __right_value1 = (void*)0;
@@ -5106,7 +5106,7 @@ void ViWin_forwardToNextCharacter2(struct ViWin* self  , int key)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = ViWin_forwardToNextCharacter2; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+fr.fun_name = "ViWin_forwardToNextCharacter2"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
     int* line  ;
     int i;
     void* __right_value1 = (void*)0;
@@ -5147,7 +5147,7 @@ void ViWin_repeatForwardNextCharacter(struct ViWin* self  )
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = ViWin_repeatForwardNextCharacter; neo_current_frame = &fr;    switch (    self->mRepeatFowardNextCharacterKind) {
+fr.fun_name = "ViWin_repeatForwardNextCharacter"; neo_current_frame = &fr;    switch (    self->mRepeatFowardNextCharacterKind) {
         case (1):
         ViWin_forwardToNextCharacter1(self,self->mRepeatFowardNextCharacter);
         break;
@@ -5162,7 +5162,7 @@ void ViWin_backwardToNextCharacter1(struct ViWin* self  )
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = ViWin_backwardToNextCharacter1; neo_current_frame = &fr;    int key;
+fr.fun_name = "ViWin_backwardToNextCharacter1"; neo_current_frame = &fr;    int key;
     void* __right_value0 = (void*)0;
     int* line  ;
     int i;
@@ -5203,7 +5203,7 @@ void ViWin_backwardToNextCharacter2(struct ViWin* self  )
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = ViWin_backwardToNextCharacter2; neo_current_frame = &fr;    int key;
+fr.fun_name = "ViWin_backwardToNextCharacter2"; neo_current_frame = &fr;    int key;
     void* __right_value0 = (void*)0;
     int* line  ;
     int i;
@@ -5244,7 +5244,7 @@ void ViWin_changeCase(struct ViWin* self  )
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = ViWin_changeCase; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+fr.fun_name = "ViWin_changeCase"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
     int* line  ;
     int i;
     int c  ;
@@ -5294,7 +5294,7 @@ void ViWin_moveToHead(struct ViWin* self  )
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = ViWin_moveToHead; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+fr.fun_name = "ViWin_moveToHead"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
     int* line  ;
     int i;
     memset(&i, 0, sizeof(i));
@@ -5312,7 +5312,8 @@ static void lambda1(struct Vi* self  , int key)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = lambda1; neo_current_frame = &fr;    int key2;
+fr.fun_name = "lambda1"; neo_current_frame = &fr;
+    int key2;
     key2=ViWin_getKey_v14(self->activeWin,1);
     switch (    key2) {
         case 100:
@@ -5344,7 +5345,8 @@ static void lambda2(struct Vi* self  , int key)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = lambda2; neo_current_frame = &fr;    int key2;
+fr.fun_name = "lambda2"; neo_current_frame = &fr;
+    int key2;
     key2=ViWin_getKey_v14(self->activeWin,1);
     switch (    key2) {
         case 36:
@@ -5386,7 +5388,8 @@ static void lambda3(struct Vi* self  , int key)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = lambda3; neo_current_frame = &fr;    int key2;
+fr.fun_name = "lambda3"; neo_current_frame = &fr;
+    int key2;
     key2=ViWin_getKey_v14(self->activeWin,1);
     switch (    key2) {
         case 121:
@@ -5399,14 +5402,16 @@ static void lambda4(struct Vi* self  , int key)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = lambda4; neo_current_frame = &fr;    ViWin_yankOneLine(self->activeWin,self);
+fr.fun_name = "lambda4"; neo_current_frame = &fr;
+    ViWin_yankOneLine(self->activeWin,self);
 neo_current_frame = fr.prev;}
 
 static void lambda5(struct Vi* self  , int key)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = lambda5; neo_current_frame = &fr;    ViWin_deleteUntilTail(self->activeWin);
+fr.fun_name = "lambda5"; neo_current_frame = &fr;
+    ViWin_deleteUntilTail(self->activeWin);
     self->activeWin->writed=1;
     ViWin_saveInputedKey_v14(self->activeWin);
 neo_current_frame = fr.prev;}
@@ -5415,7 +5420,8 @@ static void lambda6(struct Vi* self  , int key)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = lambda6; neo_current_frame = &fr;    ViWin_deleteUntilTail(self->activeWin);
+fr.fun_name = "lambda6"; neo_current_frame = &fr;
+    ViWin_deleteUntilTail(self->activeWin);
     Vi_enterInsertMode_v5(self);
     if(list$1int$ph_length(self->activeWin->texts)!=0) {
         self->activeWin->cursorX++;
@@ -5427,7 +5433,8 @@ static void lambda7(struct Vi* self  , int key)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = lambda7; neo_current_frame = &fr;    ViWin_deleteCursorCharactor(self->activeWin);
+fr.fun_name = "lambda7"; neo_current_frame = &fr;
+    ViWin_deleteCursorCharactor(self->activeWin);
     self->activeWin->writed=1;
     ViWin_saveInputedKey_v14(self->activeWin);
 neo_current_frame = fr.prev;}
@@ -5436,7 +5443,8 @@ static void lambda8(struct Vi* self  , int key)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = lambda8; neo_current_frame = &fr;    ViWin_deleteBack(self->activeWin);
+fr.fun_name = "lambda8"; neo_current_frame = &fr;
+    ViWin_deleteBack(self->activeWin);
     self->activeWin->writed=1;
     ViWin_saveInputedKey_v14(self->activeWin);
 neo_current_frame = fr.prev;}
@@ -5445,7 +5453,8 @@ static void lambda9(struct Vi* self  , int key)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = lambda9; neo_current_frame = &fr;    ViWin_replaceCursorCharactor(self->activeWin);
+fr.fun_name = "lambda9"; neo_current_frame = &fr;
+    ViWin_replaceCursorCharactor(self->activeWin);
     self->activeWin->writed=1;
     ViWin_saveInputedKey_v14(self->activeWin);
 neo_current_frame = fr.prev;}
@@ -5454,7 +5463,8 @@ static void lambda10(struct Vi* self  , int key)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = lambda10; neo_current_frame = &fr;    ViWin_replaceCursorCharactor(self->activeWin);
+fr.fun_name = "lambda10"; neo_current_frame = &fr;
+    ViWin_replaceCursorCharactor(self->activeWin);
     self->activeWin->writed=1;
     Vi_enterInsertMode_v5(self);
 neo_current_frame = fr.prev;}
@@ -5463,7 +5473,8 @@ static void lambda11(struct Vi* self  , int key)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = lambda11; neo_current_frame = &fr;    ViWin_moveToHead(self->activeWin);
+fr.fun_name = "lambda11"; neo_current_frame = &fr;
+    ViWin_moveToHead(self->activeWin);
     ViWin_deleteUntilTail(self->activeWin);
     self->activeWin->writed=1;
     Vi_enterInsertMode_v5(self);
@@ -5476,7 +5487,8 @@ static void lambda12(struct Vi* self  , int key)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = lambda12; neo_current_frame = &fr;    ViWin_joinLines(self->activeWin);
+fr.fun_name = "lambda12"; neo_current_frame = &fr;
+    ViWin_joinLines(self->activeWin);
     self->activeWin->writed=1;
     ViWin_saveInputedKey_v14(self->activeWin);
 neo_current_frame = fr.prev;}
@@ -5485,7 +5497,8 @@ static void lambda13(struct Vi* self  , int key)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = lambda13; neo_current_frame = &fr;    ViWin_changeCase(self->activeWin);
+fr.fun_name = "lambda13"; neo_current_frame = &fr;
+    ViWin_changeCase(self->activeWin);
     ViWin_saveInputedKey_v14(self->activeWin);
 neo_current_frame = fr.prev;}
 
@@ -5493,7 +5506,8 @@ static void lambda14(struct Vi* self  , int key)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = lambda14; neo_current_frame = &fr;    int key2;
+fr.fun_name = "lambda14"; neo_current_frame = &fr;
+    int key2;
     key2=ViWin_getKey_v14(self->activeWin,0);
     ViWin_forwardToNextCharacter1(self->activeWin,key2);
     ViWin_saveInputedKeyOnTheMovingCursor_v14(self->activeWin);
@@ -5503,7 +5517,8 @@ static void lambda15(struct Vi* self  , int key)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = lambda15; neo_current_frame = &fr;    int key2;
+fr.fun_name = "lambda15"; neo_current_frame = &fr;
+    int key2;
     key2=ViWin_getKey_v14(self->activeWin,0);
     ViWin_forwardToNextCharacter2(self->activeWin,key2);
     ViWin_saveInputedKeyOnTheMovingCursor_v14(self->activeWin);
@@ -5513,7 +5528,8 @@ static void lambda16(struct Vi* self  , int key)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = lambda16; neo_current_frame = &fr;    ViWin_repeatForwardNextCharacter(self->activeWin);
+fr.fun_name = "lambda16"; neo_current_frame = &fr;
+    ViWin_repeatForwardNextCharacter(self->activeWin);
     ViWin_saveInputedKeyOnTheMovingCursor_v14(self->activeWin);
 neo_current_frame = fr.prev;}
 
@@ -5521,7 +5537,8 @@ static void lambda17(struct Vi* self  , int key)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = lambda17; neo_current_frame = &fr;    ViWin_backwardToNextCharacter1(self->activeWin);
+fr.fun_name = "lambda17"; neo_current_frame = &fr;
+    ViWin_backwardToNextCharacter1(self->activeWin);
     ViWin_saveInputedKeyOnTheMovingCursor_v14(self->activeWin);
 neo_current_frame = fr.prev;}
 
@@ -5529,7 +5546,8 @@ static void lambda18(struct Vi* self  , int key)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = lambda18; neo_current_frame = &fr;    ViWin_backwardToNextCharacter2(self->activeWin);
+fr.fun_name = "lambda18"; neo_current_frame = &fr;
+    ViWin_backwardToNextCharacter2(self->activeWin);
     ViWin_saveInputedKeyOnTheMovingCursor_v14(self->activeWin);
 neo_current_frame = fr.prev;}
 
@@ -5537,7 +5555,8 @@ static void lambda19(struct Vi* self  , int key)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = lambda19; neo_current_frame = &fr;    ViWin_moveToHead(self->activeWin);
+fr.fun_name = "lambda19"; neo_current_frame = &fr;
+    ViWin_moveToHead(self->activeWin);
     ViWin_saveInputedKeyOnTheMovingCursor_v14(self->activeWin);
 neo_current_frame = fr.prev;}
 
@@ -5545,7 +5564,8 @@ static void lambda20(struct Vi* self  , int key)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = lambda20; neo_current_frame = &fr;    ViWin_moveToHead(self->activeWin);
+fr.fun_name = "lambda20"; neo_current_frame = &fr;
+    ViWin_moveToHead(self->activeWin);
     ViWin_saveInputedKeyOnTheMovingCursor_v14(self->activeWin);
 neo_current_frame = fr.prev;}
 
@@ -5553,7 +5573,8 @@ static void lambda21(struct Vi* self  , int key)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = lambda21; neo_current_frame = &fr;    self->activeWin->cursorX=0;
+fr.fun_name = "lambda21"; neo_current_frame = &fr;
+    self->activeWin->cursorX=0;
     self->activeWin->cursorY=0;
     ViWin_saveInputedKeyOnTheMovingCursor_v14(self->activeWin);
 neo_current_frame = fr.prev;}
@@ -5562,7 +5583,8 @@ static void lambda22(struct Vi* self  , int key)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = lambda22; neo_current_frame = &fr;    self->activeWin->cursorY=self->activeWin->height-2;
+fr.fun_name = "lambda22"; neo_current_frame = &fr;
+    self->activeWin->cursorY=self->activeWin->height-2;
     ViWin_modifyOverCursorYValue(self->activeWin);
     ViWin_moveToHead(self->activeWin);
     ViWin_saveInputedKeyOnTheMovingCursor_v14(self->activeWin);
@@ -5572,7 +5594,8 @@ static void lambda23(struct Vi* self  , int key)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = lambda23; neo_current_frame = &fr;    self->activeWin->cursorY++;
+fr.fun_name = "lambda23"; neo_current_frame = &fr;
+    self->activeWin->cursorY++;
     ViWin_modifyOverCursorYValue(self->activeWin);
     ViWin_moveToHead(self->activeWin);
     ViWin_saveInputedKeyOnTheMovingCursor_v14(self->activeWin);
@@ -5582,7 +5605,8 @@ static void lambda24(struct Vi* self  , int key)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = lambda24; neo_current_frame = &fr;    self->activeWin->scroll--;
+fr.fun_name = "lambda24"; neo_current_frame = &fr;
+    self->activeWin->scroll--;
     if(self->activeWin->scroll<0) {
         self->activeWin->scroll=0;
     }
@@ -5593,7 +5617,8 @@ static void lambda25(struct Vi* self  , int key)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = lambda25; neo_current_frame = &fr;    if(self->activeWin->digitInput>0) {
+fr.fun_name = "lambda25"; neo_current_frame = &fr;
+    if(self->activeWin->digitInput>0) {
         self->activeWin->cursorY+=self->activeWin->digitInput;
         ViWin_modifyOverCursorYValue(self->activeWin);
         self->activeWin->digitInput=0;
@@ -5609,7 +5634,7 @@ struct Vi* Vi_initialize_v10(struct Vi* self  )
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = Vi_initialize_v10; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+fr.fun_name = "Vi_initialize_v10"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
     struct Vi* result  ;
     struct Vi* __result_obj__0  ;
     result=(struct Vi*)come_increment_ref_count(Vi_initialize_v9((struct Vi*)come_increment_ref_count(self)));
@@ -5649,7 +5674,7 @@ static struct list$1lambda$* list$1lambda$_replace(struct list$1lambda$* self, i
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1lambda$_replace; neo_current_frame = &fr;    struct list$1lambda$* __result_obj__0;
+fr.fun_name = "list$1lambda$_replace"; neo_current_frame = &fr;    struct list$1lambda$* __result_obj__0;
     int len;
     int i;
     void (*default_value)(struct Vi*,int);
@@ -5693,7 +5718,7 @@ static struct list$1lambda$* list$1lambda$_push_back(struct list$1lambda$* self,
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1lambda$_push_back; neo_current_frame = &fr;    struct list$1lambda$* __result_obj__0;
+fr.fun_name = "list$1lambda$_push_back"; neo_current_frame = &fr;    struct list$1lambda$* __result_obj__0;
     void* __right_value0 = (void*)0;
     struct list_item$1lambda$* litem;
     struct list_item$1lambda$* litem_62;
@@ -5735,7 +5760,7 @@ static void Vi_finalize(struct Vi* self  )
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = Vi_finalize; neo_current_frame = &fr;    if(self!=((void*)0)&&self->wins!=((void*)0)) {
+fr.fun_name = "Vi_finalize"; neo_current_frame = &fr;    if(self!=((void*)0)&&self->wins!=((void*)0)) {
         come_call_finalizer(list$1ViWin$ph$p_finalize, self->wins, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     if(self!=((void*)0)&&self->events!=((void*)0)) {
@@ -5753,7 +5778,7 @@ static void list$1ViWin$ph$p_finalize(struct list$1ViWin$ph* self)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1ViWin$ph$p_finalize; neo_current_frame = &fr;    struct list_item$1ViWin$ph* it;
+fr.fun_name = "list$1ViWin$ph$p_finalize"; neo_current_frame = &fr;    struct list_item$1ViWin$ph* it;
     struct list_item$1ViWin$ph* prev_it;
     if(self==((void*)0)) {
         neo_current_frame = fr.prev;
@@ -5771,7 +5796,7 @@ static void list_item$1ViWin$ph$p_finalize(struct list_item$1ViWin$ph* self)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list_item$1ViWin$ph$p_finalize; neo_current_frame = &fr;    if(self!=((void*)0)&&self->item!=((void*)0)) {
+fr.fun_name = "list_item$1ViWin$ph$p_finalize"; neo_current_frame = &fr;    if(self!=((void*)0)&&self->item!=((void*)0)) {
         come_call_finalizer(ViWin_finalize, self->item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
         neo_current_frame = fr.prev;}
@@ -5780,7 +5805,7 @@ static void list$1lambda$$p_finalize(struct list$1lambda$* self)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list$1lambda$$p_finalize; neo_current_frame = &fr;    struct list_item$1lambda$* it;
+fr.fun_name = "list$1lambda$$p_finalize"; neo_current_frame = &fr;    struct list_item$1lambda$* it;
     struct list_item$1lambda$* prev_it;
     if(self==((void*)0)) {
         neo_current_frame = fr.prev;
@@ -5798,5 +5823,5 @@ static void list_item$1lambda$$p_finalize(struct list_item$1lambda$* self)
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
-fr.fun_name = list_item$1lambda$$p_finalize; neo_current_frame = &fr;        neo_current_frame = fr.prev;}
+fr.fun_name = "list_item$1lambda$$p_finalize"; neo_current_frame = &fr;        neo_current_frame = fr.prev;}
 

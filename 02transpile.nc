@@ -1,11 +1,11 @@
 #include "common.h"
 
 bool gComeC = true;
+bool gComeUniq = false;
 bool gComeNet = false;
 bool gComePthread = false;
 bool gComeDebug = false;
-bool gComeOriginalSourcePosition = true;
-int gComeDebugStackFrameID = 0;
+bool gComeOriginalSourcePosition = false;
 bool gComeBareMetal = false;
 
 char* CC="clang";
@@ -276,7 +276,7 @@ static void init_classes(sInfo* info)
     }
 }
 
-module MEvalOptions<T, T2>
+module MEvalOptions<T>
 {
     var files = new list<string>();
     for(int i=T; i<argc; i++) {
@@ -284,6 +284,9 @@ module MEvalOptions<T, T2>
         
         if(argv[i] === "-cg") {
             gComeDebug = true;
+        }
+        else if(argv[i] === "-uniq") {
+            gComeUniq = true; // output uniq function to the source
         }
         else if(ext_name === "nc") {
             files.push_back(string(argv[i]));
@@ -298,8 +301,7 @@ module MEvalOptions<T, T2>
 int come_main(int argc, char** argv)
 {
     int start_num = 1;
-    string output_file_name_str = null;
-    include MEvalOptions<start_num, output_file_name_str>;
+    include MEvalOptions<start_num>;
     
     init_ccpp(argc, argv);
     
@@ -346,7 +348,7 @@ int come_main(int argc, char** argv)
         init_classes(&info);
         
         cpp(&info).elif {
-            printf("transpile failed\n");
+            printf("cpp failed\n");
             exit(2);
         }
 
@@ -360,7 +362,7 @@ int come_main(int argc, char** argv)
         transpile(&info);
         
         if(info.err_num > 0) {
-            printf("transpile error num %d\n", info->err_num);
+            printf("transpile error number %d\n", info->err_num);
             
             exit(2);
         }
@@ -371,7 +373,7 @@ int come_main(int argc, char** argv)
         }
         
         if(info.err_num2 > 0) {
-            printf("transpile warning  num %d\n", info->err_num2);
+            printf("transpile warning number %d\n", info->err_num2);
         }
     }
     

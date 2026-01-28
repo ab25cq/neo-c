@@ -1420,6 +1420,10 @@ bool output_source_file(sInfo* info)
         }
     }
     
+    if(gComeUniq) {
+        main_module = true;
+    }
+    
     if(main_module) {   // uniq function is compiled the last
         foreach(it, info.uniq_funcs) {
             sFun* it2 = borrow info.uniq_funcs[string(it)];

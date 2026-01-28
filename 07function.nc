@@ -52,7 +52,7 @@ class sLambdaNode extends sNodeBase
         info->max_conditional = 0;
         
         if(!gComeC) {
-            add_come_code_at_function_head(info, s"struct neo_frame fr;\nfr.prev = neo_current_frame;\nfr.fun_name = \{info.come_fun.mName}; neo_current_frame = &fr;"); 
+            add_come_code_at_function_head(info, s"struct neo_frame fr;\nfr.prev = neo_current_frame;\nfr.fun_name = \"\{info.come_fun.mName}\"; neo_current_frame = &fr;\n"); 
         }
         
         if(self.mFun.mBlock) {
@@ -147,7 +147,7 @@ class sFunNode extends sNodeBase
             }
             
             if(!gComeC) {
-                add_come_code_at_function_head(info, s"struct neo_frame fr;\nfr.prev = neo_current_frame;\nfr.fun_name = \{info.come_fun.mName}; neo_current_frame = &fr;"); 
+                add_come_code_at_function_head(info, s"struct neo_frame fr;\nfr.prev = neo_current_frame;\nfr.fun_name = \"\{info.come_fun.mName}\"; neo_current_frame = &fr;"); 
             }
             
             int block_level = info->block_level;
@@ -557,6 +557,7 @@ int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* par
             info.module.mLastCode2 = null;
             
             int stack_num_before = info->stack.length();
+            info.writing_source_file_position = true;
             
             int sline = info.sline;
             string sname = string(info.sname);
@@ -575,6 +576,7 @@ int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* par
             info.sline = sline;
             info.sname = string(sname);
     
+            /// return if result value
             if(omit_semicolon && if_result_value && i == block.mNodes.length()-1) {
                 //add_last_code_to_source(info);
                 

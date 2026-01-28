@@ -8,12 +8,11 @@
 #define METHOD_GENERICS_TYPE_MAX 7
 
 extern bool gComeDebug;
+extern bool gComeUniq;
 extern bool gComeC;
 extern bool gComePthread;
 extern bool gComeNet;
 extern bool gComeMalloc;
-extern bool gCommonHeader;
-extern int gComeDebugStackFrameID;
 extern bool gComeBareMetal;
 
 struct sType;

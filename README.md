@@ -72,9 +72,9 @@ sh clean-self-host.shとすると自動的に必要なパッケージがイン�
 
 LinuxとMacOS(Darwin), raspberry pi, ベアメタルをサポートしています。
 
-sudoとgitとwhichは事前にインストールしてください。
+sudoとgitは事前にインストールしてください。
 
-Please install sudo , git and which before the build.
+Please install sudo and git before the build.
 
 ```
 git clone https://github.com/ab25cq/neo-c
@@ -173,9 +173,9 @@ int main(int argc, char** argv)
 
 # Language specifications
 
-The syntax is almost the same as C language. It may not be POSIX compliant. If you do not #include <neo-c.h>, you can use it as a normal C compiler.
+The syntax is almost the same as C language. If you do not #include <neo-c.h>, you can use it as a normal C compiler.The generated C source depends only on the standard C library, so it should work on any system that can run C.
 
-文法はC言語とほとんど一緒です。POSIXに準拠しているとは言えないかもしれません。#include <neo-c.h>をしないと普通のCコンパイラとして使えます。
+文法はC言語とほとんど一緒です。#include <neo-c.h>をしないと普通のCコンパイラとして使えます。出力するCソースは標準Cライブラリにしか依存していないため、Cが動く環境でしたら、動くはずです。
 
 # HELLO WORLD
 
@@ -195,9 +195,9 @@ HELLO WORLD
 
 # grammar
 
-It is not POSIX compliant, but is compatible with the C language. I think most C header files can be included as is.
+It is compatible with the C language. I think most C header files can be included as is.
 
-POSIXには準拠していませんが、C言語と互換性があります。大抵のCヘッダーファイルはそのままincludeできると思います。
+C言語と互換性があります。大抵のCヘッダーファイルはそのままincludeできると思います。
 
 # Libraries
 
@@ -1795,6 +1795,17 @@ int main(int argc, char* argv)
 
 # System call errro handling like perl
 
+```C
+#include <neo-c.h>
+
+int main(int argc, char** argv)
+{
+    FILE* f = fopen("NOTHING", "r") or die("file not found");
+    
+    return 0;
+}
+```
+    
 and or or is like perl
 
 # method block
@@ -1823,22 +1834,9 @@ int main(int argc, char** argv)
 }
 ```
 
-```
-#include <neo-c.h>
-
-int main(int argc, char** argv)
-{
-    3.times {
-        printf("%d\n", it);
-    }
-    
-    return 0;
-}
-```
-
 # String libraries
 
-SEE neo-c.h
+SEE neo-c.h. The regex engine is implemented using the standard C libraries.
 
 sample
 
@@ -1941,7 +1939,7 @@ fun2
 main
 ```
 
-trace stackframe always enabled frome version 0.8.7.0
+stackframe always enabled from version 0.8.7.0
 
 # Template
 
@@ -2230,9 +2228,11 @@ void fun2()
 uniq function and global variable added to main module.
 In other module, not defined contents.
 
+transpile with -uniq option force to write function and global variable body to the source.
+
 # Output of standard c targeted C Source
 
-Don't include neo-c-net.h and neo-c-pthread.h. Inlucde neo-c.h only. It depends standard c library only. If you get c source depends standard c library only, use to "neo-c -s" or "neo-c -S"
+Don't include neo-c-net.h and neo-c-pthread.h. Inlucde neo-c.h only. It depends the standard c library only. 
 
 # Extra libraries
 
@@ -2243,6 +2243,8 @@ Please use the C language extension library. The strength of neo-c is that the C
 # Net libraries
 
 See neo-c-net.h
+
+It's very slow the transpile.
 
 # Omit return statment
 
@@ -2348,7 +2350,45 @@ int main(int argc, char** argv)
 }
 ```
 
-Pattern matching can't have any block result value.
+Pattern matching can have the result when the last line without semicolon
+
+```
+#include <neo-c.h>
+
+int main(int argc, char** argv)
+{
+    char buf[16];
+    
+    FILE* f = fopen("NOTHING", "r").elif {
+        fopen("01main.c", "r")
+    }
+    
+    int n = fread(buf, 1, 16, f);
+    
+    buf[n] = '\0';
+    
+    puts(buf);
+    
+    f.fclose();
+    
+    return 0;
+}
+```
+
+if statment is also can have the result when the last line without semicolon
+
+```
+#include <neo-c.h>
+
+int main(int argc, char** argv)
+{
+    int n = if(1) { 777 };
+    
+    puts(s"\{n}");
+    
+    return 0;
+}
+```
 
 # Reflection
 
