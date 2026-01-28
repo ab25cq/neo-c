@@ -294,6 +294,9 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
         }
         if(left_type2->mClass->mName === "void") {
         }
+        else if(left_type2->mClass->mName === right_type2->mClass->mName && left_type2->mHeap && !right_type2->mHeap ) {
+            err_msg(info , "type check warning(4).%s. %s %d <- %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type2->mClass->mName, right_type2->mPointerNum);
+        }
         else if(left_type2->mClass->mName === "lambda") {
         }
         else if(left_no_solved_generics_type && right_no_solved_generics_type && (left_no_solved_generics_type.mGenericsTypes.length() > 0 || right_no_solved_generics_type->mGenericsTypes.length() > 0))
@@ -305,9 +308,6 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
         {
         }
         else if(right_type->mClass->mName === "void") {
-        }
-        else if(left_type2->mClass->mName === right_type2->mClass->mName && left_type2->mHeap && !right_type2->mHeap ) {
-            err_msg2(info , "type check warning(4).%s. %s %d <- %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type2->mClass->mName, right_type2->mPointerNum);
         }
         else if(parent_class) {
         }

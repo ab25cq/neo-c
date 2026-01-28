@@ -4749,6 +4749,9 @@ fr.fun_name = "check_assign_type"; neo_current_frame = &fr;    void* __right_val
         }
         if(string_operator_equals(left_type2->mClass->mName,"void")) {
         }
+        else if(string_operator_equals(left_type2->mClass->mName,right_type2->mClass->mName)&&left_type2->mHeap&&!right_type2->mHeap) {
+            err_msg(info,"type check warning(4).%s. %s %d <- %s %d",msg,left_type2->mClass->mName,left_type2->mPointerNum,right_type2->mClass->mName,right_type2->mPointerNum);
+        }
         else if(string_operator_equals(left_type2->mClass->mName,"lambda")) {
         }
         else if(left_no_solved_generics_type&&right_no_solved_generics_type&&(list$1sType$ph_length(left_no_solved_generics_type->mGenericsTypes)>0||list$1sType$ph_length(right_no_solved_generics_type->mGenericsTypes)>0)) {
@@ -4756,9 +4759,6 @@ fr.fun_name = "check_assign_type"; neo_current_frame = &fr;    void* __right_val
         else if(strlen(left_type2->mClass->mName)>=strlen("tuple")&&memcmp(left_type2->mClass->mName,"tuple",strlen("tuple"))==0&&(strlen(right_type->mClass->mName)>=strlen("tuple"))) {
         }
         else if(string_operator_equals(right_type->mClass->mName,"void")) {
-        }
-        else if(string_operator_equals(left_type2->mClass->mName,right_type2->mClass->mName)&&left_type2->mHeap&&!right_type2->mHeap) {
-            err_msg2(info,"type check warning(4).%s. %s %d <- %s %d",msg,left_type2->mClass->mName,left_type2->mPointerNum,right_type2->mClass->mName,right_type2->mPointerNum);
         }
         else if(parent_class) {
         }

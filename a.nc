@@ -1,20 +1,17 @@
 #include <neo-c.h>
 
+int fun(int*% aaa)
+{
+    return 0;
+}
+
 int main(int argc, char** argv)
 {
-    char buf[16];
+    int a = 111;
+    int* b = &a;
     
-    FILE* f = fopen("NOTHING", "r").elif {
-        fopen("01main.c", "r")
-    }
+    fun(b);
     
-    int n = fread(buf, 1, 16, f);
-    
-    buf[n] = '\0';
-    
-    puts(buf);
-    
-    f.fclose();
     
     return 0;
 }
