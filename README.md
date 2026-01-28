@@ -1022,7 +1022,7 @@ int, boolはtuple2<int, bool>*%と同じ意味です。複数の値を返すた�
     tu.v3 === "ABC"; // true
 ```
 
-`tup: int, string`は`tuple2<int,string>*%`と同じです。`list<tuple2<int,string>*%>*%`の代わりに`list<int, string>*%`は使えませんが、list<tup:int,string>*%は使えます。
+`tup: int, string`は`tuple2<int,string>*%`と同じです。`list<tuple2<int,string>*%>*%`の代わりに`list<int, string>*%`は使えませんが、`list<tup:int,string>*%`は使えます。
 
 `tup: int, string` is the same as `tuple2<int,string>*%`. You cannot use `list<int, string>*%` instead of `list<tuple2<int,string>*%>*%`, ​​but you can use `list<tup:int,string>*%`.
 
