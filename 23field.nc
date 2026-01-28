@@ -1,6 +1,6 @@
 #include "common.h"
 
-bool operator_overload_fun2(sType* type, char* fun_name, sNode*% left_node, sNode*% middle_node, sNode*% right_node, CVALUE* left_value, CVALUE* middle_value, CVALUE* right_value, sInfo* info)
+bool operator_overload_fun2(sType* type, const char* fun_name, sNode*% left_node, sNode*% middle_node, sNode*% right_node, CVALUE* left_value, CVALUE* middle_value, CVALUE* right_value, sInfo* info)
 {
     sType*% generics_type;
     
@@ -527,7 +527,7 @@ class sStoreArrayNode extends sNodeBase
             array_num.push_back(c_value);
         }
         
-        char* fun_name = "operator_store_element";
+        const char* fun_name = "operator_store_element";
         var fun_name2, operator_fun, generics_fun = get_method(fun_name, left_type, info);
         
         node_compile(right).elif {
@@ -659,7 +659,7 @@ class sLoadArrayNode extends sNodeBase
         
         sType*% type = clone left_value.type;
         
-        char* fun_name = "operator_load_element";
+        const char* fun_name = "operator_load_element";
         bool calling_fun;
         if(self.mQuote) {
             calling_fun = false;
@@ -784,7 +784,7 @@ class sLoadRangeArrayNode extends sNodeBase
         
         sType*% type = clone left_value.type;
         
-        char* fun_name = "operator_load_range_element";
+        const char* fun_name = "operator_load_range_element";
         bool calling_fun;
         if(self.mQuote) {
             calling_fun = false;

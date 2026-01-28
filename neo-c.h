@@ -103,10 +103,10 @@ uniq buffer*% buffer*::initialize(buffer*% self);
 uniq void buffer*::finalize(buffer* self);
 uniq buffer*% buffer*::clone(buffer* self);
 uniq bool buffer*::equals(buffer* left, buffer* right);
-uniq buffer* buffer*::append_str(buffer* self, char* mem);
-uniq buffer* buffer*::append(buffer* self, char* mem, size_t size);
-uniq string xsprintf(char* msg, ...);
-uniq string char*::to_string(char* self);
+uniq buffer* buffer*::append_str(buffer* self, const char* mem);
+uniq buffer* buffer*::append(buffer* self, const char* mem, size_t size);
+uniq string xsprintf(const char* msg, ...);
+uniq string char*::to_string(const char* self);
 uniq string int::to_string(int self);
 uniq unsigned int bool::get_hash_key(bool value);
 uniq unsigned int _Bool::get_hash_key(bool value);
@@ -117,14 +117,14 @@ uniq unsigned int long::get_hash_key(long value);
 uniq unsigned int size_t::get_hash_key(size_t value);
 uniq unsigned int float::get_hash_key(float value);
 uniq unsigned int double::get_hash_key(double value);
-uniq unsigned int char*::get_hash_key(char* value);
+uniq unsigned int char*::get_hash_key(const char* value);
 uniq unsigned int string::get_hash_key(char* value);
 uniq unsigned int void*::get_hash_key(void* value);
-uniq string char*::substring(char* str, int head, int tail);
-uniq buffer* buffer*::append_format(buffer* self, char* msg, ...);
-uniq string __builtin_string(char* str);
+uniq string char*::substring(const char* str, int head, int tail);
+uniq buffer* buffer*::append_format(buffer* self, const char* msg, ...);
+uniq string __builtin_string(const char* str);
 uniq string buffer*::to_string(buffer* self);
-uniq string char*::to_string(char* self);
+uniq string char*::to_string(const char* self);
 uniq string double::to_string(double self);
 uniq string float::to_string(float self);
 uniq string size_t::to_string(size_t self);
@@ -134,7 +134,7 @@ uniq string short::to_string(short self);
 uniq string char::to_string(char self);
 uniq string bool::to_string(bool self);
 uniq string _Bool::to_string(bool self);
-uniq bool string::equals(char* self, char* right);
+uniq bool string::equals(char* self, const char* right);
 
 #define COME_STACKFRAME_MAX 8
 #define COME_STACKFRAME_SNAME_MAX 8
@@ -157,7 +157,7 @@ uniq void stackframe()
     }
 }
 
-uniq bool die(char* msg)
+uniq bool die(const char* msg)
 {
     puts(msg);
     stackframe();
@@ -179,7 +179,7 @@ struct sMemHeader
     
     char* fun_name[COME_STACKFRAME_MAX];
     
-    char* class_name;
+    const char* class_name;
 };
 
 uniq sMemHeader* gAllocMem;
@@ -260,7 +260,7 @@ uniq void come_free_mem_of_heap_pool(void* mem)
     }
 }
 
-uniq void* come_alloc_mem_from_heap_pool(size_t size, char* sname=null, int sline=0, char* class_name="")
+uniq void* come_alloc_mem_from_heap_pool(size_t size, const char* sname=null, int sline=0, const char* class_name="")
 {
     size_t size2 = size + sizeof(sMemHeader);
 #ifdef __32BIT_CPU__
@@ -313,7 +313,7 @@ uniq char* come_dynamic_typeof(void* mem)
         exit(2);
     }
     
-    return it->class_name;
+    return (char*)it->class_name;
 }
 
 uniq int gComeDebugLib = 0;
@@ -321,7 +321,7 @@ uniq int gComeDebugLib = 0;
 uniq int gNumAlloc = 0;
 uniq int gNumFree = 0;
 
-uniq void* come_calloc(size_t count, size_t size, char* sname=null, int sline=0, char* class_name="")
+uniq void* come_calloc(size_t count, size_t size, const char* sname=null, int sline=0, const char* class_name="")
 {
     char* mem = come_alloc_mem_from_heap_pool(sizeof(size_t)+sizeof(size_t)+count*size, sname, sline, class_name);
     
@@ -347,7 +347,7 @@ uniq void come_free(void* mem)
     come_free_mem_of_heap_pool((char*)ref_count);
 }
 
-uniq void* come_memdup(void* block, char* sname=null, int sline=0, char* class_name=null)
+uniq void* come_memdup(void* block, const char* sname=null, int sline=0, const char* class_name=null)
 {
     if(!block) {
         return null;
@@ -496,7 +496,7 @@ uniq void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* pr
     }
 }
 
-uniq void xassert(char* msg, bool test)
+uniq void xassert(const char* msg, bool test)
 {
     printf("%s...", msg);
     if(!test) {
@@ -506,7 +506,7 @@ uniq void xassert(char* msg, bool test)
     puts("ok");
 }
 
-uniq string __builtin_string(char* str)
+uniq string __builtin_string(const char* str)
 {
     if(str == null) {
         return null;
@@ -527,7 +527,7 @@ if($UNIX == 0)
         inherit();
     }
     
-    uniq void* come_calloc(size_t count, size_t size, char* sname=null, int sline=0, char* class_name="") version 2
+    uniq void* come_calloc(size_t count, size_t size, const char* sname=null, int sline=0, const char* class_name="") version 2
     {
         return inherit(count, size, sname, sline, class_name);
     }
@@ -1566,7 +1566,7 @@ impl list <T>
 
         return result;
     }
-    string join(list<T>* self, char* sep=" ") {
+    string join(list<T>* self, const char* sep=" ") {
         if(self == null) {
             return string("");
         }
@@ -2754,7 +2754,7 @@ uniq buffer*% buffer*::initialize(buffer*% self)
     return self;
 }
 
-uniq buffer*% buffer*::initialize_with_value(buffer*% self, char* mem, size_t size) 
+uniq buffer*% buffer*::initialize_with_value(buffer*% self, const char* mem, size_t size) 
 {
     self.size = 128;
     self.buf = new char[self.size];
@@ -2831,7 +2831,7 @@ uniq void buffer*::trim(buffer* self, int len)
     }
 }
 
-uniq buffer* buffer*::append(buffer* self, char* mem, size_t size)
+uniq buffer* buffer*::append(buffer* self, const char* mem, size_t size)
 {
     if(self == null || mem == null) {
         return self;
@@ -2880,7 +2880,7 @@ uniq buffer* buffer*::append_char(buffer* self, char c)
     return self;
 }
 
-uniq buffer* buffer*::append_str(buffer* self, char* mem)
+uniq buffer* buffer*::append_str(buffer* self, const char* mem)
 {
     if(self == null || mem == null) {
         return self;
@@ -2906,7 +2906,7 @@ uniq buffer* buffer*::append_str(buffer* self, char* mem)
 }
 
 if($UNIX == 0) {
-    uniq buffer* buffer*::append_format(buffer* self, char* msg, ...)
+    uniq buffer* buffer*::append_format(buffer* self, const char* msg, ...)
     {
         if(self == null || msg == null) {
             return self;
@@ -2945,7 +2945,7 @@ if($UNIX == 0) {
     }
 }
 else {
-    uniq buffer* buffer*::append_format(buffer* self, char* msg, ...)
+    uniq buffer* buffer*::append_format(buffer* self, const char* msg, ...)
     {
         if(self == null || msg == null) {
             return self;
@@ -2985,7 +2985,7 @@ else {
     }
 }
 
-uniq buffer* buffer*::append_nullterminated_str(buffer* self, char* mem)
+uniq buffer* buffer*::append_nullterminated_str(buffer* self, const char* mem)
 {
     if(self == null || mem == null) {
         return self;
@@ -3133,7 +3133,7 @@ uniq int buffer*::compare(buffer* left, buffer* right)
     return strcmp(left.buf, right.buf);
 }
 
-uniq buffer*% char*::to_buffer(char* self) 
+uniq buffer*% char*::to_buffer(const char* self) 
 {
     var result = new buffer.initialize();
     
@@ -3427,7 +3427,7 @@ uniq bool long::operator_not_equals(long self, long right)
     return !(self == right);
 }
 
-uniq bool char*::equals(char* self, char* right) 
+uniq bool char*::equals(const char* self, const char* right) 
 {
     if(self == null && right == null) {
         return true;
@@ -3439,7 +3439,7 @@ uniq bool char*::equals(char* self, char* right)
     return strcmp(self, right) == 0;
 }
 
-uniq bool string::equals(char* self, char* right) 
+uniq bool string::equals(char* self, const char* right) 
 {
     if(self == null && right == null) {
         return true;
@@ -3461,7 +3461,7 @@ uniq bool bool*::equals(bool* self, bool* right)
     return *self == *right;
 }
 
-uniq bool string::operator_equals(char* self, char* right) 
+uniq bool string::operator_equals(char* self, const char* right) 
 {
     if(self == null && right == null) {
         return true;
@@ -3473,7 +3473,7 @@ uniq bool string::operator_equals(char* self, char* right)
     return strcmp(self, right) == 0;
 }
 
-uniq bool char*::operator_equals(char* self, char* right) 
+uniq bool char*::operator_equals(const char* self, const char* right) 
 {
     if(self == null && right == null) {
         return true;
@@ -3485,7 +3485,7 @@ uniq bool char*::operator_equals(char* self, char* right)
     return strcmp(self, right) == 0;
 }
 
-uniq bool char[]::operator_equals(char* self, char* right) 
+uniq bool char[]::operator_equals(char* self, const char* right) 
 {
     if(self == null && right == null) {
         return true;
@@ -3497,17 +3497,17 @@ uniq bool char[]::operator_equals(char* self, char* right)
     return strcmp(self, right) == 0;
 }
 
-uniq bool void*::operator_equals(char* self, char* right) 
+uniq bool void*::operator_equals(const char* self, const char* right) 
 {
     return self == right;
 }
 
-uniq bool void*::operator_not_equals(char* self, char* right) 
+uniq bool void*::operator_not_equals(const char* self, const char* right) 
 {
     return !self.operator_equals(right);
 }
 
-uniq bool string::operator_not_equals(char* self, char* right) 
+uniq bool string::operator_not_equals(char* self, const char* right) 
 {
     if(self == null && right == null) {
         return false;
@@ -3519,7 +3519,7 @@ uniq bool string::operator_not_equals(char* self, char* right)
     return strcmp(self, right) != 0;
 }
 
-uniq bool char*::operator_not_equals(char* self, char* right) 
+uniq bool char*::operator_not_equals(const char* self, const char* right) 
 {
     if(self == null && right == null) {
         return false;
@@ -3531,7 +3531,7 @@ uniq bool char*::operator_not_equals(char* self, char* right)
     return strcmp(self, right) != 0;
 }
 
-uniq bool char[]::operator_not_equals(char* self, char* right) 
+uniq bool char[]::operator_not_equals(char* self, const char* right) 
 {
     if(self == null && right == null) {
         return false;
@@ -3544,7 +3544,7 @@ uniq bool char[]::operator_not_equals(char* self, char* right)
 }
 
 
-uniq string char*::operator_add(char* self, char* right) 
+uniq string char*::operator_add(const char* self, const char* right) 
 {
     if(self == null || right == null) {
         return string("");
@@ -3559,7 +3559,7 @@ uniq string char*::operator_add(char* self, char* right)
     return result;
 }
 
-uniq string string::operator_add(char* self, char* right) 
+uniq string string::operator_add(char* self, const char* right) 
 {
     if(self == null || right == null) {
         return string("");
@@ -3574,7 +3574,7 @@ uniq string string::operator_add(char* self, char* right)
     return result;
 }
 
-uniq string char*::operator_mult(char* self, int right) 
+uniq string char*::operator_mult(const char* self, int right) 
 {
     if(self == null) {
         return string("");
@@ -3588,7 +3588,7 @@ uniq string char*::operator_mult(char* self, int right)
     return buf.to_string();
 }
 
-uniq string string::operator_mult(char* self, int right) 
+uniq string string::operator_mult(const char* self, int right) 
 {
     if(self == null) {
         return string("");
@@ -3602,12 +3602,12 @@ uniq string string::operator_mult(char* self, int right)
     return buf.to_string();
 }
 
-uniq size_t char[]::length(char* self, size_t len) 
+uniq size_t char[]::length(const char* self, size_t len) 
 {
     return len;
 }
 
-uniq bool char*[]::contained(char** self, size_t len, char* str) 
+uniq bool char*[]::contained(char** self, size_t len, const char* str) 
 {
     bool result = false;
     if(self == null) {
@@ -3695,13 +3695,13 @@ uniq unsigned int double::get_hash_key(double value)
     return (unsigned int)value;
 }
 
-uniq unsigned int char*::get_hash_key(char* value)
+uniq unsigned int char*::get_hash_key(const char* value)
 {
     if(value == null) {
         return 0;
     }
     int result = 0;
-    char* p = value;
+    const char* p = value;
     while(*p) {
         result += (*p);
         p++;
@@ -3819,7 +3819,7 @@ uniq bool xispunct(char c) {
 //////////////////////////////
 /// base library(simple string library)
 //////////////////////////////
-uniq int string::length(char* str)
+uniq int string::length(const char* str)
 {
     if(str == null) {
         return 0;
@@ -3827,21 +3827,21 @@ uniq int string::length(char* str)
     return strlen(str);
 }
 
-uniq int char*::length(char* str) {
+uniq int char*::length(const char* str) {
     if(str == null) {
         return 0;
     }
     return strlen(str);
 }
 
-uniq int char[]::length(char* str) {
+uniq int char[]::length(const char* str) {
     if(str == null) {
         return 0;
     }
     return strlen(str);
 }
 
-uniq string char*::reverse(char* str) 
+uniq string char*::reverse(const char* str) 
 {
     if(str == null) {
         return string("");
@@ -3944,7 +3944,7 @@ uniq string char*::operator_load_range_element(char* str, int head, int tail)
     return result;
 }
 
-uniq string char*::substring(char* str, int head, int tail)
+uniq string char*::substring(const char* str, int head, int tail)
 {
     if(str == null) {
         return string("");
@@ -3987,7 +3987,7 @@ uniq string char*::substring(char* str, int head, int tail)
     return result;
 }
 
-uniq string xsprintf(char* msg, ...)
+uniq string xsprintf(const char* msg, ...)
 {
     if(msg == null) {
         return string("");
@@ -4081,12 +4081,12 @@ uniq list<string>*% char*::split_char(char* self, char c)
     return result;
 }
 
-uniq string char*::xsprintf(char* self, char* msg, ...)
+uniq string char*::xsprintf(char* self, const char* msg, ...)
 {
     return xsprintf(msg, self);
 }
 
-uniq string int::xsprintf(int self, char* msg, ...)
+uniq string int::xsprintf(int self, const char* msg, ...)
 {
     return xsprintf(msg, self);
 }
@@ -4304,7 +4304,7 @@ uniq string string::to_string(char* self)
     return string(self);
 }
 
-uniq string char*::to_string(char* self)
+uniq string char*::to_string(const char* self)
 {
     if(self == null) {
         return string("");
@@ -5601,7 +5601,7 @@ uniq int re_get_group_count(re_t pattern)
 #define _XOPEN_SOURCE
 #endif
 
-uniq string string::lower_case(char* str)
+uniq string string::lower_case(const char* str)
 {
     if(str == null) {
         return string("");
@@ -5617,7 +5617,7 @@ uniq string string::lower_case(char* str)
     return result;
 }
 
-uniq string string::upper_case(char* str)
+uniq string string::upper_case(const char* str)
 {
     if(str == null) {
         return string("");
@@ -5633,7 +5633,7 @@ uniq string string::upper_case(char* str)
     return result;
 }
 
-uniq int char*::index_regex(char* self, char* reg, int default_value, bool ignore_case=false)
+uniq int char*::index_regex(const char* self, const char* reg, int default_value, bool ignore_case=false)
 {
     if(self == null || reg == null) {
         return default_value;
@@ -5674,7 +5674,7 @@ uniq int char*::index_regex(char* self, char* reg, int default_value, bool ignor
     return result;
 }
 
-uniq int char*::rindex(char* str, char* search_str, int default_value)
+uniq int char*::rindex(const char* str, const char* search_str, int default_value)
 {
     if(str == null || search_str == null) {
         return default_value;
@@ -5694,7 +5694,7 @@ uniq int char*::rindex(char* str, char* search_str, int default_value)
     return default_value;
 }
 
-uniq int char*::rindex_regex(char* self, char* reg, int default_value, bool ignore_case=false)
+uniq int char*::rindex_regex(const char* self, const char* reg, int default_value, bool ignore_case=false)
 {
     if(self == null || reg == null) {
         return default_value;
@@ -5737,7 +5737,7 @@ uniq int char*::rindex_regex(char* self, char* reg, int default_value, bool igno
     return result;
 }
 
-uniq string char*::strip(char* self)
+uniq string char*::strip(const char* self)
 {
     if(self == null) {
         return string("");
@@ -5759,7 +5759,7 @@ uniq string char*::strip(char* self)
     return result;
 }
 
-uniq int char*::index(char* str, char* search_str, int default_value)
+uniq int char*::index(const char* str, const char* search_str, int default_value)
 {
     if(str == null || search_str == null) {
         return default_value;
@@ -5774,7 +5774,7 @@ uniq int char*::index(char* str, char* search_str, int default_value)
     return head - str;
 }
 
-uniq string string::chomp(char* str)
+uniq string string::chomp(const char* str)
 {
     if(str == null) {
         return string("");
@@ -5789,7 +5789,7 @@ uniq string string::chomp(char* str)
 }
 
 if($UNIX == 1) {
-    uniq string xrealpath(char* path)
+    uniq string xrealpath(const char* path)
     {
         if(path == null) {
             return string("");
@@ -5852,7 +5852,7 @@ uniq string char*::multiply(char* str, int n)
     return result;
 }
 
-uniq list<string>*% char*::split_str(char* self, char* str) 
+uniq list<string>*% char*::split_str(const char* self, const char* str) 
 {
     if(self == null || str == null) {
         return new list<string>();
@@ -5879,27 +5879,27 @@ uniq list<string>*% char*::split_str(char* self, char* str)
     return result;
 }
 
-uniq int string::rindex(char* str, char* search_str, int default_value=-1) 
+uniq int string::rindex(char* str, const char* search_str, int default_value=-1) 
 {
     return char*::rindex(str, search_str, default_value);
 }
 
-uniq int string::rindex_regex(char* self, char* reg, int default_value=-1, bool ignore_case=false)
+uniq int string::rindex_regex(char* self, const char* reg, int default_value=-1, bool ignore_case=false)
 {
     return char*::rindex_regex(self, reg, default_value, ignore_case);
 }
 
-uniq string string::strip(char* self)
+uniq string string::strip(const char* self)
 {
     return char*::strip(self);
 }
 
-uniq int string::index(char* str, char* search_str, int default_value=-1)
+uniq int string::index(char* str, const char* search_str, int default_value=-1)
 {
     return char*::index(str, search_str, default_value);
 }
 
-uniq int string::index_regex(char* self, char* reg, int default_value=-1, bool ignore_case=false)
+uniq int string::index_regex(char* self, const char* reg, int default_value=-1, bool ignore_case=false)
 {
     return char*::index_regex(self, reg, default_value, ignore_case);
 }
@@ -5914,7 +5914,7 @@ uniq string string::multiply(char* str, int n)
     return char*::multiply(str, n);
 }
 
-uniq bool char*::match(char* self, char* reg, bool ignore_case=false)
+uniq bool char*::match(char* self, const char* reg, bool ignore_case=false)
 {
     if(self == null || reg == null) {
         return false;
@@ -5947,7 +5947,7 @@ uniq bool char*::match(char* self, char* reg, bool ignore_case=false)
     }
 }
 
-uniq list<string>*% char*::scan(char* self, char* reg, bool ignore_case=false)
+uniq list<string>*% char*::scan(const char* self, const char* reg, bool ignore_case=false)
 {
     if(self == null || reg == null) {
         return new list<string>();
@@ -6010,7 +6010,7 @@ uniq list<string>*% char*::scan(char* self, char* reg, bool ignore_case=false)
     return result;
 }
 
-uniq list<string>*% char*::split(char* self, char* reg, bool ignore_case=false)
+uniq list<string>*% char*::split(const char* self, const char* reg, bool ignore_case=false)
 {
     if(self == null || reg == null) {
         return new list<string>();
@@ -6065,32 +6065,32 @@ uniq list<string>*% char*::split(char* self, char* reg, bool ignore_case=false)
     return result;
 }
 
-uniq string string::sub(char* self, char* reg, char* replace, bool ignore_case=false)
+uniq string string::sub(char* self, const char* reg, const char* replace, bool ignore_case=false)
 {
     return char*::sub(self, reg, replace, true, ignore_case);
 }
 
-uniq list<string>*% string::split_str(char* self, char* str)
+uniq list<string>*% string::split_str(char* self, const char* str)
 {
     return char*::split_str(self, str);
 }
 
-uniq list<string>*% string::scan(char* self, char* reg, bool ignore_case=false)
+uniq list<string>*% string::scan(char* self, const char* reg, bool ignore_case=false)
 {
     return char*::scan(self, reg, ignore_case);
 }
 
-uniq list<string>*% string::split(char* self, char* reg, bool ignore_case=false)
+uniq list<string>*% string::split(char* self, const char* reg, bool ignore_case=false)
 {
     return char*::split(self, reg, ignore_case);
 }
 
-uniq bool string::match(char* self, char* reg, bool ignore_case=false)
+uniq bool string::match(char* self, const char* reg, bool ignore_case=false)
 {
     return char*::match(self, reg, ignore_case);
 }
 
-uniq string char*::sub(char* self, char* reg, char* replace, bool global=true, bool ignore_case=false)
+uniq string char*::sub(char* self, const char* reg, const char* replace, bool global=true, bool ignore_case=false)
 {
     if(self == null || reg == null) {
         return string("");
@@ -6148,7 +6148,7 @@ uniq string char*::sub(char* self, char* reg, char* replace, bool global=true, b
     return result.to_string();
 }
 
-uniq string char*::sub_block(char* self, char* reg, bool global=true, bool ignore_case=false, void* parent, string (*block)(void* parent, char* match_string, list<string>* group_strings))
+uniq string char*::sub_block(char* self, const char* reg, bool global=true, bool ignore_case=false, void* parent, string (*block)(void* parent, char* match_string, list<string>* group_strings))
 {
     if(self == null || reg == null) {
         return string("");
@@ -6240,7 +6240,7 @@ uniq string char*::sub_block(char* self, char* reg, bool global=true, bool ignor
     return result.to_string();
 }
 
-uniq list<string>*% char*::scan_block(char* self, char* reg, bool ignore_case=false, void* parent, string (*block)(void* parent, char* match_string, list<string>* group_strings))
+uniq list<string>*% char*::scan_block(const char* self, const char* reg, bool ignore_case=false, void* parent, string (*block)(void* parent, char* match_string, list<string>* group_strings))
 {
     if(self == null || reg == null) {
         return new list<string>();
@@ -6315,7 +6315,7 @@ uniq list<string>*% char*::scan_block(char* self, char* reg, bool ignore_case=fa
     return result;
 }
 
-uniq string string::sub_block(char* self, char* reg, bool global=true, bool ignore_case=false, void* parent, string (*block)(void* parent, char* match_string, list<string>* group_strings))
+uniq string string::sub_block(char* self, const char* reg, bool global=true, bool ignore_case=false, void* parent, string (*block)(void* parent, char* match_string, list<string>* group_strings))
 {
     return char*::sub_block(self, reg, global, ignore_case, parent, block);
 }
@@ -6330,7 +6330,7 @@ if($UNIX == 1) {
     
     typedef wchar_t*% wstring;
     
-    uniq wstring __builtin_wstring(char* str)
+    uniq wstring __builtin_wstring(const char* str)
     {
         if(str == null) {
             return null;
@@ -6349,7 +6349,7 @@ if($UNIX == 1) {
         return wstr;
     }
     
-    uniq int wchar_t*::length(wchar_t* str)
+    uniq int wchar_t*::length(const wchar_t* str)
     {
         if(str == null) {
             return 0;
@@ -6357,7 +6357,7 @@ if($UNIX == 1) {
         return wcslen(str);
     }
     
-    uniq int wchar_t[]::length(wchar_t* str)
+    uniq int wchar_t[]::length(const wchar_t* str)
     {
         if(str == null) {
             return 0;
@@ -6365,7 +6365,7 @@ if($UNIX == 1) {
         return wcslen(str);
     }
     
-    uniq int wstring::length(wchar_t* str)
+    uniq int wstring::length(const wchar_t* str)
     {
         return wchar_t*::length(str);
     }
@@ -6400,7 +6400,7 @@ if($UNIX == 1) {
         return result;
     }
     
-    uniq wstring wchar_t*::substring(wchar_t* str, int head, int tail)
+    uniq wstring wchar_t*::substring(const wchar_t* str, int head, int tail)
     {
         if(str == null) {
             return wstring("");
@@ -6447,7 +6447,7 @@ if($UNIX == 1) {
         return result;
     }
     
-    uniq int char*::index_count(char* str, char* search_str, int count, int default_value)
+    uniq int char*::index_count(const char* str, const char* search_str, int count, int default_value)
     {
         if(str == null || search_str == null) {
             return default_value;
@@ -6477,13 +6477,13 @@ if($UNIX == 1) {
     }
     
     
-    uniq int char*::rindex(char* str, char* search_str, int default_value)
+    uniq int char*::rindex(const char* str, const char* search_str, int default_value)
     {
         if(str == null || search_str == null) {
             return default_value;
         }
         int len = strlen(search_str);
-        char* p = str + strlen(str) - len;
+        char* p = (char*)(str + strlen(str) - len);
     
         while(p >= str) {
             if(strncmp(p, search_str, len) == 0) {
@@ -6497,13 +6497,13 @@ if($UNIX == 1) {
     }
     
     
-    uniq int char*::rindex_count(char* str, char* search_str, int count, int default_value)
+    uniq int char*::rindex_count(const char* str, const char* search_str, int count, int default_value)
     {
         if(str == null || search_str == null) {
             return default_value;
         }
         int len = strlen(search_str);
-        char* p = str + strlen(str) - len;
+        const char* p = (char*)str + strlen(str) - len;
         
         int n = 0;
     
@@ -6521,7 +6521,7 @@ if($UNIX == 1) {
         return default_value;
     }
     
-    uniq string char*::strip(char* self)
+    uniq string char*::strip(const char* self)
     {
         if(self == null) {
             return string("");
@@ -6544,7 +6544,7 @@ if($UNIX == 1) {
         return result;
     }
     
-    uniq string wchar_t*::to_string(wchar_t* wstr)
+    uniq string wchar_t*::to_string(const wchar_t* wstr)
     {
         if(wstr == null) {
             return string("");
@@ -6562,7 +6562,7 @@ if($UNIX == 1) {
         return result;
     }
     
-    uniq string wchar_t[]::to_string(wchar_t* wstr)
+    uniq string wchar_t[]::to_string(const wchar_t* wstr)
     {
         if(wstr == null) {
             return string("");
@@ -6570,7 +6570,7 @@ if($UNIX == 1) {
         return wchar_t*::to_string(wstr);
     }
     
-    uniq wstring char*::to_wstring(char* str)
+    uniq wstring char*::to_wstring(const char* str)
     {
         if(str == null) {
             return wstring("");
@@ -6586,7 +6586,7 @@ if($UNIX == 1) {
         return wstring(str);
     }
     
-    uniq wstring wchar_t*::delete(wchar_t* str, int head, int tail) 
+    uniq wstring wchar_t*::delete(const wchar_t* str, int head, int tail) 
     {
         if(str == null) {
             return wstring("");
@@ -6624,7 +6624,7 @@ if($UNIX == 1) {
         return str.to_string().to_wstring();
     }
     
-    uniq int wchar_t*::index(wchar_t* str, wchar_t* search_str, int default_value)
+    uniq int wchar_t*::index(const wchar_t* str, const wchar_t* search_str, int default_value)
     {
         if(str == null || search_str == null) {
             return default_value;
@@ -6639,7 +6639,7 @@ if($UNIX == 1) {
         return head - str;
     }
     
-    uniq int wchar_t*::rindex(wchar_t* str, wchar_t* search_str, int default_value)
+    uniq int wchar_t*::rindex(const wchar_t* str, const wchar_t* search_str, int default_value)
     {
         if(str == null || search_str == null) {
             return default_value;
@@ -6647,7 +6647,7 @@ if($UNIX == 1) {
         
         int len = wcslen(search_str);
     
-        wchar_t* p = str + wcslen(str) - len;
+        wchar_t* p = (wchar_t*)str + wcslen(str) - len;
     
         while(p >= str) {
             int len2 = wcslen(p);
@@ -6668,7 +6668,7 @@ if($UNIX == 1) {
         return default_value;
     }
     
-    uniq wstring wchar_t*::reverse(wchar_t* str) 
+    uniq wstring wchar_t*::reverse(const wchar_t* str) 
     {
         if(str == null) {
             return wstring("");
@@ -6686,7 +6686,7 @@ if($UNIX == 1) {
         return result;
     }
     
-    uniq wstring wchar_t*::multiply(wchar_t* str, int n)
+    uniq wstring wchar_t*::multiply(const wchar_t* str, int n)
     {
         if(str == null) {
             return wstring("");
@@ -6705,7 +6705,7 @@ if($UNIX == 1) {
         return result;
     }
     
-    uniq wstring wchar_t*::printable(wchar_t* str)
+    uniq wstring wchar_t*::printable(const wchar_t* str)
     {
         if(str == null) {
             return wstring("");
@@ -6734,7 +6734,7 @@ if($UNIX == 1) {
     }
     
     
-    uniq int wchar_t*::compare(wchar_t* left, wchar_t* right)
+    uniq int wchar_t*::compare(const wchar_t* left, wchar_t* right)
     {
         if(left == null) {
             if(right == null) {
@@ -6755,7 +6755,7 @@ if($UNIX == 1) {
         return wcscmp(left, right);
     }
     
-    uniq int wstring::compare(wchar_t* left, wchar_t* right)
+    uniq int wstring::compare(const wchar_t* left, const wchar_t* right)
     {
         if(left == null) {
             if(right == null) {
@@ -6777,44 +6777,44 @@ if($UNIX == 1) {
     }
     
     
-    uniq bool wchar_t*::equals(wchar_t left, wchar_t right)
+    uniq bool wchar_t*::equals(const wchar_t left, wchar_t right)
     {
         return left == right;
     }
     
     
-    uniq wstring wchar_t*::operator_mult(wchar_t* str, int n)
+    uniq wstring wchar_t*::operator_mult(const wchar_t* str, int n)
     {
         return wchar_t*::multiply(str, n);
     }
     
-    uniq wstring wstring::operator_mult(wchar_t* str, int n)
+    uniq wstring wstring::operator_mult(const wchar_t* str, int n)
     {
         return wchar_t*::multiply(str, n);
     }
     
-    uniq bool wchar_t*::operator_equals(wchar_t* left, wchar_t* right)
+    uniq bool wchar_t*::operator_equals(const wchar_t* left, const wchar_t* right)
     {
         return wcscmp(left, right) == 0;
     }
     
-    uniq bool wstring::operator_equals(wchar_t* left, wchar_t* right)
+    uniq bool wstring::operator_equals(const wchar_t* left, const wchar_t* right)
     {
         return wcscmp(left, right) == 0;
     }
     
-    uniq bool wchar_t*::operator_not_equals(wchar_t* left, wchar_t* right)
+    uniq bool wchar_t*::operator_not_equals(const wchar_t* left, const wchar_t* right)
     {
         return wcscmp(left, right) != 0;
     }
     
-    uniq bool wstring::operator_not_equals(wchar_t* left, wchar_t* right)
+    uniq bool wstring::operator_not_equals(const wchar_t* left, const wchar_t* right)
     {
         return wcscmp(left, right) != 0;
     }
     
     
-    uniq wstring wchar_t*::operator_add(wchar_t* left, wchar_t* right)
+    uniq wstring wchar_t*::operator_add(const wchar_t* left, const wchar_t* right)
     {
         if(left == null || right == null) {
             return wstring("");
@@ -6827,7 +6827,7 @@ if($UNIX == 1) {
         return result;
     }
     
-    uniq wstring wstring::operator_add(wchar_t* left, wchar_t* right)
+    uniq wstring wstring::operator_add(const wchar_t* left, const wchar_t* right)
     {
         if(left == null || right == null) {
             return wstring("");
@@ -6840,7 +6840,7 @@ if($UNIX == 1) {
         return result;
     }
     
-    uniq int char*::index(char* str, char* search_str, int default_value)
+    uniq int char*::index(const char* str, const char* search_str, int default_value)
     {
         if(str == null || search_str == null) {
             return default_value;
@@ -6882,7 +6882,7 @@ if($UNIX == 1) {
         return string(self);
     }
     
-    uniq string char*::multiply(char* str, int n)
+    uniq string char*::multiply(const char* str, int n)
     {
         if(str == null) {
             return string("");
@@ -6900,7 +6900,7 @@ if($UNIX == 1) {
         return result;
     }
     
-    uniq list<string>*% char*::split_str(char* self, char* str) 
+    uniq list<string>*% char*::split_str(const char* self, const char* str) 
     {
         if(self == null || str == null) {
             return new list<string>();
@@ -6926,13 +6926,13 @@ if($UNIX == 1) {
         return result;
     }
     
-    uniq unsigned int wchar_t*::get_hash_key(wchar_t* value)
+    uniq unsigned int wchar_t*::get_hash_key(const wchar_t* value)
     {
         if(value == null) {
             return 0;
         }
         int result = 0;
-        wchar_t* p = value;
+        wchar_t* p = (wchar_t*)value;
         while(*p) {
             result += (*p);
             p++;
@@ -6940,7 +6940,7 @@ if($UNIX == 1) {
         return result;
     }
     
-    uniq bool wchar_t*::equals(wchar_t* left, wchar_t* right)
+    uniq bool wchar_t*::equals(const wchar_t* left, const wchar_t* right)
     {
         if(left == null && right == null) {
             return true;
@@ -6951,7 +6951,7 @@ if($UNIX == 1) {
         return wcscmp(left, right) == 0;
     }
     
-    uniq bool wstring::equals(wchar_t* left, wchar_t* right)
+    uniq bool wstring::equals(const wchar_t* left, const wchar_t* right)
     {
         if(left == null && right == null) {
             return true;
@@ -6988,7 +6988,7 @@ if($UNIX == 1) {
         return xsprintf("%ls", wc);
     }
     
-    uniq string xrealpath(char* path)
+    uniq string xrealpath(const char* path)
     {
         if(path == null) {
             return string("");
@@ -7002,7 +7002,7 @@ if($UNIX == 1) {
         return result2;
     }
     
-    uniq string xdirname(char* path)
+    uniq string xdirname(const char* path)
     {
         if(path == null) {
             return string("");
@@ -7010,12 +7010,12 @@ if($UNIX == 1) {
         return string(dirname(string(path)));
     }
     
-    uniq size_t xwcslen(wchar_t* wstr)
+    uniq size_t xwcslen(const wchar_t* wstr)
     {
         if(wstr == null) {
             return 0;
         }
-        wchar_t* p = wstr;
+        wchar_t* p = (wchar_t*)wstr;
         
         size_t len = 0;
         while(*p) {
@@ -7026,38 +7026,38 @@ if($UNIX == 1) {
         return len;
     }
     
-    uniq wstring wstring::substring(wchar_t* str, int head, int tail) 
+    uniq wstring wstring::substring(const wchar_t* str, int head, int tail) 
     {
         return wchar_t*::substring(str, head, tail);
     }
     
-    uniq int string::index_count(char* str, char* search_str, int count=1, int default_value=-1)
+    uniq int string::index_count(const char* str, const char* search_str, int count=1, int default_value=-1)
     {
         return char*::index_count(str, search_str, count, default_value);
     }
     
     
-    uniq int string::rindex(char* str, char* search_str, int default_value=-1) 
+    uniq int string::rindex(const char* str, const char* search_str, int default_value=-1) 
     {
         return char*::rindex(str, search_str, default_value);
     }
     
-    uniq int string::rindex_count(char* str, char* search_str, int count=1, int default_value=-1)
+    uniq int string::rindex_count(const char* str, const char* search_str, int count=1, int default_value=-1)
     {
         return char*::rindex_count(str, search_str, count, default_value);
     }
     
-    uniq string string::strip(char* self)
+    uniq string string::strip(const char* self)
     {
         return char*::strip(self);
     }
     
-    uniq wstring string::to_wstring(char* str)
+    uniq wstring string::to_wstring(const char* str)
     {
         return char*::to_wstring(str);
     }
     
-    uniq string wstring::to_string(wchar_t* wstr)
+    uniq string wstring::to_string(const wchar_t* wstr)
     {
         return wchar_t*::to_string(wstr);
     }
@@ -7067,43 +7067,43 @@ if($UNIX == 1) {
         return xsprintf("%d", self).to_wstring();
     }
     
-    uniq wstring wstring::delete(wchar_t* str, int head, int tail)
+    uniq wstring wstring::delete(const wchar_t* str, int head, int tail)
     {
         return wchar_t*::delete(str, head, tail);
     }
     
-    uniq int wstring::index(wchar_t* str, wchar_t* search_str, int default_value=1)
+    uniq int wstring::index(const wchar_t* str, const wchar_t* search_str, int default_value=1)
     {
         return wchar_t*::index(str, search_str, default_value);
     }
     
-    uniq int wstring::rindex(wchar_t* str, wchar_t* search_str, int default_value=-1)
+    uniq int wstring::rindex(const wchar_t* str, const wchar_t* search_str, int default_value=-1)
     {
         return wchar_t*::rindex(str, search_str, default_value);
     }
     
-    uniq wstring wstring::reverse(wchar_t* str)
+    uniq wstring wstring::reverse(const wchar_t* str)
     {
         return wchar_t*::reverse(str);
     }
     
-    uniq wstring wstring::multiply(wchar_t* str, int n)
+    uniq wstring wstring::multiply(const wchar_t* str, int n)
     {
         return wchar_t*::multiply(str, n);
     }
     
-    uniq wstring wstring::printable(wchar_t* str)
+    uniq wstring wstring::printable(const wchar_t* str)
     {
         return wchar_t*::printable(str);
     }
     
-    uniq unsigned int wstring::get_hash_key(wchar_t* value)
+    uniq unsigned int wstring::get_hash_key(const wchar_t* value)
     {
         return wchar_t*::get_hash_key(value);
     }
     
     
-    uniq int string::index(char* str, char* search_str, int default_value=-1)
+    uniq int string::index(const char* str, const char* search_str, int default_value=-1)
     {
         return char*::index(str, search_str, default_value);
     }
@@ -7113,37 +7113,37 @@ if($UNIX == 1) {
         return char*::replace(self, index, c);
     }
     
-    uniq string string::multiply(char* str, int n)
+    uniq string string::multiply(const char* str, int n)
     {
         return char*::multiply(str, n);
     }
     
-    uniq list<string>*% string::split_str(char* self, char* str)
+    uniq list<string>*% string::split_str(const char* self, const char* str)
     {
         return char*::split_str(self, str);
     }
     
-    uniq wstring string::to_wstring(char* str)
+    uniq wstring string::to_wstring(const char* str)
     {
         return char*::to_wstring(str);
     }
     
-    uniq string char*::chomp(char* str)
+    uniq string char*::chomp(const char* str)
     {
         return string::chomp(str);
     }
     
-    uniq bool wchar_t*::equals(wchar_t* left, wchar_t* right)
+    uniq bool wchar_t*::equals(const wchar_t* left, const wchar_t* right)
     {
         return wcscmp(left, right) == 0;
     }
     
-    uniq bool wchar_t*::operator_equals(wchar_t* left, wchar_t* right)
+    uniq bool wchar_t*::operator_equals(const wchar_t* left, const wchar_t* right)
     {
         return wcscmp(left, right) == 0;
     }
     
-    uniq bool wchar_t*::operator_not_equals(wchar_t* left, wchar_t* right)
+    uniq bool wchar_t*::operator_not_equals(const wchar_t* left, const wchar_t* right)
     {
         return wcscmp(left, right) != 0;
     }
@@ -7175,7 +7175,7 @@ if($UNIX == 1) {
         return buf.to_string();
     }
     
-    uniq int FILE*::write(FILE* f, char* str)
+    uniq int FILE*::write(FILE* f, const char* str)
     {
         if(f == null || str == null) {
             return -1;
@@ -7220,7 +7220,7 @@ if($UNIX == 1) {
         return f;
     }
     
-    uniq int char*::write(char* self, char* file_name, bool append=false) 
+    uniq int char*::write(const char* self, const char* file_name, bool append=false) 
     {
         if(self == null || file_name == null) {
             return -1;
@@ -7253,7 +7253,7 @@ if($UNIX == 1) {
         return result;
     }
     
-    uniq string char*::read(char* file_name) 
+    uniq string char*::read(const char* file_name) 
     {
         if(file_name == null) {
             return string("");

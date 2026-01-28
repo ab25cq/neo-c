@@ -1,6 +1,6 @@
 #include "common.h"
 
-bool operator_overload_fun(sType* type, char* fun_name, sNode*% left_node, sNode*% right_node, CVALUE* left_value, CVALUE* right_value, bool break_guard, sInfo* info)
+bool operator_overload_fun(sType* type, const char* fun_name, sNode*% left_node, sNode*% right_node, CVALUE* left_value, CVALUE* right_value, bool break_guard, sInfo* info)
 {
     sType* generics_type;
     if(type->mNoSolvedGenericsType) {
@@ -126,7 +126,7 @@ class sAddNode extends sNodeBase
         
         sType*% type = left_value.type;
         
-        char* fun_name = "operator_add";
+        const char* fun_name = "operator_add";
         bool calling_fun;
         if(self.mQuote) {
             calling_fun = false;
@@ -194,7 +194,7 @@ class sSubNode extends sNodeBase
         
         sType*% type = left_value.type;
         
-        char* fun_name = "operator_sub";
+        const char* fun_name = "operator_sub";
         bool calling_fun;
         if(self.mQuote) {
             calling_fun = false;
@@ -262,7 +262,7 @@ class sMultNode extends sNodeBase
         
         sType*% type = left_value.type;
         
-        char* fun_name = "operator_mult";
+        const char* fun_name = "operator_mult";
         bool calling_fun;
         if(self.mQuote) {
             calling_fun = false;
@@ -325,7 +325,7 @@ class sDivNode extends sNodeBase
         
         sType*% type = left_value.type;
         
-        char* fun_name = "operator_div";
+        const char* fun_name = "operator_div";
         bool calling_fun;
         if(self.mQuote) {
             calling_fun = false;
@@ -388,7 +388,7 @@ class sModNode extends sNodeBase
         
         sType*% type = left_value.type;
         
-        char* fun_name = "operator_mod";
+        const char* fun_name = "operator_mod";
         bool calling_fun;
         if(self.mQuote) {
             calling_fun = false;
@@ -452,7 +452,7 @@ class sLShiftNode extends sNodeBase
         
         sType*% type = left_value.type;
         
-        char* fun_name = "operator_lshift";
+        const char* fun_name = "operator_lshift";
         bool calling_fun;
         if(self.mQuote) {
             calling_fun = false;
@@ -515,7 +515,7 @@ class sRShiftNode extends sNodeBase
         
         sType*% type = left_value.type;
         
-        char* fun_name = "operator_rshift";
+        const char* fun_name = "operator_rshift";
         bool calling_fun;
         if(self.mQuote) {
             calling_fun = false;
@@ -578,7 +578,7 @@ class sGtEqNode extends sNodeBase
         
         sType*% type = left_value.type;
         
-        char* fun_name = "operator_gteq";
+        const char* fun_name = "operator_gteq";
         bool calling_fun;
         if(self.mQuote) {
             calling_fun = false;
@@ -640,7 +640,7 @@ class sLtEqNode extends sNodeBase
         
         sType*% type = left_value.type;
         
-        char* fun_name = "operator_lteq";
+        const char* fun_name = "operator_lteq";
         bool calling_fun;
         if(self.mQuote) {
             calling_fun = false;
@@ -702,7 +702,7 @@ class sLtNode extends sNodeBase
         
         sType*% type = left_value.type;
         
-        char* fun_name = "operator_lt";
+        const char* fun_name = "operator_lt";
         bool calling_fun;
         if(self.mQuote) {
             calling_fun = false;
@@ -764,7 +764,7 @@ class sGtNode extends sNodeBase
         
         sType*% type = left_value.type;
         
-        char* fun_name = "operator_gt";
+        const char* fun_name = "operator_gt";
         bool calling_fun;
         if(self.mQuote) {
             calling_fun = false;
@@ -924,7 +924,7 @@ class sEq2Node extends sNodeBase
         
         sType*% type = left_value.type;
         
-        char* fun_name = "operator_equals";
+        const char* fun_name = "operator_equals";
         bool calling_fun;
         if(self.mQuote) {
             calling_fun = false;
@@ -987,7 +987,7 @@ class sNotEq2Node extends sNodeBase
         
         sType*% type = left_value.type;
         
-        char* fun_name = "operator_not_equals";
+        const char* fun_name = "operator_not_equals";
         bool calling_fun;
         if(self.mQuote) {
             calling_fun = false;
@@ -1049,7 +1049,7 @@ class sAndNode extends sNodeBase
         
         sType*% type = left_value.type;
         
-        char* fun_name = "operator_and";
+        const char* fun_name = "operator_and";
         bool calling_fun;
         if(self.mQuote) {
             calling_fun = false;
@@ -1113,7 +1113,7 @@ class sXOrNode extends sNodeBase
         
         sType*% type = left_value.type;
         
-        char* fun_name = "operator_xor";
+        const char* fun_name = "operator_xor";
         bool calling_fun;
         if(self.mQuote) {
             calling_fun = false;
@@ -1176,7 +1176,7 @@ class sOrNode extends sNodeBase
         
         sType*% type = left_value.type;
         
-        char* fun_name = "operator_or";
+        const char* fun_name = "operator_or";
         bool calling_fun;
         if(self.mQuote) {
             calling_fun = false;
@@ -1240,7 +1240,7 @@ class sAndAndNode extends sNodeBase
         
         sType*% type = left_value.type;
         
-        char* fun_name = "operator_andand";
+        const char* fun_name = "operator_andand";
         bool calling_fun;
         if(self.mQuote) {
             calling_fun = false;
@@ -1303,7 +1303,7 @@ class sOrOrNode extends sNodeBase
         
         sType*% type = left_value.type;
         
-        char* fun_name = "operator_oror";
+        const char* fun_name = "operator_oror";
         bool calling_fun;
         if(self.mQuote) {
             calling_fun = false;

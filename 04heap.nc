@@ -413,7 +413,7 @@ void decrement_ref_count_object(sType* type, char* obj, sInfo* info, bool no_fre
         
         char* class_name = borrow klass->mName;
 
-        char* fun_name = "finalize";
+        const char* fun_name = "finalize";
         
         sType*% type2 = clone type;
         type2->mHeap = false;
@@ -514,7 +514,7 @@ void on_drop_object(sType* type, char* obj, sInfo* info=info)
     {
         string c_value = string(obj);
         
-        char* fun_name = "on_drop";
+        const char* fun_name = "on_drop";
         
         sType*% type2 = clone type_;
         type2->mHeap = false;
@@ -594,7 +594,7 @@ void free_object(sType* type, char* obj, bool no_decrement, bool no_free, sInfo*
         
         char* class_name = borrow klass->mName;
 
-        char* fun_name = "finalize";
+        const char* fun_name = "finalize";
         
         sType*% type2 = clone type_;
         type2->mHeap = false;
@@ -727,7 +727,7 @@ tuple2<sType*%, string>*% clone_object(sType* type, char* obj, sInfo* info)
     
     char* class_name = borrow klass->mName;
 
-    char* fun_name = "clone";
+    const char* fun_name = "clone";
     
     sFun* cloner = NULL;
     string fun_name2;

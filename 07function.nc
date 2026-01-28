@@ -142,7 +142,7 @@ class sFunNode extends sNodeBase
         //info.come_fun_name = string(info.come_fun.mName);
         
         if(self.mFun.mBlock) {
-            if(!gComeC && info.come_fun.mName === "main" && info.funcs["come_heap_init"]) {
+            if(!gComeC && info.come_fun.mName === "main" && info.funcs[s"come_heap_init"]) {
                 add_come_code(info, "    come_heap_init(%d);\n", gComeDebug);
             }
             
@@ -161,7 +161,7 @@ class sFunNode extends sNodeBase
                 add_come_code(info, "neo_current_frame = fr.prev;");
             }
             
-            if(!gComeC && info.come_fun.mName === "main" && !info.inhibits_output_code2 && info.funcs["come_heap_final"]) {
+            if(!gComeC && info.come_fun.mName === "main" && !info.inhibits_output_code2 && info.funcs[s"come_heap_final"]) {
                 free_objects(info->gv_table, null@ret_value, info);
                 add_come_code(info, xsprintf("come_heap_final();\n"));
             }
@@ -590,7 +590,7 @@ int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* par
                     string var_name = info.if_result_value_name;
                     sType*% result_type = clone come_value.type;
                     add_come_code_at_function_head(info, "%s;\n", make_define_var(result_type, var_name));
-                    if(info.come_fun.mName !== "memset" && info.funcs["memset"]) {
+                    if(info.come_fun.mName !== "memset" && info.funcs[s"memset"]) {
                         add_come_code_at_function_head2(info, "memset(&%s, 0, sizeof(%s));\n", var_name, var_name);
                     }
                     add_variable_to_table(var_name, result_type, info, false@function_param, to_function_table:true);
@@ -2473,7 +2473,7 @@ sNode*% parse_function(sInfo* info)
     return (sNode*%)null;
 }
 
-sFun*,string create_finalizer_automatically(sType* type, char* fun_name, sInfo* info)
+sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, sInfo* info)
 {
     string last_code = info.module.mLastCode;
     info.module.mLastCode = null;
@@ -2665,7 +2665,7 @@ sFun*,string create_finalizer_automatically(sType* type, char* fun_name, sInfo* 
 }
 
 
-sFun*,string create_equals_automatically(sType* type, char* fun_name, sInfo* info)
+sFun*,string create_equals_automatically(sType* type, const char* fun_name, sInfo* info)
 {
     string last_code = info.module.mLastCode;
     info.module.mLastCode = null;
@@ -2690,7 +2690,7 @@ sFun*,string create_equals_automatically(sType* type, char* fun_name, sInfo* inf
         source.append_char('{');
         
         if(klass->mProtocol) {
-            char* name = "_protocol_obj";
+            const char* name = "_protocol_obj";
             char source2[1024];
             snprintf(source2, 1024, "return left.%s.equals(right.%s);\n", name, name);
             source.append_str(source2);
@@ -2780,7 +2780,7 @@ sFun*,string create_equals_automatically(sType* type, char* fun_name, sInfo* inf
     return (equaler, real_fun_name);
 }
 
-sFun*,string create_operator_not_equals_automatically(sType* type, char* fun_name, sInfo* info)
+sFun*,string create_operator_not_equals_automatically(sType* type, const char* fun_name, sInfo* info)
 {
     string last_code = info.module.mLastCode;
     info.module.mLastCode = null;
@@ -2805,7 +2805,7 @@ sFun*,string create_operator_not_equals_automatically(sType* type, char* fun_nam
         source.append_char('{');
         
         if(klass->mProtocol) {
-            char* name = "_protocol_obj";
+            const char* name = "_protocol_obj";
             char source2[1024];
             snprintf(source2, 1024, "return left.%s !== right.%s;\n", name, name);
             source.append_str(source2);
@@ -2915,7 +2915,7 @@ sFun*,string create_operator_not_equals_automatically(sType* type, char* fun_nam
     return (equaler, real_fun_name);
 }
 
-sFun*,string create_not_equals_automatically(sType* type, char* fun_name, sInfo* info)
+sFun*,string create_not_equals_automatically(sType* type, const char* fun_name, sInfo* info)
 {
     string last_code = info.module.mLastCode;
     info.module.mLastCode = null;
@@ -2940,7 +2940,7 @@ sFun*,string create_not_equals_automatically(sType* type, char* fun_name, sInfo*
         source.append_char('{');
         
         if(klass->mProtocol) {
-            char* name = "_protocol_obj";
+            const char* name = "_protocol_obj";
             char source2[1024];
             snprintf(source2, 1024, "return !left.%s.equals(right.%s);\n", name, name);
             source.append_str(source2);
@@ -3047,7 +3047,7 @@ sFun*,string create_not_equals_automatically(sType* type, char* fun_name, sInfo*
     return (equaler, real_fun_name);
 }
 
-sFun*,string create_operator_equals_automatically(sType* type, char* fun_name, sInfo* info)
+sFun*,string create_operator_equals_automatically(sType* type, const char* fun_name, sInfo* info)
 {
     string last_code = info.module.mLastCode;
     info.module.mLastCode = null;
@@ -3072,7 +3072,7 @@ sFun*,string create_operator_equals_automatically(sType* type, char* fun_name, s
         source.append_char('{');
         
         if(klass->mProtocol) {
-            char* name = "_protocol_obj";
+            const char* name = "_protocol_obj";
             char source2[1024];
             snprintf(source2, 1024, "return left.%s === right.%s;\n", name, name);
             source.append_str(source2);
@@ -3164,7 +3164,7 @@ sFun*,string create_operator_equals_automatically(sType* type, char* fun_name, s
     return (equaler, real_fun_name);
 }
 
-sFun*,string create_cloner_automatically(sType* type, char* fun_name, sInfo* info)
+sFun*,string create_cloner_automatically(sType* type, const char* fun_name, sInfo* info)
 {
     if(type->mClass->mName === "void") {
         return ((sFun*)null, (string)null);
@@ -3250,7 +3250,7 @@ sFun*,string create_cloner_automatically(sType* type, char* fun_name, sInfo* inf
         source.append_format("var result = new %s;\n", make_type_name_string(type2));
         
         if(klass->mProtocol) {
-            char* name = "_protocol_obj";
+            const char* name = "_protocol_obj";
             char source2[1024];
             snprintf(source2, 1024, "if(self != ((void*)0) && self->clone != ((void*)0)) { result._protocol_obj = self->clone(); }\n");
             
@@ -3387,7 +3387,7 @@ sFun*,string create_cloner_automatically(sType* type, char* fun_name, sInfo* inf
     return (cloner, real_fun_name);
 }
 
-sFun*,string create_to_string_automatically(sType* type, char* fun_name, sInfo* info)
+sFun*,string create_to_string_automatically(sType* type, const char* fun_name, sInfo* info)
 {
     string last_code = info.module.mLastCode;
     info.module.mLastCode = null;
@@ -3523,7 +3523,7 @@ sFun*,string create_to_string_automatically(sType* type, char* fun_name, sInfo* 
     return (cloner, real_fun_name);
 }
 
-sFun*,string create_to_string_automatically(sType* type, char* fun_name, sInfo* info)
+sFun*,string create_to_string_automatically(sType* type, const char* fun_name, sInfo* info)
 {
     string last_code = info.module.mLastCode;
     info.module.mLastCode = null;
@@ -3712,7 +3712,7 @@ sFun*,string create_to_string_automatically(sType* type, char* fun_name, sInfo* 
     return (to_string_fun, real_fun_name);
 }
 
-sFun*,string create_get_hash_key_automatically(sType* type, char* fun_name, sInfo* info)
+sFun*,string create_get_hash_key_automatically(sType* type, const char* fun_name, sInfo* info)
 {
     string last_code = info.module.mLastCode;
     info.module.mLastCode = null;
@@ -3953,7 +3953,7 @@ bool create_equals_method(sType* type, sInfo* info)
     
     char* class_name = klass->mName;
 
-    char* fun_name = "equals";
+    const char* fun_name = "equals";
     
     sType*% type2 = clone type_;
     type2->mHeap = false;
@@ -4028,7 +4028,7 @@ bool create_operator_equals_method(sType* type, sInfo* info)
     
     char* class_name = klass->mName;
 
-    char* fun_name = "operator_equals";
+    const char* fun_name = "operator_equals";
     
     sType*% type2 = clone type_;
     type2->mHeap = false;
@@ -4101,7 +4101,7 @@ bool create_operator_not_equals_method(sType* type, sInfo* info)
     
     char* class_name = klass->mName;
 
-    char* fun_name = "operator_not_equals";
+    const char* fun_name = "operator_not_equals";
     
     sType*% type2 = clone type_;
     type2->mHeap = false;

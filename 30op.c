@@ -729,7 +729,7 @@ struct sMemHeader
     struct sMemHeader* prev  ;
     struct sMemHeader* free_next  ;
     char* fun_name[8];
-    char* class_name;
+    const char* class_name;
 };
 
 struct list_item$1char$
@@ -2188,42 +2188,42 @@ void freelocale(struct __locale_struct* __dataset  );
 struct __locale_struct* uselocale(struct __locale_struct* __dataset  );
 int* __errno_location();
 void stackframe();
-_Bool die(char* msg);
+_Bool die(const char* msg);
 void come_heap_init(int come_debug);
 void come_heap_final();
 void* alloc_from_pages(unsigned long size  );
 void come_free_mem_of_heap_pool(void* mem);
-void* come_alloc_mem_from_heap_pool(unsigned long size  , char* sname, int sline, char* class_name);
+void* come_alloc_mem_from_heap_pool(unsigned long size  , const char* sname, int sline, const char* class_name);
 char* come_dynamic_typeof(void* mem);
-void* come_calloc(unsigned long count  , unsigned long size  , char* sname, int sline, char* class_name);
+void* come_calloc(unsigned long count  , unsigned long size  , const char* sname, int sline, const char* class_name);
 void come_free(void* mem);
-void* come_memdup(void* block, char* sname, int sline, char* class_name);
+void* come_memdup(void* block, const char* sname, int sline, const char* class_name);
 void* come_increment_ref_count(void* mem);
 void* come_print_ref_count(void* mem);
 int come_get_ref_count(void* mem);
 void* come_decrement_ref_count(void* mem, void* protocol_fun, void* protocol_obj, _Bool no_decrement, _Bool no_free, void* result_obj);
 void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* protocol_obj, int call_finalizer_only, int no_decrement, int no_free, void* result_obj);
-void xassert(char* msg, _Bool test);
-char* __builtin_string(char* str);
+void xassert(const char* msg, _Bool test);
+char* __builtin_string(const char* str);
 struct buffer* buffer_initialize(struct buffer* self  );
-struct buffer* buffer_initialize_with_value(struct buffer* self  , char* mem, unsigned long size  );
+struct buffer* buffer_initialize_with_value(struct buffer* self  , const char* mem, unsigned long size  );
 void buffer_finalize(struct buffer* self  );
 struct buffer* buffer_clone(struct buffer* self  );
 _Bool buffer_equals(struct buffer* left  , struct buffer* right  );
 int buffer_length(struct buffer* self  );
 void buffer_reset(struct buffer* self  );
 void buffer_trim(struct buffer* self  , int len);
-struct buffer* buffer_append(struct buffer* self  , char* mem, unsigned long size  );
+struct buffer* buffer_append(struct buffer* self  , const char* mem, unsigned long size  );
 struct buffer* buffer_append_char(struct buffer* self  , char c);
-struct buffer* buffer_append_str(struct buffer* self  , char* mem);
-struct buffer* buffer_append_format(struct buffer* self  , char* msg, ...);
-struct buffer* buffer_append_nullterminated_str(struct buffer* self  , char* mem);
+struct buffer* buffer_append_str(struct buffer* self  , const char* mem);
+struct buffer* buffer_append_format(struct buffer* self  , const char* msg, ...);
+struct buffer* buffer_append_nullterminated_str(struct buffer* self  , const char* mem);
 struct buffer* buffer_append_int(struct buffer* self  , int value);
 struct buffer* buffer_append_long(struct buffer* self  , long value);
 struct buffer* buffer_append_short(struct buffer* self  , short value);
 struct buffer* buffer_alignment(struct buffer* self  );
 int buffer_compare(struct buffer* left  , struct buffer* right  );
-struct buffer* charp_to_buffer(char* self);
+struct buffer* charp_to_buffer(const char* self);
 char* buffer_to_string(struct buffer* self  );
 unsigned char* buffer_head_pointer(struct buffer* self  );
 struct buffer* chara_to_buffer(char* self, unsigned long len  );
@@ -2259,23 +2259,23 @@ _Bool char_operator_not_equals(char self, char right);
 _Bool short_operator_not_equals(short self, short right);
 _Bool int_operator_not_equals(int self, int right);
 _Bool long_operator_not_equals(long self, long right);
-_Bool charp_equals(char* self, char* right);
-_Bool string_equals(char* self, char* right);
+_Bool charp_equals(const char* self, const char* right);
+_Bool string_equals(char* self, const char* right);
 _Bool voidp_equals(void* self, void* right);
 _Bool _Boolp_equals(_Bool* self, _Bool* right);
-_Bool string_operator_equals(char* self, char* right);
-_Bool charp_operator_equals(char* self, char* right);
-_Bool chara_operator_equals(char* self, char* right);
-_Bool voidp_operator_equals(char* self, char* right);
-_Bool voidp_operator_not_equals(char* self, char* right);
-_Bool string_operator_not_equals(char* self, char* right);
-_Bool charp_operator_not_equals(char* self, char* right);
-_Bool chara_operator_not_equals(char* self, char* right);
-char* charp_operator_add(char* self, char* right);
-char* string_operator_add(char* self, char* right);
-char* charp_operator_mult(char* self, int right);
-char* string_operator_mult(char* self, int right);
-_Bool charpa_contained(char** self, unsigned long len  , char* str);
+_Bool string_operator_equals(char* self, const char* right);
+_Bool charp_operator_equals(const char* self, const char* right);
+_Bool chara_operator_equals(char* self, const char* right);
+_Bool voidp_operator_equals(const char* self, const char* right);
+_Bool voidp_operator_not_equals(const char* self, const char* right);
+_Bool string_operator_not_equals(char* self, const char* right);
+_Bool charp_operator_not_equals(const char* self, const char* right);
+_Bool chara_operator_not_equals(char* self, const char* right);
+char* charp_operator_add(const char* self, const char* right);
+char* string_operator_add(char* self, const char* right);
+char* charp_operator_mult(const char* self, int right);
+char* string_operator_mult(const char* self, int right);
+_Bool charpa_contained(char** self, unsigned long len  , const char* str);
 unsigned long shorta_length(short* self, unsigned long len  );
 unsigned long inta_length(int* self, unsigned long len  );
 unsigned long longa_length(long* self, unsigned long len  );
@@ -2289,7 +2289,7 @@ unsigned int long_get_hash_key(long value);
 unsigned int size_t_get_hash_key(unsigned long value  );
 unsigned int float_get_hash_key(float value);
 unsigned int double_get_hash_key(double value);
-unsigned int charp_get_hash_key(char* value);
+unsigned int charp_get_hash_key(const char* value);
 unsigned int string_get_hash_key(char* value);
 unsigned int voidp_get_hash_key(void* value);
 _Bool _Bool_clone(_Bool self);
@@ -2307,18 +2307,18 @@ _Bool xisspace(char c);
 _Bool xisalnum(char c);
 _Bool xisascii(char c);
 _Bool xispunct(char c);
-int string_length(char* str);
-int charp_length(char* str);
-int chara_length(char* str);
-char* charp_reverse(char* str);
+int string_length(const char* str);
+int charp_length(const char* str);
+int chara_length(const char* str);
+char* charp_reverse(const char* str);
 char* string_operator_load_range_element(char* str, int head, int tail);
 char* charp_operator_load_range_element(char* str, int head, int tail);
-char* charp_substring(char* str, int head, int tail);
-char* xsprintf(char* msg, ...);
+char* charp_substring(const char* str, int head, int tail);
+char* xsprintf(const char* msg, ...);
 char* charp_delete(char* str, int head, int tail);
 struct list$1char$ph* charp_split_char(char* self, char c);
-char* charp_xsprintf(char* self, char* msg, ...);
-char* int_xsprintf(int self, char* msg, ...);
+char* charp_xsprintf(char* self, const char* msg, ...);
+char* int_xsprintf(int self, const char* msg, ...);
 char* charp_printable(char* str);
 char* chara_printable(char* str);
 char* charp_sub_plain(char* self, char* str, char* replace);
@@ -2334,7 +2334,7 @@ char* size_t_to_string(unsigned long self  );
 char* float_to_string(float self);
 char* double_to_string(double self);
 char* string_to_string(char* self);
-char* charp_to_string(char* self);
+char* charp_to_string(const char* self);
 int _Bool_compare(_Bool left, _Bool right);
 int char_compare(char left, char right);
 int short_compare(short left, short right);
@@ -2380,22 +2380,22 @@ int matchmetachar(char c, const char* str);
 int matchcharclass(char c, const char* str, _Bool ignore_case);
 void re_print_internal(struct regex_t* pattern  , int depth);
 int re_get_group_count(struct re_program* pattern  );
-int charp_index_regex(char* self, char* reg, int default_value, _Bool ignore_case);
-int charp_rindex_regex(char* self, char* reg, int default_value, _Bool ignore_case);
-char* string_chomp(char* str);
-int string_rindex_regex(char* self, char* reg, int default_value, _Bool ignore_case);
-int string_index_regex(char* self, char* reg, int default_value, _Bool ignore_case);
-_Bool charp_match(char* self, char* reg, _Bool ignore_case);
-struct list$1char$ph* charp_scan(char* self, char* reg, _Bool ignore_case);
-struct list$1char$ph* charp_split(char* self, char* reg, _Bool ignore_case);
-char* string_sub(char* self, char* reg, char* replace, _Bool ignore_case);
-struct list$1char$ph* string_scan(char* self, char* reg, _Bool ignore_case);
-struct list$1char$ph* string_split(char* self, char* reg, _Bool ignore_case);
-_Bool string_match(char* self, char* reg, _Bool ignore_case);
-char* charp_sub(char* self, char* reg, char* replace, _Bool global, _Bool ignore_case);
-char* charp_sub_block(char* self, char* reg, _Bool global, _Bool ignore_case, void* parent, char* (*block)(void*,char*,struct list$1char$ph*));
-struct list$1char$ph* charp_scan_block(char* self, char* reg, _Bool ignore_case, void* parent, char* (*block)(void*,char*,struct list$1char$ph*));
-char* string_sub_block(char* self, char* reg, _Bool global, _Bool ignore_case, void* parent, char* (*block)(void*,char*,struct list$1char$ph*));
+int charp_index_regex(const char* self, const char* reg, int default_value, _Bool ignore_case);
+int charp_rindex_regex(const char* self, const char* reg, int default_value, _Bool ignore_case);
+char* string_chomp(const char* str);
+int string_rindex_regex(char* self, const char* reg, int default_value, _Bool ignore_case);
+int string_index_regex(char* self, const char* reg, int default_value, _Bool ignore_case);
+_Bool charp_match(char* self, const char* reg, _Bool ignore_case);
+struct list$1char$ph* charp_scan(const char* self, const char* reg, _Bool ignore_case);
+struct list$1char$ph* charp_split(const char* self, const char* reg, _Bool ignore_case);
+char* string_sub(char* self, const char* reg, const char* replace, _Bool ignore_case);
+struct list$1char$ph* string_scan(char* self, const char* reg, _Bool ignore_case);
+struct list$1char$ph* string_split(char* self, const char* reg, _Bool ignore_case);
+_Bool string_match(char* self, const char* reg, _Bool ignore_case);
+char* charp_sub(char* self, const char* reg, const char* replace, _Bool global, _Bool ignore_case);
+char* charp_sub_block(char* self, const char* reg, _Bool global, _Bool ignore_case, void* parent, char* (*block)(void*,char*,struct list$1char$ph*));
+struct list$1char$ph* charp_scan_block(const char* self, const char* reg, _Bool ignore_case, void* parent, char* (*block)(void*,char*,struct list$1char$ph*));
+char* string_sub_block(char* self, const char* reg, _Bool global, _Bool ignore_case, void* parent, char* (*block)(void*,char*,struct list$1char$ph*));
 int* wcscpy(int* __dest  , const int* __src  );
 int* wcsncpy(int* __dest  , const int* __src  , unsigned long __n  );
 unsigned long wcslcpy(int* __dest  , const int* __src  , unsigned long __n  );
@@ -2518,85 +2518,85 @@ unsigned long wcsftime(int* __s  , unsigned long __maxsize  , const int* __forma
 unsigned long wcsftime_l(int* __s  , unsigned long __maxsize  , const int* __format  , const struct tm* __tp  , struct __locale_struct* __loc  );
 char* dirname(char* __path);
 char* __xpg_basename(char* __path);
-int* __builtin_wstring(char* str);
-int wchar_tp_length(int* str  );
-int wchar_ta_length(int* str  );
-int wstring_length(int* str  );
+int* __builtin_wstring(const char* str);
+int wchar_tp_length(const int* str  );
+int wchar_ta_length(const int* str  );
+int wstring_length(const int* str  );
 char* string_lower_case(char* str);
 char* string_upper_case(char* str);
-int* wchar_tp_substring(int* str  , int head, int tail);
-int charp_index_count(char* str, char* search_str, int count, int default_value);
-int charp_rindex(char* str, char* search_str, int default_value);
-int charp_rindex_count(char* str, char* search_str, int count, int default_value);
-char* charp_strip(char* self);
-char* wchar_tp_to_string(int* wstr  );
-char* wchar_ta_to_string(int* wstr  );
-int* charp_to_wstring(char* str);
+int* wchar_tp_substring(const int* str  , int head, int tail);
+int charp_index_count(const char* str, const char* search_str, int count, int default_value);
+int charp_rindex(const char* str, const char* search_str, int default_value);
+int charp_rindex_count(const char* str, const char* search_str, int count, int default_value);
+char* charp_strip(const char* self);
+char* wchar_tp_to_string(const int* wstr  );
+char* wchar_ta_to_string(const int* wstr  );
+int* charp_to_wstring(const char* str);
 int* chara_to_wstring(char* str);
-int* wchar_tp_delete(int* str  , int head, int tail);
-int wchar_tp_index(int* str  , int* search_str  , int default_value);
-int wchar_tp_rindex(int* str  , int* search_str  , int default_value);
-int* wchar_tp_reverse(int* str  );
-int* wchar_tp_multiply(int* str  , int n);
-int* wchar_tp_printable(int* str  );
-int wchar_tp_compare(int* left  , int* right  );
-int wstring_compare(int* left  , int* right  );
-int* wchar_tp_operator_mult(int* str  , int n);
-int* wstring_operator_mult(int* str  , int n);
-_Bool wstring_operator_equals(int* left  , int* right  );
-_Bool wstring_operator_not_equals(int* left  , int* right  );
-int* wchar_tp_operator_add(int* left  , int* right  );
-int* wstring_operator_add(int* left  , int* right  );
-int charp_index(char* str, char* search_str, int default_value);
+int* wchar_tp_delete(const int* str  , int head, int tail);
+int wchar_tp_index(const int* str  , const int* search_str  , int default_value);
+int wchar_tp_rindex(const int* str  , const int* search_str  , int default_value);
+int* wchar_tp_reverse(const int* str  );
+int* wchar_tp_multiply(const int* str  , int n);
+int* wchar_tp_printable(const int* str  );
+int wchar_tp_compare(const int* left  , int* right  );
+int wstring_compare(const int* left  , const int* right  );
+int* wchar_tp_operator_mult(const int* str  , int n);
+int* wstring_operator_mult(const int* str  , int n);
+_Bool wstring_operator_equals(const int* left  , const int* right  );
+_Bool wstring_operator_not_equals(const int* left  , const int* right  );
+int* wchar_tp_operator_add(const int* left  , const int* right  );
+int* wstring_operator_add(const int* left  , const int* right  );
+int charp_index(const char* str, const char* search_str, int default_value);
 char* charp_replace(char* self, int index, char c);
-char* charp_multiply(char* str, int n);
-struct list$1char$ph* charp_split_str(char* self, char* str);
-unsigned int wchar_tp_get_hash_key(int* value  );
-_Bool wstring_equals(int* left  , int* right  );
+char* charp_multiply(const char* str, int n);
+struct list$1char$ph* charp_split_str(const char* self, const char* str);
+unsigned int wchar_tp_get_hash_key(const int* value  );
+_Bool wstring_equals(const int* left  , const int* right  );
 _Bool wchar_t_operator_equals(int left  , int right  );
 _Bool wchar_t_operator_not_equals(int left  , int right  );
 unsigned int wchar_t_get_hash_key(int value  );
 _Bool wchar_t_equals(int left  , int right  );
 char* wchar_t_to_string(int wc  );
-char* xrealpath(char* path);
-char* xdirname(char* path);
-unsigned long xwcslen(int* wstr  );
-int* wstring_substring(int* str  , int head, int tail);
-int string_index_count(char* str, char* search_str, int count, int default_value);
-int string_rindex(char* str, char* search_str, int default_value);
-int string_rindex_count(char* str, char* search_str, int count, int default_value);
-char* string_strip(char* self);
-char* wstring_to_string(int* wstr  );
+char* xrealpath(const char* path);
+char* xdirname(const char* path);
+unsigned long xwcslen(const int* wstr  );
+int* wstring_substring(const int* str  , int head, int tail);
+int string_index_count(const char* str, const char* search_str, int count, int default_value);
+int string_rindex(const char* str, const char* search_str, int default_value);
+int string_rindex_count(const char* str, const char* search_str, int count, int default_value);
+char* string_strip(const char* self);
+char* wstring_to_string(const int* wstr  );
 int* int_to_wstring(int self);
-int* wstring_delete(int* str  , int head, int tail);
-int wstring_index(int* str  , int* search_str  , int default_value);
-int wstring_rindex(int* str  , int* search_str  , int default_value);
-int* wstring_reverse(int* str  );
-int* wstring_multiply(int* str  , int n);
-int* wstring_printable(int* str  );
-unsigned int wstring_get_hash_key(int* value  );
-int string_index(char* str, char* search_str, int default_value);
+int* wstring_delete(const int* str  , int head, int tail);
+int wstring_index(const int* str  , const int* search_str  , int default_value);
+int wstring_rindex(const int* str  , const int* search_str  , int default_value);
+int* wstring_reverse(const int* str  );
+int* wstring_multiply(const int* str  , int n);
+int* wstring_printable(const int* str  );
+unsigned int wstring_get_hash_key(const int* value  );
+int string_index(const char* str, const char* search_str, int default_value);
 char* string_replace(char* self, int index, char c);
-char* string_multiply(char* str, int n);
-struct list$1char$ph* string_split_str(char* self, char* str);
-int* string_to_wstring(char* str);
-char* charp_chomp(char* str);
-_Bool wchar_tp_equals(int* left  , int* right  );
-_Bool wchar_tp_operator_equals(int* left  , int* right  );
-_Bool wchar_tp_operator_not_equals(int* left  , int* right  );
+char* string_multiply(const char* str, int n);
+struct list$1char$ph* string_split_str(const char* self, const char* str);
+int* string_to_wstring(const char* str);
+char* charp_chomp(const char* str);
+_Bool wchar_tp_equals(const int* left  , const int* right  );
+_Bool wchar_tp_operator_equals(const int* left  , const int* right  );
+_Bool wchar_tp_operator_not_equals(const int* left  , const int* right  );
 char* FILE_read(struct _IO_FILE* f  );
-int FILE_write(struct _IO_FILE* f  , char* str);
+int FILE_write(struct _IO_FILE* f  , const char* str);
 int FILE_fclose(struct _IO_FILE* f  );
 struct _IO_FILE* FILE_fprintf(struct _IO_FILE* f  , const char* msg, ...);
-int charp_write(char* self, char* file_name, _Bool append);
-char* charp_read(char* file_name);
+int charp_write(const char* self, const char* file_name, _Bool append);
+char* charp_read(const char* file_name);
 struct list$1char$ph* FILE_readlines(struct _IO_FILE* f  );
 _Bool xiswalpha(int c  );
 _Bool xiswblank(int c  );
 _Bool xiswdigit(int c  );
 _Bool xiswalnum(int c  );
 _Bool xiswascii(int c  );
-struct sClass* sClass_initialize(struct sClass* self, char* name, _Bool number, _Bool union_, _Bool generics, _Bool method_generics, _Bool protocol_, _Bool struct_, _Bool float_, int generics_num, int method_generics_num, _Bool enum_, _Bool uniq_, _Bool typename, struct sInfo* info  );
+struct sClass* sClass_initialize(struct sClass* self, const char* name, _Bool number, _Bool union_, _Bool generics, _Bool method_generics, _Bool protocol_, _Bool struct_, _Bool float_, int generics_num, int method_generics_num, _Bool enum_, _Bool uniq_, _Bool typename, struct sInfo* info  );
 struct sType* sType_initialize(struct sType* self, char* name  , _Bool heap, struct sInfo* info  , _Bool unsinged_);
 struct sFun* sFun_initialize(struct sFun* self, char* name  , struct sType* result_type  , struct list$1sType$ph* param_types, struct list$1char$ph* param_names, struct list$1char$ph* param_default_parametors, _Bool external, _Bool var_args, struct sBlock* block  , _Bool static_, struct sInfo* info  , _Bool inline_, _Bool uniq_, _Bool generate_, char* attribute  , char* fun_attribute  , _Bool const_fun, char* text_block  , char* generics_sname  , int generics_sline, _Bool immutable_);
 struct sGenericsFun* sGenericsFun_initialize(struct sGenericsFun* self, struct sType* impl_type  , struct list$1char$ph* generics_type_names, struct list$1char$ph* method_generics_type_names, char* name  , struct sType* result_type  , struct list$1sType$ph* param_types, struct list$1char$ph* param_names, struct list$1char$ph* param_default_parametors, _Bool var_args, char* block  , struct sInfo* info  , char* generics_sname  , int generics_sline, _Bool const_fun);
@@ -2618,8 +2618,8 @@ char* sCurrentNode_sname(struct sCurrentNode* self, struct sInfo* info  );
 char* sCurrentNode_kind(struct sCurrentNode* self);
 _Bool sCurrentNode_compile(struct sCurrentNode* self, struct sInfo* info  );
 _Bool transpile_conditional_with_free_right_object_value(struct sNode* node, struct sInfo* info  );
-int err_msg(struct sInfo* info  , char* msg, ...);
-int err_msg2(struct sInfo* info  , char* msg, ...);
+int err_msg(struct sInfo* info  , const char* msg, ...);
+int err_msg2(struct sInfo* info  , const char* msg, ...);
 int expected_next_character(char c, struct sInfo* info  );
 _Bool node_compile(struct sNode* node, struct sInfo* info  );
 _Bool node_conditional_compile(struct sNode* node, struct sInfo* info  );
@@ -2634,10 +2634,10 @@ _Bool output_source_file(struct sInfo* info  );
 void show_type(struct sType* type  , struct sInfo* info  );
 char* create_generics_name(struct sType* generics_type  , struct sInfo* info  );
 void add_last_code_to_source(struct sInfo* info  );
-void add_come_code_at_function_head(struct sInfo* info  , char* code, ...);
+void add_come_code_at_function_head(struct sInfo* info  , const char* code, ...);
 void add_come_code_at_come_header(struct sInfo* info  , char* id  , const char* msg, ...);
 void add_come_code_at_come_struct_header(struct sInfo* info  , char* id  , const char* msg, ...);
-void add_come_code_at_function_head2(struct sInfo* info  , char* code, ...);
+void add_come_code_at_function_head2(struct sInfo* info  , const char* code, ...);
 void add_come_code(struct sInfo* info  , const char* msg, ...);
 void add_come_last_code(struct sInfo* info  , const char* msg, ...);
 void add_come_last_code2(struct sInfo* info  , const char* msg, ...);
@@ -2678,7 +2678,7 @@ struct tuple2$2char$phsGenericsFun$p* make_method_generics_function(char* fun_na
 struct sNode* create_return_node(struct sNode* value, char* value_source  , struct sInfo* info  );
 struct sNode* post_position_operator(struct sNode* node, struct sInfo* info  );
 _Bool create_method_generics_fun(char* fun_name  , struct sGenericsFun* generics_fun  , struct sInfo* info  );
-_Bool operator_overload_fun_self(struct sType* type  , char* fun_name, struct sNode* node, struct CVALUE* left_value  , struct sInfo* info  );
+_Bool operator_overload_fun_self(struct sType* type  , const char* fun_name, struct sNode* node, struct CVALUE* left_value  , struct sInfo* info  );
 void caller_begin(struct sInfo* info  );
 void caller_end(struct sInfo* info  );
 struct sNode* craete_logical_denial(struct sNode* node, struct sInfo* info  );
@@ -2686,7 +2686,7 @@ struct tuple3$3sType$phchar$ph_Bool$* backtrace_parse_type(_Bool parse_variable_
 void skip_pointer_attribute(struct sInfo* info  );
 struct sNode* parse_normal_block(_Bool clang, struct sInfo* info  );
 void cast_type(struct sType* left_type  , struct sType* right_type  , struct CVALUE* come_value  , struct sInfo* info  );
-_Bool check_assign_type(char* msg, struct sType* left_type  , struct sType* right_type  , struct CVALUE* come_value  , struct sInfo* info  );
+_Bool check_assign_type(const char* msg, struct sType* left_type  , struct sType* right_type  , struct CVALUE* come_value  , struct sInfo* info  );
 struct tuple2$2char$phchar$ph* parse_attribute(struct sInfo* info  , _Bool parse_function_attribute);
 struct tuple2$2char$phchar$ph* parse_function_attribute(struct sInfo* info  );
 struct sNode* get_number(_Bool minus, struct sInfo* info  );
@@ -2695,19 +2695,19 @@ struct sNode* get_hex_number(_Bool minus, struct sInfo* info  );
 struct sNode* create_int_node(char* value  , struct sInfo* info  );
 struct tuple4$4list$1sType$ph$phlist$1char$ph$phlist$1char$ph$ph_Bool$* parse_params(struct sInfo* info  , _Bool in_constructor_);
 struct tuple2$2sFun$pchar$ph* create_pthread_fun(struct sType* type  , char* fun_name, struct sInfo* info  );
-struct tuple2$2sFun$pchar$ph* create_finalizer_automatically(struct sType* type  , char* fun_name, struct sInfo* info  );
-struct tuple2$2sFun$pchar$ph* create_to_string_automatically(struct sType* type  , char* fun_name, struct sInfo* info  );
-struct tuple2$2sFun$pchar$ph* create_cloner_automatically(struct sType* type  , char* fun_name, struct sInfo* info  );
-struct tuple2$2sFun$pchar$ph* create_equals_automatically(struct sType* type  , char* fun_name, struct sInfo* info  );
-struct tuple2$2sFun$pchar$ph* create_operator_equals_automatically(struct sType* type  , char* fun_name, struct sInfo* info  );
-struct tuple2$2sFun$pchar$ph* create_operator_not_equals_automatically(struct sType* type  , char* fun_name, struct sInfo* info  );
-struct tuple2$2sFun$pchar$ph* create_not_equals_automatically(struct sType* type  , char* fun_name, struct sInfo* info  );
-struct tuple2$2sFun$pchar$ph* create_get_hash_key_automatically(struct sType* type  , char* fun_name, struct sInfo* info  );
+struct tuple2$2sFun$pchar$ph* create_finalizer_automatically(struct sType* type  , const char* fun_name, struct sInfo* info  );
+struct tuple2$2sFun$pchar$ph* create_to_string_automatically(struct sType* type  , const char* fun_name, struct sInfo* info  );
+struct tuple2$2sFun$pchar$ph* create_cloner_automatically(struct sType* type  , const char* fun_name, struct sInfo* info  );
+struct tuple2$2sFun$pchar$ph* create_equals_automatically(struct sType* type  , const char* fun_name, struct sInfo* info  );
+struct tuple2$2sFun$pchar$ph* create_operator_equals_automatically(struct sType* type  , const char* fun_name, struct sInfo* info  );
+struct tuple2$2sFun$pchar$ph* create_operator_not_equals_automatically(struct sType* type  , const char* fun_name, struct sInfo* info  );
+struct tuple2$2sFun$pchar$ph* create_not_equals_automatically(struct sType* type  , const char* fun_name, struct sInfo* info  );
+struct tuple2$2sFun$pchar$ph* create_get_hash_key_automatically(struct sType* type  , const char* fun_name, struct sInfo* info  );
 char* skip_block(struct sInfo* info  , _Bool return_self_at_last);
 char* skip_paren(struct sInfo* info  );
 _Bool is_contained_generics_class(struct sType* type  , struct sInfo* info  );
 _Bool is_type_name(char* buf, struct sInfo* info  );
-_Bool parsecmp(char* p2, struct sInfo* info  );
+_Bool parsecmp(const char* p2, struct sInfo* info  );
 char* parse_word(_Bool digits, struct sInfo* info  );
 char* backtrace_parse_word(struct sInfo* info  );
 void skip_spaces_and_lf(struct sInfo* info  );
@@ -2728,10 +2728,10 @@ struct sNode* expression_node_v98(struct sInfo* info  );
 struct sNode* expression_node_v97(struct sInfo* info  );
 int transpile(struct sInfo* info  );
 void parse_sharp_v5(struct sInfo* info  );
-char* create_method_name(struct sType* obj_type  , _Bool no_pointer_name, char* fun_name, struct sInfo* info  , _Bool array_equal_pointer);
-char* create_method_name_original_obj_type(struct sType* obj_type  , _Bool no_pointer_name, char* fun_name, struct sInfo* info  , _Bool array_equal_pointer);
-char* create_non_method_name(struct sType* obj_type  , _Bool no_pointer_name, char* fun_name, struct sInfo* info  , _Bool array_equal_pointer);
-char* create_method_name_using_class(struct sClass* obj_class  , char* fun_name, struct sInfo* info  );
+char* create_method_name(struct sType* obj_type  , _Bool no_pointer_name, const char* fun_name, struct sInfo* info  , _Bool array_equal_pointer);
+char* create_method_name_original_obj_type(struct sType* obj_type  , _Bool no_pointer_name, const char* fun_name, struct sInfo* info  , _Bool array_equal_pointer);
+char* create_non_method_name(struct sType* obj_type  , _Bool no_pointer_name, const char* fun_name, struct sInfo* info  , _Bool array_equal_pointer);
+char* create_method_name_using_class(struct sClass* obj_class  , const char* fun_name, struct sInfo* info  );
 struct sNode* create_null_return_value(struct sInfo* info  );
 struct sNode* create_some(struct sNode* exp, struct sInfo* info  );
 struct sNode* expression_node_v96(struct sInfo* info  );
@@ -2742,7 +2742,7 @@ _Bool is_inner_calling(struct sNode* node, struct sInfo* info  );
 struct sNode* post_position_operator_v7(struct sNode* node, struct sInfo* info  );
 struct sNode* expression_node_v95(struct sInfo* info  );
 struct sNode* store_var(char* name  , struct list$1char$ph* multiple_assign, struct list$1tuple3$3sType$phchar$phsNode$ph$ph* multiple_declare, struct sType* type  , _Bool alloc, struct sNode* right_value, struct sInfo* info  );
-struct sNode* create_load_var(char* var_name, struct sInfo* info  );
+struct sNode* create_load_var(const char* var_name, struct sInfo* info  );
 struct sNode* parse_array_initializer(struct sInfo* info  );
 struct sNode* parse_struct_initializer(struct sInfo* info  );
 struct sNode* parse_global_variable(struct sInfo* info  );
@@ -2789,8 +2789,8 @@ struct sNode* store_field(struct sNode* left, struct sNode* right, char* name  ,
 struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo* info  );
 struct sNode* parse_method_call_v18(struct sNode* obj, char* fun_name  , struct sInfo* info  );
 struct sNode* post_position_operator_v19(struct sNode* node, struct sInfo* info  );
-struct tuple3$3char$phsFun$psGenericsFun$p* get_method(char* fun_name, struct sType* obj_type  , struct sInfo* info  );
-struct sNode* create_method_call(char* fun_name, struct sNode* obj, struct list$1tuple2$2char$phsNode$ph$ph* params, struct buffer* method_block  , int method_block_sline, struct list$1sType$ph* method_generics_types, struct sInfo* info  );
+struct tuple3$3char$phsFun$psGenericsFun$p* get_method(const char* fun_name, struct sType* obj_type  , struct sInfo* info  );
+struct sNode* create_method_call(const char* fun_name, struct sNode* obj, struct list$1tuple2$2char$phsNode$ph$ph* params, struct buffer* method_block  , int method_block_sline, struct list$1sType$ph* method_generics_types, struct sInfo* info  );
 struct sNode* create_guard_break_method_call(struct sNode* expression_node, struct sInfo* info  );
 _Bool compile_method_block(struct buffer* method_block  , struct list$1CVALUE$ph* come_params, struct sFun* fun  , char* fun_name, int method_block_sline, struct sInfo* info  , _Bool no_create_current_stack);
 struct tuple2$2char$phsGenericsFun$p* make_generics_function(struct sType* type  , char* fun_name  , struct sInfo* info  , _Bool array_equal_pointer);
@@ -2822,7 +2822,7 @@ struct MacroSnapshot* macro_snapshot_create();
 char* macro_snapshot_diff_defines(struct MacroSnapshot* snap  );
 void macro_snapshot_free(struct MacroSnapshot* snap  );
 void init_global_opts();
-_Bool operator_overload_fun(struct sType* type  , char* fun_name, struct sNode* left_node, struct sNode* right_node, struct CVALUE* left_value  , struct CVALUE* right_value  , _Bool break_guard, struct sInfo* info  );
+_Bool operator_overload_fun(struct sType* type  , const char* fun_name, struct sNode* left_node, struct sNode* right_node, struct CVALUE* left_value  , struct CVALUE* right_value  , _Bool break_guard, struct sInfo* info  );
 static void tuple3$3char$phsFun$psGenericsFun$p$p_finalize(struct tuple3$3char$phsFun$psGenericsFun$p* self);
 static int list$1sType$ph_length(struct list$1sType$ph* self);
 static int list$1sNode$ph_length(struct list$1sNode$ph* self);
@@ -3029,7 +3029,7 @@ static inline unsigned long  int __uint64_identity(unsigned long  int __x  )
 }
 
 // body function
-_Bool operator_overload_fun(struct sType* type  , char* fun_name, struct sNode* left_node, struct sNode* right_node, struct CVALUE* left_value  , struct CVALUE* right_value  , _Bool break_guard, struct sInfo* info  )
+_Bool operator_overload_fun(struct sType* type  , const char* fun_name, struct sNode* left_node, struct sNode* right_node, struct CVALUE* left_value  , struct CVALUE* right_value  , _Bool break_guard, struct sInfo* info  )
 {
     struct neo_frame fr;
 fr.prev = neo_current_frame;
@@ -3692,7 +3692,6 @@ fr.fun_name = "sAddNode_compile"; neo_current_frame = &fr;    struct sNode* left
     _Bool Value_5;
     struct CVALUE* right_value  ;
     struct sType* type  ;
-    char* fun_name;
     _Bool calling_fun;
     struct sType* result_type  ;
     struct sType* __dec_obj45  ;
@@ -3720,7 +3719,7 @@ fr.fun_name = "sAddNode_compile"; neo_current_frame = &fr;    struct sNode* left
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
-    fun_name="operator_add";
+    const char* fun_name="operator_add";
     if(self->mQuote) {
         calling_fun=0;
     }
@@ -4601,7 +4600,6 @@ fr.fun_name = "sSubNode_compile"; neo_current_frame = &fr;    struct sNode* left
     _Bool Value_14;
     struct CVALUE* right_value  ;
     struct sType* type  ;
-    char* fun_name;
     _Bool calling_fun;
     struct sType* result_type  ;
     void* __right_value1 = (void*)0;
@@ -4630,7 +4628,7 @@ fr.fun_name = "sSubNode_compile"; neo_current_frame = &fr;    struct sNode* left
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
-    fun_name="operator_sub";
+    const char* fun_name="operator_sub";
     if(self->mQuote) {
         calling_fun=0;
     }
@@ -4732,7 +4730,6 @@ fr.fun_name = "sMultNode_compile"; neo_current_frame = &fr;    struct sNode* lef
     _Bool Value_15;
     struct CVALUE* right_value  ;
     struct sType* type  ;
-    char* fun_name;
     _Bool calling_fun;
     void* __right_value1 = (void*)0;
     struct CVALUE* come_value  ;
@@ -4758,7 +4755,7 @@ fr.fun_name = "sMultNode_compile"; neo_current_frame = &fr;    struct sNode* lef
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
-    fun_name="operator_mult";
+    const char* fun_name="operator_mult";
     if(self->mQuote) {
         calling_fun=0;
     }
@@ -4853,7 +4850,6 @@ fr.fun_name = "sDivNode_compile"; neo_current_frame = &fr;    struct sNode* left
     _Bool Value_16;
     struct CVALUE* right_value  ;
     struct sType* type  ;
-    char* fun_name;
     _Bool calling_fun;
     void* __right_value1 = (void*)0;
     struct CVALUE* come_value  ;
@@ -4879,7 +4875,7 @@ fr.fun_name = "sDivNode_compile"; neo_current_frame = &fr;    struct sNode* left
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
-    fun_name="operator_div";
+    const char* fun_name="operator_div";
     if(self->mQuote) {
         calling_fun=0;
     }
@@ -4974,7 +4970,6 @@ fr.fun_name = "sModNode_compile"; neo_current_frame = &fr;    struct sNode* left
     _Bool Value_17;
     struct CVALUE* right_value  ;
     struct sType* type  ;
-    char* fun_name;
     _Bool calling_fun;
     void* __right_value1 = (void*)0;
     struct CVALUE* come_value  ;
@@ -5000,7 +4995,7 @@ fr.fun_name = "sModNode_compile"; neo_current_frame = &fr;    struct sNode* left
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
-    fun_name="operator_mod";
+    const char* fun_name="operator_mod";
     if(self->mQuote) {
         calling_fun=0;
     }
@@ -5095,7 +5090,6 @@ fr.fun_name = "sLShiftNode_compile"; neo_current_frame = &fr;    struct sNode* l
     _Bool Value_18;
     struct CVALUE* right_value  ;
     struct sType* type  ;
-    char* fun_name;
     _Bool calling_fun;
     void* __right_value1 = (void*)0;
     struct CVALUE* come_value  ;
@@ -5121,7 +5115,7 @@ fr.fun_name = "sLShiftNode_compile"; neo_current_frame = &fr;    struct sNode* l
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
-    fun_name="operator_lshift";
+    const char* fun_name="operator_lshift";
     if(self->mQuote) {
         calling_fun=0;
     }
@@ -5216,7 +5210,6 @@ fr.fun_name = "sRShiftNode_compile"; neo_current_frame = &fr;    struct sNode* l
     _Bool Value_19;
     struct CVALUE* right_value  ;
     struct sType* type  ;
-    char* fun_name;
     _Bool calling_fun;
     void* __right_value1 = (void*)0;
     struct CVALUE* come_value  ;
@@ -5242,7 +5235,7 @@ fr.fun_name = "sRShiftNode_compile"; neo_current_frame = &fr;    struct sNode* l
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
-    fun_name="operator_rshift";
+    const char* fun_name="operator_rshift";
     if(self->mQuote) {
         calling_fun=0;
     }
@@ -5337,7 +5330,6 @@ fr.fun_name = "sGtEqNode_compile"; neo_current_frame = &fr;    struct sNode* lef
     _Bool Value_20;
     struct CVALUE* right_value  ;
     struct sType* type  ;
-    char* fun_name;
     _Bool calling_fun;
     void* __right_value1 = (void*)0;
     struct CVALUE* come_value  ;
@@ -5364,7 +5356,7 @@ fr.fun_name = "sGtEqNode_compile"; neo_current_frame = &fr;    struct sNode* lef
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
-    fun_name="operator_gteq";
+    const char* fun_name="operator_gteq";
     if(self->mQuote) {
         calling_fun=0;
     }
@@ -5458,7 +5450,6 @@ fr.fun_name = "sLtEqNode_compile"; neo_current_frame = &fr;    struct sNode* lef
     _Bool Value_21;
     struct CVALUE* right_value  ;
     struct sType* type  ;
-    char* fun_name;
     _Bool calling_fun;
     void* __right_value1 = (void*)0;
     struct CVALUE* come_value  ;
@@ -5485,7 +5476,7 @@ fr.fun_name = "sLtEqNode_compile"; neo_current_frame = &fr;    struct sNode* lef
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
-    fun_name="operator_lteq";
+    const char* fun_name="operator_lteq";
     if(self->mQuote) {
         calling_fun=0;
     }
@@ -5579,7 +5570,6 @@ fr.fun_name = "sLtNode_compile"; neo_current_frame = &fr;    struct sNode* left_
     _Bool Value_22;
     struct CVALUE* right_value  ;
     struct sType* type  ;
-    char* fun_name;
     _Bool calling_fun;
     void* __right_value1 = (void*)0;
     struct CVALUE* come_value  ;
@@ -5606,7 +5596,7 @@ fr.fun_name = "sLtNode_compile"; neo_current_frame = &fr;    struct sNode* left_
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
-    fun_name="operator_lt";
+    const char* fun_name="operator_lt";
     if(self->mQuote) {
         calling_fun=0;
     }
@@ -5700,7 +5690,6 @@ fr.fun_name = "sGtNode_compile"; neo_current_frame = &fr;    struct sNode* left_
     _Bool Value_23;
     struct CVALUE* right_value  ;
     struct sType* type  ;
-    char* fun_name;
     _Bool calling_fun;
     void* __right_value1 = (void*)0;
     struct CVALUE* come_value  ;
@@ -5727,7 +5716,7 @@ fr.fun_name = "sGtNode_compile"; neo_current_frame = &fr;    struct sNode* left_
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
-    fun_name="operator_gt";
+    const char* fun_name="operator_gt";
     if(self->mQuote) {
         calling_fun=0;
     }
@@ -6023,7 +6012,6 @@ fr.fun_name = "sEq2Node_compile"; neo_current_frame = &fr;    struct sNode* left
     _Bool Value_26;
     struct CVALUE* right_value  ;
     struct sType* type  ;
-    char* fun_name;
     _Bool calling_fun;
     void* __right_value1 = (void*)0;
     struct CVALUE* come_value  ;
@@ -6050,7 +6038,7 @@ fr.fun_name = "sEq2Node_compile"; neo_current_frame = &fr;    struct sNode* left
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
-    fun_name="operator_equals";
+    const char* fun_name="operator_equals";
     if(self->mQuote) {
         calling_fun=0;
     }
@@ -6144,7 +6132,6 @@ fr.fun_name = "sNotEq2Node_compile"; neo_current_frame = &fr;    struct sNode* l
     _Bool Value_27;
     struct CVALUE* right_value  ;
     struct sType* type  ;
-    char* fun_name;
     _Bool calling_fun;
     void* __right_value1 = (void*)0;
     struct CVALUE* come_value  ;
@@ -6171,7 +6158,7 @@ fr.fun_name = "sNotEq2Node_compile"; neo_current_frame = &fr;    struct sNode* l
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
-    fun_name="operator_not_equals";
+    const char* fun_name="operator_not_equals";
     if(self->mQuote) {
         calling_fun=0;
     }
@@ -6265,7 +6252,6 @@ fr.fun_name = "sAndNode_compile"; neo_current_frame = &fr;    struct sNode* left
     _Bool Value_28;
     struct CVALUE* right_value  ;
     struct sType* type  ;
-    char* fun_name;
     _Bool calling_fun;
     void* __right_value1 = (void*)0;
     struct CVALUE* come_value  ;
@@ -6291,7 +6277,7 @@ fr.fun_name = "sAndNode_compile"; neo_current_frame = &fr;    struct sNode* left
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
-    fun_name="operator_and";
+    const char* fun_name="operator_and";
     if(self->mQuote) {
         calling_fun=0;
     }
@@ -6386,7 +6372,6 @@ fr.fun_name = "sXOrNode_compile"; neo_current_frame = &fr;    struct sNode* left
     _Bool Value_29;
     struct CVALUE* right_value  ;
     struct sType* type  ;
-    char* fun_name;
     _Bool calling_fun;
     void* __right_value1 = (void*)0;
     struct CVALUE* come_value  ;
@@ -6412,7 +6397,7 @@ fr.fun_name = "sXOrNode_compile"; neo_current_frame = &fr;    struct sNode* left
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
-    fun_name="operator_xor";
+    const char* fun_name="operator_xor";
     if(self->mQuote) {
         calling_fun=0;
     }
@@ -6507,7 +6492,6 @@ fr.fun_name = "sOrNode_compile"; neo_current_frame = &fr;    struct sNode* left_
     _Bool Value_30;
     struct CVALUE* right_value  ;
     struct sType* type  ;
-    char* fun_name;
     _Bool calling_fun;
     void* __right_value1 = (void*)0;
     struct CVALUE* come_value  ;
@@ -6533,7 +6517,7 @@ fr.fun_name = "sOrNode_compile"; neo_current_frame = &fr;    struct sNode* left_
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
-    fun_name="operator_or";
+    const char* fun_name="operator_or";
     if(self->mQuote) {
         calling_fun=0;
     }
@@ -6628,7 +6612,6 @@ fr.fun_name = "sAndAndNode_compile"; neo_current_frame = &fr;    struct sNode* l
     _Bool Value_31;
     struct CVALUE* right_value  ;
     struct sType* type  ;
-    char* fun_name;
     _Bool calling_fun;
     void* __right_value1 = (void*)0;
     struct CVALUE* come_value  ;
@@ -6655,7 +6638,7 @@ fr.fun_name = "sAndAndNode_compile"; neo_current_frame = &fr;    struct sNode* l
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
-    fun_name="operator_andand";
+    const char* fun_name="operator_andand";
     if(self->mQuote) {
         calling_fun=0;
     }
@@ -6749,7 +6732,6 @@ fr.fun_name = "sOrOrNode_compile"; neo_current_frame = &fr;    struct sNode* lef
     _Bool Value_32;
     struct CVALUE* right_value  ;
     struct sType* type  ;
-    char* fun_name;
     _Bool calling_fun;
     void* __right_value1 = (void*)0;
     struct CVALUE* come_value  ;
@@ -6776,7 +6758,7 @@ fr.fun_name = "sOrOrNode_compile"; neo_current_frame = &fr;    struct sNode* lef
     }
     right_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type=(struct sType*)come_increment_ref_count(left_value->type);
-    fun_name="operator_oror";
+    const char* fun_name="operator_oror";
     if(self->mQuote) {
         calling_fun=0;
     }

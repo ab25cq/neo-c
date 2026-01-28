@@ -1,6 +1,6 @@
 #include "common.h"
 
-bool parsecmp(char* p2, sInfo* info=info)
+bool parsecmp(const char* p2, sInfo* info=info)
 {
     bool terminated = false;
     char* p3  = info->p;
@@ -14,7 +14,7 @@ bool parsecmp(char* p2, sInfo* info=info)
     return memcmp(info->p, p2, strlen(p2)) == 0 && (xispunct(c) || c == ' ' || c == '\t' || c == '\n' || c == '\0' || c == '\r') && c != '_';
 }
 
-int err_msg(sInfo* info, char* msg, ...)
+int err_msg(sInfo* info, const char* msg, ...)
 {
     if(!info.no_output_come_code) {
         char* msg2;
@@ -46,7 +46,7 @@ int err_msg(sInfo* info, char* msg, ...)
     return 0;
 }
 
-int err_msg2(sInfo* info, char* msg, ...)
+int err_msg2(sInfo* info, const char* msg, ...)
 {
     if(!info.no_output_come_code) {
         char* msg2;

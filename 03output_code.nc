@@ -1545,7 +1545,7 @@ bool output_source_file(sInfo* info)
     return true;
 }
 
-void add_come_code_at_function_head(sInfo* info, char* code, ...)
+void add_come_code_at_function_head(sInfo* info, const char* code, ...)
 {
     if(info->no_output_come_code) {
         return;
@@ -1565,7 +1565,7 @@ void add_come_code_at_function_head(sInfo* info, char* code, ...)
     free(msg2);
 }
 
-void add_come_code_at_function_head2(sInfo* info, char* code, ...)
+void add_come_code_at_function_head2(sInfo* info, const char* code, ...)
 {
     if(info->no_output_come_code) {
         return;

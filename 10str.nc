@@ -20,7 +20,7 @@ class sStrNode extends sNodeBase
         
         come_value.c_value = xsprintf("\"%s\"", self.value);
         come_value.type = new sType(s"char*");
-        //come_value.type.mConstant = true;
+        come_value.type.mConstant = true;
         come_value.var = null;
         
         info.stack.push_back(come_value);
@@ -62,7 +62,7 @@ class sBufferNode extends sNodeBase
         any_type->mPointerNum = 1;
         any_type->mHeap = true;
         
-        if(info.funcs["come_calloc_v2"]) {
+        if(info.funcs[s"come_calloc_v2"]) {
             buf.append_format("buffer_initialize_with_value((struct buffer*)come_increment_ref_count(come_calloc_v2(1, sizeof(struct buffer), \"%s\", %d, \"buffer\")), \"%s\", %ld)", info->sname, info->sline, value.to_string(), size);
         }
         else {
@@ -339,7 +339,7 @@ class sListNode extends sNodeBase
         list_type->mGenericsTypes.push_back((clone list_element_type));
         
         sType*% obj_type = clone list_type;
-        char* fun_name = "initialize_with_values";
+        const char* fun_name = "initialize_with_values";
         
         var name, generics_fun = make_generics_function(obj_type, string(fun_name), info);
         string generics_fun_name = name;
@@ -377,7 +377,7 @@ class sListNode extends sNodeBase
         any_type->mPointerNum = 1;
         any_type->mHeap = true;
         
-        if(info.funcs["come_calloc_v2"]) {
+        if(info.funcs[s"come_calloc_v2"]) {
             obj_value.c_value = xsprintf("(%s*)come_calloc_v2(1, sizeof(%s)*(%s), \"%s\", %d, \"%s\")", type_name, type_name, num_string.to_string(), info.sname, info.sline, type_name);
         }
         else {
@@ -522,7 +522,7 @@ class sTupleNode extends sNodeBase
         any_type->mPointerNum = 1;
         any_type->mHeap = true;
         
-        if(info.funcs["come_calloc_v2"]) {
+        if(info.funcs[s"come_calloc_v2"]) {
             obj_value.c_value = xsprintf("(%s*)come_calloc_v2(1, sizeof(%s)*(%s), \"%s\", %d, \"%s\")", type_name, type_name, num_string.to_string(), info.sname, info.sline, type_name);
         }
         else {
@@ -540,7 +540,7 @@ class sTupleNode extends sNodeBase
         append_object_to_right_values(obj_value, type3 ,info);
         
         sType*% obj_type = clone type2;
-        char* fun_name = "initialize";
+        const char* fun_name = "initialize";
         
         var name, generics_fun = make_generics_function(obj_type, string(fun_name), info);
         string generics_fun_name = name;
@@ -748,7 +748,7 @@ class sMapNode extends sNodeBase
         map_type->mGenericsTypes.push_back((clone map_element_type));
         
         sType*% obj_type = clone map_type;
-        char* fun_name = "initialize_with_values";
+        const char* fun_name = "initialize_with_values";
         
         var name, generics_fun = make_generics_function(obj_type, string(fun_name), info);
         string generics_fun_name = name;
@@ -786,7 +786,7 @@ class sMapNode extends sNodeBase
         any_type->mPointerNum = 1;
         any_type->mHeap = true;
         
-        if(info.funcs["come_calloc_v2"]) {
+        if(info.funcs[s"come_calloc_v2"]) {
             obj_value.c_value = xsprintf("(%s*)come_calloc_v2(1, sizeof(%s)*(%s), \"%s\", %d, \"%s\")", type_name, type_name, num_string.to_string(), info.sname, info.sline, type_name);
         }
         else {

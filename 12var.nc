@@ -80,7 +80,7 @@ class sStoreNode extends sNodeBase
                     buf.append_format("%s=%s", var_name2, come_value.c_value);
                 }
                 else {
-                    if(info.come_fun.mName !== "memset" && !left_type->mNoCallingDestructor && info.funcs["memset"]) {
+                    if(info.come_fun.mName !== "memset" && !left_type->mNoCallingDestructor && info.funcs[s"memset"]) {
                         add_come_last_code2(info, "memset(&%s, 0, sizeof(%s));\n", var_->mCValueName, var_->mCValueName);
                     }
                     
@@ -229,21 +229,21 @@ class sStoreNode extends sNodeBase
             sType*% left_type = clone var_->mType;
             
             if(left_type->mChannel) {
-                if(info.come_fun.mName !== "memset" && !left_type->mNoCallingDestructor && info.funcs["memset"]) {
+                if(info.come_fun.mName !== "memset" && !left_type->mNoCallingDestructor && info.funcs[s"memset"]) {
                     add_come_code_at_function_head2(info, "memset(%s, 0, sizeof(int)*2);\n", var_->mCValueName);
                 }
             }
             else if(left_type->mArrayNum.length() > 0 || left_type->mVarNameArrayNum.length() > 0) {
                 add_come_code(info, "%s;\n", make_define_var(left_type, var_->mCValueName));
                 
-                if(info.come_fun.mName !== "memset" && !left_type->mNoCallingDestructor && info.funcs["memset"]) {
+                if(info.come_fun.mName !== "memset" && !left_type->mNoCallingDestructor && info.funcs[s"memset"]) {
                     add_come_code(info, "memset(&%s, 0, sizeof(%s));\n", var_->mCValueName, var_->mCValueName);
                 }
             }
             else {
                 add_come_code_at_function_head(info, "%s;\n", make_define_var(left_type, var_->mCValueName));
                 
-                if(info.come_fun.mName !== "memset" && !left_type->mNoCallingDestructor && info.funcs["memset"]) {
+                if(info.come_fun.mName !== "memset" && !left_type->mNoCallingDestructor && info.funcs[s"memset"]) {
                     add_come_code_at_function_head2(info, "memset(&%s, 0, sizeof(%s));\n", var_->mCValueName, var_->mCValueName);
                 }
             }
@@ -324,7 +324,7 @@ class sStoreNode extends sNodeBase
             else if(left_type->mChannel && new_channel) {
                 add_come_code_at_function_head(info, "%s;\n", make_define_var(left_type, var_->mCValueName));
                 
-                if(info.come_fun.mName !== "memset" && !left_type->mNoCallingDestructor && info.funcs["memset"]) {
+                if(info.come_fun.mName !== "memset" && !left_type->mNoCallingDestructor && info.funcs[s"memset"]) {
                     add_come_code_at_function_head2(info, "memset(%s, 0, sizeof(int)*2);\n", var_->mCValueName);
                 }
                 
@@ -764,7 +764,7 @@ class sLoadNode extends sNodeBase
     }
 };
         
-sNode*% create_load_var(char* var_name, sInfo* info=info)
+sNode*% create_load_var(const char* var_name, sInfo* info=info)
 {
     sNode*% node = new sLoadNode(string(var_name), info) implements sNode;
     

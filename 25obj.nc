@@ -68,7 +68,7 @@ class sNewNode extends sNodeBase
             buf.append_str("({");
             
             string obj;
-            if(info.funcs["come_calloc_v2"]) {
+            if(info.funcs[s"come_calloc_v2"]) {
                 obj = xsprintf("%s = (%s*)come_calloc_v2(1, sizeof(%s)*(%s), (void*)0, %d, \"%s\")", var_name, type_name, type_name, num_string.to_string(), info.sline, type_name3);
             }
             else {
@@ -133,7 +133,7 @@ class sNewNode extends sNodeBase
             buf.append_str("({");
             
             string obj;
-            if(info.funcs["come_calloc_v2"]) {
+            if(info.funcs[s"come_calloc_v2"]) {
                 obj = xsprintf("%s = (%s*)come_calloc_v2(1, sizeof(%s)*(%s), (void*)0, %d, \"%s\")", var_name, type_name, type_name, num_string.to_string(), info.sline, type_name3);
             }
             else {
@@ -223,7 +223,7 @@ class sNewNode extends sNodeBase
             
             string type_name3 = make_type_name_string(type3);
             
-            if(info.funcs["come_calloc_v2"]) {
+            if(info.funcs[s"come_calloc_v2"]) {
                 come_value.c_value = xsprintf("(%s*)come_calloc_v2(1, sizeof(%s)*(%s), (void*)0, %d, \"%s\")", type_name, type_name, num_string.to_string(), info.sline, type_name3);
             }
             else {
@@ -300,7 +300,7 @@ class sImplementsNode extends sNodeBase
         string buf2 = xsprintf("%s* _inf_obj_value%d;\n", type_name2, inf_num_stack);
         add_come_code_at_function_head(info, buf2);
         
-        if(info.funcs["come_calloc_v2"]) {
+        if(info.funcs[s"come_calloc_v2"]) {
             add_come_code(info, "_inf_value%d=(%s*)come_calloc_v2(1, sizeof(%s), (void*)0, %d, \"%s\");\n", inf_num_stack, type_name, type_name, info.sline, type_name);
         }
         else {
@@ -1473,7 +1473,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
                 sNode*% obj = new sNewNode(type, null, null, info) implements sNode;
                 string fun_name = string("initialize");
                 
-                return parse_method_call(clone obj, fun_name, info);
+                return parse_method_call(clone obj, string(fun_name), info);
             }
         }
         else if(*info->p == '{') {

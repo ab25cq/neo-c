@@ -99,7 +99,7 @@ class sReturnNode extends sNodeBase
                     add_come_code(info, "neo_current_frame = fr.prev;");
                 }
                 
-                if(!gComeC && info.come_fun.mName === "main" && info.funcs["come_heap_final"]) {
+                if(!gComeC && info.come_fun.mName === "main" && info.funcs[s"come_heap_final"]) {
                     free_objects(info->gv_table, null@ret_value, info);
                     add_come_code(info, xsprintf("come_heap_final();\n"));
                 }
@@ -2889,7 +2889,7 @@ string create_generics_name(sType* generics_type, sInfo* info)
     return buf.to_string();
 }
 
-string create_method_name(sType* obj_type, bool no_pointer_name, char* fun_name, sInfo* info, bool array_equal_pointer=true)
+string create_method_name(sType* obj_type, bool no_pointer_name, const char* fun_name, sInfo* info, bool array_equal_pointer=true)
 {
     string struct_name;
     buffer*% buf = new buffer();
@@ -2939,7 +2939,7 @@ string create_method_name(sType* obj_type, bool no_pointer_name, char* fun_name,
     return xsprintf("%s%s_%s", struct_name, buf.to_string(), fun_name);
 }
 
-string create_method_name_original_obj_type(sType* obj_type, bool no_pointer_name, char* fun_name, sInfo* info, bool array_equal_pointer=true)
+string create_method_name_original_obj_type(sType* obj_type, bool no_pointer_name, const char* fun_name, sInfo* info, bool array_equal_pointer=true)
 {
     string struct_name;
     buffer*% buf = new buffer();
@@ -2971,7 +2971,7 @@ string create_method_name_original_obj_type(sType* obj_type, bool no_pointer_nam
     return xsprintf("%s%s_%s", struct_name, buf.to_string(), fun_name);
 }
 
-string create_non_method_name(sType* obj_type, bool no_pointer_name, char* fun_name, sInfo* info, bool array_equal_pointer=true)
+string create_non_method_name(sType* obj_type, bool no_pointer_name, const char* fun_name, sInfo* info, bool array_equal_pointer=true)
 {
     string struct_name;
     buffer*% buf = new buffer();
@@ -3026,7 +3026,7 @@ string create_non_method_name(sType* obj_type, bool no_pointer_name, char* fun_n
     return string(none_method_name);
 }
 
-string create_method_name_using_class(sClass* obj_class, char* fun_name, sInfo* info)
+string create_method_name_using_class(sClass* obj_class, const char* fun_name, sInfo* info)
 {
     string struct_name = string(obj_class->mName);
     if(struct_name === "_Bool" ) {

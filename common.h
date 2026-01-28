@@ -59,7 +59,7 @@ uniq class sClass
     
     string mAttribute;
     
-    new(char* name, bool number=false, bool union_=false, bool generics=false, bool method_generics=false, bool protocol_=false, bool struct_=false, bool float_=false, int generics_num=-1, int method_generics_num=-1, bool enum_=false, bool uniq_=false, bool typename=false, sInfo* info=info)
+    new(const char* name, bool number=false, bool union_=false, bool generics=false, bool method_generics=false, bool protocol_=false, bool struct_=false, bool float_=false, int generics_num=-1, int method_generics_num=-1, bool enum_=false, bool uniq_=false, bool typename=false, sInfo* info=info)
     {
         self.mNumber = number;
         self.mStruct = struct_;
@@ -818,8 +818,8 @@ uniq class sCurrentNode extends sNodeBase
 /// 02transpile.c ///
 /////////////////////////////////////////////////////////////////////
 bool transpile_conditional_with_free_right_object_value(sNode* node, sInfo* info=info);
-int err_msg(sInfo* info, char* msg, ...);
-int err_msg2(sInfo* info, char* msg, ...);
+int err_msg(sInfo* info, const char* msg, ...);
+int err_msg2(sInfo* info, const char* msg, ...);
 int expected_next_character(char c, sInfo* info=info);;
 bool node_compile(sNode* node, sInfo* info=info);
 bool node_conditional_compile(sNode* node, sInfo* info=info);
@@ -838,10 +838,10 @@ bool output_source_file(sInfo* info);
 void show_type(sType* type, sInfo* info);
 string create_generics_name(sType* generics_type, sInfo* info);
 void add_last_code_to_source(sInfo* info);
-void add_come_code_at_function_head(sInfo* info, char* code, ...);
+void add_come_code_at_function_head(sInfo* info, const char* code, ...);
 void add_come_code_at_come_header(sInfo* info, string id, const char* msg, ...);
 void add_come_code_at_come_struct_header(sInfo* info, string id, const char* msg, ...);
-void add_come_code_at_function_head2(sInfo* info, char* code, ...);
+void add_come_code_at_function_head2(sInfo* info, const char* code, ...);
 void add_come_code(sInfo* info, const char* msg, ...);
 void add_come_last_code(sInfo* info, const char* msg, ...);
 void add_come_last_code2(sInfo* info, const char* msg, ...);
@@ -892,7 +892,7 @@ string,sGenericsFun* make_method_generics_function(string fun_name, list<sType*%
 sNode*% create_return_node(sNode*% value, string value_source, sInfo* info=info);
 sNode*% post_position_operator(sNode*% node, sInfo* info);
 bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sInfo* info);
-bool operator_overload_fun_self(sType* type, char* fun_name, sNode*% node, CVALUE* left_value, sInfo* info);
+bool operator_overload_fun_self(sType* type, const char* fun_name, sNode*% node, CVALUE* left_value, sInfo* info);
 void caller_begin(sInfo* info=info);
 void caller_end(sInfo* info=info);
 sNode*% craete_logical_denial(sNode*% node, sInfo* info);
@@ -901,7 +901,7 @@ void skip_pointer_attribute(sInfo* info=info);
 void skip_paren(sInfo* info);
 sNode*% parse_normal_block(bool clang=false, sInfo* info=info);
 void cast_type(sType* left_type, sType* right_type, CVALUE* come_value, sInfo* info=info);
-bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* come_value, sInfo* info=info);
+bool check_assign_type(const char* msg, sType* left_type, sType* right_type, CVALUE* come_value, sInfo* info=info);
 string,string parse_attribute(sInfo* info=info,bool parse_function_attribute=false);
 string,string parse_function_attribute(sInfo* info=info);
 sNode*% get_number(bool minus, sInfo* info);
@@ -910,19 +910,19 @@ sNode*% get_hex_number(bool minus, sInfo* info);
 sNode*% create_int_node(string value, sInfo* info);
 list<sType*%>*%, list<string>*%, list<string>*%, bool parse_params(sInfo* info, bool in_constructor_=false);
 sFun*,string create_pthread_fun(sType* type, char* fun_name, sInfo* info);
-sFun*,string create_finalizer_automatically(sType* type, char* fun_name, sInfo* info);
-sFun*,string create_to_string_automatically(sType* type, char* fun_name, sInfo* info);
-sFun*,string create_cloner_automatically(sType* type, char* fun_name, sInfo* info);
-sFun*,string create_equals_automatically(sType* type, char* fun_name, sInfo* info);
-sFun*,string create_operator_equals_automatically(sType* type, char* fun_name, sInfo* info);
-sFun*,string create_operator_not_equals_automatically(sType* type, char* fun_name, sInfo* info);
-sFun*,string create_not_equals_automatically(sType* type, char* fun_name, sInfo* info);
-sFun*,string create_get_hash_key_automatically(sType* type, char* fun_name, sInfo* info);
+sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, sInfo* info);
+sFun*,string create_to_string_automatically(sType* type, const char* fun_name, sInfo* info);
+sFun*,string create_cloner_automatically(sType* type, const char* fun_name, sInfo* info);
+sFun*,string create_equals_automatically(sType* type, const char* fun_name, sInfo* info);
+sFun*,string create_operator_equals_automatically(sType* type, const char* fun_name, sInfo* info);
+sFun*,string create_operator_not_equals_automatically(sType* type, const char* fun_name, sInfo* info);
+sFun*,string create_not_equals_automatically(sType* type, const char* fun_name, sInfo* info);
+sFun*,string create_get_hash_key_automatically(sType* type, const char* fun_name, sInfo* info);
 string skip_block(sInfo* info=info, bool return_self_at_last=false);
 string skip_paren(sInfo* info=info);
 bool is_contained_generics_class(sType* type, sInfo* info);
 bool is_type_name(char* buf, sInfo* info=info);
-bool parsecmp(char* p2, sInfo* info=info)
+bool parsecmp(const char* p2, sInfo* info=info)
 string parse_word(bool digits=false, sInfo* info=info);
 string backtrace_parse_word(sInfo* info=info);
 void skip_spaces_and_lf(sInfo* info=info);
@@ -946,10 +946,10 @@ sNode*% expression_node(sInfo* info=info) version 97;
 
 int transpile(sInfo* info);
 void parse_sharp(sInfo* info=info) version 5;
-string create_method_name(sType* obj_type, bool no_pointer_name, char* fun_name, sInfo* info, bool array_equal_pointer=true);
-string create_method_name_original_obj_type(sType* obj_type, bool no_pointer_name, char* fun_name, sInfo* info, bool array_equal_pointer=true);
-string create_non_method_name(sType* obj_type, bool no_pointer_name, char* fun_name, sInfo* info, bool array_equal_pointer=true);
-string create_method_name_using_class(sClass* obj_class, char* fun_name, sInfo* info);
+string create_method_name(sType* obj_type, bool no_pointer_name, const char* fun_name, sInfo* info, bool array_equal_pointer=true);
+string create_method_name_original_obj_type(sType* obj_type, bool no_pointer_name, const char* fun_name, sInfo* info, bool array_equal_pointer=true);
+string create_non_method_name(sType* obj_type, bool no_pointer_name, const char* fun_name, sInfo* info, bool array_equal_pointer=true);
+string create_method_name_using_class(sClass* obj_class, const char* fun_name, sInfo* info);
 
 /////////////////////////////////////////////////////////////////////
 /// 06str.c ///
@@ -968,7 +968,7 @@ bool is_inner_calling(sNode* node, sInfo* info);
 sNode*% post_position_operator(sNode*% node, sInfo* info) version 07;
 sNode*% expression_node(sInfo* info=info) version 95;
 sNode*% store_var(string name, list<string>* multiple_assign, list<tup: sType*%, string, sNode*%>* multiple_declare, sType* type, bool alloc, sNode* right_value, sInfo* info);
-sNode*% create_load_var(char* var_name, sInfo* info=info);
+sNode*% create_load_var(const char* var_name, sInfo* info=info);
 sNode*% parse_array_initializer(sInfo* info=info);
 sNode*% parse_struct_initializer(sInfo* info=info);
 sNode*% parse_global_variable(sInfo* info);
@@ -1017,7 +1017,7 @@ sNode*% create_comma_exp(sNode*% node, sNode*% node2, sInfo* info);
 sNode*% create_less(sNode*% node, sNode*% right, sInfo* info);
 sNode*% create_null_node(sInfo* info=info);
 sNode*% conditional_node(sNode*% value1, sNode*% value2, sNode*% value3, sInfo* info);
-bool operator_overload_fun(sType* type, char* fun_name, sNode*% left_node, sNode*% right_node, CVALUE* left_value, CVALUE* right_value, bool break_guard, sInfo* info);
+bool operator_overload_fun(sType* type, const char* fun_name, sNode*% left_node, sNode*% right_node, CVALUE* left_value, CVALUE* right_value, bool break_guard, sInfo* info);
 sNode*% expression(sInfo* info=info, bool type_name_exp=false) version 13;
 sNode*% post_op(sNode*% node, sInfo* info) version 13;
 sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 13;
@@ -1076,8 +1076,8 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 19;
 /////////////////////////////////////////////////////////////////////
 /// 20method.c
 /////////////////////////////////////////////////////////////////////
-string, sFun*,sGenericsFun* get_method(char* fun_name, sType* obj_type, sInfo* info);
-sNode*% create_method_call(char* fun_name,sNode*% obj, list<tup: string,sNode*%>* params, buffer* method_block, int method_block_sline, list<sType*%>* method_generics_types, sInfo* info);
+string, sFun*,sGenericsFun* get_method(const char* fun_name, sType* obj_type, sInfo* info);
+sNode*% create_method_call(const char* fun_name,sNode*% obj, list<tup: string,sNode*%>* params, buffer* method_block, int method_block_sline, list<sType*%>* method_generics_types, sInfo* info);
 sNode*% create_guard_break_method_call(sNode*% expression_node, sInfo* info);
 bool compile_method_block(buffer* method_block, list<CVALUE*%>* come_params, sFun* fun, char* fun_name, int method_block_sline, sInfo* info, bool no_create_current_stack=false) ;
 string,sGenericsFun* make_generics_function(sType* type, string fun_name, sInfo* info, bool array_equal_pointer=true);

@@ -189,7 +189,7 @@ bool compile_method_block(buffer* method_block, list<CVALUE*%>* come_params, sFu
     return true;
 }
 
-string, sFun*,sGenericsFun* get_method(char* fun_name, sType* obj_type, sInfo* info) 
+string, sFun*,sGenericsFun* get_method(const char* fun_name, sType* obj_type, sInfo* info) 
 {
     string generics_fun_name = null;
     sFun* fun = null;
@@ -320,7 +320,7 @@ string, sFun*,sGenericsFun* get_method(char* fun_name, sType* obj_type, sInfo* i
 
 class sMethodCallNode extends sNodeBase
 {
-    new(char* fun_name,sNode*% obj, list<tup: string,sNode*%>* params, buffer* method_block, int method_block_sline
+    new(const char* fun_name,sNode*% obj, list<tup: string,sNode*%>* params, buffer* method_block, int method_block_sline
         , list<sType*%>* method_generics_types, bool no_infference_method_generics, bool recursive, sInfo* info)
     {
         self.super();
@@ -895,7 +895,7 @@ class sMethodCallNode extends sNodeBase
     }
 };
 
-sNode*% create_method_call(char* fun_name,sNode*% obj, list<tup: string,sNode*%>* params, buffer* method_block, int method_block_sline, list<sType*%>* method_generics_types, sInfo* info)
+sNode*% create_method_call(const char* fun_name,sNode*% obj, list<tup: string,sNode*%>* params, buffer* method_block, int method_block_sline, list<sType*%>* method_generics_types, sInfo* info)
 {
     sNode*% node = new sMethodCallNode(fun_name, obj, params, method_block, method_block_sline, method_generics_types, no_infference_method_generics:true, false@recursive, info) implements sNode;
         

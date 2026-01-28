@@ -209,7 +209,7 @@ tuple4<list<sType*%>*%, list<string>*%, list<string>*%, bool>*% parse_params(sIn
     return (param_types, param_names, param_default_parametors, var_args);
 }
 
-bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* come_value, sInfo* info=info)
+bool check_assign_type(const char* msg, sType* left_type, sType* right_type, CVALUE* come_value, sInfo* info=info)
 {
     if(info->no_output_come_code) {
         return true;
@@ -248,7 +248,10 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
     }
     
     if(left_type2->mPointerNum > 0 && (right_type->mArrayNum.length() > 0 || right_type->mArrayPointerNum > 0)) {
-        if(left_type2->mClass->mName === right_type->mClass->mName) {
+        if(!left_type2->mConstant && right_type->mConstant) {
+            err_msg2(info , "type check warning(1).%s %s %d <- const %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type->mClass->mName, right_type->mPointerNum);
+        }
+        else if(left_type2->mClass->mName === right_type->mClass->mName) {
         }
         else if(left_type2->mClass->mName === "void") {
         }
@@ -294,9 +297,6 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
         }
         if(left_type2->mClass->mName === "void") {
         }
-        else if(left_type2->mClass->mName === right_type2->mClass->mName && left_type2->mHeap && !right_type2->mHeap ) {
-            err_msg(info , "type check warning(4).%s. %s %d <- %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type2->mClass->mName, right_type2->mPointerNum);
-        }
         else if(left_type2->mClass->mName === "lambda") {
         }
         else if(left_no_solved_generics_type && right_no_solved_generics_type && (left_no_solved_generics_type.mGenericsTypes.length() > 0 || right_no_solved_generics_type->mGenericsTypes.length() > 0))
@@ -308,6 +308,12 @@ bool check_assign_type(char* msg, sType* left_type, sType* right_type, CVALUE* c
         {
         }
         else if(right_type->mClass->mName === "void") {
+        }
+        else if(left_type2->mClass->mName === right_type2->mClass->mName && left_type2->mHeap && !right_type2->mHeap ) {
+            err_msg(info , "type check warning(4).%s. %s %d <- %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type2->mClass->mName, right_type2->mPointerNum);
+        }
+        else if(!left_type2->mConstant && right_type->mConstant) {
+            err_msg2(info , "type check warning(1).%s %s %d <- const %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type->mClass->mName, right_type->mPointerNum);
         }
         else if(parent_class) {
         }

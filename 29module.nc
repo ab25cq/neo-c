@@ -482,7 +482,7 @@ string reflection_node(sInfo* info=info)
         
         string result = null
         
-        char* value = get_macro(exp);
+        const char* value = get_macro(exp);
         
         if(value) {
             result = value.to_string();
@@ -523,7 +523,7 @@ string reflection_node(sInfo* info=info)
         
         string result = null
         
-        char* value = call_func_macro(exp, args, info->sname, info->sline);
+        const char* value = call_func_macro(exp, args, info->sname, info->sline);
         
         if(value) {
             result = value.to_string();
