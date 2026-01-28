@@ -8,10 +8,6 @@ bool gComeDebug = false;
 bool gComeOriginalSourcePosition = false;
 bool gComeBareMetal = false;
 
-char* CC="clang";
-
-static char* RM = "rm -rf";
-
 static void write_source_file_position_to_source(sInfo* info=info)
 {
     if(gComeOriginalSourcePosition) {
