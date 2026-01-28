@@ -1447,7 +1447,7 @@ int* FILE*::fprintf(FILE* f, const char* msg, ...);
 ```
 
 ```
-    FILE* f = fopen("AAA", "a"9;
+    FILE* f = fopen("AAA", "a");
     
     f.fprintf("%d\n", 1+1);
     
@@ -1836,7 +1836,7 @@ int main(int argc, char** argv)
 
 # String libraries
 
-SEE neo-c.h. The regex engine is implemented using the standard C libraries.
+SEE neo-c.h. The regex engine is implemented using the standard C libraries. 
 
 sample
 
@@ -1939,7 +1939,7 @@ fun2
 main
 ```
 
-stackframe always enabled from version 0.8.7.0
+stackframe always enabled from version 0.8.7.0.
 
 # Template
 
