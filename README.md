@@ -860,7 +860,7 @@ It is for foreach. To access all keys:
 foreachのためにあります。すべてのキーにアクセスするには以下のようにします。
 
 ```
-    var ma = ["AAA":1, "BBB":2, "CCC"];
+    var ma = ["AAA":1, "BBB":2, "CCC":3];
     
     foreach(key, ma) {
         var item = ma[key];
