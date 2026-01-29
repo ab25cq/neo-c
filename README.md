@@ -298,9 +298,9 @@ li.add(1).add(2).add(3);
 delete li;  // finalize is called. finalizeが呼ばれる
 ```
 
-gc_inc increments the heap reference count by 1. borrow removes the heap from being automatically released and allows it to be assigned to a variable without a %. In this case the heap is managed manually and memory leaks will occur if you don't delete it. If a memory leak occurs When you run the program, the number of memory leaks will be displayed. If you compile with the -cg option, the stack frame at the location of the source file where the heap was generated will be displayed. I think it's easy to debug.
+gc_inc increments the heap reference count by 1. borrow removes the heap from being automatically released and allows it to be assigned to a variable without a %. In this case the heap is managed manually and memory leaks will occur if you don't delete it. If a memory leak occurs When you run the program, the number of memory leaks will be displayed.  the stack frame at the location of the source file where the heap was generated will be displayed. I think it's easy to debug.
 
-gc_incはヒープのリファレンスカウントを+1します。borrowはヒープの自動解放対象から外し、%をつけない変数に代入できるようにします。この場合ヒープは手動で管理されて、deleteしないとメモリリークが発生します。 メモリリークが発生した場合プログラムを実行するとメモリリークの回数が表示されます。-cgオプションをつけてコンパイルするとヒープが生成されたソースファイルの位置のスタックフレームが表示されます。デバッグも容易だと思います。
+gc_incはヒープのリファレンスカウントを+1します。borrowはヒープの自動解放対象から外し、%をつけない変数に代入できるようにします。この場合ヒープは手動で管理されて、deleteしないとメモリリークが発生します。 メモリリークが発生した場合プログラムを実行するとメモリリークの回数が表示されます。もしメモリリークがあるとソースファイルの位置のスタックフレームが表示されます。デバッグも容易だと思います。
 
 ```C
 list<T>*% clone(list<T>* self)
