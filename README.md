@@ -706,7 +706,7 @@ list<T>*% reverse(list<T>* self)
 ```
 
 ```C
-list<T>*% uniq(list<T>* self) 
+list<T>*% uniq(list<T>* self, bool by_pointer=false);
 ```
 
 ```C
@@ -825,7 +825,7 @@ All elements and keys must implement to_string(). All basic types of neo-c have 
 すべての要素とキーにto_string()が実装されている必要があります。neo-cの基本的な型はすべてto_string()が実装されてます。to_stringは構造体の場合自動的に定義されます。
 
 ```C
-T2 at(map<T, T2>* self, T& key, T2 default_value) 
+T2 at(map<T, T2>* self, T& key, T2 default_value, bool by_pointer=false);
 ```
 
 ```
@@ -837,7 +837,7 @@ Takes value by key. This is the value if default_value is not found.
 キーで値をとります。default_valueが見つからない場合の値です。
 
 ```C
-map<T,T2>* remove(map<T, T2>* self, T& key) 
+map<T,T2>* remove(map<T, T2>* self, T key, bool by_pointer=false);
 ```
 
 ```
@@ -886,7 +886,8 @@ For internal use.
 内部的に使用します。
 
 ```C
-map<T,T2>* insert(map<T,T2>* self, T key, T2 item)
+map<T,T2>* insert(map<T,T2>* self, T key, T2 item, bool by_pointer=false);
+map<T,T2>* put(map<T,T2>* self, T key, T2 item, bool by_pointer=false);
 ```
 
 ```
@@ -946,7 +947,7 @@ bool operator_not_equals(map<T, T2>* left, map<T,T2>* right)
 ```
 
 ```C
-bool find(map<T, T2>* self, T& key) 
+bool find(map<T, T2>* self, T& key, bool by_pointer=false);
 ```
 
 ```
