@@ -147,7 +147,7 @@ class sFunNode extends sNodeBase
             }
             
             if(!gComeC) {
-                add_come_code_at_function_head(info, s"struct neo_frame fr;\nfr.prev = neo_current_frame;\nfr.fun_name = \"\{info.come_fun.mName}\"; neo_current_frame = &fr;"); 
+                add_come_code_at_function_head(info, s"struct neo_frame fr;\nfr.prev = neo_current_frame;\nfr.fun_name = \"\{info.come_fun.mName}\"; neo_current_frame = &fr;\n"); 
             }
             
             int block_level = info->block_level;
@@ -158,7 +158,7 @@ class sFunNode extends sNodeBase
             info->block_level = block_level;
             
             if(!gComeC) {
-                add_come_code(info, "neo_current_frame = fr.prev;");
+                add_come_code(info, "neo_current_frame = fr.prev;\n");
             }
             
             if(!gComeC && info.come_fun.mName === "main" && !info.inhibits_output_code2 && info.funcs[s"come_heap_final"]) {
