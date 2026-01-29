@@ -304,10 +304,10 @@ void ViWin*::gotoMethodTop(ViWin* self, Vi* nvi)
 {
     int it2 = 0;
     foreach(it, self.texts.sublist(0, self.scroll+self.cursorY).reverse()) {
-        char* reg = "^ +{";
-        char* reg2 = "^ +[a-zA-Z].*{$";
-        char* reg3 = "^{";
-        char* reg4 = "^[a-zA-Z].*{$";
+        const char* reg = "^ +{";
+        const char* reg2 = "^ +[a-zA-Z].*{$";
+        const char* reg3 = "^{";
+        const char* reg4 = "^[a-zA-Z].*{$";
         
         if(reg && reg2 && reg3 && reg4 && 
             ((it.to_string().match(reg))

@@ -694,6 +694,10 @@ class sLoadArrayNode extends sNodeBase
             
             come_value.type = result_type;
             
+            if(come_value.type->mArrayPointerType) {
+                come_value.type->mPointerNum++;
+            }
+            
             if(come_value.type->mArrayNum.length() > 0) {
                 if(info.in_store_array) {
                     come_value.type->mOriginalLoadVarType = clone result_type;

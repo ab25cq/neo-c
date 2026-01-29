@@ -22,7 +22,7 @@ struct ZVALUE;
 
 struct ZVALUE 
 {
-    enum { kIntValue, kStrValue, kBoolValue, kNullValue, kFileValue, kListValue, kMapValue } kind;
+    int kind;
     
     int intValue;
     wstring strValue;

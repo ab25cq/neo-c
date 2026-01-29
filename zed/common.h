@@ -10,9 +10,11 @@ interface sNode
 }
 struct ZVALUE;
 
+enum { kIntValue, kStrValue, kBoolValue, kNullValue, kFileValue, kListValue, kMapValue };
+
 struct ZVALUE
 {
-    enum { kIntValue, kStrValue, kBoolValue, kNullValue, kFileValue, kListValue, kMapValue } kind;
+    int kind;
 
     int intValue;
     wstring strValue;
@@ -186,7 +188,7 @@ extern int sFalseNode*::id(sFalseNode* self);
 extern bool sFalseNode*::compile(sFalseNode* self,sInfo* info);
 extern bool vm(sInfo* info) version 8;
 extern sNodeBlock parse_block(sInfo* info);
-extern bool is_word(char* str,sInfo* info);
+extern bool is_word(const char* str,sInfo* info);
 extern sNode*% exp_node(sInfo* info) version 6;
 extern sWhileNode*% sWhileNode*::initialize(sWhileNode*% self,sNode*% while_exp,sNodeBlock while_block);
 extern int sWhileNode*::id(sWhileNode* self);

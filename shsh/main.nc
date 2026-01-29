@@ -218,11 +218,11 @@ string parse_word(sInfo* info)
     return result.to_string();
 }
 
-int parse_cmp(char* str, char* str2)
+int parse_cmp(const char* str, const char* str2)
 {
     int len = strlen(str2);
     
-    char* p = str;
+    const char* p = str;
     
     int i;
     for(i=0; i<len; i++) {
@@ -1236,7 +1236,7 @@ char* zed_completion_generator(const char* text, int state)
     }
 
     while(gMatchIndex < gMatches.length()) {
-        char* p = text + strlen(text);
+        char* p = (char*)text + strlen(text);
         char* last_dot = null;
         while(p >= text) {
             if(*p == '.') {
@@ -1358,7 +1358,7 @@ char** completer(const char* text, int start, int end)
     return null;
 }
 
-char* gCmdlineInitString = "";
+const char* gCmdlineInitString = "";
 int gCmdlineInitCursorPoint = 0;
 
 void readline_insert_text(char* cmdline, int cursor_point)
@@ -1374,7 +1374,7 @@ void readline_insert_text(char* cmdline, int cursor_point)
 
 int readline_init_text()
 {
-    readline_insert_text(gCmdlineInitString, gCmdlineInitCursorPoint);
+    readline_insert_text((char*)gCmdlineInitString, gCmdlineInitCursorPoint);
     
     gCmdlineInitString = "";
     gCmdlineInitCursorPoint = 0;

@@ -288,7 +288,7 @@ void ViWin*::input(ViWin* self, Vi* nvi) version 9
     }
 }
 
-void Vi*::saveSearchString(Vi* self, char* file_name) 
+void Vi*::saveSearchString(Vi* self, const char* file_name) 
 {
     char* home = getenv("HOME");
     
@@ -316,7 +316,7 @@ void Vi*::saveSearchString(Vi* self, char* file_name)
     fclose(f);
 }
 
-void Vi*::readSearchString(Vi* self, char* file_name) 
+void Vi*::readSearchString(Vi* self, const char* file_name) 
 {
     char* home = getenv("HOME");
     

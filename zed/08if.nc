@@ -250,7 +250,7 @@ sNodeBlock parse_block(sInfo* info)
     return result;
 }
 
-bool is_word(char* str, sInfo* info)
+bool is_word(const char* str, sInfo* info)
 {
     return strlen(info->p) >= strlen(str) && memcmp(info->p, str, strlen(str)) == 0 && (strlen(info->p) == strlen(str) || !xisalnum(*(info->p + strlen(str))));
 }
