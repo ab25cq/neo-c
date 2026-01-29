@@ -493,7 +493,6 @@ class sTupleNode extends sNodeBase
             
             tuple_values.push_back(clone come_value);
             sType*% type = clone come_value.type;
-puts(type->mClass->mName);
             type->mTupleName = name;
             tuple_types.push_back(type);
             
