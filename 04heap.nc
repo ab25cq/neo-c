@@ -93,6 +93,7 @@ sType*% solve_generics(sType* type, sType* generics_type, sInfo* info)
         bool guard_ = type->mGuardValue;
         bool deffer_right_value = type->mDefferRightValue;
         bool record_ = type->mRecord;
+        bool const_ = type->mConstant;
         
         bool no_heap = type->mNoHeap;
         bool no_calling_destructor = type->mNoCallingDestructor;
@@ -102,6 +103,9 @@ sType*% solve_generics(sType* type, sType* generics_type, sInfo* info)
         
         if(heap) {
             result->mHeap = result->mHeap || heap;
+        }
+        if(const_) {
+            result->mConstant = result->mConstant || const_;
         }
         if(guard_) {
             result->mGuardValue = guard_;
@@ -157,6 +161,7 @@ sType*% solve_generics(sType* type, sType* generics_type, sInfo* info)
             bool null_value = type->mNullValue;
             bool record_ = type->mRecord;
             bool multiple_types = type->mMultipleTypes;
+            bool const_ = type->mConstant;
             
             result = clone generics_type->mGenericsTypes[generics_number];
 
@@ -165,6 +170,9 @@ sType*% solve_generics(sType* type, sType* generics_type, sInfo* info)
             }
             if(guard_) {
                 result->mGuardValue = guard_;
+            }
+            if(const_) {
+                result->mConstant = result->mConstant || const_;
             }
             if(record_) {
                 result->mRecord = record_;
@@ -241,6 +249,7 @@ sType*% solve_method_generics(sType* type, sInfo* info)
         bool no_calling_destructor = type->mNoCallingDestructor;
         bool null_value = type->mNullValue;
         bool record_ = type->mRecord;
+        bool constant_ = type->mConstant;
         
         result = clone info->method_generics_types[generics_number];
 
@@ -249,6 +258,9 @@ sType*% solve_method_generics(sType* type, sInfo* info)
         }
         if(record_) {
             result->mRecord = record_ || result->mRecord;
+        }
+        if(constant_) {
+            result->mConstant = constant_ || result->mConstant;
         }
         if(deffer_right_value) {
             result->mDefferRightValue = deffer_right_value || result->mDefferRightValue;

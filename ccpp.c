@@ -383,8 +383,8 @@ static void apply_predefined_macros(MacroTable *t, const PPOpts *opts) {
     mtable_set_obj(t, "__STDC_VERSION__", "201112L");
     mtable_set_obj(t, "__STDC_NO_VLA__", "1");
     mtable_set_obj(t, "__STDC_HOSTED__", "1");
-    if (!mtable_get(t, "true")) mtable_set_obj(t, "true", "1");
-    if (!mtable_get(t, "false")) mtable_set_obj(t, "false", "0");
+//    if (!mtable_get(t, "true")) mtable_set_obj(t, "true", "1");
+//    if (!mtable_get(t, "false")) mtable_set_obj(t, "false", "0");
     if (!mtable_get(t, "__bool_true_false_are_defined")) mtable_set_obj(t, "__bool_true_false_are_defined", "1");
     if (!mtable_get(t, "__ATOMIC_RELAXED")) mtable_set_obj(t, "__ATOMIC_RELAXED", "0");
     if (!mtable_get(t, "__ATOMIC_CONSUME")) mtable_set_obj(t, "__ATOMIC_CONSUME", "1");

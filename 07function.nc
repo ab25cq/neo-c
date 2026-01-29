@@ -144,7 +144,7 @@ class sFunNode extends sNodeBase
         if(self.mFun.mBlock) {
             if(!gComeC && info.come_fun.mName === "main" && info.funcs[s"come_heap_init"]) {
                 add_come_code(info, "    come_heap_init(%d);\n", gComeDebug);
-                add_come_code(info, s"   struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = \"\{info.come_fun.mName}\"; neo_current_frame = &fr;\n"); 
+                add_come_code(info, s"    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = \"\{info.come_fun.mName}\"; neo_current_frame = &fr;\n"); 
             }
             else if(!gComeC) {
                 add_come_code_at_function_head(info, s"struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = \"\{info.come_fun.mName}\"; neo_current_frame = &fr;\n"); 
@@ -596,6 +596,10 @@ int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* par
                     add_variable_to_table(var_name, result_type, info, false@function_param, to_function_table:true);
                     
                     info.if_result_type = clone result_type;
+                }
+                else {
+                    sType*% result_type = clone come_value.type;
+                    check_assign_type("invalid if result type", info.if_result_type, result_type, come_value, info);
                 }
                 if(come_value.type.mHeap) {
                     sType*% left_type = clone right_type2
@@ -1867,6 +1871,10 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
     info->caller_line = info->sline;
     char* caller_sname = info->caller_sname;
     info->caller_sname = info->sname;
+    buffer*% if_expression_buffer = clone info.if_expression_buffer;
+    info.if_expression_buffer = null;
+    buffer*% paren_block_buffer = clone info.paren_block_buffer;
+    info.paren_block_buffer = null;
     
     int right_value_max = info->right_value_max;
     int right_value_num = info->right_value_num;
@@ -1896,6 +1904,8 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
         info->caller_fun = caller_fun;
         info->caller_line = caller_line;
         info->caller_sname = caller_sname;
+        info.if_expression_buffer = if_expression_buffer;
+        info.paren_block_buffer = paren_block_buffer;
         return (fun_name, true);
     }
     
@@ -1995,6 +2005,8 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
     info->num_conditional = num_conditional;
     info->max_conditional = max_conditional;
     info.in_conditional = in_conditional;
+    info.if_expression_buffer = if_expression_buffer;
+    info.paren_block_buffer = paren_block_buffer;
     
     return (string(fun_name), true);
 }
@@ -2009,6 +2021,10 @@ bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sIn
     info->caller_sname = info->sname;
     bool in_conditional = info->in_conditional;
     info.in_conditional = false;
+    buffer*% if_expression_buffer = clone info.if_expression_buffer;
+    info.if_expression_buffer = null;
+    buffer*% paren_block_buffer = clone info.paren_block_buffer;
+    info.paren_block_buffer = null;
     
     string last_code = info.module.mLastCode;
     info.module.mLastCode = null;
@@ -2029,6 +2045,8 @@ bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sIn
         info->caller_fun = caller_fun;
         info->caller_line = caller_line;
         info->caller_sname = caller_sname;
+        info.if_expression_buffer = if_expression_buffer;
+        info.paren_block_buffer = paren_block_buffer;
         return true;
     }
 
@@ -2108,6 +2126,8 @@ bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sIn
     info->caller_line = caller_line;
     info->caller_sname = caller_sname;
     info.in_conditional = in_conditional;
+    info.if_expression_buffer = if_expression_buffer;
+    info.paren_block_buffer = paren_block_buffer;
     
     return true;
 }
@@ -2480,6 +2500,11 @@ sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, s
     
     sClass* current_stack_frame_struct = info->current_stack_frame_struct;
     info->current_stack_frame_struct = null;
+    buffer*% paren_block_buffer = clone info.paren_block_buffer;
+    info.paren_block_buffer = null;
+    
+    buffer*% if_expression_buffer = clone info.if_expression_buffer;
+    info.if_expression_buffer = null;
     
     string real_fun_name = null;
     sFun* finalizer = null;
@@ -2658,6 +2683,8 @@ sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, s
     
     info.module.mLastCode = last_code;
     info.module.mLastCode2 = last_code2;
+    info.if_expression_buffer = if_expression_buffer;
+    info.paren_block_buffer = paren_block_buffer;
     
     return (finalizer, real_fun_name);
 }
@@ -2669,6 +2696,10 @@ sFun*,string create_equals_automatically(sType* type, const char* fun_name, sInf
     info.module.mLastCode = null;
     string last_code2 = info.module.mLastCode2;
     info.module.mLastCode2 = null;
+    buffer*% if_expression_buffer = clone info.if_expression_buffer;
+    info.if_expression_buffer = null;
+    buffer*% paren_block_buffer = clone info.paren_block_buffer;
+    info.paren_block_buffer = null;
     
     sClass* current_stack_frame_struct = info->current_stack_frame_struct;
     info->current_stack_frame_struct = null;
@@ -2774,6 +2805,8 @@ sFun*,string create_equals_automatically(sType* type, const char* fun_name, sInf
     
     info.module.mLastCode = last_code;
     info.module.mLastCode2 = last_code2;
+    info.if_expression_buffer = if_expression_buffer;
+    info.paren_block_buffer = paren_block_buffer;
     
     return (equaler, real_fun_name);
 }
@@ -2784,6 +2817,10 @@ sFun*,string create_operator_not_equals_automatically(sType* type, const char* f
     info.module.mLastCode = null;
     string last_code2 = info.module.mLastCode2;
     info.module.mLastCode2 = null;
+    buffer*% if_expression_buffer = clone info.if_expression_buffer;
+    info.if_expression_buffer = null;
+    buffer*% paren_block_buffer = clone info.paren_block_buffer;
+    info.paren_block_buffer = null;
     
     sClass* current_stack_frame_struct = info->current_stack_frame_struct;
     info->current_stack_frame_struct = null;
@@ -2909,6 +2946,8 @@ sFun*,string create_operator_not_equals_automatically(sType* type, const char* f
     
     info.module.mLastCode = last_code;
     info.module.mLastCode2 = last_code2;
+    info.if_expression_buffer = if_expression_buffer;
+    info.paren_block_buffer = paren_block_buffer;
     
     return (equaler, real_fun_name);
 }
@@ -2919,6 +2958,10 @@ sFun*,string create_not_equals_automatically(sType* type, const char* fun_name, 
     info.module.mLastCode = null;
     string last_code2 = info.module.mLastCode2;
     info.module.mLastCode2 = null;
+    buffer*% if_expression_buffer = clone info.if_expression_buffer;
+    info.if_expression_buffer = null;
+    buffer*% paren_block_buffer = clone info.paren_block_buffer;
+    info.paren_block_buffer = null;
     
     sClass* current_stack_frame_struct = info->current_stack_frame_struct;
     info->current_stack_frame_struct = null;
@@ -3041,6 +3084,8 @@ sFun*,string create_not_equals_automatically(sType* type, const char* fun_name, 
     
     info.module.mLastCode = last_code;
     info.module.mLastCode2 = last_code2;
+    info.if_expression_buffer = if_expression_buffer;
+    info.paren_block_buffer = paren_block_buffer;
     
     return (equaler, real_fun_name);
 }
@@ -3051,6 +3096,10 @@ sFun*,string create_operator_equals_automatically(sType* type, const char* fun_n
     info.module.mLastCode = null;
     string last_code2 = info.module.mLastCode2;
     info.module.mLastCode2 = null;
+    buffer*% if_expression_buffer = clone info.if_expression_buffer;
+    info.if_expression_buffer = null;
+    buffer*% paren_block_buffer = clone info.paren_block_buffer;
+    info.paren_block_buffer = null;
     
     sClass* current_stack_frame_struct = info->current_stack_frame_struct;
     info->current_stack_frame_struct = null;
@@ -3158,6 +3207,8 @@ sFun*,string create_operator_equals_automatically(sType* type, const char* fun_n
     
     info.module.mLastCode = last_code;
     info.module.mLastCode2 = last_code2;
+    info.if_expression_buffer = if_expression_buffer;
+    info.paren_block_buffer = paren_block_buffer;
     
     return (equaler, real_fun_name);
 }
@@ -3171,6 +3222,10 @@ sFun*,string create_cloner_automatically(sType* type, const char* fun_name, sInf
     info.module.mLastCode = null;
     string last_code2 = info.module.mLastCode2;
     info.module.mLastCode2 = null;
+    buffer*% if_expression_buffer = clone info.if_expression_buffer;
+    info.if_expression_buffer = null;
+    buffer*% paren_block_buffer = clone info.paren_block_buffer;
+    info.paren_block_buffer = null;
     
     sClass* current_stack_frame_struct = info->current_stack_frame_struct;
     info->current_stack_frame_struct = null;
@@ -3381,6 +3436,8 @@ sFun*,string create_cloner_automatically(sType* type, const char* fun_name, sInf
     
     info.module.mLastCode = last_code;
     info.module.mLastCode2 = last_code2;
+    info.if_expression_buffer = if_expression_buffer;
+    info.paren_block_buffer = paren_block_buffer;
     
     return (cloner, real_fun_name);
 }
@@ -3391,6 +3448,10 @@ sFun*,string create_to_string_automatically(sType* type, const char* fun_name, s
     info.module.mLastCode = null;
     string last_code2 = info.module.mLastCode2;
     info.module.mLastCode2 = null;
+    buffer*% if_expression_buffer = clone info.if_expression_buffer;
+    info.if_expression_buffer = null;
+    buffer*% paren_block_buffer = clone info.paren_block_buffer;
+    info.paren_block_buffer = null;
     
     sClass* current_stack_frame_struct = info->current_stack_frame_struct;
     info->current_stack_frame_struct = null;
@@ -3517,6 +3578,8 @@ sFun*,string create_to_string_automatically(sType* type, const char* fun_name, s
     
     info.module.mLastCode = last_code;
     info.module.mLastCode2 = last_code2;
+    info.if_expression_buffer = if_expression_buffer;
+    info.paren_block_buffer = paren_block_buffer;
     
     return (cloner, real_fun_name);
 }
@@ -3527,6 +3590,10 @@ sFun*,string create_to_string_automatically(sType* type, const char* fun_name, s
     info.module.mLastCode = null;
     string last_code2 = info.module.mLastCode2;
     info.module.mLastCode2 = null;
+    buffer*% if_expression_buffer = clone info.if_expression_buffer;
+    info.if_expression_buffer = null;
+    buffer*% paren_block_buffer = clone info.paren_block_buffer;
+    info.paren_block_buffer = null;
     
     sClass* current_stack_frame_struct = info->current_stack_frame_struct;
     info->current_stack_frame_struct = null;
@@ -3706,6 +3773,8 @@ sFun*,string create_to_string_automatically(sType* type, const char* fun_name, s
     
     info.module.mLastCode = last_code;
     info.module.mLastCode2 = last_code2;
+    info.if_expression_buffer = if_expression_buffer;
+    info.paren_block_buffer = paren_block_buffer;
     
     return (to_string_fun, real_fun_name);
 }
@@ -3716,6 +3785,10 @@ sFun*,string create_get_hash_key_automatically(sType* type, const char* fun_name
     info.module.mLastCode = null;
     string last_code2 = info.module.mLastCode2;
     info.module.mLastCode2 = null;
+    buffer*% if_expression_buffer = clone info.if_expression_buffer;
+    info.if_expression_buffer = null;
+    buffer*% paren_block_buffer = clone info.paren_block_buffer;
+    info.paren_block_buffer = null;
     
     sClass* current_stack_frame_struct = info->current_stack_frame_struct;
     info->current_stack_frame_struct = null;
@@ -3857,6 +3930,8 @@ sFun*,string create_get_hash_key_automatically(sType* type, const char* fun_name
     
     info.module.mLastCode = last_code;
     info.module.mLastCode2 = last_code2;
+    info.if_expression_buffer = if_expression_buffer;
+    info.paren_block_buffer = paren_block_buffer;
     
     return (get_hash_key_fun, real_fun_name);
 }
@@ -3869,6 +3944,10 @@ sFun*% compile_uniq_function(sFun* fun, sInfo* info=info)
     info->caller_line = info->sline;
     char* caller_sname = info->caller_sname;
     info->caller_sname = info->sname;
+    buffer*% if_expression_buffer = clone info.if_expression_buffer;
+    info.if_expression_buffer = null;
+    buffer*% paren_block_buffer = clone info.paren_block_buffer;
+    info.paren_block_buffer = null;
     
     string last_code = info.module.mLastCode;
     info.module.mLastCode = null;
@@ -3936,6 +4015,8 @@ sFun*% compile_uniq_function(sFun* fun, sInfo* info=info)
     info->caller_fun = caller_fun;
     info->caller_line = caller_line;
     info->caller_sname = caller_sname;
+    info.if_expression_buffer = if_expression_buffer;
+    info.paren_block_buffer = paren_block_buffer;
     
     return fun2;
 }
@@ -3946,6 +4027,10 @@ bool create_equals_method(sType* type, sInfo* info)
     string result = null
     var stack_saved = info.stack;
     list<sRightValueObject*%>* right_value_objects = info.right_value_objects;
+    buffer*% if_expression_buffer = clone info.if_expression_buffer;
+    info.if_expression_buffer = null;
+    buffer*% paren_block_buffer = clone info.paren_block_buffer;
+    info.paren_block_buffer = null;
     
     sClass* klass = type_->mClass;
     
@@ -4011,6 +4096,8 @@ bool create_equals_method(sType* type, sInfo* info)
 
     info.right_value_objects = dummy_heap right_value_objects;
     info.stack = stack_saved;
+    info.if_expression_buffer = if_expression_buffer;
+    info.paren_block_buffer = paren_block_buffer;
     
     return true;
 }
@@ -4021,6 +4108,10 @@ bool create_operator_equals_method(sType* type, sInfo* info)
     string result = null
     var stack_saved = info.stack;
     list<sRightValueObject*%>* right_value_objects = info.right_value_objects;
+    buffer*% if_expression_buffer = clone info.if_expression_buffer;
+    info.if_expression_buffer = null;
+    buffer*% paren_block_buffer = clone info.paren_block_buffer;
+    info.paren_block_buffer = null;
     
     sClass* klass = type_->mClass;
     
@@ -4084,6 +4175,8 @@ bool create_operator_equals_method(sType* type, sInfo* info)
 
     info.right_value_objects = dummy_heap right_value_objects;
     info.stack = stack_saved;
+    info.if_expression_buffer = if_expression_buffer;
+    info.paren_block_buffer = paren_block_buffer;
     
     return true;
 }
@@ -4094,6 +4187,10 @@ bool create_operator_not_equals_method(sType* type, sInfo* info)
     string result = null
     var stack_saved = info.stack;
     list<sRightValueObject*%>* right_value_objects = info.right_value_objects;
+    buffer*% if_expression_buffer = clone info.if_expression_buffer;
+    info.if_expression_buffer = null;
+    buffer*% paren_block_buffer = clone info.paren_block_buffer;
+    info.paren_block_buffer = null;
     
     sClass* klass = type_->mClass;
     
@@ -4157,6 +4254,8 @@ bool create_operator_not_equals_method(sType* type, sInfo* info)
 
     info.right_value_objects = dummy_heap right_value_objects;
     info.stack = stack_saved;
+    info.if_expression_buffer = if_expression_buffer;
+    info.paren_block_buffer = paren_block_buffer;
     
     return true;
 }

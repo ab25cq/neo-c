@@ -402,7 +402,7 @@ class sTrueNode extends sNodeBase
         CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = xsprintf("(_Bool)1");
-        come_value.type = new sType(s"bool");
+        come_value.type = new sType(s"_Bool");
         come_value.var = null;
         
         add_come_last_code(info, "%s", come_value.c_value);
@@ -435,10 +435,11 @@ class sFalseNode extends sNodeBase
         CVALUE*% come_value = new CVALUE();
         
         come_value.c_value = xsprintf("(_Bool)0");
-        come_value.type = new sType(s"bool");
+        come_value.type = new sType(s"_Bool");
         come_value.var = null;
         
         add_come_last_code(info, "%s", come_value.c_value);
+puts("XXX");
         
         info.stack.push_back(come_value);
         
@@ -1530,6 +1531,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         return new sTrueNode(info) implements sNode;
     }
     else if(!gComeC && buf === "false") {
+puts("GGG")
         return new sFalseNode(info) implements sNode;
     }
     else if(!gComeC && buf === "delete") {

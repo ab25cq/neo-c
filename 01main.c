@@ -2751,7 +2751,7 @@ int main(int argc, char** argv)
 {
     int __result_obj__0;
     come_heap_init(0);
-   struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "main"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "main"; neo_current_frame = &fr;
     setlocale(6,"");
     __result_obj__0 = come_main(argc,argv);
     neo_current_frame = fr.prev;

@@ -301,6 +301,30 @@ bool check_assign_type(const char* msg, sType* left_type, sType* right_type, CVA
         }
         else if(left_no_solved_generics_type && right_no_solved_generics_type && (left_no_solved_generics_type.mGenericsTypes.length() > 0 || right_no_solved_generics_type->mGenericsTypes.length() > 0))
         {
+            bool check_ = true;
+            if(left_no_solved_generics_type->mClass->mName !== right_no_solved_generics_type->mClass->mName) {
+                check_ = false;
+            }
+            
+            if(left_no_solved_generics_type->mGenericsTypes.length() != right_no_solved_generics_type->mGenericsTypes.length()) {
+                check_ = false;
+            }
+            else {
+                for(int i=0; i<left_no_solved_generics_type.mGenericsTypes.length(); i++) {
+                    sType* left = left_no_solved_generics_type.mGenericsTypes[i];
+                    sType* right = right_no_solved_generics_type.mGenericsTypes[i];
+                    
+                    if(left->mClass->mName !== right->mClass->mName) {
+                        check_ = false;
+                        err_msg2(info , "left child generics %s right child generics %s", left->mClass->mName, right->mClass->mName);
+                    }
+                }
+            }
+            
+            
+            if(!check_) {
+                err_msg2(info , "type check warning(4).%s. %s %d <- %s %d", msg, left_no_solved_generics_type->mClass->mName, left_type2->mPointerNum, right_no_solved_generics_type->mClass->mName, right_type2->mPointerNum);
+            }
         }
         else if(strlen(left_type2->mClass->mName) >= strlen("tuple") 
             && memcmp(left_type2->mClass->mName, "tuple", strlen("tuple")) == 0

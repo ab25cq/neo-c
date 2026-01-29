@@ -2671,10 +2671,10 @@ int err_msg(struct sInfo* info  , const char* msg, ...)
         p=info->p;
         buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), (void*)0, 29, "struct buffer*"))));
         if(info->come_fun) {
-            buffer_append_format(buf,"%s %d(%d): %s in fun(%s)",info->sname,info->sline,info->sline_real,msg2,info->come_fun->mName);
+            buffer_append_format(buf,"%s %d(%d): [error] %s in fun (%s)",info->sname,info->sline,info->sline_real,msg2,info->come_fun->mName);
         }
         else {
-            buffer_append_format(buf,"%s %d(%d): %s",info->sname,info->sline,info->sline_real,msg2);
+            buffer_append_format(buf,"%s %d(%d): [error] %s",info->sname,info->sline,info->sline_real,msg2);
         }
         info->err_num++;
         free(msg2);
@@ -2718,10 +2718,10 @@ int err_msg2(struct sInfo* info  , const char* msg, ...)
         __builtin_va_end(args);
         buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), (void*)0, 59, "struct buffer*"))));
         if(info->come_fun) {
-            buffer_append_format(buf,"%s %d(%d): %s in fun(%s)",info->sname,info->sline,info->sline_real,msg2,info->come_fun->mName);
+            buffer_append_format(buf,"%s %d(%d): [warning] %s in fun (%s)",info->sname,info->sline,info->sline_real,msg2,info->come_fun->mName);
         }
         else {
-            buffer_append_format(buf,"%s %d(%d): %s",info->sname,info->sline,info->sline_real,msg2);
+            buffer_append_format(buf,"%s %d(%d): [warning] %s",info->sname,info->sline,info->sline_real,msg2);
         }
         info->err_num2++;
         free(msg2);
