@@ -1,5 +1,9 @@
 #include <neo-c.h>
 
+#if true
+int a;
+#endif
+
 int main(int argc, char** argv) 
 {
     //var a = if(0 == 1) { [1,2,3] } else { [s"1",s"2",s"3"] };

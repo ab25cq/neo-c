@@ -2658,13 +2658,13 @@ struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo*
     struct sNode* __result_obj__0;
     if(!gComeC&&charp_operator_equals(buf,"impl")) {
         source_head=info->p;
-        word=(char*)come_increment_ref_count(parse_word(0,info));
+        word=(char*)come_increment_ref_count(parse_word((_Bool)0,info));
         if(*info->p==60) {
             info->p++;
             skip_spaces_and_lf(info);
             list$1char$ph_reset(info->generics_type_names);
-            while(1) {
-                generics_name=(char*)come_increment_ref_count(parse_word(0,info));
+            while((_Bool)1) {
+                generics_name=(char*)come_increment_ref_count(parse_word((_Bool)0,info));
                 list$1char$ph_push_back(info->generics_type_names,(char*)come_increment_ref_count((char*)come_memdup(generics_name, "27impl.nc", 18, "char*")));
                 if(*info->p==44) {
                     info->p++;
@@ -2691,13 +2691,13 @@ struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo*
         }
         expected_next_character(123,info);
         __dec_obj4=info->impl_type,
-        info->impl_type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc(1, sizeof(struct sType)*(1), (void*)0, 45, "struct sType*")),(char*)come_increment_ref_count(word),0,info,0));
+        info->impl_type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc(1, sizeof(struct sType)*(1), (void*)0, 45, "struct sType*")),(char*)come_increment_ref_count(word),(_Bool)0,info,(_Bool)0));
         come_call_finalizer(sType_finalize, __dec_obj4,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         info->impl_type->mPointerNum=pointer_num;
         while(*info->p!=125) {
             skip_spaces_and_lf(info);
             head_2=info->p;
-            buf_3=(char*)come_increment_ref_count(parse_word(0,info));
+            buf_3=(char*)come_increment_ref_count(parse_word((_Bool)0,info));
             parse_sharp_v5(info);
             node=(struct sNode*)come_increment_ref_count(top_level_v99(buf_3,head_2,head_sline,info));
             parse_sharp_v5(info);

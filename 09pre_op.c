@@ -2929,11 +2929,11 @@ _Bool operator_overload_fun_self(struct sType* type  , const char* fun_name, str
     operator_fun=multiple_assign_var1->v2;
     generics_fun=multiple_assign_var1->v3;
     come_call_finalizer(tuple3$3char$phsFun$psGenericsFun$p$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-    result=0;
+    result=(_Bool)0;
     if(operator_fun) {
         right_value_object=left_value->right_value_objects;
         if(right_value_object) {
-            right_value_object->mFreed=1;
+            right_value_object->mFreed=(_Bool)1;
         }
         obj=(struct sNode*)come_increment_ref_count(node);
         params=(struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(list$1tuple2$2char$phsNode$ph$ph_initialize((struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count((struct list$1tuple2$2char$phsNode$ph$ph*)come_calloc(1, sizeof(struct list$1tuple2$2char$phsNode$ph$ph)*(1), (void*)0, 35, "struct list$1tuple2$2char$phsNode$ph$ph*"))));
@@ -2941,7 +2941,7 @@ _Bool operator_overload_fun_self(struct sType* type  , const char* fun_name, str
         node_10=(struct sNode*)come_increment_ref_count(create_method_call(fun_name2,(struct sNode*)come_increment_ref_count(obj),params,((void*)0),0,((void*)0),info));
         Value=node_compile(node_10,info);
         if(Value) {
-            result=1;
+            result=(_Bool)1;
         }
         ((obj) ? obj = come_decrement_ref_count(obj, ((struct sNode*)obj)->finalize, ((struct sNode*)obj)->_protocol_obj, 0, 0,(void*)0):(void*)0);
         come_call_finalizer(list$1tuple2$2char$phsNode$ph$ph$p_finalize, params, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -4103,10 +4103,10 @@ _Bool sRefferenceNode_compile(struct sRefferenceNode* self, struct sInfo* info  
     _Bool __result_obj__0;
     value=self->value;
     in_refference=info->in_refference;
-    info->in_refference=1;
+    info->in_refference=(_Bool)1;
     if(!node_compile(value,info)) {
         neo_current_frame = fr.prev;
-        return 0;
+        return (_Bool)0;
     }
     info->in_refference=in_refference;
     left_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
@@ -4128,7 +4128,7 @@ _Bool sRefferenceNode_compile(struct sRefferenceNode* self, struct sInfo* info  
     come_value->var=((void*)0);
     add_come_last_code(info,"%s",come_value->c_value);
     list$1CVALUE$ph_push_back(info->stack,(struct CVALUE*)come_increment_ref_count(come_value));
-    __result_obj__0 = 1;
+    __result_obj__0 = (_Bool)1;
     come_call_finalizer(CVALUE_finalize, left_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
@@ -4289,7 +4289,7 @@ _Bool sParenBlockNode_compile(struct sParenBlockNode* self, struct sInfo* info  
     come_type=((void*)0);
     for(o2_saved=(struct list$1sNode$ph*)come_increment_ref_count(paren_block),it=list$1sNode$ph_begin(o2_saved);!list$1sNode$ph_end(o2_saved);it=list$1sNode$ph_next(o2_saved)){
         if(!node_compile(it,info)) {
-            __result_obj__0 = 0;
+            __result_obj__0 = (_Bool)0;
             come_call_finalizer(list$1sNode$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             come_call_finalizer(list$1sNode$ph$p_finalize, paren_block, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -4355,7 +4355,7 @@ _Bool sParenBlockNode_compile(struct sParenBlockNode* self, struct sInfo* info  
     else {
         add_come_code(info,"});");
     }
-    __result_obj__0 = 1;
+    __result_obj__0 = (_Bool)1;
     come_call_finalizer(list$1sNode$ph$p_finalize, paren_block, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(buffer_finalize, paren_block_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -4492,7 +4492,7 @@ _Bool sDerefferenceNode_compile(struct sDerefferenceNode* self, struct sInfo* in
     memset(&calling_fun, 0, sizeof(calling_fun));
     value=(struct sNode*)come_increment_ref_count(self->value);
     if(!node_compile(value,info)) {
-        __result_obj__0 = 0;
+        __result_obj__0 = (_Bool)0;
         ((value) ? value = come_decrement_ref_count(value, ((struct sNode*)value)->finalize, ((struct sNode*)value)->_protocol_obj, 0, 0,(void*)0):(void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
@@ -4501,7 +4501,7 @@ _Bool sDerefferenceNode_compile(struct sDerefferenceNode* self, struct sInfo* in
     type=(struct sType*)come_increment_ref_count(left_value->type);
     const char* fun_name="operator_derefference";
     if(self->mQuote) {
-        calling_fun=0;
+        calling_fun=(_Bool)0;
     }
     else {
         calling_fun=operator_overload_fun_self(type,fun_name,(struct sNode*)come_increment_ref_count(value),left_value,info);
@@ -4520,7 +4520,7 @@ _Bool sDerefferenceNode_compile(struct sDerefferenceNode* self, struct sInfo* in
         list$1CVALUE$ph_push_back(info->stack,(struct CVALUE*)come_increment_ref_count(come_value));
         come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    __result_obj__0 = 1;
+    __result_obj__0 = (_Bool)1;
     ((value) ? value = come_decrement_ref_count(value, ((struct sNode*)value)->finalize, ((struct sNode*)value)->_protocol_obj, 0, 0,(void*)0):(void*)0);
     come_call_finalizer(CVALUE_finalize, left_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -4583,7 +4583,7 @@ _Bool sLogicalDenial_compile(struct sLogicalDenial* self, struct sInfo* info  )
     _Bool __result_obj__0;
     if(!node_compile(self->value,info)) {
         neo_current_frame = fr.prev;
-        return 0;
+        return (_Bool)0;
     }
     come_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     come_value2=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), (void*)0, 265, "struct CVALUE*"))));
@@ -4596,7 +4596,7 @@ _Bool sLogicalDenial_compile(struct sLogicalDenial* self, struct sInfo* info  )
     come_value2->var=((void*)0);
     list$1CVALUE$ph_push_back(info->stack,(struct CVALUE*)come_increment_ref_count(come_value2));
     add_come_last_code(info,"%s",come_value2->c_value);
-    __result_obj__0 = 1;
+    __result_obj__0 = (_Bool)1;
     come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(CVALUE_finalize, come_value2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
@@ -4658,7 +4658,7 @@ _Bool sLogicalDenial2_compile(struct sLogicalDenial2* self, struct sInfo* info  
     _Bool __result_obj__0;
     if(!node_compile(self->value,info)) {
         neo_current_frame = fr.prev;
-        return 0;
+        return (_Bool)0;
     }
     come_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     come_value2=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), (void*)0, 301, "struct CVALUE*"))));
@@ -4671,7 +4671,7 @@ _Bool sLogicalDenial2_compile(struct sLogicalDenial2* self, struct sInfo* info  
     come_value2->var=((void*)0);
     list$1CVALUE$ph_push_back(info->stack,(struct CVALUE*)come_increment_ref_count(come_value2));
     add_come_last_code(info,"%s",come_value2->c_value);
-    __result_obj__0 = 1;
+    __result_obj__0 = (_Bool)1;
     come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(CVALUE_finalize, come_value2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
@@ -4735,7 +4735,7 @@ _Bool sReverseNode_compile(struct sReverseNode* self, struct sInfo* info  )
     value=self->value;
     if(!node_compile(value,info)) {
         neo_current_frame = fr.prev;
-        return 0;
+        return (_Bool)0;
     }
     left_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), (void*)0, 339, "struct CVALUE*"))));
@@ -4749,7 +4749,7 @@ _Bool sReverseNode_compile(struct sReverseNode* self, struct sInfo* info  )
     come_value->var=((void*)0);
     add_come_last_code(info,"%s",come_value->c_value);
     list$1CVALUE$ph_push_back(info->stack,(struct CVALUE*)come_increment_ref_count(come_value));
-    __result_obj__0 = 1;
+    __result_obj__0 = (_Bool)1;
     come_call_finalizer(CVALUE_finalize, left_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
@@ -4811,7 +4811,7 @@ _Bool sMinusNode2_compile(struct sMinusNode2* self, struct sInfo* info  )
     _Bool __result_obj__0;
     if(!node_compile(self->value,info)) {
         neo_current_frame = fr.prev;
-        return 0;
+        return (_Bool)0;
     }
     come_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     come_value2=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), (void*)0, 376, "struct CVALUE*"))));
@@ -4824,7 +4824,7 @@ _Bool sMinusNode2_compile(struct sMinusNode2* self, struct sInfo* info  )
     come_value2->var=((void*)0);
     list$1CVALUE$ph_push_back(info->stack,(struct CVALUE*)come_increment_ref_count(come_value2));
     add_come_last_code(info,"%s",come_value2->c_value);
-    __result_obj__0 = 1;
+    __result_obj__0 = (_Bool)1;
     come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(CVALUE_finalize, come_value2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
@@ -4886,7 +4886,7 @@ _Bool sPlusPlusNode2_compile(struct sPlusPlusNode2* self, struct sInfo* info  )
     _Bool __result_obj__0;
     if(!node_compile(self->value,info)) {
         neo_current_frame = fr.prev;
-        return 0;
+        return (_Bool)0;
     }
     come_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     come_value2=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), (void*)0, 412, "struct CVALUE*"))));
@@ -4899,7 +4899,7 @@ _Bool sPlusPlusNode2_compile(struct sPlusPlusNode2* self, struct sInfo* info  )
     come_value2->var=((void*)0);
     list$1CVALUE$ph_push_back(info->stack,(struct CVALUE*)come_increment_ref_count(come_value2));
     add_come_last_code(info,"%s",come_value2->c_value);
-    __result_obj__0 = 1;
+    __result_obj__0 = (_Bool)1;
     come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(CVALUE_finalize, come_value2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
@@ -4961,7 +4961,7 @@ _Bool sMinusMinusNode2_compile(struct sMinusMinusNode2* self, struct sInfo* info
     _Bool __result_obj__0;
     if(!node_compile(self->value,info)) {
         neo_current_frame = fr.prev;
-        return 0;
+        return (_Bool)0;
     }
     come_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     come_value2=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), (void*)0, 448, "struct CVALUE*"))));
@@ -4974,7 +4974,7 @@ _Bool sMinusMinusNode2_compile(struct sMinusMinusNode2* self, struct sInfo* info
     come_value2->var=((void*)0);
     list$1CVALUE$ph_push_back(info->stack,(struct CVALUE*)come_increment_ref_count(come_value2));
     add_come_last_code(info,"%s",come_value2->c_value);
-    __result_obj__0 = 1;
+    __result_obj__0 = (_Bool)1;
     come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(CVALUE_finalize, come_value2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
@@ -5016,7 +5016,7 @@ _Bool sNormalBlock_terminated(struct sNormalBlock* self)
 {
     struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "sNormalBlock_terminated"; neo_current_frame = &fr;
     neo_current_frame = fr.prev;
-    return 1;
+    return (_Bool)1;
     neo_current_frame = fr.prev;
 }
 
@@ -5041,14 +5041,14 @@ _Bool sNormalBlock_compile(struct sNormalBlock* self, struct sInfo* info  )
     add_come_code(info,"{\n");
     come_c=gComeC;
     if(self->clang) {
-        gComeC=1;
+        gComeC=(_Bool)1;
     }
-    transpile_block(block,((void*)0),((void*)0),info,0,0,0);
+    transpile_block(block,((void*)0),((void*)0),info,(_Bool)0,(_Bool)0,(_Bool)0);
     add_come_code(info,"}\n");
     gComeC=come_c;
     transpiler_clear_last_code(info);
     neo_current_frame = fr.prev;
-    return 1;
+    return (_Bool)1;
     neo_current_frame = fr.prev;
 }
 
@@ -5140,18 +5140,18 @@ static struct map$2char$phsVar$ph* map$2char$phsVar$ph$p_clone(struct map$2char$
     come_call_finalizer(list$1char$ph_finalize, __dec_obj78,(void*)0, (void*)0, 0, 0, 0, (void*)0);
     for(it=map$2char$phsVar$ph_begin(self);!map$2char$phsVar$ph_end(self);it=map$2char$phsVar$ph_next(self)){
         memset(&default_value,0,sizeof(struct sVar*));
-        it2=(struct sVar*)come_increment_ref_count(map$2char$phsVar$ph_at(self,it,(struct sVar*)come_increment_ref_count(default_value),0));
+        it2=(struct sVar*)come_increment_ref_count(map$2char$phsVar$ph_at(self,it,(struct sVar*)come_increment_ref_count(default_value),(_Bool)0));
         if(1&&1) {
-            map$2char$phsVar$ph_put(result,(char*)come_increment_ref_count((char*)come_memdup(it, "/usr/local/include/neo-c.h", 1694, "char*")),(struct sVar*)come_increment_ref_count(sVar_clone(it2)),0);
+            map$2char$phsVar$ph_put(result,(char*)come_increment_ref_count((char*)come_memdup(it, "/usr/local/include/neo-c.h", 1694, "char*")),(struct sVar*)come_increment_ref_count(sVar_clone(it2)),(_Bool)0);
         }
         else if(1) {
-            map$2char$phsVar$ph_put(result,(char*)come_increment_ref_count((char*)come_memdup(it, "/usr/local/include/neo-c.h", 1697, "char*")),(struct sVar*)come_increment_ref_count(sVar_clone(it2)),0);
+            map$2char$phsVar$ph_put(result,(char*)come_increment_ref_count((char*)come_memdup(it, "/usr/local/include/neo-c.h", 1697, "char*")),(struct sVar*)come_increment_ref_count(sVar_clone(it2)),(_Bool)0);
         }
         else if(1) {
-            map$2char$phsVar$ph_put(result,(char*)come_increment_ref_count(it),(struct sVar*)come_increment_ref_count(sVar_clone(it2)),0);
+            map$2char$phsVar$ph_put(result,(char*)come_increment_ref_count(it),(struct sVar*)come_increment_ref_count(sVar_clone(it2)),(_Bool)0);
         }
         else {
-            map$2char$phsVar$ph_put(result,(char*)come_increment_ref_count(it),(struct sVar*)come_increment_ref_count(sVar_clone(it2)),0);
+            map$2char$phsVar$ph_put(result,(char*)come_increment_ref_count(it),(struct sVar*)come_increment_ref_count(sVar_clone(it2)),(_Bool)0);
         }
         come_call_finalizer(sVar_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_call_finalizer(sVar_finalize, it2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -5219,7 +5219,7 @@ static struct map$2char$phsVar$ph* map$2char$phsVar$ph_initialize(struct map$2ch
     self->items=(struct sVar**)come_increment_ref_count(((struct sVar**)(__right_value0=(struct sVar**)come_calloc(1, sizeof(struct sVar*)*(1*(128)), (void*)0, 1613, "struct sVar**"))));
     self->item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(128)), (void*)0, 1614, "_Bool*"))));
     for(i=0;i<128;i++){
-        self->item_existance[i]=0;
+        self->item_existance[i]=(_Bool)0;
     }
     self->size=128;
     self->len=0;
@@ -5305,7 +5305,7 @@ static struct sVar* map$2char$phsVar$ph_at(struct map$2char$phsVar$ph* self, cha
     }
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
-    while(1) {
+    while((_Bool)1) {
         if(self->item_existance[it]) {
             if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
                 __result_obj__0 = (struct sVar*)come_increment_ref_count(self->items[it]);
@@ -5361,16 +5361,16 @@ static struct map$2char$phsVar$ph* map$2char$phsVar$ph_put(struct map$2char$phsV
     }
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
-    while(1) {
+    while((_Bool)1) {
         if(self->item_existance[it]) {
             if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
                 if(1) {
                     (self->keys[it] = come_decrement_ref_count(self->keys[it], (void*)0, (void*)0, 0, 0, (void*)0));
-                    list$1char$ph_remove(self->key_list,self->keys[it],0);
+                    list$1char$ph_remove(self->key_list,self->keys[it],(_Bool)0);
                     self->keys[it]=(char*)come_increment_ref_count(key);
                 }
                 else {
-                    list$1char$ph_remove(self->key_list,self->keys[it],0);
+                    list$1char$ph_remove(self->key_list,self->keys[it],(_Bool)0);
                     self->keys[it]=key;
                 }
                 if(1) {
@@ -5393,7 +5393,7 @@ static struct map$2char$phsVar$ph* map$2char$phsVar$ph_put(struct map$2char$phsV
             }
         }
         else {
-            self->item_existance[it]=1;
+            self->item_existance[it]=(_Bool)1;
             if(1) {
                 self->keys[it]=(char*)come_increment_ref_count(key);
             }
@@ -5410,10 +5410,10 @@ static struct map$2char$phsVar$ph* map$2char$phsVar$ph_put(struct map$2char$phsV
             break;
         }
     }
-    same_key_exist=0;
+    same_key_exist=(_Bool)0;
     for(it2=list$1char$ph_begin(self->key_list);!list$1char$ph_end(self->key_list);it2=list$1char$ph_next(self->key_list)){
         if((!by_pointer&&string_equals(it2,key))||(by_pointer&&it2==key)) {
-            same_key_exist=1;
+            same_key_exist=(_Bool)1;
         }
     }
     if(!same_key_exist) {
@@ -5448,10 +5448,10 @@ static void map$2char$phsVar$ph_rehash(struct map$2char$phsVar$ph* self)
     len=0;
     for(it=map$2char$phsVar$ph_begin(self);!map$2char$phsVar$ph_end(self);it=map$2char$phsVar$ph_next(self)){
         memset(&default_value,0,sizeof(struct sVar*));
-        it2=((struct sVar*)(__right_value0=map$2char$phsVar$ph_at(self,it,(struct sVar*)come_increment_ref_count(default_value),0)));
+        it2=((struct sVar*)(__right_value0=map$2char$phsVar$ph_at(self,it,(struct sVar*)come_increment_ref_count(default_value),(_Bool)0)));
         hash=string_get_hash_key(((char*)it))%size;
         n=hash;
-        while(1) {
+        while((_Bool)1) {
             if(item_existance[n]) {
                 n++;
                 if(n>=size) {
@@ -5464,10 +5464,10 @@ static void map$2char$phsVar$ph_rehash(struct map$2char$phsVar$ph* self)
                 }
             }
             else {
-                item_existance[n]=1;
+                item_existance[n]=(_Bool)1;
                 keys[n]=it;
                 memset(&default_value_19,0,sizeof(struct sVar*));
-                items[n]=((struct sVar*)(__right_value0=map$2char$phsVar$ph_at(self,it,(struct sVar*)come_increment_ref_count(default_value_19),0)));
+                items[n]=((struct sVar*)(__right_value0=map$2char$phsVar$ph_at(self,it,(struct sVar*)come_increment_ref_count(default_value_19),(_Bool)0)));
                 len++;
                 come_call_finalizer(sVar_finalize, default_value_19, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 break;
@@ -5924,7 +5924,7 @@ _Bool sComplement_compile(struct sComplement* self, struct sInfo* info  )
     _Bool __result_obj__0;
     if(!node_compile(self->value,info)) {
         neo_current_frame = fr.prev;
-        return 0;
+        return (_Bool)0;
     }
     come_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     come_value2=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), (void*)0, 526, "struct CVALUE*"))));
@@ -5937,7 +5937,7 @@ _Bool sComplement_compile(struct sComplement* self, struct sInfo* info  )
     come_value2->var=((void*)0);
     list$1CVALUE$ph_push_back(info->stack,(struct CVALUE*)come_increment_ref_count(come_value2));
     add_come_last_code(info,"%s",come_value2->c_value);
-    __result_obj__0 = 1;
+    __result_obj__0 = (_Bool)1;
     come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(CVALUE_finalize, come_value2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
@@ -6000,7 +6000,7 @@ _Bool sParenNode_compile(struct sParenNode* self, struct sInfo* info  )
     left=self->mLeft;
     if(!node_compile(left,info)) {
         neo_current_frame = fr.prev;
-        return 0;
+        return (_Bool)0;
     }
     left_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), (void*)0, 564, "struct CVALUE*"))));
@@ -6013,7 +6013,7 @@ _Bool sParenNode_compile(struct sParenNode* self, struct sInfo* info  )
     come_value->var=((void*)0);
     add_come_last_code(info,"%s",come_value->c_value);
     list$1CVALUE$ph_push_back(info->stack,(struct CVALUE*)come_increment_ref_count(come_value));
-    __result_obj__0 = 1;
+    __result_obj__0 = (_Bool)1;
     come_call_finalizer(CVALUE_finalize, left_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
@@ -6084,7 +6084,7 @@ _Bool sCastNode_compile(struct sCastNode* self, struct sInfo* info  )
     left=self->mLeft;
     if(!node_compile(left,info)) {
         neo_current_frame = fr.prev;
-        return 0;
+        return (_Bool)0;
     }
     left_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
     type2=(struct sType*)come_increment_ref_count(solve_generics(((struct sType*)(__right_value0=sType_clone(type))),info->generics_type,info));
@@ -6093,7 +6093,7 @@ _Bool sCastNode_compile(struct sCastNode* self, struct sInfo* info  )
     come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), (void*)0, 608, "struct CVALUE*"))));
     cast_type(type3,left_value->type,left_value,info);
     __dec_obj97=come_value->c_value,
-    come_value->c_value=(char*)come_increment_ref_count(xsprintf("(%s)%s",((char*)(__right_value0=make_type_name_string(type3,info,0,1,0))),left_value->c_value));
+    come_value->c_value=(char*)come_increment_ref_count(xsprintf("(%s)%s",((char*)(__right_value0=make_type_name_string(type3,info,(_Bool)0,(_Bool)1,(_Bool)0))),left_value->c_value));
     __dec_obj97 = come_decrement_ref_count(__dec_obj97, (void*)0, (void*)0, 0,0, (void*)0);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     __dec_obj98=come_value->type,
@@ -6102,7 +6102,7 @@ _Bool sCastNode_compile(struct sCastNode* self, struct sInfo* info  )
     come_value->var=((void*)0);
     add_come_last_code(info,"%s",come_value->c_value);
     list$1CVALUE$ph_push_back(info->stack,(struct CVALUE*)come_increment_ref_count(come_value));
-    __result_obj__0 = 1;
+    __result_obj__0 = (_Bool)1;
     come_call_finalizer(CVALUE_finalize, left_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(sType_finalize, type3, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -6139,7 +6139,7 @@ struct sNode* parse_normal_block(_Bool clang, struct sInfo* info  )
     struct sNode* __result_obj__0;
     sline_real=info->sline_real;
     info->sline_real=info->sline;
-    block=(struct sBlock*)come_increment_ref_count(parse_block(info,0,0));
+    block=(struct sBlock*)come_increment_ref_count(parse_block(info,(_Bool)0,(_Bool)0));
     info->sline_real=sline_real;
     _inf_value1=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 632, "struct sNode");
     _inf_obj_value1=(struct sNormalBlock*)come_increment_ref_count(((struct sNormalBlock*)(__right_value1=sNormalBlock_initialize((struct sNormalBlock*)come_increment_ref_count((struct sNormalBlock*)come_calloc(1, sizeof(struct sNormalBlock)*(1), (void*)0, 632, "struct sNormalBlock*")),block,clang,info))));
@@ -6527,11 +6527,11 @@ _Bool sArrayInitializer_compile(struct sArrayInitializer* self, struct sInfo* in
     if(type_) {
         come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), (void*)0, 676, "struct CVALUE*"))));
         __dec_obj112=come_value->c_value,
-        come_value->c_value=(char*)come_increment_ref_count(xsprintf("(%s)%s",((char*)(__right_value0=make_type_name_string(type_,info,0,1,0))),initializer));
+        come_value->c_value=(char*)come_increment_ref_count(xsprintf("(%s)%s",((char*)(__right_value0=make_type_name_string(type_,info,(_Bool)0,(_Bool)1,(_Bool)0))),initializer));
         __dec_obj112 = come_decrement_ref_count(__dec_obj112, (void*)0, (void*)0, 0,0, (void*)0);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         __dec_obj113=come_value->type,
-        come_value->type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc(1, sizeof(struct sType)*(1), (void*)0, 679, "struct sType*")),(char*)come_increment_ref_count(xsprintf("void")),0,info,0));
+        come_value->type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc(1, sizeof(struct sType)*(1), (void*)0, 679, "struct sType*")),(char*)come_increment_ref_count(xsprintf("void")),(_Bool)0,info,(_Bool)0));
         come_call_finalizer(sType_finalize, __dec_obj113,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_value->type->mPointerNum++;
         come_value->var=((void*)0);
@@ -6544,14 +6544,14 @@ _Bool sArrayInitializer_compile(struct sArrayInitializer* self, struct sInfo* in
         come_value_31->c_value=(char*)come_increment_ref_count(initializer);
         __dec_obj114 = come_decrement_ref_count(__dec_obj114, (void*)0, (void*)0, 0,0, (void*)0);
         __dec_obj115=come_value_31->type,
-        come_value_31->type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc(1, sizeof(struct sType)*(1), (void*)0, 689, "struct sType*")),(char*)come_increment_ref_count(xsprintf("void")),0,info,0));
+        come_value_31->type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc(1, sizeof(struct sType)*(1), (void*)0, 689, "struct sType*")),(char*)come_increment_ref_count(xsprintf("void")),(_Bool)0,info,(_Bool)0));
         come_call_finalizer(sType_finalize, __dec_obj115,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_value_31->type->mPointerNum++;
         come_value_31->var=((void*)0);
         list$1CVALUE$ph_push_back(info->stack,(struct CVALUE*)come_increment_ref_count(come_value_31));
         come_call_finalizer(CVALUE_finalize, come_value_31, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    __result_obj__0 = 1;
+    __result_obj__0 = (_Bool)1;
     come_call_finalizer(sType_finalize, type_, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (initializer = come_decrement_ref_count(initializer, (void*)0, (void*)0, 0, 0, (void*)0));
     neo_current_frame = fr.prev;
@@ -6671,7 +6671,7 @@ struct sNode* pre_position_operator(struct sInfo* info  )
     memset(&quote, 0, sizeof(quote));
     memset(&node_57, 0, sizeof(node_57));
     skip_spaces_and_lf(info);
-    refference=0;
+    refference=(_Bool)0;
     {
         p=info->p;
         sline=info->sline;
@@ -6679,10 +6679,10 @@ struct sNode* pre_position_operator(struct sInfo* info  )
             info->p++;
             skip_spaces_and_lf(info);
             if(*info->p==34) {
-                refference=1;
+                refference=(_Bool)1;
             }
             else if(xisalpha(*info->p)||*info->p==95) {
-                refference=1;
+                refference=(_Bool)1;
             }
             else if(*info->p==40||*info->p==42) {
                 while(*info->p==40||*info->p==42) {
@@ -6690,10 +6690,10 @@ struct sNode* pre_position_operator(struct sInfo* info  )
                     skip_spaces_and_lf(info);
                 }
                 if(*info->p==38) {
-                    refference=1;
+                    refference=(_Bool)1;
                 }
                 else if(xisalpha(*info->p)||*info->p==95) {
-                    refference=1;
+                    refference=(_Bool)1;
                 }
             }
         }
@@ -6706,8 +6706,8 @@ struct sNode* pre_position_operator(struct sInfo* info  )
             buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), (void*)0, 744, "struct buffer*"))));
             buffer_append_char(buf,*info->p);
             info->p++;
-            squort=0;
-            dquort=0;
+            squort=(_Bool)0;
+            dquort=(_Bool)0;
             nest=1;
             while(1) {
                 if(*info->p==0) {
@@ -6786,7 +6786,7 @@ struct sNode* pre_position_operator(struct sInfo* info  )
             come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         }
         else {
-            __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=parse_normal_block(0,info))));
+            __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=parse_normal_block((_Bool)0,info))));
             ((__right_value0) ? __right_value0 = come_decrement_ref_count(__right_value0, ((struct sNode*)__right_value0)->finalize, ((struct sNode*)__right_value0)->_protocol_obj, 1, 0,(void*)0):(void*)0);
             neo_current_frame = fr.prev;
             ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0):(void*)0);
@@ -6947,15 +6947,15 @@ struct sNode* pre_position_operator(struct sInfo* info  )
         if(*info->p==92) {
             info->p+=2;
             skip_spaces_and_lf(info);
-            quote=1;
+            quote=(_Bool)1;
         }
         else {
             info->p++;
             skip_spaces_and_lf(info);
-            quote=0;
+            quote=(_Bool)0;
         }
         no_assign=info->no_assign;
-        info->no_assign=1;
+        info->no_assign=(_Bool)1;
         value=(struct sNode*)come_increment_ref_count(expression_node_v99(info));
         info->no_assign=no_assign;
         _inf_value13=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 880, "struct sNode");
@@ -7032,8 +7032,8 @@ struct sNode* pre_position_operator(struct sInfo* info  )
     else if(*info->p==40) {
         info->p++;
         skip_spaces_and_lf(info);
-        cast_expression_flag=0;
-        struct_initializer_flag=0;
+        cast_expression_flag=(_Bool)0;
+        struct_initializer_flag=(_Bool)0;
         {
             p_39=info->p;
             sline_40=info->sline;
@@ -7043,21 +7043,21 @@ struct sNode* pre_position_operator(struct sInfo* info  )
             word=(char*)come_increment_ref_count(__builtin_string(""));
             if(xisalpha(*info->p)||*info->p==95) {
                 __dec_obj131=word,
-                word=(char*)come_increment_ref_count(parse_word(0,info));
+                word=(char*)come_increment_ref_count(parse_word((_Bool)0,info));
                 __dec_obj131 = come_decrement_ref_count(__dec_obj131, (void*)0, (void*)0, 0,0, (void*)0);
                 if(is_type_name(word,info)) {
                     info->p=p2;
                     info->sline=sline2;
-                    ((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=parse_type(info,0,1,0)));
+                    ((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)1,(_Bool)0)));
                     come_call_finalizer(tuple3$3sType$phchar$ph_Bool$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
                     if(*info->p==41) {
                         info->p++;
                         skip_spaces_and_lf(info);
                         if(*info->p==123) {
-                            struct_initializer_flag=1;
+                            struct_initializer_flag=(_Bool)1;
                         }
                         else {
-                            cast_expression_flag=1;
+                            cast_expression_flag=(_Bool)1;
                         }
                     }
                 }
@@ -7067,8 +7067,8 @@ struct sNode* pre_position_operator(struct sInfo* info  )
             info->sline=sline_40;
             (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0));
         }
-        tuple_expression_flag=0;
-        named_tuple_expression_flag=0;
+        tuple_expression_flag=(_Bool)0;
+        named_tuple_expression_flag=(_Bool)0;
         if(!gComeC&&!cast_expression_flag&&!struct_initializer_flag) {
             p_41=info->p;
             sline_42=info->sline;
@@ -7077,13 +7077,13 @@ struct sNode* pre_position_operator(struct sInfo* info  )
                 p_43=info->p;
                 sline_44=info->sline;
                 if(*info->p==95||xisalpha(*info->p)) {
-                    ((char*)(__right_value0=parse_word(0,info)));
+                    ((char*)(__right_value0=parse_word((_Bool)0,info)));
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                 }
                 if(*info->p==58) {
                     info->p++;
                     skip_spaces_and_lf(info);
-                    named_tuple_expression_flag=1;
+                    named_tuple_expression_flag=(_Bool)1;
                 }
                 else {
                     info->p=p_43;
@@ -7091,16 +7091,16 @@ struct sNode* pre_position_operator(struct sInfo* info  )
                 }
             }
             no_comma=info->no_comma;
-            info->no_comma=1;
+            info->no_comma=(_Bool)1;
             no_output_come_code=info->no_output_come_code;
-            info->no_output_come_code=1;
-            node_45=(struct sNode*)come_increment_ref_count(expression_v13(info,0));
+            info->no_output_come_code=(_Bool)1;
+            node_45=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
             node2=(struct sNode*)come_increment_ref_count(node_45);
             skip_spaces_and_lf(info);
             info->no_comma=no_comma;
             info->no_output_come_code=no_output_come_code;
             if(*info->p==44) {
-                tuple_expression_flag=1;
+                tuple_expression_flag=(_Bool)1;
             }
             skip_spaces_and_lf(info);
             info->p=p_41;
@@ -7112,9 +7112,9 @@ struct sNode* pre_position_operator(struct sInfo* info  )
             info->p++;
             skip_spaces_and_lf(info);
             paren_block=(struct list$1sNode$ph*)come_increment_ref_count(list$1sNode$ph_initialize((struct list$1sNode$ph*)come_increment_ref_count((struct list$1sNode$ph*)come_calloc(1, sizeof(struct list$1sNode$ph)*(1), (void*)0, 997, "struct list$1sNode$ph*"))));
-            while(1) {
+            while((_Bool)1) {
                 skip_spaces_and_lf(info);
-                node2_46=(struct sNode*)come_increment_ref_count(expression_v13(info,0));
+                node2_46=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
                 skip_spaces_and_lf(info);
                 list$1sNode$ph_add(paren_block,(struct sNode*)come_increment_ref_count(node2_46));
                 while(*info->p==59) {
@@ -7171,7 +7171,7 @@ struct sNode* pre_position_operator(struct sInfo* info  )
         }
         else if(struct_initializer_flag) {
             skip_spaces_and_lf(info);
-            multiple_assign_var2=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=parse_type(info,0,1,0)));
+            multiple_assign_var2=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)1,(_Bool)0)));
             type=(struct sType*)come_increment_ref_count(multiple_assign_var2->v1);
             name=(char*)come_increment_ref_count(multiple_assign_var2->v2);
             err=multiple_assign_var2->v3;
@@ -7185,8 +7185,8 @@ struct sNode* pre_position_operator(struct sInfo* info  )
             buf_49=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), (void*)0, 1053, "struct buffer*"))));
             buffer_append_char(buf_49,*info->p);
             info->p++;
-            squort_50=0;
-            dquort_51=0;
+            squort_50=(_Bool)0;
+            dquort_51=(_Bool)0;
             nest_52=1;
             while(1) {
                 if(*info->p==0) {
@@ -7270,7 +7270,7 @@ struct sNode* pre_position_operator(struct sInfo* info  )
         }
         else if(cast_expression_flag) {
             skip_spaces_and_lf(info);
-            multiple_assign_var3=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=parse_type(info,0,1,0)));
+            multiple_assign_var3=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)1,(_Bool)0)));
             type_53=(struct sType*)come_increment_ref_count(multiple_assign_var3->v1);
             name_54=(char*)come_increment_ref_count(multiple_assign_var3->v2);
             err_55=multiple_assign_var3->v3;
@@ -7309,13 +7309,13 @@ struct sNode* pre_position_operator(struct sInfo* info  )
         }
         else {
             no_assign_58=info->no_assign;
-            info->no_assign=0;
+            info->no_assign=(_Bool)0;
             if(gComeC&&info->in_fun_param) {
                 no_comma_59=info->no_comma;
-                info->no_comma=0;
+                info->no_comma=(_Bool)0;
                 skip_spaces_and_lf(info);
                 __dec_obj134=node_57,
-                node_57=(struct sNode*)come_increment_ref_count(expression_v13(info,0));
+                node_57=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
                 (__dec_obj134 ? __dec_obj134 = come_decrement_ref_count(__dec_obj134, ((struct sNode*)__dec_obj134)->finalize, ((struct sNode*)__dec_obj134)->_protocol_obj, 0,0, (void*)0) :0);
                 skip_spaces_and_lf(info);
                 info->no_comma=no_comma_59;
@@ -7323,7 +7323,7 @@ struct sNode* pre_position_operator(struct sInfo* info  )
             else {
                 skip_spaces_and_lf(info);
                 __dec_obj135=node_57,
-                node_57=(struct sNode*)come_increment_ref_count(expression_v13(info,0));
+                node_57=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
                 (__dec_obj135 ? __dec_obj135 = come_decrement_ref_count(__dec_obj135, ((struct sNode*)__dec_obj135)->finalize, ((struct sNode*)__dec_obj135)->_protocol_obj, 0,0, (void*)0) :0);
                 skip_spaces_and_lf(info);
             }

@@ -891,6 +891,11 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
                     i = j;
                     continue;
                 }
+                if (strcmp(ident, "true") == 0 || strcmp(ident, "false") == 0) {
+                    sb_puts(out, ident);
+                    i = j;
+                    continue;
+                }
                 if (protect_defined && strcmp(ident, "defined") == 0) {
                     sb_puts(out, "defined");
                     size_t p = j;
@@ -1746,6 +1751,8 @@ static long parse_int_literal(const char *s, const char **out_end) {
 }
 
 static long ex_value_of_ident(const MacroTable *t, const char *ident) {
+    if (strcmp(ident, "true") == 0) return 1;
+    if (strcmp(ident, "false") == 0) return 0;
     const char *v = mtable_get(t, ident);
     if (!v) return 0;
     const char *end = NULL;

@@ -2636,12 +2636,12 @@ _Bool parsecmp(const char* p2, struct sInfo* info  )
     char* p3;
     int i;
     unsigned char c;
-    terminated=0;
+    terminated=(_Bool)0;
     p3=info->p;
     for(i=0;i<strlen(p2);i++){
         if(*p3==0) {
             neo_current_frame = fr.prev;
-            return 0;
+            return (_Bool)0;
         }
         p3++;
     }
@@ -2839,7 +2839,7 @@ static char* map$2char$phchar$ph$p_operator_load_element(struct map$2char$phchar
     }
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
-    while(1) {
+    while((_Bool)1) {
         if(self->item_existance[it]) {
             if(string_equals(self->keys[it],key)) {
                 __result_obj__0 = (char*)come_increment_ref_count(self->items[it]);
@@ -2892,7 +2892,7 @@ static char* map$2char$phchar$ph_operator_load_element(struct map$2char$phchar$p
     }
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
-    while(1) {
+    while((_Bool)1) {
         if(self->item_existance[it]) {
             if(string_equals(self->keys[it],key)) {
                 __result_obj__0 = (char*)come_increment_ref_count(self->items[it]);
@@ -2943,7 +2943,7 @@ char* backtrace_parse_word(struct sInfo* info  )
     sline=info->sline;
     if(xisalpha(*info->p)||*info->p==95) {
         __dec_obj1=buf,
-        buf=(char*)come_increment_ref_count(parse_word(0,info));
+        buf=(char*)come_increment_ref_count(parse_word((_Bool)0,info));
         __dec_obj1 = come_decrement_ref_count(__dec_obj1, (void*)0, (void*)0, 0,0, (void*)0);
     }
     else {
@@ -3001,7 +3001,7 @@ static _Bool skip_comment(struct sInfo* info  , _Bool skip_space_after)
             }
         }
         neo_current_frame = fr.prev;
-        return 1;
+        return (_Bool)1;
     }
     else if(*info->p==47&&*(info->p+1)==47) {
         info->p+=2;
@@ -3033,17 +3033,17 @@ static _Bool skip_comment(struct sInfo* info  , _Bool skip_space_after)
             }
         }
         neo_current_frame = fr.prev;
-        return 1;
+        return (_Bool)1;
     }
     neo_current_frame = fr.prev;
-    return 0;
+    return (_Bool)0;
     neo_current_frame = fr.prev;
 }
 
 void skip_spaces_and_lf(struct sInfo* info  )
 {
     struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "skip_spaces_and_lf"; neo_current_frame = &fr;
-    while(1) {
+    while((_Bool)1) {
         if(*info->p==32||*info->p==9) {
             info->p++;
         }
@@ -3058,7 +3058,7 @@ void skip_spaces_and_lf(struct sInfo* info  )
             info->p++;
             info->sline++;
         }
-        else if(skip_comment(info,0)) {
+        else if(skip_comment(info,(_Bool)0)) {
         }
         else {
             break;
@@ -3076,7 +3076,7 @@ void skip_spaces_and_lf(struct sInfo* info  )
 void skip_spaces_and_lf2(struct sInfo* info  )
 {
     struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "skip_spaces_and_lf2"; neo_current_frame = &fr;
-    while(1) {
+    while((_Bool)1) {
         if(*info->p==32||*info->p==9) {
             info->p++;
         }
@@ -3091,7 +3091,7 @@ void skip_spaces_and_lf2(struct sInfo* info  )
             info->p++;
             info->sline++;
         }
-        else if(skip_comment(info,0)) {
+        else if(skip_comment(info,(_Bool)0)) {
         }
         else {
             break;
@@ -3103,12 +3103,12 @@ void skip_spaces_and_lf2(struct sInfo* info  )
 void skip_spaces_and_tabs(struct sInfo* info  )
 {
     struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "skip_spaces_and_tabs"; neo_current_frame = &fr;
-    while(1) {
+    while((_Bool)1) {
         if(*info->p==32||*info->p==9) {
             info->p++;
         }
         else if(*info->p==47&&*(info->p+1)==42) {
-            (void)skip_comment(info,0);
+            (void)skip_comment(info,(_Bool)0);
         }
         else if(*info->p==47&&*(info->p+1)==47) {
             info->p+=2;
@@ -3280,7 +3280,7 @@ _conditional_value_X0;})) {
             }
             skip_spaces_and_lf2(info);
         }
-        else if(skip_comment(info,1)) {
+        else if(skip_comment(info,(_Bool)1)) {
         }
         else if(parsecmp("__extension__",info)) {
             info->p+=strlen("__extension__");
@@ -3298,7 +3298,7 @@ void skip_paren(struct sInfo* info  )
     struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "skip_paren"; neo_current_frame = &fr;
     int nest;
     nest=0;
-    while(1) {
+    while((_Bool)1) {
         if(*info->p==40) {
             info->p++;
             skip_spaces_and_lf(info);

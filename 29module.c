@@ -2840,7 +2840,7 @@ _Bool sModuleNode_compile(struct sModuleNode* self, struct sInfo* info  )
     _Bool __result_obj__0;
     name=(char*)come_increment_ref_count(__builtin_string(self->name));
     module=self->module;
-    __result_obj__0 = 1;
+    __result_obj__0 = (_Bool)1;
     (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0));
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -3135,7 +3135,7 @@ _Bool sStaticAssert_compile(struct sStaticAssert* self, struct sInfo* info  )
     exp=(struct sNode*)come_increment_ref_count(self->exp);
     Value=node_compile(exp,info);
     if(!Value) {
-        __result_obj__0 = 0;
+        __result_obj__0 = (_Bool)0;
         ((exp) ? exp = come_decrement_ref_count(exp, ((struct sNode*)exp)->finalize, ((struct sNode*)exp)->_protocol_obj, 0, 0,(void*)0):(void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
@@ -3144,7 +3144,7 @@ _Bool sStaticAssert_compile(struct sStaticAssert* self, struct sInfo* info  )
     exp2=(struct sNode*)come_increment_ref_count(self->exp2);
     Value_2=node_compile(exp2,info);
     if(!Value_2) {
-        __result_obj__0 = 0;
+        __result_obj__0 = (_Bool)0;
         ((exp) ? exp = come_decrement_ref_count(exp, ((struct sNode*)exp)->finalize, ((struct sNode*)exp)->_protocol_obj, 0, 0,(void*)0):(void*)0);
         come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         ((exp2) ? exp2 = come_decrement_ref_count(exp2, ((struct sNode*)exp2)->finalize, ((struct sNode*)exp2)->_protocol_obj, 0, 0,(void*)0):(void*)0);
@@ -3157,11 +3157,11 @@ _Bool sStaticAssert_compile(struct sStaticAssert* self, struct sInfo* info  )
     come_value3->c_value=(char*)come_increment_ref_count(xsprintf("_Static_assert(%s, %s)",come_value->c_value,come_value2->c_value));
     __dec_obj12 = come_decrement_ref_count(__dec_obj12, (void*)0, (void*)0, 0,0, (void*)0);
     __dec_obj13=come_value3->type,
-    come_value3->type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc(1, sizeof(struct sType)*(1), (void*)0, 59, "struct sType*")),(char*)come_increment_ref_count(xsprintf("void")),0,info,0));
+    come_value3->type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc(1, sizeof(struct sType)*(1), (void*)0, 59, "struct sType*")),(char*)come_increment_ref_count(xsprintf("void")),(_Bool)0,info,(_Bool)0));
     come_call_finalizer(sType_finalize, __dec_obj13,(void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_value3->var=((void*)0);
     add_come_last_code(info,"%s",come_value3->c_value);
-    __result_obj__0 = 1;
+    __result_obj__0 = (_Bool)1;
     ((exp) ? exp = come_decrement_ref_count(exp, ((struct sNode*)exp)->finalize, ((struct sNode*)exp)->_protocol_obj, 0, 0,(void*)0):(void*)0);
     come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     ((exp2) ? exp2 = come_decrement_ref_count(exp2, ((struct sNode*)exp2)->finalize, ((struct sNode*)exp2)->_protocol_obj, 0, 0,(void*)0):(void*)0);
@@ -3391,13 +3391,13 @@ _Bool sUndefNode_compile(struct sUndefNode* self, struct sInfo* info  )
     char* str  ;
     _Bool __result_obj__0;
     str=(char*)come_increment_ref_count(self->str);
-    map$2char$phbuffer$ph_remove(info->struct_definition,(char*)come_increment_ref_count(str),0);
-    map$2char$phsFun$ph_remove(info->funcs,(char*)come_increment_ref_count(str),0);
-    map$2char$phsGenericsFun$ph_remove(info->generics_funcs,(char*)come_increment_ref_count(str),0);
-    map$2char$phsClassModule$ph_remove(info->modules,(char*)come_increment_ref_count(str),0);
-    map$2char$phsType$ph_remove(info->types,(char*)come_increment_ref_count(str),0);
-    map$2char$phbuffer$ph_remove(info->typedef_definition,(char*)come_increment_ref_count(str),0);
-    __result_obj__0 = 1;
+    map$2char$phbuffer$ph_remove(info->struct_definition,(char*)come_increment_ref_count(str),(_Bool)0);
+    map$2char$phsFun$ph_remove(info->funcs,(char*)come_increment_ref_count(str),(_Bool)0);
+    map$2char$phsGenericsFun$ph_remove(info->generics_funcs,(char*)come_increment_ref_count(str),(_Bool)0);
+    map$2char$phsClassModule$ph_remove(info->modules,(char*)come_increment_ref_count(str),(_Bool)0);
+    map$2char$phsType$ph_remove(info->types,(char*)come_increment_ref_count(str),(_Bool)0);
+    map$2char$phbuffer$ph_remove(info->typedef_definition,(char*)come_increment_ref_count(str),(_Bool)0);
+    __result_obj__0 = (_Bool)1;
     (str = come_decrement_ref_count(str, (void*)0, (void*)0, 0, 0, (void*)0));
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -3429,11 +3429,11 @@ static struct map$2char$phbuffer$ph* map$2char$phbuffer$ph_remove(struct map$2ch
     }
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
-    while(1) {
+    while((_Bool)1) {
         if(self->item_existance[it]) {
             if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
-                list$1char$ph_remove(self->key_list,self->keys[it],0);
-                self->item_existance[it]=0;
+                list$1char$ph_remove(self->key_list,self->keys[it],(_Bool)0);
+                self->item_existance[it]=(_Bool)0;
                 if(1) {
                     (self->keys[it] = come_decrement_ref_count(self->keys[it], (void*)0, (void*)0, 0, 0, (void*)0));
                 }
@@ -3658,11 +3658,11 @@ static struct map$2char$phsFun$ph* map$2char$phsFun$ph_remove(struct map$2char$p
     }
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
-    while(1) {
+    while((_Bool)1) {
         if(self->item_existance[it]) {
             if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
-                list$1char$ph_remove(self->key_list,self->keys[it],0);
-                self->item_existance[it]=0;
+                list$1char$ph_remove(self->key_list,self->keys[it],(_Bool)0);
+                self->item_existance[it]=(_Bool)0;
                 if(1) {
                     (self->keys[it] = come_decrement_ref_count(self->keys[it], (void*)0, (void*)0, 0, 0, (void*)0));
                 }
@@ -3817,11 +3817,11 @@ static struct map$2char$phsGenericsFun$ph* map$2char$phsGenericsFun$ph_remove(st
     }
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
-    while(1) {
+    while((_Bool)1) {
         if(self->item_existance[it]) {
             if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
-                list$1char$ph_remove(self->key_list,self->keys[it],0);
-                self->item_existance[it]=0;
+                list$1char$ph_remove(self->key_list,self->keys[it],(_Bool)0);
+                self->item_existance[it]=(_Bool)0;
                 if(1) {
                     (self->keys[it] = come_decrement_ref_count(self->keys[it], (void*)0, (void*)0, 0, 0, (void*)0));
                 }
@@ -3901,11 +3901,11 @@ static struct map$2char$phsClassModule$ph* map$2char$phsClassModule$ph_remove(st
     }
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
-    while(1) {
+    while((_Bool)1) {
         if(self->item_existance[it]) {
             if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
-                list$1char$ph_remove(self->key_list,self->keys[it],0);
-                self->item_existance[it]=0;
+                list$1char$ph_remove(self->key_list,self->keys[it],(_Bool)0);
+                self->item_existance[it]=(_Bool)0;
                 if(1) {
                     (self->keys[it] = come_decrement_ref_count(self->keys[it], (void*)0, (void*)0, 0, 0, (void*)0));
                 }
@@ -3949,11 +3949,11 @@ static struct map$2char$phsType$ph* map$2char$phsType$ph_remove(struct map$2char
     }
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
-    while(1) {
+    while((_Bool)1) {
         if(self->item_existance[it]) {
             if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
-                list$1char$ph_remove(self->key_list,self->keys[it],0);
-                self->item_existance[it]=0;
+                list$1char$ph_remove(self->key_list,self->keys[it],(_Bool)0);
+                self->item_existance[it]=(_Bool)0;
                 if(1) {
                     (self->keys[it] = come_decrement_ref_count(self->keys[it], (void*)0, (void*)0, 0, 0, (void*)0));
                 }
@@ -4013,7 +4013,7 @@ _Bool sNoneNode_compile(struct sNoneNode* self, struct sInfo* info  )
 {
     struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "sNoneNode_compile"; neo_current_frame = &fr;
     neo_current_frame = fr.prev;
-    return 1;
+    return (_Bool)1;
     neo_current_frame = fr.prev;
 }
 
@@ -4344,7 +4344,7 @@ int sizeof_type(struct sType* type  , struct sInfo* info  )
         for(i=0;i<list$1sNode$ph_length(type->mArrayNum);i++){
             node=(struct sNode*)come_increment_ref_count(list$1sNode$ph_operator_load_element(type->mArrayNum,i));
             no_output_come_code=info->no_output_come_code;
-            info->no_output_come_code=1;
+            info->no_output_come_code=(_Bool)1;
             Value=node_compile(node,info);
             if(!Value) {
                 err_msg(info,"invalid array num");
@@ -5323,7 +5323,7 @@ char* reflection_node(struct sInfo* info  )
     int n_99;
     char* exp_100  ;
     if(parsecmp("sizeof",info)) {
-        (void)((char*)(__right_value0=parse_word(0,info)));
+        (void)((char*)(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
@@ -5368,7 +5368,7 @@ char* reflection_node(struct sInfo* info  )
         come_call_finalizer(sType_finalize, Value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     else if(parsecmp("alignof",info)) {
-        (void)((char*)(__right_value0=parse_word(0,info)));
+        (void)((char*)(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
@@ -5413,7 +5413,7 @@ char* reflection_node(struct sInfo* info  )
         come_call_finalizer(sType_finalize, Value_21, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     else if(parsecmp("defined",info)) {
-        (void)((char*)(__right_value0=parse_word(0,info)));
+        (void)((char*)(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
@@ -5426,35 +5426,35 @@ char* reflection_node(struct sInfo* info  )
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
-        defined=0;
+        defined=(_Bool)0;
         Value_24=(struct buffer*)come_increment_ref_count(map$2char$phbuffer$ph_operator_load_element(info->struct_definition,exp_23));
         if(({(_conditional_value_X2=(Value_24));_conditional_value_X2;})) {
-            defined=1;
+            defined=(_Bool)1;
         }
         come_call_finalizer(buffer_finalize, Value_24, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         Value_25=(struct sFun*)come_increment_ref_count(map$2char$phsFun$ph_operator_load_element(info->funcs,exp_23));
         if(({(_conditional_value_X3=(Value_25));_conditional_value_X3;})) {
-            defined=1;
+            defined=(_Bool)1;
         }
         come_call_finalizer(sFun_finalize, Value_25, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         Value_26=(struct sGenericsFun*)come_increment_ref_count(map$2char$phsGenericsFun$ph_operator_load_element(info->generics_funcs,exp_23));
         if(({(_conditional_value_X4=(Value_26));_conditional_value_X4;})) {
-            defined=1;
+            defined=(_Bool)1;
         }
         come_call_finalizer(sGenericsFun_finalize, Value_26, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         Value_27=(struct sClassModule*)come_increment_ref_count(map$2char$phsClassModule$ph_operator_load_element(info->modules,exp_23));
         if(({(_conditional_value_X5=(Value_27));_conditional_value_X5;})) {
-            defined=1;
+            defined=(_Bool)1;
         }
         come_call_finalizer(sClassModule_finalize, Value_27, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         Value_28=(struct sType*)come_increment_ref_count(map$2char$phsType$ph_operator_load_element(info->types,exp_23));
         if(({(_conditional_value_X6=(Value_28));_conditional_value_X6;})) {
-            defined=1;
+            defined=(_Bool)1;
         }
         come_call_finalizer(sType_finalize, Value_28, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         Value_29=get_variable_from_table(info->gv_table,exp_23);
         if(Value_29) {
-            defined=1;
+            defined=(_Bool)1;
         }
         if(defined) {
             __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=xsprintf("true"))));
@@ -5475,7 +5475,7 @@ char* reflection_node(struct sInfo* info  )
         (exp_23 = come_decrement_ref_count(exp_23, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     else if(parsecmp("macro_defined",info)) {
-        (void)((char*)(__right_value0=parse_word(0,info)));
+        (void)((char*)(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
@@ -5508,7 +5508,7 @@ char* reflection_node(struct sInfo* info  )
         (exp_30 = come_decrement_ref_count(exp_30, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     else if(parsecmp("macro_value",info)) {
-        (void)((char*)(__right_value0=parse_word(0,info)));
+        (void)((char*)(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
@@ -5549,7 +5549,7 @@ char* reflection_node(struct sInfo* info  )
         (result_33 = come_decrement_ref_count(result_33, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     else if(parsecmp("macro_call",info)) {
-        (void)((char*)(__right_value0=parse_word(0,info)));
+        (void)((char*)(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
@@ -5601,7 +5601,7 @@ char* reflection_node(struct sInfo* info  )
         (result_35 = come_decrement_ref_count(result_35, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     else if(parsecmp("is_static",info)) {
-        (void)((char*)(__right_value0=parse_word(0,info)));
+        (void)((char*)(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
@@ -5641,7 +5641,7 @@ char* reflection_node(struct sInfo* info  )
         (exp_37 = come_decrement_ref_count(exp_37, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     else if(parsecmp("is_heap",info)) {
-        (void)((char*)(__right_value0=parse_word(0,info)));
+        (void)((char*)(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
@@ -5673,7 +5673,7 @@ char* reflection_node(struct sInfo* info  )
         (exp_38 = come_decrement_ref_count(exp_38, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     else if(parsecmp("is_const",info)) {
-        (void)((char*)(__right_value0=parse_word(0,info)));
+        (void)((char*)(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
@@ -5705,7 +5705,7 @@ char* reflection_node(struct sInfo* info  )
         (exp_39 = come_decrement_ref_count(exp_39, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     else if(parsecmp("is_uniq",info)) {
-        (void)((char*)(__right_value0=parse_word(0,info)));
+        (void)((char*)(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
@@ -5737,7 +5737,7 @@ char* reflection_node(struct sInfo* info  )
         (exp_40 = come_decrement_ref_count(exp_40, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     else if(parsecmp("is_type",info)) {
-        (void)((char*)(__right_value0=parse_word(0,info)));
+        (void)((char*)(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
@@ -5750,10 +5750,10 @@ char* reflection_node(struct sInfo* info  )
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
-        defined_42=0;
+        defined_42=(_Bool)0;
         Value_43=(struct sType*)come_increment_ref_count(map$2char$phsType$ph_operator_load_element(info->types,exp_41));
         if(({(_conditional_value_X7=(Value_43));_conditional_value_X7;})) {
-            defined_42=1;
+            defined_42=(_Bool)1;
         }
         if(defined_42) {
             __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=xsprintf("true"))));
@@ -5777,7 +5777,7 @@ char* reflection_node(struct sInfo* info  )
         come_call_finalizer(sType_finalize, Value_43, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     else if(parsecmp("type",info)) {
-        (void)((char*)(__right_value0=parse_word(0,info)));
+        (void)((char*)(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
@@ -5825,7 +5825,7 @@ char* reflection_node(struct sInfo* info  )
         (result_45 = come_decrement_ref_count(result_45, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     else if(parsecmp("result_type",info)) {
-        (void)((char*)(__right_value0=parse_word(0,info)));
+        (void)((char*)(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
@@ -5869,7 +5869,7 @@ char* reflection_node(struct sInfo* info  )
         come_call_finalizer(sFun_finalize, Value_50, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     else if(parsecmp("param_types",info)) {
-        (void)((char*)(__right_value0=parse_word(0,info)));
+        (void)((char*)(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
@@ -5924,7 +5924,7 @@ char* reflection_node(struct sInfo* info  )
         come_call_finalizer(sFun_finalize, Value_53, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     else if(parsecmp("param_names",info)) {
-        (void)((char*)(__right_value0=parse_word(0,info)));
+        (void)((char*)(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
@@ -5976,7 +5976,7 @@ char* reflection_node(struct sInfo* info  )
         come_call_finalizer(sFun_finalize, Value_59, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     else if(parsecmp("num_param_types",info)) {
-        (void)((char*)(__right_value0=parse_word(0,info)));
+        (void)((char*)(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
@@ -6020,7 +6020,7 @@ char* reflection_node(struct sInfo* info  )
         come_call_finalizer(sFun_finalize, Value_64, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     else if(parsecmp("num_fields",info)) {
-        (void)((char*)(__right_value0=parse_word(0,info)));
+        (void)((char*)(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
@@ -6066,7 +6066,7 @@ char* reflection_node(struct sInfo* info  )
         come_call_finalizer(sClass_finalize, Value_67, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     else if(parsecmp("field_types",info)) {
-        (void)((char*)(__right_value0=parse_word(0,info)));
+        (void)((char*)(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
@@ -6131,7 +6131,7 @@ char* reflection_node(struct sInfo* info  )
         come_call_finalizer(sClass_finalize, Value_71, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     else if(parsecmp("is_inline",info)) {
-        (void)((char*)(__right_value0=parse_word(0,info)));
+        (void)((char*)(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
@@ -6144,11 +6144,11 @@ char* reflection_node(struct sInfo* info  )
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
-        defined_74=0;
+        defined_74=(_Bool)0;
         Value_75=(struct sFun*)come_increment_ref_count(map$2char$phsFun$ph_operator_load_element(info->funcs,exp_73));
         if(({(_conditional_value_X15=(Value_75));_conditional_value_X15;})) {
             if(Value_75->mResultType->mInline) {
-                defined_74=1;
+                defined_74=(_Bool)1;
             }
         }
         if(defined_74) {
@@ -6173,7 +6173,7 @@ char* reflection_node(struct sInfo* info  )
         come_call_finalizer(sFun_finalize, Value_75, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     else if(parsecmp("is_struct",info)) {
-        (void)((char*)(__right_value0=parse_word(0,info)));
+        (void)((char*)(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
@@ -6186,11 +6186,11 @@ char* reflection_node(struct sInfo* info  )
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
-        defined_77=0;
+        defined_77=(_Bool)0;
         Value_78=(struct sClass*)come_increment_ref_count(map$2char$phsClass$ph_operator_load_element(info->classes,exp_76));
         if(({(_conditional_value_X16=(Value_78));_conditional_value_X16;})) {
             if(Value_78->mStruct) {
-                defined_77=1;
+                defined_77=(_Bool)1;
             }
         }
         if(defined_77) {
@@ -6215,7 +6215,7 @@ char* reflection_node(struct sInfo* info  )
         come_call_finalizer(sClass_finalize, Value_78, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     else if(parsecmp("is_union",info)) {
-        (void)((char*)(__right_value0=parse_word(0,info)));
+        (void)((char*)(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
@@ -6228,11 +6228,11 @@ char* reflection_node(struct sInfo* info  )
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
-        defined_80=0;
+        defined_80=(_Bool)0;
         Value_81=(struct sClass*)come_increment_ref_count(map$2char$phsClass$ph_operator_load_element(info->classes,exp_79));
         if(({(_conditional_value_X17=(Value_81));_conditional_value_X17;})) {
             if(Value_81->mUnion) {
-                defined_80=1;
+                defined_80=(_Bool)1;
             }
         }
         if(defined_80) {
@@ -6257,7 +6257,7 @@ char* reflection_node(struct sInfo* info  )
         come_call_finalizer(sClass_finalize, Value_81, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     else if(parsecmp("is_enum",info)) {
-        (void)((char*)(__right_value0=parse_word(0,info)));
+        (void)((char*)(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
@@ -6270,11 +6270,11 @@ char* reflection_node(struct sInfo* info  )
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
-        defined_83=0;
+        defined_83=(_Bool)0;
         Value_84=(struct sClass*)come_increment_ref_count(map$2char$phsClass$ph_operator_load_element(info->classes,exp_82));
         if(({(_conditional_value_X18=(Value_84));_conditional_value_X18;})) {
             if(Value_84->mEnum) {
-                defined_83=1;
+                defined_83=(_Bool)1;
             }
         }
         if(defined_83) {
@@ -6299,7 +6299,7 @@ char* reflection_node(struct sInfo* info  )
         come_call_finalizer(sClass_finalize, Value_84, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     else if(parsecmp("is_interface",info)) {
-        (void)((char*)(__right_value0=parse_word(0,info)));
+        (void)((char*)(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
@@ -6312,11 +6312,11 @@ char* reflection_node(struct sInfo* info  )
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
-        defined_86=0;
+        defined_86=(_Bool)0;
         Value_87=(struct sClass*)come_increment_ref_count(map$2char$phsClass$ph_operator_load_element(info->classes,exp_85));
         if(({(_conditional_value_X19=(Value_87));_conditional_value_X19;})) {
             if(Value_87->mProtocol) {
-                defined_86=1;
+                defined_86=(_Bool)1;
             }
         }
         if(defined_86) {
@@ -6341,7 +6341,7 @@ char* reflection_node(struct sInfo* info  )
         come_call_finalizer(sClass_finalize, Value_87, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     else if(parsecmp("is_generics",info)) {
-        (void)((char*)(__right_value0=parse_word(0,info)));
+        (void)((char*)(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
@@ -6354,11 +6354,11 @@ char* reflection_node(struct sInfo* info  )
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
-        defined_89=0;
+        defined_89=(_Bool)0;
         Value_90=(struct sClass*)come_increment_ref_count(map$2char$phsClass$ph_operator_load_element(info->classes,exp_88));
         if(({(_conditional_value_X20=(Value_90));_conditional_value_X20;})) {
             if(Value_90->mGenerics) {
-                defined_89=1;
+                defined_89=(_Bool)1;
             }
         }
         if(defined_89) {
@@ -6383,7 +6383,7 @@ char* reflection_node(struct sInfo* info  )
         come_call_finalizer(sClass_finalize, Value_90, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     else if(parsecmp("is_module",info)) {
-        (void)((char*)(__right_value0=parse_word(0,info)));
+        (void)((char*)(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
@@ -6396,10 +6396,10 @@ char* reflection_node(struct sInfo* info  )
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
-        defined_92=0;
+        defined_92=(_Bool)0;
         Value_93=(struct sClassModule*)come_increment_ref_count(map$2char$phsClassModule$ph_operator_load_element(info->modules,exp_91));
         if(({(_conditional_value_X21=(Value_93));_conditional_value_X21;})) {
-            defined_92=1;
+            defined_92=(_Bool)1;
         }
         if(defined_92) {
             __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=xsprintf("true"))));
@@ -6491,7 +6491,7 @@ char* reflection_node(struct sInfo* info  )
     }
     else if(*info->p==36) {
         info->p++;
-        var_name=(char*)come_increment_ref_count(parse_word(0,info));
+        var_name=(char*)come_increment_ref_count(parse_word((_Bool)0,info));
         value_97=(char*)come_increment_ref_count(map$2char$phchar$ph_operator_load_element(info->reflection_vars,var_name));
         if(value_97==((void*)0)) {
             __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=xsprintf(""))));
@@ -6602,7 +6602,7 @@ static struct sType* map$2char$phsType$ph$p_operator_load_element(struct map$2ch
     }
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
-    while(1) {
+    while((_Bool)1) {
         if(self->item_existance[it]) {
             if(string_equals(self->keys[it],key)) {
                 __result_obj__0 = (struct sType*)come_increment_ref_count(self->items[it]);
@@ -6655,7 +6655,7 @@ static struct sType* map$2char$phsType$ph_operator_load_element(struct map$2char
     }
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
-    while(1) {
+    while((_Bool)1) {
         if(self->item_existance[it]) {
             if(string_equals(self->keys[it],key)) {
                 __result_obj__0 = (struct sType*)come_increment_ref_count(self->items[it]);
@@ -6708,7 +6708,7 @@ static struct buffer* map$2char$phbuffer$ph$p_operator_load_element(struct map$2
     }
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
-    while(1) {
+    while((_Bool)1) {
         if(self->item_existance[it]) {
             if(string_equals(self->keys[it],key)) {
                 __result_obj__0 = (struct buffer*)come_increment_ref_count(self->items[it]);
@@ -6761,7 +6761,7 @@ static struct buffer* map$2char$phbuffer$ph_operator_load_element(struct map$2ch
     }
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
-    while(1) {
+    while((_Bool)1) {
         if(self->item_existance[it]) {
             if(string_equals(self->keys[it],key)) {
                 __result_obj__0 = (struct buffer*)come_increment_ref_count(self->items[it]);
@@ -6814,7 +6814,7 @@ static struct sFun* map$2char$phsFun$ph$p_operator_load_element(struct map$2char
     }
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
-    while(1) {
+    while((_Bool)1) {
         if(self->item_existance[it]) {
             if(string_equals(self->keys[it],key)) {
                 __result_obj__0 = (struct sFun*)come_increment_ref_count(self->items[it]);
@@ -6867,7 +6867,7 @@ static struct sFun* map$2char$phsFun$ph_operator_load_element(struct map$2char$p
     }
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
-    while(1) {
+    while((_Bool)1) {
         if(self->item_existance[it]) {
             if(string_equals(self->keys[it],key)) {
                 __result_obj__0 = (struct sFun*)come_increment_ref_count(self->items[it]);
@@ -6920,7 +6920,7 @@ static struct sGenericsFun* map$2char$phsGenericsFun$ph$p_operator_load_element(
     }
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
-    while(1) {
+    while((_Bool)1) {
         if(self->item_existance[it]) {
             if(string_equals(self->keys[it],key)) {
                 __result_obj__0 = (struct sGenericsFun*)come_increment_ref_count(self->items[it]);
@@ -6973,7 +6973,7 @@ static struct sGenericsFun* map$2char$phsGenericsFun$ph_operator_load_element(st
     }
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
-    while(1) {
+    while((_Bool)1) {
         if(self->item_existance[it]) {
             if(string_equals(self->keys[it],key)) {
                 __result_obj__0 = (struct sGenericsFun*)come_increment_ref_count(self->items[it]);
@@ -7026,7 +7026,7 @@ static struct sClassModule* map$2char$phsClassModule$ph$p_operator_load_element(
     }
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
-    while(1) {
+    while((_Bool)1) {
         if(self->item_existance[it]) {
             if(string_equals(self->keys[it],key)) {
                 __result_obj__0 = (struct sClassModule*)come_increment_ref_count(self->items[it]);
@@ -7079,7 +7079,7 @@ static struct sClassModule* map$2char$phsClassModule$ph_operator_load_element(st
     }
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
-    while(1) {
+    while((_Bool)1) {
         if(self->item_existance[it]) {
             if(string_equals(self->keys[it],key)) {
                 __result_obj__0 = (struct sClassModule*)come_increment_ref_count(self->items[it]);
@@ -7304,7 +7304,7 @@ static struct sClass* map$2char$phsClass$ph$p_operator_load_element(struct map$2
     }
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
-    while(1) {
+    while((_Bool)1) {
         if(self->item_existance[it]) {
             if(string_equals(self->keys[it],key)) {
                 __result_obj__0 = (struct sClass*)come_increment_ref_count(self->items[it]);
@@ -7402,7 +7402,7 @@ static struct sClass* map$2char$phsClass$ph_operator_load_element(struct map$2ch
     }
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
-    while(1) {
+    while((_Bool)1) {
         if(self->item_existance[it]) {
             if(string_equals(self->keys[it],key)) {
                 __result_obj__0 = (struct sClass*)come_increment_ref_count(self->items[it]);
@@ -7455,7 +7455,7 @@ static char* map$2char$phchar$ph$p_operator_load_element(struct map$2char$phchar
     }
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
-    while(1) {
+    while((_Bool)1) {
         if(self->item_existance[it]) {
             if(string_equals(self->keys[it],key)) {
                 __result_obj__0 = (char*)come_increment_ref_count(self->items[it]);
@@ -7508,7 +7508,7 @@ static char* map$2char$phchar$ph_operator_load_element(struct map$2char$phchar$p
     }
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
-    while(1) {
+    while((_Bool)1) {
         if(self->item_existance[it]) {
             if(string_equals(self->keys[it],key)) {
                 __result_obj__0 = (char*)come_increment_ref_count(self->items[it]);
@@ -8059,15 +8059,15 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
     struct sNode* _inf_value13;
     struct sNothingNode* _inf_obj_value13;
     if(charp_operator_equals(buf,"module")) {
-        type_name=(char*)come_increment_ref_count(parse_word(0,info));
+        type_name=(char*)come_increment_ref_count(parse_word((_Bool)0,info));
         sname=(char*)come_increment_ref_count(info->sname);
         sline=info->sline;
         params=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 1574, "struct list$1char$ph*"))));
         if(*info->p==60) {
             info->p++;
             skip_spaces_and_lf(info);
-            while(1) {
-                word=(char*)come_increment_ref_count(parse_word(0,info));
+            while((_Bool)1) {
+                word=(char*)come_increment_ref_count(parse_word((_Bool)0,info));
                 list$1char$ph_add(params,(char*)come_increment_ref_count(word));
                 if(*info->p==44) {
                     info->p++;
@@ -8094,8 +8094,8 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         source_head=info->p;
         source_tail=((void*)0);
         buf_109=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), (void*)0, 1610, "struct buffer*"))));
-        squort=0;
-        dquort=0;
+        squort=(_Bool)0;
+        dquort=(_Bool)0;
         nest=1;
         while(1) {
             if(*info->p==0) {
@@ -8189,7 +8189,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         come_call_finalizer(sClassModule_finalize, module, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     else if(charp_operator_equals(buf,"__c__")&&*info->p==123) {
-        block_text=(char*)come_increment_ref_count(skip_block(info,0));
+        block_text=(char*)come_increment_ref_count(skip_block(info,(_Bool)0));
         p=block_text+strlen(block_text);
         while(*p&&p>=block_text&&*p!=125) {
             p--;
@@ -8198,7 +8198,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         contents=(char*)come_increment_ref_count(charp_substring(block_text,1,p-(block_text+strlen(block_text))-1));
         static int n=0;
         n++;
-        map$2char$phbuffer$ph_insert(info->previous_struct_definition,(char*)come_increment_ref_count(xsprintf("__c__\%s",((char*)(__right_value0=int_to_string(n))))),(struct buffer*)come_increment_ref_count(charp_to_buffer(contents)),0);
+        map$2char$phbuffer$ph_insert(info->previous_struct_definition,(char*)come_increment_ref_count(xsprintf("__c__\%s",((char*)(__right_value0=int_to_string(n))))),(struct buffer*)come_increment_ref_count(charp_to_buffer(contents)),(_Bool)0);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         _inf_value3=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1701, "struct sNode");
         _inf_obj_value3=(struct sNothingNode*)come_increment_ref_count(((struct sNothingNode*)(__right_value1=sNothingNode_initialize((struct sNothingNode*)come_increment_ref_count((struct sNothingNode*)come_calloc(1, sizeof(struct sNothingNode)*(1), (void*)0, 1701, "struct sNothingNode*")),info))));
@@ -8224,7 +8224,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         (contents = come_decrement_ref_count(contents, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     else if(charp_operator_equals(buf,"c_include")&&*info->p==123) {
-        block_text_120=(char*)come_increment_ref_count(skip_block(info,0));
+        block_text_120=(char*)come_increment_ref_count(skip_block(info,(_Bool)0));
         p_121=block_text_120+strlen(block_text_120);
         while(*p_121&&p_121>=block_text_120&&*p_121!=125) {
             p_121--;
@@ -8233,7 +8233,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         contents_122=(char*)come_increment_ref_count(charp_substring(block_text_120,1,p_121-(block_text_120+strlen(block_text_120))-1));
         static int n_123=0;
         n_123++;
-        map$2char$phbuffer$ph_insert(info->c_include_definition,(char*)come_increment_ref_count(xsprintf("c_include\%s",((char*)(__right_value0=int_to_string(n_123))))),(struct buffer*)come_increment_ref_count(charp_to_buffer(contents_122)),0);
+        map$2char$phbuffer$ph_insert(info->c_include_definition,(char*)come_increment_ref_count(xsprintf("c_include\%s",((char*)(__right_value0=int_to_string(n_123))))),(struct buffer*)come_increment_ref_count(charp_to_buffer(contents_122)),(_Bool)0);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         _inf_value4=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1720, "struct sNode");
         _inf_obj_value4=(struct sNothingNode*)come_increment_ref_count(((struct sNothingNode*)(__right_value1=sNothingNode_initialize((struct sNothingNode*)come_increment_ref_count((struct sNothingNode*)come_calloc(1, sizeof(struct sNothingNode)*(1), (void*)0, 1720, "struct sNothingNode*")),info))));
@@ -8261,11 +8261,11 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
     else if(charp_operator_equals(buf,"_Static_assert")||charp_operator_equals(buf,"static_assert")||charp_operator_equals(buf,"__STATIC_ASSERT")) {
         expected_next_character(40,info);
         no_comma=info->no_comma;
-        info->no_comma=1;
-        exp=(struct sNode*)come_increment_ref_count(expression_v13(info,0));
+        info->no_comma=(_Bool)1;
+        exp=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
         info->no_comma=no_comma;
         expected_next_character(44,info);
-        exp2=(struct sNode*)come_increment_ref_count(expression_v13(info,0));
+        exp2=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
         expected_next_character(41,info);
         _inf_value5=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1736, "struct sNode");
         _inf_obj_value5=(struct sStaticAssert*)come_increment_ref_count(((struct sStaticAssert*)(__right_value1=sStaticAssert_initialize((struct sStaticAssert*)come_increment_ref_count((struct sStaticAssert*)come_calloc(1, sizeof(struct sStaticAssert)*(1), (void*)0, 1736, "struct sStaticAssert*")),(struct sNode*)come_increment_ref_count(exp),(struct sNode*)come_increment_ref_count(exp2),info))));
@@ -8291,7 +8291,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         ((exp2) ? exp2 = come_decrement_ref_count(exp2, ((struct sNode*)exp2)->finalize, ((struct sNode*)exp2)->_protocol_obj, 0, 0,(void*)0):(void*)0);
     }
     else if(charp_operator_equals(buf,"undef")) {
-        word_124=(char*)come_increment_ref_count(parse_word(0,info));
+        word_124=(char*)come_increment_ref_count(parse_word((_Bool)0,info));
         if(*info->p==59) {
             info->p++;
             skip_spaces_and_lf(info);
@@ -8356,7 +8356,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         macro_snapshot_free(snap);
         if(macro_defines&&*macro_defines) {
             macro_include_id++;
-            map$2char$phbuffer$ph_insert(info->previous_struct_definition,(char*)come_increment_ref_count(xsprintf("__macro_include__\%s",((char*)(__right_value0=int_to_string(macro_include_id))))),(struct buffer*)come_increment_ref_count(charp_to_buffer(macro_defines)),0);
+            map$2char$phbuffer$ph_insert(info->previous_struct_definition,(char*)come_increment_ref_count(xsprintf("__macro_include__\%s",((char*)(__right_value0=int_to_string(macro_include_id))))),(struct buffer*)come_increment_ref_count(charp_to_buffer(macro_defines)),(_Bool)0);
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         }
         if(macro_defines) {
@@ -8379,7 +8379,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         info->sname=(char*)come_increment_ref_count(__builtin_string(path));
         __dec_obj70 = come_decrement_ref_count(__dec_obj70, (void*)0, (void*)0, 0,0, (void*)0);
         info->sline=1;
-        transpile_toplevel(0,info);
+        transpile_toplevel((_Bool)0,info);
         __dec_obj71=info->source,
         info->source=(struct buffer*)come_increment_ref_count(source);
         come_call_finalizer(buffer_finalize, __dec_obj71,(void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -8428,21 +8428,21 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
             info->p++;
             skip_spaces_and_lf(info);
         }
-        match_=0;
+        match_=(_Bool)0;
         if(string_operator_not_equals(reflection_condtional,"false")) {
             expected_next_character(123,info);
-            transpile_toplevel(1,info);
-            match_=1;
+            transpile_toplevel((_Bool)1,info);
+            match_=(_Bool)1;
         }
         else {
-            ((char*)(__right_value0=skip_block(info,0)));
+            ((char*)(__right_value0=skip_block(info,(_Bool)0)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         }
         skip_spaces_and_lf(info);
         parse_sharp_v5(info);
         while(1) {
             if(parsecmp("elif",info)) {
-                (void)((char*)(__right_value0=parse_word(0,info)));
+                (void)((char*)(__right_value0=parse_word((_Bool)0,info)));
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                 if(*info->p==40) {
                     info->p++;
@@ -8455,11 +8455,11 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
                 }
                 if(!match_&&string_operator_not_equals(reflection_condtional_130,"false")) {
                     expected_next_character(123,info);
-                    transpile_toplevel(1,info);
-                    match_=1;
+                    transpile_toplevel((_Bool)1,info);
+                    match_=(_Bool)1;
                 }
                 else {
-                    ((char*)(__right_value0=skip_block(info,0)));
+                    ((char*)(__right_value0=skip_block(info,(_Bool)0)));
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                     parse_sharp_v5(info);
                 }
@@ -8470,14 +8470,14 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
             }
         }
         if(parsecmp("else",info)) {
-            (void)((char*)(__right_value0=parse_word(0,info)));
+            (void)((char*)(__right_value0=parse_word((_Bool)0,info)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             if(!match_) {
                 expected_next_character(123,info);
-                transpile_toplevel(1,info);
+                transpile_toplevel((_Bool)1,info);
             }
             else {
-                ((char*)(__right_value0=skip_block(info,0)));
+                ((char*)(__right_value0=skip_block(info,(_Bool)0)));
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                 parse_sharp_v5(info);
             }
@@ -8522,7 +8522,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         info->sname=(char*)come_increment_ref_count(__builtin_string("eval"));
         __dec_obj74 = come_decrement_ref_count(__dec_obj74, (void*)0, (void*)0, 0,0, (void*)0);
         info->sline=1;
-        transpile_toplevel(0,info);
+        transpile_toplevel((_Bool)0,info);
         info->p=p_131;
         __dec_obj75=info->source,
         info->source=(struct buffer*)come_increment_ref_count(source_132);
@@ -8561,10 +8561,10 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         (sname_135 = come_decrement_ref_count(sname_135, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     else if(charp_operator_equals(buf,"var")) {
-        var_name=(char*)come_increment_ref_count(parse_word(0,info));
+        var_name=(char*)come_increment_ref_count(parse_word((_Bool)0,info));
         expected_next_character(61,info);
         value_137=(char*)come_increment_ref_count(reflection_expression(info));
-        map$2char$phchar$ph_insert(info->reflection_vars,(char*)come_increment_ref_count(var_name),(char*)come_increment_ref_count(value_137),0);
+        map$2char$phchar$ph_insert(info->reflection_vars,(char*)come_increment_ref_count(var_name),(char*)come_increment_ref_count(value_137),(_Bool)0);
         _inf_value10=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1937, "struct sNode");
         _inf_obj_value10=(struct sNothingNode*)come_increment_ref_count(((struct sNothingNode*)(__right_value1=sNothingNode_initialize((struct sNothingNode*)come_increment_ref_count((struct sNothingNode*)come_calloc(1, sizeof(struct sNothingNode)*(1), (void*)0, 1937, "struct sNothingNode*")),info))));
         _inf_value10->_protocol_obj=_inf_obj_value10;
@@ -8727,7 +8727,7 @@ static void map$2char$phsClassModule$ph_operator_store_element(struct map$2char$
         neo_current_frame = fr.prev;
         return;
     }
-    map$2char$phsClassModule$ph_insert(self,(char*)come_increment_ref_count(key),(struct sClassModule*)come_increment_ref_count(item),0);
+    map$2char$phsClassModule$ph_insert(self,(char*)come_increment_ref_count(key),(struct sClassModule*)come_increment_ref_count(item),(_Bool)0);
     (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0));
     come_call_finalizer(sClassModule_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
@@ -8753,16 +8753,16 @@ static struct map$2char$phsClassModule$ph* map$2char$phsClassModule$ph_insert(st
     }
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
-    while(1) {
+    while((_Bool)1) {
         if(self->item_existance[it]) {
             if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
                 if(1) {
-                    list$1char$ph_remove(self->key_list,self->keys[it],0);
+                    list$1char$ph_remove(self->key_list,self->keys[it],(_Bool)0);
                     (self->keys[it] = come_decrement_ref_count(self->keys[it], (void*)0, (void*)0, 0, 0, (void*)0));
                     self->keys[it]=(char*)come_increment_ref_count(key);
                 }
                 else {
-                    list$1char$ph_remove(self->key_list,self->keys[it],0);
+                    list$1char$ph_remove(self->key_list,self->keys[it],(_Bool)0);
                     self->keys[it]=key;
                 }
                 if(1) {
@@ -8785,7 +8785,7 @@ static struct map$2char$phsClassModule$ph* map$2char$phsClassModule$ph_insert(st
             }
         }
         else {
-            self->item_existance[it]=1;
+            self->item_existance[it]=(_Bool)1;
             if(1) {
                 self->keys[it]=(char*)come_increment_ref_count(key);
             }
@@ -8802,10 +8802,10 @@ static struct map$2char$phsClassModule$ph* map$2char$phsClassModule$ph_insert(st
             break;
         }
     }
-    same_key_exist=0;
+    same_key_exist=(_Bool)0;
     for(it2=list$1char$ph_begin(self->key_list);!list$1char$ph_end(self->key_list);it2=list$1char$ph_next(self->key_list)){
         if((!by_pointer&&string_equals(it2,key))||(by_pointer&&it2==key)) {
-            same_key_exist=1;
+            same_key_exist=(_Bool)1;
         }
     }
     if(!same_key_exist) {
@@ -8840,10 +8840,10 @@ static void map$2char$phsClassModule$ph_rehash(struct map$2char$phsClassModule$p
     len=0;
     for(it=map$2char$phsClassModule$ph_begin(self);!map$2char$phsClassModule$ph_end(self);it=map$2char$phsClassModule$ph_next(self)){
         memset(&default_value,0,sizeof(struct sClassModule*));
-        it2=((struct sClassModule*)(__right_value0=map$2char$phsClassModule$ph_at(self,it,(struct sClassModule*)come_increment_ref_count(default_value),0)));
+        it2=((struct sClassModule*)(__right_value0=map$2char$phsClassModule$ph_at(self,it,(struct sClassModule*)come_increment_ref_count(default_value),(_Bool)0)));
         hash=string_get_hash_key(((char*)it))%size;
         n=hash;
-        while(1) {
+        while((_Bool)1) {
             if(item_existance[n]) {
                 n++;
                 if(n>=size) {
@@ -8856,10 +8856,10 @@ static void map$2char$phsClassModule$ph_rehash(struct map$2char$phsClassModule$p
                 }
             }
             else {
-                item_existance[n]=1;
+                item_existance[n]=(_Bool)1;
                 keys[n]=it;
                 memset(&default_value_112,0,sizeof(struct sClassModule*));
-                items[n]=((struct sClassModule*)(__right_value0=map$2char$phsClassModule$ph_at(self,it,(struct sClassModule*)come_increment_ref_count(default_value_112),0)));
+                items[n]=((struct sClassModule*)(__right_value0=map$2char$phsClassModule$ph_at(self,it,(struct sClassModule*)come_increment_ref_count(default_value_112),(_Bool)0)));
                 len++;
                 come_call_finalizer(sClassModule_finalize, default_value_112, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 break;
@@ -8950,7 +8950,7 @@ static struct sClassModule* map$2char$phsClassModule$ph_at(struct map$2char$phsC
     }
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
-    while(1) {
+    while((_Bool)1) {
         if(self->item_existance[it]) {
             if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
                 __result_obj__0 = (struct sClassModule*)come_increment_ref_count(self->items[it]);
@@ -9158,16 +9158,16 @@ static struct map$2char$phbuffer$ph* map$2char$phbuffer$ph_insert(struct map$2ch
     }
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
-    while(1) {
+    while((_Bool)1) {
         if(self->item_existance[it]) {
             if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
                 if(1) {
-                    list$1char$ph_remove(self->key_list,self->keys[it],0);
+                    list$1char$ph_remove(self->key_list,self->keys[it],(_Bool)0);
                     (self->keys[it] = come_decrement_ref_count(self->keys[it], (void*)0, (void*)0, 0, 0, (void*)0));
                     self->keys[it]=(char*)come_increment_ref_count(key);
                 }
                 else {
-                    list$1char$ph_remove(self->key_list,self->keys[it],0);
+                    list$1char$ph_remove(self->key_list,self->keys[it],(_Bool)0);
                     self->keys[it]=key;
                 }
                 if(1) {
@@ -9190,7 +9190,7 @@ static struct map$2char$phbuffer$ph* map$2char$phbuffer$ph_insert(struct map$2ch
             }
         }
         else {
-            self->item_existance[it]=1;
+            self->item_existance[it]=(_Bool)1;
             if(1) {
                 self->keys[it]=(char*)come_increment_ref_count(key);
             }
@@ -9207,10 +9207,10 @@ static struct map$2char$phbuffer$ph* map$2char$phbuffer$ph_insert(struct map$2ch
             break;
         }
     }
-    same_key_exist=0;
+    same_key_exist=(_Bool)0;
     for(it2=list$1char$ph_begin(self->key_list);!list$1char$ph_end(self->key_list);it2=list$1char$ph_next(self->key_list)){
         if((!by_pointer&&string_equals(it2,key))||(by_pointer&&it2==key)) {
-            same_key_exist=1;
+            same_key_exist=(_Bool)1;
         }
     }
     if(!same_key_exist) {
@@ -9245,10 +9245,10 @@ static void map$2char$phbuffer$ph_rehash(struct map$2char$phbuffer$ph* self)
     len=0;
     for(it=map$2char$phbuffer$ph_begin(self);!map$2char$phbuffer$ph_end(self);it=map$2char$phbuffer$ph_next(self)){
         memset(&default_value,0,sizeof(struct buffer*));
-        it2=((struct buffer*)(__right_value0=map$2char$phbuffer$ph_at(self,it,(struct buffer*)come_increment_ref_count(default_value),0)));
+        it2=((struct buffer*)(__right_value0=map$2char$phbuffer$ph_at(self,it,(struct buffer*)come_increment_ref_count(default_value),(_Bool)0)));
         hash=string_get_hash_key(((char*)it))%size;
         n=hash;
-        while(1) {
+        while((_Bool)1) {
             if(item_existance[n]) {
                 n++;
                 if(n>=size) {
@@ -9261,10 +9261,10 @@ static void map$2char$phbuffer$ph_rehash(struct map$2char$phbuffer$ph* self)
                 }
             }
             else {
-                item_existance[n]=1;
+                item_existance[n]=(_Bool)1;
                 keys[n]=it;
                 memset(&default_value_119,0,sizeof(struct buffer*));
-                items[n]=((struct buffer*)(__right_value0=map$2char$phbuffer$ph_at(self,it,(struct buffer*)come_increment_ref_count(default_value_119),0)));
+                items[n]=((struct buffer*)(__right_value0=map$2char$phbuffer$ph_at(self,it,(struct buffer*)come_increment_ref_count(default_value_119),(_Bool)0)));
                 len++;
                 come_call_finalizer(buffer_finalize, default_value_119, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 break;
@@ -9355,7 +9355,7 @@ static struct buffer* map$2char$phbuffer$ph_at(struct map$2char$phbuffer$ph* sel
     }
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
-    while(1) {
+    while((_Bool)1) {
         if(self->item_existance[it]) {
             if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
                 __result_obj__0 = (struct buffer*)come_increment_ref_count(self->items[it]);
@@ -9486,16 +9486,16 @@ static struct map$2char$phchar$ph* map$2char$phchar$ph_insert(struct map$2char$p
     }
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
-    while(1) {
+    while((_Bool)1) {
         if(self->item_existance[it]) {
             if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
                 if(1) {
-                    list$1char$ph_remove(self->key_list,self->keys[it],0);
+                    list$1char$ph_remove(self->key_list,self->keys[it],(_Bool)0);
                     (self->keys[it] = come_decrement_ref_count(self->keys[it], (void*)0, (void*)0, 0, 0, (void*)0));
                     self->keys[it]=(char*)come_increment_ref_count(key);
                 }
                 else {
-                    list$1char$ph_remove(self->key_list,self->keys[it],0);
+                    list$1char$ph_remove(self->key_list,self->keys[it],(_Bool)0);
                     self->keys[it]=key;
                 }
                 if(1) {
@@ -9518,7 +9518,7 @@ static struct map$2char$phchar$ph* map$2char$phchar$ph_insert(struct map$2char$p
             }
         }
         else {
-            self->item_existance[it]=1;
+            self->item_existance[it]=(_Bool)1;
             if(1) {
                 self->keys[it]=(char*)come_increment_ref_count(key);
             }
@@ -9535,10 +9535,10 @@ static struct map$2char$phchar$ph* map$2char$phchar$ph_insert(struct map$2char$p
             break;
         }
     }
-    same_key_exist=0;
+    same_key_exist=(_Bool)0;
     for(it2=list$1char$ph_begin(self->key_list);!list$1char$ph_end(self->key_list);it2=list$1char$ph_next(self->key_list)){
         if((!by_pointer&&string_equals(it2,key))||(by_pointer&&it2==key)) {
-            same_key_exist=1;
+            same_key_exist=(_Bool)1;
         }
     }
     if(!same_key_exist) {
@@ -9573,10 +9573,10 @@ static void map$2char$phchar$ph_rehash(struct map$2char$phchar$ph* self)
     len=0;
     for(it=map$2char$phchar$ph_begin(self);!map$2char$phchar$ph_end(self);it=map$2char$phchar$ph_next(self)){
         memset(&default_value,0,sizeof(char*));
-        it2=((char*)(__right_value0=map$2char$phchar$ph_at(self,it,(char*)come_increment_ref_count(default_value),0)));
+        it2=((char*)(__right_value0=map$2char$phchar$ph_at(self,it,(char*)come_increment_ref_count(default_value),(_Bool)0)));
         hash=string_get_hash_key(((char*)it))%size;
         n=hash;
-        while(1) {
+        while((_Bool)1) {
             if(item_existance[n]) {
                 n++;
                 if(n>=size) {
@@ -9589,10 +9589,10 @@ static void map$2char$phchar$ph_rehash(struct map$2char$phchar$ph* self)
                 }
             }
             else {
-                item_existance[n]=1;
+                item_existance[n]=(_Bool)1;
                 keys[n]=it;
                 memset(&default_value_140,0,sizeof(char*));
-                items[n]=((char*)(__right_value0=map$2char$phchar$ph_at(self,it,(char*)come_increment_ref_count(default_value_140),0)));
+                items[n]=((char*)(__right_value0=map$2char$phchar$ph_at(self,it,(char*)come_increment_ref_count(default_value_140),(_Bool)0)));
                 len++;
                 (default_value_140 = come_decrement_ref_count(default_value_140, (void*)0, (void*)0, 0, 0, (void*)0));
                 break;
@@ -9683,7 +9683,7 @@ static char* map$2char$phchar$ph_at(struct map$2char$phchar$ph* self, char* key 
     }
     hash=string_get_hash_key(((char*)key))%self->size;
     it=hash;
-    while(1) {
+    while((_Bool)1) {
         if(self->item_existance[it]) {
             if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
                 __result_obj__0 = (char*)come_increment_ref_count(self->items[it]);
