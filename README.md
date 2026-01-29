@@ -482,7 +482,7 @@ Clears the element. 0 will be output.
 要素をクリアします。0が出力されます。
 
 ```C
-list<T>* remove(list<T>* self, T item) 
+list<T>* remove(list<T>* self, T& item, bool by_pointer=false);
 ```
 
 ```C
@@ -498,6 +498,12 @@ li is [1,2].
 
 itemとequalsがマッチするものを削除します。
 liは[1,2]です。
+
+If you add by_pointer:true to the prametor, remove the address matching object.
+
+by_pointer:trueとするとポインタのアドレスが同じものをremoveします。
+
+
 
 ```C
 list<T>* delete(list<T>* self, int head, int tail)
