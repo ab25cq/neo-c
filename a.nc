@@ -12,11 +12,9 @@ struct sData
 
 int main(int argc, char** argv) 
 {
-    var a = if(1 == 1) { [new sData { a:111, b:222}:s"AAA", new sData { a:777, b:777 }:s"BBB"] };
+    var a = [new sData { a:111, b:222}, new sData { a:777, b:777 }].sort();
     
     puts(a.to_string());
-    
-    (1, false);
     
     return 0;
 }

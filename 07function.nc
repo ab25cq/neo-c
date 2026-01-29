@@ -4016,10 +4016,11 @@ sFun*,string create_compare_automatically(sType* type, const char* fun_name, sIn
         
         char source2[1024];
         
-        snprintf(source2, 1024, "return ((int)self.%s).compare();\n", name);
+        snprintf(source2, 1024, "var result = self.%s.compare(right.%s);\n", name, name);
         
         source.append_str(source2);
         
+        source.append_format("return result;\n");
         source.append_char('}');
         
         char* p = info.p;
@@ -4038,13 +4039,15 @@ sFun*,string create_compare_automatically(sType* type, const char* fun_name, sIn
         sBlock*% block = parse_block();
         
         var result_type = new sType(s"int");
-        result_type->mUnsigned = true;
         var name = clone real_fun_name;
         var self_type = clone type;
         self_type->mHeap = false;
-        list<sType*%>*% param_types = [self_type];
-        var param_names = [string("self")];
+        var right_type = clone type;
+        right_type->mHeap = false;
+        list<sType*%>*% param_types = [self_type, right_type];
+        var param_names = [string("self"), string("right")];
         var param_default_parametors = new list<string>();
+        param_default_parametors.push_back(null);
         param_default_parametors.push_back(null);
         
         result_type->mStatic = false;
