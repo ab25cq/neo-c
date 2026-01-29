@@ -840,6 +840,7 @@ string create_generics_name(sType* generics_type, sInfo* info);
 void add_last_code_to_source(sInfo* info);
 void add_come_code_at_function_head(sInfo* info, const char* code, ...);
 void add_come_code_at_come_header(sInfo* info, string id, const char* msg, ...);
+void add_come_code_no_indent(sInfo* info, const char* msg, ...);
 void add_come_code_at_come_struct_header(sInfo* info, string id, const char* msg, ...);
 void add_come_code_at_function_head2(sInfo* info, const char* code, ...);
 void add_come_code(sInfo* info, const char* msg, ...);

@@ -2399,6 +2399,7 @@ char* create_generics_name(struct sType* generics_type  , struct sInfo* info  );
 void add_last_code_to_source(struct sInfo* info  );
 void add_come_code_at_function_head(struct sInfo* info  , const char* code, ...);
 void add_come_code_at_come_header(struct sInfo* info  , char* id  , const char* msg, ...);
+void add_come_code_no_indent(struct sInfo* info  , const char* msg, ...);
 void add_come_code_at_come_struct_header(struct sInfo* info  , char* id  , const char* msg, ...);
 void add_come_code_at_function_head2(struct sInfo* info  , const char* code, ...);
 void add_come_code(struct sInfo* info  , const char* msg, ...);
@@ -2630,9 +2631,7 @@ static inline unsigned long  int __uint64_identity(unsigned long  int __x  )
 // body function
 _Bool parsecmp(const char* p2, struct sInfo* info  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "parsecmp"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "parsecmp"; neo_current_frame = &fr;
     _Bool terminated;
     char* p3;
     int i;
@@ -2641,22 +2640,20 @@ fr.fun_name = "parsecmp"; neo_current_frame = &fr;
     p3=info->p;
     for(i=0;i<strlen(p2);i++){
         if(*p3==0) {
-               neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
             return 0;
         }
         p3++;
     }
     c=*(info->p+strlen(p2));
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return memcmp(info->p,p2,strlen(p2))==0&&(xispunct(c)||c==32||c==9||c==10||c==0||c==13)&&c!=95;
-neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
 }
 
 int err_msg(struct sInfo* info  , const char* msg, ...)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "err_msg"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "err_msg"; neo_current_frame = &fr;
     char* msg2;
     __builtin_va_list args  ;
     char* p;
@@ -2687,28 +2684,25 @@ fr.fun_name = "err_msg"; neo_current_frame = &fr;
         __result_obj__0 = 0;
         come_call_finalizer(__builtin_va_list_finalize, (&args), (void*)0, (void*)0, 1, 0, 0, (void*)0);
         come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
         come_call_finalizer(__builtin_va_list_finalize, (&args), (void*)0, (void*)0, 1, 0, 0, (void*)0);
         come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return 0;
-neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
 }
 
 static void __builtin_va_list_finalize(__builtin_va_list* self  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "__builtin_va_list_finalize"; neo_current_frame = &fr;
-        neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "__builtin_va_list_finalize"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
 }
 
 int err_msg2(struct sInfo* info  , const char* msg, ...)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "err_msg2"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "err_msg2"; neo_current_frame = &fr;
     char* msg2;
     __builtin_va_list args  ;
     void* __right_value0 = (void*)0;
@@ -2737,20 +2731,19 @@ fr.fun_name = "err_msg2"; neo_current_frame = &fr;
         __result_obj__0 = 0;
         come_call_finalizer(__builtin_va_list_finalize, (&args), (void*)0, (void*)0, 1, 0, 0, (void*)0);
         come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
         come_call_finalizer(__builtin_va_list_finalize, (&args), (void*)0, (void*)0, 1, 0, 0, (void*)0);
         come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return 0;
-neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
 }
 
 int expected_next_character(char c, struct sInfo* info  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "expected_next_character"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "expected_next_character"; neo_current_frame = &fr;
     parse_sharp_v5(info);
     if(*info->p!=c) {
         if(!info->no_output_come_code) {
@@ -2761,16 +2754,14 @@ fr.fun_name = "expected_next_character"; neo_current_frame = &fr;
     }
     info->p++;
     skip_spaces_and_lf(info);
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return 0;
-neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
 }
 
 char* parse_word(_Bool digits, struct sInfo* info  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "parse_word"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "parse_word"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct buffer* buf  ;
@@ -2803,7 +2794,8 @@ _conditional_value_X0;})) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     result=(char*)come_increment_ref_count(buffer_to_string(buf));
@@ -2817,23 +2809,22 @@ _conditional_value_X0;})) {
             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
             (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0));
             (__right_value3 = come_decrement_ref_count(__right_value3, (void*)0, (void*)0, 1, 0, (void*)0));
-            neo_current_frame = fr.prev;            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+            neo_current_frame = fr.prev;
+            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
             return __result_obj__0;
         }
     }
     __result_obj__0 = (char*)come_increment_ref_count(result);
     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;
 }
 
 static char* map$2char$phchar$ph$p_operator_load_element(struct map$2char$phchar$ph* self, char* key  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "map$2char$phchar$ph$p_operator_load_element"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phchar$ph$p_operator_load_element"; neo_current_frame = &fr;
     char* default_value  ;
     char* __result_obj__0  ;
     unsigned int hash;
@@ -2842,7 +2833,8 @@ fr.fun_name = "map$2char$phchar$ph$p_operator_load_element"; neo_current_frame =
     if(self==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(default_value);
         (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     hash=string_get_hash_key(((char*)key))%self->size;
@@ -2852,7 +2844,8 @@ fr.fun_name = "map$2char$phchar$ph$p_operator_load_element"; neo_current_frame =
             if(string_equals(self->keys[it],key)) {
                 __result_obj__0 = (char*)come_increment_ref_count(self->items[it]);
                 (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 0, (void*)0));
-                neo_current_frame = fr.prev;                (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+                neo_current_frame = fr.prev;
+                (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
                 return __result_obj__0;
             }
             it++;
@@ -2862,29 +2855,29 @@ fr.fun_name = "map$2char$phchar$ph$p_operator_load_element"; neo_current_frame =
             else if(it==hash) {
                 __result_obj__0 = (char*)come_increment_ref_count(default_value);
                 (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
-                neo_current_frame = fr.prev;                (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+                neo_current_frame = fr.prev;
+                (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
                 return __result_obj__0;
             }
         }
         else {
             __result_obj__0 = (char*)come_increment_ref_count(default_value);
             (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
-            neo_current_frame = fr.prev;            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+            neo_current_frame = fr.prev;
+            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
             return __result_obj__0;
         }
     }
     __result_obj__0 = (char*)come_increment_ref_count(default_value);
     (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-        neo_current_frame = fr.prev;
 }
 
 static char* map$2char$phchar$ph_operator_load_element(struct map$2char$phchar$ph* self, char* key  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "map$2char$phchar$ph_operator_load_element"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phchar$ph_operator_load_element"; neo_current_frame = &fr;
     char* default_value  ;
     char* __result_obj__0  ;
     unsigned int hash;
@@ -2893,7 +2886,8 @@ fr.fun_name = "map$2char$phchar$ph_operator_load_element"; neo_current_frame = &
     if(self==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(default_value);
         (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     hash=string_get_hash_key(((char*)key))%self->size;
@@ -2903,7 +2897,8 @@ fr.fun_name = "map$2char$phchar$ph_operator_load_element"; neo_current_frame = &
             if(string_equals(self->keys[it],key)) {
                 __result_obj__0 = (char*)come_increment_ref_count(self->items[it]);
                 (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 0, (void*)0));
-                neo_current_frame = fr.prev;                (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+                neo_current_frame = fr.prev;
+                (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
                 return __result_obj__0;
             }
             it++;
@@ -2913,29 +2908,29 @@ fr.fun_name = "map$2char$phchar$ph_operator_load_element"; neo_current_frame = &
             else if(it==hash) {
                 __result_obj__0 = (char*)come_increment_ref_count(default_value);
                 (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
-                neo_current_frame = fr.prev;                (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+                neo_current_frame = fr.prev;
+                (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
                 return __result_obj__0;
             }
         }
         else {
             __result_obj__0 = (char*)come_increment_ref_count(default_value);
             (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
-            neo_current_frame = fr.prev;            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+            neo_current_frame = fr.prev;
+            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
             return __result_obj__0;
         }
     }
     __result_obj__0 = (char*)come_increment_ref_count(default_value);
     (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-        neo_current_frame = fr.prev;
 }
 
 char* backtrace_parse_word(struct sInfo* info  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "backtrace_parse_word"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "backtrace_parse_word"; neo_current_frame = &fr;
     char* p;
     int sline;
     char* buf  ;
@@ -2960,16 +2955,14 @@ fr.fun_name = "backtrace_parse_word"; neo_current_frame = &fr;
     info->sline=sline;
     __result_obj__0 = (char*)come_increment_ref_count(buf);
     (buf = come_decrement_ref_count(buf, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;
 }
 
 static _Bool skip_comment(struct sInfo* info  , _Bool skip_space_after)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "skip_comment"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "skip_comment"; neo_current_frame = &fr;
     int nest;
     if(*info->p==47&&*(info->p+1)==42) {
         nest=0;
@@ -3007,7 +3000,7 @@ fr.fun_name = "skip_comment"; neo_current_frame = &fr;
                 info->p++;
             }
         }
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return 1;
     }
     else if(*info->p==47&&*(info->p+1)==47) {
@@ -3039,19 +3032,17 @@ fr.fun_name = "skip_comment"; neo_current_frame = &fr;
                 info->p++;
             }
         }
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return 1;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return 0;
-neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
 }
 
 void skip_spaces_and_lf(struct sInfo* info  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "skip_spaces_and_lf"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "skip_spaces_and_lf"; neo_current_frame = &fr;
     while(1) {
         if(*info->p==32||*info->p==9) {
             info->p++;
@@ -3079,14 +3070,12 @@ fr.fun_name = "skip_spaces_and_lf"; neo_current_frame = &fr;
     else if(*info->p==95&&parsecmp("__extension__",info)) {
         parse_sharp_v5(info);
     }
-neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
 }
 
 void skip_spaces_and_lf2(struct sInfo* info  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "skip_spaces_and_lf2"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "skip_spaces_and_lf2"; neo_current_frame = &fr;
     while(1) {
         if(*info->p==32||*info->p==9) {
             info->p++;
@@ -3108,14 +3097,12 @@ fr.fun_name = "skip_spaces_and_lf2"; neo_current_frame = &fr;
             break;
         }
     }
-neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
 }
 
 void skip_spaces_and_tabs(struct sInfo* info  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "skip_spaces_and_tabs"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "skip_spaces_and_tabs"; neo_current_frame = &fr;
     while(1) {
         if(*info->p==32||*info->p==9) {
             info->p++;
@@ -3134,14 +3121,12 @@ fr.fun_name = "skip_spaces_and_tabs"; neo_current_frame = &fr;
             break;
         }
     }
-neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
 }
 
 void parse_sharp_v5(struct sInfo* info  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "parse_sharp_v5"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "parse_sharp_v5"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct buffer* buf  ;
@@ -3305,14 +3290,12 @@ _conditional_value_X0;})) {
             break;
         }
     }
-neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
 }
 
 void skip_paren(struct sInfo* info  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "skip_paren"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "skip_paren"; neo_current_frame = &fr;
     int nest;
     nest=0;
     while(1) {
@@ -3337,6 +3320,6 @@ fr.fun_name = "skip_paren"; neo_current_frame = &fr;
             info->p++;
         }
     }
-neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
 }
 

@@ -52,14 +52,14 @@ class sLambdaNode extends sNodeBase
         info->max_conditional = 0;
         
         if(!gComeC) {
-            add_come_code_at_function_head(info, s"struct neo_frame fr;\nfr.prev = neo_current_frame;\nfr.fun_name = \"\{info.come_fun.mName}\"; neo_current_frame = &fr;\n"); 
+            add_come_code_at_function_head(info, s"struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = \"\{info.come_fun.mName}\"; neo_current_frame = &fr;\n"); 
         }
         
         if(self.mFun.mBlock) {
             transpile_block(self.mFun.mBlock, self.mFun.mParamTypes, self.mFun.mParamNames, info);
         }
-        if(!gComeC) {
-            add_come_code(info, "neo_current_frame = fr.prev;");
+        if(!gComeC && !info.inhibits_output_code2) {
+            add_come_code_no_indent(info, "neo_current_frame = fr.prev;\n");
         }
         
         info->block_level = block_level;
@@ -144,10 +144,10 @@ class sFunNode extends sNodeBase
         if(self.mFun.mBlock) {
             if(!gComeC && info.come_fun.mName === "main" && info.funcs[s"come_heap_init"]) {
                 add_come_code(info, "    come_heap_init(%d);\n", gComeDebug);
+                add_come_code(info, s"   struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = \"\{info.come_fun.mName}\"; neo_current_frame = &fr;\n"); 
             }
-            
-            if(!gComeC) {
-                add_come_code_at_function_head(info, s"struct neo_frame fr;\nfr.prev = neo_current_frame;\nfr.fun_name = \"\{info.come_fun.mName}\"; neo_current_frame = &fr;\n"); 
+            else if(!gComeC) {
+                add_come_code_at_function_head(info, s"struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = \"\{info.come_fun.mName}\"; neo_current_frame = &fr;\n"); 
             }
             
             int block_level = info->block_level;
@@ -157,8 +157,8 @@ class sFunNode extends sNodeBase
             
             info->block_level = block_level;
             
-            if(!gComeC) {
-                add_come_code(info, "neo_current_frame = fr.prev;\n");
+            if(!gComeC && !info.inhibits_output_code2) {
+                add_come_code_no_indent(info, "neo_current_frame = fr.prev;\n");
             }
             
             if(!gComeC && info.come_fun.mName === "main" && !info.inhibits_output_code2 && info.funcs[s"come_heap_final"]) {
@@ -632,9 +632,7 @@ int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* par
     info->lv_table = old_table;
     info->block_level = block_level;
     
-    if(info.come_fun.mName === "main") {
-        info->inhibits_output_code2 = info->inhibits_output_code;
-    }
+    info->inhibits_output_code2 = info->inhibits_output_code;
 
     info->current_loop_vtable = current_loop_vtable;
     info->inhibits_output_code = inhibits_output_code;

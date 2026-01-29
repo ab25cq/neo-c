@@ -1379,6 +1379,42 @@ void add_come_code(sInfo* info, const char* msg, ...)
     free(msg2);
 }
 
+void add_come_code_no_indent(sInfo* info, const char* msg, ...)
+{
+    if(info->no_output_come_code) {
+        return;
+    }
+    char* msg2;
+
+    va_list args;
+    va_start(args, msg);
+    int len = vasprintf(&msg2, msg, args);
+    va_end(args);
+    
+    if(info->if_expression_buffer) {
+        if(!info.in_conditional) {
+            info.if_expression_buffer.append_str("    ");
+        }
+        
+        info->if_expression_buffer.append_str(xsprintf("%s", msg2));
+    }
+    else if(info->paren_block_buffer) {
+        info->paren_block_buffer.append_str(xsprintf("%s", msg2));
+    }
+    else if(info->come_fun) {
+        if(!info.in_conditional) {
+            info.come_fun.mSource.append_str("    ");
+        }
+        
+        info.come_fun.mSource.append_str(xsprintf("%s", msg2));
+    }
+    else {
+        info.module.mSourceHead.append_str(xsprintf("%s", msg2));
+    }
+    
+    free(msg2);
+}
+
 bool is_contained_generics_funcstion(sFun* fun, sInfo* info=info)
 {
     foreach(it, fun->mParamTypes) {

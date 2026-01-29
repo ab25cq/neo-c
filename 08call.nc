@@ -56,7 +56,7 @@ class sReturnNode extends sNodeBase
             }
             else if(info.come_fun.mName !== "main" && info.come_fun.mNoResultType && !existance_free_objects_on_return(come_fun->mBlock, info, come_value.var, false@top_block) && !existance_free_right_value_objects(info)) {
                 if(!gComeC) {
-                    add_come_code(info, "   neo_current_frame = fr.prev;\n");
+                    add_come_code(info, "neo_current_frame = fr.prev;\n");
                 }
                 add_come_code(info, "return %s;\n", come_value.c_value);
             }
@@ -96,7 +96,7 @@ class sReturnNode extends sNodeBase
                 }
                 
                if(!gComeC) {
-                    add_come_code(info, "neo_current_frame = fr.prev;");
+                    add_come_code(info, "neo_current_frame = fr.prev;\n");
                 }
                 
                 if(!gComeC && info.come_fun.mName === "main" && info.funcs[s"come_heap_final"]) {
