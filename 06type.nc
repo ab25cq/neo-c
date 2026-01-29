@@ -314,7 +314,11 @@ bool check_assign_type(const char* msg, sType* left_type, sType* right_type, CVA
                     sType* left = left_no_solved_generics_type.mGenericsTypes[i];
                     sType* right = right_no_solved_generics_type.mGenericsTypes[i];
                     
-                    if(left->mClass->mName !== right->mClass->mName) {
+                    if(left->mHeap != right->mHeap) {
+                        check_ = false
+                        err_msg(info, "left child generics %s right child generics %s", left->mClass->mName, right->mClass->mName);
+                    }
+                    else if((left->mClass->mName !== right->mClass->mName) || (left->mPointerNum != right->mPointerNum)) {
                         check_ = false;
                         err_msg2(info , "left child generics %s right child generics %s", left->mClass->mName, right->mClass->mName);
                     }
