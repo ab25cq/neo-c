@@ -878,6 +878,7 @@ void free_objects(sVarTable* table, sVar* ret_value, sInfo* info);
 void append_object_to_right_values(CVALUE* come_value, sType* type, sInfo* info, bool decrement_ref_count=false, sType* obj_type=null, char* obj_value=null, sVar* obj_var=null);
         
 void remove_object_from_right_values(int right_value_num, sInfo* info);
+void remove_value_from_right_value_objects(CVALUE* come_value, sInfo* info=info);
 string increment_ref_count_object(sType* type, char* obj, sInfo* info);
 void decrement_ref_count_object(sType* type, char* obj, sInfo* info, bool no_free=false);
 

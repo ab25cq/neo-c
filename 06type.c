@@ -2608,6 +2608,7 @@ void free_right_value_objects(struct sInfo* info  );
 void free_objects(struct sVarTable* table  , struct sVar* ret_value  , struct sInfo* info  );
 void append_object_to_right_values(struct CVALUE* come_value  , struct sType* type  , struct sInfo* info  , _Bool decrement_ref_count, struct sType* obj_type  , char* obj_value, struct sVar* obj_var  );
 void remove_object_from_right_values(int right_value_num, struct sInfo* info  );
+void remove_value_from_right_value_objects(struct CVALUE* come_value  , struct sInfo* info  );
 char* increment_ref_count_object(struct sType* type  , char* obj, struct sInfo* info  );
 void decrement_ref_count_object(struct sType* type  , char* obj, struct sInfo* info  , _Bool no_free);
 void transpile_toplevel(_Bool block, struct sInfo* info  );
@@ -8591,7 +8592,6 @@ _conditional_value_X9;})) {
         type_70->mArrayNum=(struct list$1sNode$ph*)come_increment_ref_count((__list_values1__[0]=((struct sNode*)(__right_value1=create_int_node((char*)come_increment_ref_count(xsprintf("2")),info))),
 list$1sNode$ph_initialize_with_values((struct list$1sNode$ph*)come_increment_ref_count((struct list$1sNode$ph*)come_calloc(1, sizeof(struct list$1sNode$ph)*(1), "06type.nc", 3068, "struct list$1sNode$ph")),1,__list_values1__)));
         come_call_finalizer(list$1sNode$ph_finalize, __dec_obj221,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-        ((__right_value1) ? __right_value1 = come_decrement_ref_count(__right_value1, ((struct sNode*)__right_value1)->finalize, ((struct sNode*)__right_value1)->_protocol_obj, 1, 0,(void*)0):(void*)0);
         __dec_obj222=type_70->mChannelType,
         type_70->mChannelType=(struct sType*)come_increment_ref_count(type_before);
         come_call_finalizer(sType_finalize, __dec_obj222,(void*)0, (void*)0, 0, 0, 0, (void*)0);

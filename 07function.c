@@ -2462,6 +2462,7 @@ void free_right_value_objects(struct sInfo* info  );
 void free_objects(struct sVarTable* table  , struct sVar* ret_value  , struct sInfo* info  );
 void append_object_to_right_values(struct CVALUE* come_value  , struct sType* type  , struct sInfo* info  , _Bool decrement_ref_count, struct sType* obj_type  , char* obj_value, struct sVar* obj_var  );
 void remove_object_from_right_values(int right_value_num, struct sInfo* info  );
+void remove_value_from_right_value_objects(struct CVALUE* come_value  , struct sInfo* info  );
 char* increment_ref_count_object(struct sType* type  , char* obj, struct sInfo* info  );
 void decrement_ref_count_object(struct sType* type  , char* obj, struct sInfo* info  , _Bool no_free);
 struct sNode* reverse_node(struct sNode* value, struct sInfo* info  );
@@ -10809,7 +10810,6 @@ struct tuple2$2sFun$pchar$ph* create_finalizer_automatically(struct sType* type 
 list$1sType$ph_initialize_with_values((struct list$1sType$ph*)come_increment_ref_count((struct list$1sType$ph*)come_calloc(1, sizeof(struct list$1sType$ph)*(1), "07function.nc", 2641, "struct list$1sType$ph")),1,__list_values1__)));
             param_names=(struct list$1char$ph*)come_increment_ref_count((__list_values2__[0]=((char*)(__right_value0=__builtin_string("self"))),
 list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "07function.nc", 2642, "struct list$1char$ph")),1,__list_values2__)));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             param_default_parametors=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 2643, "struct list$1char$ph*"))));
             list$1char$ph_push_back(param_default_parametors,((void*)0));
             result_type->mStatic=(_Bool)0;
@@ -11432,8 +11432,6 @@ list$1sType$ph_initialize_with_values((struct list$1sType$ph*)come_increment_ref
         param_names=(struct list$1char$ph*)come_increment_ref_count((__list_values4__[0]=((char*)(__right_value0=__builtin_string("left"))),
 __list_values4__[1]=((char*)(__right_value1=__builtin_string("right"))),
 list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "07function.nc", 2764, "struct list$1char$ph")),2,__list_values4__)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
         param_default_parametors=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 2765, "struct list$1char$ph*"))));
         list$1char$ph_push_back(param_default_parametors,((void*)0));
         list$1char$ph_push_back(param_default_parametors,((void*)0));
@@ -11673,8 +11671,6 @@ list$1sType$ph_initialize_with_values((struct list$1sType$ph*)come_increment_ref
         param_names=(struct list$1char$ph*)come_increment_ref_count((__list_values6__[0]=((char*)(__right_value0=__builtin_string("left"))),
 __list_values6__[1]=((char*)(__right_value1=__builtin_string("right"))),
 list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "07function.nc", 2905, "struct list$1char$ph")),2,__list_values6__)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
         param_default_parametors=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 2906, "struct list$1char$ph*"))));
         list$1char$ph_push_back(param_default_parametors,((void*)0));
         list$1char$ph_push_back(param_default_parametors,((void*)0));
@@ -11924,8 +11920,6 @@ list$1sType$ph_initialize_with_values((struct list$1sType$ph*)come_increment_ref
         param_names=(struct list$1char$ph*)come_increment_ref_count((__list_values8__[0]=((char*)(__right_value0=__builtin_string("left"))),
 __list_values8__[1]=((char*)(__right_value1=__builtin_string("right"))),
 list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "07function.nc", 3043, "struct list$1char$ph")),2,__list_values8__)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
         param_default_parametors=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 3044, "struct list$1char$ph*"))));
         list$1char$ph_push_back(param_default_parametors,((void*)0));
         list$1char$ph_push_back(param_default_parametors,((void*)0));
@@ -12147,8 +12141,6 @@ list$1sType$ph_initialize_with_values((struct list$1sType$ph*)come_increment_ref
         param_names=(struct list$1char$ph*)come_increment_ref_count((__list_values10__[0]=((char*)(__right_value0=__builtin_string("left"))),
 __list_values10__[1]=((char*)(__right_value1=__builtin_string("right"))),
 list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "07function.nc", 3166, "struct list$1char$ph")),2,__list_values10__)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
         param_default_parametors=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 3167, "struct list$1char$ph*"))));
         list$1char$ph_push_back(param_default_parametors,((void*)0));
         list$1char$ph_push_back(param_default_parametors,((void*)0));
@@ -12507,7 +12499,6 @@ struct tuple2$2sFun$pchar$ph* create_cloner_automatically(struct sType* type  , 
 list$1sType$ph_initialize_with_values((struct list$1sType$ph*)come_increment_ref_count((struct list$1sType$ph*)come_calloc(1, sizeof(struct list$1sType$ph)*(1), "07function.nc", 3392, "struct list$1sType$ph")),1,__list_values11__)));
         param_names=(struct list$1char$ph*)come_increment_ref_count((__list_values12__[0]=((char*)(__right_value0=__builtin_string("self"))),
 list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "07function.nc", 3393, "struct list$1char$ph")),1,__list_values12__)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         param_default_parametors=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 3394, "struct list$1char$ph*"))));
         list$1char$ph_push_back(param_default_parametors,((void*)0));
         result_type->mStatic=(_Bool)0;
@@ -12800,7 +12791,6 @@ struct tuple2$2sFun$pchar$ph* create_to_string_automatically(struct sType* type 
 list$1sType$ph_initialize_with_values((struct list$1sType$ph*)come_increment_ref_count((struct list$1sType$ph*)come_calloc(1, sizeof(struct list$1sType$ph)*(1), "07function.nc", 3730, "struct list$1sType$ph")),1,__list_values15__)));
         param_names=(struct list$1char$ph*)come_increment_ref_count((__list_values16__[0]=((char*)(__right_value0=__builtin_string("self"))),
 list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "07function.nc", 3731, "struct list$1char$ph")),1,__list_values16__)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         param_default_parametors=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 3732, "struct list$1char$ph*"))));
         list$1char$ph_push_back(param_default_parametors,((void*)0));
         result_type->mStatic=(_Bool)0;
@@ -13060,7 +13050,6 @@ struct tuple2$2sFun$pchar$ph* create_get_hash_key_automatically(struct sType* ty
 list$1sType$ph_initialize_with_values((struct list$1sType$ph*)come_increment_ref_count((struct list$1sType$ph*)come_calloc(1, sizeof(struct list$1sType$ph)*(1), "07function.nc", 3887, "struct list$1sType$ph")),1,__list_values17__)));
         param_names=(struct list$1char$ph*)come_increment_ref_count((__list_values18__[0]=((char*)(__right_value0=__builtin_string("self"))),
 list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "07function.nc", 3888, "struct list$1char$ph")),1,__list_values18__)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         param_default_parametors=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 3889, "struct list$1char$ph*"))));
         list$1char$ph_push_back(param_default_parametors,((void*)0));
         result_type->mStatic=(_Bool)0;

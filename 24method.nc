@@ -291,6 +291,12 @@ string, sFun*,sGenericsFun* get_method(const char* fun_name, sType* obj_type, sI
                         fun = fun2;
                         generics_fun_name = real_fun_name;
                     }
+                    if(fun == null && fun_name === "get_hash_key") {
+                        var fun2, real_fun_name = create_get_hash_key_automatically(obj_type, fun_name, info);
+                        
+                        fun = fun2;
+                        generics_fun_name = real_fun_name;
+                    }
                     if(fun == null && fun_name === "equals") {
                         var fun2, real_fun_name = create_equals_automatically(obj_type, fun_name, info);
                         

@@ -2444,6 +2444,7 @@ void free_right_value_objects(struct sInfo* info  );
 void free_objects(struct sVarTable* table  , struct sVar* ret_value  , struct sInfo* info  );
 void append_object_to_right_values(struct CVALUE* come_value  , struct sType* type  , struct sInfo* info  , _Bool decrement_ref_count, struct sType* obj_type  , char* obj_value, struct sVar* obj_var  );
 void remove_object_from_right_values(int right_value_num, struct sInfo* info  );
+void remove_value_from_right_value_objects(struct CVALUE* come_value  , struct sInfo* info  );
 char* increment_ref_count_object(struct sType* type  , char* obj, struct sInfo* info  );
 void decrement_ref_count_object(struct sType* type  , char* obj, struct sInfo* info  , _Bool no_free);
 void transpile_toplevel(_Bool block, struct sInfo* info  );
@@ -5085,7 +5086,7 @@ static struct list$1sType$ph* list$1sType$ph_insert(struct list$1sType$ph* self,
         self->len++;
     }
     else if(self->len==1) {
-        litem_31=(struct list_item$1sType$ph*)come_increment_ref_count(((struct list_item$1sType$ph*)(__right_value0=(struct list_item$1sType$ph*)come_calloc(1, sizeof(struct list_item$1sType$ph)*(1), (void*)0, 888, "struct list_item$1sType$ph*"))));
+        litem_31=(struct list_item$1sType$ph*)come_increment_ref_count((struct list_item$1sType$ph*)come_calloc(1, sizeof(struct list_item$1sType$ph)*(1), (void*)0, 888, "struct list_item$1sType$ph*"));
         litem_31->prev=self->head;
         litem_31->next=self->tail;
         __dec_obj50=litem_31->item,
@@ -5094,6 +5095,7 @@ static struct list$1sType$ph* list$1sType$ph_insert(struct list$1sType$ph* self,
         self->tail->prev=litem_31;
         self->head->next=litem_31;
         self->len++;
+        come_call_finalizer(list_item$1sType$ph$p_finalize, litem_31, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     else {
         it=self->head;
@@ -5227,7 +5229,7 @@ static struct list$1char$ph* list$1char$ph_insert(struct list$1char$ph* self, in
         self->len++;
     }
     else if(self->len==1) {
-        litem_34=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), (void*)0, 888, "struct list_item$1char$ph*"))));
+        litem_34=(struct list_item$1char$ph*)come_increment_ref_count((struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), (void*)0, 888, "struct list_item$1char$ph*"));
         litem_34->prev=self->head;
         litem_34->next=self->tail;
         __dec_obj53=litem_34->item,
@@ -5236,6 +5238,7 @@ static struct list$1char$ph* list$1char$ph_insert(struct list$1char$ph* self, in
         self->tail->prev=litem_34;
         self->head->next=litem_34;
         self->len++;
+        come_call_finalizer(list_item$1char$ph$p_finalize, litem_34, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     else {
         it=self->head;
@@ -5428,7 +5431,6 @@ list$1sType$ph_initialize_with_values((struct list$1sType$ph*)come_increment_ref
         finalizer->mParamNames=(struct list$1char$ph*)come_increment_ref_count((__list_values2__[0]=((char*)(__right_value0=__builtin_string("self"))),
 list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "28interface.nc", 105, "struct list$1char$ph")),1,__list_values2__)));
         come_call_finalizer(list$1char$ph_finalize, __dec_obj68,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         finalizer->mVarArgs=(_Bool)0;
         __dec_obj69=finalizer->mResultType,
         finalizer->mResultType=(struct sType*)come_increment_ref_count(sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc(1, sizeof(struct sType)*(1), (void*)0, 107, "struct sType*")),(char*)come_increment_ref_count(xsprintf("void")),(_Bool)0,info,(_Bool)0));
@@ -5444,7 +5446,6 @@ list$1sType$ph_initialize_with_values((struct list$1sType$ph*)come_increment_ref
         cloner->mParamNames=(struct list$1char$ph*)come_increment_ref_count((__list_values4__[0]=((char*)(__right_value0=__builtin_string("self"))),
 list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "28interface.nc", 114, "struct list$1char$ph")),1,__list_values4__)));
         come_call_finalizer(list$1char$ph_finalize, __dec_obj71,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         cloner->mVarArgs=(_Bool)0;
         __dec_obj72=cloner->mResultType,
         cloner->mResultType=(struct sType*)come_increment_ref_count(sType_clone(voidp));

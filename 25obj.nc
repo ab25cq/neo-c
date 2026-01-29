@@ -1098,18 +1098,7 @@ class sBorrowNode extends sNodeBase
         
         CVALUE*% come_value = get_value_from_stack(-1, info);
         
-        if(come_value.type.mPointerNum > 0) {
-            come_value.type.mHeap = false;
-            
-            struct sRightValueObject* right_value_objects = come_value.right_value_objects;
-            if(right_value_objects) {
-                 int right_value_id = right_value_objects.mID;
-                
-                if(right_value_id != -1) {
-                    remove_object_from_right_values(right_value_id, info);
-                }
-            }
-        }
+        remove_value_from_right_value_objects(come_value);
         
         info.stack.push_back(come_value);
         

@@ -2632,6 +2632,7 @@ static struct list$1sRightValueObject$ph* list$1sRightValueObject$ph_push_back(s
 void remove_object_from_right_values(int right_value_num, struct sInfo* info  );
 static struct list$1sRightValueObject$ph* list$1sRightValueObject$ph_delete(struct list$1sRightValueObject$ph* self, int head, int tail);
 static struct list$1sRightValueObject$ph* list$1sRightValueObject$ph_reset(struct list$1sRightValueObject$ph* self);
+void remove_value_from_right_value_objects(struct CVALUE* come_value  , struct sInfo* info  );
 char* increment_ref_count_object(struct sType* type  , char* obj, struct sInfo* info  );
 void decrement_ref_count_object(struct sType* type  , char* obj, struct sInfo* info  , _Bool no_free);
 static struct sFun* map$2char$phsFun$ph$p_operator_load_element(struct map$2char$phsFun$ph* self, char* key  );
@@ -4819,6 +4820,23 @@ static struct list$1sRightValueObject$ph* list$1sRightValueObject$ph_reset(struc
     return __result_obj__0;
 }
 
+void remove_value_from_right_value_objects(struct CVALUE* come_value  , struct sInfo* info  )
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "remove_value_from_right_value_objects"; neo_current_frame = &fr;
+    struct sRightValueObject* right_value_objects  ;
+    int right_value_id;
+    if(come_value->type->mPointerNum>0) {
+        right_value_objects=come_value->right_value_objects;
+        if(right_value_objects) {
+            right_value_id=right_value_objects->mID;
+            if(right_value_id!=-1) {
+                remove_object_from_right_values(right_value_id,info);
+            }
+        }
+    }
+    neo_current_frame = fr.prev;
+}
+
 char* increment_ref_count_object(struct sType* type  , char* obj, struct sInfo* info  )
 {
     struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "increment_ref_count_object"; neo_current_frame = &fr;
@@ -5993,7 +6011,7 @@ struct tuple2$2sType$phchar$ph* clone_object(struct sType* type  , char* obj, st
             err=multiple_assign_var8->v2;
             come_call_finalizer(tuple2$2char$ph_Bool$$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
             if(!err) {
-                __result_obj__0 = (struct tuple2$2sType$phchar$ph*)come_increment_ref_count(((struct tuple2$2sType$phchar$ph*)(__right_value5=tuple2$2sType$phchar$ph_initialize((struct tuple2$2sType$phchar$ph*)come_increment_ref_count((struct tuple2$2sType$phchar$ph*)come_calloc(1, sizeof(struct tuple2$2sType$phchar$ph)*(1), "04heap.nc", 760, "struct tuple2$2sType$phchar$ph")),(struct sType*)come_increment_ref_count(sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc(1, sizeof(struct sType)*(1), (void*)0, 760, "struct sType*")),(char*)come_increment_ref_count(xsprintf("void")),(_Bool)0,info,(_Bool)0)),(char*)come_increment_ref_count(__builtin_string(""))))));
+                __result_obj__0 = (struct tuple2$2sType$phchar$ph*)come_increment_ref_count(((struct tuple2$2sType$phchar$ph*)(__right_value5=tuple2$2sType$phchar$ph_initialize((struct tuple2$2sType$phchar$ph*)come_increment_ref_count((struct tuple2$2sType$phchar$ph*)come_calloc(1, sizeof(struct tuple2$2sType$phchar$ph)*(1), "04heap.nc", 774, "struct tuple2$2sType$phchar$ph")),(struct sType*)come_increment_ref_count(sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc(1, sizeof(struct sType)*(1), (void*)0, 774, "struct sType*")),(char*)come_increment_ref_count(xsprintf("void")),(_Bool)0,info,(_Bool)0)),(char*)come_increment_ref_count(__builtin_string(""))))));
                 (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0));
                 (none_generics_name = come_decrement_ref_count(none_generics_name, (void*)0, (void*)0, 0, 0, (void*)0));
                 come_call_finalizer(sType_finalize, obj_type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -6079,7 +6097,7 @@ struct tuple2$2sType$phchar$ph* clone_object(struct sType* type  , char* obj, st
     info->stack=(struct list$1CVALUE$ph*)come_increment_ref_count(stack_saved);
     come_call_finalizer(list$1CVALUE$ph_finalize, __dec_obj77,(void*)0, (void*)0, 0, 0, 0, (void*)0);
     info->in_clone_object=in_clone_object;
-    __result_obj__0 = (struct tuple2$2sType$phchar$ph*)come_increment_ref_count(((struct tuple2$2sType$phchar$ph*)(__right_value1=tuple2$2sType$phchar$ph_initialize((struct tuple2$2sType$phchar$ph*)come_increment_ref_count((struct tuple2$2sType$phchar$ph*)come_calloc(1, sizeof(struct tuple2$2sType$phchar$ph)*(1), "04heap.nc", 815, "struct tuple2$2sType$phchar$ph")),(struct sType*)come_increment_ref_count(result_type),(char*)come_increment_ref_count(result)))));
+    __result_obj__0 = (struct tuple2$2sType$phchar$ph*)come_increment_ref_count(((struct tuple2$2sType$phchar$ph*)(__right_value1=tuple2$2sType$phchar$ph_initialize((struct tuple2$2sType$phchar$ph*)come_increment_ref_count((struct tuple2$2sType$phchar$ph*)come_calloc(1, sizeof(struct tuple2$2sType$phchar$ph)*(1), "04heap.nc", 829, "struct tuple2$2sType$phchar$ph")),(struct sType*)come_increment_ref_count(result_type),(char*)come_increment_ref_count(result)))));
     come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(sType_finalize, type_, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 0, (void*)0));

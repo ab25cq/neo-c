@@ -380,6 +380,20 @@ void remove_object_from_right_values(int right_value_num, sInfo* info)
     info->right_value_objects.delete(i, i+1);
 }
 
+void remove_value_from_right_value_objects(CVALUE* come_value, sInfo* info=info)
+{
+    if(come_value.type.mPointerNum > 0) {
+        struct sRightValueObject* right_value_objects = come_value.right_value_objects;
+        if(right_value_objects) {
+             int right_value_id = right_value_objects.mID;
+            
+            if(right_value_id != -1) {
+                remove_object_from_right_values(right_value_id, info);
+            }
+        }
+    }
+}
+
 string increment_ref_count_object(sType* type, char* obj, sInfo* info)
 {
     if(gComeC) {

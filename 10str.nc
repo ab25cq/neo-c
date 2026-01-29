@@ -285,16 +285,12 @@ class sListNode extends sNodeBase
                 check_assign_type(s"invalid list element type", list_element_type, come_value.type, come_value);
             }
             
+            remove_value_from_right_value_objects(come_value, info);
+            
             params.push_back(come_value);
             
             if(list_element_type) {
-                if(list_element_type->mHeap != come_value.type->mHeap) {
-                    err_msg(info, "List element type");
-                    exit(2);
-                }
-                else {
-                    check_assign_type(s"List element type", list_element_type, come_value.type, come_value);
-                }
+                check_assign_type(s"List element type", list_element_type, come_value.type, come_value);
             }
             list_element_type = clone come_value.type;
             
@@ -658,14 +654,10 @@ class sMapNode extends sNodeBase
             
             CVALUE*% come_value = get_value_from_stack(-1, info);
             
+            remove_value_from_right_value_objects(come_value, info);
+            
             if(map_key_type) {
-                if(map_key_type->mHeap != come_value.type->mHeap) {
-                    err_msg(info, "Map key type");
-                    exit(2);
-                }
-                else {
-                    check_assign_type(s"Map key type", map_key_type, come_value.type, come_value);
-                }
+                check_assign_type(s"Map key type", map_key_type, come_value.type, come_value);
             }
             
             key_params.push_back(come_value);
@@ -677,14 +669,10 @@ class sMapNode extends sNodeBase
             
             CVALUE*% come_value2 = get_value_from_stack(-1, info);
             
+            remove_value_from_right_value_objects(come_value2, info);
+            
             if(map_element_type) {
-                if(map_element_type->mHeap != come_value2.type->mHeap) {
-                    err_msg(info, "Map element type");
-                    exit(2);
-                }
-                else {
-                    check_assign_type(s"Map element type", map_element_type, come_value2.type, come_value2);
-                }
+                check_assign_type(s"Map element type", map_element_type, come_value2.type, come_value2);
             }
             
             element_params.push_back(come_value2);

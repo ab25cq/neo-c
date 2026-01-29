@@ -2655,6 +2655,7 @@ void free_right_value_objects(struct sInfo* info  );
 void free_objects(struct sVarTable* table  , struct sVar* ret_value  , struct sInfo* info  );
 void append_object_to_right_values(struct CVALUE* come_value  , struct sType* type  , struct sInfo* info  , _Bool decrement_ref_count, struct sType* obj_type  , char* obj_value, struct sVar* obj_var  );
 void remove_object_from_right_values(int right_value_num, struct sInfo* info  );
+void remove_value_from_right_value_objects(struct CVALUE* come_value  , struct sInfo* info  );
 char* increment_ref_count_object(struct sType* type  , char* obj, struct sInfo* info  );
 void decrement_ref_count_object(struct sType* type  , char* obj, struct sInfo* info  , _Bool no_free);
 void transpile_toplevel(_Bool block, struct sInfo* info  );
@@ -7272,8 +7273,6 @@ _Bool sBorrowNode_compile(struct sBorrowNode* self, struct sInfo* info  )
     _Bool Value;
     void* __right_value0 = (void*)0;
     struct CVALUE* come_value  ;
-    struct sRightValueObject* right_value_objects  ;
-    int right_value_id;
     _Bool __result_obj__0;
     node=self->node;
     Value=node_compile(node,info);
@@ -7282,16 +7281,7 @@ _Bool sBorrowNode_compile(struct sBorrowNode* self, struct sInfo* info  )
         return (_Bool)0;
     }
     come_value=(struct CVALUE*)come_increment_ref_count(get_value_from_stack(-1,info));
-    if(come_value->type->mPointerNum>0) {
-        come_value->type->mHeap=(_Bool)0;
-        right_value_objects=come_value->right_value_objects;
-        if(right_value_objects) {
-            right_value_id=right_value_objects->mID;
-            if(right_value_id!=-1) {
-                remove_object_from_right_values(right_value_id,info);
-            }
-        }
-    }
+    remove_value_from_right_value_objects(come_value,info);
     list$1CVALUE$ph_push_back(info->stack,(struct CVALUE*)come_increment_ref_count(come_value));
     __result_obj__0 = (_Bool)1;
     come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -7373,7 +7363,7 @@ _Bool sCloneNode_compile(struct sCloneNode* self, struct sInfo* info  )
         list$1CVALUE$ph_push_back(info->stack,(struct CVALUE*)come_increment_ref_count(left_value));
     }
     else if(left_type->mPointerNum>0) {
-        come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), (void*)0, 1153, "struct CVALUE*"))));
+        come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), (void*)0, 1142, "struct CVALUE*"))));
         multiple_assign_var6=((struct tuple2$2sType$phchar$ph*)(__right_value0=(clone_object)(left_type,left_value->c_value,info)));
         result_type=(struct sType*)come_increment_ref_count(multiple_assign_var6->v1);
         c_value=(char*)come_increment_ref_count(multiple_assign_var6->v2);
@@ -7485,7 +7475,7 @@ _Bool sDupeNode_compile(struct sDupeNode* self, struct sInfo* info  )
         list$1CVALUE$ph_push_back(info->stack,(struct CVALUE*)come_increment_ref_count(left_value));
     }
     else if(left_type->mPointerNum>0) {
-        come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), (void*)0, 1203, "struct CVALUE*"))));
+        come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), (void*)0, 1192, "struct CVALUE*"))));
         multiple_assign_var7=((struct tuple2$2sType$phchar$ph*)(__right_value0=(clone_object)(left_type,left_value->c_value,info)));
         result_type=(struct sType*)come_increment_ref_count(multiple_assign_var7->v1);
         c_value=(char*)come_increment_ref_count(multiple_assign_var7->v2);
@@ -7783,12 +7773,12 @@ _Bool sIsHeap_compile(struct sIsHeap* self, struct sInfo* info  )
     struct sType* __dec_obj127  ;
     node=self->type;
     if(self->type->mHeap) {
-        come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), (void*)0, 1346, "struct CVALUE*"))));
+        come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), (void*)0, 1335, "struct CVALUE*"))));
         __dec_obj124=come_value->c_value,
         come_value->c_value=(char*)come_increment_ref_count(xsprintf("1"));
         __dec_obj124 = come_decrement_ref_count(__dec_obj124, (void*)0, (void*)0, 0,0, (void*)0);
         __dec_obj125=come_value->type,
-        come_value->type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc(1, sizeof(struct sType)*(1), (void*)0, 1349, "struct sType*")),(char*)come_increment_ref_count(xsprintf("int")),(_Bool)0,info,(_Bool)0));
+        come_value->type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc(1, sizeof(struct sType)*(1), (void*)0, 1338, "struct sType*")),(char*)come_increment_ref_count(xsprintf("int")),(_Bool)0,info,(_Bool)0));
         come_call_finalizer(sType_finalize, __dec_obj125,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_value->var=((void*)0);
         list$1CVALUE$ph_push_back(info->stack,(struct CVALUE*)come_increment_ref_count(come_value));
@@ -7796,12 +7786,12 @@ _Bool sIsHeap_compile(struct sIsHeap* self, struct sInfo* info  )
         come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     else {
-        come_value_51=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), (void*)0, 1357, "struct CVALUE*"))));
+        come_value_51=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), (void*)0, 1346, "struct CVALUE*"))));
         __dec_obj126=come_value_51->c_value,
         come_value_51->c_value=(char*)come_increment_ref_count(xsprintf("0"));
         __dec_obj126 = come_decrement_ref_count(__dec_obj126, (void*)0, (void*)0, 0,0, (void*)0);
         __dec_obj127=come_value_51->type,
-        come_value_51->type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc(1, sizeof(struct sType)*(1), (void*)0, 1360, "struct sType*")),(char*)come_increment_ref_count(xsprintf("int")),(_Bool)0,info,(_Bool)0));
+        come_value_51->type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc(1, sizeof(struct sType)*(1), (void*)0, 1349, "struct sType*")),(char*)come_increment_ref_count(xsprintf("int")),(_Bool)0,info,(_Bool)0));
         come_call_finalizer(sType_finalize, __dec_obj127,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_value_51->var=((void*)0);
         list$1CVALUE$ph_push_back(info->stack,(struct CVALUE*)come_increment_ref_count(come_value_51));
@@ -7870,12 +7860,12 @@ _Bool sIsPointer_compile(struct sIsPointer* self, struct sInfo* info  )
     struct sType* __dec_obj132  ;
     node=self->type;
     if(self->type->mPointerNum>0) {
-        come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), (void*)0, 1391, "struct CVALUE*"))));
+        come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), (void*)0, 1380, "struct CVALUE*"))));
         __dec_obj129=come_value->c_value,
         come_value->c_value=(char*)come_increment_ref_count(xsprintf("1"));
         __dec_obj129 = come_decrement_ref_count(__dec_obj129, (void*)0, (void*)0, 0,0, (void*)0);
         __dec_obj130=come_value->type,
-        come_value->type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc(1, sizeof(struct sType)*(1), (void*)0, 1394, "struct sType*")),(char*)come_increment_ref_count(xsprintf("int")),(_Bool)0,info,(_Bool)0));
+        come_value->type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc(1, sizeof(struct sType)*(1), (void*)0, 1383, "struct sType*")),(char*)come_increment_ref_count(xsprintf("int")),(_Bool)0,info,(_Bool)0));
         come_call_finalizer(sType_finalize, __dec_obj130,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_value->var=((void*)0);
         list$1CVALUE$ph_push_back(info->stack,(struct CVALUE*)come_increment_ref_count(come_value));
@@ -7883,12 +7873,12 @@ _Bool sIsPointer_compile(struct sIsPointer* self, struct sInfo* info  )
         come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     else {
-        come_value_52=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), (void*)0, 1402, "struct CVALUE*"))));
+        come_value_52=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE*)come_increment_ref_count((struct CVALUE*)come_calloc(1, sizeof(struct CVALUE)*(1), (void*)0, 1391, "struct CVALUE*"))));
         __dec_obj131=come_value_52->c_value,
         come_value_52->c_value=(char*)come_increment_ref_count(xsprintf("0"));
         __dec_obj131 = come_decrement_ref_count(__dec_obj131, (void*)0, (void*)0, 0,0, (void*)0);
         __dec_obj132=come_value_52->type,
-        come_value_52->type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc(1, sizeof(struct sType)*(1), (void*)0, 1405, "struct sType*")),(char*)come_increment_ref_count(xsprintf("int")),(_Bool)0,info,(_Bool)0));
+        come_value_52->type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType*)come_increment_ref_count((struct sType*)come_calloc(1, sizeof(struct sType)*(1), (void*)0, 1394, "struct sType*")),(char*)come_increment_ref_count(xsprintf("int")),(_Bool)0,info,(_Bool)0));
         come_call_finalizer(sType_finalize, __dec_obj132,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_value_52->var=((void*)0);
         list$1CVALUE$ph_push_back(info->stack,(struct CVALUE*)come_increment_ref_count(come_value_52));
@@ -8159,8 +8149,8 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
                 skip_spaces_and_lf(info);
                 exp=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
                 expected_next_character(41,info);
-                _inf_value3=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1470, "struct sNode");
-                _inf_obj_value3=(struct sNewNode*)come_increment_ref_count(((struct sNewNode*)(__right_value1=sNewNode_initialize((struct sNewNode*)come_increment_ref_count((struct sNewNode*)come_calloc(1, sizeof(struct sNewNode)*(1), (void*)0, 1470, "struct sNewNode*")),type,((void*)0),(struct sNode*)come_increment_ref_count(exp),info))));
+                _inf_value3=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1459, "struct sNode");
+                _inf_obj_value3=(struct sNewNode*)come_increment_ref_count(((struct sNewNode*)(__right_value1=sNewNode_initialize((struct sNewNode*)come_increment_ref_count((struct sNewNode*)come_calloc(1, sizeof(struct sNewNode)*(1), (void*)0, 1459, "struct sNewNode*")),type,((void*)0),(struct sNode*)come_increment_ref_count(exp),info))));
                 _inf_value3->_protocol_obj=_inf_obj_value3;
                 _inf_value3->finalize=(void*)sNewNode_finalize;
                 _inf_value3->clone=(void*)sNewNode_clone;
@@ -8183,8 +8173,8 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
                 ((exp) ? exp = come_decrement_ref_count(exp, ((struct sNode*)exp)->finalize, ((struct sNode*)exp)->_protocol_obj, 0, 0,(void*)0):(void*)0);
             }
             else {
-                _inf_value4=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1473, "struct sNode");
-                _inf_obj_value4=(struct sNewNode*)come_increment_ref_count(((struct sNewNode*)(__right_value1=sNewNode_initialize((struct sNewNode*)come_increment_ref_count((struct sNewNode*)come_calloc(1, sizeof(struct sNewNode)*(1), (void*)0, 1473, "struct sNewNode*")),type,((void*)0),((void*)0),info))));
+                _inf_value4=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1462, "struct sNode");
+                _inf_obj_value4=(struct sNewNode*)come_increment_ref_count(((struct sNewNode*)(__right_value1=sNewNode_initialize((struct sNewNode*)come_increment_ref_count((struct sNewNode*)come_calloc(1, sizeof(struct sNewNode)*(1), (void*)0, 1462, "struct sNewNode*")),type,((void*)0),((void*)0),info))));
                 _inf_value4->_protocol_obj=_inf_obj_value4;
                 _inf_value4->finalize=(void*)sNewNode_finalize;
                 _inf_value4->clone=(void*)sNewNode_clone;
@@ -8214,7 +8204,7 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
         else if(*info->p==123) {
             info->p++;
             skip_spaces_and_lf(info);
-            initializer=(struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(list$1tuple2$2char$phsNode$ph$ph_initialize((struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count((struct list$1tuple2$2char$phsNode$ph$ph*)come_calloc(1, sizeof(struct list$1tuple2$2char$phsNode$ph$ph)*(1), (void*)0, 1483, "struct list$1tuple2$2char$phsNode$ph$ph*"))));
+            initializer=(struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(list$1tuple2$2char$phsNode$ph$ph_initialize((struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count((struct list$1tuple2$2char$phsNode$ph$ph*)come_calloc(1, sizeof(struct list$1tuple2$2char$phsNode$ph$ph)*(1), (void*)0, 1472, "struct list$1tuple2$2char$phsNode$ph$ph*"))));
             while((_Bool)1) {
                 word=(char*)come_increment_ref_count(parse_word((_Bool)0,info));
                 if(*info->p==58) {
@@ -8224,12 +8214,12 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
                     info->no_comma=(_Bool)1;
                     exp_55=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
                     info->no_comma=no_comma;
-                    list$1tuple2$2char$phsNode$ph$ph_add(initializer,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "25obj.nc", 1497, "struct tuple2$2char$phsNode$ph")),(char*)come_increment_ref_count(word),(struct sNode*)come_increment_ref_count(exp_55))));
+                    list$1tuple2$2char$phsNode$ph$ph_add(initializer,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "25obj.nc", 1486, "struct tuple2$2char$phsNode$ph")),(char*)come_increment_ref_count(word),(struct sNode*)come_increment_ref_count(exp_55))));
                     ((exp_55) ? exp_55 = come_decrement_ref_count(exp_55, ((struct sNode*)exp_55)->finalize, ((struct sNode*)exp_55)->_protocol_obj, 0, 0,(void*)0):(void*)0);
                 }
                 else if(*info->p==44) {
                     exp_56=(struct sNode*)come_increment_ref_count(create_load_var(word,info));
-                    list$1tuple2$2char$phsNode$ph$ph_add(initializer,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "25obj.nc", 1502, "struct tuple2$2char$phsNode$ph")),(char*)come_increment_ref_count(word),(struct sNode*)come_increment_ref_count(exp_56))));
+                    list$1tuple2$2char$phsNode$ph$ph_add(initializer,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "25obj.nc", 1491, "struct tuple2$2char$phsNode$ph")),(char*)come_increment_ref_count(word),(struct sNode*)come_increment_ref_count(exp_56))));
                     ((exp_56) ? exp_56 = come_decrement_ref_count(exp_56, ((struct sNode*)exp_56)->finalize, ((struct sNode*)exp_56)->_protocol_obj, 0, 0,(void*)0):(void*)0);
                 }
                 else {
@@ -8252,8 +8242,8 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
                 }
                 (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0));
             }
-            _inf_value5=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1523, "struct sNode");
-            _inf_obj_value5=(struct sNewNode*)come_increment_ref_count(((struct sNewNode*)(__right_value1=sNewNode_initialize((struct sNewNode*)come_increment_ref_count((struct sNewNode*)come_calloc(1, sizeof(struct sNewNode)*(1), (void*)0, 1523, "struct sNewNode*")),type,(struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(initializer),((void*)0),info))));
+            _inf_value5=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1512, "struct sNode");
+            _inf_obj_value5=(struct sNewNode*)come_increment_ref_count(((struct sNewNode*)(__right_value1=sNewNode_initialize((struct sNewNode*)come_increment_ref_count((struct sNewNode*)come_calloc(1, sizeof(struct sNewNode)*(1), (void*)0, 1512, "struct sNewNode*")),type,(struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(initializer),((void*)0),info))));
             _inf_value5->_protocol_obj=_inf_obj_value5;
             _inf_value5->finalize=(void*)sNewNode_finalize;
             _inf_value5->clone=(void*)sNewNode_clone;
@@ -8276,8 +8266,8 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
             come_call_finalizer(list$1tuple2$2char$phsNode$ph$ph$p_finalize, initializer, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         }
         else {
-            _inf_value6=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1526, "struct sNode");
-            _inf_obj_value6=(struct sNewNode*)come_increment_ref_count(((struct sNewNode*)(__right_value1=sNewNode_initialize((struct sNewNode*)come_increment_ref_count((struct sNewNode*)come_calloc(1, sizeof(struct sNewNode)*(1), (void*)0, 1526, "struct sNewNode*")),type,((void*)0),((void*)0),info))));
+            _inf_value6=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1515, "struct sNode");
+            _inf_obj_value6=(struct sNewNode*)come_increment_ref_count(((struct sNewNode*)(__right_value1=sNewNode_initialize((struct sNewNode*)come_increment_ref_count((struct sNewNode*)come_calloc(1, sizeof(struct sNewNode)*(1), (void*)0, 1515, "struct sNewNode*")),type,((void*)0),((void*)0),info))));
             _inf_value6->_protocol_obj=_inf_obj_value6;
             _inf_value6->finalize=(void*)sNewNode_finalize;
             _inf_value6->clone=(void*)sNewNode_clone;
@@ -8301,8 +8291,8 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
         (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     else if(!gComeC&&charp_operator_equals(buf,"true")) {
-        _inf_value7=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1530, "struct sNode");
-        _inf_obj_value7=(struct sTrueNode*)come_increment_ref_count(((struct sTrueNode*)(__right_value1=sTrueNode_initialize((struct sTrueNode*)come_increment_ref_count((struct sTrueNode*)come_calloc(1, sizeof(struct sTrueNode)*(1), (void*)0, 1530, "struct sTrueNode*")),info))));
+        _inf_value7=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1519, "struct sNode");
+        _inf_obj_value7=(struct sTrueNode*)come_increment_ref_count(((struct sTrueNode*)(__right_value1=sTrueNode_initialize((struct sTrueNode*)come_increment_ref_count((struct sTrueNode*)come_calloc(1, sizeof(struct sTrueNode)*(1), (void*)0, 1519, "struct sTrueNode*")),info))));
         _inf_value7->_protocol_obj=_inf_obj_value7;
         _inf_value7->finalize=(void*)sTrueNode_finalize;
         _inf_value7->clone=(void*)sTrueNode_clone;
@@ -8321,8 +8311,8 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
         return __result_obj__0;
     }
     else if(!gComeC&&charp_operator_equals(buf,"false")) {
-        _inf_value8=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1533, "struct sNode");
-        _inf_obj_value8=(struct sFalseNode*)come_increment_ref_count(((struct sFalseNode*)(__right_value1=sFalseNode_initialize((struct sFalseNode*)come_increment_ref_count((struct sFalseNode*)come_calloc(1, sizeof(struct sFalseNode)*(1), (void*)0, 1533, "struct sFalseNode*")),info))));
+        _inf_value8=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1522, "struct sNode");
+        _inf_obj_value8=(struct sFalseNode*)come_increment_ref_count(((struct sFalseNode*)(__right_value1=sFalseNode_initialize((struct sFalseNode*)come_increment_ref_count((struct sFalseNode*)come_calloc(1, sizeof(struct sFalseNode)*(1), (void*)0, 1522, "struct sFalseNode*")),info))));
         _inf_value8->_protocol_obj=_inf_obj_value8;
         _inf_value8->finalize=(void*)sFalseNode_finalize;
         _inf_value8->clone=(void*)sFalseNode_clone;
@@ -8342,8 +8332,8 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
     }
     else if(!gComeC&&charp_operator_equals(buf,"delete")) {
         node=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
-        _inf_value9=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1538, "struct sNode");
-        _inf_obj_value9=(struct sDeleteNode*)come_increment_ref_count(((struct sDeleteNode*)(__right_value1=sDeleteNode_initialize((struct sDeleteNode*)come_increment_ref_count((struct sDeleteNode*)come_calloc(1, sizeof(struct sDeleteNode)*(1), (void*)0, 1538, "struct sDeleteNode*")),(struct sNode*)come_increment_ref_count(node),info))));
+        _inf_value9=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1527, "struct sNode");
+        _inf_obj_value9=(struct sDeleteNode*)come_increment_ref_count(((struct sDeleteNode*)(__right_value1=sDeleteNode_initialize((struct sDeleteNode*)come_increment_ref_count((struct sDeleteNode*)come_calloc(1, sizeof(struct sDeleteNode)*(1), (void*)0, 1527, "struct sDeleteNode*")),(struct sNode*)come_increment_ref_count(node),info))));
         _inf_value9->_protocol_obj=_inf_obj_value9;
         _inf_value9->finalize=(void*)sDeleteNode_finalize;
         _inf_value9->clone=(void*)sDeleteNode_clone;
@@ -8365,8 +8355,8 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
     }
     else if(!gComeC&&charp_operator_equals(buf,"borrow")) {
         node_57=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
-        _inf_value10=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1543, "struct sNode");
-        _inf_obj_value10=(struct sBorrowNode*)come_increment_ref_count(((struct sBorrowNode*)(__right_value1=sBorrowNode_initialize((struct sBorrowNode*)come_increment_ref_count((struct sBorrowNode*)come_calloc(1, sizeof(struct sBorrowNode)*(1), (void*)0, 1543, "struct sBorrowNode*")),(struct sNode*)come_increment_ref_count(node_57),info))));
+        _inf_value10=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1532, "struct sNode");
+        _inf_obj_value10=(struct sBorrowNode*)come_increment_ref_count(((struct sBorrowNode*)(__right_value1=sBorrowNode_initialize((struct sBorrowNode*)come_increment_ref_count((struct sBorrowNode*)come_calloc(1, sizeof(struct sBorrowNode)*(1), (void*)0, 1532, "struct sBorrowNode*")),(struct sNode*)come_increment_ref_count(node_57),info))));
         _inf_value10->_protocol_obj=_inf_obj_value10;
         _inf_value10->finalize=(void*)sBorrowNode_finalize;
         _inf_value10->clone=(void*)sBorrowNode_clone;
@@ -8388,8 +8378,8 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
     }
     else if(!gComeC&&charp_operator_equals(buf,"clone")) {
         node_58=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
-        _inf_value11=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1548, "struct sNode");
-        _inf_obj_value11=(struct sCloneNode*)come_increment_ref_count(((struct sCloneNode*)(__right_value1=sCloneNode_initialize((struct sCloneNode*)come_increment_ref_count((struct sCloneNode*)come_calloc(1, sizeof(struct sCloneNode)*(1), (void*)0, 1548, "struct sCloneNode*")),(struct sNode*)come_increment_ref_count(node_58),info))));
+        _inf_value11=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1537, "struct sNode");
+        _inf_obj_value11=(struct sCloneNode*)come_increment_ref_count(((struct sCloneNode*)(__right_value1=sCloneNode_initialize((struct sCloneNode*)come_increment_ref_count((struct sCloneNode*)come_calloc(1, sizeof(struct sCloneNode)*(1), (void*)0, 1537, "struct sCloneNode*")),(struct sNode*)come_increment_ref_count(node_58),info))));
         _inf_value11->_protocol_obj=_inf_obj_value11;
         _inf_value11->finalize=(void*)sCloneNode_finalize;
         _inf_value11->clone=(void*)sCloneNode_clone;
@@ -8411,8 +8401,8 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
     }
     else if(!gComeC&&charp_operator_equals(buf,"dupe")) {
         node_59=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
-        _inf_value12=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1553, "struct sNode");
-        _inf_obj_value12=(struct sDupeNode*)come_increment_ref_count(((struct sDupeNode*)(__right_value1=sDupeNode_initialize((struct sDupeNode*)come_increment_ref_count((struct sDupeNode*)come_calloc(1, sizeof(struct sDupeNode)*(1), (void*)0, 1553, "struct sDupeNode*")),(struct sNode*)come_increment_ref_count(node_59),info))));
+        _inf_value12=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1542, "struct sNode");
+        _inf_obj_value12=(struct sDupeNode*)come_increment_ref_count(((struct sDupeNode*)(__right_value1=sDupeNode_initialize((struct sDupeNode*)come_increment_ref_count((struct sDupeNode*)come_calloc(1, sizeof(struct sDupeNode)*(1), (void*)0, 1542, "struct sDupeNode*")),(struct sNode*)come_increment_ref_count(node_59),info))));
         _inf_value12->_protocol_obj=_inf_obj_value12;
         _inf_value12->finalize=(void*)sDupeNode_finalize;
         _inf_value12->clone=(void*)sDupeNode_clone;
@@ -8434,8 +8424,8 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
     }
     else if(!gComeC&&charp_operator_equals(buf,"dummy_heap")) {
         node_60=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
-        _inf_value13=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1558, "struct sNode");
-        _inf_obj_value13=(struct sDummyHeapNode*)come_increment_ref_count(((struct sDummyHeapNode*)(__right_value1=sDummyHeapNode_initialize((struct sDummyHeapNode*)come_increment_ref_count((struct sDummyHeapNode*)come_calloc(1, sizeof(struct sDummyHeapNode)*(1), (void*)0, 1558, "struct sDummyHeapNode*")),(struct sNode*)come_increment_ref_count(node_60),info))));
+        _inf_value13=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1547, "struct sNode");
+        _inf_obj_value13=(struct sDummyHeapNode*)come_increment_ref_count(((struct sDummyHeapNode*)(__right_value1=sDummyHeapNode_initialize((struct sDummyHeapNode*)come_increment_ref_count((struct sDummyHeapNode*)come_calloc(1, sizeof(struct sDummyHeapNode)*(1), (void*)0, 1547, "struct sDummyHeapNode*")),(struct sNode*)come_increment_ref_count(node_60),info))));
         _inf_value13->_protocol_obj=_inf_obj_value13;
         _inf_value13->finalize=(void*)sDummyHeapNode_finalize;
         _inf_value13->clone=(void*)sDummyHeapNode_clone;
@@ -8460,8 +8450,8 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
         skip_spaces_and_lf(info);
         node_61=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
         expected_next_character(41,info);
-        _inf_value14=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1568, "struct sNode");
-        _inf_obj_value14=(struct sGCIncNode*)come_increment_ref_count(((struct sGCIncNode*)(__right_value1=sGCIncNode_initialize((struct sGCIncNode*)come_increment_ref_count((struct sGCIncNode*)come_calloc(1, sizeof(struct sGCIncNode)*(1), (void*)0, 1568, "struct sGCIncNode*")),(struct sNode*)come_increment_ref_count(node_61),info))));
+        _inf_value14=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1557, "struct sNode");
+        _inf_obj_value14=(struct sGCIncNode*)come_increment_ref_count(((struct sGCIncNode*)(__right_value1=sGCIncNode_initialize((struct sGCIncNode*)come_increment_ref_count((struct sGCIncNode*)come_calloc(1, sizeof(struct sGCIncNode)*(1), (void*)0, 1557, "struct sGCIncNode*")),(struct sNode*)come_increment_ref_count(node_61),info))));
         _inf_value14->_protocol_obj=_inf_obj_value14;
         _inf_value14->finalize=(void*)sGCIncNode_finalize;
         _inf_value14->clone=(void*)sGCIncNode_clone;
@@ -8486,8 +8476,8 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
         skip_spaces_and_lf(info);
         node_62=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
         expected_next_character(41,info);
-        _inf_value15=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1578, "struct sNode");
-        _inf_obj_value15=(struct sGCDecNode*)come_increment_ref_count(((struct sGCDecNode*)(__right_value1=sGCDecNode_initialize((struct sGCDecNode*)come_increment_ref_count((struct sGCDecNode*)come_calloc(1, sizeof(struct sGCDecNode)*(1), (void*)0, 1578, "struct sGCDecNode*")),(struct sNode*)come_increment_ref_count(node_62),info))));
+        _inf_value15=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1567, "struct sNode");
+        _inf_obj_value15=(struct sGCDecNode*)come_increment_ref_count(((struct sGCDecNode*)(__right_value1=sGCDecNode_initialize((struct sGCDecNode*)come_increment_ref_count((struct sGCDecNode*)come_calloc(1, sizeof(struct sGCDecNode)*(1), (void*)0, 1567, "struct sGCDecNode*")),(struct sNode*)come_increment_ref_count(node_62),info))));
         _inf_value15->_protocol_obj=_inf_obj_value15;
         _inf_value15->finalize=(void*)sGCDecNode_finalize;
         _inf_value15->clone=(void*)sGCDecNode_clone;
@@ -8512,8 +8502,8 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
         skip_spaces_and_lf(info);
         node_63=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
         expected_next_character(41,info);
-        _inf_value16=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1588, "struct sNode");
-        _inf_obj_value16=(struct sGCDecNoFreeNode*)come_increment_ref_count(((struct sGCDecNoFreeNode*)(__right_value1=sGCDecNoFreeNode_initialize((struct sGCDecNoFreeNode*)come_increment_ref_count((struct sGCDecNoFreeNode*)come_calloc(1, sizeof(struct sGCDecNoFreeNode)*(1), (void*)0, 1588, "struct sGCDecNoFreeNode*")),(struct sNode*)come_increment_ref_count(node_63),info))));
+        _inf_value16=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1577, "struct sNode");
+        _inf_obj_value16=(struct sGCDecNoFreeNode*)come_increment_ref_count(((struct sGCDecNoFreeNode*)(__right_value1=sGCDecNoFreeNode_initialize((struct sGCDecNoFreeNode*)come_increment_ref_count((struct sGCDecNoFreeNode*)come_calloc(1, sizeof(struct sGCDecNoFreeNode)*(1), (void*)0, 1577, "struct sGCDecNoFreeNode*")),(struct sNode*)come_increment_ref_count(node_63),info))));
         _inf_value16->_protocol_obj=_inf_obj_value16;
         _inf_value16->finalize=(void*)sGCDecNoFreeNode_finalize;
         _inf_value16->clone=(void*)sGCDecNoFreeNode_clone;
@@ -8538,8 +8528,8 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
         skip_spaces_and_lf(info);
         node_64=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
         expected_next_character(41,info);
-        _inf_value17=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1598, "struct sNode");
-        _inf_obj_value17=(struct sGCDecNoFreeNode*)come_increment_ref_count(((struct sGCDecNoFreeNode*)(__right_value1=sGCDecNoFreeNode_initialize((struct sGCDecNoFreeNode*)come_increment_ref_count((struct sGCDecNoFreeNode*)come_calloc(1, sizeof(struct sGCDecNoFreeNode)*(1), (void*)0, 1598, "struct sGCDecNoFreeNode*")),(struct sNode*)come_increment_ref_count(node_64),info))));
+        _inf_value17=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1587, "struct sNode");
+        _inf_obj_value17=(struct sGCDecNoFreeNode*)come_increment_ref_count(((struct sGCDecNoFreeNode*)(__right_value1=sGCDecNoFreeNode_initialize((struct sGCDecNoFreeNode*)come_increment_ref_count((struct sGCDecNoFreeNode*)come_calloc(1, sizeof(struct sGCDecNoFreeNode)*(1), (void*)0, 1587, "struct sGCDecNoFreeNode*")),(struct sNode*)come_increment_ref_count(node_64),info))));
         _inf_value17->_protocol_obj=_inf_obj_value17;
         _inf_value17->finalize=(void*)sGCDecNoFreeNode_finalize;
         _inf_value17->clone=(void*)sGCDecNoFreeNode_clone;
@@ -8574,8 +8564,8 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
         type2_=(struct sType*)come_increment_ref_count(solve_generics(param_type,info->generics_type,info));
         type2=(struct sType*)come_increment_ref_count(solve_method_generics(type2_,info));
         expected_next_character(41,info);
-        _inf_value18=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1615, "struct sNode");
-        _inf_obj_value18=(struct sIsHeap*)come_increment_ref_count(((struct sIsHeap*)(__right_value1=sIsHeap_initialize((struct sIsHeap*)come_increment_ref_count((struct sIsHeap*)come_calloc(1, sizeof(struct sIsHeap)*(1), (void*)0, 1615, "struct sIsHeap*")),type2,info))));
+        _inf_value18=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1604, "struct sNode");
+        _inf_obj_value18=(struct sIsHeap*)come_increment_ref_count(((struct sIsHeap*)(__right_value1=sIsHeap_initialize((struct sIsHeap*)come_increment_ref_count((struct sIsHeap*)come_calloc(1, sizeof(struct sIsHeap)*(1), (void*)0, 1604, "struct sIsHeap*")),type2,info))));
         _inf_value18->_protocol_obj=_inf_obj_value18;
         _inf_value18->finalize=(void*)sIsHeap_finalize;
         _inf_value18->clone=(void*)sIsHeap_clone;
@@ -8616,8 +8606,8 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
         type2__69=(struct sType*)come_increment_ref_count(solve_generics(param_type_66,info->generics_type,info));
         type2_70=(struct sType*)come_increment_ref_count(solve_method_generics(type2__69,info));
         expected_next_character(41,info);
-        _inf_value19=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1632, "struct sNode");
-        _inf_obj_value19=(struct sIsPointer*)come_increment_ref_count(((struct sIsPointer*)(__right_value1=sIsPointer_initialize((struct sIsPointer*)come_increment_ref_count((struct sIsPointer*)come_calloc(1, sizeof(struct sIsPointer)*(1), (void*)0, 1632, "struct sIsPointer*")),type2_70,info))));
+        _inf_value19=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1621, "struct sNode");
+        _inf_obj_value19=(struct sIsPointer*)come_increment_ref_count(((struct sIsPointer*)(__right_value1=sIsPointer_initialize((struct sIsPointer*)come_increment_ref_count((struct sIsPointer*)come_calloc(1, sizeof(struct sIsPointer)*(1), (void*)0, 1621, "struct sIsPointer*")),type2_70,info))));
         _inf_value19->_protocol_obj=_inf_obj_value19;
         _inf_value19->finalize=(void*)sIsPointer_finalize;
         _inf_value19->clone=(void*)sIsPointer_clone;
@@ -8710,8 +8700,8 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
         exp_73=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
         info->no_comma=no_comma_72;
         expected_next_character(44,info);
-        types=(struct list$1sType$ph*)come_increment_ref_count(list$1sType$ph_initialize((struct list$1sType$ph*)come_increment_ref_count((struct list$1sType$ph*)come_calloc(1, sizeof(struct list$1sType$ph)*(1), (void*)0, 1693, "struct list$1sType$ph*"))));
-        exps=(struct list$1sNode$ph*)come_increment_ref_count(list$1sNode$ph_initialize((struct list$1sNode$ph*)come_increment_ref_count((struct list$1sNode$ph*)come_calloc(1, sizeof(struct list$1sNode$ph)*(1), (void*)0, 1694, "struct list$1sNode$ph*"))));
+        types=(struct list$1sType$ph*)come_increment_ref_count(list$1sType$ph_initialize((struct list$1sType$ph*)come_increment_ref_count((struct list$1sType$ph*)come_calloc(1, sizeof(struct list$1sType$ph)*(1), (void*)0, 1682, "struct list$1sType$ph*"))));
+        exps=(struct list$1sNode$ph*)come_increment_ref_count(list$1sNode$ph_initialize((struct list$1sNode$ph*)come_increment_ref_count((struct list$1sNode$ph*)come_calloc(1, sizeof(struct list$1sNode$ph)*(1), (void*)0, 1683, "struct list$1sNode$ph*"))));
         default_exp=((void*)0);
         while(1) {
             if(strncmp(info->p,"default",strlen("default"))==0) {
@@ -8756,8 +8746,8 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
                 break;
             }
         }
-        _inf_value20=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1739, "struct sNode");
-        _inf_obj_value20=(struct sGeneric*)come_increment_ref_count(((struct sGeneric*)(__right_value1=sGeneric_initialize((struct sGeneric*)come_increment_ref_count((struct sGeneric*)come_calloc(1, sizeof(struct sGeneric)*(1), (void*)0, 1739, "struct sGeneric*")),(struct sNode*)come_increment_ref_count(exp_73),(struct list$1sType$ph*)come_increment_ref_count(types),(struct list$1sNode$ph*)come_increment_ref_count(exps),(struct sNode*)come_increment_ref_count(default_exp),info))));
+        _inf_value20=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1728, "struct sNode");
+        _inf_obj_value20=(struct sGeneric*)come_increment_ref_count(((struct sGeneric*)(__right_value1=sGeneric_initialize((struct sGeneric*)come_increment_ref_count((struct sGeneric*)come_calloc(1, sizeof(struct sGeneric)*(1), (void*)0, 1728, "struct sGeneric*")),(struct sNode*)come_increment_ref_count(exp_73),(struct list$1sType$ph*)come_increment_ref_count(types),(struct list$1sNode$ph*)come_increment_ref_count(exps),(struct sNode*)come_increment_ref_count(default_exp),info))));
         _inf_value20->_protocol_obj=_inf_obj_value20;
         _inf_value20->finalize=(void*)sGeneric_finalize;
         _inf_value20->clone=(void*)sGeneric_clone;
@@ -8799,8 +8789,8 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
         expected_next_character(44,info);
         word_83=(char*)come_increment_ref_count(parse_word((_Bool)0,info));
         expected_next_character(41,info);
-        _inf_value21=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1759, "struct sNode");
-        _inf_obj_value21=(struct sOffsetOf*)come_increment_ref_count(((struct sOffsetOf*)(__right_value1=sOffsetOf_initialize((struct sOffsetOf*)come_increment_ref_count((struct sOffsetOf*)come_calloc(1, sizeof(struct sOffsetOf)*(1), (void*)0, 1759, "struct sOffsetOf*")),type_80,(char*)come_increment_ref_count(word_83),info))));
+        _inf_value21=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1748, "struct sNode");
+        _inf_obj_value21=(struct sOffsetOf*)come_increment_ref_count(((struct sOffsetOf*)(__right_value1=sOffsetOf_initialize((struct sOffsetOf*)come_increment_ref_count((struct sOffsetOf*)come_calloc(1, sizeof(struct sOffsetOf)*(1), (void*)0, 1748, "struct sOffsetOf*")),type_80,(char*)come_increment_ref_count(word_83),info))));
         _inf_value21->_protocol_obj=_inf_obj_value21;
         _inf_value21->finalize=(void*)sOffsetOf_finalize;
         _inf_value21->clone=(void*)sOffsetOf_clone;
@@ -8859,8 +8849,8 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
                 info->p++;
                 skip_spaces_and_lf(info);
             }
-            _inf_value22=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1802, "struct sNode");
-            _inf_obj_value22=(struct sSizeOfNode*)come_increment_ref_count(((struct sSizeOfNode*)(__right_value1=sSizeOfNode_initialize((struct sSizeOfNode*)come_increment_ref_count((struct sSizeOfNode*)come_calloc(1, sizeof(struct sSizeOfNode)*(1), (void*)0, 1802, "struct sSizeOfNode*")),type_85,info))));
+            _inf_value22=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1791, "struct sNode");
+            _inf_obj_value22=(struct sSizeOfNode*)come_increment_ref_count(((struct sSizeOfNode*)(__right_value1=sSizeOfNode_initialize((struct sSizeOfNode*)come_increment_ref_count((struct sSizeOfNode*)come_calloc(1, sizeof(struct sSizeOfNode)*(1), (void*)0, 1791, "struct sSizeOfNode*")),type_85,info))));
             _inf_value22->_protocol_obj=_inf_obj_value22;
             _inf_value22->finalize=(void*)sSizeOfNode_finalize;
             _inf_value22->clone=(void*)sSizeOfNode_clone;
@@ -8900,8 +8890,8 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
                 info->p++;
                 skip_spaces_and_lf(info);
             }
-            _inf_value23=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1823, "struct sNode");
-            _inf_obj_value23=(struct sSizeOfExpNode*)come_increment_ref_count(((struct sSizeOfExpNode*)(__right_value1=sSizeOfExpNode_initialize((struct sSizeOfExpNode*)come_increment_ref_count((struct sSizeOfExpNode*)come_calloc(1, sizeof(struct sSizeOfExpNode)*(1), (void*)0, 1823, "struct sSizeOfExpNode*")),(struct sNode*)come_increment_ref_count(exp_88),info))));
+            _inf_value23=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1812, "struct sNode");
+            _inf_obj_value23=(struct sSizeOfExpNode*)come_increment_ref_count(((struct sSizeOfExpNode*)(__right_value1=sSizeOfExpNode_initialize((struct sSizeOfExpNode*)come_increment_ref_count((struct sSizeOfExpNode*)come_calloc(1, sizeof(struct sSizeOfExpNode)*(1), (void*)0, 1812, "struct sSizeOfExpNode*")),(struct sNode*)come_increment_ref_count(exp_88),info))));
             _inf_value23->_protocol_obj=_inf_obj_value23;
             _inf_value23->finalize=(void*)sSizeOfExpNode_finalize;
             _inf_value23->clone=(void*)sSizeOfExpNode_clone;
@@ -8946,8 +8936,8 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
             info->p++;
             skip_spaces_and_lf(info);
         }
-        _inf_value24=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1922, "struct sNode");
-        _inf_obj_value24=(struct sDynamicTypeOf*)come_increment_ref_count(((struct sDynamicTypeOf*)(__right_value1=sDynamicTypeOf_initialize((struct sDynamicTypeOf*)come_increment_ref_count((struct sDynamicTypeOf*)come_calloc(1, sizeof(struct sDynamicTypeOf)*(1), (void*)0, 1922, "struct sDynamicTypeOf*")),(struct sNode*)come_increment_ref_count(exp_91),info))));
+        _inf_value24=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1911, "struct sNode");
+        _inf_obj_value24=(struct sDynamicTypeOf*)come_increment_ref_count(((struct sDynamicTypeOf*)(__right_value1=sDynamicTypeOf_initialize((struct sDynamicTypeOf*)come_increment_ref_count((struct sDynamicTypeOf*)come_calloc(1, sizeof(struct sDynamicTypeOf)*(1), (void*)0, 1911, "struct sDynamicTypeOf*")),(struct sNode*)come_increment_ref_count(exp_91),info))));
         _inf_value24->_protocol_obj=_inf_obj_value24;
         _inf_value24->finalize=(void*)sDynamicTypeOf_finalize;
         _inf_value24->clone=(void*)sDynamicTypeOf_clone;
@@ -9002,8 +8992,8 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
                 info->p++;
                 skip_spaces_and_lf(info);
             }
-            _inf_value25=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1962, "struct sNode");
-            _inf_obj_value25=(struct sAlignOfNode*)come_increment_ref_count(((struct sAlignOfNode*)(__right_value1=sAlignOfNode_initialize((struct sAlignOfNode*)come_increment_ref_count((struct sAlignOfNode*)come_calloc(1, sizeof(struct sAlignOfNode)*(1), (void*)0, 1962, "struct sAlignOfNode*")),type_98,info))));
+            _inf_value25=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1951, "struct sNode");
+            _inf_obj_value25=(struct sAlignOfNode*)come_increment_ref_count(((struct sAlignOfNode*)(__right_value1=sAlignOfNode_initialize((struct sAlignOfNode*)come_increment_ref_count((struct sAlignOfNode*)come_calloc(1, sizeof(struct sAlignOfNode)*(1), (void*)0, 1951, "struct sAlignOfNode*")),type_98,info))));
             _inf_value25->_protocol_obj=_inf_obj_value25;
             _inf_value25->finalize=(void*)sAlignOfNode_finalize;
             _inf_value25->clone=(void*)sAlignOfNode_clone;
@@ -9039,8 +9029,8 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
                 exp_101=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
                 (__dec_obj187 ? __dec_obj187 = come_decrement_ref_count(__dec_obj187, ((struct sNode*)__dec_obj187)->finalize, ((struct sNode*)__dec_obj187)->_protocol_obj, 0,0, (void*)0) :0);
             }
-            _inf_value26=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1976, "struct sNode");
-            _inf_obj_value26=(struct sAlignOfExpNode*)come_increment_ref_count(((struct sAlignOfExpNode*)(__right_value1=sAlignOfExpNode_initialize((struct sAlignOfExpNode*)come_increment_ref_count((struct sAlignOfExpNode*)come_calloc(1, sizeof(struct sAlignOfExpNode)*(1), (void*)0, 1976, "struct sAlignOfExpNode*")),(struct sNode*)come_increment_ref_count(exp_101),info))));
+            _inf_value26=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 1965, "struct sNode");
+            _inf_obj_value26=(struct sAlignOfExpNode*)come_increment_ref_count(((struct sAlignOfExpNode*)(__right_value1=sAlignOfExpNode_initialize((struct sAlignOfExpNode*)come_increment_ref_count((struct sAlignOfExpNode*)come_calloc(1, sizeof(struct sAlignOfExpNode)*(1), (void*)0, 1965, "struct sAlignOfExpNode*")),(struct sNode*)come_increment_ref_count(exp_101),info))));
             _inf_value26->_protocol_obj=_inf_obj_value26;
             _inf_value26->finalize=(void*)sAlignOfExpNode_finalize;
             _inf_value26->clone=(void*)sAlignOfExpNode_clone;
@@ -9096,8 +9086,8 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
                 info->p++;
                 skip_spaces_and_lf(info);
             }
-            _inf_value27=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 2017, "struct sNode");
-            _inf_obj_value27=(struct sAlignOfNode2*)come_increment_ref_count(((struct sAlignOfNode2*)(__right_value1=sAlignOfNode2_initialize((struct sAlignOfNode2*)come_increment_ref_count((struct sAlignOfNode2*)come_calloc(1, sizeof(struct sAlignOfNode2)*(1), (void*)0, 2017, "struct sAlignOfNode2*")),type_108,info))));
+            _inf_value27=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 2006, "struct sNode");
+            _inf_obj_value27=(struct sAlignOfNode2*)come_increment_ref_count(((struct sAlignOfNode2*)(__right_value1=sAlignOfNode2_initialize((struct sAlignOfNode2*)come_increment_ref_count((struct sAlignOfNode2*)come_calloc(1, sizeof(struct sAlignOfNode2)*(1), (void*)0, 2006, "struct sAlignOfNode2*")),type_108,info))));
             _inf_value27->_protocol_obj=_inf_obj_value27;
             _inf_value27->finalize=(void*)sAlignOfNode2_finalize;
             _inf_value27->clone=(void*)sAlignOfNode2_clone;
@@ -9133,8 +9123,8 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
                 exp_111=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
                 (__dec_obj193 ? __dec_obj193 = come_decrement_ref_count(__dec_obj193, ((struct sNode*)__dec_obj193)->finalize, ((struct sNode*)__dec_obj193)->_protocol_obj, 0,0, (void*)0) :0);
             }
-            _inf_value28=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 2031, "struct sNode");
-            _inf_obj_value28=(struct sAlignOfExpNode2*)come_increment_ref_count(((struct sAlignOfExpNode2*)(__right_value1=sAlignOfExpNode2_initialize((struct sAlignOfExpNode2*)come_increment_ref_count((struct sAlignOfExpNode2*)come_calloc(1, sizeof(struct sAlignOfExpNode2)*(1), (void*)0, 2031, "struct sAlignOfExpNode2*")),(struct sNode*)come_increment_ref_count(exp_111),info))));
+            _inf_value28=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 2020, "struct sNode");
+            _inf_obj_value28=(struct sAlignOfExpNode2*)come_increment_ref_count(((struct sAlignOfExpNode2*)(__right_value1=sAlignOfExpNode2_initialize((struct sAlignOfExpNode2*)come_increment_ref_count((struct sAlignOfExpNode2*)come_calloc(1, sizeof(struct sAlignOfExpNode2)*(1), (void*)0, 2020, "struct sAlignOfExpNode2*")),(struct sNode*)come_increment_ref_count(exp_111),info))));
             _inf_value28->_protocol_obj=_inf_obj_value28;
             _inf_value28->finalize=(void*)sAlignOfExpNode2_finalize;
             _inf_value28->clone=(void*)sAlignOfExpNode2_clone;
@@ -10168,8 +10158,8 @@ struct sNode* create_implements(struct sNode* node, struct sType* inf_type  , st
     struct sImplementsNode* _inf_obj_value29;
     void* __right_value2 = (void*)0;
     struct sNode* __result_obj__0;
-    _inf_value29=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 2137, "struct sNode");
-    _inf_obj_value29=(struct sImplementsNode*)come_increment_ref_count(((struct sImplementsNode*)(__right_value1=sImplementsNode_initialize((struct sImplementsNode*)come_increment_ref_count((struct sImplementsNode*)come_calloc(1, sizeof(struct sImplementsNode)*(1), (void*)0, 2137, "struct sImplementsNode*")),(struct sNode*)come_increment_ref_count(node),inf_type,info))));
+    _inf_value29=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 2126, "struct sNode");
+    _inf_obj_value29=(struct sImplementsNode*)come_increment_ref_count(((struct sImplementsNode*)(__right_value1=sImplementsNode_initialize((struct sImplementsNode*)come_increment_ref_count((struct sImplementsNode*)come_calloc(1, sizeof(struct sImplementsNode)*(1), (void*)0, 2126, "struct sImplementsNode*")),(struct sNode*)come_increment_ref_count(node),inf_type,info))));
     _inf_value29->_protocol_obj=_inf_obj_value29;
     _inf_value29->finalize=(void*)sImplementsNode_finalize;
     _inf_value29->clone=(void*)sImplementsNode_clone;
@@ -10258,8 +10248,8 @@ struct sNode* post_position_operator_v21(struct sNode* node, struct sInfo* info 
             exit(2);
         }
         inf_type=(struct sType*)come_increment_ref_count(sType_clone(type3));
-        _inf_value30=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 2154, "struct sNode");
-        _inf_obj_value30=(struct sImplementsNode*)come_increment_ref_count(((struct sImplementsNode*)(__right_value1=sImplementsNode_initialize((struct sImplementsNode*)come_increment_ref_count((struct sImplementsNode*)come_calloc(1, sizeof(struct sImplementsNode)*(1), (void*)0, 2154, "struct sImplementsNode*")),(struct sNode*)come_increment_ref_count(node),inf_type,info))));
+        _inf_value30=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 2143, "struct sNode");
+        _inf_obj_value30=(struct sImplementsNode*)come_increment_ref_count(((struct sImplementsNode*)(__right_value1=sImplementsNode_initialize((struct sImplementsNode*)come_increment_ref_count((struct sImplementsNode*)come_calloc(1, sizeof(struct sImplementsNode)*(1), (void*)0, 2143, "struct sImplementsNode*")),(struct sNode*)come_increment_ref_count(node),inf_type,info))));
         _inf_value30->_protocol_obj=_inf_obj_value30;
         _inf_value30->finalize=(void*)sImplementsNode_finalize;
         _inf_value30->clone=(void*)sImplementsNode_clone;
