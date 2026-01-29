@@ -920,6 +920,7 @@ sFun*,string create_operator_equals_automatically(sType* type, const char* fun_n
 sFun*,string create_operator_not_equals_automatically(sType* type, const char* fun_name, sInfo* info);
 sFun*,string create_not_equals_automatically(sType* type, const char* fun_name, sInfo* info);
 sFun*,string create_get_hash_key_automatically(sType* type, const char* fun_name, sInfo* info);
+sFun*,string create_compare_automatically(sType* type, const char* fun_name, sInfo* info);
 string skip_block(sInfo* info=info, bool return_self_at_last=false);
 string skip_paren(sInfo* info=info);
 bool is_contained_generics_class(sType* type, sInfo* info);

@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.8.7.4
+version 0.8.7.5
 
 ``` C
 #include <neo-c.h>
@@ -93,6 +93,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.8.7.5 compare method automatically defined. You can use sort method easilly.
 0.8.7.4 Type checking.
 0.8.7.3 Array with heap object is freed from this version. 
 0.8.7.2 Remove here document. ccpp.c can't treat here document properly. In C level it's not required function, I think.
@@ -539,7 +540,7 @@ li is [1,7,3,4,5]. If the element is a heap, the reference count of the replaced
 liは[1,7,3,4,5]です。要素がヒープの場合置き換える要素はリファレンスカウントが-1されて、リファレンスカウントが0なら削除されます。
 
 ```C
-int find(list<T>* self, T& item, int default_value) 
+int find(list<T>* self, T& item, int default_value, bool by_pointer=false)
 ```
 
 ```C
@@ -635,7 +636,7 @@ bool operator_not_equals(list<T>* left, list<T>* right)
 ```
 
 ```C
-bool contained(list<T>* self, T item) 
+bool contained(list<T>* self, T& item, bool by_pointer=false);
 ```
 
 ```C
@@ -678,6 +679,11 @@ list<T>*% sort(list<T>* self)
 ```C
     [3,7,2,5].sort(); // [2,3,5,7]
 ```
+
+ソートにはcompareメソッドが必要です。もし、ない場合は自動的に生成されます。第一フィールドのcompareが呼ばれます。
+
+Sorting requires a compare method. If one is not present, it is generated automatically. The compare of the first
+  field is used.
 
 ```C
 template<R> list<R>*% map(list<T>* self, void* parent, R (*block)(void*, T&))

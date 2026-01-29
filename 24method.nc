@@ -303,6 +303,12 @@ string, sFun*,sGenericsFun* get_method(const char* fun_name, sType* obj_type, sI
                         fun = borrow info.funcs[real_fun_name];
                         generics_fun_name = real_fun_name;
                     }
+                    if(fun == null && fun_name === "compare") {
+                        var fun2, real_fun_name = create_compare_automatically(obj_type, fun_name, info);
+                        
+                        fun = borrow info.funcs[real_fun_name];
+                        generics_fun_name = real_fun_name;
+                    }
                     if(fun == null) {
                         string original_obj_type_fun_name = create_method_name_original_obj_type(obj_type, false@no_pointer_name, string(fun_name), info);
                         fun = borrow info.funcs.at(string(original_obj_type_fun_name), null);

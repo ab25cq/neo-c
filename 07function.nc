@@ -3584,6 +3584,7 @@ sFun*,string create_to_string_automatically(sType* type, const char* fun_name, s
     return (cloner, real_fun_name);
 }
 
+/*
 sFun*,string create_to_string_automatically(sType* type, const char* fun_name, sInfo* info)
 {
     string last_code = info.module.mLastCode;
@@ -3778,6 +3779,7 @@ sFun*,string create_to_string_automatically(sType* type, const char* fun_name, s
     
     return (to_string_fun, real_fun_name);
 }
+*/
 
 sFun*,string create_get_hash_key_automatically(sType* type, const char* fun_name, sInfo* info)
 {
@@ -3862,6 +3864,162 @@ sFun*,string create_get_hash_key_automatically(sType* type, const char* fun_name
         }
         
         source.append_format("return result;\n");
+        source.append_char('}');
+        
+        char* p = info.p;
+        int sline = info.sline;
+        string sname = info.sname;
+        buffer*% source3 = info.source;
+        char* head = info.head;
+        
+        info.source = source;
+        info.p = info.source.buf;
+        info.head = info.source.buf;
+        
+        info.sname = string(real_fun_name);
+        info.sline = 1;
+        
+        sBlock*% block = parse_block();
+        
+        var result_type = new sType(s"int");
+        result_type->mUnsigned = true;
+        var name = clone real_fun_name;
+        var self_type = clone type;
+        self_type->mHeap = false;
+        list<sType*%>*% param_types = [self_type];
+        var param_names = [string("self")];
+        var param_default_parametors = new list<string>();
+        param_default_parametors.push_back(null);
+        
+        result_type->mStatic = false;
+        result_type->mUniq = false;
+        result_type->mInline = false;
+        
+        var fun2 = info.funcs[string(name)];
+        if(fun2 == null || fun2.mExternal) {
+            var fun = new sFun(name, result_type, param_types, param_names
+                            , param_default_parametors
+                            , false@external, false@var_args, block
+                            , true@static_
+                            , info, false@inline_, false@uniq_, true@generate_);
+            fun->mGenericsFun = true;
+                            
+            info.funcs.insert(string(name), fun);
+            
+            get_hash_key_fun = fun;
+            
+            sNode*% node = new sFunNode(fun, info) implements sNode;
+            
+            node_compile(node).elif {
+                err_msg(info, "compiling error(Y)");
+                exit(2);
+            }
+        }
+        else {
+            get_hash_key_fun = fun2;
+        }
+        
+        info.sname = sname;
+        info.sline = sline;
+        
+        info.source = source3;
+        info.p = p;
+        info.head = head;
+        info.sline = sline;
+    }
+    
+    info->current_stack_frame_struct = current_stack_frame_struct;
+    
+    info.module.mLastCode = last_code;
+    info.module.mLastCode2 = last_code2;
+    info.if_expression_buffer = if_expression_buffer;
+    info.paren_block_buffer = paren_block_buffer;
+    
+    return (get_hash_key_fun, real_fun_name);
+}
+
+sFun*,string create_compare_automatically(sType* type, const char* fun_name, sInfo* info)
+{
+    string last_code = info.module.mLastCode;
+    info.module.mLastCode = null;
+    string last_code2 = info.module.mLastCode2;
+    info.module.mLastCode2 = null;
+    buffer*% if_expression_buffer = clone info.if_expression_buffer;
+    info.if_expression_buffer = null;
+    buffer*% paren_block_buffer = clone info.paren_block_buffer;
+    info.paren_block_buffer = null;
+    
+    sClass* current_stack_frame_struct = info->current_stack_frame_struct;
+    info->current_stack_frame_struct = null;
+    sFun* get_hash_key_fun = null;
+    
+    string real_fun_name = create_method_name(type, false@no_pointer_name, fun_name, info);
+    
+    sType*% type2 = solve_generics(type, type, info);
+    
+    type = type2;
+    
+    sClass* klass = type->mClass;
+        
+    if(type->mGenericsTypes.length() > 0) {
+        get_hash_key_fun = borrow info->funcs[real_fun_name];
+        
+        if(get_hash_key_fun == NULL) {
+            string none_generics_name = get_none_generics_name(type2.mClass.mName);
+            
+            string generics_fun_name = xsprintf("%s_%s", none_generics_name, fun_name);
+            sGenericsFun* generics_fun = borrow info->generics_funcs[generics_fun_name];
+            
+            if(generics_fun) {
+                var name, err = create_generics_fun(real_fun_name, generics_fun, type, info);
+                
+                if(!err)
+                {
+                    printf("%s %d: can't create generics get_hash_key_fun\n", info->sname, info->sline);
+                    exit(2);
+                }
+                get_hash_key_fun = borrow info->funcs[name];
+                //get_hash_key_fun = borrow info->funcs[real_fun_name];
+            }
+        }
+    }
+    else {
+        int i;
+        for(i=FUN_VERSION_MAX-1; i>=1; i--) {
+            string new_fun_name = xsprintf("%s_v%d", real_fun_name, i);
+            get_hash_key_fun = borrow info->funcs[new_fun_name];
+            
+            if(get_hash_key_fun) {
+                real_fun_name = string(new_fun_name);
+                break;
+            }
+        }
+        
+        if(get_hash_key_fun == NULL) {
+            get_hash_key_fun = borrow info->funcs[real_fun_name];
+        }
+    }
+    
+    if(get_hash_key_fun == null && type->mPointerNum > 0 && !klass->mNumber && !klass->mProtocol) {
+        var source = new buffer();
+        
+        source.append_str("{\n");
+        
+        int i = 0;
+        klass = borrow info.classes[klass->mName];
+        if(klass->mFields.length() == 0) {
+            err_msg(info, "require field");
+            exit(1);
+        }
+        
+        var name, field_type = klass->mFields[0];
+        
+        char source2[1024];
+        
+        snprintf(source2, 1024, "return ((int)self.%s).compare();\n", name);
+        
+        source.append_str(source2);
+        
         source.append_char('}');
         
         char* p = info.p;
