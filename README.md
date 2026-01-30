@@ -870,12 +870,8 @@ foreachのためにあります。すべてのキーにアクセスするには�
 ```
 
 The output is AAA 1\nBBB 2\n CCC 3\n.
-foreach(key, ["AAA":1, "BBB":2, "CCC":3]) is not possible. Because foreach is a macro, it has meaning.
-Maybe include foreach in the language specification instead of a macro.
 
 出力はAAA 1\nBBB 2\n CCC 3\nです。
-foreach(key, ["AAA":1, "BBB":2, "CCC":3])とはできません。foreachはマクロのため,が意味を持つためです。
-ちょっとforeachをマクロでなく言語仕様に含めるかもしれません。
 
 ```C
 void rehash(map<T,T2>* self) 
@@ -959,7 +955,6 @@ Returns true if the key is included.
 
 キーが含まれればtrueを返します。
 
-
 ```C
 map<T,T2>*% operator_add(map<T,T2>* left, map<T,T2>* right) 
 ```
@@ -1025,7 +1020,7 @@ int, bool have the same meaning as tuple2<int, bool>*%. Used to return multiple 
 
 To access the element, use v1 etc.
 
-int, boolはtuple2<int, bool>*%と同じ意味です。複数の値を返すために使います。複数の値を各変数に格納したい時、個の場合はvar a,b = div(1,1);とすればいいです。aにint, bにboolが入ります。
+int, boolは`tuple2<int, bool>*%`と同じ意味です。複数の値を返すために使います。複数の値を各変数に格納したい時、個の場合はvar a,b = div(1,1);とすればいいです。aにint, bにboolが入ります。
 
 要素にアクセスするにはv1などとします。
 
@@ -1257,21 +1252,6 @@ static inline list<double>*% double[]::to_list(double* self, size_t len) ;
     a.to_list(3).sort().each {
         printf("%d\n", it);
     }
-```
-
-```C
-static inline size_t char[]::length(char* self, size_t len) ;
-static inline size_t short[]::length(short* self, size_t len) ;
-static inline size_t int[]::length(int* self, size_t len) ;
-static inline size_t long[]::length(long* self, size_t len) ;
-static inline size_t float[]::length(float* self, size_t len) ;
-static inline size_t double[]::length(double* self, size_t len) ;
-```
-
-```C
-    int a[3] = { 3, 2, 1 };
-    
-    printf("%d\n", a.length(3));
 ```
 
 # string 
