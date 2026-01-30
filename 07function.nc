@@ -2267,11 +2267,6 @@ sNode*% parse_function(sInfo* info)
         
         version = n;
     }
-    if(parsecmp("record")) {
-        info->p += strlen("record");
-        skip_spaces_and_lf();
-        result_type->mRecord = true;
-    }
     
     var asm_fun2, fun_attribute2 = parse_function_attribute();
     

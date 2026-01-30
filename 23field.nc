@@ -147,14 +147,14 @@ class sStoreFieldNode extends sNodeBase
         bool child_field_is_pointer = false;
         
         if(klass->mFields == null) {
-            err_msg2(info, "%s fields are null", klass->mName);
+            warning_msg(info, "%s fields are null", klass->mName);
             return true;
         }
         
         sType*% field_type = get_field_type(klass, name, info);
         
         if(field_type == null) {
-            err_msg2(info, "field %s is not found", name);
+            warning_msg(info, "field %s is not found", name);
             
             CVALUE*% come_value = new CVALUE();
             
@@ -416,7 +416,7 @@ class sLoadFieldNode extends sNodeBase
         sType*% field_type = get_field_type(klass, name, info);
         
         if(field_type == null) {
-            err_msg2(info, "type of %s.%s is not found. so can't check the heap type\n", left_value.c_value, name);
+            warning_msg(info, "type of %s.%s is not found. so can't check the heap type\n", left_value.c_value, name);
             
             CVALUE*% come_value = new CVALUE();
             

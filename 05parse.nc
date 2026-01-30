@@ -46,7 +46,7 @@ int err_msg(sInfo* info, const char* msg, ...)
     return 0;
 }
 
-int err_msg2(sInfo* info, const char* msg, ...)
+int warning_msg(sInfo* info, const char* msg, ...)
 {
     if(!info.no_output_come_code) {
         char* msg2;
@@ -65,7 +65,7 @@ int err_msg2(sInfo* info, const char* msg, ...)
             buf.append_format("%s %d(%d): [warning] %s", info.sname, info.sline, info.sline_real, msg2);
         }
         
-        info.err_num2++;
+        info.warning_num++;
 
         free(msg2);
         

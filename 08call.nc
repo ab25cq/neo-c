@@ -664,6 +664,7 @@ class sFunCallNode extends sNodeBase
                 return true;
             }
         }
+        /*
         else if(fun_name === "__builtin_memmove" || fun_name === "__builtin_memset" || fun_name === "__builtin_ffs" 
             || fun_name === "__builtin_ffsl" || fun_name === "__builtin_ffsll" 
             || fun_name === "__builtin_bswap16" || fun_name === "__builtin_bswap32" || fun_name === "__builtin_bswap64" 
@@ -896,7 +897,9 @@ class sFunCallNode extends sNodeBase
             
             return true;
         }
-        else if(fun_name === "__builtin_va_arg") {
+        else 
+        */
+        if(fun_name === "__builtin_va_arg") {
             list<CVALUE*%>*% come_params = new list<CVALUE*%>();
             
             int i = 0;

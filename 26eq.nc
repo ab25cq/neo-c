@@ -181,7 +181,7 @@ class sMinusEqualNode extends sNodeBase
     
     string kind()
     {
-        return string("sPlusEqualNode");
+        return string("sMinusEqualNode");
     }
     
     bool compile(sInfo* info)

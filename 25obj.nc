@@ -1633,8 +1633,6 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             info->p += strlen("neo-c-net");
             skip_spaces_and_lf();
             
-            gComeNet = true;
-        
             return create_nothing_node();
         }
         else if(parsecmp("neo-c")) {
@@ -2081,8 +2079,6 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 94
             info->p += strlen("neo-c-net");
             skip_spaces_and_lf();
             
-            gComeNet = true;
-        
             return create_nothing_node();
         }
         else if(parsecmp("neo-c")) {

@@ -63,7 +63,7 @@ class sStoreNode extends sNodeBase
                 var_ = borrow get_variable_from_table(info.lv_table, var_name);
                 
                 if(var_ == null) {
-                    err_msg2(info, "var not found(%s)(ZY) at definition of variable", it);
+                    warning_msg(info, "var not found(%s)(ZY) at definition of variable", it);
                     return true;
                 }
                 
@@ -425,7 +425,7 @@ class sStoreNode extends sNodeBase
                 var_ = borrow get_variable_from_table(info.gv_table, self.name);
                 
                 if(var_ == null) {
-                    err_msg2(info, "var not found(%s)(X) at storing variable", self.name);
+                    warning_msg(info, "var not found(%s)(X) at storing variable", self.name);
                     
                     CVALUE*% come_value = new CVALUE();
                     
@@ -708,7 +708,7 @@ class sLoadNode extends sNodeBase
                 }
                 else {
                     if(var_ == null) {
-                        err_msg2(info, "The type of %s is not found. so can't check the heap type\n", self.name);
+                        warning_msg(info, "The type of %s is not found. so can't check the heap type\n", self.name);
                         
                         CVALUE*% come_value = new CVALUE();
                         

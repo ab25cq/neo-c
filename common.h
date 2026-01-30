@@ -31,7 +31,6 @@ interface sNode
     string sname();
     bool terminated();
     string kind();
-    bool no_mutex();
 };
 
 uniq class sClass 
@@ -82,8 +81,6 @@ uniq class sClass
     }
 };
 
-#define REGISTER_MAX 16
-
 uniq class sType
 {
     sClass* mClass;
@@ -116,7 +113,6 @@ uniq class sType
     bool mVolatile;
     bool mStatic;
     bool mUniq;
-    bool mRecord;
     bool mExtern;
     bool mRestrict;
     bool mHeap;
@@ -191,7 +187,7 @@ uniq class sType
         sClass* generics_class = borrow info.generics_classes[name2];
         
         if(klass == null && generics_class == null) {
-            err_msg2(info, "class not found(%s)(1)\n", name2);
+            warning_msg(info, "class not found(%s)(1)\n", name2);
         }
         
         if(klass) {
@@ -482,14 +478,13 @@ struct sInfo
     char* p;
     char* head;
     buffer*% source;
-    string original_source;
     char* end;
     string sname;
     string sname_at_head;
     string base_sname;
     int sline;
     int err_num;
-    int err_num2;
+    int warning_num;
     string clang_option;
     string cpp_option;
     string linker_option;
@@ -644,10 +639,6 @@ uniq class sNodeBase
     }
     
     bool terminated() {
-        return false;
-    }
-    
-    bool no_mutex() {
         return false;
     }
     
@@ -819,7 +810,7 @@ uniq class sCurrentNode extends sNodeBase
 /////////////////////////////////////////////////////////////////////
 bool transpile_conditional_with_free_right_object_value(sNode* node, sInfo* info=info);
 int err_msg(sInfo* info, const char* msg, ...);
-int err_msg2(sInfo* info, const char* msg, ...);
+int warning_msg(sInfo* info, const char* msg, ...);
 int expected_next_character(char c, sInfo* info=info);;
 bool node_compile(sNode* node, sInfo* info=info);
 bool node_conditional_compile(sNode* node, sInfo* info=info);

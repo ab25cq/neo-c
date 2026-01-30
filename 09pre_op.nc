@@ -287,7 +287,7 @@ class sLogicalDenial2 extends sNodeBase
     
     string kind()
     {
-        return string("sLogicalDenial");
+        return string("sLogicalDenial2");
     }
     
     bool compile(sInfo* info)

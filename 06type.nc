@@ -249,14 +249,14 @@ bool check_assign_type(const char* msg, sType* left_type, sType* right_type, CVA
     
     if(left_type2->mPointerNum > 0 && (right_type->mArrayNum.length() > 0 || right_type->mArrayPointerNum > 0)) {
         if(!left_type2->mConstant && right_type->mConstant) {
-            err_msg2(info , "type check warning(1).%s %s %d <- const %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type->mClass->mName, right_type->mPointerNum);
+            warning_msg(info , "type check warning(1).%s %s %d <- const %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type->mClass->mName, right_type->mPointerNum);
         }
         else if(left_type2->mClass->mName === right_type->mClass->mName) {
         }
         else if(left_type2->mClass->mName === "void") {
         }
         else {
-            err_msg2(info , "type check warning(1).%s %s %d <- %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type->mClass->mName, right_type->mPointerNum);
+            warning_msg(info , "type check warning(1).%s %s %d <- %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type->mClass->mName, right_type->mPointerNum);
         }
     }
     else if(left_type2->mPointerNum > 0 && right_type->mPointerNum == 0) {
@@ -267,7 +267,7 @@ bool check_assign_type(const char* msg, sType* left_type, sType* right_type, CVA
         else if(right_type->mArrayPointerNum > 0) {
         }
         else {
-            err_msg2(info , "type check warning(2).%s. %s %d <- %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type->mClass->mName, right_type->mPointerNum);
+            warning_msg(info , "type check warning(2).%s. %s %d <- %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type->mClass->mName, right_type->mPointerNum);
         }
     }
     else if(left_type2->mPointerNum == 0 && right_type->mPointerNum > 0) {
@@ -278,7 +278,7 @@ bool check_assign_type(const char* msg, sType* left_type, sType* right_type, CVA
         else if(left_type2->mClass->mName === "lambda" || right_type->mClass->mName === "void") {
         }
         else {
-            err_msg2(info , "type check warning(3).%s. %s %d <- %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type->mClass->mName, right_type->mPointerNum);
+            warning_msg(info , "type check warning(3).%s. %s %d <- %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type->mClass->mName, right_type->mPointerNum);
         }
     }
     else if(left_type2->mPointerNum > 0 && right_type->mPointerNum > 0) {
@@ -320,14 +320,14 @@ bool check_assign_type(const char* msg, sType* left_type, sType* right_type, CVA
                     }
                     else if((left->mClass->mName !== right->mClass->mName) || (left->mPointerNum != right->mPointerNum)) {
                         check_ = false;
-                        err_msg2(info , "left child generics %s right child generics %s", left->mClass->mName, right->mClass->mName);
+                        warning_msg(info , "left child generics %s right child generics %s", left->mClass->mName, right->mClass->mName);
                     }
                 }
             }
             
             
             if(!check_) {
-                err_msg2(info , "type check warning(4).%s. %s %d <- %s %d", msg, left_no_solved_generics_type->mClass->mName, left_type2->mPointerNum, right_no_solved_generics_type->mClass->mName, right_type2->mPointerNum);
+                warning_msg(info , "type check warning(4).%s. %s %d <- %s %d", msg, left_no_solved_generics_type->mClass->mName, left_type2->mPointerNum, right_no_solved_generics_type->mClass->mName, right_type2->mPointerNum);
             }
         }
         else if(strlen(left_type2->mClass->mName) >= strlen("tuple") 
@@ -341,12 +341,12 @@ bool check_assign_type(const char* msg, sType* left_type, sType* right_type, CVA
             err_msg(info , "type check warning(4).%s. %s %d <- %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type2->mClass->mName, right_type2->mPointerNum);
         }
         else if(!left_type2->mConstant && right_type->mConstant) {
-            err_msg2(info , "type check warning(1).%s %s %d <- const %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type->mClass->mName, right_type->mPointerNum);
+            warning_msg(info , "type check warning(1).%s %s %d <- const %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type->mClass->mName, right_type->mPointerNum);
         }
         else if(parent_class) {
         }
         else if(left_type2->mClass->mName !== right_type->mClass->mName && !flag_) {
-            err_msg2(info , "type check warning(5).%s. %s %d <- %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type->mClass->mName, right_type->mPointerNum);
+            warning_msg(info , "type check warning(5).%s. %s %d <- %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type->mClass->mName, right_type->mPointerNum);
         }
     }
     else if(left_type2->mPointerNum == 0 && right_type->mPointerNum == 0) {
@@ -357,7 +357,7 @@ bool check_assign_type(const char* msg, sType* left_type, sType* right_type, CVA
         else if(left_type2->mClass->mName === right_type->mClass->mName) {
         }
         else {
-            err_msg2(info , "type check warning(6).%s. %s %d <- %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type->mClass->mName, right_type->mPointerNum);
+            warning_msg(info , "type check warning(6).%s. %s %d <- %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type->mClass->mName, right_type->mPointerNum);
         }
     }
     
@@ -2127,21 +2127,6 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                 type->mSizeNum = node;
             }
             
-/*
-            if(parsecmp("asm")) {
-                info->p += strlen("asm");
-                skip_spaces_and_lf();
-                
-                expected_next_character('"');
-                
-                string buf = parse_word();
-                
-                xstrncpy(type->mAsmRegister, buf, REGISTER_MAX);
-                
-                expected_next_character('"');
-            }
-*/
-        
             string attribute2 = parse_struct_attribute();
             
             if(attribute !== "" && attribute2 !== "") {
@@ -2191,7 +2176,6 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         result_type->mRegister = register_;
         result_type->mUnsigned = result_type->mUnsigned || unsigned_;
         result_type->mVolatile = volatile_;
-        result_type->mRecord = result_type->mRecord || record_;
         result_type->mUniq = result_type->mUniq || uniq_;
         result_type->mStatic = (result_type->mStatic || static_) && !result_type->mUniq;
         result_type->mExtern = result_type->mExtern || extern_;
@@ -2259,7 +2243,6 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         type->mVolatile = volatile_;
         type->mUniq = type->mUniq || uniq_;
         type->mStatic = (type->mStatic || static_) && !type->mUniq;
-        type->mRecord = type->mRecord || record_;
         type->mExtern = type->mExtern || extern_;
         type->mInline = type->mInline || inline_;
         type->mRestrict = type->mRestrict || restrict_;
@@ -2389,7 +2372,6 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         result_type->mVolatile = volatile_;
         result_type->mUniq = result_type->mUniq || uniq_;
         result_type->mStatic = (result_type->mStatic || static_) && !result_type->mUniq;
-        result_type->mRecord = result_type->mRecord || record_;
         result_type->mExtern = result_type->mExtern || extern_;
         result_type->mInline = result_type->mInline || inline_;
         result_type->mRestrict = result_type->mRestrict || restrict_;
@@ -2512,7 +2494,6 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             type->mVolatile = volatile_;
             type->mUniq = type->mUniq || uniq_;
             type->mStatic = (type->mStatic || static_) && !type->mUniq;
-            type->mRecord = type->mRecord || record_;
             type->mExtern = type->mExtern || extern_;
             type->mInline = type->mInline || inline_;
             type->mRestrict = type->mRestrict || restrict_;
@@ -2549,7 +2530,6 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             type->mVolatile = volatile_;
             type->mUniq = type->mUniq || uniq_;
             type->mStatic = (type->mStatic || static_) && !type->mUniq;
-            type->mRecord = type->mRecord || record_;
             type->mExtern = type->mExtern || extern_;
             type->mInline = type->mInline || inline_;
             type->mRestrict = type->mRestrict || restrict_;
@@ -2581,7 +2561,6 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             type->mVolatile = volatile_;
             type->mUniq = type->mUniq || uniq_;
             type->mStatic = (type->mStatic || static_) && !type->mUniq;
-            type->mRecord = type->mRecord || record_;
             type->mExtern = type->mExtern || extern_;
             type->mInline = type->mInline || inline_;
             type->mRestrict = type->mRestrict || restrict_;
@@ -2660,7 +2639,6 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             type->mVolatile = volatile_;
             type->mUniq = type->mUniq || uniq_;
             type->mStatic = (type->mStatic || static_) && !type->mUniq;
-            type->mRecord = type->mRecord || record_;
             type->mExtern = type->mExtern || extern_;
             type->mInline = type->mInline || inline_;
             type->mRestrict = type->mRestrict || restrict_;
@@ -2711,7 +2689,6 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             type->mVolatile = volatile_;
             type->mUniq = type->mUniq || uniq_;
             type->mStatic = (type->mStatic || static_) && !type->mUniq;
-            type->mRecord = type->mRecord || record_;
             type->mExtern = type->mExtern || extern_;
             type->mInline = type->mInline || inline_;
             type->mRestrict = type->mRestrict || restrict_;
