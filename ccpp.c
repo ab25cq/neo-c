@@ -1,12 +1,10 @@
 #include <ctype.h>
-#include <dirent.h>
 #include <errno.h>
 #include <limits.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/stat.h>
 
 typedef struct {
     char *name;
@@ -60,6 +58,13 @@ static char *xstrdup(const char *s) {
     if (!p) die("malloc");
     memcpy(p, s, n);
     return p;
+}
+
+static bool file_exists(const char *path) {
+    if (!path || !*path) return false;
+    FILE *f = fopen(path, "r");
+    if (f) { fclose(f); return true; }
+    return false;
 }
 
 static void mtable_init(MacroTable *t) {
@@ -456,64 +461,82 @@ static bool starts_with(const char *s, const char *prefix) {
     return a >= b && memcmp(s, prefix, b) == 0;
 }
 
-static bool is_dir_path(const char *path) {
-    struct stat st;
-    return path && stat(path, &st) == 0 && S_ISDIR(st.st_mode);
-}
-
-static bool parse_version(const char *s, int *maj, int *min, int *patch) {
-    char *end = NULL;
-    long a = strtol(s, &end, 10);
-    if (end == s) return false;
-    long b = 0, c = 0;
-    if (*end == '.') {
-        char *end2 = NULL;
-        b = strtol(end + 1, &end2, 10);
-        if (end2 == end + 1) return false;
-        end = end2;
-        if (*end == '.') {
-            char *end3 = NULL;
-            c = strtol(end + 1, &end3, 10);
-            if (end3 == end + 1) return false;
-            end = end3;
-        }
-    }
-    if (*end != '\0') return false;
-    *maj = (int)a;
-    *min = (int)b;
-    *patch = (int)c;
-    return true;
-}
-
 static char *path_join(const char *a, const char *b);
+
+static bool add_sysinc_if_header(PPOpts *opts, char *incdir, const char *header) {
+    if (!opts || !incdir || !header) { free(incdir); return false; }
+    char *probe = path_join(incdir, header);
+    bool ok = file_exists(probe);
+    free(probe);
+    if (ok) {
+        opts->sysincdirs = (const char**)xrealloc((void*)opts->sysincdirs, sizeof(char*)*(opts->nsysincdirs+1));
+        opts->sysincdirs[opts->nsysincdirs++] = incdir;
+        return true;
+    }
+    free(incdir);
+    return false;
+}
 
 static bool add_best_clang_resource_include(PPOpts *opts, const char *base) {
     if (!opts || !base) return false;
-    DIR *d = opendir(base);
-    if (!d) return false;
-    int best_a = -1, best_b = -1, best_c = -1;
-    char *best = NULL;
-    struct dirent *ent;
-    while ((ent = readdir(d)) != NULL) {
-        if (ent->d_name[0] == '.') continue;
-        int a = 0, b = 0, c = 0;
-        if (!parse_version(ent->d_name, &a, &b, &c)) continue;
-        if (a > best_a || (a == best_a && (b > best_b || (b == best_b && c > best_c)))) {
-            free(best);
-            best = xstrdup(ent->d_name);
-            best_a = a; best_b = b; best_c = c;
+    // Probe common clang resource version directories without directory enumeration.
+    for (int major = 30; major >= 3; --major) {
+        char vbuf[32];
+        snprintf(vbuf, sizeof vbuf, "%d", major);
+        {
+            char *verdir = path_join(base, vbuf);
+            char *incdir = path_join(verdir, "include");
+            free(verdir);
+            if (add_sysinc_if_header(opts, incdir, "stdatomic.h")) return true;
+        }
+        for (int minor = 0; minor <= 2; ++minor) {
+            for (int patch = 0; patch <= 9; ++patch) {
+                snprintf(vbuf, sizeof vbuf, "%d.%d.%d", major, minor, patch);
+                char *verdir = path_join(base, vbuf);
+                char *incdir = path_join(verdir, "include");
+                free(verdir);
+                if (add_sysinc_if_header(opts, incdir, "stdatomic.h")) return true;
+            }
         }
     }
-    closedir(d);
-    if (!best) return false;
-    char *verdir = path_join(base, best);
-    char *incdir = path_join(verdir, "include");
-    free(verdir);
-    free(best);
-    if (!is_dir_path(incdir)) { free(incdir); return false; }
-    opts->sysincdirs = (const char**)xrealloc((void*)opts->sysincdirs, sizeof(char*)*(opts->nsysincdirs+1));
-    opts->sysincdirs[opts->nsysincdirs++] = incdir;
-    return true;
+    return false;
+}
+
+static bool add_gcc_internal_includes(PPOpts *opts, const char *gcc_base) {
+    if (!opts || !gcc_base) return false;
+    const char *triples[] = {
+        "x86_64-linux-gnu",
+        "x86_64-redhat-linux",
+        "x86_64-pc-linux-gnu",
+        "aarch64-linux-gnu",
+        "i386-linux-gnu",
+        "arm-linux-gnueabihf",
+        "arm-linux-gnueabi",
+        "powerpc64le-linux-gnu",
+        "riscv64-linux-gnu",
+        "s390x-linux-gnu"
+    };
+    for (size_t ti = 0; ti < sizeof(triples)/sizeof(triples[0]); ++ti) {
+        char *tbase = path_join(gcc_base, triples[ti]);
+        bool found = false;
+        for (int major = 20; major >= 4; --major) {
+            char vbuf[16];
+            snprintf(vbuf, sizeof vbuf, "%d", major);
+            char *vdir = path_join(tbase, vbuf);
+            char *incdir = path_join(vdir, "include");
+            if (add_sysinc_if_header(opts, incdir, "stdatomic.h")) {
+                char *incfixed = path_join(vdir, "include-fixed");
+                add_sysinc_if_header(opts, incfixed, "limits.h");
+                found = true;
+                free(vdir);
+                break;
+            }
+            free(vdir);
+        }
+        free(tbase);
+        if (found) return true;
+    }
+    return false;
 }
 
 static bool is_escaped(const char *s, size_t i) {
@@ -2862,6 +2885,7 @@ int main(int argc, char **argv) {
         opts.sysincdirs = (const char**)xrealloc((void*)opts.sysincdirs, sizeof(char*)*(opts.nsysincdirs+1));
         opts.sysincdirs[opts.nsysincdirs++] = defs[di];
     }
+    bool found_clang = false;
 #ifdef __APPLE__
     // Add common macOS SDK locations (Xcode/CLT). They may not exist; harmless to try.
     {
@@ -2891,6 +2915,7 @@ PPOpts opts_global = {0};
 
 void init_ccpp(int argc, char** argv)
 {
+    bool found_clang = false;
     mtable_init(&tbl_global);
     // Preserve comments by default (matches gcc -E behavior with -C implied
     // for this tool). The -C flag remains accepted (no-op) for compatibility.
@@ -3008,13 +3033,24 @@ void init_ccpp(int argc, char** argv)
             opts_global.sysincdirs[opts_global.nsysincdirs++] = mac_defs[di];
         }
     }
-    if (!add_best_clang_resource_include(&opts_global, "/Library/Developer/CommandLineTools/usr/lib/clang")) {
-        add_best_clang_resource_include(&opts_global, "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang");
+    if (add_best_clang_resource_include(&opts_global, "/Library/Developer/CommandLineTools/usr/lib/clang")) {
+        found_clang = true;
+    } else if (add_best_clang_resource_include(&opts_global, "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang")) {
+        found_clang = true;
     }
 #else
-    add_best_clang_resource_include(&opts_global, "/usr/lib/clang");
-    add_best_clang_resource_include(&opts_global, "/usr/local/lib/clang");
+    if (add_best_clang_resource_include(&opts_global, "/usr/lib/clang")) {
+        found_clang = true;
+    }
+    if (add_best_clang_resource_include(&opts_global, "/usr/local/lib/clang")) {
+        found_clang = true;
+    }
 #endif
+    // Add GCC internal include dirs only if clang resource headers aren't available.
+    if (!found_clang) {
+        add_gcc_internal_includes(&opts_global, "/usr/lib/gcc");
+        add_gcc_internal_includes(&opts_global, "/usr/lib64/gcc");
+    }
 }
 
 void preprocess_file_neo_c(const char *path, FILE *out) 
