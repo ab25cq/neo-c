@@ -1863,275 +1863,6 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
     return inherit(buf2, head, head_sline, info);
 }
 
-string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sType* generics_type, sInfo* info)
-{
-    sFun* caller_fun = info->caller_fun;
-    info->caller_fun = info->come_fun;
-    int caller_line = info->caller_line;
-    info->caller_line = info->sline;
-    char* caller_sname = info->caller_sname;
-    info->caller_sname = info->sname;
-    buffer*% if_expression_buffer = clone info.if_expression_buffer;
-    info.if_expression_buffer = null;
-    buffer*% paren_block_buffer = clone info.paren_block_buffer;
-    info.paren_block_buffer = null;
-    
-    int right_value_max = info->right_value_max;
-    int right_value_num = info->right_value_num;
-    int max_conditional = info->max_conditional;
-    int num_conditional = info->num_conditional;
-    bool in_conditional = info->in_conditional;
-    info.in_conditional = false;
-    
-    string last_code = info.module.mLastCode;
-    info.module.mLastCode = null;
-    string last_code2 = info.module.mLastCode2;
-    info.module.mLastCode2 = null;
-    
-    string sname_top = string(info->sname);
-    int sline_top = info->sline;
-    
-    sType*% generics_type_ = get_no_solved_type2(generics_type);
-    
-    sFun*% funX = info.funcs[string(fun_name)];
-    if(funX) {
-        info->sname = string(sname_top);
-        info->sline = sline_top;
-        
-        info.module.mLastCode = last_code;
-        info.module.mLastCode2 = last_code2;
-        
-        info->caller_fun = caller_fun;
-        info->caller_line = caller_line;
-        info->caller_sname = caller_sname;
-        info.if_expression_buffer = if_expression_buffer;
-        info.paren_block_buffer = paren_block_buffer;
-        return (fun_name, true);
-    }
-    
-    sType*% result_type_ = solve_generics(generics_fun->mResultType, generics_type_, info);
-    
-    sType*% result_type = solve_method_generics(result_type_, info);
-    
-    list<sType*%>*% param_types = new list<sType*%>();
-    foreach(it, generics_fun->mParamTypes) {
-        sType*% param_type_ = solve_generics(clone it, generics_type_, info);
-    
-        sType*% param_type = solve_method_generics(param_type_, info);
-        
-        param_types.add(clone param_type);
-    }
-    list<string>*% param_names = clone generics_fun->mParamNames;
-    
-    var param_default_parametors = clone generics_fun->mParamDefaultParametors;
-    
-    char* p = info.p;
-    int sline = info.sline;
-    string sname = info.sname;
-    char* head = info.head;
-    buffer*% source = info.source;
-    
-    info.source = generics_fun->mBlock.to_buffer();
-    info.p = info.source.buf;
-    info.head = info.source.buf;
-    
-    sType*% generics_type_saved = info->generics_type;
-    sType*% generics_type_ = get_no_solved_type2(generics_type);
-    info->generics_type = clone generics_type_;
-    
-    list<string>*% method_generics_type_names = info->method_generics_type_names;
-    
-    info->method_generics_type_names = new list<string>();
-    foreach(it, generics_fun->mMethodGenericsTypeNames) {
-        info->method_generics_type_names.push_back(clone it);
-    }
-    
-    info.generics_type_names.reset();
-    info.generics_type_names = clone generics_fun.mGenericsTypeNames;
-    
-    info.sline = generics_fun->mGenericsSLine;
-    info.sname = generics_fun->mGenericsSName;
-    
-    sBlock*% block = parse_block(in_function:true);
-    
-    info.head = head;
-    info.source = source;
-    info.p = p;
-    info.sline = sline;
-    info.sname = sname;
-    
-    result_type->mInline = false;
-    result_type->mStatic = false;
-    result_type->mUniq = false;
-    
-    bool const_fun = generics_fun->mConstFun;
-    
-    bool var_args = generics_fun.mVarArgs;
-    var fun = new sFun(fun_name, result_type
-                    , param_types
-                    , param_names, param_default_parametors, false@external
-                    , var_args, block, true@static_, info, false@inline_, false@uniq_, const_fun:const_fun);
-                    
-    fun->mGenericsFun = true;
-    
-    info.funcs.insert(string(fun_name), fun);
-    
-    sNode*% node = new sFunNode(fun, info) implements sNode;
-    
-    bool in_generics_fun = info.in_generics_fun;
-    info.in_generics_fun = true;
-    node_compile(node).elif {
-        return (s"", false);
-    }
-    info.in_generics_fun = in_generics_fun;
-    
-    info->generics_type = generics_type_saved;
-    info.method_generics_type_names = method_generics_type_names;
-    
-    info.generics_type_names.reset();
-    
-    info->sname = string(sname_top);
-    info->sline = sline_top;
-    
-    info.module.mLastCode = last_code;
-    info.module.mLastCode2 = last_code2;
-    
-    info->caller_fun = caller_fun;
-    info->caller_line = caller_line;
-    info->caller_sname = caller_sname;
-    
-    info->right_value_max = right_value_max;
-    info->right_value_num = right_value_num;
-    info->num_conditional = num_conditional;
-    info->max_conditional = max_conditional;
-    info.in_conditional = in_conditional;
-    info.if_expression_buffer = if_expression_buffer;
-    info.paren_block_buffer = paren_block_buffer;
-    
-    return (string(fun_name), true);
-}
-
-bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sInfo* info)
-{
-    sFun* caller_fun = info->caller_fun;
-    info->caller_fun = info->come_fun;
-    int caller_line = info->caller_line;
-    info->caller_line = info->sline;
-    char* caller_sname = info->caller_sname;
-    info->caller_sname = info->sname;
-    bool in_conditional = info->in_conditional;
-    info.in_conditional = false;
-    buffer*% if_expression_buffer = clone info.if_expression_buffer;
-    info.if_expression_buffer = null;
-    buffer*% paren_block_buffer = clone info.paren_block_buffer;
-    info.paren_block_buffer = null;
-    
-    string last_code = info.module.mLastCode;
-    info.module.mLastCode = null;
-    string last_code2 = info.module.mLastCode2;
-    info.module.mLastCode2 = null;
-    
-    string sname_top = string(info->sname);
-    int sline_top = info->sline;
-    
-    sFun* funX = borrow info.funcs[string(fun_name)];
-    if(funX) {
-        info->sname = string(sname_top);
-        info->sline = sline_top;
-        
-        info.module.mLastCode = last_code;
-        info.module.mLastCode2 = last_code2;
-        
-        info->caller_fun = caller_fun;
-        info->caller_line = caller_line;
-        info->caller_sname = caller_sname;
-        info.if_expression_buffer = if_expression_buffer;
-        info.paren_block_buffer = paren_block_buffer;
-        return true;
-    }
-
-    sType*% result_type = solve_method_generics(generics_fun->mResultType, info);
-    
-    list<sType*%>*% param_types = new list<sType*%>();
-    foreach(it, generics_fun->mParamTypes) {
-        sType*% param_type = solve_method_generics(clone it, info);
-        
-        param_types.add(clone param_type);
-    }
-    list<string>*% param_names = clone generics_fun->mParamNames;
-    
-    var param_default_parametors = clone generics_fun->mParamDefaultParametors;
-    
-    char* p = info.p;
-    int sline = info.sline;
-    string sname = info.sname;
-    char* head = info.head;
-    buffer*% source = info.source;
-    
-    info.source = generics_fun->mBlock.to_buffer();
-    info.p = info.source.buf;
-    info.head = info.source.buf;
-    
-    list<string>*% method_generics_type_names = info->method_generics_type_names;
-    
-    info->method_generics_type_names = new list<string>();
-    foreach(it, generics_fun->mMethodGenericsTypeNames) {
-        info->method_generics_type_names.push_back(clone it);
-    }
-    
-    info.generics_type_names.reset();
-    info.generics_type_names = clone generics_fun.mGenericsTypeNames;
-    
-    info.sline = generics_fun->mGenericsSLine;
-    info.sname = generics_fun->mGenericsSName;
-    
-    sBlock*% block = parse_block(in_function:true);
-    
-    info.head = head;
-    info.source = source;
-    info.p = p;
-    info.sline = sline;
-    info.sname = sname;
-    
-    result_type->mInline = false;
-    result_type->mStatic = false;
-    result_type->mUniq = false;
-    
-    bool var_args = generics_fun.mVarArgs;
-    var fun = new sFun(fun_name, result_type
-                    , clone param_types
-                    , param_names, param_default_parametors, false@external
-                    , var_args, block, true@static_, info, false@inline_, false@uniq_);
-    fun->mGenericsFun = true;
-    
-    info.funcs.insert(string(fun_name), fun);
-    
-    sNode*% node = new sFunNode(fun, info) implements sNode;
-    
-    node_compile(node).elif {
-        return false;
-    }
-    
-    info.method_generics_type_names = method_generics_type_names;
-    
-    info.generics_type_names.reset();
-    
-    info->sname = string(sname_top);
-    info->sline = sline_top;
-    
-    info.module.mLastCode = last_code;
-    info.module.mLastCode2 = last_code2;
-    
-    info->caller_fun = caller_fun;
-    info->caller_line = caller_line;
-    info->caller_sname = caller_sname;
-    info.in_conditional = in_conditional;
-    info.if_expression_buffer = if_expression_buffer;
-    info.paren_block_buffer = paren_block_buffer;
-    
-    return true;
-}
-
 sNode*% parse_function(sInfo* info)
 {
     char* header_head = info.p;
@@ -2485,8 +2216,253 @@ sNode*% parse_function(sInfo* info)
     return (sNode*%)null;
 }
 
+module MSaveState
+{
+    sClass* current_stack_frame_struct = info->current_stack_frame_struct;
+    info->current_stack_frame_struct = null;
+    sFun* caller_fun = info->caller_fun;
+    info->caller_fun = info->come_fun;
+    int caller_line = info->caller_line;
+    info->caller_line = info->sline;
+    char* caller_sname = info->caller_sname;
+    info->caller_sname = info->sname;
+    buffer*% if_expression_buffer = clone info.if_expression_buffer;
+    info.if_expression_buffer = null;
+    buffer*% paren_block_buffer = clone info.paren_block_buffer;
+    info.paren_block_buffer = null;
+    
+    int right_value_max = info->right_value_max;
+    int right_value_num = info->right_value_num;
+    int max_conditional = info->max_conditional;
+    int num_conditional = info->num_conditional;
+    bool in_conditional = info->in_conditional;
+    info.in_conditional = false;
+    
+    string last_code = info.module.mLastCode;
+    info.module.mLastCode = null;
+    string last_code2 = info.module.mLastCode2;
+    info.module.mLastCode2 = null;
+    
+    string sname_top = string(info->sname);
+    int sline_top = info->sline;
+    
+    var stack_saved = info.stack;
+    list<sRightValueObject*%>* right_value_objects = info.right_value_objects;
+}
+
+module MRestoreState
+{
+    info->sname = string(sname_top);
+    info->sline = sline_top;
+    
+    info.module.mLastCode = last_code;
+    info.module.mLastCode2 = last_code2;
+    
+    info->caller_fun = caller_fun;
+    info->caller_line = caller_line;
+    info->caller_sname = caller_sname;
+    
+    info->right_value_max = right_value_max;
+    info->right_value_num = right_value_num;
+    info->num_conditional = num_conditional;
+    info->max_conditional = max_conditional;
+    info.in_conditional = in_conditional;
+    info.if_expression_buffer = if_expression_buffer;
+    info.paren_block_buffer = paren_block_buffer;
+    info->current_stack_frame_struct = current_stack_frame_struct;
+    info.right_value_objects = dummy_heap right_value_objects;
+    info.stack = stack_saved;
+}
+
+string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sType* generics_type, sInfo* info)
+{
+    include MSaveState;
+    
+    sType*% generics_type_ = get_no_solved_type2(generics_type);
+    
+    sFun*% funX = info.funcs[string(fun_name)];
+    if(funX) {
+        include MRestoreState;
+        return (fun_name, true);
+    }
+    
+    sType*% result_type_ = solve_generics(generics_fun->mResultType, generics_type_, info);
+    
+    sType*% result_type = solve_method_generics(result_type_, info);
+    
+    list<sType*%>*% param_types = new list<sType*%>();
+    foreach(it, generics_fun->mParamTypes) {
+        sType*% param_type_ = solve_generics(clone it, generics_type_, info);
+    
+        sType*% param_type = solve_method_generics(param_type_, info);
+        
+        param_types.add(clone param_type);
+    }
+    list<string>*% param_names = clone generics_fun->mParamNames;
+    
+    var param_default_parametors = clone generics_fun->mParamDefaultParametors;
+    
+    char* p = info.p;
+    int sline = info.sline;
+    string sname = info.sname;
+    char* head = info.head;
+    buffer*% source = info.source;
+    
+    info.source = generics_fun->mBlock.to_buffer();
+    info.p = info.source.buf;
+    info.head = info.source.buf;
+    
+    sType*% generics_type_saved = info->generics_type;
+    sType*% generics_type_ = get_no_solved_type2(generics_type);
+    info->generics_type = clone generics_type_;
+    
+    list<string>*% method_generics_type_names = info->method_generics_type_names;
+    
+    info->method_generics_type_names = new list<string>();
+    foreach(it, generics_fun->mMethodGenericsTypeNames) {
+        info->method_generics_type_names.push_back(clone it);
+    }
+    
+    info.generics_type_names.reset();
+    info.generics_type_names = clone generics_fun.mGenericsTypeNames;
+    
+    info.sline = generics_fun->mGenericsSLine;
+    info.sname = generics_fun->mGenericsSName;
+    
+    sBlock*% block = parse_block(in_function:true);
+    
+    info.head = head;
+    info.source = source;
+    info.p = p;
+    info.sline = sline;
+    info.sname = sname;
+    
+    result_type->mInline = false;
+    result_type->mStatic = false;
+    result_type->mUniq = false;
+    
+    bool const_fun = generics_fun->mConstFun;
+    
+    bool var_args = generics_fun.mVarArgs;
+    var fun = new sFun(fun_name, result_type
+                    , param_types
+                    , param_names, param_default_parametors, false@external
+                    , var_args, block, true@static_, info, false@inline_, false@uniq_, const_fun:const_fun);
+                    
+    fun->mGenericsFun = true;
+    
+    info.funcs.insert(string(fun_name), fun);
+    
+    sNode*% node = new sFunNode(fun, info) implements sNode;
+    
+    bool in_generics_fun = info.in_generics_fun;
+    info.in_generics_fun = true;
+    node_compile(node).elif {
+        include MRestoreState;
+        return (s"", false);
+    }
+    info.in_generics_fun = in_generics_fun;
+    
+    info->generics_type = generics_type_saved;
+    info.method_generics_type_names = method_generics_type_names;
+    
+    info.generics_type_names.reset();
+    
+    include MRestoreState;
+    
+    return (string(fun_name), true);
+}
+
+bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sInfo* info)
+{
+    include MSaveState;
+    
+    string sname_top = string(info->sname);
+    int sline_top = info->sline;
+    
+    sFun* funX = borrow info.funcs[string(fun_name)];
+    if(funX) {
+        include MRestoreState;
+        return true;
+    }
+
+    sType*% result_type = solve_method_generics(generics_fun->mResultType, info);
+    
+    list<sType*%>*% param_types = new list<sType*%>();
+    foreach(it, generics_fun->mParamTypes) {
+        sType*% param_type = solve_method_generics(clone it, info);
+        
+        param_types.add(clone param_type);
+    }
+    list<string>*% param_names = clone generics_fun->mParamNames;
+    
+    var param_default_parametors = clone generics_fun->mParamDefaultParametors;
+    
+    char* p = info.p;
+    int sline = info.sline;
+    string sname = info.sname;
+    char* head = info.head;
+    buffer*% source = info.source;
+    
+    info.source = generics_fun->mBlock.to_buffer();
+    info.p = info.source.buf;
+    info.head = info.source.buf;
+    
+    list<string>*% method_generics_type_names = info->method_generics_type_names;
+    
+    info->method_generics_type_names = new list<string>();
+    foreach(it, generics_fun->mMethodGenericsTypeNames) {
+        info->method_generics_type_names.push_back(clone it);
+    }
+    
+    info.generics_type_names.reset();
+    info.generics_type_names = clone generics_fun.mGenericsTypeNames;
+    
+    info.sline = generics_fun->mGenericsSLine;
+    info.sname = generics_fun->mGenericsSName;
+    
+    sBlock*% block = parse_block(in_function:true);
+    
+    info.head = head;
+    info.source = source;
+    info.p = p;
+    info.sline = sline;
+    info.sname = sname;
+    
+    result_type->mInline = false;
+    result_type->mStatic = false;
+    result_type->mUniq = false;
+    
+    bool var_args = generics_fun.mVarArgs;
+    var fun = new sFun(fun_name, result_type
+                    , clone param_types
+                    , param_names, param_default_parametors, false@external
+                    , var_args, block, true@static_, info, false@inline_, false@uniq_);
+    fun->mGenericsFun = true;
+    
+    info.funcs.insert(string(fun_name), fun);
+    
+    sNode*% node = new sFunNode(fun, info) implements sNode;
+    
+    node_compile(node).elif {
+        include MRestoreState;
+        return false;
+    }
+    
+    info.method_generics_type_names = method_generics_type_names;
+    
+    info.generics_type_names.reset();
+    
+    include MRestoreState;
+    
+    return true;
+}
+
+
 sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, sInfo* info)
 {
+    include MSaveState;
+/*
     string last_code = info.module.mLastCode;
     info.module.mLastCode = null;
     string last_code2 = info.module.mLastCode2;
@@ -2499,6 +2475,7 @@ sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, s
     
     buffer*% if_expression_buffer = clone info.if_expression_buffer;
     info.if_expression_buffer = null;
+*/
     
     string real_fun_name = null;
     sFun* finalizer = null;
@@ -2673,12 +2650,16 @@ sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, s
         }
     }
         
+        /*
     info->current_stack_frame_struct = current_stack_frame_struct;
     
     info.module.mLastCode = last_code;
     info.module.mLastCode2 = last_code2;
     info.if_expression_buffer = if_expression_buffer;
     info.paren_block_buffer = paren_block_buffer;
+    */
+    
+    include MRestoreState;
     
     return (finalizer, real_fun_name);
 }
@@ -2686,6 +2667,8 @@ sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, s
 
 sFun*,string create_equals_automatically(sType* type, const char* fun_name, sInfo* info)
 {
+    include MSaveState;
+    /*
     string last_code = info.module.mLastCode;
     info.module.mLastCode = null;
     string last_code2 = info.module.mLastCode2;
@@ -2694,9 +2677,14 @@ sFun*,string create_equals_automatically(sType* type, const char* fun_name, sInf
     info.if_expression_buffer = null;
     buffer*% paren_block_buffer = clone info.paren_block_buffer;
     info.paren_block_buffer = null;
-    
     sClass* current_stack_frame_struct = info->current_stack_frame_struct;
     info->current_stack_frame_struct = null;
+    
+    */
+    
+    include MSaveState;
+    
+    
     sFun* equaler = null;
     
     string real_fun_name = create_method_name(type, false@no_pointer_name, fun_name, info);
@@ -2795,18 +2783,24 @@ sFun*,string create_equals_automatically(sType* type, const char* fun_name, sInf
         info.sname = sname;
     }
     
+    /*
     info->current_stack_frame_struct = current_stack_frame_struct;
     
     info.module.mLastCode = last_code;
     info.module.mLastCode2 = last_code2;
     info.if_expression_buffer = if_expression_buffer;
     info.paren_block_buffer = paren_block_buffer;
+    */
+    
+    include MRestoreState;
     
     return (equaler, real_fun_name);
 }
 
 sFun*,string create_operator_not_equals_automatically(sType* type, const char* fun_name, sInfo* info)
 {
+    include MSaveState;
+    /*
     string last_code = info.module.mLastCode;
     info.module.mLastCode = null;
     string last_code2 = info.module.mLastCode2;
@@ -2818,6 +2812,10 @@ sFun*,string create_operator_not_equals_automatically(sType* type, const char* f
     
     sClass* current_stack_frame_struct = info->current_stack_frame_struct;
     info->current_stack_frame_struct = null;
+    */
+    
+    include MSaveState;
+    
     sFun* equaler = null;
     
     string real_fun_name = create_method_name(type, false@no_pointer_name, fun_name, info);
@@ -2936,18 +2934,24 @@ sFun*,string create_operator_not_equals_automatically(sType* type, const char* f
         info.sname = sname;
     }
     
+    /*
     info->current_stack_frame_struct = current_stack_frame_struct;
     
     info.module.mLastCode = last_code;
     info.module.mLastCode2 = last_code2;
     info.if_expression_buffer = if_expression_buffer;
     info.paren_block_buffer = paren_block_buffer;
+    */
+    
+    include MRestoreState;
     
     return (equaler, real_fun_name);
 }
 
 sFun*,string create_not_equals_automatically(sType* type, const char* fun_name, sInfo* info)
 {
+    include MSaveState;
+    /*
     string last_code = info.module.mLastCode;
     info.module.mLastCode = null;
     string last_code2 = info.module.mLastCode2;
@@ -2959,6 +2963,8 @@ sFun*,string create_not_equals_automatically(sType* type, const char* fun_name, 
     
     sClass* current_stack_frame_struct = info->current_stack_frame_struct;
     info->current_stack_frame_struct = null;
+    */
+    
     sFun* equaler = null;
     
     string real_fun_name = create_method_name(type, false@no_pointer_name, fun_name, info);
@@ -3074,18 +3080,24 @@ sFun*,string create_not_equals_automatically(sType* type, const char* fun_name, 
         info.sname = sname;
     }
     
+    /*
     info->current_stack_frame_struct = current_stack_frame_struct;
     
     info.module.mLastCode = last_code;
     info.module.mLastCode2 = last_code2;
     info.if_expression_buffer = if_expression_buffer;
     info.paren_block_buffer = paren_block_buffer;
+    */
+    
+    include MRestoreState;
     
     return (equaler, real_fun_name);
 }
 
 sFun*,string create_operator_equals_automatically(sType* type, const char* fun_name, sInfo* info)
 {
+    include MSaveState;
+    /*
     string last_code = info.module.mLastCode;
     info.module.mLastCode = null;
     string last_code2 = info.module.mLastCode2;
@@ -3097,6 +3109,8 @@ sFun*,string create_operator_equals_automatically(sType* type, const char* fun_n
     
     sClass* current_stack_frame_struct = info->current_stack_frame_struct;
     info->current_stack_frame_struct = null;
+    */
+    
     sFun* equaler = null;
     
     string real_fun_name = create_method_name(type, false@no_pointer_name, fun_name, info);
@@ -3197,12 +3211,15 @@ sFun*,string create_operator_equals_automatically(sType* type, const char* fun_n
         info.sname = sname;
     }
     
+    /*
     info->current_stack_frame_struct = current_stack_frame_struct;
     
     info.module.mLastCode = last_code;
     info.module.mLastCode2 = last_code2;
     info.if_expression_buffer = if_expression_buffer;
     info.paren_block_buffer = paren_block_buffer;
+    */
+    include MRestoreState;
     
     return (equaler, real_fun_name);
 }
@@ -3212,6 +3229,10 @@ sFun*,string create_cloner_automatically(sType* type, const char* fun_name, sInf
     if(type->mClass->mName === "void") {
         return ((sFun*)null, (string)null);
     }
+    
+    include MSaveState;
+    
+    /*
     string last_code = info.module.mLastCode;
     info.module.mLastCode = null;
     string last_code2 = info.module.mLastCode2;
@@ -3223,6 +3244,8 @@ sFun*,string create_cloner_automatically(sType* type, const char* fun_name, sInf
     
     sClass* current_stack_frame_struct = info->current_stack_frame_struct;
     info->current_stack_frame_struct = null;
+    */
+    
     sFun* cloner = null;
     
     string real_fun_name = create_method_name(type, false@no_pointer_name, fun_name, info);
@@ -3252,6 +3275,7 @@ sFun*,string create_cloner_automatically(sType* type, const char* fun_name, sInf
             
             if(!err) {
                 if(type->mClass->mName === "void") {
+                    include MRestoreState;
                     return ((sFun*)null, (string)null);
                 }
             }
@@ -3426,18 +3450,23 @@ sFun*,string create_cloner_automatically(sType* type, const char* fun_name, sInf
         info.sline = sline;
     }
     
+    /*
     info->current_stack_frame_struct = current_stack_frame_struct;
     
     info.module.mLastCode = last_code;
     info.module.mLastCode2 = last_code2;
     info.if_expression_buffer = if_expression_buffer;
     info.paren_block_buffer = paren_block_buffer;
+    */
+    include MRestoreState;
     
     return (cloner, real_fun_name);
 }
 
 sFun*,string create_to_string_automatically(sType* type, const char* fun_name, sInfo* info)
 {
+    include MSaveState;
+    /*
     string last_code = info.module.mLastCode;
     info.module.mLastCode = null;
     string last_code2 = info.module.mLastCode2;
@@ -3449,6 +3478,8 @@ sFun*,string create_to_string_automatically(sType* type, const char* fun_name, s
     
     sClass* current_stack_frame_struct = info->current_stack_frame_struct;
     info->current_stack_frame_struct = null;
+    */
+    
     sFun* cloner = null;
     
     string real_fun_name = create_method_name(type, false@no_pointer_name, fun_name, info);
@@ -3568,215 +3599,23 @@ sFun*,string create_to_string_automatically(sType* type, const char* fun_name, s
         info.sline = sline;
     }
     
+    /*
     info->current_stack_frame_struct = current_stack_frame_struct;
     
     info.module.mLastCode = last_code;
     info.module.mLastCode2 = last_code2;
     info.if_expression_buffer = if_expression_buffer;
     info.paren_block_buffer = paren_block_buffer;
+    */
+    include MRestoreState;
     
     return (cloner, real_fun_name);
 }
 
-/*
-sFun*,string create_to_string_automatically(sType* type, const char* fun_name, sInfo* info)
-{
-    string last_code = info.module.mLastCode;
-    info.module.mLastCode = null;
-    string last_code2 = info.module.mLastCode2;
-    info.module.mLastCode2 = null;
-    buffer*% if_expression_buffer = clone info.if_expression_buffer;
-    info.if_expression_buffer = null;
-    buffer*% paren_block_buffer = clone info.paren_block_buffer;
-    info.paren_block_buffer = null;
-    
-    sClass* current_stack_frame_struct = info->current_stack_frame_struct;
-    info->current_stack_frame_struct = null;
-    sFun* to_string_fun = null;
-    
-    string real_fun_name = create_method_name(type, false@no_pointer_name, fun_name, info);
-    
-    sType*% type_before = clone type;
-    
-    sType*% type2 = solve_generics(type, type, info);
-    
-    type = type2;
-    
-    sClass* klass = type->mClass;
-        
-    sType*% type_ = get_no_solved_type2(type);
-        
-    if(type_->mGenericsTypes.length() > 0) {
-        to_string_fun = borrow info->funcs[real_fun_name];
-        
-        if(to_string_fun == NULL) {
-            string none_generics_name = get_none_generics_name(type2.mClass.mName);
-            
-            string generics_fun_name = xsprintf("%s_%s", none_generics_name, fun_name);
-            sGenericsFun* generics_fun = borrow info->generics_funcs[generics_fun_name];
-            
-            if(generics_fun) {
-                var name, err = create_generics_fun(real_fun_name, generics_fun, type_, info);
-                
-                if(!err)
-                {
-                    printf("%s %d: can't create generics to_string_fun\n", info->sname, info->sline);
-                    exit(2);
-                }
-                to_string_fun = borrow info->funcs[name];
-                //to_string_fun = borrow info->funcs[real_fun_name];
-            }
-        }
-    }
-    else {
-        int i;
-        for(i=FUN_VERSION_MAX-1; i>=1; i--) {
-            string new_fun_name = xsprintf("%s_v%d", real_fun_name, i);
-            to_string_fun = borrow info->funcs[new_fun_name];
-            
-            if(to_string_fun) {
-                real_fun_name = string(new_fun_name);
-                break;
-            }
-        }
-        
-        if(to_string_fun == NULL) {
-            to_string_fun = borrow info->funcs[real_fun_name];
-        }
-    }
-    
-    if(to_string_fun == null && type_->mPointerNum > 0 && !klass->mNumber) {
-        var source = new buffer();
-        
-        source.append_str("{\n");
-        source.append_str("var result = new buffer();\n");
-        
-        source.append_format("result.append_str(\"%s {\");\n", klass->mName);
-        
-        int i = 0;
-        klass = borrow info.classes[klass->mName];
-        foreach(it, klass->mFields) {
-            var name, field_type = it;
-            
-            if(field_type.mClass.mName === "lambda") {
-                char source2[1024];
-                snprintf(source2, 1024, "result.append_str(\"%s:\");\n", name);
-                source.append_str(source2);
-                
-                snprintf(source2, 1024, "result.append_str(\"lambda\");\n");
-                source.append_str(source2);
-            }
-            else if(i == klass->mFields.length() -1) {
-                char source2[1024];
-                
-                snprintf(source2, 1024, "result.append_str(\"%s:\");\n", name);
-                
-                source.append_str(source2);
-                
-                snprintf(source2, 1024, "result.append_str(self.%s.to_string());\n", name);
-                
-                source.append_str(source2);
-            }
-            else {
-                char source2[1024];
-                
-                snprintf(source2, 1024, "result.append_str(\"%s:\");\n", name);
-                
-                source.append_str(source2);
-                
-                snprintf(source2, 1024, "result.append_str(self.%s.to_string());\n", name);
-                
-                source.append_str(source2);
-                
-                snprintf(source2, 1024, "result.append_str(\",\");\n");
-                
-                source.append_str(source2);
-            }
-            
-            i++;
-        }
-        source.append_str("result.append_str(\"}\");\n");
-        
-        source.append_format("return result.to_string();\n");
-        source.append_char('}');
-        
-        char* p = info.p;
-        int sline = info.sline;
-        string sname = info.sname;
-        buffer*% source3 = info.source;
-        char* head = info.head;
-        
-        info.source = source;
-        info.p = info.source.buf;
-        info.head = info.source.buf;
-        
-        info.sname = string(real_fun_name);
-        info.sline = 1;
-        
-        sBlock*% block = parse_block();
-        
-        var result_type = new sType(s"char*");
-        result_type->mHeap = true;
-        var name = clone real_fun_name;
-        var self_type = clone type_;
-        self_type = solve_generics(type_, type_, info);
-        self_type->mHeap = false;
-        
-        list<sType*%>*% param_types = [self_type];
-        var param_names = [string("self")];
-        var param_default_parametors = new list<string>();
-        param_default_parametors.push_back(null);
-        
-        result_type->mStatic = false;
-        result_type->mUniq = false;
-        result_type->mInline = false;
-        
-        var fun2 = info.funcs[string(name)];
-        if(fun2 == null || fun2.mExternal) {
-            var fun = new sFun(name, result_type, param_types, param_names
-                            , param_default_parametors
-                            , false@external, false@var_args, block
-                            , true@static_
-                            , info, false@inline_, false@uniq_);
-            fun->mGenericsFun = true;
-                            
-            info.funcs.insert(string(name), fun);
-            
-            to_string_fun = fun;
-            
-            sNode*% node = new sFunNode(fun, info) implements sNode;
-            
-            node_compile(node).elif {
-                err_msg(info, "compiling error(Y)");
-                exit(2);
-            }
-        }
-        else {
-            to_string_fun = fun2;
-        }
-        
-        info.sname = sname;
-        info.sline = sline;
-        
-        info.source = source3;
-        info.p = p;
-        info.head = head;
-        info.sline = sline;
-    }
-    
-    info->current_stack_frame_struct = current_stack_frame_struct;
-    
-    info.module.mLastCode = last_code;
-    info.module.mLastCode2 = last_code2;
-    info.if_expression_buffer = if_expression_buffer;
-    info.paren_block_buffer = paren_block_buffer;
-    
-    return (to_string_fun, real_fun_name);
-}
-*/
-
 sFun*,string create_get_hash_key_automatically(sType* type, const char* fun_name, sInfo* info)
 {
+    include MSaveState;
+    /*
     string last_code = info.module.mLastCode;
     info.module.mLastCode = null;
     string last_code2 = info.module.mLastCode2;
@@ -3788,6 +3627,8 @@ sFun*,string create_get_hash_key_automatically(sType* type, const char* fun_name
     
     sClass* current_stack_frame_struct = info->current_stack_frame_struct;
     info->current_stack_frame_struct = null;
+    */
+    
     sFun* get_hash_key_fun = null;
     
     string real_fun_name = create_method_name(type, false@no_pointer_name, fun_name, info);
@@ -3922,18 +3763,23 @@ sFun*,string create_get_hash_key_automatically(sType* type, const char* fun_name
         info.sline = sline;
     }
     
+    /*
     info->current_stack_frame_struct = current_stack_frame_struct;
     
     info.module.mLastCode = last_code;
     info.module.mLastCode2 = last_code2;
     info.if_expression_buffer = if_expression_buffer;
     info.paren_block_buffer = paren_block_buffer;
+    */
+    include MRestoreState;
     
     return (get_hash_key_fun, real_fun_name);
 }
 
 sFun*,string create_compare_automatically(sType* type, const char* fun_name, sInfo* info)
 {
+    include MSaveState;
+    /*
     string last_code = info.module.mLastCode;
     info.module.mLastCode = null;
     string last_code2 = info.module.mLastCode2;
@@ -3945,6 +3791,8 @@ sFun*,string create_compare_automatically(sType* type, const char* fun_name, sIn
     
     sClass* current_stack_frame_struct = info->current_stack_frame_struct;
     info->current_stack_frame_struct = null;
+    */
+    
     sFun* get_hash_key_fun = null;
     
     string real_fun_name = create_method_name(type, false@no_pointer_name, fun_name, info);
@@ -4081,18 +3929,23 @@ sFun*,string create_compare_automatically(sType* type, const char* fun_name, sIn
         info.sline = sline;
     }
     
+    /*
     info->current_stack_frame_struct = current_stack_frame_struct;
     
     info.module.mLastCode = last_code;
     info.module.mLastCode2 = last_code2;
     info.if_expression_buffer = if_expression_buffer;
     info.paren_block_buffer = paren_block_buffer;
+    */
+    include MRestoreState;
     
     return (get_hash_key_fun, real_fun_name);
 }
 
 sFun*% compile_uniq_function(sFun* fun, sInfo* info=info)
 {
+    include MSaveState;
+/*
     sFun* caller_fun = info->caller_fun;
     info->caller_fun = info->come_fun;
     int caller_line = info->caller_line;
@@ -4111,6 +3964,7 @@ sFun*% compile_uniq_function(sFun* fun, sInfo* info=info)
     
     string sname_top = string(info->sname);
     int sline_top = info->sline;
+*/
     
     sType*% result_type = clone fun->mResultType;
     
@@ -4158,9 +4012,11 @@ sFun*% compile_uniq_function(sFun* fun, sInfo* info=info)
     sNode*% node = new sFunNode(fun2, info) implements sNode;
     
     node_compile(node).elif {
+        include MRestoreState;
         return null;
     }
     
+    /*
     info->sname = string(sname_top);
     info->sline = sline_top;
     
@@ -4172,6 +4028,9 @@ sFun*% compile_uniq_function(sFun* fun, sInfo* info=info)
     info->caller_sname = caller_sname;
     info.if_expression_buffer = if_expression_buffer;
     info.paren_block_buffer = paren_block_buffer;
+    */
+    
+    include MRestoreState;
     
     return fun2;
 }
@@ -4180,12 +4039,17 @@ bool create_equals_method(sType* type, sInfo* info)
 {
     sType*% type_ = get_no_solved_type(type);
     string result = null
+    
+    /*
     var stack_saved = info.stack;
     list<sRightValueObject*%>* right_value_objects = info.right_value_objects;
     buffer*% if_expression_buffer = clone info.if_expression_buffer;
     info.if_expression_buffer = null;
     buffer*% paren_block_buffer = clone info.paren_block_buffer;
     info.paren_block_buffer = null;
+    */
+    
+    include MSaveState;
     
     sClass* klass = type_->mClass;
     
@@ -4212,6 +4076,7 @@ bool create_equals_method(sType* type, sInfo* info)
             var name,err = create_generics_fun(string(fun_name2), generics_fun, obj_type, info);
         
             if(!err) {
+                include MRestoreState;
                 return false;
             }
             else {
@@ -4249,10 +4114,13 @@ bool create_equals_method(sType* type, sInfo* info)
         cloner = fun;
     }
 
+    /*
     info.right_value_objects = dummy_heap right_value_objects;
     info.stack = stack_saved;
     info.if_expression_buffer = if_expression_buffer;
     info.paren_block_buffer = paren_block_buffer;
+    */
+    include MRestoreState;
     
     return true;
 }
@@ -4261,12 +4129,16 @@ bool create_operator_equals_method(sType* type, sInfo* info)
 {
     sType*% type_ = get_no_solved_type2(type);
     string result = null
+    
+    include MSaveState;
+    /*
     var stack_saved = info.stack;
     list<sRightValueObject*%>* right_value_objects = info.right_value_objects;
     buffer*% if_expression_buffer = clone info.if_expression_buffer;
     info.if_expression_buffer = null;
     buffer*% paren_block_buffer = clone info.paren_block_buffer;
     info.paren_block_buffer = null;
+    */
     
     sClass* klass = type_->mClass;
     
@@ -4293,6 +4165,7 @@ bool create_operator_equals_method(sType* type, sInfo* info)
             var name,err = create_generics_fun(string(fun_name2), generics_fun, obj_type, info);
             
             if(!err) {
+                include MRestoreState;
                 return false;
             }
             cloner = borrow info->funcs[name];
@@ -4328,10 +4201,13 @@ bool create_operator_equals_method(sType* type, sInfo* info)
         cloner = fun;
     }
 
+    /*
     info.right_value_objects = dummy_heap right_value_objects;
     info.stack = stack_saved;
     info.if_expression_buffer = if_expression_buffer;
     info.paren_block_buffer = paren_block_buffer;
+    */
+    include MRestoreState;
     
     return true;
 }
@@ -4340,12 +4216,16 @@ bool create_operator_not_equals_method(sType* type, sInfo* info)
 {
     sType*% type_ = get_no_solved_type2(type);
     string result = null
+    
+    include MSaveState;
+/*
     var stack_saved = info.stack;
     list<sRightValueObject*%>* right_value_objects = info.right_value_objects;
     buffer*% if_expression_buffer = clone info.if_expression_buffer;
     info.if_expression_buffer = null;
     buffer*% paren_block_buffer = clone info.paren_block_buffer;
     info.paren_block_buffer = null;
+*/
     
     sClass* klass = type_->mClass;
     
@@ -4372,6 +4252,7 @@ bool create_operator_not_equals_method(sType* type, sInfo* info)
             var name, err = create_generics_fun(string(fun_name2), generics_fun, obj_type, info);
             
             if(!err) {
+                include MRestoreState;
                 return false;
             }
             cloner = borrow info->funcs[name];
@@ -4407,10 +4288,13 @@ bool create_operator_not_equals_method(sType* type, sInfo* info)
         cloner = fun;
     }
 
+    /*
     info.right_value_objects = dummy_heap right_value_objects;
     info.stack = stack_saved;
     info.if_expression_buffer = if_expression_buffer;
     info.paren_block_buffer = paren_block_buffer;
+    */
+    include MRestoreState;
     
     return true;
 }

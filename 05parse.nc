@@ -153,7 +153,6 @@ string backtrace_parse_word(sInfo* info=info)
     return buf;
 }
 
-
 static bool skip_comment(sInfo* info, bool skip_space_after)
 {
     if(*info->p == '/' && *(info->p+1) == '*') {

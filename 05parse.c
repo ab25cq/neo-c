@@ -3138,7 +3138,7 @@ void parse_sharp_v5(struct sInfo* info  )
             info->p++;
             skip_spaces_and_tabs(info);
             if(parsecmp("pragma",info)) {
-                buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), (void*)0, 323, "struct buffer*"))));
+                buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), (void*)0, 322, "struct buffer*"))));
                 buffer_append_str(buf,"#");
                 while(*info->p) {
                     if(*info->p==10) {
@@ -3166,7 +3166,7 @@ _conditional_value_X0;})) {
                 info->p+=strlen("line");
                 skip_spaces_and_tabs(info);
                 line=0;
-                fname=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), (void*)0, 349, "struct buffer*"))));
+                fname=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), (void*)0, 348, "struct buffer*"))));
                 if(!xisdigit(*info->p)) {
                     err_msg(info,"invalid #line directive");
                     come_call_finalizer(buffer_finalize, fname, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -3216,7 +3216,7 @@ _conditional_value_X0;})) {
             }
             else if(xisdigit(*info->p)) {
                 line_0=0;
-                fname_1=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), (void*)0, 399, "struct buffer*"))));
+                fname_1=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), (void*)0, 398, "struct buffer*"))));
                 while(xisdigit(*info->p)) {
                     line_0=line_0*10+(*info->p-48);
                     info->p++;
