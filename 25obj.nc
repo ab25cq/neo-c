@@ -1515,10 +1515,10 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             return new sNewNode(type, null, null, info) implements sNode;
         }
     }
-    else if(!gComeC && buf === "true") {
+    else if(buf === "true") {
         return new sTrueNode(info) implements sNode;
     }
-    else if(!gComeC && buf === "false") {
+    else if(buf === "false") {
         return new sFalseNode(info) implements sNode;
     }
     else if(!gComeC && buf === "delete") {

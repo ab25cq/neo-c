@@ -251,5 +251,5 @@ ZVALUE*%, bool str_method(string fun_name, ZVALUE* obj, list<ZVALUE*%>* params, 
         }
     }
     
-    return (null, false);
+    return ((ZVALUE*%)null, false);
 }

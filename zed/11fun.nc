@@ -158,7 +158,7 @@ sNode*% exp_node(sInfo* info) version 9
 
 ZVALUE*%,bool str_method(string fun_name, ZVALUE* obj, list<ZVALUE*%>* params, buffer* codes, sInfo* info) version 1
 {
-    return (null, true);
+    return ((ZVALUE*%)null, true);
 }
 
 bool vm(sInfo* info) version 10

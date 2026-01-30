@@ -1,26 +1,12 @@
 /// c_include definition ///
 /// typedef definition ///
-typedef unsigned long size_t;
-
 typedef char* string;
-
-typedef unsigned long  long   ;
-
-typedef __builtin_va_list __gnuc_va_list;
-
-typedef unsigned char __u_char;
-
-typedef unsigned short int __u_short;
-
-typedef unsigned int __u_int;
-
-typedef unsigned long  int __u_long;
 
 typedef char __int8_t;
 
 typedef unsigned char __uint8_t;
 
-typedef short int __int16_t;
+typedef short __int16_t;
 
 typedef unsigned short int __uint16_t;
 
@@ -28,303 +14,253 @@ typedef int __int32_t;
 
 typedef unsigned int __uint32_t;
 
-typedef long  int __int64_t;
+typedef long long __int64_t;
 
-typedef unsigned long  int __uint64_t;
+typedef unsigned long  long __uint64_t;
 
-typedef char __int_least8_t  ;
+typedef long __darwin_intptr_t;
 
-typedef unsigned char __uint_least8_t  ;
+typedef unsigned int __darwin_natural_t;
 
-typedef short int __int_least16_t  ;
+typedef int __darwin_ct_rune_t;
 
-typedef unsigned short int __uint_least16_t  ;
+typedef union anonymous_typeZ1 __mbstate_t;
 
-typedef int __int_least32_t  ;
+typedef union anonymous_typeZ1 __darwin_mbstate_t  ;
 
-typedef unsigned int __uint_least32_t  ;
+typedef long __darwin_ptrdiff_t;
 
-typedef long  int __int_least64_t  ;
+typedef unsigned long  int __darwin_size_t;
 
-typedef unsigned long  int __uint_least64_t  ;
+typedef __builtin_va_list __darwin_va_list;
 
-typedef long  int __quad_t;
+typedef int __darwin_wchar_t;
 
-typedef unsigned long  int __u_quad_t;
+typedef int __darwin_rune_t  ;
 
-typedef long  int __intmax_t;
+typedef unsigned int __darwin_wint_t;
 
-typedef unsigned long  int __uintmax_t;
+typedef unsigned long  int __darwin_clock_t;
 
-typedef unsigned long  int __dev_t;
+typedef unsigned int __darwin_socklen_t  ;
 
-typedef unsigned int __uid_t;
+typedef long __darwin_ssize_t;
 
-typedef unsigned int __gid_t;
+typedef long __darwin_time_t;
 
-typedef unsigned long  int __ino_t;
+typedef long long __darwin_blkcnt_t  ;
 
-typedef unsigned long  int __ino64_t;
+typedef int __darwin_blksize_t  ;
 
-typedef unsigned int __mode_t;
+typedef int __darwin_dev_t  ;
 
-typedef unsigned long  int __nlink_t;
+typedef unsigned int __darwin_fsblkcnt_t;
 
-typedef long  int __off_t;
+typedef unsigned int __darwin_fsfilcnt_t;
 
-typedef long  int __off64_t;
+typedef unsigned int __darwin_gid_t  ;
 
-typedef int __pid_t;
+typedef unsigned int __darwin_id_t  ;
 
-typedef struct __fsid_t __fsid_t  ;
+typedef unsigned long  long __darwin_ino64_t  ;
 
-typedef long  int __clock_t;
+typedef unsigned long  long __darwin_ino_t  ;
 
-typedef unsigned long  int __rlim_t;
+typedef unsigned int __darwin_mach_port_name_t  ;
 
-typedef unsigned long  int __rlim64_t;
+typedef unsigned int __darwin_mach_port_t  ;
 
-typedef unsigned int __id_t;
+typedef unsigned short int __darwin_mode_t  ;
 
-typedef long  int __time_t;
+typedef long long __darwin_off_t  ;
 
-typedef unsigned int __useconds_t;
+typedef int __darwin_pid_t  ;
 
-typedef long  int __suseconds_t;
+typedef unsigned int __darwin_sigset_t  ;
 
-typedef long  int __suseconds64_t;
+typedef int __darwin_suseconds_t  ;
 
-typedef int __daddr_t;
+typedef unsigned int __darwin_uid_t  ;
 
-typedef int __key_t;
+typedef unsigned int __darwin_useconds_t  ;
 
-typedef int __clockid_t;
+typedef struct _opaque_pthread_attr_t __darwin_pthread_attr_t  ;
 
-typedef void* __timer_t;
+typedef struct _opaque_pthread_cond_t __darwin_pthread_cond_t  ;
 
-typedef long  int __blksize_t;
+typedef struct _opaque_pthread_condattr_t __darwin_pthread_condattr_t  ;
 
-typedef long  int __blkcnt_t;
+typedef unsigned long  int __darwin_pthread_key_t;
 
-typedef long  int __blkcnt64_t;
+typedef struct _opaque_pthread_mutex_t __darwin_pthread_mutex_t  ;
 
-typedef unsigned long  int __fsblkcnt_t;
+typedef struct _opaque_pthread_mutexattr_t __darwin_pthread_mutexattr_t  ;
 
-typedef unsigned long  int __fsblkcnt64_t;
+typedef struct _opaque_pthread_once_t __darwin_pthread_once_t  ;
 
-typedef unsigned long  int __fsfilcnt_t;
+typedef struct _opaque_pthread_rwlock_t __darwin_pthread_rwlock_t  ;
 
-typedef unsigned long  int __fsfilcnt64_t;
+typedef struct _opaque_pthread_rwlockattr_t __darwin_pthread_rwlockattr_t  ;
 
-typedef long  int __fsword_t;
+typedef struct _opaque_pthread_t* __darwin_pthread_t  ;
 
-typedef long  int __ssize_t;
+typedef int __darwin_nl_item;
 
-typedef long  int __syscall_slong_t;
+typedef int __darwin_wctrans_t;
 
-typedef unsigned long  int __syscall_ulong_t;
+typedef unsigned int __darwin_wctype_t  ;
 
-typedef long  int __loff_t  ;
+typedef char int8_t;
 
-typedef char* __caddr_t;
+typedef short int16_t;
 
-typedef long  int __intptr_t;
+typedef int int32_t;
 
-typedef unsigned int __socklen_t;
+typedef long long int64_t;
 
-typedef int __sig_atomic_t;
+typedef unsigned char u_int8_t;
 
-typedef struct anonymous_typeX1 __mbstate_t;
+typedef unsigned short int u_int16_t;
 
-typedef struct _G_fpos_t __fpos_t  ;
+typedef unsigned int u_int32_t;
 
-typedef struct _G_fpos64_t __fpos64_t  ;
+typedef unsigned long  long u_int64_t;
 
-typedef struct _IO_FILE __FILE  ;
+typedef long long register_t  ;
 
-typedef struct _IO_FILE FILE  ;
+typedef long intptr_t  ;
 
-typedef void _IO_lock_t;
+typedef unsigned long  int uintptr_t;
 
-typedef long  int (*cookie_read_function_t)(void*,char*,unsigned long);
+typedef unsigned long  long user_addr_t  ;
 
-typedef long  int (*cookie_write_function_t)(void*,const char*,unsigned long);
+typedef unsigned long  long user_size_t  ;
 
-typedef int (*cookie_seek_function_t)(void*,long  int*,int);
+typedef long long user_ssize_t  ;
 
-typedef int (*cookie_close_function_t)(void*);
+typedef long long user_long_t  ;
 
-typedef struct _IO_cookie_io_functions_t cookie_io_functions_t  ;
+typedef unsigned long  long user_ulong_t  ;
 
-typedef long  int off_t  ;
+typedef long long user_time_t  ;
 
-typedef long  int off64_t  ;
+typedef long long user_off_t  ;
 
-typedef long  int ssize_t  ;
+typedef unsigned long  long syscall_arg_t  ;
 
-typedef struct _G_fpos_t fpos_t  ;
+typedef unsigned long  int size_t  ;
 
-typedef struct _G_fpos64_t fpos64_t  ;
+typedef long long fpos_t  ;
 
-typedef int wchar_t;
+typedef struct __sFILE FILE  ;
 
-typedef struct anonymous_typeX4 div_t;
+typedef long long off_t  ;
 
-typedef struct anonymous_typeX5 ldiv_t;
+typedef long ssize_t  ;
 
-typedef struct anonymous_typeX6 lldiv_t;
-
-typedef struct __locale_struct* __locale_t  ;
-
-typedef struct __locale_struct* locale_t  ;
-
-typedef unsigned char u_char  ;
-
-typedef unsigned short int u_short  ;
-
-typedef unsigned int u_int  ;
-
-typedef unsigned long  int u_long  ;
-
-typedef long  int quad_t  ;
-
-typedef unsigned long  int u_quad_t  ;
-
-typedef struct __fsid_t fsid_t  ;
-
-typedef long  int loff_t  ;
-
-typedef unsigned long  int ino_t  ;
-
-typedef unsigned long  int ino64_t  ;
-
-typedef unsigned long  int dev_t  ;
-
-typedef unsigned int gid_t  ;
-
-typedef unsigned int mode_t  ;
-
-typedef unsigned long  int nlink_t  ;
-
-typedef unsigned int uid_t  ;
+typedef enum anonymous_typeY1 idtype_t;
 
 typedef int pid_t  ;
 
 typedef unsigned int id_t  ;
 
-typedef int daddr_t  ;
+typedef int sig_atomic_t;
 
-typedef char* caddr_t  ;
+typedef struct __darwin_mcontext64* mcontext_t  ;
 
-typedef int key_t  ;
+typedef struct _opaque_pthread_attr_t pthread_attr_t  ;
 
-typedef long  int clock_t  ;
+typedef struct __darwin_sigaltstack stack_t  ;
 
-typedef int clockid_t  ;
+typedef struct __darwin_ucontext ucontext_t  ;
 
-typedef long  int time_t  ;
+typedef unsigned int sigset_t  ;
 
-typedef void* timer_t  ;
+typedef unsigned int uid_t  ;
 
-typedef unsigned int useconds_t  ;
+typedef struct __siginfo siginfo_t  ;
 
-typedef long  int suseconds_t  ;
+typedef void (*sig_t)(int);
 
-typedef unsigned long  int ulong;
+typedef unsigned char uint8_t;
 
-typedef unsigned short int ushort;
+typedef unsigned short int uint16_t;
 
-typedef unsigned int uint;
+typedef unsigned int uint32_t;
 
-typedef char int8_t  ;
+typedef unsigned long  long uint64_t;
 
-typedef short int int16_t  ;
+typedef char int_least8_t  ;
 
-typedef int int32_t  ;
+typedef short int_least16_t  ;
 
-typedef long  int int64_t  ;
+typedef int int_least32_t  ;
 
-typedef unsigned char u_int8_t  ;
+typedef long long int_least64_t  ;
 
-typedef unsigned short int u_int16_t  ;
+typedef unsigned char uint_least8_t  ;
 
-typedef unsigned int u_int32_t  ;
+typedef unsigned short int uint_least16_t  ;
 
-typedef unsigned long  int u_int64_t  ;
+typedef unsigned int uint_least32_t  ;
 
-typedef int register_t __attribute__ ((__mode__ (__word__)));
+typedef unsigned long  long uint_least64_t  ;
 
-typedef struct anonymous_typeX7 __sigset_t;
+typedef char int_fast8_t  ;
 
-typedef struct anonymous_typeX7 sigset_t  ;
+typedef short int_fast16_t  ;
 
-typedef long  int __fd_mask;
+typedef int int_fast32_t  ;
 
-typedef struct anonymous_typeX8 fd_set;
+typedef long long int_fast64_t  ;
 
-typedef long  int fd_mask  ;
+typedef unsigned char uint_fast8_t  ;
 
-typedef long  int blksize_t  ;
+typedef unsigned short int uint_fast16_t  ;
 
-typedef long  int blkcnt_t  ;
+typedef unsigned int uint_fast32_t  ;
 
-typedef unsigned long  int fsblkcnt_t  ;
+typedef unsigned long  long uint_fast64_t  ;
 
-typedef unsigned long  int fsfilcnt_t  ;
+typedef long  int intmax_t;
 
-typedef long  int blkcnt64_t  ;
+typedef unsigned long  int uintmax_t;
 
-typedef unsigned long  int fsblkcnt64_t  ;
+typedef unsigned long  long rlim_t  ;
 
-typedef unsigned long  int fsfilcnt64_t  ;
+typedef void* rusage_info_t;
 
-typedef union anonymous_typeZ9 __atomic_wide_counter;
+typedef struct rusage_info_v6 rusage_info_current  ;
 
-typedef struct __pthread_internal_list __pthread_list_t  ;
+typedef int ct_rune_t  ;
 
-typedef struct __pthread_internal_slist __pthread_slist_t  ;
+typedef int rune_t  ;
 
-typedef unsigned int __tss_t;
+typedef int wchar_t  ;
 
-typedef unsigned long  int __thrd_t;
+typedef struct anonymous_typeX8 div_t;
 
-typedef struct anonymous_typeX11 __once_flag;
+typedef struct anonymous_typeX9 ldiv_t;
 
-typedef unsigned long  int pthread_t;
+typedef struct anonymous_typeX10 lldiv_t;
 
-typedef union anonymous_typeZ12 pthread_mutexattr_t;
+typedef unsigned long  long malloc_type_id_t;
 
-typedef union anonymous_typeZ13 pthread_condattr_t;
+typedef struct _malloc_zone_t malloc_zone_t;
 
-typedef unsigned int pthread_key_t;
+typedef int dev_t  ;
 
-typedef int pthread_once_t;
+typedef unsigned short int mode_t  ;
 
-typedef union pthread_attr_t pthread_attr_t  ;
+typedef unsigned long  int rsize_t  ;
 
-typedef union anonymous_typeZ14 pthread_mutex_t;
+typedef int errno_t;
 
-typedef union anonymous_typeZ15 pthread_cond_t;
+typedef __builtin_va_list __gnuc_va_list  ;
 
-typedef union anonymous_typeZ16 pthread_rwlock_t;
+typedef __builtin_va_list va_list  ;
 
-typedef union anonymous_typeZ17 pthread_rwlockattr_t;
-
-typedef int pthread_spinlock_t;
-
-typedef union anonymous_typeZ18 pthread_barrier_t;
-
-typedef union anonymous_typeZ19 pthread_barrierattr_t;
-
-typedef int (*__compar_fn_t)(const void*,const void*);
-
-typedef int (*comparison_fn_t)(const void*,const void*)  ;
-
-typedef int (*__compar_d_fn_t)(const void*,const void*,void*);
-
-typedef __builtin_va_list va_list;
-
-typedef int error_t;
+typedef struct _xlocale* locale_t  ;
 
 typedef struct re_program* re_t  ;
 
@@ -334,71 +270,35 @@ typedef struct regex_t regex_t;
 
 typedef struct re_program regex_program_t  ;
 
-typedef struct anonymous_typeX24 compiler_state;
+typedef struct anonymous_typeX15 compiler_state;
 
-typedef struct anonymous_typeX25 match_context;
+typedef struct anonymous_typeX16 match_context;
 
-typedef unsigned int wint_t;
+typedef union anonymous_typeZ1 mbstate_t  ;
 
-typedef struct anonymous_typeX1 mbstate_t  ;
+typedef unsigned long  int clock_t  ;
+
+typedef long time_t  ;
+
+typedef enum anonymous_typeY16 clockid_t;
+
+typedef unsigned int wint_t  ;
+
+typedef unsigned int wctype_t  ;
+
+typedef struct anonymous_typeX17 _RuneEntry;
+
+typedef struct anonymous_typeX18 _RuneRange;
+
+typedef struct anonymous_typeX19 _RuneCharClass;
+
+typedef struct anonymous_typeX20 _RuneLocale;
 
 typedef int* wstring  ;
 
-typedef unsigned char uint8_t  ;
+typedef unsigned int chtype;
 
-typedef unsigned short int uint16_t  ;
-
-typedef unsigned int uint32_t  ;
-
-typedef unsigned long  int uint64_t  ;
-
-typedef char int_least8_t  ;
-
-typedef short int int_least16_t  ;
-
-typedef int int_least32_t  ;
-
-typedef long  int int_least64_t  ;
-
-typedef unsigned char uint_least8_t  ;
-
-typedef unsigned short int uint_least16_t  ;
-
-typedef unsigned int uint_least32_t  ;
-
-typedef unsigned long  int uint_least64_t  ;
-
-typedef char int_fast8_t;
-
-typedef long  int int_fast16_t;
-
-typedef long  int int_fast32_t;
-
-typedef long  int int_fast64_t;
-
-typedef unsigned char uint_fast8_t;
-
-typedef unsigned long  int uint_fast16_t;
-
-typedef unsigned long  int uint_fast32_t;
-
-typedef unsigned long  int uint_fast64_t;
-
-typedef long  int intptr_t;
-
-typedef unsigned long  int uintptr_t;
-
-typedef long  int intmax_t  ;
-
-typedef unsigned long  int uintmax_t  ;
-
-typedef unsigned int chtype  ;
-
-typedef unsigned int mmask_t  ;
-
-typedef long ptrdiff_t;
-
-typedef struct anonymous_typeX26 max_align_t;
+typedef unsigned long  int mmask_t;
 
 typedef unsigned char NCURSES_BOOL;
 
@@ -408,402 +308,805 @@ typedef struct _win_st WINDOW;
 
 typedef unsigned int attr_t  ;
 
-typedef struct anonymous_typeX27 cchar_t;
-
 typedef int (*NCURSES_OUTC)(int);
 
 typedef int (*NCURSES_WINDOW_CB)(struct _win_st*,void*);
 
 typedef int (*NCURSES_SCREEN_CB)(struct screen*,void*);
 
-typedef int (*NCURSES_OUTC_sp)(struct screen*,int);
+typedef struct anonymous_typeX21 MEVENT;
 
-typedef struct anonymous_typeX28 MEVENT;
+typedef unsigned long  long ino_t  ;
 
-typedef struct __dirstream DIR;
+typedef struct anonymous_typeX22 DIR;
+
+typedef long long blkcnt_t  ;
+
+typedef int blksize_t  ;
+
+typedef unsigned long  long ino64_t  ;
+
+typedef unsigned short int nlink_t  ;
+
+typedef unsigned int gid_t  ;
+
+typedef struct _filesec* filesec_t  ;
+
+typedef unsigned int useconds_t  ;
+
+typedef struct fd_set fd_set  ;
+
+typedef int suseconds_t  ;
+
+typedef unsigned char u_char;
+
+typedef unsigned short int u_short;
+
+typedef unsigned int u_int;
+
+typedef unsigned long  int u_long;
+
+typedef unsigned short int ushort;
+
+typedef unsigned int uint;
+
+typedef unsigned long  long u_quad_t  ;
+
+typedef long long quad_t  ;
+
+typedef long long* qaddr_t  ;
+
+typedef char* caddr_t;
+
+typedef int daddr_t  ;
+
+typedef unsigned int fixpt_t  ;
+
+typedef unsigned int in_addr_t  ;
+
+typedef unsigned short int in_port_t  ;
+
+typedef int key_t  ;
+
+typedef int segsz_t  ;
+
+typedef int swblk_t  ;
+
+typedef int fd_mask  ;
+
+typedef struct _opaque_pthread_cond_t pthread_cond_t  ;
+
+typedef struct _opaque_pthread_condattr_t pthread_condattr_t  ;
+
+typedef struct _opaque_pthread_mutex_t pthread_mutex_t  ;
+
+typedef struct _opaque_pthread_mutexattr_t pthread_mutexattr_t  ;
+
+typedef struct _opaque_pthread_once_t pthread_once_t  ;
+
+typedef struct _opaque_pthread_rwlock_t pthread_rwlock_t  ;
+
+typedef struct _opaque_pthread_rwlockattr_t pthread_rwlockattr_t  ;
+
+typedef struct _opaque_pthread_t* pthread_t  ;
+
+typedef unsigned long  int pthread_key_t  ;
+
+typedef unsigned int fsblkcnt_t  ;
+
+typedef unsigned int fsfilcnt_t  ;
+
+typedef unsigned char sa_family_t  ;
 
 typedef unsigned int socklen_t  ;
 
-typedef int (*rl_command_func_t)(int,int);
+typedef unsigned int sae_associd_t  ;
+
+typedef unsigned int sae_connid_t  ;
+
+typedef struct sa_endpoints sa_endpoints_t  ;
+
+typedef int (*Function)(const char*,int);
+
+typedef void (*VFunction)();
+
+typedef void (*VCPFunction)(char*);
+
+typedef char* (*CPFunction)(const char*,int);
+
+typedef char** (*CPPFunction)(const char*,int,int);
 
 typedef char* (*rl_compentry_func_t)(const char*,int);
 
-typedef char** (*rl_completion_func_t)(const char*,int,int);
+typedef int (*rl_command_func_t)(int,int);
 
-typedef char* (*rl_quote_func_t)(char*,int,char*);
-
-typedef char* (*rl_dequote_func_t)(char*,int);
-
-typedef int (*rl_compignore_func_t)(char**);
-
-typedef void (*rl_compdisp_func_t)(char**,int,int);
-
-typedef void (*rl_macro_print_func_t)(const char*,const char*,int,const char*);
-
-typedef int (*rl_hook_func_t)();
-
-typedef int (*rl_getc_func_t)(struct _IO_FILE*);
-
-typedef int (*rl_linebuf_func_t)(char*,int);
-
-typedef int (*rl_intfunc_t)(int);
-
-typedef int (*rl_icpfunc_t)(char*);
-
-typedef int (*rl_icppfunc_t)(char**);
-
-typedef void (*rl_voidfunc_t)();
-
-typedef void (*rl_vintfunc_t)(int);
-
-typedef void (*rl_vcpfunc_t)(char*);
-
-typedef void (*rl_vcppfunc_t)(char**);
-
-typedef char* (*rl_cpvfunc_t)();
-
-typedef char* (*rl_cpifunc_t)(int);
-
-typedef char* (*rl_cpcpfunc_t)(char*);
-
-typedef char* (*rl_cpcppfunc_t)(char**);
-
-typedef struct _keymap_entry KEYMAP_ENTRY  ;
-
-typedef struct _keymap_entry* Keymap  ;
-
-typedef char* (*tilde_hook_func_t)(char*);
-
-typedef struct undo_list UNDO_LIST  ;
-
-typedef struct _funmap FUNMAP  ;
+typedef struct anonymous_typeX29 HISTORY_STATE;
 
 typedef void* histdata_t;
 
 typedef struct _hist_entry HIST_ENTRY  ;
 
-typedef struct _hist_state HISTORY_STATE  ;
+typedef struct _keymap_entry KEYMAP_ENTRY  ;
+
+typedef struct _keymap_entry* Keymap  ;
 
 /// previous struct definition ///
-struct _IO_FILE;
+struct __sFILEX;
 
-struct _IO_marker;
-
-struct _IO_codecvt;
-
-struct _IO_wide_data;
-
-struct obstack;
+struct _xlocale;
 
 #include <assert.h>
 struct re_program;
 
-struct tm;
+struct _telldir;
 
-struct sigevent;
+struct _filesec;
+
+struct fssearchblock;
+
+struct searchstate;
+
+struct ifnet_interface_advisory;
 
 /// struct definition ///
-struct __fsid_t
+union anonymous_typeZ1
 {
-    int __val[2];
+char __mbstate8[128];
+long long _mbstateL;
+};
+
+typedef unsigned char __darwin_uuid_t[16];
+
+typedef char __darwin_uuid_string_t[37];
+
+struct __darwin_pthread_handler_rec
+{
+    void (*__routine)(void*);
+    void* __arg;
+    struct __darwin_pthread_handler_rec* __next  ;
+};
+
+struct _opaque_pthread_attr_t
+{
+    long __sig;
+    char __opaque[56];
+};
+
+struct _opaque_pthread_cond_t
+{
+    long __sig;
+    char __opaque[40];
+};
+
+struct _opaque_pthread_condattr_t
+{
+    long __sig;
+    char __opaque[8];
+};
+
+struct _opaque_pthread_mutex_t
+{
+    long __sig;
+    char __opaque[56];
+};
+
+struct _opaque_pthread_mutexattr_t
+{
+    long __sig;
+    char __opaque[8];
+};
+
+struct _opaque_pthread_once_t
+{
+    long __sig;
+    char __opaque[8];
+};
+
+struct _opaque_pthread_rwlock_t
+{
+    long __sig;
+    char __opaque[192];
+};
+
+struct _opaque_pthread_rwlockattr_t
+{
+    long __sig;
+    char __opaque[16];
+};
+
+struct _opaque_pthread_t
+{
+    long __sig;
+    struct __darwin_pthread_handler_rec* __cleanup_stack  ;
+    char __opaque[8176];
+};
+
+struct __sbuf
+{
+    unsigned char* _base;
+    int _size;
+};
+
+struct __sFILE
+{
+    unsigned char* _p;
+    int _r;
+    int _w;
+    short _flags;
+    short _file;
+    struct __sbuf _bf  ;
+    int _lbfsize;
+    void* _cookie;
+    int (*_close)(void*);
+    int (*_read)(void*,char*,int);
+    long long (*_seek)(void*,long long,int);
+    int (*_write)(void*,const char*,int);
+    struct __sbuf _ub  ;
+    struct __sFILEX* _extra  ;
+    int _ur;
+    unsigned char _ubuf[3];
+    unsigned char _nbuf[1];
+    struct __sbuf _lb  ;
+    int _blksize;
+    long long _offset  ;
+};
+
+enum   anonymous_typeY1 { P_ALL 
+,P_PID 
+,P_PGID 
+};
+
+struct __darwin_arm_exception_state
+{
+    unsigned int __exception  ;
+    unsigned int __fsr  ;
+    unsigned int __far  ;
+};
+
+struct __darwin_arm_exception_state64
+{
+    unsigned long  long __far  ;
+    unsigned int __esr  ;
+    unsigned int __exception  ;
+};
+
+struct __darwin_arm_exception_state64_v2
+{
+    unsigned long  long __far  ;
+    unsigned long  long __esr  ;
+};
+
+struct __darwin_arm_thread_state
+{
+    unsigned int __r[13]  ;
+    unsigned int __sp  ;
+    unsigned int __lr  ;
+    unsigned int __pc  ;
+    unsigned int __cpsr  ;
+};
+
+struct __darwin_arm_thread_state64
+{
+    unsigned long  long __x[29]  ;
+    unsigned long  long __fp  ;
+    unsigned long  long __lr  ;
+    unsigned long  long __sp  ;
+    unsigned long  long __pc  ;
+    unsigned int __cpsr  ;
+    unsigned int __pad  ;
+};
+
+struct __darwin_arm_vfp_state
+{
+    unsigned int __r[64]  ;
+    unsigned int __fpscr  ;
+};
+
+struct __darwin_arm_neon_state64
+{
+    __uint128_t __v[32];
+    unsigned int __fpsr  ;
+    unsigned int __fpcr  ;
+};
+
+struct __darwin_arm_neon_state
+{
+    __uint128_t __v[16];
+    unsigned int __fpsr  ;
+    unsigned int __fpcr  ;
+};
+
+struct __arm_pagein_state
+{
+    int __pagein_error;
+};
+
+struct __darwin_arm_sme_state
+{
+    unsigned long  long __svcr  ;
+    unsigned long  long __tpidr2_el0  ;
+    unsigned short int __svl_b  ;
+};
+
+struct __darwin_arm_sve_z_state
+{
+    char __z[16][256];
+} __attribute__((aligned(4)));
+
+struct __darwin_arm_sve_p_state
+{
+    char __p[16][256/8];
+} __attribute__((aligned(4)));
+
+struct __darwin_arm_sme_za_state
+{
+    char __za[4096];
+} __attribute__((aligned(4)));
+
+struct __darwin_arm_sme2_state
+{
+    char __zt0[64];
+} __attribute__((aligned(4)));
+
+struct __arm_legacy_debug_state
+{
+    unsigned int __bvr[16]  ;
+    unsigned int __bcr[16]  ;
+    unsigned int __wvr[16]  ;
+    unsigned int __wcr[16]  ;
+};
+
+struct __darwin_arm_debug_state32
+{
+    unsigned int __bvr[16]  ;
+    unsigned int __bcr[16]  ;
+    unsigned int __wvr[16]  ;
+    unsigned int __wcr[16]  ;
+    unsigned long  long __mdscr_el1  ;
+};
+
+struct __darwin_arm_debug_state64
+{
+    unsigned long  long __bvr[16]  ;
+    unsigned long  long __bcr[16]  ;
+    unsigned long  long __wvr[16]  ;
+    unsigned long  long __wcr[16]  ;
+    unsigned long  long __mdscr_el1  ;
+};
+
+struct __darwin_arm_cpmu_state64
+{
+    unsigned long  long __ctrs[16]  ;
+};
+
+struct __darwin_mcontext32
+{
+    struct __darwin_arm_exception_state __es  ;
+    struct __darwin_arm_thread_state __ss  ;
+    struct __darwin_arm_vfp_state __fs  ;
+};
+
+struct __darwin_mcontext64
+{
+    struct __darwin_arm_exception_state64 __es  ;
+    struct __darwin_arm_thread_state64 __ss  ;
+    struct __darwin_arm_neon_state64 __ns  ;
+};
+
+struct __darwin_sigaltstack
+{
+    void* ss_sp;
+    unsigned long  int ss_size  ;
+    int ss_flags;
+};
+
+struct __darwin_ucontext
+{
+    int uc_onstack;
+    unsigned int uc_sigmask  ;
+    struct __darwin_sigaltstack uc_stack  ;
+    struct __darwin_ucontext* uc_link  ;
+    unsigned long  int uc_mcsize  ;
+    struct __darwin_mcontext64* uc_mcontext  ;
+};
+
+union sigval
+{
+int sival_int;
+void* sival_ptr;
+};
+
+struct sigevent
+{
+    int sigev_notify;
+    int sigev_signo;
+    union sigval sigev_value  ;
+    void (*sigev_notify_function)(union sigval);
+    struct _opaque_pthread_attr_t* sigev_notify_attributes  ;
+};
+
+struct __siginfo
+{
+    int si_signo;
+    int si_errno;
+    int si_code;
+    int si_pid  ;
+    unsigned int si_uid  ;
+    int si_status;
+    void* si_addr;
+    union sigval si_value  ;
+    long si_band;
+    unsigned long  int __pad[7];
+};
+
+union __sigaction_u
+{
+void (*__sa_handler)(int);
+void (*__sa_sigaction)(int,struct __siginfo*,void*);
+};
+
+struct __sigaction
+{
+    union __sigaction_u __sigaction_u  ;
+    void (*sa_tramp)(void*,int,int,struct __siginfo*,void*);
+    unsigned int sa_mask  ;
+    int sa_flags;
+};
+
+struct sigaction
+{
+    union __sigaction_u __sigaction_u  ;
+    unsigned int sa_mask  ;
+    int sa_flags;
+};
+
+struct sigvec
+{
+    void (*sv_handler)(int);
+    int sv_mask;
+    int sv_flags;
+};
+
+struct sigstack
+{
+    char* ss_sp;
+    int ss_onstack;
+};
+
+struct timeval
+{
+    long tv_sec  ;
+    int tv_usec  ;
+};
+
+struct rusage
+{
+    struct timeval ru_utime  ;
+    struct timeval ru_stime  ;
+    long ru_maxrss;
+    long ru_ixrss;
+    long ru_idrss;
+    long ru_isrss;
+    long ru_minflt;
+    long ru_majflt;
+    long ru_nswap;
+    long ru_inblock;
+    long ru_oublock;
+    long ru_msgsnd;
+    long ru_msgrcv;
+    long ru_nsignals;
+    long ru_nvcsw;
+    long ru_nivcsw;
+};
+
+struct rusage_info_v0
+{
+    unsigned char ri_uuid[16]  ;
+    unsigned long  long ri_user_time  ;
+    unsigned long  long ri_system_time  ;
+    unsigned long  long ri_pkg_idle_wkups  ;
+    unsigned long  long ri_interrupt_wkups  ;
+    unsigned long  long ri_pageins  ;
+    unsigned long  long ri_wired_size  ;
+    unsigned long  long ri_resident_size  ;
+    unsigned long  long ri_phys_footprint  ;
+    unsigned long  long ri_proc_start_abstime  ;
+    unsigned long  long ri_proc_exit_abstime  ;
+};
+
+struct rusage_info_v1
+{
+    unsigned char ri_uuid[16]  ;
+    unsigned long  long ri_user_time  ;
+    unsigned long  long ri_system_time  ;
+    unsigned long  long ri_pkg_idle_wkups  ;
+    unsigned long  long ri_interrupt_wkups  ;
+    unsigned long  long ri_pageins  ;
+    unsigned long  long ri_wired_size  ;
+    unsigned long  long ri_resident_size  ;
+    unsigned long  long ri_phys_footprint  ;
+    unsigned long  long ri_proc_start_abstime  ;
+    unsigned long  long ri_proc_exit_abstime  ;
+    unsigned long  long ri_child_user_time  ;
+    unsigned long  long ri_child_system_time  ;
+    unsigned long  long ri_child_pkg_idle_wkups  ;
+    unsigned long  long ri_child_interrupt_wkups  ;
+    unsigned long  long ri_child_pageins  ;
+    unsigned long  long ri_child_elapsed_abstime  ;
+};
+
+struct rusage_info_v2
+{
+    unsigned char ri_uuid[16]  ;
+    unsigned long  long ri_user_time  ;
+    unsigned long  long ri_system_time  ;
+    unsigned long  long ri_pkg_idle_wkups  ;
+    unsigned long  long ri_interrupt_wkups  ;
+    unsigned long  long ri_pageins  ;
+    unsigned long  long ri_wired_size  ;
+    unsigned long  long ri_resident_size  ;
+    unsigned long  long ri_phys_footprint  ;
+    unsigned long  long ri_proc_start_abstime  ;
+    unsigned long  long ri_proc_exit_abstime  ;
+    unsigned long  long ri_child_user_time  ;
+    unsigned long  long ri_child_system_time  ;
+    unsigned long  long ri_child_pkg_idle_wkups  ;
+    unsigned long  long ri_child_interrupt_wkups  ;
+    unsigned long  long ri_child_pageins  ;
+    unsigned long  long ri_child_elapsed_abstime  ;
+    unsigned long  long ri_diskio_bytesread  ;
+    unsigned long  long ri_diskio_byteswritten  ;
+};
+
+struct rusage_info_v3
+{
+    unsigned char ri_uuid[16]  ;
+    unsigned long  long ri_user_time  ;
+    unsigned long  long ri_system_time  ;
+    unsigned long  long ri_pkg_idle_wkups  ;
+    unsigned long  long ri_interrupt_wkups  ;
+    unsigned long  long ri_pageins  ;
+    unsigned long  long ri_wired_size  ;
+    unsigned long  long ri_resident_size  ;
+    unsigned long  long ri_phys_footprint  ;
+    unsigned long  long ri_proc_start_abstime  ;
+    unsigned long  long ri_proc_exit_abstime  ;
+    unsigned long  long ri_child_user_time  ;
+    unsigned long  long ri_child_system_time  ;
+    unsigned long  long ri_child_pkg_idle_wkups  ;
+    unsigned long  long ri_child_interrupt_wkups  ;
+    unsigned long  long ri_child_pageins  ;
+    unsigned long  long ri_child_elapsed_abstime  ;
+    unsigned long  long ri_diskio_bytesread  ;
+    unsigned long  long ri_diskio_byteswritten  ;
+    unsigned long  long ri_cpu_time_qos_default  ;
+    unsigned long  long ri_cpu_time_qos_maintenance  ;
+    unsigned long  long ri_cpu_time_qos_background  ;
+    unsigned long  long ri_cpu_time_qos_utility  ;
+    unsigned long  long ri_cpu_time_qos_legacy  ;
+    unsigned long  long ri_cpu_time_qos_user_initiated  ;
+    unsigned long  long ri_cpu_time_qos_user_interactive  ;
+    unsigned long  long ri_billed_system_time  ;
+    unsigned long  long ri_serviced_system_time  ;
+};
+
+struct rusage_info_v4
+{
+    unsigned char ri_uuid[16]  ;
+    unsigned long  long ri_user_time  ;
+    unsigned long  long ri_system_time  ;
+    unsigned long  long ri_pkg_idle_wkups  ;
+    unsigned long  long ri_interrupt_wkups  ;
+    unsigned long  long ri_pageins  ;
+    unsigned long  long ri_wired_size  ;
+    unsigned long  long ri_resident_size  ;
+    unsigned long  long ri_phys_footprint  ;
+    unsigned long  long ri_proc_start_abstime  ;
+    unsigned long  long ri_proc_exit_abstime  ;
+    unsigned long  long ri_child_user_time  ;
+    unsigned long  long ri_child_system_time  ;
+    unsigned long  long ri_child_pkg_idle_wkups  ;
+    unsigned long  long ri_child_interrupt_wkups  ;
+    unsigned long  long ri_child_pageins  ;
+    unsigned long  long ri_child_elapsed_abstime  ;
+    unsigned long  long ri_diskio_bytesread  ;
+    unsigned long  long ri_diskio_byteswritten  ;
+    unsigned long  long ri_cpu_time_qos_default  ;
+    unsigned long  long ri_cpu_time_qos_maintenance  ;
+    unsigned long  long ri_cpu_time_qos_background  ;
+    unsigned long  long ri_cpu_time_qos_utility  ;
+    unsigned long  long ri_cpu_time_qos_legacy  ;
+    unsigned long  long ri_cpu_time_qos_user_initiated  ;
+    unsigned long  long ri_cpu_time_qos_user_interactive  ;
+    unsigned long  long ri_billed_system_time  ;
+    unsigned long  long ri_serviced_system_time  ;
+    unsigned long  long ri_logical_writes  ;
+    unsigned long  long ri_lifetime_max_phys_footprint  ;
+    unsigned long  long ri_instructions  ;
+    unsigned long  long ri_cycles  ;
+    unsigned long  long ri_billed_energy  ;
+    unsigned long  long ri_serviced_energy  ;
+    unsigned long  long ri_interval_max_phys_footprint  ;
+    unsigned long  long ri_runnable_time  ;
+};
+
+struct rusage_info_v5
+{
+    unsigned char ri_uuid[16]  ;
+    unsigned long  long ri_user_time  ;
+    unsigned long  long ri_system_time  ;
+    unsigned long  long ri_pkg_idle_wkups  ;
+    unsigned long  long ri_interrupt_wkups  ;
+    unsigned long  long ri_pageins  ;
+    unsigned long  long ri_wired_size  ;
+    unsigned long  long ri_resident_size  ;
+    unsigned long  long ri_phys_footprint  ;
+    unsigned long  long ri_proc_start_abstime  ;
+    unsigned long  long ri_proc_exit_abstime  ;
+    unsigned long  long ri_child_user_time  ;
+    unsigned long  long ri_child_system_time  ;
+    unsigned long  long ri_child_pkg_idle_wkups  ;
+    unsigned long  long ri_child_interrupt_wkups  ;
+    unsigned long  long ri_child_pageins  ;
+    unsigned long  long ri_child_elapsed_abstime  ;
+    unsigned long  long ri_diskio_bytesread  ;
+    unsigned long  long ri_diskio_byteswritten  ;
+    unsigned long  long ri_cpu_time_qos_default  ;
+    unsigned long  long ri_cpu_time_qos_maintenance  ;
+    unsigned long  long ri_cpu_time_qos_background  ;
+    unsigned long  long ri_cpu_time_qos_utility  ;
+    unsigned long  long ri_cpu_time_qos_legacy  ;
+    unsigned long  long ri_cpu_time_qos_user_initiated  ;
+    unsigned long  long ri_cpu_time_qos_user_interactive  ;
+    unsigned long  long ri_billed_system_time  ;
+    unsigned long  long ri_serviced_system_time  ;
+    unsigned long  long ri_logical_writes  ;
+    unsigned long  long ri_lifetime_max_phys_footprint  ;
+    unsigned long  long ri_instructions  ;
+    unsigned long  long ri_cycles  ;
+    unsigned long  long ri_billed_energy  ;
+    unsigned long  long ri_serviced_energy  ;
+    unsigned long  long ri_interval_max_phys_footprint  ;
+    unsigned long  long ri_runnable_time  ;
+    unsigned long  long ri_flags  ;
+};
+
+struct rusage_info_v6
+{
+    unsigned char ri_uuid[16]  ;
+    unsigned long  long ri_user_time  ;
+    unsigned long  long ri_system_time  ;
+    unsigned long  long ri_pkg_idle_wkups  ;
+    unsigned long  long ri_interrupt_wkups  ;
+    unsigned long  long ri_pageins  ;
+    unsigned long  long ri_wired_size  ;
+    unsigned long  long ri_resident_size  ;
+    unsigned long  long ri_phys_footprint  ;
+    unsigned long  long ri_proc_start_abstime  ;
+    unsigned long  long ri_proc_exit_abstime  ;
+    unsigned long  long ri_child_user_time  ;
+    unsigned long  long ri_child_system_time  ;
+    unsigned long  long ri_child_pkg_idle_wkups  ;
+    unsigned long  long ri_child_interrupt_wkups  ;
+    unsigned long  long ri_child_pageins  ;
+    unsigned long  long ri_child_elapsed_abstime  ;
+    unsigned long  long ri_diskio_bytesread  ;
+    unsigned long  long ri_diskio_byteswritten  ;
+    unsigned long  long ri_cpu_time_qos_default  ;
+    unsigned long  long ri_cpu_time_qos_maintenance  ;
+    unsigned long  long ri_cpu_time_qos_background  ;
+    unsigned long  long ri_cpu_time_qos_utility  ;
+    unsigned long  long ri_cpu_time_qos_legacy  ;
+    unsigned long  long ri_cpu_time_qos_user_initiated  ;
+    unsigned long  long ri_cpu_time_qos_user_interactive  ;
+    unsigned long  long ri_billed_system_time  ;
+    unsigned long  long ri_serviced_system_time  ;
+    unsigned long  long ri_logical_writes  ;
+    unsigned long  long ri_lifetime_max_phys_footprint  ;
+    unsigned long  long ri_instructions  ;
+    unsigned long  long ri_cycles  ;
+    unsigned long  long ri_billed_energy  ;
+    unsigned long  long ri_serviced_energy  ;
+    unsigned long  long ri_interval_max_phys_footprint  ;
+    unsigned long  long ri_runnable_time  ;
+    unsigned long  long ri_flags  ;
+    unsigned long  long ri_user_ptime  ;
+    unsigned long  long ri_system_ptime  ;
+    unsigned long  long ri_pinstructions  ;
+    unsigned long  long ri_pcycles  ;
+    unsigned long  long ri_energy_nj  ;
+    unsigned long  long ri_penergy_nj  ;
+    unsigned long  long ri_secure_time_in_system  ;
+    unsigned long  long ri_secure_ptime_in_system  ;
+    unsigned long  long ri_neural_footprint  ;
+    unsigned long  long ri_lifetime_max_neural_footprint  ;
+    unsigned long  long ri_interval_max_neural_footprint  ;
+    unsigned long  long ri_reserved[9]  ;
+};
+
+struct rlimit
+{
+    unsigned long  long rlim_cur  ;
+    unsigned long  long rlim_max  ;
+};
+
+struct proc_rlimit_control_wakeupmon
+{
+    unsigned int wm_flags  ;
+    int wm_rate  ;
 };
 
 union anonymous_typeZ2
 {
-unsigned int __wch;
-char __wchb[4];
+unsigned long  long _ull  ;
+unsigned int _ul[2]  ;
 };
 
 union anonymous_typeZ3
 {
-unsigned int __wch;
-char __wchb[4];
+unsigned long  long _ull  ;
+unsigned int _ul[2]  ;
 };
 
-struct anonymous_typeX1
+union anonymous_typeZ4
 {
-    int __count;
-    union {
-        unsigned int __wch;
-        char __wchb[4];
-    } __value;
+unsigned long  long _ull  ;
+unsigned int _ul[2]  ;
 };
 
-struct _G_fpos_t
+union anonymous_typeZ5
 {
-    long  int __pos  ;
+unsigned long  long _ull  ;
+unsigned int _ul[2]  ;
+};
+
+struct anonymous_typeX6
+{
+    unsigned int w_Termsig:7;
+    unsigned int w_Coredump:1;
+    unsigned int w_Retcode:8;
+    unsigned int w_Filler:16;
+};
+
+struct anonymous_typeX7
+{
+    unsigned int w_Stopval:8;
+    unsigned int w_Stopsig:8;
+    unsigned int w_Filler:16;
+};
+
+union wait
+{
+int w_status;
     struct {
-        int __count;
-        union {
-            unsigned int __wch;
-            char __wchb[4];
-        } __value;
-    } __state;
-};
-
-struct _G_fpos64_t
-{
-    long  int __pos  ;
+        unsigned int w_Termsig:7;
+        unsigned int w_Coredump:1;
+        unsigned int w_Retcode:8;
+        unsigned int w_Filler:16;
+    } w_T;
     struct {
-        int __count;
-        union {
-            unsigned int __wch;
-            char __wchb[4];
-        } __value;
-    } __state;
+        unsigned int w_Stopval:8;
+        unsigned int w_Stopsig:8;
+        unsigned int w_Filler:16;
+    } w_S;
 };
 
-struct _IO_FILE
-{
-    int _flags;
-    char* _IO_read_ptr;
-    char* _IO_read_end;
-    char* _IO_read_base;
-    char* _IO_write_base;
-    char* _IO_write_ptr;
-    char* _IO_write_end;
-    char* _IO_buf_base;
-    char* _IO_buf_end;
-    char* _IO_save_base;
-    char* _IO_backup_base;
-    char* _IO_save_end;
-    struct _IO_marker* _markers  ;
-    struct _IO_FILE* _chain  ;
-    int _fileno;
-    int _flags2:24;
-    char _short_backupbuf[1];
-    long  int _old_offset  ;
-    unsigned short int _cur_column;
-    char _vtable_offset;
-    char _shortbuf[1];
-    void* _lock  ;
-    long  int _offset  ;
-    struct _IO_codecvt* _codecvt  ;
-    struct _IO_wide_data* _wide_data  ;
-    struct _IO_FILE* _freeres_list  ;
-    void* _freeres_buf;
-    struct _IO_FILE** _prevchain  ;
-    int _mode;
-    int _unused3;
-    unsigned long  int _total_written  ;
-    char _unused2[12*sizeof(int)-5*sizeof(void*)];
-};
-
-struct _IO_cookie_io_functions_t
-{
-    long  int (*(*read))(void*,char*,unsigned long)  ;
-    long  int (*(*write))(void*,const char*,unsigned long)  ;
-    int (*(*seek))(void*,long  int*,int)  ;
-    int (*(*close))(void*)  ;
-};
-
-struct anonymous_typeX4
+struct anonymous_typeX8
 {
     int quot;
     int rem;
 };
 
-struct anonymous_typeX5
+struct anonymous_typeX9
 {
-    long  int quot;
-    long  int rem;
-};
-
-struct anonymous_typeX6
-{
-    long long int quot;
-    long long int rem;
-};
-
-struct __locale_struct
-{
-    struct __locale_data* __locales[13];
-    const unsigned short int* __ctype_b;
-    const int* __ctype_tolower;
-    const int* __ctype_toupper;
-    const char* __names[13];
-};
-
-struct anonymous_typeX7
-{
-    unsigned long  int __val[(1024/(8*sizeof(unsigned long  int)))];
-};
-
-struct timeval
-{
-    long  int tv_sec  ;
-    long  int tv_usec  ;
-};
-
-struct timespec
-{
-    long  int tv_sec  ;
-    long  int tv_nsec  ;
-};
-
-struct anonymous_typeX8
-{
-    long  int fds_bits[1024/(8*(int)sizeof(long  int))]  ;
+    long quot;
+    long rem;
 };
 
 struct anonymous_typeX10
 {
-    unsigned int __low;
-    unsigned int __high;
-};
-
-union anonymous_typeZ9
-{
-unsigned long long int __value64;
-    struct {
-        unsigned int __low;
-        unsigned int __high;
-    } __value32;
-};
-
-struct __pthread_internal_list
-{
-    struct __pthread_internal_list* __prev  ;
-    struct __pthread_internal_list* __next  ;
-};
-
-struct __pthread_internal_slist
-{
-    struct __pthread_internal_slist* __next  ;
-};
-
-struct __pthread_mutex_s
-{
-    int __lock;
-    unsigned int __count;
-    int __owner;
-    unsigned int __nusers;
-    int __kind;
-    short __spins;
-    short __elision;
-    struct __pthread_internal_list __list  ;
-};
-
-struct __pthread_rwlock_arch_t
-{
-    unsigned int __readers;
-    unsigned int __writers;
-    unsigned int __wrphase_futex;
-    unsigned int __writers_futex;
-    unsigned int __pad3;
-    unsigned int __pad4;
-    int __cur_writer;
-    int __shared;
-    char __rwelision;
-    unsigned char __pad1[7];
-    unsigned long  int __pad2;
-    unsigned int __flags;
-};
-
-struct __pthread_cond_s
-{
-    union {
-        unsigned long long int __value64;
-        struct {
-            unsigned int __low;
-            unsigned int __high;
-        } __value32;
-    } __wseq;
-    union {
-        unsigned long long int __value64;
-        struct {
-            unsigned int __low;
-            unsigned int __high;
-        } __value32;
-    } __g1_start;
-    unsigned int __g_size[2];
-    unsigned int __g1_orig_size;
-    unsigned int __wrefs;
-    unsigned int __g_signals[2];
-    unsigned int __unused_initialized_1;
-    unsigned int __unused_initialized_2;
-};
-
-struct anonymous_typeX11
-{
-    int __data;
-};
-
-union anonymous_typeZ12
-{
-char __size[4];
-int __align;
-};
-
-union anonymous_typeZ13
-{
-char __size[4];
-int __align;
-};
-
-union pthread_attr_t
-{
-char __size[56];
-long  int __align;
-};
-
-union anonymous_typeZ14
-{
-struct __pthread_mutex_s __data  ;
-char __size[40];
-long  int __align;
-};
-
-union anonymous_typeZ15
-{
-struct __pthread_cond_s __data  ;
-char __size[48];
-long long int __align;
-};
-
-union anonymous_typeZ16
-{
-struct __pthread_rwlock_arch_t __data  ;
-char __size[56];
-long  int __align;
-};
-
-union anonymous_typeZ17
-{
-char __size[8];
-long  int __align;
-};
-
-union anonymous_typeZ18
-{
-char __size[32];
-long  int __align;
-};
-
-union anonymous_typeZ19
-{
-char __size[4];
-int __align;
-};
-
-struct random_data
-{
-    int* fptr  ;
-    int* rptr  ;
-    int* state  ;
-    int rand_type;
-    int rand_deg;
-    int rand_sep;
-    int* end_ptr  ;
-};
-
-struct drand48_data
-{
-    unsigned short int __x[3];
-    unsigned short int __old_x[3];
-    unsigned short int __c;
-    unsigned short int __init;
-    unsigned long long int __a;
+    long long quot;
+    long long rem;
 };
 
 struct lconv
@@ -827,8 +1130,8 @@ struct lconv
     char p_sign_posn;
     char n_sign_posn;
     char int_p_cs_precedes;
-    char int_p_sep_by_space;
     char int_n_cs_precedes;
+    char int_p_sep_by_space;
     char int_n_sep_by_space;
     char int_p_sign_posn;
     char int_n_sign_posn;
@@ -1004,14 +1307,14 @@ enum { RE_UNUSED
 ,RE_GROUP_END 
 };
 
-struct anonymous_typeX21
+struct anonymous_typeX12
 {
     struct regex_t* first  ;
     struct regex_t* last  ;
     int id;
 };
 
-union anonymous_typeZ20
+union anonymous_typeZ11
 {
 unsigned char ch;
 unsigned char* ccl;
@@ -1022,14 +1325,14 @@ unsigned char* ccl;
     } group;
 };
 
-struct anonymous_typeX23
+struct anonymous_typeX14
 {
     struct regex_t* first  ;
     struct regex_t* last  ;
     int id;
 };
 
-union anonymous_typeZ22
+union anonymous_typeZ13
 {
 unsigned char ch;
 unsigned char* ccl;
@@ -1061,7 +1364,7 @@ struct re_program
     int group_count;
 };
 
-struct anonymous_typeX24
+struct anonymous_typeX15
 {
     struct regex_t* pool  ;
     int pool_capacity;
@@ -1072,7 +1375,7 @@ struct anonymous_typeX24
     int group_count;
 };
 
-struct anonymous_typeX25
+struct anonymous_typeX16
 {
     const char* base;
     struct re_capture* captures  ;
@@ -1081,550 +1384,10 @@ struct anonymous_typeX25
     _Bool ignore_case;
 };
 
-struct anonymous_typeX26
+struct timespec
 {
-    long long __clang_max_align_nonce1 __attribute__((__aligned__(__alignof__(long long))));
-    long  double __clang_max_align_nonce2 __attribute__((__aligned__(__alignof__(long double))));
-};
-
-struct anonymous_typeX27
-{
-    unsigned int attr  ;
-    int chars[5]  ;
-    int ext_color;
-};
-
-struct anonymous_typeX28
-{
-    short id;
-    int x;
-    int y;
-    int z;
-    unsigned int bstate  ;
-};
-
-struct dirent
-{
-    unsigned long  int d_ino  ;
-    long  int d_off  ;
-    unsigned short int d_reclen;
-    unsigned char d_type;
-    char d_name[256];
-};
-
-struct dirent64
-{
-    unsigned long  int d_ino  ;
-    long  int d_off  ;
-    unsigned short int d_reclen;
-    unsigned char d_type;
-    char d_name[256];
-};
-
-enum { DT_UNKNOWN=(0),
-DT_FIFO=(1),
-DT_CHR=(2),
-DT_DIR=(4),
-DT_BLK=(6),
-DT_REG=(8),
-DT_LNK=(10),
-DT_SOCK=(12),
-DT_WHT=(14)
-};
-
-struct stat
-{
-    unsigned long  int st_dev  ;
-    unsigned long  int st_ino  ;
-    unsigned long  int st_nlink  ;
-    unsigned int st_mode  ;
-    unsigned int st_uid  ;
-    unsigned int st_gid  ;
-    int __pad0;
-    unsigned long  int st_rdev  ;
-    long  int st_size  ;
-    long  int st_blksize  ;
-    long  int st_blocks  ;
-    struct timespec st_atim  ;
-    struct timespec st_mtim  ;
-    struct timespec st_ctim  ;
-    long  int __glibc_reserved[3]  ;
-};
-
-struct stat64
-{
-    unsigned long  int st_dev  ;
-    unsigned long  int st_ino  ;
-    unsigned long  int st_nlink  ;
-    unsigned int st_mode  ;
-    unsigned int st_uid  ;
-    unsigned int st_gid  ;
-    int __pad0;
-    unsigned long  int st_rdev  ;
-    long  int st_size  ;
-    long  int st_blksize  ;
-    long  int st_blocks  ;
-    struct timespec st_atim  ;
-    struct timespec st_mtim  ;
-    struct timespec st_ctim  ;
-    long  int __glibc_reserved[3]  ;
-};
-
-struct statx_timestamp
-{
-    long  int tv_sec  ;
-    unsigned int tv_nsec  ;
-    int __statx_timestamp_pad1[1]  ;
-};
-
-struct statx
-{
-    unsigned int stx_mask  ;
-    unsigned int stx_blksize  ;
-    unsigned long  int stx_attributes  ;
-    unsigned int stx_nlink  ;
-    unsigned int stx_uid  ;
-    unsigned int stx_gid  ;
-    unsigned short int stx_mode  ;
-    unsigned short int __statx_pad1[1]  ;
-    unsigned long  int stx_ino  ;
-    unsigned long  int stx_size  ;
-    unsigned long  int stx_blocks  ;
-    unsigned long  int stx_attributes_mask  ;
-    struct statx_timestamp stx_atime  ;
-    struct statx_timestamp stx_btime  ;
-    struct statx_timestamp stx_ctime  ;
-    struct statx_timestamp stx_mtime  ;
-    unsigned int stx_rdev_major  ;
-    unsigned int stx_rdev_minor  ;
-    unsigned int stx_dev_major  ;
-    unsigned int stx_dev_minor  ;
-    unsigned long  int __statx_pad2[14]  ;
-};
-
-enum { _PC_LINK_MAX 
-,_PC_MAX_CANON 
-,_PC_MAX_INPUT 
-,_PC_NAME_MAX 
-,_PC_PATH_MAX 
-,_PC_PIPE_BUF 
-,_PC_CHOWN_RESTRICTED 
-,_PC_NO_TRUNC 
-,_PC_VDISABLE 
-,_PC_SYNC_IO 
-,_PC_ASYNC_IO 
-,_PC_PRIO_IO 
-,_PC_SOCK_MAXBUF 
-,_PC_FILESIZEBITS 
-,_PC_REC_INCR_XFER_SIZE 
-,_PC_REC_MAX_XFER_SIZE 
-,_PC_REC_MIN_XFER_SIZE 
-,_PC_REC_XFER_ALIGN 
-,_PC_ALLOC_SIZE_MIN 
-,_PC_SYMLINK_MAX 
-,_PC_2_SYMLINKS 
-};
-
-enum { _SC_ARG_MAX 
-,_SC_CHILD_MAX 
-,_SC_CLK_TCK 
-,_SC_NGROUPS_MAX 
-,_SC_OPEN_MAX 
-,_SC_STREAM_MAX 
-,_SC_TZNAME_MAX 
-,_SC_JOB_CONTROL 
-,_SC_SAVED_IDS 
-,_SC_REALTIME_SIGNALS 
-,_SC_PRIORITY_SCHEDULING 
-,_SC_TIMERS 
-,_SC_ASYNCHRONOUS_IO 
-,_SC_PRIORITIZED_IO 
-,_SC_SYNCHRONIZED_IO 
-,_SC_FSYNC 
-,_SC_MAPPED_FILES 
-,_SC_MEMLOCK 
-,_SC_MEMLOCK_RANGE 
-,_SC_MEMORY_PROTECTION 
-,_SC_MESSAGE_PASSING 
-,_SC_SEMAPHORES 
-,_SC_SHARED_MEMORY_OBJECTS 
-,_SC_AIO_LISTIO_MAX 
-,_SC_AIO_MAX 
-,_SC_AIO_PRIO_DELTA_MAX 
-,_SC_DELAYTIMER_MAX 
-,_SC_MQ_OPEN_MAX 
-,_SC_MQ_PRIO_MAX 
-,_SC_VERSION 
-,_SC_PAGESIZE 
-,_SC_RTSIG_MAX 
-,_SC_SEM_NSEMS_MAX 
-,_SC_SEM_VALUE_MAX 
-,_SC_SIGQUEUE_MAX 
-,_SC_TIMER_MAX 
-,_SC_BC_BASE_MAX 
-,_SC_BC_DIM_MAX 
-,_SC_BC_SCALE_MAX 
-,_SC_BC_STRING_MAX 
-,_SC_COLL_WEIGHTS_MAX 
-,_SC_EQUIV_CLASS_MAX 
-,_SC_EXPR_NEST_MAX 
-,_SC_LINE_MAX 
-,_SC_RE_DUP_MAX 
-,_SC_CHARCLASS_NAME_MAX 
-,_SC_2_VERSION 
-,_SC_2_C_BIND 
-,_SC_2_C_DEV 
-,_SC_2_FORT_DEV 
-,_SC_2_FORT_RUN 
-,_SC_2_SW_DEV 
-,_SC_2_LOCALEDEF 
-,_SC_PII 
-,_SC_PII_XTI 
-,_SC_PII_SOCKET 
-,_SC_PII_INTERNET 
-,_SC_PII_OSI 
-,_SC_POLL 
-,_SC_SELECT 
-,_SC_UIO_MAXIOV 
-,_SC_IOV_MAX=((60)),
-_SC_PII_INTERNET_STREAM 
-,_SC_PII_INTERNET_DGRAM 
-,_SC_PII_OSI_COTS 
-,_SC_PII_OSI_CLTS 
-,_SC_PII_OSI_M 
-,_SC_T_IOV_MAX 
-,_SC_THREADS 
-,_SC_THREAD_SAFE_FUNCTIONS 
-,_SC_GETGR_R_SIZE_MAX 
-,_SC_GETPW_R_SIZE_MAX 
-,_SC_LOGIN_NAME_MAX 
-,_SC_TTY_NAME_MAX 
-,_SC_THREAD_DESTRUCTOR_ITERATIONS 
-,_SC_THREAD_KEYS_MAX 
-,_SC_THREAD_STACK_MIN 
-,_SC_THREAD_THREADS_MAX 
-,_SC_THREAD_ATTR_STACKADDR 
-,_SC_THREAD_ATTR_STACKSIZE 
-,_SC_THREAD_PRIORITY_SCHEDULING 
-,_SC_THREAD_PRIO_INHERIT 
-,_SC_THREAD_PRIO_PROTECT 
-,_SC_THREAD_PROCESS_SHARED 
-,_SC_NPROCESSORS_CONF 
-,_SC_NPROCESSORS_ONLN 
-,_SC_PHYS_PAGES 
-,_SC_AVPHYS_PAGES 
-,_SC_ATEXIT_MAX 
-,_SC_PASS_MAX 
-,_SC_XOPEN_VERSION 
-,_SC_XOPEN_XCU_VERSION 
-,_SC_XOPEN_UNIX 
-,_SC_XOPEN_CRYPT 
-,_SC_XOPEN_ENH_I18N 
-,_SC_XOPEN_SHM 
-,_SC_2_CHAR_TERM 
-,_SC_2_C_VERSION 
-,_SC_2_UPE 
-,_SC_XOPEN_XPG2 
-,_SC_XOPEN_XPG3 
-,_SC_XOPEN_XPG4 
-,_SC_CHAR_BIT 
-,_SC_CHAR_MAX 
-,_SC_CHAR_MIN 
-,_SC_INT_MAX 
-,_SC_INT_MIN 
-,_SC_LONG_BIT 
-,_SC_WORD_BIT 
-,_SC_MB_LEN_MAX 
-,_SC_NZERO 
-,_SC_SSIZE_MAX 
-,_SC_SCHAR_MAX 
-,_SC_SCHAR_MIN 
-,_SC_SHRT_MAX 
-,_SC_SHRT_MIN 
-,_SC_UCHAR_MAX 
-,_SC_UINT_MAX 
-,_SC_ULONG_MAX 
-,_SC_USHRT_MAX 
-,_SC_NL_ARGMAX 
-,_SC_NL_LANGMAX 
-,_SC_NL_MSGMAX 
-,_SC_NL_NMAX 
-,_SC_NL_SETMAX 
-,_SC_NL_TEXTMAX 
-,_SC_XBS5_ILP32_OFF32 
-,_SC_XBS5_ILP32_OFFBIG 
-,_SC_XBS5_LP64_OFF64 
-,_SC_XBS5_LPBIG_OFFBIG 
-,_SC_XOPEN_LEGACY 
-,_SC_XOPEN_REALTIME 
-,_SC_XOPEN_REALTIME_THREADS 
-,_SC_ADVISORY_INFO 
-,_SC_BARRIERS 
-,_SC_BASE 
-,_SC_C_LANG_SUPPORT 
-,_SC_C_LANG_SUPPORT_R 
-,_SC_CLOCK_SELECTION 
-,_SC_CPUTIME 
-,_SC_THREAD_CPUTIME 
-,_SC_DEVICE_IO 
-,_SC_DEVICE_SPECIFIC 
-,_SC_DEVICE_SPECIFIC_R 
-,_SC_FD_MGMT 
-,_SC_FIFO 
-,_SC_PIPE 
-,_SC_FILE_ATTRIBUTES 
-,_SC_FILE_LOCKING 
-,_SC_FILE_SYSTEM 
-,_SC_MONOTONIC_CLOCK 
-,_SC_MULTI_PROCESS 
-,_SC_SINGLE_PROCESS 
-,_SC_NETWORKING 
-,_SC_READER_WRITER_LOCKS 
-,_SC_SPIN_LOCKS 
-,_SC_REGEXP 
-,_SC_REGEX_VERSION 
-,_SC_SHELL 
-,_SC_SIGNALS 
-,_SC_SPAWN 
-,_SC_SPORADIC_SERVER 
-,_SC_THREAD_SPORADIC_SERVER 
-,_SC_SYSTEM_DATABASE 
-,_SC_SYSTEM_DATABASE_R 
-,_SC_TIMEOUTS 
-,_SC_TYPED_MEMORY_OBJECTS 
-,_SC_USER_GROUPS 
-,_SC_USER_GROUPS_R 
-,_SC_2_PBS 
-,_SC_2_PBS_ACCOUNTING 
-,_SC_2_PBS_LOCATE 
-,_SC_2_PBS_MESSAGE 
-,_SC_2_PBS_TRACK 
-,_SC_SYMLOOP_MAX 
-,_SC_STREAMS 
-,_SC_2_PBS_CHECKPOINT 
-,_SC_V6_ILP32_OFF32 
-,_SC_V6_ILP32_OFFBIG 
-,_SC_V6_LP64_OFF64 
-,_SC_V6_LPBIG_OFFBIG 
-,_SC_HOST_NAME_MAX 
-,_SC_TRACE 
-,_SC_TRACE_EVENT_FILTER 
-,_SC_TRACE_INHERIT 
-,_SC_TRACE_LOG 
-,_SC_LEVEL1_ICACHE_SIZE 
-,_SC_LEVEL1_ICACHE_ASSOC 
-,_SC_LEVEL1_ICACHE_LINESIZE 
-,_SC_LEVEL1_DCACHE_SIZE 
-,_SC_LEVEL1_DCACHE_ASSOC 
-,_SC_LEVEL1_DCACHE_LINESIZE 
-,_SC_LEVEL2_CACHE_SIZE 
-,_SC_LEVEL2_CACHE_ASSOC 
-,_SC_LEVEL2_CACHE_LINESIZE 
-,_SC_LEVEL3_CACHE_SIZE 
-,_SC_LEVEL3_CACHE_ASSOC 
-,_SC_LEVEL3_CACHE_LINESIZE 
-,_SC_LEVEL4_CACHE_SIZE 
-,_SC_LEVEL4_CACHE_ASSOC 
-,_SC_LEVEL4_CACHE_LINESIZE 
-,_SC_IPV6=(((60)+125)+50),
-_SC_RAW_SOCKETS 
-,_SC_V7_ILP32_OFF32 
-,_SC_V7_ILP32_OFFBIG 
-,_SC_V7_LP64_OFF64 
-,_SC_V7_LPBIG_OFFBIG 
-,_SC_SS_REPL_MAX 
-,_SC_TRACE_EVENT_NAME_MAX 
-,_SC_TRACE_NAME_MAX 
-,_SC_TRACE_SYS_MAX 
-,_SC_TRACE_USER_EVENT_MAX 
-,_SC_XOPEN_STREAMS 
-,_SC_THREAD_ROBUST_PRIO_INHERIT 
-,_SC_THREAD_ROBUST_PRIO_PROTECT 
-,_SC_MINSIGSTKSZ 
-,_SC_SIGSTKSZ 
-};
-
-enum { _CS_PATH 
-,_CS_V6_WIDTH_RESTRICTED_ENVS 
-,_CS_GNU_LIBC_VERSION 
-,_CS_GNU_LIBPTHREAD_VERSION 
-,_CS_V5_WIDTH_RESTRICTED_ENVS 
-,_CS_V7_WIDTH_RESTRICTED_ENVS 
-,_CS_LFS_CFLAGS=(1000),
-_CS_LFS_LDFLAGS 
-,_CS_LFS_LIBS 
-,_CS_LFS_LINTFLAGS 
-,_CS_LFS64_CFLAGS 
-,_CS_LFS64_LDFLAGS 
-,_CS_LFS64_LIBS 
-,_CS_LFS64_LINTFLAGS 
-,_CS_XBS5_ILP32_OFF32_CFLAGS=(1100),
-_CS_XBS5_ILP32_OFF32_LDFLAGS 
-,_CS_XBS5_ILP32_OFF32_LIBS 
-,_CS_XBS5_ILP32_OFF32_LINTFLAGS 
-,_CS_XBS5_ILP32_OFFBIG_CFLAGS 
-,_CS_XBS5_ILP32_OFFBIG_LDFLAGS 
-,_CS_XBS5_ILP32_OFFBIG_LIBS 
-,_CS_XBS5_ILP32_OFFBIG_LINTFLAGS 
-,_CS_XBS5_LP64_OFF64_CFLAGS 
-,_CS_XBS5_LP64_OFF64_LDFLAGS 
-,_CS_XBS5_LP64_OFF64_LIBS 
-,_CS_XBS5_LP64_OFF64_LINTFLAGS 
-,_CS_XBS5_LPBIG_OFFBIG_CFLAGS 
-,_CS_XBS5_LPBIG_OFFBIG_LDFLAGS 
-,_CS_XBS5_LPBIG_OFFBIG_LIBS 
-,_CS_XBS5_LPBIG_OFFBIG_LINTFLAGS 
-,_CS_POSIX_V6_ILP32_OFF32_CFLAGS 
-,_CS_POSIX_V6_ILP32_OFF32_LDFLAGS 
-,_CS_POSIX_V6_ILP32_OFF32_LIBS 
-,_CS_POSIX_V6_ILP32_OFF32_LINTFLAGS 
-,_CS_POSIX_V6_ILP32_OFFBIG_CFLAGS 
-,_CS_POSIX_V6_ILP32_OFFBIG_LDFLAGS 
-,_CS_POSIX_V6_ILP32_OFFBIG_LIBS 
-,_CS_POSIX_V6_ILP32_OFFBIG_LINTFLAGS 
-,_CS_POSIX_V6_LP64_OFF64_CFLAGS 
-,_CS_POSIX_V6_LP64_OFF64_LDFLAGS 
-,_CS_POSIX_V6_LP64_OFF64_LIBS 
-,_CS_POSIX_V6_LP64_OFF64_LINTFLAGS 
-,_CS_POSIX_V6_LPBIG_OFFBIG_CFLAGS 
-,_CS_POSIX_V6_LPBIG_OFFBIG_LDFLAGS 
-,_CS_POSIX_V6_LPBIG_OFFBIG_LIBS 
-,_CS_POSIX_V6_LPBIG_OFFBIG_LINTFLAGS 
-,_CS_POSIX_V7_ILP32_OFF32_CFLAGS 
-,_CS_POSIX_V7_ILP32_OFF32_LDFLAGS 
-,_CS_POSIX_V7_ILP32_OFF32_LIBS 
-,_CS_POSIX_V7_ILP32_OFF32_LINTFLAGS 
-,_CS_POSIX_V7_ILP32_OFFBIG_CFLAGS 
-,_CS_POSIX_V7_ILP32_OFFBIG_LDFLAGS 
-,_CS_POSIX_V7_ILP32_OFFBIG_LIBS 
-,_CS_POSIX_V7_ILP32_OFFBIG_LINTFLAGS 
-,_CS_POSIX_V7_LP64_OFF64_CFLAGS 
-,_CS_POSIX_V7_LP64_OFF64_LDFLAGS 
-,_CS_POSIX_V7_LP64_OFF64_LIBS 
-,_CS_POSIX_V7_LP64_OFF64_LINTFLAGS 
-,_CS_POSIX_V7_LPBIG_OFFBIG_CFLAGS 
-,_CS_POSIX_V7_LPBIG_OFFBIG_LDFLAGS 
-,_CS_POSIX_V7_LPBIG_OFFBIG_LIBS 
-,_CS_POSIX_V7_LPBIG_OFFBIG_LINTFLAGS 
-,_CS_V6_ENV 
-,_CS_V7_ENV 
-};
-
-struct winsize
-{
-    unsigned short int ws_row;
-    unsigned short int ws_col;
-    unsigned short int ws_xpixel;
-    unsigned short int ws_ypixel;
-};
-
-enum { _ISupper=(((((0)<8)?(((1<<(0))<<8)):(((1<<(0))>>8))))),
-_ISlower=(((((1)<8)?(((1<<(1))<<8)):(((1<<(1))>>8))))),
-_ISalpha=(((((2)<8)?(((1<<(2))<<8)):(((1<<(2))>>8))))),
-_ISdigit=(((((3)<8)?(((1<<(3))<<8)):(((1<<(3))>>8))))),
-_ISxdigit=(((((4)<8)?(((1<<(4))<<8)):(((1<<(4))>>8))))),
-_ISspace=(((((5)<8)?(((1<<(5))<<8)):(((1<<(5))>>8))))),
-_ISprint=(((((6)<8)?(((1<<(6))<<8)):(((1<<(6))>>8))))),
-_ISgraph=(((((7)<8)?(((1<<(7))<<8)):(((1<<(7))>>8))))),
-_ISblank=(((((8)<8)?(((1<<(8))<<8)):(((1<<(8))>>8))))),
-_IScntrl=(((((9)<8)?(((1<<(9))<<8)):(((1<<(9))>>8))))),
-_ISpunct=(((((10)<8)?(((1<<(10))<<8)):(((1<<(10))>>8))))),
-_ISalnum=(((((11)<8)?(((1<<(11))<<8)):(((1<<(11))>>8)))))
-};
-
-struct _keymap_entry
-{
-    char type;
-    int (*(*function))(int,int)  ;
-};
-
-typedef struct _keymap_entry KEYMAP_ENTRY_ARRAY[257]  ;
-
-enum  undo_code { UNDO_DELETE 
-,UNDO_INSERT 
-,UNDO_BEGIN 
-,UNDO_END 
-};
-
-struct undo_list
-{
-    struct undo_list* next  ;
-    int start;
-    int end;
-    char* text;
-    enum undo_code what;
-};
-
-struct _funmap
-{
-    const char* name;
-    int (*(*function))(int,int)  ;
-};
-
-struct readline_state
-{
-    int point;
-    int end;
-    int mark;
-    int buflen;
-    char* buffer;
-    struct undo_list* ul  ;
-    char* prompt;
-    int rlstate;
-    int done;
-    struct _keymap_entry* kmap  ;
-    int (*(*lastfunc))(int,int)  ;
-    int insmode;
-    int edmode;
-    char* kseq;
-    int kseqlen;
-    int pendingin;
-    struct _IO_FILE* inf  ;
-    struct _IO_FILE* outf  ;
-    char* macro;
-    int catchsigs;
-    int catchsigwinch;
-    char* (*(*entryfunc))(const char*,int)  ;
-    char* (*(*menuentryfunc))(const char*,int)  ;
-    int (*(*ignorefunc))(char**)  ;
-    char** (*(*attemptfunc))(const char*,int,int)  ;
-    const char* wordbreakchars;
-    char reserved[64];
-};
-
-struct timex
-{
-    unsigned int modes;
-    long  int offset  ;
-    long  int freq  ;
-    long  int maxerror  ;
-    long  int esterror  ;
-    int status;
-    long  int constant  ;
-    long  int precision  ;
-    long  int tolerance  ;
-    struct timeval time  ;
-    long  int tick  ;
-    long  int ppsfreq  ;
-    long  int jitter  ;
-    int shift;
-    long  int stabil  ;
-    long  int jitcnt  ;
-    long  int calcnt  ;
-    long  int errcnt  ;
-    long  int stbcnt  ;
-    int tai;
-    int :32;
-    int :32;
-    int :32;
-    int :32;
-    int :32;
-    int :32;
-    int :32;
-    int :32;
-    int :32;
-    int :32;
-    int :32;
+    long tv_sec  ;
+    long tv_nsec;
 };
 
 struct tm
@@ -1638,32 +1401,697 @@ struct tm
     int tm_wday;
     int tm_yday;
     int tm_isdst;
-    long  int tm_gmtoff;
-    const char* tm_zone;
+    long tm_gmtoff;
+    char* tm_zone;
 };
 
-struct itimerspec
+enum   anonymous_typeY16 { _CLOCK_REALTIME=(0),
+_CLOCK_MONOTONIC=(6),
+_CLOCK_MONOTONIC_RAW=(4),
+_CLOCK_MONOTONIC_RAW_APPROX=(5),
+_CLOCK_UPTIME_RAW=(8),
+_CLOCK_UPTIME_RAW_APPROX=(9),
+_CLOCK_PROCESS_CPUTIME_ID=(12),
+_CLOCK_THREAD_CPUTIME_ID=(16)
+};
+
+struct anonymous_typeX17
 {
-    struct timespec it_interval  ;
-    struct timespec it_value  ;
+    int __min  ;
+    int __max  ;
+    int __map  ;
+    unsigned int* __types  ;
 };
 
+struct anonymous_typeX18
+{
+    int __nranges;
+    struct {
+        int __min  ;
+        int __max  ;
+        int __map  ;
+        unsigned int* __types  ;
+    } __ranges;
+};
+
+struct anonymous_typeX19
+{
+    char __name[14];
+    unsigned int __mask  ;
+};
+
+struct anonymous_typeX20
+{
+    char __magic[8];
+    char __encoding[32];
+    int (*__sgetrune)(const char*,unsigned long  int,char**);
+    int (*__sputrune)(int,char*,unsigned long  int,char**);
+    int __invalid_rune  ;
+    unsigned int __runetype[(1<<8)]  ;
+    int __maplower[(1<<8)]  ;
+    int __mapupper[(1<<8)]  ;
+    struct {
+        int __nranges;
+        struct {
+            int __min  ;
+            int __max  ;
+            int __map  ;
+            unsigned int* __types  ;
+        } __ranges;
+    } __runetype_ext;
+    struct {
+        int __nranges;
+        struct {
+            int __min  ;
+            int __max  ;
+            int __map  ;
+            unsigned int* __types  ;
+        } __ranges;
+    } __maplower_ext;
+    struct {
+        int __nranges;
+        struct {
+            int __min  ;
+            int __max  ;
+            int __map  ;
+            unsigned int* __types  ;
+        } __ranges;
+    } __mapupper_ext;
+    void* __variable;
+    int __variable_len;
+    int __ncharclasses;
+    struct {
+        char __name[14];
+        unsigned int __mask  ;
+    } __charclasses;
+};
+
+struct anonymous_typeX21
+{
+    short id;
+    int x;
+    int y;
+    int z;
+    unsigned long  int bstate  ;
+};
+
+#pragma pack()
+struct dirent
+{
+    unsigned long  long d_ino  ;
+    unsigned long  long d_seekoff  ;
+    unsigned short int d_reclen  ;
+    unsigned short int d_namlen  ;
+    unsigned char d_type  ;
+    char d_name[1024];
+};
+#pragma pack(pop)
+#pragma pack()
+struct anonymous_typeX22
+{
+    int __dd_fd;
+    long __dd_loc;
+    long __dd_size;
+    char* __dd_buf;
+    int __dd_len;
+    long __dd_seek;
+    long __padding;
+    int __dd_flags;
+    struct _opaque_pthread_mutex_t __dd_lock  ;
+    struct _telldir* __dd_td  ;
+};
+#pragma pack(pop)
+#pragma pack()
+struct ostat
+{
+    unsigned short int st_dev  ;
+    unsigned long  long st_ino  ;
+    unsigned short int st_mode  ;
+    unsigned short int st_nlink  ;
+    unsigned short int st_uid  ;
+    unsigned short int st_gid  ;
+    unsigned short int st_rdev  ;
+    int st_size  ;
+    struct timespec st_atimespec  ;
+    struct timespec st_mtimespec  ;
+    struct timespec st_ctimespec  ;
+    int st_blksize  ;
+    int st_blocks  ;
+    unsigned int st_flags  ;
+    unsigned int st_gen  ;
+};
+#pragma pack(pop)
+#pragma pack()
+struct stat
+{
+    int st_dev  ;
+    unsigned short int st_mode  ;
+    unsigned short int st_nlink  ;
+    unsigned long  long st_ino  ;
+    unsigned int st_uid  ;
+    unsigned int st_gid  ;
+    int st_rdev  ;
+    struct timespec st_atimespec  ;
+    struct timespec st_mtimespec  ;
+    struct timespec st_ctimespec  ;
+    struct timespec st_birthtimespec  ;
+    long long st_size  ;
+    long long st_blocks  ;
+    int st_blksize  ;
+    unsigned int st_flags  ;
+    unsigned int st_gen  ;
+    int st_lspare  ;
+    long long st_qspare[2]  ;
+};
+#pragma pack(pop)
+#pragma pack()
+struct accessx_descriptor
+{
+    unsigned int ad_name_offset;
+    int ad_flags;
+    int ad_pad[2];
+};
+#pragma pack(pop)
+#pragma pack()
+struct fd_set
+{
+    int fds_bits[((((((1024)%(32))==0))?(((1024)/(32))):((((1024)/(32))+1))))]  ;
+};
+#pragma pack(pop)
+typedef unsigned char uuid_t[16]  ;
+
+#pragma pack()
+struct winsize
+{
+    unsigned short int ws_row;
+    unsigned short int ws_col;
+    unsigned short int ws_xpixel;
+    unsigned short int ws_ypixel;
+};
+#pragma pack(pop)
+#pragma pack()
+struct ttysize
+{
+    unsigned short int ts_lines;
+    unsigned short int ts_cols;
+    unsigned short int ts_xxx;
+    unsigned short int ts_yyy;
+};
+#pragma pack(pop)
+#pragma pack()
+struct timeval64
+{
+    long long tv_sec  ;
+    long long tv_usec  ;
+};
+#pragma pack(pop)
+#pragma pack()
+struct itimerval
+{
+    struct timeval it_interval  ;
+    struct timeval it_value  ;
+};
+#pragma pack(pop)
+#pragma pack()
+struct timezone
+{
+    int tz_minuteswest;
+    int tz_dsttime;
+};
+#pragma pack(pop)
+#pragma pack()
+struct clockinfo
+{
+    int hz;
+    int tick;
+    int tickadj;
+    int stathz;
+    int profhz;
+};
+#pragma pack(pop)
+#pragma pack()
+struct net_event_data
+{
+    unsigned int if_family  ;
+    unsigned int if_unit  ;
+    char if_name[16];
+};
+#pragma pack(pop)
+#pragma pack()
+struct timeval32
+{
+    int tv_sec  ;
+    int tv_usec  ;
+};
+#pragma pack(pop)
+#pragma pack(4)
+struct if_data
+{
+    unsigned char ifi_type  ;
+    unsigned char ifi_typelen  ;
+    unsigned char ifi_physical  ;
+    unsigned char ifi_addrlen  ;
+    unsigned char ifi_hdrlen  ;
+    unsigned char ifi_recvquota  ;
+    unsigned char ifi_xmitquota  ;
+    unsigned char ifi_unused1  ;
+    unsigned int ifi_mtu  ;
+    unsigned int ifi_metric  ;
+    unsigned int ifi_baudrate  ;
+    unsigned int ifi_ipackets  ;
+    unsigned int ifi_ierrors  ;
+    unsigned int ifi_opackets  ;
+    unsigned int ifi_oerrors  ;
+    unsigned int ifi_collisions  ;
+    unsigned int ifi_ibytes  ;
+    unsigned int ifi_obytes  ;
+    unsigned int ifi_imcasts  ;
+    unsigned int ifi_omcasts  ;
+    unsigned int ifi_iqdrops  ;
+    unsigned int ifi_noproto  ;
+    unsigned int ifi_recvtiming  ;
+    unsigned int ifi_xmittiming  ;
+    struct timeval32 ifi_lastchange  ;
+    unsigned int ifi_unused2  ;
+    unsigned int ifi_hwassist  ;
+    unsigned int ifi_reserved1  ;
+    unsigned int ifi_reserved2  ;
+};
+#pragma pack(pop)
+#pragma pack(4)
+struct if_data64
+{
+    unsigned char ifi_type  ;
+    unsigned char ifi_typelen  ;
+    unsigned char ifi_physical  ;
+    unsigned char ifi_addrlen  ;
+    unsigned char ifi_hdrlen  ;
+    unsigned char ifi_recvquota  ;
+    unsigned char ifi_xmitquota  ;
+    unsigned char ifi_unused1  ;
+    unsigned int ifi_mtu  ;
+    unsigned int ifi_metric  ;
+    unsigned long  long ifi_baudrate  ;
+    unsigned long  long ifi_ipackets  ;
+    unsigned long  long ifi_ierrors  ;
+    unsigned long  long ifi_opackets  ;
+    unsigned long  long ifi_oerrors  ;
+    unsigned long  long ifi_collisions  ;
+    unsigned long  long ifi_ibytes  ;
+    unsigned long  long ifi_obytes  ;
+    unsigned long  long ifi_imcasts  ;
+    unsigned long  long ifi_omcasts  ;
+    unsigned long  long ifi_iqdrops  ;
+    unsigned long  long ifi_noproto  ;
+    unsigned int ifi_recvtiming  ;
+    unsigned int ifi_xmittiming  ;
+    struct timeval32 ifi_lastchange  ;
+};
+#pragma pack(pop)
+#pragma pack()
+struct ifqueue
+{
+    void* ifq_head;
+    void* ifq_tail;
+    int ifq_len;
+    int ifq_maxlen;
+    int ifq_drops;
+};
+#pragma pack(pop)
+#pragma pack()
+struct iovec
+{
+    void* iov_base;
+    unsigned long  int iov_len  ;
+};
+#pragma pack(pop)
+#pragma pack()
+struct sa_endpoints
+{
+    unsigned int sae_srcif;
+    const struct sockaddr* sae_srcaddr;
+    unsigned int sae_srcaddrlen  ;
+    const struct sockaddr* sae_dstaddr;
+    unsigned int sae_dstaddrlen  ;
+};
+#pragma pack(pop)
+#pragma pack()
+struct linger
+{
+    int l_onoff;
+    int l_linger;
+};
+#pragma pack(pop)
+#pragma pack()
+struct so_np_extensions
+{
+    unsigned int npx_flags  ;
+    unsigned int npx_mask  ;
+};
+#pragma pack(pop)
+#pragma pack()
+struct sockaddr
+{
+    unsigned char sa_len  ;
+    unsigned char sa_family  ;
+    char sa_data[14];
+};
+#pragma pack(pop)
+#pragma pack()
+struct __sockaddr_header
+{
+    unsigned char sa_len  ;
+    unsigned char sa_family  ;
+};
+#pragma pack(pop)
+#pragma pack()
+struct sockproto
+{
+    unsigned short int sp_family  ;
+    unsigned short int sp_protocol  ;
+};
+#pragma pack(pop)
+#pragma pack()
+struct sockaddr_storage
+{
+    unsigned char ss_len  ;
+    unsigned char ss_family  ;
+    char __ss_pad1[((sizeof(long long))-sizeof(unsigned char)-sizeof(unsigned char))];
+    long long __ss_align  ;
+    char __ss_pad2[(128-sizeof(unsigned char)-sizeof(unsigned char)-((sizeof(long long))-sizeof(unsigned char)-sizeof(unsigned char))-(sizeof(long long)))];
+};
+#pragma pack(pop)
+#pragma pack()
+struct msghdr
+{
+    void* msg_name;
+    unsigned int msg_namelen  ;
+    struct iovec* msg_iov  ;
+    int msg_iovlen;
+    void* msg_control;
+    unsigned int msg_controllen  ;
+    int msg_flags;
+};
+#pragma pack(pop)
+#pragma pack()
+struct cmsghdr
+{
+    unsigned int cmsg_len  ;
+    int cmsg_level;
+    int cmsg_type;
+};
+#pragma pack(pop)
+#pragma pack()
+struct sf_hdtr
+{
+    struct iovec* headers  ;
+    int hdr_cnt;
+    struct iovec* trailers  ;
+    int trl_cnt;
+};
+#pragma pack(pop)
+#pragma pack()
+struct if_clonereq
+{
+    int ifcr_total;
+    int ifcr_count;
+    char* ifcr_buffer;
+};
+#pragma pack(pop)
+#pragma pack()
+struct if_msghdr
+{
+    unsigned short int ifm_msglen;
+    unsigned char ifm_version;
+    unsigned char ifm_type;
+    int ifm_addrs;
+    int ifm_flags;
+    unsigned short int ifm_index;
+    struct if_data ifm_data  ;
+};
+#pragma pack(pop)
+#pragma pack()
+struct ifa_msghdr
+{
+    unsigned short int ifam_msglen;
+    unsigned char ifam_version;
+    unsigned char ifam_type;
+    int ifam_addrs;
+    int ifam_flags;
+    unsigned short int ifam_index;
+    int ifam_metric;
+};
+#pragma pack(pop)
+#pragma pack()
+struct ifma_msghdr
+{
+    unsigned short int ifmam_msglen;
+    unsigned char ifmam_version;
+    unsigned char ifmam_type;
+    int ifmam_addrs;
+    int ifmam_flags;
+    unsigned short int ifmam_index;
+};
+#pragma pack(pop)
+#pragma pack()
+struct if_msghdr2
+{
+    unsigned short int ifm_msglen  ;
+    unsigned char ifm_version  ;
+    unsigned char ifm_type  ;
+    int ifm_addrs;
+    int ifm_flags;
+    unsigned short int ifm_index  ;
+    int ifm_snd_len;
+    int ifm_snd_maxlen;
+    int ifm_snd_drops;
+    int ifm_timer;
+    struct if_data64 ifm_data  ;
+};
+#pragma pack(pop)
+#pragma pack()
+struct ifma_msghdr2
+{
+    unsigned short int ifmam_msglen  ;
+    unsigned char ifmam_version  ;
+    unsigned char ifmam_type  ;
+    int ifmam_addrs;
+    int ifmam_flags;
+    unsigned short int ifmam_index  ;
+    int ifmam_refcount  ;
+};
+#pragma pack(pop)
+#pragma pack()
+struct ifdevmtu
+{
+    int ifdm_current;
+    int ifdm_min;
+    int ifdm_max;
+};
+#pragma pack(pop)
+union anonymous_typeZ23
+{
+void* ifk_ptr;
+int ifk_value;
+};
+
+union anonymous_typeZ24
+{
+void* ifk_ptr;
+int ifk_value;
+};
+
+#pragma pack(4)
+struct ifkpi
+{
+    unsigned int ifk_module_id;
+    unsigned int ifk_type;
+    union {
+        void* ifk_ptr;
+        int ifk_value;
+    } ifk_data;
+};
+#pragma pack(pop)
+union anonymous_typeZ25
+{
+struct sockaddr ifru_addr  ;
+struct sockaddr ifru_dstaddr  ;
+struct sockaddr ifru_broadaddr  ;
+short ifru_flags;
+int ifru_metric;
+int ifru_mtu;
+int ifru_phys;
+int ifru_media;
+int ifru_intval;
+char* ifru_data  ;
+struct ifdevmtu ifru_devmtu  ;
+struct ifkpi ifru_kpi  ;
+unsigned int ifru_wake_flags  ;
+unsigned int ifru_route_refcnt  ;
+int ifru_cap[2];
+unsigned int ifru_functional_type  ;
+unsigned int ifru_peer_egress_functional_type  ;
+unsigned char ifru_is_directlink  ;
+unsigned char ifru_is_vpn  ;
+unsigned char ifru_is_companionlink  ;
+};
+
+union anonymous_typeZ26
+{
+struct sockaddr ifru_addr  ;
+struct sockaddr ifru_dstaddr  ;
+struct sockaddr ifru_broadaddr  ;
+short ifru_flags;
+int ifru_metric;
+int ifru_mtu;
+int ifru_phys;
+int ifru_media;
+int ifru_intval;
+char* ifru_data  ;
+struct ifdevmtu ifru_devmtu  ;
+struct ifkpi ifru_kpi  ;
+unsigned int ifru_wake_flags  ;
+unsigned int ifru_route_refcnt  ;
+int ifru_cap[2];
+unsigned int ifru_functional_type  ;
+unsigned int ifru_peer_egress_functional_type  ;
+unsigned char ifru_is_directlink  ;
+unsigned char ifru_is_vpn  ;
+unsigned char ifru_is_companionlink  ;
+};
+
+#pragma pack()
+struct ifreq
+{
+    char ifr_name[16];
+    union {
+        struct sockaddr ifru_addr  ;
+        struct sockaddr ifru_dstaddr  ;
+        struct sockaddr ifru_broadaddr  ;
+        short ifru_flags;
+        int ifru_metric;
+        int ifru_mtu;
+        int ifru_phys;
+        int ifru_media;
+        int ifru_intval;
+        char* ifru_data  ;
+        struct ifdevmtu ifru_devmtu  ;
+        struct ifkpi ifru_kpi  ;
+        unsigned int ifru_wake_flags  ;
+        unsigned int ifru_route_refcnt  ;
+        int ifru_cap[2];
+        unsigned int ifru_functional_type  ;
+        unsigned int ifru_peer_egress_functional_type  ;
+        unsigned char ifru_is_directlink  ;
+        unsigned char ifru_is_vpn  ;
+        unsigned char ifru_is_companionlink  ;
+    } ifr_ifru;
+};
+#pragma pack(pop)
+#pragma pack()
+struct ifaliasreq
+{
+    char ifra_name[16];
+    struct sockaddr ifra_addr  ;
+    struct sockaddr ifra_broadaddr  ;
+    struct sockaddr ifra_mask  ;
+};
+#pragma pack(pop)
+#pragma pack()
+struct rslvmulti_req
+{
+    struct sockaddr* sa  ;
+    struct sockaddr** llsa  ;
+};
+#pragma pack(pop)
+#pragma pack(4)
+struct ifmediareq
+{
+    char ifm_name[16];
+    int ifm_current;
+    int ifm_mask;
+    int ifm_status;
+    int ifm_active;
+    int ifm_count;
+    int* ifm_ulist;
+};
+#pragma pack(pop)
+#pragma pack(4)
+struct ifdrv
+{
+    char ifd_name[16];
+    unsigned long  int ifd_cmd;
+    unsigned long  int ifd_len  ;
+    void* ifd_data;
+};
+#pragma pack(pop)
+#pragma pack()
+struct ifstat
+{
+    char ifs_name[16];
+    char ascii[800+1];
+};
+#pragma pack(pop)
+union anonymous_typeZ27
+{
+char* ifcu_buf  ;
+struct ifreq* ifcu_req  ;
+};
+
+union anonymous_typeZ28
+{
+char* ifcu_buf  ;
+struct ifreq* ifcu_req  ;
+};
+
+#pragma pack(4)
+struct ifconf
+{
+    int ifc_len;
+    union {
+        char* ifcu_buf  ;
+        struct ifreq* ifcu_req  ;
+    } ifc_ifcu;
+};
+#pragma pack(pop)
+#pragma pack()
+struct kev_dl_proto_data
+{
+    struct net_event_data link_data  ;
+    unsigned int proto_family  ;
+    unsigned int proto_remaining_count  ;
+};
+#pragma pack(pop)
+#pragma pack()
+struct if_nameindex
+{
+    unsigned int if_index;
+    char* if_name;
+};
+#pragma pack(pop)
+#pragma pack()
+struct anonymous_typeX29
+{
+    int length;
+};
+#pragma pack(pop)
+#pragma pack()
 struct _hist_entry
 {
-    char* line;
-    char* timestamp;
+    const char* line;
     void* data  ;
 };
-
-struct _hist_state
+#pragma pack(pop)
+#pragma pack()
+struct _keymap_entry
 {
-    struct _hist_entry** entries  ;
-    int offset;
-    int length;
-    int size;
-    int flags;
+    char type;
+    int (*(*function))(const char*,int)  ;
 };
+#pragma pack(pop)
+typedef struct _keymap_entry KEYMAP_ENTRY_ARRAY[256]  ;
 
+#pragma pack()
 struct sInfo
 {
     int cursor;
@@ -1675,7 +2103,7 @@ struct sInfo
     struct list$1char$ph* selected_files;
     char* searching_str  ;
 };
-
+#pragma pack(pop)
 struct __current_stack1__
 {
     struct sInfo** info  ;
@@ -1687,11 +2115,12 @@ struct __current_stack1__
 };
 
 /// variable definition ///
-extern struct _IO_FILE* stdin  ;
-extern struct _IO_FILE* stdout  ;
-extern struct _IO_FILE* stderr  ;
-extern char* program_invocation_name;
-extern char* program_invocation_short_name;
+extern struct __sFILE* __stdinp  ;
+extern struct __sFILE* __stdoutp  ;
+extern struct __sFILE* __stderrp  ;
+extern const int sys_nerr;
+extern const char* sys_errlist[];
+extern int __mb_cur_max;
 extern struct neo_frame* neo_current_frame  ;
 
 extern struct sMemHeader* gAllocMem  ;
@@ -1702,6 +2131,12 @@ extern int gNumAlloc;
 
 extern int gNumFree;
 
+extern char* tzname[];
+extern int getdate_err;
+extern long timezone;
+extern int daylight;
+extern struct anonymous_typeX20 _DefaultRuneLocale  ;
+extern struct anonymous_typeX20* _CurrentRuneLocale  ;
 extern unsigned int acs_map[]  ;
 extern struct _win_st* curscr  ;
 extern struct _win_st* newscr  ;
@@ -1713,595 +2148,546 @@ extern int COLS;
 extern int ESCDELAY;
 extern int LINES;
 extern int TABSIZE;
-extern struct anonymous_typeX27* _nc_wacs  ;
-extern char** __environ;
-extern char** environ;
 extern char* optarg;
 extern int optind;
 extern int opterr;
 extern int optopt;
-extern struct _keymap_entry emacs_standard_keymap[257]  ;
-extern struct _keymap_entry emacs_meta_keymap[257]  ;
-extern struct _keymap_entry emacs_ctlx_keymap[257]  ;
-extern struct _keymap_entry vi_insertion_keymap[257]  ;
-extern struct _keymap_entry vi_movement_keymap[257]  ;
-extern char* (*(*tilde_expansion_preexpansion_hook))(char*)  ;
-extern char* (*(*tilde_expansion_failure_hook))(char*)  ;
-extern char** tilde_additional_prefixes;
-extern char** tilde_additional_suffixes;
-extern struct undo_list* rl_undo_list  ;
-extern struct _funmap** funmap  ;
+extern char* suboptarg;
+extern int optreset;
 extern const char* rl_library_version;
 extern int rl_readline_version;
-extern int rl_gnu_readline_p;
-extern unsigned long  int rl_readline_state;
-extern int rl_editing_mode;
-extern int rl_insert_mode;
-extern const char* rl_readline_name;
-extern char* rl_prompt;
-extern char* rl_display_prompt;
+extern char* rl_readline_name;
+extern struct __sFILE* rl_instream  ;
+extern struct __sFILE* rl_outstream  ;
 extern char* rl_line_buffer;
 extern int rl_point;
 extern int rl_end;
-extern int rl_mark;
-extern int rl_done;
-extern int rl_eof_found;
-extern int rl_pending_input;
-extern int rl_dispatching;
-extern int rl_explicit_arg;
-extern int rl_numeric_arg;
-extern int (*(*rl_last_func))(int,int)  ;
-extern const char* rl_terminal_name;
-extern struct _IO_FILE* rl_instream  ;
-extern struct _IO_FILE* rl_outstream  ;
-extern int rl_prefer_env_winsize;
-extern int (*(*rl_startup_hook))()  ;
-extern int (*(*rl_pre_input_hook))()  ;
-extern int (*(*rl_event_hook))()  ;
-extern int (*(*rl_signal_event_hook))()  ;
-extern int (*(*rl_timeout_event_hook))()  ;
-extern int (*(*rl_input_available_hook))()  ;
-extern int (*(*rl_getc_function))(struct _IO_FILE*)  ;
-extern void (*(*rl_redisplay_function))()  ;
-extern void (*(*rl_prep_term_function))(int)  ;
-extern void (*(*rl_deprep_term_function))()  ;
-extern void (*(*rl_macro_display_hook))(const char*,const char*,int,const char*)  ;
-extern struct _keymap_entry* rl_executing_keymap  ;
-extern struct _keymap_entry* rl_binding_keymap  ;
-extern int rl_executing_key;
-extern char* rl_executing_keyseq;
-extern int rl_key_sequence_length;
-extern int rl_erase_empty_line;
-extern int rl_already_prompted;
-extern int rl_num_chars_to_read;
-extern char* rl_executing_macro;
-extern int rl_catch_signals;
-extern int rl_catch_sigwinch;
-extern int rl_change_environment;
-extern char* (*(*rl_completion_entry_function))(const char*,int)  ;
-extern char* (*(*rl_menu_completion_entry_function))(const char*,int)  ;
-extern int (*(*rl_ignore_some_completions_function))(char**)  ;
-extern char** (*(*rl_attempted_completion_function))(const char*,int,int)  ;
-extern const char* rl_basic_word_break_characters;
-extern const char* rl_completer_word_break_characters;
-extern char* (*(*rl_completion_word_break_hook))()  ;
-extern const char* rl_completer_quote_characters;
-extern const char* rl_basic_quote_characters;
-extern const char* rl_filename_quote_characters;
-extern const char* rl_special_prefixes;
-extern int (*(*rl_directory_completion_hook))(char**)  ;
-extern int (*(*rl_directory_rewrite_hook))(char**)  ;
-extern int (*(*rl_filename_stat_hook))(char**)  ;
-extern char* (*(*rl_filename_rewrite_hook))(char*,int)  ;
-extern char* (*(*rl_completion_rewrite_hook))(char*,int)  ;
-extern void (*(*rl_completion_display_matches_hook))(char**,int,int)  ;
-extern int rl_filename_completion_desired;
-extern int rl_filename_quoting_desired;
-extern int rl_full_quoting_desired;
-extern char* (*(*rl_filename_quoting_function))(char*,int,char*)  ;
-extern char* (*(*rl_filename_dequoting_function))(char*,int)  ;
-extern int (*(*rl_char_is_quoted_p))(char*,int)  ;
-extern int rl_attempted_completion_over;
-extern int rl_completion_type;
-extern int rl_completion_invoking_key;
-extern int rl_completion_query_items;
-extern int rl_completion_append_character;
-extern int rl_completion_suppress_append;
-extern int rl_completion_quote_character;
-extern int rl_completion_found_quote;
-extern int rl_completion_suppress_quote;
-extern int rl_sort_completion_matches;
-extern int rl_completion_mark_symlink_dirs;
-extern int rl_ignore_completion_duplicates;
-extern int rl_inhibit_completion;
-extern int rl_persistent_signal_handlers;
-extern char* __tzname[2];
-extern int __daylight;
-extern long  int __timezone;
-extern char* tzname[2];
-extern int daylight;
-extern long  int timezone;
-extern int getdate_err;
 extern int history_base;
 extern int history_length;
-extern int history_max_entries;
-extern int history_offset;
-extern int history_lines_read_from_file;
-extern int history_lines_written_to_file;
-extern char history_expansion_char;
-extern char history_subst_char;
-extern char* history_word_delimiters;
-extern char history_comment_char;
-extern char* history_no_expand_chars;
-extern char* history_search_delimiter_chars;
-extern int history_quotes_inhibit_expansion;
-extern int history_quoting_state;
-extern int history_write_timestamps;
-extern int history_multiline_entries;
-extern int history_file_version;
 extern int max_input_history;
-extern int (*(*history_inhibit_expansion_function))(char*,int)  ;
+extern char* rl_basic_word_break_characters;
+extern char* rl_completer_word_break_characters;
+extern char* rl_completer_quote_characters;
+extern int (*(*rl_completion_entry_function))(const char*,int)  ;
+extern char* (*rl_completion_word_break_hook)();
+extern char** (*(*rl_attempted_completion_function))(const char*,int,int)  ;
+extern int rl_attempted_completion_over;
+extern int rl_completion_type;
+extern int rl_completion_query_items;
+extern char* rl_special_prefixes;
+extern int rl_completion_append_character;
+extern int rl_inhibit_completion;
+extern int (*(*rl_pre_input_hook))(const char*,int)  ;
+extern int (*(*rl_startup_hook))(const char*,int)  ;
+extern char* rl_terminal_name;
+extern int rl_already_prompted;
+extern char* rl_prompt;
+extern struct _keymap_entry emacs_standard_keymap[256]  ;
+extern struct _keymap_entry emacs_meta_keymap[256]  ;
+extern struct _keymap_entry emacs_ctlx_keymap[256]  ;
+extern int rl_filename_completion_desired;
+extern int rl_ignore_completion_duplicates;
+extern int (*rl_getc_function)(struct __sFILE*);
+extern void (*(*rl_redisplay_function))()  ;
+extern void (*(*rl_completion_display_matches_hook))()  ;
+extern void (*(*rl_prep_term_function))()  ;
+extern void (*(*rl_deprep_term_function))()  ;
+extern int readline_echoing_p;
+extern int _rl_print_completions_horizontally;
 // source head
 
 // header function
-int remove(const char* __filename);
-int rename(const char* __old, const char* __new);
-int renameat(int __oldfd, const char* __old, int __newfd, const char* __new);
-int renameat2(int __oldfd, const char* __old, int __newfd, const char* __new, unsigned int __flags);
-int fclose(struct _IO_FILE* __stream  );
-struct _IO_FILE* tmpfile();
-struct _IO_FILE* tmpfile64();
-char* tmpnam(char [20]);
-char* tmpnam_r(char __s[20]);
-char* tempnam(const char* __dir, const char* __pfx);
-int fflush(struct _IO_FILE* __stream  );
-int fflush_unlocked(struct _IO_FILE* __stream  );
-int fcloseall();
-struct _IO_FILE* fopen(const char* __filename, const char* __modes);
-struct _IO_FILE* freopen(const char* __filename, const char* __modes, struct _IO_FILE* __stream  );
-struct _IO_FILE* fopen64(const char* __filename, const char* __modes);
-struct _IO_FILE* freopen64(const char* __filename, const char* __modes, struct _IO_FILE* __stream  );
-struct _IO_FILE* fdopen(int __fd, const char* __modes);
-struct _IO_FILE* fopencookie(void* __magic_cookie, const char* __modes, struct _IO_cookie_io_functions_t __io_funcs  );
-struct _IO_FILE* fmemopen(void* __s, unsigned long __len  , const char* __modes);
-struct _IO_FILE* open_memstream(char** __bufloc, unsigned long* __sizeloc  );
-void setbuf(struct _IO_FILE* __stream  , char* __buf);
-int setvbuf(struct _IO_FILE* __stream  , char* __buf, int __modes, unsigned long __n  );
-void setbuffer(struct _IO_FILE* __stream  , char* __buf, unsigned long __size  );
-void setlinebuf(struct _IO_FILE* __stream  );
-int fprintf(struct _IO_FILE* __stream  , const char* __format, ...);
-int printf(const char* __format, ...);
-int sprintf(char* __s, const char* __format, ...);
-int vfprintf(struct _IO_FILE* __s  , const char* __format, __builtin_va_list __arg  );
-int vprintf(const char* __format, __builtin_va_list __arg  );
-int vsprintf(char* __s, const char* __format, __builtin_va_list __arg  );
-int snprintf(char* __s, unsigned long __maxlen  , const char* __format, ...);
-int vsnprintf(char* __s, unsigned long __maxlen  , const char* __format, __builtin_va_list __arg  );
-int vasprintf(char** __ptr, const char* __f, __builtin_va_list __arg  );
-int __asprintf(char** __ptr, const char* __fmt, ...);
-int asprintf(char** __ptr, const char* __fmt, ...);
-int vdprintf(int __fd, const char* __fmt, __builtin_va_list __arg  );
-int dprintf(int __fd, const char* __fmt, ...);
-int fscanf(struct _IO_FILE* __stream  , const char* __format, ...);
-int scanf(const char* __format, ...);
-int sscanf(const char* __s, const char* __format, ...);
-int __isoc23_fscanf(struct _IO_FILE* __stream  , const char* __format, ...);
-int __isoc23_scanf(const char* __format, ...);
-int __isoc23_sscanf(const char* __s, const char* __format, ...);
-int vfscanf(struct _IO_FILE* __s  , const char* __format, __builtin_va_list __arg  );
-int vscanf(const char* __format, __builtin_va_list __arg  );
-int vsscanf(const char* __s, const char* __format, __builtin_va_list __arg  );
-int __isoc23_vfscanf(struct _IO_FILE* __s  , const char* __format, __builtin_va_list __arg  );
-int __isoc23_vscanf(const char* __format, __builtin_va_list __arg  );
-int __isoc23_vsscanf(const char* __s, const char* __format, __builtin_va_list __arg  );
-int fgetc(struct _IO_FILE* __stream  );
-int getc(struct _IO_FILE* __stream  );
+int renameat(int , const char* , int , const char* );
+int renamex_np(const char* , const char* , unsigned int );
+int renameatx_np(int , const char* , int , const char* , unsigned int );
+int printf(const char* , ...);
+void clearerr(struct __sFILE*   );
+int fclose(struct __sFILE*   );
+int feof(struct __sFILE*   );
+int ferror(struct __sFILE*   );
+int fflush(struct __sFILE*   );
+int fgetc(struct __sFILE*   );
+int fgetpos(struct __sFILE*   , long long*   );
+char* fgets(char* , int __size, struct __sFILE*   );
+struct __sFILE* fopen(const char* __filename, const char* __mode);
+int fprintf(struct __sFILE*   , const char* , ...);
+int fputc(int , struct __sFILE*   );
+int fputs(const char* , struct __sFILE*   );
+unsigned long  int fread(void* __ptr, unsigned long  int __size  , unsigned long  int __nitems  , struct __sFILE* __stream  );
+struct __sFILE* freopen(const char* , const char* , struct __sFILE*   );
+int fscanf(struct __sFILE*   , const char* , ...);
+int fseek(struct __sFILE*   , long , int );
+int fsetpos(struct __sFILE*   , const long long*   );
+long ftell(struct __sFILE*   );
+unsigned long  int fwrite(const void* __ptr, unsigned long  int __size  , unsigned long  int __nitems  , struct __sFILE* __stream  );
+int getc(struct __sFILE*   );
 int getchar();
-int getc_unlocked(struct _IO_FILE* __stream  );
+char* gets(char* );
+void perror(const char* );
+int putc(int , struct __sFILE*   );
+int putchar(int );
+int puts(const char* );
+int remove(const char* );
+int rename(const char* __old, const char* __new);
+void rewind(struct __sFILE*   );
+int scanf(const char* , ...);
+void setbuf(struct __sFILE*   , char* );
+int setvbuf(struct __sFILE*   , char* , int , unsigned long  int __size  );
+int sprintf(char* , const char* , ...);
+int sscanf(const char* , const char* , ...);
+struct __sFILE* tmpfile();
+char* tmpnam(char* );
+int ungetc(int , struct __sFILE*   );
+int vfprintf(struct __sFILE*   , const char* , __darwin_va_list   );
+int vprintf(const char* , __darwin_va_list   );
+int vsprintf(char* , const char* , __darwin_va_list   );
+char* ctermid(char* );
+struct __sFILE* fdopen(int , const char* );
+int fileno(struct __sFILE*   );
+int pclose(struct __sFILE*   );
+struct __sFILE* popen(const char* , const char* );
+int __srget(struct __sFILE*   );
+int __svfscanf(struct __sFILE*   , const char* , __darwin_va_list   );
+int __swbuf(int , struct __sFILE*   );
+void flockfile(struct __sFILE*   );
+int ftrylockfile(struct __sFILE*   );
+void funlockfile(struct __sFILE*   );
+int getc_unlocked(struct __sFILE*   );
 int getchar_unlocked();
-int fgetc_unlocked(struct _IO_FILE* __stream  );
-int fputc(int __c, struct _IO_FILE* __stream  );
-int putc(int __c, struct _IO_FILE* __stream  );
-int putchar(int __c);
-int fputc_unlocked(int __c, struct _IO_FILE* __stream  );
-int putc_unlocked(int __c, struct _IO_FILE* __stream  );
-int putchar_unlocked(int __c);
-int getw(struct _IO_FILE* __stream  );
-int putw(int __w, struct _IO_FILE* __stream  );
-char* fgets(char* __s, int __n, struct _IO_FILE* __stream  );
-char* fgets_unlocked(char* __s, int __n, struct _IO_FILE* __stream  );
-long  int __getdelim(char** __lineptr, unsigned long* __n  , int __delimiter, struct _IO_FILE* __stream  );
-long  int getdelim(char** __lineptr, unsigned long* __n  , int __delimiter, struct _IO_FILE* __stream  );
-long  int getline(char** __lineptr, unsigned long* __n  , struct _IO_FILE* __stream  );
-int fputs(const char* __s, struct _IO_FILE* __stream  );
-int puts(const char* __s);
-int ungetc(int __c, struct _IO_FILE* __stream  );
-unsigned long fread(void* __ptr, unsigned long __size  , unsigned long __n  , struct _IO_FILE* __stream  );
-unsigned long fwrite(const void* __ptr, unsigned long __size  , unsigned long __n  , struct _IO_FILE* __s  );
-int fputs_unlocked(const char* __s, struct _IO_FILE* __stream  );
-unsigned long fread_unlocked(void* __ptr, unsigned long __size  , unsigned long __n  , struct _IO_FILE* __stream  );
-unsigned long fwrite_unlocked(const void* __ptr, unsigned long __size  , unsigned long __n  , struct _IO_FILE* __stream  );
-int fseek(struct _IO_FILE* __stream  , long  int __off, int __whence);
-long  int ftell(struct _IO_FILE* __stream  );
-void rewind(struct _IO_FILE* __stream  );
-int fseeko(struct _IO_FILE* __stream  , long  int __off  , int __whence);
-long  int ftello(struct _IO_FILE* __stream  );
-int fgetpos(struct _IO_FILE* __stream  , struct _G_fpos_t* __pos  );
-int fsetpos(struct _IO_FILE* __stream  , const struct _G_fpos_t* __pos  );
-int fseeko64(struct _IO_FILE* __stream  , long  int __off  , int __whence);
-long  int ftello64(struct _IO_FILE* __stream  );
-int fgetpos64(struct _IO_FILE* __stream  , struct _G_fpos64_t* __pos  );
-int fsetpos64(struct _IO_FILE* __stream  , const struct _G_fpos64_t* __pos  );
-void clearerr(struct _IO_FILE* __stream  );
-int feof(struct _IO_FILE* __stream  );
-int ferror(struct _IO_FILE* __stream  );
-void clearerr_unlocked(struct _IO_FILE* __stream  );
-int feof_unlocked(struct _IO_FILE* __stream  );
-int ferror_unlocked(struct _IO_FILE* __stream  );
-void perror(const char* __s);
-int fileno(struct _IO_FILE* __stream  );
-int fileno_unlocked(struct _IO_FILE* __stream  );
-int pclose(struct _IO_FILE* __stream  );
-struct _IO_FILE* popen(const char* __command, const char* __modes);
-char* ctermid(char* __s);
-char* cuserid(char* __s);
-int obstack_printf(struct obstack* __obstack  , const char* __format, ...);
-int obstack_vprintf(struct obstack* __obstack  , const char* __format, __builtin_va_list __args  );
-void flockfile(struct _IO_FILE* __stream  );
-int ftrylockfile(struct _IO_FILE* __stream  );
-void funlockfile(struct _IO_FILE* __stream  );
-int __uflow(struct _IO_FILE*   );
-int __overflow(struct _IO_FILE*   , int );
-unsigned long __ctype_get_mb_cur_max();
-double atof(const char* __nptr);
-int atoi(const char* __nptr);
-long  int atol(const char* __nptr);
-long long int atoll(const char* __nptr);
-double strtod(const char* __nptr, char** __endptr);
-float strtof(const char* __nptr, char** __endptr);
-long  double strtold(const char* __nptr, char** __endptr);
-float strtof32(const char* __nptr, char** __endptr);
-double strtof64(const char* __nptr, char** __endptr);
-double strtof32x(const char* __nptr, char** __endptr);
-long  double strtof64x(const char* __nptr, char** __endptr);
-long  int strtol(const char* __nptr, char** __endptr, int __base);
-unsigned long  int strtoul(const char* __nptr, char** __endptr, int __base);
-long long int strtoq(const char* __nptr, char** __endptr, int __base);
-unsigned long long int strtouq(const char* __nptr, char** __endptr, int __base);
-long long int strtoll(const char* __nptr, char** __endptr, int __base);
-unsigned long long int strtoull(const char* __nptr, char** __endptr, int __base);
-long  int __isoc23_strtol(const char* __nptr, char** __endptr, int __base);
-unsigned long  int __isoc23_strtoul(const char* __nptr, char** __endptr, int __base);
-long long int __isoc23_strtoll(const char* __nptr, char** __endptr, int __base);
-unsigned long long int __isoc23_strtoull(const char* __nptr, char** __endptr, int __base);
-int strfromd(char* __dest, unsigned long __size  , const char* __format, double __f);
-int strfromf(char* __dest, unsigned long __size  , const char* __format, float __f);
-int strfroml(char* __dest, unsigned long __size  , const char* __format, long  double __f);
-int strfromf32(char* __dest, unsigned long __size  , const char* __format, float __f  );
-int strfromf64(char* __dest, unsigned long __size  , const char* __format, double __f  );
-int strfromf32x(char* __dest, unsigned long __size  , const char* __format, double __f  );
-int strfromf64x(char* __dest, unsigned long __size  , const char* __format, long  double __f  );
-long  int strtol_l(const char* __nptr, char** __endptr, int __base, struct __locale_struct* __loc  );
-unsigned long  int strtoul_l(const char* __nptr, char** __endptr, int __base, struct __locale_struct* __loc  );
-long long int strtoll_l(const char* __nptr, char** __endptr, int __base, struct __locale_struct* __loc  );
-unsigned long long int strtoull_l(const char* __nptr, char** __endptr, int __base, struct __locale_struct* __loc  );
-long  int __isoc23_strtol_l(const char* __nptr, char** __endptr, int __base, struct __locale_struct* __loc  );
-unsigned long  int __isoc23_strtoul_l(const char* __nptr, char** __endptr, int __base, struct __locale_struct* __loc  );
-long long int __isoc23_strtoll_l(const char* __nptr, char** __endptr, int __base, struct __locale_struct* __loc  );
-unsigned long long int __isoc23_strtoull_l(const char* __nptr, char** __endptr, int __base, struct __locale_struct* __loc  );
-double strtod_l(const char* __nptr, char** __endptr, struct __locale_struct* __loc  );
-float strtof_l(const char* __nptr, char** __endptr, struct __locale_struct* __loc  );
-long  double strtold_l(const char* __nptr, char** __endptr, struct __locale_struct* __loc  );
-float strtof32_l(const char* __nptr, char** __endptr, struct __locale_struct* __loc  );
-double strtof64_l(const char* __nptr, char** __endptr, struct __locale_struct* __loc  );
-double strtof32x_l(const char* __nptr, char** __endptr, struct __locale_struct* __loc  );
-long  double strtof64x_l(const char* __nptr, char** __endptr, struct __locale_struct* __loc  );
-char* l64a(long  int __n);
-long  int a64l(const char* __s);
-int select(int __nfds, struct anonymous_typeX8* __readfds  , struct anonymous_typeX8* __writefds  , struct anonymous_typeX8* __exceptfds  , struct timeval* __timeout  );
-int pselect(int __nfds, struct anonymous_typeX8* __readfds  , struct anonymous_typeX8* __writefds  , struct anonymous_typeX8* __exceptfds  , const struct timespec* __timeout  , const struct anonymous_typeX7* __sigmask  );
-long  int random();
-void srandom(unsigned int __seed);
-char* initstate(unsigned int __seed, char* __statebuf, unsigned long __statelen  );
-char* setstate(char* __statebuf);
-int random_r(struct random_data* __buf  , int* __result  );
-int srandom_r(unsigned int __seed, struct random_data* __buf  );
-int initstate_r(unsigned int __seed, char* __statebuf, unsigned long __statelen  , struct random_data* __buf  );
-int setstate_r(char* __statebuf, struct random_data* __buf  );
-int rand();
-void srand(unsigned int __seed);
-int rand_r(unsigned int* __seed);
-double drand48();
-double erand48(unsigned short int __xsubi[3]);
-long  int lrand48();
-long  int nrand48(unsigned short int __xsubi[3]);
-long  int mrand48();
-long  int jrand48(unsigned short int __xsubi[3]);
-void srand48(long  int __seedval);
-unsigned short int* seed48(unsigned short int __seed16v[3]);
-void lcong48(unsigned short int __param[7]);
-int drand48_r(struct drand48_data* __buffer  , double* __result);
-int erand48_r(unsigned short int __xsubi[3], struct drand48_data* __buffer  , double* __result);
-int lrand48_r(struct drand48_data* __buffer  , long  int* __result);
-int nrand48_r(unsigned short int __xsubi[3], struct drand48_data* __buffer  , long  int* __result);
-int mrand48_r(struct drand48_data* __buffer  , long  int* __result);
-int jrand48_r(unsigned short int __xsubi[3], struct drand48_data* __buffer  , long  int* __result);
-int srand48_r(long  int __seedval, struct drand48_data* __buffer  );
-int seed48_r(unsigned short int __seed16v[3], struct drand48_data* __buffer  );
-int lcong48_r(unsigned short int __param[7], struct drand48_data* __buffer  );
-unsigned int arc4random();
-void arc4random_buf(void* __buf, unsigned long __size  );
-unsigned int arc4random_uniform(unsigned int __upper_bound  );
-void* malloc(unsigned long __size  );
-void* calloc(unsigned long __nmemb  , unsigned long __size  );
-void* realloc(void* __ptr, unsigned long __size  );
-void free(void* __ptr);
-void* reallocarray(void* __ptr, unsigned long __nmemb  , unsigned long __size  );
-void* alloca(unsigned long __size  );
-void* valloc(unsigned long __size  );
-int posix_memalign(void** __memptr, unsigned long __alignment  , unsigned long __size  );
-void* aligned_alloc(unsigned long __alignment  , unsigned long __size  );
+int putc_unlocked(int , struct __sFILE*   );
+int putchar_unlocked(int );
+char* tempnam(const char* __dir, const char* __prefix);
+int fseeko(struct __sFILE* __stream  , long long __offset  , int __whence);
+long long ftello(struct __sFILE* __stream  );
+int snprintf(char* __str, unsigned long  int __size  , const char* __format, ...);
+int vfscanf(struct __sFILE* __stream  , const char* __format, __darwin_va_list   );
+int vscanf(const char* __format, __darwin_va_list   );
+int vsnprintf(char* __str, unsigned long  int __size  , const char* __format, __darwin_va_list   );
+int vsscanf(const char* __str, const char* __format, __darwin_va_list   );
+int dprintf(int , const char* , ...);
+int vdprintf(int , const char* , __darwin_va_list   );
+long getdelim(char** __linep, unsigned long  int* __linecapp  , int __delimiter, struct __sFILE* __stream  );
+long getline(char** __linep, unsigned long  int* __linecapp  , struct __sFILE* __stream  );
+struct __sFILE* fmemopen(void* __buf, unsigned long  int __size  , const char* __mode);
+struct __sFILE* open_memstream(char** __bufp, unsigned long  int* __sizep  );
+int asprintf(char** , const char* , ...);
+char* ctermid_r(char* );
+char* fgetln(struct __sFILE*   , unsigned long  int* __len  );
+const char* fmtcheck(const char* , const char* );
+int fpurge(struct __sFILE*   );
+void setbuffer(struct __sFILE*   , char* , int __size);
+int setlinebuf(struct __sFILE*   );
+int vasprintf(char** , const char* , __darwin_va_list   );
+struct __sFILE* funopen(const void* , int (*anonymous_lambda_var_nameZ1)(void*,char*,int), int (*anonymous_lambda_var_nameZ2)(void*,const char*,int), long long (*anonymous_lambda_var_nameZ3)(void*,long long,int), int (*anonymous_lambda_var_nameZ4)(void*));
+int __snprintf_chk(char* , unsigned long  int __maxlen  , int , unsigned long  int   , const char* , ...);
+int __vsnprintf_chk(char* , unsigned long  int __maxlen  , int , unsigned long  int   , const char* , __darwin_va_list   );
+int __sprintf_chk(char* , int , unsigned long  int   , const char* , ...);
+int __vsprintf_chk(char* , int , unsigned long  int   , const char* , __darwin_va_list   );
+void (*signal(int _function_pointer_result_var_name_a1, void (*_function_pointer_result_var_name_a2)(int)))(int);
+int getpriority(int , unsigned int   );
+int getiopolicy_np(int , int );
+int getrlimit(int , struct rlimit*   );
+int getrusage(int , struct rusage*   );
+int setpriority(int , unsigned int   , int );
+int setiopolicy_np(int , int , int );
+int setrlimit(int , const struct rlimit*   );
+int wait(int* );
+int waitpid(int   , int* , int );
+int waitid(enum anonymous_typeY1   , unsigned int   , struct __siginfo*   , int );
+int wait3(int* , int , struct rusage*   );
+int wait4(int   , int* , int , struct rusage*   );
+void* alloca(unsigned long  int __size  );
+void* malloc_type_malloc(unsigned long  int size  , unsigned long  long type_id  );
+void* malloc_type_calloc(unsigned long  int count  , unsigned long  int size  , unsigned long  long type_id  );
+void malloc_type_free(void* ptr, unsigned long  long type_id  );
+void* malloc_type_realloc(void* ptr, unsigned long  int size  , unsigned long  long type_id  );
+void* malloc_type_valloc(unsigned long  int size  , unsigned long  long type_id  );
+void* malloc_type_aligned_alloc(unsigned long  int alignment  , unsigned long  int size  , unsigned long  long type_id  );
+int malloc_type_posix_memalign(void** memptr, unsigned long  int alignment  , unsigned long  int size  , unsigned long  long type_id  );
+void* malloc_type_zone_malloc(struct _malloc_zone_t* zone  , unsigned long  int size  , unsigned long  long type_id  );
+void* malloc_type_zone_calloc(struct _malloc_zone_t* zone  , unsigned long  int count  , unsigned long  int size  , unsigned long  long type_id  );
+void malloc_type_zone_free(struct _malloc_zone_t* zone  , void* ptr, unsigned long  long type_id  );
+void* malloc_type_zone_realloc(struct _malloc_zone_t* zone  , void* ptr, unsigned long  int size  , unsigned long  long type_id  );
+void* malloc_type_zone_valloc(struct _malloc_zone_t* zone  , unsigned long  int size  , unsigned long  long type_id  );
+void* malloc_type_zone_memalign(struct _malloc_zone_t* zone  , unsigned long  int alignment  , unsigned long  int size  , unsigned long  long type_id  );
+void* malloc(unsigned long  int __size  );
+void* calloc(unsigned long  int __count  , unsigned long  int __size  );
+void free(void* );
+void* realloc(void* __ptr, unsigned long  int __size  );
+void* reallocf(void* __ptr, unsigned long  int __size  );
+void* aligned_alloc(unsigned long  int __alignment  , unsigned long  int __size  );
+int posix_memalign(void** __memptr, unsigned long  int __alignment  , unsigned long  int __size  );
 void abort();
-int atexit(void (*__func)());
-int at_quick_exit(void (*__func)());
-int on_exit(void (*__func)(int,void*), void* __arg);
-void exit(int __status);
-void quick_exit(int __status);
-void _Exit(int __status);
-char* getenv(const char* __name);
-char* secure_getenv(const char* __name);
-int putenv(char* __string);
-int setenv(const char* __name, const char* __value, int __replace);
-int unsetenv(const char* __name);
-int clearenv();
-char* mktemp(char* __template);
-int mkstemp(char* __template);
-int mkstemp64(char* __template);
-int mkstemps(char* __template, int __suffixlen);
-int mkstemps64(char* __template, int __suffixlen);
-char* mkdtemp(char* __template);
-int mkostemp(char* __template, int __flags);
-int mkostemp64(char* __template, int __flags);
-int mkostemps(char* __template, int __suffixlen, int __flags);
-int mkostemps64(char* __template, int __suffixlen, int __flags);
-int system(const char* __command);
-char* canonicalize_file_name(const char* __name);
-char* realpath(const char* __name, char* __resolved);
-void* bsearch(const void* __key, const void* __base, unsigned long __nmemb  , unsigned long __size  , int (*__compar)(const void*,const void*)  );
-void qsort(void* __base, unsigned long __nmemb  , unsigned long __size  , int (*__compar)(const void*,const void*)  );
-void qsort_r(void* __base, unsigned long __nmemb  , unsigned long __size  , int (*__compar)(const void*,const void*,void*)  , void* __arg);
-int abs(int __x);
-long  int labs(long  int __x);
-long long int llabs(long long int __x);
-unsigned int uabs(int __x);
-unsigned long  int ulabs(long  int __x);
-unsigned long long int ullabs(long long int __x);
-struct anonymous_typeX4 div(int __numer, int __denom);
-struct anonymous_typeX5 ldiv(long  int __numer, long  int __denom);
-struct anonymous_typeX6 lldiv(long long int __numer, long long int __denom);
-char* ecvt(double __value, int __ndigit, int* __decpt, int* __sign);
-char* fcvt(double __value, int __ndigit, int* __decpt, int* __sign);
-char* gcvt(double __value, int __ndigit, char* __buf);
-char* qecvt(long  double __value, int __ndigit, int* __decpt, int* __sign);
-char* qfcvt(long  double __value, int __ndigit, int* __decpt, int* __sign);
-char* qgcvt(long  double __value, int __ndigit, char* __buf);
-int ecvt_r(double __value, int __ndigit, int* __decpt, int* __sign, char* __buf, unsigned long __len  );
-int fcvt_r(double __value, int __ndigit, int* __decpt, int* __sign, char* __buf, unsigned long __len  );
-int qecvt_r(long  double __value, int __ndigit, int* __decpt, int* __sign, char* __buf, unsigned long __len  );
-int qfcvt_r(long  double __value, int __ndigit, int* __decpt, int* __sign, char* __buf, unsigned long __len  );
-int mblen(const char* __s, unsigned long __n  );
-int mbtowc(int* __pwc  , const char* __s, unsigned long __n  );
-int wctomb(char* __s, int __wchar  );
-unsigned long mbstowcs(int* __pwcs  , const char* __s, unsigned long __n  );
-unsigned long wcstombs(char* __s, const int* __pwcs  , unsigned long __n  );
-int rpmatch(const char* __response);
-int getsubopt(char** __optionp, char** __tokens, char** __valuep);
-int posix_openpt(int __oflag);
-int grantpt(int __fd);
-int unlockpt(int __fd);
-char* ptsname(int __fd);
-int ptsname_r(int __fd, char* __buf, unsigned long __buflen  );
-int getpt();
-int getloadavg(double __loadavg[], int __nelem);
-void* memcpy(void* __dest, const void* __src, unsigned long __n  );
-void* memmove(void* __dest, const void* __src, unsigned long __n  );
-void* memccpy(void* __dest, const void* __src, int __c, unsigned long __n  );
-void* memset(void* __s, int __c, unsigned long __n  );
-int memcmp(const void* __s1, const void* __s2, unsigned long __n  );
-int __memcmpeq(const void* __s1, const void* __s2, unsigned long __n  );
-void* memchr(const void* __s, int __c, unsigned long __n  );
-void* rawmemchr(const void* __s, int __c);
-void* memrchr(const void* __s, int __c, unsigned long __n  );
-char* strcpy(char* __dest, const char* __src);
-char* strncpy(char* __dest, const char* __src, unsigned long __n  );
-char* strcat(char* __dest, const char* __src);
-char* strncat(char* __dest, const char* __src, unsigned long __n  );
-int strcmp(const char* __s1, const char* __s2);
-int strncmp(const char* __s1, const char* __s2, unsigned long __n  );
-int strcoll(const char* __s1, const char* __s2);
-unsigned long strxfrm(char* __dest, const char* __src, unsigned long __n  );
-int strcoll_l(const char* __s1, const char* __s2, struct __locale_struct* __l  );
-unsigned long strxfrm_l(char* __dest, const char* __src, unsigned long __n  , struct __locale_struct* __l  );
-char* strdup(const char* __s);
-char* strndup(const char* __string, unsigned long __n  );
+int abs(int );
+int atexit(void (*anonymous_lambda_var_nameZ6)());
+int at_quick_exit(void (*anonymous_lambda_var_nameZ7)());
+double atof(const char* );
+int atoi(const char* );
+long atol(const char* );
+long long atoll(const char* );
+void* bsearch(const void* __key, const void* __base, unsigned long  int __nel  , unsigned long  int __width  , int (*__compar)(const void*,const void*));
+struct anonymous_typeX8 div(int , int );
+void exit(int );
+char* getenv(const char* );
+long labs(long );
+struct anonymous_typeX9 ldiv(long , long );
+long long llabs(long  long );
+struct anonymous_typeX10 lldiv(long  long , long  long );
+int mblen(const char* __s, unsigned long  int __n  );
+unsigned long  int mbstowcs(int*   , const char* , unsigned long  int __n  );
+int mbtowc(int*   , const char* , unsigned long  int __n  );
+void qsort(void* __base, unsigned long  int __nel  , unsigned long  int __width  , int (*__compar)(const void*,const void*));
+void quick_exit(int );
+int rand();
+void srand(unsigned int );
+double strtod(const char* , char** );
+float strtof(const char* , char** );
+long strtol(const char* __str, char** __endptr, int __base);
+long  double strtold(const char* , char** );
+long long strtoll(const char* __str, char** __endptr, int __base);
+unsigned long  int strtoul(const char* __str, char** __endptr, int __base);
+unsigned long  long strtoull(const char* __str, char** __endptr, int __base);
+int system(const char* );
+unsigned long  int wcstombs(char* , const int*   , unsigned long  int __n  );
+int wctomb(char* , int   );
+long a64l(const char* );
+double drand48();
+char* ecvt(double , int , int* , int* );
+double erand48(unsigned short int [3]);
+char* fcvt(double , int , int* , int* );
+char* gcvt(double , int , char* );
+int grantpt(int );
+char* initstate(unsigned int , char* , unsigned long  int __size  );
+long jrand48(unsigned short int [3]);
+char* l64a(long );
+void lcong48(unsigned short int [7]);
+long lrand48();
+long mrand48();
+long nrand48(unsigned short int [3]);
+int posix_openpt(int );
+char* ptsname(int );
+int ptsname_r(int fildes, char* buffer, unsigned long  int buflen  );
+int putenv(char* );
+long random();
+int rand_r(unsigned int* );
+char* realpath(const char* , char* );
+unsigned short int* seed48(unsigned short int [3]);
+int setenv(const char* __name, const char* __value, int __overwrite);
+char* setstate(const char* );
+void srand48(long );
+void srandom(unsigned int );
+int unlockpt(int );
+int unsetenv(const char* );
+unsigned int arc4random();
+void arc4random_addrandom(unsigned char* , int __datlen);
+void arc4random_buf(void* __buf, unsigned long  int __nbytes  );
+void arc4random_stir();
+unsigned int arc4random_uniform(unsigned int __upper_bound  );
+char* cgetcap(char* , const char* , int );
+int cgetclose();
+int cgetent(char** , char** , const char* );
+int cgetfirst(char** , char** );
+int cgetmatch(const char* , const char* );
+int cgetnext(char** , char** );
+int cgetnum(char* , const char* , long* );
+int cgetset(const char* );
+int cgetstr(char* , const char* , char** );
+int cgetustr(char* , const char* , char** );
+int daemon(int , int );
+char* devname(int   , unsigned short int   );
+char* devname_r(int   , unsigned short int   , char* buf, int len);
+char* getbsize(int* , long* );
+int getloadavg(double [], int __nelem);
+const char* getprogname();
+void setprogname(const char* );
+int heapsort(void* __base, unsigned long  int __nel  , unsigned long  int __width  , int (*__compar)(const void*,const void*));
+int mergesort(void* __base, unsigned long  int __nel  , unsigned long  int __width  , int (*__compar)(const void*,const void*));
+void psort(void* __base, unsigned long  int __nel  , unsigned long  int __width  , int (*__compar)(const void*,const void*));
+void psort_r(void* __base, unsigned long  int __nel  , unsigned long  int __width  , void* , int (*__compar)(void*,const void*,const void*));
+void qsort_r(void* __base, unsigned long  int __nel  , unsigned long  int __width  , void* , int (*__compar)(void*,const void*,const void*));
+int radixsort(const unsigned char** __base, int __nel, const unsigned char* __table, unsigned int __endbyte);
+int rpmatch(const char* );
+int sradixsort(const unsigned char** __base, int __nel, const unsigned char* __table, unsigned int __endbyte);
+void sranddev();
+void srandomdev();
+long long strtonum(const char* __numstr, long long __minval, long long __maxval, const char** __errstrp);
+long long strtoq(const char* __str, char** __endptr, int __base);
+unsigned long  long strtouq(const char* __str, char** __endptr, int __base);
+void* memchr(const void* __s, int __c, unsigned long  int __n  );
+int memcmp(const void* __s1, const void* __s2, unsigned long  int __n  );
+void* memcpy(void* __dst, const void* __src, unsigned long  int __n  );
+void* memmove(void* __dst, const void* __src, unsigned long  int __len  );
+void* memset(void* __b, int __c, unsigned long  int __len  );
+char* strcat(char* __s1, const char* __s2);
 char* strchr(const char* __s, int __c);
-char* strrchr(const char* __s, int __c);
-char* strchrnul(const char* __s, int __c);
-unsigned long strcspn(const char* __s, const char* __reject);
-unsigned long strspn(const char* __s, const char* __accept);
-char* strpbrk(const char* __s, const char* __accept);
-char* strstr(const char* __haystack, const char* __needle);
-char* strtok(char* __s, const char* __delim);
-char* __strtok_r(char* __s, const char* __delim, char** __save_ptr);
-char* strtok_r(char* __s, const char* __delim, char** __save_ptr);
-char* strcasestr(const char* __haystack, const char* __needle);
-void* memmem(const void* __haystack, unsigned long __haystacklen  , const void* __needle, unsigned long __needlelen  );
-void* __mempcpy(void* __dest, const void* __src, unsigned long __n  );
-void* mempcpy(void* __dest, const void* __src, unsigned long __n  );
-unsigned long strlen(const char* __s);
-unsigned long strnlen(const char* __string, unsigned long __maxlen  );
+int strcmp(const char* __s1, const char* __s2);
+int strcoll(const char* __s1, const char* __s2);
+char* strcpy(char* __dst, const char* __src);
+unsigned long  int strcspn(const char* __s, const char* __charset);
 char* strerror(int __errnum);
-char* strerror_r(int __errnum, char* __buf, unsigned long __buflen  );
-const char* strerrordesc_np(int __err);
-const char* strerrorname_np(int __err);
-char* strerror_l(int __errnum, struct __locale_struct* __l  );
-int bcmp(const void* __s1, const void* __s2, unsigned long __n  );
-void bcopy(const void* __src, void* __dest, unsigned long __n  );
-void bzero(void* __s, unsigned long __n  );
-char* index(const char* __s, int __c);
-char* rindex(const char* __s, int __c);
-int ffs(int __i);
-int ffsl(long  int __l);
-int ffsll(long long int __ll);
-int strcasecmp(const char* __s1, const char* __s2);
-int strncasecmp(const char* __s1, const char* __s2, unsigned long __n  );
-int strcasecmp_l(const char* __s1, const char* __s2, struct __locale_struct* __loc  );
-int strncasecmp_l(const char* __s1, const char* __s2, unsigned long __n  , struct __locale_struct* __loc  );
-void explicit_bzero(void* __s, unsigned long __n  );
-char* strsep(char** __stringp, const char* __delim);
+unsigned long  int strlen(const char* __s);
+char* strncat(char* __s1, const char* __s2, unsigned long  int __n  );
+int strncmp(const char* __s1, const char* __s2, unsigned long  int __n  );
+char* strncpy(char* __dst, const char* __src, unsigned long  int __n  );
+char* strpbrk(const char* __s, const char* __charset);
+char* strrchr(const char* __s, int __c);
+unsigned long  int strspn(const char* __s, const char* __charset);
+char* strstr(const char* __big, const char* __little);
+char* strtok(char* __str, const char* __sep);
+unsigned long  int strxfrm(char* __s1, const char* __s2, unsigned long  int __n  );
+char* strtok_r(char* __str, const char* __sep, char** __lasts);
+int strerror_r(int __errnum, char* __strerrbuf, unsigned long  int __buflen  );
+char* strdup(const char* __s1);
+void* memccpy(void* __dst, const void* __src, int __c, unsigned long  int __n  );
+char* stpcpy(char* __dst, const char* __src);
+char* stpncpy(char* __dst, const char* __src, unsigned long  int __n  );
+char* strndup(const char* __s1, unsigned long  int __n  );
+unsigned long  int strnlen(const char* __s1, unsigned long  int __n  );
 char* strsignal(int __sig);
-const char* sigabbrev_np(int __sig);
-const char* sigdescr_np(int __sig);
-char* __stpcpy(char* __dest, const char* __src);
-char* stpcpy(char* __dest, const char* __src);
-char* __stpncpy(char* __dest, const char* __src, unsigned long __n  );
-char* stpncpy(char* __dest, const char* __src, unsigned long __n  );
-unsigned long strlcpy(char* __dest, const char* __src, unsigned long __n  );
-unsigned long strlcat(char* __dest, const char* __src, unsigned long __n  );
-int strverscmp(const char* __s1, const char* __s2);
-char* strfry(char* __string);
-void* memfrob(void* __s, unsigned long __n  );
-char* basename(const char* __filename);
-long  int __sysconf(int __name);
-char* setlocale(int __category, const char* __locale);
+int memset_s(void* __s, unsigned long  int __smax  , int __c, unsigned long  int __n  );
+void* memmem(const void* __big, unsigned long  int __big_len  , const void* __little, unsigned long  int __little_len  );
+void memset_pattern4(void* __b, const void* __pattern4, unsigned long  int __len  );
+void memset_pattern8(void* __b, const void* __pattern8, unsigned long  int __len  );
+void memset_pattern16(void* __b, const void* __pattern16, unsigned long  int __len  );
+char* strcasestr(const char* __big, const char* __little);
+char* strchrnul(const char* __s, int __c);
+char* strnstr(const char* __big, const char* __little, unsigned long  int __len  );
+unsigned long  int strlcat(char* __dst, const char* __source, unsigned long  int __size  );
+unsigned long  int strlcpy(char* __dst, const char* __source, unsigned long  int __size  );
+void strmode(int __mode, char* __bp);
+char* strsep(char** __stringp, const char* __delim);
+int timingsafe_bcmp(const void* __b1, const void* __b2, unsigned long  int __len  );
+int strsignal_r(int __sig, char* __strsignalbuf, unsigned long  int __buflen  );
+int ffs(int );
+int strcasecmp(const char* , const char* );
+int strncasecmp(const char* , const char* , unsigned long  int   );
+int ffsl(long );
+int ffsll(long  long );
+int fls(int );
+int flsl(long );
+int flsll(long  long );
+struct _xlocale* duplocale(struct _xlocale*   );
+int freelocale(struct _xlocale*   );
+struct _xlocale* newlocale(int , const char* , struct _xlocale*   );
+struct _xlocale* uselocale(struct _xlocale*   );
 struct lconv* localeconv();
-struct __locale_struct* newlocale(int __category_mask, const char* __locale, struct __locale_struct* __base  );
-struct __locale_struct* duplocale(struct __locale_struct* __dataset  );
-void freelocale(struct __locale_struct* __dataset  );
-struct __locale_struct* uselocale(struct __locale_struct* __dataset  );
-int* __errno_location();
-int* wcscpy(int* __dest  , const int* __src  );
-int* wcsncpy(int* __dest  , const int* __src  , unsigned long __n  );
-unsigned long wcslcpy(int* __dest  , const int* __src  , unsigned long __n  );
-unsigned long wcslcat(int* __dest  , const int* __src  , unsigned long __n  );
-int* wcscat(int* __dest  , const int* __src  );
-int* wcsncat(int* __dest  , const int* __src  , unsigned long __n  );
-int wcscmp(const int* __s1  , const int* __s2  );
-int wcsncmp(const int* __s1  , const int* __s2  , unsigned long __n  );
-int wcscasecmp(const int* __s1  , const int* __s2  );
-int wcsncasecmp(const int* __s1  , const int* __s2  , unsigned long __n  );
-int wcscasecmp_l(const int* __s1  , const int* __s2  , struct __locale_struct* __loc  );
-int wcsncasecmp_l(const int* __s1  , const int* __s2  , unsigned long __n  , struct __locale_struct* __loc  );
-int wcscoll(const int* __s1  , const int* __s2  );
-unsigned long wcsxfrm(int* __s1  , const int* __s2  , unsigned long __n  );
-int wcscoll_l(const int* __s1  , const int* __s2  , struct __locale_struct* __loc  );
-unsigned long wcsxfrm_l(int* __s1  , const int* __s2  , unsigned long __n  , struct __locale_struct* __loc  );
-int* wcsdup(const int* __s  );
-int* wcschr(const int* __wcs  , int __wc  );
-int* wcsrchr(const int* __wcs  , int __wc  );
-int* wcschrnul(const int* __s  , int __wc  );
-unsigned long wcscspn(const int* __wcs  , const int* __reject  );
-unsigned long wcsspn(const int* __wcs  , const int* __accept  );
-int* wcspbrk(const int* __wcs  , const int* __accept  );
-int* wcsstr(const int* __haystack  , const int* __needle  );
-int* wcstok(int* __s  , const int* __delim  , int** __ptr  );
-unsigned long wcslen(const int* __s  );
-int* wcswcs(const int* __haystack  , const int* __needle  );
-unsigned long wcsnlen(const int* __s  , unsigned long __maxlen  );
-int* wmemchr(const int* __s  , int __c  , unsigned long __n  );
-int wmemcmp(const int* __s1  , const int* __s2  , unsigned long __n  );
-int* wmemcpy(int* __s1  , const int* __s2  , unsigned long __n  );
-int* wmemmove(int* __s1  , const int* __s2  , unsigned long __n  );
-int* wmemset(int* __s  , int __c  , unsigned long __n  );
-int* wmempcpy(int* __s1  , const int* __s2  , unsigned long __n  );
-unsigned int btowc(int __c);
-int wctob(unsigned int __c  );
-int mbsinit(const struct anonymous_typeX1* __ps  );
-unsigned long mbrtowc(int* __pwc  , const char* __s, unsigned long __n  , struct anonymous_typeX1* __p  );
-unsigned long wcrtomb(char* __s, int __wc  , struct anonymous_typeX1* __ps  );
-unsigned long __mbrlen(const char* __s, unsigned long __n  , struct anonymous_typeX1* __ps  );
-unsigned long mbrlen(const char* __s, unsigned long __n  , struct anonymous_typeX1* __ps  );
-unsigned long mbsrtowcs(int* __dst  , const char** __src, unsigned long __len  , struct anonymous_typeX1* __ps  );
-unsigned long wcsrtombs(char* __dst, const int** __src  , unsigned long __len  , struct anonymous_typeX1* __ps  );
-unsigned long mbsnrtowcs(int* __dst  , const char** __src, unsigned long __nmc  , unsigned long __len  , struct anonymous_typeX1* __ps  );
-unsigned long wcsnrtombs(char* __dst, const int** __src  , unsigned long __nwc  , unsigned long __len  , struct anonymous_typeX1* __ps  );
-int wcwidth(int __c  );
-int wcswidth(const int* __s  , unsigned long __n  );
-double wcstod(const int* __nptr  , int** __endptr  );
-float wcstof(const int* __nptr  , int** __endptr  );
-long  double wcstold(const int* __nptr  , int** __endptr  );
-float wcstof32(const int* __nptr  , int** __endptr  );
-double wcstof64(const int* __nptr  , int** __endptr  );
-double wcstof32x(const int* __nptr  , int** __endptr  );
-long  double wcstof64x(const int* __nptr  , int** __endptr  );
-long  int wcstol(const int* __nptr  , int** __endptr  , int __base);
-unsigned long  int wcstoul(const int* __nptr  , int** __endptr  , int __base);
-long long int wcstoll(const int* __nptr  , int** __endptr  , int __base);
-unsigned long long int wcstoull(const int* __nptr  , int** __endptr  , int __base);
-long long int wcstoq(const int* __nptr  , int** __endptr  , int __base);
-unsigned long long int wcstouq(const int* __nptr  , int** __endptr  , int __base);
-long  int __isoc23_wcstol(const int* __nptr  , int** __endptr  , int __base);
-unsigned long  int __isoc23_wcstoul(const int* __nptr  , int** __endptr  , int __base);
-long long int __isoc23_wcstoll(const int* __nptr  , int** __endptr  , int __base);
-unsigned long long int __isoc23_wcstoull(const int* __nptr  , int** __endptr  , int __base);
-long  int wcstol_l(const int* __nptr  , int** __endptr  , int __base, struct __locale_struct* __loc  );
-unsigned long  int wcstoul_l(const int* __nptr  , int** __endptr  , int __base, struct __locale_struct* __loc  );
-long long int wcstoll_l(const int* __nptr  , int** __endptr  , int __base, struct __locale_struct* __loc  );
-unsigned long long int wcstoull_l(const int* __nptr  , int** __endptr  , int __base, struct __locale_struct* __loc  );
-long  int __isoc23_wcstol_l(const int* __nptr  , int** __endptr  , int __base, struct __locale_struct* __loc  );
-unsigned long  int __isoc23_wcstoul_l(const int* __nptr  , int** __endptr  , int __base, struct __locale_struct* __loc  );
-long long int __isoc23_wcstoll_l(const int* __nptr  , int** __endptr  , int __base, struct __locale_struct* __loc  );
-unsigned long long int __isoc23_wcstoull_l(const int* __nptr  , int** __endptr  , int __base, struct __locale_struct* __loc  );
-double wcstod_l(const int* __nptr  , int** __endptr  , struct __locale_struct* __loc  );
-float wcstof_l(const int* __nptr  , int** __endptr  , struct __locale_struct* __loc  );
-long  double wcstold_l(const int* __nptr  , int** __endptr  , struct __locale_struct* __loc  );
-float wcstof32_l(const int* __nptr  , int** __endptr  , struct __locale_struct* __loc  );
-double wcstof64_l(const int* __nptr  , int** __endptr  , struct __locale_struct* __loc  );
-double wcstof32x_l(const int* __nptr  , int** __endptr  , struct __locale_struct* __loc  );
-long  double wcstof64x_l(const int* __nptr  , int** __endptr  , struct __locale_struct* __loc  );
-int* wcpcpy(int* __dest  , const int* __src  );
-int* wcpncpy(int* __dest  , const int* __src  , unsigned long __n  );
-struct _IO_FILE* open_wmemstream(int** __bufloc  , unsigned long* __sizeloc  );
-int fwide(struct _IO_FILE* __fp  , int __mode);
-int fwprintf(struct _IO_FILE* __stream  , const int* __format  , ...);
-int wprintf(const int* __format  , ...);
-int swprintf(int* __s  , unsigned long __n  , const int* __format  , ...);
-int vfwprintf(struct _IO_FILE* __s  , const int* __format  , __builtin_va_list __arg  );
-int vwprintf(const int* __format  , __builtin_va_list __arg  );
-int vswprintf(int* __s  , unsigned long __n  , const int* __format  , __builtin_va_list __arg  );
-int fwscanf(struct _IO_FILE* __stream  , const int* __format  , ...);
-int wscanf(const int* __format  , ...);
-int swscanf(const int* __s  , const int* __format  , ...);
-int __isoc23_fwscanf(struct _IO_FILE* __stream  , const int* __format  , ...);
-int __isoc23_wscanf(const int* __format  , ...);
-int __isoc23_swscanf(const int* __s  , const int* __format  , ...);
-int vfwscanf(struct _IO_FILE* __s  , const int* __format  , __builtin_va_list __arg  );
-int vwscanf(const int* __format  , __builtin_va_list __arg  );
-int vswscanf(const int* __s  , const int* __format  , __builtin_va_list __arg  );
-int __isoc23_vfwscanf(struct _IO_FILE* __s  , const int* __format  , __builtin_va_list __arg  );
-int __isoc23_vwscanf(const int* __format  , __builtin_va_list __arg  );
-int __isoc23_vswscanf(const int* __s  , const int* __format  , __builtin_va_list __arg  );
-unsigned int fgetwc(struct _IO_FILE* __stream  );
-unsigned int getwc(struct _IO_FILE* __stream  );
+char* setlocale(int , const char* );
+int* __error();
+char* asctime(const struct tm*   );
+unsigned long  int clock();
+char* ctime(const long*   );
+double difftime(long   , long   );
+struct tm* getdate(const char* );
+struct tm* gmtime(const long*   );
+struct tm* localtime(const long*   );
+long mktime(struct tm*   );
+unsigned long  int strftime(char* , unsigned long  int __maxsize  , const char* , const struct tm*   );
+char* strptime(const char* , const char* , struct tm*   );
+long time(long*   );
+void tzset();
+char* asctime_r(const struct tm*   , char* );
+char* ctime_r(const long*   , char* );
+struct tm* gmtime_r(const long*   , struct tm*   );
+struct tm* localtime_r(const long*   , struct tm*   );
+long posix2time(long   );
+void tzsetwall();
+long time2posix(long   );
+long timelocal(struct tm*   );
+long timegm(struct tm*   );
+int nanosleep(const struct timespec* __rqtp  , struct timespec* __rmtp  );
+int clock_getres(enum anonymous_typeY16 __clock_id  , struct timespec* __res  );
+int clock_gettime(enum anonymous_typeY16 __clock_id  , struct timespec* __tp  );
+unsigned long  long clock_gettime_nsec_np(enum anonymous_typeY16 __clock_id  );
+int clock_settime(enum anonymous_typeY16 __clock_id  , const struct timespec* __tp  );
+int timespec_get(struct timespec* ts  , int base);
+unsigned long  int ___runetype(int   );
+int ___tolower(int   );
+int ___toupper(int   );
+int __maskrune(int   , unsigned long  int );
+int __toupper(int   );
+int __tolower(int   );
+unsigned int wctype(const char* );
+unsigned int btowc(int );
+unsigned int fgetwc(struct __sFILE*   );
+int* fgetws(int*   , int __n, struct __sFILE*   );
+unsigned int fputwc(int   , struct __sFILE*   );
+int fputws(const int*   , struct __sFILE*   );
+int fwide(struct __sFILE*   , int );
+int fwprintf(struct __sFILE*   , const int*   , ...);
+int fwscanf(struct __sFILE*   , const int*   , ...);
+unsigned int getwc(struct __sFILE*   );
 unsigned int getwchar();
-unsigned int fputwc(int __wc  , struct _IO_FILE* __stream  );
-unsigned int putwc(int __wc  , struct _IO_FILE* __stream  );
-unsigned int putwchar(int __wc  );
-int* fgetws(int* __ws  , int __n, struct _IO_FILE* __stream  );
-int fputws(const int* __ws  , struct _IO_FILE* __stream  );
-unsigned int ungetwc(unsigned int __wc  , struct _IO_FILE* __stream  );
-unsigned int getwc_unlocked(struct _IO_FILE* __stream  );
-unsigned int getwchar_unlocked();
-unsigned int fgetwc_unlocked(struct _IO_FILE* __stream  );
-unsigned int fputwc_unlocked(int __wc  , struct _IO_FILE* __stream  );
-unsigned int putwc_unlocked(int __wc  , struct _IO_FILE* __stream  );
-unsigned int putwchar_unlocked(int __wc  );
-int* fgetws_unlocked(int* __ws  , int __n, struct _IO_FILE* __stream  );
-int fputws_unlocked(const int* __ws  , struct _IO_FILE* __stream  );
-unsigned long wcsftime(int* __s  , unsigned long __maxsize  , const int* __format  , const struct tm* __tp  );
-unsigned long wcsftime_l(int* __s  , unsigned long __maxsize  , const int* __format  , const struct tm* __tp  , struct __locale_struct* __loc  );
-char* dirname(char* __path);
-char* __xpg_basename(char* __path);
+unsigned long  int mbrlen(const char* , unsigned long  int __n  , union anonymous_typeZ1*   );
+unsigned long  int mbrtowc(int*   , const char* , unsigned long  int __n  , union anonymous_typeZ1*   );
+int mbsinit(const union anonymous_typeZ1*   );
+unsigned long  int mbsrtowcs(int*   , const char** , unsigned long  int __len  , union anonymous_typeZ1*   );
+unsigned int putwc(int   , struct __sFILE*   );
+unsigned int putwchar(int   );
+int swprintf(int*   , unsigned long  int __maxlen  , const int*   , ...);
+int swscanf(const int*   , const int*   , ...);
+unsigned int ungetwc(unsigned int   , struct __sFILE*   );
+int vfwprintf(struct __sFILE*   , const int*   , __darwin_va_list   );
+int vswprintf(int*   , unsigned long  int __maxlen  , const int*   , __darwin_va_list   );
+int vwprintf(const int*   , __darwin_va_list   );
+unsigned long  int wcrtomb(char* , int   , union anonymous_typeZ1*   );
+int* wcscat(int*   , const int*   );
+int* wcschr(const int*   , int   );
+int wcscmp(const int*   , const int*   );
+int wcscoll(const int*   , const int*   );
+int* wcscpy(int*   , const int*   );
+unsigned long  int wcscspn(const int*   , const int*   );
+unsigned long  int wcsftime(int*   , unsigned long  int __maxlen  , const int*   , const struct tm*   );
+unsigned long  int wcslen(const int*   );
+int* wcsncat(int*   , const int*   , unsigned long  int __n  );
+int wcsncmp(const int*   , const int*   , unsigned long  int   );
+int* wcsncpy(int*   , const int*   , unsigned long  int __n  );
+int* wcspbrk(const int*   , const int*   );
+int* wcsrchr(const int*   , int   );
+unsigned long  int wcsrtombs(char* , const int**   , unsigned long  int __len  , union anonymous_typeZ1*   );
+unsigned long  int wcsspn(const int*   , const int*   );
+int* wcsstr(const int*   , const int*   );
+unsigned long  int wcsxfrm(int*   , const int*   , unsigned long  int __n  );
+int wctob(unsigned int   );
+double wcstod(const int*   , int**   );
+int* wcstok(int*   , const int*   , int**   );
+long wcstol(const int*   , int**   , int );
+unsigned long  int wcstoul(const int*   , int**   , int );
+int* wmemchr(const int*   , int   , unsigned long  int __n  );
+int wmemcmp(const int*   , const int*   , unsigned long  int __n  );
+int* wmemcpy(int*   , const int*   , unsigned long  int __n  );
+int* wmemmove(int*   , const int*   , unsigned long  int __n  );
+int* wmemset(int*   , int   , unsigned long  int __n  );
+int wprintf(const int*   , ...);
+int wscanf(const int*   , ...);
+int wcswidth(const int*   , unsigned long  int __n  );
+int wcwidth(int   );
+int vfwscanf(struct __sFILE*   , const int*   , __darwin_va_list   );
+int vswscanf(const int*   , const int*   , __darwin_va_list   );
+int vwscanf(const int*   , __darwin_va_list   );
+float wcstof(const int*   , int**   );
+long  double wcstold(const int*   , int**   );
+long long wcstoll(const int*   , int**   , int );
+unsigned long  long wcstoull(const int*   , int**   , int );
+unsigned long  int mbsnrtowcs(int*   , const char** , unsigned long  int   , unsigned long  int __len  , union anonymous_typeZ1*   );
+int* wcpcpy(int*   , const int*   );
+int* wcpncpy(int*   , const int*   , unsigned long  int __n  );
+int* wcsdup(const int*   );
+int wcscasecmp(const int*   , const int*   );
+int wcsncasecmp(const int*   , const int*   , unsigned long  int n  );
+unsigned long  int wcsnlen(const int*   , unsigned long  int __n  );
+unsigned long  int wcsnrtombs(char* , const int**   , unsigned long  int   , unsigned long  int __len  , union anonymous_typeZ1*   );
+struct __sFILE* open_wmemstream(int** __bufp  , unsigned long  int* __sizep  );
+int* fgetwln(struct __sFILE*   , unsigned long  int* __len  );
+unsigned long  int wcslcat(int*   , const int*   , unsigned long  int __len  );
+unsigned long  int wcslcpy(int*   , const int*   , unsigned long  int __len  );
+char* basename(char* );
+char* dirname(char* );
+char* basename_r(const char* , char* );
+char* dirname_r(const char* , char* );
+int baudrate();
+int beep();
+_Bool can_change_color();
+int cbreak();
+int clear();
+int clearok(struct _win_st*   , _Bool );
+int clrtobot();
+int clrtoeol();
+int COLOR_PAIR(int );
+int curs_set(int );
+int def_prog_mode();
+int def_shell_mode();
+int delch();
+void delscreen(struct screen*   );
+int delwin(struct _win_st*   );
+int echo();
+int erase();
+char erasechar();
+void filter();
+int flash();
+int halfdelay(int );
+_Bool has_colors();
+_Bool has_ic();
+_Bool has_il();
+void idcok(struct _win_st*   , _Bool );
+int idlok(struct _win_st*   , _Bool );
+void immedok(struct _win_st*   , _Bool );
+_Bool isendwin();
+_Bool is_linetouched(struct _win_st*   , int );
+_Bool is_wintouched(struct _win_st*   );
+char* keyname(int );
+char killchar();
+int leaveok(struct _win_st*   , _Bool );
+char* longname();
+int meta(struct _win_st*   , _Bool );
+int move(int , int );
+int mvdelch(int , int );
+int mvwdelch(struct _win_st*   , int , int );
+int napms(int );
+int nl();
+int nocbreak();
+int nodelay(struct _win_st*   , _Bool );
+int noecho();
+int nonl();
+void noqiflush();
+int noraw();
+int notimeout(struct _win_st*   , _Bool );
+int PAIR_NUMBER(int );
+void qiflush();
+int raw();
+int resetty();
+int reset_prog_mode();
+int reset_shell_mode();
+int ripoffline(int , int (*anonymous_lambda_var_nameZ8)(struct _win_st*,int));
+int savetty();
+int setscrreg(int , int );
+int syncok(struct _win_st*   , _Bool );
+unsigned int termattrs();
+char* termname();
+void timeout(int );
+int touchline(struct _win_st*   , int , int );
+int touchwin(struct _win_st*   );
+int typeahead(int );
+int untouchwin(struct _win_st*   );
+void use_env(_Bool );
+void use_tioctl(_Bool );
+int wclrtobot(struct _win_st*   );
+int wclrtoeol(struct _win_st*   );
+void wcursyncup(struct _win_st*   );
+int wdelch(struct _win_st*   );
+int werase(struct _win_st*   );
+int wmove(struct _win_st*   , int , int );
+int wsetscrreg(struct _win_st*   , int , int );
+void wsyncdown(struct _win_st*   );
+void wsyncup(struct _win_st*   );
+void wtimeout(struct _win_st*   , int );
+int wtouchln(struct _win_st*   , int , int , int );
+char* _nc_tiparm(int , const char* , ...);
+int tigetflag(char* );
+int tigetnum(char* );
+char* tigetstr(char* );
+char* tparm(char* , ...);
+char* tiparm(const char* , ...);
+char* tiparm_s(int , int , const char* , ...);
+int getattrs(const struct _win_st*   );
+int getcurx(const struct _win_st*   );
+int getcury(const struct _win_st*   );
+int getbegx(const struct _win_st*   );
+int getbegy(const struct _win_st*   );
+int getmaxx(const struct _win_st*   );
+int getmaxy(const struct _win_st*   );
+int getparx(const struct _win_st*   );
+int getpary(const struct _win_st*   );
+char* keybound(int , int );
+const char* curses_version();
+int define_key(const char* , int );
+int get_escdelay();
+int key_defined(const char* );
+int keyok(int , _Bool );
+int set_escdelay(int );
+int set_tabsize(int );
+int use_extended_names(_Bool );
+int use_legacy_coding(int );
+void nofilter();
 int addch(const unsigned int   );
 int addchnstr(const unsigned int*   , int );
 int addchstr(const unsigned int*   );
@@ -2314,55 +2700,28 @@ int attr_get(unsigned int*   , short* , void* );
 int attr_off(unsigned int   , void* );
 int attr_on(unsigned int   , void* );
 int attr_set(unsigned int   , short , void* );
-int baudrate();
-int beep();
 int bkgd(unsigned int   );
 void bkgdset(unsigned int   );
 int border(unsigned int   , unsigned int   , unsigned int   , unsigned int   , unsigned int   , unsigned int   , unsigned int   , unsigned int   );
 int box(struct _win_st*   , unsigned int   , unsigned int   );
-_Bool can_change_color();
-int cbreak();
 int chgat(int , unsigned int   , short , const void* );
-int clear();
-int clearok(struct _win_st*   , _Bool );
-int clrtobot();
-int clrtoeol();
 int color_content(short , short* , short* , short* );
 int color_set(short , void* );
-int COLOR_PAIR(int );
 int copywin(const struct _win_st*   , struct _win_st*   , int , int , int , int , int , int , int );
-int curs_set(int );
-int def_prog_mode();
-int def_shell_mode();
 int delay_output(int );
-int delch();
-void delscreen(struct screen*   );
-int delwin(struct _win_st*   );
 int deleteln();
 struct _win_st* derwin(struct _win_st*   , int , int , int , int );
 int doupdate();
 struct _win_st* dupwin(struct _win_st*   );
-int echo();
 int echochar(const unsigned int   );
-int erase();
 int endwin();
-char erasechar();
-void filter();
-int flash();
 int flushinp();
 unsigned int getbkgd(struct _win_st*   );
 int getch();
 int getnstr(char* , int );
 int getstr(char* );
-struct _win_st* getwin(struct _IO_FILE*   );
-int halfdelay(int );
-_Bool has_colors();
-_Bool has_ic();
-_Bool has_il();
+struct _win_st* getwin(struct __sFILE*   );
 int hline(unsigned int   , int );
-void idcok(struct _win_st*   , _Bool );
-int idlok(struct _win_st*   , _Bool );
-void immedok(struct _win_st*   , _Bool );
 unsigned int inch();
 int inchnstr(unsigned int*   , int );
 int inchstr(unsigned int*   );
@@ -2377,16 +2736,7 @@ int insnstr(const char* , int );
 int insstr(const char* );
 int instr(char* );
 int intrflush(struct _win_st*   , _Bool );
-_Bool isendwin();
-_Bool is_linetouched(struct _win_st*   , int );
-_Bool is_wintouched(struct _win_st*   );
-const char* keyname(int );
 int keypad(struct _win_st*   , _Bool );
-char killchar();
-int leaveok(struct _win_st*   , _Bool );
-char* longname();
-int meta(struct _win_st*   , _Bool );
-int move(int , int );
 int mvaddch(int , int , const unsigned int   );
 int mvaddchnstr(int , int , const unsigned int*   , int );
 int mvaddchstr(int , int , const unsigned int*   );
@@ -2394,7 +2744,6 @@ int mvaddnstr(int , int , const char* , int );
 int mvaddstr(int , int , const char* );
 int mvchgat(int , int , int , unsigned int   , short , const void* );
 int mvcur(int , int , int , int );
-int mvdelch(int , int );
 int mvderwin(struct _win_st*   , int , int );
 int mvgetch(int , int );
 int mvgetnstr(int , int , char* , int );
@@ -2409,7 +2758,7 @@ int mvinsnstr(int , int , const char* , int );
 int mvinsstr(int , int , const char* );
 int mvinstr(int , int , char* );
 int mvprintw(int , int , const char* , ...);
-int mvscanw(int , int , const char* , ...);
+int mvscanw(int , int , char* , ...);
 int mvvline(int , int , unsigned int   , int );
 int mvwaddch(struct _win_st*   , int , int , const unsigned int   );
 int mvwaddchnstr(struct _win_st*   , int , int , const unsigned int*   , int );
@@ -2417,7 +2766,6 @@ int mvwaddchstr(struct _win_st*   , int , int , const unsigned int*   );
 int mvwaddnstr(struct _win_st*   , int , int , const char* , int );
 int mvwaddstr(struct _win_st*   , int , int , const char* );
 int mvwchgat(struct _win_st*   , int , int , int , unsigned int   , short , const void* );
-int mvwdelch(struct _win_st*   , int , int );
 int mvwgetch(struct _win_st*   , int , int );
 int mvwgetnstr(struct _win_st*   , int , int , char* , int );
 int mvwgetstr(struct _win_st*   , int , int , char* );
@@ -2432,39 +2780,22 @@ int mvwinsnstr(struct _win_st*   , int , int , const char* , int );
 int mvwinsstr(struct _win_st*   , int , int , const char* );
 int mvwinstr(struct _win_st*   , int , int , char* );
 int mvwprintw(struct _win_st*   , int , int , const char* , ...);
-int mvwscanw(struct _win_st*   , int , int , const char* , ...);
+int mvwscanw(struct _win_st*   , int , int , char* , ...);
 int mvwvline(struct _win_st*   , int , int , unsigned int   , int );
-int napms(int );
 struct _win_st* newpad(int , int );
-struct screen* newterm(const char* , struct _IO_FILE*   , struct _IO_FILE*   );
+struct screen* newterm(char* , struct __sFILE*   , struct __sFILE*   );
 struct _win_st* newwin(int , int , int , int );
-int nl();
-int nocbreak();
-int nodelay(struct _win_st*   , _Bool );
-int noecho();
-int nonl();
-void noqiflush();
-int noraw();
-int notimeout(struct _win_st*   , _Bool );
 int overlay(const struct _win_st*   , struct _win_st*   );
 int overwrite(const struct _win_st*   , struct _win_st*   );
 int pair_content(short , short* , short* );
-int PAIR_NUMBER(int );
 int pechochar(struct _win_st*   , const unsigned int   );
 int pnoutrefresh(struct _win_st*   , int , int , int , int , int , int );
 int prefresh(struct _win_st*   , int , int , int , int , int , int );
 int printw(const char* , ...);
-int putwin(struct _win_st*   , struct _IO_FILE*   );
-void qiflush();
-int raw();
+int putwin(struct _win_st*   , struct __sFILE*   );
 int redrawwin(struct _win_st*   );
 int refresh();
-int resetty();
-int reset_prog_mode();
-int reset_shell_mode();
-int ripoffline(int , int (*anonymous_lambda_var_nameZ1)(struct _win_st*,int));
-int savetty();
-int scanw(const char* , ...);
+int scanw(char* , ...);
 int scr_dump(const char* );
 int scr_init(const char* );
 int scrl(int );
@@ -2472,7 +2803,6 @@ int scroll(struct _win_st*   );
 int scrollok(struct _win_st*   , _Bool );
 int scr_restore(const char* );
 int scr_set(const char* );
-int setscrreg(int , int );
 struct screen* set_term(struct screen*   );
 int slk_attroff(const unsigned int   );
 int slk_attr_off(const unsigned int   , void* );
@@ -2495,24 +2825,14 @@ int standend();
 int start_color();
 struct _win_st* subpad(struct _win_st*   , int , int , int , int );
 struct _win_st* subwin(struct _win_st*   , int , int , int , int );
-int syncok(struct _win_st*   , _Bool );
-unsigned int termattrs();
-char* termname();
-void timeout(int );
-int touchline(struct _win_st*   , int , int );
-int touchwin(struct _win_st*   );
-int typeahead(int );
 int ungetch(int );
-int untouchwin(struct _win_st*   );
-void use_env(_Bool );
-void use_tioctl(_Bool );
 int vidattr(unsigned int   );
-int vidputs(unsigned int   , int (*anonymous_var_nameX415)(int)  );
+int vidputs(unsigned int   , int (*anonymous_var_nameX1497)(int)  );
 int vline(unsigned int   , int );
 int vwprintw(struct _win_st*   , const char* , __builtin_va_list   );
 int vw_printw(struct _win_st*   , const char* , __builtin_va_list   );
-int vwscanw(struct _win_st*   , const char* , __builtin_va_list   );
-int vw_scanw(struct _win_st*   , const char* , __builtin_va_list   );
+int vwscanw(struct _win_st*   , char* , __builtin_va_list   );
+int vw_scanw(struct _win_st*   , char* , __builtin_va_list   );
 int waddch(struct _win_st*   , const unsigned int   );
 int waddchnstr(struct _win_st*   , const unsigned int*   , int );
 int waddchstr(struct _win_st*   , const unsigned int*   );
@@ -2530,14 +2850,9 @@ void wbkgdset(struct _win_st*   , unsigned int   );
 int wborder(struct _win_st*   , unsigned int   , unsigned int   , unsigned int   , unsigned int   , unsigned int   , unsigned int   , unsigned int   , unsigned int   );
 int wchgat(struct _win_st*   , int , unsigned int   , short , const void* );
 int wclear(struct _win_st*   );
-int wclrtobot(struct _win_st*   );
-int wclrtoeol(struct _win_st*   );
 int wcolor_set(struct _win_st*   , short , void* );
-void wcursyncup(struct _win_st*   );
-int wdelch(struct _win_st*   );
 int wdeleteln(struct _win_st*   );
 int wechochar(struct _win_st*   , const unsigned int   );
-int werase(struct _win_st*   );
 int wgetch(struct _win_st*   );
 int wgetnstr(struct _win_st*   , char* , int );
 int wgetstr(struct _win_st*   , char* );
@@ -2552,70 +2867,24 @@ int winsertln(struct _win_st*   );
 int winsnstr(struct _win_st*   , const char* , int );
 int winsstr(struct _win_st*   , const char* );
 int winstr(struct _win_st*   , char* );
-int wmove(struct _win_st*   , int , int );
 int wnoutrefresh(struct _win_st*   );
 int wprintw(struct _win_st*   , const char* , ...);
 int wredrawln(struct _win_st*   , int , int );
 int wrefresh(struct _win_st*   );
-int wscanw(struct _win_st*   , const char* , ...);
+int wscanw(struct _win_st*   , char* , ...);
 int wscrl(struct _win_st*   , int );
-int wsetscrreg(struct _win_st*   , int , int );
 int wstandout(struct _win_st*   );
 int wstandend(struct _win_st*   );
-void wsyncdown(struct _win_st*   );
-void wsyncup(struct _win_st*   );
-void wtimeout(struct _win_st*   , int );
-int wtouchln(struct _win_st*   , int , int , int );
 int wvline(struct _win_st*   , unsigned int   , int );
-int tigetflag(const char* );
-int tigetnum(const char* );
-char* tigetstr(const char* );
 int putp(const char* );
-char* tparm(const char* , ...);
-char* tiparm(const char* , ...);
-char* tiparm_s(int , int , const char* , ...);
-int tiscan_s(int* , int* , const char* );
-int getattrs(const struct _win_st*   );
-int getcurx(const struct _win_st*   );
-int getcury(const struct _win_st*   );
-int getbegx(const struct _win_st*   );
-int getbegy(const struct _win_st*   );
-int getmaxx(const struct _win_st*   );
-int getmaxy(const struct _win_st*   );
-int getparx(const struct _win_st*   );
-int getpary(const struct _win_st*   );
-int alloc_pair(int , int );
-int assume_default_colors(int , int );
-const char* curses_version();
-int define_key(const char* , int );
-int extended_color_content(int , int* , int* , int* );
-int extended_pair_content(int , int* , int* );
-int extended_slk_color(int );
-int find_pair(int , int );
-int free_pair(int );
-int get_escdelay();
-int init_extended_color(int , int , int , int );
-int init_extended_pair(int , int , int );
-int is_cbreak();
-int is_echo();
-int is_nl();
-int is_raw();
 _Bool is_term_resized(int , int );
-int key_defined(const char* );
-char* keybound(int , int );
-int keyok(int , _Bool );
-void nofilter();
-void reset_color_pairs();
+int assume_default_colors(int , int );
 int resize_term(int , int );
 int resizeterm(int , int );
-int set_escdelay(int );
-int set_tabsize(int );
 int use_default_colors();
-int use_legacy_coding(int );
-int use_screen(struct screen*   , int (*anonymous_var_nameX616)(struct screen*,void*)  , void* );
-int use_window(struct _win_st*   , int (*anonymous_var_nameX619)(struct _win_st*,void*)  , void* );
+int use_screen(struct screen*   , int (*anonymous_var_nameX1625)(struct screen*,void*)  , void* );
+int use_window(struct _win_st*   , int (*anonymous_var_nameX1628)(struct _win_st*,void*)  , void* );
 int wresize(struct _win_st*   , int , int );
-int use_extended_names(_Bool );
 struct _win_st* wgetparent(const struct _win_st*   );
 _Bool is_cleared(const struct _win_st*   );
 _Bool is_idcok(const struct _win_st*   );
@@ -2631,796 +2900,268 @@ _Bool is_subwin(const struct _win_st*   );
 _Bool is_syncok(const struct _win_st*   );
 int wgetdelay(const struct _win_st*   );
 int wgetscrreg(const struct _win_st*   , int* , int* );
-struct screen* new_prescr();
-int baudrate_sp(struct screen*   );
-int beep_sp(struct screen*   );
-_Bool can_change_color_sp(struct screen*   );
-int cbreak_sp(struct screen*   );
-int curs_set_sp(struct screen*   , int );
-int color_content_sp(struct screen*   , short , short* , short* , short* );
-int def_prog_mode_sp(struct screen*   );
-int def_shell_mode_sp(struct screen*   );
-int delay_output_sp(struct screen*   , int );
-int doupdate_sp(struct screen*   );
-int echo_sp(struct screen*   );
-int endwin_sp(struct screen*   );
-char erasechar_sp(struct screen*   );
-void filter_sp(struct screen*   );
-int flash_sp(struct screen*   );
-int flushinp_sp(struct screen*   );
-struct _win_st* getwin_sp(struct screen*   , struct _IO_FILE*   );
-int halfdelay_sp(struct screen*   , int );
-_Bool has_colors_sp(struct screen*   );
-_Bool has_ic_sp(struct screen*   );
-_Bool has_il_sp(struct screen*   );
-int init_color_sp(struct screen*   , short , short , short , short );
-int init_pair_sp(struct screen*   , short , short , short );
-int intrflush_sp(struct screen*   , struct _win_st*   , _Bool );
-_Bool isendwin_sp(struct screen*   );
-const char* keyname_sp(struct screen*   , int );
-char killchar_sp(struct screen*   );
-char* longname_sp(struct screen*   );
-int mvcur_sp(struct screen*   , int , int , int , int );
-int napms_sp(struct screen*   , int );
-struct _win_st* newpad_sp(struct screen*   , int , int );
-struct screen* newterm_sp(struct screen*   , const char* , struct _IO_FILE*   , struct _IO_FILE*   );
-struct _win_st* newwin_sp(struct screen*   , int , int , int , int );
-int nl_sp(struct screen*   );
-int nocbreak_sp(struct screen*   );
-int noecho_sp(struct screen*   );
-int nonl_sp(struct screen*   );
-void noqiflush_sp(struct screen*   );
-int noraw_sp(struct screen*   );
-int pair_content_sp(struct screen*   , short , short* , short* );
-void qiflush_sp(struct screen*   );
-int raw_sp(struct screen*   );
-int reset_prog_mode_sp(struct screen*   );
-int reset_shell_mode_sp(struct screen*   );
-int resetty_sp(struct screen*   );
-int ripoffline_sp(struct screen*   , int , int (*anonymous_lambda_var_nameZ2)(struct _win_st*,int));
-int savetty_sp(struct screen*   );
-int scr_init_sp(struct screen*   , const char* );
-int scr_restore_sp(struct screen*   , const char* );
-int scr_set_sp(struct screen*   , const char* );
-int slk_attroff_sp(struct screen*   , const unsigned int   );
-int slk_attron_sp(struct screen*   , const unsigned int   );
-int slk_attrset_sp(struct screen*   , const unsigned int   );
-unsigned int slk_attr_sp(struct screen*   );
-int slk_attr_set_sp(struct screen*   , const unsigned int   , short , void* );
-int slk_clear_sp(struct screen*   );
-int slk_color_sp(struct screen*   , short );
-int slk_init_sp(struct screen*   , int );
-char* slk_label_sp(struct screen*   , int );
-int slk_noutrefresh_sp(struct screen*   );
-int slk_refresh_sp(struct screen*   );
-int slk_restore_sp(struct screen*   );
-int slk_set_sp(struct screen*   , int , const char* , int );
-int slk_touch_sp(struct screen*   );
-int start_color_sp(struct screen*   );
-unsigned int termattrs_sp(struct screen*   );
-char* termname_sp(struct screen*   );
-int typeahead_sp(struct screen*   , int );
-int ungetch_sp(struct screen*   , int );
-void use_env_sp(struct screen*   , _Bool );
-void use_tioctl_sp(struct screen*   , _Bool );
-int vidattr_sp(struct screen*   , unsigned int   );
-int vidputs_sp(struct screen*   , unsigned int   , int (*anonymous_var_nameX776)(struct screen*,int)  );
-int alloc_pair_sp(struct screen*   , int , int );
-int assume_default_colors_sp(struct screen*   , int , int );
-int define_key_sp(struct screen*   , const char* , int );
-int extended_color_content_sp(struct screen*   , int , int* , int* , int* );
-int extended_pair_content_sp(struct screen*   , int , int* , int* );
-int extended_slk_color_sp(struct screen*   , int );
-int find_pair_sp(struct screen*   , int , int );
-int free_pair_sp(struct screen*   , int );
-int get_escdelay_sp(struct screen*   );
-int init_extended_color_sp(struct screen*   , int , int , int , int );
-int init_extended_pair_sp(struct screen*   , int , int , int );
-int is_cbreak_sp(struct screen*   );
-int is_echo_sp(struct screen*   );
-int is_nl_sp(struct screen*   );
-int is_raw_sp(struct screen*   );
-_Bool is_term_resized_sp(struct screen*   , int , int );
-int key_defined_sp(struct screen*   , const char* );
-char* keybound_sp(struct screen*   , int , int );
-int keyok_sp(struct screen*   , int , _Bool );
-void nofilter_sp(struct screen*   );
-void reset_color_pairs_sp(struct screen*   );
-int resize_term_sp(struct screen*   , int , int );
-int resizeterm_sp(struct screen*   , int , int );
-int set_escdelay_sp(struct screen*   , int );
-int set_tabsize_sp(struct screen*   , int );
-int use_default_colors_sp(struct screen*   );
-int use_legacy_coding_sp(struct screen*   , int );
-int add_wch(const struct anonymous_typeX27*   );
-int add_wchnstr(const struct anonymous_typeX27*   , int );
-int add_wchstr(const struct anonymous_typeX27*   );
-int addnwstr(const int*   , int );
-int addwstr(const int*   );
-int bkgrnd(const struct anonymous_typeX27*   );
-void bkgrndset(const struct anonymous_typeX27*   );
-int border_set(const struct anonymous_typeX27*   , const struct anonymous_typeX27*   , const struct anonymous_typeX27*   , const struct anonymous_typeX27*   , const struct anonymous_typeX27*   , const struct anonymous_typeX27*   , const struct anonymous_typeX27*   , const struct anonymous_typeX27*   );
-int box_set(struct _win_st*   , const struct anonymous_typeX27*   , const struct anonymous_typeX27*   );
-int echo_wchar(const struct anonymous_typeX27*   );
-int erasewchar(int*   );
-int get_wch(unsigned int*   );
-int get_wstr(unsigned int*   );
-int getbkgrnd(struct anonymous_typeX27*   );
-int getcchar(const struct anonymous_typeX27*   , int*   , unsigned int*   , short* , void* );
-int getn_wstr(unsigned int*   , int );
-int hline_set(const struct anonymous_typeX27*   , int );
-int in_wch(struct anonymous_typeX27*   );
-int in_wchnstr(struct anonymous_typeX27*   , int );
-int in_wchstr(struct anonymous_typeX27*   );
-int innwstr(int*   , int );
-int ins_nwstr(const int*   , int );
-int ins_wch(const struct anonymous_typeX27*   );
-int ins_wstr(const int*   );
-int inwstr(int*   );
-const char* key_name(int   );
-int killwchar(int*   );
-int mvadd_wch(int , int , const struct anonymous_typeX27*   );
-int mvadd_wchnstr(int , int , const struct anonymous_typeX27*   , int );
-int mvadd_wchstr(int , int , const struct anonymous_typeX27*   );
-int mvaddnwstr(int , int , const int*   , int );
-int mvaddwstr(int , int , const int*   );
-int mvget_wch(int , int , unsigned int*   );
-int mvget_wstr(int , int , unsigned int*   );
-int mvgetn_wstr(int , int , unsigned int*   , int );
-int mvhline_set(int , int , const struct anonymous_typeX27*   , int );
-int mvin_wch(int , int , struct anonymous_typeX27*   );
-int mvin_wchnstr(int , int , struct anonymous_typeX27*   , int );
-int mvin_wchstr(int , int , struct anonymous_typeX27*   );
-int mvinnwstr(int , int , int*   , int );
-int mvins_nwstr(int , int , const int*   , int );
-int mvins_wch(int , int , const struct anonymous_typeX27*   );
-int mvins_wstr(int , int , const int*   );
-int mvinwstr(int , int , int*   );
-int mvvline_set(int , int , const struct anonymous_typeX27*   , int );
-int mvwadd_wch(struct _win_st*   , int , int , const struct anonymous_typeX27*   );
-int mvwadd_wchnstr(struct _win_st*   , int , int , const struct anonymous_typeX27*   , int );
-int mvwadd_wchstr(struct _win_st*   , int , int , const struct anonymous_typeX27*   );
-int mvwaddnwstr(struct _win_st*   , int , int , const int*   , int );
-int mvwaddwstr(struct _win_st*   , int , int , const int*   );
-int mvwget_wch(struct _win_st*   , int , int , unsigned int*   );
-int mvwget_wstr(struct _win_st*   , int , int , unsigned int*   );
-int mvwgetn_wstr(struct _win_st*   , int , int , unsigned int*   , int );
-int mvwhline_set(struct _win_st*   , int , int , const struct anonymous_typeX27*   , int );
-int mvwin_wch(struct _win_st*   , int , int , struct anonymous_typeX27*   );
-int mvwin_wchnstr(struct _win_st*   , int , int , struct anonymous_typeX27*   , int );
-int mvwin_wchstr(struct _win_st*   , int , int , struct anonymous_typeX27*   );
-int mvwinnwstr(struct _win_st*   , int , int , int*   , int );
-int mvwins_nwstr(struct _win_st*   , int , int , const int*   , int );
-int mvwins_wch(struct _win_st*   , int , int , const struct anonymous_typeX27*   );
-int mvwins_wstr(struct _win_st*   , int , int , const int*   );
-int mvwinwstr(struct _win_st*   , int , int , int*   );
-int mvwvline_set(struct _win_st*   , int , int , const struct anonymous_typeX27*   , int );
-int pecho_wchar(struct _win_st*   , const struct anonymous_typeX27*   );
-int setcchar(struct anonymous_typeX27*   , const int*   , const unsigned int   , short , const void* );
-int slk_wset(int , const int*   , int );
-unsigned int term_attrs();
-int unget_wch(const int   );
-int vid_attr(unsigned int   , short , void* );
-int vid_puts(unsigned int   , short , void* , int (*anonymous_var_nameX1048)(int)  );
-int vline_set(const struct anonymous_typeX27*   , int );
-int wadd_wch(struct _win_st*   , const struct anonymous_typeX27*   );
-int wadd_wchnstr(struct _win_st*   , const struct anonymous_typeX27*   , int );
-int wadd_wchstr(struct _win_st*   , const struct anonymous_typeX27*   );
-int waddnwstr(struct _win_st*   , const int*   , int );
-int waddwstr(struct _win_st*   , const int*   );
-int wbkgrnd(struct _win_st*   , const struct anonymous_typeX27*   );
-void wbkgrndset(struct _win_st*   , const struct anonymous_typeX27*   );
-int wborder_set(struct _win_st*   , const struct anonymous_typeX27*   , const struct anonymous_typeX27*   , const struct anonymous_typeX27*   , const struct anonymous_typeX27*   , const struct anonymous_typeX27*   , const struct anonymous_typeX27*   , const struct anonymous_typeX27*   , const struct anonymous_typeX27*   );
-int wecho_wchar(struct _win_st*   , const struct anonymous_typeX27*   );
-int wget_wch(struct _win_st*   , unsigned int*   );
-int wget_wstr(struct _win_st*   , unsigned int*   );
-int wgetbkgrnd(struct _win_st*   , struct anonymous_typeX27*   );
-int wgetn_wstr(struct _win_st*   , unsigned int*   , int );
-int whline_set(struct _win_st*   , const struct anonymous_typeX27*   , int );
-int win_wch(struct _win_st*   , struct anonymous_typeX27*   );
-int win_wchnstr(struct _win_st*   , struct anonymous_typeX27*   , int );
-int win_wchstr(struct _win_st*   , struct anonymous_typeX27*   );
-int winnwstr(struct _win_st*   , int*   , int );
-int wins_nwstr(struct _win_st*   , const int*   , int );
-int wins_wch(struct _win_st*   , const struct anonymous_typeX27*   );
-int wins_wstr(struct _win_st*   , const int*   );
-int winwstr(struct _win_st*   , int*   );
-int* wunctrl(struct anonymous_typeX27*   );
-int wvline_set(struct _win_st*   , const struct anonymous_typeX27*   , int );
-unsigned int term_attrs_sp(struct screen*   );
-int erasewchar_sp(struct screen*   , int*   );
-int killwchar_sp(struct screen*   , int*   );
-int unget_wch_sp(struct screen*   , const int   );
-int vid_attr_sp(struct screen*   , unsigned int   , short , void* );
-int vid_puts_sp(struct screen*   , unsigned int   , short , void* , int (*anonymous_var_nameX1128)(struct screen*,int)  );
-int* wunctrl_sp(struct screen*   , struct anonymous_typeX27*   );
 _Bool has_mouse();
-int getmouse(struct anonymous_typeX28*   );
-int ungetmouse(struct anonymous_typeX28*   );
-unsigned int mousemask(unsigned int   , unsigned int*   );
+int getmouse(struct anonymous_typeX21*   );
+int ungetmouse(struct anonymous_typeX21*   );
+unsigned long  int mousemask(unsigned long  int   , unsigned long  int*   );
 _Bool wenclose(const struct _win_st*   , int , int );
 int mouseinterval(int );
 _Bool wmouse_trafo(const struct _win_st*   , int* , int* , _Bool );
 _Bool mouse_trafo(int* , int* , _Bool );
-_Bool has_mouse_sp(struct screen*   );
-int getmouse_sp(struct screen*   , struct anonymous_typeX28*   );
-int ungetmouse_sp(struct screen*   , struct anonymous_typeX28*   );
-unsigned int mousemask_sp(struct screen*   , unsigned int   , unsigned int*   );
-int mouseinterval_sp(struct screen*   , int );
 int mcprint(char* , int );
 int has_key(int );
-int has_key_sp(struct screen*   , int );
-int mcprint_sp(struct screen*   , char* , int );
-void _tracef(const char* , ...);
-char* _traceattr(unsigned int   );
-char* _traceattr2(int , unsigned int   );
-char* _tracechar(int );
-char* _tracechtype(unsigned int   );
-char* _tracechtype2(int , unsigned int   );
-char* _tracecchar_t(const struct anonymous_typeX27*   );
-char* _tracecchar_t2(int , const struct anonymous_typeX27*   );
-void trace(const unsigned int );
-unsigned int curses_trace(const unsigned int );
-void exit_curses(int );
-const char* unctrl(unsigned int   );
-const char* unctrl_sp(struct screen*   , unsigned int   );
-int closedir(struct __dirstream* __dirp  );
-struct __dirstream* opendir(const char* __name);
-struct __dirstream* fdopendir(int __fd);
-struct dirent* readdir(struct __dirstream* __dirp  );
-struct dirent64* readdir64(struct __dirstream* __dirp  );
-int readdir_r(struct __dirstream* __dirp  , struct dirent* __entry  , struct dirent** __result  );
-int readdir64_r(struct __dirstream* __dirp  , struct dirent64* __entry  , struct dirent64** __result  );
-void rewinddir(struct __dirstream* __dirp  );
-void seekdir(struct __dirstream* __dirp  , long  int __pos);
-long  int telldir(struct __dirstream* __dirp  );
-int dirfd(struct __dirstream* __dirp  );
-int scandir(const char* __dir, struct dirent*** __namelist  , int (*__selector)(const struct dirent*), int (*__cmp)(const struct dirent**,const struct dirent**));
-int scandir64(const char* __dir, struct dirent64*** __namelist  , int (*__selector)(const struct dirent64*), int (*__cmp)(const struct dirent64**,const struct dirent64**));
-int scandirat(int __dfd, const char* __dir, struct dirent*** __namelist  , int (*__selector)(const struct dirent*), int (*__cmp)(const struct dirent**,const struct dirent**));
-int scandirat64(int __dfd, const char* __dir, struct dirent64*** __namelist  , int (*__selector)(const struct dirent64*), int (*__cmp)(const struct dirent64**,const struct dirent64**));
-int alphasort(const struct dirent** __e1  , const struct dirent** __e2  );
-int alphasort64(const struct dirent64** __e1  , const struct dirent64** __e2  );
-long  int getdirentries(int __fd, char* __buf, unsigned long __nbytes  , long  int* __basep  );
-long  int getdirentries64(int __fd, char* __buf, unsigned long __nbytes  , long  int* __basep  );
-int versionsort(const struct dirent** __e1  , const struct dirent** __e2  );
-int versionsort64(const struct dirent64** __e1  , const struct dirent64** __e2  );
-long  int getdents64(int __fd, void* __buffer, unsigned long __length  );
-int stat(const char* __file, struct stat* __buf  );
-int fstat(int __fd, struct stat* __buf  );
-int stat64(const char* __file, struct stat64* __buf  );
-int fstat64(int __fd, struct stat64* __buf  );
-int fstatat(int __fd, const char* __file, struct stat* __buf  , int __flag);
-int fstatat64(int __fd, const char* __file, struct stat64* __buf  , int __flag);
-int lstat(const char* __file, struct stat* __buf  );
-int lstat64(const char* __file, struct stat64* __buf  );
-int chmod(const char* __file, unsigned int __mode  );
-int lchmod(const char* __file, unsigned int __mode  );
-int fchmod(int __fd, unsigned int __mode  );
-int fchmodat(int __fd, const char* __file, unsigned int __mode  , int __flag);
-unsigned int umask(unsigned int __mask  );
-unsigned int getumask();
-int mkdir(const char* __path, unsigned int __mode  );
-int mkdirat(int __fd, const char* __path, unsigned int __mode  );
-int mknod(const char* __path, unsigned int __mode  , unsigned long  int __dev  );
-int mknodat(int __fd, const char* __path, unsigned int __mode  , unsigned long  int __dev  );
-int mkfifo(const char* __path, unsigned int __mode  );
-int mkfifoat(int __fd, const char* __path, unsigned int __mode  );
-int utimensat(int __fd, const char* __path, const struct timespec __times[2]  , int __flags);
+char* unctrl(unsigned int   );
+int closedir(struct anonymous_typeX22*   );
+struct anonymous_typeX22* opendir(const char* );
+struct dirent* readdir(struct anonymous_typeX22*   );
+int readdir_r(struct anonymous_typeX22*   , struct dirent*   , struct dirent**   );
+void rewinddir(struct anonymous_typeX22*   );
+void seekdir(struct anonymous_typeX22*   , long );
+long telldir(struct anonymous_typeX22*   );
+struct anonymous_typeX22* fdopendir(int );
+int alphasort(const struct dirent**   , const struct dirent**   );
+int dirfd(struct anonymous_typeX22* dirp  );
+int scandir(const char* , struct dirent***   , int (*anonymous_lambda_var_nameZ9)(const struct dirent*), int (*anonymous_lambda_var_nameZ10)(const struct dirent**,const struct dirent**));
+int getdirentries(int , char* , int __nbytes, long* );
+struct anonymous_typeX22* __opendir2(const char* , int );
+int chmod(const char* , unsigned short int   );
+int fchmod(int , unsigned short int   );
+int fstat(int , struct stat*   );
+int lstat(const char* , struct stat*   );
+int mkdir(const char* , unsigned short int   );
+int mkfifo(const char* , unsigned short int   );
+int stat(const char* , struct stat*   );
+unsigned short int umask(unsigned short int   );
+int fchmodat(int , const char* , unsigned short int   , int );
+int fstatat(int , const char* , struct stat*   , int );
+int mkdirat(int , const char* , unsigned short int   );
+int mkfifoat(int , const char* , unsigned short int   );
+int mknodat(int , const char* , unsigned short int   , int   );
 int futimens(int __fd, const struct timespec __times[2]  );
-int statx(int __dirfd, const char* __path, int __flags, unsigned int __mask, struct statx* __buf  );
-int access(const char* __name, int __type);
-int euidaccess(const char* __name, int __type);
-int eaccess(const char* __name, int __type);
-int execveat(int __fd, const char* __path, char* __argv[], char* __envp[], int __flags);
-int faccessat(int __fd, const char* __file, int __type, int __flag);
-long  int lseek(int __fd, long  int __offset  , int __whence);
-long  int lseek64(int __fd, long  int __offset  , int __whence);
-int close(int __fd);
-void closefrom(int __lowfd);
-long  int read(int __fd, void* __buf, unsigned long __nbytes  );
-long  int write(int __fd, const void* __buf, unsigned long __n  );
-long  int pread(int __fd, void* __buf, unsigned long __nbytes  , long  int __offset  );
-long  int pwrite(int __fd, const void* __buf, unsigned long __n  , long  int __offset  );
-long  int pread64(int __fd, void* __buf, unsigned long __nbytes  , long  int __offset  );
-long  int pwrite64(int __fd, const void* __buf, unsigned long __n  , long  int __offset  );
-int pipe(int __pipedes[2]);
-int pipe2(int __pipedes[2], int __flags);
-unsigned int alarm(unsigned int __seconds);
-unsigned int sleep(unsigned int __seconds);
-unsigned int ualarm(unsigned int __value  , unsigned int __interval  );
-int usleep(unsigned int __useconds  );
-int pause();
-int chown(const char* __file, unsigned int __owner  , unsigned int __group  );
-int fchown(int __fd, unsigned int __owner  , unsigned int __group  );
-int lchown(const char* __file, unsigned int __owner  , unsigned int __group  );
-int fchownat(int __fd, const char* __file, unsigned int __owner  , unsigned int __group  , int __flag);
-int chdir(const char* __path);
-int fchdir(int __fd);
-char* getcwd(char* __buf, unsigned long __size  );
-char* get_current_dir_name();
-char* getwd(char* __buf);
-int dup(int __fd);
-int dup2(int __fd, int __fd2);
-int dup3(int __fd, int __fd2, int __flags);
-int execve(const char* __path, char* __argv[], char* __envp[]);
-int fexecve(int __fd, char* __argv[], char* __envp[]);
-int execv(const char* __path, char* __argv[]);
-int execle(const char* __path, const char* __arg, ...);
-int execl(const char* __path, const char* __arg, ...);
-int execvp(const char* __file, char* __argv[]);
-int execlp(const char* __file, const char* __arg, ...);
-int execvpe(const char* __file, char* __argv[], char* __envp[]);
-int nice(int __inc);
-void _exit(int __status);
-long  int pathconf(const char* __path, int __name);
-long  int fpathconf(int __fd, int __name);
-long  int sysconf(int __name);
-unsigned long confstr(int __name, char* __buf, unsigned long __len  );
-int getpid();
-int getppid();
-int getpgrp();
-int __getpgid(int __pid  );
-int getpgid(int __pid  );
-int setpgid(int __pid  , int __pgid  );
-int setpgrp();
-int setsid();
-int getsid(int __pid  );
-unsigned int getuid();
+int utimensat(int __fd, const char* __path, const struct timespec __times[2]  , int __flag);
+int chflags(const char* , unsigned int   );
+int chmodx_np(const char* , struct _filesec*   );
+int fchflags(int , unsigned int   );
+int fchmodx_np(int , struct _filesec*   );
+int fstatx_np(int , struct stat*   , struct _filesec*   );
+int lchflags(const char* , unsigned int   );
+int lchmod(const char* , unsigned short int   );
+int lstatx_np(const char* , struct stat*   , struct _filesec*   );
+int mkdirx_np(const char* , struct _filesec*   );
+int mkfifox_np(const char* , struct _filesec*   );
+int statx_np(const char* , struct stat*   , struct _filesec*   );
+int umaskx_np(struct _filesec*   );
+int getattrlistbulk(int , void* , void* , unsigned long  int   , unsigned long  long   );
+int getattrlistat(int , const char* , void* , void* , unsigned long  int   , unsigned long  int );
+int setattrlistat(int , const char* , void* , void* , unsigned long  int   , unsigned int   );
+long freadlink(int , char* , unsigned long  int   );
+int faccessat(int , const char* , int , int );
+int fchownat(int , const char* , unsigned int   , unsigned int   , int );
+int linkat(int , const char* , int , const char* , int );
+long readlinkat(int , const char* , char* , unsigned long  int   );
+int symlinkat(const char* , int , const char* );
+int unlinkat(int , const char* , int );
+void _exit(int );
+int access(const char* , int );
+unsigned int alarm(unsigned int );
+int chdir(const char* );
+int chown(const char* , unsigned int   , unsigned int   );
+int close(int );
+int dup(int );
+int dup2(int , int );
+int execl(const char* __path, const char* __arg0, ...);
+int execle(const char* __path, const char* __arg0, ...);
+int execlp(const char* __file, const char* __arg0, ...);
+int execv(const char* __path, char** __argv);
+int execve(const char* __file, char** __argv, char** __envp);
+int execvp(const char* __file, char** __argv);
+int fork();
+long fpathconf(int , int );
+char* getcwd(char* , unsigned long  int __size  );
+unsigned int getegid();
 unsigned int geteuid();
 unsigned int getgid();
-unsigned int getegid();
-int getgroups(int __size, unsigned int __list[]  );
-int group_member(unsigned int __gid  );
-int setuid(unsigned int __uid  );
-int setreuid(unsigned int __ruid  , unsigned int __euid  );
-int seteuid(unsigned int __uid  );
-int setgid(unsigned int __gid  );
-int setregid(unsigned int __rgid  , unsigned int __egid  );
-int setegid(unsigned int __gid  );
-int getresuid(unsigned int* __ruid  , unsigned int* __euid  , unsigned int* __suid  );
-int getresgid(unsigned int* __rgid  , unsigned int* __egid  , unsigned int* __sgid  );
-int setresuid(unsigned int __ruid  , unsigned int __euid  , unsigned int __suid  );
-int setresgid(unsigned int __rgid  , unsigned int __egid  , unsigned int __sgid  );
-int fork();
-int vfork();
-int _Fork();
-char* ttyname(int __fd);
-int ttyname_r(int __fd, char* __buf, unsigned long __buflen  );
-int isatty(int __fd);
-int ttyslot();
-int link(const char* __from, const char* __to);
-int linkat(int __fromfd, const char* __from, int __tofd, const char* __to, int __flags);
-int symlink(const char* __from, const char* __to);
-long  int readlink(const char* __path, char* __buf, unsigned long __len  );
-int symlinkat(const char* __from, int __tofd, const char* __to);
-long  int readlinkat(int __fd, const char* __path, char* __buf, unsigned long __len  );
-int unlink(const char* __name);
-int unlinkat(int __fd, const char* __name, int __flag);
-int rmdir(const char* __path);
-int tcgetpgrp(int __fd);
-int tcsetpgrp(int __fd, int __pgrp_id  );
+int getgroups(int __gidsetsize, unsigned int []  );
 char* getlogin();
-int getlogin_r(char* __name, unsigned long __name_len  );
-int setlogin(const char* __name);
-int getopt(int ___argc, char** ___argv, const char* __shortopts);
-int gethostname(char* __name, unsigned long __len  );
-int sethostname(const char* __name, unsigned long __len  );
-int sethostid(long  int __id);
-int getdomainname(char* __name, unsigned long __len  );
-int setdomainname(const char* __name, unsigned long __len  );
-int vhangup();
-int revoke(const char* __file);
-int profil(unsigned short int* __sample_buffer, unsigned long __size  , unsigned long __offset  , unsigned int __scale);
-int acct(const char* __name);
-char* getusershell();
-void endusershell();
-void setusershell();
-int daemon(int __nochdir, int __noclose);
-int chroot(const char* __path);
-char* getpass(const char* __prompt);
-int fsync(int __fd);
-int syncfs(int __fd);
-long  int gethostid();
+int getpgrp();
+int getpid();
+int getppid();
+unsigned int getuid();
+int isatty(int );
+int link(const char* , const char* );
+long long lseek(int , long long   , int );
+long pathconf(const char* , int );
+int pause();
+int pipe(int [2]);
+long read(int , void* , unsigned long  int __nbyte  );
+int rmdir(const char* );
+int setgid(unsigned int   );
+int setpgid(int   , int   );
+int setsid();
+int setuid(unsigned int   );
+unsigned int sleep(unsigned int );
+long sysconf(int );
+int tcgetpgrp(int );
+int tcsetpgrp(int , int   );
+char* ttyname(int );
+int ttyname_r(int , char* , unsigned long  int __len  );
+int unlink(const char* );
+long write(int __fd, const void* __buf, unsigned long  int __nbyte  );
+unsigned long  int confstr(int , char* , unsigned long  int __len  );
+int getopt(int __argc, char* [], const char* );
+char* crypt(const char* , const char* );
+void encrypt(char* , int );
+int fchdir(int );
+long gethostid();
+int getpgid(int   );
+int getsid(int   );
+int lchown(const char* , unsigned int   , unsigned int   );
+int lockf(int , int , long long   );
+int nice(int );
+long pread(int __fd, void* __buf, unsigned long  int __nbyte  , long long __offset  );
+long pwrite(int __fd, const void* __buf, unsigned long  int __nbyte  , long long __offset  );
+int setpgrp();
+int setregid(unsigned int   , unsigned int   );
+int setreuid(unsigned int   , unsigned int   );
+void swab(const void* , void* , long __nbytes  );
 void sync();
-int getpagesize();
-int getdtablesize();
-int truncate(const char* __file, long  int __length  );
-int truncate64(const char* __file, long  int __length  );
-int ftruncate(int __fd, long  int __length  );
-int ftruncate64(int __fd, long  int __length  );
-int brk(void* __addr);
-void* sbrk(long  int __delta  );
-long  int syscall(long  int __sysno, ...);
-int lockf(int __fd, int __cmd, long  int __len  );
-int lockf64(int __fd, int __cmd, long  int __len  );
-long  int copy_file_range(int __infd, long  int* __pinoff  , int __outfd, long  int* __poutoff  , unsigned long __length  , unsigned int __flags);
-int fdatasync(int __fildes);
-char* crypt(const char* __key, const char* __salt);
-void swab(const void* __from, void* __to, long  int __n  );
-int getentropy(void* __buffer, unsigned long __length  );
-int close_range(unsigned int __fd, unsigned int __max_fd, int __flags);
-int gettid();
-int ioctl(int __fd, unsigned long  int __request, ...);
-const unsigned short int** __ctype_b_loc();
-const int** __ctype_tolower_loc();
-const int** __ctype_toupper_loc();
-int isalnum(int );
-int isalpha(int );
-int iscntrl(int );
-int isdigit(int );
-int islower(int );
-int isgraph(int );
-int isprint(int );
-int ispunct(int );
-int isspace(int );
-int isupper(int );
-int isxdigit(int );
-int tolower(int __c);
-int toupper(int __c);
-int isblank(int );
-int isctype(int __c, int __mask);
-int isascii(int __c);
-int toascii(int __c);
-int _toupper(int );
-int _tolower(int );
-int isalnum_l(int , struct __locale_struct*   );
-int isalpha_l(int , struct __locale_struct*   );
-int iscntrl_l(int , struct __locale_struct*   );
-int isdigit_l(int , struct __locale_struct*   );
-int islower_l(int , struct __locale_struct*   );
-int isgraph_l(int , struct __locale_struct*   );
-int isprint_l(int , struct __locale_struct*   );
-int ispunct_l(int , struct __locale_struct*   );
-int isspace_l(int , struct __locale_struct*   );
-int isupper_l(int , struct __locale_struct*   );
-int isxdigit_l(int , struct __locale_struct*   );
-int isblank_l(int , struct __locale_struct*   );
-int __tolower_l(int __c, struct __locale_struct* __l  );
-int tolower_l(int __c, struct __locale_struct* __l  );
-int __toupper_l(int __c, struct __locale_struct* __l  );
-int toupper_l(int __c, struct __locale_struct* __l  );
-char* tilde_expand(const char* );
-char* tilde_expand_word(const char* );
-char* tilde_find_word(const char* , int , int* );
-int rl_digit_argument(int , int );
-int rl_universal_argument(int , int );
-int rl_forward_byte(int , int );
-int rl_forward_char(int , int );
-int rl_forward(int , int );
-int rl_backward_byte(int , int );
-int rl_backward_char(int , int );
-int rl_backward(int , int );
-int rl_beg_of_line(int , int );
-int rl_end_of_line(int , int );
-int rl_forward_word(int , int );
-int rl_backward_word(int , int );
-int rl_refresh_line(int , int );
-int rl_clear_screen(int , int );
-int rl_clear_display(int , int );
-int rl_skip_csi_sequence(int , int );
-int rl_arrow_keys(int , int );
-int rl_previous_screen_line(int , int );
-int rl_next_screen_line(int , int );
-int rl_insert(int , int );
-int rl_quoted_insert(int , int );
-int rl_tab_insert(int , int );
-int rl_newline(int , int );
-int rl_do_lowercase_version(int , int );
-int rl_rubout(int , int );
-int rl_delete(int , int );
-int rl_rubout_or_delete(int , int );
-int rl_delete_horizontal_space(int , int );
-int rl_delete_or_show_completions(int , int );
-int rl_insert_comment(int , int );
-int rl_upcase_word(int , int );
-int rl_downcase_word(int , int );
-int rl_capitalize_word(int , int );
-int rl_transpose_words(int , int );
-int rl_transpose_chars(int , int );
-int rl_char_search(int , int );
-int rl_backward_char_search(int , int );
-int rl_beginning_of_history(int , int );
-int rl_end_of_history(int , int );
-int rl_get_next_history(int , int );
-int rl_get_previous_history(int , int );
-int rl_operate_and_get_next(int , int );
-int rl_fetch_history(int , int );
-int rl_set_mark(int , int );
-int rl_exchange_point_and_mark(int , int );
-int rl_vi_editing_mode(int , int );
-int rl_emacs_editing_mode(int , int );
-int rl_overwrite_mode(int , int );
-int rl_re_read_init_file(int , int );
-int rl_dump_functions(int , int );
-int rl_dump_macros(int , int );
-int rl_dump_variables(int , int );
-int rl_complete(int , int );
-int rl_possible_completions(int , int );
-int rl_insert_completions(int , int );
-int rl_old_menu_complete(int , int );
-int rl_menu_complete(int , int );
-int rl_backward_menu_complete(int , int );
-int rl_export_completions(int , int );
-int rl_kill_word(int , int );
-int rl_backward_kill_word(int , int );
-int rl_kill_line(int , int );
-int rl_backward_kill_line(int , int );
-int rl_kill_full_line(int , int );
-int rl_unix_word_rubout(int , int );
-int rl_unix_filename_rubout(int , int );
-int rl_unix_line_discard(int , int );
-int rl_copy_region_to_kill(int , int );
-int rl_kill_region(int , int );
-int rl_copy_forward_word(int , int );
-int rl_copy_backward_word(int , int );
-int rl_yank(int , int );
-int rl_yank_pop(int , int );
-int rl_yank_nth_arg(int , int );
-int rl_yank_last_arg(int , int );
-int rl_bracketed_paste_begin(int , int );
-int rl_reverse_search_history(int , int );
-int rl_forward_search_history(int , int );
-int rl_start_kbd_macro(int , int );
-int rl_end_kbd_macro(int , int );
-int rl_call_last_kbd_macro(int , int );
-int rl_print_last_kbd_macro(int , int );
-int rl_revert_line(int , int );
-int rl_undo_command(int , int );
-int rl_tilde_expand(int , int );
-int rl_restart_output(int , int );
-int rl_stop_output(int , int );
-int rl_abort(int , int );
-int rl_tty_status(int , int );
-int rl_execute_named_command(int , int );
-int rl_history_search_forward(int , int );
-int rl_history_search_backward(int , int );
-int rl_history_substr_search_forward(int , int );
-int rl_history_substr_search_backward(int , int );
-int rl_noninc_forward_search(int , int );
-int rl_noninc_reverse_search(int , int );
-int rl_noninc_forward_search_again(int , int );
-int rl_noninc_reverse_search_again(int , int );
-int rl_insert_close(int , int );
-void rl_callback_handler_install(const char* , void (*(*anonymous_var_nameX1474))(char*)  );
-void rl_callback_read_char();
-void rl_callback_handler_remove();
-void rl_callback_sigcleanup();
-int rl_vi_redo(int , int );
-int rl_vi_undo(int , int );
-int rl_vi_yank_arg(int , int );
-int rl_vi_fetch_history(int , int );
-int rl_vi_search_again(int , int );
-int rl_vi_search(int , int );
-int rl_vi_complete(int , int );
-int rl_vi_tilde_expand(int , int );
-int rl_vi_prev_word(int , int );
-int rl_vi_next_word(int , int );
-int rl_vi_end_word(int , int );
-int rl_vi_insert_beg(int , int );
-int rl_vi_append_mode(int , int );
-int rl_vi_append_eol(int , int );
-int rl_vi_eof_maybe(int , int );
-int rl_vi_insertion_mode(int , int );
-int rl_vi_insert_mode(int , int );
-int rl_vi_movement_mode(int , int );
-int rl_vi_arg_digit(int , int );
-int rl_vi_change_case(int , int );
-int rl_vi_put(int , int );
-int rl_vi_column(int , int );
-int rl_vi_delete_to(int , int );
-int rl_vi_change_to(int , int );
-int rl_vi_yank_to(int , int );
-int rl_vi_yank_pop(int , int );
-int rl_vi_rubout(int , int );
-int rl_vi_delete(int , int );
-int rl_vi_back_to_indent(int , int );
-int rl_vi_unix_word_rubout(int , int );
-int rl_vi_first_print(int , int );
-int rl_vi_char_search(int , int );
-int rl_vi_match(int , int );
-int rl_vi_change_char(int , int );
-int rl_vi_subst(int , int );
-int rl_vi_overstrike(int , int );
-int rl_vi_overstrike_delete(int , int );
-int rl_vi_replace(int , int );
-int rl_vi_set_mark(int , int );
-int rl_vi_goto_mark(int , int );
-int rl_vi_check();
-int rl_vi_domove(int , int* );
-int rl_vi_bracktype(int );
-void rl_vi_start_inserting(int , int , int );
-int rl_vi_fWord(int , int );
-int rl_vi_bWord(int , int );
-int rl_vi_eWord(int , int );
-int rl_vi_fword(int , int );
-int rl_vi_bword(int , int );
-int rl_vi_eword(int , int );
+int truncate(const char* , long long   );
+unsigned int ualarm(unsigned int   , unsigned int   );
+int usleep(unsigned int   );
+int vfork();
+int fsync(int );
+int ftruncate(int , long long   );
+int getlogin_r(char* , unsigned long  int __namelen  );
+int fchown(int , unsigned int   , unsigned int   );
+int gethostname(char* , unsigned long  int __namelen  );
+long readlink(const char* , char* , unsigned long  int __bufsize  );
+int setegid(unsigned int   );
+int seteuid(unsigned int   );
+int symlink(const char* , const char* );
+int __darwin_check_fd_set_overflow(int , const void* , int );
+int pselect(int , struct fd_set*   , struct fd_set*   , struct fd_set*   , const struct timespec*   , const unsigned int*   );
+int select(int , struct fd_set*   , struct fd_set*   , struct fd_set*   , struct timeval*   );
+void _Exit(int );
+int accessx_np(const struct accessx_descriptor*   , unsigned long  int __sz  , int* , unsigned int   );
+int acct(const char* );
+int add_profil(char* , unsigned long  int __bufsiz  , unsigned long  int , unsigned int );
+void endusershell();
+int execvP(const char* __file, const char* __searchpath, char** __argv);
+char* fflagstostr(unsigned long  int );
+int getdomainname(char* , int __namelen);
+int getgrouplist(const char* , int , int* , int* __ngroups);
+int gethostuuid(unsigned char [16]  , const struct timespec*   );
+unsigned short int getmode(const void* , unsigned short int   );
+int getpeereid(int , unsigned int*   , unsigned int*   );
+int getsgroups_np(int* , unsigned char [16]  );
+char* getusershell();
+int getwgroups_np(int* , unsigned char [16]  );
+int initgroups(const char* , int );
+int issetugid();
+char* mkdtemp(char* );
+int mknod(const char* , unsigned short int   , int   );
+int mkpath_np(const char* path, unsigned short int omode  );
+int mkpathat_np(int dfd, const char* path, unsigned short int omode  );
+int mkstemp(char* );
+int mkstemps(char* , int );
+char* mktemp(char* );
+int mkostemp(char* path, int oflags);
+int mkostemps(char* path, int slen, int oflags);
+int mkstemp_dprotected_np(char* path, int dpclass, int dpflags);
+char* mkdtempat_np(int dfd, char* path);
+int mkstempsat_np(int dfd, char* path, int slen);
+int mkostempsat_np(int dfd, char* path, int slen, int oflags);
+int nfssvc(int , void* );
+int profil(char* , unsigned long  int __bufsiz  , unsigned long  int , unsigned int );
+int pthread_setugid_np(unsigned int   , unsigned int   );
+int pthread_getugid_np(unsigned int*   , unsigned int*   );
+int reboot(int );
+int revoke(const char* );
+int rcmd(char** , int , const char* , const char* , const char* , int* );
+int rcmd_af(char** , int , const char* , const char* , const char* , int* , int );
+int rresvport(int* );
+int rresvport_af(int* , int );
+int iruserok(unsigned long  int , int , const char* , const char* );
+int iruserok_sa(const void* , int , int , const char* , const char* );
+int ruserok(const char* , int , const char* , const char* );
+int setdomainname(const char* , int __namelen);
+int setgroups(int , const unsigned int*   );
+void sethostid(long );
+int sethostname(const char* , int __namelen);
+void setkey(const char* );
+int setlogin(const char* );
+void* setmode(const char* );
+int setrgid(unsigned int   );
+int setruid(unsigned int   );
+int setsgroups_np(int , const unsigned char [16]  );
+void setusershell();
+int setwgroups_np(int , const unsigned char [16]  );
+int strtofflags(char** , unsigned long  int* , unsigned long  int* );
+int swapon(const char* );
+int ttyslot();
+int undelete(const char* );
+int unwhiteout(const char* );
+void* valloc(unsigned long  int __size  );
+int syscall(int , ...);
+int getsubopt(char** , char** , char** );
+int fgetattrlist(int , void* , void* , unsigned long  int __attrBufSize  , unsigned int );
+int fsetattrlist(int , void* , void* , unsigned long  int __attrBufSize  , unsigned int );
+int getattrlist(const char* , void* , void* , unsigned long  int __attrBufSize  , unsigned int );
+int setattrlist(const char* , void* , void* , unsigned long  int __attrBufSize  , unsigned int );
+int exchangedata(const char* , const char* , unsigned int );
+int getdirentriesattr(int , void* , void* , unsigned long  int __attrBufSize  , unsigned int* , unsigned int* , unsigned int* , unsigned int );
+int searchfs(const char* , struct fssearchblock*   , unsigned long  int* , unsigned int , unsigned int , struct searchstate*   );
+int fsctl(const char* , unsigned long  int , void* , unsigned int );
+int ffsctl(int , unsigned long  int , void* , unsigned int );
+int fsync_volume_np(int , int );
+int sync_volume_np(const char* , int );
+int adjtime(const struct timeval*   , struct timeval*   );
+int futimes(int , const struct timeval*   );
+int lutimes(const char* , const struct timeval*   );
+int settimeofday(const struct timeval*   , const struct timezone*   );
+int getitimer(int , struct itimerval*   );
+int gettimeofday(struct timeval*   , void* );
+int setitimer(int , const struct itimerval*   , struct itimerval*   );
+int utimes(const char* , const struct timeval*   );
+int accept(int , struct sockaddr*   , unsigned int*   );
+int bind(int , const struct sockaddr*   , unsigned int   );
+int connect(int , const struct sockaddr*   , unsigned int   );
+int getpeername(int , struct sockaddr*   , unsigned int*   );
+int getsockname(int , struct sockaddr*   , unsigned int*   );
+int getsockopt(int , int , int , void* , unsigned int*   );
+int listen(int , int );
+long recv(int , void* , unsigned long  int   , int );
+long recvfrom(int , void* , unsigned long  int   , int , struct sockaddr*   , unsigned int*   );
+long recvmsg(int , struct msghdr*   , int );
+long send(int , const void* , unsigned long  int   , int );
+long sendmsg(int , const struct msghdr*   , int );
+long sendto(int , const void* , unsigned long  int   , int , const struct sockaddr*   , unsigned int   );
+int setsockopt(int , int , int , const void* , unsigned int   );
+int shutdown(int , int );
+int sockatmark(int );
+int socket(int , int , int );
+int socketpair(int , int , int , int* );
+void pfctlinput(int , struct sockaddr*   );
+int connectx(int , const struct sa_endpoints*   , unsigned int   , unsigned int , const struct iovec*   , unsigned int , unsigned long  int*   , unsigned int*   );
+int disconnectx(int , unsigned int   , unsigned int   );
+unsigned int if_nametoindex(const char* );
+char* if_indextoname(unsigned int , char* );
+struct if_nameindex* if_nameindex();
+void if_freenameindex(struct if_nameindex*   );
+int ioctl(int , unsigned long  int , ...);
 char* readline(const char* );
-int rl_set_prompt(const char* );
-int rl_expand_prompt(char* );
 int rl_initialize();
-int rl_discard_argument();
-int rl_add_defun(const char* , int (*(*anonymous_var_nameX1577))(int,int)  , int );
-int rl_bind_key(int , int (*(*anonymous_var_nameX1580))(int,int)  );
-int rl_bind_key_in_map(int , int (*(*anonymous_var_nameX1582))(int,int)  , struct _keymap_entry*   );
-int rl_unbind_key(int );
-int rl_unbind_key_in_map(int , struct _keymap_entry*   );
-int rl_bind_key_if_unbound(int , int (*(*anonymous_var_nameX1588))(int,int)  );
-int rl_bind_key_if_unbound_in_map(int , int (*(*anonymous_var_nameX1590))(int,int)  , struct _keymap_entry*   );
-int rl_unbind_function_in_map(int (*(*anonymous_var_nameX1592))(int,int)  , struct _keymap_entry*   );
-int rl_unbind_command_in_map(const char* , struct _keymap_entry*   );
-int rl_bind_keyseq(const char* , int (*(*anonymous_var_nameX1597))(int,int)  );
-int rl_bind_keyseq_in_map(const char* , int (*(*anonymous_var_nameX1599))(int,int)  , struct _keymap_entry*   );
-int rl_bind_keyseq_if_unbound(const char* , int (*(*anonymous_var_nameX1602))(int,int)  );
-int rl_bind_keyseq_if_unbound_in_map(const char* , int (*(*anonymous_var_nameX1604))(int,int)  , struct _keymap_entry*   );
-int rl_generic_bind(int , const char* , char* , struct _keymap_entry*   );
-char* rl_variable_value(const char* );
-int rl_variable_bind(const char* , const char* );
-int rl_set_key(const char* , int (*(*anonymous_var_nameX1614))(int,int)  , struct _keymap_entry*   );
-int rl_macro_bind(const char* , const char* , struct _keymap_entry*   );
-int rl_translate_keyseq(const char* , char* , int* );
-char* rl_untranslate_keyseq(int );
-int (*(*rl_named_function(const char* )))(int,int) ;
-int (*(*rl_function_of_keyseq(const char* , struct _keymap_entry*   , int* )))(int,int) ;
-int (*(*rl_function_of_keyseq_len(const char* , unsigned long   , struct _keymap_entry*   , int* )))(int,int) ;
-int rl_trim_arg_from_keyseq(const char* , unsigned long   , struct _keymap_entry*   );
-void rl_list_funmap_names();
-char** rl_invoking_keyseqs_in_map(int (*(*anonymous_var_nameX1634))(int,int)  , struct _keymap_entry*   );
-char** rl_invoking_keyseqs(int (*(*anonymous_var_nameX1636))(int,int)  );
-void rl_print_keybinding(const char* , struct _keymap_entry*   , int );
-void rl_function_dumper(int );
-void rl_macro_dumper(int );
-void rl_variable_dumper(int );
-int rl_read_init_file(const char* );
-int rl_parse_and_bind(char* );
-struct _keymap_entry* rl_make_bare_keymap();
-int rl_empty_keymap(struct _keymap_entry*   );
-struct _keymap_entry* rl_copy_keymap(struct _keymap_entry*   );
-struct _keymap_entry* rl_make_keymap();
-void rl_discard_keymap(struct _keymap_entry*   );
-void rl_free_keymap(struct _keymap_entry*   );
-struct _keymap_entry* rl_get_keymap_by_name(const char* );
-char* rl_get_keymap_name(struct _keymap_entry*   );
-void rl_set_keymap(struct _keymap_entry*   );
-struct _keymap_entry* rl_get_keymap();
-int rl_set_keymap_name(const char* , struct _keymap_entry*   );
-void rl_set_keymap_from_edit_mode();
-char* rl_get_keymap_name_from_edit_mode();
-int rl_add_funmap_entry(const char* , int (*(*anonymous_var_nameX1655))(int,int)  );
-const char** rl_funmap_names();
-void rl_initialize_funmap();
-void rl_push_macro_input(char* );
-void rl_add_undo(enum undo_code , int , int , char* );
-void rl_free_undo_list();
-int rl_do_undo();
-int rl_begin_undo_group();
-int rl_end_undo_group();
-int rl_modifying(int , int );
-void rl_redisplay();
-int rl_on_new_line();
-int rl_on_new_line_with_prompt();
-int rl_forced_update_display();
-int rl_clear_visible_line();
-int rl_clear_message();
-int rl_reset_line_state();
-int rl_crlf();
-void rl_keep_mark_active();
-void rl_activate_mark();
-void rl_deactivate_mark();
-int rl_mark_active_p();
-int rl_message(const char* , ...);
-int rl_show_char(int );
-int rl_character_len(int , int );
-void rl_redraw_prompt_last_line();
-void rl_save_prompt();
-void rl_restore_prompt();
-void rl_replace_line(const char* , int );
-int rl_insert_text(const char* );
-int rl_delete_text(int , int );
-int rl_kill_text(int , int );
-char* rl_copy_text(int , int );
-void rl_prep_terminal(int );
-void rl_deprep_terminal();
-void rl_tty_set_default_bindings(struct _keymap_entry*   );
-void rl_tty_unset_default_bindings(struct _keymap_entry*   );
-int rl_tty_set_echoing(int );
-int rl_reset_terminal(const char* );
-void rl_resize_terminal();
-void rl_set_screen_size(int , int );
-void rl_get_screen_size(int* , int* );
-void rl_reset_screen_size();
-char* rl_get_termcap(const char* );
-void rl_reparse_colors();
-int rl_stuff_char(int );
-int rl_execute_next(int );
-int rl_clear_pending_input();
-int rl_read_key();
-int rl_getc(struct _IO_FILE*   );
-int rl_set_keyboard_input_timeout(int );
-int rl_set_timeout(unsigned int , unsigned int );
-int rl_timeout_remaining(unsigned int* , unsigned int* );
-void rl_extend_line_buffer(int );
-int rl_ding();
-int rl_alphabetic(int );
-void rl_free(void* );
-int rl_set_signals();
-int rl_clear_signals();
-void rl_cleanup_after_signal();
-void rl_reset_after_signal();
-void rl_free_line_state();
-int rl_pending_signal();
-void rl_check_signals();
-void rl_echo_signal_char(int );
-int rl_set_paren_blink_timeout(int );
-void rl_clear_history();
-int rl_maybe_save_line();
-int rl_maybe_unsave_line();
-int rl_maybe_replace_line();
-int rl_complete_internal(int );
-void rl_display_match_list(char** , int , int );
-char** rl_completion_matches(const char* , char* (*(*anonymous_var_nameX1704))(const char*,int)  );
-char* rl_username_completion_function(const char* , int );
-char* rl_filename_completion_function(const char* , int );
-int rl_completion_mode(int (*(*anonymous_var_nameX1709))(int,int)  );
-int rl_save_state(struct readline_state*   );
-int rl_restore_state(struct readline_state*   );
-int clock_adjtime(int __clock_id  , struct timex* __utx  );
-long  int clock();
-long  int time(long  int* __timer  );
-double difftime(long  int __time1  , long  int __time0  );
-long  int mktime(struct tm* __tp  );
-unsigned long strftime(char* __s, unsigned long __maxsize  , const char* __format, const struct tm* __tp  );
-char* strptime(const char* __s, const char* __fmt, struct tm* __tp  );
-unsigned long strftime_l(char* __s, unsigned long __maxsize  , const char* __format, const struct tm* __tp  , struct __locale_struct* __loc  );
-char* strptime_l(const char* __s, const char* __fmt, struct tm* __tp  , struct __locale_struct* __loc  );
-struct tm* gmtime(const long  int* __timer  );
-struct tm* localtime(const long  int* __timer  );
-struct tm* gmtime_r(const long  int* __timer  , struct tm* __tp  );
-struct tm* localtime_r(const long  int* __timer  , struct tm* __tp  );
-char* asctime(const struct tm* __tp  );
-char* ctime(const long  int* __timer  );
-char* asctime_r(const struct tm* __tp  , char* __buf);
-char* ctime_r(const long  int* __timer  , char* __buf);
-void tzset();
-long  int timegm(struct tm* __tp  );
-long  int timelocal(struct tm* __tp  );
-int dysize(int __year);
-int nanosleep(const struct timespec* __requested_time  , struct timespec* __remaining  );
-int clock_getres(int __clock_id  , struct timespec* __res  );
-int clock_gettime(int __clock_id  , struct timespec* __tp  );
-int clock_settime(int __clock_id  , const struct timespec* __tp  );
-int clock_nanosleep(int __clock_id  , int __flags, const struct timespec* __req  , struct timespec* __rem  );
-int clock_getcpuclockid(int __pid  , int* __clock_id  );
-int timer_create(int __clock_id  , struct sigevent* __evp  , void** __timerid  );
-int timer_delete(void* __timerid  );
-int timer_settime(void* __timerid  , int __flags, const struct itimerspec* __value  , struct itimerspec* __ovalue  );
-int timer_gettime(void* __timerid  , struct itimerspec* __value  );
-int timer_getoverrun(void* __timerid  );
-int timespec_get(struct timespec* __ts  , int __base);
-int timespec_getres(struct timespec* __ts  , int __base);
-struct tm* getdate(const char* __string);
-int getdate_r(const char* __string, struct tm* __resbufp  );
 void using_history();
-struct _hist_state* history_get_history_state();
-void history_set_history_state(struct _hist_state*   );
-void add_history(const char* );
-void add_history_time(const char* );
-struct _hist_entry* remove_history(int );
-struct _hist_entry** remove_history_range(int , int );
-struct _hist_entry* alloc_history_entry(char* , char* );
-struct _hist_entry* copy_history_entry(struct _hist_entry*   );
-void* free_history_entry(struct _hist_entry*   );
-struct _hist_entry* replace_history_entry(int , const char* , void*   );
+int add_history(const char* );
 void clear_history();
 void stifle_history(int );
 int unstifle_history();
 int history_is_stifled();
-struct _hist_entry** history_list();
 int where_history();
 struct _hist_entry* current_history();
 struct _hist_entry* history_get(int );
-long  int history_get_time(struct _hist_entry*   );
+struct _hist_entry* remove_history(int );
+struct _hist_entry* replace_history_entry(int , const char* , void*   );
 int history_total_bytes();
 int history_set_pos(int );
 struct _hist_entry* previous_history();
@@ -3429,14 +3170,54 @@ int history_search(const char* , int );
 int history_search_prefix(const char* , int );
 int history_search_pos(const char* , int , int );
 int read_history(const char* );
-int read_history_range(const char* , int , int );
 int write_history(const char* );
-int append_history(int , const char* );
 int history_truncate_file(const char* , int );
-int history_expand(const char* , char** );
-char* history_arg_extract(int , int , const char* );
-char* get_history_event(const char* , int* , int );
+int history_expand(char* , char** );
 char** history_tokenize(const char* );
+const char* get_history_event(const char* , int* , int );
+char* history_arg_extract(int , int , const char* );
+char* tilde_expand(char* );
+char* filename_completion_function(const char* , int );
+char* username_completion_function(const char* , int );
+int rl_complete(int , int );
+int rl_read_key();
+char** completion_matches(const char* , char* (*(*anonymous_var_nameX2191))(const char*,int)  );
+void rl_display_match_list(char** , int , int );
+int rl_insert(int , int );
+int rl_insert_text(const char* );
+void rl_reset_terminal(const char* );
+int rl_bind_key(int , int (*(*anonymous_var_nameX2200))(int,int)  );
+int rl_newline(int , int );
+void rl_callback_read_char();
+void rl_callback_handler_install(const char* , void (*(*anonymous_var_nameX2204))(char*)  );
+void rl_callback_handler_remove();
+void rl_redisplay();
+int rl_get_previous_history(int , int );
+void rl_prep_terminal(int );
+void rl_deprep_terminal();
+int rl_read_init_file(const char* );
+int rl_parse_and_bind(const char* );
+int rl_variable_bind(const char* , const char* );
+void rl_stuff_char(int );
+int rl_add_defun(const char* , int (*(*anonymous_var_nameX2214))(const char*,int)  , int );
+struct anonymous_typeX29* history_get_history_state();
+void rl_get_screen_size(int* , int* );
+void rl_set_screen_size(int , int );
+char* rl_filename_completion_function(const char* , int );
+int _rl_abort_internal();
+int _rl_qsort_string_compare(char** , char** );
+char** rl_completion_matches(const char* , char* (*(*anonymous_var_nameX2225))(const char*,int)  );
+void rl_forced_update_display();
+int rl_set_prompt(const char* );
+int rl_on_new_line();
+int rl_kill_text(int , int );
+struct _keymap_entry* rl_get_keymap();
+void rl_set_keymap(struct _keymap_entry*   );
+struct _keymap_entry* rl_make_bare_keymap();
+int rl_generic_bind(int , const char* , const char* , struct _keymap_entry*   );
+int rl_bind_key_in_map(int , int (*(*anonymous_var_nameX2235))(int,int)  , struct _keymap_entry*   );
+void rl_cleanup_after_signal();
+void rl_free_line_state();
 int xgetmaxx();
 static void winsize_finalize(struct winsize* self  );
 int xgetmaxy();
@@ -3492,11 +3273,11 @@ void stackframe();
 _Bool die(const char* msg);
 void come_heap_init(int come_debug);
 void come_heap_final();
-void* alloc_from_pages(unsigned long size  );
+void* alloc_from_pages(unsigned long  int size  );
 void come_free_mem_of_heap_pool(void* mem);
-void* come_alloc_mem_from_heap_pool(unsigned long size  , const char* sname, int sline, const char* class_name);
+void* come_alloc_mem_from_heap_pool(unsigned long  int size  , const char* sname, int sline, const char* class_name);
 char* come_dynamic_typeof(void* mem);
-void* come_calloc(unsigned long count  , unsigned long size  , const char* sname, int sline, const char* class_name);
+void* come_calloc(unsigned long  int count  , unsigned long  int size  , const char* sname, int sline, const char* class_name);
 void come_free(void* mem);
 void* come_memdup(void* block, const char* sname, int sline, const char* class_name);
 void* come_increment_ref_count(void* mem);
@@ -3507,14 +3288,14 @@ void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* protoco
 void xassert(const char* msg, _Bool test);
 char* __builtin_string(const char* str);
 struct buffer* buffer_initialize(struct buffer* self  );
-struct buffer* buffer_initialize_with_value(struct buffer* self  , const char* mem, unsigned long size  );
+struct buffer* buffer_initialize_with_value(struct buffer* self  , const char* mem, unsigned long  int size  );
 void buffer_finalize(struct buffer* self  );
 struct buffer* buffer_clone(struct buffer* self  );
 _Bool buffer_equals(struct buffer* left  , struct buffer* right  );
 int buffer_length(struct buffer* self  );
 void buffer_reset(struct buffer* self  );
 void buffer_trim(struct buffer* self  , int len);
-struct buffer* buffer_append(struct buffer* self  , const char* mem, unsigned long size  );
+struct buffer* buffer_append(struct buffer* self  , const char* mem, unsigned long  int size  );
 struct buffer* buffer_append_char(struct buffer* self  , char c);
 struct buffer* buffer_append_str(struct buffer* self  , const char* mem);
 struct buffer* buffer_append_format(struct buffer* self  , const char* msg, ...);
@@ -3527,55 +3308,55 @@ int buffer_compare(struct buffer* left  , struct buffer* right  );
 struct buffer* charp_to_buffer(const char* self);
 char* buffer_to_string(struct buffer* self  );
 unsigned char* buffer_head_pointer(struct buffer* self  );
-struct buffer* chara_to_buffer(char* self, unsigned long len  );
-struct buffer* charpa_to_buffer(char** self, unsigned long len  );
-struct buffer* shorta_to_buffer(short* self, unsigned long len  );
-struct buffer* inta_to_buffer(int* self, unsigned long len  );
-struct buffer* longa_to_buffer(long* self, unsigned long len  );
-struct buffer* floata_to_buffer(float* self, unsigned long len  );
-struct buffer* doublea_to_buffer(double* self, unsigned long len  );
+struct buffer* chara_to_buffer(char* self, unsigned long  int len  );
+struct buffer* charpa_to_buffer(char** self, unsigned long  int len  );
+struct buffer* shorta_to_buffer(short* self, unsigned long  int len  );
+struct buffer* inta_to_buffer(int* self, unsigned long  int len  );
+struct buffer* longa_to_buffer(long* self, unsigned long  int len  );
+struct buffer* floata_to_buffer(float* self, unsigned long  int len  );
+struct buffer* doublea_to_buffer(double* self, unsigned long  int len  );
 char* buffer_printable(struct buffer* self  );
 static struct list$1char$* list$1char$_initialize_with_values(struct list$1char$* self, int num_value, char* values);
 static struct list$1char$* list$1char$_push_back(struct list$1char$* self, char item);
 static void list$1char$$p_finalize(struct list$1char$* self);
 static void list_item$1char$$p_finalize(struct list_item$1char$* self);
-struct list$1char$* chara_to_list(char* self, unsigned long len  );
+struct list$1char$* chara_to_list(char* self, unsigned long  int len  );
 static struct list$1char$p* list$1char$p_initialize_with_values(struct list$1char$p* self, int num_value, char** values);
 static struct list$1char$p* list$1char$p_push_back(struct list$1char$p* self, char* item);
 static void list$1char$p$p_finalize(struct list$1char$p* self);
 static void list_item$1char$p$p_finalize(struct list_item$1char$p* self);
-struct list$1char$p* charpa_to_list(char** self, unsigned long len  );
+struct list$1char$p* charpa_to_list(char** self, unsigned long  int len  );
 static struct list$1short$* list$1short$_initialize_with_values(struct list$1short$* self, int num_value, short* values);
 static struct list$1short$* list$1short$_push_back(struct list$1short$* self, short item);
 static void list$1short$$p_finalize(struct list$1short$* self);
 static void list_item$1short$$p_finalize(struct list_item$1short$* self);
-struct list$1short$* shorta_to_list(short* self, unsigned long len  );
+struct list$1short$* shorta_to_list(short* self, unsigned long  int len  );
 static struct list$1int$* list$1int$_initialize_with_values(struct list$1int$* self, int num_value, int* values);
 static struct list$1int$* list$1int$_push_back(struct list$1int$* self, int item);
 static void list$1int$$p_finalize(struct list$1int$* self);
 static void list_item$1int$$p_finalize(struct list_item$1int$* self);
-struct list$1int$* inta_to_list(int* self, unsigned long len  );
+struct list$1int$* inta_to_list(int* self, unsigned long  int len  );
 static struct list$1long$* list$1long$_initialize_with_values(struct list$1long$* self, int num_value, long* values);
 static struct list$1long$* list$1long$_push_back(struct list$1long$* self, long item);
 static void list$1long$$p_finalize(struct list$1long$* self);
 static void list_item$1long$$p_finalize(struct list_item$1long$* self);
-struct list$1long$* longa_to_list(long* self, unsigned long len  );
+struct list$1long$* longa_to_list(long* self, unsigned long  int len  );
 static struct list$1float$* list$1float$_initialize_with_values(struct list$1float$* self, int num_value, float* values);
 static struct list$1float$* list$1float$_push_back(struct list$1float$* self, float item);
 static void list$1float$$p_finalize(struct list$1float$* self);
 static void list_item$1float$$p_finalize(struct list_item$1float$* self);
-struct list$1float$* floata_to_list(float* self, unsigned long len  );
+struct list$1float$* floata_to_list(float* self, unsigned long  int len  );
 static struct list$1double$* list$1double$_initialize_with_values(struct list$1double$* self, int num_value, double* values);
 static struct list$1double$* list$1double$_push_back(struct list$1double$* self, double item);
 static void list$1double$$p_finalize(struct list$1double$* self);
 static void list_item$1double$$p_finalize(struct list_item$1double$* self);
-struct list$1double$* doublea_to_list(double* self, unsigned long len  );
+struct list$1double$* doublea_to_list(double* self, unsigned long  int len  );
 _Bool _Bool_equals(_Bool self, _Bool right);
 _Bool char_equals(char self, char right);
 _Bool short_equals(short self, short right);
 _Bool int_equals(int self, int right);
 _Bool long_equals(long self, long right);
-_Bool size_t_equals(unsigned long self  , unsigned long right  );
+_Bool size_t_equals(unsigned long  int self  , unsigned long  int right  );
 _Bool float_equals(float self, float right);
 _Bool double_equals(double self, double right);
 _Bool _Bool_operator_equals(_Bool self, _Bool right);
@@ -3604,18 +3385,18 @@ char* charp_operator_add(const char* self, const char* right);
 char* string_operator_add(char* self, const char* right);
 char* charp_operator_mult(const char* self, int right);
 char* string_operator_mult(const char* self, int right);
-_Bool charpa_contained(char** self, unsigned long len  , const char* str);
-unsigned long shorta_length(short* self, unsigned long len  );
-unsigned long inta_length(int* self, unsigned long len  );
-unsigned long longa_length(long* self, unsigned long len  );
-unsigned long floata_length(float* self, unsigned long len  );
-unsigned long doublea_length(double* self, unsigned long len  );
+_Bool charpa_contained(char** self, unsigned long  int len  , const char* str);
+unsigned long  int shorta_length(short* self, unsigned long  int len  );
+unsigned long  int inta_length(int* self, unsigned long  int len  );
+unsigned long  int longa_length(long* self, unsigned long  int len  );
+unsigned long  int floata_length(float* self, unsigned long  int len  );
+unsigned long  int doublea_length(double* self, unsigned long  int len  );
 unsigned int _Bool_get_hash_key(_Bool value);
 unsigned int char_get_hash_key(char value);
 unsigned int short_get_hash_key(short int value);
 unsigned int int_get_hash_key(int value);
 unsigned int long_get_hash_key(long value);
-unsigned int size_t_get_hash_key(unsigned long value  );
+unsigned int size_t_get_hash_key(unsigned long  int value  );
 unsigned int float_get_hash_key(float value);
 unsigned int double_get_hash_key(double value);
 unsigned int charp_get_hash_key(const char* value);
@@ -3626,7 +3407,7 @@ char char_clone(char self);
 short int short_clone(short self);
 int int_clone(int self);
 long  int long_clone(long self);
-unsigned long size_t_clone(unsigned long self  );
+unsigned long  int size_t_clone(unsigned long  int self  );
 double double_clone(double self);
 float float_clone(float self);
 _Bool xisalpha(char c);
@@ -3659,7 +3440,7 @@ char* char_to_string(char self);
 char* short_to_string(short self);
 char* int_to_string(int self);
 char* long_to_string(long self);
-char* size_t_to_string(unsigned long self  );
+char* size_t_to_string(unsigned long  int self  );
 char* float_to_string(float self);
 char* double_to_string(double self);
 char* string_to_string(char* self);
@@ -3669,7 +3450,7 @@ int char_compare(char left, char right);
 int short_compare(short left, short right);
 int int_compare(int left, int right);
 int long_compare(long left, long right);
-int size_t_compare(unsigned long left  , unsigned long right  );
+int size_t_compare(unsigned long  int left  , unsigned long  int right  );
 int float_compare(float left, float right);
 int double_compare(double left, double right);
 int string_compare(char* left, char* right);
@@ -3680,27 +3461,27 @@ char* charp_printf(char* self, ...);
 int int_printf(int self, char* msg);
 long long_printf(long self, char* msg);
 void int_times(int self, void* parent, void (*block)(void*,int));
-static void match_context_finalize(struct anonymous_typeX25* self  );
+static void match_context_finalize(struct anonymous_typeX16* self  );
 int re_matchp_ex(struct re_program* pattern  , const char* text, int* matchlength, struct re_capture* captures  , int max_captures, _Bool ignore_case);
 int re_matchp(struct re_program* pattern  , const char* text, int* matchlength, struct re_capture* captures  , int max_captures);
 int re_match(const char* pattern, const char* text, int* matchlength);
 static void regex_program_t_finalize(struct re_program* self  );
-static void compiler_state_finalize(struct anonymous_typeX24* self  );
+static void compiler_state_finalize(struct anonymous_typeX15* self  );
 struct re_program* re_compile(const char* pattern);
 void re_print(struct re_program* pattern  );
-void clear_captures(struct anonymous_typeX25* ctx  );
-void snapshot_captures(const struct anonymous_typeX25* ctx  , struct re_capture* buffer_  );
-void restore_captures(struct anonymous_typeX25* ctx  , const struct re_capture* buffer_  );
-struct regex_t* new_token(struct anonymous_typeX24* st  );
+void clear_captures(struct anonymous_typeX16* ctx  );
+void snapshot_captures(const struct anonymous_typeX16* ctx  , struct re_capture* buffer_  );
+void restore_captures(struct anonymous_typeX16* ctx  , const struct re_capture* buffer_  );
+struct regex_t* new_token(struct anonymous_typeX15* st  );
 int append_token(struct regex_t** head  , struct regex_t** tail  , struct regex_t* token  );
-struct regex_t* compile_sequence(struct anonymous_typeX24* st  , const char* pattern, int* pos, int in_group);
-const char* matchpattern(struct regex_t* pattern  , const char* text, struct anonymous_typeX25* ctx  );
-const char* matchgroup(struct regex_t* token  , struct regex_t* rest  , const char* text, struct anonymous_typeX25* ctx  );
-const char* matchstar(struct regex_t* token  , struct regex_t* rest  , const char* text, struct anonymous_typeX25* ctx  );
-const char* matchplus(struct regex_t* token  , struct regex_t* rest  , const char* text, struct anonymous_typeX25* ctx  );
-const char* matchquestion(struct regex_t* token  , struct regex_t* rest  , const char* text, struct anonymous_typeX25* ctx  );
+struct regex_t* compile_sequence(struct anonymous_typeX15* st  , const char* pattern, int* pos, int in_group);
+const char* matchpattern(struct regex_t* pattern  , const char* text, struct anonymous_typeX16* ctx  );
+const char* matchgroup(struct regex_t* token  , struct regex_t* rest  , const char* text, struct anonymous_typeX16* ctx  );
+const char* matchstar(struct regex_t* token  , struct regex_t* rest  , const char* text, struct anonymous_typeX16* ctx  );
+const char* matchplus(struct regex_t* token  , struct regex_t* rest  , const char* text, struct anonymous_typeX16* ctx  );
+const char* matchquestion(struct regex_t* token  , struct regex_t* rest  , const char* text, struct anonymous_typeX16* ctx  );
 unsigned char re_fold_char(unsigned char c, _Bool ignore_case);
-const char* matchtoken(struct regex_t* token  , const char* text, struct anonymous_typeX25* ctx  );
+const char* matchtoken(struct regex_t* token  , const char* text, struct anonymous_typeX16* ctx  );
 int matchdigit(char c);
 int matchalpha(char c);
 int matchwhitespace(char c);
@@ -3770,7 +3551,7 @@ _Bool wchar_t_equals(int left  , int right  );
 char* wchar_t_to_string(int wc  );
 char* xrealpath(const char* path);
 char* xdirname(const char* path);
-unsigned long xwcslen(const int* wstr  );
+unsigned long  int xwcslen(const int* wstr  );
 int* wstring_substring(const int* str  , int head, int tail);
 int string_index_count(const char* str, const char* search_str, int count, int default_value);
 int string_rindex(const char* str, const char* search_str, int default_value);
@@ -3794,13 +3575,13 @@ char* charp_chomp(const char* str);
 _Bool wchar_tp_equals(const int* left  , const int* right  );
 _Bool wchar_tp_operator_equals(const int* left  , const int* right  );
 _Bool wchar_tp_operator_not_equals(const int* left  , const int* right  );
-char* FILE_read(struct _IO_FILE* f  );
-int FILE_write(struct _IO_FILE* f  , const char* str);
-int FILE_fclose(struct _IO_FILE* f  );
-struct _IO_FILE* FILE_fprintf(struct _IO_FILE* f  , const char* msg, ...);
+char* FILE_read(struct __sFILE* f  );
+int FILE_write(struct __sFILE* f  , const char* str);
+int FILE_fclose(struct __sFILE* f  );
+struct __sFILE* FILE_fprintf(struct __sFILE* f  , const char* msg, ...);
 int charp_write(const char* self, const char* file_name, _Bool append);
 char* charp_read(const char* file_name);
-struct list$1char$ph* FILE_readlines(struct _IO_FILE* f  );
+struct list$1char$ph* FILE_readlines(struct __sFILE* f  );
 _Bool xiswalpha(int c  );
 _Bool xiswblank(int c  );
 _Bool xiswdigit(int c  );
@@ -3818,112 +3599,448 @@ int gNumAlloc=0;
 int gNumFree=0;
 
 // inline function
-static inline unsigned short int __bswap_16(unsigned short int __bsx  )
+inline int __sputc(int _c, struct __sFILE* _p  )
 {
-    return ((unsigned short int)((((__bsx)>>8)&0xff)|(((__bsx)&0xff)<<8)));
+    if(--_p->_w>=0||(_p->_w>=_p->_lbfsize&&(char)_c!=10)) {
+        return (*_p->_p++=_c);
+    }
+    else {
+        return (__swbuf(_c,_p));
+    }
 }
-static inline unsigned int __bswap_32(unsigned int __bsx  )
+static inline unsigned short int _OSSwapInt16(unsigned short int _data  )
 {
-    return ((((__bsx)&0xff000000u)>>24)|(((__bsx)&0x00ff0000u)>>8)|(((__bsx)&0x0000ff00u)<<8)|(((__bsx)&0x000000ffu)<<24));
+    return (unsigned short int)(_data<<8|_data>>8);
 }
-static inline unsigned long  int __bswap_64(unsigned long  int __bsx  )
+static inline unsigned int _OSSwapInt32(unsigned int _data  )
 {
-    return ((((__bsx)&0xff00000000000000ull)>>56)|(((__bsx)&0x00ff000000000000ull)>>40)|(((__bsx)&0x0000ff0000000000ull)>>24)|(((__bsx)&0x000000ff00000000ull)>>8)|(((__bsx)&0x00000000ff000000ull)<<8)|(((__bsx)&0x0000000000ff0000ull)<<24)|(((__bsx)&0x000000000000ff00ull)<<40)|(((__bsx)&0x00000000000000ffull)<<56));
+    _data=(((_data^(_data>>16|(_data<<16)))&0xFF00FFFF)>>8)^(_data>>8|_data<<24);
+    return _data;
 }
-static inline unsigned short int __uint16_identity(unsigned short int __x  )
+static inline unsigned long  long _OSSwapInt64(unsigned long  long _data  )
 {
-    return __x;
+    union anonymous_typeZ5 _u;
+    _u._ul[0]=(unsigned int)(_data>>32);
+    _u._ul[1]=(unsigned int)(_data&0xffffffff);
+    _u._ul[0]=_OSSwapInt32(_u._ul[0]);
+    _u._ul[1]=_OSSwapInt32(_u._ul[1]);
+    return _u._ull;
 }
-static inline unsigned int __uint32_identity(unsigned int __x  )
+inline int isascii(int _c)
 {
-    return __x;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "isascii"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return ((_c&~0x7F)==0);
+    neo_current_frame = fr.prev;
 }
-static inline unsigned long  int __uint64_identity(unsigned long  int __x  )
+inline int __istype(int _c  , unsigned long  int _f)
 {
-    return __x;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "__istype"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (((isascii(_c))?(!!(_DefaultRuneLocale.__runetype[_c]&_f)):(!!__maskrune(_c,_f))));
+    neo_current_frame = fr.prev;
+}
+inline int __isctype(int _c  , unsigned long  int _f)
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "__isctype"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (((_c<0||_c>=(1<<8)))?(0):(!!(_DefaultRuneLocale.__runetype[_c]&_f)));
+    neo_current_frame = fr.prev;
+}
+inline int __wcwidth(int _c  )
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "__wcwidth"; neo_current_frame = &fr;
+    unsigned int _x;
+    memset(&_x, 0, sizeof(_x));
+    if(_c==0) {
+        neo_current_frame = fr.prev;
+        return (0);
+    }
+    _x=(unsigned int)__maskrune(_c,0xe0000000L|0x00040000L);
+    if((_x&0xe0000000L)!=0) {
+        neo_current_frame = fr.prev;
+        return ((_x&0xe0000000L)>>30);
+    }
+    neo_current_frame = fr.prev;
+    return ((((_x&0x00040000L)!=0)?(1):(-1)));
+    neo_current_frame = fr.prev;
+}
+inline int isalnum(int _c)
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "isalnum"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__istype(_c,0x00000100L|0x00000400L));
+    neo_current_frame = fr.prev;
+}
+inline int isalpha(int _c)
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "isalpha"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__istype(_c,0x00000100L));
+    neo_current_frame = fr.prev;
+}
+inline int isblank(int _c)
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "isblank"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__istype(_c,0x00020000L));
+    neo_current_frame = fr.prev;
+}
+inline int iscntrl(int _c)
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "iscntrl"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__istype(_c,0x00000200L));
+    neo_current_frame = fr.prev;
+}
+inline int isdigit(int _c)
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "isdigit"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__isctype(_c,0x00000400L));
+    neo_current_frame = fr.prev;
+}
+inline int isgraph(int _c)
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "isgraph"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__istype(_c,0x00000800L));
+    neo_current_frame = fr.prev;
+}
+inline int islower(int _c)
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "islower"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__istype(_c,0x00001000L));
+    neo_current_frame = fr.prev;
+}
+inline int isprint(int _c)
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "isprint"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__istype(_c,0x00040000L));
+    neo_current_frame = fr.prev;
+}
+inline int ispunct(int _c)
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "ispunct"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__istype(_c,0x00002000L));
+    neo_current_frame = fr.prev;
+}
+inline int isspace(int _c)
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "isspace"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__istype(_c,0x00004000L));
+    neo_current_frame = fr.prev;
+}
+inline int isupper(int _c)
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "isupper"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__istype(_c,0x00008000L));
+    neo_current_frame = fr.prev;
+}
+inline int isxdigit(int _c)
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "isxdigit"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__isctype(_c,0x00010000L));
+    neo_current_frame = fr.prev;
+}
+inline int toascii(int _c)
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "toascii"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (_c&0x7F);
+    neo_current_frame = fr.prev;
+}
+inline int tolower(int _c)
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "tolower"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__tolower(_c));
+    neo_current_frame = fr.prev;
+}
+inline int toupper(int _c)
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "toupper"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__toupper(_c));
+    neo_current_frame = fr.prev;
+}
+inline int digittoint(int _c)
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "digittoint"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__maskrune(_c,0x0F));
+    neo_current_frame = fr.prev;
+}
+inline int ishexnumber(int _c)
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "ishexnumber"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__istype(_c,0x00010000L));
+    neo_current_frame = fr.prev;
+}
+inline int isideogram(int _c)
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "isideogram"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__istype(_c,0x00080000L));
+    neo_current_frame = fr.prev;
+}
+inline int isnumber(int _c)
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "isnumber"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__istype(_c,0x00000400L));
+    neo_current_frame = fr.prev;
+}
+inline int isphonogram(int _c)
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "isphonogram"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__istype(_c,0x00200000L));
+    neo_current_frame = fr.prev;
+}
+inline int isrune(int _c)
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "isrune"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__istype(_c,0xFFFFFFF0L));
+    neo_current_frame = fr.prev;
+}
+inline int isspecial(int _c)
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "isspecial"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__istype(_c,0x00100000L));
+    neo_current_frame = fr.prev;
+}
+inline int iswalnum(unsigned int _wc  )
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "iswalnum"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__istype(_wc,0x00000100L|0x00000400L));
+    neo_current_frame = fr.prev;
+}
+inline int iswalpha(unsigned int _wc  )
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "iswalpha"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__istype(_wc,0x00000100L));
+    neo_current_frame = fr.prev;
+}
+inline int iswcntrl(unsigned int _wc  )
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "iswcntrl"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__istype(_wc,0x00000200L));
+    neo_current_frame = fr.prev;
+}
+inline int iswctype(unsigned int _wc  , unsigned int _charclass  )
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "iswctype"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__istype(_wc,_charclass));
+    neo_current_frame = fr.prev;
+}
+inline int iswdigit(unsigned int _wc  )
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "iswdigit"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__isctype(_wc,0x00000400L));
+    neo_current_frame = fr.prev;
+}
+inline int iswgraph(unsigned int _wc  )
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "iswgraph"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__istype(_wc,0x00000800L));
+    neo_current_frame = fr.prev;
+}
+inline int iswlower(unsigned int _wc  )
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "iswlower"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__istype(_wc,0x00001000L));
+    neo_current_frame = fr.prev;
+}
+inline int iswprint(unsigned int _wc  )
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "iswprint"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__istype(_wc,0x00040000L));
+    neo_current_frame = fr.prev;
+}
+inline int iswpunct(unsigned int _wc  )
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "iswpunct"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__istype(_wc,0x00002000L));
+    neo_current_frame = fr.prev;
+}
+inline int iswspace(unsigned int _wc  )
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "iswspace"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__istype(_wc,0x00004000L));
+    neo_current_frame = fr.prev;
+}
+inline int iswupper(unsigned int _wc  )
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "iswupper"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__istype(_wc,0x00008000L));
+    neo_current_frame = fr.prev;
+}
+inline int iswxdigit(unsigned int _wc  )
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "iswxdigit"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__isctype(_wc,0x00010000L));
+    neo_current_frame = fr.prev;
+}
+inline unsigned int towlower(unsigned int _wc  )
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "towlower"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__tolower(_wc));
+    neo_current_frame = fr.prev;
+}
+inline unsigned int towupper(unsigned int _wc  )
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "towupper"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return (__toupper(_wc));
+    neo_current_frame = fr.prev;
+}
+inline int __darwin_check_fd_set(int _a, const void* _b)
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "__darwin_check_fd_set"; neo_current_frame = &fr;
+    if((unsigned long  int)&__darwin_check_fd_set_overflow!=(unsigned long  int)0) {
+        neo_current_frame = fr.prev;
+        return __darwin_check_fd_set_overflow(_a,_b,1);
+    }
+    else {
+        neo_current_frame = fr.prev;
+        return 1;
+    }
+    neo_current_frame = fr.prev;
+}
+inline int __darwin_fd_isset(int _fd, const struct fd_set* _p  )
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "__darwin_fd_isset"; neo_current_frame = &fr;
+    if(__darwin_check_fd_set(_fd,(const void*)_p)) {
+        neo_current_frame = fr.prev;
+        return _p->fds_bits[(unsigned long  int)_fd/32]&((int)(((unsigned long  int)1)<<((unsigned long  int)_fd%32)));
+    }
+    neo_current_frame = fr.prev;
+    return 0;
+    neo_current_frame = fr.prev;
+}
+inline void __darwin_fd_set(int _fd, struct fd_set* _p  )
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "__darwin_fd_set"; neo_current_frame = &fr;
+    if(__darwin_check_fd_set(_fd,(const void*)_p)) {
+        (_p->fds_bits[(unsigned long  int)_fd/32]|=((int)(((unsigned long  int)1)<<((unsigned long  int)_fd%32))));
+    }
+    neo_current_frame = fr.prev;
+}
+inline void __darwin_fd_clr(int _fd, struct fd_set* _p  )
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "__darwin_fd_clr"; neo_current_frame = &fr;
+    if(__darwin_check_fd_set(_fd,(const void*)_p)) {
+        (_p->fds_bits[(unsigned long  int)_fd/32]&=~((int)(((unsigned long  int)1)<<((unsigned long  int)_fd%32))));
+    }
+    neo_current_frame = fr.prev;
 }
 
 // body function
 int xgetmaxx()
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "xgetmaxx"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "xgetmaxx"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     struct winsize* ws  ;
     int result;
     int __result_obj__0;
     ws=(struct winsize*)come_increment_ref_count((struct winsize*)come_calloc(1, sizeof(struct winsize)*(1), (void*)0, 30, "struct winsize*"));
-    ioctl(1,0x5413,ws);
+    ioctl(1,((unsigned int)0x40000000|((sizeof(struct winsize)&0x1fff)<<16)|(((116))<<8)|((104))),ws);
     result=ws->ws_col;
     if(result==-1||result==0) {
         __result_obj__0 = getmaxx(stdscr);
         come_call_finalizer(winsize_finalize, ws, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     else {
         __result_obj__0 = result;
         come_call_finalizer(winsize_finalize, ws, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     __result_obj__0 = result;
     come_call_finalizer(winsize_finalize, ws, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 static void winsize_finalize(struct winsize* self  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "winsize_finalize"; neo_current_frame = &fr;        neo_current_frame = fr.prev;}
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "winsize_finalize"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+}
 
 int xgetmaxy()
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "xgetmaxy"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "xgetmaxy"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     struct winsize* ws  ;
     int result;
     int __result_obj__0;
     ws=(struct winsize*)come_increment_ref_count((struct winsize*)come_calloc(1, sizeof(struct winsize)*(1), (void*)0, 47, "struct winsize*"));
-    ioctl(1,0x5413,ws);
+    ioctl(1,((unsigned int)0x40000000|((sizeof(struct winsize)&0x1fff)<<16)|(((116))<<8)|((104))),ws);
     result=ws->ws_row;
     if(result==-1||result==0) {
         __result_obj__0 = getmaxy(stdscr);
         come_call_finalizer(winsize_finalize, ws, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     else {
         __result_obj__0 = result;
         come_call_finalizer(winsize_finalize, ws, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     __result_obj__0 = result;
     come_call_finalizer(winsize_finalize, ws, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 static int lambda1(char* left, char* right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "lambda1"; neo_current_frame = &fr;
-       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "lambda1"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return strcmp(left,right);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 void read_dir(struct sInfo* info  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "read_dir"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "read_dir"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1char$ph* __dec_obj1;
     struct list$1char$ph* __dec_obj2;
-    struct __dirstream* dir  ;
+    struct anonymous_typeX22* dir  ;
     struct dirent* entry  ;
     struct list$1char$ph* __dec_obj9;
     memset(&entry, 0, sizeof(entry));
-    info->virtual_dir=0;
+    info->virtual_dir=(_Bool)0;
     __dec_obj1=info->files,
     info->files=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 65, "struct list$1char$ph*"))));
     come_call_finalizer(list$1char$ph_finalize, __dec_obj1,(void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -3945,27 +4062,27 @@ fr.fun_name = "read_dir"; neo_current_frame = &fr;    void* __right_value0 = (vo
     __dec_obj9=info->files,
     info->files=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_sort_with_lambda(info->files,lambda1));
     come_call_finalizer(list$1char$ph_finalize, __dec_obj9,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 static struct list$1char$ph* list$1char$ph_initialize(struct list$1char$ph* self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1char$ph_initialize"; neo_current_frame = &fr;    struct list$1char$ph* __result_obj__0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph_initialize"; neo_current_frame = &fr;
+    struct list$1char$ph* __result_obj__0;
     self->head=((void*)0);
     self->tail=((void*)0);
     self->len=0;
     __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(self);
     come_call_finalizer(list$1char$ph$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-    neo_current_frame = fr.prev;}
+}
 
 static void list$1char$ph$p_finalize(struct list$1char$ph* self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1char$ph$p_finalize"; neo_current_frame = &fr;    struct list_item$1char$ph* it;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph$p_finalize"; neo_current_frame = &fr;
+    struct list_item$1char$ph* it;
     struct list_item$1char$ph* prev_it;
     if(self==((void*)0)) {
         neo_current_frame = fr.prev;
@@ -3977,22 +4094,22 @@ fr.fun_name = "list$1char$ph$p_finalize"; neo_current_frame = &fr;    struct lis
         it=it->next;
         come_call_finalizer(list_item$1char$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 static void list_item$1char$ph$p_finalize(struct list_item$1char$ph* self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list_item$1char$ph$p_finalize"; neo_current_frame = &fr;    if(self!=((void*)0)&&self->item!=((void*)0)) {
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1char$ph$p_finalize"; neo_current_frame = &fr;
+    if(self!=((void*)0)&&self->item!=((void*)0)) {
         (self->item = come_decrement_ref_count(self->item, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-        neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 static void list$1char$ph_finalize(struct list$1char$ph* self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1char$ph_finalize"; neo_current_frame = &fr;    struct list_item$1char$ph* it;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph_finalize"; neo_current_frame = &fr;
+    struct list_item$1char$ph* it;
     struct list_item$1char$ph* prev_it;
     if(self==((void*)0)) {
         neo_current_frame = fr.prev;
@@ -4004,13 +4121,13 @@ fr.fun_name = "list$1char$ph_finalize"; neo_current_frame = &fr;    struct list_
         it=it->next;
         come_call_finalizer(list_item$1char$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 static struct list$1char$ph* list$1char$ph_push_back(struct list$1char$ph* self, char* item  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1char$ph_push_back"; neo_current_frame = &fr;    struct list$1char$ph* __result_obj__0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph_push_back"; neo_current_frame = &fr;
+    struct list$1char$ph* __result_obj__0;
     void* __right_value0 = (void*)0;
     struct list_item$1char$ph* litem;
     char* __dec_obj3  ;
@@ -4021,7 +4138,8 @@ fr.fun_name = "list$1char$ph_push_back"; neo_current_frame = &fr;    struct list
     if(self==((void*)0)) {
         __result_obj__0 = self;
         (item = come_decrement_ref_count(item, (void*)0, (void*)0, 0, 0, (void*)0));
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     if(self->len==0) {
         litem=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), (void*)0, 701, "struct list_item$1char$ph*"))));
@@ -4056,33 +4174,34 @@ fr.fun_name = "list$1char$ph_push_back"; neo_current_frame = &fr;    struct list
     self->len++;
     __result_obj__0 = self;
     (item = come_decrement_ref_count(item, (void*)0, (void*)0, 0, 0, (void*)0));
-    neo_current_frame = fr.prev;    return __result_obj__0;
-        neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 static struct list$1char$ph* list$1char$ph_sort_with_lambda(struct list$1char$ph* self, int (*compare)(char*,char*))
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1char$ph_sort_with_lambda"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph_sort_with_lambda"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1char$ph* __result_obj__0;
     if(self==((void*)0)) {
         __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 1438, "struct list$1char$ph*"))))));
         come_call_finalizer(list$1char$ph$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-        neo_current_frame = fr.prev;        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+        neo_current_frame = fr.prev;
+        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
     __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value0=list$1char$ph_merge_sort_with_lambda(self,compare))));
     come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-    neo_current_frame = fr.prev;}
+}
 
 static struct list$1char$ph* list$1char$ph_merge_sort_with_lambda(struct list$1char$ph* self, int (*compare)(char*,char*))
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1char$ph_merge_sort_with_lambda"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph_merge_sort_with_lambda"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     struct list$1char$ph* __result_obj__0;
     void* __right_value1 = (void*)0;
     struct list$1char$ph* list1;
@@ -4093,19 +4212,21 @@ fr.fun_name = "list$1char$ph_merge_sort_with_lambda"; neo_current_frame = &fr;  
     if(self->head==((void*)0)) {
         __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value0=list$1char$ph_clone(self))));
         come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-        neo_current_frame = fr.prev;        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+        neo_current_frame = fr.prev;
+        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
     if(self->head->next==((void*)0)) {
         __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value0=list$1char$ph_clone(self))));
         come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-        neo_current_frame = fr.prev;        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+        neo_current_frame = fr.prev;
+        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
     list1=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 1405, "struct list$1char$ph*"))));
     list2=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 1406, "struct list$1char$ph*"))));
     it=self->head;
-    while(1) {
+    while((_Bool)1) {
         list$1char$ph_push_back(list1,(char*)come_increment_ref_count((char*)come_memdup(it->item, "/usr/local/include/neo-c.h", 1411, "char*")));
         list$1char$ph_push_back(list2,(char*)come_increment_ref_count((char*)come_memdup(it->next->item, "/usr/local/include/neo-c.h", 1412, "char*")));
         if(it->next->next==((void*)0)) {
@@ -4130,22 +4251,23 @@ fr.fun_name = "list$1char$ph_merge_sort_with_lambda"; neo_current_frame = &fr;  
     come_call_finalizer(list$1char$ph$p_finalize, left_list, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(list$1char$ph$p_finalize, right_list, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-    neo_current_frame = fr.prev;}
+}
 
 static struct list$1char$ph* list$1char$ph_clone(struct list$1char$ph* self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1char$ph_clone"; neo_current_frame = &fr;    struct list$1char$ph* __result_obj__0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph_clone"; neo_current_frame = &fr;
+    struct list$1char$ph* __result_obj__0;
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1char$ph* result;
     struct list_item$1char$ph* it;
     if(self==((void*)0)) {
         __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((void*)0));
-        neo_current_frame = fr.prev;        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+        neo_current_frame = fr.prev;
+        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
     result=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 595, "struct list$1char$ph*"))));
@@ -4161,15 +4283,15 @@ fr.fun_name = "list$1char$ph_clone"; neo_current_frame = &fr;    struct list$1ch
     }
     __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(result);
     come_call_finalizer(list$1char$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-        neo_current_frame = fr.prev;}
+}
 
 static struct list$1char$ph* list$1char$ph_add(struct list$1char$ph* self, char* item  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1char$ph_add"; neo_current_frame = &fr;    struct list$1char$ph* __result_obj__0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph_add"; neo_current_frame = &fr;
+    struct list$1char$ph* __result_obj__0;
     void* __right_value0 = (void*)0;
     struct list_item$1char$ph* litem;
     char* __dec_obj6  ;
@@ -4180,7 +4302,8 @@ fr.fun_name = "list$1char$ph_add"; neo_current_frame = &fr;    struct list$1char
     if(self==((void*)0)) {
         __result_obj__0 = self;
         (item = come_decrement_ref_count(item, (void*)0, (void*)0, 0, 0, (void*)0));
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     if(self->len==0) {
         litem=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), (void*)0, 616, "struct list_item$1char$ph*"))));
@@ -4215,14 +4338,14 @@ fr.fun_name = "list$1char$ph_add"; neo_current_frame = &fr;    struct list$1char
     self->len++;
     __result_obj__0 = self;
     (item = come_decrement_ref_count(item, (void*)0, (void*)0, 0, 0, (void*)0));
-    neo_current_frame = fr.prev;    return __result_obj__0;
-            neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 static struct list$1char$ph* list$1char$ph_merge_list_with_lambda(struct list$1char$ph* left, struct list$1char$ph* right, int (*compare)(char*,char*))
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1char$ph_merge_list_with_lambda"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph_merge_list_with_lambda"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1char$ph* result;
     struct list_item$1char$ph* it;
@@ -4231,7 +4354,7 @@ fr.fun_name = "list$1char$ph_merge_list_with_lambda"; neo_current_frame = &fr;  
     result=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 1326, "struct list$1char$ph*"))));
     it=left->head;
     it2=right->head;
-    while(1) {
+    while((_Bool)1) {
         if(it&&it2) {
             if(it->item==((void*)0)) {
                 it=it->next;
@@ -4289,33 +4412,32 @@ fr.fun_name = "list$1char$ph_merge_list_with_lambda"; neo_current_frame = &fr;  
     }
     __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(result);
     come_call_finalizer(list$1char$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-    neo_current_frame = fr.prev;}
+}
 
 static int lambda2(char* left, char* right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "lambda2"; neo_current_frame = &fr;
-       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "lambda2"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return strcmp(left,right);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 void vd(struct sInfo* info  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "vd"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "vd"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1char$ph* __dec_obj10;
     char* history_fname  ;
     char* line;
     char* cmdline  ;
-    struct _IO_FILE* f  ;
+    struct __sFILE* f  ;
     char* result;
     struct list$1char$ph* __dec_obj11;
-    info->virtual_dir=1;
+    info->virtual_dir=(_Bool)1;
     __dec_obj10=info->selected_files,
     info->selected_files=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 90, "struct list$1char$ph*"))));
     come_call_finalizer(list$1char$ph_finalize, __dec_obj10,(void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -4332,7 +4454,7 @@ fr.fun_name = "vd"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
     write_history(history_fname);
     cmdline=(char*)come_increment_ref_count(__builtin_string(line));
     free(line);
-    char buf[8192];
+    char buf[1024];
     memset(&buf, 0, sizeof(buf));
     f=popen(cmdline,"r");
     if(f==((void*)0)) {
@@ -4344,9 +4466,9 @@ fr.fun_name = "vd"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
     list$1char$ph_push_back(info->files,(char*)come_increment_ref_count(__builtin_string(".")));
     list$1char$ph_push_back(info->files,(char*)come_increment_ref_count(__builtin_string("..")));
     while(1) {
-        char file[4096];
+        char file[1024];
         memset(&file, 0, sizeof(file));
-        result=fgets(file,4096,f);
+        result=fgets(file,1024,f);
         if(result==((void*)0)) {
             break;
         }
@@ -4364,13 +4486,13 @@ fr.fun_name = "vd"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
     come_call_finalizer(list$1char$ph_finalize, __dec_obj11,(void*)0, (void*)0, 0, 0, 0, (void*)0);
     (history_fname = come_decrement_ref_count(history_fname, (void*)0, (void*)0, 0, 0, (void*)0));
     (cmdline = come_decrement_ref_count(cmdline, (void*)0, (void*)0, 0, 0, (void*)0));
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool change_directory(struct sInfo* info  , char* path, char* cursor_file)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "change_directory"; neo_current_frame = &fr;    char* absolute_path;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "change_directory"; neo_current_frame = &fr;
+    char* absolute_path;
     void* __right_value0 = (void*)0;
     char* absolute_path2  ;
     char* __dec_obj12  ;
@@ -4403,68 +4525,72 @@ fr.fun_name = "change_directory"; neo_current_frame = &fr;    char* absolute_pat
         info->cursor=0;
         info->page=0;
     }
-    __result_obj__0 = 1;
+    __result_obj__0 = (_Bool)1;
     (absolute_path2 = come_decrement_ref_count(absolute_path2, (void*)0, (void*)0, 0, 0, (void*)0));
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 static char* list$1char$ph_begin(struct list$1char$ph* self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1char$ph_begin"; neo_current_frame = &fr;    char* result  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph_begin"; neo_current_frame = &fr;
+    char* result  ;
     char* __result_obj__0  ;
     char* result_4  ;
     if(self==((void*)0)) {
         memset(&result,0,sizeof(char*));
         __result_obj__0 = result;
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     self->it=self->head;
     if(self->it) {
         __result_obj__0 = self->it->item;
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     memset(&result_4,0,sizeof(char*));
     __result_obj__0 = result_4;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-        neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 static _Bool list$1char$ph_end(struct list$1char$ph* self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1char$ph_end"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph_end"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return self==((void*)0)||self->it==((void*)0);
-        neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 static char* list$1char$ph_next(struct list$1char$ph* self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1char$ph_next"; neo_current_frame = &fr;    char* result  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph_next"; neo_current_frame = &fr;
+    char* result  ;
     char* __result_obj__0  ;
     char* result_5  ;
     if(self==((void*)0)||self->it==((void*)0)) {
         memset(&result,0,sizeof(char*));
         __result_obj__0 = result;
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     self->it=self->it->next;
     if(self->it) {
         __result_obj__0 = self->it->item;
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     memset(&result_5,0,sizeof(char*));
     __result_obj__0 = result_5;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-        neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 void fix_cursor(struct sInfo* info  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "fix_cursor"; neo_current_frame = &fr;    int maxx;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "fix_cursor"; neo_current_frame = &fr;
+    int maxx;
     int maxy;
     maxx=xgetmaxx();
     maxy=xgetmaxy()-1;
@@ -4475,25 +4601,25 @@ fr.fun_name = "fix_cursor"; neo_current_frame = &fr;    int maxx;
         info->cursor=0;
     }
     info->page=info->cursor/(3*maxy);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 static int list$1char$ph_length(struct list$1char$ph* self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1char$ph_length"; neo_current_frame = &fr;    if(self==((void*)0)) {
-           neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph_length"; neo_current_frame = &fr;
+    if(self==((void*)0)) {
+        neo_current_frame = fr.prev;
         return 0;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return self->len;
-    neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 void view(struct sInfo* info  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "view"; neo_current_frame = &fr;    int maxx;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "view"; neo_current_frame = &fr;
+    int maxx;
     int maxy;
     int files_in_one_page;
     int head;
@@ -4519,13 +4645,13 @@ fr.fun_name = "view"; neo_current_frame = &fr;    int maxx;
     mvprintw(maxy,0,"%s page %d files %d head %d tail %d press ? for manual",info->path,info->page,list$1char$ph_length(info->files),head,tail);
     wattr_off(stdscr,(unsigned int)((((unsigned int)((1U))<<((10)+8)))),((void*)0));
     wrefresh(stdscr);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 static struct list$1char$ph* list$1char$ph_sublist(struct list$1char$ph* self, int begin, int tail)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1char$ph_sublist"; neo_current_frame = &fr;    struct list$1char$ph* __result_obj__0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph_sublist"; neo_current_frame = &fr;
+    struct list$1char$ph* __result_obj__0;
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1char$ph* result;
@@ -4533,7 +4659,8 @@ fr.fun_name = "list$1char$ph_sublist"; neo_current_frame = &fr;    struct list$1
     int i;
     if(self==((void*)0)) {
         __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(self);
-        neo_current_frame = fr.prev;        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+        neo_current_frame = fr.prev;
+        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
     result=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 1181, "struct list$1char$ph*"))));
@@ -4550,7 +4677,8 @@ fr.fun_name = "list$1char$ph_sublist"; neo_current_frame = &fr;    struct list$1
         __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 1196, "struct list$1char$ph*"))))));
         come_call_finalizer(list$1char$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_call_finalizer(list$1char$ph$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-        neo_current_frame = fr.prev;        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+        neo_current_frame = fr.prev;
+        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
     if(tail>=self->len) {
@@ -4567,42 +4695,43 @@ fr.fun_name = "list$1char$ph_sublist"; neo_current_frame = &fr;    struct list$1
     }
     __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(result);
     come_call_finalizer(list$1char$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-    neo_current_frame = fr.prev;}
+}
 
 static struct list$1char$ph* list$1char$ph_each(struct list$1char$ph* self, void* parent, void (*block)(void*,char*,int,_Bool*))
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1char$ph_each"; neo_current_frame = &fr;    struct list$1char$ph* __result_obj__0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph_each"; neo_current_frame = &fr;
+    struct list$1char$ph* __result_obj__0;
     struct list_item$1char$ph* it;
     int i;
     _Bool end_flag;
     if(self==((void*)0)) {
         __result_obj__0 = ((void*)0);
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     it=self->head;
     i=0;
     while(it!=((void*)0)) {
-        end_flag=0;
+        end_flag=(_Bool)0;
         block(parent,(char*)come_increment_ref_count(it->item),i,&end_flag);
-        if(end_flag==1) {
+        if(end_flag==(_Bool)1) {
             break;
         }
         it=it->next;
         i++;
     }
     __result_obj__0 = self;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-    neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 void method_block1_mainnc(struct __current_stack1__* parent, char* it  , int it2, _Bool* it3)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "method_block1_mainnc"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "method_block1_mainnc"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     void* __right_value2 = (void*)0;
     void* __right_value3 = (void*)0;
@@ -4623,8 +4752,8 @@ fr.fun_name = "method_block1_mainnc"; neo_current_frame = &fr;    void* __right_
     (__right_value4 = come_decrement_ref_count(__right_value4, (void*)0, (void*)0, 1, 0, (void*)0));
     (__right_value5 = come_decrement_ref_count(__right_value5, (void*)0, (void*)0, 1, 0, (void*)0));
     (void)(stat)(path,&stat_);
-    is_dir=((((stat_.st_mode))&0170000)==(0040000));
-    selected=list$1char$ph_contained((*(parent->info))->selected_files,it,0);
+    is_dir=(((stat_.st_mode)&0170000)==0040000);
+    selected=list$1char$ph_contained((*(parent->info))->selected_files,it,(_Bool)0);
     index=it2;
     cols=(*(parent->maxx))/3;
     x=(index/(*(parent->maxy)))*cols;
@@ -4678,57 +4807,58 @@ fr.fun_name = "method_block1_mainnc"; neo_current_frame = &fr;    void* __right_
     (it = come_decrement_ref_count(it, (void*)0, (void*)0, 0, 0, (void*)0));
     (path = come_decrement_ref_count(path, (void*)0, (void*)0, 0, 0, (void*)0));
     come_call_finalizer(stat_finalize, (&stat_), (void*)0, (void*)0, 1, 0, 0, (void*)0);
-    neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 static _Bool list$1char$ph_contained(struct list$1char$ph* self, char* item  , _Bool by_pointer)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1char$ph_contained"; neo_current_frame = &fr;    char* it  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph_contained"; neo_current_frame = &fr;
+    char* it  ;
     if(self==((void*)0)) {
-           neo_current_frame = fr.prev;
-        return 0;
+        neo_current_frame = fr.prev;
+        return (_Bool)0;
     }
     for(it=list$1char$ph_begin(self);!list$1char$ph_end(self);it=list$1char$ph_next(self)){
         if((!by_pointer&&string_equals(it,item))||(by_pointer&&it==item)) {
-               neo_current_frame = fr.prev;
-            return 1;
+            neo_current_frame = fr.prev;
+            return (_Bool)1;
         }
     }
-       neo_current_frame = fr.prev;
-    return 0;
-    neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return (_Bool)0;
+    neo_current_frame = fr.prev;
+}
 
 static void stat_finalize(struct stat* self  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "stat_finalize"; neo_current_frame = &fr;    neo_current_frame = fr.prev;}
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "stat_finalize"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+}
 
 char* cursor_path(struct sInfo* info  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "cursor_path"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "cursor_path"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* file_name;
     char* __result_obj__0  ;
     file_name=((char*)(__right_value0=list$1char$ph_item(info->files,info->cursor,((void*)0))));
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=xsprintf("%s/%s",info->path,file_name))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 static char* list$1char$ph_item(struct list$1char$ph* self, int position, char* default_value  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1char$ph_item"; neo_current_frame = &fr;    char* __result_obj__0  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph_item"; neo_current_frame = &fr;
+    char* __result_obj__0  ;
     struct list_item$1char$ph* it;
     int i;
     if(self==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(default_value);
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     if(position<0) {
@@ -4739,36 +4869,37 @@ fr.fun_name = "list$1char$ph_item"; neo_current_frame = &fr;    char* __result_o
     while(it!=((void*)0)) {
         if(position==i) {
             __result_obj__0 = (char*)come_increment_ref_count(it->item);
-            neo_current_frame = fr.prev;            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+            neo_current_frame = fr.prev;
+            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
             return __result_obj__0;
         }
         it=it->next;
         i++;
     }
     __result_obj__0 = (char*)come_increment_ref_count(default_value);
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-    neo_current_frame = fr.prev;}
+}
 
 char* cursor_file(struct sInfo* info  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "cursor_file"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "cursor_file"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     char* __result_obj__0  ;
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value1=__builtin_string(((char*)(__right_value0=list$1char$ph_item(info->files,info->cursor,((void*)0))))))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* selected_files(struct sInfo* info  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "selected_files"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "selected_files"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct buffer* buf  ;
     struct list$1char$ph* o2_saved;
@@ -4785,15 +4916,15 @@ fr.fun_name = "selected_files"; neo_current_frame = &fr;    void* __right_value0
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=buffer_to_string(buf))));
     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 void search_file(struct sInfo* info  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "search_file"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "search_file"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* str  ;
     int key;
     char* __dec_obj13  ;
@@ -4802,7 +4933,7 @@ fr.fun_name = "search_file"; neo_current_frame = &fr;    void* __right_value0 = 
     char* it  ;
     char* __dec_obj14  ;
     str=(char*)come_increment_ref_count(__builtin_string(""));
-    while(1) {
+    while((_Bool)1) {
         key=wgetch(stdscr);
         if(key>=32&&key<=126) {
             __dec_obj13=str,
@@ -4826,13 +4957,13 @@ fr.fun_name = "search_file"; neo_current_frame = &fr;    void* __right_value0 = 
         }
     }
     (str = come_decrement_ref_count(str, (void*)0, (void*)0, 0, 0, (void*)0));
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 void search_next_file(struct sInfo* info  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "search_next_file"; neo_current_frame = &fr;    int n;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "search_next_file"; neo_current_frame = &fr;
+    int n;
     void* __right_value0 = (void*)0;
     struct list$1char$ph* o2_saved;
     char* it  ;
@@ -4852,13 +4983,13 @@ fr.fun_name = "search_next_file"; neo_current_frame = &fr;    int n;
         n++;
     }
     come_call_finalizer(list$1char$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 void search_prev_file(struct sInfo* info  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "search_prev_file"; neo_current_frame = &fr;    int n;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "search_prev_file"; neo_current_frame = &fr;
+    int n;
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1char$ph* o2_saved;
@@ -4880,13 +5011,13 @@ _conditional_value_X0;});({(_conditional_value_X1=(!list$1char$ph_end(o2_saved))
         n--;
     }
     come_call_finalizer(list$1char$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 static struct list$1char$ph* list$1char$ph_reverse(struct list$1char$ph* self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1char$ph_reverse"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph_reverse"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1char$ph* result;
     struct list$1char$ph* __result_obj__0;
@@ -4895,7 +5026,8 @@ fr.fun_name = "list$1char$ph_reverse"; neo_current_frame = &fr;    void* __right
     if(self==((void*)0)) {
         __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(result);
         come_call_finalizer(list$1char$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-        neo_current_frame = fr.prev;        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+        neo_current_frame = fr.prev;
+        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
     it=self->tail;
@@ -4905,36 +5037,37 @@ fr.fun_name = "list$1char$ph_reverse"; neo_current_frame = &fr;    void* __right
     }
     __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(result);
     come_call_finalizer(list$1char$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-    neo_current_frame = fr.prev;}
+}
 
 void select_files(struct sInfo* info  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "select_files"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "select_files"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* cursor_file_  ;
     cursor_file_=(char*)come_increment_ref_count(cursor_file(info));
-    if(list$1char$ph_contained(info->selected_files,cursor_file_,0)) {
-        list$1char$ph_remove(info->selected_files,cursor_file_,0);
+    if(list$1char$ph_contained(info->selected_files,cursor_file_,(_Bool)0)) {
+        list$1char$ph_remove(info->selected_files,cursor_file_,(_Bool)0);
     }
     else {
         list$1char$ph_add(info->selected_files,(char*)come_increment_ref_count(cursor_file_));
     }
     (cursor_file_ = come_decrement_ref_count(cursor_file_, (void*)0, (void*)0, 0, 0, (void*)0));
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 static struct list$1char$ph* list$1char$ph_remove(struct list$1char$ph* self, char* item  , _Bool by_pointer)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1char$ph_remove"; neo_current_frame = &fr;    struct list$1char$ph* __result_obj__0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph_remove"; neo_current_frame = &fr;
+    struct list$1char$ph* __result_obj__0;
     int it2;
     struct list_item$1char$ph* it;
     if(self==((void*)0)) {
         __result_obj__0 = self;
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     it2=0;
     it=self->head;
@@ -4947,14 +5080,14 @@ fr.fun_name = "list$1char$ph_remove"; neo_current_frame = &fr;    struct list$1c
         it=it->next;
     }
     __result_obj__0 = self;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-        neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 static struct list$1char$ph* list$1char$ph_delete(struct list$1char$ph* self, int head, int tail)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1char$ph_delete"; neo_current_frame = &fr;    struct list$1char$ph* __result_obj__0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph_delete"; neo_current_frame = &fr;
+    struct list$1char$ph* __result_obj__0;
     int tmp;
     struct list_item$1char$ph* it;
     int i;
@@ -4969,7 +5102,8 @@ fr.fun_name = "list$1char$ph_delete"; neo_current_frame = &fr;    struct list$1c
     struct list_item$1char$ph* prev_it_11;
     if(self==((void*)0)) {
         __result_obj__0 = self;
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     if(head<0) {
         head+=self->len;
@@ -4990,11 +5124,13 @@ fr.fun_name = "list$1char$ph_delete"; neo_current_frame = &fr;    struct list$1c
     }
     if(head>=self->len) {
         __result_obj__0 = self;
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     if(head==tail) {
         __result_obj__0 = self;
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     if(head==0&&tail==self->len) {
         list$1char$ph_reset(self);
@@ -5074,19 +5210,20 @@ fr.fun_name = "list$1char$ph_delete"; neo_current_frame = &fr;    struct list$1c
         }
     }
     __result_obj__0 = self;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-            neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 static struct list$1char$ph* list$1char$ph_reset(struct list$1char$ph* self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1char$ph_reset"; neo_current_frame = &fr;    struct list$1char$ph* __result_obj__0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph_reset"; neo_current_frame = &fr;
+    struct list$1char$ph* __result_obj__0;
     struct list_item$1char$ph* it;
     struct list_item$1char$ph* prev_it;
     if(self==((void*)0)) {
         __result_obj__0 = self;
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     it=self->head;
     while(it!=((void*)0)) {
@@ -5098,14 +5235,14 @@ fr.fun_name = "list$1char$ph_reset"; neo_current_frame = &fr;    struct list$1ch
     self->tail=((void*)0);
     self->len=0;
     __result_obj__0 = self;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-        neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 void manual(struct sInfo* info  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "manual"; neo_current_frame = &fr;    wclear(stdscr);
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "manual"; neo_current_frame = &fr;
+    wclear(stdscr);
     mvprintw(0,0,"q --> quit");
     mvprintw(1,0,"* --> virtual directory(type shell command, and the result of the command is file list");
     mvprintw(2,0,"ENTER --> run command(type shell command) or insert directory");
@@ -5129,15 +5266,15 @@ fr.fun_name = "manual"; neo_current_frame = &fr;    wclear(stdscr);
     mvprintw(20,0,"SPACE --> select files");
     wrefresh(stdscr);
     wgetch(stdscr);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 void recursive_unlink(char* path  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "recursive_unlink"; neo_current_frame = &fr;    struct stat stat_  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "recursive_unlink"; neo_current_frame = &fr;
+    struct stat stat_  ;
     _Bool is_dir;
-    struct __dirstream* dir  ;
+    struct anonymous_typeX22* dir  ;
     struct dirent* entry  ;
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
@@ -5156,14 +5293,14 @@ fr.fun_name = "recursive_unlink"; neo_current_frame = &fr;    struct stat stat_ 
         neo_current_frame = fr.prev;
         return;
     }
-    if(((((stat_.st_mode))&0170000)==(0120000))) {
+    if((((stat_.st_mode)&0170000)==0120000)) {
         unlink(path);
         (path = come_decrement_ref_count(path, (void*)0, (void*)0, 0, 0, (void*)0));
         come_call_finalizer(stat_finalize, (&stat_), (void*)0, (void*)0, 1, 0, 0, (void*)0);
         neo_current_frame = fr.prev;
         return;
     }
-    is_dir=((((stat_.st_mode))&0170000)==(0040000));
+    is_dir=(((stat_.st_mode)&0170000)==0040000);
     if(is_dir) {
         dir=opendir(path);
         if(dir==((void*)0)) {
@@ -5189,25 +5326,25 @@ fr.fun_name = "recursive_unlink"; neo_current_frame = &fr;    struct stat stat_ 
     }
     (path = come_decrement_ref_count(path, (void*)0, (void*)0, 0, 0, (void*)0));
     come_call_finalizer(stat_finalize, (&stat_), (void*)0, (void*)0, 1, 0, 0, (void*)0);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool is_protected_entry(char* name)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "is_protected_entry"; neo_current_frame = &fr;    if(name==((void*)0)) {
-           neo_current_frame = fr.prev;
-        return 0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "is_protected_entry"; neo_current_frame = &fr;
+    if(name==((void*)0)) {
+        neo_current_frame = fr.prev;
+        return (_Bool)0;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return strcmp(name,".")==0||strcmp(name,"..")==0||strcmp(name,"NO FILES")==0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 char* resolve_item_path(struct sInfo* info  , char* item)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "resolve_item_path"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "resolve_item_path"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     void* __right_value1 = (void*)0;
     void* __right_value2 = (void*)0;
@@ -5220,13 +5357,15 @@ fr.fun_name = "resolve_item_path"; neo_current_frame = &fr;    void* __right_val
     if(item==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     if(item[0]==47) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(item))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     else {
@@ -5236,16 +5375,17 @@ fr.fun_name = "resolve_item_path"; neo_current_frame = &fr;    void* __right_val
         (__right_value6 = come_decrement_ref_count(__right_value6, (void*)0, (void*)0, 1, 0, (void*)0));
         (__right_value7 = come_decrement_ref_count(__right_value7, (void*)0, (void*)0, 1, 0, (void*)0));
         (__right_value8 = come_decrement_ref_count(__right_value8, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 char* deletable_selected_files(struct sInfo* info  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "deletable_selected_files"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "deletable_selected_files"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct buffer* buf  ;
     struct list$1char$ph* o2_saved;
@@ -5265,19 +5405,19 @@ fr.fun_name = "deletable_selected_files"; neo_current_frame = &fr;    void* __ri
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=buffer_to_string(buf))));
     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 void handmade_delete_file(char* path  , struct sInfo* info  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "handmade_delete_file"; neo_current_frame = &fr;    int key;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "handmade_delete_file"; neo_current_frame = &fr;
+    int key;
     werase(stdscr);
     mvprintw(0,0,"Is %s delete OK? (y,Y,ENTER/other",path);
     wrefresh(stdscr);
-    while(1) {
+    while((_Bool)1) {
         key=wgetch(stdscr);
         if(key==121||key==89||key==10) {
             recursive_unlink((char*)come_increment_ref_count(path));
@@ -5288,13 +5428,13 @@ fr.fun_name = "handmade_delete_file"; neo_current_frame = &fr;    int key;
         }
     }
     (path = come_decrement_ref_count(path, (void*)0, (void*)0, 0, 0, (void*)0));
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 void handmade_selected_delete_file(struct sInfo* info  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "handmade_selected_delete_file"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "handmade_selected_delete_file"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* li  ;
     int key;
     struct list$1char$ph* o2_saved;
@@ -5313,7 +5453,7 @@ fr.fun_name = "handmade_selected_delete_file"; neo_current_frame = &fr;    void*
     werase(stdscr);
     mvprintw(0,0,"Are %s delete OK? (y,Y,ENTER/other",li);
     wrefresh(stdscr);
-    while(1) {
+    while((_Bool)1) {
         key=wgetch(stdscr);
         if(key==121||key==89||key==10) {
             for(o2_saved=(struct list$1char$ph*)come_increment_ref_count(info->selected_files),it=list$1char$ph_begin(o2_saved);!list$1char$ph_end(o2_saved);it=list$1char$ph_next(o2_saved)){
@@ -5332,13 +5472,13 @@ fr.fun_name = "handmade_selected_delete_file"; neo_current_frame = &fr;    void*
         }
     }
     (li = come_decrement_ref_count(li, (void*)0, (void*)0, 0, 0, (void*)0));
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 void input(struct sInfo* info  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "input"; neo_current_frame = &fr;    int maxx;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "input"; neo_current_frame = &fr;
+    int maxx;
     int maxy;
     int key;
     void* __right_value0 = (void*)0;
@@ -5363,14 +5503,14 @@ fr.fun_name = "input"; neo_current_frame = &fr;    int maxx;
     key=wgetch(stdscr);
     switch (    key) {
         case 113:
-        info->app_end=1;
+        info->app_end=(_Bool)1;
         break;
         case 42:
         endwin();
         list$1char$ph_reset(info->files);
         vd(info);
         initscr();
-        keypad(stdscr,1);
+        keypad(stdscr,(_Bool)1);
         raw();
         noecho();
         break;
@@ -5383,7 +5523,7 @@ fr.fun_name = "input"; neo_current_frame = &fr;    int maxx;
             (__right_value6 = come_decrement_ref_count(__right_value6, (void*)0, (void*)0, 1, 0, (void*)0));
             (__right_value7 = come_decrement_ref_count(__right_value7, (void*)0, (void*)0, 1, 0, (void*)0));
             (void)(stat)(path,&stat_);
-            is_dir=((((stat_.st_mode))&0170000)==(0040000));
+            is_dir=(((stat_.st_mode)&0170000)==0040000);
             if(is_dir) {
                 change_directory(info,path,((void*)0));
             }
@@ -5402,7 +5542,7 @@ fr.fun_name = "input"; neo_current_frame = &fr;    int maxx;
                 read_dir(info);
                 puts("HIT ANY KEY");
                 initscr();
-                keypad(stdscr,1);
+                keypad(stdscr,(_Bool)1);
                 raw();
                 noecho();
                 getchar();
@@ -5451,7 +5591,7 @@ fr.fun_name = "input"; neo_current_frame = &fr;    int maxx;
             }
             read_dir(info);
             initscr();
-            keypad(stdscr,1);
+            keypad(stdscr,(_Bool)1);
             raw();
             noecho();
         }
@@ -5472,7 +5612,7 @@ fr.fun_name = "input"; neo_current_frame = &fr;    int maxx;
             read_dir(info);
             puts("HIT ANY KEY");
             initscr();
-            keypad(stdscr,1);
+            keypad(stdscr,(_Bool)1);
             raw();
             noecho();
             getchar();
@@ -5494,7 +5634,7 @@ fr.fun_name = "input"; neo_current_frame = &fr;    int maxx;
             read_dir(info);
             puts("HIT ANY KEY");
             initscr();
-            keypad(stdscr,1);
+            keypad(stdscr,(_Bool)1);
             raw();
             noecho();
             getchar();
@@ -5526,7 +5666,7 @@ fr.fun_name = "input"; neo_current_frame = &fr;    int maxx;
             read_dir(info);
             puts("HIT ANY KEY");
             initscr();
-            keypad(stdscr,1);
+            keypad(stdscr,(_Bool)1);
             raw();
             noecho();
             getchar();
@@ -5539,7 +5679,7 @@ fr.fun_name = "input"; neo_current_frame = &fr;    int maxx;
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
             initscr();
-            keypad(stdscr,1);
+            keypad(stdscr,(_Bool)1);
             raw();
             noecho();
         }
@@ -5589,7 +5729,7 @@ fr.fun_name = "input"; neo_current_frame = &fr;    int maxx;
             read_dir(info);
             puts("HIT ANY KEY");
             initscr();
-            keypad(stdscr,1);
+            keypad(stdscr,(_Bool)1);
             raw();
             noecho();
             getchar();
@@ -5614,20 +5754,20 @@ fr.fun_name = "input"; neo_current_frame = &fr;    int maxx;
         break;
     }
     fix_cursor(info);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int main(int argc, char** argv)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "main"; neo_current_frame = &fr;    struct sInfo info  ;
+    struct sInfo info  ;
     char* cwd;
     void* __right_value0 = (void*)0;
     char* __dec_obj15  ;
     int __result_obj__0;
     memset(&info, 0, sizeof(info));
     come_heap_init(0);
-    setlocale(6,"");
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "main"; neo_current_frame = &fr;
+    setlocale(0,"");
     setenv("EDITOR","vin",1);
     memset(&info,0,sizeof(struct sInfo));
     cwd=getenv("PWD");
@@ -5646,15 +5786,15 @@ fr.fun_name = "main"; neo_current_frame = &fr;    struct sInfo info  ;
     endwin();
     __result_obj__0 = 0;
     come_call_finalizer(sInfo_finalize, (&info), (void*)0, (void*)0, 1, 0, 0, (void*)0);
-    neo_current_frame = fr.prev;    come_heap_final();
+    neo_current_frame = fr.prev;
+    come_heap_final();
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 static void sInfo_finalize(struct sInfo* self  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "sInfo_finalize"; neo_current_frame = &fr;    if(self!=((void*)0)&&self->path!=((void*)0)) {
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "sInfo_finalize"; neo_current_frame = &fr;
+    if(self!=((void*)0)&&self->path!=((void*)0)) {
         (self->path = come_decrement_ref_count(self->path, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     if(self!=((void*)0)&&self->files!=((void*)0)) {
@@ -5666,13 +5806,13 @@ fr.fun_name = "sInfo_finalize"; neo_current_frame = &fr;    if(self!=((void*)0)&
     if(self!=((void*)0)&&self->searching_str!=((void*)0)) {
         (self->searching_str = come_decrement_ref_count(self->searching_str, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 void stackframe()
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "stackframe"; neo_current_frame = &fr;    struct neo_frame* f  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "stackframe"; neo_current_frame = &fr;
+    struct neo_frame* f  ;
     char* fun_name;
     f=neo_current_frame;
     while(f) {
@@ -5680,32 +5820,32 @@ fr.fun_name = "stackframe"; neo_current_frame = &fr;    struct neo_frame* f  ;
         printf("%s\n",fun_name);
         f=f->prev;
     }
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool die(const char* msg)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "die"; neo_current_frame = &fr;    puts(msg);
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "die"; neo_current_frame = &fr;
+    puts(msg);
     stackframe();
     exit(4);
-       neo_current_frame = fr.prev;
-    return 0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return (_Bool)0;
+    neo_current_frame = fr.prev;
+}
 
 void come_heap_init(int come_debug)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "come_heap_init"; neo_current_frame = &fr;    gComeDebugLib=come_debug;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "come_heap_init"; neo_current_frame = &fr;
+    gComeDebugLib=come_debug;
     gAllocMem=((void*)0);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 void come_heap_final()
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "come_heap_final"; neo_current_frame = &fr;    struct sMemHeader* it  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "come_heap_final"; neo_current_frame = &fr;
+    struct sMemHeader* it  ;
     int n;
     _Bool flag;
     int i;
@@ -5713,15 +5853,15 @@ fr.fun_name = "come_heap_final"; neo_current_frame = &fr;    struct sMemHeader* 
     n=0;
     while(it) {
         n++;
-        flag=0;
+        flag=(_Bool)0;
         printf("#%d ",n);
         if(it->class_name) {
-            printf("%p (%s): ",(char*)it+sizeof(struct sMemHeader)+sizeof(unsigned long)+sizeof(unsigned long),it->class_name);
+            printf("%p (%s): ",(char*)it+sizeof(struct sMemHeader)+sizeof(unsigned long  int)+sizeof(unsigned long  int),it->class_name);
         }
         for(i=0;i<8;i++){
             if(it->fun_name[i]) {
                 printf("%s, ",it->fun_name[i]);
-                flag=1;
+                flag=(_Bool)1;
             }
         }
         if(flag) {
@@ -5732,25 +5872,25 @@ fr.fun_name = "come_heap_final"; neo_current_frame = &fr;    struct sMemHeader* 
     if(n>0) {
         printf("%d memory leaks. %d alloc, %d free.\n",n,gNumAlloc,gNumFree);
     }
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
-void* alloc_from_pages(unsigned long size  )
+void* alloc_from_pages(unsigned long  int size  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "alloc_from_pages"; neo_current_frame = &fr;    void* __result_obj__0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "alloc_from_pages"; neo_current_frame = &fr;
+    void* __result_obj__0;
     __result_obj__0 = calloc(1,size);
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 void come_free_mem_of_heap_pool(void* mem)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "come_free_mem_of_heap_pool"; neo_current_frame = &fr;    struct sMemHeader* it  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "come_free_mem_of_heap_pool"; neo_current_frame = &fr;
+    struct sMemHeader* it  ;
     struct sMemHeader* prev_it  ;
     struct sMemHeader* next_it  ;
-    unsigned long size  ;
+    unsigned long  int size  ;
     if(mem) {
         it=(struct sMemHeader*)((char*)mem-sizeof(struct sMemHeader));
         if(it->allocated!=177783) {
@@ -5778,13 +5918,13 @@ fr.fun_name = "come_free_mem_of_heap_pool"; neo_current_frame = &fr;    struct s
         free(it);
         gNumFree++;
     }
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
-void* come_alloc_mem_from_heap_pool(unsigned long size  , const char* sname, int sline, const char* class_name)
+void* come_alloc_mem_from_heap_pool(unsigned long  int size  , const char* sname, int sline, const char* class_name)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "come_alloc_mem_from_heap_pool"; neo_current_frame = &fr;    unsigned long size2  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "come_alloc_mem_from_heap_pool"; neo_current_frame = &fr;
+    unsigned long  int size2  ;
     void* result;
     struct sMemHeader* it  ;
     int n;
@@ -5815,141 +5955,146 @@ fr.fun_name = "come_alloc_mem_from_heap_pool"; neo_current_frame = &fr;    unsig
     gAllocMem=it;
     gNumAlloc++;
     __result_obj__0 = (char*)result+sizeof(struct sMemHeader);
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 char* come_dynamic_typeof(void* mem)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "come_dynamic_typeof"; neo_current_frame = &fr;    struct sMemHeader* it  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "come_dynamic_typeof"; neo_current_frame = &fr;
+    struct sMemHeader* it  ;
     char* __result_obj__0;
-    it=(struct sMemHeader*)((char*)mem-sizeof(unsigned long)-sizeof(unsigned long)-sizeof(struct sMemHeader));
+    it=(struct sMemHeader*)((char*)mem-sizeof(unsigned long  int)-sizeof(unsigned long  int)-sizeof(struct sMemHeader));
     if(it->allocated!=177783) {
         printf("invalid heap object(%p)(1)\n",it);
         exit(2);
     }
     __result_obj__0 = (char*)it->class_name;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
-void* come_calloc(unsigned long count  , unsigned long size  , const char* sname, int sline, const char* class_name)
+void* come_calloc(unsigned long  int count  , unsigned long  int size  , const char* sname, int sline, const char* class_name)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "come_calloc"; neo_current_frame = &fr;    char* mem;
-    unsigned long* ref_count  ;
-    unsigned long* size2  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "come_calloc"; neo_current_frame = &fr;
+    char* mem;
+    unsigned long  int* ref_count  ;
+    unsigned long  int* size2  ;
     void* __result_obj__0;
-    mem=come_alloc_mem_from_heap_pool(sizeof(unsigned long)+sizeof(unsigned long)+count*size,sname,sline,class_name);
-    ref_count=(unsigned long*)mem;
+    mem=come_alloc_mem_from_heap_pool(sizeof(unsigned long  int)+sizeof(unsigned long  int)+count*size,sname,sline,class_name);
+    ref_count=(unsigned long  int*)mem;
     *ref_count=0;
-    size2=(unsigned long*)(mem+sizeof(unsigned long));
-    *size2=size*count+sizeof(unsigned long)+sizeof(unsigned long);
-    __result_obj__0 = mem+sizeof(unsigned long)+sizeof(unsigned long);
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    size2=(unsigned long  int*)(mem+sizeof(unsigned long  int));
+    *size2=size*count+sizeof(unsigned long  int)+sizeof(unsigned long  int);
+    __result_obj__0 = mem+sizeof(unsigned long  int)+sizeof(unsigned long  int);
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 void come_free(void* mem)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "come_free"; neo_current_frame = &fr;    unsigned long* ref_count  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "come_free"; neo_current_frame = &fr;
+    unsigned long  int* ref_count  ;
     if(mem==((void*)0)) {
         neo_current_frame = fr.prev;
         return;
     }
-    ref_count=(unsigned long*)((char*)mem-sizeof(unsigned long)-sizeof(unsigned long));
+    ref_count=(unsigned long  int*)((char*)mem-sizeof(unsigned long  int)-sizeof(unsigned long  int));
     come_free_mem_of_heap_pool((char*)ref_count);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 void* come_memdup(void* block, const char* sname, int sline, const char* class_name)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "come_memdup"; neo_current_frame = &fr;    void* __result_obj__0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "come_memdup"; neo_current_frame = &fr;
+    void* __result_obj__0;
     char* mem;
-    unsigned long* size_p  ;
-    unsigned long size  ;
+    unsigned long  int* size_p  ;
+    unsigned long  int size  ;
     void* result;
     if(!block) {
         __result_obj__0 = ((void*)0);
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
-    mem=(char*)block-sizeof(unsigned long)-sizeof(unsigned long);
-    size_p=(unsigned long*)(mem+sizeof(unsigned long));
-    size=*size_p-sizeof(unsigned long)-sizeof(unsigned long);
+    mem=(char*)block-sizeof(unsigned long  int)-sizeof(unsigned long  int);
+    size_p=(unsigned long  int*)(mem+sizeof(unsigned long  int));
+    size=*size_p-sizeof(unsigned long  int)-sizeof(unsigned long  int);
     result=come_calloc(1,size,sname,sline,class_name);
     memcpy(result,block,size);
     __result_obj__0 = result;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 void* come_increment_ref_count(void* mem)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "come_increment_ref_count"; neo_current_frame = &fr;    void* __result_obj__0;
-    unsigned long* ref_count  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "come_increment_ref_count"; neo_current_frame = &fr;
+    void* __result_obj__0;
+    unsigned long  int* ref_count  ;
     if(mem==((void*)0)) {
         __result_obj__0 = mem;
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
-    ref_count=(unsigned long*)((char*)mem-sizeof(unsigned long)-sizeof(unsigned long));
+    ref_count=(unsigned long  int*)((char*)mem-sizeof(unsigned long  int)-sizeof(unsigned long  int));
     (*ref_count)++;
     __result_obj__0 = mem;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 void* come_print_ref_count(void* mem)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "come_print_ref_count"; neo_current_frame = &fr;    void* __result_obj__0;
-    unsigned long* ref_count  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "come_print_ref_count"; neo_current_frame = &fr;
+    void* __result_obj__0;
+    unsigned long  int* ref_count  ;
     if(mem==((void*)0)) {
         __result_obj__0 = mem;
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
-    ref_count=(unsigned long*)((char*)mem-sizeof(unsigned long)-sizeof(unsigned long));
+    ref_count=(unsigned long  int*)((char*)mem-sizeof(unsigned long  int)-sizeof(unsigned long  int));
     printf("ref_count %ld\n",*ref_count);
     __result_obj__0 = mem;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 int come_get_ref_count(void* mem)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "come_get_ref_count"; neo_current_frame = &fr;    unsigned long* ref_count  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "come_get_ref_count"; neo_current_frame = &fr;
+    unsigned long  int* ref_count  ;
     if(mem==((void*)0)) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return 0;
     }
-    ref_count=(unsigned long*)((char*)mem-sizeof(unsigned long)-sizeof(unsigned long));
-       neo_current_frame = fr.prev;
+    ref_count=(unsigned long  int*)((char*)mem-sizeof(unsigned long  int)-sizeof(unsigned long  int));
+    neo_current_frame = fr.prev;
     return *ref_count;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 void* come_decrement_ref_count(void* mem, void* protocol_fun, void* protocol_obj, _Bool no_decrement, _Bool no_free, void* result_obj)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "come_decrement_ref_count"; neo_current_frame = &fr;    void* __result_obj__0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "come_decrement_ref_count"; neo_current_frame = &fr;
+    void* __result_obj__0;
     long* ref_count;
     long count;
     void (*finalizer)(void*);
     if(result_obj) {
         if(mem==result_obj) {
             __result_obj__0 = mem;
-            neo_current_frame = fr.prev;            return __result_obj__0;
+            neo_current_frame = fr.prev;
+            return __result_obj__0;
         }
     }
     if(mem==((void*)0)) {
         __result_obj__0 = ((void*)0);
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
-    ref_count=(long*)((char*)mem-sizeof(unsigned long)-sizeof(unsigned long));
+    ref_count=(long*)((char*)mem-sizeof(unsigned long  int)-sizeof(unsigned long  int));
     if(!no_decrement) {
         (*ref_count)--;
     }
@@ -5962,17 +6107,18 @@ fr.fun_name = "come_decrement_ref_count"; neo_current_frame = &fr;    void* __re
         }
         come_free(mem);
         __result_obj__0 = ((void*)0);
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     __result_obj__0 = mem;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* protocol_obj, int call_finalizer_only, int no_decrement, int no_free, void* result_obj)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "come_call_finalizer"; neo_current_frame = &fr;    void (*finalizer)(void*);
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "come_call_finalizer"; neo_current_frame = &fr;
+    void (*finalizer)(void*);
     void (*finalizer_14)(void*);
     void (*finalizer_15)(void*);
     long* ref_count;
@@ -6007,7 +6153,7 @@ fr.fun_name = "come_call_finalizer"; neo_current_frame = &fr;    void (*finalize
         }
     }
     else {
-        ref_count=(long*)((char*)mem-sizeof(unsigned long)-sizeof(unsigned long));
+        ref_count=(long*)((char*)mem-sizeof(unsigned long  int)-sizeof(unsigned long  int));
         if(!no_decrement) {
             (*ref_count)--;
         }
@@ -6036,31 +6182,32 @@ fr.fun_name = "come_call_finalizer"; neo_current_frame = &fr;    void (*finalize
             }
         }
     }
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 void xassert(const char* msg, _Bool test)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "xassert"; neo_current_frame = &fr;    printf("%s...",msg);
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "xassert"; neo_current_frame = &fr;
+    printf("%s...",msg);
     if(!test) {
         puts("false");
         exit(2);
     }
     puts("ok");
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 char* __builtin_string(const char* str)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "__builtin_string"; neo_current_frame = &fr;    char* __result_obj__0  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "__builtin_string"; neo_current_frame = &fr;
+    char* __result_obj__0  ;
     int len;
     void* __right_value0 = (void*)0;
     char* result;
     if(str==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     len=strlen(str)+1;
@@ -6068,15 +6215,15 @@ fr.fun_name = "__builtin_string"; neo_current_frame = &fr;    char* __result_obj
     strncpy(result,str,len);
     __result_obj__0 = (char*)come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 struct buffer* buffer_initialize(struct buffer* self  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "buffer_initialize"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_initialize"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __dec_obj16;
     struct buffer* __result_obj__0  ;
     self->size=128;
@@ -6087,15 +6234,15 @@ fr.fun_name = "buffer_initialize"; neo_current_frame = &fr;    void* __right_val
     self->len=0;
     __result_obj__0 = (struct buffer*)come_increment_ref_count(self);
     come_call_finalizer(buffer_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
-struct buffer* buffer_initialize_with_value(struct buffer* self  , const char* mem, unsigned long size  )
+struct buffer* buffer_initialize_with_value(struct buffer* self  , const char* mem, unsigned long  int size  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "buffer_initialize_with_value"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_initialize_with_value"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __dec_obj17;
     struct buffer* __result_obj__0  ;
     self->size=128;
@@ -6107,30 +6254,31 @@ fr.fun_name = "buffer_initialize_with_value"; neo_current_frame = &fr;    void* 
     buffer_append(self,mem,size);
     __result_obj__0 = (struct buffer*)come_increment_ref_count(self);
     come_call_finalizer(buffer_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 void buffer_finalize(struct buffer* self  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "buffer_finalize"; neo_current_frame = &fr;    if(self&&self->buf) {
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_finalize"; neo_current_frame = &fr;
+    if(self&&self->buf) {
         (self->buf = come_decrement_ref_count(self->buf, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 struct buffer* buffer_clone(struct buffer* self  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "buffer_clone"; neo_current_frame = &fr;    struct buffer* __result_obj__0  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_clone"; neo_current_frame = &fr;
+    struct buffer* __result_obj__0  ;
     void* __right_value0 = (void*)0;
     struct buffer* result  ;
     char* __dec_obj18;
     if(self==((void*)0)) {
         __result_obj__0 = (struct buffer*)come_increment_ref_count(((void*)0));
-        neo_current_frame = fr.prev;        come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+        neo_current_frame = fr.prev;
+        come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
     result=(struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), (void*)0, 2780, "struct buffer*"));
@@ -6142,60 +6290,60 @@ fr.fun_name = "buffer_clone"; neo_current_frame = &fr;    struct buffer* __resul
     memcpy(result->buf,self->buf,self->len);
     __result_obj__0 = (struct buffer*)come_increment_ref_count(result);
     come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 _Bool buffer_equals(struct buffer* left  , struct buffer* right  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "buffer_equals"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_equals"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     _Bool __result_obj__0;
     if(left==((void*)0)&&right==((void*)0)) {
-           neo_current_frame = fr.prev;
-        return 1;
+        neo_current_frame = fr.prev;
+        return (_Bool)1;
     }
     else if(left==((void*)0)||right==((void*)0)) {
-           neo_current_frame = fr.prev;
-        return 0;
+        neo_current_frame = fr.prev;
+        return (_Bool)0;
     }
     __result_obj__0 = string_equals(((char*)(__right_value0=buffer_to_string(left))),((char*)(__right_value1=buffer_to_string(right))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 int buffer_length(struct buffer* self  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "buffer_length"; neo_current_frame = &fr;    if(self==((void*)0)) {
-           neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_length"; neo_current_frame = &fr;
+    if(self==((void*)0)) {
+        neo_current_frame = fr.prev;
         return 0;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return self->len;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 void buffer_reset(struct buffer* self  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "buffer_reset"; neo_current_frame = &fr;    if(self==((void*)0)) {
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_reset"; neo_current_frame = &fr;
+    if(self==((void*)0)) {
         neo_current_frame = fr.prev;
         return;
     }
     self->buf[0]=0;
     self->len=0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 void buffer_trim(struct buffer* self  , int len)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "buffer_trim"; neo_current_frame = &fr;    if(self==((void*)0)) {
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_trim"; neo_current_frame = &fr;
+    if(self==((void*)0)) {
         neo_current_frame = fr.prev;
         return;
     }
@@ -6207,13 +6355,13 @@ fr.fun_name = "buffer_trim"; neo_current_frame = &fr;    if(self==((void*)0)) {
         self->len=0;
         self->buf[0]=0;
     }
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
-struct buffer* buffer_append(struct buffer* self  , const char* mem, unsigned long size  )
+struct buffer* buffer_append(struct buffer* self  , const char* mem, unsigned long  int size  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "buffer_append"; neo_current_frame = &fr;    struct buffer* __result_obj__0  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_append"; neo_current_frame = &fr;
+    struct buffer* __result_obj__0  ;
     void* __right_value0 = (void*)0;
     char* old_buf;
     int old_len;
@@ -6221,7 +6369,8 @@ fr.fun_name = "buffer_append"; neo_current_frame = &fr;    struct buffer* __resu
     char* __dec_obj19;
     if(self==((void*)0)||mem==((void*)0)) {
         __result_obj__0 = self;
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     if(self->len+size+1+1>=self->size) {
         old_buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), (void*)0, 2840, "char*"));
@@ -6240,14 +6389,14 @@ fr.fun_name = "buffer_append"; neo_current_frame = &fr;    struct buffer* __resu
     self->len+=size;
     self->buf[self->len]=0;
     __result_obj__0 = self;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 struct buffer* buffer_append_char(struct buffer* self  , char c)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "buffer_append_char"; neo_current_frame = &fr;    struct buffer* __result_obj__0  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_append_char"; neo_current_frame = &fr;
+    struct buffer* __result_obj__0  ;
     void* __right_value0 = (void*)0;
     char* old_buf;
     int old_len;
@@ -6255,7 +6404,8 @@ fr.fun_name = "buffer_append_char"; neo_current_frame = &fr;    struct buffer* _
     char* __dec_obj20;
     if(self==((void*)0)) {
         __result_obj__0 = ((void*)0);
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     if(self->len+1+1+1>=self->size) {
         old_buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), (void*)0, 2864, "char*"));
@@ -6274,14 +6424,14 @@ fr.fun_name = "buffer_append_char"; neo_current_frame = &fr;    struct buffer* _
     self->len++;
     self->buf[self->len]=0;
     __result_obj__0 = self;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 struct buffer* buffer_append_str(struct buffer* self  , const char* mem)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "buffer_append_str"; neo_current_frame = &fr;    struct buffer* __result_obj__0  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_append_str"; neo_current_frame = &fr;
+    struct buffer* __result_obj__0  ;
     int size;
     void* __right_value0 = (void*)0;
     char* old_buf;
@@ -6290,7 +6440,8 @@ fr.fun_name = "buffer_append_str"; neo_current_frame = &fr;    struct buffer* __
     char* __dec_obj21;
     if(self==((void*)0)||mem==((void*)0)) {
         __result_obj__0 = self;
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     size=strlen(mem);
     if(self->len+size+1+1>=self->size) {
@@ -6310,14 +6461,14 @@ fr.fun_name = "buffer_append_str"; neo_current_frame = &fr;    struct buffer* __
     self->len+=size;
     self->buf[self->len]=0;
     __result_obj__0 = self;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 struct buffer* buffer_append_format(struct buffer* self  , const char* msg, ...)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "buffer_append_format"; neo_current_frame = &fr;    struct buffer* __result_obj__0  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_append_format"; neo_current_frame = &fr;
+    struct buffer* __result_obj__0  ;
     __builtin_va_list args  ;
     char* result;
     int len;
@@ -6331,14 +6482,16 @@ fr.fun_name = "buffer_append_format"; neo_current_frame = &fr;    struct buffer*
     memset(&result, 0, sizeof(result));
     if(self==((void*)0)||msg==((void*)0)) {
         __result_obj__0 = self;
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     __builtin_va_start(args,msg);
     len=vasprintf(&result,msg,args);
     __builtin_va_end(args);
     if(len<0) {
         __result_obj__0 = self;
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     mem=(char*)come_increment_ref_count(__builtin_string(result));
     size=strlen(mem);
@@ -6361,14 +6514,14 @@ fr.fun_name = "buffer_append_format"; neo_current_frame = &fr;    struct buffer*
     free(result);
     __result_obj__0 = self;
     (mem = come_decrement_ref_count(mem, (void*)0, (void*)0, 0, 0, (void*)0));
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 struct buffer* buffer_append_nullterminated_str(struct buffer* self  , const char* mem)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "buffer_append_nullterminated_str"; neo_current_frame = &fr;    struct buffer* __result_obj__0  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_append_nullterminated_str"; neo_current_frame = &fr;
+    struct buffer* __result_obj__0  ;
     int size;
     void* __right_value0 = (void*)0;
     char* old_buf;
@@ -6377,7 +6530,8 @@ fr.fun_name = "buffer_append_nullterminated_str"; neo_current_frame = &fr;    st
     char* __dec_obj23;
     if(self==((void*)0)||mem==((void*)0)) {
         __result_obj__0 = self;
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     size=strlen(mem)+1;
     if(self->len+size+1+1+1>=self->size) {
@@ -6398,14 +6552,14 @@ fr.fun_name = "buffer_append_nullterminated_str"; neo_current_frame = &fr;    st
     self->buf[self->len]=0;
     self->len++;
     __result_obj__0 = self;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 struct buffer* buffer_append_int(struct buffer* self  , int value)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "buffer_append_int"; neo_current_frame = &fr;    struct buffer* __result_obj__0  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_append_int"; neo_current_frame = &fr;
+    struct buffer* __result_obj__0  ;
     int* mem;
     int size;
     void* __right_value0 = (void*)0;
@@ -6415,7 +6569,8 @@ fr.fun_name = "buffer_append_int"; neo_current_frame = &fr;    struct buffer* __
     char* __dec_obj24;
     if(self==((void*)0)) {
         __result_obj__0 = ((void*)0);
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     mem=&value;
     size=sizeof(int);
@@ -6436,14 +6591,14 @@ fr.fun_name = "buffer_append_int"; neo_current_frame = &fr;    struct buffer* __
     self->len+=size;
     self->buf[self->len]=0;
     __result_obj__0 = self;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 struct buffer* buffer_append_long(struct buffer* self  , long value)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "buffer_append_long"; neo_current_frame = &fr;    struct buffer* __result_obj__0  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_append_long"; neo_current_frame = &fr;
+    struct buffer* __result_obj__0  ;
     long* mem;
     int size;
     void* __right_value0 = (void*)0;
@@ -6453,7 +6608,8 @@ fr.fun_name = "buffer_append_long"; neo_current_frame = &fr;    struct buffer* _
     char* __dec_obj25;
     if(self==((void*)0)) {
         __result_obj__0 = ((void*)0);
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     mem=&value;
     size=sizeof(long);
@@ -6474,14 +6630,14 @@ fr.fun_name = "buffer_append_long"; neo_current_frame = &fr;    struct buffer* _
     self->len+=size;
     self->buf[self->len]=0;
     __result_obj__0 = self;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 struct buffer* buffer_append_short(struct buffer* self  , short value)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "buffer_append_short"; neo_current_frame = &fr;    struct buffer* __result_obj__0  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_append_short"; neo_current_frame = &fr;
+    struct buffer* __result_obj__0  ;
     short* mem;
     int size;
     void* __right_value0 = (void*)0;
@@ -6491,7 +6647,8 @@ fr.fun_name = "buffer_append_short"; neo_current_frame = &fr;    struct buffer* 
     char* __dec_obj26;
     if(self==((void*)0)) {
         __result_obj__0 = ((void*)0);
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     mem=&value;
     size=sizeof(short);
@@ -6512,14 +6669,14 @@ fr.fun_name = "buffer_append_short"; neo_current_frame = &fr;    struct buffer* 
     self->len+=size;
     self->buf[self->len]=0;
     __result_obj__0 = self;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 struct buffer* buffer_alignment(struct buffer* self  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "buffer_alignment"; neo_current_frame = &fr;    struct buffer* __result_obj__0  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_alignment"; neo_current_frame = &fr;
+    struct buffer* __result_obj__0  ;
     int len;
     void* __right_value0 = (void*)0;
     char* old_buf;
@@ -6529,7 +6686,8 @@ fr.fun_name = "buffer_alignment"; neo_current_frame = &fr;    struct buffer* __r
     int i;
     if(self==((void*)0)) {
         __result_obj__0 = ((void*)0);
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     len=self->len;
     len=(len+3)&~3;
@@ -6551,34 +6709,34 @@ fr.fun_name = "buffer_alignment"; neo_current_frame = &fr;    struct buffer* __r
     }
     self->len=len;
     __result_obj__0 = self;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 int buffer_compare(struct buffer* left  , struct buffer* right  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "buffer_compare"; neo_current_frame = &fr;    if(left==((void*)0)&&right==((void*)0)) {
-           neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_compare"; neo_current_frame = &fr;
+    if(left==((void*)0)&&right==((void*)0)) {
+        neo_current_frame = fr.prev;
         return 0;
     }
     else if(left==((void*)0)) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return -1;
     }
     else if(right==((void*)0)) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return 1;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return strcmp(left->buf,right->buf);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 struct buffer* charp_to_buffer(const char* self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_to_buffer"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_to_buffer"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct buffer* result  ;
     struct buffer* __result_obj__0  ;
@@ -6586,52 +6744,55 @@ fr.fun_name = "charp_to_buffer"; neo_current_frame = &fr;    void* __right_value
     if(self==((void*)0)) {
         __result_obj__0 = (struct buffer*)come_increment_ref_count(result);
         come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-        neo_current_frame = fr.prev;        come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+        neo_current_frame = fr.prev;
+        come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
     buffer_append_str(result,self);
     __result_obj__0 = (struct buffer*)come_increment_ref_count(result);
     come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* buffer_to_string(struct buffer* self  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "buffer_to_string"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_to_string"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     if(self==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(self->buf))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 unsigned char* buffer_head_pointer(struct buffer* self  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "buffer_head_pointer"; neo_current_frame = &fr;    unsigned char* __result_obj__0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_head_pointer"; neo_current_frame = &fr;
+    unsigned char* __result_obj__0;
     if(self==((void*)0)) {
         __result_obj__0 = ((void*)0);
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     __result_obj__0 = self->buf;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
-struct buffer* chara_to_buffer(char* self, unsigned long len  )
+struct buffer* chara_to_buffer(char* self, unsigned long  int len  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "chara_to_buffer"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "chara_to_buffer"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct buffer* result  ;
     struct buffer* __result_obj__0  ;
@@ -6639,21 +6800,22 @@ fr.fun_name = "chara_to_buffer"; neo_current_frame = &fr;    void* __right_value
     if(self==((void*)0)) {
         __result_obj__0 = (struct buffer*)come_increment_ref_count(result);
         come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-        neo_current_frame = fr.prev;        come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+        neo_current_frame = fr.prev;
+        come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
     buffer_append(result,self,sizeof(char)*len);
     __result_obj__0 = (struct buffer*)come_increment_ref_count(result);
     come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
-struct buffer* charpa_to_buffer(char** self, unsigned long len  )
+struct buffer* charpa_to_buffer(char** self, unsigned long  int len  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charpa_to_buffer"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charpa_to_buffer"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct buffer* result  ;
     struct buffer* __result_obj__0  ;
@@ -6662,7 +6824,8 @@ fr.fun_name = "charpa_to_buffer"; neo_current_frame = &fr;    void* __right_valu
     if(self==((void*)0)) {
         __result_obj__0 = (struct buffer*)come_increment_ref_count(result);
         come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-        neo_current_frame = fr.prev;        come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+        neo_current_frame = fr.prev;
+        come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
     for(i=0;i<len;i++){
@@ -6670,15 +6833,15 @@ fr.fun_name = "charpa_to_buffer"; neo_current_frame = &fr;    void* __right_valu
     }
     __result_obj__0 = (struct buffer*)come_increment_ref_count(result);
     come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
-struct buffer* shorta_to_buffer(short* self, unsigned long len  )
+struct buffer* shorta_to_buffer(short* self, unsigned long  int len  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "shorta_to_buffer"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "shorta_to_buffer"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct buffer* result  ;
     struct buffer* __result_obj__0  ;
@@ -6686,21 +6849,22 @@ fr.fun_name = "shorta_to_buffer"; neo_current_frame = &fr;    void* __right_valu
     if(self==((void*)0)) {
         __result_obj__0 = (struct buffer*)come_increment_ref_count(result);
         come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-        neo_current_frame = fr.prev;        come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+        neo_current_frame = fr.prev;
+        come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
     buffer_append(result,(char*)self,sizeof(short)*len);
     __result_obj__0 = (struct buffer*)come_increment_ref_count(result);
     come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
-struct buffer* inta_to_buffer(int* self, unsigned long len  )
+struct buffer* inta_to_buffer(int* self, unsigned long  int len  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "inta_to_buffer"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "inta_to_buffer"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct buffer* result  ;
     struct buffer* __result_obj__0  ;
@@ -6708,21 +6872,22 @@ fr.fun_name = "inta_to_buffer"; neo_current_frame = &fr;    void* __right_value0
     if(self==((void*)0)) {
         __result_obj__0 = (struct buffer*)come_increment_ref_count(result);
         come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-        neo_current_frame = fr.prev;        come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+        neo_current_frame = fr.prev;
+        come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
     buffer_append(result,(char*)self,sizeof(int)*len);
     __result_obj__0 = (struct buffer*)come_increment_ref_count(result);
     come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
-struct buffer* longa_to_buffer(long* self, unsigned long len  )
+struct buffer* longa_to_buffer(long* self, unsigned long  int len  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "longa_to_buffer"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "longa_to_buffer"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct buffer* result  ;
     struct buffer* __result_obj__0  ;
@@ -6730,21 +6895,22 @@ fr.fun_name = "longa_to_buffer"; neo_current_frame = &fr;    void* __right_value
     if(self==((void*)0)) {
         __result_obj__0 = (struct buffer*)come_increment_ref_count(result);
         come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-        neo_current_frame = fr.prev;        come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+        neo_current_frame = fr.prev;
+        come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
     buffer_append(result,(char*)self,sizeof(long)*len);
     __result_obj__0 = (struct buffer*)come_increment_ref_count(result);
     come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
-struct buffer* floata_to_buffer(float* self, unsigned long len  )
+struct buffer* floata_to_buffer(float* self, unsigned long  int len  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "floata_to_buffer"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "floata_to_buffer"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct buffer* result  ;
     struct buffer* __result_obj__0  ;
@@ -6752,21 +6918,22 @@ fr.fun_name = "floata_to_buffer"; neo_current_frame = &fr;    void* __right_valu
     if(self==((void*)0)) {
         __result_obj__0 = (struct buffer*)come_increment_ref_count(result);
         come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-        neo_current_frame = fr.prev;        come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+        neo_current_frame = fr.prev;
+        come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
     buffer_append(result,(char*)self,sizeof(float)*len);
     __result_obj__0 = (struct buffer*)come_increment_ref_count(result);
     come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
-struct buffer* doublea_to_buffer(double* self, unsigned long len  )
+struct buffer* doublea_to_buffer(double* self, unsigned long  int len  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "doublea_to_buffer"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "doublea_to_buffer"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct buffer* result  ;
     struct buffer* __result_obj__0  ;
@@ -6774,21 +6941,22 @@ fr.fun_name = "doublea_to_buffer"; neo_current_frame = &fr;    void* __right_val
     if(self==((void*)0)) {
         __result_obj__0 = (struct buffer*)come_increment_ref_count(result);
         come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-        neo_current_frame = fr.prev;        come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+        neo_current_frame = fr.prev;
+        come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
     buffer_append(result,(char*)self,sizeof(double)*len);
     __result_obj__0 = (struct buffer*)come_increment_ref_count(result);
     come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* buffer_printable(struct buffer* self  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "buffer_printable"; neo_current_frame = &fr;    int len;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_printable"; neo_current_frame = &fr;
+    int len;
     void* __right_value0 = (void*)0;
     char* result  ;
     char* __result_obj__0  ;
@@ -6800,7 +6968,8 @@ fr.fun_name = "buffer_printable"; neo_current_frame = &fr;    int len;
     if(self==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(result);
         (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     n=0;
@@ -6820,15 +6989,15 @@ fr.fun_name = "buffer_printable"; neo_current_frame = &fr;    int len;
     result[n]=0;
     __result_obj__0 = (char*)come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 static struct list$1char$* list$1char$_initialize_with_values(struct list$1char$* self, int num_value, char* values)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1char$_initialize_with_values"; neo_current_frame = &fr;    int i;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$_initialize_with_values"; neo_current_frame = &fr;
+    int i;
     struct list$1char$* __result_obj__0;
     self->head=((void*)0);
     self->tail=((void*)0);
@@ -6838,22 +7007,23 @@ fr.fun_name = "list$1char$_initialize_with_values"; neo_current_frame = &fr;    
     }
     __result_obj__0 = (struct list$1char$*)come_increment_ref_count(self);
     come_call_finalizer(list$1char$$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(list$1char$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(list$1char$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-    neo_current_frame = fr.prev;}
+}
 
 static struct list$1char$* list$1char$_push_back(struct list$1char$* self, char item)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1char$_push_back"; neo_current_frame = &fr;    struct list$1char$* __result_obj__0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$_push_back"; neo_current_frame = &fr;
+    struct list$1char$* __result_obj__0;
     void* __right_value0 = (void*)0;
     struct list_item$1char$* litem;
     struct list_item$1char$* litem_19;
     struct list_item$1char$* litem_20;
     if(self==((void*)0)) {
         __result_obj__0 = self;
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     if(self->len==0) {
         litem=(struct list_item$1char$*)come_increment_ref_count(((struct list_item$1char$*)(__right_value0=(struct list_item$1char$*)come_calloc(1, sizeof(struct list_item$1char$)*(1), (void*)0, 701, "struct list_item$1char$*"))));
@@ -6881,14 +7051,14 @@ fr.fun_name = "list$1char$_push_back"; neo_current_frame = &fr;    struct list$1
     }
     self->len++;
     __result_obj__0 = self;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-        neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 static void list$1char$$p_finalize(struct list$1char$* self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1char$$p_finalize"; neo_current_frame = &fr;    struct list_item$1char$* it;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$$p_finalize"; neo_current_frame = &fr;
+    struct list_item$1char$* it;
     struct list_item$1char$* prev_it;
     if(self==((void*)0)) {
         neo_current_frame = fr.prev;
@@ -6900,32 +7070,32 @@ fr.fun_name = "list$1char$$p_finalize"; neo_current_frame = &fr;    struct list_
         it=it->next;
         come_call_finalizer(list_item$1char$$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 static void list_item$1char$$p_finalize(struct list_item$1char$* self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list_item$1char$$p_finalize"; neo_current_frame = &fr;        neo_current_frame = fr.prev;}
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1char$$p_finalize"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+}
 
-struct list$1char$* chara_to_list(char* self, unsigned long len  )
+struct list$1char$* chara_to_list(char* self, unsigned long  int len  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "chara_to_list"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "chara_to_list"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1char$* __result_obj__0;
     __result_obj__0 = (struct list$1char$*)come_increment_ref_count(((struct list$1char$*)(__right_value1=list$1char$_initialize_with_values((struct list$1char$*)come_increment_ref_count((struct list$1char$*)come_calloc(1, sizeof(struct list$1char$)*(1), (void*)0, 3289, "struct list$1char$*")),len,self))));
     come_call_finalizer(list$1char$$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(list$1char$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(list$1char$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 static struct list$1char$p* list$1char$p_initialize_with_values(struct list$1char$p* self, int num_value, char** values)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1char$p_initialize_with_values"; neo_current_frame = &fr;    int i;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$p_initialize_with_values"; neo_current_frame = &fr;
+    int i;
     struct list$1char$p* __result_obj__0;
     self->head=((void*)0);
     self->tail=((void*)0);
@@ -6935,22 +7105,23 @@ fr.fun_name = "list$1char$p_initialize_with_values"; neo_current_frame = &fr;   
     }
     __result_obj__0 = (struct list$1char$p*)come_increment_ref_count(self);
     come_call_finalizer(list$1char$p$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(list$1char$p$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(list$1char$p$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-    neo_current_frame = fr.prev;}
+}
 
 static struct list$1char$p* list$1char$p_push_back(struct list$1char$p* self, char* item)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1char$p_push_back"; neo_current_frame = &fr;    struct list$1char$p* __result_obj__0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$p_push_back"; neo_current_frame = &fr;
+    struct list$1char$p* __result_obj__0;
     void* __right_value0 = (void*)0;
     struct list_item$1char$p* litem;
     struct list_item$1char$p* litem_21;
     struct list_item$1char$p* litem_22;
     if(self==((void*)0)) {
         __result_obj__0 = self;
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     if(self->len==0) {
         litem=(struct list_item$1char$p*)come_increment_ref_count(((struct list_item$1char$p*)(__right_value0=(struct list_item$1char$p*)come_calloc(1, sizeof(struct list_item$1char$p)*(1), (void*)0, 701, "struct list_item$1char$p*"))));
@@ -6978,14 +7149,14 @@ fr.fun_name = "list$1char$p_push_back"; neo_current_frame = &fr;    struct list$
     }
     self->len++;
     __result_obj__0 = self;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-        neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 static void list$1char$p$p_finalize(struct list$1char$p* self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1char$p$p_finalize"; neo_current_frame = &fr;    struct list_item$1char$p* it;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$p$p_finalize"; neo_current_frame = &fr;
+    struct list_item$1char$p* it;
     struct list_item$1char$p* prev_it;
     if(self==((void*)0)) {
         neo_current_frame = fr.prev;
@@ -6997,32 +7168,32 @@ fr.fun_name = "list$1char$p$p_finalize"; neo_current_frame = &fr;    struct list
         it=it->next;
         come_call_finalizer(list_item$1char$p$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 static void list_item$1char$p$p_finalize(struct list_item$1char$p* self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list_item$1char$p$p_finalize"; neo_current_frame = &fr;        neo_current_frame = fr.prev;}
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1char$p$p_finalize"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+}
 
-struct list$1char$p* charpa_to_list(char** self, unsigned long len  )
+struct list$1char$p* charpa_to_list(char** self, unsigned long  int len  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charpa_to_list"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charpa_to_list"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1char$p* __result_obj__0;
     __result_obj__0 = (struct list$1char$p*)come_increment_ref_count(((struct list$1char$p*)(__right_value1=list$1char$p_initialize_with_values((struct list$1char$p*)come_increment_ref_count((struct list$1char$p*)come_calloc(1, sizeof(struct list$1char$p)*(1), (void*)0, 3294, "struct list$1char$p*")),len,self))));
     come_call_finalizer(list$1char$p$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(list$1char$p$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(list$1char$p$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 static struct list$1short$* list$1short$_initialize_with_values(struct list$1short$* self, int num_value, short* values)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1short$_initialize_with_values"; neo_current_frame = &fr;    int i;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1short$_initialize_with_values"; neo_current_frame = &fr;
+    int i;
     struct list$1short$* __result_obj__0;
     self->head=((void*)0);
     self->tail=((void*)0);
@@ -7032,22 +7203,23 @@ fr.fun_name = "list$1short$_initialize_with_values"; neo_current_frame = &fr;   
     }
     __result_obj__0 = (struct list$1short$*)come_increment_ref_count(self);
     come_call_finalizer(list$1short$$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(list$1short$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(list$1short$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-    neo_current_frame = fr.prev;}
+}
 
 static struct list$1short$* list$1short$_push_back(struct list$1short$* self, short item)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1short$_push_back"; neo_current_frame = &fr;    struct list$1short$* __result_obj__0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1short$_push_back"; neo_current_frame = &fr;
+    struct list$1short$* __result_obj__0;
     void* __right_value0 = (void*)0;
     struct list_item$1short$* litem;
     struct list_item$1short$* litem_23;
     struct list_item$1short$* litem_24;
     if(self==((void*)0)) {
         __result_obj__0 = self;
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     if(self->len==0) {
         litem=(struct list_item$1short$*)come_increment_ref_count(((struct list_item$1short$*)(__right_value0=(struct list_item$1short$*)come_calloc(1, sizeof(struct list_item$1short$)*(1), (void*)0, 701, "struct list_item$1short$*"))));
@@ -7075,14 +7247,14 @@ fr.fun_name = "list$1short$_push_back"; neo_current_frame = &fr;    struct list$
     }
     self->len++;
     __result_obj__0 = self;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-        neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 static void list$1short$$p_finalize(struct list$1short$* self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1short$$p_finalize"; neo_current_frame = &fr;    struct list_item$1short$* it;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1short$$p_finalize"; neo_current_frame = &fr;
+    struct list_item$1short$* it;
     struct list_item$1short$* prev_it;
     if(self==((void*)0)) {
         neo_current_frame = fr.prev;
@@ -7094,32 +7266,32 @@ fr.fun_name = "list$1short$$p_finalize"; neo_current_frame = &fr;    struct list
         it=it->next;
         come_call_finalizer(list_item$1short$$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 static void list_item$1short$$p_finalize(struct list_item$1short$* self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list_item$1short$$p_finalize"; neo_current_frame = &fr;        neo_current_frame = fr.prev;}
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1short$$p_finalize"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+}
 
-struct list$1short$* shorta_to_list(short* self, unsigned long len  )
+struct list$1short$* shorta_to_list(short* self, unsigned long  int len  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "shorta_to_list"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "shorta_to_list"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1short$* __result_obj__0;
     __result_obj__0 = (struct list$1short$*)come_increment_ref_count(((struct list$1short$*)(__right_value1=list$1short$_initialize_with_values((struct list$1short$*)come_increment_ref_count((struct list$1short$*)come_calloc(1, sizeof(struct list$1short$)*(1), (void*)0, 3299, "struct list$1short$*")),len,self))));
     come_call_finalizer(list$1short$$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(list$1short$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(list$1short$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 static struct list$1int$* list$1int$_initialize_with_values(struct list$1int$* self, int num_value, int* values)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1int$_initialize_with_values"; neo_current_frame = &fr;    int i;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1int$_initialize_with_values"; neo_current_frame = &fr;
+    int i;
     struct list$1int$* __result_obj__0;
     self->head=((void*)0);
     self->tail=((void*)0);
@@ -7129,22 +7301,23 @@ fr.fun_name = "list$1int$_initialize_with_values"; neo_current_frame = &fr;    i
     }
     __result_obj__0 = (struct list$1int$*)come_increment_ref_count(self);
     come_call_finalizer(list$1int$$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(list$1int$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(list$1int$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-    neo_current_frame = fr.prev;}
+}
 
 static struct list$1int$* list$1int$_push_back(struct list$1int$* self, int item)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1int$_push_back"; neo_current_frame = &fr;    struct list$1int$* __result_obj__0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1int$_push_back"; neo_current_frame = &fr;
+    struct list$1int$* __result_obj__0;
     void* __right_value0 = (void*)0;
     struct list_item$1int$* litem;
     struct list_item$1int$* litem_25;
     struct list_item$1int$* litem_26;
     if(self==((void*)0)) {
         __result_obj__0 = self;
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     if(self->len==0) {
         litem=(struct list_item$1int$*)come_increment_ref_count(((struct list_item$1int$*)(__right_value0=(struct list_item$1int$*)come_calloc(1, sizeof(struct list_item$1int$)*(1), (void*)0, 701, "struct list_item$1int$*"))));
@@ -7172,14 +7345,14 @@ fr.fun_name = "list$1int$_push_back"; neo_current_frame = &fr;    struct list$1i
     }
     self->len++;
     __result_obj__0 = self;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-        neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 static void list$1int$$p_finalize(struct list$1int$* self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1int$$p_finalize"; neo_current_frame = &fr;    struct list_item$1int$* it;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1int$$p_finalize"; neo_current_frame = &fr;
+    struct list_item$1int$* it;
     struct list_item$1int$* prev_it;
     if(self==((void*)0)) {
         neo_current_frame = fr.prev;
@@ -7191,32 +7364,32 @@ fr.fun_name = "list$1int$$p_finalize"; neo_current_frame = &fr;    struct list_i
         it=it->next;
         come_call_finalizer(list_item$1int$$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 static void list_item$1int$$p_finalize(struct list_item$1int$* self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list_item$1int$$p_finalize"; neo_current_frame = &fr;        neo_current_frame = fr.prev;}
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1int$$p_finalize"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+}
 
-struct list$1int$* inta_to_list(int* self, unsigned long len  )
+struct list$1int$* inta_to_list(int* self, unsigned long  int len  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "inta_to_list"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "inta_to_list"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1int$* __result_obj__0;
     __result_obj__0 = (struct list$1int$*)come_increment_ref_count(((struct list$1int$*)(__right_value1=list$1int$_initialize_with_values((struct list$1int$*)come_increment_ref_count((struct list$1int$*)come_calloc(1, sizeof(struct list$1int$)*(1), (void*)0, 3304, "struct list$1int$*")),len,self))));
     come_call_finalizer(list$1int$$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(list$1int$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(list$1int$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 static struct list$1long$* list$1long$_initialize_with_values(struct list$1long$* self, int num_value, long* values)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1long$_initialize_with_values"; neo_current_frame = &fr;    int i;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1long$_initialize_with_values"; neo_current_frame = &fr;
+    int i;
     struct list$1long$* __result_obj__0;
     self->head=((void*)0);
     self->tail=((void*)0);
@@ -7226,22 +7399,23 @@ fr.fun_name = "list$1long$_initialize_with_values"; neo_current_frame = &fr;    
     }
     __result_obj__0 = (struct list$1long$*)come_increment_ref_count(self);
     come_call_finalizer(list$1long$$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(list$1long$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(list$1long$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-    neo_current_frame = fr.prev;}
+}
 
 static struct list$1long$* list$1long$_push_back(struct list$1long$* self, long item)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1long$_push_back"; neo_current_frame = &fr;    struct list$1long$* __result_obj__0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1long$_push_back"; neo_current_frame = &fr;
+    struct list$1long$* __result_obj__0;
     void* __right_value0 = (void*)0;
     struct list_item$1long$* litem;
     struct list_item$1long$* litem_27;
     struct list_item$1long$* litem_28;
     if(self==((void*)0)) {
         __result_obj__0 = self;
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     if(self->len==0) {
         litem=(struct list_item$1long$*)come_increment_ref_count(((struct list_item$1long$*)(__right_value0=(struct list_item$1long$*)come_calloc(1, sizeof(struct list_item$1long$)*(1), (void*)0, 701, "struct list_item$1long$*"))));
@@ -7269,14 +7443,14 @@ fr.fun_name = "list$1long$_push_back"; neo_current_frame = &fr;    struct list$1
     }
     self->len++;
     __result_obj__0 = self;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-        neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 static void list$1long$$p_finalize(struct list$1long$* self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1long$$p_finalize"; neo_current_frame = &fr;    struct list_item$1long$* it;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1long$$p_finalize"; neo_current_frame = &fr;
+    struct list_item$1long$* it;
     struct list_item$1long$* prev_it;
     if(self==((void*)0)) {
         neo_current_frame = fr.prev;
@@ -7288,32 +7462,32 @@ fr.fun_name = "list$1long$$p_finalize"; neo_current_frame = &fr;    struct list_
         it=it->next;
         come_call_finalizer(list_item$1long$$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 static void list_item$1long$$p_finalize(struct list_item$1long$* self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list_item$1long$$p_finalize"; neo_current_frame = &fr;        neo_current_frame = fr.prev;}
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1long$$p_finalize"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+}
 
-struct list$1long$* longa_to_list(long* self, unsigned long len  )
+struct list$1long$* longa_to_list(long* self, unsigned long  int len  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "longa_to_list"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "longa_to_list"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1long$* __result_obj__0;
     __result_obj__0 = (struct list$1long$*)come_increment_ref_count(((struct list$1long$*)(__right_value1=list$1long$_initialize_with_values((struct list$1long$*)come_increment_ref_count((struct list$1long$*)come_calloc(1, sizeof(struct list$1long$)*(1), (void*)0, 3309, "struct list$1long$*")),len,self))));
     come_call_finalizer(list$1long$$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(list$1long$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(list$1long$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 static struct list$1float$* list$1float$_initialize_with_values(struct list$1float$* self, int num_value, float* values)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1float$_initialize_with_values"; neo_current_frame = &fr;    int i;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1float$_initialize_with_values"; neo_current_frame = &fr;
+    int i;
     struct list$1float$* __result_obj__0;
     self->head=((void*)0);
     self->tail=((void*)0);
@@ -7323,22 +7497,23 @@ fr.fun_name = "list$1float$_initialize_with_values"; neo_current_frame = &fr;   
     }
     __result_obj__0 = (struct list$1float$*)come_increment_ref_count(self);
     come_call_finalizer(list$1float$$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(list$1float$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(list$1float$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-    neo_current_frame = fr.prev;}
+}
 
 static struct list$1float$* list$1float$_push_back(struct list$1float$* self, float item)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1float$_push_back"; neo_current_frame = &fr;    struct list$1float$* __result_obj__0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1float$_push_back"; neo_current_frame = &fr;
+    struct list$1float$* __result_obj__0;
     void* __right_value0 = (void*)0;
     struct list_item$1float$* litem;
     struct list_item$1float$* litem_29;
     struct list_item$1float$* litem_30;
     if(self==((void*)0)) {
         __result_obj__0 = self;
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     if(self->len==0) {
         litem=(struct list_item$1float$*)come_increment_ref_count(((struct list_item$1float$*)(__right_value0=(struct list_item$1float$*)come_calloc(1, sizeof(struct list_item$1float$)*(1), (void*)0, 701, "struct list_item$1float$*"))));
@@ -7366,14 +7541,14 @@ fr.fun_name = "list$1float$_push_back"; neo_current_frame = &fr;    struct list$
     }
     self->len++;
     __result_obj__0 = self;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-        neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 static void list$1float$$p_finalize(struct list$1float$* self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1float$$p_finalize"; neo_current_frame = &fr;    struct list_item$1float$* it;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1float$$p_finalize"; neo_current_frame = &fr;
+    struct list_item$1float$* it;
     struct list_item$1float$* prev_it;
     if(self==((void*)0)) {
         neo_current_frame = fr.prev;
@@ -7385,32 +7560,32 @@ fr.fun_name = "list$1float$$p_finalize"; neo_current_frame = &fr;    struct list
         it=it->next;
         come_call_finalizer(list_item$1float$$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 static void list_item$1float$$p_finalize(struct list_item$1float$* self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list_item$1float$$p_finalize"; neo_current_frame = &fr;        neo_current_frame = fr.prev;}
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1float$$p_finalize"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+}
 
-struct list$1float$* floata_to_list(float* self, unsigned long len  )
+struct list$1float$* floata_to_list(float* self, unsigned long  int len  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "floata_to_list"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "floata_to_list"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1float$* __result_obj__0;
     __result_obj__0 = (struct list$1float$*)come_increment_ref_count(((struct list$1float$*)(__right_value1=list$1float$_initialize_with_values((struct list$1float$*)come_increment_ref_count((struct list$1float$*)come_calloc(1, sizeof(struct list$1float$)*(1), (void*)0, 3314, "struct list$1float$*")),len,self))));
     come_call_finalizer(list$1float$$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(list$1float$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(list$1float$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 static struct list$1double$* list$1double$_initialize_with_values(struct list$1double$* self, int num_value, double* values)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1double$_initialize_with_values"; neo_current_frame = &fr;    int i;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1double$_initialize_with_values"; neo_current_frame = &fr;
+    int i;
     struct list$1double$* __result_obj__0;
     self->head=((void*)0);
     self->tail=((void*)0);
@@ -7420,22 +7595,23 @@ fr.fun_name = "list$1double$_initialize_with_values"; neo_current_frame = &fr;  
     }
     __result_obj__0 = (struct list$1double$*)come_increment_ref_count(self);
     come_call_finalizer(list$1double$$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(list$1double$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(list$1double$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-    neo_current_frame = fr.prev;}
+}
 
 static struct list$1double$* list$1double$_push_back(struct list$1double$* self, double item)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1double$_push_back"; neo_current_frame = &fr;    struct list$1double$* __result_obj__0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1double$_push_back"; neo_current_frame = &fr;
+    struct list$1double$* __result_obj__0;
     void* __right_value0 = (void*)0;
     struct list_item$1double$* litem;
     struct list_item$1double$* litem_31;
     struct list_item$1double$* litem_32;
     if(self==((void*)0)) {
         __result_obj__0 = self;
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     if(self->len==0) {
         litem=(struct list_item$1double$*)come_increment_ref_count(((struct list_item$1double$*)(__right_value0=(struct list_item$1double$*)come_calloc(1, sizeof(struct list_item$1double$)*(1), (void*)0, 701, "struct list_item$1double$*"))));
@@ -7463,14 +7639,14 @@ fr.fun_name = "list$1double$_push_back"; neo_current_frame = &fr;    struct list
     }
     self->len++;
     __result_obj__0 = self;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-        neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 static void list$1double$$p_finalize(struct list$1double$* self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list$1double$$p_finalize"; neo_current_frame = &fr;    struct list_item$1double$* it;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list$1double$$p_finalize"; neo_current_frame = &fr;
+    struct list_item$1double$* it;
     struct list_item$1double$* prev_it;
     if(self==((void*)0)) {
         neo_current_frame = fr.prev;
@@ -7482,343 +7658,344 @@ fr.fun_name = "list$1double$$p_finalize"; neo_current_frame = &fr;    struct lis
         it=it->next;
         come_call_finalizer(list_item$1double$$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 static void list_item$1double$$p_finalize(struct list_item$1double$* self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "list_item$1double$$p_finalize"; neo_current_frame = &fr;        neo_current_frame = fr.prev;}
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1double$$p_finalize"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+}
 
-struct list$1double$* doublea_to_list(double* self, unsigned long len  )
+struct list$1double$* doublea_to_list(double* self, unsigned long  int len  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "doublea_to_list"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "doublea_to_list"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1double$* __result_obj__0;
     __result_obj__0 = (struct list$1double$*)come_increment_ref_count(((struct list$1double$*)(__right_value1=list$1double$_initialize_with_values((struct list$1double$*)come_increment_ref_count((struct list$1double$*)come_calloc(1, sizeof(struct list$1double$)*(1), (void*)0, 3319, "struct list$1double$*")),len,self))));
     come_call_finalizer(list$1double$$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(list$1double$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(list$1double$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 _Bool _Bool_equals(_Bool self, _Bool right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "_Bool_equals"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "_Bool_equals"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return self==right;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool char_equals(char self, char right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "char_equals"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "char_equals"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return self==right;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool short_equals(short self, short right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "short_equals"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "short_equals"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return self==right;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool int_equals(int self, int right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "int_equals"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "int_equals"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return self==right;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool long_equals(long self, long right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "long_equals"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "long_equals"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return self==right;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
-_Bool size_t_equals(unsigned long self  , unsigned long right  )
+_Bool size_t_equals(unsigned long  int self  , unsigned long  int right  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "size_t_equals"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "size_t_equals"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return self==right;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool float_equals(float self, float right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "float_equals"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "float_equals"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return self==right;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool double_equals(double self, double right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "double_equals"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "double_equals"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return self==right;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool _Bool_operator_equals(_Bool self, _Bool right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "_Bool_operator_equals"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "_Bool_operator_equals"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return self==right;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool char_operator_equals(char self, char right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "char_operator_equals"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "char_operator_equals"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return self==right;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool short_operator_equals(short self, short right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "short_operator_equals"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "short_operator_equals"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return self==right;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool int_operator_equals(int self, int right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "int_operator_equals"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "int_operator_equals"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return self==right;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool long_operator_equals(long self, long right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "long_operator_equals"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "long_operator_equals"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return self==right;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool _Bool_operator_not_equals(_Bool self, _Bool right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "_Bool_operator_not_equals"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "_Bool_operator_not_equals"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return !(self==right);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool char_operator_not_equals(char self, char right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "char_operator_not_equals"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "char_operator_not_equals"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return !(self==right);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool short_operator_not_equals(short self, short right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "short_operator_not_equals"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "short_operator_not_equals"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return !(self==right);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool int_operator_not_equals(int self, int right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "int_operator_not_equals"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "int_operator_not_equals"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return !(self==right);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool long_operator_not_equals(long self, long right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "long_operator_not_equals"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "long_operator_not_equals"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return !(self==right);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool charp_equals(const char* self, const char* right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_equals"; neo_current_frame = &fr;    if(self==((void*)0)&&right==((void*)0)) {
-           neo_current_frame = fr.prev;
-        return 1;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_equals"; neo_current_frame = &fr;
+    if(self==((void*)0)&&right==((void*)0)) {
+        neo_current_frame = fr.prev;
+        return (_Bool)1;
     }
     else if(self==((void*)0)||right==((void*)0)) {
-           neo_current_frame = fr.prev;
-        return 0;
+        neo_current_frame = fr.prev;
+        return (_Bool)0;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return strcmp(self,right)==0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool string_equals(char* self, const char* right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "string_equals"; neo_current_frame = &fr;    if(self==((void*)0)&&right==((void*)0)) {
-           neo_current_frame = fr.prev;
-        return 1;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "string_equals"; neo_current_frame = &fr;
+    if(self==((void*)0)&&right==((void*)0)) {
+        neo_current_frame = fr.prev;
+        return (_Bool)1;
     }
     else if(self==((void*)0)||right==((void*)0)) {
-           neo_current_frame = fr.prev;
-        return 0;
+        neo_current_frame = fr.prev;
+        return (_Bool)0;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return strcmp(self,right)==0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool voidp_equals(void* self, void* right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "voidp_equals"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "voidp_equals"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return self==right;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool _Boolp_equals(_Bool* self, _Bool* right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "_Boolp_equals"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "_Boolp_equals"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return *self==*right;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool string_operator_equals(char* self, const char* right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "string_operator_equals"; neo_current_frame = &fr;    if(self==((void*)0)&&right==((void*)0)) {
-           neo_current_frame = fr.prev;
-        return 1;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "string_operator_equals"; neo_current_frame = &fr;
+    if(self==((void*)0)&&right==((void*)0)) {
+        neo_current_frame = fr.prev;
+        return (_Bool)1;
     }
     else if(self==((void*)0)||right==((void*)0)) {
-           neo_current_frame = fr.prev;
-        return 0;
+        neo_current_frame = fr.prev;
+        return (_Bool)0;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return strcmp(self,right)==0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool charp_operator_equals(const char* self, const char* right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_operator_equals"; neo_current_frame = &fr;    if(self==((void*)0)&&right==((void*)0)) {
-           neo_current_frame = fr.prev;
-        return 1;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_operator_equals"; neo_current_frame = &fr;
+    if(self==((void*)0)&&right==((void*)0)) {
+        neo_current_frame = fr.prev;
+        return (_Bool)1;
     }
     else if(self==((void*)0)||right==((void*)0)) {
-           neo_current_frame = fr.prev;
-        return 0;
+        neo_current_frame = fr.prev;
+        return (_Bool)0;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return strcmp(self,right)==0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool chara_operator_equals(char* self, const char* right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "chara_operator_equals"; neo_current_frame = &fr;    if(self==((void*)0)&&right==((void*)0)) {
-           neo_current_frame = fr.prev;
-        return 1;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "chara_operator_equals"; neo_current_frame = &fr;
+    if(self==((void*)0)&&right==((void*)0)) {
+        neo_current_frame = fr.prev;
+        return (_Bool)1;
     }
     else if(self==((void*)0)||right==((void*)0)) {
-           neo_current_frame = fr.prev;
-        return 0;
+        neo_current_frame = fr.prev;
+        return (_Bool)0;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return strcmp(self,right)==0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool voidp_operator_equals(const char* self, const char* right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "voidp_operator_equals"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "voidp_operator_equals"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return self==right;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool voidp_operator_not_equals(const char* self, const char* right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "voidp_operator_not_equals"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "voidp_operator_not_equals"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return !charp_operator_equals(self,right);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool string_operator_not_equals(char* self, const char* right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "string_operator_not_equals"; neo_current_frame = &fr;    if(self==((void*)0)&&right==((void*)0)) {
-           neo_current_frame = fr.prev;
-        return 0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "string_operator_not_equals"; neo_current_frame = &fr;
+    if(self==((void*)0)&&right==((void*)0)) {
+        neo_current_frame = fr.prev;
+        return (_Bool)0;
     }
     else if(self==((void*)0)||right==((void*)0)) {
-           neo_current_frame = fr.prev;
-        return 1;
+        neo_current_frame = fr.prev;
+        return (_Bool)1;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return strcmp(self,right)!=0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool charp_operator_not_equals(const char* self, const char* right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_operator_not_equals"; neo_current_frame = &fr;    if(self==((void*)0)&&right==((void*)0)) {
-           neo_current_frame = fr.prev;
-        return 0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_operator_not_equals"; neo_current_frame = &fr;
+    if(self==((void*)0)&&right==((void*)0)) {
+        neo_current_frame = fr.prev;
+        return (_Bool)0;
     }
     else if(self==((void*)0)||right==((void*)0)) {
-           neo_current_frame = fr.prev;
-        return 1;
+        neo_current_frame = fr.prev;
+        return (_Bool)1;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return strcmp(self,right)!=0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool chara_operator_not_equals(char* self, const char* right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "chara_operator_not_equals"; neo_current_frame = &fr;    if(self==((void*)0)&&right==((void*)0)) {
-           neo_current_frame = fr.prev;
-        return 0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "chara_operator_not_equals"; neo_current_frame = &fr;
+    if(self==((void*)0)&&right==((void*)0)) {
+        neo_current_frame = fr.prev;
+        return (_Bool)0;
     }
     else if(self==((void*)0)||right==((void*)0)) {
-           neo_current_frame = fr.prev;
-        return 1;
+        neo_current_frame = fr.prev;
+        return (_Bool)1;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return strcmp(self,right)!=0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 char* charp_operator_add(const char* self, const char* right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_operator_add"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_operator_add"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     int len;
     char* result;
     if(self==((void*)0)||right==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     len=strlen(self)+strlen(right);
@@ -7827,22 +8004,23 @@ fr.fun_name = "charp_operator_add"; neo_current_frame = &fr;    void* __right_va
     strncat(result,right,len+1);
     __result_obj__0 = (char*)come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* string_operator_add(char* self, const char* right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "string_operator_add"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "string_operator_add"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     int len;
     char* result;
     if(self==((void*)0)||right==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     len=strlen(self)+strlen(right);
@@ -7851,15 +8029,15 @@ fr.fun_name = "string_operator_add"; neo_current_frame = &fr;    void* __right_v
     strncat(result,right,len+1);
     __result_obj__0 = (char*)come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* charp_operator_mult(const char* self, int right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_operator_mult"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_operator_mult"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     void* __right_value1 = (void*)0;
     struct buffer* buf  ;
@@ -7867,7 +8045,8 @@ fr.fun_name = "charp_operator_mult"; neo_current_frame = &fr;    void* __right_v
     if(self==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), (void*)0, 3582, "struct buffer*"))));
@@ -7877,15 +8056,15 @@ fr.fun_name = "charp_operator_mult"; neo_current_frame = &fr;    void* __right_v
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=buffer_to_string(buf))));
     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* string_operator_mult(const char* self, int right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "string_operator_mult"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "string_operator_mult"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     void* __right_value1 = (void*)0;
     struct buffer* buf  ;
@@ -7893,7 +8072,8 @@ fr.fun_name = "string_operator_mult"; neo_current_frame = &fr;    void* __right_
     if(self==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), (void*)0, 3596, "struct buffer*"))));
@@ -7903,142 +8083,142 @@ fr.fun_name = "string_operator_mult"; neo_current_frame = &fr;    void* __right_
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=buffer_to_string(buf))));
     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
-_Bool charpa_contained(char** self, unsigned long len  , const char* str)
+_Bool charpa_contained(char** self, unsigned long  int len  , const char* str)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charpa_contained"; neo_current_frame = &fr;    _Bool result;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charpa_contained"; neo_current_frame = &fr;
+    _Bool result;
     int i;
-    result=0;
+    result=(_Bool)0;
     if(self==((void*)0)) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return result;
     }
     for(i=0;i<len;i++){
         if(strncmp(self[i],str,strlen(self[i]))==0) {
-            result=1;
+            result=(_Bool)1;
             break;
         }
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return result;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
-unsigned long shorta_length(short* self, unsigned long len  )
+unsigned long  int shorta_length(short* self, unsigned long  int len  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "shorta_length"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "shorta_length"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return len;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
-unsigned long inta_length(int* self, unsigned long len  )
+unsigned long  int inta_length(int* self, unsigned long  int len  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "inta_length"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "inta_length"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return len;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
-unsigned long longa_length(long* self, unsigned long len  )
+unsigned long  int longa_length(long* self, unsigned long  int len  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "longa_length"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "longa_length"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return len;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
-unsigned long floata_length(float* self, unsigned long len  )
+unsigned long  int floata_length(float* self, unsigned long  int len  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "floata_length"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "floata_length"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return len;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
-unsigned long doublea_length(double* self, unsigned long len  )
+unsigned long  int doublea_length(double* self, unsigned long  int len  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "doublea_length"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "doublea_length"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return len;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 unsigned int _Bool_get_hash_key(_Bool value)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "_Bool_get_hash_key"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "_Bool_get_hash_key"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return (int_get_hash_key(((int)value)));
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 unsigned int char_get_hash_key(char value)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "char_get_hash_key"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "char_get_hash_key"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return value;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 unsigned int short_get_hash_key(short int value)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "short_get_hash_key"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "short_get_hash_key"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return value;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 unsigned int int_get_hash_key(int value)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "int_get_hash_key"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "int_get_hash_key"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return value;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 unsigned int long_get_hash_key(long value)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "long_get_hash_key"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "long_get_hash_key"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return value;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
-unsigned int size_t_get_hash_key(unsigned long value  )
+unsigned int size_t_get_hash_key(unsigned long  int value  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "size_t_get_hash_key"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "size_t_get_hash_key"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return value;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 unsigned int float_get_hash_key(float value)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "float_get_hash_key"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "float_get_hash_key"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return (unsigned int)value;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 unsigned int double_get_hash_key(double value)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "double_get_hash_key"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "double_get_hash_key"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return (unsigned int)value;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 unsigned int charp_get_hash_key(const char* value)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_get_hash_key"; neo_current_frame = &fr;    int result;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_get_hash_key"; neo_current_frame = &fr;
+    int result;
     if(value==((void*)0)) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return 0;
     }
     result=0;
@@ -8047,18 +8227,18 @@ fr.fun_name = "charp_get_hash_key"; neo_current_frame = &fr;    int result;
         result+=(*p);
         p++;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return result;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 unsigned int string_get_hash_key(char* value)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "string_get_hash_key"; neo_current_frame = &fr;    int result;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "string_get_hash_key"; neo_current_frame = &fr;
+    int result;
     char* p;
     if(value==((void*)0)) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return 0;
     }
     result=0;
@@ -8067,183 +8247,183 @@ fr.fun_name = "string_get_hash_key"; neo_current_frame = &fr;    int result;
         result+=(*p);
         p++;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return result;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 unsigned int voidp_get_hash_key(void* value)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "voidp_get_hash_key"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "voidp_get_hash_key"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return (int_get_hash_key(((int)value)));
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool _Bool_clone(_Bool self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "_Bool_clone"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "_Bool_clone"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return self;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 char char_clone(char self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "char_clone"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "char_clone"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return self;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 short int short_clone(short self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "short_clone"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "short_clone"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return self;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int int_clone(int self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "int_clone"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "int_clone"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return self;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 long  int long_clone(long self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "long_clone"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "long_clone"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return self;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
-unsigned long size_t_clone(unsigned long self  )
+unsigned long  int size_t_clone(unsigned long  int self  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "size_t_clone"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "size_t_clone"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return self;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 double double_clone(double self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "double_clone"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "double_clone"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return self;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 float float_clone(float self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "float_clone"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "float_clone"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return self;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool xisalpha(char c)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "xisalpha"; neo_current_frame = &fr;    _Bool result;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "xisalpha"; neo_current_frame = &fr;
+    _Bool result;
     result=(c>=97&&c<=122)||(c>=65&&c<=90);
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return result;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool xisblank(char c)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "xisblank"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "xisblank"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return c==32||c==9;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool xisdigit(char c)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "xisdigit"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "xisdigit"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return (c>=48&&c<=57);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool xisspace(char c)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "xisspace"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "xisspace"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return c==32||c==9||c==10||c==13||c==28||c==11;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool xisalnum(char c)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "xisalnum"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "xisalnum"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return xisalpha(c)||xisdigit(c);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool xisascii(char c)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "xisascii"; neo_current_frame = &fr;    _Bool result;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "xisascii"; neo_current_frame = &fr;
+    _Bool result;
     result=(c>=32&&c<=126);
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return result;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool xispunct(char c)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "xispunct"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "xispunct"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return (c>=33&&c<=47)||(c>=58&&c<=64)||(c>=91&&c<=96)||(c>=123&&c<=126);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int string_length(const char* str)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "string_length"; neo_current_frame = &fr;    if(str==((void*)0)) {
-           neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "string_length"; neo_current_frame = &fr;
+    if(str==((void*)0)) {
+        neo_current_frame = fr.prev;
         return 0;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return strlen(str);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int charp_length(const char* str)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_length"; neo_current_frame = &fr;    if(str==((void*)0)) {
-           neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_length"; neo_current_frame = &fr;
+    if(str==((void*)0)) {
+        neo_current_frame = fr.prev;
         return 0;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return strlen(str);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int chara_length(const char* str)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "chara_length"; neo_current_frame = &fr;    if(str==((void*)0)) {
-           neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "chara_length"; neo_current_frame = &fr;
+    if(str==((void*)0)) {
+        neo_current_frame = fr.prev;
         return 0;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return strlen(str);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 char* charp_reverse(const char* str)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_reverse"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_reverse"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     int len;
     char* result;
@@ -8251,7 +8431,8 @@ fr.fun_name = "charp_reverse"; neo_current_frame = &fr;    void* __right_value0 
     if(str==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     len=strlen(str);
@@ -8262,15 +8443,15 @@ fr.fun_name = "charp_reverse"; neo_current_frame = &fr;    void* __right_value0 
     result[len]=0;
     __result_obj__0 = (char*)come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* string_operator_load_range_element(char* str, int head, int tail)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "string_operator_load_range_element"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "string_operator_load_range_element"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     int len;
     void* __right_value1 = (void*)0;
@@ -8278,7 +8459,8 @@ fr.fun_name = "string_operator_load_range_element"; neo_current_frame = &fr;    
     if(str==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     len=strlen(str);
@@ -8292,7 +8474,8 @@ fr.fun_name = "string_operator_load_range_element"; neo_current_frame = &fr;    
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value1=charp_reverse(((char*)(__right_value0=charp_substring(str,tail,head)))))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     if(head<0) {
@@ -8304,13 +8487,15 @@ fr.fun_name = "string_operator_load_range_element"; neo_current_frame = &fr;    
     if(head==tail) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     if(tail-head+1<1) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     result=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(tail-head+1)), (void*)0, 3896, "char*"));
@@ -8318,15 +8503,15 @@ fr.fun_name = "string_operator_load_range_element"; neo_current_frame = &fr;    
     result[tail-head]=0;
     __result_obj__0 = (char*)come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* charp_operator_load_range_element(char* str, int head, int tail)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_operator_load_range_element"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_operator_load_range_element"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     int len;
     void* __right_value1 = (void*)0;
@@ -8334,7 +8519,8 @@ fr.fun_name = "charp_operator_load_range_element"; neo_current_frame = &fr;    v
     if(str==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     len=strlen(str);
@@ -8348,7 +8534,8 @@ fr.fun_name = "charp_operator_load_range_element"; neo_current_frame = &fr;    v
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value1=charp_reverse(((char*)(__right_value0=charp_substring(str,tail,head)))))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     if(head<0) {
@@ -8360,13 +8547,15 @@ fr.fun_name = "charp_operator_load_range_element"; neo_current_frame = &fr;    v
     if(head==tail) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     if(tail-head+1<1) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     result=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(tail-head+1)), (void*)0, 3939, "char*"));
@@ -8374,15 +8563,15 @@ fr.fun_name = "charp_operator_load_range_element"; neo_current_frame = &fr;    v
     result[tail-head]=0;
     __result_obj__0 = (char*)come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* charp_substring(const char* str, int head, int tail)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_substring"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_substring"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     int len;
     void* __right_value1 = (void*)0;
@@ -8390,7 +8579,8 @@ fr.fun_name = "charp_substring"; neo_current_frame = &fr;    void* __right_value
     if(str==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     len=strlen(str);
@@ -8404,7 +8594,8 @@ fr.fun_name = "charp_substring"; neo_current_frame = &fr;    void* __right_value
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value1=charp_reverse(((char*)(__right_value0=charp_substring(str,tail,head)))))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     if(head<0) {
@@ -8416,13 +8607,15 @@ fr.fun_name = "charp_substring"; neo_current_frame = &fr;    void* __right_value
     if(head==tail) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     if(tail-head+1<1) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     result=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(tail-head+1)), (void*)0, 3982, "char*"));
@@ -8430,15 +8623,15 @@ fr.fun_name = "charp_substring"; neo_current_frame = &fr;    void* __right_value
     result[tail-head]=0;
     __result_obj__0 = (char*)come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* xsprintf(const char* msg, ...)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "xsprintf"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "xsprintf"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     __builtin_va_list args  ;
     char* result;
@@ -8448,7 +8641,8 @@ fr.fun_name = "xsprintf"; neo_current_frame = &fr;    void* __right_value0 = (vo
     if(msg==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     __builtin_va_start(args,msg);
@@ -8457,42 +8651,46 @@ fr.fun_name = "xsprintf"; neo_current_frame = &fr;    void* __right_value0 = (vo
     if(len<0) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     result2=(char*)come_increment_ref_count(__builtin_string(result));
     free(result);
     __result_obj__0 = (char*)come_increment_ref_count(result2);
     (result2 = come_decrement_ref_count(result2, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* charp_delete(char* str, int head, int tail)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_delete"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_delete"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     int len;
     char* result;
     if(str==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     len=strlen(str);
     if(head>=len) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(str))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     if(strcmp(str,"")==0) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(str))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     if(head<0) {
@@ -8507,7 +8705,8 @@ fr.fun_name = "charp_delete"; neo_current_frame = &fr;    void* __right_value0 =
     if(tail<0) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(str))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     if(tail>=len) {
@@ -8519,15 +8718,15 @@ fr.fun_name = "charp_delete"; neo_current_frame = &fr;    void* __right_value0 =
     result[len-(tail-head)]=0;
     __result_obj__0 = (char*)come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 struct list$1char$ph* charp_split_char(char* self, char c)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_split_char"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_split_char"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1char$ph* __result_obj__0;
     struct list$1char$ph* result;
@@ -8536,7 +8735,8 @@ fr.fun_name = "charp_split_char"; neo_current_frame = &fr;    void* __right_valu
     if(self==((void*)0)) {
         __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 4061, "struct list$1char$ph*"))))));
         come_call_finalizer(list$1char$ph$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-        neo_current_frame = fr.prev;        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+        neo_current_frame = fr.prev;
+        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
     result=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 4064, "struct list$1char$ph*"))));
@@ -8556,39 +8756,39 @@ fr.fun_name = "charp_split_char"; neo_current_frame = &fr;    void* __right_valu
     __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(result);
     come_call_finalizer(list$1char$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     come_call_finalizer(buffer_finalize, str, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* charp_xsprintf(char* self, const char* msg, ...)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_xsprintf"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_xsprintf"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=xsprintf(msg,self))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* int_xsprintf(int self, const char* msg, ...)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "int_xsprintf"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "int_xsprintf"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=xsprintf(msg,self))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* charp_printable(char* str)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_printable"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_printable"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     int len;
     char* result  ;
@@ -8598,7 +8798,8 @@ fr.fun_name = "charp_printable"; neo_current_frame = &fr;    void* __right_value
     if(str==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     len=charp_length(str);
@@ -8617,27 +8818,27 @@ fr.fun_name = "charp_printable"; neo_current_frame = &fr;    void* __right_value
     result[n]=0;
     __result_obj__0 = (char*)come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* chara_printable(char* str)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "chara_printable"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "chara_printable"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=charp_printable(str))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* charp_sub_plain(char* self, char* str, char* replace)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_sub_plain"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_sub_plain"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     void* __right_value1 = (void*)0;
     struct buffer* result  ;
@@ -8646,12 +8847,13 @@ fr.fun_name = "charp_sub_plain"; neo_current_frame = &fr;    void* __right_value
     if(self==((void*)0)||str==((void*)0)||replace==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(self))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     result=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), (void*)0, 4133, "struct buffer*"))));
     p=self;
-    while(1) {
+    while((_Bool)1) {
         p2=strstr(p,str);
         if(p2==((void*)0)) {
             p2=p;
@@ -8668,21 +8870,22 @@ fr.fun_name = "charp_sub_plain"; neo_current_frame = &fr;    void* __right_value
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=buffer_to_string(result))));
     come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* xbasename(char* path)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "xbasename"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "xbasename"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     char* p;
     if(path==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     p=path+strlen(path);
@@ -8697,33 +8900,36 @@ fr.fun_name = "xbasename"; neo_current_frame = &fr;    void* __right_value0 = (v
     if(p<path) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(path))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     else {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(p+1))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* xnoextname(char* path)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "xnoextname"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "xnoextname"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     char* path2  ;
     char* p;
     if(path==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     path2=(char*)come_increment_ref_count(xbasename(path));
@@ -8740,34 +8946,37 @@ fr.fun_name = "xnoextname"; neo_current_frame = &fr;    void* __right_value0 = (
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(path2))));
         (path2 = come_decrement_ref_count(path2, (void*)0, (void*)0, 0, 0, (void*)0));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     else {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=charp_substring(path2,0,p-path2))));
         (path2 = come_decrement_ref_count(path2, (void*)0, (void*)0, 0, 0, (void*)0));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
     (path2 = come_decrement_ref_count(path2, (void*)0, (void*)0, 0, 0, (void*)0));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* xextname(char* path)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "xextname"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "xextname"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     char* p;
     if(path==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     p=path+strlen(path);
@@ -8782,408 +8991,416 @@ fr.fun_name = "xextname"; neo_current_frame = &fr;    void* __right_value0 = (vo
     if(p<path) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(path))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     else {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(p+1))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* _Bool_to_string(_Bool self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "_Bool_to_string"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "_Bool_to_string"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     if(self) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string("true"))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     else {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string("false"))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 char* char_to_string(char self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "char_to_string"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "char_to_string"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=xsprintf("%c",self))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* short_to_string(short self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "short_to_string"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "short_to_string"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=xsprintf("%d",self))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* int_to_string(int self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "int_to_string"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "int_to_string"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=xsprintf("%d",self))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* long_to_string(long self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "long_to_string"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "long_to_string"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=xsprintf("%ld",self))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
-char* size_t_to_string(unsigned long self  )
+char* size_t_to_string(unsigned long  int self  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "size_t_to_string"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "size_t_to_string"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=xsprintf("%ld",self))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* float_to_string(float self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "float_to_string"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "float_to_string"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=xsprintf("%f",self))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* double_to_string(double self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "double_to_string"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "double_to_string"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=xsprintf("%lf",self))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* string_to_string(char* self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "string_to_string"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "string_to_string"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     if(self==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(self))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* charp_to_string(const char* self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_to_string"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_to_string"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     if(self==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(self))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 int _Bool_compare(_Bool left, _Bool right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "_Bool_compare"; neo_current_frame = &fr;    if(!left&&right) {
-           neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "_Bool_compare"; neo_current_frame = &fr;
+    if(!left&&right) {
+        neo_current_frame = fr.prev;
         return -1;
     }
     else if(left&&right) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return 0;
     }
     else if(!left&&!right) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return 0;
     }
     else {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return 1;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return 0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int char_compare(char left, char right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "char_compare"; neo_current_frame = &fr;    if(left<right) {
-           neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "char_compare"; neo_current_frame = &fr;
+    if(left<right) {
+        neo_current_frame = fr.prev;
         return -1;
     }
     else if(left>right) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return 1;
     }
     else {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return 0;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return 0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int short_compare(short left, short right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "short_compare"; neo_current_frame = &fr;    if(left<right) {
-           neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "short_compare"; neo_current_frame = &fr;
+    if(left<right) {
+        neo_current_frame = fr.prev;
         return -1;
     }
     else if(left>right) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return 1;
     }
     else {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return 0;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return 0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int int_compare(int left, int right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "int_compare"; neo_current_frame = &fr;    if(left<right) {
-           neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "int_compare"; neo_current_frame = &fr;
+    if(left<right) {
+        neo_current_frame = fr.prev;
         return -1;
     }
     else if(left>right) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return 1;
     }
     else {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return 0;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return 0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int long_compare(long left, long right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "long_compare"; neo_current_frame = &fr;    if(left<right) {
-           neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "long_compare"; neo_current_frame = &fr;
+    if(left<right) {
+        neo_current_frame = fr.prev;
         return -1;
     }
     else if(left>right) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return 1;
     }
     else {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return 0;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return 0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
-int size_t_compare(unsigned long left  , unsigned long right  )
+int size_t_compare(unsigned long  int left  , unsigned long  int right  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "size_t_compare"; neo_current_frame = &fr;    if(left<right) {
-           neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "size_t_compare"; neo_current_frame = &fr;
+    if(left<right) {
+        neo_current_frame = fr.prev;
         return -1;
     }
     else if(left>right) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return 1;
     }
     else {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return 0;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return 0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int float_compare(float left, float right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "float_compare"; neo_current_frame = &fr;    if(left<right) {
-           neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "float_compare"; neo_current_frame = &fr;
+    if(left<right) {
+        neo_current_frame = fr.prev;
         return -1;
     }
     else if(left>right) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return 1;
     }
     else {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return 0;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return 0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int double_compare(double left, double right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "double_compare"; neo_current_frame = &fr;    if(left<right) {
-           neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "double_compare"; neo_current_frame = &fr;
+    if(left<right) {
+        neo_current_frame = fr.prev;
         return -1;
     }
     else if(left>right) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return 1;
     }
     else {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return 0;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return 0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int string_compare(char* left, char* right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "string_compare"; neo_current_frame = &fr;    if(left==((void*)0)&&right==((void*)0)) {
-           neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "string_compare"; neo_current_frame = &fr;
+    if(left==((void*)0)&&right==((void*)0)) {
+        neo_current_frame = fr.prev;
         return 0;
     }
     else if(left==((void*)0)) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return -1;
     }
     else if(right==((void*)0)) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return 1;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return strcmp(left,right);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int charp_compare(char* left, char* right)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_compare"; neo_current_frame = &fr;    if(left==((void*)0)&&right==((void*)0)) {
-           neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_compare"; neo_current_frame = &fr;
+    if(left==((void*)0)&&right==((void*)0)) {
+        neo_current_frame = fr.prev;
         return 0;
     }
     else if(left==((void*)0)) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return -1;
     }
     else if(right==((void*)0)) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return 1;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return strcmp(left,right);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 char* charp_puts(char* self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_puts"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_puts"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     if(self==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     puts(self);
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(self))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* charp_print(char* self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_print"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_print"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     if(self==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     printf("%s",self);
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(self))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* charp_printf(char* self, ...)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_printf"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_printf"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     char* msg2;
     __builtin_va_list args  ;
@@ -9191,7 +9408,8 @@ fr.fun_name = "charp_printf"; neo_current_frame = &fr;    void* __right_value0 =
     if(self==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     __builtin_va_start(args,self);
@@ -9201,70 +9419,70 @@ fr.fun_name = "charp_printf"; neo_current_frame = &fr;    void* __right_value0 =
     free(msg2);
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(self))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 int int_printf(int self, char* msg)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "int_printf"; neo_current_frame = &fr;    if(self==((void*)0)) {
-           neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "int_printf"; neo_current_frame = &fr;
+    if(self==((void*)0)) {
+        neo_current_frame = fr.prev;
         return self;
     }
     printf(msg,self);
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return self;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 long long_printf(long self, char* msg)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "long_printf"; neo_current_frame = &fr;    if(self==((void*)0)) {
-           neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "long_printf"; neo_current_frame = &fr;
+    if(self==((void*)0)) {
+        neo_current_frame = fr.prev;
         return self;
     }
     printf(msg,self);
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return self;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 void int_times(int self, void* parent, void (*block)(void*,int))
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "int_times"; neo_current_frame = &fr;    int i;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "int_times"; neo_current_frame = &fr;
+    int i;
     for(i=0;i<self;i++){
         block(parent,i);
     }
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
-static void match_context_finalize(struct anonymous_typeX25* self  )
+static void match_context_finalize(struct anonymous_typeX16* self  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "match_context_finalize"; neo_current_frame = &fr;            neo_current_frame = fr.prev;}
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "match_context_finalize"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+}
 
 int re_matchp_ex(struct re_program* pattern  , const char* text, int* matchlength, struct re_capture* captures  , int max_captures, _Bool ignore_case)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "re_matchp_ex"; neo_current_frame = &fr;    struct re_program* program  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "re_matchp_ex"; neo_current_frame = &fr;
+    struct re_program* program  ;
     struct regex_t* start  ;
-    struct anonymous_typeX25 ctx  ;
+    struct anonymous_typeX16 ctx  ;
     int __result_obj__0;
     memset(&ctx, 0, sizeof(ctx));
     *matchlength=0;
     if(pattern==0) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return -1;
     }
     program=(struct re_program*)pattern;
     start=program->start;
     if(start==0) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return -1;
     }
     ctx.base=text;
@@ -9286,11 +9504,13 @@ fr.fun_name = "re_matchp_ex"; neo_current_frame = &fr;    struct re_program* pro
             }
             __result_obj__0 = 0;
             come_call_finalizer(match_context_finalize, (&ctx), (void*)0, (void*)0, 1, 0, 0, (void*)0);
-            neo_current_frame = fr.prev;            return __result_obj__0;
+            neo_current_frame = fr.prev;
+            return __result_obj__0;
         }
         __result_obj__0 = -1;
         come_call_finalizer(match_context_finalize, (&ctx), (void*)0, (void*)0, 1, 0, 0, (void*)0);
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     else {
         const char* cursor=text;
@@ -9303,12 +9523,14 @@ fr.fun_name = "re_matchp_ex"; neo_current_frame = &fr;    struct re_program* pro
                 if(*cursor==0&&cursor!=text) {
                     __result_obj__0 = -1;
                     come_call_finalizer(match_context_finalize, (&ctx), (void*)0, (void*)0, 1, 0, 0, (void*)0);
-                    neo_current_frame = fr.prev;                    return __result_obj__0;
+                    neo_current_frame = fr.prev;
+                    return __result_obj__0;
                 }
                 *matchlength=(int)(end_33-cursor);
                 __result_obj__0 = (int)(cursor-text);
                 come_call_finalizer(match_context_finalize, (&ctx), (void*)0, (void*)0, 1, 0, 0, (void*)0);
-                neo_current_frame = fr.prev;                return __result_obj__0;
+                neo_current_frame = fr.prev;
+                return __result_obj__0;
             }
             if(*cursor==0) {
                 break;
@@ -9318,43 +9540,43 @@ fr.fun_name = "re_matchp_ex"; neo_current_frame = &fr;    struct re_program* pro
     }
     __result_obj__0 = -1;
     come_call_finalizer(match_context_finalize, (&ctx), (void*)0, (void*)0, 1, 0, 0, (void*)0);
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 int re_matchp(struct re_program* pattern  , const char* text, int* matchlength, struct re_capture* captures  , int max_captures)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "re_matchp"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
-    return re_matchp_ex(pattern,text,matchlength,captures,max_captures,0);
-neo_current_frame = fr.prev;}
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "re_matchp"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+    return re_matchp_ex(pattern,text,matchlength,captures,max_captures,(_Bool)0);
+    neo_current_frame = fr.prev;
+}
 
 int re_match(const char* pattern, const char* text, int* matchlength)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "re_match"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "re_match"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return re_matchp(re_compile(pattern),text,matchlength,(struct re_capture*)0,0);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 static void regex_program_t_finalize(struct re_program* self  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "regex_program_t_finalize"; neo_current_frame = &fr;        neo_current_frame = fr.prev;}
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "regex_program_t_finalize"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+}
 
-static void compiler_state_finalize(struct anonymous_typeX24* self  )
+static void compiler_state_finalize(struct anonymous_typeX15* self  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "compiler_state_finalize"; neo_current_frame = &fr;        neo_current_frame = fr.prev;}
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "compiler_state_finalize"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
+}
 
 struct re_program* re_compile(const char* pattern)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "re_compile"; neo_current_frame = &fr;    static struct re_program program  ;
-    struct anonymous_typeX24 state  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "re_compile"; neo_current_frame = &fr;
+    static struct re_program program  ;
+    struct anonymous_typeX15 state  ;
     int pos;
     struct regex_t* head  ;
     struct re_program* __result_obj__0  ;
@@ -9380,21 +9602,22 @@ fr.fun_name = "re_compile"; neo_current_frame = &fr;    static struct re_program
         __result_obj__0 = ((void*)0);
         come_call_finalizer(regex_program_t_finalize, (&program), (void*)0, (void*)0, 1, 0, 0, (void*)0);
         come_call_finalizer(compiler_state_finalize, (&state), (void*)0, (void*)0, 1, 0, 0, (void*)0);
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     program.start=head;
     program.group_count=state.group_count;
     __result_obj__0 = (struct re_program*)&program;
     come_call_finalizer(regex_program_t_finalize, (&program), (void*)0, (void*)0, 1, 0, 0, (void*)0);
     come_call_finalizer(compiler_state_finalize, (&state), (void*)0, (void*)0, 1, 0, 0, (void*)0);
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 void re_print(struct re_program* pattern  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "re_print"; neo_current_frame = &fr;    struct re_program* program  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "re_print"; neo_current_frame = &fr;
+    struct re_program* program  ;
     if(pattern==0) {
         neo_current_frame = fr.prev;
         return;
@@ -9405,13 +9628,13 @@ fr.fun_name = "re_print"; neo_current_frame = &fr;    struct re_program* program
         return;
     }
     re_print_internal(program->start,0);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
-void clear_captures(struct anonymous_typeX25* ctx  )
+void clear_captures(struct anonymous_typeX16* ctx  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "clear_captures"; neo_current_frame = &fr;    int i;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "clear_captures"; neo_current_frame = &fr;
+    int i;
     if((ctx->captures==0)||(ctx->capture_capacity<=0)) {
         neo_current_frame = fr.prev;
         return;
@@ -9420,39 +9643,40 @@ fr.fun_name = "clear_captures"; neo_current_frame = &fr;    int i;
         ctx->captures[i].start=-1;
         ctx->captures[i].length=0;
     }
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
-void snapshot_captures(const struct anonymous_typeX25* ctx  , struct re_capture* buffer_  )
+void snapshot_captures(const struct anonymous_typeX16* ctx  , struct re_capture* buffer_  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "snapshot_captures"; neo_current_frame = &fr;    if((ctx->captures==0)||(ctx->capture_capacity<=0)) {
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "snapshot_captures"; neo_current_frame = &fr;
+    if((ctx->captures==0)||(ctx->capture_capacity<=0)) {
         neo_current_frame = fr.prev;
         return;
     }
     memcpy(buffer_,ctx->captures,sizeof(struct re_capture)*ctx->capture_capacity);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
-void restore_captures(struct anonymous_typeX25* ctx  , const struct re_capture* buffer_  )
+void restore_captures(struct anonymous_typeX16* ctx  , const struct re_capture* buffer_  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "restore_captures"; neo_current_frame = &fr;    if((ctx->captures==0)||(ctx->capture_capacity<=0)) {
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "restore_captures"; neo_current_frame = &fr;
+    if((ctx->captures==0)||(ctx->capture_capacity<=0)) {
         neo_current_frame = fr.prev;
         return;
     }
     memcpy(ctx->captures,buffer_,sizeof(struct re_capture)*ctx->capture_capacity);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
-struct regex_t* new_token(struct anonymous_typeX24* st  )
+struct regex_t* new_token(struct anonymous_typeX15* st  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "new_token"; neo_current_frame = &fr;    struct regex_t* __result_obj__0  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "new_token"; neo_current_frame = &fr;
+    struct regex_t* __result_obj__0  ;
     struct regex_t* token  ;
     if(st->pool_size>=st->pool_capacity) {
         __result_obj__0 = ((void*)0);
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     token=&st->pool[st->pool_size++];
     token->type=(0);
@@ -9462,15 +9686,15 @@ fr.fun_name = "new_token"; neo_current_frame = &fr;    struct regex_t* __result_
     token->u.group.last=((void*)0);
     token->u.group.id=0;
     __result_obj__0 = token;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 int append_token(struct regex_t** head  , struct regex_t** tail  , struct regex_t* token  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "append_token"; neo_current_frame = &fr;    if(token==0) {
-           neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "append_token"; neo_current_frame = &fr;
+    if(token==0) {
+        neo_current_frame = fr.prev;
         return 0;
     }
     if(*head==0) {
@@ -9480,15 +9704,15 @@ fr.fun_name = "append_token"; neo_current_frame = &fr;    if(token==0) {
         (*tail)->next=token;
     }
     *tail=token;
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return 1;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
-struct regex_t* compile_sequence(struct anonymous_typeX24* st  , const char* pattern, int* pos, int in_group)
+struct regex_t* compile_sequence(struct anonymous_typeX15* st  , const char* pattern, int* pos, int in_group)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "compile_sequence"; neo_current_frame = &fr;    struct regex_t* head  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "compile_sequence"; neo_current_frame = &fr;
+    struct regex_t* head  ;
     struct regex_t* tail  ;
     char c;
     struct regex_t* token  ;
@@ -9512,7 +9736,8 @@ fr.fun_name = "compile_sequence"; neo_current_frame = &fr;    struct regex_t* he
                 token=new_token(st);
                 if(token==0) {
                     __result_obj__0 = ((void*)0);
-                    neo_current_frame = fr.prev;                    return __result_obj__0;
+                    neo_current_frame = fr.prev;
+                    return __result_obj__0;
                 }
                 token->type=(2);
                 (*pos)++;
@@ -9523,7 +9748,8 @@ fr.fun_name = "compile_sequence"; neo_current_frame = &fr;    struct regex_t* he
                 token=new_token(st);
                 if(token==0) {
                     __result_obj__0 = ((void*)0);
-                    neo_current_frame = fr.prev;                    return __result_obj__0;
+                    neo_current_frame = fr.prev;
+                    return __result_obj__0;
                 }
                 token->type=(3);
                 (*pos)++;
@@ -9534,7 +9760,8 @@ fr.fun_name = "compile_sequence"; neo_current_frame = &fr;    struct regex_t* he
                 token=new_token(st);
                 if(token==0) {
                     __result_obj__0 = ((void*)0);
-                    neo_current_frame = fr.prev;                    return __result_obj__0;
+                    neo_current_frame = fr.prev;
+                    return __result_obj__0;
                 }
                 token->type=(1);
                 (*pos)++;
@@ -9545,7 +9772,8 @@ fr.fun_name = "compile_sequence"; neo_current_frame = &fr;    struct regex_t* he
                 token=new_token(st);
                 if(token==0) {
                     __result_obj__0 = ((void*)0);
-                    neo_current_frame = fr.prev;                    return __result_obj__0;
+                    neo_current_frame = fr.prev;
+                    return __result_obj__0;
                 }
                 token->type=(5);
                 (*pos)++;
@@ -9556,7 +9784,8 @@ fr.fun_name = "compile_sequence"; neo_current_frame = &fr;    struct regex_t* he
                 token=new_token(st);
                 if(token==0) {
                     __result_obj__0 = ((void*)0);
-                    neo_current_frame = fr.prev;                    return __result_obj__0;
+                    neo_current_frame = fr.prev;
+                    return __result_obj__0;
                 }
                 token->type=(6);
                 (*pos)++;
@@ -9567,7 +9796,8 @@ fr.fun_name = "compile_sequence"; neo_current_frame = &fr;    struct regex_t* he
                 token=new_token(st);
                 if(token==0) {
                     __result_obj__0 = ((void*)0);
-                    neo_current_frame = fr.prev;                    return __result_obj__0;
+                    neo_current_frame = fr.prev;
+                    return __result_obj__0;
                 }
                 token->type=(4);
                 (*pos)++;
@@ -9578,12 +9808,14 @@ fr.fun_name = "compile_sequence"; neo_current_frame = &fr;    struct regex_t* he
                 (*pos)++;
                 if(pattern[*pos]==0) {
                     __result_obj__0 = ((void*)0);
-                    neo_current_frame = fr.prev;                    return __result_obj__0;
+                    neo_current_frame = fr.prev;
+                    return __result_obj__0;
                 }
                 token=new_token(st);
                 if(token==0) {
                     __result_obj__0 = ((void*)0);
-                    neo_current_frame = fr.prev;                    return __result_obj__0;
+                    neo_current_frame = fr.prev;
+                    return __result_obj__0;
                 }
                 switch (                pattern[*pos]) {
                     case 100:
@@ -9624,46 +9856,54 @@ fr.fun_name = "compile_sequence"; neo_current_frame = &fr;    struct regex_t* he
                     (*pos)++;
                     if(pattern[*pos]==0) {
                         __result_obj__0 = ((void*)0);
-                        neo_current_frame = fr.prev;                        return __result_obj__0;
+                        neo_current_frame = fr.prev;
+                        return __result_obj__0;
                     }
                 }
                 if(pattern[*pos]==0) {
                     __result_obj__0 = ((void*)0);
-                    neo_current_frame = fr.prev;                    return __result_obj__0;
+                    neo_current_frame = fr.prev;
+                    return __result_obj__0;
                 }
                 while((pattern[*pos]!=0)&&(pattern[*pos]!=93)) {
                     if(pattern[*pos]==92) {
                         if(st->ccl_idx>=(st->ccl_capacity-1)) {
                             __result_obj__0 = ((void*)0);
-                            neo_current_frame = fr.prev;                            return __result_obj__0;
+                            neo_current_frame = fr.prev;
+                            return __result_obj__0;
                         }
                         st->ccl_buf[st->ccl_idx++]=92;
                         (*pos)++;
                         if(pattern[*pos]==0) {
                             __result_obj__0 = ((void*)0);
-                            neo_current_frame = fr.prev;                            return __result_obj__0;
+                            neo_current_frame = fr.prev;
+                            return __result_obj__0;
                         }
                     }
                     if(st->ccl_idx>=st->ccl_capacity) {
                         __result_obj__0 = ((void*)0);
-                        neo_current_frame = fr.prev;                        return __result_obj__0;
+                        neo_current_frame = fr.prev;
+                        return __result_obj__0;
                     }
                     st->ccl_buf[st->ccl_idx++]=(unsigned char)pattern[*pos];
                     (*pos)++;
                 }
                 if(pattern[*pos]!=93) {
                     __result_obj__0 = ((void*)0);
-                    neo_current_frame = fr.prev;                    return __result_obj__0;
+                    neo_current_frame = fr.prev;
+                    return __result_obj__0;
                 }
                 if(st->ccl_idx>=st->ccl_capacity) {
                     __result_obj__0 = ((void*)0);
-                    neo_current_frame = fr.prev;                    return __result_obj__0;
+                    neo_current_frame = fr.prev;
+                    return __result_obj__0;
                 }
                 st->ccl_buf[st->ccl_idx++]=0;
                 token=new_token(st);
                 if(token==0) {
                     __result_obj__0 = ((void*)0);
-                    neo_current_frame = fr.prev;                    return __result_obj__0;
+                    neo_current_frame = fr.prev;
+                    return __result_obj__0;
                 }
                 token->type=((negated)?((9)):((8)));
                 token->u.ccl=&st->ccl_buf[buf_begin];
@@ -9676,11 +9916,13 @@ fr.fun_name = "compile_sequence"; neo_current_frame = &fr;    struct regex_t* he
                 inner=compile_sequence(st,pattern,pos,1);
                 if(inner==0) {
                     __result_obj__0 = ((void*)0);
-                    neo_current_frame = fr.prev;                    return __result_obj__0;
+                    neo_current_frame = fr.prev;
+                    return __result_obj__0;
                 }
                 if(pattern[*pos]!=41) {
                     __result_obj__0 = ((void*)0);
-                    neo_current_frame = fr.prev;                    return __result_obj__0;
+                    neo_current_frame = fr.prev;
+                    return __result_obj__0;
                 }
                 tail_34=inner;
                 while((tail_34!=0)&&(tail_34->type!=(0))) {
@@ -9688,12 +9930,14 @@ fr.fun_name = "compile_sequence"; neo_current_frame = &fr;    struct regex_t* he
                 }
                 if(tail_34==0) {
                     __result_obj__0 = ((void*)0);
-                    neo_current_frame = fr.prev;                    return __result_obj__0;
+                    neo_current_frame = fr.prev;
+                    return __result_obj__0;
                 }
                 token=new_token(st);
                 if(token==0) {
                     __result_obj__0 = ((void*)0);
-                    neo_current_frame = fr.prev;                    return __result_obj__0;
+                    neo_current_frame = fr.prev;
+                    return __result_obj__0;
                 }
                 token->type=(16);
                 token->u.group.first=inner;
@@ -9709,7 +9953,8 @@ fr.fun_name = "compile_sequence"; neo_current_frame = &fr;    struct regex_t* he
                 token=new_token(st);
                 if(token==0) {
                     __result_obj__0 = ((void*)0);
-                    neo_current_frame = fr.prev;                    return __result_obj__0;
+                    neo_current_frame = fr.prev;
+                    return __result_obj__0;
                 }
                 token->type=(7);
                 token->u.ch=(unsigned char)c;
@@ -9721,7 +9966,8 @@ fr.fun_name = "compile_sequence"; neo_current_frame = &fr;    struct regex_t* he
                 token=new_token(st);
                 if(token==0) {
                     __result_obj__0 = ((void*)0);
-                    neo_current_frame = fr.prev;                    return __result_obj__0;
+                    neo_current_frame = fr.prev;
+                    return __result_obj__0;
                 }
                 token->type=(7);
                 token->u.ch=(unsigned char)c;
@@ -9731,13 +9977,15 @@ fr.fun_name = "compile_sequence"; neo_current_frame = &fr;    struct regex_t* he
         }
         if(!append_token(&head,&tail,token)) {
             __result_obj__0 = ((void*)0);
-            neo_current_frame = fr.prev;            return __result_obj__0;
+            neo_current_frame = fr.prev;
+            return __result_obj__0;
         }
     }
     sentinel=new_token(st);
     if(sentinel==0) {
         __result_obj__0 = ((void*)0);
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     sentinel->type=(0);
     sentinel->next=((void*)0);
@@ -9748,14 +9996,14 @@ fr.fun_name = "compile_sequence"; neo_current_frame = &fr;    struct regex_t* he
         tail->next=sentinel;
     }
     __result_obj__0 = head;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
-const char* matchpattern(struct regex_t* pattern  , const char* text, struct anonymous_typeX25* ctx  )
+const char* matchpattern(struct regex_t* pattern  , const char* text, struct anonymous_typeX16* ctx  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "matchpattern"; neo_current_frame = &fr;    const char* __result_obj__0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "matchpattern"; neo_current_frame = &fr;
+    const char* __result_obj__0;
     struct regex_t* current  ;
     struct regex_t* next  ;
     struct regex_t* owner  ;
@@ -9763,11 +10011,13 @@ fr.fun_name = "matchpattern"; neo_current_frame = &fr;    const char* __result_o
     int start;
     if(pattern==0) {
         __result_obj__0 = text;
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     if(pattern->type==(0)) {
         __result_obj__0 = text;
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     struct re_capture snapshot[64]  ;
     memset(&snapshot, 0, sizeof(snapshot));
@@ -9797,47 +10047,56 @@ fr.fun_name = "matchpattern"; neo_current_frame = &fr;    const char* __result_o
             const char* result=matchquestion(current,next->next,cursor,ctx);
             if(result!=0) {
                 __result_obj__0 = result;
-                neo_current_frame = fr.prev;                return __result_obj__0;
+                neo_current_frame = fr.prev;
+                return __result_obj__0;
             }
             restore_captures(ctx,snapshot);
             __result_obj__0 = ((void*)0);
-            neo_current_frame = fr.prev;            return __result_obj__0;
+            neo_current_frame = fr.prev;
+            return __result_obj__0;
         }
         else if((next!=0)&&(next->type==(5))) {
             const char* result_35=matchstar(current,next->next,cursor,ctx);
             if(result_35!=0) {
                 __result_obj__0 = result_35;
-                neo_current_frame = fr.prev;                return __result_obj__0;
+                neo_current_frame = fr.prev;
+                return __result_obj__0;
             }
             restore_captures(ctx,snapshot);
             __result_obj__0 = ((void*)0);
-            neo_current_frame = fr.prev;            return __result_obj__0;
+            neo_current_frame = fr.prev;
+            return __result_obj__0;
         }
         else if((next!=0)&&(next->type==(6))) {
             const char* result_36=matchplus(current,next->next,cursor,ctx);
             if(result_36!=0) {
                 __result_obj__0 = result_36;
-                neo_current_frame = fr.prev;                return __result_obj__0;
+                neo_current_frame = fr.prev;
+                return __result_obj__0;
             }
             restore_captures(ctx,snapshot);
             __result_obj__0 = ((void*)0);
-            neo_current_frame = fr.prev;            return __result_obj__0;
+            neo_current_frame = fr.prev;
+            return __result_obj__0;
         }
         else if(current->type==(16)) {
             const char* result_37=matchgroup(current,next,cursor,ctx);
             if(result_37!=0) {
                 __result_obj__0 = result_37;
-                neo_current_frame = fr.prev;                return __result_obj__0;
+                neo_current_frame = fr.prev;
+                return __result_obj__0;
             }
             restore_captures(ctx,snapshot);
             __result_obj__0 = ((void*)0);
-            neo_current_frame = fr.prev;            return __result_obj__0;
+            neo_current_frame = fr.prev;
+            return __result_obj__0;
         }
         else if(current->type==(3)) {
             if(*cursor!=0) {
                 restore_captures(ctx,snapshot);
                 __result_obj__0 = ((void*)0);
-                neo_current_frame = fr.prev;                return __result_obj__0;
+                neo_current_frame = fr.prev;
+                return __result_obj__0;
             }
             current=current->next;
         }
@@ -9846,21 +10105,22 @@ fr.fun_name = "matchpattern"; neo_current_frame = &fr;    const char* __result_o
             if(after==0) {
                 restore_captures(ctx,snapshot);
                 __result_obj__0 = ((void*)0);
-                neo_current_frame = fr.prev;                return __result_obj__0;
+                neo_current_frame = fr.prev;
+                return __result_obj__0;
             }
             cursor=after;
             current=current->next;
         }
     }
     __result_obj__0 = cursor;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
-const char* matchgroup(struct regex_t* token  , struct regex_t* rest  , const char* text, struct anonymous_typeX25* ctx  )
+const char* matchgroup(struct regex_t* token  , struct regex_t* rest  , const char* text, struct anonymous_typeX16* ctx  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "matchgroup"; neo_current_frame = &fr;    struct regex_t* end_token  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "matchgroup"; neo_current_frame = &fr;
+    struct regex_t* end_token  ;
     struct regex_t* saved_next  ;
     int idx;
     const char* __result_obj__0;
@@ -9887,14 +10147,14 @@ fr.fun_name = "matchgroup"; neo_current_frame = &fr;    struct regex_t* end_toke
         restore_captures(ctx,snapshot_entry);
     }
     __result_obj__0 = result;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
-const char* matchstar(struct regex_t* token  , struct regex_t* rest  , const char* text, struct anonymous_typeX25* ctx  )
+const char* matchstar(struct regex_t* token  , struct regex_t* rest  , const char* text, struct anonymous_typeX16* ctx  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "matchstar"; neo_current_frame = &fr;    const char* __result_obj__0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "matchstar"; neo_current_frame = &fr;
+    const char* __result_obj__0;
     struct re_capture snapshot_entry[64]  ;
     memset(&snapshot_entry, 0, sizeof(snapshot_entry));
     snapshot_captures(ctx,snapshot_entry);
@@ -9906,21 +10166,22 @@ fr.fun_name = "matchstar"; neo_current_frame = &fr;    const char* __result_obj_
         const char* recursive=matchstar(token,rest,consume,ctx);
         if(recursive!=0) {
             __result_obj__0 = recursive;
-            neo_current_frame = fr.prev;            return __result_obj__0;
+            neo_current_frame = fr.prev;
+            return __result_obj__0;
         }
         restore_captures(ctx,snapshot_after_token);
         consume=matchtoken(token,consume,ctx);
     }
     restore_captures(ctx,snapshot_entry);
     __result_obj__0 = matchpattern(rest,text,ctx);
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
-const char* matchplus(struct regex_t* token  , struct regex_t* rest  , const char* text, struct anonymous_typeX25* ctx  )
+const char* matchplus(struct regex_t* token  , struct regex_t* rest  , const char* text, struct anonymous_typeX16* ctx  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "matchplus"; neo_current_frame = &fr;    const char* __result_obj__0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "matchplus"; neo_current_frame = &fr;
+    const char* __result_obj__0;
     struct re_capture snapshot_entry[64]  ;
     memset(&snapshot_entry, 0, sizeof(snapshot_entry));
     snapshot_captures(ctx,snapshot_entry);
@@ -9928,250 +10189,268 @@ fr.fun_name = "matchplus"; neo_current_frame = &fr;    const char* __result_obj_
     if((first==0)||(first==text)) {
         restore_captures(ctx,snapshot_entry);
         __result_obj__0 = ((void*)0);
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     const char* result=matchstar(token,rest,first,ctx);
     if(result!=0) {
         __result_obj__0 = result;
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     restore_captures(ctx,snapshot_entry);
     __result_obj__0 = ((void*)0);
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
-const char* matchquestion(struct regex_t* token  , struct regex_t* rest  , const char* text, struct anonymous_typeX25* ctx  )
+const char* matchquestion(struct regex_t* token  , struct regex_t* rest  , const char* text, struct anonymous_typeX16* ctx  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "matchquestion"; neo_current_frame = &fr;    const char* __result_obj__0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "matchquestion"; neo_current_frame = &fr;
+    const char* __result_obj__0;
     struct re_capture snapshot_entry[64]  ;
     memset(&snapshot_entry, 0, sizeof(snapshot_entry));
     snapshot_captures(ctx,snapshot_entry);
     const char* skipped=matchpattern(rest,text,ctx);
     if(skipped!=0) {
         __result_obj__0 = skipped;
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     restore_captures(ctx,snapshot_entry);
     const char* consumed=matchtoken(token,text,ctx);
     if((consumed==0)||(consumed==text)) {
         restore_captures(ctx,snapshot_entry);
         __result_obj__0 = ((void*)0);
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     const char* with=matchpattern(rest,consumed,ctx);
     if(with!=0) {
         __result_obj__0 = with;
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     restore_captures(ctx,snapshot_entry);
     __result_obj__0 = ((void*)0);
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 unsigned char re_fold_char(unsigned char c, _Bool ignore_case)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "re_fold_char"; neo_current_frame = &fr;    if(ignore_case&&c>=65&&c<=90) {
-           neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "re_fold_char"; neo_current_frame = &fr;
+    if(ignore_case&&c>=65&&c<=90) {
+        neo_current_frame = fr.prev;
         return (unsigned char)(c-65+97);
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return c;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
-const char* matchtoken(struct regex_t* token  , const char* text, struct anonymous_typeX25* ctx  )
+const char* matchtoken(struct regex_t* token  , const char* text, struct anonymous_typeX16* ctx  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "matchtoken"; neo_current_frame = &fr;    const char* __result_obj__0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "matchtoken"; neo_current_frame = &fr;
+    const char* __result_obj__0;
     switch (    token->type) {
         case (1):
         __result_obj__0 = (((*text!=0&&matchdot(*text)))?(text+1):(0));
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
         case (7):
         __result_obj__0 = (((*text!=0&&re_fold_char(token->u.ch,ctx->ignore_case)==re_fold_char((unsigned char)*text,ctx->ignore_case)))?(text+1):(0));
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
         case (8):
         __result_obj__0 = (((*text!=0&&matchcharclass(*text,(const char*)token->u.ccl,ctx->ignore_case)))?(text+1):(0));
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
         case (9):
         __result_obj__0 = (((*text!=0&&!matchcharclass(*text,(const char*)token->u.ccl,ctx->ignore_case)))?(text+1):(0));
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
         case (10):
         __result_obj__0 = (((*text!=0&&matchdigit(*text)))?(text+1):(0));
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
         case (11):
         __result_obj__0 = (((*text!=0&&!matchdigit(*text)))?(text+1):(0));
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
         case (12):
         __result_obj__0 = (((*text!=0&&matchalphanum(*text)))?(text+1):(0));
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
         case (13):
         __result_obj__0 = (((*text!=0&&!matchalphanum(*text)))?(text+1):(0));
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
         case (14):
         __result_obj__0 = (((*text!=0&&matchwhitespace(*text)))?(text+1):(0));
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
         case (15):
         __result_obj__0 = (((*text!=0&&!matchwhitespace(*text)))?(text+1):(0));
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
         case (16):
         __result_obj__0 = matchgroup(token,(struct regex_t*)0,text,ctx);
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
         case (2):
         __result_obj__0 = (((text==ctx->base))?(text):(0));
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
         case (3):
         __result_obj__0 = (((*text==0))?(text):(0));
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
         default:
         break;
     }
     __result_obj__0 = (const char*)0;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 int matchdigit(char c)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "matchdigit"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "matchdigit"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return xisdigit((unsigned char)c);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int matchalpha(char c)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "matchalpha"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "matchalpha"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return xisalpha((unsigned char)c);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int matchwhitespace(char c)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "matchwhitespace"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "matchwhitespace"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return xisspace((unsigned char)c);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int matchalphanum(char c)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "matchalphanum"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "matchalphanum"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return ((c==95)||matchalpha(c)||matchdigit(c));
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int matchrange(char c, const char* str, _Bool ignore_case)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "matchrange"; neo_current_frame = &fr;    unsigned char needle;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "matchrange"; neo_current_frame = &fr;
+    unsigned char needle;
     unsigned char start;
     unsigned char end;
     needle=(unsigned char)c;
     start=(unsigned char)str[0];
     end=(unsigned char)str[2];
     if(ignore_case) {
-        needle=re_fold_char(needle,1);
-        start=re_fold_char(start,1);
-        end=re_fold_char(end,1);
+        needle=re_fold_char(needle,(_Bool)1);
+        start=re_fold_char(start,(_Bool)1);
+        end=re_fold_char(end,(_Bool)1);
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return ((needle!=45)&&(str[0]!=0)&&(str[0]!=45)&&(str[1]==45)&&(str[2]!=0)&&((needle>=start)&&(needle<=end)));
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int matchdot(char c)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "matchdot"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "matchdot"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return c!=10&&c!=13;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int ismetachar(char c)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "ismetachar"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "ismetachar"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return ((c==115)||(c==83)||(c==119)||(c==87)||(c==100)||(c==68));
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int matchmetachar(char c, const char* str)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "matchmetachar"; neo_current_frame = &fr;    switch (    str[0]) {
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "matchmetachar"; neo_current_frame = &fr;
+    switch (    str[0]) {
         case 100:
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return matchdigit(c);
         case 68:
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return !matchdigit(c);
         case 119:
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return matchalphanum(c);
         case 87:
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return !matchalphanum(c);
         case 115:
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return matchwhitespace(c);
         case 83:
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return !matchwhitespace(c);
         default:
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return (c==str[0]);
     }
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int matchcharclass(char c, const char* str, _Bool ignore_case)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "matchcharclass"; neo_current_frame = &fr;    unsigned char needle;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "matchcharclass"; neo_current_frame = &fr;
+    unsigned char needle;
     needle=re_fold_char((unsigned char)c,ignore_case);
     do {
         if(matchrange((char)needle,str,ignore_case)) {
-               neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
             return 1;
         }
         else if(str[0]==92) {
             str+=1;
             if(matchmetachar((char)needle,str)) {
-                   neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
                 return 1;
             }
             else if((needle==re_fold_char((unsigned char)str[0],ignore_case))&&!ismetachar((char)needle)) {
-                   neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
                 return 1;
             }
         }
         else if(needle==re_fold_char((unsigned char)str[0],ignore_case)) {
             if(needle==45) {
-                   neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
                 return ((str[-1]==0)||(str[1]==0));
             }
             else {
-                   neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
                 return 1;
             }
         }
     } while(*str++!=0);
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return 0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 void re_print_internal(struct regex_t* pattern  , int depth)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "re_print_internal"; neo_current_frame = &fr;    int i;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "re_print_internal"; neo_current_frame = &fr;
+    int i;
     const char* types[]={
     "RE_UNUSED", "RE_DOT", "RE_BEGIN", "RE_END", "RE_QUESTIONMARK", "RE_STAR", "RE_PLUS", "RE_CHAR",
     "RE_CHAR_CLASS", "RE_INV_CHAR_CLASS", "RE_DIGIT", "RE_NOT_DIGIT", "RE_ALPHA", "RE_NOT_ALPHA",
@@ -10203,27 +10482,27 @@ fr.fun_name = "re_print_internal"; neo_current_frame = &fr;    int i;
         printf("\n");
         pattern=pattern->next;
     }
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int re_get_group_count(struct re_program* pattern  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "re_get_group_count"; neo_current_frame = &fr;    struct re_program* program  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "re_get_group_count"; neo_current_frame = &fr;
+    struct re_program* program  ;
     if(pattern==0) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return 0;
     }
     program=(struct re_program*)pattern;
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return program->group_count;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int charp_index_regex(const char* self, const char* reg, int default_value, _Bool ignore_case)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_index_regex"; neo_current_frame = &fr;    struct re_program* re  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_index_regex"; neo_current_frame = &fr;
+    struct re_program* re  ;
     int result;
     int offset;
     int n;
@@ -10232,19 +10511,19 @@ fr.fun_name = "charp_index_regex"; neo_current_frame = &fr;    struct re_program
     int max_captures;
     int regex_result;
     if(self==((void*)0)||reg==((void*)0)) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return default_value;
     }
     re=re_compile(reg);
     if(re==((void*)0)) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return default_value;
     }
     result=default_value;
     offset=0;
     n=0;
     result_38=default_value;
-    while(1) {
+    while((_Bool)1) {
         matchlength=0;
         max_captures=8;
         struct re_capture captures[max_captures]  ;
@@ -10258,15 +10537,15 @@ fr.fun_name = "charp_index_regex"; neo_current_frame = &fr;    struct re_program
             break;
         }
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return result_38;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int charp_rindex_regex(const char* self, const char* reg, int default_value, _Bool ignore_case)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_rindex_regex"; neo_current_frame = &fr;    struct re_program* re  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_rindex_regex"; neo_current_frame = &fr;
+    struct re_program* re  ;
     int result;
     int offset;
     int n;
@@ -10278,12 +10557,12 @@ fr.fun_name = "charp_rindex_regex"; neo_current_frame = &fr;    struct re_progra
     int regex_result;
     int __result_obj__0;
     if(self==((void*)0)||reg==((void*)0)) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return default_value;
     }
     re=re_compile(reg);
     if(re==((void*)0)) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return default_value;
     }
     result=default_value;
@@ -10291,7 +10570,7 @@ fr.fun_name = "charp_rindex_regex"; neo_current_frame = &fr;    struct re_progra
     n=0;
     self2=(char*)come_increment_ref_count(charp_reverse(self));
     result_39=default_value;
-    while(1) {
+    while((_Bool)1) {
         matchlength=0;
         max_captures=8;
         struct re_capture captures[max_captures]  ;
@@ -10307,20 +10586,21 @@ fr.fun_name = "charp_rindex_regex"; neo_current_frame = &fr;    struct re_progra
     }
     __result_obj__0 = result_39;
     (self2 = come_decrement_ref_count(self2, (void*)0, (void*)0, 0, 0, (void*)0));
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 char* string_chomp(const char* str)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "string_chomp"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "string_chomp"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     char* result  ;
     if(str==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     result=(char*)come_increment_ref_count(__builtin_string(str));
@@ -10328,36 +10608,37 @@ fr.fun_name = "string_chomp"; neo_current_frame = &fr;    void* __right_value0 =
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=charp_substring(result,0,-2))));
         (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 0, (void*)0));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     __result_obj__0 = (char*)come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 int string_rindex_regex(char* self, const char* reg, int default_value, _Bool ignore_case)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "string_rindex_regex"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "string_rindex_regex"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return charp_rindex_regex(self,reg,default_value,ignore_case);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int string_index_regex(char* self, const char* reg, int default_value, _Bool ignore_case)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "string_index_regex"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "string_index_regex"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return charp_index_regex(self,reg,default_value,ignore_case);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool charp_match(char* self, const char* reg, _Bool ignore_case)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_match"; neo_current_frame = &fr;    struct re_program* re  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_match"; neo_current_frame = &fr;
+    struct re_program* re  ;
     int offset;
     int n;
     int matchlength;
@@ -10365,13 +10646,13 @@ fr.fun_name = "charp_match"; neo_current_frame = &fr;    struct re_program* re  
     int regex_result;
     _Bool __result_obj__0;
     if(self==((void*)0)||reg==((void*)0)) {
-           neo_current_frame = fr.prev;
-        return 0;
+        neo_current_frame = fr.prev;
+        return (_Bool)0;
     }
     re=re_compile(reg);
     if(re==((void*)0)) {
-           neo_current_frame = fr.prev;
-        return 0;
+        neo_current_frame = fr.prev;
+        return (_Bool)0;
     }
     offset=0;
     n=0;
@@ -10381,20 +10662,22 @@ fr.fun_name = "charp_match"; neo_current_frame = &fr;    struct re_program* re  
     memset(&captures, 0, sizeof(captures));
     regex_result=re_matchp_ex(re,self,&matchlength,captures,max_captures,ignore_case);
     if(regex_result>=0) {
-        __result_obj__0 = 1;
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        __result_obj__0 = (_Bool)1;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     else {
-        __result_obj__0 = 0;
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        __result_obj__0 = (_Bool)0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 struct list$1char$ph* charp_scan(const char* self, const char* reg, _Bool ignore_case)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_scan"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_scan"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1char$ph* __result_obj__0;
     struct list$1char$ph* result;
@@ -10412,7 +10695,8 @@ fr.fun_name = "charp_scan"; neo_current_frame = &fr;    void* __right_value0 = (
     if(self==((void*)0)||reg==((void*)0)) {
         __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 5953, "struct list$1char$ph*"))))));
         come_call_finalizer(list$1char$ph$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-        neo_current_frame = fr.prev;        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+        neo_current_frame = fr.prev;
+        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
     result=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 5955, "struct list$1char$ph*"))));
@@ -10421,13 +10705,14 @@ fr.fun_name = "charp_scan"; neo_current_frame = &fr;    void* __right_value0 = (
         __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 5960, "struct list$1char$ph*"))))));
         come_call_finalizer(list$1char$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_call_finalizer(list$1char$ph$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-        neo_current_frame = fr.prev;        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+        neo_current_frame = fr.prev;
+        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
     offset=0;
     n=0;
     group_count=re_get_group_count(re);
-    while(1) {
+    while((_Bool)1) {
         matchlength=0;
         max_captures=8;
         struct re_capture captures[max_captures]  ;
@@ -10464,15 +10749,15 @@ fr.fun_name = "charp_scan"; neo_current_frame = &fr;    void* __right_value0 = (
     }
     __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(result);
     come_call_finalizer(list$1char$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 struct list$1char$ph* charp_split(const char* self, const char* reg, _Bool ignore_case)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_split"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_split"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1char$ph* __result_obj__0;
     struct list$1char$ph* result;
@@ -10488,7 +10773,8 @@ fr.fun_name = "charp_split"; neo_current_frame = &fr;    void* __right_value0 = 
     if(self==((void*)0)||reg==((void*)0)) {
         __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 6016, "struct list$1char$ph*"))))));
         come_call_finalizer(list$1char$ph$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-        neo_current_frame = fr.prev;        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+        neo_current_frame = fr.prev;
+        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
     result=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 6019, "struct list$1char$ph*"))));
@@ -10497,13 +10783,14 @@ fr.fun_name = "charp_split"; neo_current_frame = &fr;    void* __right_value0 = 
         __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 6024, "struct list$1char$ph*"))))));
         come_call_finalizer(list$1char$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_call_finalizer(list$1char$ph$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-        neo_current_frame = fr.prev;        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+        neo_current_frame = fr.prev;
+        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
     offset=0;
     n=0;
     group_count=re_get_group_count(re);
-    while(1) {
+    while((_Bool)1) {
         matchlength=0;
         max_captures=8;
         struct re_capture captures[max_captures]  ;
@@ -10531,59 +10818,59 @@ fr.fun_name = "charp_split"; neo_current_frame = &fr;    void* __right_value0 = 
     }
     __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(result);
     come_call_finalizer(list$1char$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* string_sub(char* self, const char* reg, const char* replace, _Bool ignore_case)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "string_sub"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "string_sub"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
-    __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=charp_sub(self,reg,replace,1,ignore_case))));
+    __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=charp_sub(self,reg,replace,(_Bool)1,ignore_case))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 struct list$1char$ph* string_scan(char* self, const char* reg, _Bool ignore_case)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "string_scan"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "string_scan"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     struct list$1char$ph* __result_obj__0;
     __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value0=charp_scan(self,reg,ignore_case))));
     come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 struct list$1char$ph* string_split(char* self, const char* reg, _Bool ignore_case)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "string_split"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "string_split"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     struct list$1char$ph* __result_obj__0;
     __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value0=charp_split(self,reg,ignore_case))));
     come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 _Bool string_match(char* self, const char* reg, _Bool ignore_case)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "string_match"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "string_match"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return charp_match(self,reg,ignore_case);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 char* charp_sub(char* self, const char* reg, const char* replace, _Bool global, _Bool ignore_case)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_sub"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_sub"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     struct re_program* re  ;
     int offset;
@@ -10600,21 +10887,23 @@ fr.fun_name = "charp_sub"; neo_current_frame = &fr;    void* __right_value0 = (v
     if(self==((void*)0)||reg==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     re=re_compile(reg);
     if(re==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     offset=0;
     n=0;
     result=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), (void*)0, 6109, "struct buffer*"))));
     group_count=re_get_group_count(re);
-    while(1) {
+    while((_Bool)1) {
         matchlength=0;
         max_captures=8;
         struct re_capture captures[max_captures]  ;
@@ -10651,15 +10940,15 @@ fr.fun_name = "charp_sub"; neo_current_frame = &fr;    void* __right_value0 = (v
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=buffer_to_string(result))));
     come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* charp_sub_block(char* self, const char* reg, _Bool global, _Bool ignore_case, void* parent, char* (*block)(void*,char*,struct list$1char$ph*))
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_sub_block"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_sub_block"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     void* __right_value1 = (void*)0;
     struct buffer* result  ;
@@ -10686,7 +10975,8 @@ fr.fun_name = "charp_sub_block"; neo_current_frame = &fr;    void* __right_value
     if(self==((void*)0)||reg==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     result=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), (void*)0, 6157, "struct buffer*"))));
@@ -10695,13 +10985,14 @@ fr.fun_name = "charp_sub_block"; neo_current_frame = &fr;    void* __right_value
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     offset=0;
     n=0;
     group_count=re_get_group_count(re);
-    while(1) {
+    while((_Bool)1) {
         matchlength=0;
         max_captures=8;
         struct re_capture captures[max_captures]  ;
@@ -10771,15 +11062,15 @@ fr.fun_name = "charp_sub_block"; neo_current_frame = &fr;    void* __right_value
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=buffer_to_string(result))));
     come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 struct list$1char$ph* charp_scan_block(const char* self, const char* reg, _Bool ignore_case, void* parent, char* (*block)(void*,char*,struct list$1char$ph*))
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_scan_block"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_scan_block"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1char$ph* __result_obj__0;
     struct list$1char$ph* result;
@@ -10802,7 +11093,8 @@ fr.fun_name = "charp_scan_block"; neo_current_frame = &fr;    void* __right_valu
     if(self==((void*)0)||reg==((void*)0)) {
         __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 6246, "struct list$1char$ph*"))))));
         come_call_finalizer(list$1char$ph$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-        neo_current_frame = fr.prev;        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+        neo_current_frame = fr.prev;
+        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
     result=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 6248, "struct list$1char$ph*"))));
@@ -10811,13 +11103,14 @@ fr.fun_name = "charp_scan_block"; neo_current_frame = &fr;    void* __right_valu
         __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 6253, "struct list$1char$ph*"))))));
         come_call_finalizer(list$1char$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_call_finalizer(list$1char$ph$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-        neo_current_frame = fr.prev;        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+        neo_current_frame = fr.prev;
+        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
     offset=0;
     n=0;
     group_count=re_get_group_count(re);
-    while(1) {
+    while((_Bool)1) {
         matchlength=0;
         max_captures=8;
         struct re_capture captures[max_captures]  ;
@@ -10865,34 +11158,35 @@ fr.fun_name = "charp_scan_block"; neo_current_frame = &fr;    void* __right_valu
     }
     __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(result);
     come_call_finalizer(list$1char$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* string_sub_block(char* self, const char* reg, _Bool global, _Bool ignore_case, void* parent, char* (*block)(void*,char*,struct list$1char$ph*))
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "string_sub_block"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "string_sub_block"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=charp_sub_block(self,reg,global,ignore_case,parent,block))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 int* __builtin_wstring(const char* str)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "__builtin_wstring"; neo_current_frame = &fr;    int* __result_obj__0  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "__builtin_wstring"; neo_current_frame = &fr;
+    int* __result_obj__0  ;
     int len;
     void* __right_value0 = (void*)0;
     int* wstr  ;
     int ret;
     if(str==((void*)0)) {
         __result_obj__0 = (int*)come_increment_ref_count(((void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     len=strlen(str);
@@ -10904,54 +11198,55 @@ fr.fun_name = "__builtin_wstring"; neo_current_frame = &fr;    int* __result_obj
     }
     __result_obj__0 = (int*)come_increment_ref_count(wstr);
     (wstr = come_decrement_ref_count(wstr, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 int wchar_tp_length(const int* str  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wchar_tp_length"; neo_current_frame = &fr;    if(str==((void*)0)) {
-           neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_tp_length"; neo_current_frame = &fr;
+    if(str==((void*)0)) {
+        neo_current_frame = fr.prev;
         return 0;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return wcslen(str);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int wchar_ta_length(const int* str  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wchar_ta_length"; neo_current_frame = &fr;    if(str==((void*)0)) {
-           neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_ta_length"; neo_current_frame = &fr;
+    if(str==((void*)0)) {
+        neo_current_frame = fr.prev;
         return 0;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return wcslen(str);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int wstring_length(const int* str  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wstring_length"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wstring_length"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return wchar_tp_length(str);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 char* string_lower_case(char* str)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "string_lower_case"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "string_lower_case"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     char* result  ;
     int i;
     if(str==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     result=(char*)come_increment_ref_count(__builtin_string(str));
@@ -10962,22 +11257,23 @@ fr.fun_name = "string_lower_case"; neo_current_frame = &fr;    void* __right_val
     }
     __result_obj__0 = (char*)come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* string_upper_case(char* str)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "string_upper_case"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "string_upper_case"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     char* result  ;
     int i;
     if(str==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     result=(char*)come_increment_ref_count(__builtin_string(str));
@@ -10988,22 +11284,23 @@ fr.fun_name = "string_upper_case"; neo_current_frame = &fr;    void* __right_val
     }
     __result_obj__0 = (char*)come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 int* wchar_tp_substring(const int* str  , int head, int tail)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wchar_tp_substring"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_tp_substring"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     int* __result_obj__0  ;
     int len;
     int* result  ;
     if(str==((void*)0)) {
         __result_obj__0 = (int*)come_increment_ref_count(((int*)(__right_value0=__builtin_wstring(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     len=wcslen(str);
@@ -11016,7 +11313,8 @@ fr.fun_name = "wchar_tp_substring"; neo_current_frame = &fr;    void* __right_va
     if(head>tail) {
         __result_obj__0 = (int*)come_increment_ref_count(((int*)(__right_value0=__builtin_wstring(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     if(head<0) {
@@ -11028,19 +11326,22 @@ fr.fun_name = "wchar_tp_substring"; neo_current_frame = &fr;    void* __right_va
     if(head>=len) {
         __result_obj__0 = (int*)come_increment_ref_count(((int*)(__right_value0=__builtin_wstring(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     if(head==tail) {
         __result_obj__0 = (int*)come_increment_ref_count(((int*)(__right_value0=__builtin_wstring(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     if(tail-head+1<1) {
         __result_obj__0 = (int*)come_increment_ref_count(((int*)(__right_value0=__builtin_wstring(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     result=(int*)come_increment_ref_count((int*)come_calloc(1, sizeof(int)*(1*(tail-head+1)), (void*)0, 6442, "int*"));
@@ -11048,22 +11349,22 @@ fr.fun_name = "wchar_tp_substring"; neo_current_frame = &fr;    void* __right_va
     result[tail-head]=0;
     __result_obj__0 = (int*)come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 int charp_index_count(const char* str, const char* search_str, int count, int default_value)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_index_count"; neo_current_frame = &fr;    int n;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_index_count"; neo_current_frame = &fr;
+    int n;
     int len;
     int i;
     int len2;
     int j;
     memset(&j, 0, sizeof(j));
     if(str==((void*)0)||search_str==((void*)0)) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return default_value;
     }
     n=0;
@@ -11078,46 +11379,46 @@ fr.fun_name = "charp_index_count"; neo_current_frame = &fr;    int n;
         if(j==len2) {
             n++;
             if(n==count) {
-                   neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
                 return i;
             }
         }
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return default_value;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int charp_rindex(const char* str, const char* search_str, int default_value)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_rindex"; neo_current_frame = &fr;    int len;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_rindex"; neo_current_frame = &fr;
+    int len;
     char* p;
     if(str==((void*)0)||search_str==((void*)0)) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return default_value;
     }
     len=strlen(search_str);
     p=(char*)(str+strlen(str)-len);
     while(p>=str) {
         if(strncmp(p,search_str,len)==0) {
-               neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
             return p-str;
         }
         p--;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return default_value;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int charp_rindex_count(const char* str, const char* search_str, int count, int default_value)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_rindex_count"; neo_current_frame = &fr;    int len;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_rindex_count"; neo_current_frame = &fr;
+    int len;
     int n;
     if(str==((void*)0)||search_str==((void*)0)) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return default_value;
     }
     len=strlen(search_str);
@@ -11127,28 +11428,29 @@ fr.fun_name = "charp_rindex_count"; neo_current_frame = &fr;    int len;
         if(strncmp(p,search_str,len)==0) {
             n++;
             if(n==count) {
-                   neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
                 return p-str;
             }
         }
         p--;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return default_value;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 char* charp_strip(const char* self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_strip"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_strip"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     char* result  ;
     int len;
     if(self==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     result=(char*)come_increment_ref_count(__builtin_string(self));
@@ -11164,94 +11466,98 @@ fr.fun_name = "charp_strip"; neo_current_frame = &fr;    void* __right_value0 = 
     }
     __result_obj__0 = (char*)come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* wchar_tp_to_string(const int* wstr  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wchar_tp_to_string"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_tp_to_string"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     int len;
     char* result  ;
     if(wstr==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    len=16*(wcslen(wstr)+1);
+    len=6*(wcslen(wstr)+1);
     result=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len)), (void*)0, 6555, "char*"));
     if(wcstombs(result,wstr,len)<0) {
         strncpy(result,"",len);
     }
     __result_obj__0 = (char*)come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* wchar_ta_to_string(const int* wstr  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wchar_ta_to_string"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_ta_to_string"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     if(wstr==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=wchar_tp_to_string(wstr))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 int* charp_to_wstring(const char* str)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_to_wstring"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_to_wstring"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     int* __result_obj__0  ;
     if(str==((void*)0)) {
         __result_obj__0 = (int*)come_increment_ref_count(((int*)(__right_value0=__builtin_wstring(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     __result_obj__0 = (int*)come_increment_ref_count(((int*)(__right_value0=__builtin_wstring(str))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 int* chara_to_wstring(char* str)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "chara_to_wstring"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "chara_to_wstring"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     int* __result_obj__0  ;
     if(str==((void*)0)) {
         __result_obj__0 = (int*)come_increment_ref_count(((int*)(__right_value0=__builtin_wstring(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     __result_obj__0 = (int*)come_increment_ref_count(((int*)(__right_value0=__builtin_wstring(str))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 int* wchar_tp_delete(const int* str  , int head, int tail)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wchar_tp_delete"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_tp_delete"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     int* __result_obj__0  ;
     int len;
     void* __right_value1 = (void*)0;
@@ -11259,7 +11565,8 @@ fr.fun_name = "wchar_tp_delete"; neo_current_frame = &fr;    void* __right_value
     if(str==((void*)0)) {
         __result_obj__0 = (int*)come_increment_ref_count(((int*)(__right_value0=__builtin_wstring(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     len=wcslen(str);
@@ -11267,7 +11574,8 @@ fr.fun_name = "wchar_tp_delete"; neo_current_frame = &fr;    void* __right_value
         __result_obj__0 = (int*)come_increment_ref_count(((int*)(__right_value1=string_to_wstring(((char*)(__right_value0=wchar_tp_to_string(str)))))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     if(head<0) {
@@ -11283,7 +11591,8 @@ fr.fun_name = "wchar_tp_delete"; neo_current_frame = &fr;    void* __right_value
         __result_obj__0 = (int*)come_increment_ref_count(((int*)(__right_value1=string_to_wstring(((char*)(__right_value0=wchar_tp_to_string(str)))))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     if(tail>=len) {
@@ -11295,67 +11604,67 @@ fr.fun_name = "wchar_tp_delete"; neo_current_frame = &fr;    void* __right_value
     (sub_str = come_decrement_ref_count(sub_str, (void*)0, (void*)0, 0, 0, (void*)0));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 int wchar_tp_index(const int* str  , const int* search_str  , int default_value)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wchar_tp_index"; neo_current_frame = &fr;    int* head  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_tp_index"; neo_current_frame = &fr;
+    int* head  ;
     if(str==((void*)0)||search_str==((void*)0)) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return default_value;
     }
     head=wcsstr(str,search_str);
     if(head==((void*)0)) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return default_value;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return head-str;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int wchar_tp_rindex(const int* str  , const int* search_str  , int default_value)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wchar_tp_rindex"; neo_current_frame = &fr;    int len;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_tp_rindex"; neo_current_frame = &fr;
+    int len;
     int* p  ;
     int len2;
     _Bool result;
     int i;
     memset(&i, 0, sizeof(i));
     if(str==((void*)0)||search_str==((void*)0)) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return default_value;
     }
     len=wcslen(search_str);
     p=(int*)str+wcslen(str)-len;
     while(p>=str) {
         len2=wcslen(p);
-        result=1;
+        result=(_Bool)1;
         for(i=0;i<len&&i<len2;i++){
             if(p[i]!=search_str[i]) {
-                result=0;
+                result=(_Bool)0;
             }
         }
         if(result) {
-               neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
             return (p-str);
         }
         p--;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return default_value;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int* wchar_tp_reverse(const int* str  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wchar_tp_reverse"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_tp_reverse"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     int* __result_obj__0  ;
     int len;
     int* result  ;
@@ -11363,7 +11672,8 @@ fr.fun_name = "wchar_tp_reverse"; neo_current_frame = &fr;    void* __right_valu
     if(str==((void*)0)) {
         __result_obj__0 = (int*)come_increment_ref_count(((int*)(__right_value0=__builtin_wstring(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     len=wcslen(str);
@@ -11374,15 +11684,15 @@ fr.fun_name = "wchar_tp_reverse"; neo_current_frame = &fr;    void* __right_valu
     result[len]=0;
     __result_obj__0 = (int*)come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 int* wchar_tp_multiply(const int* str  , int n)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wchar_tp_multiply"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_tp_multiply"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     int* __result_obj__0  ;
     int len;
     int* result  ;
@@ -11390,7 +11700,8 @@ fr.fun_name = "wchar_tp_multiply"; neo_current_frame = &fr;    void* __right_val
     if(str==((void*)0)) {
         __result_obj__0 = (int*)come_increment_ref_count(((int*)(__right_value0=__builtin_wstring(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     len=wcslen(str)*n+1;
@@ -11401,15 +11712,15 @@ fr.fun_name = "wchar_tp_multiply"; neo_current_frame = &fr;    void* __right_val
     }
     __result_obj__0 = (int*)come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 int* wchar_tp_printable(const int* str  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wchar_tp_printable"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_tp_printable"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     int* __result_obj__0  ;
     int len;
     int* result  ;
@@ -11419,7 +11730,8 @@ fr.fun_name = "wchar_tp_printable"; neo_current_frame = &fr;    void* __right_va
     if(str==((void*)0)) {
         __result_obj__0 = (int*)come_increment_ref_count(((int*)(__right_value0=__builtin_wstring(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     len=wchar_tp_length(str);
@@ -11438,117 +11750,118 @@ fr.fun_name = "wchar_tp_printable"; neo_current_frame = &fr;    void* __right_va
     result[n]=0;
     __result_obj__0 = (int*)come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 int wchar_tp_compare(const int* left  , int* right  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wchar_tp_compare"; neo_current_frame = &fr;    if(left==((void*)0)) {
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_tp_compare"; neo_current_frame = &fr;
+    if(left==((void*)0)) {
         if(right==((void*)0)) {
-               neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
             return 0;
         }
         else {
-               neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
             return 1;
         }
     }
     else if(right==((void*)0)) {
         if(left==((void*)0)) {
-               neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
             return 0;
         }
         else {
-               neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
             return -1;
         }
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return wcscmp(left,right);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int wstring_compare(const int* left  , const int* right  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wstring_compare"; neo_current_frame = &fr;    if(left==((void*)0)) {
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wstring_compare"; neo_current_frame = &fr;
+    if(left==((void*)0)) {
         if(right==((void*)0)) {
-               neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
             return 0;
         }
         else {
-               neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
             return 1;
         }
     }
     else if(right==((void*)0)) {
         if(left==((void*)0)) {
-               neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
             return 0;
         }
         else {
-               neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
             return -1;
         }
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return wcscmp(left,right);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int* wchar_tp_operator_mult(const int* str  , int n)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wchar_tp_operator_mult"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_tp_operator_mult"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     int* __result_obj__0  ;
     __result_obj__0 = (int*)come_increment_ref_count(((int*)(__right_value0=wchar_tp_multiply(str,n))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 int* wstring_operator_mult(const int* str  , int n)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wstring_operator_mult"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wstring_operator_mult"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     int* __result_obj__0  ;
     __result_obj__0 = (int*)come_increment_ref_count(((int*)(__right_value0=wchar_tp_multiply(str,n))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 _Bool wstring_operator_equals(const int* left  , const int* right  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wstring_operator_equals"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wstring_operator_equals"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return wcscmp(left,right)==0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool wstring_operator_not_equals(const int* left  , const int* right  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wstring_operator_not_equals"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wstring_operator_not_equals"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return wcscmp(left,right)!=0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int* wchar_tp_operator_add(const int* left  , const int* right  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wchar_tp_operator_add"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_tp_operator_add"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     int* __result_obj__0  ;
     int* result  ;
     if(left==((void*)0)||right==((void*)0)) {
         __result_obj__0 = (int*)come_increment_ref_count(((int*)(__right_value0=__builtin_wstring(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     result=(int*)come_increment_ref_count((int*)come_calloc(1, sizeof(int)*(1*(wcslen(left)+wcslen(right)+1)), (void*)0, 6822, "int*"));
@@ -11556,21 +11869,22 @@ fr.fun_name = "wchar_tp_operator_add"; neo_current_frame = &fr;    void* __right
     wcscat(result,right);
     __result_obj__0 = (int*)come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 int* wstring_operator_add(const int* left  , const int* right  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wstring_operator_add"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wstring_operator_add"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     int* __result_obj__0  ;
     int* result  ;
     if(left==((void*)0)||right==((void*)0)) {
         __result_obj__0 = (int*)come_increment_ref_count(((int*)(__right_value0=__builtin_wstring(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     result=(int*)come_increment_ref_count((int*)come_calloc(1, sizeof(int)*(1*(wcslen(left)+wcslen(right)+1)), (void*)0, 6835, "int*"));
@@ -11578,46 +11892,48 @@ fr.fun_name = "wstring_operator_add"; neo_current_frame = &fr;    void* __right_
     wcscat(result,right);
     __result_obj__0 = (int*)come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 int charp_index(const char* str, const char* search_str, int default_value)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_index"; neo_current_frame = &fr;    char* head;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_index"; neo_current_frame = &fr;
+    char* head;
     if(str==((void*)0)||search_str==((void*)0)) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return default_value;
     }
     head=strstr(str,search_str);
     if(head==((void*)0)) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return default_value;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return head-str;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 char* charp_replace(char* self, int index, char c)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_replace"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_replace"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     int len;
     if(self==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     len=strlen(self);
     if(strcmp(self,"")==0) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(self))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     if(index<0) {
@@ -11632,15 +11948,15 @@ fr.fun_name = "charp_replace"; neo_current_frame = &fr;    void* __right_value0 
     self[index]=c;
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(self))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* charp_multiply(const char* str, int n)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_multiply"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_multiply"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     int len;
     char* result;
@@ -11648,7 +11964,8 @@ fr.fun_name = "charp_multiply"; neo_current_frame = &fr;    void* __right_value0
     if(str==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     len=strlen(str)*n+1;
@@ -11659,15 +11976,15 @@ fr.fun_name = "charp_multiply"; neo_current_frame = &fr;    void* __right_value0
     }
     __result_obj__0 = (char*)come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 struct list$1char$ph* charp_split_str(const char* self, const char* str)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_split_str"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_split_str"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1char$ph* __result_obj__0;
     struct list$1char$ph* result;
@@ -11676,7 +11993,8 @@ fr.fun_name = "charp_split_str"; neo_current_frame = &fr;    void* __right_value
     if(self==((void*)0)||str==((void*)0)) {
         __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 6906, "struct list$1char$ph*"))))));
         come_call_finalizer(list$1char$ph$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-        neo_current_frame = fr.prev;        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+        neo_current_frame = fr.prev;
+        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
     result=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 6908, "struct list$1char$ph*"))));
@@ -11697,18 +12015,18 @@ fr.fun_name = "charp_split_str"; neo_current_frame = &fr;    void* __right_value
     __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(result);
     come_call_finalizer(list$1char$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 unsigned int wchar_tp_get_hash_key(const int* value  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wchar_tp_get_hash_key"; neo_current_frame = &fr;    int result;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_tp_get_hash_key"; neo_current_frame = &fr;
+    int result;
     int* p  ;
     if(value==((void*)0)) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return 0;
     }
     result=0;
@@ -11717,82 +12035,83 @@ fr.fun_name = "wchar_tp_get_hash_key"; neo_current_frame = &fr;    int result;
         result+=(*p);
         p++;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return result;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool wstring_equals(const int* left  , const int* right  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wstring_equals"; neo_current_frame = &fr;    if(left==((void*)0)&&right==((void*)0)) {
-           neo_current_frame = fr.prev;
-        return 1;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wstring_equals"; neo_current_frame = &fr;
+    if(left==((void*)0)&&right==((void*)0)) {
+        neo_current_frame = fr.prev;
+        return (_Bool)1;
     }
     else if(left==((void*)0)||right==((void*)0)) {
-           neo_current_frame = fr.prev;
-        return 0;
+        neo_current_frame = fr.prev;
+        return (_Bool)0;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return wcscmp(left,right)==0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool wchar_t_operator_equals(int left  , int right  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wchar_t_operator_equals"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_t_operator_equals"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return left==right;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool wchar_t_operator_not_equals(int left  , int right  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wchar_t_operator_not_equals"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_t_operator_not_equals"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return left!=right;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 unsigned int wchar_t_get_hash_key(int value  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wchar_t_get_hash_key"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_t_get_hash_key"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return value;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool wchar_t_equals(int left  , int right  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wchar_t_equals"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_t_equals"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return left==right;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 char* wchar_t_to_string(int wc  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wchar_t_to_string"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_t_to_string"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=xsprintf("%ls",wc))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* xrealpath(const char* path)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "xrealpath"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "xrealpath"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     char* result;
     char* result2  ;
     if(path==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     result=realpath(path,((void*)0));
@@ -11800,38 +12119,39 @@ fr.fun_name = "xrealpath"; neo_current_frame = &fr;    void* __right_value0 = (v
     free(result);
     __result_obj__0 = (char*)come_increment_ref_count(result2);
     (result2 = come_decrement_ref_count(result2, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* xdirname(const char* path)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "xdirname"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "xdirname"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     void* __right_value1 = (void*)0;
     if(path==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value1=__builtin_string(dirname(((char*)(__right_value0=__builtin_string(path))))))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
-unsigned long xwcslen(const int* wstr  )
+unsigned long  int xwcslen(const int* wstr  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "xwcslen"; neo_current_frame = &fr;    int* p  ;
-    unsigned long len  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "xwcslen"; neo_current_frame = &fr;
+    int* p  ;
+    unsigned long  int len  ;
     if(wstr==((void*)0)) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return 0;
     }
     p=(int*)wstr;
@@ -11840,253 +12160,253 @@ fr.fun_name = "xwcslen"; neo_current_frame = &fr;    int* p  ;
         p++;
         len++;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return len;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int* wstring_substring(const int* str  , int head, int tail)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wstring_substring"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wstring_substring"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     int* __result_obj__0  ;
     __result_obj__0 = (int*)come_increment_ref_count(((int*)(__right_value0=wchar_tp_substring(str,head,tail))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 int string_index_count(const char* str, const char* search_str, int count, int default_value)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "string_index_count"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "string_index_count"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return charp_index_count(str,search_str,count,default_value);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int string_rindex(const char* str, const char* search_str, int default_value)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "string_rindex"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "string_rindex"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return charp_rindex(str,search_str,default_value);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int string_rindex_count(const char* str, const char* search_str, int count, int default_value)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "string_rindex_count"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "string_rindex_count"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return charp_rindex_count(str,search_str,count,default_value);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 char* string_strip(const char* self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "string_strip"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "string_strip"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=charp_strip(self))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* wstring_to_string(const int* wstr  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wstring_to_string"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wstring_to_string"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=wchar_tp_to_string(wstr))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 int* int_to_wstring(int self)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "int_to_wstring"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "int_to_wstring"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     int* __result_obj__0  ;
     __result_obj__0 = (int*)come_increment_ref_count(((int*)(__right_value1=string_to_wstring(((char*)(__right_value0=xsprintf("%d",self)))))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 int* wstring_delete(const int* str  , int head, int tail)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wstring_delete"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wstring_delete"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     int* __result_obj__0  ;
     __result_obj__0 = (int*)come_increment_ref_count(((int*)(__right_value0=wchar_tp_delete(str,head,tail))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 int wstring_index(const int* str  , const int* search_str  , int default_value)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wstring_index"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wstring_index"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return wchar_tp_index(str,search_str,default_value);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int wstring_rindex(const int* str  , const int* search_str  , int default_value)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wstring_rindex"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wstring_rindex"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return wchar_tp_rindex(str,search_str,default_value);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int* wstring_reverse(const int* str  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wstring_reverse"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wstring_reverse"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     int* __result_obj__0  ;
     __result_obj__0 = (int*)come_increment_ref_count(((int*)(__right_value0=wchar_tp_reverse(str))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 int* wstring_multiply(const int* str  , int n)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wstring_multiply"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wstring_multiply"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     int* __result_obj__0  ;
     __result_obj__0 = (int*)come_increment_ref_count(((int*)(__right_value0=wchar_tp_multiply(str,n))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 int* wstring_printable(const int* str  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wstring_printable"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wstring_printable"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     int* __result_obj__0  ;
     __result_obj__0 = (int*)come_increment_ref_count(((int*)(__right_value0=wchar_tp_printable(str))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 unsigned int wstring_get_hash_key(const int* value  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wstring_get_hash_key"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wstring_get_hash_key"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return wchar_tp_get_hash_key(value);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 int string_index(const char* str, const char* search_str, int default_value)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "string_index"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "string_index"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return charp_index(str,search_str,default_value);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 char* string_replace(char* self, int index, char c)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "string_replace"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "string_replace"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=charp_replace(self,index,c))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* string_multiply(const char* str, int n)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "string_multiply"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "string_multiply"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=charp_multiply(str,n))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 struct list$1char$ph* string_split_str(const char* self, const char* str)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "string_split_str"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "string_split_str"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     struct list$1char$ph* __result_obj__0;
     __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value0=charp_split_str(self,str))));
     come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 int* string_to_wstring(const char* str)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "string_to_wstring"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "string_to_wstring"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     int* __result_obj__0  ;
     __result_obj__0 = (int*)come_increment_ref_count(((int*)(__right_value0=charp_to_wstring(str))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 char* charp_chomp(const char* str)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_chomp"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_chomp"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=string_chomp(str))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 _Bool wchar_tp_equals(const int* left  , const int* right  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wchar_tp_equals"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_tp_equals"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return wcscmp(left,right)==0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool wchar_tp_operator_equals(const int* left  , const int* right  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wchar_tp_operator_equals"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_tp_operator_equals"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return wcscmp(left,right)==0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool wchar_tp_operator_not_equals(const int* left  , const int* right  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "wchar_tp_operator_not_equals"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_tp_operator_not_equals"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return wcscmp(left,right)!=0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
-char* FILE_read(struct _IO_FILE* f  )
+char* FILE_read(struct __sFILE* f  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "FILE_read"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "FILE_read"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
     void* __right_value1 = (void*)0;
     struct buffer* buf  ;
@@ -12094,66 +12414,68 @@ fr.fun_name = "FILE_read"; neo_current_frame = &fr;    void* __right_value0 = (v
     if(f==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), (void*)0, 7161, "struct buffer*"))));
     while(1) {
-        char buf2[8192];
+        char buf2[1024];
         memset(&buf2, 0, sizeof(buf2));
-        size=fread(buf2,1,8192,f);
+        size=fread(buf2,1,1024,f);
         buffer_append(buf,buf2,size);
-        if(size<8192) {
+        if(size<1024) {
             break;
         }
     }
     __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=buffer_to_string(buf))));
     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
-int FILE_write(struct _IO_FILE* f  , const char* str)
+int FILE_write(struct __sFILE* f  , const char* str)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "FILE_write"; neo_current_frame = &fr;    if(f==((void*)0)||str==((void*)0)) {
-           neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "FILE_write"; neo_current_frame = &fr;
+    if(f==((void*)0)||str==((void*)0)) {
+        neo_current_frame = fr.prev;
         return -1;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return fwrite(str,strlen(str),1,f);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
-int FILE_fclose(struct _IO_FILE* f  )
+int FILE_fclose(struct __sFILE* f  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "FILE_fclose"; neo_current_frame = &fr;    int result;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "FILE_fclose"; neo_current_frame = &fr;
+    int result;
     if(f==((void*)0)) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return -1;
     }
     result=fclose(f);
     if(result<0) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return result;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return result;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
-struct _IO_FILE* FILE_fprintf(struct _IO_FILE* f  , const char* msg, ...)
+struct __sFILE* FILE_fprintf(struct __sFILE* f  , const char* msg, ...)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "FILE_fprintf"; neo_current_frame = &fr;    struct _IO_FILE* __result_obj__0  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "FILE_fprintf"; neo_current_frame = &fr;
+    struct __sFILE* __result_obj__0  ;
     __builtin_va_list args  ;
     int result;
     if(f==((void*)0)||msg==((void*)0)) {
         __result_obj__0 = f;
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     char msg2[1024*2*2*2];
     memset(&msg2, 0, sizeof(msg2));
@@ -12163,22 +12485,23 @@ fr.fun_name = "FILE_fprintf"; neo_current_frame = &fr;    struct _IO_FILE* __res
     result=fprintf(f,"%s",msg2);
     if(result<0) {
         __result_obj__0 = f;
-        neo_current_frame = fr.prev;        return __result_obj__0;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
     }
     __result_obj__0 = f;
-    neo_current_frame = fr.prev;    return __result_obj__0;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
 
 int charp_write(const char* self, const char* file_name, _Bool append)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_write"; neo_current_frame = &fr;    struct _IO_FILE* f  ;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_write"; neo_current_frame = &fr;
+    struct __sFILE* f  ;
     int result;
     int result2;
     memset(&f, 0, sizeof(f));
     if(self==((void*)0)||file_name==((void*)0)) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return -1;
     }
     if(append) {
@@ -12188,30 +12511,30 @@ fr.fun_name = "charp_write"; neo_current_frame = &fr;    struct _IO_FILE* f  ;
         f=fopen(file_name,"w");
     }
     if(f==((void*)0)) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return -1;
     }
     result=fwrite(self,strlen(self),1,f);
     if(result!=1) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return result;
     }
     result2=fclose(f);
     if(result2<0) {
-           neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
         return result2;
     }
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return result;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 char* charp_read(const char* file_name)
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "charp_read"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charp_read"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     char* __result_obj__0  ;
-    struct _IO_FILE* f  ;
+    struct __sFILE* f  ;
     void* __right_value1 = (void*)0;
     struct buffer* buf  ;
     int size;
@@ -12220,23 +12543,25 @@ fr.fun_name = "charp_read"; neo_current_frame = &fr;    void* __right_value0 = (
     if(file_name==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     f=fopen(file_name,"r");
     if(f==((void*)0)) {
         __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), (void*)0, 7268, "struct buffer*"))));
     while(1) {
-        char buf2[8192];
+        char buf2[1024];
         memset(&buf2, 0, sizeof(buf2));
-        size=fread(buf2,1,8192,f);
+        size=fread(buf2,1,1024,f);
         buffer_append(buf,buf2,size);
-        if(size<8192) {
+        if(size<1024) {
             break;
         }
     }
@@ -12247,21 +12572,22 @@ fr.fun_name = "charp_read"; neo_current_frame = &fr;    void* __right_value0 = (
         come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 0, (void*)0));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+        neo_current_frame = fr.prev;
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     __result_obj__0 = (char*)come_increment_ref_count(result);
     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
+    neo_current_frame = fr.prev;
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
-struct list$1char$ph* FILE_readlines(struct _IO_FILE* f  )
+struct list$1char$ph* FILE_readlines(struct __sFILE* f  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "FILE_readlines"; neo_current_frame = &fr;    void* __right_value0 = (void*)0;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "FILE_readlines"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1char$ph* result;
     struct list$1char$ph* __result_obj__0;
@@ -12269,64 +12595,66 @@ fr.fun_name = "FILE_readlines"; neo_current_frame = &fr;    void* __right_value0
     if(f==((void*)0)) {
         __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(result);
         come_call_finalizer(list$1char$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-        neo_current_frame = fr.prev;        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+        neo_current_frame = fr.prev;
+        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
     while(1) {
-        char buf[8192];
+        char buf[1024];
         memset(&buf, 0, sizeof(buf));
-        if(fgets(buf,8192,f)==((void*)0)) {
+        if(fgets(buf,1024,f)==((void*)0)) {
             break;
         }
         list$1char$ph_push_back(result,(char*)come_increment_ref_count(__builtin_string(buf)));
     }
     __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(result);
     come_call_finalizer(list$1char$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    neo_current_frame = fr.prev;    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
-neo_current_frame = fr.prev;}
+}
 
 _Bool xiswalpha(int c  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "xiswalpha"; neo_current_frame = &fr;    _Bool result;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "xiswalpha"; neo_current_frame = &fr;
+    _Bool result;
     result=(c>=97&&c<=122)||(c>=65&&c<=90);
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return result;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool xiswblank(int c  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "xiswblank"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "xiswblank"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return c==32||c==9;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool xiswdigit(int c  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "xiswdigit"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "xiswdigit"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return (c>=48&&c<=57);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool xiswalnum(int c  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "xiswalnum"; neo_current_frame = &fr;       neo_current_frame = fr.prev;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "xiswalnum"; neo_current_frame = &fr;
+    neo_current_frame = fr.prev;
     return xiswalpha(c)||xiswdigit(c);
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
 _Bool xiswascii(int c  )
 {
-    struct neo_frame fr;
-fr.prev = neo_current_frame;
-fr.fun_name = "xiswascii"; neo_current_frame = &fr;    _Bool result;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "xiswascii"; neo_current_frame = &fr;
+    _Bool result;
     result=(c>=32&&c<=126);
-       neo_current_frame = fr.prev;
+    neo_current_frame = fr.prev;
     return result;
-neo_current_frame = fr.prev;}
+    neo_current_frame = fr.prev;
+}
 
