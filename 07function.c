@@ -2477,6 +2477,7 @@ void caller_end(struct sInfo* info  );
 struct sNode* craete_logical_denial(struct sNode* node, struct sInfo* info  );
 struct tuple3$3sType$phchar$ph_Bool$* backtrace_parse_type(_Bool parse_variable_name, struct sInfo* info  );
 void skip_pointer_attribute(struct sInfo* info  );
+void skip_paren(struct sInfo* info  );
 struct sNode* parse_normal_block(_Bool clang, struct sInfo* info  );
 void cast_type(struct sType* left_type  , struct sType* right_type  , struct CVALUE* come_value  , struct sInfo* info  );
 _Bool check_assign_type(const char* msg, struct sType* left_type  , struct sType* right_type  , struct CVALUE* come_value  , struct sInfo* info  );
@@ -2487,7 +2488,6 @@ struct sNode* get_hex_number(_Bool minus, struct sInfo* info  );
 struct sNode* create_int_node(char* value  , struct sInfo* info  );
 struct tuple4$4list$1sType$ph$phlist$1char$ph$phlist$1char$ph$ph_Bool$* parse_params(struct sInfo* info  , _Bool in_constructor_);
 struct tuple2$2sFun$pchar$ph* create_pthread_fun(struct sType* type  , char* fun_name, struct sInfo* info  );
-char* skip_paren(struct sInfo* info  );
 _Bool is_contained_generics_class(struct sType* type  , struct sInfo* info  );
 _Bool is_type_name(char* buf, struct sInfo* info  );
 _Bool parsecmp(const char* p2, struct sInfo* info  );
@@ -4625,8 +4625,7 @@ _conditional_value_X0;})) {
                         come_call_finalizer(tuple3$3sType$phchar$ph_Bool$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
                         skip_spaces_and_lf(info);
                         if(err&&*info->p==40) {
-                            ((char*)(__right_value0=skip_paren(info)));
-                            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
+                            skip_paren(info);
                             skip_spaces_and_lf(info);
                             multiple_assign_var2=((struct tuple2$2char$phchar$ph*)(__right_value0=parse_function_attribute(info)));
                             asm_name=(char*)come_increment_ref_count(multiple_assign_var2->v1);

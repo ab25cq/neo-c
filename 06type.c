@@ -2624,6 +2624,7 @@ _Bool operator_overload_fun_self(struct sType* type  , const char* fun_name, str
 void caller_begin(struct sInfo* info  );
 void caller_end(struct sInfo* info  );
 struct sNode* craete_logical_denial(struct sNode* node, struct sInfo* info  );
+void skip_paren(struct sInfo* info  );
 struct sNode* parse_normal_block(_Bool clang, struct sInfo* info  );
 struct tuple2$2char$phchar$ph* parse_function_attribute(struct sInfo* info  );
 struct sNode* get_number(_Bool minus, struct sInfo* info  );
@@ -2641,7 +2642,6 @@ struct tuple2$2sFun$pchar$ph* create_not_equals_automatically(struct sType* type
 struct tuple2$2sFun$pchar$ph* create_get_hash_key_automatically(struct sType* type  , const char* fun_name, struct sInfo* info  );
 struct tuple2$2sFun$pchar$ph* create_compare_automatically(struct sType* type  , const char* fun_name, struct sInfo* info  );
 char* skip_block(struct sInfo* info  , _Bool return_self_at_last);
-char* skip_paren(struct sInfo* info  );
 _Bool parsecmp(const char* p2, struct sInfo* info  );
 char* parse_word(_Bool digits, struct sInfo* info  );
 char* backtrace_parse_word(struct sInfo* info  );
@@ -5286,8 +5286,7 @@ char* parse_struct_attribute(struct sInfo* info  )
             head=info->p;
             info->p+=strlen("__attribute__");
             skip_spaces_and_lf(info);
-            ((char*)(__right_value0=skip_paren(info)));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
+            skip_paren(info);
             tail=info->p;
             buffer_append(result,head,tail-head);
         }

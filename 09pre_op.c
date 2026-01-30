@@ -2563,6 +2563,7 @@ void caller_begin(struct sInfo* info  );
 void caller_end(struct sInfo* info  );
 struct tuple3$3sType$phchar$ph_Bool$* backtrace_parse_type(_Bool parse_variable_name, struct sInfo* info  );
 void skip_pointer_attribute(struct sInfo* info  );
+void skip_paren(struct sInfo* info  );
 void cast_type(struct sType* left_type  , struct sType* right_type  , struct CVALUE* come_value  , struct sInfo* info  );
 _Bool check_assign_type(const char* msg, struct sType* left_type  , struct sType* right_type  , struct CVALUE* come_value  , struct sInfo* info  );
 struct tuple2$2char$phchar$ph* parse_attribute(struct sInfo* info  , _Bool parse_function_attribute);
@@ -2583,7 +2584,6 @@ struct tuple2$2sFun$pchar$ph* create_not_equals_automatically(struct sType* type
 struct tuple2$2sFun$pchar$ph* create_get_hash_key_automatically(struct sType* type  , const char* fun_name, struct sInfo* info  );
 struct tuple2$2sFun$pchar$ph* create_compare_automatically(struct sType* type  , const char* fun_name, struct sInfo* info  );
 char* skip_block(struct sInfo* info  , _Bool return_self_at_last);
-char* skip_paren(struct sInfo* info  );
 _Bool is_contained_generics_class(struct sType* type  , struct sInfo* info  );
 _Bool is_type_name(char* buf, struct sInfo* info  );
 _Bool parsecmp(const char* p2, struct sInfo* info  );
