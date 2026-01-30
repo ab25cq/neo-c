@@ -120,7 +120,6 @@ uniq class sType
     bool mDefferRightValue;
     bool mNoHeap;
     bool mNoCallingDestructor;
-    bool mException;
     bool mTypeName;
     
     bool mAnonymous;
@@ -130,8 +129,6 @@ uniq class sType
     bool mAnonymousVarName;
     
     bool mInline;
-    bool mNullValue;
-    bool mGuardValue;
     
     string mAsmName;
     
@@ -266,12 +263,10 @@ uniq class sFun
     buffer*% mSource;
     buffer*% mSourceHead;
     buffer*% mSourceHead2;
-    buffer*% mSourceDefer;
     
     bool mStatic;
     bool mInline;
     bool mUniq;
-    bool mGenerate;
     bool mExternal;
     bool mVarArgs;
     bool mNoResultType;
@@ -284,7 +279,7 @@ uniq class sFun
     
     bool mDefineReturnVar;
     
-    new(string name, sType*% result_type, list<sType*%>*% param_types, list<string>*% param_names, list<string>%* param_default_parametors, bool external, bool var_args, sBlock*% block, bool static_, sInfo* info, bool inline_, bool uniq_=false, bool generate_=false, string attribute=s"", string fun_attribute=s"", bool const_fun=false, string text_block=null, string generics_sname=null, int generics_sline=0, bool immutable_=false)
+    new(string name, sType*% result_type, list<sType*%>*% param_types, list<string>*% param_names, list<string>%* param_default_parametors, bool external, bool var_args, sBlock*% block, bool static_, sInfo* info, bool inline_, bool uniq_=false, string attribute=s"", string fun_attribute=s"", bool const_fun=false, string text_block=null, string generics_sname=null, int generics_sline=0, bool immutable_=false)
     {
         self.mName = name;
         self.mResultType = result_type;
@@ -297,7 +292,6 @@ uniq class sFun
         self.mInline = inline_;
         self.mUniq = uniq_;
         self.mConstFun = const_fun;
-        self.mGenerate = generate_;
         self.mAllVar = new list<sVar*%>();
         
         self.mLambdaType = new sType(s"lambda");
@@ -316,7 +310,6 @@ uniq class sFun
         self.mSource = new buffer();
         self.mSourceHead = new buffer();
         self.mSourceHead2 = new buffer();
-        self.mSourceDefer = new buffer();
         
         self.mBlock = block;
         self.mTextBlock = text_block;

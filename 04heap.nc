@@ -90,13 +90,11 @@ sType*% solve_generics(sType* type, sType* generics_type, sInfo* info)
         var array_num = type->mArrayNum;
         int pointer_num = type->mPointerNum;
         bool heap = type->mHeap;
-        bool guard_ = type->mGuardValue;
         bool deffer_right_value = type->mDefferRightValue;
         bool const_ = type->mConstant;
         
         bool no_heap = type->mNoHeap;
         bool no_calling_destructor = type->mNoCallingDestructor;
-        bool null_value = type->mNullValue;
         
         result = clone info->method_generics_types[generics_number];
         
@@ -105,9 +103,6 @@ sType*% solve_generics(sType* type, sType* generics_type, sInfo* info)
         }
         if(const_) {
             result->mConstant = result->mConstant || const_;
-        }
-        if(guard_) {
-            result->mGuardValue = guard_;
         }
         if(deffer_right_value) {
             result->mDefferRightValue = deffer_right_value || result->mDefferRightValue;
@@ -121,10 +116,6 @@ sType*% solve_generics(sType* type, sType* generics_type, sInfo* info)
         }
         if(array_num.length() > 0) {
             result->mArrayNum = array_num;
-        }
-        
-        if(null_value) {
-            result->mNullValue = null_value;
         }
         
         if(pointer_num > 0) {
@@ -149,12 +140,10 @@ sType*% solve_generics(sType* type, sType* generics_type, sInfo* info)
             var array_num = type->mArrayNum;
             int pointer_num = type->mPointerNum;
             bool heap = type->mHeap;
-            bool guard_ = type->mGuardValue;
             bool deffer_right_value = type->mDefferRightValue;
             
             bool no_heap = type->mNoHeap;
             bool no_calling_destructor = type->mNoCallingDestructor;
-            bool null_value = type->mNullValue;
             bool multiple_types = type->mMultipleTypes;
             bool const_ = type->mConstant;
             
@@ -162,9 +151,6 @@ sType*% solve_generics(sType* type, sType* generics_type, sInfo* info)
 
             if(heap) {
                 result->mHeap = result->mHeap || heap;
-            }
-            if(guard_) {
-                result->mGuardValue = guard_;
             }
             if(const_) {
                 result->mConstant = result->mConstant || const_;
@@ -184,10 +170,6 @@ sType*% solve_generics(sType* type, sType* generics_type, sInfo* info)
             }
             if(array_num.length() > 0) {
                 result->mArrayNum = array_num;
-            }
-            
-            if(null_value) {
-                result->mNullValue = null_value;
             }
             
             if(pointer_num > 0) {
@@ -231,12 +213,10 @@ sType*% solve_method_generics(sType* type, sInfo* info)
         var array_num = type->mArrayNum;
         int pointer_num = type->mPointerNum;
         bool heap = type->mHeap;
-        bool guard_ = type->mGuardValue;
         bool deffer_right_value = type->mDefferRightValue;
         
         bool no_heap = type->mNoHeap;
         bool no_calling_destructor = type->mNoCallingDestructor;
-        bool null_value = type->mNullValue;
         bool constant_ = type->mConstant;
         
         result = clone info->method_generics_types[generics_number];
@@ -250,9 +230,6 @@ sType*% solve_method_generics(sType* type, sInfo* info)
         if(deffer_right_value) {
             result->mDefferRightValue = deffer_right_value || result->mDefferRightValue;
         }
-        if(guard_) {
-            result->mGuardValue = guard_ || result->mGuardValue;
-        }
         if(no_heap) {
             result->mNoHeap = true;
             result->mHeap = false;
@@ -262,10 +239,6 @@ sType*% solve_method_generics(sType* type, sInfo* info)
         }
         if(array_num.length() > 0) {
             result->mArrayNum = array_num;
-        }
-        
-        if(null_value) {
-            result->mNullValue = null_value;
         }
         
         if(pointer_num > 0) {
