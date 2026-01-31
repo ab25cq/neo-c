@@ -1065,6 +1065,7 @@ struct sType
     _Bool mComplex;
     _Bool mRegister;
     _Bool mVolatile;
+    _Bool mNoreturn;
     _Bool mStatic;
     _Bool mUniq;
     _Bool mExtern;

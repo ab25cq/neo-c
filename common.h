@@ -111,6 +111,7 @@ uniq class sType
     bool mComplex;
     bool mRegister;
     bool mVolatile;
+    bool mNoreturn;
     bool mStatic;
     bool mUniq;
     bool mExtern;

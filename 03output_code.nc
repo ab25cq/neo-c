@@ -32,6 +32,9 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
     if(type->mThreadLocal) {
         buf.append_str("_Thread_local ");
     }
+    if(type->mNoreturn) {
+        buf.append_str("_Noreturn ");
+    }
     
     if(type->mConstant) {
         buf.append_str("const ");
@@ -286,6 +289,9 @@ string make_come_type_name_string(sType* type, sInfo* info=info)
         }
         if(type->mThreadLocal) {
             buf.append_str("_Thread_local ");
+        }
+        if(type->mNoreturn) {
+            buf.append_str("_Noreturn ");
         }
         
         if(type->mConstant) {

@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.8.7.5
+version 0.8.7.6
 
 ``` C
 #include <neo-c.h>
@@ -93,6 +93,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.8.7.6 channel variable attribute character changed from @ to |
 0.8.7.5 compare method automatically defined. You can use sort method easilly.
 0.8.7.4 Type checking.
 0.8.7.3 Array with heap object is freed from this version. 
@@ -2616,8 +2617,8 @@ int fun(int a, int b)
 
 int main(int argc, char** argv)
 {
-    int@ a = __channel__;
-    int@ b = __channel__;
+    int| a = __channel__;
+    int| b = __channel__;
     
     var thread = come {
         fun(1, 2);
@@ -2649,8 +2650,8 @@ int main(int argc, char** argv)
 
 int main(int argc, char** argv)
 {
-    int@ a = __channel__;
-    int@ b = __channel__;
+    int| a = __channel__;
+    int| b = __channel__;
     
     var thread = come {
         a <- 111;

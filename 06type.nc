@@ -1013,6 +1013,96 @@ tuple3<sType*%,string,bool>*% backtrace_parse_type(bool parse_variable_name=fals
     return (type, name, err);
 }
 
+bool, bool, bool,bool,bool backtrace_struct_union_enum(sInfo* info=info)
+//bool@define_only, bool@anonymous_name, bool@struct_,bool@union_,bool@enum_ backtrace_struct_union_enum(sInfo* info=info)
+{
+    /// backtrace ///
+    bool define_only = false;
+    bool anonymous_name = false;
+    bool struct_ = false;
+    bool union_ = false;
+    bool enum_ = false;
+    {
+        char* head = info->p;
+        int head_sline = info->sline;
+   
+        parse_attribute();
+        
+        if(xisalpha(*info->p) || *info->p == '_') {
+            string declare_name = parse_word();
+            
+            if(declare_name === "struct") {
+                struct_ = true;
+            }
+            else if(declare_name === "union") {
+                union_ = true;
+            }
+            else if(declare_name === "enum") {
+                enum_ = true;
+            }
+            else {
+                return (false@define_only, false@anonymous_name, false@struct_, false@union_, false@enum_);
+            }
+        }
+        parse_attribute();
+        
+        if(xisalpha(*info->p) || *info->p == '_') {
+            string struct_name = parse_word();
+        }
+        else {
+            anonymous_name = true;
+        }
+        
+        parse_attribute();
+        
+        int nest = 0;
+        while(true) {
+            if(*info->p == '<') {
+                info->p++;
+                skip_spaces_and_lf();
+                nest++;
+            }
+            else if(*info->p == '>') {
+                info->p++;
+                skip_spaces_and_lf();
+                
+                nest--;
+                if(nest == 0) {
+                    break;
+                }
+            }
+            else if(*info->p == '\0') {
+                err_msg(info, "unexpected source end");
+                exit(1);
+            }
+            else {
+                *info->p++;
+                skip_spaces_and_lf();
+            }
+        }
+        
+        parse_attribute();
+        
+        if(*info->p == '{') {
+            skip_block(info);
+            
+            parse_attribute();
+            
+            if(*info->p == ';') {
+                define_only = true;
+            }
+            else {
+                define_only = false;
+            }
+        }
+        
+        info.p = head;
+        info.sline = head_sline;
+    }
+    
+    return (define_only, anonymous_name, struct_, union_, enum_);
+}
+
 tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_name=false, bool parse_multiple_type=true, bool in_function_parametor=false)
 {
     char* head = info.p;
@@ -1042,6 +1132,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
     bool original_var_name = false;
     bool complex_ = false;
     bool type_name_ = false;
+    bool noreturn_ = false;
     
     sNode*% alignas_ = null;
     bool alignas_double = false;
@@ -1109,15 +1200,18 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         }
         else if(type_name === "_Noreturn") {
             type_name = parse_word();
+            noreturn_ = true;
         }
         else if(type_name === "__noreturn") {
             type_name = parse_word();
+            noreturn_ = true;
         }
         else if(type_name === "_Nullable") {
             type_name = parse_word();
         }
         else if(type_name === "_noreturn") {
             type_name = parse_word();
+            noreturn_ = true;
         }
         else if(type_name === "_Alignas") {
             expected_next_character('(');
@@ -1786,11 +1880,18 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             
             heap = true;
         }
-        else if(gComePthread && *info->p == '@') {
+        else if(gComePthread && *info->p == '|') {
             info->p++;
             skip_spaces_and_lf();
             
             channel = true;
+        }
+        else if(*info->p == '@') {
+            info->p++;
+            while(xisalnum(*info->p) || *info->p == '_') {
+                info->p++;
+            }
+            skip_spaces_and_lf();
         }
         else {
             break;
@@ -2175,6 +2276,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         result_type->mAlignasDouble = alignas_double;
         result_type->mRegister = register_;
         result_type->mUnsigned = result_type->mUnsigned || unsigned_;
+        result_type->mNoreturn = result_type->mNoreturn || noreturn_;
         result_type->mVolatile = volatile_;
         result_type->mUniq = result_type->mUniq || uniq_;
         result_type->mStatic = (result_type->mStatic || static_) && !result_type->mUniq;
@@ -2240,6 +2342,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         type->mAlignasDouble = alignas_double;
         type->mRegister = register_;
         type->mUnsigned = type->mUnsigned || unsigned_;
+        type->mNoreturn = type->mNoreturn || noreturn_;
         type->mVolatile = volatile_;
         type->mUniq = type->mUniq || uniq_;
         type->mStatic = (type->mStatic || static_) && !type->mUniq;
@@ -2369,6 +2472,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         result_type->mAlignasDouble = alignas_double;
         result_type->mRegister = register_;
         result_type->mUnsigned = result_type->mUnsigned || unsigned_;
+        result_type->mNoreturn = result_type->mNoreturn || noreturn_;
         result_type->mVolatile = volatile_;
         result_type->mUniq = result_type->mUniq || uniq_;
         result_type->mStatic = (result_type->mStatic || static_) && !result_type->mUniq;
@@ -2491,6 +2595,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             type->mAlignasDouble = alignas_double;
             type->mRegister = register_;
             type->mUnsigned = type->mUnsigned || unsigned_;
+            type->mNoreturn = type->mNoreturn || noreturn_;
             type->mVolatile = volatile_;
             type->mUniq = type->mUniq || uniq_;
             type->mStatic = (type->mStatic || static_) && !type->mUniq;
@@ -2527,6 +2632,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             type->mAlignasDouble = alignas_double;
             type->mRegister = register_;
             type->mUnsigned = type->mUnsigned || unsigned_;
+            type->mNoreturn = type->mNoreturn || noreturn_;
             type->mVolatile = volatile_;
             type->mUniq = type->mUniq || uniq_;
             type->mStatic = (type->mStatic || static_) && !type->mUniq;
@@ -2558,6 +2664,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             type->mAlignasDouble = alignas_double;
             type->mRegister = register_;
             type->mUnsigned = type->mUnsigned || unsigned_;
+            type->mNoreturn = type->mNoreturn || noreturn_;
             type->mVolatile = volatile_;
             type->mUniq = type->mUniq || uniq_;
             type->mStatic = (type->mStatic || static_) && !type->mUniq;
@@ -2636,6 +2743,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             type->mAlignasDouble = alignas_double;
             type->mRegister = register_;
             type->mUnsigned = type->mUnsigned || unsigned_;
+            type->mNoreturn = type->mNoreturn || noreturn_;
             type->mVolatile = volatile_;
             type->mUniq = type->mUniq || uniq_;
             type->mStatic = (type->mStatic || static_) && !type->mUniq;
@@ -2686,6 +2794,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             type->mAlignasDouble = alignas_double;
             type->mRegister = register_;
             type->mUnsigned = type->mUnsigned || unsigned_;
+            type->mNoreturn = type->mNoreturn || noreturn_;
             type->mVolatile = volatile_;
             type->mUniq = type->mUniq || uniq_;
             type->mStatic = (type->mStatic || static_) && !type->mUniq;
@@ -2782,7 +2891,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                     type->mNoSolvedGenericsType.mDefferRightValue = true;
                 }
             }
-            else if(gComePthread && *info->p == '@') {
+            else if(gComePthread && *info->p == '|') {
                 info->p++;
                 skip_spaces_and_lf();
                 
@@ -2790,6 +2899,13 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                 if(type->mNoSolvedGenericsType) {
                     type->mNoSolvedGenericsType.mChannel = true;
                 }
+            }
+            else if(*info->p == '@') {
+                info->p++;
+                while(xisalnum(*info->p) || *info->p == '_') {
+                    info->p++;
+                }
+                skip_spaces_and_lf();
             }
             else if(*info->p == '`') {
                 info->p++;
@@ -2871,7 +2987,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                         type->mNoSolvedGenericsType.mDefferRightValue = true;
                     }
                 }
-                else if(gComePthread && *info->p == '@') {
+                else if(gComePthread && *info->p == '|') {
                     info->p++;
                     skip_spaces_and_lf();
                     
@@ -2879,6 +2995,13 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                     if(type->mNoSolvedGenericsType) {
                         type->mNoSolvedGenericsType.mChannel = true;
                     }
+                }
+                else if(*info->p == '@') {
+                    info->p++;
+                    while(xisalnum(*info->p) || *info->p == '_') {
+                        info->p++;
+                    }
+                    skip_spaces_and_lf();
                 }
                 else if(*info->p == '`') {
                     info->p++;
