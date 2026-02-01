@@ -53,7 +53,6 @@ bool is_type_name(char* buf, sInfo* info=info)
         || buf === "__type__"
         || buf === "__attribute__" && *info->p == '('
         || (buf === "tup" && (*info->p == ':' || *info->p == '('))
-        || (info.in_top_level && buf === "record") 
         || (info.in_top_level && buf === "uniq") ;
     }
 }
@@ -1195,7 +1194,6 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
     
     string type_name = parse_word();
     
-    bool record_ = false;
     bool constant = false;
     bool static_ = false;
     bool volatile_ = false;
@@ -1330,11 +1328,6 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         }
         else if(type_name === "uniq") {
             uniq_ = true;
-            
-            type_name = parse_word();
-        }
-        else if(type_name === "record") {
-            record_ = true;
             
             type_name = parse_word();
         }
