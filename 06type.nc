@@ -957,7 +957,7 @@ sType*%, string parse_variable_name_on_multiple_declare(sType* base_type_name, b
     return (result_type, var_name);
 }
 
-void skip_pointer_attribute(sInfo* info=info)
+bool skip_pointer_attribute(sInfo* info=info)
 {
     char* p = info.p;
     int sline = info.sline;
@@ -989,8 +989,11 @@ void skip_pointer_attribute(sInfo* info=info)
                     info->p++;
                 }
             }
+            
+            return true;
         }
         else if(word === "const" || word === "__restrict" || word === "restrict" || word === "__user" || word === "volatile" || word === "__volatile__" || word === "_Nonnull" || word === "_Nullable" || word === "__nonnull" || word === "_Null_unspecified" || word === "__user" || word === "_Addr" || word === "__noreturn" || word === "_noreturn" || word === "_Noreturn") {
+            return true;
         }
         else {
             info.p = p;
@@ -1001,6 +1004,8 @@ void skip_pointer_attribute(sInfo* info=info)
         info.p = p;
         info.sline = sline;
     }
+    
+    return false;
 }
 
 tuple3<sType*%,string,bool>*% backtrace_parse_type(bool parse_variable_name=false,sInfo* info=info)
@@ -1102,6 +1107,84 @@ bool@define_only, bool@anonymous_name, bool@struct_,bool@union_,bool@enum_ backt
     }
     
     return (define_only, anonymous_name, struct_, union_, enum_);
+}
+
+sType*% parse_pointer_attribute(sType* type, sInfo* info=info)
+{
+    while(1) {
+        if(*info->p == '*') {
+            info->p++;
+            skip_spaces_and_lf();
+            
+            type->mPointerNum++;
+            if(type->mNoSolvedGenericsType) {
+                type->mNoSolvedGenericsType.mPointerNum++;
+            }
+        }
+        else if(*info->p == '%') {
+            info->p++;
+            skip_spaces_and_lf();
+            
+            type->mHeap = true;
+            if(type->mNoSolvedGenericsType) {
+                type->mNoSolvedGenericsType.mHeap = true;
+            }
+        }
+        else if(*info->p == '@') {
+            info->p++;
+            while(xisalnum(*info->p) || *info->p == '_') {
+                info->p++;
+            }
+            skip_spaces_and_lf();
+        }
+        else if(*info->p == '&') {
+            info->p++;
+            skip_spaces_and_lf();
+            
+            type->mNoHeap = true;
+            
+            if(type->mNoSolvedGenericsType) {
+                type->mNoSolvedGenericsType.mNoHeap = false;
+            }
+        }
+        else if(*info->p == '`') {
+            info->p++;
+            skip_spaces_and_lf();
+            
+            type->mNoCallingDestructor = true;
+            if(type->mNoSolvedGenericsType) {
+                type->mNoSolvedGenericsType.mNoCallingDestructor = true;
+            }
+        }
+        else if(gComePthread && *info->p == '|') {
+            info->p++;
+            skip_spaces_and_lf();
+            
+            type->mChannel = true;
+            if(type->mNoSolvedGenericsType) {
+                type->mNoSolvedGenericsType.mChannel = true;
+            }
+        }
+        else if(*info->p == '~') {
+            info->p++;
+            skip_spaces_and_lf();
+            
+            type->mDefferRightValue = true;
+            if(type->mNoSolvedGenericsType) {
+                type->mNoSolvedGenericsType.mDefferRightValue = true;
+            }
+        }
+        else if(xisalpha(*info->p) || *info->p == '_') {
+            skip_pointer_attribute().elif {
+                break;
+            }
+        }
+        else {
+            break;
+        }
+    }
+    
+    return clone type;
 }
 
 tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_name=false, bool parse_multiple_type=true, bool in_function_parametor=false)
@@ -1788,31 +1871,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         
         string var_name = null;
         
-        while(1) {
-            if(*info->p == '*') {
-                info->p++;
-                skip_spaces_and_lf();
-                
-                skip_pointer_attribute();
-                
-                type->mPointerNum++;
-            }
-            else if(*info->p == '%') {
-                info->p++;
-                skip_spaces_and_lf();
-                
-                type->mHeap = true;
-            }
-            else if(*info->p == '`') {
-                info->p++;
-                skip_spaces_and_lf();
-                
-                type->mNoCallingDestructor = true;
-            }
-            else {
-                break;
-            }
-        }
+        type = parse_pointer_attribute(type);
         
         string attribute = null;
         
@@ -2812,115 +2871,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             type->mTupleName = tuple_name;
         }
         
-        skip_pointer_attribute();
-        
-        while(1) {
-            if(*info->p == '*') {
-                info->p++;
-                skip_spaces_and_lf();
-                
-                skip_pointer_attribute();
-                
-                type->mPointerNum++;
-                type.mOriginalTypePointerNum++;
-                if(type->mNoSolvedGenericsType) {
-                    type->mNoSolvedGenericsType.mPointerNum++;
-                }
-            }
-            else if(*info->p == '%') {
-                info->p++;
-                skip_spaces_and_lf();
-                
-                type->mHeap = true;
-                if(type->mNoSolvedGenericsType) {
-                    type->mNoSolvedGenericsType.mHeap = true;
-                }
-            }
-            else if(*info->p == '&') {
-                info->p++;
-                skip_spaces_and_lf();
-                
-                type->mNoHeap = true;
-                
-                if(type->mNoSolvedGenericsType) {
-                    type->mNoSolvedGenericsType.mHeap = false;
-                }
-            }
-            else if(*info->p == '`') {
-                info->p++;
-                skip_spaces_and_lf();
-                
-                type->mNoCallingDestructor = true;
-            }
-            else {
-                break;
-            }
-        }
-        
-        skip_pointer_attribute();
-        
-        while(1) {
-            if(*info->p == '*') {
-                info->p++;
-                skip_spaces_and_lf();
-            
-                skip_pointer_attribute();
-                
-                type->mPointerNum++;
-                
-                if(type->mNoSolvedGenericsType) {
-                    type->mNoSolvedGenericsType.mPointerNum++;
-                }
-            }
-            else if(*info->p == '%') {
-                info->p++;
-                skip_spaces_and_lf();
-                
-                type->mHeap = true;
-                if(type->mNoSolvedGenericsType) {
-                    type->mNoSolvedGenericsType.mHeap = true;
-                }
-            }
-            else if(*info->p == '~') {
-                info->p++;
-                skip_spaces_and_lf();
-                
-                skip_pointer_attribute();
-                
-                type->mDefferRightValue = true;
-                if(type->mNoSolvedGenericsType) {
-                    type->mNoSolvedGenericsType.mDefferRightValue = true;
-                }
-            }
-            else if(gComePthread && *info->p == '|') {
-                info->p++;
-                skip_spaces_and_lf();
-                
-                type->mChannel = true;
-                if(type->mNoSolvedGenericsType) {
-                    type->mNoSolvedGenericsType.mChannel = true;
-                }
-            }
-            else if(*info->p == '@') {
-                info->p++;
-                while(xisalnum(*info->p) || *info->p == '_') {
-                    info->p++;
-                }
-                skip_spaces_and_lf();
-            }
-            else if(*info->p == '`') {
-                info->p++;
-                skip_spaces_and_lf();
-                
-                type->mNoCallingDestructor = true;
-                if(type->mNoSolvedGenericsType) {
-                    type->mNoSolvedGenericsType.mNoCallingDestructor = true;
-                }
-            }
-            else {
-                break;
-            }
-        }
+        type = parse_pointer_attribute(type);
         
         if(parse_multiple_type && *info->p == ',' && !info.in_offsetof) {
             list<sType*%>*% types = new list<sType*%>();
@@ -2955,68 +2906,8 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                 type->mGenericsTypes.push_back((clone it));
             }
             
-            while(1) {
-                if(*info->p == '*') {
-                    info->p++;
-                    skip_spaces_and_lf();
-                
-                    skip_pointer_attribute();
-                    
-                    type->mPointerNum++;
-                    
-                    if(type->mNoSolvedGenericsType) {
-                        type->mNoSolvedGenericsType.mPointerNum++;
-                    }
-                }
-                else if(*info->p == '%') {
-                    info->p++;
-                    skip_spaces_and_lf();
-                    
-                    type->mHeap = true;
-                    if(type->mNoSolvedGenericsType) {
-                        type->mNoSolvedGenericsType.mHeap = true;
-                    }
-                }
-                else if(*info->p == '~') {
-                    info->p++;
-                    skip_spaces_and_lf();
-                    
-                    skip_pointer_attribute();
-                    
-                    type->mDefferRightValue = true;
-                    if(type->mNoSolvedGenericsType) {
-                        type->mNoSolvedGenericsType.mDefferRightValue = true;
-                    }
-                }
-                else if(gComePthread && *info->p == '|') {
-                    info->p++;
-                    skip_spaces_and_lf();
-                    
-                    type->mChannel = true;
-                    if(type->mNoSolvedGenericsType) {
-                        type->mNoSolvedGenericsType.mChannel = true;
-                    }
-                }
-                else if(*info->p == '@') {
-                    info->p++;
-                    while(xisalnum(*info->p) || *info->p == '_') {
-                        info->p++;
-                    }
-                    skip_spaces_and_lf();
-                }
-                else if(*info->p == '`') {
-                    info->p++;
-                    skip_spaces_and_lf();
-                    
-                    type->mNoCallingDestructor = true;
-                    if(type->mNoSolvedGenericsType) {
-                        type->mNoSolvedGenericsType.mNoCallingDestructor = true;
-                    }
-                }
-                else {
-                    break;
-                }
-            }
+            
+            type = parse_pointer_attribute(type);
             
             if(is_contained_generics_class(type, info)) {
                 type = solve_generics(type, info.generics_type, info);
