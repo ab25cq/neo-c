@@ -629,6 +629,53 @@ static void strip_comments_inplace(char *s) {
     s[w] = '\0';
 }
 
+static void strip_comments_multiline_inplace(char *s) {
+    if (!s) return;
+    enum { SC_CODE, SC_DQ, SC_SQ, SC_SL, SC_BL } st = SC_CODE;
+    int bl_depth = 0;
+    size_t r = 0, w = 0;
+    while (s[r]) {
+        char c = s[r];
+        if (st == SC_CODE) {
+            if (c == '"') { s[w++] = c; st = SC_DQ; r++; continue; }
+            if (c == '\'') { s[w++] = c; st = SC_SQ; r++; continue; }
+            if (c == '/' && s[r+1] == '/') {
+                if (w > 0 && !isspace((unsigned char)s[w-1])) s[w++] = ' ';
+                st = SC_SL; r += 2; continue;
+            }
+            if (c == '/' && s[r+1] == '*') {
+                if (w > 0 && !isspace((unsigned char)s[w-1])) s[w++] = ' ';
+                st = SC_BL; bl_depth = 1; r += 2; continue;
+            }
+            s[w++] = c; r++; continue;
+        } else if (st == SC_DQ) {
+            s[w++] = c;
+            if (c == '"' && !is_escaped(s, r)) st = SC_CODE;
+            r++;
+        } else if (st == SC_SQ) {
+            s[w++] = c;
+            if (c == '\'' && !is_escaped(s, r)) st = SC_CODE;
+            r++;
+        } else if (st == SC_SL) {
+            if (c == '\n' || c == '\r') {
+                s[w++] = c;
+                st = SC_CODE;
+            }
+            r++;
+        } else if (st == SC_BL) {
+            if (c == '/' && s[r+1] == '*') { bl_depth++; r += 2; continue; }
+            if (c == '*' && s[r+1] == '/') {
+                bl_depth--; r += 2;
+                if (bl_depth <= 0) { bl_depth = 0; st = SC_CODE; }
+                continue;
+            }
+            if (c == '\n' || c == '\r') s[w++] = c;
+            r++;
+        }
+    }
+    s[w] = '\0';
+}
+
 static void process_define(MacroTable *t, char *line) {
     // Parse: (optional) '#' + spaces + 'define' + spaces + NAME[(params)] [VALUE...]
     // Accept both "#define ..." and "#   define ..." and even just "define ..." (internal use).
@@ -727,6 +774,31 @@ static void process_define(MacroTable *t, char *line) {
         mtable_set_obj(t, namebuf, valbuf);
         free(valbuf);
     }
+}
+
+static void mtable_set_func(MacroTable *t, const char *name, char **params, size_t nparams,
+                            bool variadic, char *var_param, const char *value) {
+    Macro *m = mtable_find(t, name);
+    if (!m) {
+        if (t->len == t->cap) {
+            size_t ncap = t->cap ? t->cap * 2 : 8;
+            t->items = xrealloc(t->items, ncap * sizeof(Macro));
+            t->cap = ncap;
+        }
+        m = &t->items[t->len++];
+        m->name = xstrdup(name);
+    } else {
+        free(m->value);
+        if (m->params) { for (size_t j=0;j<m->nparams;++j) free(m->params[j]); free(m->params); }
+        if (m->var_param) { free(m->var_param); }
+    }
+    m->is_func = true;
+    m->value = xstrdup(value ? value : "");
+    m->params = params;
+    m->nparams = nparams;
+    m->var_param = var_param;
+    m->is_variadic = variadic;
+    m->self_ref = macro_value_contains_ident(m->value, name);
 }
 
 typedef struct {
@@ -1757,6 +1829,110 @@ static bool parse_ident(const char *p, size_t *adv, char *buf, size_t bufsz) {
     return true;
 }
 
+static bool parse_module_signature(const char *p, char *namebuf, size_t namebuf_sz,
+                                   bool *is_func, char ***params, size_t *nparams,
+                                   bool *variadic, char **var_param, const char **after_sig) {
+    if (is_func) *is_func = false;
+    if (params) *params = NULL;
+    if (nparams) *nparams = 0;
+    if (variadic) *variadic = false;
+    if (var_param) *var_param = NULL;
+    if (after_sig) *after_sig = p;
+
+    const char *q = clskip(p);
+    size_t adv = 0;
+    if (!parse_ident(q, &adv, namebuf, namebuf_sz)) return false;
+    q += adv;
+
+    const char *r = clskip(q);
+    if (*r == '(') {
+        if (is_func) *is_func = true;
+        char **pp = NULL; size_t np = 0, pc = 0;
+        bool var = false;
+        char *vname = NULL;
+        const char *s = r + 1;
+        bool ok = true;
+        while (1) {
+            while (*s && isspace((unsigned char)*s)) s++;
+            if (*s == ')') { s++; break; }
+            if (s[0]=='.' && s[1]=='.' && s[2]=='.') {
+                var = true;
+                s += 3;
+                while (*s && isspace((unsigned char)*s)) s++;
+                if (*s == ')') s++;
+                break;
+            }
+            char id[256]; size_t j=0;
+            if (!(isalpha((unsigned char)*s) || *s=='_')) { ok = false; break; }
+            while (*s && (isalnum((unsigned char)*s) || *s=='_')) { if (j+1<sizeof id) id[j++]=*s; s++; }
+            id[j]='\0';
+            const char *s2 = s;
+            while (*s2 && isspace((unsigned char)*s2)) s2++;
+            if (s2[0]=='.' && s2[1]=='.' && s2[2]=='.') {
+                var = true;
+                if (vname) free(vname);
+                vname = xstrdup(id);
+                s = s2 + 3;
+                while (*s && isspace((unsigned char)*s)) s++;
+                if (*s == ')') s++;
+                break;
+            }
+            if (np == pc) { pc = pc? pc*2:4; pp = xrealloc(pp, pc*sizeof(char*)); }
+            pp[np++] = xstrdup(id);
+            s = s2;
+            if (*s == ',') { s++; continue; }
+            if (*s == ')') { s++; break; }
+            ok = false;
+            break;
+        }
+        if (!ok) {
+            if (pp) { for (size_t i=0; i<np; ++i) free(pp[i]); free(pp); }
+            if (vname) free(vname);
+            return false;
+        }
+        if (params) *params = pp;
+        else if (pp) { for (size_t i=0; i<np; ++i) free(pp[i]); free(pp); }
+        if (nparams) *nparams = np;
+        if (variadic) *variadic = var;
+        if (var_param) *var_param = vname;
+        else if (vname) free(vname);
+        q = s;
+    } else {
+        q = r;
+    }
+    if (after_sig) *after_sig = q;
+    return true;
+}
+
+static const char *find_first_open_brace(const char *s) {
+    enum { FB_CODE, FB_DQ, FB_SQ, FB_SL, FB_BL } st = FB_CODE;
+    int bl_depth = 0;
+    for (size_t i = 0; s && s[i]; ++i) {
+        char c = s[i];
+        if (st == FB_CODE) {
+            if (c == '"') { st = FB_DQ; continue; }
+            if (c == '\'') { st = FB_SQ; continue; }
+            if (c == '/' && s[i+1] == '/') { st = FB_SL; break; }
+            if (c == '/' && s[i+1] == '*') { st = FB_BL; bl_depth = 1; i++; continue; }
+            if (c == '{') return s + i;
+        } else if (st == FB_DQ) {
+            if (c == '"' && !is_escaped(s, i)) st = FB_CODE;
+        } else if (st == FB_SQ) {
+            if (c == '\'' && !is_escaped(s, i)) st = FB_CODE;
+        } else if (st == FB_SL) {
+            break;
+        } else if (st == FB_BL) {
+            if (c == '/' && s[i+1] == '*') { bl_depth++; i++; continue; }
+            if (c == '*' && s[i+1] == '/') {
+                bl_depth--; i++;
+                if (bl_depth <= 0) { bl_depth = 0; st = FB_CODE; }
+                continue;
+            }
+        }
+    }
+    return NULL;
+}
+
 // Expression evaluator for #if: supports numbers, identifiers (numeric macros -> value else 0), defined,
 // unary ! + -, arithmetic * / + -, relational < <= > >=, equality == !=, logical && ||, parentheses
 typedef struct { const char *s; } Expr;
@@ -2022,6 +2198,68 @@ static bool read_line(FILE *in, Str *line) {
     return got;
 }
 
+static bool collect_module_body(FILE *in, const char *start, long *line_no, Str *body) {
+    enum { MB_CODE, MB_DQ, MB_SQ, MB_SL, MB_BL } st = MB_CODE;
+    int bl_depth = 0;
+    int brace_depth = 1;
+    const char *s = start ? start : "";
+    Str cur; bool has_cur = false; sb_init(&cur);
+    while (1) {
+        for (size_t i = 0; s[i]; ++i) {
+            char c = s[i];
+            if (st == MB_CODE) {
+                if (c == '"') { st = MB_DQ; sb_putc(body, c); continue; }
+                if (c == '\'') { st = MB_SQ; sb_putc(body, c); continue; }
+                if (c == '/' && s[i+1] == '/') {
+                    st = MB_SL;
+                    sb_putc(body, c);
+                    if (s[i+1]) { sb_putc(body, s[i+1]); i++; }
+                    continue;
+                }
+                if (c == '/' && s[i+1] == '*') {
+                    st = MB_BL; bl_depth = 1;
+                    sb_putc(body, c);
+                    if (s[i+1]) { sb_putc(body, s[i+1]); i++; }
+                    continue;
+                }
+                if (c == '{') { brace_depth++; sb_putc(body, c); continue; }
+                if (c == '}') {
+                    brace_depth--;
+                    if (brace_depth == 0) {
+                        if (has_cur) sb_free(&cur);
+                        return true;
+                    }
+                    sb_putc(body, c);
+                    continue;
+                }
+                sb_putc(body, c);
+            } else if (st == MB_DQ) {
+                sb_putc(body, c);
+                if (c == '"' && !is_escaped(s, i)) st = MB_CODE;
+            } else if (st == MB_SQ) {
+                sb_putc(body, c);
+                if (c == '\'' && !is_escaped(s, i)) st = MB_CODE;
+            } else if (st == MB_SL) {
+                sb_putc(body, c);
+            } else if (st == MB_BL) {
+                sb_putc(body, c);
+                if (c == '/' && s[i+1] == '*') { bl_depth++; sb_putc(body, s[++i]); continue; }
+                if (c == '*' && s[i+1] == '/') {
+                    bl_depth--; sb_putc(body, s[++i]);
+                    if (bl_depth <= 0) { bl_depth = 0; st = MB_CODE; }
+                }
+            }
+        }
+        if (st == MB_SL) st = MB_CODE;
+        if (has_cur) { sb_free(&cur); has_cur = false; }
+        if (!read_line(in, &cur)) return false;
+        has_cur = true;
+        if (line_no) { (*line_no)++; g_cur_line = *line_no; }
+        sb_putc(body, '\n');
+        s = cur.buf ? cur.buf : "";
+    }
+}
+
 static bool line_ends_with_ident(const char *s, const char *ident) {
     if (!s || !ident) return false;
     size_t slen = strlen(s);
@@ -2272,6 +2510,64 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                         } else {
                             mtable_unset(tbl, id);
                         }
+                    }
+                }
+            } else if (strcmp(kw, "module") == 0) {
+                char namebuf[256];
+                bool is_func = false;
+                char **params = NULL;
+                size_t nparams = 0;
+                bool variadic = false;
+                char *var_param = NULL;
+                const char *after_sig = NULL;
+                bool ok_sig = parse_module_signature(p, namebuf, sizeof namebuf, &is_func,
+                                                     &params, &nparams, &variadic,
+                                                     &var_param, &after_sig);
+                if (ok_sig) {
+                    const char *brace = find_first_open_brace(after_sig);
+                    Str brace_line; bool brace_owned = false; sb_init(&brace_line);
+                    while (!brace) {
+                        if (!read_line(in, &brace_line)) break;
+                        brace_owned = true;
+                        line_no++;
+                        g_cur_line = line_no;
+                        brace = find_first_open_brace(brace_line.buf ? brace_line.buf : "");
+                        if (!brace) { sb_free(&brace_line); brace_owned = false; }
+                    }
+                    if (brace) {
+                        Str body; sb_init(&body);
+                        const char *start = brace + 1;
+                        bool ok_body = collect_module_body(in, start, &line_no, &body);
+                        if (brace_owned) sb_free(&brace_line);
+                        if (ok_body) {
+                            if (body.buf) {
+                                strip_comments_multiline_inplace(body.buf);
+                                size_t L = strlen(body.buf);
+                                while (L && isspace((unsigned char)body.buf[L-1])) body.buf[--L] = '\0';
+                                body.len = L;
+                            }
+                            if (active) {
+                                if (is_func) {
+                                    mtable_set_func(tbl, namebuf, params, nparams, variadic, var_param,
+                                                    body.buf ? body.buf : "");
+                                } else {
+                                    mtable_set_obj(tbl, namebuf, body.buf ? body.buf : "");
+                                    if (params) { for (size_t i=0; i<nparams; ++i) free(params[i]); free(params); }
+                                    if (var_param) free(var_param);
+                                }
+                            } else {
+                                if (params) { for (size_t i=0; i<nparams; ++i) free(params[i]); free(params); }
+                                if (var_param) free(var_param);
+                            }
+                        } else {
+                            if (params) { for (size_t i=0; i<nparams; ++i) free(params[i]); free(params); }
+                            if (var_param) free(var_param);
+                        }
+                        sb_free(&body);
+                    } else {
+                        if (brace_owned) sb_free(&brace_line);
+                        if (params) { for (size_t i=0; i<nparams; ++i) free(params[i]); free(params); }
+                        if (var_param) free(var_param);
                     }
                 }
             } else if (strcmp(kw, "include") == 0 || strcmp(kw, "include_next") == 0) {
