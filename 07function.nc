@@ -2245,7 +2245,7 @@ sNode*% parse_function(sInfo* info)
     return (sNode*%)null;
 }
 
-module MSaveState
+#module MSaveState
 {
     sClass* current_stack_frame_struct = info->current_stack_frame_struct;
     info->current_stack_frame_struct = null;
@@ -2279,7 +2279,7 @@ module MSaveState
     list<sRightValueObject*%>* right_value_objects = info.right_value_objects;
 }
 
-module MRestoreState
+#module MRestoreState
 {
     info->sname = string(sname_top);
     info->sline = sline_top;
@@ -2305,13 +2305,13 @@ module MRestoreState
 
 string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sType* generics_type, sInfo* info)
 {
-    include MSaveState;
+    MSaveState;
     
     sType*% generics_type_ = get_no_solved_type2(generics_type);
     
     sFun*% funX = info.funcs[string(fun_name)];
     if(funX) {
-        include MRestoreState;
+        MRestoreState;
         return (fun_name, true);
     }
     
@@ -2387,7 +2387,7 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
     bool in_generics_fun = info.in_generics_fun;
     info.in_generics_fun = true;
     node_compile(node).elif {
-        include MRestoreState;
+        MRestoreState;
         return (s"", false);
     }
     info.in_generics_fun = in_generics_fun;
@@ -2397,21 +2397,21 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
     
     info.generics_type_names.reset();
     
-    include MRestoreState;
+    MRestoreState;
     
     return (string(fun_name), true);
 }
 
 bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sInfo* info)
 {
-    include MSaveState;
+    MSaveState;
     
     string sname_top = string(info->sname);
     int sline_top = info->sline;
     
     sFun* funX = borrow info.funcs[string(fun_name)];
     if(funX) {
-        include MRestoreState;
+        MRestoreState;
         return true;
     }
 
@@ -2474,7 +2474,7 @@ bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sIn
     sNode*% node = new sFunNode(fun, info) implements sNode;
     
     node_compile(node).elif {
-        include MRestoreState;
+        MRestoreState;
         return false;
     }
     
@@ -2482,7 +2482,7 @@ bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sIn
     
     info.generics_type_names.reset();
     
-    include MRestoreState;
+    MRestoreState;
     
     return true;
 }
@@ -2490,7 +2490,7 @@ bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sIn
 
 sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, sInfo* info)
 {
-    include MSaveState;
+    MSaveState;
     
     string real_fun_name = null;
     sFun* finalizer = null;
@@ -2665,7 +2665,7 @@ sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, s
         }
     }
         
-    include MRestoreState;
+    MRestoreState;
     
     return (finalizer, real_fun_name);
 }
@@ -2673,7 +2673,7 @@ sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, s
 
 sFun*,string create_equals_automatically(sType* type, const char* fun_name, sInfo* info)
 {
-    include MSaveState;
+    MSaveState;
     
     
     sFun* equaler = null;
@@ -2774,14 +2774,14 @@ sFun*,string create_equals_automatically(sType* type, const char* fun_name, sInf
         info.sname = sname;
     }
     
-    include MRestoreState;
+    MRestoreState;
     
     return (equaler, real_fun_name);
 }
 
 sFun*,string create_operator_not_equals_automatically(sType* type, const char* fun_name, sInfo* info)
 {
-    include MSaveState;
+    MSaveState;
     
     sFun* equaler = null;
     
@@ -2901,14 +2901,14 @@ sFun*,string create_operator_not_equals_automatically(sType* type, const char* f
         info.sname = sname;
     }
     
-    include MRestoreState;
+    MRestoreState;
     
     return (equaler, real_fun_name);
 }
 
 sFun*,string create_not_equals_automatically(sType* type, const char* fun_name, sInfo* info)
 {
-    include MSaveState;
+    MSaveState;
     
     sFun* equaler = null;
     
@@ -3025,14 +3025,14 @@ sFun*,string create_not_equals_automatically(sType* type, const char* fun_name, 
         info.sname = sname;
     }
     
-    include MRestoreState;
+    MRestoreState;
     
     return (equaler, real_fun_name);
 }
 
 sFun*,string create_operator_equals_automatically(sType* type, const char* fun_name, sInfo* info)
 {
-    include MSaveState;
+    MSaveState;
     
     sFun* equaler = null;
     
@@ -3134,7 +3134,7 @@ sFun*,string create_operator_equals_automatically(sType* type, const char* fun_n
         info.sname = sname;
     }
     
-    include MRestoreState;
+    MRestoreState;
     
     return (equaler, real_fun_name);
 }
@@ -3145,7 +3145,7 @@ sFun*,string create_cloner_automatically(sType* type, const char* fun_name, sInf
         return ((sFun*)null, (string)null);
     }
     
-    include MSaveState;
+    MSaveState;
     
     sFun* cloner = null;
     
@@ -3176,7 +3176,7 @@ sFun*,string create_cloner_automatically(sType* type, const char* fun_name, sInf
             
             if(!err) {
                 if(type->mClass->mName === "void") {
-                    include MRestoreState;
+                    MRestoreState;
                     return ((sFun*)null, (string)null);
                 }
             }
@@ -3351,14 +3351,14 @@ sFun*,string create_cloner_automatically(sType* type, const char* fun_name, sInf
         info.sline = sline;
     }
     
-    include MRestoreState;
+    MRestoreState;
     
     return (cloner, real_fun_name);
 }
 
 sFun*,string create_to_string_automatically(sType* type, const char* fun_name, sInfo* info)
 {
-    include MSaveState;
+    MSaveState;
     
     sFun* cloner = null;
     
@@ -3479,14 +3479,14 @@ sFun*,string create_to_string_automatically(sType* type, const char* fun_name, s
         info.sline = sline;
     }
     
-    include MRestoreState;
+    MRestoreState;
     
     return (cloner, real_fun_name);
 }
 
 sFun*,string create_get_hash_key_automatically(sType* type, const char* fun_name, sInfo* info)
 {
-    include MSaveState;
+    MSaveState;
     
     sFun* get_hash_key_fun = null;
     
@@ -3622,14 +3622,14 @@ sFun*,string create_get_hash_key_automatically(sType* type, const char* fun_name
         info.sline = sline;
     }
     
-    include MRestoreState;
+    MRestoreState;
     
     return (get_hash_key_fun, real_fun_name);
 }
 
 sFun*,string create_compare_automatically(sType* type, const char* fun_name, sInfo* info)
 {
-    include MSaveState;
+    MSaveState;
     
     sFun* get_hash_key_fun = null;
     
@@ -3767,14 +3767,14 @@ sFun*,string create_compare_automatically(sType* type, const char* fun_name, sIn
         info.sline = sline;
     }
     
-    include MRestoreState;
+    MRestoreState;
     
     return (get_hash_key_fun, real_fun_name);
 }
 
 sFun*% compile_uniq_function(sFun* fun, sInfo* info=info)
 {
-    include MSaveState;
+    MSaveState;
     
     sType*% result_type = clone fun->mResultType;
     
@@ -3822,11 +3822,11 @@ sFun*% compile_uniq_function(sFun* fun, sInfo* info=info)
     sNode*% node = new sFunNode(fun2, info) implements sNode;
     
     node_compile(node).elif {
-        include MRestoreState;
+        MRestoreState;
         return null;
     }
     
-    include MRestoreState;
+    MRestoreState;
     
     return fun2;
 }
@@ -3836,7 +3836,7 @@ bool create_equals_method(sType* type, sInfo* info)
     sType*% type_ = get_no_solved_type(type);
     string result = null
     
-    include MSaveState;
+    MSaveState;
     
     sClass* klass = type_->mClass;
     
@@ -3863,7 +3863,7 @@ bool create_equals_method(sType* type, sInfo* info)
             var name,err = create_generics_fun(string(fun_name2), generics_fun, obj_type, info);
         
             if(!err) {
-                include MRestoreState;
+                MRestoreState;
                 return false;
             }
             else {
@@ -3901,7 +3901,7 @@ bool create_equals_method(sType* type, sInfo* info)
         cloner = fun;
     }
 
-    include MRestoreState;
+    MRestoreState;
     
     return true;
 }
@@ -3911,7 +3911,7 @@ bool create_operator_equals_method(sType* type, sInfo* info)
     sType*% type_ = get_no_solved_type2(type);
     string result = null
     
-    include MSaveState;
+    MSaveState;
     
     sClass* klass = type_->mClass;
     
@@ -3938,7 +3938,7 @@ bool create_operator_equals_method(sType* type, sInfo* info)
             var name,err = create_generics_fun(string(fun_name2), generics_fun, obj_type, info);
             
             if(!err) {
-                include MRestoreState;
+                MRestoreState;
                 return false;
             }
             cloner = borrow info->funcs[name];
@@ -3974,7 +3974,7 @@ bool create_operator_equals_method(sType* type, sInfo* info)
         cloner = fun;
     }
 
-    include MRestoreState;
+    MRestoreState;
     
     return true;
 }
@@ -3984,7 +3984,7 @@ bool create_operator_not_equals_method(sType* type, sInfo* info)
     sType*% type_ = get_no_solved_type2(type);
     string result = null
     
-    include MSaveState;
+    MSaveState;
     
     sClass* klass = type_->mClass;
     
@@ -4011,7 +4011,7 @@ bool create_operator_not_equals_method(sType* type, sInfo* info)
             var name, err = create_generics_fun(string(fun_name2), generics_fun, obj_type, info);
             
             if(!err) {
-                include MRestoreState;
+                MRestoreState;
                 return false;
             }
             cloner = borrow info->funcs[name];
@@ -4047,7 +4047,7 @@ bool create_operator_not_equals_method(sType* type, sInfo* info)
         cloner = fun;
     }
 
-    include MRestoreState;
+    MRestoreState;
     
     return true;
 }

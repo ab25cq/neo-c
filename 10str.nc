@@ -861,7 +861,154 @@ class sMapNode extends sNodeBase
 
 sNode*% expression_node(sInfo* info) version 96
 {
-    if(*info->p == '"') 
+    /// here document ///
+    if(*info->p == '"' && *(info->p+1) == '"' && *(info->p+2) == '"' && *(info->p+3) == '\n') {
+        int sline_real = info.sline_real;
+        info.sline_real = info.sline;
+        info->p +=4;
+        info->sline++;
+
+        int sline = info->sline;
+
+        list<sNode*%>*% exps = new list<sNode*%>();
+        buffer*% value = new buffer();
+        
+        char* head_of_last_line = NULL;
+        
+
+        while(1) {
+            if(*info->p == '"' && *(info->p+1) == '"' && *(info->p+2) == '"') {
+                info->p+=3;
+                
+                skip_spaces_and_lf();
+                break;
+            }
+            else if(*info->p == '%') {
+                value.append_char('%');
+                value.append_char('%');
+                info->p++;
+            }
+            else if(*info->p == '"') {
+                value.append_char('\\');
+                value.append_char('"');
+                info->p++;
+            }
+            else if(*info->p == '\\') {
+                value.append_char('\\');
+                info->p++;
+                
+                if(xisdigit(*info->p)) {
+                    int len = 0;
+                    while(xisdigit(*info->p) && len < 3) {
+                        value.append_char(*info->p);
+                        info->p++;
+                        len++;
+                    }
+                }
+                else if(*info->p == 'x' || *info->p == 'X') {
+                    value.append_char(*info->p);
+                    info->p++;
+                    
+                    while(*info->p >= '0' && *info->p <= '9' || *info->p >= 'a' && *info->p <= 'f' || *info->p >= 'A' && *info->p <= 'F') {
+                        value.append_char(*info->p);
+                        info->p++;
+                    }
+                }
+                else if(*info->p == '{') {
+                    info->p++;
+                    
+                    sNode*% exp = expression();
+                    
+                    exps.add(exp);
+                    
+                    if(*info->p == '}') {
+                        info->p++;
+                    }
+                    
+                    value.append_str("%s");
+                }
+                else {
+                    switch(*info->p) {
+                        case '0':
+                            value.append_char(*info->p);
+                            info->p++;
+                            break;
+    
+                        case 'n':
+                            value.append_char(*info->p);
+                            info->p++;
+                            break;
+    
+                        case 't':
+                            value.append_char(*info->p);
+                            info->p++;
+                            break;
+    
+                        case 'r':
+                            value.append_char(*info->p);
+                            info->p++;
+                            break;
+    
+                        case 'v':
+                            value.append_char(*info->p);
+                            info->p++;
+                            break;
+    
+                        case 'f':
+                            value.append_char(*info->p);
+                            info->p++;
+                            break;
+    
+                        case 'a':
+                            value.append_char(*info->p);
+                            info->p++;
+                            break;
+    
+                        case 'b':
+                            value.append_char(*info->p);
+                            info->p++;
+                            break;
+    
+                        case '\\':
+                            value.append_char(*info->p);
+                            info->p++;
+                            break;
+    
+                        default:
+                            value.append_char(*info->p);
+                            info->p++;
+                            break;
+                    }
+                }
+            }
+            else if(*info->p == '\0') {
+                int sline2 = info->sline;
+                info->sline = sline;
+                err_msg(info, "close \" to make embbeded string value");
+                exit(2);
+            }
+            else {
+                if(*info->p == '\n') {
+                    value.append_char('\\');
+                    value.append_char('n');
+                    info->p++;
+                    info->sline++;
+                    
+                    head_of_last_line = info->p;
+                }
+                else {
+                    value.append_char(*info->p);
+                    info->p++;
+                }
+            }
+        }
+
+        skip_spaces_and_lf();
+        
+        info.sline_real = sline_real;
+        return new sSStringNode(value.to_string(), exps, sline, info) implements sNode;
+    }
+    else if(*info->p == '"') 
     {
         int sline_real = info.sline_real;
         info.sline_real = info.sline;

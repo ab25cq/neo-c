@@ -8,9 +8,9 @@ int main(int argc, char** argv)
     
     var result = input.scan("username=(.+)&password=(.+)");
     
-    var username = result[0]??;
+    var username = result[0];
     
-    var password = result[1]??;
+    var password = result[1];
     if(username && password) {
         client_socket2(port:3366, "CREATE DATABASE testdb");
         
@@ -26,7 +26,7 @@ int main(int argc, char** argv)
         string read_data = client_socket2(port:3366, query);
         list<string>*% li = read_data.scan("\n");
 
-        if(li.length() == 1 && li[0]??.chomp() === "") {
+        if(li.length() == 1 && li[0].chomp() === "") {
             client_socket2(port:3366, s"INSERT INTO users(username, password) VALUES('\{username}', '\{password}')");
     
             string redirect_response = """

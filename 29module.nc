@@ -1076,6 +1076,7 @@ string reflection_node(sInfo* info=info)
             return s"false";
         }
     }
+/*
     else if(parsecmp("is_module")) {
         (void)parse_word();
         
@@ -1108,6 +1109,7 @@ string reflection_node(sInfo* info=info)
             return s"false";
         }
     }
+*/
     else if(*info->p == '"') 
     {
         int sline_real = info.sline_real;
@@ -1493,6 +1495,7 @@ string reflection_expression(sInfo* info=info)
 
 sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
 {
+/*
     if(buf === "module") {
         var type_name = parse_word();
         
@@ -1609,7 +1612,8 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
         
         return new sModuleNode(string(type_name), module, info) implements sNode;
     }
-    else if(buf === "__c__" && *info->p == '{') {
+*/
+    if(buf === "__c__" && *info->p == '{') {
         string block_text = skip_block();
         
         char* p = block_text + strlen(block_text);

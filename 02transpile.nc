@@ -271,7 +271,7 @@ static void init_classes(sInfo* info)
     }
 }
 
-module MEvalOptions<T>
+#module MEvalOptions(T)
 {
     var files = new list<string>();
     for(int i=T; i<argc; i++) {
@@ -296,7 +296,7 @@ module MEvalOptions<T>
 int come_main(int argc, char** argv)
 {
     int start_num = 1;
-    include MEvalOptions<start_num>;
+    MEvalOptions(start_num);
     
     init_ccpp(argc, argv);
     

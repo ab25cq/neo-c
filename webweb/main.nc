@@ -32,7 +32,7 @@ string parse_html(string file_contents)
     return contents.to_string();
 }
 
-string, int xpopen(char** argv, string input)
+tuple2<string, int>*% xpopen(char** argv, string input)
 {
     var output = new buffer();
     
@@ -41,14 +41,14 @@ string, int xpopen(char** argv, string input)
 
     if (pipe(pipe_in) == -1 || pipe(pipe_out) == -1) {
         perror("pipe failed");
-        return (null, 1);
+        return ((string)null, 1);
     }
 
     pid = fork();
 
     if (pid == -1) {
         perror("fork failed");
-        return (null, 1);
+        return ((string)null, 1);
     }
 
     if (pid == 0) {
@@ -78,7 +78,7 @@ string, int xpopen(char** argv, string input)
             int size = read(pipe_out[0], buf, BUFSIZ);
             if(size < 0) {
                 perror("read failed");
-                return (null, 1);
+                return ((string)null, 1);
             }
             
             output.append(buf, size);
@@ -100,7 +100,7 @@ puts(header);
 puts(contents);
     setenv("REQUEST_METHOD", "POST", 1);
     
-    string p = header.scan("Content-Length: ([0-9]+)")[0]??;
+    string p = header.scan("Content-Length: ([0-9]+)")[0];
     if(p) {
         int content_length = atoi(p);
         setenv("CONTENT_LENGTH", s"\{content_length}", 1);
@@ -144,7 +144,7 @@ puts(header);
 puts(contents);
     setenv("REQUEST_METHOD", "POST", 1);
     
-    string p = header.scan("Content-Length: ([0-9]+)")[0]??;
+    string p = header.scan("Content-Length: ([0-9]+)")[0];
     if(p) {
         int content_length = atoi(p);
 printf("content_length %d\n", content_length);
@@ -187,13 +187,13 @@ void run_get_cgi(SSL* it, string cgi_path, string header, string contents, strin
     setenv("REQUEST_METHOD", "GET", 1);
     setenv("QUERY_STRING", query_string, 1);
     
-    string p = header.scan("Content-Length: ([0-9]+)")??[0];
+    string p = header.scan("Content-Length: ([0-9]+)")[0];
     if(p) {
         int content_length = atoi(p);
         setenv("CONTENT_LENGTH", s"\{content_length}", 1);
     }
     
-    p = header.scan("Cookie: (.+)")[0]??;
+    p = header.scan("Cookie: (.+)")[0];
     if(p) {
         setenv("HTTP_COOKIE", p, 1);
     }
@@ -227,13 +227,13 @@ void run_get_cgi_http(int it, string cgi_path, string header, string contents, s
     setenv("REQUEST_METHOD", "GET", 1);
     setenv("QUERY_STRING", query_string, 1);
     
-    string p = header.scan("Content-Length: ([0-9]+)")[0]??;
+    string p = header.scan("Content-Length: ([0-9]+)")[0];
     if(p) {
         int content_length = atoi(p);
         setenv("CONTENT_LENGTH", s"\{content_length}", 1);
     }
     
-    p = header.scan("Cookie: (.+)")[0]??;
+    p = header.scan("Cookie: (.+)")[0];
     if(p) {
         setenv("HTTP_COOKIE", p, 1);
     }
@@ -331,7 +331,7 @@ puts("contents end");
         
                 if(header.match("^GET ") && header.match("Accept: text\/html")) {
 puts("GET");
-                    string str = header.scan("GET (.+) HTTP")[0]??;
+                    string str = header.scan("GET (.+) HTTP")[0];
 puts(str);
                     
                     if(str === "/") {
@@ -384,7 +384,7 @@ puts(file_path);
                 /// image ///
                 else if(header.match("^GET ") && header.match("Accept: image")) {
 puts("GET image");
-                    string str = header.scan("GET (.+) HTTP")[0]??;
+                    string str = header.scan("GET (.+) HTTP")[0];
                     
                     string file_path = str.substring(1,-1);  // remove /
                     
@@ -432,7 +432,7 @@ printf("image_size %ld\n", image_size);
                 }
                 else if(header.match("^POST ")) {
 puts("POST");
-                    string str = header.scan("POST (.+) ")[0]??;
+                    string str = header.scan("POST (.+) ")[0];
                     
                     if(str === "/") {
                         str = s"/index.html";
@@ -505,7 +505,7 @@ puts(contents);
 puts("contents end");
         
                 if(header.match("^GET ") && header.match("Accept: text\/html")) {
-                    string str = header.scan("GET (.+) HTTP")[0]??;
+                    string str = header.scan("GET (.+) HTTP")[0];
                     
                     if(str === "/") {
                         str = s"/index.html";
@@ -554,7 +554,7 @@ puts("contents end");
                 }
                 /// image ///
                 else if(header.match("^GET ") && header.match("Accept: image")) {
-                    string str = header.scan("GET (.+) HTTP")[0]??;
+                    string str = header.scan("GET (.+) HTTP")[0];
                     
                     string file_path = str.substring(1,-1);  // remove /
                     
@@ -600,7 +600,7 @@ printf("image_size %ld\n", image_size);
                     }
                 }
                 else if(header.match("^POST ")) {
-                    string str = header.scan("POST (.+) ")[0]??;
+                    string str = header.scan("POST (.+) ")[0];
                     
                     if(str === "/") {
                         str = s"/index.html";
