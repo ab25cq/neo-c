@@ -1250,15 +1250,6 @@ struct sRightValueObject
     _Bool mNoFree;
 };
 
-struct sClassModule
-{
-    char* mName  ;
-    char* mText  ;
-    struct list$1char$ph* mParams;
-    char* mSName  ;
-    int mSLine;
-};
-
 struct map$2char$phsFun$ph
 {
     char** keys  ;
@@ -1286,17 +1277,6 @@ struct map$2char$phsClass$ph
     char** keys  ;
     _Bool* item_existance;
     struct sClass** items  ;
-    int size;
-    int len;
-    struct list$1char$ph* key_list;
-    int it;
-};
-
-struct map$2char$phsClassModule$ph
-{
-    char** keys  ;
-    _Bool* item_existance;
-    struct sClassModule** items  ;
     int size;
     int len;
     struct list$1char$ph* key_list;
@@ -1383,7 +1363,6 @@ struct sInfo
     struct map$2char$phsFun$ph* uniq_funcs;
     struct map$2char$phsGenericsFun$ph* generics_funcs;
     struct map$2char$phsClass$ph* classes;
-    struct map$2char$phsClassModule$ph* modules;
     struct map$2char$phsType$ph* types;
     struct map$2char$phsClass$ph* generics_classes;
     struct map$2char$phbuffer$ph* struct_definition;
@@ -2389,7 +2368,6 @@ struct sModule* sModule_initialize(struct sModule* self);
 struct sVarTable* sVarTable_initialize(struct sVarTable* self, _Bool global, struct sVarTable* parent  );
 void sVarTable_finalize(struct sVarTable* self);
 struct sBlock* sBlock_initialize(struct sBlock* self);
-struct sClassModule* sClassModule_initialize(struct sClassModule* self, char* name  , char* text  , char* sname  , int sline);
 struct sNodeBase* sNodeBase_initialize(struct sNodeBase* self, struct sInfo* info  );
 int sNodeBase_sline(struct sNodeBase* self, struct sInfo* info  );
 int sNodeBase_sline_real(struct sNodeBase* self, struct sInfo* info  );

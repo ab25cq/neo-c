@@ -449,23 +449,6 @@ struct sRightValueObject
     bool mNoFree;
 };
 
-uniq class sClassModule
-{
-    string mName;
-    string mText;
-    list<string>*% mParams;
-    string mSName;
-    int mSLine;
-    
-    new(string name, string text, string sname, int sline)
-    {
-        self.mName = clone name;
-        self.mText = clone text;
-        self.mParams = new list<string>();
-        self.mSName = string(sname);
-        self.mSLine = sline;
-    }
-};
 
 struct sInfo
 {
@@ -499,7 +482,6 @@ struct sInfo
     map<string, sFun*%>*% uniq_funcs;
     map<string, sGenericsFun*%>*% generics_funcs;
     map<string, sClass*%>*% classes;
-    map<string, sClassModule*%>*% modules;
     map<string, sType*%>*% types;
     map<string, sClass*%>*% generics_classes;
     map<string, buffer*%>*% struct_definition;

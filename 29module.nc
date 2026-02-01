@@ -1,26 +1,5 @@
 #include "common.h"
 
-class sModuleNode extends sNodeBase {
-    new(string name, sClassModule*% module, sInfo* info) {
-        self.super();
-        
-        string self.name = string(name);
-        sClassModule*% self.module = clone module;
-    }
-
-    string kind()
-    {
-        return string("sModuleNode");
-    }
-    
-    bool compile(sInfo* info)
-    {
-        string name = string(self.name);
-        sClassModule* module = self.module;
-        
-        return true;
-    }
-};
 
 class sStaticAssert extends sNodeBase {
     new(sNode*% exp, sNode*% exp2, sInfo* info=info) {
@@ -84,7 +63,6 @@ class sUndefNode extends sNodeBase {
         info.struct_definition.remove(str);
         info.funcs.remove(str);
         info.generics_funcs.remove(str);
-        info.modules.remove(str);
         info.types.remove(str);
         info.typedef_definition.remove(str);
         
@@ -342,9 +320,6 @@ string reflection_node(sInfo* info=info)
             defined = true;
         }
         info.generics_funcs[exp].if {
-            defined = true;
-        }
-        info.modules[exp].if {
             defined = true;
         }
         info.types[exp].if {
@@ -1098,10 +1073,6 @@ string reflection_node(sInfo* info=info)
         
         bool defined = false;
         
-        info.modules[exp].if {
-            defined = true;
-        }
-        
         if(defined) {
             return s"true";
         }
@@ -1495,124 +1466,6 @@ string reflection_expression(sInfo* info=info)
 
 sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
 {
-/*
-    if(buf === "module") {
-        var type_name = parse_word();
-        
-        string sname = info.sname;
-        int sline = info.sline;
-        
-        list<string>*% params = new list<string>();
-        
-        if(*info->p == '<') {
-            info->p++;
-            skip_spaces_and_lf();
-            
-            while(true) {
-                string word = parse_word();
-                
-                params.add(word);
-                
-                if(*info->p == ',') {
-                    info->p++;
-                    skip_spaces_and_lf();
-                }
-                else if(*info->p == '\0') {
-                    err_msg(info, "invalid source end");
-                    exit(2);
-                }
-                else if(*info->p == '>') {
-                    info->p++;
-                    skip_spaces_and_lf();
-                    break;
-                }
-                else {
-                    err_msg(info, "invalid charactor(%c)", *info->p);
-                    exit(2);
-                }
-            }
-        }
-        
-        expected_next_character('{');
-        
-        char* source_head = info.p;
-        char* source_tail = null;
-        
-        var buf = new buffer();
-        
-        bool squort = false;
-        bool dquort = false;
-        int nest = 1;
-        while(1) {
-            if(*info->p == '\0') {
-                err_msg(info, "unexpected source end in module");
-                exit(2);
-            }
-            else if(*info->p == '\\') {
-                buf.append_char(*info->p);
-                info->p++;
-                
-                if(*info->p == '\n') {
-                    info->sline++;
-                }
-                buf.append_char(*info->p);
-                info->p++;
-            }
-            else if(!squort && *info->p == '"') {
-                buf.append_char(*info->p);
-                info->p++;
-                dquort = !dquort;
-            }
-            else if(!dquort && *info->p == '\'') {
-                buf.append_char(*info->p);
-                info->p++;
-                squort = !squort;
-            }
-            else if(squort || dquort) {
-                buf.append_char(*info->p);
-                if(*info->p == '\n') {
-                    info->sline++;
-                }
-                info->p++;
-            }
-            else if(*info->p == '{') {
-                nest++;
-                buf.append_char(*info->p);
-                info->p++;
-            }
-            else if(*info->p == '}') {
-                nest--;
-                
-                if(nest == 0) {
-                    source_tail = info->p - 1;
-                    info->p++;
-                    skip_spaces_and_lf();
-                    break;
-                }
-                
-                buf.append_char(*info->p);
-                info->p++;
-            }
-            else if(*info->p == '\n') {
-                info->sline++;
-                buf.append_char(*info->p);
-                info->p++;
-            }
-            else {
-                buf.append_char(*info->p);
-                info->p++;
-            }
-        }
-        
-        sClassModule*% module = new sClassModule(type_name, buf.to_string(), sname, sline);
-        
-        module.mParams = clone params;
-        
-        info.modules[string(type_name)] = module;
-        
-        return new sModuleNode(string(type_name), module, info) implements sNode;
-    }
-*/
     if(buf === "__c__" && *info->p == '{') {
         string block_text = skip_block();
         

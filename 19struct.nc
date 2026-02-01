@@ -837,25 +837,8 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
         
         char* head = info.p;
        
-        char* p_saved = null;
-        int sline_saved = 0;
-        string sname_saved = null;
-        
         list<sNode*%>*% methods = new list<sNode*%>();
         while(true) {
-            if(p_saved) {
-                if(*info.p == '\0') {
-                    info.p = p_saved;
-                    info.sline = sline_saved;
-                    info.sname = string(sname_saved);
-                    
-                    p_saved = null;
-                    sline_saved = 0;
-                    sname_saved = null;
-                    info->module_params = null;
-                }
-            }
-            
             skip_spaces_and_lf();
             
             if(*info->p == '}') {
@@ -981,77 +964,6 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                 }
                 expected_next_character(';') ;
             }
-            else if(parsecmp("include")) {
-                parse_word();
-                
-                string module_name = parse_word();
-                
-                list<string>*% params = new list<string>();
-                
-                if(*info->p == '<') {
-                    info->p++;
-                    skip_spaces_and_lf();
-                    
-                    while(true) {
-                        string word = parse_word();
-                        
-                        params.add(word);
-                        
-                        if(*info->p == ',') {
-                            info->p++;
-                            skip_spaces_and_lf();
-                        }
-                        else if(*info->p == '\0') {
-                            err_msg(info, "invalid source end");
-                            exit(2);
-                        }
-                        else if(*info->p == '>') {
-                            info->p++;
-                            skip_spaces_and_lf();
-                            break;
-                        }
-                        else {
-                            err_msg(info, "invalid charactor(%c)", *info->p);
-                            exit(2);
-                        }
-                    }
-                }
-                
-                if(*info->p == ';') { info->p++; }
-                
-                skip_spaces_and_lf();
-                
-                p_saved = info.p;
-                sline_saved = info.sline;
-                sname_saved = string(info.sname);
-                
-                info.sname = string(module_name);
-                info.sline = 0;
-                
-                if(info.modules[string(module_name)] == null) {
-                    err_msg(info, "module not found");
-                    exit(1);
-                }
-                
-                sClassModule* module = borrow info.modules[string(module_name)];
-                
-                if(module.mParams.length() != params.length()) {
-                    err_msg(info, "invalid parametor number");
-                    exit(1);
-                }
-                
-                info->module_params = new map<string,string>();
-                
-                int i = 0;
-                foreach(it, module->mParams) {
-                    info->module_params[string(it)] = string(params[i]);
-                    i++;
-                }
-                
-                info.p = module.mText;
-                info.sline = module.mSLine;
-                info.sname = string(module.mSName);
-            }
             else {
                 var type2, name, err = parse_type(parse_variable_name:true);
                 if(!err) {
@@ -1076,17 +988,6 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                 break;
             }
             skip_spaces_and_lf();
-        }
-        
-        if(p_saved) {
-            if(info.p == '\0') {
-                info.p = p_saved;
-                info.sline = sline_saved;
-                info.sname = string(sname_saved);
-                
-                p_saved = null;
-                sline_saved = 0;
-            }
         }
         
         info.generics_type_names.reset();

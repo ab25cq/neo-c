@@ -189,25 +189,9 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
     info->block_level++;
     
     if(*info->p == '{') {
-        char* p_saved = null;
-        int sline_saved = 0;
-        string sname_saved = null;
-        
         info->p++;
         skip_spaces_and_lf();
         while(true) {
-            if(p_saved) {
-                if(*info.p == '\0') {
-                    info.p = p_saved;
-                    info.sline = sline_saved;
-                    info.sname = string(sname_saved);
-                    
-                    p_saved = null;
-                    sline_saved = 0;
-                    sname_saved = null;
-                    info->module_params = null;
-                }
-            }
             skip_spaces_and_lf();
             if(*info->p == '}') {
                 info->p++;
@@ -229,79 +213,6 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
             if(*info->p == '{') {
                 info->sline_top = sline;
             }
-            
-            if(strncmp(info->p, "include ", strlen("include ")) == 0) {
-                parse_word();
-                
-                string module_name = parse_word();
-                
-                list<string>*% params = new list<string>();
-                
-                if(*info->p == '<') {
-                    info->p++;
-                    skip_spaces_and_lf();
-                    
-                    while(true) {
-                        string word = parse_word();
-                        
-                        params.add(word);
-                        
-                        if(*info->p == ',') {
-                            info->p++;
-                            skip_spaces_and_lf();
-                        }
-                        else if(*info->p == '\0') {
-                            err_msg(info, "invalid source end");
-                            exit(2);
-                        }
-                        else if(*info->p == '>') {
-                            info->p++;
-                            skip_spaces_and_lf();
-                            break;
-                        }
-                        else {
-                            err_msg(info, "invalid charactor(%c)", *info->p);
-                            exit(2);
-                        }
-                    }
-                }
-                
-                if(*info->p == ';') { info->p++; }
-                
-                skip_spaces_and_lf();
-                
-                p_saved = info.p;
-                sline_saved = info.sline;
-                sname_saved = string(info.sname);
-                
-                info.sname = string(module_name);
-                info.sline = 0;
-                
-                if(info.modules[string(module_name)] == null) {
-                    err_msg(info, "module not found");
-                    return null;
-                }
-                
-                sClassModule* module = borrow info.modules[string(module_name)];
-                
-                if(module.mParams.length() != params.length()) {
-                    err_msg(info, "invalid parametor number");
-                    return null;
-                }
-                
-                info->module_params = new map<string,string>();
-                
-                int i = 0;
-                foreach(it, module->mParams) {
-                    info->module_params[string(it)] = string(params[i]);
-                    i++;
-                }
-                
-                info.p = module.mText;
-                info.sline = module.mSLine;
-                info.sname = string(module.mSName);
-            }
-        
             
             sNode*% node = null;
             if(in_function) {
@@ -422,16 +333,6 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
                     skip_spaces_and_lf();
                     break;
                 }
-            }
-        }
-        if(p_saved) {
-            if(info.p == '\0') {
-                info.p = p_saved;
-                info.sline = sline_saved;
-                info.sname = string(sname_saved);
-                
-                p_saved = null;
-                sline_saved = 0;
             }
         }
     }

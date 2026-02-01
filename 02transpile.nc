@@ -327,7 +327,6 @@ int come_main(int argc, char** argv)
         info.reflection_vars = new map<string, string>();
         info.generics_funcs = new map<string, sGenericsFun*%>();
         info.classes = new map<string, sClass*%>();
-        info.modules = new map<string, sClassModule*%>();
         info.types = new map<string, sType*%>();
         info.module = new sModule();
         info.right_value_objects = new list<sRightValueObject*%>();
