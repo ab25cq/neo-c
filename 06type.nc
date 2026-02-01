@@ -1013,8 +1013,7 @@ tuple3<sType*%,string,bool>*% backtrace_parse_type(bool parse_variable_name=fals
     return (type, name, err);
 }
 
-bool, bool, bool,bool,bool backtrace_struct_union_enum(sInfo* info=info)
-//bool@define_only, bool@anonymous_name, bool@struct_,bool@union_,bool@enum_ backtrace_struct_union_enum(sInfo* info=info)
+bool@define_only, bool@anonymous_name, bool@struct_,bool@union_,bool@enum_ backtrace_struct_union_enum(sInfo* info=info)
 {
     /// backtrace ///
     bool define_only = false;
@@ -1055,29 +1054,31 @@ bool, bool, bool,bool,bool backtrace_struct_union_enum(sInfo* info=info)
         
         parse_attribute();
         
-        int nest = 0;
-        while(true) {
-            if(*info->p == '<') {
-                info->p++;
-                skip_spaces_and_lf();
-                nest++;
-            }
-            else if(*info->p == '>') {
-                info->p++;
-                skip_spaces_and_lf();
-                
-                nest--;
-                if(nest == 0) {
-                    break;
+        if(*info->p == '<') {
+            int nest = 0;
+            while(true) {
+                if(*info->p == '<') {
+                    info->p++;
+                    skip_spaces_and_lf();
+                    nest++;
                 }
-            }
-            else if(*info->p == '\0') {
-                err_msg(info, "unexpected source end");
-                exit(1);
-            }
-            else {
-                *info->p++;
-                skip_spaces_and_lf();
+                else if(*info->p == '>') {
+                    info->p++;
+                    skip_spaces_and_lf();
+                    
+                    nest--;
+                    if(nest == 0) {
+                        break;
+                    }
+                }
+                else if(*info->p == '\0') {
+                    err_msg(info, "unexpected source end");
+                    exit(1);
+                }
+                else {
+                    *info->p++;
+                    skip_spaces_and_lf();
+                }
             }
         }
         

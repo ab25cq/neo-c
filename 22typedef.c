@@ -1527,6 +1527,15 @@ struct tuple2$2char$ph_Bool$
     _Bool v2;
 };
 
+struct tuple5$5_Bool$_Bool$_Bool$_Bool$_Bool$
+{
+    _Bool v1;
+    _Bool v2;
+    _Bool v3;
+    _Bool v4;
+    _Bool v5;
+};
+
 struct tuple3$3sType$phchar$phsNode$ph
 {
     struct sType* v1  ;
@@ -2518,6 +2527,7 @@ char* create_method_name(struct sType* obj_type  , _Bool no_pointer_name, const 
 char* create_method_name_original_obj_type(struct sType* obj_type  , _Bool no_pointer_name, const char* fun_name, struct sInfo* info  , _Bool array_equal_pointer);
 char* create_non_method_name(struct sType* obj_type  , _Bool no_pointer_name, const char* fun_name, struct sInfo* info  , _Bool array_equal_pointer);
 char* create_method_name_using_class(struct sClass* obj_class  , const char* fun_name, struct sInfo* info  );
+struct tuple5$5_Bool$_Bool$_Bool$_Bool$_Bool$* backtrace_struct_union_enum(struct sInfo* info  );
 struct sNode* create_null_return_value(struct sInfo* info  );
 struct sNode* create_some(struct sNode* exp, struct sInfo* info  );
 struct sNode* expression_node_v96(struct sInfo* info  );

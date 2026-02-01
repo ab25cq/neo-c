@@ -941,6 +941,7 @@ string create_method_name_using_class(sClass* obj_class, const char* fun_name, s
 /////////////////////////////////////////////////////////////////////
 /// 06str.c ///
 /////////////////////////////////////////////////////////////////////
+bool@define_only, bool@anonymous_name, bool@struct_,bool@union_,bool@enum_ backtrace_struct_union_enum(sInfo* info=info);
 sNode*% create_null_return_value(sInfo* info=info);
 sNode*% create_some(sNode*% exp, sInfo* info);
 sNode*% expression_node(sInfo* info=info) version 96;

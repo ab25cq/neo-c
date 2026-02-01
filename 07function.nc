@@ -1317,6 +1317,17 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
     bool is_type_name_flag = is_type_name(buf);
     int sline = info.sline;
     
+    info.p = head;
+    info.sline = head_sline;
+    
+    var define_only, anonymous_name, struct_, union_, enum_ = backtrace_struct_union_enum();
+    
+/*
+    if(union_ && anonymous_name) {
+        define_only = false;
+    }
+*/
+    
     /// backtrace ///
     bool define_struct_nobody = false;
     {
@@ -1327,6 +1338,8 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         int sline = info.sline;
         
         if(buf === "struct") {
+            parse_word();
+            
             if(xisalpha(*info->p) || *info->p == '_') {
                 string word = parse_word();
                 
@@ -1336,9 +1349,10 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
             }
         }
         
-        info.p = head;
-        info.sline = sline;
         info.no_output_come_code = no_output_come_code;
+        
+        info.p = p;
+        info.sline = sline;
     }
     
     /// uniq class ///
@@ -1349,8 +1363,11 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         
         char* p = info.p;
         info.p = head;
+        int sline = info.sline;
         
-        (void)parse_word();
+        if(xisalpha(*info->p) || *info->p == '_') {
+            parse_word();
+        }
         
         if(xisalpha(*info->p) || *info->p == '_') {
             string buf2 = parse_word();
@@ -1423,8 +1440,13 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
             var result_type, fun_name, err = backtrace_parse_type();
         }
         
+        if(!define_only) {
+            //define_only = false;
+        
+        /*
         if(!info.define_struct) {
             info.define_struct = false;
+        */
             string word = null;
             if(xisalnum(*info.p) || *info->p == '_') {
                 word = parse_word();
@@ -1527,8 +1549,10 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
             }
         }
         
-        if(info.define_struct) {
-            info.define_struct = false;
+        if(define_only) {
+            //define_only = false;
+        //if(info.define_struct) {
+        //    info.define_struct = false;
             define_variable = false;
         }
         else if(define_variable) {
@@ -1582,8 +1606,10 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
             }
         }
         
-        if(info.define_struct) {
-            info.define_struct = false;
+        if(define_only) {
+            //define_only = false;
+        //if(info.define_struct) {
+        //    info.define_struct = false;
             define_variable = false;
         }
         else if(define_variable) {
@@ -1607,6 +1633,9 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         info.sline = sline;
         info.no_output_come_code = no_output_come_code;
     }
+    
+    info.p = head;
+    info.sline = head_sline;
     
     if(uniq_class) {
         info.p = head;

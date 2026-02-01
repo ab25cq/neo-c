@@ -12360,7 +12360,6 @@ extern int (*(*history_inhibit_expansion_function))(char*,int)  ;
 int (*OSSL_provider_init)(const struct ossl_core_handle_st*,const struct ossl_dispatch_st*,const struct ossl_dispatch_st**,void**)  ;
 extern char* program_invocation_name;
 extern char* program_invocation_short_name;
-union snd_pcm_sync_id ;
 // source head
 
 // header function

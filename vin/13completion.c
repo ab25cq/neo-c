@@ -4045,7 +4045,7 @@ static struct list$1int$ph* list$1int$ph_uniq(struct list$1int$ph* self, _Bool b
     int* item_before  ;
     struct list_item$1int$ph* it;
     int* __dec_obj7  ;
-    result=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_initialize((struct list$1int$ph*)come_increment_ref_count((struct list$1int$ph*)come_calloc(1, sizeof(struct list$1int$ph)*(1), (void*)0, 1482, "struct list$1int$ph*"))));
+    result=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_initialize((struct list$1int$ph*)come_increment_ref_count((struct list$1int$ph*)come_calloc(1, sizeof(struct list$1int$ph)*(1), (void*)0, 593, "struct list$1int$ph*"))));
     if(self==((void*)0)) {
         __result_obj__0 = (struct list$1int$ph*)come_increment_ref_count(result);
         come_call_finalizer(list$1int$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -4055,12 +4055,12 @@ static struct list$1int$ph* list$1int$ph_uniq(struct list$1int$ph* self, _Bool b
     }
     if(list$1int$ph_length(self)>0) {
         item_before=(int*)come_increment_ref_count(self->head->item);
-        list$1int$ph_push_back(result,(int*)come_increment_ref_count((int*)come_memdup(item_before, "/usr/local/include/neo-c.h", 1491, "int*")));
+        list$1int$ph_push_back(result,(int*)come_increment_ref_count((int*)come_memdup(item_before, "/usr/local/include/neo-c.h", 602, "int*")));
         it=self->head;
         it=it->next;
         while(it!=((void*)0)) {
             if(!((!by_pointer&&wstring_equals(it->item,item_before))||(by_pointer&&it->item==item_before))) {
-                list$1int$ph_push_back(result,(int*)come_increment_ref_count((int*)come_memdup(it->item, "/usr/local/include/neo-c.h", 1497, "int*")));
+                list$1int$ph_push_back(result,(int*)come_increment_ref_count((int*)come_memdup(it->item, "/usr/local/include/neo-c.h", 608, "int*")));
             }
             __dec_obj7=item_before,
             item_before=(int*)come_increment_ref_count(it->item);

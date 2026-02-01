@@ -1529,6 +1529,15 @@ struct tuple2$2char$ph_Bool$
     _Bool v2;
 };
 
+struct tuple5$5_Bool$_Bool$_Bool$_Bool$_Bool$
+{
+    _Bool v1;
+    _Bool v2;
+    _Bool v3;
+    _Bool v4;
+    _Bool v5;
+};
+
 struct tuple3$3sType$phchar$phsNode$ph
 {
     struct sType* v1  ;
@@ -2639,6 +2648,7 @@ struct sNode* expression_node_v99(struct sInfo* info  );
 struct sNode* expression_node_v97(struct sInfo* info  );
 int transpile(struct sInfo* info  );
 void parse_sharp_v5(struct sInfo* info  );
+struct tuple5$5_Bool$_Bool$_Bool$_Bool$_Bool$* backtrace_struct_union_enum(struct sInfo* info  );
 struct sNode* create_null_return_value(struct sInfo* info  );
 struct sNode* create_some(struct sNode* exp, struct sInfo* info  );
 struct sNode* expression_node_v96(struct sInfo* info  );
