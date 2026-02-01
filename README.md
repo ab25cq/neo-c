@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.8.7.6
+version 0.8.7.7
 
 ``` C
 #include <neo-c.h>
@@ -93,6 +93,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.8.7.7 cpp treats module. In parser module is deleted. here documet is working.
 0.8.7.6 channel variable attribute character changed from @ to |
 0.8.7.5 compare method automatically defined. You can use sort method easilly.
 0.8.7.4 Type checking.
@@ -2202,7 +2203,7 @@ int main(int argc, char** argv)
 ```
 #include <neo-c.h>
 
-module MModule<T>
+\#module MModule(T)
 {
     T a;
     T b;
@@ -2210,7 +2211,7 @@ module MModule<T>
 
 class sData
 {
-    include MModule<int>;
+    MModule(int);
     
     new(int a, int b) {
         self.a = a;
@@ -2820,3 +2821,24 @@ int main(int argc,char** argv)
     return 0;
 }
 ```
+
+# Here document
+
+```C
+#include <neo-c.h>
+
+int main(int argc, char** argv)
+{
+    int a = 123;
+    printf("""
+AAA
+\{a}
+BBB
+CCC
+""");
+    
+    return 0;
+}
+```
+
+At head of line # should be quoted
