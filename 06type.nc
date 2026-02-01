@@ -2265,57 +2265,6 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         
         if(parse_variable_name) {
             var_name = parse_variable_name_fun(type, anonymous_name:anonymous_name, var_name_between_brace:var_name_between_brace, attribute);
-            /*
-            if(var_name_between_brace && *info->p == '(') {
-                info->p++;
-                skip_spaces_and_lf();
-            }
-            
-            if(*info->p == ':') {
-                var_name = string("");
-            }
-            else if(anonymous_name) {
-                static int num_anonymous_var_name = 0;
-                num_anonymous_var_name++;
-                var_name = xsprintf("anonymous_var_nameXYZ%d", num_anonymous_var_name);
-                type->mAnonymousVarName = true;
-            }
-            else if(xisalnum(*info.p) || *info->p == '_') {
-                var_name = parse_word();
-            }
-            else {
-                static int num_anonymous_var_name = 0;
-                num_anonymous_var_name++;
-                var_name = xsprintf("anonymous_var_nameY%d", num_anonymous_var_name);
-                type->mAnonymousVarName = true;
-            }
-            
-            if(var_name_between_brace && *info->p == ')') {
-                info->p++;
-                skip_spaces_and_lf();
-            }
-            
-            if(*info->p == ':') {
-                info->p++;
-                skip_spaces_and_lf();
-                
-                bool no_comma = info->no_comma;
-                info->no_comma = true;
-                sNode*% node = expression();
-                info->no_comma = no_comma;
-                
-                type->mSizeNum = node;
-            }
-            
-            string attribute2 = parse_struct_attribute();
-            
-            if(attribute !== "" && attribute2 !== "") {
-                type->mAttribute = attribute + " " + attribute2;
-            }
-            else if(attribute2 !== "") {
-                type->mAttribute = attribute2;
-            }
-            */
         }
     }
     else if(lambda_flag) {
@@ -2953,58 +2902,6 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
 
         if(parse_variable_name) {
             var_name = parse_variable_name_fun(type, anonymous_name:anonymous_name, var_name_between_brace:var_name_between_brace, attribute);
-            /*
-            if(var_name_between_brace && *info->p == '(') {
-                info->p++;
-                skip_spaces_and_lf();
-            }
-            
-            if(*info->p == ':') {
-                var_name = string("");
-            }
-            else if(anonymous_name) {
-                static int num_anonymous_var_name = 0;
-                num_anonymous_var_name++;
-                var_name = xsprintf("anonymous_var_nameXYZLO%d", num_anonymous_var_name);
-                type->mAnonymousVarName = true;
-            }
-            else if(xisalnum(*info.p) || *info->p == '_') {
-                var_name = parse_word();
-            }
-            else {
-                static int num_anonymous_var_name = 0;
-                num_anonymous_var_name++;
-                var_name = xsprintf("anonymous_var_nameX%d", num_anonymous_var_name);
-                type->mAnonymousVarName = true;
-            }
-            
-            if(var_name_between_brace && *info->p == ')') {
-                info->p++;
-                skip_spaces_and_lf();
-            }
-            
-            if(*info->p == ':') {
-                info->p++;
-                skip_spaces_and_lf();
-                
-                bool no_comma = info->no_comma;
-                info->no_comma = true;
-                sNode*% node = expression();
-                info->no_comma = no_comma;
-                
-                type->mSizeNum = node;
-            }
-        
-            string attribute2 = parse_struct_attribute();
-            
-            if(attribute !== "" && attribute2 !== "") {
-                type->mAttribute = attribute;
-                type->mVarAttribute = attribute2;
-            }
-            else if(attribute2 !== "") {
-                type->mVarAttribute = attribute2;
-            }
-            */
         }
     }
     skip_spaces_and_lf();
