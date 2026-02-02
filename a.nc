@@ -2,7 +2,36 @@
 
 #module FUN(o) {
     int a = o;
-    printf("%d\n", a);
+    /*
+    if(a == 3) { 
+        printf("%d\n", a);
+    }
+    puts("aaa");
+    */
+    puts("""
+    
+
+    
+#define aaa aaa        
+            
+                    
+abc\{a}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+""");
 }
 
 int main(int argc, char** argv) 
