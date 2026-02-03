@@ -907,6 +907,94 @@ class sMethodCallNode extends sNodeBase
     }
 };
 
+class sMethodCallNodeCPP extends sNodeBase
+{
+    new(const char* fun_name, sNode*% obj, list<tup: string,sNode*%>* params, sInfo* info=info)
+    {
+        self.super();
+        
+        string self.fun_name = string(fun_name);
+        sNode*% self.obj = clone obj;
+        list<tup: string,sNode*%>*% self.params = clone params;
+    }
+    
+    bool terminated()
+    {
+        return false;
+    }
+    
+    string kind()
+    {
+        return string("sMethodCallNodeCPP");
+    }
+    
+    bool compile(sInfo* info)
+    {
+        string fun_name = self.fun_name;
+        list<tup: string,sNode*%>*% params = self.params;
+        sNode*% obj = self.obj;
+
+        node_compile(obj).elif {
+            return false;
+        }
+        
+        CVALUE*% obj_value = get_value_from_stack(-1, info);
+        
+        list<CVALUE*%>*% come_params = new list<CVALUE*%>();
+            
+        int i = 0;
+        foreach(it, params) {
+            var label, node = it;
+            
+            if(i == 0) {
+                i++;
+            }
+            else {
+                node_compile(node).elif {
+                    return false;
+                }
+                
+                CVALUE*% come_value = get_value_from_stack(-1, info);
+                
+                come_params.push_back(come_value);
+                
+                i++;
+            }
+        }
+       
+            
+        buffer*% buf = new buffer();
+        
+        buf.append_format("%s.%s", obj_value.c_value, fun_name);
+        buf.append_str("(");
+            
+        int j = 0;
+        foreach(it, come_params) {
+            if(j == 0) {
+            }
+            buf.append_str(it.c_value);
+            
+            if(j != come_params.length()-1) {
+                buf.append_str(",");
+            }
+            
+            j++;
+        }
+        buf.append_str(")");
+            
+        CVALUE*% come_value2 = new CVALUE();
+        
+        come_value2.c_value = buf.to_string();
+        come_value2.type = new sType(s"long");
+        come_value2.var = null;
+            
+        add_come_last_code(info, "%s", come_value2.c_value);
+        info.stack.push_back(come_value2);
+        
+        return true;
+    }
+};
+
 sNode*% create_method_call(const char* fun_name,sNode*% obj, list<tup: string,sNode*%>* params, buffer* method_block, int method_block_sline, list<sType*%>* method_generics_types, sInfo* info)
 {
     sNode*% node = new sMethodCallNode(fun_name, obj, params, method_block, method_block_sline, method_generics_types, no_infference_method_generics:true, false@recursive, info) implements sNode;
@@ -1064,7 +1152,13 @@ sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info) version 20
     
     skip_spaces_and_lf();
     
-    sNode*% node = new sMethodCallNode(fun_name, clone obj, params, method_block, method_block_sline, method_generics_types, no_infference_method_generics:false, recursive:true, info) implements sNode;
+    sNode*% node;
+    if(gComeM5Stack) {
+        node = new sMethodCallNodeCPP(fun_name, clone obj, params) implements sNode;
+    }
+    else {
+        node = new sMethodCallNode(fun_name, clone obj, params, method_block, method_block_sline, method_generics_types, no_infference_method_generics:false, recursive:true, info) implements sNode;
+    }
     
     node = post_position_operator(node, info);
     

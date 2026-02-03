@@ -12,6 +12,8 @@ no_rm_pp=true
 expect_target=false
 compile_only=false
 all_object_file=true
+m5stack=false
+pico=false
 
 for arg in "$@"; do
   if [ "$expect_target" = true ]; then
@@ -29,6 +31,12 @@ for arg in "$@"; do
       ;;
     -pico)
       opts+=("-D__PICO__")
+      pico=true
+      ;;
+    -m5stack)
+      opts+=("-m5stack")
+      opts+=("-D__M5STACK__")
+      m5stack=true
       ;;
     -o)
       #opts+=("$arg")
@@ -65,7 +73,15 @@ ncc ${opts[@]} ${files[0]}
 
 transpile_ok=$?
 
-if [ "$all_object_file" == true ]
+if [ "$pico" == true ]
+then
+    echo pico
+    exit 0
+elif [ "$m5stack" == true ]
+then
+    echo m5stack
+    exit 0
+elif [ "$all_object_file" == true ]
 then
     $CC ${opts[@]} -o ${target} ${files[@]} -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include -L/opt/homebrew/opt/ncurses/lib ${obj_files[@]} ${libs[@]}
 elif test $transpile_ok = 0

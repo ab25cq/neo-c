@@ -1595,6 +1595,7 @@ extern _Bool gComePthread;
 extern _Bool gComeNet;
 extern _Bool gComeMalloc;
 extern _Bool gComeBareMetal;
+extern _Bool gComeM5Stack;
 // source head
 
 // header function
@@ -2534,6 +2535,7 @@ struct sNode* load_field(struct sNode* left, char* name  , struct sInfo* info  )
 struct sNode* store_field(struct sNode* left, struct sNode* right, char* name  , struct sInfo* info  );
 struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo* info  );
 struct sNode* parse_method_call_v18(struct sNode* obj, char* fun_name  , struct sInfo* info  );
+struct sNode* parse_method_call_m5stack_v18(struct sNode* obj, char* fun_name  , struct sInfo* info  );
 struct sNode* post_position_operator_v19(struct sNode* node, struct sInfo* info  );
 struct tuple3$3char$phsFun$psGenericsFun$p* get_method(const char* fun_name, struct sType* obj_type  , struct sInfo* info  );
 struct sNode* create_method_call(const char* fun_name, struct sNode* obj, struct list$1tuple2$2char$phsNode$ph$ph* params, struct buffer* method_block  , int method_block_sline, struct list$1sType$ph* method_generics_types, struct sInfo* info  );

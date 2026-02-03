@@ -1451,9 +1451,6 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         }
         
         if(define_only) {
-            //define_only = false;
-        //if(info.define_struct) {
-        //    info.define_struct = false;
             define_variable = false;
         }
         else if(define_variable) {

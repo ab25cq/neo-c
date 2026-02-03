@@ -1,43 +1,21 @@
 #include <neo-c.h>
 
-#module FUN(o) {
-    int a = o;
-    /*
-    if(a == 3) { 
-        printf("%d\n", a);
-    }
-    puts("aaa");
-    */
-    puts("""
-    
-
-    
-#define aaa aaa        
-            
-                    
-abc\{a}
+//LED0.ino//
 
 
+const uint8_t LED_PIN = 2;  // LED出力に使用するGPIO PIN番号
 
-
-
-
-
-
-
-
-
-
-
-
-
-""");
+void setup() {
+    //LED出力ピンを出力モードにする
+    pinMode(LED_PIN, OUTPUT); 
 }
-
-int main(int argc, char** argv) 
-{
-    FUN(3)
     
-    return 0;
+void loop() {
+   M5.update();
+      
+  if (M5.BtnA.wasPressed()) { //ボタンAが押されたら
+      digitalWrite(LED_PIN, HIGH); //Hを出力
+  } else if (M5.BtnB.wasPressed()) { //ボタンBが押されたら
+      digitalWrite(LED_PIN, LOW);  //Lを出力
+  }
 }
-

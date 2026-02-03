@@ -20,13 +20,15 @@
 typedef char*% string;
 
 #if defined(__MINUX__)
-var UNIX=1
+#define UNIX 1
 #elif defined(__BARE_METAL__)
-var UNIX=0
+#define UNIX 0
 #elif defined(__PICO__)
-var UNIX=0
+#define UNIX 0
+#elif defined(__M5STACK__)
+#define UNIX 0
 #else
-var UNIX=1
+#define UNIX 1
 #endif
 
 
@@ -65,6 +67,18 @@ var UNIX=1
 #elif defined(__BAREMETAL__)
     #include "neo-c-libc.h"
 
+    using neo-c;
+    
+///////////////////////////////////////////////////////////////////////////
+// M5STACK
+///////////////////////////////////////////////////////////////////////////
+#elif defined(__M5STACK__)
+    c_include {#include <M5Stack.h>}
+
+    typedef __builtin_va_list va_list;
+    
+    #define NULL ((void*)0)
+    
     using neo-c;
 ///////////////////////////////////////////////////////////////////////////
 // UNIX
@@ -520,8 +534,7 @@ uniq string __builtin_string(const char* str)
     return result;
 }
 
-if($UNIX == 0)
-{
+#ifndef UNIX
     uniq void stackframe() version 2
     {
         inherit();
@@ -536,7 +549,7 @@ if($UNIX == 0)
     {
         inherit(mem);
     }
-}
+#endif
 
 //////////////////////////////
 // list
@@ -1323,7 +1336,7 @@ impl list <T>
         return false;
     }
     list<T>*% merge_list_with_lambda(list<T>* left, list<T>* right, int (*compare)(T&,T&)) {
-        auto result = new list<T>.initialize();
+        var result = new list<T>.initialize();
 
         list_item<T>* it = left.head;
         list_item<T>* it2= right.head;
@@ -1402,8 +1415,8 @@ impl list <T>
             return clone self;
         }
 
-        auto list1 = new list<T>.initialize();
-        auto list2 = new list<T>.initialize();
+        var list1 = new list<T>.initialize();
+        var list2 = new list<T>.initialize();
 
         list_item<T>* it = self.head;
 
@@ -1428,8 +1441,8 @@ impl list <T>
             }
         }
         
-        auto left_list = list1.merge_sort_with_lambda(compare);
-        auto right_list = list2.merge_sort_with_lambda(compare);
+        var left_list = list1.merge_sort_with_lambda(compare);
+        var right_list = list2.merge_sort_with_lambda(compare);
         
         return left_list.merge_list_with_lambda(right_list, compare);
     }
@@ -1451,7 +1464,7 @@ impl list <T>
         if(self == null) {
             return new list<R>();
         }
-        auto result = new list<R>.initialize();
+        var result = new list<R>.initialize();
 
         list_item<T>* it = self.head;
         while(it != null) {
@@ -2905,7 +2918,7 @@ uniq buffer* buffer*::append_str(buffer* self, const char* mem)
     return self;
 }
 
-if($UNIX == 0) {
+#ifndef UNIX
     uniq buffer* buffer*::append_format(buffer* self, const char* msg, ...)
     {
         if(self == null || msg == null) {
@@ -2943,8 +2956,7 @@ if($UNIX == 0) {
         
         return self;
     }
-}
-else {
+#else
     uniq buffer* buffer*::append_format(buffer* self, const char* msg, ...)
     {
         if(self == null || msg == null) {
@@ -2983,7 +2995,7 @@ else {
         
         return self;
     }
-}
+#endif
 
 uniq buffer* buffer*::append_nullterminated_str(buffer* self, const char* mem)
 {
@@ -4061,9 +4073,9 @@ uniq list<string>*% char*::split_char(char* self, char c)
         return new list<string>();
     }
     
-    auto result = new list<string>.initialize();
+    var result = new list<string>.initialize();
 
-    auto str = new buffer.initialize();
+    var str = new buffer.initialize();
 
     for(int i=0; i<self.length(); i++) {
         if(self[i] == c) {
@@ -4130,7 +4142,7 @@ uniq string char*::sub_plain(char* self, char* str, char* replace)
         return string(self);
     }
 
-    auto result = new buffer.initialize();
+    var result = new buffer.initialize();
     
     char* p = self;
     
@@ -4509,7 +4521,7 @@ uniq string char*::print(char* self)
     return string(self);
 }
 
-if($UNIX == 0) {
+#ifndef UNIX
     uniq string char*::printf(char* self, ...)
     {
         if(self == null) {
@@ -4530,8 +4542,7 @@ if($UNIX == 0) {
         
         return string(self);
     }
-}
-else {
+#else
     uniq string char*::printf(char* self, ...)
     {
         if(self == null) {
@@ -4550,7 +4561,7 @@ else {
         
         return string(self);
     }
-}
+#endif
 
 uniq int int::printf(int self, char* msg)
 {
@@ -5788,7 +5799,7 @@ uniq string string::chomp(const char* str)
     return result;
 }
 
-if($UNIX == 1) {
+#ifdef UNIX
     uniq string xrealpath(const char* path)
     {
         if(path == null) {
@@ -5802,7 +5813,7 @@ if($UNIX == 1) {
     
         return result2;
     }
-}
+#endif
 
 uniq string char*::replace(char* self, int index, char c)
 {
@@ -5858,9 +5869,9 @@ uniq list<string>*% char*::split_str(const char* self, const char* str)
         return new list<string>();
     }
     
-    auto result = new list<string>.initialize();
+    var result = new list<string>.initialize();
 
-    auto buf = new buffer.initialize();
+    var buf = new buffer.initialize();
 
     for(int i=0; i<self.length(); i++) {
         if(strstr(self + i, str) == self + i) {
@@ -5952,7 +5963,7 @@ uniq list<string>*% char*::scan(const char* self, const char* reg, bool ignore_c
     if(self == null || reg == null) {
         return new list<string>();
     }
-    auto result = new list<string>();
+    var result = new list<string>();
     
     re_t re = re_compile(reg);
     
@@ -5990,7 +6001,7 @@ uniq list<string>*% char*::scan(const char* self, const char* reg, bool ignore_c
         else if(regex_result >= 0 && group_count > 0) {
             for(int i=0; i<group_count; i++) {
                 re_capture cp = captures[i];
-                auto match_string = (self + offset).substring(cp.start, cp.start + cp.length);
+                var match_string = (self + offset).substring(cp.start, cp.start + cp.length);
                 result.push_back(match_string);
             }
             
@@ -6016,7 +6027,7 @@ uniq list<string>*% char*::split(const char* self, const char* reg, bool ignore_
         return new list<string>();
     }
     
-    auto result = new list<string>();
+    var result = new list<string>();
     
     re_t re = re_compile(reg);
     
@@ -6106,7 +6117,7 @@ uniq string char*::sub(char* self, const char* reg, const char* replace, bool gl
 
     int n = 0;
     
-    auto result = new buffer.initialize();
+    var result = new buffer.initialize();
     
     int group_count = re_get_group_count(re);
 
@@ -6154,7 +6165,7 @@ uniq string char*::sub_block(char* self, const char* reg, bool global=true, bool
         return string("");
     }
     
-    auto result = new buffer();
+    var result = new buffer();
     
     re_t re = re_compile(reg);
     
@@ -6213,7 +6224,7 @@ uniq string char*::sub_block(char* self, const char* reg, bool global=true, bool
 
             for(int i=0; i<group_count; i++) {
                 re_capture cp = captures[i];
-                auto match_string = (self + offset).substring(cp.start, cp.start + cp.length);
+                var match_string = (self + offset).substring(cp.start, cp.start + cp.length);
                 group_strings.push_back(match_string);
             }
             
@@ -6245,7 +6256,7 @@ uniq list<string>*% char*::scan_block(const char* self, const char* reg, bool ig
     if(self == null || reg == null) {
         return new list<string>();
     }
-    auto result = new list<string>();
+    var result = new list<string>();
     
     re_t re = re_compile(reg);
     
@@ -6289,7 +6300,7 @@ uniq list<string>*% char*::scan_block(const char* self, const char* reg, bool ig
 
             for(int i=0; i<group_count; i++) {
                 re_capture cp = captures[i];
-                auto match_string = (self + offset).substring(cp.start, cp.start + cp.length);
+                var match_string = (self + offset).substring(cp.start, cp.start + cp.length);
                 group_strings.push_back(match_string);
             }
             
@@ -6324,7 +6335,7 @@ uniq string string::sub_block(char* self, const char* reg, bool global=true, boo
 #define _XOPEN_SOURCE
 #endif
 
-if($UNIX == 1) {
+#ifdef UNIX
     #include <wchar.h>
     #include <libgen.h>
     
@@ -6905,9 +6916,9 @@ if($UNIX == 1) {
         if(self == null || str == null) {
             return new list<string>();
         }
-        auto result = new list<string>.initialize();
+        var result = new list<string>.initialize();
     
-        auto buf = new buffer.initialize();
+        var buf = new buffer.initialize();
     
         for(int i=0; i<self.length(); i++) {
             if(strstr(self + i, str) == self + i) {
@@ -7147,12 +7158,12 @@ if($UNIX == 1) {
     {
         return wcscmp(left, right) != 0;
     }
-}
+#endif
 
 //////////////////////////////
 /// base library(IO-FILE)
 //////////////////////////////
-if($UNIX == 1) {
+#ifdef UNIX
     uniq string FILE*::read(FILE* f)
     {
         if(f == null) {
@@ -7337,6 +7348,6 @@ if($UNIX == 1) {
         bool result = (c >= ' ' && c <= '~');
         return result;
     }
-}
+#endif
 
 #endif

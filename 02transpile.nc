@@ -6,6 +6,7 @@ bool gComePthread = false;
 bool gComeDebug = false;
 bool gComeOriginalSourcePosition = false;
 bool gComeBareMetal = false;
+bool gComeM5Stack = false;
 
 static void write_source_file_position_to_source(sInfo* info=info)
 {
@@ -144,11 +145,11 @@ static bool cpp(sInfo* info)
         set_macro("__32BIT_CPU__", "1");
     }
     
-    if(is_pico) {
-        set_macro("__PICO__", "1");
-    }
-    else if(is_m5stack) {
+    if(gComeM5Stack) {
         set_macro("__M5STACK__", "1");
+    }
+    else if(is_pico) {
+        set_macro("__PICO__", "1");
     }
     else if(gComeBareMetal) {
         set_macro("__BAREMETAL__", "1");
@@ -282,6 +283,10 @@ static void init_classes(sInfo* info)
         }
         else if(argv[i] === "-uniq") {
             gComeUniq = true; // output uniq function to the source
+        }
+        else if(argv[i] === "-m5stack") {
+            gComeUniq = true; // output uniq function to the source
+            gComeM5Stack = true;
         }
         else if(ext_name === "nc") {
             files.push_back(string(argv[i]));

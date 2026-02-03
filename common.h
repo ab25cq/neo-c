@@ -14,6 +14,7 @@ extern bool gComePthread;
 extern bool gComeNet;
 extern bool gComeMalloc;
 extern bool gComeBareMetal;
+extern bool gComeM5Stack;
 
 struct sType;
 struct sClass;
@@ -1037,6 +1038,7 @@ sNode*% store_field(sNode* left, sNode*% right, string name, sInfo* info);
 
 sNode*% post_position_operator(sNode*% node, sInfo* info) version 99;
 sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info) version 18;
+sNode*% parse_method_call_m5stack(sNode*% obj, string fun_name, sInfo* info) version 18;
 
 /////////////////////////////////////////////////////////////////////
 /// 19eq.c
