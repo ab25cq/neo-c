@@ -2695,7 +2695,7 @@ _Bool sNothingNode_compile(struct sNothingNode* self, struct sInfo* info  );
 // uniq global variable
 struct neo_frame* neo_current_frame  =((void*)0);
 
-struct sMemHeader* gAllocMem  =((void*)0);
+struct sMemHeader* gAllocMem  =(void*)0;
 
 int gComeDebugLib=0;
 

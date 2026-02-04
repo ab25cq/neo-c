@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.8.7.7
+version 0.8.7.8
 
 ``` C
 #include <neo-c.h>
@@ -93,6 +93,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.8.7.8 maybe m5stack is supported.  -m5stack option.
 0.8.7.7 cpp treats module. In parser module is deleted. here documet is working.
 0.8.7.6 channel variable attribute character changed from @ to |
 0.8.7.5 compare method automatically defined. You can use sort method easilly.

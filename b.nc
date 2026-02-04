@@ -2,14 +2,8 @@
 
 int main(int argc, char** argv)
 {
-    if(1) {
-        string a = if(1) {
-            puts("AAA");
-            s"ABC"
-        }
-        
-        puts(a);
-    }
+    char* self = "AAA";
+    string match_string = self.substring(0, 0);
     
     return 0;
 }
