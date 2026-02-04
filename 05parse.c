@@ -1595,7 +1595,7 @@ extern _Bool gComePthread;
 extern _Bool gComeNet;
 extern _Bool gComeMalloc;
 extern _Bool gComeBareMetal;
-extern _Bool gComeM5Stack;
+extern _Bool gComeCPlusPlus;
 // source head
 
 // header function
@@ -2534,15 +2534,14 @@ struct sNode* create_nullable_node(struct sNode* left, struct sInfo* info  );
 struct sNode* load_field(struct sNode* left, char* name  , struct sInfo* info  );
 struct sNode* store_field(struct sNode* left, struct sNode* right, char* name  , struct sInfo* info  );
 struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo* info  );
-struct sNode* parse_method_call_v18(struct sNode* obj, char* fun_name  , struct sInfo* info  );
-struct sNode* parse_method_call_m5stack_v18(struct sNode* obj, char* fun_name  , struct sInfo* info  );
+struct sNode* parse_method_call_v18(struct sNode* obj, char* fun_name  , struct sInfo* info  , _Bool arrow_);
 struct sNode* post_position_operator_v19(struct sNode* node, struct sInfo* info  );
 struct tuple3$3char$phsFun$psGenericsFun$p* get_method(const char* fun_name, struct sType* obj_type  , struct sInfo* info  );
-struct sNode* create_method_call(const char* fun_name, struct sNode* obj, struct list$1tuple2$2char$phsNode$ph$ph* params, struct buffer* method_block  , int method_block_sline, struct list$1sType$ph* method_generics_types, struct sInfo* info  );
+struct sNode* create_method_call(const char* fun_name, struct sNode* obj, struct list$1tuple2$2char$phsNode$ph$ph* params, struct buffer* method_block  , int method_block_sline, struct list$1sType$ph* method_generics_types, struct sInfo* info  , _Bool arrow_);
 struct sNode* create_guard_break_method_call(struct sNode* expression_node, struct sInfo* info  );
 _Bool compile_method_block(struct buffer* method_block  , struct list$1CVALUE$ph* come_params, struct sFun* fun  , char* fun_name, int method_block_sline, struct sInfo* info  , _Bool no_create_current_stack);
 struct tuple2$2char$phsGenericsFun$p* make_generics_function(struct sType* type  , char* fun_name  , struct sInfo* info  , _Bool array_equal_pointer);
-struct sNode* parse_method_call_v20(struct sNode* obj, char* fun_name  , struct sInfo* info  );
+struct sNode* parse_method_call_v20(struct sNode* obj, char* fun_name  , struct sInfo* info  , _Bool arrow_);
 struct sNode* string_node_v20(char* buf, char* head, int head_sline, struct sInfo* info  );
 struct sNode* create_implements(struct sNode* node, struct sType* inf_type  , struct sInfo* info  );
 struct sNode* create_true_object(struct sInfo* info  );
@@ -2660,6 +2659,13 @@ int err_msg(struct sInfo* info  , const char* msg, ...)
         else {
             buffer_append_format(buf,"%s %d(%d): [error] %s",info->sname,info->sline,info->sline_real,msg2);
         }
+        if((info->end-info->p)>30&&(info->p-info->head)>30) {
+            char mem[128];
+            memset(&mem, 0, sizeof(mem));
+            memcpy(mem,info->p-30,60);
+            mem[20]=0;
+            buffer_append_str(buf,mem);
+        }
         info->err_num++;
         free(msg2);
         printf(((char*)(__right_value2=string_operator_add(((char*)(__right_value1=buffer_to_string(buf))),"\n"))));
@@ -2700,12 +2706,19 @@ int warning_msg(struct sInfo* info  , const char* msg, ...)
         __builtin_va_start(args,msg);
         vasprintf(&msg2,msg,args);
         __builtin_va_end(args);
-        buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), (void*)0, 59, "struct buffer*"))));
+        buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), (void*)0, 66, "struct buffer*"))));
         if(info->come_fun) {
             buffer_append_format(buf,"%s %d(%d): [warning] %s in fun (%s)",info->sname,info->sline,info->sline_real,msg2,info->come_fun->mName);
         }
         else {
             buffer_append_format(buf,"%s %d(%d): [warning] %s",info->sname,info->sline,info->sline_real,msg2);
+        }
+        if((info->end-info->p)>30&&(info->p-info->head)>30) {
+            char mem[128];
+            memset(&mem, 0, sizeof(mem));
+            memcpy(mem,info->p-30,60);
+            mem[20]=0;
+            buffer_append_str(buf,mem);
         }
         info->warning_num++;
         free(msg2);
@@ -2750,11 +2763,11 @@ char* parse_word(_Bool digits, struct sInfo* info  )
     void* __right_value1 = (void*)0;
     struct buffer* buf  ;
     _Bool _conditional_value_X0;
-    char* __result_obj__0  ;
     char* result  ;
     void* __right_value2 = (void*)0;
     void* __right_value3 = (void*)0;
-    buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), (void*)0, 98, "struct buffer*"))));
+    char* __result_obj__0  ;
+    buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), (void*)0, 111, "struct buffer*"))));
     parse_sharp_v5(info);
     if(digits) {
         while((*info->p>=97&&*info->p<=122)||(*info->p>=65&&*info->p<=90)||*info->p==95||(*info->p>=48&&*info->p<=57)||(*info->p==36)) {
@@ -2774,13 +2787,7 @@ char* parse_word(_Bool digits, struct sInfo* info  )
     if(({(_conditional_value_X0=(string_length(((char*)(__right_value0=buffer_to_string(buf))))==0));    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
 _conditional_value_X0;})) {
         err_msg(info,"unexpected character(%c), expected word character, caller %s %d",*info->p,info->caller_sname,info->caller_line);
-        stackframe();
-        __result_obj__0 = (char*)come_increment_ref_count(((char*)(__right_value0=__builtin_string(""))));
-        come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        neo_current_frame = fr.prev;
-        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
-        return __result_obj__0;
+        exit(1);
     }
     result=(char*)come_increment_ref_count(buffer_to_string(buf));
     if(info->module_params) {
@@ -3129,7 +3136,7 @@ void parse_sharp_v5(struct sInfo* info  )
             info->p++;
             skip_spaces_and_tabs(info);
             if(parsecmp("pragma",info)) {
-                buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), (void*)0, 322, "struct buffer*"))));
+                buf=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), (void*)0, 335, "struct buffer*"))));
                 buffer_append_str(buf,"#");
                 while(*info->p) {
                     if(*info->p==10) {
@@ -3157,7 +3164,7 @@ _conditional_value_X0;})) {
                 info->p+=strlen("line");
                 skip_spaces_and_tabs(info);
                 line=0;
-                fname=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), (void*)0, 348, "struct buffer*"))));
+                fname=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), (void*)0, 361, "struct buffer*"))));
                 if(!xisdigit(*info->p)) {
                     err_msg(info,"invalid #line directive");
                     come_call_finalizer(buffer_finalize, fname, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -3207,7 +3214,7 @@ _conditional_value_X0;})) {
             }
             else if(xisdigit(*info->p)) {
                 line_0=0;
-                fname_1=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), (void*)0, 398, "struct buffer*"))));
+                fname_1=(struct buffer*)come_increment_ref_count(buffer_initialize((struct buffer*)come_increment_ref_count((struct buffer*)come_calloc(1, sizeof(struct buffer)*(1), (void*)0, 411, "struct buffer*"))));
                 while(xisdigit(*info->p)) {
                     line_0=line_0*10+(*info->p-48);
                     info->p++;

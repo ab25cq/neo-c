@@ -35,6 +35,13 @@ int err_msg(sInfo* info, const char* msg, ...)
             buf.append_format("%s %d(%d): [error] %s", info.sname, info.sline, info.sline_real, msg2);
         }
         
+        if((info.end - info.p) > 30 && (info.p - info.head) > 30) {
+            char mem[128];
+            memcpy(mem, info.p - 30, 60);
+            mem[20] = '\0';
+            buf.append_str(mem); 
+        }
+        
         info.err_num++;
 
         free(msg2);
@@ -63,6 +70,12 @@ int warning_msg(sInfo* info, const char* msg, ...)
         }
         else {
             buf.append_format("%s %d(%d): [warning] %s", info.sname, info.sline, info.sline_real, msg2);
+        }
+        if((info.end - info.p) > 30 && (info.p - info.head) > 30) {
+            char mem[128];
+            memcpy(mem, info.p - 30, 60);
+            mem[20] = '\0';
+            buf.append_str(mem); 
         }
         
         info.warning_num++;
@@ -119,8 +132,8 @@ string parse_word(bool digits=false, sInfo* info=info)
     
     if(buf.to_string().length() == 0) {
         err_msg(info, "unexpected character(%c), expected word character, caller %s %d", *info->p, info->caller_sname, info->caller_line);
-        stackframe();
-        return string("");
+        //stackframe();
+        exit(1);
     }
     
     string result = buf.to_string();

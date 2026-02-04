@@ -14,7 +14,7 @@ extern bool gComePthread;
 extern bool gComeNet;
 extern bool gComeMalloc;
 extern bool gComeBareMetal;
-extern bool gComeM5Stack;
+extern bool gComeCPlusPlus;
 
 struct sType;
 struct sClass;
@@ -1037,8 +1037,7 @@ sNode*% load_field(sNode*% left, string name, sInfo* info=info);
 sNode*% store_field(sNode* left, sNode*% right, string name, sInfo* info);
 
 sNode*% post_position_operator(sNode*% node, sInfo* info) version 99;
-sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info) version 18;
-sNode*% parse_method_call_m5stack(sNode*% obj, string fun_name, sInfo* info) version 18;
+sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info, bool arrow_=false) version 18;
 
 /////////////////////////////////////////////////////////////////////
 /// 19eq.c
@@ -1049,11 +1048,11 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 19;
 /// 20method.c
 /////////////////////////////////////////////////////////////////////
 string, sFun*,sGenericsFun* get_method(const char* fun_name, sType* obj_type, sInfo* info);
-sNode*% create_method_call(const char* fun_name,sNode*% obj, list<tup: string,sNode*%>* params, buffer* method_block, int method_block_sline, list<sType*%>* method_generics_types, sInfo* info);
+sNode*% create_method_call(const char* fun_name,sNode*% obj, list<tup: string,sNode*%>* params, buffer* method_block, int method_block_sline, list<sType*%>* method_generics_types, sInfo* info, bool arrow_=false);
 sNode*% create_guard_break_method_call(sNode*% expression_node, sInfo* info);
 bool compile_method_block(buffer* method_block, list<CVALUE*%>* come_params, sFun* fun, char* fun_name, int method_block_sline, sInfo* info, bool no_create_current_stack=false) ;
 string,sGenericsFun* make_generics_function(sType* type, string fun_name, sInfo* info, bool array_equal_pointer=true);
- sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info) version 20;
+ sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info, bool arrow_=false) version 20;
 sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 20;
 
 /////////////////////////////////////////////////////////////////////

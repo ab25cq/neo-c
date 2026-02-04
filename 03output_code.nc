@@ -1481,13 +1481,7 @@ bool output_source_file(sInfo* info)
     }
     
     /// go ///
-    string output_file_name;
-    if(gComeM5Stack) {
-        output_file_name = xsprintf("%s.ino", xnoextname(info.sname));
-    }
-    else {
-        output_file_name = xsprintf("%s.c", xnoextname(info.sname));
-    }
+    string output_file_name = xsprintf("%s.c", xnoextname(info.sname));
     
     FILE* f = fopen(output_file_name, "w");
     if(f == null) { die("fopen"); }

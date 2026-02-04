@@ -1135,6 +1135,11 @@ void transpile_toplevel(bool block=false, sInfo* info=info)
             skip_spaces_and_lf(info);
             break;
         }
+        while(*info->p == ';') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+        skip_spaces_and_lf();
         
         char* head = info.p;
         int head_sline = info.sline;

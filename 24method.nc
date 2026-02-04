@@ -329,7 +329,7 @@ string, sFun*,sGenericsFun* get_method(const char* fun_name, sType* obj_type, sI
     return (generics_fun_name, fun, generics_fun);
 }
 
-bool call_cpp_method(string fun_name, list<tup: string,sNode*%>*% params, sNode*% obj, sInfo* info=info)
+static bool call_cpp_method(string fun_name, list<tup: string,sNode*%>*% params, sNode*% obj, sInfo* info=info, bool arrow_=false)
 {
     node_compile(obj).elif {
         return false;
@@ -362,7 +362,12 @@ bool call_cpp_method(string fun_name, list<tup: string,sNode*%>*% params, sNode*
         
     buffer*% buf = new buffer();
     
-    buf.append_format("%s.%s", obj_value.c_value, fun_name);
+    if(arrow_) {
+        buf.append_format("%s->%s", obj_value.c_value, fun_name);
+    }
+    else {
+        buf.append_format("%s.%s", obj_value.c_value, fun_name);
+    }
     buf.append_str("(");
         
     int j = 0;
@@ -395,7 +400,7 @@ bool call_cpp_method(string fun_name, list<tup: string,sNode*%>*% params, sNode*
 class sMethodCallNode extends sNodeBase
 {
     new(const char* fun_name,sNode*% obj, list<tup: string,sNode*%>* params, buffer* method_block, int method_block_sline
-        , list<sType*%>* method_generics_types, bool no_infference_method_generics, bool recursive, sInfo* info)
+        , list<sType*%>* method_generics_types, bool no_infference_method_generics, bool recursive, sInfo* info, bool arrow_=false)
     {
         self.super();
         
@@ -408,6 +413,7 @@ class sMethodCallNode extends sNodeBase
         bool self.no_infference_method_generics = no_infference_method_generics;
         bool self.recursive = recursive;
         sFun* self.fun = null;
+        bool self.arrow_ = arrow_;
     }
     
     bool terminated()
@@ -435,6 +441,7 @@ class sMethodCallNode extends sNodeBase
         list<sType*%>*% method_generics_types = self.method_generics_types;
         bool recursive = self.recursive;
         bool no_infference_method_generics = self.no_infference_method_generics;
+        bool arrow_ = self.arrow_;
         
         list<sType*%>*% method_generics_types = info->method_generics_types;
         info->method_generics_types = clone self.method_generics_types;
@@ -447,8 +454,8 @@ class sMethodCallNode extends sNodeBase
         
         sType*% obj_type = clone obj_value.type;
         
-        if(obj_type->mClass->mName === "void" && obj_type->mPointerNum == 1 && gComeM5Stack) {
-            return call_cpp_method(fun_name, params, obj);
+        if(obj_type->mClass->mName === "void" && obj_type->mPointerNum == 1) {
+            return call_cpp_method(fun_name, params, obj, info, arrow_);
         }
         
         /// dirty works for list::map ///
@@ -974,16 +981,16 @@ class sMethodCallNode extends sNodeBase
 };
 
 
-sNode*% create_method_call(const char* fun_name,sNode*% obj, list<tup: string,sNode*%>* params, buffer* method_block, int method_block_sline, list<sType*%>* method_generics_types, sInfo* info)
+sNode*% create_method_call(const char* fun_name,sNode*% obj, list<tup: string,sNode*%>* params, buffer* method_block, int method_block_sline, list<sType*%>* method_generics_types, sInfo* info, bool arrow_=false)
 {
-    sNode*% node = new sMethodCallNode(fun_name, obj, params, method_block, method_block_sline, method_generics_types, no_infference_method_generics:true, false@recursive, info) implements sNode;
+    sNode*% node = new sMethodCallNode(fun_name, obj, params, method_block, method_block_sline, method_generics_types, no_infference_method_generics:true, false@recursive, info, arrow_) implements sNode;
         
     node = post_position_operator(node, info);
     
     return node;
 }
 
-sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info) version 20
+sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info, bool arrow_=false) version 20
 {
     list<tup: string,sNode*%>*% params = new list<tup: string,sNode*%>();
     params.push_back(((string)null,clone obj));
@@ -1131,7 +1138,7 @@ sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info) version 20
     
     skip_spaces_and_lf();
     
-    sNode*% node = new sMethodCallNode(fun_name, clone obj, params, method_block, method_block_sline, method_generics_types, no_infference_method_generics:false, recursive:true, info) implements sNode;
+    sNode*% node = new sMethodCallNode(fun_name, clone obj, params, method_block, method_block_sline, method_generics_types, no_infference_method_generics:false, recursive:true, info, arrow_) implements sNode;
     
     node = post_position_operator(node, info);
     

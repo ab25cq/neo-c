@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.8.7.8
+version 0.8.7.9
 
 ``` C
 #include <neo-c.h>
@@ -93,7 +93,8 @@ sh all_build.sh
 # Histories
 
 ```
-0.8.7.8 maybe m5stack is supported.  -m5stack option.
+0.8.7.9 Fixed bug.
+0.8.7.8 maybe c++ is supported.  -cpp option. No type checking and generate code.
 0.8.7.7 cpp treats module. In parser module is deleted. here documet is working.
 0.8.7.6 channel variable attribute character changed from @ to |
 0.8.7.5 compare method automatically defined. You can use sort method easilly.
@@ -2842,3 +2843,30 @@ CCC
 }
 ```
 
+# C++
+
+If API is C++ evironment, you can call C++ code like this.
+
+```
+c_include {# include <iostream>}
+c_include {# include <list>}
+
+int main(){
+    int a = 7;
+    __type__(std::list<int>) lst;
+
+        lst.push_back(a);
+        lst.push_back(2);
+        lst.push_back(3);
+
+    __c__ {
+        for (int v : lst) {
+            std::cout << v << std::endl;
+        }
+    }
+
+    return 0;
+}
+```
+
+Well, I know it's nonsense.

@@ -418,7 +418,24 @@ class sLoadFieldNode extends sNodeBase
         klass = borrow info.classes[string(klass->mName)];
         
         if(klass == null || klass->mFields == null) {
-            err_msg(info, "invalid class %s", klass->mName);
+            warning_msg(info, "type of %s.%s is not found. so can't check the heap type\n", left_value.c_value, name);
+            
+            CVALUE*% come_value = new CVALUE();
+            
+            if(arrow_) {
+                come_value.c_value = xsprintf("%s->%s", left_value.c_value, name);
+            }
+            else {
+                come_value.c_value = xsprintf("%s.%s", left_value.c_value, name);
+            }
+            come_value.type = new sType(s"void");
+            come_value.type.mPointerNum = 1;
+            come_value.var = left_value.var;
+            
+            info.stack.push_back(come_value);
+            
+            add_come_last_code(info, "%s", come_value.c_value);
+            
             return true;
         }
         
@@ -884,7 +901,7 @@ class sLoadRangeArrayNode extends sNodeBase
     }
 };
 
-sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info) version 18
+sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info, bool arrow_=false) version 18
 {
     err_msg(info, "parse_method_call is failed");
     exit(2);
@@ -1099,7 +1116,7 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                     node = parse_less_method_call(clone node, info);
                 }
                 else {
-                    node = parse_method_call(clone node, field_name, info);
+                    node = parse_method_call(clone node, field_name, info, arrow_);
                 }
             }
             else {

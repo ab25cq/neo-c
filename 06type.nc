@@ -1288,8 +1288,21 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                 info->p++;
                 skip_spaces_and_lf();
             }
-            type_name = parse_word();
             
+            var buf = new buffer();
+            while(*info->p) {
+                if(*info->p == ')') {
+                    info->p++;
+                    skip_spaces_and_lf();
+                    break;
+                }
+                else {
+                    buf.append_char(*info->p);
+                    info->p++;
+                }
+            }
+            type_name = buf.to_string();
+
             type_name_ = true;
         }
         else if(type_name === "_Thread_local") {
@@ -1986,9 +1999,6 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
     }
     
     if(atomic_ && *info->p == ')') {
-        expected_next_character(')');
-    }
-    if(type_name_ && *info->p == ')') {
         expected_next_character(')');
     }
     

@@ -6,7 +6,7 @@ bool gComePthread = false;
 bool gComeDebug = false;
 bool gComeOriginalSourcePosition = false;
 bool gComeBareMetal = false;
-bool gComeM5Stack = false;
+bool gComeCPlusPlus = false;
 
 static void write_source_file_position_to_source(sInfo* info=info)
 {
@@ -145,7 +145,7 @@ static bool cpp(sInfo* info)
         set_macro("__32BIT_CPU__", "1");
     }
     
-    if(gComeM5Stack) {
+    if(is_m5stack) {
         set_macro("__M5STACK__", "1");
     }
     else if(is_pico) {
@@ -265,8 +265,10 @@ static void init_classes(sInfo* info)
         type_->mUnsigned = true;
         (void)add_typedef(s"size_t", type_, info);
         
-        type_ = new sType(s"int");
-        (void)add_typedef(s"wchar_t", type_, info);
+        if(!gComeCPlusPlus) {
+            type_ = new sType(s"int");
+            (void)add_typedef(s"wchar_t", type_, info);
+        }
         
         (void)add_typedef(s"__gnuc_va_list", type, info);
     }
@@ -284,9 +286,8 @@ static void init_classes(sInfo* info)
         else if(argv[i] === "-uniq") {
             gComeUniq = true; // output uniq function to the source
         }
-        else if(argv[i] === "-m5stack") {
-            gComeUniq = true; // output uniq function to the source
-            gComeM5Stack = true;
+        else if(argv[i] === "-cpp") {
+            gComeCPlusPlus = true;
         }
         else if(ext_name === "nc") {
             files.push_back(string(argv[i]));

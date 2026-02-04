@@ -36,7 +36,12 @@ for arg in "$@"; do
     -m5stack)
       opts+=("-m5stack")
       opts+=("-D__M5STACK__")
+      opts+=("-cpp")
+      opts+=("-uniq")
       m5stack=true
+      ;;
+    -cpp)
+      CC=clang++
       ;;
     -o)
       #opts+=("$arg")
@@ -69,7 +74,12 @@ done
 #base="${1}"
 base="${files[0]%.nc}"
 
-ncc ${opts[@]} ${files[0]}
+if [ "$CC" == clang++ ]
+then
+    ncc ${opts[@]} -cpp ${files[0]}
+else
+    ncc ${opts[@]} ${files[0]}
+fi
 
 transpile_ok=$?
 
