@@ -174,6 +174,11 @@ class sFunNode extends sNodeBase
     }
 };
 
+sNode*% create_fun_node(sFun*% fun, sInfo* info=info)
+{
+    return new sFunNode(fun, info) implements sNode;
+}
+
 sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_function=false)
 {
     var result = new sBlock();
@@ -270,13 +275,10 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
             info->sname = node.sname();
             info->sline = node.sline();
             
-            
             if(node == null) {
                 err_msg(info, "Invalid expression");
                 return null;
             }
-            
-            result.mNodes.push_back(node);
             
             skip_spaces_and_lf();
             
@@ -300,36 +302,24 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
             if(*info->p == '}') {
                 result.mOmitSemicolon = omit_semicolon;
                 if(omit_semicolon && in_function) {
-                    result.mNodes.delete(-1, -1);
-                    dec_stack_ptr();
+                    info->p++;
+                    skip_spaces_and_lf();
                     
-                    info.p = p;
-                    info.sline = sline;
-                    info.sname = string(sname);
+                    sNode*% node2 = create_return_node(node);
                     
-                    char* head = info.p;
-                    sNode*% value = expression();
-                    char* tail = info.p;
-                    value = post_position_operator(value, info);
-                    
-                    char buf[tail-head+1];
-                    memcpy(buf, head, tail-head);
-                    buf[tail-head] = '\0';
-                    
-                    expected_next_character('}');
-                    
-                    sNode*% node = create_return_node(value, string(buf));
-                    
-                    result.mNodes.push_back(node);
+                    result.mNodes.push_back(node2);
                     
                     break;
                 }
                 else {
+                    result.mNodes.push_back(node);
                     info->p++;
                     skip_spaces_and_lf();
                     break;
                 }
             }
+            
+            result.mNodes.push_back(node);
         }
     }
     else {
@@ -1121,7 +1111,13 @@ void transpile_toplevel(bool block=false, sInfo* info=info)
             break;
         }
         
-        sNode*% node = top_level(buf, head, head_sline, info);
+        sNode*% node;
+        if(gComelang) {
+            node = comelang_top_level(buf, head, head_sline, info);
+        }
+        else {
+            node = top_level(buf, head, head_sline, info);
+        }
         skip_spaces_and_lf();
         
         while(*info->p == ';') {

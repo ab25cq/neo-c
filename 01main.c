@@ -1598,6 +1598,7 @@ extern _Bool gComeNet;
 extern _Bool gComeMalloc;
 extern _Bool gComeBareMetal;
 extern _Bool gComeCPlusPlus;
+extern _Bool gComelang;
 // source head
 
 // header function
@@ -2129,7 +2130,7 @@ struct sFun*  compile_uniq_function(struct sFun*  fun  , struct sInfo*  info  );
 struct sNode* cast_node(struct sType*  type  , struct sNode* node, struct sInfo*  info  );
 struct sNode* reffence_node(struct sNode* value, struct sInfo*  info  );
 struct tuple2$2char$phsGenericsFun$p* make_method_generics_function(char*  fun_name  , struct list$1sType$ph* method_generics_types, struct sInfo*  info  );
-struct sNode* create_return_node(struct sNode* value, char*  value_source  , struct sInfo*  info  );
+struct sNode* create_return_node(struct sNode* value, struct sInfo*  info  );
 struct sNode* post_position_operator(struct sNode* node, struct sInfo*  info  );
 _Bool create_method_generics_fun(char*  fun_name  , struct sGenericsFun*  generics_fun  , struct sInfo*  info  );
 _Bool operator_overload_fun_self(struct sType*  type  , const char* fun_name, struct sNode* node, struct CVALUE*  left_value  , struct sInfo*  info  );
@@ -2281,6 +2282,12 @@ struct MacroSnapshot*  macro_snapshot_create();
 char* macro_snapshot_diff_defines(struct MacroSnapshot*  snap  );
 void macro_snapshot_free(struct MacroSnapshot*  snap  );
 void init_global_opts();
+struct sNode* create_fun_node(struct sFun*  fun  , struct sInfo*  info  );
+struct sNode* comelang_top_level(char* buf, char* head, int head_sline, struct sInfo*  info  );
+struct sNode* parse_come_gval(struct sInfo*  info  );
+struct sNode* parse_come_gvar(struct sInfo*  info  );
+struct sNode* parse_come_function(struct sInfo*  info  );
+struct sBlock*  parse_come_block(struct sInfo*  info  );
 int main(int argc, char** argv);
 void stackframe();
 _Bool die(const char* msg);
@@ -2637,7 +2644,7 @@ static void list$1sNode$ph_finalize(struct list$1sNode$ph* self);
 static struct list$1int$* list$1int$_initialize(struct list$1int$* self);
 static void list$1int$_finalize(struct list$1int$* self);
 static void list$1char$ph_finalize(struct list$1char$ph* self);
-struct sType* sType_initialize(struct sType* self, char*  name  , _Bool heap, struct sInfo*  info  , _Bool unsinged_);
+struct sType* sType_initialize(struct sType* self, char*  name  , _Bool heap, struct sInfo*  info  , _Bool unsigned_, int pointer_num_);
 static struct list$1sVar$ph* list$1sVar$ph_initialize(struct list$1sVar$ph* self);
 static void list$1sVar$ph$p_finalize(struct list$1sVar$ph* self);
 static void list_item$1sVar$ph$p_finalize(struct list_item$1sVar$ph* self);
@@ -9987,7 +9994,7 @@ struct sClass* sClass_initialize(struct sClass* self, const char* name, _Bool nu
     self->mGenericsNum=generics_num;
     self->mMethodGenericsNum=method_generics_num;
     __dec_obj20=self->mFields,
-    self->mFields=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(list$1tuple2$2char$phsType$ph$ph_initialize((struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count((struct list$1tuple2$2char$phsType$ph$ph*)come_calloc(1, sizeof(struct list$1tuple2$2char$phsType$ph$ph)*(1), (void*)0, 81, "struct list$1tuple2$2char$phsType$ph$ph*"))));
+    self->mFields=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(list$1tuple2$2char$phsType$ph$ph_initialize((struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count((struct list$1tuple2$2char$phsType$ph$ph*)come_calloc(1, sizeof(struct list$1tuple2$2char$phsType$ph$ph)*(1), (void*)0, 82, "struct list$1tuple2$2char$phsType$ph$ph*"))));
     come_call_finalizer(list$1tuple2$2char$phsType$ph$ph_finalize, __dec_obj20,(void*)0, (void*)0, 0, 0, 0, (void*)0);
     __result_obj__0 = (struct sClass*)come_increment_ref_count(self);
     come_call_finalizer(sClass_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -10706,7 +10713,7 @@ static void list$1char$ph_finalize(struct list$1char$ph* self)
     neo_current_frame = fr.prev;
 }
 
-struct sType* sType_initialize(struct sType* self, char*  name  , _Bool heap, struct sInfo*  info  , _Bool unsinged_)
+struct sType* sType_initialize(struct sType* self, char*  name  , _Bool heap, struct sInfo*  info  , _Bool unsigned_, int pointer_num_)
 {
     struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "sType_initialize"; neo_current_frame = &fr;
     int pointer_num;
@@ -10735,7 +10742,7 @@ struct sType* sType_initialize(struct sType* self, char*  name  , _Bool heap, st
     char*  __dec_obj35  ;
     char*  __dec_obj36  ;
     struct sType* __result_obj__0;
-    pointer_num=0;
+    pointer_num=pointer_num_;
     p=name;
     while(*p) {
         if(xisalpha(*p)||*p==95) {
@@ -10749,7 +10756,7 @@ struct sType* sType_initialize(struct sType* self, char*  name  , _Bool heap, st
         pointer_num++;
         p++;
     }
-    name2=(char* )come_increment_ref_count(charp_substring(((char* )(__right_value0=__builtin_string(name))),0,-pointer_num-1));
+    name2=(char* )come_increment_ref_count(charp_substring(((char* )(__right_value0=__builtin_string(name))),0,-pointer_num+pointer_num_-1));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     klass=((struct sClass* )(__right_value2=map$2char$phsClass$ph_operator_load_element(info->classes,((char* )(__right_value1=__builtin_string(name2))))));
     (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -10804,7 +10811,7 @@ struct sType* sType_initialize(struct sType* self, char*  name  , _Bool heap, st
     __dec_obj32=self->mResultType,
     self->mResultType=((void*)0);
     come_call_finalizer(sType_finalize, __dec_obj32,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-    self->mUnsigned=unsinged_;
+    self->mUnsigned=unsigned_;
     self->mConstant=(_Bool)0;
     self->mRegister=(_Bool)0;
     self->mVolatile=(_Bool)0;
@@ -11746,7 +11753,7 @@ struct sFun* sFun_initialize(struct sFun* self, char*  name  , struct sType*  re
     self->mAllVar=(struct list$1sVar$ph*)come_increment_ref_count(list$1sVar$ph_initialize((struct list$1sVar$ph*)come_increment_ref_count((struct list$1sVar$ph*)come_calloc(1, sizeof(struct list$1sVar$ph)*(1), (void*)0, 302, "struct list$1sVar$ph*"))));
     come_call_finalizer(list$1sVar$ph_finalize, __dec_obj42,(void*)0, (void*)0, 0, 0, 0, (void*)0);
     __dec_obj43=self->mLambdaType,
-    self->mLambdaType=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), (void*)0, 304, "struct sType* ")),(char*)come_increment_ref_count(xsprintf("lambda")),(_Bool)0,info,(_Bool)0));
+    self->mLambdaType=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), (void*)0, 304, "struct sType* ")),(char*)come_increment_ref_count(xsprintf("lambda")),(_Bool)0,info,(_Bool)0,0));
     come_call_finalizer(sType_finalize, __dec_obj43,(void*)0, (void*)0, 0, 0, 0, (void*)0);
     for(o2_saved=(struct list$1sType$ph*)come_increment_ref_count(param_types),it=list$1sType$ph_begin(o2_saved);!list$1sType$ph_end(o2_saved);it=list$1sType$ph_next(o2_saved)){
         list$1sType$ph_push_back(self->mLambdaType->mParamTypes,(struct sType* )come_increment_ref_count(sType_clone(it)));
@@ -12784,7 +12791,7 @@ _Bool sCurrentNode_compile(struct sCurrentNode* self, struct sInfo*  info  )
     come_value->c_value=(char* )come_increment_ref_count(xsprintf("&__current_stack%d__",info->current_stack_num));
     __dec_obj113 = come_decrement_ref_count(__dec_obj113, (void*)0, (void*)0, 0,0, (void*)0);
     __dec_obj114=come_value->type,
-    come_value->type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), (void*)0, 780, "struct sType* ")),(char* )come_increment_ref_count(class_name),(_Bool)0,info,(_Bool)0));
+    come_value->type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), (void*)0, 780, "struct sType* ")),(char* )come_increment_ref_count(class_name),(_Bool)0,info,(_Bool)0,0));
     come_call_finalizer(sType_finalize, __dec_obj114,(void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_value->var=((void*)0);
     add_come_last_code(info,"%s;\n",come_value->c_value);

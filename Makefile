@@ -16,7 +16,7 @@ all: ncc
 #########################################
 # make c source
 #########################################
-self-host: 01main.c 02transpile.c 03output_code.c 04heap.c 05parse.c 06type.c 07function.c 08call.c 09pre_op.c 10str.c 11number.c 12var.c 13gvar.c 14if.c 15while.c 16for.c 17do_while.c 18switch.c 19struct.c 20union.c 21enum.c 22typedef.c 23field.c 24method.c 25obj.c 26eq.c 27impl.c 28interface.c 29module.c 30op.c ncc
+self-host: 01main.c 02transpile.c 03output_code.c 04heap.c 05parse.c 06type.c 07function.c 08call.c 09pre_op.c 10str.c 11number.c 12var.c 13gvar.c 14if.c 15while.c 16for.c 17do_while.c 18switch.c 19struct.c 20union.c 21enum.c 22typedef.c 23field.c 24method.c 25obj.c 26eq.c 27impl.c 28interface.c 29module.c 30op.c 31come_main.c  32come_toplevel.c
 
 01main.c: 01main.nc
 	./ncc -c 01main.nc 
@@ -108,101 +108,114 @@ self-host: 01main.c 02transpile.c 03output_code.c 04heap.c 05parse.c 06type.c 07
 30op.c: 30op.nc
 	./ncc -c 30op.nc
 
+31come_main.c: 31come_main.nc
+	./ncc -c 31come_main.nc
+
+32come_toplevel.c: 32come_toplevel.nc
+	./ncc -c 32come_toplevel.nc
+
+
 #########################################
 # compile c source
 #########################################
-ncc: 01main.o 02transpile.o 03output_code.o 04heap.o 05parse.o 06type.o 07function.o 08call.o 09pre_op.o 10str.o 11number.o 12var.o 13gvar.o 14if.o 15while.o 16for.o 17do_while.o 18switch.o 19struct.o 20union.o 21enum.o 22typedef.o 23field.o 24method.o 25obj.o 26eq.o 27impl.o 28interface.o 29module.o 30op.o ccpp.o 
-	$(CC) -o ncc 01main.o 02transpile.o 03output_code.o 04heap.o 05parse.o 06type.o 07function.o 08call.o 09pre_op.o 10str.o 11number.o 12var.o 13gvar.o 14if.o 15while.o 16for.o 17do_while.o 18switch.o 19struct.o 20union.o 21enum.o 22typedef.o 23field.o 24method.o 25obj.o 26eq.o 27impl.o 28interface.o 29module.o 30op.o ccpp.o 
+ncc: 01main.o 02transpile.o 03output_code.o 04heap.o 05parse.o 06type.o 07function.o 08call.o 09pre_op.o 10str.o 11number.o 12var.o 13gvar.o 14if.o 15while.o 16for.o 17do_while.o 18switch.o 19struct.o 20union.o 21enum.o 22typedef.o 23field.o 24method.o 25obj.o 26eq.o 27impl.o 28interface.o 29module.o 30op.o ccpp.o  31come_main.o 32come_toplevel.o
+	$(CC) -o ncc 01main.o 02transpile.o 03output_code.o 04heap.o 05parse.o 06type.o 07function.o 08call.o 09pre_op.o 10str.o 11number.o 12var.o 13gvar.o 14if.o 15while.o 16for.o 17do_while.o 18switch.o 19struct.o 20union.o 21enum.o 22typedef.o 23field.o 24method.o 25obj.o 26eq.o 27impl.o 28interface.o 29module.o 30op.o ccpp.o  31come_main.o 32come_toplevel.o
 
 01main.o: 01main.c
-	$(CC) -o 01main.o -c 01main.c $(CFLAGS) 2> /dev/null
+	$(CC) -o 01main.o -c 01main.c $(CFLAGS) 2>&1 | grep error || true
 
 02transpile.o: 02transpile.c
-	$(CC) -o 02transpile.o -c 02transpile.c $(CFLAGS) 2> /dev/null
+	$(CC) -o 02transpile.o -c 02transpile.c $(CFLAGS) 2>&1 | grep error || true
 
 03output_code.o: 03output_code.c
-	$(CC) -o 03output_code.o -c 03output_code.c $(CFLAGS) 2> /dev/null
+	$(CC) -o 03output_code.o -c 03output_code.c $(CFLAGS) 2>&1 | grep error || true
 
 04heap.o: 04heap.c
-	$(CC) -o 04heap.o -c 04heap.c $(CFLAGS) 2> /dev/null
+	$(CC) -o 04heap.o -c 04heap.c $(CFLAGS) 2>&1 | grep error || true
 
 05parse.o: 05parse.c
-	$(CC) -o 05parse.o -c 05parse.c $(CFLAGS) 2> /dev/null
+	$(CC) -o 05parse.o -c 05parse.c $(CFLAGS) 2>&1 | grep error || true
 
 06type.o: 06type.c
-	$(CC) -o 06type.o -c 06type.c $(CFLAGS) 2> /dev/null
+	$(CC) -o 06type.o -c 06type.c $(CFLAGS) 2>&1 | grep error || true
 
 07function.o: 07function.c
-	$(CC) -o 07function.o -c 07function.c $(CFLAGS) 2> /dev/null
+	$(CC) -o 07function.o -c 07function.c $(CFLAGS) 2>&1 | grep error || true
 
 08call.o: 08call.c
-	$(CC) -o 08call.o -c 08call.c $(CFLAGS) 2> /dev/null
+	$(CC) -o 08call.o -c 08call.c $(CFLAGS) 2>&1 | grep error || true
 
 09pre_op.o: 09pre_op.c
-	$(CC) -o 09pre_op.o -c 09pre_op.c $(CFLAGS) 2> /dev/null
+	$(CC) -o 09pre_op.o -c 09pre_op.c $(CFLAGS) 2>&1 | grep error || true
 
 10str.o: 10str.c
-	$(CC) -o 10str.o -c 10str.c $(CFLAGS) 2> /dev/null
+	$(CC) -o 10str.o -c 10str.c $(CFLAGS) 2>&1 | grep error || true
 
 11number.o: 11number.c
-	$(CC) -o 11number.o -c 11number.c $(CFLAGS) 2> /dev/null
+	$(CC) -o 11number.o -c 11number.c $(CFLAGS) 2>&1 | grep error || true
 
 12var.o: 12var.c
-	$(CC) -o 12var.o -c 12var.c $(CFLAGS) 2> /dev/null
+	$(CC) -o 12var.o -c 12var.c $(CFLAGS) 2>&1 | grep error || true
 
 13gvar.o: 13gvar.c
-	$(CC) -o 13gvar.o -c 13gvar.c $(CFLAGS) 2> /dev/null
+	$(CC) -o 13gvar.o -c 13gvar.c $(CFLAGS) 2>&1 | grep error || true
 
 14if.o: 14if.c
-	$(CC) -o 14if.o -c 14if.c $(CFLAGS) 2> /dev/null
+	$(CC) -o 14if.o -c 14if.c $(CFLAGS) 2>&1 | grep error || true
 
 15while.o: 15while.c
-	$(CC) -o 15while.o -c 15while.c $(CFLAGS) 2> /dev/null
+	$(CC) -o 15while.o -c 15while.c $(CFLAGS) 2>&1 | grep error || true
 
 16for.o: 16for.c
-	$(CC) -o 16for.o -c 16for.c $(CFLAGS) 2> /dev/null
+	$(CC) -o 16for.o -c 16for.c $(CFLAGS) 2>&1 | grep error || true
 
 17do_while.o: 17do_while.c
-	$(CC) -o 17do_while.o -c 17do_while.c $(CFLAGS) 2> /dev/null
+	$(CC) -o 17do_while.o -c 17do_while.c $(CFLAGS) 2>&1 | grep error || true
 
 18switch.o: 18switch.c
-	$(CC) -o 18switch.o -c 18switch.c $(CFLAGS) 2> /dev/null
+	$(CC) -o 18switch.o -c 18switch.c $(CFLAGS) 2>&1 | grep error || true
 
 19struct.o: 19struct.c
-	$(CC) -o 19struct.o -c 19struct.c $(CFLAGS) 2> /dev/null
+	$(CC) -o 19struct.o -c 19struct.c $(CFLAGS) 2>&1 | grep error || true
 
 20union.o: 20union.c
-	$(CC) -o 20union.o -c 20union.c $(CFLAGS) 2> /dev/null
+	$(CC) -o 20union.o -c 20union.c $(CFLAGS) 2>&1 | grep error || true
 
 21enum.o: 21enum.c
-	$(CC) -o 21enum.o -c 21enum.c $(CFLAGS) 2> /dev/null
+	$(CC) -o 21enum.o -c 21enum.c $(CFLAGS) 2>&1 | grep error || true
 
 22typedef.o: 22typedef.c
-	$(CC) -o 22typedef.o -c 22typedef.c $(CFLAGS) 2> /dev/null
+	$(CC) -o 22typedef.o -c 22typedef.c $(CFLAGS) 2>&1 | grep error || true
 
 23field.o: 23field.c
-	$(CC) -o 23field.o -c 23field.c $(CFLAGS) 2> /dev/null
+	$(CC) -o 23field.o -c 23field.c $(CFLAGS) 2>&1 | grep error || true
 
 24method.o: 24method.c
-	$(CC) -o 24method.o -c 24method.c $(CFLAGS) 2> /dev/null
+	$(CC) -o 24method.o -c 24method.c $(CFLAGS) 2>&1 | grep error || true
 
 25obj.o: 25obj.c
-	$(CC) -o 25obj.o -c 25obj.c $(CFLAGS) 2> /dev/null
+	$(CC) -o 25obj.o -c 25obj.c $(CFLAGS) 2>&1 | grep error || true
 
 26eq.o: 26eq.c
-	$(CC) -o 26eq.o -c 26eq.c $(CFLAGS) 2> /dev/null
+	$(CC) -o 26eq.o -c 26eq.c $(CFLAGS) 2>&1 | grep error || true
 
 27impl.o: 27impl.c
-	$(CC) -o 27impl.o -c 27impl.c $(CFLAGS) 2> /dev/null
+	$(CC) -o 27impl.o -c 27impl.c $(CFLAGS) 2>&1 | grep error || true
 
 28interface.o: 28interface.c
-	$(CC) -o 28interface.o -c 28interface.c $(CFLAGS) 2> /dev/null
+	$(CC) -o 28interface.o -c 28interface.c $(CFLAGS) 2>&1 | grep error || true
 
 29module.o: 29module.c
-	$(CC) -o 29module.o -c 29module.c $(CFLAGS) 2> /dev/null
+	$(CC) -o 29module.o -c 29module.c $(CFLAGS) 2>&1 | grep error || true
 
 30op.o: 30op.c
-	$(CC) -o 30op.o -c 30op.c $(CFLAGS) 2> /dev/null
+	$(CC) -o 30op.o -c 30op.c $(CFLAGS) 2>&1 | grep error || true
+
+31come_main.o:31come_main.c
+	$(CC) -o 31come_main.o -c 31come_main.c $(CFLAGS) 2>&1 | grep error || true
+
+32come_toplevel.o:32come_toplevel.c
+	$(CC) -o 32come_toplevel.o -c 32come_toplevel.c $(CFLAGS) 2>&1 | grep error || true
 
 ccpp.o: ccpp.c
 	$(CC) -o ccpp.o -c ccpp.c $(CFLAGS)

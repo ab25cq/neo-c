@@ -1654,6 +1654,7 @@ extern _Bool gComeNet;
 extern _Bool gComeMalloc;
 extern _Bool gComeBareMetal;
 extern _Bool gComeCPlusPlus;
+extern _Bool gComelang;
 // source head
 
 // header function
@@ -2412,7 +2413,7 @@ _Bool xiswdigit(int  c  );
 _Bool xiswalnum(int  c  );
 _Bool xiswascii(int  c  );
 struct sClass* sClass_initialize(struct sClass* self, const char* name, _Bool number, _Bool union_, _Bool generics, _Bool method_generics, _Bool protocol_, _Bool struct_, _Bool float_, int generics_num, int method_generics_num, _Bool enum_, _Bool uniq_, _Bool typename, struct sInfo*  info  );
-struct sType* sType_initialize(struct sType* self, char*  name  , _Bool heap, struct sInfo*  info  , _Bool unsinged_);
+struct sType* sType_initialize(struct sType* self, char*  name  , _Bool heap, struct sInfo*  info  , _Bool unsigned_, int pointer_num_);
 struct sFun* sFun_initialize(struct sFun* self, char*  name  , struct sType*  result_type  , struct list$1sType$ph* param_types, struct list$1char$ph* param_names, struct list$1char$ph* param_default_parametors, _Bool external, _Bool var_args, struct sBlock*  block  , _Bool static_, struct sInfo*  info  , _Bool inline_, _Bool uniq_, char*  attribute  , char*  fun_attribute  , _Bool const_fun, char*  text_block  , char*  generics_sname  , int generics_sline, _Bool immutable_);
 struct sGenericsFun* sGenericsFun_initialize(struct sGenericsFun* self, struct sType*  impl_type  , struct list$1char$ph* generics_type_names, struct list$1char$ph* method_generics_type_names, char*  name  , struct sType*  result_type  , struct list$1sType$ph* param_types, struct list$1char$ph* param_names, struct list$1char$ph* param_default_parametors, _Bool var_args, char*  block  , struct sInfo*  info  , char*  generics_sname  , int generics_sline, _Bool const_fun);
 struct CVALUE* CVALUE_initialize(struct CVALUE* self);
@@ -2490,7 +2491,7 @@ struct sFun*  compile_uniq_function(struct sFun*  fun  , struct sInfo*  info  );
 struct sNode* cast_node(struct sType*  type  , struct sNode* node, struct sInfo*  info  );
 struct sNode* reffence_node(struct sNode* value, struct sInfo*  info  );
 struct tuple2$2char$phsGenericsFun$p* make_method_generics_function(char*  fun_name  , struct list$1sType$ph* method_generics_types, struct sInfo*  info  );
-struct sNode* create_return_node(struct sNode* value, char*  value_source  , struct sInfo*  info  );
+struct sNode* create_return_node(struct sNode* value, struct sInfo*  info  );
 struct sNode* post_position_operator(struct sNode* node, struct sInfo*  info  );
 _Bool create_method_generics_fun(char*  fun_name  , struct sGenericsFun*  generics_fun  , struct sInfo*  info  );
 _Bool operator_overload_fun_self(struct sType*  type  , const char* fun_name, struct sNode* node, struct CVALUE*  left_value  , struct sInfo*  info  );
@@ -2645,6 +2646,12 @@ struct MacroSnapshot*  macro_snapshot_create();
 char* macro_snapshot_diff_defines(struct MacroSnapshot*  snap  );
 void macro_snapshot_free(struct MacroSnapshot*  snap  );
 void init_global_opts();
+struct sNode* create_fun_node(struct sFun*  fun  , struct sInfo*  info  );
+struct sNode* comelang_top_level(char* buf, char* head, int head_sline, struct sInfo*  info  );
+struct sNode* parse_come_gval(struct sInfo*  info  );
+struct sNode* parse_come_gvar(struct sInfo*  info  );
+struct sNode* parse_come_function(struct sInfo*  info  );
+struct sBlock*  parse_come_block(struct sInfo*  info  );
 struct sSwitchNode* sSwitchNode_initialize(struct sSwitchNode* self, struct sNode* expression_node, struct sBlock*  block  , struct sInfo*  info  );
 _Bool sSwitchNode_terminated(struct sSwitchNode* self);
 char*  sSwitchNode_kind(struct sSwitchNode* self);

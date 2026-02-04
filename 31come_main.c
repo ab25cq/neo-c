@@ -2376,6 +2376,9 @@ char*  sCurrentNode_sname(struct sCurrentNode* self, struct sInfo*  info  );
 char*  sCurrentNode_kind(struct sCurrentNode* self);
 _Bool sCurrentNode_compile(struct sCurrentNode* self, struct sInfo*  info  );
 _Bool transpile_conditional_with_free_right_object_value(struct sNode* node, struct sInfo*  info  );
+int err_msg(struct sInfo*  info  , const char* msg, ...);
+int warning_msg(struct sInfo*  info  , const char* msg, ...);
+int expected_next_character(char c, struct sInfo*  info  );
 _Bool node_compile(struct sNode* node, struct sInfo*  info  );
 _Bool node_conditional_compile(struct sNode* node, struct sInfo*  info  );
 int come_main(int argc, char** argv);
@@ -2441,6 +2444,7 @@ void caller_end(struct sInfo*  info  );
 struct sNode* craete_logical_denial(struct sNode* node, struct sInfo*  info  );
 struct tuple3$3sType$phchar$ph_Bool$* backtrace_parse_type(_Bool parse_variable_name, struct sInfo*  info  );
 void skip_pointer_attribute(struct sInfo*  info  );
+void skip_paren(struct sInfo*  info  );
 struct sNode* parse_normal_block(_Bool clang, struct sInfo*  info  );
 void cast_type(struct sType*  left_type  , struct sType*  right_type  , struct CVALUE*  come_value  , struct sInfo*  info  );
 _Bool check_assign_type(const char* msg, struct sType*  left_type  , struct sType*  right_type  , struct CVALUE*  come_value  , struct sInfo*  info  );
@@ -2464,6 +2468,11 @@ struct tuple2$2sFun$pchar$ph* create_compare_automatically(struct sType*  type  
 char*  skip_block(struct sInfo*  info  , _Bool return_self_at_last);
 _Bool is_contained_generics_class(struct sType*  type  , struct sInfo*  info  );
 _Bool is_type_name(char* buf, struct sInfo*  info  );
+_Bool parsecmp(const char* p2, struct sInfo*  info  );
+char*  parse_word(_Bool digits, struct sInfo*  info  );
+char*  backtrace_parse_word(struct sInfo*  info  );
+void skip_spaces_and_lf(struct sInfo*  info  );
+void skip_spaces_and_lf2(struct sInfo*  info  );
 struct tuple2$2char$ph_Bool$* create_generics_fun(char*  fun_name  , struct sGenericsFun*  generics_fun  , struct sType*  generics_type  , struct sInfo*  info  );
 struct tuple3$3sType$phchar$ph_Bool$* parse_type(struct sInfo*  info  , _Bool parse_variable_name, _Bool parse_multiple_type, _Bool in_function_parametor);
 struct tuple2$2sType$phchar$ph* parse_variable_name_on_multiple_declare(struct sType*  base_type_name  , _Bool first, struct sInfo*  info  );
@@ -2479,6 +2488,7 @@ struct sNode* expression_node_v99(struct sInfo*  info  );
 struct sNode* expression_node_v98(struct sInfo*  info  );
 struct sNode* expression_node_v97(struct sInfo*  info  );
 int transpile(struct sInfo*  info  );
+void parse_sharp_v5(struct sInfo*  info  );
 char*  create_method_name(struct sType*  obj_type  , _Bool no_pointer_name, const char* fun_name, struct sInfo*  info  , _Bool array_equal_pointer);
 char*  create_method_name_original_obj_type(struct sType*  obj_type  , _Bool no_pointer_name, const char* fun_name, struct sInfo*  info  , _Bool array_equal_pointer);
 char*  create_non_method_name(struct sType*  obj_type  , _Bool no_pointer_name, const char* fun_name, struct sInfo*  info  , _Bool array_equal_pointer);
@@ -2582,26 +2592,11 @@ char* macro_snapshot_diff_defines(struct MacroSnapshot*  snap  );
 void macro_snapshot_free(struct MacroSnapshot*  snap  );
 void init_global_opts();
 struct sNode* create_fun_node(struct sFun*  fun  , struct sInfo*  info  );
-struct sNode* comelang_top_level(char* buf, char* head, int head_sline, struct sInfo*  info  );
 struct sNode* parse_come_gval(struct sInfo*  info  );
 struct sNode* parse_come_gvar(struct sInfo*  info  );
 struct sNode* parse_come_function(struct sInfo*  info  );
 struct sBlock*  parse_come_block(struct sInfo*  info  );
-_Bool parsecmp(const char* p2, struct sInfo*  info  );
-int err_msg(struct sInfo*  info  , const char* msg, ...);
-static void __builtin_va_list_finalize(__builtin_va_list*  self  );
-int warning_msg(struct sInfo*  info  , const char* msg, ...);
-int expected_next_character(char c, struct sInfo*  info  );
-char*  parse_word(_Bool digits, struct sInfo*  info  );
-static char*  map$2char$phchar$ph$p_operator_load_element(struct map$2char$phchar$ph* self, char*  key  );
-static char*  map$2char$phchar$ph_operator_load_element(struct map$2char$phchar$ph* self, char*  key  );
-char*  backtrace_parse_word(struct sInfo*  info  );
-static _Bool skip_comment(struct sInfo*  info  , _Bool skip_space_after);
-void skip_spaces_and_lf(struct sInfo*  info  );
-void skip_spaces_and_lf2(struct sInfo*  info  );
-void skip_spaces_and_tabs(struct sInfo*  info  );
-void parse_sharp_v5(struct sInfo*  info  );
-void skip_paren(struct sInfo*  info  );
+struct sNode* comelang_top_level(char* buf, char* head, int head_sline, struct sInfo*  info  );
 // uniq global variable
 // inline function
 static inline unsigned short int  __bswap_16(unsigned short int  __bsx  )
@@ -2630,705 +2625,64 @@ static inline unsigned long  int  __uint64_identity(unsigned long  int  __x  )
 }
 
 // body function
-_Bool parsecmp(const char* p2, struct sInfo*  info  )
+struct sNode* comelang_top_level(char* buf, char* head, int head_sline, struct sInfo*  info  )
 {
-    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "parsecmp"; neo_current_frame = &fr;
-    _Bool terminated;
-    char* p3;
-    int i;
-    unsigned char c;
-    terminated=(_Bool)0;
-    p3=info->p;
-    for(i=0;i<strlen(p2);i++){
-        if(*p3==0) {
-            neo_current_frame = fr.prev;
-            return (_Bool)0;
-        }
-        p3++;
-    }
-    c=*(info->p+strlen(p2));
-    neo_current_frame = fr.prev;
-    return memcmp(info->p,p2,strlen(p2))==0&&(xispunct(c)||c==32||c==9||c==10||c==0||c==13)&&c!=95;
-    neo_current_frame = fr.prev;
-}
-
-int err_msg(struct sInfo*  info  , const char* msg, ...)
-{
-    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "err_msg"; neo_current_frame = &fr;
-    char* msg2;
-    __builtin_va_list  args  ;
-    char* p;
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "comelang_top_level"; neo_current_frame = &fr;
+    struct sNode* node;
     void* __right_value0 = (void*)0;
-    void* __right_value1 = (void*)0;
-    struct buffer*  buf  ;
-    void* __right_value2 = (void*)0;
-    int __result_obj__0;
-    memset(&msg2, 0, sizeof(msg2));
-    memset(&args, 0, sizeof(args));
-    if(!info->no_output_come_code) {
-        __builtin_va_start(args,msg);
-        vasprintf(&msg2,msg,args);
-        __builtin_va_end(args);
-        p=info->p;
-        buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 29, "struct buffer* "))));
-        if(info->come_fun) {
-            buffer_append_format(buf,"%s %d(%d): [error] %s in fun (%s)",info->sname,info->sline,info->sline_real,msg2,info->come_fun->mName);
-        }
-        else {
-            buffer_append_format(buf,"%s %d(%d): [error] %s",info->sname,info->sline,info->sline_real,msg2);
-        }
-        if((info->end-info->p)>30&&(info->p-info->head)>30) {
-            char mem[128];
-            memset(&mem, 0, sizeof(mem));
-            memcpy(mem,info->p-30,60);
-            mem[20]=0;
-            buffer_append_str(buf,mem);
-        }
-        info->err_num++;
-        free(msg2);
-        printf(((char* )(__right_value2=string_operator_add(((char* )(__right_value1=buffer_to_string(buf))),"\n"))));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
-        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0));
-        __result_obj__0 = 0;
-        come_call_finalizer(__builtin_va_list_finalize, (&args), (void*)0, (void*)0, 1, 0, 0, (void*)0);
-        come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        neo_current_frame = fr.prev;
-        return __result_obj__0;
-        come_call_finalizer(__builtin_va_list_finalize, (&args), (void*)0, (void*)0, 1, 0, 0, (void*)0);
-        come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    char*  buf2  ;
+    struct sNode* __dec_obj1;
+    struct sNode* __dec_obj2;
+    struct sNode* __dec_obj3;
+    struct sNode* __result_obj__0;
+    info->in_top_level=(_Bool)1;
+    info->p=head;
+    info->sline=head_sline;
+    node=((void*)0);
+    buf2=(char* )come_increment_ref_count(parse_word((_Bool)0,info));
+    if(string_operator_equals(buf2,"fn")) {
+        info->in_top_level=(_Bool)0;
+        __dec_obj1=node,
+        node=(struct sNode*)come_increment_ref_count(parse_come_function(info));
+        (__dec_obj1 ? __dec_obj1 = come_decrement_ref_count(__dec_obj1, ((struct sNode*)__dec_obj1)->finalize, ((struct sNode*)__dec_obj1)->_protocol_obj, 0,0, (void*)0) :0);
     }
-    neo_current_frame = fr.prev;
-    return 0;
-    neo_current_frame = fr.prev;
-}
-
-static void __builtin_va_list_finalize(__builtin_va_list*  self  )
-{
-    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "__builtin_va_list_finalize"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
-}
-
-int warning_msg(struct sInfo*  info  , const char* msg, ...)
-{
-    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "warning_msg"; neo_current_frame = &fr;
-    char* msg2;
-    __builtin_va_list  args  ;
-    void* __right_value0 = (void*)0;
-    void* __right_value1 = (void*)0;
-    struct buffer*  buf  ;
-    void* __right_value2 = (void*)0;
-    int __result_obj__0;
-    memset(&msg2, 0, sizeof(msg2));
-    memset(&args, 0, sizeof(args));
-    if(!info->no_output_come_code) {
-        __builtin_va_start(args,msg);
-        vasprintf(&msg2,msg,args);
-        __builtin_va_end(args);
-        buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 66, "struct buffer* "))));
-        if(info->come_fun) {
-            buffer_append_format(buf,"%s %d(%d): [warning] %s in fun (%s)",info->sname,info->sline,info->sline_real,msg2,info->come_fun->mName);
-        }
-        else {
-            buffer_append_format(buf,"%s %d(%d): [warning] %s",info->sname,info->sline,info->sline_real,msg2);
-        }
-        if((info->end-info->p)>30&&(info->p-info->head)>30) {
-            char mem[128];
-            memset(&mem, 0, sizeof(mem));
-            memcpy(mem,info->p-30,60);
-            mem[20]=0;
-            buffer_append_str(buf,mem);
-        }
-        info->warning_num++;
-        free(msg2);
-        printf(((char* )(__right_value2=string_operator_add(((char* )(__right_value1=buffer_to_string(buf))),"\n"))));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
-        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0));
-        __result_obj__0 = 0;
-        come_call_finalizer(__builtin_va_list_finalize, (&args), (void*)0, (void*)0, 1, 0, 0, (void*)0);
-        come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        neo_current_frame = fr.prev;
-        return __result_obj__0;
-        come_call_finalizer(__builtin_va_list_finalize, (&args), (void*)0, (void*)0, 1, 0, 0, (void*)0);
-        come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    else if(string_operator_equals(buf2,"val")) {
+        __dec_obj2=node,
+        node=(struct sNode*)come_increment_ref_count(parse_come_gval(info));
+        (__dec_obj2 ? __dec_obj2 = come_decrement_ref_count(__dec_obj2, ((struct sNode*)__dec_obj2)->finalize, ((struct sNode*)__dec_obj2)->_protocol_obj, 0,0, (void*)0) :0);
     }
-    neo_current_frame = fr.prev;
-    return 0;
-    neo_current_frame = fr.prev;
-}
-
-int expected_next_character(char c, struct sInfo*  info  )
-{
-    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "expected_next_character"; neo_current_frame = &fr;
-    parse_sharp_v5(info);
-    if(*info->p!=c) {
-        if(!info->no_output_come_code) {
-            err_msg(info,"expected next charaster is %c, but %c, caller %s %d",c,*info->p,info->caller_sname,info->caller_line);
-            stackframe();
-            exit(1);
-        }
+    else if(string_operator_equals(buf2,"var")) {
+        __dec_obj3=node,
+        node=(struct sNode*)come_increment_ref_count(parse_come_gvar(info));
+        (__dec_obj3 ? __dec_obj3 = come_decrement_ref_count(__dec_obj3, ((struct sNode*)__dec_obj3)->finalize, ((struct sNode*)__dec_obj3)->_protocol_obj, 0,0, (void*)0) :0);
     }
-    info->p++;
-    skip_spaces_and_lf(info);
-    neo_current_frame = fr.prev;
-    return 0;
-    neo_current_frame = fr.prev;
-}
-
-char*  parse_word(_Bool digits, struct sInfo*  info  )
-{
-    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "parse_word"; neo_current_frame = &fr;
-    void* __right_value0 = (void*)0;
-    void* __right_value1 = (void*)0;
-    struct buffer*  buf  ;
-    _Bool _conditional_value_X0;
-    char*  result  ;
-    void* __right_value2 = (void*)0;
-    void* __right_value3 = (void*)0;
-    char*  __result_obj__0  ;
-    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 111, "struct buffer* "))));
-    parse_sharp_v5(info);
-    if(digits) {
-        while((*info->p>=97&&*info->p<=122)||(*info->p>=65&&*info->p<=90)||*info->p==95||(*info->p>=48&&*info->p<=57)||(*info->p==36)) {
-            buffer_append_char(buf,*info->p);
-            info->p++;
-        }
-    }
-    else {
-        if((*info->p>=97&&*info->p<=122)||(*info->p>=65&&*info->p<=90)||*info->p==95||(*info->p==36)) {
-            while((*info->p>=97&&*info->p<=122)||(*info->p>=65&&*info->p<=90)||*info->p==95||(*info->p>=48&&*info->p<=57)||(*info->p==36)) {
-                buffer_append_char(buf,*info->p);
-                info->p++;
-            }
-        }
-    }
-    skip_spaces_and_lf(info);
-    if(({(_conditional_value_X0=(string_length(((char* )(__right_value0=buffer_to_string(buf))))==0));    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-_conditional_value_X0;})) {
-        err_msg(info,"unexpected character(%c), expected word character, caller %s %d",*info->p,info->caller_sname,info->caller_line);
-        exit(1);
-    }
-    result=(char* )come_increment_ref_count(buffer_to_string(buf));
-    if(info->module_params) {
-        if(({(_conditional_value_X0=(((char* )(__right_value2=map$2char$phchar$ph_operator_load_element(info->module_params,((char* )(__right_value1=__builtin_string(result))))))));        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
-        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0));
-_conditional_value_X0;})) {
-            __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value3=__builtin_string(((char* )(__right_value2=map$2char$phchar$ph_operator_load_element(info->module_params,((char* )(__right_value1=__builtin_string(result))))))))));
-            come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-            (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 0, (void*)0));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
-            (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0));
-            (__right_value3 = come_decrement_ref_count(__right_value3, (void*)0, (void*)0, 1, 0, (void*)0));
-            neo_current_frame = fr.prev;
-            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
-            return __result_obj__0;
-        }
-    }
-    __result_obj__0 = (char* )come_increment_ref_count(result);
-    come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-    (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;
-    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
-    return __result_obj__0;
-}
-
-static char*  map$2char$phchar$ph$p_operator_load_element(struct map$2char$phchar$ph* self, char*  key  )
-{
-    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phchar$ph$p_operator_load_element"; neo_current_frame = &fr;
-    char*  default_value  ;
-    char*  __result_obj__0  ;
-    unsigned int hash;
-    unsigned int it;
-    memset(&default_value,0,sizeof(char* ));
-    if(self==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(default_value);
-        (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
-        neo_current_frame = fr.prev;
-        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
-        return __result_obj__0;
-    }
-    hash=string_get_hash_key(((char* )key))%self->size;
-    it=hash;
-    while((_Bool)1) {
-        if(self->item_existance[it]) {
-            if(string_equals(self->keys[it],key)) {
-                __result_obj__0 = (char* )come_increment_ref_count(self->items[it]);
-                (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 0, (void*)0));
-                neo_current_frame = fr.prev;
-                (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
-                return __result_obj__0;
-            }
-            it++;
-            if(it>=self->size) {
-                it=0;
-            }
-            else if(it==hash) {
-                __result_obj__0 = (char* )come_increment_ref_count(default_value);
-                (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
-                neo_current_frame = fr.prev;
-                (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
-                return __result_obj__0;
-            }
-        }
-        else {
-            __result_obj__0 = (char* )come_increment_ref_count(default_value);
-            (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
-            neo_current_frame = fr.prev;
-            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
-            return __result_obj__0;
-        }
-    }
-    __result_obj__0 = (char* )come_increment_ref_count(default_value);
-    (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;
-    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
-    return __result_obj__0;
-}
-
-static char*  map$2char$phchar$ph_operator_load_element(struct map$2char$phchar$ph* self, char*  key  )
-{
-    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phchar$ph_operator_load_element"; neo_current_frame = &fr;
-    char*  default_value  ;
-    char*  __result_obj__0  ;
-    unsigned int hash;
-    unsigned int it;
-    memset(&default_value,0,sizeof(char* ));
-    if(self==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(default_value);
-        (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
-        neo_current_frame = fr.prev;
-        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
-        return __result_obj__0;
-    }
-    hash=string_get_hash_key(((char* )key))%self->size;
-    it=hash;
-    while((_Bool)1) {
-        if(self->item_existance[it]) {
-            if(string_equals(self->keys[it],key)) {
-                __result_obj__0 = (char* )come_increment_ref_count(self->items[it]);
-                (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 0, (void*)0));
-                neo_current_frame = fr.prev;
-                (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
-                return __result_obj__0;
-            }
-            it++;
-            if(it>=self->size) {
-                it=0;
-            }
-            else if(it==hash) {
-                __result_obj__0 = (char* )come_increment_ref_count(default_value);
-                (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
-                neo_current_frame = fr.prev;
-                (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
-                return __result_obj__0;
-            }
-        }
-        else {
-            __result_obj__0 = (char* )come_increment_ref_count(default_value);
-            (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
-            neo_current_frame = fr.prev;
-            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
-            return __result_obj__0;
-        }
-    }
-    __result_obj__0 = (char* )come_increment_ref_count(default_value);
-    (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;
-    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
-    return __result_obj__0;
-}
-
-char*  backtrace_parse_word(struct sInfo*  info  )
-{
-    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "backtrace_parse_word"; neo_current_frame = &fr;
-    char* p;
-    int sline;
-    char*  buf  ;
-    void* __right_value0 = (void*)0;
-    char*  __dec_obj1  ;
-    char*  __dec_obj2  ;
-    char*  __result_obj__0  ;
-    memset(&buf, 0, sizeof(buf));
-    p=info->p;
-    sline=info->sline;
-    if(xisalpha(*info->p)||*info->p==95) {
-        __dec_obj1=buf,
-        buf=(char* )come_increment_ref_count(parse_word((_Bool)0,info));
-        __dec_obj1 = come_decrement_ref_count(__dec_obj1, (void*)0, (void*)0, 0,0, (void*)0);
-    }
-    else {
-        __dec_obj2=buf,
-        buf=(char* )come_increment_ref_count(__builtin_string(""));
-        __dec_obj2 = come_decrement_ref_count(__dec_obj2, (void*)0, (void*)0, 0,0, (void*)0);
-    }
-    info->p=p;
-    info->sline=sline;
-    __result_obj__0 = (char* )come_increment_ref_count(buf);
-    (buf = come_decrement_ref_count(buf, (void*)0, (void*)0, 0, 1, (void*)0));
-    neo_current_frame = fr.prev;
-    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
-    return __result_obj__0;
-}
-
-static _Bool skip_comment(struct sInfo*  info  , _Bool skip_space_after)
-{
-    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "skip_comment"; neo_current_frame = &fr;
-    int nest;
-    if(*info->p==47&&*(info->p+1)==42) {
-        nest=0;
-        while(1) {
-            if(*info->p==47&&*(info->p+1)==42) {
-                info->p+=2;
-                nest++;
-            }
-            else if(*info->p==42&&*(info->p+1)==47) {
-                info->p+=2;
-                nest--;
-                if(nest==0) {
-                    if(skip_space_after) {
-                        skip_spaces_and_lf2(info);
-                    }
-                    break;
-                }
-            }
-            else if(*info->p==10) {
-                info->p++;
-                info->sline++;
-            }
-            else if(*info->p==13) {
-                info->p++;
-                if(*info->p==10) {
-                    info->p++;
-                }
-                info->sline++;
-            }
-            else if(*info->p==0) {
-                err_msg(info,"unterminated comment");
-                break;
-            }
-            else {
-                info->p++;
-            }
-        }
-        neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(*info->p==47&&*(info->p+1)==47) {
-        info->p+=2;
-        while(1) {
-            if(*info->p==10) {
-                info->p++;
-                info->sline++;
-                if(skip_space_after) {
-                    skip_spaces_and_lf2(info);
-                }
-                break;
-            }
-            else if(*info->p==13) {
-                info->p++;
-                if(*info->p==10) {
-                    info->p++;
-                }
-                info->sline++;
-                if(skip_space_after) {
-                    skip_spaces_and_lf2(info);
-                }
-                break;
-            }
-            else if(*info->p==0) {
-                break;
-            }
-            else {
-                info->p++;
-            }
-        }
-        neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    neo_current_frame = fr.prev;
-    return (_Bool)0;
-    neo_current_frame = fr.prev;
-}
-
-void skip_spaces_and_lf(struct sInfo*  info  )
-{
-    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "skip_spaces_and_lf"; neo_current_frame = &fr;
-    while((_Bool)1) {
-        if(*info->p==32||*info->p==9) {
-            info->p++;
-        }
-        else if(*info->p==13) {
-            info->p++;
-            if(*info->p==10) {
-                info->p++;
-            }
-            info->sline++;
-        }
-        else if(*info->p==10) {
-            info->p++;
-            info->sline++;
-        }
-        else if(skip_comment(info,(_Bool)0)) {
-        }
-        else {
-            break;
-        }
-    }
-    if(*info->p==35) {
-        parse_sharp_v5(info);
-    }
-    else if(*info->p==95&&parsecmp("__extension__",info)) {
-        parse_sharp_v5(info);
-    }
-    neo_current_frame = fr.prev;
-}
-
-void skip_spaces_and_lf2(struct sInfo*  info  )
-{
-    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "skip_spaces_and_lf2"; neo_current_frame = &fr;
-    while((_Bool)1) {
-        if(*info->p==32||*info->p==9) {
-            info->p++;
-        }
-        else if(*info->p==13) {
-            info->p++;
-            if(*info->p==10) {
-                info->p++;
-            }
-            info->sline++;
-        }
-        else if(*info->p==10) {
-            info->p++;
-            info->sline++;
-        }
-        else if(skip_comment(info,(_Bool)0)) {
-        }
-        else {
-            break;
-        }
-    }
-    neo_current_frame = fr.prev;
-}
-
-void skip_spaces_and_tabs(struct sInfo*  info  )
-{
-    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "skip_spaces_and_tabs"; neo_current_frame = &fr;
-    while((_Bool)1) {
-        if(*info->p==32||*info->p==9) {
-            info->p++;
-        }
-        else if(*info->p==47&&*(info->p+1)==42) {
-            (void)skip_comment(info,(_Bool)0);
-        }
-        else if(*info->p==47&&*(info->p+1)==47) {
-            info->p+=2;
-            while(*info->p&&*info->p!=10&&*info->p!=13) {
-                info->p++;
-            }
-            break;
-        }
-        else {
-            break;
-        }
-    }
-    neo_current_frame = fr.prev;
-}
-
-void parse_sharp_v5(struct sInfo*  info  )
-{
-    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "parse_sharp_v5"; neo_current_frame = &fr;
-    void* __right_value0 = (void*)0;
-    void* __right_value1 = (void*)0;
-    struct buffer*  buf  ;
-    _Bool _conditional_value_X0;
-    char*  __dec_obj3  ;
-    int line;
-    struct buffer*  fname  ;
-    char*  fname_str  ;
-    char*  __dec_obj4  ;
-    int line_0;
-    struct buffer*  fname_1  ;
-    char*  fname_str_2  ;
-    char*  __dec_obj5  ;
-    while(1) {
-        if(*info->p==35) {
-            info->p++;
-            skip_spaces_and_tabs(info);
-            if(parsecmp("pragma",info)) {
-                buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 335, "struct buffer* "))));
-                buffer_append_str(buf,"#");
-                while(*info->p) {
-                    if(*info->p==10) {
-                        buffer_append_char(buf,*info->p);
-                        skip_spaces_and_lf2(info);
-                        break;
-                    }
-                    else if(*info->p==0) {
-                        break;
-                    }
-                    else {
-                        buffer_append_char(buf,*info->p);
-                        info->p++;
-                    }
-                }
-                if(({(_conditional_value_X0=(string_index(((char* )(__right_value0=buffer_to_string(buf))),"pack(",-1)!=-1));                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-_conditional_value_X0;})) {
-                    __dec_obj3=info->pragma,
-                    info->pragma=(char* )come_increment_ref_count(buffer_to_string(buf));
-                    __dec_obj3 = come_decrement_ref_count(__dec_obj3, (void*)0, (void*)0, 0,0, (void*)0);
-                }
-                come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-            }
-            else if(parsecmp("line",info)) {
-                info->p+=strlen("line");
-                skip_spaces_and_tabs(info);
-                line=0;
-                fname=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 361, "struct buffer* "))));
-                if(!xisdigit(*info->p)) {
-                    err_msg(info,"invalid #line directive");
-                    come_call_finalizer(buffer_finalize, fname, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-                    neo_current_frame = fr.prev;
-                    return;
-                }
-                while(xisdigit(*info->p)) {
-                    line=line*10+(*info->p-48);
-                    info->p++;
-                }
-                skip_spaces_and_tabs(info);
-                if(*info->p==34) {
-                    info->p++;
-                    while(*info->p&&*info->p!=34) {
-                        buffer_append_char(fname,*info->p);
-                        info->p++;
-                    }
-                    if(*info->p==0) {
-                        err_msg(info,"unterminated #line file name");
-                        come_call_finalizer(buffer_finalize, fname, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-                        neo_current_frame = fr.prev;
-                        return;
-                    }
-                    info->p++;
-                    while(*info->p&&*info->p!=10) {
-                        info->p++;
-                    }
-                    if(*info->p==10) {
-                        info->p++;
-                    }
-                }
-                if(line>0) {
-                    info->sline=line;
-                }
-                else {
-                    info->sline=line;
-                }
-                fname_str=(char* )come_increment_ref_count(buffer_to_string(fname));
-                if(string_length(fname_str)>0) {
-                    __dec_obj4=info->sname,
-                    info->sname=(char* )come_increment_ref_count(fname_str);
-                    __dec_obj4 = come_decrement_ref_count(__dec_obj4, (void*)0, (void*)0, 0,0, (void*)0);
-                }
-                skip_spaces_and_tabs(info);
-                come_call_finalizer(buffer_finalize, fname, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-                (fname_str = come_decrement_ref_count(fname_str, (void*)0, (void*)0, 0, 0, (void*)0));
-            }
-            else if(xisdigit(*info->p)) {
-                line_0=0;
-                fname_1=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 411, "struct buffer* "))));
-                while(xisdigit(*info->p)) {
-                    line_0=line_0*10+(*info->p-48);
-                    info->p++;
-                }
-                skip_spaces_and_tabs(info);
-                if(*info->p==34) {
-                    info->p++;
-                    while(*info->p&&*info->p!=34) {
-                        buffer_append_char(fname_1,*info->p);
-                        info->p++;
-                    }
-                    if(*info->p==0) {
-                        err_msg(info,"unterminated #line file name");
-                        come_call_finalizer(buffer_finalize, fname_1, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-                        neo_current_frame = fr.prev;
-                        return;
-                    }
-                    info->p++;
-                    while(*info->p&&*info->p!=10) {
-                        info->p++;
-                    }
-                    if(*info->p==10) {
-                        info->p++;
-                    }
-                }
-                info->sline=line_0;
-                fname_str_2=(char* )come_increment_ref_count(buffer_to_string(fname_1));
-                if(string_length(fname_str_2)>0) {
-                    __dec_obj5=info->sname,
-                    info->sname=(char* )come_increment_ref_count(fname_str_2);
-                    __dec_obj5 = come_decrement_ref_count(__dec_obj5, (void*)0, (void*)0, 0,0, (void*)0);
-                }
-                skip_spaces_and_tabs(info);
-                come_call_finalizer(buffer_finalize, fname_1, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-                (fname_str_2 = come_decrement_ref_count(fname_str_2, (void*)0, (void*)0, 0, 0, (void*)0));
-            }
-            else if(*info->p==34) {
-                info->p++;
-                while(*info->p&&*info->p!=34) {
-                    info->p++;
-                }
-                if(*info->p==0) {
-                    err_msg(info,"unterminated #include file name");
-                    neo_current_frame = fr.prev;
-                    return;
-                }
-                info->p++;
-                while(*info->p&&*info->p!=10) {
-                    info->p++;
-                }
-                if(*info->p==10) {
-                    info->p++;
-                }
-            }
-            skip_spaces_and_lf2(info);
-        }
-        else if(skip_comment(info,(_Bool)1)) {
-        }
-        else if(parsecmp("__extension__",info)) {
-            info->p+=strlen("__extension__");
-            skip_spaces_and_lf2(info);
-        }
-        else {
-            break;
-        }
-    }
-    neo_current_frame = fr.prev;
-}
-
-void skip_paren(struct sInfo*  info  )
-{
-    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "skip_paren"; neo_current_frame = &fr;
-    int nest;
-    nest=0;
-    while((_Bool)1) {
-        if(*info->p==40) {
-            info->p++;
+    else if(charp_operator_equals(buf,"using")) {
+        if(parsecmp("neo-c",info)) {
+            info->p+=strlen("neo-c");
             skip_spaces_and_lf(info);
-            nest++;
+            gComelang=(_Bool)0;
+            gComeC=(_Bool)0;
+            __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=create_nothing_node(info))));
+            ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0):(void*)0);
+            (buf2 = come_decrement_ref_count(buf2, (void*)0, (void*)0, 0, 0, (void*)0));
+            ((__right_value0) ? __right_value0 = come_decrement_ref_count(__right_value0, ((struct sNode*)__right_value0)->finalize, ((struct sNode*)__right_value0)->_protocol_obj, 1, 0,(void*)0):(void*)0);
+            neo_current_frame = fr.prev;
+            ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0):(void*)0);
+            return __result_obj__0;
         }
-        else if(*info->p==41) {
-            info->p++;
-            skip_spaces_and_lf(info);
-            nest--;
-            if(nest==0) {
-                break;
-            }
-        }
-        else if(*info->p==0) {
-            err_msg(info,"invalid the source end. require )");
-            exit(1);
-        }
-        else {
-            info->p++;
-        }
+        __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=create_nothing_node(info))));
+        ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0):(void*)0);
+        (buf2 = come_decrement_ref_count(buf2, (void*)0, (void*)0, 0, 0, (void*)0));
+        ((__right_value0) ? __right_value0 = come_decrement_ref_count(__right_value0, ((struct sNode*)__right_value0)->finalize, ((struct sNode*)__right_value0)->_protocol_obj, 1, 0,(void*)0):(void*)0);
+        neo_current_frame = fr.prev;
+        ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0):(void*)0);
+        return __result_obj__0;
     }
+    __result_obj__0 = (struct sNode*)come_increment_ref_count(node);
+    ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 1,(void*)0):(void*)0);
+    (buf2 = come_decrement_ref_count(buf2, (void*)0, (void*)0, 0, 0, (void*)0));
     neo_current_frame = fr.prev;
+    ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0):(void*)0);
+    return __result_obj__0;
 }
 

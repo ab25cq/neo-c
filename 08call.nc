@@ -6,12 +6,11 @@
 
 class sReturnNode extends sNodeBase
 {
-    new(sNode*% value, string value_source, sInfo* info)
+    new(sNode*% value, sInfo* info)
     {
         self.super();
         
         sNode*% self.value = value;
-        string self.value_source = clone value_source;
     }
     
     string kind()
@@ -147,9 +146,9 @@ class sReturnNode extends sNodeBase
     }
 }
 
-sNode*% create_return_node(sNode*% value, string value_source, sInfo* info=info)
+sNode*% create_return_node(sNode*% value, sInfo* info=info)
 {
-    return new sReturnNode(value, value_source, info) implements sNode;
+    return new sReturnNode(value, info) implements sNode;
 }
 
 class sCSourceNode extends sNodeBase
@@ -2182,19 +2181,13 @@ sNode*% expression_node(sInfo* info=info) version 98
         skip_spaces_and_lf();
         
         if(*info->p == ';') {
-            return new sReturnNode(null, string("0"), info) implements sNode;
+            return new sReturnNode(null, info) implements sNode;
         }
         else {
-            char* head = info.p;
             sNode*% value = expression();
-            char* tail = info.p;
             value = post_position_operator(value, info);
             
-            char buf[tail-head+1];
-            memcpy(buf, head, tail-head);
-            buf[tail-head] = '\0';
-            
-            return new sReturnNode(value, string(buf), info) implements sNode;
+            return new sReturnNode(value, info) implements sNode;
         }
     }
     /// comment

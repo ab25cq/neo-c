@@ -7,6 +7,7 @@ bool gComeDebug = false;
 bool gComeOriginalSourcePosition = false;
 bool gComeBareMetal = false;
 bool gComeCPlusPlus = false;
+bool gComelang = false;
 
 static void write_source_file_position_to_source(sInfo* info=info)
 {

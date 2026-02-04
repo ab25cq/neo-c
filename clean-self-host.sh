@@ -1,5 +1,3 @@
-#make distclean
-
 sh install_pkg.sh
 
 export RM="rm -rf"
@@ -24,6 +22,8 @@ then
         make CFLAGS_OPT=" -g" self-host -j$(($(nproc) / 2))
         sudo make install
     fi
+    
+    sh fast_build.sh
 else 
     touch *.c
     

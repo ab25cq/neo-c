@@ -1,28 +1,26 @@
-#include <assert.h>
-    
-int loop() 
-{
-    return (2, 1);
-}
+#include <neo-c.h>
 
 struct sData
 {
     int a;
     int b;
-    
-    union {
-        int c;
-        int d;
-    };
 };
 
+using comelang;
+
+fn fun(aaa:sData): i32
+{
+    printf("a %d b %d\n", aaa->a, aaa->b);
+    puts("HELLO WORLD");
+}
+
+using neo-c;
 
 int main(int argc, char** argv)
 {
-    struct sData data;
-    
-    data.a = 111;
-    data.b = 222;
+    sData*% data = new sData{a:111, b:222};
+    fun(data);
     
     return 0;
 }
+

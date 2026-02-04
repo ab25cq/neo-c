@@ -15,6 +15,7 @@ extern bool gComeNet;
 extern bool gComeMalloc;
 extern bool gComeBareMetal;
 extern bool gComeCPlusPlus;
+extern bool gComelang;
 
 struct sType;
 struct sClass;
@@ -165,9 +166,9 @@ uniq class sType
     
     sNode*% mTypeOfNode;
     
-    new(string name, bool heap=false, sInfo* info=info, bool unsinged_=false) 
+    new(string name, bool heap=false, sInfo* info=info, bool unsigned_=false, int pointer_num_=0) 
     {
-        int pointer_num = 0;
+        int pointer_num = pointer_num_;
         char* p = name;
         while(*p) {
             if(xisalpha(*p) || *p == '_') {
@@ -182,8 +183,7 @@ uniq class sType
             p++;
         }
         
-        string name2 = string(name).substring(0, -pointer_num-1);
-        
+        string name2 = string(name).substring(0, -pointer_num+pointer_num_-1);
         sClass* klass = borrow info.classes[string(name2)];
         sClass* generics_class = borrow info.generics_classes[name2];
         
@@ -215,7 +215,7 @@ uniq class sType
         self.mOriginalTypeName = s"";
         self.mVarArgs = false;
         self.mResultType = null;
-        self.mUnsigned = unsinged_;
+        self.mUnsigned = unsigned_;
         self.mConstant = false;
         self.mRegister = false;
         self.mVolatile = false;
@@ -865,7 +865,7 @@ sFun*% compile_uniq_function(sFun* fun, sInfo* info=info);
 sNode*% cast_node(sType* type, sNode*% node, sInfo* info=info);
 sNode*% reffence_node(sNode*% value, sInfo* info);
 string,sGenericsFun* make_method_generics_function(string fun_name, list<sType*%>* method_generics_types, sInfo* info);
-sNode*% create_return_node(sNode*% value, string value_source, sInfo* info=info);
+sNode*% create_return_node(sNode*% value, sInfo* info=info);
 sNode*% post_position_operator(sNode*% node, sInfo* info);
 bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sInfo* info);
 bool operator_overload_fun_self(sType* type, const char* fun_name, sNode*% node, CVALUE* left_value, sInfo* info);
@@ -1129,5 +1129,14 @@ MacroSnapshot *macro_snapshot_create(void);
 char *macro_snapshot_diff_defines(MacroSnapshot *snap);
 void macro_snapshot_free(MacroSnapshot *snap);
 void init_global_opts();
+
+/// comelang ///
+sNode*% create_fun_node(sFun*% fun, sInfo* info=info);
+
+sNode*% comelang_top_level(char* buf, char* head, int head_sline, sInfo* info);
+sNode*% parse_come_gval(sInfo* info=info);
+sNode*% parse_come_gvar(sInfo* info=info);
+sNode*% parse_come_function(sInfo* info=info);
+sBlock*% parse_come_block(sInfo* info=info);
 
 #endif
