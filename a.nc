@@ -1,4 +1,3 @@
-//#include <neo-c.h>
 #include <assert.h>
     
 int loop() 
@@ -6,12 +5,24 @@ int loop()
     return (2, 1);
 }
 
+struct sData
+{
+    int a;
+    int b;
+    
+    union {
+        int c;
+        int d;
+    };
+};
+
 
 int main(int argc, char** argv)
 {
-    int a = loop();
+    struct sData data;
     
-    assert(a == 1);
+    data.a = 111;
+    data.b = 222;
     
     return 0;
 }

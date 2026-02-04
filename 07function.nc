@@ -142,11 +142,7 @@ class sFunNode extends sNodeBase
         //info.come_fun_name = string(info.come_fun.mName);
         
         if(self.mFun.mBlock) {
-            if(!gComeC && info.come_fun.mName === "main" && info.funcs[s"come_heap_init"]) {
-                add_come_code(info, "    come_heap_init(%d);\n", gComeDebug);
-                add_come_code(info, s"    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = \"\{info.come_fun.mName}\"; neo_current_frame = &fr;\n"); 
-            }
-            else if(!gComeC) {
+            if(!gComeC) {
                 add_come_code_at_function_head(info, s"struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = \"\{info.come_fun.mName}\"; neo_current_frame = &fr;\n"); 
             }
             

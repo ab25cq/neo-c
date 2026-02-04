@@ -1939,7 +1939,6 @@ void __assert_perror_fail(int __errnum, const char* __file, unsigned int __line,
 void __assert(const char* __assertion, const char* __file, int __line);
 void stackframe();
 _Bool die(const char* msg);
-void come_heap_init(int come_debug);
 void come_heap_final();
 void* alloc_from_pages(unsigned long size  );
 void come_free_mem_of_heap_pool(void* mem);

@@ -195,10 +195,6 @@ struct sMemHeader
 
 uniq sMemHeader* gAllocMem = (void*)0;
     
-uniq void come_heap_init(int come_debug)
-{
-}
-    
 uniq void come_heap_final()
 {
     sMemHeader* it = gAllocMem;
