@@ -1019,7 +1019,7 @@ struct anonymous_typeX5
     long  double __attribute__((__aligned__(__alignof__(long double)))) __clang_max_align_nonce2 __attribute__((__aligned__(__alignof__(long double))));
 };
 
-enum   memory_order { memory_order_relaxed=(0),
+enum  memory_order { memory_order_relaxed=(0),
 memory_order_consume=(1),
 memory_order_acquire=(2),
 memory_order_release=(3),

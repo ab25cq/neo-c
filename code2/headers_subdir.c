@@ -3847,7 +3847,7 @@ struct sigstack
     int ss_onstack;
 };
 
-enum   __ns_sect { ns_s_qd=(0),
+enum  __ns_sect { ns_s_qd=(0),
 ns_s_zn=(0),
 ns_s_an=(1),
 ns_s_pr=(1),
@@ -3886,7 +3886,7 @@ struct __ns_rr
     const unsigned char* rdata;
 };
 
-enum   __ns_flag { ns_f_qr 
+enum  __ns_flag { ns_f_qr 
 ,ns_f_opcode 
 ,ns_f_aa 
 ,ns_f_tc 
@@ -3899,7 +3899,7 @@ enum   __ns_flag { ns_f_qr
 ,ns_f_max 
 };
 
-enum   __ns_opcode { ns_o_query=(0),
+enum  __ns_opcode { ns_o_query=(0),
 ns_o_iquery=(1),
 ns_o_status=(2),
 ns_o_notify=(4),
@@ -3907,7 +3907,7 @@ ns_o_update=(5),
 ns_o_max=(6)
 };
 
-enum   __ns_rcode { ns_r_noerror=(0),
+enum  __ns_rcode { ns_r_noerror=(0),
 ns_r_formerr=(1),
 ns_r_servfail=(2),
 ns_r_nxdomain=(3),
@@ -3925,7 +3925,7 @@ ns_r_badkey=(17),
 ns_r_badtime=(18)
 };
 
-enum   __ns_update_operation { ns_uop_delete=(0),
+enum  __ns_update_operation { ns_uop_delete=(0),
 ns_uop_add=(1),
 ns_uop_max=(2)
 };
@@ -3947,7 +3947,7 @@ struct ns_tcp_tsig_state
     int siglen;
 };
 
-enum   __ns_type { ns_t_invalid=(0),
+enum  __ns_type { ns_t_invalid=(0),
 ns_t_a=(1),
 ns_t_ns=(2),
 ns_t_md=(3),
@@ -4035,7 +4035,7 @@ ns_t_dlv=(32769),
 ns_t_max=(65536)
 };
 
-enum   __ns_class { ns_c_invalid=(0),
+enum  __ns_class { ns_c_invalid=(0),
 ns_c_in=(1),
 ns_c_2=(2),
 ns_c_chaos=(3),
@@ -4045,7 +4045,7 @@ ns_c_any=(255),
 ns_c_max=(65536)
 };
 
-enum   __ns_cert_types { cert_t_pkix=(1),
+enum  __ns_cert_types { cert_t_pkix=(1),
 cert_t_spki=(2),
 cert_t_pgp=(3),
 cert_t_url=(253),
@@ -5979,7 +5979,7 @@ struct evp_cipher_info_st
     unsigned char iv[16];
 };
 
-enum   anonymous_typeY106 { POINT_CONVERSION_COMPRESSED=(2),
+enum  anonymous_typeY106 { POINT_CONVERSION_COMPRESSED=(2),
 POINT_CONVERSION_UNCOMPRESSED=(4),
 POINT_CONVERSION_HYBRID=(6)
 };
@@ -6161,7 +6161,7 @@ struct lhash_st_OPENSSL_CSTRING
     } dummy;
 };
 
-enum   anonymous_typeY110 { X509_LU_NONE=(0),
+enum  anonymous_typeY110 { X509_LU_NONE=(0),
 X509_LU_X509 
 ,X509_LU_CRL 
 };
@@ -6347,7 +6347,7 @@ struct conf_st
     struct ossl_lib_ctx_st*  libctx  ;
 };
 
-enum   anonymous_typeY113 { CT_LOG_ENTRY_TYPE_NOT_SET=(-1),
+enum  anonymous_typeY113 { CT_LOG_ENTRY_TYPE_NOT_SET=(-1),
 CT_LOG_ENTRY_TYPE_X509=(0),
 CT_LOG_ENTRY_TYPE_PRECERT=(1)
 };
@@ -8031,7 +8031,7 @@ struct drm_block
     int unused;
 };
 
-enum   anonymous_typeY151 { DRM_ADD_COMMAND 
+enum  anonymous_typeY151 { DRM_ADD_COMMAND 
 ,DRM_RM_COMMAND 
 ,DRM_INST_HANDLER 
 ,DRM_UNINST_HANDLER 
@@ -8147,7 +8147,7 @@ _DRM_DMA_SMALLER_OK=(0x20),
 _DRM_DMA_LARGER_OK=(0x40)
 };
 
-enum   anonymous_typeY153 { _DRM_PAGE_ALIGN=(0x01),
+enum  anonymous_typeY153 { _DRM_PAGE_ALIGN=(0x01),
 _DRM_AGP_BUFFER=(0x02),
 _DRM_SG_BUFFER=(0x04),
 _DRM_FB_BUFFER=(0x08),
@@ -12442,7 +12442,8 @@ void (*ssignal(int __sig, void (*__handler)(int)  ))(int) ;
 int gsignal(int __sig);
 void psignal(int __sig, const char* __s);
 void psiginfo(const struct anonymous_typeX19*  __pinfo  , const char* __s);
-int __xpg_sigpause(int __sig) __attribute__ ((__deprecated__));
+int sigpause(int __sig) __asm__ ("__xpg_sigpause")
+  __attribute__ ((__deprecated__));
 int sigblock(int __mask) __attribute__ ((__deprecated__));
 int sigsetmask(int __mask) __attribute__ ((__deprecated__));
 int siggetmask() __attribute__ ((__deprecated__));
@@ -14392,9 +14393,9 @@ int CRYPTO_set_ex_data(struct crypto_ex_data_st*  ad  , int idx, void* val);
 void* CRYPTO_get_ex_data(const struct crypto_ex_data_st*  ad  , int idx);
 int CRYPTO_set_mem_functions(void* (*malloc_fn)(unsigned long ,const char*,int)  , void* (*realloc_fn)(void*,unsigned long ,const char*,int)  , void (*free_fn)(void*,const char*,int)  );
 void CRYPTO_get_mem_functions(void* (*(*malloc_fn))(unsigned long ,const char*,int)  , void* (*(*realloc_fn))(void*,unsigned long ,const char*,int)  , void (*(*free_fn))(void*,const char*,int)  );
-void* CRYPTO_malloc(unsigned long  num  , const char* file, int line);
-void* CRYPTO_zalloc(unsigned long  num  , const char* file, int line);
-void* CRYPTO_aligned_alloc(unsigned long  num  , unsigned long  align  , void** freeptr, const char* file, int line);
+__attribute__((__malloc__))  void* CRYPTO_malloc(unsigned long  num  , const char* file, int line);
+__attribute__((__malloc__))  void* CRYPTO_zalloc(unsigned long  num  , const char* file, int line);
+__attribute__((__malloc__))  void* CRYPTO_aligned_alloc(unsigned long  num  , unsigned long  align  , void** freeptr, const char* file, int line);
 void* CRYPTO_memdup(const void* str, unsigned long  siz  , const char* file, int line);
 char* CRYPTO_strdup(const char* str, const char* file, int line);
 char* CRYPTO_strndup(const char* str, unsigned long  s  , const char* file, int line);
@@ -14404,8 +14405,8 @@ void* CRYPTO_realloc(void* addr, unsigned long  num  , const char* file, int lin
 void* CRYPTO_clear_realloc(void* addr, unsigned long  old_num  , unsigned long  num  , const char* file, int line);
 int CRYPTO_secure_malloc_init(unsigned long  sz  , unsigned long  minsize  );
 int CRYPTO_secure_malloc_done();
-void* CRYPTO_secure_malloc(unsigned long  num  , const char* file, int line);
-void* CRYPTO_secure_zalloc(unsigned long  num  , const char* file, int line);
+__attribute__((__malloc__))  void* CRYPTO_secure_malloc(unsigned long  num  , const char* file, int line);
+__attribute__((__malloc__))  void* CRYPTO_secure_zalloc(unsigned long  num  , const char* file, int line);
 void CRYPTO_secure_free(void* ptr, const char* file, int line);
 void CRYPTO_secure_clear_free(void* ptr, unsigned long  num  , const char* file, int line);
 int CRYPTO_secure_allocated(const void* ptr);

@@ -98,6 +98,7 @@ uniq class sType
     string mTupleName;
     string mAttribute;
     string mVarAttribute;
+    string mMiddleAttribute;
     
     bool mAllocaValue;
     
@@ -227,6 +228,7 @@ uniq class sType
         self.mSizeNum = null;
         
         self.mTypeOfNode = null;
+        self.mMiddleAttribute = s"";
     }
 };
 
@@ -275,6 +277,7 @@ uniq class sFun
     bool mConstFun;
     
     string mAttribute;
+    string mMiddleAttribute;
     string mFunAttribute;
     
     bool mGenericsFun;
@@ -324,6 +327,7 @@ uniq class sFun
         }
         
         self.mAttribute = attribute;
+        self.mMiddleAttribute = s"";
         self.mFunAttribute = fun_attribute;
     }
 };

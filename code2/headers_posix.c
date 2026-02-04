@@ -667,7 +667,7 @@ char __size[4];
 int __align;
 };
 
-enum   anonymous_typeY13 { _REG_ENOSYS=(-1),
+enum  anonymous_typeY13 { _REG_ENOSYS=(-1),
 _REG_NOERROR=(0),
 _REG_NOMATCH 
 ,_REG_BADPAT 
@@ -2105,7 +2105,7 @@ struct sigstack
     int ss_onstack;
 };
 
-enum   anonymous_typeY77 { P_ALL 
+enum  anonymous_typeY77 { P_ALL 
 ,P_PID 
 ,P_PGID 
 ,P_PIDFD 
@@ -2354,7 +2354,8 @@ void (*ssignal(int __sig, void (*__handler)(int)  ))(int) ;
 int gsignal(int __sig);
 void psignal(int __sig, const char* __s);
 void psiginfo(const struct anonymous_typeX43*  __pinfo  , const char* __s);
-int __xpg_sigpause(int __sig) __attribute__ ((__deprecated__));
+int sigpause(int __sig) __asm__ ("__xpg_sigpause")
+  __attribute__ ((__deprecated__));
 int sigblock(int __mask) __attribute__ ((__deprecated__));
 int sigsetmask(int __mask) __attribute__ ((__deprecated__));
 int siggetmask() __attribute__ ((__deprecated__));

@@ -924,6 +924,8 @@ string,string parse_function_attribute(sInfo* info=info)
             result.append(head, tail-head);
         }
         else if(parsecmp("__asm__")) {
+            char* head = info.p;
+            
             info->p += strlen("__asm__");
             skip_spaces_and_lf();
             
@@ -932,40 +934,10 @@ string,string parse_function_attribute(sInfo* info=info)
                 skip_spaces_and_lf();
             }
 
-            int len = 0;
-
-            if(*info->p == '(') {
-                bool in_dquort = false;
-                int brace_num = 0;
-                while(*info->p) {
-                    if(*info->p == '"') {
-                        info->p++;
-    
-                        in_dquort = !in_dquort;
-                    }
-                    else if(in_dquort) {
-                        asm_fun_name.append_char(*info->p);
-                        info->p++;
-                    }
-                    else if(*info->p == '(') {
-                        info->p++;
-                        brace_num++;
-                    }
-                    else if(*info->p == ')') {
-                        info->p++;
-                        brace_num--;
-    
-                        if(brace_num == 0) {
-                            break;
-                        }
-                    }
-                    else {
-                        info->p++;
-                    }
-                }
-            }
-
-            skip_spaces_and_lf();
+            parse_function_attribute_skip_paren(info);
+            
+            char* tail = info.p;
+            result.append(head, tail-head);
         }
         else if(parsecmp("__attribute_pure__")) {
             char* head = info.p; 
@@ -1209,6 +1181,28 @@ int transpile(sInfo* info)
     transpile_toplevel();
     
     return 0;
+}
+
+bool is_function_attribute_word(char* buf)
+{
+    return buf === "_Noreturn"
+        || buf === "_Nonnull"
+        || buf === "__noreturn"
+        || buf === "__asm__"
+        || buf === "__attribute_pure__"
+        || buf === "__malloc_like"
+        || buf === "__result_use_check"
+        || buf === "__alloc_size2"
+        || buf === "__alloc_size"
+        || buf === "__nonnull"
+        || buf === "__alloc_align"
+        || buf === "__attribute_malloc__"
+        || buf === "__attr_dealloc_fclose"
+        || buf === "__wur"
+        || buf === "__pure2"
+        || buf === "__pure"
+        || buf === "__THROW"
+        || buf === "__asm";
 }
 
 sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
@@ -1761,6 +1755,14 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
             return null;
         }
     }
+    else if(is_function_attribute_word(buf)) {
+        info.p = head;
+        info.sline = sline;
+        
+        sNode*% node = parse_function(info);
+        
+        return node;
+    }
     else if(define_function_flag) {
         info.p = head;
         info.sline = sline;
@@ -1798,6 +1800,7 @@ sNode*% parse_function(sInfo* info)
     
     var asm_fun, fun_attribute_prefix = parse_function_attribute();
     string fun_attribute = s"";
+    string fun_attribute_middle = s"";
     //string attribute = parse_struct_attribute();
     
     sType*% result_type = null;
@@ -1817,6 +1820,20 @@ sNode*% parse_function(sInfo* info)
         
         result_type = result_type2;
         var_name = var_name2;
+
+        if(result_type->mAttribute != null && result_type->mAttribute !== "") {
+            fun_attribute_middle = result_type->mAttribute;
+            result_type->mAttribute = s"";
+        }
+        if(result_type->mVarAttribute != null && result_type->mVarAttribute !== "") {
+            if(fun_attribute_middle !== "") {
+                fun_attribute_middle = fun_attribute_middle + " " + result_type->mVarAttribute;
+            }
+            else {
+                fun_attribute_middle = result_type->mVarAttribute;
+            }
+            result_type->mVarAttribute = s"";
+        }
         
         if(!err) {
             printf("%s %d: parse_type failed\n", info->sname, info->sline);
@@ -1965,6 +1982,7 @@ sNode*% parse_function(sInfo* info)
                             , param_default_parametors
                             , false@external, var_args, block
                             , true@static_, info, false@inline_, false@uniq_, const_fun:const_fun);
+        fun->mMiddleAttribute = fun_attribute_middle;
         
         var fun2 = info.funcs[string(fun_name)];
         info.funcs.insert(string(fun_name), fun);
@@ -2055,6 +2073,7 @@ sNode*% parse_function(sInfo* info)
                                     , static_fun@static_
                                     , info, inline_fun, uniq_fun, fun_attribute_prefix, fun_attribute
                                     , const_fun:const_fun, text_block:block, generics_sname:generics_sname, generics_sline:generics_sline);
+            fun->mMiddleAttribute = fun_attribute_middle;
             
             if(info.in_class) {
                 info.funcs.insert(string(fun_name), fun);
@@ -2076,6 +2095,7 @@ sNode*% parse_function(sInfo* info)
                                     , false@external, var_args, clone block
                                     , static_fun@static_
                                     , info, inline_fun, uniq_fun, fun_attribute_prefix, fun_attribute, const_fun:const_fun);
+            fun->mMiddleAttribute = fun_attribute_middle;
             
             
             if(info.in_class) {
@@ -2108,6 +2128,7 @@ sNode*% parse_function(sInfo* info)
                                 , true@external, var_args, null@block
                                 , false@static_, info, false@inline_
                                 , false@uniq_, fun_attribute_prefix, fun_attribute, const_fun:const_fun);
+            fun->mMiddleAttribute = fun_attribute_middle;
             
             info.funcs.insert(string(fun_name), fun);
             
@@ -2139,6 +2160,7 @@ sNode*% parse_function(sInfo* info)
                                 , true@external, var_args, null@block
                                 , false@static_, info, false@inline_, false@uniq_
                                 , fun_attribute_prefix, fun_attribute, const_fun:const_fun);
+            fun->mMiddleAttribute = fun_attribute_middle;
             
             info.funcs.insert(string(fun_name), fun);
             

@@ -413,6 +413,10 @@ static string make_lambda_type_name_string(sType* type, char* var_name, sInfo* i
     }
     else {
         buf.append_format("%s ", make_type_name_string(type->mResultType, no_static:true));
+        if(type->mMiddleAttribute != null && type->mMiddleAttribute !== "") {
+            buf.append_str(type->mMiddleAttribute);
+            buf.append_str(" ");
+        }
         if(type->mArrayPointerNum > 0) {
             for(int i=0; i<type->mArrayPointerNum+1; i++) {
                 buf.append_str("(");
@@ -1038,6 +1042,10 @@ string output_function(sFun* fun, sInfo* info)
         }
         
         output.append_str(result_type_str);
+        if(fun->mMiddleAttribute !== "") {
+            output.append_str(" ");
+            output.append_str(fun->mMiddleAttribute);
+        }
         output.append_str(" (*");
         
         output.append_str(fun->mName);
@@ -1094,6 +1102,10 @@ string output_function(sFun* fun, sInfo* info)
         }
         
         output.append_str(result_type_str);
+        if(fun->mMiddleAttribute !== "") {
+            output.append_str(" ");
+            output.append_str(fun->mMiddleAttribute);
+        }
         output.append_str(" ");
         
         output.append_str(fun->mName);
@@ -1205,6 +1217,10 @@ string header_function(sFun* fun, sInfo* info)
         }
         
         output.append_str(result_type_str);
+        if(fun->mMiddleAttribute !== "") {
+            output.append_str(" ");
+            output.append_str(fun->mMiddleAttribute);
+        }
         output.append_str(" (*");
         
         output.append_str(fun->mName);
@@ -1255,6 +1271,10 @@ string header_function(sFun* fun, sInfo* info)
         }
         
         output.append_str(result_type_str);
+        if(fun->mMiddleAttribute !== "") {
+            output.append_str(" ");
+            output.append_str(fun->mMiddleAttribute);
+        }
         output.append_str(" ");
         
         output.append_str(fun->mName);

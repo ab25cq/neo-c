@@ -2986,6 +2986,16 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         
         string attribute = parse_struct_attribute();
         
+        if(type && type->mClass->mName === "lambda" && attribute !== "") {
+            if(type->mMiddleAttribute != null && type->mMiddleAttribute !== "") {
+                type->mMiddleAttribute = type->mMiddleAttribute + " " + attribute;
+            }
+            else {
+                type->mMiddleAttribute = attribute;
+            }
+            attribute = s"";
+        }
+        
         if(!parse_variable_name) {
             append_attribute_to_type(type, attribute, false, info);
         }
@@ -3070,6 +3080,15 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         type->mChannel = true;
     }
     
+    if(type && type->mClass->mName === "lambda" && attribute !== "") {
+        if(type->mMiddleAttribute != null && type->mMiddleAttribute !== "") {
+            type->mMiddleAttribute = type->mMiddleAttribute + " " + attribute;
+        }
+        else {
+            type->mMiddleAttribute = attribute;
+        }
+        attribute = s"";
+    }
     append_attribute_to_type(type, attribute, parse_variable_name, info);
     
     return t(type, var_name, true);

@@ -4046,7 +4046,7 @@ typedef unsigned long  long  __prgregset_t[(sizeof(struct user_regs_struct )/siz
 
 typedef unsigned long  long  prgregset_t[(sizeof(struct user_regs_struct )/sizeof(unsigned long  long ))]  ;
 
-enum   anonymous_typeY107 { PS_OK 
+enum  anonymous_typeY107 { PS_OK 
 ,PS_ERR 
 ,PS_BADPID 
 ,PS_BADLID 
@@ -4287,7 +4287,7 @@ struct passwd
     char* pw_shell;
 };
 
-enum   anonymous_typeY113 { _REG_ENOSYS=(-1),
+enum  anonymous_typeY113 { _REG_ENOSYS=(-1),
 _REG_NOERROR=(0),
 _REG_NOMATCH 
 ,_REG_BADPAT 
@@ -5269,7 +5269,7 @@ struct sigstack
     int ss_onstack;
 };
 
-enum   __ns_sect { ns_s_qd=(0),
+enum  __ns_sect { ns_s_qd=(0),
 ns_s_zn=(0),
 ns_s_an=(1),
 ns_s_pr=(1),
@@ -5308,7 +5308,7 @@ struct __ns_rr
     const unsigned char* rdata;
 };
 
-enum   __ns_flag { ns_f_qr 
+enum  __ns_flag { ns_f_qr 
 ,ns_f_opcode 
 ,ns_f_aa 
 ,ns_f_tc 
@@ -5321,7 +5321,7 @@ enum   __ns_flag { ns_f_qr
 ,ns_f_max 
 };
 
-enum   __ns_opcode { ns_o_query=(0),
+enum  __ns_opcode { ns_o_query=(0),
 ns_o_iquery=(1),
 ns_o_status=(2),
 ns_o_notify=(4),
@@ -5329,7 +5329,7 @@ ns_o_update=(5),
 ns_o_max=(6)
 };
 
-enum   __ns_rcode { ns_r_noerror=(0),
+enum  __ns_rcode { ns_r_noerror=(0),
 ns_r_formerr=(1),
 ns_r_servfail=(2),
 ns_r_nxdomain=(3),
@@ -5347,7 +5347,7 @@ ns_r_badkey=(17),
 ns_r_badtime=(18)
 };
 
-enum   __ns_update_operation { ns_uop_delete=(0),
+enum  __ns_update_operation { ns_uop_delete=(0),
 ns_uop_add=(1),
 ns_uop_max=(2)
 };
@@ -5369,7 +5369,7 @@ struct ns_tcp_tsig_state
     int siglen;
 };
 
-enum   __ns_type { ns_t_invalid=(0),
+enum  __ns_type { ns_t_invalid=(0),
 ns_t_a=(1),
 ns_t_ns=(2),
 ns_t_md=(3),
@@ -5457,7 +5457,7 @@ ns_t_dlv=(32769),
 ns_t_max=(65536)
 };
 
-enum   __ns_class { ns_c_invalid=(0),
+enum  __ns_class { ns_c_invalid=(0),
 ns_c_in=(1),
 ns_c_2=(2),
 ns_c_chaos=(3),
@@ -5467,7 +5467,7 @@ ns_c_any=(255),
 ns_c_max=(65536)
 };
 
-enum   __ns_cert_types { cert_t_pkix=(1),
+enum  __ns_cert_types { cert_t_pkix=(1),
 cert_t_spki=(2),
 cert_t_pgp=(3),
 cert_t_url=(253),
@@ -5607,7 +5607,7 @@ struct qelem
     char q_data[1];
 };
 
-enum   anonymous_typeY152 { FIND 
+enum  anonymous_typeY152 { FIND 
 ,ENTER 
 };
 
@@ -5781,7 +5781,7 @@ struct term
     struct termtype  type  ;
 };
 
-enum   anonymous_typeY158 { TD_OK 
+enum  anonymous_typeY158 { TD_OK 
 ,TD_ERR 
 ,TD_NOTHR 
 ,TD_NOSV 
@@ -5993,7 +5993,7 @@ struct utmpx
     char __glibc_reserved[20];
 };
 
-enum   anonymous_typeY167 { P_ALL 
+enum  anonymous_typeY167 { P_ALL 
 ,P_PID 
 ,P_PGID 
 ,P_PIDFD 
@@ -6100,7 +6100,7 @@ struct La_x86_64_retval
     __int128_t __glibc_unused2;
 };
 
-enum   anonymous_typeY169 { RT_CONSISTENT 
+enum  anonymous_typeY169 { RT_CONSISTENT 
 ,RT_ADD 
 ,RT_DELETE 
 };
@@ -9804,7 +9804,8 @@ void (*ssignal(int __sig, void (*__handler)(int)  ))(int) ;
 int gsignal(int __sig);
 void psignal(int __sig, const char* __s);
 void psiginfo(const struct anonymous_typeX115*  __pinfo  , const char* __s);
-int __xpg_sigpause(int __sig) __attribute__ ((__deprecated__));
+int sigpause(int __sig) __asm__ ("__xpg_sigpause")
+  __attribute__ ((__deprecated__));
 int sigblock(int __mask) __attribute__ ((__deprecated__));
 int sigsetmask(int __mask) __attribute__ ((__deprecated__));
 int siggetmask() __attribute__ ((__deprecated__));

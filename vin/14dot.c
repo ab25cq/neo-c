@@ -4007,7 +4007,8 @@ void (*ssignal(int __sig, void (*__handler)(int)  ))(int) ;
 int gsignal(int __sig);
 void psignal(int __sig, const char* __s);
 void psiginfo(const struct anonymous_typeX29*  __pinfo  , const char* __s);
-int __xpg_sigpause(int __sig) __attribute__ ((__deprecated__));
+int sigpause(int __sig) __asm__ ("__xpg_sigpause")
+  __attribute__ ((__deprecated__));
 int sigblock(int __mask) __attribute__ ((__deprecated__));
 int sigsetmask(int __mask) __attribute__ ((__deprecated__));
 int siggetmask() __attribute__ ((__deprecated__));
