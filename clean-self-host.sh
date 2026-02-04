@@ -2,7 +2,7 @@ sh install_pkg.sh
 
 export RM="rm -rf"
 
-sh fast_build.sh
+#sh fast_build.sh
 
 if test -x ./ncc
 then

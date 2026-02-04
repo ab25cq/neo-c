@@ -367,7 +367,7 @@ void cast_type(sType* left_type, sType* right_type, CVALUE* come_value, sInfo* i
 {
 }
 
-bool parse_common_attribute_keyword(buffer* result, sInfo* info=info);
+bool parse_common_attribute_keyword(buffer* result, sInfo* info=info, bool allow_end=true);
 
 string,string parse_attribute(sInfo* info=info)
 {
@@ -679,9 +679,19 @@ void parse_struct_attribute_skip_paren(sInfo* info)
     skip_spaces_and_lf();
 }
 
-bool parse_attribute_keyword(buffer* result, const char* keyword, sInfo* info=info)
+bool parse_attribute_keyword(buffer* result, const char* keyword, bool allow_end, sInfo* info=info)
 {
     if(parsecmp(keyword)) {
+        char* p = info.p + strlen(keyword);
+        while(*p == ' ' || *p == '\t' || *p == '\n' || *p == '\r') {
+            p++;
+        }
+        if(!allow_end && *p != '(') {
+            if(*p == ';' || *p == ',' || *p == ')' || *p == ']' || *p == '=' || *p == ':') {
+                return false;
+            }
+        }
+        
         char* head = info.p;
         info->p += strlen(keyword);
         
@@ -696,190 +706,190 @@ bool parse_attribute_keyword(buffer* result, const char* keyword, sInfo* info=in
     return false;
 }
 
-bool parse_common_attribute_keyword(buffer* result, sInfo* info=info)
+bool parse_common_attribute_keyword(buffer* result, sInfo* info=info, bool allow_end=true)
 {
-    if(parse_attribute_keyword(result, "__aligned_largest", info)) {
+    if(parse_attribute_keyword(result, "__aligned_largest", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__aligned_u64", info)) {
+    else if(parse_attribute_keyword(result, "__aligned_u64", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__aligned", info)) {
+    else if(parse_attribute_keyword(result, "__aligned", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__section", info)) {
+    else if(parse_attribute_keyword(result, "__section", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__visibility", info)) {
+    else if(parse_attribute_keyword(result, "__visibility", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__alias", info)) {
+    else if(parse_attribute_keyword(result, "__alias", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__format_arg", info)) {
+    else if(parse_attribute_keyword(result, "__format_arg", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__format", info)) {
+    else if(parse_attribute_keyword(result, "__format", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__printf", info)) {
+    else if(parse_attribute_keyword(result, "__printf", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__scanf", info)) {
+    else if(parse_attribute_keyword(result, "__scanf", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__assume_aligned", info)) {
+    else if(parse_attribute_keyword(result, "__assume_aligned", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__cleanup", info)) {
+    else if(parse_attribute_keyword(result, "__cleanup", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__optimize", info)) {
+    else if(parse_attribute_keyword(result, "__optimize", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__target", info)) {
+    else if(parse_attribute_keyword(result, "__target", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__error", info)) {
+    else if(parse_attribute_keyword(result, "__error", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__warning", info)) {
+    else if(parse_attribute_keyword(result, "__warning", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__no_sanitize_address", info)) {
+    else if(parse_attribute_keyword(result, "__no_sanitize_address", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__no_sanitize_thread", info)) {
+    else if(parse_attribute_keyword(result, "__no_sanitize_thread", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__no_sanitize_coverage", info)) {
+    else if(parse_attribute_keyword(result, "__no_sanitize_coverage", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__no_sanitize", info)) {
+    else if(parse_attribute_keyword(result, "__no_sanitize", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__constructor", info)) {
+    else if(parse_attribute_keyword(result, "__constructor", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__destructor", info)) {
+    else if(parse_attribute_keyword(result, "__destructor", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__packed", info)) {
+    else if(parse_attribute_keyword(result, "__packed", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__used", info)) {
+    else if(parse_attribute_keyword(result, "__used", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__unused", info)) {
+    else if(parse_attribute_keyword(result, "__unused", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__maybe_unused", info)) {
+    else if(parse_attribute_keyword(result, "__maybe_unused", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__always_unused", info)) {
+    else if(parse_attribute_keyword(result, "__always_unused", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__deprecated", info)) {
+    else if(parse_attribute_keyword(result, "__deprecated", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__cold", info)) {
+    else if(parse_attribute_keyword(result, "__cold", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__hot", info)) {
+    else if(parse_attribute_keyword(result, "__hot", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__weak_ref", info)) {
+    else if(parse_attribute_keyword(result, "__weak_ref", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__weak", info)) {
+    else if(parse_attribute_keyword(result, "__weak", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__noinline", info)) {
+    else if(parse_attribute_keyword(result, "__noinline", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__always_inline", info)) {
+    else if(parse_attribute_keyword(result, "__always_inline", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__flatten", info)) {
+    else if(parse_attribute_keyword(result, "__flatten", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__leaf", info)) {
+    else if(parse_attribute_keyword(result, "__leaf", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__naked", info)) {
+    else if(parse_attribute_keyword(result, "__naked", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__noclone", info)) {
+    else if(parse_attribute_keyword(result, "__noclone", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__no_profile", info)) {
+    else if(parse_attribute_keyword(result, "__no_profile", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__no_instrument_function", info)) {
+    else if(parse_attribute_keyword(result, "__no_instrument_function", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__warn_unused_result", info)) {
+    else if(parse_attribute_keyword(result, "__warn_unused_result", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__must_check", info)) {
+    else if(parse_attribute_keyword(result, "__must_check", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__returns_nonnull", info)) {
+    else if(parse_attribute_keyword(result, "__returns_nonnull", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__malloc", info)) {
+    else if(parse_attribute_keyword(result, "__malloc", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__init", info)) {
+    else if(parse_attribute_keyword(result, "__init", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__initdata", info)) {
+    else if(parse_attribute_keyword(result, "__initdata", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__initconst", info)) {
+    else if(parse_attribute_keyword(result, "__initconst", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__init_rodata", info)) {
+    else if(parse_attribute_keyword(result, "__init_rodata", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__exit", info)) {
+    else if(parse_attribute_keyword(result, "__exit", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__exitdata", info)) {
+    else if(parse_attribute_keyword(result, "__exitdata", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__exitconst", info)) {
+    else if(parse_attribute_keyword(result, "__exitconst", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__ref", info)) {
+    else if(parse_attribute_keyword(result, "__ref", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__meminit", info)) {
+    else if(parse_attribute_keyword(result, "__meminit", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__meminitdata", info)) {
+    else if(parse_attribute_keyword(result, "__meminitdata", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__meminitconst", info)) {
+    else if(parse_attribute_keyword(result, "__meminitconst", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__ro_after_init", info)) {
+    else if(parse_attribute_keyword(result, "__ro_after_init", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__read_mostly", info)) {
+    else if(parse_attribute_keyword(result, "__read_mostly", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__latent_entropy", info)) {
+    else if(parse_attribute_keyword(result, "__latent_entropy", allow_end, info)) {
         return true;
     }
-    else if(parse_attribute_keyword(result, "__percpu", info)) {
+    else if(parse_attribute_keyword(result, "__percpu", allow_end, info)) {
         return true;
     }
     
     return false;
 }
 
-string parse_struct_attribute(sInfo* info=info)
+string parse_struct_attribute(sInfo* info=info, bool allow_end=true)
 {
     skip_spaces_and_lf();
     buffer*% result = new buffer();
@@ -895,7 +905,7 @@ string parse_struct_attribute(sInfo* info=info)
             
             result.append(head, tail-head);
         }
-        else if(parse_common_attribute_keyword(result, info)) {
+        else if(parse_common_attribute_keyword(result, allow_end:allow_end)) {
         }
         else {
             break;
@@ -2265,7 +2275,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         return t(type, var_name, true);
     }
     
-    string attribute = parse_struct_attribute();
+    string attribute = parse_struct_attribute(allow_end:false);
     if(!struct_define_parsed && (struct_ || enum_) && union_attribute !== "") {
         if(attribute === "") {
             attribute = union_attribute;
@@ -2605,7 +2615,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             return t((sType*%)null, (string)null, false);
         }
         
-        string attribute = parse_struct_attribute();
+        string attribute = parse_struct_attribute(allow_end:false);
         
         if(!parse_variable_name) {
             append_attribute_to_type(type, attribute, false, info);
@@ -3301,7 +3311,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             type_name = type->mClass->mName;
         }
         
-        string attribute = parse_struct_attribute();
+        string attribute = parse_struct_attribute(allow_end:false);
         
         if(type && type->mClass->mName === "lambda" && attribute !== "") {
             if(type->mMiddleAttribute != null && type->mMiddleAttribute !== "") {

@@ -675,7 +675,7 @@ struct drand48_data
     unsigned short int __x[3];
     unsigned short int __old_x[3];
     unsigned short int __c;
-    unsigned short int  __init;
+    unsigned short int __init;
     unsigned long long int __a;
 };
 
@@ -1660,31 +1660,31 @@ void setbuf(struct _IO_FILE* __restrict  __stream  , char* __restrict __buf);
 int setvbuf(struct _IO_FILE* __restrict  __stream  , char* __restrict __buf, int __modes, unsigned long  __n  );
 void setbuffer(struct _IO_FILE* __restrict  __stream  , char* __restrict __buf, unsigned long  __size  );
 void setlinebuf(struct _IO_FILE*  __stream  );
-int fprintf(struct _IO_FILE* __restrict  __stream  , const char* __restrict  __format, ...);
-int printf(const char* __restrict  __format, ...);
-int sprintf(char* __restrict __s, const char* __restrict  __format, ...);
-int vfprintf(struct _IO_FILE* __restrict  __s  , const char* __restrict  __format, __builtin_va_list  __arg  );
-int vprintf(const char* __restrict  __format, __builtin_va_list  __arg  );
-int vsprintf(char* __restrict __s, const char* __restrict  __format, __builtin_va_list  __arg  );
-int snprintf(char* __restrict __s, unsigned long  __maxlen  , const char* __restrict  __format, ...) __attribute__ ((__format__ (__printf__, 3, 4)));
-int vsnprintf(char* __restrict __s, unsigned long  __maxlen  , const char* __restrict  __format, __builtin_va_list  __arg  ) __attribute__ ((__format__ (__printf__, 3, 0)));
+int fprintf(struct _IO_FILE* __restrict  __stream  , const char* __restrict __format, ...);
+int printf(const char* __restrict __format, ...);
+int sprintf(char* __restrict __s, const char* __restrict __format, ...);
+int vfprintf(struct _IO_FILE* __restrict  __s  , const char* __restrict __format, __builtin_va_list  __arg  );
+int vprintf(const char* __restrict __format, __builtin_va_list  __arg  );
+int vsprintf(char* __restrict __s, const char* __restrict __format, __builtin_va_list  __arg  );
+int snprintf(char* __restrict __s, unsigned long  __maxlen  , const char* __restrict __format, ...) __attribute__ ((__format__ (__printf__, 3, 4)));
+int vsnprintf(char* __restrict __s, unsigned long  __maxlen  , const char* __restrict __format, __builtin_va_list  __arg  ) __attribute__ ((__format__ (__printf__, 3, 0)));
 int vasprintf(char** __restrict __ptr, const char* __restrict __f, __builtin_va_list  __arg  ) __attribute__ ((__format__ (__printf__, 2, 0))) ;
 int __asprintf(char** __restrict __ptr, const char* __restrict __fmt, ...) __attribute__ ((__format__ (__printf__, 2, 3))) ;
 int asprintf(char** __restrict __ptr, const char* __restrict __fmt, ...) __attribute__ ((__format__ (__printf__, 2, 3))) ;
 int vdprintf(int __fd, const char* __restrict __fmt, __builtin_va_list  __arg  ) __attribute__ ((__format__ (__printf__, 2, 0)));
 int dprintf(int __fd, const char* __restrict __fmt, ...) __attribute__ ((__format__ (__printf__, 2, 3)));
-int fscanf(struct _IO_FILE* __restrict  __stream  , const char* __restrict  __format, ...);
-int scanf(const char* __restrict  __format, ...);
-int sscanf(const char* __restrict __s, const char* __restrict  __format, ...);
-int __isoc23_fscanf(struct _IO_FILE* __restrict  __stream  , const char* __restrict  __format, ...);
-int __isoc23_scanf(const char* __restrict  __format, ...);
-int __isoc23_sscanf(const char* __restrict __s, const char* __restrict  __format, ...);
-int vfscanf(struct _IO_FILE* __restrict  __s  , const char* __restrict  __format, __builtin_va_list  __arg  ) __attribute__ ((__format__ (__scanf__, 2, 0)))  ;
-int vscanf(const char* __restrict  __format, __builtin_va_list  __arg  ) __attribute__ ((__format__ (__scanf__, 1, 0))) ;
-int vsscanf(const char* __restrict __s, const char* __restrict  __format, __builtin_va_list  __arg  ) __attribute__ ((__format__ (__scanf__, 2, 0)));
-int __isoc23_vfscanf(struct _IO_FILE* __restrict  __s  , const char* __restrict  __format, __builtin_va_list  __arg  );
-int __isoc23_vscanf(const char* __restrict  __format, __builtin_va_list  __arg  );
-int __isoc23_vsscanf(const char* __restrict __s, const char* __restrict  __format, __builtin_va_list  __arg  );
+int fscanf(struct _IO_FILE* __restrict  __stream  , const char* __restrict __format, ...);
+int scanf(const char* __restrict __format, ...);
+int sscanf(const char* __restrict __s, const char* __restrict __format, ...);
+int __isoc23_fscanf(struct _IO_FILE* __restrict  __stream  , const char* __restrict __format, ...);
+int __isoc23_scanf(const char* __restrict __format, ...);
+int __isoc23_sscanf(const char* __restrict __s, const char* __restrict __format, ...);
+int vfscanf(struct _IO_FILE* __restrict  __s  , const char* __restrict __format, __builtin_va_list  __arg  ) __attribute__ ((__format__ (__scanf__, 2, 0)))  ;
+int vscanf(const char* __restrict __format, __builtin_va_list  __arg  ) __attribute__ ((__format__ (__scanf__, 1, 0))) ;
+int vsscanf(const char* __restrict __s, const char* __restrict __format, __builtin_va_list  __arg  ) __attribute__ ((__format__ (__scanf__, 2, 0)));
+int __isoc23_vfscanf(struct _IO_FILE* __restrict  __s  , const char* __restrict __format, __builtin_va_list  __arg  );
+int __isoc23_vscanf(const char* __restrict __format, __builtin_va_list  __arg  );
+int __isoc23_vsscanf(const char* __restrict __s, const char* __restrict __format, __builtin_va_list  __arg  );
 int fgetc(struct _IO_FILE*  __stream  );
 int getc(struct _IO_FILE*  __stream  );
 int getchar();
@@ -1736,8 +1736,8 @@ int pclose(struct _IO_FILE*  __stream  );
 struct _IO_FILE*  popen(const char* __command, const char* __modes) __attribute__ ((__malloc__))  ;
 char* ctermid(char* __s);
 char* cuserid(char* __s);
-int obstack_printf(struct obstack* __restrict  __obstack  , const char* __restrict  __format, ...) __attribute__ ((__format__ (__printf__, 2, 3)));
-int obstack_vprintf(struct obstack* __restrict  __obstack  , const char* __restrict  __format, __builtin_va_list  __args  ) __attribute__ ((__format__ (__printf__, 2, 0)));
+int obstack_printf(struct obstack* __restrict  __obstack  , const char* __restrict __format, ...) __attribute__ ((__format__ (__printf__, 2, 3)));
+int obstack_vprintf(struct obstack* __restrict  __obstack  , const char* __restrict __format, __builtin_va_list  __args  ) __attribute__ ((__format__ (__printf__, 2, 0)));
 void flockfile(struct _IO_FILE*  __stream  );
 int ftrylockfile(struct _IO_FILE*  __stream  );
 void funlockfile(struct _IO_FILE*  __stream  );
@@ -1765,13 +1765,13 @@ long  int __isoc23_strtol(const char* __restrict __nptr, char** __restrict __end
 unsigned long  int __isoc23_strtoul(const char* __restrict __nptr, char** __restrict __endptr, int __base);
 long long int __isoc23_strtoll(const char* __restrict __nptr, char** __restrict __endptr, int __base);
 unsigned long long int __isoc23_strtoull(const char* __restrict __nptr, char** __restrict __endptr, int __base);
-int strfromd(char* __dest, unsigned long  __size  , const char*  __format, double __f);
-int strfromf(char* __dest, unsigned long  __size  , const char*  __format, float __f);
-int strfroml(char* __dest, unsigned long  __size  , const char*  __format, long  double __f);
-int strfromf32(char* __dest, unsigned long  __size  , const char*  __format, float  __f  );
-int strfromf64(char* __dest, unsigned long  __size  , const char*  __format, double  __f  );
-int strfromf32x(char* __dest, unsigned long  __size  , const char*  __format, double  __f  );
-int strfromf64x(char* __dest, unsigned long  __size  , const char*  __format, long  double  __f  );
+int strfromd(char* __dest, unsigned long  __size  , const char* __format, double __f);
+int strfromf(char* __dest, unsigned long  __size  , const char* __format, float __f);
+int strfroml(char* __dest, unsigned long  __size  , const char* __format, long  double __f);
+int strfromf32(char* __dest, unsigned long  __size  , const char* __format, float  __f  );
+int strfromf64(char* __dest, unsigned long  __size  , const char* __format, double  __f  );
+int strfromf32x(char* __dest, unsigned long  __size  , const char* __format, double  __f  );
+int strfromf64x(char* __dest, unsigned long  __size  , const char* __format, long  double  __f  );
 long  int strtol_l(const char* __restrict __nptr, char** __restrict __endptr, int __base, struct __locale_struct*  __loc  );
 unsigned long  int strtoul_l(const char* __restrict __nptr, char** __restrict __endptr, int __base, struct __locale_struct*  __loc  );
 long long int strtoll_l(const char* __restrict __nptr, char** __restrict __endptr, int __base, struct __locale_struct*  __loc  );
@@ -2272,24 +2272,24 @@ int*  wcpcpy(int* __restrict  __dest  , const int* __restrict  __src  );
 int*  wcpncpy(int* __restrict  __dest  , const int* __restrict  __src  , unsigned long  __n  );
 struct _IO_FILE*  open_wmemstream(int**  __bufloc  , unsigned long*  __sizeloc  ) __attribute__ ((__malloc__)) ;
 int fwide(struct _IO_FILE*  __fp  , int __mode);
-int fwprintf(struct _IO_FILE* __restrict  __stream  , const int* __restrict    __format, ...);
-int wprintf(const int* __restrict    __format, ...);
-int swprintf(int* __restrict  __s  , unsigned long  __n  , const int* __restrict    __format, ...);
-int vfwprintf(struct _IO_FILE* __restrict  __s  , const int* __restrict    __format, __builtin_va_list  __arg  );
-int vwprintf(const int* __restrict    __format, __builtin_va_list  __arg  );
-int vswprintf(int* __restrict  __s  , unsigned long  __n  , const int* __restrict    __format, __builtin_va_list  __arg  );
-int fwscanf(struct _IO_FILE* __restrict  __stream  , const int* __restrict    __format, ...);
-int wscanf(const int* __restrict    __format, ...);
-int swscanf(const int* __restrict  __s  , const int* __restrict    __format, ...);
-int __isoc23_fwscanf(struct _IO_FILE* __restrict  __stream  , const int* __restrict    __format, ...);
-int __isoc23_wscanf(const int* __restrict    __format, ...);
-int __isoc23_swscanf(const int* __restrict  __s  , const int* __restrict    __format, ...);
-int vfwscanf(struct _IO_FILE* __restrict  __s  , const int* __restrict    __format, __builtin_va_list  __arg  );
-int vwscanf(const int* __restrict    __format, __builtin_va_list  __arg  );
-int vswscanf(const int* __restrict  __s  , const int* __restrict    __format, __builtin_va_list  __arg  );
-int __isoc23_vfwscanf(struct _IO_FILE* __restrict  __s  , const int* __restrict    __format, __builtin_va_list  __arg  );
-int __isoc23_vwscanf(const int* __restrict    __format, __builtin_va_list  __arg  );
-int __isoc23_vswscanf(const int* __restrict  __s  , const int* __restrict    __format, __builtin_va_list  __arg  );
+int fwprintf(struct _IO_FILE* __restrict  __stream  , const int* __restrict  __format  , ...);
+int wprintf(const int* __restrict  __format  , ...);
+int swprintf(int* __restrict  __s  , unsigned long  __n  , const int* __restrict  __format  , ...);
+int vfwprintf(struct _IO_FILE* __restrict  __s  , const int* __restrict  __format  , __builtin_va_list  __arg  );
+int vwprintf(const int* __restrict  __format  , __builtin_va_list  __arg  );
+int vswprintf(int* __restrict  __s  , unsigned long  __n  , const int* __restrict  __format  , __builtin_va_list  __arg  );
+int fwscanf(struct _IO_FILE* __restrict  __stream  , const int* __restrict  __format  , ...);
+int wscanf(const int* __restrict  __format  , ...);
+int swscanf(const int* __restrict  __s  , const int* __restrict  __format  , ...);
+int __isoc23_fwscanf(struct _IO_FILE* __restrict  __stream  , const int* __restrict  __format  , ...);
+int __isoc23_wscanf(const int* __restrict  __format  , ...);
+int __isoc23_swscanf(const int* __restrict  __s  , const int* __restrict  __format  , ...);
+int vfwscanf(struct _IO_FILE* __restrict  __s  , const int* __restrict  __format  , __builtin_va_list  __arg  );
+int vwscanf(const int* __restrict  __format  , __builtin_va_list  __arg  );
+int vswscanf(const int* __restrict  __s  , const int* __restrict  __format  , __builtin_va_list  __arg  );
+int __isoc23_vfwscanf(struct _IO_FILE* __restrict  __s  , const int* __restrict  __format  , __builtin_va_list  __arg  );
+int __isoc23_vwscanf(const int* __restrict  __format  , __builtin_va_list  __arg  );
+int __isoc23_vswscanf(const int* __restrict  __s  , const int* __restrict  __format  , __builtin_va_list  __arg  );
 unsigned int  fgetwc(struct _IO_FILE*  __stream  );
 unsigned int  getwc(struct _IO_FILE*  __stream  );
 unsigned int  getwchar();
@@ -2307,8 +2307,8 @@ unsigned int  putwc_unlocked(int  __wc  , struct _IO_FILE*  __stream  );
 unsigned int  putwchar_unlocked(int  __wc  );
 int*  fgetws_unlocked(int* __restrict  __ws  , int __n, struct _IO_FILE* __restrict  __stream  );
 int fputws_unlocked(const int* __restrict  __ws  , struct _IO_FILE* __restrict  __stream  );
-unsigned long  wcsftime(int* __restrict  __s  , unsigned long  __maxsize  , const int* __restrict    __format, const struct tm* __restrict  __tp  );
-unsigned long  wcsftime_l(int* __restrict  __s  , unsigned long  __maxsize  , const int* __restrict    __format, const struct tm* __restrict  __tp  , struct __locale_struct*  __loc  );
+unsigned long  wcsftime(int* __restrict  __s  , unsigned long  __maxsize  , const int* __restrict  __format  , const struct tm* __restrict  __tp  );
+unsigned long  wcsftime_l(int* __restrict  __s  , unsigned long  __maxsize  , const int* __restrict  __format  , const struct tm* __restrict  __tp  , struct __locale_struct*  __loc  );
 char* dirname(char* __path);
 char* __xpg_basename(char* __path);
 int*  __builtin_wstring(const char* str);
@@ -2566,7 +2566,7 @@ struct sNode* expression_v13(struct sInfo*  info  , _Bool type_name_exp);
 struct sNode* post_op_v13(struct sNode* node, struct sInfo*  info  );
 struct sNode* string_node_v13(char* buf, char* head, int head_sline, struct sInfo*  info  );
 void child_output_struct(struct sType*  type  , char*  struct_name  , struct buffer*  buf  , _Bool* existance_generics, char*  name  , int indent, struct sInfo*  info  , _Bool* named_child);
-char*  parse_struct_attribute(struct sInfo*  info  );
+char*  parse_struct_attribute(struct sInfo*  info  , _Bool allow_end);
 struct sNode* create_nothing_node(struct sInfo*  info  );
 _Bool is_contained_method_generics_types(struct sType*  type  , struct sInfo*  info  );
 _Bool is_contained_generics_types(struct sType*  type  , struct sInfo*  info  );
@@ -4222,7 +4222,7 @@ _conditional_value_X0;})) {
         come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    attribute_mid=(char* )come_increment_ref_count(parse_struct_attribute(info));
+    attribute_mid=(char* )come_increment_ref_count(parse_struct_attribute(info,(_Bool)1));
     if(string_operator_not_equals(attribute_mid,"")) {
         if(string_operator_equals(attribute,"")) {
             __dec_obj21=attribute,
@@ -4237,7 +4237,7 @@ _conditional_value_X0;})) {
         }
     }
     expected_next_character(123,info);
-    ((char* )(__right_value0=parse_struct_attribute(info)));
+    ((char* )(__right_value0=parse_struct_attribute(info,(_Bool)1)));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     elements=(struct list$1tuple3$3char$phsNode$phchar$ph$ph*)come_increment_ref_count(list$1tuple3$3char$phsNode$phchar$ph$ph_initialize((struct list$1tuple3$3char$phsNode$phchar$ph$ph*)come_increment_ref_count((struct list$1tuple3$3char$phsNode$phchar$ph$ph*)come_calloc(1, sizeof(struct list$1tuple3$3char$phsNode$phchar$ph$ph)*(1), (void*)0, 170, "struct list$1tuple3$3char$phsNode$phchar$ph$ph*"))));
     while((_Bool)1) {
@@ -4246,14 +4246,14 @@ _conditional_value_X0;})) {
             skip_spaces_and_lf(info);
             break;
         }
-        ((char* )(__right_value0=parse_struct_attribute(info)));
+        ((char* )(__right_value0=parse_struct_attribute(info,(_Bool)1)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         element_name=(char* )come_increment_ref_count(parse_word((_Bool)0,info));
-        attribute_22=(char* )come_increment_ref_count(parse_struct_attribute(info));
+        attribute_22=(char* )come_increment_ref_count(parse_struct_attribute(info,(_Bool)1));
         if(*info->p==61&&*(info->p+1)!=61) {
             info->p++;
             skip_spaces_and_lf(info);
-            ((char* )(__right_value0=parse_struct_attribute(info)));
+            ((char* )(__right_value0=parse_struct_attribute(info,(_Bool)1)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             no_comma=info->no_comma;
             info->no_comma=(_Bool)1;
@@ -4265,13 +4265,13 @@ _conditional_value_X0;})) {
         else {
             list$1tuple3$3char$phsNode$phchar$ph$ph_push_back(elements,(struct tuple3$3char$phsNode$phchar$ph*)come_increment_ref_count(tuple3$3char$phsNode$phchar$ph_initialize((struct tuple3$3char$phsNode$phchar$ph*)come_increment_ref_count((struct tuple3$3char$phsNode$phchar$ph*)come_calloc(1, sizeof(struct tuple3$3char$phsNode$phchar$ph)*(1), "21enum.nc", 200, "struct tuple3$3char$phsNode$phchar$ph")),(char* )come_increment_ref_count(element_name),(struct sNode*)come_increment_ref_count((struct sNode*)((void*)0)),(char* )come_increment_ref_count(attribute_22))));
         }
-        ((char* )(__right_value0=parse_struct_attribute(info)));
+        ((char* )(__right_value0=parse_struct_attribute(info,(_Bool)1)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         if(*info->p==44) {
             info->p++;
             skip_spaces_and_lf(info);
         }
-        ((char* )(__right_value0=parse_struct_attribute(info)));
+        ((char* )(__right_value0=parse_struct_attribute(info,(_Bool)1)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         if(*info->p==125) {
             info->p++;
@@ -4283,7 +4283,7 @@ _conditional_value_X0;})) {
         (element_name = come_decrement_ref_count(element_name, (void*)0, (void*)0, 0, 0, (void*)0));
         (attribute_22 = come_decrement_ref_count(attribute_22, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    attribute2=(char* )come_increment_ref_count(parse_struct_attribute(info));
+    attribute2=(char* )come_increment_ref_count(parse_struct_attribute(info,(_Bool)1));
     if(string_operator_equals(attribute,"")&&string_operator_equals(attribute2,"")) {
     }
     else if(string_operator_equals(attribute,"")) {
@@ -5572,7 +5572,7 @@ struct sNode* top_level_v96(char* buf, char* head, int head_sline, struct sInfo*
         source_head=info->p;
         type_name=((void*)0);
         type_elements=((void*)0);
-        attribute=(char* )come_increment_ref_count(parse_struct_attribute(info));
+        attribute=(char* )come_increment_ref_count(parse_struct_attribute(info,(_Bool)1));
         if(*info->p==58) {
             info->p++;
             skip_spaces_and_lf(info);
@@ -5584,7 +5584,7 @@ struct sNode* top_level_v96(char* buf, char* head, int head_sline, struct sInfo*
             __dec_obj69=type_elements,
             type_elements=(struct sType* )come_increment_ref_count(type);
             come_call_finalizer(sType_finalize, __dec_obj69,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-            ((char* )(__right_value0=parse_struct_attribute(info)));
+            ((char* )(__right_value0=parse_struct_attribute(info,(_Bool)1)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -5595,7 +5595,7 @@ struct sNode* top_level_v96(char* buf, char* head, int head_sline, struct sInfo*
             __dec_obj70 = come_decrement_ref_count(__dec_obj70, (void*)0, (void*)0, 0,0, (void*)0);
         }
         else {
-            attribute_after_enum=(char* )come_increment_ref_count(parse_struct_attribute(info));
+            attribute_after_enum=(char* )come_increment_ref_count(parse_struct_attribute(info,(_Bool)1));
             if(string_operator_not_equals(attribute_after_enum,"")) {
                 if(string_operator_equals(attribute,"")) {
                     __dec_obj71=attribute,
@@ -5614,7 +5614,7 @@ struct sNode* top_level_v96(char* buf, char* head, int head_sline, struct sInfo*
             __dec_obj73 = come_decrement_ref_count(__dec_obj73, (void*)0, (void*)0, 0,0, (void*)0);
             map$2char$phsClass$ph_insert(info->classes,(char* )come_increment_ref_count(__builtin_string(type_name)),(struct sClass*)come_increment_ref_count(sClass_initialize((struct sClass* )come_increment_ref_count((struct sClass *)come_calloc(1, sizeof(struct sClass )*(1), (void*)0, 270, "struct sClass* ")),((char* )(__right_value2=__builtin_string(type_name))),(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,-1,-1,(_Bool)1,(_Bool)0,(_Bool)0,info)),(_Bool)0);
             (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0));
-            attribute_after_name=(char* )come_increment_ref_count(parse_struct_attribute(info));
+            attribute_after_name=(char* )come_increment_ref_count(parse_struct_attribute(info,(_Bool)1));
             if(string_operator_not_equals(attribute_after_name,"")) {
                 if(string_operator_equals(attribute,"")) {
                     __dec_obj74=attribute,
@@ -5646,7 +5646,7 @@ struct sNode* top_level_v96(char* buf, char* head, int head_sline, struct sInfo*
             (attribute_after_name = come_decrement_ref_count(attribute_after_name, (void*)0, (void*)0, 0, 0, (void*)0));
         }
         {
-            attribute_mid=(char* )come_increment_ref_count(parse_struct_attribute(info));
+            attribute_mid=(char* )come_increment_ref_count(parse_struct_attribute(info,(_Bool)1));
             if(string_operator_not_equals(attribute_mid,"")) {
                 if(string_operator_equals(attribute,"")) {
                     __dec_obj77=attribute,
@@ -5663,7 +5663,7 @@ struct sNode* top_level_v96(char* buf, char* head, int head_sline, struct sInfo*
             (attribute_mid = come_decrement_ref_count(attribute_mid, (void*)0, (void*)0, 0, 0, (void*)0));
         }
         expected_next_character(123,info);
-        ((char* )(__right_value0=parse_struct_attribute(info)));
+        ((char* )(__right_value0=parse_struct_attribute(info,(_Bool)1)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         elements=(struct list$1tuple3$3char$phsNode$phchar$ph$ph*)come_increment_ref_count(list$1tuple3$3char$phsNode$phchar$ph$ph_initialize((struct list$1tuple3$3char$phsNode$phchar$ph$ph*)come_increment_ref_count((struct list$1tuple3$3char$phsNode$phchar$ph$ph*)come_calloc(1, sizeof(struct list$1tuple3$3char$phsNode$phchar$ph$ph)*(1), (void*)0, 305, "struct list$1tuple3$3char$phsNode$phchar$ph$ph*"))));
         while((_Bool)1) {
@@ -5672,10 +5672,10 @@ struct sNode* top_level_v96(char* buf, char* head, int head_sline, struct sInfo*
                 skip_spaces_and_lf(info);
                 break;
             }
-            ((char* )(__right_value0=parse_struct_attribute(info)));
+            ((char* )(__right_value0=parse_struct_attribute(info,(_Bool)1)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             element_name=(char* )come_increment_ref_count(parse_word((_Bool)0,info));
-            attribute_36=(char* )come_increment_ref_count(parse_struct_attribute(info));
+            attribute_36=(char* )come_increment_ref_count(parse_struct_attribute(info,(_Bool)1));
             if(*info->p==61&&*(info->p+1)!=61) {
                 info->p++;
                 skip_spaces_and_lf(info);
@@ -5689,13 +5689,13 @@ struct sNode* top_level_v96(char* buf, char* head, int head_sline, struct sInfo*
             else {
                 list$1tuple3$3char$phsNode$phchar$ph$ph_push_back(elements,(struct tuple3$3char$phsNode$phchar$ph*)come_increment_ref_count(tuple3$3char$phsNode$phchar$ph_initialize((struct tuple3$3char$phsNode$phchar$ph*)come_increment_ref_count((struct tuple3$3char$phsNode$phchar$ph*)come_calloc(1, sizeof(struct tuple3$3char$phsNode$phchar$ph)*(1), "21enum.nc", 331, "struct tuple3$3char$phsNode$phchar$ph")),(char* )come_increment_ref_count(element_name),(struct sNode*)come_increment_ref_count((struct sNode*)((void*)0)),(char* )come_increment_ref_count(attribute_36))));
             }
-            ((char* )(__right_value0=parse_struct_attribute(info)));
+            ((char* )(__right_value0=parse_struct_attribute(info,(_Bool)1)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             if(*info->p==44) {
                 info->p++;
                 skip_spaces_and_lf(info);
             }
-            ((char* )(__right_value0=parse_struct_attribute(info)));
+            ((char* )(__right_value0=parse_struct_attribute(info,(_Bool)1)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             if(*info->p==125) {
                 info->p++;
@@ -5711,7 +5711,7 @@ struct sNode* top_level_v96(char* buf, char* head, int head_sline, struct sInfo*
         header=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 350, "struct buffer* "))));
         buffer_append_str(header,"enum ");
         buffer_append(header,source_head,source_tail-source_head);
-        attribute2=(char* )come_increment_ref_count(parse_struct_attribute(info));
+        attribute2=(char* )come_increment_ref_count(parse_struct_attribute(info,(_Bool)1));
         if(string_operator_equals(attribute,"")&&string_operator_equals(attribute2,"")) {
         }
         else if(string_operator_equals(attribute,"")) {
@@ -5785,7 +5785,7 @@ struct sNode* string_node_v16(char* buf, char* head, int head_sline, struct sInf
         if(charp_operator_equals(buf,"enum")) {
             if(xisalpha(*info->p)||*info->p==95) {
                 type_name=(char* )come_increment_ref_count(parse_word((_Bool)0,info));
-                (void)((char* )(__right_value0=parse_struct_attribute(info)));
+                (void)((char* )(__right_value0=parse_struct_attribute(info,(_Bool)1)));
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                 if(*info->p==123) {
                     ((char* )(__right_value0=skip_block(info,(_Bool)0)));
@@ -5802,7 +5802,7 @@ struct sNode* string_node_v16(char* buf, char* head, int head_sline, struct sInf
         info->no_output_come_code=no_output_come_code;
     }
     if(define_enum) {
-        struct_attribute=(char* )come_increment_ref_count(parse_struct_attribute(info));
+        struct_attribute=(char* )come_increment_ref_count(parse_struct_attribute(info,(_Bool)1));
         type_name_37=(char* )come_increment_ref_count(parse_word((_Bool)0,info));
         __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=parse_enum((char* )come_increment_ref_count(type_name_37),(char* )come_increment_ref_count(struct_attribute),info))));
         (struct_attribute = come_decrement_ref_count(struct_attribute, (void*)0, (void*)0, 0, 0, (void*)0));
