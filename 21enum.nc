@@ -39,10 +39,20 @@ class sEnumNode extends sNodeBase
         
         if(type_name === "") {
             if(self.mTypeElements) {
-                buf.append_format("enum :%s { ", make_type_name_string(self.mTypeElements));
+                if(attribute === "") {
+                    buf.append_format("enum :%s { ", make_type_name_string(self.mTypeElements));
+                }
+                else {
+                    buf.append_format("enum %s :%s { ", attribute, make_type_name_string(self.mTypeElements));
+                }
             }
             else {
-                buf.append_str("enum { ");
+                if(attribute === "") {
+                    buf.append_str("enum { ");
+                }
+                else {
+                    buf.append_format("enum %s { ", attribute);
+                }
             }
         }
         else if(self.mTypeElements) {
@@ -143,6 +153,16 @@ sNode*% parse_enum(string type_name, string attribute, sInfo* info)
         type_elements = type;
     }
     
+    string attribute_mid = parse_struct_attribute();
+    if(attribute_mid !== "") {
+        if(attribute === "") {
+            attribute = attribute_mid;
+        }
+        else {
+            attribute = attribute + " " + attribute_mid;
+        }
+    }
+    
     expected_next_character('{');
     
     parse_struct_attribute();
@@ -196,9 +216,20 @@ sNode*% parse_enum(string type_name, string attribute, sInfo* info)
         }
     }
     
-    string attribute2 = parse_struct_attribute() + " " + attribute;
+    string attribute2 = parse_struct_attribute();
     
-    return new sEnumNode(type_name, elements, type_elements, attribute2, info) implements sNode;
+    if(attribute === "" && attribute2 === "") {
+    }
+    else if(attribute === "") {
+        attribute = attribute2;
+    }
+    else if(attribute2 === "") {
+    }
+    else {
+        attribute = attribute + " " + attribute2;
+    }
+    
+    return new sEnumNode(type_name, elements, type_elements, attribute, info) implements sNode;
 }
 
 sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 96
@@ -224,13 +255,29 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 96
             type_name = string("");
         }
         else {
-            parse_struct_attribute();
+            string attribute_after_enum = parse_struct_attribute();
+            if(attribute_after_enum !== "") {
+                if(attribute === "") {
+                    attribute = attribute_after_enum;
+                }
+                else {
+                    attribute = attribute + " " + attribute_after_enum;
+                }
+            }
             
             type_name = parse_word();
             
             info.classes.insert(string(type_name), new sClass(name:string(type_name), enum_:true));
             
-            parse_struct_attribute();
+            string attribute_after_name = parse_struct_attribute();
+            if(attribute_after_name !== "") {
+                if(attribute === "") {
+                    attribute = attribute_after_name;
+                }
+                else {
+                    attribute = attribute + " " + attribute_after_name;
+                }
+            }
             if(*info->p == ':') {
                 info->p++;
                 skip_spaces_and_lf();
@@ -240,7 +287,17 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 96
                 type_elements = type;
             }
         }
-        parse_struct_attribute();
+        {
+            string attribute_mid = parse_struct_attribute();
+            if(attribute_mid !== "") {
+                if(attribute === "") {
+                    attribute = attribute_mid;
+                }
+                else {
+                    attribute = attribute + " " + attribute_mid;
+                }
+            }
+        }
         
         expected_next_character('{');
         parse_struct_attribute();
@@ -294,6 +351,18 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 96
         header.append_str("enum ");
         header.append(source_head, source_tail - source_head);
         
+        string attribute2 = parse_struct_attribute();
+        if(attribute === "" && attribute2 === "") {
+        }
+        else if(attribute === "") {
+            attribute = attribute2;
+        }
+        else if(attribute2 === "") {
+        }
+        else {
+            attribute = attribute + " " + attribute2;
+        }
+        
         return new sEnumNode(type_name, elements, type_elements, attribute, info) implements sNode;
     }
     
@@ -313,6 +382,8 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         if(buf === "enum") {
             if(xisalpha(*info->p) || *info->p == '_') {
                 string type_name = parse_word();
+                
+                (void)parse_struct_attribute();
                 
                 if(*info->p == '{') {
                     skip_block();

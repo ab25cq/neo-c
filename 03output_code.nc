@@ -1083,7 +1083,7 @@ string output_function(sFun* fun, sInfo* info)
     else {
         string result_type_str = make_type_name_string(fun->mResultType, no_static:true);
         
-        if(fun->mAttribute !== "" && gComeBareMetal) {
+        if(fun->mAttribute !== "") {
             output.append_str(s"\{fun->mAttribute} ");
         }
         if(fun->mStatic) {
@@ -1171,6 +1171,9 @@ string header_function(sFun* fun, sInfo* info)
         
         string str = make_lambda_type_name_string(fun->mResultType, output2.to_string(), info);
         
+        if(fun->mAttribute !== "") {
+            output.append_str(s"\{fun->mAttribute} ");
+        }
         if(fun->mStatic) {
             output.append_str("static ");
         }
@@ -1191,6 +1194,9 @@ string header_function(sFun* fun, sInfo* info)
         
         string result_type_str = make_type_name_string(base_result_type, no_static:true);
         
+        if(fun->mAttribute !== "") {
+            output.append_str(s"\{fun->mAttribute} ");
+        }
         if(fun->mStatic) {
             output.append_str("static ");
         }
@@ -1230,9 +1236,6 @@ string header_function(sFun* fun, sInfo* info)
         CVALUE*% cvalue = get_value_from_stack(-1, info);
         
         output.append_format("))[%s]", cvalue.c_value);
-        if(fun->mAttribute !== "") {// && gComeBareMetal) {
-            output.append_str(s"\{fun->mAttribute} ");
-        }
         output.append_format(";\n");
     }
     else {
@@ -1241,6 +1244,9 @@ string header_function(sFun* fun, sInfo* info)
         }
         string result_type_str = make_type_name_string(fun->mResultType, no_static:true);
         
+        if(fun->mAttribute !== "") {
+            output.append_str(s"\{fun->mAttribute} ");
+        }
         if(fun->mStatic) {
             output.append_str("static ");
         }

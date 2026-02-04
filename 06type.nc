@@ -1291,6 +1291,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
     bool alignas_double = false;
     
     string union_attribute = s"";
+    bool struct_define_parsed = false;
     
     bool anonymous_type = false;
     bool anonymous_name = false;
@@ -1447,6 +1448,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                     type_name = string("");
                     info.p = p;
                     info.sline = sline;
+                    struct_define_parsed = true;
                     break;
                 } 
                 else {
@@ -1454,6 +1456,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                     type_name = string("");
                     info.p = p;
                     info.sline = sline;
+                    struct_define_parsed = true;
                     break;
                 }
             }
@@ -1464,6 +1467,16 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                 type_name = parse_word();
                 
                 skip_spaces_and_lf();
+                
+                string struct_attribute_after_name = parse_struct_attribute();
+                if(struct_attribute_after_name !== "") {
+                    if(union_attribute === "") {
+                        union_attribute = struct_attribute_after_name;
+                    }
+                    else {
+                        union_attribute = union_attribute + " " + struct_attribute_after_name;
+                    }
+                }
                 
                 if(*info->p == '<') {
                     char* p = info.p;
@@ -1495,6 +1508,16 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                     }
                 }
                 
+                string struct_attribute_after_generics = parse_struct_attribute();
+                if(struct_attribute_after_generics !== "") {
+                    if(union_attribute === "") {
+                        union_attribute = struct_attribute_after_generics;
+                    }
+                    else {
+                        union_attribute = union_attribute + " " + struct_attribute_after_generics;
+                    }
+                }
+                
                 if(*info->p == '{') {
                     char* p = info.p;
                     int sline = info.sline;
@@ -1518,6 +1541,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                         node_compile(node).elif {
                             return t((sType*%)null, (string)null, false);
                         }
+                        struct_define_parsed = true;
                         break;
                     }
                 }
@@ -1588,7 +1612,10 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
 
             skip_spaces_and_lf();
             
-            parse_attribute();
+            var asm_name, enum_attribute = parse_attribute();
+            if(enum_attribute !== "") {
+                union_attribute = enum_attribute;
+            }
             
             if(*info->p == ':') {
                 info->p++;
@@ -1620,6 +1647,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                     type_name = string("");
                     info.p = p;
                     info.sline = sline;
+                    struct_define_parsed = true;
                     break;
                 }
             }
@@ -1630,6 +1658,16 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
 
             skip_spaces_and_lf();
             
+            string enum_attribute_after_name = parse_struct_attribute();
+            if(enum_attribute_after_name !== "") {
+                if(union_attribute === "") {
+                    union_attribute = enum_attribute_after_name;
+                }
+                else {
+                    union_attribute = union_attribute + " " + enum_attribute_after_name;
+                }
+            }
+            
             if(*info->p == ':') {
                 info->p++;
                 skip_spaces_and_lf();
@@ -1638,6 +1676,16 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             }
 
             skip_spaces_and_lf();
+            
+            string enum_attribute_after_type = parse_struct_attribute();
+            if(enum_attribute_after_type !== "") {
+                if(union_attribute === "") {
+                    union_attribute = enum_attribute_after_type;
+                }
+                else {
+                    union_attribute = union_attribute + " " + enum_attribute_after_type;
+                }
+            }
             
             if(*info->p == '{') {
                 char* p = info.p;
@@ -1655,6 +1703,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                     anonymous_type = true;
                     info.p = p;
                     info.sline = sline;
+                    struct_define_parsed = true;
                     break;
                 }
             }
@@ -1959,6 +2008,14 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
     }
     
     string attribute = parse_struct_attribute();
+    if(!struct_define_parsed && (struct_ || enum_) && union_attribute !== "") {
+        if(attribute === "") {
+            attribute = union_attribute;
+        }
+        else {
+            attribute = union_attribute + " " + attribute;
+        }
+    }
     
     skip_pointer_attribute();
     

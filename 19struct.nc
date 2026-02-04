@@ -381,6 +381,16 @@ sNode*% parse_struct(string type_name, string struct_attribute, sInfo* info, boo
         }
     }
     
+    string struct_attribute_mid = parse_struct_attribute();
+    if(struct_attribute_mid !== "") {
+        if(struct_attribute === "") {
+            struct_attribute = struct_attribute_mid;
+        }
+        else {
+            struct_attribute = struct_attribute + " " + struct_attribute_mid;
+        }
+    }
+    
     expected_next_character('{');
     
     while(true) {
@@ -491,6 +501,16 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
         
         string type_name = parse_word();
         
+        string struct_attribute_after_name = parse_struct_attribute();
+        if(struct_attribute_after_name !== "") {
+            if(struct_attribute === "") {
+                struct_attribute = struct_attribute_after_name;
+            }
+            else {
+                struct_attribute = struct_attribute + " " + struct_attribute_after_name;
+            }
+        }
+        
         if(*info->p == ';') {
             info->p++;
             skip_spaces_and_lf();
@@ -521,7 +541,19 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
             
             buffer*% header = new buffer();
             header.append(source_head, source_tail - source_head);
-            
+
+            if(struct_attribute !== "") {
+                sClass* struct_class2 = borrow info.classes.at(type_name, null);
+                if(struct_class2) {
+                    if(struct_class2->mAttribute == null) {
+                        struct_class2->mAttribute = struct_attribute;
+                    }
+                    else {
+                        struct_class2->mAttribute = struct_class2->mAttribute + " " + struct_attribute;
+                    }
+                }
+            }
+
             info.parse_struct_recursive_count--;
             return new sStructNobodyNode(string(type_name), info) implements sNode;
         }
@@ -1015,10 +1047,14 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             if(xisalpha(*info->p) || *info->p == '_') {
                 string type_name = parse_word();
                 
+                (void)parse_struct_attribute();
+                
                 if(parsecmp("extends")) {
                     parse_word();
                     parse_word();
                 }
+                
+                (void)parse_struct_attribute();
                 
                 if(*info->p == '{') {
                     skip_block();

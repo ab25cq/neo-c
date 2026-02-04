@@ -406,14 +406,14 @@ int ftrylockfile(struct _IO_FILE*  __stream  );
 void funlockfile(struct _IO_FILE*  __stream  );
 int __uflow(struct _IO_FILE*    );
 int __overflow(struct _IO_FILE*    , int );
-void die() __attribute__((cold))
+__attribute__((noreturn))  void die() __attribute__((cold))
 ;
 int main();
 // uniq global variable
 // inline function
 
 // body function
-void die()
+__attribute__((noreturn))  void die()
 {
     for(;;){
     }
