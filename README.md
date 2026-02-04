@@ -1015,7 +1015,7 @@ Up to 5 tuples are defined.
 tupleは5つまで定義されてます。
 
 ```
-    tuple5<int,int,int,string,char*>*% tu = (1,2,3,s"ABC","DEF");
+    tuple5<int,int,int,string,char*>*% tu = t(1,2,3,s"ABC","DEF");
     
     tu.to_string().puts(); // (1,2,3,ABC,DEF)
 ```
@@ -1029,7 +1029,7 @@ int, boolは`tuple2<int, bool>*%`と同じ意味です。複数の値を返す�
 要素にアクセスするにはv1などとします。
 
 ```
-    var tu = (1,2,"ABC");
+    var tu = t(1,2,"ABC");
     
     tu.v1 === 1; // true
     tu.v2 === 2; // true
