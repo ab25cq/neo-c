@@ -22,11 +22,8 @@ typedef char*% string;
 #if defined(__MINUX__)
 #define UNIX 1
 #elif defined(__BARE_METAL__)
-#define UNIX 0
 #elif defined(__PICO__)
-#define UNIX 0
 #elif defined(__M5STACK__)
-#define UNIX 0
 #else
 #define UNIX 1
 #endif
@@ -196,13 +193,10 @@ struct sMemHeader
     const char* class_name;
 };
 
-uniq sMemHeader* gAllocMem;
+uniq sMemHeader* gAllocMem = (void*)0;
     
 uniq void come_heap_init(int come_debug)
 {
-    gComeDebugLib = come_debug
-    
-    gAllocMem = NULL;
 }
     
 uniq void come_heap_final()
