@@ -734,6 +734,8 @@ string parse_struct_attribute(sInfo* info=info)
     return result.to_string();
 }
 
+void append_attribute_to_type(sType* type, string attribute, bool for_variable, sInfo* info=info);
+
 sType*%, string parse_variable_name_on_multiple_declare(sType* base_type_name, bool first, sInfo* info)
 {
     sType*% result_type = clone base_type_name;
@@ -942,14 +944,7 @@ sType*%, string parse_variable_name_on_multiple_declare(sType* base_type_name, b
     }
     
     string attribute = parse_struct_attribute();
-    if(attribute !== "") {
-        if(result_type->mAttribute) {
-            result_type->mAttribute = result_type->mAttribute + " " + attribute;
-        }
-        else {
-            result_type->mAttribute = attribute;
-        }
-    }
+    append_attribute_to_type(result_type, attribute, true, info);
     
     parse_attribute();
     
@@ -1186,6 +1181,30 @@ sType*% parse_pointer_attribute(sType* type, sInfo* info=info)
     return clone type;
 }
 
+void append_attribute_to_type(sType* type, string attribute, bool for_variable, sInfo* info=info)
+{
+    if(attribute == null || attribute === "") {
+        return;
+    }
+    
+    if(for_variable && !info.in_typedef) {
+        if(type->mVarAttribute == null || type->mVarAttribute === "") {
+            type->mVarAttribute = attribute;
+        }
+        else {
+            type->mVarAttribute = type->mVarAttribute + " " + attribute;
+        }
+    }
+    else {
+        if(type->mAttribute == null || type->mAttribute === "") {
+            type->mAttribute = attribute;
+        }
+        else {
+            type->mAttribute = type->mAttribute + " " + attribute;
+        }
+    }
+}
+
 string parse_variable_name_fun(sType* type, bool anonymous_name, bool var_name_between_brace, string attribute, sInfo* info=info)
 {
     string var_name = s"";
@@ -1232,12 +1251,8 @@ string parse_variable_name_fun(sType* type, bool anonymous_name, bool var_name_b
 
     string attribute2 = parse_struct_attribute();
     
-    if(attribute !== "" && attribute2 !== "") {
-        type->mAttribute = attribute + " " + attribute2;
-    }
-    else if(attribute2 !== "") {
-        type->mAttribute = attribute2;
-    }
+    append_attribute_to_type(type, attribute, true, info);
+    append_attribute_to_type(type, attribute2, true, info);
     
     return var_name;
 }
@@ -2269,8 +2284,8 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         
         string attribute = parse_struct_attribute();
         
-        if(attribute !== "") {
-            type->mAttribute = attribute;
+        if(!parse_variable_name) {
+            append_attribute_to_type(type, attribute, false, info);
         }
         
         if(parse_variable_name) {
@@ -2914,8 +2929,8 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         
         string attribute = parse_struct_attribute();
         
-        if(attribute !== "") {
-            type->mAttribute = attribute;
+        if(!parse_variable_name) {
+            append_attribute_to_type(type, attribute, false, info);
         }
 
         if(parse_variable_name) {
@@ -2984,9 +2999,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
     }
     var asm_name,attribute2 = parse_attribute();
     
-    if(attribute2 !== "") {
-        type->mAttribute = attribute2;
-    }
+    append_attribute_to_type(type, attribute2, parse_variable_name, info);
     
     type->mAsmName = asm_name;
     
@@ -3000,9 +3013,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         type->mChannel = true;
     }
     
-    if(attribute !== "") {
-        type->mAttribute = attribute;
-    }
+    append_attribute_to_type(type, attribute, parse_variable_name, info);
     
     return t(type, var_name, true);
 }

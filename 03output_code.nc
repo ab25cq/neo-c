@@ -194,7 +194,7 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
         buf.append_str("restrict");
     }
     
-    if(type->mAttribute && gComeBareMetal) {
+    if(type->mAttribute) {// && gComeBareMetal) {
         buf.append_str(" " + type->mAttribute);
     }
     
@@ -1000,7 +1000,7 @@ string output_function(sFun* fun, sInfo* info)
         
         string str = make_lambda_type_name_string(fun->mResultType, output2.to_string(), info);
         
-        if(fun->mAttribute !== "" && gComeBareMetal) {
+        if(fun->mAttribute !== "") { // && gComeBareMetal) {
             output.append_str(s"\{fun->mAttribute} ");
         }
         if(fun->mStatic) {
@@ -1014,7 +1014,7 @@ string output_function(sFun* fun, sInfo* info)
         
         info.module.mSourceHead.append_str(output.to_string());
         // when declaring outputs function attribute
-        if(fun->mFunAttribute !== "" && gComeBareMetal) {
+        if(fun->mFunAttribute !== "") { // && gComeBareMetal) {
             info.module.mSourceHead.append_str(s" \{fun->mFunAttribute};\n");
         }
         else {
@@ -1027,7 +1027,7 @@ string output_function(sFun* fun, sInfo* info)
         
         string result_type_str = make_type_name_string(base_result_type, no_static:true);
         
-        if(fun->mAttribute !== "" && gComeBareMetal) {
+        if(fun->mAttribute !== "") { // && gComeBareMetal) {
             output.append_str(s"\{fun->mAttribute} ");
         }
         if(fun->mStatic) {
@@ -1073,7 +1073,7 @@ string output_function(sFun* fun, sInfo* info)
         output.append_format("))[%s]", cvalue.c_value);
         
         info.module.mSourceHead.append_str(output.to_string());
-        if(fun->mFunAttribute !== "" && gComeBareMetal) {
+        if(fun->mFunAttribute !== "") {// && gComeBareMetal) {
             info.module.mSourceHead.append_str(s" \{fun->mFunAttribute};\n");
         }
         else {
@@ -1120,7 +1120,7 @@ string output_function(sFun* fun, sInfo* info)
         output.append_str(")");
         
         info.module.mSourceHead.append_str(output.to_string());
-        if(fun->mFunAttribute !== "" && gComeBareMetal) {
+        if(fun->mFunAttribute !== "") { // && gComeBareMetal) {
             info.module.mSourceHead.append_str(s" \{fun->mFunAttribute};\n");
         }
         else {
@@ -1179,7 +1179,7 @@ string header_function(sFun* fun, sInfo* info)
         }
         output.append_str(str);
         
-        if(fun->mFunAttribute !== "" && gComeBareMetal) {
+        if(fun->mFunAttribute !== "") {// && gComeBareMetal) {
             output.append_str(s" \{fun->mFunAttribute} ");
         }
         
@@ -1230,7 +1230,7 @@ string header_function(sFun* fun, sInfo* info)
         CVALUE*% cvalue = get_value_from_stack(-1, info);
         
         output.append_format("))[%s]", cvalue.c_value);
-        if(fun->mAttribute !== "" && gComeBareMetal) {
+        if(fun->mAttribute !== "") {// && gComeBareMetal) {
             output.append_str(s"\{fun->mAttribute} ");
         }
         output.append_format(";\n");
@@ -1276,7 +1276,7 @@ string header_function(sFun* fun, sInfo* info)
             i++;
         }
         
-        if(fun->mFunAttribute !== "" && gComeBareMetal) {
+        if(fun->mFunAttribute !== "") {// && gComeBareMetal) {
             output.append_str(s") \{fun->mFunAttribute};\n");
         }
         else {

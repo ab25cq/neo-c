@@ -40,7 +40,7 @@ typedef long __kernel_long_t;
 
 typedef unsigned long  int __kernel_ulong_t;
 
-typedef unsigned long  int __kernel_ino_t  ;
+typedef unsigned long  int  __kernel_ino_t  ;
 
 typedef unsigned int __kernel_mode_t;
 
@@ -52,7 +52,7 @@ typedef unsigned int __kernel_uid_t;
 
 typedef unsigned int __kernel_gid_t;
 
-typedef long __kernel_suseconds_t  ;
+typedef long  __kernel_suseconds_t  ;
 
 typedef int __kernel_daddr_t;
 
@@ -60,25 +60,25 @@ typedef unsigned int __kernel_uid32_t;
 
 typedef unsigned int __kernel_gid32_t;
 
-typedef unsigned long  int __kernel_size_t  ;
+typedef unsigned long  int  __kernel_size_t  ;
 
-typedef long __kernel_ssize_t  ;
+typedef long  __kernel_ssize_t  ;
 
-typedef long __kernel_ptrdiff_t  ;
+typedef long  __kernel_ptrdiff_t  ;
 
 typedef struct anonymous_typeX2 __kernel_fsid_t;
 
-typedef long __kernel_off_t  ;
+typedef long  __kernel_off_t  ;
 
 typedef long long __kernel_loff_t;
 
-typedef long __kernel_old_time_t  ;
+typedef long  __kernel_old_time_t  ;
 
-typedef long __kernel_time_t  ;
+typedef long  __kernel_time_t  ;
 
 typedef long long __kernel_time64_t;
 
-typedef long __kernel_clock_t  ;
+typedef long  __kernel_clock_t  ;
 
 typedef int __kernel_timer_t;
 
@@ -90,27 +90,27 @@ typedef unsigned short int __kernel_uid16_t;
 
 typedef unsigned short int __kernel_gid16_t;
 
-typedef unsigned short int __le16  ;
+typedef unsigned short int  __le16  ;
 
-typedef unsigned short int __be16  ;
+typedef unsigned short int  __be16  ;
 
-typedef unsigned int __le32  ;
+typedef unsigned int  __le32  ;
 
-typedef unsigned int __be32  ;
+typedef unsigned int  __be32  ;
 
-typedef unsigned long  long __le64  ;
+typedef unsigned long  long  __le64  ;
 
-typedef unsigned long  long __be64  ;
+typedef unsigned long  long  __be64  ;
 
-typedef unsigned short int __sum16  ;
+typedef unsigned short int  __sum16  ;
 
-typedef unsigned int __wsum  ;
+typedef unsigned int  __wsum  ;
 
 typedef unsigned int __poll_t;
 
 typedef unsigned short int __kernel_sa_family_t;
 
-typedef unsigned long  long   ;
+typedef unsigned long  long    ;
 
 typedef unsigned char __u_char;
 
@@ -136,21 +136,21 @@ typedef long  int __int64_t;
 
 typedef unsigned long  int __uint64_t;
 
-typedef char __int_least8_t  ;
+typedef char  __int_least8_t  ;
 
-typedef unsigned char __uint_least8_t  ;
+typedef unsigned char  __uint_least8_t  ;
 
-typedef short int __int_least16_t  ;
+typedef short int  __int_least16_t  ;
 
-typedef unsigned short int __uint_least16_t  ;
+typedef unsigned short int  __uint_least16_t  ;
 
-typedef int __int_least32_t  ;
+typedef int  __int_least32_t  ;
 
-typedef unsigned int __uint_least32_t  ;
+typedef unsigned int  __uint_least32_t  ;
 
-typedef long  int __int_least64_t  ;
+typedef long  int  __int_least64_t  ;
 
-typedef unsigned long  int __uint_least64_t  ;
+typedef unsigned long  int  __uint_least64_t  ;
 
 typedef long  int __quad_t;
 
@@ -180,7 +180,7 @@ typedef long  int __off64_t;
 
 typedef int __pid_t;
 
-typedef struct __fsid_t __fsid_t  ;
+typedef struct __fsid_t  __fsid_t  ;
 
 typedef long  int __clock_t;
 
@@ -228,7 +228,7 @@ typedef long  int __syscall_slong_t;
 
 typedef unsigned long  int __syscall_ulong_t;
 
-typedef long  int __loff_t  ;
+typedef long  int  __loff_t  ;
 
 typedef char* __caddr_t;
 
@@ -238,63 +238,63 @@ typedef unsigned int __socklen_t;
 
 typedef int __sig_atomic_t;
 
-typedef unsigned char u_char  ;
+typedef unsigned char  u_char  ;
 
-typedef unsigned short int u_short  ;
+typedef unsigned short int  u_short  ;
 
-typedef unsigned int u_int  ;
+typedef unsigned int  u_int  ;
 
-typedef unsigned long  int u_long  ;
+typedef unsigned long  int  u_long  ;
 
-typedef long  int quad_t  ;
+typedef long  int  quad_t  ;
 
-typedef unsigned long  int u_quad_t  ;
+typedef unsigned long  int  u_quad_t  ;
 
-typedef struct __fsid_t fsid_t  ;
+typedef struct __fsid_t  fsid_t  ;
 
-typedef long  int loff_t  ;
+typedef long  int  loff_t  ;
 
-typedef unsigned long  int ino_t  ;
+typedef unsigned long  int  ino_t  ;
 
-typedef unsigned long  int ino64_t  ;
+typedef unsigned long  int  ino64_t  ;
 
-typedef unsigned long  int dev_t  ;
+typedef unsigned long  int  dev_t  ;
 
-typedef unsigned int gid_t  ;
+typedef unsigned int  gid_t  ;
 
-typedef unsigned int mode_t  ;
+typedef unsigned int  mode_t  ;
 
-typedef unsigned long  int nlink_t  ;
+typedef unsigned long  int  nlink_t  ;
 
-typedef unsigned int uid_t  ;
+typedef unsigned int  uid_t  ;
 
-typedef long  int off_t  ;
+typedef long  int  off_t  ;
 
-typedef long  int off64_t  ;
+typedef long  int  off64_t  ;
 
-typedef int pid_t  ;
+typedef int  pid_t  ;
 
-typedef unsigned int id_t  ;
+typedef unsigned int  id_t  ;
 
-typedef long  int ssize_t  ;
+typedef long  int  ssize_t  ;
 
-typedef int daddr_t  ;
+typedef int  daddr_t  ;
 
-typedef char* caddr_t  ;
+typedef char*  caddr_t  ;
 
-typedef int key_t  ;
+typedef int  key_t  ;
 
-typedef long  int clock_t  ;
+typedef long  int  clock_t  ;
 
-typedef int clockid_t  ;
+typedef int  clockid_t  ;
 
-typedef long  int time_t  ;
+typedef long  int  time_t  ;
 
-typedef void* timer_t  ;
+typedef void*  timer_t  ;
 
-typedef unsigned int useconds_t  ;
+typedef unsigned int  useconds_t  ;
 
-typedef long  int suseconds_t  ;
+typedef long  int  suseconds_t  ;
 
 typedef unsigned long  int ulong;
 
@@ -302,53 +302,53 @@ typedef unsigned short int ushort;
 
 typedef unsigned int uint;
 
-typedef char int8_t  ;
+typedef char  int8_t  ;
 
-typedef short int int16_t  ;
+typedef short int  int16_t  ;
 
-typedef int int32_t  ;
+typedef int  int32_t  ;
 
-typedef long  int int64_t  ;
+typedef long  int  int64_t  ;
 
-typedef unsigned char u_int8_t  ;
+typedef unsigned char  u_int8_t  ;
 
-typedef unsigned short int u_int16_t  ;
+typedef unsigned short int  u_int16_t  ;
 
-typedef unsigned int u_int32_t  ;
+typedef unsigned int  u_int32_t  ;
 
-typedef unsigned long  int u_int64_t  ;
+typedef unsigned long  int  u_int64_t  ;
 
-typedef int register_t __attribute__ ((__mode__ (__word__)));
+typedef int __attribute__ ((__mode__ (__word__))) register_t __attribute__ ((__mode__ (__word__)));
 
 typedef struct anonymous_typeX494 __sigset_t;
 
-typedef struct anonymous_typeX494 sigset_t  ;
+typedef struct anonymous_typeX494  sigset_t  ;
 
 typedef long  int __fd_mask;
 
 typedef struct anonymous_typeX495 fd_set;
 
-typedef long  int fd_mask  ;
+typedef long  int  fd_mask  ;
 
-typedef long  int blksize_t  ;
+typedef long  int  blksize_t  ;
 
-typedef long  int blkcnt_t  ;
+typedef long  int  blkcnt_t  ;
 
-typedef unsigned long  int fsblkcnt_t  ;
+typedef unsigned long  int  fsblkcnt_t  ;
 
-typedef unsigned long  int fsfilcnt_t  ;
+typedef unsigned long  int  fsfilcnt_t  ;
 
-typedef long  int blkcnt64_t  ;
+typedef long  int  blkcnt64_t  ;
 
-typedef unsigned long  int fsblkcnt64_t  ;
+typedef unsigned long  int  fsblkcnt64_t  ;
 
-typedef unsigned long  int fsfilcnt64_t  ;
+typedef unsigned long  int  fsfilcnt64_t  ;
 
 typedef union anonymous_typeZ496 __atomic_wide_counter;
 
-typedef struct __pthread_internal_list __pthread_list_t  ;
+typedef struct __pthread_internal_list  __pthread_list_t  ;
 
-typedef struct __pthread_internal_slist __pthread_slist_t  ;
+typedef struct __pthread_internal_slist  __pthread_slist_t  ;
 
 typedef unsigned int __tss_t;
 
@@ -366,7 +366,7 @@ typedef unsigned int pthread_key_t;
 
 typedef int pthread_once_t;
 
-typedef union pthread_attr_t pthread_attr_t  ;
+typedef union pthread_attr_t  pthread_attr_t  ;
 
 typedef union anonymous_typeZ501 pthread_mutex_t;
 
@@ -382,13 +382,13 @@ typedef union anonymous_typeZ505 pthread_barrier_t;
 
 typedef union anonymous_typeZ506 pthread_barrierattr_t;
 
-typedef unsigned int socklen_t  ;
+typedef unsigned int  socklen_t  ;
 
 typedef unsigned short int sa_family_t;
 
-typedef struct sockaddr* __SOCKADDR_ARG  ;
+typedef struct sockaddr*  __SOCKADDR_ARG  ;
 
-typedef const struct sockaddr* __CONST_SOCKADDR_ARG  ;
+typedef const struct sockaddr*  __CONST_SOCKADDR_ARG  ;
 
 typedef struct anonymous_typeX507 sync_serial_settings;
 
@@ -425,174 +425,174 @@ struct anonymous_typeX2
 
 struct sysinfo
 {
-    long uptime  ;
-    unsigned long  int loads[3]  ;
-    unsigned long  int totalram  ;
-    unsigned long  int freeram  ;
-    unsigned long  int sharedram  ;
-    unsigned long  int bufferram  ;
-    unsigned long  int totalswap  ;
-    unsigned long  int freeswap  ;
-    unsigned short int procs  ;
-    unsigned short int pad  ;
-    unsigned long  int totalhigh  ;
-    unsigned long  int freehigh  ;
-    unsigned int mem_unit  ;
-    char _f[20-2*sizeof(unsigned long  int)-sizeof(unsigned int)];
+    long  uptime  ;
+    unsigned long  int  loads[3]  ;
+    unsigned long  int  totalram  ;
+    unsigned long  int  freeram  ;
+    unsigned long  int  sharedram  ;
+    unsigned long  int  bufferram  ;
+    unsigned long  int  totalswap  ;
+    unsigned long  int  freeswap  ;
+    unsigned short int  procs  ;
+    unsigned short int  pad  ;
+    unsigned long  int  totalhigh  ;
+    unsigned long  int  freehigh  ;
+    unsigned int  mem_unit  ;
+    char _f[20-2*sizeof(unsigned long  int )-sizeof(unsigned int )];
 };
 
 struct statx_timestamp
 {
-    long long tv_sec  ;
-    unsigned int tv_nsec  ;
-    int __reserved  ;
+    long long  tv_sec  ;
+    unsigned int  tv_nsec  ;
+    int  __reserved  ;
 };
 
 struct statx
 {
-    unsigned int stx_mask  ;
-    unsigned int stx_blksize  ;
-    unsigned long  long stx_attributes  ;
-    unsigned int stx_nlink  ;
-    unsigned int stx_uid  ;
-    unsigned int stx_gid  ;
-    unsigned short int stx_mode  ;
-    unsigned short int __spare0[1]  ;
-    unsigned long  long stx_ino  ;
-    unsigned long  long stx_size  ;
-    unsigned long  long stx_blocks  ;
-    unsigned long  long stx_attributes_mask  ;
-    struct statx_timestamp stx_atime  ;
-    struct statx_timestamp stx_btime  ;
-    struct statx_timestamp stx_ctime  ;
-    struct statx_timestamp stx_mtime  ;
-    unsigned int stx_rdev_major  ;
-    unsigned int stx_rdev_minor  ;
-    unsigned int stx_dev_major  ;
-    unsigned int stx_dev_minor  ;
-    unsigned long  long stx_mnt_id  ;
-    unsigned int stx_dio_mem_align  ;
-    unsigned int stx_dio_offset_align  ;
-    unsigned long  long stx_subvol  ;
-    unsigned int stx_atomic_write_unit_min  ;
-    unsigned int stx_atomic_write_unit_max  ;
-    unsigned int stx_atomic_write_segments_max  ;
-    unsigned int stx_dio_read_offset_align  ;
-    unsigned int stx_atomic_write_unit_max_opt  ;
-    unsigned int __spare2[1]  ;
-    unsigned long  long __spare3[8]  ;
+    unsigned int  stx_mask  ;
+    unsigned int  stx_blksize  ;
+    unsigned long  long  stx_attributes  ;
+    unsigned int  stx_nlink  ;
+    unsigned int  stx_uid  ;
+    unsigned int  stx_gid  ;
+    unsigned short int  stx_mode  ;
+    unsigned short int  __spare0[1]  ;
+    unsigned long  long  stx_ino  ;
+    unsigned long  long  stx_size  ;
+    unsigned long  long  stx_blocks  ;
+    unsigned long  long  stx_attributes_mask  ;
+    struct statx_timestamp  stx_atime  ;
+    struct statx_timestamp  stx_btime  ;
+    struct statx_timestamp  stx_ctime  ;
+    struct statx_timestamp  stx_mtime  ;
+    unsigned int  stx_rdev_major  ;
+    unsigned int  stx_rdev_minor  ;
+    unsigned int  stx_dev_major  ;
+    unsigned int  stx_dev_minor  ;
+    unsigned long  long  stx_mnt_id  ;
+    unsigned int  stx_dio_mem_align  ;
+    unsigned int  stx_dio_offset_align  ;
+    unsigned long  long  stx_subvol  ;
+    unsigned int  stx_atomic_write_unit_min  ;
+    unsigned int  stx_atomic_write_unit_max  ;
+    unsigned int  stx_atomic_write_segments_max  ;
+    unsigned int  stx_dio_read_offset_align  ;
+    unsigned int  stx_atomic_write_unit_max_opt  ;
+    unsigned int  __spare2[1]  ;
+    unsigned long  long  __spare3[8]  ;
 };
 
 struct f_owner_ex
 {
     int type;
-    int pid  ;
+    int  pid  ;
 };
 
 struct flock
 {
     short l_type;
     short l_whence;
-    long l_start  ;
-    long l_len  ;
-    int l_pid  ;
+    long  l_start  ;
+    long  l_len  ;
+    int  l_pid  ;
 };
 
 struct flock64
 {
     short l_type;
     short l_whence;
-    long long l_start  ;
-    long long l_len  ;
-    int l_pid  ;
+    long long  l_start  ;
+    long long  l_len  ;
+    int  l_pid  ;
 };
 
 struct open_how
 {
-    unsigned long  long flags  ;
-    unsigned long  long mode  ;
-    unsigned long  long resolve  ;
+    unsigned long  long  flags  ;
+    unsigned long  long  mode  ;
+    unsigned long  long  resolve  ;
 };
 
 struct iovec
 {
     void* iov_base;
-    unsigned long  int iov_len  ;
+    unsigned long  int  iov_len  ;
 };
 
 struct dmabuf_cmsg
 {
-    unsigned long  long frag_offset  ;
-    unsigned int frag_size  ;
-    unsigned int frag_token  ;
-    unsigned int dmabuf_id  ;
-    unsigned int flags  ;
+    unsigned long  long  frag_offset  ;
+    unsigned int  frag_size  ;
+    unsigned int  frag_token  ;
+    unsigned int  dmabuf_id  ;
+    unsigned int  flags  ;
 };
 
 struct dmabuf_token
 {
-    unsigned int token_start  ;
-    unsigned int token_count  ;
+    unsigned int  token_start  ;
+    unsigned int  token_count  ;
 };
 
 struct __kernel_timespec
 {
-    long long tv_sec  ;
+    long long  tv_sec  ;
     long long tv_nsec;
 };
 
 struct __kernel_itimerspec
 {
-    struct __kernel_timespec it_interval  ;
-    struct __kernel_timespec it_value  ;
+    struct __kernel_timespec  it_interval  ;
+    struct __kernel_timespec  it_value  ;
 };
 
 struct __kernel_old_timeval
 {
-    long tv_sec  ;
-    long tv_usec  ;
+    long  tv_sec  ;
+    long  tv_usec  ;
 };
 
 struct __kernel_old_timespec
 {
-    long tv_sec  ;
+    long  tv_sec  ;
     long tv_nsec;
 };
 
 struct __kernel_old_itimerval
 {
-    struct __kernel_old_timeval it_interval  ;
-    struct __kernel_old_timeval it_value  ;
+    struct __kernel_old_timeval  it_interval  ;
+    struct __kernel_old_timeval  it_value  ;
 };
 
 struct __kernel_sock_timeval
 {
-    long long tv_sec  ;
-    long long tv_usec  ;
+    long long  tv_sec  ;
+    long long  tv_usec  ;
 };
 
 struct timespec
 {
-    long tv_sec  ;
+    long  tv_sec  ;
     long tv_nsec;
 };
 
 struct timeval
 {
-    long tv_sec  ;
-    long tv_usec  ;
+    long  tv_sec  ;
+    long  tv_usec  ;
 };
 
 struct itimerspec
 {
-    struct timespec it_interval  ;
-    struct timespec it_value  ;
+    struct timespec  it_interval  ;
+    struct timespec  it_value  ;
 };
 
 struct itimerval
 {
-    struct timeval it_interval  ;
-    struct timeval it_value  ;
+    struct timeval  it_interval  ;
+    struct timeval  it_value  ;
 };
 
 struct timezone
@@ -603,14 +603,14 @@ struct timezone
 
 struct anonymous_typeX4
 {
-    unsigned short int ss_family  ;
+    unsigned short int  ss_family  ;
     char __data[128-sizeof(unsigned short int)];
 };
 
 union anonymous_typeZ3
 {
     struct {
-        unsigned short int ss_family  ;
+        unsigned short int  ss_family  ;
         char __data[128-sizeof(unsigned short int)];
     };
 void* __align;
@@ -618,14 +618,14 @@ void* __align;
 
 struct anonymous_typeX6
 {
-    unsigned short int ss_family  ;
+    unsigned short int  ss_family  ;
     char __data[128-sizeof(unsigned short int)];
 };
 
 union anonymous_typeZ5
 {
     struct {
-        unsigned short int ss_family  ;
+        unsigned short int  ss_family  ;
         char __data[128-sizeof(unsigned short int)];
     };
 void* __align;
@@ -635,7 +635,7 @@ struct __kernel_sockaddr_storage
 {
     union {
         struct {
-            unsigned short int ss_family  ;
+            unsigned short int  ss_family  ;
             char __data[128-sizeof(unsigned short int)];
         };
         void* __align;
@@ -644,25 +644,25 @@ struct __kernel_sockaddr_storage
 
 struct sockaddr_nl
 {
-    unsigned short int nl_family  ;
+    unsigned short int  nl_family  ;
     unsigned short int nl_pad;
-    unsigned int nl_pid  ;
-    unsigned int nl_groups  ;
+    unsigned int  nl_pid  ;
+    unsigned int  nl_groups  ;
 };
 
 struct nlmsghdr
 {
-    unsigned int nlmsg_len  ;
-    unsigned short int nlmsg_type  ;
-    unsigned short int nlmsg_flags  ;
-    unsigned int nlmsg_seq  ;
-    unsigned int nlmsg_pid  ;
+    unsigned int  nlmsg_len  ;
+    unsigned short int  nlmsg_type  ;
+    unsigned short int  nlmsg_flags  ;
+    unsigned int  nlmsg_seq  ;
+    unsigned int  nlmsg_pid  ;
 };
 
 struct nlmsgerr
 {
     int error;
-    struct nlmsghdr msg  ;
+    struct nlmsghdr  msg  ;
 };
 
 enum  nlmsgerr_attrs { NLMSGERR_ATTR_UNUSED 
@@ -678,7 +678,7 @@ enum  nlmsgerr_attrs { NLMSGERR_ATTR_UNUSED
 
 struct nl_pktinfo
 {
-    unsigned int group  ;
+    unsigned int  group  ;
 };
 
 struct nl_mmap_req
@@ -693,10 +693,10 @@ struct nl_mmap_hdr
 {
     unsigned int nm_status;
     unsigned int nm_len;
-    unsigned int nm_group  ;
-    unsigned int nm_pid  ;
-    unsigned int nm_uid  ;
-    unsigned int nm_gid  ;
+    unsigned int  nm_group  ;
+    unsigned int  nm_pid  ;
+    unsigned int  nm_uid  ;
+    unsigned int  nm_gid  ;
 };
 
 enum  nl_mmap_status { NL_MMAP_STATUS_UNUSED 
@@ -712,14 +712,14 @@ NETLINK_CONNECTED
 
 struct nlattr
 {
-    unsigned short int nla_len  ;
-    unsigned short int nla_type  ;
+    unsigned short int  nla_len  ;
+    unsigned short int  nla_type  ;
 };
 
 struct nla_bitfield32
 {
-    unsigned int value  ;
-    unsigned int selector  ;
+    unsigned int  value  ;
+    unsigned int  selector  ;
 };
 
 enum  netlink_attribute_type { NL_ATTR_TYPE_INVALID 
@@ -761,82 +761,82 @@ enum  netlink_policy_type_attr { NL_POLICY_TYPE_ATTR_UNSPEC
 
 struct rtnl_link_stats
 {
-    unsigned int rx_packets  ;
-    unsigned int tx_packets  ;
-    unsigned int rx_bytes  ;
-    unsigned int tx_bytes  ;
-    unsigned int rx_errors  ;
-    unsigned int tx_errors  ;
-    unsigned int rx_dropped  ;
-    unsigned int tx_dropped  ;
-    unsigned int multicast  ;
-    unsigned int collisions  ;
-    unsigned int rx_length_errors  ;
-    unsigned int rx_over_errors  ;
-    unsigned int rx_crc_errors  ;
-    unsigned int rx_frame_errors  ;
-    unsigned int rx_fifo_errors  ;
-    unsigned int rx_missed_errors  ;
-    unsigned int tx_aborted_errors  ;
-    unsigned int tx_carrier_errors  ;
-    unsigned int tx_fifo_errors  ;
-    unsigned int tx_heartbeat_errors  ;
-    unsigned int tx_window_errors  ;
-    unsigned int rx_compressed  ;
-    unsigned int tx_compressed  ;
-    unsigned int rx_nohandler  ;
+    unsigned int  rx_packets  ;
+    unsigned int  tx_packets  ;
+    unsigned int  rx_bytes  ;
+    unsigned int  tx_bytes  ;
+    unsigned int  rx_errors  ;
+    unsigned int  tx_errors  ;
+    unsigned int  rx_dropped  ;
+    unsigned int  tx_dropped  ;
+    unsigned int  multicast  ;
+    unsigned int  collisions  ;
+    unsigned int  rx_length_errors  ;
+    unsigned int  rx_over_errors  ;
+    unsigned int  rx_crc_errors  ;
+    unsigned int  rx_frame_errors  ;
+    unsigned int  rx_fifo_errors  ;
+    unsigned int  rx_missed_errors  ;
+    unsigned int  tx_aborted_errors  ;
+    unsigned int  tx_carrier_errors  ;
+    unsigned int  tx_fifo_errors  ;
+    unsigned int  tx_heartbeat_errors  ;
+    unsigned int  tx_window_errors  ;
+    unsigned int  rx_compressed  ;
+    unsigned int  tx_compressed  ;
+    unsigned int  rx_nohandler  ;
 };
 
 struct rtnl_link_stats64
 {
-    unsigned long  long rx_packets  ;
-    unsigned long  long tx_packets  ;
-    unsigned long  long rx_bytes  ;
-    unsigned long  long tx_bytes  ;
-    unsigned long  long rx_errors  ;
-    unsigned long  long tx_errors  ;
-    unsigned long  long rx_dropped  ;
-    unsigned long  long tx_dropped  ;
-    unsigned long  long multicast  ;
-    unsigned long  long collisions  ;
-    unsigned long  long rx_length_errors  ;
-    unsigned long  long rx_over_errors  ;
-    unsigned long  long rx_crc_errors  ;
-    unsigned long  long rx_frame_errors  ;
-    unsigned long  long rx_fifo_errors  ;
-    unsigned long  long rx_missed_errors  ;
-    unsigned long  long tx_aborted_errors  ;
-    unsigned long  long tx_carrier_errors  ;
-    unsigned long  long tx_fifo_errors  ;
-    unsigned long  long tx_heartbeat_errors  ;
-    unsigned long  long tx_window_errors  ;
-    unsigned long  long rx_compressed  ;
-    unsigned long  long tx_compressed  ;
-    unsigned long  long rx_nohandler  ;
-    unsigned long  long rx_otherhost_dropped  ;
+    unsigned long  long  rx_packets  ;
+    unsigned long  long  tx_packets  ;
+    unsigned long  long  rx_bytes  ;
+    unsigned long  long  tx_bytes  ;
+    unsigned long  long  rx_errors  ;
+    unsigned long  long  tx_errors  ;
+    unsigned long  long  rx_dropped  ;
+    unsigned long  long  tx_dropped  ;
+    unsigned long  long  multicast  ;
+    unsigned long  long  collisions  ;
+    unsigned long  long  rx_length_errors  ;
+    unsigned long  long  rx_over_errors  ;
+    unsigned long  long  rx_crc_errors  ;
+    unsigned long  long  rx_frame_errors  ;
+    unsigned long  long  rx_fifo_errors  ;
+    unsigned long  long  rx_missed_errors  ;
+    unsigned long  long  tx_aborted_errors  ;
+    unsigned long  long  tx_carrier_errors  ;
+    unsigned long  long  tx_fifo_errors  ;
+    unsigned long  long  tx_heartbeat_errors  ;
+    unsigned long  long  tx_window_errors  ;
+    unsigned long  long  rx_compressed  ;
+    unsigned long  long  tx_compressed  ;
+    unsigned long  long  rx_nohandler  ;
+    unsigned long  long  rx_otherhost_dropped  ;
 };
 
 struct rtnl_hw_stats64
 {
-    unsigned long  long rx_packets  ;
-    unsigned long  long tx_packets  ;
-    unsigned long  long rx_bytes  ;
-    unsigned long  long tx_bytes  ;
-    unsigned long  long rx_errors  ;
-    unsigned long  long tx_errors  ;
-    unsigned long  long rx_dropped  ;
-    unsigned long  long tx_dropped  ;
-    unsigned long  long multicast  ;
+    unsigned long  long  rx_packets  ;
+    unsigned long  long  tx_packets  ;
+    unsigned long  long  rx_bytes  ;
+    unsigned long  long  tx_bytes  ;
+    unsigned long  long  rx_errors  ;
+    unsigned long  long  tx_errors  ;
+    unsigned long  long  rx_dropped  ;
+    unsigned long  long  tx_dropped  ;
+    unsigned long  long  multicast  ;
 };
 
 struct rtnl_link_ifmap
 {
-    unsigned long  long mem_start  ;
-    unsigned long  long mem_end  ;
-    unsigned long  long base_addr  ;
-    unsigned short int irq  ;
-    unsigned char dma  ;
-    unsigned char port  ;
+    unsigned long  long  mem_start  ;
+    unsigned long  long  mem_end  ;
+    unsigned long  long  base_addr  ;
+    unsigned short int  irq  ;
+    unsigned char  dma  ;
+    unsigned char  port  ;
 };
 
 enum { IFLA_UNSPEC 
@@ -997,8 +997,8 @@ enum { IFLA_BR_UNSPEC
 
 struct ifla_bridge_id
 {
-    unsigned char prio[2]  ;
-    unsigned char addr[6]  ;
+    unsigned char  prio[2]  ;
+    unsigned char  addr[6]  ;
 };
 
 enum { BRIDGE_MODE_UNSPEC 
@@ -1055,10 +1055,10 @@ enum { IFLA_BRPORT_UNSPEC
 
 struct ifla_cacheinfo
 {
-    unsigned int max_reasm_len  ;
-    unsigned int tstamp  ;
-    unsigned int reachable_time  ;
-    unsigned int retrans_time  ;
+    unsigned int  max_reasm_len  ;
+    unsigned int  tstamp  ;
+    unsigned int  reachable_time  ;
+    unsigned int  retrans_time  ;
 };
 
 enum { IFLA_INFO_UNSPEC 
@@ -1081,8 +1081,8 @@ enum { IFLA_VLAN_UNSPEC
 
 struct ifla_vlan_flags
 {
-    unsigned int flags  ;
-    unsigned int mask  ;
+    unsigned int  flags  ;
+    unsigned int  mask  ;
 };
 
 enum { IFLA_VLAN_QOS_UNSPEC 
@@ -1092,8 +1092,8 @@ enum { IFLA_VLAN_QOS_UNSPEC
 
 struct ifla_vlan_qos_mapping
 {
-    unsigned int from  ;
-    unsigned int to  ;
+    unsigned int  from  ;
+    unsigned int  to  ;
 };
 
 enum { IFLA_MACVLAN_UNSPEC 
@@ -1186,10 +1186,10 @@ IPVLAN_MODE_L3
 
 struct tunnel_msg
 {
-    unsigned char family  ;
-    unsigned char flags  ;
-    unsigned short int reserved2  ;
-    unsigned int ifindex  ;
+    unsigned char  family  ;
+    unsigned char  flags  ;
+    unsigned short int  reserved2  ;
+    unsigned int  ifindex  ;
 };
 
 enum  netkit_action { NETKIT_NEXT=(-1),
@@ -1286,8 +1286,8 @@ enum { IFLA_VXLAN_UNSPEC
 
 struct ifla_vxlan_port_range
 {
-    unsigned short int low  ;
-    unsigned short int high  ;
+    unsigned short int  low  ;
+    unsigned short int  high  ;
 };
 
 enum  ifla_vxlan_df { VXLAN_DF_UNSET=(0),
@@ -1331,8 +1331,8 @@ GENEVE_DF_SET
 
 struct ifla_geneve_port_range
 {
-    unsigned short int low  ;
-    unsigned short int high  ;
+    unsigned short int  low  ;
+    unsigned short int  high  ;
 };
 
 enum { IFLA_BAREUDP_UNSPEC 
@@ -1447,20 +1447,20 @@ enum { IFLA_VF_UNSPEC
 
 struct ifla_vf_mac
 {
-    unsigned int vf  ;
-    unsigned char mac[32]  ;
+    unsigned int  vf  ;
+    unsigned char  mac[32]  ;
 };
 
 struct ifla_vf_broadcast
 {
-    unsigned char broadcast[32]  ;
+    unsigned char  broadcast[32]  ;
 };
 
 struct ifla_vf_vlan
 {
-    unsigned int vf  ;
-    unsigned int vlan  ;
-    unsigned int qos  ;
+    unsigned int  vf  ;
+    unsigned int  vlan  ;
+    unsigned int  qos  ;
 };
 
 enum { IFLA_VF_VLAN_INFO_UNSPEC 
@@ -1470,35 +1470,35 @@ enum { IFLA_VF_VLAN_INFO_UNSPEC
 
 struct ifla_vf_vlan_info
 {
-    unsigned int vf  ;
-    unsigned int vlan  ;
-    unsigned int qos  ;
-    unsigned short int vlan_proto  ;
+    unsigned int  vf  ;
+    unsigned int  vlan  ;
+    unsigned int  qos  ;
+    unsigned short int  vlan_proto  ;
 };
 
 struct ifla_vf_tx_rate
 {
-    unsigned int vf  ;
-    unsigned int rate  ;
+    unsigned int  vf  ;
+    unsigned int  rate  ;
 };
 
 struct ifla_vf_rate
 {
-    unsigned int vf  ;
-    unsigned int min_tx_rate  ;
-    unsigned int max_tx_rate  ;
+    unsigned int  vf  ;
+    unsigned int  min_tx_rate  ;
+    unsigned int  max_tx_rate  ;
 };
 
 struct ifla_vf_spoofchk
 {
-    unsigned int vf  ;
-    unsigned int setting  ;
+    unsigned int  vf  ;
+    unsigned int  setting  ;
 };
 
 struct ifla_vf_guid
 {
-    unsigned int vf  ;
-    unsigned long  long guid  ;
+    unsigned int  vf  ;
+    unsigned long  long  guid  ;
 };
 
 enum { IFLA_VF_LINK_STATE_AUTO 
@@ -1509,14 +1509,14 @@ enum { IFLA_VF_LINK_STATE_AUTO
 
 struct ifla_vf_link_state
 {
-    unsigned int vf  ;
-    unsigned int link_state  ;
+    unsigned int  vf  ;
+    unsigned int  link_state  ;
 };
 
 struct ifla_vf_rss_query_en
 {
-    unsigned int vf  ;
-    unsigned int setting  ;
+    unsigned int  vf  ;
+    unsigned int  setting  ;
 };
 
 enum { IFLA_VF_STATS_RX_PACKETS 
@@ -1533,8 +1533,8 @@ enum { IFLA_VF_STATS_RX_PACKETS
 
 struct ifla_vf_trust
 {
-    unsigned int vf  ;
-    unsigned int setting  ;
+    unsigned int  vf  ;
+    unsigned int  setting  ;
 };
 
 enum { IFLA_VF_PORT_UNSPEC 
@@ -1576,10 +1576,10 @@ PORT_PROFILE_RESPONSE_INPROGRESS
 
 struct ifla_port_vsi
 {
-    unsigned char vsi_mgr_id  ;
-    unsigned char vsi_type_id[3]  ;
-    unsigned char vsi_type_version  ;
-    unsigned char pad[3]  ;
+    unsigned char  vsi_mgr_id  ;
+    unsigned char  vsi_type_id[3]  ;
+    unsigned char  vsi_type_version  ;
+    unsigned char  pad[3]  ;
 };
 
 enum { IFLA_IPOIB_UNSPEC 
@@ -1612,11 +1612,11 @@ enum { IFLA_HSR_UNSPEC
 
 struct if_stats_msg
 {
-    unsigned char family  ;
-    unsigned char pad1  ;
-    unsigned short int pad2  ;
-    unsigned int ifindex  ;
-    unsigned int filter_mask  ;
+    unsigned char  family  ;
+    unsigned char  pad1  ;
+    unsigned short int  pad2  ;
+    unsigned int  ifindex  ;
+    unsigned int  filter_mask  ;
 };
 
 enum { IFLA_STATS_UNSPEC 
@@ -1702,8 +1702,8 @@ enum { IFLA_RMNET_UNSPEC
 
 struct ifla_rmnet_flags
 {
-    unsigned int flags  ;
-    unsigned int mask  ;
+    unsigned int  flags  ;
+    unsigned int  mask  ;
 };
 
 enum { IFLA_MCTP_UNSPEC 
@@ -1729,11 +1729,11 @@ enum { IFLA_OVPN_UNSPEC
 
 struct ifaddrmsg
 {
-    unsigned char ifa_family  ;
-    unsigned char ifa_prefixlen  ;
-    unsigned char ifa_flags  ;
-    unsigned char ifa_scope  ;
-    unsigned int ifa_index  ;
+    unsigned char  ifa_family  ;
+    unsigned char  ifa_prefixlen  ;
+    unsigned char  ifa_flags  ;
+    unsigned char  ifa_scope  ;
+    unsigned int  ifa_index  ;
 };
 
 enum { IFA_UNSPEC 
@@ -1753,21 +1753,21 @@ enum { IFA_UNSPEC
 
 struct ifa_cacheinfo
 {
-    unsigned int ifa_prefered  ;
-    unsigned int ifa_valid  ;
-    unsigned int cstamp  ;
-    unsigned int tstamp  ;
+    unsigned int  ifa_prefered  ;
+    unsigned int  ifa_valid  ;
+    unsigned int  cstamp  ;
+    unsigned int  tstamp  ;
 };
 
 struct ndmsg
 {
-    unsigned char ndm_family  ;
-    unsigned char ndm_pad1  ;
-    unsigned short int ndm_pad2  ;
-    int ndm_ifindex  ;
-    unsigned short int ndm_state  ;
-    unsigned char ndm_flags  ;
-    unsigned char ndm_type  ;
+    unsigned char  ndm_family  ;
+    unsigned char  ndm_pad1  ;
+    unsigned short int  ndm_pad2  ;
+    int  ndm_ifindex  ;
+    unsigned short int  ndm_state  ;
+    unsigned char  ndm_flags  ;
+    unsigned char  ndm_type  ;
 };
 
 enum { NDA_UNSPEC 
@@ -1793,25 +1793,25 @@ enum { NDA_UNSPEC
 
 struct nda_cacheinfo
 {
-    unsigned int ndm_confirmed  ;
-    unsigned int ndm_used  ;
-    unsigned int ndm_updated  ;
-    unsigned int ndm_refcnt  ;
+    unsigned int  ndm_confirmed  ;
+    unsigned int  ndm_used  ;
+    unsigned int  ndm_updated  ;
+    unsigned int  ndm_refcnt  ;
 };
 
 struct ndt_stats
 {
-    unsigned long  long ndts_allocs  ;
-    unsigned long  long ndts_destroys  ;
-    unsigned long  long ndts_hash_grows  ;
-    unsigned long  long ndts_res_failed  ;
-    unsigned long  long ndts_lookups  ;
-    unsigned long  long ndts_hits  ;
-    unsigned long  long ndts_rcv_probes_mcast  ;
-    unsigned long  long ndts_rcv_probes_ucast  ;
-    unsigned long  long ndts_periodic_gc_runs  ;
-    unsigned long  long ndts_forced_gc_runs  ;
-    unsigned long  long ndts_table_fulls  ;
+    unsigned long  long  ndts_allocs  ;
+    unsigned long  long  ndts_destroys  ;
+    unsigned long  long  ndts_hash_grows  ;
+    unsigned long  long  ndts_res_failed  ;
+    unsigned long  long  ndts_lookups  ;
+    unsigned long  long  ndts_hits  ;
+    unsigned long  long  ndts_rcv_probes_mcast  ;
+    unsigned long  long  ndts_rcv_probes_ucast  ;
+    unsigned long  long  ndts_periodic_gc_runs  ;
+    unsigned long  long  ndts_forced_gc_runs  ;
+    unsigned long  long  ndts_table_fulls  ;
 };
 
 enum { NDTPA_UNSPEC 
@@ -1839,22 +1839,22 @@ enum { NDTPA_UNSPEC
 
 struct ndtmsg
 {
-    unsigned char ndtm_family  ;
-    unsigned char ndtm_pad1  ;
-    unsigned short int ndtm_pad2  ;
+    unsigned char  ndtm_family  ;
+    unsigned char  ndtm_pad1  ;
+    unsigned short int  ndtm_pad2  ;
 };
 
 struct ndt_config
 {
-    unsigned short int ndtc_key_len  ;
-    unsigned short int ndtc_entry_size  ;
-    unsigned int ndtc_entries  ;
-    unsigned int ndtc_last_flush  ;
-    unsigned int ndtc_last_rand  ;
-    unsigned int ndtc_hash_rnd  ;
-    unsigned int ndtc_hash_mask  ;
-    unsigned int ndtc_hash_chain_gc  ;
-    unsigned int ndtc_proxy_qlen  ;
+    unsigned short int  ndtc_key_len  ;
+    unsigned short int  ndtc_entry_size  ;
+    unsigned int  ndtc_entries  ;
+    unsigned int  ndtc_last_flush  ;
+    unsigned int  ndtc_last_rand  ;
+    unsigned int  ndtc_hash_rnd  ;
+    unsigned int  ndtc_hash_mask  ;
+    unsigned int  ndtc_hash_chain_gc  ;
+    unsigned int  ndtc_proxy_qlen  ;
 };
 
 enum { NDTA_UNSPEC 
@@ -2053,20 +2053,20 @@ struct rtnexthop
 
 struct rtvia
 {
-    unsigned short int rtvia_family  ;
-    unsigned char rtvia_addr[]  ;
+    unsigned short int  rtvia_family  ;
+    unsigned char  rtvia_addr[]  ;
 };
 
 struct rta_cacheinfo
 {
-    unsigned int rta_clntref  ;
-    unsigned int rta_lastuse  ;
-    int rta_expires  ;
-    unsigned int rta_error  ;
-    unsigned int rta_used  ;
-    unsigned int rta_id  ;
-    unsigned int rta_ts  ;
-    unsigned int rta_tsage  ;
+    unsigned int  rta_clntref  ;
+    unsigned int  rta_lastuse  ;
+    int  rta_expires  ;
+    unsigned int  rta_error  ;
+    unsigned int  rta_used  ;
+    unsigned int  rta_id  ;
+    unsigned int  rta_ts  ;
+    unsigned int  rta_tsage  ;
 };
 
 enum { RTAX_UNSPEC 
@@ -2092,82 +2092,82 @@ enum { RTAX_UNSPEC
 
 struct anonymous_typeX8
 {
-    unsigned short int sport  ;
-    unsigned short int dport  ;
+    unsigned short int  sport  ;
+    unsigned short int  dport  ;
 };
 
 struct anonymous_typeX9
 {
-    unsigned char type  ;
-    unsigned char code  ;
-    unsigned short int ident  ;
+    unsigned char  type  ;
+    unsigned char  code  ;
+    unsigned short int  ident  ;
 };
 
 union anonymous_typeZ7
 {
     struct {
-        unsigned short int sport  ;
-        unsigned short int dport  ;
+        unsigned short int  sport  ;
+        unsigned short int  dport  ;
     } ports;
     struct {
-        unsigned char type  ;
-        unsigned char code  ;
-        unsigned short int ident  ;
+        unsigned char  type  ;
+        unsigned char  code  ;
+        unsigned short int  ident  ;
     } icmpt;
-unsigned int spi  ;
+unsigned int  spi  ;
 };
 
 struct anonymous_typeX11
 {
-    unsigned short int sport  ;
-    unsigned short int dport  ;
+    unsigned short int  sport  ;
+    unsigned short int  dport  ;
 };
 
 struct anonymous_typeX12
 {
-    unsigned char type  ;
-    unsigned char code  ;
-    unsigned short int ident  ;
+    unsigned char  type  ;
+    unsigned char  code  ;
+    unsigned short int  ident  ;
 };
 
 union anonymous_typeZ10
 {
     struct {
-        unsigned short int sport  ;
-        unsigned short int dport  ;
+        unsigned short int  sport  ;
+        unsigned short int  dport  ;
     } ports;
     struct {
-        unsigned char type  ;
-        unsigned char code  ;
-        unsigned short int ident  ;
+        unsigned char  type  ;
+        unsigned char  code  ;
+        unsigned short int  ident  ;
     } icmpt;
-unsigned int spi  ;
+unsigned int  spi  ;
 };
 
 struct rta_session
 {
-    unsigned char proto  ;
-    unsigned char pad1  ;
-    unsigned short int pad2  ;
+    unsigned char  proto  ;
+    unsigned char  pad1  ;
+    unsigned short int  pad2  ;
     union {
         struct {
-            unsigned short int sport  ;
-            unsigned short int dport  ;
+            unsigned short int  sport  ;
+            unsigned short int  dport  ;
         } ports;
         struct {
-            unsigned char type  ;
-            unsigned char code  ;
-            unsigned short int ident  ;
+            unsigned char  type  ;
+            unsigned char  code  ;
+            unsigned short int  ident  ;
         } icmpt;
-        unsigned int spi  ;
+        unsigned int  spi  ;
     } u;
 };
 
 struct rta_mfc_stats
 {
-    unsigned long  long mfcs_packets  ;
-    unsigned long  long mfcs_bytes  ;
-    unsigned long  long mfcs_wrong_if  ;
+    unsigned long  long  mfcs_packets  ;
+    unsigned long  long  mfcs_bytes  ;
+    unsigned long  long  mfcs_wrong_if  ;
 };
 
 struct rtgenmsg
@@ -2205,8 +2205,8 @@ enum { PREFIX_UNSPEC
 
 struct prefix_cacheinfo
 {
-    unsigned int preferred_time  ;
-    unsigned int valid_time  ;
+    unsigned int  preferred_time  ;
+    unsigned int  valid_time  ;
 };
 
 struct tcmsg
@@ -2215,9 +2215,9 @@ struct tcmsg
     unsigned char tcm__pad1;
     unsigned short int tcm__pad2;
     int tcm_ifindex;
-    unsigned int tcm_handle  ;
-    unsigned int tcm_parent  ;
-    unsigned int tcm_info  ;
+    unsigned int  tcm_handle  ;
+    unsigned int  tcm_parent  ;
+    unsigned int  tcm_info  ;
 };
 
 enum { TCA_UNSPEC 
@@ -2246,8 +2246,8 @@ struct nduseroptmsg
     unsigned char nduseropt_pad1;
     unsigned short int nduseropt_opts_len;
     int nduseropt_ifindex;
-    unsigned char nduseropt_icmp_type  ;
-    unsigned char nduseropt_icmp_code  ;
+    unsigned char  nduseropt_icmp_type  ;
+    unsigned char  nduseropt_icmp_code  ;
     unsigned short int nduseropt_pad2;
     unsigned int nduseropt_pad3;
 };
@@ -2318,9 +2318,9 @@ enum { TCA_ROOT_UNSPEC
 
 struct genlmsghdr
 {
-    unsigned char cmd  ;
-    unsigned char version  ;
-    unsigned short int reserved  ;
+    unsigned char  cmd  ;
+    unsigned char  version  ;
+    unsigned short int  reserved  ;
 };
 
 enum { CTRL_CMD_UNSPEC 
@@ -2372,8 +2372,8 @@ enum { CTRL_ATTR_POLICY_UNSPEC
 
 struct nfattr
 {
-    unsigned short int nfa_len  ;
-    unsigned short int nfa_type  ;
+    unsigned short int  nfa_len  ;
+    unsigned short int  nfa_type  ;
 };
 
 enum  nfnetlink_groups { NFNLGRP_NONE 
@@ -2391,9 +2391,9 @@ enum  nfnetlink_groups { NFNLGRP_NONE
 
 struct nfgenmsg
 {
-    unsigned char nfgen_family  ;
-    unsigned char version  ;
-    unsigned short int res_id  ;
+    unsigned char  nfgen_family  ;
+    unsigned char  version  ;
+    unsigned short int  res_id  ;
 };
 
 enum  nfnl_batch_attributes { NFNL_BATCH_UNSPEC 
@@ -2420,49 +2420,49 @@ BPF_REG_1
 
 struct bpf_insn
 {
-    unsigned char code  ;
-    unsigned char dst_reg:4  ;
-    unsigned char src_reg:4  ;
-    short off  ;
-    int imm  ;
+    unsigned char  code  ;
+    unsigned char  dst_reg:4  ;
+    unsigned char  src_reg:4  ;
+    short  off  ;
+    int  imm  ;
 };
 
 struct bpf_lpm_trie_key
 {
-    unsigned int prefixlen  ;
-    unsigned char data[0]  ;
+    unsigned int  prefixlen  ;
+    unsigned char  data[0]  ;
 };
 
 struct bpf_lpm_trie_key_hdr
 {
-    unsigned int prefixlen  ;
+    unsigned int  prefixlen  ;
 };
 
 union anonymous_typeZ13
 {
-struct bpf_lpm_trie_key_hdr hdr  ;
-unsigned int prefixlen  ;
+struct bpf_lpm_trie_key_hdr  hdr  ;
+unsigned int  prefixlen  ;
 };
 
 union anonymous_typeZ14
 {
-struct bpf_lpm_trie_key_hdr hdr  ;
-unsigned int prefixlen  ;
+struct bpf_lpm_trie_key_hdr  hdr  ;
+unsigned int  prefixlen  ;
 };
 
 struct bpf_lpm_trie_key_u8
 {
     union {
-        struct bpf_lpm_trie_key_hdr hdr  ;
-        unsigned int prefixlen  ;
+        struct bpf_lpm_trie_key_hdr  hdr  ;
+        unsigned int  prefixlen  ;
     };
-    unsigned char data[]  ;
+    unsigned char  data[]  ;
 };
 
 struct bpf_cgroup_storage_key
 {
-    unsigned long  long cgroup_inode_id  ;
-    unsigned int attach_type  ;
+    unsigned long  long  cgroup_inode_id  ;
+    unsigned int  attach_type  ;
 };
 
 enum  bpf_cgroup_iter_order { BPF_CGROUP_ITER_ORDER_UNSPEC=(0),
@@ -2474,37 +2474,37 @@ BPF_CGROUP_ITER_SELF_ONLY
 
 struct anonymous_typeX15
 {
-    unsigned int map_fd  ;
+    unsigned int  map_fd  ;
 };
 
 struct anonymous_typeX16
 {
     enum bpf_cgroup_iter_order order;
-    unsigned int cgroup_fd  ;
-    unsigned long  long cgroup_id  ;
+    unsigned int  cgroup_fd  ;
+    unsigned long  long  cgroup_id  ;
 };
 
 struct anonymous_typeX17
 {
-    unsigned int tid  ;
-    unsigned int pid  ;
-    unsigned int pid_fd  ;
+    unsigned int  tid  ;
+    unsigned int  pid  ;
+    unsigned int  pid_fd  ;
 };
 
 union bpf_iter_link_info
 {
     struct {
-        unsigned int map_fd  ;
+        unsigned int  map_fd  ;
     } map;
     struct {
         enum bpf_cgroup_iter_order order;
-        unsigned int cgroup_fd  ;
-        unsigned long  long cgroup_id  ;
+        unsigned int  cgroup_fd  ;
+        unsigned long  long  cgroup_id  ;
     } cgroup;
     struct {
-        unsigned int tid  ;
-        unsigned int pid  ;
-        unsigned int pid_fd  ;
+        unsigned int  tid  ;
+        unsigned int  pid  ;
+        unsigned int  pid_fd  ;
     } task;
 };
 
@@ -2759,23 +2759,23 @@ BPF_STACK_BUILD_ID_IP=(2)
 
 union anonymous_typeZ18
 {
-unsigned long  long offset  ;
-unsigned long  long ip  ;
+unsigned long  long  offset  ;
+unsigned long  long  ip  ;
 };
 
 union anonymous_typeZ19
 {
-unsigned long  long offset  ;
-unsigned long  long ip  ;
+unsigned long  long  offset  ;
+unsigned long  long  ip  ;
 };
 
 struct bpf_stack_build_id
 {
-    int status  ;
+    int  status  ;
     unsigned char build_id[20];
     union {
-        unsigned long  long offset  ;
-        unsigned long  long ip  ;
+        unsigned long  long  offset  ;
+        unsigned long  long  ip  ;
     };
 };
 
@@ -2785,3447 +2785,3447 @@ BPF_STREAM_STDERR=(2)
 
 struct anonymous_typeX20
 {
-    unsigned int map_type  ;
-    unsigned int key_size  ;
-    unsigned int value_size  ;
-    unsigned int max_entries  ;
-    unsigned int map_flags  ;
-    unsigned int inner_map_fd  ;
-    unsigned int numa_node  ;
+    unsigned int  map_type  ;
+    unsigned int  key_size  ;
+    unsigned int  value_size  ;
+    unsigned int  max_entries  ;
+    unsigned int  map_flags  ;
+    unsigned int  inner_map_fd  ;
+    unsigned int  numa_node  ;
     char map_name[16U];
-    unsigned int map_ifindex  ;
-    unsigned int btf_fd  ;
-    unsigned int btf_key_type_id  ;
-    unsigned int btf_value_type_id  ;
-    unsigned int btf_vmlinux_value_type_id  ;
-    unsigned long  long map_extra  ;
-    int value_type_btf_obj_fd  ;
-    int map_token_fd  ;
+    unsigned int  map_ifindex  ;
+    unsigned int  btf_fd  ;
+    unsigned int  btf_key_type_id  ;
+    unsigned int  btf_value_type_id  ;
+    unsigned int  btf_vmlinux_value_type_id  ;
+    unsigned long  long  map_extra  ;
+    int  value_type_btf_obj_fd  ;
+    int  map_token_fd  ;
 };
 
 union anonymous_typeZ22
 {
-unsigned long  long value __attribute__((aligned(8)))  ;
-unsigned long  long next_key __attribute__((aligned(8)))  ;
+unsigned long  long  value  __attribute__((aligned(8))) ;
+unsigned long  long  next_key  __attribute__((aligned(8))) ;
 };
 
 union anonymous_typeZ23
 {
-unsigned long  long value __attribute__((aligned(8)))  ;
-unsigned long  long next_key __attribute__((aligned(8)))  ;
+unsigned long  long  value  __attribute__((aligned(8))) ;
+unsigned long  long  next_key  __attribute__((aligned(8))) ;
 };
 
 struct anonymous_typeX21
 {
-    unsigned int map_fd  ;
-    unsigned long  long key __attribute__((aligned(8)))	 ;
+    unsigned int  map_fd  ;
+    unsigned long  long  key  __attribute__((aligned(8)))	;
     union {
-        unsigned long  long value __attribute__((aligned(8)))  ;
-        unsigned long  long next_key __attribute__((aligned(8)))  ;
+        unsigned long  long  value  __attribute__((aligned(8))) ;
+        unsigned long  long  next_key  __attribute__((aligned(8))) ;
     };
-    unsigned long  long flags  ;
+    unsigned long  long  flags  ;
 };
 
 struct anonymous_typeX24
 {
-    unsigned long  long in_batch __attribute__((aligned(8)))	 ;
-    unsigned long  long out_batch __attribute__((aligned(8)))	 ;
-    unsigned long  long keys __attribute__((aligned(8)))	 ;
-    unsigned long  long values __attribute__((aligned(8)))	 ;
-    unsigned int count  ;
-    unsigned int map_fd  ;
-    unsigned long  long elem_flags  ;
-    unsigned long  long flags  ;
+    unsigned long  long  in_batch  __attribute__((aligned(8)))	;
+    unsigned long  long  out_batch  __attribute__((aligned(8)))	;
+    unsigned long  long  keys  __attribute__((aligned(8)))	;
+    unsigned long  long  values  __attribute__((aligned(8)))	;
+    unsigned int  count  ;
+    unsigned int  map_fd  ;
+    unsigned long  long  elem_flags  ;
+    unsigned long  long  flags  ;
 };
 
 union anonymous_typeZ26
 {
-unsigned int attach_prog_fd  ;
-unsigned int attach_btf_obj_fd  ;
+unsigned int  attach_prog_fd  ;
+unsigned int  attach_btf_obj_fd  ;
 };
 
 union anonymous_typeZ27
 {
-unsigned int attach_prog_fd  ;
-unsigned int attach_btf_obj_fd  ;
+unsigned int  attach_prog_fd  ;
+unsigned int  attach_btf_obj_fd  ;
 };
 
 struct anonymous_typeX25
 {
-    unsigned int prog_type  ;
-    unsigned int insn_cnt  ;
-    unsigned long  long insns __attribute__((aligned(8)))	 ;
-    unsigned long  long license __attribute__((aligned(8)))	 ;
-    unsigned int log_level  ;
-    unsigned int log_size  ;
-    unsigned long  long log_buf __attribute__((aligned(8)))	 ;
-    unsigned int kern_version  ;
-    unsigned int prog_flags  ;
+    unsigned int  prog_type  ;
+    unsigned int  insn_cnt  ;
+    unsigned long  long  insns  __attribute__((aligned(8)))	;
+    unsigned long  long  license  __attribute__((aligned(8)))	;
+    unsigned int  log_level  ;
+    unsigned int  log_size  ;
+    unsigned long  long  log_buf  __attribute__((aligned(8)))	;
+    unsigned int  kern_version  ;
+    unsigned int  prog_flags  ;
     char prog_name[16U];
-    unsigned int prog_ifindex  ;
-    unsigned int expected_attach_type  ;
-    unsigned int prog_btf_fd  ;
-    unsigned int func_info_rec_size  ;
-    unsigned long  long func_info __attribute__((aligned(8)))	 ;
-    unsigned int func_info_cnt  ;
-    unsigned int line_info_rec_size  ;
-    unsigned long  long line_info __attribute__((aligned(8)))	 ;
-    unsigned int line_info_cnt  ;
-    unsigned int attach_btf_id  ;
+    unsigned int  prog_ifindex  ;
+    unsigned int  expected_attach_type  ;
+    unsigned int  prog_btf_fd  ;
+    unsigned int  func_info_rec_size  ;
+    unsigned long  long  func_info  __attribute__((aligned(8)))	;
+    unsigned int  func_info_cnt  ;
+    unsigned int  line_info_rec_size  ;
+    unsigned long  long  line_info  __attribute__((aligned(8)))	;
+    unsigned int  line_info_cnt  ;
+    unsigned int  attach_btf_id  ;
     union {
-        unsigned int attach_prog_fd  ;
-        unsigned int attach_btf_obj_fd  ;
+        unsigned int  attach_prog_fd  ;
+        unsigned int  attach_btf_obj_fd  ;
     };
-    unsigned int core_relo_cnt  ;
-    unsigned long  long fd_array __attribute__((aligned(8)))	 ;
-    unsigned long  long core_relos __attribute__((aligned(8)))	 ;
-    unsigned int core_relo_rec_size  ;
-    unsigned int log_true_size  ;
-    int prog_token_fd  ;
-    unsigned int fd_array_cnt  ;
+    unsigned int  core_relo_cnt  ;
+    unsigned long  long  fd_array  __attribute__((aligned(8)))	;
+    unsigned long  long  core_relos  __attribute__((aligned(8)))	;
+    unsigned int  core_relo_rec_size  ;
+    unsigned int  log_true_size  ;
+    int  prog_token_fd  ;
+    unsigned int  fd_array_cnt  ;
 };
 
 struct anonymous_typeX28
 {
-    unsigned long  long pathname __attribute__((aligned(8)))	 ;
-    unsigned int bpf_fd  ;
-    unsigned int file_flags  ;
-    int path_fd  ;
+    unsigned long  long  pathname  __attribute__((aligned(8)))	;
+    unsigned int  bpf_fd  ;
+    unsigned int  file_flags  ;
+    int  path_fd  ;
 };
 
 union anonymous_typeZ30
 {
-unsigned int target_fd  ;
-unsigned int target_ifindex  ;
+unsigned int  target_fd  ;
+unsigned int  target_ifindex  ;
 };
 
 union anonymous_typeZ31
 {
-unsigned int target_fd  ;
-unsigned int target_ifindex  ;
+unsigned int  target_fd  ;
+unsigned int  target_ifindex  ;
 };
 
 union anonymous_typeZ32
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 union anonymous_typeZ33
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 struct anonymous_typeX29
 {
     union {
-        unsigned int target_fd  ;
-        unsigned int target_ifindex  ;
+        unsigned int  target_fd  ;
+        unsigned int  target_ifindex  ;
     };
-    unsigned int attach_bpf_fd  ;
-    unsigned int attach_type  ;
-    unsigned int attach_flags  ;
-    unsigned int replace_bpf_fd  ;
+    unsigned int  attach_bpf_fd  ;
+    unsigned int  attach_type  ;
+    unsigned int  attach_flags  ;
+    unsigned int  replace_bpf_fd  ;
     union {
-        unsigned int relative_fd  ;
-        unsigned int relative_id  ;
+        unsigned int  relative_fd  ;
+        unsigned int  relative_id  ;
     };
-    unsigned long  long expected_revision  ;
+    unsigned long  long  expected_revision  ;
 };
 
 struct anonymous_typeX34
 {
-    unsigned int prog_fd  ;
-    unsigned int retval  ;
-    unsigned int data_size_in  ;
-    unsigned int data_size_out  ;
-    unsigned long  long data_in __attribute__((aligned(8)))	 ;
-    unsigned long  long data_out __attribute__((aligned(8)))	 ;
-    unsigned int repeat  ;
-    unsigned int duration  ;
-    unsigned int ctx_size_in  ;
-    unsigned int ctx_size_out  ;
-    unsigned long  long ctx_in __attribute__((aligned(8)))	 ;
-    unsigned long  long ctx_out __attribute__((aligned(8)))	 ;
-    unsigned int flags  ;
-    unsigned int cpu  ;
-    unsigned int batch_size  ;
+    unsigned int  prog_fd  ;
+    unsigned int  retval  ;
+    unsigned int  data_size_in  ;
+    unsigned int  data_size_out  ;
+    unsigned long  long  data_in  __attribute__((aligned(8)))	;
+    unsigned long  long  data_out  __attribute__((aligned(8)))	;
+    unsigned int  repeat  ;
+    unsigned int  duration  ;
+    unsigned int  ctx_size_in  ;
+    unsigned int  ctx_size_out  ;
+    unsigned long  long  ctx_in  __attribute__((aligned(8)))	;
+    unsigned long  long  ctx_out  __attribute__((aligned(8)))	;
+    unsigned int  flags  ;
+    unsigned int  cpu  ;
+    unsigned int  batch_size  ;
 };
 
 union anonymous_typeZ36
 {
-unsigned int start_id  ;
-unsigned int prog_id  ;
-unsigned int map_id  ;
-unsigned int btf_id  ;
-unsigned int link_id  ;
+unsigned int  start_id  ;
+unsigned int  prog_id  ;
+unsigned int  map_id  ;
+unsigned int  btf_id  ;
+unsigned int  link_id  ;
 };
 
 union anonymous_typeZ37
 {
-unsigned int start_id  ;
-unsigned int prog_id  ;
-unsigned int map_id  ;
-unsigned int btf_id  ;
-unsigned int link_id  ;
+unsigned int  start_id  ;
+unsigned int  prog_id  ;
+unsigned int  map_id  ;
+unsigned int  btf_id  ;
+unsigned int  link_id  ;
 };
 
 struct anonymous_typeX35
 {
     union {
-        unsigned int start_id  ;
-        unsigned int prog_id  ;
-        unsigned int map_id  ;
-        unsigned int btf_id  ;
-        unsigned int link_id  ;
+        unsigned int  start_id  ;
+        unsigned int  prog_id  ;
+        unsigned int  map_id  ;
+        unsigned int  btf_id  ;
+        unsigned int  link_id  ;
     };
-    unsigned int next_id  ;
-    unsigned int open_flags  ;
-    int fd_by_id_token_fd  ;
+    unsigned int  next_id  ;
+    unsigned int  open_flags  ;
+    int  fd_by_id_token_fd  ;
 };
 
 struct anonymous_typeX38
 {
-    unsigned int bpf_fd  ;
-    unsigned int info_len  ;
-    unsigned long  long info __attribute__((aligned(8)))	 ;
+    unsigned int  bpf_fd  ;
+    unsigned int  info_len  ;
+    unsigned long  long  info  __attribute__((aligned(8)))	;
 };
 
 union anonymous_typeZ40
 {
-unsigned int target_fd  ;
-unsigned int target_ifindex  ;
+unsigned int  target_fd  ;
+unsigned int  target_ifindex  ;
 };
 
 union anonymous_typeZ41
 {
-unsigned int target_fd  ;
-unsigned int target_ifindex  ;
+unsigned int  target_fd  ;
+unsigned int  target_ifindex  ;
 };
 
 union anonymous_typeZ42
 {
-unsigned int prog_cnt  ;
-unsigned int count  ;
+unsigned int  prog_cnt  ;
+unsigned int  count  ;
 };
 
 union anonymous_typeZ43
 {
-unsigned int prog_cnt  ;
-unsigned int count  ;
+unsigned int  prog_cnt  ;
+unsigned int  count  ;
 };
 
 struct anonymous_typeX39
 {
     union {
-        unsigned int target_fd  ;
-        unsigned int target_ifindex  ;
+        unsigned int  target_fd  ;
+        unsigned int  target_ifindex  ;
     };
-    unsigned int attach_type  ;
-    unsigned int query_flags  ;
-    unsigned int attach_flags  ;
-    unsigned long  long prog_ids __attribute__((aligned(8)))	 ;
+    unsigned int  attach_type  ;
+    unsigned int  query_flags  ;
+    unsigned int  attach_flags  ;
+    unsigned long  long  prog_ids  __attribute__((aligned(8)))	;
     union {
-        unsigned int prog_cnt  ;
-        unsigned int count  ;
+        unsigned int  prog_cnt  ;
+        unsigned int  count  ;
     };
-    unsigned int :32  ;
-    unsigned long  long prog_attach_flags __attribute__((aligned(8)))	 ;
-    unsigned long  long link_ids __attribute__((aligned(8)))	 ;
-    unsigned long  long link_attach_flags __attribute__((aligned(8)))	 ;
-    unsigned long  long revision  ;
+    unsigned int  :32  ;
+    unsigned long  long  prog_attach_flags  __attribute__((aligned(8)))	;
+    unsigned long  long  link_ids  __attribute__((aligned(8)))	;
+    unsigned long  long  link_attach_flags  __attribute__((aligned(8)))	;
+    unsigned long  long  revision  ;
 };
 
 struct anonymous_typeX44
 {
-    unsigned long  long name  ;
-    unsigned int prog_fd  ;
-    unsigned int :32  ;
-    unsigned long  long cookie __attribute__((aligned(8)))	 ;
+    unsigned long  long  name  ;
+    unsigned int  prog_fd  ;
+    unsigned int  :32  ;
+    unsigned long  long  cookie  __attribute__((aligned(8)))	;
 };
 
 struct anonymous_typeX45
 {
-    unsigned long  long btf __attribute__((aligned(8)))	 ;
-    unsigned long  long btf_log_buf __attribute__((aligned(8)))	 ;
-    unsigned int btf_size  ;
-    unsigned int btf_log_size  ;
-    unsigned int btf_log_level  ;
-    unsigned int btf_log_true_size  ;
-    unsigned int btf_flags  ;
-    int btf_token_fd  ;
+    unsigned long  long  btf  __attribute__((aligned(8)))	;
+    unsigned long  long  btf_log_buf  __attribute__((aligned(8)))	;
+    unsigned int  btf_size  ;
+    unsigned int  btf_log_size  ;
+    unsigned int  btf_log_level  ;
+    unsigned int  btf_log_true_size  ;
+    unsigned int  btf_flags  ;
+    int  btf_token_fd  ;
 };
 
 struct anonymous_typeX46
 {
-    unsigned int pid  ;
-    unsigned int fd  ;
-    unsigned int flags  ;
-    unsigned int buf_len  ;
-    unsigned long  long buf __attribute__((aligned(8)))	 ;
-    unsigned int prog_id  ;
-    unsigned int fd_type  ;
-    unsigned long  long probe_offset  ;
-    unsigned long  long probe_addr  ;
+    unsigned int  pid  ;
+    unsigned int  fd  ;
+    unsigned int  flags  ;
+    unsigned int  buf_len  ;
+    unsigned long  long  buf  __attribute__((aligned(8)))	;
+    unsigned int  prog_id  ;
+    unsigned int  fd_type  ;
+    unsigned long  long  probe_offset  ;
+    unsigned long  long  probe_addr  ;
 };
 
 union anonymous_typeZ48
 {
-unsigned int prog_fd  ;
-unsigned int map_fd  ;
+unsigned int  prog_fd  ;
+unsigned int  map_fd  ;
 };
 
 union anonymous_typeZ49
 {
-unsigned int prog_fd  ;
-unsigned int map_fd  ;
+unsigned int  prog_fd  ;
+unsigned int  map_fd  ;
 };
 
 union anonymous_typeZ50
 {
-unsigned int target_fd  ;
-unsigned int target_ifindex  ;
+unsigned int  target_fd  ;
+unsigned int  target_ifindex  ;
 };
 
 union anonymous_typeZ51
 {
-unsigned int target_fd  ;
-unsigned int target_ifindex  ;
+unsigned int  target_fd  ;
+unsigned int  target_ifindex  ;
 };
 
 struct anonymous_typeX53
 {
-    unsigned long  long iter_info __attribute__((aligned(8)))	 ;
-    unsigned int iter_info_len  ;
+    unsigned long  long  iter_info  __attribute__((aligned(8)))	;
+    unsigned int  iter_info_len  ;
 };
 
 struct anonymous_typeX54
 {
-    unsigned long  long bpf_cookie  ;
+    unsigned long  long  bpf_cookie  ;
 };
 
 struct anonymous_typeX55
 {
-    unsigned int flags  ;
-    unsigned int cnt  ;
-    unsigned long  long syms __attribute__((aligned(8)))	 ;
-    unsigned long  long addrs __attribute__((aligned(8)))	 ;
-    unsigned long  long cookies __attribute__((aligned(8)))	 ;
+    unsigned int  flags  ;
+    unsigned int  cnt  ;
+    unsigned long  long  syms  __attribute__((aligned(8)))	;
+    unsigned long  long  addrs  __attribute__((aligned(8)))	;
+    unsigned long  long  cookies  __attribute__((aligned(8)))	;
 };
 
 struct anonymous_typeX56
 {
-    unsigned int target_btf_id  ;
-    unsigned long  long cookie  ;
+    unsigned int  target_btf_id  ;
+    unsigned long  long  cookie  ;
 };
 
 struct anonymous_typeX57
 {
-    unsigned int pf  ;
-    unsigned int hooknum  ;
-    int priority  ;
-    unsigned int flags  ;
+    unsigned int  pf  ;
+    unsigned int  hooknum  ;
+    int  priority  ;
+    unsigned int  flags  ;
 };
 
 union anonymous_typeZ59
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 union anonymous_typeZ60
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 struct anonymous_typeX58
 {
     union {
-        unsigned int relative_fd  ;
-        unsigned int relative_id  ;
+        unsigned int  relative_fd  ;
+        unsigned int  relative_id  ;
     };
-    unsigned long  long expected_revision  ;
+    unsigned long  long  expected_revision  ;
 };
 
 struct anonymous_typeX61
 {
-    unsigned long  long path __attribute__((aligned(8)))	 ;
-    unsigned long  long offsets __attribute__((aligned(8)))	 ;
-    unsigned long  long ref_ctr_offsets __attribute__((aligned(8)))	 ;
-    unsigned long  long cookies __attribute__((aligned(8)))	 ;
-    unsigned int cnt  ;
-    unsigned int flags  ;
-    unsigned int pid  ;
+    unsigned long  long  path  __attribute__((aligned(8)))	;
+    unsigned long  long  offsets  __attribute__((aligned(8)))	;
+    unsigned long  long  ref_ctr_offsets  __attribute__((aligned(8)))	;
+    unsigned long  long  cookies  __attribute__((aligned(8)))	;
+    unsigned int  cnt  ;
+    unsigned int  flags  ;
+    unsigned int  pid  ;
 };
 
 union anonymous_typeZ63
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 union anonymous_typeZ64
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 struct anonymous_typeX62
 {
     union {
-        unsigned int relative_fd  ;
-        unsigned int relative_id  ;
+        unsigned int  relative_fd  ;
+        unsigned int  relative_id  ;
     };
-    unsigned long  long expected_revision  ;
+    unsigned long  long  expected_revision  ;
 };
 
 union anonymous_typeZ66
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 union anonymous_typeZ67
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 struct anonymous_typeX65
 {
     union {
-        unsigned int relative_fd  ;
-        unsigned int relative_id  ;
+        unsigned int  relative_fd  ;
+        unsigned int  relative_id  ;
     };
-    unsigned long  long expected_revision  ;
+    unsigned long  long  expected_revision  ;
 };
 
 union anonymous_typeZ52
 {
-unsigned int target_btf_id  ;
+unsigned int  target_btf_id  ;
     struct {
-        unsigned long  long iter_info __attribute__((aligned(8)))	 ;
-        unsigned int iter_info_len  ;
+        unsigned long  long  iter_info  __attribute__((aligned(8)))	;
+        unsigned int  iter_info_len  ;
     };
     struct {
-        unsigned long  long bpf_cookie  ;
+        unsigned long  long  bpf_cookie  ;
     } perf_event;
     struct {
-        unsigned int flags  ;
-        unsigned int cnt  ;
-        unsigned long  long syms __attribute__((aligned(8)))	 ;
-        unsigned long  long addrs __attribute__((aligned(8)))	 ;
-        unsigned long  long cookies __attribute__((aligned(8)))	 ;
+        unsigned int  flags  ;
+        unsigned int  cnt  ;
+        unsigned long  long  syms  __attribute__((aligned(8)))	;
+        unsigned long  long  addrs  __attribute__((aligned(8)))	;
+        unsigned long  long  cookies  __attribute__((aligned(8)))	;
     } kprobe_multi;
     struct {
-        unsigned int target_btf_id  ;
-        unsigned long  long cookie  ;
+        unsigned int  target_btf_id  ;
+        unsigned long  long  cookie  ;
     } tracing;
     struct {
-        unsigned int pf  ;
-        unsigned int hooknum  ;
-        int priority  ;
-        unsigned int flags  ;
+        unsigned int  pf  ;
+        unsigned int  hooknum  ;
+        int  priority  ;
+        unsigned int  flags  ;
     } netfilter;
     struct {
         union {
-            unsigned int relative_fd  ;
-            unsigned int relative_id  ;
+            unsigned int  relative_fd  ;
+            unsigned int  relative_id  ;
         };
-        unsigned long  long expected_revision  ;
+        unsigned long  long  expected_revision  ;
     } tcx;
     struct {
-        unsigned long  long path __attribute__((aligned(8)))	 ;
-        unsigned long  long offsets __attribute__((aligned(8)))	 ;
-        unsigned long  long ref_ctr_offsets __attribute__((aligned(8)))	 ;
-        unsigned long  long cookies __attribute__((aligned(8)))	 ;
-        unsigned int cnt  ;
-        unsigned int flags  ;
-        unsigned int pid  ;
+        unsigned long  long  path  __attribute__((aligned(8)))	;
+        unsigned long  long  offsets  __attribute__((aligned(8)))	;
+        unsigned long  long  ref_ctr_offsets  __attribute__((aligned(8)))	;
+        unsigned long  long  cookies  __attribute__((aligned(8)))	;
+        unsigned int  cnt  ;
+        unsigned int  flags  ;
+        unsigned int  pid  ;
     } uprobe_multi;
     struct {
         union {
-            unsigned int relative_fd  ;
-            unsigned int relative_id  ;
+            unsigned int  relative_fd  ;
+            unsigned int  relative_id  ;
         };
-        unsigned long  long expected_revision  ;
+        unsigned long  long  expected_revision  ;
     } netkit;
     struct {
         union {
-            unsigned int relative_fd  ;
-            unsigned int relative_id  ;
+            unsigned int  relative_fd  ;
+            unsigned int  relative_id  ;
         };
-        unsigned long  long expected_revision  ;
+        unsigned long  long  expected_revision  ;
     } cgroup;
 };
 
 struct anonymous_typeX69
 {
-    unsigned long  long iter_info __attribute__((aligned(8)))	 ;
-    unsigned int iter_info_len  ;
+    unsigned long  long  iter_info  __attribute__((aligned(8)))	;
+    unsigned int  iter_info_len  ;
 };
 
 struct anonymous_typeX70
 {
-    unsigned long  long bpf_cookie  ;
+    unsigned long  long  bpf_cookie  ;
 };
 
 struct anonymous_typeX71
 {
-    unsigned int flags  ;
-    unsigned int cnt  ;
-    unsigned long  long syms __attribute__((aligned(8)))	 ;
-    unsigned long  long addrs __attribute__((aligned(8)))	 ;
-    unsigned long  long cookies __attribute__((aligned(8)))	 ;
+    unsigned int  flags  ;
+    unsigned int  cnt  ;
+    unsigned long  long  syms  __attribute__((aligned(8)))	;
+    unsigned long  long  addrs  __attribute__((aligned(8)))	;
+    unsigned long  long  cookies  __attribute__((aligned(8)))	;
 };
 
 struct anonymous_typeX72
 {
-    unsigned int target_btf_id  ;
-    unsigned long  long cookie  ;
+    unsigned int  target_btf_id  ;
+    unsigned long  long  cookie  ;
 };
 
 struct anonymous_typeX73
 {
-    unsigned int pf  ;
-    unsigned int hooknum  ;
-    int priority  ;
-    unsigned int flags  ;
+    unsigned int  pf  ;
+    unsigned int  hooknum  ;
+    int  priority  ;
+    unsigned int  flags  ;
 };
 
 union anonymous_typeZ75
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 union anonymous_typeZ76
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 struct anonymous_typeX74
 {
     union {
-        unsigned int relative_fd  ;
-        unsigned int relative_id  ;
+        unsigned int  relative_fd  ;
+        unsigned int  relative_id  ;
     };
-    unsigned long  long expected_revision  ;
+    unsigned long  long  expected_revision  ;
 };
 
 struct anonymous_typeX77
 {
-    unsigned long  long path __attribute__((aligned(8)))	 ;
-    unsigned long  long offsets __attribute__((aligned(8)))	 ;
-    unsigned long  long ref_ctr_offsets __attribute__((aligned(8)))	 ;
-    unsigned long  long cookies __attribute__((aligned(8)))	 ;
-    unsigned int cnt  ;
-    unsigned int flags  ;
-    unsigned int pid  ;
+    unsigned long  long  path  __attribute__((aligned(8)))	;
+    unsigned long  long  offsets  __attribute__((aligned(8)))	;
+    unsigned long  long  ref_ctr_offsets  __attribute__((aligned(8)))	;
+    unsigned long  long  cookies  __attribute__((aligned(8)))	;
+    unsigned int  cnt  ;
+    unsigned int  flags  ;
+    unsigned int  pid  ;
 };
 
 union anonymous_typeZ79
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 union anonymous_typeZ80
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 struct anonymous_typeX78
 {
     union {
-        unsigned int relative_fd  ;
-        unsigned int relative_id  ;
+        unsigned int  relative_fd  ;
+        unsigned int  relative_id  ;
     };
-    unsigned long  long expected_revision  ;
+    unsigned long  long  expected_revision  ;
 };
 
 union anonymous_typeZ82
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 union anonymous_typeZ83
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 struct anonymous_typeX81
 {
     union {
-        unsigned int relative_fd  ;
-        unsigned int relative_id  ;
+        unsigned int  relative_fd  ;
+        unsigned int  relative_id  ;
     };
-    unsigned long  long expected_revision  ;
+    unsigned long  long  expected_revision  ;
 };
 
 union anonymous_typeZ68
 {
-unsigned int target_btf_id  ;
+unsigned int  target_btf_id  ;
     struct {
-        unsigned long  long iter_info __attribute__((aligned(8)))	 ;
-        unsigned int iter_info_len  ;
+        unsigned long  long  iter_info  __attribute__((aligned(8)))	;
+        unsigned int  iter_info_len  ;
     };
     struct {
-        unsigned long  long bpf_cookie  ;
+        unsigned long  long  bpf_cookie  ;
     } perf_event;
     struct {
-        unsigned int flags  ;
-        unsigned int cnt  ;
-        unsigned long  long syms __attribute__((aligned(8)))	 ;
-        unsigned long  long addrs __attribute__((aligned(8)))	 ;
-        unsigned long  long cookies __attribute__((aligned(8)))	 ;
+        unsigned int  flags  ;
+        unsigned int  cnt  ;
+        unsigned long  long  syms  __attribute__((aligned(8)))	;
+        unsigned long  long  addrs  __attribute__((aligned(8)))	;
+        unsigned long  long  cookies  __attribute__((aligned(8)))	;
     } kprobe_multi;
     struct {
-        unsigned int target_btf_id  ;
-        unsigned long  long cookie  ;
+        unsigned int  target_btf_id  ;
+        unsigned long  long  cookie  ;
     } tracing;
     struct {
-        unsigned int pf  ;
-        unsigned int hooknum  ;
-        int priority  ;
-        unsigned int flags  ;
+        unsigned int  pf  ;
+        unsigned int  hooknum  ;
+        int  priority  ;
+        unsigned int  flags  ;
     } netfilter;
     struct {
         union {
-            unsigned int relative_fd  ;
-            unsigned int relative_id  ;
+            unsigned int  relative_fd  ;
+            unsigned int  relative_id  ;
         };
-        unsigned long  long expected_revision  ;
+        unsigned long  long  expected_revision  ;
     } tcx;
     struct {
-        unsigned long  long path __attribute__((aligned(8)))	 ;
-        unsigned long  long offsets __attribute__((aligned(8)))	 ;
-        unsigned long  long ref_ctr_offsets __attribute__((aligned(8)))	 ;
-        unsigned long  long cookies __attribute__((aligned(8)))	 ;
-        unsigned int cnt  ;
-        unsigned int flags  ;
-        unsigned int pid  ;
+        unsigned long  long  path  __attribute__((aligned(8)))	;
+        unsigned long  long  offsets  __attribute__((aligned(8)))	;
+        unsigned long  long  ref_ctr_offsets  __attribute__((aligned(8)))	;
+        unsigned long  long  cookies  __attribute__((aligned(8)))	;
+        unsigned int  cnt  ;
+        unsigned int  flags  ;
+        unsigned int  pid  ;
     } uprobe_multi;
     struct {
         union {
-            unsigned int relative_fd  ;
-            unsigned int relative_id  ;
+            unsigned int  relative_fd  ;
+            unsigned int  relative_id  ;
         };
-        unsigned long  long expected_revision  ;
+        unsigned long  long  expected_revision  ;
     } netkit;
     struct {
         union {
-            unsigned int relative_fd  ;
-            unsigned int relative_id  ;
+            unsigned int  relative_fd  ;
+            unsigned int  relative_id  ;
         };
-        unsigned long  long expected_revision  ;
+        unsigned long  long  expected_revision  ;
     } cgroup;
 };
 
 struct anonymous_typeX47
 {
     union {
-        unsigned int prog_fd  ;
-        unsigned int map_fd  ;
+        unsigned int  prog_fd  ;
+        unsigned int  map_fd  ;
     };
     union {
-        unsigned int target_fd  ;
-        unsigned int target_ifindex  ;
+        unsigned int  target_fd  ;
+        unsigned int  target_ifindex  ;
     };
-    unsigned int attach_type  ;
-    unsigned int flags  ;
+    unsigned int  attach_type  ;
+    unsigned int  flags  ;
     union {
-        unsigned int target_btf_id  ;
+        unsigned int  target_btf_id  ;
         struct {
-            unsigned long  long iter_info __attribute__((aligned(8)))	 ;
-            unsigned int iter_info_len  ;
+            unsigned long  long  iter_info  __attribute__((aligned(8)))	;
+            unsigned int  iter_info_len  ;
         };
         struct {
-            unsigned long  long bpf_cookie  ;
+            unsigned long  long  bpf_cookie  ;
         } perf_event;
         struct {
-            unsigned int flags  ;
-            unsigned int cnt  ;
-            unsigned long  long syms __attribute__((aligned(8)))	 ;
-            unsigned long  long addrs __attribute__((aligned(8)))	 ;
-            unsigned long  long cookies __attribute__((aligned(8)))	 ;
+            unsigned int  flags  ;
+            unsigned int  cnt  ;
+            unsigned long  long  syms  __attribute__((aligned(8)))	;
+            unsigned long  long  addrs  __attribute__((aligned(8)))	;
+            unsigned long  long  cookies  __attribute__((aligned(8)))	;
         } kprobe_multi;
         struct {
-            unsigned int target_btf_id  ;
-            unsigned long  long cookie  ;
+            unsigned int  target_btf_id  ;
+            unsigned long  long  cookie  ;
         } tracing;
         struct {
-            unsigned int pf  ;
-            unsigned int hooknum  ;
-            int priority  ;
-            unsigned int flags  ;
+            unsigned int  pf  ;
+            unsigned int  hooknum  ;
+            int  priority  ;
+            unsigned int  flags  ;
         } netfilter;
         struct {
             union {
-                unsigned int relative_fd  ;
-                unsigned int relative_id  ;
+                unsigned int  relative_fd  ;
+                unsigned int  relative_id  ;
             };
-            unsigned long  long expected_revision  ;
+            unsigned long  long  expected_revision  ;
         } tcx;
         struct {
-            unsigned long  long path __attribute__((aligned(8)))	 ;
-            unsigned long  long offsets __attribute__((aligned(8)))	 ;
-            unsigned long  long ref_ctr_offsets __attribute__((aligned(8)))	 ;
-            unsigned long  long cookies __attribute__((aligned(8)))	 ;
-            unsigned int cnt  ;
-            unsigned int flags  ;
-            unsigned int pid  ;
+            unsigned long  long  path  __attribute__((aligned(8)))	;
+            unsigned long  long  offsets  __attribute__((aligned(8)))	;
+            unsigned long  long  ref_ctr_offsets  __attribute__((aligned(8)))	;
+            unsigned long  long  cookies  __attribute__((aligned(8)))	;
+            unsigned int  cnt  ;
+            unsigned int  flags  ;
+            unsigned int  pid  ;
         } uprobe_multi;
         struct {
             union {
-                unsigned int relative_fd  ;
-                unsigned int relative_id  ;
+                unsigned int  relative_fd  ;
+                unsigned int  relative_id  ;
             };
-            unsigned long  long expected_revision  ;
+            unsigned long  long  expected_revision  ;
         } netkit;
         struct {
             union {
-                unsigned int relative_fd  ;
-                unsigned int relative_id  ;
+                unsigned int  relative_fd  ;
+                unsigned int  relative_id  ;
             };
-            unsigned long  long expected_revision  ;
+            unsigned long  long  expected_revision  ;
         } cgroup;
     };
 };
 
 union anonymous_typeZ85
 {
-unsigned int new_prog_fd  ;
-unsigned int new_map_fd  ;
+unsigned int  new_prog_fd  ;
+unsigned int  new_map_fd  ;
 };
 
 union anonymous_typeZ86
 {
-unsigned int new_prog_fd  ;
-unsigned int new_map_fd  ;
+unsigned int  new_prog_fd  ;
+unsigned int  new_map_fd  ;
 };
 
 union anonymous_typeZ87
 {
-unsigned int old_prog_fd  ;
-unsigned int old_map_fd  ;
+unsigned int  old_prog_fd  ;
+unsigned int  old_map_fd  ;
 };
 
 union anonymous_typeZ88
 {
-unsigned int old_prog_fd  ;
-unsigned int old_map_fd  ;
+unsigned int  old_prog_fd  ;
+unsigned int  old_map_fd  ;
 };
 
 struct anonymous_typeX84
 {
-    unsigned int link_fd  ;
+    unsigned int  link_fd  ;
     union {
-        unsigned int new_prog_fd  ;
-        unsigned int new_map_fd  ;
+        unsigned int  new_prog_fd  ;
+        unsigned int  new_map_fd  ;
     };
-    unsigned int flags  ;
+    unsigned int  flags  ;
     union {
-        unsigned int old_prog_fd  ;
-        unsigned int old_map_fd  ;
+        unsigned int  old_prog_fd  ;
+        unsigned int  old_map_fd  ;
     };
 };
 
 struct anonymous_typeX89
 {
-    unsigned int link_fd  ;
+    unsigned int  link_fd  ;
 };
 
 struct anonymous_typeX90
 {
-    unsigned int type  ;
+    unsigned int  type  ;
 };
 
 struct anonymous_typeX91
 {
-    unsigned int link_fd  ;
-    unsigned int flags  ;
+    unsigned int  link_fd  ;
+    unsigned int  flags  ;
 };
 
 struct anonymous_typeX92
 {
-    unsigned int prog_fd  ;
-    unsigned int map_fd  ;
-    unsigned int flags  ;
+    unsigned int  prog_fd  ;
+    unsigned int  map_fd  ;
+    unsigned int  flags  ;
 };
 
 struct anonymous_typeX93
 {
-    unsigned int flags  ;
-    unsigned int bpffs_fd  ;
+    unsigned int  flags  ;
+    unsigned int  bpffs_fd  ;
 };
 
 struct anonymous_typeX94
 {
-    unsigned long  long stream_buf __attribute__((aligned(8)))	 ;
-    unsigned int stream_buf_len  ;
-    unsigned int stream_id  ;
-    unsigned int prog_fd  ;
+    unsigned long  long  stream_buf  __attribute__((aligned(8)))	;
+    unsigned int  stream_buf_len  ;
+    unsigned int  stream_id  ;
+    unsigned int  prog_fd  ;
 };
 
 union bpf_attr
 {
     struct {
-        unsigned int map_type  ;
-        unsigned int key_size  ;
-        unsigned int value_size  ;
-        unsigned int max_entries  ;
-        unsigned int map_flags  ;
-        unsigned int inner_map_fd  ;
-        unsigned int numa_node  ;
+        unsigned int  map_type  ;
+        unsigned int  key_size  ;
+        unsigned int  value_size  ;
+        unsigned int  max_entries  ;
+        unsigned int  map_flags  ;
+        unsigned int  inner_map_fd  ;
+        unsigned int  numa_node  ;
         char map_name[16U];
-        unsigned int map_ifindex  ;
-        unsigned int btf_fd  ;
-        unsigned int btf_key_type_id  ;
-        unsigned int btf_value_type_id  ;
-        unsigned int btf_vmlinux_value_type_id  ;
-        unsigned long  long map_extra  ;
-        int value_type_btf_obj_fd  ;
-        int map_token_fd  ;
+        unsigned int  map_ifindex  ;
+        unsigned int  btf_fd  ;
+        unsigned int  btf_key_type_id  ;
+        unsigned int  btf_value_type_id  ;
+        unsigned int  btf_vmlinux_value_type_id  ;
+        unsigned long  long  map_extra  ;
+        int  value_type_btf_obj_fd  ;
+        int  map_token_fd  ;
     };
     struct {
-        unsigned int map_fd  ;
-        unsigned long  long key __attribute__((aligned(8)))	 ;
+        unsigned int  map_fd  ;
+        unsigned long  long  key  __attribute__((aligned(8)))	;
         union {
-            unsigned long  long value __attribute__((aligned(8)))  ;
-            unsigned long  long next_key __attribute__((aligned(8)))  ;
+            unsigned long  long  value  __attribute__((aligned(8))) ;
+            unsigned long  long  next_key  __attribute__((aligned(8))) ;
         };
-        unsigned long  long flags  ;
+        unsigned long  long  flags  ;
     };
     struct {
-        unsigned long  long in_batch __attribute__((aligned(8)))	 ;
-        unsigned long  long out_batch __attribute__((aligned(8)))	 ;
-        unsigned long  long keys __attribute__((aligned(8)))	 ;
-        unsigned long  long values __attribute__((aligned(8)))	 ;
-        unsigned int count  ;
-        unsigned int map_fd  ;
-        unsigned long  long elem_flags  ;
-        unsigned long  long flags  ;
+        unsigned long  long  in_batch  __attribute__((aligned(8)))	;
+        unsigned long  long  out_batch  __attribute__((aligned(8)))	;
+        unsigned long  long  keys  __attribute__((aligned(8)))	;
+        unsigned long  long  values  __attribute__((aligned(8)))	;
+        unsigned int  count  ;
+        unsigned int  map_fd  ;
+        unsigned long  long  elem_flags  ;
+        unsigned long  long  flags  ;
     } batch;
     struct {
-        unsigned int prog_type  ;
-        unsigned int insn_cnt  ;
-        unsigned long  long insns __attribute__((aligned(8)))	 ;
-        unsigned long  long license __attribute__((aligned(8)))	 ;
-        unsigned int log_level  ;
-        unsigned int log_size  ;
-        unsigned long  long log_buf __attribute__((aligned(8)))	 ;
-        unsigned int kern_version  ;
-        unsigned int prog_flags  ;
+        unsigned int  prog_type  ;
+        unsigned int  insn_cnt  ;
+        unsigned long  long  insns  __attribute__((aligned(8)))	;
+        unsigned long  long  license  __attribute__((aligned(8)))	;
+        unsigned int  log_level  ;
+        unsigned int  log_size  ;
+        unsigned long  long  log_buf  __attribute__((aligned(8)))	;
+        unsigned int  kern_version  ;
+        unsigned int  prog_flags  ;
         char prog_name[16U];
-        unsigned int prog_ifindex  ;
-        unsigned int expected_attach_type  ;
-        unsigned int prog_btf_fd  ;
-        unsigned int func_info_rec_size  ;
-        unsigned long  long func_info __attribute__((aligned(8)))	 ;
-        unsigned int func_info_cnt  ;
-        unsigned int line_info_rec_size  ;
-        unsigned long  long line_info __attribute__((aligned(8)))	 ;
-        unsigned int line_info_cnt  ;
-        unsigned int attach_btf_id  ;
+        unsigned int  prog_ifindex  ;
+        unsigned int  expected_attach_type  ;
+        unsigned int  prog_btf_fd  ;
+        unsigned int  func_info_rec_size  ;
+        unsigned long  long  func_info  __attribute__((aligned(8)))	;
+        unsigned int  func_info_cnt  ;
+        unsigned int  line_info_rec_size  ;
+        unsigned long  long  line_info  __attribute__((aligned(8)))	;
+        unsigned int  line_info_cnt  ;
+        unsigned int  attach_btf_id  ;
         union {
-            unsigned int attach_prog_fd  ;
-            unsigned int attach_btf_obj_fd  ;
+            unsigned int  attach_prog_fd  ;
+            unsigned int  attach_btf_obj_fd  ;
         };
-        unsigned int core_relo_cnt  ;
-        unsigned long  long fd_array __attribute__((aligned(8)))	 ;
-        unsigned long  long core_relos __attribute__((aligned(8)))	 ;
-        unsigned int core_relo_rec_size  ;
-        unsigned int log_true_size  ;
-        int prog_token_fd  ;
-        unsigned int fd_array_cnt  ;
+        unsigned int  core_relo_cnt  ;
+        unsigned long  long  fd_array  __attribute__((aligned(8)))	;
+        unsigned long  long  core_relos  __attribute__((aligned(8)))	;
+        unsigned int  core_relo_rec_size  ;
+        unsigned int  log_true_size  ;
+        int  prog_token_fd  ;
+        unsigned int  fd_array_cnt  ;
     };
     struct {
-        unsigned long  long pathname __attribute__((aligned(8)))	 ;
-        unsigned int bpf_fd  ;
-        unsigned int file_flags  ;
-        int path_fd  ;
+        unsigned long  long  pathname  __attribute__((aligned(8)))	;
+        unsigned int  bpf_fd  ;
+        unsigned int  file_flags  ;
+        int  path_fd  ;
     };
     struct {
         union {
-            unsigned int target_fd  ;
-            unsigned int target_ifindex  ;
+            unsigned int  target_fd  ;
+            unsigned int  target_ifindex  ;
         };
-        unsigned int attach_bpf_fd  ;
-        unsigned int attach_type  ;
-        unsigned int attach_flags  ;
-        unsigned int replace_bpf_fd  ;
+        unsigned int  attach_bpf_fd  ;
+        unsigned int  attach_type  ;
+        unsigned int  attach_flags  ;
+        unsigned int  replace_bpf_fd  ;
         union {
-            unsigned int relative_fd  ;
-            unsigned int relative_id  ;
+            unsigned int  relative_fd  ;
+            unsigned int  relative_id  ;
         };
-        unsigned long  long expected_revision  ;
+        unsigned long  long  expected_revision  ;
     };
     struct {
-        unsigned int prog_fd  ;
-        unsigned int retval  ;
-        unsigned int data_size_in  ;
-        unsigned int data_size_out  ;
-        unsigned long  long data_in __attribute__((aligned(8)))	 ;
-        unsigned long  long data_out __attribute__((aligned(8)))	 ;
-        unsigned int repeat  ;
-        unsigned int duration  ;
-        unsigned int ctx_size_in  ;
-        unsigned int ctx_size_out  ;
-        unsigned long  long ctx_in __attribute__((aligned(8)))	 ;
-        unsigned long  long ctx_out __attribute__((aligned(8)))	 ;
-        unsigned int flags  ;
-        unsigned int cpu  ;
-        unsigned int batch_size  ;
+        unsigned int  prog_fd  ;
+        unsigned int  retval  ;
+        unsigned int  data_size_in  ;
+        unsigned int  data_size_out  ;
+        unsigned long  long  data_in  __attribute__((aligned(8)))	;
+        unsigned long  long  data_out  __attribute__((aligned(8)))	;
+        unsigned int  repeat  ;
+        unsigned int  duration  ;
+        unsigned int  ctx_size_in  ;
+        unsigned int  ctx_size_out  ;
+        unsigned long  long  ctx_in  __attribute__((aligned(8)))	;
+        unsigned long  long  ctx_out  __attribute__((aligned(8)))	;
+        unsigned int  flags  ;
+        unsigned int  cpu  ;
+        unsigned int  batch_size  ;
     } test;
     struct {
         union {
-            unsigned int start_id  ;
-            unsigned int prog_id  ;
-            unsigned int map_id  ;
-            unsigned int btf_id  ;
-            unsigned int link_id  ;
+            unsigned int  start_id  ;
+            unsigned int  prog_id  ;
+            unsigned int  map_id  ;
+            unsigned int  btf_id  ;
+            unsigned int  link_id  ;
         };
-        unsigned int next_id  ;
-        unsigned int open_flags  ;
-        int fd_by_id_token_fd  ;
+        unsigned int  next_id  ;
+        unsigned int  open_flags  ;
+        int  fd_by_id_token_fd  ;
     };
     struct {
-        unsigned int bpf_fd  ;
-        unsigned int info_len  ;
-        unsigned long  long info __attribute__((aligned(8)))	 ;
+        unsigned int  bpf_fd  ;
+        unsigned int  info_len  ;
+        unsigned long  long  info  __attribute__((aligned(8)))	;
     } info;
     struct {
         union {
-            unsigned int target_fd  ;
-            unsigned int target_ifindex  ;
+            unsigned int  target_fd  ;
+            unsigned int  target_ifindex  ;
         };
-        unsigned int attach_type  ;
-        unsigned int query_flags  ;
-        unsigned int attach_flags  ;
-        unsigned long  long prog_ids __attribute__((aligned(8)))	 ;
+        unsigned int  attach_type  ;
+        unsigned int  query_flags  ;
+        unsigned int  attach_flags  ;
+        unsigned long  long  prog_ids  __attribute__((aligned(8)))	;
         union {
-            unsigned int prog_cnt  ;
-            unsigned int count  ;
+            unsigned int  prog_cnt  ;
+            unsigned int  count  ;
         };
-        unsigned int :32  ;
-        unsigned long  long prog_attach_flags __attribute__((aligned(8)))	 ;
-        unsigned long  long link_ids __attribute__((aligned(8)))	 ;
-        unsigned long  long link_attach_flags __attribute__((aligned(8)))	 ;
-        unsigned long  long revision  ;
+        unsigned int  :32  ;
+        unsigned long  long  prog_attach_flags  __attribute__((aligned(8)))	;
+        unsigned long  long  link_ids  __attribute__((aligned(8)))	;
+        unsigned long  long  link_attach_flags  __attribute__((aligned(8)))	;
+        unsigned long  long  revision  ;
     } query;
     struct {
-        unsigned long  long name  ;
-        unsigned int prog_fd  ;
-        unsigned int :32  ;
-        unsigned long  long cookie __attribute__((aligned(8)))	 ;
+        unsigned long  long  name  ;
+        unsigned int  prog_fd  ;
+        unsigned int  :32  ;
+        unsigned long  long  cookie  __attribute__((aligned(8)))	;
     } raw_tracepoint;
     struct {
-        unsigned long  long btf __attribute__((aligned(8)))	 ;
-        unsigned long  long btf_log_buf __attribute__((aligned(8)))	 ;
-        unsigned int btf_size  ;
-        unsigned int btf_log_size  ;
-        unsigned int btf_log_level  ;
-        unsigned int btf_log_true_size  ;
-        unsigned int btf_flags  ;
-        int btf_token_fd  ;
+        unsigned long  long  btf  __attribute__((aligned(8)))	;
+        unsigned long  long  btf_log_buf  __attribute__((aligned(8)))	;
+        unsigned int  btf_size  ;
+        unsigned int  btf_log_size  ;
+        unsigned int  btf_log_level  ;
+        unsigned int  btf_log_true_size  ;
+        unsigned int  btf_flags  ;
+        int  btf_token_fd  ;
     };
     struct {
-        unsigned int pid  ;
-        unsigned int fd  ;
-        unsigned int flags  ;
-        unsigned int buf_len  ;
-        unsigned long  long buf __attribute__((aligned(8)))	 ;
-        unsigned int prog_id  ;
-        unsigned int fd_type  ;
-        unsigned long  long probe_offset  ;
-        unsigned long  long probe_addr  ;
+        unsigned int  pid  ;
+        unsigned int  fd  ;
+        unsigned int  flags  ;
+        unsigned int  buf_len  ;
+        unsigned long  long  buf  __attribute__((aligned(8)))	;
+        unsigned int  prog_id  ;
+        unsigned int  fd_type  ;
+        unsigned long  long  probe_offset  ;
+        unsigned long  long  probe_addr  ;
     } task_fd_query;
     struct {
         union {
-            unsigned int prog_fd  ;
-            unsigned int map_fd  ;
+            unsigned int  prog_fd  ;
+            unsigned int  map_fd  ;
         };
         union {
-            unsigned int target_fd  ;
-            unsigned int target_ifindex  ;
+            unsigned int  target_fd  ;
+            unsigned int  target_ifindex  ;
         };
-        unsigned int attach_type  ;
-        unsigned int flags  ;
+        unsigned int  attach_type  ;
+        unsigned int  flags  ;
         union {
-            unsigned int target_btf_id  ;
+            unsigned int  target_btf_id  ;
             struct {
-                unsigned long  long iter_info __attribute__((aligned(8)))	 ;
-                unsigned int iter_info_len  ;
+                unsigned long  long  iter_info  __attribute__((aligned(8)))	;
+                unsigned int  iter_info_len  ;
             };
             struct {
-                unsigned long  long bpf_cookie  ;
+                unsigned long  long  bpf_cookie  ;
             } perf_event;
             struct {
-                unsigned int flags  ;
-                unsigned int cnt  ;
-                unsigned long  long syms __attribute__((aligned(8)))	 ;
-                unsigned long  long addrs __attribute__((aligned(8)))	 ;
-                unsigned long  long cookies __attribute__((aligned(8)))	 ;
+                unsigned int  flags  ;
+                unsigned int  cnt  ;
+                unsigned long  long  syms  __attribute__((aligned(8)))	;
+                unsigned long  long  addrs  __attribute__((aligned(8)))	;
+                unsigned long  long  cookies  __attribute__((aligned(8)))	;
             } kprobe_multi;
             struct {
-                unsigned int target_btf_id  ;
-                unsigned long  long cookie  ;
+                unsigned int  target_btf_id  ;
+                unsigned long  long  cookie  ;
             } tracing;
             struct {
-                unsigned int pf  ;
-                unsigned int hooknum  ;
-                int priority  ;
-                unsigned int flags  ;
+                unsigned int  pf  ;
+                unsigned int  hooknum  ;
+                int  priority  ;
+                unsigned int  flags  ;
             } netfilter;
             struct {
                 union {
-                    unsigned int relative_fd  ;
-                    unsigned int relative_id  ;
+                    unsigned int  relative_fd  ;
+                    unsigned int  relative_id  ;
                 };
-                unsigned long  long expected_revision  ;
+                unsigned long  long  expected_revision  ;
             } tcx;
             struct {
-                unsigned long  long path __attribute__((aligned(8)))	 ;
-                unsigned long  long offsets __attribute__((aligned(8)))	 ;
-                unsigned long  long ref_ctr_offsets __attribute__((aligned(8)))	 ;
-                unsigned long  long cookies __attribute__((aligned(8)))	 ;
-                unsigned int cnt  ;
-                unsigned int flags  ;
-                unsigned int pid  ;
+                unsigned long  long  path  __attribute__((aligned(8)))	;
+                unsigned long  long  offsets  __attribute__((aligned(8)))	;
+                unsigned long  long  ref_ctr_offsets  __attribute__((aligned(8)))	;
+                unsigned long  long  cookies  __attribute__((aligned(8)))	;
+                unsigned int  cnt  ;
+                unsigned int  flags  ;
+                unsigned int  pid  ;
             } uprobe_multi;
             struct {
                 union {
-                    unsigned int relative_fd  ;
-                    unsigned int relative_id  ;
+                    unsigned int  relative_fd  ;
+                    unsigned int  relative_id  ;
                 };
-                unsigned long  long expected_revision  ;
+                unsigned long  long  expected_revision  ;
             } netkit;
             struct {
                 union {
-                    unsigned int relative_fd  ;
-                    unsigned int relative_id  ;
+                    unsigned int  relative_fd  ;
+                    unsigned int  relative_id  ;
                 };
-                unsigned long  long expected_revision  ;
+                unsigned long  long  expected_revision  ;
             } cgroup;
         };
     } link_create;
     struct {
-        unsigned int link_fd  ;
+        unsigned int  link_fd  ;
         union {
-            unsigned int new_prog_fd  ;
-            unsigned int new_map_fd  ;
+            unsigned int  new_prog_fd  ;
+            unsigned int  new_map_fd  ;
         };
-        unsigned int flags  ;
+        unsigned int  flags  ;
         union {
-            unsigned int old_prog_fd  ;
-            unsigned int old_map_fd  ;
+            unsigned int  old_prog_fd  ;
+            unsigned int  old_map_fd  ;
         };
     } link_update;
     struct {
-        unsigned int link_fd  ;
+        unsigned int  link_fd  ;
     } link_detach;
     struct {
-        unsigned int type  ;
+        unsigned int  type  ;
     } enable_stats;
     struct {
-        unsigned int link_fd  ;
-        unsigned int flags  ;
+        unsigned int  link_fd  ;
+        unsigned int  flags  ;
     } iter_create;
     struct {
-        unsigned int prog_fd  ;
-        unsigned int map_fd  ;
-        unsigned int flags  ;
+        unsigned int  prog_fd  ;
+        unsigned int  map_fd  ;
+        unsigned int  flags  ;
     } prog_bind_map;
     struct {
-        unsigned int flags  ;
-        unsigned int bpffs_fd  ;
+        unsigned int  flags  ;
+        unsigned int  bpffs_fd  ;
     } token_create;
     struct {
-        unsigned long  long stream_buf __attribute__((aligned(8)))	 ;
-        unsigned int stream_buf_len  ;
-        unsigned int stream_id  ;
-        unsigned int prog_fd  ;
+        unsigned long  long  stream_buf  __attribute__((aligned(8)))	;
+        unsigned int  stream_buf_len  ;
+        unsigned int  stream_id  ;
+        unsigned int  prog_fd  ;
     } prog_stream_read;
 } __attribute__((aligned(8)));
 
 struct anonymous_typeX95
 {
-    unsigned int map_type  ;
-    unsigned int key_size  ;
-    unsigned int value_size  ;
-    unsigned int max_entries  ;
-    unsigned int map_flags  ;
-    unsigned int inner_map_fd  ;
-    unsigned int numa_node  ;
+    unsigned int  map_type  ;
+    unsigned int  key_size  ;
+    unsigned int  value_size  ;
+    unsigned int  max_entries  ;
+    unsigned int  map_flags  ;
+    unsigned int  inner_map_fd  ;
+    unsigned int  numa_node  ;
     char map_name[16U];
-    unsigned int map_ifindex  ;
-    unsigned int btf_fd  ;
-    unsigned int btf_key_type_id  ;
-    unsigned int btf_value_type_id  ;
-    unsigned int btf_vmlinux_value_type_id  ;
-    unsigned long  long map_extra  ;
-    int value_type_btf_obj_fd  ;
-    int map_token_fd  ;
+    unsigned int  map_ifindex  ;
+    unsigned int  btf_fd  ;
+    unsigned int  btf_key_type_id  ;
+    unsigned int  btf_value_type_id  ;
+    unsigned int  btf_vmlinux_value_type_id  ;
+    unsigned long  long  map_extra  ;
+    int  value_type_btf_obj_fd  ;
+    int  map_token_fd  ;
 };
 
 union anonymous_typeZ97
 {
-unsigned long  long value __attribute__((aligned(8)))  ;
-unsigned long  long next_key __attribute__((aligned(8)))  ;
+unsigned long  long  value  __attribute__((aligned(8))) ;
+unsigned long  long  next_key  __attribute__((aligned(8))) ;
 };
 
 union anonymous_typeZ98
 {
-unsigned long  long value __attribute__((aligned(8)))  ;
-unsigned long  long next_key __attribute__((aligned(8)))  ;
+unsigned long  long  value  __attribute__((aligned(8))) ;
+unsigned long  long  next_key  __attribute__((aligned(8))) ;
 };
 
 struct anonymous_typeX96
 {
-    unsigned int map_fd  ;
-    unsigned long  long key __attribute__((aligned(8)))	 ;
+    unsigned int  map_fd  ;
+    unsigned long  long  key  __attribute__((aligned(8)))	;
     union {
-        unsigned long  long value __attribute__((aligned(8)))  ;
-        unsigned long  long next_key __attribute__((aligned(8)))  ;
+        unsigned long  long  value  __attribute__((aligned(8))) ;
+        unsigned long  long  next_key  __attribute__((aligned(8))) ;
     };
-    unsigned long  long flags  ;
+    unsigned long  long  flags  ;
 };
 
 struct anonymous_typeX99
 {
-    unsigned long  long in_batch __attribute__((aligned(8)))	 ;
-    unsigned long  long out_batch __attribute__((aligned(8)))	 ;
-    unsigned long  long keys __attribute__((aligned(8)))	 ;
-    unsigned long  long values __attribute__((aligned(8)))	 ;
-    unsigned int count  ;
-    unsigned int map_fd  ;
-    unsigned long  long elem_flags  ;
-    unsigned long  long flags  ;
+    unsigned long  long  in_batch  __attribute__((aligned(8)))	;
+    unsigned long  long  out_batch  __attribute__((aligned(8)))	;
+    unsigned long  long  keys  __attribute__((aligned(8)))	;
+    unsigned long  long  values  __attribute__((aligned(8)))	;
+    unsigned int  count  ;
+    unsigned int  map_fd  ;
+    unsigned long  long  elem_flags  ;
+    unsigned long  long  flags  ;
 };
 
 union anonymous_typeZ101
 {
-unsigned int attach_prog_fd  ;
-unsigned int attach_btf_obj_fd  ;
+unsigned int  attach_prog_fd  ;
+unsigned int  attach_btf_obj_fd  ;
 };
 
 union anonymous_typeZ102
 {
-unsigned int attach_prog_fd  ;
-unsigned int attach_btf_obj_fd  ;
+unsigned int  attach_prog_fd  ;
+unsigned int  attach_btf_obj_fd  ;
 };
 
 struct anonymous_typeX100
 {
-    unsigned int prog_type  ;
-    unsigned int insn_cnt  ;
-    unsigned long  long insns __attribute__((aligned(8)))	 ;
-    unsigned long  long license __attribute__((aligned(8)))	 ;
-    unsigned int log_level  ;
-    unsigned int log_size  ;
-    unsigned long  long log_buf __attribute__((aligned(8)))	 ;
-    unsigned int kern_version  ;
-    unsigned int prog_flags  ;
+    unsigned int  prog_type  ;
+    unsigned int  insn_cnt  ;
+    unsigned long  long  insns  __attribute__((aligned(8)))	;
+    unsigned long  long  license  __attribute__((aligned(8)))	;
+    unsigned int  log_level  ;
+    unsigned int  log_size  ;
+    unsigned long  long  log_buf  __attribute__((aligned(8)))	;
+    unsigned int  kern_version  ;
+    unsigned int  prog_flags  ;
     char prog_name[16U];
-    unsigned int prog_ifindex  ;
-    unsigned int expected_attach_type  ;
-    unsigned int prog_btf_fd  ;
-    unsigned int func_info_rec_size  ;
-    unsigned long  long func_info __attribute__((aligned(8)))	 ;
-    unsigned int func_info_cnt  ;
-    unsigned int line_info_rec_size  ;
-    unsigned long  long line_info __attribute__((aligned(8)))	 ;
-    unsigned int line_info_cnt  ;
-    unsigned int attach_btf_id  ;
+    unsigned int  prog_ifindex  ;
+    unsigned int  expected_attach_type  ;
+    unsigned int  prog_btf_fd  ;
+    unsigned int  func_info_rec_size  ;
+    unsigned long  long  func_info  __attribute__((aligned(8)))	;
+    unsigned int  func_info_cnt  ;
+    unsigned int  line_info_rec_size  ;
+    unsigned long  long  line_info  __attribute__((aligned(8)))	;
+    unsigned int  line_info_cnt  ;
+    unsigned int  attach_btf_id  ;
     union {
-        unsigned int attach_prog_fd  ;
-        unsigned int attach_btf_obj_fd  ;
+        unsigned int  attach_prog_fd  ;
+        unsigned int  attach_btf_obj_fd  ;
     };
-    unsigned int core_relo_cnt  ;
-    unsigned long  long fd_array __attribute__((aligned(8)))	 ;
-    unsigned long  long core_relos __attribute__((aligned(8)))	 ;
-    unsigned int core_relo_rec_size  ;
-    unsigned int log_true_size  ;
-    int prog_token_fd  ;
-    unsigned int fd_array_cnt  ;
+    unsigned int  core_relo_cnt  ;
+    unsigned long  long  fd_array  __attribute__((aligned(8)))	;
+    unsigned long  long  core_relos  __attribute__((aligned(8)))	;
+    unsigned int  core_relo_rec_size  ;
+    unsigned int  log_true_size  ;
+    int  prog_token_fd  ;
+    unsigned int  fd_array_cnt  ;
 };
 
 struct anonymous_typeX103
 {
-    unsigned long  long pathname __attribute__((aligned(8)))	 ;
-    unsigned int bpf_fd  ;
-    unsigned int file_flags  ;
-    int path_fd  ;
+    unsigned long  long  pathname  __attribute__((aligned(8)))	;
+    unsigned int  bpf_fd  ;
+    unsigned int  file_flags  ;
+    int  path_fd  ;
 };
 
 union anonymous_typeZ105
 {
-unsigned int target_fd  ;
-unsigned int target_ifindex  ;
+unsigned int  target_fd  ;
+unsigned int  target_ifindex  ;
 };
 
 union anonymous_typeZ106
 {
-unsigned int target_fd  ;
-unsigned int target_ifindex  ;
+unsigned int  target_fd  ;
+unsigned int  target_ifindex  ;
 };
 
 union anonymous_typeZ107
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 union anonymous_typeZ108
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 struct anonymous_typeX104
 {
     union {
-        unsigned int target_fd  ;
-        unsigned int target_ifindex  ;
+        unsigned int  target_fd  ;
+        unsigned int  target_ifindex  ;
     };
-    unsigned int attach_bpf_fd  ;
-    unsigned int attach_type  ;
-    unsigned int attach_flags  ;
-    unsigned int replace_bpf_fd  ;
+    unsigned int  attach_bpf_fd  ;
+    unsigned int  attach_type  ;
+    unsigned int  attach_flags  ;
+    unsigned int  replace_bpf_fd  ;
     union {
-        unsigned int relative_fd  ;
-        unsigned int relative_id  ;
+        unsigned int  relative_fd  ;
+        unsigned int  relative_id  ;
     };
-    unsigned long  long expected_revision  ;
+    unsigned long  long  expected_revision  ;
 };
 
 struct anonymous_typeX109
 {
-    unsigned int prog_fd  ;
-    unsigned int retval  ;
-    unsigned int data_size_in  ;
-    unsigned int data_size_out  ;
-    unsigned long  long data_in __attribute__((aligned(8)))	 ;
-    unsigned long  long data_out __attribute__((aligned(8)))	 ;
-    unsigned int repeat  ;
-    unsigned int duration  ;
-    unsigned int ctx_size_in  ;
-    unsigned int ctx_size_out  ;
-    unsigned long  long ctx_in __attribute__((aligned(8)))	 ;
-    unsigned long  long ctx_out __attribute__((aligned(8)))	 ;
-    unsigned int flags  ;
-    unsigned int cpu  ;
-    unsigned int batch_size  ;
+    unsigned int  prog_fd  ;
+    unsigned int  retval  ;
+    unsigned int  data_size_in  ;
+    unsigned int  data_size_out  ;
+    unsigned long  long  data_in  __attribute__((aligned(8)))	;
+    unsigned long  long  data_out  __attribute__((aligned(8)))	;
+    unsigned int  repeat  ;
+    unsigned int  duration  ;
+    unsigned int  ctx_size_in  ;
+    unsigned int  ctx_size_out  ;
+    unsigned long  long  ctx_in  __attribute__((aligned(8)))	;
+    unsigned long  long  ctx_out  __attribute__((aligned(8)))	;
+    unsigned int  flags  ;
+    unsigned int  cpu  ;
+    unsigned int  batch_size  ;
 };
 
 union anonymous_typeZ111
 {
-unsigned int start_id  ;
-unsigned int prog_id  ;
-unsigned int map_id  ;
-unsigned int btf_id  ;
-unsigned int link_id  ;
+unsigned int  start_id  ;
+unsigned int  prog_id  ;
+unsigned int  map_id  ;
+unsigned int  btf_id  ;
+unsigned int  link_id  ;
 };
 
 union anonymous_typeZ112
 {
-unsigned int start_id  ;
-unsigned int prog_id  ;
-unsigned int map_id  ;
-unsigned int btf_id  ;
-unsigned int link_id  ;
+unsigned int  start_id  ;
+unsigned int  prog_id  ;
+unsigned int  map_id  ;
+unsigned int  btf_id  ;
+unsigned int  link_id  ;
 };
 
 struct anonymous_typeX110
 {
     union {
-        unsigned int start_id  ;
-        unsigned int prog_id  ;
-        unsigned int map_id  ;
-        unsigned int btf_id  ;
-        unsigned int link_id  ;
+        unsigned int  start_id  ;
+        unsigned int  prog_id  ;
+        unsigned int  map_id  ;
+        unsigned int  btf_id  ;
+        unsigned int  link_id  ;
     };
-    unsigned int next_id  ;
-    unsigned int open_flags  ;
-    int fd_by_id_token_fd  ;
+    unsigned int  next_id  ;
+    unsigned int  open_flags  ;
+    int  fd_by_id_token_fd  ;
 };
 
 struct anonymous_typeX113
 {
-    unsigned int bpf_fd  ;
-    unsigned int info_len  ;
-    unsigned long  long info __attribute__((aligned(8)))	 ;
+    unsigned int  bpf_fd  ;
+    unsigned int  info_len  ;
+    unsigned long  long  info  __attribute__((aligned(8)))	;
 };
 
 union anonymous_typeZ115
 {
-unsigned int target_fd  ;
-unsigned int target_ifindex  ;
+unsigned int  target_fd  ;
+unsigned int  target_ifindex  ;
 };
 
 union anonymous_typeZ116
 {
-unsigned int target_fd  ;
-unsigned int target_ifindex  ;
+unsigned int  target_fd  ;
+unsigned int  target_ifindex  ;
 };
 
 union anonymous_typeZ117
 {
-unsigned int prog_cnt  ;
-unsigned int count  ;
+unsigned int  prog_cnt  ;
+unsigned int  count  ;
 };
 
 union anonymous_typeZ118
 {
-unsigned int prog_cnt  ;
-unsigned int count  ;
+unsigned int  prog_cnt  ;
+unsigned int  count  ;
 };
 
 struct anonymous_typeX114
 {
     union {
-        unsigned int target_fd  ;
-        unsigned int target_ifindex  ;
+        unsigned int  target_fd  ;
+        unsigned int  target_ifindex  ;
     };
-    unsigned int attach_type  ;
-    unsigned int query_flags  ;
-    unsigned int attach_flags  ;
-    unsigned long  long prog_ids __attribute__((aligned(8)))	 ;
+    unsigned int  attach_type  ;
+    unsigned int  query_flags  ;
+    unsigned int  attach_flags  ;
+    unsigned long  long  prog_ids  __attribute__((aligned(8)))	;
     union {
-        unsigned int prog_cnt  ;
-        unsigned int count  ;
+        unsigned int  prog_cnt  ;
+        unsigned int  count  ;
     };
-    unsigned int :32  ;
-    unsigned long  long prog_attach_flags __attribute__((aligned(8)))	 ;
-    unsigned long  long link_ids __attribute__((aligned(8)))	 ;
-    unsigned long  long link_attach_flags __attribute__((aligned(8)))	 ;
-    unsigned long  long revision  ;
+    unsigned int  :32  ;
+    unsigned long  long  prog_attach_flags  __attribute__((aligned(8)))	;
+    unsigned long  long  link_ids  __attribute__((aligned(8)))	;
+    unsigned long  long  link_attach_flags  __attribute__((aligned(8)))	;
+    unsigned long  long  revision  ;
 };
 
 struct anonymous_typeX119
 {
-    unsigned long  long name  ;
-    unsigned int prog_fd  ;
-    unsigned int :32  ;
-    unsigned long  long cookie __attribute__((aligned(8)))	 ;
+    unsigned long  long  name  ;
+    unsigned int  prog_fd  ;
+    unsigned int  :32  ;
+    unsigned long  long  cookie  __attribute__((aligned(8)))	;
 };
 
 struct anonymous_typeX120
 {
-    unsigned long  long btf __attribute__((aligned(8)))	 ;
-    unsigned long  long btf_log_buf __attribute__((aligned(8)))	 ;
-    unsigned int btf_size  ;
-    unsigned int btf_log_size  ;
-    unsigned int btf_log_level  ;
-    unsigned int btf_log_true_size  ;
-    unsigned int btf_flags  ;
-    int btf_token_fd  ;
+    unsigned long  long  btf  __attribute__((aligned(8)))	;
+    unsigned long  long  btf_log_buf  __attribute__((aligned(8)))	;
+    unsigned int  btf_size  ;
+    unsigned int  btf_log_size  ;
+    unsigned int  btf_log_level  ;
+    unsigned int  btf_log_true_size  ;
+    unsigned int  btf_flags  ;
+    int  btf_token_fd  ;
 };
 
 struct anonymous_typeX121
 {
-    unsigned int pid  ;
-    unsigned int fd  ;
-    unsigned int flags  ;
-    unsigned int buf_len  ;
-    unsigned long  long buf __attribute__((aligned(8)))	 ;
-    unsigned int prog_id  ;
-    unsigned int fd_type  ;
-    unsigned long  long probe_offset  ;
-    unsigned long  long probe_addr  ;
+    unsigned int  pid  ;
+    unsigned int  fd  ;
+    unsigned int  flags  ;
+    unsigned int  buf_len  ;
+    unsigned long  long  buf  __attribute__((aligned(8)))	;
+    unsigned int  prog_id  ;
+    unsigned int  fd_type  ;
+    unsigned long  long  probe_offset  ;
+    unsigned long  long  probe_addr  ;
 };
 
 union anonymous_typeZ123
 {
-unsigned int prog_fd  ;
-unsigned int map_fd  ;
+unsigned int  prog_fd  ;
+unsigned int  map_fd  ;
 };
 
 union anonymous_typeZ124
 {
-unsigned int prog_fd  ;
-unsigned int map_fd  ;
+unsigned int  prog_fd  ;
+unsigned int  map_fd  ;
 };
 
 union anonymous_typeZ125
 {
-unsigned int target_fd  ;
-unsigned int target_ifindex  ;
+unsigned int  target_fd  ;
+unsigned int  target_ifindex  ;
 };
 
 union anonymous_typeZ126
 {
-unsigned int target_fd  ;
-unsigned int target_ifindex  ;
+unsigned int  target_fd  ;
+unsigned int  target_ifindex  ;
 };
 
 struct anonymous_typeX128
 {
-    unsigned long  long iter_info __attribute__((aligned(8)))	 ;
-    unsigned int iter_info_len  ;
+    unsigned long  long  iter_info  __attribute__((aligned(8)))	;
+    unsigned int  iter_info_len  ;
 };
 
 struct anonymous_typeX129
 {
-    unsigned long  long bpf_cookie  ;
+    unsigned long  long  bpf_cookie  ;
 };
 
 struct anonymous_typeX130
 {
-    unsigned int flags  ;
-    unsigned int cnt  ;
-    unsigned long  long syms __attribute__((aligned(8)))	 ;
-    unsigned long  long addrs __attribute__((aligned(8)))	 ;
-    unsigned long  long cookies __attribute__((aligned(8)))	 ;
+    unsigned int  flags  ;
+    unsigned int  cnt  ;
+    unsigned long  long  syms  __attribute__((aligned(8)))	;
+    unsigned long  long  addrs  __attribute__((aligned(8)))	;
+    unsigned long  long  cookies  __attribute__((aligned(8)))	;
 };
 
 struct anonymous_typeX131
 {
-    unsigned int target_btf_id  ;
-    unsigned long  long cookie  ;
+    unsigned int  target_btf_id  ;
+    unsigned long  long  cookie  ;
 };
 
 struct anonymous_typeX132
 {
-    unsigned int pf  ;
-    unsigned int hooknum  ;
-    int priority  ;
-    unsigned int flags  ;
+    unsigned int  pf  ;
+    unsigned int  hooknum  ;
+    int  priority  ;
+    unsigned int  flags  ;
 };
 
 union anonymous_typeZ134
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 union anonymous_typeZ135
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 struct anonymous_typeX133
 {
     union {
-        unsigned int relative_fd  ;
-        unsigned int relative_id  ;
+        unsigned int  relative_fd  ;
+        unsigned int  relative_id  ;
     };
-    unsigned long  long expected_revision  ;
+    unsigned long  long  expected_revision  ;
 };
 
 struct anonymous_typeX136
 {
-    unsigned long  long path __attribute__((aligned(8)))	 ;
-    unsigned long  long offsets __attribute__((aligned(8)))	 ;
-    unsigned long  long ref_ctr_offsets __attribute__((aligned(8)))	 ;
-    unsigned long  long cookies __attribute__((aligned(8)))	 ;
-    unsigned int cnt  ;
-    unsigned int flags  ;
-    unsigned int pid  ;
+    unsigned long  long  path  __attribute__((aligned(8)))	;
+    unsigned long  long  offsets  __attribute__((aligned(8)))	;
+    unsigned long  long  ref_ctr_offsets  __attribute__((aligned(8)))	;
+    unsigned long  long  cookies  __attribute__((aligned(8)))	;
+    unsigned int  cnt  ;
+    unsigned int  flags  ;
+    unsigned int  pid  ;
 };
 
 union anonymous_typeZ138
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 union anonymous_typeZ139
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 struct anonymous_typeX137
 {
     union {
-        unsigned int relative_fd  ;
-        unsigned int relative_id  ;
+        unsigned int  relative_fd  ;
+        unsigned int  relative_id  ;
     };
-    unsigned long  long expected_revision  ;
+    unsigned long  long  expected_revision  ;
 };
 
 union anonymous_typeZ141
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 union anonymous_typeZ142
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 struct anonymous_typeX140
 {
     union {
-        unsigned int relative_fd  ;
-        unsigned int relative_id  ;
+        unsigned int  relative_fd  ;
+        unsigned int  relative_id  ;
     };
-    unsigned long  long expected_revision  ;
+    unsigned long  long  expected_revision  ;
 };
 
 union anonymous_typeZ127
 {
-unsigned int target_btf_id  ;
+unsigned int  target_btf_id  ;
     struct {
-        unsigned long  long iter_info __attribute__((aligned(8)))	 ;
-        unsigned int iter_info_len  ;
+        unsigned long  long  iter_info  __attribute__((aligned(8)))	;
+        unsigned int  iter_info_len  ;
     };
     struct {
-        unsigned long  long bpf_cookie  ;
+        unsigned long  long  bpf_cookie  ;
     } perf_event;
     struct {
-        unsigned int flags  ;
-        unsigned int cnt  ;
-        unsigned long  long syms __attribute__((aligned(8)))	 ;
-        unsigned long  long addrs __attribute__((aligned(8)))	 ;
-        unsigned long  long cookies __attribute__((aligned(8)))	 ;
+        unsigned int  flags  ;
+        unsigned int  cnt  ;
+        unsigned long  long  syms  __attribute__((aligned(8)))	;
+        unsigned long  long  addrs  __attribute__((aligned(8)))	;
+        unsigned long  long  cookies  __attribute__((aligned(8)))	;
     } kprobe_multi;
     struct {
-        unsigned int target_btf_id  ;
-        unsigned long  long cookie  ;
+        unsigned int  target_btf_id  ;
+        unsigned long  long  cookie  ;
     } tracing;
     struct {
-        unsigned int pf  ;
-        unsigned int hooknum  ;
-        int priority  ;
-        unsigned int flags  ;
+        unsigned int  pf  ;
+        unsigned int  hooknum  ;
+        int  priority  ;
+        unsigned int  flags  ;
     } netfilter;
     struct {
         union {
-            unsigned int relative_fd  ;
-            unsigned int relative_id  ;
+            unsigned int  relative_fd  ;
+            unsigned int  relative_id  ;
         };
-        unsigned long  long expected_revision  ;
+        unsigned long  long  expected_revision  ;
     } tcx;
     struct {
-        unsigned long  long path __attribute__((aligned(8)))	 ;
-        unsigned long  long offsets __attribute__((aligned(8)))	 ;
-        unsigned long  long ref_ctr_offsets __attribute__((aligned(8)))	 ;
-        unsigned long  long cookies __attribute__((aligned(8)))	 ;
-        unsigned int cnt  ;
-        unsigned int flags  ;
-        unsigned int pid  ;
+        unsigned long  long  path  __attribute__((aligned(8)))	;
+        unsigned long  long  offsets  __attribute__((aligned(8)))	;
+        unsigned long  long  ref_ctr_offsets  __attribute__((aligned(8)))	;
+        unsigned long  long  cookies  __attribute__((aligned(8)))	;
+        unsigned int  cnt  ;
+        unsigned int  flags  ;
+        unsigned int  pid  ;
     } uprobe_multi;
     struct {
         union {
-            unsigned int relative_fd  ;
-            unsigned int relative_id  ;
+            unsigned int  relative_fd  ;
+            unsigned int  relative_id  ;
         };
-        unsigned long  long expected_revision  ;
+        unsigned long  long  expected_revision  ;
     } netkit;
     struct {
         union {
-            unsigned int relative_fd  ;
-            unsigned int relative_id  ;
+            unsigned int  relative_fd  ;
+            unsigned int  relative_id  ;
         };
-        unsigned long  long expected_revision  ;
+        unsigned long  long  expected_revision  ;
     } cgroup;
 };
 
 struct anonymous_typeX144
 {
-    unsigned long  long iter_info __attribute__((aligned(8)))	 ;
-    unsigned int iter_info_len  ;
+    unsigned long  long  iter_info  __attribute__((aligned(8)))	;
+    unsigned int  iter_info_len  ;
 };
 
 struct anonymous_typeX145
 {
-    unsigned long  long bpf_cookie  ;
+    unsigned long  long  bpf_cookie  ;
 };
 
 struct anonymous_typeX146
 {
-    unsigned int flags  ;
-    unsigned int cnt  ;
-    unsigned long  long syms __attribute__((aligned(8)))	 ;
-    unsigned long  long addrs __attribute__((aligned(8)))	 ;
-    unsigned long  long cookies __attribute__((aligned(8)))	 ;
+    unsigned int  flags  ;
+    unsigned int  cnt  ;
+    unsigned long  long  syms  __attribute__((aligned(8)))	;
+    unsigned long  long  addrs  __attribute__((aligned(8)))	;
+    unsigned long  long  cookies  __attribute__((aligned(8)))	;
 };
 
 struct anonymous_typeX147
 {
-    unsigned int target_btf_id  ;
-    unsigned long  long cookie  ;
+    unsigned int  target_btf_id  ;
+    unsigned long  long  cookie  ;
 };
 
 struct anonymous_typeX148
 {
-    unsigned int pf  ;
-    unsigned int hooknum  ;
-    int priority  ;
-    unsigned int flags  ;
+    unsigned int  pf  ;
+    unsigned int  hooknum  ;
+    int  priority  ;
+    unsigned int  flags  ;
 };
 
 union anonymous_typeZ150
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 union anonymous_typeZ151
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 struct anonymous_typeX149
 {
     union {
-        unsigned int relative_fd  ;
-        unsigned int relative_id  ;
+        unsigned int  relative_fd  ;
+        unsigned int  relative_id  ;
     };
-    unsigned long  long expected_revision  ;
+    unsigned long  long  expected_revision  ;
 };
 
 struct anonymous_typeX152
 {
-    unsigned long  long path __attribute__((aligned(8)))	 ;
-    unsigned long  long offsets __attribute__((aligned(8)))	 ;
-    unsigned long  long ref_ctr_offsets __attribute__((aligned(8)))	 ;
-    unsigned long  long cookies __attribute__((aligned(8)))	 ;
-    unsigned int cnt  ;
-    unsigned int flags  ;
-    unsigned int pid  ;
+    unsigned long  long  path  __attribute__((aligned(8)))	;
+    unsigned long  long  offsets  __attribute__((aligned(8)))	;
+    unsigned long  long  ref_ctr_offsets  __attribute__((aligned(8)))	;
+    unsigned long  long  cookies  __attribute__((aligned(8)))	;
+    unsigned int  cnt  ;
+    unsigned int  flags  ;
+    unsigned int  pid  ;
 };
 
 union anonymous_typeZ154
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 union anonymous_typeZ155
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 struct anonymous_typeX153
 {
     union {
-        unsigned int relative_fd  ;
-        unsigned int relative_id  ;
+        unsigned int  relative_fd  ;
+        unsigned int  relative_id  ;
     };
-    unsigned long  long expected_revision  ;
+    unsigned long  long  expected_revision  ;
 };
 
 union anonymous_typeZ157
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 union anonymous_typeZ158
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 struct anonymous_typeX156
 {
     union {
-        unsigned int relative_fd  ;
-        unsigned int relative_id  ;
+        unsigned int  relative_fd  ;
+        unsigned int  relative_id  ;
     };
-    unsigned long  long expected_revision  ;
+    unsigned long  long  expected_revision  ;
 };
 
 union anonymous_typeZ143
 {
-unsigned int target_btf_id  ;
+unsigned int  target_btf_id  ;
     struct {
-        unsigned long  long iter_info __attribute__((aligned(8)))	 ;
-        unsigned int iter_info_len  ;
+        unsigned long  long  iter_info  __attribute__((aligned(8)))	;
+        unsigned int  iter_info_len  ;
     };
     struct {
-        unsigned long  long bpf_cookie  ;
+        unsigned long  long  bpf_cookie  ;
     } perf_event;
     struct {
-        unsigned int flags  ;
-        unsigned int cnt  ;
-        unsigned long  long syms __attribute__((aligned(8)))	 ;
-        unsigned long  long addrs __attribute__((aligned(8)))	 ;
-        unsigned long  long cookies __attribute__((aligned(8)))	 ;
+        unsigned int  flags  ;
+        unsigned int  cnt  ;
+        unsigned long  long  syms  __attribute__((aligned(8)))	;
+        unsigned long  long  addrs  __attribute__((aligned(8)))	;
+        unsigned long  long  cookies  __attribute__((aligned(8)))	;
     } kprobe_multi;
     struct {
-        unsigned int target_btf_id  ;
-        unsigned long  long cookie  ;
+        unsigned int  target_btf_id  ;
+        unsigned long  long  cookie  ;
     } tracing;
     struct {
-        unsigned int pf  ;
-        unsigned int hooknum  ;
-        int priority  ;
-        unsigned int flags  ;
+        unsigned int  pf  ;
+        unsigned int  hooknum  ;
+        int  priority  ;
+        unsigned int  flags  ;
     } netfilter;
     struct {
         union {
-            unsigned int relative_fd  ;
-            unsigned int relative_id  ;
+            unsigned int  relative_fd  ;
+            unsigned int  relative_id  ;
         };
-        unsigned long  long expected_revision  ;
+        unsigned long  long  expected_revision  ;
     } tcx;
     struct {
-        unsigned long  long path __attribute__((aligned(8)))	 ;
-        unsigned long  long offsets __attribute__((aligned(8)))	 ;
-        unsigned long  long ref_ctr_offsets __attribute__((aligned(8)))	 ;
-        unsigned long  long cookies __attribute__((aligned(8)))	 ;
-        unsigned int cnt  ;
-        unsigned int flags  ;
-        unsigned int pid  ;
+        unsigned long  long  path  __attribute__((aligned(8)))	;
+        unsigned long  long  offsets  __attribute__((aligned(8)))	;
+        unsigned long  long  ref_ctr_offsets  __attribute__((aligned(8)))	;
+        unsigned long  long  cookies  __attribute__((aligned(8)))	;
+        unsigned int  cnt  ;
+        unsigned int  flags  ;
+        unsigned int  pid  ;
     } uprobe_multi;
     struct {
         union {
-            unsigned int relative_fd  ;
-            unsigned int relative_id  ;
+            unsigned int  relative_fd  ;
+            unsigned int  relative_id  ;
         };
-        unsigned long  long expected_revision  ;
+        unsigned long  long  expected_revision  ;
     } netkit;
     struct {
         union {
-            unsigned int relative_fd  ;
-            unsigned int relative_id  ;
+            unsigned int  relative_fd  ;
+            unsigned int  relative_id  ;
         };
-        unsigned long  long expected_revision  ;
+        unsigned long  long  expected_revision  ;
     } cgroup;
 };
 
 struct anonymous_typeX122
 {
     union {
-        unsigned int prog_fd  ;
-        unsigned int map_fd  ;
+        unsigned int  prog_fd  ;
+        unsigned int  map_fd  ;
     };
     union {
-        unsigned int target_fd  ;
-        unsigned int target_ifindex  ;
+        unsigned int  target_fd  ;
+        unsigned int  target_ifindex  ;
     };
-    unsigned int attach_type  ;
-    unsigned int flags  ;
+    unsigned int  attach_type  ;
+    unsigned int  flags  ;
     union {
-        unsigned int target_btf_id  ;
+        unsigned int  target_btf_id  ;
         struct {
-            unsigned long  long iter_info __attribute__((aligned(8)))	 ;
-            unsigned int iter_info_len  ;
+            unsigned long  long  iter_info  __attribute__((aligned(8)))	;
+            unsigned int  iter_info_len  ;
         };
         struct {
-            unsigned long  long bpf_cookie  ;
+            unsigned long  long  bpf_cookie  ;
         } perf_event;
         struct {
-            unsigned int flags  ;
-            unsigned int cnt  ;
-            unsigned long  long syms __attribute__((aligned(8)))	 ;
-            unsigned long  long addrs __attribute__((aligned(8)))	 ;
-            unsigned long  long cookies __attribute__((aligned(8)))	 ;
+            unsigned int  flags  ;
+            unsigned int  cnt  ;
+            unsigned long  long  syms  __attribute__((aligned(8)))	;
+            unsigned long  long  addrs  __attribute__((aligned(8)))	;
+            unsigned long  long  cookies  __attribute__((aligned(8)))	;
         } kprobe_multi;
         struct {
-            unsigned int target_btf_id  ;
-            unsigned long  long cookie  ;
+            unsigned int  target_btf_id  ;
+            unsigned long  long  cookie  ;
         } tracing;
         struct {
-            unsigned int pf  ;
-            unsigned int hooknum  ;
-            int priority  ;
-            unsigned int flags  ;
+            unsigned int  pf  ;
+            unsigned int  hooknum  ;
+            int  priority  ;
+            unsigned int  flags  ;
         } netfilter;
         struct {
             union {
-                unsigned int relative_fd  ;
-                unsigned int relative_id  ;
+                unsigned int  relative_fd  ;
+                unsigned int  relative_id  ;
             };
-            unsigned long  long expected_revision  ;
+            unsigned long  long  expected_revision  ;
         } tcx;
         struct {
-            unsigned long  long path __attribute__((aligned(8)))	 ;
-            unsigned long  long offsets __attribute__((aligned(8)))	 ;
-            unsigned long  long ref_ctr_offsets __attribute__((aligned(8)))	 ;
-            unsigned long  long cookies __attribute__((aligned(8)))	 ;
-            unsigned int cnt  ;
-            unsigned int flags  ;
-            unsigned int pid  ;
+            unsigned long  long  path  __attribute__((aligned(8)))	;
+            unsigned long  long  offsets  __attribute__((aligned(8)))	;
+            unsigned long  long  ref_ctr_offsets  __attribute__((aligned(8)))	;
+            unsigned long  long  cookies  __attribute__((aligned(8)))	;
+            unsigned int  cnt  ;
+            unsigned int  flags  ;
+            unsigned int  pid  ;
         } uprobe_multi;
         struct {
             union {
-                unsigned int relative_fd  ;
-                unsigned int relative_id  ;
+                unsigned int  relative_fd  ;
+                unsigned int  relative_id  ;
             };
-            unsigned long  long expected_revision  ;
+            unsigned long  long  expected_revision  ;
         } netkit;
         struct {
             union {
-                unsigned int relative_fd  ;
-                unsigned int relative_id  ;
+                unsigned int  relative_fd  ;
+                unsigned int  relative_id  ;
             };
-            unsigned long  long expected_revision  ;
+            unsigned long  long  expected_revision  ;
         } cgroup;
     };
 };
 
 union anonymous_typeZ160
 {
-unsigned int new_prog_fd  ;
-unsigned int new_map_fd  ;
+unsigned int  new_prog_fd  ;
+unsigned int  new_map_fd  ;
 };
 
 union anonymous_typeZ161
 {
-unsigned int new_prog_fd  ;
-unsigned int new_map_fd  ;
+unsigned int  new_prog_fd  ;
+unsigned int  new_map_fd  ;
 };
 
 union anonymous_typeZ162
 {
-unsigned int old_prog_fd  ;
-unsigned int old_map_fd  ;
+unsigned int  old_prog_fd  ;
+unsigned int  old_map_fd  ;
 };
 
 union anonymous_typeZ163
 {
-unsigned int old_prog_fd  ;
-unsigned int old_map_fd  ;
+unsigned int  old_prog_fd  ;
+unsigned int  old_map_fd  ;
 };
 
 struct anonymous_typeX159
 {
-    unsigned int link_fd  ;
+    unsigned int  link_fd  ;
     union {
-        unsigned int new_prog_fd  ;
-        unsigned int new_map_fd  ;
+        unsigned int  new_prog_fd  ;
+        unsigned int  new_map_fd  ;
     };
-    unsigned int flags  ;
+    unsigned int  flags  ;
     union {
-        unsigned int old_prog_fd  ;
-        unsigned int old_map_fd  ;
+        unsigned int  old_prog_fd  ;
+        unsigned int  old_map_fd  ;
     };
 };
 
 struct anonymous_typeX164
 {
-    unsigned int link_fd  ;
+    unsigned int  link_fd  ;
 };
 
 struct anonymous_typeX165
 {
-    unsigned int type  ;
+    unsigned int  type  ;
 };
 
 struct anonymous_typeX166
 {
-    unsigned int link_fd  ;
-    unsigned int flags  ;
+    unsigned int  link_fd  ;
+    unsigned int  flags  ;
 };
 
 struct anonymous_typeX167
 {
-    unsigned int prog_fd  ;
-    unsigned int map_fd  ;
-    unsigned int flags  ;
+    unsigned int  prog_fd  ;
+    unsigned int  map_fd  ;
+    unsigned int  flags  ;
 };
 
 struct anonymous_typeX168
 {
-    unsigned int flags  ;
-    unsigned int bpffs_fd  ;
+    unsigned int  flags  ;
+    unsigned int  bpffs_fd  ;
 };
 
 struct anonymous_typeX169
 {
-    unsigned long  long stream_buf __attribute__((aligned(8)))	 ;
-    unsigned int stream_buf_len  ;
-    unsigned int stream_id  ;
-    unsigned int prog_fd  ;
+    unsigned long  long  stream_buf  __attribute__((aligned(8)))	;
+    unsigned int  stream_buf_len  ;
+    unsigned int  stream_id  ;
+    unsigned int  prog_fd  ;
 };
 
 struct anonymous_typeX170
 {
-    unsigned int map_type  ;
-    unsigned int key_size  ;
-    unsigned int value_size  ;
-    unsigned int max_entries  ;
-    unsigned int map_flags  ;
-    unsigned int inner_map_fd  ;
-    unsigned int numa_node  ;
+    unsigned int  map_type  ;
+    unsigned int  key_size  ;
+    unsigned int  value_size  ;
+    unsigned int  max_entries  ;
+    unsigned int  map_flags  ;
+    unsigned int  inner_map_fd  ;
+    unsigned int  numa_node  ;
     char map_name[16U];
-    unsigned int map_ifindex  ;
-    unsigned int btf_fd  ;
-    unsigned int btf_key_type_id  ;
-    unsigned int btf_value_type_id  ;
-    unsigned int btf_vmlinux_value_type_id  ;
-    unsigned long  long map_extra  ;
-    int value_type_btf_obj_fd  ;
-    int map_token_fd  ;
+    unsigned int  map_ifindex  ;
+    unsigned int  btf_fd  ;
+    unsigned int  btf_key_type_id  ;
+    unsigned int  btf_value_type_id  ;
+    unsigned int  btf_vmlinux_value_type_id  ;
+    unsigned long  long  map_extra  ;
+    int  value_type_btf_obj_fd  ;
+    int  map_token_fd  ;
 };
 
 union anonymous_typeZ172
 {
-unsigned long  long value __attribute__((aligned(8)))  ;
-unsigned long  long next_key __attribute__((aligned(8)))  ;
+unsigned long  long  value  __attribute__((aligned(8))) ;
+unsigned long  long  next_key  __attribute__((aligned(8))) ;
 };
 
 union anonymous_typeZ173
 {
-unsigned long  long value __attribute__((aligned(8)))  ;
-unsigned long  long next_key __attribute__((aligned(8)))  ;
+unsigned long  long  value  __attribute__((aligned(8))) ;
+unsigned long  long  next_key  __attribute__((aligned(8))) ;
 };
 
 struct anonymous_typeX171
 {
-    unsigned int map_fd  ;
-    unsigned long  long key __attribute__((aligned(8)))	 ;
+    unsigned int  map_fd  ;
+    unsigned long  long  key  __attribute__((aligned(8)))	;
     union {
-        unsigned long  long value __attribute__((aligned(8)))  ;
-        unsigned long  long next_key __attribute__((aligned(8)))  ;
+        unsigned long  long  value  __attribute__((aligned(8))) ;
+        unsigned long  long  next_key  __attribute__((aligned(8))) ;
     };
-    unsigned long  long flags  ;
+    unsigned long  long  flags  ;
 };
 
 struct anonymous_typeX174
 {
-    unsigned long  long in_batch __attribute__((aligned(8)))	 ;
-    unsigned long  long out_batch __attribute__((aligned(8)))	 ;
-    unsigned long  long keys __attribute__((aligned(8)))	 ;
-    unsigned long  long values __attribute__((aligned(8)))	 ;
-    unsigned int count  ;
-    unsigned int map_fd  ;
-    unsigned long  long elem_flags  ;
-    unsigned long  long flags  ;
+    unsigned long  long  in_batch  __attribute__((aligned(8)))	;
+    unsigned long  long  out_batch  __attribute__((aligned(8)))	;
+    unsigned long  long  keys  __attribute__((aligned(8)))	;
+    unsigned long  long  values  __attribute__((aligned(8)))	;
+    unsigned int  count  ;
+    unsigned int  map_fd  ;
+    unsigned long  long  elem_flags  ;
+    unsigned long  long  flags  ;
 };
 
 union anonymous_typeZ176
 {
-unsigned int attach_prog_fd  ;
-unsigned int attach_btf_obj_fd  ;
+unsigned int  attach_prog_fd  ;
+unsigned int  attach_btf_obj_fd  ;
 };
 
 union anonymous_typeZ177
 {
-unsigned int attach_prog_fd  ;
-unsigned int attach_btf_obj_fd  ;
+unsigned int  attach_prog_fd  ;
+unsigned int  attach_btf_obj_fd  ;
 };
 
 struct anonymous_typeX175
 {
-    unsigned int prog_type  ;
-    unsigned int insn_cnt  ;
-    unsigned long  long insns __attribute__((aligned(8)))	 ;
-    unsigned long  long license __attribute__((aligned(8)))	 ;
-    unsigned int log_level  ;
-    unsigned int log_size  ;
-    unsigned long  long log_buf __attribute__((aligned(8)))	 ;
-    unsigned int kern_version  ;
-    unsigned int prog_flags  ;
+    unsigned int  prog_type  ;
+    unsigned int  insn_cnt  ;
+    unsigned long  long  insns  __attribute__((aligned(8)))	;
+    unsigned long  long  license  __attribute__((aligned(8)))	;
+    unsigned int  log_level  ;
+    unsigned int  log_size  ;
+    unsigned long  long  log_buf  __attribute__((aligned(8)))	;
+    unsigned int  kern_version  ;
+    unsigned int  prog_flags  ;
     char prog_name[16U];
-    unsigned int prog_ifindex  ;
-    unsigned int expected_attach_type  ;
-    unsigned int prog_btf_fd  ;
-    unsigned int func_info_rec_size  ;
-    unsigned long  long func_info __attribute__((aligned(8)))	 ;
-    unsigned int func_info_cnt  ;
-    unsigned int line_info_rec_size  ;
-    unsigned long  long line_info __attribute__((aligned(8)))	 ;
-    unsigned int line_info_cnt  ;
-    unsigned int attach_btf_id  ;
+    unsigned int  prog_ifindex  ;
+    unsigned int  expected_attach_type  ;
+    unsigned int  prog_btf_fd  ;
+    unsigned int  func_info_rec_size  ;
+    unsigned long  long  func_info  __attribute__((aligned(8)))	;
+    unsigned int  func_info_cnt  ;
+    unsigned int  line_info_rec_size  ;
+    unsigned long  long  line_info  __attribute__((aligned(8)))	;
+    unsigned int  line_info_cnt  ;
+    unsigned int  attach_btf_id  ;
     union {
-        unsigned int attach_prog_fd  ;
-        unsigned int attach_btf_obj_fd  ;
+        unsigned int  attach_prog_fd  ;
+        unsigned int  attach_btf_obj_fd  ;
     };
-    unsigned int core_relo_cnt  ;
-    unsigned long  long fd_array __attribute__((aligned(8)))	 ;
-    unsigned long  long core_relos __attribute__((aligned(8)))	 ;
-    unsigned int core_relo_rec_size  ;
-    unsigned int log_true_size  ;
-    int prog_token_fd  ;
-    unsigned int fd_array_cnt  ;
+    unsigned int  core_relo_cnt  ;
+    unsigned long  long  fd_array  __attribute__((aligned(8)))	;
+    unsigned long  long  core_relos  __attribute__((aligned(8)))	;
+    unsigned int  core_relo_rec_size  ;
+    unsigned int  log_true_size  ;
+    int  prog_token_fd  ;
+    unsigned int  fd_array_cnt  ;
 };
 
 struct anonymous_typeX178
 {
-    unsigned long  long pathname __attribute__((aligned(8)))	 ;
-    unsigned int bpf_fd  ;
-    unsigned int file_flags  ;
-    int path_fd  ;
+    unsigned long  long  pathname  __attribute__((aligned(8)))	;
+    unsigned int  bpf_fd  ;
+    unsigned int  file_flags  ;
+    int  path_fd  ;
 };
 
 union anonymous_typeZ180
 {
-unsigned int target_fd  ;
-unsigned int target_ifindex  ;
+unsigned int  target_fd  ;
+unsigned int  target_ifindex  ;
 };
 
 union anonymous_typeZ181
 {
-unsigned int target_fd  ;
-unsigned int target_ifindex  ;
+unsigned int  target_fd  ;
+unsigned int  target_ifindex  ;
 };
 
 union anonymous_typeZ182
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 union anonymous_typeZ183
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 struct anonymous_typeX179
 {
     union {
-        unsigned int target_fd  ;
-        unsigned int target_ifindex  ;
+        unsigned int  target_fd  ;
+        unsigned int  target_ifindex  ;
     };
-    unsigned int attach_bpf_fd  ;
-    unsigned int attach_type  ;
-    unsigned int attach_flags  ;
-    unsigned int replace_bpf_fd  ;
+    unsigned int  attach_bpf_fd  ;
+    unsigned int  attach_type  ;
+    unsigned int  attach_flags  ;
+    unsigned int  replace_bpf_fd  ;
     union {
-        unsigned int relative_fd  ;
-        unsigned int relative_id  ;
+        unsigned int  relative_fd  ;
+        unsigned int  relative_id  ;
     };
-    unsigned long  long expected_revision  ;
+    unsigned long  long  expected_revision  ;
 };
 
 struct anonymous_typeX184
 {
-    unsigned int prog_fd  ;
-    unsigned int retval  ;
-    unsigned int data_size_in  ;
-    unsigned int data_size_out  ;
-    unsigned long  long data_in __attribute__((aligned(8)))	 ;
-    unsigned long  long data_out __attribute__((aligned(8)))	 ;
-    unsigned int repeat  ;
-    unsigned int duration  ;
-    unsigned int ctx_size_in  ;
-    unsigned int ctx_size_out  ;
-    unsigned long  long ctx_in __attribute__((aligned(8)))	 ;
-    unsigned long  long ctx_out __attribute__((aligned(8)))	 ;
-    unsigned int flags  ;
-    unsigned int cpu  ;
-    unsigned int batch_size  ;
+    unsigned int  prog_fd  ;
+    unsigned int  retval  ;
+    unsigned int  data_size_in  ;
+    unsigned int  data_size_out  ;
+    unsigned long  long  data_in  __attribute__((aligned(8)))	;
+    unsigned long  long  data_out  __attribute__((aligned(8)))	;
+    unsigned int  repeat  ;
+    unsigned int  duration  ;
+    unsigned int  ctx_size_in  ;
+    unsigned int  ctx_size_out  ;
+    unsigned long  long  ctx_in  __attribute__((aligned(8)))	;
+    unsigned long  long  ctx_out  __attribute__((aligned(8)))	;
+    unsigned int  flags  ;
+    unsigned int  cpu  ;
+    unsigned int  batch_size  ;
 };
 
 union anonymous_typeZ186
 {
-unsigned int start_id  ;
-unsigned int prog_id  ;
-unsigned int map_id  ;
-unsigned int btf_id  ;
-unsigned int link_id  ;
+unsigned int  start_id  ;
+unsigned int  prog_id  ;
+unsigned int  map_id  ;
+unsigned int  btf_id  ;
+unsigned int  link_id  ;
 };
 
 union anonymous_typeZ187
 {
-unsigned int start_id  ;
-unsigned int prog_id  ;
-unsigned int map_id  ;
-unsigned int btf_id  ;
-unsigned int link_id  ;
+unsigned int  start_id  ;
+unsigned int  prog_id  ;
+unsigned int  map_id  ;
+unsigned int  btf_id  ;
+unsigned int  link_id  ;
 };
 
 struct anonymous_typeX185
 {
     union {
-        unsigned int start_id  ;
-        unsigned int prog_id  ;
-        unsigned int map_id  ;
-        unsigned int btf_id  ;
-        unsigned int link_id  ;
+        unsigned int  start_id  ;
+        unsigned int  prog_id  ;
+        unsigned int  map_id  ;
+        unsigned int  btf_id  ;
+        unsigned int  link_id  ;
     };
-    unsigned int next_id  ;
-    unsigned int open_flags  ;
-    int fd_by_id_token_fd  ;
+    unsigned int  next_id  ;
+    unsigned int  open_flags  ;
+    int  fd_by_id_token_fd  ;
 };
 
 struct anonymous_typeX188
 {
-    unsigned int bpf_fd  ;
-    unsigned int info_len  ;
-    unsigned long  long info __attribute__((aligned(8)))	 ;
+    unsigned int  bpf_fd  ;
+    unsigned int  info_len  ;
+    unsigned long  long  info  __attribute__((aligned(8)))	;
 };
 
 union anonymous_typeZ190
 {
-unsigned int target_fd  ;
-unsigned int target_ifindex  ;
+unsigned int  target_fd  ;
+unsigned int  target_ifindex  ;
 };
 
 union anonymous_typeZ191
 {
-unsigned int target_fd  ;
-unsigned int target_ifindex  ;
+unsigned int  target_fd  ;
+unsigned int  target_ifindex  ;
 };
 
 union anonymous_typeZ192
 {
-unsigned int prog_cnt  ;
-unsigned int count  ;
+unsigned int  prog_cnt  ;
+unsigned int  count  ;
 };
 
 union anonymous_typeZ193
 {
-unsigned int prog_cnt  ;
-unsigned int count  ;
+unsigned int  prog_cnt  ;
+unsigned int  count  ;
 };
 
 struct anonymous_typeX189
 {
     union {
-        unsigned int target_fd  ;
-        unsigned int target_ifindex  ;
+        unsigned int  target_fd  ;
+        unsigned int  target_ifindex  ;
     };
-    unsigned int attach_type  ;
-    unsigned int query_flags  ;
-    unsigned int attach_flags  ;
-    unsigned long  long prog_ids __attribute__((aligned(8)))	 ;
+    unsigned int  attach_type  ;
+    unsigned int  query_flags  ;
+    unsigned int  attach_flags  ;
+    unsigned long  long  prog_ids  __attribute__((aligned(8)))	;
     union {
-        unsigned int prog_cnt  ;
-        unsigned int count  ;
+        unsigned int  prog_cnt  ;
+        unsigned int  count  ;
     };
-    unsigned int :32  ;
-    unsigned long  long prog_attach_flags __attribute__((aligned(8)))	 ;
-    unsigned long  long link_ids __attribute__((aligned(8)))	 ;
-    unsigned long  long link_attach_flags __attribute__((aligned(8)))	 ;
-    unsigned long  long revision  ;
+    unsigned int  :32  ;
+    unsigned long  long  prog_attach_flags  __attribute__((aligned(8)))	;
+    unsigned long  long  link_ids  __attribute__((aligned(8)))	;
+    unsigned long  long  link_attach_flags  __attribute__((aligned(8)))	;
+    unsigned long  long  revision  ;
 };
 
 struct anonymous_typeX194
 {
-    unsigned long  long name  ;
-    unsigned int prog_fd  ;
-    unsigned int :32  ;
-    unsigned long  long cookie __attribute__((aligned(8)))	 ;
+    unsigned long  long  name  ;
+    unsigned int  prog_fd  ;
+    unsigned int  :32  ;
+    unsigned long  long  cookie  __attribute__((aligned(8)))	;
 };
 
 struct anonymous_typeX195
 {
-    unsigned long  long btf __attribute__((aligned(8)))	 ;
-    unsigned long  long btf_log_buf __attribute__((aligned(8)))	 ;
-    unsigned int btf_size  ;
-    unsigned int btf_log_size  ;
-    unsigned int btf_log_level  ;
-    unsigned int btf_log_true_size  ;
-    unsigned int btf_flags  ;
-    int btf_token_fd  ;
+    unsigned long  long  btf  __attribute__((aligned(8)))	;
+    unsigned long  long  btf_log_buf  __attribute__((aligned(8)))	;
+    unsigned int  btf_size  ;
+    unsigned int  btf_log_size  ;
+    unsigned int  btf_log_level  ;
+    unsigned int  btf_log_true_size  ;
+    unsigned int  btf_flags  ;
+    int  btf_token_fd  ;
 };
 
 struct anonymous_typeX196
 {
-    unsigned int pid  ;
-    unsigned int fd  ;
-    unsigned int flags  ;
-    unsigned int buf_len  ;
-    unsigned long  long buf __attribute__((aligned(8)))	 ;
-    unsigned int prog_id  ;
-    unsigned int fd_type  ;
-    unsigned long  long probe_offset  ;
-    unsigned long  long probe_addr  ;
+    unsigned int  pid  ;
+    unsigned int  fd  ;
+    unsigned int  flags  ;
+    unsigned int  buf_len  ;
+    unsigned long  long  buf  __attribute__((aligned(8)))	;
+    unsigned int  prog_id  ;
+    unsigned int  fd_type  ;
+    unsigned long  long  probe_offset  ;
+    unsigned long  long  probe_addr  ;
 };
 
 union anonymous_typeZ198
 {
-unsigned int prog_fd  ;
-unsigned int map_fd  ;
+unsigned int  prog_fd  ;
+unsigned int  map_fd  ;
 };
 
 union anonymous_typeZ199
 {
-unsigned int prog_fd  ;
-unsigned int map_fd  ;
+unsigned int  prog_fd  ;
+unsigned int  map_fd  ;
 };
 
 union anonymous_typeZ200
 {
-unsigned int target_fd  ;
-unsigned int target_ifindex  ;
+unsigned int  target_fd  ;
+unsigned int  target_ifindex  ;
 };
 
 union anonymous_typeZ201
 {
-unsigned int target_fd  ;
-unsigned int target_ifindex  ;
+unsigned int  target_fd  ;
+unsigned int  target_ifindex  ;
 };
 
 struct anonymous_typeX203
 {
-    unsigned long  long iter_info __attribute__((aligned(8)))	 ;
-    unsigned int iter_info_len  ;
+    unsigned long  long  iter_info  __attribute__((aligned(8)))	;
+    unsigned int  iter_info_len  ;
 };
 
 struct anonymous_typeX204
 {
-    unsigned long  long bpf_cookie  ;
+    unsigned long  long  bpf_cookie  ;
 };
 
 struct anonymous_typeX205
 {
-    unsigned int flags  ;
-    unsigned int cnt  ;
-    unsigned long  long syms __attribute__((aligned(8)))	 ;
-    unsigned long  long addrs __attribute__((aligned(8)))	 ;
-    unsigned long  long cookies __attribute__((aligned(8)))	 ;
+    unsigned int  flags  ;
+    unsigned int  cnt  ;
+    unsigned long  long  syms  __attribute__((aligned(8)))	;
+    unsigned long  long  addrs  __attribute__((aligned(8)))	;
+    unsigned long  long  cookies  __attribute__((aligned(8)))	;
 };
 
 struct anonymous_typeX206
 {
-    unsigned int target_btf_id  ;
-    unsigned long  long cookie  ;
+    unsigned int  target_btf_id  ;
+    unsigned long  long  cookie  ;
 };
 
 struct anonymous_typeX207
 {
-    unsigned int pf  ;
-    unsigned int hooknum  ;
-    int priority  ;
-    unsigned int flags  ;
+    unsigned int  pf  ;
+    unsigned int  hooknum  ;
+    int  priority  ;
+    unsigned int  flags  ;
 };
 
 union anonymous_typeZ209
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 union anonymous_typeZ210
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 struct anonymous_typeX208
 {
     union {
-        unsigned int relative_fd  ;
-        unsigned int relative_id  ;
+        unsigned int  relative_fd  ;
+        unsigned int  relative_id  ;
     };
-    unsigned long  long expected_revision  ;
+    unsigned long  long  expected_revision  ;
 };
 
 struct anonymous_typeX211
 {
-    unsigned long  long path __attribute__((aligned(8)))	 ;
-    unsigned long  long offsets __attribute__((aligned(8)))	 ;
-    unsigned long  long ref_ctr_offsets __attribute__((aligned(8)))	 ;
-    unsigned long  long cookies __attribute__((aligned(8)))	 ;
-    unsigned int cnt  ;
-    unsigned int flags  ;
-    unsigned int pid  ;
+    unsigned long  long  path  __attribute__((aligned(8)))	;
+    unsigned long  long  offsets  __attribute__((aligned(8)))	;
+    unsigned long  long  ref_ctr_offsets  __attribute__((aligned(8)))	;
+    unsigned long  long  cookies  __attribute__((aligned(8)))	;
+    unsigned int  cnt  ;
+    unsigned int  flags  ;
+    unsigned int  pid  ;
 };
 
 union anonymous_typeZ213
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 union anonymous_typeZ214
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 struct anonymous_typeX212
 {
     union {
-        unsigned int relative_fd  ;
-        unsigned int relative_id  ;
+        unsigned int  relative_fd  ;
+        unsigned int  relative_id  ;
     };
-    unsigned long  long expected_revision  ;
+    unsigned long  long  expected_revision  ;
 };
 
 union anonymous_typeZ216
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 union anonymous_typeZ217
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 struct anonymous_typeX215
 {
     union {
-        unsigned int relative_fd  ;
-        unsigned int relative_id  ;
+        unsigned int  relative_fd  ;
+        unsigned int  relative_id  ;
     };
-    unsigned long  long expected_revision  ;
+    unsigned long  long  expected_revision  ;
 };
 
 union anonymous_typeZ202
 {
-unsigned int target_btf_id  ;
+unsigned int  target_btf_id  ;
     struct {
-        unsigned long  long iter_info __attribute__((aligned(8)))	 ;
-        unsigned int iter_info_len  ;
+        unsigned long  long  iter_info  __attribute__((aligned(8)))	;
+        unsigned int  iter_info_len  ;
     };
     struct {
-        unsigned long  long bpf_cookie  ;
+        unsigned long  long  bpf_cookie  ;
     } perf_event;
     struct {
-        unsigned int flags  ;
-        unsigned int cnt  ;
-        unsigned long  long syms __attribute__((aligned(8)))	 ;
-        unsigned long  long addrs __attribute__((aligned(8)))	 ;
-        unsigned long  long cookies __attribute__((aligned(8)))	 ;
+        unsigned int  flags  ;
+        unsigned int  cnt  ;
+        unsigned long  long  syms  __attribute__((aligned(8)))	;
+        unsigned long  long  addrs  __attribute__((aligned(8)))	;
+        unsigned long  long  cookies  __attribute__((aligned(8)))	;
     } kprobe_multi;
     struct {
-        unsigned int target_btf_id  ;
-        unsigned long  long cookie  ;
+        unsigned int  target_btf_id  ;
+        unsigned long  long  cookie  ;
     } tracing;
     struct {
-        unsigned int pf  ;
-        unsigned int hooknum  ;
-        int priority  ;
-        unsigned int flags  ;
+        unsigned int  pf  ;
+        unsigned int  hooknum  ;
+        int  priority  ;
+        unsigned int  flags  ;
     } netfilter;
     struct {
         union {
-            unsigned int relative_fd  ;
-            unsigned int relative_id  ;
+            unsigned int  relative_fd  ;
+            unsigned int  relative_id  ;
         };
-        unsigned long  long expected_revision  ;
+        unsigned long  long  expected_revision  ;
     } tcx;
     struct {
-        unsigned long  long path __attribute__((aligned(8)))	 ;
-        unsigned long  long offsets __attribute__((aligned(8)))	 ;
-        unsigned long  long ref_ctr_offsets __attribute__((aligned(8)))	 ;
-        unsigned long  long cookies __attribute__((aligned(8)))	 ;
-        unsigned int cnt  ;
-        unsigned int flags  ;
-        unsigned int pid  ;
+        unsigned long  long  path  __attribute__((aligned(8)))	;
+        unsigned long  long  offsets  __attribute__((aligned(8)))	;
+        unsigned long  long  ref_ctr_offsets  __attribute__((aligned(8)))	;
+        unsigned long  long  cookies  __attribute__((aligned(8)))	;
+        unsigned int  cnt  ;
+        unsigned int  flags  ;
+        unsigned int  pid  ;
     } uprobe_multi;
     struct {
         union {
-            unsigned int relative_fd  ;
-            unsigned int relative_id  ;
+            unsigned int  relative_fd  ;
+            unsigned int  relative_id  ;
         };
-        unsigned long  long expected_revision  ;
+        unsigned long  long  expected_revision  ;
     } netkit;
     struct {
         union {
-            unsigned int relative_fd  ;
-            unsigned int relative_id  ;
+            unsigned int  relative_fd  ;
+            unsigned int  relative_id  ;
         };
-        unsigned long  long expected_revision  ;
+        unsigned long  long  expected_revision  ;
     } cgroup;
 };
 
 struct anonymous_typeX219
 {
-    unsigned long  long iter_info __attribute__((aligned(8)))	 ;
-    unsigned int iter_info_len  ;
+    unsigned long  long  iter_info  __attribute__((aligned(8)))	;
+    unsigned int  iter_info_len  ;
 };
 
 struct anonymous_typeX220
 {
-    unsigned long  long bpf_cookie  ;
+    unsigned long  long  bpf_cookie  ;
 };
 
 struct anonymous_typeX221
 {
-    unsigned int flags  ;
-    unsigned int cnt  ;
-    unsigned long  long syms __attribute__((aligned(8)))	 ;
-    unsigned long  long addrs __attribute__((aligned(8)))	 ;
-    unsigned long  long cookies __attribute__((aligned(8)))	 ;
+    unsigned int  flags  ;
+    unsigned int  cnt  ;
+    unsigned long  long  syms  __attribute__((aligned(8)))	;
+    unsigned long  long  addrs  __attribute__((aligned(8)))	;
+    unsigned long  long  cookies  __attribute__((aligned(8)))	;
 };
 
 struct anonymous_typeX222
 {
-    unsigned int target_btf_id  ;
-    unsigned long  long cookie  ;
+    unsigned int  target_btf_id  ;
+    unsigned long  long  cookie  ;
 };
 
 struct anonymous_typeX223
 {
-    unsigned int pf  ;
-    unsigned int hooknum  ;
-    int priority  ;
-    unsigned int flags  ;
+    unsigned int  pf  ;
+    unsigned int  hooknum  ;
+    int  priority  ;
+    unsigned int  flags  ;
 };
 
 union anonymous_typeZ225
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 union anonymous_typeZ226
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 struct anonymous_typeX224
 {
     union {
-        unsigned int relative_fd  ;
-        unsigned int relative_id  ;
+        unsigned int  relative_fd  ;
+        unsigned int  relative_id  ;
     };
-    unsigned long  long expected_revision  ;
+    unsigned long  long  expected_revision  ;
 };
 
 struct anonymous_typeX227
 {
-    unsigned long  long path __attribute__((aligned(8)))	 ;
-    unsigned long  long offsets __attribute__((aligned(8)))	 ;
-    unsigned long  long ref_ctr_offsets __attribute__((aligned(8)))	 ;
-    unsigned long  long cookies __attribute__((aligned(8)))	 ;
-    unsigned int cnt  ;
-    unsigned int flags  ;
-    unsigned int pid  ;
+    unsigned long  long  path  __attribute__((aligned(8)))	;
+    unsigned long  long  offsets  __attribute__((aligned(8)))	;
+    unsigned long  long  ref_ctr_offsets  __attribute__((aligned(8)))	;
+    unsigned long  long  cookies  __attribute__((aligned(8)))	;
+    unsigned int  cnt  ;
+    unsigned int  flags  ;
+    unsigned int  pid  ;
 };
 
 union anonymous_typeZ229
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 union anonymous_typeZ230
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 struct anonymous_typeX228
 {
     union {
-        unsigned int relative_fd  ;
-        unsigned int relative_id  ;
+        unsigned int  relative_fd  ;
+        unsigned int  relative_id  ;
     };
-    unsigned long  long expected_revision  ;
+    unsigned long  long  expected_revision  ;
 };
 
 union anonymous_typeZ232
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 union anonymous_typeZ233
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 struct anonymous_typeX231
 {
     union {
-        unsigned int relative_fd  ;
-        unsigned int relative_id  ;
+        unsigned int  relative_fd  ;
+        unsigned int  relative_id  ;
     };
-    unsigned long  long expected_revision  ;
+    unsigned long  long  expected_revision  ;
 };
 
 union anonymous_typeZ218
 {
-unsigned int target_btf_id  ;
+unsigned int  target_btf_id  ;
     struct {
-        unsigned long  long iter_info __attribute__((aligned(8)))	 ;
-        unsigned int iter_info_len  ;
+        unsigned long  long  iter_info  __attribute__((aligned(8)))	;
+        unsigned int  iter_info_len  ;
     };
     struct {
-        unsigned long  long bpf_cookie  ;
+        unsigned long  long  bpf_cookie  ;
     } perf_event;
     struct {
-        unsigned int flags  ;
-        unsigned int cnt  ;
-        unsigned long  long syms __attribute__((aligned(8)))	 ;
-        unsigned long  long addrs __attribute__((aligned(8)))	 ;
-        unsigned long  long cookies __attribute__((aligned(8)))	 ;
+        unsigned int  flags  ;
+        unsigned int  cnt  ;
+        unsigned long  long  syms  __attribute__((aligned(8)))	;
+        unsigned long  long  addrs  __attribute__((aligned(8)))	;
+        unsigned long  long  cookies  __attribute__((aligned(8)))	;
     } kprobe_multi;
     struct {
-        unsigned int target_btf_id  ;
-        unsigned long  long cookie  ;
+        unsigned int  target_btf_id  ;
+        unsigned long  long  cookie  ;
     } tracing;
     struct {
-        unsigned int pf  ;
-        unsigned int hooknum  ;
-        int priority  ;
-        unsigned int flags  ;
+        unsigned int  pf  ;
+        unsigned int  hooknum  ;
+        int  priority  ;
+        unsigned int  flags  ;
     } netfilter;
     struct {
         union {
-            unsigned int relative_fd  ;
-            unsigned int relative_id  ;
+            unsigned int  relative_fd  ;
+            unsigned int  relative_id  ;
         };
-        unsigned long  long expected_revision  ;
+        unsigned long  long  expected_revision  ;
     } tcx;
     struct {
-        unsigned long  long path __attribute__((aligned(8)))	 ;
-        unsigned long  long offsets __attribute__((aligned(8)))	 ;
-        unsigned long  long ref_ctr_offsets __attribute__((aligned(8)))	 ;
-        unsigned long  long cookies __attribute__((aligned(8)))	 ;
-        unsigned int cnt  ;
-        unsigned int flags  ;
-        unsigned int pid  ;
+        unsigned long  long  path  __attribute__((aligned(8)))	;
+        unsigned long  long  offsets  __attribute__((aligned(8)))	;
+        unsigned long  long  ref_ctr_offsets  __attribute__((aligned(8)))	;
+        unsigned long  long  cookies  __attribute__((aligned(8)))	;
+        unsigned int  cnt  ;
+        unsigned int  flags  ;
+        unsigned int  pid  ;
     } uprobe_multi;
     struct {
         union {
-            unsigned int relative_fd  ;
-            unsigned int relative_id  ;
+            unsigned int  relative_fd  ;
+            unsigned int  relative_id  ;
         };
-        unsigned long  long expected_revision  ;
+        unsigned long  long  expected_revision  ;
     } netkit;
     struct {
         union {
-            unsigned int relative_fd  ;
-            unsigned int relative_id  ;
+            unsigned int  relative_fd  ;
+            unsigned int  relative_id  ;
         };
-        unsigned long  long expected_revision  ;
+        unsigned long  long  expected_revision  ;
     } cgroup;
 };
 
 struct anonymous_typeX197
 {
     union {
-        unsigned int prog_fd  ;
-        unsigned int map_fd  ;
+        unsigned int  prog_fd  ;
+        unsigned int  map_fd  ;
     };
     union {
-        unsigned int target_fd  ;
-        unsigned int target_ifindex  ;
+        unsigned int  target_fd  ;
+        unsigned int  target_ifindex  ;
     };
-    unsigned int attach_type  ;
-    unsigned int flags  ;
+    unsigned int  attach_type  ;
+    unsigned int  flags  ;
     union {
-        unsigned int target_btf_id  ;
+        unsigned int  target_btf_id  ;
         struct {
-            unsigned long  long iter_info __attribute__((aligned(8)))	 ;
-            unsigned int iter_info_len  ;
+            unsigned long  long  iter_info  __attribute__((aligned(8)))	;
+            unsigned int  iter_info_len  ;
         };
         struct {
-            unsigned long  long bpf_cookie  ;
+            unsigned long  long  bpf_cookie  ;
         } perf_event;
         struct {
-            unsigned int flags  ;
-            unsigned int cnt  ;
-            unsigned long  long syms __attribute__((aligned(8)))	 ;
-            unsigned long  long addrs __attribute__((aligned(8)))	 ;
-            unsigned long  long cookies __attribute__((aligned(8)))	 ;
+            unsigned int  flags  ;
+            unsigned int  cnt  ;
+            unsigned long  long  syms  __attribute__((aligned(8)))	;
+            unsigned long  long  addrs  __attribute__((aligned(8)))	;
+            unsigned long  long  cookies  __attribute__((aligned(8)))	;
         } kprobe_multi;
         struct {
-            unsigned int target_btf_id  ;
-            unsigned long  long cookie  ;
+            unsigned int  target_btf_id  ;
+            unsigned long  long  cookie  ;
         } tracing;
         struct {
-            unsigned int pf  ;
-            unsigned int hooknum  ;
-            int priority  ;
-            unsigned int flags  ;
+            unsigned int  pf  ;
+            unsigned int  hooknum  ;
+            int  priority  ;
+            unsigned int  flags  ;
         } netfilter;
         struct {
             union {
-                unsigned int relative_fd  ;
-                unsigned int relative_id  ;
+                unsigned int  relative_fd  ;
+                unsigned int  relative_id  ;
             };
-            unsigned long  long expected_revision  ;
+            unsigned long  long  expected_revision  ;
         } tcx;
         struct {
-            unsigned long  long path __attribute__((aligned(8)))	 ;
-            unsigned long  long offsets __attribute__((aligned(8)))	 ;
-            unsigned long  long ref_ctr_offsets __attribute__((aligned(8)))	 ;
-            unsigned long  long cookies __attribute__((aligned(8)))	 ;
-            unsigned int cnt  ;
-            unsigned int flags  ;
-            unsigned int pid  ;
+            unsigned long  long  path  __attribute__((aligned(8)))	;
+            unsigned long  long  offsets  __attribute__((aligned(8)))	;
+            unsigned long  long  ref_ctr_offsets  __attribute__((aligned(8)))	;
+            unsigned long  long  cookies  __attribute__((aligned(8)))	;
+            unsigned int  cnt  ;
+            unsigned int  flags  ;
+            unsigned int  pid  ;
         } uprobe_multi;
         struct {
             union {
-                unsigned int relative_fd  ;
-                unsigned int relative_id  ;
+                unsigned int  relative_fd  ;
+                unsigned int  relative_id  ;
             };
-            unsigned long  long expected_revision  ;
+            unsigned long  long  expected_revision  ;
         } netkit;
         struct {
             union {
-                unsigned int relative_fd  ;
-                unsigned int relative_id  ;
+                unsigned int  relative_fd  ;
+                unsigned int  relative_id  ;
             };
-            unsigned long  long expected_revision  ;
+            unsigned long  long  expected_revision  ;
         } cgroup;
     };
 };
 
 union anonymous_typeZ235
 {
-unsigned int new_prog_fd  ;
-unsigned int new_map_fd  ;
+unsigned int  new_prog_fd  ;
+unsigned int  new_map_fd  ;
 };
 
 union anonymous_typeZ236
 {
-unsigned int new_prog_fd  ;
-unsigned int new_map_fd  ;
+unsigned int  new_prog_fd  ;
+unsigned int  new_map_fd  ;
 };
 
 union anonymous_typeZ237
 {
-unsigned int old_prog_fd  ;
-unsigned int old_map_fd  ;
+unsigned int  old_prog_fd  ;
+unsigned int  old_map_fd  ;
 };
 
 union anonymous_typeZ238
 {
-unsigned int old_prog_fd  ;
-unsigned int old_map_fd  ;
+unsigned int  old_prog_fd  ;
+unsigned int  old_map_fd  ;
 };
 
 struct anonymous_typeX234
 {
-    unsigned int link_fd  ;
+    unsigned int  link_fd  ;
     union {
-        unsigned int new_prog_fd  ;
-        unsigned int new_map_fd  ;
+        unsigned int  new_prog_fd  ;
+        unsigned int  new_map_fd  ;
     };
-    unsigned int flags  ;
+    unsigned int  flags  ;
     union {
-        unsigned int old_prog_fd  ;
-        unsigned int old_map_fd  ;
+        unsigned int  old_prog_fd  ;
+        unsigned int  old_map_fd  ;
     };
 };
 
 struct anonymous_typeX239
 {
-    unsigned int link_fd  ;
+    unsigned int  link_fd  ;
 };
 
 struct anonymous_typeX240
 {
-    unsigned int type  ;
+    unsigned int  type  ;
 };
 
 struct anonymous_typeX241
 {
-    unsigned int link_fd  ;
-    unsigned int flags  ;
+    unsigned int  link_fd  ;
+    unsigned int  flags  ;
 };
 
 struct anonymous_typeX242
 {
-    unsigned int prog_fd  ;
-    unsigned int map_fd  ;
-    unsigned int flags  ;
+    unsigned int  prog_fd  ;
+    unsigned int  map_fd  ;
+    unsigned int  flags  ;
 };
 
 struct anonymous_typeX243
 {
-    unsigned int flags  ;
-    unsigned int bpffs_fd  ;
+    unsigned int  flags  ;
+    unsigned int  bpffs_fd  ;
 };
 
 struct anonymous_typeX244
 {
-    unsigned long  long stream_buf __attribute__((aligned(8)))	 ;
-    unsigned int stream_buf_len  ;
-    unsigned int stream_id  ;
-    unsigned int prog_fd  ;
+    unsigned long  long  stream_buf  __attribute__((aligned(8)))	;
+    unsigned int  stream_buf_len  ;
+    unsigned int  stream_id  ;
+    unsigned int  prog_fd  ;
 };
 
 struct anonymous_typeX245
 {
-    unsigned int map_type  ;
-    unsigned int key_size  ;
-    unsigned int value_size  ;
-    unsigned int max_entries  ;
-    unsigned int map_flags  ;
-    unsigned int inner_map_fd  ;
-    unsigned int numa_node  ;
+    unsigned int  map_type  ;
+    unsigned int  key_size  ;
+    unsigned int  value_size  ;
+    unsigned int  max_entries  ;
+    unsigned int  map_flags  ;
+    unsigned int  inner_map_fd  ;
+    unsigned int  numa_node  ;
     char map_name[16U];
-    unsigned int map_ifindex  ;
-    unsigned int btf_fd  ;
-    unsigned int btf_key_type_id  ;
-    unsigned int btf_value_type_id  ;
-    unsigned int btf_vmlinux_value_type_id  ;
-    unsigned long  long map_extra  ;
-    int value_type_btf_obj_fd  ;
-    int map_token_fd  ;
+    unsigned int  map_ifindex  ;
+    unsigned int  btf_fd  ;
+    unsigned int  btf_key_type_id  ;
+    unsigned int  btf_value_type_id  ;
+    unsigned int  btf_vmlinux_value_type_id  ;
+    unsigned long  long  map_extra  ;
+    int  value_type_btf_obj_fd  ;
+    int  map_token_fd  ;
 };
 
 union anonymous_typeZ247
 {
-unsigned long  long value __attribute__((aligned(8)))  ;
-unsigned long  long next_key __attribute__((aligned(8)))  ;
+unsigned long  long  value  __attribute__((aligned(8))) ;
+unsigned long  long  next_key  __attribute__((aligned(8))) ;
 };
 
 union anonymous_typeZ248
 {
-unsigned long  long value __attribute__((aligned(8)))  ;
-unsigned long  long next_key __attribute__((aligned(8)))  ;
+unsigned long  long  value  __attribute__((aligned(8))) ;
+unsigned long  long  next_key  __attribute__((aligned(8))) ;
 };
 
 struct anonymous_typeX246
 {
-    unsigned int map_fd  ;
-    unsigned long  long key __attribute__((aligned(8)))	 ;
+    unsigned int  map_fd  ;
+    unsigned long  long  key  __attribute__((aligned(8)))	;
     union {
-        unsigned long  long value __attribute__((aligned(8)))  ;
-        unsigned long  long next_key __attribute__((aligned(8)))  ;
+        unsigned long  long  value  __attribute__((aligned(8))) ;
+        unsigned long  long  next_key  __attribute__((aligned(8))) ;
     };
-    unsigned long  long flags  ;
+    unsigned long  long  flags  ;
 };
 
 struct anonymous_typeX249
 {
-    unsigned long  long in_batch __attribute__((aligned(8)))	 ;
-    unsigned long  long out_batch __attribute__((aligned(8)))	 ;
-    unsigned long  long keys __attribute__((aligned(8)))	 ;
-    unsigned long  long values __attribute__((aligned(8)))	 ;
-    unsigned int count  ;
-    unsigned int map_fd  ;
-    unsigned long  long elem_flags  ;
-    unsigned long  long flags  ;
+    unsigned long  long  in_batch  __attribute__((aligned(8)))	;
+    unsigned long  long  out_batch  __attribute__((aligned(8)))	;
+    unsigned long  long  keys  __attribute__((aligned(8)))	;
+    unsigned long  long  values  __attribute__((aligned(8)))	;
+    unsigned int  count  ;
+    unsigned int  map_fd  ;
+    unsigned long  long  elem_flags  ;
+    unsigned long  long  flags  ;
 };
 
 union anonymous_typeZ251
 {
-unsigned int attach_prog_fd  ;
-unsigned int attach_btf_obj_fd  ;
+unsigned int  attach_prog_fd  ;
+unsigned int  attach_btf_obj_fd  ;
 };
 
 union anonymous_typeZ252
 {
-unsigned int attach_prog_fd  ;
-unsigned int attach_btf_obj_fd  ;
+unsigned int  attach_prog_fd  ;
+unsigned int  attach_btf_obj_fd  ;
 };
 
 struct anonymous_typeX250
 {
-    unsigned int prog_type  ;
-    unsigned int insn_cnt  ;
-    unsigned long  long insns __attribute__((aligned(8)))	 ;
-    unsigned long  long license __attribute__((aligned(8)))	 ;
-    unsigned int log_level  ;
-    unsigned int log_size  ;
-    unsigned long  long log_buf __attribute__((aligned(8)))	 ;
-    unsigned int kern_version  ;
-    unsigned int prog_flags  ;
+    unsigned int  prog_type  ;
+    unsigned int  insn_cnt  ;
+    unsigned long  long  insns  __attribute__((aligned(8)))	;
+    unsigned long  long  license  __attribute__((aligned(8)))	;
+    unsigned int  log_level  ;
+    unsigned int  log_size  ;
+    unsigned long  long  log_buf  __attribute__((aligned(8)))	;
+    unsigned int  kern_version  ;
+    unsigned int  prog_flags  ;
     char prog_name[16U];
-    unsigned int prog_ifindex  ;
-    unsigned int expected_attach_type  ;
-    unsigned int prog_btf_fd  ;
-    unsigned int func_info_rec_size  ;
-    unsigned long  long func_info __attribute__((aligned(8)))	 ;
-    unsigned int func_info_cnt  ;
-    unsigned int line_info_rec_size  ;
-    unsigned long  long line_info __attribute__((aligned(8)))	 ;
-    unsigned int line_info_cnt  ;
-    unsigned int attach_btf_id  ;
+    unsigned int  prog_ifindex  ;
+    unsigned int  expected_attach_type  ;
+    unsigned int  prog_btf_fd  ;
+    unsigned int  func_info_rec_size  ;
+    unsigned long  long  func_info  __attribute__((aligned(8)))	;
+    unsigned int  func_info_cnt  ;
+    unsigned int  line_info_rec_size  ;
+    unsigned long  long  line_info  __attribute__((aligned(8)))	;
+    unsigned int  line_info_cnt  ;
+    unsigned int  attach_btf_id  ;
     union {
-        unsigned int attach_prog_fd  ;
-        unsigned int attach_btf_obj_fd  ;
+        unsigned int  attach_prog_fd  ;
+        unsigned int  attach_btf_obj_fd  ;
     };
-    unsigned int core_relo_cnt  ;
-    unsigned long  long fd_array __attribute__((aligned(8)))	 ;
-    unsigned long  long core_relos __attribute__((aligned(8)))	 ;
-    unsigned int core_relo_rec_size  ;
-    unsigned int log_true_size  ;
-    int prog_token_fd  ;
-    unsigned int fd_array_cnt  ;
+    unsigned int  core_relo_cnt  ;
+    unsigned long  long  fd_array  __attribute__((aligned(8)))	;
+    unsigned long  long  core_relos  __attribute__((aligned(8)))	;
+    unsigned int  core_relo_rec_size  ;
+    unsigned int  log_true_size  ;
+    int  prog_token_fd  ;
+    unsigned int  fd_array_cnt  ;
 };
 
 struct anonymous_typeX253
 {
-    unsigned long  long pathname __attribute__((aligned(8)))	 ;
-    unsigned int bpf_fd  ;
-    unsigned int file_flags  ;
-    int path_fd  ;
+    unsigned long  long  pathname  __attribute__((aligned(8)))	;
+    unsigned int  bpf_fd  ;
+    unsigned int  file_flags  ;
+    int  path_fd  ;
 };
 
 union anonymous_typeZ255
 {
-unsigned int target_fd  ;
-unsigned int target_ifindex  ;
+unsigned int  target_fd  ;
+unsigned int  target_ifindex  ;
 };
 
 union anonymous_typeZ256
 {
-unsigned int target_fd  ;
-unsigned int target_ifindex  ;
+unsigned int  target_fd  ;
+unsigned int  target_ifindex  ;
 };
 
 union anonymous_typeZ257
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 union anonymous_typeZ258
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 struct anonymous_typeX254
 {
     union {
-        unsigned int target_fd  ;
-        unsigned int target_ifindex  ;
+        unsigned int  target_fd  ;
+        unsigned int  target_ifindex  ;
     };
-    unsigned int attach_bpf_fd  ;
-    unsigned int attach_type  ;
-    unsigned int attach_flags  ;
-    unsigned int replace_bpf_fd  ;
+    unsigned int  attach_bpf_fd  ;
+    unsigned int  attach_type  ;
+    unsigned int  attach_flags  ;
+    unsigned int  replace_bpf_fd  ;
     union {
-        unsigned int relative_fd  ;
-        unsigned int relative_id  ;
+        unsigned int  relative_fd  ;
+        unsigned int  relative_id  ;
     };
-    unsigned long  long expected_revision  ;
+    unsigned long  long  expected_revision  ;
 };
 
 struct anonymous_typeX259
 {
-    unsigned int prog_fd  ;
-    unsigned int retval  ;
-    unsigned int data_size_in  ;
-    unsigned int data_size_out  ;
-    unsigned long  long data_in __attribute__((aligned(8)))	 ;
-    unsigned long  long data_out __attribute__((aligned(8)))	 ;
-    unsigned int repeat  ;
-    unsigned int duration  ;
-    unsigned int ctx_size_in  ;
-    unsigned int ctx_size_out  ;
-    unsigned long  long ctx_in __attribute__((aligned(8)))	 ;
-    unsigned long  long ctx_out __attribute__((aligned(8)))	 ;
-    unsigned int flags  ;
-    unsigned int cpu  ;
-    unsigned int batch_size  ;
+    unsigned int  prog_fd  ;
+    unsigned int  retval  ;
+    unsigned int  data_size_in  ;
+    unsigned int  data_size_out  ;
+    unsigned long  long  data_in  __attribute__((aligned(8)))	;
+    unsigned long  long  data_out  __attribute__((aligned(8)))	;
+    unsigned int  repeat  ;
+    unsigned int  duration  ;
+    unsigned int  ctx_size_in  ;
+    unsigned int  ctx_size_out  ;
+    unsigned long  long  ctx_in  __attribute__((aligned(8)))	;
+    unsigned long  long  ctx_out  __attribute__((aligned(8)))	;
+    unsigned int  flags  ;
+    unsigned int  cpu  ;
+    unsigned int  batch_size  ;
 };
 
 union anonymous_typeZ261
 {
-unsigned int start_id  ;
-unsigned int prog_id  ;
-unsigned int map_id  ;
-unsigned int btf_id  ;
-unsigned int link_id  ;
+unsigned int  start_id  ;
+unsigned int  prog_id  ;
+unsigned int  map_id  ;
+unsigned int  btf_id  ;
+unsigned int  link_id  ;
 };
 
 union anonymous_typeZ262
 {
-unsigned int start_id  ;
-unsigned int prog_id  ;
-unsigned int map_id  ;
-unsigned int btf_id  ;
-unsigned int link_id  ;
+unsigned int  start_id  ;
+unsigned int  prog_id  ;
+unsigned int  map_id  ;
+unsigned int  btf_id  ;
+unsigned int  link_id  ;
 };
 
 struct anonymous_typeX260
 {
     union {
-        unsigned int start_id  ;
-        unsigned int prog_id  ;
-        unsigned int map_id  ;
-        unsigned int btf_id  ;
-        unsigned int link_id  ;
+        unsigned int  start_id  ;
+        unsigned int  prog_id  ;
+        unsigned int  map_id  ;
+        unsigned int  btf_id  ;
+        unsigned int  link_id  ;
     };
-    unsigned int next_id  ;
-    unsigned int open_flags  ;
-    int fd_by_id_token_fd  ;
+    unsigned int  next_id  ;
+    unsigned int  open_flags  ;
+    int  fd_by_id_token_fd  ;
 };
 
 struct anonymous_typeX263
 {
-    unsigned int bpf_fd  ;
-    unsigned int info_len  ;
-    unsigned long  long info __attribute__((aligned(8)))	 ;
+    unsigned int  bpf_fd  ;
+    unsigned int  info_len  ;
+    unsigned long  long  info  __attribute__((aligned(8)))	;
 };
 
 union anonymous_typeZ265
 {
-unsigned int target_fd  ;
-unsigned int target_ifindex  ;
+unsigned int  target_fd  ;
+unsigned int  target_ifindex  ;
 };
 
 union anonymous_typeZ266
 {
-unsigned int target_fd  ;
-unsigned int target_ifindex  ;
+unsigned int  target_fd  ;
+unsigned int  target_ifindex  ;
 };
 
 union anonymous_typeZ267
 {
-unsigned int prog_cnt  ;
-unsigned int count  ;
+unsigned int  prog_cnt  ;
+unsigned int  count  ;
 };
 
 union anonymous_typeZ268
 {
-unsigned int prog_cnt  ;
-unsigned int count  ;
+unsigned int  prog_cnt  ;
+unsigned int  count  ;
 };
 
 struct anonymous_typeX264
 {
     union {
-        unsigned int target_fd  ;
-        unsigned int target_ifindex  ;
+        unsigned int  target_fd  ;
+        unsigned int  target_ifindex  ;
     };
-    unsigned int attach_type  ;
-    unsigned int query_flags  ;
-    unsigned int attach_flags  ;
-    unsigned long  long prog_ids __attribute__((aligned(8)))	 ;
+    unsigned int  attach_type  ;
+    unsigned int  query_flags  ;
+    unsigned int  attach_flags  ;
+    unsigned long  long  prog_ids  __attribute__((aligned(8)))	;
     union {
-        unsigned int prog_cnt  ;
-        unsigned int count  ;
+        unsigned int  prog_cnt  ;
+        unsigned int  count  ;
     };
-    unsigned int :32  ;
-    unsigned long  long prog_attach_flags __attribute__((aligned(8)))	 ;
-    unsigned long  long link_ids __attribute__((aligned(8)))	 ;
-    unsigned long  long link_attach_flags __attribute__((aligned(8)))	 ;
-    unsigned long  long revision  ;
+    unsigned int  :32  ;
+    unsigned long  long  prog_attach_flags  __attribute__((aligned(8)))	;
+    unsigned long  long  link_ids  __attribute__((aligned(8)))	;
+    unsigned long  long  link_attach_flags  __attribute__((aligned(8)))	;
+    unsigned long  long  revision  ;
 };
 
 struct anonymous_typeX269
 {
-    unsigned long  long name  ;
-    unsigned int prog_fd  ;
-    unsigned int :32  ;
-    unsigned long  long cookie __attribute__((aligned(8)))	 ;
+    unsigned long  long  name  ;
+    unsigned int  prog_fd  ;
+    unsigned int  :32  ;
+    unsigned long  long  cookie  __attribute__((aligned(8)))	;
 };
 
 struct anonymous_typeX270
 {
-    unsigned long  long btf __attribute__((aligned(8)))	 ;
-    unsigned long  long btf_log_buf __attribute__((aligned(8)))	 ;
-    unsigned int btf_size  ;
-    unsigned int btf_log_size  ;
-    unsigned int btf_log_level  ;
-    unsigned int btf_log_true_size  ;
-    unsigned int btf_flags  ;
-    int btf_token_fd  ;
+    unsigned long  long  btf  __attribute__((aligned(8)))	;
+    unsigned long  long  btf_log_buf  __attribute__((aligned(8)))	;
+    unsigned int  btf_size  ;
+    unsigned int  btf_log_size  ;
+    unsigned int  btf_log_level  ;
+    unsigned int  btf_log_true_size  ;
+    unsigned int  btf_flags  ;
+    int  btf_token_fd  ;
 };
 
 struct anonymous_typeX271
 {
-    unsigned int pid  ;
-    unsigned int fd  ;
-    unsigned int flags  ;
-    unsigned int buf_len  ;
-    unsigned long  long buf __attribute__((aligned(8)))	 ;
-    unsigned int prog_id  ;
-    unsigned int fd_type  ;
-    unsigned long  long probe_offset  ;
-    unsigned long  long probe_addr  ;
+    unsigned int  pid  ;
+    unsigned int  fd  ;
+    unsigned int  flags  ;
+    unsigned int  buf_len  ;
+    unsigned long  long  buf  __attribute__((aligned(8)))	;
+    unsigned int  prog_id  ;
+    unsigned int  fd_type  ;
+    unsigned long  long  probe_offset  ;
+    unsigned long  long  probe_addr  ;
 };
 
 union anonymous_typeZ273
 {
-unsigned int prog_fd  ;
-unsigned int map_fd  ;
+unsigned int  prog_fd  ;
+unsigned int  map_fd  ;
 };
 
 union anonymous_typeZ274
 {
-unsigned int prog_fd  ;
-unsigned int map_fd  ;
+unsigned int  prog_fd  ;
+unsigned int  map_fd  ;
 };
 
 union anonymous_typeZ275
 {
-unsigned int target_fd  ;
-unsigned int target_ifindex  ;
+unsigned int  target_fd  ;
+unsigned int  target_ifindex  ;
 };
 
 union anonymous_typeZ276
 {
-unsigned int target_fd  ;
-unsigned int target_ifindex  ;
+unsigned int  target_fd  ;
+unsigned int  target_ifindex  ;
 };
 
 struct anonymous_typeX278
 {
-    unsigned long  long iter_info __attribute__((aligned(8)))	 ;
-    unsigned int iter_info_len  ;
+    unsigned long  long  iter_info  __attribute__((aligned(8)))	;
+    unsigned int  iter_info_len  ;
 };
 
 struct anonymous_typeX279
 {
-    unsigned long  long bpf_cookie  ;
+    unsigned long  long  bpf_cookie  ;
 };
 
 struct anonymous_typeX280
 {
-    unsigned int flags  ;
-    unsigned int cnt  ;
-    unsigned long  long syms __attribute__((aligned(8)))	 ;
-    unsigned long  long addrs __attribute__((aligned(8)))	 ;
-    unsigned long  long cookies __attribute__((aligned(8)))	 ;
+    unsigned int  flags  ;
+    unsigned int  cnt  ;
+    unsigned long  long  syms  __attribute__((aligned(8)))	;
+    unsigned long  long  addrs  __attribute__((aligned(8)))	;
+    unsigned long  long  cookies  __attribute__((aligned(8)))	;
 };
 
 struct anonymous_typeX281
 {
-    unsigned int target_btf_id  ;
-    unsigned long  long cookie  ;
+    unsigned int  target_btf_id  ;
+    unsigned long  long  cookie  ;
 };
 
 struct anonymous_typeX282
 {
-    unsigned int pf  ;
-    unsigned int hooknum  ;
-    int priority  ;
-    unsigned int flags  ;
+    unsigned int  pf  ;
+    unsigned int  hooknum  ;
+    int  priority  ;
+    unsigned int  flags  ;
 };
 
 union anonymous_typeZ284
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 union anonymous_typeZ285
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 struct anonymous_typeX283
 {
     union {
-        unsigned int relative_fd  ;
-        unsigned int relative_id  ;
+        unsigned int  relative_fd  ;
+        unsigned int  relative_id  ;
     };
-    unsigned long  long expected_revision  ;
+    unsigned long  long  expected_revision  ;
 };
 
 struct anonymous_typeX286
 {
-    unsigned long  long path __attribute__((aligned(8)))	 ;
-    unsigned long  long offsets __attribute__((aligned(8)))	 ;
-    unsigned long  long ref_ctr_offsets __attribute__((aligned(8)))	 ;
-    unsigned long  long cookies __attribute__((aligned(8)))	 ;
-    unsigned int cnt  ;
-    unsigned int flags  ;
-    unsigned int pid  ;
+    unsigned long  long  path  __attribute__((aligned(8)))	;
+    unsigned long  long  offsets  __attribute__((aligned(8)))	;
+    unsigned long  long  ref_ctr_offsets  __attribute__((aligned(8)))	;
+    unsigned long  long  cookies  __attribute__((aligned(8)))	;
+    unsigned int  cnt  ;
+    unsigned int  flags  ;
+    unsigned int  pid  ;
 };
 
 union anonymous_typeZ288
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 union anonymous_typeZ289
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 struct anonymous_typeX287
 {
     union {
-        unsigned int relative_fd  ;
-        unsigned int relative_id  ;
+        unsigned int  relative_fd  ;
+        unsigned int  relative_id  ;
     };
-    unsigned long  long expected_revision  ;
+    unsigned long  long  expected_revision  ;
 };
 
 union anonymous_typeZ291
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 union anonymous_typeZ292
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 struct anonymous_typeX290
 {
     union {
-        unsigned int relative_fd  ;
-        unsigned int relative_id  ;
+        unsigned int  relative_fd  ;
+        unsigned int  relative_id  ;
     };
-    unsigned long  long expected_revision  ;
+    unsigned long  long  expected_revision  ;
 };
 
 union anonymous_typeZ277
 {
-unsigned int target_btf_id  ;
+unsigned int  target_btf_id  ;
     struct {
-        unsigned long  long iter_info __attribute__((aligned(8)))	 ;
-        unsigned int iter_info_len  ;
+        unsigned long  long  iter_info  __attribute__((aligned(8)))	;
+        unsigned int  iter_info_len  ;
     };
     struct {
-        unsigned long  long bpf_cookie  ;
+        unsigned long  long  bpf_cookie  ;
     } perf_event;
     struct {
-        unsigned int flags  ;
-        unsigned int cnt  ;
-        unsigned long  long syms __attribute__((aligned(8)))	 ;
-        unsigned long  long addrs __attribute__((aligned(8)))	 ;
-        unsigned long  long cookies __attribute__((aligned(8)))	 ;
+        unsigned int  flags  ;
+        unsigned int  cnt  ;
+        unsigned long  long  syms  __attribute__((aligned(8)))	;
+        unsigned long  long  addrs  __attribute__((aligned(8)))	;
+        unsigned long  long  cookies  __attribute__((aligned(8)))	;
     } kprobe_multi;
     struct {
-        unsigned int target_btf_id  ;
-        unsigned long  long cookie  ;
+        unsigned int  target_btf_id  ;
+        unsigned long  long  cookie  ;
     } tracing;
     struct {
-        unsigned int pf  ;
-        unsigned int hooknum  ;
-        int priority  ;
-        unsigned int flags  ;
+        unsigned int  pf  ;
+        unsigned int  hooknum  ;
+        int  priority  ;
+        unsigned int  flags  ;
     } netfilter;
     struct {
         union {
-            unsigned int relative_fd  ;
-            unsigned int relative_id  ;
+            unsigned int  relative_fd  ;
+            unsigned int  relative_id  ;
         };
-        unsigned long  long expected_revision  ;
+        unsigned long  long  expected_revision  ;
     } tcx;
     struct {
-        unsigned long  long path __attribute__((aligned(8)))	 ;
-        unsigned long  long offsets __attribute__((aligned(8)))	 ;
-        unsigned long  long ref_ctr_offsets __attribute__((aligned(8)))	 ;
-        unsigned long  long cookies __attribute__((aligned(8)))	 ;
-        unsigned int cnt  ;
-        unsigned int flags  ;
-        unsigned int pid  ;
+        unsigned long  long  path  __attribute__((aligned(8)))	;
+        unsigned long  long  offsets  __attribute__((aligned(8)))	;
+        unsigned long  long  ref_ctr_offsets  __attribute__((aligned(8)))	;
+        unsigned long  long  cookies  __attribute__((aligned(8)))	;
+        unsigned int  cnt  ;
+        unsigned int  flags  ;
+        unsigned int  pid  ;
     } uprobe_multi;
     struct {
         union {
-            unsigned int relative_fd  ;
-            unsigned int relative_id  ;
+            unsigned int  relative_fd  ;
+            unsigned int  relative_id  ;
         };
-        unsigned long  long expected_revision  ;
+        unsigned long  long  expected_revision  ;
     } netkit;
     struct {
         union {
-            unsigned int relative_fd  ;
-            unsigned int relative_id  ;
+            unsigned int  relative_fd  ;
+            unsigned int  relative_id  ;
         };
-        unsigned long  long expected_revision  ;
+        unsigned long  long  expected_revision  ;
     } cgroup;
 };
 
 struct anonymous_typeX294
 {
-    unsigned long  long iter_info __attribute__((aligned(8)))	 ;
-    unsigned int iter_info_len  ;
+    unsigned long  long  iter_info  __attribute__((aligned(8)))	;
+    unsigned int  iter_info_len  ;
 };
 
 struct anonymous_typeX295
 {
-    unsigned long  long bpf_cookie  ;
+    unsigned long  long  bpf_cookie  ;
 };
 
 struct anonymous_typeX296
 {
-    unsigned int flags  ;
-    unsigned int cnt  ;
-    unsigned long  long syms __attribute__((aligned(8)))	 ;
-    unsigned long  long addrs __attribute__((aligned(8)))	 ;
-    unsigned long  long cookies __attribute__((aligned(8)))	 ;
+    unsigned int  flags  ;
+    unsigned int  cnt  ;
+    unsigned long  long  syms  __attribute__((aligned(8)))	;
+    unsigned long  long  addrs  __attribute__((aligned(8)))	;
+    unsigned long  long  cookies  __attribute__((aligned(8)))	;
 };
 
 struct anonymous_typeX297
 {
-    unsigned int target_btf_id  ;
-    unsigned long  long cookie  ;
+    unsigned int  target_btf_id  ;
+    unsigned long  long  cookie  ;
 };
 
 struct anonymous_typeX298
 {
-    unsigned int pf  ;
-    unsigned int hooknum  ;
-    int priority  ;
-    unsigned int flags  ;
+    unsigned int  pf  ;
+    unsigned int  hooknum  ;
+    int  priority  ;
+    unsigned int  flags  ;
 };
 
 union anonymous_typeZ300
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 union anonymous_typeZ301
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 struct anonymous_typeX299
 {
     union {
-        unsigned int relative_fd  ;
-        unsigned int relative_id  ;
+        unsigned int  relative_fd  ;
+        unsigned int  relative_id  ;
     };
-    unsigned long  long expected_revision  ;
+    unsigned long  long  expected_revision  ;
 };
 
 struct anonymous_typeX302
 {
-    unsigned long  long path __attribute__((aligned(8)))	 ;
-    unsigned long  long offsets __attribute__((aligned(8)))	 ;
-    unsigned long  long ref_ctr_offsets __attribute__((aligned(8)))	 ;
-    unsigned long  long cookies __attribute__((aligned(8)))	 ;
-    unsigned int cnt  ;
-    unsigned int flags  ;
-    unsigned int pid  ;
+    unsigned long  long  path  __attribute__((aligned(8)))	;
+    unsigned long  long  offsets  __attribute__((aligned(8)))	;
+    unsigned long  long  ref_ctr_offsets  __attribute__((aligned(8)))	;
+    unsigned long  long  cookies  __attribute__((aligned(8)))	;
+    unsigned int  cnt  ;
+    unsigned int  flags  ;
+    unsigned int  pid  ;
 };
 
 union anonymous_typeZ304
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 union anonymous_typeZ305
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 struct anonymous_typeX303
 {
     union {
-        unsigned int relative_fd  ;
-        unsigned int relative_id  ;
+        unsigned int  relative_fd  ;
+        unsigned int  relative_id  ;
     };
-    unsigned long  long expected_revision  ;
+    unsigned long  long  expected_revision  ;
 };
 
 union anonymous_typeZ307
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 union anonymous_typeZ308
 {
-unsigned int relative_fd  ;
-unsigned int relative_id  ;
+unsigned int  relative_fd  ;
+unsigned int  relative_id  ;
 };
 
 struct anonymous_typeX306
 {
     union {
-        unsigned int relative_fd  ;
-        unsigned int relative_id  ;
+        unsigned int  relative_fd  ;
+        unsigned int  relative_id  ;
     };
-    unsigned long  long expected_revision  ;
+    unsigned long  long  expected_revision  ;
 };
 
 union anonymous_typeZ293
 {
-unsigned int target_btf_id  ;
+unsigned int  target_btf_id  ;
     struct {
-        unsigned long  long iter_info __attribute__((aligned(8)))	 ;
-        unsigned int iter_info_len  ;
+        unsigned long  long  iter_info  __attribute__((aligned(8)))	;
+        unsigned int  iter_info_len  ;
     };
     struct {
-        unsigned long  long bpf_cookie  ;
+        unsigned long  long  bpf_cookie  ;
     } perf_event;
     struct {
-        unsigned int flags  ;
-        unsigned int cnt  ;
-        unsigned long  long syms __attribute__((aligned(8)))	 ;
-        unsigned long  long addrs __attribute__((aligned(8)))	 ;
-        unsigned long  long cookies __attribute__((aligned(8)))	 ;
+        unsigned int  flags  ;
+        unsigned int  cnt  ;
+        unsigned long  long  syms  __attribute__((aligned(8)))	;
+        unsigned long  long  addrs  __attribute__((aligned(8)))	;
+        unsigned long  long  cookies  __attribute__((aligned(8)))	;
     } kprobe_multi;
     struct {
-        unsigned int target_btf_id  ;
-        unsigned long  long cookie  ;
+        unsigned int  target_btf_id  ;
+        unsigned long  long  cookie  ;
     } tracing;
     struct {
-        unsigned int pf  ;
-        unsigned int hooknum  ;
-        int priority  ;
-        unsigned int flags  ;
+        unsigned int  pf  ;
+        unsigned int  hooknum  ;
+        int  priority  ;
+        unsigned int  flags  ;
     } netfilter;
     struct {
         union {
-            unsigned int relative_fd  ;
-            unsigned int relative_id  ;
+            unsigned int  relative_fd  ;
+            unsigned int  relative_id  ;
         };
-        unsigned long  long expected_revision  ;
+        unsigned long  long  expected_revision  ;
     } tcx;
     struct {
-        unsigned long  long path __attribute__((aligned(8)))	 ;
-        unsigned long  long offsets __attribute__((aligned(8)))	 ;
-        unsigned long  long ref_ctr_offsets __attribute__((aligned(8)))	 ;
-        unsigned long  long cookies __attribute__((aligned(8)))	 ;
-        unsigned int cnt  ;
-        unsigned int flags  ;
-        unsigned int pid  ;
+        unsigned long  long  path  __attribute__((aligned(8)))	;
+        unsigned long  long  offsets  __attribute__((aligned(8)))	;
+        unsigned long  long  ref_ctr_offsets  __attribute__((aligned(8)))	;
+        unsigned long  long  cookies  __attribute__((aligned(8)))	;
+        unsigned int  cnt  ;
+        unsigned int  flags  ;
+        unsigned int  pid  ;
     } uprobe_multi;
     struct {
         union {
-            unsigned int relative_fd  ;
-            unsigned int relative_id  ;
+            unsigned int  relative_fd  ;
+            unsigned int  relative_id  ;
         };
-        unsigned long  long expected_revision  ;
+        unsigned long  long  expected_revision  ;
     } netkit;
     struct {
         union {
-            unsigned int relative_fd  ;
-            unsigned int relative_id  ;
+            unsigned int  relative_fd  ;
+            unsigned int  relative_id  ;
         };
-        unsigned long  long expected_revision  ;
+        unsigned long  long  expected_revision  ;
     } cgroup;
 };
 
 struct anonymous_typeX272
 {
     union {
-        unsigned int prog_fd  ;
-        unsigned int map_fd  ;
+        unsigned int  prog_fd  ;
+        unsigned int  map_fd  ;
     };
     union {
-        unsigned int target_fd  ;
-        unsigned int target_ifindex  ;
+        unsigned int  target_fd  ;
+        unsigned int  target_ifindex  ;
     };
-    unsigned int attach_type  ;
-    unsigned int flags  ;
+    unsigned int  attach_type  ;
+    unsigned int  flags  ;
     union {
-        unsigned int target_btf_id  ;
+        unsigned int  target_btf_id  ;
         struct {
-            unsigned long  long iter_info __attribute__((aligned(8)))	 ;
-            unsigned int iter_info_len  ;
+            unsigned long  long  iter_info  __attribute__((aligned(8)))	;
+            unsigned int  iter_info_len  ;
         };
         struct {
-            unsigned long  long bpf_cookie  ;
+            unsigned long  long  bpf_cookie  ;
         } perf_event;
         struct {
-            unsigned int flags  ;
-            unsigned int cnt  ;
-            unsigned long  long syms __attribute__((aligned(8)))	 ;
-            unsigned long  long addrs __attribute__((aligned(8)))	 ;
-            unsigned long  long cookies __attribute__((aligned(8)))	 ;
+            unsigned int  flags  ;
+            unsigned int  cnt  ;
+            unsigned long  long  syms  __attribute__((aligned(8)))	;
+            unsigned long  long  addrs  __attribute__((aligned(8)))	;
+            unsigned long  long  cookies  __attribute__((aligned(8)))	;
         } kprobe_multi;
         struct {
-            unsigned int target_btf_id  ;
-            unsigned long  long cookie  ;
+            unsigned int  target_btf_id  ;
+            unsigned long  long  cookie  ;
         } tracing;
         struct {
-            unsigned int pf  ;
-            unsigned int hooknum  ;
-            int priority  ;
-            unsigned int flags  ;
+            unsigned int  pf  ;
+            unsigned int  hooknum  ;
+            int  priority  ;
+            unsigned int  flags  ;
         } netfilter;
         struct {
             union {
-                unsigned int relative_fd  ;
-                unsigned int relative_id  ;
+                unsigned int  relative_fd  ;
+                unsigned int  relative_id  ;
             };
-            unsigned long  long expected_revision  ;
+            unsigned long  long  expected_revision  ;
         } tcx;
         struct {
-            unsigned long  long path __attribute__((aligned(8)))	 ;
-            unsigned long  long offsets __attribute__((aligned(8)))	 ;
-            unsigned long  long ref_ctr_offsets __attribute__((aligned(8)))	 ;
-            unsigned long  long cookies __attribute__((aligned(8)))	 ;
-            unsigned int cnt  ;
-            unsigned int flags  ;
-            unsigned int pid  ;
+            unsigned long  long  path  __attribute__((aligned(8)))	;
+            unsigned long  long  offsets  __attribute__((aligned(8)))	;
+            unsigned long  long  ref_ctr_offsets  __attribute__((aligned(8)))	;
+            unsigned long  long  cookies  __attribute__((aligned(8)))	;
+            unsigned int  cnt  ;
+            unsigned int  flags  ;
+            unsigned int  pid  ;
         } uprobe_multi;
         struct {
             union {
-                unsigned int relative_fd  ;
-                unsigned int relative_id  ;
+                unsigned int  relative_fd  ;
+                unsigned int  relative_id  ;
             };
-            unsigned long  long expected_revision  ;
+            unsigned long  long  expected_revision  ;
         } netkit;
         struct {
             union {
-                unsigned int relative_fd  ;
-                unsigned int relative_id  ;
+                unsigned int  relative_fd  ;
+                unsigned int  relative_id  ;
             };
-            unsigned long  long expected_revision  ;
+            unsigned long  long  expected_revision  ;
         } cgroup;
     };
 };
 
 union anonymous_typeZ310
 {
-unsigned int new_prog_fd  ;
-unsigned int new_map_fd  ;
+unsigned int  new_prog_fd  ;
+unsigned int  new_map_fd  ;
 };
 
 union anonymous_typeZ311
 {
-unsigned int new_prog_fd  ;
-unsigned int new_map_fd  ;
+unsigned int  new_prog_fd  ;
+unsigned int  new_map_fd  ;
 };
 
 union anonymous_typeZ312
 {
-unsigned int old_prog_fd  ;
-unsigned int old_map_fd  ;
+unsigned int  old_prog_fd  ;
+unsigned int  old_map_fd  ;
 };
 
 union anonymous_typeZ313
 {
-unsigned int old_prog_fd  ;
-unsigned int old_map_fd  ;
+unsigned int  old_prog_fd  ;
+unsigned int  old_map_fd  ;
 };
 
 struct anonymous_typeX309
 {
-    unsigned int link_fd  ;
+    unsigned int  link_fd  ;
     union {
-        unsigned int new_prog_fd  ;
-        unsigned int new_map_fd  ;
+        unsigned int  new_prog_fd  ;
+        unsigned int  new_map_fd  ;
     };
-    unsigned int flags  ;
+    unsigned int  flags  ;
     union {
-        unsigned int old_prog_fd  ;
-        unsigned int old_map_fd  ;
+        unsigned int  old_prog_fd  ;
+        unsigned int  old_map_fd  ;
     };
 };
 
 struct anonymous_typeX314
 {
-    unsigned int link_fd  ;
+    unsigned int  link_fd  ;
 };
 
 struct anonymous_typeX315
 {
-    unsigned int type  ;
+    unsigned int  type  ;
 };
 
 struct anonymous_typeX316
 {
-    unsigned int link_fd  ;
-    unsigned int flags  ;
+    unsigned int  link_fd  ;
+    unsigned int  flags  ;
 };
 
 struct anonymous_typeX317
 {
-    unsigned int prog_fd  ;
-    unsigned int map_fd  ;
-    unsigned int flags  ;
+    unsigned int  prog_fd  ;
+    unsigned int  map_fd  ;
+    unsigned int  flags  ;
 };
 
 struct anonymous_typeX318
 {
-    unsigned int flags  ;
-    unsigned int bpffs_fd  ;
+    unsigned int  flags  ;
+    unsigned int  bpffs_fd  ;
 };
 
 struct anonymous_typeX319
 {
-    unsigned long  long stream_buf __attribute__((aligned(8)))	 ;
-    unsigned int stream_buf_len  ;
-    unsigned int stream_id  ;
-    unsigned int prog_fd  ;
+    unsigned long  long  stream_buf  __attribute__((aligned(8)))	;
+    unsigned int  stream_buf_len  ;
+    unsigned int  stream_id  ;
+    unsigned int  prog_fd  ;
 };
 
 enum  bpf_func_id { BPF_FUNC_unspec=(0),
@@ -6564,149 +6564,149 @@ BPF_SKB_CLOCK_TAI=(2)
 union anonymous_typeZ320
 {
 struct bpf_flow_keys* flow_keys;
-unsigned long  long :64  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 union anonymous_typeZ321
 {
 struct bpf_flow_keys* flow_keys;
-unsigned long  long :64  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 union anonymous_typeZ322
 {
 struct bpf_sock* sk;
-unsigned long  long :64  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 union anonymous_typeZ323
 {
 struct bpf_sock* sk;
-unsigned long  long :64  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 struct __sk_buff
 {
-    unsigned int len  ;
-    unsigned int pkt_type  ;
-    unsigned int mark  ;
-    unsigned int queue_mapping  ;
-    unsigned int protocol  ;
-    unsigned int vlan_present  ;
-    unsigned int vlan_tci  ;
-    unsigned int vlan_proto  ;
-    unsigned int priority  ;
-    unsigned int ingress_ifindex  ;
-    unsigned int ifindex  ;
-    unsigned int tc_index  ;
-    unsigned int cb[5]  ;
-    unsigned int hash  ;
-    unsigned int tc_classid  ;
-    unsigned int data  ;
-    unsigned int data_end  ;
-    unsigned int napi_id  ;
-    unsigned int family  ;
-    unsigned int remote_ip4  ;
-    unsigned int local_ip4  ;
-    unsigned int remote_ip6[4]  ;
-    unsigned int local_ip6[4]  ;
-    unsigned int remote_port  ;
-    unsigned int local_port  ;
-    unsigned int data_meta  ;
+    unsigned int  len  ;
+    unsigned int  pkt_type  ;
+    unsigned int  mark  ;
+    unsigned int  queue_mapping  ;
+    unsigned int  protocol  ;
+    unsigned int  vlan_present  ;
+    unsigned int  vlan_tci  ;
+    unsigned int  vlan_proto  ;
+    unsigned int  priority  ;
+    unsigned int  ingress_ifindex  ;
+    unsigned int  ifindex  ;
+    unsigned int  tc_index  ;
+    unsigned int  cb[5]  ;
+    unsigned int  hash  ;
+    unsigned int  tc_classid  ;
+    unsigned int  data  ;
+    unsigned int  data_end  ;
+    unsigned int  napi_id  ;
+    unsigned int  family  ;
+    unsigned int  remote_ip4  ;
+    unsigned int  local_ip4  ;
+    unsigned int  remote_ip6[4]  ;
+    unsigned int  local_ip6[4]  ;
+    unsigned int  remote_port  ;
+    unsigned int  local_port  ;
+    unsigned int  data_meta  ;
     union {
         struct bpf_flow_keys* flow_keys;
-        unsigned long  long :64  ;
+        unsigned long  long  :64  ;
     };
-    unsigned long  long tstamp  ;
-    unsigned int wire_len  ;
-    unsigned int gso_segs  ;
+    unsigned long  long  tstamp  ;
+    unsigned int  wire_len  ;
+    unsigned int  gso_segs  ;
     union {
         struct bpf_sock* sk;
-        unsigned long  long :64  ;
+        unsigned long  long  :64  ;
     };
-    unsigned int gso_size  ;
-    unsigned char tstamp_type  ;
-    unsigned int :24  ;
-    unsigned long  long hwtstamp  ;
+    unsigned int  gso_size  ;
+    unsigned char  tstamp_type  ;
+    unsigned int  :24  ;
+    unsigned long  long  hwtstamp  ;
 };
 
 union anonymous_typeZ324
 {
-unsigned int remote_ipv4  ;
-unsigned int remote_ipv6[4]  ;
+unsigned int  remote_ipv4  ;
+unsigned int  remote_ipv6[4]  ;
 };
 
 union anonymous_typeZ325
 {
-unsigned int remote_ipv4  ;
-unsigned int remote_ipv6[4]  ;
+unsigned int  remote_ipv4  ;
+unsigned int  remote_ipv6[4]  ;
 };
 
 union anonymous_typeZ326
 {
-unsigned short int tunnel_ext  ;
-unsigned short int tunnel_flags  ;
+unsigned short int  tunnel_ext  ;
+unsigned short int  tunnel_flags  ;
 };
 
 union anonymous_typeZ327
 {
-unsigned short int tunnel_ext  ;
-unsigned short int tunnel_flags  ;
+unsigned short int  tunnel_ext  ;
+unsigned short int  tunnel_flags  ;
 };
 
 union anonymous_typeZ328
 {
-unsigned int local_ipv4  ;
-unsigned int local_ipv6[4]  ;
+unsigned int  local_ipv4  ;
+unsigned int  local_ipv6[4]  ;
 };
 
 union anonymous_typeZ329
 {
-unsigned int local_ipv4  ;
-unsigned int local_ipv6[4]  ;
+unsigned int  local_ipv4  ;
+unsigned int  local_ipv6[4]  ;
 };
 
 struct bpf_tunnel_key
 {
-    unsigned int tunnel_id  ;
+    unsigned int  tunnel_id  ;
     union {
-        unsigned int remote_ipv4  ;
-        unsigned int remote_ipv6[4]  ;
+        unsigned int  remote_ipv4  ;
+        unsigned int  remote_ipv6[4]  ;
     };
-    unsigned char tunnel_tos  ;
-    unsigned char tunnel_ttl  ;
+    unsigned char  tunnel_tos  ;
+    unsigned char  tunnel_ttl  ;
     union {
-        unsigned short int tunnel_ext  ;
-        unsigned short int tunnel_flags  ;
+        unsigned short int  tunnel_ext  ;
+        unsigned short int  tunnel_flags  ;
     };
-    unsigned int tunnel_label  ;
+    unsigned int  tunnel_label  ;
     union {
-        unsigned int local_ipv4  ;
-        unsigned int local_ipv6[4]  ;
+        unsigned int  local_ipv4  ;
+        unsigned int  local_ipv6[4]  ;
     };
 };
 
 union anonymous_typeZ330
 {
-unsigned int remote_ipv4  ;
-unsigned int remote_ipv6[4]  ;
+unsigned int  remote_ipv4  ;
+unsigned int  remote_ipv6[4]  ;
 };
 
 union anonymous_typeZ331
 {
-unsigned int remote_ipv4  ;
-unsigned int remote_ipv6[4]  ;
+unsigned int  remote_ipv4  ;
+unsigned int  remote_ipv6[4]  ;
 };
 
 struct bpf_xfrm_state
 {
-    unsigned int reqid  ;
-    unsigned int spi  ;
-    unsigned short int family  ;
-    unsigned short int ext  ;
+    unsigned int  reqid  ;
+    unsigned int  spi  ;
+    unsigned short int  family  ;
+    unsigned short int  ext  ;
     union {
-        unsigned int remote_ipv4  ;
-        unsigned int remote_ipv6[4]  ;
+        unsigned int  remote_ipv4  ;
+        unsigned int  remote_ipv6[4]  ;
     };
 };
 
@@ -6719,114 +6719,114 @@ BPF_FLOW_DISSECTOR_CONTINUE=(129)
 
 struct bpf_sock
 {
-    unsigned int bound_dev_if  ;
-    unsigned int family  ;
-    unsigned int type  ;
-    unsigned int protocol  ;
-    unsigned int mark  ;
-    unsigned int priority  ;
-    unsigned int src_ip4  ;
-    unsigned int src_ip6[4]  ;
-    unsigned int src_port  ;
-    unsigned short int dst_port  ;
-    unsigned short int :16  ;
-    unsigned int dst_ip4  ;
-    unsigned int dst_ip6[4]  ;
-    unsigned int state  ;
-    int rx_queue_mapping  ;
+    unsigned int  bound_dev_if  ;
+    unsigned int  family  ;
+    unsigned int  type  ;
+    unsigned int  protocol  ;
+    unsigned int  mark  ;
+    unsigned int  priority  ;
+    unsigned int  src_ip4  ;
+    unsigned int  src_ip6[4]  ;
+    unsigned int  src_port  ;
+    unsigned short int  dst_port  ;
+    unsigned short int  :16  ;
+    unsigned int  dst_ip4  ;
+    unsigned int  dst_ip6[4]  ;
+    unsigned int  state  ;
+    int  rx_queue_mapping  ;
 };
 
 struct bpf_tcp_sock
 {
-    unsigned int snd_cwnd  ;
-    unsigned int srtt_us  ;
-    unsigned int rtt_min  ;
-    unsigned int snd_ssthresh  ;
-    unsigned int rcv_nxt  ;
-    unsigned int snd_nxt  ;
-    unsigned int snd_una  ;
-    unsigned int mss_cache  ;
-    unsigned int ecn_flags  ;
-    unsigned int rate_delivered  ;
-    unsigned int rate_interval_us  ;
-    unsigned int packets_out  ;
-    unsigned int retrans_out  ;
-    unsigned int total_retrans  ;
-    unsigned int segs_in  ;
-    unsigned int data_segs_in  ;
-    unsigned int segs_out  ;
-    unsigned int data_segs_out  ;
-    unsigned int lost_out  ;
-    unsigned int sacked_out  ;
-    unsigned long  long bytes_received  ;
-    unsigned long  long bytes_acked  ;
-    unsigned int dsack_dups  ;
-    unsigned int delivered  ;
-    unsigned int delivered_ce  ;
-    unsigned int icsk_retransmits  ;
+    unsigned int  snd_cwnd  ;
+    unsigned int  srtt_us  ;
+    unsigned int  rtt_min  ;
+    unsigned int  snd_ssthresh  ;
+    unsigned int  rcv_nxt  ;
+    unsigned int  snd_nxt  ;
+    unsigned int  snd_una  ;
+    unsigned int  mss_cache  ;
+    unsigned int  ecn_flags  ;
+    unsigned int  rate_delivered  ;
+    unsigned int  rate_interval_us  ;
+    unsigned int  packets_out  ;
+    unsigned int  retrans_out  ;
+    unsigned int  total_retrans  ;
+    unsigned int  segs_in  ;
+    unsigned int  data_segs_in  ;
+    unsigned int  segs_out  ;
+    unsigned int  data_segs_out  ;
+    unsigned int  lost_out  ;
+    unsigned int  sacked_out  ;
+    unsigned long  long  bytes_received  ;
+    unsigned long  long  bytes_acked  ;
+    unsigned int  dsack_dups  ;
+    unsigned int  delivered  ;
+    unsigned int  delivered_ce  ;
+    unsigned int  icsk_retransmits  ;
 };
 
 struct anonymous_typeX333
 {
-    unsigned int saddr  ;
-    unsigned int daddr  ;
-    unsigned short int sport  ;
-    unsigned short int dport  ;
+    unsigned int  saddr  ;
+    unsigned int  daddr  ;
+    unsigned short int  sport  ;
+    unsigned short int  dport  ;
 };
 
 struct anonymous_typeX334
 {
-    unsigned int saddr[4]  ;
-    unsigned int daddr[4]  ;
-    unsigned short int sport  ;
-    unsigned short int dport  ;
+    unsigned int  saddr[4]  ;
+    unsigned int  daddr[4]  ;
+    unsigned short int  sport  ;
+    unsigned short int  dport  ;
 };
 
 union anonymous_typeZ332
 {
     struct {
-        unsigned int saddr  ;
-        unsigned int daddr  ;
-        unsigned short int sport  ;
-        unsigned short int dport  ;
+        unsigned int  saddr  ;
+        unsigned int  daddr  ;
+        unsigned short int  sport  ;
+        unsigned short int  dport  ;
     } ipv4;
     struct {
-        unsigned int saddr[4]  ;
-        unsigned int daddr[4]  ;
-        unsigned short int sport  ;
-        unsigned short int dport  ;
+        unsigned int  saddr[4]  ;
+        unsigned int  daddr[4]  ;
+        unsigned short int  sport  ;
+        unsigned short int  dport  ;
     } ipv6;
 };
 
 struct anonymous_typeX336
 {
-    unsigned int saddr  ;
-    unsigned int daddr  ;
-    unsigned short int sport  ;
-    unsigned short int dport  ;
+    unsigned int  saddr  ;
+    unsigned int  daddr  ;
+    unsigned short int  sport  ;
+    unsigned short int  dport  ;
 };
 
 struct anonymous_typeX337
 {
-    unsigned int saddr[4]  ;
-    unsigned int daddr[4]  ;
-    unsigned short int sport  ;
-    unsigned short int dport  ;
+    unsigned int  saddr[4]  ;
+    unsigned int  daddr[4]  ;
+    unsigned short int  sport  ;
+    unsigned short int  dport  ;
 };
 
 union anonymous_typeZ335
 {
     struct {
-        unsigned int saddr  ;
-        unsigned int daddr  ;
-        unsigned short int sport  ;
-        unsigned short int dport  ;
+        unsigned int  saddr  ;
+        unsigned int  daddr  ;
+        unsigned short int  sport  ;
+        unsigned short int  dport  ;
     } ipv4;
     struct {
-        unsigned int saddr[4]  ;
-        unsigned int daddr[4]  ;
-        unsigned short int sport  ;
-        unsigned short int dport  ;
+        unsigned int  saddr[4]  ;
+        unsigned int  daddr[4]  ;
+        unsigned short int  sport  ;
+        unsigned short int  dport  ;
     } ipv6;
 };
 
@@ -6834,16 +6834,16 @@ struct bpf_sock_tuple
 {
     union {
         struct {
-            unsigned int saddr  ;
-            unsigned int daddr  ;
-            unsigned short int sport  ;
-            unsigned short int dport  ;
+            unsigned int  saddr  ;
+            unsigned int  daddr  ;
+            unsigned short int  sport  ;
+            unsigned short int  dport  ;
         } ipv4;
         struct {
-            unsigned int saddr[4]  ;
-            unsigned int daddr[4]  ;
-            unsigned short int sport  ;
-            unsigned short int dport  ;
+            unsigned int  saddr[4]  ;
+            unsigned int  daddr[4]  ;
+            unsigned short int  sport  ;
+            unsigned short int  dport  ;
         } ipv6;
     };
 };
@@ -6856,7 +6856,7 @@ TCX_REDIRECT=(7)
 
 struct bpf_xdp_sock
 {
-    unsigned int queue_id  ;
+    unsigned int  queue_id  ;
 };
 
 enum  xdp_action { XDP_ABORTED=(0),
@@ -6868,53 +6868,53 @@ XDP_DROP
 
 struct xdp_md
 {
-    unsigned int data  ;
-    unsigned int data_end  ;
-    unsigned int data_meta  ;
-    unsigned int ingress_ifindex  ;
-    unsigned int rx_queue_index  ;
-    unsigned int egress_ifindex  ;
+    unsigned int  data  ;
+    unsigned int  data_end  ;
+    unsigned int  data_meta  ;
+    unsigned int  ingress_ifindex  ;
+    unsigned int  rx_queue_index  ;
+    unsigned int  egress_ifindex  ;
 };
 
 union anonymous_typeZ338
 {
 int fd;
-unsigned int id  ;
+unsigned int  id  ;
 };
 
 union anonymous_typeZ339
 {
 int fd;
-unsigned int id  ;
+unsigned int  id  ;
 };
 
 struct bpf_devmap_val
 {
-    unsigned int ifindex  ;
+    unsigned int  ifindex  ;
     union {
         int fd;
-        unsigned int id  ;
+        unsigned int  id  ;
     } bpf_prog;
 };
 
 union anonymous_typeZ340
 {
 int fd;
-unsigned int id  ;
+unsigned int  id  ;
 };
 
 union anonymous_typeZ341
 {
 int fd;
-unsigned int id  ;
+unsigned int  id  ;
 };
 
 struct bpf_cpumap_val
 {
-    unsigned int qsize  ;
+    unsigned int  qsize  ;
     union {
         int fd;
-        unsigned int id  ;
+        unsigned int  id  ;
     } bpf_prog;
 };
 
@@ -6925,1403 +6925,1403 @@ SK_PASS
 union anonymous_typeZ342
 {
 void* data;
-unsigned long  long :64  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 union anonymous_typeZ343
 {
 void* data;
-unsigned long  long :64  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 union anonymous_typeZ344
 {
 void* data_end;
-unsigned long  long :64  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 union anonymous_typeZ345
 {
 void* data_end;
-unsigned long  long :64  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 union anonymous_typeZ346
 {
-struct bpf_sock* sk  ;
-unsigned long  long :64  ;
+struct bpf_sock*  sk  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 union anonymous_typeZ347
 {
-struct bpf_sock* sk  ;
-unsigned long  long :64  ;
+struct bpf_sock*  sk  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 struct sk_msg_md
 {
     union {
         void* data;
-        unsigned long  long :64  ;
+        unsigned long  long  :64  ;
     };
     union {
         void* data_end;
-        unsigned long  long :64  ;
+        unsigned long  long  :64  ;
     };
-    unsigned int family  ;
-    unsigned int remote_ip4  ;
-    unsigned int local_ip4  ;
-    unsigned int remote_ip6[4]  ;
-    unsigned int local_ip6[4]  ;
-    unsigned int remote_port  ;
-    unsigned int local_port  ;
-    unsigned int size  ;
+    unsigned int  family  ;
+    unsigned int  remote_ip4  ;
+    unsigned int  local_ip4  ;
+    unsigned int  remote_ip6[4]  ;
+    unsigned int  local_ip6[4]  ;
+    unsigned int  remote_port  ;
+    unsigned int  local_port  ;
+    unsigned int  size  ;
     union {
-        struct bpf_sock* sk  ;
-        unsigned long  long :64  ;
+        struct bpf_sock*  sk  ;
+        unsigned long  long  :64  ;
     };
 };
 
 union anonymous_typeZ348
 {
 void* data;
-unsigned long  long :64  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 union anonymous_typeZ349
 {
 void* data;
-unsigned long  long :64  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 union anonymous_typeZ350
 {
 void* data_end;
-unsigned long  long :64  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 union anonymous_typeZ351
 {
 void* data_end;
-unsigned long  long :64  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 union anonymous_typeZ352
 {
-struct bpf_sock* sk  ;
-unsigned long  long :64  ;
+struct bpf_sock*  sk  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 union anonymous_typeZ353
 {
-struct bpf_sock* sk  ;
-unsigned long  long :64  ;
+struct bpf_sock*  sk  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 union anonymous_typeZ354
 {
-struct bpf_sock* migrating_sk  ;
-unsigned long  long :64  ;
+struct bpf_sock*  migrating_sk  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 union anonymous_typeZ355
 {
-struct bpf_sock* migrating_sk  ;
-unsigned long  long :64  ;
+struct bpf_sock*  migrating_sk  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 struct sk_reuseport_md
 {
     union {
         void* data;
-        unsigned long  long :64  ;
+        unsigned long  long  :64  ;
     };
     union {
         void* data_end;
-        unsigned long  long :64  ;
+        unsigned long  long  :64  ;
     };
-    unsigned int len  ;
-    unsigned int eth_protocol  ;
-    unsigned int ip_protocol  ;
-    unsigned int bind_inany  ;
-    unsigned int hash  ;
+    unsigned int  len  ;
+    unsigned int  eth_protocol  ;
+    unsigned int  ip_protocol  ;
+    unsigned int  bind_inany  ;
+    unsigned int  hash  ;
     union {
-        struct bpf_sock* sk  ;
-        unsigned long  long :64  ;
+        struct bpf_sock*  sk  ;
+        unsigned long  long  :64  ;
     };
     union {
-        struct bpf_sock* migrating_sk  ;
-        unsigned long  long :64  ;
+        struct bpf_sock*  migrating_sk  ;
+        unsigned long  long  :64  ;
     };
 };
 
 struct bpf_prog_info
 {
-    unsigned int type  ;
-    unsigned int id  ;
-    unsigned char tag[8]  ;
-    unsigned int jited_prog_len  ;
-    unsigned int xlated_prog_len  ;
-    unsigned long  long jited_prog_insns __attribute__((aligned(8)))  ;
-    unsigned long  long xlated_prog_insns __attribute__((aligned(8)))  ;
-    unsigned long  long load_time  ;
-    unsigned int created_by_uid  ;
-    unsigned int nr_map_ids  ;
-    unsigned long  long map_ids __attribute__((aligned(8)))  ;
+    unsigned int  type  ;
+    unsigned int  id  ;
+    unsigned char  tag[8]  ;
+    unsigned int  jited_prog_len  ;
+    unsigned int  xlated_prog_len  ;
+    unsigned long  long  jited_prog_insns  __attribute__((aligned(8))) ;
+    unsigned long  long  xlated_prog_insns  __attribute__((aligned(8))) ;
+    unsigned long  long  load_time  ;
+    unsigned int  created_by_uid  ;
+    unsigned int  nr_map_ids  ;
+    unsigned long  long  map_ids  __attribute__((aligned(8))) ;
     char name[16U];
-    unsigned int ifindex  ;
-    unsigned int gpl_compatible:1  ;
-    unsigned int :31  ;
-    unsigned long  long netns_dev  ;
-    unsigned long  long netns_ino  ;
-    unsigned int nr_jited_ksyms  ;
-    unsigned int nr_jited_func_lens  ;
-    unsigned long  long jited_ksyms __attribute__((aligned(8)))  ;
-    unsigned long  long jited_func_lens __attribute__((aligned(8)))  ;
-    unsigned int btf_id  ;
-    unsigned int func_info_rec_size  ;
-    unsigned long  long func_info __attribute__((aligned(8)))  ;
-    unsigned int nr_func_info  ;
-    unsigned int nr_line_info  ;
-    unsigned long  long line_info __attribute__((aligned(8)))  ;
-    unsigned long  long jited_line_info __attribute__((aligned(8)))  ;
-    unsigned int nr_jited_line_info  ;
-    unsigned int line_info_rec_size  ;
-    unsigned int jited_line_info_rec_size  ;
-    unsigned int nr_prog_tags  ;
-    unsigned long  long prog_tags __attribute__((aligned(8)))  ;
-    unsigned long  long run_time_ns  ;
-    unsigned long  long run_cnt  ;
-    unsigned long  long recursion_misses  ;
-    unsigned int verified_insns  ;
-    unsigned int attach_btf_obj_id  ;
-    unsigned int attach_btf_id  ;
+    unsigned int  ifindex  ;
+    unsigned int  gpl_compatible:1  ;
+    unsigned int  :31  ;
+    unsigned long  long  netns_dev  ;
+    unsigned long  long  netns_ino  ;
+    unsigned int  nr_jited_ksyms  ;
+    unsigned int  nr_jited_func_lens  ;
+    unsigned long  long  jited_ksyms  __attribute__((aligned(8))) ;
+    unsigned long  long  jited_func_lens  __attribute__((aligned(8))) ;
+    unsigned int  btf_id  ;
+    unsigned int  func_info_rec_size  ;
+    unsigned long  long  func_info  __attribute__((aligned(8))) ;
+    unsigned int  nr_func_info  ;
+    unsigned int  nr_line_info  ;
+    unsigned long  long  line_info  __attribute__((aligned(8))) ;
+    unsigned long  long  jited_line_info  __attribute__((aligned(8))) ;
+    unsigned int  nr_jited_line_info  ;
+    unsigned int  line_info_rec_size  ;
+    unsigned int  jited_line_info_rec_size  ;
+    unsigned int  nr_prog_tags  ;
+    unsigned long  long  prog_tags  __attribute__((aligned(8))) ;
+    unsigned long  long  run_time_ns  ;
+    unsigned long  long  run_cnt  ;
+    unsigned long  long  recursion_misses  ;
+    unsigned int  verified_insns  ;
+    unsigned int  attach_btf_obj_id  ;
+    unsigned int  attach_btf_id  ;
 } __attribute__((aligned(8)));
 
 struct bpf_map_info
 {
-    unsigned int type  ;
-    unsigned int id  ;
-    unsigned int key_size  ;
-    unsigned int value_size  ;
-    unsigned int max_entries  ;
-    unsigned int map_flags  ;
+    unsigned int  type  ;
+    unsigned int  id  ;
+    unsigned int  key_size  ;
+    unsigned int  value_size  ;
+    unsigned int  max_entries  ;
+    unsigned int  map_flags  ;
     char name[16U];
-    unsigned int ifindex  ;
-    unsigned int btf_vmlinux_value_type_id  ;
-    unsigned long  long netns_dev  ;
-    unsigned long  long netns_ino  ;
-    unsigned int btf_id  ;
-    unsigned int btf_key_type_id  ;
-    unsigned int btf_value_type_id  ;
-    unsigned int btf_vmlinux_id  ;
-    unsigned long  long map_extra  ;
+    unsigned int  ifindex  ;
+    unsigned int  btf_vmlinux_value_type_id  ;
+    unsigned long  long  netns_dev  ;
+    unsigned long  long  netns_ino  ;
+    unsigned int  btf_id  ;
+    unsigned int  btf_key_type_id  ;
+    unsigned int  btf_value_type_id  ;
+    unsigned int  btf_vmlinux_id  ;
+    unsigned long  long  map_extra  ;
 } __attribute__((aligned(8)));
 
 struct bpf_btf_info
 {
-    unsigned long  long btf __attribute__((aligned(8)))  ;
-    unsigned int btf_size  ;
-    unsigned int id  ;
-    unsigned long  long name __attribute__((aligned(8)))  ;
-    unsigned int name_len  ;
-    unsigned int kernel_btf  ;
+    unsigned long  long  btf  __attribute__((aligned(8))) ;
+    unsigned int  btf_size  ;
+    unsigned int  id  ;
+    unsigned long  long  name  __attribute__((aligned(8))) ;
+    unsigned int  name_len  ;
+    unsigned int  kernel_btf  ;
 } __attribute__((aligned(8)));
 
 struct anonymous_typeX357
 {
-    unsigned long  long tp_name __attribute__((aligned(8)))  ;
-    unsigned int tp_name_len  ;
-    unsigned int :32  ;
-    unsigned long  long cookie  ;
+    unsigned long  long  tp_name  __attribute__((aligned(8))) ;
+    unsigned int  tp_name_len  ;
+    unsigned int  :32  ;
+    unsigned long  long  cookie  ;
 };
 
 struct anonymous_typeX358
 {
-    unsigned int attach_type  ;
-    unsigned int target_obj_id  ;
-    unsigned int target_btf_id  ;
-    unsigned int :32  ;
-    unsigned long  long cookie  ;
+    unsigned int  attach_type  ;
+    unsigned int  target_obj_id  ;
+    unsigned int  target_btf_id  ;
+    unsigned int  :32  ;
+    unsigned long  long  cookie  ;
 };
 
 struct anonymous_typeX359
 {
-    unsigned long  long cgroup_id  ;
-    unsigned int attach_type  ;
+    unsigned long  long  cgroup_id  ;
+    unsigned int  attach_type  ;
 };
 
 struct anonymous_typeX362
 {
-    unsigned int map_id  ;
+    unsigned int  map_id  ;
 };
 
 union anonymous_typeZ361
 {
     struct {
-        unsigned int map_id  ;
+        unsigned int  map_id  ;
     } map;
 };
 
 struct anonymous_typeX364
 {
-    unsigned int map_id  ;
+    unsigned int  map_id  ;
 };
 
 union anonymous_typeZ363
 {
     struct {
-        unsigned int map_id  ;
+        unsigned int  map_id  ;
     } map;
 };
 
 struct anonymous_typeX366
 {
-    unsigned long  long cgroup_id  ;
-    unsigned int order  ;
+    unsigned long  long  cgroup_id  ;
+    unsigned int  order  ;
 };
 
 struct anonymous_typeX367
 {
-    unsigned int tid  ;
-    unsigned int pid  ;
+    unsigned int  tid  ;
+    unsigned int  pid  ;
 };
 
 union anonymous_typeZ365
 {
     struct {
-        unsigned long  long cgroup_id  ;
-        unsigned int order  ;
+        unsigned long  long  cgroup_id  ;
+        unsigned int  order  ;
     } cgroup;
     struct {
-        unsigned int tid  ;
-        unsigned int pid  ;
+        unsigned int  tid  ;
+        unsigned int  pid  ;
     } task;
 };
 
 struct anonymous_typeX369
 {
-    unsigned long  long cgroup_id  ;
-    unsigned int order  ;
+    unsigned long  long  cgroup_id  ;
+    unsigned int  order  ;
 };
 
 struct anonymous_typeX370
 {
-    unsigned int tid  ;
-    unsigned int pid  ;
+    unsigned int  tid  ;
+    unsigned int  pid  ;
 };
 
 union anonymous_typeZ368
 {
     struct {
-        unsigned long  long cgroup_id  ;
-        unsigned int order  ;
+        unsigned long  long  cgroup_id  ;
+        unsigned int  order  ;
     } cgroup;
     struct {
-        unsigned int tid  ;
-        unsigned int pid  ;
+        unsigned int  tid  ;
+        unsigned int  pid  ;
     } task;
 };
 
 struct anonymous_typeX360
 {
-    unsigned long  long target_name __attribute__((aligned(8)))  ;
-    unsigned int target_name_len  ;
+    unsigned long  long  target_name  __attribute__((aligned(8))) ;
+    unsigned int  target_name_len  ;
     union {
         struct {
-            unsigned int map_id  ;
+            unsigned int  map_id  ;
         } map;
     };
     union {
         struct {
-            unsigned long  long cgroup_id  ;
-            unsigned int order  ;
+            unsigned long  long  cgroup_id  ;
+            unsigned int  order  ;
         } cgroup;
         struct {
-            unsigned int tid  ;
-            unsigned int pid  ;
+            unsigned int  tid  ;
+            unsigned int  pid  ;
         } task;
     };
 };
 
 struct anonymous_typeX371
 {
-    unsigned int netns_ino  ;
-    unsigned int attach_type  ;
+    unsigned int  netns_ino  ;
+    unsigned int  attach_type  ;
 };
 
 struct anonymous_typeX372
 {
-    unsigned int ifindex  ;
+    unsigned int  ifindex  ;
 };
 
 struct anonymous_typeX373
 {
-    unsigned int map_id  ;
+    unsigned int  map_id  ;
 };
 
 struct anonymous_typeX374
 {
-    unsigned int pf  ;
-    unsigned int hooknum  ;
-    int priority  ;
-    unsigned int flags  ;
+    unsigned int  pf  ;
+    unsigned int  hooknum  ;
+    int  priority  ;
+    unsigned int  flags  ;
 };
 
 struct anonymous_typeX375
 {
-    unsigned long  long addrs __attribute__((aligned(8)))  ;
-    unsigned int count  ;
-    unsigned int flags  ;
-    unsigned long  long missed  ;
-    unsigned long  long cookies __attribute__((aligned(8)))  ;
+    unsigned long  long  addrs  __attribute__((aligned(8))) ;
+    unsigned int  count  ;
+    unsigned int  flags  ;
+    unsigned long  long  missed  ;
+    unsigned long  long  cookies  __attribute__((aligned(8))) ;
 };
 
 struct anonymous_typeX376
 {
-    unsigned long  long path __attribute__((aligned(8)))  ;
-    unsigned long  long offsets __attribute__((aligned(8)))  ;
-    unsigned long  long ref_ctr_offsets __attribute__((aligned(8)))  ;
-    unsigned long  long cookies __attribute__((aligned(8)))  ;
-    unsigned int path_size  ;
-    unsigned int count  ;
-    unsigned int flags  ;
-    unsigned int pid  ;
+    unsigned long  long  path  __attribute__((aligned(8))) ;
+    unsigned long  long  offsets  __attribute__((aligned(8))) ;
+    unsigned long  long  ref_ctr_offsets  __attribute__((aligned(8))) ;
+    unsigned long  long  cookies  __attribute__((aligned(8))) ;
+    unsigned int  path_size  ;
+    unsigned int  count  ;
+    unsigned int  flags  ;
+    unsigned int  pid  ;
 };
 
 struct anonymous_typeX379
 {
-    unsigned long  long file_name __attribute__((aligned(8)))  ;
-    unsigned int name_len  ;
-    unsigned int offset  ;
-    unsigned long  long cookie  ;
-    unsigned long  long ref_ctr_offset  ;
+    unsigned long  long  file_name  __attribute__((aligned(8))) ;
+    unsigned int  name_len  ;
+    unsigned int  offset  ;
+    unsigned long  long  cookie  ;
+    unsigned long  long  ref_ctr_offset  ;
 };
 
 struct anonymous_typeX380
 {
-    unsigned long  long func_name __attribute__((aligned(8)))  ;
-    unsigned int name_len  ;
-    unsigned int offset  ;
-    unsigned long  long addr  ;
-    unsigned long  long missed  ;
-    unsigned long  long cookie  ;
+    unsigned long  long  func_name  __attribute__((aligned(8))) ;
+    unsigned int  name_len  ;
+    unsigned int  offset  ;
+    unsigned long  long  addr  ;
+    unsigned long  long  missed  ;
+    unsigned long  long  cookie  ;
 };
 
 struct anonymous_typeX381
 {
-    unsigned long  long tp_name __attribute__((aligned(8)))  ;
-    unsigned int name_len  ;
-    unsigned int :32  ;
-    unsigned long  long cookie  ;
+    unsigned long  long  tp_name  __attribute__((aligned(8))) ;
+    unsigned int  name_len  ;
+    unsigned int  :32  ;
+    unsigned long  long  cookie  ;
 };
 
 struct anonymous_typeX382
 {
-    unsigned long  long config  ;
-    unsigned int type  ;
-    unsigned int :32  ;
-    unsigned long  long cookie  ;
+    unsigned long  long  config  ;
+    unsigned int  type  ;
+    unsigned int  :32  ;
+    unsigned long  long  cookie  ;
 };
 
 union anonymous_typeZ378
 {
     struct {
-        unsigned long  long file_name __attribute__((aligned(8)))  ;
-        unsigned int name_len  ;
-        unsigned int offset  ;
-        unsigned long  long cookie  ;
-        unsigned long  long ref_ctr_offset  ;
+        unsigned long  long  file_name  __attribute__((aligned(8))) ;
+        unsigned int  name_len  ;
+        unsigned int  offset  ;
+        unsigned long  long  cookie  ;
+        unsigned long  long  ref_ctr_offset  ;
     } uprobe;
     struct {
-        unsigned long  long func_name __attribute__((aligned(8)))  ;
-        unsigned int name_len  ;
-        unsigned int offset  ;
-        unsigned long  long addr  ;
-        unsigned long  long missed  ;
-        unsigned long  long cookie  ;
+        unsigned long  long  func_name  __attribute__((aligned(8))) ;
+        unsigned int  name_len  ;
+        unsigned int  offset  ;
+        unsigned long  long  addr  ;
+        unsigned long  long  missed  ;
+        unsigned long  long  cookie  ;
     } kprobe;
     struct {
-        unsigned long  long tp_name __attribute__((aligned(8)))  ;
-        unsigned int name_len  ;
-        unsigned int :32  ;
-        unsigned long  long cookie  ;
+        unsigned long  long  tp_name  __attribute__((aligned(8))) ;
+        unsigned int  name_len  ;
+        unsigned int  :32  ;
+        unsigned long  long  cookie  ;
     } tracepoint;
     struct {
-        unsigned long  long config  ;
-        unsigned int type  ;
-        unsigned int :32  ;
-        unsigned long  long cookie  ;
+        unsigned long  long  config  ;
+        unsigned int  type  ;
+        unsigned int  :32  ;
+        unsigned long  long  cookie  ;
     } event;
 };
 
 struct anonymous_typeX384
 {
-    unsigned long  long file_name __attribute__((aligned(8)))  ;
-    unsigned int name_len  ;
-    unsigned int offset  ;
-    unsigned long  long cookie  ;
-    unsigned long  long ref_ctr_offset  ;
+    unsigned long  long  file_name  __attribute__((aligned(8))) ;
+    unsigned int  name_len  ;
+    unsigned int  offset  ;
+    unsigned long  long  cookie  ;
+    unsigned long  long  ref_ctr_offset  ;
 };
 
 struct anonymous_typeX385
 {
-    unsigned long  long func_name __attribute__((aligned(8)))  ;
-    unsigned int name_len  ;
-    unsigned int offset  ;
-    unsigned long  long addr  ;
-    unsigned long  long missed  ;
-    unsigned long  long cookie  ;
+    unsigned long  long  func_name  __attribute__((aligned(8))) ;
+    unsigned int  name_len  ;
+    unsigned int  offset  ;
+    unsigned long  long  addr  ;
+    unsigned long  long  missed  ;
+    unsigned long  long  cookie  ;
 };
 
 struct anonymous_typeX386
 {
-    unsigned long  long tp_name __attribute__((aligned(8)))  ;
-    unsigned int name_len  ;
-    unsigned int :32  ;
-    unsigned long  long cookie  ;
+    unsigned long  long  tp_name  __attribute__((aligned(8))) ;
+    unsigned int  name_len  ;
+    unsigned int  :32  ;
+    unsigned long  long  cookie  ;
 };
 
 struct anonymous_typeX387
 {
-    unsigned long  long config  ;
-    unsigned int type  ;
-    unsigned int :32  ;
-    unsigned long  long cookie  ;
+    unsigned long  long  config  ;
+    unsigned int  type  ;
+    unsigned int  :32  ;
+    unsigned long  long  cookie  ;
 };
 
 union anonymous_typeZ383
 {
     struct {
-        unsigned long  long file_name __attribute__((aligned(8)))  ;
-        unsigned int name_len  ;
-        unsigned int offset  ;
-        unsigned long  long cookie  ;
-        unsigned long  long ref_ctr_offset  ;
+        unsigned long  long  file_name  __attribute__((aligned(8))) ;
+        unsigned int  name_len  ;
+        unsigned int  offset  ;
+        unsigned long  long  cookie  ;
+        unsigned long  long  ref_ctr_offset  ;
     } uprobe;
     struct {
-        unsigned long  long func_name __attribute__((aligned(8)))  ;
-        unsigned int name_len  ;
-        unsigned int offset  ;
-        unsigned long  long addr  ;
-        unsigned long  long missed  ;
-        unsigned long  long cookie  ;
+        unsigned long  long  func_name  __attribute__((aligned(8))) ;
+        unsigned int  name_len  ;
+        unsigned int  offset  ;
+        unsigned long  long  addr  ;
+        unsigned long  long  missed  ;
+        unsigned long  long  cookie  ;
     } kprobe;
     struct {
-        unsigned long  long tp_name __attribute__((aligned(8)))  ;
-        unsigned int name_len  ;
-        unsigned int :32  ;
-        unsigned long  long cookie  ;
+        unsigned long  long  tp_name  __attribute__((aligned(8))) ;
+        unsigned int  name_len  ;
+        unsigned int  :32  ;
+        unsigned long  long  cookie  ;
     } tracepoint;
     struct {
-        unsigned long  long config  ;
-        unsigned int type  ;
-        unsigned int :32  ;
-        unsigned long  long cookie  ;
+        unsigned long  long  config  ;
+        unsigned int  type  ;
+        unsigned int  :32  ;
+        unsigned long  long  cookie  ;
     } event;
 };
 
 struct anonymous_typeX377
 {
-    unsigned int type  ;
-    unsigned int :32  ;
+    unsigned int  type  ;
+    unsigned int  :32  ;
     union {
         struct {
-            unsigned long  long file_name __attribute__((aligned(8)))  ;
-            unsigned int name_len  ;
-            unsigned int offset  ;
-            unsigned long  long cookie  ;
-            unsigned long  long ref_ctr_offset  ;
+            unsigned long  long  file_name  __attribute__((aligned(8))) ;
+            unsigned int  name_len  ;
+            unsigned int  offset  ;
+            unsigned long  long  cookie  ;
+            unsigned long  long  ref_ctr_offset  ;
         } uprobe;
         struct {
-            unsigned long  long func_name __attribute__((aligned(8)))  ;
-            unsigned int name_len  ;
-            unsigned int offset  ;
-            unsigned long  long addr  ;
-            unsigned long  long missed  ;
-            unsigned long  long cookie  ;
+            unsigned long  long  func_name  __attribute__((aligned(8))) ;
+            unsigned int  name_len  ;
+            unsigned int  offset  ;
+            unsigned long  long  addr  ;
+            unsigned long  long  missed  ;
+            unsigned long  long  cookie  ;
         } kprobe;
         struct {
-            unsigned long  long tp_name __attribute__((aligned(8)))  ;
-            unsigned int name_len  ;
-            unsigned int :32  ;
-            unsigned long  long cookie  ;
+            unsigned long  long  tp_name  __attribute__((aligned(8))) ;
+            unsigned int  name_len  ;
+            unsigned int  :32  ;
+            unsigned long  long  cookie  ;
         } tracepoint;
         struct {
-            unsigned long  long config  ;
-            unsigned int type  ;
-            unsigned int :32  ;
-            unsigned long  long cookie  ;
+            unsigned long  long  config  ;
+            unsigned int  type  ;
+            unsigned int  :32  ;
+            unsigned long  long  cookie  ;
         } event;
     };
 };
 
 struct anonymous_typeX388
 {
-    unsigned int ifindex  ;
-    unsigned int attach_type  ;
+    unsigned int  ifindex  ;
+    unsigned int  attach_type  ;
 };
 
 struct anonymous_typeX389
 {
-    unsigned int ifindex  ;
-    unsigned int attach_type  ;
+    unsigned int  ifindex  ;
+    unsigned int  attach_type  ;
 };
 
 struct anonymous_typeX390
 {
-    unsigned int map_id  ;
-    unsigned int attach_type  ;
+    unsigned int  map_id  ;
+    unsigned int  attach_type  ;
 };
 
 union anonymous_typeZ356
 {
     struct {
-        unsigned long  long tp_name __attribute__((aligned(8)))  ;
-        unsigned int tp_name_len  ;
-        unsigned int :32  ;
-        unsigned long  long cookie  ;
+        unsigned long  long  tp_name  __attribute__((aligned(8))) ;
+        unsigned int  tp_name_len  ;
+        unsigned int  :32  ;
+        unsigned long  long  cookie  ;
     } raw_tracepoint;
     struct {
-        unsigned int attach_type  ;
-        unsigned int target_obj_id  ;
-        unsigned int target_btf_id  ;
-        unsigned int :32  ;
-        unsigned long  long cookie  ;
+        unsigned int  attach_type  ;
+        unsigned int  target_obj_id  ;
+        unsigned int  target_btf_id  ;
+        unsigned int  :32  ;
+        unsigned long  long  cookie  ;
     } tracing;
     struct {
-        unsigned long  long cgroup_id  ;
-        unsigned int attach_type  ;
+        unsigned long  long  cgroup_id  ;
+        unsigned int  attach_type  ;
     } cgroup;
     struct {
-        unsigned long  long target_name __attribute__((aligned(8)))  ;
-        unsigned int target_name_len  ;
+        unsigned long  long  target_name  __attribute__((aligned(8))) ;
+        unsigned int  target_name_len  ;
         union {
             struct {
-                unsigned int map_id  ;
+                unsigned int  map_id  ;
             } map;
         };
         union {
             struct {
-                unsigned long  long cgroup_id  ;
-                unsigned int order  ;
+                unsigned long  long  cgroup_id  ;
+                unsigned int  order  ;
             } cgroup;
             struct {
-                unsigned int tid  ;
-                unsigned int pid  ;
+                unsigned int  tid  ;
+                unsigned int  pid  ;
             } task;
         };
     } iter;
     struct {
-        unsigned int netns_ino  ;
-        unsigned int attach_type  ;
+        unsigned int  netns_ino  ;
+        unsigned int  attach_type  ;
     } netns;
     struct {
-        unsigned int ifindex  ;
+        unsigned int  ifindex  ;
     } xdp;
     struct {
-        unsigned int map_id  ;
+        unsigned int  map_id  ;
     } struct_ops;
     struct {
-        unsigned int pf  ;
-        unsigned int hooknum  ;
-        int priority  ;
-        unsigned int flags  ;
+        unsigned int  pf  ;
+        unsigned int  hooknum  ;
+        int  priority  ;
+        unsigned int  flags  ;
     } netfilter;
     struct {
-        unsigned long  long addrs __attribute__((aligned(8)))  ;
-        unsigned int count  ;
-        unsigned int flags  ;
-        unsigned long  long missed  ;
-        unsigned long  long cookies __attribute__((aligned(8)))  ;
+        unsigned long  long  addrs  __attribute__((aligned(8))) ;
+        unsigned int  count  ;
+        unsigned int  flags  ;
+        unsigned long  long  missed  ;
+        unsigned long  long  cookies  __attribute__((aligned(8))) ;
     } kprobe_multi;
     struct {
-        unsigned long  long path __attribute__((aligned(8)))  ;
-        unsigned long  long offsets __attribute__((aligned(8)))  ;
-        unsigned long  long ref_ctr_offsets __attribute__((aligned(8)))  ;
-        unsigned long  long cookies __attribute__((aligned(8)))  ;
-        unsigned int path_size  ;
-        unsigned int count  ;
-        unsigned int flags  ;
-        unsigned int pid  ;
+        unsigned long  long  path  __attribute__((aligned(8))) ;
+        unsigned long  long  offsets  __attribute__((aligned(8))) ;
+        unsigned long  long  ref_ctr_offsets  __attribute__((aligned(8))) ;
+        unsigned long  long  cookies  __attribute__((aligned(8))) ;
+        unsigned int  path_size  ;
+        unsigned int  count  ;
+        unsigned int  flags  ;
+        unsigned int  pid  ;
     } uprobe_multi;
     struct {
-        unsigned int type  ;
-        unsigned int :32  ;
+        unsigned int  type  ;
+        unsigned int  :32  ;
         union {
             struct {
-                unsigned long  long file_name __attribute__((aligned(8)))  ;
-                unsigned int name_len  ;
-                unsigned int offset  ;
-                unsigned long  long cookie  ;
-                unsigned long  long ref_ctr_offset  ;
+                unsigned long  long  file_name  __attribute__((aligned(8))) ;
+                unsigned int  name_len  ;
+                unsigned int  offset  ;
+                unsigned long  long  cookie  ;
+                unsigned long  long  ref_ctr_offset  ;
             } uprobe;
             struct {
-                unsigned long  long func_name __attribute__((aligned(8)))  ;
-                unsigned int name_len  ;
-                unsigned int offset  ;
-                unsigned long  long addr  ;
-                unsigned long  long missed  ;
-                unsigned long  long cookie  ;
+                unsigned long  long  func_name  __attribute__((aligned(8))) ;
+                unsigned int  name_len  ;
+                unsigned int  offset  ;
+                unsigned long  long  addr  ;
+                unsigned long  long  missed  ;
+                unsigned long  long  cookie  ;
             } kprobe;
             struct {
-                unsigned long  long tp_name __attribute__((aligned(8)))  ;
-                unsigned int name_len  ;
-                unsigned int :32  ;
-                unsigned long  long cookie  ;
+                unsigned long  long  tp_name  __attribute__((aligned(8))) ;
+                unsigned int  name_len  ;
+                unsigned int  :32  ;
+                unsigned long  long  cookie  ;
             } tracepoint;
             struct {
-                unsigned long  long config  ;
-                unsigned int type  ;
-                unsigned int :32  ;
-                unsigned long  long cookie  ;
+                unsigned long  long  config  ;
+                unsigned int  type  ;
+                unsigned int  :32  ;
+                unsigned long  long  cookie  ;
             } event;
         };
     } perf_event;
     struct {
-        unsigned int ifindex  ;
-        unsigned int attach_type  ;
+        unsigned int  ifindex  ;
+        unsigned int  attach_type  ;
     } tcx;
     struct {
-        unsigned int ifindex  ;
-        unsigned int attach_type  ;
+        unsigned int  ifindex  ;
+        unsigned int  attach_type  ;
     } netkit;
     struct {
-        unsigned int map_id  ;
-        unsigned int attach_type  ;
+        unsigned int  map_id  ;
+        unsigned int  attach_type  ;
     } sockmap;
 };
 
 struct anonymous_typeX392
 {
-    unsigned long  long tp_name __attribute__((aligned(8)))  ;
-    unsigned int tp_name_len  ;
-    unsigned int :32  ;
-    unsigned long  long cookie  ;
+    unsigned long  long  tp_name  __attribute__((aligned(8))) ;
+    unsigned int  tp_name_len  ;
+    unsigned int  :32  ;
+    unsigned long  long  cookie  ;
 };
 
 struct anonymous_typeX393
 {
-    unsigned int attach_type  ;
-    unsigned int target_obj_id  ;
-    unsigned int target_btf_id  ;
-    unsigned int :32  ;
-    unsigned long  long cookie  ;
+    unsigned int  attach_type  ;
+    unsigned int  target_obj_id  ;
+    unsigned int  target_btf_id  ;
+    unsigned int  :32  ;
+    unsigned long  long  cookie  ;
 };
 
 struct anonymous_typeX394
 {
-    unsigned long  long cgroup_id  ;
-    unsigned int attach_type  ;
+    unsigned long  long  cgroup_id  ;
+    unsigned int  attach_type  ;
 };
 
 struct anonymous_typeX397
 {
-    unsigned int map_id  ;
+    unsigned int  map_id  ;
 };
 
 union anonymous_typeZ396
 {
     struct {
-        unsigned int map_id  ;
+        unsigned int  map_id  ;
     } map;
 };
 
 struct anonymous_typeX399
 {
-    unsigned int map_id  ;
+    unsigned int  map_id  ;
 };
 
 union anonymous_typeZ398
 {
     struct {
-        unsigned int map_id  ;
+        unsigned int  map_id  ;
     } map;
 };
 
 struct anonymous_typeX401
 {
-    unsigned long  long cgroup_id  ;
-    unsigned int order  ;
+    unsigned long  long  cgroup_id  ;
+    unsigned int  order  ;
 };
 
 struct anonymous_typeX402
 {
-    unsigned int tid  ;
-    unsigned int pid  ;
+    unsigned int  tid  ;
+    unsigned int  pid  ;
 };
 
 union anonymous_typeZ400
 {
     struct {
-        unsigned long  long cgroup_id  ;
-        unsigned int order  ;
+        unsigned long  long  cgroup_id  ;
+        unsigned int  order  ;
     } cgroup;
     struct {
-        unsigned int tid  ;
-        unsigned int pid  ;
+        unsigned int  tid  ;
+        unsigned int  pid  ;
     } task;
 };
 
 struct anonymous_typeX404
 {
-    unsigned long  long cgroup_id  ;
-    unsigned int order  ;
+    unsigned long  long  cgroup_id  ;
+    unsigned int  order  ;
 };
 
 struct anonymous_typeX405
 {
-    unsigned int tid  ;
-    unsigned int pid  ;
+    unsigned int  tid  ;
+    unsigned int  pid  ;
 };
 
 union anonymous_typeZ403
 {
     struct {
-        unsigned long  long cgroup_id  ;
-        unsigned int order  ;
+        unsigned long  long  cgroup_id  ;
+        unsigned int  order  ;
     } cgroup;
     struct {
-        unsigned int tid  ;
-        unsigned int pid  ;
+        unsigned int  tid  ;
+        unsigned int  pid  ;
     } task;
 };
 
 struct anonymous_typeX395
 {
-    unsigned long  long target_name __attribute__((aligned(8)))  ;
-    unsigned int target_name_len  ;
+    unsigned long  long  target_name  __attribute__((aligned(8))) ;
+    unsigned int  target_name_len  ;
     union {
         struct {
-            unsigned int map_id  ;
+            unsigned int  map_id  ;
         } map;
     };
     union {
         struct {
-            unsigned long  long cgroup_id  ;
-            unsigned int order  ;
+            unsigned long  long  cgroup_id  ;
+            unsigned int  order  ;
         } cgroup;
         struct {
-            unsigned int tid  ;
-            unsigned int pid  ;
+            unsigned int  tid  ;
+            unsigned int  pid  ;
         } task;
     };
 };
 
 struct anonymous_typeX406
 {
-    unsigned int netns_ino  ;
-    unsigned int attach_type  ;
+    unsigned int  netns_ino  ;
+    unsigned int  attach_type  ;
 };
 
 struct anonymous_typeX407
 {
-    unsigned int ifindex  ;
+    unsigned int  ifindex  ;
 };
 
 struct anonymous_typeX408
 {
-    unsigned int map_id  ;
+    unsigned int  map_id  ;
 };
 
 struct anonymous_typeX409
 {
-    unsigned int pf  ;
-    unsigned int hooknum  ;
-    int priority  ;
-    unsigned int flags  ;
+    unsigned int  pf  ;
+    unsigned int  hooknum  ;
+    int  priority  ;
+    unsigned int  flags  ;
 };
 
 struct anonymous_typeX410
 {
-    unsigned long  long addrs __attribute__((aligned(8)))  ;
-    unsigned int count  ;
-    unsigned int flags  ;
-    unsigned long  long missed  ;
-    unsigned long  long cookies __attribute__((aligned(8)))  ;
+    unsigned long  long  addrs  __attribute__((aligned(8))) ;
+    unsigned int  count  ;
+    unsigned int  flags  ;
+    unsigned long  long  missed  ;
+    unsigned long  long  cookies  __attribute__((aligned(8))) ;
 };
 
 struct anonymous_typeX411
 {
-    unsigned long  long path __attribute__((aligned(8)))  ;
-    unsigned long  long offsets __attribute__((aligned(8)))  ;
-    unsigned long  long ref_ctr_offsets __attribute__((aligned(8)))  ;
-    unsigned long  long cookies __attribute__((aligned(8)))  ;
-    unsigned int path_size  ;
-    unsigned int count  ;
-    unsigned int flags  ;
-    unsigned int pid  ;
+    unsigned long  long  path  __attribute__((aligned(8))) ;
+    unsigned long  long  offsets  __attribute__((aligned(8))) ;
+    unsigned long  long  ref_ctr_offsets  __attribute__((aligned(8))) ;
+    unsigned long  long  cookies  __attribute__((aligned(8))) ;
+    unsigned int  path_size  ;
+    unsigned int  count  ;
+    unsigned int  flags  ;
+    unsigned int  pid  ;
 };
 
 struct anonymous_typeX414
 {
-    unsigned long  long file_name __attribute__((aligned(8)))  ;
-    unsigned int name_len  ;
-    unsigned int offset  ;
-    unsigned long  long cookie  ;
-    unsigned long  long ref_ctr_offset  ;
+    unsigned long  long  file_name  __attribute__((aligned(8))) ;
+    unsigned int  name_len  ;
+    unsigned int  offset  ;
+    unsigned long  long  cookie  ;
+    unsigned long  long  ref_ctr_offset  ;
 };
 
 struct anonymous_typeX415
 {
-    unsigned long  long func_name __attribute__((aligned(8)))  ;
-    unsigned int name_len  ;
-    unsigned int offset  ;
-    unsigned long  long addr  ;
-    unsigned long  long missed  ;
-    unsigned long  long cookie  ;
+    unsigned long  long  func_name  __attribute__((aligned(8))) ;
+    unsigned int  name_len  ;
+    unsigned int  offset  ;
+    unsigned long  long  addr  ;
+    unsigned long  long  missed  ;
+    unsigned long  long  cookie  ;
 };
 
 struct anonymous_typeX416
 {
-    unsigned long  long tp_name __attribute__((aligned(8)))  ;
-    unsigned int name_len  ;
-    unsigned int :32  ;
-    unsigned long  long cookie  ;
+    unsigned long  long  tp_name  __attribute__((aligned(8))) ;
+    unsigned int  name_len  ;
+    unsigned int  :32  ;
+    unsigned long  long  cookie  ;
 };
 
 struct anonymous_typeX417
 {
-    unsigned long  long config  ;
-    unsigned int type  ;
-    unsigned int :32  ;
-    unsigned long  long cookie  ;
+    unsigned long  long  config  ;
+    unsigned int  type  ;
+    unsigned int  :32  ;
+    unsigned long  long  cookie  ;
 };
 
 union anonymous_typeZ413
 {
     struct {
-        unsigned long  long file_name __attribute__((aligned(8)))  ;
-        unsigned int name_len  ;
-        unsigned int offset  ;
-        unsigned long  long cookie  ;
-        unsigned long  long ref_ctr_offset  ;
+        unsigned long  long  file_name  __attribute__((aligned(8))) ;
+        unsigned int  name_len  ;
+        unsigned int  offset  ;
+        unsigned long  long  cookie  ;
+        unsigned long  long  ref_ctr_offset  ;
     } uprobe;
     struct {
-        unsigned long  long func_name __attribute__((aligned(8)))  ;
-        unsigned int name_len  ;
-        unsigned int offset  ;
-        unsigned long  long addr  ;
-        unsigned long  long missed  ;
-        unsigned long  long cookie  ;
+        unsigned long  long  func_name  __attribute__((aligned(8))) ;
+        unsigned int  name_len  ;
+        unsigned int  offset  ;
+        unsigned long  long  addr  ;
+        unsigned long  long  missed  ;
+        unsigned long  long  cookie  ;
     } kprobe;
     struct {
-        unsigned long  long tp_name __attribute__((aligned(8)))  ;
-        unsigned int name_len  ;
-        unsigned int :32  ;
-        unsigned long  long cookie  ;
+        unsigned long  long  tp_name  __attribute__((aligned(8))) ;
+        unsigned int  name_len  ;
+        unsigned int  :32  ;
+        unsigned long  long  cookie  ;
     } tracepoint;
     struct {
-        unsigned long  long config  ;
-        unsigned int type  ;
-        unsigned int :32  ;
-        unsigned long  long cookie  ;
+        unsigned long  long  config  ;
+        unsigned int  type  ;
+        unsigned int  :32  ;
+        unsigned long  long  cookie  ;
     } event;
 };
 
 struct anonymous_typeX419
 {
-    unsigned long  long file_name __attribute__((aligned(8)))  ;
-    unsigned int name_len  ;
-    unsigned int offset  ;
-    unsigned long  long cookie  ;
-    unsigned long  long ref_ctr_offset  ;
+    unsigned long  long  file_name  __attribute__((aligned(8))) ;
+    unsigned int  name_len  ;
+    unsigned int  offset  ;
+    unsigned long  long  cookie  ;
+    unsigned long  long  ref_ctr_offset  ;
 };
 
 struct anonymous_typeX420
 {
-    unsigned long  long func_name __attribute__((aligned(8)))  ;
-    unsigned int name_len  ;
-    unsigned int offset  ;
-    unsigned long  long addr  ;
-    unsigned long  long missed  ;
-    unsigned long  long cookie  ;
+    unsigned long  long  func_name  __attribute__((aligned(8))) ;
+    unsigned int  name_len  ;
+    unsigned int  offset  ;
+    unsigned long  long  addr  ;
+    unsigned long  long  missed  ;
+    unsigned long  long  cookie  ;
 };
 
 struct anonymous_typeX421
 {
-    unsigned long  long tp_name __attribute__((aligned(8)))  ;
-    unsigned int name_len  ;
-    unsigned int :32  ;
-    unsigned long  long cookie  ;
+    unsigned long  long  tp_name  __attribute__((aligned(8))) ;
+    unsigned int  name_len  ;
+    unsigned int  :32  ;
+    unsigned long  long  cookie  ;
 };
 
 struct anonymous_typeX422
 {
-    unsigned long  long config  ;
-    unsigned int type  ;
-    unsigned int :32  ;
-    unsigned long  long cookie  ;
+    unsigned long  long  config  ;
+    unsigned int  type  ;
+    unsigned int  :32  ;
+    unsigned long  long  cookie  ;
 };
 
 union anonymous_typeZ418
 {
     struct {
-        unsigned long  long file_name __attribute__((aligned(8)))  ;
-        unsigned int name_len  ;
-        unsigned int offset  ;
-        unsigned long  long cookie  ;
-        unsigned long  long ref_ctr_offset  ;
+        unsigned long  long  file_name  __attribute__((aligned(8))) ;
+        unsigned int  name_len  ;
+        unsigned int  offset  ;
+        unsigned long  long  cookie  ;
+        unsigned long  long  ref_ctr_offset  ;
     } uprobe;
     struct {
-        unsigned long  long func_name __attribute__((aligned(8)))  ;
-        unsigned int name_len  ;
-        unsigned int offset  ;
-        unsigned long  long addr  ;
-        unsigned long  long missed  ;
-        unsigned long  long cookie  ;
+        unsigned long  long  func_name  __attribute__((aligned(8))) ;
+        unsigned int  name_len  ;
+        unsigned int  offset  ;
+        unsigned long  long  addr  ;
+        unsigned long  long  missed  ;
+        unsigned long  long  cookie  ;
     } kprobe;
     struct {
-        unsigned long  long tp_name __attribute__((aligned(8)))  ;
-        unsigned int name_len  ;
-        unsigned int :32  ;
-        unsigned long  long cookie  ;
+        unsigned long  long  tp_name  __attribute__((aligned(8))) ;
+        unsigned int  name_len  ;
+        unsigned int  :32  ;
+        unsigned long  long  cookie  ;
     } tracepoint;
     struct {
-        unsigned long  long config  ;
-        unsigned int type  ;
-        unsigned int :32  ;
-        unsigned long  long cookie  ;
+        unsigned long  long  config  ;
+        unsigned int  type  ;
+        unsigned int  :32  ;
+        unsigned long  long  cookie  ;
     } event;
 };
 
 struct anonymous_typeX412
 {
-    unsigned int type  ;
-    unsigned int :32  ;
+    unsigned int  type  ;
+    unsigned int  :32  ;
     union {
         struct {
-            unsigned long  long file_name __attribute__((aligned(8)))  ;
-            unsigned int name_len  ;
-            unsigned int offset  ;
-            unsigned long  long cookie  ;
-            unsigned long  long ref_ctr_offset  ;
+            unsigned long  long  file_name  __attribute__((aligned(8))) ;
+            unsigned int  name_len  ;
+            unsigned int  offset  ;
+            unsigned long  long  cookie  ;
+            unsigned long  long  ref_ctr_offset  ;
         } uprobe;
         struct {
-            unsigned long  long func_name __attribute__((aligned(8)))  ;
-            unsigned int name_len  ;
-            unsigned int offset  ;
-            unsigned long  long addr  ;
-            unsigned long  long missed  ;
-            unsigned long  long cookie  ;
+            unsigned long  long  func_name  __attribute__((aligned(8))) ;
+            unsigned int  name_len  ;
+            unsigned int  offset  ;
+            unsigned long  long  addr  ;
+            unsigned long  long  missed  ;
+            unsigned long  long  cookie  ;
         } kprobe;
         struct {
-            unsigned long  long tp_name __attribute__((aligned(8)))  ;
-            unsigned int name_len  ;
-            unsigned int :32  ;
-            unsigned long  long cookie  ;
+            unsigned long  long  tp_name  __attribute__((aligned(8))) ;
+            unsigned int  name_len  ;
+            unsigned int  :32  ;
+            unsigned long  long  cookie  ;
         } tracepoint;
         struct {
-            unsigned long  long config  ;
-            unsigned int type  ;
-            unsigned int :32  ;
-            unsigned long  long cookie  ;
+            unsigned long  long  config  ;
+            unsigned int  type  ;
+            unsigned int  :32  ;
+            unsigned long  long  cookie  ;
         } event;
     };
 };
 
 struct anonymous_typeX423
 {
-    unsigned int ifindex  ;
-    unsigned int attach_type  ;
+    unsigned int  ifindex  ;
+    unsigned int  attach_type  ;
 };
 
 struct anonymous_typeX424
 {
-    unsigned int ifindex  ;
-    unsigned int attach_type  ;
+    unsigned int  ifindex  ;
+    unsigned int  attach_type  ;
 };
 
 struct anonymous_typeX425
 {
-    unsigned int map_id  ;
-    unsigned int attach_type  ;
+    unsigned int  map_id  ;
+    unsigned int  attach_type  ;
 };
 
 union anonymous_typeZ391
 {
     struct {
-        unsigned long  long tp_name __attribute__((aligned(8)))  ;
-        unsigned int tp_name_len  ;
-        unsigned int :32  ;
-        unsigned long  long cookie  ;
+        unsigned long  long  tp_name  __attribute__((aligned(8))) ;
+        unsigned int  tp_name_len  ;
+        unsigned int  :32  ;
+        unsigned long  long  cookie  ;
     } raw_tracepoint;
     struct {
-        unsigned int attach_type  ;
-        unsigned int target_obj_id  ;
-        unsigned int target_btf_id  ;
-        unsigned int :32  ;
-        unsigned long  long cookie  ;
+        unsigned int  attach_type  ;
+        unsigned int  target_obj_id  ;
+        unsigned int  target_btf_id  ;
+        unsigned int  :32  ;
+        unsigned long  long  cookie  ;
     } tracing;
     struct {
-        unsigned long  long cgroup_id  ;
-        unsigned int attach_type  ;
+        unsigned long  long  cgroup_id  ;
+        unsigned int  attach_type  ;
     } cgroup;
     struct {
-        unsigned long  long target_name __attribute__((aligned(8)))  ;
-        unsigned int target_name_len  ;
+        unsigned long  long  target_name  __attribute__((aligned(8))) ;
+        unsigned int  target_name_len  ;
         union {
             struct {
-                unsigned int map_id  ;
+                unsigned int  map_id  ;
             } map;
         };
         union {
             struct {
-                unsigned long  long cgroup_id  ;
-                unsigned int order  ;
+                unsigned long  long  cgroup_id  ;
+                unsigned int  order  ;
             } cgroup;
             struct {
-                unsigned int tid  ;
-                unsigned int pid  ;
+                unsigned int  tid  ;
+                unsigned int  pid  ;
             } task;
         };
     } iter;
     struct {
-        unsigned int netns_ino  ;
-        unsigned int attach_type  ;
+        unsigned int  netns_ino  ;
+        unsigned int  attach_type  ;
     } netns;
     struct {
-        unsigned int ifindex  ;
+        unsigned int  ifindex  ;
     } xdp;
     struct {
-        unsigned int map_id  ;
+        unsigned int  map_id  ;
     } struct_ops;
     struct {
-        unsigned int pf  ;
-        unsigned int hooknum  ;
-        int priority  ;
-        unsigned int flags  ;
+        unsigned int  pf  ;
+        unsigned int  hooknum  ;
+        int  priority  ;
+        unsigned int  flags  ;
     } netfilter;
     struct {
-        unsigned long  long addrs __attribute__((aligned(8)))  ;
-        unsigned int count  ;
-        unsigned int flags  ;
-        unsigned long  long missed  ;
-        unsigned long  long cookies __attribute__((aligned(8)))  ;
+        unsigned long  long  addrs  __attribute__((aligned(8))) ;
+        unsigned int  count  ;
+        unsigned int  flags  ;
+        unsigned long  long  missed  ;
+        unsigned long  long  cookies  __attribute__((aligned(8))) ;
     } kprobe_multi;
     struct {
-        unsigned long  long path __attribute__((aligned(8)))  ;
-        unsigned long  long offsets __attribute__((aligned(8)))  ;
-        unsigned long  long ref_ctr_offsets __attribute__((aligned(8)))  ;
-        unsigned long  long cookies __attribute__((aligned(8)))  ;
-        unsigned int path_size  ;
-        unsigned int count  ;
-        unsigned int flags  ;
-        unsigned int pid  ;
+        unsigned long  long  path  __attribute__((aligned(8))) ;
+        unsigned long  long  offsets  __attribute__((aligned(8))) ;
+        unsigned long  long  ref_ctr_offsets  __attribute__((aligned(8))) ;
+        unsigned long  long  cookies  __attribute__((aligned(8))) ;
+        unsigned int  path_size  ;
+        unsigned int  count  ;
+        unsigned int  flags  ;
+        unsigned int  pid  ;
     } uprobe_multi;
     struct {
-        unsigned int type  ;
-        unsigned int :32  ;
+        unsigned int  type  ;
+        unsigned int  :32  ;
         union {
             struct {
-                unsigned long  long file_name __attribute__((aligned(8)))  ;
-                unsigned int name_len  ;
-                unsigned int offset  ;
-                unsigned long  long cookie  ;
-                unsigned long  long ref_ctr_offset  ;
+                unsigned long  long  file_name  __attribute__((aligned(8))) ;
+                unsigned int  name_len  ;
+                unsigned int  offset  ;
+                unsigned long  long  cookie  ;
+                unsigned long  long  ref_ctr_offset  ;
             } uprobe;
             struct {
-                unsigned long  long func_name __attribute__((aligned(8)))  ;
-                unsigned int name_len  ;
-                unsigned int offset  ;
-                unsigned long  long addr  ;
-                unsigned long  long missed  ;
-                unsigned long  long cookie  ;
+                unsigned long  long  func_name  __attribute__((aligned(8))) ;
+                unsigned int  name_len  ;
+                unsigned int  offset  ;
+                unsigned long  long  addr  ;
+                unsigned long  long  missed  ;
+                unsigned long  long  cookie  ;
             } kprobe;
             struct {
-                unsigned long  long tp_name __attribute__((aligned(8)))  ;
-                unsigned int name_len  ;
-                unsigned int :32  ;
-                unsigned long  long cookie  ;
+                unsigned long  long  tp_name  __attribute__((aligned(8))) ;
+                unsigned int  name_len  ;
+                unsigned int  :32  ;
+                unsigned long  long  cookie  ;
             } tracepoint;
             struct {
-                unsigned long  long config  ;
-                unsigned int type  ;
-                unsigned int :32  ;
-                unsigned long  long cookie  ;
+                unsigned long  long  config  ;
+                unsigned int  type  ;
+                unsigned int  :32  ;
+                unsigned long  long  cookie  ;
             } event;
         };
     } perf_event;
     struct {
-        unsigned int ifindex  ;
-        unsigned int attach_type  ;
+        unsigned int  ifindex  ;
+        unsigned int  attach_type  ;
     } tcx;
     struct {
-        unsigned int ifindex  ;
-        unsigned int attach_type  ;
+        unsigned int  ifindex  ;
+        unsigned int  attach_type  ;
     } netkit;
     struct {
-        unsigned int map_id  ;
-        unsigned int attach_type  ;
+        unsigned int  map_id  ;
+        unsigned int  attach_type  ;
     } sockmap;
 };
 
 struct bpf_link_info
 {
-    unsigned int type  ;
-    unsigned int id  ;
-    unsigned int prog_id  ;
+    unsigned int  type  ;
+    unsigned int  id  ;
+    unsigned int  prog_id  ;
     union {
         struct {
-            unsigned long  long tp_name __attribute__((aligned(8)))  ;
-            unsigned int tp_name_len  ;
-            unsigned int :32  ;
-            unsigned long  long cookie  ;
+            unsigned long  long  tp_name  __attribute__((aligned(8))) ;
+            unsigned int  tp_name_len  ;
+            unsigned int  :32  ;
+            unsigned long  long  cookie  ;
         } raw_tracepoint;
         struct {
-            unsigned int attach_type  ;
-            unsigned int target_obj_id  ;
-            unsigned int target_btf_id  ;
-            unsigned int :32  ;
-            unsigned long  long cookie  ;
+            unsigned int  attach_type  ;
+            unsigned int  target_obj_id  ;
+            unsigned int  target_btf_id  ;
+            unsigned int  :32  ;
+            unsigned long  long  cookie  ;
         } tracing;
         struct {
-            unsigned long  long cgroup_id  ;
-            unsigned int attach_type  ;
+            unsigned long  long  cgroup_id  ;
+            unsigned int  attach_type  ;
         } cgroup;
         struct {
-            unsigned long  long target_name __attribute__((aligned(8)))  ;
-            unsigned int target_name_len  ;
+            unsigned long  long  target_name  __attribute__((aligned(8))) ;
+            unsigned int  target_name_len  ;
             union {
                 struct {
-                    unsigned int map_id  ;
+                    unsigned int  map_id  ;
                 } map;
             };
             union {
                 struct {
-                    unsigned long  long cgroup_id  ;
-                    unsigned int order  ;
+                    unsigned long  long  cgroup_id  ;
+                    unsigned int  order  ;
                 } cgroup;
                 struct {
-                    unsigned int tid  ;
-                    unsigned int pid  ;
+                    unsigned int  tid  ;
+                    unsigned int  pid  ;
                 } task;
             };
         } iter;
         struct {
-            unsigned int netns_ino  ;
-            unsigned int attach_type  ;
+            unsigned int  netns_ino  ;
+            unsigned int  attach_type  ;
         } netns;
         struct {
-            unsigned int ifindex  ;
+            unsigned int  ifindex  ;
         } xdp;
         struct {
-            unsigned int map_id  ;
+            unsigned int  map_id  ;
         } struct_ops;
         struct {
-            unsigned int pf  ;
-            unsigned int hooknum  ;
-            int priority  ;
-            unsigned int flags  ;
+            unsigned int  pf  ;
+            unsigned int  hooknum  ;
+            int  priority  ;
+            unsigned int  flags  ;
         } netfilter;
         struct {
-            unsigned long  long addrs __attribute__((aligned(8)))  ;
-            unsigned int count  ;
-            unsigned int flags  ;
-            unsigned long  long missed  ;
-            unsigned long  long cookies __attribute__((aligned(8)))  ;
+            unsigned long  long  addrs  __attribute__((aligned(8))) ;
+            unsigned int  count  ;
+            unsigned int  flags  ;
+            unsigned long  long  missed  ;
+            unsigned long  long  cookies  __attribute__((aligned(8))) ;
         } kprobe_multi;
         struct {
-            unsigned long  long path __attribute__((aligned(8)))  ;
-            unsigned long  long offsets __attribute__((aligned(8)))  ;
-            unsigned long  long ref_ctr_offsets __attribute__((aligned(8)))  ;
-            unsigned long  long cookies __attribute__((aligned(8)))  ;
-            unsigned int path_size  ;
-            unsigned int count  ;
-            unsigned int flags  ;
-            unsigned int pid  ;
+            unsigned long  long  path  __attribute__((aligned(8))) ;
+            unsigned long  long  offsets  __attribute__((aligned(8))) ;
+            unsigned long  long  ref_ctr_offsets  __attribute__((aligned(8))) ;
+            unsigned long  long  cookies  __attribute__((aligned(8))) ;
+            unsigned int  path_size  ;
+            unsigned int  count  ;
+            unsigned int  flags  ;
+            unsigned int  pid  ;
         } uprobe_multi;
         struct {
-            unsigned int type  ;
-            unsigned int :32  ;
+            unsigned int  type  ;
+            unsigned int  :32  ;
             union {
                 struct {
-                    unsigned long  long file_name __attribute__((aligned(8)))  ;
-                    unsigned int name_len  ;
-                    unsigned int offset  ;
-                    unsigned long  long cookie  ;
-                    unsigned long  long ref_ctr_offset  ;
+                    unsigned long  long  file_name  __attribute__((aligned(8))) ;
+                    unsigned int  name_len  ;
+                    unsigned int  offset  ;
+                    unsigned long  long  cookie  ;
+                    unsigned long  long  ref_ctr_offset  ;
                 } uprobe;
                 struct {
-                    unsigned long  long func_name __attribute__((aligned(8)))  ;
-                    unsigned int name_len  ;
-                    unsigned int offset  ;
-                    unsigned long  long addr  ;
-                    unsigned long  long missed  ;
-                    unsigned long  long cookie  ;
+                    unsigned long  long  func_name  __attribute__((aligned(8))) ;
+                    unsigned int  name_len  ;
+                    unsigned int  offset  ;
+                    unsigned long  long  addr  ;
+                    unsigned long  long  missed  ;
+                    unsigned long  long  cookie  ;
                 } kprobe;
                 struct {
-                    unsigned long  long tp_name __attribute__((aligned(8)))  ;
-                    unsigned int name_len  ;
-                    unsigned int :32  ;
-                    unsigned long  long cookie  ;
+                    unsigned long  long  tp_name  __attribute__((aligned(8))) ;
+                    unsigned int  name_len  ;
+                    unsigned int  :32  ;
+                    unsigned long  long  cookie  ;
                 } tracepoint;
                 struct {
-                    unsigned long  long config  ;
-                    unsigned int type  ;
-                    unsigned int :32  ;
-                    unsigned long  long cookie  ;
+                    unsigned long  long  config  ;
+                    unsigned int  type  ;
+                    unsigned int  :32  ;
+                    unsigned long  long  cookie  ;
                 } event;
             };
         } perf_event;
         struct {
-            unsigned int ifindex  ;
-            unsigned int attach_type  ;
+            unsigned int  ifindex  ;
+            unsigned int  attach_type  ;
         } tcx;
         struct {
-            unsigned int ifindex  ;
-            unsigned int attach_type  ;
+            unsigned int  ifindex  ;
+            unsigned int  attach_type  ;
         } netkit;
         struct {
-            unsigned int map_id  ;
-            unsigned int attach_type  ;
+            unsigned int  map_id  ;
+            unsigned int  attach_type  ;
         } sockmap;
     };
 } __attribute__((aligned(8)));
 
 struct bpf_token_info
 {
-    unsigned long  long allowed_cmds  ;
-    unsigned long  long allowed_maps  ;
-    unsigned long  long allowed_progs  ;
-    unsigned long  long allowed_attachs  ;
+    unsigned long  long  allowed_cmds  ;
+    unsigned long  long  allowed_maps  ;
+    unsigned long  long  allowed_progs  ;
+    unsigned long  long  allowed_attachs  ;
 } __attribute__((aligned(8)));
 
 union anonymous_typeZ426
 {
-struct bpf_sock* sk  ;
-unsigned long  long :64  ;
+struct bpf_sock*  sk  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 union anonymous_typeZ427
 {
-struct bpf_sock* sk  ;
-unsigned long  long :64  ;
+struct bpf_sock*  sk  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 struct bpf_sock_addr
 {
-    unsigned int user_family  ;
-    unsigned int user_ip4  ;
-    unsigned int user_ip6[4]  ;
-    unsigned int user_port  ;
-    unsigned int family  ;
-    unsigned int type  ;
-    unsigned int protocol  ;
-    unsigned int msg_src_ip4  ;
-    unsigned int msg_src_ip6[4]  ;
+    unsigned int  user_family  ;
+    unsigned int  user_ip4  ;
+    unsigned int  user_ip6[4]  ;
+    unsigned int  user_port  ;
+    unsigned int  family  ;
+    unsigned int  type  ;
+    unsigned int  protocol  ;
+    unsigned int  msg_src_ip4  ;
+    unsigned int  msg_src_ip6[4]  ;
     union {
-        struct bpf_sock* sk  ;
-        unsigned long  long :64  ;
+        struct bpf_sock*  sk  ;
+        unsigned long  long  :64  ;
     };
 };
 
 union anonymous_typeZ428
 {
-unsigned int args[4]  ;
-unsigned int reply  ;
-unsigned int replylong[4]  ;
+unsigned int  args[4]  ;
+unsigned int  reply  ;
+unsigned int  replylong[4]  ;
 };
 
 union anonymous_typeZ429
 {
-unsigned int args[4]  ;
-unsigned int reply  ;
-unsigned int replylong[4]  ;
+unsigned int  args[4]  ;
+unsigned int  reply  ;
+unsigned int  replylong[4]  ;
 };
 
 union anonymous_typeZ430
 {
-struct bpf_sock* sk  ;
-unsigned long  long :64  ;
+struct bpf_sock*  sk  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 union anonymous_typeZ431
 {
-struct bpf_sock* sk  ;
-unsigned long  long :64  ;
+struct bpf_sock*  sk  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 union anonymous_typeZ432
 {
 void* skb_data;
-unsigned long  long :64  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 union anonymous_typeZ433
 {
 void* skb_data;
-unsigned long  long :64  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 union anonymous_typeZ434
 {
 void* skb_data_end;
-unsigned long  long :64  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 union anonymous_typeZ435
 {
 void* skb_data_end;
-unsigned long  long :64  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 struct bpf_sock_ops
 {
-    unsigned int op  ;
+    unsigned int  op  ;
     union {
-        unsigned int args[4]  ;
-        unsigned int reply  ;
-        unsigned int replylong[4]  ;
+        unsigned int  args[4]  ;
+        unsigned int  reply  ;
+        unsigned int  replylong[4]  ;
     };
-    unsigned int family  ;
-    unsigned int remote_ip4  ;
-    unsigned int local_ip4  ;
-    unsigned int remote_ip6[4]  ;
-    unsigned int local_ip6[4]  ;
-    unsigned int remote_port  ;
-    unsigned int local_port  ;
-    unsigned int is_fullsock  ;
-    unsigned int snd_cwnd  ;
-    unsigned int srtt_us  ;
-    unsigned int bpf_sock_ops_cb_flags  ;
-    unsigned int state  ;
-    unsigned int rtt_min  ;
-    unsigned int snd_ssthresh  ;
-    unsigned int rcv_nxt  ;
-    unsigned int snd_nxt  ;
-    unsigned int snd_una  ;
-    unsigned int mss_cache  ;
-    unsigned int ecn_flags  ;
-    unsigned int rate_delivered  ;
-    unsigned int rate_interval_us  ;
-    unsigned int packets_out  ;
-    unsigned int retrans_out  ;
-    unsigned int total_retrans  ;
-    unsigned int segs_in  ;
-    unsigned int data_segs_in  ;
-    unsigned int segs_out  ;
-    unsigned int data_segs_out  ;
-    unsigned int lost_out  ;
-    unsigned int sacked_out  ;
-    unsigned int sk_txhash  ;
-    unsigned long  long bytes_received  ;
-    unsigned long  long bytes_acked  ;
+    unsigned int  family  ;
+    unsigned int  remote_ip4  ;
+    unsigned int  local_ip4  ;
+    unsigned int  remote_ip6[4]  ;
+    unsigned int  local_ip6[4]  ;
+    unsigned int  remote_port  ;
+    unsigned int  local_port  ;
+    unsigned int  is_fullsock  ;
+    unsigned int  snd_cwnd  ;
+    unsigned int  srtt_us  ;
+    unsigned int  bpf_sock_ops_cb_flags  ;
+    unsigned int  state  ;
+    unsigned int  rtt_min  ;
+    unsigned int  snd_ssthresh  ;
+    unsigned int  rcv_nxt  ;
+    unsigned int  snd_nxt  ;
+    unsigned int  snd_una  ;
+    unsigned int  mss_cache  ;
+    unsigned int  ecn_flags  ;
+    unsigned int  rate_delivered  ;
+    unsigned int  rate_interval_us  ;
+    unsigned int  packets_out  ;
+    unsigned int  retrans_out  ;
+    unsigned int  total_retrans  ;
+    unsigned int  segs_in  ;
+    unsigned int  data_segs_in  ;
+    unsigned int  segs_out  ;
+    unsigned int  data_segs_out  ;
+    unsigned int  lost_out  ;
+    unsigned int  sacked_out  ;
+    unsigned int  sk_txhash  ;
+    unsigned long  long  bytes_received  ;
+    unsigned long  long  bytes_acked  ;
     union {
-        struct bpf_sock* sk  ;
-        unsigned long  long :64  ;
+        struct bpf_sock*  sk  ;
+        unsigned long  long  :64  ;
     };
     union {
         void* skb_data;
-        unsigned long  long :64  ;
+        unsigned long  long  :64  ;
     };
     union {
         void* skb_data_end;
-        unsigned long  long :64  ;
+        unsigned long  long  :64  ;
     };
-    unsigned int skb_len  ;
-    unsigned int skb_tcp_flags  ;
-    unsigned long  long skb_hwtstamp  ;
+    unsigned int  skb_len  ;
+    unsigned int  skb_tcp_flags  ;
+    unsigned long  long  skb_hwtstamp  ;
 };
 
 enum { BPF_SOCK_OPS_RTO_CB_FLAG=((1<<0)),
@@ -8397,9 +8397,9 @@ BPF_WRITE_HDR_TCP_SYNACK_COOKIE=(2)
 
 struct bpf_perf_event_value
 {
-    unsigned long  long counter  ;
-    unsigned long  long enabled  ;
-    unsigned long  long running  ;
+    unsigned long  long  counter  ;
+    unsigned long  long  enabled  ;
+    unsigned long  long  running  ;
 };
 
 enum { BPF_DEVCG_ACC_MKNOD=((1ULL<<0)),
@@ -8413,14 +8413,14 @@ BPF_DEVCG_DEV_CHAR=((1ULL<<1))
 
 struct bpf_cgroup_dev_ctx
 {
-    unsigned int access_type  ;
-    unsigned int major  ;
-    unsigned int minor  ;
+    unsigned int  access_type  ;
+    unsigned int  major  ;
+    unsigned int  minor  ;
 };
 
 struct bpf_raw_tracepoint_args
 {
-    unsigned long  long args[0]  ;
+    unsigned long  long  args[0]  ;
 };
 
 enum { BPF_FIB_LOOKUP_DIRECT=((1U<<0)),
@@ -8445,188 +8445,188 @@ enum { BPF_FIB_LKUP_RET_SUCCESS
 
 union anonymous_typeZ436
 {
-unsigned short int tot_len  ;
-unsigned short int mtu_result  ;
+unsigned short int  tot_len  ;
+unsigned short int  mtu_result  ;
 } __attribute__((packed, aligned(2)));
 
 union anonymous_typeZ437
 {
-unsigned short int tot_len  ;
-unsigned short int mtu_result  ;
+unsigned short int  tot_len  ;
+unsigned short int  mtu_result  ;
 } __attribute__((packed, aligned(2)));
 
 union anonymous_typeZ438
 {
-unsigned char tos  ;
-unsigned int flowinfo  ;
-unsigned int rt_metric  ;
+unsigned char  tos  ;
+unsigned int  flowinfo  ;
+unsigned int  rt_metric  ;
 };
 
 union anonymous_typeZ439
 {
-unsigned char tos  ;
-unsigned int flowinfo  ;
-unsigned int rt_metric  ;
+unsigned char  tos  ;
+unsigned int  flowinfo  ;
+unsigned int  rt_metric  ;
 };
 
 union anonymous_typeZ440
 {
-unsigned int ipv4_src  ;
-unsigned int ipv6_src[4]  ;
+unsigned int  ipv4_src  ;
+unsigned int  ipv6_src[4]  ;
 };
 
 union anonymous_typeZ441
 {
-unsigned int ipv4_src  ;
-unsigned int ipv6_src[4]  ;
+unsigned int  ipv4_src  ;
+unsigned int  ipv6_src[4]  ;
 };
 
 union anonymous_typeZ442
 {
-unsigned int ipv4_dst  ;
-unsigned int ipv6_dst[4]  ;
+unsigned int  ipv4_dst  ;
+unsigned int  ipv6_dst[4]  ;
 };
 
 union anonymous_typeZ443
 {
-unsigned int ipv4_dst  ;
-unsigned int ipv6_dst[4]  ;
+unsigned int  ipv4_dst  ;
+unsigned int  ipv6_dst[4]  ;
 };
 
 struct anonymous_typeX445
 {
-    unsigned short int h_vlan_proto  ;
-    unsigned short int h_vlan_TCI  ;
+    unsigned short int  h_vlan_proto  ;
+    unsigned short int  h_vlan_TCI  ;
 };
 
 union anonymous_typeZ444
 {
     struct {
-        unsigned short int h_vlan_proto  ;
-        unsigned short int h_vlan_TCI  ;
+        unsigned short int  h_vlan_proto  ;
+        unsigned short int  h_vlan_TCI  ;
     };
-unsigned int tbid  ;
+unsigned int  tbid  ;
 };
 
 struct anonymous_typeX447
 {
-    unsigned short int h_vlan_proto  ;
-    unsigned short int h_vlan_TCI  ;
+    unsigned short int  h_vlan_proto  ;
+    unsigned short int  h_vlan_TCI  ;
 };
 
 union anonymous_typeZ446
 {
     struct {
-        unsigned short int h_vlan_proto  ;
-        unsigned short int h_vlan_TCI  ;
+        unsigned short int  h_vlan_proto  ;
+        unsigned short int  h_vlan_TCI  ;
     };
-unsigned int tbid  ;
+unsigned int  tbid  ;
 };
 
 struct anonymous_typeX449
 {
-    unsigned int mark  ;
+    unsigned int  mark  ;
 };
 
 struct anonymous_typeX450
 {
-    unsigned char smac[6]  ;
-    unsigned char dmac[6]  ;
+    unsigned char  smac[6]  ;
+    unsigned char  dmac[6]  ;
 };
 
 union anonymous_typeZ448
 {
     struct {
-        unsigned int mark  ;
+        unsigned int  mark  ;
     };
     struct {
-        unsigned char smac[6]  ;
-        unsigned char dmac[6]  ;
+        unsigned char  smac[6]  ;
+        unsigned char  dmac[6]  ;
     };
 };
 
 struct anonymous_typeX452
 {
-    unsigned int mark  ;
+    unsigned int  mark  ;
 };
 
 struct anonymous_typeX453
 {
-    unsigned char smac[6]  ;
-    unsigned char dmac[6]  ;
+    unsigned char  smac[6]  ;
+    unsigned char  dmac[6]  ;
 };
 
 union anonymous_typeZ451
 {
     struct {
-        unsigned int mark  ;
+        unsigned int  mark  ;
     };
     struct {
-        unsigned char smac[6]  ;
-        unsigned char dmac[6]  ;
+        unsigned char  smac[6]  ;
+        unsigned char  dmac[6]  ;
     };
 };
 
 struct bpf_fib_lookup
 {
-    unsigned char family  ;
-    unsigned char l4_protocol  ;
-    unsigned short int sport  ;
-    unsigned short int dport  ;
+    unsigned char  family  ;
+    unsigned char  l4_protocol  ;
+    unsigned short int  sport  ;
+    unsigned short int  dport  ;
     union {
-        unsigned short int tot_len  ;
-        unsigned short int mtu_result  ;
+        unsigned short int  tot_len  ;
+        unsigned short int  mtu_result  ;
     };
-    unsigned int ifindex  ;
+    unsigned int  ifindex  ;
     union {
-        unsigned char tos  ;
-        unsigned int flowinfo  ;
-        unsigned int rt_metric  ;
-    };
-    union {
-        unsigned int ipv4_src  ;
-        unsigned int ipv6_src[4]  ;
+        unsigned char  tos  ;
+        unsigned int  flowinfo  ;
+        unsigned int  rt_metric  ;
     };
     union {
-        unsigned int ipv4_dst  ;
-        unsigned int ipv6_dst[4]  ;
+        unsigned int  ipv4_src  ;
+        unsigned int  ipv6_src[4]  ;
+    };
+    union {
+        unsigned int  ipv4_dst  ;
+        unsigned int  ipv6_dst[4]  ;
     };
     union {
         struct {
-            unsigned short int h_vlan_proto  ;
-            unsigned short int h_vlan_TCI  ;
+            unsigned short int  h_vlan_proto  ;
+            unsigned short int  h_vlan_TCI  ;
         };
-        unsigned int tbid  ;
+        unsigned int  tbid  ;
     };
     union {
         struct {
-            unsigned int mark  ;
+            unsigned int  mark  ;
         };
         struct {
-            unsigned char smac[6]  ;
-            unsigned char dmac[6]  ;
+            unsigned char  smac[6]  ;
+            unsigned char  dmac[6]  ;
         };
     };
 };
 
 union anonymous_typeZ454
 {
-unsigned int ipv4_nh  ;
-unsigned int ipv6_nh[4]  ;
+unsigned int  ipv4_nh  ;
+unsigned int  ipv6_nh[4]  ;
 };
 
 union anonymous_typeZ455
 {
-unsigned int ipv4_nh  ;
-unsigned int ipv6_nh[4]  ;
+unsigned int  ipv4_nh  ;
+unsigned int  ipv6_nh[4]  ;
 };
 
 struct bpf_redir_neigh
 {
-    unsigned int nh_family  ;
+    unsigned int  nh_family  ;
     union {
-        unsigned int ipv4_nh  ;
-        unsigned int ipv6_nh[4]  ;
+        unsigned int  ipv4_nh  ;
+        unsigned int  ipv6_nh[4]  ;
     };
 };
 
@@ -8653,261 +8653,261 @@ BPF_FLOW_DISSECTOR_F_STOP_AT_ENCAP=((1U<<2))
 
 struct anonymous_typeX457
 {
-    unsigned int ipv4_src  ;
-    unsigned int ipv4_dst  ;
+    unsigned int  ipv4_src  ;
+    unsigned int  ipv4_dst  ;
 };
 
 struct anonymous_typeX458
 {
-    unsigned int ipv6_src[4]  ;
-    unsigned int ipv6_dst[4]  ;
+    unsigned int  ipv6_src[4]  ;
+    unsigned int  ipv6_dst[4]  ;
 };
 
 union anonymous_typeZ456
 {
     struct {
-        unsigned int ipv4_src  ;
-        unsigned int ipv4_dst  ;
+        unsigned int  ipv4_src  ;
+        unsigned int  ipv4_dst  ;
     };
     struct {
-        unsigned int ipv6_src[4]  ;
-        unsigned int ipv6_dst[4]  ;
+        unsigned int  ipv6_src[4]  ;
+        unsigned int  ipv6_dst[4]  ;
     };
 };
 
 struct anonymous_typeX460
 {
-    unsigned int ipv4_src  ;
-    unsigned int ipv4_dst  ;
+    unsigned int  ipv4_src  ;
+    unsigned int  ipv4_dst  ;
 };
 
 struct anonymous_typeX461
 {
-    unsigned int ipv6_src[4]  ;
-    unsigned int ipv6_dst[4]  ;
+    unsigned int  ipv6_src[4]  ;
+    unsigned int  ipv6_dst[4]  ;
 };
 
 union anonymous_typeZ459
 {
     struct {
-        unsigned int ipv4_src  ;
-        unsigned int ipv4_dst  ;
+        unsigned int  ipv4_src  ;
+        unsigned int  ipv4_dst  ;
     };
     struct {
-        unsigned int ipv6_src[4]  ;
-        unsigned int ipv6_dst[4]  ;
+        unsigned int  ipv6_src[4]  ;
+        unsigned int  ipv6_dst[4]  ;
     };
 };
 
 struct bpf_flow_keys
 {
-    unsigned short int nhoff  ;
-    unsigned short int thoff  ;
-    unsigned short int addr_proto  ;
-    unsigned char is_frag  ;
-    unsigned char is_first_frag  ;
-    unsigned char is_encap  ;
-    unsigned char ip_proto  ;
-    unsigned short int n_proto  ;
-    unsigned short int sport  ;
-    unsigned short int dport  ;
+    unsigned short int  nhoff  ;
+    unsigned short int  thoff  ;
+    unsigned short int  addr_proto  ;
+    unsigned char  is_frag  ;
+    unsigned char  is_first_frag  ;
+    unsigned char  is_encap  ;
+    unsigned char  ip_proto  ;
+    unsigned short int  n_proto  ;
+    unsigned short int  sport  ;
+    unsigned short int  dport  ;
     union {
         struct {
-            unsigned int ipv4_src  ;
-            unsigned int ipv4_dst  ;
+            unsigned int  ipv4_src  ;
+            unsigned int  ipv4_dst  ;
         };
         struct {
-            unsigned int ipv6_src[4]  ;
-            unsigned int ipv6_dst[4]  ;
+            unsigned int  ipv6_src[4]  ;
+            unsigned int  ipv6_dst[4]  ;
         };
     };
-    unsigned int flags  ;
-    unsigned int flow_label  ;
+    unsigned int  flags  ;
+    unsigned int  flow_label  ;
 };
 
 struct bpf_func_info
 {
-    unsigned int insn_off  ;
-    unsigned int type_id  ;
+    unsigned int  insn_off  ;
+    unsigned int  type_id  ;
 };
 
 struct bpf_line_info
 {
-    unsigned int insn_off  ;
-    unsigned int file_name_off  ;
-    unsigned int line_off  ;
-    unsigned int line_col  ;
+    unsigned int  insn_off  ;
+    unsigned int  file_name_off  ;
+    unsigned int  line_off  ;
+    unsigned int  line_col  ;
 };
 
 struct bpf_spin_lock
 {
-    unsigned int val  ;
+    unsigned int  val  ;
 };
 
 struct bpf_timer
 {
-    unsigned long  long __opaque[2]  ;
+    unsigned long  long  __opaque[2]  ;
 } __attribute__((aligned(8)));
 
 struct bpf_wq
 {
-    unsigned long  long __opaque[2]  ;
+    unsigned long  long  __opaque[2]  ;
 } __attribute__((aligned(8)));
 
 struct bpf_dynptr
 {
-    unsigned long  long __opaque[2]  ;
+    unsigned long  long  __opaque[2]  ;
 } __attribute__((aligned(8)));
 
 struct bpf_list_head
 {
-    unsigned long  long __opaque[2]  ;
+    unsigned long  long  __opaque[2]  ;
 } __attribute__((aligned(8)));
 
 struct bpf_list_node
 {
-    unsigned long  long __opaque[3]  ;
+    unsigned long  long  __opaque[3]  ;
 } __attribute__((aligned(8)));
 
 struct bpf_rb_root
 {
-    unsigned long  long __opaque[2]  ;
+    unsigned long  long  __opaque[2]  ;
 } __attribute__((aligned(8)));
 
 struct bpf_rb_node
 {
-    unsigned long  long __opaque[4]  ;
+    unsigned long  long  __opaque[4]  ;
 } __attribute__((aligned(8)));
 
 struct bpf_refcount
 {
-    unsigned int __opaque[1]  ;
+    unsigned int  __opaque[1]  ;
 } __attribute__((aligned(4)));
 
 struct bpf_sysctl
 {
-    unsigned int write  ;
-    unsigned int file_pos  ;
+    unsigned int  write  ;
+    unsigned int  file_pos  ;
 };
 
 union anonymous_typeZ462
 {
-struct bpf_sock* sk  ;
-unsigned long  long :64  ;
+struct bpf_sock*  sk  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 union anonymous_typeZ463
 {
-struct bpf_sock* sk  ;
-unsigned long  long :64  ;
+struct bpf_sock*  sk  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 union anonymous_typeZ464
 {
 void* optval;
-unsigned long  long :64  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 union anonymous_typeZ465
 {
 void* optval;
-unsigned long  long :64  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 union anonymous_typeZ466
 {
 void* optval_end;
-unsigned long  long :64  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 union anonymous_typeZ467
 {
 void* optval_end;
-unsigned long  long :64  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 struct bpf_sockopt
 {
     union {
-        struct bpf_sock* sk  ;
-        unsigned long  long :64  ;
+        struct bpf_sock*  sk  ;
+        unsigned long  long  :64  ;
     };
     union {
         void* optval;
-        unsigned long  long :64  ;
+        unsigned long  long  :64  ;
     };
     union {
         void* optval_end;
-        unsigned long  long :64  ;
+        unsigned long  long  :64  ;
     };
-    int level  ;
-    int optname  ;
-    int optlen  ;
-    int retval  ;
+    int  level  ;
+    int  optname  ;
+    int  optlen  ;
+    int  retval  ;
 };
 
 struct bpf_pidns_info
 {
-    unsigned int pid  ;
-    unsigned int tgid  ;
+    unsigned int  pid  ;
+    unsigned int  tgid  ;
 };
 
 union anonymous_typeZ469
 {
-struct bpf_sock* sk  ;
-unsigned long  long :64  ;
+struct bpf_sock*  sk  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 union anonymous_typeZ468
 {
     union {
-        struct bpf_sock* sk  ;
-        unsigned long  long :64  ;
+        struct bpf_sock*  sk  ;
+        unsigned long  long  :64  ;
     };
-unsigned long  long cookie  ;
+unsigned long  long  cookie  ;
 };
 
 union anonymous_typeZ471
 {
-struct bpf_sock* sk  ;
-unsigned long  long :64  ;
+struct bpf_sock*  sk  ;
+unsigned long  long  :64  ;
 } __attribute__((aligned(8)));
 
 union anonymous_typeZ470
 {
     union {
-        struct bpf_sock* sk  ;
-        unsigned long  long :64  ;
+        struct bpf_sock*  sk  ;
+        unsigned long  long  :64  ;
     };
-unsigned long  long cookie  ;
+unsigned long  long  cookie  ;
 };
 
 struct bpf_sk_lookup
 {
     union {
         union {
-            struct bpf_sock* sk  ;
-            unsigned long  long :64  ;
+            struct bpf_sock*  sk  ;
+            unsigned long  long  :64  ;
         };
-        unsigned long  long cookie  ;
+        unsigned long  long  cookie  ;
     };
-    unsigned int family  ;
-    unsigned int protocol  ;
-    unsigned int remote_ip4  ;
-    unsigned int remote_ip6[4]  ;
-    unsigned short int remote_port  ;
-    unsigned short int :16  ;
-    unsigned int local_ip4  ;
-    unsigned int local_ip6[4]  ;
-    unsigned int local_port  ;
-    unsigned int ingress_ifindex  ;
+    unsigned int  family  ;
+    unsigned int  protocol  ;
+    unsigned int  remote_ip4  ;
+    unsigned int  remote_ip6[4]  ;
+    unsigned short int  remote_port  ;
+    unsigned short int  :16  ;
+    unsigned int  local_ip4  ;
+    unsigned int  local_ip6[4]  ;
+    unsigned int  local_port  ;
+    unsigned int  ingress_ifindex  ;
 };
 
 struct btf_ptr
 {
     void* ptr;
-    unsigned int type_id  ;
-    unsigned int flags  ;
+    unsigned int  type_id  ;
+    unsigned int  flags  ;
 };
 
 enum { BTF_F_COMPACT=((1ULL<<0)),
@@ -8933,9 +8933,9 @@ BPF_CORE_TYPE_MATCHES=(12)
 
 struct bpf_core_relo
 {
-    unsigned int insn_off  ;
-    unsigned int type_id  ;
-    unsigned int access_str_off  ;
+    unsigned int  insn_off  ;
+    unsigned int  type_id  ;
+    unsigned int  access_str_off  ;
     enum bpf_core_relo_kind kind;
 };
 
@@ -8945,7 +8945,7 @@ BPF_F_TIMER_CPU_PIN=((1ULL<<1))
 
 struct bpf_iter_num
 {
-    unsigned long  long __opaque[1]  ;
+    unsigned long  long  __opaque[1]  ;
 } __attribute__((aligned(8)));
 
 enum  bpf_kfunc_flags { BPF_F_PAD_ZEROS=((1ULL<<0))
@@ -9154,191 +9154,191 @@ PERF_FORMAT_MAX=(1U<<5)
 
 union anonymous_typeZ472
 {
-unsigned long  long sample_period  ;
-unsigned long  long sample_freq  ;
+unsigned long  long  sample_period  ;
+unsigned long  long  sample_freq  ;
 };
 
 union anonymous_typeZ473
 {
-unsigned long  long sample_period  ;
-unsigned long  long sample_freq  ;
+unsigned long  long  sample_period  ;
+unsigned long  long  sample_freq  ;
 };
 
 union anonymous_typeZ474
 {
-unsigned int wakeup_events  ;
-unsigned int wakeup_watermark  ;
+unsigned int  wakeup_events  ;
+unsigned int  wakeup_watermark  ;
 };
 
 union anonymous_typeZ475
 {
-unsigned int wakeup_events  ;
-unsigned int wakeup_watermark  ;
+unsigned int  wakeup_events  ;
+unsigned int  wakeup_watermark  ;
 };
 
 union anonymous_typeZ476
 {
-unsigned long  long bp_addr  ;
-unsigned long  long kprobe_func  ;
-unsigned long  long uprobe_path  ;
-unsigned long  long config1  ;
+unsigned long  long  bp_addr  ;
+unsigned long  long  kprobe_func  ;
+unsigned long  long  uprobe_path  ;
+unsigned long  long  config1  ;
 };
 
 union anonymous_typeZ477
 {
-unsigned long  long bp_addr  ;
-unsigned long  long kprobe_func  ;
-unsigned long  long uprobe_path  ;
-unsigned long  long config1  ;
+unsigned long  long  bp_addr  ;
+unsigned long  long  kprobe_func  ;
+unsigned long  long  uprobe_path  ;
+unsigned long  long  config1  ;
 };
 
 union anonymous_typeZ478
 {
-unsigned long  long bp_len  ;
-unsigned long  long kprobe_addr  ;
-unsigned long  long probe_offset  ;
-unsigned long  long config2  ;
+unsigned long  long  bp_len  ;
+unsigned long  long  kprobe_addr  ;
+unsigned long  long  probe_offset  ;
+unsigned long  long  config2  ;
 };
 
 union anonymous_typeZ479
 {
-unsigned long  long bp_len  ;
-unsigned long  long kprobe_addr  ;
-unsigned long  long probe_offset  ;
-unsigned long  long config2  ;
+unsigned long  long  bp_len  ;
+unsigned long  long  kprobe_addr  ;
+unsigned long  long  probe_offset  ;
+unsigned long  long  config2  ;
 };
 
 struct anonymous_typeX481
 {
-    unsigned int aux_start_paused:1  ;
-    unsigned int aux_pause:1  ;
-    unsigned int aux_resume:1  ;
-    unsigned int __reserved_3:29  ;
+    unsigned int  aux_start_paused:1  ;
+    unsigned int  aux_pause:1  ;
+    unsigned int  aux_resume:1  ;
+    unsigned int  __reserved_3:29  ;
 };
 
 union anonymous_typeZ480
 {
-unsigned int aux_action  ;
+unsigned int  aux_action  ;
     struct {
-        unsigned int aux_start_paused:1  ;
-        unsigned int aux_pause:1  ;
-        unsigned int aux_resume:1  ;
-        unsigned int __reserved_3:29  ;
+        unsigned int  aux_start_paused:1  ;
+        unsigned int  aux_pause:1  ;
+        unsigned int  aux_resume:1  ;
+        unsigned int  __reserved_3:29  ;
     };
 };
 
 struct anonymous_typeX483
 {
-    unsigned int aux_start_paused:1  ;
-    unsigned int aux_pause:1  ;
-    unsigned int aux_resume:1  ;
-    unsigned int __reserved_3:29  ;
+    unsigned int  aux_start_paused:1  ;
+    unsigned int  aux_pause:1  ;
+    unsigned int  aux_resume:1  ;
+    unsigned int  __reserved_3:29  ;
 };
 
 union anonymous_typeZ482
 {
-unsigned int aux_action  ;
+unsigned int  aux_action  ;
     struct {
-        unsigned int aux_start_paused:1  ;
-        unsigned int aux_pause:1  ;
-        unsigned int aux_resume:1  ;
-        unsigned int __reserved_3:29  ;
+        unsigned int  aux_start_paused:1  ;
+        unsigned int  aux_pause:1  ;
+        unsigned int  aux_resume:1  ;
+        unsigned int  __reserved_3:29  ;
     };
 };
 
 struct perf_event_attr
 {
-    unsigned int type  ;
-    unsigned int size  ;
-    unsigned long  long config  ;
+    unsigned int  type  ;
+    unsigned int  size  ;
+    unsigned long  long  config  ;
     union {
-        unsigned long  long sample_period  ;
-        unsigned long  long sample_freq  ;
+        unsigned long  long  sample_period  ;
+        unsigned long  long  sample_freq  ;
     };
-    unsigned long  long sample_type  ;
-    unsigned long  long read_format  ;
-    unsigned long  long disabled:1  ;
-    unsigned long  long inherit:1  ;
-    unsigned long  long pinned:1  ;
-    unsigned long  long exclusive:1  ;
-    unsigned long  long exclude_user:1  ;
-    unsigned long  long exclude_kernel:1  ;
-    unsigned long  long exclude_hv:1  ;
-    unsigned long  long exclude_idle:1  ;
-    unsigned long  long mmap:1  ;
-    unsigned long  long comm:1  ;
-    unsigned long  long freq:1  ;
-    unsigned long  long inherit_stat:1  ;
-    unsigned long  long enable_on_exec:1  ;
-    unsigned long  long task:1  ;
-    unsigned long  long watermark:1  ;
-    unsigned long  long precise_ip:2  ;
-    unsigned long  long mmap_data:1  ;
-    unsigned long  long sample_id_all:1  ;
-    unsigned long  long exclude_host:1  ;
-    unsigned long  long exclude_guest:1  ;
-    unsigned long  long exclude_callchain_kernel:1  ;
-    unsigned long  long exclude_callchain_user:1  ;
-    unsigned long  long mmap2:1  ;
-    unsigned long  long comm_exec:1  ;
-    unsigned long  long use_clockid:1  ;
-    unsigned long  long context_switch:1  ;
-    unsigned long  long write_backward:1  ;
-    unsigned long  long namespaces:1  ;
-    unsigned long  long ksymbol:1  ;
-    unsigned long  long bpf_event:1  ;
-    unsigned long  long aux_output:1  ;
-    unsigned long  long cgroup:1  ;
-    unsigned long  long text_poke:1  ;
-    unsigned long  long build_id:1  ;
-    unsigned long  long inherit_thread:1  ;
-    unsigned long  long remove_on_exec:1  ;
-    unsigned long  long sigtrap:1  ;
-    unsigned long  long __reserved_1:26  ;
+    unsigned long  long  sample_type  ;
+    unsigned long  long  read_format  ;
+    unsigned long  long  disabled:1  ;
+    unsigned long  long  inherit:1  ;
+    unsigned long  long  pinned:1  ;
+    unsigned long  long  exclusive:1  ;
+    unsigned long  long  exclude_user:1  ;
+    unsigned long  long  exclude_kernel:1  ;
+    unsigned long  long  exclude_hv:1  ;
+    unsigned long  long  exclude_idle:1  ;
+    unsigned long  long  mmap:1  ;
+    unsigned long  long  comm:1  ;
+    unsigned long  long  freq:1  ;
+    unsigned long  long  inherit_stat:1  ;
+    unsigned long  long  enable_on_exec:1  ;
+    unsigned long  long  task:1  ;
+    unsigned long  long  watermark:1  ;
+    unsigned long  long  precise_ip:2  ;
+    unsigned long  long  mmap_data:1  ;
+    unsigned long  long  sample_id_all:1  ;
+    unsigned long  long  exclude_host:1  ;
+    unsigned long  long  exclude_guest:1  ;
+    unsigned long  long  exclude_callchain_kernel:1  ;
+    unsigned long  long  exclude_callchain_user:1  ;
+    unsigned long  long  mmap2:1  ;
+    unsigned long  long  comm_exec:1  ;
+    unsigned long  long  use_clockid:1  ;
+    unsigned long  long  context_switch:1  ;
+    unsigned long  long  write_backward:1  ;
+    unsigned long  long  namespaces:1  ;
+    unsigned long  long  ksymbol:1  ;
+    unsigned long  long  bpf_event:1  ;
+    unsigned long  long  aux_output:1  ;
+    unsigned long  long  cgroup:1  ;
+    unsigned long  long  text_poke:1  ;
+    unsigned long  long  build_id:1  ;
+    unsigned long  long  inherit_thread:1  ;
+    unsigned long  long  remove_on_exec:1  ;
+    unsigned long  long  sigtrap:1  ;
+    unsigned long  long  __reserved_1:26  ;
     union {
-        unsigned int wakeup_events  ;
-        unsigned int wakeup_watermark  ;
+        unsigned int  wakeup_events  ;
+        unsigned int  wakeup_watermark  ;
     };
-    unsigned int bp_type  ;
+    unsigned int  bp_type  ;
     union {
-        unsigned long  long bp_addr  ;
-        unsigned long  long kprobe_func  ;
-        unsigned long  long uprobe_path  ;
-        unsigned long  long config1  ;
+        unsigned long  long  bp_addr  ;
+        unsigned long  long  kprobe_func  ;
+        unsigned long  long  uprobe_path  ;
+        unsigned long  long  config1  ;
     };
     union {
-        unsigned long  long bp_len  ;
-        unsigned long  long kprobe_addr  ;
-        unsigned long  long probe_offset  ;
-        unsigned long  long config2  ;
+        unsigned long  long  bp_len  ;
+        unsigned long  long  kprobe_addr  ;
+        unsigned long  long  probe_offset  ;
+        unsigned long  long  config2  ;
     };
-    unsigned long  long branch_sample_type  ;
-    unsigned long  long sample_regs_user  ;
-    unsigned int sample_stack_user  ;
-    int clockid  ;
-    unsigned long  long sample_regs_intr  ;
-    unsigned int aux_watermark  ;
-    unsigned short int sample_max_stack  ;
-    unsigned short int __reserved_2  ;
-    unsigned int aux_sample_size  ;
+    unsigned long  long  branch_sample_type  ;
+    unsigned long  long  sample_regs_user  ;
+    unsigned int  sample_stack_user  ;
+    int  clockid  ;
+    unsigned long  long  sample_regs_intr  ;
+    unsigned int  aux_watermark  ;
+    unsigned short int  sample_max_stack  ;
+    unsigned short int  __reserved_2  ;
+    unsigned int  aux_sample_size  ;
     union {
-        unsigned int aux_action  ;
+        unsigned int  aux_action  ;
         struct {
-            unsigned int aux_start_paused:1  ;
-            unsigned int aux_pause:1  ;
-            unsigned int aux_resume:1  ;
-            unsigned int __reserved_3:29  ;
+            unsigned int  aux_start_paused:1  ;
+            unsigned int  aux_pause:1  ;
+            unsigned int  aux_resume:1  ;
+            unsigned int  __reserved_3:29  ;
         };
     };
-    unsigned long  long sig_data  ;
-    unsigned long  long config3  ;
+    unsigned long  long  sig_data  ;
+    unsigned long  long  config3  ;
 };
 
 struct perf_event_query_bpf
 {
-    unsigned int ids_len  ;
-    unsigned int prog_cnt  ;
-    unsigned int ids[]  ;
+    unsigned int  ids_len  ;
+    unsigned int  prog_cnt  ;
+    unsigned int  ids[]  ;
 };
 
 enum  perf_event_ioc_flags { PERF_IOC_FLAG_GROUP=(1U<<0)
@@ -9346,106 +9346,106 @@ enum  perf_event_ioc_flags { PERF_IOC_FLAG_GROUP=(1U<<0)
 
 struct anonymous_typeX485
 {
-    unsigned long  long cap_bit0:1  ;
-    unsigned long  long cap_bit0_is_deprecated:1  ;
-    unsigned long  long cap_user_rdpmc:1  ;
-    unsigned long  long cap_user_time:1  ;
-    unsigned long  long cap_user_time_zero:1  ;
-    unsigned long  long cap_user_time_short:1  ;
-    unsigned long  long cap_____res:58  ;
+    unsigned long  long  cap_bit0:1  ;
+    unsigned long  long  cap_bit0_is_deprecated:1  ;
+    unsigned long  long  cap_user_rdpmc:1  ;
+    unsigned long  long  cap_user_time:1  ;
+    unsigned long  long  cap_user_time_zero:1  ;
+    unsigned long  long  cap_user_time_short:1  ;
+    unsigned long  long  cap_____res:58  ;
 };
 
 union anonymous_typeZ484
 {
-unsigned long  long capabilities  ;
+unsigned long  long  capabilities  ;
     struct {
-        unsigned long  long cap_bit0:1  ;
-        unsigned long  long cap_bit0_is_deprecated:1  ;
-        unsigned long  long cap_user_rdpmc:1  ;
-        unsigned long  long cap_user_time:1  ;
-        unsigned long  long cap_user_time_zero:1  ;
-        unsigned long  long cap_user_time_short:1  ;
-        unsigned long  long cap_____res:58  ;
+        unsigned long  long  cap_bit0:1  ;
+        unsigned long  long  cap_bit0_is_deprecated:1  ;
+        unsigned long  long  cap_user_rdpmc:1  ;
+        unsigned long  long  cap_user_time:1  ;
+        unsigned long  long  cap_user_time_zero:1  ;
+        unsigned long  long  cap_user_time_short:1  ;
+        unsigned long  long  cap_____res:58  ;
     };
 };
 
 struct anonymous_typeX487
 {
-    unsigned long  long cap_bit0:1  ;
-    unsigned long  long cap_bit0_is_deprecated:1  ;
-    unsigned long  long cap_user_rdpmc:1  ;
-    unsigned long  long cap_user_time:1  ;
-    unsigned long  long cap_user_time_zero:1  ;
-    unsigned long  long cap_user_time_short:1  ;
-    unsigned long  long cap_____res:58  ;
+    unsigned long  long  cap_bit0:1  ;
+    unsigned long  long  cap_bit0_is_deprecated:1  ;
+    unsigned long  long  cap_user_rdpmc:1  ;
+    unsigned long  long  cap_user_time:1  ;
+    unsigned long  long  cap_user_time_zero:1  ;
+    unsigned long  long  cap_user_time_short:1  ;
+    unsigned long  long  cap_____res:58  ;
 };
 
 union anonymous_typeZ486
 {
-unsigned long  long capabilities  ;
+unsigned long  long  capabilities  ;
     struct {
-        unsigned long  long cap_bit0:1  ;
-        unsigned long  long cap_bit0_is_deprecated:1  ;
-        unsigned long  long cap_user_rdpmc:1  ;
-        unsigned long  long cap_user_time:1  ;
-        unsigned long  long cap_user_time_zero:1  ;
-        unsigned long  long cap_user_time_short:1  ;
-        unsigned long  long cap_____res:58  ;
+        unsigned long  long  cap_bit0:1  ;
+        unsigned long  long  cap_bit0_is_deprecated:1  ;
+        unsigned long  long  cap_user_rdpmc:1  ;
+        unsigned long  long  cap_user_time:1  ;
+        unsigned long  long  cap_user_time_zero:1  ;
+        unsigned long  long  cap_user_time_short:1  ;
+        unsigned long  long  cap_____res:58  ;
     };
 };
 
 struct perf_event_mmap_page
 {
-    unsigned int version  ;
-    unsigned int compat_version  ;
-    unsigned int lock  ;
-    unsigned int index  ;
-    long long offset  ;
-    unsigned long  long time_enabled  ;
-    unsigned long  long time_running  ;
+    unsigned int  version  ;
+    unsigned int  compat_version  ;
+    unsigned int  lock  ;
+    unsigned int  index  ;
+    long long  offset  ;
+    unsigned long  long  time_enabled  ;
+    unsigned long  long  time_running  ;
     union {
-        unsigned long  long capabilities  ;
+        unsigned long  long  capabilities  ;
         struct {
-            unsigned long  long cap_bit0:1  ;
-            unsigned long  long cap_bit0_is_deprecated:1  ;
-            unsigned long  long cap_user_rdpmc:1  ;
-            unsigned long  long cap_user_time:1  ;
-            unsigned long  long cap_user_time_zero:1  ;
-            unsigned long  long cap_user_time_short:1  ;
-            unsigned long  long cap_____res:58  ;
+            unsigned long  long  cap_bit0:1  ;
+            unsigned long  long  cap_bit0_is_deprecated:1  ;
+            unsigned long  long  cap_user_rdpmc:1  ;
+            unsigned long  long  cap_user_time:1  ;
+            unsigned long  long  cap_user_time_zero:1  ;
+            unsigned long  long  cap_user_time_short:1  ;
+            unsigned long  long  cap_____res:58  ;
         };
     };
-    unsigned short int pmc_width  ;
-    unsigned short int time_shift  ;
-    unsigned int time_mult  ;
-    unsigned long  long time_offset  ;
-    unsigned long  long time_zero  ;
-    unsigned int size  ;
-    unsigned int __reserved_1  ;
-    unsigned long  long time_cycles  ;
-    unsigned long  long time_mask  ;
-    unsigned char __reserved[116*8]  ;
-    unsigned long  long data_head  ;
-    unsigned long  long data_tail  ;
-    unsigned long  long data_offset  ;
-    unsigned long  long data_size  ;
-    unsigned long  long aux_head  ;
-    unsigned long  long aux_tail  ;
-    unsigned long  long aux_offset  ;
-    unsigned long  long aux_size  ;
+    unsigned short int  pmc_width  ;
+    unsigned short int  time_shift  ;
+    unsigned int  time_mult  ;
+    unsigned long  long  time_offset  ;
+    unsigned long  long  time_zero  ;
+    unsigned int  size  ;
+    unsigned int  __reserved_1  ;
+    unsigned long  long  time_cycles  ;
+    unsigned long  long  time_mask  ;
+    unsigned char  __reserved[116*8]  ;
+    unsigned long  long  data_head  ;
+    unsigned long  long  data_tail  ;
+    unsigned long  long  data_offset  ;
+    unsigned long  long  data_size  ;
+    unsigned long  long  aux_head  ;
+    unsigned long  long  aux_tail  ;
+    unsigned long  long  aux_offset  ;
+    unsigned long  long  aux_size  ;
 };
 
 struct perf_event_header
 {
-    unsigned int type  ;
-    unsigned short int misc  ;
-    unsigned short int size  ;
+    unsigned int  type  ;
+    unsigned short int  misc  ;
+    unsigned short int  size  ;
 };
 
 struct perf_ns_link_info
 {
-    unsigned long  long dev  ;
-    unsigned long  long ino  ;
+    unsigned long  long  dev  ;
+    unsigned long  long  ino  ;
 };
 
 enum { NET_NS_INDEX=(0),
@@ -9494,78 +9494,78 @@ PERF_BPF_EVENT_PROG_UNLOAD=(2),
 PERF_BPF_EVENT_MAX 
 };
 
-enum  perf_callchain_context { PERF_CONTEXT_HV=((unsigned long  long)-32),
-PERF_CONTEXT_KERNEL=((unsigned long  long)-128),
-PERF_CONTEXT_USER=((unsigned long  long)-512),
-PERF_CONTEXT_GUEST=((unsigned long  long)-2048),
-PERF_CONTEXT_GUEST_KERNEL=((unsigned long  long)-2176),
-PERF_CONTEXT_GUEST_USER=((unsigned long  long)-2560),
-PERF_CONTEXT_MAX=((unsigned long  long)-4095)
+enum  perf_callchain_context { PERF_CONTEXT_HV=((unsigned long  long )-32),
+PERF_CONTEXT_KERNEL=((unsigned long  long )-128),
+PERF_CONTEXT_USER=((unsigned long  long )-512),
+PERF_CONTEXT_GUEST=((unsigned long  long )-2048),
+PERF_CONTEXT_GUEST_KERNEL=((unsigned long  long )-2176),
+PERF_CONTEXT_GUEST_USER=((unsigned long  long )-2560),
+PERF_CONTEXT_MAX=((unsigned long  long )-4095)
 };
 
 struct anonymous_typeX488
 {
-    unsigned long  long mem_op:5  ;
-    unsigned long  long mem_lvl:14  ;
-    unsigned long  long mem_snoop:5  ;
-    unsigned long  long mem_lock:2  ;
-    unsigned long  long mem_dtlb:7  ;
-    unsigned long  long mem_lvl_num:4  ;
-    unsigned long  long mem_remote:1  ;
-    unsigned long  long mem_snoopx:2  ;
-    unsigned long  long mem_blk:3  ;
-    unsigned long  long mem_hops:3  ;
-    unsigned long  long mem_rsvd:18  ;
+    unsigned long  long  mem_op:5  ;
+    unsigned long  long  mem_lvl:14  ;
+    unsigned long  long  mem_snoop:5  ;
+    unsigned long  long  mem_lock:2  ;
+    unsigned long  long  mem_dtlb:7  ;
+    unsigned long  long  mem_lvl_num:4  ;
+    unsigned long  long  mem_remote:1  ;
+    unsigned long  long  mem_snoopx:2  ;
+    unsigned long  long  mem_blk:3  ;
+    unsigned long  long  mem_hops:3  ;
+    unsigned long  long  mem_rsvd:18  ;
 };
 
 union perf_mem_data_src
 {
-unsigned long  long val  ;
+unsigned long  long  val  ;
     struct {
-        unsigned long  long mem_op:5  ;
-        unsigned long  long mem_lvl:14  ;
-        unsigned long  long mem_snoop:5  ;
-        unsigned long  long mem_lock:2  ;
-        unsigned long  long mem_dtlb:7  ;
-        unsigned long  long mem_lvl_num:4  ;
-        unsigned long  long mem_remote:1  ;
-        unsigned long  long mem_snoopx:2  ;
-        unsigned long  long mem_blk:3  ;
-        unsigned long  long mem_hops:3  ;
-        unsigned long  long mem_rsvd:18  ;
+        unsigned long  long  mem_op:5  ;
+        unsigned long  long  mem_lvl:14  ;
+        unsigned long  long  mem_snoop:5  ;
+        unsigned long  long  mem_lock:2  ;
+        unsigned long  long  mem_dtlb:7  ;
+        unsigned long  long  mem_lvl_num:4  ;
+        unsigned long  long  mem_remote:1  ;
+        unsigned long  long  mem_snoopx:2  ;
+        unsigned long  long  mem_blk:3  ;
+        unsigned long  long  mem_hops:3  ;
+        unsigned long  long  mem_rsvd:18  ;
     };
 };
 
 struct perf_branch_entry
 {
-    unsigned long  long from  ;
-    unsigned long  long to  ;
-    unsigned long  long mispred:1  ;
-    unsigned long  long predicted:1  ;
-    unsigned long  long in_tx:1  ;
-    unsigned long  long abort:1  ;
-    unsigned long  long cycles:16  ;
-    unsigned long  long type:4  ;
-    unsigned long  long spec:2  ;
-    unsigned long  long new_type:4  ;
-    unsigned long  long priv:3  ;
-    unsigned long  long reserved:31  ;
+    unsigned long  long  from  ;
+    unsigned long  long  to  ;
+    unsigned long  long  mispred:1  ;
+    unsigned long  long  predicted:1  ;
+    unsigned long  long  in_tx:1  ;
+    unsigned long  long  abort:1  ;
+    unsigned long  long  cycles:16  ;
+    unsigned long  long  type:4  ;
+    unsigned long  long  spec:2  ;
+    unsigned long  long  new_type:4  ;
+    unsigned long  long  priv:3  ;
+    unsigned long  long  reserved:31  ;
 };
 
 struct anonymous_typeX489
 {
-    unsigned int var1_dw  ;
-    unsigned short int var2_w  ;
-    unsigned short int var3_w  ;
+    unsigned int  var1_dw  ;
+    unsigned short int  var2_w  ;
+    unsigned short int  var3_w  ;
 };
 
 union perf_sample_weight
 {
-unsigned long  long full  ;
+unsigned long  long  full  ;
     struct {
-        unsigned int var1_dw  ;
-        unsigned short int var2_w  ;
-        unsigned short int var3_w  ;
+        unsigned int  var1_dw  ;
+        unsigned short int  var2_w  ;
+        unsigned short int  var3_w  ;
     };
 };
 
@@ -9573,13 +9573,13 @@ struct sockaddr_pkt
 {
     unsigned short int spkt_family;
     unsigned char spkt_device[14];
-    unsigned short int spkt_protocol  ;
+    unsigned short int  spkt_protocol  ;
 };
 
 struct sockaddr_ll
 {
     unsigned short int sll_family;
-    unsigned short int sll_protocol  ;
+    unsigned short int  sll_protocol  ;
     int sll_ifindex;
     unsigned short int sll_hatype;
     unsigned char sll_pkttype;
@@ -9602,26 +9602,26 @@ struct tpacket_stats_v3
 
 struct tpacket_rollover_stats
 {
-    unsigned long  long tp_all __attribute__((aligned(8)))	 ;
-    unsigned long  long tp_huge __attribute__((aligned(8)))	 ;
-    unsigned long  long tp_failed __attribute__((aligned(8)))	 ;
+    unsigned long  long  tp_all  __attribute__((aligned(8)))	;
+    unsigned long  long  tp_huge  __attribute__((aligned(8)))	;
+    unsigned long  long  tp_failed  __attribute__((aligned(8)))	;
 };
 
 union tpacket_stats_u
 {
-struct tpacket_stats stats1  ;
-struct tpacket_stats_v3 stats3  ;
+struct tpacket_stats  stats1  ;
+struct tpacket_stats_v3  stats3  ;
 };
 
 struct tpacket_auxdata
 {
-    unsigned int tp_status  ;
-    unsigned int tp_len  ;
-    unsigned int tp_snaplen  ;
-    unsigned short int tp_mac  ;
-    unsigned short int tp_net  ;
-    unsigned short int tp_vlan_tci  ;
-    unsigned short int tp_vlan_tpid  ;
+    unsigned int  tp_status  ;
+    unsigned int  tp_len  ;
+    unsigned int  tp_snaplen  ;
+    unsigned short int  tp_mac  ;
+    unsigned short int  tp_net  ;
+    unsigned short int  tp_vlan_tci  ;
+    unsigned short int  tp_vlan_tpid  ;
 };
 
 struct tpacket_hdr
@@ -9637,50 +9637,50 @@ struct tpacket_hdr
 
 struct tpacket2_hdr
 {
-    unsigned int tp_status  ;
-    unsigned int tp_len  ;
-    unsigned int tp_snaplen  ;
-    unsigned short int tp_mac  ;
-    unsigned short int tp_net  ;
-    unsigned int tp_sec  ;
-    unsigned int tp_nsec  ;
-    unsigned short int tp_vlan_tci  ;
-    unsigned short int tp_vlan_tpid  ;
-    unsigned char tp_padding[4]  ;
+    unsigned int  tp_status  ;
+    unsigned int  tp_len  ;
+    unsigned int  tp_snaplen  ;
+    unsigned short int  tp_mac  ;
+    unsigned short int  tp_net  ;
+    unsigned int  tp_sec  ;
+    unsigned int  tp_nsec  ;
+    unsigned short int  tp_vlan_tci  ;
+    unsigned short int  tp_vlan_tpid  ;
+    unsigned char  tp_padding[4]  ;
 };
 
 struct tpacket_hdr_variant1
 {
-    unsigned int tp_rxhash  ;
-    unsigned int tp_vlan_tci  ;
-    unsigned short int tp_vlan_tpid  ;
-    unsigned short int tp_padding  ;
+    unsigned int  tp_rxhash  ;
+    unsigned int  tp_vlan_tci  ;
+    unsigned short int  tp_vlan_tpid  ;
+    unsigned short int  tp_padding  ;
 };
 
 union anonymous_typeZ490
 {
-struct tpacket_hdr_variant1 hv1  ;
+struct tpacket_hdr_variant1  hv1  ;
 };
 
 union anonymous_typeZ491
 {
-struct tpacket_hdr_variant1 hv1  ;
+struct tpacket_hdr_variant1  hv1  ;
 };
 
 struct tpacket3_hdr
 {
-    unsigned int tp_next_offset  ;
-    unsigned int tp_sec  ;
-    unsigned int tp_nsec  ;
-    unsigned int tp_snaplen  ;
-    unsigned int tp_len  ;
-    unsigned int tp_status  ;
-    unsigned short int tp_mac  ;
-    unsigned short int tp_net  ;
+    unsigned int  tp_next_offset  ;
+    unsigned int  tp_sec  ;
+    unsigned int  tp_nsec  ;
+    unsigned int  tp_snaplen  ;
+    unsigned int  tp_len  ;
+    unsigned int  tp_status  ;
+    unsigned short int  tp_mac  ;
+    unsigned short int  tp_net  ;
     union {
-        struct tpacket_hdr_variant1 hv1  ;
+        struct tpacket_hdr_variant1  hv1  ;
     };
-    unsigned char tp_padding[8]  ;
+    unsigned char  tp_padding[8]  ;
 };
 
 union anonymous_typeZ492
@@ -9706,25 +9706,25 @@ struct tpacket_bd_ts
 
 struct tpacket_hdr_v1
 {
-    unsigned int block_status  ;
-    unsigned int num_pkts  ;
-    unsigned int offset_to_first_pkt  ;
-    unsigned int blk_len  ;
-    unsigned long  long seq_num __attribute__((aligned(8)))	 ;
-    struct tpacket_bd_ts ts_first_pkt  ;
-    struct tpacket_bd_ts ts_last_pkt  ;
+    unsigned int  block_status  ;
+    unsigned int  num_pkts  ;
+    unsigned int  offset_to_first_pkt  ;
+    unsigned int  blk_len  ;
+    unsigned long  long  seq_num  __attribute__((aligned(8)))	;
+    struct tpacket_bd_ts  ts_first_pkt  ;
+    struct tpacket_bd_ts  ts_last_pkt  ;
 };
 
 union tpacket_bd_header_u
 {
-struct tpacket_hdr_v1 bh1  ;
+struct tpacket_hdr_v1  bh1  ;
 };
 
 struct tpacket_block_desc
 {
-    unsigned int version  ;
-    unsigned int offset_to_priv  ;
-    union tpacket_bd_header_u hdr  ;
+    unsigned int  version  ;
+    unsigned int  offset_to_priv  ;
+    union tpacket_bd_header_u  hdr  ;
 };
 
 enum  tpacket_versions { TPACKET_V1 
@@ -9753,8 +9753,8 @@ struct tpacket_req3
 
 union tpacket_req_u
 {
-struct tpacket_req req  ;
-struct tpacket_req3 req3  ;
+struct tpacket_req  req  ;
+struct tpacket_req3  req3  ;
 };
 
 struct packet_mreq
@@ -9767,16 +9767,16 @@ struct packet_mreq
 
 struct fanout_args
 {
-    unsigned short int id  ;
-    unsigned short int type_flags  ;
-    unsigned int max_num_members  ;
+    unsigned short int  id  ;
+    unsigned short int  type_flags  ;
+    unsigned int  max_num_members  ;
 };
 
 struct ethhdr
 {
     unsigned char h_dest[6];
     unsigned char h_source[6];
-    unsigned short int h_proto  ;
+    unsigned short int  h_proto  ;
 } __attribute__((packed));
 
 struct anonymous_typeX494
@@ -9786,7 +9786,7 @@ struct anonymous_typeX494
 
 struct anonymous_typeX495
 {
-    long  int fds_bits[1024/(8*(int)sizeof(long  int))]  ;
+    long  int  fds_bits[1024/(8*(int)sizeof(long  int ))]  ;
 };
 
 struct anonymous_typeX497
@@ -9806,13 +9806,13 @@ unsigned long long int __value64;
 
 struct __pthread_internal_list
 {
-    struct __pthread_internal_list* __prev  ;
-    struct __pthread_internal_list* __next  ;
+    struct __pthread_internal_list*  __prev  ;
+    struct __pthread_internal_list*  __next  ;
 };
 
 struct __pthread_internal_slist
 {
-    struct __pthread_internal_slist* __next  ;
+    struct __pthread_internal_slist*  __next  ;
 };
 
 struct __pthread_mutex_s
@@ -9824,7 +9824,7 @@ struct __pthread_mutex_s
     int __kind;
     short __spins;
     short __elision;
-    struct __pthread_internal_list __list  ;
+    struct __pthread_internal_list  __list  ;
 };
 
 struct __pthread_rwlock_arch_t
@@ -9892,21 +9892,21 @@ long  int __align;
 
 union anonymous_typeZ501
 {
-struct __pthread_mutex_s __data  ;
+struct __pthread_mutex_s  __data  ;
 char __size[40];
 long  int __align;
 };
 
 union anonymous_typeZ502
 {
-struct __pthread_cond_s __data  ;
+struct __pthread_cond_s  __data  ;
 char __size[48];
 long long int __align;
 };
 
 union anonymous_typeZ503
 {
-struct __pthread_rwlock_arch_t __data  ;
+struct __pthread_rwlock_arch_t  __data  ;
 char __size[56];
 long  int __align;
 };
@@ -9942,13 +9942,13 @@ SOCK_NONBLOCK=(00004000)
 
 struct sockaddr
 {
-    unsigned short int sa_family  ;
+    unsigned short int  sa_family  ;
     char sa_data[14];
 } __attribute__ ((__may_alias__)) ;
 
 struct sockaddr_storage
 {
-    unsigned short int ss_family  ;
+    unsigned short int  ss_family  ;
     char __ss_padding[(128-(sizeof(unsigned short int))-sizeof(unsigned long  int))];
     unsigned long  int __ss_align;
 } __attribute__ ((__may_alias__)) ;
@@ -9981,17 +9981,17 @@ MSG_CMSG_CLOEXEC=(0x40000000)
 struct msghdr
 {
     void* msg_name;
-    unsigned int msg_namelen  ;
-    struct iovec* msg_iov  ;
-    unsigned long msg_iovlen  ;
+    unsigned int  msg_namelen  ;
+    struct iovec*  msg_iov  ;
+    unsigned long  msg_iovlen  ;
     void* msg_control;
-    unsigned long msg_controllen  ;
+    unsigned long  msg_controllen  ;
     int msg_flags;
 };
 
 struct cmsghdr
 {
-    unsigned long cmsg_len  ;
+    unsigned long  cmsg_len  ;
     int cmsg_level;
     int cmsg_type;
     unsigned char __cmsg_data[];
@@ -10005,9 +10005,9 @@ SCM_PIDFD=(0x04)
 
 struct ucred
 {
-    int pid  ;
-    unsigned int uid  ;
-    unsigned int gid  ;
+    int  pid  ;
+    unsigned int  uid  ;
+    unsigned int  gid  ;
 };
 
 struct linger
@@ -10029,7 +10029,7 @@ SHUT_WR
 
 struct mmsghdr
 {
-    struct msghdr msg_hdr  ;
+    struct msghdr  msg_hdr  ;
     unsigned int msg_len;
 };
 
@@ -10294,36 +10294,36 @@ char ifrn_name[16];
 
 union anonymous_typeZ519
 {
-struct sockaddr ifru_addr  ;
-struct sockaddr ifru_dstaddr  ;
-struct sockaddr ifru_broadaddr  ;
-struct sockaddr ifru_netmask  ;
-struct sockaddr ifru_hwaddr  ;
+struct sockaddr  ifru_addr  ;
+struct sockaddr  ifru_dstaddr  ;
+struct sockaddr  ifru_broadaddr  ;
+struct sockaddr  ifru_netmask  ;
+struct sockaddr  ifru_hwaddr  ;
 short ifru_flags;
 int ifru_ivalue;
 int ifru_mtu;
-struct ifmap ifru_map  ;
+struct ifmap  ifru_map  ;
 char ifru_slave[16];
 char ifru_newname[16];
 void* ifru_data;
-struct if_settings ifru_settings  ;
+struct if_settings  ifru_settings  ;
 };
 
 union anonymous_typeZ520
 {
-struct sockaddr ifru_addr  ;
-struct sockaddr ifru_dstaddr  ;
-struct sockaddr ifru_broadaddr  ;
-struct sockaddr ifru_netmask  ;
-struct sockaddr ifru_hwaddr  ;
+struct sockaddr  ifru_addr  ;
+struct sockaddr  ifru_dstaddr  ;
+struct sockaddr  ifru_broadaddr  ;
+struct sockaddr  ifru_netmask  ;
+struct sockaddr  ifru_hwaddr  ;
 short ifru_flags;
 int ifru_ivalue;
 int ifru_mtu;
-struct ifmap ifru_map  ;
+struct ifmap  ifru_map  ;
 char ifru_slave[16];
 char ifru_newname[16];
 void* ifru_data;
-struct if_settings ifru_settings  ;
+struct if_settings  ifru_settings  ;
 };
 
 struct ifreq
@@ -10332,32 +10332,32 @@ struct ifreq
         char ifrn_name[16];
     } ifr_ifrn;
     union {
-        struct sockaddr ifru_addr  ;
-        struct sockaddr ifru_dstaddr  ;
-        struct sockaddr ifru_broadaddr  ;
-        struct sockaddr ifru_netmask  ;
-        struct sockaddr ifru_hwaddr  ;
+        struct sockaddr  ifru_addr  ;
+        struct sockaddr  ifru_dstaddr  ;
+        struct sockaddr  ifru_broadaddr  ;
+        struct sockaddr  ifru_netmask  ;
+        struct sockaddr  ifru_hwaddr  ;
         short ifru_flags;
         int ifru_ivalue;
         int ifru_mtu;
-        struct ifmap ifru_map  ;
+        struct ifmap  ifru_map  ;
         char ifru_slave[16];
         char ifru_newname[16];
         void* ifru_data;
-        struct if_settings ifru_settings  ;
+        struct if_settings  ifru_settings  ;
     } ifr_ifru;
 };
 
 union anonymous_typeZ521
 {
 char* ifcu_buf;
-struct ifreq* ifcu_req  ;
+struct ifreq*  ifcu_req  ;
 };
 
 union anonymous_typeZ522
 {
 char* ifcu_buf;
-struct ifreq* ifcu_req  ;
+struct ifreq*  ifcu_req  ;
 };
 
 struct ifconf
@@ -10365,7 +10365,7 @@ struct ifconf
     int ifc_len;
     union {
         char* ifcu_buf;
-        struct ifreq* ifcu_req  ;
+        struct ifreq*  ifcu_req  ;
     } ifc_ifcu;
 };
 
@@ -10380,28 +10380,28 @@ IF_PORT_10BASE2
 
 struct arpreq
 {
-    struct sockaddr arp_pa  ;
-    struct sockaddr arp_ha  ;
+    struct sockaddr  arp_pa  ;
+    struct sockaddr  arp_ha  ;
     int arp_flags;
-    struct sockaddr arp_netmask  ;
+    struct sockaddr  arp_netmask  ;
     char arp_dev[16];
 };
 
 struct arpreq_old
 {
-    struct sockaddr arp_pa  ;
-    struct sockaddr arp_ha  ;
+    struct sockaddr  arp_pa  ;
+    struct sockaddr  arp_ha  ;
     int arp_flags;
-    struct sockaddr arp_netmask  ;
+    struct sockaddr  arp_netmask  ;
 };
 
 struct arphdr
 {
-    unsigned short int ar_hrd  ;
-    unsigned short int ar_pro  ;
+    unsigned short int  ar_hrd  ;
+    unsigned short int  ar_pro  ;
     unsigned char ar_hln;
     unsigned char ar_pln;
-    unsigned short int ar_op  ;
+    unsigned short int  ar_op  ;
 };
 
 enum { IPPROTO_IP=(0),
@@ -10439,43 +10439,43 @@ IPPROTO_MAX
 
 struct in_addr
 {
-    unsigned int s_addr  ;
+    unsigned int  s_addr  ;
 };
 
 struct ip_mreq
 {
-    struct in_addr imr_multiaddr  ;
-    struct in_addr imr_interface  ;
+    struct in_addr  imr_multiaddr  ;
+    struct in_addr  imr_interface  ;
 };
 
 struct ip_mreqn
 {
-    struct in_addr imr_multiaddr  ;
-    struct in_addr imr_address  ;
+    struct in_addr  imr_multiaddr  ;
+    struct in_addr  imr_address  ;
     int imr_ifindex;
 };
 
 struct ip_mreq_source
 {
-    unsigned int imr_multiaddr  ;
-    unsigned int imr_interface  ;
-    unsigned int imr_sourceaddr  ;
+    unsigned int  imr_multiaddr  ;
+    unsigned int  imr_interface  ;
+    unsigned int  imr_sourceaddr  ;
 };
 
 struct anonymous_typeX524
 {
     struct {
     } __empty_imsf_slist_flex;
-    unsigned int imsf_slist_flex[]  ;
+    unsigned int  imsf_slist_flex[]  ;
 };
 
 union anonymous_typeZ523
 {
-unsigned int imsf_slist[1]  ;
+unsigned int  imsf_slist[1]  ;
     struct {
         struct {
         } __empty_imsf_slist_flex;
-        unsigned int imsf_slist_flex[]  ;
+        unsigned int  imsf_slist_flex[]  ;
     };
 };
 
@@ -10483,117 +10483,117 @@ struct anonymous_typeX528
 {
     struct {
     } __empty_imsf_slist_flex;
-    unsigned int imsf_slist_flex[]  ;
+    unsigned int  imsf_slist_flex[]  ;
 };
 
 union anonymous_typeZ527
 {
-unsigned int imsf_slist[1]  ;
+unsigned int  imsf_slist[1]  ;
     struct {
         struct {
         } __empty_imsf_slist_flex;
-        unsigned int imsf_slist_flex[]  ;
+        unsigned int  imsf_slist_flex[]  ;
     };
 };
 
 struct ip_msfilter
 {
-    unsigned int imsf_multiaddr  ;
-    unsigned int imsf_interface  ;
-    unsigned int imsf_fmode  ;
-    unsigned int imsf_numsrc  ;
+    unsigned int  imsf_multiaddr  ;
+    unsigned int  imsf_interface  ;
+    unsigned int  imsf_fmode  ;
+    unsigned int  imsf_numsrc  ;
     union {
-        unsigned int imsf_slist[1]  ;
+        unsigned int  imsf_slist[1]  ;
         struct {
             struct {
             } __empty_imsf_slist_flex;
-            unsigned int imsf_slist_flex[]  ;
+            unsigned int  imsf_slist_flex[]  ;
         };
     };
 };
 
 struct group_req
 {
-    unsigned int gr_interface  ;
-    struct __kernel_sockaddr_storage gr_group  ;
+    unsigned int  gr_interface  ;
+    struct __kernel_sockaddr_storage  gr_group  ;
 };
 
 struct group_source_req
 {
-    unsigned int gsr_interface  ;
-    struct __kernel_sockaddr_storage gsr_group  ;
-    struct __kernel_sockaddr_storage gsr_source  ;
+    unsigned int  gsr_interface  ;
+    struct __kernel_sockaddr_storage  gsr_group  ;
+    struct __kernel_sockaddr_storage  gsr_source  ;
 };
 
 struct anonymous_typeX532
 {
-    unsigned int gf_interface_aux  ;
-    struct __kernel_sockaddr_storage gf_group_aux  ;
-    unsigned int gf_fmode_aux  ;
-    unsigned int gf_numsrc_aux  ;
-    struct __kernel_sockaddr_storage gf_slist[1]  ;
+    unsigned int  gf_interface_aux  ;
+    struct __kernel_sockaddr_storage  gf_group_aux  ;
+    unsigned int  gf_fmode_aux  ;
+    unsigned int  gf_numsrc_aux  ;
+    struct __kernel_sockaddr_storage  gf_slist[1]  ;
 };
 
 struct anonymous_typeX533
 {
-    unsigned int gf_interface  ;
-    struct __kernel_sockaddr_storage gf_group  ;
-    unsigned int gf_fmode  ;
-    unsigned int gf_numsrc  ;
-    struct __kernel_sockaddr_storage gf_slist_flex[]  ;
+    unsigned int  gf_interface  ;
+    struct __kernel_sockaddr_storage  gf_group  ;
+    unsigned int  gf_fmode  ;
+    unsigned int  gf_numsrc  ;
+    struct __kernel_sockaddr_storage  gf_slist_flex[]  ;
 };
 
 union anonymous_typeZ531
 {
     struct {
-        unsigned int gf_interface_aux  ;
-        struct __kernel_sockaddr_storage gf_group_aux  ;
-        unsigned int gf_fmode_aux  ;
-        unsigned int gf_numsrc_aux  ;
-        struct __kernel_sockaddr_storage gf_slist[1]  ;
+        unsigned int  gf_interface_aux  ;
+        struct __kernel_sockaddr_storage  gf_group_aux  ;
+        unsigned int  gf_fmode_aux  ;
+        unsigned int  gf_numsrc_aux  ;
+        struct __kernel_sockaddr_storage  gf_slist[1]  ;
     };
     struct {
-        unsigned int gf_interface  ;
-        struct __kernel_sockaddr_storage gf_group  ;
-        unsigned int gf_fmode  ;
-        unsigned int gf_numsrc  ;
-        struct __kernel_sockaddr_storage gf_slist_flex[]  ;
+        unsigned int  gf_interface  ;
+        struct __kernel_sockaddr_storage  gf_group  ;
+        unsigned int  gf_fmode  ;
+        unsigned int  gf_numsrc  ;
+        struct __kernel_sockaddr_storage  gf_slist_flex[]  ;
     };
 };
 
 struct anonymous_typeX535
 {
-    unsigned int gf_interface_aux  ;
-    struct __kernel_sockaddr_storage gf_group_aux  ;
-    unsigned int gf_fmode_aux  ;
-    unsigned int gf_numsrc_aux  ;
-    struct __kernel_sockaddr_storage gf_slist[1]  ;
+    unsigned int  gf_interface_aux  ;
+    struct __kernel_sockaddr_storage  gf_group_aux  ;
+    unsigned int  gf_fmode_aux  ;
+    unsigned int  gf_numsrc_aux  ;
+    struct __kernel_sockaddr_storage  gf_slist[1]  ;
 };
 
 struct anonymous_typeX536
 {
-    unsigned int gf_interface  ;
-    struct __kernel_sockaddr_storage gf_group  ;
-    unsigned int gf_fmode  ;
-    unsigned int gf_numsrc  ;
-    struct __kernel_sockaddr_storage gf_slist_flex[]  ;
+    unsigned int  gf_interface  ;
+    struct __kernel_sockaddr_storage  gf_group  ;
+    unsigned int  gf_fmode  ;
+    unsigned int  gf_numsrc  ;
+    struct __kernel_sockaddr_storage  gf_slist_flex[]  ;
 };
 
 union anonymous_typeZ534
 {
     struct {
-        unsigned int gf_interface_aux  ;
-        struct __kernel_sockaddr_storage gf_group_aux  ;
-        unsigned int gf_fmode_aux  ;
-        unsigned int gf_numsrc_aux  ;
-        struct __kernel_sockaddr_storage gf_slist[1]  ;
+        unsigned int  gf_interface_aux  ;
+        struct __kernel_sockaddr_storage  gf_group_aux  ;
+        unsigned int  gf_fmode_aux  ;
+        unsigned int  gf_numsrc_aux  ;
+        struct __kernel_sockaddr_storage  gf_slist[1]  ;
     };
     struct {
-        unsigned int gf_interface  ;
-        struct __kernel_sockaddr_storage gf_group  ;
-        unsigned int gf_fmode  ;
-        unsigned int gf_numsrc  ;
-        struct __kernel_sockaddr_storage gf_slist_flex[]  ;
+        unsigned int  gf_interface  ;
+        struct __kernel_sockaddr_storage  gf_group  ;
+        unsigned int  gf_fmode  ;
+        unsigned int  gf_numsrc  ;
+        struct __kernel_sockaddr_storage  gf_slist_flex[]  ;
     };
 };
 
@@ -10601,18 +10601,18 @@ struct group_filter
 {
     union {
         struct {
-            unsigned int gf_interface_aux  ;
-            struct __kernel_sockaddr_storage gf_group_aux  ;
-            unsigned int gf_fmode_aux  ;
-            unsigned int gf_numsrc_aux  ;
-            struct __kernel_sockaddr_storage gf_slist[1]  ;
+            unsigned int  gf_interface_aux  ;
+            struct __kernel_sockaddr_storage  gf_group_aux  ;
+            unsigned int  gf_fmode_aux  ;
+            unsigned int  gf_numsrc_aux  ;
+            struct __kernel_sockaddr_storage  gf_slist[1]  ;
         };
         struct {
-            unsigned int gf_interface  ;
-            struct __kernel_sockaddr_storage gf_group  ;
-            unsigned int gf_fmode  ;
-            unsigned int gf_numsrc  ;
-            struct __kernel_sockaddr_storage gf_slist_flex[]  ;
+            unsigned int  gf_interface  ;
+            struct __kernel_sockaddr_storage  gf_group  ;
+            unsigned int  gf_fmode  ;
+            unsigned int  gf_numsrc  ;
+            struct __kernel_sockaddr_storage  gf_slist_flex[]  ;
         };
     };
 };
@@ -10620,63 +10620,63 @@ struct group_filter
 struct in_pktinfo
 {
     int ipi_ifindex;
-    struct in_addr ipi_spec_dst  ;
-    struct in_addr ipi_addr  ;
+    struct in_addr  ipi_spec_dst  ;
+    struct in_addr  ipi_addr  ;
 };
 
 struct sockaddr_in
 {
-    unsigned short int sin_family  ;
-    unsigned short int sin_port  ;
-    struct in_addr sin_addr  ;
-    unsigned char __pad[16-sizeof(short int)-sizeof(unsigned short int)-sizeof(struct in_addr)];
+    unsigned short int  sin_family  ;
+    unsigned short int  sin_port  ;
+    struct in_addr  sin_addr  ;
+    unsigned char __pad[16-sizeof(short int)-sizeof(unsigned short int)-sizeof(struct in_addr )];
 };
 
 struct sock_filter
 {
-    unsigned short int code  ;
-    unsigned char jt  ;
-    unsigned char jf  ;
-    unsigned int k  ;
+    unsigned short int  code  ;
+    unsigned char  jt  ;
+    unsigned char  jf  ;
+    unsigned int  k  ;
 };
 
 struct sock_fprog
 {
     unsigned short int len;
-    struct sock_filter* filter  ;
+    struct sock_filter*  filter  ;
 };
 
 struct tun_pi
 {
-    unsigned short int flags  ;
-    unsigned short int proto  ;
+    unsigned short int  flags  ;
+    unsigned short int  proto  ;
 };
 
 struct tun_filter
 {
-    unsigned short int flags  ;
-    unsigned short int count  ;
-    unsigned char addr[1][6]  ;
+    unsigned short int  flags  ;
+    unsigned short int  count  ;
+    unsigned char  addr[1][6]  ;
 };
 
 struct futex_waitv
 {
-    unsigned long  long val  ;
-    unsigned long  long uaddr  ;
-    unsigned int flags  ;
-    unsigned int __reserved  ;
+    unsigned long  long  val  ;
+    unsigned long  long  uaddr  ;
+    unsigned int  flags  ;
+    unsigned int  __reserved  ;
 };
 
 struct robust_list
 {
-    struct robust_list* next  ;
+    struct robust_list*  next  ;
 };
 
 struct robust_list_head
 {
-    struct robust_list list  ;
+    struct robust_list  list  ;
     long futex_offset;
-    struct robust_list* list_op_pending  ;
+    struct robust_list*  list_op_pending  ;
 };
 
 /// variable definition ///
@@ -10686,35 +10686,35 @@ struct robust_list_head
 char* strdup(const char* );
 int vsnprintf(char* , unsigned long  int , const char* , __builtin_va_list );
 int snprintf(char* , unsigned long  int , const char* , ...);
-int select(int __nfds, struct anonymous_typeX495* __readfds  , struct anonymous_typeX495* __writefds  , struct anonymous_typeX495* __exceptfds  , struct timeval* __timeout  );
-int pselect(int __nfds, struct anonymous_typeX495* __readfds  , struct anonymous_typeX495* __writefds  , struct anonymous_typeX495* __exceptfds  , const struct timespec* __timeout  , const struct anonymous_typeX494* __sigmask  );
-struct cmsghdr* __cmsg_nxthdr(struct msghdr* __mhdr  , struct cmsghdr* __cmsg  );
+int select(int __nfds, struct anonymous_typeX495*  __readfds  , struct anonymous_typeX495*  __writefds  , struct anonymous_typeX495*  __exceptfds  , struct timeval*  __timeout  );
+int pselect(int __nfds, struct anonymous_typeX495*  __readfds  , struct anonymous_typeX495*  __writefds  , struct anonymous_typeX495*  __exceptfds  , const struct timespec*  __timeout  , const struct anonymous_typeX494*  __sigmask  );
+struct cmsghdr*  __cmsg_nxthdr(struct msghdr*  __mhdr  , struct cmsghdr*  __cmsg  );
 int socket(int __domain, int __type, int __protocol);
 int socketpair(int __domain, int __type, int __protocol, int __fds[2]);
-int bind(int __fd, const struct sockaddr* __addr  , unsigned int __len  );
-int getsockname(int __fd, struct sockaddr* __addr  , unsigned int* __len  );
-int connect(int __fd, const struct sockaddr* __addr  , unsigned int __len  );
-int getpeername(int __fd, struct sockaddr* __addr  , unsigned int* __len  );
-long  int send(int __fd, const void* __buf, unsigned long __n  , int __flags);
-long  int recv(int __fd, void* __buf, unsigned long __n  , int __flags);
-long  int sendto(int __fd, const void* __buf, unsigned long __n  , int __flags, const struct sockaddr* __addr  , unsigned int __addr_len  );
-long  int recvfrom(int __fd, void* __buf, unsigned long __n  , int __flags, struct sockaddr* __addr  , unsigned int* __addr_len  );
-long  int sendmsg(int __fd, const struct msghdr* __message  , int __flags);
-int sendmmsg(int __fd, struct mmsghdr* __vmessages  , unsigned int __vlen, int __flags);
-long  int recvmsg(int __fd, struct msghdr* __message  , int __flags);
-int recvmmsg(int __fd, struct mmsghdr* __vmessages  , unsigned int __vlen, int __flags, struct timespec* __tmo  );
-int getsockopt(int __fd, int __level, int __optname, void* __optval, unsigned int* __optlen  );
-int setsockopt(int __fd, int __level, int __optname, const void* __optval, unsigned int __optlen  );
+int bind(int __fd, const struct sockaddr*  __addr  , unsigned int  __len  );
+int getsockname(int __fd, struct sockaddr*  __addr  , unsigned int*  __len  );
+int connect(int __fd, const struct sockaddr*  __addr  , unsigned int  __len  );
+int getpeername(int __fd, struct sockaddr*  __addr  , unsigned int*  __len  );
+long  int  send(int __fd, const void* __buf, unsigned long  __n  , int __flags);
+long  int  recv(int __fd, void* __buf, unsigned long  __n  , int __flags);
+long  int  sendto(int __fd, const void* __buf, unsigned long  __n  , int __flags, const struct sockaddr*  __addr  , unsigned int  __addr_len  );
+long  int  recvfrom(int __fd, void* __buf, unsigned long  __n  , int __flags, struct sockaddr*  __addr  , unsigned int*  __addr_len  );
+long  int  sendmsg(int __fd, const struct msghdr*  __message  , int __flags);
+int sendmmsg(int __fd, struct mmsghdr*  __vmessages  , unsigned int __vlen, int __flags);
+long  int  recvmsg(int __fd, struct msghdr*  __message  , int __flags);
+int recvmmsg(int __fd, struct mmsghdr*  __vmessages  , unsigned int __vlen, int __flags, struct timespec*  __tmo  );
+int getsockopt(int __fd, int __level, int __optname, void* __optval, unsigned int*  __optlen  );
+int setsockopt(int __fd, int __level, int __optname, const void* __optval, unsigned int  __optlen  );
 int listen(int __fd, int __n);
-int accept(int __fd, struct sockaddr* __addr  , unsigned int* __addr_len  );
-int accept4(int __fd, struct sockaddr* __addr  , unsigned int* __addr_len  , int __flags);
+int accept(int __fd, struct sockaddr*  __addr  , unsigned int*  __addr_len  );
+int accept4(int __fd, struct sockaddr*  __addr  , unsigned int*  __addr_len  , int __flags);
 int shutdown(int __fd, int __how);
 int sockatmark(int __fd);
 int isfdtype(int __fd, int __fdtype);
 int test_headers_linux();
 // uniq global variable
 // inline function
-static inline unsigned int __arch_swab32(unsigned int val  )
+static inline unsigned int  __arch_swab32(unsigned int  val  )
 {
      __asm  (
         "bswapl %0"
@@ -10723,7 +10723,7 @@ static inline unsigned int __arch_swab32(unsigned int val  )
 (val)    );
     return val;
 }
-static inline unsigned long  long __arch_swab64(unsigned long  long val  )
+static inline unsigned long  long  __arch_swab64(unsigned long  long  val  )
 {
      __asm  (
         "bswapq %0"
@@ -10732,139 +10732,139 @@ static inline unsigned long  long __arch_swab64(unsigned long  long val  )
 (val)    );
     return val;
 }
-static inline unsigned short int __fswab16(unsigned short int val  )
+static inline unsigned short int  __fswab16(unsigned short int  val  )
 {
-    return ((unsigned short int)((((unsigned short int)(val)&(unsigned short int)0x00ffU)<<8)|(((unsigned short int)(val)&(unsigned short int)0xff00U)>>8)));
+    return ((unsigned short int )((((unsigned short int )(val)&(unsigned short int )0x00ffU)<<8)|(((unsigned short int )(val)&(unsigned short int )0xff00U)>>8)));
 }
-static inline unsigned int __fswab32(unsigned int val  )
+static inline unsigned int  __fswab32(unsigned int  val  )
 {
     return __arch_swab32(val);
 }
-static inline unsigned long  long __fswab64(unsigned long  long val  )
+static inline unsigned long  long  __fswab64(unsigned long  long  val  )
 {
     return __arch_swab64(val);
 }
-static inline unsigned int __fswahw32(unsigned int val  )
+static inline unsigned int  __fswahw32(unsigned int  val  )
 {
-    return ((unsigned int)((((unsigned int)(val)&(unsigned int)0x0000ffffUL)<<16)|(((unsigned int)(val)&(unsigned int)0xffff0000UL)>>16)));
+    return ((unsigned int )((((unsigned int )(val)&(unsigned int )0x0000ffffUL)<<16)|(((unsigned int )(val)&(unsigned int )0xffff0000UL)>>16)));
 }
-static inline unsigned int __fswahb32(unsigned int val  )
+static inline unsigned int  __fswahb32(unsigned int  val  )
 {
-    return ((unsigned int)((((unsigned int)(val)&(unsigned int)0x00ff00ffUL)<<8)|(((unsigned int)(val)&(unsigned int)0xff00ff00UL)>>8)));
+    return ((unsigned int )((((unsigned int )(val)&(unsigned int )0x00ff00ffUL)<<8)|(((unsigned int )(val)&(unsigned int )0xff00ff00UL)>>8)));
 }
 static inline unsigned long  int __swab(const unsigned long  int y)
 {
-    return (unsigned long  long)(((__builtin_constant_p(y))?(((unsigned long  long)((((unsigned long  long)(y)&(unsigned long  long)0x00000000000000ffULL)<<56)|(((unsigned long  long)(y)&(unsigned long  long)0x000000000000ff00ULL)<<40)|(((unsigned long  long)(y)&(unsigned long  long)0x0000000000ff0000ULL)<<24)|(((unsigned long  long)(y)&(unsigned long  long)0x00000000ff000000ULL)<<8)|(((unsigned long  long)(y)&(unsigned long  long)0x000000ff00000000ULL)>>8)|(((unsigned long  long)(y)&(unsigned long  long)0x0000ff0000000000ULL)>>24)|(((unsigned long  long)(y)&(unsigned long  long)0x00ff000000000000ULL)>>40)|(((unsigned long  long)(y)&(unsigned long  long)0xff00000000000000ULL)>>56)))):(__fswab64(y))));
+    return (unsigned long  long )(((__builtin_constant_p(y))?(((unsigned long  long )((((unsigned long  long )(y)&(unsigned long  long )0x00000000000000ffULL)<<56)|(((unsigned long  long )(y)&(unsigned long  long )0x000000000000ff00ULL)<<40)|(((unsigned long  long )(y)&(unsigned long  long )0x0000000000ff0000ULL)<<24)|(((unsigned long  long )(y)&(unsigned long  long )0x00000000ff000000ULL)<<8)|(((unsigned long  long )(y)&(unsigned long  long )0x000000ff00000000ULL)>>8)|(((unsigned long  long )(y)&(unsigned long  long )0x0000ff0000000000ULL)>>24)|(((unsigned long  long )(y)&(unsigned long  long )0x00ff000000000000ULL)>>40)|(((unsigned long  long )(y)&(unsigned long  long )0xff00000000000000ULL)>>56)))):(__fswab64(y))));
 }
-static inline unsigned short int __swab16p(const unsigned short int* p  )
+static inline unsigned short int  __swab16p(const unsigned short int*  p  )
 {
-    return (unsigned short int)(((__builtin_constant_p(*p))?(((unsigned short int)((((unsigned short int)(*p)&(unsigned short int)0x00ffU)<<8)|(((unsigned short int)(*p)&(unsigned short int)0xff00U)>>8)))):(__fswab16(*p))));
+    return (unsigned short int )(((__builtin_constant_p(*p))?(((unsigned short int )((((unsigned short int )(*p)&(unsigned short int )0x00ffU)<<8)|(((unsigned short int )(*p)&(unsigned short int )0xff00U)>>8)))):(__fswab16(*p))));
 }
-static inline unsigned int __swab32p(const unsigned int* p  )
+static inline unsigned int  __swab32p(const unsigned int*  p  )
 {
-    return (unsigned int)(((__builtin_constant_p(*p))?(((unsigned int)((((unsigned int)(*p)&(unsigned int)0x000000ffUL)<<24)|(((unsigned int)(*p)&(unsigned int)0x0000ff00UL)<<8)|(((unsigned int)(*p)&(unsigned int)0x00ff0000UL)>>8)|(((unsigned int)(*p)&(unsigned int)0xff000000UL)>>24)))):(__fswab32(*p))));
+    return (unsigned int )(((__builtin_constant_p(*p))?(((unsigned int )((((unsigned int )(*p)&(unsigned int )0x000000ffUL)<<24)|(((unsigned int )(*p)&(unsigned int )0x0000ff00UL)<<8)|(((unsigned int )(*p)&(unsigned int )0x00ff0000UL)>>8)|(((unsigned int )(*p)&(unsigned int )0xff000000UL)>>24)))):(__fswab32(*p))));
 }
-static inline unsigned long  long __swab64p(const unsigned long  long* p  )
+static inline unsigned long  long  __swab64p(const unsigned long  long*  p  )
 {
-    return (unsigned long  long)(((__builtin_constant_p(*p))?(((unsigned long  long)((((unsigned long  long)(*p)&(unsigned long  long)0x00000000000000ffULL)<<56)|(((unsigned long  long)(*p)&(unsigned long  long)0x000000000000ff00ULL)<<40)|(((unsigned long  long)(*p)&(unsigned long  long)0x0000000000ff0000ULL)<<24)|(((unsigned long  long)(*p)&(unsigned long  long)0x00000000ff000000ULL)<<8)|(((unsigned long  long)(*p)&(unsigned long  long)0x000000ff00000000ULL)>>8)|(((unsigned long  long)(*p)&(unsigned long  long)0x0000ff0000000000ULL)>>24)|(((unsigned long  long)(*p)&(unsigned long  long)0x00ff000000000000ULL)>>40)|(((unsigned long  long)(*p)&(unsigned long  long)0xff00000000000000ULL)>>56)))):(__fswab64(*p))));
+    return (unsigned long  long )(((__builtin_constant_p(*p))?(((unsigned long  long )((((unsigned long  long )(*p)&(unsigned long  long )0x00000000000000ffULL)<<56)|(((unsigned long  long )(*p)&(unsigned long  long )0x000000000000ff00ULL)<<40)|(((unsigned long  long )(*p)&(unsigned long  long )0x0000000000ff0000ULL)<<24)|(((unsigned long  long )(*p)&(unsigned long  long )0x00000000ff000000ULL)<<8)|(((unsigned long  long )(*p)&(unsigned long  long )0x000000ff00000000ULL)>>8)|(((unsigned long  long )(*p)&(unsigned long  long )0x0000ff0000000000ULL)>>24)|(((unsigned long  long )(*p)&(unsigned long  long )0x00ff000000000000ULL)>>40)|(((unsigned long  long )(*p)&(unsigned long  long )0xff00000000000000ULL)>>56)))):(__fswab64(*p))));
 }
-static inline unsigned int __swahw32p(const unsigned int* p  )
+static inline unsigned int  __swahw32p(const unsigned int*  p  )
 {
-    return (((__builtin_constant_p((unsigned int)(*p)))?(((unsigned int)((((unsigned int)(*p)&(unsigned int)0x0000ffffUL)<<16)|(((unsigned int)(*p)&(unsigned int)0xffff0000UL)>>16)))):(__fswahw32(*p))));
+    return (((__builtin_constant_p((unsigned int )(*p)))?(((unsigned int )((((unsigned int )(*p)&(unsigned int )0x0000ffffUL)<<16)|(((unsigned int )(*p)&(unsigned int )0xffff0000UL)>>16)))):(__fswahw32(*p))));
 }
-static inline unsigned int __swahb32p(const unsigned int* p  )
+static inline unsigned int  __swahb32p(const unsigned int*  p  )
 {
-    return (((__builtin_constant_p((unsigned int)(*p)))?(((unsigned int)((((unsigned int)(*p)&(unsigned int)0x00ff00ffUL)<<8)|(((unsigned int)(*p)&(unsigned int)0xff00ff00UL)>>8)))):(__fswahb32(*p))));
+    return (((__builtin_constant_p((unsigned int )(*p)))?(((unsigned int )((((unsigned int )(*p)&(unsigned int )0x00ff00ffUL)<<8)|(((unsigned int )(*p)&(unsigned int )0xff00ff00UL)>>8)))):(__fswahb32(*p))));
 }
-static inline void __swab16s(unsigned short int* p  )
+static inline void __swab16s(unsigned short int*  p  )
 {
     *p=__swab16p(p);
 }
-static inline void __swab32s(unsigned int* p  )
+static inline void __swab32s(unsigned int*  p  )
 {
     *p=__swab32p(p);
 }
-static inline void __swab64s(unsigned long  long* p  )
+static inline void __swab64s(unsigned long  long*  p  )
 {
     *p=__swab64p(p);
 }
-static inline void __swahw32s(unsigned int* p  )
+static inline void __swahw32s(unsigned int*  p  )
 {
     *p=__swahw32p(p);
 }
-static inline void __swahb32s(unsigned int* p  )
+static inline void __swahb32s(unsigned int*  p  )
 {
     *p=__swahb32p(p);
 }
-static inline unsigned long  long __cpu_to_le64p(const unsigned long  long* p  )
+static inline unsigned long  long  __cpu_to_le64p(const unsigned long  long*  p  )
 {
-    return (unsigned long  long)*p;
+    return (unsigned long  long )*p;
 }
-static inline unsigned long  long __le64_to_cpup(const unsigned long  long* p  )
+static inline unsigned long  long  __le64_to_cpup(const unsigned long  long*  p  )
 {
-    return (unsigned long  long)*p;
+    return (unsigned long  long )*p;
 }
-static inline unsigned int __cpu_to_le32p(const unsigned int* p  )
+static inline unsigned int  __cpu_to_le32p(const unsigned int*  p  )
 {
-    return (unsigned int)*p;
+    return (unsigned int )*p;
 }
-static inline unsigned int __le32_to_cpup(const unsigned int* p  )
+static inline unsigned int  __le32_to_cpup(const unsigned int*  p  )
 {
-    return (unsigned int)*p;
+    return (unsigned int )*p;
 }
-static inline unsigned short int __cpu_to_le16p(const unsigned short int* p  )
+static inline unsigned short int  __cpu_to_le16p(const unsigned short int*  p  )
 {
-    return (unsigned short int)*p;
+    return (unsigned short int )*p;
 }
-static inline unsigned short int __le16_to_cpup(const unsigned short int* p  )
+static inline unsigned short int  __le16_to_cpup(const unsigned short int*  p  )
 {
-    return (unsigned short int)*p;
+    return (unsigned short int )*p;
 }
-static inline unsigned long  long __cpu_to_be64p(const unsigned long  long* p  )
+static inline unsigned long  long  __cpu_to_be64p(const unsigned long  long*  p  )
 {
-    return (unsigned long  long)__swab64p(p);
+    return (unsigned long  long )__swab64p(p);
 }
-static inline unsigned long  long __be64_to_cpup(const unsigned long  long* p  )
+static inline unsigned long  long  __be64_to_cpup(const unsigned long  long*  p  )
 {
-    return __swab64p((unsigned long  long*)p);
+    return __swab64p((unsigned long  long* )p);
 }
-static inline unsigned int __cpu_to_be32p(const unsigned int* p  )
+static inline unsigned int  __cpu_to_be32p(const unsigned int*  p  )
 {
-    return (unsigned int)__swab32p(p);
+    return (unsigned int )__swab32p(p);
 }
-static inline unsigned int __be32_to_cpup(const unsigned int* p  )
+static inline unsigned int  __be32_to_cpup(const unsigned int*  p  )
 {
-    return __swab32p((unsigned int*)p);
+    return __swab32p((unsigned int* )p);
 }
-static inline unsigned short int __cpu_to_be16p(const unsigned short int* p  )
+static inline unsigned short int  __cpu_to_be16p(const unsigned short int*  p  )
 {
-    return (unsigned short int)__swab16p(p);
+    return (unsigned short int )__swab16p(p);
 }
-static inline unsigned short int __be16_to_cpup(const unsigned short int* p  )
+static inline unsigned short int  __be16_to_cpup(const unsigned short int*  p  )
 {
-    return __swab16p((unsigned short int*)p);
+    return __swab16p((unsigned short int* )p);
 }
-static inline unsigned short int __bswap_16(unsigned short int __bsx  )
+static inline unsigned short int  __bswap_16(unsigned short int  __bsx  )
 {
-    return ((unsigned short int)((((__bsx)>>8)&0xff)|(((__bsx)&0xff)<<8)));
+    return ((unsigned short int )((((__bsx)>>8)&0xff)|(((__bsx)&0xff)<<8)));
 }
-static inline unsigned int __bswap_32(unsigned int __bsx  )
+static inline unsigned int  __bswap_32(unsigned int  __bsx  )
 {
     return ((((__bsx)&0xff000000u)>>24)|(((__bsx)&0x00ff0000u)>>8)|(((__bsx)&0x0000ff00u)<<8)|(((__bsx)&0x000000ffu)<<24));
 }
-static inline unsigned long  int __bswap_64(unsigned long  int __bsx  )
+static inline unsigned long  int  __bswap_64(unsigned long  int  __bsx  )
 {
     return ((((__bsx)&0xff00000000000000ull)>>56)|(((__bsx)&0x00ff000000000000ull)>>40)|(((__bsx)&0x0000ff0000000000ull)>>24)|(((__bsx)&0x000000ff00000000ull)>>8)|(((__bsx)&0x00000000ff000000ull)<<8)|(((__bsx)&0x0000000000ff0000ull)<<24)|(((__bsx)&0x000000000000ff00ull)<<40)|(((__bsx)&0x00000000000000ffull)<<56));
 }
-static inline unsigned short int __uint16_identity(unsigned short int __x  )
+static inline unsigned short int  __uint16_identity(unsigned short int  __x  )
 {
     return __x;
 }
-static inline unsigned int __uint32_identity(unsigned int __x  )
+static inline unsigned int  __uint32_identity(unsigned int  __x  )
 {
     return __x;
 }
-static inline unsigned long  int __uint64_identity(unsigned long  int __x  )
+static inline unsigned long  int  __uint64_identity(unsigned long  int  __x  )
 {
     return __x;
 }

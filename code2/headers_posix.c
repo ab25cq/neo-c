@@ -30,21 +30,21 @@ typedef long  int __int64_t;
 
 typedef unsigned long  int __uint64_t;
 
-typedef char __int_least8_t  ;
+typedef char  __int_least8_t  ;
 
-typedef unsigned char __uint_least8_t  ;
+typedef unsigned char  __uint_least8_t  ;
 
-typedef short int __int_least16_t  ;
+typedef short int  __int_least16_t  ;
 
-typedef unsigned short int __uint_least16_t  ;
+typedef unsigned short int  __uint_least16_t  ;
 
-typedef int __int_least32_t  ;
+typedef int  __int_least32_t  ;
 
-typedef unsigned int __uint_least32_t  ;
+typedef unsigned int  __uint_least32_t  ;
 
-typedef long  int __int_least64_t  ;
+typedef long  int  __int_least64_t  ;
 
-typedef unsigned long  int __uint_least64_t  ;
+typedef unsigned long  int  __uint_least64_t  ;
 
 typedef long  int __quad_t;
 
@@ -74,7 +74,7 @@ typedef long  int __off64_t;
 
 typedef int __pid_t;
 
-typedef struct __fsid_t __fsid_t  ;
+typedef struct __fsid_t  __fsid_t  ;
 
 typedef long  int __clock_t;
 
@@ -122,7 +122,7 @@ typedef long  int __syscall_slong_t;
 
 typedef unsigned long  int __syscall_ulong_t;
 
-typedef long  int __loff_t  ;
+typedef long  int  __loff_t  ;
 
 typedef char* __caddr_t;
 
@@ -132,75 +132,75 @@ typedef unsigned int __socklen_t;
 
 typedef int __sig_atomic_t;
 
-typedef unsigned long  int ino_t  ;
+typedef unsigned long  int  ino_t  ;
 
-typedef unsigned long  int ino64_t  ;
+typedef unsigned long  int  ino64_t  ;
 
 typedef struct __dirstream DIR;
 
-typedef unsigned long  long   ;
+typedef unsigned long  long    ;
 
 typedef int error_t;
 
-typedef unsigned int mode_t  ;
+typedef unsigned int  mode_t  ;
 
-typedef long  int off_t  ;
+typedef long  int  off_t  ;
 
-typedef long  int off64_t  ;
+typedef long  int  off64_t  ;
 
-typedef int pid_t  ;
+typedef int  pid_t  ;
 
-typedef long  int time_t  ;
+typedef long  int  time_t  ;
 
-typedef unsigned int gid_t  ;
+typedef unsigned int  gid_t  ;
 
-typedef struct _IO_FILE FILE  ;
+typedef struct _IO_FILE  FILE  ;
 
 typedef struct anonymous_typeX1 __sigset_t;
 
 typedef unsigned long  int nfds_t;
 
-typedef unsigned int uid_t  ;
+typedef unsigned int  uid_t  ;
 
-typedef unsigned char u_char  ;
+typedef unsigned char  u_char  ;
 
-typedef unsigned short int u_short  ;
+typedef unsigned short int  u_short  ;
 
-typedef unsigned int u_int  ;
+typedef unsigned int  u_int  ;
 
-typedef unsigned long  int u_long  ;
+typedef unsigned long  int  u_long  ;
 
-typedef long  int quad_t  ;
+typedef long  int  quad_t  ;
 
-typedef unsigned long  int u_quad_t  ;
+typedef unsigned long  int  u_quad_t  ;
 
-typedef struct __fsid_t fsid_t  ;
+typedef struct __fsid_t  fsid_t  ;
 
-typedef long  int loff_t  ;
+typedef long  int  loff_t  ;
 
-typedef unsigned long  int dev_t  ;
+typedef unsigned long  int  dev_t  ;
 
-typedef unsigned long  int nlink_t  ;
+typedef unsigned long  int  nlink_t  ;
 
-typedef unsigned int id_t  ;
+typedef unsigned int  id_t  ;
 
-typedef long  int ssize_t  ;
+typedef long  int  ssize_t  ;
 
-typedef int daddr_t  ;
+typedef int  daddr_t  ;
 
-typedef char* caddr_t  ;
+typedef char*  caddr_t  ;
 
-typedef int key_t  ;
+typedef int  key_t  ;
 
-typedef long  int clock_t  ;
+typedef long  int  clock_t  ;
 
-typedef int clockid_t  ;
+typedef int  clockid_t  ;
 
-typedef void* timer_t  ;
+typedef void*  timer_t  ;
 
-typedef unsigned int useconds_t  ;
+typedef unsigned int  useconds_t  ;
 
-typedef long  int suseconds_t  ;
+typedef long  int  suseconds_t  ;
 
 typedef unsigned long  int ulong;
 
@@ -208,51 +208,51 @@ typedef unsigned short int ushort;
 
 typedef unsigned int uint;
 
-typedef char int8_t  ;
+typedef char  int8_t  ;
 
-typedef short int int16_t  ;
+typedef short int  int16_t  ;
 
-typedef int int32_t  ;
+typedef int  int32_t  ;
 
-typedef long  int int64_t  ;
+typedef long  int  int64_t  ;
 
-typedef unsigned char u_int8_t  ;
+typedef unsigned char  u_int8_t  ;
 
-typedef unsigned short int u_int16_t  ;
+typedef unsigned short int  u_int16_t  ;
 
-typedef unsigned int u_int32_t  ;
+typedef unsigned int  u_int32_t  ;
 
-typedef unsigned long  int u_int64_t  ;
+typedef unsigned long  int  u_int64_t  ;
 
-typedef int register_t __attribute__ ((__mode__ (__word__)));
+typedef int __attribute__ ((__mode__ (__word__))) register_t __attribute__ ((__mode__ (__word__)));
 
-typedef struct anonymous_typeX1 sigset_t  ;
+typedef struct anonymous_typeX1  sigset_t  ;
 
 typedef long  int __fd_mask;
 
 typedef struct anonymous_typeX2 fd_set;
 
-typedef long  int fd_mask  ;
+typedef long  int  fd_mask  ;
 
-typedef long  int blksize_t  ;
+typedef long  int  blksize_t  ;
 
-typedef long  int blkcnt_t  ;
+typedef long  int  blkcnt_t  ;
 
-typedef unsigned long  int fsblkcnt_t  ;
+typedef unsigned long  int  fsblkcnt_t  ;
 
-typedef unsigned long  int fsfilcnt_t  ;
+typedef unsigned long  int  fsfilcnt_t  ;
 
-typedef long  int blkcnt64_t  ;
+typedef long  int  blkcnt64_t  ;
 
-typedef unsigned long  int fsblkcnt64_t  ;
+typedef unsigned long  int  fsblkcnt64_t  ;
 
-typedef unsigned long  int fsfilcnt64_t  ;
+typedef unsigned long  int  fsfilcnt64_t  ;
 
 typedef union anonymous_typeZ3 __atomic_wide_counter;
 
-typedef struct __pthread_internal_list __pthread_list_t  ;
+typedef struct __pthread_internal_list  __pthread_list_t  ;
 
-typedef struct __pthread_internal_slist __pthread_slist_t  ;
+typedef struct __pthread_internal_slist  __pthread_slist_t  ;
 
 typedef unsigned int __tss_t;
 
@@ -270,7 +270,7 @@ typedef unsigned int pthread_key_t;
 
 typedef int pthread_once_t;
 
-typedef union pthread_attr_t pthread_attr_t  ;
+typedef union pthread_attr_t  pthread_attr_t  ;
 
 typedef union anonymous_typeZ8 pthread_mutex_t;
 
@@ -298,15 +298,15 @@ typedef unsigned long  int reg_syntax_t;
 
 typedef enum anonymous_typeY13 reg_errcode_t;
 
-typedef struct re_pattern_buffer regex_t  ;
+typedef struct re_pattern_buffer  regex_t  ;
 
 typedef int regoff_t;
 
 typedef struct anonymous_typeX14 regmatch_t;
 
-typedef unsigned long  int rlim_t  ;
+typedef unsigned long  int  rlim_t  ;
 
-typedef unsigned long  int rlim64_t  ;
+typedef unsigned long  int  rlim64_t  ;
 
 typedef enum __rlimit_resource __rlimit_resource_t;
 
@@ -316,15 +316,15 @@ typedef enum __priority_which __priority_which_t;
 
 typedef enum __itimer_which __itimer_which_t;
 
-typedef int sig_atomic_t  ;
+typedef int  sig_atomic_t  ;
 
-typedef union sigval __sigval_t  ;
+typedef union sigval  __sigval_t  ;
 
 typedef struct anonymous_typeX43 siginfo_t;
 
-typedef union sigval sigval_t  ;
+typedef union sigval  sigval_t  ;
 
-typedef struct sigevent sigevent_t  ;
+typedef struct sigevent  sigevent_t  ;
 
 typedef void (*__sighandler_t)(int);
 
@@ -336,15 +336,15 @@ typedef struct anonymous_typeX76 stack_t;
 
 typedef long long int greg_t;
 
-typedef struct _libc_fpstate* fpregset_t  ;
+typedef struct _libc_fpstate*  fpregset_t  ;
 
 typedef struct anonymous_typeX77 mcontext_t;
 
-typedef struct ucontext_t ucontext_t  ;
+typedef struct ucontext_t  ucontext_t  ;
 
-typedef long  int intptr_t  ;
+typedef long  int  intptr_t  ;
 
-typedef unsigned int socklen_t  ;
+typedef unsigned int  socklen_t  ;
 
 typedef enum anonymous_typeY77 idtype_t;
 
@@ -354,7 +354,7 @@ typedef unsigned int speed_t;
 
 typedef unsigned int tcflag_t;
 
-typedef unsigned int baud_t  ;
+typedef unsigned int  baud_t  ;
 
 /// previous struct definition ///
 struct _IO_FILE;
@@ -371,8 +371,8 @@ struct __fsid_t
 
 struct dirent
 {
-    unsigned long  int d_ino  ;
-    long  int d_off  ;
+    unsigned long  int  d_ino  ;
+    long  int  d_off  ;
     unsigned short int d_reclen;
     unsigned char d_type;
     char d_name[256];
@@ -380,8 +380,8 @@ struct dirent
 
 struct dirent64
 {
-    unsigned long  int d_ino  ;
-    long  int d_off  ;
+    unsigned long  int  d_ino  ;
+    long  int  d_off  ;
     unsigned short int d_reclen;
     unsigned char d_type;
     char d_name[256];
@@ -402,24 +402,24 @@ struct flock
 {
     short int l_type;
     short int l_whence;
-    long  int l_start  ;
-    long  int l_len  ;
-    int l_pid  ;
+    long  int  l_start  ;
+    long  int  l_len  ;
+    int  l_pid  ;
 };
 
 struct flock64
 {
     short int l_type;
     short int l_whence;
-    long  int l_start  ;
-    long  int l_len  ;
-    int l_pid  ;
+    long  int  l_start  ;
+    long  int  l_len  ;
+    int  l_pid  ;
 };
 
 struct iovec
 {
     void* iov_base;
-    unsigned long iov_len  ;
+    unsigned long  iov_len  ;
 };
 
 enum  __pid_type { F_OWNER_TID=(0),
@@ -431,7 +431,7 @@ F_OWNER_PID
 struct f_owner_ex
 {
     enum __pid_type type;
-    int pid  ;
+    int  pid  ;
 };
 
 struct file_handle
@@ -443,53 +443,53 @@ struct file_handle
 
 struct timespec
 {
-    long  int tv_sec  ;
-    long  int tv_nsec  ;
+    long  int  tv_sec  ;
+    long  int  tv_nsec  ;
 };
 
 struct stat
 {
-    unsigned long  int st_dev  ;
-    unsigned long  int st_ino  ;
-    unsigned long  int st_nlink  ;
-    unsigned int st_mode  ;
-    unsigned int st_uid  ;
-    unsigned int st_gid  ;
+    unsigned long  int  st_dev  ;
+    unsigned long  int  st_ino  ;
+    unsigned long  int  st_nlink  ;
+    unsigned int  st_mode  ;
+    unsigned int  st_uid  ;
+    unsigned int  st_gid  ;
     int __pad0;
-    unsigned long  int st_rdev  ;
-    long  int st_size  ;
-    long  int st_blksize  ;
-    long  int st_blocks  ;
-    struct timespec st_atim  ;
-    struct timespec st_mtim  ;
-    struct timespec st_ctim  ;
-    long  int __glibc_reserved[3]  ;
+    unsigned long  int  st_rdev  ;
+    long  int  st_size  ;
+    long  int  st_blksize  ;
+    long  int  st_blocks  ;
+    struct timespec  st_atim  ;
+    struct timespec  st_mtim  ;
+    struct timespec  st_ctim  ;
+    long  int  __glibc_reserved[3]  ;
 };
 
 struct stat64
 {
-    unsigned long  int st_dev  ;
-    unsigned long  int st_ino  ;
-    unsigned long  int st_nlink  ;
-    unsigned int st_mode  ;
-    unsigned int st_uid  ;
-    unsigned int st_gid  ;
+    unsigned long  int  st_dev  ;
+    unsigned long  int  st_ino  ;
+    unsigned long  int  st_nlink  ;
+    unsigned int  st_mode  ;
+    unsigned int  st_uid  ;
+    unsigned int  st_gid  ;
     int __pad0;
-    unsigned long  int st_rdev  ;
-    long  int st_size  ;
-    long  int st_blksize  ;
-    long  int st_blocks  ;
-    struct timespec st_atim  ;
-    struct timespec st_mtim  ;
-    struct timespec st_ctim  ;
-    long  int __glibc_reserved[3]  ;
+    unsigned long  int  st_rdev  ;
+    long  int  st_size  ;
+    long  int  st_blksize  ;
+    long  int  st_blocks  ;
+    struct timespec  st_atim  ;
+    struct timespec  st_mtim  ;
+    struct timespec  st_ctim  ;
+    long  int  __glibc_reserved[3]  ;
 };
 
 struct group
 {
     char* gr_name;
     char* gr_passwd;
-    unsigned int gr_gid  ;
+    unsigned int  gr_gid  ;
     char** gr_mem;
 };
 
@@ -509,8 +509,8 @@ struct passwd
 {
     char* pw_name;
     char* pw_passwd;
-    unsigned int pw_uid  ;
-    unsigned int pw_gid  ;
+    unsigned int  pw_uid  ;
+    unsigned int  pw_gid  ;
     char* pw_gecos;
     char* pw_dir;
     char* pw_shell;
@@ -518,13 +518,13 @@ struct passwd
 
 struct timeval
 {
-    long  int tv_sec  ;
-    long  int tv_usec  ;
+    long  int  tv_sec  ;
+    long  int  tv_usec  ;
 };
 
 struct anonymous_typeX2
 {
-    long  int fds_bits[1024/(8*(int)sizeof(long  int))]  ;
+    long  int  fds_bits[1024/(8*(int)sizeof(long  int ))]  ;
 };
 
 struct anonymous_typeX4
@@ -544,13 +544,13 @@ unsigned long long int __value64;
 
 struct __pthread_internal_list
 {
-    struct __pthread_internal_list* __prev  ;
-    struct __pthread_internal_list* __next  ;
+    struct __pthread_internal_list*  __prev  ;
+    struct __pthread_internal_list*  __next  ;
 };
 
 struct __pthread_internal_slist
 {
-    struct __pthread_internal_slist* __next  ;
+    struct __pthread_internal_slist*  __next  ;
 };
 
 struct __pthread_mutex_s
@@ -562,7 +562,7 @@ struct __pthread_mutex_s
     int __kind;
     short __spins;
     short __elision;
-    struct __pthread_internal_list __list  ;
+    struct __pthread_internal_list  __list  ;
 };
 
 struct __pthread_rwlock_arch_t
@@ -630,21 +630,21 @@ long  int __align;
 
 union anonymous_typeZ8
 {
-struct __pthread_mutex_s __data  ;
+struct __pthread_mutex_s  __data  ;
 char __size[40];
 long  int __align;
 };
 
 union anonymous_typeZ9
 {
-struct __pthread_cond_s __data  ;
+struct __pthread_cond_s  __data  ;
 char __size[48];
 long long int __align;
 };
 
 union anonymous_typeZ10
 {
-struct __pthread_rwlock_arch_t __data  ;
+struct __pthread_rwlock_arch_t  __data  ;
 char __size[56];
 long  int __align;
 };
@@ -690,12 +690,12 @@ _REG_NOMATCH
 struct re_pattern_buffer
 {
     struct re_dfa_t* buffer;
-    unsigned long  int allocated  ;
-    unsigned long  int used  ;
-    unsigned long  int syntax  ;
+    unsigned long  int  allocated  ;
+    unsigned long  int  used  ;
+    unsigned long  int  syntax  ;
     char* fastmap;
     unsigned char* translate;
-    unsigned long re_nsub  ;
+    unsigned long  re_nsub  ;
     unsigned int can_be_null:1;
     unsigned int regs_allocated:2;
     unsigned int fastmap_accurate:1;
@@ -707,15 +707,15 @@ struct re_pattern_buffer
 
 struct re_registers
 {
-    unsigned int num_regs  ;
-    int* start  ;
-    int* end  ;
+    unsigned int  num_regs  ;
+    int*  start  ;
+    int*  end  ;
 };
 
 struct anonymous_typeX14
 {
-    int rm_so  ;
-    int rm_eo  ;
+    int  rm_so  ;
+    int  rm_eo  ;
 };
 
 struct winsize
@@ -749,14 +749,14 @@ __RLIM_NLIMITS=((16))
 
 struct rlimit
 {
-    unsigned long  int rlim_cur  ;
-    unsigned long  int rlim_max  ;
+    unsigned long  int  rlim_cur  ;
+    unsigned long  int  rlim_max  ;
 };
 
 struct rlimit64
 {
-    unsigned long  int rlim_cur  ;
-    unsigned long  int rlim_max  ;
+    unsigned long  int  rlim_cur  ;
+    unsigned long  int  rlim_max  ;
 };
 
 enum  __rusage_who { RUSAGE_SELF=(0),
@@ -767,230 +767,230 @@ RUSAGE_THREAD=(1)
 union anonymous_typeZ15
 {
 long  int ru_maxrss;
-long  int __ru_maxrss_word  ;
+long  int  __ru_maxrss_word  ;
 };
 
 union anonymous_typeZ16
 {
 long  int ru_maxrss;
-long  int __ru_maxrss_word  ;
+long  int  __ru_maxrss_word  ;
 };
 
 union anonymous_typeZ17
 {
 long  int ru_ixrss;
-long  int __ru_ixrss_word  ;
+long  int  __ru_ixrss_word  ;
 };
 
 union anonymous_typeZ18
 {
 long  int ru_ixrss;
-long  int __ru_ixrss_word  ;
+long  int  __ru_ixrss_word  ;
 };
 
 union anonymous_typeZ19
 {
 long  int ru_idrss;
-long  int __ru_idrss_word  ;
+long  int  __ru_idrss_word  ;
 };
 
 union anonymous_typeZ20
 {
 long  int ru_idrss;
-long  int __ru_idrss_word  ;
+long  int  __ru_idrss_word  ;
 };
 
 union anonymous_typeZ21
 {
 long  int ru_isrss;
-long  int __ru_isrss_word  ;
+long  int  __ru_isrss_word  ;
 };
 
 union anonymous_typeZ22
 {
 long  int ru_isrss;
-long  int __ru_isrss_word  ;
+long  int  __ru_isrss_word  ;
 };
 
 union anonymous_typeZ23
 {
 long  int ru_minflt;
-long  int __ru_minflt_word  ;
+long  int  __ru_minflt_word  ;
 };
 
 union anonymous_typeZ24
 {
 long  int ru_minflt;
-long  int __ru_minflt_word  ;
+long  int  __ru_minflt_word  ;
 };
 
 union anonymous_typeZ25
 {
 long  int ru_majflt;
-long  int __ru_majflt_word  ;
+long  int  __ru_majflt_word  ;
 };
 
 union anonymous_typeZ26
 {
 long  int ru_majflt;
-long  int __ru_majflt_word  ;
+long  int  __ru_majflt_word  ;
 };
 
 union anonymous_typeZ27
 {
 long  int ru_nswap;
-long  int __ru_nswap_word  ;
+long  int  __ru_nswap_word  ;
 };
 
 union anonymous_typeZ28
 {
 long  int ru_nswap;
-long  int __ru_nswap_word  ;
+long  int  __ru_nswap_word  ;
 };
 
 union anonymous_typeZ29
 {
 long  int ru_inblock;
-long  int __ru_inblock_word  ;
+long  int  __ru_inblock_word  ;
 };
 
 union anonymous_typeZ30
 {
 long  int ru_inblock;
-long  int __ru_inblock_word  ;
+long  int  __ru_inblock_word  ;
 };
 
 union anonymous_typeZ31
 {
 long  int ru_oublock;
-long  int __ru_oublock_word  ;
+long  int  __ru_oublock_word  ;
 };
 
 union anonymous_typeZ32
 {
 long  int ru_oublock;
-long  int __ru_oublock_word  ;
+long  int  __ru_oublock_word  ;
 };
 
 union anonymous_typeZ33
 {
 long  int ru_msgsnd;
-long  int __ru_msgsnd_word  ;
+long  int  __ru_msgsnd_word  ;
 };
 
 union anonymous_typeZ34
 {
 long  int ru_msgsnd;
-long  int __ru_msgsnd_word  ;
+long  int  __ru_msgsnd_word  ;
 };
 
 union anonymous_typeZ35
 {
 long  int ru_msgrcv;
-long  int __ru_msgrcv_word  ;
+long  int  __ru_msgrcv_word  ;
 };
 
 union anonymous_typeZ36
 {
 long  int ru_msgrcv;
-long  int __ru_msgrcv_word  ;
+long  int  __ru_msgrcv_word  ;
 };
 
 union anonymous_typeZ37
 {
 long  int ru_nsignals;
-long  int __ru_nsignals_word  ;
+long  int  __ru_nsignals_word  ;
 };
 
 union anonymous_typeZ38
 {
 long  int ru_nsignals;
-long  int __ru_nsignals_word  ;
+long  int  __ru_nsignals_word  ;
 };
 
 union anonymous_typeZ39
 {
 long  int ru_nvcsw;
-long  int __ru_nvcsw_word  ;
+long  int  __ru_nvcsw_word  ;
 };
 
 union anonymous_typeZ40
 {
 long  int ru_nvcsw;
-long  int __ru_nvcsw_word  ;
+long  int  __ru_nvcsw_word  ;
 };
 
 union anonymous_typeZ41
 {
 long  int ru_nivcsw;
-long  int __ru_nivcsw_word  ;
+long  int  __ru_nivcsw_word  ;
 };
 
 union anonymous_typeZ42
 {
 long  int ru_nivcsw;
-long  int __ru_nivcsw_word  ;
+long  int  __ru_nivcsw_word  ;
 };
 
 struct rusage
 {
-    struct timeval ru_utime  ;
-    struct timeval ru_stime  ;
+    struct timeval  ru_utime  ;
+    struct timeval  ru_stime  ;
     union {
         long  int ru_maxrss;
-        long  int __ru_maxrss_word  ;
+        long  int  __ru_maxrss_word  ;
     };
     union {
         long  int ru_ixrss;
-        long  int __ru_ixrss_word  ;
+        long  int  __ru_ixrss_word  ;
     };
     union {
         long  int ru_idrss;
-        long  int __ru_idrss_word  ;
+        long  int  __ru_idrss_word  ;
     };
     union {
         long  int ru_isrss;
-        long  int __ru_isrss_word  ;
+        long  int  __ru_isrss_word  ;
     };
     union {
         long  int ru_minflt;
-        long  int __ru_minflt_word  ;
+        long  int  __ru_minflt_word  ;
     };
     union {
         long  int ru_majflt;
-        long  int __ru_majflt_word  ;
+        long  int  __ru_majflt_word  ;
     };
     union {
         long  int ru_nswap;
-        long  int __ru_nswap_word  ;
+        long  int  __ru_nswap_word  ;
     };
     union {
         long  int ru_inblock;
-        long  int __ru_inblock_word  ;
+        long  int  __ru_inblock_word  ;
     };
     union {
         long  int ru_oublock;
-        long  int __ru_oublock_word  ;
+        long  int  __ru_oublock_word  ;
     };
     union {
         long  int ru_msgsnd;
-        long  int __ru_msgsnd_word  ;
+        long  int  __ru_msgsnd_word  ;
     };
     union {
         long  int ru_msgrcv;
-        long  int __ru_msgrcv_word  ;
+        long  int  __ru_msgrcv_word  ;
     };
     union {
         long  int ru_nsignals;
-        long  int __ru_nsignals_word  ;
+        long  int  __ru_nsignals_word  ;
     };
     union {
         long  int ru_nvcsw;
-        long  int __ru_nvcsw_word  ;
+        long  int  __ru_nvcsw_word  ;
     };
     union {
         long  int ru_nivcsw;
-        long  int __ru_nivcsw_word  ;
+        long  int  __ru_nivcsw_word  ;
     };
 };
 
@@ -1001,46 +1001,46 @@ PRIO_USER=(2)
 
 struct statx_timestamp
 {
-    long  int tv_sec  ;
-    unsigned int tv_nsec  ;
-    int __statx_timestamp_pad1[1]  ;
+    long  int  tv_sec  ;
+    unsigned int  tv_nsec  ;
+    int  __statx_timestamp_pad1[1]  ;
 };
 
 struct statx
 {
-    unsigned int stx_mask  ;
-    unsigned int stx_blksize  ;
-    unsigned long  int stx_attributes  ;
-    unsigned int stx_nlink  ;
-    unsigned int stx_uid  ;
-    unsigned int stx_gid  ;
-    unsigned short int stx_mode  ;
-    unsigned short int __statx_pad1[1]  ;
-    unsigned long  int stx_ino  ;
-    unsigned long  int stx_size  ;
-    unsigned long  int stx_blocks  ;
-    unsigned long  int stx_attributes_mask  ;
-    struct statx_timestamp stx_atime  ;
-    struct statx_timestamp stx_btime  ;
-    struct statx_timestamp stx_ctime  ;
-    struct statx_timestamp stx_mtime  ;
-    unsigned int stx_rdev_major  ;
-    unsigned int stx_rdev_minor  ;
-    unsigned int stx_dev_major  ;
-    unsigned int stx_dev_minor  ;
-    unsigned long  int __statx_pad2[14]  ;
+    unsigned int  stx_mask  ;
+    unsigned int  stx_blksize  ;
+    unsigned long  int  stx_attributes  ;
+    unsigned int  stx_nlink  ;
+    unsigned int  stx_uid  ;
+    unsigned int  stx_gid  ;
+    unsigned short int  stx_mode  ;
+    unsigned short int  __statx_pad1[1]  ;
+    unsigned long  int  stx_ino  ;
+    unsigned long  int  stx_size  ;
+    unsigned long  int  stx_blocks  ;
+    unsigned long  int  stx_attributes_mask  ;
+    struct statx_timestamp  stx_atime  ;
+    struct statx_timestamp  stx_btime  ;
+    struct statx_timestamp  stx_ctime  ;
+    struct statx_timestamp  stx_mtime  ;
+    unsigned int  stx_rdev_major  ;
+    unsigned int  stx_rdev_minor  ;
+    unsigned int  stx_dev_major  ;
+    unsigned int  stx_dev_minor  ;
+    unsigned long  int  __statx_pad2[14]  ;
 };
 
 struct statvfs
 {
     unsigned long  int f_bsize;
     unsigned long  int f_frsize;
-    unsigned long  int f_blocks  ;
-    unsigned long  int f_bfree  ;
-    unsigned long  int f_bavail  ;
-    unsigned long  int f_files  ;
-    unsigned long  int f_ffree  ;
-    unsigned long  int f_favail  ;
+    unsigned long  int  f_blocks  ;
+    unsigned long  int  f_bfree  ;
+    unsigned long  int  f_bavail  ;
+    unsigned long  int  f_files  ;
+    unsigned long  int  f_ffree  ;
+    unsigned long  int  f_favail  ;
     unsigned long  int f_fsid;
     unsigned long  int f_flag;
     unsigned long  int f_namemax;
@@ -1052,12 +1052,12 @@ struct statvfs64
 {
     unsigned long  int f_bsize;
     unsigned long  int f_frsize;
-    unsigned long  int f_blocks  ;
-    unsigned long  int f_bfree  ;
-    unsigned long  int f_bavail  ;
-    unsigned long  int f_files  ;
-    unsigned long  int f_ffree  ;
-    unsigned long  int f_favail  ;
+    unsigned long  int  f_blocks  ;
+    unsigned long  int  f_bfree  ;
+    unsigned long  int  f_bavail  ;
+    unsigned long  int  f_files  ;
+    unsigned long  int  f_ffree  ;
+    unsigned long  int  f_favail  ;
     unsigned long  int f_fsid;
     unsigned long  int f_flag;
     unsigned long  int f_namemax;
@@ -1093,16 +1093,16 @@ ITIMER_PROF=(2)
 
 struct itimerval
 {
-    struct timeval it_interval  ;
-    struct timeval it_value  ;
+    struct timeval  it_interval  ;
+    struct timeval  it_value  ;
 };
 
 struct tms
 {
-    long  int tms_utime  ;
-    long  int tms_stime  ;
-    long  int tms_cutime  ;
-    long  int tms_cstime  ;
+    long  int  tms_utime  ;
+    long  int  tms_stime  ;
+    long  int  tms_cutime  ;
+    long  int  tms_cstime  ;
 };
 
 struct utsname
@@ -1123,31 +1123,31 @@ void* sival_ptr;
 
 struct anonymous_typeX45
 {
-    int si_pid  ;
-    unsigned int si_uid  ;
+    int  si_pid  ;
+    unsigned int  si_uid  ;
 };
 
 struct anonymous_typeX46
 {
     int si_tid;
     int si_overrun;
-    union sigval si_sigval  ;
+    union sigval  si_sigval  ;
 };
 
 struct anonymous_typeX47
 {
-    int si_pid  ;
-    unsigned int si_uid  ;
-    union sigval si_sigval  ;
+    int  si_pid  ;
+    unsigned int  si_uid  ;
+    union sigval  si_sigval  ;
 };
 
 struct anonymous_typeX48
 {
-    int si_pid  ;
-    unsigned int si_uid  ;
+    int  si_pid  ;
+    unsigned int  si_uid  ;
     int si_status;
-    long  int si_utime  ;
-    long  int si_stime  ;
+    long  int  si_utime  ;
+    long  int  si_stime  ;
 };
 
 struct anonymous_typeX51
@@ -1162,7 +1162,7 @@ union anonymous_typeZ50
         void* _lower;
         void* _upper;
     } _addr_bnd;
-unsigned int _pkey  ;
+unsigned int  _pkey  ;
 };
 
 struct anonymous_typeX53
@@ -1177,7 +1177,7 @@ union anonymous_typeZ52
         void* _lower;
         void* _upper;
     } _addr_bnd;
-unsigned int _pkey  ;
+unsigned int  _pkey  ;
 };
 
 struct anonymous_typeX49
@@ -1189,7 +1189,7 @@ struct anonymous_typeX49
             void* _lower;
             void* _upper;
         } _addr_bnd;
-        unsigned int _pkey  ;
+        unsigned int  _pkey  ;
     } _bounds;
 };
 
@@ -1210,25 +1210,25 @@ union anonymous_typeZ44
 {
 int _pad[((128/sizeof(int))-4)];
     struct {
-        int si_pid  ;
-        unsigned int si_uid  ;
+        int  si_pid  ;
+        unsigned int  si_uid  ;
     } _kill;
     struct {
         int si_tid;
         int si_overrun;
-        union sigval si_sigval  ;
+        union sigval  si_sigval  ;
     } _timer;
     struct {
-        int si_pid  ;
-        unsigned int si_uid  ;
-        union sigval si_sigval  ;
+        int  si_pid  ;
+        unsigned int  si_uid  ;
+        union sigval  si_sigval  ;
     } _rt;
     struct {
-        int si_pid  ;
-        unsigned int si_uid  ;
+        int  si_pid  ;
+        unsigned int  si_uid  ;
         int si_status;
-        long  int si_utime  ;
-        long  int si_stime  ;
+        long  int  si_utime  ;
+        long  int  si_stime  ;
     } _sigchld;
     struct {
         void* si_addr;
@@ -1238,7 +1238,7 @@ int _pad[((128/sizeof(int))-4)];
                 void* _lower;
                 void* _upper;
             } _addr_bnd;
-            unsigned int _pkey  ;
+            unsigned int  _pkey  ;
         } _bounds;
     } _sigfault;
     struct {
@@ -1254,31 +1254,31 @@ int _pad[((128/sizeof(int))-4)];
 
 struct anonymous_typeX57
 {
-    int si_pid  ;
-    unsigned int si_uid  ;
+    int  si_pid  ;
+    unsigned int  si_uid  ;
 };
 
 struct anonymous_typeX58
 {
     int si_tid;
     int si_overrun;
-    union sigval si_sigval  ;
+    union sigval  si_sigval  ;
 };
 
 struct anonymous_typeX59
 {
-    int si_pid  ;
-    unsigned int si_uid  ;
-    union sigval si_sigval  ;
+    int  si_pid  ;
+    unsigned int  si_uid  ;
+    union sigval  si_sigval  ;
 };
 
 struct anonymous_typeX60
 {
-    int si_pid  ;
-    unsigned int si_uid  ;
+    int  si_pid  ;
+    unsigned int  si_uid  ;
     int si_status;
-    long  int si_utime  ;
-    long  int si_stime  ;
+    long  int  si_utime  ;
+    long  int  si_stime  ;
 };
 
 struct anonymous_typeX63
@@ -1293,7 +1293,7 @@ union anonymous_typeZ62
         void* _lower;
         void* _upper;
     } _addr_bnd;
-unsigned int _pkey  ;
+unsigned int  _pkey  ;
 };
 
 struct anonymous_typeX65
@@ -1308,7 +1308,7 @@ union anonymous_typeZ64
         void* _lower;
         void* _upper;
     } _addr_bnd;
-unsigned int _pkey  ;
+unsigned int  _pkey  ;
 };
 
 struct anonymous_typeX61
@@ -1320,7 +1320,7 @@ struct anonymous_typeX61
             void* _lower;
             void* _upper;
         } _addr_bnd;
-        unsigned int _pkey  ;
+        unsigned int  _pkey  ;
     } _bounds;
 };
 
@@ -1341,25 +1341,25 @@ union anonymous_typeZ56
 {
 int _pad[((128/sizeof(int))-4)];
     struct {
-        int si_pid  ;
-        unsigned int si_uid  ;
+        int  si_pid  ;
+        unsigned int  si_uid  ;
     } _kill;
     struct {
         int si_tid;
         int si_overrun;
-        union sigval si_sigval  ;
+        union sigval  si_sigval  ;
     } _timer;
     struct {
-        int si_pid  ;
-        unsigned int si_uid  ;
-        union sigval si_sigval  ;
+        int  si_pid  ;
+        unsigned int  si_uid  ;
+        union sigval  si_sigval  ;
     } _rt;
     struct {
-        int si_pid  ;
-        unsigned int si_uid  ;
+        int  si_pid  ;
+        unsigned int  si_uid  ;
         int si_status;
-        long  int si_utime  ;
-        long  int si_stime  ;
+        long  int  si_utime  ;
+        long  int  si_stime  ;
     } _sigchld;
     struct {
         void* si_addr;
@@ -1369,7 +1369,7 @@ int _pad[((128/sizeof(int))-4)];
                 void* _lower;
                 void* _upper;
             } _addr_bnd;
-            unsigned int _pkey  ;
+            unsigned int  _pkey  ;
         } _bounds;
     } _sigfault;
     struct {
@@ -1392,25 +1392,25 @@ struct anonymous_typeX43
     union {
         int _pad[((128/sizeof(int))-4)];
         struct {
-            int si_pid  ;
-            unsigned int si_uid  ;
+            int  si_pid  ;
+            unsigned int  si_uid  ;
         } _kill;
         struct {
             int si_tid;
             int si_overrun;
-            union sigval si_sigval  ;
+            union sigval  si_sigval  ;
         } _timer;
         struct {
-            int si_pid  ;
-            unsigned int si_uid  ;
-            union sigval si_sigval  ;
+            int  si_pid  ;
+            unsigned int  si_uid  ;
+            union sigval  si_sigval  ;
         } _rt;
         struct {
-            int si_pid  ;
-            unsigned int si_uid  ;
+            int  si_pid  ;
+            unsigned int  si_uid  ;
             int si_status;
-            long  int si_utime  ;
-            long  int si_stime  ;
+            long  int  si_utime  ;
+            long  int  si_stime  ;
         } _sigchld;
         struct {
             void* si_addr;
@@ -1420,7 +1420,7 @@ struct anonymous_typeX43
                     void* _lower;
                     void* _upper;
                 } _addr_bnd;
-                unsigned int _pkey  ;
+                unsigned int  _pkey  ;
             } _bounds;
         } _sigfault;
         struct {
@@ -1514,47 +1514,47 @@ POLL_OUT
 
 struct anonymous_typeX69
 {
-    void (*_function)(union sigval);
-    union pthread_attr_t* _attribute  ;
+    void (*_function)(union sigval );
+    union pthread_attr_t*  _attribute  ;
 };
 
 union anonymous_typeZ68
 {
 int _pad[((64/sizeof(int))-4)];
-int _tid  ;
+int  _tid  ;
     struct {
-        void (*_function)(union sigval);
-        union pthread_attr_t* _attribute  ;
+        void (*_function)(union sigval );
+        union pthread_attr_t*  _attribute  ;
     } _sigev_thread;
 };
 
 struct anonymous_typeX71
 {
-    void (*_function)(union sigval);
-    union pthread_attr_t* _attribute  ;
+    void (*_function)(union sigval );
+    union pthread_attr_t*  _attribute  ;
 };
 
 union anonymous_typeZ70
 {
 int _pad[((64/sizeof(int))-4)];
-int _tid  ;
+int  _tid  ;
     struct {
-        void (*_function)(union sigval);
-        union pthread_attr_t* _attribute  ;
+        void (*_function)(union sigval );
+        union pthread_attr_t*  _attribute  ;
     } _sigev_thread;
 };
 
 struct sigevent
 {
-    union sigval sigev_value  ;
+    union sigval  sigev_value  ;
     int sigev_signo;
     int sigev_notify;
     union {
         int _pad[((64/sizeof(int))-4)];
-        int _tid  ;
+        int  _tid  ;
         struct {
-            void (*_function)(union sigval);
-            union pthread_attr_t* _attribute  ;
+            void (*_function)(union sigval );
+            union pthread_attr_t*  _attribute  ;
         } _sigev_thread;
     } _sigev_un;
 };
@@ -1568,20 +1568,20 @@ SIGEV_NONE
 union anonymous_typeZ72
 {
 void (*sa_handler)(int)  ;
-void (*sa_sigaction)(int,struct anonymous_typeX43*,void*);
+void (*sa_sigaction)(int,struct anonymous_typeX43* ,void*);
 };
 
 union anonymous_typeZ73
 {
 void (*sa_handler)(int)  ;
-void (*sa_sigaction)(int,struct anonymous_typeX43*,void*);
+void (*sa_sigaction)(int,struct anonymous_typeX43* ,void*);
 };
 
 struct sigaction
 {
     union {
         void (*sa_handler)(int)  ;
-        void (*sa_sigaction)(int,struct anonymous_typeX43*,void*);
+        void (*sa_sigaction)(int,struct anonymous_typeX43* ,void*);
     } __sigaction_handler;
     struct {
         unsigned long  int __val[(1024/(8*sizeof(unsigned long  int)))];
@@ -1592,11 +1592,11 @@ struct sigaction
 
 struct _fpx_sw_bytes
 {
-    unsigned int magic1  ;
-    unsigned int extended_size  ;
-    unsigned long  int xstate_bv  ;
-    unsigned int xstate_size  ;
-    unsigned int __glibc_reserved1[7]  ;
+    unsigned int  magic1  ;
+    unsigned int  extended_size  ;
+    unsigned long  int  xstate_bv  ;
+    unsigned int  xstate_size  ;
+    unsigned int  __glibc_reserved1[7]  ;
 };
 
 struct _fpreg
@@ -1614,98 +1614,98 @@ struct _fpxreg
 
 struct _xmmreg
 {
-    unsigned int element[4]  ;
+    unsigned int  element[4]  ;
 };
 
 struct _fpstate
 {
-    unsigned short int cwd  ;
-    unsigned short int swd  ;
-    unsigned short int ftw  ;
-    unsigned short int fop  ;
-    unsigned long  int rip  ;
-    unsigned long  int rdp  ;
-    unsigned int mxcsr  ;
-    unsigned int mxcr_mask  ;
-    struct _fpxreg _st[8]  ;
-    struct _xmmreg _xmm[16]  ;
-    unsigned int __glibc_reserved1[24]  ;
+    unsigned short int  cwd  ;
+    unsigned short int  swd  ;
+    unsigned short int  ftw  ;
+    unsigned short int  fop  ;
+    unsigned long  int  rip  ;
+    unsigned long  int  rdp  ;
+    unsigned int  mxcsr  ;
+    unsigned int  mxcr_mask  ;
+    struct _fpxreg  _st[8]  ;
+    struct _xmmreg  _xmm[16]  ;
+    unsigned int  __glibc_reserved1[24]  ;
 };
 
 union anonymous_typeZ74
 {
-struct _fpstate* fpstate  ;
-unsigned long  int __fpstate_word  ;
+struct _fpstate*  fpstate  ;
+unsigned long  int  __fpstate_word  ;
 };
 
 union anonymous_typeZ75
 {
-struct _fpstate* fpstate  ;
-unsigned long  int __fpstate_word  ;
+struct _fpstate*  fpstate  ;
+unsigned long  int  __fpstate_word  ;
 };
 
 struct sigcontext
 {
-    unsigned long  int r8  ;
-    unsigned long  int r9  ;
-    unsigned long  int r10  ;
-    unsigned long  int r11  ;
-    unsigned long  int r12  ;
-    unsigned long  int r13  ;
-    unsigned long  int r14  ;
-    unsigned long  int r15  ;
-    unsigned long  int rdi  ;
-    unsigned long  int rsi  ;
-    unsigned long  int rbp  ;
-    unsigned long  int rbx  ;
-    unsigned long  int rdx  ;
-    unsigned long  int rax  ;
-    unsigned long  int rcx  ;
-    unsigned long  int rsp  ;
-    unsigned long  int rip  ;
-    unsigned long  int eflags  ;
+    unsigned long  int  r8  ;
+    unsigned long  int  r9  ;
+    unsigned long  int  r10  ;
+    unsigned long  int  r11  ;
+    unsigned long  int  r12  ;
+    unsigned long  int  r13  ;
+    unsigned long  int  r14  ;
+    unsigned long  int  r15  ;
+    unsigned long  int  rdi  ;
+    unsigned long  int  rsi  ;
+    unsigned long  int  rbp  ;
+    unsigned long  int  rbx  ;
+    unsigned long  int  rdx  ;
+    unsigned long  int  rax  ;
+    unsigned long  int  rcx  ;
+    unsigned long  int  rsp  ;
+    unsigned long  int  rip  ;
+    unsigned long  int  eflags  ;
     unsigned short int cs;
     unsigned short int gs;
     unsigned short int fs;
     unsigned short int __pad0;
-    unsigned long  int err  ;
-    unsigned long  int trapno  ;
-    unsigned long  int oldmask  ;
-    unsigned long  int cr2  ;
+    unsigned long  int  err  ;
+    unsigned long  int  trapno  ;
+    unsigned long  int  oldmask  ;
+    unsigned long  int  cr2  ;
     union {
-        struct _fpstate* fpstate  ;
-        unsigned long  int __fpstate_word  ;
+        struct _fpstate*  fpstate  ;
+        unsigned long  int  __fpstate_word  ;
     };
-    unsigned long  int __reserved1[8]  ;
+    unsigned long  int  __reserved1[8]  ;
 };
 
 struct _xsave_hdr
 {
-    unsigned long  int xstate_bv  ;
-    unsigned long  int __glibc_reserved1[2]  ;
-    unsigned long  int __glibc_reserved2[5]  ;
+    unsigned long  int  xstate_bv  ;
+    unsigned long  int  __glibc_reserved1[2]  ;
+    unsigned long  int  __glibc_reserved2[5]  ;
 };
 
 struct _ymmh_state
 {
-    unsigned int ymmh_space[64]  ;
+    unsigned int  ymmh_space[64]  ;
 };
 
 struct _xstate
 {
-    struct _fpstate fpstate  ;
-    struct _xsave_hdr xstate_hdr  ;
-    struct _ymmh_state ymmh  ;
+    struct _fpstate  fpstate  ;
+    struct _xsave_hdr  xstate_hdr  ;
+    struct _ymmh_state  ymmh  ;
 };
 
 struct anonymous_typeX76
 {
     void* ss_sp;
     int ss_flags;
-    unsigned long ss_size  ;
+    unsigned long  ss_size  ;
 };
 
-typedef long long int gregset_t[23]  ;
+typedef long long int  gregset_t[23]  ;
 
 enum { REG_R8=(0),
 REG_R9 
@@ -1741,49 +1741,49 @@ struct _libc_fpxreg
 
 struct _libc_xmmreg
 {
-    unsigned int element[4]  ;
+    unsigned int  element[4]  ;
 };
 
 struct _libc_fpstate
 {
-    unsigned short int cwd  ;
-    unsigned short int swd  ;
-    unsigned short int ftw  ;
-    unsigned short int fop  ;
-    unsigned long  int rip  ;
-    unsigned long  int rdp  ;
-    unsigned int mxcsr  ;
-    unsigned int mxcr_mask  ;
-    struct _libc_fpxreg _st[8]  ;
-    struct _libc_xmmreg _xmm[16]  ;
-    unsigned int __glibc_reserved1[24]  ;
+    unsigned short int  cwd  ;
+    unsigned short int  swd  ;
+    unsigned short int  ftw  ;
+    unsigned short int  fop  ;
+    unsigned long  int  rip  ;
+    unsigned long  int  rdp  ;
+    unsigned int  mxcsr  ;
+    unsigned int  mxcr_mask  ;
+    struct _libc_fpxreg  _st[8]  ;
+    struct _libc_xmmreg  _xmm[16]  ;
+    unsigned int  __glibc_reserved1[24]  ;
 };
 
 struct anonymous_typeX77
 {
-    long long int gregs[23]  ;
-    struct _libc_fpstate* fpregs  ;
+    long long int  gregs[23]  ;
+    struct _libc_fpstate*  fpregs  ;
     unsigned long  long __reserved1[8];
 };
 
 struct ucontext_t
 {
     unsigned long  int uc_flags;
-    struct ucontext_t* uc_link  ;
+    struct ucontext_t*  uc_link  ;
     struct {
         void* ss_sp;
         int ss_flags;
-        unsigned long ss_size  ;
+        unsigned long  ss_size  ;
     } uc_stack;
     struct {
-        long long int gregs[23]  ;
-        struct _libc_fpstate* fpregs  ;
+        long long int  gregs[23]  ;
+        struct _libc_fpstate*  fpregs  ;
         unsigned long  long __reserved1[8];
     } uc_mcontext;
     struct {
         unsigned long  int __val[(1024/(8*sizeof(unsigned long  int)))];
     } uc_sigmask;
-    struct _libc_fpstate __fpregs_mem  ;
+    struct _libc_fpstate  __fpregs_mem  ;
     unsigned long long int __ssp[4];
 };
 
@@ -2113,50 +2113,50 @@ enum   anonymous_typeY77 { P_ALL
 
 union anonymous_typeZ78
 {
-unsigned int __ispeed  ;
-unsigned int c_ispeed  ;
+unsigned int  __ispeed  ;
+unsigned int  c_ispeed  ;
 };
 
 union anonymous_typeZ79
 {
-unsigned int __ispeed  ;
-unsigned int c_ispeed  ;
+unsigned int  __ispeed  ;
+unsigned int  c_ispeed  ;
 };
 
 union anonymous_typeZ80
 {
-unsigned int __ospeed  ;
-unsigned int c_ospeed  ;
+unsigned int  __ospeed  ;
+unsigned int  c_ospeed  ;
 };
 
 union anonymous_typeZ81
 {
-unsigned int __ospeed  ;
-unsigned int c_ospeed  ;
+unsigned int  __ospeed  ;
+unsigned int  c_ospeed  ;
 };
 
 struct termios
 {
-    unsigned int c_iflag  ;
-    unsigned int c_oflag  ;
-    unsigned int c_cflag  ;
-    unsigned int c_lflag  ;
-    unsigned char c_line  ;
-    unsigned char c_cc[32]  ;
+    unsigned int  c_iflag  ;
+    unsigned int  c_oflag  ;
+    unsigned int  c_cflag  ;
+    unsigned int  c_lflag  ;
+    unsigned char  c_line  ;
+    unsigned char  c_cc[32]  ;
     union {
-        unsigned int __ispeed  ;
-        unsigned int c_ispeed  ;
+        unsigned int  __ispeed  ;
+        unsigned int  c_ispeed  ;
     };
     union {
-        unsigned int __ospeed  ;
-        unsigned int c_ospeed  ;
+        unsigned int  __ospeed  ;
+        unsigned int  c_ospeed  ;
     };
 };
 
 /// variable definition ///
 extern char* program_invocation_name;
 extern char* program_invocation_short_name;
-extern unsigned long  int re_syntax_options  ;
+extern unsigned long  int  re_syntax_options  ;
 extern char** __environ;
 extern char** environ;
 extern char* optarg;
@@ -2169,244 +2169,245 @@ extern int optopt;
 char* strdup(const char* );
 int vsnprintf(char* , unsigned long  int , const char* , __builtin_va_list );
 int snprintf(char* , unsigned long  int , const char* , ...);
-int closedir(struct __dirstream* __dirp  );
-struct __dirstream* opendir(const char* __name);
-struct __dirstream* fdopendir(int __fd);
-struct dirent* readdir(struct __dirstream* __dirp  );
-struct dirent64* readdir64(struct __dirstream* __dirp  );
-int readdir_r(struct __dirstream* __dirp  , struct dirent* __entry  , struct dirent** __result  );
-int readdir64_r(struct __dirstream* __dirp  , struct dirent64* __entry  , struct dirent64** __result  );
-void rewinddir(struct __dirstream* __dirp  );
-void seekdir(struct __dirstream* __dirp  , long  int __pos);
-long  int telldir(struct __dirstream* __dirp  );
-int dirfd(struct __dirstream* __dirp  );
+int closedir(struct __dirstream*  __dirp  );
+struct __dirstream*  opendir(const char* __name) __attribute__ ((__malloc__)) ;
+struct __dirstream*  fdopendir(int __fd) __attribute__ ((__malloc__)) ;
+struct dirent*  readdir(struct __dirstream*  __dirp  );
+struct dirent64*  readdir64(struct __dirstream*  __dirp  );
+int readdir_r(struct __dirstream*  __dirp  , struct dirent*  __entry  , struct dirent**  __result  ) __attribute__ ((__deprecated__));
+int readdir64_r(struct __dirstream*  __dirp  , struct dirent64*  __entry  , struct dirent64**  __result  ) __attribute__ ((__deprecated__));
+void rewinddir(struct __dirstream*  __dirp  );
+void seekdir(struct __dirstream*  __dirp  , long  int __pos);
+long  int telldir(struct __dirstream*  __dirp  );
+int dirfd(struct __dirstream*  __dirp  );
 long  int __sysconf(int __name);
-int scandir(const char* __dir, struct dirent*** __namelist  , int (*__selector)(const struct dirent*), int (*__cmp)(const struct dirent**,const struct dirent**));
-int scandir64(const char* __dir, struct dirent64*** __namelist  , int (*__selector)(const struct dirent64*), int (*__cmp)(const struct dirent64**,const struct dirent64**));
-int scandirat(int __dfd, const char* __dir, struct dirent*** __namelist  , int (*__selector)(const struct dirent*), int (*__cmp)(const struct dirent**,const struct dirent**));
-int scandirat64(int __dfd, const char* __dir, struct dirent64*** __namelist  , int (*__selector)(const struct dirent64*), int (*__cmp)(const struct dirent64**,const struct dirent64**));
-int alphasort(const struct dirent** __e1  , const struct dirent** __e2  );
-int alphasort64(const struct dirent64** __e1  , const struct dirent64** __e2  );
-long  int getdirentries(int __fd, char* __buf, unsigned long __nbytes  , long  int* __basep  );
-long  int getdirentries64(int __fd, char* __buf, unsigned long __nbytes  , long  int* __basep  );
-int versionsort(const struct dirent** __e1  , const struct dirent** __e2  );
-int versionsort64(const struct dirent64** __e1  , const struct dirent64** __e2  );
-long  int getdents64(int __fd, void* __buffer, unsigned long __length  );
-int* __errno_location();
-long  int readahead(int __fd, long  int __offset  , unsigned long __count  );
-int sync_file_range(int __fd, long  int __offset  , long  int __count  , unsigned int __flags);
-long  int vmsplice(int __fdout, const struct iovec* __iov  , unsigned long __count  , unsigned int __flags);
-long  int splice(int __fdin, long  int* __offin  , int __fdout, long  int* __offout  , unsigned long __len  , unsigned int __flags);
-long  int tee(int __fdin, int __fdout, unsigned long __len  , unsigned int __flags);
-int fallocate(int __fd, int __mode, long  int __offset  , long  int __len  );
-int fallocate64(int __fd, int __mode, long  int __offset  , long  int __len  );
-int name_to_handle_at(int __dfd, const char* __name, struct file_handle* __handle  , int* __mnt_id, int __flags);
-int open_by_handle_at(int __mountdirfd, struct file_handle* __handle  , int __flags);
+int scandir(const char* __dir, struct dirent***  __namelist  , int (*__selector)(const struct dirent* ), int (*__cmp)(const struct dirent** ,const struct dirent** ));
+int scandir64(const char* __dir, struct dirent64***  __namelist  , int (*__selector)(const struct dirent64* ), int (*__cmp)(const struct dirent64** ,const struct dirent64** ));
+int scandirat(int __dfd, const char* __dir, struct dirent***  __namelist  , int (*__selector)(const struct dirent* ), int (*__cmp)(const struct dirent** ,const struct dirent** ));
+int scandirat64(int __dfd, const char* __dir, struct dirent64***  __namelist  , int (*__selector)(const struct dirent64* ), int (*__cmp)(const struct dirent64** ,const struct dirent64** ));
+int alphasort(const struct dirent**  __e1  , const struct dirent**  __e2  ) __attribute__ ((__pure__)) ;
+int alphasort64(const struct dirent64**  __e1  , const struct dirent64**  __e2  ) __attribute__ ((__pure__)) ;
+long  int  getdirentries(int __fd, char* __buf, unsigned long  __nbytes  , long  int*  __basep  );
+long  int  getdirentries64(int __fd, char* __buf, unsigned long  __nbytes  , long  int*  __basep  );
+int versionsort(const struct dirent**  __e1  , const struct dirent**  __e2  ) __attribute__ ((__pure__)) ;
+int versionsort64(const struct dirent64**  __e1  , const struct dirent64**  __e2  ) __attribute__ ((__pure__)) ;
+long  int  getdents64(int __fd, void* __buffer, unsigned long  __length  );
+int* __errno_location() __attribute__ ((__const__));
+long  int  readahead(int __fd, long  int  __offset  , unsigned long  __count  );
+int sync_file_range(int __fd, long  int  __offset  , long  int  __count  , unsigned int __flags);
+long  int  vmsplice(int __fdout, const struct iovec*  __iov  , unsigned long  __count  , unsigned int __flags);
+long  int  splice(int __fdin, long  int*  __offin  , int __fdout, long  int*  __offout  , unsigned long  __len  , unsigned int __flags);
+long  int  tee(int __fdin, int __fdout, unsigned long  __len  , unsigned int __flags);
+int fallocate(int __fd, int __mode, long  int  __offset  , long  int  __len  );
+int fallocate64(int __fd, int __mode, long  int  __offset  , long  int  __len  );
+int name_to_handle_at(int __dfd, const char* __name, struct file_handle*  __handle  , int* __mnt_id, int __flags);
+int open_by_handle_at(int __mountdirfd, struct file_handle*  __handle  , int __flags);
 int fcntl(int __fd, int __cmd, ...);
 int fcntl64(int __fd, int __cmd, ...);
 int open(const char* __file, int __oflag, ...);
 int open64(const char* __file, int __oflag, ...);
 int openat(int __fd, const char* __file, int __oflag, ...);
 int openat64(int __fd, const char* __file, int __oflag, ...);
-int creat(const char* __file, unsigned int __mode  );
-int creat64(const char* __file, unsigned int __mode  );
-int lockf(int __fd, int __cmd, long  int __len  );
-int lockf64(int __fd, int __cmd, long  int __len  );
-int posix_fadvise(int __fd, long  int __offset  , long  int __len  , int __advise);
-int posix_fadvise64(int __fd, long  int __offset  , long  int __len  , int __advise);
-int posix_fallocate(int __fd, long  int __offset  , long  int __len  );
-int posix_fallocate64(int __fd, long  int __offset  , long  int __len  );
+int creat(const char* __file, unsigned int  __mode  );
+int creat64(const char* __file, unsigned int  __mode  );
+int lockf(int __fd, int __cmd, long  int  __len  );
+int lockf64(int __fd, int __cmd, long  int  __len  );
+int posix_fadvise(int __fd, long  int  __offset  , long  int  __len  , int __advise);
+int posix_fadvise64(int __fd, long  int  __offset  , long  int  __len  , int __advise);
+int posix_fallocate(int __fd, long  int  __offset  , long  int  __len  );
+int posix_fallocate64(int __fd, long  int  __offset  , long  int  __len  );
 void setgrent();
 void endgrent();
-struct group* getgrent();
-struct group* fgetgrent(struct _IO_FILE* __stream  );
-int putgrent(const struct group* __p  , struct _IO_FILE* __f  );
-struct group* getgrgid(unsigned int __gid  );
-struct group* getgrnam(const char* __name);
-int getgrent_r(struct group* __resultbuf  , char* __buffer, unsigned long __buflen  , struct group** __result  );
-int getgrgid_r(unsigned int __gid  , struct group* __resultbuf  , char* __buffer, unsigned long __buflen  , struct group** __result  );
-int getgrnam_r(const char* __name, struct group* __resultbuf  , char* __buffer, unsigned long __buflen  , struct group** __result  );
-int fgetgrent_r(struct _IO_FILE* __stream  , struct group* __resultbuf  , char* __buffer, unsigned long __buflen  , struct group** __result  );
-int setgroups(unsigned long __n  , const unsigned int* __groups  );
-int getgrouplist(const char* , unsigned int __group  , unsigned int* __groups  , int* __ngroups);
-int initgroups(const char* , unsigned int __group  );
-int poll(struct pollfd* __fds  , unsigned long  int __nfds  , int __timeout);
-int ppoll(struct pollfd* __fds  , unsigned long  int __nfds  , const struct timespec* __timeout  , const struct anonymous_typeX1* __ss  );
+struct group*  getgrent();
+struct group*  fgetgrent(struct _IO_FILE*  __stream  );
+int putgrent(const struct group*  __p  , struct _IO_FILE*  __f  );
+struct group*  getgrgid(unsigned int  __gid  );
+struct group*  getgrnam(const char* __name);
+int getgrent_r(struct group*  __resultbuf  , char* __buffer, unsigned long  __buflen  , struct group**  __result  );
+int getgrgid_r(unsigned int  __gid  , struct group*  __resultbuf  , char* __buffer, unsigned long  __buflen  , struct group**  __result  );
+int getgrnam_r(const char* __name, struct group*  __resultbuf  , char* __buffer, unsigned long  __buflen  , struct group**  __result  );
+int fgetgrent_r(struct _IO_FILE*  __stream  , struct group*  __resultbuf  , char* __buffer, unsigned long  __buflen  , struct group**  __result  );
+int setgroups(unsigned long  __n  , const unsigned int*  __groups  );
+int getgrouplist(const char* , unsigned int  __group  , unsigned int*  __groups  , int* __ngroups);
+int initgroups(const char* , unsigned int  __group  );
+int poll(struct pollfd*  __fds  , unsigned long  int  __nfds  , int __timeout);
+int ppoll(struct pollfd*  __fds  , unsigned long  int  __nfds  , const struct timespec*  __timeout  , const struct anonymous_typeX1*  __ss  );
 void setpwent();
 void endpwent();
-struct passwd* getpwent();
-struct passwd* fgetpwent(struct _IO_FILE* __stream  );
-int putpwent(const struct passwd* __p  , struct _IO_FILE* __f  );
-struct passwd* getpwuid(unsigned int __uid  );
-struct passwd* getpwnam(const char* __name);
-int getpwent_r(struct passwd* __resultbuf  , char* __buffer, unsigned long __buflen  , struct passwd** __result  );
-int getpwuid_r(unsigned int __uid  , struct passwd* __resultbuf  , char* __buffer, unsigned long __buflen  , struct passwd** __result  );
-int getpwnam_r(const char* __name, struct passwd* __resultbuf  , char* __buffer, unsigned long __buflen  , struct passwd** __result  );
-int fgetpwent_r(struct _IO_FILE* __stream  , struct passwd* __resultbuf  , char* __buffer, unsigned long __buflen  , struct passwd** __result  );
-int getpw(unsigned int __uid  , char* __buffer);
-int select(int __nfds, struct anonymous_typeX2* __readfds  , struct anonymous_typeX2* __writefds  , struct anonymous_typeX2* __exceptfds  , struct timeval* __timeout  );
-int pselect(int __nfds, struct anonymous_typeX2* __readfds  , struct anonymous_typeX2* __writefds  , struct anonymous_typeX2* __exceptfds  , const struct timespec* __timeout  , const struct anonymous_typeX1* __sigmask  );
-unsigned long  int re_set_syntax(unsigned long  int __syntax  );
-const char* re_compile_pattern(const char* __pattern, unsigned long __length  , struct re_pattern_buffer* __buffer  );
-int re_compile_fastmap(struct re_pattern_buffer* __buffer  );
-int re_search(struct re_pattern_buffer* __buffer  , const char* __String, int __length  , int __start  , int __range  , struct re_registers* __regs  );
-int re_search_2(struct re_pattern_buffer* __buffer  , const char* __string1, int __length1  , const char* __string2, int __length2  , int __start  , int __range  , struct re_registers* __regs  , int __stop  );
-int re_match(struct re_pattern_buffer* __buffer  , const char* __String, int __length  , int __start  , struct re_registers* __regs  );
-int re_match_2(struct re_pattern_buffer* __buffer  , const char* __string1, int __length1  , const char* __string2, int __length2  , int __start  , struct re_registers* __regs  , int __stop  );
-void re_set_registers(struct re_pattern_buffer* __buffer  , struct re_registers* __regs  , unsigned int __num_regs  , int* __starts  , int* __ends  );
-int regcomp(struct re_pattern_buffer* __preg  , const char* __pattern, int __cflags);
-int regexec(const struct re_pattern_buffer* __preg  , const char* __String, unsigned long __nmatch  , struct anonymous_typeX14 __pmatch[]  , int __eflags);
-unsigned long regerror(int __errcode, const struct re_pattern_buffer* __preg  , char* __errbuf, unsigned long __errbuf_size  );
-void regfree(struct re_pattern_buffer* __preg  );
+struct passwd*  getpwent();
+struct passwd*  fgetpwent(struct _IO_FILE*  __stream  );
+int putpwent(const struct passwd*  __p  , struct _IO_FILE*  __f  );
+struct passwd*  getpwuid(unsigned int  __uid  );
+struct passwd*  getpwnam(const char* __name);
+int getpwent_r(struct passwd*  __resultbuf  , char* __buffer, unsigned long  __buflen  , struct passwd**  __result  );
+int getpwuid_r(unsigned int  __uid  , struct passwd*  __resultbuf  , char* __buffer, unsigned long  __buflen  , struct passwd**  __result  );
+int getpwnam_r(const char* __name, struct passwd*  __resultbuf  , char* __buffer, unsigned long  __buflen  , struct passwd**  __result  );
+int fgetpwent_r(struct _IO_FILE*  __stream  , struct passwd*  __resultbuf  , char* __buffer, unsigned long  __buflen  , struct passwd**  __result  );
+int getpw(unsigned int  __uid  , char* __buffer);
+int select(int __nfds, struct anonymous_typeX2*  __readfds  , struct anonymous_typeX2*  __writefds  , struct anonymous_typeX2*  __exceptfds  , struct timeval*  __timeout  );
+int pselect(int __nfds, struct anonymous_typeX2*  __readfds  , struct anonymous_typeX2*  __writefds  , struct anonymous_typeX2*  __exceptfds  , const struct timespec*  __timeout  , const struct anonymous_typeX1*  __sigmask  );
+unsigned long  int  re_set_syntax(unsigned long  int  __syntax  );
+const char* re_compile_pattern(const char* __pattern, unsigned long  __length  , struct re_pattern_buffer*  __buffer  );
+int re_compile_fastmap(struct re_pattern_buffer*  __buffer  );
+int  re_search(struct re_pattern_buffer*  __buffer  , const char* __String, int  __length  , int  __start  , int  __range  , struct re_registers*  __regs  );
+int  re_search_2(struct re_pattern_buffer*  __buffer  , const char* __string1, int  __length1  , const char* __string2, int  __length2  , int  __start  , int  __range  , struct re_registers*  __regs  , int  __stop  );
+int  re_match(struct re_pattern_buffer*  __buffer  , const char* __String, int  __length  , int  __start  , struct re_registers*  __regs  );
+int  re_match_2(struct re_pattern_buffer*  __buffer  , const char* __string1, int  __length1  , const char* __string2, int  __length2  , int  __start  , struct re_registers*  __regs  , int  __stop  );
+void re_set_registers(struct re_pattern_buffer*  __buffer  , struct re_registers*  __regs  , unsigned int  __num_regs  , int*  __starts  , int*  __ends  );
+int regcomp(struct re_pattern_buffer*  __preg  , const char* __pattern, int __cflags);
+int regexec(const struct re_pattern_buffer*  __preg  , const char* __String, unsigned long  __nmatch  , struct anonymous_typeX14  __pmatch[]  , int __eflags);
+unsigned long  regerror(int __errcode, const struct re_pattern_buffer*  __preg  , char* __errbuf, unsigned long  __errbuf_size  );
+void regfree(struct re_pattern_buffer*  __preg  );
 int flock(int __fd, int __operation);
 int ioctl(int __fd, unsigned long  int __request, ...);
 int memfd_create(const char* __name, unsigned int __flags);
-int mlock2(const void* __addr, unsigned long __length  , unsigned int __flags);
+int mlock2(const void* __addr, unsigned long  __length  , unsigned int __flags);
 int pkey_alloc(unsigned int __flags, unsigned int __access_restrictions);
 int pkey_set(int __key, unsigned int __access_restrictions);
 int pkey_get(int __key);
 int pkey_free(int __key);
-int pkey_mprotect(void* __addr, unsigned long __len  , int __prot, int __pkey);
-void* mmap(void* __addr, unsigned long __len  , int __prot, int __flags, int __fd, long  int __offset  );
-void* mmap64(void* __addr, unsigned long __len  , int __prot, int __flags, int __fd, long  int __offset  );
-int munmap(void* __addr, unsigned long __len  );
-int mprotect(void* __addr, unsigned long __len  , int __prot);
-int msync(void* __addr, unsigned long __len  , int __flags);
-int madvise(void* __addr, unsigned long __len  , int __advice);
-int posix_madvise(void* __addr, unsigned long __len  , int __advice);
-int mlock(const void* __addr, unsigned long __len  );
-int munlock(const void* __addr, unsigned long __len  );
+int pkey_mprotect(void* __addr, unsigned long  __len  , int __prot, int __pkey);
+void* mmap(void* __addr, unsigned long  __len  , int __prot, int __flags, int __fd, long  int  __offset  );
+void* mmap64(void* __addr, unsigned long  __len  , int __prot, int __flags, int __fd, long  int  __offset  );
+int munmap(void* __addr, unsigned long  __len  );
+int mprotect(void* __addr, unsigned long  __len  , int __prot);
+int msync(void* __addr, unsigned long  __len  , int __flags);
+int madvise(void* __addr, unsigned long  __len  , int __advice);
+int posix_madvise(void* __addr, unsigned long  __len  , int __advice);
+int mlock(const void* __addr, unsigned long  __len  );
+int munlock(const void* __addr, unsigned long  __len  );
 int mlockall(int __flags);
 int munlockall();
-int mincore(void* __start, unsigned long __len  , unsigned char* __vec);
-void* mremap(void* __addr, unsigned long __old_len  , unsigned long __new_len  , int __flags, ...);
-int remap_file_pages(void* __start, unsigned long __size  , int __prot, unsigned long __pgoff  , int __flags);
-int shm_open(const char* __name, int __oflag, unsigned int __mode  );
+int mincore(void* __start, unsigned long  __len  , unsigned char* __vec);
+void* mremap(void* __addr, unsigned long  __old_len  , unsigned long  __new_len  , int __flags, ...);
+int remap_file_pages(void* __start, unsigned long  __size  , int __prot, unsigned long  __pgoff  , int __flags);
+int shm_open(const char* __name, int __oflag, unsigned int  __mode  );
 int shm_unlink(const char* __name);
-long  int process_madvise(int __pid_fd, const struct iovec* __iov  , unsigned long __count  , int __advice, unsigned int __flags);
+long  int  process_madvise(int __pid_fd, const struct iovec*  __iov  , unsigned long  __count  , int __advice, unsigned int __flags);
 int process_mrelease(int pidfd, unsigned int flags);
-int prlimit(int __pid  , enum __rlimit_resource __resource, const struct rlimit* __new_limit  , struct rlimit* __old_limit  );
-int prlimit64(int __pid  , enum __rlimit_resource __resource, const struct rlimit64* __new_limit  , struct rlimit64* __old_limit  );
-int getrlimit(enum __rlimit_resource __resource  , struct rlimit* __rlimits  );
-int getrlimit64(enum __rlimit_resource __resource  , struct rlimit64* __rlimits  );
-int setrlimit(enum __rlimit_resource __resource  , const struct rlimit* __rlimits  );
-int setrlimit64(enum __rlimit_resource __resource  , const struct rlimit64* __rlimits  );
-int getrusage(enum __rusage_who __who  , struct rusage* __usage  );
-int getpriority(enum __priority_which __which  , unsigned int __who  );
-int setpriority(enum __priority_which __which  , unsigned int __who  , int __prio);
-int stat(const char* __file, struct stat* __buf  );
-int fstat(int __fd, struct stat* __buf  );
-int stat64(const char* __file, struct stat64* __buf  );
-int fstat64(int __fd, struct stat64* __buf  );
-int fstatat(int __fd, const char* __file, struct stat* __buf  , int __flag);
-int fstatat64(int __fd, const char* __file, struct stat64* __buf  , int __flag);
-int lstat(const char* __file, struct stat* __buf  );
-int lstat64(const char* __file, struct stat64* __buf  );
-int chmod(const char* __file, unsigned int __mode  );
-int lchmod(const char* __file, unsigned int __mode  );
-int fchmod(int __fd, unsigned int __mode  );
-int fchmodat(int __fd, const char* __file, unsigned int __mode  , int __flag);
-unsigned int umask(unsigned int __mask  );
-unsigned int getumask();
-int mkdir(const char* __path, unsigned int __mode  );
-int mkdirat(int __fd, const char* __path, unsigned int __mode  );
-int mknod(const char* __path, unsigned int __mode  , unsigned long  int __dev  );
-int mknodat(int __fd, const char* __path, unsigned int __mode  , unsigned long  int __dev  );
-int mkfifo(const char* __path, unsigned int __mode  );
-int mkfifoat(int __fd, const char* __path, unsigned int __mode  );
-int utimensat(int __fd, const char* __path, const struct timespec __times[2]  , int __flags);
-int futimens(int __fd, const struct timespec __times[2]  );
-int statx(int __dirfd, const char* __path, int __flags, unsigned int __mask, struct statx* __buf  );
-int statvfs(const char* __file, struct statvfs* __buf  );
-int statvfs64(const char* __file, struct statvfs64* __buf  );
-int fstatvfs(int __fildes, struct statvfs* __buf  );
-int fstatvfs64(int __fildes, struct statvfs64* __buf  );
-int gettimeofday(struct timeval* __tv  , void* __tz);
-int settimeofday(const struct timeval* __tv  , const struct timezone* __tz  );
-int adjtime(const struct timeval* __delta  , struct timeval* __olddelta  );
-int getitimer(enum __itimer_which __which  , struct itimerval* __value  );
-int setitimer(enum __itimer_which __which  , const struct itimerval* __new  , struct itimerval* __old  );
-int utimes(const char* __file, const struct timeval __tvp[2]  );
-int lutimes(const char* __file, const struct timeval __tvp[2]  );
-int futimes(int __fd, const struct timeval __tvp[2]  );
-int futimesat(int __fd, const char* __file, const struct timeval __tvp[2]  );
-long  int times(struct tms* __buffer  );
-long  int readv(int __fd, const struct iovec* __iovec  , int __count);
-long  int writev(int __fd, const struct iovec* __iovec  , int __count);
-long  int preadv(int __fd, const struct iovec* __iovec  , int __count, long  int __offset  );
-long  int pwritev(int __fd, const struct iovec* __iovec  , int __count, long  int __offset  );
-long  int preadv64(int __fd, const struct iovec* __iovec  , int __count, long  int __offset  );
-long  int pwritev64(int __fd, const struct iovec* __iovec  , int __count, long  int __offset  );
-long  int preadv2(int __fp, const struct iovec* __iovec  , int __count, long  int __offset  , int ___flags);
-long  int pwritev2(int __fd, const struct iovec* __iodev  , int __count, long  int __offset  , int __flags);
-long  int preadv64v2(int __fp, const struct iovec* __iovec  , int __count, long  int __offset  , int ___flags);
-long  int pwritev64v2(int __fd, const struct iovec* __iodev  , int __count, long  int __offset  , int __flags);
-long  int process_vm_readv(int __pid  , const struct iovec* __lvec  , unsigned long  int __liovcnt, const struct iovec* __rvec  , unsigned long  int __riovcnt, unsigned long  int __flags);
-long  int process_vm_writev(int __pid  , const struct iovec* __lvec  , unsigned long  int __liovcnt, const struct iovec* __rvec  , unsigned long  int __riovcnt, unsigned long  int __flags);
-int uname(struct utsname* __name  );
+int prlimit(int  __pid  , enum __rlimit_resource __resource, const struct rlimit*  __new_limit  , struct rlimit*  __old_limit  );
+int prlimit64(int  __pid  , enum __rlimit_resource __resource, const struct rlimit64*  __new_limit  , struct rlimit64*  __old_limit  );
+int getrlimit(enum __rlimit_resource  __resource  , struct rlimit*  __rlimits  );
+int getrlimit64(enum __rlimit_resource  __resource  , struct rlimit64*  __rlimits  );
+int setrlimit(enum __rlimit_resource  __resource  , const struct rlimit*  __rlimits  );
+int setrlimit64(enum __rlimit_resource  __resource  , const struct rlimit64*  __rlimits  );
+int getrusage(enum __rusage_who  __who  , struct rusage*  __usage  );
+int getpriority(enum __priority_which  __which  , unsigned int  __who  );
+int setpriority(enum __priority_which  __which  , unsigned int  __who  , int __prio);
+int stat(const char* __file, struct stat*  __buf  );
+int fstat(int __fd, struct stat*  __buf  );
+int stat64(const char* __file, struct stat64*  __buf  );
+int fstat64(int __fd, struct stat64*  __buf  );
+int fstatat(int __fd, const char* __file, struct stat*  __buf  , int __flag);
+int fstatat64(int __fd, const char* __file, struct stat64*  __buf  , int __flag);
+int lstat(const char* __file, struct stat*  __buf  );
+int lstat64(const char* __file, struct stat64*  __buf  );
+int chmod(const char* __file, unsigned int  __mode  );
+int lchmod(const char* __file, unsigned int  __mode  );
+int fchmod(int __fd, unsigned int  __mode  );
+int fchmodat(int __fd, const char* __file, unsigned int  __mode  , int __flag);
+unsigned int  umask(unsigned int  __mask  );
+unsigned int  getumask();
+int mkdir(const char* __path, unsigned int  __mode  );
+int mkdirat(int __fd, const char* __path, unsigned int  __mode  );
+int mknod(const char* __path, unsigned int  __mode  , unsigned long  int  __dev  );
+int mknodat(int __fd, const char* __path, unsigned int  __mode  , unsigned long  int  __dev  );
+int mkfifo(const char* __path, unsigned int  __mode  );
+int mkfifoat(int __fd, const char* __path, unsigned int  __mode  );
+int utimensat(int __fd, const char* __path, const struct timespec  __times[2]  , int __flags);
+int futimens(int __fd, const struct timespec  __times[2]  );
+int statx(int __dirfd, const char* __path, int __flags, unsigned int __mask, struct statx*  __buf  );
+int statvfs(const char* __file, struct statvfs*  __buf  );
+int statvfs64(const char* __file, struct statvfs64*  __buf  );
+int fstatvfs(int __fildes, struct statvfs*  __buf  );
+int fstatvfs64(int __fildes, struct statvfs64*  __buf  );
+int gettimeofday(struct timeval*  __tv  , void* __tz);
+int settimeofday(const struct timeval*  __tv  , const struct timezone*  __tz  );
+int adjtime(const struct timeval*  __delta  , struct timeval*  __olddelta  );
+int getitimer(enum __itimer_which  __which  , struct itimerval*  __value  );
+int setitimer(enum __itimer_which  __which  , const struct itimerval*  __new  , struct itimerval*  __old  );
+int utimes(const char* __file, const struct timeval  __tvp[2]  );
+int lutimes(const char* __file, const struct timeval  __tvp[2]  );
+int futimes(int __fd, const struct timeval  __tvp[2]  );
+int futimesat(int __fd, const char* __file, const struct timeval  __tvp[2]  );
+long  int  times(struct tms*  __buffer  );
+long  int  readv(int __fd, const struct iovec*  __iovec  , int __count);
+long  int  writev(int __fd, const struct iovec*  __iovec  , int __count);
+long  int  preadv(int __fd, const struct iovec*  __iovec  , int __count, long  int  __offset  );
+long  int  pwritev(int __fd, const struct iovec*  __iovec  , int __count, long  int  __offset  );
+long  int  preadv64(int __fd, const struct iovec*  __iovec  , int __count, long  int  __offset  );
+long  int  pwritev64(int __fd, const struct iovec*  __iovec  , int __count, long  int  __offset  );
+long  int  preadv2(int __fp, const struct iovec*  __iovec  , int __count, long  int  __offset  , int ___flags);
+long  int  pwritev2(int __fd, const struct iovec*  __iodev  , int __count, long  int  __offset  , int __flags);
+long  int  preadv64v2(int __fp, const struct iovec*  __iovec  , int __count, long  int  __offset  , int ___flags);
+long  int  pwritev64v2(int __fd, const struct iovec*  __iodev  , int __count, long  int  __offset  , int __flags);
+long  int  process_vm_readv(int  __pid  , const struct iovec*  __lvec  , unsigned long  int __liovcnt, const struct iovec*  __rvec  , unsigned long  int __riovcnt, unsigned long  int __flags);
+long  int  process_vm_writev(int  __pid  , const struct iovec*  __lvec  , unsigned long  int __liovcnt, const struct iovec*  __rvec  , unsigned long  int __riovcnt, unsigned long  int __flags);
+int uname(struct utsname*  __name  );
 void (*__sysv_signal(int __sig, void (*__handler)(int)  ))(int) ;
 void (*sysv_signal(int __sig, void (*__handler)(int)  ))(int) ;
 void (*signal(int __sig, void (*__handler)(int)  ))(int) ;
-int kill(int __pid  , int __sig);
-int killpg(int __pgrp  , int __sig);
+int kill(int  __pid  , int __sig);
+int killpg(int  __pgrp  , int __sig);
 int raise(int __sig);
 void (*ssignal(int __sig, void (*__handler)(int)  ))(int) ;
 int gsignal(int __sig);
 void psignal(int __sig, const char* __s);
-void psiginfo(const struct anonymous_typeX43* __pinfo  , const char* __s);
-int __xpg_sigpause(int __sig);
-int sigblock(int __mask);
-int sigsetmask(int __mask);
-int siggetmask();
-int sigemptyset(struct anonymous_typeX1* __set  );
-int sigfillset(struct anonymous_typeX1* __set  );
-int sigaddset(struct anonymous_typeX1* __set  , int __signo);
-int sigdelset(struct anonymous_typeX1* __set  , int __signo);
-int sigismember(const struct anonymous_typeX1* __set  , int __signo);
-int sigisemptyset(const struct anonymous_typeX1* __set  );
-int sigandset(struct anonymous_typeX1* __set  , const struct anonymous_typeX1* __left  , const struct anonymous_typeX1* __right  );
-int sigorset(struct anonymous_typeX1* __set  , const struct anonymous_typeX1* __left  , const struct anonymous_typeX1* __right  );
-int sigprocmask(int __how, const struct anonymous_typeX1* __set  , struct anonymous_typeX1* __oset  );
-int sigsuspend(const struct anonymous_typeX1* __set  );
-int sigaction(int __sig, const struct sigaction* __act  , struct sigaction* __oact  );
-int sigpending(struct anonymous_typeX1* __set  );
-int sigwait(const struct anonymous_typeX1* __set  , int* __sig);
-int sigwaitinfo(const struct anonymous_typeX1* __set  , struct anonymous_typeX43* __info  );
-int sigtimedwait(const struct anonymous_typeX1* __set  , struct anonymous_typeX43* __info  , const struct timespec* __timeout  );
-int sigqueue(int __pid  , int __sig, const union sigval __val  );
-int sigreturn(struct sigcontext* __scp  );
-int siginterrupt(int __sig, int __interrupt);
+void psiginfo(const struct anonymous_typeX43*  __pinfo  , const char* __s);
+int __xpg_sigpause(int __sig) __attribute__ ((__deprecated__));
+int sigblock(int __mask) __attribute__ ((__deprecated__));
+int sigsetmask(int __mask) __attribute__ ((__deprecated__));
+int siggetmask() __attribute__ ((__deprecated__));
+int sigemptyset(struct anonymous_typeX1*  __set  );
+int sigfillset(struct anonymous_typeX1*  __set  );
+int sigaddset(struct anonymous_typeX1*  __set  , int __signo);
+int sigdelset(struct anonymous_typeX1*  __set  , int __signo);
+int sigismember(const struct anonymous_typeX1*  __set  , int __signo);
+int sigisemptyset(const struct anonymous_typeX1*  __set  );
+int sigandset(struct anonymous_typeX1*  __set  , const struct anonymous_typeX1*  __left  , const struct anonymous_typeX1*  __right  );
+int sigorset(struct anonymous_typeX1*  __set  , const struct anonymous_typeX1*  __left  , const struct anonymous_typeX1*  __right  );
+int sigprocmask(int __how, const struct anonymous_typeX1*  __set  , struct anonymous_typeX1*  __oset  );
+int sigsuspend(const struct anonymous_typeX1*  __set  );
+int sigaction(int __sig, const struct sigaction*  __act  , struct sigaction*  __oact  );
+int sigpending(struct anonymous_typeX1*  __set  );
+int sigwait(const struct anonymous_typeX1*  __set  , int* __sig);
+int sigwaitinfo(const struct anonymous_typeX1*  __set  , struct anonymous_typeX43*  __info  );
+int sigtimedwait(const struct anonymous_typeX1*  __set  , struct anonymous_typeX43*  __info  , const struct timespec*  __timeout  );
+int sigqueue(int  __pid  , int __sig, const union sigval  __val  );
+int sigreturn(struct sigcontext*  __scp  );
+int siginterrupt(int __sig, int __interrupt) __attribute__ ((__deprecated__));
 int access(const char* __name, int __type);
 int euidaccess(const char* __name, int __type);
 int eaccess(const char* __name, int __type);
 int execveat(int __fd, const char* __path, char* __argv[], char* __envp[], int __flags);
 int faccessat(int __fd, const char* __file, int __type, int __flag);
-long  int lseek(int __fd, long  int __offset  , int __whence);
-long  int lseek64(int __fd, long  int __offset  , int __whence);
+long  int  lseek(int __fd, long  int  __offset  , int __whence);
+long  int  lseek64(int __fd, long  int  __offset  , int __whence);
 int close(int __fd);
 void closefrom(int __lowfd);
-long  int read(int __fd, void* __buf, unsigned long __nbytes  );
-long  int write(int __fd, const void* __buf, unsigned long __n  );
-long  int pread(int __fd, void* __buf, unsigned long __nbytes  , long  int __offset  );
-long  int pwrite(int __fd, const void* __buf, unsigned long __n  , long  int __offset  );
-long  int pread64(int __fd, void* __buf, unsigned long __nbytes  , long  int __offset  );
-long  int pwrite64(int __fd, const void* __buf, unsigned long __n  , long  int __offset  );
+long  int  read(int __fd, void* __buf, unsigned long  __nbytes  );
+long  int  write(int __fd, const void* __buf, unsigned long  __n  );
+long  int  pread(int __fd, void* __buf, unsigned long  __nbytes  , long  int  __offset  );
+long  int  pwrite(int __fd, const void* __buf, unsigned long  __n  , long  int  __offset  );
+long  int  pread64(int __fd, void* __buf, unsigned long  __nbytes  , long  int  __offset  );
+long  int  pwrite64(int __fd, const void* __buf, unsigned long  __n  , long  int  __offset  );
 int pipe(int __pipedes[2]);
 int pipe2(int __pipedes[2], int __flags);
 unsigned int alarm(unsigned int __seconds);
 unsigned int sleep(unsigned int __seconds);
-unsigned int ualarm(unsigned int __value  , unsigned int __interval  );
-int usleep(unsigned int __useconds  );
+unsigned int  ualarm(unsigned int  __value  , unsigned int  __interval  );
+int usleep(unsigned int  __useconds  );
 int pause();
-int chown(const char* __file, unsigned int __owner  , unsigned int __group  );
-int fchown(int __fd, unsigned int __owner  , unsigned int __group  );
-int lchown(const char* __file, unsigned int __owner  , unsigned int __group  );
-int fchownat(int __fd, const char* __file, unsigned int __owner  , unsigned int __group  , int __flag);
+int chown(const char* __file, unsigned int  __owner  , unsigned int  __group  );
+int fchown(int __fd, unsigned int  __owner  , unsigned int  __group  );
+int lchown(const char* __file, unsigned int  __owner  , unsigned int  __group  );
+int fchownat(int __fd, const char* __file, unsigned int  __owner  , unsigned int  __group  , int __flag);
 int chdir(const char* __path);
 int fchdir(int __fd);
-char* getcwd(char* __buf, unsigned long __size  );
+char* getcwd(char* __buf, unsigned long  __size  );
 char* get_current_dir_name();
-char* getwd(char* __buf);
+char* getwd(char* __buf) __attribute__ ((__deprecated__)) 
+    ;
 int dup(int __fd);
 int dup2(int __fd, int __fd2);
 int dup3(int __fd, int __fd2, int __flags);
@@ -2419,66 +2420,66 @@ int execvp(const char* __file, char* __argv[]);
 int execlp(const char* __file, const char* __arg, ...);
 int execvpe(const char* __file, char* __argv[], char* __envp[]);
 int nice(int __inc);
-void _exit(int __status);
+void _exit(int __status) __attribute__ ((__noreturn__));
 long  int pathconf(const char* __path, int __name);
 long  int fpathconf(int __fd, int __name);
 long  int sysconf(int __name);
-unsigned long confstr(int __name, char* __buf, unsigned long __len  );
-int getpid();
-int getppid();
-int getpgrp();
-int __getpgid(int __pid  );
-int getpgid(int __pid  );
-int setpgid(int __pid  , int __pgid  );
+unsigned long  confstr(int __name, char* __buf, unsigned long  __len  );
+int  getpid();
+int  getppid();
+int  getpgrp();
+int  __getpgid(int  __pid  );
+int  getpgid(int  __pid  );
+int setpgid(int  __pid  , int  __pgid  );
 int setpgrp();
-int setsid();
-int getsid(int __pid  );
-unsigned int getuid();
-unsigned int geteuid();
-unsigned int getgid();
-unsigned int getegid();
-int getgroups(int __size, unsigned int __list[]  );
-int group_member(unsigned int __gid  );
-int setuid(unsigned int __uid  );
-int setreuid(unsigned int __ruid  , unsigned int __euid  );
-int seteuid(unsigned int __uid  );
-int setgid(unsigned int __gid  );
-int setregid(unsigned int __rgid  , unsigned int __egid  );
-int setegid(unsigned int __gid  );
-int getresuid(unsigned int* __ruid  , unsigned int* __euid  , unsigned int* __suid  );
-int getresgid(unsigned int* __rgid  , unsigned int* __egid  , unsigned int* __sgid  );
-int setresuid(unsigned int __ruid  , unsigned int __euid  , unsigned int __suid  );
-int setresgid(unsigned int __rgid  , unsigned int __egid  , unsigned int __sgid  );
-int fork();
-int vfork();
-int _Fork();
+int  setsid();
+int  getsid(int  __pid  );
+unsigned int  getuid();
+unsigned int  geteuid();
+unsigned int  getgid();
+unsigned int  getegid();
+int getgroups(int __size, unsigned int  __list[]  );
+int group_member(unsigned int  __gid  );
+int setuid(unsigned int  __uid  );
+int setreuid(unsigned int  __ruid  , unsigned int  __euid  );
+int seteuid(unsigned int  __uid  );
+int setgid(unsigned int  __gid  );
+int setregid(unsigned int  __rgid  , unsigned int  __egid  );
+int setegid(unsigned int  __gid  );
+int getresuid(unsigned int*  __ruid  , unsigned int*  __euid  , unsigned int*  __suid  );
+int getresgid(unsigned int*  __rgid  , unsigned int*  __egid  , unsigned int*  __sgid  );
+int setresuid(unsigned int  __ruid  , unsigned int  __euid  , unsigned int  __suid  );
+int setresgid(unsigned int  __rgid  , unsigned int  __egid  , unsigned int  __sgid  );
+int  fork();
+int  vfork();
+int  _Fork();
 char* ttyname(int __fd);
-int ttyname_r(int __fd, char* __buf, unsigned long __buflen  );
+int ttyname_r(int __fd, char* __buf, unsigned long  __buflen  );
 int isatty(int __fd);
 int ttyslot();
 int link(const char* __from, const char* __to);
 int linkat(int __fromfd, const char* __from, int __tofd, const char* __to, int __flags);
 int symlink(const char* __from, const char* __to);
-long  int readlink(const char* __path, char* __buf, unsigned long __len  );
+long  int  readlink(const char* __path, char* __buf, unsigned long  __len  );
 int symlinkat(const char* __from, int __tofd, const char* __to);
-long  int readlinkat(int __fd, const char* __path, char* __buf, unsigned long __len  );
+long  int  readlinkat(int __fd, const char* __path, char* __buf, unsigned long  __len  );
 int unlink(const char* __name);
 int unlinkat(int __fd, const char* __name, int __flag);
 int rmdir(const char* __path);
-int tcgetpgrp(int __fd);
-int tcsetpgrp(int __fd, int __pgrp_id  );
+int  tcgetpgrp(int __fd);
+int tcsetpgrp(int __fd, int  __pgrp_id  );
 char* getlogin();
-int getlogin_r(char* __name, unsigned long __name_len  );
+int getlogin_r(char* __name, unsigned long  __name_len  );
 int setlogin(const char* __name);
 int getopt(int ___argc, char** ___argv, const char* __shortopts);
-int gethostname(char* __name, unsigned long __len  );
-int sethostname(const char* __name, unsigned long __len  );
+int gethostname(char* __name, unsigned long  __len  );
+int sethostname(const char* __name, unsigned long  __len  );
 int sethostid(long  int __id);
-int getdomainname(char* __name, unsigned long __len  );
-int setdomainname(const char* __name, unsigned long __len  );
+int getdomainname(char* __name, unsigned long  __len  );
+int setdomainname(const char* __name, unsigned long  __len  );
 int vhangup();
 int revoke(const char* __file);
-int profil(unsigned short int* __sample_buffer, unsigned long __size  , unsigned long __offset  , unsigned int __scale);
+int profil(unsigned short int* __sample_buffer, unsigned long  __size  , unsigned long  __offset  , unsigned int __scale);
 int acct(const char* __name);
 char* getusershell();
 void endusershell();
@@ -2490,81 +2491,81 @@ int fsync(int __fd);
 int syncfs(int __fd);
 long  int gethostid();
 void sync();
-int getpagesize();
+int getpagesize() __attribute__ ((__const__));
 int getdtablesize();
-int truncate(const char* __file, long  int __length  );
-int truncate64(const char* __file, long  int __length  );
-int ftruncate(int __fd, long  int __length  );
-int ftruncate64(int __fd, long  int __length  );
+int truncate(const char* __file, long  int  __length  );
+int truncate64(const char* __file, long  int  __length  );
+int ftruncate(int __fd, long  int  __length  );
+int ftruncate64(int __fd, long  int  __length  );
 int brk(void* __addr);
-void* sbrk(long  int __delta  );
+void* sbrk(long  int  __delta  );
 long  int syscall(long  int __sysno, ...);
-long  int copy_file_range(int __infd, long  int* __pinoff  , int __outfd, long  int* __poutoff  , unsigned long __length  , unsigned int __flags);
+long  int  copy_file_range(int __infd, long  int*  __pinoff  , int __outfd, long  int*  __poutoff  , unsigned long  __length  , unsigned int __flags);
 int fdatasync(int __fildes);
 char* crypt(const char* __key, const char* __salt);
-void swab(const void* __from, void* __to, long  int __n  );
-int getentropy(void* __buffer, unsigned long __length  );
+void swab(const void* __from, void* __to, long  int  __n  );
+int getentropy(void* __buffer, unsigned long  __length  );
 int close_range(unsigned int __fd, unsigned int __max_fd, int __flags);
-int gettid();
-int sigaltstack(const struct anonymous_typeX76* __ss  , struct anonymous_typeX76* __oss  );
-int sigstack(struct sigstack* __ss  , struct sigstack* __oss  );
-int sighold(int __sig);
-int sigrelse(int __sig);
-int sigignore(int __sig);
-void (*sigset(int __sig, void (*__disp)(int)  ))(int) ;
-int pthread_sigmask(int __how, const struct anonymous_typeX1* __newmask  , struct anonymous_typeX1* __oldmask  );
-int pthread_kill(unsigned long  int __threadid  , int __signo);
-int pthread_sigqueue(unsigned long  int __threadid  , int __signo, const union sigval __value  );
+int  gettid();
+int sigaltstack(const struct anonymous_typeX76*  __ss  , struct anonymous_typeX76*  __oss  );
+int sigstack(struct sigstack*  __ss  , struct sigstack*  __oss  ) __attribute__ ((__deprecated__));
+int sighold(int __sig) __attribute__ ((__deprecated__));
+int sigrelse(int __sig) __attribute__ ((__deprecated__));
+int sigignore(int __sig) __attribute__ ((__deprecated__));
+void (*sigset(int __sig, void (*__disp)(int)  ))(int)  __attribute__ ((__deprecated__)) ;
+int pthread_sigmask(int __how, const struct anonymous_typeX1*  __newmask  , struct anonymous_typeX1*  __oldmask  );
+int pthread_kill(unsigned long  int  __threadid  , int __signo);
+int pthread_sigqueue(unsigned long  int  __threadid  , int __signo, const union sigval  __value  );
 int __libc_current_sigrtmin();
 int __libc_current_sigrtmax();
-int tgkill(int __tgid  , int __tid  , int __signal);
-int wait(int* __stat_loc);
-int waitpid(int __pid  , int* __stat_loc, int __options);
-int waitid(enum anonymous_typeY77 __idtype  , unsigned int __id  , struct anonymous_typeX43* __infop  , int __options);
-int wait3(int* __stat_loc, int __options, struct rusage* __usage  );
-int wait4(int __pid  , int* __stat_loc, int __options, struct rusage* __usage  );
-unsigned int cfgetospeed(const struct termios* __termios_p  );
-unsigned int cfgetispeed(const struct termios* __termios_p  );
-int cfsetospeed(struct termios* __termios_p  , unsigned int __speed  );
-int cfsetispeed(struct termios* __termios_p  , unsigned int __speed  );
-int cfsetspeed(struct termios* __termios_p  , unsigned int __speed  );
-unsigned int cfgetobaud(const struct termios* __termios_p  );
-unsigned int cfgetibaud(const struct termios* __termios_p  );
-int cfsetobaud(struct termios* __termios_p  , unsigned int __baud  );
-int cfsetibaud(struct termios* __termios_p  , unsigned int __baud  );
-int cfsetbaud(struct termios* __termios_p  , unsigned int __baud  );
-int tcgetattr(int __fd, struct termios* __termios_p  );
-int tcsetattr(int __fd, int __optional_actions, const struct termios* __termios_p  );
-void cfmakeraw(struct termios* __termios_p  );
+int tgkill(int  __tgid  , int  __tid  , int __signal);
+int  wait(int* __stat_loc);
+int  waitpid(int  __pid  , int* __stat_loc, int __options);
+int waitid(enum anonymous_typeY77  __idtype  , unsigned int  __id  , struct anonymous_typeX43*  __infop  , int __options);
+int  wait3(int* __stat_loc, int __options, struct rusage*  __usage  );
+int  wait4(int  __pid  , int* __stat_loc, int __options, struct rusage*  __usage  );
+unsigned int  cfgetospeed(const struct termios*  __termios_p  );
+unsigned int  cfgetispeed(const struct termios*  __termios_p  );
+int cfsetospeed(struct termios*  __termios_p  , unsigned int  __speed  );
+int cfsetispeed(struct termios*  __termios_p  , unsigned int  __speed  );
+int cfsetspeed(struct termios*  __termios_p  , unsigned int  __speed  );
+unsigned int  cfgetobaud(const struct termios*  __termios_p  );
+unsigned int  cfgetibaud(const struct termios*  __termios_p  );
+int cfsetobaud(struct termios*  __termios_p  , unsigned int  __baud  );
+int cfsetibaud(struct termios*  __termios_p  , unsigned int  __baud  );
+int cfsetbaud(struct termios*  __termios_p  , unsigned int  __baud  );
+int tcgetattr(int __fd, struct termios*  __termios_p  );
+int tcsetattr(int __fd, int __optional_actions, const struct termios*  __termios_p  );
+void cfmakeraw(struct termios*  __termios_p  );
 int tcsendbreak(int __fd, int __duration);
 int tcdrain(int __fd);
 int tcflush(int __fd, int __queue_selector);
 int tcflow(int __fd, int __action);
-int tcgetsid(int __fd);
+int  tcgetsid(int __fd);
 int test_headers_posix();
 // uniq global variable
 // inline function
-static inline unsigned short int __bswap_16(unsigned short int __bsx  )
+static inline unsigned short int  __bswap_16(unsigned short int  __bsx  )
 {
-    return ((unsigned short int)((((__bsx)>>8)&0xff)|(((__bsx)&0xff)<<8)));
+    return ((unsigned short int )((((__bsx)>>8)&0xff)|(((__bsx)&0xff)<<8)));
 }
-static inline unsigned int __bswap_32(unsigned int __bsx  )
+static inline unsigned int  __bswap_32(unsigned int  __bsx  )
 {
     return ((((__bsx)&0xff000000u)>>24)|(((__bsx)&0x00ff0000u)>>8)|(((__bsx)&0x0000ff00u)<<8)|(((__bsx)&0x000000ffu)<<24));
 }
-static inline unsigned long  int __bswap_64(unsigned long  int __bsx  )
+static inline unsigned long  int  __bswap_64(unsigned long  int  __bsx  )
 {
     return ((((__bsx)&0xff00000000000000ull)>>56)|(((__bsx)&0x00ff000000000000ull)>>40)|(((__bsx)&0x0000ff0000000000ull)>>24)|(((__bsx)&0x000000ff00000000ull)>>8)|(((__bsx)&0x00000000ff000000ull)<<8)|(((__bsx)&0x0000000000ff0000ull)<<24)|(((__bsx)&0x000000000000ff00ull)<<40)|(((__bsx)&0x00000000000000ffull)<<56));
 }
-static inline unsigned short int __uint16_identity(unsigned short int __x  )
+static inline unsigned short int  __uint16_identity(unsigned short int  __x  )
 {
     return __x;
 }
-static inline unsigned int __uint32_identity(unsigned int __x  )
+static inline unsigned int  __uint32_identity(unsigned int  __x  )
 {
     return __x;
 }
-static inline unsigned long  int __uint64_identity(unsigned long  int __x  )
+static inline unsigned long  int  __uint64_identity(unsigned long  int  __x  )
 {
     return __x;
 }
