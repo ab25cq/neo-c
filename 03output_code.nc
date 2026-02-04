@@ -39,6 +39,9 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
     if(type->mConstant) {
         buf.append_str("const ");
     }
+    if(type->mVolatile) {
+        buf.append_str("volatile ");
+    }
     if(type->mComplex) {
         buf.append_str("_Complex ");
     }
@@ -109,6 +112,10 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
         string result_type_str = make_type_name_string(type->mResultType, no_static:true);
         buf.append_str(result_type_str);
         buf.append_str(" (*");
+        if(type->mPointerAttribute != null && type->mPointerAttribute !== "") {
+            buf.append_str(" ");
+            buf.append_str(type->mPointerAttribute);
+        }
         
         if(type->mArrayNum.length() > 0) {
             for(int i=0; i<type->mArrayNum.length(); i++) {
@@ -190,8 +197,13 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
         }
     }
     
+    if(class_name !== "lambda" && type->mPointerAttribute != null && type->mPointerAttribute !== "") {
+        buf.append_str(" ");
+        buf.append_str(type->mPointerAttribute);
+    }
+    
     if(type->mRestrict) {
-        buf.append_str("restrict");
+        buf.append_str(" restrict");
     }
     
     if(type->mAttribute) {// && gComeBareMetal) {
@@ -297,6 +309,9 @@ string make_come_type_name_string(sType* type, sInfo* info=info)
         if(type->mConstant) {
             buf.append_str("const ");
         }
+        if(type->mVolatile) {
+            buf.append_str("volatile ");
+        }
         if(type->mComplex) {
             buf.append_str("_Complex ");
         }
@@ -336,6 +351,13 @@ string make_come_type_name_string(sType* type, sInfo* info=info)
             for(int i=0; i<type2->mPointerNum; i++) {
                 buf.append_str("*");
             }
+        }
+        if(class_name !== "lambda" && type->mPointerAttribute != null && type->mPointerAttribute !== "") {
+            buf.append_str(" ");
+            buf.append_str(type->mPointerAttribute);
+        }
+        if(type->mRestrict) {
+            buf.append_str(" restrict");
         }
         
         if(type->mAtomic) {
@@ -417,11 +439,16 @@ static string make_lambda_type_name_string(sType* type, char* var_name, sInfo* i
             buf.append_str(type->mMiddleAttribute);
             buf.append_str(" ");
         }
+        string pointer_attr = s"";
+        if(type->mPointerAttribute != null && type->mPointerAttribute !== "") {
+            pointer_attr = s" " + type->mPointerAttribute + " ";
+        }
         if(type->mArrayPointerNum > 0) {
             for(int i=0; i<type->mArrayPointerNum+1; i++) {
                 buf.append_str("(");
                 buf.append_str("*");
             }
+            buf.append_str(pointer_attr);
             buf.append_str(var_name);
             if(type->mArrayPointerType) {
                 buf.append_str("[]");
@@ -435,13 +462,16 @@ static string make_lambda_type_name_string(sType* type, char* var_name, sInfo* i
             for(int i=0; i<type->mFunctionPointerNum; i++) {
                 buf.append_str("*");
             }
+            buf.append_str(pointer_attr);
             buf.append_str(var_name);
             if(type->mArrayPointerType) {
                 buf.append_str("[]");
             }
         }
         else {
-            buf.append_format("(*%s", var_name);
+            buf.append_str("(*");
+            buf.append_str(pointer_attr);
+            buf.append_format("%s", var_name);
             if(type->mArrayPointerType) {
                 buf.append_str("[]");
             }

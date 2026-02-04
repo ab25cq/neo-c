@@ -99,6 +99,7 @@ uniq class sType
     string mAttribute;
     string mVarAttribute;
     string mMiddleAttribute;
+    string mPointerAttribute;
     
     bool mAllocaValue;
     
@@ -229,6 +230,7 @@ uniq class sType
         
         self.mTypeOfNode = null;
         self.mMiddleAttribute = s"";
+        self.mPointerAttribute = s"";
     }
 };
 

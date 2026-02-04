@@ -34,6 +34,31 @@ fp_inner_t (*fp_nested)(void);
 typedef fp_inner_t (*fp_nested_t)(void);
 fp_nested_t fp_nested2;
 
+// const/volatile mixed with middle attribute
+const volatile int __attribute__((cold)) (*fp_cv_var)(void);
+typedef const volatile int __attribute__((cold)) (*fp_cv_inner_t)(void);
+typedef fp_cv_inner_t (*fp_cv_nested_t)(void);
+fp_cv_nested_t fp_cv_nested2;
+
+// volatile/const order mixed with middle attribute
+volatile const int __attribute__((cold)) (*fp_vc_var)(void);
+typedef volatile const int __attribute__((cold)) (*fp_vc_inner_t)(void);
+typedef fp_vc_inner_t (*fp_vc_nested_t)(void);
+fp_vc_nested_t fp_vc_nested2;
+
+// Pointer-side qualifiers
+int __attribute__((cold)) (* const fp_ptr_const)(void);
+int __attribute__((cold)) (* volatile fp_ptr_volatile)(void);
+int __attribute__((cold)) (* const volatile fp_ptr_cv)(void);
+int __attribute__((cold)) (* restrict fp_ptr_restrict)(void);
+int __attribute__((cold)) (* const restrict fp_ptr_const_restrict)(void);
+
+// Return-side restrict (function returns restricted pointer)
+int * restrict f_ret_restrict(void);
+int * restrict (*fp_ret_restrict)(void);
+typedef int * restrict (*fp_ret_restrict_t)(void);
+fp_ret_restrict_t fp_ret_restrict2;
+
 // Suffix attributes (after params, before ';') covering all tokens
 int f_attr_suffix(void)
     __attribute_pure__ __malloc_like __result_use_check __alloc_size(1) __alloc_size2(1,2)

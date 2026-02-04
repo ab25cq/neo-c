@@ -376,7 +376,7 @@ typedef union anonymous_typeZ503 pthread_rwlock_t;
 
 typedef union anonymous_typeZ504 pthread_rwlockattr_t;
 
-typedef int pthread_spinlock_t;
+typedef volatile int pthread_spinlock_t;
 
 typedef union anonymous_typeZ505 pthread_barrier_t;
 
@@ -386,9 +386,9 @@ typedef unsigned int  socklen_t  ;
 
 typedef unsigned short int sa_family_t;
 
-typedef struct sockaddr*  __SOCKADDR_ARG  ;
+typedef struct sockaddr* __restrict  __SOCKADDR_ARG  ;
 
-typedef const struct sockaddr*  __CONST_SOCKADDR_ARG  ;
+typedef const struct sockaddr* __restrict  __CONST_SOCKADDR_ARG  ;
 
 typedef struct anonymous_typeX507 sync_serial_settings;
 
@@ -10686,28 +10686,28 @@ struct robust_list_head
 char* strdup(const char* );
 int vsnprintf(char* , unsigned long  int , const char* , __builtin_va_list );
 int snprintf(char* , unsigned long  int , const char* , ...);
-int select(int __nfds, struct anonymous_typeX495*  __readfds  , struct anonymous_typeX495*  __writefds  , struct anonymous_typeX495*  __exceptfds  , struct timeval*  __timeout  );
-int pselect(int __nfds, struct anonymous_typeX495*  __readfds  , struct anonymous_typeX495*  __writefds  , struct anonymous_typeX495*  __exceptfds  , const struct timespec*  __timeout  , const struct anonymous_typeX494*  __sigmask  );
+int select(int __nfds, struct anonymous_typeX495* __restrict  __readfds  , struct anonymous_typeX495* __restrict  __writefds  , struct anonymous_typeX495* __restrict  __exceptfds  , struct timeval* __restrict  __timeout  );
+int pselect(int __nfds, struct anonymous_typeX495* __restrict  __readfds  , struct anonymous_typeX495* __restrict  __writefds  , struct anonymous_typeX495* __restrict  __exceptfds  , const struct timespec* __restrict  __timeout  , const struct anonymous_typeX494* __restrict  __sigmask  );
 struct cmsghdr*  __cmsg_nxthdr(struct msghdr*  __mhdr  , struct cmsghdr*  __cmsg  );
 int socket(int __domain, int __type, int __protocol);
 int socketpair(int __domain, int __type, int __protocol, int __fds[2]);
-int bind(int __fd, const struct sockaddr*  __addr  , unsigned int  __len  );
-int getsockname(int __fd, struct sockaddr*  __addr  , unsigned int*  __len  );
-int connect(int __fd, const struct sockaddr*  __addr  , unsigned int  __len  );
-int getpeername(int __fd, struct sockaddr*  __addr  , unsigned int*  __len  );
+int bind(int __fd, const struct sockaddr* __restrict  __addr  , unsigned int  __len  );
+int getsockname(int __fd, struct sockaddr* __restrict  __addr  , unsigned int* __restrict  __len  );
+int connect(int __fd, const struct sockaddr* __restrict  __addr  , unsigned int  __len  );
+int getpeername(int __fd, struct sockaddr* __restrict  __addr  , unsigned int* __restrict  __len  );
 long  int  send(int __fd, const void* __buf, unsigned long  __n  , int __flags);
 long  int  recv(int __fd, void* __buf, unsigned long  __n  , int __flags);
-long  int  sendto(int __fd, const void* __buf, unsigned long  __n  , int __flags, const struct sockaddr*  __addr  , unsigned int  __addr_len  );
-long  int  recvfrom(int __fd, void* __buf, unsigned long  __n  , int __flags, struct sockaddr*  __addr  , unsigned int*  __addr_len  );
+long  int  sendto(int __fd, const void* __buf, unsigned long  __n  , int __flags, const struct sockaddr* __restrict  __addr  , unsigned int  __addr_len  );
+long  int  recvfrom(int __fd, void* __restrict __buf, unsigned long  __n  , int __flags, struct sockaddr* __restrict  __addr  , unsigned int* __restrict  __addr_len  );
 long  int  sendmsg(int __fd, const struct msghdr*  __message  , int __flags);
 int sendmmsg(int __fd, struct mmsghdr*  __vmessages  , unsigned int __vlen, int __flags);
 long  int  recvmsg(int __fd, struct msghdr*  __message  , int __flags);
 int recvmmsg(int __fd, struct mmsghdr*  __vmessages  , unsigned int __vlen, int __flags, struct timespec*  __tmo  );
-int getsockopt(int __fd, int __level, int __optname, void* __optval, unsigned int*  __optlen  );
+int getsockopt(int __fd, int __level, int __optname, void* __restrict __optval, unsigned int* __restrict  __optlen  );
 int setsockopt(int __fd, int __level, int __optname, const void* __optval, unsigned int  __optlen  );
 int listen(int __fd, int __n);
-int accept(int __fd, struct sockaddr*  __addr  , unsigned int*  __addr_len  );
-int accept4(int __fd, struct sockaddr*  __addr  , unsigned int*  __addr_len  , int __flags);
+int accept(int __fd, struct sockaddr* __restrict  __addr  , unsigned int* __restrict  __addr_len  );
+int accept4(int __fd, struct sockaddr* __restrict  __addr  , unsigned int* __restrict  __addr_len  , int __flags);
 int shutdown(int __fd, int __how);
 int sockatmark(int __fd);
 int isfdtype(int __fd, int __fdtype);

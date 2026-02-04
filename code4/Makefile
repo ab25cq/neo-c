@@ -58,6 +58,21 @@ test: $(NCC) attrs_split.nc struct_attrs.nc enum_attrs.nc function_attrs.nc
 	@grep -Eq "int[[:space:]]+__attribute__\\(\\(cold\\)\\)[[:space:]]+\\(\\*\\(\\*fp_nested\\)\\(\\)\\)\\(int\\)" function_attrs.c
 	@grep -Eq "typedef[[:space:]]+int[[:space:]]+__attribute__\\(\\(cold\\)\\)[[:space:]]+\\(\\*\\(\\*fp_nested_t\\)\\([[:space:]]*\\)\\)[[:space:]]*\\(int\\)" function_attrs.c
 	@grep -Eq "int[[:space:]]+__attribute__\\(\\(cold\\)\\)[[:space:]]+\\(\\*\\(\\*fp_nested2\\)\\([[:space:]]*\\)[[:space:]]*\\)[[:space:]]*\\(int\\)" function_attrs.c
+	@grep -Eq "const[[:space:]]+volatile[[:space:]]+int[[:space:]]+__attribute__\\(\\(cold\\)\\)[[:space:]]+\\(\\*fp_cv_var\\)\\(\\)" function_attrs.c
+	@grep -Eq "typedef[[:space:]]+const[[:space:]]+volatile[[:space:]]+int[[:space:]]+__attribute__\\(\\(cold\\)\\)[[:space:]]+\\(\\*fp_cv_inner_t\\)\\(\\)" function_attrs.c
+	@grep -Eq "const[[:space:]]+volatile[[:space:]]+int[[:space:]]+__attribute__\\(\\(cold\\)\\)[[:space:]]+\\(\\*\\(\\*fp_cv_nested2\\)\\([[:space:]]*\\)[[:space:]]*\\)\\(\\)" function_attrs.c
+	@grep -Eq "const[[:space:]]+volatile[[:space:]]+int[[:space:]]+__attribute__\\(\\(cold\\)\\)[[:space:]]+\\(\\*fp_vc_var\\)\\(\\)" function_attrs.c
+	@grep -Eq "typedef[[:space:]]+const[[:space:]]+volatile[[:space:]]+int[[:space:]]+__attribute__\\(\\(cold\\)\\)[[:space:]]+\\(\\*fp_vc_inner_t\\)\\(\\)" function_attrs.c
+	@grep -Eq "const[[:space:]]+volatile[[:space:]]+int[[:space:]]+__attribute__\\(\\(cold\\)\\)[[:space:]]+\\(\\*\\(\\*fp_vc_nested2\\)\\([[:space:]]*\\)[[:space:]]*\\)\\(\\)" function_attrs.c
+	@grep -Eq "int[[:space:]]+__attribute__\\(\\(cold\\)\\)[[:space:]]+\\(\\*[[:space:]]+const[[:space:]]+fp_ptr_const\\)\\(\\)" function_attrs.c
+	@grep -Eq "int[[:space:]]+__attribute__\\(\\(cold\\)\\)[[:space:]]+\\(\\*[[:space:]]+volatile[[:space:]]+fp_ptr_volatile\\)\\(\\)" function_attrs.c
+	@grep -Eq "int[[:space:]]+__attribute__\\(\\(cold\\)\\)[[:space:]]+\\(\\*[[:space:]]+const[[:space:]]+volatile[[:space:]]+fp_ptr_cv\\)\\(\\)" function_attrs.c
+	@grep -Eq "int[[:space:]]+__attribute__\\(\\(cold\\)\\)[[:space:]]+\\(\\*[[:space:]]+restrict[[:space:]]+fp_ptr_restrict\\)\\(\\)" function_attrs.c
+	@grep -Eq "int[[:space:]]+__attribute__\\(\\(cold\\)\\)[[:space:]]+\\(\\*[[:space:]]+const[[:space:]]+restrict[[:space:]]+fp_ptr_const_restrict\\)\\(\\)" function_attrs.c
+	@grep -Eq "int[[:space:]]*\\*[[:space:]]+restrict[[:space:]]+f_ret_restrict\\(\\)" function_attrs.c
+	@grep -Eq "int[[:space:]]*\\*[[:space:]]+restrict[[:space:]]+\\(\\*fp_ret_restrict\\)\\(\\)" function_attrs.c
+	@grep -Eq "typedef[[:space:]]+int[[:space:]]*\\*[[:space:]]+restrict[[:space:]]+\\(\\*fp_ret_restrict_t\\)\\(\\)" function_attrs.c
+	@grep -Eq "int[[:space:]]*\\*[[:space:]]+restrict[[:space:]]+\\(\\*fp_ret_restrict2\\)\\(\\)" function_attrs.c
 	@grep -Fq "__asm__(\"asm_suffix_name\")" function_attrs.c
 	@grep -Fq "f_asm_suffix" function_attrs.c
 	@echo "OK: attribute placement verified"
