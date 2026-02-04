@@ -2,6 +2,8 @@ sh install_pkg.sh
 
 export RM="rm -rf"
 
+sh fast_build.sh
+
 if test -x ./ncc
 then
     touch *.nc
@@ -22,8 +24,6 @@ then
         make CFLAGS_OPT=" -g" self-host -j$(($(nproc) / 2))
         sudo make install
     fi
-    
-    sh fast_build.sh
 else 
     touch *.c
     
@@ -64,3 +64,5 @@ else
     fi
 fi
 
+
+sh fast_build.sh

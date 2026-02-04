@@ -867,6 +867,206 @@ void parse_function_attribute_skip_paren(sInfo* info)
     skip_spaces_and_lf();
 }
 
+bool parse_function_attribute_keyword(buffer* result, const char* keyword, sInfo* info=info)
+{
+    if(parsecmp(keyword)) {
+        char* head = info.p;
+        info->p += strlen(keyword);
+        
+        parse_function_attribute_skip_paren(info);
+        
+        char* tail = info.p;
+        result.append(head, tail-head);
+        
+        return true;
+    }
+    
+    return false;
+}
+
+bool parse_common_function_attribute_keyword(buffer* result, sInfo* info=info)
+{
+    if(parse_function_attribute_keyword(result, "__aligned_largest", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__aligned_u64", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__aligned", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__section", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__visibility", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__alias", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__format_arg", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__format", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__printf", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__scanf", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__assume_aligned", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__cleanup", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__optimize", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__target", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__error", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__warning", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__no_sanitize_address", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__no_sanitize_thread", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__no_sanitize_coverage", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__no_sanitize", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__constructor", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__destructor", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__packed", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__used", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__unused", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__maybe_unused", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__always_unused", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__deprecated", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__cold", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__hot", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__weak_ref", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__weak", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__noinline", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__always_inline", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__flatten", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__leaf", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__naked", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__noclone", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__no_profile", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__no_instrument_function", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__warn_unused_result", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__must_check", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__returns_nonnull", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__malloc", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__init", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__initdata", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__initconst", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__init_rodata", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__exit", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__exitdata", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__exitconst", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__ref", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__meminit", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__meminitdata", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__meminitconst", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__ro_after_init", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__read_mostly", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__latent_entropy", info)) {
+        return true;
+    }
+    else if(parse_function_attribute_keyword(result, "__percpu", info)) {
+        return true;
+    }
+    
+    return false;
+}
+
 string,string parse_function_attribute(sInfo* info=info)
 {
     buffer*% asm_fun_name = new buffer();
@@ -1070,6 +1270,8 @@ string,string parse_function_attribute(sInfo* info=info)
             char* tail = info.p;
             result.append(head, tail-head);
         }
+        else if(parse_common_function_attribute_keyword(result, info)) {
+        }
         else {
             break;
         }
@@ -1198,7 +1400,66 @@ bool is_function_attribute_word(char* buf)
         || buf === "__pure2"
         || buf === "__pure"
         || buf === "__THROW"
-        || buf === "__asm";
+        || buf === "__asm"
+        || buf === "__aligned_largest"
+        || buf === "__aligned_u64"
+        || buf === "__aligned"
+        || buf === "__section"
+        || buf === "__visibility"
+        || buf === "__alias"
+        || buf === "__format_arg"
+        || buf === "__format"
+        || buf === "__printf"
+        || buf === "__scanf"
+        || buf === "__assume_aligned"
+        || buf === "__cleanup"
+        || buf === "__optimize"
+        || buf === "__target"
+        || buf === "__error"
+        || buf === "__warning"
+        || buf === "__no_sanitize_address"
+        || buf === "__no_sanitize_thread"
+        || buf === "__no_sanitize_coverage"
+        || buf === "__no_sanitize"
+        || buf === "__constructor"
+        || buf === "__destructor"
+        || buf === "__packed"
+        || buf === "__used"
+        || buf === "__unused"
+        || buf === "__maybe_unused"
+        || buf === "__always_unused"
+        || buf === "__deprecated"
+        || buf === "__cold"
+        || buf === "__hot"
+        || buf === "__weak_ref"
+        || buf === "__weak"
+        || buf === "__noinline"
+        || buf === "__always_inline"
+        || buf === "__flatten"
+        || buf === "__leaf"
+        || buf === "__naked"
+        || buf === "__noclone"
+        || buf === "__no_profile"
+        || buf === "__no_instrument_function"
+        || buf === "__warn_unused_result"
+        || buf === "__must_check"
+        || buf === "__returns_nonnull"
+        || buf === "__malloc"
+        || buf === "__init"
+        || buf === "__initdata"
+        || buf === "__initconst"
+        || buf === "__init_rodata"
+        || buf === "__exit"
+        || buf === "__exitdata"
+        || buf === "__exitconst"
+        || buf === "__ref"
+        || buf === "__meminit"
+        || buf === "__meminitdata"
+        || buf === "__meminitconst"
+        || buf === "__ro_after_init"
+        || buf === "__read_mostly"
+        || buf === "__latent_entropy"
+        || buf === "__percpu";
 }
 
 sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99

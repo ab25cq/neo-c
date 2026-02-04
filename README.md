@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.8.8.0
+version 0.8.8.1
 
 ``` C
 #include <neo-c.h>
@@ -93,6 +93,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.8.8.1 __attribute__ supported comonly.
 0.8.8.0 tuple expression is now t(1,2,3). More compatibilities C lang.
 0.8.7.9 Fixed bug.
 0.8.7.8 maybe c++ is supported.  -cpp option. No type checking and generate code.

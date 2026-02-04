@@ -10,7 +10,7 @@ $(NCC):
 
 # Compile and verify attribute placement in the generated C output
 
-test: $(NCC) attrs_split.nc struct_attrs.nc enum_attrs.nc function_attrs.nc
+test: $(NCC) attrs_split.nc struct_attrs.nc enum_attrs.nc function_attrs.nc libc_kernel_attrs.nc
 	$(NCC) -c attrs_split.nc
 	@grep -q "struct Packed" attrs_split.c
 	@grep -q "__attribute__((packed))" attrs_split.c
@@ -28,6 +28,7 @@ test: $(NCC) attrs_split.nc struct_attrs.nc enum_attrs.nc function_attrs.nc
 	@grep -Eq "enum __attribute__\\(\\(packed\\)\\)[[:space:]]+EC" enum_attrs.c
 	@grep -Eq "enum __attribute__\\(\\(packed\\)\\)[[:space:]]+__attribute__\\(\\(aligned\\(8\\)\\)\\)[[:space:]]+ED" enum_attrs.c
 	$(NCC) -c function_attrs.nc
+	$(NCC) -c libc_kernel_attrs.nc
 	@grep -Fq "__attribute__((used))" function_attrs.c
 	@grep -Fq "__attribute_pure__" function_attrs.c
 	@grep -Fq "__malloc_like" function_attrs.c
@@ -75,6 +76,26 @@ test: $(NCC) attrs_split.nc struct_attrs.nc enum_attrs.nc function_attrs.nc
 	@grep -Eq "int[[:space:]]*\\*[[:space:]]+restrict[[:space:]]+\\(\\*fp_ret_restrict2\\)\\(\\)" function_attrs.c
 	@grep -Fq "__asm__(\"asm_suffix_name\")" function_attrs.c
 	@grep -Fq "f_asm_suffix" function_attrs.c
+	@grep -Fq "__cold" libc_kernel_attrs.c
+	@grep -Fq "__used" libc_kernel_attrs.c
+	@grep -Fq "__maybe_unused" libc_kernel_attrs.c
+	@grep -Fq "__noinline" libc_kernel_attrs.c
+	@grep -Fq "__always_inline" libc_kernel_attrs.c
+	@grep -Fq "__flatten" libc_kernel_attrs.c
+	@grep -Fq "__leaf" libc_kernel_attrs.c
+	@grep -Fq "__deprecated" libc_kernel_attrs.c
+	@grep -Fq "__warn_unused_result" libc_kernel_attrs.c
+	@grep -Fq "__returns_nonnull" libc_kernel_attrs.c
+	@grep -Fq "__section(\".text.kernel\")" libc_kernel_attrs.c
+	@grep -Fq "__aligned(16)" libc_kernel_attrs.c
+	@grep -Fq "__visibility(\"hidden\")" libc_kernel_attrs.c
+	@grep -Fq "__alias(\"f_kernel_alias\")" libc_kernel_attrs.c
+	@grep -Fq "__weak" libc_kernel_attrs.c
+	@grep -Fq "__init" libc_kernel_attrs.c
+	@grep -Fq "__packed" libc_kernel_attrs.c
+	@grep -Fq "__aligned(8)" libc_kernel_attrs.c
+	@grep -Fq "__section(\".data\")" libc_kernel_attrs.c
+	@grep -Fq "__read_mostly" libc_kernel_attrs.c
 	@echo "OK: attribute placement verified"
 
 clean:
@@ -82,3 +103,4 @@ clean:
 	rm -f struct_attrs.c struct_attrs.o struct_attrs.nc.i struct_attrs.c.error
 	rm -f enum_attrs.c enum_attrs.o enum_attrs.nc.i enum_attrs.c.error
 	rm -f function_attrs.c function_attrs.o function_attrs.nc.i function_attrs.c.error
+	rm -f libc_kernel_attrs.c libc_kernel_attrs.o libc_kernel_attrs.nc.i libc_kernel_attrs.c.error

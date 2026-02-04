@@ -367,10 +367,12 @@ void cast_type(sType* left_type, sType* right_type, CVALUE* come_value, sInfo* i
 {
 }
 
+bool parse_common_attribute_keyword(buffer* result, sInfo* info=info);
+
 string,string parse_attribute(sInfo* info=info)
 {
     buffer*% asm_fun_name = new buffer();
-    string attribute = s"";
+    buffer*% attribute = new buffer();
     
     while(true) {
         if(parsecmp("__attribute_pure__")) {
@@ -560,7 +562,10 @@ string,string parse_attribute(sInfo* info=info)
             skip_spaces_and_lf();
         }
         else if(parsecmp("__attribute__")) {
-            attribute = parse_struct_attribute();
+            string attr = parse_struct_attribute();
+            if(attr !== "") {
+                attribute.append_str(attr);
+            }
         }
         else if(parsecmp("__asm__")) {
             info->p += strlen("__asm__");
@@ -633,12 +638,14 @@ string,string parse_attribute(sInfo* info=info)
 
             skip_spaces_and_lf();
         }
+        else if(parse_common_attribute_keyword(attribute, info)) {
+        }
         else {
             break;
         }
     }
 
-    return t(asm_fun_name.to_string(), attribute);
+    return t(asm_fun_name.to_string(), attribute.to_string());
 }
 
 void parse_struct_attribute_skip_paren(sInfo* info)
@@ -672,26 +679,212 @@ void parse_struct_attribute_skip_paren(sInfo* info)
     skip_spaces_and_lf();
 }
 
+bool parse_attribute_keyword(buffer* result, const char* keyword, sInfo* info=info)
+{
+    if(parsecmp(keyword)) {
+        char* head = info.p;
+        info->p += strlen(keyword);
+        
+        parse_struct_attribute_skip_paren(info);
+        
+        char* tail = info.p;
+        result.append(head, tail-head);
+        
+        return true;
+    }
+    
+    return false;
+}
+
+bool parse_common_attribute_keyword(buffer* result, sInfo* info=info)
+{
+    if(parse_attribute_keyword(result, "__aligned_largest", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__aligned_u64", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__aligned", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__section", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__visibility", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__alias", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__format_arg", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__format", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__printf", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__scanf", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__assume_aligned", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__cleanup", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__optimize", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__target", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__error", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__warning", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__no_sanitize_address", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__no_sanitize_thread", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__no_sanitize_coverage", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__no_sanitize", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__constructor", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__destructor", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__packed", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__used", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__unused", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__maybe_unused", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__always_unused", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__deprecated", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__cold", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__hot", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__weak_ref", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__weak", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__noinline", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__always_inline", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__flatten", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__leaf", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__naked", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__noclone", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__no_profile", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__no_instrument_function", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__warn_unused_result", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__must_check", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__returns_nonnull", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__malloc", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__init", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__initdata", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__initconst", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__init_rodata", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__exit", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__exitdata", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__exitconst", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__ref", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__meminit", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__meminitdata", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__meminitconst", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__ro_after_init", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__read_mostly", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__latent_entropy", info)) {
+        return true;
+    }
+    else if(parse_attribute_keyword(result, "__percpu", info)) {
+        return true;
+    }
+    
+    return false;
+}
+
 string parse_struct_attribute(sInfo* info=info)
 {
     skip_spaces_and_lf();
     buffer*% result = new buffer();
     while(1) {
-        if(xisalpha(*info->p) || *info->p == '_') {
-        }
-        else {
-            break;
-        }
-        
-        char* p = info.p;
-        int sline = info.sline;
-        
-        string buf = parse_word();
-        
-        info.p = p;
-        info.sline = sline;
-        
-        if(buf === "__attribute__") {
+        if(parsecmp("__attribute__")) {
             char* head = info.p;
             
             info->p += strlen("__attribute__");
@@ -702,29 +895,8 @@ string parse_struct_attribute(sInfo* info=info)
             
             result.append(head, tail-head);
         }
-/*
-        else if(buf == "_Alignas") {
-            char* head = info.p;
-            
-            info->p += strlen("_Alignas");
-            
-            parse_struct_attribute_skip_paren(info);
-            
-            char* tail = info.p;
-            result.append(head, tail-head);
+        else if(parse_common_attribute_keyword(result, info)) {
         }
-        else if(buf === "asm") {
-            char* head = info.p;
-            
-            info->p += strlen("asm");
-            skip_spaces_and_lf();
-            skip_paren(info);
-            
-            char* tail = info->p;
-            
-            result.append(head, tail-head);
-        }
-*/
         else {
             break;
         }
