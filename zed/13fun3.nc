@@ -49,7 +49,7 @@ ZVALUE*%, bool str_method(string fun_name, ZVALUE* obj, list<ZVALUE*%>* params, 
                 return info2.result_value.strValue.to_string();
             }
             
-            return (new ZVALUE(kind:kStrValue, str_value:str.to_wstring()), true);
+            return t(new ZVALUE(kind:kStrValue, str_value:str.to_wstring()), true);
         }
     }
     

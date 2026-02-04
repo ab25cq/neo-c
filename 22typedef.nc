@@ -126,7 +126,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 95
             
             list<tup:sType*%, string>*% multiple_declare = new list<tup:sType*%, string>();
             
-            tup: sType*%, string variable_name = (base_type, type_name);
+            tup: sType*%, string variable_name = t(base_type, type_name);
             multiple_declare.push_back(variable_name);
             
             tup: sType*%, string variable_name2 = parse_variable_name_on_multiple_declare(base_type, true@first, info);
@@ -202,7 +202,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             
             list<tup: sType*%, string>*% multiple_declare = new list<tup: sType*%, string>();
             
-            tup: sType*%, string variable_name = (base_type, type_name);
+            tup: sType*%, string variable_name = t(base_type, type_name);
             multiple_declare.push_back(variable_name);
             
             tup: sType*%, string variable_name2 = parse_variable_name_on_multiple_declare(base_type, true@first, info);

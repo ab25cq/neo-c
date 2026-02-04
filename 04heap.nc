@@ -729,7 +729,7 @@ tuple2<sType*%, string>*% clone_object(sType* type, char* obj, sInfo* info)
             var name, err = create_generics_fun(string(fun_name2), generics_fun, obj_type, info);
             
             if(!err) {
-                return (new sType(s"void"), string(""));
+                return t(new sType(s"void"), string(""));
             }
             cloner = borrow info->funcs[name];
         }
@@ -784,7 +784,7 @@ tuple2<sType*%, string>*% clone_object(sType* type, char* obj, sInfo* info)
     
     info.in_clone_object = in_clone_object;
     
-    return (result_type, result);
+    return t(result_type, result);
 }
 
 void free_right_value_objects(sInfo* info)

@@ -357,7 +357,6 @@ struct _IO_wide_data;
 
 struct obstack;
 
-#include <assert.h>
 struct re_program;
 
 struct tm;
@@ -1935,6 +1934,9 @@ struct __locale_struct* duplocale(struct __locale_struct* __dataset  );
 void freelocale(struct __locale_struct* __dataset  );
 struct __locale_struct* uselocale(struct __locale_struct* __dataset  );
 int* __errno_location();
+void __assert_fail(const char* __assertion, const char* __file, unsigned int __line, const char* __function);
+void __assert_perror_fail(int __errnum, const char* __file, unsigned int __line, const char* __function);
+void __assert(const char* __assertion, const char* __file, int __line);
 int* wcscpy(int* __dest  , const int* __src  );
 int* wcsncpy(int* __dest  , const int* __src  , unsigned long __n  );
 unsigned long wcslcpy(int* __dest  , const int* __src  , unsigned long __n  );

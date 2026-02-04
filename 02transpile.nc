@@ -220,11 +220,11 @@ static void init_classes(sInfo* info)
         
         sClass*% klass = new sClass(s"__gnuc_va_list", struct_:true);
         
-        klass.mFields.push_back((string("v1"), new sType(s"char*")));
-        klass.mFields.push_back((string("v2"), new sType(s"char*")));
-        klass.mFields.push_back((string("v3"), new sType(s"char*")));
-        klass.mFields.push_back((string("v4"), new sType(s"int")));
-        klass.mFields.push_back((string("v5"), new sType(s"int")));
+        klass.mFields.push_back(t(string("v1"), new sType(s"char*")));
+        klass.mFields.push_back(t(string("v2"), new sType(s"char*")));
+        klass.mFields.push_back(t(string("v3"), new sType(s"char*")));
+        klass.mFields.push_back(t(string("v4"), new sType(s"int")));
+        klass.mFields.push_back(t(string("v5"), new sType(s"int")));
         
         (void)add_typedef(s"__gnuc_va_list", type, info);
     }
@@ -232,11 +232,11 @@ static void init_classes(sInfo* info)
         
         sClass*% klass = new sClass(s"__builtin_va_list", struct_:true);
         
-        klass.mFields.push_back((string("v1"), new sType(s"char*")));
-        klass.mFields.push_back((string("v2"), new sType(s"char*")));
-        klass.mFields.push_back((string("v3"), new sType(s"char*")));
-        klass.mFields.push_back((string("v4"), new sType(s"int")));
-        klass.mFields.push_back((string("v5"), new sType(s"int")));
+        klass.mFields.push_back(t(string("v1"), new sType(s"char*")));
+        klass.mFields.push_back(t(string("v2"), new sType(s"char*")));
+        klass.mFields.push_back(t(string("v3"), new sType(s"char*")));
+        klass.mFields.push_back(t(string("v4"), new sType(s"int")));
+        klass.mFields.push_back(t(string("v5"), new sType(s"int")));
         
         info.classes.insert(string("__builtin_va_list"), klass);
         

@@ -189,7 +189,7 @@ string, sType*%, bool parse_type(sInfo* info=info)
     
     sType*% type_ = new sType(class_name, array_num, auto_increment, primary_key, not_null);
     
-    return (field_name, type_, false);
+    return t(field_name, type_, false);
 }
 
 bool eval_create_table(sInfo* info)
@@ -215,7 +215,7 @@ bool eval_create_table(sInfo* info)
         
         err
         
-        types.add((field_name, type));
+        types.add(t(field_name, type));
         
         if(*info->p == ')') {
             break;
@@ -806,7 +806,7 @@ bool eval_select_from(char* deliminater="\n", sInfo* info)
             string value2 = parse_value();
             skip_spaces();
             
-            between_values = (value, value2);
+            between_values = t(value, value2);
         }
         else if(strncmp(info->p, "LIKE", strlen("LIKE")) == 0) {
             info->p += strlen("LIKE");

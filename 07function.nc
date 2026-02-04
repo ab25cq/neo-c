@@ -1117,7 +1117,7 @@ string,string parse_function_attribute(sInfo* info=info)
         }
     }
 
-    return (asm_fun_name.to_string(), result.to_string());
+    return t(asm_fun_name.to_string(), result.to_string());
 }
 
 
@@ -2215,7 +2215,7 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
     sFun*% funX = info.funcs[string(fun_name)];
     if(funX) {
         MRestoreState;
-        return (fun_name, true);
+        return t(fun_name, true);
     }
     
     sType*% result_type_ = solve_generics(generics_fun->mResultType, generics_type_, info);
@@ -2291,7 +2291,7 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
     info.in_generics_fun = true;
     node_compile(node).elif {
         MRestoreState;
-        return (s"", false);
+        return t(s"", false);
     }
     info.in_generics_fun = in_generics_fun;
     
@@ -2302,7 +2302,7 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
     
     MRestoreState;
     
-    return (string(fun_name), true);
+    return t(string(fun_name), true);
 }
 
 bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sInfo* info)
@@ -2570,7 +2570,7 @@ sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, s
         
     MRestoreState;
     
-    return (finalizer, real_fun_name);
+    return t(finalizer, real_fun_name);
 }
 
 
@@ -2679,7 +2679,7 @@ sFun*,string create_equals_automatically(sType* type, const char* fun_name, sInf
     
     MRestoreState;
     
-    return (equaler, real_fun_name);
+    return t(equaler, real_fun_name);
 }
 
 sFun*,string create_operator_not_equals_automatically(sType* type, const char* fun_name, sInfo* info)
@@ -2806,7 +2806,7 @@ sFun*,string create_operator_not_equals_automatically(sType* type, const char* f
     
     MRestoreState;
     
-    return (equaler, real_fun_name);
+    return t(equaler, real_fun_name);
 }
 
 sFun*,string create_not_equals_automatically(sType* type, const char* fun_name, sInfo* info)
@@ -2930,7 +2930,7 @@ sFun*,string create_not_equals_automatically(sType* type, const char* fun_name, 
     
     MRestoreState;
     
-    return (equaler, real_fun_name);
+    return t(equaler, real_fun_name);
 }
 
 sFun*,string create_operator_equals_automatically(sType* type, const char* fun_name, sInfo* info)
@@ -3039,13 +3039,13 @@ sFun*,string create_operator_equals_automatically(sType* type, const char* fun_n
     
     MRestoreState;
     
-    return (equaler, real_fun_name);
+    return t(equaler, real_fun_name);
 }
 
 sFun*,string create_cloner_automatically(sType* type, const char* fun_name, sInfo* info)
 {
     if(type->mClass->mName === "void") {
-        return ((sFun*)null, (string)null);
+        return t((sFun*)null, (string)null);
     }
     
     MSaveState;
@@ -3080,7 +3080,7 @@ sFun*,string create_cloner_automatically(sType* type, const char* fun_name, sInf
             if(!err) {
                 if(type->mClass->mName === "void") {
                     MRestoreState;
-                    return ((sFun*)null, (string)null);
+                    return t((sFun*)null, (string)null);
                 }
             }
             
@@ -3256,7 +3256,7 @@ sFun*,string create_cloner_automatically(sType* type, const char* fun_name, sInf
     
     MRestoreState;
     
-    return (cloner, real_fun_name);
+    return t(cloner, real_fun_name);
 }
 
 sFun*,string create_to_string_automatically(sType* type, const char* fun_name, sInfo* info)
@@ -3384,7 +3384,7 @@ sFun*,string create_to_string_automatically(sType* type, const char* fun_name, s
     
     MRestoreState;
     
-    return (cloner, real_fun_name);
+    return t(cloner, real_fun_name);
 }
 
 sFun*,string create_get_hash_key_automatically(sType* type, const char* fun_name, sInfo* info)
@@ -3527,7 +3527,7 @@ sFun*,string create_get_hash_key_automatically(sType* type, const char* fun_name
     
     MRestoreState;
     
-    return (get_hash_key_fun, real_fun_name);
+    return t(get_hash_key_fun, real_fun_name);
 }
 
 sFun*,string create_compare_automatically(sType* type, const char* fun_name, sInfo* info)
@@ -3672,7 +3672,7 @@ sFun*,string create_compare_automatically(sType* type, const char* fun_name, sIn
     
     MRestoreState;
     
-    return (get_hash_key_fun, real_fun_name);
+    return t(get_hash_key_fun, real_fun_name);
 }
 
 sFun*% compile_uniq_function(sFun* fun, sInfo* info=info)

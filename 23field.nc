@@ -43,9 +43,9 @@ bool operator_overload_fun2(sType* type, const char* fun_name, sNode*% left_node
         sNode*% obj = left_node;
         list<tup: string, sNode*%>*% params =  new list<tup: string, sNode*%>();
         
-        params.add(((string)null, left_node));
-        params.add(((string)null, middle_node));
-        params.add(((string)null, right_node));
+        params.add(t((string)null, left_node));
+        params.add(t((string)null, middle_node));
+        params.add(t((string)null, right_node));
         
         sNode*% node = create_method_call(fun_name, obj, params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
         

@@ -34,7 +34,7 @@ bool operator_overload_fun_self(sType* type, const char* fun_name, sNode*% node,
         sNode*% obj = node;
         list<tuple2<string, sNode*%>*%>*% params =  new list<tuple2<string, sNode*%>*%>();
         
-        params.add(((string)null, obj));
+        params.add(t((string)null, obj));
         
         sNode*% node = create_method_call(fun_name2, obj, params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
         
@@ -942,6 +942,7 @@ sNode*% pre_position_operator(sInfo* info=info)
         /// backtrace ///
         bool tuple_expression_flag = false;
         bool named_tuple_expression_flag = false;
+        /*
         if(!gComeC && !cast_expression_flag && !struct_initializer_flag)
         {
             char* p = info.p;
@@ -989,6 +990,8 @@ sNode*% pre_position_operator(sInfo* info=info)
             info.p = p;
             info.sline = sline;
         }
+        tuple_expression_flag = false;
+        */
         
         if(*info->p == '{') {
             info->p++;
@@ -1029,6 +1032,7 @@ sNode*% pre_position_operator(sInfo* info=info)
             
             return node;
         }
+/*
         else if(!gComeC && tuple_expression_flag) {
             skip_spaces_and_lf();
             
@@ -1038,6 +1042,7 @@ sNode*% pre_position_operator(sInfo* info=info)
             
             return node;
         }
+*/
         else if(struct_initializer_flag) {
             skip_spaces_and_lf();
             var type, name, err = parse_type();

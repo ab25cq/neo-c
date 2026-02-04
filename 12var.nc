@@ -1061,7 +1061,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
                 info->no_comma = no_comma;
                 info->array_initializer = false;
                 
-                multiple_declare.push_back((type2, var_name, exp));
+                multiple_declare.push_back(t(type2, var_name, exp));
             }
             else {
                 info->array_initializer = true;
@@ -1071,11 +1071,11 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
                 info->no_comma = no_comma;
                 info->array_initializer = false;
                 
-                multiple_declare.push_back((type2, var_name, exp));
+                multiple_declare.push_back(t(type2, var_name, exp));
             }
         }
         else {
-            multiple_declare.push_back((type2, var_name, (sNode*%)null));
+            multiple_declare.push_back(t(type2, var_name, (sNode*%)null));
         }
         
         while(*info->p == ',') {
@@ -1096,7 +1096,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
                     info->no_comma = no_comma;
                     info->array_initializer = false;
                     
-                    multiple_declare.push_back((type2, var_name, exp));
+                    multiple_declare.push_back(t(type2, var_name, exp));
                 }
                 else {
                     bool no_comma = info->no_comma;
@@ -1108,11 +1108,11 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
                     info->no_comma = no_comma;
                     info->array_initializer = false;
                     
-                    multiple_declare.push_back((type2, var_name, exp));
+                    multiple_declare.push_back(t(type2, var_name, exp));
                 }
             }
             else {
-                multiple_declare.push_back((type2, var_name, (sNode*%)null));
+                multiple_declare.push_back(t(type2, var_name, (sNode*%)null));
             }
         }
         
@@ -1142,7 +1142,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         name = parse_word();
         
         skip_spaces_and_lf();
-        info.defining_class->mFields.add((name, type));
+        info.defining_class->mFields.add(t(name, type));
         
         if(*info->p == '=' && *(info->p+1) != '=' && *(info->p+1) != '>') {
             info->p++;

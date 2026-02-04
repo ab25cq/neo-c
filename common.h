@@ -663,7 +663,7 @@ uniq class sCurrentNode extends sNodeBase
                 
                 type2.mPointerNum++;
                 
-                tup: string, sType*% item = (string(value.mCValueName), type2);
+                tup: string, sType*% item = t(string(value.mCValueName), type2);
                 
                 if(value.mCValueName != null) {
                     if(strcmp(value.mCValueName, "__list_values") == 0)
@@ -683,14 +683,14 @@ uniq class sCurrentNode extends sNodeBase
                         type3->mPointerNum--;
                         //type3->mArrayPointerType = false;
                         type3->mArrayPointerNum++;
-                        tup: string, sType*% item2 = (string(value.mCValueName), type3);
+                        tup: string, sType*% item2 = t(string(value.mCValueName), type3);
                         current_stack.mFields.push_back(clone item2);
                     }
                     else if(type2->mArrayNum.length() > 0) {
                         sType*% type3 = clone type2;
                         type3->mPointerNum--;
                         type3->mArrayPointerNum++;
-                        tup: string, sType*% item2 = (string(value.mCValueName), type3);
+                        tup: string, sType*% item2 = t(string(value.mCValueName), type3);
                         current_stack.mFields.push_back(clone item2);
                     }
                     else {
@@ -720,7 +720,7 @@ uniq class sCurrentNode extends sNodeBase
                 
                 sType*% type2 = clone value.mType;
                 
-                tup: string, sType*% item = (value.mCValueName, type2);
+                tup: string, sType*% item = t(value.mCValueName, type2);
                 
                 if(value.mCValueName != null) {
                     if(strcmp(value.mCValueName, "__list_values") == 0)

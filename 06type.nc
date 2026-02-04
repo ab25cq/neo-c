@@ -148,7 +148,7 @@ tuple4<list<sType*%>*%, list<string>*%, list<string>*%, bool>*% parse_params(sIn
             
             if(!err) {
                 printf("%s %d: failed to function parametor\n", info->sname, info->sline);
-                return ((list<sType*%>*%)null, (list<string>*%)null, (list<string>*%)null, false);
+                return t((list<sType*%>*%)null, (list<string>*%)null, (list<string>*%)null, false);
             }
             
             var param_type2 = solve_generics(param_type, info->generics_type, info);
@@ -205,7 +205,7 @@ tuple4<list<sType*%>*%, list<string>*%, list<string>*%, bool>*% parse_params(sIn
         }
     }
     
-    return (param_types, param_names, param_default_parametors, var_args);
+    return t(param_types, param_names, param_default_parametors, var_args);
 }
 
 bool check_assign_type(const char* msg, sType* left_type, sType* right_type, CVALUE* come_value, sInfo* info=info)
@@ -638,7 +638,7 @@ string,string parse_attribute(sInfo* info=info)
         }
     }
 
-    return (asm_fun_name.to_string(), attribute);
+    return t(asm_fun_name.to_string(), attribute);
 }
 
 void parse_struct_attribute_skip_paren(sInfo* info)
@@ -953,7 +953,7 @@ sType*%, string parse_variable_name_on_multiple_declare(sType* base_type_name, b
     
     parse_attribute();
     
-    return (result_type, var_name);
+    return t(result_type, var_name);
 }
 
 bool skip_pointer_attribute(sInfo* info=info)
@@ -1014,7 +1014,7 @@ tuple3<sType*%,string,bool>*% backtrace_parse_type(bool parse_variable_name=fals
     var type, name, err = parse_type(parse_variable_name:parse_variable_name);
     info.no_output_come_code = no_output_come_code;
     
-    return (type, name, err);
+    return t(type, name, err);
 }
 
 bool@define_only, bool@anonymous_name, bool@struct_,bool@union_,bool@enum_ backtrace_struct_union_enum(sInfo* info=info)
@@ -1044,7 +1044,7 @@ bool@define_only, bool@anonymous_name, bool@struct_,bool@union_,bool@enum_ backt
                 enum_ = true;
             }
             else {
-                return (false@define_only, false@anonymous_name, false@struct_, false@union_, false@enum_);
+                return t(false@define_only, false@anonymous_name, false@struct_, false@union_, false@enum_);
             }
         }
         parse_attribute();
@@ -1105,7 +1105,7 @@ bool@define_only, bool@anonymous_name, bool@struct_,bool@union_,bool@enum_ backt
         info.sline = head_sline;
     }
     
-    return (define_only, anonymous_name, struct_, union_, enum_);
+    return t(define_only, anonymous_name, struct_, union_, enum_);
 }
 
 sType*% parse_pointer_attribute(sType* type, sInfo* info=info)
@@ -1472,7 +1472,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                         }
                         else if(*info->p == '\0') {
                             err_msg(info, "invalid struct definition");
-                            return ((sType*%)null, (string)null, false);
+                            return t((sType*%)null, (string)null, false);
                         }
                         else {
                             info->p++;
@@ -1492,7 +1492,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                         info.p = head;
                         info.sline = head_sline;
                         info.define_struct = true;
-                        return ((sType*%)null, (string)null, false);
+                        return t((sType*%)null, (string)null, false);
                     }
                     else {
                         info.p = p;
@@ -1501,7 +1501,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                         sNode*% node = parse_struct(type_name, union_attribute, info);
                         
                         node_compile(node).elif {
-                            return ((sType*%)null, (string)null, false);
+                            return t((sType*%)null, (string)null, false);
                         }
                         break;
                     }
@@ -1558,7 +1558,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                     info.p = head;
                     info.sline = head_sline;
                     info.define_struct = true;
-                    return ((sType*%)null, (string)null, false);
+                    return t((sType*%)null, (string)null, false);
                 } 
                 else {
                     anonymous_type = true;
@@ -1598,7 +1598,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                     info.p = head;
                     info.sline = head_sline;
                     info.define_struct = true;
-                    return ((sType*%)null, (string)null, false);
+                    return t((sType*%)null, (string)null, false);
                 }
                 else {
                     anonymous_type = true;
@@ -1634,7 +1634,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                     info.p = head;
                     info.sline = head_sline;
                     info.define_struct = true;
-                    return ((sType*%)null, (string)null, false);
+                    return t((sType*%)null, (string)null, false);
                 }
                 else {
                     anonymous_type = true;
@@ -1940,7 +1940,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         if(parse_variable_name) {
             var_name = parse_variable_name_fun(type, anonymous_name:anonymous_name, var_name_between_brace:false, attribute);
         }
-        return (type, var_name, true);
+        return t(type, var_name, true);
     }
     
     string attribute = parse_struct_attribute();
@@ -2171,7 +2171,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             
             node_compile(node).elif {
                 err_msg(info, "parse_struct is failed");
-                return ((sType*%)null, (string)null, false);
+                return t((sType*%)null, (string)null, false);
             }
             
             int pointer_num = 0;
@@ -2213,7 +2213,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             if(!info.no_output_err) {
                 node_compile(node).elif {
                     printf("%s %d: compiling is failed(X)\n", info->sname, info->sline);
-                    return ((sType*%)null, (string)null, false);
+                    return t((sType*%)null, (string)null, false);
                 }
             }
             
@@ -2234,7 +2234,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             
             node_compile(node).elif {
                 printf("%s %d: compiling is failed(X)\n", info->sname, info->sline);
-                return ((sType*%)null, (string)null, false);
+                return t((sType*%)null, (string)null, false);
             }
             
             int pointer_num = 0;
@@ -2264,7 +2264,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         }
         else {
             err_msg(info, "unexpected { character");
-            return ((sType*%)null, (string)null, false);
+            return t((sType*%)null, (string)null, false);
         }
         
         string attribute = parse_struct_attribute();
@@ -2543,7 +2543,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         if(xisalnum(*info.p) || *info->p == '_') {
             var_name = parse_word();
             if(!paren_flag && *info->p == '(') { // function pointer result function
-                return (result_type,var_name, false);
+                return t(result_type,var_name, false);
             }
         }
         else {
@@ -2731,7 +2731,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             
             if(info.generics_classes[string(type_name)] == null)
             {
-                return ((sType*%)null, (string)null, false);
+                return t((sType*%)null, (string)null, false);
             }
             
             //type = new sType(string(type_name));
@@ -2746,7 +2746,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                 var generics_type, var_name, err = parse_type(parse_multiple_type:false);
                 
                 if(!err) {
-                    return ((sType*%)null, (string)null, false);
+                    return t((sType*%)null, (string)null, false);
                 }
                 
                 type->mGenericsTypes.push_back(generics_type);
@@ -2763,7 +2763,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                 }
                 else {
                     err_msg(info, "invalid generics type(%c)(%c)(%c)", *info->p, *(info->p+1), *(info->p+2));
-                    return ((sType*%)null, (string)null, false);
+                    return t((sType*%)null, (string)null, false);
                 }
             }
             
@@ -2872,7 +2872,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                 var type2, name, err = parse_type(parse_multiple_type:false);
                 
                 if(!err) {
-                    return ((sType*%)null, (string)null, false);
+                    return t((sType*%)null, (string)null, false);
                 }
                     
                 types.push_back(clone type2);
@@ -3004,5 +3004,5 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         type->mAttribute = attribute;
     }
     
-    return (type, var_name, true);
+    return t(type, var_name, true);
 }

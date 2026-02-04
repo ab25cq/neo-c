@@ -220,10 +220,10 @@ sNode*% parse_global_variable(sInfo* info)
             
             string initializer = buf.to_string();
             
-            multiple_declare.push_back((type2, var_name, initializer));
+            multiple_declare.push_back(t(type2, var_name, initializer));
         }
         else {
-            multiple_declare.push_back((type2, var_name, (string)null));
+            multiple_declare.push_back(t(type2, var_name, (string)null));
         }
         
         while(*info->p == ',') {
@@ -262,10 +262,10 @@ sNode*% parse_global_variable(sInfo* info)
                 
                 string initializer = buf.to_string();
                 
-                multiple_declare.push_back((type2, var_name, initializer));
+                multiple_declare.push_back(t(type2, var_name, initializer));
             }
             else {
-                multiple_declare.push_back((type2, var_name, (string)null));
+                multiple_declare.push_back(t(type2, var_name, (string)null));
             }
         }
         

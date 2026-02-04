@@ -68,7 +68,7 @@ sType*%, string parse_interface_function(sInfo* info)
     type->mVarArgs = var_args;
     type->mResultType = clone result_type;
     
-    return (type, fun_name);
+    return t(type, fun_name);
 }
 
 sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 92
@@ -97,7 +97,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 92
         sType*% voidp = new sType(s"void");
         voidp->mPointerNum++;
         
-        klass.mFields.push_back((string("_protocol_obj"), voidp));
+        klass.mFields.push_back(t(string("_protocol_obj"), voidp));
         
         sType*% finalizer = new sType(s"lambda");
     
@@ -106,7 +106,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 92
         finalizer->mVarArgs = false;
         finalizer->mResultType = new sType(s"void");
         
-        klass.mFields.push_back((string("finalize"), finalizer));
+        klass.mFields.push_back(t(string("finalize"), finalizer));
         
         sType*% cloner = new sType(s"lambda");
     
@@ -115,7 +115,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 92
         cloner->mVarArgs = false;
         cloner->mResultType = clone voidp;
         
-        klass.mFields.push_back((string("clone"), cloner));
+        klass.mFields.push_back(t(string("clone"), cloner));
         
         while(true) {
             if(*info->p == '}') {
@@ -127,7 +127,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 92
             var type2, name = parse_interface_function(info);
             expected_next_character(';');
             
-            klass.mFields.push_back((name, type2));
+            klass.mFields.push_back(t(name, type2));
             
             skip_spaces_and_lf();
             

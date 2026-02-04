@@ -1,16 +1,17 @@
-#include <neo-c.h>
+//#include <neo-c.h>
+#include <assert.h>
     
-int, int loop() 
+int loop() 
 {
-    return t(1, 2);
+    return (2, 1);
 }
 
 
 int main(int argc, char** argv)
 {
-    var a, b = loop();
+    int a = loop();
     
-    puts(s"\{a} \{b}");
+    assert(a == 1);
     
     return 0;
 }

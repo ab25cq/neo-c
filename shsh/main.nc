@@ -59,7 +59,7 @@ void parse_redirect(sInfo* info)
             
             string file_name = parse_word(info);
             
-            info.commands[-1].redirect_stdout = (file_name, true);
+            info.commands[-1].redirect_stdout = t(file_name, true);
         }
         else if(*info->p == '>') {
             info->p ++;
@@ -67,7 +67,7 @@ void parse_redirect(sInfo* info)
             
             string file_name = parse_word(info);
             
-            info.commands[-1].redirect_stdout = (file_name, false);
+            info.commands[-1].redirect_stdout = t(file_name, false);
         }
         else if(memcmp(info->p, "2>&1", 4) == 0) {
             info->p += 4;
@@ -80,7 +80,7 @@ void parse_redirect(sInfo* info)
             
             string file_name = parse_word(info);
             
-            info.commands[-1].redirect_stderr = (file_name, true);
+            info.commands[-1].redirect_stderr = t(file_name, true);
         }
         else if(*info->p == '2' && *(info->p+1) == '>') {
             info->p += 2;
@@ -88,7 +88,7 @@ void parse_redirect(sInfo* info)
             
             string file_name = parse_word(info);
             
-            info.commands[-1].redirect_stderr = (file_name, false);
+            info.commands[-1].redirect_stderr = t(file_name, false);
         }
         else if(*info->p == '1' && *(info->p+1) == '>' && *(info->p+2) == '>') {
             info->p += 3;
@@ -96,7 +96,7 @@ void parse_redirect(sInfo* info)
             
             string file_name = parse_word(info);
             
-            info.commands[-1].redirect_stdout = (file_name, true);
+            info.commands[-1].redirect_stdout = t(file_name, true);
         }
         else if(*info->p == '1' && *(info->p+1) == '>') {
             info->p += 2;
@@ -104,7 +104,7 @@ void parse_redirect(sInfo* info)
             
             string file_name = parse_word(info);
             
-            info.commands[-1].redirect_stdout = (file_name, false);
+            info.commands[-1].redirect_stdout = t(file_name, false);
         }
         else {
             break;
@@ -1026,7 +1026,7 @@ int, bool run(char* source)
         while(*info->p == '\n' || *info->p == ';') info->p++;
     }
     
-    return (info->rcode, false);
+    return t(info->rcode, false);
 }
 
 void sig_int(int signal)

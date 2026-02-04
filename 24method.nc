@@ -21,13 +21,13 @@ string,sGenericsFun* make_generics_function(sType* type, string fun_name, sInfo*
         
         if(!err) {
             err_msg(info, "%s not found", fun_name3);
-            return (string(""), (sGenericsFun*)null);
+            return t(string(""), (sGenericsFun*)null);
         }
         
         type = type_before;
     }
     
-    return (clone fun_name2, generics_fun);
+    return t(clone fun_name2, generics_fun);
 }
 
 string,sGenericsFun* make_method_generics_function(string fun_name, list<sType*%>* method_generics_types, sInfo* info)
@@ -43,13 +43,13 @@ string,sGenericsFun* make_method_generics_function(string fun_name, list<sType*%
     if(generics_fun) {
         if(!create_method_generics_fun(string(fun_name3), generics_fun, info)) {
             err_msg(info, "%s not found", fun_name3);
-            return (string(""), (sGenericsFun*)null);
+            return t(string(""), (sGenericsFun*)null);
         }
     }
     
     info.method_generics_types = method_generics_types_before;
     
-    return (clone fun_name3, generics_fun);
+    return t(clone fun_name3, generics_fun);
 }
 
 bool compile_method_block(buffer* method_block, list<CVALUE*%>* come_params, sFun* fun, char* fun_name, int method_block_sline, sInfo* info, bool no_create_current_stack=false) 
@@ -258,7 +258,7 @@ string, sFun*,sGenericsFun* get_method(const char* fun_name, sType* obj_type, sI
                         generics_fun_name = create_method_name(obj_type, false@no_pointer_name, string(fun_name), info);
                         fun = borrow info.funcs.at(string(generics_fun_name), null);
                         if(fun == null) {
-                            return ((string)null, (sFun*)null, (sGenericsFun*)null);
+                            return t((string)null, (sFun*)null, (sGenericsFun*)null);
                         }
                     }
                 }
@@ -319,14 +319,14 @@ string, sFun*,sGenericsFun* get_method(const char* fun_name, sType* obj_type, sI
                     }
                     
                     if(fun == null) {
-                        return (generics_fun_name, (sFun*)null, (sGenericsFun*)null);
+                        return t(generics_fun_name, (sFun*)null, (sGenericsFun*)null);
                     }
                 }
             }
         }
     }
     
-    return (generics_fun_name, fun, generics_fun);
+    return t(generics_fun_name, fun, generics_fun);
 }
 
 static bool call_cpp_method(string fun_name, list<tup: string,sNode*%>*% params, sNode*% obj, sInfo* info=info, bool arrow_=false)
@@ -993,7 +993,7 @@ sNode*% create_method_call(const char* fun_name,sNode*% obj, list<tup: string,sN
 sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info, bool arrow_=false) version 20
 {
     list<tup: string,sNode*%>*% params = new list<tup: string,sNode*%>();
-    params.push_back(((string)null,clone obj));
+    params.push_back(t((string)null,clone obj));
     
     if(*info->p == '-' && *(info->p+1) == '>') {
         info->p +=2;
@@ -1101,7 +1101,7 @@ sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info, bool arrow_
             info.in_fun_param = in_fun_param;
             info.no_comma = no_comma;
             
-            params.push_back((label, node));
+            params.push_back(t(label, node));
             
             if(*info->p == ',') {
                 info->p++;

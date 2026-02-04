@@ -41,14 +41,14 @@ tuple2<string, int>*% xpopen(char** argv, string input)
 
     if (pipe(pipe_in) == -1 || pipe(pipe_out) == -1) {
         perror("pipe failed");
-        return ((string)null, 1);
+        return t((string)null, 1);
     }
 
     pid = fork();
 
     if (pid == -1) {
         perror("fork failed");
-        return ((string)null, 1);
+        return t((string)null, 1);
     }
 
     if (pid == 0) {
@@ -78,7 +78,7 @@ tuple2<string, int>*% xpopen(char** argv, string input)
             int size = read(pipe_out[0], buf, BUFSIZ);
             if(size < 0) {
                 perror("read failed");
-                return ((string)null, 1);
+                return t((string)null, 1);
             }
             
             output.append(buf, size);
@@ -90,7 +90,7 @@ tuple2<string, int>*% xpopen(char** argv, string input)
         close(pipe_out[0]);
     }
 
-    return (output.to_string(), 0);
+    return t(output.to_string(), 0);
 }
 
 void run_post_cgi(SSL* it, string file_path, string header, string contents)

@@ -116,7 +116,7 @@ class sSStringNode extends sNodeBase
                 sNode*% obj = clone it;
                 
                 list<tup: string, sNode*%>*% params = new list<tup: string, sNode*%>();
-                params.add((s"self", clone it));
+                params.add(t(s"self", clone it));
                 
                 sNode*% node = create_method_call("to_string", obj, params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
                 
@@ -1258,15 +1258,15 @@ sNode*% expression_node(sInfo* info) version 96
         
         list<tup: string, sNode*%>*% params = new list<tup: string, sNode*%>();
         
-        params.add((s"self", obj));
-        params.add((s"ignore_case", ignore_case ? create_int_node(1.to_string(), info) : create_int_node(0.to_string(), info)));
-        params.add((s"multiline", create_int_node(0.to_string(), info)));
-        params.add((s"global", global ? create_int_node(1.to_string(), info) : create_int_node(0.to_string(), info)));
-        params.add((s"extended", create_int_node(0.to_string(), info)));
-        params.add((s"dotall", create_int_node(0.to_string(), info)));
-        params.add((s"anchored", create_int_node(0.to_string(), info)));
-        params.add((s"dollar_endonly", create_int_node(0.to_string(), info)));
-        params.add((s"ungreedy", create_int_node(0.to_string(), info)));
+        params.add(t(s"self", obj));
+        params.add(t(s"ignore_case", ignore_case ? create_int_node(1.to_string(), info) : create_int_node(0.to_string(), info)));
+        params.add(t(s"multiline", create_int_node(0.to_string(), info)));
+        params.add(t(s"global", global ? create_int_node(1.to_string(), info) : create_int_node(0.to_string(), info)));
+        params.add(t(s"extended", create_int_node(0.to_string(), info)));
+        params.add(t(s"dotall", create_int_node(0.to_string(), info)));
+        params.add(t(s"anchored", create_int_node(0.to_string(), info)));
+        params.add(t(s"dollar_endonly", create_int_node(0.to_string(), info)));
+        params.add(t(s"ungreedy", create_int_node(0.to_string(), info)));
         
         buffer* method_block = null;
         
@@ -1416,15 +1416,15 @@ sNode*% expression_node(sInfo* info) version 96
         
         list<tup: string, sNode*%>*% params = new list<tup: string, sNode*%>();
         
-        params.add((s"self", obj));
-        params.add((s"ignore_case", ignore_case ? create_int_node(1.to_string(), info) : create_int_node(0.to_string(), info)));
-        params.add((s"multiline", create_int_node(0.to_string(), info)));
-        params.add((s"global", global ? create_int_node(1.to_string(), info) : create_int_node(0.to_string(), info)));
-        params.add((s"extended", create_int_node(0.to_string(), info)));
-        params.add((s"dotall", create_int_node(0.to_string(), info)));
-        params.add((s"anchored", create_int_node(0.to_string(), info)));
-        params.add((s"dollar_endonly", create_int_node(0.to_string(), info)));
-        params.add((s"ungreedy", create_int_node(0.to_string(), info)));
+        params.add(t(s"self", obj));
+        params.add(t(s"ignore_case", ignore_case ? create_int_node(1.to_string(), info) : create_int_node(0.to_string(), info)));
+        params.add(t(s"multiline", create_int_node(0.to_string(), info)));
+        params.add(t(s"global", global ? create_int_node(1.to_string(), info) : create_int_node(0.to_string(), info)));
+        params.add(t(s"extended", create_int_node(0.to_string(), info)));
+        params.add(t(s"dotall", create_int_node(0.to_string(), info)));
+        params.add(t(s"anchored", create_int_node(0.to_string(), info)));
+        params.add(t(s"dollar_endonly", create_int_node(0.to_string(), info)));
+        params.add(t(s"ungreedy", create_int_node(0.to_string(), info)));
         
         buffer* method_block = null;
         
@@ -2117,7 +2117,7 @@ sNode*% parse_tuple(sInfo* info, bool named_tuple=false)
         
         info.no_comma = no_comma;
         
-        tuple_elements.push_back((clone name, node));
+        tuple_elements.push_back(t(clone name, node));
         
         if(*info->p == ',') {
             info->p++;

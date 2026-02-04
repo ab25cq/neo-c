@@ -92,7 +92,7 @@ typedef char*% string;
     #include <limits.h>
     #include <locale.h>
     #include <errno.h>
-    __c__ {#include <assert.h>}
+    #include <assert.h>
     #include <stdbool.h>
     
     #define NULL ((void*)0)

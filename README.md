@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.8.7.9
+version 0.8.8.0
 
 ``` C
 #include <neo-c.h>
@@ -93,6 +93,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.8.8.0 tuple expression is now t(1,2,3). More compatibilities C lang.
 0.8.7.9 Fixed bug.
 0.8.7.8 maybe c++ is supported.  -cpp option. No type checking and generate code.
 0.8.7.7 cpp treats module. In parser module is deleted. here documet is working.
@@ -1655,7 +1656,7 @@ int main()
 
 int, string fun(int n, string m) 
 {
-    return (n, m);
+    return t(n, m);
 }
 
 int main(int argc, char** argv)
@@ -1790,34 +1791,6 @@ int main(int argc, char** argv)
 
 # Using C
 
-``` C
-    int main(int argc, char** argv)
-    {
-        using c { int a = (1,2); }     // no error. It's comma operator and blace
-        
-        int a = (1,2);  // error. It's tuple
-        
-        return 0;
-    }
-```
-
-``` C
-> vin a.h
-static inline int fun()
-{
-    return (1,2);
-}
-> vin a.nc
-using C
-{
-#include "a.h"
-}
-
-int main(int argc, char** argv)
-{
-    return fun();   // no error. It's comma operator and brace
-}
-```
 
 # Emmbeded expression string
 

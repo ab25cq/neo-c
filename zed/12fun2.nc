@@ -5,7 +5,7 @@ ZVALUE*%, bool str_method(string fun_name, ZVALUE* obj, list<ZVALUE*%>* params, 
     if(fun_name === "chomp") {
         if(params.length() == 0) {
             string str = obj.strValue.to_string().chomp();
-            return (new ZVALUE(kind:kStrValue, str_value:str.to_wstring()), true);
+            return t(new ZVALUE(kind:kStrValue, str_value:str.to_wstring()), true);
         }
     }
     else if(fun_name === "lower_case") {
@@ -13,7 +13,7 @@ ZVALUE*%, bool str_method(string fun_name, ZVALUE* obj, list<ZVALUE*%>* params, 
             string str = obj.strValue.to_string();
             string str2 = str.lower_case();
             
-            return (new ZVALUE(kind:kStrValue, str_value:str2.to_wstring()), true);
+            return t(new ZVALUE(kind:kStrValue, str_value:str2.to_wstring()), true);
         }
     }
     else if(fun_name === "reverse") {
@@ -21,7 +21,7 @@ ZVALUE*%, bool str_method(string fun_name, ZVALUE* obj, list<ZVALUE*%>* params, 
             string str = obj.strValue.to_string();
             string str2 = str.reverse();
             
-            return (new ZVALUE(kind:kStrValue, str_value:str2.to_wstring()), true);
+            return t(new ZVALUE(kind:kStrValue, str_value:str2.to_wstring()), true);
         }
     }
     else if(fun_name === "upper_case") {
@@ -29,7 +29,7 @@ ZVALUE*%, bool str_method(string fun_name, ZVALUE* obj, list<ZVALUE*%>* params, 
             string str = obj.strValue.to_string();
             string str2 = str.upper_case();
             
-            return (new ZVALUE(kind:kStrValue, str_value:str2.to_wstring()), true);
+            return t(new ZVALUE(kind:kStrValue, str_value:str2.to_wstring()), true);
         }
     }
     else if(fun_name === "length") {
@@ -37,14 +37,14 @@ ZVALUE*%, bool str_method(string fun_name, ZVALUE* obj, list<ZVALUE*%>* params, 
             string str = obj.strValue.to_string();
             int len = str.length();
             
-            return (new ZVALUE(kind:kIntValue, int_value:len), true);
+            return t(new ZVALUE(kind:kIntValue, int_value:len), true);
         }
     }
     else if(fun_name === "printable") {
         if(params.length() == 0) {
             string str = obj.strValue.to_string().printable();
             
-            return (new ZVALUE(kind:kStrValue, str_value:str.to_wstring()), true);
+            return t(new ZVALUE(kind:kStrValue, str_value:str.to_wstring()), true);
         }
     }
     else if(fun_name === "scan") {
@@ -59,7 +59,7 @@ ZVALUE*%, bool str_method(string fun_name, ZVALUE* obj, list<ZVALUE*%>* params, 
                 list2.push_back(new ZVALUE(kind:kStrValue, str_value:it.to_wstring()));
             }
             
-            return (new ZVALUE(kind:kListValue, list_value:clone list2), true);
+            return t(new ZVALUE(kind:kListValue, list_value:clone list2), true);
         }
     }
     else if(fun_name === "xsprintf") {
@@ -68,7 +68,7 @@ ZVALUE*%, bool str_method(string fun_name, ZVALUE* obj, list<ZVALUE*%>* params, 
             
             string str1 = obj.strValue.to_string().xsprintf(param0.to_string());
             
-            return (new ZVALUE(kind:kStrValue, str_value:str1.to_wstring()), true);
+            return t(new ZVALUE(kind:kStrValue, str_value:str1.to_wstring()), true);
         }
     }
     else if(fun_name === "compare") {
@@ -77,7 +77,7 @@ ZVALUE*%, bool str_method(string fun_name, ZVALUE* obj, list<ZVALUE*%>* params, 
             
             int result2 = obj.strValue.to_string().compare(param0);
             
-            return (new ZVALUE(kind:kIntValue, int_value:result2), true);
+            return t(new ZVALUE(kind:kIntValue, int_value:result2), true);
         }
     }
     else if(fun_name === "sub") {
@@ -87,7 +87,7 @@ ZVALUE*%, bool str_method(string fun_name, ZVALUE* obj, list<ZVALUE*%>* params, 
             
             string str = obj.strValue.to_string().sub(param0, param1);
             
-            return (new ZVALUE(kind:kStrValue, str_value:str.to_wstring()), true);
+            return t(new ZVALUE(kind:kStrValue, str_value:str.to_wstring()), true);
         }
     }
     else if(fun_name === "delete") {
@@ -97,7 +97,7 @@ ZVALUE*%, bool str_method(string fun_name, ZVALUE* obj, list<ZVALUE*%>* params, 
             
             string str2 = obj.strValue.to_string().delete(param0, param1);
             
-            return (new ZVALUE(kind:kStrValue, str_value:str2.to_wstring()), true);
+            return t(new ZVALUE(kind:kStrValue, str_value:str2.to_wstring()), true);
         }
     }
     else if(fun_name === "index_count") {
@@ -108,7 +108,7 @@ ZVALUE*%, bool str_method(string fun_name, ZVALUE* obj, list<ZVALUE*%>* params, 
             
             int n = obj.strValue.to_string().index_count(param0, param1, param2);
             
-            return (new ZVALUE(kind:kIntValue, int_value:n), true);
+            return t(new ZVALUE(kind:kIntValue, int_value:n), true);
         }
     }
     else if(fun_name === "substring") {
@@ -118,7 +118,7 @@ ZVALUE*%, bool str_method(string fun_name, ZVALUE* obj, list<ZVALUE*%>* params, 
             
             string str = obj.strValue.to_string().substring(param0, param1);
             
-            return (new ZVALUE(kind:kStrValue, str_value:str.to_wstring()), true);
+            return t(new ZVALUE(kind:kStrValue, str_value:str.to_wstring()), true);
         }
     }
     else if(fun_name === "index") {
@@ -128,7 +128,7 @@ ZVALUE*%, bool str_method(string fun_name, ZVALUE* obj, list<ZVALUE*%>* params, 
             
             int result2 = obj.strValue.to_string().index(param0, param1);
             
-            return (new ZVALUE(kind:kIntValue, int_value:result2), true);
+            return t(new ZVALUE(kind:kIntValue, int_value:result2), true);
         }
     }
     else if(fun_name === "index_regex") {
@@ -138,7 +138,7 @@ ZVALUE*%, bool str_method(string fun_name, ZVALUE* obj, list<ZVALUE*%>* params, 
             
             int result2 = obj.strValue.to_string().index_regex(param0, param1);
             
-            return (new ZVALUE(kind:kIntValue, int_value:result2), true);
+            return t(new ZVALUE(kind:kIntValue, int_value:result2), true);
         }
     }
     else if(fun_name === "replace") {
@@ -150,7 +150,7 @@ ZVALUE*%, bool str_method(string fun_name, ZVALUE* obj, list<ZVALUE*%>* params, 
             
             string result2 = str.replace(param0, param1[0]);
             
-            return (new ZVALUE(kind:kStrValue, str_value:result2.to_wstring()), true);
+            return t(new ZVALUE(kind:kStrValue, str_value:result2.to_wstring()), true);
         }
     }
     else if(fun_name === "rindex") {
@@ -160,7 +160,7 @@ ZVALUE*%, bool str_method(string fun_name, ZVALUE* obj, list<ZVALUE*%>* params, 
             
             int result2 = obj.strValue.to_string().rindex(param0, param1);
             
-            return (new ZVALUE(kind:kIntValue, int_value:result2), true);
+            return t(new ZVALUE(kind:kIntValue, int_value:result2), true);
         }
     }
     else if(fun_name === "rindex_count") {
@@ -171,7 +171,7 @@ ZVALUE*%, bool str_method(string fun_name, ZVALUE* obj, list<ZVALUE*%>* params, 
             
             int result2 = obj.strValue.to_string().rindex_count(param0, param1, param2);
             
-            return (new ZVALUE(kind:kIntValue, int_value:result2), true);
+            return t(new ZVALUE(kind:kIntValue, int_value:result2), true);
         }
     }
     else if(fun_name === "index_regex") {
@@ -181,7 +181,7 @@ ZVALUE*%, bool str_method(string fun_name, ZVALUE* obj, list<ZVALUE*%>* params, 
             
             int result2 = obj.strValue.to_string().index_regex(param0, param1);
             
-            return (new ZVALUE(kind:kIntValue, int_value:result2), true);
+            return t(new ZVALUE(kind:kIntValue, int_value:result2), true);
         }
     }
     else if(fun_name === "rindex_regex") {
@@ -191,7 +191,7 @@ ZVALUE*%, bool str_method(string fun_name, ZVALUE* obj, list<ZVALUE*%>* params, 
             
             int result2 = obj.strValue.to_string().rindex_regex(param0, param1);
             
-            return (new ZVALUE(kind:kIntValue, int_value:result2), true);
+            return t(new ZVALUE(kind:kIntValue, int_value:result2), true);
         }
     }
     else if(fun_name === "multiply") {
@@ -200,7 +200,7 @@ ZVALUE*%, bool str_method(string fun_name, ZVALUE* obj, list<ZVALUE*%>* params, 
             
             string result2 = obj.strValue.to_string().multiply(param0);
             
-            return (new ZVALUE(kind:kStrValue, str_value:result2.to_wstring()), true);
+            return t(new ZVALUE(kind:kStrValue, str_value:result2.to_wstring()), true);
         }
     }
     else if(fun_name === "match") {
@@ -209,7 +209,7 @@ ZVALUE*%, bool str_method(string fun_name, ZVALUE* obj, list<ZVALUE*%>* params, 
             
             bool result2 = obj.strValue.to_string().match(param0);
             
-            return (new ZVALUE(kind:kBoolValue, bool_value:result2), true);
+            return t(new ZVALUE(kind:kBoolValue, bool_value:result2), true);
         }
     }
     else if(fun_name === "split") {
@@ -225,14 +225,14 @@ ZVALUE*%, bool str_method(string fun_name, ZVALUE* obj, list<ZVALUE*%>* params, 
                 list2.push_back(new ZVALUE(kind:kStrValue, str_value:it.to_wstring()));
             }
             
-            return (new ZVALUE(kind:kListValue, list_value:clone list2), true);
+            return t(new ZVALUE(kind:kListValue, list_value:clone list2), true);
         }
     }
     else if(fun_name === "strip") {
         if(params.length() == 0) {
             string str = obj.strValue.to_string().strip();
             
-            return (new ZVALUE(kind:kStrValue, str_value:str.to_wstring()), true);
+            return t(new ZVALUE(kind:kStrValue, str_value:str.to_wstring()), true);
         }
     }
     else if(fun_name === "split_char") {
@@ -247,9 +247,9 @@ ZVALUE*%, bool str_method(string fun_name, ZVALUE* obj, list<ZVALUE*%>* params, 
                 list2.push_back(new ZVALUE(kind:kStrValue, str_value:it.to_wstring()));
             }
             
-            return (new ZVALUE(kind:kListValue, list_value:clone list2), true);
+            return t(new ZVALUE(kind:kListValue, list_value:clone list2), true);
         }
     }
     
-    return ((ZVALUE*%)null, false);
+    return t((ZVALUE*%)null, false);
 }
