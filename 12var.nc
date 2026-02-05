@@ -173,6 +173,11 @@ class sStoreNode extends sNodeBase
                         std_move(left_type, right_type2, right_value2);
                         come_value.c_value = xsprintf("%s=%s", var_->mCValueName, right_value2.c_value);
                     }
+                    else if(right_type2->mHeap != left_type->mHeap && left_type->mPointerNum > 0 && right_type2->mPointerNum > 0)
+                    {
+                        err_msg(info, "invalid heap object left  %d right %d", left_type->mHeap, right_type2->mHeap);
+                        return false;
+                    }
                     else {
                         come_value.c_value = xsprintf("%s=%s", var_->mCValueName, right_value2.c_value);
                     }
@@ -350,6 +355,11 @@ class sStoreNode extends sNodeBase
                 {
                     std_move(left_type, right_type, right_value);
                 }
+                else if(right_type->mHeap != left_type->mHeap && left_type->mPointerNum > 0 && right_type->mPointerNum > 0)
+                {
+                    err_msg(info, "invalid heap object(%s) left  %d right %d", self.name, left_type->mHeap, right_type->mHeap);
+                    return true;
+                }
                 else if(left_type->mHeap && !right_value.type->mHeap) {
                     err_msg(info, "require right value as heap object(%s)", self.name);
                     return true;
@@ -376,7 +386,7 @@ class sStoreNode extends sNodeBase
             bool new_channel = self.right_value.kind() === "sNewChannel";
             
             CVALUE*% right_value = get_value_from_stack(-1, info);
-            sType* right_type = right_value.type;
+            sType* right_type = borrow right_value.type;
             
             sClass* current_stack_frame_struct = info->current_stack_frame_struct;
             
@@ -385,7 +395,7 @@ class sStoreNode extends sNodeBase
                 
                 if(parent_var != null) {
                     if(parent_var->mFunName !== info.come_fun.mName) {
-                        sType* left_type = parent_var->mType;
+                        sType* left_type = borrow parent_var->mType;
                         
                         check_assign_type(s"\{self.name} is assigning to(3)", left_type, right_type, right_value);
                         
@@ -401,6 +411,10 @@ class sStoreNode extends sNodeBase
                         }
                         else if(left_type->mHeap && !right_value.type->mHeap) {
                             err_msg(info, "require right value as heap object(%s)", self.name);
+                            return true;
+                        }
+                        else if(left_type->mHeap != right_value.type->mHeap) {
+                            err_msg(info, "invalid heap object(%s) left  %d right %d", self.name, left_type->mHeap, right_value.type->mHeap);
                             return true;
                         }
                         
@@ -471,8 +485,8 @@ class sStoreNode extends sNodeBase
                 {
                     decrement_ref_count_object(left_type, var_->mCValueName, info);
                 }
-                else if(left_type->mHeap && !right_value.type->mHeap) {
-                    err_msg(info, "require right value as heap object(%s)", self.name);
+                else if(left_type->mHeap != right_value.type->mHeap) {
+                    err_msg(info, "invalid heap object(%s) left  %d right %d", self.name, left_type->mHeap, right_value.type->mHeap);
                     return true;
                 }
                 
@@ -545,7 +559,7 @@ class sWriteChannelNode extends sNodeBase
         }
         
         CVALUE*% right_value = get_value_from_stack(-1, info);
-        sType* right_type = right_value.type;
+        sType* right_type = borrow right_value.type;
         
         sType*% left_type = clone come_value.type;
         
@@ -671,7 +685,7 @@ class sLoadNode extends sNodeBase
                 if(parent_var->mFunName !== info.come_fun.mName) {
                     CVALUE*% come_value = new CVALUE();
                     
-                    sType* type = parent_var->mType;
+                    sType* type = borrow parent_var->mType;
                     
                     come_value.c_value = xsprintf("(*(parent->%s))", parent_var->mCValueName);
                     come_value.type = clone type;

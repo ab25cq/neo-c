@@ -138,7 +138,7 @@ bool vm(sInfo* info) version 2
             }
             else if(left_value.kind == kIntValue && right_value.kind == kStrValue) {
                 int lvalue = left_value.intValue;
-                wchar_t* rvalue = right_value.strValue;
+                wchar_t* rvalue = borrow right_value.strValue;
                 
                 wstring value = lvalue.to_wstring() + rvalue;
                 
@@ -148,7 +148,7 @@ bool vm(sInfo* info) version 2
                 info->stack.push_back(new ZVALUE(kind: kStrValue, str_value:value));
             }
             else if(left_value.kind == kStrValue && right_value.kind == kIntValue) {
-                wchar_t* lvalue = left_value.strValue;
+                wchar_t* lvalue = borrow left_value.strValue;
                 int rvalue = right_value.intValue;
                 
                 wstring value = lvalue + rvalue.to_wstring();
@@ -159,8 +159,8 @@ bool vm(sInfo* info) version 2
                 info->stack.push_back(new ZVALUE(kind: kStrValue, str_value:value));
             }
             else if(left_value.kind == kStrValue && right_value.kind == kStrValue) {
-                wchar_t* lvalue = left_value.strValue;
-                wchar_t* rvalue = right_value.strValue;
+                wchar_t* lvalue = borrow left_value.strValue;
+                wchar_t* rvalue = borrow right_value.strValue;
                 
                 wstring value = lvalue + rvalue;
                 
@@ -170,8 +170,8 @@ bool vm(sInfo* info) version 2
                 info->stack.push_back(new ZVALUE(kind: kStrValue, str_value:value));
             }
             else if(left_value.kind == kMapValue && right_value.kind == kMapValue) {
-                map<ZVALUE*%, ZVALUE*%>* lvalue = left_value.mapValue;
-                map<ZVALUE*%, ZVALUE*%>* rvalue = right_value.mapValue;
+                map<ZVALUE*%, ZVALUE*%>* lvalue = borrow left_value.mapValue;
+                map<ZVALUE*%, ZVALUE*%>* rvalue = borrow right_value.mapValue;
                 
                 map<ZVALUE*%, ZVALUE*%>*% value = lvalue + rvalue;
                 

@@ -578,7 +578,7 @@ bool vm(sInfo* info) version 3
                 info->stack.push_back(new ZVALUE(kind: kIntValue, int_value:value));
             }
             else if(left_value.kind == kStrValue && right_value.kind == kIntValue) {
-                wchar_t* lvalue = left_value.strValue;
+                wchar_t* lvalue = borrow left_value.strValue;
                 int rvalue = right_value.intValue;
                 
                 wstring value = lvalue * rvalue;
@@ -589,7 +589,7 @@ bool vm(sInfo* info) version 3
                 info->stack.push_back(new ZVALUE(kind: kStrValue, str_value:value));
             }
             else if(left_value.kind == kMapValue && right_value.kind == kIntValue) {
-                map<ZVALUE*%, ZVALUE*%>* lvalue = left_value.mapValue;
+                map<ZVALUE*%, ZVALUE*%>* lvalue = borrow left_value.mapValue;
                 int rvalue = right_value.intValue;
                 
                 map<ZVALUE*%, ZVALUE*%>*% value = lvalue * rvalue;
@@ -600,7 +600,7 @@ bool vm(sInfo* info) version 3
                 info->stack.push_back(new ZVALUE(kind: kMapValue, map_value:value));
             }
             else if(left_value.kind == kListValue && right_value.kind == kIntValue) {
-                list<ZVALUE*%>* lvalue = left_value.listValue;
+                list<ZVALUE*%>* lvalue = borrow left_value.listValue;
                 int rvalue = right_value.intValue;
                 
                 list<ZVALUE*%>*% value = lvalue * rvalue;

@@ -4,7 +4,7 @@ bool operator_overload_fun(sType* type, const char* fun_name, sNode*% left_node,
 {
     sType* generics_type;
     if(type->mNoSolvedGenericsType) {
-        generics_type = type->mNoSolvedGenericsType;
+        generics_type = borrow type->mNoSolvedGenericsType;
     }
     else {
         generics_type = type;
@@ -12,13 +12,13 @@ bool operator_overload_fun(sType* type, const char* fun_name, sNode*% left_node,
     
     sType* type2;
     if(type->mNoSolvedGenericsType) {
-        type2 = type.mNoSolvedGenericsType;
+        type2 = borrow type.mNoSolvedGenericsType;
     }
     else {
         type2 = type;
     }
     sClass* klass = type2->mClass;
-    char* class_name = klass->mName;
+    char* class_name = borrow klass->mName;
     
     var fun_name2, operator_fun, generics_fun = get_method(fun_name, type2, info);
     
@@ -808,7 +808,7 @@ class sEqNode extends sNodeBase
     bool compile(sInfo* info)
     {
         /// compile expression ///
-        sNode* left_node = self.mLeft;
+        sNode* left_node = borrow self.mLeft;
     
         node_compile(left_node).elif {
             return false;
@@ -816,7 +816,7 @@ class sEqNode extends sNodeBase
         
         CVALUE*% left_value = get_value_from_stack(-1, info);
         
-        sNode* right_node = self.mRight;
+        sNode* right_node = borrow self.mRight;
     
         node_compile(right_node).elif {
             return false;
@@ -857,7 +857,7 @@ class sNotEqNode extends sNodeBase
     bool compile(sInfo* info)
     {
         /// compile expression ///
-        sNode* left_node = self.mLeft;
+        sNode* left_node = borrow self.mLeft;
     
         node_compile(left_node).elif {
             return false;
@@ -865,7 +865,7 @@ class sNotEqNode extends sNodeBase
         
         CVALUE*% left_value = get_value_from_stack(-1, info);
         
-        sNode* right_node = self.mRight;
+        sNode* right_node = borrow self.mRight;
     
         node_compile(right_node).elif {
             return false;
@@ -1346,7 +1346,7 @@ class sCommaNode extends sNodeBase
     bool compile(sInfo* info)
     {
         /// compile expression ///
-        sNode* left_node = self.mLeft;
+        sNode* left_node = borrow self.mLeft;
     
         node_compile(left_node).elif {
             return false;
@@ -1354,7 +1354,7 @@ class sCommaNode extends sNodeBase
         
         CVALUE*% left_value = get_value_from_stack(-1, info);
         
-        sNode* right_node = self.mRight;
+        sNode* right_node = borrow self.mRight;
     
         node_compile(right_node).elif {
             return false;
@@ -1398,7 +1398,7 @@ class sConditionalNode extends sNodeBase
         info.in_conditional_operator = true;
         
         /// compile expression ///
-        sNode* value1 = self.mValue1;
+        sNode* value1 = borrow self.mValue1;
     
         node_compile(value1).elif {
             return false;
@@ -1406,7 +1406,7 @@ class sConditionalNode extends sNodeBase
         
         CVALUE*% value1_value = get_value_from_stack(-1, info);
         
-        sNode* value2 = self.mValue2;
+        sNode* value2 = borrow self.mValue2;
     
         node_compile(value2).elif {
             return false;
@@ -1414,7 +1414,7 @@ class sConditionalNode extends sNodeBase
         
         CVALUE*% value2_value = get_value_from_stack(-1, info);
         
-        sNode* value3 = self.mValue3;
+        sNode* value3 = borrow self.mValue3;
     
         node_compile(value3).elif {
             return false;

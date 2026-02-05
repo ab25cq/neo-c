@@ -4,7 +4,7 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
 {
     var buf = new buffer();
     
-    char* class_name = type->mClass->mName;
+    string class_name = type->mClass->mName;
     
     if(type->mAlignasDouble && !no_static) {
         buf.append_format("_Alignas(double) ");
@@ -275,7 +275,7 @@ string make_come_type_name_string(sType* type, sInfo* info=info)
     
     sType*% type2 = get_no_solved_type(type);
     
-    char* class_name = type2->mClass->mName;
+    char* class_name = borrow type2->mClass->mName;
     
     if(type->mOriginalTypeName && type->mOriginalTypeName !== "") {
         var buf = new buffer();
@@ -1482,7 +1482,7 @@ bool is_contained_generics_funcstion(sFun* fun, sInfo* info=info)
     foreach(it, fun->mParamTypes) {
         sType* type_;
         if(it->mNoSolvedGenericsType) {
-            type_ = it->mNoSolvedGenericsType;
+            type_ = borrow it->mNoSolvedGenericsType;
         }
         else {
             type_ = it;

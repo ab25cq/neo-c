@@ -13898,7 +13898,7 @@ _Bool create_equals_method(struct sType*  type  , struct sInfo*  info  )
     struct list$1CVALUE$ph* stack_saved;
     struct list$1sRightValueObject$ph* right_value_objects;
     struct sClass*  klass  ;
-    char* class_name;
+    char*  class_name  ;
     struct sType*  type2  ;
     struct sFun*  cloner  ;
     char*  fun_name2  ;
@@ -13973,7 +13973,7 @@ _Bool create_equals_method(struct sType*  type  , struct sInfo*  info  )
     stack_saved=(struct list$1CVALUE$ph*)come_increment_ref_count(info->stack);
     right_value_objects=info->right_value_objects;
     klass=type_->mClass;
-    class_name=klass->mName;
+    class_name=(char* )come_increment_ref_count(klass->mName);
     const char* fun_name="equals";
     type2=(struct sType* )come_increment_ref_count(sType_clone(type_));
     type2->mHeap=(_Bool)0;
@@ -14036,6 +14036,7 @@ _Bool create_equals_method(struct sType*  type  , struct sInfo*  info  )
                 (last_code2 = come_decrement_ref_count(last_code2, (void*)0, (void*)0, 0, 0, (void*)0));
                 (sname_top = come_decrement_ref_count(sname_top, (void*)0, (void*)0, 0, 0, (void*)0));
                 come_call_finalizer(list$1CVALUE$ph$p_finalize, stack_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0));
                 come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 (fun_name2 = come_decrement_ref_count(fun_name2, (void*)0, (void*)0, 0, 0, (void*)0));
                 neo_current_frame = fr.prev;
@@ -14124,6 +14125,7 @@ _Bool create_equals_method(struct sType*  type  , struct sInfo*  info  )
     (last_code2 = come_decrement_ref_count(last_code2, (void*)0, (void*)0, 0, 0, (void*)0));
     (sname_top = come_decrement_ref_count(sname_top, (void*)0, (void*)0, 0, 0, (void*)0));
     come_call_finalizer(list$1CVALUE$ph$p_finalize, stack_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0));
     come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (fun_name2 = come_decrement_ref_count(fun_name2, (void*)0, (void*)0, 0, 0, (void*)0));
     neo_current_frame = fr.prev;
@@ -14158,7 +14160,7 @@ _Bool create_operator_equals_method(struct sType*  type  , struct sInfo*  info  
     struct list$1CVALUE$ph* stack_saved;
     struct list$1sRightValueObject$ph* right_value_objects;
     struct sClass*  klass  ;
-    char* class_name;
+    char*  class_name  ;
     struct sType*  type2  ;
     struct sFun*  cloner  ;
     char*  fun_name2  ;
@@ -14233,7 +14235,7 @@ _Bool create_operator_equals_method(struct sType*  type  , struct sInfo*  info  
     stack_saved=(struct list$1CVALUE$ph*)come_increment_ref_count(info->stack);
     right_value_objects=info->right_value_objects;
     klass=type_->mClass;
-    class_name=klass->mName;
+    class_name=(char* )come_increment_ref_count(klass->mName);
     const char* fun_name="operator_equals";
     type2=(struct sType* )come_increment_ref_count(sType_clone(type_));
     type2->mHeap=(_Bool)0;
@@ -14296,6 +14298,7 @@ _Bool create_operator_equals_method(struct sType*  type  , struct sInfo*  info  
                 (last_code2 = come_decrement_ref_count(last_code2, (void*)0, (void*)0, 0, 0, (void*)0));
                 (sname_top = come_decrement_ref_count(sname_top, (void*)0, (void*)0, 0, 0, (void*)0));
                 come_call_finalizer(list$1CVALUE$ph$p_finalize, stack_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0));
                 come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 (fun_name2 = come_decrement_ref_count(fun_name2, (void*)0, (void*)0, 0, 0, (void*)0));
                 neo_current_frame = fr.prev;
@@ -14382,6 +14385,7 @@ _Bool create_operator_equals_method(struct sType*  type  , struct sInfo*  info  
     (last_code2 = come_decrement_ref_count(last_code2, (void*)0, (void*)0, 0, 0, (void*)0));
     (sname_top = come_decrement_ref_count(sname_top, (void*)0, (void*)0, 0, 0, (void*)0));
     come_call_finalizer(list$1CVALUE$ph$p_finalize, stack_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0));
     come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (fun_name2 = come_decrement_ref_count(fun_name2, (void*)0, (void*)0, 0, 0, (void*)0));
     neo_current_frame = fr.prev;
@@ -14416,7 +14420,7 @@ _Bool create_operator_not_equals_method(struct sType*  type  , struct sInfo*  in
     struct list$1CVALUE$ph* stack_saved;
     struct list$1sRightValueObject$ph* right_value_objects;
     struct sClass*  klass  ;
-    char* class_name;
+    char*  class_name  ;
     struct sType*  type2  ;
     struct sFun*  cloner  ;
     char*  fun_name2  ;
@@ -14491,7 +14495,7 @@ _Bool create_operator_not_equals_method(struct sType*  type  , struct sInfo*  in
     stack_saved=(struct list$1CVALUE$ph*)come_increment_ref_count(info->stack);
     right_value_objects=info->right_value_objects;
     klass=type_->mClass;
-    class_name=klass->mName;
+    class_name=(char* )come_increment_ref_count(klass->mName);
     const char* fun_name="operator_not_equals";
     type2=(struct sType* )come_increment_ref_count(sType_clone(type_));
     type2->mHeap=(_Bool)0;
@@ -14554,6 +14558,7 @@ _Bool create_operator_not_equals_method(struct sType*  type  , struct sInfo*  in
                 (last_code2 = come_decrement_ref_count(last_code2, (void*)0, (void*)0, 0, 0, (void*)0));
                 (sname_top = come_decrement_ref_count(sname_top, (void*)0, (void*)0, 0, 0, (void*)0));
                 come_call_finalizer(list$1CVALUE$ph$p_finalize, stack_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0));
                 come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 (fun_name2 = come_decrement_ref_count(fun_name2, (void*)0, (void*)0, 0, 0, (void*)0));
                 neo_current_frame = fr.prev;
@@ -14640,6 +14645,7 @@ _Bool create_operator_not_equals_method(struct sType*  type  , struct sInfo*  in
     (last_code2 = come_decrement_ref_count(last_code2, (void*)0, (void*)0, 0, 0, (void*)0));
     (sname_top = come_decrement_ref_count(sname_top, (void*)0, (void*)0, 0, 0, (void*)0));
     come_call_finalizer(list$1CVALUE$ph$p_finalize, stack_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0));
     come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (fun_name2 = come_decrement_ref_count(fun_name2, (void*)0, (void*)0, 0, 0, (void*)0));
     neo_current_frame = fr.prev;

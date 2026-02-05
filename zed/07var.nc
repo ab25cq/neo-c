@@ -71,7 +71,7 @@ class sLoadElementNode
     
     bool compile(sInfo* info)
     {
-        sNode* index = self.index;
+        sNode* index = borrow self.index;
         
         if(!index.compile(info)) {
             return false;
@@ -106,13 +106,13 @@ class sStoreElementNode
     
     bool compile(sInfo* info)
     {
-        sNode* index = self.index;
+        sNode* index = borrow self.index;
         
         if(!index.compile(info)) {
             return false;
         }
         
-        sNode* right = self.right;
+        sNode* right = borrow self.right;
         
         if(!right.compile(info)) {
             return false;

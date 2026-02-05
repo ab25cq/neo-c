@@ -2761,6 +2761,7 @@ struct sEnumNode* sEnumNode_initialize(struct sEnumNode* self, char*  type_name 
     __result_obj__0 = (struct sEnumNode*)come_increment_ref_count(self);
     come_call_finalizer(sEnumNode_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0));
+    come_call_finalizer(list$1tuple3$3char$phsNode$phchar$ph$ph$p_finalize, elements, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(sType_finalize, type_elements, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (attribute = come_decrement_ref_count(attribute, (void*)0, (void*)0, 0, 0, (void*)0));
     neo_current_frame = fr.prev;
@@ -2769,6 +2770,7 @@ struct sEnumNode* sEnumNode_initialize(struct sEnumNode* self, char*  type_name 
     __result_obj__0 = (struct sEnumNode*)come_increment_ref_count(self);
     come_call_finalizer(sEnumNode_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0));
+    come_call_finalizer(list$1tuple3$3char$phsNode$phchar$ph$ph$p_finalize, elements, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(sType_finalize, type_elements, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (attribute = come_decrement_ref_count(attribute, (void*)0, (void*)0, 0, 0, (void*)0));
     neo_current_frame = fr.prev;
@@ -2827,11 +2829,12 @@ _Bool sEnumNode_compile(struct sEnumNode* self, struct sInfo*  info  )
     char*  __dec_obj14  ;
     memset(&c_value, 0, sizeof(c_value));
     type_name=(char* )come_increment_ref_count(self->mTypeName);
-    elements=self->mElements;
+    elements=(struct list$1tuple3$3char$phsNode$phchar$ph$ph*)come_increment_ref_count(self->mElements);
     attribute=(char* )come_increment_ref_count(self->mAttribute);
     if(list$1tuple3$3char$phsNode$phchar$ph$ph_length(elements)==0) {
         __result_obj__0 = (_Bool)1;
         (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0));
+        come_call_finalizer(list$1tuple3$3char$phsNode$phchar$ph$ph$p_finalize, elements, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         (attribute = come_decrement_ref_count(attribute, (void*)0, (void*)0, 0, 0, (void*)0));
         neo_current_frame = fr.prev;
         return __result_obj__0;
@@ -2867,7 +2870,7 @@ _Bool sEnumNode_compile(struct sEnumNode* self, struct sInfo*  info  )
     i=0;
     n=0;
     right_c_value=((void*)0);
-    for(o2_saved=elements,it=list$1tuple3$3char$phsNode$phchar$ph$ph_begin(o2_saved);!list$1tuple3$3char$phsNode$phchar$ph$ph_end(o2_saved);it=list$1tuple3$3char$phsNode$phchar$ph$ph_next(o2_saved)){
+    for(o2_saved=(struct list$1tuple3$3char$phsNode$phchar$ph$ph*)come_increment_ref_count(elements),it=list$1tuple3$3char$phsNode$phchar$ph$ph_begin(o2_saved);!list$1tuple3$3char$phsNode$phchar$ph$ph_end(o2_saved);it=list$1tuple3$3char$phsNode$phchar$ph$ph_next(o2_saved)){
         multiple_assign_var1=it;
         name=(char* )come_increment_ref_count(multiple_assign_var1->v1);
         value=(struct sNode*)come_increment_ref_count(multiple_assign_var1->v2);
@@ -2901,7 +2904,9 @@ _Bool sEnumNode_compile(struct sEnumNode* self, struct sInfo*  info  )
                 (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0));
                 ((value) ? value = come_decrement_ref_count(value, ((struct sNode*)value)->finalize, ((struct sNode*)value)->_protocol_obj, 0, 0,(void*)0):(void*)0);
                 (attribute_4 = come_decrement_ref_count(attribute_4, (void*)0, (void*)0, 0, 0, (void*)0));
+                come_call_finalizer(list$1tuple3$3char$phsNode$phchar$ph$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0));
+                come_call_finalizer(list$1tuple3$3char$phsNode$phchar$ph$ph$p_finalize, elements, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 (attribute = come_decrement_ref_count(attribute, (void*)0, (void*)0, 0, 0, (void*)0));
                 come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 (right_c_value = come_decrement_ref_count(right_c_value, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -2930,6 +2935,7 @@ _Bool sEnumNode_compile(struct sEnumNode* self, struct sInfo*  info  )
         ((value) ? value = come_decrement_ref_count(value, ((struct sNode*)value)->finalize, ((struct sNode*)value)->_protocol_obj, 0, 0,(void*)0):(void*)0);
         (attribute_4 = come_decrement_ref_count(attribute_4, (void*)0, (void*)0, 0, 0, (void*)0));
     }
+    come_call_finalizer(list$1tuple3$3char$phsNode$phchar$ph$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     buffer_append_format(buf,"};\n");
     if(({(_conditional_value_X0=(((struct buffer* )(__right_value2=map$2char$phbuffer$ph_operator_load_element(info->struct_definition,((char* )(__right_value1=__builtin_string(type_name))))))==((void*)0)||string_operator_equals(type_name,"")));    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
     come_call_finalizer(buffer_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0);
@@ -2948,6 +2954,7 @@ _conditional_value_X0;})) {
     }
     __result_obj__0 = (_Bool)1;
     (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0));
+    come_call_finalizer(list$1tuple3$3char$phsNode$phchar$ph$ph$p_finalize, elements, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (attribute = come_decrement_ref_count(attribute, (void*)0, (void*)0, 0, 0, (void*)0));
     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (right_c_value = come_decrement_ref_count(right_c_value, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -4301,7 +4308,7 @@ _conditional_value_X0;})) {
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
     }
     _inf_value1=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 232, "struct sNode");
-    _inf_obj_value1=(struct sEnumNode*)come_increment_ref_count(((struct sEnumNode*)(__right_value1=sEnumNode_initialize((struct sEnumNode* )come_increment_ref_count((struct sEnumNode *)come_calloc(1, sizeof(struct sEnumNode )*(1), (void*)0, 232, "struct sEnumNode* ")),(char* )come_increment_ref_count(type_name),elements,(struct sType* )come_increment_ref_count(type_elements),(char* )come_increment_ref_count(attribute),info))));
+    _inf_obj_value1=(struct sEnumNode*)come_increment_ref_count(((struct sEnumNode*)(__right_value1=sEnumNode_initialize((struct sEnumNode* )come_increment_ref_count((struct sEnumNode *)come_calloc(1, sizeof(struct sEnumNode )*(1), (void*)0, 232, "struct sEnumNode* ")),(char* )come_increment_ref_count(type_name),(struct list$1tuple3$3char$phsNode$phchar$ph$ph*)come_increment_ref_count(elements),(struct sType* )come_increment_ref_count(type_elements),(char* )come_increment_ref_count(attribute),info))));
     _inf_value1->_protocol_obj=_inf_obj_value1;
     _inf_value1->finalize=(void*)sEnumNode_finalize;
     _inf_value1->clone=(void*)sEnumNode_clone;
@@ -5729,7 +5736,7 @@ struct sNode* top_level_v96(char* buf, char* head, int head_sline, struct sInfo*
             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
         }
         _inf_value2=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 366, "struct sNode");
-        _inf_obj_value2=(struct sEnumNode*)come_increment_ref_count(((struct sEnumNode*)(__right_value1=sEnumNode_initialize((struct sEnumNode* )come_increment_ref_count((struct sEnumNode *)come_calloc(1, sizeof(struct sEnumNode )*(1), (void*)0, 366, "struct sEnumNode* ")),(char* )come_increment_ref_count(type_name),elements,(struct sType* )come_increment_ref_count(type_elements),(char* )come_increment_ref_count(attribute),info))));
+        _inf_obj_value2=(struct sEnumNode*)come_increment_ref_count(((struct sEnumNode*)(__right_value1=sEnumNode_initialize((struct sEnumNode* )come_increment_ref_count((struct sEnumNode *)come_calloc(1, sizeof(struct sEnumNode )*(1), (void*)0, 366, "struct sEnumNode* ")),(char* )come_increment_ref_count(type_name),(struct list$1tuple3$3char$phsNode$phchar$ph$ph*)come_increment_ref_count(elements),(struct sType* )come_increment_ref_count(type_elements),(char* )come_increment_ref_count(attribute),info))));
         _inf_value2->_protocol_obj=_inf_obj_value2;
         _inf_value2->finalize=(void*)sEnumNode_finalize;
         _inf_value2->clone=(void*)sEnumNode_clone;

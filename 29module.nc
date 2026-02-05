@@ -1589,8 +1589,8 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
         int sline = info.sline;
         
         info.source = "__ccpp_tmp".read().to_buffer();
-        info.p = info.source.buf;
-        info.head = info.source.buf;
+        info.p = borrow info.source.buf;
+        info.head = borrow info.source.buf;
         info.end = info.source.buf + info.source.len;
         info.sname = string(path);
         info.sline = 1;
@@ -1690,9 +1690,9 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
         string sname = info.sname;
         int sline = info.sline;
         
-        info.p = source2.buf;
+        info.p = borrow source2.buf;
         info.source = source2;
-        info.head = source2.buf;
+        info.head = borrow source2.buf;
         info.end = source2.buf + source2.len;
         
         info.sname = string("eval");

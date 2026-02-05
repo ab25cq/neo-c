@@ -15,7 +15,7 @@ class sPrintNode
     
     bool compile(sInfo* info)
     {
-        sNode* print_exp = self.print_exp;
+        sNode* print_exp = borrow self.print_exp;
         
         if(!print_exp.compile(info)) {
             return false;

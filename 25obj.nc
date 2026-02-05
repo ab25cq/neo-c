@@ -1056,7 +1056,7 @@ class sDeleteNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        sNode* node = self.node;
+        sNode*% node = self.node;
         
         node_compile(node).elif {
             return false;
@@ -1090,7 +1090,7 @@ class sBorrowNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        sNode* node = self.node;
+        sNode*% node = self.node;
         
         node_compile(node).elif {
             return false;
@@ -1099,6 +1099,10 @@ class sBorrowNode extends sNodeBase
         CVALUE*% come_value = get_value_from_stack(-1, info);
         
         remove_value_from_right_value_objects(come_value);
+        
+        sType*% type = clone come_value.type;
+        type->mHeap = false;
+        come_value.type = type;
         
         info.stack.push_back(come_value);
         
@@ -1122,7 +1126,7 @@ class sCloneNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        sNode* node = self.node;
+        sNode*% node = self.node;
         
         node_compile(node).elif {
             return false;
@@ -1172,7 +1176,7 @@ class sDupeNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        sNode* node = self.node;
+        sNode*% node = self.node;
         
         node_compile(node).elif {
             return false;
@@ -1222,7 +1226,7 @@ class sDummyHeapNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        sNode* node = self.node;
+        sNode*% node = self.node;
         
         node_compile(node).elif {
             return false;
@@ -1256,7 +1260,7 @@ class sGCIncNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        sNode* node = self.node;
+        sNode*% node = self.node;
         
         node_compile(node).elif {
             return false;
@@ -1264,7 +1268,7 @@ class sGCIncNode extends sNodeBase
         
         CVALUE*% come_value = get_value_from_stack(-1, info);
         
-        sType* type = come_value.type;
+        sType* type = borrow come_value.type;
         
         if(come_value.type.mHeap && come_value.type.mPointerNum > 0) {
             string type_name = make_type_name_string(type);
@@ -1293,7 +1297,7 @@ class sGCDecNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        sNode* node = self.node;
+        sNode*% node = self.node;
         
         node_compile(node).elif {
             return false;
@@ -1329,8 +1333,6 @@ class sIsHeap extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        sType* node = self.type;
-        
         if(self.type.mHeap) {
             CVALUE*% come_value = new CVALUE();
             
@@ -1374,8 +1376,6 @@ class sIsPointer extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        sType* node = self.type;
-        
         if(self.type.mPointerNum > 0) {
             CVALUE*% come_value = new CVALUE();
             
@@ -1419,7 +1419,7 @@ class sGCDecNoFreeNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        sNode* node = self.node;
+        sNode*% node = self.node;
         
         node_compile(node).elif {
             return false;

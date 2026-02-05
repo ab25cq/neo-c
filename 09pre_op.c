@@ -2889,7 +2889,7 @@ _Bool operator_overload_fun_self(struct sType*  type  , const char* fun_name, st
     struct sType*  __dec_obj36  ;
     struct sType*  __dec_obj37  ;
     struct sClass*  klass  ;
-    char* class_name;
+    char*  class_name  ;
     struct tuple3$3char$phsFun$psGenericsFun$p* multiple_assign_var1
 ;    char*  fun_name2  =0;
     struct sFun*  operator_fun  =0;
@@ -2925,7 +2925,7 @@ _Bool operator_overload_fun_self(struct sType*  type  , const char* fun_name, st
         come_call_finalizer(sType_finalize, __dec_obj37,(void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     klass=type_->mClass;
-    class_name=klass->mName;
+    class_name=(char* )come_increment_ref_count(klass->mName);
     multiple_assign_var1=((struct tuple3$3char$phsFun$psGenericsFun$p*)(__right_value0=get_method(fun_name,type_,info)));
     fun_name2=(char* )come_increment_ref_count(multiple_assign_var1->v1);
     operator_fun=multiple_assign_var1->v2;
@@ -2953,6 +2953,7 @@ _Bool operator_overload_fun_self(struct sType*  type  , const char* fun_name, st
     ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0):(void*)0);
     come_call_finalizer(sType_finalize, generics_type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(sType_finalize, type_, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0));
     (fun_name2 = come_decrement_ref_count(fun_name2, (void*)0, (void*)0, 0, 0, (void*)0));
     neo_current_frame = fr.prev;
     return __result_obj__0;

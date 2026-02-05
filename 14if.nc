@@ -35,7 +35,7 @@ class sIfNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        sBlock* else_block = self.mElseBlock;
+        sBlock* else_block = borrow self.mElseBlock;
         int elif_num = self.mElifNum;
         bool guard_ = self.mGuard;
         bool existance_result_value = self.existance_result_value;
@@ -62,10 +62,10 @@ class sIfNode extends sNodeBase
         }
         
         /// compile expression ///
-        sNode* expression_node = self.mExpressionNode;
+        sNode* expression_node = borrow self.mExpressionNode;
         
         int sline = info.sline;
-        char* sname = info.sname;
+        char* sname = borrow info.sname;
         
         add_come_code(info, "if(");
         
@@ -78,7 +78,7 @@ class sIfNode extends sNodeBase
         add_come_code(info, ") {\n");
         info->in_conditional = in_conditional;
     
-        sBlock* if_block = self.mIfBlock;
+        sBlock* if_block = borrow self.mIfBlock;
     
         transpile_block(if_block, null, null, info, if_result_value:existance_result_value);
         
@@ -244,7 +244,7 @@ class sOrStatmentNode extends sNodeBase
     bool compile(sInfo* info)
     {
         /// compile expression ///
-        sNode* expression_node = self.mExpressionNode;
+        sNode* expression_node = borrow self.mExpressionNode;
         
         add_come_code(info, "if(!(");
     
@@ -257,7 +257,7 @@ class sOrStatmentNode extends sNodeBase
         add_come_code(info, ")) {\n");
         info->in_conditional = in_conditional;
         
-        sBlock* if_block = self.mIfBlock;
+        sBlock* if_block = borrow self.mIfBlock;
         transpile_block(if_block, null, null, info);
         add_come_code(info, "}\n");
         
@@ -290,7 +290,7 @@ class sAndStatmentNode extends sNodeBase
     bool compile(sInfo* info)
     {
         /// compile expression ///
-        sNode* expression_node = self.mExpressionNode;
+        sNode* expression_node = borrow self.mExpressionNode;
         
         add_come_code(info, "if(");
     
@@ -303,7 +303,7 @@ class sAndStatmentNode extends sNodeBase
         add_come_code(info, ") {\n");
         info->in_conditional = in_conditional;
     
-        sBlock* if_block = self.mIfBlock;
+        sBlock* if_block = borrow self.mIfBlock;
         transpile_block(if_block, null, null, info);
         add_come_code(info, "}\n");
         

@@ -127,7 +127,7 @@ class sFunNode extends sNodeBase
     bool compile(sInfo* info)
     {
         sFun* come_fun = info.come_fun;
-        info.come_fun = self.mFun;
+        info.come_fun = borrow self.mFun;
         
         info.come_fun.mDefineReturnVar = false;
         
@@ -375,8 +375,8 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
         
         string source = string("return self;");
         
-        info.p = source;
-        info.head = source;
+        info.p = borrow source;
+        info.head = borrow source;
         
         sNode*% node = expression();
         
@@ -388,7 +388,7 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
         result.mNodes.push_back(node);
         
         info.p = p;
-        info.head = head;
+        info.head = borrow head;
     }
     
     info->block_level = block_level;
@@ -406,12 +406,12 @@ int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* par
     sVarTable* old_table = info->lv_table;
     if(!no_var_table) {
         block->mVarTable = new sVarTable(false@global, old_table);
-        info->lv_table = block->mVarTable;
+        info->lv_table = borrow block->mVarTable;
     }
 
     sVarTable* current_loop_vtable = info->current_loop_vtable;
     if(loop_block) {
-        info->current_loop_vtable = block->mVarTable;
+        info->current_loop_vtable = borrow block->mVarTable;
     }
     
     if(param_types && param_names) {
@@ -2445,7 +2445,7 @@ sNode*% parse_function(sInfo* info)
     int caller_line = info->caller_line;
     info->caller_line = info->sline;
     char* caller_sname = info->caller_sname;
-    info->caller_sname = info->sname;
+    info->caller_sname = borrow info->sname;
     buffer*% if_expression_buffer = clone info.if_expression_buffer;
     info.if_expression_buffer = null;
     buffer*% paren_block_buffer = clone info.paren_block_buffer;
@@ -2467,7 +2467,7 @@ sNode*% parse_function(sInfo* info)
     int sline_top = info->sline;
     
     var stack_saved = info.stack;
-    list<sRightValueObject*%>* right_value_objects = info.right_value_objects;
+    list<sRightValueObject*%>* right_value_objects = borrow info.right_value_objects;
 }
 
 #module MRestoreState
@@ -2529,8 +2529,8 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
     buffer*% source = info.source;
     
     info.source = generics_fun->mBlock.to_buffer();
-    info.p = info.source.buf;
-    info.head = info.source.buf;
+    info.p = borrow info.source.buf;
+    info.head = borrow info.source.buf;
     
     sType*% generics_type_saved = info->generics_type;
     sType*% generics_type_ = get_no_solved_type2(generics_type);
@@ -2625,8 +2625,8 @@ bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sIn
     buffer*% source = info.source;
     
     info.source = generics_fun->mBlock.to_buffer();
-    info.p = info.source.buf;
-    info.head = info.source.buf;
+    info.p = borrow info.source.buf;
+    info.head = borrow info.source.buf;
     
     list<string>*% method_generics_type_names = info->method_generics_type_names;
     
@@ -2797,8 +2797,8 @@ sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, s
             buffer*% source3 = info.source;
             
             info.source = source;
-            info.p = source.buf;
-            info.head = source.buf;
+            info.p = borrow source.buf;
+            info.head = borrow source.buf;
             
             info.sname = string(real_fun_name);
             info.sline = 0;
@@ -2835,7 +2835,7 @@ sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, s
                             
                 info.funcs.insert(string(name), fun);
                 
-                finalizer = fun;
+                finalizer = borrow fun;
                 
                 sNode*% node = new sFunNode(fun, info) implements sNode;
                 
@@ -2845,7 +2845,7 @@ sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, s
                 }
             }
             else {
-                finalizer = fun2;
+                finalizer = borrow fun2;
             }
             
             info.source = source3;
@@ -2873,7 +2873,7 @@ sFun*,string create_equals_automatically(sType* type, const char* fun_name, sInf
     
     sType*% type2 = solve_generics(type, type, info);
     
-    type = type2;
+    type = borrow type2;
     
     sClass* klass = type->mClass;
     
@@ -2910,8 +2910,8 @@ sFun*,string create_equals_automatically(sType* type, const char* fun_name, sInf
         buffer*% source3 = info.source;
         
         info.source = source;
-        info.p = source.buf;
-        info.head = source.buf;
+        info.p = borrow source.buf;
+        info.head = borrow source.buf;
         
         info.sname = string(real_fun_name);
         info.sline = 0;
@@ -2952,10 +2952,10 @@ sFun*,string create_equals_automatically(sType* type, const char* fun_name, sInf
                 exit(2);
             }
             
-            equaler = fun;
+            equaler = borrow fun;
         }
         else {
-            equaler = fun2;
+            equaler = borrow fun2;
         }
         
         info.source = source3;
@@ -2980,7 +2980,7 @@ sFun*,string create_operator_not_equals_automatically(sType* type, const char* f
     
     sType*% type2 = solve_generics(type, type, info);
     
-    type = type2;
+    type = borrow type2;
     
     sClass* klass = type->mClass;
     
@@ -3037,8 +3037,8 @@ sFun*,string create_operator_not_equals_automatically(sType* type, const char* f
         buffer*% source3 = info.source;
         
         info.source = source;
-        info.p = source.buf;
-        info.head = source.buf;
+        info.p = borrow source.buf;
+        info.head = borrow source.buf;
         
         info.sname = string(real_fun_name);
         info.sline = 0;
@@ -3079,10 +3079,10 @@ sFun*,string create_operator_not_equals_automatically(sType* type, const char* f
                 exit(2);
             }
             
-            equaler = fun;
+            equaler = borrow fun;
         }
         else {
-            equaler = fun2;
+            equaler = borrow fun2;
         }
         
         info.source = source3;
@@ -3107,7 +3107,7 @@ sFun*,string create_not_equals_automatically(sType* type, const char* fun_name, 
     
     sType*% type2 = solve_generics(type, type, info);
     
-    type = type2;
+    type = borrow type2;
     
     sClass* klass = type->mClass;
     
@@ -3161,8 +3161,8 @@ sFun*,string create_not_equals_automatically(sType* type, const char* fun_name, 
         buffer*% source3 = info.source;
         
         info.source = source;
-        info.p = source.buf;
-        info.head = source.buf;
+        info.p = borrow source.buf;
+        info.head = borrow source.buf;
         
         info.sname = string(real_fun_name);
         info.sline = 0;
@@ -3203,10 +3203,10 @@ sFun*,string create_not_equals_automatically(sType* type, const char* fun_name, 
                 exit(2);
             }
             
-            equaler = fun;
+            equaler = borrow fun;
         }
         else {
-            equaler = fun2;
+            equaler = borrow fun2;
         }
         
         info.source = source3;
@@ -3231,7 +3231,7 @@ sFun*,string create_operator_equals_automatically(sType* type, const char* fun_n
     
     sType*% type2 = solve_generics(type, type, info);
     
-    type = type2;
+    type = borrow type2;
     
     sClass* klass = type->mClass;
     
@@ -3270,8 +3270,8 @@ sFun*,string create_operator_equals_automatically(sType* type, const char* fun_n
         buffer*% source3 = info.source;
         
         info.source = source;
-        info.p = source.buf;
-        info.head = source.buf;
+        info.p = borrow source.buf;
+        info.head = borrow source.buf;
         
         info.sname = string(real_fun_name);
         info.sline = 0;
@@ -3312,10 +3312,10 @@ sFun*,string create_operator_equals_automatically(sType* type, const char* fun_n
                 exit(2);
             }
         
-            equaler = fun;
+            equaler = borrow fun;
         }
         else {
-            equaler = fun2;
+            equaler = borrow fun2;
         }
         
         info.source = source3;
@@ -3344,7 +3344,7 @@ sFun*,string create_cloner_automatically(sType* type, const char* fun_name, sInf
     
     sType*% type2 = solve_generics(type, type, info);
     
-    type = type2;
+    type = borrow type2;
     
 //    type->mHeap = true;
     
@@ -3487,8 +3487,8 @@ sFun*,string create_cloner_automatically(sType* type, const char* fun_name, sInf
         char* head = info.head;
         
         info.source = source;
-        info.p = info.source.buf;
-        info.head = info.source.buf;
+        info.p = borrow info.source.buf;
+        info.head = borrow info.source.buf;
         
         info.sname = string(real_fun_name);
         info.sline = 1;
@@ -3527,10 +3527,10 @@ sFun*,string create_cloner_automatically(sType* type, const char* fun_name, sInf
                 exit(2);
             }
             
-            cloner = fun;
+            cloner = borrow fun;
         }
         else {
-            cloner = fun2;
+            cloner = borrow fun2;
         }
         
         info.sname = sname;
@@ -3557,7 +3557,7 @@ sFun*,string create_to_string_automatically(sType* type, const char* fun_name, s
     
     sType*% type2 = solve_generics(type, type, info);
     
-    type = type2;
+    type = borrow type2;
     
     sClass* klass = type->mClass;
     
@@ -3615,8 +3615,8 @@ sFun*,string create_to_string_automatically(sType* type, const char* fun_name, s
         char* head = info.head;
         
         info.source = source;
-        info.p = info.source.buf;
-        info.head = info.source.buf;
+        info.p = borrow info.source.buf;
+        info.head = borrow info.source.buf;
         
         info.sname = string(real_fun_name);
         info.sline = 1;
@@ -3648,7 +3648,7 @@ sFun*,string create_to_string_automatically(sType* type, const char* fun_name, s
                             
             info.funcs.insert(string(name), fun);
             
-            cloner = fun;
+            cloner = borrow fun;
             
             sNode*% node = new sFunNode(fun, info) implements sNode;
             
@@ -3658,7 +3658,7 @@ sFun*,string create_to_string_automatically(sType* type, const char* fun_name, s
             }
         }
         else {
-            cloner = fun2;
+            cloner = borrow fun2;
         }
         
         info.sname = sname;
@@ -3685,7 +3685,7 @@ sFun*,string create_get_hash_key_automatically(sType* type, const char* fun_name
     
     sType*% type2 = solve_generics(type, type, info);
     
-    type = type2;
+    type = borrow type2;
     
     sClass* klass = type->mClass;
         
@@ -3758,8 +3758,8 @@ sFun*,string create_get_hash_key_automatically(sType* type, const char* fun_name
         char* head = info.head;
         
         info.source = source;
-        info.p = info.source.buf;
-        info.head = info.source.buf;
+        info.p = borrow info.source.buf;
+        info.head = borrow info.source.buf;
         
         info.sname = string(real_fun_name);
         info.sline = 1;
@@ -3791,7 +3791,7 @@ sFun*,string create_get_hash_key_automatically(sType* type, const char* fun_name
                             
             info.funcs.insert(string(name), fun);
             
-            get_hash_key_fun = fun;
+            get_hash_key_fun = borrow fun;
             
             sNode*% node = new sFunNode(fun, info) implements sNode;
             
@@ -3801,7 +3801,7 @@ sFun*,string create_get_hash_key_automatically(sType* type, const char* fun_name
             }
         }
         else {
-            get_hash_key_fun = fun2;
+            get_hash_key_fun = borrow fun2;
         }
         
         info.sname = sname;
@@ -3828,7 +3828,7 @@ sFun*,string create_compare_automatically(sType* type, const char* fun_name, sIn
     
     sType*% type2 = solve_generics(type, type, info);
     
-    type = type2;
+    type = borrow type2;
     
     sClass* klass = type->mClass;
         
@@ -3901,8 +3901,8 @@ sFun*,string create_compare_automatically(sType* type, const char* fun_name, sIn
         char* head = info.head;
         
         info.source = source;
-        info.p = info.source.buf;
-        info.head = info.source.buf;
+        info.p = borrow info.source.buf;
+        info.head = borrow info.source.buf;
         
         info.sname = string(real_fun_name);
         info.sline = 1;
@@ -3936,7 +3936,7 @@ sFun*,string create_compare_automatically(sType* type, const char* fun_name, sIn
                             
             info.funcs.insert(string(name), fun);
             
-            get_hash_key_fun = fun;
+            get_hash_key_fun = borrow fun;
             
             sNode*% node = new sFunNode(fun, info) implements sNode;
             
@@ -3946,7 +3946,7 @@ sFun*,string create_compare_automatically(sType* type, const char* fun_name, sIn
             }
         }
         else {
-            get_hash_key_fun = fun2;
+            get_hash_key_fun = borrow fun2;
         }
         
         info.sname = sname;
@@ -3984,8 +3984,8 @@ sFun*% compile_uniq_function(sFun* fun, sInfo* info=info)
     buffer*% source = info.source;
     
     info.source = fun.mTextBlock.to_buffer();
-    info.p = info.source.buf;
-    info.head = info.source.buf;
+    info.p = borrow info.source.buf;
+    info.head = borrow info.source.buf;
     
     info.sline = fun->mTextBlockSline;
     info.sname = fun->mTextBlockSName;
@@ -4031,7 +4031,7 @@ bool create_equals_method(sType* type, sInfo* info)
     
     sClass* klass = type_->mClass;
     
-    char* class_name = klass->mName;
+    string class_name = klass->mName;
 
     const char* fun_name = "equals";
     
@@ -4089,7 +4089,7 @@ bool create_equals_method(sType* type, sInfo* info)
         var fun,new_fun_name = create_equals_automatically(type_, fun_name, info);
         
         fun_name2 = new_fun_name;
-        cloner = fun;
+        cloner = borrow fun;
     }
 
     MRestoreState;
@@ -4106,7 +4106,7 @@ bool create_operator_equals_method(sType* type, sInfo* info)
     
     sClass* klass = type_->mClass;
     
-    char* class_name = klass->mName;
+    string class_name = klass->mName;
 
     const char* fun_name = "operator_equals";
     
@@ -4162,7 +4162,7 @@ bool create_operator_equals_method(sType* type, sInfo* info)
         var fun,new_fun_name = create_operator_equals_automatically(type_, fun_name, info);
         
         fun_name2 = new_fun_name;
-        cloner = fun;
+        cloner = borrow fun;
     }
 
     MRestoreState;
@@ -4179,7 +4179,7 @@ bool create_operator_not_equals_method(sType* type, sInfo* info)
     
     sClass* klass = type_->mClass;
     
-    char* class_name = klass->mName;
+    string class_name = klass->mName;
 
     const char* fun_name = "operator_not_equals";
     
@@ -4235,7 +4235,7 @@ bool create_operator_not_equals_method(sType* type, sInfo* info)
         var fun,new_fun_name = create_operator_not_equals_automatically(type_, fun_name, info);
         
         fun_name2 = new_fun_name;
-        cloner = fun;
+        cloner = borrow fun;
     }
 
     MRestoreState;

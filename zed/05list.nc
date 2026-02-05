@@ -15,7 +15,7 @@ class sListNode
     
     bool compile(sInfo* info)
     {
-        list<sNode*%>* list_ = self.value;
+        list<sNode*%>* list_ = borrow self.value;
         
         for(int i=0; i<list_.length(); i++) {
             sNode* node = borrow list_[i];
@@ -50,7 +50,7 @@ class sMapNode
     
     bool compile(sInfo* info)
     {
-        list<tuple2<sNode*%, sNode*%>*%>* value = self.value;
+        list<tuple2<sNode*%, sNode*%>*%>* value = borrow self.value;
         
         foreach(it, value) {
             var key, item = it;

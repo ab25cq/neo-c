@@ -231,7 +231,7 @@ string ZVALUE*::to_string(ZVALUE* self)
             
             buf.append_str("[");
             
-            list<ZVALUE*%>* list_ = self.listValue;
+            list<ZVALUE*%>* list_ = borrow self.listValue;
             int n = 0;
             foreach(it, list_) {
                 buf.append_str(it.to_string());
@@ -254,7 +254,7 @@ string ZVALUE*::to_string(ZVALUE* self)
             
             buf.append_str("[");
             
-            map<ZVALUE*%, ZVALUE*%>* map_ = self.mapValue;
+            map<ZVALUE*%, ZVALUE*%>* map_ = borrow self.mapValue;
             int n = 0;
             foreach(it, map_) {
                 ZVALUE* item = borrow map_[it];

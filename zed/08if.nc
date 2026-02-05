@@ -2,7 +2,7 @@
 
 bool compile_block(sNodeBlock& block, sInfo* info)
 {
-    list<sNode*%>* v = block;
+    list<sNode*%>* v = borrow block;
     foreach(it, v) {
         if(!it.compile(info)) {
             return false;
@@ -33,10 +33,10 @@ class sIfNode
     
     bool compile(sInfo* info)
     {
-        sNode* if_exp = self.if_exp;
-        sNodeBlock& if_block = self.if_block;
-        list<sNode*%>* elif_exps = self.elif_exps;
-        list<sNodeBlock>* elif_blocks = self.elif_blocks;
+        sNode* if_exp = borrow self.if_exp;
+        sNodeBlock if_block = self.if_block;
+        list<sNode*%>* elif_exps = borrow self.elif_exps;
+        list<sNodeBlock>* elif_blocks = borrow self.elif_blocks;
         sNodeBlock else_block = self.else_block;
         
         list<int>*% end_points = new list<int>();
@@ -66,7 +66,7 @@ class sIfNode
         
         for(int i= 0; i<elif_exps.length(); i++) {
             sNode* elif_exp = borrow elif_exps[i];
-            list<sNode*%>* elif_block = elif_blocks[i];
+            list<sNode*%>* elif_block = borrow elif_blocks[i];
             
             if(!elif_exp.compile(info)) {
                 return false;

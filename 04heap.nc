@@ -376,7 +376,7 @@ void decrement_ref_count_object(sType* type, char* obj, sInfo* info, bool no_fre
         return ;
     }
     var stack_saved = info.stack;
-    list<sRightValueObject*%>* right_value_objects = info.right_value_objects;
+    list<sRightValueObject*%>* right_value_objects = borrow info.right_value_objects;
     
     sClass* klass = type->mClass;
     
@@ -564,7 +564,7 @@ void free_object(sType* type, char* obj, bool no_decrement, bool no_free, sInfo*
         on_drop_object(type, obj, info);
     }
     var stack_saved = info.stack;
-    list<sRightValueObject*%>* right_value_objects = info.right_value_objects;
+    list<sRightValueObject*%>* right_value_objects = borrow info.right_value_objects;
 
     sType* type_before = type;
 
@@ -703,7 +703,7 @@ tuple2<sType*%, string>*% clone_object(sType* type, char* obj, sInfo* info)
     string result = null;
     sType*% result_type = null;
     var stack_saved = info.stack;
-    list<sRightValueObject*%>* right_value_objects = info.right_value_objects;
+    list<sRightValueObject*%>* right_value_objects = borrow info.right_value_objects;
     
     string c_value = string(obj);
     
@@ -794,7 +794,7 @@ void free_right_value_objects(sInfo* info)
     }
     
     bool free_right_value = false;
-    list<sRightValueObject*%>* right_value_objects = info.right_value_objects;
+    list<sRightValueObject*%>* right_value_objects = borrow info.right_value_objects;
     
     int n = 0;
     foreach(it, right_value_objects) {
@@ -1105,7 +1105,7 @@ bool existance_free_right_value_objects(sInfo* info)
     if(gComeC) {
         return false;
     }
-    list<sRightValueObject*%>* right_value_objects = info.right_value_objects;
+    list<sRightValueObject*%>* right_value_objects = borrow info.right_value_objects;
     
     foreach(it, right_value_objects) {
         if(it && !it->mFreed) {

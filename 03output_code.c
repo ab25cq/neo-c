@@ -2770,7 +2770,7 @@ char*  make_type_name_string(struct sType*  type  , struct sInfo*  info  , _Bool
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct buffer*  buf  ;
-    char* class_name;
+    char*  class_name  ;
     _Bool no_output_come_code;
     char*  __result_obj__0  ;
     struct CVALUE*  come_value  ;
@@ -2797,7 +2797,7 @@ char*  make_type_name_string(struct sType*  type  , struct sInfo*  info  , _Bool
     _Bool Value_17;
     struct CVALUE*  cvalue_18  ;
     buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 5, "struct buffer* "))));
-    class_name=type->mClass->mName;
+    class_name=(char* )come_increment_ref_count(type->mClass->mName);
     if(type->mAlignasDouble&&!no_static) {
         buffer_append_format(buf,"_Alignas(double) ");
     }
@@ -2808,6 +2808,7 @@ char*  make_type_name_string(struct sType*  type  , struct sInfo*  info  , _Bool
             printf("_Alignas error\n");
             __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
             come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+            (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             neo_current_frame = fr.prev;
             (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -2854,7 +2855,7 @@ char*  make_type_name_string(struct sType*  type  , struct sInfo*  info  , _Bool
     else if(string_operator_equals(type->mOriginalTypeName,"__builtin_va_list")) {
         buffer_append_str(buf,"__builtin_va_list");
     }
-    else if(charp_operator_equals(class_name,"__builtin_va_list")) {
+    else if(string_operator_equals(class_name,"__builtin_va_list")) {
         buffer_append_str(buf,"__builtin_va_list");
     }
     else if(type->mClass->mStruct) {
@@ -2870,35 +2871,35 @@ char*  make_type_name_string(struct sType*  type  , struct sInfo*  info  , _Bool
         buffer_append_str(buf,class_name);
     }
     else if(type->mLongLong) {
-        if(charp_operator_equals(class_name,"int")) {
+        if(string_operator_equals(class_name,"int")) {
             buffer_append_str(buf,"long long int");
         }
-        else if(charp_operator_equals(class_name,"long")) {
+        else if(string_operator_equals(class_name,"long")) {
             buffer_append_str(buf,"long long");
         }
     }
     else if(type->mLong) {
         buffer_append_str(buf,"long ");
-        if(charp_operator_equals(class_name,"int")) {
+        if(string_operator_equals(class_name,"int")) {
             buffer_append_str(buf," int");
         }
-        else if(charp_operator_equals(class_name,"long")) {
+        else if(string_operator_equals(class_name,"long")) {
             buffer_append_str(buf," long");
         }
-        else if(charp_operator_equals(class_name,"double")) {
+        else if(string_operator_equals(class_name,"double")) {
             buffer_append_str(buf," double");
         }
     }
-    else if(charp_operator_equals(class_name,"long")) {
+    else if(string_operator_equals(class_name,"long")) {
         buffer_append_str(buf,"long");
     }
-    else if(charp_operator_equals(class_name,"__uint128_t")) {
+    else if(string_operator_equals(class_name,"__uint128_t")) {
         buffer_append_str(buf,"__uint128_t");
     }
-    else if(charp_operator_equals(class_name,"bool")) {
+    else if(string_operator_equals(class_name,"bool")) {
         buffer_append_str(buf,"_Bool");
     }
-    else if(charp_operator_equals(class_name,"lambda")) {
+    else if(string_operator_equals(class_name,"lambda")) {
         result_type_str=(char* )come_increment_ref_count(make_type_name_string(type->mResultType,info,(_Bool)1,(_Bool)0,(_Bool)0));
         buffer_append_str(buf,result_type_str);
         buffer_append_str(buf," (*");
@@ -2945,6 +2946,7 @@ char*  make_type_name_string(struct sType*  type  , struct sInfo*  info  , _Bool
             err_msg(info,"class name is null");
             __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
             come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+            (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             neo_current_frame = fr.prev;
             (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -2968,6 +2970,7 @@ char*  make_type_name_string(struct sType*  type  , struct sInfo*  info  , _Bool
                         __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
                         come_call_finalizer(list$1sNode$ph$p_finalize, o2_saved_6, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                         come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                        (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0));
                         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                         neo_current_frame = fr.prev;
                         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -2985,6 +2988,7 @@ char*  make_type_name_string(struct sType*  type  , struct sInfo*  info  , _Bool
                         __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
                         come_call_finalizer(list$1sNode$ph$p_finalize, o2_saved_11, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                         come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                        (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0));
                         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                         neo_current_frame = fr.prev;
                         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -2998,12 +3002,12 @@ char*  make_type_name_string(struct sType*  type  , struct sInfo*  info  , _Bool
             }
         }
     }
-    if(charp_operator_not_equals(class_name,"lambda")&&string_operator_not_equals(type->mOriginalTypeName,"va_list")&&string_operator_not_equals(type->mOriginalTypeName,"__builtin_va_list")) {
+    if(string_operator_not_equals(class_name,"lambda")&&string_operator_not_equals(type->mOriginalTypeName,"va_list")&&string_operator_not_equals(type->mOriginalTypeName,"__builtin_va_list")) {
         for(i_14=0;i_14<type->mPointerNum;i_14++){
             buffer_append_str(buf,"*");
         }
     }
-    if(charp_operator_not_equals(class_name,"lambda")&&type->mPointerAttribute!=((void*)0)&&string_operator_not_equals(type->mPointerAttribute,"")) {
+    if(string_operator_not_equals(class_name,"lambda")&&type->mPointerAttribute!=((void*)0)&&string_operator_not_equals(type->mPointerAttribute,"")) {
         buffer_append_str(buf," ");
         buffer_append_str(buf,type->mPointerAttribute);
     }
@@ -3038,6 +3042,7 @@ char*  make_type_name_string(struct sType*  type  , struct sInfo*  info  , _Bool
     }
     __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(buf))));
     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));

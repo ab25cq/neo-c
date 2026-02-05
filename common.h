@@ -170,7 +170,7 @@ uniq class sType
     new(string name, bool heap=false, sInfo* info=info, bool unsigned_=false, int pointer_num_=0) 
     {
         int pointer_num = pointer_num_;
-        char* p = name;
+        char* p = borrow name;
         while(*p) {
             if(xisalpha(*p) || *p == '_') {
                 p++;

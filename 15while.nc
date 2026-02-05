@@ -23,7 +23,7 @@ class sWhileNode extends sNodeBase
     bool compile(sInfo* info)
     {
         /// compile expression ///
-        sNode* expression_node = self.mExpressionNode;
+        sNode* expression_node = borrow self.mExpressionNode;
         
         add_come_code(info, "while(");
     
@@ -36,7 +36,7 @@ class sWhileNode extends sNodeBase
         add_come_code(info, ") {\n");
         info->in_conditional = in_conditional;
     
-        sBlock* block = self.mBlock;
+        sBlock* block = borrow self.mBlock;
     
         transpile_block(block, null, null, info, no_var_table:false, loop_block:true);
         

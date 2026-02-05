@@ -12,7 +12,7 @@ bool operator_overload_fun2(sType* type, const char* fun_name, sNode*% left_node
     }
     
     sClass* klass = type->mClass;
-    char* class_name = klass->mName;
+    char*% class_name = klass->mName;
     
     var fun_name2, operator_fun, generics_fun = get_method(fun_name, type, info);
     
@@ -99,8 +99,8 @@ class sStoreFieldNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        sNode* left = self.mLeft;
-        sNode* right = self.mRight;
+        sNode*% left = self.mLeft;
+        sNode*% right = self.mRight;
         string name = string(self.mName);
         bool arrow_ = self.mArrow;
         
@@ -183,12 +183,12 @@ class sStoreFieldNode extends sNodeBase
         
         right_type = clone right_value.type;
         
-        if(field_type->mHeap && !right_value.type->mHeap) {
+        if(field_type->mHeap != right_value.type->mHeap) {
             if(right_value.type->mClass->mName === "void" && right_value.type->mPointerNum == 1)
             {
             }
             else {
-                err_msg(info, "require right value as heap object(%s)(1)", name);
+                err_msg(info, "invalid heap object(%s) left  %d right %d", name, field_type->mHeap, right_value.type->mHeap);
                 return true;
             }
         }
@@ -381,7 +381,7 @@ class sLoadFieldNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        sNode* left = self.mLeft;
+        sNode*% left = self.mLeft;
         string name = string(self.mName);
         bool arrow_ = self.mArrow;
         
@@ -534,7 +534,7 @@ class sStoreArrayNode extends sNodeBase
     {
         sNode*% left = self.mLeft;
         sNode*% right = self.mRight;
-        list<sNode*%>* array_num_nodes = self.mArrayNum;
+        list<sNode*%>*% array_num_nodes = self.mArrayNum;
         
         info.in_store_array = true;
         node_compile(left).elif {
@@ -567,7 +567,7 @@ class sStoreArrayNode extends sNodeBase
         
         CVALUE*% right_value = get_value_from_stack(-1, info);
         
-        sType* right_type = right_value.type;
+        sType* right_type = borrow right_value.type;
         
         sClass* klass = left_value.type->mClass;
         
@@ -666,7 +666,7 @@ class sLoadArrayNode extends sNodeBase
     bool compile(sInfo* info)
     {
         sNode*% left = self.mLeft;
-        list<sNode*%>* array_num_nodes = self.mArrayNum;
+        list<sNode*%>*% array_num_nodes = self.mArrayNum;
         
         node_compile(left).elif {
             return false;
@@ -795,7 +795,7 @@ class sLoadRangeArrayNode extends sNodeBase
     bool compile(sInfo* info)
     {
         sNode*% left = self.mLeft;
-        list<sNode*%>* array_num_nodes = self.mArrayNum;
+        list<sNode*%>*% array_num_nodes = self.mArrayNum;
         
         node_compile(left).elif {
             return false;

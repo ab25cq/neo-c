@@ -56,7 +56,7 @@ void ViWin*::forwardWord(ViWin* self)
                 self.modifyOverCursorYValue();
 
                 line = self.texts.item(self.scroll+self.cursorY, wstring(""));
-                p = line;
+                p = borrow line;
                 self.cursorX = 0;
             }
         }
@@ -84,7 +84,7 @@ void ViWin*::forwardWord(ViWin* self)
                 self.modifyOverCursorYValue();
 
                 line = self.texts.item(self.scroll+self.cursorY, wstring(""));
-                p = line;
+                p = borrow line;
                 self.cursorX = 0;
             }
         }
@@ -110,7 +110,7 @@ void ViWin*::forwardWord(ViWin* self)
                 self.modifyOverCursorYValue();
 
                 line = self.texts.item(self.scroll+self.cursorY, wstring(""));
-                p = line;
+                p = borrow line;
                 self.cursorX = 0;
             }
         }
@@ -136,7 +136,7 @@ void ViWin*::forwardWord(ViWin* self)
                 self.modifyOverCursorYValue();
 
                 line = self.texts.item(self.scroll+self.cursorY, wstring(""));
-                p = line;
+                p = borrow line;
                 self.cursorX = 0;
             }
         }
@@ -162,7 +162,7 @@ void ViWin*::forwardWord(ViWin* self)
                 self.modifyOverCursorYValue();
 
                 line = self.texts.item(self.scroll+self.cursorY, wstring(""));
-                p = line;
+                p = borrow line;
                 self.cursorX = 0;
             }
         }
@@ -189,7 +189,7 @@ void ViWin*::forwardWord(ViWin* self)
                 self.modifyOverCursorYValue();
 
                 line = self.texts.item(self.scroll+self.cursorY, wstring(""));
-                p = line;
+                p = borrow line;
                 self.cursorX = 0;
             }
         }
@@ -257,7 +257,7 @@ void ViWin*::forwardWord2(ViWin* self)
                     self.modifyOverCursorYValue();
     
                     line = self.texts.item(self.scroll+self.cursorY, wstring(""));
-                    p = line;
+                    p = borrow line;
                     self.cursorX = 0;
                 }
             }
@@ -290,7 +290,7 @@ void ViWin*::forwardWord2(ViWin* self)
                     self.modifyOverCursorYValue();
     
                     line = self.texts.item(self.scroll+self.cursorY, wstring(""));
-                    p = line;
+                    p = borrow line;
                     self.cursorX = 0;
                 }
             }
@@ -321,7 +321,7 @@ void ViWin*::forwardWord2(ViWin* self)
                     self.modifyOverCursorYValue();
     
                     line = self.texts.item(self.scroll+self.cursorY, wstring(""));
-                    p = line;
+                    p = borrow line;
                     self.cursorX = 0;
                 }
             }
@@ -347,7 +347,7 @@ void ViWin*::forwardWord2(ViWin* self)
                     self.modifyOverCursorYValue();
     
                     line = self.texts.item(self.scroll+self.cursorY, wstring(""));
-                    p = line;
+                    p = borrow line;
                     self.cursorX = 0;
                 }
             }
@@ -425,7 +425,7 @@ void ViWin*::backwardWord(ViWin* self) version 4
 
                 if(wcslen(line) == 0)
                 {
-                    p = line;
+                    p = borrow line;
                     self.cursorX = 0;
                 }
                 else {
@@ -464,7 +464,7 @@ void ViWin*::backwardWord(ViWin* self) version 4
 
                 if(wcslen(line) == 0)
                 {
-                    p = line;
+                    p = borrow line;
                     self.cursorX = 0;
                 }
                 else {
@@ -498,7 +498,7 @@ void ViWin*::backwardWord(ViWin* self) version 4
 
                 if(wcslen(line) == 0)
                 {
-                    p = line;
+                    p = borrow line;
                     self.cursorX = 0;
                 }
                 else {
@@ -532,7 +532,7 @@ void ViWin*::backwardWord(ViWin* self) version 4
 
                 if(wcslen(line) == 0)
                 {
-                    p = line;
+                    p = borrow line;
                     self.cursorX = 0;
                 }
                 else {

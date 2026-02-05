@@ -16,15 +16,15 @@ class sWhileNode
     
     bool compile(sInfo* info)
     {
-        sNode* while_exp = self.while_exp;
-        sNodeBlock& while_block = self.while_block;
+        sNode* while_exp = borrow self.while_exp;
+        sNodeBlock while_block = self.while_block;
         
         int head = info.codes.len;
         
         int head_before = info.loop_head;
         info.loop_head = head;
         
-        list<int>* breaks_before = info.breaks;
+        list<int>* breaks_before = borrow info.breaks;
         info.breaks = new list<int>();
         
         if(!while_exp.compile(info)) {

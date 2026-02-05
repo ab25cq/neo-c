@@ -12100,7 +12100,7 @@ char*  create_generics_name(struct sType*  generics_type  , struct sInfo*  info 
     void* __right_value1 = (void*)0;
     struct buffer*  buf  ;
     struct sClass*  klass  ;
-    char* class_name;
+    char*  class_name  ;
     int i;
     struct sType*  type  ;
     char*  type_name  ;
@@ -12108,7 +12108,7 @@ char*  create_generics_name(struct sType*  generics_type  , struct sInfo*  info 
     char*  __result_obj__0  ;
     buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 2863, "struct buffer* "))));
     klass=generics_type->mClass;
-    class_name=klass->mName;
+    class_name=(char* )come_increment_ref_count(klass->mName);
     buffer_append_str(buf,class_name);
     if(list$1sType$ph_length(generics_type->mGenericsTypes)>0) {
         buffer_append_char(buf,36);
@@ -12129,6 +12129,7 @@ char*  create_generics_name(struct sType*  generics_type  , struct sInfo*  info 
     }
     __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(buf))));
     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));

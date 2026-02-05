@@ -18,7 +18,7 @@ bool operator_overload_fun_self(sType* type, const char* fun_name, sNode*% node,
         type_ = clone type;
     }
     sClass* klass = type_->mClass;
-    char* class_name = klass->mName;
+    string class_name = klass->mName;
     
     var fun_name2, operator_fun, generics_fun = get_method(fun_name, type_, info);
     
@@ -62,7 +62,7 @@ class sRefferenceNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        sNode* value = self.value;
+        sNode* value = borrow self.value;
         
         bool in_refference = info.in_refference;
         info.in_refference = true;
@@ -328,7 +328,7 @@ class sReverseNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        sNode* value = self.value;
+        sNode* value = borrow self.value;
         
         if(!node_compile(value)) {
             return false;
@@ -481,7 +481,7 @@ class sNormalBlock extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        sBlock* block = self.mBlock;
+        sBlock* block = borrow self.mBlock;
         
         add_come_code(info, "{\n");
         
@@ -553,7 +553,7 @@ class sParenNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        sNode* left = self.mLeft;
+        sNode* left = borrow self.mLeft;
         
         if(!node_compile(left)) {
             return false;
@@ -592,8 +592,8 @@ class sCastNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        sType* type = self.mType;
-        sNode* left = self.mLeft;
+        sType* type = borrow self.mType;
+        sNode* left = borrow self.mLeft;
         
         if(!node_compile(left)) {
             return false;

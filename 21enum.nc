@@ -2,7 +2,7 @@
 
 class sEnumNode extends sNodeBase
 {
-    new(string type_name, list<tup: string,sNode*%,string>* elements, sType*% type_elements = null, string attribute = s"", sInfo* info)
+    new(string type_name, list<tup: string,sNode*%,string>*% elements, sType*% type_elements = null, string attribute = s"", sInfo* info)
     {
         self.super();
     
@@ -28,7 +28,7 @@ class sEnumNode extends sNodeBase
     bool compile(sInfo* info)
     {
         string type_name = self.mTypeName;
-        list<tup: string, sNode*%,string>* elements = self.mElements;
+        list<tup: string, sNode*%,string>*% elements = self.mElements;
         string attribute = self.mAttribute;
         
         if(elements.length() == 0) {

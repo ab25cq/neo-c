@@ -23,7 +23,7 @@ class sGlobalVariable extends sNodeBase
     {
         sType*% type = clone self.type;
         string name = clone self.name;
-        sNode* right_node = self.right_node;
+        sNode* right_node = borrow self.right_node;
         string array_initializer = clone self.array_initializer;
         
         if(self.multiple_declare) {
@@ -105,7 +105,7 @@ class sExternalGlobalVariable extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        sType* type = self.type;
+        sType* type = borrow self.type;
         string name = self.name;
         
         if(self.multiple_declare) {

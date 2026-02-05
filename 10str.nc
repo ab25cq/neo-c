@@ -264,7 +264,7 @@ class sListNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        list<sNode*%>* list_elements = self.list_elements;
+        list<sNode*%>* list_elements = borrow self.list_elements;
         
         list<CVALUE*%>*% params = new list<CVALUE*%>();
         sType*% list_element_type = null;
@@ -469,7 +469,7 @@ class sTupleNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        list<tup: string, sNode*%>* tuple_elements = self.tuple_elements;
+        list<tup: string, sNode*%>*% tuple_elements = self.tuple_elements;
         list<sType*%>*% tuple_types = new list<sType*%>();
         list<CVALUE*%>*% tuple_values = new list<CVALUE*%>();
         
@@ -632,8 +632,8 @@ class sMapNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        list<sNode*%>* map_key_elements = self.map_key_elements;
-        list<sNode*%>* map_elements = self.map_elements;
+        list<sNode*%>*% map_key_elements = self.map_key_elements;
+        list<sNode*%>*% map_elements = self.map_elements;
     
         list<CVALUE*%>*% key_params = new list<CVALUE*%>();
         list<CVALUE*%>*% element_params = new list<CVALUE*%>();
@@ -1768,7 +1768,7 @@ sNode*% expression_node(sInfo* info) version 96
         
         wchar_t*% wstr = new wchar_t[len+1];
         
-        char* str = value.buf;
+        char* str = borrow value.buf;
         
         if(mbstowcs(wstr, str, len+1) < 0) {
             perror("mbstowcs");

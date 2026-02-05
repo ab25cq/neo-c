@@ -30,10 +30,10 @@ class sReturnNode extends sNodeBase
             
             sType* result_type3;
             if(result_type2->mNoSolvedGenericsType) {
-                result_type3 = result_type2->mNoSolvedGenericsType;
+                result_type3 = borrow result_type2->mNoSolvedGenericsType;
             }
             else {
-                result_type3 = result_type2;
+                result_type3 = borrow result_type2;
             }
             
             node_compile(self.value).elif {
@@ -415,8 +415,8 @@ class sFunCallNode extends sNodeBase
     bool compile(sInfo* info)
     {
         string fun_name = self.fun_name;
-        list<tup: string,sNode*%>* params = self.params;
-        buffer* method_block = self.method_block;
+        list<tup: string,sNode*%>* params = borrow self.params;
+        buffer* method_block = borrow self.method_block;
         int method_block_sline = self.method_block_sline;
         
         sVar* var_ = get_variable_from_table(info.lv_table, fun_name);
@@ -427,7 +427,7 @@ class sFunCallNode extends sNodeBase
         
         /// lambda call //
         if(var_) {
-            sType* lambda_type = var_->mType;
+            sType* lambda_type = borrow var_->mType;
             
             if(lambda_type->mClass->mName !== "lambda") {
                 err_msg(info, "%s is not lambda, can't call", fun_name);
@@ -543,7 +543,7 @@ class sFunCallNode extends sNodeBase
                     sType*% method_block_result_type = clone info.come_method_block_function_result_type;
                     
                     sType* generics_fun_method_block_lambda_type = borrow generics_fun.mParamTypes[-1];
-                    sType* generics_fun_method_block_result_type = generics_fun_method_block_lambda_type.mResultType;
+                    sType* generics_fun_method_block_result_type = borrow generics_fun_method_block_lambda_type.mResultType;
                     
                     if(generics_fun_method_block_result_type.mClass.mMethodGenerics) {
                         int method_generics_num = generics_fun_method_block_result_type.mClass.mMethodGenericsNum;
@@ -1004,7 +1004,7 @@ class sFunCallNode extends sNodeBase
             fun_name = string("__builtin_wstring");
         }
         else if(fun_name === "inherit") {
-            char* p = info.come_fun.mName;
+            char* p = borrow info.come_fun.mName;
     
             int version = 0;
             while(*p) {
@@ -1255,8 +1255,8 @@ class sFunCallNode extends sNodeBase
                     int sline = info.sline;
                     
                     info.source = default_param.to_buffer();
-                    info.p = info.source.buf;
-                    info.head = info.source.buf;
+                    info.p = borrow info.source.buf;
+                    info.head = borrow info.source.buf;
                     
                     bool no_output_come_code = info.no_output_come_code;
                     info.no_output_come_code = true;
@@ -1337,11 +1337,11 @@ class sFunCallNode extends sNodeBase
             sType*% result_type2_ = solve_generics(result_type, info->generics_type, info);
             sType*% result_type2 = solve_method_generics(result_type2_, info);
             list<sType*%>*% param_types = clone method_block_type->mParamTypes;
-            list<string>* param_names = method_block_type->mParamNames;
+            list<string>* param_names = borrow method_block_type->mParamNames;
             
             buffer*% all_alhabet_sname = new buffer();
             {
-                char* p = info->sname;
+                char* p = borrow info->sname;
                 while(*p) {
                     if(xisalnum(*p)) {
                         all_alhabet_sname.append_char(*p++);
@@ -1396,8 +1396,8 @@ class sFunCallNode extends sNodeBase
             int sline = info.sline;
             
             info.source = method_block2;
-            info.p = info.source.buf;
-            info.head = info.source.buf;
+            info.p = borrow info.source.buf;
+            info.head = borrow info.source.buf;
             info.sline = method_block_sline;
            
             sNode*% node = parse_function(info);
@@ -1417,7 +1417,7 @@ class sFunCallNode extends sNodeBase
                 return true;
             }
             
-            sType* method_block_type2 = fun2.mLambdaType;
+            sType* method_block_type2 = borrow fun2.mLambdaType;
             
             come_value2.c_value = xsprintf("(void*)%s", method_block_name);
             come_value2.type = clone method_block_type2;
@@ -1575,8 +1575,8 @@ class sComeCallNode extends sNodeBase
         int sline = info.sline;
         
         info.source = come_block2;
-        info.p = info.source.buf;
-        info.head = info.source.buf;
+        info.p = borrow info.source.buf;
+        info.head = borrow info.source.buf;
         info.sline = come_block_sline;
        
         sNode*% node = parse_function(info);
@@ -1780,7 +1780,7 @@ class sLambdaCall extends sNodeBase
     bool compile(sInfo* info)
     {
         sNode*% node = self.node;
-        list<tup: string,sNode*%>* params = self.params;
+        list<tup: string,sNode*%>* params = borrow self.params;
         
         node_compile(node, info).elif {
             return false;
@@ -1788,7 +1788,7 @@ class sLambdaCall extends sNodeBase
         
         CVALUE*% come_value = get_value_from_stack(-1, info);
         
-        sType* lambda_type = come_value.type;
+        sType* lambda_type = borrow come_value.type;
         
         if(lambda_type->mResultType == null) {
             printf("no type check lambda type\n");
@@ -2864,7 +2864,7 @@ string create_generics_name(sType* generics_type, sInfo* info)
     
     sClass* klass = generics_type->mClass;
     
-    char* class_name = klass->mName;
+    string class_name = klass->mName;
     
     buf.append_str(class_name);
     

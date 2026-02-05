@@ -91,7 +91,7 @@ void output_struct(sClass* klass, string pragma, sInfo* info, bool anonymous=fal
         return;
     }
     
-    char* name = klass.mName;
+    char* name = borrow klass.mName;
     bool current_stack = strlen(name) > strlen("__current_stack") && memcmp(name,"__current_stack", strlen("__current_stack")) == 0;
     
     buffer*% buf = new buffer();
@@ -851,7 +851,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
         }
         
         sClass* defining_class = info.defining_class;
-        info.defining_class = struct_class;
+        info.defining_class = borrow struct_class;
         
         if(info.classes.at(type_name, null) == null) {
             info.classes.insert(type_name, clone struct_class);

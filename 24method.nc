@@ -13,7 +13,7 @@ string,sGenericsFun* make_generics_function(sType* type, string fun_name, sInfo*
     if(generics_fun) {
         sType*% type2 = no_solved_type;
         
-        sType*% type_before = clone type;
+        sType* type_before = type;
 
         fun_name2 = create_method_name(type2, false@no_pointer_name, fun_name, info, array_equal_pointer);
         
@@ -82,12 +82,12 @@ bool compile_method_block(buffer* method_block, list<CVALUE*%>* come_params, sFu
     sType*% result_type = clone method_block_type->mResultType;
     result_type->mStatic = false;
     sType*% result_type2 = solve_generics(result_type, info->generics_type, info);
-    list<sType*%>* param_types = method_block_type->mParamTypes;
-    list<string>* param_names = method_block_type->mParamNames;
+    list<sType*%>*% param_types = method_block_type->mParamTypes;
+    list<string>*% param_names = method_block_type->mParamNames;
     
     buffer*% all_alhabet_sname = new buffer();
     {
-        char* p = info->sname;
+        char* p = borrow info->sname;
         while(*p) {
             if(xisalnum(*p)) {
                 all_alhabet_sname.append_char(*p++);
@@ -142,8 +142,8 @@ bool compile_method_block(buffer* method_block, list<CVALUE*%>* come_params, sFu
     int sline = info.sline;
     
     info.source = method_block2;
-    info.p = info.source.buf;
-    info.head = info.source.buf;
+    info.p = borrow info.source.buf;
+    info.head = borrow info.source.buf;
     info.sline = method_block_sline;
    
     sNode*% node = parse_function(info);
@@ -166,7 +166,7 @@ bool compile_method_block(buffer* method_block, list<CVALUE*%>* come_params, sFu
         return true;
     }
     
-    sType* method_block_type2 = fun2.mLambdaType;
+    sType* method_block_type2 = borrow fun2.mLambdaType;
     
     come_value2.c_value = xsprintf("(void*)%s", method_block_name);
     come_value2.type = clone method_block_type2;
@@ -241,7 +241,7 @@ string, sFun*,sGenericsFun* get_method(const char* fun_name, sType* obj_type, sI
         }
         
         if(fun == null) {
-            sType* obj_array_type = obj_type->mOriginalLoadVarType;
+            sType* obj_array_type = borrow obj_type->mOriginalLoadVarType;
             
             if(obj_array_type && obj_array_type.mArrayNum.length() > 0) {
                 string array_method_name = create_method_name(clone obj_array_type, false@no_pointer_name, fun_name, info, false@array_equal_pointer);
@@ -496,7 +496,7 @@ class sMethodCallNode extends sNodeBase
                         sType*% method_block_result_type = clone info.come_method_block_function_result_type;
                         
                         sType* generics_fun_method_block_lambda_type = borrow generics_fun.mParamTypes[-1];
-                        sType* generics_fun_method_block_result_type = generics_fun_method_block_lambda_type.mResultType;
+                        sType* generics_fun_method_block_result_type = borrow generics_fun_method_block_lambda_type.mResultType;
                         
                         if(generics_fun_method_block_result_type.mClass.mMethodGenerics) {
                             int method_generics_num = generics_fun_method_block_result_type.mClass.mMethodGenericsNum;
@@ -604,7 +604,7 @@ class sMethodCallNode extends sNodeBase
             
             if(field_name === fun_name && field_type.mClass.mName === "lambda") {
                 calling_dynamic_method = true;
-                lambda_type = field_type;
+                lambda_type = borrow field_type;
                 break;
             }
         }
@@ -851,8 +851,8 @@ class sMethodCallNode extends sNodeBase
                         int sline = info.sline;
                         
                         info.source = default_param.to_buffer();
-                        info.p = info.source.buf;
-                        info.head = info.source.buf;
+                        info.p = borrow info.source.buf;
+                        info.head = borrow info.source.buf;
                         
                         bool no_output_come_code = info.no_output_come_code;
                         info.no_output_come_code = true;

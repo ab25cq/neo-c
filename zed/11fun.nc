@@ -18,10 +18,10 @@ class sFunNode
     
     bool compile(sInfo* info)
     {
-        char* name = self.name;
-        list<sNode*%>* params = self.params;
-        sNode* obj = self.obj;
-        sNodeBlock& block = self.block;
+        char* name = borrow self.name;
+        list<sNode*%>* params = borrow self.params;
+        sNode* obj = borrow self.obj;
+        sNodeBlock block = self.block;
         
         if(!obj.compile(info)) {
             return false;
@@ -230,7 +230,7 @@ bool vm(sInfo* info) version 10
                         if(params.length() == 1 && params[0].kind == kStrValue) {
                             string param0 = params[0].strValue.to_string();
                             
-                            list<ZVALUE*%>* list1 = obj.listValue;
+                            list<ZVALUE*%>* list1 = borrow obj.listValue;
                             
                             list<string>*% list2 = new list<string>();
                             
@@ -248,7 +248,7 @@ bool vm(sInfo* info) version 10
                             int param0 = params[0].intValue;
                             int param1 = params[1].intValue;
                             
-                            list<ZVALUE*%>* list1 = obj.listValue;
+                            list<ZVALUE*%>* list1 = borrow obj.listValue;
                             
                             list<ZVALUE*%>*% list2 = list1.sublist(param0, param1);
                             
@@ -257,7 +257,7 @@ bool vm(sInfo* info) version 10
                     }
                     else if(fun_name === "uniq") {
                         if(params.length() == 0) {
-                            list<ZVALUE*%>* list1 = obj.listValue;
+                            list<ZVALUE*%>* list1 = borrow obj.listValue;
                             
                             list<ZVALUE*%>*% list2 = list1.uniq();
                             
@@ -266,7 +266,7 @@ bool vm(sInfo* info) version 10
                     }
                     else if(fun_name === "reverse") {
                         if(params.length() == 0) {
-                            list<ZVALUE*%>* list1 = obj.listValue;
+                            list<ZVALUE*%>* list1 = borrow obj.listValue;
                             
                             list<ZVALUE*%>*% list2 = list1.reverse();
                             
@@ -275,7 +275,7 @@ bool vm(sInfo* info) version 10
                     }
                     else if(fun_name === "sort") {
                         if(params.length() == 0) {
-                            list<ZVALUE*%>* list1 = obj.listValue;
+                            list<ZVALUE*%>* list1 = borrow obj.listValue;
                             
                             list<ZVALUE*%>*% list2 = list1.sort();
                             
@@ -286,7 +286,7 @@ bool vm(sInfo* info) version 10
                         if(params.length() == 1) {
                             ZVALUE* param0 = borrow params[0];
                             
-                            list<ZVALUE*%>* list1 = obj.listValue;
+                            list<ZVALUE*%>* list1 = borrow obj.listValue;
                             
                             int n = list1.find(param0, -1);
                             
@@ -295,7 +295,7 @@ bool vm(sInfo* info) version 10
                     }
                     else if(fun_name === "length") {
                         if(params.length() == 0) {
-                            list<ZVALUE*%>* list1 = obj.listValue;
+                            list<ZVALUE*%>* list1 = borrow obj.listValue;
                             
                             int n = list1.length();
                             
@@ -411,7 +411,7 @@ bool vm(sInfo* info) version 10
                         if(params.length() == 1) {
                             ZVALUE* param0 = borrow params[0];
                             
-                            list<ZVALUE*%>* list1 = obj.listValue;
+                            list<ZVALUE*%>* list1 = borrow obj.listValue;
                             
                             list1.push_back(clone param0);
                             
@@ -423,7 +423,7 @@ bool vm(sInfo* info) version 10
                             int param0 = params[0].intValue;
                             ZVALUE* param1 = borrow params[1];
                             
-                            list<ZVALUE*%>* list1 = obj.listValue;
+                            list<ZVALUE*%>* list1 = borrow obj.listValue;
                             
                             list1.insert(param0, clone param1);
                             
@@ -435,7 +435,7 @@ bool vm(sInfo* info) version 10
                             int param0 = params[0].intValue;
                             int param1 = params[1].intValue;
                             
-                            list<ZVALUE*%>* list1 = obj.listValue;
+                            list<ZVALUE*%>* list1 = borrow obj.listValue;
                             
                             list1.delete(param0, param1);
                             
@@ -447,7 +447,7 @@ bool vm(sInfo* info) version 10
                             int param0 = params[0].intValue;
                             ZVALUE* param1 = borrow params[1];
                             
-                            list<ZVALUE*%>* list1 = obj.listValue;
+                            list<ZVALUE*%>* list1 = borrow obj.listValue;
                             
                             list1.replace(param0, clone param1);
                             
@@ -460,7 +460,7 @@ bool vm(sInfo* info) version 10
                 case kMapValue: {
                     if(fun_name === "length") {
                         if(params.length() == 0) {
-                            map<ZVALUE*%, ZVALUE*%>* map1 = obj.mapValue;
+                            map<ZVALUE*%, ZVALUE*%>* map1 = borrow obj.mapValue;
                             
                             int n = map1.length();
                             
@@ -471,7 +471,7 @@ bool vm(sInfo* info) version 10
                         if(params.length() == 1) {
                             ZVALUE* param0 = borrow params[0];
                             
-                            map<ZVALUE*%, ZVALUE*%>* map1 = obj.mapValue;
+                            map<ZVALUE*%, ZVALUE*%>* map1 = borrow obj.mapValue;
                             
                             bool n = map1.find(param0);
                             
@@ -480,7 +480,7 @@ bool vm(sInfo* info) version 10
                     }
                     else if(fun_name === "keys") {
                         if(params.length() == 0) {
-                            map<ZVALUE*%, ZVALUE*%>* map1 = obj.mapValue;
+                            map<ZVALUE*%, ZVALUE*%>* map1 = borrow obj.mapValue;
                             
                             list<ZVALUE*%>*% l = map1.keys();
                             
@@ -489,7 +489,7 @@ bool vm(sInfo* info) version 10
                     }
                     else if(fun_name === "values") {
                         if(params.length() == 0) {
-                            map<ZVALUE*%, ZVALUE*%>* map1 = obj.mapValue;
+                            map<ZVALUE*%, ZVALUE*%>* map1 = borrow obj.mapValue;
                             
                             list<ZVALUE*%>*% l = map1.values();
                             

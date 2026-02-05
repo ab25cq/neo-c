@@ -4991,9 +4991,7 @@ _Bool check_assign_type(const char* msg, struct sType*  left_type  , struct sTyp
             else {
                 for(i=0;i<list$1sType$ph_length(left_no_solved_generics_type->mGenericsTypes);i++){
                     left=((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(left_no_solved_generics_type->mGenericsTypes,i)));
-                    come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
                     right=((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(right_no_solved_generics_type->mGenericsTypes,i)));
-                    come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
                     if(left->mHeap!=right->mHeap) {
                         check_=(_Bool)0;
                         err_msg(info,"left child generics %s right child generics %s",left->mClass->mName,right->mClass->mName);

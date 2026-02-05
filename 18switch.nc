@@ -22,11 +22,11 @@ class sSwitchNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        sBlock* block = self.mBlock;
+        sBlock* block = borrow self.mBlock;
         
         /// compile expression ///
         add_come_code(info, "switch (");
-        sNode* expression_node = self.mExpressionNode;
+        sNode* expression_node = borrow self.mExpressionNode;
     
         node_compile(expression_node).elif {
             return false;
@@ -68,7 +68,7 @@ class sCaseNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        sNode* node = self.mNode;
+        sNode* node = borrow self.mNode;
         
         node_compile(node).elif {
             return false;
@@ -76,7 +76,7 @@ class sCaseNode extends sNodeBase
         
         CVALUE*% label_value = get_value_from_stack(-1, info);
         
-        sNode* node2 = self.mNode2;
+        sNode* node2 = borrow self.mNode2;
         
         CVALUE*% label_value2 = null;
         if(node2) {

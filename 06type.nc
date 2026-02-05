@@ -386,8 +386,8 @@ bool check_assign_type(const char* msg, sType* left_type, sType* right_type, CVA
             }
             else {
                 for(int i=0; i<left_no_solved_generics_type.mGenericsTypes.length(); i++) {
-                    sType* left = left_no_solved_generics_type.mGenericsTypes[i];
-                    sType* right = right_no_solved_generics_type.mGenericsTypes[i];
+                    sType* left = borrow left_no_solved_generics_type.mGenericsTypes[i];
+                    sType* right = borrow right_no_solved_generics_type.mGenericsTypes[i];
                     
                     if(left->mHeap != right->mHeap) {
                         check_ = false

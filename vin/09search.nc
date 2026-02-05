@@ -140,7 +140,7 @@ void ViWin*::searchWordOnCursor(ViWin* self, Vi* nvi)
             
             if(self.cursorX < 0) {
                 self.cursorX = 0;
-                p = line;
+                p = borrow line;
             }
             else {
                 self.cursorX++;
@@ -187,7 +187,7 @@ void ViWin*::searchWordOnCursorReverse(ViWin* self, Vi* nvi)
             
             if(self.cursorX < 0) {
                 self.cursorX = 0;
-                p = line;
+                p = borrow line;
             }
             else {
                 self.cursorX++;

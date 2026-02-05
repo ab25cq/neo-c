@@ -33,7 +33,7 @@ int main(int argc, char** argv)
     
     /// parse ///
     buffer*% command_buffer = info.command.to_buffer();
-    info.p = command_buffer.buf;
+    info.p = borrow command_buffer.buf;
     
     while(*info.p) {
         if(!parse(&info)) {

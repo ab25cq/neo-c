@@ -43,16 +43,16 @@ class sForNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        sBlock* block = self.mBlock;
+        sBlock* block = borrow self.mBlock;
         
-        sVarTable* lv_table = info->lv_table;
+        sVarTable* lv_table = borrow info->lv_table;
         sVarTable*% for_var_table = new sVarTable(global:false, parent:lv_table);
-        info->lv_table = for_var_table;
+        info->lv_table = borrow for_var_table;
         
         add_come_code(info, "for(");
         
         /// compile expression ///
-        sNode* expression_node = self.mExpressionNode;
+        sNode* expression_node = borrow self.mExpressionNode;
         
         if(expression_node) {
             transpile_conditional_with_free_right_object_value(expression_node).elif {
@@ -72,7 +72,7 @@ class sForNode extends sNodeBase
         }
         
         /// compile expression ///
-        sNode* expression_node2 = self.mExpressionNode2;
+        sNode* expression_node2 = borrow self.mExpressionNode2;
     
         if(expression_node2) {
             transpile_conditional_with_free_right_object_value(expression_node2).elif {
@@ -91,7 +91,7 @@ class sForNode extends sNodeBase
             info->in_conditional = in_conditional;
         }
         
-        sNode* expression_node3 = self.mExpressionNode3;
+        sNode* expression_node3 = borrow self.mExpressionNode3;
         
         if(expression_node3) {
             transpile_conditional_with_free_right_object_value(expression_node3).elif {
@@ -111,7 +111,7 @@ class sForNode extends sNodeBase
         free_objects(for_var_table, null, info);
         
         transpiler_clear_last_code(info);
-        info->lv_table = lv_table;
+        info->lv_table = borrow lv_table;
         
         return true;
     }

@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.8.8.1
+version 0.8.8.2
 
 ``` C
 #include <neo-c.h>
@@ -93,6 +93,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.8.8.2 require borrow to asign heap object to none heap variable.
 0.8.8.1 __attribute__ supported comonly.
 0.8.8.0 tuple expression is now t(1,2,3). More compatibilities C lang.
 0.8.7.9 Fixed bug.
@@ -337,16 +338,20 @@ li2はliと同じものを指しています。[1,2,3,4,5]のヒープはリフ�
 
 ```C
 var li = [1,2,3,4,5];
-list<int>* li2 = li;
+list<int>* li2 = borrow li;
 ```
 
 In this case, li and li2 refer to the same thing, but if li2 is accessed after li is released, a segmentation fault will occur.
 
 In most cases, you can just add a % to the pointer. Reference count GC handles this well.
 
+From 0.8.8.2 require borrow to asign heap object to none heap variable.
+
 この場合もliとli2は同じものをさしていますが、liが解放された後にli2にアクセスするとセグメンテーションフォルトを起します。
 
 たいていの場合はポインタに%をつけておけば大丈夫です。リファレンスカウントGCがうまく対処してくれます。
+
+version 0.8.8.2からnone heapのものをheapの変数に代入するにはborrowが必要になりました。
 
 ```C
 list<T>* add(list<T>* self, T item)

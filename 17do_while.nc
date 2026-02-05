@@ -22,7 +22,7 @@ class sDoWhileNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        sBlock* block = self.mBlock;
+        sBlock* block = borrow self.mBlock;
     
         add_come_code(info, "do {\n");
     
@@ -32,7 +32,7 @@ class sDoWhileNode extends sNodeBase
         
         add_come_code(info, "} while(");
         
-        sNode* expression_node = self.mExpressionNode;
+        sNode* expression_node = borrow self.mExpressionNode;
     
         transpile_conditional_with_free_right_object_value(expression_node).elif {
             return false;

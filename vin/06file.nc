@@ -280,7 +280,7 @@ void ViWin*::writeFile(ViWin* self, bool binary_mode=false)
                 
                 char*% buf = new char[len+1];
                 
-                char* p = buf;
+                char* p = borrow buf;
                 wchar_t* p2 = it;
                 
                 for(int j=0; j<len; j++) {

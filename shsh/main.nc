@@ -888,7 +888,7 @@ bool run_command(int n, sInfo* info)
             dup2(1, 2);
         }
         
-        list<string>* args = info->commands[0].args;
+        list<string>* args = borrow info->commands[0].args;
         
         char* argv[1024];
         int i;
@@ -931,7 +931,7 @@ bool run_command(int n, sInfo* info)
                 return false;
             }
             
-            list<string>* args = info->commands[info->commands.length()-n-1].args;
+            list<string>* args = borrow info->commands[info->commands.length()-n-1].args;
             char* argv[1024];
             int i;
             for(i=0; i<args.length(); i++) {
@@ -1265,7 +1265,7 @@ char** completer(const char* text, int start, int end)
     
     string current_line = line_buffer_from_head_to_cursor_point();
 
-    char* p = current_line;
+    char* p = borrow current_line;
     
     auto buf = new buffer();
     

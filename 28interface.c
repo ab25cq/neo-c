@@ -5093,7 +5093,7 @@ static struct list$1sType$ph* list$1sType$ph_insert(struct list$1sType$ph* self,
         self->len++;
     }
     else if(self->len==1) {
-        litem_31=(struct list_item$1sType$ph*)come_increment_ref_count((struct list_item$1sType$ph*)come_calloc(1, sizeof(struct list_item$1sType$ph)*(1), (void*)0, 895, "struct list_item$1sType$ph*"));
+        litem_31=(struct list_item$1sType$ph*)come_increment_ref_count(((struct list_item$1sType$ph*)(__right_value0=(struct list_item$1sType$ph*)come_calloc(1, sizeof(struct list_item$1sType$ph)*(1), (void*)0, 895, "struct list_item$1sType$ph*"))));
         litem_31->prev=self->head;
         litem_31->next=self->tail;
         __dec_obj52=litem_31->item,
@@ -5102,7 +5102,6 @@ static struct list$1sType$ph* list$1sType$ph_insert(struct list$1sType$ph* self,
         self->tail->prev=litem_31;
         self->head->next=litem_31;
         self->len++;
-        come_call_finalizer(list_item$1sType$ph$p_finalize, litem_31, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     else {
         it=self->head;
@@ -5236,7 +5235,7 @@ static struct list$1char$ph* list$1char$ph_insert(struct list$1char$ph* self, in
         self->len++;
     }
     else if(self->len==1) {
-        litem_34=(struct list_item$1char$ph*)come_increment_ref_count((struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), (void*)0, 895, "struct list_item$1char$ph*"));
+        litem_34=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), (void*)0, 895, "struct list_item$1char$ph*"))));
         litem_34->prev=self->head;
         litem_34->next=self->tail;
         __dec_obj55=litem_34->item,
@@ -5245,7 +5244,6 @@ static struct list$1char$ph* list$1char$ph_insert(struct list$1char$ph* self, in
         self->tail->prev=litem_34;
         self->head->next=litem_34;
         self->len++;
-        come_call_finalizer(list_item$1char$ph$p_finalize, litem_34, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     else {
         it=self->head;
