@@ -3754,7 +3754,7 @@ char*  wchar_tp_to_string(const int*  wstr  );
 char*  wchar_ta_to_string(const int*  wstr  );
 int*  charp_to_wstring(const char* str);
 int*  chara_to_wstring(char* str);
-int*  wchar_tp_delete(const int*  str  , int head, int tail);
+int*  wchar_tp_delete(int*  str  , int head, int tail);
 int wchar_tp_index(const int*  str  , const int*  search_str  , int default_value);
 int wchar_tp_rindex(const int*  str  , const int*  search_str  , int default_value);
 int*  wchar_tp_reverse(const int*  str  );
@@ -3789,7 +3789,7 @@ int string_rindex_count(const char* str, const char* search_str, int count, int 
 char*  string_strip(const char* self);
 char*  wstring_to_string(const int*  wstr  );
 int*  int_to_wstring(int self);
-int*  wstring_delete(const int*  str  , int head, int tail);
+int*  wstring_delete(int*  str  , int head, int tail);
 int wstring_index(const int*  str  , const int*  search_str  , int default_value);
 int wstring_rindex(const int*  str  , const int*  search_str  , int default_value);
 int*  wstring_reverse(const int*  str  );
@@ -5988,7 +5988,7 @@ void* come_decrement_ref_count(void* mem, void* protocol_fun, void* protocol_obj
     count=*ref_count;
     if(!no_free&&count<=0) {
         if(protocol_obj&&protocol_fun) {
-            finalizer=protocol_fun;
+            finalizer=(void (*)(void*))protocol_fun;
             finalizer(protocol_obj);
             come_free(protocol_obj);
         }
@@ -6026,15 +6026,15 @@ void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* protoco
     if(call_finalizer_only) {
         if(fun) {
             if(protocol_obj&&protocol_fun) {
-                finalizer=protocol_fun;
+                finalizer=(void (*)(void*))protocol_fun;
                 finalizer(protocol_obj);
             }
-            finalizer_14=fun;
+            finalizer_14=(void (*)(void*))fun;
             finalizer_14(mem);
         }
         else {
             if(protocol_obj&&protocol_fun) {
-                finalizer_15=protocol_fun;
+                finalizer_15=(void (*)(void*))protocol_fun;
                 finalizer_15(protocol_obj);
             }
         }
@@ -6049,18 +6049,18 @@ void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* protoco
             if(mem) {
                 if(fun) {
                     if(protocol_obj&&protocol_fun) {
-                        finalizer_16=protocol_fun;
+                        finalizer_16=(void (*)(void*))protocol_fun;
                         finalizer_16(protocol_obj);
                         come_free(protocol_obj);
                     }
                     if(fun) {
-                        finalizer_17=fun;
+                        finalizer_17=(void (*)(void*))fun;
                         finalizer_17(mem);
                     }
                 }
                 else {
                     if(protocol_obj&&protocol_fun) {
-                        finalizer_18=protocol_fun;
+                        finalizer_18=(void (*)(void*))protocol_fun;
                         finalizer_18(protocol_obj);
                         come_free(protocol_obj);
                     }
@@ -6671,7 +6671,7 @@ unsigned char* buffer_head_pointer(struct buffer*  self  )
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    __result_obj__0 = self->buf;
+    __result_obj__0 = (unsigned char*)self->buf;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -10577,7 +10577,7 @@ struct list$1char$ph* charp_scan(const char* self, const char* reg, _Bool ignore
     int regex_result;
     char*  str  ;
     int i;
-    struct re_capture  cp  ;
+    struct re_capture*  cp  ;
     char*  match_string  ;
     if(self==((void*)0)||reg==((void*)0)) {
         __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 5961, "struct list$1char$ph*"))))));
@@ -10618,8 +10618,8 @@ struct list$1char$ph* charp_scan(const char* self, const char* reg, _Bool ignore
         }
         else if(regex_result>=0&&group_count>0) {
             for(i=0;i<group_count;i++){
-                cp=captures[i];
-                match_string=(char* )come_increment_ref_count(charp_substring((self+offset),cp.start,cp.start+cp.length));
+                cp=&captures[i];
+                match_string=(char* )come_increment_ref_count(charp_substring((self+offset),cp->start,cp->start+cp->length));
                 list$1char$ph_push_back(result,(char* )come_increment_ref_count(match_string));
                 (match_string = come_decrement_ref_count(match_string, (void*)0, (void*)0, 0, 0, (void*)0));
             }
@@ -10854,7 +10854,7 @@ char*  charp_sub_block(char* self, const char* reg, _Bool global, _Bool ignore_c
     char*  str_44  ;
     struct list$1char$ph* group_strings_45;
     int i;
-    struct re_capture  cp  ;
+    struct re_capture*  cp  ;
     char*  match_string_46  ;
     char*  match_string_47  ;
     char*  block_result_48  ;
@@ -10919,8 +10919,8 @@ char*  charp_sub_block(char* self, const char* reg, _Bool global, _Bool ignore_c
             buffer_append_str(result,str_44);
             group_strings_45=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 6220, "struct list$1char$ph*"))));
             for(i=0;i<group_count;i++){
-                cp=captures[i];
-                match_string_46=(char* )come_increment_ref_count(charp_substring((self+offset),cp.start,cp.start+cp.length));
+                cp=&captures[i];
+                match_string_46=(char* )come_increment_ref_count(charp_substring((self+offset),cp->start,cp->start+cp->length));
                 list$1char$ph_push_back(group_strings_45,(char* )come_increment_ref_count(match_string_46));
                 (match_string_46 = come_decrement_ref_count(match_string_46, (void*)0, (void*)0, 0, 0, (void*)0));
             }
@@ -10973,7 +10973,7 @@ struct list$1char$ph* charp_scan_block(const char* self, const char* reg, _Bool 
     char*  block_result  ;
     struct list$1char$ph* group_strings_50;
     int i;
-    struct re_capture  cp  ;
+    struct re_capture*  cp  ;
     char*  match_string_51  ;
     char*  match_string_52  ;
     char*  block_result_53  ;
@@ -11021,8 +11021,8 @@ struct list$1char$ph* charp_scan_block(const char* self, const char* reg, _Bool 
         else if(regex_result>=0&&group_count>0) {
             group_strings_50=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 6296, "struct list$1char$ph*"))));
             for(i=0;i<group_count;i++){
-                cp=captures[i];
-                match_string_51=(char* )come_increment_ref_count(charp_substring((self+offset),cp.start,cp.start+cp.length));
+                cp=&captures[i];
+                match_string_51=(char* )come_increment_ref_count(charp_substring((self+offset),cp->start,cp->start+cp->length));
                 list$1char$ph_push_back(group_strings_50,(char* )come_increment_ref_count(match_string_51));
                 (match_string_51 = come_decrement_ref_count(match_string_51, (void*)0, (void*)0, 0, 0, (void*)0));
             }
@@ -11441,7 +11441,7 @@ int*  chara_to_wstring(char* str)
     return __result_obj__0;
 }
 
-int*  wchar_tp_delete(const int*  str  , int head, int tail)
+int*  wchar_tp_delete(int*  str  , int head, int tail)
 {
     struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_tp_delete"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
@@ -12126,7 +12126,7 @@ int*  int_to_wstring(int self)
     return __result_obj__0;
 }
 
-int*  wstring_delete(const int*  str  , int head, int tail)
+int*  wstring_delete(int*  str  , int head, int tail)
 {
     struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "wstring_delete"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;

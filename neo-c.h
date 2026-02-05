@@ -431,7 +431,7 @@ uniq void* come_decrement_ref_count(void* mem, void* protocol_fun, void* protoco
     long count = *ref_count;
     if(!no_free && count <= 0) {
         if(protocol_obj && protocol_fun) {
-            void (*finalizer)(void*) = protocol_fun;
+            void (*finalizer)(void*) = (void (*)(void*))protocol_fun;
             finalizer(protocol_obj);
             
             come_free(protocol_obj);
@@ -457,15 +457,15 @@ uniq void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* pr
     if(call_finalizer_only) {
         if(fun) {
             if(protocol_obj && protocol_fun) {
-                void (*finalizer)(void*) = protocol_fun;
+                void (*finalizer)(void*) = (void (*)(void*))protocol_fun;
                 finalizer(protocol_obj);
             }
-            void (*finalizer)(void*) = fun;
+            void (*finalizer)(void*) = (void (*)(void*))fun;
             finalizer(mem);
         }
         else {
             if(protocol_obj && protocol_fun) {
-                void (*finalizer)(void*) = protocol_fun;
+                void (*finalizer)(void*) = (void (*)(void*))protocol_fun;
                 finalizer(protocol_obj);
             }
         }
@@ -482,18 +482,18 @@ uniq void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* pr
             if(mem) {
                 if(fun) {
                     if(protocol_obj && protocol_fun) {
-                        void (*finalizer)(void*) = protocol_fun;
+                        void (*finalizer)(void*) = (void (*)(void*))protocol_fun;
                         finalizer(protocol_obj);
                         come_free(protocol_obj);
                     }
                     if(fun) {
-                        void (*finalizer)(void*) = fun;
+                        void (*finalizer)(void*) = (void (*)(void*))fun;
                         finalizer(mem);
                     }
                 }
                 else {
                     if(protocol_obj && protocol_fun) {
-                        void (*finalizer)(void*) = protocol_fun;
+                        void (*finalizer)(void*) = (void (*)(void*))protocol_fun;
                         finalizer(protocol_obj);
                         come_free(protocol_obj);
                     }
@@ -3166,7 +3166,7 @@ uniq unsigned char* buffer*::head_pointer(buffer* self)
     if(self == null) {
         return null;
     }
-    return self.buf;
+    return (unsigned char*)self.buf;
 }
 
 uniq buffer*% char[]::to_buffer(char* self, size_t len) 
@@ -5997,8 +5997,8 @@ uniq list<string>*% char*::scan(const char* self, const char* reg, bool ignore_c
         /// group strings ///
         else if(regex_result >= 0 && group_count > 0) {
             for(int i=0; i<group_count; i++) {
-                re_capture cp = captures[i];
-                var match_string = (self + offset).substring(cp.start, cp.start + cp.length);
+                re_capture* cp = &captures[i];
+                var match_string = (self + offset).substring(cp->start, cp->start + cp->length);
                 result.push_back(match_string);
             }
             
@@ -6220,8 +6220,8 @@ uniq string char*::sub_block(char* self, const char* reg, bool global=true, bool
             list<string>*% group_strings = new list<string>.initialize();
 
             for(int i=0; i<group_count; i++) {
-                re_capture cp = captures[i];
-                var match_string = (self + offset).substring(cp.start, cp.start + cp.length);
+                re_capture* cp = &captures[i];
+                var match_string = (self + offset).substring(cp->start, cp->start + cp->length);
                 group_strings.push_back(match_string);
             }
             
@@ -6296,8 +6296,8 @@ uniq list<string>*% char*::scan_block(const char* self, const char* reg, bool ig
             list<string>*% group_strings = new list<string>.initialize();
 
             for(int i=0; i<group_count; i++) {
-                re_capture cp = captures[i];
-                var match_string = (self + offset).substring(cp.start, cp.start + cp.length);
+                re_capture* cp = &captures[i];
+                var match_string = (self + offset).substring(cp->start, cp->start + cp->length);
                 group_strings.push_back(match_string);
             }
             
@@ -6594,7 +6594,7 @@ uniq string string::sub_block(char* self, const char* reg, bool global=true, boo
         return wstring(str);
     }
     
-    uniq wstring wchar_t*::delete(const wchar_t* str, int head, int tail) 
+uniq wstring wchar_t*::delete(wchar_t* str, int head, int tail) 
     {
         if(str == null) {
             return wstring("");
@@ -7075,7 +7075,7 @@ uniq string string::sub_block(char* self, const char* reg, bool global=true, boo
         return xsprintf("%d", self).to_wstring();
     }
     
-    uniq wstring wstring::delete(const wchar_t* str, int head, int tail)
+uniq wstring wstring::delete(wchar_t* str, int head, int tail)
     {
         return wchar_t*::delete(str, head, tail);
     }

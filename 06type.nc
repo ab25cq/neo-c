@@ -3400,8 +3400,8 @@ bool is_same_type_ignoring_qualifier(sType* left_type, sType* right_type, sInfo*
         return false;
     }
     for(int i=0; i<left_type2->mGenericsTypes.length(); i++) {
-        sType* left_g = left_type2->mGenericsTypes[i];
-        sType* right_g = right_type2->mGenericsTypes[i];
+        sType* left_g = borrow left_type2->mGenericsTypes[i];
+        sType* right_g = borrow right_type2->mGenericsTypes[i];
         if(!is_same_type_ignoring_qualifier(left_g, right_g)) {
             return false;
         }
@@ -3418,8 +3418,8 @@ bool is_same_type_ignoring_qualifier(sType* left_type, sType* right_type, sInfo*
             return false;
         }
         for(int i=0; i<left_type2->mParamTypes.length(); i++) {
-            sType* lparam = left_type2->mParamTypes[i];
-            sType* rparam = right_type2->mParamTypes[i];
+            sType* lparam = borrow left_type2->mParamTypes[i];
+            sType* rparam = borrow right_type2->mParamTypes[i];
             if(!is_same_type_ignoring_qualifier(lparam, rparam)) {
                 return false;
             }
@@ -3501,7 +3501,10 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
             int left_ptr_num = left_type2->mPointerNum;
             int right_ptr_num = right_type2->mPointerNum + (right_array ? 1 : 0);
             
-            if(left_ptr_num != right_ptr_num) {
+            bool left_void = left_type2->mClass->mName === "void";
+            bool right_void = right_type2->mClass->mName === "void";
+            
+            if(left_ptr_num != right_ptr_num && !(left_void || right_void)) {
                 warning_msg(info, "invalid pointer level. %s", msg);
                 return false;
             }
@@ -3525,7 +3528,7 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
                 return false;
             }
             
-            if(left_type2->mClass->mName === "void" || right_type2->mClass->mName === "void") {
+            if(left_void || right_void) {
                 return true;
             }
             
@@ -3700,8 +3703,8 @@ bool check_assign_type(const char* msg, sType* left_type, sType* right_type, CVA
             }
             else {
                 for(int i=0; i<left_no_solved_generics_type.mGenericsTypes.length(); i++) {
-                    sType* left = left_no_solved_generics_type.mGenericsTypes[i];
-                    sType* right = right_no_solved_generics_type.mGenericsTypes[i];
+                    sType* left = borrow left_no_solved_generics_type.mGenericsTypes[i];
+                    sType* right = borrow right_no_solved_generics_type.mGenericsTypes[i];
                     
                     if((left->mClass->mName !== right->mClass->mName) || (left->mPointerNum != right->mPointerNum)) {
                         check_ = false;

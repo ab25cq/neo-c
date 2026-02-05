@@ -2302,7 +2302,7 @@ char*  wchar_tp_to_string(const int*  wstr  );
 char*  wchar_ta_to_string(const int*  wstr  );
 int*  charp_to_wstring(const char* str);
 int*  chara_to_wstring(char* str);
-int*  wchar_tp_delete(const int*  str  , int head, int tail);
+int*  wchar_tp_delete(int*  str  , int head, int tail);
 int wchar_tp_index(const int*  str  , const int*  search_str  , int default_value);
 int wchar_tp_rindex(const int*  str  , const int*  search_str  , int default_value);
 int*  wchar_tp_reverse(const int*  str  );
@@ -2337,7 +2337,7 @@ int string_rindex_count(const char* str, const char* search_str, int count, int 
 char*  string_strip(const char* self);
 char*  wstring_to_string(const int*  wstr  );
 int*  int_to_wstring(int self);
-int*  wstring_delete(const int*  str  , int head, int tail);
+int*  wstring_delete(int*  str  , int head, int tail);
 int wstring_index(const int*  str  , const int*  search_str  , int default_value);
 int wstring_rindex(const int*  str  , const int*  search_str  , int default_value);
 int*  wstring_reverse(const int*  str  );
