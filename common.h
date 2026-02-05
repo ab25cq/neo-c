@@ -16,6 +16,7 @@ extern bool gComeMalloc;
 extern bool gComeBareMetal;
 extern bool gComeCPlusPlus;
 extern bool gComelang;
+extern bool gComeSafe;
 
 struct sType;
 struct sClass;

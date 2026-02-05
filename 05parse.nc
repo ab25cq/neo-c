@@ -29,17 +29,17 @@ int err_msg(sInfo* info, const char* msg, ...)
         buffer*% buf = new buffer();
         
         if(info.come_fun) {
-            buf.append_format("%s %d(%d): [error] %s in fun (%s)", info.sname, info.sline, info.sline_real, msg2, info.come_fun.mName);
+            buf.append_format("%s %d(%d): [error] %s in fun (%s)\n", info.sname, info.sline, info.sline_real, msg2, info.come_fun.mName);
         }
         else {
-            buf.append_format("%s %d(%d): [error] %s", info.sname, info.sline, info.sline_real, msg2);
+            buf.append_format("%s %d(%d): [error] %s\n", info.sname, info.sline, info.sline_real, msg2);
         }
         
         if((info.end - info.p) > 30 && (info.p - info.head) > 30) {
             char mem[128];
             memcpy(mem, info.p - 30, 60);
             mem[20] = '\0';
-            buf.append_str(mem); 
+            buf.append_str(mem + "\n"); 
         }
         
         info.err_num++;
@@ -66,16 +66,16 @@ int warning_msg(sInfo* info, const char* msg, ...)
         buffer*% buf = new buffer();
         
         if(info.come_fun) {
-            buf.append_format("%s %d(%d): [warning] %s in fun (%s)", info.sname, info.sline, info.sline_real, msg2, info.come_fun.mName);
+            buf.append_format("%s %d(%d): [warning] %s in fun (%s)\n", info.sname, info.sline, info.sline_real, msg2, info.come_fun.mName);
         }
         else {
-            buf.append_format("%s %d(%d): [warning] %s", info.sname, info.sline, info.sline_real, msg2);
+            buf.append_format("%s %d(%d): [warning] %s\n", info.sname, info.sline, info.sline_real, msg2);
         }
         if((info.end - info.p) > 30 && (info.p - info.head) > 30) {
             char mem[128];
             memcpy(mem, info.p - 30, 60);
             mem[20] = '\0';
-            buf.append_str(mem); 
+            buf.append_str(mem + "\n"); 
         }
         
         info.warning_num++;

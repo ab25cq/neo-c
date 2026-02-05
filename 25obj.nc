@@ -1669,6 +1669,42 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
                 return create_nothing_node();
             }
         }
+        else if(parsecmp("unsafe")) {
+            info->p += strlen("unsafe");
+            skip_spaces_and_lf();
+            
+            bool come_safe = gComeSafe;
+            gComeSafe = false;
+            
+            if(*info->p == '{') {
+                sNode*% node = parse_normal_block(clang:true);
+                
+                gComeSafe = come_safe;
+                
+                return node;
+            }
+            else {
+                return create_nothing_node();
+            }
+        }
+        else if(parsecmp("safe")) {
+            info->p += strlen("safe");
+            skip_spaces_and_lf();
+            
+            bool come_safe = gComeSafe;
+            gComeSafe = true;
+            
+            if(*info->p == '{') {
+                sNode*% node = parse_normal_block(clang:true);
+                
+                gComeSafe = come_safe;
+                
+                return node;
+            }
+            else {
+                return create_nothing_node();
+            }
+        }
         else {
             err_msg(info, "invalid using");
             exit(2);
@@ -2120,6 +2156,44 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 94
             }
             else {
                 gComeC = true;
+            }
+        }
+        else if(parsecmp("unsafe")) {
+            info->p += strlen("unsafe");
+            skip_spaces_and_lf();
+            
+            if(*info->p == '{') {
+                info->p++;
+                skip_spaces_and_lf(info);
+                
+                bool come_safe = gComeSafe;
+                gComeSafe = false;
+                
+                transpile_toplevel(true);
+                
+                gComeC = come_safe;
+            }
+            else {
+                gComeSafe = false;
+            }
+        }
+        else if(parsecmp("safe")) {
+            info->p += strlen("safe");
+            skip_spaces_and_lf();
+            
+            if(*info->p == '{') {
+                info->p++;
+                skip_spaces_and_lf(info);
+                
+                bool come_safe = gComeSafe;
+                gComeSafe = true;
+                
+                transpile_toplevel(true);
+                
+                gComeC = come_safe;
+            }
+            else {
+                gComeSafe = true;
             }
         }
         else {

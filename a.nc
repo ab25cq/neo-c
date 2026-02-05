@@ -1,25 +1,18 @@
-#include <neo-c.h>
+//#include <neo-c.h>
 
-struct sData
-{
+using safe;
+
+struct data {
     int a;
-    int b;
 };
-
-using comelang;
-
-fn fun(aaa:sData): i32
-{
-    printf("a %d b %d\n", aaa->a, aaa->b);
-    puts("HELLO WORLD");
-}
-
-using neo-c;
 
 int main(int argc, char** argv)
 {
-    sData*% data = new sData{a:111, b:222};
-    fun(data);
+    char a[12];
+    
+    char* b = a;
+    
+    struct data* d = b;
     
     return 0;
 }

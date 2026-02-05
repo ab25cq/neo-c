@@ -208,6 +208,78 @@ tuple4<list<sType*%>*%, list<string>*%, list<string>*%, bool>*% parse_params(sIn
     return t(param_types, param_names, param_default_parametors, var_args);
 }
 
+bool is_pointer_type(sType* type)
+{
+    return type->mPointerNum > 0 || type->mArrayPointerNum > 0 || type->mArrayPointerNum > 0;
+}
+
+bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type, CVALUE* come_value, sInfo* info=info)
+{
+    sType*% left_type2 = clone left_type;
+/*
+    if(left_type2->mNoSolvedGenericsType) {
+        sType*% tmp = clone left_type2->mNoSolvedGenericsType;
+        left_type2 = clone tmp;
+    }
+*/
+    if(left_type2->mOriginalLoadVarType) {
+        sType*% tmp = left_type2->mOriginalLoadVarType;
+        left_type2 = clone tmp;
+    }
+    sType*% right_type2 = clone right_type;
+/*
+    if(right_type2->mNoSolvedGenericsType) {
+        sType*% tmp = right_type2->mNoSolvedGenericsType;
+        right_type2 = clone tmp
+    }
+*/
+    if(right_type2->mOriginalLoadVarType) {
+        sType*% tmp = right_type2->mOriginalLoadVarType;
+        right_type2 = clone tmp;
+    }
+    
+    if(is_pointer_type(left_type2) && is_pointer_type(right_type2)) {
+        if(left_type2->mClass->mName === "void" || right_type2->mClass->mName === "void") {
+        }
+        else if(left_type2->mGenericsTypes.length() > 0 || right_type2->mGenericsTypes.length() > 0) {
+            if(left_type2->mGenericsTypes.length() != right_type2->mGenericsTypes.length()) {
+                return false;
+            }
+            
+            for(int i=0; i<left_type2->mGenericsTypes.length(); i++) {
+                sType*% left_type = left_type2->mGenericsTypes[i];
+                sType*% right_type = right_type2->mGenericsTypes[i];
+                
+                check_assign_type_safe(msg, left_type, right_type, come_value).elif {
+                    return false;
+                }
+            }
+            
+            if(left_type2->mClass->mName !== right_type2->mClass->mName || left_type2->mPointerNum != right_type2->mPointerNum)
+            {
+                warning_msg(info, "invalid type left %s %d right %s %d", left_type2->mClass->mName, left_type2->mPointerNum, right_type2->mClass->mName, right_type2->mPointerNum);
+                return false;
+            }
+        }
+        else if(left_type2->mClass->mName !== right_type2->mClass->mName || left_type2->mPointerNum != right_type2->mPointerNum)
+        {
+            warning_msg(info, "invalid type left %s %d right %s %d", left_type2->mClass->mName, left_type2->mPointerNum, right_type2->mClass->mName, right_type2->mPointerNum);
+            return false;
+        }
+    }
+    else if(left_type2->mClass->mName === right_type2->mClass->mName && is_pointer_type(left_type2) && right_type2->mArrayNum.length() > 0) {
+    }
+    else if(is_pointer_type(left_type2) && !is_pointer_type(right_type)) {
+        warning_msg(info, "invalid type left %s %d right %s %d", left_type2->mClass->mName, left_type2->mPointerNum, right_type2->mClass->mName, right_type2->mPointerNum);
+        return false;
+    }
+    else if(!is_pointer_type(left_type2) && is_pointer_type(right_type)) {
+        warning_msg(info, "invalid type left %s %d right %s %d", left_type2->mClass->mName, left_type2->mPointerNum, right_type2->mClass->mName, right_type2->mPointerNum);
+        return false;
+    }
+    return true;
+}
+
 bool check_assign_type(const char* msg, sType* left_type, sType* right_type, CVALUE* come_value, sInfo* info=info)
 {
     if(info->no_output_come_code) {
@@ -215,6 +287,10 @@ bool check_assign_type(const char* msg, sType* left_type, sType* right_type, CVA
     }
     if(left_type->mClass->mMethodGenerics) { // precompile
         return true;
+    }
+    
+    if(gComeSafe) {
+        return check_assign_type_safe(msg, left_type, right_type, come_value);
     }
     sType*% left_type2 = clone left_type;
     sType*% right_type2 = clone right_type;

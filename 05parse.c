@@ -1599,6 +1599,7 @@ extern _Bool gComeMalloc;
 extern _Bool gComeBareMetal;
 extern _Bool gComeCPlusPlus;
 extern _Bool gComelang;
+extern _Bool gComeSafe;
 // source head
 
 // header function
@@ -2672,17 +2673,18 @@ int err_msg(struct sInfo*  info  , const char* msg, ...)
         p=info->p;
         buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 29, "struct buffer* "))));
         if(info->come_fun) {
-            buffer_append_format(buf,"%s %d(%d): [error] %s in fun (%s)",info->sname,info->sline,info->sline_real,msg2,info->come_fun->mName);
+            buffer_append_format(buf,"%s %d(%d): [error] %s in fun (%s)\n",info->sname,info->sline,info->sline_real,msg2,info->come_fun->mName);
         }
         else {
-            buffer_append_format(buf,"%s %d(%d): [error] %s",info->sname,info->sline,info->sline_real,msg2);
+            buffer_append_format(buf,"%s %d(%d): [error] %s\n",info->sname,info->sline,info->sline_real,msg2);
         }
         if((info->end-info->p)>30&&(info->p-info->head)>30) {
             char mem[128];
             memset(&mem, 0, sizeof(mem));
             memcpy(mem,info->p-30,60);
             mem[20]=0;
-            buffer_append_str(buf,mem);
+            buffer_append_str(buf,((char* )(__right_value0=charp_operator_add(mem,"\n"))));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         }
         info->err_num++;
         free(msg2);
@@ -2726,17 +2728,18 @@ int warning_msg(struct sInfo*  info  , const char* msg, ...)
         __builtin_va_end(args);
         buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 66, "struct buffer* "))));
         if(info->come_fun) {
-            buffer_append_format(buf,"%s %d(%d): [warning] %s in fun (%s)",info->sname,info->sline,info->sline_real,msg2,info->come_fun->mName);
+            buffer_append_format(buf,"%s %d(%d): [warning] %s in fun (%s)\n",info->sname,info->sline,info->sline_real,msg2,info->come_fun->mName);
         }
         else {
-            buffer_append_format(buf,"%s %d(%d): [warning] %s",info->sname,info->sline,info->sline_real,msg2);
+            buffer_append_format(buf,"%s %d(%d): [warning] %s\n",info->sname,info->sline,info->sline_real,msg2);
         }
         if((info->end-info->p)>30&&(info->p-info->head)>30) {
             char mem[128];
             memset(&mem, 0, sizeof(mem));
             memcpy(mem,info->p-30,60);
             mem[20]=0;
-            buffer_append_str(buf,mem);
+            buffer_append_str(buf,((char* )(__right_value0=charp_operator_add(mem,"\n"))));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         }
         info->warning_num++;
         free(msg2);
