@@ -3270,6 +3270,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
 void show_type(sType* type, sInfo* info=info)
 {
     puts(make_come_type_name_string(type));
+printf("%d", type->mArrayPointerType);
 }
 
 bool is_pointer_type(sType* type, sInfo* info=info)

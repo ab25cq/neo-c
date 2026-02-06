@@ -9883,6 +9883,7 @@ void show_type(struct sType*  type  , struct sInfo*  info  )
     void* __right_value0 = (void*)0;
     puts(((char* )(__right_value0=make_come_type_name_string(type,info))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
+    printf("%d",type->mArrayPointerType);
     neo_current_frame = fr.prev;
 }
 
