@@ -1,6 +1,4 @@
-//#include <neo-c.h>
-
-using safe;
+#include <neo-c.h>
 
 struct data {
     int a;
@@ -8,11 +6,13 @@ struct data {
 
 int main(int argc, char** argv)
 {
-    char a[12];
+    char* a = borrow new char[123];
     
     char* b = a;
     
     struct data* d = b;
+    
+    delete a;
     
     return 0;
 }
