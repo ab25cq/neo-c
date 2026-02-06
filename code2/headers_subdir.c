@@ -1138,9 +1138,9 @@ typedef int (*OSSL_FUNC_BIO_vsnprintf_fn)(char*,unsigned long ,const char*,__bui
 
 typedef int (*OSSL_FUNC_BIO_ctrl_fn)(struct ossl_core_bio_st* ,int,long,void*);
 
-typedef void (*OSSL_FUNC_indicator_cb_fn)(struct openssl_core_ctx_st* ,int (*)(const char*,const char*,const struct ossl_param_st ) );
+typedef void (*OSSL_FUNC_indicator_cb_fn)(struct openssl_core_ctx_st* ,int (*(*(*)))(const char*,const char*,const struct ossl_param_st ) );
 
-typedef void (*OSSL_FUNC_self_test_cb_fn)(struct openssl_core_ctx_st* ,int (*)(const struct ossl_param_st ,void*) ,void**);
+typedef void (*OSSL_FUNC_self_test_cb_fn)(struct openssl_core_ctx_st* ,int (*(*(*)))(const struct ossl_param_st ,void*) ,void**);
 
 typedef unsigned long (*OSSL_FUNC_get_entropy_fn)(const struct ossl_core_handle_st* ,unsigned char**,int,unsigned long ,unsigned long );
 
@@ -1186,7 +1186,7 @@ typedef void (*OSSL_FUNC_provider_unquery_operation_fn)(void*,int,const struct o
 
 typedef const struct ossl_item_st* (*OSSL_FUNC_provider_get_reason_strings_fn)(void*);
 
-typedef int (*OSSL_FUNC_provider_get_capabilities_fn)(void*,const char*,int (*)(const struct ossl_param_st ,void*) ,void*);
+typedef int (*OSSL_FUNC_provider_get_capabilities_fn)(void*,const char*,int (*(*))(const struct ossl_param_st ,void*) ,void*);
 
 typedef int (*OSSL_FUNC_provider_self_test_fn)(void*);
 
@@ -1354,7 +1354,7 @@ typedef int (*OSSL_FUNC_rand_get_ctx_params_fn)(void*,struct ossl_param_st );
 
 typedef int (*OSSL_FUNC_rand_set_ctx_params_fn)(void*,const struct ossl_param_st );
 
-typedef void (*OSSL_FUNC_rand_set_callbacks_fn)(void*,int (*)(const struct ossl_param_st ,struct ossl_param_st ,void*) ,int (*)(const struct ossl_param_st ,void*) ,int (*)(const struct ossl_param_st ,struct ossl_param_st ,void*) ,int (*)(const struct ossl_param_st ,void*) ,void*);
+typedef void (*OSSL_FUNC_rand_set_callbacks_fn)(void*,int (*(*))(const struct ossl_param_st ,struct ossl_param_st ,void*) ,int (*(*))(const struct ossl_param_st ,void*) ,int (*(*))(const struct ossl_param_st ,struct ossl_param_st ,void*) ,int (*(*))(const struct ossl_param_st ,void*) ,void*);
 
 typedef int (*OSSL_FUNC_rand_verify_zeroization_fn)(void*);
 
@@ -1376,7 +1376,7 @@ typedef int (*OSSL_FUNC_keymgmt_gen_get_params_fn)(void*,struct ossl_param_st );
 
 typedef const struct ossl_param_st* (*OSSL_FUNC_keymgmt_gen_gettable_params_fn)(void*,void*);
 
-typedef void* (*OSSL_FUNC_keymgmt_gen_fn)(void*,int (*)(const struct ossl_param_st ,void*) ,void*);
+typedef void* (*OSSL_FUNC_keymgmt_gen_fn)(void*,int (*(*))(const struct ossl_param_st ,void*) ,void*);
 
 typedef void (*OSSL_FUNC_keymgmt_gen_cleanup_fn)(void*);
 
@@ -1404,7 +1404,7 @@ typedef int (*OSSL_FUNC_keymgmt_import_fn)(void*,int,const struct ossl_param_st 
 
 typedef const struct ossl_param_st* (*OSSL_FUNC_keymgmt_import_types_fn)(int);
 
-typedef int (*OSSL_FUNC_keymgmt_export_fn)(void*,int,int (*)(const struct ossl_param_st ,void*) ,void*);
+typedef int (*OSSL_FUNC_keymgmt_export_fn)(void*,int,int (*(*))(const struct ossl_param_st ,void*) ,void*);
 
 typedef const struct ossl_param_st* (*OSSL_FUNC_keymgmt_export_types_fn)(int);
 
@@ -1504,7 +1504,7 @@ typedef const struct ossl_param_st* (*OSSL_FUNC_skeymgmt_imp_settable_params_fn)
 
 typedef void* (*OSSL_FUNC_skeymgmt_import_fn)(void*,int,const struct ossl_param_st );
 
-typedef int (*OSSL_FUNC_skeymgmt_export_fn)(void*,int,int (*)(const struct ossl_param_st ,void*) ,void*);
+typedef int (*OSSL_FUNC_skeymgmt_export_fn)(void*,int,int (*(*))(const struct ossl_param_st ,void*) ,void*);
 
 typedef const struct ossl_param_st* (*OSSL_FUNC_skeymgmt_gen_settable_params_fn)(void*);
 
@@ -1574,7 +1574,7 @@ typedef const struct ossl_param_st* (*OSSL_FUNC_encoder_settable_ctx_params_fn)(
 
 typedef int (*OSSL_FUNC_encoder_does_selection_fn)(void*,int);
 
-typedef int (*OSSL_FUNC_encoder_encode_fn)(void*,struct ossl_core_bio_st* ,const void*,const struct ossl_param_st ,int,int (*)(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*);
+typedef int (*OSSL_FUNC_encoder_encode_fn)(void*,struct ossl_core_bio_st* ,const void*,const struct ossl_param_st ,int,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*);
 
 typedef void* (*OSSL_FUNC_encoder_import_object_fn)(void*,int,const struct ossl_param_st );
 
@@ -1594,9 +1594,9 @@ typedef const struct ossl_param_st* (*OSSL_FUNC_decoder_settable_ctx_params_fn)(
 
 typedef int (*OSSL_FUNC_decoder_does_selection_fn)(void*,int);
 
-typedef int (*OSSL_FUNC_decoder_decode_fn)(void*,struct ossl_core_bio_st* ,int,int (*)(const struct ossl_param_st ,void*) ,void*,int (*)(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*);
+typedef int (*OSSL_FUNC_decoder_decode_fn)(void*,struct ossl_core_bio_st* ,int,int (*(*))(const struct ossl_param_st ,void*) ,void*,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*);
 
-typedef int (*OSSL_FUNC_decoder_export_object_fn)(void*,const void*,unsigned long ,int (*)(const struct ossl_param_st ,void*) ,void*);
+typedef int (*OSSL_FUNC_decoder_export_object_fn)(void*,const void*,unsigned long ,int (*(*))(const struct ossl_param_st ,void*) ,void*);
 
 typedef void* (*OSSL_FUNC_store_open_fn)(void*,const char*);
 
@@ -1606,17 +1606,17 @@ typedef const struct ossl_param_st* (*OSSL_FUNC_store_settable_ctx_params_fn)(vo
 
 typedef int (*OSSL_FUNC_store_set_ctx_params_fn)(void*,const struct ossl_param_st );
 
-typedef int (*OSSL_FUNC_store_load_fn)(void*,int (*)(const struct ossl_param_st ,void*) ,void*,int (*)(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*);
+typedef int (*OSSL_FUNC_store_load_fn)(void*,int (*(*))(const struct ossl_param_st ,void*) ,void*,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*);
 
 typedef int (*OSSL_FUNC_store_eof_fn)(void*);
 
 typedef int (*OSSL_FUNC_store_close_fn)(void*);
 
-typedef int (*OSSL_FUNC_store_export_object_fn)(void*,const void*,unsigned long ,int (*)(const struct ossl_param_st ,void*) ,void*);
+typedef int (*OSSL_FUNC_store_export_object_fn)(void*,const void*,unsigned long ,int (*(*))(const struct ossl_param_st ,void*) ,void*);
 
-typedef int (*OSSL_FUNC_store_delete_fn)(void*,const char*,const struct ossl_param_st ,int (*)(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*);
+typedef int (*OSSL_FUNC_store_delete_fn)(void*,const char*,const struct ossl_param_st ,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*);
 
-typedef void* (*OSSL_FUNC_store_open_ex_fn)(void*,const char*,const struct ossl_param_st ,int (*)(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*);
+typedef void* (*OSSL_FUNC_store_open_ex_fn)(void*,const char*,const struct ossl_param_st ,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*);
 
 typedef int (*sk_X509_ALGOR_compfunc)(const struct X509_algor_st** const ,const struct X509_algor_st** const );
 
@@ -14807,7 +14807,7 @@ int BIO_meth_set_gets(struct bio_method_st*  biom  , int (*ossl_gets)(struct bio
 int BIO_meth_set_ctrl(struct bio_method_st*  biom  , long (*ctrl)(struct bio_st* ,int,long,void*));
 int BIO_meth_set_create(struct bio_method_st*  biom  , int (*create)(struct bio_st* ));
 int BIO_meth_set_destroy(struct bio_method_st*  biom  , int (*destroy)(struct bio_st* ));
-int BIO_meth_set_callback_ctrl(struct bio_method_st*  biom  , long (*callback_ctrl)(struct bio_st* ,int,int (*)(struct bio_st* ,int,int) ));
+int BIO_meth_set_callback_ctrl(struct bio_method_st*  biom  , long (*callback_ctrl)(struct bio_st* ,int,int (*(*))(struct bio_st* ,int,int) ));
 int (*BIO_meth_get_write(const struct bio_method_st*  _function_pointer_result_var_name_a1  ))(struct bio_st* ,const char*,int);
 int (*BIO_meth_get_write_ex(const struct bio_method_st*  _function_pointer_result_var_name_a2  ))(struct bio_st* ,const char*,unsigned long ,unsigned long* );
 int (*BIO_meth_get_sendmmsg(const struct bio_method_st*  _function_pointer_result_var_name_a3  ))(struct bio_st* ,struct bio_msg_st* ,unsigned long ,unsigned long ,unsigned long  int ,unsigned long* );
@@ -14819,7 +14819,7 @@ int (*BIO_meth_get_gets(const struct bio_method_st*  _function_pointer_result_va
 long (*BIO_meth_get_ctrl(const struct bio_method_st*  _function_pointer_result_var_name_a9  ))(struct bio_st* ,int,long,void*);
 int (*BIO_meth_get_create(const struct bio_method_st*  _function_pointer_result_var_name_a10  ))(struct bio_st* );
 int (*BIO_meth_get_destroy(const struct bio_method_st*  _function_pointer_result_var_name_a11  ))(struct bio_st* );
-long (*BIO_meth_get_callback_ctrl(const struct bio_method_st*  _function_pointer_result_var_name_a12  ))(struct bio_st* ,int,int (*)(struct bio_st* ,int,int) );
+long (*BIO_meth_get_callback_ctrl(const struct bio_method_st*  _function_pointer_result_var_name_a12  ))(struct bio_st* ,int,int (*(*))(struct bio_st* ,int,int) );
 struct buf_mem_st*  BUF_MEM_new();
 struct buf_mem_st*  BUF_MEM_new_ex(unsigned long  int flags);
 void BUF_MEM_free(struct buf_mem_st*  a  );
@@ -15105,8 +15105,8 @@ static int (*(*OSSL_FUNC_BIO_free(const struct ossl_dispatch_st*  opf  )))(struc
 static int (*(*OSSL_FUNC_BIO_vprintf(const struct ossl_dispatch_st*  opf  )))(struct ossl_core_bio_st* ,const char*,__builtin_va_list ) ;
 static int (*(*OSSL_FUNC_BIO_vsnprintf(const struct ossl_dispatch_st*  opf  )))(char*,unsigned long ,const char*,__builtin_va_list ) ;
 static int (*(*OSSL_FUNC_BIO_ctrl(const struct ossl_dispatch_st*  opf  )))(struct ossl_core_bio_st* ,int,long,void*) ;
-static void (*(*OSSL_FUNC_indicator_cb(const struct ossl_dispatch_st*  opf  )))(struct openssl_core_ctx_st* ,int (*)(const char*,const char*,const struct ossl_param_st ) ) ;
-static void (*(*OSSL_FUNC_self_test_cb(const struct ossl_dispatch_st*  opf  )))(struct openssl_core_ctx_st* ,int (*)(const struct ossl_param_st ,void*) ,void**) ;
+static void (*(*OSSL_FUNC_indicator_cb(const struct ossl_dispatch_st*  opf  )))(struct openssl_core_ctx_st* ,int (*(*(*)))(const char*,const char*,const struct ossl_param_st ) ) ;
+static void (*(*OSSL_FUNC_self_test_cb(const struct ossl_dispatch_st*  opf  )))(struct openssl_core_ctx_st* ,int (*(*(*)))(const struct ossl_param_st ,void*) ,void**) ;
 static unsigned long (*(*OSSL_FUNC_get_entropy(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,unsigned char**,int,unsigned long ,unsigned long ) ;
 static unsigned long (*(*OSSL_FUNC_get_user_entropy(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,unsigned char**,int,unsigned long ,unsigned long ) ;
 static void (*(*OSSL_FUNC_cleanup_entropy(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,unsigned char*,unsigned long ) ;
@@ -15129,7 +15129,7 @@ static int (*(*OSSL_FUNC_provider_get_params(const struct ossl_dispatch_st*  opf
 static const struct ossl_algorithm_st* (*(*OSSL_FUNC_provider_query_operation(const struct ossl_dispatch_st*  opf  )))(void*,int,int*) ;
 static void (*(*OSSL_FUNC_provider_unquery_operation(const struct ossl_dispatch_st*  opf  )))(void*,int,const struct ossl_algorithm_st* ) ;
 static const struct ossl_item_st* (*(*OSSL_FUNC_provider_get_reason_strings(const struct ossl_dispatch_st*  opf  )))(void*) ;
-static int (*(*OSSL_FUNC_provider_get_capabilities(const struct ossl_dispatch_st*  opf  )))(void*,const char*,int (*)(const struct ossl_param_st ,void*) ,void*) ;
+static int (*(*OSSL_FUNC_provider_get_capabilities(const struct ossl_dispatch_st*  opf  )))(void*,const char*,int (*(*))(const struct ossl_param_st ,void*) ,void*) ;
 static int (*(*OSSL_FUNC_provider_self_test(const struct ossl_dispatch_st*  opf  )))(void*) ;
 static int (*(*OSSL_FUNC_provider_random_bytes(const struct ossl_dispatch_st*  opf  )))(void*,int,void*,unsigned long ,unsigned int) ;
 static int (*(*OSSL_FUNC_SSL_QUIC_TLS_crypto_send(const struct ossl_dispatch_st*  opf  )))(struct ssl_st* ,const unsigned char*,unsigned long ,unsigned long* ,void*) ;
@@ -15213,7 +15213,7 @@ static const struct ossl_param_st* (*(*OSSL_FUNC_rand_settable_ctx_params(const 
 static int (*(*OSSL_FUNC_rand_get_params(const struct ossl_dispatch_st*  opf  )))(struct ossl_param_st ) ;
 static int (*(*OSSL_FUNC_rand_get_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_param_st ) ;
 static int (*(*OSSL_FUNC_rand_set_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) ;
-static void (*(*OSSL_FUNC_rand_set_callbacks(const struct ossl_dispatch_st*  opf  )))(void*,int (*)(const struct ossl_param_st ,struct ossl_param_st ,void*) ,int (*)(const struct ossl_param_st ,void*) ,int (*)(const struct ossl_param_st ,struct ossl_param_st ,void*) ,int (*)(const struct ossl_param_st ,void*) ,void*) ;
+static void (*(*OSSL_FUNC_rand_set_callbacks(const struct ossl_dispatch_st*  opf  )))(void*,int (*(*))(const struct ossl_param_st ,struct ossl_param_st ,void*) ,int (*(*))(const struct ossl_param_st ,void*) ,int (*(*))(const struct ossl_param_st ,struct ossl_param_st ,void*) ,int (*(*))(const struct ossl_param_st ,void*) ,void*) ;
 static int (*(*OSSL_FUNC_rand_verify_zeroization(const struct ossl_dispatch_st*  opf  )))(void*) ;
 static unsigned long (*(*OSSL_FUNC_rand_get_seed(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char**,int,unsigned long ,unsigned long ,int,const unsigned char*,unsigned long ) ;
 static void (*(*OSSL_FUNC_rand_clear_seed(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long ) ;
@@ -15224,7 +15224,7 @@ static int (*(*OSSL_FUNC_keymgmt_gen_set_params(const struct ossl_dispatch_st*  
 static const struct ossl_param_st* (*(*OSSL_FUNC_keymgmt_gen_settable_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) ;
 static int (*(*OSSL_FUNC_keymgmt_gen_get_params(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_param_st ) ;
 static const struct ossl_param_st* (*(*OSSL_FUNC_keymgmt_gen_gettable_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) ;
-static void* (*(*OSSL_FUNC_keymgmt_gen(const struct ossl_dispatch_st*  opf  )))(void*,int (*)(const struct ossl_param_st ,void*) ,void*) ;
+static void* (*(*OSSL_FUNC_keymgmt_gen(const struct ossl_dispatch_st*  opf  )))(void*,int (*(*))(const struct ossl_param_st ,void*) ,void*) ;
 static void (*(*OSSL_FUNC_keymgmt_gen_cleanup(const struct ossl_dispatch_st*  opf  )))(void*) ;
 static void* (*(*OSSL_FUNC_keymgmt_load(const struct ossl_dispatch_st*  opf  )))(const void*,unsigned long ) ;
 static void (*(*OSSL_FUNC_keymgmt_free(const struct ossl_dispatch_st*  opf  )))(void*) ;
@@ -15238,7 +15238,7 @@ static int (*(*OSSL_FUNC_keymgmt_validate(const struct ossl_dispatch_st*  opf  )
 static int (*(*OSSL_FUNC_keymgmt_match(const struct ossl_dispatch_st*  opf  )))(const void*,const void*,int) ;
 static int (*(*OSSL_FUNC_keymgmt_import(const struct ossl_dispatch_st*  opf  )))(void*,int,const struct ossl_param_st ) ;
 static const struct ossl_param_st* (*(*OSSL_FUNC_keymgmt_import_types(const struct ossl_dispatch_st*  opf  )))(int) ;
-static int (*(*OSSL_FUNC_keymgmt_export(const struct ossl_dispatch_st*  opf  )))(void*,int,int (*)(const struct ossl_param_st ,void*) ,void*) ;
+static int (*(*OSSL_FUNC_keymgmt_export(const struct ossl_dispatch_st*  opf  )))(void*,int,int (*(*))(const struct ossl_param_st ,void*) ,void*) ;
 static const struct ossl_param_st* (*(*OSSL_FUNC_keymgmt_export_types(const struct ossl_dispatch_st*  opf  )))(int) ;
 static void* (*(*OSSL_FUNC_keymgmt_dup(const struct ossl_dispatch_st*  opf  )))(const void*,int) ;
 static const struct ossl_param_st* (*(*OSSL_FUNC_keymgmt_import_types_ex(const struct ossl_dispatch_st*  opf  )))(void*,int) ;
@@ -15288,7 +15288,7 @@ static const char** (*(*OSSL_FUNC_signature_query_key_types(const struct ossl_di
 static void (*(*OSSL_FUNC_skeymgmt_free(const struct ossl_dispatch_st*  opf  )))(void*) ;
 static const struct ossl_param_st* (*(*OSSL_FUNC_skeymgmt_imp_settable_params(const struct ossl_dispatch_st*  opf  )))(void*) ;
 static void* (*(*OSSL_FUNC_skeymgmt_import(const struct ossl_dispatch_st*  opf  )))(void*,int,const struct ossl_param_st ) ;
-static int (*(*OSSL_FUNC_skeymgmt_export(const struct ossl_dispatch_st*  opf  )))(void*,int,int (*)(const struct ossl_param_st ,void*) ,void*) ;
+static int (*(*OSSL_FUNC_skeymgmt_export(const struct ossl_dispatch_st*  opf  )))(void*,int,int (*(*))(const struct ossl_param_st ,void*) ,void*) ;
 static const struct ossl_param_st* (*(*OSSL_FUNC_skeymgmt_gen_settable_params(const struct ossl_dispatch_st*  opf  )))(void*) ;
 static void* (*(*OSSL_FUNC_skeymgmt_generate(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) ;
 static const char* (*(*OSSL_FUNC_skeymgmt_get_key_id(const struct ossl_dispatch_st*  opf  )))(void*) ;
@@ -15323,7 +15323,7 @@ static const struct ossl_param_st* (*(*OSSL_FUNC_encoder_gettable_params(const s
 static int (*(*OSSL_FUNC_encoder_set_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) ;
 static const struct ossl_param_st* (*(*OSSL_FUNC_encoder_settable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*) ;
 static int (*(*OSSL_FUNC_encoder_does_selection(const struct ossl_dispatch_st*  opf  )))(void*,int) ;
-static int (*(*OSSL_FUNC_encoder_encode(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_core_bio_st* ,const void*,const struct ossl_param_st ,int,int (*)(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) ;
+static int (*(*OSSL_FUNC_encoder_encode(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_core_bio_st* ,const void*,const struct ossl_param_st ,int,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) ;
 static void* (*(*OSSL_FUNC_encoder_import_object(const struct ossl_dispatch_st*  opf  )))(void*,int,const struct ossl_param_st ) ;
 static void (*(*OSSL_FUNC_encoder_free_object(const struct ossl_dispatch_st*  opf  )))(void*) ;
 static void* (*(*OSSL_FUNC_decoder_newctx(const struct ossl_dispatch_st*  opf  )))(void*) ;
@@ -15333,18 +15333,18 @@ static const struct ossl_param_st* (*(*OSSL_FUNC_decoder_gettable_params(const s
 static int (*(*OSSL_FUNC_decoder_set_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) ;
 static const struct ossl_param_st* (*(*OSSL_FUNC_decoder_settable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*) ;
 static int (*(*OSSL_FUNC_decoder_does_selection(const struct ossl_dispatch_st*  opf  )))(void*,int) ;
-static int (*(*OSSL_FUNC_decoder_decode(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_core_bio_st* ,int,int (*)(const struct ossl_param_st ,void*) ,void*,int (*)(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) ;
-static int (*(*OSSL_FUNC_decoder_export_object(const struct ossl_dispatch_st*  opf  )))(void*,const void*,unsigned long ,int (*)(const struct ossl_param_st ,void*) ,void*) ;
+static int (*(*OSSL_FUNC_decoder_decode(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_core_bio_st* ,int,int (*(*))(const struct ossl_param_st ,void*) ,void*,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) ;
+static int (*(*OSSL_FUNC_decoder_export_object(const struct ossl_dispatch_st*  opf  )))(void*,const void*,unsigned long ,int (*(*))(const struct ossl_param_st ,void*) ,void*) ;
 static void* (*(*OSSL_FUNC_store_open(const struct ossl_dispatch_st*  opf  )))(void*,const char*) ;
 static void* (*(*OSSL_FUNC_store_attach(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_core_bio_st* ) ;
 static const struct ossl_param_st* (*(*OSSL_FUNC_store_settable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*) ;
 static int (*(*OSSL_FUNC_store_set_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) ;
-static int (*(*OSSL_FUNC_store_load(const struct ossl_dispatch_st*  opf  )))(void*,int (*)(const struct ossl_param_st ,void*) ,void*,int (*)(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) ;
+static int (*(*OSSL_FUNC_store_load(const struct ossl_dispatch_st*  opf  )))(void*,int (*(*))(const struct ossl_param_st ,void*) ,void*,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) ;
 static int (*(*OSSL_FUNC_store_eof(const struct ossl_dispatch_st*  opf  )))(void*) ;
 static int (*(*OSSL_FUNC_store_close(const struct ossl_dispatch_st*  opf  )))(void*) ;
-static int (*(*OSSL_FUNC_store_export_object(const struct ossl_dispatch_st*  opf  )))(void*,const void*,unsigned long ,int (*)(const struct ossl_param_st ,void*) ,void*) ;
-static int (*(*OSSL_FUNC_store_delete(const struct ossl_dispatch_st*  opf  )))(void*,const char*,const struct ossl_param_st ,int (*)(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) ;
-static void* (*(*OSSL_FUNC_store_open_ex(const struct ossl_dispatch_st*  opf  )))(void*,const char*,const struct ossl_param_st ,int (*)(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) ;
+static int (*(*OSSL_FUNC_store_export_object(const struct ossl_dispatch_st*  opf  )))(void*,const void*,unsigned long ,int (*(*))(const struct ossl_param_st ,void*) ,void*) ;
+static int (*(*OSSL_FUNC_store_delete(const struct ossl_dispatch_st*  opf  )))(void*,const char*,const struct ossl_param_st ,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) ;
+static void* (*(*OSSL_FUNC_store_open_ex(const struct ossl_dispatch_st*  opf  )))(void*,const char*,const struct ossl_param_st ,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) ;
 static struct X509_algor_st*  ossl_check_X509_ALGOR_type(struct X509_algor_st*  ptr  );
 static const struct stack_st*  ossl_check_const_X509_ALGOR_sk_type(const struct stack_st_X509_ALGOR*  sk  );
 static struct stack_st*  ossl_check_X509_ALGOR_sk_type(struct stack_st_X509_ALGOR*  sk  );
@@ -19513,1377 +19513,1377 @@ static void (*ossl_check_BIO_freefunc_type(void (*fr)(struct bio_st* )  ))(void*
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_core_gettable_params(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ) 
 {
-    return (const struct ossl_param_st* (*)(const struct ossl_core_handle_st* ) )opf->function;
+    return (const struct ossl_param_st* (*(*))(const struct ossl_core_handle_st* ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_core_get_params(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,struct ossl_param_st ) 
 {
-    return (int (*)(const struct ossl_core_handle_st* ,struct ossl_param_st ) )opf->function;
+    return (int (*(*))(const struct ossl_core_handle_st* ,struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_core_thread_start(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,void (*)(void*) ,void*) 
 {
-    return (int (*)(const struct ossl_core_handle_st* ,void (*)(void*) ,void*) )opf->function;
+    return (int (*(*))(const struct ossl_core_handle_st* ,void (*)(void*) ,void*) )opf->function;
 }
 
 static struct openssl_core_ctx_st* (*(*OSSL_FUNC_core_get_libctx(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ) 
 {
-    return (struct openssl_core_ctx_st* (*)(const struct ossl_core_handle_st* ) )opf->function;
+    return (struct openssl_core_ctx_st* (*(*))(const struct ossl_core_handle_st* ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_core_new_error(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ) 
 {
-    return (void (*)(const struct ossl_core_handle_st* ) )opf->function;
+    return (void (*(*))(const struct ossl_core_handle_st* ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_core_set_error_debug(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,const char*,int,const char*) 
 {
-    return (void (*)(const struct ossl_core_handle_st* ,const char*,int,const char*) )opf->function;
+    return (void (*(*))(const struct ossl_core_handle_st* ,const char*,int,const char*) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_core_vset_error(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,unsigned int ,const char*,__builtin_va_list ) 
 {
-    return (void (*)(const struct ossl_core_handle_st* ,unsigned int ,const char*,__builtin_va_list ) )opf->function;
+    return (void (*(*))(const struct ossl_core_handle_st* ,unsigned int ,const char*,__builtin_va_list ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_core_set_error_mark(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ) 
 {
-    return (int (*)(const struct ossl_core_handle_st* ) )opf->function;
+    return (int (*(*))(const struct ossl_core_handle_st* ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_core_clear_last_error_mark(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ) 
 {
-    return (int (*)(const struct ossl_core_handle_st* ) )opf->function;
+    return (int (*(*))(const struct ossl_core_handle_st* ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_core_pop_error_to_mark(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ) 
 {
-    return (int (*)(const struct ossl_core_handle_st* ) )opf->function;
+    return (int (*(*))(const struct ossl_core_handle_st* ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_core_obj_add_sigid(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,const char*,const char*,const char*) 
 {
-    return (int (*)(const struct ossl_core_handle_st* ,const char*,const char*,const char*) )opf->function;
+    return (int (*(*))(const struct ossl_core_handle_st* ,const char*,const char*,const char*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_core_obj_create(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,const char*,const char*,const char*) 
 {
-    return (int (*)(const struct ossl_core_handle_st* ,const char*,const char*,const char*) )opf->function;
+    return (int (*(*))(const struct ossl_core_handle_st* ,const char*,const char*,const char*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_CRYPTO_malloc(const struct ossl_dispatch_st*  opf  )))(unsigned long ,const char*,int) 
 {
-    return (void* (*)(unsigned long ,const char*,int) )opf->function;
+    return (void* (*(*))(unsigned long ,const char*,int) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_CRYPTO_zalloc(const struct ossl_dispatch_st*  opf  )))(unsigned long ,const char*,int) 
 {
-    return (void* (*)(unsigned long ,const char*,int) )opf->function;
+    return (void* (*(*))(unsigned long ,const char*,int) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_CRYPTO_free(const struct ossl_dispatch_st*  opf  )))(void*,const char*,int) 
 {
-    return (void (*)(void*,const char*,int) )opf->function;
+    return (void (*(*))(void*,const char*,int) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_CRYPTO_clear_free(const struct ossl_dispatch_st*  opf  )))(void*,unsigned long ,const char*,int) 
 {
-    return (void (*)(void*,unsigned long ,const char*,int) )opf->function;
+    return (void (*(*))(void*,unsigned long ,const char*,int) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_CRYPTO_realloc(const struct ossl_dispatch_st*  opf  )))(void*,unsigned long ,const char*,int) 
 {
-    return (void* (*)(void*,unsigned long ,const char*,int) )opf->function;
+    return (void* (*(*))(void*,unsigned long ,const char*,int) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_CRYPTO_clear_realloc(const struct ossl_dispatch_st*  opf  )))(void*,unsigned long ,unsigned long ,const char*,int) 
 {
-    return (void* (*)(void*,unsigned long ,unsigned long ,const char*,int) )opf->function;
+    return (void* (*(*))(void*,unsigned long ,unsigned long ,const char*,int) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_CRYPTO_secure_malloc(const struct ossl_dispatch_st*  opf  )))(unsigned long ,const char*,int) 
 {
-    return (void* (*)(unsigned long ,const char*,int) )opf->function;
+    return (void* (*(*))(unsigned long ,const char*,int) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_CRYPTO_secure_zalloc(const struct ossl_dispatch_st*  opf  )))(unsigned long ,const char*,int) 
 {
-    return (void* (*)(unsigned long ,const char*,int) )opf->function;
+    return (void* (*(*))(unsigned long ,const char*,int) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_CRYPTO_secure_free(const struct ossl_dispatch_st*  opf  )))(void*,const char*,int) 
 {
-    return (void (*)(void*,const char*,int) )opf->function;
+    return (void (*(*))(void*,const char*,int) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_CRYPTO_secure_clear_free(const struct ossl_dispatch_st*  opf  )))(void*,unsigned long ,const char*,int) 
 {
-    return (void (*)(void*,unsigned long ,const char*,int) )opf->function;
+    return (void (*(*))(void*,unsigned long ,const char*,int) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_CRYPTO_secure_allocated(const struct ossl_dispatch_st*  opf  )))(const void*) 
 {
-    return (int (*)(const void*) )opf->function;
+    return (int (*(*))(const void*) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_OPENSSL_cleanse(const struct ossl_dispatch_st*  opf  )))(void*,unsigned long ) 
 {
-    return (void (*)(void*,unsigned long ) )opf->function;
+    return (void (*(*))(void*,unsigned long ) )opf->function;
 }
 
 static struct ossl_core_bio_st* (*(*OSSL_FUNC_BIO_new_file(const struct ossl_dispatch_st*  opf  )))(const char*,const char*) 
 {
-    return (struct ossl_core_bio_st* (*)(const char*,const char*) )opf->function;
+    return (struct ossl_core_bio_st* (*(*))(const char*,const char*) )opf->function;
 }
 
 static struct ossl_core_bio_st* (*(*OSSL_FUNC_BIO_new_membuf(const struct ossl_dispatch_st*  opf  )))(const void*,int) 
 {
-    return (struct ossl_core_bio_st* (*)(const void*,int) )opf->function;
+    return (struct ossl_core_bio_st* (*(*))(const void*,int) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_BIO_read_ex(const struct ossl_dispatch_st*  opf  )))(struct ossl_core_bio_st* ,void*,unsigned long ,unsigned long* ) 
 {
-    return (int (*)(struct ossl_core_bio_st* ,void*,unsigned long ,unsigned long* ) )opf->function;
+    return (int (*(*))(struct ossl_core_bio_st* ,void*,unsigned long ,unsigned long* ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_BIO_write_ex(const struct ossl_dispatch_st*  opf  )))(struct ossl_core_bio_st* ,const void*,unsigned long ,unsigned long* ) 
 {
-    return (int (*)(struct ossl_core_bio_st* ,const void*,unsigned long ,unsigned long* ) )opf->function;
+    return (int (*(*))(struct ossl_core_bio_st* ,const void*,unsigned long ,unsigned long* ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_BIO_gets(const struct ossl_dispatch_st*  opf  )))(struct ossl_core_bio_st* ,char*,int) 
 {
-    return (int (*)(struct ossl_core_bio_st* ,char*,int) )opf->function;
+    return (int (*(*))(struct ossl_core_bio_st* ,char*,int) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_BIO_puts(const struct ossl_dispatch_st*  opf  )))(struct ossl_core_bio_st* ,const char*) 
 {
-    return (int (*)(struct ossl_core_bio_st* ,const char*) )opf->function;
+    return (int (*(*))(struct ossl_core_bio_st* ,const char*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_BIO_up_ref(const struct ossl_dispatch_st*  opf  )))(struct ossl_core_bio_st* ) 
 {
-    return (int (*)(struct ossl_core_bio_st* ) )opf->function;
+    return (int (*(*))(struct ossl_core_bio_st* ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_BIO_free(const struct ossl_dispatch_st*  opf  )))(struct ossl_core_bio_st* ) 
 {
-    return (int (*)(struct ossl_core_bio_st* ) )opf->function;
+    return (int (*(*))(struct ossl_core_bio_st* ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_BIO_vprintf(const struct ossl_dispatch_st*  opf  )))(struct ossl_core_bio_st* ,const char*,__builtin_va_list ) 
 {
-    return (int (*)(struct ossl_core_bio_st* ,const char*,__builtin_va_list ) )opf->function;
+    return (int (*(*))(struct ossl_core_bio_st* ,const char*,__builtin_va_list ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_BIO_vsnprintf(const struct ossl_dispatch_st*  opf  )))(char*,unsigned long ,const char*,__builtin_va_list ) 
 {
-    return (int (*)(char*,unsigned long ,const char*,__builtin_va_list ) )opf->function;
+    return (int (*(*))(char*,unsigned long ,const char*,__builtin_va_list ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_BIO_ctrl(const struct ossl_dispatch_st*  opf  )))(struct ossl_core_bio_st* ,int,long,void*) 
 {
-    return (int (*)(struct ossl_core_bio_st* ,int,long,void*) )opf->function;
+    return (int (*(*))(struct ossl_core_bio_st* ,int,long,void*) )opf->function;
 }
 
-static void (*(*OSSL_FUNC_indicator_cb(const struct ossl_dispatch_st*  opf  )))(struct openssl_core_ctx_st* ,int (*)(const char*,const char*,const struct ossl_param_st ) ) 
+static void (*(*OSSL_FUNC_indicator_cb(const struct ossl_dispatch_st*  opf  )))(struct openssl_core_ctx_st* ,int (*(*(*)))(const char*,const char*,const struct ossl_param_st ) ) 
 {
-    return (void (*)(struct openssl_core_ctx_st* ,int (*)(const char*,const char*,const struct ossl_param_st ) ) )opf->function;
+    return (void (*(*))(struct openssl_core_ctx_st* ,int (*(*(*)))(const char*,const char*,const struct ossl_param_st ) ) )opf->function;
 }
 
-static void (*(*OSSL_FUNC_self_test_cb(const struct ossl_dispatch_st*  opf  )))(struct openssl_core_ctx_st* ,int (*)(const struct ossl_param_st ,void*) ,void**) 
+static void (*(*OSSL_FUNC_self_test_cb(const struct ossl_dispatch_st*  opf  )))(struct openssl_core_ctx_st* ,int (*(*(*)))(const struct ossl_param_st ,void*) ,void**) 
 {
-    return (void (*)(struct openssl_core_ctx_st* ,int (*)(const struct ossl_param_st ,void*) ,void**) )opf->function;
+    return (void (*(*))(struct openssl_core_ctx_st* ,int (*(*(*)))(const struct ossl_param_st ,void*) ,void**) )opf->function;
 }
 
 static unsigned long (*(*OSSL_FUNC_get_entropy(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,unsigned char**,int,unsigned long ,unsigned long ) 
 {
-    return (unsigned long (*)(const struct ossl_core_handle_st* ,unsigned char**,int,unsigned long ,unsigned long ) )opf->function;
+    return (unsigned long (*(*))(const struct ossl_core_handle_st* ,unsigned char**,int,unsigned long ,unsigned long ) )opf->function;
 }
 
 static unsigned long (*(*OSSL_FUNC_get_user_entropy(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,unsigned char**,int,unsigned long ,unsigned long ) 
 {
-    return (unsigned long (*)(const struct ossl_core_handle_st* ,unsigned char**,int,unsigned long ,unsigned long ) )opf->function;
+    return (unsigned long (*(*))(const struct ossl_core_handle_st* ,unsigned char**,int,unsigned long ,unsigned long ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_cleanup_entropy(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,unsigned char*,unsigned long ) 
 {
-    return (void (*)(const struct ossl_core_handle_st* ,unsigned char*,unsigned long ) )opf->function;
+    return (void (*(*))(const struct ossl_core_handle_st* ,unsigned char*,unsigned long ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_cleanup_user_entropy(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,unsigned char*,unsigned long ) 
 {
-    return (void (*)(const struct ossl_core_handle_st* ,unsigned char*,unsigned long ) )opf->function;
+    return (void (*(*))(const struct ossl_core_handle_st* ,unsigned char*,unsigned long ) )opf->function;
 }
 
 static unsigned long (*(*OSSL_FUNC_get_nonce(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,unsigned char**,unsigned long ,unsigned long ,const void*,unsigned long ) 
 {
-    return (unsigned long (*)(const struct ossl_core_handle_st* ,unsigned char**,unsigned long ,unsigned long ,const void*,unsigned long ) )opf->function;
+    return (unsigned long (*(*))(const struct ossl_core_handle_st* ,unsigned char**,unsigned long ,unsigned long ,const void*,unsigned long ) )opf->function;
 }
 
 static unsigned long (*(*OSSL_FUNC_get_user_nonce(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,unsigned char**,unsigned long ,unsigned long ,const void*,unsigned long ) 
 {
-    return (unsigned long (*)(const struct ossl_core_handle_st* ,unsigned char**,unsigned long ,unsigned long ,const void*,unsigned long ) )opf->function;
+    return (unsigned long (*(*))(const struct ossl_core_handle_st* ,unsigned char**,unsigned long ,unsigned long ,const void*,unsigned long ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_cleanup_nonce(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,unsigned char*,unsigned long ) 
 {
-    return (void (*)(const struct ossl_core_handle_st* ,unsigned char*,unsigned long ) )opf->function;
+    return (void (*(*))(const struct ossl_core_handle_st* ,unsigned char*,unsigned long ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_cleanup_user_nonce(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,unsigned char*,unsigned long ) 
 {
-    return (void (*)(const struct ossl_core_handle_st* ,unsigned char*,unsigned long ) )opf->function;
+    return (void (*(*))(const struct ossl_core_handle_st* ,unsigned char*,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_provider_register_child_cb(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,int (*)(const struct ossl_core_handle_st* ,void*),int (*)(const struct ossl_core_handle_st* ,void*),int (*)(const char*,void*),void*) 
 {
-    return (int (*)(const struct ossl_core_handle_st* ,int (*)(const struct ossl_core_handle_st* ,void*),int (*)(const struct ossl_core_handle_st* ,void*),int (*)(const char*,void*),void*) )opf->function;
+    return (int (*(*))(const struct ossl_core_handle_st* ,int (*)(const struct ossl_core_handle_st* ,void*),int (*)(const struct ossl_core_handle_st* ,void*),int (*)(const char*,void*),void*) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_provider_deregister_child_cb(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ) 
 {
-    return (void (*)(const struct ossl_core_handle_st* ) )opf->function;
+    return (void (*(*))(const struct ossl_core_handle_st* ) )opf->function;
 }
 
 static const char* (*(*OSSL_FUNC_provider_name(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ) 
 {
-    return (const char* (*)(const struct ossl_core_handle_st* ) )opf->function;
+    return (const char* (*(*))(const struct ossl_core_handle_st* ) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_provider_get0_provider_ctx(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ) 
 {
-    return (void* (*)(const struct ossl_core_handle_st* ) )opf->function;
+    return (void* (*(*))(const struct ossl_core_handle_st* ) )opf->function;
 }
 
 static const struct ossl_dispatch_st* (*(*OSSL_FUNC_provider_get0_dispatch(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ) 
 {
-    return (const struct ossl_dispatch_st* (*)(const struct ossl_core_handle_st* ) )opf->function;
+    return (const struct ossl_dispatch_st* (*(*))(const struct ossl_core_handle_st* ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_provider_up_ref(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,int) 
 {
-    return (int (*)(const struct ossl_core_handle_st* ,int) )opf->function;
+    return (int (*(*))(const struct ossl_core_handle_st* ,int) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_provider_free(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,int) 
 {
-    return (int (*)(const struct ossl_core_handle_st* ,int) )opf->function;
+    return (int (*(*))(const struct ossl_core_handle_st* ,int) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_core_count_to_mark(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ) 
 {
-    return (int (*)(const struct ossl_core_handle_st* ) )opf->function;
+    return (int (*(*))(const struct ossl_core_handle_st* ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_provider_teardown(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*)(void*) )opf->function;
+    return (void (*(*))(void*) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_provider_gettable_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*)(void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_provider_get_params(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_param_st ) 
 {
-    return (int (*)(void*,struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_algorithm_st* (*(*OSSL_FUNC_provider_query_operation(const struct ossl_dispatch_st*  opf  )))(void*,int,int*) 
 {
-    return (const struct ossl_algorithm_st* (*)(void*,int,int*) )opf->function;
+    return (const struct ossl_algorithm_st* (*(*))(void*,int,int*) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_provider_unquery_operation(const struct ossl_dispatch_st*  opf  )))(void*,int,const struct ossl_algorithm_st* ) 
 {
-    return (void (*)(void*,int,const struct ossl_algorithm_st* ) )opf->function;
+    return (void (*(*))(void*,int,const struct ossl_algorithm_st* ) )opf->function;
 }
 
 static const struct ossl_item_st* (*(*OSSL_FUNC_provider_get_reason_strings(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_item_st* (*)(void*) )opf->function;
+    return (const struct ossl_item_st* (*(*))(void*) )opf->function;
 }
 
-static int (*(*OSSL_FUNC_provider_get_capabilities(const struct ossl_dispatch_st*  opf  )))(void*,const char*,int (*)(const struct ossl_param_st ,void*) ,void*) 
+static int (*(*OSSL_FUNC_provider_get_capabilities(const struct ossl_dispatch_st*  opf  )))(void*,const char*,int (*(*))(const struct ossl_param_st ,void*) ,void*) 
 {
-    return (int (*)(void*,const char*,int (*)(const struct ossl_param_st ,void*) ,void*) )opf->function;
+    return (int (*(*))(void*,const char*,int (*(*))(const struct ossl_param_st ,void*) ,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_provider_self_test(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (int (*)(void*) )opf->function;
+    return (int (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_provider_random_bytes(const struct ossl_dispatch_st*  opf  )))(void*,int,void*,unsigned long ,unsigned int) 
 {
-    return (int (*)(void*,int,void*,unsigned long ,unsigned int) )opf->function;
+    return (int (*(*))(void*,int,void*,unsigned long ,unsigned int) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_SSL_QUIC_TLS_crypto_send(const struct ossl_dispatch_st*  opf  )))(struct ssl_st* ,const unsigned char*,unsigned long ,unsigned long* ,void*) 
 {
-    return (int (*)(struct ssl_st* ,const unsigned char*,unsigned long ,unsigned long* ,void*) )opf->function;
+    return (int (*(*))(struct ssl_st* ,const unsigned char*,unsigned long ,unsigned long* ,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_SSL_QUIC_TLS_crypto_recv_rcd(const struct ossl_dispatch_st*  opf  )))(struct ssl_st* ,const unsigned char**,unsigned long* ,void*) 
 {
-    return (int (*)(struct ssl_st* ,const unsigned char**,unsigned long* ,void*) )opf->function;
+    return (int (*(*))(struct ssl_st* ,const unsigned char**,unsigned long* ,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_SSL_QUIC_TLS_crypto_release_rcd(const struct ossl_dispatch_st*  opf  )))(struct ssl_st* ,unsigned long ,void*) 
 {
-    return (int (*)(struct ssl_st* ,unsigned long ,void*) )opf->function;
+    return (int (*(*))(struct ssl_st* ,unsigned long ,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_SSL_QUIC_TLS_yield_secret(const struct ossl_dispatch_st*  opf  )))(struct ssl_st* ,unsigned int ,int,const unsigned char*,unsigned long ,void*) 
 {
-    return (int (*)(struct ssl_st* ,unsigned int ,int,const unsigned char*,unsigned long ,void*) )opf->function;
+    return (int (*(*))(struct ssl_st* ,unsigned int ,int,const unsigned char*,unsigned long ,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_SSL_QUIC_TLS_got_transport_params(const struct ossl_dispatch_st*  opf  )))(struct ssl_st* ,const unsigned char*,unsigned long ,void*) 
 {
-    return (int (*)(struct ssl_st* ,const unsigned char*,unsigned long ,void*) )opf->function;
+    return (int (*(*))(struct ssl_st* ,const unsigned char*,unsigned long ,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_SSL_QUIC_TLS_alert(const struct ossl_dispatch_st*  opf  )))(struct ssl_st* ,unsigned char,void*) 
 {
-    return (int (*)(struct ssl_st* ,unsigned char,void*) )opf->function;
+    return (int (*(*))(struct ssl_st* ,unsigned char,void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_digest_newctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*)(void*) )opf->function;
+    return (void* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_digest_init(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_digest_update(const struct ossl_dispatch_st*  opf  )))(void*,const unsigned char*,unsigned long ) 
 {
-    return (int (*)(void*,const unsigned char*,unsigned long ) )opf->function;
+    return (int (*(*))(void*,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_digest_final(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long* ,unsigned long ) 
 {
-    return (int (*)(void*,unsigned char*,unsigned long* ,unsigned long ) )opf->function;
+    return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_digest_squeeze(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long* ,unsigned long ) 
 {
-    return (int (*)(void*,unsigned char*,unsigned long* ,unsigned long ) )opf->function;
+    return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_digest_digest(const struct ossl_dispatch_st*  opf  )))(void*,const unsigned char*,unsigned long ,unsigned char*,unsigned long* ,unsigned long ) 
 {
-    return (int (*)(void*,const unsigned char*,unsigned long ,unsigned char*,unsigned long* ,unsigned long ) )opf->function;
+    return (int (*(*))(void*,const unsigned char*,unsigned long ,unsigned char*,unsigned long* ,unsigned long ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_digest_freectx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*)(void*) )opf->function;
+    return (void (*(*))(void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_digest_dupctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*)(void*) )opf->function;
+    return (void* (*(*))(void*) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_digest_copyctx(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (void (*)(void*,void*) )opf->function;
+    return (void (*(*))(void*,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_digest_get_params(const struct ossl_dispatch_st*  opf  )))(struct ossl_param_st ) 
 {
-    return (int (*)(struct ossl_param_st ) )opf->function;
+    return (int (*(*))(struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_digest_set_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_digest_get_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_param_st ) 
 {
-    return (int (*)(void*,struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_digest_gettable_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*)(void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_digest_settable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*)(void*,void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_digest_gettable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*)(void*,void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_cipher_newctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*)(void*) )opf->function;
+    return (void* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_cipher_encrypt_init(const struct ossl_dispatch_st*  opf  )))(void*,const unsigned char*,unsigned long ,const unsigned char*,unsigned long ,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,const unsigned char*,unsigned long ,const unsigned char*,unsigned long ,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,const unsigned char*,unsigned long ,const unsigned char*,unsigned long ,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_cipher_decrypt_init(const struct ossl_dispatch_st*  opf  )))(void*,const unsigned char*,unsigned long ,const unsigned char*,unsigned long ,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,const unsigned char*,unsigned long ,const unsigned char*,unsigned long ,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,const unsigned char*,unsigned long ,const unsigned char*,unsigned long ,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_cipher_update(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) 
 {
-    return (int (*)(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
+    return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_cipher_final(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long* ,unsigned long ) 
 {
-    return (int (*)(void*,unsigned char*,unsigned long* ,unsigned long ) )opf->function;
+    return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_cipher_cipher(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) 
 {
-    return (int (*)(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
+    return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_cipher_pipeline_encrypt_init(const struct ossl_dispatch_st*  opf  )))(void*,const unsigned char*,unsigned long ,unsigned long ,const unsigned char**,unsigned long ,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,const unsigned char*,unsigned long ,unsigned long ,const unsigned char**,unsigned long ,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,const unsigned char*,unsigned long ,unsigned long ,const unsigned char**,unsigned long ,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_cipher_pipeline_decrypt_init(const struct ossl_dispatch_st*  opf  )))(void*,const unsigned char*,unsigned long ,unsigned long ,const unsigned char**,unsigned long ,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,const unsigned char*,unsigned long ,unsigned long ,const unsigned char**,unsigned long ,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,const unsigned char*,unsigned long ,unsigned long ,const unsigned char**,unsigned long ,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_cipher_pipeline_update(const struct ossl_dispatch_st*  opf  )))(void*,unsigned long ,unsigned char**,unsigned long* ,const unsigned long* ,const unsigned char**,const unsigned long* ) 
 {
-    return (int (*)(void*,unsigned long ,unsigned char**,unsigned long* ,const unsigned long* ,const unsigned char**,const unsigned long* ) )opf->function;
+    return (int (*(*))(void*,unsigned long ,unsigned char**,unsigned long* ,const unsigned long* ,const unsigned char**,const unsigned long* ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_cipher_pipeline_final(const struct ossl_dispatch_st*  opf  )))(void*,unsigned long ,unsigned char**,unsigned long* ,const unsigned long* ) 
 {
-    return (int (*)(void*,unsigned long ,unsigned char**,unsigned long* ,const unsigned long* ) )opf->function;
+    return (int (*(*))(void*,unsigned long ,unsigned char**,unsigned long* ,const unsigned long* ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_cipher_freectx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*)(void*) )opf->function;
+    return (void (*(*))(void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_cipher_dupctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*)(void*) )opf->function;
+    return (void* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_cipher_get_params(const struct ossl_dispatch_st*  opf  )))(struct ossl_param_st ) 
 {
-    return (int (*)(struct ossl_param_st ) )opf->function;
+    return (int (*(*))(struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_cipher_get_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_param_st ) 
 {
-    return (int (*)(void*,struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_cipher_set_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_cipher_gettable_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*)(void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_cipher_settable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*)(void*,void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_cipher_gettable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*)(void*,void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_cipher_encrypt_skey_init(const struct ossl_dispatch_st*  opf  )))(void*,void*,const unsigned char*,unsigned long ,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,void*,const unsigned char*,unsigned long ,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,void*,const unsigned char*,unsigned long ,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_cipher_decrypt_skey_init(const struct ossl_dispatch_st*  opf  )))(void*,void*,const unsigned char*,unsigned long ,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,void*,const unsigned char*,unsigned long ,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,void*,const unsigned char*,unsigned long ,const struct ossl_param_st ) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_mac_newctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*)(void*) )opf->function;
+    return (void* (*(*))(void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_mac_dupctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*)(void*) )opf->function;
+    return (void* (*(*))(void*) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_mac_freectx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*)(void*) )opf->function;
+    return (void (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_mac_init(const struct ossl_dispatch_st*  opf  )))(void*,const unsigned char*,unsigned long ,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,const unsigned char*,unsigned long ,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,const unsigned char*,unsigned long ,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_mac_update(const struct ossl_dispatch_st*  opf  )))(void*,const unsigned char*,unsigned long ) 
 {
-    return (int (*)(void*,const unsigned char*,unsigned long ) )opf->function;
+    return (int (*(*))(void*,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_mac_final(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long* ,unsigned long ) 
 {
-    return (int (*)(void*,unsigned char*,unsigned long* ,unsigned long ) )opf->function;
+    return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_mac_gettable_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*)(void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_mac_gettable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*)(void*,void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_mac_settable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*)(void*,void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_mac_get_params(const struct ossl_dispatch_st*  opf  )))(struct ossl_param_st ) 
 {
-    return (int (*)(struct ossl_param_st ) )opf->function;
+    return (int (*(*))(struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_mac_get_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_param_st ) 
 {
-    return (int (*)(void*,struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_mac_set_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_mac_init_skey(const struct ossl_dispatch_st*  opf  )))(void*,void*,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,void*,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_kdf_newctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*)(void*) )opf->function;
+    return (void* (*(*))(void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_kdf_dupctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*)(void*) )opf->function;
+    return (void* (*(*))(void*) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_kdf_freectx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*)(void*) )opf->function;
+    return (void (*(*))(void*) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_kdf_reset(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*)(void*) )opf->function;
+    return (void (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_kdf_derive(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long ,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,unsigned char*,unsigned long ,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,unsigned char*,unsigned long ,const struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_kdf_gettable_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*)(void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_kdf_gettable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*)(void*,void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_kdf_settable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*)(void*,void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_kdf_get_params(const struct ossl_dispatch_st*  opf  )))(struct ossl_param_st ) 
 {
-    return (int (*)(struct ossl_param_st ) )opf->function;
+    return (int (*(*))(struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_kdf_get_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_param_st ) 
 {
-    return (int (*)(void*,struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_kdf_set_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_rand_newctx(const struct ossl_dispatch_st*  opf  )))(void*,void*,const struct ossl_dispatch_st* ) 
 {
-    return (void* (*)(void*,void*,const struct ossl_dispatch_st* ) )opf->function;
+    return (void* (*(*))(void*,void*,const struct ossl_dispatch_st* ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_rand_freectx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*)(void*) )opf->function;
+    return (void (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_rand_instantiate(const struct ossl_dispatch_st*  opf  )))(void*,unsigned int,int,const unsigned char*,unsigned long ,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,unsigned int,int,const unsigned char*,unsigned long ,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,unsigned int,int,const unsigned char*,unsigned long ,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_rand_uninstantiate(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (int (*)(void*) )opf->function;
+    return (int (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_rand_generate(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long ,unsigned int,int,const unsigned char*,unsigned long ) 
 {
-    return (int (*)(void*,unsigned char*,unsigned long ,unsigned int,int,const unsigned char*,unsigned long ) )opf->function;
+    return (int (*(*))(void*,unsigned char*,unsigned long ,unsigned int,int,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_rand_reseed(const struct ossl_dispatch_st*  opf  )))(void*,int,const unsigned char*,unsigned long ,const unsigned char*,unsigned long ) 
 {
-    return (int (*)(void*,int,const unsigned char*,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
+    return (int (*(*))(void*,int,const unsigned char*,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static unsigned long (*(*OSSL_FUNC_rand_nonce(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned int,unsigned long ,unsigned long ) 
 {
-    return (unsigned long (*)(void*,unsigned char*,unsigned int,unsigned long ,unsigned long ) )opf->function;
+    return (unsigned long (*(*))(void*,unsigned char*,unsigned int,unsigned long ,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_rand_enable_locking(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (int (*)(void*) )opf->function;
+    return (int (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_rand_lock(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (int (*)(void*) )opf->function;
+    return (int (*(*))(void*) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_rand_unlock(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*)(void*) )opf->function;
+    return (void (*(*))(void*) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_rand_gettable_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*)(void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_rand_gettable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*)(void*,void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_rand_settable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*)(void*,void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_rand_get_params(const struct ossl_dispatch_st*  opf  )))(struct ossl_param_st ) 
 {
-    return (int (*)(struct ossl_param_st ) )opf->function;
+    return (int (*(*))(struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_rand_get_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_param_st ) 
 {
-    return (int (*)(void*,struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_rand_set_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
-static void (*(*OSSL_FUNC_rand_set_callbacks(const struct ossl_dispatch_st*  opf  )))(void*,int (*)(const struct ossl_param_st ,struct ossl_param_st ,void*) ,int (*)(const struct ossl_param_st ,void*) ,int (*)(const struct ossl_param_st ,struct ossl_param_st ,void*) ,int (*)(const struct ossl_param_st ,void*) ,void*) 
+static void (*(*OSSL_FUNC_rand_set_callbacks(const struct ossl_dispatch_st*  opf  )))(void*,int (*(*))(const struct ossl_param_st ,struct ossl_param_st ,void*) ,int (*(*))(const struct ossl_param_st ,void*) ,int (*(*))(const struct ossl_param_st ,struct ossl_param_st ,void*) ,int (*(*))(const struct ossl_param_st ,void*) ,void*) 
 {
-    return (void (*)(void*,int (*)(const struct ossl_param_st ,struct ossl_param_st ,void*) ,int (*)(const struct ossl_param_st ,void*) ,int (*)(const struct ossl_param_st ,struct ossl_param_st ,void*) ,int (*)(const struct ossl_param_st ,void*) ,void*) )opf->function;
+    return (void (*(*))(void*,int (*(*))(const struct ossl_param_st ,struct ossl_param_st ,void*) ,int (*(*))(const struct ossl_param_st ,void*) ,int (*(*))(const struct ossl_param_st ,struct ossl_param_st ,void*) ,int (*(*))(const struct ossl_param_st ,void*) ,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_rand_verify_zeroization(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (int (*)(void*) )opf->function;
+    return (int (*(*))(void*) )opf->function;
 }
 
 static unsigned long (*(*OSSL_FUNC_rand_get_seed(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char**,int,unsigned long ,unsigned long ,int,const unsigned char*,unsigned long ) 
 {
-    return (unsigned long (*)(void*,unsigned char**,int,unsigned long ,unsigned long ,int,const unsigned char*,unsigned long ) )opf->function;
+    return (unsigned long (*(*))(void*,unsigned char**,int,unsigned long ,unsigned long ,int,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_rand_clear_seed(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long ) 
 {
-    return (void (*)(void*,unsigned char*,unsigned long ) )opf->function;
+    return (void (*(*))(void*,unsigned char*,unsigned long ) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_keymgmt_new(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*)(void*) )opf->function;
+    return (void* (*(*))(void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_keymgmt_gen_init(const struct ossl_dispatch_st*  opf  )))(void*,int,const struct ossl_param_st ) 
 {
-    return (void* (*)(void*,int,const struct ossl_param_st ) )opf->function;
+    return (void* (*(*))(void*,int,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_keymgmt_gen_set_template(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (int (*)(void*,void*) )opf->function;
+    return (int (*(*))(void*,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_keymgmt_gen_set_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_keymgmt_gen_settable_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*)(void*,void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_keymgmt_gen_get_params(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_param_st ) 
 {
-    return (int (*)(void*,struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_keymgmt_gen_gettable_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*)(void*,void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
-static void* (*(*OSSL_FUNC_keymgmt_gen(const struct ossl_dispatch_st*  opf  )))(void*,int (*)(const struct ossl_param_st ,void*) ,void*) 
+static void* (*(*OSSL_FUNC_keymgmt_gen(const struct ossl_dispatch_st*  opf  )))(void*,int (*(*))(const struct ossl_param_st ,void*) ,void*) 
 {
-    return (void* (*)(void*,int (*)(const struct ossl_param_st ,void*) ,void*) )opf->function;
+    return (void* (*(*))(void*,int (*(*))(const struct ossl_param_st ,void*) ,void*) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_keymgmt_gen_cleanup(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*)(void*) )opf->function;
+    return (void (*(*))(void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_keymgmt_load(const struct ossl_dispatch_st*  opf  )))(const void*,unsigned long ) 
 {
-    return (void* (*)(const void*,unsigned long ) )opf->function;
+    return (void* (*(*))(const void*,unsigned long ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_keymgmt_free(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*)(void*) )opf->function;
+    return (void (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_keymgmt_get_params(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_param_st ) 
 {
-    return (int (*)(void*,struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_keymgmt_gettable_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*)(void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_keymgmt_set_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_keymgmt_settable_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*)(void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static const char* (*(*OSSL_FUNC_keymgmt_query_operation_name(const struct ossl_dispatch_st*  opf  )))(int) 
 {
-    return (const char* (*)(int) )opf->function;
+    return (const char* (*(*))(int) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_keymgmt_has(const struct ossl_dispatch_st*  opf  )))(const void*,int) 
 {
-    return (int (*)(const void*,int) )opf->function;
+    return (int (*(*))(const void*,int) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_keymgmt_validate(const struct ossl_dispatch_st*  opf  )))(const void*,int,int) 
 {
-    return (int (*)(const void*,int,int) )opf->function;
+    return (int (*(*))(const void*,int,int) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_keymgmt_match(const struct ossl_dispatch_st*  opf  )))(const void*,const void*,int) 
 {
-    return (int (*)(const void*,const void*,int) )opf->function;
+    return (int (*(*))(const void*,const void*,int) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_keymgmt_import(const struct ossl_dispatch_st*  opf  )))(void*,int,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,int,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,int,const struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_keymgmt_import_types(const struct ossl_dispatch_st*  opf  )))(int) 
 {
-    return (const struct ossl_param_st* (*)(int) )opf->function;
+    return (const struct ossl_param_st* (*(*))(int) )opf->function;
 }
 
-static int (*(*OSSL_FUNC_keymgmt_export(const struct ossl_dispatch_st*  opf  )))(void*,int,int (*)(const struct ossl_param_st ,void*) ,void*) 
+static int (*(*OSSL_FUNC_keymgmt_export(const struct ossl_dispatch_st*  opf  )))(void*,int,int (*(*))(const struct ossl_param_st ,void*) ,void*) 
 {
-    return (int (*)(void*,int,int (*)(const struct ossl_param_st ,void*) ,void*) )opf->function;
+    return (int (*(*))(void*,int,int (*(*))(const struct ossl_param_st ,void*) ,void*) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_keymgmt_export_types(const struct ossl_dispatch_st*  opf  )))(int) 
 {
-    return (const struct ossl_param_st* (*)(int) )opf->function;
+    return (const struct ossl_param_st* (*(*))(int) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_keymgmt_dup(const struct ossl_dispatch_st*  opf  )))(const void*,int) 
 {
-    return (void* (*)(const void*,int) )opf->function;
+    return (void* (*(*))(const void*,int) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_keymgmt_import_types_ex(const struct ossl_dispatch_st*  opf  )))(void*,int) 
 {
-    return (const struct ossl_param_st* (*)(void*,int) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*,int) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_keymgmt_export_types_ex(const struct ossl_dispatch_st*  opf  )))(void*,int) 
 {
-    return (const struct ossl_param_st* (*)(void*,int) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*,int) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_keyexch_newctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*)(void*) )opf->function;
+    return (void* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_keyexch_init(const struct ossl_dispatch_st*  opf  )))(void*,void*,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,void*,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_keyexch_derive(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long* ,unsigned long ) 
 {
-    return (int (*)(void*,unsigned char*,unsigned long* ,unsigned long ) )opf->function;
+    return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_keyexch_set_peer(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (int (*)(void*,void*) )opf->function;
+    return (int (*(*))(void*,void*) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_keyexch_freectx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*)(void*) )opf->function;
+    return (void (*(*))(void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_keyexch_dupctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*)(void*) )opf->function;
+    return (void* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_keyexch_set_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_keyexch_settable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*)(void*,void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_keyexch_get_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_param_st ) 
 {
-    return (int (*)(void*,struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_keyexch_gettable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*)(void*,void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_signature_newctx(const struct ossl_dispatch_st*  opf  )))(void*,const char*) 
 {
-    return (void* (*)(void*,const char*) )opf->function;
+    return (void* (*(*))(void*,const char*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_sign_init(const struct ossl_dispatch_st*  opf  )))(void*,void*,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,void*,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_sign(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) 
 {
-    return (int (*)(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
+    return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_sign_message_init(const struct ossl_dispatch_st*  opf  )))(void*,void*,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,void*,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_sign_message_update(const struct ossl_dispatch_st*  opf  )))(void*,const unsigned char*,unsigned long ) 
 {
-    return (int (*)(void*,const unsigned char*,unsigned long ) )opf->function;
+    return (int (*(*))(void*,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_sign_message_final(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long* ,unsigned long ) 
 {
-    return (int (*)(void*,unsigned char*,unsigned long* ,unsigned long ) )opf->function;
+    return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_verify_init(const struct ossl_dispatch_st*  opf  )))(void*,void*,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,void*,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_verify(const struct ossl_dispatch_st*  opf  )))(void*,const unsigned char*,unsigned long ,const unsigned char*,unsigned long ) 
 {
-    return (int (*)(void*,const unsigned char*,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
+    return (int (*(*))(void*,const unsigned char*,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_verify_message_init(const struct ossl_dispatch_st*  opf  )))(void*,void*,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,void*,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_verify_message_update(const struct ossl_dispatch_st*  opf  )))(void*,const unsigned char*,unsigned long ) 
 {
-    return (int (*)(void*,const unsigned char*,unsigned long ) )opf->function;
+    return (int (*(*))(void*,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_verify_message_final(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (int (*)(void*) )opf->function;
+    return (int (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_verify_recover_init(const struct ossl_dispatch_st*  opf  )))(void*,void*,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,void*,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_verify_recover(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) 
 {
-    return (int (*)(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
+    return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_digest_sign_init(const struct ossl_dispatch_st*  opf  )))(void*,const char*,void*,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,const char*,void*,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,const char*,void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_digest_sign_update(const struct ossl_dispatch_st*  opf  )))(void*,const unsigned char*,unsigned long ) 
 {
-    return (int (*)(void*,const unsigned char*,unsigned long ) )opf->function;
+    return (int (*(*))(void*,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_digest_sign_final(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long* ,unsigned long ) 
 {
-    return (int (*)(void*,unsigned char*,unsigned long* ,unsigned long ) )opf->function;
+    return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_digest_sign(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) 
 {
-    return (int (*)(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
+    return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_digest_verify_init(const struct ossl_dispatch_st*  opf  )))(void*,const char*,void*,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,const char*,void*,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,const char*,void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_digest_verify_update(const struct ossl_dispatch_st*  opf  )))(void*,const unsigned char*,unsigned long ) 
 {
-    return (int (*)(void*,const unsigned char*,unsigned long ) )opf->function;
+    return (int (*(*))(void*,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_digest_verify_final(const struct ossl_dispatch_st*  opf  )))(void*,const unsigned char*,unsigned long ) 
 {
-    return (int (*)(void*,const unsigned char*,unsigned long ) )opf->function;
+    return (int (*(*))(void*,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_digest_verify(const struct ossl_dispatch_st*  opf  )))(void*,const unsigned char*,unsigned long ,const unsigned char*,unsigned long ) 
 {
-    return (int (*)(void*,const unsigned char*,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
+    return (int (*(*))(void*,const unsigned char*,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_signature_freectx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*)(void*) )opf->function;
+    return (void (*(*))(void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_signature_dupctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*)(void*) )opf->function;
+    return (void* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_get_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_param_st ) 
 {
-    return (int (*)(void*,struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_signature_gettable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*)(void*,void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_set_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_signature_settable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*)(void*,void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_get_ctx_md_params(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_param_st ) 
 {
-    return (int (*)(void*,struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_signature_gettable_ctx_md_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*)(void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_set_ctx_md_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_signature_settable_ctx_md_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*)(void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static const char** (*(*OSSL_FUNC_signature_query_key_types(const struct ossl_dispatch_st*  opf  )))() 
 {
-    return (const char** (*)() )opf->function;
+    return (const char** (*(*))() )opf->function;
 }
 
 static void (*(*OSSL_FUNC_skeymgmt_free(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*)(void*) )opf->function;
+    return (void (*(*))(void*) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_skeymgmt_imp_settable_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*)(void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_skeymgmt_import(const struct ossl_dispatch_st*  opf  )))(void*,int,const struct ossl_param_st ) 
 {
-    return (void* (*)(void*,int,const struct ossl_param_st ) )opf->function;
+    return (void* (*(*))(void*,int,const struct ossl_param_st ) )opf->function;
 }
 
-static int (*(*OSSL_FUNC_skeymgmt_export(const struct ossl_dispatch_st*  opf  )))(void*,int,int (*)(const struct ossl_param_st ,void*) ,void*) 
+static int (*(*OSSL_FUNC_skeymgmt_export(const struct ossl_dispatch_st*  opf  )))(void*,int,int (*(*))(const struct ossl_param_st ,void*) ,void*) 
 {
-    return (int (*)(void*,int,int (*)(const struct ossl_param_st ,void*) ,void*) )opf->function;
+    return (int (*(*))(void*,int,int (*(*))(const struct ossl_param_st ,void*) ,void*) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_skeymgmt_gen_settable_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*)(void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_skeymgmt_generate(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (void* (*)(void*,const struct ossl_param_st ) )opf->function;
+    return (void* (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
 static const char* (*(*OSSL_FUNC_skeymgmt_get_key_id(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const char* (*)(void*) )opf->function;
+    return (const char* (*(*))(void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_asym_cipher_newctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*)(void*) )opf->function;
+    return (void* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_asym_cipher_encrypt_init(const struct ossl_dispatch_st*  opf  )))(void*,void*,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,void*,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_asym_cipher_encrypt(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) 
 {
-    return (int (*)(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
+    return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_asym_cipher_decrypt_init(const struct ossl_dispatch_st*  opf  )))(void*,void*,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,void*,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_asym_cipher_decrypt(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) 
 {
-    return (int (*)(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
+    return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_asym_cipher_freectx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*)(void*) )opf->function;
+    return (void (*(*))(void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_asym_cipher_dupctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*)(void*) )opf->function;
+    return (void* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_asym_cipher_get_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_param_st ) 
 {
-    return (int (*)(void*,struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_asym_cipher_gettable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*)(void*,void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_asym_cipher_set_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_asym_cipher_settable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*)(void*,void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_kem_newctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*)(void*) )opf->function;
+    return (void* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_kem_encapsulate_init(const struct ossl_dispatch_st*  opf  )))(void*,void*,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,void*,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_kem_auth_encapsulate_init(const struct ossl_dispatch_st*  opf  )))(void*,void*,void*,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,void*,void*,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,void*,void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_kem_encapsulate(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long* ,unsigned char*,unsigned long* ) 
 {
-    return (int (*)(void*,unsigned char*,unsigned long* ,unsigned char*,unsigned long* ) )opf->function;
+    return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned char*,unsigned long* ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_kem_decapsulate_init(const struct ossl_dispatch_st*  opf  )))(void*,void*,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,void*,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_kem_auth_decapsulate_init(const struct ossl_dispatch_st*  opf  )))(void*,void*,void*,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,void*,void*,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,void*,void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_kem_decapsulate(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long* ,const unsigned char*,unsigned long ) 
 {
-    return (int (*)(void*,unsigned char*,unsigned long* ,const unsigned char*,unsigned long ) )opf->function;
+    return (int (*(*))(void*,unsigned char*,unsigned long* ,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_kem_freectx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*)(void*) )opf->function;
+    return (void (*(*))(void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_kem_dupctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*)(void*) )opf->function;
+    return (void* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_kem_get_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_param_st ) 
 {
-    return (int (*)(void*,struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_kem_gettable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*)(void*,void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_kem_set_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_kem_settable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*)(void*,void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_encoder_newctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*)(void*) )opf->function;
+    return (void* (*(*))(void*) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_encoder_freectx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*)(void*) )opf->function;
+    return (void (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_encoder_get_params(const struct ossl_dispatch_st*  opf  )))(struct ossl_param_st ) 
 {
-    return (int (*)(struct ossl_param_st ) )opf->function;
+    return (int (*(*))(struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_encoder_gettable_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*)(void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_encoder_set_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_encoder_settable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*)(void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_encoder_does_selection(const struct ossl_dispatch_st*  opf  )))(void*,int) 
 {
-    return (int (*)(void*,int) )opf->function;
+    return (int (*(*))(void*,int) )opf->function;
 }
 
-static int (*(*OSSL_FUNC_encoder_encode(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_core_bio_st* ,const void*,const struct ossl_param_st ,int,int (*)(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) 
+static int (*(*OSSL_FUNC_encoder_encode(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_core_bio_st* ,const void*,const struct ossl_param_st ,int,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) 
 {
-    return (int (*)(void*,struct ossl_core_bio_st* ,const void*,const struct ossl_param_st ,int,int (*)(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) )opf->function;
+    return (int (*(*))(void*,struct ossl_core_bio_st* ,const void*,const struct ossl_param_st ,int,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_encoder_import_object(const struct ossl_dispatch_st*  opf  )))(void*,int,const struct ossl_param_st ) 
 {
-    return (void* (*)(void*,int,const struct ossl_param_st ) )opf->function;
+    return (void* (*(*))(void*,int,const struct ossl_param_st ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_encoder_free_object(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*)(void*) )opf->function;
+    return (void (*(*))(void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_decoder_newctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*)(void*) )opf->function;
+    return (void* (*(*))(void*) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_decoder_freectx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*)(void*) )opf->function;
+    return (void (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_decoder_get_params(const struct ossl_dispatch_st*  opf  )))(struct ossl_param_st ) 
 {
-    return (int (*)(struct ossl_param_st ) )opf->function;
+    return (int (*(*))(struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_decoder_gettable_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*)(void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_decoder_set_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_decoder_settable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*)(void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_decoder_does_selection(const struct ossl_dispatch_st*  opf  )))(void*,int) 
 {
-    return (int (*)(void*,int) )opf->function;
+    return (int (*(*))(void*,int) )opf->function;
 }
 
-static int (*(*OSSL_FUNC_decoder_decode(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_core_bio_st* ,int,int (*)(const struct ossl_param_st ,void*) ,void*,int (*)(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) 
+static int (*(*OSSL_FUNC_decoder_decode(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_core_bio_st* ,int,int (*(*))(const struct ossl_param_st ,void*) ,void*,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) 
 {
-    return (int (*)(void*,struct ossl_core_bio_st* ,int,int (*)(const struct ossl_param_st ,void*) ,void*,int (*)(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) )opf->function;
+    return (int (*(*))(void*,struct ossl_core_bio_st* ,int,int (*(*))(const struct ossl_param_st ,void*) ,void*,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) )opf->function;
 }
 
-static int (*(*OSSL_FUNC_decoder_export_object(const struct ossl_dispatch_st*  opf  )))(void*,const void*,unsigned long ,int (*)(const struct ossl_param_st ,void*) ,void*) 
+static int (*(*OSSL_FUNC_decoder_export_object(const struct ossl_dispatch_st*  opf  )))(void*,const void*,unsigned long ,int (*(*))(const struct ossl_param_st ,void*) ,void*) 
 {
-    return (int (*)(void*,const void*,unsigned long ,int (*)(const struct ossl_param_st ,void*) ,void*) )opf->function;
+    return (int (*(*))(void*,const void*,unsigned long ,int (*(*))(const struct ossl_param_st ,void*) ,void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_store_open(const struct ossl_dispatch_st*  opf  )))(void*,const char*) 
 {
-    return (void* (*)(void*,const char*) )opf->function;
+    return (void* (*(*))(void*,const char*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_store_attach(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_core_bio_st* ) 
 {
-    return (void* (*)(void*,struct ossl_core_bio_st* ) )opf->function;
+    return (void* (*(*))(void*,struct ossl_core_bio_st* ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_store_settable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*)(void*) )opf->function;
+    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_store_set_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (int (*)(void*,const struct ossl_param_st ) )opf->function;
+    return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
-static int (*(*OSSL_FUNC_store_load(const struct ossl_dispatch_st*  opf  )))(void*,int (*)(const struct ossl_param_st ,void*) ,void*,int (*)(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) 
+static int (*(*OSSL_FUNC_store_load(const struct ossl_dispatch_st*  opf  )))(void*,int (*(*))(const struct ossl_param_st ,void*) ,void*,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) 
 {
-    return (int (*)(void*,int (*)(const struct ossl_param_st ,void*) ,void*,int (*)(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) )opf->function;
+    return (int (*(*))(void*,int (*(*))(const struct ossl_param_st ,void*) ,void*,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_store_eof(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (int (*)(void*) )opf->function;
+    return (int (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_store_close(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (int (*)(void*) )opf->function;
+    return (int (*(*))(void*) )opf->function;
 }
 
-static int (*(*OSSL_FUNC_store_export_object(const struct ossl_dispatch_st*  opf  )))(void*,const void*,unsigned long ,int (*)(const struct ossl_param_st ,void*) ,void*) 
+static int (*(*OSSL_FUNC_store_export_object(const struct ossl_dispatch_st*  opf  )))(void*,const void*,unsigned long ,int (*(*))(const struct ossl_param_st ,void*) ,void*) 
 {
-    return (int (*)(void*,const void*,unsigned long ,int (*)(const struct ossl_param_st ,void*) ,void*) )opf->function;
+    return (int (*(*))(void*,const void*,unsigned long ,int (*(*))(const struct ossl_param_st ,void*) ,void*) )opf->function;
 }
 
-static int (*(*OSSL_FUNC_store_delete(const struct ossl_dispatch_st*  opf  )))(void*,const char*,const struct ossl_param_st ,int (*)(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) 
+static int (*(*OSSL_FUNC_store_delete(const struct ossl_dispatch_st*  opf  )))(void*,const char*,const struct ossl_param_st ,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) 
 {
-    return (int (*)(void*,const char*,const struct ossl_param_st ,int (*)(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) )opf->function;
+    return (int (*(*))(void*,const char*,const struct ossl_param_st ,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) )opf->function;
 }
 
-static void* (*(*OSSL_FUNC_store_open_ex(const struct ossl_dispatch_st*  opf  )))(void*,const char*,const struct ossl_param_st ,int (*)(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) 
+static void* (*(*OSSL_FUNC_store_open_ex(const struct ossl_dispatch_st*  opf  )))(void*,const char*,const struct ossl_param_st ,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) 
 {
-    return (void* (*)(void*,const char*,const struct ossl_param_st ,int (*)(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) )opf->function;
+    return (void* (*(*))(void*,const char*,const struct ossl_param_st ,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) )opf->function;
 }
 
 static struct X509_algor_st*  ossl_check_X509_ALGOR_type(struct X509_algor_st*  ptr  )

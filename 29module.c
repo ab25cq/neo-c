@@ -2408,7 +2408,7 @@ _Bool node_compile(struct sNode* node, struct sInfo*  info  );
 _Bool node_conditional_compile(struct sNode* node, struct sInfo*  info  );
 int come_main(int argc, char** argv);
 char*  make_type_name_string(struct sType*  type  , struct sInfo*  info  , _Bool no_static, _Bool cast_type, _Bool typedef_extended);
-char*  make_come_type_name_string(struct sType*  type  );
+char*  make_come_type_name_string(struct sType*  type  , struct sInfo*  info  );
 char*  make_come_define_var(struct sType*  type  , char* name, struct sInfo*  info  );
 struct sType*  get_no_solved_type(struct sType*  type  );
 struct sType*  get_no_solved_type2(struct sType*  type  );
@@ -5584,14 +5584,14 @@ char*  reflection_node(struct sInfo*  info  )
         Value_45=(struct sFun* )come_increment_ref_count(map$2char$phsFun$ph_operator_load_element(info->funcs,exp_43));
         if(({(_conditional_value_X7=(Value_45));_conditional_value_X7;})) {
             __dec_obj47=result_44,
-            result_44=(char* )come_increment_ref_count(make_come_type_name_string(Value_45->mResultType));
+            result_44=(char* )come_increment_ref_count(make_come_type_name_string(Value_45->mResultType,info));
             __dec_obj47 = come_decrement_ref_count(__dec_obj47, (void*)0, (void*)0, 0,0, (void*)0);
         }
         come_call_finalizer(sFun_finalize, Value_45, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         Value_46=get_variable_from_table(info->gv_table,exp_43);
         if(Value_46) {
             __dec_obj48=result_44,
-            result_44=(char* )come_increment_ref_count(make_come_type_name_string(Value_46->mType));
+            result_44=(char* )come_increment_ref_count(make_come_type_name_string(Value_46->mType,info));
             __dec_obj48 = come_decrement_ref_count(__dec_obj48, (void*)0, (void*)0, 0,0, (void*)0);
         }
         if(result_44) {
@@ -5632,7 +5632,7 @@ char*  reflection_node(struct sInfo*  info  )
         Value_49=(struct sFun* )come_increment_ref_count(map$2char$phsFun$ph_operator_load_element(info->funcs,exp_47));
         if(({(_conditional_value_X8=(Value_49));_conditional_value_X8;})) {
             __dec_obj49=result_48,
-            result_48=(char* )come_increment_ref_count(make_come_type_name_string(Value_49->mResultType));
+            result_48=(char* )come_increment_ref_count(make_come_type_name_string(Value_49->mResultType,info));
             __dec_obj49 = come_decrement_ref_count(__dec_obj49, (void*)0, (void*)0, 0,0, (void*)0);
         }
         if(result_48) {
@@ -5683,7 +5683,7 @@ char*  reflection_node(struct sInfo*  info  )
             type=((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(Value_52->mParamTypes,atoi(exp2))));
             if(type) {
                 __dec_obj50=result_51,
-                result_51=(char* )come_increment_ref_count(make_come_type_name_string(type));
+                result_51=(char* )come_increment_ref_count(make_come_type_name_string(type,info));
                 __dec_obj50 = come_decrement_ref_count(__dec_obj50, (void*)0, (void*)0, 0,0, (void*)0);
             }
         }
@@ -5886,7 +5886,7 @@ char*  reflection_node(struct sInfo*  info  )
                     come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
                     if(type_71) {
                         __dec_obj54=result_69,
-                        result_69=(char* )come_increment_ref_count(make_come_type_name_string(type_71));
+                        result_69=(char* )come_increment_ref_count(make_come_type_name_string(type_71,info));
                         __dec_obj54 = come_decrement_ref_count(__dec_obj54, (void*)0, (void*)0, 0,0, (void*)0);
                     }
                     (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0));

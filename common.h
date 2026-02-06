@@ -800,7 +800,7 @@ bool node_compile(sNode* node, sInfo* info=info);
 bool node_conditional_compile(sNode* node, sInfo* info=info);
 int come_main(int argc, char** argv);
 string make_type_name_string(sType* type, sInfo* info=info, bool no_static=false, bool cast_type=false, bool typedef_extended=false);
-string make_come_type_name_string(sType* type)
+string make_come_type_name_string(sType* type, sInfo* info=info);
 string make_come_define_var(sType* type, char* name, sInfo* info=info);
 
 /////////////////////////////////////////////////////////////////////

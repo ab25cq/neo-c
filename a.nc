@@ -13,11 +13,7 @@ XXX
 
 int main(int argc, char** argv)
 {
-    struct data* d;
-    
-    int* a;
-    
-    d = a;
+    int (*a[12])(int, int);
     
     return 0;
 }

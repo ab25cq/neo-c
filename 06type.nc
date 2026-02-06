@@ -3267,27 +3267,27 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
     return t(type, var_name, true);
 }
 
-void show_type(sType* type)
+void show_type(sType* type, sInfo* info=info)
 {
     puts(make_come_type_name_string(type));
 }
 
-bool is_pointer_type(sType* type)
+bool is_pointer_type(sType* type, sInfo* info=info)
 {
     return type->mPointerNum > 0 || type->mArrayPointerNum > 0 || type->mArrayPointerNum > 0;
 }
 
-bool is_arithmetic_type(sType* type)
+bool is_arithmetic_type(sType* type, sInfo* info=info)
 {
     return type->mClass->mNumber || type->mClass->mFloat || type->mClass->mEnum;
 }
 
-bool is_integer_type(sType* type)
+bool is_integer_type(sType* type, sInfo* info=info)
 {
     return (type->mClass->mNumber && !type->mClass->mFloat) || type->mClass->mEnum;
 }
 
-bool is_null_pointer_constant(CVALUE* come_value)
+bool is_null_pointer_constant(CVALUE* come_value, sInfo* info=info)
 {
     if(come_value == null || come_value.c_value == null) {
         return false;
@@ -3308,7 +3308,7 @@ bool is_null_pointer_constant(CVALUE* come_value)
     return false;
 }
 
-bool pointer_attr_has_word(sType* type, const char* word)
+bool pointer_attr_has_word(sType* type, const char* word, sInfo* info=info)
 {
     if(type == null || type->mPointerAttribute == null || type->mPointerAttribute === "") {
         return false;
@@ -3317,17 +3317,17 @@ bool pointer_attr_has_word(sType* type, const char* word)
     return s.index(word, -1) != -1;
 }
 
-bool pointer_attr_has_restrict(sType* type)
+bool pointer_attr_has_restrict(sType* type, sInfo* info=info)
 {
     return pointer_attr_has_word(type, "restrict");
 }
 
-bool pointer_attr_has_const(sType* type)
+bool pointer_attr_has_const(sType* type, sInfo* info=info)
 {
     return pointer_attr_has_word(type, "const");
 }
 
-bool pointer_attr_has_volatile(sType* type)
+bool pointer_attr_has_volatile(sType* type, sInfo* info=info)
 {
     return pointer_attr_has_word(type, "volatile");
 }
