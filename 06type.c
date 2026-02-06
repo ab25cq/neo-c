@@ -10454,7 +10454,7 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
                 return __result_obj__0;
             }
             if(!is_same_base_type_ignoring_qualifier(left_type2,right_type2,info)) {
-                warning_msg(info,"invalid pointer base type. %s",msg);
+                err_msg(info,"invalid pointer base type. %s",msg);
                 __result_obj__0 = (_Bool)0;
                 come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -10516,7 +10516,7 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    warning_msg(info,"invalid assign type. %s",msg);
+    err_msg(info,"invalid assign type. %s",msg);
     __result_obj__0 = (_Bool)0;
     come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);

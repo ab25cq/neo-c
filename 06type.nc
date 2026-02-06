@@ -3558,7 +3558,7 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
             }
             
             if(!is_same_base_type_ignoring_qualifier(left_type2, right_type2)) {
-                warning_msg(info, "invalid pointer base type. %s", msg);
+                err_msg(info, "invalid pointer base type. %s", msg);
                 return false;
             }
             return true;
@@ -3592,7 +3592,7 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
         return true;
     }
     
-    warning_msg(info, "invalid assign type. %s", msg);
+    err_msg(info, "invalid assign type. %s", msg);
     return false;
 }
 

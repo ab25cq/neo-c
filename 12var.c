@@ -6144,7 +6144,7 @@ _conditional_value_X0;})) {
             }
             else {
                 if(var_==((void*)0)) {
-                    warning_msg(info,"The type of %s is not found. so can't check the heap type\n",self->name);
+                    warning_msg(info,"force to output variable and type checking is ignored. if it's heap varible cause memory leak");
                     come_value_76=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE* )come_increment_ref_count((struct CVALUE *)come_calloc(1, sizeof(struct CVALUE )*(1), (void*)0, 727, "struct CVALUE* "))));
                     __dec_obj99=come_value_76->c_value,
                     come_value_76->c_value=(char* )come_increment_ref_count(xsprintf("%s",self->name));

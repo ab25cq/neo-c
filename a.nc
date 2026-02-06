@@ -1,18 +1,18 @@
 #include <neo-c.h>
 
+using safe;
+
 struct data {
     int a;
 };
 
 int main(int argc, char** argv)
 {
-    char* a = borrow new char[123];
+    struct data* d;
     
-    char* b = a;
+    int* a;
     
-    struct data* d = b;
-    
-    delete a;
+    d = a;
     
     return 0;
 }

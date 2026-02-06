@@ -722,7 +722,7 @@ class sLoadNode extends sNodeBase
                 }
                 else {
                     if(var_ == null) {
-                        warning_msg(info, "The type of %s is not found. so can't check the heap type\n", self.name);
+                        warning_msg(info, "force to output variable and type checking is ignored. if it's heap varible cause memory leak");
                         
                         CVALUE*% come_value = new CVALUE();
                         
