@@ -2327,6 +2327,15 @@ static bool line_ends_with_func_macro(const char *s, const MacroTable *t) {
     return m && m->is_func;
 }
 
+static long count_lines_in_str(const char *s) {
+    if (!s || !*s) return 1;
+    long n = 1;
+    for (const char *p = s; *p; ++p) {
+        if (*p == '\n') n++;
+    }
+    return n;
+}
+
 static void emit_line_directive(FILE *out, long line, const char *path) {
     if (!out || !path || !*path) return;
     if (line < 1) line = 1;
@@ -2807,6 +2816,7 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
             sb_free(&nextline);
             raw = line.buf ? line.buf : "";
         }
+        long raw_lines = count_lines_in_str(raw);
 
         // Reinforce key Darwin macros before expanding code lines, in case headers undef them
         if (mtable_get(tbl, "__APPLE__")) {
@@ -3017,6 +3027,11 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                 }
                 pending_using_c = false;
             }
+        }
+
+        long out_lines = count_lines_in_str(outln.buf);
+        if (out_lines != raw_lines) {
+            need_line_directive_after = true;
         }
 
         if (has_prev) {

@@ -2,9 +2,14 @@
 
 using safe;
 
-struct data {
-    int a;
-};
+#module XXX
+{
+    struct data {
+        int a;
+    };
+}
+
+XXX
 
 int main(int argc, char** argv)
 {
