@@ -2664,7 +2664,7 @@ static void list$1sType$ph_operator_store_element(struct list$1sType$ph* self, i
 static struct list$1sType$ph* list$1sType$ph_replace(struct list$1sType$ph* self, int position, struct sType*  item  );
 static struct list$1sType$ph* list$1sType$ph_push_back(struct list$1sType$ph* self, struct sType*  item  );
 struct sType*  get_no_solved_type2(struct sType*  type  );
-char*  make_come_type_name_string(struct sType*  type  , struct sInfo*  info  );
+char*  make_come_type_name_string(struct sType*  type  );
 static struct sType*  list$1sType$ph$p_operator_load_element(struct list$1sType$ph* self, int position);
 static struct sType*  list$1sType$ph_operator_load_element(struct list$1sType$ph* self, int position);
 static char*  make_lambda_type_name_string(struct sType*  type  , char* var_name, struct sInfo*  info  );
@@ -4432,7 +4432,7 @@ struct sType*  get_no_solved_type2(struct sType*  type  )
     return __result_obj__0;
 }
 
-char*  make_come_type_name_string(struct sType*  type  , struct sInfo*  info  )
+char*  make_come_type_name_string(struct sType*  type  )
 {
     struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "make_come_type_name_string"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
@@ -4510,7 +4510,7 @@ char*  make_come_type_name_string(struct sType*  type  , struct sInfo*  info  )
             buffer_append_str(buf,"<");
             for(i_31=0;i_31<list$1sType$ph_length(type2->mGenericsTypes);i_31++){
                 gtype=((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(type2->mGenericsTypes,i_31)));
-                buffer_append_str(buf,((char* )(__right_value0=make_come_type_name_string(gtype,info))));
+                buffer_append_str(buf,((char* )(__right_value0=make_come_type_name_string(gtype))));
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                 if(i_31!=list$1sType$ph_length(type2->mGenericsTypes)-1) {
                     buffer_append_str(buf,",");
@@ -5402,7 +5402,7 @@ char*  make_come_define_var(struct sType*  type  , char* name, struct sInfo*  in
         (str_61 = come_decrement_ref_count(str_61, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     else if(type2->mArrayPointerNum>0) {
-        type_name=(char* )come_increment_ref_count(make_come_type_name_string(type2,info));
+        type_name=(char* )come_increment_ref_count(make_come_type_name_string(type2));
         buffer_append_format(buf,"%s (",type_name);
         ({        __current_stack4__.type_name = &type_name;
         __current_stack4__.type = &type;
@@ -5454,7 +5454,7 @@ char*  make_come_define_var(struct sType*  type  , char* name, struct sInfo*  in
         }
         come_value=(struct CVALUE* )come_increment_ref_count(get_value_from_stack(-1,info));
         __dec_obj43=type_str,
-        type_str=(char* )come_increment_ref_count(make_come_type_name_string(type2,info));
+        type_str=(char* )come_increment_ref_count(make_come_type_name_string(type2));
         __dec_obj43 = come_decrement_ref_count(__dec_obj43, (void*)0, (void*)0, 0,0, (void*)0);
         buffer_append_format(buf,"%s ",type_str);
         buffer_append_format(buf,"%s:%s",name,come_value->c_value);
@@ -5469,7 +5469,7 @@ char*  make_come_define_var(struct sType*  type  , char* name, struct sInfo*  in
     }
     else if(list$1sNode$ph_length(type2->mArrayNum)>0) {
         __dec_obj44=type_str_62,
-        type_str_62=(char* )come_increment_ref_count(make_come_type_name_string(type2,info));
+        type_str_62=(char* )come_increment_ref_count(make_come_type_name_string(type2));
         __dec_obj44 = come_decrement_ref_count(__dec_obj44, (void*)0, (void*)0, 0,0, (void*)0);
         buffer_append_str(buf,type_str_62);
         buffer_append_str(buf," ");
@@ -5505,7 +5505,7 @@ char*  make_come_define_var(struct sType*  type  , char* name, struct sInfo*  in
     }
     else {
         __dec_obj45=type_str_66,
-        type_str_66=(char* )come_increment_ref_count(make_come_type_name_string(type2,info));
+        type_str_66=(char* )come_increment_ref_count(make_come_type_name_string(type2));
         __dec_obj45 = come_decrement_ref_count(__dec_obj45, (void*)0, (void*)0, 0,0, (void*)0);
         if(string_operator_equals(type_str_66,"")) {
             __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));

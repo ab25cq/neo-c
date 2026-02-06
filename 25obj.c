@@ -2605,7 +2605,7 @@ _Bool node_compile(struct sNode* node, struct sInfo*  info  );
 _Bool node_conditional_compile(struct sNode* node, struct sInfo*  info  );
 int come_main(int argc, char** argv);
 char*  make_type_name_string(struct sType*  type  , struct sInfo*  info  , _Bool no_static, _Bool cast_type, _Bool typedef_extended);
-char*  make_come_type_name_string(struct sType*  type  , struct sInfo*  info  );
+char*  make_come_type_name_string(struct sType*  type  );
 char*  make_come_define_var(struct sType*  type  , char* name, struct sInfo*  info  );
 struct sType*  get_no_solved_type(struct sType*  type  );
 struct sType*  get_no_solved_type2(struct sType*  type  );
@@ -3202,7 +3202,7 @@ _Bool sNewNode_compile(struct sNewNode* self, struct sInfo*  info  )
     type2=(struct sType* )come_increment_ref_count(solve_method_generics(type2_,info));
     list$1sNode$ph_reset(type2->mArrayNum);
     type_name=(char* )come_increment_ref_count(make_type_name_string(type2,info,(_Bool)1,(_Bool)1,(_Bool)0));
-    type_name2=(char* )come_increment_ref_count(make_come_type_name_string(type2,info));
+    type_name2=(char* )come_increment_ref_count(make_come_type_name_string(type2));
     if(initializer_num) {
         static int var_num=1;
         var_num++;

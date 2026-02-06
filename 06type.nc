@@ -3267,6 +3267,11 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
     return t(type, var_name, true);
 }
 
+void show_type(sType* type)
+{
+    puts(make_come_type_name_string(type));
+}
+
 bool is_pointer_type(sType* type)
 {
     return type->mPointerNum > 0 || type->mArrayPointerNum > 0 || type->mArrayPointerNum > 0;
@@ -3482,10 +3487,14 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
     if(left_lambda || right_lambda) {
         if(!(left_lambda && right_lambda)) {
             warning_msg(info, "invalid lambda type assign. %s", msg);
+            show_type(left_type2);
+            show_type(right_type2);
             return false;
         }
         if(!is_same_type_ignoring_qualifier(left_type2, right_type2)) {
             warning_msg(info, "invalid lambda type assign. %s", msg);
+            show_type(left_type2);
+            show_type(right_type2);
             return false;
         }
         return true;
@@ -3506,6 +3515,8 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
             
             if(left_ptr_num != right_ptr_num && !(left_void || right_void)) {
                 warning_msg(info, "invalid pointer level. %s", msg);
+                show_type(left_type2);
+                show_type(right_type2);
                 return false;
             }
             
@@ -3513,18 +3524,24 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
             bool left_const = left_type2->mConstant || pointer_attr_has_const(left_type2);
             if(right_const && !left_const) {
                 warning_msg(info, "invalid const pointer assign. %s", msg);
+                show_type(left_type2);
+                show_type(right_type2);
                 return false;
             }
             bool right_volatile = right_type2->mVolatile || pointer_attr_has_volatile(right_type2);
             bool left_volatile = left_type2->mVolatile || pointer_attr_has_volatile(left_type2);
             if(right_volatile && !left_volatile) {
                 warning_msg(info, "invalid volatile pointer assign. %s", msg);
+                show_type(left_type2);
+                show_type(right_type2);
                 return false;
             }
             bool right_restrict = right_type2->mRestrict || pointer_attr_has_restrict(right_type2);
             bool left_restrict = left_type2->mRestrict || pointer_attr_has_restrict(left_type2);
             if(right_restrict && !left_restrict) {
                 warning_msg(info, "invalid restrict pointer assign. %s", msg);
+                show_type(left_type2);
+                show_type(right_type2);
                 return false;
             }
             
@@ -3552,6 +3569,8 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
             if(parent_class) {
                 if(left_ptr_num > 1) {
                     warning_msg(info, "invalid pointer level. %s", msg);
+                    show_type(left_type2);
+                    show_type(right_type2);
                     return false;
                 }
                 return true;
@@ -3559,6 +3578,8 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
             
             if(!is_same_base_type_ignoring_qualifier(left_type2, right_type2)) {
                 err_msg(info, "invalid pointer base type. %s", msg);
+                show_type(left_type2);
+                show_type(right_type2);
                 return false;
             }
             return true;
@@ -3568,10 +3589,14 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
                 return true;
             }
             warning_msg(info, "invalid assign pointer from non-pointer. %s", msg);
+            show_type(left_type2);
+            show_type(right_type2);
             return false;
         }
         else if(!left_ptr && (right_ptr || right_array)) {
             warning_msg(info, "invalid assign non-pointer from pointer. %s", msg);
+            show_type(left_type2);
+            show_type(right_type2);
             return false;
         }
     }
@@ -3593,6 +3618,8 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
     }
     
     err_msg(info, "invalid assign type. %s", msg);
+    show_type(left_type2);
+    show_type(right_type2);
     return false;
 }
 
@@ -3642,6 +3669,8 @@ bool check_assign_type(const char* msg, sType* left_type, sType* right_type, CVA
     if(left_type2->mPointerNum > 0 && (right_type->mArrayNum.length() > 0 || right_type->mArrayPointerNum > 0)) {
         if(!left_type2->mConstant && right_type->mConstant) {
             warning_msg(info , "type check warning(1).%s %s %d <- const %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type->mClass->mName, right_type->mPointerNum);
+            show_type(left_type2);
+            show_type(right_type2);
         }
         else if(left_type2->mClass->mName === right_type->mClass->mName) {
         }
@@ -3649,6 +3678,8 @@ bool check_assign_type(const char* msg, sType* left_type, sType* right_type, CVA
         }
         else {
             warning_msg(info , "type check warning(1).%s %s %d <- %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type->mClass->mName, right_type->mPointerNum);
+            show_type(left_type2);
+            show_type(right_type2);
         }
     }
     else if(left_type2->mPointerNum > 0 && right_type->mPointerNum == 0) {
@@ -3660,6 +3691,8 @@ bool check_assign_type(const char* msg, sType* left_type, sType* right_type, CVA
         }
         else {
             warning_msg(info , "type check warning(2).%s. %s %d <- %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type->mClass->mName, right_type->mPointerNum);
+            show_type(left_type2);
+            show_type(right_type2);
         }
     }
     else if(left_type2->mPointerNum == 0 && right_type->mPointerNum > 0) {
@@ -3671,6 +3704,8 @@ bool check_assign_type(const char* msg, sType* left_type, sType* right_type, CVA
         }
         else {
             warning_msg(info , "type check warning(3).%s. %s %d <- %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type->mClass->mName, right_type->mPointerNum);
+            show_type(left_type2);
+            show_type(right_type2);
         }
     }
     else if(left_type2->mPointerNum > 0 && right_type->mPointerNum > 0) {
@@ -3709,6 +3744,8 @@ bool check_assign_type(const char* msg, sType* left_type, sType* right_type, CVA
                     if((left->mClass->mName !== right->mClass->mName) || (left->mPointerNum != right->mPointerNum)) {
                         check_ = false;
                         warning_msg(info , "left child generics %s right child generics %s", left->mClass->mName, right->mClass->mName);
+                        show_type(left_type2);
+                        show_type(right_type2);
                     }
                 }
             }
@@ -3716,6 +3753,8 @@ bool check_assign_type(const char* msg, sType* left_type, sType* right_type, CVA
             
             if(!check_) {
                 warning_msg(info , "type check warning(4).%s. %s %d <- %s %d", msg, left_no_solved_generics_type->mClass->mName, left_type2->mPointerNum, right_no_solved_generics_type->mClass->mName, right_type2->mPointerNum);
+                show_type(left_type2);
+                show_type(right_type2);
             }
         }
         else if(strlen(left_type2->mClass->mName) >= strlen("tuple") 
@@ -3727,14 +3766,21 @@ bool check_assign_type(const char* msg, sType* left_type, sType* right_type, CVA
         }
         else if(!left_type2->mConstant && right_type->mConstant) {
             warning_msg(info , "type check warning(1).%s %s %d <- const %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type->mClass->mName, right_type->mPointerNum);
+            show_type(left_type2);
+            show_type(right_type2);
         }
         else if(parent_class) {
             if(left_type2->mPointerNum > 1) {
                 warning_msg(info , "invalid pointer level. %s", msg);
+                show_type(left_type2);
+                show_type(right_type2);
             }
         }
         else if(left_type2->mClass->mName !== right_type->mClass->mName && !flag_) {
             warning_msg(info , "type check warning(5).%s. %s %d <- %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type->mClass->mName, right_type->mPointerNum);
+            show_type(left_type2);
+            show_type(right_type2);
+            
         }
     }
     else if(left_type2->mPointerNum == 0 && right_type->mPointerNum == 0) {
@@ -3748,6 +3794,8 @@ bool check_assign_type(const char* msg, sType* left_type, sType* right_type, CVA
         }
         else {
             warning_msg(info , "type check warning(6).%s. %s %d <- %s %d", msg, left_type2->mClass->mName, left_type2->mPointerNum, right_type->mClass->mName, right_type->mPointerNum);
+            show_type(left_type2);
+            show_type(right_type2);
         }
     }
     

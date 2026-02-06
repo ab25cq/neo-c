@@ -2564,13 +2564,12 @@ _Bool node_compile(struct sNode* node, struct sInfo*  info  );
 _Bool node_conditional_compile(struct sNode* node, struct sInfo*  info  );
 int come_main(int argc, char** argv);
 char*  make_type_name_string(struct sType*  type  , struct sInfo*  info  , _Bool no_static, _Bool cast_type, _Bool typedef_extended);
-char*  make_come_type_name_string(struct sType*  type  , struct sInfo*  info  );
+char*  make_come_type_name_string(struct sType*  type  );
 char*  make_come_define_var(struct sType*  type  , char* name, struct sInfo*  info  );
 struct sType*  get_no_solved_type(struct sType*  type  );
 struct sType*  get_no_solved_type2(struct sType*  type  );
 char*  header_function(struct sFun*  fun  , struct sInfo*  info  );
 _Bool output_source_file(struct sInfo*  info  );
-void show_type(struct sType*  type  , struct sInfo*  info  );
 char*  create_generics_name(struct sType*  generics_type  , struct sInfo*  info  );
 void add_last_code_to_source(struct sInfo*  info  );
 void add_come_code_at_function_head(struct sInfo*  info  , const char* code, ...);
@@ -2861,6 +2860,7 @@ static struct list$1int$* list$1int$_push_back(struct list$1int$* self, int item
 void method_block2_06typenc(struct __current_stack2__* parent, struct sNode* it, int it2, _Bool* it3);
 void method_block3_06typenc(struct __current_stack3__* parent, struct sNode* it, int it2, _Bool* it3);
 static struct list$1sNode$ph* list$1sNode$ph_initialize_with_values(struct list$1sNode$ph* self, int num_value, struct sNode** values);
+void show_type(struct sType*  type  );
 _Bool is_pointer_type(struct sType*  type  );
 _Bool is_arithmetic_type(struct sType*  type  );
 _Bool is_integer_type(struct sType*  type  );
@@ -9877,6 +9877,15 @@ static struct list$1sNode$ph* list$1sNode$ph_initialize_with_values(struct list$
     return __result_obj__0;
 }
 
+void show_type(struct sType*  type  )
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "show_type"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
+    puts(((char* )(__right_value0=make_come_type_name_string(type))));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
+    neo_current_frame = fr.prev;
+}
+
 _Bool is_pointer_type(struct sType*  type  )
 {
     struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "is_pointer_type"; neo_current_frame = &fr;
@@ -10348,6 +10357,8 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
     if(left_lambda||right_lambda) {
         if(!(left_lambda&&right_lambda)) {
             warning_msg(info,"invalid lambda type assign. %s",msg);
+            show_type(left_type2);
+            show_type(right_type2);
             __result_obj__0 = (_Bool)0;
             come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -10356,6 +10367,8 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
         }
         if(!is_same_type_ignoring_qualifier(left_type2,right_type2,info)) {
             warning_msg(info,"invalid lambda type assign. %s",msg);
+            show_type(left_type2);
+            show_type(right_type2);
             __result_obj__0 = (_Bool)0;
             come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -10379,6 +10392,8 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
             right_void=string_operator_equals(right_type2->mClass->mName,"void");
             if(left_ptr_num!=right_ptr_num&&!(left_void||right_void)) {
                 warning_msg(info,"invalid pointer level. %s",msg);
+                show_type(left_type2);
+                show_type(right_type2);
                 __result_obj__0 = (_Bool)0;
                 come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -10389,6 +10404,8 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
             left_const=left_type2->mConstant||pointer_attr_has_const(left_type2);
             if(right_const&&!left_const) {
                 warning_msg(info,"invalid const pointer assign. %s",msg);
+                show_type(left_type2);
+                show_type(right_type2);
                 __result_obj__0 = (_Bool)0;
                 come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -10399,6 +10416,8 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
             left_volatile=left_type2->mVolatile||pointer_attr_has_volatile(left_type2);
             if(right_volatile&&!left_volatile) {
                 warning_msg(info,"invalid volatile pointer assign. %s",msg);
+                show_type(left_type2);
+                show_type(right_type2);
                 __result_obj__0 = (_Bool)0;
                 come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -10409,6 +10428,8 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
             left_restrict=left_type2->mRestrict||pointer_attr_has_restrict(left_type2);
             if(right_restrict&&!left_restrict) {
                 warning_msg(info,"invalid restrict pointer assign. %s",msg);
+                show_type(left_type2);
+                show_type(right_type2);
                 __result_obj__0 = (_Bool)0;
                 come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -10441,6 +10462,8 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
             if(parent_class) {
                 if(left_ptr_num>1) {
                     warning_msg(info,"invalid pointer level. %s",msg);
+                    show_type(left_type2);
+                    show_type(right_type2);
                     __result_obj__0 = (_Bool)0;
                     come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                     come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -10455,6 +10478,8 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
             }
             if(!is_same_base_type_ignoring_qualifier(left_type2,right_type2,info)) {
                 err_msg(info,"invalid pointer base type. %s",msg);
+                show_type(left_type2);
+                show_type(right_type2);
                 __result_obj__0 = (_Bool)0;
                 come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -10476,6 +10501,8 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
                 return __result_obj__0;
             }
             warning_msg(info,"invalid assign pointer from non-pointer. %s",msg);
+            show_type(left_type2);
+            show_type(right_type2);
             __result_obj__0 = (_Bool)0;
             come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -10484,6 +10511,8 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
         }
         else if(!left_ptr&&(right_ptr||right_array)) {
             warning_msg(info,"invalid assign non-pointer from pointer. %s",msg);
+            show_type(left_type2);
+            show_type(right_type2);
             __result_obj__0 = (_Bool)0;
             come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -10517,6 +10546,8 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
         return __result_obj__0;
     }
     err_msg(info,"invalid assign type. %s",msg);
+    show_type(left_type2);
+    show_type(right_type2);
     __result_obj__0 = (_Bool)0;
     come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -10583,6 +10614,8 @@ _Bool check_assign_type(const char* msg, struct sType*  left_type  , struct sTyp
     if(left_type2->mPointerNum>0&&(list$1sNode$ph_length(right_type->mArrayNum)>0||right_type->mArrayPointerNum>0)) {
         if(!left_type2->mConstant&&right_type->mConstant) {
             warning_msg(info,"type check warning(1).%s %s %d <- const %s %d",msg,left_type2->mClass->mName,left_type2->mPointerNum,right_type->mClass->mName,right_type->mPointerNum);
+            show_type(left_type2);
+            show_type(right_type2);
         }
         else if(string_operator_equals(left_type2->mClass->mName,right_type->mClass->mName)) {
         }
@@ -10590,6 +10623,8 @@ _Bool check_assign_type(const char* msg, struct sType*  left_type  , struct sTyp
         }
         else {
             warning_msg(info,"type check warning(1).%s %s %d <- %s %d",msg,left_type2->mClass->mName,left_type2->mPointerNum,right_type->mClass->mName,right_type->mPointerNum);
+            show_type(left_type2);
+            show_type(right_type2);
         }
     }
     else if(left_type2->mPointerNum>0&&right_type->mPointerNum==0) {
@@ -10601,6 +10636,8 @@ _Bool check_assign_type(const char* msg, struct sType*  left_type  , struct sTyp
         }
         else {
             warning_msg(info,"type check warning(2).%s. %s %d <- %s %d",msg,left_type2->mClass->mName,left_type2->mPointerNum,right_type->mClass->mName,right_type->mPointerNum);
+            show_type(left_type2);
+            show_type(right_type2);
         }
     }
     else if(left_type2->mPointerNum==0&&right_type->mPointerNum>0) {
@@ -10612,6 +10649,8 @@ _Bool check_assign_type(const char* msg, struct sType*  left_type  , struct sTyp
         }
         else {
             warning_msg(info,"type check warning(3).%s. %s %d <- %s %d",msg,left_type2->mClass->mName,left_type2->mPointerNum,right_type->mClass->mName,right_type->mPointerNum);
+            show_type(left_type2);
+            show_type(right_type2);
         }
     }
     else if(left_type2->mPointerNum>0&&right_type->mPointerNum>0) {
@@ -10647,11 +10686,15 @@ _Bool check_assign_type(const char* msg, struct sType*  left_type  , struct sTyp
                     if((string_operator_not_equals(left->mClass->mName,right->mClass->mName))||(left->mPointerNum!=right->mPointerNum)) {
                         check_=(_Bool)0;
                         warning_msg(info,"left child generics %s right child generics %s",left->mClass->mName,right->mClass->mName);
+                        show_type(left_type2);
+                        show_type(right_type2);
                     }
                 }
             }
             if(!check_) {
                 warning_msg(info,"type check warning(4).%s. %s %d <- %s %d",msg,left_no_solved_generics_type->mClass->mName,left_type2->mPointerNum,right_no_solved_generics_type->mClass->mName,right_type2->mPointerNum);
+                show_type(left_type2);
+                show_type(right_type2);
             }
         }
         else if(strlen(left_type2->mClass->mName)>=strlen("tuple")&&memcmp(left_type2->mClass->mName,"tuple",strlen("tuple"))==0&&(strlen(right_type->mClass->mName)>=strlen("tuple"))) {
@@ -10660,14 +10703,20 @@ _Bool check_assign_type(const char* msg, struct sType*  left_type  , struct sTyp
         }
         else if(!left_type2->mConstant&&right_type->mConstant) {
             warning_msg(info,"type check warning(1).%s %s %d <- const %s %d",msg,left_type2->mClass->mName,left_type2->mPointerNum,right_type->mClass->mName,right_type->mPointerNum);
+            show_type(left_type2);
+            show_type(right_type2);
         }
         else if(parent_class) {
             if(left_type2->mPointerNum>1) {
                 warning_msg(info,"invalid pointer level. %s",msg);
+                show_type(left_type2);
+                show_type(right_type2);
             }
         }
         else if(string_operator_not_equals(left_type2->mClass->mName,right_type->mClass->mName)&&!flag_) {
             warning_msg(info,"type check warning(5).%s. %s %d <- %s %d",msg,left_type2->mClass->mName,left_type2->mPointerNum,right_type->mClass->mName,right_type->mPointerNum);
+            show_type(left_type2);
+            show_type(right_type2);
         }
     }
     else if(left_type2->mPointerNum==0&&right_type->mPointerNum==0) {
@@ -10681,6 +10730,8 @@ _Bool check_assign_type(const char* msg, struct sType*  left_type  , struct sTyp
         }
         else {
             warning_msg(info,"type check warning(6).%s. %s %d <- %s %d",msg,left_type2->mClass->mName,left_type2->mPointerNum,right_type->mClass->mName,right_type->mPointerNum);
+            show_type(left_type2);
+            show_type(right_type2);
         }
     }
     __result_obj__0 = (_Bool)1;

@@ -269,7 +269,7 @@ sType*% get_no_solved_type2(sType* type)
     return result;
 }
 
-string make_come_type_name_string(sType* type, sInfo* info=info)
+string make_come_type_name_string(sType* type)
 {
     var buf = new buffer();
     
