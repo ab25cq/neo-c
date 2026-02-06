@@ -2216,7 +2216,7 @@ char*  charp_operator_add(const char* self, const char* right);
 char*  string_operator_add(char* self, const char* right);
 char*  charp_operator_mult(const char* self, int right);
 char*  string_operator_mult(const char* self, int right);
-_Bool charpa_contained(char** self, unsigned long  len  , const char* str);
+_Bool charpa_contained(const char* self[], unsigned long  len  , const char* str);
 unsigned long  shorta_length(short* self, unsigned long  len  );
 unsigned long  inta_length(int* self, unsigned long  len  );
 unsigned long  longa_length(long* self, unsigned long  len  );
@@ -9883,7 +9883,6 @@ void show_type(struct sType*  type  , struct sInfo*  info  )
     void* __right_value0 = (void*)0;
     puts(((char* )(__right_value0=make_come_type_name_string(type,info))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-    printf("%d",type->mArrayPointerType);
     neo_current_frame = fr.prev;
 }
 
@@ -10314,10 +10313,12 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
     struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "check_assign_type_safe"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     struct sType*  left_type2  ;
+    _Bool use_original;
     struct sType*  tmp  ;
     struct sType*  __dec_obj256  ;
     struct sType*  right_type2  ;
-    struct sType*  tmp_129  ;
+    _Bool use_original_129;
+    struct sType*  tmp_130  ;
     struct sType*  __dec_obj257  ;
     _Bool left_lambda;
     _Bool right_lambda;
@@ -10339,19 +10340,25 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
     struct sClass*  klass  ;
     left_type2=(struct sType* )come_increment_ref_count(sType_clone(left_type));
     if(left_type2->mOriginalLoadVarType) {
-        tmp=(struct sType* )come_increment_ref_count(left_type2->mOriginalLoadVarType);
-        __dec_obj256=left_type2,
-        left_type2=(struct sType* )come_increment_ref_count(sType_clone(tmp));
-        come_call_finalizer(sType_finalize, __dec_obj256,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-        come_call_finalizer(sType_finalize, tmp, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+        use_original=left_type2->mArrayPointerNum>0&&list$1sNode$ph_length(left_type2->mArrayNum)==0&&left_type2->mPointerNum==0;
+        if(use_original) {
+            tmp=(struct sType* )come_increment_ref_count(left_type2->mOriginalLoadVarType);
+            __dec_obj256=left_type2,
+            left_type2=(struct sType* )come_increment_ref_count(sType_clone(tmp));
+            come_call_finalizer(sType_finalize, __dec_obj256,(void*)0, (void*)0, 0, 0, 0, (void*)0);
+            come_call_finalizer(sType_finalize, tmp, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+        }
     }
     right_type2=(struct sType* )come_increment_ref_count(sType_clone(right_type));
     if(right_type2->mOriginalLoadVarType) {
-        tmp_129=(struct sType* )come_increment_ref_count(right_type2->mOriginalLoadVarType);
-        __dec_obj257=right_type2,
-        right_type2=(struct sType* )come_increment_ref_count(sType_clone(tmp_129));
-        come_call_finalizer(sType_finalize, __dec_obj257,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-        come_call_finalizer(sType_finalize, tmp_129, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+        use_original_129=right_type2->mArrayPointerNum>0&&list$1sNode$ph_length(right_type2->mArrayNum)==0&&right_type2->mPointerNum==0;
+        if(use_original_129) {
+            tmp_130=(struct sType* )come_increment_ref_count(right_type2->mOriginalLoadVarType);
+            __dec_obj257=right_type2,
+            right_type2=(struct sType* )come_increment_ref_count(sType_clone(tmp_130));
+            come_call_finalizer(sType_finalize, __dec_obj257,(void*)0, (void*)0, 0, 0, 0, (void*)0);
+            come_call_finalizer(sType_finalize, tmp_130, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+        }
     }
     left_lambda=string_operator_equals(left_type2->mClass->mName,"lambda");
     right_lambda=string_operator_equals(right_type2->mClass->mName,"lambda");
@@ -10384,11 +10391,11 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
     }
     left_ptr=is_pointer_type(left_type2,info);
     right_ptr=is_pointer_type(right_type2,info);
-    right_array=list$1sNode$ph_length(right_type2->mArrayNum)>0;
+    right_array=list$1sNode$ph_length(right_type2->mArrayNum)>0&&right_type2->mPointerNum==0&&right_type2->mArrayPointerNum==0;
     if(left_ptr||right_ptr||right_array) {
         if(left_ptr&&(right_ptr||right_array)) {
-            left_ptr_num=left_type2->mPointerNum;
-            right_ptr_num=right_type2->mPointerNum+(((right_array)?(1):(0)));
+            left_ptr_num=left_type2->mPointerNum+(((left_type2->mPointerNum==0)?(left_type2->mArrayPointerNum):(0)));
+            right_ptr_num=right_type2->mPointerNum+(((right_type2->mPointerNum==0)?(right_type2->mArrayPointerNum):(0)))+(((right_array)?(1):(0)));
             left_void=string_operator_equals(left_type2->mClass->mName,"void");
             right_void=string_operator_equals(right_type2->mClass->mName,"void");
             if(left_ptr_num!=right_ptr_num&&!(left_void||right_void)) {

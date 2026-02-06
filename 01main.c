@@ -2405,7 +2405,7 @@ char*  charp_operator_add(const char* self, const char* right);
 char*  string_operator_add(char* self, const char* right);
 char*  charp_operator_mult(const char* self, int right);
 char*  string_operator_mult(const char* self, int right);
-_Bool charpa_contained(char** self, unsigned long  len  , const char* str);
+_Bool charpa_contained(const char* self[], unsigned long  len  , const char* str);
 unsigned long  shorta_length(short* self, unsigned long  len  );
 unsigned long  inta_length(int* self, unsigned long  len  );
 unsigned long  longa_length(long* self, unsigned long  len  );
@@ -5030,7 +5030,7 @@ char*  string_operator_mult(const char* self, int right)
     return __result_obj__0;
 }
 
-_Bool charpa_contained(char** self, unsigned long  len  , const char* str)
+_Bool charpa_contained(const char* self[], unsigned long  len  , const char* str)
 {
     struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "charpa_contained"; neo_current_frame = &fr;
     _Bool result;

@@ -2253,7 +2253,7 @@ sNode*% expression_node(sInfo* info=info) version 98
         
         bool is_type_name_ = is_type_name(buf);
         
-        static char* is_special_word_array[25] = { "if", "while", "for", "switch", "return", "sizeof", "offsetof", "isheap", "ispointer", "__typeof__"
+        static const char* is_special_word_array[25] = { "if", "while", "for", "switch", "return", "sizeof", "offsetof", "isheap", "ispointer", "__typeof__"
                                     , "dynamic_typeof", "typeof", "gc_inc", "gc_dec", "gc_dec_nofree", "case", "_Alignof"
                                     , "_Alignas", "__alignof__", "_Atomic", "borrow", "dupe", "clone", "__builtin_offsetof", "_Generic" }
                                     

@@ -669,28 +669,31 @@ string output_lambda_original_type(sType* type2, char* name, sInfo* info=info)
             buf.append_format(")");
         }
         
-        int n = 0;
-        foreach(it, type2->mArrayNum) {
-            if(!node_compile(it)) {
-                err_msg(info, "invalid array number");
-                return string("");
-            }
-            CVALUE*% cvalue = get_value_from_stack(-1, info);
-        
-            if(type2->mArrayRestrict[n] && type2->mArrayStatic[n]) {
-                buf.append_format("[restrict static %s]", cvalue.c_value);
-            }
-            else if(type2->mArrayStatic[n]) {
-                buf.append_format("[static %s]", cvalue.c_value);
-            }
-            else if(type2->mArrayRestrict[n]) {
-                buf.append_format("[restrict %s]", cvalue.c_value);
-            }
-            else {
-                buf.append_format("[%s]", cvalue.c_value);
-            }
+        if(type2->mArrayNum.length() > 0)
+        {
+            int n = 0;
+            foreach(it, type2->mArrayNum) {
+                if(!node_compile(it)) {
+                    err_msg(info, "invalid array number");
+                    return string("");
+                }
+                CVALUE*% cvalue = get_value_from_stack(-1, info);
             
-            n++;
+                if(type2->mArrayRestrict[n] && type2->mArrayStatic[n]) {
+                    buf.append_format("[restrict static %s]", cvalue.c_value);
+                }
+                else if(type2->mArrayStatic[n]) {
+                    buf.append_format("[static %s]", cvalue.c_value);
+                }
+                else if(type2->mArrayRestrict[n]) {
+                    buf.append_format("[restrict %s]", cvalue.c_value);
+                }
+                else {
+                    buf.append_format("[%s]", cvalue.c_value);
+                }
+                
+                n++;
+            }
         }
         
         if(type2->mArrayPointerType) {
@@ -720,7 +723,7 @@ string output_lambda_original_type(sType* type2, char* name, sInfo* info=info)
 
 string make_define_var(sType* type, char* name, sInfo* info=info, bool no_static=false, bool in_typedef=false)
 {
-    var buf = new buffer();
+   var buf = new buffer();
     
     sType*% type2 = clone type;
     

@@ -3616,7 +3616,7 @@ uniq size_t char[]::length(const char* self, size_t len)
     return len;
 }
 
-uniq bool char*[]::contained(char** self, size_t len, const char* str) 
+uniq bool char*[]::contained(const char* self[], size_t len, const char* str) 
 {
     bool result = false;
     if(self == null) {

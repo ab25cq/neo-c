@@ -3270,7 +3270,6 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
 void show_type(sType* type, sInfo* info=info)
 {
     puts(make_come_type_name_string(type));
-printf("%d", type->mArrayPointerType);
 }
 
 bool is_pointer_type(sType* type, sInfo* info=info)
@@ -3473,13 +3472,23 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
 {
     sType*% left_type2 = clone left_type;
     if(left_type2->mOriginalLoadVarType) {
-        sType*% tmp = left_type2->mOriginalLoadVarType;
-        left_type2 = clone tmp;
+        bool use_original = left_type2->mArrayPointerNum > 0
+            && left_type2->mArrayNum.length() == 0
+            && left_type2->mPointerNum == 0;
+        if(use_original) {
+            sType*% tmp = left_type2->mOriginalLoadVarType;
+            left_type2 = clone tmp;
+        }
     }
     sType*% right_type2 = clone right_type;
     if(right_type2->mOriginalLoadVarType) {
-        sType*% tmp = right_type2->mOriginalLoadVarType;
-        right_type2 = clone tmp;
+        bool use_original = right_type2->mArrayPointerNum > 0
+            && right_type2->mArrayNum.length() == 0
+            && right_type2->mPointerNum == 0;
+        if(use_original) {
+            sType*% tmp = right_type2->mOriginalLoadVarType;
+            right_type2 = clone tmp;
+        }
     }
     
     bool left_lambda = left_type2->mClass->mName === "lambda";
@@ -3504,12 +3513,17 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
     
     bool left_ptr = is_pointer_type(left_type2);
     bool right_ptr = is_pointer_type(right_type2);
-    bool right_array = right_type2->mArrayNum.length() > 0;
+    bool right_array = right_type2->mArrayNum.length() > 0
+        && right_type2->mPointerNum == 0
+        && right_type2->mArrayPointerNum == 0;
     
     if(left_ptr || right_ptr || right_array) {
         if(left_ptr && (right_ptr || right_array)) {
-            int left_ptr_num = left_type2->mPointerNum;
-            int right_ptr_num = right_type2->mPointerNum + (right_array ? 1 : 0);
+            int left_ptr_num = left_type2->mPointerNum
+                + (left_type2->mPointerNum == 0 ? left_type2->mArrayPointerNum : 0);
+            int right_ptr_num = right_type2->mPointerNum
+                + (right_type2->mPointerNum == 0 ? right_type2->mArrayPointerNum : 0)
+                + (right_array ? 1 : 0);
             
             bool left_void = left_type2->mClass->mName === "void";
             bool right_void = right_type2->mClass->mName === "void";

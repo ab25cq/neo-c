@@ -44,7 +44,7 @@ impl come_mutex<T>
 
 uniq pthread_mutex_t gComeHeapMutex = PTHREAD_MUTEX_INITIALIZER;
 
-uniq void* come_calloc(size_t count, size_t size, char* sname=null, int sline=0, char* class_name="") version 2
+uniq void* come_calloc(size_t count, size_t size, const char* sname=null, int sline=0, const char* class_name="") version 2
 {
     pthread_mutex_lock(&gComeHeapMutex);
     void* result = inherit(count, size, sname, sline, class_name);

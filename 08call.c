@@ -2192,7 +2192,7 @@ char*  charp_operator_add(const char* self, const char* right);
 char*  string_operator_add(char* self, const char* right);
 char*  charp_operator_mult(const char* self, int right);
 char*  string_operator_mult(const char* self, int right);
-_Bool charpa_contained(char** self, unsigned long  len  , const char* str);
+_Bool charpa_contained(const char* self[], unsigned long  len  , const char* str);
 unsigned long  shorta_length(short* self, unsigned long  len  );
 unsigned long  inta_length(int* self, unsigned long  len  );
 unsigned long  longa_length(long* self, unsigned long  len  );
@@ -9925,7 +9925,7 @@ struct sNode* expression_node_v98(struct sInfo*  info  )
         info->sline_real=info->sline;
         buf=(char* )come_increment_ref_count(backtrace_parse_word(info));
         is_type_name_=is_type_name(buf,info);
-        static char* is_special_word_array[25]={ "if", "while", "for", "switch", "return", "sizeof", "offsetof", "isheap", "ispointer", "__typeof__"
+        static const char* is_special_word_array[25]={ "if", "while", "for", "switch", "return", "sizeof", "offsetof", "isheap", "ispointer", "__typeof__"
                                     , "dynamic_typeof", "typeof", "gc_inc", "gc_dec", "gc_dec_nofree", "case", "_Alignof"
                                     , "_Alignas", "__alignof__", "_Atomic", "borrow", "dupe", "clone", "__builtin_offsetof", "_Generic" };
         is_special_word=charpa_contained(is_special_word_array,25,buf);
