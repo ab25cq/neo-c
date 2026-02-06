@@ -301,14 +301,14 @@ It's a destructor. Called when automatically deleted or manually deleted.
 デストラクターです。自動的に消去される場合、手動でdeleteする場合に呼ばれます。
 
 ```C
-list<int>* li = borrow gc_inc(new list<int>());
+list<int>* li = borrow new list<int>();
 li.add(1).add(2).add(3);
 delete li;  // finalize is called. finalizeが呼ばれる
 ```
 
-gc_inc increments the heap reference count by 1. borrow removes the heap from being automatically released and allows it to be assigned to a variable without a %. In this case the heap is managed manually and memory leaks will occur if you don't delete it. If a memory leak occurs When you run the program, the number of memory leaks will be displayed.  the stack frame at the location of the source file where the heap was generated will be displayed. I think it's easy to debug.
+borrow removes the heap from being automatically released and allows it to be assigned to a variable without a %. In this case the heap is managed manually and memory leaks will occur if you don't delete it. If a memory leak occurs When you run the program, the number of memory leaks will be displayed.  the stack frame at the location of the source file where the heap was generated will be displayed. I think it's easy to debug.
 
-gc_incはヒープのリファレンスカウントを+1します。borrowはヒープの自動解放対象から外し、%をつけない変数に代入できるようにします。この場合ヒープは手動で管理されて、deleteしないとメモリリークが発生します。 メモリリークが発生した場合プログラムを実行するとメモリリークの回数が表示されます。もしメモリリークがあるとソースファイルの位置のスタックフレームが表示されます。デバッグも容易だと思います。
+borrowはヒープの自動解放対象から外し、%をつけない変数に代入できるようにします。この場合ヒープは手動で管理されて、deleteしないとメモリリークが発生します。 メモリリークが発生した場合プログラムを実行するとメモリリークの回数が表示されます。もしメモリリークがあるとソースファイルの位置のスタックフレームが表示されます。デバッグも容易だと思います。
 
 ```C
 list<T>*% clone(list<T>* self)
@@ -2834,14 +2834,36 @@ int main(){
     int a = 7;
     __type__(std::list<int>) lst;
 
-        lst.push_back(a);
-        lst.push_back(2);
-        lst.push_back(3);
+    lst.push_back(a);
+    lst.push_back(2);
+    lst.push_back(3);
 
     __c__ {
         for (int v : lst) {
             std::cout << v << std::endl;
         }
+    }
+
+    return 0;
+}
+```
+
+```
+c_include {# include <iostream>}
+c_include {# include <list>}
+
+int main(){
+    int a = 7;
+    __c__ {
+    std::list<int>) lst;
+
+    lst.push_back(a);
+    lst.push_back(2);
+    lst.push_back(3);
+
+    for (int v : lst) {
+        std::cout << v << std::endl;
+    }
     }
 
     return 0;
