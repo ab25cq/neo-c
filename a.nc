@@ -1,21 +1,23 @@
 #include <neo-c.h>
 
-using safe;
+#include <neo-c.h>
 
-#module XXX
-{
-    struct data {
-        int a;
-    };
-}
-
-XXX
 
 int main(int argc, char** argv)
 {
-    int a[2];
+    buffer*% buf = new buffer();
     
-    int b = a[1];
+    buf.append_str("ABC");
+    
+    var p = buf.to_pointer();
+    
+    printf("%c\n", *p);
+    
+    p + 1;
+    
+    printf("%c\n", *p);
+    
+    p + 5;
     
     return 0;
 }

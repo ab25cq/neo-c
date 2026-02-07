@@ -731,6 +731,30 @@ struct sMemHeader
     const char* class_name;
 };
 
+struct smart_pointer$1char$
+{
+    struct buffer*  memory  ;
+    char* p;
+};
+
+struct smart_pointer$1int$
+{
+    struct buffer*  memory  ;
+    int* p;
+};
+
+struct smart_pointer$1short$
+{
+    struct buffer*  memory  ;
+    short* p;
+};
+
+struct smart_pointer$1long$
+{
+    struct buffer*  memory  ;
+    long* p;
+};
+
 struct list_item$1char$
 {
     char item;
@@ -1966,6 +1990,10 @@ void* come_decrement_ref_count(void* mem, void* protocol_fun, void* protocol_obj
 void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* protocol_obj, int call_finalizer_only, int no_decrement, int no_free, void* result_obj);
 void xassert(const char* msg, _Bool test);
 char*  __builtin_string(const char* str);
+struct smart_pointer$1char$* buffer_to_pointer(struct buffer*  self  );
+struct smart_pointer$1int$* buffer_to_int_pointer(struct buffer*  self  );
+struct smart_pointer$1short$* buffer_to_short_pointer(struct buffer*  self  );
+struct smart_pointer$1long$* buffer_to_long_pointer(struct buffer*  self  );
 struct buffer*  buffer_initialize(struct buffer*  self  );
 struct buffer*  buffer_initialize_with_value(struct buffer*  self  , const char* mem, unsigned long  size  );
 void buffer_finalize(struct buffer*  self  );

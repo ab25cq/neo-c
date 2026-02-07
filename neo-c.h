@@ -546,6 +546,287 @@ uniq string __builtin_string(const char* str)
 #endif
 
 //////////////////////////////
+// smart_pointer
+//////////////////////////////
+struct smart_pointer<T> {
+    buffer*% memory;
+    T* p;
+};
+
+uniq smart_pointer<char>*% buffer*::to_pointer(buffer* self)
+{
+    auto result = new smart_pointer<char>;
+    
+    result.memory = clone self;
+    result.p = borrow result.memory.buf;
+    
+    return result;
+}
+
+uniq smart_pointer<int>*% buffer*::to_int_pointer(buffer* self)
+{
+    auto result = new smart_pointer<int>;
+    
+    result.memory = clone self;
+    result.p = (int*)borrow result.memory.buf;
+    
+    return result;
+}
+
+uniq smart_pointer<short>*% buffer*::to_short_pointer(buffer* self)
+{
+    auto result = new smart_pointer<short>;
+    
+    result.memory = clone self;
+    result.p = (short*)borrow result.memory.buf;
+    
+    return result;
+}
+
+uniq smart_pointer<long>*% buffer*::to_long_pointer(buffer* self)
+{
+    auto result = new smart_pointer<long>;
+    
+    result.memory = clone self;
+    result.p = (long*)borrow result.memory.buf;
+    
+    return result;
+}
+
+impl smart_pointer<T>
+{
+    smart_pointer<T>*% initialize(smart_pointer<T>*% self, void* memory, int size)
+    {
+        self.memory = new buffer.initialize();
+        
+        self.memory.append(memory, sizeof(T)*size);
+        
+        self.p = (T*)borrow self.memory.buf;
+        
+        return self;
+    }
+    
+    smart_pointer<T>* operator_plus_plus(smart_pointer<T>* self)
+    {
+        using unsafe;
+        
+        self.p++;
+        
+        if((char*)self.p > self.memory.buf + self.memory.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return self;
+    }
+    smart_pointer<T>* operator_plus_equal(smart_pointer<T>* self, size_t value)
+    {
+        using unsafe;
+        
+        self.p += value;
+        
+        if((char*)self.p > self.memory.buf + self.memory.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return self;
+    }
+    
+    smart_pointer<T>* operator_minus_minus(smart_pointer<T>* self)
+    {
+        using unsafe;
+        
+        self.p--;
+        
+        if((char*)self.p < self.memory.buf) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return self;
+    }
+    
+    smart_pointer<T>* operator_minus_equal(smart_pointer<T>* self, size_t value)
+    {
+        using unsafe;
+        
+        self.p -= value;
+        
+        if((char*)self.p < self.memory.buf) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return self;
+    }
+    
+    T* operator_add(smart_pointer<T>* self, size_t rvalue)
+    {
+        using unsafe;
+        
+        T* result = self.p + rvalue;
+        
+        if(result > self.memory.buf + self.memory.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return result;
+    }
+    
+    T* operator_sub(smart_pointer<T>* self, size_t rvalue)
+    {
+        using unsafe;
+        
+        T* result = self.p - rvalue;
+        
+        if(result < self.memory.buf) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return result;
+    }
+    
+    T operator_derefference(smart_pointer<T>* self)
+    {
+        using unsafe;
+        T* p = self.p;
+        
+        if((char*)self.p > self.memory.buf + self.memory.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        if((char*)self.p < self.memory.buf) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return *p;
+    }
+    
+    int as_int(smart_pointer<T>* self)
+    {
+        using unsafe;
+        
+        if((char*)self.p > self.memory.buf + self.memory.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        if((char*)self.p < self.memory.buf) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        int p = *(int*)self.p;
+        return p;
+    }
+    
+    short as_short(smart_pointer<T>* self)
+    {
+        using unsafe;
+        
+        if((char*)self.p > self.memory.buf + self.memory.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        if((char*)self.p < self.memory.buf) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        short p = *(short*)self.p;
+        return p;
+    }
+    
+    long as_long(smart_pointer<T>* self)
+    {
+        using unsafe;
+        
+        if((char*)self.p > self.memory.buf + self.memory.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        if((char*)self.p < self.memory.buf) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        long p = *(long*)self.p;
+        return p;
+    }
+    
+    float as_float(smart_pointer<T>* self)
+    {
+        using unsafe;
+        
+        if((char*)self.p > self.memory.buf + self.memory.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        if((char*)self.p < self.memory.buf) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        float p = *(float*)self.p;
+        return p;
+    }
+    
+    double as_double(smart_pointer<T>* self)
+    {
+        using unsafe;
+        if((char*)self.p > self.memory.buf + self.memory.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        if((char*)self.p < self.memory.buf) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        double p = *(double*)self.p;
+        return p;
+    }
+    
+    bool as_bool(smart_pointer<T>* self)
+    {
+        using unsafe;
+        if((char*)self.p > self.memory.buf + self.memory.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        if((char*)self.p < self.memory.buf) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        bool p = *(bool*)self.p;
+        return p;
+    }
+    
+    string to_string(smart_pointer<T>* self)
+    {
+        return self.memory.to_string();
+    }
+}
+
+//////////////////////////////
 // list
 //////////////////////////////
 struct list_item<T>

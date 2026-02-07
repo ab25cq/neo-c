@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.8.8.2
+version 0.8.8.3
 
 ``` C
 #include <neo-c.h>
@@ -93,6 +93,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.8.8.3 smart_pointer implemented.
 0.8.8.2 require borrow to asign heap object to none heap variable.
 0.8.8.1 __attribute__ supported comonly.
 0.8.8.0 tuple expression is now t(1,2,3). More compatibilities C lang.
@@ -2871,3 +2872,33 @@ int main(){
 ```
 
 Well, I know it's nonsense.
+
+# smart pointer
+
+
+```
+#include <neo-c.h>
+
+
+int main(int argc, char** argv)
+{
+    buffer*% buf = new buffer();
+    
+    buf.append_str("ABC");
+    
+    var p = buf.to_pointer();
+    
+    printf("%c\n", *p);
+    p++;
+    printf("%c\n", *p);
+    p++;
+    printf("%c\n", *p);
+    
+    p+=5; // out of range. Show stackframe and aborted.
+    
+    
+    p + 10; // out of range. Show stackframe and aborted.
+    
+    return 0;
+}
+```
