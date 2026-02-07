@@ -673,6 +673,38 @@ impl smart_pointer<T>
         
         return *p;
     }
+    void operator_store_element(smart_pointer<T>* self, int position, T item) {
+        if(self.p + position > self.memory.buf + self.memory.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        if(self.p + position < self.memory.buf) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        T* p = self.p;
+        
+        p\[position] = item;
+    }
+    T operator_load_element(smart_pointer<T>* self, int position) {
+        if(self.p + position > self.memory.buf + self.memory.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        if(self.p + position < self.memory.buf) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        T* p = self.p;
+        
+        return p\[position];
+    }
     
     int as_int(smart_pointer<T>* self)
     {
@@ -782,82 +814,309 @@ impl smart_pointer<T>
     
     string to_string(smart_pointer<T>* self)
     {
-        return self.memory.to_string();
+        return s"memory \{self.memory} p \{self.p}";
     }
 }
 
-struct raw_ptr<T> {
+struct slice<T> {
+    char* memory;
+    T* p;
+    size_t len;
+};
+
+impl slice<T>
+{
+    slice<T>*% initialize(slice<T>*% self, T* p, size_t len)
+    {
+        self.memory = (char*)p;
+        self.p = p;
+        self.len = len;
+        
+        return self;
+    }
+    
+    slice<T>* operator_plus_plus(slice<T>* self)
+    {
+        using unsafe;
+        
+        self.p++;
+        
+        if((char*)self.p >= self.memory + self.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return self;
+    }
+    slice<T>* operator_plus_equal(slice<T>* self, size_t value)
+    {
+        using unsafe;
+        
+        self.p += value;
+        
+        if((char*)self.p >= self.memory + self.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return self;
+    }
+    
+    slice<T>* operator_minus_minus(slice<T>* self)
+    {
+        using unsafe;
+        
+        self.p--;
+        
+        if((char*)self.p < self.memory) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return self;
+    }
+    
+    slice<T>* operator_minus_equal(slice<T>* self, size_t value)
+    {
+        using unsafe;
+        
+        self.p -= value;
+        
+        if((char*)self.p < self.memory) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return self;
+    }
+    
+    T* operator_add(slice<T>* self, size_t rvalue)
+    {
+        using unsafe;
+        
+        T* result = self.p + rvalue;
+        
+        if(result >= self.memory + self.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return result;
+    }
+    
+    T* operator_sub(slice<T>* self, size_t rvalue)
+    {
+        using unsafe;
+        
+        T* result = self.p - rvalue;
+        
+        if((char*)result < self.memory) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return result;
+    }
+    
+    T operator_derefference(slice<T>* self)
+    {
+        using unsafe;
+        T* p = self.p;
+        
+        if((char*)self.p >= self.memory + self.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        if((char*)self.p < self.memory) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return *p;
+    }
+    void operator_store_element(slice<T>* self, int position, T item) {
+        if(self.p + position >= self.memory + self.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        if(self.p + position < self.memory) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        T* p = self.p;
+        
+        p\[position] = item;
+    }
+    T operator_load_element(slice<T>* self, int position) {
+        if(self.p + position >= self.memory + self.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        if(self.p + position < self.memory) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        T* p = self.p;
+        
+        return p\[position];
+    }
+    
+    string to_string(slice<T>* self) {
+        return s"head \{self.memory} p \{self.p} len \{self.len}";
+    }
+}
+
+struct rawptr<T> {
     T* p;
 };
 
-impl raw_ptr<T>
+impl rawptr<T>
 {
-    raw_ptr<T>*% initialize(raw_ptr<T>*% self, void* memory)
+    rawptr<T>*% initialize(rawptr<T>*% self, void* memory)
     {
         self.p = memory;
         
         return self;
     }
     
-    raw_ptr<T>* operator_plus_plus(raw_ptr<T>* self)
+    rawptr<T>* operator_plus_plus(rawptr<T>* self)
     {
         using unsafe;
+        
+        if(self.p == (void*)0) {
+            puts("null pointer operation");
+            stackframe();
+            exit(1);
+        }
         
         self.p++;
         
         return self;
     }
-    raw_ptr<T>* operator_plus_equal(raw_ptr<T>* self, size_t value)
+    rawptr<T>* operator_plus_equal(rawptr<T>* self, size_t value)
     {
         using unsafe;
+        
+        if(self.p == (void*)0) {
+            puts("null pointer operation");
+            stackframe();
+            exit(1);
+        }
         
         self.p += value;
         
         return self;
     }
     
-    raw_ptr<T>* operator_minus_minus(raw_ptr<T>* self)
+    rawptr<T>* operator_minus_minus(rawptr<T>* self)
     {
         using unsafe;
+        
+        if(self.p == (void*)0) {
+            puts("null pointer operation");
+            stackframe();
+            exit(1);
+        }
         
         self.p--;
         
         return self;
     }
     
-    raw_ptr<T>* operator_minus_equal(raw_ptr<T>* self, size_t value)
+    rawptr<T>* operator_minus_equal(rawptr<T>* self, size_t value)
     {
         using unsafe;
+        
+        if(self.p == (void*)0) {
+            puts("null pointer operation");
+            stackframe();
+            exit(1);
+        }
         
         self.p -= value;
         
         return self;
     }
     
-    T* operator_add(raw_ptr<T>* self, size_t rvalue)
+    T* operator_add(rawptr<T>* self, size_t rvalue)
     {
         using unsafe;
+        
+        if(self.p == (void*)0) {
+            puts("null pointer operation");
+            stackframe();
+            exit(1);
+        }
         
         T* result = self.p + rvalue;
         
         return result;
     }
     
-    T* operator_sub(raw_ptr<T>* self, size_t rvalue)
+    T* operator_sub(rawptr<T>* self, size_t rvalue)
     {
         using unsafe;
+        
+        if(self.p == (void*)0) {
+            puts("null pointer operation");
+            stackframe();
+            exit(1);
+        }
         
         T* result = self.p - rvalue;
         
         return result;
     }
     
-    T operator_derefference(raw_ptr<T>* self)
+    T operator_derefference(rawptr<T>* self)
     {
         using unsafe;
+        
+        if(self.p == (void*)0) {
+            puts("null pointer operation");
+            stackframe();
+            exit(1);
+        }
+        
         T* p = self.p;
         
         return *p;
+    }
+    void operator_store_element(rawptr<T>* self, int position, T item) {
+        if(self.p == (void*)0) {
+            puts("null pointer operation");
+            stackframe();
+            exit(1);
+        }
+        
+        T* p = self.p;
+        
+        p\[position] = item;
+    }
+    T operator_load_element(rawptr<T>* self, int position) {
+        if(self.p == (void*)0) {
+            puts("null pointer operation");
+            stackframe();
+            exit(1);
+        }
+        
+        T* p = self.p;
+        
+        return p\[position];
     }
 }
 

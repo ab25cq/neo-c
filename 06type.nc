@@ -3332,6 +3332,77 @@ bool pointer_attr_has_volatile(sType* type, sInfo* info=info)
     return pointer_attr_has_word(type, "volatile");
 }
 
+bool is_empty_attribute(string attr, sInfo* info=info)
+{
+    return attr == null || attr === "";
+}
+
+bool is_same_attribute(string left_attr, string right_attr, sInfo* info=info)
+{
+    if(is_empty_attribute(left_attr) && is_empty_attribute(right_attr)) {
+        return true;
+    }
+    if(is_empty_attribute(left_attr) || is_empty_attribute(right_attr)) {
+        return false;
+    }
+    return left_attr === right_attr;
+}
+
+sType*% expand_typedef_for_assign(sType* type, sInfo* info=info)
+{
+    sType*% result = clone type;
+    int guard = 0;
+    while(result->mTypedefOriginalType && guard < 16) {
+        sType*% orig = clone result->mTypedefOriginalType;
+        
+        int ptr = result->mPointerNum;
+        bool suppress_ptr_restore = result->mOriginalLoadVarType != null && result->mPointerNum == 0;
+        if(!suppress_ptr_restore && ptr == 0 && orig->mPointerNum > 0) {
+            ptr = orig->mPointerNum;
+        }
+        orig->mPointerNum = ptr;
+        
+        int array_ptr = result->mArrayPointerNum;
+        if(array_ptr == 0 && orig->mArrayPointerNum > 0) {
+            array_ptr = orig->mArrayPointerNum;
+        }
+        orig->mArrayPointerNum = array_ptr;
+        
+        if(result->mArrayPointerType) {
+            orig->mArrayPointerType = true;
+        }
+        if(result->mArrayNum.length() > 0) {
+            orig->mArrayNum = clone result->mArrayNum;
+        }
+        
+        orig->mConstant = result->mConstant;
+        orig->mVolatile = result->mVolatile;
+        orig->mRestrict = result->mRestrict;
+        orig->mUnsigned = result->mUnsigned;
+        orig->mShort = result->mShort;
+        orig->mLong = result->mLong;
+        orig->mLongLong = result->mLongLong;
+        orig->mComplex = result->mComplex;
+        orig->mAtomic = result->mAtomic;
+        
+        orig->mPointerAttribute = result->mPointerAttribute;
+        orig->mAttribute = result->mAttribute;
+        orig->mVarAttribute = result->mVarAttribute;
+        
+        if(result->mGenericsTypes.length() > 0) {
+            orig->mGenericsTypes = clone result->mGenericsTypes;
+        }
+        if(result->mNoSolvedGenericsType) {
+            orig->mNoSolvedGenericsType = clone result->mNoSolvedGenericsType;
+        }
+        
+        result = clone orig;
+        guard++;
+    }
+    
+    return result;
+}
+
 bool is_parent_class_of(sClass* parent, sClass* child, sInfo* info=info)
 {
     if(parent == null || child == null) {
@@ -3362,10 +3433,20 @@ bool is_same_type_ignoring_qualifier(sType* left_type, sType* right_type, sInfo*
     sType*% right_type2 = clone right_type;
     
     if(left_type2->mOriginalLoadVarType) {
-        left_type2 = clone left_type2->mOriginalLoadVarType;
+        bool use_original = left_type2->mArrayPointerNum > 0
+            && left_type2->mArrayNum.length() == 0
+            && left_type2->mPointerNum == 0;
+        if(use_original) {
+            left_type2 = clone left_type2->mOriginalLoadVarType;
+        }
     }
     if(right_type2->mOriginalLoadVarType) {
-        right_type2 = clone right_type2->mOriginalLoadVarType;
+        bool use_original = right_type2->mArrayPointerNum > 0
+            && right_type2->mArrayNum.length() == 0
+            && right_type2->mPointerNum == 0;
+        if(use_original) {
+            right_type2 = clone right_type2->mOriginalLoadVarType;
+        }
     }
     
     if(left_type2->mClass->mName !== right_type2->mClass->mName) {
@@ -3443,10 +3524,20 @@ bool is_same_base_type_ignoring_qualifier(sType* left_type, sType* right_type, s
     sType*% right_type2 = clone right_type;
     
     if(left_type2->mOriginalLoadVarType) {
-        left_type2 = clone left_type2->mOriginalLoadVarType;
+        bool use_original = left_type2->mArrayPointerNum > 0
+            && left_type2->mArrayNum.length() == 0
+            && left_type2->mPointerNum == 0;
+        if(use_original) {
+            left_type2 = clone left_type2->mOriginalLoadVarType;
+        }
     }
     if(right_type2->mOriginalLoadVarType) {
-        right_type2 = clone right_type2->mOriginalLoadVarType;
+        bool use_original = right_type2->mArrayPointerNum > 0
+            && right_type2->mArrayNum.length() == 0
+            && right_type2->mPointerNum == 0;
+        if(use_original) {
+            right_type2 = clone right_type2->mOriginalLoadVarType;
+        }
     }
     
     left_type2->mPointerNum = 0;
@@ -3491,6 +3582,9 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
         }
     }
     
+    left_type2 = expand_typedef_for_assign(left_type2);
+    right_type2 = expand_typedef_for_assign(right_type2);
+    
     bool left_lambda = left_type2->mClass->mName === "lambda";
     bool right_lambda = right_type2->mClass->mName === "lambda";
     
@@ -3528,7 +3622,9 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
             bool left_void = left_type2->mClass->mName === "void";
             bool right_void = right_type2->mClass->mName === "void";
             
-            if(left_ptr_num != right_ptr_num && !(left_void || right_void)) {
+            bool left_void_ptr = left_void && left_ptr_num == 1;
+            bool right_void_ptr = right_void && right_ptr_num == 1;
+            if(left_ptr_num != right_ptr_num && !(left_void_ptr || right_void_ptr)) {
                 warning_msg(info, "invalid pointer level. %s", msg);
                 show_type(left_type2);
                 show_type(right_type2);
@@ -3559,6 +3655,26 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
                 show_type(right_type2);
                 return false;
             }
+            /*
+            if(!is_same_attribute(left_type2->mPointerAttribute, right_type2->mPointerAttribute)) {
+                warning_msg(info, "invalid pointer attribute assign. %s", msg);
+                show_type(left_type2);
+                show_type(right_type2);
+                return false;
+            }
+            if(!is_same_attribute(left_type2->mAttribute, right_type2->mAttribute)) {
+                warning_msg(info, "invalid type attribute assign. %s", msg);
+                show_type(left_type2);
+                show_type(right_type2);
+                return false;
+            }
+            if(!is_same_attribute(left_type2->mVarAttribute, right_type2->mVarAttribute)) {
+                warning_msg(info, "invalid variable attribute assign. %s", msg);
+                show_type(left_type2);
+                show_type(right_type2);
+                return false;
+            }
+            */
             
             if(left_void || right_void) {
                 return true;
@@ -3592,7 +3708,7 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
             }
             
             if(!is_same_base_type_ignoring_qualifier(left_type2, right_type2)) {
-                err_msg(info, "invalid pointer base type. %s", msg);
+                warning_msg(info, "invalid pointer base type. %s", msg);
                 show_type(left_type2);
                 show_type(right_type2);
                 return false;
@@ -3616,6 +3732,27 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
         }
     }
     
+    /*
+    if(!is_same_attribute(left_type2->mAttribute, right_type2->mAttribute)) {
+        warning_msg(info, "invalid type attribute assign. %s", msg);
+        show_type(left_type2);
+        show_type(right_type2);
+        return false;
+    }
+    if(!is_same_attribute(left_type2->mPointerAttribute, right_type2->mPointerAttribute)) {
+        warning_msg(info, "invalid pointer attribute assign. %s", msg);
+        show_type(left_type2);
+        show_type(right_type2);
+        return false;
+    }
+    if(!is_same_attribute(left_type2->mVarAttribute, right_type2->mVarAttribute)) {
+        warning_msg(info, "invalid variable attribute assign. %s", msg);
+        show_type(left_type2);
+        show_type(right_type2);
+        return false;
+    }
+    */
+    
     if(is_arithmetic_type(left_type2) && is_arithmetic_type(right_type2)) {
         return true;
     }
@@ -3632,7 +3769,7 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
         return true;
     }
     
-    err_msg(info, "invalid assign type. %s", msg);
+    warning_msg(info, "invalid assign type. %s", msg);
     show_type(left_type2);
     show_type(right_type2);
     return false;
@@ -3662,6 +3799,9 @@ bool check_assign_type(const char* msg, sType* left_type, sType* right_type, CVA
         right_no_solved_generics_type = borrow right_type2->mNoSolvedGenericsType;
     }
 
+    left_type2 = expand_typedef_for_assign(left_type2);
+    right_type2 = expand_typedef_for_assign(right_type2);
+    
     
     sClass* left_class = left_type2->mClass;
     sClass* right_class = right_type2->mClass;

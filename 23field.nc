@@ -584,6 +584,7 @@ class sStoreArrayNode extends sNodeBase
         
         if(!calling_fun) {
             CVALUE*% come_value = new CVALUE();
+            sType*% original_load_var_type = clone left_type;
             
             if(left_type.mArrayNum.length() > 0) {
                 for(int i=0; i<array_num.length(); i++) {
@@ -596,6 +597,20 @@ class sStoreArrayNode extends sNodeBase
                 if(left_type->mPointerNum < 0) {
                     left_type->mPointerNum = 0;
                 }
+            }
+            
+            if(left_type->mArrayPointerNum > 0) {
+                left_type->mArrayPointerNum -= array_num.length();
+                if(left_type->mArrayPointerNum < 0) {
+                    left_type->mArrayPointerNum = 0;
+                }
+                if(left_type->mArrayPointerNum == 0) {
+                    left_type->mArrayPointerType = false;
+                }
+            }
+            
+            if(array_num.length() > 0) {
+                left_type->mOriginalLoadVarType = original_load_var_type;
             }
             
             buffer*% buf = new buffer();

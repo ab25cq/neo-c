@@ -2,17 +2,13 @@
 
 int main(int argc, char** argv)
 {
-    char a[5] = { 'a', '\0', 'b', '\0', 'c' };
+    char ary[3] = { '1', '\0', '2' };
     
-    raw_ptr<char>*% p = new raw_ptr<char>(a);
+    var p = new slice<char>(ary, 3);
     
-    printf("%d\n", *p);
+    p[0] = 'a';
     
-    p++;
-    
-    printf("%d\n", *p);
-   
-    p++;
+    printf("%c\n", p[3]);
     
     return 0;
 }
