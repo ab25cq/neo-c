@@ -553,46 +553,6 @@ struct smart_pointer<T> {
     T* p;
 };
 
-uniq smart_pointer<char>*% buffer*::to_pointer(buffer* self)
-{
-    auto result = new smart_pointer<char>;
-    
-    result.memory = clone self;
-    result.p = borrow result.memory.buf;
-    
-    return result;
-}
-
-uniq smart_pointer<int>*% buffer*::to_int_pointer(buffer* self)
-{
-    auto result = new smart_pointer<int>;
-    
-    result.memory = clone self;
-    result.p = (int*)borrow result.memory.buf;
-    
-    return result;
-}
-
-uniq smart_pointer<short>*% buffer*::to_short_pointer(buffer* self)
-{
-    auto result = new smart_pointer<short>;
-    
-    result.memory = clone self;
-    result.p = (short*)borrow result.memory.buf;
-    
-    return result;
-}
-
-uniq smart_pointer<long>*% buffer*::to_long_pointer(buffer* self)
-{
-    auto result = new smart_pointer<long>;
-    
-    result.memory = clone self;
-    result.p = (long*)borrow result.memory.buf;
-    
-    return result;
-}
-
 impl smart_pointer<T>
 {
     smart_pointer<T>*% initialize(smart_pointer<T>*% self, void* memory, int size)
@@ -824,6 +784,121 @@ impl smart_pointer<T>
     {
         return self.memory.to_string();
     }
+}
+
+struct raw_ptr<T> {
+    T* p;
+};
+
+impl raw_ptr<T>
+{
+    raw_ptr<T>*% initialize(raw_ptr<T>*% self, void* memory)
+    {
+        self.p = memory;
+        
+        return self;
+    }
+    
+    raw_ptr<T>* operator_plus_plus(raw_ptr<T>* self)
+    {
+        using unsafe;
+        
+        self.p++;
+        
+        return self;
+    }
+    raw_ptr<T>* operator_plus_equal(raw_ptr<T>* self, size_t value)
+    {
+        using unsafe;
+        
+        self.p += value;
+        
+        return self;
+    }
+    
+    raw_ptr<T>* operator_minus_minus(raw_ptr<T>* self)
+    {
+        using unsafe;
+        
+        self.p--;
+        
+        return self;
+    }
+    
+    raw_ptr<T>* operator_minus_equal(raw_ptr<T>* self, size_t value)
+    {
+        using unsafe;
+        
+        self.p -= value;
+        
+        return self;
+    }
+    
+    T* operator_add(raw_ptr<T>* self, size_t rvalue)
+    {
+        using unsafe;
+        
+        T* result = self.p + rvalue;
+        
+        return result;
+    }
+    
+    T* operator_sub(raw_ptr<T>* self, size_t rvalue)
+    {
+        using unsafe;
+        
+        T* result = self.p - rvalue;
+        
+        return result;
+    }
+    
+    T operator_derefference(raw_ptr<T>* self)
+    {
+        using unsafe;
+        T* p = self.p;
+        
+        return *p;
+    }
+}
+
+uniq smart_pointer<char>*% buffer*::to_pointer(buffer* self)
+{
+    auto result = new smart_pointer<char>;
+    
+    result.memory = clone self;
+    result.p = borrow result.memory.buf;
+    
+    return result;
+}
+
+uniq smart_pointer<int>*% buffer*::to_int_pointer(buffer* self)
+{
+    auto result = new smart_pointer<int>;
+    
+    result.memory = clone self;
+    result.p = (int*)borrow result.memory.buf;
+    
+    return result;
+}
+
+uniq smart_pointer<short>*% buffer*::to_short_pointer(buffer* self)
+{
+    auto result = new smart_pointer<short>;
+    
+    result.memory = clone self;
+    result.p = (short*)borrow result.memory.buf;
+    
+    return result;
+}
+
+uniq smart_pointer<long>*% buffer*::to_long_pointer(buffer* self)
+{
+    auto result = new smart_pointer<long>;
+    
+    result.memory = clone self;
+    result.p = (long*)borrow result.memory.buf;
+    
+    return result;
 }
 
 //////////////////////////////
