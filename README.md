@@ -2875,7 +2875,6 @@ Well, I know it's nonsense.
 
 # smart pointer
 
-
 ```
 #include <neo-c.h>
 
@@ -2896,8 +2895,29 @@ int main(int argc, char** argv)
     
     p+=5; // out of range. Show stackframe and aborted.
     
-    
     p + 10; // out of range. Show stackframe and aborted.
+    
+    return 0;
+}
+```
+
+```
+#include <neo-c.h>
+
+
+int main(int argc, char** argv)
+{
+    char a[5] = { 'a', '\0', 'b', '\0', 'c' };
+    
+    smart_pointer<char>*% p = new smart_pointer<char>(a, 5);
+    
+    printf("%d\n", *p);
+    
+    p++;
+    
+    printf("%d\n", *p);
+   
+    p++;
     
     return 0;
 }

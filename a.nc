@@ -1,23 +1,19 @@
 #include <neo-c.h>
 
-#include <neo-c.h>
-
 
 int main(int argc, char** argv)
 {
-    buffer*% buf = new buffer();
+    char a[5] = { 'a', '\0', 'b', '\0', 'c' };
     
-    buf.append_str("ABC");
+    smart_pointer<char>*% p = new smart_pointer<char>(a, 5);
     
-    var p = buf.to_pointer();
+    printf("%d\n", *p);
     
-    printf("%c\n", *p);
+    p++;
     
-    p + 1;
-    
-    printf("%c\n", *p);
-    
-    p + 5;
+    printf("%d\n", *p);
+   
+    p++;
     
     return 0;
 }
