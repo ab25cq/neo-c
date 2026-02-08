@@ -1306,19 +1306,19 @@ impl res<T>
 }
 */
 
-struct opt<T>
+struct optional<T>
 {
     T value;
 };
 
-impl opt<T>
+impl optional<T>
 {
-    opt<T>*% initialize(opt<T>*% self, T value) {
+    optional<T>*% initialize(optional<T>*% self, T value) {
         self.value = value;
         return self;
     }
     
-    T unwrap(opt<T>* self) {
+    T unwrap(optional<T>* self) {
         if(self.value == (void*)0) {
             puts("null pointer exception");
             stackframe();

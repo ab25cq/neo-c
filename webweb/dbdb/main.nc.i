@@ -45861,7 +45861,7 @@ _Bool where_select(map<string,string>* row, WhereNode* where_node)
         case kWOEq: {
             if(where_node.left.v1.op == kWOData && where_node.right.v1.op == kWOData) {
                 char*% left = row[where_node.left.v1.data];
-                char* right = where_node.right.v1.data;
+                char* right = borrow where_node.right.v1.data;
                 
                 int right_int_value = atoi(right);
                 
@@ -45881,7 +45881,7 @@ _Bool where_select(map<string,string>* row, WhereNode* where_node)
         case kWONotEq: {
             if(where_node.left.v1.op == kWOData && where_node.right.v1.op == kWOData) {
                 char*% left = row[where_node.left.v1.data];
-                char* right = where_node.right.v1.data;
+                char* right = borrow where_node.right.v1.data;
                 
                 int right_int_value = atoi(right);
                 
@@ -45901,7 +45901,7 @@ _Bool where_select(map<string,string>* row, WhereNode* where_node)
         case kWOLt: {
             if(where_node.left.v1.op == kWOData && where_node.right.v1.op == kWOData) {
                 char*% left = row[where_node.left.v1.data];
-                char* right = where_node.right.v1.data;
+                char* right = borrow where_node.right.v1.data;
                 
                 int right_int_value = atoi(right);
                 
@@ -45921,7 +45921,7 @@ _Bool where_select(map<string,string>* row, WhereNode* where_node)
         case kWOLtEq: {
             if(where_node.left.v1.op == kWOData && where_node.right.v1.op == kWOData) {
                 char*% left = row[where_node.left.v1.data];
-                char* right = where_node.right.v1.data;
+                char* right = borrow where_node.right.v1.data;
                 
                 int right_int_value = atoi(right);
                 
@@ -45941,7 +45941,7 @@ _Bool where_select(map<string,string>* row, WhereNode* where_node)
         case kWOGt: {
             if(where_node.left.v1.op == kWOData && where_node.right.v1.op == kWOData) {
                 char*% left = row[where_node.left.v1.data];
-                char* right = where_node.right.v1.data;
+                char* right = borrow where_node.right.v1.data;
                 
                 int right_int_value = atoi(right);
                 
@@ -45961,7 +45961,7 @@ _Bool where_select(map<string,string>* row, WhereNode* where_node)
         case kWOGtEq: {
             if(where_node.left.v1.op == kWOData && where_node.right.v1.op == kWOData) {
                 char*% left = row[where_node.left.v1.data];
-                char* right = where_node.right.v1.data;
+                char* right = borrow where_node.right.v1.data;
                 
                 int right_int_value = atoi(right);
                 
@@ -46267,8 +46267,8 @@ _Bool eval_select_from(char* deliminater="\n", sInfo* info)
                     
                     char*% value = row[between_target];
                     
-                    char* start = between_values.v1;
-                    char* end = between_values.v2;
+                    char* start = borrow between_values.v1;
+                    char* end = borrow between_values.v2;
                     
                     if(atoi(value) >= atoi(start) && atoi(value) <= atoi(end)) {
                         foreach(it3, row) {
@@ -46288,8 +46288,8 @@ _Bool eval_select_from(char* deliminater="\n", sInfo* info)
                     
                     char*% value = row[between_target];
                     
-                    char* start = between_values.v1;
-                    char* end = between_values.v2;
+                    char* start = borrow between_values.v1;
+                    char* end = borrow between_values.v2;
                     
                     if(atoi(value) >= atoi(start) && atoi(value) <= atoi(end)) {
                         foreach(it3, field_names) {
@@ -46311,7 +46311,7 @@ _Bool eval_select_from(char* deliminater="\n", sInfo* info)
                     
                     char*% value = row[like_target];
                     
-                    char* pattern = like_value;
+                    char* pattern = borrow like_value;
                     
                     if(like(value, pattern)) {
                         foreach(it3, row) {
@@ -46331,7 +46331,7 @@ _Bool eval_select_from(char* deliminater="\n", sInfo* info)
                     
                     char*% value = row[like_target];
                     
-                    char* pattern = like_value;
+                    char* pattern = borrow like_value;
                     
                     if(like(value, pattern)) {
                         foreach(it3, field_names) {
@@ -46353,7 +46353,7 @@ _Bool eval_select_from(char* deliminater="\n", sInfo* info)
                     
                     char*% value = row[not_like_target];
                     
-                    char* pattern = not_like_value;
+                    char* pattern = borrow not_like_value;
                     
                     if(!like(value, pattern)) {
                         foreach(it3, row) {
@@ -46373,7 +46373,7 @@ _Bool eval_select_from(char* deliminater="\n", sInfo* info)
                     
                     char*% value = row[not_like_target];
                     
-                    char* pattern = not_like_value;
+                    char* pattern = borrow not_like_value;
                     
                     if(!like(value, pattern)) {
                         foreach(it3, field_names) {

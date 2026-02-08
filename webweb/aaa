@@ -1,0 +1,132 @@
+neo-c -Og -g   -o dbdb main.nc -lssl
+main.nc 536(536): [error] invalid heap object(right) left  0 right 1 in fun (where_select)
+  }
+    
+    return 
+
+main.nc 556(556): [error] invalid heap object(right) left  0 right 1 in fun (where_select)
+  }
+    
+    return 
+
+main.nc 576(576): [error] invalid heap object(right) left  0 right 1 in fun (where_select)
+  }
+    
+    return 
+
+main.nc 596(596): [error] invalid heap object(right) left  0 right 1 in fun (where_select)
+  }
+    
+    return 
+
+main.nc 616(616): [error] invalid heap object(right) left  0 right 1 in fun (where_select)
+  }
+    
+    return 
+
+main.nc 636(636): [error] invalid heap object(right) left  0 right 1 in fun (where_select)
+  }
+    
+    return 
+
+main.nc 942(942): [error] invalid heap object(start) left  0 right 1 in fun (eval_select_from)
+   }
+    
+    return
+
+main.nc 943(943): [error] invalid heap object(end) left  0 right 1 in fun (eval_select_from)
+   }
+    
+    return
+
+main.nc 963(963): [error] invalid heap object(start) left  0 right 1 in fun (eval_select_from)
+   }
+    
+    return
+
+main.nc 964(964): [error] invalid heap object(end) left  0 right 1 in fun (eval_select_from)
+   }
+    
+    return
+
+main.nc 986(986): [error] invalid heap object(pattern) left  0 right 1 in fun (eval_select_from)
+   }
+    
+    return
+
+main.nc 1006(1006): [error] invalid heap object(pattern) left  0 right 1 in fun (eval_select_from)
+   }
+    
+    return
+
+main.nc 1028(1028): [error] invalid heap object(pattern) left  0 right 1 in fun (eval_select_from)
+   }
+    
+    return
+
+main.nc 1048(1048): [error] invalid heap object(pattern) left  0 right 1 in fun (eval_select_from)
+   }
+    
+    return
+
+main.nc 1147(1147): [warning] invalid const pointer assign. not_found is assigning to (2) in fun (eval_select_from)
+   }
+    
+    return
+
+char*
+const char*
+main.nc 1219(1219): [warning] invalid const pointer assign. ok_message is assigning to (2) in fun (fun_block1_mainnc)
+ return;
+        }
+ 
+
+char*
+const char*
+main.nc 1226(1226): [warning] invalid const pointer assign. not_found is assigning to (2) in fun (fun_block1_mainnc)
+ return;
+        }
+ 
+
+char*
+const char*
+main.nc 1246(1246): [warning] invalid const pointer assign. not_found is assigning to (2) in fun (fun_block1_mainnc)
+ return;
+        }
+ 
+
+char*
+const char*
+main.nc 1263(1263): [warning] invalid const pointer assign. ok_message is assigning to (2) in fun (fun_block1_mainnc)
+ return;
+        }
+ 
+
+char*
+const char*
+main.nc 1277(1277): [warning] invalid const pointer assign. ok_message is assigning to (2) in fun (fun_block1_mainnc)
+ return;
+        }
+ 
+
+char*
+const char*
+main.nc 1288(1288): [warning] invalid const pointer assign. ok_message is assigning to (2) in fun (fun_block1_mainnc)
+ return;
+        }
+ 
+
+char*
+const char*
+main.nc 1295(1295): [warning] invalid const pointer assign. eval_select_from param num 0 is assinged to in fun (fun_block1_mainnc)
+ return;
+        }
+ 
+
+char*
+const char*
+transpile error number 14
+rm -f *.log
+pkill dbdb || true
+./dbdb &
+neo-c -Og -g  -c main.nc -o main.o
