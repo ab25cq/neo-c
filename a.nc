@@ -2,13 +2,11 @@
 
 int main(int argc, char** argv)
 {
-    char ary[3] = { '1', '\0', '2' };
+    var p = s"aaa".to_slice();
     
-    var p = array_to_slice(ary);
+    p[2] = 'a';
     
-    p[0] = 'a';
-    
-    printf("%c\n", p[3]);
+    printf("%c\n", p[2]);
     
     return 0;
 }

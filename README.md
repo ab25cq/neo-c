@@ -2923,7 +2923,7 @@ int main(int argc, char** argv)
 }
 ```
 
-# raw_ptr
+# rawptr
 
 ```
 #include <neo-c.h>
@@ -2932,7 +2932,7 @@ int main(int argc, char** argv)
 {
     char a[5] = { 'a', '\0', 'b', '\0', 'c' };
     
-    raw_ptr<char>*% p = new raw_ptr<char>(a);
+    var p = new rawptr<char>(a);
     
     printf("%d\n", *p);
     
@@ -2946,7 +2946,32 @@ int main(int argc, char** argv)
 }
 ```
 
+rawptr is null check ptr. no check range.
+
 # slice
+
+```
+#include <neo-c.h>
+
+int main(int argc, char** argv)
+{
+    char a[5] = { 'a', '\0', 'b', '\0', 'c' };
+    
+    var p = new slice<char>(a, 5);
+    
+    printf("%d\n", *p);
+    
+    p++;
+    
+    printf("%d\n", *p);
+   
+    p++;
+    
+    p += 10;    // exception show stackframe
+    
+    return 0;
+}
+```
 
 ```
 #include <neo-c.h>
@@ -2960,6 +2985,21 @@ int main(int argc, char** argv)
     p[0] = 'a';
     
     printf("%c\n", p[3]);
+    
+    return 0;
+}
+```
+
+```
+#include <neo-c.h>
+
+int main(int argc, char** argv)
+{
+    var p = s"aaa".to_slice();
+    
+    p[2] = 'a';
+    
+    printf("%c\n", p[2]);
     
     return 0;
 }

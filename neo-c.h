@@ -318,10 +318,25 @@ uniq char* come_dynamic_typeof(void* mem)
     
     if(it->allocated != ALLOCATED_MAGIC_NUM) {
         printf("invalid heap object(%p)(1)\n", it);
+        stackframe();
         exit(2);
     }
     
     return (char*)it->class_name;
+}
+
+uniq size_t dynamic_sizeof(void* mem)
+{
+    sMemHeader* it = (sMemHeader*)((char*)mem - sizeof(size_t) - sizeof(size_t) - sizeof(sMemHeader));
+    
+    if(it->allocated != ALLOCATED_MAGIC_NUM) {
+        printf("invalid heap object(%p)(1)\n", it);
+        stackframe();
+        exit(2);
+    }
+    size_t size = it.size - sizeof(sMemHeader) - sizeof(size_t) - sizeof(size_t);
+    
+    return size;
 }
 
 uniq int gComeDebugLib = 0;
@@ -509,6 +524,7 @@ uniq void xassert(const char* msg, bool test)
     printf("%s...", msg);
     if(!test) {
         puts("false");
+        stackframe();
         exit(2);
     }
     puts("ok");
@@ -981,6 +997,20 @@ impl slice<T>
     string to_string(slice<T>* self) {
         return s"head \{self.memory} p \{self.p} len \{self.len}";
     }
+}
+
+uniq slice<char>*% string::to_slice(char*% self)
+{
+    size_t size = string::length(self);
+    
+    return new slice<char>(self, size);
+}
+
+uniq slice<char>*% char*::to_slice(char*% self)
+{
+    int len = string::length(self);
+    
+    return new slice<char>(self, len);
 }
 
 struct rawptr<T> {
