@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.8.8.4
+version 0.8.8.5
 
 ``` C
 #include <neo-c.h>
@@ -93,6 +93,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.8.8.5 tuple2<T,bool> can be used like Result<T>. and catch method implemented. case method bug is fixed.
 0.8.8.4 slice, rawptr implemented.
 0.8.8.3 smart_pointer implemented.
 0.8.8.2 require borrow to asign heap object to none heap variable.
@@ -3007,3 +3008,34 @@ int main(int argc, char** argv)
 ```
 
 range check pointer is slice.
+
+# Result<T>
+
+```
+#include <neo-c.h>
+
+FILE*, bool xfopen(const char* file_name, const char* mode)
+{
+    FILE* f = fopen(file_name, mode);
+
+    if(f == NULL) {
+        return t(f, true);
+    }
+
+    return t(f, false);
+}
+
+int main(int argc, char** argv)
+{
+    xfopen("01main.nc", mode:"r").unwrap().fclose();
+    xfopen("1main.nc", mode:"r").catch {
+        puts("ERR");
+        return 1;
+    }.fclose();
+
+    return 0;
+}
+```
+
+tuple2<T,bool> can be used like Reult<T>
+

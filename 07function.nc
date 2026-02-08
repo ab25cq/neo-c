@@ -52,7 +52,7 @@ class sLambdaNode extends sNodeBase
         info->max_conditional = 0;
         
         if(!gComeC) {
-            add_come_code_at_function_head(info, s"struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = \"\{info.come_fun.mName}\"; neo_current_frame = &fr;\n"); 
+            add_come_code_at_function_head(info, s"struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = \"\{info.come_fun.mName}\"; neo_current_frame = &fr;\n"); 
         }
         
         if(self.mFun.mBlock) {
@@ -143,7 +143,7 @@ class sFunNode extends sNodeBase
         
         if(self.mFun.mBlock) {
             if(!gComeC) {
-                add_come_code_at_function_head(info, s"struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = \"\{info.come_fun.mName}\"; neo_current_frame = &fr;\n"); 
+                add_come_code_at_function_head(info, s"struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = \"\{info.come_fun.mName}\"; neo_current_frame = &fr;\n"); 
             }
             
             int block_level = info->block_level;

@@ -716,6 +716,7 @@ struct buffer
 
 struct neo_frame
 {
+    void* stacktop;
     struct neo_frame*  prev  ;
     char* fun_name;
 };
@@ -2553,6 +2554,7 @@ void add_variable_to_table(char* name, struct sType*  type  , struct sInfo*  inf
 void add_variable_to_global_table(char* name, struct sType*  type  , struct sInfo*  info  );
 void add_variable_to_global_table_with_int_value(char* name, struct sType*  type  , char* c_value, struct sInfo*  info  );
 struct sNode* parse_match(struct sNode* expression_node, struct sInfo*  info  );
+struct sNode* parse_catch(struct sNode* expression_node, struct sInfo*  info  );
 struct sNode* string_node_v8(char* buf, char* head, int head_sline, struct sInfo*  info  );
 struct sNode* parse_if_method_call(struct sNode* expression_node, struct sInfo*  info  );
 struct sNode* parse_less_method_call(struct sNode* expression_node, struct sInfo*  info  );
@@ -2666,7 +2668,7 @@ static inline unsigned long  int  __uint64_identity(unsigned long  int  __x  )
 // body function
 struct sNode* comelang_top_level(char* buf, char* head, int head_sline, struct sInfo*  info  )
 {
-    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "comelang_top_level"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "comelang_top_level"; neo_current_frame = &fr;
     struct sNode* node;
     void* __right_value0 = (void*)0;
     char*  buf2  ;

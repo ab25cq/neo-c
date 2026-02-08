@@ -155,6 +155,7 @@ uniq bool string::equals(char* self, const char* right);
 #define COME_STACKFRAME_SNAME_MAX 8
 
 struct neo_frame {
+    void* stacktop;
     neo_frame *prev;
     char* fun_name;
 };
@@ -858,6 +859,12 @@ impl slice<T>
     {
         using unsafe;
         
+        if(self.p == (void*)0) {
+            puts("null pointer operation");
+            stackframe();
+            exit(1);
+        }
+        
         self.p++;
         
         if((char*)self.p >= self.memory + self.len) {
@@ -871,6 +878,12 @@ impl slice<T>
     slice<T>* operator_plus_equal(slice<T>* self, size_t value)
     {
         using unsafe;
+        
+        if(self.p == (void*)0) {
+            puts("null pointer operation");
+            stackframe();
+            exit(1);
+        }
         
         self.p += value;
         
@@ -887,6 +900,12 @@ impl slice<T>
     {
         using unsafe;
         
+        if(self.p == (void*)0) {
+            puts("null pointer operation");
+            stackframe();
+            exit(1);
+        }
+        
         self.p--;
         
         if((char*)self.p < self.memory) {
@@ -901,6 +920,12 @@ impl slice<T>
     slice<T>* operator_minus_equal(slice<T>* self, size_t value)
     {
         using unsafe;
+        
+        if(self.p == (void*)0) {
+            puts("null pointer operation");
+            stackframe();
+            exit(1);
+        }
         
         self.p -= value;
         
@@ -917,6 +942,12 @@ impl slice<T>
     {
         using unsafe;
         
+        if(self.p == (void*)0) {
+            puts("null pointer operation");
+            stackframe();
+            exit(1);
+        }
+        
         T* result = self.p + rvalue;
         
         if(result >= self.memory + self.len) {
@@ -932,6 +963,12 @@ impl slice<T>
     {
         using unsafe;
         
+        if(self.p == (void*)0) {
+            puts("null pointer operation");
+            stackframe();
+            exit(1);
+        }
+        
         T* result = self.p - rvalue;
         
         if((char*)result < self.memory) {
@@ -946,6 +983,13 @@ impl slice<T>
     T operator_derefference(slice<T>* self)
     {
         using unsafe;
+        
+        if(self.p == (void*)0) {
+            puts("null pointer operation");
+            stackframe();
+            exit(1);
+        }
+        
         T* p = self.p;
         
         if((char*)self.p >= self.memory + self.len) {
@@ -962,6 +1006,11 @@ impl slice<T>
         return *p;
     }
     void operator_store_element(slice<T>* self, int position, T item) {
+        if(self.p == (void*)0) {
+            puts("null pointer operation");
+            stackframe();
+            exit(1);
+        }
         if(self.p + position >= self.memory + self.len) {
             puts("out of range of smart pointer");
             stackframe();
@@ -978,6 +1027,11 @@ impl slice<T>
         p\[position] = item;
     }
     T operator_load_element(slice<T>* self, int position) {
+        if(self.p == (void*)0) {
+            puts("null pointer operation");
+            stackframe();
+            exit(1);
+        }
         if(self.p + position >= self.memory + self.len) {
             puts("out of range of smart pointer");
             stackframe();
@@ -1191,6 +1245,58 @@ uniq smart_pointer<long>*% buffer*::to_long_pointer(buffer* self)
     result.p = (long*)borrow result.memory.buf;
     
     return result;
+}
+
+
+// Result<T> is tuple2<T, bool>*%
+/*
+struct res<T>
+{
+    T value;
+    bool err;
+};
+
+impl res<T>
+{
+    res<T>*% initialize(res<T>*% self, T value, bool err) {
+        self.value = value;
+        self.err = err;
+        return self;
+    }
+    
+    T unwrap(res<T>* self) {
+        if(self.err == true) {
+            puts("exception");
+            stackframe();
+            exit(2);
+        }
+        
+        return self.value;
+    }
+}
+*/
+
+struct opt<T>
+{
+    T value;
+};
+
+impl opt<T>
+{
+    opt<T>*% initialize(opt<T>*% self, T value) {
+        self.value = value;
+        return self;
+    }
+    
+    T unwrap(opt<T>* self) {
+        if(self.value == (void*)0) {
+            puts("null pointer exception");
+            stackframe();
+            exit(2);
+        }
+        
+        return self.value;
+    }
 }
 
 //////////////////////////////
@@ -3158,6 +3264,17 @@ impl tuple2 <T, T2>
     }
     bool operator_not_equals(tuple2<T,T2>* left, tuple2<T,T2>* right) {
         return !left.operator_equals(right);
+    }
+    
+    /// tuple2 is Result<T>
+    T unwrap(tuple2<T,T2>* self) {
+        if(self.v2 == true) {
+            puts("exception");
+            stackframe();
+            exit(2);
+        }
+        
+        return self.v1;
     }
 }
 

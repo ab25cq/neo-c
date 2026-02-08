@@ -471,7 +471,7 @@ sNode*% parse_match(sNode*% expression_node, sInfo* info)
     
     while(true) {
         skip_spaces_and_lf();
-        if(strncmp(info->p, "else", strlen("else")) == 0) {
+        if(parsecmp("else")) {
             info->p += strlen("else");
             skip_spaces_and_lf();
             
@@ -481,6 +481,11 @@ sNode*% parse_match(sNode*% expression_node, sInfo* info)
             }
         }
         else {
+            if(*info->p == '}') {
+                info->p++;
+                skip_spaces_and_lf();
+                break;
+            }
             expected_next_character('(');
             
             sNode*% conditional_value = expression();
@@ -507,6 +512,35 @@ sNode*% parse_match(sNode*% expression_node, sInfo* info)
             break;
         }
     }
+    
+    return new sMatchNode(it_node, new sIfNode(conditional_value, if_block, elif_expression_nodes, elif_blocks, elif_num, else_block, false@guard, existance_result_value, info) implements sNode, info) implements sNode;
+}
+
+sNode*% parse_catch(sNode*% expression_node, sInfo* info)
+{
+    string sname = clone info->sname;
+    int sline = info->sline;
+    
+    bool existance_result_value = true;
+    
+    sNode*% it_node = store_var(s"Value", null@multiple_assign, null@multiple_declare, null@type, true@alloc, expression_node@right_value, info);
+    
+    sNode*% node1 = create_load_var("Value");
+    sNode*% conditional_value = load_field(node1, s"v2");
+    
+    sBlock*% if_block = parse_block();
+    
+    sNode*% result_node = load_field(node1, s"v1");
+    if_block.mNodes.push_back(result_node);
+    if_block.mOmitSemicolon = true;
+    
+    list<sNode*%>*% elif_expression_nodes = new list<sNode*%>();
+    list<sBlock*%>*% elif_blocks = new list<sBlock*%>();
+    int elif_num = 0;
+    
+    sBlock*% else_block = new sBlock();
+    else_block.mNodes.push_back(result_node);
+    else_block.mOmitSemicolon = existance_result_value;
     
     return new sMatchNode(it_node, new sIfNode(conditional_value, if_block, elif_expression_nodes, elif_blocks, elif_num, else_block, false@guard, existance_result_value, info) implements sNode, info) implements sNode;
 }
@@ -783,6 +817,4 @@ sNode*% parse_less_method_call(sNode*% expression_node, sInfo* info)
     
     return result;
 }
-
-
 

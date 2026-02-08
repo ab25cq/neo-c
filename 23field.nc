@@ -1127,6 +1127,9 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                 else if(field_name === "case") {
                     node = parse_match(clone node, info);
                 }
+                else if(field_name === "catch") {
+                    node = parse_catch(clone node, info);
+                }
                 else if(field_name === "less") {
                     node = parse_less_method_call(clone node, info);
                 }

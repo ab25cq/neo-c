@@ -716,6 +716,7 @@ struct buffer
 
 struct neo_frame
 {
+    void* stacktop;
     struct neo_frame*  prev  ;
     char* fun_name;
 };
@@ -2543,6 +2544,7 @@ void add_variable_to_table(char* name, struct sType*  type  , struct sInfo*  inf
 void add_variable_to_global_table(char* name, struct sType*  type  , struct sInfo*  info  );
 void add_variable_to_global_table_with_int_value(char* name, struct sType*  type  , char* c_value, struct sInfo*  info  );
 struct sNode* parse_match(struct sNode* expression_node, struct sInfo*  info  );
+struct sNode* parse_catch(struct sNode* expression_node, struct sInfo*  info  );
 struct sNode* string_node_v8(char* buf, char* head, int head_sline, struct sInfo*  info  );
 struct sNode* parse_if_method_call(struct sNode* expression_node, struct sInfo*  info  );
 struct sNode* parse_less_method_call(struct sNode* expression_node, struct sInfo*  info  );
@@ -2671,7 +2673,7 @@ static inline unsigned long  int  __uint64_identity(unsigned long  int  __x  )
 // body function
 _Bool parsecmp(const char* p2, struct sInfo*  info  )
 {
-    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "parsecmp"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "parsecmp"; neo_current_frame = &fr;
     _Bool terminated;
     char* p3;
     int i;
@@ -2693,7 +2695,7 @@ _Bool parsecmp(const char* p2, struct sInfo*  info  )
 
 int err_msg(struct sInfo*  info  , const char* msg, ...)
 {
-    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "err_msg"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "err_msg"; neo_current_frame = &fr;
     char* msg2;
     __builtin_va_list  args  ;
     char* p;
@@ -2744,13 +2746,13 @@ int err_msg(struct sInfo*  info  , const char* msg, ...)
 
 static void __builtin_va_list_finalize(__builtin_va_list*  self  )
 {
-    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "__builtin_va_list_finalize"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "__builtin_va_list_finalize"; neo_current_frame = &fr;
     neo_current_frame = fr.prev;
 }
 
 int warning_msg(struct sInfo*  info  , const char* msg, ...)
 {
-    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "warning_msg"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "warning_msg"; neo_current_frame = &fr;
     char* msg2;
     __builtin_va_list  args  ;
     void* __right_value0 = (void*)0;
@@ -2799,7 +2801,7 @@ int warning_msg(struct sInfo*  info  , const char* msg, ...)
 
 int expected_next_character(char c, struct sInfo*  info  )
 {
-    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "expected_next_character"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "expected_next_character"; neo_current_frame = &fr;
     parse_sharp_v5(info);
     if(*info->p!=c) {
         if(!info->no_output_come_code) {
@@ -2817,7 +2819,7 @@ int expected_next_character(char c, struct sInfo*  info  )
 
 char*  parse_word(_Bool digits, struct sInfo*  info  )
 {
-    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "parse_word"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "parse_word"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct buffer*  buf  ;
@@ -2874,7 +2876,7 @@ _conditional_value_X0;})) {
 
 static char*  map$2char$phchar$ph$p_operator_load_element(struct map$2char$phchar$ph* self, char*  key  )
 {
-    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phchar$ph$p_operator_load_element"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phchar$ph$p_operator_load_element"; neo_current_frame = &fr;
     char*  default_value  ;
     char*  __result_obj__0  ;
     unsigned int hash;
@@ -2927,7 +2929,7 @@ static char*  map$2char$phchar$ph$p_operator_load_element(struct map$2char$phcha
 
 static char*  map$2char$phchar$ph_operator_load_element(struct map$2char$phchar$ph* self, char*  key  )
 {
-    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phchar$ph_operator_load_element"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phchar$ph_operator_load_element"; neo_current_frame = &fr;
     char*  default_value  ;
     char*  __result_obj__0  ;
     unsigned int hash;
@@ -2980,7 +2982,7 @@ static char*  map$2char$phchar$ph_operator_load_element(struct map$2char$phchar$
 
 char*  backtrace_parse_word(struct sInfo*  info  )
 {
-    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "backtrace_parse_word"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "backtrace_parse_word"; neo_current_frame = &fr;
     char* p;
     int sline;
     char*  buf  ;
@@ -3012,7 +3014,7 @@ char*  backtrace_parse_word(struct sInfo*  info  )
 
 static _Bool skip_comment(struct sInfo*  info  , _Bool skip_space_after)
 {
-    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "skip_comment"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "skip_comment"; neo_current_frame = &fr;
     int nest;
     if(*info->p==47&&*(info->p+1)==42) {
         nest=0;
@@ -3092,7 +3094,7 @@ static _Bool skip_comment(struct sInfo*  info  , _Bool skip_space_after)
 
 void skip_spaces_and_lf(struct sInfo*  info  )
 {
-    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "skip_spaces_and_lf"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "skip_spaces_and_lf"; neo_current_frame = &fr;
     while((_Bool)1) {
         if(*info->p==32||*info->p==9) {
             info->p++;
@@ -3125,7 +3127,7 @@ void skip_spaces_and_lf(struct sInfo*  info  )
 
 void skip_spaces_and_lf2(struct sInfo*  info  )
 {
-    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "skip_spaces_and_lf2"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "skip_spaces_and_lf2"; neo_current_frame = &fr;
     while((_Bool)1) {
         if(*info->p==32||*info->p==9) {
             info->p++;
@@ -3152,7 +3154,7 @@ void skip_spaces_and_lf2(struct sInfo*  info  )
 
 void skip_spaces_and_tabs(struct sInfo*  info  )
 {
-    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "skip_spaces_and_tabs"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "skip_spaces_and_tabs"; neo_current_frame = &fr;
     while((_Bool)1) {
         if(*info->p==32||*info->p==9) {
             info->p++;
@@ -3176,7 +3178,7 @@ void skip_spaces_and_tabs(struct sInfo*  info  )
 
 void parse_sharp_v5(struct sInfo*  info  )
 {
-    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "parse_sharp_v5"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "parse_sharp_v5"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct buffer*  buf  ;
@@ -3345,7 +3347,7 @@ _conditional_value_X0;})) {
 
 void skip_paren(struct sInfo*  info  )
 {
-    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "skip_paren"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "skip_paren"; neo_current_frame = &fr;
     int nest;
     nest=0;
     while((_Bool)1) {
