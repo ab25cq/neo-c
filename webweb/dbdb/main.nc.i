@@ -46179,7 +46179,7 @@ _Bool eval_select_from(char* deliminater="\n", sInfo* info)
                 list<map<string,string>*%>*% rows = table.rows;
                 
                 foreach(it, rows) {
-                    map<string,string>* row = it;
+                    map<string,string>* row = borrow it;
                     
                     _Bool check = true;
                     foreach(it2, in_values) {
@@ -46201,7 +46201,7 @@ _Bool eval_select_from(char* deliminater="\n", sInfo* info)
                 list<map<string,string>*%>*% rows = table.rows;
                 
                 foreach(it, rows) {
-                    map<string,string>* row = it;
+                    map<string,string>* row = borrow it;
                     
                     _Bool check = true;
                     foreach(it2, in_values) {
