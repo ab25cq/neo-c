@@ -1249,6 +1249,11 @@ uniq smart_pointer<long>*% buffer*::to_long_pointer(buffer* self)
 
 
 // Result<T> is tuple2<T, bool>*%
+
+#define RESULT(T) tuple2<T, bool>*%
+#define SOME(o) t(o, false)
+#define NONE(o) t(o, true)
+
 /*
 struct res<T>
 {
