@@ -611,7 +611,6 @@ class sFunCallNode extends sNodeBase
         
         
         /// builtin ///
-/*
         if(fun_name === "__builtin_types_compatible_p") {
             if(params.length() != 2) {
                 err_msg(info, "__builtin_types_compatible_p params error");
@@ -664,6 +663,158 @@ class sFunCallNode extends sNodeBase
                 return true;
             }
         }
+        else if(fun_name === "__builtin_va_arg") {
+            list<CVALUE*%>*% come_params = new list<CVALUE*%>();
+            
+            int i = 0;
+            sType*% result_type = null;
+            foreach(it, params) {
+                var label, node = it;
+                
+                node_compile(node).elif {
+                    return false;
+                }
+                
+                CVALUE*% come_value = get_value_from_stack(-1, info);
+                
+                sType*% type_ = solve_generics(come_value.type, info->generics_type, info);
+                come_value.type = solve_method_generics(type_, info);
+                
+                come_params.add(come_value);
+                
+                result_type = come_value.type;
+            }
+            
+            buffer*% buf = new buffer();
+            
+            buf.append_str(fun_name);
+            buf.append_str("(");
+            
+            int j = 0;
+            foreach(it, come_params) {
+                buf.append_str(it.c_value);
+                
+                if(j != come_params.length()-1) {
+                    buf.append_str(",");
+                }
+                
+                j++;
+            }
+            buf.append_str(")");
+            
+            CVALUE*% come_value = new CVALUE();
+            come_value.c_value = buf.to_string();
+            come_value.type = result_type;
+            come_value.var = null;
+            
+            add_come_last_code(info, "%s", come_value.c_value);
+            
+            info.stack.push_back(come_value);
+            
+            return true;
+        }
+        else if(fun_name === "__builtin_va_copy") {
+            list<CVALUE*%>*% come_params = new list<CVALUE*%>();
+            
+            int i = 0;
+            foreach(it, params) {
+                var label, node = it;
+                
+                node_compile(node).elif {
+                    return false;
+                }
+                
+                CVALUE*% come_value = get_value_from_stack(-1, info);
+                
+                sType*% type_ solve_generics(come_value.type, info->generics_type, info);
+                come_value.type = solve_method_generics(type_, info);
+                
+                come_params.add(come_value);
+            }
+            
+            buffer*% buf = new buffer();
+            
+            buf.append_str(fun_name);
+            buf.append_str("(");
+            
+            int j = 0;
+            foreach(it, come_params) {
+                buf.append_str(it.c_value);
+                
+                if(j != come_params.length()-1) {
+                    buf.append_str(",");
+                }
+                
+                j++;
+            }
+            buf.append_str(")");
+            
+            sType*% result_type = new sType(s"void");
+            
+            CVALUE*% come_value = new CVALUE();
+            come_value.c_value = buf.to_string();
+            come_value.type = result_type;
+            come_value.var = null;
+            
+            add_come_last_code(info, "%s", come_value.c_value);
+            
+            info.stack.push_back(come_value);
+            
+            return true;
+        }
+        else if(strlen(fun_name) > strlen("__builtin_") && memcmp(fun_name, "__builtin_", strlen("__builtin")) == 0)
+        {
+            list<CVALUE*%>*% come_params = new list<CVALUE*%>();
+            
+            int i = 0;
+            sType*% result_type = null;
+            foreach(it, params) {
+                var label, node = it;
+                
+                node_compile(node).elif {
+                    return false;
+                }
+                
+                CVALUE*% come_value = get_value_from_stack(-1, info);
+                
+                sType*% type_ = solve_generics(come_value.type, info->generics_type, info);
+                come_value.type = solve_method_generics(type_, info);
+                
+                come_params.add(come_value);
+                
+                result_type = come_value.type;
+            }
+            
+            buffer*% buf = new buffer();
+            
+            buf.append_str(fun_name);
+            buf.append_str("(");
+            
+            int j = 0;
+            foreach(it, come_params) {
+                buf.append_str(it.c_value);
+                
+                if(j != come_params.length()-1) {
+                    buf.append_str(",");
+                }
+                
+                j++;
+            }
+            buf.append_str(")");
+            
+            CVALUE*% come_value = new CVALUE();
+            come_value.c_value = buf.to_string();
+            come_value.type = new sType(s"int"); // result_type;
+            come_value.var = null;
+            
+            add_come_last_code(info, "%s", come_value.c_value);
+            
+            info.stack.push_back(come_value);
+            
+            return true;
+        }
+        
+        /*
         else if(fun_name === "__builtin_memmove" || fun_name === "__builtin_memset" || fun_name === "__builtin_ffs" 
             || fun_name === "__builtin_ffsl" || fun_name === "__builtin_ffsll" 
             || fun_name === "__builtin_bswap16" || fun_name === "__builtin_bswap32" || fun_name === "__builtin_bswap64" 
@@ -898,105 +1049,6 @@ class sFunCallNode extends sNodeBase
         }
         else 
         */
-        if(fun_name === "__builtin_va_arg") {
-            list<CVALUE*%>*% come_params = new list<CVALUE*%>();
-            
-            int i = 0;
-            sType*% result_type = null;
-            foreach(it, params) {
-                var label, node = it;
-                
-                node_compile(node).elif {
-                    return false;
-                }
-                
-                CVALUE*% come_value = get_value_from_stack(-1, info);
-                
-                sType*% type_ = solve_generics(come_value.type, info->generics_type, info);
-                come_value.type = solve_method_generics(type_, info);
-                
-                come_params.add(come_value);
-                
-                result_type = come_value.type;
-            }
-            
-            buffer*% buf = new buffer();
-            
-            buf.append_str(fun_name);
-            buf.append_str("(");
-            
-            int j = 0;
-            foreach(it, come_params) {
-                buf.append_str(it.c_value);
-                
-                if(j != come_params.length()-1) {
-                    buf.append_str(",");
-                }
-                
-                j++;
-            }
-            buf.append_str(")");
-            
-            CVALUE*% come_value = new CVALUE();
-            come_value.c_value = buf.to_string();
-            come_value.type = result_type;
-            come_value.var = null;
-            
-            add_come_last_code(info, "%s", come_value.c_value);
-            
-            info.stack.push_back(come_value);
-            
-            return true;
-        }
-        else if(fun_name === "__builtin_va_copy") {
-            list<CVALUE*%>*% come_params = new list<CVALUE*%>();
-            
-            int i = 0;
-            foreach(it, params) {
-                var label, node = it;
-                
-                node_compile(node).elif {
-                    return false;
-                }
-                
-                CVALUE*% come_value = get_value_from_stack(-1, info);
-                
-                sType*% type_ solve_generics(come_value.type, info->generics_type, info);
-                come_value.type = solve_method_generics(type_, info);
-                
-                come_params.add(come_value);
-            }
-            
-            buffer*% buf = new buffer();
-            
-            buf.append_str(fun_name);
-            buf.append_str("(");
-            
-            int j = 0;
-            foreach(it, come_params) {
-                buf.append_str(it.c_value);
-                
-                if(j != come_params.length()-1) {
-                    buf.append_str(",");
-                }
-                
-                j++;
-            }
-            buf.append_str(")");
-            
-            sType*% result_type = new sType(s"void");
-            
-            CVALUE*% come_value = new CVALUE();
-            come_value.c_value = buf.to_string();
-            come_value.type = result_type;
-            come_value.var = null;
-            
-            add_come_last_code(info, "%s", come_value.c_value);
-            
-            info.stack.push_back(come_value);
-            
-            return true;
-        }
         else if(fun_name === "string") {
             fun_name = string("__builtin_string");
         }

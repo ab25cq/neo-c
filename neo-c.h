@@ -533,7 +533,7 @@ uniq void xassert(const char* msg, bool test)
 
 /*
 __attribute__((noreturn, cold)) static void nn_fail(const char* f, int line) {
-    puts(s"null pointer exception \{sname} \{sline}");
+    puts(s"null pointer exception \{f} \{line}");
     stackframe();
     exit(1);
 }
