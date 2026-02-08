@@ -824,6 +824,9 @@ struct slice<T> {
     size_t len;
 };
 
+#define array_to_slice(array) (new slice<__typeof__((array)[0])>.initialize((__typeof__((array)[0])*)(array), sizeof(array)/sizeof((array)[0])))
+#define array_to_slice_t(T, array) (new slice<T>.initialize((T*)(array), sizeof(array)/sizeof((array)[0])))
+
 impl slice<T>
 {
     slice<T>*% initialize(slice<T>*% self, T* p, size_t len)

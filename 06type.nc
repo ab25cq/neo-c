@@ -3607,9 +3607,22 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
     
     bool left_ptr = is_pointer_type(left_type2);
     bool right_ptr = is_pointer_type(right_type2);
+    bool left_array = left_type2->mArrayNum.length() > 0
+        && left_type2->mPointerNum == 0
+        && left_type2->mArrayPointerNum == 0;
     bool right_array = right_type2->mArrayNum.length() > 0
         && right_type2->mPointerNum == 0
         && right_type2->mArrayPointerNum == 0;
+    
+    if(left_array && right_array) {
+        if(is_same_base_type_ignoring_qualifier(left_type2, right_type2)) {
+            return true;
+        }
+        warning_msg(info, "invalid array base type. %s", msg);
+        show_type(left_type2);
+        show_type(right_type2);
+        return false;
+    }
     
     if(left_ptr || right_ptr || right_array) {
         if(left_ptr && (right_ptr || right_array)) {
@@ -3725,6 +3738,11 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
             return false;
         }
         else if(!left_ptr && (right_ptr || right_array)) {
+            if(left_type2->mArrayNum.length() > 0 && right_type2->mArrayNum.length() > 0) {
+                if(is_same_base_type_ignoring_qualifier(left_type2, right_type2)) {
+                    return true;
+                }
+            }
             warning_msg(info, "invalid assign non-pointer from pointer. %s", msg);
             show_type(left_type2);
             show_type(right_type2);
