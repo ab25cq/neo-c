@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.8.8.3
+version 0.8.8.4
 
 ``` C
 #include <neo-c.h>
@@ -93,6 +93,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.8.8.4 slice, rawptr implemented.
 0.8.8.3 smart_pointer implemented.
 0.8.8.2 require borrow to asign heap object to none heap variable.
 0.8.8.1 __attribute__ supported comonly.
