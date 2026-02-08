@@ -531,6 +531,31 @@ uniq void xassert(const char* msg, bool test)
     puts("ok");
 }
 
+/*
+__attribute__((noreturn, cold)) static void nn_fail(const char* f, int line) {
+    puts(s"null pointer exception \{sname} \{sline}");
+    stackframe();
+    exit(1);
+}
+
+static inline __attribute__((always_inline)) void* come_null_checker(void* p, const char* f, int line) {
+    if (__builtin_expect(p != 0, 1)) return p;
+    // 失敗は cold へ
+    nn_fail(f, line);
+}
+*/
+        
+uniq void* come_null_checker(void* mem, const char* sname, int sline)
+{
+    if(mem) {
+        return mem;
+    }
+    
+    puts(s"null pointer exception \{sname} \{sline}");
+    stackframe();
+    exit(1);
+}
+
 uniq string __builtin_string(const char* str)
 {
     if(str == null) {

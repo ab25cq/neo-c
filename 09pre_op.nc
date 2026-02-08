@@ -151,8 +151,8 @@ class sParenBlockNode extends sNodeBase
             }
             else {
                 if(buf) {
-                    buf.append_str(info.module.mLastCode + "; ");
-                    buf.append_str(info.module.mLastCode2 + "; ");
+                    if(info.module.mLastCode) buf.append_str(info.module.mLastCode + "; ");
+                    if(info.module.mLastCode2) buf.append_str(info.module.mLastCode2 + "; ");
                     
                     transpiler_clear_last_code(info);
                 }
@@ -887,6 +887,16 @@ sNode*% pre_position_operator(sInfo* info=info)
         
         return new sRefferenceNode(value, info) implements sNode;
     }
+/*
+    else if(*info->p == '&' && *(info->p+1) == '&') {
+        info->p ++;
+        skip_spaces_and_lf();
+        
+        sNode*% value = expression_node();
+        
+        return new sRawPtrNode(value, info) implements sNode;
+    }
+*/
     else if(*info->p == '!' && *(info->p+1) != '!' && *(info->p+1) != '{') {
         info->p ++;
         skip_spaces_and_lf();

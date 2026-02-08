@@ -10563,19 +10563,19 @@ static inline unsigned long  int  __uint64_identity(unsigned long  int  __x  )
 {
     return __x;
 }
-static inline _Bool __hsb64_inline(unsigned long  int  __x  )
+static inline _Bool  __attribute__((__always_inline__))  __hsb64_inline(unsigned long  int  __x  )
 {
     return (__x^(__x-1))>__x-1;
 }
-static inline _Bool __hsb32_inline(unsigned int  __x  )
+static inline _Bool  __attribute__((__always_inline__))  __hsb32_inline(unsigned int  __x  )
 {
     return (__x^(__x-1))>__x-1;
 }
-static inline _Bool __hsb16_inline(unsigned short int  __x  )
+static inline _Bool  __attribute__((__always_inline__))  __hsb16_inline(unsigned short int  __x  )
 {
     return (__x^(__x-1))>__x-1;
 }
-static inline _Bool __hsb8_inline(unsigned char  __x  )
+static inline _Bool  __attribute__((__always_inline__))  __hsb8_inline(unsigned char  __x  )
 {
     return (__x^(__x-1))>__x-1;
 }

@@ -1400,6 +1400,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
     bool complex_ = false;
     bool type_name_ = false;
     bool noreturn_ = false;
+    string attribute_before = s"";
     
     sNode*% alignas_ = null;
     bool alignas_double = false;
@@ -1454,28 +1455,26 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             type_name = parse_word();
         }
         else if(type_name === "__attribute__") {
-            if(*info->p == '(') {
-                int brace_num = 0;
-                while(*info->p) {
-                    if(*info->p == '(') {
-                        info->p++;
-                        brace_num++;
-                    }
-                    else if(*info->p == ')') {
-                        info->p++;
-                        brace_num--;
-    
-                        if(brace_num == 0) {
-                            break;
-                        }
-                    }
-                    else {
-                        info->p++;
-                    }
-                }
-            }
-    
+            buffer*% attr = new buffer();
+            attr.append_str("__attribute__");
+            
             skip_spaces_and_lf();
+            
+            if(*info->p == '(') {
+                char* p = info.p;
+                skip_paren(info);
+                char* tail = info.p;
+                
+                attr.append(p, tail - p);
+            }
+            
+            string attr_str = attr.to_string();
+            if(attribute_before !== "") {
+                attribute_before = attribute_before + " " + attr_str;
+            }
+            else {
+                attribute_before = attr_str;
+            }
             
             type_name = parse_word();
         }
@@ -2122,6 +2121,15 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
     }
     
     string attribute = parse_struct_attribute(allow_end:false);
+    if(attribute_before !== "") {
+        if(attribute === "") {
+            attribute = attribute_before;
+        }
+        else {
+            attribute = attribute_before + " " + attribute;
+        }
+        attribute_before = s"";
+    }
     if(!struct_define_parsed && (struct_ || enum_) && union_attribute !== "") {
         if(attribute === "") {
             attribute = union_attribute;

@@ -1,5 +1,6 @@
 #include "common.h"
 
+
 bool operator_overload_fun2(sType* type, const char* fun_name, sNode*% left_node, sNode*% middle_node, sNode*% right_node, CVALUE* left_value, CVALUE* middle_value, CVALUE* right_value, sInfo* info)
 {
     sType*% generics_type;
@@ -80,13 +81,14 @@ sType*% get_field_type(sClass* klass, string name, sInfo* info)
     return result;
 }
 
+
 class sStoreFieldNode extends sNodeBase
 {
     new(sNode* left, sNode*% right, string name, sInfo* info, bool arrow_=false)
     {
         self.super();
     
-        sNode*% self.mLeft = clone left;
+        sNode*% self.mLeft = new sNullChecker(clone left) implements sNode;
         sNode*% self.mRight = clone right;
         string self.mName = string(name);
         bool self.mArrow = arrow_;
@@ -369,7 +371,7 @@ class sLoadFieldNode extends sNodeBase
     {
         self.super();
     
-        sNode*% self.mLeft = clone left;
+        sNode*% self.mLeft = new sNullChecker(clone left) implements sNode;
         string self.mName = string(name);
         bool self.mArrow = arrow_;
     }
@@ -508,6 +510,7 @@ class sLoadFieldNode extends sNodeBase
     }
 };
 
+
 sNode*% load_field(sNode*% left, string name, sInfo* info=info)
 {
     return new sLoadFieldNode(left, name, info) implements sNode;
@@ -519,7 +522,7 @@ class sStoreArrayNode extends sNodeBase
     {
         self.super();
     
-        sNode*% self.mLeft = clone left;
+        sNode*% self.mLeft = new sNullChecker(clone left) implements sNode;
         sNode*% self.mRight = clone right;
         list<sNode*%>*% self.mArrayNum = clone array_num;
         bool self.mQuote = quote;
@@ -669,7 +672,7 @@ class sLoadArrayNode extends sNodeBase
         list<sNode*%>*% self.mArrayNum = clone array_num;
         bool self.mBreakGuard = break_guard;
     
-        sNode*% self.mLeft = clone left;
+        sNode*% self.mLeft = new sNullChecker(clone left) implements sNode;
         bool self.mQuote = quote;
     }
     
@@ -798,7 +801,7 @@ class sLoadRangeArrayNode extends sNodeBase
         
         list<sNode*%>*% self.mArrayNum = clone array_num;
     
-        sNode*% self.mLeft = clone left;
+        sNode*% self.mLeft = new sNullChecker(clone left) implements sNode;
         bool self.mQuote = quote;
     }
     
@@ -924,7 +927,7 @@ sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info, bool arrow_
     return (sNode*%)null;
 }
 
-sNode*% store_field(sNode* left, sNode*% right, string name, sInfo* info)
+sNode*% store_field(sNode*% left, sNode*% right, string name, sInfo* info)
 {
     return new sStoreFieldNode(left, right, name, info) implements sNode;
 }

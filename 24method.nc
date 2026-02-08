@@ -199,7 +199,7 @@ string, sFun*,sGenericsFun* get_method(const char* fun_name, sType* obj_type, sI
         string fun_name2 = create_non_method_name(obj_type, false@no_pointer_name, info.come_fun.mName, info);
         
         sClass* klass = obj_type->mClass;
-        while(info.classes[klass->mParentClassName]) {
+        while(klass->mParentClassName && info.classes[klass->mParentClassName]) {
             klass = borrow info.classes[klass->mParentClassName];
             generics_fun_name = create_method_name_using_class(klass, fun_name2, info);
             
@@ -216,7 +216,7 @@ string, sFun*,sGenericsFun* get_method(const char* fun_name, sType* obj_type, sI
             generics_fun_name = name;
             generics_fun = gfun;
         }
-        else if(info.method_generics_types.length() > 0) {
+        else if(info.method_generics_types && info.method_generics_types.length() > 0) {
             string none_generics_name = get_none_generics_name(obj_type.mClass.mName);
             string fun_name3 = xsprintf("%s_%s", none_generics_name, fun_name);
             var name, gfun = make_method_generics_function(string(fun_name3), info.method_generics_types, info);
@@ -273,7 +273,7 @@ string, sFun*,sGenericsFun* get_method(const char* fun_name, sType* obj_type, sI
                     
                     if(fun == null) {
                         sClass* klass = obj_type->mClass;
-                        while(info.classes[klass->mParentClassName]) {
+                        while(klass->mParentClassName && info.classes[klass->mParentClassName]) {
                             klass = borrow info.classes[klass->mParentClassName];
                             generics_fun_name = create_method_name_using_class(klass, fun_name, info);
                             
@@ -404,7 +404,7 @@ class sMethodCallNode extends sNodeBase
     {
         self.super();
         
-        sNode*% self.obj = clone obj;
+        sNode*% self.obj = new sNullChecker(clone obj) implements sNode;
         string self.fun_name = string(fun_name);
         list<tup: string,sNode*%>*% self.params = clone params;
         buffer*% self.method_block = clone method_block;

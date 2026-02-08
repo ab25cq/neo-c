@@ -1042,7 +1042,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
 /////////////////////////////////////////////////////////////////////
 sNode*% create_nullable_node(sNode* left, sInfo* info=info);
 sNode*% load_field(sNode*% left, string name, sInfo* info=info);
-sNode*% store_field(sNode* left, sNode*% right, string name, sInfo* info);
+sNode*% store_field(sNode*% left, sNode*% right, string name, sInfo* info);
 
 sNode*% post_position_operator(sNode*% node, sInfo* info) version 99;
 sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info, bool arrow_=false) version 18;
@@ -1140,5 +1140,56 @@ sNode*% parse_come_gval(sInfo* info=info);
 sNode*% parse_come_gvar(sInfo* info=info);
 sNode*% parse_come_function(sInfo* info=info);
 sBlock*% parse_come_block(sInfo* info=info);
+
+sNode*% create_new_object(sType* type, sInfo* info=info);
+
+uniq class sNullChecker extends sNodeBase
+{
+    sNode*% value;
+    
+    new(sNode*% value, sInfo* info=info)
+    {
+        self.super();
+    
+        self.value = clone value;
+    }
+    
+    string kind()
+    {
+        return string("sNullChecker");
+    }
+    
+    bool compile(sInfo* info)
+    {
+        sNode*% value = self.value;
+        
+        node_compile(value).elif {
+            return false;
+        }
+        
+        CVALUE*% come_value = get_value_from_stack(-1, info);
+        
+        sType*% type__ = clone come_value.type;
+        sType*% type_ = solve_generics(type__, info.generics_type, info);
+        sType*% type = solve_method_generics(type_, info);
+        
+        sType*% original_type = type__->mOriginalLoadVarType;
+        
+        if(!gComeC && type->mPointerNum > 0 && (original_type == null || original_type->mArrayNum.length() == 0) && !type->mArrayPointerType && type->mArrayPointerNum == 0) {
+            CVALUE*% come_value2 = new CVALUE();
+            
+            come_value2.c_value = xsprintf("((%s)come_null_checker(%s, \"%s\", %d))", make_type_name_string(type, no_static:true), come_value.c_value, info.sname, info.sline);
+            come_value2.type = clone type;
+            come_value2.var = come_value.var;
+            
+            info.stack.push_back(come_value2);
+        }
+        else {
+            info.stack.push_back(come_value);
+        }
+    
+        return true;
+    }
+};
 
 #endif

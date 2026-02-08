@@ -2776,19 +2776,19 @@ static inline unsigned int  __fswahb32(unsigned int  val  )
 {
     return ((unsigned int )((((unsigned int )(val)&(unsigned int )0x00ff00ffUL)<<8)|(((unsigned int )(val)&(unsigned int )0xff00ff00UL)>>8)));
 }
-static inline unsigned long  int __swab(const unsigned long  int y)
+static inline unsigned long  int  __attribute__((__always_inline__))  __swab(const unsigned long  int y)
 {
     return (unsigned long  long )(((__builtin_constant_p(y))?(((unsigned long  long )((((unsigned long  long )(y)&(unsigned long  long )0x00000000000000ffULL)<<56)|(((unsigned long  long )(y)&(unsigned long  long )0x000000000000ff00ULL)<<40)|(((unsigned long  long )(y)&(unsigned long  long )0x0000000000ff0000ULL)<<24)|(((unsigned long  long )(y)&(unsigned long  long )0x00000000ff000000ULL)<<8)|(((unsigned long  long )(y)&(unsigned long  long )0x000000ff00000000ULL)>>8)|(((unsigned long  long )(y)&(unsigned long  long )0x0000ff0000000000ULL)>>24)|(((unsigned long  long )(y)&(unsigned long  long )0x00ff000000000000ULL)>>40)|(((unsigned long  long )(y)&(unsigned long  long )0xff00000000000000ULL)>>56)))):(__fswab64(y))));
 }
-static inline unsigned short int  __swab16p(const unsigned short int*  p  )
+static inline unsigned short int  __attribute__((__always_inline__))  __swab16p(const unsigned short int*  p  )
 {
     return (unsigned short int )(((__builtin_constant_p(*p))?(((unsigned short int )((((unsigned short int )(*p)&(unsigned short int )0x00ffU)<<8)|(((unsigned short int )(*p)&(unsigned short int )0xff00U)>>8)))):(__fswab16(*p))));
 }
-static inline unsigned int  __swab32p(const unsigned int*  p  )
+static inline unsigned int  __attribute__((__always_inline__))  __swab32p(const unsigned int*  p  )
 {
     return (unsigned int )(((__builtin_constant_p(*p))?(((unsigned int )((((unsigned int )(*p)&(unsigned int )0x000000ffUL)<<24)|(((unsigned int )(*p)&(unsigned int )0x0000ff00UL)<<8)|(((unsigned int )(*p)&(unsigned int )0x00ff0000UL)>>8)|(((unsigned int )(*p)&(unsigned int )0xff000000UL)>>24)))):(__fswab32(*p))));
 }
-static inline unsigned long  long  __swab64p(const unsigned long  long*  p  )
+static inline unsigned long  long  __attribute__((__always_inline__))  __swab64p(const unsigned long  long*  p  )
 {
     return (unsigned long  long )(((__builtin_constant_p(*p))?(((unsigned long  long )((((unsigned long  long )(*p)&(unsigned long  long )0x00000000000000ffULL)<<56)|(((unsigned long  long )(*p)&(unsigned long  long )0x000000000000ff00ULL)<<40)|(((unsigned long  long )(*p)&(unsigned long  long )0x0000000000ff0000ULL)<<24)|(((unsigned long  long )(*p)&(unsigned long  long )0x00000000ff000000ULL)<<8)|(((unsigned long  long )(*p)&(unsigned long  long )0x000000ff00000000ULL)>>8)|(((unsigned long  long )(*p)&(unsigned long  long )0x0000ff0000000000ULL)>>24)|(((unsigned long  long )(*p)&(unsigned long  long )0x00ff000000000000ULL)>>40)|(((unsigned long  long )(*p)&(unsigned long  long )0xff00000000000000ULL)>>56)))):(__fswab64(*p))));
 }
@@ -2804,11 +2804,11 @@ static inline void __swab16s(unsigned short int*  p  )
 {
     *p=__swab16p(p);
 }
-static inline void __swab32s(unsigned int*  p  )
+static inline void  __attribute__((__always_inline__))  __swab32s(unsigned int*  p  )
 {
     *p=__swab32p(p);
 }
-static inline void __swab64s(unsigned long  long*  p  )
+static inline void  __attribute__((__always_inline__))  __swab64s(unsigned long  long*  p  )
 {
     *p=__swab64p(p);
 }
@@ -2820,51 +2820,51 @@ static inline void __swahb32s(unsigned int*  p  )
 {
     *p=__swahb32p(p);
 }
-static inline unsigned long  long  __cpu_to_le64p(const unsigned long  long*  p  )
+static inline unsigned long  long  __attribute__((__always_inline__))  __cpu_to_le64p(const unsigned long  long*  p  )
 {
     return (unsigned long  long )*p;
 }
-static inline unsigned long  long  __le64_to_cpup(const unsigned long  long*  p  )
+static inline unsigned long  long  __attribute__((__always_inline__))  __le64_to_cpup(const unsigned long  long*  p  )
 {
     return (unsigned long  long )*p;
 }
-static inline unsigned int  __cpu_to_le32p(const unsigned int*  p  )
+static inline unsigned int  __attribute__((__always_inline__))  __cpu_to_le32p(const unsigned int*  p  )
 {
     return (unsigned int )*p;
 }
-static inline unsigned int  __le32_to_cpup(const unsigned int*  p  )
+static inline unsigned int  __attribute__((__always_inline__))  __le32_to_cpup(const unsigned int*  p  )
 {
     return (unsigned int )*p;
 }
-static inline unsigned short int  __cpu_to_le16p(const unsigned short int*  p  )
+static inline unsigned short int  __attribute__((__always_inline__))  __cpu_to_le16p(const unsigned short int*  p  )
 {
     return (unsigned short int )*p;
 }
-static inline unsigned short int  __le16_to_cpup(const unsigned short int*  p  )
+static inline unsigned short int  __attribute__((__always_inline__))  __le16_to_cpup(const unsigned short int*  p  )
 {
     return (unsigned short int )*p;
 }
-static inline unsigned long  long  __cpu_to_be64p(const unsigned long  long*  p  )
+static inline unsigned long  long  __attribute__((__always_inline__))  __cpu_to_be64p(const unsigned long  long*  p  )
 {
     return (unsigned long  long )__swab64p(p);
 }
-static inline unsigned long  long  __be64_to_cpup(const unsigned long  long*  p  )
+static inline unsigned long  long  __attribute__((__always_inline__))  __be64_to_cpup(const unsigned long  long*  p  )
 {
     return __swab64p((unsigned long  long* )p);
 }
-static inline unsigned int  __cpu_to_be32p(const unsigned int*  p  )
+static inline unsigned int  __attribute__((__always_inline__))  __cpu_to_be32p(const unsigned int*  p  )
 {
     return (unsigned int )__swab32p(p);
 }
-static inline unsigned int  __be32_to_cpup(const unsigned int*  p  )
+static inline unsigned int  __attribute__((__always_inline__))  __be32_to_cpup(const unsigned int*  p  )
 {
     return __swab32p((unsigned int* )p);
 }
-static inline unsigned short int  __cpu_to_be16p(const unsigned short int*  p  )
+static inline unsigned short int  __attribute__((__always_inline__))  __cpu_to_be16p(const unsigned short int*  p  )
 {
     return (unsigned short int )__swab16p(p);
 }
-static inline unsigned short int  __be16_to_cpup(const unsigned short int*  p  )
+static inline unsigned short int  __attribute__((__always_inline__))  __be16_to_cpup(const unsigned short int*  p  )
 {
     return __swab16p((unsigned short int* )p);
 }

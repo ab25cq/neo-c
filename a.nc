@@ -1,24 +1,14 @@
-#include <neo-c.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-RESULT(FILE*) xfopen(const char* file_name, const char* mode)
-{
-    FILE* f = fopen(file_name, mode);
-    
-    if(f == NULL) {
-        return NONE(f);
-    }
-    
-    return SOME(f);
+
+__attribute__((noreturn, cold)) static void nn_fail(const char* f, int line) {
+    printf("null pointer exception %s %d\n", sname, sline);
+    exit(1);
 }
 
-int main(int argc, char** argv)
-{
-    xfopen("01main.nc", mode:"r").unwrap().fclose();
-    xfopen("01main.nc", mode:"r").catch {
-        puts("ERR");
-        return 1;
-    }.fclose();
-    
-    return 0;
+static inline __attribute__((always_inline)) void* come_null_check(void* p, const char* f, int line) {
+    if (__builtin_expect(p != 0, 1)) return p;
+    // 失敗は cold へ
+    nn_fail(f, line);
 }
-
