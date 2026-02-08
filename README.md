@@ -3039,7 +3039,7 @@ int main(int argc, char** argv)
 
 tuple2<T,bool> can be used like Reult<T>
 
-If you MACRO, you use like Result<T>
+If you use MACRO, you use like Result<T>
 
 ```
 #include <neo-c.h>
