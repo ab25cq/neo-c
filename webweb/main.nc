@@ -25,7 +25,7 @@ string parse_html(string file_contents)
 {
     var contents = new buffer();
     
-    char* p = file_contents;
+    char* p = borrow file_contents;
     
     contents.append_str(p);
     
