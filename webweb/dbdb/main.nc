@@ -350,7 +350,7 @@ bool eval_insert_into(sInfo* info)
         
         int last_index = table.rows.length();
         
-        map<string, string>* last_row = table.rows[last_index-1];
+        map<string, string>* last_row = borrow table.rows[last_index-1];
         
         if(last_row) {
             foreach(it, table.types) {
@@ -851,7 +851,7 @@ bool eval_select_from(char* deliminater="\n", sInfo* info)
                 list<map<string,string>*%>*% rows = table.rows;
                 
                 foreach(it, rows) {
-                    map<string,string>* row = it;
+                    map<string,string>* row = borrow it;
                     
                     bool check = true;
                     foreach(it2, in_values) {
@@ -873,7 +873,7 @@ bool eval_select_from(char* deliminater="\n", sInfo* info)
                 list<map<string,string>*%>*% rows = table.rows;
                 
                 foreach(it, rows) {
-                    map<string,string>* row = it;
+                    map<string,string>* row = borrow it;
                     
                     bool check = true;
                     foreach(it2, in_values) {

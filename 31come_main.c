@@ -2689,30 +2689,30 @@ struct sNode* comelang_top_level(char* buf, char* head, int head_sline, struct s
     struct sNode* __dec_obj2;
     struct sNode* __dec_obj3;
     struct sNode* __result_obj__0;
-    ((struct sInfo* )come_null_checker(info, "31come_main.nc", 5))->in_top_level=(_Bool)1;
-    ((struct sInfo* )come_null_checker(info, "31come_main.nc", 7))->p=head;
-    ((struct sInfo* )come_null_checker(info, "31come_main.nc", 8))->sline=head_sline;
+    info->in_top_level=(_Bool)1;
+    info->p=head;
+    info->sline=head_sline;
     node=((void*)0);
     buf2=(char* )come_increment_ref_count(parse_word((_Bool)0,info));
-    if(string_operator_equals(((char* )come_null_checker(buf2, "31come_main.nc", 15)),"fn")) {
-        ((struct sInfo* )come_null_checker(info, "31come_main.nc", 16))->in_top_level=(_Bool)0;
+    if(string_operator_equals(buf2,"fn")) {
+        info->in_top_level=(_Bool)0;
         __dec_obj1=node,
         node=(struct sNode*)come_increment_ref_count(parse_come_function(info));
         (__dec_obj1 ? __dec_obj1 = come_decrement_ref_count(__dec_obj1, ((struct sNode*)__dec_obj1)->finalize, ((struct sNode*)__dec_obj1)->_protocol_obj, 0,0, (void*)0) :0);
     }
-    else if(string_operator_equals(((char* )come_null_checker(buf2, "31come_main.nc", 20)),"val")) {
+    else if(string_operator_equals(buf2,"val")) {
         __dec_obj2=node,
         node=(struct sNode*)come_increment_ref_count(parse_come_gval(info));
         (__dec_obj2 ? __dec_obj2 = come_decrement_ref_count(__dec_obj2, ((struct sNode*)__dec_obj2)->finalize, ((struct sNode*)__dec_obj2)->_protocol_obj, 0,0, (void*)0) :0);
     }
-    else if(string_operator_equals(((char* )come_null_checker(buf2, "31come_main.nc", 23)),"var")) {
+    else if(string_operator_equals(buf2,"var")) {
         __dec_obj3=node,
         node=(struct sNode*)come_increment_ref_count(parse_come_gvar(info));
         (__dec_obj3 ? __dec_obj3 = come_decrement_ref_count(__dec_obj3, ((struct sNode*)__dec_obj3)->finalize, ((struct sNode*)__dec_obj3)->_protocol_obj, 0,0, (void*)0) :0);
     }
-    else if(charp_operator_equals(((char*)come_null_checker(buf, "31come_main.nc", 26)),"using")) {
+    else if(charp_operator_equals(buf,"using")) {
         if(parsecmp("neo-c",info)) {
-            ((struct sInfo* )come_null_checker(info, "31come_main.nc", 28))->p+=strlen("neo-c");
+            info->p+=strlen("neo-c");
             skip_spaces_and_lf(info);
             gComelang=(_Bool)0;
             gComeC=(_Bool)0;

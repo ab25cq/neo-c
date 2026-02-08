@@ -1175,7 +1175,7 @@ uniq class sNullChecker extends sNodeBase
         
         sType*% original_type = type__->mOriginalLoadVarType;
         
-        if(!gComeC && type->mPointerNum > 0 && (original_type == null || original_type->mArrayNum.length() == 0) && !type->mArrayPointerType && type->mArrayPointerNum == 0) {
+        if(!gComeC && gComeDebug && type->mPointerNum > 0 && (original_type == null || original_type->mArrayNum.length() == 0) && !type->mArrayPointerType && type->mArrayPointerNum == 0) {
             CVALUE*% come_value2 = new CVALUE();
             
             come_value2.c_value = xsprintf("((%s)come_null_checker(%s, \"%s\", %d))", make_type_name_string(type, no_static:true), come_value.c_value, info.sname, info.sline);
