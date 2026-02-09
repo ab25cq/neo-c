@@ -1241,6 +1241,16 @@ sType*% parse_pointer_attribute(sType* type, sInfo* info=info)
                 type->mNoSolvedGenericsType.mNoHeap = false;
             }
         }
+        else if(*info->p == ']') {
+            info->p++;
+            skip_spaces_and_lf();
+            
+            type->mMinusPointerNum++;
+            
+            if(type->mNoSolvedGenericsType) {
+                type->mNoSolvedGenericsType.mMinusPointerNum++;
+            }
+        }
         else if(*info->p == '&') {
             info->p++;
             skip_spaces_and_lf();

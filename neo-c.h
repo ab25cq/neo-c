@@ -601,8 +601,8 @@ impl optional<T>
         return self;
     }
     
-    T unwrap(optional<T>* self) {
-        if(ispointer(T) && self.p == (void*)0) {
+    T unwrap(optional<T>* self, bool check=false) {
+        if(check && ispointer(T) && self.p == (void*)0) {
             puts("null pointer exception");
             stackframe();
             exit(2);
@@ -700,7 +700,7 @@ impl optional<T>
         return result;
     }
     
-    T operator_derefference(optional<T>* self)
+    T] operator_derefference(optional<T>* self)
     {
         using unsafe;
         
@@ -758,11 +758,11 @@ impl ref<T>
         return self;
     }
     
-    T unwrap(ref<T>* self) {
+    T unwrap(ref<T>* self, bool check=false) {
         return self.p;
     }
     
-    T operator_derefference(ref<T>* self)
+    T] operator_derefference(ref<T>* self)
     {
         using unsafe;
         

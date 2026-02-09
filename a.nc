@@ -2,7 +2,8 @@
 
 void fun(char*& p, const char* a)
 {
-    printf("%p %p\n", p, a);
+    printf("%p %p\n", p.unwrap(), a);
+    puts(p.scan(".").join("+"));
 }
 
 int main(int argc, char** argv)
@@ -13,9 +14,20 @@ int main(int argc, char** argv)
     
     fun(ref a, a);
     
-    char*? p2 = optional a;
+    char* b = null;
     
+    char*? p2 = optional b;
+    
+    p2.elif {
+        puts("CATCH");
+    }
+    
+/*
     printf("%p %p\n", p2.unwrap(), a);
+    
+    printf("%c\n", *p2);
+    printf("%c\n", *p);
+*/
     
     return 0;
 }

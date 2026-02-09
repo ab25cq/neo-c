@@ -94,7 +94,9 @@ sType*% solve_generics(sType* type, sType* generics_type, sInfo* info)
         bool const_ = type->mConstant;
         
         bool no_heap = type->mNoHeap;
+        int minus_pointer_num = type->mMinusPointerNum;
         bool no_calling_destructor = type->mNoCallingDestructor;
+        int minus_pointer_num = type->mMinusPointerNum;
         
         result = clone info->method_generics_types[generics_number];
         
@@ -121,6 +123,9 @@ sType*% solve_generics(sType* type, sType* generics_type, sInfo* info)
         if(pointer_num > 0) {
             result->mPointerNum += pointer_num;
         }
+        if(minus_pointer_num) {
+            result->mPointerNum -= minus_pointer_num;
+        }
     }
     else if(klass->mGenerics) {
         int generics_number = klass->mGenericsNum;
@@ -146,6 +151,7 @@ sType*% solve_generics(sType* type, sType* generics_type, sInfo* info)
             bool no_calling_destructor = type->mNoCallingDestructor;
             bool multiple_types = type->mMultipleTypes;
             bool const_ = type->mConstant;
+            int minus_pointer_num = type->mMinusPointerNum;
             
             result = clone generics_type->mGenericsTypes[generics_number];
 
@@ -174,6 +180,9 @@ sType*% solve_generics(sType* type, sType* generics_type, sInfo* info)
             
             if(pointer_num > 0) {
                 result->mPointerNum += pointer_num;
+            }
+            if(minus_pointer_num) {
+                result->mPointerNum -= minus_pointer_num;
             }
         }
     }
@@ -218,6 +227,7 @@ sType*% solve_method_generics(sType* type, sInfo* info)
         bool no_heap = type->mNoHeap;
         bool no_calling_destructor = type->mNoCallingDestructor;
         bool constant_ = type->mConstant;
+        int minus_pointer_num = type->mMinusPointerNum;
         
         result = clone info->method_generics_types[generics_number];
 
@@ -243,6 +253,9 @@ sType*% solve_method_generics(sType* type, sInfo* info)
         
         if(pointer_num > 0) {
             result->mPointerNum += pointer_num;
+        }
+        if(minus_pointer_num) {
+            result->mPointerNum -= minus_pointer_num;
         }
     }
     

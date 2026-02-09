@@ -93,6 +93,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.8.8.7 ref and optional implemented. removed rawptr, removed storing field, array, loading field, array checker integrate.
 0.8.8.6 storing field, array, loading field, array checker integrate.
 0.8.8.5 tuple2<T,bool> can be used like Result<T>. and catch method implemented. case method bug is fixed.
 0.8.8.4 slice, rawptr implemented.
@@ -3067,3 +3068,67 @@ int main(int argc, char** argv)
     return 0;
 }
 ```
+
+# optional, ref
+
+```
+#include <neo-c.h>
+
+void fun(char*& p, const char* a)
+{
+    printf("%p %p\n", p.unwrap(), a);
+    puts(p.scan(".").join("+"));
+}
+
+int main(int argc, char** argv)
+{
+    const char* a = "ABC";
+    
+    char*& p = ref a;
+    
+    fun(ref a, a);
+    
+    char*? p2 = optional a;
+    
+    printf("%p %p\n", p2.unwrap(), a);
+    
+    return 0;
+}
+```
+
+```
+#include <neo-c.h>
+
+void fun(char*& p, const char* a)
+{
+    printf("%p %p\n", p.unwrap(), a);
+    puts(p.scan(".").join("+"));
+}
+
+int main(int argc, char** argv)
+{
+    const char* a = "ABC";
+    
+    char*& p = ref a;
+    
+    fun(ref a, a);
+    
+    char* b = null;
+    
+    char*? p2 = optional b;
+    
+    p2.elif {
+        puts("CATCH");
+    }
+    
+/*
+    printf("%p %p\n", p2.unwrap(), a);
+    
+    printf("%c\n", *p2);
+    printf("%c\n", *p);
+*/
+    
+    return 0;
+}
+```
+

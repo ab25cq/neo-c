@@ -1128,6 +1128,7 @@ struct sType
     int mFunctionPointerNum;
     int mArrayPointerNum;
     _Bool mPointerParen;
+    _Bool mMinusPointerNum;
     struct sType*  mTypedefOriginalType  ;
     char*  mOriginalTypeName  ;
     int mOriginalTypePointerNum;
@@ -5082,6 +5083,9 @@ static struct sType*  sType_clone(struct sType*  self  )
     if(self!=((void*)0)) {
         result->mPointerParen=self->mPointerParen;
     }
+    if(self!=((void*)0)) {
+        result->mMinusPointerNum=self->mMinusPointerNum;
+    }
     if(self!=((void*)0)&&self->mTypedefOriginalType!=((void*)0)) {
         __dec_obj58=result->mTypedefOriginalType,
         result->mTypedefOriginalType=(struct sType* )come_increment_ref_count(sType_clone(self->mTypedefOriginalType));
@@ -5089,7 +5093,7 @@ static struct sType*  sType_clone(struct sType*  self  )
     }
     if(self!=((void*)0)&&self->mOriginalTypeName!=((void*)0)) {
         __dec_obj59=result->mOriginalTypeName,
-        result->mOriginalTypeName=(char* )come_increment_ref_count((char* )come_memdup(self->mOriginalTypeName, "sType_clone", 60, "char* "));
+        result->mOriginalTypeName=(char* )come_increment_ref_count((char* )come_memdup(self->mOriginalTypeName, "sType_clone", 61, "char* "));
         __dec_obj59 = come_decrement_ref_count(__dec_obj59, (void*)0, (void*)0, 0,0, (void*)0);
     }
     if(self!=((void*)0)) {

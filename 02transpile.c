@@ -1128,6 +1128,7 @@ struct sType
     int mFunctionPointerNum;
     int mArrayPointerNum;
     _Bool mPointerParen;
+    _Bool mMinusPointerNum;
     struct sType*  mTypedefOriginalType  ;
     char*  mOriginalTypeName  ;
     int mOriginalTypePointerNum;

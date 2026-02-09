@@ -512,11 +512,12 @@ class sLoadFieldNode extends sNodeBase
 
 class sUnwrapNode extends sNodeBase
 {
-    new(sNode*% node, sInfo* info=info)
+    new(sNode*% node, sInfo* info=info, bool check=true)
     {
         self.super();
     
         sNode*% self.node = clone node;
+        bool self.check = check;
     }
     
     string kind()
@@ -527,50 +528,61 @@ class sUnwrapNode extends sNodeBase
     bool compile(sInfo* info)
     {
         sNode*% node = self.node;
+        bool check = self.check
         
+/*
         bool no_output_come_code = info.no_output_come_code;
         info.no_output_come_code = true;
+*/
         node_compile(node).elif {
             return false;
         }
-        info.no_output_come_code = no_output_come_code;
+//        info.no_output_come_code = no_output_come_code;
         
         CVALUE*% come_value = get_value_from_stack(-1, info);
         
-        if(info.impl_type && (info.impl_type.mClass.mName === "ref" || info.impl_type.mClass.mName === "optional")) {
-            node_compile(node).if {
-                return true;
-            }
-        }
-        else if(come_value.type.mRefference || come_value.type.mOptional) 
+        if(info.come_fun && ((strlen(info.come_fun.mName) > strlen("ref$") && memcmp(info.come_fun.mName, "ref$", strlen("ref$")) == 0) || (strlen(info.come_fun.mName) > strlen("optional$") && memcmp(info.come_fun.mName, "optional$", strlen("optional$")) == 0)))
         {
-            sNode*% obj = node;
-            list<tup: string, sNode*%>*% params =  new list<tup: string, sNode*%>();
-            
-            const char* fun_name = "unwrap";
-            
-            params.add(t((string)null, node));
-            
-            sNode*% node = create_method_call(fun_name, obj, params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
-            
-            node_compile(node).if {
-                return true;
+            info.stack.push_back(come_value);
+        }
+        else if(come_value.type.mNoSolvedGenericsType) {
+            if(come_value.type.mNoSolvedGenericsType.mClass.mName === "ref" || come_value.type.mNoSolvedGenericsType.mClass.mName === "optional")  
+            {
+                sNode*% obj = node;
+                list<tup: string, sNode*%>*% params =  new list<tup: string, sNode*%>();
+                
+                const char* fun_name = "unwrap";
+                
+                params.add(t((string)null, node));
+                if(check) {
+                    params.add(t((string)null, create_true_object(info)));
+                }
+                else {
+                    params.add(t((string)null, create_false_object(info)));
+                }
+                
+                sNode*% node = create_method_call(fun_name, obj, params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
+                
+                node_compile(node).if {
+                    return true;
+                }
+            }
+            else {
+                info.stack.push_back(come_value);
             }
         }
         else {
-            node_compile(node).if {
-                return true;
-            }
+            info.stack.push_back(come_value);
         }
     
         return true;
     }
 };
 
-sNode*% automatically_unwrap(sNode*% node, sInfo* info=info)
+sNode*% automatically_unwrap(sNode*% node, sInfo* info=info, bool check=true)
 {
-    return node;
-//    return new sUnwrapNode(node, info) implements sNode;
+//    return node;
+    return new sUnwrapNode(node, info, check) implements sNode;
 }
 
 sNode*% load_field(sNode*% left, string name, sInfo* info=info)
@@ -1190,22 +1202,32 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
             else if(!gComeC && (*info->p == '(' || *info->p == '{' || parse_method_generics_type)) {
                 if(field_name === "if") 
                 {
-                    node = parse_if_method_call(clone node, info);
+                    sNode*% node2 = automatically_unwrap(node, check:false);
+                    node = parse_if_method_call(node2, info);
                 }
                 else if(field_name === "elif") {
-                    node = parse_elif_method_call(clone node, info);
+                    sNode*% node2 = automatically_unwrap(node, check:false);
+                    node = parse_elif_method_call(node2, info);
                 }
                 else if(field_name === "case") {
-                    node = parse_match(clone node, info);
+                    sNode*% node2 = automatically_unwrap(node, check:false);
+                    node = parse_match(node2, info);
                 }
                 else if(field_name === "catch") {
-                    node = parse_catch(clone node, info);
+                    sNode*% node2 = automatically_unwrap(node, check:false);
+                    node = parse_catch(node2, info);
                 }
                 else if(field_name === "less") {
-                    node = parse_less_method_call(clone node, info);
+                    sNode*% node2 = automatically_unwrap(node, check:false);
+                    node = parse_less_method_call(node2, info);
+                }
+                else if(field_name === "unwrap") {
+                    sNode*% node2 = clone node;
+                    node = parse_method_call(node2, field_name, info, arrow_);
                 }
                 else {
-                    node = parse_method_call(clone node, field_name, info, arrow_);
+                    sNode*% node2 = automatically_unwrap(node);
+                    node = parse_method_call(node2, field_name, info, arrow_);
                 }
             }
             else {
