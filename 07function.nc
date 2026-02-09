@@ -1083,6 +1083,15 @@ string,string parse_function_attribute(sInfo* info=info)
             
             result.append(head, tail-head);
         }
+        else if(parsecmp("__declspec")) {
+            string attr = parse_declspec_attribute();
+            if(attr !== "") {
+                if(result.length() > 0) {
+                    result.append_str(" ");
+                }
+                result.append_str(attr);
+            }
+        }
         else if(parsecmp("_Noreturn")) {
             char* head = info.p;
             
@@ -1303,7 +1312,13 @@ void transpile_toplevel(bool block=false, sInfo* info=info)
         
         char* head = info.p;
         int head_sline = info.sline;
-        string buf = parse_word();
+        string buf = null;
+        if(*info->p == '[' && *(info->p+1) == '[') {
+            buf = s"__attribute__";
+        }
+        else {
+            buf = parse_word();
+        }
         
         skip_spaces_and_lf();
         
@@ -1474,6 +1489,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
     info.sline = head_sline;
     
     var define_only, anonymous_name, struct_, union_, enum_ = backtrace_struct_union_enum();
+    bool square_attribute_head = *head == '[' && *(head+1) == '[';
     
 /*
     if(union_ && anonymous_name) {
@@ -1538,7 +1554,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
     /// backtrace ///
     bool define_function_pointer_result_function = false;
     bool define_variable_between_brace = false;
-    if(is_type_name_flag && !uniq_class)
+    if(is_type_name_flag && !uniq_class && !square_attribute_head)
     {
         bool no_output_come_code = info.no_output_come_code;
         info.no_output_come_code = true;
@@ -1546,7 +1562,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         char* p = info.p;
         info.p = head;
         
-        if(xisalpha(*info->p) || *info->p == '_') {
+        if(xisalpha(*info->p) || *info->p == '_' || (*info->p == '[' && *(info->p+1) == '[')) {
             var result_type, fun_name, err = backtrace_parse_type();
             
             if(*info->p == '(') {
@@ -1581,7 +1597,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
     
     /// backtrace ///
     bool define_function_flag = false;
-    if(is_type_name_flag && !define_function_pointer_result_function && buf !== "__typeof__" && !uniq_class)
+    if(is_type_name_flag && !define_function_pointer_result_function && buf !== "__typeof__" && !uniq_class && !square_attribute_head)
     {
         bool no_output_come_code = info.no_output_come_code;
         info.no_output_come_code = true;
@@ -1589,8 +1605,11 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         char* p = info.p;
         info.p = head;
         
-        if(xisalpha(*info->p) || *info->p == '_') {
+        if(xisalpha(*info->p) || *info->p == '_' || (*info->p == '[' && *(info->p+1) == '[')) {
             var result_type, fun_name, err = backtrace_parse_type();
+        }
+        if(*info->p == '(' || (*info->p == ':' && *(info->p+1) == ':')) {
+            define_function_flag = true;
         }
         
         if(!define_only) {
@@ -1651,7 +1670,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
     
     /// backtrace ///
     bool define_variable = true;
-    if(is_type_name_flag && !define_function_pointer_result_function && !uniq_class)
+    if(is_type_name_flag && !define_function_pointer_result_function && !uniq_class && !square_attribute_head)
     {
         bool no_output_come_code = info.no_output_come_code;
         info.no_output_come_code = true;
@@ -1663,7 +1682,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
             define_variable = false;
         }
         
-        if(xisalpha(*info->p) || *info->p == '_') {
+        if(xisalpha(*info->p) || *info->p == '_' || (*info->p == '[' && *(info->p+1) == '[')) {
             var result_type, fun_name, err = backtrace_parse_type();
             
             if(*info->p == '(') {
@@ -1970,7 +1989,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
             }
         }
     }
-    else if(buf === "__attribute__") {
+    else if(buf === "__attribute__" || buf === "__declspec") {
         info.p = head;
         info.sline = sline;
         
@@ -1995,20 +2014,63 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
                 return parse_enum(word, struct_attribute, info);
             }
             else if(is_type_name(word)) {
+                bool attribute_define_function = define_function_flag;
+                if(!attribute_define_function) {
+                    bool no_output_come_code = info.no_output_come_code;
+                    info.no_output_come_code = true;
+                    
+                    char* p = info.p;
+                    int sline2 = info.sline;
+                    info.p = head;
+                    info.sline = head_sline;
+                    
+                    (void)parse_struct_attribute();
+                    while(xisalnum(*info.p) || *info->p == '_') {
+                        string declaration_word = parse_word();
+                        bool type_word = is_type_name(declaration_word);
+                        
+                        if(!type_word) {
+                            if(*info->p == '(' || (*info->p == ':' && *(info->p+1) == ':')) {
+                                attribute_define_function = true;
+                            }
+                            break;
+                        }
+                        
+                        while(*info->p == '*') {
+                            info->p++;
+                            skip_spaces_and_lf();
+                        }
+                        if(*info->p == '[' && *(info->p+1) == ']') {
+                            info->p += 2;
+                            skip_spaces_and_lf();
+                        }
+                    }
+                    
+                    info.p = p;
+                    info.sline = sline2;
+                    info.no_output_come_code = no_output_come_code;
+                }
+                
                 info.p = head;
                 info.sline = sline;
-                
-                sNode*% node = parse_function(info);
-                
+
+                sNode*% node;
+                if(attribute_define_function) {
+                    node = parse_function(info);
+                }
+                else {
+                    node = parse_global_variable(info);
+                }
+
                 return node;
             }
             else {
-                err_msg(info, "invalid __attribute__");
+                err_msg(info, "invalid attribute declaration");
                 return null;
             }
         }
         else {
-            err_msg(info, "invalid __attribute__");
+            err_msg(info, "invalid attribute declaration");
             return null;
         }
     }

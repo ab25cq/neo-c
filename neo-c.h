@@ -811,34 +811,40 @@ impl result<T>
 // slice
 //////////////////////////////
 struct slice<T> {
-    char* memory;
-    T* p;
+    char*% memory;
+    T p;
     size_t len;
 };
 
-#define array_to_slice(array) (new slice<__typeof__((array)[0])>.initialize((__typeof__((array)[0])*)(array), sizeof(array)/sizeof((array)[0])))
-#define array_to_slice_t(T, array) (new slice<T>.initialize((T*)(array), sizeof(array)/sizeof((array)[0])))
-
 impl slice<T>
 {
-    slice<T>*% initialize(slice<T>*% self, T* p, size_t len)
+    slice<T>*% initialize(slice<T>*% self, T p, size_t len)
     {
-        self.memory = (char*)p;
-        self.p = p;
+        self.memory = new char[len];
+        memcpy(self.memory, (char*)p, len);
+        self.p = (T)borrow self.memory;
         self.len = len;
         
         return self;
+    }
+    T unwrap(optional<T>* self, bool check=false) {
+        if(check && (char*)self.p >= self.memory + self.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        if(check && (char*)self.p < self.memory) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return self.p;
     }
     
     slice<T>* operator_plus_plus(slice<T>* self)
     {
         using unsafe;
-        
-        if(self.p == (void*)0) {
-            puts("null pointer operation");
-            stackframe();
-            exit(1);
-        }
         
         self.p++;
         
@@ -853,12 +859,6 @@ impl slice<T>
     slice<T>* operator_plus_equal(slice<T>* self, size_t value)
     {
         using unsafe;
-        
-        if(self.p == (void*)0) {
-            puts("null pointer operation");
-            stackframe();
-            exit(1);
-        }
         
         self.p += value;
         
@@ -875,12 +875,6 @@ impl slice<T>
     {
         using unsafe;
         
-        if(self.p == (void*)0) {
-            puts("null pointer operation");
-            stackframe();
-            exit(1);
-        }
-        
         self.p--;
         
         if((char*)self.p < self.memory) {
@@ -896,12 +890,6 @@ impl slice<T>
     {
         using unsafe;
         
-        if(self.p == (void*)0) {
-            puts("null pointer operation");
-            stackframe();
-            exit(1);
-        }
-        
         self.p -= value;
         
         if((char*)self.p < self.memory) {
@@ -913,17 +901,11 @@ impl slice<T>
         return self;
     }
     
-    T* operator_add(slice<T>* self, size_t rvalue)
+    T operator_add(slice<T>* self, size_t rvalue)
     {
         using unsafe;
         
-        if(self.p == (void*)0) {
-            puts("null pointer operation");
-            stackframe();
-            exit(1);
-        }
-        
-        T* result = self.p + rvalue;
+        T result = self.p + rvalue;
         
         if(result >= self.memory + self.len) {
             puts("out of range of smart pointer");
@@ -934,17 +916,11 @@ impl slice<T>
         return result;
     }
     
-    T* operator_sub(slice<T>* self, size_t rvalue)
+    T operator_sub(slice<T>* self, size_t rvalue)
     {
         using unsafe;
         
-        if(self.p == (void*)0) {
-            puts("null pointer operation");
-            stackframe();
-            exit(1);
-        }
-        
-        T* result = self.p - rvalue;
+        T result = self.p - rvalue;
         
         if((char*)result < self.memory) {
             puts("out of range of smart pointer");
@@ -955,17 +931,11 @@ impl slice<T>
         return result;
     }
     
-    T operator_derefference(slice<T>* self)
+    T] operator_derefference(slice<T>* self)
     {
         using unsafe;
         
-        if(self.p == (void*)0) {
-            puts("null pointer operation");
-            stackframe();
-            exit(1);
-        }
-        
-        T* p = self.p;
+        T p = self.p;
         
         if((char*)self.p >= self.memory + self.len) {
             puts("out of range of smart pointer");
@@ -980,7 +950,7 @@ impl slice<T>
         
         return *p;
     }
-    void operator_store_element(slice<T>* self, int position, T item) {
+    void operator_store_element(slice<T>* self, int position, T] item) {
         if(self.p == (void*)0) {
             puts("null pointer operation");
             stackframe();
@@ -997,7 +967,7 @@ impl slice<T>
             exit(1);
         }
         
-        T* p = self.p;
+        T p = self.p;
         
         p\[position] = item;
     }
@@ -1018,12 +988,12 @@ impl slice<T>
             exit(1);
         }
         
-        T* p = self.p;
+        T p = self.p;
         
         return p\[position];
     }
     
-    T* unwrap(slice<T>* self) {
+    T unwrap(slice<T>* self) {
         if(self.p == (void*)0) {
             puts("null pointer operation");
             stackframe();
@@ -1040,7 +1010,7 @@ impl slice<T>
             exit(1);
         }
         
-        T* p = self.p;
+        T p = self.p;
         
         return p;
     }
@@ -1050,18 +1020,54 @@ impl slice<T>
     }
 }
 
-uniq slice<char>*% string::to_slice(char*% self)
+uniq slice<char*>*% buffer*::to_slice(buffer* self)
+{
+    return new slice<char*>(self.buf, self.len);
+}
+
+uniq slice<char*>*% char[]::to_slice(char* ary, int len)
+{
+    return new slice<char*>(ary, len);
+}
+
+uniq slice<short*>*% short[]::to_slice(short* ary, int len)
+{
+    return new slice<short*>(ary, len);
+}
+
+uniq slice<int*>*% int[]::to_slice(int* ary, int len)
+{
+    return new slice<int*>(ary, len);
+}
+
+uniq slice<long*>*% long[]::to_slice(long* ary, int len)
+{
+    return new slice<long*>(ary, len);
+}
+
+#define array_to_slice(array) (new slice<__typeof__((array)[0])*>.initialize((__typeof__((array)[0])*)(array), sizeof(array)/sizeof((array)[0])))
+#define array_to_slice_t(T, array) (new slice<T>.initialize((T*)(array), sizeof(array)/sizeof((array)[0])))
+#define struct_to_slice(obj) (new slice<char*>.initialize((char*)obj, sizeof(obj)))
+
+uniq slice<char*>*% string::to_slice(char*% self)
 {
     size_t size = string::length(self);
     
-    return new slice<char>(self, size);
+    return new slice<char*>(self, size);
 }
 
-uniq slice<char>*% char*::to_slice(char*% self)
+uniq slice<char*>*% char*::to_slice(char*% self)
 {
     int len = string::length(self);
     
-    return new slice<char>(self, len);
+    return new slice<char*>(self, len);
+}
+
+uniq slice<char*>*% buffer*::to_slice(buffer*% buf)
+{
+    int len = buf.len;
+    
+    return new slice<char*>(buf.buf, len);
 }
 
 

@@ -2,11 +2,9 @@
 
 int main(int argc, char** argv)
 {
-    string a = s"ABC";
+    char ary[3] = { 'a', 'b', 'c' };
     
-    string? b = optional s"ABC";
-    
-    b.scan(".").to_string().puts();
+    var p = array_to
     
     return 0;
 }

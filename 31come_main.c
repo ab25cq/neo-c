@@ -732,10 +732,31 @@ struct sMemHeader
     const char* class_name;
 };
 
-struct slice$1char$
+struct slice$1char$p
 {
     char* memory;
     char* p;
+    unsigned long  len  ;
+};
+
+struct slice$1short$p
+{
+    char* memory;
+    short* p;
+    unsigned long  len  ;
+};
+
+struct slice$1int$p
+{
+    char* memory;
+    int* p;
+    unsigned long  len  ;
+};
+
+struct slice$1long$p
+{
+    char* memory;
+    long* p;
     unsigned long  len  ;
 };
 
@@ -1108,6 +1129,7 @@ struct sType
     _Bool mDefferRightValue;
     _Bool mNoHeap;
     _Bool mRefference;
+    _Bool mSlice;
     _Bool mOptional;
     _Bool mNoCallingDestructor;
     _Bool mTypeName;
@@ -2012,8 +2034,13 @@ void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* protoco
 void xassert(const char* msg, _Bool test);
 void* come_null_checker(void* mem, const char* sname, int sline);
 char*  __builtin_string(const char* str);
-struct slice$1char$* string_to_slice(char* self);
-struct slice$1char$* charp_to_slice(char* self);
+struct slice$1char$p* chara_to_slice(char* ary, int len);
+struct slice$1short$p* shorta_to_slice(short* ary, int len);
+struct slice$1int$p* inta_to_slice(int* ary, int len);
+struct slice$1long$p* longa_to_slice(long* ary, int len);
+struct slice$1char$p* string_to_slice(char* self);
+struct slice$1char$p* charp_to_slice(char* self);
+struct slice$1char$p* buffer_to_slice(struct buffer*  buf  );
 struct smart_pointer$1int$* buffer_to_int_pointer(struct buffer*  self  );
 struct smart_pointer$1short$* buffer_to_short_pointer(struct buffer*  self  );
 struct smart_pointer$1long$* buffer_to_long_pointer(struct buffer*  self  );
@@ -2588,6 +2615,7 @@ struct sNode* post_op_v13(struct sNode* node, struct sInfo*  info  );
 struct sNode* string_node_v13(char* buf, char* head, int head_sline, struct sInfo*  info  );
 void output_aggregate_field(struct sType*  type  , char*  tag_name  , struct buffer*  buf  , _Bool* existance_generics, char*  field_name  , int indent, struct sInfo*  info  , _Bool* named_child);
 char*  parse_struct_attribute(struct sInfo*  info  , _Bool allow_end);
+char*  parse_declspec_attribute(struct sInfo*  info  );
 struct sNode* create_nothing_node(struct sInfo*  info  );
 _Bool is_contained_method_generics_types(struct sType*  type  , struct sInfo*  info  );
 _Bool is_contained_generics_types(struct sType*  type  , struct sInfo*  info  );

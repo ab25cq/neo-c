@@ -126,6 +126,7 @@ uniq class sType
     bool mDefferRightValue;
     bool mNoHeap;
     bool mRefference;
+    bool mSlice;
     bool mOptional;
     bool mNoCallingDestructor;
     bool mTypeName;
@@ -1010,6 +1011,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
 /////////////////////////////////////////////////////////////////////
 void output_aggregate_field(sType* type, string tag_name, buffer* buf, bool* existance_generics, string field_name, int indent, sInfo* info, bool* named_child);
 string parse_struct_attribute(sInfo* info=info, bool allow_end=true);
+string parse_declspec_attribute(sInfo* info=info);
 sNode*% create_nothing_node(sInfo* info=info);
 bool is_contained_method_generics_types(sType* type, sInfo* info);
 bool is_contained_generics_types(sType* type, sInfo* info);

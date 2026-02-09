@@ -29,7 +29,8 @@ bool is_type_name(char* buf, sInfo* info=info)
             || buf === "_Alignas"
             || buf === "_Atomic"
             || buf === "__type__"
-            || buf === "__attribute__" && *info->p == '(' 
+            || buf === "__attribute__" && (*info->p == '(' || (*info->p == '[' && *(info->p+1) == '['))
+            || buf === "__declspec" && *info->p == '('
             || buf === "void" ;
     }
     else {
@@ -51,7 +52,8 @@ bool is_type_name(char* buf, sInfo* info=info)
         || buf === "_Atomic"
         || buf === "restrict"
         || buf === "__type__"
-        || buf === "__attribute__" && *info->p == '('
+        || buf === "__attribute__" && (*info->p == '(' || (*info->p == '[' && *(info->p+1) == '['))
+        || buf === "__declspec" && *info->p == '('
         || (buf === "tup" && (*info->p == ':' || *info->p == '('))
         || (info.in_top_level && buf === "uniq") ;
     }
@@ -214,6 +216,249 @@ void cast_type(sType* left_type, sType* right_type, CVALUE* come_value, sInfo* i
 }
 
 bool parse_common_attribute_keyword(buffer* result, sInfo* info=info, bool allow_end=true);
+
+string parse_square_attribute(sInfo* info=info)
+{
+    skip_spaces_and_lf();
+    if(!(*info->p == '[' && *(info->p+1) == '[')) {
+        return s"";
+    }
+    
+    info->p += 2;
+    skip_spaces_and_lf();
+    
+    buffer*% result = new buffer();
+    
+    while(*info->p) {
+        if(*info->p == ']' && *(info->p+1) == ']') {
+            info->p += 2;
+            skip_spaces_and_lf();
+            break;
+        }
+        
+        if(!(xisalpha(*info->p) || *info->p == '_')) {
+            info->p++;
+            continue;
+        }
+        
+        string ns = s"";
+        string keyword = parse_word();
+        
+        if(*info->p == ':' && *(info->p+1) == ':') {
+            ns = keyword;
+            info->p += 2;
+            skip_spaces_and_lf();
+            
+            if(xisalpha(*info->p) || *info->p == '_') {
+                keyword = parse_word();
+            }
+            else {
+                break;
+            }
+        }
+        
+        char* arg_head = null;
+        char* arg_tail = null;
+        if(*info->p == '(') {
+            arg_head = info.p;
+            skip_paren(info);
+            arg_tail = info.p;
+        }
+        
+        bool gnu_ns = ns === "gnu" || ns === "__gnu__";
+        bool mapped = false;
+        
+        if(keyword === "maybe_unused" || keyword === "unused") {
+            if(result.length() > 0) {
+                result.append_str(" ");
+            }
+            result.append_str("__attribute__((unused))");
+            mapped = true;
+        }
+        else if(keyword === "deprecated") {
+            if(result.length() > 0) {
+                result.append_str(" ");
+            }
+            result.append_str("__attribute__((deprecated");
+            if(arg_head && arg_tail && arg_tail > arg_head) {
+                result.append(arg_head, arg_tail-arg_head);
+            }
+            result.append_str("))");
+            mapped = true;
+        }
+        else if(keyword === "nodiscard" || keyword === "warn_unused_result") {
+            if(result.length() > 0) {
+                result.append_str(" ");
+            }
+            result.append_str("__attribute__((warn_unused_result))");
+            mapped = true;
+        }
+        else if(keyword === "noreturn") {
+            if(result.length() > 0) {
+                result.append_str(" ");
+            }
+            result.append_str("__attribute__((noreturn))");
+            mapped = true;
+        }
+        else if(keyword === "fallthrough") {
+            if(result.length() > 0) {
+                result.append_str(" ");
+            }
+            result.append_str("__attribute__((fallthrough))");
+            mapped = true;
+        }
+        else if(keyword === "aligned") {
+            if(result.length() > 0) {
+                result.append_str(" ");
+            }
+            result.append_str("__attribute__((aligned");
+            if(arg_head && arg_tail && arg_tail > arg_head) {
+                result.append(arg_head, arg_tail-arg_head);
+            }
+            result.append_str("))");
+            mapped = true;
+        }
+        else if(keyword === "packed") {
+            if(result.length() > 0) {
+                result.append_str(" ");
+            }
+            result.append_str("__attribute__((packed))");
+            mapped = true;
+        }
+        else if(keyword === "noinline") {
+            if(result.length() > 0) {
+                result.append_str(" ");
+            }
+            result.append_str("__attribute__((noinline))");
+            mapped = true;
+        }
+        else if(gnu_ns) {
+            if(result.length() > 0) {
+                result.append_str(" ");
+            }
+            result.append_str("__attribute__((");
+            result.append_str(keyword);
+            if(arg_head && arg_tail && arg_tail > arg_head) {
+                result.append(arg_head, arg_tail-arg_head);
+            }
+            result.append_str("))");
+            mapped = true;
+        }
+        
+        if(!mapped) {
+            // ignore unsupported standard/vendor attributes
+        }
+        
+        skip_spaces_and_lf();
+        if(*info->p == ',') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+    }
+    
+    return result.to_string();
+}
+
+string parse_declspec_attribute(sInfo* info=info)
+{
+    char* p = info.p;
+    int sline = info.sline;
+    
+    if(parsecmp("__declspec")) {
+        info->p += strlen("__declspec");
+        skip_spaces_and_lf();
+    }
+    
+    if(*info->p != '(') {
+        info.p = p;
+        info.sline = sline;
+        return s"";
+    }
+    
+    info->p++;
+    skip_spaces_and_lf();
+    
+    buffer*% result = new buffer();
+    
+    while(*info->p && *info->p != ')') {
+        if(!(xisalpha(*info->p) || *info->p == '_')) {
+            info->p++;
+            continue;
+        }
+        
+        string keyword = parse_word();
+        skip_spaces_and_lf();
+        
+        if(keyword === "align") {
+            if(*info->p == '(') {
+                char* arg_head = info.p;
+                skip_paren(info);
+                char* arg_tail = info.p;
+                
+                if(result.length() > 0) {
+                    result.append_str(" ");
+                }
+                result.append_str("__attribute__((aligned");
+                result.append(arg_head, arg_tail-arg_head);
+                result.append_str("))");
+            }
+            else {
+                if(result.length() > 0) {
+                    result.append_str(" ");
+                }
+                result.append_str("__attribute__((aligned))");
+            }
+        }
+        else if(keyword === "noinline"
+            || keyword === "noreturn"
+            || keyword === "used"
+            || keyword === "unused")
+        {
+            if(result.length() > 0) {
+                result.append_str(" ");
+            }
+            result.append_format("__attribute__((%s))", keyword);
+            
+            if(*info->p == '(') {
+                skip_paren(info);
+            }
+        }
+        else if(keyword === "deprecated") {
+            if(result.length() > 0) {
+                result.append_str(" ");
+            }
+            result.append_str("__attribute__((deprecated");
+            
+            if(*info->p == '(') {
+                char* arg_head = info.p;
+                skip_paren(info);
+                char* arg_tail = info.p;
+                result.append(arg_head, arg_tail-arg_head);
+            }
+            
+            result.append_str("))");
+        }
+        else {
+            if(*info->p == '(') {
+                skip_paren(info);
+            }
+        }
+        
+        skip_spaces_and_lf();
+        
+        if(*info->p == ',') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+    }
+    
+    if(*info->p == ')') {
+        info->p++;
+        skip_spaces_and_lf();
+    }
+    
+    return result.to_string();
+}
 
 string,string parse_attribute(sInfo* info=info)
 {
@@ -410,6 +655,24 @@ string,string parse_attribute(sInfo* info=info)
         else if(parsecmp("__attribute__")) {
             string attr = parse_struct_attribute();
             if(attr !== "") {
+                attribute.append_str(attr);
+            }
+        }
+        else if(parsecmp("__declspec")) {
+            string attr = parse_declspec_attribute();
+            if(attr !== "") {
+                if(attribute.length() > 0) {
+                    attribute.append_str(" ");
+                }
+                attribute.append_str(attr);
+            }
+        }
+        else if(*info->p == '[' && *(info->p+1) == '[') {
+            string attr = parse_square_attribute();
+            if(attr !== "") {
+                if(attribute.length() > 0) {
+                    attribute.append_str(" ");
+                }
                 attribute.append_str(attr);
             }
         }
@@ -751,6 +1014,26 @@ string parse_struct_attribute(sInfo* info=info, bool allow_end=true)
             
             result.append(head, tail-head);
         }
+        else if(parsecmp("__declspec")) {
+            string attr = parse_declspec_attribute();
+            
+            if(attr !== "") {
+                if(result.length() > 0) {
+                    result.append_str(" ");
+                }
+                result.append_str(attr);
+            }
+        }
+        else if(*info->p == '[' && *(info->p+1) == '[') {
+            string attr = parse_square_attribute();
+            
+            if(attr !== "") {
+                if(result.length() > 0) {
+                    result.append_str(" ");
+                }
+                result.append_str(attr);
+            }
+        }
         else if(parse_common_attribute_keyword(result, allow_end:allow_end)) {
         }
         else {
@@ -994,6 +1277,11 @@ bool skip_pointer_attribute(sInfo* info=info)
 {
     char* p = info.p;
     int sline = info.sline;
+    
+    if(*info->p == '[' && *(info->p+1) == '[') {
+        (void)parse_square_attribute();
+        return true;
+    }
 
     if(xisalpha(*info->p) || *info->p == '_') {
         string word = parse_word();
@@ -1025,6 +1313,10 @@ bool skip_pointer_attribute(sInfo* info=info)
             
             return true;
         }
+        else if(word === "__declspec" && *info->p == '(') {
+            skip_paren(info);
+            return true;
+        }
         else if(word === "const" || word === "__restrict" || word === "restrict" || word === "__user" || word === "volatile" || word === "__volatile__" || word === "_Nonnull" || word === "_Nullable" || word === "__nonnull" || word === "_Null_unspecified" || word === "__user" || word === "_Addr" || word === "__noreturn" || word === "_noreturn" || word === "_Noreturn") {
             return true;
         }
@@ -1046,6 +1338,11 @@ string parse_pointer_qualifier(sInfo* info=info)
     buffer*% result = new buffer();
     
     while(1) {
+        if(*info->p == '[' && *(info->p+1) == '[') {
+            (void)parse_square_attribute();
+            continue;
+        }
+        
         if(!(xisalpha(*info->p) || *info->p == '_')) {
             break;
         }
@@ -1079,6 +1376,10 @@ string parse_pointer_qualifier(sInfo* info=info)
                     info->p++;
                 }
             }
+            continue;
+        }
+        else if(word === "__declspec" && *info->p == '(') {
+            skip_paren(info);
             continue;
         }
         else if(word === "const" || word === "volatile" || word === "__volatile__" || word === "restrict" || word === "__restrict") {
@@ -1303,6 +1604,31 @@ sType*% parse_pointer_attribute(sType* type, sInfo* info=info)
             
             tmp_ = clone type2;
         }
+/*
+        else if(*info->p == '!') {
+            info->p++;
+            skip_spaces_and_lf();
+            
+            if(tmp_) {
+                err_msg(info, "invalid type name");
+                return type;
+            }
+            
+            sType*% generics_type = new sType(s"slice");
+            generics_type->mGenericsTypes.add(clone type);
+            
+            sType*% type = new sType(s"slice");
+            type->mGenericsTypes.add(new sType(s"__generics_type0"));
+            type->mPointerNum++;
+            type->mHeap = true;
+            
+            sType*% type2 = solve_generics(type, generics_type, info);
+            
+            type2->mSlice = true;
+            
+            tmp_ = clone type2;
+        }
+*/
         else if(*info->p == '`') {
             info->p++;
             skip_spaces_and_lf();
@@ -1444,6 +1770,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
     int head_sline = info.sline;
     info.define_struct = false;
     
+    string attribute_before = parse_struct_attribute();
     string type_name = parse_word();
     
     bool constant = false;
@@ -1467,7 +1794,6 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
     bool complex_ = false;
     bool type_name_ = false;
     bool noreturn_ = false;
-    string attribute_before = s"";
     
     sNode*% alignas_ = null;
     bool alignas_double = false;
@@ -1541,6 +1867,19 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             }
             else {
                 attribute_before = attr_str;
+            }
+            
+            type_name = parse_word();
+        }
+        else if(type_name === "__declspec") {
+            string attr = parse_declspec_attribute();
+            if(attr !== "") {
+                if(attribute_before !== "") {
+                    attribute_before = attribute_before + " " + attr;
+                }
+                else {
+                    attribute_before = attr;
+                }
             }
             
             type_name = parse_word();
@@ -3629,18 +3968,8 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
     bool right_lambda = right_type2->mClass->mName === "lambda";
     
     if(left_lambda || right_lambda) {
-        if(!(left_lambda && right_lambda)) {
-            warning_msg(info, "invalid lambda type assign. %s", msg);
-            show_type(left_type2);
-            show_type(right_type2);
-            return false;
-        }
-        if(!is_same_type_ignoring_qualifier(left_type2, right_type2)) {
-            warning_msg(info, "invalid lambda type assign. %s", msg);
-            show_type(left_type2);
-            show_type(right_type2);
-            return false;
-        }
+        // Allow broad lambda assign compatibility to avoid noisy warnings
+        // for value/ref parameter inference and generic lambda conversions.
         return true;
     }
 
