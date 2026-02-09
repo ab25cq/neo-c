@@ -762,6 +762,17 @@ string parse_struct_attribute(sInfo* info=info, bool allow_end=true)
     return result.to_string();
 }
 
+string merge_tag_attribute(string current, string attribute)
+{
+    if(attribute === "") {
+        return current;
+    }
+    if(current === "") {
+        return attribute;
+    }
+    return current + " " + attribute;
+}
+
 void append_attribute_to_type(sType* type, string attribute, bool for_variable, sInfo* info=info);
 
 sType*%, string parse_variable_name_on_multiple_declare(sType* base_type_name, bool first, sInfo* info)
@@ -1461,7 +1472,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
     sNode*% alignas_ = null;
     bool alignas_double = false;
     
-    string union_attribute = s"";
+    string tag_attribute = s"";
     bool struct_define_parsed = false;
     
     bool anonymous_type = false;
@@ -1603,7 +1614,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         }
         else if(type_name === "struct") {
             struct_ = true;
-            union_attribute = parse_struct_attribute();
+            tag_attribute = merge_tag_attribute(tag_attribute, parse_struct_attribute());
             
             if(*info->p == '{') {
                 char* p = info.p;
@@ -1638,14 +1649,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                 skip_spaces_and_lf();
                 
                 string struct_attribute_after_name = parse_struct_attribute();
-                if(struct_attribute_after_name !== "") {
-                    if(union_attribute === "") {
-                        union_attribute = struct_attribute_after_name;
-                    }
-                    else {
-                        union_attribute = union_attribute + " " + struct_attribute_after_name;
-                    }
-                }
+                tag_attribute = merge_tag_attribute(tag_attribute, struct_attribute_after_name);
                 
                 if(*info->p == '<') {
                     char* p = info.p;
@@ -1678,14 +1682,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                 }
                 
                 string struct_attribute_after_generics = parse_struct_attribute();
-                if(struct_attribute_after_generics !== "") {
-                    if(union_attribute === "") {
-                        union_attribute = struct_attribute_after_generics;
-                    }
-                    else {
-                        union_attribute = union_attribute + " " + struct_attribute_after_generics;
-                    }
-                }
+                tag_attribute = merge_tag_attribute(tag_attribute, struct_attribute_after_generics);
                 
                 if(*info->p == '{') {
                     char* p = info.p;
@@ -1705,7 +1702,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                         info.p = p;
                         info.sline = sline;
                         
-                        sNode*% node = parse_struct(type_name, union_attribute, info);
+                        sNode*% node = parse_struct(type_name, tag_attribute, info);
                         
                         node_compile(node).elif {
                             return t((sType*%)null, (string)null, false);
@@ -1718,7 +1715,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         }
         else if(type_name === "union") {
             union_ = true;
-            union_attribute = parse_struct_attribute();
+            tag_attribute = merge_tag_attribute(tag_attribute, parse_struct_attribute());
            
             if(*info->p == '{') {
                 char* p = info.p;
@@ -1782,9 +1779,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             skip_spaces_and_lf();
             
             var asm_name, enum_attribute = parse_attribute();
-            if(enum_attribute !== "") {
-                union_attribute = enum_attribute;
-            }
+            tag_attribute = merge_tag_attribute(tag_attribute, enum_attribute);
             
             if(*info->p == ':') {
                 info->p++;
@@ -1828,14 +1823,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             skip_spaces_and_lf();
             
             string enum_attribute_after_name = parse_struct_attribute();
-            if(enum_attribute_after_name !== "") {
-                if(union_attribute === "") {
-                    union_attribute = enum_attribute_after_name;
-                }
-                else {
-                    union_attribute = union_attribute + " " + enum_attribute_after_name;
-                }
-            }
+            tag_attribute = merge_tag_attribute(tag_attribute, enum_attribute_after_name);
             
             if(*info->p == ':') {
                 info->p++;
@@ -1847,14 +1835,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             skip_spaces_and_lf();
             
             string enum_attribute_after_type = parse_struct_attribute();
-            if(enum_attribute_after_type !== "") {
-                if(union_attribute === "") {
-                    union_attribute = enum_attribute_after_type;
-                }
-                else {
-                    union_attribute = union_attribute + " " + enum_attribute_after_type;
-                }
-            }
+            tag_attribute = merge_tag_attribute(tag_attribute, enum_attribute_after_type);
             
             if(*info->p == '{') {
                 char* p = info.p;
@@ -2186,13 +2167,8 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         }
         attribute_before = s"";
     }
-    if(!struct_define_parsed && (struct_ || enum_) && union_attribute !== "") {
-        if(attribute === "") {
-            attribute = union_attribute;
-        }
-        else {
-            attribute = union_attribute + " " + attribute;
-        }
+    if(!struct_define_parsed && (struct_ || enum_) && tag_attribute !== "") {
+        attribute = merge_tag_attribute(tag_attribute, attribute);
     }
     
     skip_pointer_attribute();
@@ -2425,7 +2401,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                 type_name = xsprintf("anonymous_typeX%d", ++anonymous_num);
             }
             
-            sNode*% node = parse_struct(type_name, union_attribute, info, anonymous);
+            sNode*% node = parse_struct(type_name, tag_attribute, info, anonymous);
             
             node_compile(node).elif {
                 err_msg(info, "parse_struct is failed");
@@ -2466,7 +2442,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                 }
             }
             
-            sNode*% node = parse_enum(type_name, union_attribute, info);
+            sNode*% node = parse_enum(type_name, tag_attribute, info);
             
             if(!info.no_output_err) {
                 node_compile(node).elif {
@@ -2488,7 +2464,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                 anonymous = true;
             }
             
-            sNode*% node = parse_union(type_name, union_attribute, info, true@anoymous);
+            sNode*% node = parse_union(type_name, tag_attribute, info, true@anoymous);
             
             node_compile(node).elif {
                 printf("%s %d: compiling is failed(X)\n", info->sname, info->sline);
