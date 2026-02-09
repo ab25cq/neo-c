@@ -283,7 +283,7 @@ li2.add(1).add(2).add(3);
 ```
 
 ```C
-list<T>*% initialize_with_values(list<T>*% self, int num_value, T&* values) 
+list<T>*% initialize_with_values(list<T>*% self, int num_value, T^* values) 
 ```
 
 Creates a list initialized with an array.
@@ -410,8 +410,8 @@ li is list<char*>*%, which stores string pointers. The stored element will not b
 liはlist<char*>*%で文字列のポインタが格納されています。char*%ではないため格納された要素はfreeされません。
 
 ```C
-T& begin(list<T>* self) 
-T& next(list<T>* self) 
+T^ begin(list<T>* self) 
+T^ next(list<T>* self) 
 bool end(list<T>* self) 
 ```
 
@@ -420,7 +420,7 @@ Defined for foreach. Use this if you want to access all elements.
 foreachのため定義されてます。すべての要素にアクセスしたい場合使います。
 
 ```C
-list<T>* each(list<T>* self, void* parent, void (*block)(void*, T&,int,bool*)) 
+list<T>* each(list<T>* self, void* parent, void (*block)(void*, T^,int,bool*)) 
 ```
 
 ```C
@@ -498,7 +498,7 @@ Clears the element. 0 will be output.
 要素をクリアします。0が出力されます。
 
 ```C
-list<T>* remove(list<T>* self, T& item, bool by_pointer=false);
+list<T>* remove(list<T>* self, T^ item, bool by_pointer=false);
 ```
 
 ```C
@@ -555,7 +555,7 @@ li is [1,7,3,4,5]. If the element is a heap, the reference count of the replaced
 liは[1,7,3,4,5]です。要素がヒープの場合置き換える要素はリファレンスカウントが-1されて、リファレンスカウントが0なら削除されます。
 
 ```C
-int find(list<T>* self, T& item, int default_value, bool by_pointer=false)
+int find(list<T>* self, T^ item, int default_value, bool by_pointer=false)
 ```
 
 ```C
@@ -651,7 +651,7 @@ bool operator_not_equals(list<T>* left, list<T>* right)
 ```
 
 ```C
-bool contained(list<T>* self, T& item, bool by_pointer=false);
+bool contained(list<T>* self, T^ item, bool by_pointer=false);
 ```
 
 ```C
@@ -660,9 +660,9 @@ bool contained(list<T>* self, T& item, bool by_pointer=false);
 ```
 
 ```C
-list<T>*% merge_list_with_lambda(list<T>* left, list<T>* right, int (*compare)(T&,T&)) 
-list<T>*% merge_sort_with_lambda(list<T>* self, int (*compare)(T&,T&)) 
-list<T>*% sort_with_lambda(list<T>* self, int (*compare)(T&,T&)) 
+list<T>*% merge_list_with_lambda(list<T>* left, list<T>* right, int (*compare)(T^,T^)) 
+list<T>*% merge_sort_with_lambda(list<T>* self, int (*compare)(T^,T^)) 
+list<T>*% sort_with_lambda(list<T>* self, int (*compare)(T^,T^)) 
 ```
 
 ```C
@@ -701,7 +701,7 @@ Sorting requires a compare method. If one is not present, it is generated automa
   field is used.
 
 ```C
-template<R> list<R>*% map(list<T>* self, void* parent, R (*block)(void*, T&))
+template<R> list<R>*% map(list<T>* self, void* parent, R (*block)(void*, T^))
 ```
 
 ```C
@@ -733,7 +733,7 @@ Delete adjacent identical elements. It may not work unless you use sort().
 隣あった同じ要素を削除します。sort()しないとダメかもしれません。
 
 ```C
-list<T>*% filter(list<T>* self, void* parent, bool (*block)(void*, T&))
+list<T>*% filter(list<T>* self, void* parent, bool (*block)(void*, T^))
 ```
 
 ```C
@@ -803,7 +803,7 @@ ma.insert("CCC", 3).insert("DDD", 4);
 ```
 
 ```C
-map<T,T2>*% initialize_with_values(map<T,T2>*% self, int num_keys, T&* keys, T2&* values) 
+map<T,T2>*% initialize_with_values(map<T,T2>*% self, int num_keys, T^* keys, T2^* values) 
 ```
 
 ```
@@ -840,7 +840,7 @@ All elements and keys must implement to_string(). All basic types of neo-c have 
 すべての要素とキーにto_string()が実装されている必要があります。neo-cの基本的な型はすべてto_string()が実装されてます。to_stringは構造体の場合自動的に定義されます。
 
 ```C
-T2 at(map<T, T2>* self, T& key, T2 default_value, bool by_pointer=false);
+T2 at(map<T, T2>* self, T^ key, T2 default_value, bool by_pointer=false);
 ```
 
 ```
@@ -865,8 +865,8 @@ Delete value by key.
 キーで値を削除します。
 
 ```C
-T& begin(map<T, T2>* self)
-T& next(map<T, T2>* self) 
+T^ begin(map<T, T2>* self)
+T^ next(map<T, T2>* self) 
 bool end(map<T, T2>* self) 
 ```
 
@@ -907,7 +907,7 @@ map<T,T2>* put(map<T,T2>* self, T key, T2 item, bool by_pointer=false);
 ```
 
 ```C
-T2 operator_load_element(map<T, T2>* self, T& key) 
+T2 operator_load_element(map<T, T2>* self, T^ key) 
 ```
 
 ```
@@ -958,7 +958,7 @@ bool operator_not_equals(map<T, T2>* left, map<T,T2>* right)
 ```
 
 ```C
-bool find(map<T, T2>* self, T& key, bool by_pointer=false);
+bool find(map<T, T2>* self, T^ key, bool by_pointer=false);
 ```
 
 ```

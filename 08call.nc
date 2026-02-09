@@ -151,6 +151,115 @@ sNode*% create_return_node(sNode*% value, sInfo* info=info)
     return new sReturnNode(value, info) implements sNode;
 }
 
+class sOptionalNode extends sNodeBase
+{
+    new(sNode*% node, sInfo* info)
+    {
+        self.super();
+        
+        sNode*% self.node = node;
+    }
+    
+    string kind()
+    {
+        return string("sOptionalNode");
+    }
+    
+    bool compile(sInfo* info)
+    {
+        sNode*% node = self.node;
+        
+        bool no_output_come_code = info.no_output_come_code;
+        info.no_output_come_code = true;
+        node_compile(node).elif {
+            return false;
+        }
+        info.no_output_come_code = no_output_come_code;
+        
+        CVALUE*% come_value = get_value_from_stack(-1, info);
+        
+        sType*% type_ = clone come_value.type;
+        
+        sType*% generics_type = new sType(s"optional");
+        generics_type->mGenericsTypes.add(type_);
+        
+        sType*% type = new sType(s"optional");
+        type->mGenericsTypes.add(new sType(s"__generics_type0"));
+        
+        sType*% type2 = solve_generics(type, generics_type, info);
+        
+        sNode*% obj = create_new_object(type2);
+        
+        list<tup: string, sNode*%>*% params = new list<tup: string, sNode*%>();
+        
+        params.add(t((string)null, obj));
+        params.add(t((string)null, node));
+        
+        sNode*% method_node = create_method_call("initialize", obj, params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
+        
+        node_compile(method_node).elif {
+            return false;
+        }
+        
+        return true;
+    }
+};
+
+class sRefNode extends sNodeBase
+{
+    new(sNode*% node, sInfo* info)
+    {
+        self.super();
+        
+        sNode*% self.node = node;
+    }
+    
+    string kind()
+    {
+        return string("sRefNode");
+    }
+    
+    bool compile(sInfo* info)
+    {
+        sNode*% node = self.node;
+        
+        bool no_output_come_code = info.no_output_come_code;
+        info.no_output_come_code = true;
+        node_compile(node).elif {
+            return false;
+        }
+        info.no_output_come_code = no_output_come_code;
+        
+        CVALUE*% come_value = get_value_from_stack(-1, info);
+        
+        sType*% type_ = clone come_value.type;
+        
+        
+        sType*% generics_type = new sType(s"ref");
+        generics_type->mGenericsTypes.add(type_);
+        
+        sType*% type = new sType(s"ref");
+        type->mGenericsTypes.add(new sType(s"__generics_type0"));
+        
+        sType*% type2 = solve_generics(type, generics_type, info);
+        
+        sNode*% obj = create_new_object(type2);
+        
+        list<tup: string, sNode*%>*% params = new list<tup: string, sNode*%>();
+        
+        params.add(t((string)null, obj));
+        params.add(t((string)null, node));
+        
+        sNode*% method_node = create_method_call("initialize", obj, params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
+        
+        node_compile(method_node).elif {
+            return false;
+        }
+        
+        return true;
+    }
+};
+
 class sCSourceNode extends sNodeBase
 {
     new(string contents, sInfo* info)
@@ -2508,6 +2617,17 @@ sNode*% expression_node(sInfo* info=info) version 98
             sNode*% node = parse_function(info);
             
             return node;
+        }
+        else if(!gComeC && buf === "optional") {
+            
+            sNode*% node = expression();
+            
+            return new sOptionalNode(node, info) implements sNode;
+        }
+        else if(!gComeC && buf === "ref") {
+            sNode*% node = expression();
+            
+            return new sRefNode(node, info) implements sNode;
         }
         else if(!gComeC && (buf === "string" || buf === "wstring") && *info->p == '(') {
             sNode*% node = parse_function_call(buf, info);

@@ -739,12 +739,6 @@ struct slice$1char$
     unsigned long  len  ;
 };
 
-struct smart_pointer$1char$
-{
-    struct buffer*  memory  ;
-    char* p;
-};
-
 struct smart_pointer$1int$
 {
     struct buffer*  memory  ;
@@ -761,6 +755,12 @@ struct smart_pointer$1long$
 {
     struct buffer*  memory  ;
     long* p;
+};
+
+struct smart_pointer$1char$
+{
+    struct buffer*  memory  ;
+    char* p;
 };
 
 struct list_item$1char$
@@ -1107,6 +1107,8 @@ struct sType
     _Bool mChannel;
     _Bool mDefferRightValue;
     _Bool mNoHeap;
+    _Bool mRefference;
+    _Bool mOptional;
     _Bool mNoCallingDestructor;
     _Bool mTypeName;
     _Bool mAnonymous;
@@ -2010,10 +2012,10 @@ void* come_null_checker(void* mem, const char* sname, int sline);
 char*  __builtin_string(const char* str);
 struct slice$1char$* string_to_slice(char* self);
 struct slice$1char$* charp_to_slice(char* self);
-struct smart_pointer$1char$* buffer_to_pointer(struct buffer*  self  );
 struct smart_pointer$1int$* buffer_to_int_pointer(struct buffer*  self  );
 struct smart_pointer$1short$* buffer_to_short_pointer(struct buffer*  self  );
 struct smart_pointer$1long$* buffer_to_long_pointer(struct buffer*  self  );
+struct smart_pointer$1char$* buffer_to_pointer(struct buffer*  self  );
 struct buffer*  buffer_initialize(struct buffer*  self  );
 struct buffer*  buffer_initialize_with_value(struct buffer*  self  , const char* mem, unsigned long  size  );
 void buffer_finalize(struct buffer*  self  );
@@ -2646,10 +2648,10 @@ struct sNode* parse_come_gval(struct sInfo*  info  );
 struct sNode* parse_come_gvar(struct sInfo*  info  );
 struct sNode* parse_come_function(struct sInfo*  info  );
 struct sBlock*  parse_come_block(struct sInfo*  info  );
-struct sNode* create_new_object(struct sType*  type  , struct sInfo*  info  );
 struct sNullChecker* sNullChecker_initialize(struct sNullChecker* self, struct sNode* value, struct sInfo*  info  );
 char*  sNullChecker_kind(struct sNullChecker* self);
 _Bool sNullChecker_compile(struct sNullChecker* self, struct sInfo*  info  );
+struct sNode* create_new_object(struct sType*  type  , struct sInfo*  info  );
 struct sNode* comelang_top_level(char* buf, char* head, int head_sline, struct sInfo*  info  );
 // uniq global variable
 // inline function

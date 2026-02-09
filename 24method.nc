@@ -404,7 +404,7 @@ class sMethodCallNode extends sNodeBase
     {
         self.super();
         
-        sNode*% self.obj = new sNullChecker(clone obj) implements sNode;
+        sNode*% self.obj = clone obj;
         string self.fun_name = string(fun_name);
         list<tup: string,sNode*%>*% self.params = clone params;
         buffer*% self.method_block = clone method_block;

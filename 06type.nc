@@ -1195,6 +1195,7 @@ bool@define_only, bool@anonymous_name, bool@struct_,bool@union_,bool@enum_ backt
 
 sType*% parse_pointer_attribute(sType* type, sInfo* info=info)
 {
+    sType*% tmp_ = null;
     while(1) {
         if(*info->p == '*') {
             info->p++;
@@ -1230,7 +1231,7 @@ sType*% parse_pointer_attribute(sType* type, sInfo* info=info)
             }
             skip_spaces_and_lf();
         }
-        else if(*info->p == '&') {
+        else if(*info->p == '^') {
             info->p++;
             skip_spaces_and_lf();
             
@@ -1239,6 +1240,47 @@ sType*% parse_pointer_attribute(sType* type, sInfo* info=info)
             if(type->mNoSolvedGenericsType) {
                 type->mNoSolvedGenericsType.mNoHeap = false;
             }
+        }
+        else if(*info->p == '&') {
+            info->p++;
+            skip_spaces_and_lf();
+            
+            sType*% generics_type = new sType(s"ref");
+            generics_type->mGenericsTypes.add(clone type);
+            
+            sType*% type = new sType(s"ref");
+            type->mGenericsTypes.add(new sType(s"__generics_type0"));
+            type->mPointerNum++;
+            type->mHeap = true;
+            
+            sType*% type2 = solve_generics(type, generics_type, info);
+            
+            type2->mRefference = true;
+            
+            tmp_ = clone type2;
+        }
+        else if(*info->p == '?') {
+            info->p++;
+            skip_spaces_and_lf();
+            
+            if(tmp_) {
+                err_msg(info, "invalid type name");
+                return type;
+            }
+            
+            sType*% generics_type = new sType(s"optional");
+            generics_type->mGenericsTypes.add(clone type);
+            
+            sType*% type = new sType(s"optional");
+            type->mGenericsTypes.add(new sType(s"__generics_type0"));
+            type->mPointerNum++;
+            type->mHeap = true;
+            
+            sType*% type2 = solve_generics(type, generics_type, info);
+            
+            type2->mOptional = true;
+            
+            tmp_ = clone type2;
         }
         else if(*info->p == '`') {
             info->p++;
@@ -1290,6 +1332,10 @@ sType*% parse_pointer_attribute(sType* type, sInfo* info=info)
         else {
             break;
         }
+    }
+    
+    if(tmp_) {
+        return clone tmp_;
     }
     
     return clone type;

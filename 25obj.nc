@@ -252,6 +252,12 @@ class sNewNode extends sNodeBase
     }
 };
 
+
+sNode*% create_new_object(sType*% type, sInfo* info=info)
+{
+    return new sNewNode(type, null, null, info) implements sNode;
+}
+
 class sImplementsNode extends sNodeBase
 {
     new(sNode*% obj_exp, sType* inf_type, sInfo* info)

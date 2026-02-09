@@ -125,6 +125,8 @@ uniq class sType
     bool mChannel;
     bool mDefferRightValue;
     bool mNoHeap;
+    bool mRefference;
+    bool mOptional;
     bool mNoCallingDestructor;
     bool mTypeName;
     
@@ -1191,5 +1193,7 @@ uniq class sNullChecker extends sNodeBase
         return true;
     }
 };
+
+sNode*% create_new_object(sType*% type, sInfo* info=info);
 
 #endif

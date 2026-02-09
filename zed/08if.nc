@@ -1,6 +1,6 @@
 #include "common.h"
 
-bool compile_block(sNodeBlock& block, sInfo* info)
+bool compile_block(sNodeBlock^ block, sInfo* info)
 {
     list<sNode*%>* v = borrow block;
     foreach(it, v) {

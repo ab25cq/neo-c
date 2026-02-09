@@ -137,7 +137,6 @@ uniq unsigned int string::get_hash_key(char* value);
 uniq unsigned int void*::get_hash_key(void* value);
 uniq string char*::substring(const char* str, int head, int tail);
 uniq buffer* buffer*::append_format(buffer* self, const char* msg, ...);
-uniq string __builtin_string(const char* str);
 uniq string buffer*::to_string(buffer* self);
 uniq string char*::to_string(const char* self);
 uniq string double::to_string(double self);
@@ -588,278 +587,229 @@ uniq string __builtin_string(const char* str)
 #endif
 
 //////////////////////////////
-// smart_pointer
+// optional
 //////////////////////////////
-struct smart_pointer<T> {
-    buffer*% memory;
-    T* p;
+struct optional<T>
+{
+    T p;
 };
 
-impl smart_pointer<T>
+impl optional<T>
 {
-    smart_pointer<T>*% initialize(smart_pointer<T>*% self, void* memory, int size)
-    {
-        self.memory = new buffer.initialize();
-        
-        self.memory.append(memory, sizeof(T)*size);
-        
-        self.p = (T*)borrow self.memory.buf;
-        
+    optional<T>*% initialize(optional<T>*% self, void* p) {
+        self.p = p;
         return self;
     }
     
-    smart_pointer<T>* operator_plus_plus(smart_pointer<T>* self)
+    T unwrap(optional<T>* self) {
+        if(ispointer(T) && self.p == (void*)0) {
+            puts("null pointer exception");
+            stackframe();
+            exit(2);
+        }
+        
+        return self.p;
+    }
+    
+    optional<T>* operator_plus_plus(optional<T>* self)
     {
         using unsafe;
+        
+        if(ispointer(T) && self.p == (void*)0) {
+            puts("null pointer operation");
+            stackframe();
+            exit(1);
+        }
         
         self.p++;
         
-        if((char*)self.p > self.memory.buf + self.memory.len) {
-            puts("out of range of smart pointer");
+        return self;
+    }
+    optional<T>* operator_plus_equal(optional<T>* self, size_t value)
+    {
+        using unsafe;
+        
+        if(ispointer(T) && self.p == (void*)0) {
+            puts("null pointer operation");
             stackframe();
             exit(1);
         }
-        
-        return self;
-    }
-    smart_pointer<T>* operator_plus_equal(smart_pointer<T>* self, size_t value)
-    {
-        using unsafe;
         
         self.p += value;
         
-        if((char*)self.p > self.memory.buf + self.memory.len) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        
         return self;
     }
     
-    smart_pointer<T>* operator_minus_minus(smart_pointer<T>* self)
+    optional<T>* operator_minus_minus(optional<T>* self)
     {
         using unsafe;
+        
+        if(ispointer(T) && self.p == (void*)0) {
+            puts("null pointer operation");
+            stackframe();
+            exit(1);
+        }
         
         self.p--;
         
-        if((char*)self.p < self.memory.buf) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        
         return self;
     }
     
-    smart_pointer<T>* operator_minus_equal(smart_pointer<T>* self, size_t value)
+    optional<T>* operator_minus_equal(optional<T>* self, size_t value)
     {
         using unsafe;
+        
+        if(ispointer(T) && self.p == (void*)0) {
+            puts("null pointer operation");
+            stackframe();
+            exit(1);
+        }
         
         self.p -= value;
         
-        if((char*)self.p < self.memory.buf) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        
         return self;
     }
     
-    T* operator_add(smart_pointer<T>* self, size_t rvalue)
+    T operator_add(optional<T>* self, size_t rvalue)
     {
         using unsafe;
         
-        T* result = self.p + rvalue;
-        
-        if(result > self.memory.buf + self.memory.len) {
-            puts("out of range of smart pointer");
+        if(ispointer(T) && self.p == (void*)0) {
+            puts("null pointer operation");
             stackframe();
             exit(1);
         }
+        
+        T result = self.p + rvalue;
         
         return result;
     }
     
-    T* operator_sub(smart_pointer<T>* self, size_t rvalue)
+    T operator_sub(optional<T>* self, size_t rvalue)
     {
         using unsafe;
         
-        T* result = self.p - rvalue;
-        
-        if(result < self.memory.buf) {
-            puts("out of range of smart pointer");
+        if(ispointer(T) && self.p == (void*)0) {
+            puts("null pointer operation");
             stackframe();
             exit(1);
         }
+        
+        T result = self.p - rvalue;
         
         return result;
     }
     
-    T operator_derefference(smart_pointer<T>* self)
+    T operator_derefference(optional<T>* self)
     {
         using unsafe;
-        T* p = self.p;
         
-        if((char*)self.p > self.memory.buf + self.memory.len) {
-            puts("out of range of smart pointer");
+        if(ispointer(T) && self.p == (void*)0) {
+            puts("null pointer operation");
             stackframe();
             exit(1);
         }
-        if((char*)self.p < self.memory.buf) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
+        
+        T p = self.p;
         
         return *p;
     }
-    void operator_store_element(smart_pointer<T>* self, int position, T item) {
-        if(self.p + position > self.memory.buf + self.memory.len) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        if(self.p + position < self.memory.buf) {
-            puts("out of range of smart pointer");
+    void operator_store_element(optional<T>* self, int position, T item) {
+        if(ispointer(T) && self.p == (void*)0) {
+            puts("null pointer operation");
             stackframe();
             exit(1);
         }
         
-        T* p = self.p;
+        T p = self.p;
         
         p\[position] = item;
     }
-    T operator_load_element(smart_pointer<T>* self, int position) {
-        if(self.p + position > self.memory.buf + self.memory.len) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        if(self.p + position < self.memory.buf) {
-            puts("out of range of smart pointer");
+    T operator_load_element(optional<T>* self, int position) {
+        if(self.p == (void*)0) {
+            puts("null pointer operation");
             stackframe();
             exit(1);
         }
         
-        T* p = self.p;
+        T p = self.p;
         
         return p\[position];
     }
+}
+
+//////////////////////////////
+// ref
+//////////////////////////////
+struct ref<T>
+{
+    T p;
+};
+
+impl ref<T>
+{
+    ref<T>*% initialize(ref<T>*% self, void* p) {
+        if(ispointer(T) && p == null) {
+            puts(s"ref is not null");
+            stackframe();
+            exit(2);
+        }
+        self.p = p;
+        return self;
+    }
     
-    int as_int(smart_pointer<T>* self)
+    T unwrap(ref<T>* self) {
+        return self.p;
+    }
+    
+    T operator_derefference(ref<T>* self)
     {
         using unsafe;
         
-        if((char*)self.p > self.memory.buf + self.memory.len) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        if((char*)self.p < self.memory.buf) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        int p = *(int*)self.p;
-        return p;
-    }
-    
-    short as_short(smart_pointer<T>* self)
-    {
-        using unsafe;
+        T p = self.p;
         
-        if((char*)self.p > self.memory.buf + self.memory.len) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        if((char*)self.p < self.memory.buf) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        short p = *(short*)self.p;
-        return p;
-    }
-    
-    long as_long(smart_pointer<T>* self)
-    {
-        using unsafe;
-        
-        if((char*)self.p > self.memory.buf + self.memory.len) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        if((char*)self.p < self.memory.buf) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        long p = *(long*)self.p;
-        return p;
-    }
-    
-    float as_float(smart_pointer<T>* self)
-    {
-        using unsafe;
-        
-        if((char*)self.p > self.memory.buf + self.memory.len) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        if((char*)self.p < self.memory.buf) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        float p = *(float*)self.p;
-        return p;
-    }
-    
-    double as_double(smart_pointer<T>* self)
-    {
-        using unsafe;
-        if((char*)self.p > self.memory.buf + self.memory.len) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        if((char*)self.p < self.memory.buf) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        double p = *(double*)self.p;
-        return p;
-    }
-    
-    bool as_bool(smart_pointer<T>* self)
-    {
-        using unsafe;
-        if((char*)self.p > self.memory.buf + self.memory.len) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        if((char*)self.p < self.memory.buf) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        bool p = *(bool*)self.p;
-        return p;
-    }
-    
-    string to_string(smart_pointer<T>* self)
-    {
-        return s"memory \{self.memory} p \{self.p}";
+        return *p;
     }
 }
 
+//////////////////////////////
+// result
+//////////////////////////////
+// Result<T> is tuple2<T, bool>*%
+#define RESULT(T) tuple2<T, bool>*%
+#define SOME(o) t(o, false)
+#define NONE(o) t(o, true)
+
+/*
+struct result<T>
+{
+    T value;
+    bool err;
+};
+
+impl result<T>
+{
+    result<T>*% initialize(result<T>*% self, T value, bool err) {
+        self.value = value;
+        self.err = err;
+        return self;
+    }
+    
+    T unwrap(result<T>* self) {
+        if(self.err == true) {
+            puts("exception");
+            stackframe();
+            exit(2);
+        }
+        
+        return self.value;
+    }
+}
+*/
+
+//////////////////////////////
+// slice
+//////////////////////////////
 struct slice<T> {
     char* memory;
     T* p;
@@ -1073,6 +1023,28 @@ impl slice<T>
         return p\[position];
     }
     
+    T* unwrap(slice<T>* self) {
+        if(self.p == (void*)0) {
+            puts("null pointer operation");
+            stackframe();
+            exit(1);
+        }
+        if(self.p + position >= self.memory + self.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        if(self.p + position < self.memory) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        T* p = self.p;
+        
+        return p;
+    }
+    
     string to_string(slice<T>* self) {
         return s"head \{self.memory} p \{self.p} len \{self.len}";
     }
@@ -1092,6 +1064,11 @@ uniq slice<char>*% char*::to_slice(char*% self)
     return new slice<char>(self, len);
 }
 
+
+//////////////////////////////
+// rawptr
+//////////////////////////////
+/*
 struct rawptr<T> {
     T* p;
 };
@@ -1105,112 +1082,148 @@ impl rawptr<T>
         return self;
     }
     
-    rawptr<T>* operator_plus_plus(rawptr<T>* self)
+    T* unwrap(rawptr<T>* self) {
+        return self.p;
+    }
+}
+*/
+
+//////////////////////////////
+// smart_pointer
+//////////////////////////////
+struct smart_pointer<T> {
+    buffer*% memory;
+    T* p;
+};
+
+impl smart_pointer<T>
+{
+    smart_pointer<T>*% initialize(smart_pointer<T>*% self, void* memory, int size)
+    {
+        self.memory = new buffer.initialize();
+        
+        self.memory.append(memory, sizeof(T)*size);
+        
+        self.p = (T*)borrow self.memory.buf;
+        
+        return self;
+    }
+    
+    smart_pointer<T>* operator_plus_plus(smart_pointer<T>* self)
     {
         using unsafe;
-        
-        if(self.p == (void*)0) {
-            puts("null pointer operation");
-            stackframe();
-            exit(1);
-        }
         
         self.p++;
         
-        return self;
-    }
-    rawptr<T>* operator_plus_equal(rawptr<T>* self, size_t value)
-    {
-        using unsafe;
-        
-        if(self.p == (void*)0) {
-            puts("null pointer operation");
+        if((char*)self.p > self.memory.buf + self.memory.len) {
+            puts("out of range of smart pointer");
             stackframe();
             exit(1);
         }
+        
+        return self;
+    }
+    smart_pointer<T>* operator_plus_equal(smart_pointer<T>* self, size_t value)
+    {
+        using unsafe;
         
         self.p += value;
         
-        return self;
-    }
-    
-    rawptr<T>* operator_minus_minus(rawptr<T>* self)
-    {
-        using unsafe;
-        
-        if(self.p == (void*)0) {
-            puts("null pointer operation");
+        if((char*)self.p > self.memory.buf + self.memory.len) {
+            puts("out of range of smart pointer");
             stackframe();
             exit(1);
         }
+        
+        return self;
+    }
+    
+    smart_pointer<T>* operator_minus_minus(smart_pointer<T>* self)
+    {
+        using unsafe;
         
         self.p--;
         
-        return self;
-    }
-    
-    rawptr<T>* operator_minus_equal(rawptr<T>* self, size_t value)
-    {
-        using unsafe;
-        
-        if(self.p == (void*)0) {
-            puts("null pointer operation");
+        if((char*)self.p < self.memory.buf) {
+            puts("out of range of smart pointer");
             stackframe();
             exit(1);
         }
+        
+        return self;
+    }
+    
+    smart_pointer<T>* operator_minus_equal(smart_pointer<T>* self, size_t value)
+    {
+        using unsafe;
         
         self.p -= value;
         
+        if((char*)self.p < self.memory.buf) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
         return self;
     }
     
-    T* operator_add(rawptr<T>* self, size_t rvalue)
+    T* operator_add(smart_pointer<T>* self, size_t rvalue)
     {
         using unsafe;
-        
-        if(self.p == (void*)0) {
-            puts("null pointer operation");
-            stackframe();
-            exit(1);
-        }
         
         T* result = self.p + rvalue;
         
-        return result;
-    }
-    
-    T* operator_sub(rawptr<T>* self, size_t rvalue)
-    {
-        using unsafe;
-        
-        if(self.p == (void*)0) {
-            puts("null pointer operation");
+        if(result > self.memory.buf + self.memory.len) {
+            puts("out of range of smart pointer");
             stackframe();
             exit(1);
         }
+        
+        return result;
+    }
+    
+    T* operator_sub(smart_pointer<T>* self, size_t rvalue)
+    {
+        using unsafe;
         
         T* result = self.p - rvalue;
         
-        return result;
-    }
-    
-    T operator_derefference(rawptr<T>* self)
-    {
-        using unsafe;
-        
-        if(self.p == (void*)0) {
-            puts("null pointer operation");
+        if(result < self.memory.buf) {
+            puts("out of range of smart pointer");
             stackframe();
             exit(1);
         }
         
+        return result;
+    }
+    
+    T operator_derefference(smart_pointer<T>* self)
+    {
+        using unsafe;
         T* p = self.p;
+        
+        if((char*)self.p > self.memory.buf + self.memory.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        if((char*)self.p < self.memory.buf) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
         
         return *p;
     }
-    void operator_store_element(rawptr<T>* self, int position, T item) {
-        if(self.p == (void*)0) {
-            puts("null pointer operation");
+    void operator_store_element(smart_pointer<T>* self, int position, T item) {
+        if(self.p + position > self.memory.buf + self.memory.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        if(self.p + position < self.memory.buf) {
+            puts("out of range of smart pointer");
             stackframe();
             exit(1);
         }
@@ -1219,9 +1232,14 @@ impl rawptr<T>
         
         p\[position] = item;
     }
-    T operator_load_element(rawptr<T>* self, int position) {
-        if(self.p == (void*)0) {
-            puts("null pointer operation");
+    T operator_load_element(smart_pointer<T>* self, int position) {
+        if(self.p + position > self.memory.buf + self.memory.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        if(self.p + position < self.memory.buf) {
+            puts("out of range of smart pointer");
             stackframe();
             exit(1);
         }
@@ -1230,16 +1248,24 @@ impl rawptr<T>
         
         return p\[position];
     }
-}
-
-uniq smart_pointer<char>*% buffer*::to_pointer(buffer* self)
-{
-    auto result = new smart_pointer<char>;
     
-    result.memory = clone self;
-    result.p = borrow result.memory.buf;
-    
-    return result;
+    T* unwrap(smart_pointer<T>* self)
+    {
+        using unsafe;
+        
+        if((char*)self.p > self.memory.buf + self.memory.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        if((char*)self.p < self.memory.buf) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return self.p;
+    }
 }
 
 uniq smart_pointer<int>*% buffer*::to_int_pointer(buffer* self)
@@ -1272,62 +1298,16 @@ uniq smart_pointer<long>*% buffer*::to_long_pointer(buffer* self)
     return result;
 }
 
-
-// Result<T> is tuple2<T, bool>*%
-
-#define RESULT(T) tuple2<T, bool>*%
-#define SOME(o) t(o, false)
-#define NONE(o) t(o, true)
-
-/*
-struct res<T>
+uniq smart_pointer<char>*% buffer*::to_pointer(buffer* self)
 {
-    T value;
-    bool err;
-};
-
-impl res<T>
-{
-    res<T>*% initialize(res<T>*% self, T value, bool err) {
-        self.value = value;
-        self.err = err;
-        return self;
-    }
+    auto result = new smart_pointer<char>;
     
-    T unwrap(res<T>* self) {
-        if(self.err == true) {
-            puts("exception");
-            stackframe();
-            exit(2);
-        }
-        
-        return self.value;
-    }
-}
-*/
-
-struct optional<T>
-{
-    T value;
-};
-
-impl optional<T>
-{
-    optional<T>*% initialize(optional<T>*% self, T value) {
-        self.value = value;
-        return self;
-    }
+    result.memory = clone self;
+    result.p = borrow result.memory.buf;
     
-    T unwrap(optional<T>* self) {
-        if(self.value == (void*)0) {
-            puts("null pointer exception");
-            stackframe();
-            exit(2);
-        }
-        
-        return self.value;
-    }
+    return result;
 }
+
 
 //////////////////////////////
 // list
@@ -1357,7 +1337,7 @@ impl list <T>
 
         return self;
     }
-    list<T>*% initialize_with_values(list<T>*% self, int num_value, T&* values) 
+    list<T>*% initialize_with_values(list<T>*% self, int num_value, T^* values) 
     {
         self.head = null;
         self.tail = null;
@@ -1551,9 +1531,9 @@ impl list <T>
         return result.to_string();
     }
     
-    T& begin(list<T>* self) {
+    T^ begin(list<T>* self) {
         if(self == null) {
-            T&` result;
+            T^` result;
             memset(&result, 0, sizeof(T));
             return result;
         }
@@ -1563,14 +1543,14 @@ impl list <T>
             return self.it.item;
         }
         
-        T&` result;
+        T^` result;
         memset(&result, 0, sizeof(T));
         return result;
     }
 
-    T& next(list<T>* self) {
+    T^ next(list<T>* self) {
         if(self == null || self.it == null) {
-            T`& result;
+            T`^ result;
             memset(&result, 0, sizeof(T));
             return result;
         }
@@ -1581,7 +1561,7 @@ impl list <T>
             return self.it.item;
         }
         
-        T&` result;
+        T^` result;
         memset(&result, 0, sizeof(T));
         return result;
     }
@@ -1610,7 +1590,7 @@ impl list <T>
         
         return self;
     }
-    T item(list<T>* self, int position, T& default_value) 
+    T item(list<T>* self, int position, T^ default_value) 
     {
         if(self == null) {
             return dummy_heap default_value;
@@ -1730,7 +1710,7 @@ impl list <T>
         
         return self;
     }
-    list<T>* remove(list<T>* self, T& item, bool by_pointer=false) {
+    list<T>* remove(list<T>* self, T^ item, bool by_pointer=false) {
         if(self == null) {
             return self;
         }
@@ -1919,7 +1899,7 @@ impl list <T>
         return self;
     }
 
-    int find(list<T>* self, T& item, int default_value, bool by_pointer=false) {
+    int find(list<T>* self, T^ item, int default_value, bool by_pointer=false) {
         if(self == null) {
             return default_value;
         }
@@ -2100,7 +2080,7 @@ impl list <T>
     bool operator_not_equals(list<T>* left, list<T>* right) {
         return !left.operator_equals(right);
     }
-    bool contained(list<T>* self, T& item, bool by_pointer=false) {
+    bool contained(list<T>* self, T^ item, bool by_pointer=false) {
         if(self == null) {
             return false;
         }
@@ -2113,7 +2093,7 @@ impl list <T>
         
         return false;
     }
-    list<T>*% merge_list_with_lambda(list<T>* left, list<T>* right, int (*compare)(T&,T&)) {
+    list<T>*% merge_list_with_lambda(list<T>* left, list<T>* right, int (*compare)(T^,T^)) {
         var result = new list<T>.initialize();
 
         list_item<T>* it = left.head;
@@ -2185,7 +2165,7 @@ impl list <T>
 
         return result;
     }
-    list<T>*% merge_sort_with_lambda(list<T>* self, int (*compare)(T&,T&)) {
+    list<T>*% merge_sort_with_lambda(list<T>* self, int (*compare)(T^,T^)) {
         if(self.head == null) {
             return clone self;
         }
@@ -2224,7 +2204,7 @@ impl list <T>
         
         return left_list.merge_list_with_lambda(right_list, compare);
     }
-    list<T>*% sort_with_lambda(list<T>* self, int (*compare)(T&,T&)) {
+    list<T>*% sort_with_lambda(list<T>* self, int (*compare)(T^,T^)) {
         if(self == null) {
             return new list<T>();
         }
@@ -2234,7 +2214,7 @@ impl list <T>
         if(self == null) {
             return new list<T>();
         }
-        return self.merge_sort_with_lambda(int lambda(T& left, T& right) { return left.compare(right); });
+        return self.merge_sort_with_lambda(int lambda(T^ left, T^ right) { return left.compare(right); });
     }
     
     template<R> list<R>*% map(list<T>* self, void* parent, R (*block)(void*, T))
@@ -2384,9 +2364,9 @@ impl list <T>
 //////////////////////////////
 struct map<T, T2>
 {
-    T*& keys;
+    T*^ keys;
     bool* item_existance;
-    T2*& items;
+    T2*^ items;
     int size;
     int len;
     
@@ -2418,7 +2398,7 @@ impl map <T, T2>
 
         return self;
     }
-    map<T,T2>*% initialize_with_values(map<T,T2>*% self, int num_keys, T&* keys, T2&* values) 
+    map<T,T2>*% initialize_with_values(map<T,T2>*% self, int num_keys, T^* keys, T2^* values) 
     {
         self.keys = borrow gc_inc(new T[MAP_TABLE_DEFAULT_SIZE]);
         self.items = borrow gc_inc(new T2[MAP_TABLE_DEFAULT_SIZE]);
@@ -2512,10 +2492,10 @@ impl map <T, T2>
         while(it) {
             T2` default_value;
             memset(&default_value, 0, sizeof(T2));
-            T2& it2 = self.at(it.item, default_value);
+            T2^ it2 = self.at(it.item, default_value);
             
             result.append_str(it.item.to_string());
-            result.append_str(":");
+            result.append_str("^");
             result.append_str(it2.to_string());
             
             it = it.next;
@@ -2530,7 +2510,7 @@ impl map <T, T2>
         return result.to_string();
     }
     
-    T2 at(map<T, T2>* self, T& key, T2 default_value, bool by_pointer=false) {
+    T2 at(map<T, T2>* self, T^ key, T2 default_value, bool by_pointer=false) {
         if(self == null) {
             return default_value;
         }
@@ -2615,9 +2595,9 @@ impl map <T, T2>
         return self.len;
     }
     
-    T& begin(map<T, T2>* self) {
+    T^ begin(map<T, T2>* self) {
         if(self == null) {
-            T`& result;
+            T`^ result;
             memset(&result, 0, sizeof(T));
             return result;
         }
@@ -2627,14 +2607,14 @@ impl map <T, T2>
             return self.key_list.it.item;
         }
         
-        T`& result;
+        T`^ result;
         memset(&result, 0, sizeof(T));
         return result;
     }
 
-    T& next(map<T, T2>* self) {
+    T^ next(map<T, T2>* self) {
         if(self == null || self.key_list.it == null) {
-            T`& result;
+            T`^ result;
             memset(&result, 0, sizeof(T));
             return result;
         }
@@ -2644,7 +2624,7 @@ impl map <T, T2>
             return self.key_list.it.item;
         }
         
-        T`& result;
+        T`^ result;
         memset(&result, 0, sizeof(T));
         return result;
     }
@@ -2655,8 +2635,8 @@ impl map <T, T2>
     
     void rehash(map<T,T2>* self) {
         int size = self.size * 10;
-        T&* keys = borrow gc_inc(new T[size]);
-        T2&* items = borrow gc_inc(new T2[size]);
+        T^* keys = borrow gc_inc(new T[size]);
+        T2^* items = borrow gc_inc(new T2[size]);
         bool* item_existance = borrow gc_inc(new bool[size]);
 
         int len = 0;
@@ -2664,7 +2644,7 @@ impl map <T, T2>
         for(var it = self.begin(); !self.end(); it = self.next()) {
             T2` default_value;
             memset(&default_value, 0, sizeof(T2));
-            T2& it2 = borrow self.at(it, default_value);
+            T2^ it2 = borrow self.at(it, default_value);
             unsigned int hash = ((T)it).get_hash_key() % size;
             int n = hash;
 
@@ -2885,7 +2865,7 @@ impl map <T, T2>
         
         return self;
     }
-    T2 operator_load_element(map<T, T2>* self, T& key) {
+    T2 operator_load_element(map<T, T2>* self, T^ key) {
         T2` default_value;
         memset(&default_value, 0, sizeof(T2));
         
@@ -2984,13 +2964,13 @@ impl map <T, T2>
         for(var it = left.key_list.begin(); !left.key_list.end(); it = left.key_list.next()) {
             T` default_value;
             memset(&default_value, 0, sizeof(T));
-            T& it2 = right.key_list.item(n, default_value);
+            T^ it2 = right.key_list.item(n, default_value);
             
             if(it === it2) {
                 T2` default_value2;
                 memset(&default_value2, 0, sizeof(T2));
-                T2& item = left.at(it, default_value2);
-                T2& item2 = right.at(it2, default_value2);
+                T2^ item = left.at(it, default_value2);
+                T2^ item2 = right.at(it2, default_value2);
                 
                 if(!(item === item2)) {
                     result = false;
@@ -3017,7 +2997,7 @@ impl map <T, T2>
         return !(left.operator_equals(right));
     }
     
-    bool find(map<T, T2>* self, T& key, bool by_pointer=false) {
+    bool find(map<T, T2>* self, T^ key, bool by_pointer=false) {
         if(self == null) {
             return false;
         }
