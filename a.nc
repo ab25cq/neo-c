@@ -21,6 +21,7 @@ int main(int argc, char** argv)
     p2.elif {
         puts("CATCH");
     }
+    p2.if { p2.scan(".").join("+"); }
     
 /*
     printf("%p %p\n", p2.unwrap(), a);
