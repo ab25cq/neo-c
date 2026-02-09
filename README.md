@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.8.8.6
+version 0.8.8.8
 
 ``` C
 #include <neo-c.h>
@@ -93,6 +93,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.8.8.8 ref and optional bug fixed
 0.8.8.7 ref and optional implemented. removed rawptr, removed storing field, array, loading field, array checker integrate.
 0.8.8.6 storing field, array, loading field, array checker integrate.
 0.8.8.5 tuple2<T,bool> can be used like Result<T>. and catch method implemented. case method bug is fixed.

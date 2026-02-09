@@ -232,6 +232,13 @@ class sRefNode extends sNodeBase
         
         CVALUE*% come_value = get_value_from_stack(-1, info);
         
+/*
+        if(come_value.var == null) {
+            err_msg(info, "require variable name for ref");
+            return true;
+        }
+*/
+        
         sType*% type_ = clone come_value.type;
         
         

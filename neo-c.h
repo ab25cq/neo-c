@@ -596,7 +596,7 @@ struct optional<T>
 
 impl optional<T>
 {
-    optional<T>*% initialize(optional<T>*% self, void* p) {
+    optional<T>*% initialize(optional<T>*% self, T p) {
         self.p = p;
         return self;
     }
@@ -748,7 +748,7 @@ struct ref<T>
 
 impl ref<T>
 {
-    ref<T>*% initialize(ref<T>*% self, void* p) {
+    ref<T>*% initialize(ref<T>*% self, T p) {
         if(ispointer(T) && p == null) {
             puts(s"ref is not null");
             stackframe();

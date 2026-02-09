@@ -1472,6 +1472,7 @@ struct sInfo
     int num_conditional;
     int max_conditional;
     char*  pragma  ;
+    struct list$1char$ph* pragma_pack_stack;
     _Bool in_refference;
     struct buffer*  paren_block_buffer  ;
     _Bool in_typeof;
@@ -2812,7 +2813,7 @@ struct sNode* string_node_v10(char* buf, char* head, int head_sline, struct sInf
 struct sNode* string_node_v11(char* buf, char* head, int head_sline, struct sInfo*  info  );
 struct sNode* string_node_v12(char* buf, char* head, int head_sline, struct sInfo*  info  );
 struct sNode* post_op_v13(struct sNode* node, struct sInfo*  info  );
-void child_output_struct(struct sType*  type  , char*  struct_name  , struct buffer*  buf  , _Bool* existance_generics, char*  name  , int indent, struct sInfo*  info  , _Bool* named_child);
+void output_aggregate_field(struct sType*  type  , char*  tag_name  , struct buffer*  buf  , _Bool* existance_generics, char*  field_name  , int indent, struct sInfo*  info  , _Bool* named_child);
 char*  parse_struct_attribute(struct sInfo*  info  , _Bool allow_end);
 struct sNode* create_nothing_node(struct sInfo*  info  );
 _Bool is_contained_method_generics_types(struct sType*  type  , struct sInfo*  info  );
