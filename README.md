@@ -2010,7 +2010,7 @@ int main(int argc, char** argv)
 
 void fun()
 {
-    int* a = borrow gc_inc(new int);
+    int* a = borrow new int;
     *a = 123;
 
     printf("%d\n", *a);
