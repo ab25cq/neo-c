@@ -324,8 +324,186 @@ void skip_spaces_and_tabs(sInfo* info=info)
     }
 }
 
+static bool is_number_token(char* token)
+{
+    if(token == null || *token == '\0') {
+        return false;
+    }
+    char* p = token;
+    while(*p) {
+        if(!xisdigit(*p)) {
+            return false;
+        }
+        p++;
+    }
+    return true;
+}
+
+static string pack_stack_make_entry(string id, string pragma)
+{
+    return xsprintf("%s\t%s", id, pragma);
+}
+
+static string pack_stack_entry_id(char* entry)
+{
+    if(entry == null) {
+        return s"";
+    }
+    
+    char* p = strchr(entry, '\t');
+    if(p == null) {
+        return s"";
+    }
+    
+    buffer*% buf = new buffer();
+    buf.append(entry, p-entry);
+    return buf.to_string();
+}
+
+static string pack_stack_entry_pragma(char* entry)
+{
+    if(entry == null) {
+        return s"";
+    }
+    
+    char* p = strchr(entry, '\t');
+    if(p == null) {
+        return s"";
+    }
+    
+    return xsprintf("%s", p+1);
+}
+
+static void apply_pack_pragma_state(string pragma_line, sInfo* info)
+{
+    if(info.pragma_pack_stack == null) {
+        info.pragma_pack_stack = new list<string>();
+    }
+    if(info.pragma == null) {
+        info.pragma = s"";
+    }
+    
+    buffer*% compact_buf = new buffer();
+    char* p = borrow pragma_line;
+    while(*p) {
+        if(*p != ' ' && *p != '\t' && *p != '\n' && *p != '\r') {
+            compact_buf.append_char(*p);
+        }
+        p++;
+    }
+    
+    string compact = compact_buf.to_string();
+
+    int lparen_pos = -1;
+    int rparen_pos = -1;
+    for(int i=0; i<compact.length(); i++) {
+        char d = compact[i];
+        if(d == '(' && lparen_pos == -1) {
+            lparen_pos = i;
+        }
+        if(d == ')') {
+            rparen_pos = i;
+        }
+    }
+    if(lparen_pos == -1 || rparen_pos == -1 || rparen_pos <= lparen_pos+1) {
+        return;
+    }
+
+    list<string>*% tokens = new list<string>();
+    {
+        int i = lparen_pos + 1;
+        while(i < rparen_pos) {
+            buffer*% tok = new buffer();
+            while(i < rparen_pos) {
+                char d = compact[i];
+                if(d == ',') {
+                    break;
+                }
+                tok.append_char(d);
+                i++;
+            }
+            tokens.push_back(tok.to_string());
+            if(i < rparen_pos && compact[i] == ',') {
+                i++;
+            }
+        }
+    }
+    if(tokens.length() == 0) {
+        return;
+    }
+    
+    string op = clone tokens.item(0, s"");
+    
+    if(op === "push") {
+        string push_id = s"";
+        string push_num = s"";
+        
+        for(int i=1; i<tokens.length(); i++) {
+            string tok2 = clone tokens.item(i, s"");
+            if(is_number_token(tok2)) {
+                push_num = clone tok2;
+            }
+            else if(push_id === "") {
+                push_id = clone tok2;
+            }
+        }
+        
+        info.pragma_pack_stack.push_back(pack_stack_make_entry(push_id, info.pragma));
+        
+        if(push_num !== "") {
+            info.pragma = pragma_line;
+        }
+    }
+    else if(op === "pop") {
+        string pop_id = s"";
+        string pop_num = s"";
+        
+        for(int i=1; i<tokens.length(); i++) {
+            string tok2 = clone tokens.item(i, s"");
+            if(is_number_token(tok2)) {
+                pop_num = clone tok2;
+            }
+            else if(pop_id === "") {
+                pop_id = clone tok2;
+            }
+        }
+        
+        if(pop_id !== "") {
+            int found = -1;
+            for(int i=0; i<info.pragma_pack_stack.length(); i++) {
+                string stack_id = pack_stack_entry_id(info.pragma_pack_stack.item(i, s""));
+                if(stack_id === pop_id) {
+                    found = i;
+                }
+            }
+            if(found >= 0) {
+                info.pragma = pack_stack_entry_pragma(info.pragma_pack_stack.item(found, s""));
+                info.pragma_pack_stack.delete(found, info.pragma_pack_stack.length());
+            }
+        }
+        else {
+            int len = info.pragma_pack_stack.length();
+            if(len > 0) {
+                info.pragma = pack_stack_entry_pragma(info.pragma_pack_stack.item(len-1, s""));
+                info.pragma_pack_stack.delete(len-1, len);
+            }
+            else {
+                info.pragma = s"";
+            }
+        }
+        
+        if(pop_num !== "") {
+            info.pragma = xsprintf("#pragma pack(push, %s)\n", pop_num);
+        }
+    }
+    else if(tokens.length() == 1 && is_number_token(op)) {
+        info.pragma = pragma_line;
+    }
+}
+
 void parse_sharp(sInfo* info=info) version 5
 {
+    
     while(1) {
         if(*info->p == '#') {
             info->p++;
@@ -349,8 +527,9 @@ void parse_sharp(sInfo* info=info) version 5
                     }
                 }
                 
-                if(buf.to_string().index("pack(", -1) != -1) {
-                    info.pragma = buf.to_string();
+                string pragma_line = buf.to_string();
+                if(pragma_line.index("pack(", -1) != -1) {
+                    apply_pack_pragma_state(pragma_line, info);
                 }
             }
             else if(parsecmp("line")) {

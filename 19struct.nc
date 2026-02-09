@@ -1,17 +1,17 @@
 #include "common.h"
 
-void child_output_struct(sType* type, string struct_name, buffer* buf, bool* existance_generics, string name, int indent, sInfo* info, bool* named_child)
+void output_aggregate_field(sType* type, string tag_name, buffer* buf, bool* existance_generics, string field_name, int indent, sInfo* info, bool* named_child)
 {
     sClass* klass = type->mClass;
     
-    if(struct_name !== "") {
+    if(tag_name !== "") {
         if(klass.mStruct) {
             buf.append_str("    " * indent);
-            buf.append_format("struct %s {\n", struct_name);
+            buf.append_format("struct %s {\n", tag_name);
         }
         else if(klass.mUnion) {
             buf.append_str("    " * indent);
-            buf.append_format("union %s {\n", struct_name);
+            buf.append_format("union %s {\n", tag_name);
         }
     }
     else {
@@ -40,7 +40,7 @@ void child_output_struct(sType* type, string struct_name, buffer* buf, bool* exi
         if(type2->mAnonymous) {
         //if(type2->mAnonymous && name !== name2) {
             //info.struct_definition.remove(type2->mAnonymousName);
-            child_output_struct(type2, s"", buf, existance_generics, name2, indent, info, named_child);
+            output_aggregate_field(type2, s"", buf, existance_generics, name2, indent, info, named_child);
         }
         else if(type2->mInnerStruct) {
             sType*% already_defined_child_type = info.named_child_struct[type2->mInnerStructName];
@@ -63,7 +63,7 @@ void child_output_struct(sType* type, string struct_name, buffer* buf, bool* exi
             else {
                 info.named_child_struct.insert(string(type2->mInnerStructName), clone type2);
                 info.struct_definition.remove(type2->mInnerStructName);
-                child_output_struct(type2, type2->mInnerStructName, buf, existance_generics, name2, indent, info, named_child);
+                output_aggregate_field(type2, type2->mInnerStructName, buf, existance_generics, name2, indent, info, named_child);
             }
             
             *named_child = true;
@@ -81,7 +81,7 @@ void child_output_struct(sType* type, string struct_name, buffer* buf, bool* exi
     }
     else {
         buf.append_str("    " * (indent-1));
-        buf.append_format("} %s;\n", name);
+        buf.append_format("} %s;\n", field_name);
     }
 }
 
@@ -96,7 +96,7 @@ void output_struct(sClass* klass, string pragma, sInfo* info, bool anonymous=fal
     
     buffer*% buf = new buffer();
         
-    if(pragma) {
+    if(pragma && pragma !== "") {
         buf.append_str(pragma);
     }
     buf.append_format("struct %s\n{\n", klass.mName);
@@ -114,7 +114,7 @@ void output_struct(sClass* klass, string pragma, sInfo* info, bool anonymous=fal
         
         if(type->mAnonymous && !current_stack) {
             //info.struct_definition.remove(type->mAnonymousName);
-            child_output_struct(type, s"", buf, &existance_generics, name, 1, info, &named_child);
+            output_aggregate_field(type, s"", buf, &existance_generics, name, 1, info, &named_child);
         }
         else if(type->mInnerStruct && !current_stack) {
             sType*% already_defined_child_type = info.named_child_struct[type->mInnerStructName];
@@ -137,7 +137,7 @@ void output_struct(sClass* klass, string pragma, sInfo* info, bool anonymous=fal
             else {
                 info.named_child_struct.insert(string(type->mInnerStructName), clone type);
                 info.struct_definition.remove(type->mInnerStructName);
-                child_output_struct(type, type->mInnerStructName, buf, &existance_generics, name, 1, info, &named_child);
+                output_aggregate_field(type, type->mInnerStructName, buf, &existance_generics, name, 1, info, &named_child);
             }
             named_child = true;
         }
@@ -154,7 +154,7 @@ void output_struct(sClass* klass, string pragma, sInfo* info, bool anonymous=fal
     else {
         buf.append_format("} %s;\n", klass->mAttribute);
     }
-    if(pragma) {
+    if(pragma && pragma !== "") {
         buf.append_str("#pragma pack(pop)");
     }
     

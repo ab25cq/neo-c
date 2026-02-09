@@ -1472,6 +1472,7 @@ struct sInfo
     int num_conditional;
     int max_conditional;
     char*  pragma  ;
+    struct list$1char$ph* pragma_pack_stack;
     _Bool in_refference;
     struct buffer*  paren_block_buffer  ;
     _Bool in_typeof;
@@ -2583,7 +2584,7 @@ _Bool operator_overload_fun(struct sType*  type  , const char* fun_name, struct 
 struct sNode* expression_v13(struct sInfo*  info  , _Bool type_name_exp);
 struct sNode* post_op_v13(struct sNode* node, struct sInfo*  info  );
 struct sNode* string_node_v13(char* buf, char* head, int head_sline, struct sInfo*  info  );
-void child_output_struct(struct sType*  type  , char*  struct_name  , struct buffer*  buf  , _Bool* existance_generics, char*  name  , int indent, struct sInfo*  info  , _Bool* named_child);
+void output_aggregate_field(struct sType*  type  , char*  tag_name  , struct buffer*  buf  , _Bool* existance_generics, char*  field_name  , int indent, struct sInfo*  info  , _Bool* named_child);
 char*  parse_struct_attribute(struct sInfo*  info  , _Bool allow_end);
 struct sNode* create_nothing_node(struct sInfo*  info  );
 _Bool is_contained_method_generics_types(struct sType*  type  , struct sInfo*  info  );
@@ -4262,10 +4263,12 @@ int come_main(int argc, char** argv)
     struct list$1char$ph* __dec_obj40;
     struct list$1char$ph* __dec_obj41;
     struct map$2char$phsClass$ph* __dec_obj42;
+    struct list$1char$ph* __dec_obj43;
+    char*  __dec_obj44  ;
     _Bool Value_38;
     void* __right_value2 = (void*)0;
-    struct buffer*  __dec_obj43  ;
-    char*  __dec_obj44  ;
+    struct buffer*  __dec_obj45  ;
+    char*  __dec_obj46  ;
     _Bool Value_39;
     int __result_obj__0;
     memset(&info, 0, sizeof(info));
@@ -4371,23 +4374,29 @@ int come_main(int argc, char** argv)
         __dec_obj42=info.generics_classes,
         info.generics_classes=(struct map$2char$phsClass$ph*)come_increment_ref_count(map$2char$phsClass$ph_initialize((struct map$2char$phsClass$ph*)come_increment_ref_count((struct map$2char$phsClass$ph*)come_calloc(1, sizeof(struct map$2char$phsClass$ph)*(1), (void*)0, 347, "struct map$2char$phsClass$ph*"))));
         come_call_finalizer(map$2char$phsClass$ph_finalize, __dec_obj42,(void*)0, (void*)0, 0, 0, 0, (void*)0);
+        __dec_obj43=info.pragma_pack_stack,
+        info.pragma_pack_stack=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 348, "struct list$1char$ph*"))));
+        come_call_finalizer(list$1char$ph_finalize, __dec_obj43,(void*)0, (void*)0, 0, 0, 0, (void*)0);
+        __dec_obj44=info.pragma,
+        info.pragma=(char*)come_increment_ref_count(xsprintf(""));
+        __dec_obj44 = come_decrement_ref_count(__dec_obj44, (void*)0, (void*)0, 0,0, (void*)0);
         init_classes(&info);
         Value_38=cpp(&info);
         if(!Value_38) {
             printf("cpp failed\n");
             exit(2);
         }
-        __dec_obj43=info.source,
+        __dec_obj45=info.source,
         info.source=(struct buffer* )come_increment_ref_count(charp_to_buffer(((char* )(__right_value1=charp_read(((char* )(__right_value0=xsprintf("%s.i",it))))))));
-        come_call_finalizer(buffer_finalize, __dec_obj43,(void*)0, (void*)0, 0, 0, 0, (void*)0);
+        come_call_finalizer(buffer_finalize, __dec_obj45,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
         info.p=info.source->buf;
         info.head=info.source->buf;
         info.end=info.source->buf+info.source->len;
-        __dec_obj44=info.output_file_name,
+        __dec_obj46=info.output_file_name,
         info.output_file_name=((void*)0);
-        __dec_obj44 = come_decrement_ref_count(__dec_obj44, (void*)0, (void*)0, 0,0, (void*)0);
+        __dec_obj46 = come_decrement_ref_count(__dec_obj46, (void*)0, (void*)0, 0,0, (void*)0);
         transpile(&info);
         if(info.err_num>0) {
             printf("transpile error number %d\n",info.err_num);
@@ -4547,6 +4556,9 @@ static void sInfo_finalize(struct sInfo*  self  )
     }
     if(self!=((void*)0)&&self->pragma!=((void*)0)) {
         (self->pragma = come_decrement_ref_count(self->pragma, (void*)0, (void*)0, 0, 0, (void*)0));
+    }
+    if(self!=((void*)0)&&self->pragma_pack_stack!=((void*)0)) {
+        come_call_finalizer(list$1char$ph$p_finalize, self->pragma_pack_stack, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     if(self!=((void*)0)&&self->paren_block_buffer!=((void*)0)) {
         come_call_finalizer(buffer_finalize, self->paren_block_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0);

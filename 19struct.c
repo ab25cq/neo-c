@@ -1472,6 +1472,7 @@ struct sInfo
     int num_conditional;
     int max_conditional;
     char*  pragma  ;
+    struct list$1char$ph* pragma_pack_stack;
     _Bool in_refference;
     struct buffer*  paren_block_buffer  ;
     _Bool in_typeof;
@@ -2691,7 +2692,7 @@ struct sNullChecker* sNullChecker_initialize(struct sNullChecker* self, struct s
 char*  sNullChecker_kind(struct sNullChecker* self);
 _Bool sNullChecker_compile(struct sNullChecker* self, struct sInfo*  info  );
 struct sNode* create_new_object(struct sType*  type  , struct sInfo*  info  );
-void child_output_struct(struct sType*  type  , char*  struct_name  , struct buffer*  buf  , _Bool* existance_generics, char*  name  , int indent, struct sInfo*  info  , _Bool* named_child);
+void output_aggregate_field(struct sType*  type  , char*  tag_name  , struct buffer*  buf  , _Bool* existance_generics, char*  field_name  , int indent, struct sInfo*  info  , _Bool* named_child);
 static struct tuple2$2char$phsType$ph* list$1tuple2$2char$phsType$ph$ph_begin(struct list$1tuple2$2char$phsType$ph$ph* self);
 static _Bool list$1tuple2$2char$phsType$ph$ph_end(struct list$1tuple2$2char$phsType$ph$ph* self);
 static struct tuple2$2char$phsType$ph* list$1tuple2$2char$phsType$ph$ph_next(struct list$1tuple2$2char$phsType$ph$ph* self);
@@ -2842,9 +2843,9 @@ static inline unsigned long  int  __uint64_identity(unsigned long  int  __x  )
 }
 
 // body function
-void child_output_struct(struct sType*  type  , char*  struct_name  , struct buffer*  buf  , _Bool* existance_generics, char*  name  , int indent, struct sInfo*  info  , _Bool* named_child)
+void output_aggregate_field(struct sType*  type  , char*  tag_name  , struct buffer*  buf  , _Bool* existance_generics, char*  field_name  , int indent, struct sInfo*  info  , _Bool* named_child)
 {
-    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "child_output_struct"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "output_aggregate_field"; neo_current_frame = &fr;
     struct sClass*  klass  ;
     void* __right_value0 = (void*)0;
     struct list$1tuple2$2char$phsType$ph$ph* o2_saved;
@@ -2856,16 +2857,16 @@ void child_output_struct(struct sType*  type  , char*  struct_name  , struct buf
     struct sType*  already_defined_child_type  ;
     void* __right_value1 = (void*)0;
     klass=type->mClass;
-    if(string_operator_not_equals(struct_name,"")) {
+    if(string_operator_not_equals(tag_name,"")) {
         if(klass->mStruct) {
             buffer_append_str(buf,((char* )(__right_value0=charp_operator_mult("    ",indent))));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-            buffer_append_format(buf,"struct %s {\n",struct_name);
+            buffer_append_format(buf,"struct %s {\n",tag_name);
         }
         else if(klass->mUnion) {
             buffer_append_str(buf,((char* )(__right_value0=charp_operator_mult("    ",indent))));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-            buffer_append_format(buf,"union %s {\n",struct_name);
+            buffer_append_format(buf,"union %s {\n",tag_name);
         }
     }
     else {
@@ -2891,7 +2892,7 @@ void child_output_struct(struct sType*  type  , char*  struct_name  , struct buf
         type2->mStatic=(_Bool)0;
         klass_2=type2->mClass;
         if(type2->mAnonymous) {
-            child_output_struct(type2,(char*)come_increment_ref_count(xsprintf("")),buf,existance_generics,(char* )come_increment_ref_count(name2),indent,info,named_child);
+            output_aggregate_field(type2,(char*)come_increment_ref_count(xsprintf("")),buf,existance_generics,(char* )come_increment_ref_count(name2),indent,info,named_child);
         }
         else if(type2->mInnerStruct) {
             already_defined_child_type=(struct sType* )come_increment_ref_count(map$2char$phsType$ph_operator_load_element(info->named_child_struct,type2->mInnerStructName));
@@ -2913,7 +2914,7 @@ void child_output_struct(struct sType*  type  , char*  struct_name  , struct buf
             else {
                 map$2char$phsType$ph_insert(info->named_child_struct,(char* )come_increment_ref_count(__builtin_string(type2->mInnerStructName)),(struct sType* )come_increment_ref_count(sType_clone(type2)),(_Bool)0);
                 map$2char$phbuffer$ph_remove(info->struct_definition,(char* )come_increment_ref_count(type2->mInnerStructName),(_Bool)0);
-                child_output_struct(type2,(char* )come_increment_ref_count(type2->mInnerStructName),buf,existance_generics,(char* )come_increment_ref_count(name2),indent,info,named_child);
+                output_aggregate_field(type2,(char* )come_increment_ref_count(type2->mInnerStructName),buf,existance_generics,(char* )come_increment_ref_count(name2),indent,info,named_child);
             }
             *named_child=(_Bool)1;
             come_call_finalizer(sType_finalize, already_defined_child_type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -2937,10 +2938,10 @@ void child_output_struct(struct sType*  type  , char*  struct_name  , struct buf
     else {
         buffer_append_str(buf,((char* )(__right_value0=charp_operator_mult("    ",(indent-1)))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        buffer_append_format(buf,"} %s;\n",name);
+        buffer_append_format(buf,"} %s;\n",field_name);
     }
-    (struct_name = come_decrement_ref_count(struct_name, (void*)0, (void*)0, 0, 0, (void*)0));
-    (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0));
+    (tag_name = come_decrement_ref_count(tag_name, (void*)0, (void*)0, 0, 0, (void*)0));
+    (field_name = come_decrement_ref_count(field_name, (void*)0, (void*)0, 0, 0, (void*)0));
     neo_current_frame = fr.prev;
 }
 
@@ -4744,7 +4745,7 @@ void output_struct(struct sClass*  klass  , char*  pragma  , struct sInfo*  info
     name=klass->mName;
     current_stack=strlen(name)>strlen("__current_stack")&&memcmp(name,"__current_stack",strlen("__current_stack"))==0;
     buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 97, "struct buffer* "))));
-    if(pragma) {
+    if(pragma&&string_operator_not_equals(pragma,"")) {
         buffer_append_str(buf,pragma);
     }
     buffer_append_format(buf,"struct %s\n{\n",klass->mName);
@@ -4759,7 +4760,7 @@ void output_struct(struct sClass*  klass  , char*  pragma  , struct sInfo*  info
         }
         type->mStatic=(_Bool)0;
         if(type->mAnonymous&&!current_stack) {
-            child_output_struct(type,(char*)come_increment_ref_count(xsprintf("")),buf,&existance_generics,(char* )come_increment_ref_count(name_24),1,info,&named_child);
+            output_aggregate_field(type,(char*)come_increment_ref_count(xsprintf("")),buf,&existance_generics,(char* )come_increment_ref_count(name_24),1,info,&named_child);
         }
         else if(type->mInnerStruct&&!current_stack) {
             already_defined_child_type=(struct sType* )come_increment_ref_count(map$2char$phsType$ph_operator_load_element(info->named_child_struct,type->mInnerStructName));
@@ -4780,7 +4781,7 @@ void output_struct(struct sClass*  klass  , char*  pragma  , struct sInfo*  info
             else {
                 map$2char$phsType$ph_insert(info->named_child_struct,(char* )come_increment_ref_count(__builtin_string(type->mInnerStructName)),(struct sType* )come_increment_ref_count(sType_clone(type)),(_Bool)0);
                 map$2char$phbuffer$ph_remove(info->struct_definition,(char* )come_increment_ref_count(type->mInnerStructName),(_Bool)0);
-                child_output_struct(type,(char* )come_increment_ref_count(type->mInnerStructName),buf,&existance_generics,(char* )come_increment_ref_count(name_24),1,info,&named_child);
+                output_aggregate_field(type,(char* )come_increment_ref_count(type->mInnerStructName),buf,&existance_generics,(char* )come_increment_ref_count(name_24),1,info,&named_child);
             }
             named_child=(_Bool)1;
             come_call_finalizer(sType_finalize, already_defined_child_type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -4801,7 +4802,7 @@ void output_struct(struct sClass*  klass  , char*  pragma  , struct sInfo*  info
     else {
         buffer_append_format(buf,"} %s;\n",klass->mAttribute);
     }
-    if(pragma) {
+    if(pragma&&string_operator_not_equals(pragma,"")) {
         buffer_append_str(buf,"#pragma pack(pop)");
     }
     if(anonymous&&named_child) {

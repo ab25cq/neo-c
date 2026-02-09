@@ -345,6 +345,8 @@ int come_main(int argc, char** argv)
         info.generics_type_names = new list<string>();
         info.method_generics_type_names = new list<string>();
         info.generics_classes = new map<string, sClass*%>();
+        info.pragma_pack_stack = new list<string>();
+        info.pragma = s"";
         
         init_classes(&info);
         

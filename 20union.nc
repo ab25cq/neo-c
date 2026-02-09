@@ -1,6 +1,6 @@
 #include "common.h"
 
-static void output_union(sClass* klass, sInfo* info, bool anonymous=false)
+static void output_union(sClass* klass, string pragma, sInfo* info, bool anonymous=false)
 {
 /*
     if(info->no_output_come_code) {
@@ -15,6 +15,9 @@ static void output_union(sClass* klass, sInfo* info, bool anonymous=false)
     
     buffer*% buf = new buffer();
     
+    if(pragma && pragma !== "") {
+        buf.append_str(pragma);
+    }
     buf.append_format("union %s\n{\n", klass.mName);
     
     bool existance_generics = false;
@@ -24,7 +27,7 @@ static void output_union(sClass* klass, sInfo* info, bool anonymous=false)
         
         if(type->mAnonymous) {
             //info.struct_definition.remove(type->mAnonymousName);
-            child_output_struct(type, s"", buf, &existance_generics, name, 1, info, &named_child);
+            output_aggregate_field(type, s"", buf, &existance_generics, name, 1, info, &named_child);
         }
         else if(type->mInnerStruct) {
             sType*% already_defined_child_type = info.named_child_struct[type->mInnerStructName];
@@ -47,7 +50,7 @@ static void output_union(sClass* klass, sInfo* info, bool anonymous=false)
             else {
                 info.named_child_struct.insert(string(type->mInnerStructName), clone type);
                 info.struct_definition.remove(type->mInnerStructName);
-                child_output_struct(type, type->mInnerStructName, buf, &existance_generics, name, 1, info,  &named_child);
+                output_aggregate_field(type, type->mInnerStructName, buf, &existance_generics, name, 1, info,  &named_child);
             }
             named_child = true;
         }
@@ -62,6 +65,9 @@ static void output_union(sClass* klass, sInfo* info, bool anonymous=false)
     }
     else {
         buf.append_format("} %s;\n", klass->mAttribute);
+    }
+    if(pragma && pragma !== "") {
+        buf.append_str("#pragma pack(pop)");
     }
     
     if(anonymous && named_child) return;
@@ -79,6 +85,7 @@ class sUnionNode extends sNodeBase
     
         string self.name = name;
         sClass* self.klass = klass;
+        string self.pragma = info.pragma;
         bool self.anonymous = anonymous;
     }
     
@@ -96,9 +103,10 @@ class sUnionNode extends sNodeBase
     {
         sClass* klass = self.klass;
         string name = string(self.name);
+        string pragma = self.pragma;
         bool anonymous = self.anonymous;
         
-        output_union(klass, info, anonymous);
+        output_union(klass, pragma, info, anonymous);
     
         return true;
     }
@@ -370,4 +378,3 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
     
     return inherit(buf, head, head_sline, info);
 }
-
