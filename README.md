@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.8.8.8
+version 0.8.9.0
 
 ``` C
 #include <neo-c.h>
@@ -93,6 +93,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.8.9.0 span implemeted at some content.
 0.8.8.8 ref and optional bug fixed
 0.8.8.7 ref and optional implemented. removed rawptr, removed storing field, array, loading field, array checker integrate.
 0.8.8.6 storing field, array, loading field, array checker integrate.
@@ -3133,4 +3134,63 @@ int main(int argc, char** argv)
     return 0;
 }
 ```
+
+# span
+
+```
+#include <neo-c.h>
+
+struct sData
+{
+    int a;
+    int b;
+};
+
+int main(int argc, char** argv)
+{
+    struct sData data = (struct sData){ .a=8, .b=7 };
+    
+    var p = new span<int*, sData*>(ref &data, sizeof(struct sData));
+    
+    printf("%d\n", *p);
+    p++;
+    printf("%d\n", *p);
+    
+    
+    return 0;
+}
+
+```
+
+span is no own the memory. so the memory is destroyed and access the memory occurs panic and show stackframe.
+but it's fast.
+
+# slice
+
+```
+#include <neo-c.h>
+
+struct sData
+{
+    int a;
+    int b;
+};
+
+int main(int argc, char** argv)
+{
+    struct sData data = (struct sData){ .a=8, .b=7 };
+    
+    var p = new slice<int*>(&data, sizeof(struct sData));
+    
+    printf("%d\n", *p);
+    p++;
+    printf("%d\n", *p);
+    
+    
+    return 0;
+}
+
+```
+
+slice is copy the memory and owns the memory. so it's safe. but occurs copy cost.
 

@@ -732,34 +732,6 @@ struct sMemHeader
     const char* class_name;
 };
 
-struct slice$1char$p
-{
-    char* memory;
-    char* p;
-    unsigned long  len  ;
-};
-
-struct slice$1short$p
-{
-    char* memory;
-    short* p;
-    unsigned long  len  ;
-};
-
-struct slice$1int$p
-{
-    char* memory;
-    int* p;
-    unsigned long  len  ;
-};
-
-struct slice$1long$p
-{
-    char* memory;
-    long* p;
-    unsigned long  len  ;
-};
-
 struct smart_pointer$1int$
 {
     struct buffer*  memory  ;
@@ -2034,13 +2006,6 @@ void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* protoco
 void xassert(const char* msg, _Bool test);
 void* come_null_checker(void* mem, const char* sname, int sline);
 char*  __builtin_string(const char* str);
-struct slice$1char$p* chara_to_slice(char* ary, int len);
-struct slice$1short$p* shorta_to_slice(short* ary, int len);
-struct slice$1int$p* inta_to_slice(int* ary, int len);
-struct slice$1long$p* longa_to_slice(long* ary, int len);
-struct slice$1char$p* string_to_slice(char* self);
-struct slice$1char$p* charp_to_slice(char* self);
-struct slice$1char$p* buffer_to_slice(struct buffer*  buf  );
 struct smart_pointer$1int$* buffer_to_int_pointer(struct buffer*  self  );
 struct smart_pointer$1short$* buffer_to_short_pointer(struct buffer*  self  );
 struct smart_pointer$1long$* buffer_to_long_pointer(struct buffer*  self  );
@@ -2943,7 +2908,6 @@ static char*  map$2char$phchar$ph$p_operator_load_element(struct map$2char$phcha
     memset(&default_value,0,sizeof(char* ));
     if(self==((void*)0)) {
         __result_obj__0 = (char* )come_increment_ref_count(default_value);
-        (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
@@ -2954,7 +2918,6 @@ static char*  map$2char$phchar$ph$p_operator_load_element(struct map$2char$phcha
         if(self->item_existance[it]) {
             if(string_equals(self->keys[it],key)) {
                 __result_obj__0 = (char* )come_increment_ref_count(self->items[it]);
-                (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 0, (void*)0));
                 neo_current_frame = fr.prev;
                 (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
                 return __result_obj__0;
@@ -2965,7 +2928,6 @@ static char*  map$2char$phchar$ph$p_operator_load_element(struct map$2char$phcha
             }
             else if(it==hash) {
                 __result_obj__0 = (char* )come_increment_ref_count(default_value);
-                (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
                 neo_current_frame = fr.prev;
                 (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
                 return __result_obj__0;
@@ -2973,14 +2935,12 @@ static char*  map$2char$phchar$ph$p_operator_load_element(struct map$2char$phcha
         }
         else {
             __result_obj__0 = (char* )come_increment_ref_count(default_value);
-            (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
             neo_current_frame = fr.prev;
             (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
             return __result_obj__0;
         }
     }
     __result_obj__0 = (char* )come_increment_ref_count(default_value);
-    (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
@@ -2996,7 +2956,6 @@ static char*  map$2char$phchar$ph_operator_load_element(struct map$2char$phchar$
     memset(&default_value,0,sizeof(char* ));
     if(self==((void*)0)) {
         __result_obj__0 = (char* )come_increment_ref_count(default_value);
-        (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
@@ -3007,7 +2966,6 @@ static char*  map$2char$phchar$ph_operator_load_element(struct map$2char$phchar$
         if(self->item_existance[it]) {
             if(string_equals(self->keys[it],key)) {
                 __result_obj__0 = (char* )come_increment_ref_count(self->items[it]);
-                (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 0, (void*)0));
                 neo_current_frame = fr.prev;
                 (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
                 return __result_obj__0;
@@ -3018,7 +2976,6 @@ static char*  map$2char$phchar$ph_operator_load_element(struct map$2char$phchar$
             }
             else if(it==hash) {
                 __result_obj__0 = (char* )come_increment_ref_count(default_value);
-                (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
                 neo_current_frame = fr.prev;
                 (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
                 return __result_obj__0;
@@ -3026,14 +2983,12 @@ static char*  map$2char$phchar$ph_operator_load_element(struct map$2char$phchar$
         }
         else {
             __result_obj__0 = (char* )come_increment_ref_count(default_value);
-            (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
             neo_current_frame = fr.prev;
             (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
             return __result_obj__0;
         }
     }
     __result_obj__0 = (char* )come_increment_ref_count(default_value);
-    (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
@@ -3622,7 +3577,7 @@ static struct list$1char$ph* list$1char$ph_push_back(struct list$1char$ph* self,
         return __result_obj__0;
     }
     if(self->len==0) {
-        litem=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), (void*)0, 1478, "struct list_item$1char$ph*"))));
+        litem=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), (void*)0, 1962, "struct list_item$1char$ph*"))));
         litem->prev=((void*)0);
         litem->next=((void*)0);
         __dec_obj5=litem->item,
@@ -3632,7 +3587,7 @@ static struct list$1char$ph* list$1char$ph_push_back(struct list$1char$ph* self,
         self->head=litem;
     }
     else if(self->len==1) {
-        litem_2=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), (void*)0, 1488, "struct list_item$1char$ph*"))));
+        litem_2=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), (void*)0, 1972, "struct list_item$1char$ph*"))));
         litem_2->prev=self->head;
         litem_2->next=((void*)0);
         __dec_obj6=litem_2->item,
@@ -3642,7 +3597,7 @@ static struct list$1char$ph* list$1char$ph_push_back(struct list$1char$ph* self,
         self->head->next=litem_2;
     }
     else {
-        litem_3=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), (void*)0, 1498, "struct list_item$1char$ph*"))));
+        litem_3=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), (void*)0, 1982, "struct list_item$1char$ph*"))));
         litem_3->prev=self->tail;
         litem_3->next=((void*)0);
         __dec_obj7=litem_3->item,

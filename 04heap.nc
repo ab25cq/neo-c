@@ -93,6 +93,8 @@ sType*% solve_generics(sType* type, sType* generics_type, sInfo* info)
         bool deffer_right_value = type->mDefferRightValue;
         bool const_ = type->mConstant;
         
+        bool refference_ = type->mRefference;
+        bool optional_ = type->mOptional;
         bool no_heap = type->mNoHeap;
         int minus_pointer_num = type->mMinusPointerNum;
         bool no_calling_destructor = type->mNoCallingDestructor;
@@ -126,6 +128,33 @@ sType*% solve_generics(sType* type, sType* generics_type, sInfo* info)
         if(minus_pointer_num) {
             result->mPointerNum -= minus_pointer_num;
         }
+        if(refference_) {
+            //result->mRefference = result->mRefference || refference_;
+            sType*% generics_type = new sType(s"ref");
+            generics_type->mGenericsTypes.add(clone result);
+            
+            sType*% type = new sType(s"ref");
+            type->mGenericsTypes.add(new sType(s"__generics_type0"));
+            type->mPointerNum++;
+            type->mHeap = true;
+            
+            sType*% type2 = solve_generics(type, generics_type, info);
+            
+            result = type2;
+        }
+        if(optional_) {
+            sType*% generics_type = new sType(s"optional");
+            generics_type->mGenericsTypes.add(clone type);
+            
+            sType*% type = new sType(s"optional");
+            type->mGenericsTypes.add(new sType(s"__generics_type0"));
+            type->mPointerNum++;
+            type->mHeap = true;
+            
+            sType*% type2 = solve_generics(type, generics_type, info);
+            
+            result = type2;
+        }
     }
     else if(klass->mGenerics) {
         int generics_number = klass->mGenericsNum;
@@ -147,6 +176,8 @@ sType*% solve_generics(sType* type, sType* generics_type, sInfo* info)
             bool heap = type->mHeap;
             bool deffer_right_value = type->mDefferRightValue;
             
+            bool refference_ = type->mRefference;
+            bool optional_ = type->mOptional;
             bool no_heap = type->mNoHeap;
             bool no_calling_destructor = type->mNoCallingDestructor;
             bool multiple_types = type->mMultipleTypes;
@@ -183,6 +214,33 @@ sType*% solve_generics(sType* type, sType* generics_type, sInfo* info)
             }
             if(minus_pointer_num) {
                 result->mPointerNum -= minus_pointer_num;
+            }
+            if(refference_) {
+                //result->mRefference = result->mRefference || refference_;
+                sType*% generics_type = new sType(s"ref");
+                generics_type->mGenericsTypes.add(clone result);
+                
+                sType*% type = new sType(s"ref");
+                type->mGenericsTypes.add(new sType(s"__generics_type0"));
+                type->mPointerNum++;
+                type->mHeap = true;
+                
+                sType*% type2 = solve_generics(type, generics_type, info);
+                
+                result = type2;
+            }
+            if(optional_) {
+                sType*% generics_type = new sType(s"optional");
+                generics_type->mGenericsTypes.add(clone type);
+                
+                sType*% type = new sType(s"optional");
+                type->mGenericsTypes.add(new sType(s"__generics_type0"));
+                type->mPointerNum++;
+                type->mHeap = true;
+                
+                sType*% type2 = solve_generics(type, generics_type, info);
+                
+                result = type2;
             }
         }
     }
@@ -224,6 +282,8 @@ sType*% solve_method_generics(sType* type, sInfo* info)
         bool heap = type->mHeap;
         bool deffer_right_value = type->mDefferRightValue;
         
+        bool refference_ = type->mRefference;
+        bool optional_ = type->mOptional;
         bool no_heap = type->mNoHeap;
         bool no_calling_destructor = type->mNoCallingDestructor;
         bool constant_ = type->mConstant;
@@ -256,6 +316,33 @@ sType*% solve_method_generics(sType* type, sInfo* info)
         }
         if(minus_pointer_num) {
             result->mPointerNum -= minus_pointer_num;
+        }
+        if(refference_) {
+            //result->mRefference = result->mRefference || refference_;
+            sType*% generics_type = new sType(s"ref");
+            generics_type->mGenericsTypes.add(clone result);
+            
+            sType*% type = new sType(s"ref");
+            type->mGenericsTypes.add(new sType(s"__generics_type0"));
+            type->mPointerNum++;
+            type->mHeap = true;
+            
+            sType*% type2 = solve_generics(type, generics_type, info);
+            
+            result = type2;
+        }
+        if(optional_) {
+            sType*% generics_type = new sType(s"optional");
+            generics_type->mGenericsTypes.add(clone type);
+            
+            sType*% type = new sType(s"optional");
+            type->mGenericsTypes.add(new sType(s"__generics_type0"));
+            type->mPointerNum++;
+            type->mHeap = true;
+            
+            sType*% type2 = solve_generics(type, generics_type, info);
+            
+            result = type2;
         }
     }
     

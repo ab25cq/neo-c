@@ -744,17 +744,23 @@ impl optional<T>
 struct ref<T>
 {
     T p;
+    bool global;
+    bool heap;
+    bool local;
 };
 
 impl ref<T>
 {
-    ref<T>*% initialize(ref<T>*% self, T p) {
+    ref<T>*% initialize(ref<T>*% self, T p, bool global_, bool heap_, bool local_) {
         if(ispointer(T) && p == null) {
             puts(s"ref is not null");
             stackframe();
             exit(2);
         }
         self.p = p;
+        self.global = global_;
+        self.heap = heap_;
+        self.local = local_;
         return self;
     }
     
@@ -810,6 +816,7 @@ impl result<T>
 //////////////////////////////
 // slice
 //////////////////////////////
+/*
 struct slice<T> {
     char*% memory;
     T p;
@@ -827,7 +834,7 @@ impl slice<T>
         
         return self;
     }
-    T unwrap(optional<T>* self, bool check=false) {
+    T unwrap(slice<T>* self, bool check=false) {
         if(check && (char*)self.p >= self.memory + self.len) {
             puts("out of range of smart pointer");
             stackframe();
@@ -1019,6 +1026,480 @@ impl slice<T>
         return s"head \{self.memory} p \{self.p} len \{self.len}";
     }
 }
+*/
+struct slice<T> {
+    char*% memory;
+    T^ p;
+    size_t len;
+};
+
+impl slice<T>
+{
+    slice<T>*% initialize(slice<T>*% self, T p, size_t len)
+    {
+        self.memory = new char[len];
+        memcpy(self.memory, (char*)p, len);
+        self.p = (T^)borrow self.memory;
+        self.len = len;
+        
+        return self;
+    }
+    T^ unwrap(slice<T>* self, bool check=false) {
+        if(check && (char*)self.p >= self.memory + self.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        if(check && (char*)self.p < self.memory) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return self.p;
+    }
+    
+    slice<T>* operator_plus_plus(slice<T>* self)
+    {
+        using unsafe;
+        
+        self.p++;
+        
+        if(self.p >= self.memory + self.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return self;
+    }
+    slice<T>* operator_plus_equal(slice<T>* self, size_t value)
+    {
+        using unsafe;
+        
+        self.p += value;
+        
+        if(self.p >= self.memory + self.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return self;
+    }
+    
+    slice<T>* operator_minus_minus(slice<T>* self)
+    {
+        using unsafe;
+        
+        self.p--;
+        
+        if(self.p < self.memory) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return self;
+    }
+    
+    slice<T>* operator_minus_equal(slice<T>* self, size_t value)
+    {
+        using unsafe;
+        
+        self.p -= value;
+        
+        if(self.p < self.memory) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return self;
+    }
+    
+    T^ operator_add(slice<T>* self, size_t rvalue)
+    {
+        using unsafe;
+        
+        T^ result = self.p + rvalue;
+        
+        if(result >= self.memory + self.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return result;
+    }
+    
+    T^ operator_sub(slice<T>* self, size_t rvalue)
+    {
+        using unsafe;
+        
+        T^ result = self.p - rvalue;
+        
+        if((char*)result < self.memory) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return result;
+    }
+    
+    T]^ operator_derefference(slice<T>* self)
+    {
+        using unsafe;
+        
+        if(self.p >= self.memory + self.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        if(self.p < self.memory) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return *self.p;
+    }
+    void operator_store_element(slice<T>* self, int position, T] item) {
+        if(self.p == (void*)0) {
+            puts("null pointer operation");
+            stackframe();
+            exit(1);
+        }
+        if(self.p + position >= self.memory + self.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        if(self.p + position < self.memory) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        self.p\[position] = item;
+    }
+    T^ operator_load_element(slice<T>* self, int position) {
+        if(self.p == (void*)0) {
+            puts("null pointer operation");
+            stackframe();
+            exit(1);
+        }
+        if(self.p + position >= self.memory + self.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        if(self.p + position < self.memory) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return self.p\[position];
+    }
+    
+    T^ unwrap(slice<T>* self) {
+        if(self.p + position >= self.memory + self.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        if(self.p + position < self.memory) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return self.p;
+    }
+    
+    string to_string(slice<T>* self) {
+        return s"head \{self.memory} p \{self.p} len \{self.len}";
+    }
+}
+
+//////////////////////////////
+// span
+//////////////////////////////
+struct span<T, T2> {
+    T2& owned;
+    char* memory;
+    T^ p;
+    size_t len;
+    bool local;
+};
+
+impl span<T, T2>
+{
+    span<T,T2>*% initialize(span<T,T2>*% self, T2& memory, size_t len)
+    {
+        if(!ispointer(T)) {
+            puts("invalid span");
+            stackframe();
+            exit(2);
+        }
+        self.owned = memory;
+        self.memory = borrow memory.unwrap();
+        
+        self.p = (T^)borrow self.memory;
+        self.len = len;
+        self.local = memory\.local;
+        
+        return self;
+    }
+    T2^ unwrap(span<T,T2>* self, bool check=false) {
+        if(self->local) {
+            if(self->memory < neo_current_frame.stacktop) {
+                puts("refferenced object is vanished");
+                stackframe();
+                exit(127);
+            }
+        }
+        if(check && self.p >= (char*)self.memory + self.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        if(check && self.p < (char*)self.memory) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return (T2)self.p;
+    }
+    
+    span<T,T2>* operator_plus_plus(span<T,T2>* self)
+    {
+        using unsafe;
+        
+        if(self->local) {
+            if(self->memory < neo_current_frame.stacktop) {
+                puts("refferenced object is vanished");
+                stackframe();
+                exit(127);
+            }
+        }
+        
+        self.p++;
+        
+        if(self.p >= (char*)self.memory + self.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return self;
+    }
+    span<T,T2>* operator_plus_equal(span<T,T2>* self, size_t value)
+    {
+        using unsafe;
+        
+        if(self->local) {
+            if(self->memory < neo_current_frame.stacktop) {
+                puts("refferenced object is vanished");
+                stackframe();
+                exit(127);
+            }
+        }
+        
+        self.p += value;
+        
+        if(self.p >= (char*)self.memory + self.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return self;
+    }
+    
+    span<T,T2>* operator_minus_minus(span<T,T2>* self)
+    {
+        using unsafe;
+        
+        if(self->local) {
+            if(self->memory < neo_current_frame.stacktop) {
+                puts("refferenced object is vanished");
+                stackframe();
+                exit(127);
+            }
+        }
+        
+        self.p--;
+        
+        if(self.p < (char*)self.memory) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return self;
+    }
+    
+    span<T,T2>* operator_minus_equal(span<T,T2>* self, size_t value)
+    {
+        using unsafe;
+        
+        if(self->local) {
+            if(self->memory < neo_current_frame.stacktop) {
+                puts("refferenced object is vanished");
+                stackframe();
+                exit(127);
+            }
+        }
+        
+        self.p -= value;
+        
+        if(self.p < (char*)self.memory) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return self;
+    }
+    
+    T^ operator_add(span<T,T2>* self, size_t rvalue)
+    {
+        using unsafe;
+        
+        if(self->local) {
+            if(self->memory < neo_current_frame.stacktop) {
+                puts("refferenced object is vanished");
+                stackframe();
+                exit(127);
+            }
+        }
+        
+        T^ result = self.p + rvalue;
+        
+        if(result >= (char*)self.memory + self.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return result;
+    }
+    
+    T^ operator_sub(span<T,T2>* self, size_t rvalue)
+    {
+        using unsafe;
+        
+        if(self->local) {
+            if(self->memory < neo_current_frame.stacktop) {
+                puts("refferenced object is vanished");
+                stackframe();
+                exit(127);
+            }
+        }
+        
+        T^ result = self.p - rvalue;
+        
+        if(result < (char*)self.memory) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return result;
+    }
+    
+    T]^ operator_derefference(span<T,T2>* self)
+    {
+        using unsafe;
+        
+        if(self->local) {
+            if(self->memory < neo_current_frame.stacktop) {
+                puts("refferenced object is vanished");
+                stackframe();
+                exit(127);
+            }
+        }
+        
+        T^ p = self.p;
+        
+        if(self.p >= (char*)self.memory + self.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        if(self.p < (char*)self.memory) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        return *p;
+    }
+    void operator_store_element(span<T,T2>* self, int position, T] item) {
+        if(self->local) {
+            if(self->memory < neo_current_frame.stacktop) {
+                puts("refferenced object is vanished");
+                stackframe();
+                exit(127);
+            }
+        }
+        if(self.p + position >= (char*)self.memory + self.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        if(self.p + position < (char*)self.memory) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        T^ p = self.p;
+        
+        p\[position] = item;
+    }
+    T^ operator_load_element(span<T,T2>* self, int position) {
+        if(self->local) {
+            if(self->memory < neo_current_frame.stacktop) {
+                puts("refferenced object is vanished");
+                stackframe();
+                exit(127);
+            }
+        }
+        if(self.p + position >= (char*)self.memory + self.len) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        if(self.p + position < (char*)self.memory) {
+            puts("out of range of smart pointer");
+            stackframe();
+            exit(1);
+        }
+        
+        T^ p = self.p;
+        
+        return p\[position];
+    }
+    
+    
+    string to_string(slice<T>* self) {
+        if(self->local) {
+            if(self->memory < neo_current_frame.stacktop) {
+                puts("refferenced object is vanished");
+                stackframe();
+                exit(127);
+            }
+        }
+        return s"head \{self.memory} p \{self.p} len \{self.len}";
+    }
+}
+
+/*
 
 uniq slice<char*>*% buffer*::to_slice(buffer* self)
 {
@@ -1044,11 +1525,13 @@ uniq slice<long*>*% long[]::to_slice(long* ary, int len)
 {
     return new slice<long*>(ary, len);
 }
+*/
 
 #define array_to_slice(array) (new slice<__typeof__((array)[0])*>.initialize((__typeof__((array)[0])*)(array), sizeof(array)/sizeof((array)[0])))
 #define array_to_slice_t(T, array) (new slice<T>.initialize((T*)(array), sizeof(array)/sizeof((array)[0])))
 #define struct_to_slice(obj) (new slice<char*>.initialize((char*)obj, sizeof(obj)))
 
+/*
 uniq slice<char*>*% string::to_slice(char*% self)
 {
     size_t size = string::length(self);
@@ -1069,6 +1552,7 @@ uniq slice<char*>*% buffer*::to_slice(buffer*% buf)
     
     return new slice<char*>(buf.buf, len);
 }
+*/
 
 
 //////////////////////////////
@@ -1556,7 +2040,7 @@ impl list <T>
 
     T^ next(list<T>* self) {
         if(self == null || self.it == null) {
-            T`^ result;
+            T^` result;
             memset(&result, 0, sizeof(T));
             return result;
         }
@@ -1641,7 +2125,7 @@ impl list <T>
         if(self.len == 0 || position >= self.len) {
             int len = self.len;
             for(int i=0; i<position-len; i++) {
-                T` default_value;
+                T^` default_value;
                 memset(&default_value, 0, sizeof(T));
                 self.push_back(default_value);
             }
@@ -1883,7 +2367,7 @@ impl list <T>
         if(self.len == 0 || position >= self.len) {
             int len = self.len;
             for(int i=0; i<position-len; i++) {
-                T` default_value;
+                T^` default_value;
                 memset(&default_value, 0, sizeof(T));
                 self.push_back(default_value);
             }
@@ -1994,7 +2478,7 @@ impl list <T>
     }
     T operator_load_element(list<T>* self, int position) {
         if(self == null) {
-            T` default_value;
+            T^` default_value;
             memset(&default_value, 0, sizeof(T));
             return default_value;
         }
@@ -2013,7 +2497,7 @@ impl list <T>
             i++;
         };
 
-        T` default_value;
+        T^` default_value;
         memset(&default_value, 0, sizeof(T));
         return default_value;
     }
@@ -2462,7 +2946,7 @@ impl map <T, T2>
         result.key_list = new list<T>();
 
         for(var it = self.begin(); !self.end(); it = self.next()) {
-            T2` default_value;
+            T2^` default_value;
             memset(&default_value, 0, sizeof(T2));
             
             var it2 = self.at(it, default_value);
@@ -2496,7 +2980,7 @@ impl map <T, T2>
         
         list_item<T>* it = self.key_list.head;
         while(it) {
-            T2` default_value;
+            T2^` default_value;
             memset(&default_value, 0, sizeof(T2));
             T2^ it2 = self.at(it.item, default_value);
             
@@ -2648,9 +3132,9 @@ impl map <T, T2>
         int len = 0;
 
         for(var it = self.begin(); !self.end(); it = self.next()) {
-            T2` default_value;
+            T2`^ default_value;
             memset(&default_value, 0, sizeof(T2));
-            T2^ it2 = borrow self.at(it, default_value);
+            T2`^ it2 = borrow self.at(it, default_value);
             unsigned int hash = ((T)it).get_hash_key() % size;
             int n = hash;
 
@@ -2701,7 +3185,7 @@ impl map <T, T2>
         for(var it = self.begin(); !self.end(); it = self.next()) {
             puts("key " + it.to_string());
             
-            T2` default_value;
+            T2^` default_value;
             memset(&default_value, 0, sizeof(T2));
             
             var item = self.at(it, default_value);
@@ -2872,7 +3356,7 @@ impl map <T, T2>
         return self;
     }
     T2 operator_load_element(map<T, T2>* self, T^ key) {
-        T2` default_value;
+        T2^` default_value;
         memset(&default_value, 0, sizeof(T2));
         
         if(self == null) {
@@ -2930,12 +3414,12 @@ impl map <T, T2>
         int n = 0;
         bool result = true;
         for(var it = left.key_list.begin(); !left.key_list.end(); it = left.key_list.next()) {
-            T` default_value;
+            T^` default_value;
             memset(&default_value, 0, sizeof(T));
             T it2 = right.key_list.item(n, default_value);
             
             if(it.equals(it2)) {
-                T2` default_value2;
+                T2^` default_value2;
                 memset(&default_value2, 0, sizeof(T2));
                 T2 item = left.at(it, default_value2);
                 T2 item2 = right.at(it2, default_value2);
@@ -2968,12 +3452,12 @@ impl map <T, T2>
         int n = 0;
         bool result = true;
         for(var it = left.key_list.begin(); !left.key_list.end(); it = left.key_list.next()) {
-            T` default_value;
+            T^` default_value;
             memset(&default_value, 0, sizeof(T));
             T^ it2 = right.key_list.item(n, default_value);
             
             if(it === it2) {
-                T2` default_value2;
+                T2^` default_value2;
                 memset(&default_value2, 0, sizeof(T2));
                 T2^ item = left.at(it, default_value2);
                 T2^ item2 = right.at(it2, default_value2);
@@ -3044,7 +3528,7 @@ impl map <T, T2>
 
         int n = 0;
         for(var it = left.key_list.begin(); !left.key_list.end(); it = left.key_list.next()) {
-            T2` default_value;
+            T2^` default_value;
             memset(&default_value, 0, sizeof(T2));
             T2 it2 = left.at(it, default_value);
             
@@ -3065,7 +3549,7 @@ impl map <T, T2>
 
         n=0;
         for(var it = right.key_list.begin(); !right.key_list.end(); it = right.key_list.next()) {
-            T2` default_value;
+            T2^` default_value;
             memset(&default_value, 0, sizeof(T2));
             T2 it2 = left.at(it, default_value);
             
@@ -3096,7 +3580,7 @@ impl map <T, T2>
         for(int i=0; i<right; i++ ) {
             int n = 0;
             for(var it = left.key_list.begin(); !left.key_list.end(); it = left.key_list.next()) {
-                T2` default_value;
+                T2^` default_value;
                 memset(&default_value, 0, sizeof(T2));
                 
                 T2 it2 = left.at(it, default_value);
@@ -3146,7 +3630,7 @@ impl map <T, T2>
         }
         
         for(var it = self.key_list.begin(); !self.key_list.end(); it = self.key_list.next()) { 
-            T2` default_value;
+            T2^` default_value;
             memset(&default_value, 0, sizeof(T2));
         
             var it2 = self.at(it, default_value);

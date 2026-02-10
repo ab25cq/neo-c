@@ -84,7 +84,7 @@ class sRefferenceNode extends sNodeBase
         
         come_value.type = clone left_value.type;
         come_value.type->mPointerNum++;
-        come_value.var = null;
+        come_value.var = left_value.var;
         
         add_come_last_code(info, "%s", come_value.c_value);
         

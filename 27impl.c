@@ -732,34 +732,6 @@ struct sMemHeader
     const char* class_name;
 };
 
-struct slice$1char$p
-{
-    char* memory;
-    char* p;
-    unsigned long  len  ;
-};
-
-struct slice$1short$p
-{
-    char* memory;
-    short* p;
-    unsigned long  len  ;
-};
-
-struct slice$1int$p
-{
-    char* memory;
-    int* p;
-    unsigned long  len  ;
-};
-
-struct slice$1long$p
-{
-    char* memory;
-    long* p;
-    unsigned long  len  ;
-};
-
 struct smart_pointer$1int$
 {
     struct buffer*  memory  ;
@@ -2034,13 +2006,6 @@ void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* protoco
 void xassert(const char* msg, _Bool test);
 void* come_null_checker(void* mem, const char* sname, int sline);
 char*  __builtin_string(const char* str);
-struct slice$1char$p* chara_to_slice(char* ary, int len);
-struct slice$1short$p* shorta_to_slice(short* ary, int len);
-struct slice$1int$p* inta_to_slice(int* ary, int len);
-struct slice$1long$p* longa_to_slice(long* ary, int len);
-struct slice$1char$p* string_to_slice(char* self);
-struct slice$1char$p* charp_to_slice(char* self);
-struct slice$1char$p* buffer_to_slice(struct buffer*  buf  );
 struct smart_pointer$1int$* buffer_to_int_pointer(struct buffer*  self  );
 struct smart_pointer$1short$* buffer_to_short_pointer(struct buffer*  self  );
 struct smart_pointer$1long$* buffer_to_long_pointer(struct buffer*  self  );
@@ -2889,7 +2854,7 @@ static struct list$1char$ph* list$1char$ph_push_back(struct list$1char$ph* self,
         return __result_obj__0;
     }
     if(self->len==0) {
-        litem=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), (void*)0, 1478, "struct list_item$1char$ph*"))));
+        litem=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), (void*)0, 1962, "struct list_item$1char$ph*"))));
         litem->prev=((void*)0);
         litem->next=((void*)0);
         __dec_obj1=litem->item,
@@ -2899,7 +2864,7 @@ static struct list$1char$ph* list$1char$ph_push_back(struct list$1char$ph* self,
         self->head=litem;
     }
     else if(self->len==1) {
-        litem_0=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), (void*)0, 1488, "struct list_item$1char$ph*"))));
+        litem_0=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), (void*)0, 1972, "struct list_item$1char$ph*"))));
         litem_0->prev=self->head;
         litem_0->next=((void*)0);
         __dec_obj2=litem_0->item,
@@ -2909,7 +2874,7 @@ static struct list$1char$ph* list$1char$ph_push_back(struct list$1char$ph* self,
         self->head->next=litem_0;
     }
     else {
-        litem_1=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), (void*)0, 1498, "struct list_item$1char$ph*"))));
+        litem_1=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), (void*)0, 1982, "struct list_item$1char$ph*"))));
         litem_1->prev=self->tail;
         litem_1->next=((void*)0);
         __dec_obj3=litem_1->item,

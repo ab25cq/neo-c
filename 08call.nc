@@ -337,12 +337,14 @@ class sRefNode extends sNodeBase
         
         CVALUE*% come_value = get_value_from_stack(-1, info);
         
-/*
         if(come_value.var == null) {
             err_msg(info, "require variable name for ref");
             return true;
         }
-*/
+        
+        bool global_ = come_value.var->mGlobal;
+        bool heap_ = come_value.type.mHeap;
+        bool local_ = !global_ && !heap_;
         
         sType*% type_ = clone come_value.type;
         
@@ -361,6 +363,9 @@ class sRefNode extends sNodeBase
         
         params.add(t((string)null, obj));
         params.add(t((string)null, node));
+        params.add(t((string)null, global_ ? create_true_object(info):create_false_object(info)));
+        params.add(t((string)null, heap_ ? create_true_object(info):create_false_object(info)));
+        params.add(t((string)null, local_ ? create_true_object(info):create_false_object(info)));
         
         sNode*% method_node = create_method_call("initialize", obj, params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
         
