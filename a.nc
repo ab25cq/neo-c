@@ -7,28 +7,34 @@ struct sData
 };
 
 int gValue;
-span<int*, sData*%>*% p;
 
 struct sData data = (struct sData) { .a=111, .b=222 };
 
-void fun()
+void fun(int*& p)
 {
-    //struct sData data = (struct sData) { .a=111, .b=222 };
-   
-   /*
-    var data = new sData {a:111, b:222};
-    p = new span<int*, sData*%>(ref data, sizeof(struct sData));
-    */
+    printf("%d\n", *p);
+}
 
-    p = new span<int*, sData*%>(ref &data, sizeof(struct sData));
+int*& fun2()
+{
+printf("fun2 %p\n", neo_current_frame.stacktop);
+    int a = 111;
+    
+    var p = ref &a;
+    
+printf("&a %p\n", &a);
+    
+    fun(p);
     
     printf("%d\n", *p);
-    p++;
+    
+    return p;
 }
 
 int main(int argc, char** argv)
 {
-    fun();
+printf("main %p\n", neo_current_frame.stacktop);
+    var p = fun2();
     
     printf("%d\n", *p);
     

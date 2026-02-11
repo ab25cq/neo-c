@@ -1087,6 +1087,7 @@ struct sType
     _Bool mConstant;
     _Bool mAtomic;
     _Bool mThreadLocal;
+    _Bool mNorecord;
     _Bool mThread;
     _Bool mComplex;
     _Bool mRegister;

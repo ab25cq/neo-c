@@ -93,6 +93,7 @@ sType*% solve_generics(sType* type, sType* generics_type, sInfo* info)
         bool deffer_right_value = type->mDefferRightValue;
         bool const_ = type->mConstant;
         
+        bool norecord_ = type->mNorecord;
         bool refference_ = type->mRefference;
         bool optional_ = type->mOptional;
         bool no_heap = type->mNoHeap;
@@ -102,6 +103,9 @@ sType*% solve_generics(sType* type, sType* generics_type, sInfo* info)
         
         result = clone info->method_generics_types[generics_number];
         
+        if(norecord_) {
+            result->mNorecord = norecord_ || result->mNorecord;
+        }
         if(heap) {
             result->mHeap = result->mHeap || heap;
         }
@@ -176,6 +180,7 @@ sType*% solve_generics(sType* type, sType* generics_type, sInfo* info)
             bool heap = type->mHeap;
             bool deffer_right_value = type->mDefferRightValue;
             
+            bool norecord_ = type->mNorecord;
             bool refference_ = type->mRefference;
             bool optional_ = type->mOptional;
             bool no_heap = type->mNoHeap;
@@ -186,6 +191,9 @@ sType*% solve_generics(sType* type, sType* generics_type, sInfo* info)
             
             result = clone generics_type->mGenericsTypes[generics_number];
 
+            if(norecord_) {
+                result->mNorecord = norecord_ || result->mNorecord;
+            }
             if(heap) {
                 result->mHeap = result->mHeap || heap;
             }
@@ -282,17 +290,22 @@ sType*% solve_method_generics(sType* type, sInfo* info)
         bool heap = type->mHeap;
         bool deffer_right_value = type->mDefferRightValue;
         
+        bool norecord_ = type->mNorecord;
         bool refference_ = type->mRefference;
         bool optional_ = type->mOptional;
         bool no_heap = type->mNoHeap;
         bool no_calling_destructor = type->mNoCallingDestructor;
         bool constant_ = type->mConstant;
+        bool norecord_ = type->mNorecord;
         int minus_pointer_num = type->mMinusPointerNum;
         
         result = clone info->method_generics_types[generics_number];
 
         if(heap) {
             result->mHeap = heap || result->mHeap;
+        }
+        if(norecord_) {
+            result->mNorecord = norecord_ || result->mNorecord;
         }
         if(constant_) {
             result->mConstant = constant_ || result->mConstant;

@@ -54,7 +54,7 @@ class sReturnNode extends sNodeBase
                 add_come_code(info, "return %s;\n", come_value.c_value);
             }
             else if(info.come_fun.mName !== "main" && info.come_fun.mNoResultType && !existance_free_objects_on_return(come_fun->mBlock, info, come_value.var, false@top_block) && !existance_free_right_value_objects(info)) {
-                if(!gComeC) {
+                if(!gComeC && !info.come_fun.mResultType.mNorecord) {
                     add_come_code(info, "neo_current_frame = fr.prev;\n");
                 }
                 add_come_code(info, "return %s;\n", come_value.c_value);
@@ -94,7 +94,7 @@ class sReturnNode extends sNodeBase
                     }
                 }
                 
-               if(!gComeC) {
+               if(!gComeC && !info.come_fun.mResultType.mNorecord) {
                     add_come_code(info, "neo_current_frame = fr.prev;\n");
                 }
                 
@@ -128,7 +128,7 @@ class sReturnNode extends sNodeBase
                 }
             }
             
-            if(!gComeC) {
+            if(!gComeC && !info.come_fun.mResultType.mNorecord) {
                 add_come_code(info, "neo_current_frame = fr.prev;\n");
             }
             
@@ -342,12 +342,16 @@ class sRefNode extends sNodeBase
             return true;
         }
         
+        if(come_value.type->mPointerNum == 0) {
+            err_msg(info, "require pointer for ref");
+            return true;
+        }
+        
         bool global_ = come_value.var->mGlobal;
         bool heap_ = come_value.type.mHeap;
         bool local_ = !global_ && !heap_;
         
         sType*% type_ = clone come_value.type;
-        
         
         sType*% generics_type = new sType(s"ref");
         generics_type->mGenericsTypes.add(type_);
@@ -361,11 +365,15 @@ class sRefNode extends sNodeBase
         
         list<tup: string, sNode*%>*% params = new list<tup: string, sNode*%>();
         
+        sNode*% node2 = create_load_var("neo_current_frame");
+        sNode*% node3 = load_field(node2, s"stacktop");
+        
         params.add(t((string)null, obj));
         params.add(t((string)null, node));
         params.add(t((string)null, global_ ? create_true_object(info):create_false_object(info)));
         params.add(t((string)null, heap_ ? create_true_object(info):create_false_object(info)));
         params.add(t((string)null, local_ ? create_true_object(info):create_false_object(info)));
+        params.add(t((string)null, node3));
         
         sNode*% method_node = create_method_call("initialize", obj, params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
         

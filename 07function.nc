@@ -51,14 +51,14 @@ class sLambdaNode extends sNodeBase
         int max_conditional = info->max_conditional;
         info->max_conditional = 0;
         
-        if(!gComeC) {
+        if(!gComeC && !info.come_fun.mResultType.mNorecord) {
             add_come_code_at_function_head(info, s"struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = \"\{info.come_fun.mName}\"; neo_current_frame = &fr;\n"); 
         }
         
         if(self.mFun.mBlock) {
             transpile_block(self.mFun.mBlock, self.mFun.mParamTypes, self.mFun.mParamNames, info);
         }
-        if(!gComeC && !info.inhibits_output_code2) {
+        if(!gComeC && !info.inhibits_output_code2 && !info.come_fun.mResultType.mNorecord) {
             add_come_code_no_indent(info, "neo_current_frame = fr.prev;\n");
         }
         
@@ -142,7 +142,7 @@ class sFunNode extends sNodeBase
         //info.come_fun_name = string(info.come_fun.mName);
         
         if(self.mFun.mBlock) {
-            if(!gComeC) {
+            if(!gComeC && !info.come_fun.mResultType.mNorecord) {
                 add_come_code_at_function_head(info, s"struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = \"\{info.come_fun.mName}\"; neo_current_frame = &fr;\n"); 
             }
             
@@ -153,7 +153,7 @@ class sFunNode extends sNodeBase
             
             info->block_level = block_level;
             
-            if(!gComeC && !info.inhibits_output_code2) {
+            if(!gComeC && !info.inhibits_output_code2 && !info.come_fun.mResultType.mNorecord) {
                 add_come_code_no_indent(info, "neo_current_frame = fr.prev;\n");
             }
             

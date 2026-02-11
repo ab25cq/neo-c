@@ -747,11 +747,13 @@ struct ref<T>
     bool global;
     bool heap;
     bool local;
+    
+    void* stacktop;
 };
 
 impl ref<T>
 {
-    ref<T>*% initialize(ref<T>*% self, T p, bool global_, bool heap_, bool local_) {
+    ref<T>*% initialize(ref<T>*% self, T p, bool global_, bool heap_, bool local_, void* stacktop) {
         if(ispointer(T) && p == null) {
             puts(s"ref is not null");
             stackframe();
@@ -761,16 +763,32 @@ impl ref<T>
         self.global = global_;
         self.heap = heap_;
         self.local = local_;
+        self.stacktop = stacktop;
         return self;
     }
     
-    T unwrap(ref<T>* self, bool check=false) {
+    _norecord T unwrap(ref<T>* self, bool check=false) {
+        if(self\.local) {
+            if(self\.stacktop < neo_current_frame.stacktop) {
+                puts("refferenced object is vanished");
+                stackframe();
+                exit(127);
+            }
+        }
         return self.p;
     }
     
-    T] operator_derefference(ref<T>* self)
+    _norecord T] operator_derefference(ref<T>* self)
     {
         using unsafe;
+        
+        if(self\.local) {
+            if(self\.stacktop < neo_current_frame.stacktop) {
+                puts("refferenced object is vanished");
+                stackframe();
+                exit(127);
+            }
+        }
         
         T p = self.p;
         
@@ -1233,6 +1251,7 @@ struct span<T, T2> {
     T^ p;
     size_t len;
     bool local;
+    void* stacktop;
 };
 
 impl span<T, T2>
@@ -1250,12 +1269,13 @@ impl span<T, T2>
         self.p = (T^)borrow self.memory;
         self.len = len;
         self.local = memory\.local;
+        self.stacktop = memory\.stacktop;
         
         return self;
     }
-    T2^ unwrap(span<T,T2>* self, bool check=false) {
+    _norecord T2^ unwrap(span<T,T2>* self, bool check=false) {
         if(self->local) {
-            if(self->memory < neo_current_frame.stacktop) {
+            if(self->stacktop < neo_current_frame.stacktop) {
                 puts("refferenced object is vanished");
                 stackframe();
                 exit(127);
@@ -1275,12 +1295,12 @@ impl span<T, T2>
         return (T2)self.p;
     }
     
-    span<T,T2>* operator_plus_plus(span<T,T2>* self)
+    _norecord span<T,T2>* operator_plus_plus(span<T,T2>* self)
     {
         using unsafe;
         
         if(self->local) {
-            if(self->memory < neo_current_frame.stacktop) {
+            if(self->stacktop < neo_current_frame.stacktop) {
                 puts("refferenced object is vanished");
                 stackframe();
                 exit(127);
@@ -1297,12 +1317,12 @@ impl span<T, T2>
         
         return self;
     }
-    span<T,T2>* operator_plus_equal(span<T,T2>* self, size_t value)
+    _norecord span<T,T2>* operator_plus_equal(span<T,T2>* self, size_t value)
     {
         using unsafe;
         
         if(self->local) {
-            if(self->memory < neo_current_frame.stacktop) {
+            if(self->stacktop < neo_current_frame.stacktop) {
                 puts("refferenced object is vanished");
                 stackframe();
                 exit(127);
@@ -1320,12 +1340,12 @@ impl span<T, T2>
         return self;
     }
     
-    span<T,T2>* operator_minus_minus(span<T,T2>* self)
+    _norecord span<T,T2>* operator_minus_minus(span<T,T2>* self)
     {
         using unsafe;
         
         if(self->local) {
-            if(self->memory < neo_current_frame.stacktop) {
+            if(self->stacktop < neo_current_frame.stacktop) {
                 puts("refferenced object is vanished");
                 stackframe();
                 exit(127);
@@ -1343,12 +1363,12 @@ impl span<T, T2>
         return self;
     }
     
-    span<T,T2>* operator_minus_equal(span<T,T2>* self, size_t value)
+    _norecord span<T,T2>* operator_minus_equal(span<T,T2>* self, size_t value)
     {
         using unsafe;
         
         if(self->local) {
-            if(self->memory < neo_current_frame.stacktop) {
+            if(self->stacktop < neo_current_frame.stacktop) {
                 puts("refferenced object is vanished");
                 stackframe();
                 exit(127);
@@ -1366,12 +1386,12 @@ impl span<T, T2>
         return self;
     }
     
-    T^ operator_add(span<T,T2>* self, size_t rvalue)
+    _norecord T^ operator_add(span<T,T2>* self, size_t rvalue)
     {
         using unsafe;
         
         if(self->local) {
-            if(self->memory < neo_current_frame.stacktop) {
+            if(self->stacktop < neo_current_frame.stacktop) {
                 puts("refferenced object is vanished");
                 stackframe();
                 exit(127);
@@ -1389,12 +1409,12 @@ impl span<T, T2>
         return result;
     }
     
-    T^ operator_sub(span<T,T2>* self, size_t rvalue)
+    _norecord T^ operator_sub(span<T,T2>* self, size_t rvalue)
     {
         using unsafe;
         
         if(self->local) {
-            if(self->memory < neo_current_frame.stacktop) {
+            if(self->stacktop < neo_current_frame.stacktop) {
                 puts("refferenced object is vanished");
                 stackframe();
                 exit(127);
@@ -1412,12 +1432,12 @@ impl span<T, T2>
         return result;
     }
     
-    T]^ operator_derefference(span<T,T2>* self)
+    _norecord T]^ operator_derefference(span<T,T2>* self)
     {
         using unsafe;
         
         if(self->local) {
-            if(self->memory < neo_current_frame.stacktop) {
+            if(self->stacktop < neo_current_frame.stacktop) {
                 puts("refferenced object is vanished");
                 stackframe();
                 exit(127);
@@ -1439,9 +1459,9 @@ impl span<T, T2>
         
         return *p;
     }
-    void operator_store_element(span<T,T2>* self, int position, T] item) {
+    _norecord void operator_store_element(span<T,T2>* self, int position, T] item) {
         if(self->local) {
-            if(self->memory < neo_current_frame.stacktop) {
+            if(self->stacktop < neo_current_frame.stacktop) {
                 puts("refferenced object is vanished");
                 stackframe();
                 exit(127);
@@ -1462,9 +1482,9 @@ impl span<T, T2>
         
         p\[position] = item;
     }
-    T^ operator_load_element(span<T,T2>* self, int position) {
+    _norecord T^ operator_load_element(span<T,T2>* self, int position) {
         if(self->local) {
-            if(self->memory < neo_current_frame.stacktop) {
+            if(self->stacktop < neo_current_frame.stacktop) {
                 puts("refferenced object is vanished");
                 stackframe();
                 exit(127);
@@ -1487,9 +1507,9 @@ impl span<T, T2>
     }
     
     
-    string to_string(slice<T>* self) {
+    _norecord string to_string(slice<T>* self) {
         if(self->local) {
-            if(self->memory < neo_current_frame.stacktop) {
+            if(self->stacktop < neo_current_frame.stacktop) {
                 puts("refferenced object is vanished");
                 stackframe();
                 exit(127);
