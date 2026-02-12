@@ -1573,7 +1573,7 @@ impl list <T>
         if(self == null) {
             return null;
         }
-        var result = new list<T>.initialize();
+        var result = new list<T>();
 
         list_item<T>* it = self.head;
         while(it != null) {

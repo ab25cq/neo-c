@@ -10,7 +10,7 @@ struct sData
 int main(int argc, char** argv)
 {
     var xxx = s"ABC";
-    var data = new sData { a: new span<string, string>(ref xxx, 3) };
+    var data = new sData { a: new span<string>(ref xxx, 3) };
     
     printf("%c\n", *data.a);
     

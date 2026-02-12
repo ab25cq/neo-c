@@ -1445,6 +1445,163 @@ class sGCDecNoFreeNode extends sNodeBase
     }
 };
 
+class sOptionalNode extends sNodeBase
+{
+    new(sNode*% node, sInfo* info)
+    {
+        self.super();
+        
+        sNode*% self.node = node;
+    }
+    
+    string kind()
+    {
+        return string("sOptionalNode");
+    }
+    
+    bool compile(sInfo* info)
+    {
+        sNode*% node = self.node;
+        
+        bool no_output_come_code = info.no_output_come_code;
+        info.no_output_come_code = true;
+        node_compile(node).elif {
+            return false;
+        }
+        info.no_output_come_code = no_output_come_code;
+        
+        CVALUE*% come_value = get_value_from_stack(-1, info);
+        
+        if(come_value.type->mPointerNum == 0) {
+            err_msg(info, "require pointer for ref");
+            return true;
+        }
+        
+        bool global_;
+        bool heap_;
+        bool local_;
+        
+        if(come_value.var == null) {
+            global_ = false;
+            heap_ = come_value.type.mHeap;
+            local_ = false;
+        }
+        else {
+            global_ = come_value.var->mGlobal;
+            heap_ = come_value.type.mHeap;
+            local_ = !come_value.var->mGlobal;
+        }
+        
+        sType*% type_ = clone come_value.type;
+        
+        sType*% generics_type = new sType(s"optional");
+        generics_type->mGenericsTypes.add(type_);
+        
+        sType*% type = new sType(s"optional");
+        type->mGenericsTypes.add(new sType(s"__generics_type0"));
+        
+        sType*% type2 = solve_generics(type, generics_type, info);
+        
+        sNode*% obj = create_new_object(type2);
+        
+        list<tup: string, sNode*%>*% params = new list<tup: string, sNode*%>();
+        
+        sNode*% node2 = create_load_var("neo_current_frame");
+        sNode*% node3 = load_field(node2, s"stacktop");
+        
+        params.add(t((string)null, obj));
+        params.add(t((string)null, node));
+        params.add(t((string)null, global_ ? create_true_object(info):create_false_object(info)));
+        params.add(t((string)null, heap_ ? create_true_object(info):create_false_object(info)));
+        params.add(t((string)null, local_ ? create_true_object(info):create_false_object(info)));
+        params.add(t((string)null, node3));
+        
+        sNode*% method_node = create_method_call("initialize", obj, params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
+        
+        node_compile(method_node).elif {
+            return false;
+        }
+        
+        return true;
+    }
+};
+
+
+class sRefNode extends sNodeBase
+{
+    new(sNode*% node, sInfo* info)
+    {
+        self.super();
+        
+        sNode*% self.node = node;
+    }
+    
+    string kind()
+    {
+        return string("sRefNode");
+    }
+    
+    bool compile(sInfo* info)
+    {
+        sNode*% node = self.node;
+        
+        bool no_output_come_code = info.no_output_come_code;
+        info.no_output_come_code = true;
+        node_compile(node).elif {
+            return false;
+        }
+        info.no_output_come_code = no_output_come_code;
+        
+        CVALUE*% come_value = get_value_from_stack(-1, info);
+        
+        if(come_value.var == null) {
+            err_msg(info, "require variable name for ref");
+            return true;
+        }
+        
+        if(come_value.type->mPointerNum == 0) {
+            err_msg(info, "require pointer for ref");
+            return true;
+        }
+        
+        bool global_ = come_value.var->mGlobal;
+        bool heap_ = come_value.type.mHeap;
+        bool local_ = !come_value.var->mGlobal;
+        
+        sType*% type_ = clone come_value.type;
+        
+        sType*% generics_type = new sType(s"ref");
+        generics_type->mGenericsTypes.add(type_);
+        
+        sType*% type = new sType(s"ref");
+        type->mGenericsTypes.add(new sType(s"__generics_type0"));
+        
+        sType*% type2 = solve_generics(type, generics_type, info);
+        
+        sNode*% obj = create_new_object(type2);
+        
+        list<tup: string, sNode*%>*% params = new list<tup: string, sNode*%>();
+        
+        sNode*% node2 = create_load_var("neo_current_frame");
+        sNode*% node3 = load_field(node2, s"stacktop");
+        
+        params.add(t((string)null, obj));
+        params.add(t((string)null, node));
+        params.add(t((string)null, global_ ? create_true_object(info):create_false_object(info)));
+        params.add(t((string)null, heap_ ? create_true_object(info):create_false_object(info)));
+        params.add(t((string)null, local_ ? create_true_object(info):create_false_object(info)));
+        params.add(t((string)null, node3));
+        
+        sNode*% method_node = create_method_call("initialize", obj, params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
+        
+        node_compile(method_node).elif {
+            return false;
+        }
+        
+        return true;
+    }
+};
+
 sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 21
 {
     if(!gComeC && buf === "new") {
@@ -1527,17 +1684,17 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
     else if(buf === "false") {
         return new sFalseNode(info) implements sNode;
     }
-    else if(!gComeC && buf === "delete") {
+    else if(!gComeC && buf === "delete" && *info->p != '(') {
          sNode*% node = expression();
          
          return new sDeleteNode(node, info) implements sNode;
     }
-    else if(!gComeC && buf === "borrow") {
+    else if(!gComeC && buf === "borrow" && *info->p != '(') {
          sNode*% node = expression();
          
          return new sBorrowNode(node, info) implements sNode;
     }
-    else if(!gComeC && buf === "clone") {
+    else if(!gComeC && buf === "clone" && *info->p != '(') {
          sNode*% node = expression();
          
          return new sCloneNode(node, info) implements sNode;
@@ -1625,6 +1782,17 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         expected_next_character(')');
         
         return new sIsPointer(type2, info) implements sNode;
+    }
+    else if(!gComeC && buf === "optional" && *info->p != '<') {
+        
+        sNode*% node = expression();
+        
+        return new sOptionalNode(node, info) implements sNode;
+    }
+    else if(!gComeC && buf === "ref" && *info->p != '<') {
+        sNode*% node = expression();
+        
+        return new sRefNode(node, info) implements sNode;
     }
     else if(buf === "using") {
        if(parsecmp("neo-c-pthread")) {

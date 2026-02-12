@@ -62,6 +62,10 @@ sType*% solve_generics(sType* type, sType* generics_type, sInfo* info)
     if(generics_type.mGenericsTypes.length() == 0) {
         return result;
     }
+    if(type.mGenericsTypes.length() > 0 && generics_type.mGenericsTypes.length() > 0 && is_contained_generics_class(type, info) && type.mGenericsTypes.length() > generics_type.mGenericsTypes.length()) {
+        err_msg(info, "generics type num invalid (%d %d)", type.mGenericsTypes.length(), generics_type.mGenericsTypes.length());
+        return result;
+    }
     
     sClass* klass = type->mClass;
 
