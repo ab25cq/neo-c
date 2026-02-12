@@ -1219,6 +1219,7 @@ struct CVALUE
     struct sRightValueObject*  right_value_objects  ;
     char*  c_value_without_right_value_objects  ;
     char*  c_value_without_cast_object_value  ;
+    _Bool mLoadField;
 };
 
 struct map$2char$phchar$ph
@@ -2491,13 +2492,13 @@ _Bool existance_free_objects_on_return(struct sBlock*  current_block  , struct s
 void std_move(struct sType*  left_type  , struct sType*  right_type  , struct CVALUE*  right_value  , struct sInfo*  info  );
 struct sType*  solve_generics(struct sType*  type  , struct sType*  generics_type  , struct sInfo*  info  );
 struct sVar*  get_variable_from_table(struct sVarTable*  table  , char* name);
-void free_objects_on_return(struct sBlock*  current_block  , struct sInfo*  info  , struct sVar*  ret_value  , _Bool top_block);
+void free_objects_on_return(struct sBlock*  current_block  , struct sInfo*  info  , struct sVar*  ret_value  , _Bool top_block, _Bool ret_value_is_field);
 void free_objects_of_match_lv_tables(struct sInfo*  info  );
 void free_objects_on_break(struct sInfo*  info  );
 void free_object(struct sType*  type  , char* obj, _Bool no_decrement, _Bool no_free, struct sInfo*  info  , _Bool ret_value);
 struct tuple2$2sType$phchar$ph* clone_object(struct sType*  type  , char* obj, struct sInfo*  info  );
 void free_right_value_objects(struct sInfo*  info  );
-void free_objects(struct sVarTable*  table  , struct sVar*  ret_value  , struct sInfo*  info  );
+void free_objects(struct sVarTable*  table  , struct sVar*  ret_value  , struct sInfo*  info  , _Bool ret_value_is_field);
 void append_object_to_right_values(struct CVALUE*  come_value  , struct sType*  type  , struct sInfo*  info  , _Bool decrement_ref_count, struct sType*  obj_type  , char* obj_value, struct sVar*  obj_var  );
 void remove_object_from_right_values(int right_value_num, struct sInfo*  info  );
 void remove_value_from_right_value_objects(struct CVALUE*  come_value  , struct sInfo*  info  );
@@ -4191,7 +4192,7 @@ _Bool sFunNode_compile(struct sFunNode* self, struct sInfo*  info  )
         if(({(_conditional_value_X0=(!gComeC&&string_operator_equals(info->come_fun->mName,"main")&&!info->inhibits_output_code2&&((struct sFun* )(__right_value2=map$2char$phsFun$ph_operator_load_element(info->funcs,((char*)(__right_value1=xsprintf("come_heap_final"))))))));        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
         come_call_finalizer(sFun_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0);
 _conditional_value_X0;})) {
-            free_objects(info->gv_table,((void*)0),info);
+            free_objects(info->gv_table,((void*)0),info,(_Bool)0);
             add_come_code(info,((char* )(__right_value0=xsprintf("come_heap_final();\n"))));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         }
@@ -6162,7 +6163,7 @@ _conditional_value_X0;})) {
         come_call_finalizer(list$1sNode$ph$p_finalize, o2_saved_37, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     if(!no_var_table&&!info->inhibits_output_code) {
-        free_objects(info->lv_table,((void*)0),info);
+        free_objects(info->lv_table,((void*)0),info,(_Bool)0);
         if(info->match_it_var&&block_level==0) {
             for(o2_saved_41=(struct list$1sVar$ph*)come_increment_ref_count(info->match_it_var),it=list$1sVar$ph_begin(o2_saved_41);!list$1sVar$ph_end(o2_saved_41);it=list$1sVar$ph_next(o2_saved_41)){
                 free_object(((struct sType* )(__right_value0=sType_clone(it->mType))),it->mCValueName,(_Bool)0,(_Bool)0,info,(_Bool)0);

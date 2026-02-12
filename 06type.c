@@ -1219,6 +1219,7 @@ struct CVALUE
     struct sRightValueObject*  right_value_objects  ;
     char*  c_value_without_right_value_objects  ;
     char*  c_value_without_cast_object_value  ;
+    _Bool mLoadField;
 };
 
 struct map$2char$phchar$ph
@@ -2648,13 +2649,13 @@ _Bool create_operator_equals_method(struct sType*  type  , struct sInfo*  info  
 _Bool create_operator_not_equals_method(struct sType*  type  , struct sInfo*  info  );
 struct sType*  solve_generics(struct sType*  type  , struct sType*  generics_type  , struct sInfo*  info  );
 struct sVar*  get_variable_from_table(struct sVarTable*  table  , char* name);
-void free_objects_on_return(struct sBlock*  current_block  , struct sInfo*  info  , struct sVar*  ret_value  , _Bool top_block);
+void free_objects_on_return(struct sBlock*  current_block  , struct sInfo*  info  , struct sVar*  ret_value  , _Bool top_block, _Bool ret_value_is_field);
 void free_objects_of_match_lv_tables(struct sInfo*  info  );
 void free_objects_on_break(struct sInfo*  info  );
 void free_object(struct sType*  type  , char* obj, _Bool no_decrement, _Bool no_free, struct sInfo*  info  , _Bool ret_value);
 struct tuple2$2sType$phchar$ph* clone_object(struct sType*  type  , char* obj, struct sInfo*  info  );
 void free_right_value_objects(struct sInfo*  info  );
-void free_objects(struct sVarTable*  table  , struct sVar*  ret_value  , struct sInfo*  info  );
+void free_objects(struct sVarTable*  table  , struct sVar*  ret_value  , struct sInfo*  info  , _Bool ret_value_is_field);
 void append_object_to_right_values(struct CVALUE*  come_value  , struct sType*  type  , struct sInfo*  info  , _Bool decrement_ref_count, struct sType*  obj_type  , char* obj_value, struct sVar*  obj_var  );
 void remove_object_from_right_values(int right_value_num, struct sInfo*  info  );
 void remove_value_from_right_value_objects(struct CVALUE*  come_value  , struct sInfo*  info  );
@@ -6524,7 +6525,6 @@ struct sType*  parse_pointer_attribute(struct sType*  type  , struct sInfo*  inf
                 type_42=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), (void*)0, 1606, "struct sType* ")),(char*)come_increment_ref_count(xsprintf("optional")),(_Bool)0,info,(_Bool)0,0));
                 list$1sType$ph_add(type_42->mGenericsTypes,(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), (void*)0, 1607, "struct sType* ")),(char*)come_increment_ref_count(xsprintf("__generics_type0")),(_Bool)0,info,(_Bool)0,0)));
                 type_42->mPointerNum++;
-                type_42->mHeap=(_Bool)1;
                 type2_43=(struct sType* )come_increment_ref_count(solve_generics(type_42,generics_type_41,info));
                 type2_43->mOptional=(_Bool)1;
                 __dec_obj67=tmp_,
@@ -10907,7 +10907,7 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
-        warning_msg(info,"invalid array base type. %s",msg);
+        err_msg(info,"invalid array base type. %s",msg);
         show_type(left_type2,info);
         show_type(right_type2,info);
         __result_obj__0 = (_Bool)0;
@@ -11011,7 +11011,7 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
                 return __result_obj__0;
             }
             if(!is_same_base_type_ignoring_qualifier(left_type2,right_type2,info)) {
-                warning_msg(info,"invalid pointer base type. %s",msg);
+                err_msg(info,"invalid pointer base type. %s",msg);
                 show_type(left_type2,info);
                 show_type(right_type2,info);
                 __result_obj__0 = (_Bool)0;
@@ -11101,218 +11101,17 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
 _Bool check_assign_type(const char* msg, struct sType*  left_type  , struct sType*  right_type  , struct CVALUE*  come_value  , struct sInfo*  info  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "check_assign_type"; neo_current_frame = &fr;
-    void* __right_value0 = (void*)0;
-    struct sType*  left_type2  ;
-    struct sType*  right_type2  ;
-    struct sType*  left_no_solved_generics_type  ;
-    struct sType*  right_no_solved_generics_type  ;
-    struct sType*  __dec_obj269  ;
-    struct sType*  __dec_obj270  ;
-    _Bool __result_obj__0;
-    struct sClass*  left_class  ;
-    struct sClass*  right_class  ;
-    _Bool parent_class;
-    struct sClass*  klass  ;
-    _Bool flag_;
-    _Bool check_;
-    int i;
-    struct sType*  left  ;
-    struct sType*  right  ;
-    if(left_type==((void*)0)||right_type==((void*)0)) {
-        warning_msg(info,"type check warning(type is null). %s",msg);
-        neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    if(left_type->mClass==((void*)0)||right_type->mClass==((void*)0)) {
-        warning_msg(info,"type check warning(class is null). %s",msg);
-        neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
     if(info->no_output_come_code) {
         neo_current_frame = fr.prev;
         return (_Bool)1;
     }
-    if(left_type->mClass->mMethodGenerics) {
+    if(left_type&&left_type->mClass&&left_type->mClass->mMethodGenerics) {
         neo_current_frame = fr.prev;
         return (_Bool)1;
     }
-    if(gComeSafe) {
-        neo_current_frame = fr.prev;
-        return check_assign_type_safe(msg,left_type,right_type,come_value,info);
-    }
-    left_type2=(struct sType* )come_increment_ref_count(sType_clone(left_type));
-    right_type2=(struct sType* )come_increment_ref_count(sType_clone(right_type));
-    left_no_solved_generics_type=((void*)0);
-    if(left_type2->mNoSolvedGenericsType) {
-        left_no_solved_generics_type=left_type2->mNoSolvedGenericsType;
-    }
-    right_no_solved_generics_type=((void*)0);
-    if(right_type2->mNoSolvedGenericsType) {
-        right_no_solved_generics_type=right_type2->mNoSolvedGenericsType;
-    }
-    __dec_obj269=left_type2,
-    left_type2=(struct sType* )come_increment_ref_count(expand_typedef_for_assign(left_type2,info));
-    come_call_finalizer(sType_finalize, __dec_obj269,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-    __dec_obj270=right_type2,
-    right_type2=(struct sType* )come_increment_ref_count(expand_typedef_for_assign(right_type2,info));
-    come_call_finalizer(sType_finalize, __dec_obj270,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-    if(left_type2->mClass==((void*)0)||right_type2->mClass==((void*)0)) {
-        warning_msg(info,"type check warning(expanded class is null). %s",msg);
-        __result_obj__0 = (_Bool)1;
-        come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        neo_current_frame = fr.prev;
-        return __result_obj__0;
-    }
-    left_class=left_type2->mClass;
-    right_class=right_type2->mClass;
-    parent_class=(_Bool)0;
-    if(string_operator_not_equals(left_class->mName,right_class->mName)) {
-        while(left_class&&right_class) {
-            if(string_operator_equals(left_class->mName,right_class->mName)) {
-                parent_class=(_Bool)1;
-            }
-            if(right_class->mParentClassName) {
-                right_class=((struct sClass* )(__right_value0=map$2char$phsClass$ph_operator_load_element(info->classes,right_class->mParentClassName)));
-            }
-            else {
-                right_class=((void*)0);
-            }
-        }
-    }
-    if(left_type2->mPointerNum>0&&(list$1sNode$ph_length(right_type->mArrayNum)>0||right_type->mArrayPointerNum>0)) {
-        if(!left_type2->mConstant&&right_type->mConstant) {
-            warning_msg(info,"type check warning(1).%s %s %d <- const %s %d",msg,left_type2->mClass->mName,left_type2->mPointerNum,right_type->mClass->mName,right_type->mPointerNum);
-            show_type(left_type2,info);
-            show_type(right_type2,info);
-        }
-        else if(string_operator_equals(left_type2->mClass->mName,right_type->mClass->mName)) {
-        }
-        else if(string_operator_equals(left_type2->mClass->mName,"void")) {
-        }
-        else {
-            warning_msg(info,"type check warning(1).%s %s %d <- %s %d",msg,left_type2->mClass->mName,left_type2->mPointerNum,right_type->mClass->mName,right_type->mPointerNum);
-            show_type(left_type2,info);
-            show_type(right_type2,info);
-        }
-    }
-    else if(left_type2->mPointerNum>0&&right_type->mPointerNum==0) {
-        if(string_operator_equals(left_type2->mClass->mName,"lambda")) {
-        }
-        else if(list$1sNode$ph_length(right_type->mArrayNum)>0) {
-        }
-        else if(right_type->mArrayPointerNum>0) {
-        }
-        else {
-            warning_msg(info,"type check warning(2).%s. %s %d <- %s %d",msg,left_type2->mClass->mName,left_type2->mPointerNum,right_type->mClass->mName,right_type->mPointerNum);
-            show_type(left_type2,info);
-            show_type(right_type2,info);
-        }
-    }
-    else if(left_type2->mPointerNum==0&&right_type->mPointerNum>0) {
-        if(left_type2->mArrayPointerNum>0) {
-        }
-        else if(list$1sNode$ph_length(left_type2->mArrayNum)>0) {
-        }
-        else if(string_operator_equals(left_type2->mClass->mName,"lambda")||string_operator_equals(right_type->mClass->mName,"void")) {
-        }
-        else {
-            warning_msg(info,"type check warning(3).%s. %s %d <- %s %d",msg,left_type2->mClass->mName,left_type2->mPointerNum,right_type->mClass->mName,right_type->mPointerNum);
-            show_type(left_type2,info);
-            show_type(right_type2,info);
-        }
-    }
-    else if(left_type2->mPointerNum>0&&right_type->mPointerNum>0) {
-        klass=right_type->mClass;
-        flag_=(_Bool)0;
-        while(klass) {
-            if(string_operator_equals(klass->mName,left_type2->mClass->mName)) {
-                flag_=(_Bool)1;
-            }
-            if(klass->mParentClassName) {
-                klass=((struct sClass* )(__right_value0=map$2char$phsClass$ph_operator_load_element(info->classes,klass->mParentClassName)));
-            }
-            else {
-                klass=((void*)0);
-            }
-        }
-        if(string_operator_equals(left_type2->mClass->mName,"void")) {
-        }
-        else if(string_operator_equals(left_type2->mClass->mName,"lambda")) {
-        }
-        else if(left_no_solved_generics_type&&right_no_solved_generics_type&&left_no_solved_generics_type->mClass&&right_no_solved_generics_type->mClass&&(list$1sType$ph_length(left_no_solved_generics_type->mGenericsTypes)>0||list$1sType$ph_length(right_no_solved_generics_type->mGenericsTypes)>0)) {
-            check_=(_Bool)1;
-            if(string_operator_not_equals(left_no_solved_generics_type->mClass->mName,right_no_solved_generics_type->mClass->mName)) {
-                check_=(_Bool)0;
-            }
-            if(list$1sType$ph_length(left_no_solved_generics_type->mGenericsTypes)!=list$1sType$ph_length(right_no_solved_generics_type->mGenericsTypes)) {
-                check_=(_Bool)0;
-            }
-            else {
-                for(i=0;i<list$1sType$ph_length(left_no_solved_generics_type->mGenericsTypes);i++){
-                    left=((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(left_no_solved_generics_type->mGenericsTypes,i)));
-                    right=((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(right_no_solved_generics_type->mGenericsTypes,i)));
-                    if(left==((void*)0)||right==((void*)0)||left->mClass==((void*)0)||right->mClass==((void*)0)) {
-                        check_=(_Bool)0;
-                        warning_msg(info,"type check warning(generics child class is null). %s",msg);
-                        continue;
-                    }
-                    if((string_operator_not_equals(left->mClass->mName,right->mClass->mName))||(left->mPointerNum!=right->mPointerNum)) {
-                        check_=(_Bool)0;
-                        warning_msg(info,"left child generics %s right child generics %s",left->mClass->mName,right->mClass->mName);
-                        show_type(left_type2,info);
-                        show_type(right_type2,info);
-                    }
-                }
-            }
-            if(!check_) {
-                warning_msg(info,"type check warning(4).%s. %s %d <- %s %d",msg,left_no_solved_generics_type->mClass->mName,left_type2->mPointerNum,right_no_solved_generics_type->mClass->mName,right_type2->mPointerNum);
-                show_type(left_type2,info);
-                show_type(right_type2,info);
-            }
-        }
-        else if(strlen(left_type2->mClass->mName)>=strlen("tuple")&&memcmp(left_type2->mClass->mName,"tuple",strlen("tuple"))==0&&(strlen(right_type->mClass->mName)>=strlen("tuple"))) {
-        }
-        else if(string_operator_equals(right_type->mClass->mName,"void")) {
-        }
-        else if(!left_type2->mConstant&&right_type->mConstant) {
-            warning_msg(info,"type check warning(1).%s %s %d <- const %s %d",msg,left_type2->mClass->mName,left_type2->mPointerNum,right_type->mClass->mName,right_type->mPointerNum);
-            show_type(left_type2,info);
-            show_type(right_type2,info);
-        }
-        else if(parent_class) {
-            if(left_type2->mPointerNum>1) {
-                warning_msg(info,"invalid pointer level. %s",msg);
-                show_type(left_type2,info);
-                show_type(right_type2,info);
-            }
-        }
-        else if(string_operator_not_equals(left_type2->mClass->mName,right_type->mClass->mName)&&!flag_) {
-            warning_msg(info,"type check warning(5).%s. %s %d <- %s %d",msg,left_type2->mClass->mName,left_type2->mPointerNum,right_type->mClass->mName,right_type->mPointerNum);
-            show_type(left_type2,info);
-            show_type(right_type2,info);
-        }
-    }
-    else if(left_type2->mPointerNum==0&&right_type->mPointerNum==0) {
-        if(string_operator_equals(left_type2->mClass->mName,"lambda")) {
-        }
-        else if(left_type2->mClass->mNumber&&right_type->mClass->mNumber) {
-        }
-        else if(string_operator_equals(left_type2->mClass->mName,right_type->mClass->mName)) {
-        }
-        else if(left_type2->mClass->mStruct&&right_type->mClass->mStruct&&parent_class) {
-        }
-        else {
-            warning_msg(info,"type check warning(6).%s. %s %d <- %s %d",msg,left_type2->mClass->mName,left_type2->mPointerNum,right_type->mClass->mName,right_type->mPointerNum);
-            show_type(left_type2,info);
-            show_type(right_type2,info);
-        }
-    }
-    __result_obj__0 = (_Bool)1;
-    come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-    come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
-    return __result_obj__0;
+    return check_assign_type_safe(msg,left_type,right_type,come_value,info);
+    neo_current_frame = fr.prev;
 }
 
 void cast_type(struct sType*  left_type  , struct sType*  right_type  , struct CVALUE*  come_value  , struct sInfo*  info  )

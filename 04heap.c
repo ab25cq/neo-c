@@ -1219,6 +1219,7 @@ struct CVALUE
     struct sRightValueObject*  right_value_objects  ;
     char*  c_value_without_right_value_objects  ;
     char*  c_value_without_cast_object_value  ;
+    _Bool mLoadField;
 };
 
 struct map$2char$phchar$ph
@@ -2719,7 +2720,7 @@ void free_right_value_objects(struct sInfo*  info  );
 struct sVar*  get_variable_from_table(struct sVarTable*  table  , char* name);
 static struct sVar*  map$2char$phsVar$ph$p_operator_load_element(struct map$2char$phsVar$ph* self, char*  key  );
 static struct sVar*  map$2char$phsVar$ph_operator_load_element(struct map$2char$phsVar$ph* self, char*  key  );
-void free_objects(struct sVarTable*  table  , struct sVar*  ret_value  , struct sInfo*  info  );
+void free_objects(struct sVarTable*  table  , struct sVar*  ret_value  , struct sInfo*  info  , _Bool ret_value_is_field);
 static char*  map$2char$phsVar$ph_begin(struct map$2char$phsVar$ph* self);
 static _Bool map$2char$phsVar$ph_end(struct map$2char$phsVar$ph* self);
 static char*  map$2char$phsVar$ph_next(struct map$2char$phsVar$ph* self);
@@ -2727,7 +2728,7 @@ static struct sNode* list$1sNode$ph$p_operator_load_element(struct list$1sNode$p
 static struct sNode* list$1sNode$ph_operator_load_element(struct list$1sNode$ph* self, int position);
 static struct list$1sNode$ph* list$1sNode$ph_reset(struct list$1sNode$ph* self);
 static void map$2char$phsVar$ph$p_finalize(struct map$2char$phsVar$ph* self);
-void free_objects_on_return(struct sBlock*  current_block  , struct sInfo*  info  , struct sVar*  ret_value  , _Bool top_block);
+void free_objects_on_return(struct sBlock*  current_block  , struct sInfo*  info  , struct sVar*  ret_value  , _Bool top_block, _Bool ret_value_is_field);
 void free_objects_on_break(struct sInfo*  info  );
 _Bool existance_free_objects(struct sVarTable*  table  , struct sVar*  ret_value  , struct sInfo*  info  );
 _Bool existance_free_objects_on_return(struct sBlock*  current_block  , struct sInfo*  info  , struct sVar*  ret_value  , _Bool top_block);
@@ -6548,7 +6549,7 @@ static struct sVar*  map$2char$phsVar$ph_operator_load_element(struct map$2char$
     return __result_obj__0;
 }
 
-void free_objects(struct sVarTable*  table  , struct sVar*  ret_value  , struct sInfo*  info  )
+void free_objects(struct sVarTable*  table  , struct sVar*  ret_value  , struct sInfo*  info  , _Bool ret_value_is_field)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "free_objects"; neo_current_frame = &fr;
     struct map$2char$phsVar$ph* o2_saved;
@@ -7415,7 +7416,12 @@ void free_objects(struct sVarTable*  table  , struct sVar*  ret_value  , struct 
                 err_msg(info,"no support array element with heap object result");
                 exit(1);
             }
-            free_object(type,p->mCValueName,(_Bool)0,(_Bool)1,info,(_Bool)1);
+            if(ret_value_is_field) {
+                free_object(type,p->mCValueName,(_Bool)0,(_Bool)0,info,(_Bool)1);
+            }
+            else {
+                free_object(type,p->mCValueName,(_Bool)0,(_Bool)1,info,(_Bool)1);
+            }
         }
         else if(type->mHeap&&p->mCValueName) {
             if(list$1sNode$ph_length(type->mArrayNum)>0) {
@@ -8173,7 +8179,7 @@ static void map$2char$phsVar$ph$p_finalize(struct map$2char$phsVar$ph* self)
     neo_current_frame = fr.prev;
 }
 
-void free_objects_on_return(struct sBlock*  current_block  , struct sInfo*  info  , struct sVar*  ret_value  , _Bool top_block)
+void free_objects_on_return(struct sBlock*  current_block  , struct sInfo*  info  , struct sVar*  ret_value  , _Bool top_block, _Bool ret_value_is_field)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "free_objects_on_return"; neo_current_frame = &fr;
     struct sVarTable*  it  ;
@@ -8183,14 +8189,14 @@ void free_objects_on_return(struct sBlock*  current_block  , struct sInfo*  info
     }
     it=info->lv_table;
     if(it==info->come_fun->mBlock->mVarTable) {
-        free_objects(it,ret_value,info);
+        free_objects(it,ret_value,info,ret_value_is_field);
     }
     else {
         while(it!=info->come_fun->mBlock->mVarTable) {
-            free_objects(it,ret_value,info);
+            free_objects(it,ret_value,info,ret_value_is_field);
             it=it->mParent;
         }
-        free_objects(it,ret_value,info);
+        free_objects(it,ret_value,info,ret_value_is_field);
     }
     neo_current_frame = fr.prev;
 }
@@ -8210,10 +8216,10 @@ void free_objects_on_break(struct sInfo*  info  )
     if(current_loop_vtable!=((void*)0)) {
         it=info->lv_table;
         while(it!=current_loop_vtable) {
-            free_objects(it,ret_value,info);
+            free_objects(it,ret_value,info,(_Bool)0);
             it=it->mParent;
         }
-        free_objects(it,ret_value,info);
+        free_objects(it,ret_value,info,(_Bool)0);
     }
     neo_current_frame = fr.prev;
 }

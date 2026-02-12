@@ -7,29 +7,26 @@ struct sData
     string? a;
 };
 
-void fun(string? p)
+string? fun2(string? xxx)
 {
-    printf("%c\n", *p);
-}
-
-string? fun2()
-{
-    var data = new sData { a:optional s"ABC" };
+    var s = s"ABC";
+    var data = new sData { a: xxx };
     
-    var p = data.a;
-    
-    fun(p);
-    
-    printf("%c\n", *p);
-    
-    return p;
+    return data.a;
 }
 
 int main(int argc, char** argv)
 {
-    var p = fun2();
+    string xxx = s"ABC";
+    string? a = fun2(optional xxx);
     
-//    printf("%c\n", *p);
+    puts(a.unwrap());
+    
+//    puts(a.unwrap());
+    
+//come_print_ref_count(str);
+    
+//    printf("%c\n", *str);
     
     return 0;
 }

@@ -392,6 +392,7 @@ uniq class CVALUE
     sRightValueObject* right_value_objects;
     string c_value_without_right_value_objects;
     string c_value_without_cast_object_value;
+    bool mLoadField;
     
     new() {
     }
@@ -848,14 +849,14 @@ bool create_operator_equals_method(sType* type, sInfo* info);
 bool create_operator_not_equals_method(sType* type, sInfo* info);
 sType*% solve_generics(sType* type, sType* generics_type, sInfo* info);
 sVar* get_variable_from_table(sVarTable* table, char* name);
-void free_objects_on_return(sBlock* current_block, sInfo* info, sVar* ret_value, bool top_block);
+void free_objects_on_return(sBlock* current_block, sInfo* info, sVar* ret_value, bool top_block, bool ret_value_is_field=false);
 void free_objects_of_match_lv_tables(sInfo* info);
 void free_objects_on_break(sInfo* info);
 void free_object(
 sType* type, char* obj, bool no_decrement, bool no_free, sInfo* info, bool ret_value=false);
 sType*%, string clone_object(sType* type, char* obj, sInfo* info);
 void free_right_value_objects(sInfo* info);
-void free_objects(sVarTable* table, sVar* ret_value, sInfo* info);
+void free_objects(sVarTable* table, sVar* ret_value, sInfo* info, bool ret_value_is_field=false);
 void append_object_to_right_values(CVALUE* come_value, sType* type, sInfo* info, bool decrement_ref_count=false, sType* obj_type=null, char* obj_value=null, sVar* obj_var=null);
         
 void remove_object_from_right_values(int right_value_num, sInfo* info);

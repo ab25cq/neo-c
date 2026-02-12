@@ -433,6 +433,7 @@ class sLoadFieldNode extends sNodeBase
             come_value.type = new sType(s"void");
             come_value.type.mPointerNum = 1;
             come_value.var = left_value.var;
+            come_value.mLoadField = true;
             
             info.stack.push_back(come_value);
             
@@ -457,6 +458,7 @@ class sLoadFieldNode extends sNodeBase
             come_value.type = new sType(s"void");
             come_value.type.mPointerNum = 1;
             come_value.var = left_value.var;
+            come_value.mLoadField = true;
             
             info.stack.push_back(come_value);
             
@@ -477,6 +479,7 @@ class sLoadFieldNode extends sNodeBase
         sType*% type_ = solve_generics(come_value.type, info->generics_type, info);
         come_value.type = solve_method_generics(type_, info);
         come_value.var = left_value.var;
+        come_value.mLoadField = true;
         
         if(come_value.type->mArrayNum.length() > 0) {
             if(info.in_store_array) {
@@ -853,6 +856,7 @@ class sLoadArrayNode extends sNodeBase
             }
             
             come_value.var = left_value.var;
+            come_value.mLoadField = true;
             
             sType*% type2_ = clone come_value.type;
             sType*% type3_ = solve_generics(type2_, info->generics_type, info);

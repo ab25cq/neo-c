@@ -974,7 +974,7 @@ sVar* get_variable_from_table(sVarTable* table, char* name)
     return null;
 }
 
-void free_objects(sVarTable* table, sVar* ret_value, sInfo* info)
+void free_objects(sVarTable* table, sVar* ret_value, sInfo* info, bool ret_value_is_field=false)
 {
     if(gComeC) {
         return;
@@ -994,7 +994,12 @@ void free_objects(sVarTable* table, sVar* ret_value, sInfo* info)
                 err_msg(info, "no support array element with heap object result");
                 exit(1);
             }
-            free_object(type, p->mCValueName, false@no_decrement, true@no_free, info, true);
+            if(ret_value_is_field) {
+                free_object(type, p->mCValueName, false@no_decrement, false@no_free, info, true);
+            }
+            else {
+                free_object(type, p->mCValueName, false@no_decrement, true@no_free, info, true);
+            }
         }
         else if(type->mHeap && p->mCValueName) {
             if(type->mArrayNum.length() > 0) {
@@ -1117,7 +1122,7 @@ void free_objects(sVarTable* table, sVar* ret_value, sInfo* info)
     }
 }
 
-void free_objects_on_return(sBlock* current_block, sInfo* info, sVar* ret_value, bool top_block)
+void free_objects_on_return(sBlock* current_block, sInfo* info, sVar* ret_value, bool top_block, bool ret_value_is_field=false)
 {
     if(gComeC) {
         return;
@@ -1125,15 +1130,15 @@ void free_objects_on_return(sBlock* current_block, sInfo* info, sVar* ret_value,
     sVarTable* it = info->lv_table;
     
     if(it == info->come_fun->mBlock->mVarTable) {
-        free_objects(it, ret_value, info);
+        free_objects(it, ret_value, info, ret_value_is_field);
     }
     else {
         while(it != info->come_fun->mBlock->mVarTable) {
-            free_objects(it, ret_value, info);
+            free_objects(it, ret_value, info, ret_value_is_field);
     
             it = it->mParent;
         }
-        free_objects(it, ret_value, info);
+        free_objects(it, ret_value, info, ret_value_is_field);
     }
 }
 

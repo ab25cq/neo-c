@@ -1219,6 +1219,7 @@ struct CVALUE
     struct sRightValueObject*  right_value_objects  ;
     char*  c_value_without_right_value_objects  ;
     char*  c_value_without_cast_object_value  ;
+    _Bool mLoadField;
 };
 
 struct map$2char$phchar$ph
@@ -2487,13 +2488,13 @@ _Bool create_operator_equals_method(struct sType*  type  , struct sInfo*  info  
 _Bool create_operator_not_equals_method(struct sType*  type  , struct sInfo*  info  );
 struct sType*  solve_generics(struct sType*  type  , struct sType*  generics_type  , struct sInfo*  info  );
 struct sVar*  get_variable_from_table(struct sVarTable*  table  , char* name);
-void free_objects_on_return(struct sBlock*  current_block  , struct sInfo*  info  , struct sVar*  ret_value  , _Bool top_block);
+void free_objects_on_return(struct sBlock*  current_block  , struct sInfo*  info  , struct sVar*  ret_value  , _Bool top_block, _Bool ret_value_is_field);
 void free_objects_of_match_lv_tables(struct sInfo*  info  );
 void free_objects_on_break(struct sInfo*  info  );
 void free_object(struct sType*  type  , char* obj, _Bool no_decrement, _Bool no_free, struct sInfo*  info  , _Bool ret_value);
 struct tuple2$2sType$phchar$ph* clone_object(struct sType*  type  , char* obj, struct sInfo*  info  );
 void free_right_value_objects(struct sInfo*  info  );
-void free_objects(struct sVarTable*  table  , struct sVar*  ret_value  , struct sInfo*  info  );
+void free_objects(struct sVarTable*  table  , struct sVar*  ret_value  , struct sInfo*  info  , _Bool ret_value_is_field);
 void append_object_to_right_values(struct CVALUE*  come_value  , struct sType*  type  , struct sInfo*  info  , _Bool decrement_ref_count, struct sType*  obj_type  , char* obj_value, struct sVar*  obj_var  );
 void remove_object_from_right_values(int right_value_num, struct sInfo*  info  );
 void remove_value_from_right_value_objects(struct CVALUE*  come_value  , struct sInfo*  info  );
