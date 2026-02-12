@@ -1,20 +1,24 @@
 #include <neo-c.h>
 
-int gValue;
-
 struct sData
 {
-    span<string, string>*% a;
+    span<char*, string>*% a;
 };
 
 int main(int argc, char** argv)
 {
-    var xxx = s"ABC";
-    var data = new sData { a: new span<string>(ref xxx, 3) };
+    var xxx = "01main.nc".read();
+    var data = new sData { a: new span<char*, string>(ref xxx, xxx.length()) };
     
     printf("%c\n", *data.a);
     
     data.a+=10;
+    
+    printf("%c\n", *data.a);
+    
+    data.a+=10;
+    
+    printf("%s\n", data.a.substring(0,10));
     
     return 0;
 }
