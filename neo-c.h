@@ -745,217 +745,6 @@ impl result<T>
 //////////////////////////////
 // slice
 //////////////////////////////
-/*
-struct slice<T> {
-    char*% memory;
-    T p;
-    size_t len;
-};
-
-impl slice<T>
-{
-    slice<T>*% initialize(slice<T>*% self, T p, size_t len)
-    {
-        self.memory = new char[len];
-        memcpy(self.memory, (char*)p, len);
-        self.p = (T)borrow self.memory;
-        self.len = len;
-        
-        return self;
-    }
-    T unwrap(slice<T>* self, bool check=false) {
-        if(check && (char*)self.p >= self.memory + self.len) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        if(check && (char*)self.p < self.memory) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        
-        return self.p;
-    }
-    
-    slice<T>* operator_plus_plus(slice<T>* self)
-    {
-        using unsafe;
-        
-        self.p++;
-        
-        if((char*)self.p >= self.memory + self.len) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        
-        return self;
-    }
-    slice<T>* operator_plus_equal(slice<T>* self, size_t value)
-    {
-        using unsafe;
-        
-        self.p += value;
-        
-        if((char*)self.p >= self.memory + self.len) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        
-        return self;
-    }
-    
-    slice<T>* operator_minus_minus(slice<T>* self)
-    {
-        using unsafe;
-        
-        self.p--;
-        
-        if((char*)self.p < self.memory) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        
-        return self;
-    }
-    
-    slice<T>* operator_minus_equal(slice<T>* self, size_t value)
-    {
-        using unsafe;
-        
-        self.p -= value;
-        
-        if((char*)self.p < self.memory) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        
-        return self;
-    }
-    
-    T operator_add(slice<T>* self, size_t rvalue)
-    {
-        using unsafe;
-        
-        T result = self.p + rvalue;
-        
-        if(result >= self.memory + self.len) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        
-        return result;
-    }
-    
-    T operator_sub(slice<T>* self, size_t rvalue)
-    {
-        using unsafe;
-        
-        T result = self.p - rvalue;
-        
-        if((char*)result < self.memory) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        
-        return result;
-    }
-    
-    T] operator_derefference(slice<T>* self)
-    {
-        using unsafe;
-        
-        T p = self.p;
-        
-        if((char*)self.p >= self.memory + self.len) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        if((char*)self.p < self.memory) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        
-        return *p;
-    }
-    void operator_store_element(slice<T>* self, int position, T] item) {
-        if(self.p == (void*)0) {
-            puts("null pointer operation");
-            stackframe();
-            exit(1);
-        }
-        if(self.p + position >= self.memory + self.len) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        if(self.p + position < self.memory) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        
-        T p = self.p;
-        
-        p\[position] = item;
-    }
-    T operator_load_element(slice<T>* self, int position) {
-        if(self.p == (void*)0) {
-            puts("null pointer operation");
-            stackframe();
-            exit(1);
-        }
-        if(self.p + position >= self.memory + self.len) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        if(self.p + position < self.memory) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        
-        T p = self.p;
-        
-        return p\[position];
-    }
-    
-    T unwrap(slice<T>* self) {
-        if(self.p == (void*)0) {
-            puts("null pointer operation");
-            stackframe();
-            exit(1);
-        }
-        if(self.p + position >= self.memory + self.len) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        if(self.p + position < self.memory) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        
-        T p = self.p;
-        
-        return p;
-    }
-    
-    string to_string(slice<T>* self) {
-        return s"head \{self.memory} p \{self.p} len \{self.len}";
-    }
-}
-*/
 struct slice<T> {
     char*% memory;
     T^ p;
@@ -975,12 +764,12 @@ impl slice<T>
     }
     T^ unwrap(slice<T>* self, bool check=false) {
         if(check && (char*)self.p >= self.memory + self.len) {
-            puts("out of range of smart pointer");
+            puts("out of range of slice");
             stackframe();
             exit(1);
         }
         if(check && (char*)self.p < self.memory) {
-            puts("out of range of smart pointer");
+            puts("out of range of slice");
             stackframe();
             exit(1);
         }
@@ -995,7 +784,7 @@ impl slice<T>
         self.p++;
         
         if(self.p >= self.memory + self.len) {
-            puts("out of range of smart pointer");
+            puts("out of range of slice");
             stackframe();
             exit(1);
         }
@@ -1009,7 +798,7 @@ impl slice<T>
         self.p += value;
         
         if(self.p >= self.memory + self.len) {
-            puts("out of range of smart pointer");
+            puts("out of range of slice");
             stackframe();
             exit(1);
         }
@@ -1024,7 +813,7 @@ impl slice<T>
         self.p--;
         
         if(self.p < self.memory) {
-            puts("out of range of smart pointer");
+            puts("out of range of slice");
             stackframe();
             exit(1);
         }
@@ -1039,7 +828,7 @@ impl slice<T>
         self.p -= value;
         
         if(self.p < self.memory) {
-            puts("out of range of smart pointer");
+            puts("out of range of slice");
             stackframe();
             exit(1);
         }
@@ -1054,7 +843,7 @@ impl slice<T>
         T^ result = self.p + rvalue;
         
         if(result >= self.memory + self.len) {
-            puts("out of range of smart pointer");
+            puts("out of range of slice");
             stackframe();
             exit(1);
         }
@@ -1069,7 +858,7 @@ impl slice<T>
         T^ result = self.p - rvalue;
         
         if((char*)result < self.memory) {
-            puts("out of range of smart pointer");
+            puts("out of range of slice");
             stackframe();
             exit(1);
         }
@@ -1082,12 +871,12 @@ impl slice<T>
         using unsafe;
         
         if(self.p >= self.memory + self.len) {
-            puts("out of range of smart pointer");
+            puts("out of range of slice");
             stackframe();
             exit(1);
         }
         if(self.p < self.memory) {
-            puts("out of range of smart pointer");
+            puts("out of range of slice");
             stackframe();
             exit(1);
         }
@@ -1101,12 +890,12 @@ impl slice<T>
             exit(1);
         }
         if(self.p + position >= self.memory + self.len) {
-            puts("out of range of smart pointer");
+            puts("out of range of slice");
             stackframe();
             exit(1);
         }
         if(self.p + position < self.memory) {
-            puts("out of range of smart pointer");
+            puts("out of range of slice");
             stackframe();
             exit(1);
         }
@@ -1120,12 +909,12 @@ impl slice<T>
             exit(1);
         }
         if(self.p + position >= self.memory + self.len) {
-            puts("out of range of smart pointer");
+            puts("out of range of slice");
             stackframe();
             exit(1);
         }
         if(self.p + position < self.memory) {
-            puts("out of range of smart pointer");
+            puts("out of range of slice");
             stackframe();
             exit(1);
         }
@@ -1135,12 +924,12 @@ impl slice<T>
     
     T^ unwrap(slice<T>* self) {
         if(self.p + position >= self.memory + self.len) {
-            puts("out of range of smart pointer");
+            puts("out of range of slice");
             stackframe();
             exit(1);
         }
         if(self.p + position < self.memory) {
-            puts("out of range of smart pointer");
+            puts("out of range of slice");
             stackframe();
             exit(1);
         }
@@ -1193,12 +982,12 @@ impl span<T, T2>
             }
         }
         if(check && self.p >= (char*)self.memory + self.len) {
-            puts("out of range of smart pointer");
+            puts("out of range of span");
             stackframe();
             exit(1);
         }
         if(check && self.p < (char*)self.memory) {
-            puts("out of range of smart pointer");
+            puts("out of range of span");
             stackframe();
             exit(1);
         }
@@ -1221,7 +1010,7 @@ impl span<T, T2>
         self.p++;
         
         if(self.p >= (char*)self.memory + self.len) {
-            puts("out of range of smart pointer");
+            puts("out of range of span");
             stackframe();
             exit(1);
         }
@@ -1243,7 +1032,7 @@ impl span<T, T2>
         self.p += value;
         
         if(self.p >= (char*)self.memory + self.len) {
-            puts("out of range of smart pointer");
+            puts("out of range of span");
             stackframe();
             exit(1);
         }
@@ -1266,7 +1055,7 @@ impl span<T, T2>
         self.p--;
         
         if(self.p < (char*)self.memory) {
-            puts("out of range of smart pointer");
+            puts("out of range of span");
             stackframe();
             exit(1);
         }
@@ -1289,7 +1078,7 @@ impl span<T, T2>
         self.p -= value;
         
         if(self.p < (char*)self.memory) {
-            puts("out of range of smart pointer");
+            puts("out of range of span");
             stackframe();
             exit(1);
         }
@@ -1312,7 +1101,7 @@ impl span<T, T2>
         T^ result = self.p + rvalue;
         
         if(result >= (char*)self.memory + self.len) {
-            puts("out of range of smart pointer");
+            puts("out of range of span");
             stackframe();
             exit(1);
         }
@@ -1335,7 +1124,7 @@ impl span<T, T2>
         T^ result = self.p - rvalue;
         
         if(result < (char*)self.memory) {
-            puts("out of range of smart pointer");
+            puts("out of range of span");
             stackframe();
             exit(1);
         }
@@ -1358,12 +1147,12 @@ impl span<T, T2>
         T^ p = self.p;
         
         if(self.p >= (char*)self.memory + self.len) {
-            puts("out of range of smart pointer");
+            puts("out of range of span");
             stackframe();
             exit(1);
         }
         if(self.p < (char*)self.memory) {
-            puts("out of range of smart pointer");
+            puts("out of range of span");
             stackframe();
             exit(1);
         }
@@ -1379,12 +1168,12 @@ impl span<T, T2>
             }
         }
         if(self.p + position >= (char*)self.memory + self.len) {
-            puts("out of range of smart pointer");
+            puts("out of range of span");
             stackframe();
             exit(1);
         }
         if(self.p + position < (char*)self.memory) {
-            puts("out of range of smart pointer");
+            puts("out of range of span");
             stackframe();
             exit(1);
         }
@@ -1402,12 +1191,12 @@ impl span<T, T2>
             }
         }
         if(self.p + position >= (char*)self.memory + self.len) {
-            puts("out of range of smart pointer");
+            puts("out of range of span");
             stackframe();
             exit(1);
         }
         if(self.p + position < (char*)self.memory) {
-            puts("out of range of smart pointer");
+            puts("out of range of span");
             stackframe();
             exit(1);
         }
