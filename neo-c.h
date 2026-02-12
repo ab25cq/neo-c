@@ -592,17 +592,33 @@ uniq string __builtin_string(const char* str)
 struct optional<T>
 {
     T p;
+    bool global;
+    bool heap;
+    bool local;
+    
+    void* stacktop;
 };
 
 impl optional<T>
 {
-    optional<T>*% initialize(optional<T>*% self, T p) {
+    optional<T>*% initialize(optional<T>*% self, T p, bool global_, bool heap_, bool local_, void* stacktop) {
         self.p = p;
+        self.global = global_;
+        self.heap = heap_;
+        self.local = local_;
+        self.stacktop = stacktop;
         return self;
     }
     
-    T unwrap(optional<T>* self, bool check=false) {
-        if(check && ispointer(T) && self.p == (void*)0) {
+    _norecord T unwrap(optional<T>* self, bool check=false) {
+        if(self\.local) {
+            if(self\.stacktop < neo_current_frame.stacktop) {
+                puts("optional object is vanished");
+                stackframe();
+                exit(127);
+            }
+        }
+        if(check && self.p == (void*)0) {
             puts("null pointer exception");
             stackframe();
             exit(2);
@@ -610,131 +626,26 @@ impl optional<T>
         
         return self.p;
     }
-    
-    optional<T>* operator_plus_plus(optional<T>* self)
+    _norecord T] operator_derefference(optional<T>* self)
     {
         using unsafe;
         
-        if(ispointer(T) && self.p == (void*)0) {
-            puts("null pointer operation");
-            stackframe();
-            exit(1);
+        if(self\.local) {
+            if(self\.stacktop < neo_current_frame.stacktop) {
+                puts("refferenced object is vanished");
+                stackframe();
+                exit(127);
+            }
         }
-        
-        self.p++;
-        
-        return self;
-    }
-    optional<T>* operator_plus_equal(optional<T>* self, size_t value)
-    {
-        using unsafe;
-        
         if(ispointer(T) && self.p == (void*)0) {
-            puts("null pointer operation");
+            puts("null pointer exception");
             stackframe();
-            exit(1);
-        }
-        
-        self.p += value;
-        
-        return self;
-    }
-    
-    optional<T>* operator_minus_minus(optional<T>* self)
-    {
-        using unsafe;
-        
-        if(ispointer(T) && self.p == (void*)0) {
-            puts("null pointer operation");
-            stackframe();
-            exit(1);
-        }
-        
-        self.p--;
-        
-        return self;
-    }
-    
-    optional<T>* operator_minus_equal(optional<T>* self, size_t value)
-    {
-        using unsafe;
-        
-        if(ispointer(T) && self.p == (void*)0) {
-            puts("null pointer operation");
-            stackframe();
-            exit(1);
-        }
-        
-        self.p -= value;
-        
-        return self;
-    }
-    
-    T operator_add(optional<T>* self, size_t rvalue)
-    {
-        using unsafe;
-        
-        if(ispointer(T) && self.p == (void*)0) {
-            puts("null pointer operation");
-            stackframe();
-            exit(1);
-        }
-        
-        T result = self.p + rvalue;
-        
-        return result;
-    }
-    
-    T operator_sub(optional<T>* self, size_t rvalue)
-    {
-        using unsafe;
-        
-        if(ispointer(T) && self.p == (void*)0) {
-            puts("null pointer operation");
-            stackframe();
-            exit(1);
-        }
-        
-        T result = self.p - rvalue;
-        
-        return result;
-    }
-    
-    T] operator_derefference(optional<T>* self)
-    {
-        using unsafe;
-        
-        if(ispointer(T) && self.p == (void*)0) {
-            puts("null pointer operation");
-            stackframe();
-            exit(1);
+            exit(2);
         }
         
         T p = self.p;
         
         return *p;
-    }
-    void operator_store_element(optional<T>* self, int position, T item) {
-        if(ispointer(T) && self.p == (void*)0) {
-            puts("null pointer operation");
-            stackframe();
-            exit(1);
-        }
-        
-        T p = self.p;
-        
-        p\[position] = item;
-    }
-    T operator_load_element(optional<T>* self, int position) {
-        if(self.p == (void*)0) {
-            puts("null pointer operation");
-            stackframe();
-            exit(1);
-        }
-        
-        T p = self.p;
-        
-        return p\[position];
     }
 }
 

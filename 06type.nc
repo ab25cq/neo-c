@@ -3842,6 +3842,15 @@ bool is_same_base_type_ignoring_qualifier(sType* left_type, sType* right_type, s
 
 bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type, CVALUE* come_value, sInfo* info=info)
 {
+    if(left_type == null || right_type == null) {
+        warning_msg(info, "invalid assign type(type is null). %s", msg);
+        return false;
+    }
+    if(left_type->mClass == null || right_type->mClass == null) {
+        warning_msg(info, "invalid assign type(class is null). %s", msg);
+        return false;
+    }
+
     sType*% left_type2 = clone left_type;
     if(left_type2->mOriginalLoadVarType) {
         bool use_original = left_type2->mArrayPointerNum > 0
@@ -3865,6 +3874,11 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
     
     left_type2 = expand_typedef_for_assign(left_type2);
     right_type2 = expand_typedef_for_assign(right_type2);
+
+    if(left_type2->mClass == null || right_type2->mClass == null) {
+        warning_msg(info, "invalid assign type(expanded class is null). %s", msg);
+        return false;
+    }
     
     bool left_lambda = left_type2->mClass->mName === "lambda";
     bool right_lambda = right_type2->mClass->mName === "lambda";
@@ -4066,6 +4080,15 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
 
 bool check_assign_type(const char* msg, sType* left_type, sType* right_type, CVALUE* come_value, sInfo* info=info)
 {
+    if(left_type == null || right_type == null) {
+        warning_msg(info, "type check warning(type is null). %s", msg);
+        return true;
+    }
+    if(left_type->mClass == null || right_type->mClass == null) {
+        warning_msg(info, "type check warning(class is null). %s", msg);
+        return true;
+    }
+
     if(info->no_output_come_code) {
         return true;
     }
@@ -4090,6 +4113,11 @@ bool check_assign_type(const char* msg, sType* left_type, sType* right_type, CVA
 
     left_type2 = expand_typedef_for_assign(left_type2);
     right_type2 = expand_typedef_for_assign(right_type2);
+
+    if(left_type2->mClass == null || right_type2->mClass == null) {
+        warning_msg(info, "type check warning(expanded class is null). %s", msg);
+        return true;
+    }
     
     
     sClass* left_class = left_type2->mClass;
@@ -4170,7 +4198,11 @@ bool check_assign_type(const char* msg, sType* left_type, sType* right_type, CVA
         }
         else if(left_type2->mClass->mName === "lambda") {
         }
-        else if(left_no_solved_generics_type && right_no_solved_generics_type && (left_no_solved_generics_type.mGenericsTypes.length() > 0 || right_no_solved_generics_type->mGenericsTypes.length() > 0))
+        else if(left_no_solved_generics_type
+            && right_no_solved_generics_type
+            && left_no_solved_generics_type->mClass
+            && right_no_solved_generics_type->mClass
+            && (left_no_solved_generics_type.mGenericsTypes.length() > 0 || right_no_solved_generics_type->mGenericsTypes.length() > 0))
         {
             bool check_ = true;
             if(left_no_solved_generics_type->mClass->mName !== right_no_solved_generics_type->mClass->mName) {
@@ -4184,6 +4216,12 @@ bool check_assign_type(const char* msg, sType* left_type, sType* right_type, CVA
                 for(int i=0; i<left_no_solved_generics_type.mGenericsTypes.length(); i++) {
                     sType* left = borrow left_no_solved_generics_type.mGenericsTypes[i];
                     sType* right = borrow right_no_solved_generics_type.mGenericsTypes[i];
+
+                    if(left == null || right == null || left->mClass == null || right->mClass == null) {
+                        check_ = false;
+                        warning_msg(info , "type check warning(generics child class is null). %s", msg);
+                        continue;
+                    }
                     
                     if((left->mClass->mName !== right->mClass->mName) || (left->mPointerNum != right->mPointerNum)) {
                         check_ = false;

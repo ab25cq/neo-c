@@ -178,6 +178,26 @@ class sOptionalNode extends sNodeBase
         
         CVALUE*% come_value = get_value_from_stack(-1, info);
         
+        if(come_value.type->mPointerNum == 0) {
+            err_msg(info, "require pointer for ref");
+            return true;
+        }
+        
+        bool global_;
+        bool heap_;
+        bool local_;
+        
+        if(come_value.var == null) {
+            global_ = false;
+            heap_ = come_value.type.mHeap;
+            local_ = false;
+        }
+        else {
+            global_ = come_value.var->mGlobal;
+            heap_ = come_value.type.mHeap;
+            local_ = !come_value.var->mGlobal;
+        }
+        
         sType*% type_ = clone come_value.type;
         
         sType*% generics_type = new sType(s"optional");
@@ -192,8 +212,15 @@ class sOptionalNode extends sNodeBase
         
         list<tup: string, sNode*%>*% params = new list<tup: string, sNode*%>();
         
+        sNode*% node2 = create_load_var("neo_current_frame");
+        sNode*% node3 = load_field(node2, s"stacktop");
+        
         params.add(t((string)null, obj));
         params.add(t((string)null, node));
+        params.add(t((string)null, global_ ? create_true_object(info):create_false_object(info)));
+        params.add(t((string)null, heap_ ? create_true_object(info):create_false_object(info)));
+        params.add(t((string)null, local_ ? create_true_object(info):create_false_object(info)));
+        params.add(t((string)null, node3));
         
         sNode*% method_node = create_method_call("initialize", obj, params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
         
@@ -205,110 +232,6 @@ class sOptionalNode extends sNodeBase
     }
 };
 
-/*
-class sSliceNode extends sNodeBase
-{
-    new(sNode*% node, sInfo* info)
-    {
-        self.super();
-        
-        sNode*% self.node = node;
-    }
-    
-    string kind()
-    {
-        return string("sSliceNode");
-    }
-    
-    bool compile(sInfo* info)
-    {
-        sNode*% node = self.node;
-        
-        bool no_output_come_code = info.no_output_come_code;
-        info.no_output_come_code = true;
-        node_compile(node).elif {
-            return false;
-        }
-        info.no_output_come_code = no_output_come_code;
-        
-        CVALUE*% come_value = get_value_from_stack(-1, info);
-        
-        sNode*% len;
-        if(come_value.type->mArrayNum.length() > 0) {
-            var buf = new buffer();
-            int n = 0;
-            for(int i=0; i<come_value.type->mArrayNum.length(); i++) {
-                sNode*% node = come_value.type->mArrayNum[i];
-                node_compile(node).elif { 
-                    return false;
-                }
-                
-                CVALUE*% come_value = get_value_from_stack(-1, info);
-                
-                buf.append_format("%s", come_value.c_value);
-                
-                if(i != come_value.type->mArrayNum.length()-1) {
-                    buf.append_str("*");
-                }
-            }
-            
-            sInfo info2 = *info;
-            
-            info2.source = buf;
-            info2.p = borrow info2.source.buf;
-            info2.head = borrow info2.source.buf;
-            info2.end = info2.source.buf + info2.source.len;
-            
-            len = expression(&info2);
-        }
-        else if(come_value.type->mClass->mName === "buffer") {
-            len = load_field(node, s"len");
-        }
-        else if(come_value.type->mClass->mName === "char" && come_value.type->mPointerNum == 1) {
-            sNode*% obj = clone node;
-            
-            buffer*% buf = new buffer();
-            
-            buf.append_format("strlen(%s)", come_value.c_value);
-            
-            sInfo info2 = *info;
-            
-            info2.source = buf;
-            info2.p = borrow info2.source.buf;
-            info2.head = borrow info2.source.buf;
-            info2.end = info2.source.buf + info2.source.len;
-            
-            len = expression(&info2);
-        }
-        
-        sType*% type_ = clone come_value.type;
-        
-        sType*% generics_type = new sType(s"slice");
-        generics_type->mGenericsTypes.add(type_);
-        
-        sType*% type = new sType(s"slice");
-        type->mGenericsTypes.add(new sType(s"__generics_type0"));
-        
-        sType*% type2 = solve_generics(type, generics_type, info);
-        
-        sNode*% obj = create_new_object(type2);
-        
-        list<tup: string, sNode*%>*% params = new list<tup: string, sNode*%>();
-        
-        params.add(t((string)null, obj));
-        params.add(t((string)null, node));
-        params.add(t((string)null, len));
-        
-        sNode*% method_node = create_method_call("initialize", obj, params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
-        
-        node_compile(method_node).elif {
-            return false;
-        }
-        
-        return true;
-    }
-};
-*/
 
 class sRefNode extends sNodeBase
 {
@@ -349,7 +272,7 @@ class sRefNode extends sNodeBase
         
         bool global_ = come_value.var->mGlobal;
         bool heap_ = come_value.type.mHeap;
-        bool local_ = !global_ && !heap_;
+        bool local_ = !come_value.var->mGlobal;
         
         sType*% type_ = clone come_value.type;
         
@@ -2743,7 +2666,7 @@ sNode*% expression_node(sInfo* info=info) version 98
             
             return node;
         }
-        else if(!gComeC && buf === "optional") {
+        else if(!gComeC && buf === "optional" && *info->p != '<') {
             
             sNode*% node = expression();
             
@@ -2757,7 +2680,7 @@ sNode*% expression_node(sInfo* info=info) version 98
             return new sSliceNode(node, info) implements sNode;
         }
 */
-        else if(!gComeC && buf === "ref") {
+        else if(!gComeC && buf === "ref" && *info->p != '<') {
             sNode*% node = expression();
             
             return new sRefNode(node, info) implements sNode;
