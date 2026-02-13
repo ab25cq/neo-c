@@ -1678,7 +1678,16 @@ class sSpanNode extends sNodeBase
         sType*% type_ = clone come_value.type;
         
         sType*% generics_type = new sType(s"span");
-        generics_type->mGenericsTypes.add(type_);
+        if(type_->mClass->mName === "buffer") {
+            sType*% type2 = new sType(s"char");
+            type2->mPointerNum = 1;
+            type2->mHeap = true;
+            
+            generics_type->mGenericsTypes.add(type2);
+        }
+        else {
+            generics_type->mGenericsTypes.add(type_);
+        }
         
         sType*% type = new sType(s"span");
         type->mGenericsTypes.add(new sType(s"__generics_type0"));
@@ -1691,10 +1700,30 @@ class sSpanNode extends sNodeBase
         
         sNode*% ref_ = new sRefNode(node, info) implements sNode;
         
+        sNode*% ref2 = ref_;
+        
+        if(type_->mClass->mName === "buffer") {
+            sType*% generics_type2 = new sType(s"ref");
+            generics_type2->mGenericsTypes.add(new sType(s"char"));
+            generics_type2->mGenericsTypes[0]->mPointerNum = 1;
+            generics_type2->mGenericsTypes[0]->mHeap = true;
+            
+            sType*% typeX = new sType(s"ref");
+            typeX->mGenericsTypes.add(new sType(s"__generics_type0"));
+            typeX->mPointerNum++;
+            
+            sType*% typeX2 = solve_generics(typeX, generics_type2, info);
+            
+            ref2 = cast_node(typeX2, ref_);
+        }
+        else {
+            ref2 = ref_;
+        }
+        
         var head, len = get_head_and_len(node, come_value);
         
         params.add(t((string)null, obj));
-        params.add(t((string)null, ref_));
+        params.add(t((string)null, ref2));
         params.add(t((string)null, head));
         params.add(t((string)null, len));
         

@@ -2,15 +2,10 @@
 
 int main(int argc, char** argv)
 {
-    var xxx = "01main.nc".read().to_string();
+    var xxx = t(1,2,3);
+    //"01main.nc".read().to_string();
     
-    string{} p = span xxx;
-    
-    printf("%c\n", *p);
-    
-    printf("%c\n", *p);
-    
-    p += 10;
+    tuple3<int,int,int>*%{} p = span xxx;
     
     printf("%c\n", *p);
     

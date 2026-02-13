@@ -955,7 +955,7 @@ struct span<T> {
 
 impl span<T>
 {
-    span<T>*% initialize(span<T>*% self, T& refference, char* head, size_t len)
+    span<T>*% initialize(span<T>*% self, void*& refference, void* head, size_t len)
     {
         if(!ispointer(T)) {
             puts("invalid span");
