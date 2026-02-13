@@ -732,6 +732,15 @@ struct sMemHeader
     const char* class_name;
 };
 
+struct ref$1void$ph
+{
+    void* p;
+    _Bool global;
+    _Bool heap;
+    _Bool local;
+    void* stacktop;
+};
+
 struct smart_pointer$1int$
 {
     struct buffer*  memory  ;
@@ -2507,6 +2516,7 @@ char*  increment_ref_count_object(struct sType*  type  , char* obj, struct sInfo
 void decrement_ref_count_object(struct sType*  type  , char* obj, struct sInfo*  info  , _Bool no_free);
 struct sNode* reverse_node(struct sNode* value, struct sInfo*  info  );
 struct sNode* cast_node(struct sType*  type  , struct sNode* node, struct sInfo*  info  );
+struct sNode* create_defference_node(struct sNode* value, _Bool quote, struct sInfo*  info  );
 struct sNode* reffence_node(struct sNode* value, struct sInfo*  info  );
 struct tuple2$2char$phsGenericsFun$p* make_method_generics_function(char*  fun_name  , struct list$1sType$ph* method_generics_types, struct sInfo*  info  );
 struct sNode* create_return_node(struct sNode* value, struct sInfo*  info  );

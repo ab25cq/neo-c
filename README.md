@@ -3139,36 +3139,6 @@ int main(int argc, char** argv)
 }
 ```
 
-# span
-
-```
-#include <neo-c.h>
-
-struct sData
-{
-    int a;
-    int b;
-};
-
-int main(int argc, char** argv)
-{
-    struct sData data = (struct sData){ .a=8, .b=7 };
-    
-    var p = new span<int*, sData*>(ref &data, sizeof(struct sData));
-    
-    printf("%d\n", *p);
-    p++;
-    printf("%d\n", *p);
-    
-    
-    return 0;
-}
-
-```
-
-span is no own the memory. so the memory is destroyed and access the memory occurs panic and show stackframe.
-but it's fast.
-
 # slice
 
 ```
@@ -3198,30 +3168,59 @@ int main(int argc, char** argv)
 
 slice is copy the memory and owns the memory. so it's safe. but occurs copy cost.
 
+# span
+
+span is no own the memory. so the memory is destroyed and access the memory occurs panic and show stackframe.
+but it's fast.
+
 ```
 #include <neo-c.h>
-
-struct sData
-{
-    span<char*, string>*% a;
-};
 
 int main(int argc, char** argv)
 {
     var xxx = "01main.nc".read();
-    var data = new sData { a: new span<char*, string>(ref xxx, xxx.length()) };
     
-    printf("%c\n", *data.a);
+    char*%{} p = span xxx;
     
-    data.a+=10;
+    printf("%c\n", *p);
     
-    printf("%c\n", *data.a);
+    p++;
     
-    data.a+=10;
+    printf("%c\n", *p);
     
-    printf("%s\n", data.a.substring(0,10));
+    p++;
+    
+    printf("%c\n", *p);
+    
+    p++;
     
     return 0;
 }
+```
 
+```
+#include <neo-c.h>
+
+int main(int argc, char** argv)
+{
+    var xxx = t(1,2,3,4);
+    
+    int*%{} p = span xxx;
+    
+    printf("%d\n", *p);
+    
+    p++;
+    
+    printf("%d\n", *p);
+    
+    p++;
+    
+    printf("%d\n", *p);
+    
+    p++;
+    
+    printf("%d\n", *p);
+    
+    return 0;
+}
 ```

@@ -1625,6 +1625,11 @@ sNode*%@head,sNode*%@len get_head_and_len(sNode*% node, CVALUE*% come_value, sIn
         err_msg(info, "can't get sirialize memory of this type(%s)", type->mClass->mName);
         exit(1);
     }
+    else if(type->mPointerNum == 1) {
+        head = node;
+        sNode*% node2 = create_defference_node(node, quote:false, info);
+        len = new sSizeOfExpNode(node2, info) implements sNode;
+    }
     else {
         head = node;
         len = new sSizeOfExpNode(node, info) implements sNode;
@@ -1678,6 +1683,7 @@ class sSpanNode extends sNodeBase
         sType*% type_ = clone come_value.type;
         
         sType*% generics_type = new sType(s"span");
+        /*
         if(type_->mClass->mName === "buffer") {
             sType*% type2 = new sType(s"char");
             type2->mPointerNum = 1;
@@ -1686,8 +1692,9 @@ class sSpanNode extends sNodeBase
             generics_type->mGenericsTypes.add(type2);
         }
         else {
+        */
             generics_type->mGenericsTypes.add(type_);
-        }
+        //}
         
         sType*% type = new sType(s"span");
         type->mGenericsTypes.add(new sType(s"__generics_type0"));
@@ -1702,6 +1709,7 @@ class sSpanNode extends sNodeBase
         
         sNode*% ref2 = ref_;
         
+        /*
         if(type_->mClass->mName === "buffer") {
             sType*% generics_type2 = new sType(s"ref");
             generics_type2->mGenericsTypes.add(new sType(s"char"));
@@ -1717,8 +1725,9 @@ class sSpanNode extends sNodeBase
             ref2 = cast_node(typeX2, ref_);
         }
         else {
+        */
             ref2 = ref_;
-        }
+        //}
         
         var head, len = get_head_and_len(node, come_value);
         

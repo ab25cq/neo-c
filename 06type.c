@@ -732,6 +732,15 @@ struct sMemHeader
     const char* class_name;
 };
 
+struct ref$1void$ph
+{
+    void* p;
+    _Bool global;
+    _Bool heap;
+    _Bool local;
+    void* stacktop;
+};
+
 struct smart_pointer$1int$
 {
     struct buffer*  memory  ;
@@ -2666,6 +2675,7 @@ void transpile_toplevel(_Bool block, struct sInfo*  info  );
 struct sNode* reverse_node(struct sNode* value, struct sInfo*  info  );
 struct sFun*  compile_uniq_function(struct sFun*  fun  , struct sInfo*  info  );
 struct sNode* cast_node(struct sType*  type  , struct sNode* node, struct sInfo*  info  );
+struct sNode* create_defference_node(struct sNode* value, _Bool quote, struct sInfo*  info  );
 struct sNode* reffence_node(struct sNode* value, struct sInfo*  info  );
 struct tuple2$2char$phsGenericsFun$p* make_method_generics_function(char*  fun_name  , struct list$1sType$ph* method_generics_types, struct sInfo*  info  );
 struct sNode* create_return_node(struct sNode* value, struct sInfo*  info  );
@@ -2929,6 +2939,9 @@ _Bool is_pointer_type(struct sType*  type  , struct sInfo*  info  );
 _Bool is_arithmetic_type(struct sType*  type  , struct sInfo*  info  );
 _Bool is_integer_type(struct sType*  type  , struct sInfo*  info  );
 _Bool is_null_pointer_constant(struct CVALUE*  come_value  , struct sInfo*  info  );
+_Bool is_generic_void_pointer_compatible(struct sType*  left_type  , struct sType*  right_type  , struct sInfo*  info  );
+_Bool is_span_class_name(const char* class_name, struct sInfo*  info  );
+_Bool is_span_wrapper_compatible(struct sType*  left_type  , struct sType*  right_type  , struct sInfo*  info  );
 _Bool is_transparent_union_type(struct sType*  type  , struct sInfo*  info  );
 _Bool pointer_attr_has_word(struct sType*  type  , const char* word, struct sInfo*  info  );
 _Bool pointer_attr_has_restrict(struct sType*  type  , struct sInfo*  info  );
@@ -10360,6 +10373,80 @@ _Bool is_null_pointer_constant(struct CVALUE*  come_value  , struct sInfo*  info
     return __result_obj__0;
 }
 
+_Bool is_generic_void_pointer_compatible(struct sType*  left_type  , struct sType*  right_type  , struct sInfo*  info  )
+{
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "is_generic_void_pointer_compatible"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
+    char*  left_type_name  ;
+    char*  right_type_name  ;
+    int left_generic_pos;
+    int right_generic_pos;
+    _Bool __result_obj__0;
+    char*  left_wrapper  ;
+    char*  right_wrapper  ;
+    _Bool left_void_generic;
+    _Bool right_void_generic;
+    if(left_type==((void*)0)||right_type==((void*)0)) {
+        neo_current_frame = fr.prev;
+        return (_Bool)0;
+    }
+    left_type_name=(char* )come_increment_ref_count(make_come_type_name_string(left_type,info));
+    right_type_name=(char* )come_increment_ref_count(make_come_type_name_string(right_type,info));
+    left_generic_pos=string_index(left_type_name,"<",-1);
+    right_generic_pos=string_index(right_type_name,"<",-1);
+    if(left_generic_pos<=0||right_generic_pos<=0) {
+        __result_obj__0 = (_Bool)0;
+        (left_type_name = come_decrement_ref_count(left_type_name, (void*)0, (void*)0, 0, 0, (void*)0));
+        (right_type_name = come_decrement_ref_count(right_type_name, (void*)0, (void*)0, 0, 0, (void*)0));
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
+    }
+    left_wrapper=(char* )come_increment_ref_count(charp_substring(left_type_name,0,left_generic_pos));
+    right_wrapper=(char* )come_increment_ref_count(charp_substring(right_type_name,0,right_generic_pos));
+    if(string_operator_not_equals(left_wrapper,right_wrapper)) {
+        __result_obj__0 = (_Bool)0;
+        (left_type_name = come_decrement_ref_count(left_type_name, (void*)0, (void*)0, 0, 0, (void*)0));
+        (right_type_name = come_decrement_ref_count(right_type_name, (void*)0, (void*)0, 0, 0, (void*)0));
+        (left_wrapper = come_decrement_ref_count(left_wrapper, (void*)0, (void*)0, 0, 0, (void*)0));
+        (right_wrapper = come_decrement_ref_count(right_wrapper, (void*)0, (void*)0, 0, 0, (void*)0));
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
+    }
+    left_void_generic=string_index(left_type_name,"<void",-1)>=0;
+    right_void_generic=string_index(right_type_name,"<void",-1)>=0;
+    __result_obj__0 = left_void_generic||right_void_generic;
+    (left_type_name = come_decrement_ref_count(left_type_name, (void*)0, (void*)0, 0, 0, (void*)0));
+    (right_type_name = come_decrement_ref_count(right_type_name, (void*)0, (void*)0, 0, 0, (void*)0));
+    (left_wrapper = come_decrement_ref_count(left_wrapper, (void*)0, (void*)0, 0, 0, (void*)0));
+    (right_wrapper = come_decrement_ref_count(right_wrapper, (void*)0, (void*)0, 0, 0, (void*)0));
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
+
+_Bool is_span_class_name(const char* class_name, struct sInfo*  info  )
+{
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "is_span_class_name"; neo_current_frame = &fr;
+    if(class_name==((void*)0)) {
+        neo_current_frame = fr.prev;
+        return (_Bool)0;
+    }
+    neo_current_frame = fr.prev;
+    return charp_operator_equals(class_name,"span")||(strlen(class_name)>5&&memcmp(class_name,"span$",5)==0);
+    neo_current_frame = fr.prev;
+}
+
+_Bool is_span_wrapper_compatible(struct sType*  left_type  , struct sType*  right_type  , struct sInfo*  info  )
+{
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "is_span_wrapper_compatible"; neo_current_frame = &fr;
+    if(left_type==((void*)0)||right_type==((void*)0)||left_type->mClass==((void*)0)||right_type->mClass==((void*)0)) {
+        neo_current_frame = fr.prev;
+        return (_Bool)0;
+    }
+    neo_current_frame = fr.prev;
+    return is_span_class_name(left_type->mClass->mName,info)&&is_span_class_name(right_type->mClass->mName,info);
+    neo_current_frame = fr.prev;
+}
+
 _Bool is_transparent_union_type(struct sType*  type  , struct sInfo*  info  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "is_transparent_union_type"; neo_current_frame = &fr;
@@ -11092,14 +11179,23 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
                 return __result_obj__0;
             }
             if(!is_same_base_type_ignoring_qualifier(left_type2,right_type2,info)) {
-                err_msg(info,"invalid pointer base type. %s",msg);
-                show_type(left_type2,info);
-                show_type(right_type2,info);
-                __result_obj__0 = (_Bool)0;
-                come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-                come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-                neo_current_frame = fr.prev;
-                return __result_obj__0;
+                if(is_span_wrapper_compatible(left_type2,right_type2,info)) {
+                    __result_obj__0 = (_Bool)1;
+                    come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                    come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                    neo_current_frame = fr.prev;
+                    return __result_obj__0;
+                }
+                if(!is_generic_void_pointer_compatible(left_type2,right_type2,info)) {
+                    err_msg(info,"invalid pointer base type. %s",msg);
+                    show_type(left_type2,info);
+                    show_type(right_type2,info);
+                    __result_obj__0 = (_Bool)0;
+                    come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                    come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                    neo_current_frame = fr.prev;
+                    return __result_obj__0;
+                }
             }
             __result_obj__0 = (_Bool)1;
             come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);

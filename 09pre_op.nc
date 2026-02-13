@@ -698,6 +698,10 @@ class sArrayInitializer extends sNodeBase
     }
 };
 
+sNode*% create_defference_node(sNode*% value, bool quote, sInfo* info)
+{
+    return new sDerefferenceNode(value, quote, info) implements sNode;
+}
 
 sNode*% pre_position_operator(sInfo* info=info)
 {

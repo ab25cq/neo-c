@@ -3592,6 +3592,52 @@ bool is_null_pointer_constant(CVALUE* come_value, sInfo* info=info)
     return false;
 }
 
+bool is_generic_void_pointer_compatible(sType* left_type, sType* right_type, sInfo* info=info)
+{
+    if(left_type == null || right_type == null) {
+        return false;
+    }
+    string left_type_name = make_come_type_name_string(left_type);
+    string right_type_name = make_come_type_name_string(right_type);
+
+    int left_generic_pos = left_type_name.index("<", -1);
+    int right_generic_pos = right_type_name.index("<", -1);
+    if(left_generic_pos <= 0 || right_generic_pos <= 0) {
+        return false;
+    }
+
+    string left_wrapper = left_type_name.substring(0, left_generic_pos);
+    string right_wrapper = right_type_name.substring(0, right_generic_pos);
+    if(left_wrapper !== right_wrapper) {
+        return false;
+    }
+
+    bool left_void_generic = left_type_name.index("<void", -1) >= 0;
+    bool right_void_generic = right_type_name.index("<void", -1) >= 0;
+
+    return left_void_generic || right_void_generic;
+}
+
+bool is_span_class_name(const char* class_name, sInfo* info=info)
+{
+    if(class_name == null) {
+        return false;
+    }
+    return class_name === "span"
+        || (strlen(class_name) > 5 && memcmp(class_name, "span$", 5) == 0);
+}
+
+bool is_span_wrapper_compatible(sType* left_type, sType* right_type, sInfo* info=info)
+{
+    if(left_type == null || right_type == null
+        || left_type->mClass == null || right_type->mClass == null)
+    {
+        return false;
+    }
+    return is_span_class_name(left_type->mClass->mName)
+        && is_span_class_name(right_type->mClass->mName);
+}
+
 bool is_transparent_union_type(sType* type, sInfo* info=info)
 {
     if(type == null || type->mClass == null || !type->mClass->mUnion) {
@@ -4044,10 +4090,15 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
             }
             
             if(!is_same_base_type_ignoring_qualifier(left_type2, right_type2)) {
-                err_msg(info, "invalid pointer base type. %s", msg);
-                show_type(left_type2);
-                show_type(right_type2);
-                return false;
+                if(is_span_wrapper_compatible(left_type2, right_type2)) {
+                    return true;
+                }
+                if(!is_generic_void_pointer_compatible(left_type2, right_type2)) {
+                    err_msg(info, "invalid pointer base type. %s", msg);
+                    show_type(left_type2);
+                    show_type(right_type2);
+                    return false;
+                }
             }
             return true;
         }

@@ -872,6 +872,7 @@ void transpile_toplevel(bool block=false, sInfo* info=info);
 sNode*% reverse_node(sNode*% value, sInfo* info);
 sFun*% compile_uniq_function(sFun* fun, sInfo* info=info);
 sNode*% cast_node(sType* type, sNode*% node, sInfo* info=info);
+sNode*% create_defference_node(sNode*% value, bool quote, sInfo* info);
 sNode*% reffence_node(sNode*% value, sInfo* info);
 string,sGenericsFun* make_method_generics_function(string fun_name, list<sType*%>* method_generics_types, sInfo* info);
 sNode*% create_return_node(sNode*% value, sInfo* info=info);

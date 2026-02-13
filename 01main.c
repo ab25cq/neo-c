@@ -732,6 +732,15 @@ struct sMemHeader
     const char* class_name;
 };
 
+struct ref$1void$ph
+{
+    void* p;
+    _Bool global;
+    _Bool heap;
+    _Bool local;
+    void* stacktop;
+};
+
 struct smart_pointer$1int$
 {
     struct buffer*  memory  ;
@@ -2170,6 +2179,7 @@ void transpile_toplevel(_Bool block, struct sInfo*  info  );
 struct sNode* reverse_node(struct sNode* value, struct sInfo*  info  );
 struct sFun*  compile_uniq_function(struct sFun*  fun  , struct sInfo*  info  );
 struct sNode* cast_node(struct sType*  type  , struct sNode* node, struct sInfo*  info  );
+struct sNode* create_defference_node(struct sNode* value, _Bool quote, struct sInfo*  info  );
 struct sNode* reffence_node(struct sNode* value, struct sInfo*  info  );
 struct tuple2$2char$phsGenericsFun$p* make_method_generics_function(char*  fun_name  , struct list$1sType$ph* method_generics_types, struct sInfo*  info  );
 struct sNode* create_return_node(struct sNode* value, struct sInfo*  info  );
@@ -13129,7 +13139,7 @@ _Bool sNullChecker_compile(struct sNullChecker* self, struct sInfo*  info  )
     type=(struct sType* )come_increment_ref_count(solve_method_generics(type_,info));
     original_type=(struct sType* )come_increment_ref_count(type__->mOriginalLoadVarType);
     if(!gComeC&&gComeDebug&&type->mPointerNum>0&&(original_type==((void*)0)||list$1sNode$ph_length(original_type->mArrayNum)==0)&&!type->mArrayPointerType&&type->mArrayPointerNum==0) {
-        come_value2=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE* )come_increment_ref_count((struct CVALUE *)come_calloc(1, sizeof(struct CVALUE )*(1), (void*)0, 1189, "struct CVALUE* "))));
+        come_value2=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE* )come_increment_ref_count((struct CVALUE *)come_calloc(1, sizeof(struct CVALUE )*(1), (void*)0, 1190, "struct CVALUE* "))));
         __dec_obj123=come_value2->c_value,
         come_value2->c_value=(char* )come_increment_ref_count(xsprintf("((%s)come_null_checker(%s, \"%s\", %d))",((char* )(__right_value0=make_type_name_string(type,info,(_Bool)1,(_Bool)0,(_Bool)0))),come_value->c_value,info->sname,info->sline));
         __dec_obj123 = come_decrement_ref_count(__dec_obj123, (void*)0, (void*)0, 0,0, (void*)0);
