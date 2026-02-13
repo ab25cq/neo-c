@@ -612,6 +612,7 @@ class sCastNode extends sNodeBase
         come_value.c_value = xsprintf("(%s)%s", make_type_name_string(type3, cast_type:true), left_value.c_value);
         come_value.type = clone type3;
         come_value.var = left_value.var;
+        come_value.mCastValue = true;
         
         add_come_last_code(info, "%s", come_value.c_value);
         
@@ -1192,4 +1193,3 @@ sNode*% expression_node(sInfo* info=info) version 97
         return node;
     }
 }
-

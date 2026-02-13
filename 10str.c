@@ -1220,6 +1220,7 @@ struct CVALUE
     char*  c_value_without_right_value_objects  ;
     char*  c_value_without_cast_object_value  ;
     _Bool mLoadField;
+    _Bool mCastValue;
 };
 
 struct map$2char$phchar$ph
@@ -5993,6 +5994,9 @@ static struct CVALUE*  CVALUE_clone(struct CVALUE*  self  )
     }
     if(self!=((void*)0)) {
         result->mLoadField=self->mLoadField;
+    }
+    if(self!=((void*)0)) {
+        result->mCastValue=self->mCastValue;
     }
     __result_obj__0 = (struct CVALUE* )come_increment_ref_count(result);
     come_call_finalizer(CVALUE_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);

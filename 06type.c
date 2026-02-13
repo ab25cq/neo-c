@@ -1220,6 +1220,7 @@ struct CVALUE
     char*  c_value_without_right_value_objects  ;
     char*  c_value_without_cast_object_value  ;
     _Bool mLoadField;
+    _Bool mCastValue;
 };
 
 struct map$2char$phchar$ph
@@ -10260,7 +10261,7 @@ _Bool is_pointer_type(struct sType*  type  , struct sInfo*  info  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "is_pointer_type"; neo_current_frame = &fr;
     neo_current_frame = fr.prev;
-    return type->mPointerNum>0||type->mArrayPointerNum>0||type->mArrayPointerNum>0;
+    return type->mPointerNum>0||type->mArrayPointerNum>0||type->mArrayPointerType;
     neo_current_frame = fr.prev;
 }
 
@@ -10830,6 +10831,7 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
     int right_ptr_num;
     _Bool left_void;
     _Bool right_void;
+    _Bool explicit_cast_value;
     _Bool left_void_ptr;
     _Bool right_void_ptr;
     _Bool right_const;
@@ -10918,10 +10920,11 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
     }
     if(left_ptr||right_ptr||right_array) {
         if(left_ptr&&(right_ptr||right_array)) {
-            left_ptr_num=left_type2->mPointerNum+(((left_type2->mPointerNum==0)?(left_type2->mArrayPointerNum):(0)));
-            right_ptr_num=right_type2->mPointerNum+(((right_type2->mPointerNum==0)?(right_type2->mArrayPointerNum):(0)))+(((right_array)?(1):(0)));
+            left_ptr_num=left_type2->mPointerNum+(((left_type2->mPointerNum==0)?(left_type2->mArrayPointerNum):(0)))+(((left_type2->mArrayPointerType)?(1):(0)));
+            right_ptr_num=right_type2->mPointerNum+(((right_type2->mPointerNum==0)?(right_type2->mArrayPointerNum):(0)))+(((right_type2->mArrayPointerType)?(1):(0)))+(((right_array)?(1):(0)));
             left_void=string_operator_equals(left_type2->mClass->mName,"void");
             right_void=string_operator_equals(right_type2->mClass->mName,"void");
+            explicit_cast_value=come_value!=((void*)0)&&come_value->mCastValue;
             left_void_ptr=left_void&&left_ptr_num==1;
             right_void_ptr=right_void&&right_ptr_num==1;
             if(left_ptr_num!=right_ptr_num&&!(left_void_ptr||right_void_ptr)) {
@@ -10934,41 +10937,43 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
                 neo_current_frame = fr.prev;
                 return __result_obj__0;
             }
-            right_const=right_type2->mConstant||pointer_attr_has_const(right_type2,info);
-            left_const=left_type2->mConstant||pointer_attr_has_const(left_type2,info);
-            if(right_const&&!left_const) {
-                warning_msg(info,"invalid const pointer assign. %s",msg);
-                show_type(left_type2,info);
-                show_type(right_type2,info);
-                __result_obj__0 = (_Bool)0;
-                come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-                come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-                neo_current_frame = fr.prev;
-                return __result_obj__0;
-            }
-            right_volatile=right_type2->mVolatile||pointer_attr_has_volatile(right_type2,info);
-            left_volatile=left_type2->mVolatile||pointer_attr_has_volatile(left_type2,info);
-            if(right_volatile&&!left_volatile) {
-                warning_msg(info,"invalid volatile pointer assign. %s",msg);
-                show_type(left_type2,info);
-                show_type(right_type2,info);
-                __result_obj__0 = (_Bool)0;
-                come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-                come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-                neo_current_frame = fr.prev;
-                return __result_obj__0;
-            }
-            right_restrict=right_type2->mRestrict||pointer_attr_has_restrict(right_type2,info);
-            left_restrict=left_type2->mRestrict||pointer_attr_has_restrict(left_type2,info);
-            if(right_restrict&&!left_restrict) {
-                warning_msg(info,"invalid restrict pointer assign. %s",msg);
-                show_type(left_type2,info);
-                show_type(right_type2,info);
-                __result_obj__0 = (_Bool)0;
-                come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-                come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-                neo_current_frame = fr.prev;
-                return __result_obj__0;
+            if(!explicit_cast_value) {
+                right_const=right_type2->mConstant||pointer_attr_has_const(right_type2,info);
+                left_const=left_type2->mConstant||pointer_attr_has_const(left_type2,info);
+                if(right_const&&!left_const) {
+                    warning_msg(info,"invalid const pointer assign. %s",msg);
+                    show_type(left_type2,info);
+                    show_type(right_type2,info);
+                    __result_obj__0 = (_Bool)0;
+                    come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                    come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                    neo_current_frame = fr.prev;
+                    return __result_obj__0;
+                }
+                right_volatile=right_type2->mVolatile||pointer_attr_has_volatile(right_type2,info);
+                left_volatile=left_type2->mVolatile||pointer_attr_has_volatile(left_type2,info);
+                if(right_volatile&&!left_volatile) {
+                    warning_msg(info,"invalid volatile pointer assign. %s",msg);
+                    show_type(left_type2,info);
+                    show_type(right_type2,info);
+                    __result_obj__0 = (_Bool)0;
+                    come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                    come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                    neo_current_frame = fr.prev;
+                    return __result_obj__0;
+                }
+                right_restrict=right_type2->mRestrict||pointer_attr_has_restrict(right_type2,info);
+                left_restrict=left_type2->mRestrict||pointer_attr_has_restrict(left_type2,info);
+                if(right_restrict&&!left_restrict) {
+                    warning_msg(info,"invalid restrict pointer assign. %s",msg);
+                    show_type(left_type2,info);
+                    show_type(right_type2,info);
+                    __result_obj__0 = (_Bool)0;
+                    come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                    come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                    neo_current_frame = fr.prev;
+                    return __result_obj__0;
+                }
             }
             if(left_void||right_void) {
                 __result_obj__0 = (_Bool)1;

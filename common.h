@@ -393,6 +393,7 @@ uniq class CVALUE
     string c_value_without_right_value_objects;
     string c_value_without_cast_object_value;
     bool mLoadField;
+    bool mCastValue;
     
     new() {
     }

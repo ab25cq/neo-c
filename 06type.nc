@@ -3555,7 +3555,7 @@ void show_type(sType* type, sInfo* info=info)
 
 bool is_pointer_type(sType* type, sInfo* info=info)
 {
-    return type->mPointerNum > 0 || type->mArrayPointerNum > 0 || type->mArrayPointerNum > 0;
+    return type->mPointerNum > 0 || type->mArrayPointerNum > 0 || type->mArrayPointerType;
 }
 
 bool is_arithmetic_type(sType* type, sInfo* info=info)
@@ -3874,7 +3874,7 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
     
     left_type2 = expand_typedef_for_assign(left_type2);
     right_type2 = expand_typedef_for_assign(right_type2);
-
+    
     if(left_type2->mClass == null || right_type2->mClass == null) {
         warning_msg(info, "invalid assign type(expanded class is null). %s", msg);
         return false;
@@ -3912,13 +3912,16 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
     if(left_ptr || right_ptr || right_array) {
         if(left_ptr && (right_ptr || right_array)) {
             int left_ptr_num = left_type2->mPointerNum
-                + (left_type2->mPointerNum == 0 ? left_type2->mArrayPointerNum : 0);
+                + (left_type2->mPointerNum == 0 ? left_type2->mArrayPointerNum : 0)
+                + (left_type2->mArrayPointerType ? 1 : 0);
             int right_ptr_num = right_type2->mPointerNum
                 + (right_type2->mPointerNum == 0 ? right_type2->mArrayPointerNum : 0)
+                + (right_type2->mArrayPointerType ? 1 : 0)
                 + (right_array ? 1 : 0);
             
             bool left_void = left_type2->mClass->mName === "void";
             bool right_void = right_type2->mClass->mName === "void";
+            bool explicit_cast_value = come_value != null && come_value.mCastValue;
             
             bool left_void_ptr = left_void && left_ptr_num == 1;
             bool right_void_ptr = right_void && right_ptr_num == 1;
@@ -3929,29 +3932,31 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
                 return false;
             }
             
-            bool right_const = right_type2->mConstant || pointer_attr_has_const(right_type2);
-            bool left_const = left_type2->mConstant || pointer_attr_has_const(left_type2);
-            if(right_const && !left_const) {
-                warning_msg(info, "invalid const pointer assign. %s", msg);
-                show_type(left_type2);
-                show_type(right_type2);
-                return false;
-            }
-            bool right_volatile = right_type2->mVolatile || pointer_attr_has_volatile(right_type2);
-            bool left_volatile = left_type2->mVolatile || pointer_attr_has_volatile(left_type2);
-            if(right_volatile && !left_volatile) {
-                warning_msg(info, "invalid volatile pointer assign. %s", msg);
-                show_type(left_type2);
-                show_type(right_type2);
-                return false;
-            }
-            bool right_restrict = right_type2->mRestrict || pointer_attr_has_restrict(right_type2);
-            bool left_restrict = left_type2->mRestrict || pointer_attr_has_restrict(left_type2);
-            if(right_restrict && !left_restrict) {
-                warning_msg(info, "invalid restrict pointer assign. %s", msg);
-                show_type(left_type2);
-                show_type(right_type2);
-                return false;
+            if(!explicit_cast_value) {
+                bool right_const = right_type2->mConstant || pointer_attr_has_const(right_type2);
+                bool left_const = left_type2->mConstant || pointer_attr_has_const(left_type2);
+                if(right_const && !left_const) {
+                    warning_msg(info, "invalid const pointer assign. %s", msg);
+                    show_type(left_type2);
+                    show_type(right_type2);
+                    return false;
+                }
+                bool right_volatile = right_type2->mVolatile || pointer_attr_has_volatile(right_type2);
+                bool left_volatile = left_type2->mVolatile || pointer_attr_has_volatile(left_type2);
+                if(right_volatile && !left_volatile) {
+                    warning_msg(info, "invalid volatile pointer assign. %s", msg);
+                    show_type(left_type2);
+                    show_type(right_type2);
+                    return false;
+                }
+                bool right_restrict = right_type2->mRestrict || pointer_attr_has_restrict(right_type2);
+                bool left_restrict = left_type2->mRestrict || pointer_attr_has_restrict(left_type2);
+                if(right_restrict && !left_restrict) {
+                    warning_msg(info, "invalid restrict pointer assign. %s", msg);
+                    show_type(left_type2);
+                    show_type(right_type2);
+                    return false;
+                }
             }
             /*
             if(!is_same_attribute(left_type2->mPointerAttribute, right_type2->mPointerAttribute)) {

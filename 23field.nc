@@ -1,5 +1,63 @@
 #include "common.h"
 
+static sType*% expand_typedef_for_load_element(sType* type)
+{
+    sType*% result = clone type;
+    int guard = 0;
+    
+    while(result->mTypedefOriginalType && guard < 16) {
+        sType*% orig = clone result->mTypedefOriginalType;
+        
+        int ptr = result->mPointerNum;
+        if(ptr == 0 && orig->mPointerNum > 0) {
+            ptr = orig->mPointerNum;
+        }
+        orig->mPointerNum = ptr;
+        
+        int array_ptr = result->mArrayPointerNum;
+        if(array_ptr == 0 && orig->mArrayPointerNum > 0) {
+            array_ptr = orig->mArrayPointerNum;
+        }
+        orig->mArrayPointerNum = array_ptr;
+        
+        if(result->mArrayPointerType) {
+            orig->mArrayPointerType = true;
+        }
+        if(result->mArrayNum.length() > 0) {
+            orig->mArrayNum = clone result->mArrayNum;
+        }
+        
+        orig->mConstant = result->mConstant;
+        orig->mVolatile = result->mVolatile;
+        orig->mRestrict = result->mRestrict;
+        orig->mUnsigned = result->mUnsigned;
+        orig->mShort = result->mShort;
+        orig->mLong = result->mLong;
+        orig->mLongLong = result->mLongLong;
+        orig->mComplex = result->mComplex;
+        orig->mAtomic = result->mAtomic;
+        
+        orig->mPointerAttribute = result->mPointerAttribute;
+        orig->mAttribute = result->mAttribute;
+        orig->mVarAttribute = result->mVarAttribute;
+        
+        if(result->mGenericsTypes.length() > 0) {
+            orig->mGenericsTypes = clone result->mGenericsTypes;
+        }
+        if(result->mNoSolvedGenericsType) {
+            orig->mNoSolvedGenericsType = clone result->mNoSolvedGenericsType;
+        }
+        if(result->mOriginalLoadVarType) {
+            orig->mOriginalLoadVarType = clone result->mOriginalLoadVarType;
+        }
+        
+        result = clone orig;
+        guard++;
+    }
+    
+    return result;
+}
+
 
 bool operator_overload_fun2(sType* type, const char* fun_name, sNode*% left_node, sNode*% middle_node, sNode*% right_node, CVALUE* left_value, CVALUE* middle_value, CVALUE* right_value, sInfo* info)
 {
@@ -820,11 +878,19 @@ class sLoadArrayNode extends sNodeBase
             else {
                 result_type = clone left_type;
              }
+
+            // For typedef pointer aliases (e.g. string -> char*), use expanded
+            // type info so element access decays to the pointed element type.
+            if(result_type->mTypedefOriginalType && result_type->mArrayNum.length() == 0 && result_type->mPointerNum == 0) {
+                result_type = expand_typedef_for_load_element(result_type);
+            }
             
             come_value.type = result_type;
+            bool consumed_array_pointer_type = false;
             
             if(come_value.type->mArrayPointerType) {
                 come_value.type->mPointerNum++;
+                consumed_array_pointer_type = true;
             }
             
             if(come_value.type->mArrayNum.length() > 0) {
@@ -852,7 +918,12 @@ class sLoadArrayNode extends sNodeBase
                 }
             }
             else if(come_value.type->mPointerNum > 0) {
+                come_value.type->mOriginalLoadVarType = clone result_type;
                 come_value.type->mPointerNum--;
+                if(consumed_array_pointer_type) {
+                    // [] was consumed by this element access.
+                    come_value.type->mArrayPointerType = false;
+                }
             }
             
             come_value.var = left_value.var;

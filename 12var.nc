@@ -722,7 +722,7 @@ class sLoadNode extends sNodeBase
                 }
                 else {
                     if(var_ == null) {
-                        warning_msg(info, "force to output variable and type checking is ignored. if it's heap varible cause memory leak(%s)", self.name);
+                        //warning_msg(info, "force to output variable and type checking is ignored. if it's heap varible cause memory leak(%s)", self.name);
                         
                         CVALUE*% come_value = new CVALUE();
                         
@@ -768,7 +768,14 @@ class sLoadNode extends sNodeBase
                 
                 /// decay ///
                 come_value.type->mArrayNum.delete(0, 1);
-                come_value.type->mArrayPointerNum++;
+                if(come_value.type->mPointerNum > 0) {
+                    // int*[] -> int**, T**[] -> T***, ...
+                    come_value.type->mPointerNum++;
+                }
+                else {
+                    // int[] -> int*
+                    come_value.type->mArrayPointerNum++;
+                }
             }
         }
         
