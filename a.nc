@@ -26,6 +26,8 @@ int main(int argc, char** argv)
     printf("%d\n", p.c);
     printf("%d\n", p.d);
     
+    p++;
+    
     return 0;
 }
 
