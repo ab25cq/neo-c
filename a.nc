@@ -8,29 +8,25 @@ struct sData
     int d;
 };
 
-sData*{} fun()
+void fun()
 {
     int xxx[8] = { 1,2,3,4,5,6,7,8 };
     struct sData*{} p = span xxx;
     
-    return p;
+    printf("%d\n", p[0].a);
+    printf("%d\n", p[0].b);
+    printf("%d\n", p[0].c);
+    printf("%d\n", p[0].d);
+    
+    printf("%d\n", p[1].a);
+    printf("%d\n", p[1].b);
+    printf("%d\n", p[1].c);
+    printf("%d\n", p[1].d);
 }
 
 int main(int argc, char** argv)
 {
-    var p = fun();
-    
-    printf("%d\n", p.a);
-    printf("%d\n", p.b);
-    printf("%d\n", p.c);
-    printf("%d\n", p.d);
-    
-    p++;
-    
-    printf("%d\n", p.a);
-    printf("%d\n", p.b);
-    printf("%d\n", p.c);
-    printf("%d\n", p.d);
+    fun();
     
     return 0;
 }
