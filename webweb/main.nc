@@ -206,7 +206,7 @@ void run_get_cgi(SSL* it, string cgi_path, string header, string contents, strin
         SSL_write(it, not_found, strlen(not_found));
     }
     else {
-        string output = f.read();
+        string output = f.read().to_string();
         pclose(f);
         
         if(output.match("Location:")) {
@@ -246,7 +246,7 @@ void run_get_cgi_http(int it, string cgi_path, string header, string contents, s
         write(it, not_found, strlen(not_found));
     }
     else {
-        string output = f.read();
+        string output = f.read().to_string();
         pclose(f);
         
         if(output.match("Location:")) {
@@ -361,7 +361,7 @@ puts(file_path);
                             else {
                                 fclose(file);
                                 
-                                string file_contents = file_path.read();
+                                string file_contents = file_path.read().to_string();
                                 string file_contents2 = parse_html(file_contents);
                                 
                                 string response = xsprintf("HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n%s", file_contents2);
@@ -532,7 +532,7 @@ puts("contents end");
                             else {
                                 fclose(file);
                                 
-                                string file_contents = file_path.read();
+                                string file_contents = file_path.read().to_string();
                                 string file_contents2 = parse_html(file_contents);
                                 
                                 string response = xsprintf("HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n%s", file_contents2);

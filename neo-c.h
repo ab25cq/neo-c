@@ -8146,10 +8146,10 @@ uniq wstring wstring::delete(wchar_t* str, int head, int tail)
 /// base library(IO-FILE)
 //////////////////////////////
 #ifdef UNIX
-    uniq string FILE*::read(FILE* f)
+    uniq buffer*% FILE*::read(FILE* f)
     {
         if(f == null) {
-            return string("");
+            return b"";
         }
         buffer*% buf = new buffer.initialize();
         
@@ -8165,7 +8165,7 @@ uniq wstring wstring::delete(wchar_t* str, int head, int tail)
             }
         }
         
-        return buf.to_string();
+        return buf;
     }
     
     uniq int FILE*::write(FILE* f, const char* str)
@@ -8246,16 +8246,16 @@ uniq wstring wstring::delete(wchar_t* str, int head, int tail)
         return result;
     }
     
-    uniq string char*::read(const char* file_name) 
+    uniq buffer*% char*::read(const char* file_name) 
     {
         if(file_name == null) {
-            return string("");
+            return b"";
         }
         
         FILE* f = fopen(file_name, "r");
         
         if(f == NULL) {
-            return string("");
+            return b"";
         }
         
         buffer*% buf = new buffer.initialize();
@@ -8272,15 +8272,13 @@ uniq wstring wstring::delete(wchar_t* str, int head, int tail)
             }
         }
         
-        string result = buf.to_string();
-        
         int result2 = fclose(f)
         
         if(result2 < 0) {
-            return string("");
+            return b"";
         }
         
-        return result;
+        return buf;
     }
     
     uniq list<string>*% FILE*::readlines(FILE* f)

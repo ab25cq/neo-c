@@ -2392,12 +2392,12 @@ char*  charp_chomp(const char* str);
 _Bool wchar_tp_equals(const int*  left  , const int*  right  );
 _Bool wchar_tp_operator_equals(const int*  left  , const int*  right  );
 _Bool wchar_tp_operator_not_equals(const int*  left  , const int*  right  );
-char*  FILE_read(struct _IO_FILE*  f  );
+struct buffer*  FILE_read(struct _IO_FILE*  f  );
 int FILE_write(struct _IO_FILE*  f  , const char* str);
 int FILE_fclose(struct _IO_FILE*  f  );
 struct _IO_FILE*  FILE_fprintf(struct _IO_FILE*  f  , const char* msg, ...);
 int charp_write(const char* self, const char* file_name, _Bool append);
-char*  charp_read(const char* file_name);
+struct buffer*  charp_read(const char* file_name);
 struct list$1char$ph* FILE_readlines(struct _IO_FILE*  f  );
 _Bool xiswalpha(int  c  );
 _Bool xiswblank(int  c  );
@@ -4259,7 +4259,6 @@ int come_main(int argc, char** argv)
     struct list$1char$ph* __dec_obj43;
     char*  __dec_obj44  ;
     _Bool Value_38;
-    void* __right_value2 = (void*)0;
     struct buffer*  __dec_obj45  ;
     char*  __dec_obj46  ;
     _Bool Value_39;
@@ -4380,10 +4379,9 @@ int come_main(int argc, char** argv)
             exit(2);
         }
         __dec_obj45=info.source,
-        info.source=(struct buffer* )come_increment_ref_count(charp_to_buffer(((char* )(__right_value1=charp_read(((char* )(__right_value0=xsprintf("%s.i",it))))))));
+        info.source=(struct buffer* )come_increment_ref_count(charp_read(((char* )(__right_value0=xsprintf("%s.i",it)))));
         come_call_finalizer(buffer_finalize, __dec_obj45,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
         info.p=info.source->buf;
         info.head=info.source->buf;
         info.end=info.source->buf+info.source->len;

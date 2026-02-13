@@ -502,7 +502,7 @@ bool vm(sInfo* info) version 10
                 case kFileValue: {
                     if(fun_name === "read") {
                         if(params.length() == 0) {
-                            string str = obj.fileValue.read();
+                            string str = obj.fileValue.read().to_string();
                             
                             result = new ZVALUE(kind:kStrValue, str_value:str.to_wstring());
                         }

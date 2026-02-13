@@ -2,7 +2,7 @@
 
 int main(int argc, char** argv)
 {
-    string input = stdin.read();
+    string input = stdin.read().to_string();
     
     puts("""
     <!DOCTYPE html>

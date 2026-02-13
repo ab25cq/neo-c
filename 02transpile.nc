@@ -355,7 +355,7 @@ int come_main(int argc, char** argv)
             exit(2);
         }
 
-        info.source = xsprintf("%s.i", it).read().to_buffer();
+        info.source = xsprintf("%s.i", it).read();
         info.p = borrow info.source.buf;
         info.head = borrow info.source.buf;
         info.end = info.source.buf + info.source.len;

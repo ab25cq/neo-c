@@ -1588,7 +1588,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
         string sname = info.sname;
         int sline = info.sline;
         
-        info.source = "__ccpp_tmp".read().to_buffer();
+        info.source = "__ccpp_tmp".read();
         info.p = borrow info.source.buf;
         info.head = borrow info.source.buf;
         info.end = info.source.buf + info.source.len;
