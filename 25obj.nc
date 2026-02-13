@@ -1528,6 +1528,7 @@ class sOptionalNode extends sNodeBase
 };
 
 
+
 class sRefNode extends sNodeBase
 {
     new(sNode*% node, sInfo* info)
@@ -1592,6 +1593,110 @@ class sRefNode extends sNodeBase
         params.add(t((string)null, heap_ ? create_true_object(info):create_false_object(info)));
         params.add(t((string)null, local_ ? create_true_object(info):create_false_object(info)));
         params.add(t((string)null, node3));
+        
+        sNode*% method_node = create_method_call("initialize", obj, params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
+        
+        node_compile(method_node).elif {
+            return false;
+        }
+        
+        return true;
+    }
+};
+
+sNode*%@head,sNode*%@len get_head_and_len(sNode*% node, CVALUE*% come_value, sInfo* info=info)
+{
+    sNode*% head;
+    sNode*% len;
+    sType*% type = come_value.type;
+    if(type->mOriginalTypeName && type->mOriginalTypeName === "string") {
+        list<tup: string, sNode*%>*% params = new list<tup: string, sNode*%>();
+        
+        params.add(t((string)null, node));
+        
+        head = node;
+        len = create_funcall("strlen", params, null, 0, null, info);
+    }
+    else if(type->mClass->mName === "buffer") {
+        head = load_field(node, s"buf", info);
+        len = load_field(node, s"len", info);
+    }
+    else if(type->mClass->mName === "map" || type->mClass->mName === "list") {
+        err_msg(info, "can't get sirialize memory of this type(%s)", type->mClass->mName);
+        exit(1);
+    }
+    else {
+        head = node;
+        len = new sSizeOfExpNode(node, info) implements sNode;
+    }
+    
+    return t(head,len);
+}
+
+
+class sSpanNode extends sNodeBase
+{
+    new(sNode*% node, sInfo* info)
+    {
+        self.super();
+        
+        sNode*% self.node = node;
+    }
+    
+    string kind()
+    {
+        return string("sSpanNode");
+    }
+    
+    bool compile(sInfo* info)
+    {
+        sNode*% node = self.node;
+        
+        bool no_output_come_code = info.no_output_come_code;
+        info.no_output_come_code = true;
+        node_compile(node).elif {
+            return false;
+        }
+        info.no_output_come_code = no_output_come_code;
+        
+        CVALUE*% come_value = get_value_from_stack(-1, info);
+        
+        if(come_value.var == null) {
+            err_msg(info, "require variable name for span");
+            return true;
+        }
+        
+        if(come_value.type->mPointerNum == 0) {
+            err_msg(info, "require pointer for span");
+            return true;
+        }
+        
+        bool global_ = come_value.var->mGlobal;
+        bool heap_ = come_value.type.mHeap;
+        bool local_ = !come_value.var->mGlobal;
+        
+        sType*% type_ = clone come_value.type;
+        
+        sType*% generics_type = new sType(s"span");
+        generics_type->mGenericsTypes.add(type_);
+        
+        sType*% type = new sType(s"span");
+        type->mGenericsTypes.add(new sType(s"__generics_type0"));
+        
+        sType*% type2 = solve_generics(type, generics_type, info);
+        
+        sNode*% obj = create_new_object(type2);
+        
+        list<tup: string, sNode*%>*% params = new list<tup: string, sNode*%>();
+        
+        sNode*% ref_ = new sRefNode(node, info) implements sNode;
+        
+        var head, len = get_head_and_len(node, come_value);
+        
+        params.add(t((string)null, obj));
+        params.add(t((string)null, ref_));
+        params.add(t((string)null, head));
+        params.add(t((string)null, len));
         
         sNode*% method_node = create_method_call("initialize", obj, params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
         
@@ -1794,6 +1899,11 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         sNode*% node = expression();
         
         return new sRefNode(node, info) implements sNode;
+    }
+    else if(!gComeC && buf === "span" && *info->p != '<') {
+        sNode*% node = expression();
+        
+        return new sSpanNode(node, info) implements sNode;
     }
     else if(buf === "using") {
        if(parsecmp("neo-c-pthread")) {

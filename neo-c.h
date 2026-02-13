@@ -945,8 +945,7 @@ impl slice<T>
 //////////////////////////////
 // span
 //////////////////////////////
-struct span<T, T2> {
-    T2& owned;
+struct span<T> {
     char* memory;
     T^ p;
     size_t len;
@@ -954,26 +953,25 @@ struct span<T, T2> {
     void* stacktop;
 };
 
-impl span<T, T2>
+impl span<T>
 {
-    span<T,T2>*% initialize(span<T,T2>*% self, T2& memory, size_t len)
+    span<T>*% initialize(span<T>*% self, T& refference, char* head, size_t len)
     {
         if(!ispointer(T)) {
             puts("invalid span");
             stackframe();
             exit(2);
         }
-        self.owned = memory;
-        self.memory = borrow memory.unwrap();
+        self.memory = (char*)head;
         
-        self.p = (T^)borrow self.memory;
+        self.p = (T^)head;
         self.len = len;
-        self.local = memory\.local;
-        self.stacktop = memory\.stacktop;
+        self.local = refference\.local;
+        self.stacktop = refference\.stacktop;
         
         return self;
     }
-    _norecord T2^ unwrap(span<T,T2>* self, bool check=false) {
+    _norecord T^ unwrap(span<T>* self, bool check=false) {
         if(self->local) {
             if(self->stacktop < neo_current_frame.stacktop) {
                 puts("refferenced object is vanished");
@@ -992,10 +990,10 @@ impl span<T, T2>
             exit(1);
         }
         
-        return (T2)self.p;
+        return (T^)self.p;
     }
     
-    _norecord span<T,T2>* operator_plus_plus(span<T,T2>* self)
+    _norecord span<T>* operator_plus_plus(span<T>* self)
     {
         using unsafe;
         
@@ -1017,7 +1015,7 @@ impl span<T, T2>
         
         return self;
     }
-    _norecord span<T,T2>* operator_plus_equal(span<T,T2>* self, size_t value)
+    _norecord span<T>* operator_plus_equal(span<T>* self, size_t value)
     {
         using unsafe;
         
@@ -1040,7 +1038,7 @@ impl span<T, T2>
         return self;
     }
     
-    _norecord span<T,T2>* operator_minus_minus(span<T,T2>* self)
+    _norecord span<T>* operator_minus_minus(span<T>* self)
     {
         using unsafe;
         
@@ -1063,7 +1061,7 @@ impl span<T, T2>
         return self;
     }
     
-    _norecord span<T,T2>* operator_minus_equal(span<T,T2>* self, size_t value)
+    _norecord span<T>* operator_minus_equal(span<T>* self, size_t value)
     {
         using unsafe;
         
@@ -1086,7 +1084,7 @@ impl span<T, T2>
         return self;
     }
     
-    _norecord T^ operator_add(span<T,T2>* self, size_t rvalue)
+    _norecord T^ operator_add(span<T>* self, size_t rvalue)
     {
         using unsafe;
         
@@ -1109,7 +1107,7 @@ impl span<T, T2>
         return result;
     }
     
-    _norecord T^ operator_sub(span<T,T2>* self, size_t rvalue)
+    _norecord T^ operator_sub(span<T>* self, size_t rvalue)
     {
         using unsafe;
         
@@ -1132,7 +1130,7 @@ impl span<T, T2>
         return result;
     }
     
-    _norecord T]^ operator_derefference(span<T,T2>* self)
+    _norecord T]^ operator_derefference(span<T>* self)
     {
         using unsafe;
         
@@ -1159,7 +1157,7 @@ impl span<T, T2>
         
         return *p;
     }
-    _norecord void operator_store_element(span<T,T2>* self, int position, T] item) {
+    _norecord void operator_store_element(span<T>* self, int position, T] item) {
         if(self->local) {
             if(self->stacktop < neo_current_frame.stacktop) {
                 puts("refferenced object is vanished");
@@ -1182,7 +1180,7 @@ impl span<T, T2>
         
         p\[position] = item;
     }
-    _norecord T^ operator_load_element(span<T,T2>* self, int position) {
+    _norecord T^ operator_load_element(span<T>* self, int position) {
         if(self->local) {
             if(self->stacktop < neo_current_frame.stacktop) {
                 puts("refferenced object is vanished");

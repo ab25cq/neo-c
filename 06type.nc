@@ -1606,7 +1606,7 @@ sType*% parse_pointer_attribute(sType* type, sInfo* info=info)
                 sType*% type = new sType(s"optional");
                 type->mGenericsTypes.add(new sType(s"__generics_type0"));
                 type->mPointerNum++;
-                //type->mHeap = true;
+                type->mHeap = true;
                 
                 sType*% type2 = solve_generics(type, generics_type, info);
                 
@@ -1615,9 +1615,8 @@ sType*% parse_pointer_attribute(sType* type, sInfo* info=info)
                 tmp_ = clone type2;
             }
         }
-/*
-        else if(*info->p == '!') {
-            info->p++;
+        else if(memcmp(info->p, "{}", 2) == 0) {
+            info->p+=2;
             skip_spaces_and_lf();
             
             if(tmp_) {
@@ -1625,21 +1624,25 @@ sType*% parse_pointer_attribute(sType* type, sInfo* info=info)
                 return type;
             }
             
-            sType*% generics_type = new sType(s"slice");
+            sType*% generics_type = new sType(s"span");
             generics_type->mGenericsTypes.add(clone type);
             
-            sType*% type = new sType(s"slice");
-            type->mGenericsTypes.add(new sType(s"__generics_type0"));
-            type->mPointerNum++;
-            type->mHeap = true;
-            
-            sType*% type2 = solve_generics(type, generics_type, info);
-            
-            type2->mSlice = true;
-            
-            tmp_ = clone type2;
+            if(is_contained_generics_class(generics_type, info)) {
+                type->mOptional = true;
+            }
+            else {
+                sType*% type = new sType(s"span");
+                type->mGenericsTypes.add(new sType(s"__generics_type0"));
+                type->mPointerNum++;
+                type->mHeap = true;
+                
+                sType*% type2 = solve_generics(type, generics_type, info);
+                
+                type2->mOptional = true;
+                
+                tmp_ = clone type2;
+            }
         }
-*/
         else if(*info->p == '`') {
             info->p++;
             skip_spaces_and_lf();
