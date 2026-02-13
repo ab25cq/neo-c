@@ -1383,10 +1383,10 @@ class sIsPointer extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        if(self.type.mPointerNum > 0) {
+        if(self.type.mPointerNum == 0 && self.type->mArrayPointerNum == 0) {
             CVALUE*% come_value = new CVALUE();
             
-            come_value.c_value = xsprintf("1");
+            come_value.c_value = xsprintf("0");
             come_value.type = new sType(s"int");
             come_value.var = null;
             
@@ -1397,7 +1397,7 @@ class sIsPointer extends sNodeBase
         else {
             CVALUE*% come_value = new CVALUE();
             
-            come_value.c_value = xsprintf("0");
+            come_value.c_value = xsprintf("1");
             come_value.type = new sType(s"int");
             come_value.var = null;
             
@@ -1473,7 +1473,7 @@ class sOptionalNode extends sNodeBase
         
         CVALUE*% come_value = get_value_from_stack(-1, info);
         
-        if(come_value.type->mPointerNum == 0) {
+        if(come_value.type->mPointerNum == 0 && come_value.type->mArrayPointerNum == 0) {
             err_msg(info, "require pointer for ref");
             return true;
         }
@@ -1561,7 +1561,7 @@ class sRefNode extends sNodeBase
             return true;
         }
         
-        if(come_value.type->mPointerNum == 0) {
+        if(come_value.type->mPointerNum == 0 && come_value.type->mArrayPointerNum == 0) {
             err_msg(info, "require pointer for ref");
             return true;
         }
@@ -1671,7 +1671,7 @@ class sSpanNode extends sNodeBase
             return true;
         }
         
-        if(come_value.type->mPointerNum == 0) {
+        if(come_value.type->mPointerNum == 0 && come_value.type->mArrayPointerNum == 0) {
             err_msg(info, "require pointer for span");
             return true;
         }

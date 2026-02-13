@@ -1,26 +1,30 @@
 #include <neo-c.h>
 
+struct sData
+{
+    int a;
+    int b;
+    int c;
+    int d;
+};
+
 int main(int argc, char** argv)
 {
-    var xxx = t(1,2,3,4);
-    //var xxx = "01main.nc".read();
+    int xxx[8] = { 1,2,3,4,5,6,7,8 };
     
-    long*%{} p = span xxx;
-    //char*%{} p = span xxx;
+    struct sData*{} p = span xxx;
     
-    printf("%d\n", *p);
-    
-    p++;
-    
-    printf("%d\n", *p);
+    printf("%d\n", p.a);
+    printf("%d\n", p.b);
+    printf("%d\n", p.c);
+    printf("%d\n", p.d);
     
     p++;
     
-    printf("%d\n", *p);
-    
-    p++;
-    
-    printf("%d\n", *p);
+    printf("%d\n", p.a);
+    printf("%d\n", p.b);
+    printf("%d\n", p.c);
+    printf("%d\n", p.d);
     
     return 0;
 }

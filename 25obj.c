@@ -8207,10 +8207,10 @@ _Bool sIsPointer_compile(struct sIsPointer* self, struct sInfo*  info  )
     struct CVALUE*  come_value_54  ;
     char*  __dec_obj143  ;
     struct sType*  __dec_obj144  ;
-    if(self->type->mPointerNum>0) {
+    if(self->type->mPointerNum==0&&self->type->mArrayPointerNum==0) {
         come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE* )come_increment_ref_count((struct CVALUE *)come_calloc(1, sizeof(struct CVALUE )*(1), (void*)0, 1387, "struct CVALUE* "))));
         __dec_obj141=come_value->c_value,
-        come_value->c_value=(char* )come_increment_ref_count(xsprintf("1"));
+        come_value->c_value=(char* )come_increment_ref_count(xsprintf("0"));
         __dec_obj141 = come_decrement_ref_count(__dec_obj141, (void*)0, (void*)0, 0,0, (void*)0);
         __dec_obj142=come_value->type,
         come_value->type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), (void*)0, 1390, "struct sType* ")),(char*)come_increment_ref_count(xsprintf("int")),(_Bool)0,info,(_Bool)0,0));
@@ -8223,7 +8223,7 @@ _Bool sIsPointer_compile(struct sIsPointer* self, struct sInfo*  info  )
     else {
         come_value_54=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE* )come_increment_ref_count((struct CVALUE *)come_calloc(1, sizeof(struct CVALUE )*(1), (void*)0, 1398, "struct CVALUE* "))));
         __dec_obj143=come_value_54->c_value,
-        come_value_54->c_value=(char* )come_increment_ref_count(xsprintf("0"));
+        come_value_54->c_value=(char* )come_increment_ref_count(xsprintf("1"));
         __dec_obj143 = come_decrement_ref_count(__dec_obj143, (void*)0, (void*)0, 0,0, (void*)0);
         __dec_obj144=come_value_54->type,
         come_value_54->type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), (void*)0, 1401, "struct sType* ")),(char*)come_increment_ref_count(xsprintf("int")),(_Bool)0,info,(_Bool)0,0));
@@ -8395,7 +8395,7 @@ _Bool sOptionalNode_compile(struct sOptionalNode* self, struct sInfo*  info  )
     }
     info->no_output_come_code=no_output_come_code;
     come_value=(struct CVALUE* )come_increment_ref_count(get_value_from_stack(-1,info));
-    if(come_value->type->mPointerNum==0) {
+    if(come_value->type->mPointerNum==0&&come_value->type->mArrayPointerNum==0) {
         err_msg(info,"require pointer for ref");
         __result_obj__0 = (_Bool)1;
         ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0):(void*)0);
@@ -8578,7 +8578,7 @@ _Bool sRefNode_compile(struct sRefNode* self, struct sInfo*  info  )
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    if(come_value->type->mPointerNum==0) {
+    if(come_value->type->mPointerNum==0&&come_value->type->mArrayPointerNum==0) {
         err_msg(info,"require pointer for ref");
         __result_obj__0 = (_Bool)1;
         ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0):(void*)0);
@@ -8911,7 +8911,7 @@ _Bool sSpanNode_compile(struct sSpanNode* self, struct sInfo*  info  )
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    if(come_value->type->mPointerNum==0) {
+    if(come_value->type->mPointerNum==0&&come_value->type->mArrayPointerNum==0) {
         err_msg(info,"require pointer for span");
         __result_obj__0 = (_Bool)1;
         ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0):(void*)0);
