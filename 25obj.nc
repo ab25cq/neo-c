@@ -628,7 +628,8 @@ class sOffsetOf extends sNodeBase
         string type_name = make_type_name_string(type2, no_static:true);
         
         come_value.c_value = xsprintf("__builtin_offsetof(%s, %s)", type_name, name);
-        come_value.type = type2;
+        come_value.type = new sType(s"long");
+        come_value.type->mUnsigned = true;
         come_value.var = null;
         
         add_come_last_code(info, "%s", come_value.c_value);
@@ -2412,5 +2413,4 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 21
     
     return inherit(node, info);
 }
-
 

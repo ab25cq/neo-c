@@ -688,7 +688,7 @@ bool like(char *str, char *pattern)
     return *str == *pattern && like(str + 1, pattern + 1);
 }
 
-bool eval_select_from(char* deliminater="\n", sInfo* info)
+bool eval_select_from(const char* deliminater="\n", sInfo* info)
 {
     info->p += strlen("SELECT");
     
@@ -1144,7 +1144,7 @@ bool eval_select_from(char* deliminater="\n", sInfo* info)
         string str = buf.to_string();
         
         if(str === "") {
-            char *not_found = "NOT FOUND\n";
+            const char *not_found = "NOT FOUND\n";
             write(info->socket, not_found, strlen(not_found));
 FILE* f = fopen("database.log", "a");
 fprintf(f, "%s\n", not_found);
@@ -1215,14 +1215,14 @@ fclose(f);
             if(gDatabases[word]) {
                 info.current_db_name = word;
                 
-                char *ok_message = "OK\n";
+                const char *ok_message = "OK\n";
                 write(it, ok_message, strlen(ok_message));
 FILE* f = fopen("database.log", "a");
 fprintf(f, "%s\n", ok_message);
 fclose(f);
             }
             else {
-                char *not_found = "NOT FOUND\n";
+                const char *not_found = "NOT FOUND\n";
                 write(it, not_found, strlen(not_found));
 FILE* f = fopen("database.log", "a");
 fprintf(f, "%s\n", not_found);
@@ -1242,7 +1242,7 @@ fprintf(f, "%s\n", str);
 fclose(f);
             }
             else {
-                char *not_found = "NOT FOUND\n";
+                const char *not_found = "NOT FOUND\n";
                 write(it, not_found, strlen(not_found));
 FILE* f = fopen("database.log", "a");
 fprintf(f, "%s\n", not_found);
@@ -1259,7 +1259,7 @@ fclose(f);
                 gDatabases[word] = new Database(word);
             }
             
-            char *ok_message = "OK\n";
+            const char *ok_message = "OK\n";
             write(it, ok_message, strlen(ok_message));
 FILE* f = fopen("database.log", "a");
 fprintf(f, "%s\n", ok_message);
@@ -1273,7 +1273,7 @@ fclose(f);
                 return;
             }
             
-            char *ok_message = "OK\n";
+            const char *ok_message = "OK\n";
             write(it, ok_message, strlen(ok_message));
 FILE* f = fopen("database.log", "a");
 fprintf(f, "%s\n", ok_message);
@@ -1284,7 +1284,7 @@ fclose(f);
                 return;
             }
             
-            char *ok_message = "OK\n";
+            const char *ok_message = "OK\n";
             write(it, ok_message, strlen(ok_message));
 FILE* f = fopen("database.log", "a");
 fprintf(f, "%s\n", ok_message);

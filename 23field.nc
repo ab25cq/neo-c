@@ -911,7 +911,11 @@ class sLoadArrayNode extends sNodeBase
                     come_value.type->mOriginalLoadVarType = clone result_type;
                     
                     /// decay ///
-                    come_value.type->mArrayNum.delete(0, 1);
+                    list<sNode*%>*% remained_array_num = new list<sNode*%>();
+                    for(int i=1; i<come_value.type->mArrayNum.length(); i++) {
+                        remained_array_num.add(clone come_value.type->mArrayNum[i]);
+                    }
+                    come_value.type->mArrayNum = remained_array_num;
                     if(come_value.type->mArrayNum.length() > 0) {
                         come_value.type->mArrayPointerNum++;
                     }
@@ -924,6 +928,24 @@ class sLoadArrayNode extends sNodeBase
                     // [] was consumed by this element access.
                     come_value.type->mArrayPointerType = false;
                 }
+            }
+            else if(come_value.type->mArrayPointerNum > 0) {
+                come_value.type->mOriginalLoadVarType = clone result_type;
+                come_value.type->mArrayPointerNum--;
+                if(come_value.type->mArrayPointerNum == 0) {
+                    come_value.type->mArrayPointerType = false;
+                }
+            }
+            
+            if(array_num.length() > 0
+                && come_value.type->mTypedefOriginalType
+                && come_value.type->mTypedefOriginalType->mArrayNum.length() > 0
+                && come_value.type->mPointerNum == 0)
+            {
+                // r[i] where r is typedef'd fixed-size array should be an element value.
+                come_value.type->mArrayNum.reset();
+                come_value.type->mArrayPointerNum = 0;
+                come_value.type->mArrayPointerType = false;
             }
             
             come_value.var = left_value.var;

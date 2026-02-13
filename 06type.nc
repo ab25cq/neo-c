@@ -3589,6 +3589,18 @@ bool is_null_pointer_constant(CVALUE* come_value, sInfo* info=info)
     return false;
 }
 
+bool is_transparent_union_type(sType* type, sInfo* info=info)
+{
+    if(type == null || type->mClass == null || !type->mClass->mUnion) {
+        return false;
+    }
+    if(type->mClass->mAttribute == null) {
+        return false;
+    }
+    string attr = string(type->mClass->mAttribute);
+    return attr.index("transparent_union", -1) >= 0;
+}
+
 bool pointer_attr_has_word(sType* type, const char* word, sInfo* info=info)
 {
     if(type == null || type->mPointerAttribute == null || type->mPointerAttribute === "") {
@@ -3638,13 +3650,18 @@ sType*% expand_typedef_for_assign(sType* type, sInfo* info=info)
         
         int ptr = result->mPointerNum;
         bool suppress_ptr_restore = result->mOriginalLoadVarType != null && result->mPointerNum == 0;
+        bool suppress_array_restore = result->mOriginalLoadVarType != null
+            && result->mPointerNum == 0
+            && result->mArrayPointerNum == 0
+            && !result->mArrayPointerType
+            && result->mArrayNum.length() == 0;
         if(!suppress_ptr_restore && ptr == 0 && orig->mPointerNum > 0) {
             ptr = orig->mPointerNum;
         }
         orig->mPointerNum = ptr;
         
         int array_ptr = result->mArrayPointerNum;
-        if(array_ptr == 0 && orig->mArrayPointerNum > 0) {
+        if(!suppress_array_restore && array_ptr == 0 && orig->mArrayPointerNum > 0) {
             array_ptr = orig->mArrayPointerNum;
         }
         orig->mArrayPointerNum = array_ptr;
@@ -3652,8 +3669,14 @@ sType*% expand_typedef_for_assign(sType* type, sInfo* info=info)
         if(result->mArrayPointerType) {
             orig->mArrayPointerType = true;
         }
+        else if(suppress_array_restore) {
+            orig->mArrayPointerType = false;
+        }
         if(result->mArrayNum.length() > 0) {
             orig->mArrayNum = clone result->mArrayNum;
+        }
+        else if(suppress_array_restore) {
+            orig->mArrayNum.reset();
         }
         
         orig->mConstant = result->mConstant;
@@ -3888,6 +3911,13 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
         // for value/ref parameter inference and generic lambda conversions.
         return true;
     }
+    
+    if(is_transparent_union_type(left_type2)
+        && !right_type2->mClass->mStruct
+        && !right_type2->mClass->mUnion)
+    {
+        return true;
+    }
 
     
     bool left_ptr = is_pointer_type(left_type2);
@@ -4028,6 +4058,21 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
             return false;
         }
         else if(!left_ptr && (right_ptr || right_array)) {
+            bool return_type_check = string(msg).index("result type", -1) == 0;
+            bool typedef_array_decay_scalar = return_type_check
+                && left_type2->mPointerNum == 0
+                && left_type2->mArrayPointerNum == 0
+                && left_type2->mArrayNum.length() == 0
+                && right_type2->mPointerNum == 0
+                && right_type2->mArrayPointerNum > 0
+                && right_type2->mArrayNum.length() == 0
+                && !right_type2->mArrayPointerType
+                && right_type2->mOriginalTypeName != null
+                && right_type2->mOriginalTypeName !== ""
+                && is_same_base_type_ignoring_qualifier(left_type2, right_type2);
+            if(typedef_array_decay_scalar) {
+                return true;
+            }
             if(left_type2->mArrayNum.length() > 0 && right_type2->mArrayNum.length() > 0) {
                 if(is_same_base_type_ignoring_qualifier(left_type2, right_type2)) {
                     return true;

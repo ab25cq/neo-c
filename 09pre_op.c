@@ -6591,10 +6591,10 @@ _Bool sArrayInitializer_compile(struct sArrayInitializer* self, struct sInfo*  i
     void* __right_value1 = (void*)0;
     struct CVALUE*  come_value  ;
     char*  __dec_obj114  ;
-    void* __right_value2 = (void*)0;
     struct sType*  __dec_obj115  ;
     struct CVALUE*  come_value_31  ;
     char*  __dec_obj116  ;
+    void* __right_value2 = (void*)0;
     struct sType*  __dec_obj117  ;
     _Bool __result_obj__0;
     type_=(struct sType* )come_increment_ref_count(self->type_);
@@ -6606,9 +6606,8 @@ _Bool sArrayInitializer_compile(struct sArrayInitializer* self, struct sInfo*  i
         __dec_obj114 = come_decrement_ref_count(__dec_obj114, (void*)0, (void*)0, 0,0, (void*)0);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         __dec_obj115=come_value->type,
-        come_value->type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), (void*)0, 680, "struct sType* ")),(char*)come_increment_ref_count(xsprintf("void")),(_Bool)0,info,(_Bool)0,0));
+        come_value->type=(struct sType* )come_increment_ref_count(sType_clone(type_));
         come_call_finalizer(sType_finalize, __dec_obj115,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-        come_value->type->mPointerNum++;
         come_value->var=((void*)0);
         list$1CVALUE$ph_push_back(info->stack,(struct CVALUE* )come_increment_ref_count(come_value));
         come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);

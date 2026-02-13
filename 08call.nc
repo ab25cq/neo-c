@@ -805,7 +805,60 @@ class sFunCallNode extends sNodeBase
             
             CVALUE*% come_value = new CVALUE();
             come_value.c_value = buf.to_string();
-            come_value.type = new sType(s"int"); // result_type;
+            
+            bool atomic_builtin = strlen(fun_name) > strlen("__c11_atomic_")
+                && memcmp(fun_name, "__c11_atomic_", strlen("__c11_atomic_")) == 0;
+            
+            if(atomic_builtin) {
+                if(fun_name === "__c11_atomic_thread_fence"
+                    || fun_name === "__c11_atomic_signal_fence"
+                    || fun_name === "__c11_atomic_store"
+                    || fun_name === "__c11_atomic_store_explicit"
+                    || fun_name === "__c11_atomic_init")
+                {
+                    come_value.type = new sType(s"void");
+                }
+                else if(string(fun_name).index("compare_exchange", -1) >= 0
+                    || fun_name === "__c11_atomic_is_lock_free")
+                {
+                    come_value.type = new sType(s"bool");
+                }
+                else if(come_params.length() > 0) {
+                    sType*% t;
+                    bool use_value_param = string(fun_name).index("fetch_", -1) >= 0
+                        || (string(fun_name).index("atomic_exchange", -1) >= 0
+                            && string(fun_name).index("compare_exchange", -1) < 0);
+                    
+                    if(use_value_param && come_params.length() > 1) {
+                        t = clone come_params[1].type;
+                    }
+                    else {
+                        t = clone come_params[0].type;
+                        
+                        if(t->mPointerNum > 0) {
+                            t->mPointerNum--;
+                        }
+                        else if(t->mArrayPointerNum > 0) {
+                            t->mArrayPointerNum--;
+                            if(t->mArrayPointerNum == 0) {
+                                t->mArrayPointerType = false;
+                            }
+                        }
+                        else if(t->mArrayPointerType) {
+                            t->mArrayPointerType = false;
+                        }
+                    }
+                    
+                    t->mAtomic = false;
+                    come_value.type = t;
+                }
+                else {
+                    come_value.type = new sType(s"int");
+                }
+            }
+            else {
+                come_value.type = new sType(s"int");
+            }
             come_value.var = null;
             
             add_come_last_code(info, "%s", come_value.c_value);
@@ -3177,4 +3230,3 @@ sNode*% post_position_operator(sNode*% node, sInfo* info)
         return (sNode*%)null;
     }
 }
-

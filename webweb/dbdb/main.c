@@ -10019,7 +10019,7 @@ static void tuple1$1WhereNode$ph$p_finalize(struct tuple1$1WhereNode$ph* self);
 struct WhereNode*  parse_where(struct sInfo*  info  );
 _Bool where_select(struct map$2char$phchar$ph* row, struct WhereNode*  where_node  );
 _Bool like(char* str, char* pattern);
-_Bool eval_select_from(char* deliminater, struct sInfo*  info  );
+_Bool eval_select_from(const char* deliminater, struct sInfo*  info  );
 static struct map$2char$ph_Bool$* map$2char$ph_Bool$_initialize(struct map$2char$ph_Bool$* self);
 static void map$2char$ph_Bool$$p_finalize(struct map$2char$ph_Bool$* self);
 static struct map$2char$ph_Bool$* map$2char$ph_Bool$_insert(struct map$2char$ph_Bool$* self, char*  key  , _Bool item, _Bool by_pointer);
@@ -16028,7 +16028,7 @@ _Bool like(char* str, char* pattern)
     neo_current_frame = fr.prev;
 }
 
-_Bool eval_select_from(char* deliminater, struct sInfo*  info  )
+_Bool eval_select_from(const char* deliminater, struct sInfo*  info  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "eval_select_from"; neo_current_frame = &fr;
     _Bool all_;
@@ -16227,7 +16227,6 @@ _Bool eval_select_from(char* deliminater, struct sInfo*  info  )
     char*  it2_214  ;
     char*  str  ;
     char*  str_215  ;
-    char* not_found;
     struct _IO_FILE*  f  ;
     struct _IO_FILE*  f_216  ;
     info->p+=strlen("SELECT");
@@ -16770,7 +16769,7 @@ _conditional_value_X3;})) {
         }
         str_215=(char* )come_increment_ref_count(buffer_to_string(buf));
         if(string_operator_equals(str_215,"")) {
-            not_found="NOT FOUND\n";
+            const char* not_found="NOT FOUND\n";
             write(info->socket,not_found,strlen(not_found));
             f=fopen("database.log","a");
             fprintf(f,"%s\n",not_found);
@@ -17423,25 +17422,19 @@ void fun_block1_mainnc(struct __current_stack1__* parent, int  it  , _Bool* it2,
     char*  word  ;
     _Bool _conditional_value_X0;
     char*  __dec_obj65  ;
-    char* ok_message;
     struct _IO_FILE*  f_219  ;
-    char* not_found;
     struct _IO_FILE*  f_220  ;
     char*  str  ;
     struct _IO_FILE*  f_221  ;
-    char* not_found_222;
     struct _IO_FILE*  f_223  ;
     char*  word_224  ;
     _Bool _conditional_value_X1;
     void* __right_value1 = (void*)0;
     void* __right_value2 = (void*)0;
     void* __right_value3 = (void*)0;
-    char* ok_message_228;
     struct _IO_FILE*  f_229  ;
     struct _IO_FILE*  f_230  ;
-    char* ok_message_231;
     struct _IO_FILE*  f_232  ;
-    char* ok_message_233;
     struct _IO_FILE*  f_234  ;
     char data[1024]={0};
     size=read(it,data,1023);
@@ -17466,14 +17459,14 @@ _conditional_value_X0;})) {
             __dec_obj65=(*(parent->info)).current_db_name,
             (*(parent->info)).current_db_name=(char* )come_increment_ref_count(word);
             __dec_obj65 = come_decrement_ref_count(__dec_obj65, (void*)0, (void*)0, 0,0, (void*)0);
-            ok_message="OK\n";
+            const char* ok_message="OK\n";
             write(it,ok_message,strlen(ok_message));
             f_219=fopen("database.log","a");
             fprintf(f_219,"%s\n",ok_message);
             fclose(f_219);
         }
         else {
-            not_found="NOT FOUND\n";
+            const char* not_found="NOT FOUND\n";
             write(it,not_found,strlen(not_found));
             f_220=fopen("database.log","a");
             fprintf(f_220,"%s\n",not_found);
@@ -17493,7 +17486,7 @@ _conditional_value_X0;})) {
             (str = come_decrement_ref_count(str, (void*)0, (void*)0, 0, 0, (void*)0));
         }
         else {
-            not_found_222="NOT FOUND\n";
+            const char* not_found_222="NOT FOUND\n";
             write(it,not_found_222,strlen(not_found_222));
             f_223=fopen("database.log","a");
             fprintf(f_223,"%s\n",not_found_222);
@@ -17508,7 +17501,7 @@ _conditional_value_X0;})) {
 _conditional_value_X1;})) {
             map$2char$phDatabase$ph_operator_store_element(gDatabases,(char* )come_increment_ref_count(word_224),(struct Database*)come_increment_ref_count(Database_initialize((struct Database* )come_increment_ref_count((struct Database *)come_calloc(1, sizeof(struct Database )*(1), (void*)0, 1260, "struct Database* ")),(char* )come_increment_ref_count(word_224))));
         }
-        ok_message_228="OK\n";
+        const char* ok_message_228="OK\n";
         write(it,ok_message_228,strlen(ok_message_228));
         f_229=fopen("database.log","a");
         fprintf(f_229,"%s\n",ok_message_228);
@@ -17523,7 +17516,7 @@ _conditional_value_X1;})) {
             neo_current_frame = fr.prev;
             return;
         }
-        ok_message_231="OK\n";
+        const char* ok_message_231="OK\n";
         write(it,ok_message_231,strlen(ok_message_231));
         f_232=fopen("database.log","a");
         fprintf(f_232,"%s\n",ok_message_231);
@@ -17534,7 +17527,7 @@ _conditional_value_X1;})) {
             neo_current_frame = fr.prev;
             return;
         }
-        ok_message_233="OK\n";
+        const char* ok_message_233="OK\n";
         write(it,ok_message_233,strlen(ok_message_233));
         f_234=fopen("database.log","a");
         fprintf(f_234,"%s\n",ok_message_233);

@@ -119,7 +119,7 @@ uniq int client_socket(int port=8080, char* address="127.0.0.1", void* parent, v
     return 0;
 }
 
-uniq string client_socket2(int port, char* data, char* address="127.0.0.1")
+uniq string client_socket2(int port, const char* data, const char* address="127.0.0.1")
 {
     int sock = 0;
     struct sockaddr_in serv_addr;

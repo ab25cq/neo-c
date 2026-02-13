@@ -677,8 +677,8 @@ class sArrayInitializer extends sNodeBase
             CVALUE*% come_value = new CVALUE();
             
             come_value.c_value = xsprintf("(%s)%s", make_type_name_string(type_, cast_type:true), initializer);
-            come_value.type = new sType(s"void");
-            come_value.type->mPointerNum++;
+            // (T){...} is a compound literal expression of type T.
+            come_value.type = clone type_;
             come_value.var = null;
             
             info.stack.push_back(come_value);

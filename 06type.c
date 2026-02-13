@@ -2928,6 +2928,7 @@ _Bool is_pointer_type(struct sType*  type  , struct sInfo*  info  );
 _Bool is_arithmetic_type(struct sType*  type  , struct sInfo*  info  );
 _Bool is_integer_type(struct sType*  type  , struct sInfo*  info  );
 _Bool is_null_pointer_constant(struct CVALUE*  come_value  , struct sInfo*  info  );
+_Bool is_transparent_union_type(struct sType*  type  , struct sInfo*  info  );
 _Bool pointer_attr_has_word(struct sType*  type  , const char* word, struct sInfo*  info  );
 _Bool pointer_attr_has_restrict(struct sType*  type  , struct sInfo*  info  );
 _Bool pointer_attr_has_const(struct sType*  type  , struct sInfo*  info  );
@@ -10322,6 +10323,27 @@ _Bool is_null_pointer_constant(struct CVALUE*  come_value  , struct sInfo*  info
     return __result_obj__0;
 }
 
+_Bool is_transparent_union_type(struct sType*  type  , struct sInfo*  info  )
+{
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "is_transparent_union_type"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
+    char*  attr  ;
+    _Bool __result_obj__0;
+    if(type==((void*)0)||type->mClass==((void*)0)||!type->mClass->mUnion) {
+        neo_current_frame = fr.prev;
+        return (_Bool)0;
+    }
+    if(type->mClass->mAttribute==((void*)0)) {
+        neo_current_frame = fr.prev;
+        return (_Bool)0;
+    }
+    attr=(char* )come_increment_ref_count(__builtin_string(type->mClass->mAttribute));
+    __result_obj__0 = string_index(attr,"transparent_union",-1)>=0;
+    (attr = come_decrement_ref_count(attr, (void*)0, (void*)0, 0, 0, (void*)0));
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
+
 _Bool pointer_attr_has_word(struct sType*  type  , const char* word, struct sInfo*  info  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "pointer_attr_has_word"; neo_current_frame = &fr;
@@ -10407,6 +10429,7 @@ struct sType*  expand_typedef_for_assign(struct sType*  type  , struct sInfo*  i
     struct sType*  orig  ;
     int ptr;
     _Bool suppress_ptr_restore;
+    _Bool suppress_array_restore;
     int array_ptr;
     struct list$1sNode$ph* __dec_obj254;
     char*  __dec_obj255  ;
@@ -10422,22 +10445,29 @@ struct sType*  expand_typedef_for_assign(struct sType*  type  , struct sInfo*  i
         orig=(struct sType* )come_increment_ref_count(sType_clone(result->mTypedefOriginalType));
         ptr=result->mPointerNum;
         suppress_ptr_restore=result->mOriginalLoadVarType!=((void*)0)&&result->mPointerNum==0;
+        suppress_array_restore=result->mOriginalLoadVarType!=((void*)0)&&result->mPointerNum==0&&result->mArrayPointerNum==0&&!result->mArrayPointerType&&list$1sNode$ph_length(result->mArrayNum)==0;
         if(!suppress_ptr_restore&&ptr==0&&orig->mPointerNum>0) {
             ptr=orig->mPointerNum;
         }
         orig->mPointerNum=ptr;
         array_ptr=result->mArrayPointerNum;
-        if(array_ptr==0&&orig->mArrayPointerNum>0) {
+        if(!suppress_array_restore&&array_ptr==0&&orig->mArrayPointerNum>0) {
             array_ptr=orig->mArrayPointerNum;
         }
         orig->mArrayPointerNum=array_ptr;
         if(result->mArrayPointerType) {
             orig->mArrayPointerType=(_Bool)1;
         }
+        else if(suppress_array_restore) {
+            orig->mArrayPointerType=(_Bool)0;
+        }
         if(list$1sNode$ph_length(result->mArrayNum)>0) {
             __dec_obj254=orig->mArrayNum,
             orig->mArrayNum=(struct list$1sNode$ph*)come_increment_ref_count(list$1sNode$ph$p_clone(result->mArrayNum));
             come_call_finalizer(list$1sNode$ph_finalize, __dec_obj254,(void*)0, (void*)0, 0, 0, 0, (void*)0);
+        }
+        else if(suppress_array_restore) {
+            list$1sNode$ph_reset(orig->mArrayNum);
         }
         orig->mConstant=result->mConstant;
         orig->mVolatile=result->mVolatile;
@@ -10842,6 +10872,8 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
     _Bool left_restrict;
     _Bool parent_class;
     struct sClass*  klass  ;
+    _Bool return_type_check;
+    _Bool typedef_array_decay_scalar;
     if(left_type==((void*)0)||right_type==((void*)0)) {
         warning_msg(info,"invalid assign type(type is null). %s",msg);
         neo_current_frame = fr.prev;
@@ -10891,6 +10923,13 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
     left_lambda=string_operator_equals(left_type2->mClass->mName,"lambda");
     right_lambda=string_operator_equals(right_type2->mClass->mName,"lambda");
     if(left_lambda||right_lambda) {
+        __result_obj__0 = (_Bool)1;
+        come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+        come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
+    }
+    if(is_transparent_union_type(left_type2,info)&&!right_type2->mClass->mStruct&&!right_type2->mClass->mUnion) {
         __result_obj__0 = (_Bool)1;
         come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -11049,6 +11088,16 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
             return __result_obj__0;
         }
         else if(!left_ptr&&(right_ptr||right_array)) {
+            return_type_check=string_index(((char* )(__right_value0=__builtin_string(msg))),"result type",-1)==0;
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
+            typedef_array_decay_scalar=return_type_check&&left_type2->mPointerNum==0&&left_type2->mArrayPointerNum==0&&list$1sNode$ph_length(left_type2->mArrayNum)==0&&right_type2->mPointerNum==0&&right_type2->mArrayPointerNum>0&&list$1sNode$ph_length(right_type2->mArrayNum)==0&&!right_type2->mArrayPointerType&&right_type2->mOriginalTypeName!=((void*)0)&&string_operator_not_equals(right_type2->mOriginalTypeName,"")&&is_same_base_type_ignoring_qualifier(left_type2,right_type2,info);
+            if(typedef_array_decay_scalar) {
+                __result_obj__0 = (_Bool)1;
+                come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                neo_current_frame = fr.prev;
+                return __result_obj__0;
+            }
             if(list$1sNode$ph_length(left_type2->mArrayNum)>0&&list$1sNode$ph_length(right_type2->mArrayNum)>0) {
                 if(is_same_base_type_ignoring_qualifier(left_type2,right_type2,info)) {
                     __result_obj__0 = (_Bool)1;
