@@ -10,7 +10,7 @@ struct sData
 
 void fun()
 {
-    int xxx[8] = { 1,2,3,4,5,6,7,8 };
+    int xxx[2] = { 1,2 }; //{ 1,2,3,4,5,6,7,8 };
     struct sData*{} p = span xxx;
     
     printf("%d\n", p[0].a);

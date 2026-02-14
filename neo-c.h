@@ -979,6 +979,11 @@ impl span<T>
                 exit(127);
             }
         }
+        if(check && sizeof(T]) > self.len) {
+            puts("invalid span. len is few");
+            stackframe();
+            exit(2);
+        }
         if(check && self.p >= (char*)self.memory + self.len) {
             puts("out of range of span");
             stackframe();
@@ -1007,6 +1012,11 @@ impl span<T>
         
         self.p++;
         
+        if(sizeof(T]) > self.len) {
+            puts("invalid span. len is few");
+            stackframe();
+            exit(2);
+        }
         if(self.p >= (char*)self.memory + self.len) {
             puts("out of range of span");
             stackframe();
@@ -1029,6 +1039,11 @@ impl span<T>
         
         self.p += value;
         
+        if(sizeof(T]) > self.len) {
+            puts("invalid span. len is few");
+            stackframe();
+            exit(2);
+        }
         if(self.p >= (char*)self.memory + self.len) {
             puts("out of range of span");
             stackframe();
@@ -1052,6 +1067,11 @@ impl span<T>
         
         self.p--;
         
+        if(sizeof(T]) > self.len) {
+            puts("invalid span. len is few");
+            stackframe();
+            exit(2);
+        }
         if(self.p < (char*)self.memory) {
             puts("out of range of span");
             stackframe();
@@ -1075,6 +1095,11 @@ impl span<T>
         
         self.p -= value;
         
+        if(sizeof(T]) > self.len) {
+            puts("invalid span. len is few");
+            stackframe();
+            exit(2);
+        }
         if(self.p < (char*)self.memory) {
             puts("out of range of span");
             stackframe();
@@ -1098,6 +1123,11 @@ impl span<T>
         
         T^ result = self.p + rvalue;
         
+        if(sizeof(T]) > self.len) {
+            puts("invalid span. len is few");
+            stackframe();
+            exit(2);
+        }
         if(result >= (char*)self.memory + self.len) {
             puts("out of range of span");
             stackframe();
@@ -1121,6 +1151,11 @@ impl span<T>
         
         T^ result = self.p - rvalue;
         
+        if(sizeof(T]) > self.len) {
+            puts("invalid span. len is few");
+            stackframe();
+            exit(2);
+        }
         if(result < (char*)self.memory) {
             puts("out of range of span");
             stackframe();
@@ -1144,6 +1179,11 @@ impl span<T>
         
         T^ p = self.p;
         
+        if(sizeof(T]) > self.len) {
+            puts("invalid span. len is few");
+            stackframe();
+            exit(2);
+        }
         if(self.p >= (char*)self.memory + self.len) {
             puts("out of range of span");
             stackframe();
@@ -1164,6 +1204,11 @@ impl span<T>
                 stackframe();
                 exit(127);
             }
+        }
+        if(sizeof(T]) > self.len) {
+            puts("invalid span. len is few");
+            stackframe();
+            exit(2);
         }
         if(self.p + position >= (char*)self.memory + self.len) {
             puts("out of range of span");
@@ -1187,6 +1232,11 @@ impl span<T>
                 stackframe();
                 exit(127);
             }
+        }
+        if(sizeof(T]) > self.len) {
+            puts("invalid span. len is few");
+            stackframe();
+            exit(2);
         }
         if(self.p + position >= (char*)self.memory + self.len) {
             puts("out of range of span");
@@ -1212,6 +1262,11 @@ impl span<T>
                 stackframe();
                 exit(127);
             }
+        }
+        if(sizeof(T]) > self.len) {
+            puts("invalid span. len is few");
+            stackframe();
+            exit(2);
         }
         return s"head \{self.memory} p \{self.p} len \{self.len}";
     }
