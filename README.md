@@ -93,6 +93,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.8.9.7 span, ref, optional bug fixed. maybe bug has remained.
 0.8.9.6 null checker returns.
 0.8.9.5 span, ref, optional coming.
 0.8.9.4 array and pointer bug fixed by codex. no warning occur in tests

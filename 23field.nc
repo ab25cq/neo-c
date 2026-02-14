@@ -650,7 +650,7 @@ sNode*% automatically_unwrap(sNode*% node, sInfo* info=info, bool check=true, bo
 
 sNode*% load_field(sNode*% left, string name, sInfo* info=info)
 {
-    sNode*% left2 = automatically_unwrap(left);
+    sNode*% left2 = clone left; //automatically_unwrap(left);
     return new sLoadFieldNode(left2, name, info) implements sNode;
 }
 
@@ -725,7 +725,7 @@ class sStoreArrayNode extends sNodeBase
         
         if(!calling_fun) {
             if(gComeSafe) {
-                err_msg(info, "LoadArray is not safe code");
+                err_msg(info, "StoreArray is not safe code");
                 return false;
             }
             CVALUE*% come_value = new CVALUE();
@@ -1112,7 +1112,7 @@ sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info, bool arrow_
 
 sNode*% store_field(sNode*% left, sNode*% right, string name, sInfo* info)
 {
-    sNode*% left2 = automatically_unwrap(left);
+    sNode*% left2 = clone left; //automatically_unwrap(left);
     return new sStoreFieldNode(left2, right, name, info) implements sNode;
 }
 
@@ -1248,11 +1248,11 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                 
                 skip_spaces_and_lf();
                 
-                sNode*% node2 = automatically_unwrap(node, no_unwrap:quote);
+                sNode*% node2 = clone node; //automatically_unwrap(node, no_unwrap:quote);
                 node = new sStoreArrayNode(node2, right_node, array_num, quote, info) implements sNode;
             }
             else {
-                sNode*% node2 = automatically_unwrap(node, no_unwrap:quote);
+                sNode*% node2 = clone node; //automatically_unwrap(node, no_unwrap:quote);
                 node = new sLoadArrayNode(node2, array_num, quote, false@break_guard, info) implements sNode;
             }
         }
@@ -1307,7 +1307,7 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                 
                 sNode*% right_node = expression();
                 
-                sNode*% node2 = automatically_unwrap(node, no_unwrap:quote);
+                sNode*% node2 = clone node; //automatically_unwrap(node, no_unwrap:quote);
                 node = new sStoreFieldNode(node2, right_node, field_name, info, arrow_) implements sNode;
             }
             else if(!gComeC && (*info->p == '(' || *info->p == '{' || parse_method_generics_type)) {
@@ -1342,7 +1342,7 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                 }
             }
             else {
-                sNode*% node2 = automatically_unwrap(node, no_unwrap:quote);
+                sNode*% node2 = clone node; //automatically_unwrap(node, no_unwrap:quote);
                 node = new sLoadFieldNode(node2, field_name, info, arrow_) implements sNode;
             }
         }

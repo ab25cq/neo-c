@@ -1255,7 +1255,7 @@ impl span<T>
         
         p\[position] = item;
     }
-    _norecord T^ operator_load_element(span<T>* self, int position) {
+    _norecord T^] operator_load_element(span<T>* self, int position) {
         using unsafe; 
         
         if(self->local) {

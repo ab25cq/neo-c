@@ -3,9 +3,17 @@
 
 int main(int argc, char** argv)
 {
-    string a = null;
+    int a[3] = { 1, 2, 3 };
     
-    a.substring(0, 1).puts();
+    printf("%d\n", sizeof(a));
+    
+    int*{} p = span a;
+    
+    printf("%d\n", *p);
+    
+    p[2] = 3;
+    
+    printf("%d\n", p[2]);
     
     return 0;
 }
