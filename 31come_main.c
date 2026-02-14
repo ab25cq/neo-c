@@ -2503,7 +2503,7 @@ struct sNode* craete_logical_denial(struct sNode* node, struct sInfo*  info  );
 struct tuple3$3sType$phchar$ph_Bool$* backtrace_parse_type(_Bool parse_variable_name, struct sInfo*  info  );
 void skip_pointer_attribute(struct sInfo*  info  );
 void skip_paren(struct sInfo*  info  );
-struct sNode* parse_normal_block(_Bool clang, struct sInfo*  info  );
+struct sNode* parse_normal_block(_Bool clang, _Bool unsafe_block, struct sInfo*  info  );
 void cast_type(struct sType*  left_type  , struct sType*  right_type  , struct CVALUE*  come_value  , struct sInfo*  info  );
 _Bool check_assign_type(const char* msg, struct sType*  left_type  , struct sType*  right_type  , struct CVALUE*  come_value  , struct sInfo*  info  );
 struct tuple2$2char$phchar$ph* parse_attribute(struct sInfo*  info  , _Bool parse_function_attribute);

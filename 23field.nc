@@ -724,6 +724,10 @@ class sStoreArrayNode extends sNodeBase
         }
         
         if(!calling_fun) {
+            if(gComeSafe) {
+                err_msg(info, "LoadArray is not safe code");
+                return false;
+            }
             CVALUE*% come_value = new CVALUE();
             sType*% original_load_var_type = clone left_type;
             
@@ -856,6 +860,10 @@ class sLoadArrayNode extends sNodeBase
         }
         
         if(!calling_fun) {
+            if(gComeSafe) {
+                err_msg(info, "LoadArray is not safe code");
+                return false;
+            }
             CVALUE*% come_value = new CVALUE();
             
             buffer*% buf = new buffer();

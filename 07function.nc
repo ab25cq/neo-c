@@ -141,6 +141,8 @@ class sFunNode extends sNodeBase
         //string come_fun_name = info.come_fun_name;
         //info.come_fun_name = string(info.come_fun.mName);
         
+        bool unsafe_mode = gComeSafe;
+        
         if(self.mFun.mBlock) {
             if(!gComeC && !info.come_fun.mResultType.mNorecord) {
                 add_come_code_at_function_head(info, s"struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = \"\{info.come_fun.mName}\"; neo_current_frame = &fr;\n"); 
@@ -162,6 +164,8 @@ class sFunNode extends sNodeBase
                 add_come_code(info, xsprintf("come_heap_final();\n"));
             }
         }
+        
+        gComeSafe = unsafe_mode;
         
         info.come_fun = come_fun;
         //info.come_fun_name = come_fun_name;
@@ -2751,7 +2755,7 @@ sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, s
     if(type_->mGenericsTypes.length() > 0) {
         finalizer = borrow info->funcs[fun_name2];
         
-        if(finalizer == NULL) {
+        if(finalizer == null) {
             string none_generics_name = get_none_generics_name(type2.mClass.mName);
             
             string generics_fun_name = xsprintf("%s_%s", none_generics_name, fun_name);
@@ -2785,7 +2789,7 @@ sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, s
             }
         }
         
-        if(finalizer == NULL) {
+        if(finalizer == null) {
             finalizer = borrow info->funcs[fun_name2];
         }
         
@@ -2810,6 +2814,8 @@ sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, s
             var source = new buffer();
             
             source.append_char('{');
+            
+            source.append_str("\nusing unsafe;\n");
             
 /*
             if(user_finalizer) {
@@ -3447,7 +3453,7 @@ sFun*,string create_cloner_automatically(sType* type, const char* fun_name, sInf
             }
         }
         
-        if(cloner == NULL) {
+        if(cloner == null) {
             cloner = borrow info->funcs[fun_name2];
         }
         
@@ -3462,6 +3468,7 @@ sFun*,string create_cloner_automatically(sType* type, const char* fun_name, sInf
         type2->mPointerNum = 0;
         
         source.append_str("{\n");
+        source.append_str("\nusing unsafe;\n");
         source.append_str("if(self == (void*)0) { return (void*)0; }\n");
         source.append_format("var result = new %s;\n", make_type_name_string(type2));
         
@@ -3745,7 +3752,7 @@ sFun*,string create_get_hash_key_automatically(sType* type, const char* fun_name
     if(type->mGenericsTypes.length() > 0) {
         get_hash_key_fun = borrow info->funcs[real_fun_name];
         
-        if(get_hash_key_fun == NULL) {
+        if(get_hash_key_fun == null) {
             string none_generics_name = get_none_generics_name(type2.mClass.mName);
             
             string generics_fun_name = xsprintf("%s_%s", none_generics_name, fun_name);
@@ -3776,7 +3783,7 @@ sFun*,string create_get_hash_key_automatically(sType* type, const char* fun_name
             }
         }
         
-        if(get_hash_key_fun == NULL) {
+        if(get_hash_key_fun == null) {
             get_hash_key_fun = borrow info->funcs[real_fun_name];
         }
     }
@@ -3888,7 +3895,7 @@ sFun*,string create_compare_automatically(sType* type, const char* fun_name, sIn
     if(type->mGenericsTypes.length() > 0) {
         get_hash_key_fun = borrow info->funcs[real_fun_name];
         
-        if(get_hash_key_fun == NULL) {
+        if(get_hash_key_fun == null) {
             string none_generics_name = get_none_generics_name(type2.mClass.mName);
             
             string generics_fun_name = xsprintf("%s_%s", none_generics_name, fun_name);
@@ -3919,7 +3926,7 @@ sFun*,string create_compare_automatically(sType* type, const char* fun_name, sIn
             }
         }
         
-        if(get_hash_key_fun == NULL) {
+        if(get_hash_key_fun == null) {
             get_hash_key_fun = borrow info->funcs[real_fun_name];
         }
     }
@@ -4091,7 +4098,7 @@ bool create_equals_method(sType* type, sInfo* info)
     sType*% type2 = clone type_;
     type2->mHeap = false;
     
-    sFun* cloner = NULL;
+    sFun* cloner = null;
     string fun_name2;
     if(type_->mGenericsTypes.length() > 0) {
         string none_generics_name = get_none_generics_name(type_.mClass.mName);
@@ -4137,7 +4144,7 @@ bool create_equals_method(sType* type, sInfo* info)
         }
     }
     
-    if(cloner == NULL && !type_->mClass->mProtocol && !type_->mClass->mNumber)
+    if(cloner == null && !type_->mClass->mProtocol && !type_->mClass->mNumber)
     {
         var fun,new_fun_name = create_equals_automatically(type_, fun_name, info);
         
@@ -4166,7 +4173,7 @@ bool create_operator_equals_method(sType* type, sInfo* info)
     sType*% type2 = clone type_;
     type2->mHeap = false;
     
-    sFun* cloner = NULL;
+    sFun* cloner = null;
     string fun_name2;
     if(type_->mGenericsTypes.length() > 0) {
         string none_generics_name = get_none_generics_name(type_.mClass.mName);
@@ -4205,12 +4212,12 @@ bool create_operator_equals_method(sType* type, sInfo* info)
             }
         }
         
-        if(cloner == NULL) {
+        if(cloner == null) {
             cloner = borrow info->funcs[fun_name2];
         }
     }
     
-    if(cloner == NULL && !type_->mClass->mProtocol && !type_->mClass->mNumber)
+    if(cloner == null && !type_->mClass->mProtocol && !type_->mClass->mNumber)
     {
         var fun,new_fun_name = create_operator_equals_automatically(type_, fun_name, info);
         
@@ -4239,7 +4246,7 @@ bool create_operator_not_equals_method(sType* type, sInfo* info)
     sType*% type2 = clone type_;
     type2->mHeap = false;
     
-    sFun* cloner = NULL;
+    sFun* cloner = null;
     string fun_name2;
     if(type_->mGenericsTypes.length() > 0) {
         string none_generics_name = get_none_generics_name(type_.mClass.mName);
@@ -4278,12 +4285,12 @@ bool create_operator_not_equals_method(sType* type, sInfo* info)
             }
         }
         
-        if(cloner == NULL) {
+        if(cloner == null) {
             cloner = borrow info->funcs[fun_name2];
         }
     }
     
-    if(cloner == NULL && !type_->mClass->mProtocol && !type_->mClass->mNumber)
+    if(cloner == null && !type_->mClass->mProtocol && !type_->mClass->mNumber)
     {
         var fun,new_fun_name = create_operator_not_equals_automatically(type_, fun_name, info);
         

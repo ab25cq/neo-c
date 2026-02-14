@@ -2000,7 +2000,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             gComeSafe = false;
             
             if(*info->p == '{') {
-                sNode*% node = parse_normal_block(clang:true);
+                sNode*% node = parse_normal_block(unsafe_block:true);
                 
                 gComeSafe = come_safe;
                 
@@ -2018,7 +2018,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             gComeSafe = true;
             
             if(*info->p == '{') {
-                sNode*% node = parse_normal_block(clang:true);
+                sNode*% node = parse_normal_block();
                 
                 gComeSafe = come_safe;
                 
@@ -2494,7 +2494,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 94
                 
                 transpile_toplevel(true);
                 
-                gComeC = come_safe;
+                gComeSafe = come_safe;
             }
             else {
                 gComeSafe = false;
@@ -2513,7 +2513,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 94
                 
                 transpile_toplevel(true);
                 
-                gComeC = come_safe;
+                gComeSafe = come_safe;
             }
             else {
                 gComeSafe = true;

@@ -62,6 +62,10 @@ class sRefferenceNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
+        if(gComeSafe) {
+            err_msg(info, "Refference is not safe code");
+            return false;
+        }
         sNode* value = borrow self.value;
         
         bool in_refference = info.in_refference;
@@ -202,6 +206,10 @@ class sDerefferenceNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
+        if(gComeSafe) {
+            err_msg(info, "Derefference is not safe code");
+            return false;
+        }
         sNode*% value = self.value;
         
         if(!node_compile(value)) {
@@ -461,12 +469,13 @@ class sMinusMinusNode2 extends sNodeBase
 
 class sNormalBlock extends sNodeBase
 {
-    new(sBlock* block, bool clang, sInfo* info)
+    new(sBlock* block, bool clang, bool unsafe_block, sInfo* info)
     {
         self.super();
         
         sBlock*% self.mBlock = clone block;
         bool self.clang = clang;
+        bool self.unsafe_block = unsafe_block;
     }
     
     bool terminated()
@@ -487,12 +496,15 @@ class sNormalBlock extends sNodeBase
         
         bool come_c = gComeC;
         if(self.clang) { gComeC = true; }
+        bool safe = gComeSafe;
+        if(self.unsafe_block) { gComeSafe = false; }
         
         transpile_block(block, null, null, info);
         
         add_come_code(info, "}\n");
         
         gComeC = come_c;
+        gComeSafe = safe;
         
         transpiler_clear_last_code(info);
     
@@ -592,6 +604,10 @@ class sCastNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
+        if(gComeSafe) {
+            err_msg(info, "Cast is not safe code");
+            return false;
+        }
         sType* type = borrow self.mType;
         sNode* left = borrow self.mLeft;
         
@@ -622,7 +638,7 @@ class sCastNode extends sNodeBase
     }
 }
 
-sNode*% parse_normal_block(bool clang=false, sInfo* info=info)
+sNode*% parse_normal_block(bool clang=false, bool unsafe_block=false, sInfo* info=info)
 {
     int sline_real = info.sline_real;
     info.sline_real = info.sline;
@@ -630,7 +646,7 @@ sNode*% parse_normal_block(bool clang=false, sInfo* info=info)
     
     info.sline_real = sline_real;
     
-    return new sNormalBlock(block, clang, info) implements sNode;
+    return new sNormalBlock(block, clang, unsafe_block, info) implements sNode;
 }
 
 sNode*% craete_logical_denial(sNode*% node, sInfo* info)

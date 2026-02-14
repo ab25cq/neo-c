@@ -101,7 +101,7 @@ typedef char*% string;
     #define NULL ((void*)0)
     
     using neo-c;
-    using safe;
+    using unsafe;
 #endif
 
 ///////////////////////////////////////////////////////////////////////////
@@ -159,7 +159,9 @@ struct neo_frame {
     char* fun_name;
 };
     
-uniq __thread neo_frame* neo_current_frame = NULL;
+using unsafe {
+uniq __thread neo_frame* neo_current_frame = (void*)0;
+}
 
 uniq void stackframe()
 {
@@ -197,10 +199,14 @@ struct sMemHeader
     const char* class_name;
 };
 
+using unsafe {
 uniq sMemHeader* gAllocMem = (void*)0;
+}
     
 uniq void come_heap_final()
 {
+    using unsafe;
+    
     sMemHeader* it = gAllocMem;
     int n = 0;
     while(it) {
@@ -227,11 +233,15 @@ uniq void come_heap_final()
     
 uniq void* alloc_from_pages(size_t size)
 {
+    using unsafe; 
+    
     return calloc(1, size);
 }
     
 uniq void come_free_mem_of_heap_pool(void* mem)
 {
+    using unsafe; 
+    
     if(mem) {
         sMemHeader* it = (sMemHeader*)((char*)mem - sizeof(sMemHeader));
         
@@ -270,6 +280,8 @@ uniq void come_free_mem_of_heap_pool(void* mem)
 
 uniq void* come_alloc_mem_from_heap_pool(size_t size, const char* sname=null, int sline=0, const char* class_name="")
 {
+    using unsafe; 
+    
     size_t size2 = size + sizeof(sMemHeader);
 #ifdef __32BIT_CPU__
     size2 = (size2 + 3 & ~0x3);
@@ -314,6 +326,8 @@ uniq void* come_alloc_mem_from_heap_pool(size_t size, const char* sname=null, in
 
 uniq char* come_dynamic_typeof(void* mem)
 {
+    using unsafe; 
+    
     sMemHeader* it = (sMemHeader*)((char*)mem - sizeof(size_t) - sizeof(size_t) - sizeof(sMemHeader));
     
     if(it->allocated != ALLOCATED_MAGIC_NUM) {
@@ -327,6 +341,8 @@ uniq char* come_dynamic_typeof(void* mem)
 
 uniq size_t dynamic_sizeof(void* mem)
 {
+    using unsafe; 
+    
     sMemHeader* it = (sMemHeader*)((char*)mem - sizeof(size_t) - sizeof(size_t) - sizeof(sMemHeader));
     
     if(it->allocated != ALLOCATED_MAGIC_NUM) {
@@ -346,6 +362,8 @@ uniq int gNumFree = 0;
 
 uniq void* come_calloc(size_t count, size_t size, const char* sname=null, int sline=0, const char* class_name="")
 {
+    using unsafe; 
+    
     char* mem = come_alloc_mem_from_heap_pool(sizeof(size_t)+sizeof(size_t)+count*size, sname, sline, class_name);
     
     size_t* ref_count = (size_t*)mem;
@@ -361,6 +379,8 @@ uniq void* come_calloc(size_t count, size_t size, const char* sname=null, int sl
 
 uniq void come_free(void* mem)
 {
+    using unsafe; 
+    
     if(mem == NULL) {
         return;
     }
@@ -372,6 +392,8 @@ uniq void come_free(void* mem)
 
 uniq void* come_memdup(void* block, const char* sname=null, int sline=0, const char* class_name=null)
 {
+    using unsafe; 
+    
     if(!block) {
         return null;
     }
@@ -391,6 +413,8 @@ uniq void* come_memdup(void* block, const char* sname=null, int sline=0, const c
 
 uniq void* come_increment_ref_count(void* mem)
 {
+    using unsafe; 
+    
     if(mem == NULL) {
         return mem;
     }
@@ -404,6 +428,8 @@ uniq void* come_increment_ref_count(void* mem)
 
 uniq void* come_print_ref_count(void* mem)
 {
+    using unsafe; 
+    
     if(mem == NULL) {
         return mem;
     }
@@ -417,6 +443,8 @@ uniq void* come_print_ref_count(void* mem)
 
 uniq int come_get_ref_count(void* mem)
 {
+    using unsafe; 
+    
     if(mem == NULL) {
         return 0;
     }
@@ -428,6 +456,8 @@ uniq int come_get_ref_count(void* mem)
 
 uniq void* come_decrement_ref_count(void* mem, void* protocol_fun, void* protocol_obj, bool no_decrement, bool no_free, void* result_obj)
 {
+    using unsafe; 
+    
     if(result_obj) {
         if(mem == result_obj) {
             return mem;
@@ -460,6 +490,8 @@ uniq void* come_decrement_ref_count(void* mem, void* protocol_fun, void* protoco
 
 uniq void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* protocol_obj, int call_finalizer_only, int no_decrement, int no_free, void* result_obj)
 {
+    using unsafe;
+    
     if(result_obj) {
         if(mem == result_obj) {
             return;
@@ -529,20 +561,6 @@ uniq void xassert(const char* msg, bool test)
     }
     puts("ok");
 }
-
-/*
-__attribute__((noreturn, cold)) static void nn_fail(const char* f, int line) {
-    puts(s"null pointer exception \{f} \{line}");
-    stackframe();
-    exit(1);
-}
-
-static inline __attribute__((always_inline)) void* come_null_checker(void* p, const char* f, int line) {
-    if (__builtin_expect(p != 0, 1)) return p;
-    // 失敗は cold へ
-    nn_fail(f, line);
-}
-*/
         
 uniq void* come_null_checker(void* mem, const char* sname, int sline)
 {
@@ -957,6 +975,8 @@ impl span<T>
 {
     span<T>*% initialize(span<T>*% self, void*%& refference, void* head, size_t len)
     {
+        using unsafe; 
+        
         if(!ispointer(T)) {
             puts("invalid span");
             stackframe();
@@ -972,6 +992,8 @@ impl span<T>
         return self;
     }
     _norecord T^ unwrap(span<T>* self, bool check=false) {
+        using unsafe; 
+        
         if(self->local) {
             if(self->stacktop < neo_current_frame.stacktop) {
                 puts("refferenced object is vanished");
@@ -996,6 +1018,12 @@ impl span<T>
         }
         
         return (T^)self.p;
+    }
+    
+    _norecord void set(span<T>* self, T^ p) {
+        using unsafe; 
+        
+        self.p = p;
     }
     
     _norecord span<T>* operator_plus_plus(span<T>* self)
@@ -1198,6 +1226,8 @@ impl span<T>
         return *p;
     }
     _norecord void operator_store_element(span<T>* self, int position, T] item) {
+        using unsafe; 
+        
         if(self->local) {
             if(self->stacktop < neo_current_frame.stacktop) {
                 puts("refferenced object is vanished");
@@ -1226,6 +1256,8 @@ impl span<T>
         p\[position] = item;
     }
     _norecord T^ operator_load_element(span<T>* self, int position) {
+        using unsafe; 
+        
         if(self->local) {
             if(self->stacktop < neo_current_frame.stacktop) {
                 puts("refferenced object is vanished");
@@ -1256,6 +1288,8 @@ impl span<T>
     
     
     _norecord string to_string(slice<T>* self) {
+        using unsafe; 
+        
         if(self->local) {
             if(self->stacktop < neo_current_frame.stacktop) {
                 puts("refferenced object is vanished");
@@ -1795,6 +1829,8 @@ impl list <T>
     }
     
     T^ begin(list<T>* self) {
+        using unsafe;
+        
         if(self == null) {
             T^` result;
             memset(&result, 0, sizeof(T));
@@ -1812,6 +1848,8 @@ impl list <T>
     }
 
     T^ next(list<T>* self) {
+        using unsafe;
+        
         if(self == null || self.it == null) {
             T^` result;
             memset(&result, 0, sizeof(T));
@@ -1886,6 +1924,8 @@ impl list <T>
     
     list<T>* insert(list<T>* self, int position, T item)
     {
+        using unsafe;
+        
         if(self == null) {
             return null;
         }
@@ -2126,6 +2166,8 @@ impl list <T>
     }
     list<T>* replace(list<T>* self, int position, T item)
     {
+        using unsafe; 
+        
         if(self == null) {
             return self;
         }
@@ -2250,6 +2292,8 @@ impl list <T>
         self.replace(position, item);
     }
     T operator_load_element(list<T>* self, int position) {
+        using unsafe;
+        
         if(self == null) {
             T^` default_value;
             memset(&default_value, 0, sizeof(T));
@@ -2643,6 +2687,8 @@ struct map<T, T2>
 impl map <T, T2>
 {
     map<T,T2>*% initialize(map<T,T2>*% self) {
+        using unsafe;
+        
         self.keys = borrow gc_inc(new T[MAP_TABLE_DEFAULT_SIZE]);
         self.items = borrow gc_inc(new T2[MAP_TABLE_DEFAULT_SIZE]);
         self.item_existance = borrow gc_inc(new bool[MAP_TABLE_DEFAULT_SIZE]);
@@ -2663,6 +2709,8 @@ impl map <T, T2>
     }
     map<T,T2>*% initialize_with_values(map<T,T2>*% self, int num_keys, T^* keys, T2^* values) 
     {
+        using unsafe;
+        
         self.keys = borrow gc_inc(new T[MAP_TABLE_DEFAULT_SIZE]);
         self.items = borrow gc_inc(new T2[MAP_TABLE_DEFAULT_SIZE]);
         self.item_existance = borrow gc_inc(new bool[MAP_TABLE_DEFAULT_SIZE]);
@@ -2686,6 +2734,8 @@ impl map <T, T2>
         return self;
     }
     void finalize(map<T,T2>* self) {
+        using unsafe;
+        
         for(int i=0; i<self.size; i++) {
             if(self.item_existance[i]) {
                 if(isheap(T2)) {
@@ -2710,6 +2760,8 @@ impl map <T, T2>
     }
     map<T, T2>*% clone(map<T, T2>* self)
     {
+        using unsafe;
+        
         if(self == null) {
             return null;
         }
@@ -2743,6 +2795,8 @@ impl map <T, T2>
     
     string to_string(map<T,T2>* self)
     {
+        using unsafe;
+        
         if(self == null) {
             return string("");
         }
@@ -2774,6 +2828,8 @@ impl map <T, T2>
     }
     
     T2 at(map<T, T2>* self, T^ key, T2 default_value, bool by_pointer=false) {
+        using unsafe;
+        
         if(self == null) {
             return default_value;
         }
@@ -2806,6 +2862,8 @@ impl map <T, T2>
         return default_value;
     }
     map<T,T2>* remove(map<T, T2>* self, T key, bool by_pointer=false) {
+        using unsafe;
+        
         if(self == null) {
             return self;
         }
@@ -2859,6 +2917,8 @@ impl map <T, T2>
     }
     
     T^ begin(map<T, T2>* self) {
+        using unsafe;
+        
         if(self == null) {
             T`^ result;
             memset(&result, 0, sizeof(T));
@@ -2876,6 +2936,8 @@ impl map <T, T2>
     }
 
     T^ next(map<T, T2>* self) {
+        using unsafe;
+        
         if(self == null || self.key_list.it == null) {
             T`^ result;
             memset(&result, 0, sizeof(T));
@@ -2897,6 +2959,8 @@ impl map <T, T2>
     }
     
     void rehash(map<T,T2>* self) {
+        using unsafe;
+        
         int size = self.size * 10;
         T^* keys = borrow gc_inc(new T[size]);
         T2^* items = borrow gc_inc(new T2[size]);
@@ -2951,6 +3015,8 @@ impl map <T, T2>
     }
 
     void show_map(map<T, T2>* self) {
+        using unsafe;
+        
         if(self == null) {
             return;
         }
@@ -2969,6 +3035,8 @@ impl map <T, T2>
     }
     
     map<T,T2>* insert(map<T,T2>* self, T key, T2 item, bool by_pointer=false) {
+        using unsafe; 
+        
         if(self == null) {
             return self;
         }
@@ -3049,6 +3117,8 @@ impl map <T, T2>
         return self;
     }
     map<T,T2>* put(map<T,T2>* self, T key, T2 item, bool by_pointer=false) {
+        using unsafe;
+        
         if(self == null) {
             return self;
         }
@@ -3129,6 +3199,8 @@ impl map <T, T2>
         return self;
     }
     T2 operator_load_element(map<T, T2>* self, T^ key) {
+        using unsafe;
+        
         T2^` default_value;
         memset(&default_value, 0, sizeof(T2));
         
@@ -3173,6 +3245,8 @@ impl map <T, T2>
     
     bool equals(map<T, T2>* left, map<T, T2>* right)
     {
+        using unsafe;
+        
         if(left == null && right == null) {
             return true;
         }
@@ -3212,6 +3286,8 @@ impl map <T, T2>
     }
     
     bool operator_equals(map<T, T2>* left, map<T,T2>* right) {
+        using unsafe;
+        
         if(left == null && right == null) {
             return true;
         }
@@ -3261,6 +3337,8 @@ impl map <T, T2>
     }
     
     bool find(map<T, T2>* self, T^ key, bool by_pointer=false) {
+        using unsafe;
+        
         if(self == null) {
             return false;
         }
@@ -3293,6 +3371,8 @@ impl map <T, T2>
         return false;
     }
     map<T,T2>*% operator_add(map<T,T2>* left, map<T,T2>* right) {
+        using unsafe;
+        
         map<T,T2>*% result = new map<T,T2>();
         
         if(left == null || right == null) {
@@ -3344,6 +3424,8 @@ impl map <T, T2>
         return result;
     }
     map<T,T2>*% operator_mult(map<T,T2>* left, int right) {
+        using unsafe;
+        
         map<T,T2>*% result = new map<T,T2>();
         
         if(left == null || right == null) {
@@ -3396,6 +3478,8 @@ impl map <T, T2>
     }
     
     list<T2>*% values(map<T, T2>* self) {
+        using unsafe;
+        
         var result = new list<T2>();
         
         if(self == null) {
