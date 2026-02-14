@@ -807,7 +807,7 @@ int expected_next_character(char c, sInfo* info=info);;
 bool node_compile(sNode* node, sInfo* info=info);
 bool node_conditional_compile(sNode* node, sInfo* info=info);
 int come_main(int argc, char** argv);
-string make_type_name_string(sType* type, sInfo* info=info, bool no_static=false, bool cast_type=false, bool typedef_extended=false);
+string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=false, bool cast_type=false, bool typedef_extended=false, bool nullchecker=false);
 string make_come_type_name_string(sType* type, sInfo* info=info);
 string make_come_define_var(sType* type, char* name, sInfo* info=info);
 
@@ -1153,6 +1153,7 @@ sNode*% parse_come_function(sInfo* info=info);
 sBlock*% parse_come_block(sInfo* info=info);
 
 sNode*% create_new_object(sType* type, sInfo* info=info);
+sNode*% create_null_checker(sNode*% node, sInfo* info=info);
 
 uniq class sNullChecker extends sNodeBase
 {
@@ -1186,10 +1187,26 @@ uniq class sNullChecker extends sNodeBase
         
         sType*% original_type = type__->mOriginalLoadVarType;
         
-        if(!gComeC && gComeDebug && type->mPointerNum > 0 && (original_type == null || original_type->mArrayNum.length() == 0) && !type->mArrayPointerType && type->mArrayPointerNum == 0) {
+        bool pointer_type = type->mPointerNum > 0
+            || type->mArrayPointerNum > 0
+            || type->mFunctionPointerNum > 0;
+
+        if(original_type) {
+            if(original_type->mArrayNum.length() == 1 && type->mArrayPointerNum == 1) {
+                pointer_type = false;
+            }
+            
+            if(original_type->mArrayNum.length() > 0 && original_type->mPointerNum == 0) {
+                pointer_type = false;
+            }
+        }
+
+        if(!gComeC && pointer_type) {
+            string type_name = make_type_name_string(type, no_static:true, cast_type:true, nullchecker:true);
+            
             CVALUE*% come_value2 = new CVALUE();
             
-            come_value2.c_value = xsprintf("((%s)come_null_checker(%s, \"%s\", %d))", make_type_name_string(type, no_static:true), come_value.c_value, info.sname, info.sline);
+            come_value2.c_value = xsprintf("((%s)come_null_checker(%s, \"%s\", %d))", type_name, come_value.c_value, info.sname, info.sline);
             come_value2.type = clone type;
             come_value2.var = come_value.var;
             

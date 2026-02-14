@@ -159,7 +159,7 @@ class sStoreFieldNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        sNode*% left = self.mLeft;
+        sNode*% left = create_null_checker(self.mLeft);
         sNode*% right = self.mRight;
         string name = string(self.mName);
         bool arrow_ = self.mArrow;
@@ -441,7 +441,7 @@ class sLoadFieldNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        sNode*% left = self.mLeft;
+        sNode*% left = create_null_checker(self.mLeft);
         string name = string(self.mName);
         bool arrow_ = self.mArrow;
         
@@ -673,7 +673,7 @@ class sStoreArrayNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        sNode*% left = self.mLeft;
+        sNode*% left = create_null_checker(self.mLeft);
         sNode*% right = self.mRight;
         list<sNode*%>*% array_num_nodes = self.mArrayNum;
         
@@ -825,7 +825,7 @@ class sLoadArrayNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        sNode*% left = self.mLeft;
+        sNode*% left = create_null_checker(self.mLeft);
         list<sNode*%>*% array_num_nodes = self.mArrayNum;
         
         node_compile(left).elif {
@@ -994,7 +994,7 @@ class sLoadRangeArrayNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        sNode*% left = self.mLeft;
+        sNode*% left = create_null_checker(self.mLeft);
         list<sNode*%>*% array_num_nodes = self.mArrayNum;
         
         node_compile(left).elif {

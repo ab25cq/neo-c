@@ -1,6 +1,6 @@
 #include "common.h"
 
-string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=false, bool cast_type=false, bool typedef_extended=false)
+string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=false, bool cast_type=false, bool typedef_extended=false, bool nullchecker=false)
 {
     var buf = new buffer();
     
@@ -57,6 +57,7 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
         buf.append_str("short ");
     }
     
+    bool eval_pointer_num = false;
     if(type->mOriginalTypeName === "va_list") {
         buf.append_str("va_list");
     }
@@ -146,6 +147,7 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
             if(type->mArrayPointerType) {
                 buf.append_str("[]");
             }
+            eval_pointer_num = true;
         }
         else {
             buf.append_str("(*");
@@ -200,7 +202,7 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
         buf.append_str(class_name);
         if(cast_type) {
             if(type->mArrayPointerNum > 0) {
-                buf.append_str("(");
+                if(!nullchecker) buf.append_str("(");
                 for(int i=0; i<type->mArrayPointerNum; i++) {
                     buf.append_str("*");
                 }
@@ -218,8 +220,34 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
                 
                     buf.append_format("[%s]", cvalue.c_value);
                 }
-                buf.append_str(")");
+                if(!nullchecker) buf.append_str(")");
                 foreach(it, type->mArrayNum) {
+                    if(!node_compile(it)) {
+                        err_msg(info, "invalid array number");
+                        return string("");
+                    }
+                    CVALUE*% cvalue = get_value_from_stack(-1, info);
+                
+                    if(nullchecker) {
+                        buf.append_str("*");
+                    }
+                    else {
+                        buf.append_format("[%s]", cvalue.c_value);
+                    }
+                }
+                eval_pointer_num = true;
+            }
+            else if(type->mPointerNum > 0 && type->mArrayNum.length()>0) {
+                if(!nullchecker) buf.append_str("(");
+                for(int i=0; i<type->mPointerNum; i++) {
+                    buf.append_str("*");
+                }
+                if(type->mTypedefOriginalType) {
+                    for(int i=0; i<type->mTypedefOriginalType.mPointerNum; i++) {
+                        buf.append_str("*");
+                    }
+                }
+                foreach(it, type->mVarNameArrayNum) {
                     if(!node_compile(it)) {
                         err_msg(info, "invalid array number");
                         return string("");
@@ -228,11 +256,27 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
                 
                     buf.append_format("[%s]", cvalue.c_value);
                 }
+                if(!nullchecker) buf.append_str(")");
+                foreach(it, type->mArrayNum) {
+                    if(!node_compile(it)) {
+                        err_msg(info, "invalid array number");
+                        return string("");
+                    }
+                    CVALUE*% cvalue = get_value_from_stack(-1, info);
+                
+                    if(nullchecker) {
+                        buf.append_str("*");
+                    }
+                    else {
+                        buf.append_format("[%s]", cvalue.c_value);
+                    }
+                }
+                eval_pointer_num = true;
             }
         }
     }
     
-    if(class_name !== "lambda" && type->mOriginalTypeName !== "va_list" && type->mOriginalTypeName !== "__builtin_va_list") {
+    if(!eval_pointer_num && class_name !== "lambda" && type->mOriginalTypeName !== "va_list" && type->mOriginalTypeName !== "__builtin_va_list") {
         for(int i=0; i<type->mPointerNum; i++) {
             buf.append_str("*");
         }
@@ -272,7 +316,12 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
     }
     
     if(cast_type && type->mArrayPointerType) {
-        buf.append_str("[]");
+        if(nullchecker) {
+            buf.append_str("*");
+        }
+        else {
+            buf.append_str("[]");
+        }
     }
     
     return buf.to_string();

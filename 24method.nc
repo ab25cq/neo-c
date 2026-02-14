@@ -1,5 +1,10 @@
 #include "common.h"
 
+sNode*% create_null_checker(sNode*% node, sInfo* info=info)
+{
+    return new sNullChecker(node, info) implements sNode;
+}
+
 string,sGenericsFun* make_generics_function(sType* type, string fun_name, sInfo* info, bool array_equal_pointer=true)
 {
     string none_generics_name = get_none_generics_name(type.mClass.mName);
@@ -435,7 +440,7 @@ class sMethodCallNode extends sNodeBase
     {
         string fun_name = self.fun_name;
         list<tup: string,sNode*%>*% params = self.params;
-        sNode*% obj = self.obj;
+        sNode*% obj = create_null_checker(self.obj);
         buffer*% method_block = self.method_block;
         int method_block_sline = self.method_block_sline;
         list<sType*%>*% method_generics_types = self.method_generics_types;

@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.8.9.5
+version 0.8.9.6
 
 ``` C
 #include <neo-c.h>
@@ -93,6 +93,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.8.9.6 null checker returns.
 0.8.9.5 span, ref, optional coming.
 0.8.9.4 array and pointer bug fixed by codex. no warning occur in tests
 0.8.9.3 char*::read() method return buffer*% 
