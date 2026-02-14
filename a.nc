@@ -1,20 +1,10 @@
 #include <neo-c.h>
 
-int*% fun()
-{
-    return new int[3];
-}
-
-
 int main(int argc, char** argv)
 {
-    int*%{} p = span fun();
+    string? p = optional xsprintf("1 + 1 = %d", 1+1);
     
-    p[0] = 123;
-    p[1] = 123;
-    p[2] = 123;
-    
-    printf("%d %d %d\n", p[0], p[1], p[2]);
+    puts(p.substring(0,2));
     
     return 0;
 }
