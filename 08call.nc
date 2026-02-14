@@ -519,7 +519,7 @@ class sFunCallNode extends sNodeBase
         if(generics_fun) {
             method_generics = generics_fun.mMethodGenericsTypeNames.length() > 0;
         }
-        if(self.method_generics_types.length() > 0 || method_generics) {
+        if((self.method_generics_types && self.method_generics_types.length() > 0) || method_generics) {
             if(self.method_generics_types.length() == 0) {
                 list<sType*%>*% method_generics_types = new list<sType*%>();
                 var name, gfun = make_method_generics_function(fun_name, method_generics_types, info);

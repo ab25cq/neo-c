@@ -189,6 +189,7 @@ uniq bool die(const char* msg)
 struct sMemHeader
 {
     long size;
+    long compiletime_size;
     int allocated;            /// ALLOCATED_MAGIC_NUM 
     struct sMemHeader* next;
     struct sMemHeader* prev;
@@ -278,7 +279,7 @@ uniq void come_free_mem_of_heap_pool(void* mem)
     }
 }
 
-uniq void* come_alloc_mem_from_heap_pool(size_t size, const char* sname=null, int sline=0, const char* class_name="")
+uniq void* come_alloc_mem_from_heap_pool(size_t compiletime_size, size_t size, const char* sname=null, int sline=0, const char* class_name="")
 {
     using unsafe; 
     
@@ -294,6 +295,7 @@ uniq void* come_alloc_mem_from_heap_pool(size_t size, const char* sname=null, in
     
     it->allocated = ALLOCATED_MAGIC_NUM;
     
+    it->compiletime_size = compiletime_size;
     it->size = size2;
     it->free_next = NULL;
     
@@ -350,7 +352,7 @@ uniq size_t dynamic_sizeof(void* mem)
         stackframe();
         exit(2);
     }
-    size_t size = it.size - sizeof(sMemHeader) - sizeof(size_t) - sizeof(size_t);
+    size_t size = it->compiletime_size;
     
     return size;
 }
@@ -364,7 +366,7 @@ uniq void* come_calloc(size_t count, size_t size, const char* sname=null, int sl
 {
     using unsafe; 
     
-    char* mem = come_alloc_mem_from_heap_pool(sizeof(size_t)+sizeof(size_t)+count*size, sname, sline, class_name);
+    char* mem = come_alloc_mem_from_heap_pool(count*size, sizeof(size_t)+sizeof(size_t)+count*size, sname, sline, class_name);
     
     size_t* ref_count = (size_t*)mem;
 

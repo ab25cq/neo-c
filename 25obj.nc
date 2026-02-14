@@ -41,7 +41,9 @@ class sNewNode extends sNodeBase
         sType*% type2_ = solve_generics(type, info->generics_type, info);
         sType*% type2 = solve_method_generics(type2_, info);
         
+        type2->mHeapArrayNum = clone type2->mArrayNum;
         type2->mArrayNum.reset();
+        type2->mNew = true;
         
         string type_name = make_type_name_string(type2, cast_type:true, no_static:true);
         
@@ -562,6 +564,58 @@ class sGeneric extends sNodeBase
     }
 };
 
+class sHeapSizeOfNode extends sNodeBase
+{
+    new(sType* type, sInfo* info)
+    {
+        self.super();
+        
+        sType*% self.type = clone type;
+    }
+    
+    string kind()
+    {
+        return string("sHeapSizeOfNode");
+    }
+    
+    bool compile(sInfo* info)
+    {
+        sType*% type = self.type;
+        
+        CVALUE*% come_value = new CVALUE();
+        
+        var type2_ = solve_generics(type, info->generics_type, info);
+        sType*% type2 = solve_method_generics(type2_, info);
+        
+        type2->mPointerNum--;
+        
+        string type_name = make_type_name_string(type2, no_static:true, typedef_extended:true);
+        
+        var buf = new buffer();
+        buf.append_format("sizeof(%s)", type_name);
+        foreach(it, type->mHeapArrayNum) {
+            node_compile(it).elif {
+                return false;
+            }
+            
+            CVALUE*% cvalue = get_value_from_stack(-1, info);
+            
+            buf.append_format("*(%s)", cvalue.c_value);
+        }
+        
+        come_value.c_value = buf.to_string();
+        come_value.type = new sType(s"long");
+        come_value.type->mUnsigned = true;
+        come_value.var = null;
+        
+        add_come_last_code(info, "%s", come_value.c_value);
+        
+        info.stack.push_back(come_value);
+        
+        return true;
+    }
+};
+
 class sSizeOfNode extends sNodeBase
 {
     new(sType* type, sInfo* info)
@@ -669,6 +723,47 @@ class sSizeOfExpNode extends sNodeBase
         CVALUE*% come_value2 = new CVALUE();
         
         come_value2.c_value = xsprintf("sizeof(%s)", come_value.c_value);
+        come_value2.type = new sType(s"long");
+        come_value2.type->mUnsigned = true;
+        come_value2.var = null;
+        
+        add_come_last_code(info, "%s", come_value2.c_value);
+        
+        info.stack.push_back(come_value2);
+        
+        return true;
+    }
+};
+
+class sDynamicSizeOfExpNode extends sNodeBase
+{
+    new(sNode*% exp, sInfo* info)
+    {
+        self.super();
+        
+        sNode*% self.exp = clone exp;
+        
+        return self;
+    }
+    
+    string kind()
+    {
+        return string("sSizeOfExpNode");
+    }
+    
+    bool compile(sInfo* info)
+    {
+        sNode*% exp = self.exp;
+        
+        node_compile(exp).elif {
+            return false;
+        }
+        
+        CVALUE*% come_value = get_value_from_stack(-1, info);
+        
+        CVALUE*% come_value2 = new CVALUE();
+        
+        come_value2.c_value = xsprintf("dynamic_sizeof(%s)", come_value.c_value);
         come_value2.type = new sType(s"long");
         come_value2.type->mUnsigned = true;
         come_value2.var = null;
@@ -1556,7 +1651,9 @@ class sRefNode extends sNodeBase
         
         CVALUE*% come_value = get_value_from_stack(-1, info);
         
-        if(come_value.var == null) {
+        if(come_value.type.mHeap) {
+        }
+        else if(come_value.var == null) {
             err_msg(info, "require variable name for ref");
             return true;
         }
@@ -1566,9 +1663,20 @@ class sRefNode extends sNodeBase
             return true;
         }
         
-        bool global_ = come_value.var->mGlobal;
-        bool heap_ = come_value.type.mHeap;
-        bool local_ = !come_value.var->mGlobal;
+        bool global_;
+        bool heap_;
+        bool local_;
+        
+        if(come_value.type.mHeap) {
+            global_ = false;
+            heap_ = true;
+            local_ = false;
+        }
+        else {
+            global_ = come_value.var->mGlobal;
+            heap_ = come_value.type.mHeap;
+            local_ = !come_value.var->mGlobal;
+        }
         
         sType*% type_ = clone come_value.type;
         
@@ -1609,12 +1717,19 @@ sNode*%@head,sNode*%@len get_head_and_len(sNode*% node, CVALUE*% come_value, sIn
     sNode*% head;
     sNode*% len;
     sType*% type = come_value.type;
-    if(type->mOriginalTypeName && type->mOriginalTypeName === "string") {
+    if((type->mOriginalTypeName && type->mOriginalTypeName === "string") || (type->mClass->mName === "char" && type->mPointerNum == 1 && type->mHeap) && !type->mNew) {
+        static int n = 0;
+        string var_name = s"__tmp_string\{++n}";
+        
+        sNode*% svar = store_var(var_name, null, null, type, alloc:true, node, info);
+        
+        head = svar;
+        //create_load_var(var_name);
+        
         list<tup: string, sNode*%>*% params = new list<tup: string, sNode*%>();
         
-        params.add(t((string)null, node));
+        params.add(t((string)null, create_load_var(var_name)));
         
-        head = node;
         len = create_funcall("strlen", params, null, 0, null, info);
     }
     else if(type->mClass->mName === "buffer") {
@@ -1624,6 +1739,19 @@ sNode*%@head,sNode*%@len get_head_and_len(sNode*% node, CVALUE*% come_value, sIn
     else if(type->mClass->mName === "map" || type->mClass->mName === "list") {
         err_msg(info, "can't get sirialize memory of this type(%s)", type->mClass->mName);
         exit(1);
+    }
+    else if(type->mHeap && type->mPointerNum == 1 && type->mNew) {
+        head = node;
+        len = new sHeapSizeOfNode(type, info) implements sNode;
+    }
+    else if(type->mHeap && type->mPointerNum == 1) {
+        static int n = 0;
+        string var_name = s"__tmp_heap\{++n}";
+        
+        sNode*% svar = store_var(var_name, null, null, type, alloc:true, node, info);
+        
+        head = svar;
+        len = new sDynamicSizeOfExpNode(create_load_var(var_name), info) implements sNode;
     }
     else if(type->mPointerNum == 1) {
         head = node;
@@ -1666,7 +1794,9 @@ class sSpanNode extends sNodeBase
         
         CVALUE*% come_value = get_value_from_stack(-1, info);
         
-        if(come_value.var == null) {
+        if(come_value.type->mHeap) {
+        }
+        else if(come_value.var == null) {
             err_msg(info, "require variable name for span");
             return true;
         }
@@ -1676,25 +1806,10 @@ class sSpanNode extends sNodeBase
             return true;
         }
         
-        bool global_ = come_value.var->mGlobal;
-        bool heap_ = come_value.type.mHeap;
-        bool local_ = !come_value.var->mGlobal;
-        
         sType*% type_ = clone come_value.type;
         
         sType*% generics_type = new sType(s"span");
-        /*
-        if(type_->mClass->mName === "buffer") {
-            sType*% type2 = new sType(s"char");
-            type2->mPointerNum = 1;
-            type2->mHeap = true;
-            
-            generics_type->mGenericsTypes.add(type2);
-        }
-        else {
-        */
-            generics_type->mGenericsTypes.add(type_);
-        //}
+        generics_type->mGenericsTypes.add(type_);
         
         sType*% type = new sType(s"span");
         type->mGenericsTypes.add(new sType(s"__generics_type0"));
@@ -1707,32 +1822,10 @@ class sSpanNode extends sNodeBase
         
         sNode*% ref_ = new sRefNode(node, info) implements sNode;
         
-        sNode*% ref2 = ref_;
-        
-        /*
-        if(type_->mClass->mName === "buffer") {
-            sType*% generics_type2 = new sType(s"ref");
-            generics_type2->mGenericsTypes.add(new sType(s"char"));
-            generics_type2->mGenericsTypes[0]->mPointerNum = 1;
-            generics_type2->mGenericsTypes[0]->mHeap = true;
-            
-            sType*% typeX = new sType(s"ref");
-            typeX->mGenericsTypes.add(new sType(s"__generics_type0"));
-            typeX->mPointerNum++;
-            
-            sType*% typeX2 = solve_generics(typeX, generics_type2, info);
-            
-            ref2 = cast_node(typeX2, ref_);
-        }
-        else {
-        */
-            ref2 = ref_;
-        //}
-        
         var head, len = get_head_and_len(node, come_value);
         
         params.add(t((string)null, obj));
-        params.add(t((string)null, ref2));
+        params.add(t((string)null, ref_));
         params.add(t((string)null, head));
         params.add(t((string)null, len));
         
@@ -2274,6 +2367,36 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         }
         
         return new sDynamicTypeOf(exp, info) implements sNode;
+    }
+    else if(buf === "dynamic_sizeof") {
+        //expected_next_character('(');
+        
+        bool paren = false;
+        if(*info->p == '(') {
+            info->p++;
+            skip_spaces_and_lf();
+            paren = true;
+        }
+        
+        sNode*% exp;
+        if(!paren) {
+            bool no_comma = info.no_comma;
+            info.no_comma = true;
+            exp = expression_node();
+            info.no_comma = no_comma;
+        }
+        else {
+            exp = expression();
+        }
+        
+        //expected_next_character(')');
+        
+        if(paren && *info->p == ')') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+        
+        return new sDynamicSizeOfExpNode(exp, info) implements sNode;
     }
     else if(buf === "_Alignof") {
         bool paren = false;

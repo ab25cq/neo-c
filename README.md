@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.8.9.7
+version 0.8.9.8
 
 ``` C
 #include <neo-c.h>
@@ -93,6 +93,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.8.9.8 span more powerfull.
 0.8.9.7 span, ref, optional bug fixed. maybe bug has remained.
 0.8.9.6 null checker returns.
 0.8.9.5 span, ref, optional coming.
@@ -3344,4 +3345,84 @@ int main(int argc, char** argv)
     return 0;
 }
 
+```
+
+```
+#include <neo-c.h>
+
+int main(int argc, char** argv)
+{
+    int*%{} p = span new int[3];
+    
+    p[0] = 1;
+    p[1] = 2;
+    p[2] = 3;
+    
+    printf("%d %d %d\n", p[0], p[1], p[2]);
+    
+    return 0;
+}
+```
+
+```
+#include <neo-c.h>
+
+int*% fun()
+{
+    return new int[3];
+}
+
+
+int main(int argc, char** argv)
+{
+    int*%{} p = span fun();
+    
+    p[0] = 123;
+    p[1] = 123;
+    p[2] = 123;
+    
+    //p[3] = 123; panic
+    
+    printf("%d %d %d\n", p[0], p[1], p[2]);
+    
+    return 0;
+}
+```
+
+```
+#include <neo-c.h>
+
+int main(int argc, char** argv)
+{
+    char*%{} p = span new char[3];
+    
+    p[0] = 'A';
+    p[1] = 'B';
+    p[2] = '\0';
+    
+    //p[3] = 'C'; panic
+    
+    printf("%c %c\n", p[0], p[1]);
+    
+    return 0;
+}
+```
+
+```
+#include <neo-c.h>
+
+int main(int argc, char** argv)
+{
+    char*%{} p = span s"ABC";
+    
+    p[0] = 'A';
+    p[1] = 'B';
+    p[2] = 'X';
+    
+    //p[4] = 'C'; panic
+    
+    printf("%c %c %c\n", p[0], p[1], p[2]);
+    
+    return 0;
+}
 ```

@@ -103,6 +103,8 @@ uniq class sType
     string mMiddleAttribute;
     string mPointerAttribute;
     
+    bool mNew;
+    
     bool mAllocaValue;
     
     bool mUnsigned;
@@ -171,6 +173,7 @@ uniq class sType
     bool mVarArgs;
     
     sNode*% mTypeOfNode;
+    list<sNode*%>*% mHeapArrayNum;
     
     new(string name, bool heap=false, sInfo* info=info, bool unsigned_=false, int pointer_num_=0) 
     {

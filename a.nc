@@ -1,19 +1,20 @@
 #include <neo-c.h>
 
+int*% fun()
+{
+    return new int[3];
+}
+
 
 int main(int argc, char** argv)
 {
-    int a[3] = { 1, 2, 3 };
+    int*%{} p = span fun();
     
-    printf("%d\n", sizeof(a));
+    p[0] = 123;
+    p[1] = 123;
+    p[2] = 123;
     
-    int*{} p = span a;
-    
-    printf("%d\n", *p);
-    
-    p[2] = 3;
-    
-    printf("%d\n", p[2]);
+    printf("%d %d %d\n", p[0], p[1], p[2]);
     
     return 0;
 }
