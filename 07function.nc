@@ -2554,6 +2554,8 @@ sNode*% parse_function(sInfo* info)
 string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sType* generics_type, sInfo* info)
 {
     MSaveState;
+//    bool no_output_come_code = info.no_output_come_code;
+//    info.no_output_come_code = true;
     
     sType*% generics_type_ = get_no_solved_type2(generics_type);
     
@@ -2645,6 +2647,7 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
     
     info.generics_type_names.reset();
     
+//    info.no_output_come_code = no_output_come_code;
     MRestoreState;
     
     return t(string(fun_name), true);

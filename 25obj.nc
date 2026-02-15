@@ -1559,12 +1559,12 @@ class sOptionalNode extends sNodeBase
     {
         sNode*% node = self.node;
         
-        bool no_output_come_code = info.no_output_come_code;
-        info.no_output_come_code = true;
+//        bool no_output_come_code = info.no_output_come_code;
+//        info.no_output_come_code = true;
         node_compile(node).elif {
             return false;
         }
-        info.no_output_come_code = no_output_come_code;
+//        info.no_output_come_code = no_output_come_code;
         
         CVALUE*% come_value = get_value_from_stack(-1, info);
         
@@ -1642,12 +1642,12 @@ class sRefNode extends sNodeBase
     {
         sNode*% node = self.node;
         
-        bool no_output_come_code = info.no_output_come_code;
-        info.no_output_come_code = true;
+        //bool no_output_come_code = info.no_output_come_code;
+        //info.no_output_come_code = true;
         node_compile(node).elif {
             return false;
         }
-        info.no_output_come_code = no_output_come_code;
+        //info.no_output_come_code = no_output_come_code;
         
         CVALUE*% come_value = get_value_from_stack(-1, info);
         

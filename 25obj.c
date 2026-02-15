@@ -8665,7 +8665,6 @@ _Bool sOptionalNode_compile(struct sOptionalNode* self, struct sInfo*  info  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sOptionalNode_compile"; neo_current_frame = &fr;
     struct sNode* node;
-    _Bool no_output_come_code;
     _Bool Value;
     _Bool __result_obj__0;
     void* __right_value0 = (void*)0;
@@ -8690,8 +8689,6 @@ _Bool sOptionalNode_compile(struct sOptionalNode* self, struct sInfo*  info  )
     memset(&heap_, 0, sizeof(heap_));
     memset(&local_, 0, sizeof(local_));
     node=(struct sNode*)come_increment_ref_count(((struct sOptionalNode*)come_null_checker(self, "25obj.nc", 1560))->node);
-    no_output_come_code=((struct sInfo* )come_null_checker(info, "25obj.nc", 1562))->no_output_come_code;
-    ((struct sInfo* )come_null_checker(info, "25obj.nc", 1563))->no_output_come_code=(_Bool)1;
     Value=node_compile(node,info);
     if(!Value) {
         __result_obj__0 = (_Bool)0;
@@ -8699,7 +8696,6 @@ _Bool sOptionalNode_compile(struct sOptionalNode* self, struct sInfo*  info  )
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    ((struct sInfo* )come_null_checker(info, "25obj.nc", 1567))->no_output_come_code=no_output_come_code;
     come_value=(struct CVALUE* )come_increment_ref_count(get_value_from_stack(-1,info));
     if(((struct sType* )come_null_checker(((struct CVALUE* )come_null_checker(come_value, "25obj.nc", 1571))->type, "25obj.nc", 1571))->mPointerNum==0&&((struct sType* )come_null_checker(((struct CVALUE* )come_null_checker(come_value, "25obj.nc", 1571))->type, "25obj.nc", 1571))->mArrayPointerNum==0) {
         err_msg(info,"require pointer for ref");
@@ -8847,7 +8843,6 @@ _Bool sRefNode_compile(struct sRefNode* self, struct sInfo*  info  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sRefNode_compile"; neo_current_frame = &fr;
     struct sNode* node;
-    _Bool no_output_come_code;
     _Bool Value;
     _Bool __result_obj__0;
     void* __right_value0 = (void*)0;
@@ -8872,8 +8867,6 @@ _Bool sRefNode_compile(struct sRefNode* self, struct sInfo*  info  )
     memset(&heap_, 0, sizeof(heap_));
     memset(&local_, 0, sizeof(local_));
     node=(struct sNode*)come_increment_ref_count(((struct sRefNode*)come_null_checker(self, "25obj.nc", 1643))->node);
-    no_output_come_code=((struct sInfo* )come_null_checker(info, "25obj.nc", 1645))->no_output_come_code;
-    ((struct sInfo* )come_null_checker(info, "25obj.nc", 1646))->no_output_come_code=(_Bool)1;
     Value=node_compile(node,info);
     if(!Value) {
         __result_obj__0 = (_Bool)0;
@@ -8881,7 +8874,6 @@ _Bool sRefNode_compile(struct sRefNode* self, struct sInfo*  info  )
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    ((struct sInfo* )come_null_checker(info, "25obj.nc", 1650))->no_output_come_code=no_output_come_code;
     come_value=(struct CVALUE* )come_increment_ref_count(get_value_from_stack(-1,info));
     if(((struct sType* )come_null_checker(((struct CVALUE* )come_null_checker(come_value, "25obj.nc", 1654))->type, "25obj.nc", 1654))->mHeap) {
     }

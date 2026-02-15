@@ -1,10 +1,15 @@
 #include <neo-c.h>
 
+list<int>*% fun()
+{
+    return new list<int>();
+}
+
 int main(int argc, char** argv)
 {
-    string? p = optional xsprintf("1 + 1 = %d", 1+1);
+    list<int>*%& p = ref [1,2,3];
     
-    puts(p.substring(0,2));
+    puts(p.to_string());
     
     return 0;
 }
