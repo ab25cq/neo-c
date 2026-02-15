@@ -3079,103 +3079,14 @@ int main(int argc, char** argv)
 }
 ```
 
-# optional, ref
+# optional
 
-```
-#include <neo-c.h>
 
-void fun(char*& p, const char* a)
-{
-    printf("%p %p\n", p.unwrap(), a);
-    puts(p.scan(".").join("+"));
-}
-
-int main(int argc, char** argv)
-{
-    const char* a = "ABC";
-    
-    char*& p = ref a;
-    
-    fun(ref a, a);
-    
-    char*? p2 = optional a;
-    
-    printf("%p %p\n", p2.unwrap(), a);
-    
-    return 0;
-}
-```
-
-```
-#include <neo-c.h>
-
-void fun(char*& p, const char* a)
-{
-    printf("%p %p\n", p.unwrap(), a);
-    puts(p.scan(".").join("+"));
-}
-
-int main(int argc, char** argv)
-{
-    const char* a = "ABC";
-    
-    char*& p = ref a;
-    
-    fun(ref a, a);
-    
-    char* b = null;
-    
-    char*? p2 = optional b;
-    
-    p2.elif {
-        puts("CATCH");
-    }
-    p2.if { p2.scan(".").join("+"); }
-    
-/*
-    printf("%p %p\n", p2.unwrap(), a);
-    
-    printf("%c\n", *p2);
-    printf("%c\n", *p);
-*/
-    
-    return 0;
-}
-```
-
-# slice
-
-```
-#include <neo-c.h>
-
-struct sData
-{
-    int a;
-    int b;
-};
-
-int main(int argc, char** argv)
-{
-    struct sData data = (struct sData){ .a=8, .b=7 };
-    
-    var p = new slice<int*>(&data, sizeof(struct sData));
-    
-    printf("%d\n", *p);
-    p++;
-    printf("%d\n", *p);
-    
-    
-    return 0;
-}
-
-```
-
-slice is copy the memory and owns the memory. so it's safe. but occurs copy cost.
+# ref
 
 # span
 
 span is no own the memory. so the memory is destroyed and access the memory occurs panic and show stackframe.
-but it's fast.
 
 ```
 #include <neo-c.h>
@@ -3447,7 +3358,7 @@ int main(int argc, char** argv)
 {
     string& p = ref xsprintf("1 + 1 = %d", 1+1);
     
-    puts(p.substring(0,2));
+    puts(p!.substring(0,2));
     
     return 0;
 }
@@ -3460,7 +3371,7 @@ int main(int argc, char** argv)
 {
     string? p = optional xsprintf("1 + 1 = %d", 1+1);
     
-    puts(p.substring(0,2));
+    puts(p!.substring(0,2));
     
     return 0;
 }
