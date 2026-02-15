@@ -1,17 +1,14 @@
 #include <neo-c.h>
 
-list<int>*% fun()
-{
-    return new list<int>();
-}
-
 int main(int argc, char** argv)
 {
-    char*{}% p = span s"ABCDEFG";
+    string? str = optional s"ABC"; 
     
-    (p.memcmp("ABCEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE", 10) == 0).if {
-        puts("OK");
-    }
+    
+    str[0] = 'D';
+    
+    puts(str!);
+    
     
     return 0;
 }

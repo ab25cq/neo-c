@@ -607,6 +607,47 @@ uniq string __builtin_string(const char* str)
 #endif
 
 //////////////////////////////
+// ref
+//////////////////////////////
+struct ref<T>
+{
+    T p;
+    bool global;
+    bool heap;
+    bool local;
+    
+    void* stacktop;
+};
+
+impl ref<T>
+{
+    ref<T>*% initialize(ref<T>*% self, T p, bool global_, bool heap_, bool local_, void* stacktop) {
+        if(!ispointer(T) || p == null) {
+            puts(s"ref is pointer and not null");
+            stackframe();
+            exit(2);
+        }
+        self.p = p;
+        self.global = global_;
+        self.heap = heap_;
+        self.local = local_;
+        self.stacktop = stacktop;
+        return self;
+    }
+    
+    _norecord T unwrap(ref<T>* self) {
+        if(self.local) {
+            if(self.stacktop < neo_current_frame.stacktop) {
+                puts("refferenced object is vanished");
+                stackframe();
+                exit(127);
+            }
+        }
+        return self.p;
+    }
+}
+
+//////////////////////////////
 // optional
 //////////////////////////////
 struct optional<T>
@@ -657,57 +698,6 @@ impl optional<T>
 }
 
 //////////////////////////////
-// ref
-//////////////////////////////
-struct ref<T>
-{
-    T p;
-    bool global;
-    bool heap;
-    bool local;
-    
-    void* stacktop;
-};
-
-impl ref<T>
-{
-    ref<T>*% initialize(ref<T>*% self, T p, bool global_, bool heap_, bool local_, void* stacktop) {
-        if(ispointer(T) && p == null) {
-            puts(s"ref is not null");
-            stackframe();
-            exit(2);
-        }
-        self.p = p;
-        self.global = global_;
-        self.heap = heap_;
-        self.local = local_;
-        self.stacktop = stacktop;
-        return self;
-    }
-    
-    _norecord T unwrap(ref<T>* self) {
-        return self.p;
-    }
-    
-    _norecord T] operator_derefference(ref<T>* self)
-    {
-        using unsafe;
-        
-        if(self.local) {
-            if(self.stacktop < neo_current_frame.stacktop) {
-                puts("refferenced object is vanished");
-                stackframe();
-                exit(127);
-            }
-        }
-        
-        T p = self.p;
-        
-        return *p;
-    }
-}
-
-//////////////////////////////
 // result
 //////////////////////////////
 // Result<T> is tuple2<T, bool>*%
@@ -747,14 +737,30 @@ impl span<T>
     }
     _norecord T^ unwrap(span<T>* self) {
         using unsafe; 
+        if(self->local) {
+            if(self->stacktop < neo_current_frame.stacktop) {
+                puts("refferenced object is vanished");
+                stackframe();
+                exit(127);
+            }
+        }
+        if(sizeof(T]) > self.len) {
+            puts("invalid span. len is few");
+            stackframe();
+            exit(2);
+        }
+        if(self.p >= (char*)self.memory + self.len) {
+            puts("out of range of span");
+            stackframe();
+            exit(1);
+        }
+        if(self.p < (char*)self.memory) {
+            puts("out of range of span");
+            stackframe();
+            exit(1);
+        }
         
         return (T^)self.p;
-    }
-    
-    _norecord void set(span<T>* self, T^ p) {
-        using unsafe; 
-        
-        self.p = p;
     }
     
     _norecord span<T>* operator_plus_plus(span<T>* self) {

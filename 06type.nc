@@ -1567,6 +1567,10 @@ sType*% parse_pointer_attribute(sType* type, sInfo* info=info)
         else if(*info->p == '&') {
             info->p++;
             skip_spaces_and_lf();
+          
+            if(type->mClass->mStruct) {
+                type->mPointerNum++;
+            }
             
             sType*% generics_type = new sType(s"ref");
             generics_type->mGenericsTypes.add(clone type);
@@ -1594,6 +1598,10 @@ sType*% parse_pointer_attribute(sType* type, sInfo* info=info)
             if(tmp_) {
                 err_msg(info, "invalid type name");
                 return type;
+            }
+          
+            if(type->mClass->mStruct) {
+                type->mPointerNum++;
             }
             
             sType*% generics_type = new sType(s"optional");
@@ -3799,6 +3807,32 @@ bool is_same_type_ignoring_qualifier(sType* left_type, sType* right_type, sInfo*
             && right_type2->mPointerNum == 0;
         if(use_original) {
             right_type2 = clone right_type2->mOriginalLoadVarType;
+        }
+    }
+    
+    left_type2 = expand_typedef_for_assign(left_type2);
+    right_type2 = expand_typedef_for_assign(right_type2);
+    
+    // Normalize decayed-array pointer representation so equivalent pointer
+    // types compare the same in generic arguments.
+    if(left_type2->mArrayNum.length() == 0) {
+        if(left_type2->mArrayPointerType) {
+            left_type2->mPointerNum++;
+            left_type2->mArrayPointerType = false;
+        }
+        if(left_type2->mPointerNum == 0 && left_type2->mArrayPointerNum > 0) {
+            left_type2->mPointerNum = left_type2->mArrayPointerNum;
+            left_type2->mArrayPointerNum = 0;
+        }
+    }
+    if(right_type2->mArrayNum.length() == 0) {
+        if(right_type2->mArrayPointerType) {
+            right_type2->mPointerNum++;
+            right_type2->mArrayPointerType = false;
+        }
+        if(right_type2->mPointerNum == 0 && right_type2->mArrayPointerNum > 0) {
+            right_type2->mPointerNum = right_type2->mArrayPointerNum;
+            right_type2->mArrayPointerNum = 0;
         }
     }
     
