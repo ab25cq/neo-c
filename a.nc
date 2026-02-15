@@ -1,20 +1,23 @@
 #include <neo-c.h>
 
-struct sData
+RESULT(FILE*) xfopen(const char* file_name, const char* mode)
 {
-    int a;
-    int b;
-};
+    FILE* f = fopen(file_name, mode);
+    
+    if(f == NULL) {
+        return NONE(f);
+    }
+    
+    return SOME(f);
+}
 
 int main(int argc, char** argv)
 {
-    list<sData?>*% li = new list<sData?>();
-    
-    li.add(optional new sData { a:111, b:222 });
-    li.add(optional null);
-    
-    printf("%d %d\n", li[0].a, li[0].b);
-    li[1]!.if { printf("%d %d\n", li[1].a, li[1].b); }
+    xfopen("01main.nc", mode:"r")!.fclose();
+    xfopen("1main.nc", mode:"r").catch {
+        puts("ERR");
+        return 1;
+    }.fclose();
     
     return 0;
 }

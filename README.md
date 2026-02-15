@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.8.9.9
+version 0.9.0.0
 
 ``` C
 #include <neo-c.h>
@@ -93,6 +93,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.9.0.0 smart pointer removed. slice removed. ref nad optional and span is maybe stable. null checker is enable when -cg option, by the default it's disable.
 0.8.9.9 ref and optional autounwrap. force to unwrap with !
 0.8.9.8 span more powerfull.
 0.8.9.7 span, ref, optional bug fixed. maybe bug has remained.
@@ -2016,7 +2017,7 @@ int main(int argc, char** argv)
 
 # Memory leak detector
 
-```c 
+``` 
 #include <neo-c.h>
 
 void fun()
@@ -2033,7 +2034,6 @@ int main(int argc, char** argv)
                                     
     return 0;
 }
-```
 ~/neo-c # neo-c a.nc
 ~/neo-c # ./a
 123
@@ -2200,7 +2200,7 @@ int main(int argc, char** argv)
 ```
 #include <neo-c.h>
 
-\#module MModule(T)
+#module MModule(T)
 {
     T a;
     T b;
@@ -2888,139 +2888,6 @@ int main(){
 
 Well, I know it's nonsense.
 
-# smart pointer
-
-```
-#include <neo-c.h>
-
-
-int main(int argc, char** argv)
-{
-    buffer*% buf = new buffer();
-    
-    buf.append_str("ABC");
-    
-    var p = buf.to_pointer();
-    
-    printf("%c\n", *p);
-    p++;
-    printf("%c\n", *p);
-    p++;
-    printf("%c\n", *p);
-    
-    p+=5; // out of range. Show stackframe and aborted.
-    
-    p + 10; // out of range. Show stackframe and aborted.
-    
-    return 0;
-}
-```
-
-```
-#include <neo-c.h>
-
-
-int main(int argc, char** argv)
-{
-    char a[5] = { 'a', '\0', 'b', '\0', 'c' };
-    
-    smart_pointer<char>*% p = new smart_pointer<char>(a, 5);
-    
-    printf("%d\n", *p);
-    
-    p++;
-    
-    printf("%d\n", *p);
-   
-    p++;
-    
-    return 0;
-}
-```
-
-# rawptr
-
-```
-#include <neo-c.h>
-
-int main(int argc, char** argv)
-{
-    char a[5] = { 'a', '\0', 'b', '\0', 'c' };
-    
-    var p = new rawptr<char>(a);
-    
-    printf("%d\n", *p);
-    
-    p++;
-    
-    printf("%d\n", *p);
-   
-    p++;
-    
-    return 0;
-}
-```
-
-rawptr is null check ptr. no check range.
-
-# slice
-
-```
-#include <neo-c.h>
-
-int main(int argc, char** argv)
-{
-    char a[5] = { 'a', '\0', 'b', '\0', 'c' };
-    
-    var p = new slice<char>(a, 5);
-    
-    printf("%d\n", *p);
-    
-    p++;
-    
-    printf("%d\n", *p);
-   
-    p++;
-    
-    p += 10;    // exception show stackframe
-    
-    return 0;
-}
-```
-
-```
-#include <neo-c.h>
-
-int main(int argc, char** argv)
-{
-    char ary[3] = { '1', '\0', '2' };
-    
-    var p = array_to_slice(ary);
-    
-    p[0] = 'a';
-    
-    printf("%c\n", p[3]);
-    
-    return 0;
-}
-```
-
-```
-#include <neo-c.h>
-
-int main(int argc, char** argv)
-{
-    var p = s"aaa".to_slice();
-    
-    p[2] = 'a';
-    
-    printf("%c\n", p[2]);
-    
-    return 0;
-}
-```
-
-range check pointer is slice.
 
 # Result<T>
 
@@ -3070,7 +2937,7 @@ RESULT(FILE*) xfopen(const char* file_name, const char* mode)
 
 int main(int argc, char** argv)
 {
-    xfopen("01main.nc", mode:"r").unwrap().fclose();
+    xfopen("01main.nc", mode:"r")!.fclose();
     xfopen("1main.nc", mode:"r").catch {
         puts("ERR");
         return 1;
@@ -3081,7 +2948,6 @@ int main(int argc, char** argv)
 ```
 
 # optional
-
 
 # ref
 
@@ -3094,13 +2960,9 @@ span is no own the memory. so the memory is destroyed and access the memory occu
 
 int main(int argc, char** argv)
 {
-    var xxx = "01main.nc".read();
+    var xxx = "01main.nc".read().to_string();
     
-    char*%{} p = span xxx;
-    
-    printf("%c\n", *p);
-    
-    p++;
+    char*{} p = span xxx;
     
     printf("%c\n", *p);
     
@@ -3109,6 +2971,14 @@ int main(int argc, char** argv)
     printf("%c\n", *p);
     
     p++;
+    
+    printf("%c\n", *p);
+    
+    p++;
+    
+    p += 1000000000;
+    
+    printf("%c\n", *p); // panic
     
     return 0;
 }
@@ -3121,21 +2991,21 @@ int main(int argc, char** argv)
 {
     var xxx = t(1,2,3,4);
     
-    int*%{} p = span xxx;
+    int*{} p = span xxx;
     
-    printf("%d\n", *p);
-    
-    p++;
-    
-    printf("%d\n", *p);
+    printf("%d\n", *p);   // 1
     
     p++;
     
-    printf("%d\n", *p);
+    printf("%d\n", *p);   // 2
     
     p++;
     
-    printf("%d\n", *p);
+    printf("%d\n", *p);   // 3
+    
+    p++;
+    
+    printf("%d\n", *p);   // 4
     
     return 0;
 }
@@ -3346,11 +3216,13 @@ int main(int argc, char** argv)
 {
     string& p = ref xsprintf("1 + 1 = %d", 1+1);
     
-    puts(p.unwrap());
+    puts(p!);
     
     return 0;
 }
 ```
+
+ref is not contained null.
 
 ```
 #include <neo-c.h>
@@ -3359,7 +3231,7 @@ int main(int argc, char** argv)
 {
     string& p = ref xsprintf("1 + 1 = %d", 1+1);
     
-    puts(p!.substring(0,2));
+    puts(p.substring(0,2)); // automatically unwrap
     
     return 0;
 }
@@ -3372,7 +3244,7 @@ int main(int argc, char** argv)
 {
     string? p = optional xsprintf("1 + 1 = %d", 1+1);
     
-    puts(p!.substring(0,2));
+    puts(p.substring(0,2)); // automatically unwrap
     
     return 0;
 }
@@ -3395,7 +3267,8 @@ int main(int argc, char** argv)
     li.add(optional null);
     
     printf("%d %d\n", li[0].a, li[0].b);
-    li[1]!.if { printf("%d %d\n", li[1].a, li[1].b); }
+    li[1]!.if { printf("%d %d\n", li[1].a, li[1].b); } // null check
+    printf("%d %d\n", li[1].a, li[1].b); // panic. show stackframe
     
     return 0;
 }

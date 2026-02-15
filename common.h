@@ -1204,7 +1204,7 @@ uniq class sNullChecker extends sNodeBase
             }
         }
 
-        if(!gComeC && pointer_type) {
+        if(!gComeC && gComeDebug && pointer_type) {
             string type_name = make_type_name_string(type, no_static:true, cast_type:true, nullchecker:true);
             
             CVALUE*% come_value2 = new CVALUE();
