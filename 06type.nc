@@ -1570,6 +1570,7 @@ sType*% parse_pointer_attribute(sType* type, sInfo* info=info)
           
             if(type->mClass->mStruct) {
                 type->mPointerNum++;
+                type->mHeap = true;
             }
             
             sType*% generics_type = new sType(s"ref");
@@ -1602,6 +1603,7 @@ sType*% parse_pointer_attribute(sType* type, sInfo* info=info)
           
             if(type->mClass->mStruct) {
                 type->mPointerNum++;
+                type->mHeap = true;
             }
             
             sType*% generics_type = new sType(s"optional");

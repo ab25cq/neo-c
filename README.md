@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.8.9.8
+version 0.8.9.9
 
 ``` C
 #include <neo-c.h>
@@ -93,6 +93,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.8.9.9 ref and optional autounwrap. force to unwrap with !
 0.8.9.8 span more powerfull.
 0.8.9.7 span, ref, optional bug fixed. maybe bug has remained.
 0.8.9.6 null checker returns.
@@ -3372,6 +3373,29 @@ int main(int argc, char** argv)
     string? p = optional xsprintf("1 + 1 = %d", 1+1);
     
     puts(p!.substring(0,2));
+    
+    return 0;
+}
+```
+
+```
+#include <neo-c.h>
+
+struct sData
+{
+    int a;
+    int b;
+};
+
+int main(int argc, char** argv)
+{
+    list<sData?>*% li = new list<sData?>();
+    
+    li.add(optional new sData { a:111, b:222 });
+    li.add(optional null);
+    
+    printf("%d %d\n", li[0].a, li[0].b);
+    li[1]!.if { printf("%d %d\n", li[1].a, li[1].b); }
     
     return 0;
 }
