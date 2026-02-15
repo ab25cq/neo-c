@@ -630,28 +630,15 @@ impl optional<T>
         return self;
     }
     
-    _norecord T unwrap(optional<T>* self, bool check=false) {
-        if(self\.local) {
-            if(self\.stacktop < neo_current_frame.stacktop) {
-                puts("optional object is vanished");
-                stackframe();
-                exit(127);
-            }
-        }
-        if(check && self.p == (void*)0) {
-            puts("null pointer exception");
-            stackframe();
-            exit(2);
-        }
-        
+    _norecord T unwrap(optional<T>* self) {
         return self.p;
     }
     _norecord T] operator_derefference(optional<T>* self)
     {
         using unsafe;
         
-        if(self\.local) {
-            if(self\.stacktop < neo_current_frame.stacktop) {
+        if(self.local) {
+            if(self.stacktop < neo_current_frame.stacktop) {
                 puts("refferenced object is vanished");
                 stackframe();
                 exit(127);
@@ -698,14 +685,7 @@ impl ref<T>
         return self;
     }
     
-    _norecord T unwrap(ref<T>* self, bool check=false) {
-        if(self\.local) {
-            if(self\.stacktop < neo_current_frame.stacktop) {
-                puts("refferenced object is vanished");
-                stackframe();
-                exit(127);
-            }
-        }
+    _norecord T unwrap(ref<T>* self) {
         return self.p;
     }
     
@@ -713,8 +693,8 @@ impl ref<T>
     {
         using unsafe;
         
-        if(self\.local) {
-            if(self\.stacktop < neo_current_frame.stacktop) {
+        if(self.local) {
+            if(self.stacktop < neo_current_frame.stacktop) {
                 puts("refferenced object is vanished");
                 stackframe();
                 exit(127);
@@ -735,233 +715,6 @@ impl ref<T>
 #define SOME(o) t(o, false)
 #define NONE(o) t(o, true)
 
-/*
-struct result<T>
-{
-    T value;
-    bool err;
-};
-
-impl result<T>
-{
-    result<T>*% initialize(result<T>*% self, T value, bool err) {
-        self.value = value;
-        self.err = err;
-        return self;
-    }
-    
-    T unwrap(result<T>* self) {
-        if(self.err == true) {
-            puts("exception");
-            stackframe();
-            exit(2);
-        }
-        
-        return self.value;
-    }
-}
-*/
-
-//////////////////////////////
-// slice
-//////////////////////////////
-struct slice<T> {
-    char*% memory;
-    T^ p;
-    size_t len;
-};
-
-impl slice<T>
-{
-    slice<T>*% initialize(slice<T>*% self, T p, size_t len)
-    {
-        self.memory = new char[len];
-        memcpy(self.memory, (char*)p, len);
-        self.p = (T^)borrow self.memory;
-        self.len = len;
-        
-        return self;
-    }
-    T^ unwrap(slice<T>* self, bool check=false) {
-        if(check && (char*)self.p >= self.memory + self.len) {
-            puts("out of range of slice");
-            stackframe();
-            exit(1);
-        }
-        if(check && (char*)self.p < self.memory) {
-            puts("out of range of slice");
-            stackframe();
-            exit(1);
-        }
-        
-        return self.p;
-    }
-    
-    slice<T>* operator_plus_plus(slice<T>* self)
-    {
-        using unsafe;
-        
-        self.p++;
-        
-        if(self.p >= self.memory + self.len) {
-            puts("out of range of slice");
-            stackframe();
-            exit(1);
-        }
-        
-        return self;
-    }
-    slice<T>* operator_plus_equal(slice<T>* self, size_t value)
-    {
-        using unsafe;
-        
-        self.p += value;
-        
-        if(self.p >= self.memory + self.len) {
-            puts("out of range of slice");
-            stackframe();
-            exit(1);
-        }
-        
-        return self;
-    }
-    
-    slice<T>* operator_minus_minus(slice<T>* self)
-    {
-        using unsafe;
-        
-        self.p--;
-        
-        if(self.p < self.memory) {
-            puts("out of range of slice");
-            stackframe();
-            exit(1);
-        }
-        
-        return self;
-    }
-    
-    slice<T>* operator_minus_equal(slice<T>* self, size_t value)
-    {
-        using unsafe;
-        
-        self.p -= value;
-        
-        if(self.p < self.memory) {
-            puts("out of range of slice");
-            stackframe();
-            exit(1);
-        }
-        
-        return self;
-    }
-    
-    T^ operator_add(slice<T>* self, size_t rvalue)
-    {
-        using unsafe;
-        
-        T^ result = self.p + rvalue;
-        
-        if(result >= self.memory + self.len) {
-            puts("out of range of slice");
-            stackframe();
-            exit(1);
-        }
-        
-        return result;
-    }
-    
-    T^ operator_sub(slice<T>* self, size_t rvalue)
-    {
-        using unsafe;
-        
-        T^ result = self.p - rvalue;
-        
-        if((char*)result < self.memory) {
-            puts("out of range of slice");
-            stackframe();
-            exit(1);
-        }
-        
-        return result;
-    }
-    
-    T]^ operator_derefference(slice<T>* self)
-    {
-        using unsafe;
-        
-        if(self.p >= self.memory + self.len) {
-            puts("out of range of slice");
-            stackframe();
-            exit(1);
-        }
-        if(self.p < self.memory) {
-            puts("out of range of slice");
-            stackframe();
-            exit(1);
-        }
-        
-        return *self.p;
-    }
-    void operator_store_element(slice<T>* self, int position, T] item) {
-        if(self.p == (void*)0) {
-            puts("null pointer operation");
-            stackframe();
-            exit(1);
-        }
-        if(self.p + position >= self.memory + self.len) {
-            puts("out of range of slice");
-            stackframe();
-            exit(1);
-        }
-        if(self.p + position < self.memory) {
-            puts("out of range of slice");
-            stackframe();
-            exit(1);
-        }
-        
-        self.p\[position] = item;
-    }
-    T^ operator_load_element(slice<T>* self, int position) {
-        if(self.p == (void*)0) {
-            puts("null pointer operation");
-            stackframe();
-            exit(1);
-        }
-        if(self.p + position >= self.memory + self.len) {
-            puts("out of range of slice");
-            stackframe();
-            exit(1);
-        }
-        if(self.p + position < self.memory) {
-            puts("out of range of slice");
-            stackframe();
-            exit(1);
-        }
-        
-        return self.p\[position];
-    }
-    
-    T^ unwrap(slice<T>* self) {
-        if(self.p + position >= self.memory + self.len) {
-            puts("out of range of slice");
-            stackframe();
-            exit(1);
-        }
-        if(self.p + position < self.memory) {
-            puts("out of range of slice");
-            stackframe();
-            exit(1);
-        }
-        
-        return self.p;
-    }
-    
-    string to_string(slice<T>* self) {
-        return s"head \{self.memory} p \{self.p} len \{self.len}";
-    }
-}
-
 //////////////////////////////
 // span
 //////////////////////////////
@@ -975,8 +728,7 @@ struct span<T> {
 
 impl span<T>
 {
-    span<T>*% initialize(span<T>*% self, void*%& refference, void* head, size_t len)
-    {
+    span<T>*% initialize(span<T>*% self, void*%& refference, void* head, size_t len) {
         using unsafe; 
         
         if(!ispointer(T)) {
@@ -988,36 +740,13 @@ impl span<T>
         
         self.p = (T^)head;
         self.len = len;
-        self.local = refference\.local;
-        self.stacktop = refference\.stacktop;
+        self.local = refference.local;
+        self.stacktop = refference.stacktop;
         
         return self;
     }
-    _norecord T^ unwrap(span<T>* self, bool check=false) {
+    _norecord T^ unwrap(span<T>* self) {
         using unsafe; 
-        
-        if(self->local) {
-            if(self->stacktop < neo_current_frame.stacktop) {
-                puts("refferenced object is vanished");
-                stackframe();
-                exit(127);
-            }
-        }
-        if(check && sizeof(T]) > self.len) {
-            puts("invalid span. len is few");
-            stackframe();
-            exit(2);
-        }
-        if(check && self.p >= (char*)self.memory + self.len) {
-            puts("out of range of span");
-            stackframe();
-            exit(1);
-        }
-        if(check && self.p < (char*)self.memory) {
-            puts("out of range of span");
-            stackframe();
-            exit(1);
-        }
         
         return (T^)self.p;
     }
@@ -1028,175 +757,54 @@ impl span<T>
         self.p = p;
     }
     
-    _norecord span<T>* operator_plus_plus(span<T>* self)
-    {
+    _norecord span<T>* operator_plus_plus(span<T>* self) {
         using unsafe;
-        
-        if(self->local) {
-            if(self->stacktop < neo_current_frame.stacktop) {
-                puts("refferenced object is vanished");
-                stackframe();
-                exit(127);
-            }
-        }
         
         self.p++;
         
-        if(sizeof(T]) > self.len) {
-            puts("invalid span. len is few");
-            stackframe();
-            exit(2);
-        }
-        if(self.p >= (char*)self.memory + self.len) {
-            puts("out of range of span");
-            stackframe();
-            exit(1);
-        }
-        
         return self;
     }
-    _norecord span<T>* operator_plus_equal(span<T>* self, size_t value)
-    {
+    _norecord span<T>* operator_plus_equal(span<T>* self, size_t value) {
         using unsafe;
-        
-        if(self->local) {
-            if(self->stacktop < neo_current_frame.stacktop) {
-                puts("refferenced object is vanished");
-                stackframe();
-                exit(127);
-            }
-        }
         
         self.p += value;
         
-        if(sizeof(T]) > self.len) {
-            puts("invalid span. len is few");
-            stackframe();
-            exit(2);
-        }
-        if(self.p >= (char*)self.memory + self.len) {
-            puts("out of range of span");
-            stackframe();
-            exit(1);
-        }
-        
         return self;
     }
     
-    _norecord span<T>* operator_minus_minus(span<T>* self)
-    {
+    _norecord span<T>* operator_minus_minus(span<T>* self) {
         using unsafe;
-        
-        if(self->local) {
-            if(self->stacktop < neo_current_frame.stacktop) {
-                puts("refferenced object is vanished");
-                stackframe();
-                exit(127);
-            }
-        }
         
         self.p--;
         
-        if(sizeof(T]) > self.len) {
-            puts("invalid span. len is few");
-            stackframe();
-            exit(2);
-        }
-        if(self.p < (char*)self.memory) {
-            puts("out of range of span");
-            stackframe();
-            exit(1);
-        }
-        
         return self;
     }
     
-    _norecord span<T>* operator_minus_equal(span<T>* self, size_t value)
-    {
+    _norecord span<T>* operator_minus_equal(span<T>* self, size_t value) {
         using unsafe;
-        
-        if(self->local) {
-            if(self->stacktop < neo_current_frame.stacktop) {
-                puts("refferenced object is vanished");
-                stackframe();
-                exit(127);
-            }
-        }
         
         self.p -= value;
         
-        if(sizeof(T]) > self.len) {
-            puts("invalid span. len is few");
-            stackframe();
-            exit(2);
-        }
-        if(self.p < (char*)self.memory) {
-            puts("out of range of span");
-            stackframe();
-            exit(1);
-        }
-        
         return self;
     }
     
-    _norecord T^ operator_add(span<T>* self, size_t rvalue)
-    {
+    _norecord T^ operator_add(span<T>* self, size_t rvalue) {
         using unsafe;
-        
-        if(self->local) {
-            if(self->stacktop < neo_current_frame.stacktop) {
-                puts("refferenced object is vanished");
-                stackframe();
-                exit(127);
-            }
-        }
         
         T^ result = self.p + rvalue;
         
-        if(sizeof(T]) > self.len) {
-            puts("invalid span. len is few");
-            stackframe();
-            exit(2);
-        }
-        if(result >= (char*)self.memory + self.len) {
-            puts("out of range of span");
-            stackframe();
-            exit(1);
-        }
-        
         return result;
     }
     
-    _norecord T^ operator_sub(span<T>* self, size_t rvalue)
-    {
+    _norecord T^ operator_sub(span<T>* self, size_t rvalue) {
         using unsafe;
-        
-        if(self->local) {
-            if(self->stacktop < neo_current_frame.stacktop) {
-                puts("refferenced object is vanished");
-                stackframe();
-                exit(127);
-            }
-        }
         
         T^ result = self.p - rvalue;
         
-        if(sizeof(T]) > self.len) {
-            puts("invalid span. len is few");
-            stackframe();
-            exit(2);
-        }
-        if(result < (char*)self.memory) {
-            puts("out of range of span");
-            stackframe();
-            exit(1);
-        }
-        
         return result;
     }
     
-    _norecord T]^ operator_derefference(span<T>* self)
-    {
+    _norecord T]^ operator_derefference(span<T>* self) {
         using unsafe;
         
         if(self->local) {
@@ -1288,8 +896,12 @@ impl span<T>
         return p\[position];
     }
     
-    
-    _norecord string to_string(slice<T>* self) {
+    _norecord string to_string(span<T>* self) {
+        using unsafe; 
+        
+        return s"head \{self.memory} p \{self.p} len \{self.len}";
+    }
+    _norecord int memcmp(span<T>* self, void* mem, size_t len) {
         using unsafe; 
         
         if(self->local) {
@@ -1304,65 +916,25 @@ impl span<T>
             stackframe();
             exit(2);
         }
-        return s"head \{self.memory} p \{self.p} len \{self.len}";
+        if((char*)self.p >= (char*)self.memory + self.len) {
+            puts("out of range of span");
+            stackframe();
+            exit(1);
+        }
+        if((char*)self.p + len >= (char*)self.memory + self.len) {
+            puts("out of range of span");
+            stackframe();
+            exit(1);
+        }
+        if(self.p < (char*)self.memory) {
+            puts("out of range of span");
+            stackframe();
+            exit(1);
+        }
+        
+        return memcmp((void*)self.p, mem, len);
     }
 }
-
-/*
-
-uniq slice<char*>*% buffer*::to_slice(buffer* self)
-{
-    return new slice<char*>(self.buf, self.len);
-}
-
-uniq slice<char*>*% char[]::to_slice(char* ary, int len)
-{
-    return new slice<char*>(ary, len);
-}
-
-uniq slice<short*>*% short[]::to_slice(short* ary, int len)
-{
-    return new slice<short*>(ary, len);
-}
-
-uniq slice<int*>*% int[]::to_slice(int* ary, int len)
-{
-    return new slice<int*>(ary, len);
-}
-
-uniq slice<long*>*% long[]::to_slice(long* ary, int len)
-{
-    return new slice<long*>(ary, len);
-}
-*/
-
-#define array_to_slice(array) (new slice<__typeof__((array)[0])*>.initialize((__typeof__((array)[0])*)(array), sizeof(array)/sizeof((array)[0])))
-#define array_to_slice_t(T, array) (new slice<T>.initialize((T*)(array), sizeof(array)/sizeof((array)[0])))
-#define struct_to_slice(obj) (new slice<char*>.initialize((char*)obj, sizeof(obj)))
-
-/*
-uniq slice<char*>*% string::to_slice(char*% self)
-{
-    size_t size = string::length(self);
-    
-    return new slice<char*>(self, size);
-}
-
-uniq slice<char*>*% char*::to_slice(char*% self)
-{
-    int len = string::length(self);
-    
-    return new slice<char*>(self, len);
-}
-
-uniq slice<char*>*% buffer*::to_slice(buffer*% buf)
-{
-    int len = buf.len;
-    
-    return new slice<char*>(buf.buf, len);
-}
-*/
-
 
 //////////////////////////////
 // rawptr
@@ -1386,226 +958,6 @@ impl rawptr<T>
     }
 }
 */
-
-//////////////////////////////
-// smart_pointer
-//////////////////////////////
-struct smart_pointer<T> {
-    buffer*% memory;
-    T* p;
-};
-
-impl smart_pointer<T>
-{
-    smart_pointer<T>*% initialize(smart_pointer<T>*% self, void* memory, int size)
-    {
-        self.memory = new buffer.initialize();
-        
-        self.memory.append(memory, sizeof(T)*size);
-        
-        self.p = (T*)borrow self.memory.buf;
-        
-        return self;
-    }
-    
-    smart_pointer<T>* operator_plus_plus(smart_pointer<T>* self)
-    {
-        using unsafe;
-        
-        self.p++;
-        
-        if((char*)self.p > self.memory.buf + self.memory.len) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        
-        return self;
-    }
-    smart_pointer<T>* operator_plus_equal(smart_pointer<T>* self, size_t value)
-    {
-        using unsafe;
-        
-        self.p += value;
-        
-        if((char*)self.p > self.memory.buf + self.memory.len) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        
-        return self;
-    }
-    
-    smart_pointer<T>* operator_minus_minus(smart_pointer<T>* self)
-    {
-        using unsafe;
-        
-        self.p--;
-        
-        if((char*)self.p < self.memory.buf) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        
-        return self;
-    }
-    
-    smart_pointer<T>* operator_minus_equal(smart_pointer<T>* self, size_t value)
-    {
-        using unsafe;
-        
-        self.p -= value;
-        
-        if((char*)self.p < self.memory.buf) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        
-        return self;
-    }
-    
-    T* operator_add(smart_pointer<T>* self, size_t rvalue)
-    {
-        using unsafe;
-        
-        T* result = self.p + rvalue;
-        
-        if(result > self.memory.buf + self.memory.len) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        
-        return result;
-    }
-    
-    T* operator_sub(smart_pointer<T>* self, size_t rvalue)
-    {
-        using unsafe;
-        
-        T* result = self.p - rvalue;
-        
-        if(result < self.memory.buf) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        
-        return result;
-    }
-    
-    T operator_derefference(smart_pointer<T>* self)
-    {
-        using unsafe;
-        T* p = self.p;
-        
-        if((char*)self.p > self.memory.buf + self.memory.len) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        if((char*)self.p < self.memory.buf) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        
-        return *p;
-    }
-    void operator_store_element(smart_pointer<T>* self, int position, T item) {
-        if(self.p + position > self.memory.buf + self.memory.len) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        if(self.p + position < self.memory.buf) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        
-        T* p = self.p;
-        
-        p\[position] = item;
-    }
-    T operator_load_element(smart_pointer<T>* self, int position) {
-        if(self.p + position > self.memory.buf + self.memory.len) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        if(self.p + position < self.memory.buf) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        
-        T* p = self.p;
-        
-        return p\[position];
-    }
-    
-    T* unwrap(smart_pointer<T>* self)
-    {
-        using unsafe;
-        
-        if((char*)self.p > self.memory.buf + self.memory.len) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        if((char*)self.p < self.memory.buf) {
-            puts("out of range of smart pointer");
-            stackframe();
-            exit(1);
-        }
-        
-        return self.p;
-    }
-}
-
-uniq smart_pointer<int>*% buffer*::to_int_pointer(buffer* self)
-{
-    auto result = new smart_pointer<int>;
-    
-    result.memory = clone self;
-    result.p = (int*)borrow result.memory.buf;
-    
-    return result;
-}
-
-uniq smart_pointer<short>*% buffer*::to_short_pointer(buffer* self)
-{
-    auto result = new smart_pointer<short>;
-    
-    result.memory = clone self;
-    result.p = (short*)borrow result.memory.buf;
-    
-    return result;
-}
-
-uniq smart_pointer<long>*% buffer*::to_long_pointer(buffer* self)
-{
-    auto result = new smart_pointer<long>;
-    
-    result.memory = clone self;
-    result.p = (long*)borrow result.memory.buf;
-    
-    return result;
-}
-
-uniq smart_pointer<char>*% buffer*::to_pointer(buffer* self)
-{
-    auto result = new smart_pointer<char>;
-    
-    result.memory = clone self;
-    result.p = borrow result.memory.buf;
-    
-    return result;
-}
 
 
 //////////////////////////////

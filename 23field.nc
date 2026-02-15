@@ -578,8 +578,6 @@ class sUnwrapNode extends sNodeBase
         self.super();
     
         sNode*% self.node = clone node;
-        bool self.check = check;
-        bool self.no_unwrap = no_unwrap;
     }
     
     string kind()
@@ -590,68 +588,28 @@ class sUnwrapNode extends sNodeBase
     bool compile(sInfo* info)
     {
         sNode*% node = self.node;
-        bool check = self.check
-        bool no_unwrap = self.no_unwrap;
         
-/*
-        bool no_output_come_code = info.no_output_come_code;
-        info.no_output_come_code = true;
-*/
-        node_compile(node).elif {
+        sNode*% obj = node;
+        list<tup: string, sNode*%>*% params =  new list<tup: string, sNode*%>();
+        
+        const char* fun_name = "unwrap";
+        
+        params.add(t((string)null, node));
+        
+        sNode*% node = create_method_call(fun_name, obj, params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
+        
+        node_compile(node ,info).elif {
             return false;
-        }
-//        info.no_output_come_code = no_output_come_code;
-        
-        CVALUE*% come_value = get_value_from_stack(-1, info);
-        
-        if(no_unwrap || info.come_fun && ((strlen(info.come_fun.mName) > strlen("ref$") && memcmp(info.come_fun.mName, "ref$", strlen("ref$")) == 0) || (strlen(info.come_fun.mName) > strlen("optional$") && memcmp(info.come_fun.mName, "optional$", strlen("optional$")) == 0) || (strlen(info.come_fun.mName) > strlen("slice$") && memcmp(info.come_fun.mName, "slice$", strlen("slice$")) == 0) || (strlen(info.come_fun.mName) > strlen("span$") && memcmp(info.come_fun.mName, "span$", strlen("span$")) == 0)))
-        {
-            info.stack.push_back(come_value);
-        }
-        else if(come_value.type.mNoSolvedGenericsType) {
-            if(come_value.type.mNoSolvedGenericsType.mClass.mName === "ref" || come_value.type.mNoSolvedGenericsType.mClass.mName === "optional" || come_value.type.mNoSolvedGenericsType.mClass.mName === "slice" || come_value.type.mNoSolvedGenericsType.mClass.mName === "span")
-            {
-                sNode*% obj = node;
-                list<tup: string, sNode*%>*% params =  new list<tup: string, sNode*%>();
-                
-                const char* fun_name = "unwrap";
-                
-                params.add(t((string)null, node));
-                if(check) {
-                    params.add(t((string)null, create_true_object(info)));
-                }
-                else {
-                    params.add(t((string)null, create_false_object(info)));
-                }
-                
-                sNode*% node = create_method_call(fun_name, obj, params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
-                
-                node_compile(node).if {
-                    return true;
-                }
-            }
-            else {
-                info.stack.push_back(come_value);
-            }
-        }
-        else {
-            info.stack.push_back(come_value);
         }
     
         return true;
     }
 };
 
-sNode*% automatically_unwrap(sNode*% node, sInfo* info=info, bool check=true, bool no_unwrap=false)
-{
-//    return node;
-    return new sUnwrapNode(node, info, check, no_unwrap) implements sNode;
-}
 
 sNode*% load_field(sNode*% left, string name, sInfo* info=info)
 {
-    sNode*% left2 = clone left; //automatically_unwrap(left);
-    return new sLoadFieldNode(left2, name, info) implements sNode;
+    return new sLoadFieldNode(left, name, info) implements sNode;
 }
 
 class sStoreArrayNode extends sNodeBase
@@ -1112,8 +1070,7 @@ sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info, bool arrow_
 
 sNode*% store_field(sNode*% left, sNode*% right, string name, sInfo* info)
 {
-    sNode*% left2 = clone left; //automatically_unwrap(left);
-    return new sStoreFieldNode(left2, right, name, info) implements sNode;
+    return new sStoreFieldNode(left, right, name, info) implements sNode;
 }
 
 sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
@@ -1176,6 +1133,12 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
             }
             
             node = new sLoadRangeArrayNode(node, array_num, quote, info) implements sNode;
+        }
+        else if(!node.terminated() && *info->p == '!' && *(info->p+1) != '=') {
+            info->p++;
+            skip_spaces_and_lf();
+            
+            node = new sUnwrapNode(node, info) implements sNode;
         }
         else if(!node->terminated() && !range_array && (*info->p == '\\' && *(info->p+1) == '[' || *info->p == '[')) {
             bool quote = *info->p == '\\';
@@ -1248,12 +1211,10 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                 
                 skip_spaces_and_lf();
                 
-                sNode*% node2 = clone node; //automatically_unwrap(node, no_unwrap:quote);
-                node = new sStoreArrayNode(node2, right_node, array_num, quote, info) implements sNode;
+                node = new sStoreArrayNode(node, right_node, array_num, quote, info) implements sNode;
             }
             else {
-                sNode*% node2 = clone node; //automatically_unwrap(node, no_unwrap:quote);
-                node = new sLoadArrayNode(node2, array_num, quote, false@break_guard, info) implements sNode;
+                node = new sLoadArrayNode(node, array_num, quote, false@break_guard, info) implements sNode;
             }
         }
         else if((*info->p == '\\' && *(info->p+1) == '.') || (*info->p == '\\' && *(info->p+1) == '-' && *(info->p+2) == '>') || (*info->p == '.' && *(info->p+1) != '.') || (*info->p == '-' && *(info->p+1) == '>')) {
@@ -1307,43 +1268,34 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                 
                 sNode*% right_node = expression();
                 
-                sNode*% node2 = clone node; //automatically_unwrap(node, no_unwrap:quote);
-                node = new sStoreFieldNode(node2, right_node, field_name, info, arrow_) implements sNode;
+                node = new sStoreFieldNode(node, right_node, field_name, info, arrow_) implements sNode;
             }
             else if(!gComeC && (*info->p == '(' || *info->p == '{' || parse_method_generics_type)) {
                 if(field_name === "if") 
                 {
-                    sNode*% node2 = automatically_unwrap(node, check:false, no_unwrap:quote);
-                    node = parse_if_method_call(node2, info);
+                    node = parse_if_method_call(node, info);
                 }
                 else if(field_name === "elif") {
-                    sNode*% node2 = automatically_unwrap(node, check:false, no_unwrap:quote);
-                    node = parse_elif_method_call(node2, info);
+                    node = parse_elif_method_call(node, info);
                 }
                 else if(field_name === "case") {
-                    sNode*% node2 = automatically_unwrap(node, check:false, no_unwrap:quote);
-                    node = parse_match(node2, info);
+                    node = parse_match(node, info);
                 }
                 else if(field_name === "catch") {
-                    sNode*% node2 = automatically_unwrap(node, check:false, no_unwrap:quote);
-                    node = parse_catch(node2, info);
+                    node = parse_catch(node, info);
                 }
                 else if(field_name === "less") {
-                    sNode*% node2 = automatically_unwrap(node, check:false, no_unwrap:quote);
-                    node = parse_less_method_call(node2, info);
+                    node = parse_less_method_call(node, info);
                 }
                 else if(field_name === "unwrap") {
-                    sNode*% node2 = clone node;
-                    node = parse_method_call(node2, field_name, info, arrow_);
+                    node = parse_method_call(node, field_name, info, arrow_);
                 }
                 else {
-                    sNode*% node2 = automatically_unwrap(node, no_unwrap:quote);
-                    node = parse_method_call(node2, field_name, info, arrow_);
+                    node = parse_method_call(node, field_name, info, arrow_);
                 }
             }
             else {
-                sNode*% node2 = clone node; //automatically_unwrap(node, no_unwrap:quote);
-                node = new sLoadFieldNode(node2, field_name, info, arrow_) implements sNode;
+                node = new sLoadFieldNode(node, field_name, info, arrow_) implements sNode;
             }
         }
         else {

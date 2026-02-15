@@ -7,9 +7,11 @@ list<int>*% fun()
 
 int main(int argc, char** argv)
 {
-    list<int>*%& p = ref [1,2,3];
+    char*{}% p = span s"ABCDEFG";
     
-    puts(p.to_string());
+    (p.memcmp("ABCEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE", 10) == 0).if {
+        puts("OK");
+    }
     
     return 0;
 }
