@@ -2241,14 +2241,14 @@ impl vector<T>
         return self.item(index, default_value!);
     }
     
-    void push_back(vector<T>* self, T` item) {
+    void add(vector<T>* self, T` item) {
         using unsafe;
         
         if(self.len == self.size) {
             auto new_size = self.size * 2;
             auto items = self.items;
 
-            self.items = igc_calloc(1, sizeof(T)*new_size);
+            self.items = come_calloc(1, sizeof(T)*new_size);
 
             int i;
             for(i=0; i<self.size; i++) {
@@ -2257,7 +2257,7 @@ impl vector<T>
 
             self.size = new_size;
 
-            ncfree_object((char*)items);
+            come_free((char*)items);
         }
 
         self.items[self.len] = dummy_heap item;
@@ -2347,7 +2347,7 @@ impl vector<T>
                 delete borrow self.items[i];
             }
         }
-        ncfree_object((char*)self.items);
+        come_free((char*)self.items);
         
         self.size = 16;
         self.len = 0;
@@ -2392,19 +2392,16 @@ impl vector<T>
             self.len--;
         }
     }
-}
+    
+    vector<T>* quick_sort(vector<T>* self, int left, int right, int (*compare)(T,T)) {
+        int l_hold = left;
+        int r_hold = right;
 
-/*
-
-    def quickSort(left:int, right:int, fun:lambda(T, T):int):SortableArray<T> {
-        l_hold:int = left;
-        r_hold:int = right;
-
-        pivot:T = self.items[left];
-        pivot_num:int = left;
+        T^ pivot = self.items[left];
+        int pivot_num = left;
 
         while(left < right) {
-            while((fun(self.items[right], pivot) >= 0) && (left < right)) {
+            while((compare(self.items[right], pivot) >= 0) && (left < right)) {
                 right--;
             }
 
@@ -2413,7 +2410,7 @@ impl vector<T>
                 left++;
             }
 
-            while((fun(self.items[left], pivot) <= 0) && (left < right)) {
+            while((compare(self.items[left], pivot) <= 0) && (left < right)) {
                 left++;
             }
 
@@ -2427,27 +2424,26 @@ impl vector<T>
 
         pivot_num = left;
 
-        left2:int = l_hold;
-        right2:int = r_hold;
+        int left2 = l_hold;
+        int right2 = r_hold;
 
         if(left2 < pivot_num) {
-            self.quickSort(left2, pivot_num-1, fun);
+            self.quick_sort(left2, pivot_num-1, compare);
         }
 
         if(right2 > pivot_num) {
-            self.quickSort(pivot_num+1, right2, fun);
+            self.quick_sort(pivot_num+1, right2, compare);
         }
 
         return self;
     }
-
-    def sort():SortableArray<T>  {
-        return self.quickSort(0, self.length()-1, lambda(left:T, right:T):int { left.compare(right) });
+    vector<T>* sort_with_lambda(vector<T>* self, int (*compare)(T^, T^)) {
+        return self.quick_sort(0, self.length()-1, fun);
     }
-    def sort(fun:lambda(T,T):int):SortableArray<T>  {
-        return self.quickSort(0, self.length()-1, fun);
+    vector<T>* sort(vector<T>* self) {
+        return self.quick_sort(0, self.length()-1, int lambda(T^ left, T^ right) { return left.compare(right); });
     }
-*/
+}
 
 //////////////////////////////
 // map
