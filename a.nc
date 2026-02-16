@@ -1,23 +1,22 @@
 #include <neo-c.h>
 
-RESULT(FILE*) xfopen(const char* file_name, const char* mode)
+void fun()
 {
-    FILE* f = fopen(file_name, mode);
+    defer { puts("OK"); }
     
-    if(f == NULL) {
-        return NONE(f);
-    }
-    
-    return SOME(f);
+    puts("UHO");
 }
+
+
 
 int main(int argc, char** argv)
 {
-    xfopen("01main.nc", mode:"r")!.fclose();
-    xfopen("1main.nc", mode:"r").catch {
-        puts("ERR");
-        return 1;
-    }.fclose();
+    FILE* f = fopen("01main.nc", "r");
+    
+    puts("AAAA");
+    
+    defer { fclose(f); }
+    
     
     return 0;
 }

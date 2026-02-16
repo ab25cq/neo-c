@@ -156,6 +156,7 @@ class sFunNode extends sNodeBase
             info->block_level = block_level;
             
             if(!gComeC && !info.inhibits_output_code2 && !info.come_fun.mResultType.mNorecord) {
+                add_come_code(info, "%s", self.mFun.mSourceEnd.to_string());
                 add_come_code_no_indent(info, "neo_current_frame = fr.prev;\n");
             }
             

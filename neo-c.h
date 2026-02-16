@@ -2026,6 +2026,265 @@ impl list <T>
     }
 }
 
+
+//////////////////////////////
+// list
+//////////////////////////////
+struct vector<T> 
+{
+    T^* items;
+    int len;
+    int size;
+
+    int it;
+};
+
+impl vector<T> 
+{
+    vector<T>*% initialize(vector<T>*% self) 
+    {
+        self.size = 16;
+        self.len = 0;
+        self.items = borrow new T[self.size];
+        
+        return self;
+    }
+    vector<T>*% initialize_with_values(vector<T>*% self, int num_value, T^* values) 
+    {
+        self.size = num_value;
+        self.len = 0;
+        self.items = borrow new T[self.size];
+        
+        memcpy(self.items, values, sizeof(T)*self.size);
+        
+        return self;
+    }
+
+    vector<T>*% clone(vector<T>* self)
+    {
+        vector<T>*% result = new vector<T>;
+
+        result.len = self.len;
+        result.size = self.size;
+        result.it = 0;
+        result.items = borrow new T[result.size];
+        
+        if(isheap(T)) {
+            for(int i=0; i<self.len; i++) 
+            {
+                result.items[i] = borrow clone self.items[i];
+            }
+        }
+        else {
+            for(int i=0; i<self.len; i++) 
+            {
+                result.items[i] = self.items[i];
+            }
+        }
+
+        return result;
+    }
+
+    void finalize(vector<T>* self)
+    {
+        if(isheap(T)) {
+            for(int i=0; i<self.len; i++) 
+            {
+                delete borrow self.items[i];
+            }
+        }
+        if(self && self.items) {
+            come_free((char*)self.items);
+        }
+    }
+    
+    vector<T>*% operator_add(vector<T>* left, vector<T>* right) {
+        vector<T>*% result = new vector<T>.initialize();
+        
+        foreach(it, left) {
+            if(isheap(T)) {
+                result.push_back(clone it);
+            }
+            else {
+                result.push_back(dummy_heap it);
+            }
+        }
+        
+        foreach(it, right) {
+            if(isheap(T)) {
+                result.push_back(clone it);
+            }
+            else {
+                result.push_back(dummy_heap it);
+            }
+        }
+        
+        return result;
+    }
+    vector<T>*% operator_mult(vector<T>* left, int n) {
+        vector<T>*% result = new vector<T>.initialize();
+        
+        for(int i=0; i<n; i++) {
+            foreach(it, left) {
+                if(isheap(T)) {
+                    result.push_back(clone it);
+                }
+                else {
+                    result.push_back(dummy_heap it);
+                }
+            }
+        }
+        
+        return result;
+    }
+    bool operator_equals(vector<T>* left, vector<T>* right) {
+        return left.equals(right);
+    }
+    bool operator_not_equals(vector<T>* left, vector<T>* right) {
+        return !left.equals(right);
+    }
+    void operator_store_element(vector<T>* self, int index, T item) {
+        self.replace(index, item);
+    }
+    
+    T^ operator_load_element(vector<T>* self, int index) {
+        T^ default_value;
+        memset(&default_value!, 0, sizeof(T));
+        
+        return self.item(index, default_value!);
+    }
+    
+    void push_back(vector<T>* self, T` item) {
+        if(self.len == self.size) {
+            auto new_size = self.size * 2;
+            auto items = self.items;
+
+            self.items = igc_calloc(1, sizeof(T)*new_size);
+
+            int i;
+            for(i=0; i<self.size; i++) {
+                self.items[i] = items[i];
+            }
+
+            self.size = new_size;
+
+            ncfree_object((char*)items);
+        }
+
+        self.items[self.len] = dummy_heap item;
+        self.len++;
+    }
+
+    T^ item(vector<T>* self, int index, T^ default_value) 
+    {
+        if(index < 0) {
+            index += self.len;
+        }
+
+        if(index >= 0 && index < self.len)
+        {
+            return self.items[index];
+        }
+
+        return default_value;
+    }
+
+
+    bool equals(vector<T>* left, vector<T>* right)
+    {
+        if(left.len != right.len) {
+            return false;
+        }
+
+        for(int i=0; i<left.len; i++) {
+            if(!(left.items[i].equals(right.items[i])))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+    
+    void replace(vector<T>* self, int index, T value)
+    {
+        if(index < 0) {
+            index += self.len;
+        }
+
+        if(index >= 0 && index < self.len)
+        {
+            if(isheap(T)) {
+                delete borrow self.items[index];
+            }
+
+            self.items[index] = value;
+        }
+    }
+    
+    int find(vector<T>* self, T^ item, int default_value) {
+        int it2 = 0;
+        foreach(it, self) {
+            if(it.equals(item)) {
+                return it2;
+            }
+            it2++;
+        }
+
+        return default_value;
+    }
+
+    int length(vector<T>* self)
+    {
+        return self.len;
+    }
+
+    void reset(vector<T>* self) {
+        if(isheap(T)) {
+            for(int i=0; i<self.len; i++) 
+            {
+                delete borrow self.items[i];
+            }
+        }
+        ncfree_object((char*)self.items);
+        
+        self.size = 16;
+        self.len = 0;
+        self.items = borrow new T[self.size];
+        
+        self.len = 0;
+    }
+
+    T^ begin(vector<T>* self) {
+        self.it = 0;
+
+        T^ default_value;
+        return self.item(0, default_value!);
+    }
+
+    T^ next(vector<T>* self) {
+        self.it++;
+
+        T^ default_value
+        return self.item(self.it, default_value!);
+    }
+
+    bool end(vector<T>* self) {
+        return self.it >= self.len;
+    }
+    
+    void delete_back(vector<T>* self) {
+        if(self.len > 0) {
+            if(isheap(T)) {
+                delete borrow self.items[self.len-1];
+                self.items[self.len-1] = null;
+            }
+            
+            self.len--;
+        }
+    }
+}
+
 //////////////////////////////
 // map
 //////////////////////////////

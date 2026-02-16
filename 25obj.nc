@@ -254,6 +254,35 @@ class sNewNode extends sNodeBase
     }
 };
 
+class sDeferNode extends sNodeBase
+{
+    new(sBlock*% block, sInfo* info=info)
+    {
+        self.super();
+        
+        sBlock*% self.block = block;
+    }
+    
+    string kind()
+    {
+        return string("sDeferNode");
+    }
+    
+    bool compile(sInfo* info)
+    {
+        sBlock*% block = self.block;
+        
+        bool defer_block = info.defer_block;
+        info.defer_block = true;
+        
+        transpile_block(block, null, null, info);
+        
+        info.defer_block = defer_block;
+        
+        return true;
+    }
+};
+
 
 sNode*% create_new_object(sType*% type, sInfo* info=info)
 {
@@ -1917,6 +1946,11 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
     }
     else if(buf === "true") {
         return new sTrueNode(info) implements sNode;
+    }
+    else if(buf === "defer") {
+        sBlock*% block = parse_block();
+        
+        return new sDeferNode(block, info) implements sNode;
     }
     else if(buf === "false") {
         return new sFalseNode(info) implements sNode;

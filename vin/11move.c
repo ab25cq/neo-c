@@ -788,6 +788,7 @@ struct neo_frame
 struct sMemHeader
 {
     long size;
+    long compiletime_size;
     int allocated;
     struct sMemHeader*  next  ;
     struct sMemHeader*  prev  ;
@@ -803,30 +804,6 @@ struct ref$1void$ph
     _Bool heap;
     _Bool local;
     void* stacktop;
-};
-
-struct smart_pointer$1int$
-{
-    struct buffer*  memory  ;
-    int* p;
-};
-
-struct smart_pointer$1short$
-{
-    struct buffer*  memory  ;
-    short* p;
-};
-
-struct smart_pointer$1long$
-{
-    struct buffer*  memory  ;
-    long* p;
-};
-
-struct smart_pointer$1char$
-{
-    struct buffer*  memory  ;
-    char* p;
 };
 
 struct list_item$1char$
@@ -1987,7 +1964,7 @@ _Bool die(const char* msg);
 void come_heap_final();
 void* alloc_from_pages(unsigned long  size  );
 void come_free_mem_of_heap_pool(void* mem);
-void* come_alloc_mem_from_heap_pool(unsigned long  size  , const char* sname, int sline, const char* class_name);
+void* come_alloc_mem_from_heap_pool(unsigned long  compiletime_size  , unsigned long  size  , const char* sname, int sline, const char* class_name);
 char* come_dynamic_typeof(void* mem);
 unsigned long  dynamic_sizeof(void* mem);
 void* come_calloc(unsigned long  count  , unsigned long  size  , const char* sname, int sline, const char* class_name);
@@ -2001,10 +1978,6 @@ void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* protoco
 void xassert(const char* msg, _Bool test);
 void* come_null_checker(void* mem, const char* sname, int sline);
 char*  __builtin_string(const char* str);
-struct smart_pointer$1int$* buffer_to_int_pointer(struct buffer*  self  );
-struct smart_pointer$1short$* buffer_to_short_pointer(struct buffer*  self  );
-struct smart_pointer$1long$* buffer_to_long_pointer(struct buffer*  self  );
-struct smart_pointer$1char$* buffer_to_pointer(struct buffer*  self  );
 struct buffer*  buffer_initialize(struct buffer*  self  );
 struct buffer*  buffer_initialize_with_value(struct buffer*  self  , const char* mem, unsigned long  size  );
 void buffer_finalize(struct buffer*  self  );
@@ -3379,27 +3352,27 @@ static void list_item$1lambda$$p_finalize(struct list_item$1lambda$* self);
 // inline function
 static inline unsigned short int  __bswap_16(unsigned short int  __bsx  )
 {
-    return ((unsigned short int )((((__bsx)>>8)&0xff)|(((__bsx)&0xff)<<8)));
+        return ((unsigned short int )((((__bsx)>>8)&0xff)|(((__bsx)&0xff)<<8)));
 }
 static inline unsigned int  __bswap_32(unsigned int  __bsx  )
 {
-    return ((((__bsx)&0xff000000u)>>24)|(((__bsx)&0x00ff0000u)>>8)|(((__bsx)&0x0000ff00u)<<8)|(((__bsx)&0x000000ffu)<<24));
+        return ((((__bsx)&0xff000000u)>>24)|(((__bsx)&0x00ff0000u)>>8)|(((__bsx)&0x0000ff00u)<<8)|(((__bsx)&0x000000ffu)<<24));
 }
 static inline unsigned long  int  __bswap_64(unsigned long  int  __bsx  )
 {
-    return ((((__bsx)&0xff00000000000000ull)>>56)|(((__bsx)&0x00ff000000000000ull)>>40)|(((__bsx)&0x0000ff0000000000ull)>>24)|(((__bsx)&0x000000ff00000000ull)>>8)|(((__bsx)&0x00000000ff000000ull)<<8)|(((__bsx)&0x0000000000ff0000ull)<<24)|(((__bsx)&0x000000000000ff00ull)<<40)|(((__bsx)&0x00000000000000ffull)<<56));
+        return ((((__bsx)&0xff00000000000000ull)>>56)|(((__bsx)&0x00ff000000000000ull)>>40)|(((__bsx)&0x0000ff0000000000ull)>>24)|(((__bsx)&0x000000ff00000000ull)>>8)|(((__bsx)&0x00000000ff000000ull)<<8)|(((__bsx)&0x0000000000ff0000ull)<<24)|(((__bsx)&0x000000000000ff00ull)<<40)|(((__bsx)&0x00000000000000ffull)<<56));
 }
 static inline unsigned short int  __uint16_identity(unsigned short int  __x  )
 {
-    return __x;
+        return __x;
 }
 static inline unsigned int  __uint32_identity(unsigned int  __x  )
 {
-    return __x;
+        return __x;
 }
 static inline unsigned long  int  __uint64_identity(unsigned long  int  __x  )
 {
-    return __x;
+        return __x;
 }
 
 // body function
@@ -3419,17 +3392,17 @@ void ViWin_toggleBraceForward(struct ViWin*  self  , int  head  , int  tail  )
     _Bool _conditional_value_X1;
     _Bool _conditional_value_X2;
     int*  p_4  ;
-    cursor_y=((struct ViWin* )come_null_checker(self, "11move.nc", 5))->scroll+((struct ViWin* )come_null_checker(self, "11move.nc", 5))->cursorY;
+    cursor_y=self->scroll+self->cursorY;
     cursor_x=-1;
     nest=0;
-    line=(int* )come_increment_ref_count(list$1int$ph_item(((struct list$1int$ph*)come_null_checker(((struct ViWin* )come_null_checker(self, "11move.nc", 10))->texts, "11move.nc", 10)),cursor_y,((void*)0)));
-    p=line+((struct ViWin* )come_null_checker(self, "11move.nc", 12))->cursorX+1;
-    while(p<line+wstring_length(((int* )come_null_checker(line, "11move.nc", 14)))) {
+    line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,cursor_y,((void*)0)));
+    p=line+self->cursorX+1;
+    while(p<line+wstring_length(line)) {
         if(*p==tail) {
             if(nest==0) {
-                ViWin_saveReturnPoint(((struct ViWin* )come_null_checker(self, "11move.nc", 17)));
+                ViWin_saveReturnPoint(self);
                 cursor_x=(p-line);
-                ((struct ViWin* )come_null_checker(self, "11move.nc", 20))->cursorX=cursor_x;
+                self->cursorX=cursor_x;
                 break;
             }
             p++;
@@ -3446,17 +3419,17 @@ void ViWin_toggleBraceForward(struct ViWin*  self  , int  head  , int  tail  )
     if(cursor_x==-1) {
         cursor_y++;
         it2=0;
-        for(({(_conditional_value_X0=(o2_saved=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_sublist(((struct list$1int$ph*)come_null_checker(((struct ViWin* )come_null_checker(self, "11move.nc", 41))->texts, "11move.nc", 41)),((struct ViWin* )come_null_checker(self, "11move.nc", 41))->scroll+((struct ViWin* )come_null_checker(self, "11move.nc", 41))->cursorY+1,-1)),it=list$1int$ph_begin(((struct list$1int$ph*)come_null_checker(o2_saved, "11move.nc", 41)))));_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(((struct list$1int$ph*)come_null_checker(o2_saved, "11move.nc", 41)))));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(((struct list$1int$ph*)come_null_checker(o2_saved, "11move.nc", 41)))));_conditional_value_X2;})){
+        for(({(_conditional_value_X0=(o2_saved=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_sublist(self->texts,self->scroll+self->cursorY+1,-1)),it=list$1int$ph_begin(o2_saved)));_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(o2_saved)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(o2_saved)));_conditional_value_X2;})){
             p_4=it;
-            while(p_4<it+wstring_length(((int* )come_null_checker(it, "11move.nc", 44)))) {
+            while(p_4<it+wstring_length(it)) {
                 if(*p_4==tail) {
                     if(nest==0) {
-                        ViWin_saveReturnPoint(((struct ViWin* )come_null_checker(self, "11move.nc", 47)));
-                        ((struct ViWin* )come_null_checker(self, "11move.nc", 49))->scroll=((struct ViWin* )come_null_checker(self, "11move.nc", 49))->scroll+((struct ViWin* )come_null_checker(self, "11move.nc", 49))->cursorY+1+it2;
-                        ((struct ViWin* )come_null_checker(self, "11move.nc", 50))->cursorY=0;
-                        ((struct ViWin* )come_null_checker(self, "11move.nc", 51))->cursorX=p_4-it;
-                        ViWin_centeringCursor(((struct ViWin* )come_null_checker(self, "11move.nc", 52)));
-                        come_call_finalizer(list$1int$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                        ViWin_saveReturnPoint(self);
+                        self->scroll=self->scroll+self->cursorY+1+it2;
+                        self->cursorY=0;
+                        self->cursorX=p_4-it;
+                        ViWin_centeringCursor(self);
+                                                come_call_finalizer(list$1int$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                         (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0));
                         neo_current_frame = fr.prev;
                         return;
@@ -3488,27 +3461,27 @@ static int*  list$1int$ph_item(struct list$1int$ph* self, int position, int*  de
     struct list_item$1int$ph* it;
     int i;
     if(self==((void*)0)) {
-        __result_obj__0 = (int* )come_increment_ref_count(default_value);
+                __result_obj__0 = (int* )come_increment_ref_count(default_value);
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     if(position<0) {
-        position+=((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1901))->len;
+        position+=self->len;
     }
-    it=((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1904))->head;
+    it=self->head;
     i=0;
     while(it!=((void*)0)) {
         if(position==i) {
-            __result_obj__0 = (int* )come_increment_ref_count(((struct list_item$1int$ph*)come_null_checker(it, "/usr/local/include/neo-c.h", 1908))->item);
+                        __result_obj__0 = (int* )come_increment_ref_count(it->item);
             neo_current_frame = fr.prev;
             (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
             return __result_obj__0;
         }
-        it=((struct list_item$1int$ph*)come_null_checker(it, "/usr/local/include/neo-c.h", 1910))->next;
+        it=it->next;
         i++;
     }
-    __result_obj__0 = (int* )come_increment_ref_count(default_value);
+        __result_obj__0 = (int* )come_increment_ref_count(default_value);
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
@@ -3524,44 +3497,42 @@ static struct list$1int$ph* list$1int$ph_sublist(struct list$1int$ph* self, int 
     struct list_item$1int$ph* it;
     int i;
     if(self==((void*)0)) {
-        __result_obj__0 = (struct list$1int$ph*)come_increment_ref_count(self);
+                __result_obj__0 = (struct list$1int$ph*)come_increment_ref_count(self);
         neo_current_frame = fr.prev;
         come_call_finalizer(list$1int$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
-    result=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_initialize((struct list$1int$ph*)come_increment_ref_count(((struct list$1int$ph*)come_null_checker(((struct list$1int$ph*)(__right_value0=(struct list$1int$ph*)come_calloc(1, sizeof(struct list$1int$ph)*(1), (void*)0, 2257, "struct list$1int$ph*"))), "/usr/local/include/neo-c.h", 2257)))));
-    come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+    result=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_initialize((struct list$1int$ph*)come_increment_ref_count((struct list$1int$ph*)come_calloc(1, sizeof(struct list$1int$ph)*(1), (void*)0, 1617, "struct list$1int$ph*"))));
     if(begin<0) {
-        begin+=((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2260))->len;
+        begin+=self->len;
     }
     if(tail<0) {
-        tail+=((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2264))->len+1;
+        tail+=self->len+1;
     }
     if(begin<0) {
         begin=0;
     }
-    if(begin>=((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2271))->len) {
-        __result_obj__0 = (struct list$1int$ph*)come_increment_ref_count(((struct list$1int$ph*)(__right_value1=list$1int$ph_initialize((struct list$1int$ph*)come_increment_ref_count(((struct list$1int$ph*)come_null_checker(((struct list$1int$ph*)(__right_value0=(struct list$1int$ph*)come_calloc(1, sizeof(struct list$1int$ph)*(1), (void*)0, 2272, "struct list$1int$ph*"))), "/usr/local/include/neo-c.h", 2272)))))));
+    if(begin>=self->len) {
+                __result_obj__0 = (struct list$1int$ph*)come_increment_ref_count(((struct list$1int$ph*)(__right_value1=list$1int$ph_initialize((struct list$1int$ph*)come_increment_ref_count((struct list$1int$ph*)come_calloc(1, sizeof(struct list$1int$ph)*(1), (void*)0, 1632, "struct list$1int$ph*"))))));
         come_call_finalizer(list$1int$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         come_call_finalizer(list$1int$ph$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         neo_current_frame = fr.prev;
         come_call_finalizer(list$1int$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
-    if(tail>=((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2275))->len) {
-        tail=((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2276))->len;
+    if(tail>=self->len) {
+        tail=self->len;
     }
-    it=((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2279))->head;
+    it=self->head;
     i=0;
     while(it!=((void*)0)) {
         if(i>=begin&&i<tail) {
-            list$1int$ph_push_back(((struct list$1int$ph*)come_null_checker(result, "/usr/local/include/neo-c.h", 2283)),(int* )come_increment_ref_count(((struct list_item$1int$ph*)come_null_checker(it, "/usr/local/include/neo-c.h", 2283))->item));
+            list$1int$ph_push_back(result,(int* )come_increment_ref_count(it->item));
         }
-        it=((struct list_item$1int$ph*)come_null_checker(it, "/usr/local/include/neo-c.h", 2285))->next;
+        it=it->next;
         i++;
     }
-    __result_obj__0 = (struct list$1int$ph*)come_increment_ref_count(result);
+        __result_obj__0 = (struct list$1int$ph*)come_increment_ref_count(result);
     come_call_finalizer(list$1int$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(list$1int$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -3574,35 +3545,35 @@ static void list$1int$ph$p_finalize(struct list$1int$ph* self)
     struct list_item$1int$ph* it;
     struct list_item$1int$ph* prev_it;
     if(self==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return;
     }
-    it=((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1652))->head;
+    it=self->head;
     while(it!=((void*)0)) {
         prev_it=it;
-        it=((struct list_item$1int$ph*)come_null_checker(it, "/usr/local/include/neo-c.h", 1655))->next;
+        it=it->next;
         come_call_finalizer(list_item$1int$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
 }
 
 static void list_item$1int$ph$p_finalize(struct list_item$1int$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1int$ph$p_finalize"; neo_current_frame = &fr;
-    if(self!=((void*)0)&&((struct list_item$1int$ph*)come_null_checker(self, "list_item$1int$ph$p_finalize", 2))->item!=((void*)0)) {
-        (((struct list_item$1int$ph*)come_null_checker(self, "list_item$1int$ph$p_finalize", 2))->item = come_decrement_ref_count(((struct list_item$1int$ph*)come_null_checker(self, "list_item$1int$ph$p_finalize", 2))->item, (void*)0, (void*)0, 0, 0, (void*)0));
+    if(self!=((void*)0)&&self->item!=((void*)0)) {
+        (self->item = come_decrement_ref_count(self->item, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
 }
 
 static struct list$1int$ph* list$1int$ph_initialize(struct list$1int$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1int$ph_initialize"; neo_current_frame = &fr;
     struct list$1int$ph* __result_obj__0;
-    ((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1631))->head=((void*)0);
-    ((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1632))->tail=((void*)0);
-    ((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1633))->len=0;
-    __result_obj__0 = (struct list$1int$ph*)come_increment_ref_count(self);
+    self->head=((void*)0);
+    self->tail=((void*)0);
+    self->len=0;
+        __result_obj__0 = (struct list$1int$ph*)come_increment_ref_count(self);
     come_call_finalizer(list$1int$ph$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(list$1int$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -3621,43 +3592,43 @@ static struct list$1int$ph* list$1int$ph_push_back(struct list$1int$ph* self, in
     struct list_item$1int$ph* litem_1;
     int*  __dec_obj3  ;
     if(self==((void*)0)) {
-        __result_obj__0 = self;
+                __result_obj__0 = self;
         (item = come_decrement_ref_count(item, (void*)0, (void*)0, 0, 0, (void*)0));
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    if(((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1768))->len==0) {
-        litem=(struct list_item$1int$ph*)come_increment_ref_count(((struct list_item$1int$ph*)(__right_value0=(struct list_item$1int$ph*)come_calloc(1, sizeof(struct list_item$1int$ph)*(1), (void*)0, 1769, "struct list_item$1int$ph*"))));
-        ((struct list_item$1int$ph*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1771))->prev=((void*)0);
-        ((struct list_item$1int$ph*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1772))->next=((void*)0);
-        __dec_obj1=((struct list_item$1int$ph*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1773))->item,
-        ((struct list_item$1int$ph*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1773))->item=(int* )come_increment_ref_count(item);
+    if(self->len==0) {
+        litem=(struct list_item$1int$ph*)come_increment_ref_count(((struct list_item$1int$ph*)(__right_value0=(struct list_item$1int$ph*)come_calloc(1, sizeof(struct list_item$1int$ph)*(1), (void*)0, 1129, "struct list_item$1int$ph*"))));
+        litem->prev=((void*)0);
+        litem->next=((void*)0);
+        __dec_obj1=litem->item,
+        litem->item=(int* )come_increment_ref_count(item);
         __dec_obj1 = come_decrement_ref_count(__dec_obj1, (void*)0, (void*)0, 0,0, (void*)0);
-        ((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1775))->tail=litem;
-        ((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1776))->head=litem;
+        self->tail=litem;
+        self->head=litem;
     }
-    else if(((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1778))->len==1) {
-        litem_0=(struct list_item$1int$ph*)come_increment_ref_count(((struct list_item$1int$ph*)(__right_value0=(struct list_item$1int$ph*)come_calloc(1, sizeof(struct list_item$1int$ph)*(1), (void*)0, 1779, "struct list_item$1int$ph*"))));
-        ((struct list_item$1int$ph*)come_null_checker(litem_0, "/usr/local/include/neo-c.h", 1781))->prev=((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1781))->head;
-        ((struct list_item$1int$ph*)come_null_checker(litem_0, "/usr/local/include/neo-c.h", 1782))->next=((void*)0);
-        __dec_obj2=((struct list_item$1int$ph*)come_null_checker(litem_0, "/usr/local/include/neo-c.h", 1783))->item,
-        ((struct list_item$1int$ph*)come_null_checker(litem_0, "/usr/local/include/neo-c.h", 1783))->item=(int* )come_increment_ref_count(item);
+    else if(self->len==1) {
+        litem_0=(struct list_item$1int$ph*)come_increment_ref_count(((struct list_item$1int$ph*)(__right_value0=(struct list_item$1int$ph*)come_calloc(1, sizeof(struct list_item$1int$ph)*(1), (void*)0, 1139, "struct list_item$1int$ph*"))));
+        litem_0->prev=self->head;
+        litem_0->next=((void*)0);
+        __dec_obj2=litem_0->item,
+        litem_0->item=(int* )come_increment_ref_count(item);
         __dec_obj2 = come_decrement_ref_count(__dec_obj2, (void*)0, (void*)0, 0,0, (void*)0);
-        ((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1785))->tail=litem_0;
-        ((struct list_item$1int$ph*)come_null_checker(((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1786))->head, "/usr/local/include/neo-c.h", 1786))->next=litem_0;
+        self->tail=litem_0;
+        self->head->next=litem_0;
     }
     else {
-        litem_1=(struct list_item$1int$ph*)come_increment_ref_count(((struct list_item$1int$ph*)(__right_value0=(struct list_item$1int$ph*)come_calloc(1, sizeof(struct list_item$1int$ph)*(1), (void*)0, 1789, "struct list_item$1int$ph*"))));
-        ((struct list_item$1int$ph*)come_null_checker(litem_1, "/usr/local/include/neo-c.h", 1791))->prev=((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1791))->tail;
-        ((struct list_item$1int$ph*)come_null_checker(litem_1, "/usr/local/include/neo-c.h", 1792))->next=((void*)0);
-        __dec_obj3=((struct list_item$1int$ph*)come_null_checker(litem_1, "/usr/local/include/neo-c.h", 1793))->item,
-        ((struct list_item$1int$ph*)come_null_checker(litem_1, "/usr/local/include/neo-c.h", 1793))->item=(int* )come_increment_ref_count(item);
+        litem_1=(struct list_item$1int$ph*)come_increment_ref_count(((struct list_item$1int$ph*)(__right_value0=(struct list_item$1int$ph*)come_calloc(1, sizeof(struct list_item$1int$ph)*(1), (void*)0, 1149, "struct list_item$1int$ph*"))));
+        litem_1->prev=self->tail;
+        litem_1->next=((void*)0);
+        __dec_obj3=litem_1->item,
+        litem_1->item=(int* )come_increment_ref_count(item);
         __dec_obj3 = come_decrement_ref_count(__dec_obj3, (void*)0, (void*)0, 0,0, (void*)0);
-        ((struct list_item$1int$ph*)come_null_checker(((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1795))->tail, "/usr/local/include/neo-c.h", 1795))->next=litem_1;
-        ((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1796))->tail=litem_1;
+        self->tail->next=litem_1;
+        self->tail=litem_1;
     }
-    ((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1799))->len++;
-    __result_obj__0 = self;
+    self->len++;
+        __result_obj__0 = self;
     (item = come_decrement_ref_count(item, (void*)0, (void*)0, 0, 0, (void*)0));
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -3671,18 +3642,18 @@ static int*  list$1int$ph_begin(struct list$1int$ph* self)
     int*  result_2  ;
     if(self==((void*)0)) {
         memset(&result,0,sizeof(int* ));
-        __result_obj__0 = result;
+                __result_obj__0 = result;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    ((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1839))->it=((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1839))->head;
-    if(((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1841))->it) {
-        __result_obj__0 = ((struct list_item$1int$ph*)come_null_checker(((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1842))->it, "/usr/local/include/neo-c.h", 1842))->item;
+    self->it=self->head;
+    if(self->it) {
+                __result_obj__0 = self->it->item;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     memset(&result_2,0,sizeof(int* ));
-    __result_obj__0 = result_2;
+        __result_obj__0 = result_2;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -3690,9 +3661,9 @@ static int*  list$1int$ph_begin(struct list$1int$ph* self)
 static _Bool list$1int$ph_end(struct list$1int$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1int$ph_end"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
-    return self==((void*)0)||((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1871))->it==((void*)0);
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
+    return self==((void*)0)||self->it==((void*)0);
+            neo_current_frame = fr.prev;
 }
 
 static int*  list$1int$ph_next(struct list$1int$ph* self)
@@ -3701,20 +3672,20 @@ static int*  list$1int$ph_next(struct list$1int$ph* self)
     int*  result  ;
     int*  __result_obj__0  ;
     int*  result_3  ;
-    if(self==((void*)0)||((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1853))->it==((void*)0)) {
+    if(self==((void*)0)||self->it==((void*)0)) {
         memset(&result,0,sizeof(int* ));
-        __result_obj__0 = result;
+                __result_obj__0 = result;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    ((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1859))->it=((struct list_item$1int$ph*)come_null_checker(((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1859))->it, "/usr/local/include/neo-c.h", 1859))->next;
-    if(((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1861))->it) {
-        __result_obj__0 = ((struct list_item$1int$ph*)come_null_checker(((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1862))->it, "/usr/local/include/neo-c.h", 1862))->item;
+    self->it=self->it->next;
+    if(self->it) {
+                __result_obj__0 = self->it->item;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     memset(&result_3,0,sizeof(int* ));
-    __result_obj__0 = result_3;
+        __result_obj__0 = result_3;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -3736,17 +3707,17 @@ void ViWin_toggleBraceBack(struct ViWin*  self  , int  head  , int  tail  )
     _Bool _conditional_value_X1;
     _Bool _conditional_value_X2;
     int*  p_5  ;
-    cursor_y=((struct ViWin* )come_null_checker(self, "11move.nc", 77))->scroll+((struct ViWin* )come_null_checker(self, "11move.nc", 77))->cursorY;
+    cursor_y=self->scroll+self->cursorY;
     cursor_x=-1;
     nest=0;
-    line=(int* )come_increment_ref_count(list$1int$ph_item(((struct list$1int$ph*)come_null_checker(((struct ViWin* )come_null_checker(self, "11move.nc", 82))->texts, "11move.nc", 82)),cursor_y,((void*)0)));
-    p=line+((struct ViWin* )come_null_checker(self, "11move.nc", 84))->cursorX-1;
+    line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,cursor_y,((void*)0)));
+    p=line+self->cursorX-1;
     while(p>=line) {
         if(*p==head) {
             if(nest==0) {
-                ViWin_saveReturnPoint(((struct ViWin* )come_null_checker(self, "11move.nc", 89)));
+                ViWin_saveReturnPoint(self);
                 cursor_x=(p-line);
-                ((struct ViWin* )come_null_checker(self, "11move.nc", 91))->cursorX=cursor_x;
+                self->cursorX=cursor_x;
                 break;
             }
             p--;
@@ -3763,19 +3734,19 @@ void ViWin_toggleBraceBack(struct ViWin*  self  , int  head  , int  tail  )
     if(cursor_x==-1) {
         cursor_y--;
         it2=0;
-        for(({(_conditional_value_X0=(o2_saved=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_reverse(((struct list$1int$ph*)come_null_checker(((struct list$1int$ph*)(__right_value0=list$1int$ph_sublist(((struct list$1int$ph*)come_null_checker(((struct ViWin* )come_null_checker(self, "11move.nc", 112))->texts, "11move.nc", 112)),0,((struct ViWin* )come_null_checker(self, "11move.nc", 112))->scroll+((struct ViWin* )come_null_checker(self, "11move.nc", 112))->cursorY))), "11move.nc", 112)))),it=list$1int$ph_begin(((struct list$1int$ph*)come_null_checker(o2_saved, "11move.nc", 112)))));        come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(((struct list$1int$ph*)come_null_checker(o2_saved, "11move.nc", 112)))));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(((struct list$1int$ph*)come_null_checker(o2_saved, "11move.nc", 112)))));_conditional_value_X2;})){
-            p_5=it+wstring_length(((int* )come_null_checker(it, "11move.nc", 113)));
+        for(({(_conditional_value_X0=(o2_saved=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_reverse(((struct list$1int$ph*)(__right_value0=list$1int$ph_sublist(self->texts,0,self->scroll+self->cursorY))))),it=list$1int$ph_begin(o2_saved)));        come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(o2_saved)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(o2_saved)));_conditional_value_X2;})){
+            p_5=it+wstring_length(it);
             while(p_5>=it) {
                 if(*p_5==head) {
                     if(nest==0) {
-                        ViWin_saveReturnPoint(((struct ViWin* )come_null_checker(self, "11move.nc", 118)));
+                        ViWin_saveReturnPoint(self);
                         cursor_x=(p_5-it);
-                        ((struct ViWin* )come_null_checker(self, "11move.nc", 121))->scroll=((struct ViWin* )come_null_checker(self, "11move.nc", 121))->cursorY+((struct ViWin* )come_null_checker(self, "11move.nc", 121))->scroll-it2-1;
-                        ((struct ViWin* )come_null_checker(self, "11move.nc", 122))->cursorY=0;
-                        ((struct ViWin* )come_null_checker(self, "11move.nc", 123))->cursorX=cursor_x;
-                        ViWin_centeringCursor(((struct ViWin* )come_null_checker(self, "11move.nc", 124)));
-                        come_call_finalizer(list$1int$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                        self->scroll=self->cursorY+self->scroll-it2-1;
+                        self->cursorY=0;
+                        self->cursorX=cursor_x;
+                        ViWin_centeringCursor(self);
+                                                come_call_finalizer(list$1int$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                         (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0));
                         neo_current_frame = fr.prev;
                         return;
@@ -3808,21 +3779,20 @@ static struct list$1int$ph* list$1int$ph_reverse(struct list$1int$ph* self)
     struct list$1int$ph* result;
     struct list$1int$ph* __result_obj__0;
     struct list_item$1int$ph* it;
-    result=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_initialize((struct list$1int$ph*)come_increment_ref_count(((struct list$1int$ph*)come_null_checker(((struct list$1int$ph*)(__right_value0=(struct list$1int$ph*)come_calloc(1, sizeof(struct list$1int$ph)*(1), (void*)0, 1646, "struct list$1int$ph*"))), "/usr/local/include/neo-c.h", 1646)))));
-    come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+    result=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_initialize((struct list$1int$ph*)come_increment_ref_count((struct list$1int$ph*)come_calloc(1, sizeof(struct list$1int$ph)*(1), (void*)0, 1006, "struct list$1int$ph*"))));
     if(self==((void*)0)) {
-        __result_obj__0 = (struct list$1int$ph*)come_increment_ref_count(result);
+                __result_obj__0 = (struct list$1int$ph*)come_increment_ref_count(result);
         come_call_finalizer(list$1int$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         neo_current_frame = fr.prev;
         come_call_finalizer(list$1int$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
-    it=((struct list$1int$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1652))->tail;
+    it=self->tail;
     while(it!=((void*)0)) {
-        list$1int$ph_push_back(((struct list$1int$ph*)come_null_checker(result, "/usr/local/include/neo-c.h", 1654)),(int* )come_increment_ref_count((int* )come_memdup(((struct list_item$1int$ph*)come_null_checker(it, "/usr/local/include/neo-c.h", 1654))->item, "/usr/local/include/neo-c.h", 1654, "int* ")));
-        it=((struct list_item$1int$ph*)come_null_checker(it, "/usr/local/include/neo-c.h", 1655))->prev;
+        list$1int$ph_push_back(result,(int* )come_increment_ref_count((int* )come_memdup(it->item, "/usr/local/include/neo-c.h", 1014, "int* ")));
+        it=it->prev;
     }
-    __result_obj__0 = (struct list$1int$ph*)come_increment_ref_count(result);
+        __result_obj__0 = (struct list$1int$ph*)come_increment_ref_count(result);
     come_call_finalizer(list$1int$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(list$1int$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -3844,14 +3814,14 @@ void ViWin_toggleCommentForward(struct ViWin*  self  )
     _Bool _conditional_value_X2;
     int index;
     int index2;
-    head=((struct ViWin* )come_null_checker(self, "11move.nc", 149))->scroll+((struct ViWin* )come_null_checker(self, "11move.nc", 149))->cursorY;
+    head=self->scroll+self->cursorY;
     tail=-1;
     nest=0;
     it2=0;
-    for(({(_conditional_value_X0=(o2_saved=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_sublist(((struct list$1int$ph*)come_null_checker(((struct ViWin* )come_null_checker(self, "11move.nc", 155))->texts, "11move.nc", 155)),head,tail)),it=list$1int$ph_begin(((struct list$1int$ph*)come_null_checker(o2_saved, "11move.nc", 155)))));_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(((struct list$1int$ph*)come_null_checker(o2_saved, "11move.nc", 155)))));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(((struct list$1int$ph*)come_null_checker(o2_saved, "11move.nc", 155)))));_conditional_value_X2;})){
-        index=string_index(((char* )come_null_checker(((char* )(__right_value0=wstring_to_string(((int* )come_null_checker(it, "11move.nc", 156))))), "11move.nc", 156)),"*/",-1);
+    for(({(_conditional_value_X0=(o2_saved=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_sublist(self->texts,head,tail)),it=list$1int$ph_begin(o2_saved)));_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(o2_saved)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(o2_saved)));_conditional_value_X2;})){
+        index=string_index(((char* )(__right_value0=wstring_to_string(it))),"*/",-1);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        index2=string_index(((char* )come_null_checker(((char* )(__right_value0=wstring_to_string(((int* )come_null_checker(it, "11move.nc", 158))))), "11move.nc", 158)),"/*",-1);
+        index2=string_index(((char* )(__right_value0=wstring_to_string(it))),"/*",-1);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         if(index2!=-1) {
             nest++;
@@ -3859,12 +3829,12 @@ void ViWin_toggleCommentForward(struct ViWin*  self  )
         if(index!=-1) {
             nest--;
             if(nest<=0) {
-                ViWin_saveReturnPoint(((struct ViWin* )come_null_checker(self, "11move.nc", 168)));
-                ((struct ViWin* )come_null_checker(self, "11move.nc", 169))->cursorX=index;
-                ((struct ViWin* )come_null_checker(self, "11move.nc", 170))->scroll=0;
-                ((struct ViWin* )come_null_checker(self, "11move.nc", 171))->cursorY=it2+head;
-                ViWin_modifyOverCursorYValue(((struct ViWin* )come_null_checker(self, "11move.nc", 172)));
-                ViWin_centeringCursor(((struct ViWin* )come_null_checker(self, "11move.nc", 173)));
+                ViWin_saveReturnPoint(self);
+                self->cursorX=index;
+                self->scroll=0;
+                self->cursorY=it2+head;
+                ViWin_modifyOverCursorYValue(self);
+                ViWin_centeringCursor(self);
                 break;
             }
         }
@@ -3891,14 +3861,14 @@ void ViWin_toggleCommentBackward(struct ViWin*  self  )
     int index;
     int index2;
     head=0;
-    tail=((struct ViWin* )come_null_checker(self, "11move.nc", 185))->scroll+((struct ViWin* )come_null_checker(self, "11move.nc", 185))->cursorY+1;
+    tail=self->scroll+self->cursorY+1;
     nest=0;
     it2=0;
-    for(({(_conditional_value_X0=(o2_saved=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_reverse(((struct list$1int$ph*)come_null_checker(((struct list$1int$ph*)(__right_value0=list$1int$ph_sublist(((struct list$1int$ph*)come_null_checker(((struct ViWin* )come_null_checker(self, "11move.nc", 190))->texts, "11move.nc", 190)),head,tail))), "11move.nc", 190)))),it=list$1int$ph_begin(((struct list$1int$ph*)come_null_checker(o2_saved, "11move.nc", 190)))));    come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(((struct list$1int$ph*)come_null_checker(o2_saved, "11move.nc", 190)))));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(((struct list$1int$ph*)come_null_checker(o2_saved, "11move.nc", 190)))));_conditional_value_X2;})){
-        index=string_index(((char* )come_null_checker(((char* )(__right_value0=wstring_to_string(((int* )come_null_checker(it, "11move.nc", 191))))), "11move.nc", 191)),"/*",-1);
+    for(({(_conditional_value_X0=(o2_saved=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_reverse(((struct list$1int$ph*)(__right_value0=list$1int$ph_sublist(self->texts,head,tail))))),it=list$1int$ph_begin(o2_saved)));    come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(o2_saved)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(o2_saved)));_conditional_value_X2;})){
+        index=string_index(((char* )(__right_value0=wstring_to_string(it))),"/*",-1);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        index2=string_index(((char* )come_null_checker(((char* )(__right_value0=wstring_to_string(((int* )come_null_checker(it, "11move.nc", 193))))), "11move.nc", 193)),"*/",-1);
+        index2=string_index(((char* )(__right_value0=wstring_to_string(it))),"*/",-1);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         if(index2!=-1) {
             nest++;
@@ -3906,12 +3876,12 @@ _conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(((struct li
         if(index!=-1) {
             nest--;
             if(nest==0) {
-                ViWin_saveReturnPoint(((struct ViWin* )come_null_checker(self, "11move.nc", 203)));
-                ((struct ViWin* )come_null_checker(self, "11move.nc", 204))->cursorX=index;
-                ((struct ViWin* )come_null_checker(self, "11move.nc", 205))->scroll=0;
-                ((struct ViWin* )come_null_checker(self, "11move.nc", 206))->cursorY=tail-it2-1;
-                ViWin_modifyOverCursorYValue(((struct ViWin* )come_null_checker(self, "11move.nc", 207)));
-                ViWin_centeringCursor(((struct ViWin* )come_null_checker(self, "11move.nc", 208)));
+                ViWin_saveReturnPoint(self);
+                self->cursorX=index;
+                self->scroll=0;
+                self->cursorY=tail-it2-1;
+                ViWin_modifyOverCursorYValue(self);
+                ViWin_centeringCursor(self);
                 break;
             }
         }
@@ -3929,55 +3899,55 @@ void ViWin_gotoBraceEnd_v11(struct ViWin*  self  , struct Vi*  nvi  )
     int  c  ;
     int  c1  ;
     int  c2  ;
-    line=(int* )come_increment_ref_count(list$1int$ph_item(((struct list$1int$ph*)come_null_checker(((struct ViWin* )come_null_checker(self, "11move.nc", 219))->texts, "11move.nc", 219)),((struct ViWin* )come_null_checker(self, "11move.nc", 219))->scroll+((struct ViWin* )come_null_checker(self, "11move.nc", 219))->cursorY,((void*)0)));
-    c=((int* )come_null_checker(line, "11move.nc", 221))[((struct ViWin* )come_null_checker(self, "11move.nc", 221))->cursorX];
+    line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((void*)0)));
+    c=line[self->cursorX];
     c1=0;
     c2=0;
-    if(((struct ViWin* )come_null_checker(self, "11move.nc", 224))->cursorX-1>=0) {
-        c1=((int* )come_null_checker(line, "11move.nc", 225))[((struct ViWin* )come_null_checker(self, "11move.nc", 225))->cursorX-1];
+    if(self->cursorX-1>=0) {
+        c1=line[self->cursorX-1];
     }
-    if(((struct ViWin* )come_null_checker(self, "11move.nc", 227))->cursorX+1<wstring_length(((int* )come_null_checker(line, "11move.nc", 227)))) {
-        c2=((int* )come_null_checker(line, "11move.nc", 228))[((struct ViWin* )come_null_checker(self, "11move.nc", 228))->cursorX+1];
+    if(self->cursorX+1<wstring_length(line)) {
+        c2=line[self->cursorX+1];
     }
     switch (    c) {
         case 42:
         if(c1==47) {
-            ViWin_toggleCommentForward(((struct ViWin* )come_null_checker(self, "11move.nc", 234)));
+            ViWin_toggleCommentForward(self);
         }
         if(c2==47) {
-            ViWin_toggleCommentBackward(((struct ViWin* )come_null_checker(self, "11move.nc", 237)));
+            ViWin_toggleCommentBackward(self);
         }
         break;
         case 47:
         if(c1==42) {
-            ViWin_toggleCommentBackward(((struct ViWin* )come_null_checker(self, "11move.nc", 243)));
+            ViWin_toggleCommentBackward(self);
         }
         if(c2==42) {
-            ViWin_toggleCommentForward(((struct ViWin* )come_null_checker(self, "11move.nc", 246)));
+            ViWin_toggleCommentForward(self);
         }
         break;
         case 40:
-        ViWin_toggleBraceForward(((struct ViWin* )come_null_checker(self, "11move.nc", 251)),40,41);
+        ViWin_toggleBraceForward(self,40,41);
         break;
         case 123:
-        ViWin_toggleBraceForward(((struct ViWin* )come_null_checker(self, "11move.nc", 255)),123,125);
+        ViWin_toggleBraceForward(self,123,125);
         break;
         case 91:
-        ViWin_toggleBraceForward(((struct ViWin* )come_null_checker(self, "11move.nc", 259)),91,93);
+        ViWin_toggleBraceForward(self,91,93);
         break;
         case 60:
-        ViWin_toggleBraceForward(((struct ViWin* )come_null_checker(self, "11move.nc", 263)),60,62);
+        ViWin_toggleBraceForward(self,60,62);
         break;
         case 41:
-        ViWin_toggleBraceBack(((struct ViWin* )come_null_checker(self, "11move.nc", 267)),40,41);
+        ViWin_toggleBraceBack(self,40,41);
         break;
         case 125:
-        ViWin_toggleBraceBack(((struct ViWin* )come_null_checker(self, "11move.nc", 271)),123,125);
+        ViWin_toggleBraceBack(self,123,125);
         break;
         case 93:
-        ViWin_toggleBraceBack(((struct ViWin* )come_null_checker(self, "11move.nc", 275)),91,93);
+        ViWin_toggleBraceBack(self,91,93);
         case 62:
-        ViWin_toggleBraceBack(((struct ViWin* )come_null_checker(self, "11move.nc", 278)),60,62);
+        ViWin_toggleBraceBack(self,60,62);
         break;
     }
     (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -3997,15 +3967,15 @@ void ViWin_gotoFunctionTop(struct ViWin*  self  , struct Vi*  nvi  )
     _Bool _conditional_value_X2;
     _Bool _conditional_value_X3;
     it2=0;
-    for(({(_conditional_value_X0=(o2_saved=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_reverse(((struct list$1int$ph*)come_null_checker(((struct list$1int$ph*)(__right_value0=list$1int$ph_sublist(((struct list$1int$ph*)come_null_checker(((struct ViWin* )come_null_checker(self, "11move.nc", 286))->texts, "11move.nc", 286)),0,((struct ViWin* )come_null_checker(self, "11move.nc", 286))->scroll+((struct ViWin* )come_null_checker(self, "11move.nc", 286))->cursorY))), "11move.nc", 286)))),it=list$1int$ph_begin(((struct list$1int$ph*)come_null_checker(o2_saved, "11move.nc", 286)))));    come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(((struct list$1int$ph*)come_null_checker(o2_saved, "11move.nc", 286)))));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(((struct list$1int$ph*)come_null_checker(o2_saved, "11move.nc", 286)))));_conditional_value_X2;})){
-        if(({(_conditional_value_X3=(string_match(((char* )come_null_checker(((char* )(__right_value0=wstring_to_string(((int* )come_null_checker(it, "11move.nc", 287))))), "11move.nc", 287)),"^{",(_Bool)0)));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
+    for(({(_conditional_value_X0=(o2_saved=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_reverse(((struct list$1int$ph*)(__right_value0=list$1int$ph_sublist(self->texts,0,self->scroll+self->cursorY))))),it=list$1int$ph_begin(o2_saved)));    come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(o2_saved)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(o2_saved)));_conditional_value_X2;})){
+        if(({(_conditional_value_X3=(string_match(((char* )(__right_value0=wstring_to_string(it))),"^{",(_Bool)0)));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
 _conditional_value_X3;})) {
-            ViWin_saveReturnPoint(((struct ViWin* )come_null_checker(self, "11move.nc", 290)));
-            ((struct ViWin* )come_null_checker(self, "11move.nc", 292))->cursorX=0;
-            ((struct ViWin* )come_null_checker(self, "11move.nc", 293))->cursorY=((struct ViWin* )come_null_checker(self, "11move.nc", 293))->cursorY-it2-1;
-            ViWin_modifyUnderCursorYValue(((struct ViWin* )come_null_checker(self, "11move.nc", 294)));
-            ViWin_modifyOverCursorYValue(((struct ViWin* )come_null_checker(self, "11move.nc", 295)));
+            ViWin_saveReturnPoint(self);
+            self->cursorX=0;
+            self->cursorY=self->cursorY-it2-1;
+            ViWin_modifyUnderCursorYValue(self);
+            ViWin_modifyOverCursorYValue(self);
             break;
         }
         it2++;
@@ -4029,22 +3999,22 @@ void ViWin_gotoMethodTop(struct ViWin*  self  , struct Vi*  nvi  )
     void* __right_value3 = (void*)0;
     _Bool _conditional_value_X3;
     it2=0;
-    for(({(_conditional_value_X0=(o2_saved=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_reverse(((struct list$1int$ph*)come_null_checker(((struct list$1int$ph*)(__right_value0=list$1int$ph_sublist(((struct list$1int$ph*)come_null_checker(((struct ViWin* )come_null_checker(self, "11move.nc", 306))->texts, "11move.nc", 306)),0,((struct ViWin* )come_null_checker(self, "11move.nc", 306))->scroll+((struct ViWin* )come_null_checker(self, "11move.nc", 306))->cursorY))), "11move.nc", 306)))),it=list$1int$ph_begin(((struct list$1int$ph*)come_null_checker(o2_saved, "11move.nc", 306)))));    come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(((struct list$1int$ph*)come_null_checker(o2_saved, "11move.nc", 306)))));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(((struct list$1int$ph*)come_null_checker(o2_saved, "11move.nc", 306)))));_conditional_value_X2;})){
+    for(({(_conditional_value_X0=(o2_saved=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_reverse(((struct list$1int$ph*)(__right_value0=list$1int$ph_sublist(self->texts,0,self->scroll+self->cursorY))))),it=list$1int$ph_begin(o2_saved)));    come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(o2_saved)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(o2_saved)));_conditional_value_X2;})){
         const char* reg="^ +{";
         const char* reg2="^ +[a-zA-Z].*{$";
         const char* reg3="^{";
         const char* reg4="^[a-zA-Z].*{$";
-        if(({(_conditional_value_X3=(reg&&reg2&&reg3&&reg4&&((string_match(((char* )come_null_checker(((char* )(__right_value0=wstring_to_string(((int* )come_null_checker(it, "11move.nc", 313))))), "11move.nc", 313)),reg,(_Bool)0))||(string_match(((char* )come_null_checker(((char* )(__right_value1=wstring_to_string(((int* )come_null_checker(it, "11move.nc", 314))))), "11move.nc", 314)),reg2,(_Bool)0))||(string_match(((char* )come_null_checker(((char* )(__right_value2=wstring_to_string(((int* )come_null_checker(it, "11move.nc", 315))))), "11move.nc", 315)),reg3,(_Bool)0))||(string_match(((char* )come_null_checker(((char* )(__right_value3=wstring_to_string(((int* )come_null_checker(it, "11move.nc", 316))))), "11move.nc", 316)),reg4,(_Bool)0)))));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
+        if(({(_conditional_value_X3=(reg&&reg2&&reg3&&reg4&&((string_match(((char* )(__right_value0=wstring_to_string(it))),reg,(_Bool)0))||(string_match(((char* )(__right_value1=wstring_to_string(it))),reg2,(_Bool)0))||(string_match(((char* )(__right_value2=wstring_to_string(it))),reg3,(_Bool)0))||(string_match(((char* )(__right_value3=wstring_to_string(it))),reg4,(_Bool)0)))));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
         (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0));
         (__right_value3 = come_decrement_ref_count(__right_value3, (void*)0, (void*)0, 1, 0, (void*)0));
 _conditional_value_X3;})) {
-            ViWin_saveReturnPoint(((struct ViWin* )come_null_checker(self, "11move.nc", 318)));
-            ((struct ViWin* )come_null_checker(self, "11move.nc", 320))->cursorX=0;
-            ((struct ViWin* )come_null_checker(self, "11move.nc", 321))->cursorY=((struct ViWin* )come_null_checker(self, "11move.nc", 321))->cursorY-it2-1;
-            ViWin_modifyUnderCursorYValue(((struct ViWin* )come_null_checker(self, "11move.nc", 322)));
-            ViWin_modifyOverCursorYValue(((struct ViWin* )come_null_checker(self, "11move.nc", 323)));
+            ViWin_saveReturnPoint(self);
+            self->cursorX=0;
+            self->cursorY=self->cursorY-it2-1;
+            ViWin_modifyUnderCursorYValue(self);
+            ViWin_modifyOverCursorYValue(self);
             break;
         }
         it2++;
@@ -4065,15 +4035,15 @@ void ViWin_gotoFunctionBottom(struct ViWin*  self  , struct Vi*  nvi  )
     _Bool _conditional_value_X1;
     _Bool _conditional_value_X2;
     _Bool _conditional_value_X3;
-    cursor_y=((struct ViWin* )come_null_checker(self, "11move.nc", 333))->scroll+((struct ViWin* )come_null_checker(self, "11move.nc", 333))->cursorY+1;
+    cursor_y=self->scroll+self->cursorY+1;
     it2=0;
-    for(({(_conditional_value_X0=(o2_saved=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_sublist(((struct list$1int$ph*)come_null_checker(((struct ViWin* )come_null_checker(self, "11move.nc", 336))->texts, "11move.nc", 336)),((struct ViWin* )come_null_checker(self, "11move.nc", 336))->scroll+((struct ViWin* )come_null_checker(self, "11move.nc", 336))->cursorY+1,-1)),it=list$1int$ph_begin(((struct list$1int$ph*)come_null_checker(o2_saved, "11move.nc", 336)))));_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(((struct list$1int$ph*)come_null_checker(o2_saved, "11move.nc", 336)))));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(((struct list$1int$ph*)come_null_checker(o2_saved, "11move.nc", 336)))));_conditional_value_X2;})){
-        if(({(_conditional_value_X3=(string_match(((char* )come_null_checker(((char* )(__right_value0=wstring_to_string(((int* )come_null_checker(it, "11move.nc", 337))))), "11move.nc", 337)),"^}",(_Bool)0)));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
+    for(({(_conditional_value_X0=(o2_saved=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_sublist(self->texts,self->scroll+self->cursorY+1,-1)),it=list$1int$ph_begin(o2_saved)));_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(o2_saved)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(o2_saved)));_conditional_value_X2;})){
+        if(({(_conditional_value_X3=(string_match(((char* )(__right_value0=wstring_to_string(it))),"^}",(_Bool)0)));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
 _conditional_value_X3;})) {
-            ViWin_saveReturnPoint(((struct ViWin* )come_null_checker(self, "11move.nc", 339)));
-            ((struct ViWin* )come_null_checker(self, "11move.nc", 341))->cursorY+=it2+1;
-            ((struct ViWin* )come_null_checker(self, "11move.nc", 342))->cursorX=0;
-            ViWin_modifyOverCursorYValue(((struct ViWin* )come_null_checker(self, "11move.nc", 343)));
+            ViWin_saveReturnPoint(self);
+            self->cursorY+=it2+1;
+            self->cursorX=0;
+            ViWin_modifyOverCursorYValue(self);
             break;
         }
         cursor_y++;
@@ -4086,8 +4056,8 @@ _conditional_value_X3;})) {
 static void lambda1(struct Vi*  self  , int key)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "lambda1"; neo_current_frame = &fr;
-    ViWin_gotoBraceEnd_v11(((struct ViWin* )come_null_checker(((struct Vi* )come_null_checker(self, "11move.nc", 357))->activeWin, "11move.nc", 357)),self);
-    ViWin_saveInputedKeyOnTheMovingCursor_v14(((struct ViWin* )come_null_checker(((struct Vi* )come_null_checker(self, "11move.nc", 358))->activeWin, "11move.nc", 358)));
+    ViWin_gotoBraceEnd_v11(self->activeWin,self);
+    ViWin_saveInputedKeyOnTheMovingCursor_v14(self->activeWin);
     neo_current_frame = fr.prev;
 }
 
@@ -4095,17 +4065,17 @@ static void lambda2(struct Vi*  self  , int key)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "lambda2"; neo_current_frame = &fr;
     int key2;
-    key2=ViWin_getKey_v14(((struct ViWin* )come_null_checker(((struct Vi* )come_null_checker(self, "11move.nc", 362))->activeWin, "11move.nc", 362)),(_Bool)0);
+    key2=ViWin_getKey_v14(self->activeWin,(_Bool)0);
     switch (    key2) {
         case 91:
-        ViWin_gotoFunctionTop(((struct ViWin* )come_null_checker(((struct Vi* )come_null_checker(self, "11move.nc", 366))->activeWin, "11move.nc", 366)),self);
-        ViWin_centeringCursor(((struct ViWin* )come_null_checker(((struct Vi* )come_null_checker(self, "11move.nc", 367))->activeWin, "11move.nc", 367)));
-        ViWin_saveInputedKeyOnTheMovingCursor_v14(((struct ViWin* )come_null_checker(((struct Vi* )come_null_checker(self, "11move.nc", 368))->activeWin, "11move.nc", 368)));
+        ViWin_gotoFunctionTop(self->activeWin,self);
+        ViWin_centeringCursor(self->activeWin);
+        ViWin_saveInputedKeyOnTheMovingCursor_v14(self->activeWin);
         break;
         case 109:
         case 77:
-        ViWin_gotoMethodTop(((struct ViWin* )come_null_checker(((struct Vi* )come_null_checker(self, "11move.nc", 373))->activeWin, "11move.nc", 373)),self);
-        ViWin_saveInputedKeyOnTheMovingCursor_v14(((struct ViWin* )come_null_checker(((struct Vi* )come_null_checker(self, "11move.nc", 374))->activeWin, "11move.nc", 374)));
+        ViWin_gotoMethodTop(self->activeWin,self);
+        ViWin_saveInputedKeyOnTheMovingCursor_v14(self->activeWin);
         break;
     }
     neo_current_frame = fr.prev;
@@ -4115,12 +4085,12 @@ static void lambda3(struct Vi*  self  , int key)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "lambda3"; neo_current_frame = &fr;
     int key2;
-    key2=ViWin_getKey_v14(((struct ViWin* )come_null_checker(((struct Vi* )come_null_checker(self, "11move.nc", 380))->activeWin, "11move.nc", 380)),(_Bool)0);
+    key2=ViWin_getKey_v14(self->activeWin,(_Bool)0);
     switch (    key2) {
         case 93:
-        ViWin_gotoFunctionBottom(((struct ViWin* )come_null_checker(((struct Vi* )come_null_checker(self, "11move.nc", 384))->activeWin, "11move.nc", 384)),self);
-        ViWin_centeringCursor(((struct ViWin* )come_null_checker(((struct Vi* )come_null_checker(self, "11move.nc", 385))->activeWin, "11move.nc", 385)));
-        ViWin_saveInputedKeyOnTheMovingCursor_v14(((struct ViWin* )come_null_checker(((struct Vi* )come_null_checker(self, "11move.nc", 386))->activeWin, "11move.nc", 386)));
+        ViWin_gotoFunctionBottom(self->activeWin,self);
+        ViWin_centeringCursor(self->activeWin);
+        ViWin_saveInputedKeyOnTheMovingCursor_v14(self->activeWin);
         break;
     }
     neo_current_frame = fr.prev;
@@ -4133,10 +4103,10 @@ struct Vi*  Vi_initialize_v11(struct Vi*  self  )
     struct Vi*  result  ;
     struct Vi*  __result_obj__0  ;
     result=(struct Vi* )come_increment_ref_count(Vi_initialize_v10((struct Vi* )come_increment_ref_count(self)));
-    list$1lambda$_replace(((struct list$1lambda$*)come_null_checker(((struct Vi* )come_null_checker(result, "11move.nc", 356))->events, "11move.nc", 359)),37,lambda1);
-    list$1lambda$_replace(((struct list$1lambda$*)come_null_checker(((struct Vi* )come_null_checker(result, "11move.nc", 361))->events, "11move.nc", 377)),91,lambda2);
-    list$1lambda$_replace(((struct list$1lambda$*)come_null_checker(((struct Vi* )come_null_checker(result, "11move.nc", 379))->events, "11move.nc", 389)),93,lambda3);
-    __result_obj__0 = (struct Vi* )come_increment_ref_count(result);
+    list$1lambda$_replace(result->events,37,lambda1);
+    list$1lambda$_replace(result->events,91,lambda2);
+    list$1lambda$_replace(result->events,93,lambda3);
+        __result_obj__0 = (struct Vi* )come_increment_ref_count(result);
     come_call_finalizer(Vi_finalize, self, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(Vi_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
@@ -4154,38 +4124,38 @@ static struct list$1lambda$* list$1lambda$_replace(struct list$1lambda$* self, i
     struct list_item$1lambda$* it;
     int i_8;
     if(self==((void*)0)) {
-        __result_obj__0 = self;
+                __result_obj__0 = self;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     if(position<0) {
-        position+=((struct list$1lambda$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2176))->len;
+        position+=self->len;
     }
     if(position<0) {
         position=0;
     }
-    if(((struct list$1lambda$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2182))->len==0||position>=((struct list$1lambda$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2182))->len) {
-        len=((struct list$1lambda$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2183))->len;
+    if(self->len==0||position>=self->len) {
+        len=self->len;
         for(i=0;i<position-len;i++){
             memset(&default_value,0,sizeof(void (*)(struct Vi* ,int)));
-            list$1lambda$_push_back(((struct list$1lambda$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2187)),default_value);
+            list$1lambda$_push_back(self,default_value);
         }
-        list$1lambda$_push_back(((struct list$1lambda$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2189)),item);
-        __result_obj__0 = self;
+        list$1lambda$_push_back(self,item);
+                __result_obj__0 = self;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    it=((struct list$1lambda$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2193))->head;
+    it=self->head;
     i_8=0;
     while(it!=((void*)0)) {
         if(position==i_8) {
-            ((struct list_item$1lambda$*)come_null_checker(it, "/usr/local/include/neo-c.h", 2197))->item=item;
+            it->item=item;
             break;
         }
-        it=((struct list_item$1lambda$*)come_null_checker(it, "/usr/local/include/neo-c.h", 2200))->next;
+        it=it->next;
         i_8++;
     }
-    __result_obj__0 = self;
+        __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -4199,36 +4169,36 @@ static struct list$1lambda$* list$1lambda$_push_back(struct list$1lambda$* self,
     struct list_item$1lambda$* litem_6;
     struct list_item$1lambda$* litem_7;
     if(self==((void*)0)) {
-        __result_obj__0 = self;
+                __result_obj__0 = self;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    if(((struct list$1lambda$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1768))->len==0) {
-        litem=(struct list_item$1lambda$*)come_increment_ref_count(((struct list_item$1lambda$*)(__right_value0=(struct list_item$1lambda$*)come_calloc(1, sizeof(struct list_item$1lambda$)*(1), (void*)0, 1769, "struct list_item$1lambda$*"))));
-        ((struct list_item$1lambda$*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1771))->prev=((void*)0);
-        ((struct list_item$1lambda$*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1772))->next=((void*)0);
-        ((struct list_item$1lambda$*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1773))->item=item;
-        ((struct list$1lambda$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1775))->tail=litem;
-        ((struct list$1lambda$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1776))->head=litem;
+    if(self->len==0) {
+        litem=(struct list_item$1lambda$*)come_increment_ref_count(((struct list_item$1lambda$*)(__right_value0=(struct list_item$1lambda$*)come_calloc(1, sizeof(struct list_item$1lambda$)*(1), (void*)0, 1129, "struct list_item$1lambda$*"))));
+        litem->prev=((void*)0);
+        litem->next=((void*)0);
+        litem->item=item;
+        self->tail=litem;
+        self->head=litem;
     }
-    else if(((struct list$1lambda$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1778))->len==1) {
-        litem_6=(struct list_item$1lambda$*)come_increment_ref_count(((struct list_item$1lambda$*)(__right_value0=(struct list_item$1lambda$*)come_calloc(1, sizeof(struct list_item$1lambda$)*(1), (void*)0, 1779, "struct list_item$1lambda$*"))));
-        ((struct list_item$1lambda$*)come_null_checker(litem_6, "/usr/local/include/neo-c.h", 1781))->prev=((struct list$1lambda$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1781))->head;
-        ((struct list_item$1lambda$*)come_null_checker(litem_6, "/usr/local/include/neo-c.h", 1782))->next=((void*)0);
-        ((struct list_item$1lambda$*)come_null_checker(litem_6, "/usr/local/include/neo-c.h", 1783))->item=item;
-        ((struct list$1lambda$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1785))->tail=litem_6;
-        ((struct list_item$1lambda$*)come_null_checker(((struct list$1lambda$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1786))->head, "/usr/local/include/neo-c.h", 1786))->next=litem_6;
+    else if(self->len==1) {
+        litem_6=(struct list_item$1lambda$*)come_increment_ref_count(((struct list_item$1lambda$*)(__right_value0=(struct list_item$1lambda$*)come_calloc(1, sizeof(struct list_item$1lambda$)*(1), (void*)0, 1139, "struct list_item$1lambda$*"))));
+        litem_6->prev=self->head;
+        litem_6->next=((void*)0);
+        litem_6->item=item;
+        self->tail=litem_6;
+        self->head->next=litem_6;
     }
     else {
-        litem_7=(struct list_item$1lambda$*)come_increment_ref_count(((struct list_item$1lambda$*)(__right_value0=(struct list_item$1lambda$*)come_calloc(1, sizeof(struct list_item$1lambda$)*(1), (void*)0, 1789, "struct list_item$1lambda$*"))));
-        ((struct list_item$1lambda$*)come_null_checker(litem_7, "/usr/local/include/neo-c.h", 1791))->prev=((struct list$1lambda$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1791))->tail;
-        ((struct list_item$1lambda$*)come_null_checker(litem_7, "/usr/local/include/neo-c.h", 1792))->next=((void*)0);
-        ((struct list_item$1lambda$*)come_null_checker(litem_7, "/usr/local/include/neo-c.h", 1793))->item=item;
-        ((struct list_item$1lambda$*)come_null_checker(((struct list$1lambda$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1795))->tail, "/usr/local/include/neo-c.h", 1795))->next=litem_7;
-        ((struct list$1lambda$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1796))->tail=litem_7;
+        litem_7=(struct list_item$1lambda$*)come_increment_ref_count(((struct list_item$1lambda$*)(__right_value0=(struct list_item$1lambda$*)come_calloc(1, sizeof(struct list_item$1lambda$)*(1), (void*)0, 1149, "struct list_item$1lambda$*"))));
+        litem_7->prev=self->tail;
+        litem_7->next=((void*)0);
+        litem_7->item=item;
+        self->tail->next=litem_7;
+        self->tail=litem_7;
     }
-    ((struct list$1lambda$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1799))->len++;
-    __result_obj__0 = self;
+    self->len++;
+        __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -4236,19 +4206,19 @@ static struct list$1lambda$* list$1lambda$_push_back(struct list$1lambda$* self,
 static void Vi_finalize(struct Vi*  self  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "Vi_finalize"; neo_current_frame = &fr;
-    if(self!=((void*)0)&&((struct Vi* )come_null_checker(self, "Vi_finalize", 2))->wins!=((void*)0)) {
-        come_call_finalizer(list$1ViWin$ph$p_finalize, ((struct Vi* )come_null_checker(self, "Vi_finalize", 2))->wins, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(self!=((void*)0)&&self->wins!=((void*)0)) {
+        come_call_finalizer(list$1ViWin$ph$p_finalize, self->wins, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    if(self!=((void*)0)&&((struct Vi* )come_null_checker(self, "Vi_finalize", 3))->events!=((void*)0)) {
-        come_call_finalizer(list$1lambda$$p_finalize, ((struct Vi* )come_null_checker(self, "Vi_finalize", 3))->events, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(self!=((void*)0)&&self->events!=((void*)0)) {
+        come_call_finalizer(list$1lambda$$p_finalize, self->events, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    if(self!=((void*)0)&&((struct Vi* )come_null_checker(self, "Vi_finalize", 4))->yank!=((void*)0)) {
-        come_call_finalizer(list$1int$ph$p_finalize, ((struct Vi* )come_null_checker(self, "Vi_finalize", 4))->yank, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(self!=((void*)0)&&self->yank!=((void*)0)) {
+        come_call_finalizer(list$1int$ph$p_finalize, self->yank, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    if(self!=((void*)0)&&((struct Vi* )come_null_checker(self, "Vi_finalize", 5))->fileYank!=((void*)0)) {
-        come_call_finalizer(list$1int$ph$p_finalize, ((struct Vi* )come_null_checker(self, "Vi_finalize", 5))->fileYank, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(self!=((void*)0)&&self->fileYank!=((void*)0)) {
+        come_call_finalizer(list$1int$ph$p_finalize, self->fileYank, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
 }
 
 static void list$1ViWin$ph$p_finalize(struct list$1ViWin$ph* self)
@@ -4257,76 +4227,76 @@ static void list$1ViWin$ph$p_finalize(struct list$1ViWin$ph* self)
     struct list_item$1ViWin$ph* it;
     struct list_item$1ViWin$ph* prev_it;
     if(self==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return;
     }
-    it=((struct list$1ViWin$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1652))->head;
+    it=self->head;
     while(it!=((void*)0)) {
         prev_it=it;
-        it=((struct list_item$1ViWin$ph*)come_null_checker(it, "/usr/local/include/neo-c.h", 1655))->next;
+        it=it->next;
         come_call_finalizer(list_item$1ViWin$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
 }
 
 static void list_item$1ViWin$ph$p_finalize(struct list_item$1ViWin$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1ViWin$ph$p_finalize"; neo_current_frame = &fr;
-    if(self!=((void*)0)&&((struct list_item$1ViWin$ph*)come_null_checker(self, "list_item$1ViWin$ph$p_finalize", 2))->item!=((void*)0)) {
-        come_call_finalizer(ViWin_finalize, ((struct list_item$1ViWin$ph*)come_null_checker(self, "list_item$1ViWin$ph$p_finalize", 2))->item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(self!=((void*)0)&&self->item!=((void*)0)) {
+        come_call_finalizer(ViWin_finalize, self->item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
 }
 
 static void ViWin_finalize(struct ViWin*  self  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "ViWin_finalize"; neo_current_frame = &fr;
-    if(self!=((void*)0)&&((struct ViWin* )come_null_checker(self, "ViWin_finalize", 2))->texts!=((void*)0)) {
-        come_call_finalizer(list$1int$ph$p_finalize, ((struct ViWin* )come_null_checker(self, "ViWin_finalize", 2))->texts, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(self!=((void*)0)&&self->texts!=((void*)0)) {
+        come_call_finalizer(list$1int$ph$p_finalize, self->texts, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    if(self!=((void*)0)&&((struct ViWin* )come_null_checker(self, "ViWin_finalize", 3))->texts_length!=((void*)0)) {
-        come_call_finalizer(list$1int$$p_finalize, ((struct ViWin* )come_null_checker(self, "ViWin_finalize", 3))->texts_length, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(self!=((void*)0)&&self->texts_length!=((void*)0)) {
+        come_call_finalizer(list$1int$$p_finalize, self->texts_length, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    if(self!=((void*)0)&&((struct ViWin* )come_null_checker(self, "ViWin_finalize", 4))->returnPoint!=((void*)0)) {
-        come_call_finalizer(tuple3$3int$int$int$$p_finalize, ((struct ViWin* )come_null_checker(self, "ViWin_finalize", 4))->returnPoint, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(self!=((void*)0)&&self->returnPoint!=((void*)0)) {
+        come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->returnPoint, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    if(self!=((void*)0)&&((struct ViWin* )come_null_checker(self, "ViWin_finalize", 5))->returnPointStack!=((void*)0)) {
-        come_call_finalizer(list$1tuple3$3int$int$int$$ph$p_finalize, ((struct ViWin* )come_null_checker(self, "ViWin_finalize", 5))->returnPointStack, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(self!=((void*)0)&&self->returnPointStack!=((void*)0)) {
+        come_call_finalizer(list$1tuple3$3int$int$int$$ph$p_finalize, self->returnPointStack, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    if(self!=((void*)0)&&((struct ViWin* )come_null_checker(self, "ViWin_finalize", 6))->undo!=((void*)0)) {
-        come_call_finalizer(list$1list$1int$ph$ph$p_finalize, ((struct ViWin* )come_null_checker(self, "ViWin_finalize", 6))->undo, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(self!=((void*)0)&&self->undo!=((void*)0)) {
+        come_call_finalizer(list$1list$1int$ph$ph$p_finalize, self->undo, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    if(self!=((void*)0)&&((struct ViWin* )come_null_checker(self, "ViWin_finalize", 7))->undoScroll!=((void*)0)) {
-        come_call_finalizer(list$1int$$p_finalize, ((struct ViWin* )come_null_checker(self, "ViWin_finalize", 7))->undoScroll, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(self!=((void*)0)&&self->undoScroll!=((void*)0)) {
+        come_call_finalizer(list$1int$$p_finalize, self->undoScroll, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    if(self!=((void*)0)&&((struct ViWin* )come_null_checker(self, "ViWin_finalize", 8))->undoCursorX!=((void*)0)) {
-        come_call_finalizer(list$1int$$p_finalize, ((struct ViWin* )come_null_checker(self, "ViWin_finalize", 8))->undoCursorX, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(self!=((void*)0)&&self->undoCursorX!=((void*)0)) {
+        come_call_finalizer(list$1int$$p_finalize, self->undoCursorX, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    if(self!=((void*)0)&&((struct ViWin* )come_null_checker(self, "ViWin_finalize", 9))->undoCursorY!=((void*)0)) {
-        come_call_finalizer(list$1int$$p_finalize, ((struct ViWin* )come_null_checker(self, "ViWin_finalize", 9))->undoCursorY, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(self!=((void*)0)&&self->undoCursorY!=((void*)0)) {
+        come_call_finalizer(list$1int$$p_finalize, self->undoCursorY, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    if(self!=((void*)0)&&((struct ViWin* )come_null_checker(self, "ViWin_finalize", 10))->fileName!=((void*)0)) {
-        (((struct ViWin* )come_null_checker(self, "ViWin_finalize", 10))->fileName = come_decrement_ref_count(((struct ViWin* )come_null_checker(self, "ViWin_finalize", 10))->fileName, (void*)0, (void*)0, 0, 0, (void*)0));
+    if(self!=((void*)0)&&self->fileName!=((void*)0)) {
+        (self->fileName = come_decrement_ref_count(self->fileName, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    if(self!=((void*)0)&&((struct ViWin* )come_null_checker(self, "ViWin_finalize", 11))->inputedKeys!=((void*)0)) {
-        come_call_finalizer(list$1int$$p_finalize, ((struct ViWin* )come_null_checker(self, "ViWin_finalize", 11))->inputedKeys, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(self!=((void*)0)&&self->inputedKeys!=((void*)0)) {
+        come_call_finalizer(list$1int$$p_finalize, self->inputedKeys, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    if(self!=((void*)0)&&((struct ViWin* )come_null_checker(self, "ViWin_finalize", 12))->savedInputedKeys!=((void*)0)) {
-        come_call_finalizer(list$1int$$p_finalize, ((struct ViWin* )come_null_checker(self, "ViWin_finalize", 12))->savedInputedKeys, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(self!=((void*)0)&&self->savedInputedKeys!=((void*)0)) {
+        come_call_finalizer(list$1int$$p_finalize, self->savedInputedKeys, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    if(self!=((void*)0)&&((struct ViWin* )come_null_checker(self, "ViWin_finalize", 13))->macro!=((void*)0)) {
-        come_call_finalizer(map$2int$list$1list$1int$$ph$ph$p_finalize, ((struct ViWin* )come_null_checker(self, "ViWin_finalize", 13))->macro, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(self!=((void*)0)&&self->macro!=((void*)0)) {
+        come_call_finalizer(map$2int$list$1list$1int$$ph$ph$p_finalize, self->macro, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    if(self!=((void*)0)&&((struct ViWin* )come_null_checker(self, "ViWin_finalize", 14))->recordingMacro!=((void*)0)) {
-        come_call_finalizer(list$1list$1int$$ph$p_finalize, ((struct ViWin* )come_null_checker(self, "ViWin_finalize", 14))->recordingMacro, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(self!=((void*)0)&&self->recordingMacro!=((void*)0)) {
+        come_call_finalizer(list$1list$1int$$ph$p_finalize, self->recordingMacro, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    if(self!=((void*)0)&&((struct ViWin* )come_null_checker(self, "ViWin_finalize", 15))->runningMacro!=((void*)0)) {
-        come_call_finalizer(list$1list$1int$$ph$p_finalize, ((struct ViWin* )come_null_checker(self, "ViWin_finalize", 15))->runningMacro, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(self!=((void*)0)&&self->runningMacro!=((void*)0)) {
+        come_call_finalizer(list$1list$1int$$ph$p_finalize, self->runningMacro, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    if(self!=((void*)0)&&((struct ViWin* )come_null_checker(self, "ViWin_finalize", 16))->mark!=((void*)0)) {
-        come_call_finalizer(map$2int$tuple3$3int$int$int$$ph$p_finalize, ((struct ViWin* )come_null_checker(self, "ViWin_finalize", 16))->mark, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(self!=((void*)0)&&self->mark!=((void*)0)) {
+        come_call_finalizer(map$2int$tuple3$3int$int$int$$ph$p_finalize, self->mark, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
 }
 
 static void list$1int$$p_finalize(struct list$1int$* self)
@@ -4335,28 +4305,28 @@ static void list$1int$$p_finalize(struct list$1int$* self)
     struct list_item$1int$* it;
     struct list_item$1int$* prev_it;
     if(self==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return;
     }
-    it=((struct list$1int$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1652))->head;
+    it=self->head;
     while(it!=((void*)0)) {
         prev_it=it;
-        it=((struct list_item$1int$*)come_null_checker(it, "/usr/local/include/neo-c.h", 1655))->next;
+        it=it->next;
         come_call_finalizer(list_item$1int$$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
 }
 
 static void list_item$1int$$p_finalize(struct list_item$1int$* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1int$$p_finalize"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
 }
 
 static void tuple3$3int$int$int$$p_finalize(struct tuple3$3int$int$int$* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "tuple3$3int$int$int$$p_finalize"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
 }
 
 static void list$1tuple3$3int$int$int$$ph$p_finalize(struct list$1tuple3$3int$int$int$$ph* self)
@@ -4365,25 +4335,25 @@ static void list$1tuple3$3int$int$int$$ph$p_finalize(struct list$1tuple3$3int$in
     struct list_item$1tuple3$3int$int$int$$ph* it;
     struct list_item$1tuple3$3int$int$int$$ph* prev_it;
     if(self==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return;
     }
-    it=((struct list$1tuple3$3int$int$int$$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1652))->head;
+    it=self->head;
     while(it!=((void*)0)) {
         prev_it=it;
-        it=((struct list_item$1tuple3$3int$int$int$$ph*)come_null_checker(it, "/usr/local/include/neo-c.h", 1655))->next;
+        it=it->next;
         come_call_finalizer(list_item$1tuple3$3int$int$int$$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
 }
 
 static void list_item$1tuple3$3int$int$int$$ph$p_finalize(struct list_item$1tuple3$3int$int$int$$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1tuple3$3int$int$int$$ph$p_finalize"; neo_current_frame = &fr;
-    if(self!=((void*)0)&&((struct list_item$1tuple3$3int$int$int$$ph*)come_null_checker(self, "list_item$1tuple3$3int$int$int$$ph$p_finalize", 2))->item!=((void*)0)) {
-        come_call_finalizer(tuple3$3int$int$int$$p_finalize, ((struct list_item$1tuple3$3int$int$int$$ph*)come_null_checker(self, "list_item$1tuple3$3int$int$int$$ph$p_finalize", 2))->item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(self!=((void*)0)&&self->item!=((void*)0)) {
+        come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
 }
 
 static void list$1list$1int$ph$ph$p_finalize(struct list$1list$1int$ph$ph* self)
@@ -4392,25 +4362,25 @@ static void list$1list$1int$ph$ph$p_finalize(struct list$1list$1int$ph$ph* self)
     struct list_item$1list$1int$ph$ph* it;
     struct list_item$1list$1int$ph$ph* prev_it;
     if(self==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return;
     }
-    it=((struct list$1list$1int$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1652))->head;
+    it=self->head;
     while(it!=((void*)0)) {
         prev_it=it;
-        it=((struct list_item$1list$1int$ph$ph*)come_null_checker(it, "/usr/local/include/neo-c.h", 1655))->next;
+        it=it->next;
         come_call_finalizer(list_item$1list$1int$ph$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
 }
 
 static void list_item$1list$1int$ph$ph$p_finalize(struct list_item$1list$1int$ph$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1list$1int$ph$ph$p_finalize"; neo_current_frame = &fr;
-    if(self!=((void*)0)&&((struct list_item$1list$1int$ph$ph*)come_null_checker(self, "list_item$1list$1int$ph$ph$p_finalize", 2))->item!=((void*)0)) {
-        come_call_finalizer(list$1int$ph$p_finalize, ((struct list_item$1list$1int$ph$ph*)come_null_checker(self, "list_item$1list$1int$ph$ph$p_finalize", 2))->item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(self!=((void*)0)&&self->item!=((void*)0)) {
+        come_call_finalizer(list$1int$ph$p_finalize, self->item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
 }
 
 static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1list$1int$$ph$ph* self)
@@ -4418,24 +4388,24 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$list$1list$1int$$ph$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_9;
-    for(i=0;i<((struct map$2int$list$1list$1int$$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2739))->size;i++){
-        if(((_Bool*)come_null_checker(((struct map$2int$list$1list$1int$$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2740))->item_existance, "/usr/local/include/neo-c.h", 2740))[i]) {
+    for(i=0;i<self->size;i++){
+        if(self->item_existance[i]) {
             if(1) {
-                come_call_finalizer(list$1list$1int$$ph$p_finalize, ((struct list$1list$1int$$ph**)come_null_checker(((struct map$2int$list$1list$1int$$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2742))->items, "/usr/local/include/neo-c.h", 2742))[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                come_call_finalizer(list$1list$1int$$ph$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
             }
         }
     }
-    come_free((char*)((struct map$2int$list$1list$1int$$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2746))->items);
-    for(i_9=0;i_9<((struct map$2int$list$1list$1int$$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2748))->size;i_9++){
-        if(((_Bool*)come_null_checker(((struct map$2int$list$1list$1int$$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2749))->item_existance, "/usr/local/include/neo-c.h", 2749))[i_9]) {
+    come_free((char*)self->items);
+    for(i_9=0;i_9<self->size;i_9++){
+        if(self->item_existance[i_9]) {
             if(0) {
             }
         }
     }
-    come_free((char*)((struct map$2int$list$1list$1int$$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2755))->keys);
-    come_call_finalizer(list$1int$$p_finalize, ((struct map$2int$list$1list$1int$$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2757))->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-    (((struct map$2int$list$1list$1int$$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2759))->item_existance = come_decrement_ref_count(((struct map$2int$list$1list$1int$$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2759))->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
-    neo_current_frame = fr.prev;
+    come_free((char*)self->keys);
+    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
+            neo_current_frame = fr.prev;
 }
 
 static void list$1list$1int$$ph$p_finalize(struct list$1list$1int$$ph* self)
@@ -4444,25 +4414,25 @@ static void list$1list$1int$$ph$p_finalize(struct list$1list$1int$$ph* self)
     struct list_item$1list$1int$$ph* it;
     struct list_item$1list$1int$$ph* prev_it;
     if(self==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return;
     }
-    it=((struct list$1list$1int$$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1652))->head;
+    it=self->head;
     while(it!=((void*)0)) {
         prev_it=it;
-        it=((struct list_item$1list$1int$$ph*)come_null_checker(it, "/usr/local/include/neo-c.h", 1655))->next;
+        it=it->next;
         come_call_finalizer(list_item$1list$1int$$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+                    neo_current_frame = fr.prev;
 }
 
 static void list_item$1list$1int$$ph$p_finalize(struct list_item$1list$1int$$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1list$1int$$ph$p_finalize"; neo_current_frame = &fr;
-    if(self!=((void*)0)&&((struct list_item$1list$1int$$ph*)come_null_checker(self, "list_item$1list$1int$$ph$p_finalize", 2))->item!=((void*)0)) {
-        come_call_finalizer(list$1int$$p_finalize, ((struct list_item$1list$1int$$ph*)come_null_checker(self, "list_item$1list$1int$$ph$p_finalize", 2))->item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(self!=((void*)0)&&self->item!=((void*)0)) {
+        come_call_finalizer(list$1int$$p_finalize, self->item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
 }
 
 static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3int$int$int$$ph* self)
@@ -4470,24 +4440,24 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$tuple3$3int$int$int$$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_10;
-    for(i=0;i<((struct map$2int$tuple3$3int$int$int$$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2739))->size;i++){
-        if(((_Bool*)come_null_checker(((struct map$2int$tuple3$3int$int$int$$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2740))->item_existance, "/usr/local/include/neo-c.h", 2740))[i]) {
+    for(i=0;i<self->size;i++){
+        if(self->item_existance[i]) {
             if(1) {
-                come_call_finalizer(tuple3$3int$int$int$$p_finalize, ((struct tuple3$3int$int$int$**)come_null_checker(((struct map$2int$tuple3$3int$int$int$$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2742))->items, "/usr/local/include/neo-c.h", 2742))[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
             }
         }
     }
-    come_free((char*)((struct map$2int$tuple3$3int$int$int$$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2746))->items);
-    for(i_10=0;i_10<((struct map$2int$tuple3$3int$int$int$$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2748))->size;i_10++){
-        if(((_Bool*)come_null_checker(((struct map$2int$tuple3$3int$int$int$$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2749))->item_existance, "/usr/local/include/neo-c.h", 2749))[i_10]) {
+    come_free((char*)self->items);
+    for(i_10=0;i_10<self->size;i_10++){
+        if(self->item_existance[i_10]) {
             if(0) {
             }
         }
     }
-    come_free((char*)((struct map$2int$tuple3$3int$int$int$$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2755))->keys);
-    come_call_finalizer(list$1int$$p_finalize, ((struct map$2int$tuple3$3int$int$int$$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2757))->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-    (((struct map$2int$tuple3$3int$int$int$$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2759))->item_existance = come_decrement_ref_count(((struct map$2int$tuple3$3int$int$int$$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2759))->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
-    neo_current_frame = fr.prev;
+    come_free((char*)self->keys);
+    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
+            neo_current_frame = fr.prev;
 }
 
 static void list$1lambda$$p_finalize(struct list$1lambda$* self)
@@ -4496,21 +4466,21 @@ static void list$1lambda$$p_finalize(struct list$1lambda$* self)
     struct list_item$1lambda$* it;
     struct list_item$1lambda$* prev_it;
     if(self==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return;
     }
-    it=((struct list$1lambda$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1652))->head;
+    it=self->head;
     while(it!=((void*)0)) {
         prev_it=it;
-        it=((struct list_item$1lambda$*)come_null_checker(it, "/usr/local/include/neo-c.h", 1655))->next;
+        it=it->next;
         come_call_finalizer(list_item$1lambda$$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
 }
 
 static void list_item$1lambda$$p_finalize(struct list_item$1lambda$* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1lambda$$p_finalize"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
 }
 

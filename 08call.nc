@@ -23,6 +23,8 @@ class sReturnNode extends sNodeBase
         if(self.value) {
             sFun* come_fun = info.come_fun;
             
+            add_come_code(info, info->come_fun->mSourceEnd.to_string());
+            
             sType*% result_type = clone come_fun.mResultType;
             
             sType*% result_type2_ = solve_generics(result_type, info.generics_type, info);
@@ -112,6 +114,8 @@ class sReturnNode extends sNodeBase
         }
         else {
             sFun* come_fun = info.come_fun;
+            
+            add_come_code(info, info->come_fun->mSourceEnd.to_string());
             
             add_last_code_to_source(info);
             free_objects_on_return(come_fun.mBlock, info, null, false@top_block);

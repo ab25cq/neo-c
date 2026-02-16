@@ -278,6 +278,7 @@ uniq class sFun
     buffer*% mSource;
     buffer*% mSourceHead;
     buffer*% mSourceHead2;
+    buffer*% mSourceEnd;
     
     bool mStatic;
     bool mInline;
@@ -326,6 +327,7 @@ uniq class sFun
         self.mSource = new buffer();
         self.mSourceHead = new buffer();
         self.mSourceHead2 = new buffer();
+        self.mSourceEnd = new buffer();
         
         self.mBlock = block;
         self.mTextBlock = text_block;
@@ -612,6 +614,7 @@ struct sInfo
     string if_result_value_name;
     bool if_result_value_name_defined;
     sType*% if_result_type;
+    bool defer_block;
 };
 
 uniq class sNodeBase

@@ -1599,6 +1599,11 @@ void add_come_code(sInfo* info, const char* msg, ...)
     else if(info->paren_block_buffer) {
         info->paren_block_buffer.append_str(xsprintf("%s", msg2));
     }
+    else if(info->defer_block) {
+        if(info->come_fun) {
+            info->come_fun.mSourceEnd.append_str(xsprintf("%s", msg2));
+        }
+    }
     else if(info->come_fun) {
         if(!info.in_conditional) {
             int i;
@@ -1637,6 +1642,11 @@ void add_come_code_no_indent(sInfo* info, const char* msg, ...)
     }
     else if(info->paren_block_buffer) {
         info->paren_block_buffer.append_str(xsprintf("%s", msg2));
+    }
+    else if(info->defer_block) {
+        if(info->come_fun) {
+            info->come_fun.mSourceEnd.append_str(xsprintf("%s", msg2));
+        }
     }
     else if(info->come_fun) {
         if(!info.in_conditional) {
