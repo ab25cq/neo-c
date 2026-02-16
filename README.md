@@ -93,7 +93,7 @@ sh all_build.sh
 # Histories
 
 ```
-0.9.0.2 rawptr implemented.
+0.9.0.2 rawptr implemented. vector implemeted.
 0.9.0.1 defer implemeted.
 0.9.0.0 smart pointer removed. slice removed. ref nad optional and span is maybe stable. null checker is enable when -cg option, by the default it's disable.
 0.8.9.9 ref and optional autounwrap. force to unwrap with !

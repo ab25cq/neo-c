@@ -2394,6 +2394,61 @@ impl vector<T>
     }
 }
 
+/*
+
+    def quickSort(left:int, right:int, fun:lambda(T, T):int):SortableArray<T> {
+        l_hold:int = left;
+        r_hold:int = right;
+
+        pivot:T = self.items[left];
+        pivot_num:int = left;
+
+        while(left < right) {
+            while((fun(self.items[right], pivot) >= 0) && (left < right)) {
+                right--;
+            }
+
+            if(left != right) {
+                self.items[left] = self.items[right];
+                left++;
+            }
+
+            while((fun(self.items[left], pivot) <= 0) && (left < right)) {
+                left++;
+            }
+
+            if(left != right) {
+                self.items[right] = self.items[left];
+                right--;
+            }
+        }
+
+        self.items[left] = pivot;
+
+        pivot_num = left;
+
+        left2:int = l_hold;
+        right2:int = r_hold;
+
+        if(left2 < pivot_num) {
+            self.quickSort(left2, pivot_num-1, fun);
+        }
+
+        if(right2 > pivot_num) {
+            self.quickSort(pivot_num+1, right2, fun);
+        }
+
+        return self;
+    }
+
+    def sort():SortableArray<T>  {
+        return self.quickSort(0, self.length()-1, lambda(left:T, right:T):int { left.compare(right) });
+    }
+    def sort(fun:lambda(T,T):int):SortableArray<T>  {
+        return self.quickSort(0, self.length()-1, fun);
+    }
+*/
+
 //////////////////////////////
 // map
 //////////////////////////////
