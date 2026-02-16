@@ -907,6 +907,9 @@ impl span<T>
         
         return s"head \{self.memory} p \{self.p} len \{self.len}";
     }
+    _norecord int len(span<T>* self) {
+        return self.len;
+    }
     _norecord int memcmp(span<T>* self, void* mem, size_t len) {
         using unsafe; 
         
@@ -945,7 +948,6 @@ impl span<T>
 //////////////////////////////
 // rawptr
 //////////////////////////////
-/*
 struct rawptr<T> {
     T* p;
 };
@@ -962,9 +964,82 @@ impl rawptr<T>
     T* unwrap(rawptr<T>* self) {
         return self.p;
     }
+    
+    rawptr<T>* operator_plus_plus(rawptr<T>* self) {
+        using unsafe;
+        
+        self.p++;
+        
+        return self;
+    }
+    rawptr<T>* operator_plus_equal(rawptr<T>* self, size_t value) {
+        using unsafe;
+        
+        self.p += value;
+        
+        return self;
+    }
+    
+    rawptr<T>* operator_minus_minus(rawptr<T>* self) {
+        using unsafe;
+        
+        self.p--;
+        
+        return self;
+    }
+    
+    rawptr<T>* operator_minus_equal(rawptr<T>* self, size_t value) {
+        using unsafe;
+        
+        self.p -= value;
+        
+        return self;
+    }
+    
+    T^ operator_add(rawptr<T>* self, size_t rvalue) {
+        using unsafe;
+        
+        T^ result = self.p + rvalue;
+        
+        return result;
+    }
+    
+    T^ operator_sub(rawptr<T>* self, size_t rvalue) {
+        using unsafe;
+        
+        T^ result = self.p - rvalue;
+        
+        return result;
+    }
+    
+    T^ operator_derefference(rawptr<T>* self) {
+        using unsafe;
+        
+        T*^ p = self.p;
+        
+        return *p;
+    }
+    void operator_store_element(rawptr<T>* self, int position, T] item) {
+        using unsafe; 
+        
+        T*^ p = self.p;
+        
+        p\[position] = item;
+    }
+    T^ operator_load_element(rawptr<T>* self, int position) {
+        using unsafe; 
+        
+        T*^ p = self.p;
+        
+        return p\[position];
+    }
+    
+    string to_string(rawptr<T>* self) {
+        using unsafe; 
+        
+        return s"head \{self.memory} p";
+    }
 }
-*/
-
 
 //////////////////////////////
 // list
@@ -2051,6 +2126,8 @@ impl vector<T>
     }
     vector<T>*% initialize_with_values(vector<T>*% self, int num_value, T^* values) 
     {
+        using unsafe;
+        
         self.size = num_value;
         self.len = 0;
         self.items = borrow new T[self.size];
@@ -2062,6 +2139,8 @@ impl vector<T>
 
     vector<T>*% clone(vector<T>* self)
     {
+        using unsafe;
+        
         vector<T>*% result = new vector<T>;
 
         result.len = self.len;
@@ -2087,6 +2166,8 @@ impl vector<T>
 
     void finalize(vector<T>* self)
     {
+        using unsafe;
+        
         if(isheap(T)) {
             for(int i=0; i<self.len; i++) 
             {
@@ -2099,6 +2180,8 @@ impl vector<T>
     }
     
     vector<T>*% operator_add(vector<T>* left, vector<T>* right) {
+        using unsafe;
+        
         vector<T>*% result = new vector<T>.initialize();
         
         foreach(it, left) {
@@ -2122,6 +2205,8 @@ impl vector<T>
         return result;
     }
     vector<T>*% operator_mult(vector<T>* left, int n) {
+        using unsafe;
+        
         vector<T>*% result = new vector<T>.initialize();
         
         for(int i=0; i<n; i++) {
@@ -2148,6 +2233,8 @@ impl vector<T>
     }
     
     T^ operator_load_element(vector<T>* self, int index) {
+        using unsafe;
+        
         T^ default_value;
         memset(&default_value!, 0, sizeof(T));
         
@@ -2155,6 +2242,8 @@ impl vector<T>
     }
     
     void push_back(vector<T>* self, T` item) {
+        using unsafe;
+        
         if(self.len == self.size) {
             auto new_size = self.size * 2;
             auto items = self.items;
@@ -2177,6 +2266,8 @@ impl vector<T>
 
     T^ item(vector<T>* self, int index, T^ default_value) 
     {
+        using unsafe;
+        
         if(index < 0) {
             index += self.len;
         }
@@ -2192,6 +2283,8 @@ impl vector<T>
 
     bool equals(vector<T>* left, vector<T>* right)
     {
+        using unsafe;
+        
         if(left.len != right.len) {
             return false;
         }
@@ -2208,6 +2301,8 @@ impl vector<T>
     
     void replace(vector<T>* self, int index, T value)
     {
+        using unsafe;
+        
         if(index < 0) {
             index += self.len;
         }
@@ -2223,6 +2318,8 @@ impl vector<T>
     }
     
     int find(vector<T>* self, T^ item, int default_value) {
+        using unsafe;
+        
         int it2 = 0;
         foreach(it, self) {
             if(it.equals(item)) {
@@ -2236,10 +2333,14 @@ impl vector<T>
 
     int length(vector<T>* self)
     {
+        using unsafe;
+        
         return self.len;
     }
 
     void reset(vector<T>* self) {
+        using unsafe;
+        
         if(isheap(T)) {
             for(int i=0; i<self.len; i++) 
             {
@@ -2256,6 +2357,8 @@ impl vector<T>
     }
 
     T^ begin(vector<T>* self) {
+        using unsafe;
+        
         self.it = 0;
 
         T^ default_value;
@@ -2263,6 +2366,8 @@ impl vector<T>
     }
 
     T^ next(vector<T>* self) {
+        using unsafe;
+        
         self.it++;
 
         T^ default_value
@@ -2270,10 +2375,14 @@ impl vector<T>
     }
 
     bool end(vector<T>* self) {
+        using unsafe;
+        
         return self.it >= self.len;
     }
     
     void delete_back(vector<T>* self) {
+        using unsafe;
+        
         if(self.len > 0) {
             if(isheap(T)) {
                 delete borrow self.items[self.len-1];

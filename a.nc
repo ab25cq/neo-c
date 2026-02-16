@@ -7,8 +7,6 @@ void fun()
     puts("UHO");
 }
 
-
-
 int main(int argc, char** argv)
 {
     FILE* f = fopen("01main.nc", "r");
@@ -16,7 +14,6 @@ int main(int argc, char** argv)
     puts("AAAA");
     
     defer { fclose(f); }
-    
     
     return 0;
 }
