@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.9.0.2
+version 0.9.0.3
 
 ``` C
 #include <neo-c.h>
@@ -93,6 +93,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.9.0.3 span bug fixed. vector bug fixed.
 0.9.0.2 rawptr implemented. vector implemeted.
 0.9.0.1 defer implemeted.
 0.9.0.0 smart pointer removed. slice removed. ref nad optional and span is maybe stable. null checker is enable when -cg option, by the default it's disable.
@@ -3298,6 +3299,42 @@ int main(int argc, char** argv)
     
     defer { fclose(f); }
     
+    
+    return 0;
+}
+```
+
+# vector
+
+```
+#include <neo-c.h>
+
+int main(int argc, char** argv)
+{
+    vector<int>*% v1 = v[2,3,1];
+    
+    v1.add(4).add(5);
+    
+    foreach(it, v1) {
+        printf("%d\n", it);
+    }
+    
+    return 0;
+}
+```
+
+```
+#include <neo-c.h>
+
+int main(int argc, char** argv)
+{
+    vector<int>*% v1 = v[2,3,1];
+    
+    v1.sort();
+    
+    foreach(it, v1) {
+        printf("%d\n", it);
+    }
     
     return 0;
 }

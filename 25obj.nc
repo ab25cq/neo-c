@@ -1745,12 +1745,20 @@ sNode*%@head,sNode*%@len get_head_and_len(sNode*% node, CVALUE*% come_value, sIn
 {
     sNode*% head;
     sNode*% len;
-    sType*% type = come_value.type;
-    if((type->mOriginalTypeName && type->mOriginalTypeName === "string") || (type->mClass->mName === "char" && type->mPointerNum == 1 && type->mHeap) && !type->mNew) {
+    sType*% type = clone come_value.type;
+    sType*% type2;
+    if(type->mNoSolvedGenericsType) {
+        type2 = type->mNoSolvedGenericsType;
+    }
+    else {
+        type2 = type;
+    }
+
+    if((type2->mOriginalTypeName && type2->mOriginalTypeName === "string") || (type2->mClass->mName === "char" && type2->mPointerNum == 1 && type2->mHeap) && !type2->mNew) {
         static int n = 0;
         string var_name = s"__tmp_string\{++n}";
         
-        sNode*% svar = store_var(var_name, null, null, type, alloc:true, node, info);
+        sNode*% svar = store_var(var_name, null, null, type2, alloc:true, node, info);
         
         head = svar;
         //create_load_var(var_name);
@@ -1761,28 +1769,41 @@ sNode*%@head,sNode*%@len get_head_and_len(sNode*% node, CVALUE*% come_value, sIn
         
         len = create_funcall("strlen", params, null, 0, null, info);
     }
-    else if(type->mClass->mName === "buffer") {
+    else if(type2->mClass->mName === "buffer") {
         head = load_field(node, s"buf", info);
         len = load_field(node, s"len", info);
     }
-    else if(type->mClass->mName === "map" || type->mClass->mName === "list") {
-        err_msg(info, "can't get sirialize memory of this type(%s)", type->mClass->mName);
+    else if(type2->mClass->mName === "vector") {
+        head = load_field(node, s"items", info);
+        
+        sNode*% obj = node;
+        
+        list<tup: string, sNode*%>*% params = new list<tup: string, sNode*%>();
+        
+        params.add(t((string)null, obj));
+        
+        sNode*% method_node = create_method_call("alloc_size", obj, params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
+        
+        len = method_node;
+    }
+    else if(type2->mClass->mName === "map" || type2->mClass->mName === "list") {
+        err_msg(info, "can't get sirialize memory of this type(%s)", type2->mClass->mName);
         exit(1);
     }
-    else if(type->mHeap && type->mPointerNum == 1 && type->mNew) {
+    else if(type2->mHeap && type2->mPointerNum == 1 && type2->mNew) {
         head = node;
-        len = new sHeapSizeOfNode(type, info) implements sNode;
+        len = new sHeapSizeOfNode(type2, info) implements sNode;
     }
-    else if(type->mHeap && type->mPointerNum == 1) {
+    else if(type2->mHeap && type2->mPointerNum == 1) {
         static int n = 0;
         string var_name = s"__tmp_heap\{++n}";
         
-        sNode*% svar = store_var(var_name, null, null, type, alloc:true, node, info);
+        sNode*% svar = store_var(var_name, null, null, type2, alloc:true, node, info);
         
         head = svar;
         len = new sDynamicSizeOfExpNode(create_load_var(var_name), info) implements sNode;
     }
-    else if(type->mPointerNum == 1) {
+    else if(type2->mPointerNum == 1) {
         head = node;
         sNode*% node2 = create_defference_node(node, quote:false, info);
         len = new sSizeOfExpNode(node2, info) implements sNode;

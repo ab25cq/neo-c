@@ -2359,6 +2359,16 @@ sNode*% expression_node(sInfo* info=info) version 98
         
         return node;
     }
+    else if(!gComeC && *info->p == 'v' && *(info->p+1) == '[') {
+        info->p+=2;
+        skip_spaces_and_lf();
+        
+        sNode*% node = parse_vector(info);
+        
+        skip_spaces_and_lf();
+        
+        return node;
+    }
     else if((xisalpha(*info->p) || *info->p == '_' ) && !((*info->p == 'L' || *info->p == 'l' || *info->p == 's' || *info->p == 'S' || *info->p == 'b' || *info->p == 'B' || *info->p == 'h' || *info->p == 'H') && *(info->p+1) == '"' || (*info->p == 'L' && *(info->p+1) == '\''))) {
         char* head = info.p;
         int head_sline = info.sline;

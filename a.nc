@@ -2,17 +2,21 @@
 
 int main(int argc, char** argv)
 {
-    vector<int>*% v = new vector<int>();
+    vector<int>*% v1 = v[2,3,1];
     
-    v.add(2);
-    v.add(3);
-    v.add(1);
+    int*{} p = span v1;
     
-    var v2 = v.sort();
+    printf("%d\n", *p);
+    p++;
     
-    for(int i=0; i<v.length(); i++) {
-        printf("%d\n", v2.item(i , -1));
-    }
+    printf("%d\n", *p);
+    p++;
+    
+    printf("%d\n", *p);
+    p++;
+    
+    printf("%d\n", *p);
+    p++;
     
     return 0;
 }

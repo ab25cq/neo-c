@@ -453,6 +453,211 @@ class sListNode extends sNodeBase
     }
 };
 
+class sVectorNode extends sNodeBase
+{
+    new(list<sNode*%>*% list_elements, sInfo* info)
+    {
+        self.super();
+        
+        list<sNode*%>*% self.list_elements = list_elements;
+    }
+    
+    string kind()
+    {
+        return string("sVectorNode");
+    }
+    
+    bool compile(sInfo* info)
+    {
+        list<sNode*%>* list_elements = borrow self.list_elements;
+        
+        list<CVALUE*%>*% params = new list<CVALUE*%>();
+        sType*% list_element_type = null;
+        
+        if(info.exp_value) {
+            err_msg(info, "nest value expression is prohibited");
+            return false;
+        }
+        info.exp_value = true;
+        
+        int n = 0;
+        foreach(it, list_elements) {
+            node_compile(it).elif {
+                return false;
+            }
+            
+            CVALUE*% come_value = get_value_from_stack(-1, info);
+            
+            if(list_element_type) {
+                check_assign_type(s"invalid list element type", list_element_type, come_value.type, come_value);
+            }
+            
+            remove_value_from_right_value_objects(come_value, info);
+            
+            params.push_back(come_value);
+            
+            if(list_element_type) {
+                check_assign_type(s"Vector element type", list_element_type, come_value.type, come_value);
+            }
+            list_element_type = clone come_value.type;
+            
+            n++;
+        }
+        info.exp_value = false;
+        
+        sType*% type_values = clone list_element_type;
+        type_values.mArrayNum.push_back(create_int_node(params.length().to_string(), info));
+        type_values->mHeap = false;
+        
+        static int list_value_num = 0;
+        string var_name = xsprintf("__vector_values%d__", ++list_value_num);
+        
+        add_variable_to_table(var_name, clone type_values, info, false@function_param);
+        
+        sVar* var_ = get_variable_from_table(info.lv_table, var_name);
+        
+        add_come_code_at_function_head(info, "%s;\n", make_define_var(type_values, var_->mCValueName));
+        
+        buffer*% source = new buffer();
+        
+        source.append_str("(");
+        
+        int i = 0;
+        foreach(it, params) {
+            if(list_element_type->mHeap) {
+                //string c_value = increment_ref_count_object(params[i].type, params[i].c_value, info);
+                source.append_format("%s[%d]=%s,\n", var_->mCValueName, i, params[i].c_value);
+            }
+            else {
+                source.append_format("%s[%d]=%s,\n", var_->mCValueName, i, params[i].c_value);
+            }
+            i++;
+        }
+        
+        //source.append_str(")");
+        
+        //add_come_code(info, "%s", source.to_string());
+        
+        sType*% list_type = new sType(s"vector");
+        list_type->mGenericsTypes.push_back((clone list_element_type));
+        
+        sType*% obj_type = clone list_type;
+        const char* fun_name = "initialize_with_values";
+        
+        var name, generics_fun = make_generics_function(obj_type, string(fun_name), info);
+        string generics_fun_name = name;
+        
+        sFun* fun = borrow info.funcs.at(generics_fun_name, null);
+        
+        if(fun == null) {
+            generics_fun_name = create_method_name(obj_type, false@no_pointer_name, string(fun_name), info);
+            
+            fun = borrow info.funcs.at(generics_fun_name, null);
+            
+            if(fun == null) {
+                err_msg(info, "function not found(%s) at method(%s)(1)", generics_fun_name, info.come_fun.mName);
+                return true;
+            }
+        }
+            
+        sType*% result_type = clone fun->mResultType;
+        result_type->mStatic = false;
+        
+        sType*% type = list_type;
+        
+        CVALUE*% obj_value = new CVALUE();
+        
+        buffer*% num_string = new buffer();
+        
+        num_string.append_str("1");
+        
+        sType*% type2_ = solve_generics(type, type, info);
+        sType*% type2 = solve_method_generics(type2_, info);
+        
+        string type_name = make_type_name_string(type2, cast_type:true);
+        
+        sType*% any_type = type2;
+        any_type->mPointerNum = 1;
+        any_type->mHeap = true;
+        
+        if(info.funcs[s"come_calloc_v2"]) {
+            obj_value.c_value = xsprintf("(%s*)come_calloc_v2(1, sizeof(%s)*(%s), \"%s\", %d, \"%s\")", type_name, type_name, num_string.to_string(), info.sname, info.sline, type_name);
+        }
+        else {
+            obj_value.c_value = xsprintf("(%s*)come_calloc(1, sizeof(%s)*(%s), \"%s\", %d, \"%s\")", type_name, type_name, num_string.to_string(), info.sname, info.sline, type_name);
+        }
+        
+        sType*% type3 = clone type2;
+        type3->mPointerNum++;
+        type3->mHeap = true;
+        type2->mHeap = true;
+        obj_value.type = clone type2;
+        //obj_value.type->mPointerNum ++;
+        obj_value.var = null;
+        
+        append_object_to_right_values(obj_value, type3 ,info);
+            
+        list<CVALUE*%>*% come_params = new list<CVALUE*%>();
+        
+        if(fun.mParamTypes[0].mHeap && obj_value.type.mHeap) {
+            std_move(fun.mParamTypes[0], obj_value.type, obj_value);
+        }
+        come_params.push_back(obj_value);
+        
+        CVALUE*% come_value2 = new CVALUE();
+        
+        come_value2.c_value = xsprintf("%d", params.length());
+        come_value2.type = null; // no required
+        come_value2.var = null;
+        
+        come_params.push_back(come_value2);
+        
+        CVALUE*% come_value3 = new CVALUE();
+        
+        come_value3.c_value = xsprintf("%s", var_->mCValueName);
+        come_value3.type = null; // no required
+        come_value3.var = null;
+        
+        come_params.push_back(come_value3);
+        
+        //buffer*% buf = new buffer();
+        
+        source.append_str(generics_fun_name);
+        source.append_str("(");
+        
+        int j = 0;
+        foreach(it, come_params) {
+            source.append_str(it.c_value);
+            
+            if(j != come_params.length()-1) {
+                source.append_str(",");
+            }
+            
+            j++;
+        }
+        source.append_str(")");
+        source.append_str(")");
+        
+        CVALUE*% come_value4 = new CVALUE();
+        
+        come_value4.c_value = source.to_string();
+        
+        come_value4.type = clone result_type;
+        come_value4.type->mStatic = false;
+        come_value4.var = null;
+        
+        if(result_type->mHeap) {
+            append_object_to_right_values(come_value4, result_type, info);
+        }
+        
+        info.stack.push_back(come_value4);
+        
+        add_come_last_code(info, "%s", come_value4.c_value);
+        
+        return true;
+    }
+};
+
 class sTupleNode extends sNodeBase
 {
     new(list<tup: string, sNode*%>*% tuple_elements, sInfo* info)
@@ -2088,7 +2293,16 @@ sNode*% expression_node(sInfo* info) version 96
             return new sListNode(list_elements, info) implements sNode;
         }
         else {
+            err_msg(info, "invalid vector");
+            return null;
         }
+    }
+    else if(*info->p == 'v' && *(info->p+1) == '(') {
+        int sline_real = info.sline_real;
+        info.sline_real = info.sline;
+        info->p+=2;
+        skip_spaces_and_lf();
+        
     }
     else {
         sNode*% node = inherit(info);
@@ -2139,6 +2353,84 @@ sNode*% parse_tuple(sInfo* info, bool named_tuple=false)
     return new sTupleNode(tuple_elements, info) implements sNode;
 }
 
-
-
-
+sNode*% parse_vector(sInfo* info=info)
+{
+    char* p = info.p;
+    
+    int sline_real = info.sline;
+    
+    bool no_comma = info.no_comma;
+    info.no_comma = true;
+    
+    sNode*% node = expression();
+    
+    info.no_comma = no_comma;
+    
+    char* p2 = info.p;
+    
+    buffer*% first_element_source = new buffer();
+    
+    first_element_source.append(p, p2 - p);
+    first_element_source.append_char('\0');
+    
+    list<sNode*%>*% list_elements = new list<sNode*%>();
+    
+    list<sNode*%>*% map_keys = new list<sNode*%>();
+    list<sNode*%>*% map_elements = new list<sNode*%>();
+    
+    /// vector ///
+    if(*info->p == ']') {
+        info->p++;
+        skip_spaces_and_lf();
+        
+        list_elements.push_back(node);
+    }
+    else if(*info->p == ',') {
+        info->p++;
+        skip_spaces_and_lf();
+        
+        list_elements.push_back(node);
+        
+        while(true) {
+            bool no_comma = info.no_comma;
+            info.no_comma = true;
+            
+            sNode*% node2 = expression();
+            
+            info.no_comma = no_comma;
+            
+            list_elements.push_back(node2);
+            
+            if(*info->p == '\0') {
+                err_msg(info, "invalid source end");
+                exit(2);
+            }
+            else if(*info->p == ',') {
+                info->p++;
+                skip_spaces_and_lf();
+            }
+            else if(*info->p == ']') {
+                info->p++;
+                skip_spaces_and_lf();
+                break;
+            }
+            else {
+                err_msg(info, "invalid character(4)(%c)", *info->p);
+                exit(2);
+            }
+        }
+    }
+    else {
+        err_msg(info, "invalid character(5)(%c)", *info->p);
+        exit(2);
+    }
+    
+    if(list_elements.length() > 0) {
+        info.sline_real = sline_real;
+        return new sVectorNode(list_elements, info) implements sNode;
+    }
+    
+    err_msg(info, "invalid vector");
+    
+    return null;
+}

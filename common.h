@@ -1227,5 +1227,6 @@ uniq class sNullChecker extends sNodeBase
 };
 
 sNode*% create_new_object(sType*% type, sInfo* info=info);
+sNode*% parse_vector(sInfo* info=info);
 
 #endif

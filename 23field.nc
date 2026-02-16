@@ -1274,11 +1274,23 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                 
                 skip_spaces_and_lf();
                 
-                sNode*% node2 = automatically_unwrap(node);
+                sNode*% node2;
+                if(quote) {
+                    node2 = node;
+                }
+                else {
+                    node2 = automatically_unwrap(node);
+                }
                 node = new sStoreArrayNode(node2, right_node, array_num, quote, info) implements sNode;
             }
             else {
-                sNode*% node2 = automatically_unwrap(node);
+                sNode*% node2;
+                if(quote) {
+                    node2 = node;
+                }
+                else {
+                    node2 = automatically_unwrap(node);
+                }
                 node = new sLoadArrayNode(node2, array_num, quote, false@break_guard, info) implements sNode;
             }
         }
@@ -1333,7 +1345,13 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                 
                 sNode*% right_node = expression();
                 
-                sNode*% node2 = automatically_unwrap(node);
+                sNode*% node2;
+                if(quote) {
+                    node2 = node;
+                }
+                else {
+                    node2 = automatically_unwrap(node);
+                }
                 node = new sStoreFieldNode(node2, right_node, field_name, info, arrow_) implements sNode;
             }
             else if(!gComeC && (*info->p == '(' || *info->p == '{' || parse_method_generics_type)) {
@@ -1357,12 +1375,24 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                     node = parse_method_call(node, field_name, info, arrow_);
                 }
                 else {
-                    sNode*% node2 = automatically_unwrap(node);
+                    sNode*% node2;
+                    if(quote) {
+                        node2 = node;
+                    }
+                    else {
+                        node2 = automatically_unwrap(node);
+                    }
                     node = parse_method_call(node2, field_name, info, arrow_);
                 }
             }
             else {
-                sNode*% node2 = automatically_unwrap(node);
+                sNode*% node2;
+                if(quote) {
+                    node2 = node;
+                }
+                else {
+                    node2 = automatically_unwrap(node);
+                }
                 node = new sLoadFieldNode(node2, field_name, info, arrow_) implements sNode;
             }
         }

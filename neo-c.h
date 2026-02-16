@@ -730,8 +730,8 @@ impl span<T>
         
         self.p = (T^)head;
         self.len = len;
-        self.local = refference.local;
-        self.stacktop = refference.stacktop;
+        self.local = refference\.local;
+        self.stacktop = refference\.stacktop;
         
         return self;
     }
@@ -841,7 +841,7 @@ impl span<T>
         
         return *p;
     }
-    _norecord void operator_store_element(span<T>* self, int position, T] item) {
+    _norecord void operator_store_element(span<T>* self, int position, T item) {
         using unsafe; 
         
         if(self->local) {
@@ -2129,7 +2129,7 @@ impl vector<T>
         using unsafe;
         
         self.size = num_value;
-        self.len = 0;
+        self.len = num_value;
         self.items = borrow new T[self.size];
         
         memcpy(self.items, values, sizeof(T)*self.size);
@@ -2232,15 +2232,6 @@ impl vector<T>
         self.replace(index, item);
     }
     
-    T^ operator_load_element(vector<T>* self, int index) {
-        using unsafe;
-        
-        T^ default_value;
-        memset(&default_value!, 0, sizeof(T));
-        
-        return self.item(index, default_value!);
-    }
-    
     void add(vector<T>* self, T` item) {
         using unsafe;
         
@@ -2264,7 +2255,7 @@ impl vector<T>
         self.len++;
     }
 
-    T^ item(vector<T>* self, int index, T^ default_value) 
+    T item(vector<T>* self, int index, T default_value) 
     {
         using unsafe;
         
@@ -2337,6 +2328,13 @@ impl vector<T>
         
         return self.len;
     }
+    
+    int alloc_size(vector<T>* self)
+    {
+        using unsafe;
+        
+        return sizeof(T) * self.len;
+    }
 
     void reset(vector<T>* self) {
         using unsafe;
@@ -2362,7 +2360,7 @@ impl vector<T>
         self.it = 0;
 
         T^ default_value;
-        return self.item(0, default_value!);
+        return self.item(0, default_value);
     }
 
     T^ next(vector<T>* self) {
@@ -2371,7 +2369,7 @@ impl vector<T>
         self.it++;
 
         T^ default_value
-        return self.item(self.it, default_value!);
+        return self.item(self.it, default_value);
     }
 
     bool end(vector<T>* self) {
@@ -2380,17 +2378,16 @@ impl vector<T>
         return self.it >= self.len;
     }
     
-    void delete_back(vector<T>* self) {
+    T operator_load_element(vector<T>* self, int position) {
         using unsafe;
         
-        if(self.len > 0) {
-            if(isheap(T)) {
-                delete borrow self.items[self.len-1];
-                self.items[self.len-1] = null;
-            }
-            
-            self.len--;
-        }
+        T^` default_value;
+        memset(&default_value, 0, sizeof(T));
+        
+        return self.item(position, default_value);
+    }
+    void operator_store_element(list<T>* self, int position, T item) {
+        self.replace(position, item);
     }
     
     vector<T>* quick_sort(vector<T>* self, int left, int right, int (*compare)(T,T)) {
