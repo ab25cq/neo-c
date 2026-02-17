@@ -3237,10 +3237,10 @@ int main(int argc, char** argv)
 #include <neo-c.h>
 
 struct sData {
-    vector<int>*%& p;
+    vector<int>& p;
 };
 
-void fun(vector<int>*%& p)
+void fun(vector<int>& p)
 {
     sData data;
     
@@ -3254,6 +3254,27 @@ void fun(vector<int>*%& p)
 int main(int argc, char** argv)
 {
     fun(ref v[1,2,3]);
+    
+    return 0;
+}
+```
+
+```
+#include <neo-c.h>
+
+struct sData {
+    list<string>& p;
+};
+
+int main(int argc, char** argv)
+{
+    sData data;
+    
+    data.p = ref new list<string>();
+    
+    data.p.add(s"ABC").add(s"DEF").add(s"GHI");
+    
+    data.p.to_string().puts();
     
     return 0;
 }

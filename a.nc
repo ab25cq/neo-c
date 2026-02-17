@@ -1,24 +1,23 @@
 #include <neo-c.h>
 
-struct sData {
-    vector<int>*%& p;
+struct sData
+{
+    string& n;
 };
 
-void fun(vector<int>*%& p)
+string& fun()
 {
     sData data;
     
-    data.p = p;
-    
-    data.p.add(1).add(2).add(3);
-    
-    data.p.to_string().puts();
+    data.n = ref s"ABC";
+    return data.n;
 }
 
 int main(int argc, char** argv)
 {
-    fun(ref v[1,2,3]);
+    string& a = fun();
+    
+    a[0..1].puts();
     
     return 0;
 }
-
