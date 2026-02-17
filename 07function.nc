@@ -2526,10 +2526,14 @@ sNode*% parse_function(sInfo* info)
     
     var stack_saved = info.stack;
     list<sRightValueObject*%>* right_value_objects = borrow info.right_value_objects;
+    
+    bool no_output_come_code = info.no_output_come_code;
+    info.no_output_come_code = false;
 }
 
 #module MRestoreState
 {
+    info.no_output_come_code = no_output_come_code;
     info->sname = string(sname_top);
     info->sline = sline_top;
     

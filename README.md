@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.9.0.5
+version 0.9.0.6
 
 ``` C
 #include <neo-c.h>
@@ -93,6 +93,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.9.0.6 testing opt, ref, span. Some content it's working.
 0.9.0.5 testing opt, ref. Some content it's working.
 0.9.0.4 & operand bug fixed.
 0.9.0.3 span bug fixed. vector bug fixed.
@@ -2999,6 +3000,15 @@ string? fun2()
     return p8;
 }
 
+string? fun3()
+{
+    sData3 dataX;
+    
+    dataX.b = opt s"ABC";
+    
+    return dataX.b;
+}
+
 int main(int argc, char** argv)
 {
     struct sData data = { .a=111, .b=222 };
@@ -3036,6 +3046,214 @@ int main(int argc, char** argv)
     data3.b = fun2();
     
     printf("%s\n", data3.b!);
+    
+    printf("%s\n", fun3()!);
+    
+    return 0;
+}
+```
+
+```
+#include <neo-c.h>
+
+string? fun()
+{
+    return opt s"ABC";
+}
+
+int main(int argc, char** argv)
+{
+    string? a = fun();
+    
+    printf("%s\n", a!);
+    
+    return 0;
+}
+```
+
+```
+#include <neo-c.h>
+
+struct sData
+{
+    string& n;
+};
+
+string& fun()
+{
+    sData data;
+    
+    data.n = ref s"ABC";
+    return data.n;
+}
+
+int main(int argc, char** argv)
+{
+    string& a = fun();
+    
+    a.substring(0,1).puts();
+    
+    return 0;
+}
+```
+
+```
+#include <neo-c.h>
+
+struct sData
+{
+    int a;
+    int b;
+    int c;
+};
+
+int{} fun()
+{
+    sData data = {.a=111, .b=222, .c=333 };
+    int{} p = span &data;
+    return p;
+}
+
+int main(int argc, char** argv)
+{
+    int{} p = fun();
+    
+    printf("%d\n", *p);
+    p++;
+    printf("%d\n", *p);
+    p++;
+    printf("%d\n", *p);
+    p++;
+    printf("%d\n", *p);
+    p++;
+    
+    return 0;
+}
+```
+panic
+
+```
+#include <neo-c.h>
+
+struct sData
+{
+    int a;
+    int b;
+    int c;
+};
+
+int main(int argc, char** argv)
+{
+    sData data = {.a=111, .b=222, .c=333 };
+    int{} p = span &data;
+    
+    printf("%d\n", *p);
+    p++;
+    printf("%d\n", *p);
+    p++;
+    printf("%d\n", *p);
+    p++;
+    
+    return 0;
+}
+```
+
+```
+#include <neo-c.h>
+
+int main(int argc, char** argv)
+{
+    int data[3] = { 111, 222, 333 };
+    int{} p = span data;
+    
+    printf("%d\n", *p);
+    p++;
+    printf("%d\n", *p);
+    p++;
+    printf("%d\n", *p);
+    p++;
+    
+    return 0;
+}
+
+```
+
+```
+#include <neo-c.h>
+
+struct sData {
+    int{} p;
+};
+
+void fun(int{} p)
+{
+    printf("%d\n", *p);
+    p++;
+    printf("%d\n", *p);
+    p++;
+    printf("%d\n", *p);
+    p++;
+}
+
+int main(int argc, char** argv)
+{
+    fun(span v[111, 222, 333]);
+    
+    return 0;
+}
+
+```
+
+```
+#include <neo-c.h>
+
+struct sData {
+    int{} p;
+};
+
+void fun(int{} p)
+{
+    sData data;
+    
+    data.p = p;
+    
+    printf("%d\n", *data.p);
+    p++;
+    printf("%d\n", *data.p);
+    p++;
+    printf("%d\n", *data.p);
+    p++;
+}
+
+int main(int argc, char** argv)
+{
+    fun(span v[111, 222, 333]);
+    
+    return 0;
+}
+```
+
+```
+#include <neo-c.h>
+
+struct sData {
+    vector<int>*%& p;
+};
+
+void fun(vector<int>*%& p)
+{
+    sData data;
+    
+    data.p = p;
+    
+    data.p.add(1).add(2).add(3);
+    
+    data.p.to_string().puts();
+}
+
+int main(int argc, char** argv)
+{
+    fun(ref v[1,2,3]);
     
     return 0;
 }

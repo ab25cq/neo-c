@@ -1506,7 +1506,7 @@ bool@define_only, bool@anonymous_name, bool@struct_,bool@union_,bool@enum_ backt
     return t(define_only, anonymous_name, struct_, union_, enum_);
 }
 
-sType*% parse_pointer_attribute(sType* type, sInfo* info=info)
+sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
 {
     sType*% tmp_ = null;
     while(1) {
@@ -1596,6 +1596,7 @@ sType*% parse_pointer_attribute(sType* type, sInfo* info=info)
             if(tmp_) {
                 err_msg(info, "invalid type name");
                 return type;
+                //type = tmp_;
             }
           
             type->mPointerNum = 1;
@@ -1624,6 +1625,7 @@ sType*% parse_pointer_attribute(sType* type, sInfo* info=info)
             skip_spaces_and_lf();
             
             if(tmp_) {
+                //type = tmp_;
                 err_msg(info, "invalid type name");
                 return type;
             }

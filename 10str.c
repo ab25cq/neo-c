@@ -5744,15 +5744,15 @@ _Bool sVectorNode_compile(struct sVectorNode* self, struct sInfo*  info  )
     add_come_code_at_function_head(info,"%s;\n",((char* )(__right_value0=make_define_var(type_values,var_->mCValueName,info,(_Bool)0,(_Bool)0))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     source=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 521, "struct buffer* "))));
-    buffer_append_str(source,"(");
+    buffer_append_str(source,"({");
     i=0;
     for(o2_saved_30=(struct list$1CVALUE$ph*)come_increment_ref_count(params),it_31=list$1CVALUE$ph_begin(o2_saved_30);!list$1CVALUE$ph_end(o2_saved_30);it_31=list$1CVALUE$ph_next(o2_saved_30)){
         if(list_element_type->mHeap) {
-            buffer_append_format(source,"%s[%d]=%s,\n",var_->mCValueName,i,((struct CVALUE* )(__right_value0=list$1CVALUE$ph_operator_load_element(params,i)))->c_value);
+            buffer_append_format(source,"%s[%d]=%s;",var_->mCValueName,i,((struct CVALUE* )(__right_value0=list$1CVALUE$ph_operator_load_element(params,i)))->c_value);
             come_call_finalizer(CVALUE_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         }
         else {
-            buffer_append_format(source,"%s[%d]=%s,\n",var_->mCValueName,i,((struct CVALUE* )(__right_value0=list$1CVALUE$ph_operator_load_element(params,i)))->c_value);
+            buffer_append_format(source,"%s[%d]=%s;",var_->mCValueName,i,((struct CVALUE* )(__right_value0=list$1CVALUE$ph_operator_load_element(params,i)))->c_value);
             come_call_finalizer(CVALUE_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         }
         i++;
@@ -5862,8 +5862,8 @@ _conditional_value_X0;})) {
         j++;
     }
     come_call_finalizer(list$1CVALUE$ph$p_finalize, o2_saved_32, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-    buffer_append_str(source,")");
-    buffer_append_str(source,")");
+    buffer_append_str(source,");");
+    buffer_append_str(source,"})");
     come_value4=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE* )come_increment_ref_count((struct CVALUE *)come_calloc(1, sizeof(struct CVALUE )*(1), (void*)0, 641, "struct CVALUE* "))));
     __dec_obj89=come_value4->c_value,
     come_value4->c_value=(char* )come_increment_ref_count(buffer_to_string(source));

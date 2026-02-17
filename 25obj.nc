@@ -1615,10 +1615,15 @@ class sOptionalNode extends sNodeBase
             heap_ = true;
             local_ = false;
         }
-        else {
+        else if(come_value.var) {
             global_ = come_value.var->mGlobal;
             heap_ = come_value.type.mHeap;
             local_ = !come_value.var->mGlobal;
+        }
+        else {
+            global_ = false;
+            heap_ = false;
+            local_ = false;
         }
         
         sType*% type_ = clone come_value.type;
@@ -1675,12 +1680,9 @@ class sRefNode extends sNodeBase
     {
         sNode*% node = self.node;
         
-        //bool no_output_come_code = info.no_output_come_code;
-        //info.no_output_come_code = true;
         node_compile(node).elif {
             return false;
         }
-        //info.no_output_come_code = no_output_come_code;
         
         CVALUE*% come_value = get_value_from_stack(-1, info);
         
@@ -1709,10 +1711,15 @@ class sRefNode extends sNodeBase
             heap_ = true;
             local_ = false;
         }
-        else {
+        else if(come_value.var) {
             global_ = come_value.var->mGlobal;
             heap_ = come_value.type.mHeap;
             local_ = !come_value.var->mGlobal;
+        }
+        else {
+            global_ = false;
+            heap_ = false;
+            local_ = false;
         }
         
         sType*% type_ = clone come_value.type;
@@ -1795,7 +1802,7 @@ sNode*%@head,sNode*%@len get_head_and_len(sNode*% node, CVALUE*% come_value, sIn
         len = method_node;
     }
     else if(type2->mClass->mName === "map" || type2->mClass->mName === "list") {
-        err_msg(info, "can't get sirialize memory of this type(%s)", type2->mClass->mName);
+        err_msg(info, "can't get serialize memory of this type(%s)", type2->mClass->mName);
         exit(1);
     }
     else if(type2->mHeap && type2->mPointerNum == 1 && type2->mNew) {
@@ -1843,12 +1850,24 @@ class sSpanNode extends sNodeBase
     {
         sNode*% node = self.node;
         
-        bool no_output_come_code = info.no_output_come_code;
-        info.no_output_come_code = true;
-        node_compile(node).elif {
+        static int n = 0;
+        ++n;
+        
+        sNode*% node2 = store_var(s"__span_value\{n}", multiple_assign:null, multiple_declare:null, type:null, alloc:true, node, info);
+        
+        node_compile(node2).elif {
             return false;
         }
-        info.no_output_come_code = no_output_come_code;
+        
+        CVALUE*% come_value = get_value_from_stack(-1, info);
+        
+        add_come_code(info, come_value.c_value + ";\n");
+        
+        sNode*% node3 = create_load_var(s"__span_value\{n}", info);
+        
+        node_compile(node3).elif {
+            return false;
+        }
         
         CVALUE*% come_value = get_value_from_stack(-1, info);
         
@@ -1880,9 +1899,9 @@ class sSpanNode extends sNodeBase
         
         list<tup: string, sNode*%>*% params = new list<tup: string, sNode*%>();
         
-        sNode*% ref_ = new sRefNode(node, info) implements sNode;
+        sNode*% ref_ = new sRefNode(node3, info) implements sNode;
         
-        var head, len = get_head_and_len(node, come_value);
+        var head, len = get_head_and_len(node3, come_value);
         
         params.add(t((string)null, obj));
         params.add(t((string)null, ref_));

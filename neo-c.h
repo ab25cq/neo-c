@@ -2361,7 +2361,7 @@ impl vector<T>
         self.replace(index, item);
     }
     
-    void add(vector<T>* self, T` item) {
+    vector<T>* add(vector<T>* self, T` item) {
         using unsafe;
         
         if(self.len == self.size) {
@@ -2382,6 +2382,8 @@ impl vector<T>
 
         self.items[self.len] = dummy_heap item;
         self.len++;
+        
+        return self;
     }
 
     T item(vector<T>* self, int index, T default_value) 
@@ -2488,7 +2490,7 @@ impl vector<T>
         
         self.it = 0;
 
-        T^ default_value;
+        T^` default_value;
         return self.item(0, default_value);
     }
 
@@ -2497,7 +2499,7 @@ impl vector<T>
         
         self.it++;
 
-        T^ default_value
+        T^` default_value;
         return self.item(self.it, default_value);
     }
 
@@ -2568,6 +2570,30 @@ impl vector<T>
     }
     vector<T>* sort(vector<T>* self) {
         return self.quick_sort(0, self.length()-1, int lambda(T^ left, T^ right) { return left.compare(right); });
+    }
+    string to_string(vector<T>* self)
+    {
+        if(self == null) {
+            return string("");
+        }
+        
+        buffer*% result = new buffer();
+        
+        result.append_str("v[");
+        int i;
+        foreach(it, self) {
+            result.append_str(it.to_string());
+            
+            i++;
+            
+            if(i != self.length()) {
+                result.append_str(",");
+            }
+        }
+        
+        result.append_str("]");
+        
+        return result.to_string();
     }
 }
 

@@ -520,16 +520,16 @@ class sVectorNode extends sNodeBase
         
         buffer*% source = new buffer();
         
-        source.append_str("(");
+        source.append_str("({");
         
         int i = 0;
         foreach(it, params) {
             if(list_element_type->mHeap) {
                 //string c_value = increment_ref_count_object(params[i].type, params[i].c_value, info);
-                source.append_format("%s[%d]=%s,\n", var_->mCValueName, i, params[i].c_value);
+                source.append_format("%s[%d]=%s;", var_->mCValueName, i, params[i].c_value);
             }
             else {
-                source.append_format("%s[%d]=%s,\n", var_->mCValueName, i, params[i].c_value);
+                source.append_format("%s[%d]=%s;", var_->mCValueName, i, params[i].c_value);
             }
             i++;
         }
@@ -635,8 +635,8 @@ class sVectorNode extends sNodeBase
             
             j++;
         }
-        source.append_str(")");
-        source.append_str(")");
+        source.append_str(");");
+        source.append_str("})");
         
         CVALUE*% come_value4 = new CVALUE();
         
