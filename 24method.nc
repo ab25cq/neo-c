@@ -955,7 +955,12 @@ class sMethodCallNode extends sNodeBase
             
             
             CVALUE*% come_value2 = new CVALUE();
-            come_value2.var = null;
+            if(fun_name === "unwrap" || fun_name === "operator_derefference") {
+                come_value2.var = obj_value.var;
+            }
+            else {
+                come_value2.var = null; //obj_value.var;
+            }
             
             come_value2.c_value = buf.to_string();
             

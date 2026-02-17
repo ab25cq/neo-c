@@ -1608,9 +1608,11 @@ class sOptionalNode extends sNodeBase
         bool heap_;
         bool local_;
         
-        if(come_value.var == null) {
+        sType*% origin = come_value.type.mNoSolvedGenericsType;
+        
+        if(come_value.type.mHeap || (origin && origin->mHeap)) {
             global_ = false;
-            heap_ = come_value.type.mHeap;
+            heap_ = true;
             local_ = false;
         }
         else {
@@ -1700,7 +1702,9 @@ class sRefNode extends sNodeBase
         bool heap_;
         bool local_;
         
-        if(come_value.type.mHeap) {
+        sType*% origin = come_value.type.mNoSolvedGenericsType;
+        
+        if(come_value.type.mHeap || (origin && origin->mHeap)) {
             global_ = false;
             heap_ = true;
             local_ = false;

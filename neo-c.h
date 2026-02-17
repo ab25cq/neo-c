@@ -636,6 +636,13 @@ impl ref<T>
     }
     
     _norecord T unwrap(ref<T>* self) {
+        using unsafe;
+        
+        if(self == null) {
+            puts("null pointer exception. self is null");
+            stackframe();
+            exit(2);
+        }
         if(self.local) {
             if(self.stacktop < neo_current_frame.stacktop) {
                 puts("refferenced object is vanished");
@@ -648,6 +655,12 @@ impl ref<T>
     _norecord T] operator_derefference(ref<T>* self)
     {
         using unsafe;
+        
+        if(self == null) {
+            puts("null pointer exception. self is null");
+            stackframe();
+            exit(2);
+        }
         
         if(self.local) {
             if(self.stacktop < neo_current_frame.stacktop) {
@@ -686,11 +699,36 @@ impl optional<T>
     }
     
     _norecord T unwrap(optional<T>* self) {
+        using unsafe;
+        
+        if(self == null) {
+            puts("null pointer exception. self is null");
+            stackframe();
+            exit(2);
+        }
+        if(self.local) {
+            if(self.stacktop < neo_current_frame.stacktop) {
+                puts("refferenced object is vanished");
+                stackframe();
+                exit(127);
+            }
+        }
+        if(ispointer(T) && self.p == (void*)0) {
+            puts("null pointer exception");
+            stackframe();
+            exit(2);
+        }
         return self.p;
     }
     _norecord T] operator_derefference(optional<T>* self)
     {
         using unsafe;
+        
+        if(self == null) {
+            puts("null pointer exception");
+            stackframe();
+            exit(2);
+        }
         
         if(self.local) {
             if(self.stacktop < neo_current_frame.stacktop) {
@@ -751,6 +789,11 @@ impl span<T>
     }
     _norecord T^ unwrap(span<T>* self) {
         using unsafe; 
+        if(self == null) {
+            puts("null pointer exception. self is null");
+            stackframe();
+            exit(2);
+        }
         if(self->local) {
             if(self->stacktop < neo_current_frame.stacktop) {
                 puts("refferenced object is vanished");
@@ -780,12 +823,24 @@ impl span<T>
     _norecord span<T>* operator_plus_plus(span<T>* self) {
         using unsafe;
         
+        if(self == null) {
+            puts("null pointer exception. self is null");
+            stackframe();
+            exit(2);
+        }
+        
         self.p++;
         
         return self;
     }
     _norecord span<T>* operator_plus_equal(span<T>* self, size_t value) {
         using unsafe;
+        
+        if(self == null) {
+            puts("null pointer exception. self is null");
+            stackframe();
+            exit(2);
+        }
         
         self.p += value;
         
@@ -795,6 +850,12 @@ impl span<T>
     _norecord span<T>* operator_minus_minus(span<T>* self) {
         using unsafe;
         
+        if(self == null) {
+            puts("null pointer exception. self is null");
+            stackframe();
+            exit(2);
+        }
+        
         self.p--;
         
         return self;
@@ -802,6 +863,12 @@ impl span<T>
     
     _norecord span<T>* operator_minus_equal(span<T>* self, size_t value) {
         using unsafe;
+        
+        if(self == null) {
+            puts("null pointer exception. self is null");
+            stackframe();
+            exit(2);
+        }
         
         self.p -= value;
         
@@ -811,6 +878,12 @@ impl span<T>
     _norecord T^ operator_add(span<T>* self, size_t rvalue) {
         using unsafe;
         
+        if(self == null) {
+            puts("null pointer exception. self is null");
+            stackframe();
+            exit(2);
+        }
+        
         T^ result = self.p + rvalue;
         
         return result;
@@ -819,6 +892,12 @@ impl span<T>
     _norecord T^ operator_sub(span<T>* self, size_t rvalue) {
         using unsafe;
         
+        if(self == null) {
+            puts("null pointer exception. self is null");
+            stackframe();
+            exit(2);
+        }
+        
         T^ result = self.p - rvalue;
         
         return result;
@@ -826,6 +905,12 @@ impl span<T>
     
     _norecord T]^ operator_derefference(span<T>* self) {
         using unsafe;
+        
+        if(self == null) {
+            puts("null pointer exception. self is null");
+            stackframe();
+            exit(2);
+        }
         
         if(self->local) {
             if(self->stacktop < neo_current_frame.stacktop) {
@@ -858,6 +943,12 @@ impl span<T>
     _norecord void operator_store_element(span<T>* self, int position, T item) {
         using unsafe; 
         
+        if(self == null) {
+            puts("null pointer exception. self is null");
+            stackframe();
+            exit(2);
+        }
+        
         if(self->local) {
             if(self->stacktop < neo_current_frame.stacktop) {
                 puts("refferenced object is vanished");
@@ -887,6 +978,12 @@ impl span<T>
     }
     _norecord T^] operator_load_element(span<T>* self, int position) {
         using unsafe; 
+        
+        if(self == null) {
+            puts("null pointer exception. self is null");
+            stackframe();
+            exit(2);
+        }
         
         if(self->local) {
             if(self->stacktop < neo_current_frame.stacktop) {
@@ -919,13 +1016,31 @@ impl span<T>
     _norecord string to_string(span<T>* self) {
         using unsafe; 
         
+        if(self == null) {
+            puts("null pointer exception. self is null");
+            stackframe();
+            exit(2);
+        }
+        
         return s"head \{self.memory} p \{self.p} len \{self.len}";
     }
     _norecord int len(span<T>* self) {
+        
+        if(self == null) {
+            puts("null pointer exception. self is null");
+            stackframe();
+            exit(2);
+        }
         return self.len;
     }
     _norecord int memcmp(span<T>* self, void* mem, size_t len) {
         using unsafe; 
+        
+        if(self == null) {
+            puts("null pointer exception. self is null");
+            stackframe();
+            exit(2);
+        }
         
         if(self->local) {
             if(self->stacktop < neo_current_frame.stacktop) {

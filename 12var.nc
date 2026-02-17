@@ -689,7 +689,7 @@ class sLoadNode extends sNodeBase
                     
                     come_value.c_value = xsprintf("(*(parent->%s))", parent_var->mCValueName);
                     come_value.type = clone type;
-                    come_value.var = null;
+                    come_value.var = parent_var;
                     
                     add_come_last_code(info, "%s", come_value.c_value);
                     
