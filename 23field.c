@@ -733,9 +733,9 @@ struct sMemHeader
     const char* class_name;
 };
 
-struct ref$1void$pph
+struct ref$1void$ph
 {
-    void** p;
+    void* p;
     _Bool global;
     _Bool heap;
     _Bool local;
@@ -6711,7 +6711,7 @@ _Bool sLoadArrayNode_compile(struct sLoadArrayNode* self, struct sInfo*  info  )
                 __dec_obj142=come_value->type->mOriginalLoadVarType,
                 come_value->type->mOriginalLoadVarType=(struct sType* )come_increment_ref_count(sType_clone(result_type));
                 come_call_finalizer(sType_finalize, __dec_obj142,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-                come_value->type->mArrayPointerNum++;
+                list$1sNode$ph_delete(come_value->type->mArrayNum,0,list$1CVALUE$ph_length(array_num));
             }
             else {
                 __dec_obj143=come_value->type->mOriginalLoadVarType,

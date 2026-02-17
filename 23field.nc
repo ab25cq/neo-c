@@ -932,8 +932,8 @@ class sLoadArrayNode extends sNodeBase
                 else if(info.in_refference) {
                     come_value.type->mOriginalLoadVarType = clone result_type;
                     
-                    /// no decay ///
-                    come_value.type->mArrayPointerNum++;
+                    /// no decay, but consume [] dimensions ///
+                    come_value.type->mArrayNum.delete(0, array_num.length());
                 }
                 else {
                     come_value.type->mOriginalLoadVarType = clone result_type;
