@@ -645,6 +645,20 @@ impl ref<T>
         }
         return self.p;
     }
+    _norecord T] operator_derefference(ref<T>* self)
+    {
+        using unsafe;
+        
+        if(self.local) {
+            if(self.stacktop < neo_current_frame.stacktop) {
+                puts("refferenced object is vanished");
+                stackframe();
+                exit(127);
+            }
+        }
+        
+        return *self.p;
+    }
 }
 
 //////////////////////////////

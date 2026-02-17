@@ -1568,10 +1568,7 @@ sType*% parse_pointer_attribute(sType* type, sInfo* info=info)
             info->p++;
             skip_spaces_and_lf();
           
-            if(type->mClass->mStruct) {
-                type->mPointerNum++;
-                type->mHeap = true;
-            }
+            type->mPointerNum = 1;
             
             sType*% generics_type = new sType(s"ref");
             generics_type->mGenericsTypes.add(clone type);
@@ -1601,10 +1598,7 @@ sType*% parse_pointer_attribute(sType* type, sInfo* info=info)
                 return type;
             }
           
-            if(type->mClass->mStruct) {
-                type->mPointerNum++;
-                type->mHeap = true;
-            }
+            type->mPointerNum = 1;
             
             sType*% generics_type = new sType(s"optional");
             generics_type->mGenericsTypes.add(clone type);
@@ -1633,6 +1627,9 @@ sType*% parse_pointer_attribute(sType* type, sInfo* info=info)
                 err_msg(info, "invalid type name");
                 return type;
             }
+            
+            type->mPointerNum = 1;
+//            type->mHeap = true;
             
             sType*% generics_type = new sType(s"span");
             generics_type->mGenericsTypes.add(clone type);

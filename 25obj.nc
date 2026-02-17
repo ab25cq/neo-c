@@ -1597,8 +1597,10 @@ class sOptionalNode extends sNodeBase
         
         CVALUE*% come_value = get_value_from_stack(-1, info);
         
-        if(come_value.type->mPointerNum == 0 && come_value.type->mArrayPointerNum == 0) {
-            err_msg(info, "require pointer for ref");
+        if(come_value.type->mPointerNum ==1 || come_value.type->mArrayPointerNum == 1) {
+        }
+        else {
+            err_msg(info, "require pointer for optional");
             return true;
         }
         
@@ -1687,7 +1689,9 @@ class sRefNode extends sNodeBase
             return true;
         }
         
-        if(come_value.type->mPointerNum == 0 && come_value.type->mArrayPointerNum == 0) {
+        if(come_value.type->mPointerNum ==1 || come_value.type->mArrayPointerNum == 1) {
+        }
+        else {
             err_msg(info, "require pointer for ref");
             return true;
         }
@@ -1851,7 +1855,9 @@ class sSpanNode extends sNodeBase
             return true;
         }
         
-        if(come_value.type->mPointerNum == 0 && come_value.type->mArrayPointerNum == 0) {
+        if(come_value.type->mPointerNum ==1 || come_value.type->mArrayPointerNum == 1) {
+        }
+        else {
             err_msg(info, "require pointer for span");
             return true;
         }

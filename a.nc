@@ -1,22 +1,24 @@
 #include <neo-c.h>
 
+struct sData
+{
+    int a;
+    int b;
+};
+
 int main(int argc, char** argv)
 {
-    vector<int>*% v1 = v[2,3,1];
+    //vector<int>*% v1 = v[2,3,1];
     
-    int*{} p = span v1;
+    struct sData data;
     
-    printf("%d\n", *p);
-    p++;
+    data.a = 111;
     
-    printf("%d\n", *p);
-    p++;
+    int x[3] = { 111, 222, 333 };
     
-    printf("%d\n", *p);
-    p++;
+    int& p = ref &x[0];
     
     printf("%d\n", *p);
-    p++;
     
     return 0;
 }
