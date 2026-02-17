@@ -2962,380 +2962,66 @@ span is no own the memory. so the memory is destroyed and access the memory occu
 ```
 #include <neo-c.h>
 
-int main(int argc, char** argv)
-{
-    var xxx = "01main.nc".read().to_string();
-    
-    char*{} p = span xxx;
-    
-    printf("%c\n", *p);
-    
-    p++;
-    
-    printf("%c\n", *p);
-    
-    p++;
-    
-    printf("%c\n", *p);
-    
-    p++;
-    
-    p += 1000000000;
-    
-    printf("%c\n", *p); // panic
-    
-    return 0;
-}
-```
-
-```
-#include <neo-c.h>
-
-int main(int argc, char** argv)
-{
-    var xxx = t(1,2,3,4);
-    
-    int*{} p = span xxx;
-    
-    printf("%d\n", *p);   // 1
-    
-    p++;
-    
-    printf("%d\n", *p);   // 2
-    
-    p++;
-    
-    printf("%d\n", *p);   // 3
-    
-    p++;
-    
-    printf("%d\n", *p);   // 4
-    
-    return 0;
-}
-```
-
-```
-#include <neo-c.h>
-
-struct sData
-{
-    int a;
-    int b;
-    int c;
-    int d;
-};
-
-int main(int argc, char** argv)
-{
-    int xxx[8] = { 1,2,3,4,5,6,7,8 };
-    
-    struct sData*{} p = span xxx;
-    
-    printf("%d\n", p.a);
-    printf("%d\n", p.b);
-    printf("%d\n", p.c);
-    printf("%d\n", p.d);
-    
-    p++;
-    
-    printf("%d\n", p.a);
-    printf("%d\n", p.b);
-    printf("%d\n", p.c);
-    printf("%d\n", p.d);
-    
-    //p++  out of range
-    
-    return 0;
-}
-```
-
-```
-#include <neo-c.h>
-
-struct sData
-{
-    int a;
-    int b;
-    int c;
-    int d;
-};
-
-sData*{} fun()
-{
-    int xxx[8] = { 1,2,3,4,5,6,7,8 };
-    struct sData*{} p = span xxx;
-    
-    return p;
-}
-
-int main(int argc, char** argv)
-{
-    var p = fun();
-    
-    printf("%d\n", p.a);
-    printf("%d\n", p.b);
-    printf("%d\n", p.c);
-    printf("%d\n", p.d);
-    
-    p++;
-    
-    printf("%d\n", p.a);
-    printf("%d\n", p.b);
-    printf("%d\n", p.c);
-    printf("%d\n", p.d);
-    
-    return 0;
-}
-```
-
-This is
-
-```
-refferenced object is vanished
-stackframe
-main
-```
-
-```
-#include <neo-c.h>
-
-struct sData
-{
-    int a;
-    int b;
-    int c;
-    int d;
-};
-
-void fun()
-{
-    int xxx[8] = { 1,2,3,4,5,6,7,8 };
-    struct sData*{} p = span xxx;
-    
-    printf("%d\n", p[0].a);
-    printf("%d\n", p[0].b);
-    printf("%d\n", p[0].c);
-    printf("%d\n", p[0].d);
-    
-    printf("%d\n", p[1].a);
-    printf("%d\n", p[1].b);
-    printf("%d\n", p[1].c);
-    printf("%d\n", p[1].d);
-}
-
-int main(int argc, char** argv)
-{
-    fun();
-    
-    return 0;
-}
-
-```
-
-```
-#include <neo-c.h>
-
-int main(int argc, char** argv)
-{
-    int*%{} p = span new int[3];
-    
-    p[0] = 1;
-    p[1] = 2;
-    p[2] = 3;
-    
-    printf("%d %d %d\n", p[0], p[1], p[2]);
-    
-    return 0;
-}
-```
-
-```
-#include <neo-c.h>
-
-int*% fun()
-{
-    return new int[3];
-}
-
-
-int main(int argc, char** argv)
-{
-    int*%{} p = span fun();
-    
-    p[0] = 123;
-    p[1] = 123;
-    p[2] = 123;
-    
-    //p[3] = 123; panic
-    
-    printf("%d %d %d\n", p[0], p[1], p[2]);
-    
-    return 0;
-}
-```
-
-```
-#include <neo-c.h>
-
-int main(int argc, char** argv)
-{
-    char*%{} p = span new char[3];
-    
-    p[0] = 'A';
-    p[1] = 'B';
-    p[2] = '\0';
-    
-    //p[3] = 'C'; panic
-    
-    printf("%c %c\n", p[0], p[1]);
-    
-    return 0;
-}
-```
-
-```
-#include <neo-c.h>
-
-int main(int argc, char** argv)
-{
-    char*%{} p = span s"ABC";
-    
-    p[0] = 'A';
-    p[1] = 'B';
-    p[2] = 'X';
-    
-    //p[4] = 'C'; panic
-    
-    printf("%c %c %c\n", p[0], p[1], p[2]);
-    
-    return 0;
-}
-```
-
-```
-#include <neo-c.h>
-
-int main(int argc, char** argv)
-{
-    string& p = ref xsprintf("1 + 1 = %d", 1+1);
-    
-    puts(p!);
-    
-    return 0;
-}
-```
-
-ref is not contained null.
-
-```
-#include <neo-c.h>
-
-int main(int argc, char** argv)
-{
-    string& p = ref xsprintf("1 + 1 = %d", 1+1);
-    
-    puts(p.substring(0,2)); // automatically unwrap
-    
-    return 0;
-}
-```
-
-```
-#include <neo-c.h>
-
-int main(int argc, char** argv)
-{
-    string? p = optional xsprintf("1 + 1 = %d", 1+1);
-    
-    puts(p.substring(0,2)); // automatically unwrap
-    
-    return 0;
-}
-```
-
-```
-#include <neo-c.h>
-
 struct sData
 {
     int a;
     int b;
 };
 
-int main(int argc, char** argv)
+struct sData2
 {
-    list<sData?>*% li = new list<sData?>();
-    
-    li.add(optional new sData { a:111, b:222 });
-    li.add(optional null);
-    
-    printf("%d %d\n", li[0].a, li[0].b);
-    li[1]!.if { printf("%d %d\n", li[1].a, li[1].b); } // null check
-    printf("%d %d\n", li[1].a, li[1].b); // panic. show stackframe
-    
-    return 0;
-}
-```
+    string a;
+    string b;
+};
 
-# defer
-
-```
-#include <neo-c.h>
-
-void fun()
+int? fun()
 {
-    defer { puts("OK"); }
+    sData%? dataX = opt new sData { a:111, b:222 };
     
-    puts("UHO");
+    int? p7 = opt &dataX.a;
+    
+    return p7;
 }
 
-
+string? fun2()
+{
+    sData2%? dataX = opt new sData2 {a:s"AAA", b:s"BBB" };
+    
+    string? p8 = opt dataX.a;
+    
+    return p8;
+}
 
 int main(int argc, char** argv)
 {
-    FILE* f = fopen("01main.nc", "r");
+    struct sData data = { .a=111, .b=222 };
     
-    puts("AAAA");
+    int x[3] = { 111, 222, 333 };
     
-    defer { fclose(f); }
+    int& p = ref &data.a;
+    int& p2 = ref &x[0];
+    
+    printf("%d\n", *p);
+    printf("%d\n", *p2);
+    
+    int? p3 = opt &data.a;
+    int? p4 = opt &x[0];
+    int? p5 = opt &x[0];
+    int%? p6 = opt new int(6);
     
     
-    return 0;
-}
-```
-
-# vector
-
-```
-#include <neo-c.h>
-
-int main(int argc, char** argv)
-{
-    vector<int>*% v1 = v[2,3,1];
+    printf("%d\n", *p3);
+    printf("%d\n", *p4);
+    printf("%d\n", *p5);
+    printf("%d\n", *p6);
     
-    v1.add(4).add(5);
+    int? p7 = fun();
+    printf("%d\n", *p7);
     
-    foreach(it, v1) {
-        printf("%d\n", it);
-    }
+    string? p8 = fun2();
+    puts(p8!);
     
-    return 0;
-}
-```
-
-```
-#include <neo-c.h>
-
-int main(int argc, char** argv)
-{
-    vector<int>*% v1 = v[2,3,1];
-    
-    v1.sort();
-    
-    foreach(it, v1) {
-        printf("%d\n", it);
-    }
+    puts(p8.substring(0,1));
     
     return 0;
 }

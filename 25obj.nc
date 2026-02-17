@@ -1600,7 +1600,7 @@ class sOptionalNode extends sNodeBase
         if(come_value.type->mPointerNum ==1 || come_value.type->mArrayPointerNum == 1) {
         }
         else {
-            err_msg(info, "require pointer for optional");
+            err_msg(info, "require pointer for opt");
             return true;
         }
         
@@ -2081,7 +2081,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         
         return new sIsPointer(type2, info) implements sNode;
     }
-    else if(!gComeC && buf === "optional" && *info->p != '<') {
+    else if(!gComeC && buf === "opt" && *info->p != '<') {
         
         sNode*% node = expression();
         

@@ -8711,7 +8711,7 @@ _Bool sOptionalNode_compile(struct sOptionalNode* self, struct sInfo*  info  )
     if(come_value->type->mPointerNum==1||come_value->type->mArrayPointerNum==1) {
     }
     else {
-        err_msg(info,"require pointer for optional");
+        err_msg(info,"require pointer for opt");
                 __result_obj__0 = (_Bool)1;
         ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0):(void*)0);
         come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -10217,7 +10217,7 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
         come_call_finalizer(sType_finalize, type2__91, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_call_finalizer(sType_finalize, type2_92, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    else if(!gComeC&&charp_operator_equals(buf,"optional")&&*info->p!=60) {
+    else if(!gComeC&&charp_operator_equals(buf,"opt")&&*info->p!=60) {
         node_93=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
                 _inf_value27=(struct sNode*)come_calloc(1, sizeof(struct sNode), (void*)0, 2088, "struct sNode");
         _inf_obj_value27=(struct sOptionalNode*)come_increment_ref_count(((struct sOptionalNode*)(__right_value1=sOptionalNode_initialize((struct sOptionalNode* )come_increment_ref_count((struct sOptionalNode *)come_calloc(1, sizeof(struct sOptionalNode )*(1), (void*)0, 2088, "struct sOptionalNode* ")),(struct sNode*)come_increment_ref_count(node_93),info))));
