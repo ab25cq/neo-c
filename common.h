@@ -55,7 +55,7 @@ uniq class sClass
     int mGenericsNum;
     int mMethodGenericsNum;
     
-    list<tup: string, sType*%>*% mFields;
+    list<tuple2<string, sType*%>*%>*% mFields;
     
     string mParentClassName;
     
@@ -80,7 +80,7 @@ uniq class sClass
         self.mGenericsNum = generics_num;
         self.mMethodGenericsNum = method_generics_num;
         
-        self.mFields = new list<tup: string, sType*%>();
+        self.mFields = new list<tuple2<string, sType*%>*%>();
     }
 };
 
@@ -684,7 +684,7 @@ uniq class sCurrentNode extends sNodeBase
                 
                 type2.mPointerNum++;
                 
-                tup: string, sType*% item = t(string(value.mCValueName), type2);
+                tuple2<string, sType*%>*% item = t(string(value.mCValueName), type2);
                 
                 if(value.mCValueName != null) {
                     if(strcmp(value.mCValueName, "__list_values") == 0)
@@ -704,14 +704,14 @@ uniq class sCurrentNode extends sNodeBase
                         type3->mPointerNum--;
                         //type3->mArrayPointerType = false;
                         type3->mArrayPointerNum++;
-                        tup: string, sType*% item2 = t(string(value.mCValueName), type3);
+                        tuple2<string, sType*%>*% item2 = t(string(value.mCValueName), type3);
                         current_stack.mFields.push_back(clone item2);
                     }
                     else if(type2->mArrayNum.length() > 0) {
                         sType*% type3 = clone type2;
                         type3->mPointerNum--;
                         type3->mArrayPointerNum++;
-                        tup: string, sType*% item2 = t(string(value.mCValueName), type3);
+                        tuple2<string, sType*%>*% item2 = t(string(value.mCValueName), type3);
                         current_stack.mFields.push_back(clone item2);
                     }
                     else {
@@ -741,7 +741,7 @@ uniq class sCurrentNode extends sNodeBase
                 
                 sType*% type2 = clone value.mType;
                 
-                tup: string, sType*% item = t(value.mCValueName, type2);
+                tuple2<string, sType*%>*% item = t(value.mCValueName, type2);
                 
                 if(value.mCValueName != null) {
                     if(strcmp(value.mCValueName, "__list_values") == 0)
@@ -922,7 +922,7 @@ void skip_spaces_and_lf2(sInfo* info=info);
 string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sType* generics_type, sInfo* info);
 
 tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_name=false, bool parse_multiple_type=true, bool in_function_parametor=false)
-tup: sType*%, string parse_variable_name_on_multiple_declare(sType* base_type_name, bool first, sInfo* info);
+tuple2<sType*%, string>*% parse_variable_name_on_multiple_declare(sType* base_type_name, bool first, sInfo* info);
 sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_function=false);
 int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* param_names, sInfo* info, bool no_var_table=false, bool loop_block=false, bool if_result_value=false);
 void arrange_stack(sInfo* info, int top);
@@ -960,7 +960,7 @@ sNode*% parse_none(sInfo* info);
 bool is_inner_calling(sNode* node, sInfo* info);
 sNode*% post_position_operator(sNode*% node, sInfo* info) version 07;
 sNode*% expression_node(sInfo* info=info) version 95;
-sNode*% store_var(string name, list<string>* multiple_assign, list<tup: sType*%, string, sNode*%>* multiple_declare, sType* type, bool alloc, sNode* right_value, sInfo* info);
+sNode*% store_var(string name, list<string>* multiple_assign, list<tuple3<sType*%, string, sNode*%>*%>* multiple_declare, sType* type, bool alloc, sNode* right_value, sInfo* info);
 sNode*% create_load_var(const char* var_name, sInfo* info=info);
 sNode*% parse_array_initializer(sInfo* info=info);
 sNode*% parse_struct_initializer(sInfo* info=info);
@@ -1072,8 +1072,8 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 19;
 /// 20method.c
 /////////////////////////////////////////////////////////////////////
 string, sFun*,sGenericsFun* get_method(const char* fun_name, sType* obj_type, sInfo* info);
-sNode*% create_method_call(const char* fun_name,sNode*% obj, list<tup: string,sNode*%>* params, buffer* method_block, int method_block_sline, list<sType*%>* method_generics_types, sInfo* info, bool arrow_=false);
-sNode*% create_funcall(const char* fun_name, list<tup: string,sNode*%>* params, buffer* method_block, int method_block_sline, list<sType*%>* method_generics_types, sInfo* info, bool arrow_=false);
+sNode*% create_method_call(const char* fun_name,sNode*% obj, list<tuple2<string, sNode*%>*%>* params, buffer* method_block, int method_block_sline, list<sType*%>* method_generics_types, sInfo* info, bool arrow_=false);
+sNode*% create_funcall(const char* fun_name, list<tuple2<string, sNode*%>*%>* params, buffer* method_block, int method_block_sline, list<sType*%>* method_generics_types, sInfo* info, bool arrow_=false);
 sNode*% create_guard_break_method_call(sNode*% expression_node, sInfo* info);
 bool compile_method_block(buffer* method_block, list<CVALUE*%>* come_params, sFun* fun, char* fun_name, int method_block_sline, sInfo* info, bool no_create_current_stack=false) ;
 string,sGenericsFun* make_generics_function(sType* type, string fun_name, sInfo* info, bool array_equal_pointer=true);

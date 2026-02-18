@@ -2,12 +2,12 @@
 
 class sNewNode extends sNodeBase
 {
-    new(sType* type, list<tup: string, sNode*%>*% initializer, sNode*% initializer_num, sInfo* info)
+    new(sType* type, list<tuple2<string, sNode*%>*%>*% initializer, sNode*% initializer_num, sInfo* info)
     {
         self.super();
         
         sType*% self.type = clone type;
-        list<tup:string, sNode*%>*% self.initializer = initializer;
+        list<tuple2<string, sNode*%>*%>*% self.initializer = initializer;
         sNode*% self.initializer_num = initializer_num;
     }
     
@@ -19,7 +19,7 @@ class sNewNode extends sNodeBase
     bool compile(sInfo* info)
     {
         sType*% type = self.type;
-        list<tup:string, sNode*%>*% initializer = self.initializer;
+        list<tuple2<string, sNode*%>*%>*% initializer = self.initializer;
         sNode*% initializer_num = self.initializer_num;
         
         CVALUE*% come_value = new CVALUE();
@@ -1638,7 +1638,7 @@ class sOptionalNode extends sNodeBase
         
         sNode*% obj = create_new_object(type2);
         
-        list<tup: string, sNode*%>*% params = new list<tup: string, sNode*%>();
+        list<tuple2<string, sNode*%>*%>*% params = new list<tuple2<string, sNode*%>*%>();
         
         sNode*% node2 = create_load_var("neo_current_frame");
         sNode*% node3 = load_field(node2, s"stacktop");
@@ -1734,7 +1734,7 @@ class sRefNode extends sNodeBase
         
         sNode*% obj = create_new_object(type2);
         
-        list<tup: string, sNode*%>*% params = new list<tup: string, sNode*%>();
+        list<tuple2<string, sNode*%>*%>*% params = new list<tuple2<string, sNode*%>*%>();
         
         sNode*% node2 = create_load_var("neo_current_frame");
         sNode*% node3 = load_field(node2, s"stacktop");
@@ -1778,7 +1778,7 @@ sNode*%@head,sNode*%@len get_head_and_len(sNode*% node, CVALUE*% come_value, sIn
         head = svar;
         //create_load_var(var_name);
         
-        list<tup: string, sNode*%>*% params = new list<tup: string, sNode*%>();
+        list<tuple2<string, sNode*%>*%>*% params = new list<tuple2<string, sNode*%>*%>();
         
         params.add(t((string)null, create_load_var(var_name)));
         
@@ -1793,7 +1793,7 @@ sNode*%@head,sNode*%@len get_head_and_len(sNode*% node, CVALUE*% come_value, sIn
         
         sNode*% obj = node;
         
-        list<tup: string, sNode*%>*% params = new list<tup: string, sNode*%>();
+        list<tuple2<string, sNode*%>*%>*% params = new list<tuple2<string, sNode*%>*%>();
         
         params.add(t((string)null, obj));
         
@@ -1915,7 +1915,7 @@ class sSpanNode extends sNodeBase
         
         sNode*% obj = create_new_object(type2);
         
-        list<tup: string, sNode*%>*% params = new list<tup: string, sNode*%>();
+        list<tuple2<string, sNode*%>*%>*% params = new list<tuple2<string, sNode*%>*%>();
         
         sNode*% ref_ = new sRefNode(span_value_node, info) implements sNode;
         
@@ -1966,7 +1966,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             info->p++;
             skip_spaces_and_lf();
             
-            list<tup: string, sNode*%>*% initializer = new list<tup: string, sNode*%>();
+            list<tuple2<string, sNode*%>*%>*% initializer = new list<tuple2<string, sNode*%>*%>();
             
             while(true) {
                 string word = parse_word();

@@ -117,7 +117,7 @@ class sSStringNode extends sNodeBase
             foreach(it, self.exps) {
                 sNode*% obj = clone it;
                 
-                list<tup: string, sNode*%>*% params = new list<tup: string, sNode*%>();
+                list<tuple2<string, sNode*%>*%>*% params = new list<tuple2<string, sNode*%>*%>();
                 params.add(t(s"self", clone it));
                 
                 sNode*% node = create_method_call("to_string", obj, params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
@@ -722,11 +722,11 @@ class sVectorNode extends sNodeBase
 
 class sTupleNode extends sNodeBase
 {
-    new(list<tup: string, sNode*%>*% tuple_elements, sInfo* info)
+    new(list<tuple2<string, sNode*%>*%>*% tuple_elements, sInfo* info)
     {
         self.super();
         
-        list<tup: string, sNode*%>*% self.tuple_elements = tuple_elements;
+        list<tuple2<string, sNode*%>*%>*% self.tuple_elements = tuple_elements;
     }
     
     string kind()
@@ -736,7 +736,7 @@ class sTupleNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        list<tup: string, sNode*%>*% tuple_elements = self.tuple_elements;
+        list<tuple2<string, sNode*%>*%>*% tuple_elements = self.tuple_elements;
         list<sType*%>*% tuple_types = new list<sType*%>();
         list<CVALUE*%>*% tuple_values = new list<CVALUE*%>();
         
@@ -1654,7 +1654,7 @@ sNode*% expression_node(sInfo* info) version 96
         
         sNode*% obj = new sStrNode(buf.to_string(), sline, info) implements sNode;
         
-        list<tup: string, sNode*%>*% params = new list<tup: string, sNode*%>();
+        list<tuple2<string, sNode*%>*%>*% params = new list<tuple2<string, sNode*%>*%>();
         
         params.add(t(s"self", obj));
         params.add(t(s"ignore_case", ignore_case ? create_int_node(1.to_string(), info) : create_int_node(0.to_string(), info)));
@@ -1812,7 +1812,7 @@ sNode*% expression_node(sInfo* info) version 96
         
         sNode*% obj = new sStrNode(value.to_string(), sline, info) implements sNode;
         
-        list<tup: string, sNode*%>*% params = new list<tup: string, sNode*%>();
+        list<tuple2<string, sNode*%>*%>*% params = new list<tuple2<string, sNode*%>*%>();
         
         params.add(t(s"self", obj));
         params.add(t(s"ignore_case", ignore_case ? create_int_node(1.to_string(), info) : create_int_node(0.to_string(), info)));
@@ -2629,7 +2629,7 @@ sNode*% expression_node(sInfo* info) version 96
 
 sNode*% parse_tuple(sInfo* info, bool named_tuple=false)
 {
-    list<tup: string, sNode*%>*% tuple_elements = new list<tup: string, sNode*%>();
+    list<tuple2<string, sNode*%>*%>*% tuple_elements = new list<tuple2<string, sNode*%>*%>();
     while(true) {
         char* p = info.p;
         

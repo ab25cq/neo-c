@@ -1059,7 +1059,7 @@ string merge_tag_attribute(string current, string attribute)
 
 void append_attribute_to_type(sType* type, string attribute, bool for_variable, sInfo* info=info);
 
-sType*%, string parse_variable_name_on_multiple_declare(sType* base_type_name, bool first, sInfo* info)
+tuple2<sType*%, string>*% parse_variable_name_on_multiple_declare(sType* base_type_name, bool first, sInfo* info)
 {
     sType*% result_type = clone base_type_name;
     if(!first) {
@@ -2511,18 +2511,8 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             type_name = parse_word();
         }
         else if(type_name === "tup") {
-            if(*info->p == '(') {
-                info->p++;
-                skip_spaces_and_lf();
-            }
-            else {
-                expected_next_character(':');
-            }
-            
-            type_name = parse_word();
-            
-            parse_multiple_type = true;
-            tuple_ = true;
+            err_msg(info, "tup shorthand was removed. use tuple2/tuple3/... explicit types");
+            return t((sType*%)null, (string)null, false);
         }
         else if(type_name === "short") {
             short_ = false;

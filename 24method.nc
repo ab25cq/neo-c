@@ -334,7 +334,7 @@ string, sFun*,sGenericsFun* get_method(const char* fun_name, sType* obj_type, sI
     return t(generics_fun_name, fun, generics_fun);
 }
 
-static bool call_cpp_method(string fun_name, list<tup: string,sNode*%>*% params, sNode*% obj, sInfo* info=info, bool arrow_=false)
+static bool call_cpp_method(string fun_name, list<tuple2<string, sNode*%>*%>*% params, sNode*% obj, sInfo* info=info, bool arrow_=false)
 {
     node_compile(obj).elif {
         return false;
@@ -404,14 +404,14 @@ static bool call_cpp_method(string fun_name, list<tup: string,sNode*%>*% params,
 
 class sMethodCallNode extends sNodeBase
 {
-    new(const char* fun_name,sNode*% obj, list<tup: string,sNode*%>* params, buffer* method_block, int method_block_sline
+    new(const char* fun_name,sNode*% obj, list<tuple2<string, sNode*%>*%>* params, buffer* method_block, int method_block_sline
         , list<sType*%>* method_generics_types, bool no_infference_method_generics, bool recursive, sInfo* info, bool arrow_=false)
     {
         self.super();
         
         sNode*% self.obj = clone obj;
         string self.fun_name = string(fun_name);
-        list<tup: string,sNode*%>*% self.params = clone params;
+        list<tuple2<string, sNode*%>*%>*% self.params = clone params;
         buffer*% self.method_block = clone method_block;
         int self.method_block_sline = method_block_sline;
         list<sType*%>*% self.method_generics_types = clone method_generics_types;
@@ -439,7 +439,7 @@ class sMethodCallNode extends sNodeBase
     bool compile(sInfo* info)
     {
         string fun_name = self.fun_name;
-        list<tup: string,sNode*%>*% params = self.params;
+        list<tuple2<string, sNode*%>*%>*% params = self.params;
         sNode*% obj = create_null_checker(self.obj);
         buffer*% method_block = self.method_block;
         int method_block_sline = self.method_block_sline;
@@ -991,7 +991,7 @@ class sMethodCallNode extends sNodeBase
 };
 
 
-sNode*% create_method_call(const char* fun_name,sNode*% obj, list<tup: string,sNode*%>* params, buffer* method_block, int method_block_sline, list<sType*%>* method_generics_types, sInfo* info, bool arrow_=false)
+sNode*% create_method_call(const char* fun_name,sNode*% obj, list<tuple2<string, sNode*%>*%>* params, buffer* method_block, int method_block_sline, list<sType*%>* method_generics_types, sInfo* info, bool arrow_=false)
 {
     sNode*% node = new sMethodCallNode(fun_name, obj, params, method_block, method_block_sline, method_generics_types, no_infference_method_generics:true, false@recursive, info, arrow_) implements sNode;
         
@@ -1002,7 +1002,7 @@ sNode*% create_method_call(const char* fun_name,sNode*% obj, list<tup: string,sN
 
 sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info, bool arrow_=false) version 20
 {
-    list<tup: string,sNode*%>*% params = new list<tup: string,sNode*%>();
+    list<tuple2<string, sNode*%>*%>*% params = new list<tuple2<string, sNode*%>*%>();
     params.push_back(t((string)null,clone obj));
     
     if(*info->p == '-' && *(info->p+1) == '>') {

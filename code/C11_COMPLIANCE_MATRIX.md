@@ -14,10 +14,11 @@ Status values:
 
 - Compatibility tests in `code/`:
 - `test_c_compat*.nc`: 8 files (`test_c_compat.nc`, `test_c_compat2..7.nc`, `test_c_compat22.nc`)
-- `c_test_compat*.nc`: 62 files (`c_test_compat8..65.nc` + diagnostic-negative variants)
-- Total C-compat test files: 70
+- `c_test_compat*.nc`: 82 files (`c_test_compat8..82.nc` + diagnostic-negative variants)
+- Total C-compat test files: 90
 - Latest verification command: `cd code && make test`
-- Latest result: pass (including `c_test_compat56..65` and diagnostic negative checks)
+- Latest result: pass (including `c_test_compat56..82` and diagnostic negative checks)
+- External corpus harness: `cd code && make external-corpus` (manifest-driven, optional)
 
 ## Language Clauses (C11)
 
@@ -28,10 +29,10 @@ Status values:
 | 6.4 Constants and string literals | PASS | `c_test_compat56.nc`, parser updates in `10str.nc` and `08call.nc` | `L/u/U/u8` prefixes now parse; numeric literal suffix handling also improved. |
 | 6.5 Expressions and conversions | PASS | `c_test_compat46.nc`, `test_arith.nc` | Integer promotions/conversions and expression behavior tested. |
 | 6.6 Constant expressions | PASS | `c_test_compat45.nc`, `test_c_compat*.nc` static assertions | Macro-expanded constant expression paths are covered. |
-| 6.7 Declarations/specifiers | PASS | `test_c_compat.nc`, `test_c_compat2.nc`, `c_test_compat48.nc`, `c_test_compat56.nc`, `c_test_compat57.nc`, `c_test_compat60.nc`, `c_test_compat65_negative_array.nc` diagnostics | Includes `_Alignas`, `_Alignof`, `_Atomic`, `_Static_assert`, anonymous struct/union, VLA declarators, and invalid declaration-size diagnostics. |
+| 6.7 Declarations/specifiers | PASS | `test_c_compat.nc`, `test_c_compat2.nc`, `c_test_compat48.nc`, `c_test_compat56.nc`, `c_test_compat57.nc`, `c_test_compat60.nc`, `c_test_compat65_negative_array.nc`, `c_test_compat66*.nc` diagnostics | Includes `_Alignas`, `_Alignof`, `_Atomic`, `_Static_assert`, anonymous struct/union, VLA declarators, and declaration diagnostics (invalid declaration size, incomplete type object, duplicate member, file-scope VLA). |
 | 6.8 Statements and blocks | PASS | `test_control.nc`, `test_control_flow.nc`, `test_functions.nc`, `c_test_compat65_static_assert_fail.nc` diagnostics | Selection/iteration/jump behavior is broadly exercised; invalid jump context diagnostics are also checked. |
 | 6.9 External definitions | PASS | Most `code/*.nc` tests | Multiple translation-unit style constructs and function/variable definitions are exercised. |
-| 6.10 Preprocessing directives/macros | PARTIAL | `c_test_compat45.nc`, `c_test_compat59.nc`, `c_test_compat62.nc`, `c_test_compat63.nc`, `c_test_compat64*.nc` | Macro features, `_Pragma`, `#line`, `defined`, `#undef`, rescan, include search order, deep conditional nesting, and basic diagnostics (`#error`, invalid `#line`) are tested; full conformance set is still missing. |
+| 6.10 Preprocessing directives/macros | PARTIAL | `c_test_compat45.nc`, `c_test_compat59.nc`, `c_test_compat62.nc`, `c_test_compat63.nc`, `c_test_compat64*.nc`, `c_test_compat75.nc`, `c_test_compat76.nc`, `c_test_compat77.nc`, `c_test_compat78.nc`, `c_test_compat79.nc`, `c_test_compat81.nc` | Macro features, `_Pragma`, `#line`, `defined`, `#undef`, rescan, include search order, `#include_next`, `__has_include_next`, line-splicing/comment tokenization edges, deep rescan chains, tight-token `#if` expression boundaries, digraph/alternative-token directives (`%:`/`%:%:`), variadic macro argument handling, nested-argument comma parsing, `#if` integer-expression precedence/bitwise/ternary evaluation, deep conditional nesting, and basic diagnostics (`#error`, invalid `#line`) are tested; full conformance set is still missing. |
 
 ## C11-Specific Core Features
 
@@ -43,7 +44,7 @@ Status values:
 | `_Generic` | PASS | `test_c_compat.nc`, `codex.nc` | Type-generic selection macros are tested. |
 | `_Noreturn` / `<stdnoreturn.h>` | PASS | `c_test_compat48.nc`, `c_test_compat56.nc` | Declaration-level compatibility covered. |
 | `<uchar.h>` (`char16_t`, `char32_t`) | PASS | `c_test_compat56.nc` | `u/U` literals and type size checks pass. |
-| C11 threads API (`<threads.h>`) | PARTIAL | `c_test_compat61.nc` | Core primitives (`thrd_*`, `mtx_*`, `cnd_*`, `call_once`, `tss_*`) are covered; wider scheduling/timing scenarios are not exhaustive yet. |
+| C11 threads API (`<threads.h>`) | PARTIAL | `c_test_compat61.nc`, `c_test_compat67.nc`, `c_test_compat68.nc`, `c_test_compat69.nc`, `c_test_compat70.nc`, `c_test_compat71.nc`, `c_test_compat72.nc`, `c_test_compat73.nc`, `c_test_compat74.nc`, `c_test_compat80.nc`, `c_test_compat82.nc` | Core primitives plus timeout/interruption behavior (`thrd_sleep`, `mtx_timedlock`, `cnd_timedwait`), thread-control APIs (`thrd_current`, `thrd_equal`, `thrd_yield`, `thrd_detach`, `thrd_exit`), contention paths (`mtx_trylock`, `call_once`, `cnd_signal`, `cnd_broadcast`), recursive mutex behavior, TSS destructor callbacks, thread-local-storage isolation/default-null behavior, and best-effort `thrd_create` failure-code observation (`thrd_nomem`/`thrd_error`) are covered; wider portability/scheduling scenarios are still not exhaustive. |
 
 ## Standard Library Coverage (C11)
 
@@ -61,7 +62,7 @@ Status values:
 | `<locale.h>` | PASS | `c_test_compat51.nc` | locale-dependent collation/transform basic checks. |
 | `<wchar.h>` / `<wctype.h>` | PASS | `c_test_compat52.nc` | wide-character baseline tested. |
 | `<setjmp.h>` | PASS | `c_test_compat42.nc`, `test_c_compat5.nc` | setjmp/longjmp behavior covered. |
-| `<threads.h>` | PARTIAL | `c_test_compat61.nc` | Basic API coverage exists; broader behavioral conformance still needs expansion. |
+| `<threads.h>` | PARTIAL | `c_test_compat61.nc`, `c_test_compat67.nc`, `c_test_compat68.nc`, `c_test_compat69.nc`, `c_test_compat70.nc`, `c_test_compat71.nc`, `c_test_compat72.nc`, `c_test_compat73.nc`, `c_test_compat74.nc`, `c_test_compat80.nc`, `c_test_compat82.nc` | Basic, timeout/interruption, thread-control, contention, stress-repetition, recursive-mutex, TSS-destructor, TLS isolation/default-null, create-failure-code observation, and `thrd_exit`/`cnd_signal` sequencing coverage exists; broader behavioral conformance still needs expansion. |
 
 ## Known Gaps / Risks
 
@@ -69,12 +70,12 @@ Status values:
 |---|---|---|
 | Full preprocessor conformance | PARTIAL | Need dedicated coverage for less-common directives/edge lexing cases. |
 | Full library breadth | PARTIAL | C11 library is larger than currently tested headers and function sets. |
-| Formal conformance suites | GAP | No GCC torture/PlumHall-style external suite integrated yet. |
+| Formal conformance suites | PARTIAL | External corpus runner is integrated (`code/tools/run_external_corpus.sh`), but corpus checkout/curation and CI execution policy are still pending. |
 | C11 memory model edge cases | PARTIAL | Atomics are broadly tested, but not exhaustively across all ordering interleavings. |
 
 ## Next Actions (Recommended)
 
 1. Extend preprocessor conformance with additional edge cases (line-marker diagnostics, recursive expansion limits, unusual tokenization).
 2. Expand negative/diagnostic tests for required C11 constraint violations (declarations, type compatibility, initializer constraints).
-3. Extend `<threads.h>` coverage to timeout/interruption and portability edge cases.
-4. Introduce external conformance corpus execution in CI and map failures back to this matrix.
+3. Extend `<threads.h>` portability coverage (platform-specific return codes, scheduling fairness, and stress scenarios).
+4. Add curated corpus manifests and enable `RUN_EXTERNAL_CORPUS=1` in CI to continuously map failures back to this matrix.

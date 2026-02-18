@@ -1,0 +1,7 @@
+c_test_compat66_incomplete_type.c:14:11: error: tentative definition has type 'struct S' that is never completed
+   14 | struct S  g_bad  ;
+      |           ^
+c_test_compat66_incomplete_type.c:10:8: note: forward declaration of 'struct S'
+   10 | struct S;
+      |        ^
+1 error generated.

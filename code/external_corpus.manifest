@@ -1,0 +1,9 @@
+# name|source|mode|host_flags|neo_flags|link_flags
+#
+# - source can be absolute or relative to EXTERNAL_CORPUS_DIR.
+# - mode: run (default), compile, or compile-only.
+# - host_flags/neo_flags/link_flags are optional (space separated).
+#
+# Example:
+# smoke_printf|printf/smoke_printf.c|run|||-lm
+# diagnose_vla|constraints/vla_file_scope.c|compile-only

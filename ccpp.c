@@ -829,6 +829,94 @@ static void sb_puts(Str *s, const char *t) {
     s->len += n; s->buf[s->len] = '\0';
 }
 
+static void normalize_digraph_tokens_inplace(Str *line) {
+    if (!line || !line->buf || !*line->buf) return;
+
+    enum { S_CODE, S_DQ, S_SQ, S_SL, S_BL } st = S_CODE;
+    int bl_depth = 0;
+    const char *s = line->buf;
+    Str out;
+    sb_init(&out);
+
+    for (size_t i = 0; s[i]; ) {
+        char c = s[i];
+
+        if (st == S_CODE) {
+            if (c == '"') { st = S_DQ; sb_putc(&out, c); i++; continue; }
+            if (c == '\'') { st = S_SQ; sb_putc(&out, c); i++; continue; }
+            if (c == '/' && s[i+1] == '/') { st = S_SL; sb_puts(&out, "//"); i += 2; continue; }
+            if (c == '/' && s[i+1] == '*') { st = S_BL; bl_depth = 1; sb_puts(&out, "/*"); i += 2; continue; }
+
+            if (c == '%' && s[i+1] == ':' && s[i+2] == '%' && s[i+3] == ':') {
+                sb_puts(&out, "##");
+                i += 4;
+                continue;
+            }
+            if (c == '%' && s[i+1] == ':') {
+                sb_putc(&out, '#');
+                i += 2;
+                continue;
+            }
+            if (c == '<' && s[i+1] == ':') {
+                sb_putc(&out, '[');
+                i += 2;
+                continue;
+            }
+            if (c == ':' && s[i+1] == '>') {
+                sb_putc(&out, ']');
+                i += 2;
+                continue;
+            }
+            if (c == '<' && s[i+1] == '%') {
+                sb_putc(&out, '{');
+                i += 2;
+                continue;
+            }
+            if (c == '%' && s[i+1] == '>') {
+                size_t p = i;
+                while (p > 0 && isspace((unsigned char)s[p-1])) p--;
+                if (p > 0 && s[p-1] == '*') {
+                    // neo-c ownership suffix "*%>" must stay intact.
+                    sb_puts(&out, "%>");
+                } else {
+                    sb_putc(&out, '}');
+                }
+                i += 2;
+                continue;
+            }
+
+            sb_putc(&out, c);
+            i++;
+        } else if (st == S_DQ) {
+            sb_putc(&out, c);
+            if (c == '"' && (i == 0 || s[i-1] != '\\')) st = S_CODE;
+            i++;
+        } else if (st == S_SQ) {
+            sb_putc(&out, c);
+            if (c == '\'' && (i == 0 || s[i-1] != '\\')) st = S_CODE;
+            i++;
+        } else if (st == S_SL) {
+            sb_putc(&out, c);
+            if (c == '\n' || c == '\r') st = S_CODE;
+            i++;
+        } else {
+            if (c == '/' && s[i+1] == '*') { bl_depth++; sb_puts(&out, "/*"); i += 2; continue; }
+            if (c == '*' && s[i+1] == '/') {
+                bl_depth--;
+                sb_puts(&out, "*/");
+                i += 2;
+                if (bl_depth <= 0) { bl_depth = 0; st = S_CODE; }
+                continue;
+            }
+            sb_putc(&out, c);
+            i++;
+        }
+    }
+
+    sb_free(line);
+    *line = out;
+}
+
 static void sb_put_escaped_cstr(Str *s, const char *t) {
     sb_putc(s, '"');
     if (t) {
@@ -2471,6 +2559,8 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                 sb_free(&next);
             }
         }
+        raw = line.buf ? line.buf : "";
+        normalize_digraph_tokens_inplace(&line);
         raw = line.buf ? line.buf : "";
         bool need_line_directive_after = false;
 

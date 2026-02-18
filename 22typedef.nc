@@ -18,14 +18,14 @@ bool is_gcc_builtin_float_typedef(string type_name, sInfo* info)
 
 class sTypedefNode extends sNodeBase
 {
-    new(string type_name, sType* type, list<tup: sType*%, string>* multiple_declare, sInfo* info)
+    new(string type_name, sType* type, list<tuple2<sType*%, string>*%>* multiple_declare, sInfo* info)
     {
         self.super();
     
         string self.mTypeName = string(type_name);
         sType*% self.mType = clone type;
         
-        list<tup: sType*%, string>*% self.multiple_declare = clone multiple_declare;
+        list<tuple2<sType*%, string>*%>*% self.multiple_declare = clone multiple_declare;
     }
     
     bool terminated()
@@ -124,19 +124,19 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 95
             
             sType*% base_type = clone type;
             
-            list<tup:sType*%, string>*% multiple_declare = new list<tup:sType*%, string>();
+            list<tuple2<sType*%, string>*%>*% multiple_declare = new list<tuple2<sType*%, string>*%>();
             
-            tup: sType*%, string variable_name = t(base_type, type_name);
+            tuple2<sType*%, string>*% variable_name = t(base_type, type_name);
             multiple_declare.push_back(variable_name);
             
-            tup: sType*%, string variable_name2 = parse_variable_name_on_multiple_declare(base_type, true@first, info);
+            tuple2<sType*%, string>*% variable_name2 = parse_variable_name_on_multiple_declare(base_type, true@first, info);
             multiple_declare.push_back(variable_name2);
             
             while(*info->p == ',') {
                 info->p++;
                 skip_spaces_and_lf();
                 
-                tup: sType*%, string variable_name = parse_variable_name_on_multiple_declare(base_type, false@first, info);
+                tuple2<sType*%, string>*% variable_name = parse_variable_name_on_multiple_declare(base_type, false@first, info);
                 
                 multiple_declare.push_back(variable_name);
             }
@@ -200,19 +200,19 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             
             sType*% base_type = clone type;
             
-            list<tup: sType*%, string>*% multiple_declare = new list<tup: sType*%, string>();
+            list<tuple2<sType*%, string>*%>*% multiple_declare = new list<tuple2<sType*%, string>*%>();
             
-            tup: sType*%, string variable_name = t(base_type, type_name);
+            tuple2<sType*%, string>*% variable_name = t(base_type, type_name);
             multiple_declare.push_back(variable_name);
             
-            tup: sType*%, string variable_name2 = parse_variable_name_on_multiple_declare(base_type, true@first, info);
+            tuple2<sType*%, string>*% variable_name2 = parse_variable_name_on_multiple_declare(base_type, true@first, info);
             multiple_declare.push_back(variable_name2);
             
             while(*info->p == ',') {
                 info->p++;
                 skip_spaces_and_lf();
                 
-                tup: sType*%, string variable_name = parse_variable_name_on_multiple_declare(base_type, false@first, info);
+                tuple2<sType*%, string>*% variable_name = parse_variable_name_on_multiple_declare(base_type, false@first, info);
                 
                 multiple_declare.push_back(variable_name);
             }

@@ -41,7 +41,7 @@ bool operator_overload_fun(sType* type, const char* fun_name, sNode*% left_node,
         }
         
         sNode*% obj = left_node;
-        list<tup: string, sNode*%>*% params =  new list<tup: string, sNode*%>();
+        list<tuple2<string, sNode*%>*%>*% params =  new list<tuple2<string, sNode*%>*%>();
         
         params.add(t((string)null, left_node));
         params.add(t((string)null, right_node));

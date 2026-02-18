@@ -2,7 +2,7 @@
 
 class sStoreNode extends sNodeBase
 {
-    new(string name, list<string>* multiple_assign, list<tup: sType*%, string, sNode*%>* multiple_declare, sType* type, bool alloc, sNode* right_value, sInfo* info, string attribute=s"")
+    new(string name, list<string>* multiple_assign, list<tuple3<sType*%, string, sNode*%>*%>* multiple_declare, sType* type, bool alloc, sNode* right_value, sInfo* info, string attribute=s"")
     {
         self.super();
         
@@ -11,7 +11,7 @@ class sStoreNode extends sNodeBase
         sType*% self.type = clone type;
         sNode*% self.right_value = clone right_value;
         list<string>*% self.multiple_assign = clone multiple_assign;
-        list<tup: sType*%,string,sNode*%>*% self.multiple_declare= clone multiple_declare;
+        list<tuple3<sType*%, string, sNode*%>*%>*% self.multiple_declare= clone multiple_declare;
         string self.attribute = attribute;
     }
     
@@ -651,7 +651,7 @@ class sReadChannelNode extends sNodeBase
     
 };
 
-sNode*% store_var(string name, list<string>* multiple_assign, list<tup: sType*%, string, sNode*%>* multiple_declare, sType* type, bool alloc, sNode* right_value, sInfo* info)
+sNode*% store_var(string name, list<string>* multiple_assign, list<tuple3<sType*%, string, sNode*%>*%>* multiple_declare, sType* type, bool alloc, sNode* right_value, sInfo* info)
 {
     return new sStoreNode(name, multiple_assign, multiple_declare, type, alloc, right_value, info) implements sNode;
 }
@@ -1055,7 +1055,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         info.p = head;
         info.sline = head_sline;
 
-        list<tup: sType*%, string,sNode*%>*% multiple_declare = new list<tup: sType*%, string, sNode*%>();
+        list<tuple3<sType*%, string, sNode*%>*%>*% multiple_declare = new list<tuple3<sType*%, string, sNode*%>*%>();
         
         skip_spaces_and_lf();
         var base_type, name, err = parse_type(parse_variable_name:false);

@@ -100,7 +100,7 @@ bool operator_overload_fun2(sType* type, const char* fun_name, sNode*% left_node
             }
         }
         sNode*% obj = left_node;
-        list<tup: string, sNode*%>*% params =  new list<tup: string, sNode*%>();
+        list<tuple2<string, sNode*%>*%>*% params =  new list<tuple2<string, sNode*%>*%>();
         
         params.add(t((string)null, left_node));
         params.add(t((string)null, middle_node));
@@ -603,7 +603,7 @@ class sAutomaticallyUnwrapNode extends sNodeBase
             if(come_value.type.mNoSolvedGenericsType.mClass.mName === "ref" || come_value.type.mNoSolvedGenericsType.mClass.mName === "optional")
             {
                 sNode*% obj = node;
-                list<tup: string, sNode*%>*% params =  new list<tup: string, sNode*%>();
+                list<tuple2<string, sNode*%>*%>*% params =  new list<tuple2<string, sNode*%>*%>();
                 
                 const char* fun_name = "unwrap";
                 
@@ -651,7 +651,7 @@ class sUnwrapNode extends sNodeBase
         sNode*% node = self.node;
         
         sNode*% obj = node;
-        list<tup: string, sNode*%>*% params =  new list<tup: string, sNode*%>();
+        list<tuple2<string, sNode*%>*%>*% params =  new list<tuple2<string, sNode*%>*%>();
         
         const char* fun_name = "unwrap";
         
