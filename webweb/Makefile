@@ -18,8 +18,8 @@ libdir=${exec_prefix}/lib
 #########################################
 CC=neo-c
 INSTALL=install
-CFLAGS= -Og -g 
-CFLAGS_DEBUG= -gdwarf-4 -cg -net 
+CFLAGS= -Og -g -I..
+CFLAGS_DEBUG= -gdwarf-4 -cg -net -I..
 LIBS=-lssl
 OS=linux
 DESTDIR=/usr/local/

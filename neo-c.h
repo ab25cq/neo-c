@@ -770,7 +770,7 @@ struct span<T> {
 
 impl span<T>
 {
-    span<T>*% initialize(span<T>*% self, void*%& refference, void* head, size_t len) {
+    span<T>*% initialize(span<T>*% self, void*& refference, void* head, size_t len) {
         using unsafe; 
         
         if(!ispointer(T)) {
@@ -940,7 +940,7 @@ impl span<T>
         
         return *p;
     }
-    _norecord void operator_store_element(span<T>* self, int position, T item) {
+    _norecord void operator_store_element(span<T>* self, int position, T^] item) {
         using unsafe; 
         
         if(self == null) {

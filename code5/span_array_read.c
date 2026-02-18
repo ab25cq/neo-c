@@ -717,7 +717,7 @@ struct sMemHeader
     const char* class_name;
 };
 
-struct ref$1void$ph
+struct ref$1void$p
 {
     void* p;
     _Bool global;
@@ -1464,9 +1464,9 @@ unsigned long  wcsftime_l(int* __restrict  __s  , unsigned long  __maxsize  , co
 char* dirname(char* __path);
 char* __xpg_basename(char* __path);
 int main(int argc, char** argv);
-static struct span$1int$* span$1int$_initialize(struct span$1int$* self, struct ref$1void$ph* refference, void* head, unsigned long  len  );
+static struct span$1int$* span$1int$_initialize(struct span$1int$* self, struct ref$1void$p* refference, void* head, unsigned long  len  );
 static void span$1int$$p_finalize(struct span$1int$* self);
-static void ref$1void$ph$p_finalize(struct ref$1void$ph* self);
+static void ref$1void$p$p_finalize(struct ref$1void$p* self);
 static struct ref$1int$* ref$1int$_initialize(struct ref$1int$* self, int (*p), _Bool global_, _Bool heap_, _Bool local_, void* stacktop);
 static void ref$1int$$p_finalize(struct ref$1int$* self);
 static int span$1int$p$p_operator_load_element(struct span$1int$p* self, int position);
@@ -1837,7 +1837,6 @@ static inline unsigned long  int  __uint64_identity(unsigned long  int  __x  )
 int main(int argc, char** argv)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "main"; neo_current_frame = &fr;
-    int (*__span_value1);
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     void* __right_value2 = (void*)0;
@@ -1845,8 +1844,7 @@ int main(int argc, char** argv)
     struct span$1int$p* s;
     int __result_obj__0;
     int x[4]={ 11, 22, 33, 44 };
-    __span_value1=x;
-    s=(struct span$1int$*)come_increment_ref_count(span$1int$_initialize((struct span$1int$*)come_increment_ref_count((struct span$1int$*)come_calloc(1, sizeof(struct span$1int$)*(1), (void*)0, 7, "struct span$1int$*")),(struct ref$1int$*)come_increment_ref_count(ref$1int$_initialize((struct ref$1int$*)come_increment_ref_count((struct ref$1int$*)come_calloc(1, sizeof(struct ref$1int$)*(1), (void*)0, 7, "struct ref$1int$*")),__span_value1,(_Bool)0,(_Bool)0,(_Bool)1,neo_current_frame->stacktop)),__span_value1,sizeof(__span_value1)));
+    s=(struct span$1int$*)come_increment_ref_count(span$1int$_initialize((struct span$1int$*)come_increment_ref_count((struct span$1int$*)come_calloc(1, sizeof(struct span$1int$)*(1), (void*)0, 7, "struct span$1int$*")),(struct ref$1int$*)come_increment_ref_count(ref$1int$_initialize((struct ref$1int$*)come_increment_ref_count((struct ref$1int$*)come_calloc(1, sizeof(struct ref$1int$)*(1), (void*)0, 7, "struct ref$1int$*")),x,(_Bool)0,(_Bool)0,(_Bool)1,neo_current_frame->stacktop)),x,sizeof(x)));
     printf("%d\n",span$1int$p_operator_load_element(s,0));
     printf("%d\n",span$1int$p_operator_load_element(s,3));
         __result_obj__0 = 0;
@@ -1856,7 +1854,7 @@ int main(int argc, char** argv)
     return __result_obj__0;
 }
 
-static struct span$1int$* span$1int$_initialize(struct span$1int$* self, struct ref$1void$ph* refference, void* head, unsigned long  len  )
+static struct span$1int$* span$1int$_initialize(struct span$1int$* self, struct ref$1void$p* refference, void* head, unsigned long  len  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "span$1int$_initialize"; neo_current_frame = &fr;
     struct span$1int$* __result_obj__0;
@@ -1872,7 +1870,7 @@ static struct span$1int$* span$1int$_initialize(struct span$1int$* self, struct 
     self->stacktop=refference->stacktop;
         __result_obj__0 = (struct span$1int$*)come_increment_ref_count(self);
     come_call_finalizer(span$1int$$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    come_call_finalizer(ref$1void$ph$p_finalize, refference, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    come_call_finalizer(ref$1void$p$p_finalize, refference, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(span$1int$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
@@ -1884,12 +1882,9 @@ static void span$1int$$p_finalize(struct span$1int$* self)
         neo_current_frame = fr.prev;
 }
 
-static void ref$1void$ph$p_finalize(struct ref$1void$ph* self)
+static void ref$1void$p$p_finalize(struct ref$1void$p* self)
 {
-    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "ref$1void$ph$p_finalize"; neo_current_frame = &fr;
-    if(self!=((void*)0)&&self->p!=((void*)0)) {
-        (self->p = come_decrement_ref_count(self->p, (void*)0, (void*)0, 0, 0, (void*)0));
-    }
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "ref$1void$p$p_finalize"; neo_current_frame = &fr;
         neo_current_frame = fr.prev;
 }
 
@@ -8781,7 +8776,7 @@ struct buffer*  FILE_read(struct _IO_FILE*  f  )
     struct buffer*  buf  ;
     int size;
     if(f==((void*)0)) {
-                __result_obj__0 = (struct buffer* )come_increment_ref_count(((struct buffer*)(__right_value0=buffer_initialize_with_value((struct buffer*)come_increment_ref_count(come_calloc(1, sizeof(struct buffer), "/usr/local/include/neo-c.h", 8261, "buffer")), "", 0))));
+                __result_obj__0 = (struct buffer* )come_increment_ref_count(((struct buffer*)(__right_value0=buffer_initialize_with_value((struct buffer*)come_increment_ref_count(come_calloc(1, sizeof(struct buffer), "../neo-c.h", 8261, "buffer")), "", 0))));
         come_call_finalizer(buffer_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         neo_current_frame = fr.prev;
         come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -8908,7 +8903,7 @@ struct buffer*  charp_read(const char* file_name)
     int size;
     int result2;
     if(file_name==((void*)0)) {
-                __result_obj__0 = (struct buffer* )come_increment_ref_count(((struct buffer*)(__right_value0=buffer_initialize_with_value((struct buffer*)come_increment_ref_count(come_calloc(1, sizeof(struct buffer), "/usr/local/include/neo-c.h", 8361, "buffer")), "", 0))));
+                __result_obj__0 = (struct buffer* )come_increment_ref_count(((struct buffer*)(__right_value0=buffer_initialize_with_value((struct buffer*)come_increment_ref_count(come_calloc(1, sizeof(struct buffer), "../neo-c.h", 8361, "buffer")), "", 0))));
         come_call_finalizer(buffer_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         neo_current_frame = fr.prev;
         come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -8916,7 +8911,7 @@ struct buffer*  charp_read(const char* file_name)
     }
     f=fopen(file_name,"r");
     if(f==((void*)0)) {
-                __result_obj__0 = (struct buffer* )come_increment_ref_count(((struct buffer*)(__right_value0=buffer_initialize_with_value((struct buffer*)come_increment_ref_count(come_calloc(1, sizeof(struct buffer), "/usr/local/include/neo-c.h", 8367, "buffer")), "", 0))));
+                __result_obj__0 = (struct buffer* )come_increment_ref_count(((struct buffer*)(__right_value0=buffer_initialize_with_value((struct buffer*)come_increment_ref_count(come_calloc(1, sizeof(struct buffer), "../neo-c.h", 8367, "buffer")), "", 0))));
         come_call_finalizer(buffer_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         neo_current_frame = fr.prev;
         come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -8934,7 +8929,7 @@ struct buffer*  charp_read(const char* file_name)
     }
     result2=fclose(f);
     if(result2<0) {
-                __result_obj__0 = (struct buffer* )come_increment_ref_count(((struct buffer*)(__right_value0=buffer_initialize_with_value((struct buffer*)come_increment_ref_count(come_calloc(1, sizeof(struct buffer), "/usr/local/include/neo-c.h", 8387, "buffer")), "", 0))));
+                __result_obj__0 = (struct buffer* )come_increment_ref_count(((struct buffer*)(__right_value0=buffer_initialize_with_value((struct buffer*)come_increment_ref_count(come_calloc(1, sizeof(struct buffer), "../neo-c.h", 8387, "buffer")), "", 0))));
         come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_call_finalizer(buffer_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         neo_current_frame = fr.prev;

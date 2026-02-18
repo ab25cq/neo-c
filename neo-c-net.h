@@ -15,6 +15,12 @@ using c
 #endif
 #include <openssl/ssl.h>
 #include <openssl/err.h>
+
+static int neo_setsockopt_reuseaddr(int sock)
+{
+    int opt = 1;
+    return setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
+}
 }
 
 using neo-c-net;
@@ -33,8 +39,7 @@ uniq int server_socket(int port=8080, int socket_family=AF_INET, int socket_type
     
 #ifndef __ANDROID__
     if(reuse) {
-        int opt = 1;
-        if (setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt))) {
+        if(neo_setsockopt_reuseaddr(sock)) {
             close(sock);
             die(s"setsockopt");
         }
@@ -170,8 +175,7 @@ uniq int httpd_socket(int port=8080, int socket_family=AF_INET, int socket_type=
     
 #ifndef __ANDROID__
     if(reuse) {
-        int opt = 1;
-        if (setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt))) {
+        if(neo_setsockopt_reuseaddr(sock)) {
             close(sock);
             die(s"setsockpt failed");
         }

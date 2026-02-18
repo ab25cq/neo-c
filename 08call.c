@@ -735,7 +735,7 @@ struct sMemHeader
     const char* class_name;
 };
 
-struct ref$1void$ph
+struct ref$1void$p
 {
     void* p;
     _Bool global;

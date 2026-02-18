@@ -18,8 +18,8 @@ libdir=${exec_prefix}/lib
 #########################################
 CC=neo-c
 INSTALL=install
-CFLAGS= -Og -g 
-CFLAGS_DEBUG= -gdwarf-4 -cg -net -str
+CFLAGS= -Og -g -I../..
+CFLAGS_DEBUG= -gdwarf-4 -cg -net -str -I../..
 LIBS=-lpcre
 OS=linux
 DESTDIR=/usr/local/
@@ -64,7 +64,7 @@ install:
 #########################################
 clean:
 	rm -fR *.o *.c.i *.c.out *.c.c dbdb *.log *.out dbdb-debug
-	(cd dbdb-client && make clean)
+	(cd client && make clean)
 
 #########################################
 # uninstall

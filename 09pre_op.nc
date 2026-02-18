@@ -411,21 +411,31 @@ class sPlusPlusNode2 extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        if(!node_compile(self.value)) {
+        sNode*% value = self.value;
+
+        if(!node_compile(value)) {
             return false;
         }
         
-        CVALUE*% come_value = get_value_from_stack(-1, info);
-        
-        CVALUE*% come_value2 = new CVALUE();
-        
-        come_value2.c_value = xsprintf("++%s", come_value.c_value);
-        come_value2.type = clone come_value.type;
-        come_value2.var = null;
-        
-        info.stack.push_back(come_value2);
-        
-        add_come_last_code(info, "%s", come_value2.c_value);
+        CVALUE*% left_value = get_value_from_stack(-1, info);
+
+        sType*% type = left_value.type;
+
+        const char* fun_name = "operator_plus_plus";
+
+        bool calling_fun = operator_overload_fun_self(type, fun_name, value, left_value, info);
+
+        if(!calling_fun) {
+            CVALUE*% come_value2 = new CVALUE();
+            
+            come_value2.c_value = xsprintf("++%s", left_value.c_value);
+            come_value2.type = clone left_value.type;
+            come_value2.var = null;
+            
+            info.stack.push_back(come_value2);
+            
+            add_come_last_code(info, "%s", come_value2.c_value);
+        }
         
         return true;
     }
@@ -447,21 +457,31 @@ class sMinusMinusNode2 extends sNodeBase
     
     bool compile(sInfo* info)
     {
-        if(!node_compile(self.value)) {
+        sNode*% value = self.value;
+
+        if(!node_compile(value)) {
             return false;
         }
         
-        CVALUE*% come_value = get_value_from_stack(-1, info);
-        
-        CVALUE*% come_value2 = new CVALUE();
-        
-        come_value2.c_value = xsprintf("--%s", come_value.c_value);
-        come_value2.type = clone come_value.type;
-        come_value2.var = null;
-        
-        info.stack.push_back(come_value2);
-        
-        add_come_last_code(info, "%s", come_value2.c_value);
+        CVALUE*% left_value = get_value_from_stack(-1, info);
+
+        sType*% type = left_value.type;
+
+        const char* fun_name = "operator_minus_minus";
+
+        bool calling_fun = operator_overload_fun_self(type, fun_name, value, left_value, info);
+
+        if(!calling_fun) {
+            CVALUE*% come_value2 = new CVALUE();
+            
+            come_value2.c_value = xsprintf("--%s", left_value.c_value);
+            come_value2.type = clone left_value.type;
+            come_value2.var = null;
+            
+            info.stack.push_back(come_value2);
+            
+            add_come_last_code(info, "%s", come_value2.c_value);
+        }
         
         return true;
     }

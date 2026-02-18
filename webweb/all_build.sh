@@ -1,2 +1,6 @@
-(pkill dbdb; cd dbdb; make run)
-make run
+(
+    pkill dbdb || true
+    cd dbdb
+    make all
+)
+make all

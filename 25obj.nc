@@ -1820,8 +1820,7 @@ sNode*%@head,sNode*%@len get_head_and_len(sNode*% node, CVALUE*% come_value, sIn
     }
     else if(type2->mPointerNum == 1) {
         head = node;
-        sNode*% node2 = create_defference_node(node, quote:false, info);
-        len = new sSizeOfExpNode(node2, info) implements sNode;
+        len = new sSizeOfExpNode(node, info) implements sNode;
     }
     else {
         head = node;
@@ -1850,26 +1849,45 @@ class sSpanNode extends sNodeBase
     {
         sNode*% node = self.node;
         
-        static int n = 0;
-        ++n;
+        sNode*% span_value_node;
+        CVALUE*% come_value;
         
-        sNode*% node2 = store_var(s"__span_value\{n}", multiple_assign:null, multiple_declare:null, type:null, alloc:true, node, info);
+        bool no_output_come_code = info.no_output_come_code;
+        info.no_output_come_code = true;
         
-        node_compile(node2).elif {
+        node_compile(node).elif {
             return false;
         }
         
-        CVALUE*% come_value = get_value_from_stack(-1, info);
+        info.no_output_come_code = no_output_come_code;
         
-        add_come_code(info, come_value.c_value + ";\n");
-        
-        sNode*% node3 = create_load_var(s"__span_value\{n}", info);
-        
-        node_compile(node3).elif {
-            return false;
+        CVALUE*% checked_come_value = get_value_from_stack(-1, info);
+        if(checked_come_value.var == null) {
+            static int n = 0;
+            ++n;
+            
+            sNode*% node2 = store_var(s"__span_value\{n}", multiple_assign:null, multiple_declare:null, type:null, alloc:true, node, info);
+            
+            node_compile(node2).elif {
+                return false;
+            }
+            
+            CVALUE*% come_value2 = get_value_from_stack(-1, info);
+            
+            add_come_code(info, come_value2.c_value + ";\n");
+            
+            span_value_node = create_load_var(s"__span_value\{n}", info);
+            
+            node_compile(span_value_node).elif {
+                return false;
+            }
+            
+            come_value = get_value_from_stack(-1, info);
         }
-        
-        CVALUE*% come_value = get_value_from_stack(-1, info);
+        else {
+            span_value_node = clone node;
+            come_value = checked_come_value;
+        }
         
         if(come_value.type->mHeap) {
         }
@@ -1899,9 +1917,9 @@ class sSpanNode extends sNodeBase
         
         list<tup: string, sNode*%>*% params = new list<tup: string, sNode*%>();
         
-        sNode*% ref_ = new sRefNode(node3, info) implements sNode;
+        sNode*% ref_ = new sRefNode(span_value_node, info) implements sNode;
         
-        var head, len = get_head_and_len(node3, come_value);
+        var head, len = get_head_and_len(span_value_node, come_value);
         
         params.add(t((string)null, obj));
         params.add(t((string)null, ref_));
@@ -2768,4 +2786,3 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 21
     
     return inherit(node, info);
 }
-

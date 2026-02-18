@@ -3658,6 +3658,23 @@ bool is_span_class_name(const char* class_name, sInfo* info=info)
         || (strlen(class_name) > 5 && memcmp(class_name, "span$", 5) == 0);
 }
 
+bool is_generic_placeholder_class_name(const char* class_name, sInfo* info=info)
+{
+    if(class_name == null) {
+        return false;
+    }
+    string name = string(class_name);
+    return name.index("__generics_type", -1) >= 0
+        || name.index("__mgenerics_type", -1) >= 0;
+}
+
+bool is_generic_placeholder_type(sType* type, sInfo* info=info)
+{
+    return type != null
+        && type->mClass != null
+        && is_generic_placeholder_class_name(type->mClass->mName);
+}
+
 bool is_span_wrapper_compatible(sType* left_type, sType* right_type, sInfo* info=info)
 {
     if(left_type == null || right_type == null
@@ -3835,6 +3852,11 @@ bool is_same_type_ignoring_qualifier(sType* left_type, sType* right_type, sInfo*
     
     left_type2 = expand_typedef_for_assign(left_type2);
     right_type2 = expand_typedef_for_assign(right_type2);
+
+    // Method/generic placeholders are wildcard-like during precompile checks.
+    if(is_generic_placeholder_type(left_type2) || is_generic_placeholder_type(right_type2)) {
+        return true;
+    }
     
     // Normalize decayed-array pointer representation so equivalent pointer
     // types compare the same in generic arguments.

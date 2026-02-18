@@ -733,7 +733,7 @@ struct sMemHeader
     const char* class_name;
 };
 
-struct ref$1void$ph
+struct ref$1void$p
 {
     void* p;
     _Bool global;
@@ -2920,6 +2920,8 @@ _Bool is_integer_type(struct sType*  type  , struct sInfo*  info  );
 _Bool is_null_pointer_constant(struct CVALUE*  come_value  , struct sInfo*  info  );
 _Bool is_generic_void_pointer_compatible(struct sType*  left_type  , struct sType*  right_type  , struct sInfo*  info  );
 _Bool is_span_class_name(const char* class_name, struct sInfo*  info  );
+_Bool is_generic_placeholder_class_name(const char* class_name, struct sInfo*  info  );
+_Bool is_generic_placeholder_type(struct sType*  type  , struct sInfo*  info  );
 _Bool is_span_wrapper_compatible(struct sType*  left_type  , struct sType*  right_type  , struct sInfo*  info  );
 _Bool is_transparent_union_type(struct sType*  type  , struct sInfo*  info  );
 _Bool pointer_attr_has_word(struct sType*  type  , const char* word, struct sInfo*  info  );
@@ -10453,6 +10455,31 @@ _Bool is_span_class_name(const char* class_name, struct sInfo*  info  )
     neo_current_frame = fr.prev;
 }
 
+_Bool is_generic_placeholder_class_name(const char* class_name, struct sInfo*  info  )
+{
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "is_generic_placeholder_class_name"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
+    char*  name  ;
+    _Bool __result_obj__0;
+    if(class_name==((void*)0)) {
+                neo_current_frame = fr.prev;
+        return (_Bool)0;
+    }
+    name=(char* )come_increment_ref_count(__builtin_string(class_name));
+        __result_obj__0 = string_index(name,"__generics_type",-1)>=0||string_index(name,"__mgenerics_type",-1)>=0;
+    (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0));
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
+
+_Bool is_generic_placeholder_type(struct sType*  type  , struct sInfo*  info  )
+{
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "is_generic_placeholder_type"; neo_current_frame = &fr;
+        neo_current_frame = fr.prev;
+    return type!=((void*)0)&&type->mClass!=((void*)0)&&is_generic_placeholder_class_name(type->mClass->mName,info);
+    neo_current_frame = fr.prev;
+}
+
 _Bool is_span_wrapper_compatible(struct sType*  left_type  , struct sType*  right_type  , struct sInfo*  info  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "is_span_wrapper_compatible"; neo_current_frame = &fr;
@@ -10726,6 +10753,13 @@ _Bool is_same_type_ignoring_qualifier(struct sType*  left_type  , struct sType* 
     __dec_obj266=right_type2,
     right_type2=(struct sType* )come_increment_ref_count(expand_typedef_for_assign(right_type2,info));
     come_call_finalizer(sType_finalize, __dec_obj266,(void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(is_generic_placeholder_type(left_type2,info)||is_generic_placeholder_type(right_type2,info)) {
+                __result_obj__0 = (_Bool)1;
+        come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+        come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
+    }
     if(list$1sNode$ph_length(left_type2->mArrayNum)==0) {
         if(left_type2->mArrayPointerType) {
             left_type2->mPointerNum++;

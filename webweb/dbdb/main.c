@@ -2392,6 +2392,7 @@ struct neo_frame
 struct sMemHeader
 {
     long size;
+    long compiletime_size;
     int allocated;
     struct sMemHeader*  next  ;
     struct sMemHeader*  prev  ;
@@ -2407,30 +2408,6 @@ struct ref$1void$ph
     _Bool heap;
     _Bool local;
     void* stacktop;
-};
-
-struct smart_pointer$1int$
-{
-    struct buffer*  memory  ;
-    int* p;
-};
-
-struct smart_pointer$1short$
-{
-    struct buffer*  memory  ;
-    short* p;
-};
-
-struct smart_pointer$1long$
-{
-    struct buffer*  memory  ;
-    long* p;
-};
-
-struct smart_pointer$1char$
-{
-    struct buffer*  memory  ;
-    char* p;
 };
 
 struct list_item$1char$
@@ -9946,6 +9923,7 @@ void OSSL_ERR_STATE_save(struct err_state_st*  es  );
 void OSSL_ERR_STATE_save_to_mark(struct err_state_st*  es  );
 void OSSL_ERR_STATE_restore(const struct err_state_st*  es  );
 void OSSL_ERR_STATE_free(struct err_state_st*  es  );
+static int neo_setsockopt_reuseaddr(int sock);
 struct sType* sType_initialize(struct sType* self, char*  class_name  , int array_num, _Bool auto_increment, _Bool primary_key, _Bool not_null);
 char*  sType_to_string(struct sType* self);
 static void sType_finalize(struct sType* self);
@@ -10063,7 +10041,7 @@ _Bool die(const char* msg);
 void come_heap_final();
 void* alloc_from_pages(unsigned long  size  );
 void come_free_mem_of_heap_pool(void* mem);
-void* come_alloc_mem_from_heap_pool(unsigned long  size  , const char* sname, int sline, const char* class_name);
+void* come_alloc_mem_from_heap_pool(unsigned long  compiletime_size  , unsigned long  size  , const char* sname, int sline, const char* class_name);
 char* come_dynamic_typeof(void* mem);
 unsigned long  dynamic_sizeof(void* mem);
 void* come_calloc(unsigned long  count  , unsigned long  size  , const char* sname, int sline, const char* class_name);
@@ -10077,14 +10055,6 @@ void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* protoco
 void xassert(const char* msg, _Bool test);
 void* come_null_checker(void* mem, const char* sname, int sline);
 char*  __builtin_string(const char* str);
-static void smart_pointer$1int$$p_finalize(struct smart_pointer$1int$* self);
-struct smart_pointer$1int$* buffer_to_int_pointer(struct buffer*  self  );
-static void smart_pointer$1short$$p_finalize(struct smart_pointer$1short$* self);
-struct smart_pointer$1short$* buffer_to_short_pointer(struct buffer*  self  );
-static void smart_pointer$1long$$p_finalize(struct smart_pointer$1long$* self);
-struct smart_pointer$1long$* buffer_to_long_pointer(struct buffer*  self  );
-static void smart_pointer$1char$$p_finalize(struct smart_pointer$1char$* self);
-struct smart_pointer$1char$* buffer_to_pointer(struct buffer*  self  );
 struct buffer*  buffer_initialize(struct buffer*  self  );
 struct buffer*  buffer_initialize_with_value(struct buffer*  self  , const char* mem, unsigned long  size  );
 void buffer_finalize(struct buffer*  self  );
@@ -10407,2047 +10377,2047 @@ int gNumFree=0;
 // inline function
 static inline unsigned short int  __bswap_16(unsigned short int  __bsx  )
 {
-    return ((unsigned short int )((((__bsx)>>8)&0xff)|(((__bsx)&0xff)<<8)));
+        return ((unsigned short int )((((__bsx)>>8)&0xff)|(((__bsx)&0xff)<<8)));
 }
 static inline unsigned int  __bswap_32(unsigned int  __bsx  )
 {
-    return ((((__bsx)&0xff000000u)>>24)|(((__bsx)&0x00ff0000u)>>8)|(((__bsx)&0x0000ff00u)<<8)|(((__bsx)&0x000000ffu)<<24));
+        return ((((__bsx)&0xff000000u)>>24)|(((__bsx)&0x00ff0000u)>>8)|(((__bsx)&0x0000ff00u)<<8)|(((__bsx)&0x000000ffu)<<24));
 }
 static inline unsigned long  int  __bswap_64(unsigned long  int  __bsx  )
 {
-    return ((((__bsx)&0xff00000000000000ull)>>56)|(((__bsx)&0x00ff000000000000ull)>>40)|(((__bsx)&0x0000ff0000000000ull)>>24)|(((__bsx)&0x000000ff00000000ull)>>8)|(((__bsx)&0x00000000ff000000ull)<<8)|(((__bsx)&0x0000000000ff0000ull)<<24)|(((__bsx)&0x000000000000ff00ull)<<40)|(((__bsx)&0x00000000000000ffull)<<56));
+        return ((((__bsx)&0xff00000000000000ull)>>56)|(((__bsx)&0x00ff000000000000ull)>>40)|(((__bsx)&0x0000ff0000000000ull)>>24)|(((__bsx)&0x000000ff00000000ull)>>8)|(((__bsx)&0x00000000ff000000ull)<<8)|(((__bsx)&0x0000000000ff0000ull)<<24)|(((__bsx)&0x000000000000ff00ull)<<40)|(((__bsx)&0x00000000000000ffull)<<56));
 }
 static inline unsigned short int  __uint16_identity(unsigned short int  __x  )
 {
-    return __x;
+        return __x;
 }
 static inline unsigned int  __uint32_identity(unsigned int  __x  )
 {
-    return __x;
+        return __x;
 }
 static inline unsigned long  int  __uint64_identity(unsigned long  int  __x  )
 {
-    return __x;
+        return __x;
 }
 
 // body function
 static char* ossl_check_OPENSSL_STRING_type(char* ptr)
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_OPENSSL_STRING_sk_type(const struct stack_st_OPENSSL_STRING*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_OPENSSL_STRING_sk_type(struct stack_st_OPENSSL_STRING*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_OPENSSL_STRING_compfunc_type(int (*cmp)(const char** const,const char** const)  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_OPENSSL_STRING_copyfunc_type(char* (*cpy)(const char*)  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_OPENSSL_STRING_freefunc_type(void (*fr)(char*)  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static const char* ossl_check_OPENSSL_CSTRING_type(const char* ptr)
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_OPENSSL_CSTRING_sk_type(const struct stack_st_OPENSSL_CSTRING*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_OPENSSL_CSTRING_sk_type(struct stack_st_OPENSSL_CSTRING*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_OPENSSL_CSTRING_compfunc_type(int (*cmp)(const char** const,const char** const)  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_OPENSSL_CSTRING_copyfunc_type(char* (*cpy)(const char*)  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_OPENSSL_CSTRING_freefunc_type(void (*fr)(char*)  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static void* ossl_check_OPENSSL_BLOCK_type(void* ptr)
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_OPENSSL_BLOCK_sk_type(const struct stack_st_OPENSSL_BLOCK*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_OPENSSL_BLOCK_sk_type(struct stack_st_OPENSSL_BLOCK*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_OPENSSL_BLOCK_compfunc_type(int (*cmp)(const void** const,const void** const)  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_OPENSSL_BLOCK_copyfunc_type(void* (*cpy)(const void*)  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_OPENSSL_BLOCK_freefunc_type(void (*fr)(void*)  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static void* ossl_check_void_type(void* ptr)
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_void_sk_type(const struct stack_st_void*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_void_sk_type(struct stack_st_void*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_void_compfunc_type(int (*cmp)(const void** const,const void** const)  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_void_copyfunc_type(void* (*cpy)(const void*)  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_void_freefunc_type(void (*fr)(void*)  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static struct ssl_comp_st*  ossl_check_SSL_COMP_type(struct ssl_comp_st*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_SSL_COMP_sk_type(const struct stack_st_SSL_COMP*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_SSL_COMP_sk_type(struct stack_st_SSL_COMP*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_SSL_COMP_compfunc_type(int (*cmp)(const struct ssl_comp_st** const ,const struct ssl_comp_st** const )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_SSL_COMP_copyfunc_type(struct ssl_comp_st* (*cpy)(const struct ssl_comp_st* )  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_SSL_COMP_freefunc_type(void (*fr)(struct ssl_comp_st* )  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static struct bio_st*  ossl_check_BIO_type(struct bio_st*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_BIO_sk_type(const struct stack_st_BIO*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_BIO_sk_type(struct stack_st_BIO*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_BIO_compfunc_type(int (*cmp)(const struct bio_st** const ,const struct bio_st** const )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_BIO_copyfunc_type(struct bio_st* (*cpy)(const struct bio_st* )  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_BIO_freefunc_type(void (*fr)(struct bio_st* )  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_core_gettable_params(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ) 
 {
-    return (const struct ossl_param_st* (*(*))(const struct ossl_core_handle_st* ) )opf->function;
+        return (const struct ossl_param_st* (*(*))(const struct ossl_core_handle_st* ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_core_get_params(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,struct ossl_param_st ) 
 {
-    return (int (*(*))(const struct ossl_core_handle_st* ,struct ossl_param_st ) )opf->function;
+        return (int (*(*))(const struct ossl_core_handle_st* ,struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_core_thread_start(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,void (*)(void*) ,void*) 
 {
-    return (int (*(*))(const struct ossl_core_handle_st* ,void (*)(void*) ,void*) )opf->function;
+        return (int (*(*))(const struct ossl_core_handle_st* ,void (*)(void*) ,void*) )opf->function;
 }
 
 static struct openssl_core_ctx_st* (*(*OSSL_FUNC_core_get_libctx(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ) 
 {
-    return (struct openssl_core_ctx_st* (*(*))(const struct ossl_core_handle_st* ) )opf->function;
+        return (struct openssl_core_ctx_st* (*(*))(const struct ossl_core_handle_st* ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_core_new_error(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ) 
 {
-    return (void (*(*))(const struct ossl_core_handle_st* ) )opf->function;
+        return (void (*(*))(const struct ossl_core_handle_st* ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_core_set_error_debug(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,const char*,int,const char*) 
 {
-    return (void (*(*))(const struct ossl_core_handle_st* ,const char*,int,const char*) )opf->function;
+        return (void (*(*))(const struct ossl_core_handle_st* ,const char*,int,const char*) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_core_vset_error(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,unsigned int ,const char*,__builtin_va_list ) 
 {
-    return (void (*(*))(const struct ossl_core_handle_st* ,unsigned int ,const char*,__builtin_va_list ) )opf->function;
+        return (void (*(*))(const struct ossl_core_handle_st* ,unsigned int ,const char*,__builtin_va_list ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_core_set_error_mark(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ) 
 {
-    return (int (*(*))(const struct ossl_core_handle_st* ) )opf->function;
+        return (int (*(*))(const struct ossl_core_handle_st* ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_core_clear_last_error_mark(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ) 
 {
-    return (int (*(*))(const struct ossl_core_handle_st* ) )opf->function;
+        return (int (*(*))(const struct ossl_core_handle_st* ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_core_pop_error_to_mark(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ) 
 {
-    return (int (*(*))(const struct ossl_core_handle_st* ) )opf->function;
+        return (int (*(*))(const struct ossl_core_handle_st* ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_core_obj_add_sigid(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,const char*,const char*,const char*) 
 {
-    return (int (*(*))(const struct ossl_core_handle_st* ,const char*,const char*,const char*) )opf->function;
+        return (int (*(*))(const struct ossl_core_handle_st* ,const char*,const char*,const char*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_core_obj_create(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,const char*,const char*,const char*) 
 {
-    return (int (*(*))(const struct ossl_core_handle_st* ,const char*,const char*,const char*) )opf->function;
+        return (int (*(*))(const struct ossl_core_handle_st* ,const char*,const char*,const char*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_CRYPTO_malloc(const struct ossl_dispatch_st*  opf  )))(unsigned long ,const char*,int) 
 {
-    return (void* (*(*))(unsigned long ,const char*,int) )opf->function;
+        return (void* (*(*))(unsigned long ,const char*,int) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_CRYPTO_zalloc(const struct ossl_dispatch_st*  opf  )))(unsigned long ,const char*,int) 
 {
-    return (void* (*(*))(unsigned long ,const char*,int) )opf->function;
+        return (void* (*(*))(unsigned long ,const char*,int) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_CRYPTO_free(const struct ossl_dispatch_st*  opf  )))(void*,const char*,int) 
 {
-    return (void (*(*))(void*,const char*,int) )opf->function;
+        return (void (*(*))(void*,const char*,int) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_CRYPTO_clear_free(const struct ossl_dispatch_st*  opf  )))(void*,unsigned long ,const char*,int) 
 {
-    return (void (*(*))(void*,unsigned long ,const char*,int) )opf->function;
+        return (void (*(*))(void*,unsigned long ,const char*,int) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_CRYPTO_realloc(const struct ossl_dispatch_st*  opf  )))(void*,unsigned long ,const char*,int) 
 {
-    return (void* (*(*))(void*,unsigned long ,const char*,int) )opf->function;
+        return (void* (*(*))(void*,unsigned long ,const char*,int) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_CRYPTO_clear_realloc(const struct ossl_dispatch_st*  opf  )))(void*,unsigned long ,unsigned long ,const char*,int) 
 {
-    return (void* (*(*))(void*,unsigned long ,unsigned long ,const char*,int) )opf->function;
+        return (void* (*(*))(void*,unsigned long ,unsigned long ,const char*,int) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_CRYPTO_secure_malloc(const struct ossl_dispatch_st*  opf  )))(unsigned long ,const char*,int) 
 {
-    return (void* (*(*))(unsigned long ,const char*,int) )opf->function;
+        return (void* (*(*))(unsigned long ,const char*,int) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_CRYPTO_secure_zalloc(const struct ossl_dispatch_st*  opf  )))(unsigned long ,const char*,int) 
 {
-    return (void* (*(*))(unsigned long ,const char*,int) )opf->function;
+        return (void* (*(*))(unsigned long ,const char*,int) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_CRYPTO_secure_free(const struct ossl_dispatch_st*  opf  )))(void*,const char*,int) 
 {
-    return (void (*(*))(void*,const char*,int) )opf->function;
+        return (void (*(*))(void*,const char*,int) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_CRYPTO_secure_clear_free(const struct ossl_dispatch_st*  opf  )))(void*,unsigned long ,const char*,int) 
 {
-    return (void (*(*))(void*,unsigned long ,const char*,int) )opf->function;
+        return (void (*(*))(void*,unsigned long ,const char*,int) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_CRYPTO_secure_allocated(const struct ossl_dispatch_st*  opf  )))(const void*) 
 {
-    return (int (*(*))(const void*) )opf->function;
+        return (int (*(*))(const void*) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_OPENSSL_cleanse(const struct ossl_dispatch_st*  opf  )))(void*,unsigned long ) 
 {
-    return (void (*(*))(void*,unsigned long ) )opf->function;
+        return (void (*(*))(void*,unsigned long ) )opf->function;
 }
 
 static struct ossl_core_bio_st* (*(*OSSL_FUNC_BIO_new_file(const struct ossl_dispatch_st*  opf  )))(const char*,const char*) 
 {
-    return (struct ossl_core_bio_st* (*(*))(const char*,const char*) )opf->function;
+        return (struct ossl_core_bio_st* (*(*))(const char*,const char*) )opf->function;
 }
 
 static struct ossl_core_bio_st* (*(*OSSL_FUNC_BIO_new_membuf(const struct ossl_dispatch_st*  opf  )))(const void*,int) 
 {
-    return (struct ossl_core_bio_st* (*(*))(const void*,int) )opf->function;
+        return (struct ossl_core_bio_st* (*(*))(const void*,int) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_BIO_read_ex(const struct ossl_dispatch_st*  opf  )))(struct ossl_core_bio_st* ,void*,unsigned long ,unsigned long* ) 
 {
-    return (int (*(*))(struct ossl_core_bio_st* ,void*,unsigned long ,unsigned long* ) )opf->function;
+        return (int (*(*))(struct ossl_core_bio_st* ,void*,unsigned long ,unsigned long* ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_BIO_write_ex(const struct ossl_dispatch_st*  opf  )))(struct ossl_core_bio_st* ,const void*,unsigned long ,unsigned long* ) 
 {
-    return (int (*(*))(struct ossl_core_bio_st* ,const void*,unsigned long ,unsigned long* ) )opf->function;
+        return (int (*(*))(struct ossl_core_bio_st* ,const void*,unsigned long ,unsigned long* ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_BIO_gets(const struct ossl_dispatch_st*  opf  )))(struct ossl_core_bio_st* ,char*,int) 
 {
-    return (int (*(*))(struct ossl_core_bio_st* ,char*,int) )opf->function;
+        return (int (*(*))(struct ossl_core_bio_st* ,char*,int) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_BIO_puts(const struct ossl_dispatch_st*  opf  )))(struct ossl_core_bio_st* ,const char*) 
 {
-    return (int (*(*))(struct ossl_core_bio_st* ,const char*) )opf->function;
+        return (int (*(*))(struct ossl_core_bio_st* ,const char*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_BIO_up_ref(const struct ossl_dispatch_st*  opf  )))(struct ossl_core_bio_st* ) 
 {
-    return (int (*(*))(struct ossl_core_bio_st* ) )opf->function;
+        return (int (*(*))(struct ossl_core_bio_st* ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_BIO_free(const struct ossl_dispatch_st*  opf  )))(struct ossl_core_bio_st* ) 
 {
-    return (int (*(*))(struct ossl_core_bio_st* ) )opf->function;
+        return (int (*(*))(struct ossl_core_bio_st* ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_BIO_vprintf(const struct ossl_dispatch_st*  opf  )))(struct ossl_core_bio_st* ,const char*,__builtin_va_list ) 
 {
-    return (int (*(*))(struct ossl_core_bio_st* ,const char*,__builtin_va_list ) )opf->function;
+        return (int (*(*))(struct ossl_core_bio_st* ,const char*,__builtin_va_list ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_BIO_vsnprintf(const struct ossl_dispatch_st*  opf  )))(char*,unsigned long ,const char*,__builtin_va_list ) 
 {
-    return (int (*(*))(char*,unsigned long ,const char*,__builtin_va_list ) )opf->function;
+        return (int (*(*))(char*,unsigned long ,const char*,__builtin_va_list ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_BIO_ctrl(const struct ossl_dispatch_st*  opf  )))(struct ossl_core_bio_st* ,int,long,void*) 
 {
-    return (int (*(*))(struct ossl_core_bio_st* ,int,long,void*) )opf->function;
+        return (int (*(*))(struct ossl_core_bio_st* ,int,long,void*) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_indicator_cb(const struct ossl_dispatch_st*  opf  )))(struct openssl_core_ctx_st* ,int (*(*(*)))(const char*,const char*,const struct ossl_param_st ) ) 
 {
-    return (void (*(*))(struct openssl_core_ctx_st* ,int (*(*(*)))(const char*,const char*,const struct ossl_param_st ) ) )opf->function;
+        return (void (*(*))(struct openssl_core_ctx_st* ,int (*(*(*)))(const char*,const char*,const struct ossl_param_st ) ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_self_test_cb(const struct ossl_dispatch_st*  opf  )))(struct openssl_core_ctx_st* ,int (*(*(*)))(const struct ossl_param_st ,void*) ,void**) 
 {
-    return (void (*(*))(struct openssl_core_ctx_st* ,int (*(*(*)))(const struct ossl_param_st ,void*) ,void**) )opf->function;
+        return (void (*(*))(struct openssl_core_ctx_st* ,int (*(*(*)))(const struct ossl_param_st ,void*) ,void**) )opf->function;
 }
 
 static unsigned long (*(*OSSL_FUNC_get_entropy(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,unsigned char**,int,unsigned long ,unsigned long ) 
 {
-    return (unsigned long (*(*))(const struct ossl_core_handle_st* ,unsigned char**,int,unsigned long ,unsigned long ) )opf->function;
+        return (unsigned long (*(*))(const struct ossl_core_handle_st* ,unsigned char**,int,unsigned long ,unsigned long ) )opf->function;
 }
 
 static unsigned long (*(*OSSL_FUNC_get_user_entropy(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,unsigned char**,int,unsigned long ,unsigned long ) 
 {
-    return (unsigned long (*(*))(const struct ossl_core_handle_st* ,unsigned char**,int,unsigned long ,unsigned long ) )opf->function;
+        return (unsigned long (*(*))(const struct ossl_core_handle_st* ,unsigned char**,int,unsigned long ,unsigned long ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_cleanup_entropy(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,unsigned char*,unsigned long ) 
 {
-    return (void (*(*))(const struct ossl_core_handle_st* ,unsigned char*,unsigned long ) )opf->function;
+        return (void (*(*))(const struct ossl_core_handle_st* ,unsigned char*,unsigned long ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_cleanup_user_entropy(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,unsigned char*,unsigned long ) 
 {
-    return (void (*(*))(const struct ossl_core_handle_st* ,unsigned char*,unsigned long ) )opf->function;
+        return (void (*(*))(const struct ossl_core_handle_st* ,unsigned char*,unsigned long ) )opf->function;
 }
 
 static unsigned long (*(*OSSL_FUNC_get_nonce(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,unsigned char**,unsigned long ,unsigned long ,const void*,unsigned long ) 
 {
-    return (unsigned long (*(*))(const struct ossl_core_handle_st* ,unsigned char**,unsigned long ,unsigned long ,const void*,unsigned long ) )opf->function;
+        return (unsigned long (*(*))(const struct ossl_core_handle_st* ,unsigned char**,unsigned long ,unsigned long ,const void*,unsigned long ) )opf->function;
 }
 
 static unsigned long (*(*OSSL_FUNC_get_user_nonce(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,unsigned char**,unsigned long ,unsigned long ,const void*,unsigned long ) 
 {
-    return (unsigned long (*(*))(const struct ossl_core_handle_st* ,unsigned char**,unsigned long ,unsigned long ,const void*,unsigned long ) )opf->function;
+        return (unsigned long (*(*))(const struct ossl_core_handle_st* ,unsigned char**,unsigned long ,unsigned long ,const void*,unsigned long ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_cleanup_nonce(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,unsigned char*,unsigned long ) 
 {
-    return (void (*(*))(const struct ossl_core_handle_st* ,unsigned char*,unsigned long ) )opf->function;
+        return (void (*(*))(const struct ossl_core_handle_st* ,unsigned char*,unsigned long ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_cleanup_user_nonce(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,unsigned char*,unsigned long ) 
 {
-    return (void (*(*))(const struct ossl_core_handle_st* ,unsigned char*,unsigned long ) )opf->function;
+        return (void (*(*))(const struct ossl_core_handle_st* ,unsigned char*,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_provider_register_child_cb(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,int (*)(const struct ossl_core_handle_st* ,void*),int (*)(const struct ossl_core_handle_st* ,void*),int (*)(const char*,void*),void*) 
 {
-    return (int (*(*))(const struct ossl_core_handle_st* ,int (*)(const struct ossl_core_handle_st* ,void*),int (*)(const struct ossl_core_handle_st* ,void*),int (*)(const char*,void*),void*) )opf->function;
+        return (int (*(*))(const struct ossl_core_handle_st* ,int (*)(const struct ossl_core_handle_st* ,void*),int (*)(const struct ossl_core_handle_st* ,void*),int (*)(const char*,void*),void*) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_provider_deregister_child_cb(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ) 
 {
-    return (void (*(*))(const struct ossl_core_handle_st* ) )opf->function;
+        return (void (*(*))(const struct ossl_core_handle_st* ) )opf->function;
 }
 
 static const char* (*(*OSSL_FUNC_provider_name(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ) 
 {
-    return (const char* (*(*))(const struct ossl_core_handle_st* ) )opf->function;
+        return (const char* (*(*))(const struct ossl_core_handle_st* ) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_provider_get0_provider_ctx(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ) 
 {
-    return (void* (*(*))(const struct ossl_core_handle_st* ) )opf->function;
+        return (void* (*(*))(const struct ossl_core_handle_st* ) )opf->function;
 }
 
 static const struct ossl_dispatch_st* (*(*OSSL_FUNC_provider_get0_dispatch(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ) 
 {
-    return (const struct ossl_dispatch_st* (*(*))(const struct ossl_core_handle_st* ) )opf->function;
+        return (const struct ossl_dispatch_st* (*(*))(const struct ossl_core_handle_st* ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_provider_up_ref(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,int) 
 {
-    return (int (*(*))(const struct ossl_core_handle_st* ,int) )opf->function;
+        return (int (*(*))(const struct ossl_core_handle_st* ,int) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_provider_free(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ,int) 
 {
-    return (int (*(*))(const struct ossl_core_handle_st* ,int) )opf->function;
+        return (int (*(*))(const struct ossl_core_handle_st* ,int) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_core_count_to_mark(const struct ossl_dispatch_st*  opf  )))(const struct ossl_core_handle_st* ) 
 {
-    return (int (*(*))(const struct ossl_core_handle_st* ) )opf->function;
+        return (int (*(*))(const struct ossl_core_handle_st* ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_provider_teardown(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*(*))(void*) )opf->function;
+        return (void (*(*))(void*) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_provider_gettable_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_provider_get_params(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_algorithm_st* (*(*OSSL_FUNC_provider_query_operation(const struct ossl_dispatch_st*  opf  )))(void*,int,int*) 
 {
-    return (const struct ossl_algorithm_st* (*(*))(void*,int,int*) )opf->function;
+        return (const struct ossl_algorithm_st* (*(*))(void*,int,int*) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_provider_unquery_operation(const struct ossl_dispatch_st*  opf  )))(void*,int,const struct ossl_algorithm_st* ) 
 {
-    return (void (*(*))(void*,int,const struct ossl_algorithm_st* ) )opf->function;
+        return (void (*(*))(void*,int,const struct ossl_algorithm_st* ) )opf->function;
 }
 
 static const struct ossl_item_st* (*(*OSSL_FUNC_provider_get_reason_strings(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_item_st* (*(*))(void*) )opf->function;
+        return (const struct ossl_item_st* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_provider_get_capabilities(const struct ossl_dispatch_st*  opf  )))(void*,const char*,int (*(*))(const struct ossl_param_st ,void*) ,void*) 
 {
-    return (int (*(*))(void*,const char*,int (*(*))(const struct ossl_param_st ,void*) ,void*) )opf->function;
+        return (int (*(*))(void*,const char*,int (*(*))(const struct ossl_param_st ,void*) ,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_provider_self_test(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (int (*(*))(void*) )opf->function;
+        return (int (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_provider_random_bytes(const struct ossl_dispatch_st*  opf  )))(void*,int,void*,unsigned long ,unsigned int) 
 {
-    return (int (*(*))(void*,int,void*,unsigned long ,unsigned int) )opf->function;
+        return (int (*(*))(void*,int,void*,unsigned long ,unsigned int) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_SSL_QUIC_TLS_crypto_send(const struct ossl_dispatch_st*  opf  )))(struct ssl_st* ,const unsigned char*,unsigned long ,unsigned long* ,void*) 
 {
-    return (int (*(*))(struct ssl_st* ,const unsigned char*,unsigned long ,unsigned long* ,void*) )opf->function;
+        return (int (*(*))(struct ssl_st* ,const unsigned char*,unsigned long ,unsigned long* ,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_SSL_QUIC_TLS_crypto_recv_rcd(const struct ossl_dispatch_st*  opf  )))(struct ssl_st* ,const unsigned char**,unsigned long* ,void*) 
 {
-    return (int (*(*))(struct ssl_st* ,const unsigned char**,unsigned long* ,void*) )opf->function;
+        return (int (*(*))(struct ssl_st* ,const unsigned char**,unsigned long* ,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_SSL_QUIC_TLS_crypto_release_rcd(const struct ossl_dispatch_st*  opf  )))(struct ssl_st* ,unsigned long ,void*) 
 {
-    return (int (*(*))(struct ssl_st* ,unsigned long ,void*) )opf->function;
+        return (int (*(*))(struct ssl_st* ,unsigned long ,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_SSL_QUIC_TLS_yield_secret(const struct ossl_dispatch_st*  opf  )))(struct ssl_st* ,unsigned int ,int,const unsigned char*,unsigned long ,void*) 
 {
-    return (int (*(*))(struct ssl_st* ,unsigned int ,int,const unsigned char*,unsigned long ,void*) )opf->function;
+        return (int (*(*))(struct ssl_st* ,unsigned int ,int,const unsigned char*,unsigned long ,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_SSL_QUIC_TLS_got_transport_params(const struct ossl_dispatch_st*  opf  )))(struct ssl_st* ,const unsigned char*,unsigned long ,void*) 
 {
-    return (int (*(*))(struct ssl_st* ,const unsigned char*,unsigned long ,void*) )opf->function;
+        return (int (*(*))(struct ssl_st* ,const unsigned char*,unsigned long ,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_SSL_QUIC_TLS_alert(const struct ossl_dispatch_st*  opf  )))(struct ssl_st* ,unsigned char,void*) 
 {
-    return (int (*(*))(struct ssl_st* ,unsigned char,void*) )opf->function;
+        return (int (*(*))(struct ssl_st* ,unsigned char,void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_digest_newctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*(*))(void*) )opf->function;
+        return (void* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_digest_init(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_digest_update(const struct ossl_dispatch_st*  opf  )))(void*,const unsigned char*,unsigned long ) 
 {
-    return (int (*(*))(void*,const unsigned char*,unsigned long ) )opf->function;
+        return (int (*(*))(void*,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_digest_final(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long* ,unsigned long ) 
 {
-    return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ) )opf->function;
+        return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_digest_squeeze(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long* ,unsigned long ) 
 {
-    return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ) )opf->function;
+        return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_digest_digest(const struct ossl_dispatch_st*  opf  )))(void*,const unsigned char*,unsigned long ,unsigned char*,unsigned long* ,unsigned long ) 
 {
-    return (int (*(*))(void*,const unsigned char*,unsigned long ,unsigned char*,unsigned long* ,unsigned long ) )opf->function;
+        return (int (*(*))(void*,const unsigned char*,unsigned long ,unsigned char*,unsigned long* ,unsigned long ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_digest_freectx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*(*))(void*) )opf->function;
+        return (void (*(*))(void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_digest_dupctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*(*))(void*) )opf->function;
+        return (void* (*(*))(void*) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_digest_copyctx(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (void (*(*))(void*,void*) )opf->function;
+        return (void (*(*))(void*,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_digest_get_params(const struct ossl_dispatch_st*  opf  )))(struct ossl_param_st ) 
 {
-    return (int (*(*))(struct ossl_param_st ) )opf->function;
+        return (int (*(*))(struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_digest_set_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_digest_get_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_digest_gettable_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_digest_settable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_digest_gettable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_cipher_newctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*(*))(void*) )opf->function;
+        return (void* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_cipher_encrypt_init(const struct ossl_dispatch_st*  opf  )))(void*,const unsigned char*,unsigned long ,const unsigned char*,unsigned long ,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,const unsigned char*,unsigned long ,const unsigned char*,unsigned long ,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,const unsigned char*,unsigned long ,const unsigned char*,unsigned long ,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_cipher_decrypt_init(const struct ossl_dispatch_st*  opf  )))(void*,const unsigned char*,unsigned long ,const unsigned char*,unsigned long ,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,const unsigned char*,unsigned long ,const unsigned char*,unsigned long ,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,const unsigned char*,unsigned long ,const unsigned char*,unsigned long ,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_cipher_update(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) 
 {
-    return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
+        return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_cipher_final(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long* ,unsigned long ) 
 {
-    return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ) )opf->function;
+        return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_cipher_cipher(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) 
 {
-    return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
+        return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_cipher_pipeline_encrypt_init(const struct ossl_dispatch_st*  opf  )))(void*,const unsigned char*,unsigned long ,unsigned long ,const unsigned char**,unsigned long ,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,const unsigned char*,unsigned long ,unsigned long ,const unsigned char**,unsigned long ,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,const unsigned char*,unsigned long ,unsigned long ,const unsigned char**,unsigned long ,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_cipher_pipeline_decrypt_init(const struct ossl_dispatch_st*  opf  )))(void*,const unsigned char*,unsigned long ,unsigned long ,const unsigned char**,unsigned long ,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,const unsigned char*,unsigned long ,unsigned long ,const unsigned char**,unsigned long ,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,const unsigned char*,unsigned long ,unsigned long ,const unsigned char**,unsigned long ,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_cipher_pipeline_update(const struct ossl_dispatch_st*  opf  )))(void*,unsigned long ,unsigned char**,unsigned long* ,const unsigned long* ,const unsigned char**,const unsigned long* ) 
 {
-    return (int (*(*))(void*,unsigned long ,unsigned char**,unsigned long* ,const unsigned long* ,const unsigned char**,const unsigned long* ) )opf->function;
+        return (int (*(*))(void*,unsigned long ,unsigned char**,unsigned long* ,const unsigned long* ,const unsigned char**,const unsigned long* ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_cipher_pipeline_final(const struct ossl_dispatch_st*  opf  )))(void*,unsigned long ,unsigned char**,unsigned long* ,const unsigned long* ) 
 {
-    return (int (*(*))(void*,unsigned long ,unsigned char**,unsigned long* ,const unsigned long* ) )opf->function;
+        return (int (*(*))(void*,unsigned long ,unsigned char**,unsigned long* ,const unsigned long* ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_cipher_freectx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*(*))(void*) )opf->function;
+        return (void (*(*))(void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_cipher_dupctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*(*))(void*) )opf->function;
+        return (void* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_cipher_get_params(const struct ossl_dispatch_st*  opf  )))(struct ossl_param_st ) 
 {
-    return (int (*(*))(struct ossl_param_st ) )opf->function;
+        return (int (*(*))(struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_cipher_get_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_cipher_set_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_cipher_gettable_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_cipher_settable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_cipher_gettable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_cipher_encrypt_skey_init(const struct ossl_dispatch_st*  opf  )))(void*,void*,const unsigned char*,unsigned long ,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,void*,const unsigned char*,unsigned long ,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,void*,const unsigned char*,unsigned long ,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_cipher_decrypt_skey_init(const struct ossl_dispatch_st*  opf  )))(void*,void*,const unsigned char*,unsigned long ,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,void*,const unsigned char*,unsigned long ,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,void*,const unsigned char*,unsigned long ,const struct ossl_param_st ) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_mac_newctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*(*))(void*) )opf->function;
+        return (void* (*(*))(void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_mac_dupctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*(*))(void*) )opf->function;
+        return (void* (*(*))(void*) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_mac_freectx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*(*))(void*) )opf->function;
+        return (void (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_mac_init(const struct ossl_dispatch_st*  opf  )))(void*,const unsigned char*,unsigned long ,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,const unsigned char*,unsigned long ,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,const unsigned char*,unsigned long ,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_mac_update(const struct ossl_dispatch_st*  opf  )))(void*,const unsigned char*,unsigned long ) 
 {
-    return (int (*(*))(void*,const unsigned char*,unsigned long ) )opf->function;
+        return (int (*(*))(void*,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_mac_final(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long* ,unsigned long ) 
 {
-    return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ) )opf->function;
+        return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_mac_gettable_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_mac_gettable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_mac_settable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_mac_get_params(const struct ossl_dispatch_st*  opf  )))(struct ossl_param_st ) 
 {
-    return (int (*(*))(struct ossl_param_st ) )opf->function;
+        return (int (*(*))(struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_mac_get_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_mac_set_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_mac_init_skey(const struct ossl_dispatch_st*  opf  )))(void*,void*,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_kdf_newctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*(*))(void*) )opf->function;
+        return (void* (*(*))(void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_kdf_dupctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*(*))(void*) )opf->function;
+        return (void* (*(*))(void*) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_kdf_freectx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*(*))(void*) )opf->function;
+        return (void (*(*))(void*) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_kdf_reset(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*(*))(void*) )opf->function;
+        return (void (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_kdf_derive(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long ,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,unsigned char*,unsigned long ,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,unsigned char*,unsigned long ,const struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_kdf_gettable_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_kdf_gettable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_kdf_settable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_kdf_get_params(const struct ossl_dispatch_st*  opf  )))(struct ossl_param_st ) 
 {
-    return (int (*(*))(struct ossl_param_st ) )opf->function;
+        return (int (*(*))(struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_kdf_get_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_kdf_set_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_rand_newctx(const struct ossl_dispatch_st*  opf  )))(void*,void*,const struct ossl_dispatch_st* ) 
 {
-    return (void* (*(*))(void*,void*,const struct ossl_dispatch_st* ) )opf->function;
+        return (void* (*(*))(void*,void*,const struct ossl_dispatch_st* ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_rand_freectx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*(*))(void*) )opf->function;
+        return (void (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_rand_instantiate(const struct ossl_dispatch_st*  opf  )))(void*,unsigned int,int,const unsigned char*,unsigned long ,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,unsigned int,int,const unsigned char*,unsigned long ,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,unsigned int,int,const unsigned char*,unsigned long ,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_rand_uninstantiate(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (int (*(*))(void*) )opf->function;
+        return (int (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_rand_generate(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long ,unsigned int,int,const unsigned char*,unsigned long ) 
 {
-    return (int (*(*))(void*,unsigned char*,unsigned long ,unsigned int,int,const unsigned char*,unsigned long ) )opf->function;
+        return (int (*(*))(void*,unsigned char*,unsigned long ,unsigned int,int,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_rand_reseed(const struct ossl_dispatch_st*  opf  )))(void*,int,const unsigned char*,unsigned long ,const unsigned char*,unsigned long ) 
 {
-    return (int (*(*))(void*,int,const unsigned char*,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
+        return (int (*(*))(void*,int,const unsigned char*,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static unsigned long (*(*OSSL_FUNC_rand_nonce(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned int,unsigned long ,unsigned long ) 
 {
-    return (unsigned long (*(*))(void*,unsigned char*,unsigned int,unsigned long ,unsigned long ) )opf->function;
+        return (unsigned long (*(*))(void*,unsigned char*,unsigned int,unsigned long ,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_rand_enable_locking(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (int (*(*))(void*) )opf->function;
+        return (int (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_rand_lock(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (int (*(*))(void*) )opf->function;
+        return (int (*(*))(void*) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_rand_unlock(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*(*))(void*) )opf->function;
+        return (void (*(*))(void*) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_rand_gettable_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_rand_gettable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_rand_settable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_rand_get_params(const struct ossl_dispatch_st*  opf  )))(struct ossl_param_st ) 
 {
-    return (int (*(*))(struct ossl_param_st ) )opf->function;
+        return (int (*(*))(struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_rand_get_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_rand_set_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_rand_set_callbacks(const struct ossl_dispatch_st*  opf  )))(void*,int (*(*))(const struct ossl_param_st ,struct ossl_param_st ,void*) ,int (*(*))(const struct ossl_param_st ,void*) ,int (*(*))(const struct ossl_param_st ,struct ossl_param_st ,void*) ,int (*(*))(const struct ossl_param_st ,void*) ,void*) 
 {
-    return (void (*(*))(void*,int (*(*))(const struct ossl_param_st ,struct ossl_param_st ,void*) ,int (*(*))(const struct ossl_param_st ,void*) ,int (*(*))(const struct ossl_param_st ,struct ossl_param_st ,void*) ,int (*(*))(const struct ossl_param_st ,void*) ,void*) )opf->function;
+        return (void (*(*))(void*,int (*(*))(const struct ossl_param_st ,struct ossl_param_st ,void*) ,int (*(*))(const struct ossl_param_st ,void*) ,int (*(*))(const struct ossl_param_st ,struct ossl_param_st ,void*) ,int (*(*))(const struct ossl_param_st ,void*) ,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_rand_verify_zeroization(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (int (*(*))(void*) )opf->function;
+        return (int (*(*))(void*) )opf->function;
 }
 
 static unsigned long (*(*OSSL_FUNC_rand_get_seed(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char**,int,unsigned long ,unsigned long ,int,const unsigned char*,unsigned long ) 
 {
-    return (unsigned long (*(*))(void*,unsigned char**,int,unsigned long ,unsigned long ,int,const unsigned char*,unsigned long ) )opf->function;
+        return (unsigned long (*(*))(void*,unsigned char**,int,unsigned long ,unsigned long ,int,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_rand_clear_seed(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long ) 
 {
-    return (void (*(*))(void*,unsigned char*,unsigned long ) )opf->function;
+        return (void (*(*))(void*,unsigned char*,unsigned long ) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_keymgmt_new(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*(*))(void*) )opf->function;
+        return (void* (*(*))(void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_keymgmt_gen_init(const struct ossl_dispatch_st*  opf  )))(void*,int,const struct ossl_param_st ) 
 {
-    return (void* (*(*))(void*,int,const struct ossl_param_st ) )opf->function;
+        return (void* (*(*))(void*,int,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_keymgmt_gen_set_template(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (int (*(*))(void*,void*) )opf->function;
+        return (int (*(*))(void*,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_keymgmt_gen_set_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_keymgmt_gen_settable_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_keymgmt_gen_get_params(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_keymgmt_gen_gettable_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_keymgmt_gen(const struct ossl_dispatch_st*  opf  )))(void*,int (*(*))(const struct ossl_param_st ,void*) ,void*) 
 {
-    return (void* (*(*))(void*,int (*(*))(const struct ossl_param_st ,void*) ,void*) )opf->function;
+        return (void* (*(*))(void*,int (*(*))(const struct ossl_param_st ,void*) ,void*) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_keymgmt_gen_cleanup(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*(*))(void*) )opf->function;
+        return (void (*(*))(void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_keymgmt_load(const struct ossl_dispatch_st*  opf  )))(const void*,unsigned long ) 
 {
-    return (void* (*(*))(const void*,unsigned long ) )opf->function;
+        return (void* (*(*))(const void*,unsigned long ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_keymgmt_free(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*(*))(void*) )opf->function;
+        return (void (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_keymgmt_get_params(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_keymgmt_gettable_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_keymgmt_set_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_keymgmt_settable_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static const char* (*(*OSSL_FUNC_keymgmt_query_operation_name(const struct ossl_dispatch_st*  opf  )))(int) 
 {
-    return (const char* (*(*))(int) )opf->function;
+        return (const char* (*(*))(int) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_keymgmt_has(const struct ossl_dispatch_st*  opf  )))(const void*,int) 
 {
-    return (int (*(*))(const void*,int) )opf->function;
+        return (int (*(*))(const void*,int) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_keymgmt_validate(const struct ossl_dispatch_st*  opf  )))(const void*,int,int) 
 {
-    return (int (*(*))(const void*,int,int) )opf->function;
+        return (int (*(*))(const void*,int,int) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_keymgmt_match(const struct ossl_dispatch_st*  opf  )))(const void*,const void*,int) 
 {
-    return (int (*(*))(const void*,const void*,int) )opf->function;
+        return (int (*(*))(const void*,const void*,int) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_keymgmt_import(const struct ossl_dispatch_st*  opf  )))(void*,int,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,int,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,int,const struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_keymgmt_import_types(const struct ossl_dispatch_st*  opf  )))(int) 
 {
-    return (const struct ossl_param_st* (*(*))(int) )opf->function;
+        return (const struct ossl_param_st* (*(*))(int) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_keymgmt_export(const struct ossl_dispatch_st*  opf  )))(void*,int,int (*(*))(const struct ossl_param_st ,void*) ,void*) 
 {
-    return (int (*(*))(void*,int,int (*(*))(const struct ossl_param_st ,void*) ,void*) )opf->function;
+        return (int (*(*))(void*,int,int (*(*))(const struct ossl_param_st ,void*) ,void*) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_keymgmt_export_types(const struct ossl_dispatch_st*  opf  )))(int) 
 {
-    return (const struct ossl_param_st* (*(*))(int) )opf->function;
+        return (const struct ossl_param_st* (*(*))(int) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_keymgmt_dup(const struct ossl_dispatch_st*  opf  )))(const void*,int) 
 {
-    return (void* (*(*))(const void*,int) )opf->function;
+        return (void* (*(*))(const void*,int) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_keymgmt_import_types_ex(const struct ossl_dispatch_st*  opf  )))(void*,int) 
 {
-    return (const struct ossl_param_st* (*(*))(void*,int) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*,int) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_keymgmt_export_types_ex(const struct ossl_dispatch_st*  opf  )))(void*,int) 
 {
-    return (const struct ossl_param_st* (*(*))(void*,int) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*,int) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_keyexch_newctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*(*))(void*) )opf->function;
+        return (void* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_keyexch_init(const struct ossl_dispatch_st*  opf  )))(void*,void*,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_keyexch_derive(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long* ,unsigned long ) 
 {
-    return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ) )opf->function;
+        return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_keyexch_set_peer(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (int (*(*))(void*,void*) )opf->function;
+        return (int (*(*))(void*,void*) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_keyexch_freectx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*(*))(void*) )opf->function;
+        return (void (*(*))(void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_keyexch_dupctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*(*))(void*) )opf->function;
+        return (void* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_keyexch_set_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_keyexch_settable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_keyexch_get_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_keyexch_gettable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_signature_newctx(const struct ossl_dispatch_st*  opf  )))(void*,const char*) 
 {
-    return (void* (*(*))(void*,const char*) )opf->function;
+        return (void* (*(*))(void*,const char*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_sign_init(const struct ossl_dispatch_st*  opf  )))(void*,void*,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_sign(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) 
 {
-    return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
+        return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_sign_message_init(const struct ossl_dispatch_st*  opf  )))(void*,void*,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_sign_message_update(const struct ossl_dispatch_st*  opf  )))(void*,const unsigned char*,unsigned long ) 
 {
-    return (int (*(*))(void*,const unsigned char*,unsigned long ) )opf->function;
+        return (int (*(*))(void*,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_sign_message_final(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long* ,unsigned long ) 
 {
-    return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ) )opf->function;
+        return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_verify_init(const struct ossl_dispatch_st*  opf  )))(void*,void*,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_verify(const struct ossl_dispatch_st*  opf  )))(void*,const unsigned char*,unsigned long ,const unsigned char*,unsigned long ) 
 {
-    return (int (*(*))(void*,const unsigned char*,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
+        return (int (*(*))(void*,const unsigned char*,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_verify_message_init(const struct ossl_dispatch_st*  opf  )))(void*,void*,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_verify_message_update(const struct ossl_dispatch_st*  opf  )))(void*,const unsigned char*,unsigned long ) 
 {
-    return (int (*(*))(void*,const unsigned char*,unsigned long ) )opf->function;
+        return (int (*(*))(void*,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_verify_message_final(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (int (*(*))(void*) )opf->function;
+        return (int (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_verify_recover_init(const struct ossl_dispatch_st*  opf  )))(void*,void*,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_verify_recover(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) 
 {
-    return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
+        return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_digest_sign_init(const struct ossl_dispatch_st*  opf  )))(void*,const char*,void*,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,const char*,void*,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,const char*,void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_digest_sign_update(const struct ossl_dispatch_st*  opf  )))(void*,const unsigned char*,unsigned long ) 
 {
-    return (int (*(*))(void*,const unsigned char*,unsigned long ) )opf->function;
+        return (int (*(*))(void*,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_digest_sign_final(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long* ,unsigned long ) 
 {
-    return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ) )opf->function;
+        return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_digest_sign(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) 
 {
-    return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
+        return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_digest_verify_init(const struct ossl_dispatch_st*  opf  )))(void*,const char*,void*,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,const char*,void*,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,const char*,void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_digest_verify_update(const struct ossl_dispatch_st*  opf  )))(void*,const unsigned char*,unsigned long ) 
 {
-    return (int (*(*))(void*,const unsigned char*,unsigned long ) )opf->function;
+        return (int (*(*))(void*,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_digest_verify_final(const struct ossl_dispatch_st*  opf  )))(void*,const unsigned char*,unsigned long ) 
 {
-    return (int (*(*))(void*,const unsigned char*,unsigned long ) )opf->function;
+        return (int (*(*))(void*,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_digest_verify(const struct ossl_dispatch_st*  opf  )))(void*,const unsigned char*,unsigned long ,const unsigned char*,unsigned long ) 
 {
-    return (int (*(*))(void*,const unsigned char*,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
+        return (int (*(*))(void*,const unsigned char*,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_signature_freectx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*(*))(void*) )opf->function;
+        return (void (*(*))(void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_signature_dupctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*(*))(void*) )opf->function;
+        return (void* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_get_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_signature_gettable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_set_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_signature_settable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_get_ctx_md_params(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_signature_gettable_ctx_md_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_signature_set_ctx_md_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_signature_settable_ctx_md_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static const char** (*(*OSSL_FUNC_signature_query_key_types(const struct ossl_dispatch_st*  opf  )))() 
 {
-    return (const char** (*(*))() )opf->function;
+        return (const char** (*(*))() )opf->function;
 }
 
 static void (*(*OSSL_FUNC_skeymgmt_free(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*(*))(void*) )opf->function;
+        return (void (*(*))(void*) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_skeymgmt_imp_settable_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_skeymgmt_import(const struct ossl_dispatch_st*  opf  )))(void*,int,const struct ossl_param_st ) 
 {
-    return (void* (*(*))(void*,int,const struct ossl_param_st ) )opf->function;
+        return (void* (*(*))(void*,int,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_skeymgmt_export(const struct ossl_dispatch_st*  opf  )))(void*,int,int (*(*))(const struct ossl_param_st ,void*) ,void*) 
 {
-    return (int (*(*))(void*,int,int (*(*))(const struct ossl_param_st ,void*) ,void*) )opf->function;
+        return (int (*(*))(void*,int,int (*(*))(const struct ossl_param_st ,void*) ,void*) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_skeymgmt_gen_settable_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_skeymgmt_generate(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (void* (*(*))(void*,const struct ossl_param_st ) )opf->function;
+        return (void* (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
 static const char* (*(*OSSL_FUNC_skeymgmt_get_key_id(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const char* (*(*))(void*) )opf->function;
+        return (const char* (*(*))(void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_asym_cipher_newctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*(*))(void*) )opf->function;
+        return (void* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_asym_cipher_encrypt_init(const struct ossl_dispatch_st*  opf  )))(void*,void*,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_asym_cipher_encrypt(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) 
 {
-    return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
+        return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_asym_cipher_decrypt_init(const struct ossl_dispatch_st*  opf  )))(void*,void*,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_asym_cipher_decrypt(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) 
 {
-    return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
+        return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned long ,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_asym_cipher_freectx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*(*))(void*) )opf->function;
+        return (void (*(*))(void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_asym_cipher_dupctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*(*))(void*) )opf->function;
+        return (void* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_asym_cipher_get_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_asym_cipher_gettable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_asym_cipher_set_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_asym_cipher_settable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_kem_newctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*(*))(void*) )opf->function;
+        return (void* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_kem_encapsulate_init(const struct ossl_dispatch_st*  opf  )))(void*,void*,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_kem_auth_encapsulate_init(const struct ossl_dispatch_st*  opf  )))(void*,void*,void*,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,void*,void*,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,void*,void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_kem_encapsulate(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long* ,unsigned char*,unsigned long* ) 
 {
-    return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned char*,unsigned long* ) )opf->function;
+        return (int (*(*))(void*,unsigned char*,unsigned long* ,unsigned char*,unsigned long* ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_kem_decapsulate_init(const struct ossl_dispatch_st*  opf  )))(void*,void*,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_kem_auth_decapsulate_init(const struct ossl_dispatch_st*  opf  )))(void*,void*,void*,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,void*,void*,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,void*,void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_kem_decapsulate(const struct ossl_dispatch_st*  opf  )))(void*,unsigned char*,unsigned long* ,const unsigned char*,unsigned long ) 
 {
-    return (int (*(*))(void*,unsigned char*,unsigned long* ,const unsigned char*,unsigned long ) )opf->function;
+        return (int (*(*))(void*,unsigned char*,unsigned long* ,const unsigned char*,unsigned long ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_kem_freectx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*(*))(void*) )opf->function;
+        return (void (*(*))(void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_kem_dupctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*(*))(void*) )opf->function;
+        return (void* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_kem_get_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_kem_gettable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_kem_set_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_kem_settable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*,void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_encoder_newctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*(*))(void*) )opf->function;
+        return (void* (*(*))(void*) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_encoder_freectx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*(*))(void*) )opf->function;
+        return (void (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_encoder_get_params(const struct ossl_dispatch_st*  opf  )))(struct ossl_param_st ) 
 {
-    return (int (*(*))(struct ossl_param_st ) )opf->function;
+        return (int (*(*))(struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_encoder_gettable_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_encoder_set_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_encoder_settable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_encoder_does_selection(const struct ossl_dispatch_st*  opf  )))(void*,int) 
 {
-    return (int (*(*))(void*,int) )opf->function;
+        return (int (*(*))(void*,int) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_encoder_encode(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_core_bio_st* ,const void*,const struct ossl_param_st ,int,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) 
 {
-    return (int (*(*))(void*,struct ossl_core_bio_st* ,const void*,const struct ossl_param_st ,int,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) )opf->function;
+        return (int (*(*))(void*,struct ossl_core_bio_st* ,const void*,const struct ossl_param_st ,int,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_encoder_import_object(const struct ossl_dispatch_st*  opf  )))(void*,int,const struct ossl_param_st ) 
 {
-    return (void* (*(*))(void*,int,const struct ossl_param_st ) )opf->function;
+        return (void* (*(*))(void*,int,const struct ossl_param_st ) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_encoder_free_object(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*(*))(void*) )opf->function;
+        return (void (*(*))(void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_decoder_newctx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void* (*(*))(void*) )opf->function;
+        return (void* (*(*))(void*) )opf->function;
 }
 
 static void (*(*OSSL_FUNC_decoder_freectx(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (void (*(*))(void*) )opf->function;
+        return (void (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_decoder_get_params(const struct ossl_dispatch_st*  opf  )))(struct ossl_param_st ) 
 {
-    return (int (*(*))(struct ossl_param_st ) )opf->function;
+        return (int (*(*))(struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_decoder_gettable_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_decoder_set_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_decoder_settable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_decoder_does_selection(const struct ossl_dispatch_st*  opf  )))(void*,int) 
 {
-    return (int (*(*))(void*,int) )opf->function;
+        return (int (*(*))(void*,int) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_decoder_decode(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_core_bio_st* ,int,int (*(*))(const struct ossl_param_st ,void*) ,void*,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) 
 {
-    return (int (*(*))(void*,struct ossl_core_bio_st* ,int,int (*(*))(const struct ossl_param_st ,void*) ,void*,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) )opf->function;
+        return (int (*(*))(void*,struct ossl_core_bio_st* ,int,int (*(*))(const struct ossl_param_st ,void*) ,void*,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_decoder_export_object(const struct ossl_dispatch_st*  opf  )))(void*,const void*,unsigned long ,int (*(*))(const struct ossl_param_st ,void*) ,void*) 
 {
-    return (int (*(*))(void*,const void*,unsigned long ,int (*(*))(const struct ossl_param_st ,void*) ,void*) )opf->function;
+        return (int (*(*))(void*,const void*,unsigned long ,int (*(*))(const struct ossl_param_st ,void*) ,void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_store_open(const struct ossl_dispatch_st*  opf  )))(void*,const char*) 
 {
-    return (void* (*(*))(void*,const char*) )opf->function;
+        return (void* (*(*))(void*,const char*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_store_attach(const struct ossl_dispatch_st*  opf  )))(void*,struct ossl_core_bio_st* ) 
 {
-    return (void* (*(*))(void*,struct ossl_core_bio_st* ) )opf->function;
+        return (void* (*(*))(void*,struct ossl_core_bio_st* ) )opf->function;
 }
 
 static const struct ossl_param_st* (*(*OSSL_FUNC_store_settable_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (const struct ossl_param_st* (*(*))(void*) )opf->function;
+        return (const struct ossl_param_st* (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_store_set_ctx_params(const struct ossl_dispatch_st*  opf  )))(void*,const struct ossl_param_st ) 
 {
-    return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
+        return (int (*(*))(void*,const struct ossl_param_st ) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_store_load(const struct ossl_dispatch_st*  opf  )))(void*,int (*(*))(const struct ossl_param_st ,void*) ,void*,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) 
 {
-    return (int (*(*))(void*,int (*(*))(const struct ossl_param_st ,void*) ,void*,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) )opf->function;
+        return (int (*(*))(void*,int (*(*))(const struct ossl_param_st ,void*) ,void*,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_store_eof(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (int (*(*))(void*) )opf->function;
+        return (int (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_store_close(const struct ossl_dispatch_st*  opf  )))(void*) 
 {
-    return (int (*(*))(void*) )opf->function;
+        return (int (*(*))(void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_store_export_object(const struct ossl_dispatch_st*  opf  )))(void*,const void*,unsigned long ,int (*(*))(const struct ossl_param_st ,void*) ,void*) 
 {
-    return (int (*(*))(void*,const void*,unsigned long ,int (*(*))(const struct ossl_param_st ,void*) ,void*) )opf->function;
+        return (int (*(*))(void*,const void*,unsigned long ,int (*(*))(const struct ossl_param_st ,void*) ,void*) )opf->function;
 }
 
 static int (*(*OSSL_FUNC_store_delete(const struct ossl_dispatch_st*  opf  )))(void*,const char*,const struct ossl_param_st ,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) 
 {
-    return (int (*(*))(void*,const char*,const struct ossl_param_st ,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) )opf->function;
+        return (int (*(*))(void*,const char*,const struct ossl_param_st ,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) )opf->function;
 }
 
 static void* (*(*OSSL_FUNC_store_open_ex(const struct ossl_dispatch_st*  opf  )))(void*,const char*,const struct ossl_param_st ,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) 
 {
-    return (void* (*(*))(void*,const char*,const struct ossl_param_st ,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) )opf->function;
+        return (void* (*(*))(void*,const char*,const struct ossl_param_st ,int (*(*))(char*,unsigned long ,unsigned long* ,const struct ossl_param_st ,void*) ,void*) )opf->function;
 }
 
 static struct X509_algor_st*  ossl_check_X509_ALGOR_type(struct X509_algor_st*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_X509_ALGOR_sk_type(const struct stack_st_X509_ALGOR*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_X509_ALGOR_sk_type(struct stack_st_X509_ALGOR*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_X509_ALGOR_compfunc_type(int (*cmp)(const struct X509_algor_st** const ,const struct X509_algor_st** const )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_X509_ALGOR_copyfunc_type(struct X509_algor_st* (*cpy)(const struct X509_algor_st* )  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_X509_ALGOR_freefunc_type(void (*fr)(struct X509_algor_st* )  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static struct asn1_string_table_st*  ossl_check_ASN1_STRING_TABLE_type(struct asn1_string_table_st*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_ASN1_STRING_TABLE_sk_type(const struct stack_st_ASN1_STRING_TABLE*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_ASN1_STRING_TABLE_sk_type(struct stack_st_ASN1_STRING_TABLE*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_ASN1_STRING_TABLE_compfunc_type(int (*cmp)(const struct asn1_string_table_st** const ,const struct asn1_string_table_st** const )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_ASN1_STRING_TABLE_copyfunc_type(struct asn1_string_table_st* (*cpy)(const struct asn1_string_table_st* )  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_ASN1_STRING_TABLE_freefunc_type(void (*fr)(struct asn1_string_table_st* )  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static struct asn1_type_st*  ossl_check_ASN1_TYPE_type(struct asn1_type_st*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_ASN1_TYPE_sk_type(const struct stack_st_ASN1_TYPE*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_ASN1_TYPE_sk_type(struct stack_st_ASN1_TYPE*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_ASN1_TYPE_compfunc_type(int (*cmp)(const struct asn1_type_st** const ,const struct asn1_type_st** const )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_ASN1_TYPE_copyfunc_type(struct asn1_type_st* (*cpy)(const struct asn1_type_st* )  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_ASN1_TYPE_freefunc_type(void (*fr)(struct asn1_type_st* )  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static struct asn1_object_st*  ossl_check_ASN1_OBJECT_type(struct asn1_object_st*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_ASN1_OBJECT_sk_type(const struct stack_st_ASN1_OBJECT*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_ASN1_OBJECT_sk_type(struct stack_st_ASN1_OBJECT*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_ASN1_OBJECT_compfunc_type(int (*cmp)(const struct asn1_object_st** const ,const struct asn1_object_st** const )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_ASN1_OBJECT_copyfunc_type(struct asn1_object_st* (*cpy)(const struct asn1_object_st* )  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_ASN1_OBJECT_freefunc_type(void (*fr)(struct asn1_object_st* )  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static struct asn1_string_st*  ossl_check_ASN1_INTEGER_type(struct asn1_string_st*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_ASN1_INTEGER_sk_type(const struct stack_st_ASN1_INTEGER*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_ASN1_INTEGER_sk_type(struct stack_st_ASN1_INTEGER*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_ASN1_INTEGER_compfunc_type(int (*cmp)(const struct asn1_string_st** const ,const struct asn1_string_st** const )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_ASN1_INTEGER_copyfunc_type(struct asn1_string_st* (*cpy)(const struct asn1_string_st* )  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_ASN1_INTEGER_freefunc_type(void (*fr)(struct asn1_string_st* )  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static struct asn1_string_st*  ossl_check_ASN1_UTF8STRING_type(struct asn1_string_st*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_ASN1_UTF8STRING_sk_type(const struct stack_st_ASN1_UTF8STRING*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_ASN1_UTF8STRING_sk_type(struct stack_st_ASN1_UTF8STRING*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_ASN1_UTF8STRING_compfunc_type(int (*cmp)(const struct asn1_string_st** const ,const struct asn1_string_st** const )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_ASN1_UTF8STRING_copyfunc_type(struct asn1_string_st* (*cpy)(const struct asn1_string_st* )  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_ASN1_UTF8STRING_freefunc_type(void (*fr)(struct asn1_string_st* )  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static struct asn1_string_st*  ossl_check_ASN1_GENERALSTRING_type(struct asn1_string_st*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_ASN1_GENERALSTRING_sk_type(const struct stack_st_ASN1_GENERALSTRING*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_ASN1_GENERALSTRING_sk_type(struct stack_st_ASN1_GENERALSTRING*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_ASN1_GENERALSTRING_compfunc_type(int (*cmp)(const struct asn1_string_st** const ,const struct asn1_string_st** const )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_ASN1_GENERALSTRING_copyfunc_type(struct asn1_string_st* (*cpy)(const struct asn1_string_st* )  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_ASN1_GENERALSTRING_freefunc_type(void (*fr)(struct asn1_string_st* )  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static struct X509_name_st*  ossl_check_X509_NAME_type(struct X509_name_st*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_X509_NAME_sk_type(const struct stack_st_X509_NAME*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_X509_NAME_sk_type(struct stack_st_X509_NAME*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_X509_NAME_compfunc_type(int (*cmp)(const struct X509_name_st** const ,const struct X509_name_st** const )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_X509_NAME_copyfunc_type(struct X509_name_st* (*cpy)(const struct X509_name_st* )  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_X509_NAME_freefunc_type(void (*fr)(struct X509_name_st* )  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static struct x509_st*  ossl_check_X509_type(struct x509_st*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_X509_sk_type(const struct stack_st_X509*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_X509_sk_type(struct stack_st_X509*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_X509_compfunc_type(int (*cmp)(const struct x509_st** const ,const struct x509_st** const )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_X509_copyfunc_type(struct x509_st* (*cpy)(const struct x509_st* )  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_X509_freefunc_type(void (*fr)(struct x509_st* )  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static struct x509_revoked_st*  ossl_check_X509_REVOKED_type(struct x509_revoked_st*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_X509_REVOKED_sk_type(const struct stack_st_X509_REVOKED*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_X509_REVOKED_sk_type(struct stack_st_X509_REVOKED*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_X509_REVOKED_compfunc_type(int (*cmp)(const struct x509_revoked_st** const ,const struct x509_revoked_st** const )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_X509_REVOKED_copyfunc_type(struct x509_revoked_st* (*cpy)(const struct x509_revoked_st* )  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_X509_REVOKED_freefunc_type(void (*fr)(struct x509_revoked_st* )  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static struct X509_crl_st*  ossl_check_X509_CRL_type(struct X509_crl_st*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_X509_CRL_sk_type(const struct stack_st_X509_CRL*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_X509_CRL_sk_type(struct stack_st_X509_CRL*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_X509_CRL_compfunc_type(int (*cmp)(const struct X509_crl_st** const ,const struct X509_crl_st** const )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_X509_CRL_copyfunc_type(struct X509_crl_st* (*cpy)(const struct X509_crl_st* )  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_X509_CRL_freefunc_type(void (*fr)(struct X509_crl_st* )  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static struct X509_name_entry_st*  ossl_check_X509_NAME_ENTRY_type(struct X509_name_entry_st*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_X509_NAME_ENTRY_sk_type(const struct stack_st_X509_NAME_ENTRY*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_X509_NAME_ENTRY_sk_type(struct stack_st_X509_NAME_ENTRY*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_X509_NAME_ENTRY_compfunc_type(int (*cmp)(const struct X509_name_entry_st** const ,const struct X509_name_entry_st** const )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_X509_NAME_ENTRY_copyfunc_type(struct X509_name_entry_st* (*cpy)(const struct X509_name_entry_st* )  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_X509_NAME_ENTRY_freefunc_type(void (*fr)(struct X509_name_entry_st* )  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static struct X509_extension_st*  ossl_check_X509_EXTENSION_type(struct X509_extension_st*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_X509_EXTENSION_sk_type(const struct stack_st_X509_EXTENSION*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_X509_EXTENSION_sk_type(struct stack_st_X509_EXTENSION*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_X509_EXTENSION_compfunc_type(int (*cmp)(const struct X509_extension_st** const ,const struct X509_extension_st** const )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_X509_EXTENSION_copyfunc_type(struct X509_extension_st* (*cpy)(const struct X509_extension_st* )  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_X509_EXTENSION_freefunc_type(void (*fr)(struct X509_extension_st* )  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static struct x509_attributes_st*  ossl_check_X509_ATTRIBUTE_type(struct x509_attributes_st*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_X509_ATTRIBUTE_sk_type(const struct stack_st_X509_ATTRIBUTE*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_X509_ATTRIBUTE_sk_type(struct stack_st_X509_ATTRIBUTE*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_X509_ATTRIBUTE_compfunc_type(int (*cmp)(const struct x509_attributes_st** const ,const struct x509_attributes_st** const )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_X509_ATTRIBUTE_copyfunc_type(struct x509_attributes_st* (*cpy)(const struct x509_attributes_st* )  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_X509_ATTRIBUTE_freefunc_type(void (*fr)(struct x509_attributes_st* )  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static struct X509_info_st*  ossl_check_X509_INFO_type(struct X509_info_st*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_X509_INFO_sk_type(const struct stack_st_X509_INFO*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_X509_INFO_sk_type(struct stack_st_X509_INFO*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_X509_INFO_compfunc_type(int (*cmp)(const struct X509_info_st** const ,const struct X509_info_st** const )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_X509_INFO_copyfunc_type(struct X509_info_st*  (*cpy)(const struct X509_info_st* )  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_X509_INFO_freefunc_type(void (*fr)(struct X509_info_st* )  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static unsigned long  int lh_OPENSSL_STRING_hash_thunk(const void* data, unsigned long  int (*hfn)(const void*)  )
 {
     unsigned long  int (*hfn_conv)(const char** );
     hfn_conv=(unsigned long  int (*)(const char** ))hfn;
-    return hfn_conv((const char** )data);
+        return hfn_conv((const char** )data);
 }
 
 static int lh_OPENSSL_STRING_comp_thunk(const void* da, const void* db, int (*cfn)(const void*,const void*)  )
 {
     int (*cfn_conv)(const char** ,const char** );
     cfn_conv=(int (*)(const char** ,const char** ))cfn;
-    return cfn_conv((const char** )da,(const char** )db);
+        return cfn_conv((const char** )da,(const char** )db);
 }
 
 static void lh_OPENSSL_STRING_doall_thunk(void* node, void (*doall)(void*)  )
@@ -12466,51 +12436,51 @@ static void lh_OPENSSL_STRING_doall_arg_thunk(void* node, void* arg, void (*doal
 
 static char**  ossl_check_OPENSSL_STRING_lh_plain_type(char**  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const char**  ossl_check_const_OPENSSL_STRING_lh_plain_type(const char**  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct lhash_st*  ossl_check_const_OPENSSL_STRING_lh_type(const struct lhash_st_OPENSSL_STRING*  lh  )
 {
-    return (const struct lhash_st* )lh;
+        return (const struct lhash_st* )lh;
 }
 
 static struct lhash_st*  ossl_check_OPENSSL_STRING_lh_type(struct lhash_st_OPENSSL_STRING*  lh  )
 {
-    return (struct lhash_st* )lh;
+        return (struct lhash_st* )lh;
 }
 
 static int (*ossl_check_OPENSSL_STRING_lh_compfunc_type(int (*cmp)(const char** ,const char** )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static unsigned long  int (*ossl_check_OPENSSL_STRING_lh_hashfunc_type(unsigned long  int (*hfn)(const char** )  ))(const void*) 
 {
-    return (unsigned long  int (*)(const void*) )hfn;
+        return (unsigned long  int (*)(const void*) )hfn;
 }
 
 static void (*ossl_check_OPENSSL_STRING_lh_doallfunc_type(void (*dfn)(char** )  ))(void*) 
 {
-    return (void (*)(void*) )dfn;
+        return (void (*)(void*) )dfn;
 }
 
 static unsigned long  int lh_OPENSSL_CSTRING_hash_thunk(const void* data, unsigned long  int (*hfn)(const void*)  )
 {
     unsigned long  int (*hfn_conv)(const char** );
     hfn_conv=(unsigned long  int (*)(const char** ))hfn;
-    return hfn_conv((const char** )data);
+        return hfn_conv((const char** )data);
 }
 
 static int lh_OPENSSL_CSTRING_comp_thunk(const void* da, const void* db, int (*cfn)(const void*,const void*)  )
 {
     int (*cfn_conv)(const char** ,const char** );
     cfn_conv=(int (*)(const char** ,const char** ))cfn;
-    return cfn_conv((const char** )da,(const char** )db);
+        return cfn_conv((const char** )da,(const char** )db);
 }
 
 static void lh_OPENSSL_CSTRING_doall_thunk(void* node, void (*doall)(void*)  )
@@ -12529,291 +12499,291 @@ static void lh_OPENSSL_CSTRING_doall_arg_thunk(void* node, void* arg, void (*doa
 
 static const char**  ossl_check_OPENSSL_CSTRING_lh_plain_type(const char**  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const char**  ossl_check_const_OPENSSL_CSTRING_lh_plain_type(const char**  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct lhash_st*  ossl_check_const_OPENSSL_CSTRING_lh_type(const struct lhash_st_OPENSSL_CSTRING*  lh  )
 {
-    return (const struct lhash_st* )lh;
+        return (const struct lhash_st* )lh;
 }
 
 static struct lhash_st*  ossl_check_OPENSSL_CSTRING_lh_type(struct lhash_st_OPENSSL_CSTRING*  lh  )
 {
-    return (struct lhash_st* )lh;
+        return (struct lhash_st* )lh;
 }
 
 static int (*ossl_check_OPENSSL_CSTRING_lh_compfunc_type(int (*cmp)(const char** ,const char** )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static unsigned long  int (*ossl_check_OPENSSL_CSTRING_lh_hashfunc_type(unsigned long  int (*hfn)(const char** )  ))(const void*) 
 {
-    return (unsigned long  int (*)(const void*) )hfn;
+        return (unsigned long  int (*)(const void*) )hfn;
 }
 
 static void (*ossl_check_OPENSSL_CSTRING_lh_doallfunc_type(void (*dfn)(const char** )  ))(void*) 
 {
-    return (void (*)(void*) )dfn;
+        return (void (*)(void*) )dfn;
 }
 
 static struct x509_lookup_st*  ossl_check_X509_LOOKUP_type(struct x509_lookup_st*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_X509_LOOKUP_sk_type(const struct stack_st_X509_LOOKUP*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_X509_LOOKUP_sk_type(struct stack_st_X509_LOOKUP*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_X509_LOOKUP_compfunc_type(int (*cmp)(const struct x509_lookup_st** const ,const struct x509_lookup_st** const )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_X509_LOOKUP_copyfunc_type(struct x509_lookup_st* (*cpy)(const struct x509_lookup_st* )  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_X509_LOOKUP_freefunc_type(void (*fr)(struct x509_lookup_st* )  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static struct x509_object_st*  ossl_check_X509_OBJECT_type(struct x509_object_st*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_X509_OBJECT_sk_type(const struct stack_st_X509_OBJECT*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_X509_OBJECT_sk_type(struct stack_st_X509_OBJECT*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_X509_OBJECT_compfunc_type(int (*cmp)(const struct x509_object_st** const ,const struct x509_object_st** const )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_X509_OBJECT_copyfunc_type(struct x509_object_st* (*cpy)(const struct x509_object_st* )  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_X509_OBJECT_freefunc_type(void (*fr)(struct x509_object_st* )  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static struct X509_VERIFY_PARAM_st*  ossl_check_X509_VERIFY_PARAM_type(struct X509_VERIFY_PARAM_st*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_X509_VERIFY_PARAM_sk_type(const struct stack_st_X509_VERIFY_PARAM*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_X509_VERIFY_PARAM_sk_type(struct stack_st_X509_VERIFY_PARAM*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_X509_VERIFY_PARAM_compfunc_type(int (*cmp)(const struct X509_VERIFY_PARAM_st** const ,const struct X509_VERIFY_PARAM_st** const )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_X509_VERIFY_PARAM_copyfunc_type(struct X509_VERIFY_PARAM_st* (*cpy)(const struct X509_VERIFY_PARAM_st* )  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_X509_VERIFY_PARAM_freefunc_type(void (*fr)(struct X509_VERIFY_PARAM_st* )  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static struct x509_trust_st*  ossl_check_X509_TRUST_type(struct x509_trust_st*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_X509_TRUST_sk_type(const struct stack_st_X509_TRUST*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_X509_TRUST_sk_type(struct stack_st_X509_TRUST*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_X509_TRUST_compfunc_type(int (*cmp)(const struct x509_trust_st** const ,const struct x509_trust_st** const )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_X509_TRUST_copyfunc_type(struct x509_trust_st*  (*cpy)(const struct x509_trust_st* )  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_X509_TRUST_freefunc_type(void (*fr)(struct x509_trust_st* )  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static struct pkcs7_signer_info_st*  ossl_check_PKCS7_SIGNER_INFO_type(struct pkcs7_signer_info_st*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_PKCS7_SIGNER_INFO_sk_type(const struct stack_st_PKCS7_SIGNER_INFO*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_PKCS7_SIGNER_INFO_sk_type(struct stack_st_PKCS7_SIGNER_INFO*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_PKCS7_SIGNER_INFO_compfunc_type(int (*cmp)(const struct pkcs7_signer_info_st** const ,const struct pkcs7_signer_info_st** const )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_PKCS7_SIGNER_INFO_copyfunc_type(struct pkcs7_signer_info_st*  (*cpy)(const struct pkcs7_signer_info_st* )  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_PKCS7_SIGNER_INFO_freefunc_type(void (*fr)(struct pkcs7_signer_info_st* )  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static struct pkcs7_recip_info_st*  ossl_check_PKCS7_RECIP_INFO_type(struct pkcs7_recip_info_st*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_PKCS7_RECIP_INFO_sk_type(const struct stack_st_PKCS7_RECIP_INFO*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_PKCS7_RECIP_INFO_sk_type(struct stack_st_PKCS7_RECIP_INFO*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_PKCS7_RECIP_INFO_compfunc_type(int (*cmp)(const struct pkcs7_recip_info_st** const ,const struct pkcs7_recip_info_st** const )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_PKCS7_RECIP_INFO_copyfunc_type(struct pkcs7_recip_info_st*  (*cpy)(const struct pkcs7_recip_info_st* )  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_PKCS7_RECIP_INFO_freefunc_type(void (*fr)(struct pkcs7_recip_info_st* )  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static struct pkcs7_st*  ossl_check_PKCS7_type(struct pkcs7_st*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_PKCS7_sk_type(const struct stack_st_PKCS7*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_PKCS7_sk_type(struct stack_st_PKCS7*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_PKCS7_compfunc_type(int (*cmp)(const struct pkcs7_st** const ,const struct pkcs7_st** const )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_PKCS7_copyfunc_type(struct pkcs7_st*  (*cpy)(const struct pkcs7_st* )  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_PKCS7_freefunc_type(void (*fr)(struct pkcs7_st* )  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static struct anonymous_typeX45*  ossl_check_CONF_VALUE_type(struct anonymous_typeX45*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_CONF_VALUE_sk_type(const struct stack_st_CONF_VALUE*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_CONF_VALUE_sk_type(struct stack_st_CONF_VALUE*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_CONF_VALUE_compfunc_type(int (*cmp)(const struct anonymous_typeX45** const ,const struct anonymous_typeX45** const )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_CONF_VALUE_copyfunc_type(struct anonymous_typeX45* (*cpy)(const struct anonymous_typeX45* )  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_CONF_VALUE_freefunc_type(void (*fr)(struct anonymous_typeX45* )  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static unsigned long  int lh_CONF_VALUE_hash_thunk(const void* data, unsigned long  int (*hfn)(const void*)  )
 {
     unsigned long  int (*hfn_conv)(const struct anonymous_typeX45* );
     hfn_conv=(unsigned long  int (*)(const struct anonymous_typeX45* ))hfn;
-    return hfn_conv((const struct anonymous_typeX45* )data);
+        return hfn_conv((const struct anonymous_typeX45* )data);
 }
 
 static int lh_CONF_VALUE_comp_thunk(const void* da, const void* db, int (*cfn)(const void*,const void*)  )
 {
     int (*cfn_conv)(const struct anonymous_typeX45* ,const struct anonymous_typeX45* );
     cfn_conv=(int (*)(const struct anonymous_typeX45* ,const struct anonymous_typeX45* ))cfn;
-    return cfn_conv((const struct anonymous_typeX45* )da,(const struct anonymous_typeX45* )db);
+        return cfn_conv((const struct anonymous_typeX45* )da,(const struct anonymous_typeX45* )db);
 }
 
 static void lh_CONF_VALUE_doall_thunk(void* node, void (*doall)(void*)  )
@@ -12832,157 +12802,157 @@ static void lh_CONF_VALUE_doall_arg_thunk(void* node, void* arg, void (*doall)(v
 
 static struct anonymous_typeX45*  ossl_check_CONF_VALUE_lh_plain_type(struct anonymous_typeX45*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct anonymous_typeX45*  ossl_check_const_CONF_VALUE_lh_plain_type(const struct anonymous_typeX45*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct lhash_st*  ossl_check_const_CONF_VALUE_lh_type(const struct lhash_st_CONF_VALUE*  lh  )
 {
-    return (const struct lhash_st* )lh;
+        return (const struct lhash_st* )lh;
 }
 
 static struct lhash_st*  ossl_check_CONF_VALUE_lh_type(struct lhash_st_CONF_VALUE*  lh  )
 {
-    return (struct lhash_st* )lh;
+        return (struct lhash_st* )lh;
 }
 
 static int (*ossl_check_CONF_VALUE_lh_compfunc_type(int (*cmp)(const struct anonymous_typeX45* ,const struct anonymous_typeX45* )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static unsigned long  int (*ossl_check_CONF_VALUE_lh_hashfunc_type(unsigned long  int (*hfn)(const struct anonymous_typeX45* )  ))(const void*) 
 {
-    return (unsigned long  int (*)(const void*) )hfn;
+        return (unsigned long  int (*)(const void*) )hfn;
 }
 
 static void (*ossl_check_CONF_VALUE_lh_doallfunc_type(void (*dfn)(struct anonymous_typeX45* )  ))(void*) 
 {
-    return (void (*)(void*) )dfn;
+        return (void (*)(void*) )dfn;
 }
 
 static struct sct_st*  ossl_check_SCT_type(struct sct_st*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_SCT_sk_type(const struct stack_st_SCT*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_SCT_sk_type(struct stack_st_SCT*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_SCT_compfunc_type(int (*cmp)(const struct sct_st** const ,const struct sct_st** const )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_SCT_copyfunc_type(struct sct_st* (*cpy)(const struct sct_st* )  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_SCT_freefunc_type(void (*fr)(struct sct_st* )  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static struct ctlog_st*  ossl_check_CTLOG_type(struct ctlog_st*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_CTLOG_sk_type(const struct stack_st_CTLOG*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_CTLOG_sk_type(struct stack_st_CTLOG*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_CTLOG_compfunc_type(int (*cmp)(const struct ctlog_st** const ,const struct ctlog_st** const )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_CTLOG_copyfunc_type(struct ctlog_st* (*cpy)(const struct ctlog_st* )  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_CTLOG_freefunc_type(void (*fr)(struct ctlog_st* )  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static struct srtp_protection_profile_st*  ossl_check_SRTP_PROTECTION_PROFILE_type(struct srtp_protection_profile_st*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_SRTP_PROTECTION_PROFILE_sk_type(const struct stack_st_SRTP_PROTECTION_PROFILE*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_SRTP_PROTECTION_PROFILE_sk_type(struct stack_st_SRTP_PROTECTION_PROFILE*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_SRTP_PROTECTION_PROFILE_compfunc_type(int (*cmp)(const struct srtp_protection_profile_st** const ,const struct srtp_protection_profile_st** const )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_SRTP_PROTECTION_PROFILE_copyfunc_type(struct srtp_protection_profile_st*  (*cpy)(const struct srtp_protection_profile_st* )  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_SRTP_PROTECTION_PROFILE_freefunc_type(void (*fr)(struct srtp_protection_profile_st* )  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static const struct ssl_cipher_st*  ossl_check_SSL_CIPHER_type(const struct ssl_cipher_st*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct stack_st*  ossl_check_const_SSL_CIPHER_sk_type(const struct stack_st_SSL_CIPHER*  sk  )
 {
-    return (const struct stack_st* )sk;
+        return (const struct stack_st* )sk;
 }
 
 static struct stack_st*  ossl_check_SSL_CIPHER_sk_type(struct stack_st_SSL_CIPHER*  sk  )
 {
-    return (struct stack_st* )sk;
+        return (struct stack_st* )sk;
 }
 
 static int (*ossl_check_SSL_CIPHER_compfunc_type(int (*cmp)(const struct ssl_cipher_st** const ,const struct ssl_cipher_st** const )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static void* (*ossl_check_SSL_CIPHER_copyfunc_type(struct ssl_cipher_st* (*cpy)(const struct ssl_cipher_st* )  ))(const void*) 
 {
-    return (void* (*)(const void*) )cpy;
+        return (void* (*)(const void*) )cpy;
 }
 
 static void (*ossl_check_SSL_CIPHER_freefunc_type(void (*fr)(struct ssl_cipher_st* )  ))(void*) 
 {
-    return (void (*)(void*) )fr;
+        return (void (*)(void*) )fr;
 }
 
 static struct bio_poll_descriptor_st  SSL_as_poll_descriptor(struct ssl_st*  s  )
@@ -12991,55 +12961,55 @@ static struct bio_poll_descriptor_st  SSL_as_poll_descriptor(struct ssl_st*  s  
     memset(&d, 0, sizeof(d));
     d.type=2;
     d.value.ssl=s;
-    return d;
+        return d;
 }
 
 static int ERR_GET_LIB(unsigned long  int errcode)
 {
     if((((errcode)&((unsigned int)2147483647+1))!=0)) {
-        return 2;
+                return 2;
     }
-    return (errcode>>23L)&0xFF;
+        return (errcode>>23L)&0xFF;
 }
 
 static int ERR_GET_RFLAGS(unsigned long  int errcode)
 {
     if((((errcode)&((unsigned int)2147483647+1))!=0)) {
-        return 0;
+                return 0;
     }
-    return errcode&(0x1F<<18L);
+        return errcode&(0x1F<<18L);
 }
 
 static int ERR_GET_REASON(unsigned long  int errcode)
 {
     if((((errcode)&((unsigned int)2147483647+1))!=0)) {
-        return errcode&((unsigned int)2147483647);
+                return errcode&((unsigned int)2147483647);
     }
-    return errcode&0x7FFFFF;
+        return errcode&0x7FFFFF;
 }
 
 static int ERR_FATAL_ERROR(unsigned long  int errcode)
 {
-    return (ERR_GET_RFLAGS(errcode)&(0x1<<18L))!=0;
+        return (ERR_GET_RFLAGS(errcode)&(0x1<<18L))!=0;
 }
 
 static int ERR_COMMON_ERROR(unsigned long  int errcode)
 {
-    return (ERR_GET_RFLAGS(errcode)&(0x2<<18L))!=0;
+        return (ERR_GET_RFLAGS(errcode)&(0x2<<18L))!=0;
 }
 
 static unsigned long  int lh_ERR_STRING_DATA_hash_thunk(const void* data, unsigned long  int (*hfn)(const void*)  )
 {
     unsigned long  int (*hfn_conv)(const struct ERR_string_data_st* );
     hfn_conv=(unsigned long  int (*)(const struct ERR_string_data_st* ))hfn;
-    return hfn_conv((const struct ERR_string_data_st* )data);
+        return hfn_conv((const struct ERR_string_data_st* )data);
 }
 
 static int lh_ERR_STRING_DATA_comp_thunk(const void* da, const void* db, int (*cfn)(const void*,const void*)  )
 {
     int (*cfn_conv)(const struct ERR_string_data_st* ,const struct ERR_string_data_st* );
     cfn_conv=(int (*)(const struct ERR_string_data_st* ,const struct ERR_string_data_st* ))cfn;
-    return cfn_conv((const struct ERR_string_data_st* )da,(const struct ERR_string_data_st* )db);
+        return cfn_conv((const struct ERR_string_data_st* )da,(const struct ERR_string_data_st* )db);
 }
 
 static void lh_ERR_STRING_DATA_doall_thunk(void* node, void (*doall)(void*)  )
@@ -13058,37 +13028,44 @@ static void lh_ERR_STRING_DATA_doall_arg_thunk(void* node, void* arg, void (*doa
 
 static struct ERR_string_data_st*  ossl_check_ERR_STRING_DATA_lh_plain_type(struct ERR_string_data_st*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct ERR_string_data_st*  ossl_check_const_ERR_STRING_DATA_lh_plain_type(const struct ERR_string_data_st*  ptr  )
 {
-    return ptr;
+        return ptr;
 }
 
 static const struct lhash_st*  ossl_check_const_ERR_STRING_DATA_lh_type(const struct lhash_st_ERR_STRING_DATA*  lh  )
 {
-    return (const struct lhash_st* )lh;
+        return (const struct lhash_st* )lh;
 }
 
 static struct lhash_st*  ossl_check_ERR_STRING_DATA_lh_type(struct lhash_st_ERR_STRING_DATA*  lh  )
 {
-    return (struct lhash_st* )lh;
+        return (struct lhash_st* )lh;
 }
 
 static int (*ossl_check_ERR_STRING_DATA_lh_compfunc_type(int (*cmp)(const struct ERR_string_data_st* ,const struct ERR_string_data_st* )  ))(const void*,const void*) 
 {
-    return (int (*)(const void*,const void*) )cmp;
+        return (int (*)(const void*,const void*) )cmp;
 }
 
 static unsigned long  int (*ossl_check_ERR_STRING_DATA_lh_hashfunc_type(unsigned long  int (*hfn)(const struct ERR_string_data_st* )  ))(const void*) 
 {
-    return (unsigned long  int (*)(const void*) )hfn;
+        return (unsigned long  int (*)(const void*) )hfn;
 }
 
 static void (*ossl_check_ERR_STRING_DATA_lh_doallfunc_type(void (*dfn)(struct ERR_string_data_st* )  ))(void*) 
 {
-    return (void (*)(void*) )dfn;
+        return (void (*)(void*) )dfn;
+}
+
+static int neo_setsockopt_reuseaddr(int sock)
+{
+    int opt;
+    opt=1;
+        return setsockopt(sock,1,2,&opt,sizeof(opt));
 }
 
 struct sType* sType_initialize(struct sType* self, char*  class_name  , int array_num, _Bool auto_increment, _Bool primary_key, _Bool not_null)
@@ -13096,14 +13073,14 @@ struct sType* sType_initialize(struct sType* self, char*  class_name  , int arra
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sType_initialize"; neo_current_frame = &fr;
     char*  __dec_obj1  ;
     struct sType* __result_obj__0;
-    __dec_obj1=((struct sType*)come_null_checker(self, "main.nc", 15))->class_name,
-    ((struct sType*)come_null_checker(self, "main.nc", 15))->class_name=(char* )come_increment_ref_count(class_name);
+    __dec_obj1=self->class_name,
+    self->class_name=(char* )come_increment_ref_count(class_name);
     __dec_obj1 = come_decrement_ref_count(__dec_obj1, (void*)0, (void*)0, 0,0, (void*)0);
-    ((struct sType*)come_null_checker(self, "main.nc", 16))->array_num=array_num;
-    ((struct sType*)come_null_checker(self, "main.nc", 17))->auto_increment=auto_increment;
-    ((struct sType*)come_null_checker(self, "main.nc", 18))->primary_key=primary_key;
-    ((struct sType*)come_null_checker(self, "main.nc", 19))->not_null=not_null;
-    __result_obj__0 = (struct sType*)come_increment_ref_count(self);
+    self->array_num=array_num;
+    self->auto_increment=auto_increment;
+    self->primary_key=primary_key;
+    self->not_null=not_null;
+        __result_obj__0 = (struct sType*)come_increment_ref_count(self);
     come_call_finalizer(sType_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0));
     neo_current_frame = fr.prev;
@@ -13118,25 +13095,24 @@ char*  sType_to_string(struct sType* self)
     void* __right_value1 = (void*)0;
     struct buffer*  buf  ;
     char*  __result_obj__0  ;
-    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count(((struct buffer* )come_null_checker(((struct buffer* )(__right_value0=(struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 23, "struct buffer* "))), "main.nc", 23)))));
-    come_call_finalizer(buffer_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-    buffer_append_str(((struct buffer* )come_null_checker(buf, "main.nc", 25)),((struct sType*)come_null_checker(self, "main.nc", 25))->class_name);
-    if(((struct sType*)come_null_checker(self, "main.nc", 26))->array_num>0) {
-        buffer_append_str(((struct buffer* )come_null_checker(buf, "main.nc", 27)),"(");
-        buffer_append_str(((struct buffer* )come_null_checker(buf, "main.nc", 28)),((char* )(__right_value0=int_to_string(((struct sType*)come_null_checker(self, "main.nc", 28))->array_num))));
+    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 23, "struct buffer* "))));
+    buffer_append_str(buf,self->class_name);
+    if(self->array_num>0) {
+        buffer_append_str(buf,"(");
+        buffer_append_str(buf,((char* )(__right_value0=int_to_string(self->array_num))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        buffer_append_str(((struct buffer* )come_null_checker(buf, "main.nc", 29)),")");
+        buffer_append_str(buf,")");
     }
-    if(((struct sType*)come_null_checker(self, "main.nc", 32))->auto_increment) {
-        buffer_append_str(((struct buffer* )come_null_checker(buf, "main.nc", 33))," AUTO INCREMENT");
+    if(self->auto_increment) {
+        buffer_append_str(buf," AUTO INCREMENT");
     }
-    if(((struct sType*)come_null_checker(self, "main.nc", 36))->primary_key) {
-        buffer_append_str(((struct buffer* )come_null_checker(buf, "main.nc", 37))," PRIMARY KEY");
+    if(self->primary_key) {
+        buffer_append_str(buf," PRIMARY KEY");
     }
-    if(((struct sType*)come_null_checker(self, "main.nc", 39))->not_null) {
-        buffer_append_str(((struct buffer* )come_null_checker(buf, "main.nc", 40))," NOT NULL");
+    if(self->not_null) {
+        buffer_append_str(buf," NOT NULL");
     }
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(((struct buffer* )come_null_checker(buf, "main.nc", 43))))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(buf))));
     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
@@ -13147,10 +13123,10 @@ char*  sType_to_string(struct sType* self)
 static void sType_finalize(struct sType* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sType_finalize"; neo_current_frame = &fr;
-    if(self!=((void*)0)&&((struct sType*)come_null_checker(self, "sType_finalize", 2))->class_name!=((void*)0)) {
-        (((struct sType*)come_null_checker(self, "sType_finalize", 2))->class_name = come_decrement_ref_count(((struct sType*)come_null_checker(self, "sType_finalize", 2))->class_name, (void*)0, (void*)0, 0, 0, (void*)0));
+    if(self!=((void*)0)&&self->class_name!=((void*)0)) {
+        (self->class_name = come_decrement_ref_count(self->class_name, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
 }
 
 struct Table* Table_initialize(struct Table* self, char*  name  , struct list$1tuple2$2char$phsType$ph$ph* types)
@@ -13162,17 +13138,16 @@ struct Table* Table_initialize(struct Table* self, char*  name  , struct list$1t
     struct list$1map$2char$phchar$ph$ph* __dec_obj3;
     struct list$1tuple2$2char$phsType$ph$ph* __dec_obj4;
     struct Table* __result_obj__0;
-    __dec_obj2=((struct Table*)come_null_checker(self, "main.nc", 54))->name,
-    ((struct Table*)come_null_checker(self, "main.nc", 54))->name=(char* )come_increment_ref_count(name);
+    __dec_obj2=self->name,
+    self->name=(char* )come_increment_ref_count(name);
     __dec_obj2 = come_decrement_ref_count(__dec_obj2, (void*)0, (void*)0, 0,0, (void*)0);
-    __dec_obj3=((struct Table*)come_null_checker(self, "main.nc", 55))->rows,
-    ((struct Table*)come_null_checker(self, "main.nc", 55))->rows=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(list$1map$2char$phchar$ph$ph_initialize((struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(((struct list$1map$2char$phchar$ph$ph*)(__right_value0=(struct list$1map$2char$phchar$ph$ph*)come_calloc(1, sizeof(struct list$1map$2char$phchar$ph$ph)*(1), (void*)0, 55, "struct list$1map$2char$phchar$ph$ph*"))), "main.nc", 55)))));
+    __dec_obj3=self->rows,
+    self->rows=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(list$1map$2char$phchar$ph$ph_initialize((struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count((struct list$1map$2char$phchar$ph$ph*)come_calloc(1, sizeof(struct list$1map$2char$phchar$ph$ph)*(1), (void*)0, 55, "struct list$1map$2char$phchar$ph$ph*"))));
     come_call_finalizer(list$1map$2char$phchar$ph$ph_finalize, __dec_obj3,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-    come_call_finalizer(list$1map$2char$phchar$ph$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-    __dec_obj4=((struct Table*)come_null_checker(self, "main.nc", 56))->types,
-    ((struct Table*)come_null_checker(self, "main.nc", 56))->types=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(types);
+    __dec_obj4=self->types,
+    self->types=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(types);
     come_call_finalizer(list$1tuple2$2char$phsType$ph$ph_finalize, __dec_obj4,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-    __result_obj__0 = (struct Table*)come_increment_ref_count(self);
+        __result_obj__0 = (struct Table*)come_increment_ref_count(self);
     come_call_finalizer(Table_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0));
     come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, types, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -13193,22 +13168,21 @@ char*  Table_to_string(struct Table* self)
 ;    char*  name  =0;
     struct sType*  type  =0;
     char*  __result_obj__0  ;
-    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count(((struct buffer* )come_null_checker(((struct buffer* )(__right_value0=(struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 60, "struct buffer* "))), "main.nc", 60)))));
-    come_call_finalizer(buffer_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-    for(o2_saved=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(((struct Table*)come_null_checker(self, "main.nc", 62))->types),it=list$1tuple2$2char$phsType$ph$ph_begin(((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(o2_saved, "main.nc", 62)));!list$1tuple2$2char$phsType$ph$ph_end(((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(o2_saved, "main.nc", 62)));it=list$1tuple2$2char$phsType$ph$ph_next(((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(o2_saved, "main.nc", 62)))){
+    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 60, "struct buffer* "))));
+    for(o2_saved=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(self->types),it=list$1tuple2$2char$phsType$ph$ph_begin(o2_saved);!list$1tuple2$2char$phsType$ph$ph_end(o2_saved);it=list$1tuple2$2char$phsType$ph$ph_next(o2_saved)){
         multiple_assign_var1=it;
         name=(char* )come_increment_ref_count(multiple_assign_var1->v1);
         type=(struct sType* )come_increment_ref_count(multiple_assign_var1->v2);
-        buffer_append_str(((struct buffer* )come_null_checker(buf, "main.nc", 65)),name);
-        buffer_append_str(((struct buffer* )come_null_checker(buf, "main.nc", 66)),":");
-        buffer_append_str(((struct buffer* )come_null_checker(buf, "main.nc", 67)),((char* )(__right_value0=sType_to_string(((struct sType* )come_null_checker(type, "main.nc", 67))))));
+        buffer_append_str(buf,name);
+        buffer_append_str(buf,":");
+        buffer_append_str(buf,((char* )(__right_value0=sType_to_string(type))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        buffer_append_str(((struct buffer* )come_null_checker(buf, "main.nc", 68)),"\n");
+        buffer_append_str(buf,"\n");
         (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0));
         come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(((struct buffer* )come_null_checker(buf, "main.nc", 71))))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(buf))));
     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
@@ -13220,10 +13194,10 @@ static struct list$1map$2char$phchar$ph$ph* list$1map$2char$phchar$ph$ph_initial
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1map$2char$phchar$ph$ph_initialize"; neo_current_frame = &fr;
     struct list$1map$2char$phchar$ph$ph* __result_obj__0;
-    ((struct list$1map$2char$phchar$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1631))->head=((void*)0);
-    ((struct list$1map$2char$phchar$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1632))->tail=((void*)0);
-    ((struct list$1map$2char$phchar$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1633))->len=0;
-    __result_obj__0 = (struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(self);
+    self->head=((void*)0);
+    self->tail=((void*)0);
+    self->len=0;
+        __result_obj__0 = (struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(self);
     come_call_finalizer(list$1map$2char$phchar$ph$ph$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(list$1map$2char$phchar$ph$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -13236,25 +13210,25 @@ static void list$1map$2char$phchar$ph$ph$p_finalize(struct list$1map$2char$phcha
     struct list_item$1map$2char$phchar$ph$ph* it;
     struct list_item$1map$2char$phchar$ph$ph* prev_it;
     if(self==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return;
     }
-    it=((struct list$1map$2char$phchar$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1652))->head;
+    it=self->head;
     while(it!=((void*)0)) {
         prev_it=it;
-        it=((struct list_item$1map$2char$phchar$ph$ph*)come_null_checker(it, "/usr/local/include/neo-c.h", 1655))->next;
+        it=it->next;
         come_call_finalizer(list_item$1map$2char$phchar$ph$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
 }
 
 static void list_item$1map$2char$phchar$ph$ph$p_finalize(struct list_item$1map$2char$phchar$ph$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1map$2char$phchar$ph$ph$p_finalize"; neo_current_frame = &fr;
-    if(self!=((void*)0)&&((struct list_item$1map$2char$phchar$ph$ph*)come_null_checker(self, "list_item$1map$2char$phchar$ph$ph$p_finalize", 2))->item!=((void*)0)) {
-        come_call_finalizer(map$2char$phchar$ph$p_finalize, ((struct list_item$1map$2char$phchar$ph$ph*)come_null_checker(self, "list_item$1map$2char$phchar$ph$ph$p_finalize", 2))->item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(self!=((void*)0)&&self->item!=((void*)0)) {
+        come_call_finalizer(map$2char$phchar$ph$p_finalize, self->item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
 }
 
 static void map$2char$phchar$ph$p_finalize(struct map$2char$phchar$ph* self)
@@ -13262,25 +13236,25 @@ static void map$2char$phchar$ph$p_finalize(struct map$2char$phchar$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phchar$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_0;
-    for(i=0;i<((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2739))->size;i++){
-        if(((_Bool*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2740))->item_existance, "/usr/local/include/neo-c.h", 2740))[i]) {
+    for(i=0;i<self->size;i++){
+        if(self->item_existance[i]) {
             if(1) {
-                (((char** )come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2742))->items, "/usr/local/include/neo-c.h", 2742))[i] = come_decrement_ref_count(((char** )come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2742))->items, "/usr/local/include/neo-c.h", 2742))[i], (void*)0, (void*)0, 0, 0, (void*)0));
+                (self->items[i] = come_decrement_ref_count(self->items[i], (void*)0, (void*)0, 0, 0, (void*)0));
             }
         }
     }
-    come_free((char*)((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2746))->items);
-    for(i_0=0;i_0<((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2748))->size;i_0++){
-        if(((_Bool*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2749))->item_existance, "/usr/local/include/neo-c.h", 2749))[i_0]) {
+    come_free((char*)self->items);
+    for(i_0=0;i_0<self->size;i_0++){
+        if(self->item_existance[i_0]) {
             if(1) {
-                (((char** )come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2751))->keys, "/usr/local/include/neo-c.h", 2751))[i_0] = come_decrement_ref_count(((char** )come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2751))->keys, "/usr/local/include/neo-c.h", 2751))[i_0], (void*)0, (void*)0, 0, 0, (void*)0));
+                (self->keys[i_0] = come_decrement_ref_count(self->keys[i_0], (void*)0, (void*)0, 0, 0, (void*)0));
             }
         }
     }
-    come_free((char*)((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2755))->keys);
-    come_call_finalizer(list$1char$ph$p_finalize, ((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2757))->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-    (((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2759))->item_existance = come_decrement_ref_count(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2759))->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
-    neo_current_frame = fr.prev;
+    come_free((char*)self->keys);
+    come_call_finalizer(list$1char$ph$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
+            neo_current_frame = fr.prev;
 }
 
 static void list$1char$ph$p_finalize(struct list$1char$ph* self)
@@ -13289,25 +13263,25 @@ static void list$1char$ph$p_finalize(struct list$1char$ph* self)
     struct list_item$1char$ph* it;
     struct list_item$1char$ph* prev_it;
     if(self==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return;
     }
-    it=((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1652))->head;
+    it=self->head;
     while(it!=((void*)0)) {
         prev_it=it;
-        it=((struct list_item$1char$ph*)come_null_checker(it, "/usr/local/include/neo-c.h", 1655))->next;
+        it=it->next;
         come_call_finalizer(list_item$1char$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
 }
 
 static void list_item$1char$ph$p_finalize(struct list_item$1char$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1char$ph$p_finalize"; neo_current_frame = &fr;
-    if(self!=((void*)0)&&((struct list_item$1char$ph*)come_null_checker(self, "list_item$1char$ph$p_finalize", 2))->item!=((void*)0)) {
-        (((struct list_item$1char$ph*)come_null_checker(self, "list_item$1char$ph$p_finalize", 2))->item = come_decrement_ref_count(((struct list_item$1char$ph*)come_null_checker(self, "list_item$1char$ph$p_finalize", 2))->item, (void*)0, (void*)0, 0, 0, (void*)0));
+    if(self!=((void*)0)&&self->item!=((void*)0)) {
+        (self->item = come_decrement_ref_count(self->item, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
 }
 
 static void list$1map$2char$phchar$ph$ph_finalize(struct list$1map$2char$phchar$ph$ph* self)
@@ -13316,16 +13290,16 @@ static void list$1map$2char$phchar$ph$ph_finalize(struct list$1map$2char$phchar$
     struct list_item$1map$2char$phchar$ph$ph* it;
     struct list_item$1map$2char$phchar$ph$ph* prev_it;
     if(self==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return;
     }
-    it=((struct list$1map$2char$phchar$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1652))->head;
+    it=self->head;
     while(it!=((void*)0)) {
         prev_it=it;
-        it=((struct list_item$1map$2char$phchar$ph$ph*)come_null_checker(it, "/usr/local/include/neo-c.h", 1655))->next;
+        it=it->next;
         come_call_finalizer(list_item$1map$2char$phchar$ph$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
 }
 
 static void list$1tuple2$2char$phsType$ph$ph_finalize(struct list$1tuple2$2char$phsType$ph$ph* self)
@@ -13334,52 +13308,52 @@ static void list$1tuple2$2char$phsType$ph$ph_finalize(struct list$1tuple2$2char$
     struct list_item$1tuple2$2char$phsType$ph$ph* it;
     struct list_item$1tuple2$2char$phsType$ph$ph* prev_it;
     if(self==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return;
     }
-    it=((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1652))->head;
+    it=self->head;
     while(it!=((void*)0)) {
         prev_it=it;
-        it=((struct list_item$1tuple2$2char$phsType$ph$ph*)come_null_checker(it, "/usr/local/include/neo-c.h", 1655))->next;
+        it=it->next;
         come_call_finalizer(list_item$1tuple2$2char$phsType$ph$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
 }
 
 static void list_item$1tuple2$2char$phsType$ph$ph$p_finalize(struct list_item$1tuple2$2char$phsType$ph$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1tuple2$2char$phsType$ph$ph$p_finalize"; neo_current_frame = &fr;
-    if(self!=((void*)0)&&((struct list_item$1tuple2$2char$phsType$ph$ph*)come_null_checker(self, "list_item$1tuple2$2char$phsType$ph$ph$p_finalize", 2))->item!=((void*)0)) {
-        come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, ((struct list_item$1tuple2$2char$phsType$ph$ph*)come_null_checker(self, "list_item$1tuple2$2char$phsType$ph$ph$p_finalize", 2))->item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(self!=((void*)0)&&self->item!=((void*)0)) {
+        come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, self->item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
 }
 
 static void tuple2$2char$phsType$ph$p_finalize(struct tuple2$2char$phsType$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "tuple2$2char$phsType$ph$p_finalize"; neo_current_frame = &fr;
-    if(self!=((void*)0)&&((struct tuple2$2char$phsType$ph*)come_null_checker(self, "tuple2$2char$phsType$ph$p_finalize", 2))->v1!=((void*)0)) {
-        (((struct tuple2$2char$phsType$ph*)come_null_checker(self, "tuple2$2char$phsType$ph$p_finalize", 2))->v1 = come_decrement_ref_count(((struct tuple2$2char$phsType$ph*)come_null_checker(self, "tuple2$2char$phsType$ph$p_finalize", 2))->v1, (void*)0, (void*)0, 0, 0, (void*)0));
+    if(self!=((void*)0)&&self->v1!=((void*)0)) {
+        (self->v1 = come_decrement_ref_count(self->v1, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    if(self!=((void*)0)&&((struct tuple2$2char$phsType$ph*)come_null_checker(self, "tuple2$2char$phsType$ph$p_finalize", 3))->v2!=((void*)0)) {
-        come_call_finalizer(sType_finalize, ((struct tuple2$2char$phsType$ph*)come_null_checker(self, "tuple2$2char$phsType$ph$p_finalize", 3))->v2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(self!=((void*)0)&&self->v2!=((void*)0)) {
+        come_call_finalizer(sType_finalize, self->v2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
 }
 
 static void Table_finalize(struct Table* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "Table_finalize"; neo_current_frame = &fr;
-    if(self!=((void*)0)&&((struct Table*)come_null_checker(self, "Table_finalize", 2))->name!=((void*)0)) {
-        (((struct Table*)come_null_checker(self, "Table_finalize", 2))->name = come_decrement_ref_count(((struct Table*)come_null_checker(self, "Table_finalize", 2))->name, (void*)0, (void*)0, 0, 0, (void*)0));
+    if(self!=((void*)0)&&self->name!=((void*)0)) {
+        (self->name = come_decrement_ref_count(self->name, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    if(self!=((void*)0)&&((struct Table*)come_null_checker(self, "Table_finalize", 3))->rows!=((void*)0)) {
-        come_call_finalizer(list$1map$2char$phchar$ph$ph$p_finalize, ((struct Table*)come_null_checker(self, "Table_finalize", 3))->rows, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(self!=((void*)0)&&self->rows!=((void*)0)) {
+        come_call_finalizer(list$1map$2char$phchar$ph$ph$p_finalize, self->rows, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    if(self!=((void*)0)&&((struct Table*)come_null_checker(self, "Table_finalize", 4))->types!=((void*)0)) {
-        come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, ((struct Table*)come_null_checker(self, "Table_finalize", 4))->types, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(self!=((void*)0)&&self->types!=((void*)0)) {
+        come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, self->types, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
 }
 
 static void list$1tuple2$2char$phsType$ph$ph$p_finalize(struct list$1tuple2$2char$phsType$ph$ph* self)
@@ -13388,16 +13362,16 @@ static void list$1tuple2$2char$phsType$ph$ph$p_finalize(struct list$1tuple2$2cha
     struct list_item$1tuple2$2char$phsType$ph$ph* it;
     struct list_item$1tuple2$2char$phsType$ph$ph* prev_it;
     if(self==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return;
     }
-    it=((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1652))->head;
+    it=self->head;
     while(it!=((void*)0)) {
         prev_it=it;
-        it=((struct list_item$1tuple2$2char$phsType$ph$ph*)come_null_checker(it, "/usr/local/include/neo-c.h", 1655))->next;
+        it=it->next;
         come_call_finalizer(list_item$1tuple2$2char$phsType$ph$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
 }
 
 static struct tuple2$2char$phsType$ph* list$1tuple2$2char$phsType$ph$ph_begin(struct list$1tuple2$2char$phsType$ph$ph* self)
@@ -13408,18 +13382,18 @@ static struct tuple2$2char$phsType$ph* list$1tuple2$2char$phsType$ph$ph_begin(st
     struct tuple2$2char$phsType$ph* result_1;
     if(self==((void*)0)) {
         memset(&result,0,sizeof(struct tuple2$2char$phsType$ph*));
-        __result_obj__0 = result;
+                __result_obj__0 = result;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    ((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1839))->it=((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1839))->head;
-    if(((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1841))->it) {
-        __result_obj__0 = ((struct list_item$1tuple2$2char$phsType$ph$ph*)come_null_checker(((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1842))->it, "/usr/local/include/neo-c.h", 1842))->item;
+    self->it=self->head;
+    if(self->it) {
+                __result_obj__0 = self->it->item;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     memset(&result_1,0,sizeof(struct tuple2$2char$phsType$ph*));
-    __result_obj__0 = result_1;
+        __result_obj__0 = result_1;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -13427,9 +13401,9 @@ static struct tuple2$2char$phsType$ph* list$1tuple2$2char$phsType$ph$ph_begin(st
 static _Bool list$1tuple2$2char$phsType$ph$ph_end(struct list$1tuple2$2char$phsType$ph$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1tuple2$2char$phsType$ph$ph_end"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
-    return self==((void*)0)||((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1871))->it==((void*)0);
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
+    return self==((void*)0)||self->it==((void*)0);
+        neo_current_frame = fr.prev;
 }
 
 static struct tuple2$2char$phsType$ph* list$1tuple2$2char$phsType$ph$ph_next(struct list$1tuple2$2char$phsType$ph$ph* self)
@@ -13438,20 +13412,20 @@ static struct tuple2$2char$phsType$ph* list$1tuple2$2char$phsType$ph$ph_next(str
     struct tuple2$2char$phsType$ph* result;
     struct tuple2$2char$phsType$ph* __result_obj__0;
     struct tuple2$2char$phsType$ph* result_2;
-    if(self==((void*)0)||((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1853))->it==((void*)0)) {
+    if(self==((void*)0)||self->it==((void*)0)) {
         memset(&result,0,sizeof(struct tuple2$2char$phsType$ph*));
-        __result_obj__0 = result;
+                __result_obj__0 = result;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    ((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1859))->it=((struct list_item$1tuple2$2char$phsType$ph$ph*)come_null_checker(((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1859))->it, "/usr/local/include/neo-c.h", 1859))->next;
-    if(((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1861))->it) {
-        __result_obj__0 = ((struct list_item$1tuple2$2char$phsType$ph$ph*)come_null_checker(((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1862))->it, "/usr/local/include/neo-c.h", 1862))->item;
+    self->it=self->it->next;
+    if(self->it) {
+                __result_obj__0 = self->it->item;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     memset(&result_2,0,sizeof(struct tuple2$2char$phsType$ph*));
-    __result_obj__0 = result_2;
+        __result_obj__0 = result_2;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -13464,14 +13438,13 @@ struct Database* Database_initialize(struct Database* self, char*  name  )
     void* __right_value1 = (void*)0;
     struct map$2char$phTable$ph* __dec_obj7;
     struct Database* __result_obj__0;
-    __dec_obj5=((struct Database*)come_null_checker(self, "main.nc", 81))->name,
-    ((struct Database*)come_null_checker(self, "main.nc", 81))->name=(char* )come_increment_ref_count(name);
+    __dec_obj5=self->name,
+    self->name=(char* )come_increment_ref_count(name);
     __dec_obj5 = come_decrement_ref_count(__dec_obj5, (void*)0, (void*)0, 0,0, (void*)0);
-    __dec_obj7=((struct Database*)come_null_checker(self, "main.nc", 82))->tables,
-    ((struct Database*)come_null_checker(self, "main.nc", 82))->tables=(struct map$2char$phTable$ph*)come_increment_ref_count(map$2char$phTable$ph_initialize((struct map$2char$phTable$ph*)come_increment_ref_count(((struct map$2char$phTable$ph*)come_null_checker(((struct map$2char$phTable$ph*)(__right_value0=(struct map$2char$phTable$ph*)come_calloc(1, sizeof(struct map$2char$phTable$ph)*(1), (void*)0, 82, "struct map$2char$phTable$ph*"))), "main.nc", 82)))));
+    __dec_obj7=self->tables,
+    self->tables=(struct map$2char$phTable$ph*)come_increment_ref_count(map$2char$phTable$ph_initialize((struct map$2char$phTable$ph*)come_increment_ref_count((struct map$2char$phTable$ph*)come_calloc(1, sizeof(struct map$2char$phTable$ph)*(1), (void*)0, 82, "struct map$2char$phTable$ph*"))));
     come_call_finalizer(map$2char$phTable$ph_finalize, __dec_obj7,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-    come_call_finalizer(map$2char$phTable$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-    __result_obj__0 = (struct Database*)come_increment_ref_count(self);
+        __result_obj__0 = (struct Database*)come_increment_ref_count(self);
     come_call_finalizer(Database_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0));
     neo_current_frame = fr.prev;
@@ -13487,20 +13460,19 @@ static struct map$2char$phTable$ph* map$2char$phTable$ph_initialize(struct map$2
     void* __right_value1 = (void*)0;
     struct list$1char$ph* __dec_obj6;
     struct map$2char$phTable$ph* __result_obj__0;
-    ((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2692))->keys=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(128)), (void*)0, 2692, "char** "))));
-    ((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2693))->items=(struct Table** )come_increment_ref_count(((struct Table** )(__right_value0=(struct Table* *)come_calloc(1, sizeof(struct Table* )*(1*(128)), (void*)0, 2693, "struct Table** "))));
-    ((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2694))->item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(128)), (void*)0, 2694, "_Bool*"))));
+    self->keys=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(128)), (void*)0, 2664, "char** "))));
+    self->items=(struct Table** )come_increment_ref_count(((struct Table** )(__right_value0=(struct Table* *)come_calloc(1, sizeof(struct Table* )*(1*(128)), (void*)0, 2665, "struct Table** "))));
+    self->item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(128)), (void*)0, 2666, "_Bool*"))));
     for(i=0;i<128;i++){
-        ((_Bool*)come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2698))->item_existance, "/usr/local/include/neo-c.h", 2698))[i]=(_Bool)0;
+        self->item_existance[i]=(_Bool)0;
     }
-    ((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2701))->size=128;
-    ((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2702))->len=0;
-    __dec_obj6=((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2704))->key_list,
-    ((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2704))->key_list=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)come_null_checker(((struct list$1char$ph*)(__right_value0=(struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 2704, "struct list$1char$ph*"))), "/usr/local/include/neo-c.h", 2704)))));
+    self->size=128;
+    self->len=0;
+    __dec_obj6=self->key_list,
+    self->key_list=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 2676, "struct list$1char$ph*"))));
     come_call_finalizer(list$1char$ph_finalize, __dec_obj6,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-    come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-    ((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2706))->it=0;
-    __result_obj__0 = (struct map$2char$phTable$ph*)come_increment_ref_count(self);
+    self->it=0;
+        __result_obj__0 = (struct map$2char$phTable$ph*)come_increment_ref_count(self);
     come_call_finalizer(map$2char$phTable$ph$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(map$2char$phTable$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -13511,10 +13483,10 @@ static struct list$1char$ph* list$1char$ph_initialize(struct list$1char$ph* self
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph_initialize"; neo_current_frame = &fr;
     struct list$1char$ph* __result_obj__0;
-    ((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1631))->head=((void*)0);
-    ((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1632))->tail=((void*)0);
-    ((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1633))->len=0;
-    __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(self);
+    self->head=((void*)0);
+    self->tail=((void*)0);
+    self->len=0;
+        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(self);
     come_call_finalizer(list$1char$ph$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -13527,16 +13499,16 @@ static void list$1char$ph_finalize(struct list$1char$ph* self)
     struct list_item$1char$ph* it;
     struct list_item$1char$ph* prev_it;
     if(self==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return;
     }
-    it=((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1652))->head;
+    it=self->head;
     while(it!=((void*)0)) {
         prev_it=it;
-        it=((struct list_item$1char$ph*)come_null_checker(it, "/usr/local/include/neo-c.h", 1655))->next;
+        it=it->next;
         come_call_finalizer(list_item$1char$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
 }
 
 static void map$2char$phTable$ph$p_finalize(struct map$2char$phTable$ph* self)
@@ -13544,25 +13516,25 @@ static void map$2char$phTable$ph$p_finalize(struct map$2char$phTable$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phTable$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_3;
-    for(i=0;i<((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2739))->size;i++){
-        if(((_Bool*)come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2740))->item_existance, "/usr/local/include/neo-c.h", 2740))[i]) {
+    for(i=0;i<self->size;i++){
+        if(self->item_existance[i]) {
             if(1) {
-                come_call_finalizer(Table_finalize, ((struct Table** )come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2742))->items, "/usr/local/include/neo-c.h", 2742))[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                come_call_finalizer(Table_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
             }
         }
     }
-    come_free((char*)((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2746))->items);
-    for(i_3=0;i_3<((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2748))->size;i_3++){
-        if(((_Bool*)come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2749))->item_existance, "/usr/local/include/neo-c.h", 2749))[i_3]) {
+    come_free((char*)self->items);
+    for(i_3=0;i_3<self->size;i_3++){
+        if(self->item_existance[i_3]) {
             if(1) {
-                (((char** )come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2751))->keys, "/usr/local/include/neo-c.h", 2751))[i_3] = come_decrement_ref_count(((char** )come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2751))->keys, "/usr/local/include/neo-c.h", 2751))[i_3], (void*)0, (void*)0, 0, 0, (void*)0));
+                (self->keys[i_3] = come_decrement_ref_count(self->keys[i_3], (void*)0, (void*)0, 0, 0, (void*)0));
             }
         }
     }
-    come_free((char*)((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2755))->keys);
-    come_call_finalizer(list$1char$ph$p_finalize, ((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2757))->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-    (((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2759))->item_existance = come_decrement_ref_count(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2759))->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
-    neo_current_frame = fr.prev;
+    come_free((char*)self->keys);
+    come_call_finalizer(list$1char$ph$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
+        neo_current_frame = fr.prev;
 }
 
 static void map$2char$phTable$ph_finalize(struct map$2char$phTable$ph* self)
@@ -13570,44 +13542,44 @@ static void map$2char$phTable$ph_finalize(struct map$2char$phTable$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phTable$ph_finalize"; neo_current_frame = &fr;
     int i;
     int i_4;
-    for(i=0;i<((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2739))->size;i++){
-        if(((_Bool*)come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2740))->item_existance, "/usr/local/include/neo-c.h", 2740))[i]) {
+    for(i=0;i<self->size;i++){
+        if(self->item_existance[i]) {
             if(1) {
-                come_call_finalizer(Table_finalize, ((struct Table** )come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2742))->items, "/usr/local/include/neo-c.h", 2742))[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                come_call_finalizer(Table_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
             }
         }
     }
-    come_free((char*)((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2746))->items);
-    for(i_4=0;i_4<((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2748))->size;i_4++){
-        if(((_Bool*)come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2749))->item_existance, "/usr/local/include/neo-c.h", 2749))[i_4]) {
+    come_free((char*)self->items);
+    for(i_4=0;i_4<self->size;i_4++){
+        if(self->item_existance[i_4]) {
             if(1) {
-                (((char** )come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2751))->keys, "/usr/local/include/neo-c.h", 2751))[i_4] = come_decrement_ref_count(((char** )come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2751))->keys, "/usr/local/include/neo-c.h", 2751))[i_4], (void*)0, (void*)0, 0, 0, (void*)0));
+                (self->keys[i_4] = come_decrement_ref_count(self->keys[i_4], (void*)0, (void*)0, 0, 0, (void*)0));
             }
         }
     }
-    come_free((char*)((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2755))->keys);
-    come_call_finalizer(list$1char$ph$p_finalize, ((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2757))->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-    (((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2759))->item_existance = come_decrement_ref_count(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2759))->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
-    neo_current_frame = fr.prev;
+    come_free((char*)self->keys);
+    come_call_finalizer(list$1char$ph$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
+        neo_current_frame = fr.prev;
 }
 
 static void Database_finalize(struct Database* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "Database_finalize"; neo_current_frame = &fr;
-    if(self!=((void*)0)&&((struct Database*)come_null_checker(self, "Database_finalize", 2))->name!=((void*)0)) {
-        (((struct Database*)come_null_checker(self, "Database_finalize", 2))->name = come_decrement_ref_count(((struct Database*)come_null_checker(self, "Database_finalize", 2))->name, (void*)0, (void*)0, 0, 0, (void*)0));
+    if(self!=((void*)0)&&self->name!=((void*)0)) {
+        (self->name = come_decrement_ref_count(self->name, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    if(self!=((void*)0)&&((struct Database*)come_null_checker(self, "Database_finalize", 3))->tables!=((void*)0)) {
-        come_call_finalizer(map$2char$phTable$ph$p_finalize, ((struct Database*)come_null_checker(self, "Database_finalize", 3))->tables, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(self!=((void*)0)&&self->tables!=((void*)0)) {
+        come_call_finalizer(map$2char$phTable$ph$p_finalize, self->tables, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
 }
 
 void skip_spaces(struct sInfo*  info  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "skip_spaces"; neo_current_frame = &fr;
-    while(*((struct sInfo* )come_null_checker(info, "main.nc", 99))->p==32||*((struct sInfo* )come_null_checker(info, "main.nc", 99))->p==9) {
-        ((struct sInfo* )come_null_checker(info, "main.nc", 100))->p++;
+    while(*info->p==32||*info->p==9) {
+        info->p++;
     }
     neo_current_frame = fr.prev;
 }
@@ -13619,22 +13591,21 @@ char*  parse_word(struct sInfo*  info  )
     void* __right_value1 = (void*)0;
     struct buffer*  buf  ;
     char*  __result_obj__0  ;
-    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count(((struct buffer* )come_null_checker(((struct buffer* )(__right_value0=(struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 106, "struct buffer* "))), "main.nc", 106)))));
-    come_call_finalizer(buffer_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-    while(*((struct sInfo* )come_null_checker(info, "main.nc", 108))->p) {
-        if(*((struct sInfo* )come_null_checker(info, "main.nc", 109))->p==32||*((struct sInfo* )come_null_checker(info, "main.nc", 109))->p==9||*((struct sInfo* )come_null_checker(info, "main.nc", 109))->p==10||*((struct sInfo* )come_null_checker(info, "main.nc", 109))->p==13) {
+    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 106, "struct buffer* "))));
+    while(*info->p) {
+        if(*info->p==32||*info->p==9||*info->p==10||*info->p==13) {
             break;
         }
-        else if(!xisalnum(*((struct sInfo* )come_null_checker(info, "main.nc", 112))->p)&&*((struct sInfo* )come_null_checker(info, "main.nc", 112))->p!=95&&*((struct sInfo* )come_null_checker(info, "main.nc", 112))->p!=45) {
+        else if(!xisalnum(*info->p)&&*info->p!=95&&*info->p!=45) {
             break;
         }
         else {
-            buffer_append_char(((struct buffer* )come_null_checker(buf, "main.nc", 116)),*((struct sInfo* )come_null_checker(info, "main.nc", 116))->p);
-            ((struct sInfo* )come_null_checker(info, "main.nc", 117))->p++;
+            buffer_append_char(buf,*info->p);
+            info->p++;
         }
     }
     skip_spaces(info);
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(((struct buffer* )come_null_checker(buf, "main.nc", 122))))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(buf))));
     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
@@ -13645,16 +13616,16 @@ char*  parse_word(struct sInfo*  info  )
 _Bool expected_next_charactor(char c, struct sInfo*  info  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "expected_next_charactor"; neo_current_frame = &fr;
-    if(*((struct sInfo* )come_null_checker(info, "main.nc", 127))->p==c) {
-        ((struct sInfo* )come_null_checker(info, "main.nc", 128))->p++;
+    if(*info->p==c) {
+        info->p++;
         skip_spaces(info);
     }
     else {
-        printf("expected character(%c), but it is %c.\n",c,*((struct sInfo* )come_null_checker(info, "main.nc", 132))->p);
-        neo_current_frame = fr.prev;
+        printf("expected character(%c), but it is %c.\n",c,*info->p);
+                neo_current_frame = fr.prev;
         return (_Bool)0;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return (_Bool)1;
     neo_current_frame = fr.prev;
 }
@@ -13680,31 +13651,31 @@ struct tuple3$3char$phsType$ph_Bool$* parse_type(struct sInfo*  info  )
     primary_key=(_Bool)0;
     not_null=(_Bool)0;
     while(1) {
-        if(*((struct sInfo* )come_null_checker(info, "main.nc", 152))->p==40) {
-            ((struct sInfo* )come_null_checker(info, "main.nc", 153))->p++;
+        if(*info->p==40) {
+            info->p++;
             skip_spaces(info);
             n=0;
-            while(xisdigit(*((struct sInfo* )come_null_checker(info, "main.nc", 156))->p)) {
-                n=n*10+*((struct sInfo* )come_null_checker(info, "main.nc", 157))->p-48;
-                ((struct sInfo* )come_null_checker(info, "main.nc", 158))->p++;
+            while(xisdigit(*info->p)) {
+                n=n*10+*info->p-48;
+                info->p++;
                 skip_spaces(info);
             }
             skip_spaces(info);
             array_num=n;
             expected_next_charactor(41,info);
         }
-        else if(strncmp(((struct sInfo* )come_null_checker(info, "main.nc", 167))->p,"AUTO_INCREMENT",strlen("AUTO_INCREMENT"))==0) {
-            ((struct sInfo* )come_null_checker(info, "main.nc", 168))->p+=strlen("AUTO_INCREMENT");
+        else if(strncmp(info->p,"AUTO_INCREMENT",strlen("AUTO_INCREMENT"))==0) {
+            info->p+=strlen("AUTO_INCREMENT");
             skip_spaces(info);
             auto_increment=(_Bool)1;
         }
-        else if(strncmp(((struct sInfo* )come_null_checker(info, "main.nc", 173))->p,"PRIMARY KEY",strlen("PRIMARY KEY"))==0) {
-            ((struct sInfo* )come_null_checker(info, "main.nc", 174))->p+=strlen("PRIMARY KEY");
+        else if(strncmp(info->p,"PRIMARY KEY",strlen("PRIMARY KEY"))==0) {
+            info->p+=strlen("PRIMARY KEY");
             skip_spaces(info);
             primary_key=(_Bool)1;
         }
-        else if(strncmp(((struct sInfo* )come_null_checker(info, "main.nc", 179))->p,"NOT NULL",strlen("NOT NULL"))==0) {
-            ((struct sInfo* )come_null_checker(info, "main.nc", 180))->p+=strlen("NOT NULL");
+        else if(strncmp(info->p,"NOT NULL",strlen("NOT NULL"))==0) {
+            info->p+=strlen("NOT NULL");
             skip_spaces(info);
             not_null=(_Bool)1;
         }
@@ -13712,9 +13683,8 @@ struct tuple3$3char$phsType$ph_Bool$* parse_type(struct sInfo*  info  )
             break;
         }
     }
-    type_=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count(((struct sType* )come_null_checker(((struct sType* )(__right_value0=(struct sType *)come_calloc(1, sizeof(struct sType )*(1), (void*)0, 190, "struct sType* "))), "main.nc", 190))),(char* )come_increment_ref_count(class_name),array_num,auto_increment,primary_key,not_null));
-    come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-    __result_obj__0 = (struct tuple3$3char$phsType$ph_Bool$*)come_increment_ref_count(((struct tuple3$3char$phsType$ph_Bool$*)(__right_value1=tuple3$3char$phsType$ph_Bool$_initialize((struct tuple3$3char$phsType$ph_Bool$*)come_increment_ref_count((struct tuple3$3char$phsType$ph_Bool$*)come_calloc(1, sizeof(struct tuple3$3char$phsType$ph_Bool$)*(1), "main.nc", 192, "struct tuple3$3char$phsType$ph_Bool$")),(char* )come_increment_ref_count(field_name),(struct sType* )come_increment_ref_count(type_),(_Bool)0))));
+    type_=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), (void*)0, 190, "struct sType* ")),(char* )come_increment_ref_count(class_name),array_num,auto_increment,primary_key,not_null));
+        __result_obj__0 = (struct tuple3$3char$phsType$ph_Bool$*)come_increment_ref_count(((struct tuple3$3char$phsType$ph_Bool$*)(__right_value1=tuple3$3char$phsType$ph_Bool$_initialize((struct tuple3$3char$phsType$ph_Bool$*)come_increment_ref_count((struct tuple3$3char$phsType$ph_Bool$*)come_calloc(1, sizeof(struct tuple3$3char$phsType$ph_Bool$)*(1), "main.nc", 192, "struct tuple3$3char$phsType$ph_Bool$")),(char* )come_increment_ref_count(field_name),(struct sType* )come_increment_ref_count(type_),(_Bool)0))));
     (field_name = come_decrement_ref_count(field_name, (void*)0, (void*)0, 0, 0, (void*)0));
     (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0));
     come_call_finalizer(sType_finalize, type_, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -13730,14 +13700,14 @@ static struct tuple3$3char$phsType$ph_Bool$* tuple3$3char$phsType$ph_Bool$_initi
     char*  __dec_obj8  ;
     struct sType*  __dec_obj9  ;
     struct tuple3$3char$phsType$ph_Bool$* __result_obj__0;
-    __dec_obj8=((struct tuple3$3char$phsType$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3650))->v1,
-    ((struct tuple3$3char$phsType$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3650))->v1=(char* )come_increment_ref_count(v1);
+    __dec_obj8=self->v1,
+    self->v1=(char* )come_increment_ref_count(v1);
     __dec_obj8 = come_decrement_ref_count(__dec_obj8, (void*)0, (void*)0, 0,0, (void*)0);
-    __dec_obj9=((struct tuple3$3char$phsType$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3651))->v2,
-    ((struct tuple3$3char$phsType$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3651))->v2=(struct sType* )come_increment_ref_count(v2);
+    __dec_obj9=self->v2,
+    self->v2=(struct sType* )come_increment_ref_count(v2);
     come_call_finalizer(sType_finalize, __dec_obj9,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-    ((struct tuple3$3char$phsType$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3652))->v3=v3;
-    __result_obj__0 = (struct tuple3$3char$phsType$ph_Bool$*)come_increment_ref_count(self);
+    self->v3=v3;
+        __result_obj__0 = (struct tuple3$3char$phsType$ph_Bool$*)come_increment_ref_count(self);
     come_call_finalizer(tuple3$3char$phsType$ph_Bool$$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     (v1 = come_decrement_ref_count(v1, (void*)0, (void*)0, 0, 0, (void*)0));
     come_call_finalizer(sType_finalize, v2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -13749,13 +13719,13 @@ static struct tuple3$3char$phsType$ph_Bool$* tuple3$3char$phsType$ph_Bool$_initi
 static void tuple3$3char$phsType$ph_Bool$$p_finalize(struct tuple3$3char$phsType$ph_Bool$* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "tuple3$3char$phsType$ph_Bool$$p_finalize"; neo_current_frame = &fr;
-    if(self!=((void*)0)&&((struct tuple3$3char$phsType$ph_Bool$*)come_null_checker(self, "tuple3$3char$phsType$ph_Bool$$p_finalize", 2))->v1!=((void*)0)) {
-        (((struct tuple3$3char$phsType$ph_Bool$*)come_null_checker(self, "tuple3$3char$phsType$ph_Bool$$p_finalize", 2))->v1 = come_decrement_ref_count(((struct tuple3$3char$phsType$ph_Bool$*)come_null_checker(self, "tuple3$3char$phsType$ph_Bool$$p_finalize", 2))->v1, (void*)0, (void*)0, 0, 0, (void*)0));
+    if(self!=((void*)0)&&self->v1!=((void*)0)) {
+        (self->v1 = come_decrement_ref_count(self->v1, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    if(self!=((void*)0)&&((struct tuple3$3char$phsType$ph_Bool$*)come_null_checker(self, "tuple3$3char$phsType$ph_Bool$$p_finalize", 3))->v2!=((void*)0)) {
-        come_call_finalizer(sType_finalize, ((struct tuple3$3char$phsType$ph_Bool$*)come_null_checker(self, "tuple3$3char$phsType$ph_Bool$$p_finalize", 3))->v2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(self!=((void*)0)&&self->v2!=((void*)0)) {
+        come_call_finalizer(sType_finalize, self->v2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
 }
 
 _Bool eval_create_table(struct sInfo*  info  )
@@ -13773,26 +13743,25 @@ _Bool eval_create_table(struct sInfo*  info  )
     struct Database*  current_db  ;
     _Bool _conditional_value_X0;
     _Bool __result_obj__0;
-    ((struct sInfo* )come_null_checker(info, "main.nc", 197))->p+=strlen("CREATE TABLE");
+    info->p+=strlen("CREATE TABLE");
     skip_spaces(info);
     if_not_exists=(_Bool)0;
-    if(strncmp(((struct sInfo* )come_null_checker(info, "main.nc", 202))->p,"IF NOT EXISTS",strlen("IF NOT EXISTS"))==0) {
-        ((struct sInfo* )come_null_checker(info, "main.nc", 203))->p+=strlen("IF NOT EXISTS");
+    if(strncmp(info->p,"IF NOT EXISTS",strlen("IF NOT EXISTS"))==0) {
+        info->p+=strlen("IF NOT EXISTS");
         skip_spaces(info);
         if_not_exists=(_Bool)1;
     }
     table_name=(char* )come_increment_ref_count(parse_word(info));
     expected_next_charactor(40,info);
-    types=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(list$1tuple2$2char$phsType$ph$ph_initialize((struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(((struct list$1tuple2$2char$phsType$ph$ph*)(__right_value0=(struct list$1tuple2$2char$phsType$ph$ph*)come_calloc(1, sizeof(struct list$1tuple2$2char$phsType$ph$ph)*(1), (void*)0, 212, "struct list$1tuple2$2char$phsType$ph$ph*"))), "main.nc", 212)))));
-    come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+    types=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(list$1tuple2$2char$phsType$ph$ph_initialize((struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count((struct list$1tuple2$2char$phsType$ph$ph*)come_calloc(1, sizeof(struct list$1tuple2$2char$phsType$ph$ph)*(1), (void*)0, 212, "struct list$1tuple2$2char$phsType$ph$ph*"))));
     while(1) {
         multiple_assign_var2=((struct tuple3$3char$phsType$ph_Bool$*)(__right_value0=parse_type(info)));
         field_name=(char* )come_increment_ref_count(multiple_assign_var2->v1);
         type=(struct sType* )come_increment_ref_count(multiple_assign_var2->v2);
         err=multiple_assign_var2->v3;
         come_call_finalizer(tuple3$3char$phsType$ph_Bool$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-        list$1tuple2$2char$phsType$ph$ph_add(((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(types, "main.nc", 218)),(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_initialize((struct tuple2$2char$phsType$ph*)come_increment_ref_count((struct tuple2$2char$phsType$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsType$ph)*(1), "main.nc", 218, "struct tuple2$2char$phsType$ph")),(char* )come_increment_ref_count(field_name),(struct sType* )come_increment_ref_count(type))));
-        if(*((struct sInfo* )come_null_checker(info, "main.nc", 220))->p==41) {
+        list$1tuple2$2char$phsType$ph$ph_add(types,(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_initialize((struct tuple2$2char$phsType$ph*)come_increment_ref_count((struct tuple2$2char$phsType$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsType$ph)*(1), "main.nc", 218, "struct tuple2$2char$phsType$ph")),(char* )come_increment_ref_count(field_name),(struct sType* )come_increment_ref_count(type))));
+        if(*info->p==41) {
             (field_name = come_decrement_ref_count(field_name, (void*)0, (void*)0, 0, 0, (void*)0));
             come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             break;
@@ -13802,12 +13771,11 @@ _Bool eval_create_table(struct sInfo*  info  )
         come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     expected_next_charactor(41,info);
-    current_db=(struct Database* )come_increment_ref_count(map$2char$phDatabase$ph_operator_load_element(((struct map$2char$phDatabase$ph*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(gDatabases, "main.nc", 229)), "main.nc", 229)),((struct sInfo* )come_null_checker(info, "main.nc", 229))->current_db_name));
-    if(({(_conditional_value_X0=(((struct Table* )(__right_value0=map$2char$phTable$ph_operator_load_element(((struct map$2char$phTable$ph*)come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(((struct Database* )come_null_checker(current_db, "main.nc", 231))->tables, "main.nc", 231)), "main.nc", 231)),table_name)))==((void*)0)));    come_call_finalizer(Table_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+    current_db=(struct Database* )come_increment_ref_count(map$2char$phDatabase$ph_operator_load_element(gDatabases,info->current_db_name));
+    if(({(_conditional_value_X0=(((struct Table* )(__right_value0=map$2char$phTable$ph_operator_load_element(current_db->tables,table_name)))==((void*)0)));    come_call_finalizer(Table_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
 _conditional_value_X0;})) {
-        map$2char$phTable$ph_insert(((struct map$2char$phTable$ph*)come_null_checker(((struct Database* )come_null_checker(current_db, "main.nc", 232))->tables, "main.nc", 232)),(char* )come_increment_ref_count(table_name),(struct Table*)come_increment_ref_count(Table_initialize((struct Table* )come_increment_ref_count(((struct Table* )come_null_checker(((struct Table* )(__right_value0=(struct Table *)come_calloc(1, sizeof(struct Table )*(1), (void*)0, 232, "struct Table* "))), "main.nc", 232))),(char* )come_increment_ref_count(table_name),(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(types))),(_Bool)0);
-        come_call_finalizer(Table_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-        __result_obj__0 = (_Bool)1;
+        map$2char$phTable$ph_insert(current_db->tables,(char* )come_increment_ref_count(table_name),(struct Table*)come_increment_ref_count(Table_initialize((struct Table* )come_increment_ref_count((struct Table *)come_calloc(1, sizeof(struct Table )*(1), (void*)0, 232, "struct Table* ")),(char* )come_increment_ref_count(table_name),(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(types))),(_Bool)0);
+                __result_obj__0 = (_Bool)1;
         (table_name = come_decrement_ref_count(table_name, (void*)0, (void*)0, 0, 0, (void*)0));
         come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, types, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_call_finalizer(Database_finalize, current_db, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -13815,7 +13783,7 @@ _conditional_value_X0;})) {
         return __result_obj__0;
     }
     else if(if_not_exists) {
-        __result_obj__0 = (_Bool)1;
+                __result_obj__0 = (_Bool)1;
         (table_name = come_decrement_ref_count(table_name, (void*)0, (void*)0, 0, 0, (void*)0));
         come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, types, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_call_finalizer(Database_finalize, current_db, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -13823,7 +13791,7 @@ _conditional_value_X0;})) {
         return __result_obj__0;
     }
     else {
-        __result_obj__0 = (_Bool)0;
+                __result_obj__0 = (_Bool)0;
         (table_name = come_decrement_ref_count(table_name, (void*)0, (void*)0, 0, 0, (void*)0));
         come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, types, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_call_finalizer(Database_finalize, current_db, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -13840,10 +13808,10 @@ static struct list$1tuple2$2char$phsType$ph$ph* list$1tuple2$2char$phsType$ph$ph
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1tuple2$2char$phsType$ph$ph_initialize"; neo_current_frame = &fr;
     struct list$1tuple2$2char$phsType$ph$ph* __result_obj__0;
-    ((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1631))->head=((void*)0);
-    ((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1632))->tail=((void*)0);
-    ((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1633))->len=0;
-    __result_obj__0 = (struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(self);
+    self->head=((void*)0);
+    self->tail=((void*)0);
+    self->len=0;
+        __result_obj__0 = (struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(self);
     come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -13862,43 +13830,43 @@ static struct list$1tuple2$2char$phsType$ph$ph* list$1tuple2$2char$phsType$ph$ph
     struct list_item$1tuple2$2char$phsType$ph$ph* litem_6;
     struct tuple2$2char$phsType$ph* __dec_obj12;
     if(self==((void*)0)) {
-        __result_obj__0 = self;
+                __result_obj__0 = self;
         come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    if(((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1683))->len==0) {
-        litem=(struct list_item$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(((struct list_item$1tuple2$2char$phsType$ph$ph*)(__right_value0=(struct list_item$1tuple2$2char$phsType$ph$ph*)come_calloc(1, sizeof(struct list_item$1tuple2$2char$phsType$ph$ph)*(1), (void*)0, 1684, "struct list_item$1tuple2$2char$phsType$ph$ph*"))));
-        ((struct list_item$1tuple2$2char$phsType$ph$ph*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1686))->prev=((void*)0);
-        ((struct list_item$1tuple2$2char$phsType$ph$ph*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1687))->next=((void*)0);
-        __dec_obj10=((struct list_item$1tuple2$2char$phsType$ph$ph*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1688))->item,
-        ((struct list_item$1tuple2$2char$phsType$ph$ph*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1688))->item=(struct tuple2$2char$phsType$ph*)come_increment_ref_count(item);
+    if(self->len==0) {
+        litem=(struct list_item$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(((struct list_item$1tuple2$2char$phsType$ph$ph*)(__right_value0=(struct list_item$1tuple2$2char$phsType$ph$ph*)come_calloc(1, sizeof(struct list_item$1tuple2$2char$phsType$ph$ph)*(1), (void*)0, 1248, "struct list_item$1tuple2$2char$phsType$ph$ph*"))));
+        litem->prev=((void*)0);
+        litem->next=((void*)0);
+        __dec_obj10=litem->item,
+        litem->item=(struct tuple2$2char$phsType$ph*)come_increment_ref_count(item);
         come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, __dec_obj10,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-        ((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1690))->tail=litem;
-        ((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1691))->head=litem;
+        self->tail=litem;
+        self->head=litem;
     }
-    else if(((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1693))->len==1) {
-        litem_5=(struct list_item$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(((struct list_item$1tuple2$2char$phsType$ph$ph*)(__right_value0=(struct list_item$1tuple2$2char$phsType$ph$ph*)come_calloc(1, sizeof(struct list_item$1tuple2$2char$phsType$ph$ph)*(1), (void*)0, 1694, "struct list_item$1tuple2$2char$phsType$ph$ph*"))));
-        ((struct list_item$1tuple2$2char$phsType$ph$ph*)come_null_checker(litem_5, "/usr/local/include/neo-c.h", 1696))->prev=((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1696))->head;
-        ((struct list_item$1tuple2$2char$phsType$ph$ph*)come_null_checker(litem_5, "/usr/local/include/neo-c.h", 1697))->next=((void*)0);
-        __dec_obj11=((struct list_item$1tuple2$2char$phsType$ph$ph*)come_null_checker(litem_5, "/usr/local/include/neo-c.h", 1698))->item,
-        ((struct list_item$1tuple2$2char$phsType$ph$ph*)come_null_checker(litem_5, "/usr/local/include/neo-c.h", 1698))->item=(struct tuple2$2char$phsType$ph*)come_increment_ref_count(item);
+    else if(self->len==1) {
+        litem_5=(struct list_item$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(((struct list_item$1tuple2$2char$phsType$ph$ph*)(__right_value0=(struct list_item$1tuple2$2char$phsType$ph$ph*)come_calloc(1, sizeof(struct list_item$1tuple2$2char$phsType$ph$ph)*(1), (void*)0, 1258, "struct list_item$1tuple2$2char$phsType$ph$ph*"))));
+        litem_5->prev=self->head;
+        litem_5->next=((void*)0);
+        __dec_obj11=litem_5->item,
+        litem_5->item=(struct tuple2$2char$phsType$ph*)come_increment_ref_count(item);
         come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, __dec_obj11,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-        ((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1700))->tail=litem_5;
-        ((struct list_item$1tuple2$2char$phsType$ph$ph*)come_null_checker(((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1701))->head, "/usr/local/include/neo-c.h", 1701))->next=litem_5;
+        self->tail=litem_5;
+        self->head->next=litem_5;
     }
     else {
-        litem_6=(struct list_item$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(((struct list_item$1tuple2$2char$phsType$ph$ph*)(__right_value0=(struct list_item$1tuple2$2char$phsType$ph$ph*)come_calloc(1, sizeof(struct list_item$1tuple2$2char$phsType$ph$ph)*(1), (void*)0, 1704, "struct list_item$1tuple2$2char$phsType$ph$ph*"))));
-        ((struct list_item$1tuple2$2char$phsType$ph$ph*)come_null_checker(litem_6, "/usr/local/include/neo-c.h", 1706))->prev=((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1706))->tail;
-        ((struct list_item$1tuple2$2char$phsType$ph$ph*)come_null_checker(litem_6, "/usr/local/include/neo-c.h", 1707))->next=((void*)0);
-        __dec_obj12=((struct list_item$1tuple2$2char$phsType$ph$ph*)come_null_checker(litem_6, "/usr/local/include/neo-c.h", 1708))->item,
-        ((struct list_item$1tuple2$2char$phsType$ph$ph*)come_null_checker(litem_6, "/usr/local/include/neo-c.h", 1708))->item=(struct tuple2$2char$phsType$ph*)come_increment_ref_count(item);
+        litem_6=(struct list_item$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(((struct list_item$1tuple2$2char$phsType$ph$ph*)(__right_value0=(struct list_item$1tuple2$2char$phsType$ph$ph*)come_calloc(1, sizeof(struct list_item$1tuple2$2char$phsType$ph$ph)*(1), (void*)0, 1268, "struct list_item$1tuple2$2char$phsType$ph$ph*"))));
+        litem_6->prev=self->tail;
+        litem_6->next=((void*)0);
+        __dec_obj12=litem_6->item,
+        litem_6->item=(struct tuple2$2char$phsType$ph*)come_increment_ref_count(item);
         come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, __dec_obj12,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-        ((struct list_item$1tuple2$2char$phsType$ph$ph*)come_null_checker(((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1710))->tail, "/usr/local/include/neo-c.h", 1710))->next=litem_6;
-        ((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1711))->tail=litem_6;
+        self->tail->next=litem_6;
+        self->tail=litem_6;
     }
-    ((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1714))->len++;
-    __result_obj__0 = self;
+    self->len++;
+        __result_obj__0 = self;
     come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -13910,13 +13878,13 @@ static struct tuple2$2char$phsType$ph* tuple2$2char$phsType$ph_initialize(struct
     char*  __dec_obj13  ;
     struct sType*  __dec_obj14  ;
     struct tuple2$2char$phsType$ph* __result_obj__0;
-    __dec_obj13=((struct tuple2$2char$phsType$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3575))->v1,
-    ((struct tuple2$2char$phsType$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3575))->v1=(char* )come_increment_ref_count(v1);
+    __dec_obj13=self->v1,
+    self->v1=(char* )come_increment_ref_count(v1);
     __dec_obj13 = come_decrement_ref_count(__dec_obj13, (void*)0, (void*)0, 0,0, (void*)0);
-    __dec_obj14=((struct tuple2$2char$phsType$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3576))->v2,
-    ((struct tuple2$2char$phsType$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3576))->v2=(struct sType* )come_increment_ref_count(v2);
+    __dec_obj14=self->v2,
+    self->v2=(struct sType* )come_increment_ref_count(v2);
     come_call_finalizer(sType_finalize, __dec_obj14,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-    __result_obj__0 = (struct tuple2$2char$phsType$ph*)come_increment_ref_count(self);
+        __result_obj__0 = (struct tuple2$2char$phsType$ph*)come_increment_ref_count(self);
     come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     (v1 = come_decrement_ref_count(v1, (void*)0, (void*)0, 0, 0, (void*)0));
     come_call_finalizer(sType_finalize, v2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -13934,40 +13902,40 @@ static struct Database*  map$2char$phDatabase$ph$p_operator_load_element(struct 
     unsigned int it;
     memset(&default_value,0,sizeof(struct Database* ));
     if(self==((void*)0)) {
-        __result_obj__0 = (struct Database* )come_increment_ref_count(default_value);
+                __result_obj__0 = (struct Database* )come_increment_ref_count(default_value);
         neo_current_frame = fr.prev;
         come_call_finalizer(Database_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
-    hash=string_get_hash_key(((char* )come_null_checker(((char* )key), "/usr/local/include/neo-c.h", 3211)))%((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3211))->size;
+    hash=string_get_hash_key(((char* )key))%self->size;
     it=hash;
     while((_Bool)1) {
-        if(((_Bool*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3215))->item_existance, "/usr/local/include/neo-c.h", 3215))[it]) {
-            if(string_equals(((char* )come_null_checker(((char** )come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3217))->keys, "/usr/local/include/neo-c.h", 3217))[it], "/usr/local/include/neo-c.h", 3217)),key)) {
-                __result_obj__0 = (struct Database* )come_increment_ref_count(((struct Database** )come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3219))->items, "/usr/local/include/neo-c.h", 3219))[it]);
+        if(self->item_existance[it]) {
+            if(string_equals(self->keys[it],key)) {
+                                __result_obj__0 = (struct Database* )come_increment_ref_count(self->items[it]);
                 neo_current_frame = fr.prev;
                 come_call_finalizer(Database_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
                 return __result_obj__0;
             }
             it++;
-            if(it>=((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3224))->size) {
+            if(it>=self->size) {
                 it=0;
             }
             else if(it==hash) {
-                __result_obj__0 = (struct Database* )come_increment_ref_count(default_value);
+                                __result_obj__0 = (struct Database* )come_increment_ref_count(default_value);
                 neo_current_frame = fr.prev;
                 come_call_finalizer(Database_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
                 return __result_obj__0;
             }
         }
         else {
-            __result_obj__0 = (struct Database* )come_increment_ref_count(default_value);
+                        __result_obj__0 = (struct Database* )come_increment_ref_count(default_value);
             neo_current_frame = fr.prev;
             come_call_finalizer(Database_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
             return __result_obj__0;
         }
     }
-    __result_obj__0 = (struct Database* )come_increment_ref_count(default_value);
+        __result_obj__0 = (struct Database* )come_increment_ref_count(default_value);
     neo_current_frame = fr.prev;
     come_call_finalizer(Database_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
@@ -13982,40 +13950,40 @@ static struct Database*  map$2char$phDatabase$ph_operator_load_element(struct ma
     unsigned int it;
     memset(&default_value,0,sizeof(struct Database* ));
     if(self==((void*)0)) {
-        __result_obj__0 = (struct Database* )come_increment_ref_count(default_value);
+                __result_obj__0 = (struct Database* )come_increment_ref_count(default_value);
         neo_current_frame = fr.prev;
         come_call_finalizer(Database_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
-    hash=string_get_hash_key(((char* )come_null_checker(((char* )key), "/usr/local/include/neo-c.h", 3211)))%((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3211))->size;
+    hash=string_get_hash_key(((char* )key))%self->size;
     it=hash;
     while((_Bool)1) {
-        if(((_Bool*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3215))->item_existance, "/usr/local/include/neo-c.h", 3215))[it]) {
-            if(string_equals(((char* )come_null_checker(((char** )come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3217))->keys, "/usr/local/include/neo-c.h", 3217))[it], "/usr/local/include/neo-c.h", 3217)),key)) {
-                __result_obj__0 = (struct Database* )come_increment_ref_count(((struct Database** )come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3219))->items, "/usr/local/include/neo-c.h", 3219))[it]);
+        if(self->item_existance[it]) {
+            if(string_equals(self->keys[it],key)) {
+                                __result_obj__0 = (struct Database* )come_increment_ref_count(self->items[it]);
                 neo_current_frame = fr.prev;
                 come_call_finalizer(Database_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
                 return __result_obj__0;
             }
             it++;
-            if(it>=((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3224))->size) {
+            if(it>=self->size) {
                 it=0;
             }
             else if(it==hash) {
-                __result_obj__0 = (struct Database* )come_increment_ref_count(default_value);
+                                __result_obj__0 = (struct Database* )come_increment_ref_count(default_value);
                 neo_current_frame = fr.prev;
                 come_call_finalizer(Database_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
                 return __result_obj__0;
             }
         }
         else {
-            __result_obj__0 = (struct Database* )come_increment_ref_count(default_value);
+                        __result_obj__0 = (struct Database* )come_increment_ref_count(default_value);
             neo_current_frame = fr.prev;
             come_call_finalizer(Database_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
             return __result_obj__0;
         }
     }
-    __result_obj__0 = (struct Database* )come_increment_ref_count(default_value);
+        __result_obj__0 = (struct Database* )come_increment_ref_count(default_value);
     neo_current_frame = fr.prev;
     come_call_finalizer(Database_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
@@ -14030,40 +13998,40 @@ static struct Table*  map$2char$phTable$ph$p_operator_load_element(struct map$2c
     unsigned int it;
     memset(&default_value,0,sizeof(struct Table* ));
     if(self==((void*)0)) {
-        __result_obj__0 = (struct Table* )come_increment_ref_count(default_value);
+                __result_obj__0 = (struct Table* )come_increment_ref_count(default_value);
         neo_current_frame = fr.prev;
         come_call_finalizer(Table_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
-    hash=string_get_hash_key(((char* )come_null_checker(((char* )key), "/usr/local/include/neo-c.h", 3211)))%((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3211))->size;
+    hash=string_get_hash_key(((char* )key))%self->size;
     it=hash;
     while((_Bool)1) {
-        if(((_Bool*)come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3215))->item_existance, "/usr/local/include/neo-c.h", 3215))[it]) {
-            if(string_equals(((char* )come_null_checker(((char** )come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3217))->keys, "/usr/local/include/neo-c.h", 3217))[it], "/usr/local/include/neo-c.h", 3217)),key)) {
-                __result_obj__0 = (struct Table* )come_increment_ref_count(((struct Table** )come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3219))->items, "/usr/local/include/neo-c.h", 3219))[it]);
+        if(self->item_existance[it]) {
+            if(string_equals(self->keys[it],key)) {
+                                __result_obj__0 = (struct Table* )come_increment_ref_count(self->items[it]);
                 neo_current_frame = fr.prev;
                 come_call_finalizer(Table_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
                 return __result_obj__0;
             }
             it++;
-            if(it>=((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3224))->size) {
+            if(it>=self->size) {
                 it=0;
             }
             else if(it==hash) {
-                __result_obj__0 = (struct Table* )come_increment_ref_count(default_value);
+                                __result_obj__0 = (struct Table* )come_increment_ref_count(default_value);
                 neo_current_frame = fr.prev;
                 come_call_finalizer(Table_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
                 return __result_obj__0;
             }
         }
         else {
-            __result_obj__0 = (struct Table* )come_increment_ref_count(default_value);
+                        __result_obj__0 = (struct Table* )come_increment_ref_count(default_value);
             neo_current_frame = fr.prev;
             come_call_finalizer(Table_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
             return __result_obj__0;
         }
     }
-    __result_obj__0 = (struct Table* )come_increment_ref_count(default_value);
+        __result_obj__0 = (struct Table* )come_increment_ref_count(default_value);
     neo_current_frame = fr.prev;
     come_call_finalizer(Table_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
@@ -14078,40 +14046,40 @@ static struct Table*  map$2char$phTable$ph_operator_load_element(struct map$2cha
     unsigned int it;
     memset(&default_value,0,sizeof(struct Table* ));
     if(self==((void*)0)) {
-        __result_obj__0 = (struct Table* )come_increment_ref_count(default_value);
+                __result_obj__0 = (struct Table* )come_increment_ref_count(default_value);
         neo_current_frame = fr.prev;
         come_call_finalizer(Table_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
-    hash=string_get_hash_key(((char* )come_null_checker(((char* )key), "/usr/local/include/neo-c.h", 3211)))%((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3211))->size;
+    hash=string_get_hash_key(((char* )key))%self->size;
     it=hash;
     while((_Bool)1) {
-        if(((_Bool*)come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3215))->item_existance, "/usr/local/include/neo-c.h", 3215))[it]) {
-            if(string_equals(((char* )come_null_checker(((char** )come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3217))->keys, "/usr/local/include/neo-c.h", 3217))[it], "/usr/local/include/neo-c.h", 3217)),key)) {
-                __result_obj__0 = (struct Table* )come_increment_ref_count(((struct Table** )come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3219))->items, "/usr/local/include/neo-c.h", 3219))[it]);
+        if(self->item_existance[it]) {
+            if(string_equals(self->keys[it],key)) {
+                                __result_obj__0 = (struct Table* )come_increment_ref_count(self->items[it]);
                 neo_current_frame = fr.prev;
                 come_call_finalizer(Table_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
                 return __result_obj__0;
             }
             it++;
-            if(it>=((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3224))->size) {
+            if(it>=self->size) {
                 it=0;
             }
             else if(it==hash) {
-                __result_obj__0 = (struct Table* )come_increment_ref_count(default_value);
+                                __result_obj__0 = (struct Table* )come_increment_ref_count(default_value);
                 neo_current_frame = fr.prev;
                 come_call_finalizer(Table_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
                 return __result_obj__0;
             }
         }
         else {
-            __result_obj__0 = (struct Table* )come_increment_ref_count(default_value);
+                        __result_obj__0 = (struct Table* )come_increment_ref_count(default_value);
             neo_current_frame = fr.prev;
             come_call_finalizer(Table_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
             return __result_obj__0;
         }
     }
-    __result_obj__0 = (struct Table* )come_increment_ref_count(default_value);
+        __result_obj__0 = (struct Table* )come_increment_ref_count(default_value);
     neo_current_frame = fr.prev;
     come_call_finalizer(Table_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
@@ -14126,40 +14094,40 @@ static struct map$2char$phTable$ph* map$2char$phTable$ph_insert(struct map$2char
     _Bool same_key_exist;
     char*  it2  ;
     if(self==((void*)0)) {
-        __result_obj__0 = self;
+                __result_obj__0 = self;
         (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0));
         come_call_finalizer(Table_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    if(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3044))->len*10>=((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3044))->size) {
-        map$2char$phTable$ph_rehash(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3045)));
+    if(self->len*10>=self->size) {
+        map$2char$phTable$ph_rehash(self);
     }
-    hash=string_get_hash_key(((char* )come_null_checker(((char* )key), "/usr/local/include/neo-c.h", 3047)))%((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3047))->size;
+    hash=string_get_hash_key(((char* )key))%self->size;
     it=hash;
     while((_Bool)1) {
-        if(((_Bool*)come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3051))->item_existance, "/usr/local/include/neo-c.h", 3051))[it]) {
-            if((!by_pointer&&string_equals(((char* )come_null_checker(((char** )come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3053))->keys, "/usr/local/include/neo-c.h", 3053))[it], "/usr/local/include/neo-c.h", 3053)),key))||(by_pointer&&((char** )come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3053))->keys, "/usr/local/include/neo-c.h", 3053))[it]==key)) {
+        if(self->item_existance[it]) {
+            if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
                 if(1) {
-                    list$1char$ph_remove(((struct list$1char$ph*)come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3056))->key_list, "/usr/local/include/neo-c.h", 3056)),((char** )come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3056))->keys, "/usr/local/include/neo-c.h", 3056))[it],(_Bool)0);
-                    (((char** )come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3057))->keys, "/usr/local/include/neo-c.h", 3057))[it] = come_decrement_ref_count(((char** )come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3057))->keys, "/usr/local/include/neo-c.h", 3057))[it], (void*)0, (void*)0, 0, 0, (void*)0));
-                    ((char** )come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3058))->keys, "/usr/local/include/neo-c.h", 3058))[it]=(char* )come_increment_ref_count(key);
+                    list$1char$ph_remove(self->key_list,self->keys[it],(_Bool)0);
+                    (self->keys[it] = come_decrement_ref_count(self->keys[it], (void*)0, (void*)0, 0, 0, (void*)0));
+                    self->keys[it]=(char* )come_increment_ref_count(key);
                 }
                 else {
-                    list$1char$ph_remove(((struct list$1char$ph*)come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3061))->key_list, "/usr/local/include/neo-c.h", 3061)),((char** )come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3061))->keys, "/usr/local/include/neo-c.h", 3061))[it],(_Bool)0);
-                    ((char** )come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3062))->keys, "/usr/local/include/neo-c.h", 3062))[it]=key;
+                    list$1char$ph_remove(self->key_list,self->keys[it],(_Bool)0);
+                    self->keys[it]=key;
                 }
                 if(1) {
-                    come_call_finalizer(Table_finalize, ((struct Table** )come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3065))->items, "/usr/local/include/neo-c.h", 3065))[it], (void*)0, (void*)0, 0, 0, 0, (void*)0);
-                    ((struct Table** )come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3066))->items, "/usr/local/include/neo-c.h", 3066))[it]=(struct Table* )come_increment_ref_count(item);
+                    come_call_finalizer(Table_finalize, self->items[it], (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                    self->items[it]=(struct Table* )come_increment_ref_count(item);
                 }
                 else {
-                    ((struct Table** )come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3069))->items, "/usr/local/include/neo-c.h", 3069))[it]=item;
+                    self->items[it]=item;
                 }
                 break;
             }
             it++;
-            if(it>=((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3076))->size) {
+            if(it>=self->size) {
                 it=0;
             }
             else if(it==hash) {
@@ -14169,33 +14137,33 @@ static struct map$2char$phTable$ph* map$2char$phTable$ph_insert(struct map$2char
             }
         }
         else {
-            ((_Bool*)come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3086))->item_existance, "/usr/local/include/neo-c.h", 3086))[it]=(_Bool)1;
+            self->item_existance[it]=(_Bool)1;
             if(1) {
-                ((char** )come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3088))->keys, "/usr/local/include/neo-c.h", 3088))[it]=(char* )come_increment_ref_count(key);
+                self->keys[it]=(char* )come_increment_ref_count(key);
             }
             else {
-                ((char** )come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3091))->keys, "/usr/local/include/neo-c.h", 3091))[it]=key;
+                self->keys[it]=key;
             }
             if(1) {
-                ((struct Table** )come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3094))->items, "/usr/local/include/neo-c.h", 3094))[it]=(struct Table* )come_increment_ref_count(item);
+                self->items[it]=(struct Table* )come_increment_ref_count(item);
             }
             else {
-                ((struct Table** )come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3097))->items, "/usr/local/include/neo-c.h", 3097))[it]=item;
+                self->items[it]=item;
             }
-            ((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3100))->len++;
+            self->len++;
             break;
         }
     }
     same_key_exist=(_Bool)0;
-    for(it2=list$1char$ph_begin(((struct list$1char$ph*)come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3107))->key_list, "/usr/local/include/neo-c.h", 3107)));!list$1char$ph_end(((struct list$1char$ph*)come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3107))->key_list, "/usr/local/include/neo-c.h", 3107)));it2=list$1char$ph_next(((struct list$1char$ph*)come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3107))->key_list, "/usr/local/include/neo-c.h", 3107)))){
-        if((!by_pointer&&string_equals(((char* )come_null_checker(it2, "/usr/local/include/neo-c.h", 3108)),key))||(by_pointer&&it2==key)) {
+    for(it2=list$1char$ph_begin(self->key_list);!list$1char$ph_end(self->key_list);it2=list$1char$ph_next(self->key_list)){
+        if((!by_pointer&&string_equals(it2,key))||(by_pointer&&it2==key)) {
             same_key_exist=(_Bool)1;
         }
     }
     if(!same_key_exist) {
-        list$1char$ph_push_back(((struct list$1char$ph*)come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3114))->key_list, "/usr/local/include/neo-c.h", 3114)),(char* )come_increment_ref_count(key));
+        list$1char$ph_push_back(self->key_list,(char* )come_increment_ref_count(key));
     }
-    __result_obj__0 = self;
+        __result_obj__0 = self;
     (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0));
     come_call_finalizer(Table_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
@@ -14217,18 +14185,18 @@ static void map$2char$phTable$ph_rehash(struct map$2char$phTable$ph* self)
     unsigned int hash;
     int n;
     struct Table*  default_value_9  ;
-    size=((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2964))->size*10;
-    keys=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(size)), (void*)0, 2965, "char** "))));
-    items=(struct Table** )come_increment_ref_count(((struct Table** )(__right_value0=(struct Table* *)come_calloc(1, sizeof(struct Table* )*(1*(size)), (void*)0, 2966, "struct Table** "))));
-    item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), (void*)0, 2967, "_Bool*"))));
+    size=self->size*10;
+    keys=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(size)), (void*)0, 2937, "char** "))));
+    items=(struct Table** )come_increment_ref_count(((struct Table** )(__right_value0=(struct Table* *)come_calloc(1, sizeof(struct Table* )*(1*(size)), (void*)0, 2938, "struct Table** "))));
+    item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), (void*)0, 2939, "_Bool*"))));
     len=0;
-    for(it=map$2char$phTable$ph_begin(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2971)));!map$2char$phTable$ph_end(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2971)));it=map$2char$phTable$ph_next(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2971)))){
+    for(it=map$2char$phTable$ph_begin(self);!map$2char$phTable$ph_end(self);it=map$2char$phTable$ph_next(self)){
         memset(&default_value,0,sizeof(struct Table* ));
-        it2=((struct Table* )(__right_value0=map$2char$phTable$ph_at(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2974)),it,default_value,(_Bool)0)));
-        hash=string_get_hash_key(((char* )come_null_checker(((char* )it), "/usr/local/include/neo-c.h", 2975)))%size;
+        it2=((struct Table* )(__right_value0=map$2char$phTable$ph_at(self,it,default_value,(_Bool)0)));
+        hash=string_get_hash_key(((char* )it))%size;
         n=hash;
         while((_Bool)1) {
-            if(((_Bool*)come_null_checker(item_existance, "/usr/local/include/neo-c.h", 2979))[n]) {
+            if(item_existance[n]) {
                 n++;
                 if(n>=size) {
                     n=0;
@@ -14240,10 +14208,10 @@ static void map$2char$phTable$ph_rehash(struct map$2char$phTable$ph* self)
                 }
             }
             else {
-                ((_Bool*)come_null_checker(item_existance, "/usr/local/include/neo-c.h", 2993))[n]=(_Bool)1;
-                ((char** )come_null_checker(keys, "/usr/local/include/neo-c.h", 2994))[n]=it;
+                item_existance[n]=(_Bool)1;
+                keys[n]=it;
                 memset(&default_value_9,0,sizeof(struct Table* ));
-                ((struct Table** )come_null_checker(items, "/usr/local/include/neo-c.h", 2997))[n]=((struct Table* )(__right_value0=map$2char$phTable$ph_at(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2997)),it,(struct Table* )come_increment_ref_count(default_value_9),(_Bool)0)));
+                items[n]=((struct Table* )(__right_value0=map$2char$phTable$ph_at(self,it,(struct Table* )come_increment_ref_count(default_value_9),(_Bool)0)));
                 len++;
                 come_call_finalizer(Table_finalize, default_value_9, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 break;
@@ -14251,15 +14219,15 @@ static void map$2char$phTable$ph_rehash(struct map$2char$phTable$ph* self)
             }
         }
     }
-    come_free((char*)((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3005))->items);
-    (((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3006))->item_existance = come_decrement_ref_count(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3006))->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
-    come_free((char*)((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3007))->keys);
-    ((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3009))->keys=keys;
-    ((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3010))->items=items;
-    ((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3011))->item_existance=item_existance;
-    ((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3013))->size=size;
-    ((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3014))->len=len;
-    neo_current_frame = fr.prev;
+    come_free((char*)self->items);
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
+    come_free((char*)self->keys);
+    self->keys=keys;
+    self->items=items;
+    self->item_existance=item_existance;
+    self->size=size;
+    self->len=len;
+            neo_current_frame = fr.prev;
 }
 
 static char*  map$2char$phTable$ph_begin(struct map$2char$phTable$ph* self)
@@ -14270,18 +14238,18 @@ static char*  map$2char$phTable$ph_begin(struct map$2char$phTable$ph* self)
     char*  result_7  ;
     if(self==((void*)0)) {
         memset(&result,0,sizeof(char* ));
-        __result_obj__0 = result;
+                __result_obj__0 = result;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    ((struct list$1char$ph*)come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2927))->key_list, "/usr/local/include/neo-c.h", 2927))->it=((struct list$1char$ph*)come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2927))->key_list, "/usr/local/include/neo-c.h", 2927))->head;
-    if(((struct list$1char$ph*)come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2929))->key_list, "/usr/local/include/neo-c.h", 2929))->it) {
-        __result_obj__0 = ((struct list_item$1char$ph*)come_null_checker(((struct list$1char$ph*)come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2930))->key_list, "/usr/local/include/neo-c.h", 2930))->it, "/usr/local/include/neo-c.h", 2930))->item;
+    self->key_list->it=self->key_list->head;
+    if(self->key_list->it) {
+                __result_obj__0 = self->key_list->it->item;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     memset(&result_7,0,sizeof(char* ));
-    __result_obj__0 = result_7;
+        __result_obj__0 = result_7;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -14289,9 +14257,9 @@ static char*  map$2char$phTable$ph_begin(struct map$2char$phTable$ph* self)
 static _Bool map$2char$phTable$ph_end(struct map$2char$phTable$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phTable$ph_end"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
-    return self==((void*)0)||((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2958))->key_list==((void*)0)||((struct list$1char$ph*)come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2958))->key_list, "/usr/local/include/neo-c.h", 2958))->it==((void*)0);
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
+    return self==((void*)0)||self->key_list==((void*)0)||self->key_list->it==((void*)0);
+        neo_current_frame = fr.prev;
 }
 
 static char*  map$2char$phTable$ph_next(struct map$2char$phTable$ph* self)
@@ -14300,20 +14268,20 @@ static char*  map$2char$phTable$ph_next(struct map$2char$phTable$ph* self)
     char*  result  ;
     char*  __result_obj__0  ;
     char*  result_8  ;
-    if(self==((void*)0)||((struct list$1char$ph*)come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2941))->key_list, "/usr/local/include/neo-c.h", 2941))->it==((void*)0)) {
+    if(self==((void*)0)||self->key_list->it==((void*)0)) {
         memset(&result,0,sizeof(char* ));
-        __result_obj__0 = result;
+                __result_obj__0 = result;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    ((struct list$1char$ph*)come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2946))->key_list, "/usr/local/include/neo-c.h", 2946))->it=((struct list_item$1char$ph*)come_null_checker(((struct list$1char$ph*)come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2946))->key_list, "/usr/local/include/neo-c.h", 2946))->it, "/usr/local/include/neo-c.h", 2946))->next;
-    if(((struct list$1char$ph*)come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2948))->key_list, "/usr/local/include/neo-c.h", 2948))->it) {
-        __result_obj__0 = ((struct list_item$1char$ph*)come_null_checker(((struct list$1char$ph*)come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2949))->key_list, "/usr/local/include/neo-c.h", 2949))->it, "/usr/local/include/neo-c.h", 2949))->item;
+    self->key_list->it=self->key_list->it->next;
+    if(self->key_list->it) {
+                __result_obj__0 = self->key_list->it->item;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     memset(&result_8,0,sizeof(char* ));
-    __result_obj__0 = result_8;
+        __result_obj__0 = result_8;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -14325,29 +14293,29 @@ static struct Table*  map$2char$phTable$ph_at(struct map$2char$phTable$ph* self,
     unsigned int hash;
     unsigned int it;
     if(self==((void*)0)) {
-        __result_obj__0 = (struct Table* )come_increment_ref_count(default_value);
+                __result_obj__0 = (struct Table* )come_increment_ref_count(default_value);
         come_call_finalizer(Table_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         neo_current_frame = fr.prev;
         come_call_finalizer(Table_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
-    hash=string_get_hash_key(((char* )come_null_checker(((char* )key), "/usr/local/include/neo-c.h", 2837)))%((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2837))->size;
+    hash=string_get_hash_key(((char* )key))%self->size;
     it=hash;
     while((_Bool)1) {
-        if(((_Bool*)come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2841))->item_existance, "/usr/local/include/neo-c.h", 2841))[it]) {
-            if((!by_pointer&&string_equals(((char* )come_null_checker(((char** )come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2843))->keys, "/usr/local/include/neo-c.h", 2843))[it], "/usr/local/include/neo-c.h", 2843)),key))||(by_pointer&&((char** )come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2843))->keys, "/usr/local/include/neo-c.h", 2843))[it]==key)) {
-                __result_obj__0 = (struct Table* )come_increment_ref_count(((struct Table** )come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2845))->items, "/usr/local/include/neo-c.h", 2845))[it]);
+        if(self->item_existance[it]) {
+            if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
+                                __result_obj__0 = (struct Table* )come_increment_ref_count(self->items[it]);
                 come_call_finalizer(Table_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 neo_current_frame = fr.prev;
                 come_call_finalizer(Table_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
                 return __result_obj__0;
             }
             it++;
-            if(it>=((struct map$2char$phTable$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2850))->size) {
+            if(it>=self->size) {
                 it=0;
             }
             else if(it==hash) {
-                __result_obj__0 = (struct Table* )come_increment_ref_count(default_value);
+                                __result_obj__0 = (struct Table* )come_increment_ref_count(default_value);
                 come_call_finalizer(Table_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0);
                 neo_current_frame = fr.prev;
                 come_call_finalizer(Table_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -14355,14 +14323,14 @@ static struct Table*  map$2char$phTable$ph_at(struct map$2char$phTable$ph* self,
             }
         }
         else {
-            __result_obj__0 = (struct Table* )come_increment_ref_count(default_value);
+                        __result_obj__0 = (struct Table* )come_increment_ref_count(default_value);
             come_call_finalizer(Table_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0);
             neo_current_frame = fr.prev;
             come_call_finalizer(Table_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
             return __result_obj__0;
         }
     }
-    __result_obj__0 = (struct Table* )come_increment_ref_count(default_value);
+        __result_obj__0 = (struct Table* )come_increment_ref_count(default_value);
     come_call_finalizer(Table_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(Table_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -14376,21 +14344,21 @@ static struct list$1char$ph* list$1char$ph_remove(struct list$1char$ph* self, ch
     int it2;
     struct list_item$1char$ph* it;
     if(self==((void*)0)) {
-        __result_obj__0 = self;
+                __result_obj__0 = self;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     it2=0;
-    it=((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2022))->head;
+    it=self->head;
     while(it!=((void*)0)) {
-        if((!by_pointer&&string_equals(((char* )come_null_checker(((struct list_item$1char$ph*)come_null_checker(it, "/usr/local/include/neo-c.h", 2024))->item, "/usr/local/include/neo-c.h", 2024)),item))||(by_pointer&&((struct list_item$1char$ph*)come_null_checker(it, "/usr/local/include/neo-c.h", 2024))->item==item)) {
-            list$1char$ph_delete(((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2025)),it2,it2+1);
+        if((!by_pointer&&string_equals(it->item,item))||(by_pointer&&it->item==item)) {
+            list$1char$ph_delete(self,it2,it2+1);
             break;
         }
         it2++;
-        it=((struct list_item$1char$ph*)come_null_checker(it, "/usr/local/include/neo-c.h", 2030))->next;
+        it=it->next;
     }
-    __result_obj__0 = self;
+        __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -14412,15 +14380,15 @@ static struct list$1char$ph* list$1char$ph_delete(struct list$1char$ph* self, in
     int i_14;
     struct list_item$1char$ph* prev_it_15;
     if(self==((void*)0)) {
-        __result_obj__0 = self;
+                __result_obj__0 = self;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     if(head<0) {
-        head+=((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2042))->len;
+        head+=self->len;
     }
     if(tail<0) {
-        tail+=((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2045))->len+1;
+        tail+=self->len+1;
     }
     if(head>tail) {
         tmp=tail;
@@ -14430,97 +14398,97 @@ static struct list$1char$ph* list$1char$ph_delete(struct list$1char$ph* self, in
     if(head<0) {
         head=0;
     }
-    if(tail>((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2058))->len) {
-        tail=((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2059))->len;
+    if(tail>self->len) {
+        tail=self->len;
     }
-    if(head>=((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2062))->len) {
-        __result_obj__0 = self;
+    if(head>=self->len) {
+                __result_obj__0 = self;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     if(head==tail) {
-        __result_obj__0 = self;
+                __result_obj__0 = self;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    if(head==0&&tail==((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2070))->len) {
-        list$1char$ph_reset(((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2072)));
+    if(head==0&&tail==self->len) {
+        list$1char$ph_reset(self);
     }
     else if(head==0) {
-        it=((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2075))->head;
+        it=self->head;
         i=0;
         while(it!=((void*)0)) {
             if(i<tail) {
                 prev_it=it;
-                it=((struct list_item$1char$ph*)come_null_checker(it, "/usr/local/include/neo-c.h", 2081))->next;
+                it=it->next;
                 i++;
                 come_call_finalizer(list_item$1char$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-                ((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2086))->len--;
+                self->len--;
             }
             else if(i==tail) {
-                ((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2089))->head=it;
-                ((struct list_item$1char$ph*)come_null_checker(((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2090))->head, "/usr/local/include/neo-c.h", 2090))->prev=((void*)0);
+                self->head=it;
+                self->head->prev=((void*)0);
                 break;
             }
             else {
-                it=((struct list_item$1char$ph*)come_null_checker(it, "/usr/local/include/neo-c.h", 2094))->next;
+                it=it->next;
                 i++;
             }
         }
     }
-    else if(tail==((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2099))->len) {
-        it_10=((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2100))->head;
+    else if(tail==self->len) {
+        it_10=self->head;
         i_11=0;
         while(it_10!=((void*)0)) {
             if(i_11==head) {
-                ((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2104))->tail=((struct list_item$1char$ph*)come_null_checker(it_10, "/usr/local/include/neo-c.h", 2104))->prev;
-                ((struct list_item$1char$ph*)come_null_checker(((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2105))->tail, "/usr/local/include/neo-c.h", 2105))->next=((void*)0);
+                self->tail=it_10->prev;
+                self->tail->next=((void*)0);
             }
             if(i_11>=head) {
                 prev_it_12=it_10;
-                it_10=((struct list_item$1char$ph*)come_null_checker(it_10, "/usr/local/include/neo-c.h", 2111))->next;
+                it_10=it_10->next;
                 i_11++;
                 come_call_finalizer(list_item$1char$ph$p_finalize, prev_it_12, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-                ((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2116))->len--;
+                self->len--;
             }
             else {
-                it_10=((struct list_item$1char$ph*)come_null_checker(it_10, "/usr/local/include/neo-c.h", 2119))->next;
+                it_10=it_10->next;
                 i_11++;
             }
         }
     }
     else {
-        it_13=((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2125))->head;
+        it_13=self->head;
         head_prev_it=((void*)0);
         tail_it=((void*)0);
         i_14=0;
         while(it_13!=((void*)0)) {
             if(i_14==head) {
-                head_prev_it=((struct list_item$1char$ph*)come_null_checker(it_13, "/usr/local/include/neo-c.h", 2134))->prev;
+                head_prev_it=it_13->prev;
             }
             if(i_14==tail) {
                 tail_it=it_13;
             }
             if(i_14>=head&&i_14<tail) {
                 prev_it_15=it_13;
-                it_13=((struct list_item$1char$ph*)come_null_checker(it_13, "/usr/local/include/neo-c.h", 2144))->next;
+                it_13=it_13->next;
                 i_14++;
                 come_call_finalizer(list_item$1char$ph$p_finalize, prev_it_15, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-                ((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2149))->len--;
+                self->len--;
             }
             else {
-                it_13=((struct list_item$1char$ph*)come_null_checker(it_13, "/usr/local/include/neo-c.h", 2152))->next;
+                it_13=it_13->next;
                 i_14++;
             }
         }
         if(head_prev_it!=((void*)0)) {
-            ((struct list_item$1char$ph*)come_null_checker(head_prev_it, "/usr/local/include/neo-c.h", 2158))->next=tail_it;
+            head_prev_it->next=tail_it;
         }
         if(tail_it!=((void*)0)) {
-            ((struct list_item$1char$ph*)come_null_checker(tail_it, "/usr/local/include/neo-c.h", 2161))->prev=head_prev_it;
+            tail_it->prev=head_prev_it;
         }
     }
-    __result_obj__0 = self;
+        __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -14532,20 +14500,20 @@ static struct list$1char$ph* list$1char$ph_reset(struct list$1char$ph* self)
     struct list_item$1char$ph* it;
     struct list_item$1char$ph* prev_it;
     if(self==((void*)0)) {
-        __result_obj__0 = self;
+                __result_obj__0 = self;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    it=((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2002))->head;
+    it=self->head;
     while(it!=((void*)0)) {
         prev_it=it;
-        it=((struct list_item$1char$ph*)come_null_checker(it, "/usr/local/include/neo-c.h", 2005))->next;
+        it=it->next;
         come_call_finalizer(list_item$1char$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    ((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2009))->head=((void*)0);
-    ((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2010))->tail=((void*)0);
-    ((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2012))->len=0;
-    __result_obj__0 = self;
+    self->head=((void*)0);
+    self->tail=((void*)0);
+    self->len=0;
+        __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -14558,18 +14526,18 @@ static char*  list$1char$ph_begin(struct list$1char$ph* self)
     char*  result_16  ;
     if(self==((void*)0)) {
         memset(&result,0,sizeof(char* ));
-        __result_obj__0 = result;
+                __result_obj__0 = result;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    ((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1839))->it=((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1839))->head;
-    if(((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1841))->it) {
-        __result_obj__0 = ((struct list_item$1char$ph*)come_null_checker(((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1842))->it, "/usr/local/include/neo-c.h", 1842))->item;
+    self->it=self->head;
+    if(self->it) {
+                __result_obj__0 = self->it->item;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     memset(&result_16,0,sizeof(char* ));
-    __result_obj__0 = result_16;
+        __result_obj__0 = result_16;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -14577,9 +14545,9 @@ static char*  list$1char$ph_begin(struct list$1char$ph* self)
 static _Bool list$1char$ph_end(struct list$1char$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph_end"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
-    return self==((void*)0)||((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1871))->it==((void*)0);
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
+    return self==((void*)0)||self->it==((void*)0);
+        neo_current_frame = fr.prev;
 }
 
 static char*  list$1char$ph_next(struct list$1char$ph* self)
@@ -14588,20 +14556,20 @@ static char*  list$1char$ph_next(struct list$1char$ph* self)
     char*  result  ;
     char*  __result_obj__0  ;
     char*  result_17  ;
-    if(self==((void*)0)||((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1853))->it==((void*)0)) {
+    if(self==((void*)0)||self->it==((void*)0)) {
         memset(&result,0,sizeof(char* ));
-        __result_obj__0 = result;
+                __result_obj__0 = result;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    ((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1859))->it=((struct list_item$1char$ph*)come_null_checker(((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1859))->it, "/usr/local/include/neo-c.h", 1859))->next;
-    if(((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1861))->it) {
-        __result_obj__0 = ((struct list_item$1char$ph*)come_null_checker(((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1862))->it, "/usr/local/include/neo-c.h", 1862))->item;
+    self->it=self->it->next;
+    if(self->it) {
+                __result_obj__0 = self->it->item;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     memset(&result_17,0,sizeof(char* ));
-    __result_obj__0 = result_17;
+        __result_obj__0 = result_17;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -14618,43 +14586,43 @@ static struct list$1char$ph* list$1char$ph_push_back(struct list$1char$ph* self,
     struct list_item$1char$ph* litem_19;
     char*  __dec_obj17  ;
     if(self==((void*)0)) {
-        __result_obj__0 = self;
+                __result_obj__0 = self;
         (item = come_decrement_ref_count(item, (void*)0, (void*)0, 0, 0, (void*)0));
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    if(((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1768))->len==0) {
-        litem=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), (void*)0, 1769, "struct list_item$1char$ph*"))));
-        ((struct list_item$1char$ph*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1771))->prev=((void*)0);
-        ((struct list_item$1char$ph*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1772))->next=((void*)0);
-        __dec_obj15=((struct list_item$1char$ph*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1773))->item,
-        ((struct list_item$1char$ph*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1773))->item=(char* )come_increment_ref_count(item);
+    if(self->len==0) {
+        litem=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), (void*)0, 1333, "struct list_item$1char$ph*"))));
+        litem->prev=((void*)0);
+        litem->next=((void*)0);
+        __dec_obj15=litem->item,
+        litem->item=(char* )come_increment_ref_count(item);
         __dec_obj15 = come_decrement_ref_count(__dec_obj15, (void*)0, (void*)0, 0,0, (void*)0);
-        ((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1775))->tail=litem;
-        ((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1776))->head=litem;
+        self->tail=litem;
+        self->head=litem;
     }
-    else if(((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1778))->len==1) {
-        litem_18=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), (void*)0, 1779, "struct list_item$1char$ph*"))));
-        ((struct list_item$1char$ph*)come_null_checker(litem_18, "/usr/local/include/neo-c.h", 1781))->prev=((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1781))->head;
-        ((struct list_item$1char$ph*)come_null_checker(litem_18, "/usr/local/include/neo-c.h", 1782))->next=((void*)0);
-        __dec_obj16=((struct list_item$1char$ph*)come_null_checker(litem_18, "/usr/local/include/neo-c.h", 1783))->item,
-        ((struct list_item$1char$ph*)come_null_checker(litem_18, "/usr/local/include/neo-c.h", 1783))->item=(char* )come_increment_ref_count(item);
+    else if(self->len==1) {
+        litem_18=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), (void*)0, 1343, "struct list_item$1char$ph*"))));
+        litem_18->prev=self->head;
+        litem_18->next=((void*)0);
+        __dec_obj16=litem_18->item,
+        litem_18->item=(char* )come_increment_ref_count(item);
         __dec_obj16 = come_decrement_ref_count(__dec_obj16, (void*)0, (void*)0, 0,0, (void*)0);
-        ((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1785))->tail=litem_18;
-        ((struct list_item$1char$ph*)come_null_checker(((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1786))->head, "/usr/local/include/neo-c.h", 1786))->next=litem_18;
+        self->tail=litem_18;
+        self->head->next=litem_18;
     }
     else {
-        litem_19=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), (void*)0, 1789, "struct list_item$1char$ph*"))));
-        ((struct list_item$1char$ph*)come_null_checker(litem_19, "/usr/local/include/neo-c.h", 1791))->prev=((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1791))->tail;
-        ((struct list_item$1char$ph*)come_null_checker(litem_19, "/usr/local/include/neo-c.h", 1792))->next=((void*)0);
-        __dec_obj17=((struct list_item$1char$ph*)come_null_checker(litem_19, "/usr/local/include/neo-c.h", 1793))->item,
-        ((struct list_item$1char$ph*)come_null_checker(litem_19, "/usr/local/include/neo-c.h", 1793))->item=(char* )come_increment_ref_count(item);
+        litem_19=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), (void*)0, 1353, "struct list_item$1char$ph*"))));
+        litem_19->prev=self->tail;
+        litem_19->next=((void*)0);
+        __dec_obj17=litem_19->item,
+        litem_19->item=(char* )come_increment_ref_count(item);
         __dec_obj17 = come_decrement_ref_count(__dec_obj17, (void*)0, (void*)0, 0,0, (void*)0);
-        ((struct list_item$1char$ph*)come_null_checker(((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1795))->tail, "/usr/local/include/neo-c.h", 1795))->next=litem_19;
-        ((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1796))->tail=litem_19;
+        self->tail->next=litem_19;
+        self->tail=litem_19;
     }
-    ((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1799))->len++;
-    __result_obj__0 = self;
+    self->len++;
+        __result_obj__0 = self;
     (item = come_decrement_ref_count(item, (void*)0, (void*)0, 0, 0, (void*)0));
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -14667,32 +14635,31 @@ char*  parse_value(struct sInfo*  info  )
     void* __right_value1 = (void*)0;
     struct buffer*  buf  ;
     char*  __result_obj__0  ;
-    if(*((struct sInfo* )come_null_checker(info, "main.nc", 246))->p==39) {
-        ((struct sInfo* )come_null_checker(info, "main.nc", 247))->p++;
+    if(*info->p==39) {
+        info->p++;
         skip_spaces(info);
-        buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count(((struct buffer* )come_null_checker(((struct buffer* )(__right_value0=(struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 250, "struct buffer* "))), "main.nc", 250)))));
-        come_call_finalizer(buffer_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+        buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 250, "struct buffer* "))));
         while(1) {
-            if(*((struct sInfo* )come_null_checker(info, "main.nc", 253))->p==92) {
-                ((struct sInfo* )come_null_checker(info, "main.nc", 254))->p++;
-                if(*((struct sInfo* )come_null_checker(info, "main.nc", 255))->p!=0) {
-                    buffer_append_char(((struct buffer* )come_null_checker(buf, "main.nc", 256)),*((struct sInfo* )come_null_checker(info, "main.nc", 256))->p);
-                    ((struct sInfo* )come_null_checker(info, "main.nc", 257))->p++;
+            if(*info->p==92) {
+                info->p++;
+                if(*info->p!=0) {
+                    buffer_append_char(buf,*info->p);
+                    info->p++;
                 }
             }
-            else if(*((struct sInfo* )come_null_checker(info, "main.nc", 260))->p==0) {
+            else if(*info->p==0) {
                 break;
             }
-            else if(*((struct sInfo* )come_null_checker(info, "main.nc", 263))->p==39) {
-                ((struct sInfo* )come_null_checker(info, "main.nc", 264))->p++;
+            else if(*info->p==39) {
+                info->p++;
                 break;
             }
             else {
-                buffer_append_char(((struct buffer* )come_null_checker(buf, "main.nc", 268)),*((struct sInfo* )come_null_checker(info, "main.nc", 268))->p);
-                ((struct sInfo* )come_null_checker(info, "main.nc", 269))->p++;
+                buffer_append_char(buf,*info->p);
+                info->p++;
             }
         }
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(((struct buffer* )come_null_checker(buf, "main.nc", 273))))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(buf))));
         come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
@@ -14701,7 +14668,7 @@ char*  parse_value(struct sInfo*  info  )
         come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     else {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=parse_word(info))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=parse_word(info))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -14743,17 +14710,16 @@ _Bool eval_insert_into(struct sInfo*  info  )
     struct tuple2$2char$phsType$ph* multiple_assign_var4
 ;    char*  name_35  =0;
     struct sType*  type_36  =0;
-    ((struct sInfo* )come_null_checker(info, "main.nc", 282))->p+=strlen("INSERT INTO");
+    info->p+=strlen("INSERT INTO");
     skip_spaces(info);
     table_name=(char* )come_increment_ref_count(parse_word(info));
     skip_spaces(info);
     expected_next_charactor(40,info);
-    field_names=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)come_null_checker(((struct list$1char$ph*)(__right_value0=(struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 292, "struct list$1char$ph*"))), "main.nc", 292)))));
-    come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+    field_names=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 292, "struct list$1char$ph*"))));
     while(1) {
         field=(char* )come_increment_ref_count(parse_word(info));
-        list$1char$ph_add(((struct list$1char$ph*)come_null_checker(field_names, "main.nc", 296)),(char* )come_increment_ref_count(field));
-        if(*((struct sInfo* )come_null_checker(info, "main.nc", 298))->p==41) {
+        list$1char$ph_add(field_names,(char* )come_increment_ref_count(field));
+        if(*info->p==41) {
             (field = come_decrement_ref_count(field, (void*)0, (void*)0, 0, 0, (void*)0));
             break;
         }
@@ -14761,17 +14727,16 @@ _Bool eval_insert_into(struct sInfo*  info  )
         (field = come_decrement_ref_count(field, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     expected_next_charactor(41,info);
-    if(strncmp(((struct sInfo* )come_null_checker(info, "main.nc", 307))->p,"VALUES",strlen("VALUES"))==0) {
-        ((struct sInfo* )come_null_checker(info, "main.nc", 308))->p+=strlen("VALUES");
+    if(strncmp(info->p,"VALUES",strlen("VALUES"))==0) {
+        info->p+=strlen("VALUES");
     }
     skip_spaces(info);
     expected_next_charactor(40,info);
-    values=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)come_null_checker(((struct list$1char$ph*)(__right_value0=(struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 315, "struct list$1char$ph*"))), "main.nc", 315)))));
-    come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+    values=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 315, "struct list$1char$ph*"))));
     while(1) {
         value=(char* )come_increment_ref_count(parse_value(info));
-        list$1char$ph_add(((struct list$1char$ph*)come_null_checker(values, "main.nc", 319)),(char* )come_increment_ref_count(value));
-        if(*((struct sInfo* )come_null_checker(info, "main.nc", 321))->p==41) {
+        list$1char$ph_add(values,(char* )come_increment_ref_count(value));
+        if(*info->p==41) {
             (value = come_decrement_ref_count(value, (void*)0, (void*)0, 0, 0, (void*)0));
             break;
         }
@@ -14779,39 +14744,38 @@ _Bool eval_insert_into(struct sInfo*  info  )
         (value = come_decrement_ref_count(value, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     expected_next_charactor(41,info);
-    if(list$1char$ph_length(((struct list$1char$ph*)come_null_checker(field_names, "main.nc", 330)))!=list$1char$ph_length(((struct list$1char$ph*)come_null_checker(values, "main.nc", 330)))) {
-        __result_obj__0 = (_Bool)0;
+    if(list$1char$ph_length(field_names)!=list$1char$ph_length(values)) {
+                __result_obj__0 = (_Bool)0;
         (table_name = come_decrement_ref_count(table_name, (void*)0, (void*)0, 0, 0, (void*)0));
         come_call_finalizer(list$1char$ph$p_finalize, field_names, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_call_finalizer(list$1char$ph$p_finalize, values, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    current_db=(struct Database* )come_increment_ref_count(map$2char$phDatabase$ph_operator_load_element(((struct map$2char$phDatabase$ph*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(gDatabases, "main.nc", 334)), "main.nc", 334)),((struct sInfo* )come_null_checker(info, "main.nc", 334))->current_db_name));
-    table=(struct Table* )come_increment_ref_count(map$2char$phTable$ph_operator_load_element(((struct map$2char$phTable$ph*)come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(((struct Database* )come_null_checker(current_db, "main.nc", 336))->tables, "main.nc", 336)), "main.nc", 336)),table_name));
+    current_db=(struct Database* )come_increment_ref_count(map$2char$phDatabase$ph_operator_load_element(gDatabases,info->current_db_name));
+    table=(struct Table* )come_increment_ref_count(map$2char$phTable$ph_operator_load_element(current_db->tables,table_name));
     if(table) {
-        row=(struct map$2char$phchar$ph*)come_increment_ref_count(map$2char$phchar$ph_initialize((struct map$2char$phchar$ph*)come_increment_ref_count(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)(__right_value0=(struct map$2char$phchar$ph*)come_calloc(1, sizeof(struct map$2char$phchar$ph)*(1), (void*)0, 339, "struct map$2char$phchar$ph*"))), "main.nc", 339)))));
-        come_call_finalizer(map$2char$phchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+        row=(struct map$2char$phchar$ph*)come_increment_ref_count(map$2char$phchar$ph_initialize((struct map$2char$phchar$ph*)come_increment_ref_count((struct map$2char$phchar$ph*)come_calloc(1, sizeof(struct map$2char$phchar$ph)*(1), (void*)0, 339, "struct map$2char$phchar$ph*"))));
         n=0;
-        for(o2_saved=(struct list$1char$ph*)come_increment_ref_count(field_names),it=list$1char$ph_begin(((struct list$1char$ph*)come_null_checker(o2_saved, "main.nc", 342)));!list$1char$ph_end(((struct list$1char$ph*)come_null_checker(o2_saved, "main.nc", 342)));it=list$1char$ph_next(((struct list$1char$ph*)come_null_checker(o2_saved, "main.nc", 342)))){
+        for(o2_saved=(struct list$1char$ph*)come_increment_ref_count(field_names),it=list$1char$ph_begin(o2_saved);!list$1char$ph_end(o2_saved);it=list$1char$ph_next(o2_saved)){
             name=(char* )come_increment_ref_count(__builtin_string(it));
-            value_22=(char* )come_increment_ref_count(__builtin_string(((char* )(__right_value0=list$1char$ph_operator_load_element(((struct list$1char$ph*)come_null_checker(((struct list$1char$ph*)come_null_checker(values, "main.nc", 344)), "main.nc", 344)),n)))));
+            value_22=(char* )come_increment_ref_count(__builtin_string(((char* )(__right_value0=list$1char$ph_operator_load_element(values,n)))));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-            map$2char$phchar$ph_operator_store_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row, "main.nc", 346)), "main.nc", 346)),(char* )come_increment_ref_count(name),(char* )come_increment_ref_count(value_22));
+            map$2char$phchar$ph_operator_store_element(row,(char* )come_increment_ref_count(name),(char* )come_increment_ref_count(value_22));
             n++;
             (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0));
             (value_22 = come_decrement_ref_count(value_22, (void*)0, (void*)0, 0, 0, (void*)0));
         }
         come_call_finalizer(list$1char$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        last_index=list$1map$2char$phchar$ph$ph_length(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(((struct Table* )come_null_checker(table, "main.nc", 351))->rows, "main.nc", 351)));
-        last_row=((struct map$2char$phchar$ph*)(__right_value0=list$1map$2char$phchar$ph$ph_operator_load_element(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(((struct Table* )come_null_checker(table, "main.nc", 353))->rows, "main.nc", 353)), "main.nc", 353)),last_index-1)));
+        last_index=list$1map$2char$phchar$ph$ph_length(table->rows);
+        last_row=((struct map$2char$phchar$ph*)(__right_value0=list$1map$2char$phchar$ph$ph_operator_load_element(table->rows,last_index-1)));
         if(last_row) {
-            for(o2_saved_30=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(((struct Table* )come_null_checker(table, "main.nc", 356))->types),it_31=list$1tuple2$2char$phsType$ph$ph_begin(((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(o2_saved_30, "main.nc", 356)));!list$1tuple2$2char$phsType$ph$ph_end(((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(o2_saved_30, "main.nc", 356)));it_31=list$1tuple2$2char$phsType$ph$ph_next(((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(o2_saved_30, "main.nc", 356)))){
+            for(o2_saved_30=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(table->types),it_31=list$1tuple2$2char$phsType$ph$ph_begin(o2_saved_30);!list$1tuple2$2char$phsType$ph$ph_end(o2_saved_30);it_31=list$1tuple2$2char$phsType$ph$ph_next(o2_saved_30)){
                 multiple_assign_var3=it_31;
                 name_32=(char* )come_increment_ref_count(multiple_assign_var3->v1);
                 type=(struct sType* )come_increment_ref_count(multiple_assign_var3->v2);
-                if(((struct sType* )come_null_checker(type, "main.nc", 359))->auto_increment) {
-                    map$2char$phchar$ph_operator_store_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row, "main.nc", 360)), "main.nc", 360)),(char* )come_increment_ref_count(name_32),(char* )come_increment_ref_count(xsprintf("%d",atoi(((char* )(__right_value2=map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(last_row, "main.nc", 360)), "main.nc", 360)),name_32))))+1)));
+                if(type->auto_increment) {
+                    map$2char$phchar$ph_operator_store_element(row,(char* )come_increment_ref_count(name_32),(char* )come_increment_ref_count(xsprintf("%d",atoi(((char* )(__right_value2=map$2char$phchar$ph_operator_load_element(last_row,name_32))))+1)));
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
                     (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0));
                 }
@@ -14821,23 +14785,23 @@ _Bool eval_insert_into(struct sInfo*  info  )
             come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, o2_saved_30, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         }
         else {
-            for(o2_saved_33=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(((struct Table* )come_null_checker(table, "main.nc", 365))->types),it_34=list$1tuple2$2char$phsType$ph$ph_begin(((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(o2_saved_33, "main.nc", 365)));!list$1tuple2$2char$phsType$ph$ph_end(((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(o2_saved_33, "main.nc", 365)));it_34=list$1tuple2$2char$phsType$ph$ph_next(((struct list$1tuple2$2char$phsType$ph$ph*)come_null_checker(o2_saved_33, "main.nc", 365)))){
+            for(o2_saved_33=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(table->types),it_34=list$1tuple2$2char$phsType$ph$ph_begin(o2_saved_33);!list$1tuple2$2char$phsType$ph$ph_end(o2_saved_33);it_34=list$1tuple2$2char$phsType$ph$ph_next(o2_saved_33)){
                 multiple_assign_var4=it_34;
                 name_35=(char* )come_increment_ref_count(multiple_assign_var4->v1);
                 type_36=(struct sType* )come_increment_ref_count(multiple_assign_var4->v2);
-                if(((struct sType* )come_null_checker(type_36, "main.nc", 368))->auto_increment) {
-                    map$2char$phchar$ph_operator_store_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row, "main.nc", 369)), "main.nc", 369)),(char* )come_increment_ref_count(name_35),(char* )come_increment_ref_count(xsprintf("%d",1)));
+                if(type_36->auto_increment) {
+                    map$2char$phchar$ph_operator_store_element(row,(char* )come_increment_ref_count(name_35),(char* )come_increment_ref_count(xsprintf("%d",1)));
                 }
                 (name_35 = come_decrement_ref_count(name_35, (void*)0, (void*)0, 0, 0, (void*)0));
                 come_call_finalizer(sType_finalize, type_36, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             }
             come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, o2_saved_33, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         }
-        list$1map$2char$phchar$ph$ph_add(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(((struct Table* )come_null_checker(table, "main.nc", 374))->rows, "main.nc", 374)),(struct map$2char$phchar$ph*)come_increment_ref_count(row));
+        list$1map$2char$phchar$ph$ph_add(table->rows,(struct map$2char$phchar$ph*)come_increment_ref_count(row));
         come_call_finalizer(map$2char$phchar$ph$p_finalize, row, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     else {
-        __result_obj__0 = (_Bool)0;
+                __result_obj__0 = (_Bool)0;
         (table_name = come_decrement_ref_count(table_name, (void*)0, (void*)0, 0, 0, (void*)0));
         come_call_finalizer(list$1char$ph$p_finalize, field_names, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_call_finalizer(list$1char$ph$p_finalize, values, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -14846,7 +14810,7 @@ _Bool eval_insert_into(struct sInfo*  info  )
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    __result_obj__0 = (_Bool)1;
+        __result_obj__0 = (_Bool)1;
     (table_name = come_decrement_ref_count(table_name, (void*)0, (void*)0, 0, 0, (void*)0));
     come_call_finalizer(list$1char$ph$p_finalize, field_names, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(list$1char$ph$p_finalize, values, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -14868,43 +14832,43 @@ static struct list$1char$ph* list$1char$ph_add(struct list$1char$ph* self, char*
     struct list_item$1char$ph* litem_21;
     char*  __dec_obj20  ;
     if(self==((void*)0)) {
-        __result_obj__0 = self;
+                __result_obj__0 = self;
         (item = come_decrement_ref_count(item, (void*)0, (void*)0, 0, 0, (void*)0));
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    if(((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1683))->len==0) {
-        litem=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), (void*)0, 1684, "struct list_item$1char$ph*"))));
-        ((struct list_item$1char$ph*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1686))->prev=((void*)0);
-        ((struct list_item$1char$ph*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1687))->next=((void*)0);
-        __dec_obj18=((struct list_item$1char$ph*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1688))->item,
-        ((struct list_item$1char$ph*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1688))->item=(char* )come_increment_ref_count(item);
+    if(self->len==0) {
+        litem=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), (void*)0, 1248, "struct list_item$1char$ph*"))));
+        litem->prev=((void*)0);
+        litem->next=((void*)0);
+        __dec_obj18=litem->item,
+        litem->item=(char* )come_increment_ref_count(item);
         __dec_obj18 = come_decrement_ref_count(__dec_obj18, (void*)0, (void*)0, 0,0, (void*)0);
-        ((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1690))->tail=litem;
-        ((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1691))->head=litem;
+        self->tail=litem;
+        self->head=litem;
     }
-    else if(((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1693))->len==1) {
-        litem_20=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), (void*)0, 1694, "struct list_item$1char$ph*"))));
-        ((struct list_item$1char$ph*)come_null_checker(litem_20, "/usr/local/include/neo-c.h", 1696))->prev=((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1696))->head;
-        ((struct list_item$1char$ph*)come_null_checker(litem_20, "/usr/local/include/neo-c.h", 1697))->next=((void*)0);
-        __dec_obj19=((struct list_item$1char$ph*)come_null_checker(litem_20, "/usr/local/include/neo-c.h", 1698))->item,
-        ((struct list_item$1char$ph*)come_null_checker(litem_20, "/usr/local/include/neo-c.h", 1698))->item=(char* )come_increment_ref_count(item);
+    else if(self->len==1) {
+        litem_20=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), (void*)0, 1258, "struct list_item$1char$ph*"))));
+        litem_20->prev=self->head;
+        litem_20->next=((void*)0);
+        __dec_obj19=litem_20->item,
+        litem_20->item=(char* )come_increment_ref_count(item);
         __dec_obj19 = come_decrement_ref_count(__dec_obj19, (void*)0, (void*)0, 0,0, (void*)0);
-        ((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1700))->tail=litem_20;
-        ((struct list_item$1char$ph*)come_null_checker(((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1701))->head, "/usr/local/include/neo-c.h", 1701))->next=litem_20;
+        self->tail=litem_20;
+        self->head->next=litem_20;
     }
     else {
-        litem_21=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), (void*)0, 1704, "struct list_item$1char$ph*"))));
-        ((struct list_item$1char$ph*)come_null_checker(litem_21, "/usr/local/include/neo-c.h", 1706))->prev=((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1706))->tail;
-        ((struct list_item$1char$ph*)come_null_checker(litem_21, "/usr/local/include/neo-c.h", 1707))->next=((void*)0);
-        __dec_obj20=((struct list_item$1char$ph*)come_null_checker(litem_21, "/usr/local/include/neo-c.h", 1708))->item,
-        ((struct list_item$1char$ph*)come_null_checker(litem_21, "/usr/local/include/neo-c.h", 1708))->item=(char* )come_increment_ref_count(item);
+        litem_21=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), (void*)0, 1268, "struct list_item$1char$ph*"))));
+        litem_21->prev=self->tail;
+        litem_21->next=((void*)0);
+        __dec_obj20=litem_21->item,
+        litem_21->item=(char* )come_increment_ref_count(item);
         __dec_obj20 = come_decrement_ref_count(__dec_obj20, (void*)0, (void*)0, 0,0, (void*)0);
-        ((struct list_item$1char$ph*)come_null_checker(((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1710))->tail, "/usr/local/include/neo-c.h", 1710))->next=litem_21;
-        ((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1711))->tail=litem_21;
+        self->tail->next=litem_21;
+        self->tail=litem_21;
     }
-    ((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1714))->len++;
-    __result_obj__0 = self;
+    self->len++;
+        __result_obj__0 = self;
     (item = come_decrement_ref_count(item, (void*)0, (void*)0, 0, 0, (void*)0));
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -14914,12 +14878,12 @@ static int list$1char$ph_length(struct list$1char$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph_length"; neo_current_frame = &fr;
     if(self==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 0;
     }
-    neo_current_frame = fr.prev;
-    return ((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1922))->len;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
+    return self->len;
+        neo_current_frame = fr.prev;
 }
 
 static struct map$2char$phchar$ph* map$2char$phchar$ph_initialize(struct map$2char$phchar$ph* self)
@@ -14930,20 +14894,19 @@ static struct map$2char$phchar$ph* map$2char$phchar$ph_initialize(struct map$2ch
     void* __right_value1 = (void*)0;
     struct list$1char$ph* __dec_obj21;
     struct map$2char$phchar$ph* __result_obj__0;
-    ((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2692))->keys=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(128)), (void*)0, 2692, "char** "))));
-    ((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2693))->items=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(128)), (void*)0, 2693, "char** "))));
-    ((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2694))->item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(128)), (void*)0, 2694, "_Bool*"))));
+    self->keys=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(128)), (void*)0, 2664, "char** "))));
+    self->items=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(128)), (void*)0, 2665, "char** "))));
+    self->item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(128)), (void*)0, 2666, "_Bool*"))));
     for(i=0;i<128;i++){
-        ((_Bool*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2698))->item_existance, "/usr/local/include/neo-c.h", 2698))[i]=(_Bool)0;
+        self->item_existance[i]=(_Bool)0;
     }
-    ((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2701))->size=128;
-    ((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2702))->len=0;
-    __dec_obj21=((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2704))->key_list,
-    ((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2704))->key_list=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)come_null_checker(((struct list$1char$ph*)(__right_value0=(struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 2704, "struct list$1char$ph*"))), "/usr/local/include/neo-c.h", 2704)))));
+    self->size=128;
+    self->len=0;
+    __dec_obj21=self->key_list,
+    self->key_list=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 2676, "struct list$1char$ph*"))));
     come_call_finalizer(list$1char$ph_finalize, __dec_obj21,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-    come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-    ((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2706))->it=0;
-    __result_obj__0 = (struct map$2char$phchar$ph*)come_increment_ref_count(self);
+    self->it=0;
+        __result_obj__0 = (struct map$2char$phchar$ph*)come_increment_ref_count(self);
     come_call_finalizer(map$2char$phchar$ph$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(map$2char$phchar$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -14960,28 +14923,28 @@ static char*  list$1char$ph$p_operator_load_element(struct list$1char$ph* self, 
     char*  default_value_23  ;
     if(self==((void*)0)) {
         memset(&default_value,0,sizeof(char* ));
-        __result_obj__0 = (char* )come_increment_ref_count(default_value);
+                __result_obj__0 = (char* )come_increment_ref_count(default_value);
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     if(position<0) {
-        position+=((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2304))->len;
+        position+=self->len;
     }
-    it=((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2307))->head;
+    it=self->head;
     i=0;
     while(it!=((void*)0)) {
         if(position==i) {
-            __result_obj__0 = (char* )come_increment_ref_count(((struct list_item$1char$ph*)come_null_checker(it, "/usr/local/include/neo-c.h", 2311))->item);
+                        __result_obj__0 = (char* )come_increment_ref_count(it->item);
             neo_current_frame = fr.prev;
             (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
             return __result_obj__0;
         }
-        it=((struct list_item$1char$ph*)come_null_checker(it, "/usr/local/include/neo-c.h", 2313))->next;
+        it=it->next;
         i++;
     }
     memset(&default_value_23,0,sizeof(char* ));
-    __result_obj__0 = (char* )come_increment_ref_count(default_value_23);
+        __result_obj__0 = (char* )come_increment_ref_count(default_value_23);
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
@@ -14997,28 +14960,28 @@ static char*  list$1char$ph_operator_load_element(struct list$1char$ph* self, in
     char*  default_value_24  ;
     if(self==((void*)0)) {
         memset(&default_value,0,sizeof(char* ));
-        __result_obj__0 = (char* )come_increment_ref_count(default_value);
+                __result_obj__0 = (char* )come_increment_ref_count(default_value);
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     if(position<0) {
-        position+=((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2304))->len;
+        position+=self->len;
     }
-    it=((struct list$1char$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2307))->head;
+    it=self->head;
     i=0;
     while(it!=((void*)0)) {
         if(position==i) {
-            __result_obj__0 = (char* )come_increment_ref_count(((struct list_item$1char$ph*)come_null_checker(it, "/usr/local/include/neo-c.h", 2311))->item);
+                        __result_obj__0 = (char* )come_increment_ref_count(it->item);
             neo_current_frame = fr.prev;
             (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
             return __result_obj__0;
         }
-        it=((struct list_item$1char$ph*)come_null_checker(it, "/usr/local/include/neo-c.h", 2313))->next;
+        it=it->next;
         i++;
     }
     memset(&default_value_24,0,sizeof(char* ));
-    __result_obj__0 = (char* )come_increment_ref_count(default_value_24);
+        __result_obj__0 = (char* )come_increment_ref_count(default_value_24);
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
@@ -15028,15 +14991,15 @@ static void map$2char$phchar$ph_operator_store_element(struct map$2char$phchar$p
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phchar$ph_operator_store_element"; neo_current_frame = &fr;
     if(self==((void*)0)) {
-        (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0));
+                (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0));
         (item = come_decrement_ref_count(item, (void*)0, (void*)0, 0, 0, (void*)0));
         neo_current_frame = fr.prev;
         return;
     }
-    map$2char$phchar$ph_insert(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3243)),(char* )come_increment_ref_count(key),(char* )come_increment_ref_count(item),(_Bool)0);
+    map$2char$phchar$ph_insert(self,(char* )come_increment_ref_count(key),(char* )come_increment_ref_count(item),(_Bool)0);
     (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0));
     (item = come_decrement_ref_count(item, (void*)0, (void*)0, 0, 0, (void*)0));
-    neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
 }
 
 static struct map$2char$phchar$ph* map$2char$phchar$ph_insert(struct map$2char$phchar$ph* self, char*  key  , char*  item  , _Bool by_pointer)
@@ -15048,40 +15011,40 @@ static struct map$2char$phchar$ph* map$2char$phchar$ph_insert(struct map$2char$p
     _Bool same_key_exist;
     char*  it2  ;
     if(self==((void*)0)) {
-        __result_obj__0 = self;
+                __result_obj__0 = self;
         (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0));
         (item = come_decrement_ref_count(item, (void*)0, (void*)0, 0, 0, (void*)0));
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    if(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3044))->len*10>=((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3044))->size) {
-        map$2char$phchar$ph_rehash(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3045)));
+    if(self->len*10>=self->size) {
+        map$2char$phchar$ph_rehash(self);
     }
-    hash=string_get_hash_key(((char* )come_null_checker(((char* )key), "/usr/local/include/neo-c.h", 3047)))%((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3047))->size;
+    hash=string_get_hash_key(((char* )key))%self->size;
     it=hash;
     while((_Bool)1) {
-        if(((_Bool*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3051))->item_existance, "/usr/local/include/neo-c.h", 3051))[it]) {
-            if((!by_pointer&&string_equals(((char* )come_null_checker(((char** )come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3053))->keys, "/usr/local/include/neo-c.h", 3053))[it], "/usr/local/include/neo-c.h", 3053)),key))||(by_pointer&&((char** )come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3053))->keys, "/usr/local/include/neo-c.h", 3053))[it]==key)) {
+        if(self->item_existance[it]) {
+            if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
                 if(1) {
-                    list$1char$ph_remove(((struct list$1char$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3056))->key_list, "/usr/local/include/neo-c.h", 3056)),((char** )come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3056))->keys, "/usr/local/include/neo-c.h", 3056))[it],(_Bool)0);
-                    (((char** )come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3057))->keys, "/usr/local/include/neo-c.h", 3057))[it] = come_decrement_ref_count(((char** )come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3057))->keys, "/usr/local/include/neo-c.h", 3057))[it], (void*)0, (void*)0, 0, 0, (void*)0));
-                    ((char** )come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3058))->keys, "/usr/local/include/neo-c.h", 3058))[it]=(char* )come_increment_ref_count(key);
+                    list$1char$ph_remove(self->key_list,self->keys[it],(_Bool)0);
+                    (self->keys[it] = come_decrement_ref_count(self->keys[it], (void*)0, (void*)0, 0, 0, (void*)0));
+                    self->keys[it]=(char* )come_increment_ref_count(key);
                 }
                 else {
-                    list$1char$ph_remove(((struct list$1char$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3061))->key_list, "/usr/local/include/neo-c.h", 3061)),((char** )come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3061))->keys, "/usr/local/include/neo-c.h", 3061))[it],(_Bool)0);
-                    ((char** )come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3062))->keys, "/usr/local/include/neo-c.h", 3062))[it]=key;
+                    list$1char$ph_remove(self->key_list,self->keys[it],(_Bool)0);
+                    self->keys[it]=key;
                 }
                 if(1) {
-                    (((char** )come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3065))->items, "/usr/local/include/neo-c.h", 3065))[it] = come_decrement_ref_count(((char** )come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3065))->items, "/usr/local/include/neo-c.h", 3065))[it], (void*)0, (void*)0, 0, 0, (void*)0));
-                    ((char** )come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3066))->items, "/usr/local/include/neo-c.h", 3066))[it]=(char* )come_increment_ref_count(item);
+                    (self->items[it] = come_decrement_ref_count(self->items[it], (void*)0, (void*)0, 0, 0, (void*)0));
+                    self->items[it]=(char* )come_increment_ref_count(item);
                 }
                 else {
-                    ((char** )come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3069))->items, "/usr/local/include/neo-c.h", 3069))[it]=item;
+                    self->items[it]=item;
                 }
                 break;
             }
             it++;
-            if(it>=((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3076))->size) {
+            if(it>=self->size) {
                 it=0;
             }
             else if(it==hash) {
@@ -15091,33 +15054,33 @@ static struct map$2char$phchar$ph* map$2char$phchar$ph_insert(struct map$2char$p
             }
         }
         else {
-            ((_Bool*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3086))->item_existance, "/usr/local/include/neo-c.h", 3086))[it]=(_Bool)1;
+            self->item_existance[it]=(_Bool)1;
             if(1) {
-                ((char** )come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3088))->keys, "/usr/local/include/neo-c.h", 3088))[it]=(char* )come_increment_ref_count(key);
+                self->keys[it]=(char* )come_increment_ref_count(key);
             }
             else {
-                ((char** )come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3091))->keys, "/usr/local/include/neo-c.h", 3091))[it]=key;
+                self->keys[it]=key;
             }
             if(1) {
-                ((char** )come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3094))->items, "/usr/local/include/neo-c.h", 3094))[it]=(char* )come_increment_ref_count(item);
+                self->items[it]=(char* )come_increment_ref_count(item);
             }
             else {
-                ((char** )come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3097))->items, "/usr/local/include/neo-c.h", 3097))[it]=item;
+                self->items[it]=item;
             }
-            ((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3100))->len++;
+            self->len++;
             break;
         }
     }
     same_key_exist=(_Bool)0;
-    for(it2=list$1char$ph_begin(((struct list$1char$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3107))->key_list, "/usr/local/include/neo-c.h", 3107)));!list$1char$ph_end(((struct list$1char$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3107))->key_list, "/usr/local/include/neo-c.h", 3107)));it2=list$1char$ph_next(((struct list$1char$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3107))->key_list, "/usr/local/include/neo-c.h", 3107)))){
-        if((!by_pointer&&string_equals(((char* )come_null_checker(it2, "/usr/local/include/neo-c.h", 3108)),key))||(by_pointer&&it2==key)) {
+    for(it2=list$1char$ph_begin(self->key_list);!list$1char$ph_end(self->key_list);it2=list$1char$ph_next(self->key_list)){
+        if((!by_pointer&&string_equals(it2,key))||(by_pointer&&it2==key)) {
             same_key_exist=(_Bool)1;
         }
     }
     if(!same_key_exist) {
-        list$1char$ph_push_back(((struct list$1char$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3114))->key_list, "/usr/local/include/neo-c.h", 3114)),(char* )come_increment_ref_count(key));
+        list$1char$ph_push_back(self->key_list,(char* )come_increment_ref_count(key));
     }
-    __result_obj__0 = self;
+        __result_obj__0 = self;
     (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0));
     (item = come_decrement_ref_count(item, (void*)0, (void*)0, 0, 0, (void*)0));
     neo_current_frame = fr.prev;
@@ -15139,18 +15102,18 @@ static void map$2char$phchar$ph_rehash(struct map$2char$phchar$ph* self)
     unsigned int hash;
     int n;
     char*  default_value_27  ;
-    size=((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2964))->size*10;
-    keys=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(size)), (void*)0, 2965, "char** "))));
-    items=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(size)), (void*)0, 2966, "char** "))));
-    item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), (void*)0, 2967, "_Bool*"))));
+    size=self->size*10;
+    keys=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(size)), (void*)0, 2937, "char** "))));
+    items=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(size)), (void*)0, 2938, "char** "))));
+    item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), (void*)0, 2939, "_Bool*"))));
     len=0;
-    for(it=map$2char$phchar$ph_begin(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2971)));!map$2char$phchar$ph_end(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2971)));it=map$2char$phchar$ph_next(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2971)))){
+    for(it=map$2char$phchar$ph_begin(self);!map$2char$phchar$ph_end(self);it=map$2char$phchar$ph_next(self)){
         memset(&default_value,0,sizeof(char* ));
-        it2=((char* )(__right_value0=map$2char$phchar$ph_at(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2974)),it,default_value,(_Bool)0)));
-        hash=string_get_hash_key(((char* )come_null_checker(((char* )it), "/usr/local/include/neo-c.h", 2975)))%size;
+        it2=((char* )(__right_value0=map$2char$phchar$ph_at(self,it,default_value,(_Bool)0)));
+        hash=string_get_hash_key(((char* )it))%size;
         n=hash;
         while((_Bool)1) {
-            if(((_Bool*)come_null_checker(item_existance, "/usr/local/include/neo-c.h", 2979))[n]) {
+            if(item_existance[n]) {
                 n++;
                 if(n>=size) {
                     n=0;
@@ -15162,10 +15125,10 @@ static void map$2char$phchar$ph_rehash(struct map$2char$phchar$ph* self)
                 }
             }
             else {
-                ((_Bool*)come_null_checker(item_existance, "/usr/local/include/neo-c.h", 2993))[n]=(_Bool)1;
-                ((char** )come_null_checker(keys, "/usr/local/include/neo-c.h", 2994))[n]=it;
+                item_existance[n]=(_Bool)1;
+                keys[n]=it;
                 memset(&default_value_27,0,sizeof(char* ));
-                ((char** )come_null_checker(items, "/usr/local/include/neo-c.h", 2997))[n]=((char* )(__right_value0=map$2char$phchar$ph_at(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2997)),it,(char* )come_increment_ref_count(default_value_27),(_Bool)0)));
+                items[n]=((char* )(__right_value0=map$2char$phchar$ph_at(self,it,(char* )come_increment_ref_count(default_value_27),(_Bool)0)));
                 len++;
                 (default_value_27 = come_decrement_ref_count(default_value_27, (void*)0, (void*)0, 0, 0, (void*)0));
                 break;
@@ -15173,15 +15136,15 @@ static void map$2char$phchar$ph_rehash(struct map$2char$phchar$ph* self)
             }
         }
     }
-    come_free((char*)((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3005))->items);
-    (((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3006))->item_existance = come_decrement_ref_count(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3006))->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
-    come_free((char*)((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3007))->keys);
-    ((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3009))->keys=keys;
-    ((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3010))->items=items;
-    ((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3011))->item_existance=item_existance;
-    ((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3013))->size=size;
-    ((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3014))->len=len;
-    neo_current_frame = fr.prev;
+    come_free((char*)self->items);
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
+    come_free((char*)self->keys);
+    self->keys=keys;
+    self->items=items;
+    self->item_existance=item_existance;
+    self->size=size;
+    self->len=len;
+            neo_current_frame = fr.prev;
 }
 
 static char*  map$2char$phchar$ph_begin(struct map$2char$phchar$ph* self)
@@ -15192,18 +15155,18 @@ static char*  map$2char$phchar$ph_begin(struct map$2char$phchar$ph* self)
     char*  result_25  ;
     if(self==((void*)0)) {
         memset(&result,0,sizeof(char* ));
-        __result_obj__0 = result;
+                __result_obj__0 = result;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    ((struct list$1char$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2927))->key_list, "/usr/local/include/neo-c.h", 2927))->it=((struct list$1char$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2927))->key_list, "/usr/local/include/neo-c.h", 2927))->head;
-    if(((struct list$1char$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2929))->key_list, "/usr/local/include/neo-c.h", 2929))->it) {
-        __result_obj__0 = ((struct list_item$1char$ph*)come_null_checker(((struct list$1char$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2930))->key_list, "/usr/local/include/neo-c.h", 2930))->it, "/usr/local/include/neo-c.h", 2930))->item;
+    self->key_list->it=self->key_list->head;
+    if(self->key_list->it) {
+                __result_obj__0 = self->key_list->it->item;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     memset(&result_25,0,sizeof(char* ));
-    __result_obj__0 = result_25;
+        __result_obj__0 = result_25;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -15211,9 +15174,9 @@ static char*  map$2char$phchar$ph_begin(struct map$2char$phchar$ph* self)
 static _Bool map$2char$phchar$ph_end(struct map$2char$phchar$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phchar$ph_end"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
-    return self==((void*)0)||((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2958))->key_list==((void*)0)||((struct list$1char$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2958))->key_list, "/usr/local/include/neo-c.h", 2958))->it==((void*)0);
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
+    return self==((void*)0)||self->key_list==((void*)0)||self->key_list->it==((void*)0);
+        neo_current_frame = fr.prev;
 }
 
 static char*  map$2char$phchar$ph_next(struct map$2char$phchar$ph* self)
@@ -15222,20 +15185,20 @@ static char*  map$2char$phchar$ph_next(struct map$2char$phchar$ph* self)
     char*  result  ;
     char*  __result_obj__0  ;
     char*  result_26  ;
-    if(self==((void*)0)||((struct list$1char$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2941))->key_list, "/usr/local/include/neo-c.h", 2941))->it==((void*)0)) {
+    if(self==((void*)0)||self->key_list->it==((void*)0)) {
         memset(&result,0,sizeof(char* ));
-        __result_obj__0 = result;
+                __result_obj__0 = result;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    ((struct list$1char$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2946))->key_list, "/usr/local/include/neo-c.h", 2946))->it=((struct list_item$1char$ph*)come_null_checker(((struct list$1char$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2946))->key_list, "/usr/local/include/neo-c.h", 2946))->it, "/usr/local/include/neo-c.h", 2946))->next;
-    if(((struct list$1char$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2948))->key_list, "/usr/local/include/neo-c.h", 2948))->it) {
-        __result_obj__0 = ((struct list_item$1char$ph*)come_null_checker(((struct list$1char$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2949))->key_list, "/usr/local/include/neo-c.h", 2949))->it, "/usr/local/include/neo-c.h", 2949))->item;
+    self->key_list->it=self->key_list->it->next;
+    if(self->key_list->it) {
+                __result_obj__0 = self->key_list->it->item;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     memset(&result_26,0,sizeof(char* ));
-    __result_obj__0 = result_26;
+        __result_obj__0 = result_26;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -15247,29 +15210,29 @@ static char*  map$2char$phchar$ph_at(struct map$2char$phchar$ph* self, char*  ke
     unsigned int hash;
     unsigned int it;
     if(self==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(default_value);
+                __result_obj__0 = (char* )come_increment_ref_count(default_value);
         (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    hash=string_get_hash_key(((char* )come_null_checker(((char* )key), "/usr/local/include/neo-c.h", 2837)))%((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2837))->size;
+    hash=string_get_hash_key(((char* )key))%self->size;
     it=hash;
     while((_Bool)1) {
-        if(((_Bool*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2841))->item_existance, "/usr/local/include/neo-c.h", 2841))[it]) {
-            if((!by_pointer&&string_equals(((char* )come_null_checker(((char** )come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2843))->keys, "/usr/local/include/neo-c.h", 2843))[it], "/usr/local/include/neo-c.h", 2843)),key))||(by_pointer&&((char** )come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2843))->keys, "/usr/local/include/neo-c.h", 2843))[it]==key)) {
-                __result_obj__0 = (char* )come_increment_ref_count(((char** )come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2845))->items, "/usr/local/include/neo-c.h", 2845))[it]);
+        if(self->item_existance[it]) {
+            if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
+                                __result_obj__0 = (char* )come_increment_ref_count(self->items[it]);
                 (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 0, (void*)0));
                 neo_current_frame = fr.prev;
                 (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
                 return __result_obj__0;
             }
             it++;
-            if(it>=((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2850))->size) {
+            if(it>=self->size) {
                 it=0;
             }
             else if(it==hash) {
-                __result_obj__0 = (char* )come_increment_ref_count(default_value);
+                                __result_obj__0 = (char* )come_increment_ref_count(default_value);
                 (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
                 neo_current_frame = fr.prev;
                 (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -15277,14 +15240,14 @@ static char*  map$2char$phchar$ph_at(struct map$2char$phchar$ph* self, char*  ke
             }
         }
         else {
-            __result_obj__0 = (char* )come_increment_ref_count(default_value);
+                        __result_obj__0 = (char* )come_increment_ref_count(default_value);
             (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
             neo_current_frame = fr.prev;
             (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
             return __result_obj__0;
         }
     }
-    __result_obj__0 = (char* )come_increment_ref_count(default_value);
+        __result_obj__0 = (char* )come_increment_ref_count(default_value);
     (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -15295,12 +15258,12 @@ static int list$1map$2char$phchar$ph$ph_length(struct list$1map$2char$phchar$ph$
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1map$2char$phchar$ph$ph_length"; neo_current_frame = &fr;
     if(self==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 0;
     }
-    neo_current_frame = fr.prev;
-    return ((struct list$1map$2char$phchar$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1922))->len;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
+    return self->len;
+            neo_current_frame = fr.prev;
 }
 
 static struct map$2char$phchar$ph* list$1map$2char$phchar$ph$ph$p_operator_load_element(struct list$1map$2char$phchar$ph$ph* self, int position)
@@ -15313,28 +15276,28 @@ static struct map$2char$phchar$ph* list$1map$2char$phchar$ph$ph$p_operator_load_
     struct map$2char$phchar$ph* default_value_28;
     if(self==((void*)0)) {
         memset(&default_value,0,sizeof(struct map$2char$phchar$ph*));
-        __result_obj__0 = (struct map$2char$phchar$ph*)come_increment_ref_count(default_value);
+                __result_obj__0 = (struct map$2char$phchar$ph*)come_increment_ref_count(default_value);
         neo_current_frame = fr.prev;
         come_call_finalizer(map$2char$phchar$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
     if(position<0) {
-        position+=((struct list$1map$2char$phchar$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2304))->len;
+        position+=self->len;
     }
-    it=((struct list$1map$2char$phchar$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2307))->head;
+    it=self->head;
     i=0;
     while(it!=((void*)0)) {
         if(position==i) {
-            __result_obj__0 = (struct map$2char$phchar$ph*)come_increment_ref_count(((struct list_item$1map$2char$phchar$ph$ph*)come_null_checker(it, "/usr/local/include/neo-c.h", 2311))->item);
+                        __result_obj__0 = (struct map$2char$phchar$ph*)come_increment_ref_count(it->item);
             neo_current_frame = fr.prev;
             come_call_finalizer(map$2char$phchar$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
             return __result_obj__0;
         }
-        it=((struct list_item$1map$2char$phchar$ph$ph*)come_null_checker(it, "/usr/local/include/neo-c.h", 2313))->next;
+        it=it->next;
         i++;
     }
     memset(&default_value_28,0,sizeof(struct map$2char$phchar$ph*));
-    __result_obj__0 = (struct map$2char$phchar$ph*)come_increment_ref_count(default_value_28);
+        __result_obj__0 = (struct map$2char$phchar$ph*)come_increment_ref_count(default_value_28);
     neo_current_frame = fr.prev;
     come_call_finalizer(map$2char$phchar$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
@@ -15350,28 +15313,28 @@ static struct map$2char$phchar$ph* list$1map$2char$phchar$ph$ph_operator_load_el
     struct map$2char$phchar$ph* default_value_29;
     if(self==((void*)0)) {
         memset(&default_value,0,sizeof(struct map$2char$phchar$ph*));
-        __result_obj__0 = (struct map$2char$phchar$ph*)come_increment_ref_count(default_value);
+                __result_obj__0 = (struct map$2char$phchar$ph*)come_increment_ref_count(default_value);
         neo_current_frame = fr.prev;
         come_call_finalizer(map$2char$phchar$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
     if(position<0) {
-        position+=((struct list$1map$2char$phchar$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2304))->len;
+        position+=self->len;
     }
-    it=((struct list$1map$2char$phchar$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2307))->head;
+    it=self->head;
     i=0;
     while(it!=((void*)0)) {
         if(position==i) {
-            __result_obj__0 = (struct map$2char$phchar$ph*)come_increment_ref_count(((struct list_item$1map$2char$phchar$ph$ph*)come_null_checker(it, "/usr/local/include/neo-c.h", 2311))->item);
+                        __result_obj__0 = (struct map$2char$phchar$ph*)come_increment_ref_count(it->item);
             neo_current_frame = fr.prev;
             come_call_finalizer(map$2char$phchar$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
             return __result_obj__0;
         }
-        it=((struct list_item$1map$2char$phchar$ph$ph*)come_null_checker(it, "/usr/local/include/neo-c.h", 2313))->next;
+        it=it->next;
         i++;
     }
     memset(&default_value_29,0,sizeof(struct map$2char$phchar$ph*));
-    __result_obj__0 = (struct map$2char$phchar$ph*)come_increment_ref_count(default_value_29);
+        __result_obj__0 = (struct map$2char$phchar$ph*)come_increment_ref_count(default_value_29);
     neo_current_frame = fr.prev;
     come_call_finalizer(map$2char$phchar$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
@@ -15386,40 +15349,40 @@ static char*  map$2char$phchar$ph$p_operator_load_element(struct map$2char$phcha
     unsigned int it;
     memset(&default_value,0,sizeof(char* ));
     if(self==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(default_value);
+                __result_obj__0 = (char* )come_increment_ref_count(default_value);
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    hash=string_get_hash_key(((char* )come_null_checker(((char* )key), "/usr/local/include/neo-c.h", 3211)))%((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3211))->size;
+    hash=string_get_hash_key(((char* )key))%self->size;
     it=hash;
     while((_Bool)1) {
-        if(((_Bool*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3215))->item_existance, "/usr/local/include/neo-c.h", 3215))[it]) {
-            if(string_equals(((char* )come_null_checker(((char** )come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3217))->keys, "/usr/local/include/neo-c.h", 3217))[it], "/usr/local/include/neo-c.h", 3217)),key)) {
-                __result_obj__0 = (char* )come_increment_ref_count(((char** )come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3219))->items, "/usr/local/include/neo-c.h", 3219))[it]);
+        if(self->item_existance[it]) {
+            if(string_equals(self->keys[it],key)) {
+                                __result_obj__0 = (char* )come_increment_ref_count(self->items[it]);
                 neo_current_frame = fr.prev;
                 (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
                 return __result_obj__0;
             }
             it++;
-            if(it>=((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3224))->size) {
+            if(it>=self->size) {
                 it=0;
             }
             else if(it==hash) {
-                __result_obj__0 = (char* )come_increment_ref_count(default_value);
+                                __result_obj__0 = (char* )come_increment_ref_count(default_value);
                 neo_current_frame = fr.prev;
                 (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
                 return __result_obj__0;
             }
         }
         else {
-            __result_obj__0 = (char* )come_increment_ref_count(default_value);
+                        __result_obj__0 = (char* )come_increment_ref_count(default_value);
             neo_current_frame = fr.prev;
             (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
             return __result_obj__0;
         }
     }
-    __result_obj__0 = (char* )come_increment_ref_count(default_value);
+        __result_obj__0 = (char* )come_increment_ref_count(default_value);
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
@@ -15434,40 +15397,40 @@ static char*  map$2char$phchar$ph_operator_load_element(struct map$2char$phchar$
     unsigned int it;
     memset(&default_value,0,sizeof(char* ));
     if(self==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(default_value);
+                __result_obj__0 = (char* )come_increment_ref_count(default_value);
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    hash=string_get_hash_key(((char* )come_null_checker(((char* )key), "/usr/local/include/neo-c.h", 3211)))%((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3211))->size;
+    hash=string_get_hash_key(((char* )key))%self->size;
     it=hash;
     while((_Bool)1) {
-        if(((_Bool*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3215))->item_existance, "/usr/local/include/neo-c.h", 3215))[it]) {
-            if(string_equals(((char* )come_null_checker(((char** )come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3217))->keys, "/usr/local/include/neo-c.h", 3217))[it], "/usr/local/include/neo-c.h", 3217)),key)) {
-                __result_obj__0 = (char* )come_increment_ref_count(((char** )come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3219))->items, "/usr/local/include/neo-c.h", 3219))[it]);
+        if(self->item_existance[it]) {
+            if(string_equals(self->keys[it],key)) {
+                                __result_obj__0 = (char* )come_increment_ref_count(self->items[it]);
                 neo_current_frame = fr.prev;
                 (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
                 return __result_obj__0;
             }
             it++;
-            if(it>=((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3224))->size) {
+            if(it>=self->size) {
                 it=0;
             }
             else if(it==hash) {
-                __result_obj__0 = (char* )come_increment_ref_count(default_value);
+                                __result_obj__0 = (char* )come_increment_ref_count(default_value);
                 neo_current_frame = fr.prev;
                 (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
                 return __result_obj__0;
             }
         }
         else {
-            __result_obj__0 = (char* )come_increment_ref_count(default_value);
+                        __result_obj__0 = (char* )come_increment_ref_count(default_value);
             neo_current_frame = fr.prev;
             (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
             return __result_obj__0;
         }
     }
-    __result_obj__0 = (char* )come_increment_ref_count(default_value);
+        __result_obj__0 = (char* )come_increment_ref_count(default_value);
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
@@ -15485,43 +15448,43 @@ static struct list$1map$2char$phchar$ph$ph* list$1map$2char$phchar$ph$ph_add(str
     struct list_item$1map$2char$phchar$ph$ph* litem_39;
     struct map$2char$phchar$ph* __dec_obj24;
     if(self==((void*)0)) {
-        __result_obj__0 = self;
+                __result_obj__0 = self;
         come_call_finalizer(map$2char$phchar$ph$p_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    if(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1683))->len==0) {
-        litem=(struct list_item$1map$2char$phchar$ph$ph*)come_increment_ref_count(((struct list_item$1map$2char$phchar$ph$ph*)(__right_value0=(struct list_item$1map$2char$phchar$ph$ph*)come_calloc(1, sizeof(struct list_item$1map$2char$phchar$ph$ph)*(1), (void*)0, 1684, "struct list_item$1map$2char$phchar$ph$ph*"))));
-        ((struct list_item$1map$2char$phchar$ph$ph*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1686))->prev=((void*)0);
-        ((struct list_item$1map$2char$phchar$ph$ph*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1687))->next=((void*)0);
-        __dec_obj22=((struct list_item$1map$2char$phchar$ph$ph*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1688))->item,
-        ((struct list_item$1map$2char$phchar$ph$ph*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1688))->item=(struct map$2char$phchar$ph*)come_increment_ref_count(item);
+    if(self->len==0) {
+        litem=(struct list_item$1map$2char$phchar$ph$ph*)come_increment_ref_count(((struct list_item$1map$2char$phchar$ph$ph*)(__right_value0=(struct list_item$1map$2char$phchar$ph$ph*)come_calloc(1, sizeof(struct list_item$1map$2char$phchar$ph$ph)*(1), (void*)0, 1248, "struct list_item$1map$2char$phchar$ph$ph*"))));
+        litem->prev=((void*)0);
+        litem->next=((void*)0);
+        __dec_obj22=litem->item,
+        litem->item=(struct map$2char$phchar$ph*)come_increment_ref_count(item);
         come_call_finalizer(map$2char$phchar$ph_finalize, __dec_obj22,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-        ((struct list$1map$2char$phchar$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1690))->tail=litem;
-        ((struct list$1map$2char$phchar$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1691))->head=litem;
+        self->tail=litem;
+        self->head=litem;
     }
-    else if(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1693))->len==1) {
-        litem_38=(struct list_item$1map$2char$phchar$ph$ph*)come_increment_ref_count(((struct list_item$1map$2char$phchar$ph$ph*)(__right_value0=(struct list_item$1map$2char$phchar$ph$ph*)come_calloc(1, sizeof(struct list_item$1map$2char$phchar$ph$ph)*(1), (void*)0, 1694, "struct list_item$1map$2char$phchar$ph$ph*"))));
-        ((struct list_item$1map$2char$phchar$ph$ph*)come_null_checker(litem_38, "/usr/local/include/neo-c.h", 1696))->prev=((struct list$1map$2char$phchar$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1696))->head;
-        ((struct list_item$1map$2char$phchar$ph$ph*)come_null_checker(litem_38, "/usr/local/include/neo-c.h", 1697))->next=((void*)0);
-        __dec_obj23=((struct list_item$1map$2char$phchar$ph$ph*)come_null_checker(litem_38, "/usr/local/include/neo-c.h", 1698))->item,
-        ((struct list_item$1map$2char$phchar$ph$ph*)come_null_checker(litem_38, "/usr/local/include/neo-c.h", 1698))->item=(struct map$2char$phchar$ph*)come_increment_ref_count(item);
+    else if(self->len==1) {
+        litem_38=(struct list_item$1map$2char$phchar$ph$ph*)come_increment_ref_count(((struct list_item$1map$2char$phchar$ph$ph*)(__right_value0=(struct list_item$1map$2char$phchar$ph$ph*)come_calloc(1, sizeof(struct list_item$1map$2char$phchar$ph$ph)*(1), (void*)0, 1258, "struct list_item$1map$2char$phchar$ph$ph*"))));
+        litem_38->prev=self->head;
+        litem_38->next=((void*)0);
+        __dec_obj23=litem_38->item,
+        litem_38->item=(struct map$2char$phchar$ph*)come_increment_ref_count(item);
         come_call_finalizer(map$2char$phchar$ph_finalize, __dec_obj23,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-        ((struct list$1map$2char$phchar$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1700))->tail=litem_38;
-        ((struct list_item$1map$2char$phchar$ph$ph*)come_null_checker(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1701))->head, "/usr/local/include/neo-c.h", 1701))->next=litem_38;
+        self->tail=litem_38;
+        self->head->next=litem_38;
     }
     else {
-        litem_39=(struct list_item$1map$2char$phchar$ph$ph*)come_increment_ref_count(((struct list_item$1map$2char$phchar$ph$ph*)(__right_value0=(struct list_item$1map$2char$phchar$ph$ph*)come_calloc(1, sizeof(struct list_item$1map$2char$phchar$ph$ph)*(1), (void*)0, 1704, "struct list_item$1map$2char$phchar$ph$ph*"))));
-        ((struct list_item$1map$2char$phchar$ph$ph*)come_null_checker(litem_39, "/usr/local/include/neo-c.h", 1706))->prev=((struct list$1map$2char$phchar$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1706))->tail;
-        ((struct list_item$1map$2char$phchar$ph$ph*)come_null_checker(litem_39, "/usr/local/include/neo-c.h", 1707))->next=((void*)0);
-        __dec_obj24=((struct list_item$1map$2char$phchar$ph$ph*)come_null_checker(litem_39, "/usr/local/include/neo-c.h", 1708))->item,
-        ((struct list_item$1map$2char$phchar$ph$ph*)come_null_checker(litem_39, "/usr/local/include/neo-c.h", 1708))->item=(struct map$2char$phchar$ph*)come_increment_ref_count(item);
+        litem_39=(struct list_item$1map$2char$phchar$ph$ph*)come_increment_ref_count(((struct list_item$1map$2char$phchar$ph$ph*)(__right_value0=(struct list_item$1map$2char$phchar$ph$ph*)come_calloc(1, sizeof(struct list_item$1map$2char$phchar$ph$ph)*(1), (void*)0, 1268, "struct list_item$1map$2char$phchar$ph$ph*"))));
+        litem_39->prev=self->tail;
+        litem_39->next=((void*)0);
+        __dec_obj24=litem_39->item,
+        litem_39->item=(struct map$2char$phchar$ph*)come_increment_ref_count(item);
         come_call_finalizer(map$2char$phchar$ph_finalize, __dec_obj24,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-        ((struct list_item$1map$2char$phchar$ph$ph*)come_null_checker(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1710))->tail, "/usr/local/include/neo-c.h", 1710))->next=litem_39;
-        ((struct list$1map$2char$phchar$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1711))->tail=litem_39;
+        self->tail->next=litem_39;
+        self->tail=litem_39;
     }
-    ((struct list$1map$2char$phchar$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1714))->len++;
-    __result_obj__0 = self;
+    self->len++;
+        __result_obj__0 = self;
     come_call_finalizer(map$2char$phchar$ph$p_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -15532,25 +15495,25 @@ static void map$2char$phchar$ph_finalize(struct map$2char$phchar$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phchar$ph_finalize"; neo_current_frame = &fr;
     int i;
     int i_37;
-    for(i=0;i<((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2739))->size;i++){
-        if(((_Bool*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2740))->item_existance, "/usr/local/include/neo-c.h", 2740))[i]) {
+    for(i=0;i<self->size;i++){
+        if(self->item_existance[i]) {
             if(1) {
-                (((char** )come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2742))->items, "/usr/local/include/neo-c.h", 2742))[i] = come_decrement_ref_count(((char** )come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2742))->items, "/usr/local/include/neo-c.h", 2742))[i], (void*)0, (void*)0, 0, 0, (void*)0));
+                (self->items[i] = come_decrement_ref_count(self->items[i], (void*)0, (void*)0, 0, 0, (void*)0));
             }
         }
     }
-    come_free((char*)((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2746))->items);
-    for(i_37=0;i_37<((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2748))->size;i_37++){
-        if(((_Bool*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2749))->item_existance, "/usr/local/include/neo-c.h", 2749))[i_37]) {
+    come_free((char*)self->items);
+    for(i_37=0;i_37<self->size;i_37++){
+        if(self->item_existance[i_37]) {
             if(1) {
-                (((char** )come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2751))->keys, "/usr/local/include/neo-c.h", 2751))[i_37] = come_decrement_ref_count(((char** )come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2751))->keys, "/usr/local/include/neo-c.h", 2751))[i_37], (void*)0, (void*)0, 0, 0, (void*)0));
+                (self->keys[i_37] = come_decrement_ref_count(self->keys[i_37], (void*)0, (void*)0, 0, 0, (void*)0));
             }
         }
     }
-    come_free((char*)((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2755))->keys);
-    come_call_finalizer(list$1char$ph$p_finalize, ((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2757))->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-    (((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2759))->item_existance = come_decrement_ref_count(((struct map$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2759))->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
-    neo_current_frame = fr.prev;
+    come_free((char*)self->keys);
+    come_call_finalizer(list$1char$ph$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
+            neo_current_frame = fr.prev;
 }
 
 struct WhereNode*  WhereNode_initialize(struct WhereNode*  self  , struct WhereNode*  left  , struct WhereNode*  right  , int op, char*  data  )
@@ -15562,19 +15525,17 @@ struct WhereNode*  WhereNode_initialize(struct WhereNode*  self  , struct WhereN
     struct tuple1$1WhereNode$ph* __dec_obj27;
     char*  __dec_obj28  ;
     struct WhereNode*  __result_obj__0  ;
-    ((struct WhereNode* )come_null_checker(self, "main.nc", 396))->op=op;
-    __dec_obj26=((struct WhereNode* )come_null_checker(self, "main.nc", 397))->left,
-    ((struct WhereNode* )come_null_checker(self, "main.nc", 397))->left=(struct tuple1$1WhereNode$ph*)come_increment_ref_count(tuple1$1WhereNode$ph_initialize((struct tuple1$1WhereNode$ph*)come_increment_ref_count(((struct tuple1$1WhereNode$ph*)come_null_checker(((struct tuple1$1WhereNode$ph*)(__right_value0=(struct tuple1$1WhereNode$ph*)come_calloc(1, sizeof(struct tuple1$1WhereNode$ph)*(1), (void*)0, 397, "struct tuple1$1WhereNode$ph*"))), "main.nc", 397))),(struct WhereNode* )come_increment_ref_count(left)));
+    self->op=op;
+    __dec_obj26=self->left,
+    self->left=(struct tuple1$1WhereNode$ph*)come_increment_ref_count(tuple1$1WhereNode$ph_initialize((struct tuple1$1WhereNode$ph*)come_increment_ref_count((struct tuple1$1WhereNode$ph*)come_calloc(1, sizeof(struct tuple1$1WhereNode$ph)*(1), (void*)0, 397, "struct tuple1$1WhereNode$ph*")),(struct WhereNode* )come_increment_ref_count(left)));
     come_call_finalizer(tuple1$1WhereNode$ph$p_finalize, __dec_obj26,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-    come_call_finalizer(tuple1$1WhereNode$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-    __dec_obj27=((struct WhereNode* )come_null_checker(self, "main.nc", 398))->right,
-    ((struct WhereNode* )come_null_checker(self, "main.nc", 398))->right=(struct tuple1$1WhereNode$ph*)come_increment_ref_count(tuple1$1WhereNode$ph_initialize((struct tuple1$1WhereNode$ph*)come_increment_ref_count(((struct tuple1$1WhereNode$ph*)come_null_checker(((struct tuple1$1WhereNode$ph*)(__right_value0=(struct tuple1$1WhereNode$ph*)come_calloc(1, sizeof(struct tuple1$1WhereNode$ph)*(1), (void*)0, 398, "struct tuple1$1WhereNode$ph*"))), "main.nc", 398))),(struct WhereNode* )come_increment_ref_count(right)));
+    __dec_obj27=self->right,
+    self->right=(struct tuple1$1WhereNode$ph*)come_increment_ref_count(tuple1$1WhereNode$ph_initialize((struct tuple1$1WhereNode$ph*)come_increment_ref_count((struct tuple1$1WhereNode$ph*)come_calloc(1, sizeof(struct tuple1$1WhereNode$ph)*(1), (void*)0, 398, "struct tuple1$1WhereNode$ph*")),(struct WhereNode* )come_increment_ref_count(right)));
     come_call_finalizer(tuple1$1WhereNode$ph$p_finalize, __dec_obj27,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-    come_call_finalizer(tuple1$1WhereNode$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-    __dec_obj28=((struct WhereNode* )come_null_checker(self, "main.nc", 399))->data,
-    ((struct WhereNode* )come_null_checker(self, "main.nc", 399))->data=(char* )come_increment_ref_count(data);
+    __dec_obj28=self->data,
+    self->data=(char* )come_increment_ref_count(data);
     __dec_obj28 = come_decrement_ref_count(__dec_obj28, (void*)0, (void*)0, 0,0, (void*)0);
-    __result_obj__0 = (struct WhereNode* )come_increment_ref_count(self);
+        __result_obj__0 = (struct WhereNode* )come_increment_ref_count(self);
     come_call_finalizer(WhereNode_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     come_call_finalizer(WhereNode_finalize, left, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(WhereNode_finalize, right, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -15589,10 +15550,10 @@ static struct tuple1$1WhereNode$ph* tuple1$1WhereNode$ph_initialize(struct tuple
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "tuple1$1WhereNode$ph_initialize"; neo_current_frame = &fr;
     struct WhereNode*  __dec_obj25  ;
     struct tuple1$1WhereNode$ph* __result_obj__0;
-    __dec_obj25=((struct tuple1$1WhereNode$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3519))->v1,
-    ((struct tuple1$1WhereNode$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3519))->v1=(struct WhereNode* )come_increment_ref_count(v1);
+    __dec_obj25=self->v1,
+    self->v1=(struct WhereNode* )come_increment_ref_count(v1);
     come_call_finalizer(WhereNode_finalize, __dec_obj25,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-    __result_obj__0 = (struct tuple1$1WhereNode$ph*)come_increment_ref_count(self);
+        __result_obj__0 = (struct tuple1$1WhereNode$ph*)come_increment_ref_count(self);
     come_call_finalizer(tuple1$1WhereNode$ph$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     come_call_finalizer(WhereNode_finalize, v1, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
@@ -15603,25 +15564,25 @@ static struct tuple1$1WhereNode$ph* tuple1$1WhereNode$ph_initialize(struct tuple
 static void WhereNode_finalize(struct WhereNode*  self  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "WhereNode_finalize"; neo_current_frame = &fr;
-    if(self!=((void*)0)&&((struct WhereNode* )come_null_checker(self, "WhereNode_finalize", 2))->left!=((void*)0)) {
-        come_call_finalizer(tuple1$1WhereNode$ph$p_finalize, ((struct WhereNode* )come_null_checker(self, "WhereNode_finalize", 2))->left, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(self!=((void*)0)&&self->left!=((void*)0)) {
+        come_call_finalizer(tuple1$1WhereNode$ph$p_finalize, self->left, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    if(self!=((void*)0)&&((struct WhereNode* )come_null_checker(self, "WhereNode_finalize", 3))->right!=((void*)0)) {
-        come_call_finalizer(tuple1$1WhereNode$ph$p_finalize, ((struct WhereNode* )come_null_checker(self, "WhereNode_finalize", 3))->right, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(self!=((void*)0)&&self->right!=((void*)0)) {
+        come_call_finalizer(tuple1$1WhereNode$ph$p_finalize, self->right, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    if(self!=((void*)0)&&((struct WhereNode* )come_null_checker(self, "WhereNode_finalize", 4))->data!=((void*)0)) {
-        (((struct WhereNode* )come_null_checker(self, "WhereNode_finalize", 4))->data = come_decrement_ref_count(((struct WhereNode* )come_null_checker(self, "WhereNode_finalize", 4))->data, (void*)0, (void*)0, 0, 0, (void*)0));
+    if(self!=((void*)0)&&self->data!=((void*)0)) {
+        (self->data = come_decrement_ref_count(self->data, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
 }
 
 static void tuple1$1WhereNode$ph$p_finalize(struct tuple1$1WhereNode$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "tuple1$1WhereNode$ph$p_finalize"; neo_current_frame = &fr;
-    if(self!=((void*)0)&&((struct tuple1$1WhereNode$ph*)come_null_checker(self, "tuple1$1WhereNode$ph$p_finalize", 2))->v1!=((void*)0)) {
-        come_call_finalizer(WhereNode_finalize, ((struct tuple1$1WhereNode$ph*)come_null_checker(self, "tuple1$1WhereNode$ph$p_finalize", 2))->v1, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    if(self!=((void*)0)&&self->v1!=((void*)0)) {
+        come_call_finalizer(WhereNode_finalize, self->v1, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
 }
 
 struct WhereNode*  parse_where(struct sInfo*  info  )
@@ -15674,13 +15635,12 @@ struct WhereNode*  parse_where(struct sInfo*  info  )
     memset(&str2_46, 0, sizeof(str2_46));
     memset(&str2_48, 0, sizeof(str2_48));
     str=(char* )come_increment_ref_count(parse_word(info));
-    left=(struct WhereNode* )come_increment_ref_count(WhereNode_initialize((struct WhereNode* )come_increment_ref_count(((struct WhereNode* )come_null_checker(((struct WhereNode* )(__right_value0=(struct WhereNode *)come_calloc(1, sizeof(struct WhereNode )*(1), (void*)0, 408, "struct WhereNode* "))), "main.nc", 408))),((void*)0),((void*)0),(8),(char* )come_increment_ref_count(str)));
-    come_call_finalizer(WhereNode_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+    left=(struct WhereNode* )come_increment_ref_count(WhereNode_initialize((struct WhereNode* )come_increment_ref_count((struct WhereNode *)come_calloc(1, sizeof(struct WhereNode )*(1), (void*)0, 408, "struct WhereNode* ")),((void*)0),((void*)0),(8),(char* )come_increment_ref_count(str)));
     result=((void*)0);
-    if(*((struct sInfo* )come_null_checker(info, "main.nc", 411))->p==61) {
-        ((struct sInfo* )come_null_checker(info, "main.nc", 412))->p++;
+    if(*info->p==61) {
+        info->p++;
         skip_spaces(info);
-        if(*((struct sInfo* )come_null_checker(info, "main.nc", 416))->p==39) {
+        if(*info->p==39) {
             __dec_obj29=str2,
             str2=(char* )come_increment_ref_count(parse_value(info));
             __dec_obj29 = come_decrement_ref_count(__dec_obj29, (void*)0, (void*)0, 0,0, (void*)0);
@@ -15690,19 +15650,17 @@ struct WhereNode*  parse_where(struct sInfo*  info  )
             str2=(char* )come_increment_ref_count(parse_word(info));
             __dec_obj30 = come_decrement_ref_count(__dec_obj30, (void*)0, (void*)0, 0,0, (void*)0);
         }
-        right=(struct WhereNode* )come_increment_ref_count(WhereNode_initialize((struct WhereNode* )come_increment_ref_count(((struct WhereNode* )come_null_checker(((struct WhereNode* )(__right_value0=(struct WhereNode *)come_calloc(1, sizeof(struct WhereNode )*(1), (void*)0, 423, "struct WhereNode* "))), "main.nc", 423))),((void*)0),((void*)0),(8),(char* )come_increment_ref_count(str2)));
-        come_call_finalizer(WhereNode_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+        right=(struct WhereNode* )come_increment_ref_count(WhereNode_initialize((struct WhereNode* )come_increment_ref_count((struct WhereNode *)come_calloc(1, sizeof(struct WhereNode )*(1), (void*)0, 423, "struct WhereNode* ")),((void*)0),((void*)0),(8),(char* )come_increment_ref_count(str2)));
         __dec_obj31=result,
-        result=(struct WhereNode* )come_increment_ref_count(WhereNode_initialize((struct WhereNode* )come_increment_ref_count(((struct WhereNode* )come_null_checker(((struct WhereNode* )(__right_value0=(struct WhereNode *)come_calloc(1, sizeof(struct WhereNode )*(1), (void*)0, 425, "struct WhereNode* "))), "main.nc", 425))),(struct WhereNode* )come_increment_ref_count(left),(struct WhereNode* )come_increment_ref_count(right),(0),((void*)0)));
+        result=(struct WhereNode* )come_increment_ref_count(WhereNode_initialize((struct WhereNode* )come_increment_ref_count((struct WhereNode *)come_calloc(1, sizeof(struct WhereNode )*(1), (void*)0, 425, "struct WhereNode* ")),(struct WhereNode* )come_increment_ref_count(left),(struct WhereNode* )come_increment_ref_count(right),(0),((void*)0)));
         come_call_finalizer(WhereNode_finalize, __dec_obj31,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-        come_call_finalizer(WhereNode_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         (str2 = come_decrement_ref_count(str2, (void*)0, (void*)0, 0, 0, (void*)0));
         come_call_finalizer(WhereNode_finalize, right, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    else if(strncmp(((struct sInfo* )come_null_checker(info, "main.nc", 427))->p,"!=",2)==0) {
-        ((struct sInfo* )come_null_checker(info, "main.nc", 428))->p+=2;
+    else if(strncmp(info->p,"!=",2)==0) {
+        info->p+=2;
         skip_spaces(info);
-        if(*((struct sInfo* )come_null_checker(info, "main.nc", 432))->p==39) {
+        if(*info->p==39) {
             __dec_obj32=str2_40,
             str2_40=(char* )come_increment_ref_count(parse_value(info));
             __dec_obj32 = come_decrement_ref_count(__dec_obj32, (void*)0, (void*)0, 0,0, (void*)0);
@@ -15712,19 +15670,17 @@ struct WhereNode*  parse_where(struct sInfo*  info  )
             str2_40=(char* )come_increment_ref_count(parse_word(info));
             __dec_obj33 = come_decrement_ref_count(__dec_obj33, (void*)0, (void*)0, 0,0, (void*)0);
         }
-        right_41=(struct WhereNode* )come_increment_ref_count(WhereNode_initialize((struct WhereNode* )come_increment_ref_count(((struct WhereNode* )come_null_checker(((struct WhereNode* )(__right_value0=(struct WhereNode *)come_calloc(1, sizeof(struct WhereNode )*(1), (void*)0, 439, "struct WhereNode* "))), "main.nc", 439))),((void*)0),((void*)0),(8),(char* )come_increment_ref_count(str2_40)));
-        come_call_finalizer(WhereNode_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+        right_41=(struct WhereNode* )come_increment_ref_count(WhereNode_initialize((struct WhereNode* )come_increment_ref_count((struct WhereNode *)come_calloc(1, sizeof(struct WhereNode )*(1), (void*)0, 439, "struct WhereNode* ")),((void*)0),((void*)0),(8),(char* )come_increment_ref_count(str2_40)));
         __dec_obj34=result,
-        result=(struct WhereNode* )come_increment_ref_count(WhereNode_initialize((struct WhereNode* )come_increment_ref_count(((struct WhereNode* )come_null_checker(((struct WhereNode* )(__right_value0=(struct WhereNode *)come_calloc(1, sizeof(struct WhereNode )*(1), (void*)0, 441, "struct WhereNode* "))), "main.nc", 441))),(struct WhereNode* )come_increment_ref_count(left),(struct WhereNode* )come_increment_ref_count(right_41),(1),((void*)0)));
+        result=(struct WhereNode* )come_increment_ref_count(WhereNode_initialize((struct WhereNode* )come_increment_ref_count((struct WhereNode *)come_calloc(1, sizeof(struct WhereNode )*(1), (void*)0, 441, "struct WhereNode* ")),(struct WhereNode* )come_increment_ref_count(left),(struct WhereNode* )come_increment_ref_count(right_41),(1),((void*)0)));
         come_call_finalizer(WhereNode_finalize, __dec_obj34,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-        come_call_finalizer(WhereNode_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         (str2_40 = come_decrement_ref_count(str2_40, (void*)0, (void*)0, 0, 0, (void*)0));
         come_call_finalizer(WhereNode_finalize, right_41, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    else if(strncmp(((struct sInfo* )come_null_checker(info, "main.nc", 443))->p,">=",2)==0) {
-        ((struct sInfo* )come_null_checker(info, "main.nc", 444))->p+=2;
+    else if(strncmp(info->p,">=",2)==0) {
+        info->p+=2;
         skip_spaces(info);
-        if(*((struct sInfo* )come_null_checker(info, "main.nc", 448))->p==39) {
+        if(*info->p==39) {
             __dec_obj35=str2_42,
             str2_42=(char* )come_increment_ref_count(parse_value(info));
             __dec_obj35 = come_decrement_ref_count(__dec_obj35, (void*)0, (void*)0, 0,0, (void*)0);
@@ -15734,19 +15690,17 @@ struct WhereNode*  parse_where(struct sInfo*  info  )
             str2_42=(char* )come_increment_ref_count(parse_word(info));
             __dec_obj36 = come_decrement_ref_count(__dec_obj36, (void*)0, (void*)0, 0,0, (void*)0);
         }
-        right_43=(struct WhereNode* )come_increment_ref_count(WhereNode_initialize((struct WhereNode* )come_increment_ref_count(((struct WhereNode* )come_null_checker(((struct WhereNode* )(__right_value0=(struct WhereNode *)come_calloc(1, sizeof(struct WhereNode )*(1), (void*)0, 455, "struct WhereNode* "))), "main.nc", 455))),((void*)0),((void*)0),(8),(char* )come_increment_ref_count(str2_42)));
-        come_call_finalizer(WhereNode_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+        right_43=(struct WhereNode* )come_increment_ref_count(WhereNode_initialize((struct WhereNode* )come_increment_ref_count((struct WhereNode *)come_calloc(1, sizeof(struct WhereNode )*(1), (void*)0, 455, "struct WhereNode* ")),((void*)0),((void*)0),(8),(char* )come_increment_ref_count(str2_42)));
         __dec_obj37=result,
-        result=(struct WhereNode* )come_increment_ref_count(WhereNode_initialize((struct WhereNode* )come_increment_ref_count(((struct WhereNode* )come_null_checker(((struct WhereNode* )(__right_value0=(struct WhereNode *)come_calloc(1, sizeof(struct WhereNode )*(1), (void*)0, 457, "struct WhereNode* "))), "main.nc", 457))),(struct WhereNode* )come_increment_ref_count(left),(struct WhereNode* )come_increment_ref_count(right_43),(5),((void*)0)));
+        result=(struct WhereNode* )come_increment_ref_count(WhereNode_initialize((struct WhereNode* )come_increment_ref_count((struct WhereNode *)come_calloc(1, sizeof(struct WhereNode )*(1), (void*)0, 457, "struct WhereNode* ")),(struct WhereNode* )come_increment_ref_count(left),(struct WhereNode* )come_increment_ref_count(right_43),(5),((void*)0)));
         come_call_finalizer(WhereNode_finalize, __dec_obj37,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-        come_call_finalizer(WhereNode_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         (str2_42 = come_decrement_ref_count(str2_42, (void*)0, (void*)0, 0, 0, (void*)0));
         come_call_finalizer(WhereNode_finalize, right_43, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    else if(strncmp(((struct sInfo* )come_null_checker(info, "main.nc", 459))->p,"<=",2)==0) {
-        ((struct sInfo* )come_null_checker(info, "main.nc", 460))->p+=2;
+    else if(strncmp(info->p,"<=",2)==0) {
+        info->p+=2;
         skip_spaces(info);
-        if(*((struct sInfo* )come_null_checker(info, "main.nc", 464))->p==39) {
+        if(*info->p==39) {
             __dec_obj38=str2_44,
             str2_44=(char* )come_increment_ref_count(parse_value(info));
             __dec_obj38 = come_decrement_ref_count(__dec_obj38, (void*)0, (void*)0, 0,0, (void*)0);
@@ -15756,19 +15710,17 @@ struct WhereNode*  parse_where(struct sInfo*  info  )
             str2_44=(char* )come_increment_ref_count(parse_word(info));
             __dec_obj39 = come_decrement_ref_count(__dec_obj39, (void*)0, (void*)0, 0,0, (void*)0);
         }
-        right_45=(struct WhereNode* )come_increment_ref_count(WhereNode_initialize((struct WhereNode* )come_increment_ref_count(((struct WhereNode* )come_null_checker(((struct WhereNode* )(__right_value0=(struct WhereNode *)come_calloc(1, sizeof(struct WhereNode )*(1), (void*)0, 471, "struct WhereNode* "))), "main.nc", 471))),((void*)0),((void*)0),(8),(char* )come_increment_ref_count(str2_44)));
-        come_call_finalizer(WhereNode_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+        right_45=(struct WhereNode* )come_increment_ref_count(WhereNode_initialize((struct WhereNode* )come_increment_ref_count((struct WhereNode *)come_calloc(1, sizeof(struct WhereNode )*(1), (void*)0, 471, "struct WhereNode* ")),((void*)0),((void*)0),(8),(char* )come_increment_ref_count(str2_44)));
         __dec_obj40=result,
-        result=(struct WhereNode* )come_increment_ref_count(WhereNode_initialize((struct WhereNode* )come_increment_ref_count(((struct WhereNode* )come_null_checker(((struct WhereNode* )(__right_value0=(struct WhereNode *)come_calloc(1, sizeof(struct WhereNode )*(1), (void*)0, 473, "struct WhereNode* "))), "main.nc", 473))),(struct WhereNode* )come_increment_ref_count(left),(struct WhereNode* )come_increment_ref_count(right_45),(3),((void*)0)));
+        result=(struct WhereNode* )come_increment_ref_count(WhereNode_initialize((struct WhereNode* )come_increment_ref_count((struct WhereNode *)come_calloc(1, sizeof(struct WhereNode )*(1), (void*)0, 473, "struct WhereNode* ")),(struct WhereNode* )come_increment_ref_count(left),(struct WhereNode* )come_increment_ref_count(right_45),(3),((void*)0)));
         come_call_finalizer(WhereNode_finalize, __dec_obj40,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-        come_call_finalizer(WhereNode_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         (str2_44 = come_decrement_ref_count(str2_44, (void*)0, (void*)0, 0, 0, (void*)0));
         come_call_finalizer(WhereNode_finalize, right_45, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    else if(*((struct sInfo* )come_null_checker(info, "main.nc", 475))->p==62) {
-        ((struct sInfo* )come_null_checker(info, "main.nc", 476))->p++;
+    else if(*info->p==62) {
+        info->p++;
         skip_spaces(info);
-        if(*((struct sInfo* )come_null_checker(info, "main.nc", 480))->p==39) {
+        if(*info->p==39) {
             __dec_obj41=str2_46,
             str2_46=(char* )come_increment_ref_count(parse_value(info));
             __dec_obj41 = come_decrement_ref_count(__dec_obj41, (void*)0, (void*)0, 0,0, (void*)0);
@@ -15778,19 +15730,17 @@ struct WhereNode*  parse_where(struct sInfo*  info  )
             str2_46=(char* )come_increment_ref_count(parse_word(info));
             __dec_obj42 = come_decrement_ref_count(__dec_obj42, (void*)0, (void*)0, 0,0, (void*)0);
         }
-        right_47=(struct WhereNode* )come_increment_ref_count(WhereNode_initialize((struct WhereNode* )come_increment_ref_count(((struct WhereNode* )come_null_checker(((struct WhereNode* )(__right_value0=(struct WhereNode *)come_calloc(1, sizeof(struct WhereNode )*(1), (void*)0, 487, "struct WhereNode* "))), "main.nc", 487))),((void*)0),((void*)0),(8),(char* )come_increment_ref_count(str2_46)));
-        come_call_finalizer(WhereNode_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+        right_47=(struct WhereNode* )come_increment_ref_count(WhereNode_initialize((struct WhereNode* )come_increment_ref_count((struct WhereNode *)come_calloc(1, sizeof(struct WhereNode )*(1), (void*)0, 487, "struct WhereNode* ")),((void*)0),((void*)0),(8),(char* )come_increment_ref_count(str2_46)));
         __dec_obj43=result,
-        result=(struct WhereNode* )come_increment_ref_count(WhereNode_initialize((struct WhereNode* )come_increment_ref_count(((struct WhereNode* )come_null_checker(((struct WhereNode* )(__right_value0=(struct WhereNode *)come_calloc(1, sizeof(struct WhereNode )*(1), (void*)0, 489, "struct WhereNode* "))), "main.nc", 489))),(struct WhereNode* )come_increment_ref_count(left),(struct WhereNode* )come_increment_ref_count(right_47),(4),((void*)0)));
+        result=(struct WhereNode* )come_increment_ref_count(WhereNode_initialize((struct WhereNode* )come_increment_ref_count((struct WhereNode *)come_calloc(1, sizeof(struct WhereNode )*(1), (void*)0, 489, "struct WhereNode* ")),(struct WhereNode* )come_increment_ref_count(left),(struct WhereNode* )come_increment_ref_count(right_47),(4),((void*)0)));
         come_call_finalizer(WhereNode_finalize, __dec_obj43,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-        come_call_finalizer(WhereNode_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         (str2_46 = come_decrement_ref_count(str2_46, (void*)0, (void*)0, 0, 0, (void*)0));
         come_call_finalizer(WhereNode_finalize, right_47, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    else if(*((struct sInfo* )come_null_checker(info, "main.nc", 491))->p==60) {
-        ((struct sInfo* )come_null_checker(info, "main.nc", 492))->p++;
+    else if(*info->p==60) {
+        info->p++;
         skip_spaces(info);
-        if(*((struct sInfo* )come_null_checker(info, "main.nc", 496))->p==39) {
+        if(*info->p==39) {
             __dec_obj44=str2_48,
             str2_48=(char* )come_increment_ref_count(parse_value(info));
             __dec_obj44 = come_decrement_ref_count(__dec_obj44, (void*)0, (void*)0, 0,0, (void*)0);
@@ -15800,37 +15750,33 @@ struct WhereNode*  parse_where(struct sInfo*  info  )
             str2_48=(char* )come_increment_ref_count(parse_word(info));
             __dec_obj45 = come_decrement_ref_count(__dec_obj45, (void*)0, (void*)0, 0,0, (void*)0);
         }
-        right_49=(struct WhereNode* )come_increment_ref_count(WhereNode_initialize((struct WhereNode* )come_increment_ref_count(((struct WhereNode* )come_null_checker(((struct WhereNode* )(__right_value0=(struct WhereNode *)come_calloc(1, sizeof(struct WhereNode )*(1), (void*)0, 503, "struct WhereNode* "))), "main.nc", 503))),((void*)0),((void*)0),(8),(char* )come_increment_ref_count(str2_48)));
-        come_call_finalizer(WhereNode_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+        right_49=(struct WhereNode* )come_increment_ref_count(WhereNode_initialize((struct WhereNode* )come_increment_ref_count((struct WhereNode *)come_calloc(1, sizeof(struct WhereNode )*(1), (void*)0, 503, "struct WhereNode* ")),((void*)0),((void*)0),(8),(char* )come_increment_ref_count(str2_48)));
         __dec_obj46=result,
-        result=(struct WhereNode* )come_increment_ref_count(WhereNode_initialize((struct WhereNode* )come_increment_ref_count(((struct WhereNode* )come_null_checker(((struct WhereNode* )(__right_value0=(struct WhereNode *)come_calloc(1, sizeof(struct WhereNode )*(1), (void*)0, 505, "struct WhereNode* "))), "main.nc", 505))),(struct WhereNode* )come_increment_ref_count(left),(struct WhereNode* )come_increment_ref_count(right_49),(2),((void*)0)));
+        result=(struct WhereNode* )come_increment_ref_count(WhereNode_initialize((struct WhereNode* )come_increment_ref_count((struct WhereNode *)come_calloc(1, sizeof(struct WhereNode )*(1), (void*)0, 505, "struct WhereNode* ")),(struct WhereNode* )come_increment_ref_count(left),(struct WhereNode* )come_increment_ref_count(right_49),(2),((void*)0)));
         come_call_finalizer(WhereNode_finalize, __dec_obj46,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-        come_call_finalizer(WhereNode_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         (str2_48 = come_decrement_ref_count(str2_48, (void*)0, (void*)0, 0, 0, (void*)0));
         come_call_finalizer(WhereNode_finalize, right_49, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     skip_spaces(info);
-    if(strncmp(((struct sInfo* )come_null_checker(info, "main.nc", 510))->p,"AND",strlen("AND"))==0) {
-        ((struct sInfo* )come_null_checker(info, "main.nc", 511))->p+=strlen("AND");
+    if(strncmp(info->p,"AND",strlen("AND"))==0) {
+        info->p+=strlen("AND");
         skip_spaces(info);
         right_50=(struct WhereNode* )come_increment_ref_count(parse_where(info));
         __dec_obj47=result,
-        result=(struct WhereNode* )come_increment_ref_count(WhereNode_initialize((struct WhereNode* )come_increment_ref_count(((struct WhereNode* )come_null_checker(((struct WhereNode* )(__right_value0=(struct WhereNode *)come_calloc(1, sizeof(struct WhereNode )*(1), (void*)0, 516, "struct WhereNode* "))), "main.nc", 516))),(struct WhereNode* )come_increment_ref_count(result),(struct WhereNode* )come_increment_ref_count(right_50),(6),((void*)0)));
+        result=(struct WhereNode* )come_increment_ref_count(WhereNode_initialize((struct WhereNode* )come_increment_ref_count((struct WhereNode *)come_calloc(1, sizeof(struct WhereNode )*(1), (void*)0, 516, "struct WhereNode* ")),(struct WhereNode* )come_increment_ref_count(result),(struct WhereNode* )come_increment_ref_count(right_50),(6),((void*)0)));
         come_call_finalizer(WhereNode_finalize, __dec_obj47,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-        come_call_finalizer(WhereNode_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         come_call_finalizer(WhereNode_finalize, right_50, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    else if(strncmp(((struct sInfo* )come_null_checker(info, "main.nc", 518))->p,"OR",strlen("OR"))==0) {
-        ((struct sInfo* )come_null_checker(info, "main.nc", 519))->p+=strlen("OR");
+    else if(strncmp(info->p,"OR",strlen("OR"))==0) {
+        info->p+=strlen("OR");
         skip_spaces(info);
         right_51=(struct WhereNode* )come_increment_ref_count(parse_where(info));
         __dec_obj48=result,
-        result=(struct WhereNode* )come_increment_ref_count(WhereNode_initialize((struct WhereNode* )come_increment_ref_count(((struct WhereNode* )come_null_checker(((struct WhereNode* )(__right_value0=(struct WhereNode *)come_calloc(1, sizeof(struct WhereNode )*(1), (void*)0, 524, "struct WhereNode* "))), "main.nc", 524))),(struct WhereNode* )come_increment_ref_count(result),(struct WhereNode* )come_increment_ref_count(right_51),(7),((void*)0)));
+        result=(struct WhereNode* )come_increment_ref_count(WhereNode_initialize((struct WhereNode* )come_increment_ref_count((struct WhereNode *)come_calloc(1, sizeof(struct WhereNode )*(1), (void*)0, 524, "struct WhereNode* ")),(struct WhereNode* )come_increment_ref_count(result),(struct WhereNode* )come_increment_ref_count(right_51),(7),((void*)0)));
         come_call_finalizer(WhereNode_finalize, __dec_obj48,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-        come_call_finalizer(WhereNode_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         come_call_finalizer(WhereNode_finalize, right_51, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    __result_obj__0 = (struct WhereNode* )come_increment_ref_count(result);
+        __result_obj__0 = (struct WhereNode* )come_increment_ref_count(result);
     (str = come_decrement_ref_count(str, (void*)0, (void*)0, 0, 0, (void*)0));
     come_call_finalizer(WhereNode_finalize, left, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(WhereNode_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -15866,21 +15812,21 @@ _Bool where_select(struct map$2char$phchar$ph* row, struct WhereNode*  where_nod
     _Bool right_68;
     _Bool left_69;
     _Bool right_70;
-    switch (    ((struct WhereNode* )come_null_checker(where_node, "main.nc", 532))->op) {
+    switch (    where_node->op) {
         case (0):
         {
-            if(((struct WhereNode* )come_null_checker(((struct tuple1$1WhereNode$ph*)come_null_checker(((struct WhereNode* )come_null_checker(where_node, "main.nc", 534))->left, "main.nc", 534))->v1, "main.nc", 534))->op==(8)&&((struct WhereNode* )come_null_checker(((struct tuple1$1WhereNode$ph*)come_null_checker(((struct WhereNode* )come_null_checker(where_node, "main.nc", 534))->right, "main.nc", 534))->v1, "main.nc", 534))->op==(8)) {
-                left=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row, "main.nc", 535)), "main.nc", 535)),((struct WhereNode* )come_null_checker(((struct tuple1$1WhereNode$ph*)come_null_checker(((struct WhereNode* )come_null_checker(where_node, "main.nc", 535))->left, "main.nc", 535))->v1, "main.nc", 535))->data));
-                right=((struct WhereNode* )come_null_checker(((struct tuple1$1WhereNode$ph*)come_null_checker(((struct WhereNode* )come_null_checker(where_node, "main.nc", 536))->right, "main.nc", 536))->v1, "main.nc", 536))->data;
+            if(where_node->left->v1->op==(8)&&where_node->right->v1->op==(8)) {
+                left=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(row,where_node->left->v1->data));
+                right=where_node->right->v1->data;
                 right_int_value=atoi(right);
                 if(right_int_value==0) {
-                    __result_obj__0 = charp_operator_equals(((char*)come_null_checker(left, "main.nc", 541)),right);
+                                        __result_obj__0 = charp_operator_equals(left,right);
                     (left = come_decrement_ref_count(left, (void*)0, (void*)0, 0, 0, (void*)0));
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
                 }
                 else {
-                    __result_obj__0 = atoi(left)==right;
+                                        __result_obj__0 = atoi(left)==right;
                     (left = come_decrement_ref_count(left, (void*)0, (void*)0, 0, 0, (void*)0));
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
@@ -15888,25 +15834,25 @@ _Bool where_select(struct map$2char$phchar$ph* row, struct WhereNode*  where_nod
                 (left = come_decrement_ref_count(left, (void*)0, (void*)0, 0, 0, (void*)0));
             }
             else {
-                neo_current_frame = fr.prev;
+                                neo_current_frame = fr.prev;
                 return (_Bool)0;
             }
         }
         break;
         case (1):
         {
-            if(((struct WhereNode* )come_null_checker(((struct tuple1$1WhereNode$ph*)come_null_checker(((struct WhereNode* )come_null_checker(where_node, "main.nc", 554))->left, "main.nc", 554))->v1, "main.nc", 554))->op==(8)&&((struct WhereNode* )come_null_checker(((struct tuple1$1WhereNode$ph*)come_null_checker(((struct WhereNode* )come_null_checker(where_node, "main.nc", 554))->right, "main.nc", 554))->v1, "main.nc", 554))->op==(8)) {
-                left_52=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row, "main.nc", 555)), "main.nc", 555)),((struct WhereNode* )come_null_checker(((struct tuple1$1WhereNode$ph*)come_null_checker(((struct WhereNode* )come_null_checker(where_node, "main.nc", 555))->left, "main.nc", 555))->v1, "main.nc", 555))->data));
-                right_53=((struct WhereNode* )come_null_checker(((struct tuple1$1WhereNode$ph*)come_null_checker(((struct WhereNode* )come_null_checker(where_node, "main.nc", 556))->right, "main.nc", 556))->v1, "main.nc", 556))->data;
+            if(where_node->left->v1->op==(8)&&where_node->right->v1->op==(8)) {
+                left_52=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(row,where_node->left->v1->data));
+                right_53=where_node->right->v1->data;
                 right_int_value_54=atoi(right_53);
                 if(right_int_value_54==0) {
-                    __result_obj__0 = charp_operator_not_equals(((char*)come_null_checker(left_52, "main.nc", 561)),right_53);
+                                        __result_obj__0 = charp_operator_not_equals(left_52,right_53);
                     (left_52 = come_decrement_ref_count(left_52, (void*)0, (void*)0, 0, 0, (void*)0));
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
                 }
                 else {
-                    __result_obj__0 = atoi(left_52)!=right_53;
+                                        __result_obj__0 = atoi(left_52)!=right_53;
                     (left_52 = come_decrement_ref_count(left_52, (void*)0, (void*)0, 0, 0, (void*)0));
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
@@ -15914,25 +15860,25 @@ _Bool where_select(struct map$2char$phchar$ph* row, struct WhereNode*  where_nod
                 (left_52 = come_decrement_ref_count(left_52, (void*)0, (void*)0, 0, 0, (void*)0));
             }
             else {
-                neo_current_frame = fr.prev;
+                                neo_current_frame = fr.prev;
                 return (_Bool)0;
             }
         }
         break;
         case (2):
         {
-            if(((struct WhereNode* )come_null_checker(((struct tuple1$1WhereNode$ph*)come_null_checker(((struct WhereNode* )come_null_checker(where_node, "main.nc", 574))->left, "main.nc", 574))->v1, "main.nc", 574))->op==(8)&&((struct WhereNode* )come_null_checker(((struct tuple1$1WhereNode$ph*)come_null_checker(((struct WhereNode* )come_null_checker(where_node, "main.nc", 574))->right, "main.nc", 574))->v1, "main.nc", 574))->op==(8)) {
-                left_55=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row, "main.nc", 575)), "main.nc", 575)),((struct WhereNode* )come_null_checker(((struct tuple1$1WhereNode$ph*)come_null_checker(((struct WhereNode* )come_null_checker(where_node, "main.nc", 575))->left, "main.nc", 575))->v1, "main.nc", 575))->data));
-                right_56=((struct WhereNode* )come_null_checker(((struct tuple1$1WhereNode$ph*)come_null_checker(((struct WhereNode* )come_null_checker(where_node, "main.nc", 576))->right, "main.nc", 576))->v1, "main.nc", 576))->data;
+            if(where_node->left->v1->op==(8)&&where_node->right->v1->op==(8)) {
+                left_55=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(row,where_node->left->v1->data));
+                right_56=where_node->right->v1->data;
                 right_int_value_57=atoi(right_56);
                 if(right_int_value_57==0) {
-                    __result_obj__0 = (_Bool)0;
+                                        __result_obj__0 = (_Bool)0;
                     (left_55 = come_decrement_ref_count(left_55, (void*)0, (void*)0, 0, 0, (void*)0));
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
                 }
                 else {
-                    __result_obj__0 = atoi(left_55)<right_56;
+                                        __result_obj__0 = atoi(left_55)<right_56;
                     (left_55 = come_decrement_ref_count(left_55, (void*)0, (void*)0, 0, 0, (void*)0));
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
@@ -15940,25 +15886,25 @@ _Bool where_select(struct map$2char$phchar$ph* row, struct WhereNode*  where_nod
                 (left_55 = come_decrement_ref_count(left_55, (void*)0, (void*)0, 0, 0, (void*)0));
             }
             else {
-                neo_current_frame = fr.prev;
+                                neo_current_frame = fr.prev;
                 return (_Bool)0;
             }
         }
         break;
         case (3):
         {
-            if(((struct WhereNode* )come_null_checker(((struct tuple1$1WhereNode$ph*)come_null_checker(((struct WhereNode* )come_null_checker(where_node, "main.nc", 594))->left, "main.nc", 594))->v1, "main.nc", 594))->op==(8)&&((struct WhereNode* )come_null_checker(((struct tuple1$1WhereNode$ph*)come_null_checker(((struct WhereNode* )come_null_checker(where_node, "main.nc", 594))->right, "main.nc", 594))->v1, "main.nc", 594))->op==(8)) {
-                left_58=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row, "main.nc", 595)), "main.nc", 595)),((struct WhereNode* )come_null_checker(((struct tuple1$1WhereNode$ph*)come_null_checker(((struct WhereNode* )come_null_checker(where_node, "main.nc", 595))->left, "main.nc", 595))->v1, "main.nc", 595))->data));
-                right_59=((struct WhereNode* )come_null_checker(((struct tuple1$1WhereNode$ph*)come_null_checker(((struct WhereNode* )come_null_checker(where_node, "main.nc", 596))->right, "main.nc", 596))->v1, "main.nc", 596))->data;
+            if(where_node->left->v1->op==(8)&&where_node->right->v1->op==(8)) {
+                left_58=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(row,where_node->left->v1->data));
+                right_59=where_node->right->v1->data;
                 right_int_value_60=atoi(right_59);
                 if(right_int_value_60==0) {
-                    __result_obj__0 = (_Bool)0;
+                                        __result_obj__0 = (_Bool)0;
                     (left_58 = come_decrement_ref_count(left_58, (void*)0, (void*)0, 0, 0, (void*)0));
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
                 }
                 else {
-                    __result_obj__0 = atoi(left_58)<=right_59;
+                                        __result_obj__0 = atoi(left_58)<=right_59;
                     (left_58 = come_decrement_ref_count(left_58, (void*)0, (void*)0, 0, 0, (void*)0));
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
@@ -15966,25 +15912,25 @@ _Bool where_select(struct map$2char$phchar$ph* row, struct WhereNode*  where_nod
                 (left_58 = come_decrement_ref_count(left_58, (void*)0, (void*)0, 0, 0, (void*)0));
             }
             else {
-                neo_current_frame = fr.prev;
+                                neo_current_frame = fr.prev;
                 return (_Bool)0;
             }
         }
         break;
         case (4):
         {
-            if(((struct WhereNode* )come_null_checker(((struct tuple1$1WhereNode$ph*)come_null_checker(((struct WhereNode* )come_null_checker(where_node, "main.nc", 614))->left, "main.nc", 614))->v1, "main.nc", 614))->op==(8)&&((struct WhereNode* )come_null_checker(((struct tuple1$1WhereNode$ph*)come_null_checker(((struct WhereNode* )come_null_checker(where_node, "main.nc", 614))->right, "main.nc", 614))->v1, "main.nc", 614))->op==(8)) {
-                left_61=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row, "main.nc", 615)), "main.nc", 615)),((struct WhereNode* )come_null_checker(((struct tuple1$1WhereNode$ph*)come_null_checker(((struct WhereNode* )come_null_checker(where_node, "main.nc", 615))->left, "main.nc", 615))->v1, "main.nc", 615))->data));
-                right_62=((struct WhereNode* )come_null_checker(((struct tuple1$1WhereNode$ph*)come_null_checker(((struct WhereNode* )come_null_checker(where_node, "main.nc", 616))->right, "main.nc", 616))->v1, "main.nc", 616))->data;
+            if(where_node->left->v1->op==(8)&&where_node->right->v1->op==(8)) {
+                left_61=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(row,where_node->left->v1->data));
+                right_62=where_node->right->v1->data;
                 right_int_value_63=atoi(right_62);
                 if(right_int_value_63==0) {
-                    __result_obj__0 = (_Bool)0;
+                                        __result_obj__0 = (_Bool)0;
                     (left_61 = come_decrement_ref_count(left_61, (void*)0, (void*)0, 0, 0, (void*)0));
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
                 }
                 else {
-                    __result_obj__0 = atoi(left_61)>right_62;
+                                        __result_obj__0 = atoi(left_61)>right_62;
                     (left_61 = come_decrement_ref_count(left_61, (void*)0, (void*)0, 0, 0, (void*)0));
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
@@ -15992,25 +15938,25 @@ _Bool where_select(struct map$2char$phchar$ph* row, struct WhereNode*  where_nod
                 (left_61 = come_decrement_ref_count(left_61, (void*)0, (void*)0, 0, 0, (void*)0));
             }
             else {
-                neo_current_frame = fr.prev;
+                                neo_current_frame = fr.prev;
                 return (_Bool)0;
             }
         }
         break;
         case (5):
         {
-            if(((struct WhereNode* )come_null_checker(((struct tuple1$1WhereNode$ph*)come_null_checker(((struct WhereNode* )come_null_checker(where_node, "main.nc", 634))->left, "main.nc", 634))->v1, "main.nc", 634))->op==(8)&&((struct WhereNode* )come_null_checker(((struct tuple1$1WhereNode$ph*)come_null_checker(((struct WhereNode* )come_null_checker(where_node, "main.nc", 634))->right, "main.nc", 634))->v1, "main.nc", 634))->op==(8)) {
-                left_64=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row, "main.nc", 635)), "main.nc", 635)),((struct WhereNode* )come_null_checker(((struct tuple1$1WhereNode$ph*)come_null_checker(((struct WhereNode* )come_null_checker(where_node, "main.nc", 635))->left, "main.nc", 635))->v1, "main.nc", 635))->data));
-                right_65=((struct WhereNode* )come_null_checker(((struct tuple1$1WhereNode$ph*)come_null_checker(((struct WhereNode* )come_null_checker(where_node, "main.nc", 636))->right, "main.nc", 636))->v1, "main.nc", 636))->data;
+            if(where_node->left->v1->op==(8)&&where_node->right->v1->op==(8)) {
+                left_64=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(row,where_node->left->v1->data));
+                right_65=where_node->right->v1->data;
                 right_int_value_66=atoi(right_65);
                 if(right_int_value_66==0) {
-                    __result_obj__0 = (_Bool)0;
+                                        __result_obj__0 = (_Bool)0;
                     (left_64 = come_decrement_ref_count(left_64, (void*)0, (void*)0, 0, 0, (void*)0));
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
                 }
                 else {
-                    __result_obj__0 = atoi(left_64)>=right_65;
+                                        __result_obj__0 = atoi(left_64)>=right_65;
                     (left_64 = come_decrement_ref_count(left_64, (void*)0, (void*)0, 0, 0, (void*)0));
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
@@ -16018,32 +15964,32 @@ _Bool where_select(struct map$2char$phchar$ph* row, struct WhereNode*  where_nod
                 (left_64 = come_decrement_ref_count(left_64, (void*)0, (void*)0, 0, 0, (void*)0));
             }
             else {
-                neo_current_frame = fr.prev;
+                                neo_current_frame = fr.prev;
                 return (_Bool)0;
             }
         }
         break;
         case (6):
         {
-            left_67=where_select(row,((struct tuple1$1WhereNode$ph*)come_null_checker(((struct WhereNode* )come_null_checker(where_node, "main.nc", 654))->left, "main.nc", 654))->v1);
-            right_68=where_select(row,((struct tuple1$1WhereNode$ph*)come_null_checker(((struct WhereNode* )come_null_checker(where_node, "main.nc", 655))->right, "main.nc", 655))->v1);
-            neo_current_frame = fr.prev;
+            left_67=where_select(row,where_node->left->v1);
+            right_68=where_select(row,where_node->right->v1);
+                        neo_current_frame = fr.prev;
             return left_67&&right_68;
         }
         break;
         case (7):
         {
-            left_69=where_select(row,((struct tuple1$1WhereNode$ph*)come_null_checker(((struct WhereNode* )come_null_checker(where_node, "main.nc", 662))->left, "main.nc", 662))->v1);
-            right_70=where_select(row,((struct tuple1$1WhereNode$ph*)come_null_checker(((struct WhereNode* )come_null_checker(where_node, "main.nc", 663))->right, "main.nc", 663))->v1);
-            neo_current_frame = fr.prev;
+            left_69=where_select(row,where_node->left->v1);
+            right_70=where_select(row,where_node->right->v1);
+                        neo_current_frame = fr.prev;
             return left_69||right_70;
         }
         break;
         case (8):
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return (_Bool)0;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return (_Bool)0;
     neo_current_frame = fr.prev;
 }
@@ -16052,18 +15998,18 @@ _Bool like(char* str, char* pattern)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "like"; neo_current_frame = &fr;
     if(*pattern==0) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return *str==0;
     }
     if(*pattern==37) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return like(str,pattern+1)||(*str&&like(str+1,pattern));
     }
     if(*pattern==95) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return *str&&like(str+1,pattern+1);
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return *str==*pattern&&like(str+1,pattern+1);
     neo_current_frame = fr.prev;
 }
@@ -16269,20 +16215,18 @@ _Bool eval_select_from(const char* deliminater, struct sInfo*  info  )
     char*  str_215  ;
     struct _IO_FILE*  f  ;
     struct _IO_FILE*  f_216  ;
-    ((struct sInfo* )come_null_checker(info, "main.nc", 693))->p+=strlen("SELECT");
+    info->p+=strlen("SELECT");
     skip_spaces(info);
     all_=(_Bool)0;
     max_=(_Bool)0;
-    field_names=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)come_null_checker(((struct list$1char$ph*)(__right_value0=(struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 699, "struct list$1char$ph*"))), "main.nc", 699)))));
-    come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-    max_field=(struct map$2char$ph_Bool$*)come_increment_ref_count(map$2char$ph_Bool$_initialize((struct map$2char$ph_Bool$*)come_increment_ref_count(((struct map$2char$ph_Bool$*)come_null_checker(((struct map$2char$ph_Bool$*)(__right_value0=(struct map$2char$ph_Bool$*)come_calloc(1, sizeof(struct map$2char$ph_Bool$)*(1), (void*)0, 700, "struct map$2char$ph_Bool$*"))), "main.nc", 700)))));
-    come_call_finalizer(map$2char$ph_Bool$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-    if(*((struct sInfo* )come_null_checker(info, "main.nc", 701))->p==42) {
-        ((struct sInfo* )come_null_checker(info, "main.nc", 702))->p++;
+    field_names=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 699, "struct list$1char$ph*"))));
+    max_field=(struct map$2char$ph_Bool$*)come_increment_ref_count(map$2char$ph_Bool$_initialize((struct map$2char$ph_Bool$*)come_increment_ref_count((struct map$2char$ph_Bool$*)come_calloc(1, sizeof(struct map$2char$ph_Bool$)*(1), (void*)0, 700, "struct map$2char$ph_Bool$*"))));
+    if(*info->p==42) {
+        info->p++;
         skip_spaces(info);
         all_=(_Bool)1;
-        if(strncmp(((struct sInfo* )come_null_checker(info, "main.nc", 706))->p,"FROM",strlen("FROM"))==0) {
-            ((struct sInfo* )come_null_checker(info, "main.nc", 707))->p+=strlen("FROM");
+        if(strncmp(info->p,"FROM",strlen("FROM"))==0) {
+            info->p+=strlen("FROM");
             skip_spaces(info);
         }
     }
@@ -16290,8 +16234,8 @@ _Bool eval_select_from(const char* deliminater, struct sInfo*  info  )
         while(1) {
             field=((void*)0);
             max_flag=(_Bool)0;
-            if(strncmp(((struct sInfo* )come_null_checker(info, "main.nc", 715))->p,"MAX(",strlen("MAX("))==0) {
-                ((struct sInfo* )come_null_checker(info, "main.nc", 716))->p+=strlen("MAX(");
+            if(strncmp(info->p,"MAX(",strlen("MAX("))==0) {
+                info->p+=strlen("MAX(");
                 __dec_obj50=field,
                 field=(char* )come_increment_ref_count(parse_word(info));
                 __dec_obj50 = come_decrement_ref_count(__dec_obj50, (void*)0, (void*)0, 0,0, (void*)0);
@@ -16303,10 +16247,10 @@ _Bool eval_select_from(const char* deliminater, struct sInfo*  info  )
                 field=(char* )come_increment_ref_count(parse_word(info));
                 __dec_obj51 = come_decrement_ref_count(__dec_obj51, (void*)0, (void*)0, 0,0, (void*)0);
             }
-            list$1char$ph_add(((struct list$1char$ph*)come_null_checker(field_names, "main.nc", 725)),(char* )come_increment_ref_count(field));
-            map$2char$ph_Bool$_insert(((struct map$2char$ph_Bool$*)come_null_checker(max_field, "main.nc", 726)),(char* )come_increment_ref_count(field),max_flag,(_Bool)0);
-            if(strncmp(((struct sInfo* )come_null_checker(info, "main.nc", 728))->p,"FROM",strlen("FROM"))==0) {
-                ((struct sInfo* )come_null_checker(info, "main.nc", 729))->p+=strlen("FROM");
+            list$1char$ph_add(field_names,(char* )come_increment_ref_count(field));
+            map$2char$ph_Bool$_insert(max_field,(char* )come_increment_ref_count(field),max_flag,(_Bool)0);
+            if(strncmp(info->p,"FROM",strlen("FROM"))==0) {
+                info->p+=strlen("FROM");
                 skip_spaces(info);
                 (field = come_decrement_ref_count(field, (void*)0, (void*)0, 0, 0, (void*)0));
                 break;
@@ -16319,8 +16263,7 @@ _Bool eval_select_from(const char* deliminater, struct sInfo*  info  )
     skip_spaces(info);
     where_node=((void*)0);
     in_target=((void*)0);
-    in_values=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)come_null_checker(((struct list$1char$ph*)(__right_value0=(struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 744, "struct list$1char$ph*"))), "main.nc", 744)))));
-    come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+    in_values=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 744, "struct list$1char$ph*"))));
     not_in=(_Bool)0;
     between_target=((void*)0);
     like_target=((void*)0);
@@ -16328,18 +16271,18 @@ _Bool eval_select_from(const char* deliminater, struct sInfo*  info  )
     between_values=((void*)0);
     like_value=((void*)0);
     not_like_value=((void*)0);
-    if(strncmp(((struct sInfo* )come_null_checker(info, "main.nc", 752))->p,"WHERE",strlen("WHERE"))==0) {
-        ((struct sInfo* )come_null_checker(info, "main.nc", 753))->p+=strlen("WHERE");
+    if(strncmp(info->p,"WHERE",strlen("WHERE"))==0) {
+        info->p+=strlen("WHERE");
         skip_spaces(info);
-        p=((struct sInfo* )come_null_checker(info, "main.nc", 756))->p;
+        p=info->p;
         tmp=(char* )come_increment_ref_count(parse_word(info));
-        if(strncmp(((struct sInfo* )come_null_checker(info, "main.nc", 760))->p,"IN",strlen("IN"))==0||strncmp(((struct sInfo* )come_null_checker(info, "main.nc", 760))->p,"NOT IN",strlen("NOT IN"))==0) {
-            if(strncmp(((struct sInfo* )come_null_checker(info, "main.nc", 761))->p,"IN",strlen("IN"))==0) {
-                ((struct sInfo* )come_null_checker(info, "main.nc", 762))->p+=strlen("IN");
+        if(strncmp(info->p,"IN",strlen("IN"))==0||strncmp(info->p,"NOT IN",strlen("NOT IN"))==0) {
+            if(strncmp(info->p,"IN",strlen("IN"))==0) {
+                info->p+=strlen("IN");
                 skip_spaces(info);
             }
             else {
-                ((struct sInfo* )come_null_checker(info, "main.nc", 766))->p+=strlen("NOT IN");
+                info->p+=strlen("NOT IN");
                 skip_spaces(info);
                 not_in=(_Bool)1;
             }
@@ -16349,9 +16292,9 @@ _Bool eval_select_from(const char* deliminater, struct sInfo*  info  )
             expected_next_charactor(40,info);
             while(1) {
                 value=(char* )come_increment_ref_count(parse_value(info));
-                list$1char$ph_add(((struct list$1char$ph*)come_null_checker(in_values, "main.nc", 777)),(char* )come_increment_ref_count(value));
-                if(*((struct sInfo* )come_null_checker(info, "main.nc", 779))->p==0) {
-                    __result_obj__0 = (_Bool)0;
+                list$1char$ph_add(in_values,(char* )come_increment_ref_count(value));
+                if(*info->p==0) {
+                                        __result_obj__0 = (_Bool)0;
                     (value = come_decrement_ref_count(value, (void*)0, (void*)0, 0, 0, (void*)0));
                     (tmp = come_decrement_ref_count(tmp, (void*)0, (void*)0, 0, 0, (void*)0));
                     come_call_finalizer(list$1char$ph$p_finalize, field_names, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -16369,8 +16312,8 @@ _Bool eval_select_from(const char* deliminater, struct sInfo*  info  )
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
                 }
-                else if(*((struct sInfo* )come_null_checker(info, "main.nc", 782))->p==41) {
-                    ((struct sInfo* )come_null_checker(info, "main.nc", 783))->p++;
+                else if(*info->p==41) {
+                    info->p++;
                     skip_spaces(info);
                     (value = come_decrement_ref_count(value, (void*)0, (void*)0, 0, 0, (void*)0));
                     break;
@@ -16379,16 +16322,16 @@ _Bool eval_select_from(const char* deliminater, struct sInfo*  info  )
                 (value = come_decrement_ref_count(value, (void*)0, (void*)0, 0, 0, (void*)0));
             }
         }
-        else if(strncmp(((struct sInfo* )come_null_checker(info, "main.nc", 791))->p,"BETWEEN",strlen("BETWEEN"))==0) {
-            ((struct sInfo* )come_null_checker(info, "main.nc", 792))->p+=strlen("BETWEEN");
+        else if(strncmp(info->p,"BETWEEN",strlen("BETWEEN"))==0) {
+            info->p+=strlen("BETWEEN");
             skip_spaces(info);
             __dec_obj53=between_target,
             between_target=(char* )come_increment_ref_count(tmp);
             __dec_obj53 = come_decrement_ref_count(__dec_obj53, (void*)0, (void*)0, 0,0, (void*)0);
             value_75=(char* )come_increment_ref_count(parse_value(info));
             skip_spaces(info);
-            if(strncmp(((struct sInfo* )come_null_checker(info, "main.nc", 801))->p,"AND",strlen("AND"))==0) {
-                ((struct sInfo* )come_null_checker(info, "main.nc", 802))->p+=strlen("AND");
+            if(strncmp(info->p,"AND",strlen("AND"))==0) {
+                info->p+=strlen("AND");
                 skip_spaces(info);
             }
             value2=(char* )come_increment_ref_count(parse_value(info));
@@ -16399,8 +16342,8 @@ _Bool eval_select_from(const char* deliminater, struct sInfo*  info  )
             (value_75 = come_decrement_ref_count(value_75, (void*)0, (void*)0, 0, 0, (void*)0));
             (value2 = come_decrement_ref_count(value2, (void*)0, (void*)0, 0, 0, (void*)0));
         }
-        else if(strncmp(((struct sInfo* )come_null_checker(info, "main.nc", 811))->p,"LIKE",strlen("LIKE"))==0) {
-            ((struct sInfo* )come_null_checker(info, "main.nc", 812))->p+=strlen("LIKE");
+        else if(strncmp(info->p,"LIKE",strlen("LIKE"))==0) {
+            info->p+=strlen("LIKE");
             skip_spaces(info);
             __dec_obj57=like_target,
             like_target=(char* )come_increment_ref_count(tmp);
@@ -16411,8 +16354,8 @@ _Bool eval_select_from(const char* deliminater, struct sInfo*  info  )
             __dec_obj58 = come_decrement_ref_count(__dec_obj58, (void*)0, (void*)0, 0,0, (void*)0);
             (value_76 = come_decrement_ref_count(value_76, (void*)0, (void*)0, 0, 0, (void*)0));
         }
-        else if(strncmp(((struct sInfo* )come_null_checker(info, "main.nc", 821))->p,"NOT LIKE",strlen("NOT LIKE"))==0) {
-            ((struct sInfo* )come_null_checker(info, "main.nc", 822))->p+=strlen("NOT LIKE");
+        else if(strncmp(info->p,"NOT LIKE",strlen("NOT LIKE"))==0) {
+            info->p+=strlen("NOT LIKE");
             skip_spaces(info);
             __dec_obj59=not_like_target,
             not_like_target=(char* )come_increment_ref_count(tmp);
@@ -16424,15 +16367,15 @@ _Bool eval_select_from(const char* deliminater, struct sInfo*  info  )
             (value_77 = come_decrement_ref_count(value_77, (void*)0, (void*)0, 0, 0, (void*)0));
         }
         else {
-            ((struct sInfo* )come_null_checker(info, "main.nc", 832))->p=p;
+            info->p=p;
             __dec_obj61=where_node,
             where_node=(struct WhereNode* )come_increment_ref_count(parse_where(info));
             come_call_finalizer(WhereNode_finalize, __dec_obj61,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         }
         (tmp = come_decrement_ref_count(tmp, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    if(list$1char$ph_length(((struct list$1char$ph*)come_null_checker(field_names, "main.nc", 838)))==0&&!all_) {
-        __result_obj__0 = (_Bool)0;
+    if(list$1char$ph_length(field_names)==0&&!all_) {
+                __result_obj__0 = (_Bool)0;
         come_call_finalizer(list$1char$ph$p_finalize, field_names, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_call_finalizer(map$2char$ph_Bool$$p_finalize, max_field, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         (table_name = come_decrement_ref_count(table_name, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -16448,30 +16391,29 @@ _Bool eval_select_from(const char* deliminater, struct sInfo*  info  )
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    current_db=(struct Database* )come_increment_ref_count(map$2char$phDatabase$ph_operator_load_element(((struct map$2char$phDatabase$ph*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(gDatabases, "main.nc", 842)), "main.nc", 842)),((struct sInfo* )come_null_checker(info, "main.nc", 842))->current_db_name));
-    table=(struct Table* )come_increment_ref_count(map$2char$phTable$ph_operator_load_element(((struct map$2char$phTable$ph*)come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(((struct Database* )come_null_checker(current_db, "main.nc", 844))->tables, "main.nc", 844)), "main.nc", 844)),table_name));
-    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count(((struct buffer* )come_null_checker(((struct buffer* )(__right_value0=(struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 846, "struct buffer* "))), "main.nc", 846)))));
-    come_call_finalizer(buffer_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+    current_db=(struct Database* )come_increment_ref_count(map$2char$phDatabase$ph_operator_load_element(gDatabases,info->current_db_name));
+    table=(struct Table* )come_increment_ref_count(map$2char$phTable$ph_operator_load_element(current_db->tables,table_name));
+    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 846, "struct buffer* "))));
     if(table) {
         if(in_target&&not_in) {
             if(all_) {
-                rows=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(((struct Table* )come_null_checker(table, "main.nc", 851))->rows);
-                for(o2_saved=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(rows),it=list$1map$2char$phchar$ph$ph_begin(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved, "main.nc", 853)));!list$1map$2char$phchar$ph$ph_end(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved, "main.nc", 853)));it=list$1map$2char$phchar$ph$ph_next(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved, "main.nc", 853)))){
+                rows=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(table->rows);
+                for(o2_saved=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(rows),it=list$1map$2char$phchar$ph$ph_begin(o2_saved);!list$1map$2char$phchar$ph$ph_end(o2_saved);it=list$1map$2char$phchar$ph$ph_next(o2_saved)){
                     row=it;
                     check=(_Bool)1;
-                    for(o2_saved_80=(struct list$1char$ph*)come_increment_ref_count(in_values),it2=list$1char$ph_begin(((struct list$1char$ph*)come_null_checker(o2_saved_80, "main.nc", 857)));!list$1char$ph_end(((struct list$1char$ph*)come_null_checker(o2_saved_80, "main.nc", 857)));it2=list$1char$ph_next(((struct list$1char$ph*)come_null_checker(o2_saved_80, "main.nc", 857)))){
-                        if(({(_conditional_value_X0=(string_operator_equals(((char* )come_null_checker(((char* )(__right_value1=map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row, "main.nc", 858)), "main.nc", 858)),in_target))), "main.nc", 858)),it2)));                        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
+                    for(o2_saved_80=(struct list$1char$ph*)come_increment_ref_count(in_values),it2=list$1char$ph_begin(o2_saved_80);!list$1char$ph_end(o2_saved_80);it2=list$1char$ph_next(o2_saved_80)){
+                        if(({(_conditional_value_X0=(string_operator_equals(((char* )(__right_value1=map$2char$phchar$ph_operator_load_element(row,in_target))),it2)));                        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
 _conditional_value_X0;})) {
                             check=(_Bool)0;
                         }
                     }
                     come_call_finalizer(list$1char$ph$p_finalize, o2_saved_80, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                     if(check) {
-                        for(o2_saved_81=row,it3=map$2char$phchar$ph_begin(((struct map$2char$phchar$ph*)come_null_checker(o2_saved_81, "main.nc", 864)));!map$2char$phchar$ph_end(((struct map$2char$phchar$ph*)come_null_checker(o2_saved_81, "main.nc", 864)));it3=map$2char$phchar$ph_next(((struct map$2char$phchar$ph*)come_null_checker(o2_saved_81, "main.nc", 864)))){
-                            value_82=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row, "main.nc", 865)), "main.nc", 865)),it3));
-                            value2_83=(char* )come_increment_ref_count(charp_operator_add(((char*)come_null_checker(value_82, "main.nc", 866)),((char* )(__right_value1=__builtin_string(deliminater)))));
+                        for(o2_saved_81=row,it3=map$2char$phchar$ph_begin(o2_saved_81);!map$2char$phchar$ph_end(o2_saved_81);it3=map$2char$phchar$ph_next(o2_saved_81)){
+                            value_82=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(row,it3));
+                            value2_83=(char* )come_increment_ref_count(charp_operator_add(value_82,((char* )(__right_value1=__builtin_string(deliminater)))));
                             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
-                            buffer_append_str(((struct buffer* )come_null_checker(buf, "main.nc", 867)),value2_83);
+                            buffer_append_str(buf,value2_83);
                             (value_82 = come_decrement_ref_count(value_82, (void*)0, (void*)0, 0, 0, (void*)0));
                             (value2_83 = come_decrement_ref_count(value2_83, (void*)0, (void*)0, 0, 0, (void*)0));
                         }
@@ -16481,23 +16423,23 @@ _conditional_value_X0;})) {
                 come_call_finalizer(list$1map$2char$phchar$ph$ph$p_finalize, rows, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             }
             else {
-                rows_84=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(((struct Table* )come_null_checker(table, "main.nc", 873))->rows);
-                for(o2_saved_85=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(rows_84),it_86=list$1map$2char$phchar$ph$ph_begin(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_85, "main.nc", 875)));!list$1map$2char$phchar$ph$ph_end(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_85, "main.nc", 875)));it_86=list$1map$2char$phchar$ph$ph_next(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_85, "main.nc", 875)))){
+                rows_84=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(table->rows);
+                for(o2_saved_85=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(rows_84),it_86=list$1map$2char$phchar$ph$ph_begin(o2_saved_85);!list$1map$2char$phchar$ph$ph_end(o2_saved_85);it_86=list$1map$2char$phchar$ph$ph_next(o2_saved_85)){
                     row_87=it_86;
                     check_88=(_Bool)1;
-                    for(o2_saved_89=(struct list$1char$ph*)come_increment_ref_count(in_values),it2_90=list$1char$ph_begin(((struct list$1char$ph*)come_null_checker(o2_saved_89, "main.nc", 879)));!list$1char$ph_end(((struct list$1char$ph*)come_null_checker(o2_saved_89, "main.nc", 879)));it2_90=list$1char$ph_next(((struct list$1char$ph*)come_null_checker(o2_saved_89, "main.nc", 879)))){
-                        if(({(_conditional_value_X1=(string_operator_equals(((char* )come_null_checker(((char* )(__right_value1=map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row_87, "main.nc", 880)), "main.nc", 880)),in_target))), "main.nc", 880)),it2_90)));                        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
+                    for(o2_saved_89=(struct list$1char$ph*)come_increment_ref_count(in_values),it2_90=list$1char$ph_begin(o2_saved_89);!list$1char$ph_end(o2_saved_89);it2_90=list$1char$ph_next(o2_saved_89)){
+                        if(({(_conditional_value_X1=(string_operator_equals(((char* )(__right_value1=map$2char$phchar$ph_operator_load_element(row_87,in_target))),it2_90)));                        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
 _conditional_value_X1;})) {
                             check_88=(_Bool)0;
                         }
                     }
                     come_call_finalizer(list$1char$ph$p_finalize, o2_saved_89, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                     if(check_88) {
-                        for(o2_saved_91=(struct list$1char$ph*)come_increment_ref_count(field_names),it3_92=list$1char$ph_begin(((struct list$1char$ph*)come_null_checker(o2_saved_91, "main.nc", 886)));!list$1char$ph_end(((struct list$1char$ph*)come_null_checker(o2_saved_91, "main.nc", 886)));it3_92=list$1char$ph_next(((struct list$1char$ph*)come_null_checker(o2_saved_91, "main.nc", 886)))){
-                            value_93=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row_87, "main.nc", 887)), "main.nc", 887)),it3_92));
-                            value2_94=(char* )come_increment_ref_count(charp_operator_add(((char*)come_null_checker(value_93, "main.nc", 888)),((char* )(__right_value1=__builtin_string(deliminater)))));
+                        for(o2_saved_91=(struct list$1char$ph*)come_increment_ref_count(field_names),it3_92=list$1char$ph_begin(o2_saved_91);!list$1char$ph_end(o2_saved_91);it3_92=list$1char$ph_next(o2_saved_91)){
+                            value_93=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(row_87,it3_92));
+                            value2_94=(char* )come_increment_ref_count(charp_operator_add(value_93,((char* )(__right_value1=__builtin_string(deliminater)))));
                             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
-                            buffer_append_str(((struct buffer* )come_null_checker(buf, "main.nc", 889)),value2_94);
+                            buffer_append_str(buf,value2_94);
                             (value_93 = come_decrement_ref_count(value_93, (void*)0, (void*)0, 0, 0, (void*)0));
                             (value2_94 = come_decrement_ref_count(value2_94, (void*)0, (void*)0, 0, 0, (void*)0));
                         }
@@ -16510,17 +16452,17 @@ _conditional_value_X1;})) {
         }
         else if(in_target) {
             if(all_) {
-                rows_95=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(((struct Table* )come_null_checker(table, "main.nc", 897))->rows);
-                for(o2_saved_96=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(rows_95),it_97=list$1map$2char$phchar$ph$ph_begin(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_96, "main.nc", 899)));!list$1map$2char$phchar$ph$ph_end(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_96, "main.nc", 899)));it_97=list$1map$2char$phchar$ph$ph_next(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_96, "main.nc", 899)))){
+                rows_95=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(table->rows);
+                for(o2_saved_96=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(rows_95),it_97=list$1map$2char$phchar$ph$ph_begin(o2_saved_96);!list$1map$2char$phchar$ph$ph_end(o2_saved_96);it_97=list$1map$2char$phchar$ph$ph_next(o2_saved_96)){
                     row_98=it_97;
-                    for(o2_saved_99=(struct list$1char$ph*)come_increment_ref_count(in_values),it2_100=list$1char$ph_begin(((struct list$1char$ph*)come_null_checker(o2_saved_99, "main.nc", 902)));!list$1char$ph_end(((struct list$1char$ph*)come_null_checker(o2_saved_99, "main.nc", 902)));it2_100=list$1char$ph_next(((struct list$1char$ph*)come_null_checker(o2_saved_99, "main.nc", 902)))){
-                        if(({(_conditional_value_X2=(string_operator_equals(((char* )come_null_checker(((char* )(__right_value1=map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row_98, "main.nc", 903)), "main.nc", 903)),in_target))), "main.nc", 903)),it2_100)));                        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
+                    for(o2_saved_99=(struct list$1char$ph*)come_increment_ref_count(in_values),it2_100=list$1char$ph_begin(o2_saved_99);!list$1char$ph_end(o2_saved_99);it2_100=list$1char$ph_next(o2_saved_99)){
+                        if(({(_conditional_value_X2=(string_operator_equals(((char* )(__right_value1=map$2char$phchar$ph_operator_load_element(row_98,in_target))),it2_100)));                        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
 _conditional_value_X2;})) {
-                            for(o2_saved_101=row_98,it3_102=map$2char$phchar$ph_begin(((struct map$2char$phchar$ph*)come_null_checker(o2_saved_101, "main.nc", 904)));!map$2char$phchar$ph_end(((struct map$2char$phchar$ph*)come_null_checker(o2_saved_101, "main.nc", 904)));it3_102=map$2char$phchar$ph_next(((struct map$2char$phchar$ph*)come_null_checker(o2_saved_101, "main.nc", 904)))){
-                                value_103=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row_98, "main.nc", 905)), "main.nc", 905)),it3_102));
-                                value2_104=(char* )come_increment_ref_count(charp_operator_add(((char*)come_null_checker(value_103, "main.nc", 906)),((char* )(__right_value1=__builtin_string(deliminater)))));
+                            for(o2_saved_101=row_98,it3_102=map$2char$phchar$ph_begin(o2_saved_101);!map$2char$phchar$ph_end(o2_saved_101);it3_102=map$2char$phchar$ph_next(o2_saved_101)){
+                                value_103=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(row_98,it3_102));
+                                value2_104=(char* )come_increment_ref_count(charp_operator_add(value_103,((char* )(__right_value1=__builtin_string(deliminater)))));
                                 (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
-                                buffer_append_str(((struct buffer* )come_null_checker(buf, "main.nc", 907)),value2_104);
+                                buffer_append_str(buf,value2_104);
                                 (value_103 = come_decrement_ref_count(value_103, (void*)0, (void*)0, 0, 0, (void*)0));
                                 (value2_104 = come_decrement_ref_count(value2_104, (void*)0, (void*)0, 0, 0, (void*)0));
                             }
@@ -16533,17 +16475,17 @@ _conditional_value_X2;})) {
                 come_call_finalizer(list$1map$2char$phchar$ph$ph$p_finalize, rows_95, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             }
             else {
-                rows_105=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(((struct Table* )come_null_checker(table, "main.nc", 915))->rows);
-                for(o2_saved_106=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(rows_105),it_107=list$1map$2char$phchar$ph$ph_begin(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_106, "main.nc", 917)));!list$1map$2char$phchar$ph$ph_end(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_106, "main.nc", 917)));it_107=list$1map$2char$phchar$ph$ph_next(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_106, "main.nc", 917)))){
+                rows_105=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(table->rows);
+                for(o2_saved_106=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(rows_105),it_107=list$1map$2char$phchar$ph$ph_begin(o2_saved_106);!list$1map$2char$phchar$ph$ph_end(o2_saved_106);it_107=list$1map$2char$phchar$ph$ph_next(o2_saved_106)){
                     row_108=it_107;
-                    for(o2_saved_109=(struct list$1char$ph*)come_increment_ref_count(in_values),it2_110=list$1char$ph_begin(((struct list$1char$ph*)come_null_checker(o2_saved_109, "main.nc", 920)));!list$1char$ph_end(((struct list$1char$ph*)come_null_checker(o2_saved_109, "main.nc", 920)));it2_110=list$1char$ph_next(((struct list$1char$ph*)come_null_checker(o2_saved_109, "main.nc", 920)))){
-                        if(({(_conditional_value_X3=(string_operator_equals(((char* )come_null_checker(((char* )(__right_value1=map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row_108, "main.nc", 921)), "main.nc", 921)),in_target))), "main.nc", 921)),it2_110)));                        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
+                    for(o2_saved_109=(struct list$1char$ph*)come_increment_ref_count(in_values),it2_110=list$1char$ph_begin(o2_saved_109);!list$1char$ph_end(o2_saved_109);it2_110=list$1char$ph_next(o2_saved_109)){
+                        if(({(_conditional_value_X3=(string_operator_equals(((char* )(__right_value1=map$2char$phchar$ph_operator_load_element(row_108,in_target))),it2_110)));                        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
 _conditional_value_X3;})) {
-                            for(o2_saved_111=(struct list$1char$ph*)come_increment_ref_count(field_names),it3_112=list$1char$ph_begin(((struct list$1char$ph*)come_null_checker(o2_saved_111, "main.nc", 922)));!list$1char$ph_end(((struct list$1char$ph*)come_null_checker(o2_saved_111, "main.nc", 922)));it3_112=list$1char$ph_next(((struct list$1char$ph*)come_null_checker(o2_saved_111, "main.nc", 922)))){
-                                value_113=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row_108, "main.nc", 923)), "main.nc", 923)),it3_112));
-                                value2_114=(char* )come_increment_ref_count(charp_operator_add(((char*)come_null_checker(value_113, "main.nc", 924)),((char* )(__right_value1=__builtin_string(deliminater)))));
+                            for(o2_saved_111=(struct list$1char$ph*)come_increment_ref_count(field_names),it3_112=list$1char$ph_begin(o2_saved_111);!list$1char$ph_end(o2_saved_111);it3_112=list$1char$ph_next(o2_saved_111)){
+                                value_113=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(row_108,it3_112));
+                                value2_114=(char* )come_increment_ref_count(charp_operator_add(value_113,((char* )(__right_value1=__builtin_string(deliminater)))));
                                 (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
-                                buffer_append_str(((struct buffer* )come_null_checker(buf, "main.nc", 925)),value2_114);
+                                buffer_append_str(buf,value2_114);
                                 (value_113 = come_decrement_ref_count(value_113, (void*)0, (void*)0, 0, 0, (void*)0));
                                 (value2_114 = come_decrement_ref_count(value2_114, (void*)0, (void*)0, 0, 0, (void*)0));
                             }
@@ -16559,18 +16501,18 @@ _conditional_value_X3;})) {
         }
         else if(between_target) {
             if(all_) {
-                rows_115=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(((struct Table* )come_null_checker(table, "main.nc", 935))->rows);
-                for(o2_saved_116=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(rows_115),it_117=list$1map$2char$phchar$ph$ph_begin(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_116, "main.nc", 937)));!list$1map$2char$phchar$ph$ph_end(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_116, "main.nc", 937)));it_117=list$1map$2char$phchar$ph$ph_next(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_116, "main.nc", 937)))){
+                rows_115=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(table->rows);
+                for(o2_saved_116=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(rows_115),it_117=list$1map$2char$phchar$ph$ph_begin(o2_saved_116);!list$1map$2char$phchar$ph$ph_end(o2_saved_116);it_117=list$1map$2char$phchar$ph$ph_next(o2_saved_116)){
                     row_118=it_117;
-                    value_119=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row_118, "main.nc", 940)), "main.nc", 940)),between_target));
-                    start=((struct tuple2$2char$phchar$ph*)come_null_checker(between_values, "main.nc", 942))->v1;
-                    end=((struct tuple2$2char$phchar$ph*)come_null_checker(between_values, "main.nc", 943))->v2;
+                    value_119=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(row_118,between_target));
+                    start=between_values->v1;
+                    end=between_values->v2;
                     if(atoi(value_119)>=atoi(start)&&atoi(value_119)<=atoi(end)) {
-                        for(o2_saved_120=row_118,it3_121=map$2char$phchar$ph_begin(((struct map$2char$phchar$ph*)come_null_checker(o2_saved_120, "main.nc", 946)));!map$2char$phchar$ph_end(((struct map$2char$phchar$ph*)come_null_checker(o2_saved_120, "main.nc", 946)));it3_121=map$2char$phchar$ph_next(((struct map$2char$phchar$ph*)come_null_checker(o2_saved_120, "main.nc", 946)))){
-                            value_122=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row_118, "main.nc", 947)), "main.nc", 947)),it3_121));
-                            value2_123=(char* )come_increment_ref_count(charp_operator_add(((char*)come_null_checker(value_122, "main.nc", 948)),((char* )(__right_value1=__builtin_string(deliminater)))));
+                        for(o2_saved_120=row_118,it3_121=map$2char$phchar$ph_begin(o2_saved_120);!map$2char$phchar$ph_end(o2_saved_120);it3_121=map$2char$phchar$ph_next(o2_saved_120)){
+                            value_122=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(row_118,it3_121));
+                            value2_123=(char* )come_increment_ref_count(charp_operator_add(value_122,((char* )(__right_value1=__builtin_string(deliminater)))));
                             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
-                            buffer_append_str(((struct buffer* )come_null_checker(buf, "main.nc", 949)),value2_123);
+                            buffer_append_str(buf,value2_123);
                             (value_122 = come_decrement_ref_count(value_122, (void*)0, (void*)0, 0, 0, (void*)0));
                             (value2_123 = come_decrement_ref_count(value2_123, (void*)0, (void*)0, 0, 0, (void*)0));
                         }
@@ -16583,18 +16525,18 @@ _conditional_value_X3;})) {
                 come_call_finalizer(list$1map$2char$phchar$ph$ph$p_finalize, rows_115, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             }
             else {
-                rows_124=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(((struct Table* )come_null_checker(table, "main.nc", 956))->rows);
-                for(o2_saved_125=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(rows_124),it_126=list$1map$2char$phchar$ph$ph_begin(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_125, "main.nc", 958)));!list$1map$2char$phchar$ph$ph_end(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_125, "main.nc", 958)));it_126=list$1map$2char$phchar$ph$ph_next(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_125, "main.nc", 958)))){
+                rows_124=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(table->rows);
+                for(o2_saved_125=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(rows_124),it_126=list$1map$2char$phchar$ph$ph_begin(o2_saved_125);!list$1map$2char$phchar$ph$ph_end(o2_saved_125);it_126=list$1map$2char$phchar$ph$ph_next(o2_saved_125)){
                     row_127=it_126;
-                    value_128=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row_127, "main.nc", 961)), "main.nc", 961)),between_target));
-                    start_129=((struct tuple2$2char$phchar$ph*)come_null_checker(between_values, "main.nc", 963))->v1;
-                    end_130=((struct tuple2$2char$phchar$ph*)come_null_checker(between_values, "main.nc", 964))->v2;
+                    value_128=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(row_127,between_target));
+                    start_129=between_values->v1;
+                    end_130=between_values->v2;
                     if(atoi(value_128)>=atoi(start_129)&&atoi(value_128)<=atoi(end_130)) {
-                        for(o2_saved_131=(struct list$1char$ph*)come_increment_ref_count(field_names),it3_132=list$1char$ph_begin(((struct list$1char$ph*)come_null_checker(o2_saved_131, "main.nc", 967)));!list$1char$ph_end(((struct list$1char$ph*)come_null_checker(o2_saved_131, "main.nc", 967)));it3_132=list$1char$ph_next(((struct list$1char$ph*)come_null_checker(o2_saved_131, "main.nc", 967)))){
-                            value_133=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row_127, "main.nc", 968)), "main.nc", 968)),it3_132));
-                            value2_134=(char* )come_increment_ref_count(charp_operator_add(((char*)come_null_checker(value_133, "main.nc", 969)),((char* )(__right_value1=__builtin_string(deliminater)))));
+                        for(o2_saved_131=(struct list$1char$ph*)come_increment_ref_count(field_names),it3_132=list$1char$ph_begin(o2_saved_131);!list$1char$ph_end(o2_saved_131);it3_132=list$1char$ph_next(o2_saved_131)){
+                            value_133=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(row_127,it3_132));
+                            value2_134=(char* )come_increment_ref_count(charp_operator_add(value_133,((char* )(__right_value1=__builtin_string(deliminater)))));
                             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
-                            buffer_append_str(((struct buffer* )come_null_checker(buf, "main.nc", 970)),value2_134);
+                            buffer_append_str(buf,value2_134);
                             (value_133 = come_decrement_ref_count(value_133, (void*)0, (void*)0, 0, 0, (void*)0));
                             (value2_134 = come_decrement_ref_count(value2_134, (void*)0, (void*)0, 0, 0, (void*)0));
                         }
@@ -16610,17 +16552,17 @@ _conditional_value_X3;})) {
         }
         else if(like_target) {
             if(all_) {
-                rows_135=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(((struct Table* )come_null_checker(table, "main.nc", 979))->rows);
-                for(o2_saved_136=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(rows_135),it_137=list$1map$2char$phchar$ph$ph_begin(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_136, "main.nc", 981)));!list$1map$2char$phchar$ph$ph_end(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_136, "main.nc", 981)));it_137=list$1map$2char$phchar$ph$ph_next(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_136, "main.nc", 981)))){
+                rows_135=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(table->rows);
+                for(o2_saved_136=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(rows_135),it_137=list$1map$2char$phchar$ph$ph_begin(o2_saved_136);!list$1map$2char$phchar$ph$ph_end(o2_saved_136);it_137=list$1map$2char$phchar$ph$ph_next(o2_saved_136)){
                     row_138=it_137;
-                    value_139=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row_138, "main.nc", 984)), "main.nc", 984)),like_target));
+                    value_139=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(row_138,like_target));
                     pattern=like_value;
                     if(like(value_139,pattern)) {
-                        for(o2_saved_140=row_138,it3_141=map$2char$phchar$ph_begin(((struct map$2char$phchar$ph*)come_null_checker(o2_saved_140, "main.nc", 989)));!map$2char$phchar$ph_end(((struct map$2char$phchar$ph*)come_null_checker(o2_saved_140, "main.nc", 989)));it3_141=map$2char$phchar$ph_next(((struct map$2char$phchar$ph*)come_null_checker(o2_saved_140, "main.nc", 989)))){
-                            value_142=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row_138, "main.nc", 990)), "main.nc", 990)),it3_141));
-                            value2_143=(char* )come_increment_ref_count(charp_operator_add(((char*)come_null_checker(value_142, "main.nc", 991)),((char* )(__right_value1=__builtin_string(deliminater)))));
+                        for(o2_saved_140=row_138,it3_141=map$2char$phchar$ph_begin(o2_saved_140);!map$2char$phchar$ph_end(o2_saved_140);it3_141=map$2char$phchar$ph_next(o2_saved_140)){
+                            value_142=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(row_138,it3_141));
+                            value2_143=(char* )come_increment_ref_count(charp_operator_add(value_142,((char* )(__right_value1=__builtin_string(deliminater)))));
                             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
-                            buffer_append_str(((struct buffer* )come_null_checker(buf, "main.nc", 992)),value2_143);
+                            buffer_append_str(buf,value2_143);
                             (value_142 = come_decrement_ref_count(value_142, (void*)0, (void*)0, 0, 0, (void*)0));
                             (value2_143 = come_decrement_ref_count(value2_143, (void*)0, (void*)0, 0, 0, (void*)0));
                         }
@@ -16633,17 +16575,17 @@ _conditional_value_X3;})) {
                 come_call_finalizer(list$1map$2char$phchar$ph$ph$p_finalize, rows_135, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             }
             else {
-                rows_144=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(((struct Table* )come_null_checker(table, "main.nc", 999))->rows);
-                for(o2_saved_145=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(rows_144),it_146=list$1map$2char$phchar$ph$ph_begin(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_145, "main.nc", 1001)));!list$1map$2char$phchar$ph$ph_end(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_145, "main.nc", 1001)));it_146=list$1map$2char$phchar$ph$ph_next(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_145, "main.nc", 1001)))){
+                rows_144=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(table->rows);
+                for(o2_saved_145=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(rows_144),it_146=list$1map$2char$phchar$ph$ph_begin(o2_saved_145);!list$1map$2char$phchar$ph$ph_end(o2_saved_145);it_146=list$1map$2char$phchar$ph$ph_next(o2_saved_145)){
                     row_147=it_146;
-                    value_148=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row_147, "main.nc", 1004)), "main.nc", 1004)),like_target));
+                    value_148=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(row_147,like_target));
                     pattern_149=like_value;
                     if(like(value_148,pattern_149)) {
-                        for(o2_saved_150=(struct list$1char$ph*)come_increment_ref_count(field_names),it3_151=list$1char$ph_begin(((struct list$1char$ph*)come_null_checker(o2_saved_150, "main.nc", 1009)));!list$1char$ph_end(((struct list$1char$ph*)come_null_checker(o2_saved_150, "main.nc", 1009)));it3_151=list$1char$ph_next(((struct list$1char$ph*)come_null_checker(o2_saved_150, "main.nc", 1009)))){
-                            value_152=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row_147, "main.nc", 1010)), "main.nc", 1010)),it3_151));
-                            value2_153=(char* )come_increment_ref_count(charp_operator_add(((char*)come_null_checker(value_152, "main.nc", 1011)),((char* )(__right_value1=__builtin_string(deliminater)))));
+                        for(o2_saved_150=(struct list$1char$ph*)come_increment_ref_count(field_names),it3_151=list$1char$ph_begin(o2_saved_150);!list$1char$ph_end(o2_saved_150);it3_151=list$1char$ph_next(o2_saved_150)){
+                            value_152=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(row_147,it3_151));
+                            value2_153=(char* )come_increment_ref_count(charp_operator_add(value_152,((char* )(__right_value1=__builtin_string(deliminater)))));
                             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
-                            buffer_append_str(((struct buffer* )come_null_checker(buf, "main.nc", 1012)),value2_153);
+                            buffer_append_str(buf,value2_153);
                             (value_152 = come_decrement_ref_count(value_152, (void*)0, (void*)0, 0, 0, (void*)0));
                             (value2_153 = come_decrement_ref_count(value2_153, (void*)0, (void*)0, 0, 0, (void*)0));
                         }
@@ -16659,17 +16601,17 @@ _conditional_value_X3;})) {
         }
         else if(not_like_target) {
             if(all_) {
-                rows_154=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(((struct Table* )come_null_checker(table, "main.nc", 1021))->rows);
-                for(o2_saved_155=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(rows_154),it_156=list$1map$2char$phchar$ph$ph_begin(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_155, "main.nc", 1023)));!list$1map$2char$phchar$ph$ph_end(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_155, "main.nc", 1023)));it_156=list$1map$2char$phchar$ph$ph_next(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_155, "main.nc", 1023)))){
+                rows_154=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(table->rows);
+                for(o2_saved_155=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(rows_154),it_156=list$1map$2char$phchar$ph$ph_begin(o2_saved_155);!list$1map$2char$phchar$ph$ph_end(o2_saved_155);it_156=list$1map$2char$phchar$ph$ph_next(o2_saved_155)){
                     row_157=it_156;
-                    value_158=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row_157, "main.nc", 1026)), "main.nc", 1026)),not_like_target));
+                    value_158=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(row_157,not_like_target));
                     pattern_159=not_like_value;
                     if(!like(value_158,pattern_159)) {
-                        for(o2_saved_160=row_157,it3_161=map$2char$phchar$ph_begin(((struct map$2char$phchar$ph*)come_null_checker(o2_saved_160, "main.nc", 1031)));!map$2char$phchar$ph_end(((struct map$2char$phchar$ph*)come_null_checker(o2_saved_160, "main.nc", 1031)));it3_161=map$2char$phchar$ph_next(((struct map$2char$phchar$ph*)come_null_checker(o2_saved_160, "main.nc", 1031)))){
-                            value_162=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row_157, "main.nc", 1032)), "main.nc", 1032)),it3_161));
-                            value2_163=(char* )come_increment_ref_count(charp_operator_add(((char*)come_null_checker(value_162, "main.nc", 1033)),((char* )(__right_value1=__builtin_string(deliminater)))));
+                        for(o2_saved_160=row_157,it3_161=map$2char$phchar$ph_begin(o2_saved_160);!map$2char$phchar$ph_end(o2_saved_160);it3_161=map$2char$phchar$ph_next(o2_saved_160)){
+                            value_162=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(row_157,it3_161));
+                            value2_163=(char* )come_increment_ref_count(charp_operator_add(value_162,((char* )(__right_value1=__builtin_string(deliminater)))));
                             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
-                            buffer_append_str(((struct buffer* )come_null_checker(buf, "main.nc", 1034)),value2_163);
+                            buffer_append_str(buf,value2_163);
                             (value_162 = come_decrement_ref_count(value_162, (void*)0, (void*)0, 0, 0, (void*)0));
                             (value2_163 = come_decrement_ref_count(value2_163, (void*)0, (void*)0, 0, 0, (void*)0));
                         }
@@ -16682,17 +16624,17 @@ _conditional_value_X3;})) {
                 come_call_finalizer(list$1map$2char$phchar$ph$ph$p_finalize, rows_154, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             }
             else {
-                rows_164=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(((struct Table* )come_null_checker(table, "main.nc", 1041))->rows);
-                for(o2_saved_165=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(rows_164),it_166=list$1map$2char$phchar$ph$ph_begin(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_165, "main.nc", 1043)));!list$1map$2char$phchar$ph$ph_end(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_165, "main.nc", 1043)));it_166=list$1map$2char$phchar$ph$ph_next(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_165, "main.nc", 1043)))){
+                rows_164=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(table->rows);
+                for(o2_saved_165=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(rows_164),it_166=list$1map$2char$phchar$ph$ph_begin(o2_saved_165);!list$1map$2char$phchar$ph$ph_end(o2_saved_165);it_166=list$1map$2char$phchar$ph$ph_next(o2_saved_165)){
                     row_167=it_166;
-                    value_168=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row_167, "main.nc", 1046)), "main.nc", 1046)),not_like_target));
+                    value_168=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(row_167,not_like_target));
                     pattern_169=not_like_value;
                     if(!like(value_168,pattern_169)) {
-                        for(o2_saved_170=(struct list$1char$ph*)come_increment_ref_count(field_names),it3_171=list$1char$ph_begin(((struct list$1char$ph*)come_null_checker(o2_saved_170, "main.nc", 1051)));!list$1char$ph_end(((struct list$1char$ph*)come_null_checker(o2_saved_170, "main.nc", 1051)));it3_171=list$1char$ph_next(((struct list$1char$ph*)come_null_checker(o2_saved_170, "main.nc", 1051)))){
-                            value_172=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row_167, "main.nc", 1052)), "main.nc", 1052)),it3_171));
-                            value2_173=(char* )come_increment_ref_count(charp_operator_add(((char*)come_null_checker(value_172, "main.nc", 1053)),((char* )(__right_value1=__builtin_string(deliminater)))));
+                        for(o2_saved_170=(struct list$1char$ph*)come_increment_ref_count(field_names),it3_171=list$1char$ph_begin(o2_saved_170);!list$1char$ph_end(o2_saved_170);it3_171=list$1char$ph_next(o2_saved_170)){
+                            value_172=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(row_167,it3_171));
+                            value2_173=(char* )come_increment_ref_count(charp_operator_add(value_172,((char* )(__right_value1=__builtin_string(deliminater)))));
                             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
-                            buffer_append_str(((struct buffer* )come_null_checker(buf, "main.nc", 1054)),value2_173);
+                            buffer_append_str(buf,value2_173);
                             (value_172 = come_decrement_ref_count(value_172, (void*)0, (void*)0, 0, 0, (void*)0));
                             (value2_173 = come_decrement_ref_count(value2_173, (void*)0, (void*)0, 0, 0, (void*)0));
                         }
@@ -16708,15 +16650,15 @@ _conditional_value_X3;})) {
         }
         else if(where_node) {
             if(all_) {
-                rows_174=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(((struct Table* )come_null_checker(table, "main.nc", 1063))->rows);
-                for(o2_saved_175=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(rows_174),it_176=list$1map$2char$phchar$ph$ph_begin(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_175, "main.nc", 1065)));!list$1map$2char$phchar$ph$ph_end(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_175, "main.nc", 1065)));it_176=list$1map$2char$phchar$ph$ph_next(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_175, "main.nc", 1065)))){
+                rows_174=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(table->rows);
+                for(o2_saved_175=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(rows_174),it_176=list$1map$2char$phchar$ph$ph_begin(o2_saved_175);!list$1map$2char$phchar$ph$ph_end(o2_saved_175);it_176=list$1map$2char$phchar$ph$ph_next(o2_saved_175)){
                     row_177=it_176;
                     if(where_select(row_177,where_node)) {
-                        for(o2_saved_178=row_177,it2_179=map$2char$phchar$ph_begin(((struct map$2char$phchar$ph*)come_null_checker(o2_saved_178, "main.nc", 1068)));!map$2char$phchar$ph_end(((struct map$2char$phchar$ph*)come_null_checker(o2_saved_178, "main.nc", 1068)));it2_179=map$2char$phchar$ph_next(((struct map$2char$phchar$ph*)come_null_checker(o2_saved_178, "main.nc", 1068)))){
-                            value_180=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row_177, "main.nc", 1069)), "main.nc", 1069)),it2_179));
-                            value2_181=(char* )come_increment_ref_count(charp_operator_add(((char*)come_null_checker(value_180, "main.nc", 1070)),((char* )(__right_value1=__builtin_string(deliminater)))));
+                        for(o2_saved_178=row_177,it2_179=map$2char$phchar$ph_begin(o2_saved_178);!map$2char$phchar$ph_end(o2_saved_178);it2_179=map$2char$phchar$ph_next(o2_saved_178)){
+                            value_180=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(row_177,it2_179));
+                            value2_181=(char* )come_increment_ref_count(charp_operator_add(value_180,((char* )(__right_value1=__builtin_string(deliminater)))));
                             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
-                            buffer_append_str(((struct buffer* )come_null_checker(buf, "main.nc", 1071)),value2_181);
+                            buffer_append_str(buf,value2_181);
                             (value_180 = come_decrement_ref_count(value_180, (void*)0, (void*)0, 0, 0, (void*)0));
                             (value2_181 = come_decrement_ref_count(value2_181, (void*)0, (void*)0, 0, 0, (void*)0));
                         }
@@ -16726,15 +16668,15 @@ _conditional_value_X3;})) {
                 come_call_finalizer(list$1map$2char$phchar$ph$ph$p_finalize, rows_174, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             }
             else if(max_) {
-                rows_182=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(((struct Table* )come_null_checker(table, "main.nc", 1077))->rows);
+                rows_182=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(table->rows);
                 max_value=0;
                 max_row=((void*)0);
-                for(o2_saved_183=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(rows_182),it_184=list$1map$2char$phchar$ph$ph_begin(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_183, "main.nc", 1081)));!list$1map$2char$phchar$ph$ph_end(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_183, "main.nc", 1081)));it_184=list$1map$2char$phchar$ph$ph_next(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_183, "main.nc", 1081)))){
+                for(o2_saved_183=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(rows_182),it_184=list$1map$2char$phchar$ph$ph_begin(o2_saved_183);!list$1map$2char$phchar$ph$ph_end(o2_saved_183);it_184=list$1map$2char$phchar$ph$ph_next(o2_saved_183)){
                     row_185=it_184;
                     if(where_select(row_185,where_node)) {
-                        for(o2_saved_186=(struct list$1char$ph*)come_increment_ref_count(field_names),it2_187=list$1char$ph_begin(((struct list$1char$ph*)come_null_checker(o2_saved_186, "main.nc", 1084)));!list$1char$ph_end(((struct list$1char$ph*)come_null_checker(o2_saved_186, "main.nc", 1084)));it2_187=list$1char$ph_next(((struct list$1char$ph*)come_null_checker(o2_saved_186, "main.nc", 1084)))){
-                            value_188=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row_185, "main.nc", 1085)), "main.nc", 1085)),it2_187));
-                            if(map$2char$ph_Bool$_operator_load_element(((struct map$2char$ph_Bool$*)come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(max_field, "main.nc", 1086)), "main.nc", 1086)),it2_187)) {
+                        for(o2_saved_186=(struct list$1char$ph*)come_increment_ref_count(field_names),it2_187=list$1char$ph_begin(o2_saved_186);!list$1char$ph_end(o2_saved_186);it2_187=list$1char$ph_next(o2_saved_186)){
+                            value_188=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(row_185,it2_187));
+                            if(map$2char$ph_Bool$_operator_load_element(max_field,it2_187)) {
                                 if(atoi(value_188)>max_value) {
                                     max_value=atoi(value_188);
                                     max_row=row_185;
@@ -16747,11 +16689,11 @@ _conditional_value_X3;})) {
                 }
                 come_call_finalizer(list$1map$2char$phchar$ph$ph$p_finalize, o2_saved_183, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 if(max_row) {
-                    for(o2_saved_189=(struct list$1char$ph*)come_increment_ref_count(field_names),it2_190=list$1char$ph_begin(((struct list$1char$ph*)come_null_checker(o2_saved_189, "main.nc", 1096)));!list$1char$ph_end(((struct list$1char$ph*)come_null_checker(o2_saved_189, "main.nc", 1096)));it2_190=list$1char$ph_next(((struct list$1char$ph*)come_null_checker(o2_saved_189, "main.nc", 1096)))){
-                        value_191=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(max_row, "main.nc", 1097)), "main.nc", 1097)),it2_190));
-                        value2_192=(char* )come_increment_ref_count(charp_operator_add(((char*)come_null_checker(value_191, "main.nc", 1098)),((char* )(__right_value1=__builtin_string(deliminater)))));
+                    for(o2_saved_189=(struct list$1char$ph*)come_increment_ref_count(field_names),it2_190=list$1char$ph_begin(o2_saved_189);!list$1char$ph_end(o2_saved_189);it2_190=list$1char$ph_next(o2_saved_189)){
+                        value_191=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(max_row,it2_190));
+                        value2_192=(char* )come_increment_ref_count(charp_operator_add(value_191,((char* )(__right_value1=__builtin_string(deliminater)))));
                         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
-                        buffer_append_str(((struct buffer* )come_null_checker(buf, "main.nc", 1099)),value2_192);
+                        buffer_append_str(buf,value2_192);
                         (value_191 = come_decrement_ref_count(value_191, (void*)0, (void*)0, 0, 0, (void*)0));
                         (value2_192 = come_decrement_ref_count(value2_192, (void*)0, (void*)0, 0, 0, (void*)0));
                     }
@@ -16760,16 +16702,16 @@ _conditional_value_X3;})) {
                 come_call_finalizer(list$1map$2char$phchar$ph$ph$p_finalize, rows_182, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             }
             else {
-                rows_193=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(((struct Table* )come_null_checker(table, "main.nc", 1104))->rows);
-                for(o2_saved_194=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(rows_193),it_195=list$1map$2char$phchar$ph$ph_begin(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_194, "main.nc", 1106)));!list$1map$2char$phchar$ph$ph_end(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_194, "main.nc", 1106)));it_195=list$1map$2char$phchar$ph$ph_next(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_194, "main.nc", 1106)))){
+                rows_193=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(table->rows);
+                for(o2_saved_194=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(rows_193),it_195=list$1map$2char$phchar$ph$ph_begin(o2_saved_194);!list$1map$2char$phchar$ph$ph_end(o2_saved_194);it_195=list$1map$2char$phchar$ph$ph_next(o2_saved_194)){
                     row_196=it_195;
                     max_value_197=0;
                     if(where_select(row_196,where_node)) {
-                        for(o2_saved_198=(struct list$1char$ph*)come_increment_ref_count(field_names),it2_199=list$1char$ph_begin(((struct list$1char$ph*)come_null_checker(o2_saved_198, "main.nc", 1110)));!list$1char$ph_end(((struct list$1char$ph*)come_null_checker(o2_saved_198, "main.nc", 1110)));it2_199=list$1char$ph_next(((struct list$1char$ph*)come_null_checker(o2_saved_198, "main.nc", 1110)))){
-                            value_200=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row_196, "main.nc", 1111)), "main.nc", 1111)),it2_199));
-                            value2_201=(char* )come_increment_ref_count(charp_operator_add(((char*)come_null_checker(value_200, "main.nc", 1112)),((char* )(__right_value1=__builtin_string(deliminater)))));
+                        for(o2_saved_198=(struct list$1char$ph*)come_increment_ref_count(field_names),it2_199=list$1char$ph_begin(o2_saved_198);!list$1char$ph_end(o2_saved_198);it2_199=list$1char$ph_next(o2_saved_198)){
+                            value_200=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(row_196,it2_199));
+                            value2_201=(char* )come_increment_ref_count(charp_operator_add(value_200,((char* )(__right_value1=__builtin_string(deliminater)))));
                             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
-                            buffer_append_str(((struct buffer* )come_null_checker(buf, "main.nc", 1113)),value2_201);
+                            buffer_append_str(buf,value2_201);
                             (value_200 = come_decrement_ref_count(value_200, (void*)0, (void*)0, 0, 0, (void*)0));
                             (value2_201 = come_decrement_ref_count(value2_201, (void*)0, (void*)0, 0, 0, (void*)0));
                         }
@@ -16781,14 +16723,14 @@ _conditional_value_X3;})) {
             }
         }
         else if(all_) {
-            rows_202=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(((struct Table* )come_null_checker(table, "main.nc", 1120))->rows);
-            for(o2_saved_203=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(rows_202),it_204=list$1map$2char$phchar$ph$ph_begin(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_203, "main.nc", 1122)));!list$1map$2char$phchar$ph$ph_end(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_203, "main.nc", 1122)));it_204=list$1map$2char$phchar$ph$ph_next(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_203, "main.nc", 1122)))){
+            rows_202=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(table->rows);
+            for(o2_saved_203=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(rows_202),it_204=list$1map$2char$phchar$ph$ph_begin(o2_saved_203);!list$1map$2char$phchar$ph$ph_end(o2_saved_203);it_204=list$1map$2char$phchar$ph$ph_next(o2_saved_203)){
                 row_205=it_204;
-                for(o2_saved_206=row_205,it2_207=map$2char$phchar$ph_begin(((struct map$2char$phchar$ph*)come_null_checker(o2_saved_206, "main.nc", 1125)));!map$2char$phchar$ph_end(((struct map$2char$phchar$ph*)come_null_checker(o2_saved_206, "main.nc", 1125)));it2_207=map$2char$phchar$ph_next(((struct map$2char$phchar$ph*)come_null_checker(o2_saved_206, "main.nc", 1125)))){
-                    value_208=(char* )come_increment_ref_count(string_operator_add(((char* )come_null_checker(((char* )(__right_value2=map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row_205, "main.nc", 1126)), "main.nc", 1126)),it2_207))), "main.nc", 1126)),((char* )(__right_value3=__builtin_string(deliminater)))));
+                for(o2_saved_206=row_205,it2_207=map$2char$phchar$ph_begin(o2_saved_206);!map$2char$phchar$ph_end(o2_saved_206);it2_207=map$2char$phchar$ph_next(o2_saved_206)){
+                    value_208=(char* )come_increment_ref_count(string_operator_add(((char* )(__right_value2=map$2char$phchar$ph_operator_load_element(row_205,it2_207))),((char* )(__right_value3=__builtin_string(deliminater)))));
                     (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0));
                     (__right_value3 = come_decrement_ref_count(__right_value3, (void*)0, (void*)0, 1, 0, (void*)0));
-                    buffer_append_str(((struct buffer* )come_null_checker(buf, "main.nc", 1127)),value_208);
+                    buffer_append_str(buf,value_208);
                     (value_208 = come_decrement_ref_count(value_208, (void*)0, (void*)0, 0, 0, (void*)0));
                 }
             }
@@ -16796,14 +16738,14 @@ _conditional_value_X3;})) {
             come_call_finalizer(list$1map$2char$phchar$ph$ph$p_finalize, rows_202, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         }
         else {
-            rows_209=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(((struct Table* )come_null_checker(table, "main.nc", 1132))->rows);
-            for(o2_saved_210=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(rows_209),it_211=list$1map$2char$phchar$ph$ph_begin(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_210, "main.nc", 1134)));!list$1map$2char$phchar$ph$ph_end(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_210, "main.nc", 1134)));it_211=list$1map$2char$phchar$ph$ph_next(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(o2_saved_210, "main.nc", 1134)))){
+            rows_209=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(table->rows);
+            for(o2_saved_210=(struct list$1map$2char$phchar$ph$ph*)come_increment_ref_count(rows_209),it_211=list$1map$2char$phchar$ph$ph_begin(o2_saved_210);!list$1map$2char$phchar$ph$ph_end(o2_saved_210);it_211=list$1map$2char$phchar$ph$ph_next(o2_saved_210)){
                 row_212=it_211;
-                for(o2_saved_213=(struct list$1char$ph*)come_increment_ref_count(field_names),it2_214=list$1char$ph_begin(((struct list$1char$ph*)come_null_checker(o2_saved_213, "main.nc", 1137)));!list$1char$ph_end(((struct list$1char$ph*)come_null_checker(o2_saved_213, "main.nc", 1137)));it2_214=list$1char$ph_next(((struct list$1char$ph*)come_null_checker(o2_saved_213, "main.nc", 1137)))){
-                    str=(char* )come_increment_ref_count(string_operator_add(((char* )come_null_checker(((char* )(__right_value2=map$2char$phchar$ph_operator_load_element(((struct map$2char$phchar$ph*)come_null_checker(((struct map$2char$phchar$ph*)come_null_checker(row_212, "main.nc", 1138)), "main.nc", 1138)),it2_214))), "main.nc", 1138)),((char* )(__right_value3=__builtin_string(deliminater)))));
+                for(o2_saved_213=(struct list$1char$ph*)come_increment_ref_count(field_names),it2_214=list$1char$ph_begin(o2_saved_213);!list$1char$ph_end(o2_saved_213);it2_214=list$1char$ph_next(o2_saved_213)){
+                    str=(char* )come_increment_ref_count(string_operator_add(((char* )(__right_value2=map$2char$phchar$ph_operator_load_element(row_212,it2_214))),((char* )(__right_value3=__builtin_string(deliminater)))));
                     (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0));
                     (__right_value3 = come_decrement_ref_count(__right_value3, (void*)0, (void*)0, 1, 0, (void*)0));
-                    buffer_append_str(((struct buffer* )come_null_checker(buf, "main.nc", 1139)),str);
+                    buffer_append_str(buf,str);
                     (str = come_decrement_ref_count(str, (void*)0, (void*)0, 0, 0, (void*)0));
                 }
                 come_call_finalizer(list$1char$ph$p_finalize, o2_saved_213, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -16811,16 +16753,16 @@ _conditional_value_X3;})) {
             come_call_finalizer(list$1map$2char$phchar$ph$ph$p_finalize, o2_saved_210, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             come_call_finalizer(list$1map$2char$phchar$ph$ph$p_finalize, rows_209, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         }
-        str_215=(char* )come_increment_ref_count(buffer_to_string(((struct buffer* )come_null_checker(buf, "main.nc", 1144))));
-        if(string_operator_equals(((char* )come_null_checker(str_215, "main.nc", 1146)),"")) {
+        str_215=(char* )come_increment_ref_count(buffer_to_string(buf));
+        if(string_operator_equals(str_215,"")) {
             const char* not_found="NOT FOUND\n";
-            write(((struct sInfo* )come_null_checker(info, "main.nc", 1148))->socket,not_found,strlen(not_found));
+            write(info->socket,not_found,strlen(not_found));
             f=fopen("database.log","a");
             fprintf(f,"%s\n",not_found);
             fclose(f);
         }
         else {
-            write(((struct sInfo* )come_null_checker(info, "main.nc", 1154))->socket,str_215,string_length(((char* )come_null_checker(str_215, "main.nc", 1154))));
+            write(info->socket,str_215,string_length(str_215));
             f_216=fopen("database.log","a");
             fprintf(f_216,"%s\n",str_215);
             fclose(f_216);
@@ -16828,7 +16770,7 @@ _conditional_value_X3;})) {
         (str_215 = come_decrement_ref_count(str_215, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     else {
-        __result_obj__0 = (_Bool)0;
+                __result_obj__0 = (_Bool)0;
         come_call_finalizer(list$1char$ph$p_finalize, field_names, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_call_finalizer(map$2char$ph_Bool$$p_finalize, max_field, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         (table_name = come_decrement_ref_count(table_name, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -16847,7 +16789,7 @@ _conditional_value_X3;})) {
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    __result_obj__0 = (_Bool)1;
+        __result_obj__0 = (_Bool)1;
     come_call_finalizer(list$1char$ph$p_finalize, field_names, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(map$2char$ph_Bool$$p_finalize, max_field, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (table_name = come_decrement_ref_count(table_name, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -16875,20 +16817,19 @@ static struct map$2char$ph_Bool$* map$2char$ph_Bool$_initialize(struct map$2char
     void* __right_value1 = (void*)0;
     struct list$1char$ph* __dec_obj49;
     struct map$2char$ph_Bool$* __result_obj__0;
-    ((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2692))->keys=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(128)), (void*)0, 2692, "char** "))));
-    ((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2693))->items=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(128)), (void*)0, 2693, "_Bool*"))));
-    ((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2694))->item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(128)), (void*)0, 2694, "_Bool*"))));
+    self->keys=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(128)), (void*)0, 2664, "char** "))));
+    self->items=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(128)), (void*)0, 2665, "_Bool*"))));
+    self->item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(128)), (void*)0, 2666, "_Bool*"))));
     for(i=0;i<128;i++){
-        ((_Bool*)come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2698))->item_existance, "/usr/local/include/neo-c.h", 2698))[i]=(_Bool)0;
+        self->item_existance[i]=(_Bool)0;
     }
-    ((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2701))->size=128;
-    ((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2702))->len=0;
-    __dec_obj49=((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2704))->key_list,
-    ((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2704))->key_list=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)come_null_checker(((struct list$1char$ph*)(__right_value0=(struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 2704, "struct list$1char$ph*"))), "/usr/local/include/neo-c.h", 2704)))));
+    self->size=128;
+    self->len=0;
+    __dec_obj49=self->key_list,
+    self->key_list=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 2676, "struct list$1char$ph*"))));
     come_call_finalizer(list$1char$ph_finalize, __dec_obj49,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-    come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-    ((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2706))->it=0;
-    __result_obj__0 = (struct map$2char$ph_Bool$*)come_increment_ref_count(self);
+    self->it=0;
+        __result_obj__0 = (struct map$2char$ph_Bool$*)come_increment_ref_count(self);
     come_call_finalizer(map$2char$ph_Bool$$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(map$2char$ph_Bool$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -16900,24 +16841,24 @@ static void map$2char$ph_Bool$$p_finalize(struct map$2char$ph_Bool$* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$ph_Bool$$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_71;
-    for(i=0;i<((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2739))->size;i++){
-        if(((_Bool*)come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2740))->item_existance, "/usr/local/include/neo-c.h", 2740))[i]) {
+    for(i=0;i<self->size;i++){
+        if(self->item_existance[i]) {
             if(0) {
             }
         }
     }
-    come_free((char*)((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2746))->items);
-    for(i_71=0;i_71<((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2748))->size;i_71++){
-        if(((_Bool*)come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2749))->item_existance, "/usr/local/include/neo-c.h", 2749))[i_71]) {
+    come_free((char*)self->items);
+    for(i_71=0;i_71<self->size;i_71++){
+        if(self->item_existance[i_71]) {
             if(1) {
-                (((char** )come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2751))->keys, "/usr/local/include/neo-c.h", 2751))[i_71] = come_decrement_ref_count(((char** )come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2751))->keys, "/usr/local/include/neo-c.h", 2751))[i_71], (void*)0, (void*)0, 0, 0, (void*)0));
+                (self->keys[i_71] = come_decrement_ref_count(self->keys[i_71], (void*)0, (void*)0, 0, 0, (void*)0));
             }
         }
     }
-    come_free((char*)((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2755))->keys);
-    come_call_finalizer(list$1char$ph$p_finalize, ((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2757))->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-    (((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2759))->item_existance = come_decrement_ref_count(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2759))->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
-    neo_current_frame = fr.prev;
+    come_free((char*)self->keys);
+    come_call_finalizer(list$1char$ph$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
+        neo_current_frame = fr.prev;
 }
 
 static struct map$2char$ph_Bool$* map$2char$ph_Bool$_insert(struct map$2char$ph_Bool$* self, char*  key  , _Bool item, _Bool by_pointer)
@@ -16929,38 +16870,38 @@ static struct map$2char$ph_Bool$* map$2char$ph_Bool$_insert(struct map$2char$ph_
     _Bool same_key_exist;
     char*  it2  ;
     if(self==((void*)0)) {
-        __result_obj__0 = self;
+                __result_obj__0 = self;
         (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0));
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    if(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3044))->len*10>=((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3044))->size) {
-        map$2char$ph_Bool$_rehash(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3045)));
+    if(self->len*10>=self->size) {
+        map$2char$ph_Bool$_rehash(self);
     }
-    hash=string_get_hash_key(((char* )come_null_checker(((char* )key), "/usr/local/include/neo-c.h", 3047)))%((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3047))->size;
+    hash=string_get_hash_key(((char* )key))%self->size;
     it=hash;
     while((_Bool)1) {
-        if(((_Bool*)come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3051))->item_existance, "/usr/local/include/neo-c.h", 3051))[it]) {
-            if((!by_pointer&&string_equals(((char* )come_null_checker(((char** )come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3053))->keys, "/usr/local/include/neo-c.h", 3053))[it], "/usr/local/include/neo-c.h", 3053)),key))||(by_pointer&&((char** )come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3053))->keys, "/usr/local/include/neo-c.h", 3053))[it]==key)) {
+        if(self->item_existance[it]) {
+            if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
                 if(1) {
-                    list$1char$ph_remove(((struct list$1char$ph*)come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3056))->key_list, "/usr/local/include/neo-c.h", 3056)),((char** )come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3056))->keys, "/usr/local/include/neo-c.h", 3056))[it],(_Bool)0);
-                    (((char** )come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3057))->keys, "/usr/local/include/neo-c.h", 3057))[it] = come_decrement_ref_count(((char** )come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3057))->keys, "/usr/local/include/neo-c.h", 3057))[it], (void*)0, (void*)0, 0, 0, (void*)0));
-                    ((char** )come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3058))->keys, "/usr/local/include/neo-c.h", 3058))[it]=(char* )come_increment_ref_count(key);
+                    list$1char$ph_remove(self->key_list,self->keys[it],(_Bool)0);
+                    (self->keys[it] = come_decrement_ref_count(self->keys[it], (void*)0, (void*)0, 0, 0, (void*)0));
+                    self->keys[it]=(char* )come_increment_ref_count(key);
                 }
                 else {
-                    list$1char$ph_remove(((struct list$1char$ph*)come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3061))->key_list, "/usr/local/include/neo-c.h", 3061)),((char** )come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3061))->keys, "/usr/local/include/neo-c.h", 3061))[it],(_Bool)0);
-                    ((char** )come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3062))->keys, "/usr/local/include/neo-c.h", 3062))[it]=key;
+                    list$1char$ph_remove(self->key_list,self->keys[it],(_Bool)0);
+                    self->keys[it]=key;
                 }
                 if(0) {
-                    ((_Bool*)come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3066))->items, "/usr/local/include/neo-c.h", 3066))[it]=item;
+                    self->items[it]=item;
                 }
                 else {
-                    ((_Bool*)come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3069))->items, "/usr/local/include/neo-c.h", 3069))[it]=item;
+                    self->items[it]=item;
                 }
                 break;
             }
             it++;
-            if(it>=((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3076))->size) {
+            if(it>=self->size) {
                 it=0;
             }
             else if(it==hash) {
@@ -16970,33 +16911,33 @@ static struct map$2char$ph_Bool$* map$2char$ph_Bool$_insert(struct map$2char$ph_
             }
         }
         else {
-            ((_Bool*)come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3086))->item_existance, "/usr/local/include/neo-c.h", 3086))[it]=(_Bool)1;
+            self->item_existance[it]=(_Bool)1;
             if(1) {
-                ((char** )come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3088))->keys, "/usr/local/include/neo-c.h", 3088))[it]=(char* )come_increment_ref_count(key);
+                self->keys[it]=(char* )come_increment_ref_count(key);
             }
             else {
-                ((char** )come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3091))->keys, "/usr/local/include/neo-c.h", 3091))[it]=key;
+                self->keys[it]=key;
             }
             if(0) {
-                ((_Bool*)come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3094))->items, "/usr/local/include/neo-c.h", 3094))[it]=item;
+                self->items[it]=item;
             }
             else {
-                ((_Bool*)come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3097))->items, "/usr/local/include/neo-c.h", 3097))[it]=item;
+                self->items[it]=item;
             }
-            ((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3100))->len++;
+            self->len++;
             break;
         }
     }
     same_key_exist=(_Bool)0;
-    for(it2=list$1char$ph_begin(((struct list$1char$ph*)come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3107))->key_list, "/usr/local/include/neo-c.h", 3107)));!list$1char$ph_end(((struct list$1char$ph*)come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3107))->key_list, "/usr/local/include/neo-c.h", 3107)));it2=list$1char$ph_next(((struct list$1char$ph*)come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3107))->key_list, "/usr/local/include/neo-c.h", 3107)))){
-        if((!by_pointer&&string_equals(((char* )come_null_checker(it2, "/usr/local/include/neo-c.h", 3108)),key))||(by_pointer&&it2==key)) {
+    for(it2=list$1char$ph_begin(self->key_list);!list$1char$ph_end(self->key_list);it2=list$1char$ph_next(self->key_list)){
+        if((!by_pointer&&string_equals(it2,key))||(by_pointer&&it2==key)) {
             same_key_exist=(_Bool)1;
         }
     }
     if(!same_key_exist) {
-        list$1char$ph_push_back(((struct list$1char$ph*)come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3114))->key_list, "/usr/local/include/neo-c.h", 3114)),(char* )come_increment_ref_count(key));
+        list$1char$ph_push_back(self->key_list,(char* )come_increment_ref_count(key));
     }
-    __result_obj__0 = self;
+        __result_obj__0 = self;
     (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0));
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -17017,18 +16958,18 @@ static void map$2char$ph_Bool$_rehash(struct map$2char$ph_Bool$* self)
     unsigned int hash;
     int n;
     _Bool default_value_74;
-    size=((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2964))->size*10;
-    keys=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(size)), (void*)0, 2965, "char** "))));
-    items=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), (void*)0, 2966, "_Bool*"))));
-    item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), (void*)0, 2967, "_Bool*"))));
+    size=self->size*10;
+    keys=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(size)), (void*)0, 2937, "char** "))));
+    items=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), (void*)0, 2938, "_Bool*"))));
+    item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), (void*)0, 2939, "_Bool*"))));
     len=0;
-    for(it=map$2char$ph_Bool$_begin(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2971)));!map$2char$ph_Bool$_end(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2971)));it=map$2char$ph_Bool$_next(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2971)))){
+    for(it=map$2char$ph_Bool$_begin(self);!map$2char$ph_Bool$_end(self);it=map$2char$ph_Bool$_next(self)){
         memset(&default_value,0,sizeof(_Bool));
-        it2=map$2char$ph_Bool$_at(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2974)),it,default_value,(_Bool)0);
-        hash=string_get_hash_key(((char* )come_null_checker(((char* )it), "/usr/local/include/neo-c.h", 2975)))%size;
+        it2=map$2char$ph_Bool$_at(self,it,default_value,(_Bool)0);
+        hash=string_get_hash_key(((char* )it))%size;
         n=hash;
         while((_Bool)1) {
-            if(((_Bool*)come_null_checker(item_existance, "/usr/local/include/neo-c.h", 2979))[n]) {
+            if(item_existance[n]) {
                 n++;
                 if(n>=size) {
                     n=0;
@@ -17040,24 +16981,24 @@ static void map$2char$ph_Bool$_rehash(struct map$2char$ph_Bool$* self)
                 }
             }
             else {
-                ((_Bool*)come_null_checker(item_existance, "/usr/local/include/neo-c.h", 2993))[n]=(_Bool)1;
-                ((char** )come_null_checker(keys, "/usr/local/include/neo-c.h", 2994))[n]=it;
+                item_existance[n]=(_Bool)1;
+                keys[n]=it;
                 memset(&default_value_74,0,sizeof(_Bool));
-                ((_Bool*)come_null_checker(items, "/usr/local/include/neo-c.h", 2997))[n]=map$2char$ph_Bool$_at(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2997)),it,default_value_74,(_Bool)0);
+                items[n]=map$2char$ph_Bool$_at(self,it,default_value_74,(_Bool)0);
                 len++;
                 break;
             }
         }
     }
-    come_free((char*)((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3005))->items);
-    (((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3006))->item_existance = come_decrement_ref_count(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3006))->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
-    come_free((char*)((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3007))->keys);
-    ((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3009))->keys=keys;
-    ((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3010))->items=items;
-    ((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3011))->item_existance=item_existance;
-    ((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3013))->size=size;
-    ((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3014))->len=len;
-    neo_current_frame = fr.prev;
+    come_free((char*)self->items);
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
+    come_free((char*)self->keys);
+    self->keys=keys;
+    self->items=items;
+    self->item_existance=item_existance;
+    self->size=size;
+    self->len=len;
+            neo_current_frame = fr.prev;
 }
 
 static char*  map$2char$ph_Bool$_begin(struct map$2char$ph_Bool$* self)
@@ -17068,18 +17009,18 @@ static char*  map$2char$ph_Bool$_begin(struct map$2char$ph_Bool$* self)
     char*  result_72  ;
     if(self==((void*)0)) {
         memset(&result,0,sizeof(char* ));
-        __result_obj__0 = result;
+                __result_obj__0 = result;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    ((struct list$1char$ph*)come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2927))->key_list, "/usr/local/include/neo-c.h", 2927))->it=((struct list$1char$ph*)come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2927))->key_list, "/usr/local/include/neo-c.h", 2927))->head;
-    if(((struct list$1char$ph*)come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2929))->key_list, "/usr/local/include/neo-c.h", 2929))->it) {
-        __result_obj__0 = ((struct list_item$1char$ph*)come_null_checker(((struct list$1char$ph*)come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2930))->key_list, "/usr/local/include/neo-c.h", 2930))->it, "/usr/local/include/neo-c.h", 2930))->item;
+    self->key_list->it=self->key_list->head;
+    if(self->key_list->it) {
+                __result_obj__0 = self->key_list->it->item;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     memset(&result_72,0,sizeof(char* ));
-    __result_obj__0 = result_72;
+        __result_obj__0 = result_72;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -17087,9 +17028,9 @@ static char*  map$2char$ph_Bool$_begin(struct map$2char$ph_Bool$* self)
 static _Bool map$2char$ph_Bool$_end(struct map$2char$ph_Bool$* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$ph_Bool$_end"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
-    return self==((void*)0)||((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2958))->key_list==((void*)0)||((struct list$1char$ph*)come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2958))->key_list, "/usr/local/include/neo-c.h", 2958))->it==((void*)0);
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
+    return self==((void*)0)||self->key_list==((void*)0)||self->key_list->it==((void*)0);
+        neo_current_frame = fr.prev;
 }
 
 static char*  map$2char$ph_Bool$_next(struct map$2char$ph_Bool$* self)
@@ -17098,20 +17039,20 @@ static char*  map$2char$ph_Bool$_next(struct map$2char$ph_Bool$* self)
     char*  result  ;
     char*  __result_obj__0  ;
     char*  result_73  ;
-    if(self==((void*)0)||((struct list$1char$ph*)come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2941))->key_list, "/usr/local/include/neo-c.h", 2941))->it==((void*)0)) {
+    if(self==((void*)0)||self->key_list->it==((void*)0)) {
         memset(&result,0,sizeof(char* ));
-        __result_obj__0 = result;
+                __result_obj__0 = result;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    ((struct list$1char$ph*)come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2946))->key_list, "/usr/local/include/neo-c.h", 2946))->it=((struct list_item$1char$ph*)come_null_checker(((struct list$1char$ph*)come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2946))->key_list, "/usr/local/include/neo-c.h", 2946))->it, "/usr/local/include/neo-c.h", 2946))->next;
-    if(((struct list$1char$ph*)come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2948))->key_list, "/usr/local/include/neo-c.h", 2948))->it) {
-        __result_obj__0 = ((struct list_item$1char$ph*)come_null_checker(((struct list$1char$ph*)come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2949))->key_list, "/usr/local/include/neo-c.h", 2949))->it, "/usr/local/include/neo-c.h", 2949))->item;
+    self->key_list->it=self->key_list->it->next;
+    if(self->key_list->it) {
+                __result_obj__0 = self->key_list->it->item;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     memset(&result_73,0,sizeof(char* ));
-    __result_obj__0 = result_73;
+        __result_obj__0 = result_73;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -17122,46 +17063,46 @@ static _Bool map$2char$ph_Bool$_at(struct map$2char$ph_Bool$* self, char*  key  
     unsigned int hash;
     unsigned int it;
     if(self==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return default_value;
     }
-    hash=string_get_hash_key(((char* )come_null_checker(((char* )key), "/usr/local/include/neo-c.h", 2837)))%((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2837))->size;
+    hash=string_get_hash_key(((char* )key))%self->size;
     it=hash;
     while((_Bool)1) {
-        if(((_Bool*)come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2841))->item_existance, "/usr/local/include/neo-c.h", 2841))[it]) {
-            if((!by_pointer&&string_equals(((char* )come_null_checker(((char** )come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2843))->keys, "/usr/local/include/neo-c.h", 2843))[it], "/usr/local/include/neo-c.h", 2843)),key))||(by_pointer&&((char** )come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2843))->keys, "/usr/local/include/neo-c.h", 2843))[it]==key)) {
-                neo_current_frame = fr.prev;
-                return ((_Bool*)come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2845))->items, "/usr/local/include/neo-c.h", 2845))[it];
+        if(self->item_existance[it]) {
+            if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
+                                neo_current_frame = fr.prev;
+                return self->items[it];
             }
             it++;
-            if(it>=((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 2850))->size) {
+            if(it>=self->size) {
                 it=0;
             }
             else if(it==hash) {
-                neo_current_frame = fr.prev;
+                                neo_current_frame = fr.prev;
                 return default_value;
             }
         }
         else {
-            neo_current_frame = fr.prev;
+                        neo_current_frame = fr.prev;
             return default_value;
         }
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return default_value;
-    neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
 }
 
 static void tuple2$2char$phchar$ph$p_finalize(struct tuple2$2char$phchar$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "tuple2$2char$phchar$ph$p_finalize"; neo_current_frame = &fr;
-    if(self!=((void*)0)&&((struct tuple2$2char$phchar$ph*)come_null_checker(self, "tuple2$2char$phchar$ph$p_finalize", 2))->v1!=((void*)0)) {
-        (((struct tuple2$2char$phchar$ph*)come_null_checker(self, "tuple2$2char$phchar$ph$p_finalize", 2))->v1 = come_decrement_ref_count(((struct tuple2$2char$phchar$ph*)come_null_checker(self, "tuple2$2char$phchar$ph$p_finalize", 2))->v1, (void*)0, (void*)0, 0, 0, (void*)0));
+    if(self!=((void*)0)&&self->v1!=((void*)0)) {
+        (self->v1 = come_decrement_ref_count(self->v1, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    if(self!=((void*)0)&&((struct tuple2$2char$phchar$ph*)come_null_checker(self, "tuple2$2char$phchar$ph$p_finalize", 3))->v2!=((void*)0)) {
-        (((struct tuple2$2char$phchar$ph*)come_null_checker(self, "tuple2$2char$phchar$ph$p_finalize", 3))->v2 = come_decrement_ref_count(((struct tuple2$2char$phchar$ph*)come_null_checker(self, "tuple2$2char$phchar$ph$p_finalize", 3))->v2, (void*)0, (void*)0, 0, 0, (void*)0));
+    if(self!=((void*)0)&&self->v2!=((void*)0)) {
+        (self->v2 = come_decrement_ref_count(self->v2, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    neo_current_frame = fr.prev;
+                        neo_current_frame = fr.prev;
 }
 
 static struct tuple2$2char$phchar$ph* tuple2$2char$phchar$ph_initialize(struct tuple2$2char$phchar$ph* self, char*  v1  , char*  v2  )
@@ -17170,13 +17111,13 @@ static struct tuple2$2char$phchar$ph* tuple2$2char$phchar$ph_initialize(struct t
     char*  __dec_obj54  ;
     char*  __dec_obj55  ;
     struct tuple2$2char$phchar$ph* __result_obj__0;
-    __dec_obj54=((struct tuple2$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3575))->v1,
-    ((struct tuple2$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3575))->v1=(char* )come_increment_ref_count(v1);
+    __dec_obj54=self->v1,
+    self->v1=(char* )come_increment_ref_count(v1);
     __dec_obj54 = come_decrement_ref_count(__dec_obj54, (void*)0, (void*)0, 0,0, (void*)0);
-    __dec_obj55=((struct tuple2$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3576))->v2,
-    ((struct tuple2$2char$phchar$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3576))->v2=(char* )come_increment_ref_count(v2);
+    __dec_obj55=self->v2,
+    self->v2=(char* )come_increment_ref_count(v2);
     __dec_obj55 = come_decrement_ref_count(__dec_obj55, (void*)0, (void*)0, 0,0, (void*)0);
-    __result_obj__0 = (struct tuple2$2char$phchar$ph*)come_increment_ref_count(self);
+        __result_obj__0 = (struct tuple2$2char$phchar$ph*)come_increment_ref_count(self);
     come_call_finalizer(tuple2$2char$phchar$ph$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     (v1 = come_decrement_ref_count(v1, (void*)0, (void*)0, 0, 0, (void*)0));
     (v2 = come_decrement_ref_count(v2, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -17193,18 +17134,18 @@ static struct map$2char$phchar$ph* list$1map$2char$phchar$ph$ph_begin(struct lis
     struct map$2char$phchar$ph* result_78;
     if(self==((void*)0)) {
         memset(&result,0,sizeof(struct map$2char$phchar$ph*));
-        __result_obj__0 = result;
+                __result_obj__0 = result;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    ((struct list$1map$2char$phchar$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1839))->it=((struct list$1map$2char$phchar$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1839))->head;
-    if(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1841))->it) {
-        __result_obj__0 = ((struct list_item$1map$2char$phchar$ph$ph*)come_null_checker(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1842))->it, "/usr/local/include/neo-c.h", 1842))->item;
+    self->it=self->head;
+    if(self->it) {
+                __result_obj__0 = self->it->item;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     memset(&result_78,0,sizeof(struct map$2char$phchar$ph*));
-    __result_obj__0 = result_78;
+        __result_obj__0 = result_78;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -17212,9 +17153,9 @@ static struct map$2char$phchar$ph* list$1map$2char$phchar$ph$ph_begin(struct lis
 static _Bool list$1map$2char$phchar$ph$ph_end(struct list$1map$2char$phchar$ph$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1map$2char$phchar$ph$ph_end"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
-    return self==((void*)0)||((struct list$1map$2char$phchar$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1871))->it==((void*)0);
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
+    return self==((void*)0)||self->it==((void*)0);
+                    neo_current_frame = fr.prev;
 }
 
 static struct map$2char$phchar$ph* list$1map$2char$phchar$ph$ph_next(struct list$1map$2char$phchar$ph$ph* self)
@@ -17223,20 +17164,20 @@ static struct map$2char$phchar$ph* list$1map$2char$phchar$ph$ph_next(struct list
     struct map$2char$phchar$ph* result;
     struct map$2char$phchar$ph* __result_obj__0;
     struct map$2char$phchar$ph* result_79;
-    if(self==((void*)0)||((struct list$1map$2char$phchar$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1853))->it==((void*)0)) {
+    if(self==((void*)0)||self->it==((void*)0)) {
         memset(&result,0,sizeof(struct map$2char$phchar$ph*));
-        __result_obj__0 = result;
+                __result_obj__0 = result;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    ((struct list$1map$2char$phchar$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1859))->it=((struct list_item$1map$2char$phchar$ph$ph*)come_null_checker(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1859))->it, "/usr/local/include/neo-c.h", 1859))->next;
-    if(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1861))->it) {
-        __result_obj__0 = ((struct list_item$1map$2char$phchar$ph$ph*)come_null_checker(((struct list$1map$2char$phchar$ph$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 1862))->it, "/usr/local/include/neo-c.h", 1862))->item;
+    self->it=self->it->next;
+    if(self->it) {
+                __result_obj__0 = self->it->item;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     memset(&result_79,0,sizeof(struct map$2char$phchar$ph*));
-    __result_obj__0 = result_79;
+        __result_obj__0 = result_79;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -17249,34 +17190,34 @@ static _Bool map$2char$ph_Bool$$p_operator_load_element(struct map$2char$ph_Bool
     unsigned int it;
     memset(&default_value,0,sizeof(_Bool));
     if(self==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return default_value;
     }
-    hash=string_get_hash_key(((char* )come_null_checker(((char* )key), "/usr/local/include/neo-c.h", 3211)))%((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3211))->size;
+    hash=string_get_hash_key(((char* )key))%self->size;
     it=hash;
     while((_Bool)1) {
-        if(((_Bool*)come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3215))->item_existance, "/usr/local/include/neo-c.h", 3215))[it]) {
-            if(string_equals(((char* )come_null_checker(((char** )come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3217))->keys, "/usr/local/include/neo-c.h", 3217))[it], "/usr/local/include/neo-c.h", 3217)),key)) {
-                neo_current_frame = fr.prev;
-                return ((_Bool*)come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3219))->items, "/usr/local/include/neo-c.h", 3219))[it];
+        if(self->item_existance[it]) {
+            if(string_equals(self->keys[it],key)) {
+                                neo_current_frame = fr.prev;
+                return self->items[it];
             }
             it++;
-            if(it>=((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3224))->size) {
+            if(it>=self->size) {
                 it=0;
             }
             else if(it==hash) {
-                neo_current_frame = fr.prev;
+                                neo_current_frame = fr.prev;
                 return default_value;
             }
         }
         else {
-            neo_current_frame = fr.prev;
+                        neo_current_frame = fr.prev;
             return default_value;
         }
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return default_value;
-    neo_current_frame = fr.prev;
+                                neo_current_frame = fr.prev;
 }
 
 static _Bool map$2char$ph_Bool$_operator_load_element(struct map$2char$ph_Bool$* self, char*  key  )
@@ -17287,34 +17228,34 @@ static _Bool map$2char$ph_Bool$_operator_load_element(struct map$2char$ph_Bool$*
     unsigned int it;
     memset(&default_value,0,sizeof(_Bool));
     if(self==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return default_value;
     }
-    hash=string_get_hash_key(((char* )come_null_checker(((char* )key), "/usr/local/include/neo-c.h", 3211)))%((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3211))->size;
+    hash=string_get_hash_key(((char* )key))%self->size;
     it=hash;
     while((_Bool)1) {
-        if(((_Bool*)come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3215))->item_existance, "/usr/local/include/neo-c.h", 3215))[it]) {
-            if(string_equals(((char* )come_null_checker(((char** )come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3217))->keys, "/usr/local/include/neo-c.h", 3217))[it], "/usr/local/include/neo-c.h", 3217)),key)) {
-                neo_current_frame = fr.prev;
-                return ((_Bool*)come_null_checker(((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3219))->items, "/usr/local/include/neo-c.h", 3219))[it];
+        if(self->item_existance[it]) {
+            if(string_equals(self->keys[it],key)) {
+                                neo_current_frame = fr.prev;
+                return self->items[it];
             }
             it++;
-            if(it>=((struct map$2char$ph_Bool$*)come_null_checker(self, "/usr/local/include/neo-c.h", 3224))->size) {
+            if(it>=self->size) {
                 it=0;
             }
             else if(it==hash) {
-                neo_current_frame = fr.prev;
+                                neo_current_frame = fr.prev;
                 return default_value;
             }
         }
         else {
-            neo_current_frame = fr.prev;
+                        neo_current_frame = fr.prev;
             return default_value;
         }
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return default_value;
-    neo_current_frame = fr.prev;
+                                neo_current_frame = fr.prev;
 }
 
 char*  show_tables(struct sInfo*  info  )
@@ -17328,20 +17269,19 @@ char*  show_tables(struct sInfo*  info  )
     char*  it  ;
     struct Table*  table  ;
     char*  __result_obj__0  ;
-    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count(((struct buffer* )come_null_checker(((struct buffer* )(__right_value0=(struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 1169, "struct buffer* "))), "main.nc", 1169)))));
-    come_call_finalizer(buffer_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-    current_db=(struct Database* )come_increment_ref_count(map$2char$phDatabase$ph_operator_load_element(((struct map$2char$phDatabase$ph*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(gDatabases, "main.nc", 1170)), "main.nc", 1170)),((struct sInfo* )come_null_checker(info, "main.nc", 1170))->current_db_name));
-    for(o2_saved=(struct map$2char$phTable$ph*)come_increment_ref_count(((struct Database* )come_null_checker(current_db, "main.nc", 1172))->tables),it=map$2char$phTable$ph_begin(((struct map$2char$phTable$ph*)come_null_checker(o2_saved, "main.nc", 1172)));!map$2char$phTable$ph_end(((struct map$2char$phTable$ph*)come_null_checker(o2_saved, "main.nc", 1172)));it=map$2char$phTable$ph_next(((struct map$2char$phTable$ph*)come_null_checker(o2_saved, "main.nc", 1172)))){
-        table=(struct Table* )come_increment_ref_count(map$2char$phTable$ph_operator_load_element(((struct map$2char$phTable$ph*)come_null_checker(((struct map$2char$phTable$ph*)come_null_checker(((struct Database* )come_null_checker(current_db, "main.nc", 1173))->tables, "main.nc", 1173)), "main.nc", 1173)),it));
-        buffer_append_str(((struct buffer* )come_null_checker(buf, "main.nc", 1175)),((struct Table* )come_null_checker(table, "main.nc", 1175))->name);
-        buffer_append_str(((struct buffer* )come_null_checker(buf, "main.nc", 1176)),"\n");
-        buffer_append_str(((struct buffer* )come_null_checker(buf, "main.nc", 1177)),((char* )(__right_value0=Table_to_string(((struct Table* )come_null_checker(table, "main.nc", 1177))))));
+    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 1169, "struct buffer* "))));
+    current_db=(struct Database* )come_increment_ref_count(map$2char$phDatabase$ph_operator_load_element(gDatabases,info->current_db_name));
+    for(o2_saved=(struct map$2char$phTable$ph*)come_increment_ref_count(current_db->tables),it=map$2char$phTable$ph_begin(o2_saved);!map$2char$phTable$ph_end(o2_saved);it=map$2char$phTable$ph_next(o2_saved)){
+        table=(struct Table* )come_increment_ref_count(map$2char$phTable$ph_operator_load_element(current_db->tables,it));
+        buffer_append_str(buf,table->name);
+        buffer_append_str(buf,"\n");
+        buffer_append_str(buf,((char* )(__right_value0=Table_to_string(table))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
-        buffer_append_str(((struct buffer* )come_null_checker(buf, "main.nc", 1178)),"\n");
+        buffer_append_str(buf,"\n");
         come_call_finalizer(Table_finalize, table, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     come_call_finalizer(map$2char$phTable$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(((struct buffer* )come_null_checker(buf, "main.nc", 1181))))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(buf))));
     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(Database_finalize, current_db, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -17364,15 +17304,14 @@ int main()
     memset(&__current_stack1__, 0, sizeof(struct __current_stack1__));
     setlocale(6,"");
     __dec_obj63=gDatabases,
-    gDatabases=(struct map$2char$phDatabase$ph*)come_increment_ref_count(map$2char$phDatabase$ph_initialize((struct map$2char$phDatabase$ph*)come_increment_ref_count(((struct map$2char$phDatabase$ph*)come_null_checker(((struct map$2char$phDatabase$ph*)(__right_value0=(struct map$2char$phDatabase$ph*)come_calloc(1, sizeof(struct map$2char$phDatabase$ph)*(1), (void*)0, 1186, "struct map$2char$phDatabase$ph*"))), "main.nc", 1186)))));
+    gDatabases=(struct map$2char$phDatabase$ph*)come_increment_ref_count(map$2char$phDatabase$ph_initialize((struct map$2char$phDatabase$ph*)come_increment_ref_count((struct map$2char$phDatabase$ph*)come_calloc(1, sizeof(struct map$2char$phDatabase$ph)*(1), (void*)0, 1186, "struct map$2char$phDatabase$ph*"))));
     come_call_finalizer(map$2char$phDatabase$ph_finalize, __dec_obj63,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-    come_call_finalizer(map$2char$phDatabase$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
     __dec_obj64=info.current_db_name,
     info.current_db_name=((void*)0);
     __dec_obj64 = come_decrement_ref_count(__dec_obj64, (void*)0, (void*)0, 0,0, (void*)0);
     ({    __current_stack1__.info = &info;
     })    ,    server_socket(3366,2,(1),0,(_Bool)1,&__current_stack1__,(void*)fun_block1_mainnc);
-    __result_obj__0 = 0;
+        __result_obj__0 = 0;
     come_call_finalizer(sInfo_finalize, (&info), (void*)0, (void*)0, 1, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(map$2char$phDatabase$ph$p_finalize, gDatabases, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -17388,20 +17327,19 @@ static struct map$2char$phDatabase$ph* map$2char$phDatabase$ph_initialize(struct
     void* __right_value1 = (void*)0;
     struct list$1char$ph* __dec_obj62;
     struct map$2char$phDatabase$ph* __result_obj__0;
-    ((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2692))->keys=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(128)), (void*)0, 2692, "char** "))));
-    ((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2693))->items=(struct Database** )come_increment_ref_count(((struct Database** )(__right_value0=(struct Database* *)come_calloc(1, sizeof(struct Database* )*(1*(128)), (void*)0, 2693, "struct Database** "))));
-    ((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2694))->item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(128)), (void*)0, 2694, "_Bool*"))));
+    self->keys=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(128)), (void*)0, 2664, "char** "))));
+    self->items=(struct Database** )come_increment_ref_count(((struct Database** )(__right_value0=(struct Database* *)come_calloc(1, sizeof(struct Database* )*(1*(128)), (void*)0, 2665, "struct Database** "))));
+    self->item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(128)), (void*)0, 2666, "_Bool*"))));
     for(i=0;i<128;i++){
-        ((_Bool*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2698))->item_existance, "/usr/local/include/neo-c.h", 2698))[i]=(_Bool)0;
+        self->item_existance[i]=(_Bool)0;
     }
-    ((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2701))->size=128;
-    ((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2702))->len=0;
-    __dec_obj62=((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2704))->key_list,
-    ((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2704))->key_list=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)come_null_checker(((struct list$1char$ph*)(__right_value0=(struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 2704, "struct list$1char$ph*"))), "/usr/local/include/neo-c.h", 2704)))));
+    self->size=128;
+    self->len=0;
+    __dec_obj62=self->key_list,
+    self->key_list=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 2676, "struct list$1char$ph*"))));
     come_call_finalizer(list$1char$ph_finalize, __dec_obj62,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-    come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-    ((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2706))->it=0;
-    __result_obj__0 = (struct map$2char$phDatabase$ph*)come_increment_ref_count(self);
+    self->it=0;
+        __result_obj__0 = (struct map$2char$phDatabase$ph*)come_increment_ref_count(self);
     come_call_finalizer(map$2char$phDatabase$ph$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(map$2char$phDatabase$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -17413,25 +17351,25 @@ static void map$2char$phDatabase$ph$p_finalize(struct map$2char$phDatabase$ph* s
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phDatabase$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_217;
-    for(i=0;i<((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2739))->size;i++){
-        if(((_Bool*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2740))->item_existance, "/usr/local/include/neo-c.h", 2740))[i]) {
+    for(i=0;i<self->size;i++){
+        if(self->item_existance[i]) {
             if(1) {
-                come_call_finalizer(Database_finalize, ((struct Database** )come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2742))->items, "/usr/local/include/neo-c.h", 2742))[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                come_call_finalizer(Database_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
             }
         }
     }
-    come_free((char*)((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2746))->items);
-    for(i_217=0;i_217<((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2748))->size;i_217++){
-        if(((_Bool*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2749))->item_existance, "/usr/local/include/neo-c.h", 2749))[i_217]) {
+    come_free((char*)self->items);
+    for(i_217=0;i_217<self->size;i_217++){
+        if(self->item_existance[i_217]) {
             if(1) {
-                (((char** )come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2751))->keys, "/usr/local/include/neo-c.h", 2751))[i_217] = come_decrement_ref_count(((char** )come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2751))->keys, "/usr/local/include/neo-c.h", 2751))[i_217], (void*)0, (void*)0, 0, 0, (void*)0));
+                (self->keys[i_217] = come_decrement_ref_count(self->keys[i_217], (void*)0, (void*)0, 0, 0, (void*)0));
             }
         }
     }
-    come_free((char*)((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2755))->keys);
-    come_call_finalizer(list$1char$ph$p_finalize, ((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2757))->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-    (((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2759))->item_existance = come_decrement_ref_count(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2759))->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
-    neo_current_frame = fr.prev;
+    come_free((char*)self->keys);
+    come_call_finalizer(list$1char$ph$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
+        neo_current_frame = fr.prev;
 }
 
 static void map$2char$phDatabase$ph_finalize(struct map$2char$phDatabase$ph* self)
@@ -17439,25 +17377,25 @@ static void map$2char$phDatabase$ph_finalize(struct map$2char$phDatabase$ph* sel
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phDatabase$ph_finalize"; neo_current_frame = &fr;
     int i;
     int i_218;
-    for(i=0;i<((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2739))->size;i++){
-        if(((_Bool*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2740))->item_existance, "/usr/local/include/neo-c.h", 2740))[i]) {
+    for(i=0;i<self->size;i++){
+        if(self->item_existance[i]) {
             if(1) {
-                come_call_finalizer(Database_finalize, ((struct Database** )come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2742))->items, "/usr/local/include/neo-c.h", 2742))[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                come_call_finalizer(Database_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
             }
         }
     }
-    come_free((char*)((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2746))->items);
-    for(i_218=0;i_218<((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2748))->size;i_218++){
-        if(((_Bool*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2749))->item_existance, "/usr/local/include/neo-c.h", 2749))[i_218]) {
+    come_free((char*)self->items);
+    for(i_218=0;i_218<self->size;i_218++){
+        if(self->item_existance[i_218]) {
             if(1) {
-                (((char** )come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2751))->keys, "/usr/local/include/neo-c.h", 2751))[i_218] = come_decrement_ref_count(((char** )come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2751))->keys, "/usr/local/include/neo-c.h", 2751))[i_218], (void*)0, (void*)0, 0, 0, (void*)0));
+                (self->keys[i_218] = come_decrement_ref_count(self->keys[i_218], (void*)0, (void*)0, 0, 0, (void*)0));
             }
         }
     }
-    come_free((char*)((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2755))->keys);
-    come_call_finalizer(list$1char$ph$p_finalize, ((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2757))->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-    (((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2759))->item_existance = come_decrement_ref_count(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2759))->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
-    neo_current_frame = fr.prev;
+    come_free((char*)self->keys);
+    come_call_finalizer(list$1char$ph$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
+        neo_current_frame = fr.prev;
 }
 
 void fun_block1_mainnc(struct __current_stack1__* parent, int  it  , _Bool* it2, _Bool* it3)
@@ -17488,7 +17426,7 @@ void fun_block1_mainnc(struct __current_stack1__* parent, int  it  , _Bool* it2,
     size=read(it,data,1023);
     if(size<=0) {
         *it3=(_Bool)1;
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return;
     }
     data[size]=0;
@@ -17502,7 +17440,7 @@ void fun_block1_mainnc(struct __current_stack1__* parent, int  it  , _Bool* it2,
         (*(parent->info)).p+=strlen("use");
         skip_spaces(&(*(parent->info)));
         word=(char* )come_increment_ref_count(parse_word(&(*(parent->info))));
-        if(({(_conditional_value_X0=(((struct Database* )(__right_value0=map$2char$phDatabase$ph_operator_load_element(((struct map$2char$phDatabase$ph*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(gDatabases, "main.nc", 1216)), "main.nc", 1216)),word)))));        come_call_finalizer(Database_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+        if(({(_conditional_value_X0=(((struct Database* )(__right_value0=map$2char$phDatabase$ph_operator_load_element(gDatabases,word)))));        come_call_finalizer(Database_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
 _conditional_value_X0;})) {
             __dec_obj65=(*(parent->info)).current_db_name,
             (*(parent->info)).current_db_name=(char* )come_increment_ref_count(word);
@@ -17545,11 +17483,9 @@ _conditional_value_X0;})) {
         (*(parent->info)).p+=strlen("CREATE DATABASE");
         skip_spaces(&(*(parent->info)));
         word_224=(char* )come_increment_ref_count(parse_word(&(*(parent->info))));
-        if(({(_conditional_value_X1=(((struct Database* )(__right_value0=map$2char$phDatabase$ph_operator_load_element(((struct map$2char$phDatabase$ph*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(gDatabases, "main.nc", 1259)), "main.nc", 1259)),word_224)))==((void*)0)));        come_call_finalizer(Database_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+        if(({(_conditional_value_X1=(((struct Database* )(__right_value0=map$2char$phDatabase$ph_operator_load_element(gDatabases,word_224)))==((void*)0)));        come_call_finalizer(Database_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
 _conditional_value_X1;})) {
-            map$2char$phDatabase$ph_operator_store_element(((struct map$2char$phDatabase$ph*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(gDatabases, "main.nc", 1260)), "main.nc", 1260)),(char* )come_increment_ref_count(word_224),(struct Database*)come_increment_ref_count(Database_initialize((struct Database* )come_increment_ref_count(((struct Database* )come_null_checker(((struct Database* )(__right_value2=(struct Database *)come_calloc(1, sizeof(struct Database )*(1), (void*)0, 1260, "struct Database* "))), "main.nc", 1260))),(char* )come_increment_ref_count(word_224))));
-            come_call_finalizer(Database_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-            come_call_finalizer(Database_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+            map$2char$phDatabase$ph_operator_store_element(gDatabases,(char* )come_increment_ref_count(word_224),(struct Database*)come_increment_ref_count(Database_initialize((struct Database* )come_increment_ref_count((struct Database *)come_calloc(1, sizeof(struct Database )*(1), (void*)0, 1260, "struct Database* ")),(char* )come_increment_ref_count(word_224))));
         }
         const char* ok_message_228="OK\n";
         write(it,ok_message_228,strlen(ok_message_228));
@@ -17563,7 +17499,7 @@ _conditional_value_X1;})) {
             f_230=fopen("database.log","a");
             fprintf(f_230,"FAILED\n");
             fclose(f_230);
-            neo_current_frame = fr.prev;
+                        neo_current_frame = fr.prev;
             return;
         }
         const char* ok_message_231="OK\n";
@@ -17574,7 +17510,7 @@ _conditional_value_X1;})) {
     }
     else if(strncmp((*(parent->info)).p,"INSERT INTO",strlen("INSERT INTO"))==0) {
         if(!eval_insert_into(&(*(parent->info)))) {
-            neo_current_frame = fr.prev;
+                        neo_current_frame = fr.prev;
             return;
         }
         const char* ok_message_233="OK\n";
@@ -17585,31 +17521,31 @@ _conditional_value_X1;})) {
     }
     else if(strncmp((*(parent->info)).p,"SELECT",strlen("SELECT"))==0) {
         if(!eval_select_from("\n",&(*(parent->info)))) {
-            neo_current_frame = fr.prev;
+                        neo_current_frame = fr.prev;
             return;
         }
     }
     else if(strncmp((*(parent->info)).p,"exit",strlen("exit"))==0) {
         *it2=(_Bool)1;
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
 }
 
 static void map$2char$phDatabase$ph_operator_store_element(struct map$2char$phDatabase$ph* self, char*  key  , struct Database*  item  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phDatabase$ph_operator_store_element"; neo_current_frame = &fr;
     if(self==((void*)0)) {
-        (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0));
+                (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0));
         come_call_finalizer(Database_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         neo_current_frame = fr.prev;
         return;
     }
-    map$2char$phDatabase$ph_insert(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3243)),(char* )come_increment_ref_count(key),(struct Database* )come_increment_ref_count(item),(_Bool)0);
+    map$2char$phDatabase$ph_insert(self,(char* )come_increment_ref_count(key),(struct Database* )come_increment_ref_count(item),(_Bool)0);
     (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0));
     come_call_finalizer(Database_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-    neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
 }
 
 static struct map$2char$phDatabase$ph* map$2char$phDatabase$ph_insert(struct map$2char$phDatabase$ph* self, char*  key  , struct Database*  item  , _Bool by_pointer)
@@ -17621,40 +17557,40 @@ static struct map$2char$phDatabase$ph* map$2char$phDatabase$ph_insert(struct map
     _Bool same_key_exist;
     char*  it2  ;
     if(self==((void*)0)) {
-        __result_obj__0 = self;
+                __result_obj__0 = self;
         (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0));
         come_call_finalizer(Database_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    if(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3044))->len*10>=((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3044))->size) {
-        map$2char$phDatabase$ph_rehash(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3045)));
+    if(self->len*10>=self->size) {
+        map$2char$phDatabase$ph_rehash(self);
     }
-    hash=string_get_hash_key(((char* )come_null_checker(((char* )key), "/usr/local/include/neo-c.h", 3047)))%((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3047))->size;
+    hash=string_get_hash_key(((char* )key))%self->size;
     it=hash;
     while((_Bool)1) {
-        if(((_Bool*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3051))->item_existance, "/usr/local/include/neo-c.h", 3051))[it]) {
-            if((!by_pointer&&string_equals(((char* )come_null_checker(((char** )come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3053))->keys, "/usr/local/include/neo-c.h", 3053))[it], "/usr/local/include/neo-c.h", 3053)),key))||(by_pointer&&((char** )come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3053))->keys, "/usr/local/include/neo-c.h", 3053))[it]==key)) {
+        if(self->item_existance[it]) {
+            if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
                 if(1) {
-                    list$1char$ph_remove(((struct list$1char$ph*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3056))->key_list, "/usr/local/include/neo-c.h", 3056)),((char** )come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3056))->keys, "/usr/local/include/neo-c.h", 3056))[it],(_Bool)0);
-                    (((char** )come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3057))->keys, "/usr/local/include/neo-c.h", 3057))[it] = come_decrement_ref_count(((char** )come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3057))->keys, "/usr/local/include/neo-c.h", 3057))[it], (void*)0, (void*)0, 0, 0, (void*)0));
-                    ((char** )come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3058))->keys, "/usr/local/include/neo-c.h", 3058))[it]=(char* )come_increment_ref_count(key);
+                    list$1char$ph_remove(self->key_list,self->keys[it],(_Bool)0);
+                    (self->keys[it] = come_decrement_ref_count(self->keys[it], (void*)0, (void*)0, 0, 0, (void*)0));
+                    self->keys[it]=(char* )come_increment_ref_count(key);
                 }
                 else {
-                    list$1char$ph_remove(((struct list$1char$ph*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3061))->key_list, "/usr/local/include/neo-c.h", 3061)),((char** )come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3061))->keys, "/usr/local/include/neo-c.h", 3061))[it],(_Bool)0);
-                    ((char** )come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3062))->keys, "/usr/local/include/neo-c.h", 3062))[it]=key;
+                    list$1char$ph_remove(self->key_list,self->keys[it],(_Bool)0);
+                    self->keys[it]=key;
                 }
                 if(1) {
-                    come_call_finalizer(Database_finalize, ((struct Database** )come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3065))->items, "/usr/local/include/neo-c.h", 3065))[it], (void*)0, (void*)0, 0, 0, 0, (void*)0);
-                    ((struct Database** )come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3066))->items, "/usr/local/include/neo-c.h", 3066))[it]=(struct Database* )come_increment_ref_count(item);
+                    come_call_finalizer(Database_finalize, self->items[it], (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                    self->items[it]=(struct Database* )come_increment_ref_count(item);
                 }
                 else {
-                    ((struct Database** )come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3069))->items, "/usr/local/include/neo-c.h", 3069))[it]=item;
+                    self->items[it]=item;
                 }
                 break;
             }
             it++;
-            if(it>=((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3076))->size) {
+            if(it>=self->size) {
                 it=0;
             }
             else if(it==hash) {
@@ -17664,33 +17600,33 @@ static struct map$2char$phDatabase$ph* map$2char$phDatabase$ph_insert(struct map
             }
         }
         else {
-            ((_Bool*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3086))->item_existance, "/usr/local/include/neo-c.h", 3086))[it]=(_Bool)1;
+            self->item_existance[it]=(_Bool)1;
             if(1) {
-                ((char** )come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3088))->keys, "/usr/local/include/neo-c.h", 3088))[it]=(char* )come_increment_ref_count(key);
+                self->keys[it]=(char* )come_increment_ref_count(key);
             }
             else {
-                ((char** )come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3091))->keys, "/usr/local/include/neo-c.h", 3091))[it]=key;
+                self->keys[it]=key;
             }
             if(1) {
-                ((struct Database** )come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3094))->items, "/usr/local/include/neo-c.h", 3094))[it]=(struct Database* )come_increment_ref_count(item);
+                self->items[it]=(struct Database* )come_increment_ref_count(item);
             }
             else {
-                ((struct Database** )come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3097))->items, "/usr/local/include/neo-c.h", 3097))[it]=item;
+                self->items[it]=item;
             }
-            ((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3100))->len++;
+            self->len++;
             break;
         }
     }
     same_key_exist=(_Bool)0;
-    for(it2=list$1char$ph_begin(((struct list$1char$ph*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3107))->key_list, "/usr/local/include/neo-c.h", 3107)));!list$1char$ph_end(((struct list$1char$ph*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3107))->key_list, "/usr/local/include/neo-c.h", 3107)));it2=list$1char$ph_next(((struct list$1char$ph*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3107))->key_list, "/usr/local/include/neo-c.h", 3107)))){
-        if((!by_pointer&&string_equals(((char* )come_null_checker(it2, "/usr/local/include/neo-c.h", 3108)),key))||(by_pointer&&it2==key)) {
+    for(it2=list$1char$ph_begin(self->key_list);!list$1char$ph_end(self->key_list);it2=list$1char$ph_next(self->key_list)){
+        if((!by_pointer&&string_equals(it2,key))||(by_pointer&&it2==key)) {
             same_key_exist=(_Bool)1;
         }
     }
     if(!same_key_exist) {
-        list$1char$ph_push_back(((struct list$1char$ph*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3114))->key_list, "/usr/local/include/neo-c.h", 3114)),(char* )come_increment_ref_count(key));
+        list$1char$ph_push_back(self->key_list,(char* )come_increment_ref_count(key));
     }
-    __result_obj__0 = self;
+        __result_obj__0 = self;
     (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0));
     come_call_finalizer(Database_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
@@ -17712,18 +17648,18 @@ static void map$2char$phDatabase$ph_rehash(struct map$2char$phDatabase$ph* self)
     unsigned int hash;
     int n;
     struct Database*  default_value_227  ;
-    size=((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2964))->size*10;
-    keys=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(size)), (void*)0, 2965, "char** "))));
-    items=(struct Database** )come_increment_ref_count(((struct Database** )(__right_value0=(struct Database* *)come_calloc(1, sizeof(struct Database* )*(1*(size)), (void*)0, 2966, "struct Database** "))));
-    item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), (void*)0, 2967, "_Bool*"))));
+    size=self->size*10;
+    keys=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(size)), (void*)0, 2937, "char** "))));
+    items=(struct Database** )come_increment_ref_count(((struct Database** )(__right_value0=(struct Database* *)come_calloc(1, sizeof(struct Database* )*(1*(size)), (void*)0, 2938, "struct Database** "))));
+    item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), (void*)0, 2939, "_Bool*"))));
     len=0;
-    for(it=map$2char$phDatabase$ph_begin(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2971)));!map$2char$phDatabase$ph_end(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2971)));it=map$2char$phDatabase$ph_next(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2971)))){
+    for(it=map$2char$phDatabase$ph_begin(self);!map$2char$phDatabase$ph_end(self);it=map$2char$phDatabase$ph_next(self)){
         memset(&default_value,0,sizeof(struct Database* ));
-        it2=((struct Database* )(__right_value0=map$2char$phDatabase$ph_at(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2974)),it,default_value,(_Bool)0)));
-        hash=string_get_hash_key(((char* )come_null_checker(((char* )it), "/usr/local/include/neo-c.h", 2975)))%size;
+        it2=((struct Database* )(__right_value0=map$2char$phDatabase$ph_at(self,it,default_value,(_Bool)0)));
+        hash=string_get_hash_key(((char* )it))%size;
         n=hash;
         while((_Bool)1) {
-            if(((_Bool*)come_null_checker(item_existance, "/usr/local/include/neo-c.h", 2979))[n]) {
+            if(item_existance[n]) {
                 n++;
                 if(n>=size) {
                     n=0;
@@ -17735,10 +17671,10 @@ static void map$2char$phDatabase$ph_rehash(struct map$2char$phDatabase$ph* self)
                 }
             }
             else {
-                ((_Bool*)come_null_checker(item_existance, "/usr/local/include/neo-c.h", 2993))[n]=(_Bool)1;
-                ((char** )come_null_checker(keys, "/usr/local/include/neo-c.h", 2994))[n]=it;
+                item_existance[n]=(_Bool)1;
+                keys[n]=it;
                 memset(&default_value_227,0,sizeof(struct Database* ));
-                ((struct Database** )come_null_checker(items, "/usr/local/include/neo-c.h", 2997))[n]=((struct Database* )(__right_value0=map$2char$phDatabase$ph_at(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2997)),it,(struct Database* )come_increment_ref_count(default_value_227),(_Bool)0)));
+                items[n]=((struct Database* )(__right_value0=map$2char$phDatabase$ph_at(self,it,(struct Database* )come_increment_ref_count(default_value_227),(_Bool)0)));
                 len++;
                 come_call_finalizer(Database_finalize, default_value_227, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 break;
@@ -17746,15 +17682,15 @@ static void map$2char$phDatabase$ph_rehash(struct map$2char$phDatabase$ph* self)
             }
         }
     }
-    come_free((char*)((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3005))->items);
-    (((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3006))->item_existance = come_decrement_ref_count(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3006))->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
-    come_free((char*)((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3007))->keys);
-    ((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3009))->keys=keys;
-    ((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3010))->items=items;
-    ((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3011))->item_existance=item_existance;
-    ((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3013))->size=size;
-    ((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 3014))->len=len;
-    neo_current_frame = fr.prev;
+    come_free((char*)self->items);
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
+    come_free((char*)self->keys);
+    self->keys=keys;
+    self->items=items;
+    self->item_existance=item_existance;
+    self->size=size;
+    self->len=len;
+            neo_current_frame = fr.prev;
 }
 
 static char*  map$2char$phDatabase$ph_begin(struct map$2char$phDatabase$ph* self)
@@ -17765,18 +17701,18 @@ static char*  map$2char$phDatabase$ph_begin(struct map$2char$phDatabase$ph* self
     char*  result_225  ;
     if(self==((void*)0)) {
         memset(&result,0,sizeof(char* ));
-        __result_obj__0 = result;
+                __result_obj__0 = result;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    ((struct list$1char$ph*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2927))->key_list, "/usr/local/include/neo-c.h", 2927))->it=((struct list$1char$ph*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2927))->key_list, "/usr/local/include/neo-c.h", 2927))->head;
-    if(((struct list$1char$ph*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2929))->key_list, "/usr/local/include/neo-c.h", 2929))->it) {
-        __result_obj__0 = ((struct list_item$1char$ph*)come_null_checker(((struct list$1char$ph*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2930))->key_list, "/usr/local/include/neo-c.h", 2930))->it, "/usr/local/include/neo-c.h", 2930))->item;
+    self->key_list->it=self->key_list->head;
+    if(self->key_list->it) {
+                __result_obj__0 = self->key_list->it->item;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     memset(&result_225,0,sizeof(char* ));
-    __result_obj__0 = result_225;
+        __result_obj__0 = result_225;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -17784,9 +17720,9 @@ static char*  map$2char$phDatabase$ph_begin(struct map$2char$phDatabase$ph* self
 static _Bool map$2char$phDatabase$ph_end(struct map$2char$phDatabase$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phDatabase$ph_end"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
-    return self==((void*)0)||((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2958))->key_list==((void*)0)||((struct list$1char$ph*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2958))->key_list, "/usr/local/include/neo-c.h", 2958))->it==((void*)0);
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
+    return self==((void*)0)||self->key_list==((void*)0)||self->key_list->it==((void*)0);
+        neo_current_frame = fr.prev;
 }
 
 static char*  map$2char$phDatabase$ph_next(struct map$2char$phDatabase$ph* self)
@@ -17795,20 +17731,20 @@ static char*  map$2char$phDatabase$ph_next(struct map$2char$phDatabase$ph* self)
     char*  result  ;
     char*  __result_obj__0  ;
     char*  result_226  ;
-    if(self==((void*)0)||((struct list$1char$ph*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2941))->key_list, "/usr/local/include/neo-c.h", 2941))->it==((void*)0)) {
+    if(self==((void*)0)||self->key_list->it==((void*)0)) {
         memset(&result,0,sizeof(char* ));
-        __result_obj__0 = result;
+                __result_obj__0 = result;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    ((struct list$1char$ph*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2946))->key_list, "/usr/local/include/neo-c.h", 2946))->it=((struct list_item$1char$ph*)come_null_checker(((struct list$1char$ph*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2946))->key_list, "/usr/local/include/neo-c.h", 2946))->it, "/usr/local/include/neo-c.h", 2946))->next;
-    if(((struct list$1char$ph*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2948))->key_list, "/usr/local/include/neo-c.h", 2948))->it) {
-        __result_obj__0 = ((struct list_item$1char$ph*)come_null_checker(((struct list$1char$ph*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2949))->key_list, "/usr/local/include/neo-c.h", 2949))->it, "/usr/local/include/neo-c.h", 2949))->item;
+    self->key_list->it=self->key_list->it->next;
+    if(self->key_list->it) {
+                __result_obj__0 = self->key_list->it->item;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     memset(&result_226,0,sizeof(char* ));
-    __result_obj__0 = result_226;
+        __result_obj__0 = result_226;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -17820,29 +17756,29 @@ static struct Database*  map$2char$phDatabase$ph_at(struct map$2char$phDatabase$
     unsigned int hash;
     unsigned int it;
     if(self==((void*)0)) {
-        __result_obj__0 = (struct Database* )come_increment_ref_count(default_value);
+                __result_obj__0 = (struct Database* )come_increment_ref_count(default_value);
         come_call_finalizer(Database_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         neo_current_frame = fr.prev;
         come_call_finalizer(Database_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
-    hash=string_get_hash_key(((char* )come_null_checker(((char* )key), "/usr/local/include/neo-c.h", 2837)))%((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2837))->size;
+    hash=string_get_hash_key(((char* )key))%self->size;
     it=hash;
     while((_Bool)1) {
-        if(((_Bool*)come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2841))->item_existance, "/usr/local/include/neo-c.h", 2841))[it]) {
-            if((!by_pointer&&string_equals(((char* )come_null_checker(((char** )come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2843))->keys, "/usr/local/include/neo-c.h", 2843))[it], "/usr/local/include/neo-c.h", 2843)),key))||(by_pointer&&((char** )come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2843))->keys, "/usr/local/include/neo-c.h", 2843))[it]==key)) {
-                __result_obj__0 = (struct Database* )come_increment_ref_count(((struct Database** )come_null_checker(((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2845))->items, "/usr/local/include/neo-c.h", 2845))[it]);
+        if(self->item_existance[it]) {
+            if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
+                                __result_obj__0 = (struct Database* )come_increment_ref_count(self->items[it]);
                 come_call_finalizer(Database_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 neo_current_frame = fr.prev;
                 come_call_finalizer(Database_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
                 return __result_obj__0;
             }
             it++;
-            if(it>=((struct map$2char$phDatabase$ph*)come_null_checker(self, "/usr/local/include/neo-c.h", 2850))->size) {
+            if(it>=self->size) {
                 it=0;
             }
             else if(it==hash) {
-                __result_obj__0 = (struct Database* )come_increment_ref_count(default_value);
+                                __result_obj__0 = (struct Database* )come_increment_ref_count(default_value);
                 come_call_finalizer(Database_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0);
                 neo_current_frame = fr.prev;
                 come_call_finalizer(Database_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -17850,14 +17786,14 @@ static struct Database*  map$2char$phDatabase$ph_at(struct map$2char$phDatabase$
             }
         }
         else {
-            __result_obj__0 = (struct Database* )come_increment_ref_count(default_value);
+                        __result_obj__0 = (struct Database* )come_increment_ref_count(default_value);
             come_call_finalizer(Database_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0);
             neo_current_frame = fr.prev;
             come_call_finalizer(Database_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
             return __result_obj__0;
         }
     }
-    __result_obj__0 = (struct Database* )come_increment_ref_count(default_value);
+        __result_obj__0 = (struct Database* )come_increment_ref_count(default_value);
     come_call_finalizer(Database_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(Database_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -17867,10 +17803,10 @@ static struct Database*  map$2char$phDatabase$ph_at(struct map$2char$phDatabase$
 static void sInfo_finalize(struct sInfo*  self  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sInfo_finalize"; neo_current_frame = &fr;
-    if(self!=((void*)0)&&((struct sInfo* )come_null_checker(self, "sInfo_finalize", 2))->current_db_name!=((void*)0)) {
-        (((struct sInfo* )come_null_checker(self, "sInfo_finalize", 2))->current_db_name = come_decrement_ref_count(((struct sInfo* )come_null_checker(self, "sInfo_finalize", 2))->current_db_name, (void*)0, (void*)0, 0, 0, (void*)0));
+    if(self!=((void*)0)&&self->current_db_name!=((void*)0)) {
+        (self->current_db_name = come_decrement_ref_count(self->current_db_name, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
 }
 
 void stackframe()
@@ -17880,9 +17816,9 @@ void stackframe()
     char* fun_name;
     f=neo_current_frame;
     while(f) {
-        fun_name=((struct neo_frame* )come_null_checker(f, "/usr/local/include/neo-c.h", 170))->fun_name;
+        fun_name=f->fun_name;
         printf("%s\n",fun_name);
-        f=((struct neo_frame* )come_null_checker(f, "/usr/local/include/neo-c.h", 173))->prev;
+        f=f->prev;
     }
     neo_current_frame = fr.prev;
 }
@@ -17893,7 +17829,7 @@ _Bool die(const char* msg)
     puts(msg);
     stackframe();
     exit(4);
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return (_Bool)0;
     neo_current_frame = fr.prev;
 }
@@ -17911,19 +17847,19 @@ void come_heap_final()
         n++;
         flag=(_Bool)0;
         printf("#%d ",n);
-        if(((struct sMemHeader* )come_null_checker(it, "/usr/local/include/neo-c.h", 217))->class_name) {
-            printf("%p (%s): ",(char*)it+sizeof(struct sMemHeader )+sizeof(unsigned long )+sizeof(unsigned long ),((struct sMemHeader* )come_null_checker(it, "/usr/local/include/neo-c.h", 218))->class_name);
+        if(it->class_name) {
+            printf("%p (%s): ",(char*)it+sizeof(struct sMemHeader )+sizeof(unsigned long )+sizeof(unsigned long ),it->class_name);
         }
         for(i=0;i<8;i++){
-            if(((struct sMemHeader* )come_null_checker(it, "/usr/local/include/neo-c.h", 221))->fun_name[i]) {
-                printf("%s, ",((struct sMemHeader* )come_null_checker(it, "/usr/local/include/neo-c.h", 222))->fun_name[i]);
+            if(it->fun_name[i]) {
+                printf("%s, ",it->fun_name[i]);
                 flag=(_Bool)1;
             }
         }
         if(flag) {
             puts("");
         }
-        it=((struct sMemHeader* )come_null_checker(it, "/usr/local/include/neo-c.h", 229))->next;
+        it=it->next;
     }
     if(n>0) {
         printf("%d memory leaks. %d alloc, %d free.\n",n,gNumAlloc,gNumFree);
@@ -17935,7 +17871,7 @@ void* alloc_from_pages(unsigned long  size  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "alloc_from_pages"; neo_current_frame = &fr;
     void* __result_obj__0;
-    __result_obj__0 = calloc(1,size);
+        __result_obj__0 = calloc(1,size);
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -17949,35 +17885,35 @@ void come_free_mem_of_heap_pool(void* mem)
     unsigned long  size  ;
     if(mem) {
         it=(struct sMemHeader* )((char*)mem-sizeof(struct sMemHeader ));
-        if(((struct sMemHeader* )come_null_checker(it, "/usr/local/include/neo-c.h", 248))->allocated!=177783) {
-            neo_current_frame = fr.prev;
+        if(it->allocated!=177783) {
+                        neo_current_frame = fr.prev;
             return;
         }
-        ((struct sMemHeader* )come_null_checker(it, "/usr/local/include/neo-c.h", 252))->allocated=0;
-        prev_it=((struct sMemHeader* )come_null_checker(it, "/usr/local/include/neo-c.h", 254))->prev;
-        next_it=((struct sMemHeader* )come_null_checker(it, "/usr/local/include/neo-c.h", 255))->next;
+        it->allocated=0;
+        prev_it=it->prev;
+        next_it=it->next;
         if(gAllocMem==it) {
             gAllocMem=next_it;
             if(gAllocMem) {
-                ((struct sMemHeader* )come_null_checker(gAllocMem, "/usr/local/include/neo-c.h", 261))->prev=((void*)0);
+                gAllocMem->prev=((void*)0);
             }
         }
         else {
             if(prev_it) {
-                ((struct sMemHeader* )come_null_checker(prev_it, "/usr/local/include/neo-c.h", 266))->next=next_it;
+                prev_it->next=next_it;
             }
             if(next_it) {
-                ((struct sMemHeader* )come_null_checker(next_it, "/usr/local/include/neo-c.h", 269))->prev=prev_it;
+                next_it->prev=prev_it;
             }
         }
-        size=((struct sMemHeader* )come_null_checker(it, "/usr/local/include/neo-c.h", 273))->size;
+        size=it->size;
         free(it);
         gNumFree++;
     }
     neo_current_frame = fr.prev;
 }
 
-void* come_alloc_mem_from_heap_pool(unsigned long  size  , const char* sname, int sline, const char* class_name)
+void* come_alloc_mem_from_heap_pool(unsigned long  compiletime_size  , unsigned long  size  , const char* sname, int sline, const char* class_name)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "come_alloc_mem_from_heap_pool"; neo_current_frame = &fr;
     unsigned long  size2  ;
@@ -17991,26 +17927,27 @@ void* come_alloc_mem_from_heap_pool(unsigned long  size  , const char* sname, in
     size2=(size2+7&~0x7);
     result=alloc_from_pages(size2);
     it=result;
-    ((struct sMemHeader* )come_null_checker(it, "/usr/local/include/neo-c.h", 295))->allocated=177783;
-    ((struct sMemHeader* )come_null_checker(it, "/usr/local/include/neo-c.h", 297))->size=size2;
-    ((struct sMemHeader* )come_null_checker(it, "/usr/local/include/neo-c.h", 298))->free_next=((void*)0);
+    it->allocated=177783;
+    it->compiletime_size=compiletime_size;
+    it->size=size2;
+    it->free_next=((void*)0);
     n=0;
     f=neo_current_frame;
     while(f&&n<8) {
-        fun_name=((struct neo_frame* )come_null_checker(f, "/usr/local/include/neo-c.h", 303))->fun_name;
-        ((char**)come_null_checker(((struct sMemHeader* )come_null_checker(it, "/usr/local/include/neo-c.h", 305))->fun_name, "/usr/local/include/neo-c.h", 305))[n]=fun_name;
+        fun_name=f->fun_name;
+        it->fun_name[n]=fun_name;
         n++;
-        f=((struct neo_frame* )come_null_checker(f, "/usr/local/include/neo-c.h", 308))->prev;
+        f=f->prev;
     }
-    ((struct sMemHeader* )come_null_checker(it, "/usr/local/include/neo-c.h", 311))->next=gAllocMem;
-    ((struct sMemHeader* )come_null_checker(it, "/usr/local/include/neo-c.h", 312))->prev=((void*)0);
-    ((struct sMemHeader* )come_null_checker(it, "/usr/local/include/neo-c.h", 314))->class_name=class_name;
+    it->next=gAllocMem;
+    it->prev=((void*)0);
+    it->class_name=class_name;
     if(gAllocMem) {
-        ((struct sMemHeader* )come_null_checker(gAllocMem, "/usr/local/include/neo-c.h", 317))->prev=it;
+        gAllocMem->prev=it;
     }
     gAllocMem=it;
     gNumAlloc++;
-    __result_obj__0 = (char*)result+sizeof(struct sMemHeader );
+        __result_obj__0 = (char*)result+sizeof(struct sMemHeader );
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -18021,12 +17958,12 @@ char* come_dynamic_typeof(void* mem)
     struct sMemHeader*  it  ;
     char* __result_obj__0;
     it=(struct sMemHeader* )((char*)mem-sizeof(unsigned long )-sizeof(unsigned long )-sizeof(struct sMemHeader ));
-    if(((struct sMemHeader* )come_null_checker(it, "/usr/local/include/neo-c.h", 333))->allocated!=177783) {
+    if(it->allocated!=177783) {
         printf("invalid heap object(%p)(1)\n",it);
         stackframe();
         exit(2);
     }
-    __result_obj__0 = (char*)((struct sMemHeader* )come_null_checker(it, "/usr/local/include/neo-c.h", 339))->class_name;
+        __result_obj__0 = (char*)it->class_name;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -18037,13 +17974,13 @@ unsigned long  dynamic_sizeof(void* mem)
     struct sMemHeader*  it  ;
     unsigned long  size  ;
     it=(struct sMemHeader* )((char*)mem-sizeof(unsigned long )-sizeof(unsigned long )-sizeof(struct sMemHeader ));
-    if(((struct sMemHeader* )come_null_checker(it, "/usr/local/include/neo-c.h", 348))->allocated!=177783) {
+    if(it->allocated!=177783) {
         printf("invalid heap object(%p)(1)\n",it);
         stackframe();
         exit(2);
     }
-    size=((struct sMemHeader* )come_null_checker(it, "/usr/local/include/neo-c.h", 353))->size-sizeof(struct sMemHeader )-sizeof(unsigned long )-sizeof(unsigned long );
-    neo_current_frame = fr.prev;
+    size=it->compiletime_size;
+        neo_current_frame = fr.prev;
     return size;
     neo_current_frame = fr.prev;
 }
@@ -18055,12 +17992,12 @@ void* come_calloc(unsigned long  count  , unsigned long  size  , const char* sna
     unsigned long*  ref_count  ;
     unsigned long*  size2  ;
     void* __result_obj__0;
-    mem=come_alloc_mem_from_heap_pool(sizeof(unsigned long )+sizeof(unsigned long )+count*size,sname,sline,class_name);
+    mem=come_alloc_mem_from_heap_pool(count*size,sizeof(unsigned long )+sizeof(unsigned long )+count*size,sname,sline,class_name);
     ref_count=(unsigned long* )mem;
     *ref_count=0;
     size2=(unsigned long* )(mem+sizeof(unsigned long ));
     *size2=size*count+sizeof(unsigned long )+sizeof(unsigned long );
-    __result_obj__0 = mem+sizeof(unsigned long )+sizeof(unsigned long );
+        __result_obj__0 = mem+sizeof(unsigned long )+sizeof(unsigned long );
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -18070,7 +18007,7 @@ void come_free(void* mem)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "come_free"; neo_current_frame = &fr;
     unsigned long*  ref_count  ;
     if(mem==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return;
     }
     ref_count=(unsigned long* )((char*)mem-sizeof(unsigned long )-sizeof(unsigned long ));
@@ -18087,7 +18024,7 @@ void* come_memdup(void* block, const char* sname, int sline, const char* class_n
     unsigned long  size  ;
     void* result;
     if(!block) {
-        __result_obj__0 = ((void*)0);
+                __result_obj__0 = ((void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
@@ -18096,7 +18033,7 @@ void* come_memdup(void* block, const char* sname, int sline, const char* class_n
     size=*size_p-sizeof(unsigned long )-sizeof(unsigned long );
     result=come_calloc(1,size,sname,sline,class_name);
     memcpy(result,block,size);
-    __result_obj__0 = result;
+        __result_obj__0 = result;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -18107,13 +18044,13 @@ void* come_increment_ref_count(void* mem)
     void* __result_obj__0;
     unsigned long*  ref_count  ;
     if(mem==((void*)0)) {
-        __result_obj__0 = mem;
+                __result_obj__0 = mem;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     ref_count=(unsigned long* )((char*)mem-sizeof(unsigned long )-sizeof(unsigned long ));
     (*ref_count)++;
-    __result_obj__0 = mem;
+        __result_obj__0 = mem;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -18124,13 +18061,13 @@ void* come_print_ref_count(void* mem)
     void* __result_obj__0;
     unsigned long*  ref_count  ;
     if(mem==((void*)0)) {
-        __result_obj__0 = mem;
+                __result_obj__0 = mem;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     ref_count=(unsigned long* )((char*)mem-sizeof(unsigned long )-sizeof(unsigned long ));
     printf("ref_count %ld\n",*ref_count);
-    __result_obj__0 = mem;
+        __result_obj__0 = mem;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -18140,11 +18077,11 @@ int come_get_ref_count(void* mem)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "come_get_ref_count"; neo_current_frame = &fr;
     unsigned long*  ref_count  ;
     if(mem==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 0;
     }
     ref_count=(unsigned long* )((char*)mem-sizeof(unsigned long )-sizeof(unsigned long ));
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return *ref_count;
     neo_current_frame = fr.prev;
 }
@@ -18158,13 +18095,13 @@ void* come_decrement_ref_count(void* mem, void* protocol_fun, void* protocol_obj
     void (*finalizer)(void*);
     if(result_obj) {
         if(mem==result_obj) {
-            __result_obj__0 = mem;
+                        __result_obj__0 = mem;
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
     }
     if(mem==((void*)0)) {
-        __result_obj__0 = ((void*)0);
+                __result_obj__0 = ((void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
@@ -18180,11 +18117,11 @@ void* come_decrement_ref_count(void* mem, void* protocol_fun, void* protocol_obj
             come_free(protocol_obj);
         }
         come_free(mem);
-        __result_obj__0 = ((void*)0);
+                __result_obj__0 = ((void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    __result_obj__0 = mem;
+        __result_obj__0 = mem;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -18202,12 +18139,12 @@ void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* protoco
     void (*finalizer_239)(void*);
     if(result_obj) {
         if(mem==result_obj) {
-            neo_current_frame = fr.prev;
+                        neo_current_frame = fr.prev;
             return;
         }
     }
     if(mem==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return;
     }
     if(call_finalizer_only) {
@@ -18280,11 +18217,11 @@ void* come_null_checker(void* mem, const char* sname, int sline)
     void* __right_value1 = (void*)0;
     void* __right_value2 = (void*)0;
     if(mem) {
-        __result_obj__0 = mem;
+                __result_obj__0 = mem;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    puts(((char*)(__right_value2=xsprintf("null pointer exception \%s \%s",((char* )(__right_value0=charp_to_string(((const char*)come_null_checker(sname, "/usr/local/include/neo-c.h", 571))))),((char* )(__right_value1=int_to_string(sline)))))));
+    puts(((char*)(__right_value2=xsprintf("null pointer exception \%s \%s",((char* )(__right_value0=charp_to_string(sname))),((char* )(__right_value1=int_to_string(sline)))))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
     (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -18301,130 +18238,18 @@ char*  __builtin_string(const char* str)
     void* __right_value0 = (void*)0;
     char* result;
     if(str==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((void*)0));
+                __result_obj__0 = (char* )come_increment_ref_count(((void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     len=strlen(str)+1;
-    result=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len)), (void*)0, 583, "char*"));
+    result=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len)), (void*)0, 585, "char*"));
     strncpy(result,str,len);
-    __result_obj__0 = (char* )come_increment_ref_count(result);
+        __result_obj__0 = (char* )come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
-    return __result_obj__0;
-}
-
-static void smart_pointer$1int$$p_finalize(struct smart_pointer$1int$* self)
-{
-    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "smart_pointer$1int$$p_finalize"; neo_current_frame = &fr;
-    if(self!=((void*)0)&&((struct smart_pointer$1int$*)come_null_checker(self, "smart_pointer$1int$$p_finalize", 2))->memory!=((void*)0)) {
-        come_call_finalizer(buffer_finalize, ((struct smart_pointer$1int$*)come_null_checker(self, "smart_pointer$1int$$p_finalize", 2))->memory, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-    }
-    neo_current_frame = fr.prev;
-}
-
-struct smart_pointer$1int$* buffer_to_int_pointer(struct buffer*  self  )
-{
-    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_to_int_pointer"; neo_current_frame = &fr;
-    void* __right_value0 = (void*)0;
-    struct smart_pointer$1int$* result;
-    struct buffer*  __dec_obj66  ;
-    struct smart_pointer$1int$* __result_obj__0;
-    result=(struct smart_pointer$1int$*)come_increment_ref_count((struct smart_pointer$1int$*)come_calloc(1, sizeof(struct smart_pointer$1int$)*(1), (void*)0, 1570, "struct smart_pointer$1int$*"));
-    __dec_obj66=((struct smart_pointer$1int$*)come_null_checker(result, "/usr/local/include/neo-c.h", 1572))->memory,
-    ((struct smart_pointer$1int$*)come_null_checker(result, "/usr/local/include/neo-c.h", 1572))->memory=(struct buffer* )come_increment_ref_count(buffer_clone(self));
-    come_call_finalizer(buffer_finalize, __dec_obj66,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-    ((struct smart_pointer$1int$*)come_null_checker(result, "/usr/local/include/neo-c.h", 1573))->p=(int*)((struct buffer* )come_null_checker(((struct smart_pointer$1int$*)come_null_checker(result, "/usr/local/include/neo-c.h", 1573))->memory, "/usr/local/include/neo-c.h", 1573))->buf;
-    __result_obj__0 = (struct smart_pointer$1int$*)come_increment_ref_count(result);
-    come_call_finalizer(smart_pointer$1int$$p_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    neo_current_frame = fr.prev;
-    come_call_finalizer(smart_pointer$1int$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    return __result_obj__0;
-}
-
-static void smart_pointer$1short$$p_finalize(struct smart_pointer$1short$* self)
-{
-    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "smart_pointer$1short$$p_finalize"; neo_current_frame = &fr;
-    if(self!=((void*)0)&&((struct smart_pointer$1short$*)come_null_checker(self, "smart_pointer$1short$$p_finalize", 2))->memory!=((void*)0)) {
-        come_call_finalizer(buffer_finalize, ((struct smart_pointer$1short$*)come_null_checker(self, "smart_pointer$1short$$p_finalize", 2))->memory, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-    }
-    neo_current_frame = fr.prev;
-}
-
-struct smart_pointer$1short$* buffer_to_short_pointer(struct buffer*  self  )
-{
-    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_to_short_pointer"; neo_current_frame = &fr;
-    void* __right_value0 = (void*)0;
-    struct smart_pointer$1short$* result;
-    struct buffer*  __dec_obj67  ;
-    struct smart_pointer$1short$* __result_obj__0;
-    result=(struct smart_pointer$1short$*)come_increment_ref_count((struct smart_pointer$1short$*)come_calloc(1, sizeof(struct smart_pointer$1short$)*(1), (void*)0, 1580, "struct smart_pointer$1short$*"));
-    __dec_obj67=((struct smart_pointer$1short$*)come_null_checker(result, "/usr/local/include/neo-c.h", 1582))->memory,
-    ((struct smart_pointer$1short$*)come_null_checker(result, "/usr/local/include/neo-c.h", 1582))->memory=(struct buffer* )come_increment_ref_count(buffer_clone(self));
-    come_call_finalizer(buffer_finalize, __dec_obj67,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-    ((struct smart_pointer$1short$*)come_null_checker(result, "/usr/local/include/neo-c.h", 1583))->p=(short*)((struct buffer* )come_null_checker(((struct smart_pointer$1short$*)come_null_checker(result, "/usr/local/include/neo-c.h", 1583))->memory, "/usr/local/include/neo-c.h", 1583))->buf;
-    __result_obj__0 = (struct smart_pointer$1short$*)come_increment_ref_count(result);
-    come_call_finalizer(smart_pointer$1short$$p_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    neo_current_frame = fr.prev;
-    come_call_finalizer(smart_pointer$1short$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    return __result_obj__0;
-}
-
-static void smart_pointer$1long$$p_finalize(struct smart_pointer$1long$* self)
-{
-    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "smart_pointer$1long$$p_finalize"; neo_current_frame = &fr;
-    if(self!=((void*)0)&&((struct smart_pointer$1long$*)come_null_checker(self, "smart_pointer$1long$$p_finalize", 2))->memory!=((void*)0)) {
-        come_call_finalizer(buffer_finalize, ((struct smart_pointer$1long$*)come_null_checker(self, "smart_pointer$1long$$p_finalize", 2))->memory, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-    }
-    neo_current_frame = fr.prev;
-}
-
-struct smart_pointer$1long$* buffer_to_long_pointer(struct buffer*  self  )
-{
-    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_to_long_pointer"; neo_current_frame = &fr;
-    void* __right_value0 = (void*)0;
-    struct smart_pointer$1long$* result;
-    struct buffer*  __dec_obj68  ;
-    struct smart_pointer$1long$* __result_obj__0;
-    result=(struct smart_pointer$1long$*)come_increment_ref_count((struct smart_pointer$1long$*)come_calloc(1, sizeof(struct smart_pointer$1long$)*(1), (void*)0, 1590, "struct smart_pointer$1long$*"));
-    __dec_obj68=((struct smart_pointer$1long$*)come_null_checker(result, "/usr/local/include/neo-c.h", 1592))->memory,
-    ((struct smart_pointer$1long$*)come_null_checker(result, "/usr/local/include/neo-c.h", 1592))->memory=(struct buffer* )come_increment_ref_count(buffer_clone(self));
-    come_call_finalizer(buffer_finalize, __dec_obj68,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-    ((struct smart_pointer$1long$*)come_null_checker(result, "/usr/local/include/neo-c.h", 1593))->p=(long*)((struct buffer* )come_null_checker(((struct smart_pointer$1long$*)come_null_checker(result, "/usr/local/include/neo-c.h", 1593))->memory, "/usr/local/include/neo-c.h", 1593))->buf;
-    __result_obj__0 = (struct smart_pointer$1long$*)come_increment_ref_count(result);
-    come_call_finalizer(smart_pointer$1long$$p_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    neo_current_frame = fr.prev;
-    come_call_finalizer(smart_pointer$1long$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    return __result_obj__0;
-}
-
-static void smart_pointer$1char$$p_finalize(struct smart_pointer$1char$* self)
-{
-    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "smart_pointer$1char$$p_finalize"; neo_current_frame = &fr;
-    if(self!=((void*)0)&&((struct smart_pointer$1char$*)come_null_checker(self, "smart_pointer$1char$$p_finalize", 2))->memory!=((void*)0)) {
-        come_call_finalizer(buffer_finalize, ((struct smart_pointer$1char$*)come_null_checker(self, "smart_pointer$1char$$p_finalize", 2))->memory, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-    }
-    neo_current_frame = fr.prev;
-}
-
-struct smart_pointer$1char$* buffer_to_pointer(struct buffer*  self  )
-{
-    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_to_pointer"; neo_current_frame = &fr;
-    void* __right_value0 = (void*)0;
-    struct smart_pointer$1char$* result;
-    struct buffer*  __dec_obj69  ;
-    struct smart_pointer$1char$* __result_obj__0;
-    result=(struct smart_pointer$1char$*)come_increment_ref_count((struct smart_pointer$1char$*)come_calloc(1, sizeof(struct smart_pointer$1char$)*(1), (void*)0, 1600, "struct smart_pointer$1char$*"));
-    __dec_obj69=((struct smart_pointer$1char$*)come_null_checker(result, "/usr/local/include/neo-c.h", 1602))->memory,
-    ((struct smart_pointer$1char$*)come_null_checker(result, "/usr/local/include/neo-c.h", 1602))->memory=(struct buffer* )come_increment_ref_count(buffer_clone(self));
-    come_call_finalizer(buffer_finalize, __dec_obj69,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-    ((struct smart_pointer$1char$*)come_null_checker(result, "/usr/local/include/neo-c.h", 1603))->p=((struct buffer* )come_null_checker(((struct smart_pointer$1char$*)come_null_checker(result, "/usr/local/include/neo-c.h", 1603))->memory, "/usr/local/include/neo-c.h", 1603))->buf;
-    __result_obj__0 = (struct smart_pointer$1char$*)come_increment_ref_count(result);
-    come_call_finalizer(smart_pointer$1char$$p_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
-    neo_current_frame = fr.prev;
-    come_call_finalizer(smart_pointer$1char$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
 }
 
@@ -18432,15 +18257,15 @@ struct buffer*  buffer_initialize(struct buffer*  self  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_initialize"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
-    char* __dec_obj70;
+    char* __dec_obj66;
     struct buffer*  __result_obj__0  ;
-    ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3878))->size=128;
-    __dec_obj70=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3879))->buf,
-    ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3879))->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3879))->size)), (void*)0, 3879, "char*"));
-    __dec_obj70 = come_decrement_ref_count(__dec_obj70, (void*)0, (void*)0, 0,0, (void*)0);
-    ((char*)come_null_checker(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3880))->buf, "/usr/local/include/neo-c.h", 3880))[0]=0;
-    ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3881))->len=0;
-    __result_obj__0 = (struct buffer* )come_increment_ref_count(self);
+    self->size=128;
+    __dec_obj66=self->buf,
+    self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), (void*)0, 3851, "char*"));
+    __dec_obj66 = come_decrement_ref_count(__dec_obj66, (void*)0, (void*)0, 0,0, (void*)0);
+    self->buf[0]=0;
+    self->len=0;
+        __result_obj__0 = (struct buffer* )come_increment_ref_count(self);
     come_call_finalizer(buffer_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -18451,16 +18276,16 @@ struct buffer*  buffer_initialize_with_value(struct buffer*  self  , const char*
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_initialize_with_value"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
-    char* __dec_obj71;
+    char* __dec_obj67;
     struct buffer*  __result_obj__0  ;
-    ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3888))->size=128;
-    __dec_obj71=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3889))->buf,
-    ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3889))->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3889))->size)), (void*)0, 3889, "char*"));
-    __dec_obj71 = come_decrement_ref_count(__dec_obj71, (void*)0, (void*)0, 0,0, (void*)0);
-    ((char*)come_null_checker(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3890))->buf, "/usr/local/include/neo-c.h", 3890))[0]=0;
-    ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3891))->len=0;
-    buffer_append(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3893)),mem,size);
-    __result_obj__0 = (struct buffer* )come_increment_ref_count(self);
+    self->size=128;
+    __dec_obj67=self->buf,
+    self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), (void*)0, 3861, "char*"));
+    __dec_obj67 = come_decrement_ref_count(__dec_obj67, (void*)0, (void*)0, 0,0, (void*)0);
+    self->buf[0]=0;
+    self->len=0;
+    buffer_append(self,mem,size);
+        __result_obj__0 = (struct buffer* )come_increment_ref_count(self);
     come_call_finalizer(buffer_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -18470,8 +18295,8 @@ struct buffer*  buffer_initialize_with_value(struct buffer*  self  , const char*
 void buffer_finalize(struct buffer*  self  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_finalize"; neo_current_frame = &fr;
-    if(self&&((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3900))->buf) {
-        (((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3900))->buf = come_decrement_ref_count(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3900))->buf, (void*)0, (void*)0, 0, 0, (void*)0));
+    if(self&&self->buf) {
+        (self->buf = come_decrement_ref_count(self->buf, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     neo_current_frame = fr.prev;
 }
@@ -18482,21 +18307,21 @@ struct buffer*  buffer_clone(struct buffer*  self  )
     struct buffer*  __result_obj__0  ;
     void* __right_value0 = (void*)0;
     struct buffer*  result  ;
-    char* __dec_obj72;
+    char* __dec_obj68;
     if(self==((void*)0)) {
-        __result_obj__0 = (struct buffer* )come_increment_ref_count(((void*)0));
+                __result_obj__0 = (struct buffer* )come_increment_ref_count(((void*)0));
         neo_current_frame = fr.prev;
         come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
-    result=(struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 3909, "struct buffer* "));
-    ((struct buffer* )come_null_checker(result, "/usr/local/include/neo-c.h", 3911))->size=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3911))->size;
-    __dec_obj72=((struct buffer* )come_null_checker(result, "/usr/local/include/neo-c.h", 3912))->buf,
-    ((struct buffer* )come_null_checker(result, "/usr/local/include/neo-c.h", 3912))->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3912))->size)), (void*)0, 3912, "char*"));
-    __dec_obj72 = come_decrement_ref_count(__dec_obj72, (void*)0, (void*)0, 0,0, (void*)0);
-    ((struct buffer* )come_null_checker(result, "/usr/local/include/neo-c.h", 3913))->len=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3913))->len;
-    memcpy(((struct buffer* )come_null_checker(result, "/usr/local/include/neo-c.h", 3914))->buf,((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3914))->buf,((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3914))->len);
-    __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
+    result=(struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 3881, "struct buffer* "));
+    result->size=self->size;
+    __dec_obj68=result->buf,
+    result->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), (void*)0, 3884, "char*"));
+    __dec_obj68 = come_decrement_ref_count(__dec_obj68, (void*)0, (void*)0, 0,0, (void*)0);
+    result->len=self->len;
+    memcpy(result->buf,self->buf,self->len);
+        __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
     come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -18510,14 +18335,14 @@ _Bool buffer_equals(struct buffer*  left  , struct buffer*  right  )
     void* __right_value1 = (void*)0;
     _Bool __result_obj__0;
     if(left==((void*)0)&&right==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return (_Bool)1;
     }
     else if(left==((void*)0)||right==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return (_Bool)0;
     }
-    __result_obj__0 = string_equals(((char* )come_null_checker(((char* )(__right_value0=buffer_to_string(((struct buffer* )come_null_checker(left, "/usr/local/include/neo-c.h", 3928))))), "/usr/local/include/neo-c.h", 3928)),((char* )(__right_value1=buffer_to_string(((struct buffer* )come_null_checker(right, "/usr/local/include/neo-c.h", 3928))))));
+        __result_obj__0 = string_equals(((char* )(__right_value0=buffer_to_string(left))),((char* )(__right_value1=buffer_to_string(right))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
@@ -18528,11 +18353,11 @@ int buffer_length(struct buffer*  self  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_length"; neo_current_frame = &fr;
     if(self==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 0;
     }
-    neo_current_frame = fr.prev;
-    return ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3936))->len;
+        neo_current_frame = fr.prev;
+    return self->len;
     neo_current_frame = fr.prev;
 }
 
@@ -18540,11 +18365,11 @@ void buffer_reset(struct buffer*  self  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_reset"; neo_current_frame = &fr;
     if(self==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return;
     }
-    ((char*)come_null_checker(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3944))->buf, "/usr/local/include/neo-c.h", 3944))[0]=0;
-    ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3945))->len=0;
+    self->buf[0]=0;
+    self->len=0;
     neo_current_frame = fr.prev;
 }
 
@@ -18552,16 +18377,16 @@ void buffer_trim(struct buffer*  self  , int len)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_trim"; neo_current_frame = &fr;
     if(self==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return;
     }
-    ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3953))->len-=len;
-    if(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3954))->len>=0) {
-        ((char*)come_null_checker(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3955))->buf, "/usr/local/include/neo-c.h", 3955))[((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3955))->len]=0;
+    self->len-=len;
+    if(self->len>=0) {
+        self->buf[self->len]=0;
     }
     else {
-        ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3958))->len=0;
-        ((char*)come_null_checker(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3959))->buf, "/usr/local/include/neo-c.h", 3959))[0]=0;
+        self->len=0;
+        self->buf[0]=0;
     }
     neo_current_frame = fr.prev;
 }
@@ -18574,29 +18399,29 @@ struct buffer*  buffer_append(struct buffer*  self  , const char* mem, unsigned 
     char* old_buf;
     int old_len;
     int new_size;
-    char* __dec_obj73;
+    char* __dec_obj69;
     if(self==((void*)0)||mem==((void*)0)) {
-        __result_obj__0 = self;
+                __result_obj__0 = self;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    if(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3968))->len+size+1+1>=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3968))->size) {
-        old_buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3969))->size)), (void*)0, 3969, "char*"));
-        memcpy(old_buf,((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3970))->buf,((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3970))->size);
-        old_len=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3971))->len;
-        new_size=(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3973))->size+size+1)*2;
-        __dec_obj73=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3974))->buf,
-        ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3974))->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), (void*)0, 3974, "char*"));
-        __dec_obj73 = come_decrement_ref_count(__dec_obj73, (void*)0, (void*)0, 0,0, (void*)0);
-        memcpy(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3975))->buf,old_buf,old_len);
-        ((char*)come_null_checker(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3976))->buf, "/usr/local/include/neo-c.h", 3976))[old_len]=0;
-        ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3977))->size=new_size;
+    if(self->len+size+1+1>=self->size) {
+        old_buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), (void*)0, 3941, "char*"));
+        memcpy(old_buf,self->buf,self->size);
+        old_len=self->len;
+        new_size=(self->size+size+1)*2;
+        __dec_obj69=self->buf,
+        self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), (void*)0, 3946, "char*"));
+        __dec_obj69 = come_decrement_ref_count(__dec_obj69, (void*)0, (void*)0, 0,0, (void*)0);
+        memcpy(self->buf,old_buf,old_len);
+        self->buf[old_len]=0;
+        self->size=new_size;
         (old_buf = come_decrement_ref_count(old_buf, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    memcpy(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3980))->buf+((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3980))->len,mem,size);
-    ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3981))->len+=size;
-    ((char*)come_null_checker(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3982))->buf, "/usr/local/include/neo-c.h", 3982))[((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3982))->len]=0;
-    __result_obj__0 = self;
+    memcpy(self->buf+self->len,mem,size);
+    self->len+=size;
+    self->buf[self->len]=0;
+        __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -18609,29 +18434,29 @@ struct buffer*  buffer_append_char(struct buffer*  self  , char c)
     char* old_buf;
     int old_len;
     int new_size;
-    char* __dec_obj74;
+    char* __dec_obj70;
     if(self==((void*)0)) {
-        __result_obj__0 = ((void*)0);
+                __result_obj__0 = ((void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    if(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3992))->len+1+1+1>=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3992))->size) {
-        old_buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3993))->size)), (void*)0, 3993, "char*"));
-        memcpy(old_buf,((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3994))->buf,((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3994))->size);
-        old_len=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3995))->len;
-        new_size=(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3997))->size+10+1)*2;
-        __dec_obj74=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3998))->buf,
-        ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3998))->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), (void*)0, 3998, "char*"));
-        __dec_obj74 = come_decrement_ref_count(__dec_obj74, (void*)0, (void*)0, 0,0, (void*)0);
-        memcpy(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 3999))->buf,old_buf,old_len);
-        ((char*)come_null_checker(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4000))->buf, "/usr/local/include/neo-c.h", 4000))[old_len]=0;
-        ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4001))->size=new_size;
+    if(self->len+1+1+1>=self->size) {
+        old_buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), (void*)0, 3965, "char*"));
+        memcpy(old_buf,self->buf,self->size);
+        old_len=self->len;
+        new_size=(self->size+10+1)*2;
+        __dec_obj70=self->buf,
+        self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), (void*)0, 3970, "char*"));
+        __dec_obj70 = come_decrement_ref_count(__dec_obj70, (void*)0, (void*)0, 0,0, (void*)0);
+        memcpy(self->buf,old_buf,old_len);
+        self->buf[old_len]=0;
+        self->size=new_size;
         (old_buf = come_decrement_ref_count(old_buf, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    ((char*)come_null_checker(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4004))->buf, "/usr/local/include/neo-c.h", 4004))[((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4004))->len]=c;
-    ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4005))->len++;
-    ((char*)come_null_checker(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4007))->buf, "/usr/local/include/neo-c.h", 4007))[((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4007))->len]=0;
-    __result_obj__0 = self;
+    self->buf[self->len]=c;
+    self->len++;
+    self->buf[self->len]=0;
+        __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -18645,30 +18470,30 @@ struct buffer*  buffer_append_str(struct buffer*  self  , const char* mem)
     char* old_buf;
     int old_len;
     int new_size;
-    char* __dec_obj75;
+    char* __dec_obj71;
     if(self==((void*)0)||mem==((void*)0)) {
-        __result_obj__0 = self;
+                __result_obj__0 = self;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     size=strlen(mem);
-    if(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4019))->len+size+1+1>=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4019))->size) {
-        old_buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4020))->size)), (void*)0, 4020, "char*"));
-        memcpy(old_buf,((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4021))->buf,((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4021))->size);
-        old_len=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4022))->len;
-        new_size=(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4023))->size+size+1)*2;
-        __dec_obj75=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4024))->buf,
-        ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4024))->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), (void*)0, 4024, "char*"));
-        __dec_obj75 = come_decrement_ref_count(__dec_obj75, (void*)0, (void*)0, 0,0, (void*)0);
-        memcpy(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4025))->buf,old_buf,old_len);
-        ((char*)come_null_checker(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4026))->buf, "/usr/local/include/neo-c.h", 4026))[old_len]=0;
-        ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4027))->size=new_size;
+    if(self->len+size+1+1>=self->size) {
+        old_buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), (void*)0, 3992, "char*"));
+        memcpy(old_buf,self->buf,self->size);
+        old_len=self->len;
+        new_size=(self->size+size+1)*2;
+        __dec_obj71=self->buf,
+        self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), (void*)0, 3996, "char*"));
+        __dec_obj71 = come_decrement_ref_count(__dec_obj71, (void*)0, (void*)0, 0,0, (void*)0);
+        memcpy(self->buf,old_buf,old_len);
+        self->buf[old_len]=0;
+        self->size=new_size;
         (old_buf = come_decrement_ref_count(old_buf, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    memcpy(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4030))->buf+((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4030))->len,mem,size);
-    ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4031))->len+=size;
-    ((char*)come_null_checker(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4032))->buf, "/usr/local/include/neo-c.h", 4032))[((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4032))->len]=0;
-    __result_obj__0 = self;
+    memcpy(self->buf+self->len,mem,size);
+    self->len+=size;
+    self->buf[self->len]=0;
+        __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -18686,10 +18511,10 @@ struct buffer*  buffer_append_format(struct buffer*  self  , const char* msg, ..
     char* old_buf;
     int old_len;
     int new_size;
-    char* __dec_obj76;
+    char* __dec_obj72;
     memset(&result, 0, sizeof(result));
     if(self==((void*)0)||msg==((void*)0)) {
-        __result_obj__0 = self;
+                __result_obj__0 = self;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
@@ -18697,30 +18522,30 @@ struct buffer*  buffer_append_format(struct buffer*  self  , const char* msg, ..
     len=vasprintf(&result,msg,args);
     __builtin_va_end(args);
     if(len<0) {
-        __result_obj__0 = self;
+                __result_obj__0 = self;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     mem=(char* )come_increment_ref_count(__builtin_string(result));
     size=strlen(mem);
-    if(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4095))->len+size+1+1>=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4095))->size) {
-        old_buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4096))->size)), (void*)0, 4096, "char*"));
-        memcpy(old_buf,((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4097))->buf,((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4097))->size);
-        old_len=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4098))->len;
-        new_size=(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4099))->size+size+1)*2;
-        __dec_obj76=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4100))->buf,
-        ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4100))->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), (void*)0, 4100, "char*"));
-        __dec_obj76 = come_decrement_ref_count(__dec_obj76, (void*)0, (void*)0, 0,0, (void*)0);
-        memcpy(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4101))->buf,old_buf,old_len);
-        ((char*)come_null_checker(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4102))->buf, "/usr/local/include/neo-c.h", 4102))[old_len]=0;
-        ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4103))->size=new_size;
+    if(self->len+size+1+1>=self->size) {
+        old_buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), (void*)0, 4068, "char*"));
+        memcpy(old_buf,self->buf,self->size);
+        old_len=self->len;
+        new_size=(self->size+size+1)*2;
+        __dec_obj72=self->buf,
+        self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), (void*)0, 4072, "char*"));
+        __dec_obj72 = come_decrement_ref_count(__dec_obj72, (void*)0, (void*)0, 0,0, (void*)0);
+        memcpy(self->buf,old_buf,old_len);
+        self->buf[old_len]=0;
+        self->size=new_size;
         (old_buf = come_decrement_ref_count(old_buf, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    memcpy(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4106))->buf+((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4106))->len,mem,size);
-    ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4107))->len+=size;
-    ((char*)come_null_checker(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4108))->buf, "/usr/local/include/neo-c.h", 4108))[((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4108))->len]=0;
+    memcpy(self->buf+self->len,mem,size);
+    self->len+=size;
+    self->buf[self->len]=0;
     free(result);
-    __result_obj__0 = self;
+        __result_obj__0 = self;
     (mem = come_decrement_ref_count(mem, (void*)0, (void*)0, 0, 0, (void*)0));
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -18735,31 +18560,31 @@ struct buffer*  buffer_append_nullterminated_str(struct buffer*  self  , const c
     char* old_buf;
     int old_len;
     int new_size;
-    char* __dec_obj77;
+    char* __dec_obj73;
     if(self==((void*)0)||mem==((void*)0)) {
-        __result_obj__0 = self;
+                __result_obj__0 = self;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     size=strlen(mem)+1;
-    if(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4122))->len+size+1+1+1>=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4122))->size) {
-        old_buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4123))->size)), (void*)0, 4123, "char*"));
-        memcpy(old_buf,((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4124))->buf,((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4124))->size);
-        old_len=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4125))->len;
-        new_size=(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4126))->size+size+1)*2;
-        __dec_obj77=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4127))->buf,
-        ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4127))->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), (void*)0, 4127, "char*"));
-        __dec_obj77 = come_decrement_ref_count(__dec_obj77, (void*)0, (void*)0, 0,0, (void*)0);
-        memcpy(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4128))->buf,old_buf,old_len);
-        ((char*)come_null_checker(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4129))->buf, "/usr/local/include/neo-c.h", 4129))[old_len]=0;
-        ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4130))->size=new_size;
+    if(self->len+size+1+1+1>=self->size) {
+        old_buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), (void*)0, 4095, "char*"));
+        memcpy(old_buf,self->buf,self->size);
+        old_len=self->len;
+        new_size=(self->size+size+1)*2;
+        __dec_obj73=self->buf,
+        self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), (void*)0, 4099, "char*"));
+        __dec_obj73 = come_decrement_ref_count(__dec_obj73, (void*)0, (void*)0, 0,0, (void*)0);
+        memcpy(self->buf,old_buf,old_len);
+        self->buf[old_len]=0;
+        self->size=new_size;
         (old_buf = come_decrement_ref_count(old_buf, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    memcpy(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4133))->buf+((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4133))->len,mem,size);
-    ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4134))->len+=size;
-    ((char*)come_null_checker(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4135))->buf, "/usr/local/include/neo-c.h", 4135))[((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4135))->len]=0;
-    ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4136))->len++;
-    __result_obj__0 = self;
+    memcpy(self->buf+self->len,mem,size);
+    self->len+=size;
+    self->buf[self->len]=0;
+    self->len++;
+        __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -18774,31 +18599,31 @@ struct buffer*  buffer_append_int(struct buffer*  self  , int value)
     char* old_buf;
     int old_len;
     int new_size;
-    char* __dec_obj78;
+    char* __dec_obj74;
     if(self==((void*)0)) {
-        __result_obj__0 = ((void*)0);
+                __result_obj__0 = ((void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     mem=&value;
     size=sizeof(int);
-    if(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4149))->len+size+1+1>=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4149))->size) {
-        old_buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4150))->size)), (void*)0, 4150, "char*"));
-        memcpy(old_buf,((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4151))->buf,((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4151))->size);
-        old_len=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4152))->len;
-        new_size=(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4153))->size+size+1)*2;
-        __dec_obj78=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4154))->buf,
-        ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4154))->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), (void*)0, 4154, "char*"));
-        __dec_obj78 = come_decrement_ref_count(__dec_obj78, (void*)0, (void*)0, 0,0, (void*)0);
-        memcpy(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4155))->buf,old_buf,old_len);
-        ((char*)come_null_checker(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4156))->buf, "/usr/local/include/neo-c.h", 4156))[old_len]=0;
-        ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4157))->size=new_size;
+    if(self->len+size+1+1>=self->size) {
+        old_buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), (void*)0, 4122, "char*"));
+        memcpy(old_buf,self->buf,self->size);
+        old_len=self->len;
+        new_size=(self->size+size+1)*2;
+        __dec_obj74=self->buf,
+        self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), (void*)0, 4126, "char*"));
+        __dec_obj74 = come_decrement_ref_count(__dec_obj74, (void*)0, (void*)0, 0,0, (void*)0);
+        memcpy(self->buf,old_buf,old_len);
+        self->buf[old_len]=0;
+        self->size=new_size;
         (old_buf = come_decrement_ref_count(old_buf, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    memcpy(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4160))->buf+((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4160))->len,mem,size);
-    ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4161))->len+=size;
-    ((char*)come_null_checker(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4162))->buf, "/usr/local/include/neo-c.h", 4162))[((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4162))->len]=0;
-    __result_obj__0 = self;
+    memcpy(self->buf+self->len,mem,size);
+    self->len+=size;
+    self->buf[self->len]=0;
+        __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -18813,31 +18638,31 @@ struct buffer*  buffer_append_long(struct buffer*  self  , long value)
     char* old_buf;
     int old_len;
     int new_size;
-    char* __dec_obj79;
+    char* __dec_obj75;
     if(self==((void*)0)) {
-        __result_obj__0 = ((void*)0);
+                __result_obj__0 = ((void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     mem=&value;
     size=sizeof(long);
-    if(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4175))->len+size+1+1>=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4175))->size) {
-        old_buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4176))->size)), (void*)0, 4176, "char*"));
-        memcpy(old_buf,((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4177))->buf,((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4177))->size);
-        old_len=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4178))->len;
-        new_size=(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4179))->size+size+1)*2;
-        __dec_obj79=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4180))->buf,
-        ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4180))->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), (void*)0, 4180, "char*"));
-        __dec_obj79 = come_decrement_ref_count(__dec_obj79, (void*)0, (void*)0, 0,0, (void*)0);
-        memcpy(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4181))->buf,old_buf,old_len);
-        ((char*)come_null_checker(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4182))->buf, "/usr/local/include/neo-c.h", 4182))[old_len]=0;
-        ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4183))->size=new_size;
+    if(self->len+size+1+1>=self->size) {
+        old_buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), (void*)0, 4148, "char*"));
+        memcpy(old_buf,self->buf,self->size);
+        old_len=self->len;
+        new_size=(self->size+size+1)*2;
+        __dec_obj75=self->buf,
+        self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), (void*)0, 4152, "char*"));
+        __dec_obj75 = come_decrement_ref_count(__dec_obj75, (void*)0, (void*)0, 0,0, (void*)0);
+        memcpy(self->buf,old_buf,old_len);
+        self->buf[old_len]=0;
+        self->size=new_size;
         (old_buf = come_decrement_ref_count(old_buf, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    memcpy(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4186))->buf+((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4186))->len,mem,size);
-    ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4187))->len+=size;
-    ((char*)come_null_checker(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4188))->buf, "/usr/local/include/neo-c.h", 4188))[((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4188))->len]=0;
-    __result_obj__0 = self;
+    memcpy(self->buf+self->len,mem,size);
+    self->len+=size;
+    self->buf[self->len]=0;
+        __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -18852,31 +18677,31 @@ struct buffer*  buffer_append_short(struct buffer*  self  , short value)
     char* old_buf;
     int old_len;
     int new_size;
-    char* __dec_obj80;
+    char* __dec_obj76;
     if(self==((void*)0)) {
-        __result_obj__0 = ((void*)0);
+                __result_obj__0 = ((void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     mem=&value;
     size=sizeof(short);
-    if(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4202))->len+size+1+1>=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4202))->size) {
-        old_buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4203))->size)), (void*)0, 4203, "char*"));
-        memcpy(old_buf,((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4204))->buf,((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4204))->size);
-        old_len=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4205))->len;
-        new_size=(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4206))->size+size+1)*2;
-        __dec_obj80=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4207))->buf,
-        ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4207))->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), (void*)0, 4207, "char*"));
-        __dec_obj80 = come_decrement_ref_count(__dec_obj80, (void*)0, (void*)0, 0,0, (void*)0);
-        memcpy(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4208))->buf,old_buf,old_len);
-        ((char*)come_null_checker(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4209))->buf, "/usr/local/include/neo-c.h", 4209))[old_len]=0;
-        ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4210))->size=new_size;
+    if(self->len+size+1+1>=self->size) {
+        old_buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), (void*)0, 4175, "char*"));
+        memcpy(old_buf,self->buf,self->size);
+        old_len=self->len;
+        new_size=(self->size+size+1)*2;
+        __dec_obj76=self->buf,
+        self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), (void*)0, 4179, "char*"));
+        __dec_obj76 = come_decrement_ref_count(__dec_obj76, (void*)0, (void*)0, 0,0, (void*)0);
+        memcpy(self->buf,old_buf,old_len);
+        self->buf[old_len]=0;
+        self->size=new_size;
         (old_buf = come_decrement_ref_count(old_buf, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    memcpy(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4213))->buf+((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4213))->len,mem,size);
-    ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4214))->len+=size;
-    ((char*)come_null_checker(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4215))->buf, "/usr/local/include/neo-c.h", 4215))[((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4215))->len]=0;
-    __result_obj__0 = self;
+    memcpy(self->buf+self->len,mem,size);
+    self->len+=size;
+    self->buf[self->len]=0;
+        __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -18890,33 +18715,33 @@ struct buffer*  buffer_alignment(struct buffer*  self  )
     char* old_buf;
     int old_len;
     int new_size;
-    char* __dec_obj81;
+    char* __dec_obj77;
     int i;
     if(self==((void*)0)) {
-        __result_obj__0 = ((void*)0);
+                __result_obj__0 = ((void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    len=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4226))->len;
+    len=self->len;
     len=(len+3)&~3;
-    if(len>=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4229))->size) {
-        old_buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4230))->size)), (void*)0, 4230, "char*"));
-        memcpy(old_buf,((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4231))->buf,((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4231))->size);
-        old_len=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4232))->len;
-        new_size=(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4233))->size+1+1)*2;
-        __dec_obj81=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4234))->buf,
-        ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4234))->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), (void*)0, 4234, "char*"));
-        __dec_obj81 = come_decrement_ref_count(__dec_obj81, (void*)0, (void*)0, 0,0, (void*)0);
-        memcpy(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4235))->buf,old_buf,old_len);
-        ((char*)come_null_checker(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4236))->buf, "/usr/local/include/neo-c.h", 4236))[old_len]=0;
-        ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4237))->size=new_size;
+    if(len>=self->size) {
+        old_buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), (void*)0, 4202, "char*"));
+        memcpy(old_buf,self->buf,self->size);
+        old_len=self->len;
+        new_size=(self->size+1+1)*2;
+        __dec_obj77=self->buf,
+        self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), (void*)0, 4206, "char*"));
+        __dec_obj77 = come_decrement_ref_count(__dec_obj77, (void*)0, (void*)0, 0,0, (void*)0);
+        memcpy(self->buf,old_buf,old_len);
+        self->buf[old_len]=0;
+        self->size=new_size;
         (old_buf = come_decrement_ref_count(old_buf, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    for(i=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4240))->len;i<len;i++){
-        ((char*)come_null_checker(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4241))->buf, "/usr/local/include/neo-c.h", 4241))[i]=0;
+    for(i=self->len;i<len;i++){
+        self->buf[i]=0;
     }
-    ((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4244))->len=len;
-    __result_obj__0 = self;
+    self->len=len;
+        __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -18925,19 +18750,19 @@ int buffer_compare(struct buffer*  left  , struct buffer*  right  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_compare"; neo_current_frame = &fr;
     if(left==((void*)0)&&right==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 0;
     }
     else if(left==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return -1;
     }
     else if(right==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 1;
     }
-    neo_current_frame = fr.prev;
-    return strcmp(((struct buffer* )come_null_checker(left, "/usr/local/include/neo-c.h", 4261))->buf,((struct buffer* )come_null_checker(right, "/usr/local/include/neo-c.h", 4261))->buf);
+        neo_current_frame = fr.prev;
+    return strcmp(left->buf,right->buf);
     neo_current_frame = fr.prev;
 }
 
@@ -18948,17 +18773,16 @@ struct buffer*  charp_to_buffer(const char* self)
     void* __right_value1 = (void*)0;
     struct buffer*  result  ;
     struct buffer*  __result_obj__0  ;
-    result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count(((struct buffer* )come_null_checker(((struct buffer* )(__right_value0=(struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 4266, "struct buffer* "))), "/usr/local/include/neo-c.h", 4266)))));
-    come_call_finalizer(buffer_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+    result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 4238, "struct buffer* "))));
     if(self==((void*)0)) {
-        __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
+                __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
         come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         neo_current_frame = fr.prev;
         come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
-    buffer_append_str(((struct buffer* )come_null_checker(result, "/usr/local/include/neo-c.h", 4272)),self);
-    __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
+    buffer_append_str(result,self);
+        __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
     come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -18971,13 +18795,13 @@ char*  buffer_to_string(struct buffer*  self  )
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
     if(self==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4283))->buf))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(self->buf))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -18989,11 +18813,11 @@ unsigned char* buffer_head_pointer(struct buffer*  self  )
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "buffer_head_pointer"; neo_current_frame = &fr;
     unsigned char* __result_obj__0;
     if(self==((void*)0)) {
-        __result_obj__0 = ((void*)0);
+                __result_obj__0 = ((void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    __result_obj__0 = (unsigned char*)((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4291))->buf;
+        __result_obj__0 = (unsigned char*)self->buf;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -19005,17 +18829,16 @@ struct buffer*  chara_to_buffer(char* self, unsigned long  len  )
     void* __right_value1 = (void*)0;
     struct buffer*  result  ;
     struct buffer*  __result_obj__0  ;
-    result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count(((struct buffer* )come_null_checker(((struct buffer* )(__right_value0=(struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 4296, "struct buffer* "))), "/usr/local/include/neo-c.h", 4296)))));
-    come_call_finalizer(buffer_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+    result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 4268, "struct buffer* "))));
     if(self==((void*)0)) {
-        __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
+                __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
         come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         neo_current_frame = fr.prev;
         come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
-    buffer_append(((struct buffer* )come_null_checker(result, "/usr/local/include/neo-c.h", 4300)),self,sizeof(char)*len);
-    __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
+    buffer_append(result,self,sizeof(char)*len);
+        __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
     come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -19030,19 +18853,18 @@ struct buffer*  charpa_to_buffer(char** self, unsigned long  len  )
     struct buffer*  result  ;
     struct buffer*  __result_obj__0  ;
     int i;
-    result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count(((struct buffer* )come_null_checker(((struct buffer* )(__right_value0=(struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 4306, "struct buffer* "))), "/usr/local/include/neo-c.h", 4306)))));
-    come_call_finalizer(buffer_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+    result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 4278, "struct buffer* "))));
     if(self==((void*)0)) {
-        __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
+                __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
         come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         neo_current_frame = fr.prev;
         come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
     for(i=0;i<len;i++){
-        buffer_append(((struct buffer* )come_null_checker(result, "/usr/local/include/neo-c.h", 4311)),((char**)come_null_checker(self, "/usr/local/include/neo-c.h", 4311))[i],strlen(((char**)come_null_checker(self, "/usr/local/include/neo-c.h", 4311))[i]));
+        buffer_append(result,self[i],strlen(self[i]));
     }
-    __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
+        __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
     come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -19056,17 +18878,16 @@ struct buffer*  shorta_to_buffer(short* self, unsigned long  len  )
     void* __right_value1 = (void*)0;
     struct buffer*  result  ;
     struct buffer*  __result_obj__0  ;
-    result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count(((struct buffer* )come_null_checker(((struct buffer* )(__right_value0=(struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 4318, "struct buffer* "))), "/usr/local/include/neo-c.h", 4318)))));
-    come_call_finalizer(buffer_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+    result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 4290, "struct buffer* "))));
     if(self==((void*)0)) {
-        __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
+                __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
         come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         neo_current_frame = fr.prev;
         come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
-    buffer_append(((struct buffer* )come_null_checker(result, "/usr/local/include/neo-c.h", 4322)),(char*)self,sizeof(short)*len);
-    __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
+    buffer_append(result,(char*)self,sizeof(short)*len);
+        __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
     come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -19080,17 +18901,16 @@ struct buffer*  inta_to_buffer(int* self, unsigned long  len  )
     void* __right_value1 = (void*)0;
     struct buffer*  result  ;
     struct buffer*  __result_obj__0  ;
-    result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count(((struct buffer* )come_null_checker(((struct buffer* )(__right_value0=(struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 4328, "struct buffer* "))), "/usr/local/include/neo-c.h", 4328)))));
-    come_call_finalizer(buffer_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+    result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 4300, "struct buffer* "))));
     if(self==((void*)0)) {
-        __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
+                __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
         come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         neo_current_frame = fr.prev;
         come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
-    buffer_append(((struct buffer* )come_null_checker(result, "/usr/local/include/neo-c.h", 4332)),(char*)self,sizeof(int)*len);
-    __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
+    buffer_append(result,(char*)self,sizeof(int)*len);
+        __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
     come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -19104,17 +18924,16 @@ struct buffer*  longa_to_buffer(long* self, unsigned long  len  )
     void* __right_value1 = (void*)0;
     struct buffer*  result  ;
     struct buffer*  __result_obj__0  ;
-    result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count(((struct buffer* )come_null_checker(((struct buffer* )(__right_value0=(struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 4338, "struct buffer* "))), "/usr/local/include/neo-c.h", 4338)))));
-    come_call_finalizer(buffer_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+    result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 4310, "struct buffer* "))));
     if(self==((void*)0)) {
-        __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
+                __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
         come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         neo_current_frame = fr.prev;
         come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
-    buffer_append(((struct buffer* )come_null_checker(result, "/usr/local/include/neo-c.h", 4342)),(char*)self,sizeof(long)*len);
-    __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
+    buffer_append(result,(char*)self,sizeof(long)*len);
+        __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
     come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -19128,17 +18947,16 @@ struct buffer*  floata_to_buffer(float* self, unsigned long  len  )
     void* __right_value1 = (void*)0;
     struct buffer*  result  ;
     struct buffer*  __result_obj__0  ;
-    result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count(((struct buffer* )come_null_checker(((struct buffer* )(__right_value0=(struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 4348, "struct buffer* "))), "/usr/local/include/neo-c.h", 4348)))));
-    come_call_finalizer(buffer_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+    result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 4320, "struct buffer* "))));
     if(self==((void*)0)) {
-        __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
+                __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
         come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         neo_current_frame = fr.prev;
         come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
-    buffer_append(((struct buffer* )come_null_checker(result, "/usr/local/include/neo-c.h", 4352)),(char*)self,sizeof(float)*len);
-    __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
+    buffer_append(result,(char*)self,sizeof(float)*len);
+        __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
     come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -19152,17 +18970,16 @@ struct buffer*  doublea_to_buffer(double* self, unsigned long  len  )
     void* __right_value1 = (void*)0;
     struct buffer*  result  ;
     struct buffer*  __result_obj__0  ;
-    result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count(((struct buffer* )come_null_checker(((struct buffer* )(__right_value0=(struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 4358, "struct buffer* "))), "/usr/local/include/neo-c.h", 4358)))));
-    come_call_finalizer(buffer_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+    result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 4330, "struct buffer* "))));
     if(self==((void*)0)) {
-        __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
+                __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
         come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         neo_current_frame = fr.prev;
         come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
-    buffer_append(((struct buffer* )come_null_checker(result, "/usr/local/include/neo-c.h", 4362)),(char*)self,sizeof(double)*len);
-    __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
+    buffer_append(result,(char*)self,sizeof(double)*len);
+        __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
     come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -19179,10 +18996,10 @@ char*  buffer_printable(struct buffer*  self  )
     int n;
     int i;
     unsigned char c;
-    len=((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4368))->len;
-    result=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len*2+1)), (void*)0, 4369, "char*"));
+    len=self->len;
+    result=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len*2+1)), (void*)0, 4341, "char*"));
     if(self==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(result);
+                __result_obj__0 = (char* )come_increment_ref_count(result);
         (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -19190,20 +19007,20 @@ char*  buffer_printable(struct buffer*  self  )
     }
     n=0;
     for(i=0;i<len;i++){
-        c=((char*)come_null_checker(((struct buffer* )come_null_checker(self, "/usr/local/include/neo-c.h", 4377))->buf, "/usr/local/include/neo-c.h", 4377))[i];
+        c=self->buf[i];
         if((c>=0&&c<32)||c==127) {
-            ((char* )come_null_checker(result, "/usr/local/include/neo-c.h", 4382))[n++]=94;
-            ((char* )come_null_checker(result, "/usr/local/include/neo-c.h", 4383))[n++]=c+65-1;
+            result[n++]=94;
+            result[n++]=c+65-1;
         }
         else if(c>127) {
-            ((char* )come_null_checker(result, "/usr/local/include/neo-c.h", 4386))[n++]=63;
+            result[n++]=63;
         }
         else {
-            ((char* )come_null_checker(result, "/usr/local/include/neo-c.h", 4389))[n++]=c;
+            result[n++]=c;
         }
     }
-    ((char* )come_null_checker(result, "/usr/local/include/neo-c.h", 4395))[n]=0;
-    __result_obj__0 = (char* )come_increment_ref_count(result);
+    result[n]=0;
+        __result_obj__0 = (char* )come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -19215,13 +19032,13 @@ static struct list$1char$* list$1char$_initialize_with_values(struct list$1char$
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$_initialize_with_values"; neo_current_frame = &fr;
     int i;
     struct list$1char$* __result_obj__0;
-    ((struct list$1char$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1639))->head=((void*)0);
-    ((struct list$1char$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1640))->tail=((void*)0);
-    ((struct list$1char$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1641))->len=0;
+    self->head=((void*)0);
+    self->tail=((void*)0);
+    self->len=0;
     for(i=0;i<num_value;i++){
-        list$1char$_push_back(((struct list$1char$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1644)),((char*)come_null_checker(values, "/usr/local/include/neo-c.h", 1644))[i]);
+        list$1char$_push_back(self,values[i]);
     }
-    __result_obj__0 = (struct list$1char$*)come_increment_ref_count(self);
+        __result_obj__0 = (struct list$1char$*)come_increment_ref_count(self);
     come_call_finalizer(list$1char$$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(list$1char$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -19237,36 +19054,36 @@ static struct list$1char$* list$1char$_push_back(struct list$1char$* self, char 
     struct list_item$1char$* litem_240;
     struct list_item$1char$* litem_241;
     if(self==((void*)0)) {
-        __result_obj__0 = self;
+                __result_obj__0 = self;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    if(((struct list$1char$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1768))->len==0) {
-        litem=(struct list_item$1char$*)come_increment_ref_count(((struct list_item$1char$*)(__right_value0=(struct list_item$1char$*)come_calloc(1, sizeof(struct list_item$1char$)*(1), (void*)0, 1769, "struct list_item$1char$*"))));
-        ((struct list_item$1char$*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1771))->prev=((void*)0);
-        ((struct list_item$1char$*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1772))->next=((void*)0);
-        ((struct list_item$1char$*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1773))->item=item;
-        ((struct list$1char$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1775))->tail=litem;
-        ((struct list$1char$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1776))->head=litem;
+    if(self->len==0) {
+        litem=(struct list_item$1char$*)come_increment_ref_count(((struct list_item$1char$*)(__right_value0=(struct list_item$1char$*)come_calloc(1, sizeof(struct list_item$1char$)*(1), (void*)0, 1333, "struct list_item$1char$*"))));
+        litem->prev=((void*)0);
+        litem->next=((void*)0);
+        litem->item=item;
+        self->tail=litem;
+        self->head=litem;
     }
-    else if(((struct list$1char$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1778))->len==1) {
-        litem_240=(struct list_item$1char$*)come_increment_ref_count(((struct list_item$1char$*)(__right_value0=(struct list_item$1char$*)come_calloc(1, sizeof(struct list_item$1char$)*(1), (void*)0, 1779, "struct list_item$1char$*"))));
-        ((struct list_item$1char$*)come_null_checker(litem_240, "/usr/local/include/neo-c.h", 1781))->prev=((struct list$1char$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1781))->head;
-        ((struct list_item$1char$*)come_null_checker(litem_240, "/usr/local/include/neo-c.h", 1782))->next=((void*)0);
-        ((struct list_item$1char$*)come_null_checker(litem_240, "/usr/local/include/neo-c.h", 1783))->item=item;
-        ((struct list$1char$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1785))->tail=litem_240;
-        ((struct list_item$1char$*)come_null_checker(((struct list$1char$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1786))->head, "/usr/local/include/neo-c.h", 1786))->next=litem_240;
+    else if(self->len==1) {
+        litem_240=(struct list_item$1char$*)come_increment_ref_count(((struct list_item$1char$*)(__right_value0=(struct list_item$1char$*)come_calloc(1, sizeof(struct list_item$1char$)*(1), (void*)0, 1343, "struct list_item$1char$*"))));
+        litem_240->prev=self->head;
+        litem_240->next=((void*)0);
+        litem_240->item=item;
+        self->tail=litem_240;
+        self->head->next=litem_240;
     }
     else {
-        litem_241=(struct list_item$1char$*)come_increment_ref_count(((struct list_item$1char$*)(__right_value0=(struct list_item$1char$*)come_calloc(1, sizeof(struct list_item$1char$)*(1), (void*)0, 1789, "struct list_item$1char$*"))));
-        ((struct list_item$1char$*)come_null_checker(litem_241, "/usr/local/include/neo-c.h", 1791))->prev=((struct list$1char$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1791))->tail;
-        ((struct list_item$1char$*)come_null_checker(litem_241, "/usr/local/include/neo-c.h", 1792))->next=((void*)0);
-        ((struct list_item$1char$*)come_null_checker(litem_241, "/usr/local/include/neo-c.h", 1793))->item=item;
-        ((struct list_item$1char$*)come_null_checker(((struct list$1char$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1795))->tail, "/usr/local/include/neo-c.h", 1795))->next=litem_241;
-        ((struct list$1char$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1796))->tail=litem_241;
+        litem_241=(struct list_item$1char$*)come_increment_ref_count(((struct list_item$1char$*)(__right_value0=(struct list_item$1char$*)come_calloc(1, sizeof(struct list_item$1char$)*(1), (void*)0, 1353, "struct list_item$1char$*"))));
+        litem_241->prev=self->tail;
+        litem_241->next=((void*)0);
+        litem_241->item=item;
+        self->tail->next=litem_241;
+        self->tail=litem_241;
     }
-    ((struct list$1char$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1799))->len++;
-    __result_obj__0 = self;
+    self->len++;
+        __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -19277,22 +19094,22 @@ static void list$1char$$p_finalize(struct list$1char$* self)
     struct list_item$1char$* it;
     struct list_item$1char$* prev_it;
     if(self==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return;
     }
-    it=((struct list$1char$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1652))->head;
+    it=self->head;
     while(it!=((void*)0)) {
         prev_it=it;
-        it=((struct list_item$1char$*)come_null_checker(it, "/usr/local/include/neo-c.h", 1655))->next;
+        it=it->next;
         come_call_finalizer(list_item$1char$$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
 }
 
 static void list_item$1char$$p_finalize(struct list_item$1char$* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1char$$p_finalize"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
 }
 
 struct list$1char$* chara_to_list(char* self, unsigned long  len  )
@@ -19301,8 +19118,7 @@ struct list$1char$* chara_to_list(char* self, unsigned long  len  )
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1char$* __result_obj__0;
-    __result_obj__0 = (struct list$1char$*)come_increment_ref_count(((struct list$1char$*)(__right_value1=list$1char$_initialize_with_values((struct list$1char$*)come_increment_ref_count(((struct list$1char$*)come_null_checker(((struct list$1char$*)(__right_value0=(struct list$1char$*)come_calloc(1, sizeof(struct list$1char$)*(1), (void*)0, 4420, "struct list$1char$*"))), "/usr/local/include/neo-c.h", 4420))),len,self))));
-    come_call_finalizer(list$1char$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+        __result_obj__0 = (struct list$1char$*)come_increment_ref_count(((struct list$1char$*)(__right_value1=list$1char$_initialize_with_values((struct list$1char$*)come_increment_ref_count((struct list$1char$*)come_calloc(1, sizeof(struct list$1char$)*(1), (void*)0, 4392, "struct list$1char$*")),len,self))));
     come_call_finalizer(list$1char$$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(list$1char$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -19314,13 +19130,13 @@ static struct list$1char$p* list$1char$p_initialize_with_values(struct list$1cha
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$p_initialize_with_values"; neo_current_frame = &fr;
     int i;
     struct list$1char$p* __result_obj__0;
-    ((struct list$1char$p*)come_null_checker(self, "/usr/local/include/neo-c.h", 1639))->head=((void*)0);
-    ((struct list$1char$p*)come_null_checker(self, "/usr/local/include/neo-c.h", 1640))->tail=((void*)0);
-    ((struct list$1char$p*)come_null_checker(self, "/usr/local/include/neo-c.h", 1641))->len=0;
+    self->head=((void*)0);
+    self->tail=((void*)0);
+    self->len=0;
     for(i=0;i<num_value;i++){
-        list$1char$p_push_back(((struct list$1char$p*)come_null_checker(self, "/usr/local/include/neo-c.h", 1644)),((char**)come_null_checker(values, "/usr/local/include/neo-c.h", 1644))[i]);
+        list$1char$p_push_back(self,values[i]);
     }
-    __result_obj__0 = (struct list$1char$p*)come_increment_ref_count(self);
+        __result_obj__0 = (struct list$1char$p*)come_increment_ref_count(self);
     come_call_finalizer(list$1char$p$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(list$1char$p$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -19336,36 +19152,36 @@ static struct list$1char$p* list$1char$p_push_back(struct list$1char$p* self, ch
     struct list_item$1char$p* litem_242;
     struct list_item$1char$p* litem_243;
     if(self==((void*)0)) {
-        __result_obj__0 = self;
+                __result_obj__0 = self;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    if(((struct list$1char$p*)come_null_checker(self, "/usr/local/include/neo-c.h", 1768))->len==0) {
-        litem=(struct list_item$1char$p*)come_increment_ref_count(((struct list_item$1char$p*)(__right_value0=(struct list_item$1char$p*)come_calloc(1, sizeof(struct list_item$1char$p)*(1), (void*)0, 1769, "struct list_item$1char$p*"))));
-        ((struct list_item$1char$p*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1771))->prev=((void*)0);
-        ((struct list_item$1char$p*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1772))->next=((void*)0);
-        ((struct list_item$1char$p*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1773))->item=item;
-        ((struct list$1char$p*)come_null_checker(self, "/usr/local/include/neo-c.h", 1775))->tail=litem;
-        ((struct list$1char$p*)come_null_checker(self, "/usr/local/include/neo-c.h", 1776))->head=litem;
+    if(self->len==0) {
+        litem=(struct list_item$1char$p*)come_increment_ref_count(((struct list_item$1char$p*)(__right_value0=(struct list_item$1char$p*)come_calloc(1, sizeof(struct list_item$1char$p)*(1), (void*)0, 1333, "struct list_item$1char$p*"))));
+        litem->prev=((void*)0);
+        litem->next=((void*)0);
+        litem->item=item;
+        self->tail=litem;
+        self->head=litem;
     }
-    else if(((struct list$1char$p*)come_null_checker(self, "/usr/local/include/neo-c.h", 1778))->len==1) {
-        litem_242=(struct list_item$1char$p*)come_increment_ref_count(((struct list_item$1char$p*)(__right_value0=(struct list_item$1char$p*)come_calloc(1, sizeof(struct list_item$1char$p)*(1), (void*)0, 1779, "struct list_item$1char$p*"))));
-        ((struct list_item$1char$p*)come_null_checker(litem_242, "/usr/local/include/neo-c.h", 1781))->prev=((struct list$1char$p*)come_null_checker(self, "/usr/local/include/neo-c.h", 1781))->head;
-        ((struct list_item$1char$p*)come_null_checker(litem_242, "/usr/local/include/neo-c.h", 1782))->next=((void*)0);
-        ((struct list_item$1char$p*)come_null_checker(litem_242, "/usr/local/include/neo-c.h", 1783))->item=item;
-        ((struct list$1char$p*)come_null_checker(self, "/usr/local/include/neo-c.h", 1785))->tail=litem_242;
-        ((struct list_item$1char$p*)come_null_checker(((struct list$1char$p*)come_null_checker(self, "/usr/local/include/neo-c.h", 1786))->head, "/usr/local/include/neo-c.h", 1786))->next=litem_242;
+    else if(self->len==1) {
+        litem_242=(struct list_item$1char$p*)come_increment_ref_count(((struct list_item$1char$p*)(__right_value0=(struct list_item$1char$p*)come_calloc(1, sizeof(struct list_item$1char$p)*(1), (void*)0, 1343, "struct list_item$1char$p*"))));
+        litem_242->prev=self->head;
+        litem_242->next=((void*)0);
+        litem_242->item=item;
+        self->tail=litem_242;
+        self->head->next=litem_242;
     }
     else {
-        litem_243=(struct list_item$1char$p*)come_increment_ref_count(((struct list_item$1char$p*)(__right_value0=(struct list_item$1char$p*)come_calloc(1, sizeof(struct list_item$1char$p)*(1), (void*)0, 1789, "struct list_item$1char$p*"))));
-        ((struct list_item$1char$p*)come_null_checker(litem_243, "/usr/local/include/neo-c.h", 1791))->prev=((struct list$1char$p*)come_null_checker(self, "/usr/local/include/neo-c.h", 1791))->tail;
-        ((struct list_item$1char$p*)come_null_checker(litem_243, "/usr/local/include/neo-c.h", 1792))->next=((void*)0);
-        ((struct list_item$1char$p*)come_null_checker(litem_243, "/usr/local/include/neo-c.h", 1793))->item=item;
-        ((struct list_item$1char$p*)come_null_checker(((struct list$1char$p*)come_null_checker(self, "/usr/local/include/neo-c.h", 1795))->tail, "/usr/local/include/neo-c.h", 1795))->next=litem_243;
-        ((struct list$1char$p*)come_null_checker(self, "/usr/local/include/neo-c.h", 1796))->tail=litem_243;
+        litem_243=(struct list_item$1char$p*)come_increment_ref_count(((struct list_item$1char$p*)(__right_value0=(struct list_item$1char$p*)come_calloc(1, sizeof(struct list_item$1char$p)*(1), (void*)0, 1353, "struct list_item$1char$p*"))));
+        litem_243->prev=self->tail;
+        litem_243->next=((void*)0);
+        litem_243->item=item;
+        self->tail->next=litem_243;
+        self->tail=litem_243;
     }
-    ((struct list$1char$p*)come_null_checker(self, "/usr/local/include/neo-c.h", 1799))->len++;
-    __result_obj__0 = self;
+    self->len++;
+        __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -19376,22 +19192,22 @@ static void list$1char$p$p_finalize(struct list$1char$p* self)
     struct list_item$1char$p* it;
     struct list_item$1char$p* prev_it;
     if(self==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return;
     }
-    it=((struct list$1char$p*)come_null_checker(self, "/usr/local/include/neo-c.h", 1652))->head;
+    it=self->head;
     while(it!=((void*)0)) {
         prev_it=it;
-        it=((struct list_item$1char$p*)come_null_checker(it, "/usr/local/include/neo-c.h", 1655))->next;
+        it=it->next;
         come_call_finalizer(list_item$1char$p$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
 }
 
 static void list_item$1char$p$p_finalize(struct list_item$1char$p* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1char$p$p_finalize"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
 }
 
 struct list$1char$p* charpa_to_list(char** self, unsigned long  len  )
@@ -19400,8 +19216,7 @@ struct list$1char$p* charpa_to_list(char** self, unsigned long  len  )
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1char$p* __result_obj__0;
-    __result_obj__0 = (struct list$1char$p*)come_increment_ref_count(((struct list$1char$p*)(__right_value1=list$1char$p_initialize_with_values((struct list$1char$p*)come_increment_ref_count(((struct list$1char$p*)come_null_checker(((struct list$1char$p*)(__right_value0=(struct list$1char$p*)come_calloc(1, sizeof(struct list$1char$p)*(1), (void*)0, 4425, "struct list$1char$p*"))), "/usr/local/include/neo-c.h", 4425))),len,self))));
-    come_call_finalizer(list$1char$p$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+        __result_obj__0 = (struct list$1char$p*)come_increment_ref_count(((struct list$1char$p*)(__right_value1=list$1char$p_initialize_with_values((struct list$1char$p*)come_increment_ref_count((struct list$1char$p*)come_calloc(1, sizeof(struct list$1char$p)*(1), (void*)0, 4397, "struct list$1char$p*")),len,self))));
     come_call_finalizer(list$1char$p$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(list$1char$p$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -19413,13 +19228,13 @@ static struct list$1short$* list$1short$_initialize_with_values(struct list$1sho
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1short$_initialize_with_values"; neo_current_frame = &fr;
     int i;
     struct list$1short$* __result_obj__0;
-    ((struct list$1short$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1639))->head=((void*)0);
-    ((struct list$1short$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1640))->tail=((void*)0);
-    ((struct list$1short$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1641))->len=0;
+    self->head=((void*)0);
+    self->tail=((void*)0);
+    self->len=0;
     for(i=0;i<num_value;i++){
-        list$1short$_push_back(((struct list$1short$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1644)),((short*)come_null_checker(values, "/usr/local/include/neo-c.h", 1644))[i]);
+        list$1short$_push_back(self,values[i]);
     }
-    __result_obj__0 = (struct list$1short$*)come_increment_ref_count(self);
+        __result_obj__0 = (struct list$1short$*)come_increment_ref_count(self);
     come_call_finalizer(list$1short$$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(list$1short$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -19435,36 +19250,36 @@ static struct list$1short$* list$1short$_push_back(struct list$1short$* self, sh
     struct list_item$1short$* litem_244;
     struct list_item$1short$* litem_245;
     if(self==((void*)0)) {
-        __result_obj__0 = self;
+                __result_obj__0 = self;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    if(((struct list$1short$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1768))->len==0) {
-        litem=(struct list_item$1short$*)come_increment_ref_count(((struct list_item$1short$*)(__right_value0=(struct list_item$1short$*)come_calloc(1, sizeof(struct list_item$1short$)*(1), (void*)0, 1769, "struct list_item$1short$*"))));
-        ((struct list_item$1short$*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1771))->prev=((void*)0);
-        ((struct list_item$1short$*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1772))->next=((void*)0);
-        ((struct list_item$1short$*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1773))->item=item;
-        ((struct list$1short$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1775))->tail=litem;
-        ((struct list$1short$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1776))->head=litem;
+    if(self->len==0) {
+        litem=(struct list_item$1short$*)come_increment_ref_count(((struct list_item$1short$*)(__right_value0=(struct list_item$1short$*)come_calloc(1, sizeof(struct list_item$1short$)*(1), (void*)0, 1333, "struct list_item$1short$*"))));
+        litem->prev=((void*)0);
+        litem->next=((void*)0);
+        litem->item=item;
+        self->tail=litem;
+        self->head=litem;
     }
-    else if(((struct list$1short$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1778))->len==1) {
-        litem_244=(struct list_item$1short$*)come_increment_ref_count(((struct list_item$1short$*)(__right_value0=(struct list_item$1short$*)come_calloc(1, sizeof(struct list_item$1short$)*(1), (void*)0, 1779, "struct list_item$1short$*"))));
-        ((struct list_item$1short$*)come_null_checker(litem_244, "/usr/local/include/neo-c.h", 1781))->prev=((struct list$1short$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1781))->head;
-        ((struct list_item$1short$*)come_null_checker(litem_244, "/usr/local/include/neo-c.h", 1782))->next=((void*)0);
-        ((struct list_item$1short$*)come_null_checker(litem_244, "/usr/local/include/neo-c.h", 1783))->item=item;
-        ((struct list$1short$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1785))->tail=litem_244;
-        ((struct list_item$1short$*)come_null_checker(((struct list$1short$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1786))->head, "/usr/local/include/neo-c.h", 1786))->next=litem_244;
+    else if(self->len==1) {
+        litem_244=(struct list_item$1short$*)come_increment_ref_count(((struct list_item$1short$*)(__right_value0=(struct list_item$1short$*)come_calloc(1, sizeof(struct list_item$1short$)*(1), (void*)0, 1343, "struct list_item$1short$*"))));
+        litem_244->prev=self->head;
+        litem_244->next=((void*)0);
+        litem_244->item=item;
+        self->tail=litem_244;
+        self->head->next=litem_244;
     }
     else {
-        litem_245=(struct list_item$1short$*)come_increment_ref_count(((struct list_item$1short$*)(__right_value0=(struct list_item$1short$*)come_calloc(1, sizeof(struct list_item$1short$)*(1), (void*)0, 1789, "struct list_item$1short$*"))));
-        ((struct list_item$1short$*)come_null_checker(litem_245, "/usr/local/include/neo-c.h", 1791))->prev=((struct list$1short$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1791))->tail;
-        ((struct list_item$1short$*)come_null_checker(litem_245, "/usr/local/include/neo-c.h", 1792))->next=((void*)0);
-        ((struct list_item$1short$*)come_null_checker(litem_245, "/usr/local/include/neo-c.h", 1793))->item=item;
-        ((struct list_item$1short$*)come_null_checker(((struct list$1short$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1795))->tail, "/usr/local/include/neo-c.h", 1795))->next=litem_245;
-        ((struct list$1short$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1796))->tail=litem_245;
+        litem_245=(struct list_item$1short$*)come_increment_ref_count(((struct list_item$1short$*)(__right_value0=(struct list_item$1short$*)come_calloc(1, sizeof(struct list_item$1short$)*(1), (void*)0, 1353, "struct list_item$1short$*"))));
+        litem_245->prev=self->tail;
+        litem_245->next=((void*)0);
+        litem_245->item=item;
+        self->tail->next=litem_245;
+        self->tail=litem_245;
     }
-    ((struct list$1short$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1799))->len++;
-    __result_obj__0 = self;
+    self->len++;
+        __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -19475,22 +19290,22 @@ static void list$1short$$p_finalize(struct list$1short$* self)
     struct list_item$1short$* it;
     struct list_item$1short$* prev_it;
     if(self==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return;
     }
-    it=((struct list$1short$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1652))->head;
+    it=self->head;
     while(it!=((void*)0)) {
         prev_it=it;
-        it=((struct list_item$1short$*)come_null_checker(it, "/usr/local/include/neo-c.h", 1655))->next;
+        it=it->next;
         come_call_finalizer(list_item$1short$$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
 }
 
 static void list_item$1short$$p_finalize(struct list_item$1short$* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1short$$p_finalize"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
 }
 
 struct list$1short$* shorta_to_list(short* self, unsigned long  len  )
@@ -19499,8 +19314,7 @@ struct list$1short$* shorta_to_list(short* self, unsigned long  len  )
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1short$* __result_obj__0;
-    __result_obj__0 = (struct list$1short$*)come_increment_ref_count(((struct list$1short$*)(__right_value1=list$1short$_initialize_with_values((struct list$1short$*)come_increment_ref_count(((struct list$1short$*)come_null_checker(((struct list$1short$*)(__right_value0=(struct list$1short$*)come_calloc(1, sizeof(struct list$1short$)*(1), (void*)0, 4430, "struct list$1short$*"))), "/usr/local/include/neo-c.h", 4430))),len,self))));
-    come_call_finalizer(list$1short$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+        __result_obj__0 = (struct list$1short$*)come_increment_ref_count(((struct list$1short$*)(__right_value1=list$1short$_initialize_with_values((struct list$1short$*)come_increment_ref_count((struct list$1short$*)come_calloc(1, sizeof(struct list$1short$)*(1), (void*)0, 4402, "struct list$1short$*")),len,self))));
     come_call_finalizer(list$1short$$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(list$1short$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -19512,13 +19326,13 @@ static struct list$1int$* list$1int$_initialize_with_values(struct list$1int$* s
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1int$_initialize_with_values"; neo_current_frame = &fr;
     int i;
     struct list$1int$* __result_obj__0;
-    ((struct list$1int$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1639))->head=((void*)0);
-    ((struct list$1int$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1640))->tail=((void*)0);
-    ((struct list$1int$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1641))->len=0;
+    self->head=((void*)0);
+    self->tail=((void*)0);
+    self->len=0;
     for(i=0;i<num_value;i++){
-        list$1int$_push_back(((struct list$1int$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1644)),((int*)come_null_checker(values, "/usr/local/include/neo-c.h", 1644))[i]);
+        list$1int$_push_back(self,values[i]);
     }
-    __result_obj__0 = (struct list$1int$*)come_increment_ref_count(self);
+        __result_obj__0 = (struct list$1int$*)come_increment_ref_count(self);
     come_call_finalizer(list$1int$$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(list$1int$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -19534,36 +19348,36 @@ static struct list$1int$* list$1int$_push_back(struct list$1int$* self, int item
     struct list_item$1int$* litem_246;
     struct list_item$1int$* litem_247;
     if(self==((void*)0)) {
-        __result_obj__0 = self;
+                __result_obj__0 = self;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    if(((struct list$1int$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1768))->len==0) {
-        litem=(struct list_item$1int$*)come_increment_ref_count(((struct list_item$1int$*)(__right_value0=(struct list_item$1int$*)come_calloc(1, sizeof(struct list_item$1int$)*(1), (void*)0, 1769, "struct list_item$1int$*"))));
-        ((struct list_item$1int$*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1771))->prev=((void*)0);
-        ((struct list_item$1int$*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1772))->next=((void*)0);
-        ((struct list_item$1int$*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1773))->item=item;
-        ((struct list$1int$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1775))->tail=litem;
-        ((struct list$1int$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1776))->head=litem;
+    if(self->len==0) {
+        litem=(struct list_item$1int$*)come_increment_ref_count(((struct list_item$1int$*)(__right_value0=(struct list_item$1int$*)come_calloc(1, sizeof(struct list_item$1int$)*(1), (void*)0, 1333, "struct list_item$1int$*"))));
+        litem->prev=((void*)0);
+        litem->next=((void*)0);
+        litem->item=item;
+        self->tail=litem;
+        self->head=litem;
     }
-    else if(((struct list$1int$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1778))->len==1) {
-        litem_246=(struct list_item$1int$*)come_increment_ref_count(((struct list_item$1int$*)(__right_value0=(struct list_item$1int$*)come_calloc(1, sizeof(struct list_item$1int$)*(1), (void*)0, 1779, "struct list_item$1int$*"))));
-        ((struct list_item$1int$*)come_null_checker(litem_246, "/usr/local/include/neo-c.h", 1781))->prev=((struct list$1int$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1781))->head;
-        ((struct list_item$1int$*)come_null_checker(litem_246, "/usr/local/include/neo-c.h", 1782))->next=((void*)0);
-        ((struct list_item$1int$*)come_null_checker(litem_246, "/usr/local/include/neo-c.h", 1783))->item=item;
-        ((struct list$1int$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1785))->tail=litem_246;
-        ((struct list_item$1int$*)come_null_checker(((struct list$1int$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1786))->head, "/usr/local/include/neo-c.h", 1786))->next=litem_246;
+    else if(self->len==1) {
+        litem_246=(struct list_item$1int$*)come_increment_ref_count(((struct list_item$1int$*)(__right_value0=(struct list_item$1int$*)come_calloc(1, sizeof(struct list_item$1int$)*(1), (void*)0, 1343, "struct list_item$1int$*"))));
+        litem_246->prev=self->head;
+        litem_246->next=((void*)0);
+        litem_246->item=item;
+        self->tail=litem_246;
+        self->head->next=litem_246;
     }
     else {
-        litem_247=(struct list_item$1int$*)come_increment_ref_count(((struct list_item$1int$*)(__right_value0=(struct list_item$1int$*)come_calloc(1, sizeof(struct list_item$1int$)*(1), (void*)0, 1789, "struct list_item$1int$*"))));
-        ((struct list_item$1int$*)come_null_checker(litem_247, "/usr/local/include/neo-c.h", 1791))->prev=((struct list$1int$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1791))->tail;
-        ((struct list_item$1int$*)come_null_checker(litem_247, "/usr/local/include/neo-c.h", 1792))->next=((void*)0);
-        ((struct list_item$1int$*)come_null_checker(litem_247, "/usr/local/include/neo-c.h", 1793))->item=item;
-        ((struct list_item$1int$*)come_null_checker(((struct list$1int$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1795))->tail, "/usr/local/include/neo-c.h", 1795))->next=litem_247;
-        ((struct list$1int$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1796))->tail=litem_247;
+        litem_247=(struct list_item$1int$*)come_increment_ref_count(((struct list_item$1int$*)(__right_value0=(struct list_item$1int$*)come_calloc(1, sizeof(struct list_item$1int$)*(1), (void*)0, 1353, "struct list_item$1int$*"))));
+        litem_247->prev=self->tail;
+        litem_247->next=((void*)0);
+        litem_247->item=item;
+        self->tail->next=litem_247;
+        self->tail=litem_247;
     }
-    ((struct list$1int$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1799))->len++;
-    __result_obj__0 = self;
+    self->len++;
+        __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -19574,22 +19388,22 @@ static void list$1int$$p_finalize(struct list$1int$* self)
     struct list_item$1int$* it;
     struct list_item$1int$* prev_it;
     if(self==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return;
     }
-    it=((struct list$1int$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1652))->head;
+    it=self->head;
     while(it!=((void*)0)) {
         prev_it=it;
-        it=((struct list_item$1int$*)come_null_checker(it, "/usr/local/include/neo-c.h", 1655))->next;
+        it=it->next;
         come_call_finalizer(list_item$1int$$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
 }
 
 static void list_item$1int$$p_finalize(struct list_item$1int$* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1int$$p_finalize"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
 }
 
 struct list$1int$* inta_to_list(int* self, unsigned long  len  )
@@ -19598,8 +19412,7 @@ struct list$1int$* inta_to_list(int* self, unsigned long  len  )
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1int$* __result_obj__0;
-    __result_obj__0 = (struct list$1int$*)come_increment_ref_count(((struct list$1int$*)(__right_value1=list$1int$_initialize_with_values((struct list$1int$*)come_increment_ref_count(((struct list$1int$*)come_null_checker(((struct list$1int$*)(__right_value0=(struct list$1int$*)come_calloc(1, sizeof(struct list$1int$)*(1), (void*)0, 4435, "struct list$1int$*"))), "/usr/local/include/neo-c.h", 4435))),len,self))));
-    come_call_finalizer(list$1int$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+        __result_obj__0 = (struct list$1int$*)come_increment_ref_count(((struct list$1int$*)(__right_value1=list$1int$_initialize_with_values((struct list$1int$*)come_increment_ref_count((struct list$1int$*)come_calloc(1, sizeof(struct list$1int$)*(1), (void*)0, 4407, "struct list$1int$*")),len,self))));
     come_call_finalizer(list$1int$$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(list$1int$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -19611,13 +19424,13 @@ static struct list$1long$* list$1long$_initialize_with_values(struct list$1long$
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1long$_initialize_with_values"; neo_current_frame = &fr;
     int i;
     struct list$1long$* __result_obj__0;
-    ((struct list$1long$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1639))->head=((void*)0);
-    ((struct list$1long$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1640))->tail=((void*)0);
-    ((struct list$1long$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1641))->len=0;
+    self->head=((void*)0);
+    self->tail=((void*)0);
+    self->len=0;
     for(i=0;i<num_value;i++){
-        list$1long$_push_back(((struct list$1long$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1644)),((long*)come_null_checker(values, "/usr/local/include/neo-c.h", 1644))[i]);
+        list$1long$_push_back(self,values[i]);
     }
-    __result_obj__0 = (struct list$1long$*)come_increment_ref_count(self);
+        __result_obj__0 = (struct list$1long$*)come_increment_ref_count(self);
     come_call_finalizer(list$1long$$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(list$1long$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -19633,36 +19446,36 @@ static struct list$1long$* list$1long$_push_back(struct list$1long$* self, long 
     struct list_item$1long$* litem_248;
     struct list_item$1long$* litem_249;
     if(self==((void*)0)) {
-        __result_obj__0 = self;
+                __result_obj__0 = self;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    if(((struct list$1long$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1768))->len==0) {
-        litem=(struct list_item$1long$*)come_increment_ref_count(((struct list_item$1long$*)(__right_value0=(struct list_item$1long$*)come_calloc(1, sizeof(struct list_item$1long$)*(1), (void*)0, 1769, "struct list_item$1long$*"))));
-        ((struct list_item$1long$*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1771))->prev=((void*)0);
-        ((struct list_item$1long$*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1772))->next=((void*)0);
-        ((struct list_item$1long$*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1773))->item=item;
-        ((struct list$1long$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1775))->tail=litem;
-        ((struct list$1long$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1776))->head=litem;
+    if(self->len==0) {
+        litem=(struct list_item$1long$*)come_increment_ref_count(((struct list_item$1long$*)(__right_value0=(struct list_item$1long$*)come_calloc(1, sizeof(struct list_item$1long$)*(1), (void*)0, 1333, "struct list_item$1long$*"))));
+        litem->prev=((void*)0);
+        litem->next=((void*)0);
+        litem->item=item;
+        self->tail=litem;
+        self->head=litem;
     }
-    else if(((struct list$1long$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1778))->len==1) {
-        litem_248=(struct list_item$1long$*)come_increment_ref_count(((struct list_item$1long$*)(__right_value0=(struct list_item$1long$*)come_calloc(1, sizeof(struct list_item$1long$)*(1), (void*)0, 1779, "struct list_item$1long$*"))));
-        ((struct list_item$1long$*)come_null_checker(litem_248, "/usr/local/include/neo-c.h", 1781))->prev=((struct list$1long$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1781))->head;
-        ((struct list_item$1long$*)come_null_checker(litem_248, "/usr/local/include/neo-c.h", 1782))->next=((void*)0);
-        ((struct list_item$1long$*)come_null_checker(litem_248, "/usr/local/include/neo-c.h", 1783))->item=item;
-        ((struct list$1long$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1785))->tail=litem_248;
-        ((struct list_item$1long$*)come_null_checker(((struct list$1long$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1786))->head, "/usr/local/include/neo-c.h", 1786))->next=litem_248;
+    else if(self->len==1) {
+        litem_248=(struct list_item$1long$*)come_increment_ref_count(((struct list_item$1long$*)(__right_value0=(struct list_item$1long$*)come_calloc(1, sizeof(struct list_item$1long$)*(1), (void*)0, 1343, "struct list_item$1long$*"))));
+        litem_248->prev=self->head;
+        litem_248->next=((void*)0);
+        litem_248->item=item;
+        self->tail=litem_248;
+        self->head->next=litem_248;
     }
     else {
-        litem_249=(struct list_item$1long$*)come_increment_ref_count(((struct list_item$1long$*)(__right_value0=(struct list_item$1long$*)come_calloc(1, sizeof(struct list_item$1long$)*(1), (void*)0, 1789, "struct list_item$1long$*"))));
-        ((struct list_item$1long$*)come_null_checker(litem_249, "/usr/local/include/neo-c.h", 1791))->prev=((struct list$1long$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1791))->tail;
-        ((struct list_item$1long$*)come_null_checker(litem_249, "/usr/local/include/neo-c.h", 1792))->next=((void*)0);
-        ((struct list_item$1long$*)come_null_checker(litem_249, "/usr/local/include/neo-c.h", 1793))->item=item;
-        ((struct list_item$1long$*)come_null_checker(((struct list$1long$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1795))->tail, "/usr/local/include/neo-c.h", 1795))->next=litem_249;
-        ((struct list$1long$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1796))->tail=litem_249;
+        litem_249=(struct list_item$1long$*)come_increment_ref_count(((struct list_item$1long$*)(__right_value0=(struct list_item$1long$*)come_calloc(1, sizeof(struct list_item$1long$)*(1), (void*)0, 1353, "struct list_item$1long$*"))));
+        litem_249->prev=self->tail;
+        litem_249->next=((void*)0);
+        litem_249->item=item;
+        self->tail->next=litem_249;
+        self->tail=litem_249;
     }
-    ((struct list$1long$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1799))->len++;
-    __result_obj__0 = self;
+    self->len++;
+        __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -19673,22 +19486,22 @@ static void list$1long$$p_finalize(struct list$1long$* self)
     struct list_item$1long$* it;
     struct list_item$1long$* prev_it;
     if(self==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return;
     }
-    it=((struct list$1long$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1652))->head;
+    it=self->head;
     while(it!=((void*)0)) {
         prev_it=it;
-        it=((struct list_item$1long$*)come_null_checker(it, "/usr/local/include/neo-c.h", 1655))->next;
+        it=it->next;
         come_call_finalizer(list_item$1long$$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
 }
 
 static void list_item$1long$$p_finalize(struct list_item$1long$* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1long$$p_finalize"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
 }
 
 struct list$1long$* longa_to_list(long* self, unsigned long  len  )
@@ -19697,8 +19510,7 @@ struct list$1long$* longa_to_list(long* self, unsigned long  len  )
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1long$* __result_obj__0;
-    __result_obj__0 = (struct list$1long$*)come_increment_ref_count(((struct list$1long$*)(__right_value1=list$1long$_initialize_with_values((struct list$1long$*)come_increment_ref_count(((struct list$1long$*)come_null_checker(((struct list$1long$*)(__right_value0=(struct list$1long$*)come_calloc(1, sizeof(struct list$1long$)*(1), (void*)0, 4440, "struct list$1long$*"))), "/usr/local/include/neo-c.h", 4440))),len,self))));
-    come_call_finalizer(list$1long$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+        __result_obj__0 = (struct list$1long$*)come_increment_ref_count(((struct list$1long$*)(__right_value1=list$1long$_initialize_with_values((struct list$1long$*)come_increment_ref_count((struct list$1long$*)come_calloc(1, sizeof(struct list$1long$)*(1), (void*)0, 4412, "struct list$1long$*")),len,self))));
     come_call_finalizer(list$1long$$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(list$1long$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -19710,13 +19522,13 @@ static struct list$1float$* list$1float$_initialize_with_values(struct list$1flo
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1float$_initialize_with_values"; neo_current_frame = &fr;
     int i;
     struct list$1float$* __result_obj__0;
-    ((struct list$1float$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1639))->head=((void*)0);
-    ((struct list$1float$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1640))->tail=((void*)0);
-    ((struct list$1float$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1641))->len=0;
+    self->head=((void*)0);
+    self->tail=((void*)0);
+    self->len=0;
     for(i=0;i<num_value;i++){
-        list$1float$_push_back(((struct list$1float$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1644)),((float*)come_null_checker(values, "/usr/local/include/neo-c.h", 1644))[i]);
+        list$1float$_push_back(self,values[i]);
     }
-    __result_obj__0 = (struct list$1float$*)come_increment_ref_count(self);
+        __result_obj__0 = (struct list$1float$*)come_increment_ref_count(self);
     come_call_finalizer(list$1float$$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(list$1float$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -19732,36 +19544,36 @@ static struct list$1float$* list$1float$_push_back(struct list$1float$* self, fl
     struct list_item$1float$* litem_250;
     struct list_item$1float$* litem_251;
     if(self==((void*)0)) {
-        __result_obj__0 = self;
+                __result_obj__0 = self;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    if(((struct list$1float$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1768))->len==0) {
-        litem=(struct list_item$1float$*)come_increment_ref_count(((struct list_item$1float$*)(__right_value0=(struct list_item$1float$*)come_calloc(1, sizeof(struct list_item$1float$)*(1), (void*)0, 1769, "struct list_item$1float$*"))));
-        ((struct list_item$1float$*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1771))->prev=((void*)0);
-        ((struct list_item$1float$*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1772))->next=((void*)0);
-        ((struct list_item$1float$*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1773))->item=item;
-        ((struct list$1float$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1775))->tail=litem;
-        ((struct list$1float$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1776))->head=litem;
+    if(self->len==0) {
+        litem=(struct list_item$1float$*)come_increment_ref_count(((struct list_item$1float$*)(__right_value0=(struct list_item$1float$*)come_calloc(1, sizeof(struct list_item$1float$)*(1), (void*)0, 1333, "struct list_item$1float$*"))));
+        litem->prev=((void*)0);
+        litem->next=((void*)0);
+        litem->item=item;
+        self->tail=litem;
+        self->head=litem;
     }
-    else if(((struct list$1float$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1778))->len==1) {
-        litem_250=(struct list_item$1float$*)come_increment_ref_count(((struct list_item$1float$*)(__right_value0=(struct list_item$1float$*)come_calloc(1, sizeof(struct list_item$1float$)*(1), (void*)0, 1779, "struct list_item$1float$*"))));
-        ((struct list_item$1float$*)come_null_checker(litem_250, "/usr/local/include/neo-c.h", 1781))->prev=((struct list$1float$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1781))->head;
-        ((struct list_item$1float$*)come_null_checker(litem_250, "/usr/local/include/neo-c.h", 1782))->next=((void*)0);
-        ((struct list_item$1float$*)come_null_checker(litem_250, "/usr/local/include/neo-c.h", 1783))->item=item;
-        ((struct list$1float$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1785))->tail=litem_250;
-        ((struct list_item$1float$*)come_null_checker(((struct list$1float$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1786))->head, "/usr/local/include/neo-c.h", 1786))->next=litem_250;
+    else if(self->len==1) {
+        litem_250=(struct list_item$1float$*)come_increment_ref_count(((struct list_item$1float$*)(__right_value0=(struct list_item$1float$*)come_calloc(1, sizeof(struct list_item$1float$)*(1), (void*)0, 1343, "struct list_item$1float$*"))));
+        litem_250->prev=self->head;
+        litem_250->next=((void*)0);
+        litem_250->item=item;
+        self->tail=litem_250;
+        self->head->next=litem_250;
     }
     else {
-        litem_251=(struct list_item$1float$*)come_increment_ref_count(((struct list_item$1float$*)(__right_value0=(struct list_item$1float$*)come_calloc(1, sizeof(struct list_item$1float$)*(1), (void*)0, 1789, "struct list_item$1float$*"))));
-        ((struct list_item$1float$*)come_null_checker(litem_251, "/usr/local/include/neo-c.h", 1791))->prev=((struct list$1float$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1791))->tail;
-        ((struct list_item$1float$*)come_null_checker(litem_251, "/usr/local/include/neo-c.h", 1792))->next=((void*)0);
-        ((struct list_item$1float$*)come_null_checker(litem_251, "/usr/local/include/neo-c.h", 1793))->item=item;
-        ((struct list_item$1float$*)come_null_checker(((struct list$1float$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1795))->tail, "/usr/local/include/neo-c.h", 1795))->next=litem_251;
-        ((struct list$1float$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1796))->tail=litem_251;
+        litem_251=(struct list_item$1float$*)come_increment_ref_count(((struct list_item$1float$*)(__right_value0=(struct list_item$1float$*)come_calloc(1, sizeof(struct list_item$1float$)*(1), (void*)0, 1353, "struct list_item$1float$*"))));
+        litem_251->prev=self->tail;
+        litem_251->next=((void*)0);
+        litem_251->item=item;
+        self->tail->next=litem_251;
+        self->tail=litem_251;
     }
-    ((struct list$1float$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1799))->len++;
-    __result_obj__0 = self;
+    self->len++;
+        __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -19772,22 +19584,22 @@ static void list$1float$$p_finalize(struct list$1float$* self)
     struct list_item$1float$* it;
     struct list_item$1float$* prev_it;
     if(self==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return;
     }
-    it=((struct list$1float$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1652))->head;
+    it=self->head;
     while(it!=((void*)0)) {
         prev_it=it;
-        it=((struct list_item$1float$*)come_null_checker(it, "/usr/local/include/neo-c.h", 1655))->next;
+        it=it->next;
         come_call_finalizer(list_item$1float$$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
 }
 
 static void list_item$1float$$p_finalize(struct list_item$1float$* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1float$$p_finalize"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
 }
 
 struct list$1float$* floata_to_list(float* self, unsigned long  len  )
@@ -19796,8 +19608,7 @@ struct list$1float$* floata_to_list(float* self, unsigned long  len  )
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1float$* __result_obj__0;
-    __result_obj__0 = (struct list$1float$*)come_increment_ref_count(((struct list$1float$*)(__right_value1=list$1float$_initialize_with_values((struct list$1float$*)come_increment_ref_count(((struct list$1float$*)come_null_checker(((struct list$1float$*)(__right_value0=(struct list$1float$*)come_calloc(1, sizeof(struct list$1float$)*(1), (void*)0, 4445, "struct list$1float$*"))), "/usr/local/include/neo-c.h", 4445))),len,self))));
-    come_call_finalizer(list$1float$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+        __result_obj__0 = (struct list$1float$*)come_increment_ref_count(((struct list$1float$*)(__right_value1=list$1float$_initialize_with_values((struct list$1float$*)come_increment_ref_count((struct list$1float$*)come_calloc(1, sizeof(struct list$1float$)*(1), (void*)0, 4417, "struct list$1float$*")),len,self))));
     come_call_finalizer(list$1float$$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(list$1float$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -19809,13 +19620,13 @@ static struct list$1double$* list$1double$_initialize_with_values(struct list$1d
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1double$_initialize_with_values"; neo_current_frame = &fr;
     int i;
     struct list$1double$* __result_obj__0;
-    ((struct list$1double$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1639))->head=((void*)0);
-    ((struct list$1double$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1640))->tail=((void*)0);
-    ((struct list$1double$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1641))->len=0;
+    self->head=((void*)0);
+    self->tail=((void*)0);
+    self->len=0;
     for(i=0;i<num_value;i++){
-        list$1double$_push_back(((struct list$1double$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1644)),((double*)come_null_checker(values, "/usr/local/include/neo-c.h", 1644))[i]);
+        list$1double$_push_back(self,values[i]);
     }
-    __result_obj__0 = (struct list$1double$*)come_increment_ref_count(self);
+        __result_obj__0 = (struct list$1double$*)come_increment_ref_count(self);
     come_call_finalizer(list$1double$$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(list$1double$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -19831,36 +19642,36 @@ static struct list$1double$* list$1double$_push_back(struct list$1double$* self,
     struct list_item$1double$* litem_252;
     struct list_item$1double$* litem_253;
     if(self==((void*)0)) {
-        __result_obj__0 = self;
+                __result_obj__0 = self;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    if(((struct list$1double$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1768))->len==0) {
-        litem=(struct list_item$1double$*)come_increment_ref_count(((struct list_item$1double$*)(__right_value0=(struct list_item$1double$*)come_calloc(1, sizeof(struct list_item$1double$)*(1), (void*)0, 1769, "struct list_item$1double$*"))));
-        ((struct list_item$1double$*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1771))->prev=((void*)0);
-        ((struct list_item$1double$*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1772))->next=((void*)0);
-        ((struct list_item$1double$*)come_null_checker(litem, "/usr/local/include/neo-c.h", 1773))->item=item;
-        ((struct list$1double$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1775))->tail=litem;
-        ((struct list$1double$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1776))->head=litem;
+    if(self->len==0) {
+        litem=(struct list_item$1double$*)come_increment_ref_count(((struct list_item$1double$*)(__right_value0=(struct list_item$1double$*)come_calloc(1, sizeof(struct list_item$1double$)*(1), (void*)0, 1333, "struct list_item$1double$*"))));
+        litem->prev=((void*)0);
+        litem->next=((void*)0);
+        litem->item=item;
+        self->tail=litem;
+        self->head=litem;
     }
-    else if(((struct list$1double$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1778))->len==1) {
-        litem_252=(struct list_item$1double$*)come_increment_ref_count(((struct list_item$1double$*)(__right_value0=(struct list_item$1double$*)come_calloc(1, sizeof(struct list_item$1double$)*(1), (void*)0, 1779, "struct list_item$1double$*"))));
-        ((struct list_item$1double$*)come_null_checker(litem_252, "/usr/local/include/neo-c.h", 1781))->prev=((struct list$1double$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1781))->head;
-        ((struct list_item$1double$*)come_null_checker(litem_252, "/usr/local/include/neo-c.h", 1782))->next=((void*)0);
-        ((struct list_item$1double$*)come_null_checker(litem_252, "/usr/local/include/neo-c.h", 1783))->item=item;
-        ((struct list$1double$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1785))->tail=litem_252;
-        ((struct list_item$1double$*)come_null_checker(((struct list$1double$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1786))->head, "/usr/local/include/neo-c.h", 1786))->next=litem_252;
+    else if(self->len==1) {
+        litem_252=(struct list_item$1double$*)come_increment_ref_count(((struct list_item$1double$*)(__right_value0=(struct list_item$1double$*)come_calloc(1, sizeof(struct list_item$1double$)*(1), (void*)0, 1343, "struct list_item$1double$*"))));
+        litem_252->prev=self->head;
+        litem_252->next=((void*)0);
+        litem_252->item=item;
+        self->tail=litem_252;
+        self->head->next=litem_252;
     }
     else {
-        litem_253=(struct list_item$1double$*)come_increment_ref_count(((struct list_item$1double$*)(__right_value0=(struct list_item$1double$*)come_calloc(1, sizeof(struct list_item$1double$)*(1), (void*)0, 1789, "struct list_item$1double$*"))));
-        ((struct list_item$1double$*)come_null_checker(litem_253, "/usr/local/include/neo-c.h", 1791))->prev=((struct list$1double$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1791))->tail;
-        ((struct list_item$1double$*)come_null_checker(litem_253, "/usr/local/include/neo-c.h", 1792))->next=((void*)0);
-        ((struct list_item$1double$*)come_null_checker(litem_253, "/usr/local/include/neo-c.h", 1793))->item=item;
-        ((struct list_item$1double$*)come_null_checker(((struct list$1double$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1795))->tail, "/usr/local/include/neo-c.h", 1795))->next=litem_253;
-        ((struct list$1double$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1796))->tail=litem_253;
+        litem_253=(struct list_item$1double$*)come_increment_ref_count(((struct list_item$1double$*)(__right_value0=(struct list_item$1double$*)come_calloc(1, sizeof(struct list_item$1double$)*(1), (void*)0, 1353, "struct list_item$1double$*"))));
+        litem_253->prev=self->tail;
+        litem_253->next=((void*)0);
+        litem_253->item=item;
+        self->tail->next=litem_253;
+        self->tail=litem_253;
     }
-    ((struct list$1double$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1799))->len++;
-    __result_obj__0 = self;
+    self->len++;
+        __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -19871,22 +19682,22 @@ static void list$1double$$p_finalize(struct list$1double$* self)
     struct list_item$1double$* it;
     struct list_item$1double$* prev_it;
     if(self==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return;
     }
-    it=((struct list$1double$*)come_null_checker(self, "/usr/local/include/neo-c.h", 1652))->head;
+    it=self->head;
     while(it!=((void*)0)) {
         prev_it=it;
-        it=((struct list_item$1double$*)come_null_checker(it, "/usr/local/include/neo-c.h", 1655))->next;
+        it=it->next;
         come_call_finalizer(list_item$1double$$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
 }
 
 static void list_item$1double$$p_finalize(struct list_item$1double$* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1double$$p_finalize"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
 }
 
 struct list$1double$* doublea_to_list(double* self, unsigned long  len  )
@@ -19895,8 +19706,7 @@ struct list$1double$* doublea_to_list(double* self, unsigned long  len  )
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1double$* __result_obj__0;
-    __result_obj__0 = (struct list$1double$*)come_increment_ref_count(((struct list$1double$*)(__right_value1=list$1double$_initialize_with_values((struct list$1double$*)come_increment_ref_count(((struct list$1double$*)come_null_checker(((struct list$1double$*)(__right_value0=(struct list$1double$*)come_calloc(1, sizeof(struct list$1double$)*(1), (void*)0, 4450, "struct list$1double$*"))), "/usr/local/include/neo-c.h", 4450))),len,self))));
-    come_call_finalizer(list$1double$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+        __result_obj__0 = (struct list$1double$*)come_increment_ref_count(((struct list$1double$*)(__right_value1=list$1double$_initialize_with_values((struct list$1double$*)come_increment_ref_count((struct list$1double$*)come_calloc(1, sizeof(struct list$1double$)*(1), (void*)0, 4422, "struct list$1double$*")),len,self))));
     come_call_finalizer(list$1double$$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(list$1double$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -19906,7 +19716,7 @@ struct list$1double$* doublea_to_list(double* self, unsigned long  len  )
 _Bool _Bool_equals(_Bool self, _Bool right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "_Bool_equals"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return self==right;
     neo_current_frame = fr.prev;
 }
@@ -19914,7 +19724,7 @@ _Bool _Bool_equals(_Bool self, _Bool right)
 _Bool char_equals(char self, char right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "char_equals"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return self==right;
     neo_current_frame = fr.prev;
 }
@@ -19922,7 +19732,7 @@ _Bool char_equals(char self, char right)
 _Bool short_equals(short self, short right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "short_equals"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return self==right;
     neo_current_frame = fr.prev;
 }
@@ -19930,7 +19740,7 @@ _Bool short_equals(short self, short right)
 _Bool int_equals(int self, int right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "int_equals"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return self==right;
     neo_current_frame = fr.prev;
 }
@@ -19938,7 +19748,7 @@ _Bool int_equals(int self, int right)
 _Bool long_equals(long self, long right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "long_equals"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return self==right;
     neo_current_frame = fr.prev;
 }
@@ -19946,7 +19756,7 @@ _Bool long_equals(long self, long right)
 _Bool size_t_equals(unsigned long  self  , unsigned long  right  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "size_t_equals"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return self==right;
     neo_current_frame = fr.prev;
 }
@@ -19954,7 +19764,7 @@ _Bool size_t_equals(unsigned long  self  , unsigned long  right  )
 _Bool float_equals(float self, float right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "float_equals"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return self==right;
     neo_current_frame = fr.prev;
 }
@@ -19962,7 +19772,7 @@ _Bool float_equals(float self, float right)
 _Bool double_equals(double self, double right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "double_equals"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return self==right;
     neo_current_frame = fr.prev;
 }
@@ -19970,7 +19780,7 @@ _Bool double_equals(double self, double right)
 _Bool _Bool_operator_equals(_Bool self, _Bool right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "_Bool_operator_equals"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return self==right;
     neo_current_frame = fr.prev;
 }
@@ -19978,7 +19788,7 @@ _Bool _Bool_operator_equals(_Bool self, _Bool right)
 _Bool char_operator_equals(char self, char right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "char_operator_equals"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return self==right;
     neo_current_frame = fr.prev;
 }
@@ -19986,7 +19796,7 @@ _Bool char_operator_equals(char self, char right)
 _Bool short_operator_equals(short self, short right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "short_operator_equals"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return self==right;
     neo_current_frame = fr.prev;
 }
@@ -19994,7 +19804,7 @@ _Bool short_operator_equals(short self, short right)
 _Bool int_operator_equals(int self, int right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "int_operator_equals"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return self==right;
     neo_current_frame = fr.prev;
 }
@@ -20002,7 +19812,7 @@ _Bool int_operator_equals(int self, int right)
 _Bool long_operator_equals(long self, long right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "long_operator_equals"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return self==right;
     neo_current_frame = fr.prev;
 }
@@ -20010,7 +19820,7 @@ _Bool long_operator_equals(long self, long right)
 _Bool _Bool_operator_not_equals(_Bool self, _Bool right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "_Bool_operator_not_equals"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return !(self==right);
     neo_current_frame = fr.prev;
 }
@@ -20018,7 +19828,7 @@ _Bool _Bool_operator_not_equals(_Bool self, _Bool right)
 _Bool char_operator_not_equals(char self, char right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "char_operator_not_equals"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return !(self==right);
     neo_current_frame = fr.prev;
 }
@@ -20026,7 +19836,7 @@ _Bool char_operator_not_equals(char self, char right)
 _Bool short_operator_not_equals(short self, short right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "short_operator_not_equals"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return !(self==right);
     neo_current_frame = fr.prev;
 }
@@ -20034,7 +19844,7 @@ _Bool short_operator_not_equals(short self, short right)
 _Bool int_operator_not_equals(int self, int right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "int_operator_not_equals"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return !(self==right);
     neo_current_frame = fr.prev;
 }
@@ -20042,7 +19852,7 @@ _Bool int_operator_not_equals(int self, int right)
 _Bool long_operator_not_equals(long self, long right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "long_operator_not_equals"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return !(self==right);
     neo_current_frame = fr.prev;
 }
@@ -20051,14 +19861,14 @@ _Bool charp_equals(const char* self, const char* right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "charp_equals"; neo_current_frame = &fr;
     if(self==((void*)0)&&right==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return (_Bool)1;
     }
     else if(self==((void*)0)||right==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return (_Bool)0;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return strcmp(self,right)==0;
     neo_current_frame = fr.prev;
 }
@@ -20067,14 +19877,14 @@ _Bool string_equals(char* self, const char* right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "string_equals"; neo_current_frame = &fr;
     if(self==((void*)0)&&right==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return (_Bool)1;
     }
     else if(self==((void*)0)||right==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return (_Bool)0;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return strcmp(self,right)==0;
     neo_current_frame = fr.prev;
 }
@@ -20082,7 +19892,7 @@ _Bool string_equals(char* self, const char* right)
 _Bool voidp_equals(void* self, void* right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "voidp_equals"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return self==right;
     neo_current_frame = fr.prev;
 }
@@ -20090,7 +19900,7 @@ _Bool voidp_equals(void* self, void* right)
 _Bool _Boolp_equals(_Bool* self, _Bool* right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "_Boolp_equals"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return *self==*right;
     neo_current_frame = fr.prev;
 }
@@ -20099,14 +19909,14 @@ _Bool string_operator_equals(char* self, const char* right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "string_operator_equals"; neo_current_frame = &fr;
     if(self==((void*)0)&&right==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return (_Bool)1;
     }
     else if(self==((void*)0)||right==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return (_Bool)0;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return strcmp(self,right)==0;
     neo_current_frame = fr.prev;
 }
@@ -20115,14 +19925,14 @@ _Bool charp_operator_equals(const char* self, const char* right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "charp_operator_equals"; neo_current_frame = &fr;
     if(self==((void*)0)&&right==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return (_Bool)1;
     }
     else if(self==((void*)0)||right==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return (_Bool)0;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return strcmp(self,right)==0;
     neo_current_frame = fr.prev;
 }
@@ -20131,14 +19941,14 @@ _Bool chara_operator_equals(char* self, const char* right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "chara_operator_equals"; neo_current_frame = &fr;
     if(self==((void*)0)&&right==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return (_Bool)1;
     }
     else if(self==((void*)0)||right==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return (_Bool)0;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return strcmp(self,right)==0;
     neo_current_frame = fr.prev;
 }
@@ -20146,7 +19956,7 @@ _Bool chara_operator_equals(char* self, const char* right)
 _Bool voidp_operator_equals(const char* self, const char* right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "voidp_operator_equals"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return self==right;
     neo_current_frame = fr.prev;
 }
@@ -20154,8 +19964,8 @@ _Bool voidp_operator_equals(const char* self, const char* right)
 _Bool voidp_operator_not_equals(const char* self, const char* right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "voidp_operator_not_equals"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
-    return !charp_operator_equals(((const char*)come_null_checker(self, "/usr/local/include/neo-c.h", 4638)),right);
+        neo_current_frame = fr.prev;
+    return !charp_operator_equals(self,right);
     neo_current_frame = fr.prev;
 }
 
@@ -20163,14 +19973,14 @@ _Bool string_operator_not_equals(char* self, const char* right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "string_operator_not_equals"; neo_current_frame = &fr;
     if(self==((void*)0)&&right==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return (_Bool)0;
     }
     else if(self==((void*)0)||right==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return (_Bool)1;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return strcmp(self,right)!=0;
     neo_current_frame = fr.prev;
 }
@@ -20179,14 +19989,14 @@ _Bool charp_operator_not_equals(const char* self, const char* right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "charp_operator_not_equals"; neo_current_frame = &fr;
     if(self==((void*)0)&&right==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return (_Bool)0;
     }
     else if(self==((void*)0)||right==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return (_Bool)1;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return strcmp(self,right)!=0;
     neo_current_frame = fr.prev;
 }
@@ -20195,14 +20005,14 @@ _Bool chara_operator_not_equals(char* self, const char* right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "chara_operator_not_equals"; neo_current_frame = &fr;
     if(self==((void*)0)&&right==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return (_Bool)0;
     }
     else if(self==((void*)0)||right==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return (_Bool)1;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return strcmp(self,right)!=0;
     neo_current_frame = fr.prev;
 }
@@ -20215,17 +20025,17 @@ char*  charp_operator_add(const char* self, const char* right)
     int len;
     char* result;
     if(self==((void*)0)||right==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     len=strlen(self)+strlen(right);
-    result=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len+1)), (void*)0, 4685, "char*"));
+    result=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len+1)), (void*)0, 4657, "char*"));
     strncpy(result,self,len+1);
     strncat(result,right,len+1);
-    __result_obj__0 = (char* )come_increment_ref_count(result);
+        __result_obj__0 = (char* )come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -20240,17 +20050,17 @@ char*  string_operator_add(char* self, const char* right)
     int len;
     char* result;
     if(self==((void*)0)||right==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     len=strlen(self)+strlen(right);
-    result=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len+1)), (void*)0, 4700, "char*"));
+    result=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len+1)), (void*)0, 4672, "char*"));
     strncpy(result,self,len+1);
     strncat(result,right,len+1);
-    __result_obj__0 = (char* )come_increment_ref_count(result);
+        __result_obj__0 = (char* )come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -20266,18 +20076,17 @@ char*  charp_operator_mult(const char* self, int right)
     struct buffer*  buf  ;
     int i;
     if(self==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count(((struct buffer* )come_null_checker(((struct buffer* )(__right_value0=(struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 4713, "struct buffer* "))), "/usr/local/include/neo-c.h", 4713)))));
-    come_call_finalizer(buffer_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 4685, "struct buffer* "))));
     for(i=0;i<right;i++){
-        buffer_append_str(((struct buffer* )come_null_checker(buf, "/usr/local/include/neo-c.h", 4716)),self);
+        buffer_append_str(buf,self);
     }
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(((struct buffer* )come_null_checker(buf, "/usr/local/include/neo-c.h", 4719))))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(buf))));
     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
@@ -20294,18 +20103,17 @@ char*  string_operator_mult(const char* self, int right)
     struct buffer*  buf  ;
     int i;
     if(self==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count(((struct buffer* )come_null_checker(((struct buffer* )(__right_value0=(struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 4727, "struct buffer* "))), "/usr/local/include/neo-c.h", 4727)))));
-    come_call_finalizer(buffer_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 4699, "struct buffer* "))));
     for(i=0;i<right;i++){
-        buffer_append_str(((struct buffer* )come_null_checker(buf, "/usr/local/include/neo-c.h", 4730)),self);
+        buffer_append_str(buf,self);
     }
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(((struct buffer* )come_null_checker(buf, "/usr/local/include/neo-c.h", 4733))))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(buf))));
     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
@@ -20320,16 +20128,16 @@ _Bool charpa_contained(const char* self[], unsigned long  len  , const char* str
     int i;
     result=(_Bool)0;
     if(self==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return result;
     }
     for(i=0;i<len;i++){
-        if(strncmp(((const char**)come_null_checker(self, "/usr/local/include/neo-c.h", 4748))[i],str,strlen(((const char**)come_null_checker(self, "/usr/local/include/neo-c.h", 4748))[i]))==0) {
+        if(strncmp(self[i],str,strlen(self[i]))==0) {
             result=(_Bool)1;
             break;
         }
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return result;
     neo_current_frame = fr.prev;
 }
@@ -20337,7 +20145,7 @@ _Bool charpa_contained(const char* self[], unsigned long  len  , const char* str
 unsigned long  shorta_length(short* self, unsigned long  len  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "shorta_length"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return len;
     neo_current_frame = fr.prev;
 }
@@ -20345,7 +20153,7 @@ unsigned long  shorta_length(short* self, unsigned long  len  )
 unsigned long  inta_length(int* self, unsigned long  len  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "inta_length"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return len;
     neo_current_frame = fr.prev;
 }
@@ -20353,7 +20161,7 @@ unsigned long  inta_length(int* self, unsigned long  len  )
 unsigned long  longa_length(long* self, unsigned long  len  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "longa_length"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return len;
     neo_current_frame = fr.prev;
 }
@@ -20361,7 +20169,7 @@ unsigned long  longa_length(long* self, unsigned long  len  )
 unsigned long  floata_length(float* self, unsigned long  len  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "floata_length"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return len;
     neo_current_frame = fr.prev;
 }
@@ -20369,7 +20177,7 @@ unsigned long  floata_length(float* self, unsigned long  len  )
 unsigned long  doublea_length(double* self, unsigned long  len  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "doublea_length"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return len;
     neo_current_frame = fr.prev;
 }
@@ -20377,7 +20185,7 @@ unsigned long  doublea_length(double* self, unsigned long  len  )
 unsigned int _Bool_get_hash_key(_Bool value)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "_Bool_get_hash_key"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return (int_get_hash_key(((int)value)));
     neo_current_frame = fr.prev;
 }
@@ -20385,7 +20193,7 @@ unsigned int _Bool_get_hash_key(_Bool value)
 unsigned int char_get_hash_key(char value)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "char_get_hash_key"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return value;
     neo_current_frame = fr.prev;
 }
@@ -20393,7 +20201,7 @@ unsigned int char_get_hash_key(char value)
 unsigned int short_get_hash_key(short int value)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "short_get_hash_key"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return value;
     neo_current_frame = fr.prev;
 }
@@ -20401,7 +20209,7 @@ unsigned int short_get_hash_key(short int value)
 unsigned int int_get_hash_key(int value)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "int_get_hash_key"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return value;
     neo_current_frame = fr.prev;
 }
@@ -20409,7 +20217,7 @@ unsigned int int_get_hash_key(int value)
 unsigned int long_get_hash_key(long value)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "long_get_hash_key"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return value;
     neo_current_frame = fr.prev;
 }
@@ -20417,7 +20225,7 @@ unsigned int long_get_hash_key(long value)
 unsigned int size_t_get_hash_key(unsigned long  value  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "size_t_get_hash_key"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return value;
     neo_current_frame = fr.prev;
 }
@@ -20425,7 +20233,7 @@ unsigned int size_t_get_hash_key(unsigned long  value  )
 unsigned int float_get_hash_key(float value)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "float_get_hash_key"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return (unsigned int)value;
     neo_current_frame = fr.prev;
 }
@@ -20433,7 +20241,7 @@ unsigned int float_get_hash_key(float value)
 unsigned int double_get_hash_key(double value)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "double_get_hash_key"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return (unsigned int)value;
     neo_current_frame = fr.prev;
 }
@@ -20443,7 +20251,7 @@ unsigned int charp_get_hash_key(const char* value)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "charp_get_hash_key"; neo_current_frame = &fr;
     int result;
     if(value==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 0;
     }
     result=0;
@@ -20452,7 +20260,7 @@ unsigned int charp_get_hash_key(const char* value)
         result+=(*p);
         p++;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return result;
     neo_current_frame = fr.prev;
 }
@@ -20463,7 +20271,7 @@ unsigned int string_get_hash_key(char* value)
     int result;
     char* p;
     if(value==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 0;
     }
     result=0;
@@ -20472,7 +20280,7 @@ unsigned int string_get_hash_key(char* value)
         result+=(*p);
         p++;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return result;
     neo_current_frame = fr.prev;
 }
@@ -20480,7 +20288,7 @@ unsigned int string_get_hash_key(char* value)
 unsigned int voidp_get_hash_key(void* value)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "voidp_get_hash_key"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return (int_get_hash_key(((int)value)));
     neo_current_frame = fr.prev;
 }
@@ -20488,7 +20296,7 @@ unsigned int voidp_get_hash_key(void* value)
 _Bool _Bool_clone(_Bool self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "_Bool_clone"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return self;
     neo_current_frame = fr.prev;
 }
@@ -20496,7 +20304,7 @@ _Bool _Bool_clone(_Bool self)
 char char_clone(char self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "char_clone"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return self;
     neo_current_frame = fr.prev;
 }
@@ -20504,7 +20312,7 @@ char char_clone(char self)
 short int short_clone(short self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "short_clone"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return self;
     neo_current_frame = fr.prev;
 }
@@ -20512,7 +20320,7 @@ short int short_clone(short self)
 int int_clone(int self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "int_clone"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return self;
     neo_current_frame = fr.prev;
 }
@@ -20520,7 +20328,7 @@ int int_clone(int self)
 long  int long_clone(long self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "long_clone"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return self;
     neo_current_frame = fr.prev;
 }
@@ -20528,7 +20336,7 @@ long  int long_clone(long self)
 unsigned long  size_t_clone(unsigned long  self  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "size_t_clone"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return self;
     neo_current_frame = fr.prev;
 }
@@ -20536,7 +20344,7 @@ unsigned long  size_t_clone(unsigned long  self  )
 double double_clone(double self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "double_clone"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return self;
     neo_current_frame = fr.prev;
 }
@@ -20544,7 +20352,7 @@ double double_clone(double self)
 float float_clone(float self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "float_clone"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return self;
     neo_current_frame = fr.prev;
 }
@@ -20554,7 +20362,7 @@ _Bool xisalpha(char c)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "xisalpha"; neo_current_frame = &fr;
     _Bool result;
     result=(c>=97&&c<=122)||(c>=65&&c<=90);
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return result;
     neo_current_frame = fr.prev;
 }
@@ -20562,7 +20370,7 @@ _Bool xisalpha(char c)
 _Bool xisblank(char c)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "xisblank"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return c==32||c==9;
     neo_current_frame = fr.prev;
 }
@@ -20570,7 +20378,7 @@ _Bool xisblank(char c)
 _Bool xisdigit(char c)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "xisdigit"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return (c>=48&&c<=57);
     neo_current_frame = fr.prev;
 }
@@ -20578,7 +20386,7 @@ _Bool xisdigit(char c)
 _Bool xisspace(char c)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "xisspace"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return c==32||c==9||c==10||c==13||c==28||c==11;
     neo_current_frame = fr.prev;
 }
@@ -20586,7 +20394,7 @@ _Bool xisspace(char c)
 _Bool xisalnum(char c)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "xisalnum"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return xisalpha(c)||xisdigit(c);
     neo_current_frame = fr.prev;
 }
@@ -20596,7 +20404,7 @@ _Bool xisascii(char c)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "xisascii"; neo_current_frame = &fr;
     _Bool result;
     result=(c>=32&&c<=126);
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return result;
     neo_current_frame = fr.prev;
 }
@@ -20604,7 +20412,7 @@ _Bool xisascii(char c)
 _Bool xispunct(char c)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "xispunct"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return (c>=33&&c<=47)||(c>=58&&c<=64)||(c>=91&&c<=96)||(c>=123&&c<=126);
     neo_current_frame = fr.prev;
 }
@@ -20613,10 +20421,10 @@ int string_length(const char* str)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "string_length"; neo_current_frame = &fr;
     if(str==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 0;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return strlen(str);
     neo_current_frame = fr.prev;
 }
@@ -20625,10 +20433,10 @@ int charp_length(const char* str)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "charp_length"; neo_current_frame = &fr;
     if(str==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 0;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return strlen(str);
     neo_current_frame = fr.prev;
 }
@@ -20637,10 +20445,10 @@ int chara_length(const char* str)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "chara_length"; neo_current_frame = &fr;
     if(str==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 0;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return strlen(str);
     neo_current_frame = fr.prev;
 }
@@ -20654,19 +20462,19 @@ char*  charp_reverse(const char* str)
     char* result;
     int i;
     if(str==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     len=strlen(str);
-    result=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len+1)), (void*)0, 4981, "char*"));
+    result=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len+1)), (void*)0, 4953, "char*"));
     for(i=0;i<len;i++){
-        ((char*)come_null_checker(result, "/usr/local/include/neo-c.h", 4984))[i]=((const char*)come_null_checker(str, "/usr/local/include/neo-c.h", 4984))[len-i-1];
+        result[i]=str[len-i-1];
     }
-    ((char*)come_null_checker(result, "/usr/local/include/neo-c.h", 4987))[len]=0;
-    __result_obj__0 = (char* )come_increment_ref_count(result);
+    result[len]=0;
+        __result_obj__0 = (char* )come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -20682,7 +20490,7 @@ char*  string_operator_load_range_element(char* str, int head, int tail)
     void* __right_value1 = (void*)0;
     char*  result  ;
     if(str==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -20696,7 +20504,7 @@ char*  string_operator_load_range_element(char* str, int head, int tail)
         tail+=len+1;
     }
     if(head>tail) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value1=charp_reverse(((char* )come_null_checker(((char* )(__right_value0=charp_substring(((char*)come_null_checker(str, "/usr/local/include/neo-c.h", 5008)),tail,head))), "/usr/local/include/neo-c.h", 5008))))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value1=charp_reverse(((char* )(__right_value0=charp_substring(str,tail,head)))))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
@@ -20710,23 +20518,23 @@ char*  string_operator_load_range_element(char* str, int head, int tail)
         tail=len;
     }
     if(head==tail) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     if(tail-head+1<1) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    result=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(tail-head+1)), (void*)0, 5027, "char*"));
+    result=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(tail-head+1)), (void*)0, 4999, "char*"));
     memcpy(result,str+head,tail-head);
-    ((char* )come_null_checker(result, "/usr/local/include/neo-c.h", 5030))[tail-head]=0;
-    __result_obj__0 = (char* )come_increment_ref_count(result);
+    result[tail-head]=0;
+        __result_obj__0 = (char* )come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -20742,7 +20550,7 @@ char*  charp_operator_load_range_element(char* str, int head, int tail)
     void* __right_value1 = (void*)0;
     char*  result  ;
     if(str==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -20756,7 +20564,7 @@ char*  charp_operator_load_range_element(char* str, int head, int tail)
         tail+=len+1;
     }
     if(head>tail) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value1=charp_reverse(((char* )come_null_checker(((char* )(__right_value0=charp_substring(((char*)come_null_checker(str, "/usr/local/include/neo-c.h", 5051)),tail,head))), "/usr/local/include/neo-c.h", 5051))))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value1=charp_reverse(((char* )(__right_value0=charp_substring(str,tail,head)))))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
@@ -20770,23 +20578,23 @@ char*  charp_operator_load_range_element(char* str, int head, int tail)
         tail=len;
     }
     if(head==tail) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     if(tail-head+1<1) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    result=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(tail-head+1)), (void*)0, 5070, "char*"));
+    result=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(tail-head+1)), (void*)0, 5042, "char*"));
     memcpy(result,str+head,tail-head);
-    ((char* )come_null_checker(result, "/usr/local/include/neo-c.h", 5073))[tail-head]=0;
-    __result_obj__0 = (char* )come_increment_ref_count(result);
+    result[tail-head]=0;
+        __result_obj__0 = (char* )come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -20802,7 +20610,7 @@ char*  charp_substring(const char* str, int head, int tail)
     void* __right_value1 = (void*)0;
     char*  result  ;
     if(str==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -20816,7 +20624,7 @@ char*  charp_substring(const char* str, int head, int tail)
         tail+=len+1;
     }
     if(head>tail) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value1=charp_reverse(((char* )come_null_checker(((char* )(__right_value0=charp_substring(((const char*)come_null_checker(str, "/usr/local/include/neo-c.h", 5094)),tail,head))), "/usr/local/include/neo-c.h", 5094))))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value1=charp_reverse(((char* )(__right_value0=charp_substring(str,tail,head)))))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
@@ -20830,23 +20638,23 @@ char*  charp_substring(const char* str, int head, int tail)
         tail=len;
     }
     if(head==tail) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     if(tail-head+1<1) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    result=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(tail-head+1)), (void*)0, 5113, "char*"));
+    result=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(tail-head+1)), (void*)0, 5085, "char*"));
     memcpy(result,str+head,tail-head);
-    ((char* )come_null_checker(result, "/usr/local/include/neo-c.h", 5116))[tail-head]=0;
-    __result_obj__0 = (char* )come_increment_ref_count(result);
+    result[tail-head]=0;
+        __result_obj__0 = (char* )come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -20864,7 +20672,7 @@ char*  xsprintf(const char* msg, ...)
     char*  result2  ;
     memset(&result, 0, sizeof(result));
     if(msg==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -20874,7 +20682,7 @@ char*  xsprintf(const char* msg, ...)
     len=vasprintf(&result,msg,args);
     __builtin_va_end(args);
     if(len<0) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -20882,7 +20690,7 @@ char*  xsprintf(const char* msg, ...)
     }
     result2=(char* )come_increment_ref_count(__builtin_string(result));
     free(result);
-    __result_obj__0 = (char* )come_increment_ref_count(result2);
+        __result_obj__0 = (char* )come_increment_ref_count(result2);
     (result2 = come_decrement_ref_count(result2, (void*)0, (void*)0, 0, 1, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -20897,7 +20705,7 @@ char*  charp_delete(char* str, int head, int tail)
     int len;
     char* result;
     if(str==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -20905,14 +20713,14 @@ char*  charp_delete(char* str, int head, int tail)
     }
     len=strlen(str);
     if(head>=len) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(str))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(str))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     if(strcmp(str,"")==0) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(str))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(str))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -20928,7 +20736,7 @@ char*  charp_delete(char* str, int head, int tail)
         head=0;
     }
     if(tail<0) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(str))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(str))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -20937,11 +20745,11 @@ char*  charp_delete(char* str, int head, int tail)
     if(tail>=len) {
         tail=len;
     }
-    result=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len-(tail-head)+1)), (void*)0, 5179, "char*"));
+    result=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len-(tail-head)+1)), (void*)0, 5151, "char*"));
     memcpy(result,str,head);
     memcpy(result+head,str+tail,len-tail);
-    ((char*)come_null_checker(result, "/usr/local/include/neo-c.h", 5184))[len-(tail-head)]=0;
-    __result_obj__0 = (char* )come_increment_ref_count(result);
+    result[len-(tail-head)]=0;
+        __result_obj__0 = (char* )come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -20958,30 +20766,27 @@ struct list$1char$ph* charp_split_char(char* self, char c)
     struct buffer*  str  ;
     int i;
     if(self==((void*)0)) {
-        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)come_null_checker(((struct list$1char$ph*)(__right_value0=(struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 5192, "struct list$1char$ph*"))), "/usr/local/include/neo-c.h", 5192)))))));
-        come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+                __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 5164, "struct list$1char$ph*"))))));
         come_call_finalizer(list$1char$ph$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         neo_current_frame = fr.prev;
         come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
-    result=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)come_null_checker(((struct list$1char$ph*)(__right_value0=(struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 5195, "struct list$1char$ph*"))), "/usr/local/include/neo-c.h", 5195)))));
-    come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-    str=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count(((struct buffer* )come_null_checker(((struct buffer* )(__right_value0=(struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 5197, "struct buffer* "))), "/usr/local/include/neo-c.h", 5197)))));
-    come_call_finalizer(buffer_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-    for(i=0;i<charp_length(((char*)come_null_checker(self, "/usr/local/include/neo-c.h", 5199)));i++){
-        if(((char*)come_null_checker(self, "/usr/local/include/neo-c.h", 5200))[i]==c) {
-            list$1char$ph_push_back(((struct list$1char$ph*)come_null_checker(result, "/usr/local/include/neo-c.h", 5201)),(char* )come_increment_ref_count(__builtin_string(((struct buffer* )come_null_checker(str, "/usr/local/include/neo-c.h", 5201))->buf)));
-            buffer_reset(((struct buffer* )come_null_checker(str, "/usr/local/include/neo-c.h", 5202)));
+    result=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 5167, "struct list$1char$ph*"))));
+    str=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 5169, "struct buffer* "))));
+    for(i=0;i<charp_length(self);i++){
+        if(self[i]==c) {
+            list$1char$ph_push_back(result,(char* )come_increment_ref_count(__builtin_string(str->buf)));
+            buffer_reset(str);
         }
         else {
-            buffer_append_char(((struct buffer* )come_null_checker(str, "/usr/local/include/neo-c.h", 5205)),((char*)come_null_checker(self, "/usr/local/include/neo-c.h", 5205))[i]);
+            buffer_append_char(str,self[i]);
         }
     }
-    if(buffer_length(((struct buffer* )come_null_checker(str, "/usr/local/include/neo-c.h", 5208)))!=0) {
-        list$1char$ph_push_back(((struct list$1char$ph*)come_null_checker(result, "/usr/local/include/neo-c.h", 5209)),(char* )come_increment_ref_count(__builtin_string(((struct buffer* )come_null_checker(str, "/usr/local/include/neo-c.h", 5209))->buf)));
+    if(buffer_length(str)!=0) {
+        list$1char$ph_push_back(result,(char* )come_increment_ref_count(__builtin_string(str->buf)));
     }
-    __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(result);
+        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(result);
     come_call_finalizer(list$1char$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     come_call_finalizer(buffer_finalize, str, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
@@ -20994,7 +20799,7 @@ char*  charp_xsprintf(char* self, const char* msg, ...)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "charp_xsprintf"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=xsprintf(msg,self))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=xsprintf(msg,self))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -21006,7 +20811,7 @@ char*  int_xsprintf(int self, const char* msg, ...)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "int_xsprintf"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=xsprintf(msg,self))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=xsprintf(msg,self))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -21024,27 +20829,27 @@ char*  charp_printable(char* str)
     int i;
     char c;
     if(str==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    len=charp_length(((char*)come_null_checker(str, "/usr/local/include/neo-c.h", 5230)));
-    result=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len*2+1)), (void*)0, 5231, "char*"));
+    len=charp_length(str);
+    result=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len*2+1)), (void*)0, 5203, "char*"));
     n=0;
     for(i=0;i<len;i++){
-        c=((char*)come_null_checker(str, "/usr/local/include/neo-c.h", 5235))[i];
+        c=str[i];
         if((c>=0&&c<32)||c==127) {
-            ((char* )come_null_checker(result, "/usr/local/include/neo-c.h", 5240))[n++]=94;
-            ((char* )come_null_checker(result, "/usr/local/include/neo-c.h", 5241))[n++]=c+65-1;
+            result[n++]=94;
+            result[n++]=c+65-1;
         }
         else {
-            ((char* )come_null_checker(result, "/usr/local/include/neo-c.h", 5244))[n++]=c;
+            result[n++]=c;
         }
     }
-    ((char* )come_null_checker(result, "/usr/local/include/neo-c.h", 5250))[n]=0;
-    __result_obj__0 = (char* )come_increment_ref_count(result);
+    result[n]=0;
+        __result_obj__0 = (char* )come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -21056,7 +20861,7 @@ char*  chara_printable(char* str)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "chara_printable"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=charp_printable(str))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=charp_printable(str))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -21073,14 +20878,13 @@ char*  charp_sub_plain(char* self, char* str, char* replace)
     char* p;
     char* p2;
     if(self==((void*)0)||str==((void*)0)||replace==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(self))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(self))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count(((struct buffer* )come_null_checker(((struct buffer* )(__right_value0=(struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 5264, "struct buffer* "))), "/usr/local/include/neo-c.h", 5264)))));
-    come_call_finalizer(buffer_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+    result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 5236, "struct buffer* "))));
     p=self;
     while((_Bool)1) {
         p2=strstr(p,str);
@@ -21089,14 +20893,14 @@ char*  charp_sub_plain(char* self, char* str, char* replace)
             while(*p2) {
                 p2++;
             }
-            buffer_append(((struct buffer* )come_null_checker(result, "/usr/local/include/neo-c.h", 5276)),p,p2-p);
+            buffer_append(result,p,p2-p);
             break;
         }
-        buffer_append(((struct buffer* )come_null_checker(result, "/usr/local/include/neo-c.h", 5280)),p,p2-p);
-        buffer_append_str(((struct buffer* )come_null_checker(result, "/usr/local/include/neo-c.h", 5281)),replace);
+        buffer_append(result,p,p2-p);
+        buffer_append_str(result,replace);
         p=p2+strlen(str);
     }
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(((struct buffer* )come_null_checker(result, "/usr/local/include/neo-c.h", 5286))))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(result))));
     come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
@@ -21111,7 +20915,7 @@ char*  xbasename(char* path)
     char*  __result_obj__0  ;
     char* p;
     if(path==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -21127,20 +20931,20 @@ char*  xbasename(char* path)
         }
     }
     if(p<path) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(path))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(path))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     else {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(p+1))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(p+1))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -21155,7 +20959,7 @@ char*  xnoextname(char* path)
     char*  path2  ;
     char* p;
     if(path==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -21172,7 +20976,7 @@ char*  xnoextname(char* path)
         }
     }
     if(p<path2) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(path2))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(path2))));
         (path2 = come_decrement_ref_count(path2, (void*)0, (void*)0, 0, 0, (void*)0));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
@@ -21180,14 +20984,14 @@ char*  xnoextname(char* path)
         return __result_obj__0;
     }
     else {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=charp_substring(((char* )come_null_checker(path2, "/usr/local/include/neo-c.h", 5340)),0,p-path2))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=charp_substring(path2,0,p-path2))));
         (path2 = come_decrement_ref_count(path2, (void*)0, (void*)0, 0, 0, (void*)0));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
     (path2 = come_decrement_ref_count(path2, (void*)0, (void*)0, 0, 0, (void*)0));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
@@ -21202,7 +21006,7 @@ char*  xextname(char* path)
     char*  __result_obj__0  ;
     char* p;
     if(path==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -21218,20 +21022,20 @@ char*  xextname(char* path)
         }
     }
     if(p<path) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(path))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(path))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     else {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(p+1))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(p+1))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -21244,14 +21048,14 @@ char*  _Bool_to_string(_Bool self)
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
     if(self) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("true"))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("true"))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     else {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("false"))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("false"))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -21265,7 +21069,7 @@ char*  char_to_string(char self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "char_to_string"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=xsprintf("%c",self))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=xsprintf("%c",self))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -21277,7 +21081,7 @@ char*  short_to_string(short self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "short_to_string"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=xsprintf("%d",self))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=xsprintf("%d",self))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -21289,7 +21093,7 @@ char*  int_to_string(int self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "int_to_string"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=xsprintf("%d",self))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=xsprintf("%d",self))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -21301,7 +21105,7 @@ char*  long_to_string(long self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "long_to_string"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=xsprintf("%ld",self))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=xsprintf("%ld",self))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -21313,7 +21117,7 @@ char*  size_t_to_string(unsigned long  self  )
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "size_t_to_string"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=xsprintf("%ld",self))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=xsprintf("%ld",self))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -21325,7 +21129,7 @@ char*  float_to_string(float self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "float_to_string"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=xsprintf("%f",self))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=xsprintf("%f",self))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -21337,7 +21141,7 @@ char*  double_to_string(double self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "double_to_string"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=xsprintf("%lf",self))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=xsprintf("%lf",self))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -21350,13 +21154,13 @@ char*  string_to_string(char* self)
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
     if(self==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(self))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(self))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -21369,13 +21173,13 @@ char*  charp_to_string(const char* self)
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
     if(self==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(self))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(self))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -21386,22 +21190,22 @@ int _Bool_compare(_Bool left, _Bool right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "_Bool_compare"; neo_current_frame = &fr;
     if(!left&&right) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return -1;
     }
     else if(left&&right) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 0;
     }
     else if(!left&&!right) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 0;
     }
     else {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 1;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return 0;
     neo_current_frame = fr.prev;
 }
@@ -21410,18 +21214,18 @@ int char_compare(char left, char right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "char_compare"; neo_current_frame = &fr;
     if(left<right) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return -1;
     }
     else if(left>right) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 1;
     }
     else {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 0;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return 0;
     neo_current_frame = fr.prev;
 }
@@ -21430,18 +21234,18 @@ int short_compare(short left, short right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "short_compare"; neo_current_frame = &fr;
     if(left<right) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return -1;
     }
     else if(left>right) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 1;
     }
     else {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 0;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return 0;
     neo_current_frame = fr.prev;
 }
@@ -21450,18 +21254,18 @@ int int_compare(int left, int right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "int_compare"; neo_current_frame = &fr;
     if(left<right) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return -1;
     }
     else if(left>right) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 1;
     }
     else {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 0;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return 0;
     neo_current_frame = fr.prev;
 }
@@ -21470,18 +21274,18 @@ int long_compare(long left, long right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "long_compare"; neo_current_frame = &fr;
     if(left<right) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return -1;
     }
     else if(left>right) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 1;
     }
     else {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 0;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return 0;
     neo_current_frame = fr.prev;
 }
@@ -21490,18 +21294,18 @@ int size_t_compare(unsigned long  left  , unsigned long  right  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "size_t_compare"; neo_current_frame = &fr;
     if(left<right) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return -1;
     }
     else if(left>right) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 1;
     }
     else {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 0;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return 0;
     neo_current_frame = fr.prev;
 }
@@ -21510,18 +21314,18 @@ int float_compare(float left, float right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "float_compare"; neo_current_frame = &fr;
     if(left<right) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return -1;
     }
     else if(left>right) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 1;
     }
     else {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 0;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return 0;
     neo_current_frame = fr.prev;
 }
@@ -21530,18 +21334,18 @@ int double_compare(double left, double right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "double_compare"; neo_current_frame = &fr;
     if(left<right) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return -1;
     }
     else if(left>right) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 1;
     }
     else {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 0;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return 0;
     neo_current_frame = fr.prev;
 }
@@ -21550,18 +21354,18 @@ int string_compare(char* left, char* right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "string_compare"; neo_current_frame = &fr;
     if(left==((void*)0)&&right==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 0;
     }
     else if(left==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return -1;
     }
     else if(right==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 1;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return strcmp(left,right);
     neo_current_frame = fr.prev;
 }
@@ -21570,18 +21374,18 @@ int charp_compare(char* left, char* right)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "charp_compare"; neo_current_frame = &fr;
     if(left==((void*)0)&&right==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 0;
     }
     else if(left==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return -1;
     }
     else if(right==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 1;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return strcmp(left,right);
     neo_current_frame = fr.prev;
 }
@@ -21592,14 +21396,14 @@ char*  charp_puts(char* self)
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
     if(self==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     puts(self);
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(self))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(self))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -21612,14 +21416,14 @@ char*  charp_print(char* self)
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
     if(self==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     printf("%s",self);
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(self))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(self))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -21635,7 +21439,7 @@ char*  charp_printf(char* self, ...)
     __builtin_va_list  args  ;
     memset(&msg2, 0, sizeof(msg2));
     if(self==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -21646,7 +21450,7 @@ char*  charp_printf(char* self, ...)
     __builtin_va_end(args);
     printf("%s",msg2);
     free(msg2);
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(self))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(self))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -21657,11 +21461,11 @@ int int_printf(int self, char* msg)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "int_printf"; neo_current_frame = &fr;
     if(self==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return self;
     }
     printf(msg,self);
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return self;
     neo_current_frame = fr.prev;
 }
@@ -21670,11 +21474,11 @@ long long_printf(long self, char* msg)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "long_printf"; neo_current_frame = &fr;
     if(self==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return self;
     }
     printf(msg,self);
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return self;
     neo_current_frame = fr.prev;
 }
@@ -21692,7 +21496,7 @@ void int_times(int self, void* parent, void (*block)(void*,int))
 static void match_context_finalize(struct anonymous_typeX25*  self  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "match_context_finalize"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
 }
 
 int re_matchp_ex(struct re_program*  pattern  , const char* text, int* matchlength, struct re_capture*  captures  , int max_captures, _Bool ignore_case)
@@ -21705,13 +21509,13 @@ int re_matchp_ex(struct re_program*  pattern  , const char* text, int* matchleng
     memset(&ctx, 0, sizeof(ctx));
     *matchlength=0;
     if(pattern==0) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return -1;
     }
     program=(struct re_program* )pattern;
-    start=((struct re_program* )come_null_checker(program, "/usr/local/include/neo-c.h", 5850))->start;
+    start=program->start;
     if(start==0) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return -1;
     }
     ctx.base=text;
@@ -21720,23 +21524,23 @@ int re_matchp_ex(struct re_program*  pattern  , const char* text, int* matchleng
     if(ctx.capture_capacity>64) {
         ctx.capture_capacity=64;
     }
-    ctx.total_groups=((struct re_program* )come_null_checker(program, "/usr/local/include/neo-c.h", 5864))->group_count;
+    ctx.total_groups=program->group_count;
     ctx.ignore_case=ignore_case;
     if(ctx.captures!=0) {
         clear_captures(&ctx);
     }
-    if(((struct regex_t* )come_null_checker(start, "/usr/local/include/neo-c.h", 5872))->type==(2)) {
-        const char* end=matchpattern(((struct regex_t* )come_null_checker(start, "/usr/local/include/neo-c.h", 5874))->next,text,&ctx);
+    if(start->type==(2)) {
+        const char* end=matchpattern(start->next,text,&ctx);
         if(end!=0) {
             *matchlength=(int)(end-text);
             if(ctx.captures!=0) {
             }
-            __result_obj__0 = 0;
+                        __result_obj__0 = 0;
             come_call_finalizer(match_context_finalize, (&ctx), (void*)0, (void*)0, 1, 0, 0, (void*)0);
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
-        __result_obj__0 = -1;
+                __result_obj__0 = -1;
         come_call_finalizer(match_context_finalize, (&ctx), (void*)0, (void*)0, 1, 0, 0, (void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
@@ -21750,13 +21554,13 @@ int re_matchp_ex(struct re_program*  pattern  , const char* text, int* matchleng
             const char* end_254=matchpattern(start,cursor,&ctx);
             if(end_254!=0) {
                 if(*cursor==0&&cursor!=text) {
-                    __result_obj__0 = -1;
+                                        __result_obj__0 = -1;
                     come_call_finalizer(match_context_finalize, (&ctx), (void*)0, (void*)0, 1, 0, 0, (void*)0);
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
                 }
                 *matchlength=(int)(end_254-cursor);
-                __result_obj__0 = (int)(cursor-text);
+                                __result_obj__0 = (int)(cursor-text);
                 come_call_finalizer(match_context_finalize, (&ctx), (void*)0, (void*)0, 1, 0, 0, (void*)0);
                 neo_current_frame = fr.prev;
                 return __result_obj__0;
@@ -21767,7 +21571,7 @@ int re_matchp_ex(struct re_program*  pattern  , const char* text, int* matchleng
             cursor+=1;
         }
     }
-    __result_obj__0 = -1;
+        __result_obj__0 = -1;
     come_call_finalizer(match_context_finalize, (&ctx), (void*)0, (void*)0, 1, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -21776,7 +21580,7 @@ int re_matchp_ex(struct re_program*  pattern  , const char* text, int* matchleng
 int re_matchp(struct re_program*  pattern  , const char* text, int* matchlength, struct re_capture*  captures  , int max_captures)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "re_matchp"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return re_matchp_ex(pattern,text,matchlength,captures,max_captures,(_Bool)0);
     neo_current_frame = fr.prev;
 }
@@ -21784,7 +21588,7 @@ int re_matchp(struct re_program*  pattern  , const char* text, int* matchlength,
 int re_match(const char* pattern, const char* text, int* matchlength)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "re_match"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return re_matchp(re_compile(pattern),text,matchlength,(struct re_capture* )0,0);
     neo_current_frame = fr.prev;
 }
@@ -21792,13 +21596,13 @@ int re_match(const char* pattern, const char* text, int* matchlength)
 static void regex_program_t_finalize(struct re_program*  self  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "regex_program_t_finalize"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
 }
 
 static void compiler_state_finalize(struct anonymous_typeX24*  self  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "compiler_state_finalize"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
 }
 
 struct re_program*  re_compile(const char* pattern)
@@ -21823,12 +21627,12 @@ struct re_program*  re_compile(const char* pattern)
     state.ccl_idx=1;
     state.group_count=0;
     if(state.ccl_capacity>0) {
-        ((unsigned char*)come_null_checker(state.ccl_buf, "/usr/local/include/neo-c.h", 5944))[0]=0;
+        state.ccl_buf[0]=0;
     }
     pos=0;
     head=compile_sequence(&state,pattern,&pos,0);
-    if((head==0)||(((const char*)come_null_checker(pattern, "/usr/local/include/neo-c.h", 5949))[pos]!=0)) {
-        __result_obj__0 = ((void*)0);
+    if((head==0)||(pattern[pos]!=0)) {
+                __result_obj__0 = ((void*)0);
         come_call_finalizer(regex_program_t_finalize, (&program), (void*)0, (void*)0, 1, 0, 0, (void*)0);
         come_call_finalizer(compiler_state_finalize, (&state), (void*)0, (void*)0, 1, 0, 0, (void*)0);
         neo_current_frame = fr.prev;
@@ -21836,7 +21640,7 @@ struct re_program*  re_compile(const char* pattern)
     }
     program.start=head;
     program.group_count=state.group_count;
-    __result_obj__0 = (struct re_program* )&program;
+        __result_obj__0 = (struct re_program* )&program;
     come_call_finalizer(regex_program_t_finalize, (&program), (void*)0, (void*)0, 1, 0, 0, (void*)0);
     come_call_finalizer(compiler_state_finalize, (&state), (void*)0, (void*)0, 1, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
@@ -21848,15 +21652,15 @@ void re_print(struct re_program*  pattern  )
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "re_print"; neo_current_frame = &fr;
     struct re_program*  program  ;
     if(pattern==0) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return;
     }
     program=(struct re_program* )pattern;
-    if(((struct re_program* )come_null_checker(program, "/usr/local/include/neo-c.h", 5968))->start==0) {
-        neo_current_frame = fr.prev;
+    if(program->start==0) {
+                neo_current_frame = fr.prev;
         return;
     }
-    re_print_internal(((struct re_program* )come_null_checker(program, "/usr/local/include/neo-c.h", 5973))->start,0);
+    re_print_internal(program->start,0);
     neo_current_frame = fr.prev;
 }
 
@@ -21864,13 +21668,13 @@ void clear_captures(struct anonymous_typeX25*  ctx  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "clear_captures"; neo_current_frame = &fr;
     int i;
-    if((((struct anonymous_typeX25* )come_null_checker(ctx, "/usr/local/include/neo-c.h", 5980))->captures==0)||(((struct anonymous_typeX25* )come_null_checker(ctx, "/usr/local/include/neo-c.h", 5980))->capture_capacity<=0)) {
-        neo_current_frame = fr.prev;
+    if((ctx->captures==0)||(ctx->capture_capacity<=0)) {
+                neo_current_frame = fr.prev;
         return;
     }
-    for(i=0;i<((struct anonymous_typeX25* )come_null_checker(ctx, "/usr/local/include/neo-c.h", 5985))->capture_capacity;++i){
-        ((struct re_capture* )come_null_checker(((struct anonymous_typeX25* )come_null_checker(ctx, "/usr/local/include/neo-c.h", 5987))->captures, "/usr/local/include/neo-c.h", 5987))[i].start=-1;
-        ((struct re_capture* )come_null_checker(((struct anonymous_typeX25* )come_null_checker(ctx, "/usr/local/include/neo-c.h", 5988))->captures, "/usr/local/include/neo-c.h", 5988))[i].length=0;
+    for(i=0;i<ctx->capture_capacity;++i){
+        ctx->captures[i].start=-1;
+        ctx->captures[i].length=0;
     }
     neo_current_frame = fr.prev;
 }
@@ -21878,22 +21682,22 @@ void clear_captures(struct anonymous_typeX25*  ctx  )
 void snapshot_captures(const struct anonymous_typeX25*  ctx  , struct re_capture*  buffer_  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "snapshot_captures"; neo_current_frame = &fr;
-    if((((const struct anonymous_typeX25* )come_null_checker(ctx, "/usr/local/include/neo-c.h", 5994))->captures==0)||(((const struct anonymous_typeX25* )come_null_checker(ctx, "/usr/local/include/neo-c.h", 5994))->capture_capacity<=0)) {
-        neo_current_frame = fr.prev;
+    if((ctx->captures==0)||(ctx->capture_capacity<=0)) {
+                neo_current_frame = fr.prev;
         return;
     }
-    memcpy(buffer_,((const struct anonymous_typeX25* )come_null_checker(ctx, "/usr/local/include/neo-c.h", 5999))->captures,sizeof(struct re_capture )*((const struct anonymous_typeX25* )come_null_checker(ctx, "/usr/local/include/neo-c.h", 5999))->capture_capacity);
+    memcpy(buffer_,ctx->captures,sizeof(struct re_capture )*ctx->capture_capacity);
     neo_current_frame = fr.prev;
 }
 
 void restore_captures(struct anonymous_typeX25*  ctx  , const struct re_capture*  buffer_  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "restore_captures"; neo_current_frame = &fr;
-    if((((struct anonymous_typeX25* )come_null_checker(ctx, "/usr/local/include/neo-c.h", 6004))->captures==0)||(((struct anonymous_typeX25* )come_null_checker(ctx, "/usr/local/include/neo-c.h", 6004))->capture_capacity<=0)) {
-        neo_current_frame = fr.prev;
+    if((ctx->captures==0)||(ctx->capture_capacity<=0)) {
+                neo_current_frame = fr.prev;
         return;
     }
-    memcpy(((struct anonymous_typeX25* )come_null_checker(ctx, "/usr/local/include/neo-c.h", 6009))->captures,buffer_,sizeof(struct re_capture )*((struct anonymous_typeX25* )come_null_checker(ctx, "/usr/local/include/neo-c.h", 6009))->capture_capacity);
+    memcpy(ctx->captures,buffer_,sizeof(struct re_capture )*ctx->capture_capacity);
     neo_current_frame = fr.prev;
 }
 
@@ -21902,19 +21706,19 @@ struct regex_t*  new_token(struct anonymous_typeX24*  st  )
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "new_token"; neo_current_frame = &fr;
     struct regex_t*  __result_obj__0  ;
     struct regex_t*  token  ;
-    if(((struct anonymous_typeX24* )come_null_checker(st, "/usr/local/include/neo-c.h", 6015))->pool_size>=((struct anonymous_typeX24* )come_null_checker(st, "/usr/local/include/neo-c.h", 6015))->pool_capacity) {
-        __result_obj__0 = ((void*)0);
+    if(st->pool_size>=st->pool_capacity) {
+                __result_obj__0 = ((void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    token=&((struct regex_t* )come_null_checker(((struct anonymous_typeX24* )come_null_checker(st, "/usr/local/include/neo-c.h", 6020))->pool, "/usr/local/include/neo-c.h", 6020))[((struct anonymous_typeX24* )come_null_checker(st, "/usr/local/include/neo-c.h", 6020))->pool_size++];
-    ((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6021))->type=(0);
-    ((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6022))->u.ccl=((void*)0);
-    ((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6023))->next=((void*)0);
-    ((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6024))->u.group.first=((void*)0);
-    ((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6025))->u.group.last=((void*)0);
-    ((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6026))->u.group.id=0;
-    __result_obj__0 = token;
+    token=&st->pool[st->pool_size++];
+    token->type=(0);
+    token->u.ccl=((void*)0);
+    token->next=((void*)0);
+    token->u.group.first=((void*)0);
+    token->u.group.last=((void*)0);
+    token->u.group.id=0;
+        __result_obj__0 = token;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -21923,17 +21727,17 @@ int append_token(struct regex_t**  head  , struct regex_t**  tail  , struct rege
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "append_token"; neo_current_frame = &fr;
     if(token==0) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 0;
     }
     if(*head==0) {
         *head=token;
     }
     else {
-        ((struct regex_t* )come_null_checker((*tail), "/usr/local/include/neo-c.h", 6043))->next=token;
+        (*tail)->next=token;
     }
     *tail=token;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return 1;
     neo_current_frame = fr.prev;
 }
@@ -21953,8 +21757,8 @@ struct regex_t*  compile_sequence(struct anonymous_typeX24*  st  , const char* p
     struct regex_t*  sentinel  ;
     head=(struct regex_t* )0;
     tail=(struct regex_t* )0;
-    while(((const char*)come_null_checker(pattern, "/usr/local/include/neo-c.h", 6054))[*pos]!=0) {
-        c=((const char*)come_null_checker(pattern, "/usr/local/include/neo-c.h", 6056))[*pos];
+    while(pattern[*pos]!=0) {
+        c=pattern[*pos];
         if(in_group&&(c==41)) {
             break;
         }
@@ -21964,11 +21768,11 @@ struct regex_t*  compile_sequence(struct anonymous_typeX24*  st  , const char* p
             {
                 token=new_token(st);
                 if(token==0) {
-                    __result_obj__0 = ((void*)0);
+                                        __result_obj__0 = ((void*)0);
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
                 }
-                ((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6071))->type=(2);
+                token->type=(2);
                 (*pos)++;
             }
             break;
@@ -21976,11 +21780,11 @@ struct regex_t*  compile_sequence(struct anonymous_typeX24*  st  , const char* p
             {
                 token=new_token(st);
                 if(token==0) {
-                    __result_obj__0 = ((void*)0);
+                                        __result_obj__0 = ((void*)0);
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
                 }
-                ((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6079))->type=(3);
+                token->type=(3);
                 (*pos)++;
             }
             break;
@@ -21988,11 +21792,11 @@ struct regex_t*  compile_sequence(struct anonymous_typeX24*  st  , const char* p
             {
                 token=new_token(st);
                 if(token==0) {
-                    __result_obj__0 = ((void*)0);
+                                        __result_obj__0 = ((void*)0);
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
                 }
-                ((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6087))->type=(1);
+                token->type=(1);
                 (*pos)++;
             }
             break;
@@ -22000,11 +21804,11 @@ struct regex_t*  compile_sequence(struct anonymous_typeX24*  st  , const char* p
             {
                 token=new_token(st);
                 if(token==0) {
-                    __result_obj__0 = ((void*)0);
+                                        __result_obj__0 = ((void*)0);
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
                 }
-                ((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6095))->type=(5);
+                token->type=(5);
                 (*pos)++;
             }
             break;
@@ -22012,11 +21816,11 @@ struct regex_t*  compile_sequence(struct anonymous_typeX24*  st  , const char* p
             {
                 token=new_token(st);
                 if(token==0) {
-                    __result_obj__0 = ((void*)0);
+                                        __result_obj__0 = ((void*)0);
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
                 }
-                ((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6103))->type=(6);
+                token->type=(6);
                 (*pos)++;
             }
             break;
@@ -22024,51 +21828,51 @@ struct regex_t*  compile_sequence(struct anonymous_typeX24*  st  , const char* p
             {
                 token=new_token(st);
                 if(token==0) {
-                    __result_obj__0 = ((void*)0);
+                                        __result_obj__0 = ((void*)0);
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
                 }
-                ((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6111))->type=(4);
+                token->type=(4);
                 (*pos)++;
             }
             break;
             case 92:
             {
                 (*pos)++;
-                if(((const char*)come_null_checker(pattern, "/usr/local/include/neo-c.h", 6118))[*pos]==0) {
-                    __result_obj__0 = ((void*)0);
+                if(pattern[*pos]==0) {
+                                        __result_obj__0 = ((void*)0);
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
                 }
                 token=new_token(st);
                 if(token==0) {
-                    __result_obj__0 = ((void*)0);
+                                        __result_obj__0 = ((void*)0);
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
                 }
-                switch (                ((const char*)come_null_checker(pattern, "/usr/local/include/neo-c.h", 6126))[*pos]) {
+                switch (                pattern[*pos]) {
                     case 100:
-                    ((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6128))->type=(10);
+                    token->type=(10);
                     break;
                     case 68:
-                    ((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6129))->type=(11);
+                    token->type=(11);
                     break;
                     case 119:
-                    ((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6130))->type=(12);
+                    token->type=(12);
                     break;
                     case 87:
-                    ((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6131))->type=(13);
+                    token->type=(13);
                     break;
                     case 115:
-                    ((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6132))->type=(14);
+                    token->type=(14);
                     break;
                     case 83:
-                    ((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6133))->type=(15);
+                    token->type=(15);
                     break;
                     default:
                     {
-                        ((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6136))->type=(7);
-                        ((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6137))->u.ch=(unsigned char)((const char*)come_null_checker(pattern, "/usr/local/include/neo-c.h", 6137))[*pos];
+                        token->type=(7);
+                        token->u.ch=(unsigned char)pattern[*pos];
                     }
                     break;
                 }
@@ -22077,65 +21881,65 @@ struct regex_t*  compile_sequence(struct anonymous_typeX24*  st  , const char* p
             break;
             case 91:
             {
-                buf_begin=((struct anonymous_typeX24* )come_null_checker(st, "/usr/local/include/neo-c.h", 6145))->ccl_idx;
+                buf_begin=st->ccl_idx;
                 negated=0;
                 (*pos)++;
-                if(((const char*)come_null_checker(pattern, "/usr/local/include/neo-c.h", 6149))[*pos]==94) {
+                if(pattern[*pos]==94) {
                     negated=1;
                     (*pos)++;
-                    if(((const char*)come_null_checker(pattern, "/usr/local/include/neo-c.h", 6153))[*pos]==0) {
-                        __result_obj__0 = ((void*)0);
+                    if(pattern[*pos]==0) {
+                                                __result_obj__0 = ((void*)0);
                         neo_current_frame = fr.prev;
                         return __result_obj__0;
                     }
                 }
-                if(((const char*)come_null_checker(pattern, "/usr/local/include/neo-c.h", 6159))[*pos]==0) {
-                    __result_obj__0 = ((void*)0);
+                if(pattern[*pos]==0) {
+                                        __result_obj__0 = ((void*)0);
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
                 }
-                while((((const char*)come_null_checker(pattern, "/usr/local/include/neo-c.h", 6164))[*pos]!=0)&&(((const char*)come_null_checker(pattern, "/usr/local/include/neo-c.h", 6164))[*pos]!=93)) {
-                    if(((const char*)come_null_checker(pattern, "/usr/local/include/neo-c.h", 6166))[*pos]==92) {
-                        if(((struct anonymous_typeX24* )come_null_checker(st, "/usr/local/include/neo-c.h", 6168))->ccl_idx>=(((struct anonymous_typeX24* )come_null_checker(st, "/usr/local/include/neo-c.h", 6168))->ccl_capacity-1)) {
-                            __result_obj__0 = ((void*)0);
+                while((pattern[*pos]!=0)&&(pattern[*pos]!=93)) {
+                    if(pattern[*pos]==92) {
+                        if(st->ccl_idx>=(st->ccl_capacity-1)) {
+                                                        __result_obj__0 = ((void*)0);
                             neo_current_frame = fr.prev;
                             return __result_obj__0;
                         }
-                        ((unsigned char*)come_null_checker(((struct anonymous_typeX24* )come_null_checker(st, "/usr/local/include/neo-c.h", 6172))->ccl_buf, "/usr/local/include/neo-c.h", 6172))[((struct anonymous_typeX24* )come_null_checker(st, "/usr/local/include/neo-c.h", 6172))->ccl_idx++]=92;
+                        st->ccl_buf[st->ccl_idx++]=92;
                         (*pos)++;
-                        if(((const char*)come_null_checker(pattern, "/usr/local/include/neo-c.h", 6174))[*pos]==0) {
-                            __result_obj__0 = ((void*)0);
+                        if(pattern[*pos]==0) {
+                                                        __result_obj__0 = ((void*)0);
                             neo_current_frame = fr.prev;
                             return __result_obj__0;
                         }
                     }
-                    if(((struct anonymous_typeX24* )come_null_checker(st, "/usr/local/include/neo-c.h", 6180))->ccl_idx>=((struct anonymous_typeX24* )come_null_checker(st, "/usr/local/include/neo-c.h", 6180))->ccl_capacity) {
-                        __result_obj__0 = ((void*)0);
+                    if(st->ccl_idx>=st->ccl_capacity) {
+                                                __result_obj__0 = ((void*)0);
                         neo_current_frame = fr.prev;
                         return __result_obj__0;
                     }
-                    ((unsigned char*)come_null_checker(((struct anonymous_typeX24* )come_null_checker(st, "/usr/local/include/neo-c.h", 6184))->ccl_buf, "/usr/local/include/neo-c.h", 6184))[((struct anonymous_typeX24* )come_null_checker(st, "/usr/local/include/neo-c.h", 6184))->ccl_idx++]=(unsigned char)((const char*)come_null_checker(pattern, "/usr/local/include/neo-c.h", 6184))[*pos];
+                    st->ccl_buf[st->ccl_idx++]=(unsigned char)pattern[*pos];
                     (*pos)++;
                 }
-                if(((const char*)come_null_checker(pattern, "/usr/local/include/neo-c.h", 6188))[*pos]!=93) {
-                    __result_obj__0 = ((void*)0);
+                if(pattern[*pos]!=93) {
+                                        __result_obj__0 = ((void*)0);
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
                 }
-                if(((struct anonymous_typeX24* )come_null_checker(st, "/usr/local/include/neo-c.h", 6193))->ccl_idx>=((struct anonymous_typeX24* )come_null_checker(st, "/usr/local/include/neo-c.h", 6193))->ccl_capacity) {
-                    __result_obj__0 = ((void*)0);
+                if(st->ccl_idx>=st->ccl_capacity) {
+                                        __result_obj__0 = ((void*)0);
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
                 }
-                ((unsigned char*)come_null_checker(((struct anonymous_typeX24* )come_null_checker(st, "/usr/local/include/neo-c.h", 6197))->ccl_buf, "/usr/local/include/neo-c.h", 6197))[((struct anonymous_typeX24* )come_null_checker(st, "/usr/local/include/neo-c.h", 6197))->ccl_idx++]=0;
+                st->ccl_buf[st->ccl_idx++]=0;
                 token=new_token(st);
                 if(token==0) {
-                    __result_obj__0 = ((void*)0);
+                                        __result_obj__0 = ((void*)0);
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
                 }
-                ((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6201))->type=((negated)?((9)):((8)));
-                ((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6202))->u.ccl=&((unsigned char*)come_null_checker(((struct anonymous_typeX24* )come_null_checker(st, "/usr/local/include/neo-c.h", 6202))->ccl_buf, "/usr/local/include/neo-c.h", 6202))[buf_begin];
+                token->type=((negated)?((9)):((8)));
+                token->u.ccl=&st->ccl_buf[buf_begin];
                 (*pos)++;
             }
             break;
@@ -22144,36 +21948,36 @@ struct regex_t*  compile_sequence(struct anonymous_typeX24*  st  , const char* p
                 (*pos)++;
                 inner=compile_sequence(st,pattern,pos,1);
                 if(inner==0) {
-                    __result_obj__0 = ((void*)0);
+                                        __result_obj__0 = ((void*)0);
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
                 }
-                if(((const char*)come_null_checker(pattern, "/usr/local/include/neo-c.h", 6215))[*pos]!=41) {
-                    __result_obj__0 = ((void*)0);
+                if(pattern[*pos]!=41) {
+                                        __result_obj__0 = ((void*)0);
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
                 }
                 tail_255=inner;
-                while((tail_255!=0)&&(((struct regex_t* )come_null_checker(tail_255, "/usr/local/include/neo-c.h", 6221))->type!=(0))) {
-                    tail_255=((struct regex_t* )come_null_checker(tail_255, "/usr/local/include/neo-c.h", 6223))->next;
+                while((tail_255!=0)&&(tail_255->type!=(0))) {
+                    tail_255=tail_255->next;
                 }
                 if(tail_255==0) {
-                    __result_obj__0 = ((void*)0);
+                                        __result_obj__0 = ((void*)0);
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
                 }
                 token=new_token(st);
                 if(token==0) {
-                    __result_obj__0 = ((void*)0);
+                                        __result_obj__0 = ((void*)0);
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
                 }
-                ((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6232))->type=(16);
-                ((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6233))->u.group.first=inner;
-                ((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6234))->u.group.last=tail_255;
-                ((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6235))->u.group.id=++((struct anonymous_typeX24* )come_null_checker(st, "/usr/local/include/neo-c.h", 6235))->group_count;
-                ((struct regex_t* )come_null_checker(tail_255, "/usr/local/include/neo-c.h", 6237))->type=(17);
-                ((struct regex_t* )come_null_checker(tail_255, "/usr/local/include/neo-c.h", 6238))->u.group.first=token;
+                token->type=(16);
+                token->u.group.first=inner;
+                token->u.group.last=tail_255;
+                token->u.group.id=++st->group_count;
+                tail_255->type=(17);
+                tail_255->u.group.first=token;
                 (*pos)++;
             }
             break;
@@ -22181,12 +21985,12 @@ struct regex_t*  compile_sequence(struct anonymous_typeX24*  st  , const char* p
             {
                 token=new_token(st);
                 if(token==0) {
-                    __result_obj__0 = ((void*)0);
+                                        __result_obj__0 = ((void*)0);
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
                 }
-                ((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6247))->type=(7);
-                ((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6248))->u.ch=(unsigned char)c;
+                token->type=(7);
+                token->u.ch=(unsigned char)c;
                 (*pos)++;
             }
             break;
@@ -22194,37 +21998,37 @@ struct regex_t*  compile_sequence(struct anonymous_typeX24*  st  , const char* p
             {
                 token=new_token(st);
                 if(token==0) {
-                    __result_obj__0 = ((void*)0);
+                                        __result_obj__0 = ((void*)0);
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
                 }
-                ((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6256))->type=(7);
-                ((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6257))->u.ch=(unsigned char)c;
+                token->type=(7);
+                token->u.ch=(unsigned char)c;
                 (*pos)++;
             }
             break;
         }
         if(!append_token(&head,&tail,token)) {
-            __result_obj__0 = ((void*)0);
+                        __result_obj__0 = ((void*)0);
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
     }
     sentinel=new_token(st);
     if(sentinel==0) {
-        __result_obj__0 = ((void*)0);
+                __result_obj__0 = ((void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    ((struct regex_t* )come_null_checker(sentinel, "/usr/local/include/neo-c.h", 6273))->type=(0);
-    ((struct regex_t* )come_null_checker(sentinel, "/usr/local/include/neo-c.h", 6274))->next=((void*)0);
+    sentinel->type=(0);
+    sentinel->next=((void*)0);
     if(head==0) {
         head=sentinel;
     }
     else {
-        ((struct regex_t* )come_null_checker(tail, "/usr/local/include/neo-c.h", 6282))->next=sentinel;
+        tail->next=sentinel;
     }
-    __result_obj__0 = head;
+        __result_obj__0 = head;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -22239,12 +22043,12 @@ const char* matchpattern(struct regex_t*  pattern  , const char* text, struct an
     int idx;
     int start;
     if(pattern==0) {
-        __result_obj__0 = text;
+                __result_obj__0 = text;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    if(((struct regex_t* )come_null_checker(pattern, "/usr/local/include/neo-c.h", 6295))->type==(0)) {
-        __result_obj__0 = text;
+    if(pattern->type==(0)) {
+                __result_obj__0 = text;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
@@ -22253,95 +22057,95 @@ const char* matchpattern(struct regex_t*  pattern  , const char* text, struct an
     snapshot_captures(ctx,snapshot);
     current=pattern;
     const char* cursor=text;
-    while(current!=0&&((struct regex_t* )come_null_checker(current, "/usr/local/include/neo-c.h", 6306))->type!=(0)) {
-        next=((struct regex_t* )come_null_checker(current, "/usr/local/include/neo-c.h", 6308))->next;
-        if(((struct regex_t* )come_null_checker(current, "/usr/local/include/neo-c.h", 6310))->type==(17)) {
-            owner=((struct regex_t* )come_null_checker(current, "/usr/local/include/neo-c.h", 6312))->u.group.first;
-            if((owner!=0)&&(((struct regex_t* )come_null_checker(owner, "/usr/local/include/neo-c.h", 6313))->u.group.id>0)&&(((struct anonymous_typeX25* )come_null_checker(ctx, "/usr/local/include/neo-c.h", 6313))->captures!=0)) {
-                idx=((struct regex_t* )come_null_checker(owner, "/usr/local/include/neo-c.h", 6315))->u.group.id-1;
-                if(idx<((struct anonymous_typeX25* )come_null_checker(ctx, "/usr/local/include/neo-c.h", 6316))->capture_capacity) {
-                    start=((struct re_capture* )come_null_checker(((struct anonymous_typeX25* )come_null_checker(ctx, "/usr/local/include/neo-c.h", 6318))->captures, "/usr/local/include/neo-c.h", 6318))[idx].start;
+    while(current!=0&&current->type!=(0)) {
+        next=current->next;
+        if(current->type==(17)) {
+            owner=current->u.group.first;
+            if((owner!=0)&&(owner->u.group.id>0)&&(ctx->captures!=0)) {
+                idx=owner->u.group.id-1;
+                if(idx<ctx->capture_capacity) {
+                    start=ctx->captures[idx].start;
                     if(start>=0) {
-                        ((struct re_capture* )come_null_checker(((struct anonymous_typeX25* )come_null_checker(ctx, "/usr/local/include/neo-c.h", 6321))->captures, "/usr/local/include/neo-c.h", 6321))[idx].length=(int)(cursor-((struct anonymous_typeX25* )come_null_checker(ctx, "/usr/local/include/neo-c.h", 6321))->base)-start;
-                        if(((struct re_capture* )come_null_checker(((struct anonymous_typeX25* )come_null_checker(ctx, "/usr/local/include/neo-c.h", 6322))->captures, "/usr/local/include/neo-c.h", 6322))[idx].length<0) {
-                            ((struct re_capture* )come_null_checker(((struct anonymous_typeX25* )come_null_checker(ctx, "/usr/local/include/neo-c.h", 6324))->captures, "/usr/local/include/neo-c.h", 6324))[idx].length=0;
+                        ctx->captures[idx].length=(int)(cursor-ctx->base)-start;
+                        if(ctx->captures[idx].length<0) {
+                            ctx->captures[idx].length=0;
                         }
                     }
                 }
             }
-            current=((struct regex_t* )come_null_checker(current, "/usr/local/include/neo-c.h", 6329))->next;
+            current=current->next;
             continue;
         }
-        if((next!=0)&&(((struct regex_t* )come_null_checker(next, "/usr/local/include/neo-c.h", 6333))->type==(4))) {
-            const char* result=matchquestion(current,((struct regex_t* )come_null_checker(next, "/usr/local/include/neo-c.h", 6335))->next,cursor,ctx);
+        if((next!=0)&&(next->type==(4))) {
+            const char* result=matchquestion(current,next->next,cursor,ctx);
             if(result!=0) {
-                __result_obj__0 = result;
+                                __result_obj__0 = result;
                 neo_current_frame = fr.prev;
                 return __result_obj__0;
             }
             restore_captures(ctx,snapshot);
-            __result_obj__0 = ((void*)0);
+                        __result_obj__0 = ((void*)0);
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
-        else if((next!=0)&&(((struct regex_t* )come_null_checker(next, "/usr/local/include/neo-c.h", 6343))->type==(5))) {
-            const char* result_256=matchstar(current,((struct regex_t* )come_null_checker(next, "/usr/local/include/neo-c.h", 6345))->next,cursor,ctx);
+        else if((next!=0)&&(next->type==(5))) {
+            const char* result_256=matchstar(current,next->next,cursor,ctx);
             if(result_256!=0) {
-                __result_obj__0 = result_256;
+                                __result_obj__0 = result_256;
                 neo_current_frame = fr.prev;
                 return __result_obj__0;
             }
             restore_captures(ctx,snapshot);
-            __result_obj__0 = ((void*)0);
+                        __result_obj__0 = ((void*)0);
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
-        else if((next!=0)&&(((struct regex_t* )come_null_checker(next, "/usr/local/include/neo-c.h", 6353))->type==(6))) {
-            const char* result_257=matchplus(current,((struct regex_t* )come_null_checker(next, "/usr/local/include/neo-c.h", 6355))->next,cursor,ctx);
+        else if((next!=0)&&(next->type==(6))) {
+            const char* result_257=matchplus(current,next->next,cursor,ctx);
             if(result_257!=0) {
-                __result_obj__0 = result_257;
+                                __result_obj__0 = result_257;
                 neo_current_frame = fr.prev;
                 return __result_obj__0;
             }
             restore_captures(ctx,snapshot);
-            __result_obj__0 = ((void*)0);
+                        __result_obj__0 = ((void*)0);
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
-        else if(((struct regex_t* )come_null_checker(current, "/usr/local/include/neo-c.h", 6363))->type==(16)) {
+        else if(current->type==(16)) {
             const char* result_258=matchgroup(current,next,cursor,ctx);
             if(result_258!=0) {
-                __result_obj__0 = result_258;
+                                __result_obj__0 = result_258;
                 neo_current_frame = fr.prev;
                 return __result_obj__0;
             }
             restore_captures(ctx,snapshot);
-            __result_obj__0 = ((void*)0);
+                        __result_obj__0 = ((void*)0);
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
-        else if(((struct regex_t* )come_null_checker(current, "/usr/local/include/neo-c.h", 6373))->type==(3)) {
+        else if(current->type==(3)) {
             if(*cursor!=0) {
                 restore_captures(ctx,snapshot);
-                __result_obj__0 = ((void*)0);
+                                __result_obj__0 = ((void*)0);
                 neo_current_frame = fr.prev;
                 return __result_obj__0;
             }
-            current=((struct regex_t* )come_null_checker(current, "/usr/local/include/neo-c.h", 6380))->next;
+            current=current->next;
         }
         else {
             const char* after=matchtoken(current,cursor,ctx);
             if(after==0) {
                 restore_captures(ctx,snapshot);
-                __result_obj__0 = ((void*)0);
+                                __result_obj__0 = ((void*)0);
                 neo_current_frame = fr.prev;
                 return __result_obj__0;
             }
             cursor=after;
-            current=((struct regex_t* )come_null_checker(current, "/usr/local/include/neo-c.h", 6391))->next;
+            current=current->next;
         }
     }
-    __result_obj__0 = cursor;
+        __result_obj__0 = cursor;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -22356,26 +22160,26 @@ const char* matchgroup(struct regex_t*  token  , struct regex_t*  rest  , const 
     struct re_capture  snapshot_entry[64]  ;
     memset(&snapshot_entry, 0, sizeof(snapshot_entry));
     snapshot_captures(ctx,snapshot_entry);
-    end_token=((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6403))->u.group.last;
-    saved_next=((end_token!=0)?(((struct regex_t* )come_null_checker(end_token, "/usr/local/include/neo-c.h", 6404))->next):(0));
+    end_token=token->u.group.last;
+    saved_next=((end_token!=0)?(end_token->next):(0));
     if(end_token!=0) {
-        ((struct regex_t* )come_null_checker(end_token, "/usr/local/include/neo-c.h", 6407))->next=rest;
+        end_token->next=rest;
     }
-    if(((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6410))->u.group.id>0&&((struct anonymous_typeX25* )come_null_checker(ctx, "/usr/local/include/neo-c.h", 6410))->captures!=0) {
-        idx=((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6412))->u.group.id-1;
-        if(idx<((struct anonymous_typeX25* )come_null_checker(ctx, "/usr/local/include/neo-c.h", 6413))->capture_capacity) {
-            ((struct re_capture* )come_null_checker(((struct anonymous_typeX25* )come_null_checker(ctx, "/usr/local/include/neo-c.h", 6415))->captures, "/usr/local/include/neo-c.h", 6415))[idx].start=(int)(text-((struct anonymous_typeX25* )come_null_checker(ctx, "/usr/local/include/neo-c.h", 6415))->base);
-            ((struct re_capture* )come_null_checker(((struct anonymous_typeX25* )come_null_checker(ctx, "/usr/local/include/neo-c.h", 6416))->captures, "/usr/local/include/neo-c.h", 6416))[idx].length=0;
+    if(token->u.group.id>0&&ctx->captures!=0) {
+        idx=token->u.group.id-1;
+        if(idx<ctx->capture_capacity) {
+            ctx->captures[idx].start=(int)(text-ctx->base);
+            ctx->captures[idx].length=0;
         }
     }
-    const char* result=matchpattern(((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6420))->u.group.first,text,ctx);
+    const char* result=matchpattern(token->u.group.first,text,ctx);
     if(end_token!=0) {
-        ((struct regex_t* )come_null_checker(end_token, "/usr/local/include/neo-c.h", 6424))->next=saved_next;
+        end_token->next=saved_next;
     }
     if(result==0) {
         restore_captures(ctx,snapshot_entry);
     }
-    __result_obj__0 = result;
+        __result_obj__0 = result;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -22394,7 +22198,7 @@ const char* matchstar(struct regex_t*  token  , struct regex_t*  rest  , const c
         snapshot_captures(ctx,snapshot_after_token);
         const char* recursive=matchstar(token,rest,consume,ctx);
         if(recursive!=0) {
-            __result_obj__0 = recursive;
+                        __result_obj__0 = recursive;
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
@@ -22402,7 +22206,7 @@ const char* matchstar(struct regex_t*  token  , struct regex_t*  rest  , const c
         consume=matchtoken(token,consume,ctx);
     }
     restore_captures(ctx,snapshot_entry);
-    __result_obj__0 = matchpattern(rest,text,ctx);
+        __result_obj__0 = matchpattern(rest,text,ctx);
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -22417,18 +22221,18 @@ const char* matchplus(struct regex_t*  token  , struct regex_t*  rest  , const c
     const char* first=matchtoken(token,text,ctx);
     if((first==0)||(first==text)) {
         restore_captures(ctx,snapshot_entry);
-        __result_obj__0 = ((void*)0);
+                __result_obj__0 = ((void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     const char* result=matchstar(token,rest,first,ctx);
     if(result!=0) {
-        __result_obj__0 = result;
+                __result_obj__0 = result;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     restore_captures(ctx,snapshot_entry);
-    __result_obj__0 = ((void*)0);
+        __result_obj__0 = ((void*)0);
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -22442,7 +22246,7 @@ const char* matchquestion(struct regex_t*  token  , struct regex_t*  rest  , con
     snapshot_captures(ctx,snapshot_entry);
     const char* skipped=matchpattern(rest,text,ctx);
     if(skipped!=0) {
-        __result_obj__0 = skipped;
+                __result_obj__0 = skipped;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
@@ -22450,18 +22254,18 @@ const char* matchquestion(struct regex_t*  token  , struct regex_t*  rest  , con
     const char* consumed=matchtoken(token,text,ctx);
     if((consumed==0)||(consumed==text)) {
         restore_captures(ctx,snapshot_entry);
-        __result_obj__0 = ((void*)0);
+                __result_obj__0 = ((void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     const char* with=matchpattern(rest,consumed,ctx);
     if(with!=0) {
-        __result_obj__0 = with;
+                __result_obj__0 = with;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     restore_captures(ctx,snapshot_entry);
-    __result_obj__0 = ((void*)0);
+        __result_obj__0 = ((void*)0);
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -22470,10 +22274,10 @@ unsigned char re_fold_char(unsigned char c, _Bool ignore_case)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "re_fold_char"; neo_current_frame = &fr;
     if(ignore_case&&c>=65&&c<=90) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return (unsigned char)(c-65+97);
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return c;
     neo_current_frame = fr.prev;
 }
@@ -22482,63 +22286,63 @@ const char* matchtoken(struct regex_t*  token  , const char* text, struct anonym
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "matchtoken"; neo_current_frame = &fr;
     const char* __result_obj__0;
-    switch (    ((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6523))->type) {
+    switch (    token->type) {
         case (1):
-        __result_obj__0 = (((*text!=0&&matchdot(*text)))?(text+1):(0));
+                __result_obj__0 = (((*text!=0&&matchdot(*text)))?(text+1):(0));
         neo_current_frame = fr.prev;
         return __result_obj__0;
         case (7):
-        __result_obj__0 = (((*text!=0&&re_fold_char(((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6530))->u.ch,((struct anonymous_typeX25* )come_null_checker(ctx, "/usr/local/include/neo-c.h", 6530))->ignore_case)==re_fold_char((unsigned char)*text,((struct anonymous_typeX25* )come_null_checker(ctx, "/usr/local/include/neo-c.h", 6530))->ignore_case)))?(text+1):(0));
+                __result_obj__0 = (((*text!=0&&re_fold_char(token->u.ch,ctx->ignore_case)==re_fold_char((unsigned char)*text,ctx->ignore_case)))?(text+1):(0));
         neo_current_frame = fr.prev;
         return __result_obj__0;
         case (8):
-        __result_obj__0 = (((*text!=0&&matchcharclass(*text,(const char*)((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6534))->u.ccl,((struct anonymous_typeX25* )come_null_checker(ctx, "/usr/local/include/neo-c.h", 6534))->ignore_case)))?(text+1):(0));
+                __result_obj__0 = (((*text!=0&&matchcharclass(*text,(const char*)token->u.ccl,ctx->ignore_case)))?(text+1):(0));
         neo_current_frame = fr.prev;
         return __result_obj__0;
         case (9):
-        __result_obj__0 = (((*text!=0&&!matchcharclass(*text,(const char*)((struct regex_t* )come_null_checker(token, "/usr/local/include/neo-c.h", 6537))->u.ccl,((struct anonymous_typeX25* )come_null_checker(ctx, "/usr/local/include/neo-c.h", 6537))->ignore_case)))?(text+1):(0));
+                __result_obj__0 = (((*text!=0&&!matchcharclass(*text,(const char*)token->u.ccl,ctx->ignore_case)))?(text+1):(0));
         neo_current_frame = fr.prev;
         return __result_obj__0;
         case (10):
-        __result_obj__0 = (((*text!=0&&matchdigit(*text)))?(text+1):(0));
+                __result_obj__0 = (((*text!=0&&matchdigit(*text)))?(text+1):(0));
         neo_current_frame = fr.prev;
         return __result_obj__0;
         case (11):
-        __result_obj__0 = (((*text!=0&&!matchdigit(*text)))?(text+1):(0));
+                __result_obj__0 = (((*text!=0&&!matchdigit(*text)))?(text+1):(0));
         neo_current_frame = fr.prev;
         return __result_obj__0;
         case (12):
-        __result_obj__0 = (((*text!=0&&matchalphanum(*text)))?(text+1):(0));
+                __result_obj__0 = (((*text!=0&&matchalphanum(*text)))?(text+1):(0));
         neo_current_frame = fr.prev;
         return __result_obj__0;
         case (13):
-        __result_obj__0 = (((*text!=0&&!matchalphanum(*text)))?(text+1):(0));
+                __result_obj__0 = (((*text!=0&&!matchalphanum(*text)))?(text+1):(0));
         neo_current_frame = fr.prev;
         return __result_obj__0;
         case (14):
-        __result_obj__0 = (((*text!=0&&matchwhitespace(*text)))?(text+1):(0));
+                __result_obj__0 = (((*text!=0&&matchwhitespace(*text)))?(text+1):(0));
         neo_current_frame = fr.prev;
         return __result_obj__0;
         case (15):
-        __result_obj__0 = (((*text!=0&&!matchwhitespace(*text)))?(text+1):(0));
+                __result_obj__0 = (((*text!=0&&!matchwhitespace(*text)))?(text+1):(0));
         neo_current_frame = fr.prev;
         return __result_obj__0;
         case (16):
-        __result_obj__0 = matchgroup(token,(struct regex_t* )0,text,ctx);
+                __result_obj__0 = matchgroup(token,(struct regex_t* )0,text,ctx);
         neo_current_frame = fr.prev;
         return __result_obj__0;
         case (2):
-        __result_obj__0 = (((text==((struct anonymous_typeX25* )come_null_checker(ctx, "/usr/local/include/neo-c.h", 6561))->base))?(text):(0));
+                __result_obj__0 = (((text==ctx->base))?(text):(0));
         neo_current_frame = fr.prev;
         return __result_obj__0;
         case (3):
-        __result_obj__0 = (((*text==0))?(text):(0));
+                __result_obj__0 = (((*text==0))?(text):(0));
         neo_current_frame = fr.prev;
         return __result_obj__0;
         default:
         break;
     }
-    __result_obj__0 = (const char*)0;
+        __result_obj__0 = (const char*)0;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -22546,7 +22350,7 @@ const char* matchtoken(struct regex_t*  token  , const char* text, struct anonym
 int matchdigit(char c)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "matchdigit"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return xisdigit((unsigned char)c);
     neo_current_frame = fr.prev;
 }
@@ -22554,7 +22358,7 @@ int matchdigit(char c)
 int matchalpha(char c)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "matchalpha"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return xisalpha((unsigned char)c);
     neo_current_frame = fr.prev;
 }
@@ -22562,7 +22366,7 @@ int matchalpha(char c)
 int matchwhitespace(char c)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "matchwhitespace"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return xisspace((unsigned char)c);
     neo_current_frame = fr.prev;
 }
@@ -22570,7 +22374,7 @@ int matchwhitespace(char c)
 int matchalphanum(char c)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "matchalphanum"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return ((c==95)||matchalpha(c)||matchdigit(c));
     neo_current_frame = fr.prev;
 }
@@ -22582,22 +22386,22 @@ int matchrange(char c, const char* str, _Bool ignore_case)
     unsigned char start;
     unsigned char end;
     needle=(unsigned char)c;
-    start=(unsigned char)((const char*)come_null_checker(str, "/usr/local/include/neo-c.h", 6593))[0];
-    end=(unsigned char)((const char*)come_null_checker(str, "/usr/local/include/neo-c.h", 6594))[2];
+    start=(unsigned char)str[0];
+    end=(unsigned char)str[2];
     if(ignore_case) {
         needle=re_fold_char(needle,(_Bool)1);
         start=re_fold_char(start,(_Bool)1);
         end=re_fold_char(end,(_Bool)1);
     }
-    neo_current_frame = fr.prev;
-    return ((needle!=45)&&(((const char*)come_null_checker(str, "/usr/local/include/neo-c.h", 6602))[0]!=0)&&(((const char*)come_null_checker(str, "/usr/local/include/neo-c.h", 6603))[0]!=45)&&(((const char*)come_null_checker(str, "/usr/local/include/neo-c.h", 6604))[1]==45)&&(((const char*)come_null_checker(str, "/usr/local/include/neo-c.h", 6605))[2]!=0)&&((needle>=start)&&(needle<=end)));
+        neo_current_frame = fr.prev;
+    return ((needle!=45)&&(str[0]!=0)&&(str[0]!=45)&&(str[1]==45)&&(str[2]!=0)&&((needle>=start)&&(needle<=end)));
     neo_current_frame = fr.prev;
 }
 
 int matchdot(char c)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "matchdot"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return c!=10&&c!=13;
     neo_current_frame = fr.prev;
 }
@@ -22605,7 +22409,7 @@ int matchdot(char c)
 int ismetachar(char c)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "ismetachar"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return ((c==115)||(c==83)||(c==119)||(c==87)||(c==100)||(c==68));
     neo_current_frame = fr.prev;
 }
@@ -22613,28 +22417,28 @@ int ismetachar(char c)
 int matchmetachar(char c, const char* str)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "matchmetachar"; neo_current_frame = &fr;
-    switch (    ((const char*)come_null_checker(str, "/usr/local/include/neo-c.h", 6624))[0]) {
+    switch (    str[0]) {
         case 100:
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return matchdigit(c);
         case 68:
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return !matchdigit(c);
         case 119:
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return matchalphanum(c);
         case 87:
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return !matchalphanum(c);
         case 115:
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return matchwhitespace(c);
         case 83:
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return !matchwhitespace(c);
         default:
-        neo_current_frame = fr.prev;
-        return (c==((const char*)come_null_checker(str, "/usr/local/include/neo-c.h", 6632))[0]);
+                neo_current_frame = fr.prev;
+        return (c==str[0]);
     }
     neo_current_frame = fr.prev;
 }
@@ -22646,32 +22450,32 @@ int matchcharclass(char c, const char* str, _Bool ignore_case)
     needle=re_fold_char((unsigned char)c,ignore_case);
     do {
         if(matchrange((char)needle,str,ignore_case)) {
-            neo_current_frame = fr.prev;
+                        neo_current_frame = fr.prev;
             return 1;
         }
-        else if(((const char*)come_null_checker(str, "/usr/local/include/neo-c.h", 6645))[0]==92) {
+        else if(str[0]==92) {
             str+=1;
             if(matchmetachar((char)needle,str)) {
-                neo_current_frame = fr.prev;
+                                neo_current_frame = fr.prev;
                 return 1;
             }
-            else if((needle==re_fold_char((unsigned char)((const char*)come_null_checker(str, "/usr/local/include/neo-c.h", 6652))[0],ignore_case))&&!ismetachar((char)needle)) {
-                neo_current_frame = fr.prev;
+            else if((needle==re_fold_char((unsigned char)str[0],ignore_case))&&!ismetachar((char)needle)) {
+                                neo_current_frame = fr.prev;
                 return 1;
             }
         }
-        else if(needle==re_fold_char((unsigned char)((const char*)come_null_checker(str, "/usr/local/include/neo-c.h", 6657))[0],ignore_case)) {
+        else if(needle==re_fold_char((unsigned char)str[0],ignore_case)) {
             if(needle==45) {
-                neo_current_frame = fr.prev;
-                return ((((const char*)come_null_checker(str, "/usr/local/include/neo-c.h", 6661))[-1]==0)||(((const char*)come_null_checker(str, "/usr/local/include/neo-c.h", 6661))[1]==0));
+                                neo_current_frame = fr.prev;
+                return ((str[-1]==0)||(str[1]==0));
             }
             else {
-                neo_current_frame = fr.prev;
+                                neo_current_frame = fr.prev;
                 return 1;
             }
         }
     } while(*str++!=0);
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return 0;
     neo_current_frame = fr.prev;
 }
@@ -22685,31 +22489,31 @@ void re_print_internal(struct regex_t*  pattern  , int depth)
     "RE_CHAR_CLASS", "RE_INV_CHAR_CLASS", "RE_DIGIT", "RE_NOT_DIGIT", "RE_ALPHA", "RE_NOT_ALPHA",
     "RE_WHITESPACE", "RE_NOT_WHITESPACE", "RE_GROUP", "RE_GROUP_END"
   };
-    while(pattern!=0&&((struct regex_t* )come_null_checker(pattern, "/usr/local/include/neo-c.h", 6683))->type!=(0)) {
+    while(pattern!=0&&pattern->type!=(0)) {
         for(i=0;i<depth;++i){
             putchar(32);
         }
-        printf("type: %s",((const char**)come_null_checker(types, "/usr/local/include/neo-c.h", 6689))[((struct regex_t* )come_null_checker(pattern, "/usr/local/include/neo-c.h", 6689))->type]);
-        if((((struct regex_t* )come_null_checker(pattern, "/usr/local/include/neo-c.h", 6691))->type==(8))||(((struct regex_t* )come_null_checker(pattern, "/usr/local/include/neo-c.h", 6691))->type==(9))) {
+        printf("type: %s",types[pattern->type]);
+        if((pattern->type==(8))||(pattern->type==(9))) {
             printf(" [");
-            const unsigned char* ccl=((struct regex_t* )come_null_checker(pattern, "/usr/local/include/neo-c.h", 6694))->u.ccl;
+            const unsigned char* ccl=pattern->u.ccl;
             while(*ccl!=0&&*ccl!=93) {
                 printf("%c",*ccl);
                 ++ccl;
             }
             printf("]");
         }
-        else if(((struct regex_t* )come_null_checker(pattern, "/usr/local/include/neo-c.h", 6702))->type==(7)) {
-            printf(" '%c'",((struct regex_t* )come_null_checker(pattern, "/usr/local/include/neo-c.h", 6704))->u.ch);
+        else if(pattern->type==(7)) {
+            printf(" '%c'",pattern->u.ch);
         }
-        else if(((struct regex_t* )come_null_checker(pattern, "/usr/local/include/neo-c.h", 6706))->type==(16)) {
-            printf(" id=%d\n",((struct regex_t* )come_null_checker(pattern, "/usr/local/include/neo-c.h", 6708))->u.group.id);
-            re_print_internal(((struct regex_t* )come_null_checker(pattern, "/usr/local/include/neo-c.h", 6709))->u.group.first,depth+2);
-            pattern=((struct regex_t* )come_null_checker(pattern, "/usr/local/include/neo-c.h", 6710))->next;
+        else if(pattern->type==(16)) {
+            printf(" id=%d\n",pattern->u.group.id);
+            re_print_internal(pattern->u.group.first,depth+2);
+            pattern=pattern->next;
             continue;
         }
         printf("\n");
-        pattern=((struct regex_t* )come_null_checker(pattern, "/usr/local/include/neo-c.h", 6715))->next;
+        pattern=pattern->next;
     }
     neo_current_frame = fr.prev;
 }
@@ -22719,12 +22523,12 @@ int re_get_group_count(struct re_program*  pattern  )
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "re_get_group_count"; neo_current_frame = &fr;
     struct re_program*  program  ;
     if(pattern==0) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 0;
     }
     program=(struct re_program* )pattern;
-    neo_current_frame = fr.prev;
-    return ((struct re_program* )come_null_checker(program, "/usr/local/include/neo-c.h", 6727))->group_count;
+        neo_current_frame = fr.prev;
+    return program->group_count;
     neo_current_frame = fr.prev;
 }
 
@@ -22740,12 +22544,12 @@ int charp_index_regex(const char* self, const char* reg, int default_value, _Boo
     int max_captures;
     int regex_result;
     if(self==((void*)0)||reg==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return default_value;
     }
     re=re_compile(reg);
     if(re==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return default_value;
     }
     result=default_value;
@@ -22766,7 +22570,7 @@ int charp_index_regex(const char* self, const char* reg, int default_value, _Boo
             break;
         }
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return result_259;
     neo_current_frame = fr.prev;
 }
@@ -22786,18 +22590,18 @@ int charp_rindex_regex(const char* self, const char* reg, int default_value, _Bo
     int regex_result;
     int __result_obj__0;
     if(self==((void*)0)||reg==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return default_value;
     }
     re=re_compile(reg);
     if(re==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return default_value;
     }
     result=default_value;
     offset=0;
     n=0;
-    self2=(char* )come_increment_ref_count(charp_reverse(((const char*)come_null_checker(self, "/usr/local/include/neo-c.h", 6845))));
+    self2=(char* )come_increment_ref_count(charp_reverse(self));
     result_260=default_value;
     while((_Bool)1) {
         matchlength=0;
@@ -22813,7 +22617,7 @@ int charp_rindex_regex(const char* self, const char* reg, int default_value, _Bo
             break;
         }
     }
-    __result_obj__0 = result_260;
+        __result_obj__0 = result_260;
     (self2 = come_decrement_ref_count(self2, (void*)0, (void*)0, 0, 0, (void*)0));
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -22826,22 +22630,22 @@ char*  string_chomp(const char* str)
     char*  __result_obj__0  ;
     char*  result  ;
     if(str==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     result=(char* )come_increment_ref_count(__builtin_string(str));
-    if(((char* )come_null_checker(result, "/usr/local/include/neo-c.h", 6914))[string_length(((char* )come_null_checker(result, "/usr/local/include/neo-c.h", 6914)))-1]==10) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=charp_substring(((char* )come_null_checker(result, "/usr/local/include/neo-c.h", 6915)),0,-2))));
+    if(result[string_length(result)-1]==10) {
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=charp_substring(result,0,-2))));
         (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 0, (void*)0));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    __result_obj__0 = (char* )come_increment_ref_count(result);
+        __result_obj__0 = (char* )come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -22851,7 +22655,7 @@ char*  string_chomp(const char* str)
 int string_rindex_regex(char* self, const char* reg, int default_value, _Bool ignore_case)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "string_rindex_regex"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return charp_rindex_regex(self,reg,default_value,ignore_case);
     neo_current_frame = fr.prev;
 }
@@ -22859,7 +22663,7 @@ int string_rindex_regex(char* self, const char* reg, int default_value, _Bool ig
 int string_index_regex(char* self, const char* reg, int default_value, _Bool ignore_case)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "string_index_regex"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return charp_index_regex(self,reg,default_value,ignore_case);
     neo_current_frame = fr.prev;
 }
@@ -22875,12 +22679,12 @@ _Bool charp_match(char* self, const char* reg, _Bool ignore_case)
     int regex_result;
     _Bool __result_obj__0;
     if(self==((void*)0)||reg==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return (_Bool)0;
     }
     re=re_compile(reg);
     if(re==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return (_Bool)0;
     }
     offset=0;
@@ -22891,12 +22695,12 @@ _Bool charp_match(char* self, const char* reg, _Bool ignore_case)
     memset(&captures, 0, sizeof(captures));
     regex_result=re_matchp_ex(re,self,&matchlength,captures,max_captures,ignore_case);
     if(regex_result>=0) {
-        __result_obj__0 = (_Bool)1;
+                __result_obj__0 = (_Bool)1;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     else {
-        __result_obj__0 = (_Bool)0;
+                __result_obj__0 = (_Bool)0;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
@@ -22922,20 +22726,17 @@ struct list$1char$ph* charp_scan(const char* self, const char* reg, _Bool ignore
     struct re_capture*  cp  ;
     char*  match_string  ;
     if(self==((void*)0)||reg==((void*)0)) {
-        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)come_null_checker(((struct list$1char$ph*)(__right_value0=(struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 7083, "struct list$1char$ph*"))), "/usr/local/include/neo-c.h", 7083)))))));
-        come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+                __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 7055, "struct list$1char$ph*"))))));
         come_call_finalizer(list$1char$ph$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         neo_current_frame = fr.prev;
         come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
-    result=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)come_null_checker(((struct list$1char$ph*)(__right_value0=(struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 7085, "struct list$1char$ph*"))), "/usr/local/include/neo-c.h", 7085)))));
-    come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+    result=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 7057, "struct list$1char$ph*"))));
     re=re_compile(reg);
     if(re==((void*)0)) {
-        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)come_null_checker(((struct list$1char$ph*)(__right_value0=(struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 7090, "struct list$1char$ph*"))), "/usr/local/include/neo-c.h", 7090)))))));
+                __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 7062, "struct list$1char$ph*"))))));
         come_call_finalizer(list$1char$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         come_call_finalizer(list$1char$ph$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         neo_current_frame = fr.prev;
         come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -22951,8 +22752,8 @@ struct list$1char$ph* charp_scan(const char* self, const char* reg, _Bool ignore
         memset(&captures, 0, sizeof(captures));
         regex_result=re_matchp_ex(re,self+offset,&matchlength,captures,max_captures,ignore_case);
         if(regex_result>=0&&group_count==0) {
-            str=(char* )come_increment_ref_count(charp_substring(((const char*)come_null_checker(self, "/usr/local/include/neo-c.h", 7108)),offset+regex_result,offset+regex_result+matchlength));
-            list$1char$ph_add(((struct list$1char$ph*)come_null_checker(result, "/usr/local/include/neo-c.h", 7110)),(char* )come_increment_ref_count(str));
+            str=(char* )come_increment_ref_count(charp_substring(self,offset+regex_result,offset+regex_result+matchlength));
+            list$1char$ph_add(result,(char* )come_increment_ref_count(str));
             if(matchlength==0) {
                 offset++;
             }
@@ -22964,8 +22765,8 @@ struct list$1char$ph* charp_scan(const char* self, const char* reg, _Bool ignore
         else if(regex_result>=0&&group_count>0) {
             for(i=0;i<group_count;i++){
                 cp=&captures[i];
-                match_string=(char* )come_increment_ref_count(charp_substring(((const char*)come_null_checker((self+offset), "/usr/local/include/neo-c.h", 7123)),((struct re_capture* )come_null_checker(cp, "/usr/local/include/neo-c.h", 7123))->start,((struct re_capture* )come_null_checker(cp, "/usr/local/include/neo-c.h", 7123))->start+((struct re_capture* )come_null_checker(cp, "/usr/local/include/neo-c.h", 7123))->length));
-                list$1char$ph_push_back(((struct list$1char$ph*)come_null_checker(result, "/usr/local/include/neo-c.h", 7124)),(char* )come_increment_ref_count(match_string));
+                match_string=(char* )come_increment_ref_count(charp_substring((self+offset),cp->start,cp->start+cp->length));
+                list$1char$ph_push_back(result,(char* )come_increment_ref_count(match_string));
                 (match_string = come_decrement_ref_count(match_string, (void*)0, (void*)0, 0, 0, (void*)0));
             }
             if(matchlength==0) {
@@ -22979,7 +22780,7 @@ struct list$1char$ph* charp_scan(const char* self, const char* reg, _Bool ignore
             break;
         }
     }
-    __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(result);
+        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(result);
     come_call_finalizer(list$1char$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -23003,20 +22804,17 @@ struct list$1char$ph* charp_split(const char* self, const char* reg, _Bool ignor
     char*  str  ;
     char*  str_261  ;
     if(self==((void*)0)||reg==((void*)0)) {
-        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)come_null_checker(((struct list$1char$ph*)(__right_value0=(struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 7146, "struct list$1char$ph*"))), "/usr/local/include/neo-c.h", 7146)))))));
-        come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+                __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 7118, "struct list$1char$ph*"))))));
         come_call_finalizer(list$1char$ph$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         neo_current_frame = fr.prev;
         come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
-    result=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)come_null_checker(((struct list$1char$ph*)(__right_value0=(struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 7149, "struct list$1char$ph*"))), "/usr/local/include/neo-c.h", 7149)))));
-    come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+    result=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 7121, "struct list$1char$ph*"))));
     re=re_compile(reg);
     if(re==((void*)0)) {
-        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)come_null_checker(((struct list$1char$ph*)(__right_value0=(struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 7154, "struct list$1char$ph*"))), "/usr/local/include/neo-c.h", 7154)))))));
+                __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 7126, "struct list$1char$ph*"))))));
         come_call_finalizer(list$1char$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         come_call_finalizer(list$1char$ph$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         neo_current_frame = fr.prev;
         come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -23032,8 +22830,8 @@ struct list$1char$ph* charp_split(const char* self, const char* reg, _Bool ignor
         memset(&captures, 0, sizeof(captures));
         regex_result=re_matchp_ex(re,self+offset,&matchlength,captures,max_captures,ignore_case);
         if(regex_result>=0&&group_count==0) {
-            str=(char* )come_increment_ref_count(charp_substring(((const char*)come_null_checker(self, "/usr/local/include/neo-c.h", 7172)),offset,offset+regex_result));
-            list$1char$ph_add(((struct list$1char$ph*)come_null_checker(result, "/usr/local/include/neo-c.h", 7174)),(char* )come_increment_ref_count(str));
+            str=(char* )come_increment_ref_count(charp_substring(self,offset,offset+regex_result));
+            list$1char$ph_add(result,(char* )come_increment_ref_count(str));
             if(matchlength==0) {
                 offset++;
             }
@@ -23046,12 +22844,12 @@ struct list$1char$ph* charp_split(const char* self, const char* reg, _Bool ignor
             break;
         }
     }
-    if(offset<charp_length(((const char*)come_null_checker(self, "/usr/local/include/neo-c.h", 7190)))) {
-        str_261=(char* )come_increment_ref_count(charp_substring(((const char*)come_null_checker(self, "/usr/local/include/neo-c.h", 7191)),offset,-1));
-        list$1char$ph_push_back(((struct list$1char$ph*)come_null_checker(result, "/usr/local/include/neo-c.h", 7192)),(char* )come_increment_ref_count(str_261));
+    if(offset<charp_length(self)) {
+        str_261=(char* )come_increment_ref_count(charp_substring(self,offset,-1));
+        list$1char$ph_push_back(result,(char* )come_increment_ref_count(str_261));
         (str_261 = come_decrement_ref_count(str_261, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(result);
+        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(result);
     come_call_finalizer(list$1char$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -23063,7 +22861,7 @@ char*  string_sub(char* self, const char* reg, const char* replace, _Bool ignore
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "string_sub"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=charp_sub(self,reg,replace,(_Bool)1,ignore_case))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=charp_sub(self,reg,replace,(_Bool)1,ignore_case))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -23075,7 +22873,7 @@ struct list$1char$ph* string_scan(char* self, const char* reg, _Bool ignore_case
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "string_scan"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     struct list$1char$ph* __result_obj__0;
-    __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value0=charp_scan(self,reg,ignore_case))));
+        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value0=charp_scan(self,reg,ignore_case))));
     come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -23087,7 +22885,7 @@ struct list$1char$ph* string_split(char* self, const char* reg, _Bool ignore_cas
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "string_split"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     struct list$1char$ph* __result_obj__0;
-    __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value0=charp_split(self,reg,ignore_case))));
+        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value0=charp_split(self,reg,ignore_case))));
     come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -23097,7 +22895,7 @@ struct list$1char$ph* string_split(char* self, const char* reg, _Bool ignore_cas
 _Bool string_match(char* self, const char* reg, _Bool ignore_case)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "string_match"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return charp_match(self,reg,ignore_case);
     neo_current_frame = fr.prev;
 }
@@ -23120,7 +22918,7 @@ char*  charp_sub(char* self, const char* reg, const char* replace, _Bool global,
     char*  str_262  ;
     char*  str_263  ;
     if(self==((void*)0)||reg==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -23128,7 +22926,7 @@ char*  charp_sub(char* self, const char* reg, const char* replace, _Bool global,
     }
     re=re_compile(reg);
     if(re==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -23136,8 +22934,7 @@ char*  charp_sub(char* self, const char* reg, const char* replace, _Bool global,
     }
     offset=0;
     n=0;
-    result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count(((struct buffer* )come_null_checker(((struct buffer* )(__right_value0=(struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 7239, "struct buffer* "))), "/usr/local/include/neo-c.h", 7239)))));
-    come_call_finalizer(buffer_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+    result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 7211, "struct buffer* "))));
     group_count=re_get_group_count(re);
     while((_Bool)1) {
         matchlength=0;
@@ -23146,9 +22943,9 @@ char*  charp_sub(char* self, const char* reg, const char* replace, _Bool global,
         memset(&captures, 0, sizeof(captures));
         regex_result=re_matchp_ex(re,self+offset,&matchlength,captures,max_captures,ignore_case);
         if(regex_result>=0&&group_count==0) {
-            str=(char* )come_increment_ref_count(charp_substring(((char*)come_null_checker(self, "/usr/local/include/neo-c.h", 7252)),offset,offset+regex_result));
-            buffer_append_str(((struct buffer* )come_null_checker(result, "/usr/local/include/neo-c.h", 7254)),str);
-            buffer_append_str(((struct buffer* )come_null_checker(result, "/usr/local/include/neo-c.h", 7255)),replace);
+            str=(char* )come_increment_ref_count(charp_substring(self,offset,offset+regex_result));
+            buffer_append_str(result,str);
+            buffer_append_str(result,replace);
             if(matchlength==0) {
                 offset++;
             }
@@ -23156,8 +22953,8 @@ char*  charp_sub(char* self, const char* reg, const char* replace, _Bool global,
                 offset=offset+regex_result+matchlength;
             }
             if(!global) {
-                str_262=(char* )come_increment_ref_count(charp_substring(((char*)come_null_checker(self, "/usr/local/include/neo-c.h", 7265)),offset,-1));
-                buffer_append_str(((struct buffer* )come_null_checker(result, "/usr/local/include/neo-c.h", 7266)),str_262);
+                str_262=(char* )come_increment_ref_count(charp_substring(self,offset,-1));
+                buffer_append_str(result,str_262);
                 (str_262 = come_decrement_ref_count(str_262, (void*)0, (void*)0, 0, 0, (void*)0));
                 (str = come_decrement_ref_count(str, (void*)0, (void*)0, 0, 0, (void*)0));
                 break;
@@ -23166,14 +22963,14 @@ char*  charp_sub(char* self, const char* reg, const char* replace, _Bool global,
             (str = come_decrement_ref_count(str, (void*)0, (void*)0, 0, 0, (void*)0));
         }
         else {
-            str_263=(char* )come_increment_ref_count(charp_substring(((char*)come_null_checker(self, "/usr/local/include/neo-c.h", 7272)),offset,-1));
-            buffer_append_str(((struct buffer* )come_null_checker(result, "/usr/local/include/neo-c.h", 7273)),str_263);
+            str_263=(char* )come_increment_ref_count(charp_substring(self,offset,-1));
+            buffer_append_str(result,str_263);
             (str_263 = come_decrement_ref_count(str_263, (void*)0, (void*)0, 0, 0, (void*)0));
             break;
             (str_263 = come_decrement_ref_count(str_263, (void*)0, (void*)0, 0, 0, (void*)0));
         }
     }
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(((struct buffer* )come_null_checker(result, "/usr/local/include/neo-c.h", 7278))))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(result))));
     come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
@@ -23209,17 +23006,16 @@ char*  charp_sub_block(char* self, const char* reg, _Bool global, _Bool ignore_c
     char*  block_result_269  ;
     char*  str_270  ;
     if(self==((void*)0)||reg==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count(((struct buffer* )come_null_checker(((struct buffer* )(__right_value0=(struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 7287, "struct buffer* "))), "/usr/local/include/neo-c.h", 7287)))));
-    come_call_finalizer(buffer_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+    result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 7259, "struct buffer* "))));
     re=re_compile(reg);
     if(re==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
@@ -23236,13 +23032,12 @@ char*  charp_sub_block(char* self, const char* reg, _Bool global, _Bool ignore_c
         memset(&captures, 0, sizeof(captures));
         regex_result=re_matchp_ex(re,self+offset,&matchlength,captures,max_captures,ignore_case);
         if(regex_result>=0&&group_count==0) {
-            str=(char* )come_increment_ref_count(charp_substring(((char*)come_null_checker(self, "/usr/local/include/neo-c.h", 7310)),offset,offset+regex_result));
-            buffer_append_str(((struct buffer* )come_null_checker(result, "/usr/local/include/neo-c.h", 7312)),str);
-            group_strings=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)come_null_checker(((struct list$1char$ph*)(__right_value0=(struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 7314, "struct list$1char$ph*"))), "/usr/local/include/neo-c.h", 7314)))));
-            come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-            match_string=(char* )come_increment_ref_count(charp_substring(((char*)come_null_checker(self, "/usr/local/include/neo-c.h", 7316)),offset+regex_result,offset+regex_result+matchlength));
+            str=(char* )come_increment_ref_count(charp_substring(self,offset,offset+regex_result));
+            buffer_append_str(result,str);
+            group_strings=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 7286, "struct list$1char$ph*"))));
+            match_string=(char* )come_increment_ref_count(charp_substring(self,offset+regex_result,offset+regex_result+matchlength));
             block_result=(char*)come_increment_ref_count(block(parent,match_string,group_strings));
-            buffer_append_str(((struct buffer* )come_null_checker(result, "/usr/local/include/neo-c.h", 7320)),block_result);
+            buffer_append_str(result,block_result);
             if(matchlength==0) {
                 offset++;
             }
@@ -23250,8 +23045,8 @@ char*  charp_sub_block(char* self, const char* reg, _Bool global, _Bool ignore_c
                 offset=offset+regex_result+matchlength;
             }
             if(!global) {
-                str_264=(char* )come_increment_ref_count(charp_substring(((char*)come_null_checker(self, "/usr/local/include/neo-c.h", 7330)),offset,-1));
-                buffer_append_str(((struct buffer* )come_null_checker(result, "/usr/local/include/neo-c.h", 7331)),str_264);
+                str_264=(char* )come_increment_ref_count(charp_substring(self,offset,-1));
+                buffer_append_str(result,str_264);
                 (str_264 = come_decrement_ref_count(str_264, (void*)0, (void*)0, 0, 0, (void*)0));
                 (str = come_decrement_ref_count(str, (void*)0, (void*)0, 0, 0, (void*)0));
                 come_call_finalizer(list$1char$ph$p_finalize, group_strings, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -23266,19 +23061,18 @@ char*  charp_sub_block(char* self, const char* reg, _Bool global, _Bool ignore_c
             (block_result = come_decrement_ref_count(block_result, (void*)0, (void*)0, 0, 0, (void*)0));
         }
         else if(regex_result>=0&&group_count>0) {
-            str_265=(char* )come_increment_ref_count(charp_substring(((char*)come_null_checker(self, "/usr/local/include/neo-c.h", 7338)),offset,offset+regex_result));
-            buffer_append_str(((struct buffer* )come_null_checker(result, "/usr/local/include/neo-c.h", 7340)),str_265);
-            group_strings_266=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)come_null_checker(((struct list$1char$ph*)(__right_value0=(struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 7342, "struct list$1char$ph*"))), "/usr/local/include/neo-c.h", 7342)))));
-            come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+            str_265=(char* )come_increment_ref_count(charp_substring(self,offset,offset+regex_result));
+            buffer_append_str(result,str_265);
+            group_strings_266=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 7314, "struct list$1char$ph*"))));
             for(i=0;i<group_count;i++){
                 cp=&captures[i];
-                match_string_267=(char* )come_increment_ref_count(charp_substring(((char*)come_null_checker((self+offset), "/usr/local/include/neo-c.h", 7346)),((struct re_capture* )come_null_checker(cp, "/usr/local/include/neo-c.h", 7346))->start,((struct re_capture* )come_null_checker(cp, "/usr/local/include/neo-c.h", 7346))->start+((struct re_capture* )come_null_checker(cp, "/usr/local/include/neo-c.h", 7346))->length));
-                list$1char$ph_push_back(((struct list$1char$ph*)come_null_checker(group_strings_266, "/usr/local/include/neo-c.h", 7347)),(char* )come_increment_ref_count(match_string_267));
+                match_string_267=(char* )come_increment_ref_count(charp_substring((self+offset),cp->start,cp->start+cp->length));
+                list$1char$ph_push_back(group_strings_266,(char* )come_increment_ref_count(match_string_267));
                 (match_string_267 = come_decrement_ref_count(match_string_267, (void*)0, (void*)0, 0, 0, (void*)0));
             }
-            match_string_268=(char* )come_increment_ref_count(charp_substring(((char*)come_null_checker(self, "/usr/local/include/neo-c.h", 7350)),offset+regex_result,offset+regex_result+matchlength));
+            match_string_268=(char* )come_increment_ref_count(charp_substring(self,offset+regex_result,offset+regex_result+matchlength));
             block_result_269=(char*)come_increment_ref_count(block(parent,match_string_268,group_strings_266));
-            buffer_append_str(((struct buffer* )come_null_checker(result, "/usr/local/include/neo-c.h", 7354)),block_result_269);
+            buffer_append_str(result,block_result_269);
             if(matchlength==0) {
                 offset++;
             }
@@ -23291,14 +23085,14 @@ char*  charp_sub_block(char* self, const char* reg, _Bool global, _Bool ignore_c
             (block_result_269 = come_decrement_ref_count(block_result_269, (void*)0, (void*)0, 0, 0, (void*)0));
         }
         else {
-            str_270=(char* )come_increment_ref_count(charp_substring(((char*)come_null_checker(self, "/usr/local/include/neo-c.h", 7365)),offset,-1));
-            buffer_append_str(((struct buffer* )come_null_checker(result, "/usr/local/include/neo-c.h", 7366)),str_270);
+            str_270=(char* )come_increment_ref_count(charp_substring(self,offset,-1));
+            buffer_append_str(result,str_270);
             (str_270 = come_decrement_ref_count(str_270, (void*)0, (void*)0, 0, 0, (void*)0));
             break;
             (str_270 = come_decrement_ref_count(str_270, (void*)0, (void*)0, 0, 0, (void*)0));
         }
     }
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(((struct buffer* )come_null_checker(result, "/usr/local/include/neo-c.h", 7370))))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(result))));
     come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
@@ -23330,20 +23124,17 @@ struct list$1char$ph* charp_scan_block(const char* self, const char* reg, _Bool 
     char*  match_string_273  ;
     char*  block_result_274  ;
     if(self==((void*)0)||reg==((void*)0)) {
-        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)come_null_checker(((struct list$1char$ph*)(__right_value0=(struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 7376, "struct list$1char$ph*"))), "/usr/local/include/neo-c.h", 7376)))))));
-        come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+                __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 7348, "struct list$1char$ph*"))))));
         come_call_finalizer(list$1char$ph$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         neo_current_frame = fr.prev;
         come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
-    result=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)come_null_checker(((struct list$1char$ph*)(__right_value0=(struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 7378, "struct list$1char$ph*"))), "/usr/local/include/neo-c.h", 7378)))));
-    come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+    result=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 7350, "struct list$1char$ph*"))));
     re=re_compile(reg);
     if(re==((void*)0)) {
-        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)come_null_checker(((struct list$1char$ph*)(__right_value0=(struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 7383, "struct list$1char$ph*"))), "/usr/local/include/neo-c.h", 7383)))))));
+                __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 7355, "struct list$1char$ph*"))))));
         come_call_finalizer(list$1char$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-        come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         come_call_finalizer(list$1char$ph$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         neo_current_frame = fr.prev;
         come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -23359,11 +23150,10 @@ struct list$1char$ph* charp_scan_block(const char* self, const char* reg, _Bool 
         memset(&captures, 0, sizeof(captures));
         regex_result=re_matchp_ex(re,self+offset,&matchlength,captures,max_captures,ignore_case);
         if(regex_result>=0&&group_count==0) {
-            group_strings=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)come_null_checker(((struct list$1char$ph*)(__right_value0=(struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 7401, "struct list$1char$ph*"))), "/usr/local/include/neo-c.h", 7401)))));
-            come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-            match_string=(char* )come_increment_ref_count(charp_substring(((const char*)come_null_checker(self, "/usr/local/include/neo-c.h", 7403)),offset+regex_result,offset+regex_result+matchlength));
+            group_strings=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 7373, "struct list$1char$ph*"))));
+            match_string=(char* )come_increment_ref_count(charp_substring(self,offset+regex_result,offset+regex_result+matchlength));
             block_result=(char*)come_increment_ref_count(block(parent,match_string,group_strings));
-            list$1char$ph_add(((struct list$1char$ph*)come_null_checker(result, "/usr/local/include/neo-c.h", 7407)),(char* )come_increment_ref_count(block_result));
+            list$1char$ph_add(result,(char* )come_increment_ref_count(block_result));
             if(matchlength==0) {
                 offset++;
             }
@@ -23375,17 +23165,16 @@ struct list$1char$ph* charp_scan_block(const char* self, const char* reg, _Bool 
             (block_result = come_decrement_ref_count(block_result, (void*)0, (void*)0, 0, 0, (void*)0));
         }
         else if(regex_result>=0&&group_count>0) {
-            group_strings_271=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)come_null_checker(((struct list$1char$ph*)(__right_value0=(struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 7418, "struct list$1char$ph*"))), "/usr/local/include/neo-c.h", 7418)))));
-            come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+            group_strings_271=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 7390, "struct list$1char$ph*"))));
             for(i=0;i<group_count;i++){
                 cp=&captures[i];
-                match_string_272=(char* )come_increment_ref_count(charp_substring(((const char*)come_null_checker((self+offset), "/usr/local/include/neo-c.h", 7422)),((struct re_capture* )come_null_checker(cp, "/usr/local/include/neo-c.h", 7422))->start,((struct re_capture* )come_null_checker(cp, "/usr/local/include/neo-c.h", 7422))->start+((struct re_capture* )come_null_checker(cp, "/usr/local/include/neo-c.h", 7422))->length));
-                list$1char$ph_push_back(((struct list$1char$ph*)come_null_checker(group_strings_271, "/usr/local/include/neo-c.h", 7423)),(char* )come_increment_ref_count(match_string_272));
+                match_string_272=(char* )come_increment_ref_count(charp_substring((self+offset),cp->start,cp->start+cp->length));
+                list$1char$ph_push_back(group_strings_271,(char* )come_increment_ref_count(match_string_272));
                 (match_string_272 = come_decrement_ref_count(match_string_272, (void*)0, (void*)0, 0, 0, (void*)0));
             }
-            match_string_273=(char* )come_increment_ref_count(charp_substring(((const char*)come_null_checker(self, "/usr/local/include/neo-c.h", 7426)),offset+regex_result,offset+regex_result+matchlength));
+            match_string_273=(char* )come_increment_ref_count(charp_substring(self,offset+regex_result,offset+regex_result+matchlength));
             block_result_274=(char*)come_increment_ref_count(block(parent,match_string_273,group_strings_271));
-            list$1char$ph_add(((struct list$1char$ph*)come_null_checker(result, "/usr/local/include/neo-c.h", 7430)),(char* )come_increment_ref_count(block_result_274));
+            list$1char$ph_add(result,(char* )come_increment_ref_count(block_result_274));
             if(matchlength==0) {
                 offset++;
             }
@@ -23400,7 +23189,7 @@ struct list$1char$ph* charp_scan_block(const char* self, const char* reg, _Bool 
             break;
         }
     }
-    __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(result);
+        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(result);
     come_call_finalizer(list$1char$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -23412,7 +23201,7 @@ char*  string_sub_block(char* self, const char* reg, _Bool global, _Bool ignore_
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "string_sub_block"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=charp_sub_block(self,reg,global,ignore_case,parent,block))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=charp_sub_block(self,reg,global,ignore_case,parent,block))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -23428,19 +23217,19 @@ int*  __builtin_wstring(const char* str)
     int*  wstr  ;
     int ret;
     if(str==((void*)0)) {
-        __result_obj__0 = (int* )come_increment_ref_count(((void*)0));
+                __result_obj__0 = (int* )come_increment_ref_count(((void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     len=strlen(str);
-    wstr=(int* )come_increment_ref_count((int *)come_calloc(1, sizeof(int )*(1*(len+1)), (void*)0, 7470, "int* "));
+    wstr=(int* )come_increment_ref_count((int *)come_calloc(1, sizeof(int )*(1*(len+1)), (void*)0, 7442, "int* "));
     ret=mbstowcs(wstr,str,len+1);
-    ((int* )come_null_checker(wstr, "/usr/local/include/neo-c.h", 7473))[ret]=0;
+    wstr[ret]=0;
     if(ret<0) {
-        ((int* )come_null_checker(wstr, "/usr/local/include/neo-c.h", 7476))[0]=0;
+        wstr[0]=0;
     }
-    __result_obj__0 = (int* )come_increment_ref_count(wstr);
+        __result_obj__0 = (int* )come_increment_ref_count(wstr);
     (wstr = come_decrement_ref_count(wstr, (void*)0, (void*)0, 0, 1, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -23451,10 +23240,10 @@ int wchar_tp_length(const int*  str  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_tp_length"; neo_current_frame = &fr;
     if(str==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 0;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return wcslen(str);
     neo_current_frame = fr.prev;
 }
@@ -23463,10 +23252,10 @@ int wchar_ta_length(const int*  str  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_ta_length"; neo_current_frame = &fr;
     if(str==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 0;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return wcslen(str);
     neo_current_frame = fr.prev;
 }
@@ -23474,7 +23263,7 @@ int wchar_ta_length(const int*  str  )
 int wstring_length(const int*  str  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "wstring_length"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return wchar_tp_length(str);
     neo_current_frame = fr.prev;
 }
@@ -23487,7 +23276,7 @@ char*  string_lower_case(char* str)
     char*  result  ;
     int i;
     if(str==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -23495,11 +23284,11 @@ char*  string_lower_case(char* str)
     }
     result=(char* )come_increment_ref_count(__builtin_string(str));
     for(i=0;i<strlen(str);i++){
-        if(((char*)come_null_checker(str, "/usr/local/include/neo-c.h", 7510))[i]>=65&&((char*)come_null_checker(str, "/usr/local/include/neo-c.h", 7510))[i]<=90) {
-            ((char* )come_null_checker(result, "/usr/local/include/neo-c.h", 7511))[i]=((char*)come_null_checker(str, "/usr/local/include/neo-c.h", 7511))[i]-65+97;
+        if(str[i]>=65&&str[i]<=90) {
+            result[i]=str[i]-65+97;
         }
     }
-    __result_obj__0 = (char* )come_increment_ref_count(result);
+        __result_obj__0 = (char* )come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -23514,7 +23303,7 @@ char*  string_upper_case(char* str)
     char*  result  ;
     int i;
     if(str==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -23522,11 +23311,11 @@ char*  string_upper_case(char* str)
     }
     result=(char* )come_increment_ref_count(__builtin_string(str));
     for(i=0;i<strlen(str);i++){
-        if(((char*)come_null_checker(str, "/usr/local/include/neo-c.h", 7525))[i]>=97&&((char*)come_null_checker(str, "/usr/local/include/neo-c.h", 7525))[i]<=122) {
-            ((char* )come_null_checker(result, "/usr/local/include/neo-c.h", 7526))[i]=((char*)come_null_checker(str, "/usr/local/include/neo-c.h", 7526))[i]-97+65;
+        if(str[i]>=97&&str[i]<=122) {
+            result[i]=str[i]-97+65;
         }
     }
-    __result_obj__0 = (char* )come_increment_ref_count(result);
+        __result_obj__0 = (char* )come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -23541,7 +23330,7 @@ int*  wchar_tp_substring(const int*  str  , int head, int tail)
     int len;
     int*  result  ;
     if(str==((void*)0)) {
-        __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=__builtin_wstring(""))));
+                __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=__builtin_wstring(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -23555,7 +23344,7 @@ int*  wchar_tp_substring(const int*  str  , int head, int tail)
         tail+=len+1;
     }
     if(head>tail) {
-        __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=__builtin_wstring(""))));
+                __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=__builtin_wstring(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -23568,30 +23357,30 @@ int*  wchar_tp_substring(const int*  str  , int head, int tail)
         tail=len;
     }
     if(head>=len) {
-        __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=__builtin_wstring(""))));
+                __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=__builtin_wstring(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     if(head==tail) {
-        __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=__builtin_wstring(""))));
+                __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=__builtin_wstring(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     if(tail-head+1<1) {
-        __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=__builtin_wstring(""))));
+                __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=__builtin_wstring(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    result=(int* )come_increment_ref_count((int *)come_calloc(1, sizeof(int )*(1*(tail-head+1)), (void*)0, 7572, "int* "));
+    result=(int* )come_increment_ref_count((int *)come_calloc(1, sizeof(int )*(1*(tail-head+1)), (void*)0, 7544, "int* "));
     memcpy(result,str+head,sizeof(int )*(tail-head));
-    ((int* )come_null_checker(result, "/usr/local/include/neo-c.h", 7575))[tail-head]=0;
-    __result_obj__0 = (int* )come_increment_ref_count(result);
+    result[tail-head]=0;
+        __result_obj__0 = (int* )come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -23608,7 +23397,7 @@ int charp_index_count(const char* str, const char* search_str, int count, int de
     int j;
     memset(&j, 0, sizeof(j));
     if(str==((void*)0)||search_str==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return default_value;
     }
     n=0;
@@ -23616,19 +23405,19 @@ int charp_index_count(const char* str, const char* search_str, int count, int de
     for(i=0;i<len;i++){
         len2=strlen(search_str);
         for(j=0;j<len2;j++){
-            if(((const char*)come_null_checker(str, "/usr/local/include/neo-c.h", 7592))[i+j]!=((const char*)come_null_checker(search_str, "/usr/local/include/neo-c.h", 7592))[j]) {
+            if(str[i+j]!=search_str[j]) {
                 break;
             }
         }
         if(j==len2) {
             n++;
             if(n==count) {
-                neo_current_frame = fr.prev;
+                                neo_current_frame = fr.prev;
                 return i;
             }
         }
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return default_value;
     neo_current_frame = fr.prev;
 }
@@ -23639,19 +23428,19 @@ int charp_rindex(const char* str, const char* search_str, int default_value)
     int len;
     char* p;
     if(str==((void*)0)||search_str==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return default_value;
     }
     len=strlen(search_str);
     p=(char*)(str+strlen(str)-len);
     while(p>=str) {
         if(strncmp(p,search_str,len)==0) {
-            neo_current_frame = fr.prev;
+                        neo_current_frame = fr.prev;
             return p-str;
         }
         p--;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return default_value;
     neo_current_frame = fr.prev;
 }
@@ -23662,7 +23451,7 @@ int charp_rindex_count(const char* str, const char* search_str, int count, int d
     int len;
     int n;
     if(str==((void*)0)||search_str==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return default_value;
     }
     len=strlen(search_str);
@@ -23672,13 +23461,13 @@ int charp_rindex_count(const char* str, const char* search_str, int count, int d
         if(strncmp(p,search_str,len)==0) {
             n++;
             if(n==count) {
-                neo_current_frame = fr.prev;
+                                neo_current_frame = fr.prev;
                 return p-str;
             }
         }
         p--;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return default_value;
     neo_current_frame = fr.prev;
 }
@@ -23691,7 +23480,7 @@ char*  charp_strip(const char* self)
     char*  result  ;
     int len;
     if(self==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -23699,16 +23488,16 @@ char*  charp_strip(const char* self)
     }
     result=(char* )come_increment_ref_count(__builtin_string(self));
     len=strlen(self);
-    if(((const char*)come_null_checker(self, "/usr/local/include/neo-c.h", 7664))[len-1]==10) {
-        ((char* )come_null_checker(result, "/usr/local/include/neo-c.h", 7665))[len-1]=0;
+    if(self[len-1]==10) {
+        result[len-1]=0;
     }
-    else if(((const char*)come_null_checker(self, "/usr/local/include/neo-c.h", 7667))[len-1]==13) {
-        ((char* )come_null_checker(result, "/usr/local/include/neo-c.h", 7668))[len-1]=0;
+    else if(self[len-1]==13) {
+        result[len-1]=0;
     }
-    else if(len>2&&((const char*)come_null_checker(self, "/usr/local/include/neo-c.h", 7670))[len-2]==13&&((const char*)come_null_checker(self, "/usr/local/include/neo-c.h", 7670))[len-1]==10) {
-        ((char* )come_null_checker(result, "/usr/local/include/neo-c.h", 7671))[len-2]=0;
+    else if(len>2&&self[len-2]==13&&self[len-1]==10) {
+        result[len-2]=0;
     }
-    __result_obj__0 = (char* )come_increment_ref_count(result);
+        __result_obj__0 = (char* )come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -23723,18 +23512,18 @@ char*  wchar_tp_to_string(const int*  wstr  )
     int len;
     char*  result  ;
     if(wstr==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     len=16*(wcslen(wstr)+1);
-    result=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len)), (void*)0, 7685, "char*"));
+    result=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len)), (void*)0, 7657, "char*"));
     if(wcstombs(result,wstr,len)<0) {
         strncpy(result,"",len);
     }
-    __result_obj__0 = (char* )come_increment_ref_count(result);
+        __result_obj__0 = (char* )come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -23747,13 +23536,13 @@ char*  wchar_ta_to_string(const int*  wstr  )
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
     if(wstr==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=wchar_tp_to_string(wstr))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=wchar_tp_to_string(wstr))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -23766,13 +23555,13 @@ int*  charp_to_wstring(const char* str)
     void* __right_value0 = (void*)0;
     int*  __result_obj__0  ;
     if(str==((void*)0)) {
-        __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=__builtin_wstring(""))));
+                __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=__builtin_wstring(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=__builtin_wstring(str))));
+        __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=__builtin_wstring(str))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -23785,13 +23574,13 @@ int*  chara_to_wstring(char* str)
     void* __right_value0 = (void*)0;
     int*  __result_obj__0  ;
     if(str==((void*)0)) {
-        __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=__builtin_wstring(""))));
+                __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=__builtin_wstring(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=__builtin_wstring(str))));
+        __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=__builtin_wstring(str))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -23807,7 +23596,7 @@ int*  wchar_tp_delete(int*  str  , int head, int tail)
     void* __right_value1 = (void*)0;
     int*  sub_str  ;
     if(str==((void*)0)) {
-        __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=__builtin_wstring(""))));
+                __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=__builtin_wstring(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -23815,7 +23604,7 @@ int*  wchar_tp_delete(int*  str  , int head, int tail)
     }
     len=wcslen(str);
     if(len==0) {
-        __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value1=string_to_wstring(((char* )come_null_checker(((char* )(__right_value0=wchar_tp_to_string(((int* )come_null_checker(str, "/usr/local/include/neo-c.h", 7727))))), "/usr/local/include/neo-c.h", 7727))))));
+                __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value1=string_to_wstring(((char* )(__right_value0=wchar_tp_to_string(str)))))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
@@ -23832,7 +23621,7 @@ int*  wchar_tp_delete(int*  str  , int head, int tail)
         head=0;
     }
     if(tail<0) {
-        __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value1=string_to_wstring(((char* )come_null_checker(((char* )(__right_value0=wchar_tp_to_string(((int* )come_null_checker(str, "/usr/local/include/neo-c.h", 7743))))), "/usr/local/include/neo-c.h", 7743))))));
+                __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value1=string_to_wstring(((char* )(__right_value0=wchar_tp_to_string(str)))))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
@@ -23842,9 +23631,9 @@ int*  wchar_tp_delete(int*  str  , int head, int tail)
     if(tail>=len) {
         tail=len;
     }
-    sub_str=(int* )come_increment_ref_count(wchar_tp_substring(((int* )come_null_checker(str, "/usr/local/include/neo-c.h", 7750)),tail,-1));
-    memcpy(str+head,sub_str,sizeof(int )*(wstring_length(((int* )come_null_checker(sub_str, "/usr/local/include/neo-c.h", 7752)))+1));
-    __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value1=string_to_wstring(((char* )come_null_checker(((char* )(__right_value0=wchar_tp_to_string(((int* )come_null_checker(str, "/usr/local/include/neo-c.h", 7754))))), "/usr/local/include/neo-c.h", 7754))))));
+    sub_str=(int* )come_increment_ref_count(wchar_tp_substring(str,tail,-1));
+    memcpy(str+head,sub_str,sizeof(int )*(wstring_length(sub_str)+1));
+        __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value1=string_to_wstring(((char* )(__right_value0=wchar_tp_to_string(str)))))));
     (sub_str = come_decrement_ref_count(sub_str, (void*)0, (void*)0, 0, 0, (void*)0));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -23858,15 +23647,15 @@ int wchar_tp_index(const int*  str  , const int*  search_str  , int default_valu
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_tp_index"; neo_current_frame = &fr;
     int*  head  ;
     if(str==((void*)0)||search_str==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return default_value;
     }
     head=wcsstr(str,search_str);
     if(head==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return default_value;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return head-str;
     neo_current_frame = fr.prev;
 }
@@ -23881,7 +23670,7 @@ int wchar_tp_rindex(const int*  str  , const int*  search_str  , int default_val
     int i;
     memset(&i, 0, sizeof(i));
     if(str==((void*)0)||search_str==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return default_value;
     }
     len=wcslen(search_str);
@@ -23890,17 +23679,17 @@ int wchar_tp_rindex(const int*  str  , const int*  search_str  , int default_val
         len2=wcslen(p);
         result=(_Bool)1;
         for(i=0;i<len&&i<len2;i++){
-            if(((int* )come_null_checker(p, "/usr/local/include/neo-c.h", 7787))[i]!=((const int* )come_null_checker(search_str, "/usr/local/include/neo-c.h", 7787))[i]) {
+            if(p[i]!=search_str[i]) {
                 result=(_Bool)0;
             }
         }
         if(result) {
-            neo_current_frame = fr.prev;
+                        neo_current_frame = fr.prev;
             return (p-str);
         }
         p--;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return default_value;
     neo_current_frame = fr.prev;
 }
@@ -23914,19 +23703,19 @@ int*  wchar_tp_reverse(const int*  str  )
     int*  result  ;
     int i;
     if(str==((void*)0)) {
-        __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=__builtin_wstring(""))));
+                __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=__builtin_wstring(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     len=wcslen(str);
-    result=(int* )come_increment_ref_count((int *)come_calloc(1, sizeof(int )*(1*(len+1)), (void*)0, 7808, "int* "));
+    result=(int* )come_increment_ref_count((int *)come_calloc(1, sizeof(int )*(1*(len+1)), (void*)0, 7780, "int* "));
     for(i=0;i<len;i++){
-        ((int* )come_null_checker(result, "/usr/local/include/neo-c.h", 7811))[i]=((const int* )come_null_checker(str, "/usr/local/include/neo-c.h", 7811))[len-i-1];
+        result[i]=str[len-i-1];
     }
-    ((int* )come_null_checker(result, "/usr/local/include/neo-c.h", 7814))[len]=0;
-    __result_obj__0 = (int* )come_increment_ref_count(result);
+    result[len]=0;
+        __result_obj__0 = (int* )come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -23942,19 +23731,19 @@ int*  wchar_tp_multiply(const int*  str  , int n)
     int*  result  ;
     int i;
     if(str==((void*)0)) {
-        __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=__builtin_wstring(""))));
+                __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=__builtin_wstring(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     len=wcslen(str)*n+1;
-    result=(int* )come_increment_ref_count((int *)come_calloc(1, sizeof(int )*(1*(len)), (void*)0, 7827, "int* "));
-    ((int* )come_null_checker(result, "/usr/local/include/neo-c.h", 7829))[0]=0;
+    result=(int* )come_increment_ref_count((int *)come_calloc(1, sizeof(int )*(1*(len)), (void*)0, 7799, "int* "));
+    result[0]=0;
     for(i=0;i<n;i++){
         wcscat(result,str);
     }
-    __result_obj__0 = (int* )come_increment_ref_count(result);
+        __result_obj__0 = (int* )come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -23972,27 +23761,27 @@ int*  wchar_tp_printable(const int*  str  )
     int i;
     int  c  ;
     if(str==((void*)0)) {
-        __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=__builtin_wstring(""))));
+                __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=__builtin_wstring(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    len=wchar_tp_length(((const int* )come_null_checker(str, "/usr/local/include/neo-c.h", 7843)));
-    result=(int* )come_increment_ref_count((int *)come_calloc(1, sizeof(int )*(1*(len*2+1)), (void*)0, 7844, "int* "));
+    len=wchar_tp_length(str);
+    result=(int* )come_increment_ref_count((int *)come_calloc(1, sizeof(int )*(1*(len*2+1)), (void*)0, 7816, "int* "));
     n=0;
     for(i=0;i<len;i++){
-        c=((const int* )come_null_checker(str, "/usr/local/include/neo-c.h", 7848))[i];
+        c=str[i];
         if((c>=0&&c<32)||c==127) {
-            ((int* )come_null_checker(result, "/usr/local/include/neo-c.h", 7853))[n++]=94;
-            ((int* )come_null_checker(result, "/usr/local/include/neo-c.h", 7854))[n++]=c+65-1;
+            result[n++]=94;
+            result[n++]=c+65-1;
         }
         else {
-            ((int* )come_null_checker(result, "/usr/local/include/neo-c.h", 7857))[n++]=c;
+            result[n++]=c;
         }
     }
-    ((int* )come_null_checker(result, "/usr/local/include/neo-c.h", 7863))[n]=0;
-    __result_obj__0 = (int* )come_increment_ref_count(result);
+    result[n]=0;
+        __result_obj__0 = (int* )come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -24004,25 +23793,25 @@ int wchar_tp_compare(const int*  left  , int*  right  )
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_tp_compare"; neo_current_frame = &fr;
     if(left==((void*)0)) {
         if(right==((void*)0)) {
-            neo_current_frame = fr.prev;
+                        neo_current_frame = fr.prev;
             return 0;
         }
         else {
-            neo_current_frame = fr.prev;
+                        neo_current_frame = fr.prev;
             return 1;
         }
     }
     else if(right==((void*)0)) {
         if(left==((void*)0)) {
-            neo_current_frame = fr.prev;
+                        neo_current_frame = fr.prev;
             return 0;
         }
         else {
-            neo_current_frame = fr.prev;
+                        neo_current_frame = fr.prev;
             return -1;
         }
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return wcscmp(left,right);
     neo_current_frame = fr.prev;
 }
@@ -24032,25 +23821,25 @@ int wstring_compare(const int*  left  , const int*  right  )
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "wstring_compare"; neo_current_frame = &fr;
     if(left==((void*)0)) {
         if(right==((void*)0)) {
-            neo_current_frame = fr.prev;
+                        neo_current_frame = fr.prev;
             return 0;
         }
         else {
-            neo_current_frame = fr.prev;
+                        neo_current_frame = fr.prev;
             return 1;
         }
     }
     else if(right==((void*)0)) {
         if(left==((void*)0)) {
-            neo_current_frame = fr.prev;
+                        neo_current_frame = fr.prev;
             return 0;
         }
         else {
-            neo_current_frame = fr.prev;
+                        neo_current_frame = fr.prev;
             return -1;
         }
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return wcscmp(left,right);
     neo_current_frame = fr.prev;
 }
@@ -24060,7 +23849,7 @@ int*  wchar_tp_operator_mult(const int*  str  , int n)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_tp_operator_mult"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     int*  __result_obj__0  ;
-    __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=wchar_tp_multiply(str,n))));
+        __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=wchar_tp_multiply(str,n))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -24072,7 +23861,7 @@ int*  wstring_operator_mult(const int*  str  , int n)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "wstring_operator_mult"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     int*  __result_obj__0  ;
-    __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=wchar_tp_multiply(str,n))));
+        __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=wchar_tp_multiply(str,n))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -24082,7 +23871,7 @@ int*  wstring_operator_mult(const int*  str  , int n)
 _Bool wstring_operator_equals(const int*  left  , const int*  right  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "wstring_operator_equals"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return wcscmp(left,right)==0;
     neo_current_frame = fr.prev;
 }
@@ -24090,7 +23879,7 @@ _Bool wstring_operator_equals(const int*  left  , const int*  right  )
 _Bool wstring_operator_not_equals(const int*  left  , const int*  right  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "wstring_operator_not_equals"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return wcscmp(left,right)!=0;
     neo_current_frame = fr.prev;
 }
@@ -24102,16 +23891,16 @@ int*  wchar_tp_operator_add(const int*  left  , const int*  right  )
     int*  __result_obj__0  ;
     int*  result  ;
     if(left==((void*)0)||right==((void*)0)) {
-        __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=__builtin_wstring(""))));
+                __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=__builtin_wstring(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    result=(int* )come_increment_ref_count((int *)come_calloc(1, sizeof(int )*(1*(wcslen(left)+wcslen(right)+1)), (void*)0, 7952, "int* "));
+    result=(int* )come_increment_ref_count((int *)come_calloc(1, sizeof(int )*(1*(wcslen(left)+wcslen(right)+1)), (void*)0, 7924, "int* "));
     wcscpy(result,left);
     wcscat(result,right);
-    __result_obj__0 = (int* )come_increment_ref_count(result);
+        __result_obj__0 = (int* )come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -24125,16 +23914,16 @@ int*  wstring_operator_add(const int*  left  , const int*  right  )
     int*  __result_obj__0  ;
     int*  result  ;
     if(left==((void*)0)||right==((void*)0)) {
-        __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=__builtin_wstring(""))));
+                __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=__builtin_wstring(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    result=(int* )come_increment_ref_count((int *)come_calloc(1, sizeof(int )*(1*(wcslen(left)+wcslen(right)+1)), (void*)0, 7965, "int* "));
+    result=(int* )come_increment_ref_count((int *)come_calloc(1, sizeof(int )*(1*(wcslen(left)+wcslen(right)+1)), (void*)0, 7937, "int* "));
     wcscpy(result,left);
     wcscat(result,right);
-    __result_obj__0 = (int* )come_increment_ref_count(result);
+        __result_obj__0 = (int* )come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -24146,15 +23935,15 @@ int charp_index(const char* str, const char* search_str, int default_value)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "charp_index"; neo_current_frame = &fr;
     char* head;
     if(str==((void*)0)||search_str==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return default_value;
     }
     head=strstr(str,search_str);
     if(head==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return default_value;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return head-str;
     neo_current_frame = fr.prev;
 }
@@ -24166,7 +23955,7 @@ char*  charp_replace(char* self, int index, char c)
     char*  __result_obj__0  ;
     int len;
     if(self==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -24174,7 +23963,7 @@ char*  charp_replace(char* self, int index, char c)
     }
     len=strlen(self);
     if(strcmp(self,"")==0) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(self))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(self))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -24189,8 +23978,8 @@ char*  charp_replace(char* self, int index, char c)
     if(index<0) {
         index=0;
     }
-    ((char*)come_null_checker(self, "/usr/local/include/neo-c.h", 8010))[index]=c;
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(self))));
+    self[index]=c;
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(self))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -24206,19 +23995,19 @@ char*  charp_multiply(const char* str, int n)
     char* result;
     int i;
     if(str==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
     len=strlen(str)*n+1;
-    result=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len)), (void*)0, 8022, "char*"));
-    ((char*)come_null_checker(result, "/usr/local/include/neo-c.h", 8024))[0]=0;
+    result=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len)), (void*)0, 7994, "char*"));
+    result[0]=0;
     for(i=0;i<n;i++){
         strcat(result,str);
     }
-    __result_obj__0 = (char* )come_increment_ref_count(result);
+        __result_obj__0 = (char* )come_increment_ref_count(result);
     (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -24235,31 +24024,28 @@ struct list$1char$ph* charp_split_str(const char* self, const char* str)
     struct buffer*  buf  ;
     int i;
     if(self==((void*)0)||str==((void*)0)) {
-        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)come_null_checker(((struct list$1char$ph*)(__right_value0=(struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 8036, "struct list$1char$ph*"))), "/usr/local/include/neo-c.h", 8036)))))));
-        come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+                __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 8008, "struct list$1char$ph*"))))));
         come_call_finalizer(list$1char$ph$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         neo_current_frame = fr.prev;
         come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
-    result=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)come_null_checker(((struct list$1char$ph*)(__right_value0=(struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 8038, "struct list$1char$ph*"))), "/usr/local/include/neo-c.h", 8038)))));
-    come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count(((struct buffer* )come_null_checker(((struct buffer* )(__right_value0=(struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 8040, "struct buffer* "))), "/usr/local/include/neo-c.h", 8040)))));
-    come_call_finalizer(buffer_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-    for(i=0;i<charp_length(((const char*)come_null_checker(self, "/usr/local/include/neo-c.h", 8042)));i++){
+    result=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 8010, "struct list$1char$ph*"))));
+    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 8012, "struct buffer* "))));
+    for(i=0;i<charp_length(self);i++){
         if(strstr(self+i,str)==self+i) {
-            list$1char$ph_push_back(((struct list$1char$ph*)come_null_checker(result, "/usr/local/include/neo-c.h", 8044)),(char* )come_increment_ref_count(__builtin_string(((struct buffer* )come_null_checker(buf, "/usr/local/include/neo-c.h", 8044))->buf)));
-            buffer_reset(((struct buffer* )come_null_checker(buf, "/usr/local/include/neo-c.h", 8045)));
+            list$1char$ph_push_back(result,(char* )come_increment_ref_count(__builtin_string(buf->buf)));
+            buffer_reset(buf);
             i+=strlen(str)-1;
         }
         else {
-            buffer_append_char(((struct buffer* )come_null_checker(buf, "/usr/local/include/neo-c.h", 8049)),((const char*)come_null_checker(self, "/usr/local/include/neo-c.h", 8049))[i]);
+            buffer_append_char(buf,self[i]);
         }
     }
-    if(buffer_length(((struct buffer* )come_null_checker(buf, "/usr/local/include/neo-c.h", 8052)))!=0) {
-        list$1char$ph_push_back(((struct list$1char$ph*)come_null_checker(result, "/usr/local/include/neo-c.h", 8053)),(char* )come_increment_ref_count(__builtin_string(((struct buffer* )come_null_checker(buf, "/usr/local/include/neo-c.h", 8053))->buf)));
+    if(buffer_length(buf)!=0) {
+        list$1char$ph_push_back(result,(char* )come_increment_ref_count(__builtin_string(buf->buf)));
     }
-    __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(result);
+        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(result);
     come_call_finalizer(list$1char$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
@@ -24273,7 +24059,7 @@ unsigned int wchar_tp_get_hash_key(const int*  value  )
     int result;
     int*  p  ;
     if(value==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 0;
     }
     result=0;
@@ -24282,7 +24068,7 @@ unsigned int wchar_tp_get_hash_key(const int*  value  )
         result+=(*p);
         p++;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return result;
     neo_current_frame = fr.prev;
 }
@@ -24291,14 +24077,14 @@ _Bool wstring_equals(const int*  left  , const int*  right  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "wstring_equals"; neo_current_frame = &fr;
     if(left==((void*)0)&&right==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return (_Bool)1;
     }
     else if(left==((void*)0)||right==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return (_Bool)0;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return wcscmp(left,right)==0;
     neo_current_frame = fr.prev;
 }
@@ -24306,7 +24092,7 @@ _Bool wstring_equals(const int*  left  , const int*  right  )
 _Bool wchar_t_operator_equals(int  left  , int  right  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_t_operator_equals"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return left==right;
     neo_current_frame = fr.prev;
 }
@@ -24314,7 +24100,7 @@ _Bool wchar_t_operator_equals(int  left  , int  right  )
 _Bool wchar_t_operator_not_equals(int  left  , int  right  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_t_operator_not_equals"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return left!=right;
     neo_current_frame = fr.prev;
 }
@@ -24322,7 +24108,7 @@ _Bool wchar_t_operator_not_equals(int  left  , int  right  )
 unsigned int wchar_t_get_hash_key(int  value  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_t_get_hash_key"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return value;
     neo_current_frame = fr.prev;
 }
@@ -24330,7 +24116,7 @@ unsigned int wchar_t_get_hash_key(int  value  )
 _Bool wchar_t_equals(int  left  , int  right  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_t_equals"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return left==right;
     neo_current_frame = fr.prev;
 }
@@ -24340,7 +24126,7 @@ char*  wchar_t_to_string(int  wc  )
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_t_to_string"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=xsprintf("%ls",wc))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=xsprintf("%ls",wc))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -24355,7 +24141,7 @@ char*  xrealpath(const char* path)
     char* result;
     char*  result2  ;
     if(path==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -24364,7 +24150,7 @@ char*  xrealpath(const char* path)
     result=realpath(path,((void*)0));
     result2=(char* )come_increment_ref_count(__builtin_string(result));
     free(result);
-    __result_obj__0 = (char* )come_increment_ref_count(result2);
+        __result_obj__0 = (char* )come_increment_ref_count(result2);
     (result2 = come_decrement_ref_count(result2, (void*)0, (void*)0, 0, 1, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -24378,13 +24164,13 @@ char*  xdirname(const char* path)
     char*  __result_obj__0  ;
     void* __right_value1 = (void*)0;
     if(path==((void*)0)) {
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
     }
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value1=__builtin_string(dirname(((char* )(__right_value0=__builtin_string(path))))))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value1=__builtin_string(dirname(((char* )(__right_value0=__builtin_string(path))))))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
@@ -24398,7 +24184,7 @@ unsigned long  xwcslen(const int*  wstr  )
     int*  p  ;
     unsigned long  len  ;
     if(wstr==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return 0;
     }
     p=(int* )wstr;
@@ -24407,7 +24193,7 @@ unsigned long  xwcslen(const int*  wstr  )
         p++;
         len++;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return len;
     neo_current_frame = fr.prev;
 }
@@ -24417,7 +24203,7 @@ int*  wstring_substring(const int*  str  , int head, int tail)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "wstring_substring"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     int*  __result_obj__0  ;
-    __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=wchar_tp_substring(str,head,tail))));
+        __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=wchar_tp_substring(str,head,tail))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -24427,7 +24213,7 @@ int*  wstring_substring(const int*  str  , int head, int tail)
 int string_index_count(const char* str, const char* search_str, int count, int default_value)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "string_index_count"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return charp_index_count(str,search_str,count,default_value);
     neo_current_frame = fr.prev;
 }
@@ -24435,7 +24221,7 @@ int string_index_count(const char* str, const char* search_str, int count, int d
 int string_rindex(const char* str, const char* search_str, int default_value)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "string_rindex"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return charp_rindex(str,search_str,default_value);
     neo_current_frame = fr.prev;
 }
@@ -24443,7 +24229,7 @@ int string_rindex(const char* str, const char* search_str, int default_value)
 int string_rindex_count(const char* str, const char* search_str, int count, int default_value)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "string_rindex_count"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return charp_rindex_count(str,search_str,count,default_value);
     neo_current_frame = fr.prev;
 }
@@ -24453,7 +24239,7 @@ char*  string_strip(const char* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "string_strip"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=charp_strip(self))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=charp_strip(self))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -24465,7 +24251,7 @@ char*  wstring_to_string(const int*  wstr  )
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "wstring_to_string"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=wchar_tp_to_string(wstr))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=wchar_tp_to_string(wstr))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -24478,7 +24264,7 @@ int*  int_to_wstring(int self)
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     int*  __result_obj__0  ;
-    __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value1=string_to_wstring(((char* )come_null_checker(((char* )(__right_value0=xsprintf("%d",self))), "/usr/local/include/neo-c.h", 8197))))));
+        __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value1=string_to_wstring(((char* )(__right_value0=xsprintf("%d",self)))))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
@@ -24491,7 +24277,7 @@ int*  wstring_delete(int*  str  , int head, int tail)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "wstring_delete"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     int*  __result_obj__0  ;
-    __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=wchar_tp_delete(str,head,tail))));
+        __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=wchar_tp_delete(str,head,tail))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -24501,7 +24287,7 @@ int*  wstring_delete(int*  str  , int head, int tail)
 int wstring_index(const int*  str  , const int*  search_str  , int default_value)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "wstring_index"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return wchar_tp_index(str,search_str,default_value);
     neo_current_frame = fr.prev;
 }
@@ -24509,7 +24295,7 @@ int wstring_index(const int*  str  , const int*  search_str  , int default_value
 int wstring_rindex(const int*  str  , const int*  search_str  , int default_value)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "wstring_rindex"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return wchar_tp_rindex(str,search_str,default_value);
     neo_current_frame = fr.prev;
 }
@@ -24519,7 +24305,7 @@ int*  wstring_reverse(const int*  str  )
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "wstring_reverse"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     int*  __result_obj__0  ;
-    __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=wchar_tp_reverse(str))));
+        __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=wchar_tp_reverse(str))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -24531,7 +24317,7 @@ int*  wstring_multiply(const int*  str  , int n)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "wstring_multiply"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     int*  __result_obj__0  ;
-    __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=wchar_tp_multiply(str,n))));
+        __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=wchar_tp_multiply(str,n))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -24543,7 +24329,7 @@ int*  wstring_printable(const int*  str  )
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "wstring_printable"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     int*  __result_obj__0  ;
-    __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=wchar_tp_printable(str))));
+        __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=wchar_tp_printable(str))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -24553,7 +24339,7 @@ int*  wstring_printable(const int*  str  )
 unsigned int wstring_get_hash_key(const int*  value  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "wstring_get_hash_key"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return wchar_tp_get_hash_key(value);
     neo_current_frame = fr.prev;
 }
@@ -24561,7 +24347,7 @@ unsigned int wstring_get_hash_key(const int*  value  )
 int string_index(const char* str, const char* search_str, int default_value)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "string_index"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return charp_index(str,search_str,default_value);
     neo_current_frame = fr.prev;
 }
@@ -24571,7 +24357,7 @@ char*  string_replace(char* self, int index, char c)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "string_replace"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=charp_replace(self,index,c))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=charp_replace(self,index,c))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -24583,7 +24369,7 @@ char*  string_multiply(const char* str, int n)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "string_multiply"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=charp_multiply(str,n))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=charp_multiply(str,n))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -24595,7 +24381,7 @@ struct list$1char$ph* string_split_str(const char* self, const char* str)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "string_split_str"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     struct list$1char$ph* __result_obj__0;
-    __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value0=charp_split_str(self,str))));
+        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value0=charp_split_str(self,str))));
     come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -24607,7 +24393,7 @@ int*  string_to_wstring(const char* str)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "string_to_wstring"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     int*  __result_obj__0  ;
-    __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=charp_to_wstring(str))));
+        __result_obj__0 = (int* )come_increment_ref_count(((int* )(__right_value0=charp_to_wstring(str))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -24619,7 +24405,7 @@ char*  charp_chomp(const char* str)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "charp_chomp"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=string_chomp(str))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=string_chomp(str))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -24629,7 +24415,7 @@ char*  charp_chomp(const char* str)
 _Bool wchar_tp_equals(const int*  left  , const int*  right  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_tp_equals"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return wcscmp(left,right)==0;
     neo_current_frame = fr.prev;
 }
@@ -24637,7 +24423,7 @@ _Bool wchar_tp_equals(const int*  left  , const int*  right  )
 _Bool wchar_tp_operator_equals(const int*  left  , const int*  right  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_tp_operator_equals"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return wcscmp(left,right)==0;
     neo_current_frame = fr.prev;
 }
@@ -24645,7 +24431,7 @@ _Bool wchar_tp_operator_equals(const int*  left  , const int*  right  )
 _Bool wchar_tp_operator_not_equals(const int*  left  , const int*  right  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_tp_operator_not_equals"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return wcscmp(left,right)!=0;
     neo_current_frame = fr.prev;
 }
@@ -24659,24 +24445,23 @@ struct buffer*  FILE_read(struct _IO_FILE*  f  )
     struct buffer*  buf  ;
     int size;
     if(f==((void*)0)) {
-        __result_obj__0 = (struct buffer* )come_increment_ref_count(((struct buffer*)(__right_value0=buffer_initialize_with_value((struct buffer*)come_increment_ref_count(come_calloc(1, sizeof(struct buffer), "/usr/local/include/neo-c.h", 8289, "buffer")), "", 0))));
+                __result_obj__0 = (struct buffer* )come_increment_ref_count(((struct buffer*)(__right_value0=buffer_initialize_with_value((struct buffer*)come_increment_ref_count(come_calloc(1, sizeof(struct buffer), "../../neo-c.h", 8261, "buffer")), "", 0))));
         come_call_finalizer(buffer_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         neo_current_frame = fr.prev;
         come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
-    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count(((struct buffer* )come_null_checker(((struct buffer* )(__right_value0=(struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 8291, "struct buffer* "))), "/usr/local/include/neo-c.h", 8291)))));
-    come_call_finalizer(buffer_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 8263, "struct buffer* "))));
     while(1) {
         char buf2[8192];
         memset(&buf2, 0, sizeof(buf2));
         size=fread(buf2,1,8192,f);
-        buffer_append(((struct buffer* )come_null_checker(buf, "/usr/local/include/neo-c.h", 8298)),buf2,size);
+        buffer_append(buf,buf2,size);
         if(size<8192) {
             break;
         }
     }
-    __result_obj__0 = (struct buffer* )come_increment_ref_count(buf);
+        __result_obj__0 = (struct buffer* )come_increment_ref_count(buf);
     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -24687,10 +24472,10 @@ int FILE_write(struct _IO_FILE*  f  , const char* str)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "FILE_write"; neo_current_frame = &fr;
     if(f==((void*)0)||str==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return -1;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return fwrite(str,strlen(str),1,f);
     neo_current_frame = fr.prev;
 }
@@ -24700,15 +24485,15 @@ int FILE_fclose(struct _IO_FILE*  f  )
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "FILE_fclose"; neo_current_frame = &fr;
     int result;
     if(f==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return -1;
     }
     result=fclose(f);
     if(result<0) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return result;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return result;
     neo_current_frame = fr.prev;
 }
@@ -24720,7 +24505,7 @@ struct _IO_FILE*  FILE_fprintf(struct _IO_FILE*  f  , const char* msg, ...)
     __builtin_va_list  args  ;
     int result;
     if(f==((void*)0)||msg==((void*)0)) {
-        __result_obj__0 = f;
+                __result_obj__0 = f;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
@@ -24731,11 +24516,11 @@ struct _IO_FILE*  FILE_fprintf(struct _IO_FILE*  f  , const char* msg, ...)
     __builtin_va_end(args);
     result=fprintf(f,"%s",msg2);
     if(result<0) {
-        __result_obj__0 = f;
+                __result_obj__0 = f;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    __result_obj__0 = f;
+        __result_obj__0 = f;
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -24748,7 +24533,7 @@ int charp_write(const char* self, const char* file_name, _Bool append)
     int result2;
     memset(&f, 0, sizeof(f));
     if(self==((void*)0)||file_name==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return -1;
     }
     if(append) {
@@ -24758,20 +24543,20 @@ int charp_write(const char* self, const char* file_name, _Bool append)
         f=fopen(file_name,"w");
     }
     if(f==((void*)0)) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return -1;
     }
     result=fwrite(self,strlen(self),1,f);
     if(result!=1) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return result;
     }
     result2=fclose(f);
     if(result2<0) {
-        neo_current_frame = fr.prev;
+                neo_current_frame = fr.prev;
         return result2;
     }
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return result;
     neo_current_frame = fr.prev;
 }
@@ -24787,7 +24572,7 @@ struct buffer*  charp_read(const char* file_name)
     int size;
     int result2;
     if(file_name==((void*)0)) {
-        __result_obj__0 = (struct buffer* )come_increment_ref_count(((struct buffer*)(__right_value0=buffer_initialize_with_value((struct buffer*)come_increment_ref_count(come_calloc(1, sizeof(struct buffer), "/usr/local/include/neo-c.h", 8389, "buffer")), "", 0))));
+                __result_obj__0 = (struct buffer* )come_increment_ref_count(((struct buffer*)(__right_value0=buffer_initialize_with_value((struct buffer*)come_increment_ref_count(come_calloc(1, sizeof(struct buffer), "../../neo-c.h", 8361, "buffer")), "", 0))));
         come_call_finalizer(buffer_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         neo_current_frame = fr.prev;
         come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -24795,33 +24580,32 @@ struct buffer*  charp_read(const char* file_name)
     }
     f=fopen(file_name,"r");
     if(f==((void*)0)) {
-        __result_obj__0 = (struct buffer* )come_increment_ref_count(((struct buffer*)(__right_value0=buffer_initialize_with_value((struct buffer*)come_increment_ref_count(come_calloc(1, sizeof(struct buffer), "/usr/local/include/neo-c.h", 8395, "buffer")), "", 0))));
+                __result_obj__0 = (struct buffer* )come_increment_ref_count(((struct buffer*)(__right_value0=buffer_initialize_with_value((struct buffer*)come_increment_ref_count(come_calloc(1, sizeof(struct buffer), "../../neo-c.h", 8367, "buffer")), "", 0))));
         come_call_finalizer(buffer_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         neo_current_frame = fr.prev;
         come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
-    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count(((struct buffer* )come_null_checker(((struct buffer* )(__right_value0=(struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 8398, "struct buffer* "))), "/usr/local/include/neo-c.h", 8398)))));
-    come_call_finalizer(buffer_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 8370, "struct buffer* "))));
     while(1) {
         char buf2[8192];
         memset(&buf2, 0, sizeof(buf2));
         size=fread(buf2,1,8192,f);
-        buffer_append(((struct buffer* )come_null_checker(buf, "/usr/local/include/neo-c.h", 8405)),buf2,size);
+        buffer_append(buf,buf2,size);
         if(size<8192) {
             break;
         }
     }
     result2=fclose(f);
     if(result2<0) {
-        __result_obj__0 = (struct buffer* )come_increment_ref_count(((struct buffer*)(__right_value0=buffer_initialize_with_value((struct buffer*)come_increment_ref_count(come_calloc(1, sizeof(struct buffer), "/usr/local/include/neo-c.h", 8415, "buffer")), "", 0))));
+                __result_obj__0 = (struct buffer* )come_increment_ref_count(((struct buffer*)(__right_value0=buffer_initialize_with_value((struct buffer*)come_increment_ref_count(come_calloc(1, sizeof(struct buffer), "../../neo-c.h", 8387, "buffer")), "", 0))));
         come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_call_finalizer(buffer_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         neo_current_frame = fr.prev;
         come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
-    __result_obj__0 = (struct buffer* )come_increment_ref_count(buf);
+        __result_obj__0 = (struct buffer* )come_increment_ref_count(buf);
     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -24835,10 +24619,9 @@ struct list$1char$ph* FILE_readlines(struct _IO_FILE*  f  )
     void* __right_value1 = (void*)0;
     struct list$1char$ph* result;
     struct list$1char$ph* __result_obj__0;
-    result=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)come_null_checker(((struct list$1char$ph*)(__right_value0=(struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 8423, "struct list$1char$ph*"))), "/usr/local/include/neo-c.h", 8423)))));
-    come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+    result=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), (void*)0, 8395, "struct list$1char$ph*"))));
     if(f==((void*)0)) {
-        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(result);
+                __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(result);
         come_call_finalizer(list$1char$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         neo_current_frame = fr.prev;
         come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -24850,9 +24633,9 @@ struct list$1char$ph* FILE_readlines(struct _IO_FILE*  f  )
         if(fgets(buf,8192,f)==((void*)0)) {
             break;
         }
-        list$1char$ph_push_back(((struct list$1char$ph*)come_null_checker(result, "/usr/local/include/neo-c.h", 8436)),(char* )come_increment_ref_count(__builtin_string(buf)));
+        list$1char$ph_push_back(result,(char* )come_increment_ref_count(__builtin_string(buf)));
     }
-    __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(result);
+        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(result);
     come_call_finalizer(list$1char$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -24864,7 +24647,7 @@ _Bool xiswalpha(int  c  )
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "xiswalpha"; neo_current_frame = &fr;
     _Bool result;
     result=(c>=97&&c<=122)||(c>=65&&c<=90);
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return result;
     neo_current_frame = fr.prev;
 }
@@ -24872,7 +24655,7 @@ _Bool xiswalpha(int  c  )
 _Bool xiswblank(int  c  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "xiswblank"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return c==32||c==9;
     neo_current_frame = fr.prev;
 }
@@ -24880,7 +24663,7 @@ _Bool xiswblank(int  c  )
 _Bool xiswdigit(int  c  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "xiswdigit"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return (c>=48&&c<=57);
     neo_current_frame = fr.prev;
 }
@@ -24888,7 +24671,7 @@ _Bool xiswdigit(int  c  )
 _Bool xiswalnum(int  c  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "xiswalnum"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return xiswalpha(c)||xiswdigit(c);
     neo_current_frame = fr.prev;
 }
@@ -24898,7 +24681,7 @@ _Bool xiswascii(int  c  )
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "xiswascii"; neo_current_frame = &fr;
     _Bool result;
     result=(c>=32&&c<=126);
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
     return result;
     neo_current_frame = fr.prev;
 }
@@ -24907,7 +24690,7 @@ int socket_fd_write(int  self  , char*  str  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "socket_fd_write"; neo_current_frame = &fr;
     int __result_obj__0;
-    __result_obj__0 = write(self,str,string_length(((char* )come_null_checker(str, "/usr/local/include/neo-c-net.h", 26))));
+        __result_obj__0 = write(self,str,string_length(str));
     (str = come_decrement_ref_count(str, (void*)0, (void*)0, 0, 0, (void*)0));
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -24916,14 +24699,13 @@ int socket_fd_write(int  self  , char*  str  )
 static void sockaddr_in_finalize(struct sockaddr_in*  self  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sockaddr_in_finalize"; neo_current_frame = &fr;
-    neo_current_frame = fr.prev;
+        neo_current_frame = fr.prev;
 }
 
 int server_socket(int port, int socket_family, int socket_type, int protocol, _Bool reuse, void* parent, void (*block)(void*,int ,_Bool*,_Bool*))
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "server_socket"; neo_current_frame = &fr;
     int  sock  ;
-    int opt;
     void* __right_value0 = (void*)0;
     struct sockaddr_in  address  ;
     int addrlen;
@@ -24937,8 +24719,7 @@ int server_socket(int port, int socket_family, int socket_type, int protocol, _B
         die("socket failed");
     }
     if(reuse) {
-        opt=1;
-        if(setsockopt(sock,1,2,&opt,sizeof(opt))) {
+        if(neo_setsockopt_reuseaddr(sock)) {
             close(sock);
             die(((char*)(__right_value0=xsprintf("setsockopt"))));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -24973,7 +24754,7 @@ int server_socket(int port, int socket_family, int socket_type, int protocol, _B
     }
     close(new_socket);
     close(sock);
-    __result_obj__0 = 0;
+        __result_obj__0 = 0;
     come_call_finalizer(sockaddr_in_finalize, (&address), (void*)0, (void*)0, 1, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -25015,7 +24796,7 @@ int client_socket(int port, char* address, void* parent, void (*block)(void*,int
         }
     }
     close(sock);
-    __result_obj__0 = 0;
+        __result_obj__0 = 0;
     come_call_finalizer(sockaddr_in_finalize, (&serv_addr), (void*)0, (void*)0, 1, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -25054,8 +24835,7 @@ char*  client_socket2(int port, const char* data, const char* address)
         die(((char*)(__right_value0=xsprintf("Write Failed"))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     }
-    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count(((struct buffer* )come_null_checker(((struct buffer* )(__right_value0=(struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 148, "struct buffer* "))), "/usr/local/include/neo-c-net.h", 148)))));
-    come_call_finalizer(buffer_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), (void*)0, 153, "struct buffer* "))));
     char buf2[1024]={ '\0' };
     size=read(sock,buf2,1024);
     if(size<0) {
@@ -25063,9 +24843,9 @@ char*  client_socket2(int port, const char* data, const char* address)
         die(((char*)(__right_value0=xsprintf("Read Failed"))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     }
-    buffer_append(((struct buffer* )come_null_checker(buf, "/usr/local/include/neo-c-net.h", 159)),buf2,size);
+    buffer_append(buf,buf2,size);
     close(sock);
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(((struct buffer* )come_null_checker(buf, "/usr/local/include/neo-c-net.h", 163))))));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(buf))));
     come_call_finalizer(sockaddr_in_finalize, (&serv_addr), (void*)0, (void*)0, 1, 0, 0, (void*)0);
     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -25078,7 +24858,6 @@ int httpd_socket(int port, int socket_family, int socket_type, int protocol, _Bo
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "httpd_socket"; neo_current_frame = &fr;
     int  sock  ;
-    int opt;
     void* __right_value0 = (void*)0;
     struct sockaddr_in  address  ;
     int addrlen;
@@ -25091,8 +24870,7 @@ int httpd_socket(int port, int socket_family, int socket_type, int protocol, _Bo
         die("socket failed");
     }
     if(reuse) {
-        opt=1;
-        if(setsockopt(sock,1,2,&opt,sizeof(opt))) {
+        if(neo_setsockopt_reuseaddr(sock)) {
             close(sock);
             die(((char*)(__right_value0=xsprintf("setsockpt failed"))));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -25122,7 +24900,7 @@ int httpd_socket(int port, int socket_family, int socket_type, int protocol, _Bo
         }
     }
     close(sock);
-    __result_obj__0 = 0;
+        __result_obj__0 = 0;
     come_call_finalizer(sockaddr_in_finalize, (&address), (void*)0, (void*)0, 1, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -25215,7 +24993,7 @@ int httpsd_socket(int port, _Bool reuse, void* parent, void (*block)(void*,struc
     while(0) {
         continue;
     }
-    __result_obj__0 = 0;
+        __result_obj__0 = 0;
     come_call_finalizer(sockaddr_in_finalize, (&addr), (void*)0, (void*)0, 1, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
     return __result_obj__0;

@@ -170,6 +170,7 @@ class sComplexNode extends sNodeBase
         
         come_value.c_value = xsprintf("%s", self.value);
         come_value.type = new sType(s"double");
+        come_value.type->mComplex = true;
         come_value.var = null;
         
         info.stack.push_back(come_value);
@@ -243,6 +244,11 @@ class sDigitNode extends sNodeBase
 sNode*% create_int_node(string value, sInfo* info)
 {
     return new sIntNode(value, info) implements sNode;
+}
+
+static bool is_imaginary_suffix(char c)
+{
+    return c == 'i' || c == 'I' || c == 'j' || c == 'J';
 }
 
 sNode*% get_suffix(char* buf, char* p2, sInfo* info=info)
@@ -431,24 +437,52 @@ sNode*% get_number(bool minus, sInfo* info)
             *p = 0;
             
             info->p++;
-            skip_spaces_and_lf();
-            
-            return new sFloatNode(string(buf), info) implements sNode;
+            if(is_imaginary_suffix(*info->p)) {
+                *p++ = *info->p;
+                *p = 0;
+                
+                info->p++;
+                skip_spaces_and_lf();
+                
+                return new sComplexNode(string(buf), info) implements sNode;
+            }
+            else {
+                skip_spaces_and_lf();
+                
+                return new sFloatNode(string(buf), info) implements sNode;
+            }
         }
         else if(*info->p == 'l' || *info->p == 'L') {
             *p++ = *info->p;
             *p = 0;
             
             info->p++;
-            skip_spaces_and_lf();
-            
-            return new sDoubleNode(string(buf), info) implements sNode;
+            if(is_imaginary_suffix(*info->p)) {
+                *p++ = *info->p;
+                *p = 0;
+                
+                info->p++;
+                skip_spaces_and_lf();
+                
+                return new sComplexNode(string(buf), info) implements sNode;
+            }
+            else {
+                skip_spaces_and_lf();
+                
+                return new sDoubleNode(string(buf), info) implements sNode;
+            }
         }
-        else if(*info->p == 'i' || *info->p == 'I') {
+        else if(is_imaginary_suffix(*info->p)) {
             *p++ = *info->p;
             *p = 0;
             
             info->p++;
+            if(*info->p == 'f' || *info->p == 'F' || *info->p == 'l' || *info->p == 'L') {
+                *p++ = *info->p;
+                *p = 0;
+                
+                info->p++;
+            }
             skip_spaces_and_lf();
             
             return new sComplexNode(string(buf), info) implements sNode;

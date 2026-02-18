@@ -71,8 +71,10 @@ for arg in "$@"; do
   esac
 done
 
-#base="${1}"
+# base for output/error path (keeps source directory)
 base="${files[0]%.nc}"
+# ncc writes transpiled C into current directory using basename
+cbase="$(basename "${base}")"
 
 if [ "$CC" == clang++ ]
 then
@@ -103,13 +105,13 @@ then
             target=${base}.o
         fi
         
-        #echo $CC -c ${opts[@]} -o ${target} ${base}.c 2> ${base}.c.error 
-        if $CC -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include -L/opt/homebrew/opt/ncurses/lib -c ${opts[@]} -o ${target} ${base}.c ${libs[@]} 2> ${base}.c.error
+        #echo $CC -c ${opts[@]} -o ${target} ${cbase}.c 2> ${base}.c.error 
+        if $CC -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include -L/opt/homebrew/opt/ncurses/lib -c ${opts[@]} -o ${target} ${cbase}.c ${libs[@]} 2> ${base}.c.error
         then
-            rm ${base}.c.error
+            rm -f ${base}.c.error
             if test $no_rm_pp = true
             then
-                rm ${base}.nc.i
+                rm -f ${base}.nc.i
             fi
         else
             cat ${base}.c.error | grep error; exit 3
@@ -120,13 +122,13 @@ then
             target=${base}
         fi
         
-        #echo $CC ${opts[@]} -o ${target} ${base}.c 2> ${base}.c.error 
-        if $CC -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include ${opts[@]} -L/opt/homebrew/opt/ncurses/lib -o ${target} ${base}.c ${obj_files[@]} ${libs[@]} 2> ${base}.c.error
+        #echo $CC ${opts[@]} -o ${target} ${cbase}.c 2> ${base}.c.error 
+        if $CC -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include ${opts[@]} -L/opt/homebrew/opt/ncurses/lib -o ${target} ${cbase}.c ${obj_files[@]} ${libs[@]} 2> ${base}.c.error
         then
-            rm ${base}.c.error
+            rm -f ${base}.c.error
             if test $no_rm_pp = true
             then
-                rm ${base}.nc.i
+                rm -f ${base}.nc.i
             fi
         else
             cat ${base}.c.error | grep error; exit 3
