@@ -1053,6 +1053,7 @@ class sLoadRangeArrayNode extends sNodeBase
         if(!calling_fun) {
             CVALUE*% come_value = new CVALUE();
             
+            sType*% result_type = clone left_type;
             buffer*% buf = new buffer();
             
             buf.append_str(left_value.c_value);
@@ -1064,8 +1065,6 @@ class sLoadRangeArrayNode extends sNodeBase
             string left_value_code = buf.to_string();
             
             come_value.c_value = xsprintf("%s", left_value_code);
-            
-            sType*% result_type = clone left_type;
             
             if(result_type->mOriginalLoadVarType) {
                 sType*% original_load_var_type = clone result_type->mOriginalLoadVarType;
@@ -1100,11 +1099,12 @@ class sLoadRangeArrayNode extends sNodeBase
                 if(result_type->mPointerNum > 0) {
                     result_type->mPointerNum -= array_num.length();
                     
-                    if(result_type->mPointerNum < 0) {
-                        result_type->mPointerNum = 0;
+                    if(result_type.mPointerNum < 0) {
+                        result_type.mPointerNum = 0;
                     }
                 }
             }
+                
             
             come_value.type = clone result_type;
             come_value.var = null;
@@ -1195,7 +1195,14 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                 expected_next_character(']');
             }
             
-            node = new sLoadRangeArrayNode(node, array_num, quote, info) implements sNode;
+            sNode*% node2;
+            if(quote) {
+                node2 = node;
+            }
+            else {
+                node2 = automatically_unwrap(node);
+            }
+            node = new sLoadRangeArrayNode(node2, array_num, quote, info) implements sNode;
         }
         else if(!node.terminated() && *info->p == '!' && *(info->p+1) != '=') {
             info->p++;

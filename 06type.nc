@@ -4000,7 +4000,6 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
             right_type2 = clone tmp;
         }
     }
-    
     left_type2 = expand_typedef_for_assign(left_type2);
     right_type2 = expand_typedef_for_assign(right_type2);
     
@@ -4160,6 +4159,20 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
             return true;
         }
         else if(left_ptr && !(right_ptr || right_array)) {
+            int left_ptr_num = left_type2->mPointerNum
+                + (left_type2->mPointerNum == 0 ? left_type2->mArrayPointerNum : 0)
+                + (left_type2->mArrayPointerType ? 1 : 0);
+            bool right_heap_pointer = right_type2->mHeap
+                && right_type2->mPointerNum == 0
+                && right_type2->mArrayPointerNum == 0
+                && !right_type2->mArrayPointerType
+                && right_type2->mArrayNum.length() == 0;
+            if(right_heap_pointer
+                && left_ptr_num == 1
+                && is_same_base_type_ignoring_qualifier(left_type2, right_type2))
+            {
+                return true;
+            }
             if(is_integer_type(right_type2) && is_null_pointer_constant(come_value)) {
                 return true;
             }

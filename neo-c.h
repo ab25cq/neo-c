@@ -2517,6 +2517,47 @@ impl vector<T>
         
         return self.item(position, default_value);
     }
+    vector<T>*% operator_load_range_element(vector<T>* self, int begin, int tail) {
+        vector<T>*% result = new vector<T>.initialize();
+        
+        if(self == null) {
+            return result;
+        }
+
+        if(begin < 0) {
+            begin += self.len;
+        }
+
+        if(tail < 0) {
+            tail += self.len + 1;
+        }
+
+        if(begin < 0) {
+            begin = 0;
+        }
+
+        if(begin >= self.len) {
+            return result;
+        }
+
+        if(tail >= self.len) {
+            tail = self.len;
+        }
+
+        for(int i=begin; i<tail; i++) {
+            if(isheap(T)) {
+                result.add(clone self.items[i]);
+            }
+            else {
+                result.add(dummy_heap self.items[i]);
+            }
+        }
+
+        return result;
+    }
+    vector<T>*% operator_load_range(vector<T>* self, int begin, int tail) {
+        return self.operator_load_range_element(begin, tail);
+    }
     void operator_store_element(list<T>* self, int position, T item) {
         self.replace(position, item);
     }

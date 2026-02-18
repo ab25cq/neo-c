@@ -9869,9 +9869,9 @@ static void map$2char$phsClass$ph_rehash(struct map$2char$phsClass$ph* self)
     int n;
     struct sClass*  default_value_124  ;
     size=self->size*10;
-    keys=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(size)), (void*)0, 2896, "char** "))));
-    items=(struct sClass** )come_increment_ref_count(((struct sClass** )(__right_value0=(struct sClass* *)come_calloc(1, sizeof(struct sClass* )*(1*(size)), (void*)0, 2897, "struct sClass** "))));
-    item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), (void*)0, 2898, "_Bool*"))));
+    keys=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(size)), (void*)0, 2937, "char** "))));
+    items=(struct sClass** )come_increment_ref_count(((struct sClass** )(__right_value0=(struct sClass* *)come_calloc(1, sizeof(struct sClass* )*(1*(size)), (void*)0, 2938, "struct sClass** "))));
+    item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), (void*)0, 2939, "_Bool*"))));
     len=0;
     for(it=map$2char$phsClass$ph_begin(self);!map$2char$phsClass$ph_end(self);it=map$2char$phsClass$ph_next(self)){
         memset(&default_value,0,sizeof(struct sClass* ));
@@ -11042,6 +11042,8 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
     _Bool left_restrict;
     _Bool parent_class;
     struct sClass*  klass  ;
+    int left_ptr_num_147;
+    _Bool right_heap_pointer;
     _Bool return_type_check;
     _Bool typedef_array_decay_scalar;
     if(left_type==((void*)0)||right_type==((void*)0)) {
@@ -11250,6 +11252,15 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
             return __result_obj__0;
         }
         else if(left_ptr&&!(right_ptr||right_array)) {
+            left_ptr_num_147=left_type2->mPointerNum+(((left_type2->mPointerNum==0)?(left_type2->mArrayPointerNum):(0)))+(((left_type2->mArrayPointerType)?(1):(0)));
+            right_heap_pointer=right_type2->mHeap&&right_type2->mPointerNum==0&&right_type2->mArrayPointerNum==0&&!right_type2->mArrayPointerType&&list$1sNode$ph_length(right_type2->mArrayNum)==0;
+            if(right_heap_pointer&&left_ptr_num_147==1&&is_same_base_type_ignoring_qualifier(left_type2,right_type2,info)) {
+                                __result_obj__0 = (_Bool)1;
+                come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                neo_current_frame = fr.prev;
+                return __result_obj__0;
+            }
             if(is_integer_type(right_type2,info)&&is_null_pointer_constant(come_value,info)) {
                                 __result_obj__0 = (_Bool)1;
                 come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
