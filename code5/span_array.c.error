@@ -1,0 +1,50 @@
+./span_array.c:7:1: warning: typedef requires a name [-Wmissing-declarations]
+    7 | typedef unsigned long  long    ;
+      | ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+./span_array.c:1850:221: warning: incompatible pointer types passing 'struct ref$1int$ *' to parameter of type 'struct ref$1void$ph *' [-Wincompatible-pointer-types]
+ 1850 |     s=(struct span$1int$*)come_increment_ref_count(span$1int$_initialize((struct span$1int$*)come_increment_ref_count((struct span$1int$*)come_calloc(1, sizeof(struct span$1int$)*(1), (void*)0, 7, "struct span$1int$*")),(struct ref$1int$*)come_increment_ref_count(ref$1int$_initialize((struct ref$1int$*)come_increment_ref_count((struct ref$1int$*)come_calloc(1, sizeof(struct ref$1int$)*(1), (void*)0, 7, "struct ref$1int$*")),__span_value1,(_Bool)0,(_Bool)0,(_Bool)1,neo_current_frame->stacktop)),__span_value1,sizeof(__span_value1)));
+      |                                                                                                                                                                                                                             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./span_array.c:1467:95: note: passing argument to parameter 'refference' here
+ 1467 | static struct span$1int$* span$1int$_initialize(struct span$1int$* self, struct ref$1void$ph* refference, void* head, unsigned long  len  );
+      |                                                                                               ^
+./span_array.c:1850:6: warning: incompatible pointer types assigning to 'struct span$1int$p *' from 'struct span$1int$ *' [-Wincompatible-pointer-types]
+ 1850 |     s=(struct span$1int$*)come_increment_ref_count(span$1int$_initialize((struct span$1int$*)come_increment_ref_count((struct span$1int$*)come_calloc(1, sizeof(struct span$1int$)*(1), (void*)0, 7, "struct span$1int$*")),(struct ref$1int$*)come_increment_ref_count(ref$1int$_initialize((struct ref$1int$*)come_increment_ref_count((struct ref$1int$*)come_calloc(1, sizeof(struct ref$1int$)*(1), (void*)0, 7, "struct ref$1int$*")),__span_value1,(_Bool)0,(_Bool)0,(_Bool)1,neo_current_frame->stacktop)),__span_value1,sizeof(__span_value1)));
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./span_array.c:1853:44: error: incompatible integer to pointer conversion passing 'int' to parameter of type 'int *' [-Wint-conversion]
+ 1853 |     span$1int$p_operator_store_element(s,1,99);
+      |                                            ^~
+./span_array.c:1474:93: note: passing argument to parameter 'item' here
+ 1474 | static void span$1int$p_operator_store_element(struct span$1int$p* self, int position, int* item);
+      |                                                                                             ^
+./span_array.c:1948:24: warning: comparison of distinct pointer types ('int *' and 'char *') [-Wcompare-distinct-pointer-types]
+ 1948 |     if(self->p+position>=(char*)self->memory+self->len) {
+      |        ~~~~~~~~~~~~~~~~^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./span_array.c:1953:24: warning: comparison of distinct pointer types ('int *' and 'char *') [-Wcompare-distinct-pointer-types]
+ 1953 |     if(self->p+position<(char*)self->memory) {
+      |        ~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+./span_array.c:1982:24: warning: comparison of distinct pointer types ('int *' and 'char *') [-Wcompare-distinct-pointer-types]
+ 1982 |     if(self->p+position>=(char*)self->memory+self->len) {
+      |        ~~~~~~~~~~~~~~~~^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./span_array.c:1987:24: warning: comparison of distinct pointer types ('int *' and 'char *') [-Wcompare-distinct-pointer-types]
+ 1987 |     if(self->p+position<(char*)self->memory) {
+      |        ~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+./span_array.c:2016:24: warning: comparison of distinct pointer types ('int *' and 'char *') [-Wcompare-distinct-pointer-types]
+ 2016 |     if(self->p+position>=(char*)self->memory+self->len) {
+      |        ~~~~~~~~~~~~~~~~^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./span_array.c:2021:24: warning: comparison of distinct pointer types ('int *' and 'char *') [-Wcompare-distinct-pointer-types]
+ 2021 |     if(self->p+position<(char*)self->memory) {
+      |        ~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+./span_array.c:2027:16: error: incompatible pointer to integer conversion assigning to 'int' from 'int *'; dereference with * [-Wint-conversion]
+ 2027 |     p[position]=item;
+      |                ^~~~~
+      |                 *
+./span_array.c:4516:31: warning: cast to smaller integer type 'int' from 'void *' [-Wvoid-pointer-to-int-cast]
+ 4516 |     return (int_get_hash_key(((int)value)));
+      |                               ^~~~~~~~~~
+./span_array.c:5782:12: warning: comparison between pointer and integer ('int' and 'void *') [-Wpointer-integer-compare]
+ 5782 |     if(self==((void*)0)) {
+      |        ~~~~^ ~~~~~~~~~~
+./span_array.c:5795:12: warning: comparison between pointer and integer ('long' and 'void *') [-Wpointer-integer-compare]
+ 5795 |     if(self==((void*)0)) {
+      |        ~~~~^ ~~~~~~~~~~
+12 warnings and 2 errors generated.
