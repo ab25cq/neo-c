@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.9.0.6
+version 0.9.0.7
 
 ``` C
 #include <neo-c.h>
@@ -42,6 +42,7 @@ int main()
     return 0;
 }
 ```
+
 
 ```
 #include <neo-c.h>
@@ -93,6 +94,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.9.0.7 more compatibilities C11. opt, ref, span is implemented and test.
 0.9.0.6 testing opt, ref, span. Some content it's working.
 0.9.0.5 testing opt, ref. Some content it's working.
 0.9.0.4 & operand bug fixed.
@@ -3278,4 +3280,144 @@ int main(int argc, char** argv)
     
     return 0;
 }
+```
+
+# span / ref / opt Quick Start (English / 日本語)
+
+## English
+
+### ref
+
+Use `ref` when you want a reference object from a pointer.
+
+```C
+#include <neo-c.h>
+
+int main(int argc, char** argv)
+{
+    int x = 10;
+    int* p = &x;
+
+    int& r = ref p;
+    printf("%d\n", *r);   // 10
+
+    *r.unwrap() = 20;
+    printf("%d\n", x);    // 20
+    return 0;
+}
+```
+
+### opt
+
+Use `opt` for optional (nullable) values/pointers.  
+`unwrap()` gets the inner value. If null, it will fail at runtime.
+
+```C
+#include <neo-c.h>
+
+int main(int argc, char** argv)
+{
+    int x = 33;
+    int* p = &x;
+
+    int? o = opt p;
+    printf("%d\n", *o);          // 33
+    printf("%d\n", *o.unwrap()); // 33
+    return 0;
+}
+```
+
+### span
+
+Use `span` to create a view for contiguous memory (array/pointer).
+
+```C
+#include <neo-c.h>
+
+int main(int argc, char** argv)
+{
+    int x[4] = { 11, 22, 33, 44 };
+    int{} s = span x;
+
+    printf("%d\n", s[0]); // 11
+    s[1] = 99;
+    printf("%d\n", x[1]); // 99
+    return 0;
+}
+```
+
+## 日本語
+
+### ref
+
+`ref` はポインタから参照オブジェクトを作るときに使います。
+
+```C
+#include <neo-c.h>
+
+int main(int argc, char** argv)
+{
+    int x = 10;
+    int* p = &x;
+
+    int& r = ref p;
+    printf("%d\n", *r);   // 10
+
+    *r.unwrap() = 20;
+    printf("%d\n", x);    // 20
+    return 0;
+}
+```
+
+### opt
+
+`opt` はnullable（値なしを許可）な値/ポインタを扱うために使います。  
+`unwrap()` で中身を取り出します。nullのときに`unwrap()`すると実行時エラーになります。
+
+```C
+#include <neo-c.h>
+
+int main(int argc, char** argv)
+{
+    int x = 33;
+    int* p = &x;
+
+    int? o = opt p;
+    printf("%d\n", *o);          // 33
+    printf("%d\n", *o.unwrap()); // 33
+    return 0;
+}
+```
+
+### span
+
+`span` は連続メモリ（配列/ポインタ）へのビューを作るために使います。
+
+```C
+#include <neo-c.h>
+
+int main(int argc, char** argv)
+{
+    int x[4] = { 11, 22, 33, 44 };
+    int{} s = span x;
+
+    printf("%d\n", s[0]); // 11
+    s[1] = 99;
+    printf("%d\n", x[1]); // 99
+    return 0;
+}
+```
+
+Build and run example:
+
+```sh
+neo-c sample.nc
+./sample
+```
+
+ビルドと実行例:
+
+```sh
+neo-c sample.nc
+./sample
 ```

@@ -2369,7 +2369,7 @@ sNode*% expression_node(sInfo* info=info) version 98
         
         return node;
     }
-    else if((xisalpha(*info->p) || *info->p == '_' ) && !((*info->p == 'L' || *info->p == 'l' || *info->p == 's' || *info->p == 'S' || *info->p == 'b' || *info->p == 'B' || *info->p == 'h' || *info->p == 'H') && *(info->p+1) == '"' || (*info->p == 'L' && *(info->p+1) == '\''))) {
+    else if((xisalpha(*info->p) || *info->p == '_' ) && !(((*info->p == 'L' || *info->p == 'l' || *info->p == 's' || *info->p == 'S' || *info->p == 'b' || *info->p == 'B' || *info->p == 'h' || *info->p == 'H' || *info->p == 'u' || *info->p == 'U') && *(info->p+1) == '"') || ((*info->p == 'L' || *info->p == 'u' || *info->p == 'U') && *(info->p+1) == '\'') || (*info->p == 'u' && *(info->p+1) == '8' && *(info->p+2) == '"'))) {
         char* head = info.p;
         int head_sline = info.sline;
         int sline_real = info.sline_real;

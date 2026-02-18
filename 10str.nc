@@ -248,6 +248,68 @@ class sWStringNode extends sNodeBase
     }
 };
 
+class sPrefixedCharNode extends sNodeBase
+{
+    new(int value, string prefix, sInfo* info)
+    {
+        self.super();
+        
+        int self.value = value;
+        string self.prefix = string(prefix);
+    }
+    
+    string kind()
+    {
+        return string("sPrefixedCharNode");
+    }
+    
+    bool compile(sInfo* info)
+    {
+        CVALUE*% come_value = new CVALUE();
+        
+        come_value.c_value = xsprintf("%s'\\%o'", self.prefix, self.value);
+        come_value.type = new sType(s"int");
+        come_value.var = null;
+        
+        info.stack.push_back(come_value);
+        
+        add_come_last_code(info, "%s", come_value.c_value);
+        
+        return true;
+    }
+}
+
+class sPrefixedStringNode extends sNodeBase
+{
+    new(string value, string prefix, int sline, sInfo* info)
+    {
+        self.super();
+        
+        string self.value = string(value);
+        string self.prefix = string(prefix);
+    }
+    
+    string kind()
+    {
+        return string("sPrefixedStringNode");
+    }
+    
+    bool compile(sInfo* info)
+    {
+        CVALUE*% come_value = new CVALUE();
+        
+        come_value.c_value = xsprintf("%s\"%s\"", self.prefix, self.value);
+        come_value.type = new sType(s"int*");
+        come_value.var = null;
+        
+        info.stack.push_back(come_value);
+        
+        add_come_last_code(info, "%s", come_value.c_value);
+        
+        return true;
+    }
+}
+
 class sListNode extends sNodeBase
 {
     new(list<sNode*%>*% list_elements, sInfo* info)
@@ -1215,6 +1277,135 @@ sNode*% expression_node(sInfo* info) version 96
         info.sline_real = sline_real;
         return new sSStringNode(value.to_string(), exps, sline, info) implements sNode;
     }
+    else if(*info->p == 'u' && *(info->p+1) == '8' && *(info->p+2) == '"')
+    {
+        int sline_real = info.sline_real;
+        info.sline_real = info.sline;
+
+        info->p+=3;
+
+        int sline = info->sline;
+
+        buffer*% value = new buffer();
+
+        while(1) {
+            if(*info->p == '"') {
+                info->p++;
+                
+                char* p = info->p;
+                int sline = info->sline;
+                
+                skip_spaces_and_lf();
+                
+                parse_sharp()
+                
+                if(*info->p == 'u' && *(info->p+1) == '8' && *(info->p+2) == '"') {
+                    info->p += 3;
+                }
+                else {
+                    info->p = p;
+                    info->sline = sline;
+                    break;
+                }
+            }
+            else if(*info->p == '\\') {
+                value.append_char('\\');
+                info->p++;
+                
+                if(*info->p == '"') {
+                    value.append_char('"');
+                    info->p++;
+                }
+                else {
+                    value.append_char(*info->p);
+                    info->p++;
+                }
+            }
+            else if(*info->p == '\0') {
+                int sline2 = info->sline;
+                info->sline = sline;
+                err_msg(info, "close \" to make c string value");
+                info->sline = sline2;
+                exit(2);
+            }
+            else {
+                if(*info->p == '\n') info->sline++;
+
+                value.append_char(*info->p);
+                info->p++;
+            }
+        }
+
+        skip_spaces_and_lf();
+        
+        info.sline_real = sline_real;
+        return new sPrefixedStringNode(value.to_string(), xsprintf("u8"), sline, info) implements sNode;
+    }
+    else if((*info->p == 'u' || *info->p == 'U') && *(info->p+1) == '"')
+    {
+        int sline_real = info.sline_real;
+        info.sline_real = info.sline;
+
+        char prefix = *info->p;
+        info->p+=2;
+
+        int sline = info->sline;
+
+        buffer*% value = new buffer();
+
+        while(1) {
+            if(*info->p == '"') {
+                info->p++;
+                
+                char* p = info->p;
+                int sline = info->sline;
+                
+                skip_spaces_and_lf();
+                
+                parse_sharp()
+                
+                if(*info->p == prefix && *(info->p+1) == '"') {
+                    info->p += 2;
+                }
+                else {
+                    info->p = p;
+                    info->sline = sline;
+                    break;
+                }
+            }
+            else if(*info->p == '\\') {
+                value.append_char('\\');
+                info->p++;
+                
+                if(*info->p == '"') {
+                    value.append_char('"');
+                    info->p++;
+                }
+                else {
+                    value.append_char(*info->p);
+                    info->p++;
+                }
+            }
+            else if(*info->p == '\0') {
+                int sline2 = info->sline;
+                info->sline = sline;
+                err_msg(info, "close \" to make c string value");
+                info->sline = sline2;
+                exit(2);
+            }
+            else {
+                if(*info->p == '\n') info->sline++;
+
+                value.append_char(*info->p);
+                info->p++;
+            }
+        }
+
+        skip_spaces_and_lf();
+        
+        info.sline_real = sline_real;
+        return new sPrefixedStringNode(value.to_string(), xsprintf("%c", prefix), sline, info) implements sNode;
+    }
     else if(*info->p == '"') 
     {
         int sline_real = info.sline_real;
@@ -1643,6 +1834,130 @@ sNode*% expression_node(sInfo* info) version 96
         
         info.sline_real = sline_real;
         return node;
+    }
+    else if((*info->p == 'u' || *info->p == 'U') && *(info->p+1) == '\'') {
+        int sline_real = info.sline_real;
+        info.sline_real = info.sline;
+
+        char prefix = *info->p;
+        info->p += 2;
+
+        int c;
+
+        if(*info->p == '\\') {
+            info->p++;
+
+            if(xisdigit(*info->p)) {
+                int n = 0;
+                while(xisdigit(*info->p)) {
+                    n = n * 8 + *info->p - '0';
+                    info->p++;
+                }
+                
+                c = n;
+            }
+            else {
+                switch(*info->p) {
+                    case 'n':
+                        c = '\n';
+                        info->p++;
+                        break;
+
+                    case 't':
+                        c = '\t';
+                        info->p++;
+                        break;
+
+                    case 'r':
+                        c = '\r';
+                        info->p++;
+                        break;
+
+                    case 'a':
+                        c = '\a';
+                        info->p++;
+                        break;
+
+                    case 'f':
+                        c = '\f';
+                        info->p++;
+                        break;
+
+                    case 'v':
+                        c = '\v';
+                        info->p++;
+                        break;
+
+                    case 'b':
+                        c = '\b';
+                        info->p++;
+                        break;
+
+                    case '\\':
+                        c = '\\';
+                        info->p++;
+                        break;
+
+                    case '0':
+                        c = '\0';
+                        info->p++;
+                        
+                        if(xisdigit(*info->p)) {
+                            int n = 0;
+                            while(xisdigit(*info->p)) {
+                                n = n * 8 + *info->p - '0';
+                                info->p++;
+                                skip_spaces_and_lf();
+                            }
+                            
+                            c = n;
+                        }
+                        break;
+                        
+                    case 'x':
+                    case 'X': {
+                        info->p++;
+                        
+                        char buf[128];
+                        strncpy(buf, "0x", 128);
+                        while(*info->p >= '0' && *info->p <= '9' || *info->p >= 'a' && *info->p <= 'f' || *info->p >= 'A' && *info->p <= 'F') {
+                            char buf2[2];
+                            buf2[0] = *info->p;
+                            buf2[1] = '\0';
+                            info->p++;
+                            strncat(buf, buf2, 128);
+                        }
+                        
+                        unsigned long long int n = strtoll(buf, NULL, 0);
+                        
+                        c = n;
+                        }
+                        break;
+
+                    default:
+                        c = *info->p;
+                        info->p++;
+                        break;
+                }
+            }
+        }
+        else {
+            c = *info->p;
+            info->p++;
+        }
+
+        if(*info->p != '\'') {
+            err_msg(info, "close \' to make character value");
+            exit(1);
+        }
+        else {
+            info->p++;
+
+            skip_spaces_and_lf();
+
+            info.sline_real = sline_real;
+            return new sPrefixedCharNode(c, xsprintf("%c", prefix), info) implements sNode;
+        }
     }
     else if(*info->p == '\'') {
         int sline_real = info.sline_real;

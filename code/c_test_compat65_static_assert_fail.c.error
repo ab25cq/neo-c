@@ -1,0 +1,4 @@
+c_test_compat65_static_assert_fail.c:22:5: error: 'break' statement not in loop or switch statement
+   22 |     break;
+      |     ^
+1 error generated.

@@ -2403,6 +2403,7 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
     g_ifexpr_curdir = curdir;
     g_ifexpr_this_path = this_path;
     const char *prev_file = g_cur_file;
+    char *line_file_override = NULL;
     long prev_line = g_cur_line;
     g_cur_file = this_path;
     g_cur_line = 0;
@@ -2626,6 +2627,30 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                 }
             } else if (strcmp(kw, "line") == 0) {
                 if (active) {
+                    const char *lp = p;
+                    while (*lp && isspace((unsigned char)*lp)) lp++;
+                    char *endp = NULL;
+                    long logical_line = strtol(lp, &endp, 10);
+                    if (endp != lp && logical_line > 0) {
+                        // The next source line is numbered as logical_line.
+                        line_no = logical_line - 1;
+                        g_cur_line = line_no;
+                    }
+                    lp = (endp != lp) ? endp : lp;
+                    while (*lp && isspace((unsigned char)*lp)) lp++;
+                    if (*lp == '"') {
+                        lp++;
+                        Str fname; sb_init(&fname);
+                        while (*lp && *lp != '"') {
+                            if (*lp == '\\' && lp[1] != '\0') lp++;
+                            sb_putc(&fname, *lp);
+                            lp++;
+                        }
+                        free(line_file_override);
+                        line_file_override = xstrdup(fname.buf ? fname.buf : "");
+                        sb_free(&fname);
+                        g_cur_file = line_file_override;
+                    }
                     if (has_prev) {
                         if (prev.buf) fputs(prev.buf, out);
                         fputc('\n', out);
@@ -3073,6 +3098,7 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
     g_ifexpr_opts = prev_ifexpr_opts;
     g_ifexpr_curdir = prev_ifexpr_curdir;
     g_ifexpr_this_path = prev_ifexpr_this_path;
+    free(line_file_override);
     g_cur_file = prev_file;
     g_cur_line = prev_line;
     g_keep_comments = prev_keep_comments;

@@ -1,0 +1,6 @@
+#ifndef COMPAT63_SHARED_H
+#define COMPAT63_SHARED_H
+
+#define SHARED_VALUE 100
+
+#endif

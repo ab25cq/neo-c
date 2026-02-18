@@ -10249,7 +10249,7 @@ struct sNode* expression_node_v98(struct sInfo*  info  )
         return __result_obj__0;
         ((node_236) ? node_236 = come_decrement_ref_count(node_236, ((struct sNode*)node_236)->finalize, ((struct sNode*)node_236)->_protocol_obj, 0, 0,(void*)0):(void*)0);
     }
-    else if((xisalpha(*info->p)||*info->p==95)&&!((*info->p==76||*info->p==108||*info->p==115||*info->p==83||*info->p==98||*info->p==66||*info->p==104||*info->p==72)&&*(info->p+1)==34||(*info->p==76&&*(info->p+1)==39))) {
+    else if((xisalpha(*info->p)||*info->p==95)&&!(((*info->p==76||*info->p==108||*info->p==115||*info->p==83||*info->p==98||*info->p==66||*info->p==104||*info->p==72||*info->p==117||*info->p==85)&&*(info->p+1)==34)||((*info->p==76||*info->p==117||*info->p==85)&&*(info->p+1)==39)||(*info->p==117&&*(info->p+1)==56&&*(info->p+2)==34))) {
         head=info->p;
         head_sline=info->sline;
         sline_real=info->sline_real;

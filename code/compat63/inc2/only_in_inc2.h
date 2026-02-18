@@ -1,0 +1,6 @@
+#ifndef COMPAT63_ONLY_IN_INC2_H
+#define COMPAT63_ONLY_IN_INC2_H
+
+#define ONLY_IN_INC2_VALUE 23
+
+#endif
