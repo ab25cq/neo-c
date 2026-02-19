@@ -589,6 +589,15 @@ static void scan_comment_depth(const char *s, int *depth) {
 
 static long g_cur_line = 0;
 
+static void pp_directive_error(const char *path, long line, const char *msg) {
+    if (path && *path) {
+        fprintf(stderr, "%s %ld(0): [error] %s\n", path, line > 0 ? line : 1, msg ? msg : "preprocessor error");
+    } else {
+        fprintf(stderr, "error: %s\n", msg ? msg : "preprocessor error");
+    }
+    exit(1);
+}
+
 static void strip_comments_inplace(char *s) {
     if (!s) return;
     enum { SC_CODE, SC_DQ, SC_SQ, SC_BL } st = SC_CODE;
@@ -944,6 +953,10 @@ static FILE *open_in_search_next(const char *name,
 static bool g_keep_comments = true; // default; set per-invocation in preprocess
 // Persist block comment depth across lines
 static int g_block_comment_depth = 0;
+// Tracks block-comment nesting that started on non-emitted lines (for example,
+// directive lines). Those comments must stay stripped even when keep_comments
+// is enabled, otherwise continuation lines can leak as raw tokens.
+static int g_hidden_block_comment_depth = 0;
 static const char *g_cur_file = NULL;
 static int g_expand_pass = 0;
 static int g_preprocess_depth = 0;
@@ -953,6 +966,17 @@ static Str g_macro_call_out = {0};
 static const PPOpts *g_ifexpr_opts = NULL;
 static const char *g_ifexpr_curdir = NULL;
 static const char *g_ifexpr_this_path = NULL;
+
+static void update_hidden_comment_depth(int before, int after) {
+    if (after > before) {
+        g_hidden_block_comment_depth += (after - before);
+    } else if (after < before) {
+        int dec = before - after;
+        if (dec > g_hidden_block_comment_depth) dec = g_hidden_block_comment_depth;
+        g_hidden_block_comment_depth -= dec;
+    }
+    if (g_hidden_block_comment_depth < 0) g_hidden_block_comment_depth = 0;
+}
 
 static int eval_has_include_name(const char *name, bool quoted, bool next) {
     if (!name || !*name) return 0;
@@ -1030,6 +1054,7 @@ static bool eval_has_attribute_call(const char *line, size_t start, size_t *end,
 static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out, bool protect_defined) {
     enum { CODE, STR_DQ, STR_SQ, SL_COMMENT, BL_COMMENT } state = CODE;
     int bl_depth = g_block_comment_depth; // continue block comments across lines
+    int hidden_bl_depth = g_hidden_block_comment_depth;
     if (bl_depth > 0) state = BL_COMMENT;
     for (size_t i = 0; line[i] != '\0'; ) {
         char c = line[i];
@@ -1049,7 +1074,7 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
             }
             if (c == '/' && line[i+1] == '*') {
                 state = BL_COMMENT; bl_depth += 1; i += 2;
-                if (g_keep_comments) { sb_puts(out, "/*"); }
+                if (g_keep_comments && hidden_bl_depth == 0) { sb_puts(out, "/*"); }
                 continue;
             }
             if (c == '"') { state = STR_DQ; sb_putc(out, c); i++; continue; }
@@ -1476,24 +1501,27 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
             i++;
         } else if (state == BL_COMMENT) {
             if (c == '/' && line[i+1] == '*') {
-                if (g_keep_comments) sb_puts(out, "/*");
+                if (hidden_bl_depth > 0) hidden_bl_depth++;
+                if (g_keep_comments && hidden_bl_depth == 0) sb_puts(out, "/*");
                 bl_depth++;
                 i += 2;
                 continue;
             }
             if (c == '*' && line[i+1] == '/') {
-                if (g_keep_comments) sb_puts(out, "*/");
+                if (g_keep_comments && hidden_bl_depth == 0) sb_puts(out, "*/");
                 i += 2;
                 bl_depth--;
+                if (hidden_bl_depth > 0) hidden_bl_depth--;
                 if (bl_depth <= 0) { state = CODE; }
                 continue;
             }
-            if (g_keep_comments) sb_putc(out, c);
+            if (g_keep_comments && hidden_bl_depth == 0) sb_putc(out, c);
             i++;
         }
     }
     // persist block comment depth across lines
     g_block_comment_depth = bl_depth;
+    g_hidden_block_comment_depth = hidden_bl_depth;
 }
 
 static void expand_into_str(const MacroTable *t, const char *line, Str *out) {
@@ -2022,10 +2050,38 @@ static const char *find_first_open_brace(const char *s) {
 }
 
 // Expression evaluator for #if: supports numbers, identifiers (numeric macros -> value else 0), defined,
-// unary ! + -, arithmetic * / + -, relational < <= > >=, equality == !=, logical && ||, parentheses
-typedef struct { const char *s; } Expr;
+// unary ! ~ + -, arithmetic * / + -, relational < <= > >=, equality == !=, logical && ||, ?:, parentheses
+typedef struct {
+    const char *s;
+    bool err;
+} Expr;
 
-static const char *ex_skip(const char *s) { return clskip(s); }
+static void ex_mark_error(Expr *e) {
+    if (e) e->err = true;
+}
+
+static const char *ex_skip(const char *s) {
+    while (1) {
+        while (*s && isspace((unsigned char)*s)) s++;
+        if (s[0] == '/' && s[1] == '*') {
+            s += 2;
+            while (*s && !(s[0] == '*' && s[1] == '/')) s++;
+            if (*s) s += 2;
+            continue;
+        }
+        if (s[0] == '/' && s[1] == '/') {
+            while (*s && *s != '\n' && *s != '\r') s++;
+            continue;
+        }
+        // Be tolerant to stray block-comment closers in some system headers.
+        if (s[0] == '*' && s[1] == '/') {
+            s += 2;
+            continue;
+        }
+        break;
+    }
+    return s;
+}
 static long ex_parse_expr(const MacroTable *t, Expr *e);
 
 static long parse_int_literal(const char *s, const char **out_end) {
@@ -2035,6 +2091,91 @@ static long parse_int_literal(const char *s, const char **out_end) {
     while (*p && (*p == 'u' || *p == 'U' || *p == 'l' || *p == 'L')) p++;
     if (out_end) *out_end = p;
     return v;
+}
+
+static int ex_hex_digit(char c) {
+    if (c >= '0' && c <= '9') return c - '0';
+    if (c >= 'a' && c <= 'f') return 10 + (c - 'a');
+    if (c >= 'A' && c <= 'F') return 10 + (c - 'A');
+    return -1;
+}
+
+static bool ex_parse_escape(const char **pp, long *out_ch) {
+    const char *p = *pp;
+    if (*p != '\\') return false;
+    p++;
+    if (*p == '\0') return false;
+    long ch = 0;
+    switch (*p) {
+    case 'a': ch = '\a'; p++; break;
+    case 'b': ch = '\b'; p++; break;
+    case 'f': ch = '\f'; p++; break;
+    case 'n': ch = '\n'; p++; break;
+    case 'r': ch = '\r'; p++; break;
+    case 't': ch = '\t'; p++; break;
+    case 'v': ch = '\v'; p++; break;
+    case '\\': ch = '\\'; p++; break;
+    case '\'': ch = '\''; p++; break;
+    case '"': ch = '"'; p++; break;
+    case '?': ch = '\?'; p++; break;
+    case 'x': {
+        p++;
+        int d = ex_hex_digit(*p);
+        if (d < 0) return false;
+        ch = 0;
+        while ((d = ex_hex_digit(*p)) >= 0) {
+            ch = (ch << 4) + d;
+            p++;
+        }
+        break;
+    }
+    default:
+        if (*p >= '0' && *p <= '7') {
+            ch = 0;
+            int count = 0;
+            while (count < 3 && *p >= '0' && *p <= '7') {
+                ch = (ch << 3) + (*p - '0');
+                p++;
+                count++;
+            }
+        } else {
+            ch = (unsigned char)*p;
+            p++;
+        }
+        break;
+    }
+    *pp = p;
+    if (out_ch) *out_ch = ch;
+    return true;
+}
+
+static bool ex_parse_char_literal(const char *s, const char **out_end, long *out_val) {
+    const char *p = s;
+    if ((*p == 'L' || *p == 'u' || *p == 'U') && p[1] == '\'') {
+        p++;
+    }
+    if (*p != '\'') return false;
+    p++;
+    if (*p == '\0' || *p == '\n' || *p == '\r') return false;
+
+    long v = 0;
+    int n = 0;
+    while (*p && *p != '\'') {
+        long ch = 0;
+        if (*p == '\\') {
+            if (!ex_parse_escape(&p, &ch)) return false;
+        } else {
+            ch = (unsigned char)*p;
+            p++;
+        }
+        v = (v << 8) | (ch & 0xFF);
+        n++;
+    }
+    if (*p != '\'' || n == 0) return false;
+    p++;
+    if (out_end) *out_end = p;
+    if (out_val) *out_val = v;
+    return true;
 }
 
 static long ex_value_of_ident(const MacroTable *t, const char *ident) {
@@ -2054,17 +2195,35 @@ static long ex_parse_primary(const MacroTable *t, Expr *e) {
         e->s++;
         long v = ex_parse_expr(t, e);
         e->s = ex_skip(e->s);
-        if (*e->s == ')') e->s++;
+        if (*e->s == ')') {
+            e->s++;
+        } else {
+            ex_mark_error(e);
+        }
         return v;
     }
     if (starts_with(e->s, "defined")) {
         const char *p = e->s + 7; p = ex_skip(p);
         long v = 0;
         if (*p == '(') {
+            bool has_close = false;
             p++; p = ex_skip(p);
-            char id[256]; size_t a=0; if (parse_ident(p, &a, id, sizeof id)) { p += a; p = ex_skip(p); if (*p == ')') p++; v = mtable_get(t, id) ? 1 : 0; }
+            char id[256]; size_t a=0;
+            if (parse_ident(p, &a, id, sizeof id)) {
+                p += a;
+                p = ex_skip(p);
+                if (*p == ')') { p++; has_close = true; }
+                v = mtable_get(t, id) ? 1 : 0;
+            }
+            if (!has_close) ex_mark_error(e);
         } else {
-            char id[256]; size_t a=0; if (parse_ident(p, &a, id, sizeof id)) { p += a; v = mtable_get(t, id) ? 1 : 0; }
+            char id[256]; size_t a=0;
+            if (parse_ident(p, &a, id, sizeof id)) {
+                p += a;
+                v = mtable_get(t, id) ? 1 : 0;
+            } else {
+                ex_mark_error(e);
+            }
         }
         e->s = p;
         return v;
@@ -2072,17 +2231,73 @@ static long ex_parse_primary(const MacroTable *t, Expr *e) {
     if (isdigit((unsigned char)*e->s)) {
         const char *end = NULL;
         long v = parse_int_literal(e->s, &end);
+        if (end && (*end == '.' || *end == 'e' || *end == 'E' || *end == 'p' || *end == 'P')) {
+            char *endf = NULL;
+            long double f = strtold(e->s, &endf);
+            if (endf && endf != e->s) {
+                const char *fend = endf;
+                while (*fend && (*fend == 'f' || *fend == 'F' || *fend == 'l' || *fend == 'L')) fend++;
+                e->s = fend;
+                return (long)f;
+            }
+        }
         e->s = end ? end : e->s;
         return v;
     }
+    if (*e->s == '.' && isdigit((unsigned char)e->s[1])) {
+        char *endf = NULL;
+        long double f = strtold(e->s, &endf);
+        if (endf && endf != e->s) {
+            const char *fend = endf;
+            while (*fend && (*fend == 'f' || *fend == 'F' || *fend == 'l' || *fend == 'L')) fend++;
+            e->s = fend;
+            return (long)f;
+        }
+    }
+    {
+        const char *end = NULL;
+        long v = 0;
+        if (ex_parse_char_literal(e->s, &end, &v)) {
+            e->s = end ? end : e->s;
+            return v;
+        }
+    }
     char id[256]; size_t a=0;
-    if (parse_ident(e->s, &a, id, sizeof id)) { e->s += a; return ex_value_of_ident(t, id); }
+    if (parse_ident(e->s, &a, id, sizeof id)) {
+        e->s += a;
+        long v = ex_value_of_ident(t, id);
+        const char *p = ex_skip(e->s);
+        if (*p == '(') {
+            int depth = 0;
+            const char *q = p;
+            for (; *q; ++q) {
+                char ch = *q;
+                if (ch == '(') { depth++; continue; }
+                if (ch == ')') {
+                    depth--;
+                    if (depth == 0) {
+                        q++;
+                        break;
+                    }
+                }
+            }
+            if (depth != 0) {
+                ex_mark_error(e);
+                e->s = q;
+            } else {
+                e->s = q;
+            }
+        }
+        return v;
+    }
+    ex_mark_error(e);
     return 0;
 }
 
 static long ex_parse_unary(const MacroTable *t, Expr *e) {
     e->s = ex_skip(e->s);
     if (*e->s == '!') { e->s++; long v = ex_parse_unary(t, e); return !v; }
+    if (*e->s == '~') { e->s++; long v = ex_parse_unary(t, e); return ~v; }
     if (*e->s == '+') { e->s++; return +ex_parse_unary(t, e); }
     if (*e->s == '-') { e->s++; return -ex_parse_unary(t, e); }
     return ex_parse_primary(t, e);
@@ -2159,6 +2374,7 @@ static long ex_parse_cond(const MacroTable *t, Expr *e) {
         long vt = ex_parse_cond(t, e);
         s = ex_skip(e->s);
         if (*s == ':') { e->s = s + 1; long vf = ex_parse_cond(t, e); v = v ? vt : vf; }
+        else ex_mark_error(e);
     }
     return v;
 }
@@ -2473,6 +2689,7 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
     // Set comment handling for this run
     bool prev_keep_comments = g_keep_comments;
     int prev_block_comment_depth = g_block_comment_depth;
+    int prev_hidden_block_comment_depth = g_hidden_block_comment_depth;
     g_keep_comments = opts && opts->keep_comments;
     if (g_keep_comments && this_path) {
         if (strstr(this_path, "/usr/include") ||
@@ -2484,6 +2701,7 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
         }
     }
     g_block_comment_depth = 0;
+    g_hidden_block_comment_depth = 0;
     const PPOpts *prev_ifexpr_opts = g_ifexpr_opts;
     const char *prev_ifexpr_curdir = g_ifexpr_curdir;
     const char *prev_ifexpr_this_path = g_ifexpr_this_path;
@@ -2593,6 +2811,8 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
             char kw[32]; size_t adv = 0; parse_ident(p, &adv, kw, sizeof kw); p += adv; p = lskip(p);
             bool emit_directive_line = false;
             bool emitted_line_marker = false;
+            bool comment_depth_handled = false;
+            int directive_bl_start = g_block_comment_depth;
             if (strcmp(kw, "define") == 0) {
                 if (active) process_define(tbl, raw);
             } else if (strcmp(kw, "undef") == 0) {
@@ -2800,69 +3020,118 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
             } else if (strcmp(kw, "if") == 0) {
                 long base_line = g_cur_line;
                 Str exln; sb_init(&exln);
+                int if_bl_start = g_block_comment_depth;
                 g_cur_line = base_line;
                 g_expand_pass = 0;
+                g_block_comment_depth = if_bl_start;
                 expand_into_str_ifexpr(tbl, p, &exln);
+                int if_bl_depth = g_block_comment_depth;
                 for (int pass = 0; pass < 50; ++pass) {
                     Str next; sb_init(&next);
                     g_cur_line = base_line;
                     g_expand_pass = pass + 1;
+                    g_block_comment_depth = if_bl_start;
                     expand_into_str_ifexpr(tbl, exln.buf ? exln.buf : "", &next);
+                    g_block_comment_depth = if_bl_depth;
                     bool same = ((exln.buf == NULL && next.buf == NULL) || (exln.buf && next.buf && strcmp(exln.buf, next.buf) == 0));
                     sb_free(&exln);
                     exln = next;
                     if (same) break;
                 }
-                Expr ex = { .s = exln.buf ? exln.buf : "" };
+                Expr ex = { .s = exln.buf ? exln.buf : "", .err = false };
                 long v = ex_parse_expr(tbl, &ex);
+                ex.s = ex_skip(ex.s);
+                bool invalid_if_expr = ex.err || (ex.s && *ex.s != '\0');
+                if (invalid_if_expr) {
+                    const char *dbg = getenv("CCPP_DEBUG_IFEXPR");
+                    if (dbg && *dbg) {
+                        fprintf(stderr, "ccpp debug: #if expr: %s\n", exln.buf ? exln.buf : "");
+                    }
+                }
                 sb_free(&exln);
+                if (invalid_if_expr) {
+                    pp_directive_error(this_path, line_no, "invalid #if expression");
+                }
                 bool cond = v != 0;
                 if (ilen == icap) { icap = icap? icap*2:8; istk = xrealloc(istk, icap*sizeof(IfCtx)); }
                 bool parent = active;
                 bool curr = parent && cond;
                 istk[ilen++] = (IfCtx){ parent, curr, curr, false };
+                // Keep block-comment depth in sync from the raw directive line.
+                // This avoids both double-counting (via expansion side effects)
+                // and missing cross-line comments that start on #if/#elif lines.
+                g_block_comment_depth = if_bl_start;
+                scan_comment_depth(raw, &g_block_comment_depth);
+                comment_depth_handled = true;
             } else if (strcmp(kw, "elif") == 0) {
-                if (ilen > 0) {
-                    IfCtx *c = &istk[ilen-1];
-                    if (!c->saw_else) {
-                        if (c->taken) {
-                            c->current_active = false;
-                        } else {
-                            long base_line = g_cur_line;
-                            Str exln; sb_init(&exln);
-                            g_cur_line = base_line;
-                            g_expand_pass = 0;
-                            expand_into_str_ifexpr(tbl, p, &exln);
-                            for (int pass = 0; pass < 50; ++pass) {
-                                Str next; sb_init(&next);
-                                g_cur_line = base_line;
-                                g_expand_pass = pass + 1;
-                                expand_into_str_ifexpr(tbl, exln.buf ? exln.buf : "", &next);
-                                bool same = ((exln.buf == NULL && next.buf == NULL) || (exln.buf && next.buf && strcmp(exln.buf, next.buf) == 0));
-                                sb_free(&exln);
-                                exln = next;
-                                if (same) break;
-                            }
-                            Expr ex = { .s = exln.buf ? exln.buf : "" };
-                            long v = ex_parse_expr(tbl, &ex);
-                            sb_free(&exln);
-                            bool cond = v != 0;
-                            c->current_active = c->parent_active && cond;
-                            if (c->current_active) c->taken = true;
+                if (ilen == 0) {
+                    pp_directive_error(this_path, line_no, "#elif without matching #if");
+                }
+                IfCtx *c = &istk[ilen-1];
+                if (c->saw_else) {
+                    pp_directive_error(this_path, line_no, "#elif after #else");
+                }
+                if (c->taken) {
+                    c->current_active = false;
+                } else {
+                    long base_line = g_cur_line;
+                    Str exln; sb_init(&exln);
+                    int if_bl_start = g_block_comment_depth;
+                    g_cur_line = base_line;
+                    g_expand_pass = 0;
+                    g_block_comment_depth = if_bl_start;
+                    expand_into_str_ifexpr(tbl, p, &exln);
+                    int if_bl_depth = g_block_comment_depth;
+                    for (int pass = 0; pass < 50; ++pass) {
+                        Str next; sb_init(&next);
+                        g_cur_line = base_line;
+                        g_expand_pass = pass + 1;
+                        g_block_comment_depth = if_bl_start;
+                        expand_into_str_ifexpr(tbl, exln.buf ? exln.buf : "", &next);
+                        g_block_comment_depth = if_bl_depth;
+                        bool same = ((exln.buf == NULL && next.buf == NULL) || (exln.buf && next.buf && strcmp(exln.buf, next.buf) == 0));
+                        sb_free(&exln);
+                        exln = next;
+                        if (same) break;
+                    }
+                    Expr ex = { .s = exln.buf ? exln.buf : "", .err = false };
+                    long v = ex_parse_expr(tbl, &ex);
+                    ex.s = ex_skip(ex.s);
+                    bool invalid_if_expr = ex.err || (ex.s && *ex.s != '\0');
+                    if (invalid_if_expr) {
+                        const char *dbg = getenv("CCPP_DEBUG_IFEXPR");
+                        if (dbg && *dbg) {
+                            fprintf(stderr, "ccpp debug: #elif expr: %s\n", exln.buf ? exln.buf : "");
                         }
                     }
+                    sb_free(&exln);
+                    if (invalid_if_expr) {
+                        pp_directive_error(this_path, line_no, "invalid #if expression");
+                    }
+                    bool cond = v != 0;
+                    c->current_active = c->parent_active && cond;
+                    if (c->current_active) c->taken = true;
+                    // Keep block-comment depth in sync from the raw directive line.
+                    g_block_comment_depth = if_bl_start;
+                    scan_comment_depth(raw, &g_block_comment_depth);
+                    comment_depth_handled = true;
                 }
             } else if (strcmp(kw, "else") == 0) {
-                if (ilen > 0) {
-                    IfCtx *c = &istk[ilen-1];
-                    if (!c->saw_else) {
-                        c->current_active = c->parent_active && !c->taken;
-                        if (c->current_active) c->taken = true;
-                        c->saw_else = true;
-                    }
+                if (ilen == 0) {
+                    pp_directive_error(this_path, line_no, "#else without matching #if");
                 }
+                IfCtx *c = &istk[ilen-1];
+                if (c->saw_else) {
+                    pp_directive_error(this_path, line_no, "duplicate #else");
+                }
+                c->current_active = c->parent_active && !c->taken;
+                if (c->current_active) c->taken = true;
+                c->saw_else = true;
             } else if (strcmp(kw, "endif") == 0) {
-                if (ilen > 0) ilen--;
+                if (ilen == 0) {
+                    pp_directive_error(this_path, line_no, "#endif without matching #if");
+                }
+                ilen--;
             } else if (strcmp(kw, "pragma") == 0) {
                 // Handle #pragma
                 char w2[32]; size_t a2=0; parse_ident(p, &a2, w2, sizeof w2);
@@ -2891,15 +3160,13 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                 // Unknown directive: ignore
             }
             if (!emit_directive_line) {
-                int cm_depth = 0;
-                scan_comment_depth(raw, &cm_depth);
-                while (cm_depth > 0) {
-                    Str sk;
-                    if (!read_line(in, &sk)) break;
-                    line_no++;
-                    g_cur_line = line_no;
-                    scan_comment_depth(sk.buf ? sk.buf : "", &cm_depth);
-                    sb_free(&sk);
+                // Track block-comment depth across directive lines without
+                // discarding subsequent source lines.
+                if (!comment_depth_handled) {
+                    scan_comment_depth(raw, &g_block_comment_depth);
+                }
+                if (g_keep_comments) {
+                    update_hidden_comment_depth(directive_bl_start, g_block_comment_depth);
                 }
             }
             if (emitted_line_marker) {
@@ -2912,6 +3179,13 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
         }
 
         if (!active) {
+            // Even in inactive branches, keep comment depth in sync so we don't
+            // misinterpret commented-out directive-looking lines.
+            int inactive_bl_start = g_block_comment_depth;
+            scan_comment_depth(raw, &g_block_comment_depth);
+            if (g_keep_comments) {
+                update_hidden_comment_depth(inactive_bl_start, g_block_comment_depth);
+            }
             need_line_directive = true;
             sb_free(&line);
             continue;
@@ -3174,6 +3448,9 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
         }
         sb_free(&prev);
     }
+    if (ilen > 0) {
+        pp_directive_error(this_path, line_no > 0 ? line_no : 1, "unterminated #if block");
+    }
     free(istk);
     if (tbl == &tbl_local) mtable_free(tbl);
 
@@ -3193,6 +3470,7 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
     g_cur_line = prev_line;
     g_keep_comments = prev_keep_comments;
     g_block_comment_depth = prev_block_comment_depth;
+    g_hidden_block_comment_depth = prev_hidden_block_comment_depth;
     g_preprocess_depth--;
 }
 

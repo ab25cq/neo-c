@@ -293,6 +293,123 @@ test: *.nc
 	./c_test_compat81
 	neo-c c_test_compat82.nc -pthread
 	./c_test_compat82
+	neo-c c_test_compat83.nc
+	./c_test_compat83
+	neo-c c_test_compat84.nc -pthread
+	./c_test_compat84
+	neo-c c_test_compat85.nc
+	./c_test_compat85
+	neo-c c_test_compat86.nc -pthread
+	./c_test_compat86
+	neo-c c_test_compat87.nc
+	./c_test_compat87
+	@set -eu; \
+	echo "neo-c c_test_compat88.nc (expect diagnostic)"; \
+	rm -f c_test_compat88; \
+	neo-c c_test_compat88.nc > c_test_compat88.out 2>&1 || true; \
+	grep -qi "invalid #line directive" c_test_compat88.out; \
+	test ! -e c_test_compat88; \
+	rm -f c_test_compat88.out
+	neo-c c_test_compat89.nc
+	./c_test_compat89
+	@set -eu; \
+	echo "neo-c c_test_compat90.nc (expect diagnostic)"; \
+	rm -f c_test_compat90; \
+	neo-c c_test_compat90.nc > c_test_compat90.out 2>&1 || true; \
+	grep -qi "error" c_test_compat90.out; \
+	test ! -e c_test_compat90; \
+	rm -f c_test_compat90.out
+	neo-c c_test_compat91.nc -pthread
+	./c_test_compat91
+	neo-c c_test_compat92.nc
+	./c_test_compat92
+	neo-c c_test_compat93.nc
+	./c_test_compat93
+	neo-c c_test_compat94.nc
+	./c_test_compat94
+	@set -eu; \
+	echo "neo-c c_test_compat95.nc (expect diagnostic)"; \
+	rm -f c_test_compat95; \
+	neo-c c_test_compat95.nc > c_test_compat95.out 2>&1 || true; \
+	grep -qi "invalid #line directive" c_test_compat95.out; \
+	test ! -e c_test_compat95; \
+	rm -f c_test_compat95.out
+	neo-c c_test_compat96.nc
+	./c_test_compat96
+	neo-c c_test_compat97.nc
+	./c_test_compat97
+	@set -eu; \
+	echo "neo-c c_test_compat98.nc (expect diagnostic)"; \
+	rm -f c_test_compat98; \
+	neo-c c_test_compat98.nc > c_test_compat98.out 2>&1 || true; \
+	grep -qi "#elif without matching #if" c_test_compat98.out; \
+	test ! -e c_test_compat98; \
+	rm -f c_test_compat98.out
+	@set -eu; \
+	echo "neo-c c_test_compat99.nc (expect diagnostic)"; \
+	rm -f c_test_compat99; \
+	neo-c c_test_compat99.nc > c_test_compat99.out 2>&1 || true; \
+	grep -qi "duplicate #else" c_test_compat99.out; \
+	test ! -e c_test_compat99; \
+	rm -f c_test_compat99.out
+	@set -eu; \
+	echo "neo-c c_test_compat100.nc (expect diagnostic)"; \
+	rm -f c_test_compat100; \
+	neo-c c_test_compat100.nc > c_test_compat100.out 2>&1 || true; \
+	grep -qi "unterminated #if block" c_test_compat100.out; \
+	test ! -e c_test_compat100; \
+	rm -f c_test_compat100.out
+	@set -eu; \
+	echo "neo-c c_test_compat101.nc (expect diagnostic)"; \
+	rm -f c_test_compat101; \
+	neo-c c_test_compat101.nc > c_test_compat101.out 2>&1 || true; \
+	grep -qi "invalid #if expression" c_test_compat101.out; \
+	test ! -e c_test_compat101; \
+	rm -f c_test_compat101.out
+	@set -eu; \
+	echo "neo-c c_test_compat102.nc (expect diagnostic)"; \
+	rm -f c_test_compat102; \
+	neo-c c_test_compat102.nc > c_test_compat102.out 2>&1 || true; \
+	grep -qi "invalid #if expression" c_test_compat102.out; \
+	test ! -e c_test_compat102; \
+	rm -f c_test_compat102.out
+	@set -eu; \
+	echo "neo-c c_test_compat103.nc (expect diagnostic)"; \
+	rm -f c_test_compat103; \
+	neo-c c_test_compat103.nc > c_test_compat103.out 2>&1 || true; \
+	grep -qi "invalid #if expression" c_test_compat103.out; \
+	test ! -e c_test_compat103; \
+	rm -f c_test_compat103.out
+	neo-c c_test_compat104.nc
+	./c_test_compat104
+	@set -eu; \
+	echo "neo-c c_test_compat105.nc (expect diagnostic)"; \
+	rm -f c_test_compat105; \
+	neo-c c_test_compat105.nc > c_test_compat105.out 2>&1 || true; \
+	grep -qi "#endif without matching #if" c_test_compat105.out; \
+	test ! -e c_test_compat105; \
+	rm -f c_test_compat105.out
+	@set -eu; \
+	echo "neo-c c_test_compat106.nc (expect diagnostic)"; \
+	rm -f c_test_compat106; \
+	neo-c c_test_compat106.nc > c_test_compat106.out 2>&1 || true; \
+	grep -qi "#elif after #else" c_test_compat106.out; \
+	test ! -e c_test_compat106; \
+	rm -f c_test_compat106.out
+	@set -eu; \
+	echo "neo-c c_test_compat107.nc (expect diagnostic)"; \
+	rm -f c_test_compat107; \
+	neo-c c_test_compat107.nc > c_test_compat107.out 2>&1 || true; \
+	grep -qi "invalid #if expression" c_test_compat107.out; \
+	test ! -e c_test_compat107; \
+	rm -f c_test_compat107.out
+	@set -eu; \
+	echo "neo-c c_test_compat108.nc (expect diagnostic)"; \
+	rm -f c_test_compat108; \
+	neo-c c_test_compat108.nc > c_test_compat108.out 2>&1 || true; \
+	grep -qi "invalid #if expression" c_test_compat108.out; \
+	test ! -e c_test_compat108; \
+	rm -f c_test_compat108.out
 	neo-c test_control_flow.nc
 	./test_control_flow
 	neo-c test_control.nc
@@ -325,5 +442,5 @@ test: *.nc
 clean:
 	rm -rf test_array_features test_array_pointer_advanced test_typedefs test_array_pointer_matrix test_array_views test_pointer_qualifiers test_comelang test_comelang2 test_comelang3 test_nums inline_asm c_test_compat39 c_test_compat40 c_test_compat41 c_test_compat42 c_test_compat43 c_test_compat44 c_test_compat45 c_test_compat46 c_test_compat47 c_test_compat48 c_test_compat49 c_test_compat50 c_test_compat51 c_test_compat52 c_test_compat53 c_test_compat54 c_test_compat55
 	rm -rf *.c .*.bin runner .valid_bin .invalid_bin .test_out *.nc.nc *.nc.o ./attrs ./codex ./neo-c ./neo-c10 ./neo-c11 ./neo-c12 ./neo-c13 ./neo-c14 ./neo-c2 ./neo-c3 ./neo-c4 ./neo-c5 ./neo-c6 ./neo-c7 ./neo-c8 ./neo-c9 ./labels_as_values ./nested_functions ./statement_expr ./test_arith ./test_array_ptr ./test_c_compat ./test_c_compat2 ./test_c_compat3 ./test_c_compat4 ./test_c_compat5 ./test_c_compat6 ./test_c_compat7 ./c_test_compat8 ./c_test_compat9 ./c_test_compat38 ./c_test_compat39 ./c_test_compat40 ./c_test_compat41 ./c_test_compat42 ./c_test_compat43 ./c_test_compat44 ./c_test_compat45 ./c_test_compat46 ./c_test_compat47 ./c_test_compat48 ./c_test_compat49 ./c_test_compat50 ./c_test_compat51 ./c_test_compat52 ./c_test_compat53 ./c_test_compat54 ./c_test_compat55 ./c_test_compat10 ./c_test_compat11 ./c_test_compat12 ./c_test_compat13 ./c_test_compat14 ./c_test_compat15 ./c_test_compat16 ./c_test_compat17 ./c_test_compat18 ./c_test_compat19 ./c_test_compat20 ./c_test_compat21 ./c_test_compat22 ./c_test_compat23 ./c_test_compat24 ./c_test_compat25 ./c_test_compat26 ./c_test_compat27 ./c_test_compat28 ./c_test_compat29 ./c_test_compat30 ./c_test_compat31 ./c_test_compat32 ./c_test_compat33 ./c_test_compat34 ./c_test_compat35 ./c_test_compat36 ./c_test_compat37 ./test_control_flow ./test_control ./test_functions ./test_invalid_0888 ./test_ops ./test_pointers_arrays ./test_string_cast ./test_struct_enum ./test_struct_union_enum ./test_switch_ternary ./test_valid *.i* *.nc.nc* ./attrs ./builtins ./codex ./comelang ./comelang10 ./comelang11 ./comelang12 ./comelang13 ./comelang14 ./comelang2 ./comelang3 ./comelang4 ./comelang5 ./comelang6 ./comelang7 ./comelang8 ./comelang9 ./labels_as_values ./nested_functions ./runner ./statement_expr ./test_arith ./test_array_ptr ./test_c_compat ./test_c_compat2 ./test_c_compat3 ./test_c_compat4 ./test_c_compat5 ./test_c_compat6 ./test_c_compat7 ./c_test_compat8 ./c_test_compat9 ./c_test_compat10 ./c_test_compat11 ./c_test_compat12 ./c_test_compat13 ./c_test_compat14 ./c_test_compat15 ./c_test_compat16 ./c_test_compat17 ./c_test_compat18 ./c_test_compat19 ./c_test_compat20 ./c_test_compat21 ./c_test_compat22 ./c_test_compat23 ./c_test_compat24 ./c_test_compat25 ./c_test_compat26 ./c_test_compat27 ./c_test_compat28 ./c_test_compat29 ./c_test_compat30 ./c_test_compat31 ./c_test_compat32 ./c_test_compat33 ./c_test_compat34 ./c_test_compat35 ./c_test_compat36 ./c_test_compat37 ./c_test_compat39 ./c_test_compat40 ./c_test_compat41 ./c_test_compat42 ./c_test_compat43 ./c_test_compat44 ./c_test_compat45 ./c_test_compat46 ./c_test_compat47 ./c_test_compat48 ./c_test_compat49 ./c_test_compat50 ./c_test_compat51 ./c_test_compat52 ./c_test_compat53 ./c_test_compat54 ./c_test_compat55 ./test_control_flow ./test_control ./test_functions ./test_invalid_0888 ./test_ops ./test_pointers_arrays ./test_string_cast ./test_struct_enum ./test_struct_union_enum ./test_switch_ternary ./test_valid ./typeof_auto ./user ./vector_types test_c_compat_host test_c_compat2_host test_c_compat3_host test_c_compat4_host test_c_compat5_host test_c_compat6_host test_c_compat7_host c_test_compat8_host c_test_compat9_host c_test_compat10_host c_test_compat11_host c_test_compat12_host c_test_compat13_host c_test_compat14_host c_test_compat15_host c_test_compat16_host c_test_compat17_host c_test_compat18_host c_test_compat19_host c_test_compat20_host c_test_compat21_host c_test_compat22_host c_test_compat23_host c_test_compat24_host c_test_compat25_host c_test_compat26_host c_test_compat27_host c_test_compat28_host c_test_compat29_host c_test_compat30_host c_test_compat31_host c_test_compat32_host c_test_compat33_host c_test_compat34_host c_test_compat35_host c_test_compat36_host c_test_compat37_host c_test_compat42_host c_test_compat43_host c_test_compat44_host c_test_compat45_host c_test_compat46_host c_test_compat47_host c_test_compat48_host c_test_compat49_host c_test_compat50_host c_test_compat51_host c_test_compat52_host c_test_compat53_host c_test_compat54_host c_test_compat55_host
-	rm -rf ./c_test_compat56 ./c_test_compat57 ./c_test_compat58 ./c_test_compat59 ./c_test_compat60 ./c_test_compat61 ./c_test_compat62 ./c_test_compat63 ./c_test_compat64 ./c_test_compat65 ./c_test_compat66 ./c_test_compat67 ./c_test_compat68 ./c_test_compat69 ./c_test_compat70 ./c_test_compat71 ./c_test_compat72 ./c_test_compat73 ./c_test_compat74 ./c_test_compat75 ./c_test_compat76 ./c_test_compat77 ./c_test_compat78 ./c_test_compat79 ./c_test_compat80 ./c_test_compat81 ./c_test_compat82
+	rm -rf ./c_test_compat56 ./c_test_compat57 ./c_test_compat58 ./c_test_compat59 ./c_test_compat60 ./c_test_compat61 ./c_test_compat62 ./c_test_compat63 ./c_test_compat64 ./c_test_compat65 ./c_test_compat66 ./c_test_compat67 ./c_test_compat68 ./c_test_compat69 ./c_test_compat70 ./c_test_compat71 ./c_test_compat72 ./c_test_compat73 ./c_test_compat74 ./c_test_compat75 ./c_test_compat76 ./c_test_compat77 ./c_test_compat78 ./c_test_compat79 ./c_test_compat80 ./c_test_compat81 ./c_test_compat82 ./c_test_compat83 ./c_test_compat84 ./c_test_compat85 ./c_test_compat86 ./c_test_compat87 ./c_test_compat88 ./c_test_compat89 ./c_test_compat90 ./c_test_compat91 ./c_test_compat92 ./c_test_compat93 ./c_test_compat94 ./c_test_compat95 ./c_test_compat96 ./c_test_compat97 ./c_test_compat98 ./c_test_compat99 ./c_test_compat100 ./c_test_compat101 ./c_test_compat102 ./c_test_compat103 ./c_test_compat104 ./c_test_compat105 ./c_test_compat106 ./c_test_compat107 ./c_test_compat108
 	rm -rf ./reports/external_corpus
